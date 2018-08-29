@@ -1,0 +1,22 @@
+{
+    "source":{
+        "exclude":["doc", "native"],
+        "includePattern":".+\\.js(x)?$"
+    },
+    "opts":{
+        "encoding": "utf8",
+        "destination": "../docs/",
+        "recurse": true
+    },
+    "plugins": ["plugins/markdown"],
+    "markdown": {
+        "excludeTags": ["author"]
+    },
+    "templates": {
+        "default": {
+          "staticFiles": {},
+          "includeDate":false
+        }
+    },
+    "readme":"./README.md"
+}

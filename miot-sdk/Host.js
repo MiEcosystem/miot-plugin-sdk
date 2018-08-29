@@ -1,0 +1,160 @@
+/**
+ * @export
+ * @module miot/Host
+ * @description 扩展程序运行时的宿主环境
+ *
+ * 所有由宿主APP直接提供给扩展程序的接口均列在这里. 主要包括业务页面, 本地数据访问等
+ *
+ * @example
+ *
+ *  import {Host} from 'miot'
+ *
+ *  Host.type // ios/ android/ tv
+ *  Host.isIOS
+ *  Host.isAndroid
+ *  Host.isTV
+ *  Host.version
+ *  Host.apiLevel
+ *
+ *
+ *  Host.ui.openDeviceListPage()
+ *  Host.ui.openShopPage(100)
+ *
+ *  Host.locale.language
+ *  Host.locale.getTimezone().then(timezone=>{})
+ *  Host.locale.getCountry().then(country=>{})
+ *  Host.locale.getPlace().then(place=>{})
+ *  Host.locale.getGPS().then(gps=>{})
+ *
+ *
+ *  Host.file.readFile(path).then(file=>{})
+ *  Host.file.writeFile(path, file).then(ok=>{})
+ *
+ *  Host.storage.get(key)
+ *  Host.storage.set(key, value)
+ *
+ */
+
+import native, { IOS, ANDROID, Utils } from "./native";
+
+import HostUI from './host/ui'
+import HostLocale from './host/locale'
+import HostFile from './host/file'
+import HostStorage from './host/storage'
+import HostAudio from './host/audio'
+import HostCrypto from './host/crypto'
+
+export const HOST_TYPE_IOS = IOS;
+export const HOST_TYPE_ANDROID = ANDROID;
+
+export default {
+
+    /**
+     * @const
+     * @type string
+     * @description 返回本地环境的类型, ios|android
+     *
+     *
+     */
+    get type() {
+        return native.type;
+    },
+
+    /**
+     * @const 系统信息
+     * @return {object} 包含sysVersion 系统版本名称 mobileModel 手机型号
+     */
+    get systemInfo() {
+        return native.MIOTHost.systemInfo;
+    },
+
+    /**
+     * @const
+     * @type bool
+     * @description 判断是否是 android
+     */
+    get isAndroid() {
+        return native.isAndroid;
+    },
+
+    /**
+     * @const
+     * @description 判断是否 IOS
+     */
+    get isIOS() {
+        return native.isIOS;
+    },
+
+    /**
+     * @const
+     * @type string
+     * @description APP 的版本, 例如"1.0.0"
+     */
+    get version() {
+        return native.MIOTHost.hostVersion;
+    },
+
+    /**
+     * @const
+     * @type int
+     * @description APP 的 apiLevel
+     */
+    get apiLevel() {
+        return native.MIOTHost.hostApiLevel;
+    },
+
+    /**
+     * @const
+     * @see {@link module:miot/host/ui}
+     * @description 可调起的host业务页面
+     *
+     */
+    get ui() {
+        return HostUI;
+    },
+
+    /**
+     * @const
+     * @see {@link module:miot/host/locale}
+     * @description host 的本地化设置, 包括语言,地区,城市等等
+     */
+    get locale() {
+        return HostLocale;
+    },
+
+    /**
+     * 本地数据存储服务
+     * @const
+     * @see {@link module:miot/host/storage}
+     *
+     */
+    get storage() {
+        return HostStorage;
+    },
+
+    /**
+     * 本地文件服务
+     * @const
+     * @see {@link module:miot/host/file}
+     */
+    get file() {
+        return HostFile;
+    },
+    /**
+     * 音频 播放，录制，转码相关
+     * @const
+     * @see {@link module:miot/host/audio}
+     */
+    get audio() {
+        return HostAudio;
+    },
+    /**
+     * 加密解密
+     * @const
+     * @see {@link module:miot/host/crypto}
+     */
+    get crypto() {
+        return HostCrypto;
+    },
+
+}

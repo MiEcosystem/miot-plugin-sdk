@@ -1,0 +1,318 @@
+/**
+ * @export
+ * @module miot/Properties
+ * @desc 用于设备属性集合的本地缓存工具类
+ *  
+ * @example
+ *   //加载根设备的属性缓存对象
+ *   import {Device, DeviceProperties} from "miot" 
+ *   
+ *   const eventSubscription = DeviceProperties.addListener(["prop1", "prop2"], deviceProps=>{
+ *      
+ *   })
+ *    
+ *   ...
+ * 
+ *   Device.loadProperties("prop1", "prop2")
+ *      .then(propsMap=>{
+ *          DeviceProperties.setProperties(propsMap);
+ *       })
+ *      .catch(err=>{})
+ * 
+ *    ...
+ *    eventSubscription.remove()
+ * 
+ * @example 
+ *   //创建新的设备属性缓存对象
+ *   import {createProperties} from "miot/Properties"
+ *   const myDeviceProperties = createProperties();
+ * 
+ *   ...
+ * 
+ *   myDeviceProperties.clear();
+ *
+ */
+
+import {Utils} from './native'
+
+ /**
+  * @interface
+  */
+class IProperties{
+
+    /**
+     * 获取属性
+     * @param {*} name 
+     */
+    getProperty(name){
+        return this._properties.get(name);
+    }
+
+    /**
+     * 设置属性, 同时将设置属性数值被改变
+     * @param {*} name 
+     * @param {*} value 
+     * @returns {IProperties}
+     */
+    setProperty(name, value){
+        this._properties.set(name, value)
+        this._status.set(name, true)
+        return this;
+    }
+
+    /**
+     * 获取所有的属性名
+     * @returns {Set<string>}
+     */
+    getPropertyNames(){
+        return this._properties.keys();
+    }
+
+    /**
+     * 判断是否存在某个属性
+     * @param {*} name 
+     * @returns {boolean}
+     */
+    hasProperty(name){
+        return this._properties.has(name);
+    }
+
+    /**
+     * 删除属性
+     * @param {string} name -属性名称, 如果为*则表示删除所有属性 
+     * @returns {IProperties}
+     */
+    removeProperty(name){
+        if(!name){
+            return this;
+        }
+        if(name == "*"){
+            return removeAllListeners();
+        }
+        this._properties.delete(name);
+        this._status.delete(name);
+        return this;
+    }
+
+    /**
+     * 删除一系列属性
+     * @param {Array<string>} names -如果第一个 name 为*, 则表示删除所有属性
+     * @returns {IProperties}
+     */
+    removeProperties(...names){
+        if(names.length < 1){
+            return this;
+        }
+        if(names[0] == "*"){
+            return removeAllListeners();
+        }
+        names.forEach(name=>removeProperty(name))
+        return this;
+    }
+
+    /**
+     * 删除所有属性
+     * @returns {IProperties}
+     */
+    removeAllProperties(){
+        this._properties = new Map();
+        this._status = new Map();
+        return this;
+    }
+
+    /**
+     * 某个属性值是否被改变过
+     * @param {*} name 
+     * @returns {boolean}
+     */
+    isPropertyChanged(name){
+        return this._status.get(name);
+    }
+
+    /**
+     * 批量获取属性的 Map
+     * @param {*} names -属性名
+     * @returns {Map<string, object>}
+     * 
+     */
+    getProperties(...names){
+        return names.reduce((ret, name)=>{ret.set(name, getProperty(name)||null)}, new Map())
+    }
+
+    /**
+     * 批量设置属性值
+     * @param {*} nameValues --属性数值map, 可以为Map<string, object>或object
+     * 
+     * @example 
+     *     Map map = new Map();
+     *     map.set("a", 1)
+     *     map.set("b", 2)
+     *     myDeviceProperties.setProperties(map)     
+     *     
+     * @example
+     *   myDeviceProperties.setProperties({a:1, "b":2})
+     * 
+     * 
+     */
+    setProperties(nameValues){
+        switch (Utils.className(nameValues)) {
+            case "Map":
+                nameValues.forEach((value, key)=>{
+                    setProperty(key, value)
+                })
+                break;
+        
+            default:
+                Object.keys(nameValues).forEach(name=>{
+                    setProperty(name, nameValues[name]);
+                })
+                break;
+        }
+        return this;
+    }
+
+    /**
+     * 监听属性变化事件
+     * @param {*} names -要监听的属性名, 可以为string 或数组, 如果为*则表示监听所有的属性变化
+     * @param {*} callback 
+     * @returns {EventSubscription}
+     * 
+     * @example
+     *      const eventSubscription = myDeviceProperties.addListener("prop1", (deviceProperties)=>{...})
+     *      ...
+     *      eventSubscription.remove()
+     * 
+     * @example
+     *      const sub =  myDeviceProperties.addListener("*", (deviceProperties)=>{...})
+     *      ...    
+     *      sub.remove()
+     * 
+     * @example 
+     *      const sub = myDeviceProperties.addListener(["prop1", "prop2"], (deviceProperties)=>{...})
+     *      ...
+     *      sub.remove()
+     * 
+     */
+    addListener(names, callback){
+        if(!callback){
+            return {remove(){}};
+        }
+        const props = Array.isArray(names)?names:(names?[names]:null);
+        if(!props || props.length < 1 || !props[0]){
+            return {remove(){}};
+        }
+        const token = Utils.uniqueToken32();
+        this._listeners.set(token, {props, isAny:props[0]=="*", callback});
+        return {
+            remove(){
+                this._listeners.delete(token);
+            }
+        }
+    }
+ 
+    /**
+     * 检查并触发属性变化事件, 一般情况下, 在设置了新的属性数值后, 应该调用此方法触发监听事件
+     * @param {*} names -属性名, 如果为空或 names[0]=="*" 则自动检查所有的属性变化
+     * @returns {IProperties}
+     * 
+     * @example
+     *      myDeviceProperties.notifyPropertiesChanged()
+     *      myDeviceProperties.notifyPropertiesChanged("*")
+     * 
+     * @example
+     *      myDeviceProperties.notifyPropertiesChanged("prop1", "prop2")
+     * 
+     * 
+     */
+    notifyPropertiesChanged(...names){
+        if(this._listeners.size < 1){
+            return this;
+        }
+        const props = (names.length < 1 || names[0] == "*")?this._properties.keys():names;
+        const changed = props.filter(p=>isPropertyChanged(p));
+        changed.forEach(p=>this._status.delete(p))
+        return triggerListeners(...changed);
+    }
+
+    /**
+     * 强制触发属性相关事件,但不会检查相关属性是否已经改变
+     * @param {*} names -如果names[0]=="*"则表示触发所有的事件
+     * @returns {IProperties}
+     */
+    triggerListeners(...names){
+        if(this._listeners.size < 1 || names.length < 1){
+            return this;
+        }
+        const isAll = names[0] == "*";
+        setImmediate(()=>{
+            this._listeners.forEach(({props, isAny, callback})=>{
+                if(isAll || isAny || props.find(p=>names.indexOf(p)>=0)){
+                    callback();
+                }
+            })
+        },0);
+        return this;
+    }
+
+    /**
+     * 删除属性相关的事件
+     * @param {*} names -属性名, 如果 names[0] == "*", 表示删除所有事件监听
+     * @returns {IProperties}
+     * 
+     */
+    removeListeners(...names){
+        if(names.length < 1){
+            return this;
+        }
+        if(names[0] == "*"){
+            return removeAllListeners();
+        }
+        const needRemove = new Set();
+        this._listeners.forEach(({props, isAny}, token)=>{
+            if(!isAny){
+                if(props.filter(p=>names.indexOf(p)<0).length < 1){
+                    needRemove.add(token);
+                }
+            }
+        });
+        needRemove.forEach(token=>this._listeners.remove(token));
+        return this;
+    }
+
+    /**
+     * 删除所有的事件监听
+     * @returns {IProperties}
+     */
+    removeAllListeners(){
+        this._listeners = new Map();
+        return this;
+    }
+
+    /**
+     * 清除缓存并删除所有的事件监听
+     * @returns {IProperties}
+     */
+    clear(){
+        return removeAllListeners().removeAllProperties();
+    }
+
+ }
+
+/**
+ * 创建一个新的属性缓存对象
+ * @static
+ */
+ export const createProperties = ()=>{
+    const dp =  new IProperties();
+    dp._properties = new Map();
+    dp._status = new Map();
+    dp._listeners = new Map();
+    return dp;
+ }
+
+/**
+ * 根设备属性缓存对象
+ * @static
+ */
+export const RootDeviceProperties = createProperties();
+export default RootDeviceProperties;
