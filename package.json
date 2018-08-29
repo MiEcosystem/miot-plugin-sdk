@@ -4,7 +4,9 @@
   "description": "MIOT Project workspace",
   "private": true,
   "scripts": {
-    "start": "node bin/runProject.js"
+    "start": "node bin/runProject.js",
+    "create": "node bin/createProject.js",
+    "publish": "node bin/publishProject.js"
   },
   "engines": {
     "node": ">=4"
@@ -32,7 +34,7 @@
     "react-native-video": "2.0.0",
     "react-navigation": "2.3.1",
     "rmc-date-picker": "6.0.8",
-    "rmc-picker": "^5.0.5",
+    "rmc-picker": "5.0.5",
     "seedrandom": "2.4.3",
     "victory-native": "0.18.1"
   }

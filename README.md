@@ -1,15 +1,18 @@
 # MIOT SDK 
 
+## 初始化
+    npm install
+
 ## 命令
 
     创建项目
-    node bin/createProject  com.xxx.xxx
+    npm run create com.xxx.xxx
 
-    执行调试
-    node bin/runProject 
+    启动调试
+    npm start
 
     发布项目
-    node bin/publishProject com.xxx.xxx
+    npm run publish com.xxx.xxx
 
 ## 文档
 [https://miecosystem.github.io/miot-plugin-sdk](https://miecosystem.github.io/miot-plugin-sdk) 
