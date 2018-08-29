@@ -1,0 +1,4611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Xiaomi MIOT: Interface: IDevice</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Interface: IDevice</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="module-miot_Device.html">module:miot/Device</a>~</span>IDevice</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="bluetooth"><span class="type-signature">(readonly) </span>bluetooth<span class="type-signature"> :IBluetooth</span></h4>
+
+
+
+
+<div class="description">
+    <p>蓝牙操作入口</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">IBluetooth</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="module-miot_Bluetooth.html">module:miot/Bluetooth</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Device.bluetooth.connect()
+.then(bluetooth=>{
+     bluetooth....
+})
+.catch(error=>{
+
+})</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="BSSID"><span class="type-signature">(readonly) </span>BSSID<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>获取连接 wifi 的mac 地址</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="deviceID"><span class="type-signature">(readonly) </span>deviceID<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>获取设备 id，每一个真实设备都有一个唯一的 id</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="extra"><span class="type-signature">(readonly) </span>extra<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>除了基本信息的其他数据都在这个字段返回，如：{&quot;fw_version&quot;:&quot;1.4.0&quot;,&quot;mcu_version&quot;:&quot;0001&quot;}
+可以解析为 json</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="iconURL"><span class="type-signature">(readonly) </span>iconURL<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>开发者平台配置的设备图标 一个图片的下载地址</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="IP"><span class="type-signature">(readonly) </span>IP<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>获取设备的 ip</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="isBinded2"><span class="type-signature">(readonly) </span>isBinded2<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>是否是Binded2的设备</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="isFamily"><span class="type-signature">(readonly) </span>isFamily<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>是否是自己家庭的设备</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="isOnline"><span class="type-signature">(readonly) </span>isOnline<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>设备是否在线 true 在线</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="isOwner"><span class="type-signature">(readonly) </span>isOwner<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>是否是自己的设备</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="isReadonlyShared"><span class="type-signature">(readonly) </span>isReadonlyShared<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>是否是别人分享的只读设备</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="isReady"><span class="type-signature">(readonly) </span>isReady<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>设备是否已经可用</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="isRootDevice"><span class="type-signature">(readonly) </span>isRootDevice<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>是否是根设备</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="isSetPinCode"><span class="type-signature">(readonly) </span>isSetPinCode<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>是否设置了进入插件使用密码</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="isShared"><span class="type-signature">(readonly) </span>isShared<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>是否是别人分享的设备</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="isVoiceDevice"><span class="type-signature">(readonly) </span>isVoiceDevice<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>是否支持语音控制</p>
+</div>
+
+<!--
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="lastModified"><span class="type-signature">(readonly) </span>lastModified<span class="type-signature"> :long</span></h4>
+
+
+
+
+<div class="description">
+    <p>获取上次修改时间
+      时间戳, 例如1532587811237</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">long</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="latitude"><span class="type-signature">(readonly) </span>latitude<span class="type-signature"> :double</span></h4>
+
+
+
+
+<div class="description">
+    <p>经纬度</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">double</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="location"><span class="type-signature">(readonly) </span>location<span class="type-signature"> :int</span></h4>
+
+
+
+
+<div class="description">
+    <p>本地设备还是远程设备
+     0未知 1本地 2远程</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">int</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="longitude"><span class="type-signature">(readonly) </span>longitude<span class="type-signature"> :double</span></h4>
+
+
+
+
+<div class="description">
+    <p>经纬度</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">double</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="mac"><span class="type-signature">(readonly) </span>mac<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>获取设备的 mac 地址</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="model"><span class="type-signature">(readonly) </span>model<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>获取设备的 model,设备类型的唯一标识</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="name"><span class="type-signature">(readonly) </span>name<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>开发者平台配置的设备的中文名</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="owner"><span class="type-signature">(readonly) </span>owner<span class="type-signature"> :IAccount</span></h4>
+
+
+
+
+<div class="description">
+    <p>设备所有者的小米账号, 可以使用 load 获取 account 下的所有数据。不调用 load 只有 ID，nickName 字段有值</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">IAccount</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="module-miot_Account.html">module:miot/Account</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="parentDevice"><span class="type-signature">(readonly) </span>parentDevice<span class="type-signature"> :IDevice</span></h4>
+
+
+
+
+<div class="description">
+    <p>如果有父设备，直接获取 父设备 Device</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">IDevice</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="parentModel"><span class="type-signature">(readonly) </span>parentModel<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>父设备的 model</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="permitLevel"><span class="type-signature">(readonly) </span>permitLevel<span class="type-signature"> :int</span></h4>
+
+
+
+
+<div class="description">
+    <p>当前账户对设备的控制权限</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">int</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="propInfo"><span class="type-signature">(readonly) </span>propInfo<span class="type-signature"> :json</span></h4>
+
+
+
+
+<div class="description">
+    <p>获取 prop中保存的信息</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">json</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="resetFlag"><span class="type-signature">(readonly) </span>resetFlag<span class="type-signature"> :int</span></h4>
+
+
+
+
+<div class="description">
+    <p>重置标志</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">int</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="RSSI"><span class="type-signature">(readonly) </span>RSSI<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>获取 wifi 信号强度</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="session"><span class="type-signature">(readonly) </span>session<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>设备的 session</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="showMode"><span class="type-signature">(readonly) </span>showMode<span class="type-signature"> :int</span></h4>
+
+
+
+
+<div class="description">
+    <p>是否在设备列表显示
+ 0 -- 不显示</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">int</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="SSID"><span class="type-signature">(readonly) </span>SSID<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>获取连接 wifi 的名称</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="type"><span class="type-signature">(readonly) </span>type<span class="type-signature"> :int</span></h4>
+
+
+
+
+<div class="description">
+    <p>获取设备类型</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">int</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="version"><span class="type-signature">(readonly) </span>version<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>获取当前设备固件的版本</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="callMethod"><span class="type-signature"></span>callMethod<span class="signature">(method, args)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>调用设备方法, 和设备通信如果同一个 wifi 下会使用局域网传输数据，如果不在同一个 wifi 下由米家服务器转发请求</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>method</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>方法名</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>参数</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>{code:0,result:{},id:&quot;&quot;}</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="callMethodFromCloud"><span class="type-signature"></span>callMethodFromCloud<span class="signature">(method, args)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>同 callMethod 函数 不在同一个 wifi 下的情况</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>method</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>方法名</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>参数</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>请求成功返回 {code:0,result:{} }</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="checkVersion"><span class="type-signature"></span>checkVersion<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;DeviceVersion>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>检查硬件版本信息</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;DeviceVersion></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createScene"><span class="type-signature"></span>createScene<span class="signature">(sceneType, opt)</span><span class="type-signature"> &rarr; {IScene}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>创建场景</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sceneType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">SceneType</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="module-miot_service_scene.html">module:miot/service/scene</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">IScene</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createTimerScene"><span class="type-signature"></span>createTimerScene<span class="signature">(opt)</span><span class="type-signature"> &rarr; {IScene}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>创建定时场景</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="module-miot_service_scene.html">module:miot/service/scene</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">IScene</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getSubDevices"><span class="type-signature"></span>getSubDevices<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;IDevice>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>获取子设备</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Array.&lt;IDevice>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="loadProperties"><span class="type-signature"></span>loadProperties<span class="signature">(&hellip;propNames)</span><span class="type-signature"> &rarr; {Promise.&lt;Map>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>加载属性数据, 调用get_prop 方法, 并将返回数据写成{key:value}格式</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>propNames</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Map&lt;name, value&gt;</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Map></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Device.loadProperties("a", "b").then(map=>{
+     const a = map.get("a")
+     const b = map.get("b")
+  })</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="loadPropertiesFromCloud"><span class="type-signature"></span>loadPropertiesFromCloud<span class="signature">(&hellip;propNames)</span><span class="type-signature"> &rarr; {Promise.&lt;Map>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>从云端加载属性数据, 调用get_prop 方法, 并将返回数据写成{key:value}格式</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>propNames</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Map&lt;name, value&gt;</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Map></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="loadScenes"><span class="type-signature"></span>loadScenes<span class="signature">(sceneType, opt)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;IScene>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>加载本设备相关的场景</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sceneType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="module-miot_service_scene.html">module:miot/service/scene</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Array.&lt;IScene>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="loadTimerScenes"><span class="type-signature"></span>loadTimerScenes<span class="signature">(opt)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;IScene>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>加载定时场景</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="module-miot_service_scene.html">module:miot/service/scene</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Array.&lt;IScene>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="localPing"><span class="type-signature"></span>localPing<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>ping 操作</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="reportLog"><span class="type-signature"></span>reportLog<span class="signature">(log)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>上报日志</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>log</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="startUpgradingFirmware"><span class="type-signature"></span>startUpgradingFirmware<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;DeviceVersion>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;DeviceVersion></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="subscribeMessages"><span class="type-signature"></span>subscribeMessages<span class="signature">(&hellip;propertyOrEventNames)</span><span class="type-signature"> &rarr; {Promise.&lt;IDevice>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>订阅设备消息</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>propertyOrEventNames</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>在开发平台上声明的 prop 与 event 名</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;IDevice></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">MIOT SDK</a></h2><h3>Modules</h3><ul><li><a href="module-miot.html">miot</a></li><li><a href="module-miot_Account.html">miot/Account</a></li><li><a href="module-miot_Bluetooth.html">miot/Bluetooth</a></li><li><a href="module-miot_Device.html">miot/Device</a></li><li><a href="module-miot_Host.html">miot/Host</a></li><li><a href="module-miot_host_audio.html">miot/host/audio</a></li><li><a href="module-miot_host_crypto.html">miot/host/crypto</a></li><li><a href="module-miot_host_file.html">miot/host/file</a></li><li><a href="module-miot_host_locale.html">miot/host/locale</a></li><li><a href="module-miot_host_storage.html">miot/host/storage</a></li><li><a href="module-miot_host_ui.html">miot/host/ui</a></li><li><a href="module-miot_Package.html">miot/Package</a></li><li><a href="module-miot_Properties.html">miot/Properties</a></li><li><a href="module-miot_resources.html">miot/resources</a></li><li><a href="module-miot_Service.html">miot/Service</a></li><li><a href="module-miot_service_scene.html">miot/service/scene</a></li><li><a href="module-miot_service_security.html">miot/service/security</a></li><li><a href="module-miot_service_smarthome.html">miot/service/smarthome</a></li><li><a href="module-miot_service_storage.html">miot/service/storage</a></li><li><a href="module-miot_ui.html">miot/ui</a></li><li><a href="module-miot_ui_AD.html">miot/ui/AD</a></li><li><a href="module-miot_ui_AMAP.html">miot/ui/AMAP</a></li><li><a href="module-miot_ui_Camera.html">miot/ui/Camera</a></li><li><a href="module-miot_ui_Countdown.html">miot/ui/Countdown</a></li><li><a href="module-miot_ui_ImageButton.html">miot/ui/ImageButton</a></li><li><a href="module-miot_ui_InputDialog.html">miot/ui/InputDialog</a></li><li><a href="module-miot_ui_LoadingDialog.html">miot/ui/LoadingDialog</a></li><li><a href="module-miot_ui_Menu.html">miot/ui/Menu</a></li><li><a href="module-miot_ui_MessageDialog.html">miot/ui/MessageDialog</a></li><li><a href="module-miot_ui_MultiChoseDialog.html">miot/ui/MultiChoseDialog</a></li><li><a href="module-miot_ui_ProgressDialog.html">miot/ui/ProgressDialog</a></li><li><a href="module-miot_ui_SingleDialog.html">miot/ui/SingleDialog</a></li><li><a href="module-miot_ui_SwitchButton.html">miot/ui/SwitchButton</a></li><li><a href="module-miot_ui_Timer.html">miot/ui/Timer</a></li><li><a href="module-miot_ui_TimerList.html">miot/ui/TimerList</a></li><li><a href="module-miot_ui_Tip.html">miot/ui/Tip</a></li><li><a href="module-miot_ui_TitleBarBlack.html">miot/ui/TitleBarBlack</a></li><li><a href="module-miot_ui_TitleBarWhite.html">miot/ui/TitleBarWhite</a></li><li><a href="module-miot_ui_Video.html">miot/ui/Video</a></li></ul><h3>Events</h3><ul><li><a href="module-miot_Bluetooth.html#~event:bluetoothCharacteristicDiscovered">bluetoothCharacteristicDiscovered</a></li><li><a href="module-miot_Bluetooth.html#~event:bluetoothCharacteristicDiscoverFailed">bluetoothCharacteristicDiscoverFailed</a></li><li><a href="module-miot_Bluetooth.html#~event:bluetoothCharacteristicValueChanged">bluetoothCharacteristicValueChanged</a></li><li><a href="module-miot_Bluetooth.html#~event:bluetoothConnectionStatusChanged">bluetoothConnectionStatusChanged</a></li><li><a href="module-miot_Bluetooth.html#~event:bluetoothDeviceDiscovered">bluetoothDeviceDiscovered</a></li><li><a href="module-miot_Bluetooth.html#~event:bluetoothDeviceDiscoverFailed">bluetoothDeviceDiscoverFailed</a></li><li><a href="module-miot_Bluetooth.html#~event:bluetoothSeviceDiscovered">bluetoothSeviceDiscovered</a></li><li><a href="module-miot_Bluetooth.html#~event:bluetoothSeviceDiscoverFailed">bluetoothSeviceDiscoverFailed</a></li><li><a href="module-miot_Bluetooth.html#~event:bluetoothStatusChanged">bluetoothStatusChanged</a></li><li><a href="module-miot_Device.html#~event:deviceNameChanged">deviceNameChanged</a></li><li><a href="module-miot_Device.html#~event:deviceReceivedMessages">deviceReceivedMessages</a></li><li><a href="module-miot_Device.html#~event:deviceStatusChanged">deviceStatusChanged</a></li><li><a href="module-miot_Package.html#~event:packageAuthorizationCancel">packageAuthorizationCancel</a></li><li><a href="module-miot_Package.html#~event:packageDidLoaded">packageDidLoaded</a></li><li><a href="module-miot_Package.html#~event:packageDidResume">packageDidResume</a></li><li><a href="module-miot_Package.html#~event:packageReceivedInformation">packageReceivedInformation</a></li><li><a href="module-miot_Package.html#~event:packageViewWillAppear">packageViewWillAppear</a></li><li><a href="module-miot_Package.html#~event:packageWillExit">packageWillExit</a></li><li><a href="module-miot_Package.html#~event:packageWillLoad">packageWillLoad</a></li><li><a href="module-miot_Package.html#~event:packageWillPause">packageWillPause</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-miot_Account-IAccount.html">IAccount</a></li><li><a href="module-miot_Bluetooth.IBluetooth.html">IBluetooth</a></li><li><a href="module-miot_Bluetooth.IBluetoothCharacteristic.html">IBluetoothCharacteristic</a></li><li><a href="module-miot_Bluetooth.IBluetoothService.html">IBluetoothService</a></li><li><a href="module-miot_Device-IDevice.html">IDevice</a></li><li><a href="module-miot_Properties-IProperties.html">IProperties</a></li><li><a href="module-miot_service_scene.IScene.html">IScene</a></li><li><a href="module-miot_service_security.ISecureKey.html">ISecureKey</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    MIOT SDK <a href="https://www.xiaomi.com">@xiaomi</a> 
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
