@@ -12,6 +12,14 @@ const API_LEVEL_ANDROID = sdkconf.api_level_android;
 const API_LEVEL_REACT = sdkconf.api_level_react;
 const API_LEVEL = API_LEVEL_REACT + API_LEVEL_IOS + API_LEVEL_ANDROID;
 
+const PRELUDE = "__prelude__";
+const PRELUDE_ID = 10000;
+const STEP = 3;
+const MOD = id=>(id%STEP);
+const MOD_SDK = 0;
+const MOD_BASE = 1;
+const MOD_PLUG = 2;
+
 function exec(command, args=[], onFinish=null){
     const cmd = spawn(command, args);
     cmd.stdout.on('data', (data) => {
@@ -84,6 +92,24 @@ function copyFolder(srcDir, tarDir, cb = null) {
     })
 }
 
+function loadFiles(srcDir, onFile=null, rootDir=null) { 
+  (fs.readdirSync(srcDir)||[]).forEach(f=>{
+      const _path = path.join(srcDir, f)
+      const stat = fs.statSync(_path);
+      if(stat.isDirectory()){
+          loadFiles(_path, onFile, rootDir||srcDir);
+      }else if(stat.isFile()){
+        onFile(path.relative(rootDir||srcDir,_path));
+      } 
+  })
+}
+
+function loadAllFiles(src){
+  const arr=[];
+  loadFiles(src, p=>arr.push(p))
+  return arr;
+}
+
 function makeDirs(filepath,callback=null){
     fs.exists(filepath,function(exists){
         if(exists){
@@ -104,9 +130,23 @@ module.exports = {
     API_LEVEL_ANDROID,
     API_LEVEL_REACT,
     API_LEVEL,
+
+    PRELUDE,
+    PRELUDE_ID,
+    PRELUDEID:PRELUDE_ID,
+    STEP,
+    MOD,
+    MOD_SDK,
+    MOD_BASE,
+    MOD_PLUG,
+
     exec,
     execSync,
+    
     copyFile,
     copyFolder,
-    makeDirs
+    makeDirs,
+ 
+    loadAllFiles,
+    loadFiles
 }

@@ -163,8 +163,8 @@ export default MIOTRPC=>({
  *   
  */
 getVirtualDevicesByDid(model, did, callback) {
-    MIOTRPC.standardCall("/home/virtualdevicectr", 
-        {type:"get", masterDid:did}, callback)
+    // MIOTRPC.standardCall("/home/virtualdevicectr", 
+    //     {type:"get", masterDid:did}, callback)
 },
 /*
          

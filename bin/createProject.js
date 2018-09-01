@@ -6,7 +6,6 @@ const fs = require("fs");
 
 const {project_dir,API_LEVEL,exec, execSync,makeDirs} = require("./config/common")
 
-
 commander
     .version("api_level:" + API_LEVEL)
     .usage("[options] <packageName>") 
