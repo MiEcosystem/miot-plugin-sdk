@@ -4,17 +4,13 @@
  * @description 单选对话框
  * @mark andr done
  */
-
 import React, {Component} from 'react';
 import {
   requireNativeComponent,
   ViewPropTypes,
 } from 'react-native';
-
 import PropTypes from 'prop-types';
-
 const RCTSingleChoseDialog = requireNativeComponent('RCTSingleChoseDialog', null);
-
 export default class SingleChoseDialog extends Component {
   static propTypes = {
     visible: PropTypes.bool,
@@ -30,7 +26,6 @@ export default class SingleChoseDialog extends Component {
     onDismiss: PropTypes.func,
     ...ViewPropTypes,
   };
-
   render() {
     return <RCTSingleChoseDialog {...this.props}
                                  onDismiss={(event) => {

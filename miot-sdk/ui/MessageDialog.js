@@ -4,17 +4,13 @@
  * @description 消息对话框
  * @mark andr done
  */
-
 import React, {Component} from 'react';
 import {
   requireNativeComponent,
   ViewPropTypes,
 } from 'react-native';
-
 import PropTypes from 'prop-types';
-
 const RCTMessageDialog = requireNativeComponent('RCTMessageDialog', null);
-
 export default class MessageDialog extends Component {
   static propTypes = {
     visible: PropTypes.bool,
@@ -27,7 +23,6 @@ export default class MessageDialog extends Component {
     onDismiss: PropTypes.func,
     ...ViewPropTypes,
   };
-
   render() {
     return <RCTMessageDialog {...this.props}
                              onDismiss={(event) => {

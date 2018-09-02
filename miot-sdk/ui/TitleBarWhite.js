@@ -3,9 +3,7 @@
  * @module miot/ui/TitleBarWhite
  * @description 白色标题栏
  */
-
 import React, { Component } from "react";
-
 import {
   StyleSheet,
   Text,
@@ -17,7 +15,6 @@ import {
 import ImageButton from "./ImageButton";
 import { SafeAreaView } from "react-navigation";
 import { RkButton } from "react-native-ui-kitten";
-
 const { width, height } = Dimensions.get("window");
 const titleHeight = 44;
 const imgHeight = 28;
@@ -25,7 +22,6 @@ export default class TitleBarWhite extends Component {
   constructor(props) {
     super(props);
   }
-
   render() {
     StatusBar.setBarStyle("light-content");
     let leftWidth=this.props.leftTextStyle?this.props.leftTextStyle.width:0;
@@ -83,8 +79,6 @@ export default class TitleBarWhite extends Component {
     );
   }
 }
-
-
 const styles = StyleSheet.create({
   titleBarContainer: {
     flexDirection: "row",

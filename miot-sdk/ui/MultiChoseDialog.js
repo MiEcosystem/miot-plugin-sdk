@@ -4,17 +4,13 @@
  * @description 多选对话框
  * @mark andr done
  */
-
 import React, {Component} from 'react';
 import {
   requireNativeComponent,
   ViewPropTypes,
 } from 'react-native';
-
 import PropTypes from 'prop-types';
-
 const RCTMultiChoseDialog = requireNativeComponent('RCTMultiChoseDialog', null);
-
 export default class MultiChoseDialog extends Component {
   static propTypes = {
     visible: PropTypes.bool,
@@ -30,7 +26,6 @@ export default class MultiChoseDialog extends Component {
     onDismiss: PropTypes.func,
     ...ViewPropTypes,
   };
-
   render() {
     return <RCTMultiChoseDialog {...this.props}
                                 onDismiss={(event) => {

@@ -9,26 +9,11 @@
  * res.strings.mijia
  *
  */
-
-import native,{Utils} from '../native'
-
-
-const GetResource=path=>{
-    // if(native.MIOTPackage.buildType == "debug"){
-
-    // }
-
-}
-
-
-// const logo = {uri:native.localFileOf(""), width:100, height:100}
-
 export default {
     get logo(){
         return "";
     },
     get strings(){
-        const lang = native.getLanguage();
-        return {};
+         return {}
     }
 }

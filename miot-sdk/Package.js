@@ -21,17 +21,13 @@
  *    
  * 
  */
-
 import {
     AppRegistry
 } from "react-native";
 import React from 'react';
-
-import native, { MIOTEventEmitter, Properties, createEventManager } from './native'
-
+ const createEventManager=def=>def
 export const DEBUG = "debug";
 export const RELEASE = "release";
-
 /**
  * Package事件名集合
  * @typedef PackageEvent
@@ -48,20 +44,17 @@ export const RELEASE = "release";
  * @expo events
  */
 export const PackageEvent = createEventManager({
-
     /**
      * 插件将要加载
      * @event
      * 
      */
     packageWillLoad: { local: true },
-
     /**
      * 插件加载完成事件
      * @event
      */
     packageDidLoaded: { local: true },
-
     /**
     * 插件将暂时退出前台事件
     * @event
@@ -69,7 +62,6 @@ export const PackageEvent = createEventManager({
     * @mark andr done
     */
     packageWillPause: { always: true },
-
     /**
     * 插件将重回前台事件
     * @event
@@ -77,8 +69,6 @@ export const PackageEvent = createEventManager({
     * @mark andr done
     */
     packageDidResume: { always: true },
-
-
     /**
      * 用户撤销隐私授权时的回调
      * @event
@@ -86,7 +76,6 @@ export const PackageEvent = createEventManager({
      * @mark andr done
      */
     packageAuthorizationCancel: { always: true },
-
     /**
      * 插件接收到场景等通知消息
      * @event 
@@ -96,7 +85,6 @@ export const PackageEvent = createEventManager({
      * 
      */
     packageReceivedInformation: { always: true },
-
     /**
     * 插件将退出事件
     * @event
@@ -104,7 +92,6 @@ export const PackageEvent = createEventManager({
     * @mark andr done
     */
     packageWillExit: { always: true },
-
     /**
     * 从 Native 界面返回到插件,可以通过监听此事件更新已加载过的视图，或进行相应的事件处理。
     * @event
@@ -112,47 +99,12 @@ export const PackageEvent = createEventManager({
     * @mark andr done
     */
     packageViewWillAppear: { always: true }
-
 });
-
-const extra = { info: native.MIOTPackage.extraInfo }
-class PackageRoot extends React.Component {
-    componentWillMount() {
-        if (extra.willLoad) {
-            return;
-        }
-        extra.willLoad = true;
-        //系统初始化
-
-        if (extra.afterPackageEntry) {
-            extra.afterPackageEntry();
-            extra.afterPackageEntry = null;
-        }
-        //package will load
-        PackageEvent.packageWillLoad.emit();
-    }
-    componentDidMount() {
-        if (extra.didLoaded) {
-            return;
-        }
-        extra.didLoaded = true;
-        //package did loaded
-        PackageEvent.packageDidLoaded.emit();
-    }
-
-    render() {
-        const { App } = extra;
-        return <App />
-    }
-}
-
-
 /**
  * @export
  * @expo default
  */
 export default {
-
     /**
      * 从通知栏或者推送带过来的 string
      * @const
@@ -164,9 +116,8 @@ export default {
      * @mark andr done
      */
     get extraInfo() {
-        return extra.info;
+         return  ""
     },
-
     /**
      * 小米开放平台生成的插件包 ID
      * @const
@@ -178,9 +129,8 @@ export default {
      * @mark andr done
      */
     get packageID() {
-        return native.MIOTPackage.packageID;
+         return  0
     },
-
     /**
      * 程序包的版本号, 来自于{@link packageInfo.json} 的 {@link version}
      * @const
@@ -193,9 +143,8 @@ export default {
      * @mark andr 待读取
      */
     get version() {
-        return native.MIOTPackage.version;
+         return  ""
     },
-
     /**
      * 程序包名, 来自于{@link packageInfo.json} 的 {@link package_name}
      * @const
@@ -207,9 +156,8 @@ export default {
      * @mark andr done
      */
     get packageName() {
-        return native.MIOTPackage.packageName;
+         return  ""
     },
-
     /**
      * 扩展程序适用的最低 API level, 来自于{@link packageInfo.json} 的 {@link min_api_level}
      * @const
@@ -221,9 +169,8 @@ export default {
      * @mark andr done
      */
     get minApiLevel() {
-        return native.MIOTPackage.apiLevel;
+         return  0
     },
-
     /**
      * 发布类型, debug | release
      * @const
@@ -235,9 +182,8 @@ export default {
      * @mark andr done
      */
     get buildType() {
-        return native.MIOTPackage.buildType;
+         return  "release"
     },
-
     /**
      * 判断是否是调试版本
      * @const
@@ -247,9 +193,8 @@ export default {
      * @expo get
      */
     get isDebug() {
-        return this.buildType === DEBUG;
+         return  false
     },
-
     /**
      * 适配的固件 model, 来自于@link packageInfo.json 的
      * @const
@@ -261,9 +206,8 @@ export default {
      * @mark andr done
      */
     get models() {
-        return native.MIOTPackage.models;
+         return  ""
     },
-
     /**
      * 系统入口
      * @method
@@ -275,17 +219,7 @@ export default {
      * @expo method
      */
     entry(RootComponent, afterPackageEntry = null) {
-        // const self = Properties.of(this);
-        const { App } = extra;
-        if (App || !RootComponent) {
-            throw "warning, the package is already started";
-        }
-        extra.App = RootComponent;
-        extra.afterPackageEntry = afterPackageEntry;
-
-        AppRegistry.registerComponent(this.packageName, () => PackageRoot);
     },
-
     /**
      * 强制退出插件
      * @method
@@ -295,8 +229,5 @@ export default {
      * @mark andr done
      */
     exit() {
-        native.MIOTHost.closeCurrentPage();
     }
-
 }
-

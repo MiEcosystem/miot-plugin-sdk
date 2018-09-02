@@ -32,14 +32,10 @@
  *   myDeviceProperties.clear();
  *
  */
-
-import {Utils} from './native'
-
  /**
   * @interface
   */
 class IProperties{
-
     /**
      * 获取属性
      * @param {*} name 
@@ -47,7 +43,6 @@ class IProperties{
     getProperty(name){
         return this._properties.get(name);
     }
-
     /**
      * 设置属性, 同时将设置属性数值被改变
      * @param {*} name 
@@ -59,7 +54,6 @@ class IProperties{
         this._status.set(name, true)
         return this;
     }
-
     /**
      * 获取所有的属性名
      * @returns {Set<string>}
@@ -67,7 +61,6 @@ class IProperties{
     getPropertyNames(){
         return this._properties.keys();
     }
-
     /**
      * 判断是否存在某个属性
      * @param {*} name 
@@ -76,7 +69,6 @@ class IProperties{
     hasProperty(name){
         return this._properties.has(name);
     }
-
     /**
      * 删除属性
      * @param {string} name -属性名称, 如果为*则表示删除所有属性 
@@ -93,7 +85,6 @@ class IProperties{
         this._status.delete(name);
         return this;
     }
-
     /**
      * 删除一系列属性
      * @param {Array<string>} names -如果第一个 name 为*, 则表示删除所有属性
@@ -109,7 +100,6 @@ class IProperties{
         names.forEach(name=>removeProperty(name))
         return this;
     }
-
     /**
      * 删除所有属性
      * @returns {IProperties}
@@ -119,7 +109,6 @@ class IProperties{
         this._status = new Map();
         return this;
     }
-
     /**
      * 某个属性值是否被改变过
      * @param {*} name 
@@ -128,7 +117,6 @@ class IProperties{
     isPropertyChanged(name){
         return this._status.get(name);
     }
-
     /**
      * 批量获取属性的 Map
      * @param {*} names -属性名
@@ -138,7 +126,6 @@ class IProperties{
     getProperties(...names){
         return names.reduce((ret, name)=>{ret.set(name, getProperty(name)||null)}, new Map())
     }
-
     /**
      * 批量设置属性值
      * @param {*} nameValues --属性数值map, 可以为Map<string, object>或object
@@ -155,22 +142,8 @@ class IProperties{
      * 
      */
     setProperties(nameValues){
-        switch (Utils.className(nameValues)) {
-            case "Map":
-                nameValues.forEach((value, key)=>{
-                    setProperty(key, value)
-                })
-                break;
-        
-            default:
-                Object.keys(nameValues).forEach(name=>{
-                    setProperty(name, nameValues[name]);
-                })
-                break;
-        }
         return this;
     }
-
     /**
      * 监听属性变化事件
      * @param {*} names -要监听的属性名, 可以为string 或数组, 如果为*则表示监听所有的属性变化
@@ -194,20 +167,6 @@ class IProperties{
      * 
      */
     addListener(names, callback){
-        if(!callback){
-            return {remove(){}};
-        }
-        const props = Array.isArray(names)?names:(names?[names]:null);
-        if(!props || props.length < 1 || !props[0]){
-            return {remove(){}};
-        }
-        const token = Utils.uniqueToken32();
-        this._listeners.set(token, {props, isAny:props[0]=="*", callback});
-        return {
-            remove(){
-                this._listeners.delete(token);
-            }
-        }
     }
  
     /**
@@ -233,7 +192,6 @@ class IProperties{
         changed.forEach(p=>this._status.delete(p))
         return triggerListeners(...changed);
     }
-
     /**
      * 强制触发属性相关事件,但不会检查相关属性是否已经改变
      * @param {*} names -如果names[0]=="*"则表示触发所有的事件
@@ -253,7 +211,6 @@ class IProperties{
         },0);
         return this;
     }
-
     /**
      * 删除属性相关的事件
      * @param {*} names -属性名, 如果 names[0] == "*", 表示删除所有事件监听
@@ -278,7 +235,6 @@ class IProperties{
         needRemove.forEach(token=>this._listeners.remove(token));
         return this;
     }
-
     /**
      * 删除所有的事件监听
      * @returns {IProperties}
@@ -287,7 +243,6 @@ class IProperties{
         this._listeners = new Map();
         return this;
     }
-
     /**
      * 清除缓存并删除所有的事件监听
      * @returns {IProperties}
@@ -295,9 +250,7 @@ class IProperties{
     clear(){
         return removeAllListeners().removeAllProperties();
     }
-
  }
-
 /**
  * 创建一个新的属性缓存对象
  * @static
@@ -309,7 +262,6 @@ class IProperties{
     dp._listeners = new Map();
     return dp;
  }
-
 /**
  * 根设备属性缓存对象
  * @static

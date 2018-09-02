@@ -1,14 +1,9 @@
 {
-  "name": "miot",
-  "version": "0.1.0",
-  "api_level":10000,
-  "api_level_android":0,
-  "api_level_ios":0,
-  "api_level_react":10000,
-  "description": "A MIOT SDK for react-native plugin program of ios and android",
-  "main": "index.js",
-  "dependencies": {
-    "react": "^16.4.1",
-    "react-native": "^0.54.4"
-  }
-}
+"name":"miot",
+"version":"0.1.0",
+"api_level":10000,
+"description":"A MIOT SDK for react-native plugin program of ios and android",
+"main":"index.js",
+"dependencies":{
+"react":"^16.4.1",
+"react-native":"^0.54.4"}}

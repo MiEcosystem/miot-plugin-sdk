@@ -30,9 +30,7 @@
  * bluetooth.disconnect()
  *
  */
-
-import native, {Properties, createEventManager} from './native'
-
+ const createEventManager=def=>def
 /**
  * 蓝牙特征值
  * @interface
@@ -40,7 +38,6 @@ import native, {Properties, createEventManager} from './native'
  * @expo interface
  */
 export class IBluetoothCharacteristic{
-
     /**
      * 是否已经被发现
      * @member
@@ -50,9 +47,8 @@ export class IBluetoothCharacteristic{
      * @expo get
      */
     get isDiscovered(){
-        return Properties.of(this).isDiscovered;
+         return  false
     }
-
    /**
     * 数值是否已经加载, 为 true 时,本类才能读到正确的 value
     * @member
@@ -62,9 +58,8 @@ export class IBluetoothCharacteristic{
      * @expo get
     */
     get isValueLoaded(){
-        return Properties.of(this).isValueLoaded;
+         return  false
     }
-
     /**
      * 特征值的 UUID
      * @member
@@ -74,9 +69,8 @@ export class IBluetoothCharacteristic{
      * @expo get
      */
     get UUID(){
-         return Properties.of(this).characteristicUUID;
+         return  ""
     }
-
     /**
      * 数值, 配合 isValueLoaded 使用
      * @member
@@ -94,9 +88,8 @@ export class IBluetoothCharacteristic{
      * @expo get
      */
     get value(){
-        return Properties.of(this).value;
+         return  null
     }
-
     /**
      * 读取蓝牙数据
      * @method
@@ -108,19 +101,7 @@ export class IBluetoothCharacteristic{
      * @mark andr done
      */
     read(){
-        return new Promise((resolve, reject)=>{
-          const self =  Properties.of(this);
-          const {serviceUUID, characteristicUUID} = self;
-          native.MIOTBluetooth.readHexStringWithCallback(characteristicUUID, serviceUUID,(ok, data)=>{
-            if (ok) {
-              self.value = data;
-              self.isValueLoaded = true;
-              resolve(self);
-              return;
-            }
-            reject(data);
-          });
-        });
+         return Promise.resolve(null);
     }
     /**
      * 写数据
@@ -132,21 +113,8 @@ export class IBluetoothCharacteristic{
      * @mark andr done
      */
     write(value){
-        return new Promise((resolve, reject)=>{
-            const self = Properties.of(this)
-            const {serviceUUID, characteristicUUID} = self
-            native.MIOTBluetooth.writeHexStringWithCallback(value, characteristicUUID, serviceUUID, 0, (ok, error)=>{
-                if (ok) {
-                    self.value = value;
-                    self.isValueLoaded = true;
-                    resolve(this);
-                    return;
-                }
-                reject(error);
-            });
-        });
+         return Promise.resolve(null);
     }
-
    /**
     * 直接写数据
     * @method
@@ -157,22 +125,8 @@ export class IBluetoothCharacteristic{
     * @mark andr done
     */
    writeWithoutResponse(value){
-     return new Promise((resolve, reject)=>{
-        const self = Properties.of(this)
-        const {serviceUUID, characteristicUUID} = self
-
-        native.MIOTBluetooth.writeHexStringWithCallback(value, characteristicUUID, serviceUUID, 1, (ok, error)=>{
-            if (ok) {
-                self.value = value;
-                self.isValueLoaded = true;
-                resolve(this);
-                return;
-            }
-            reject(error);
-        });
-     });
+     return Promise.resolve(null);
    }
-
    /**
     * 设置数值变化监听开关
     * @method
@@ -183,50 +137,34 @@ export class IBluetoothCharacteristic{
     * @mark andr done
     */
    setNotify(flag){
-     return new Promise((resolve, reject)=>{
-       const {serviceUUID, characteristicUUID} = Properties.of(this);
-       native.MIOTBluetooth.setNotifyWithCallback(flag, characteristicUUID, serviceUUID,(ok, error)=>{
-         if (ok) {
-           resolve(this);
-           return;
-         }
-         reject(error);
-       });
-     });
+     return Promise.resolve(null);
    }
 }
-
-
 /**
  * 蓝牙服务
  * @interface
  * @expo interface
  */
 export class IBluetoothService{
-
    /**
     * 蓝牙服务 UUID
     * @member
     * @type {string}
      * @readonly
-     *
-     * @expo get
+     * 
     */
    get UUID(){
-       return Properties.of(this).serviceUUID;
+         return  ""
    }
-
    /**
     * 蓝牙服务是否已被发现
     * @member
      * @readonly
-     *
-     * @expo get
+     * 
     */
    get isDiscovered(){
-       return Properties.of(this).isDiscovered;
+         return  false
    }
-
    /**
     * 发现蓝牙特征
     * @method
@@ -237,17 +175,8 @@ export class IBluetoothService{
     * @mark andr done
     */
    startDiscoverCharacteristics(...characteristicUUIDs){
-        if(characteristicUUIDs.length < 1 || !this.isDiscovered){
-            return false;
-        }
-        const notFound = characteristicUUIDs.filter(uuid=>!this.getCharacteristic(uuid).isDiscovered)
-        if(notFound.length > 0){
-            const {serviceUUID} = Properties.of(this);
-            native.MIOTBluetooth.discoverCharacteristics(notFound, serviceUUID);
-        }
-        return true;
+         return false
    }
-
   /**
    * 获取蓝牙特征
    * @member
@@ -258,21 +187,9 @@ export class IBluetoothService{
    * @mark andr done
    */
    getCharacteristic(characteristicUUID){
-       if(typeof(characteristicUUID) != "string" || characteristicUUID.length < 3){
-           return null;
-       }
-       const {characteristics, mac, serviceUUID, deviceUUID} = Properties.of(this);
-       let character = characteristics.get(characteristicUUID);
-       if(!character){
-           character = new IBluetoothCharacteristic();
-           Properties.init(character, {mac, deviceUUID, serviceUUID, characteristicUUID})
-           characteristics.set(characteristicUUID, character)
-       }
-       return character;
+         return null
    }
-
 }
-
 /**
  *
  * 蓝牙设备
@@ -282,7 +199,6 @@ export class IBluetoothService{
  *
  */
 export class IBluetooth {
-
    /**
     * 蓝牙设备的 mac 地址
     * @member
@@ -293,9 +209,8 @@ export class IBluetooth {
     *
     */
    get mac(){
-       return Properties.of(this).mac;
+         return  ""
    }
-
    /**
     * 蓝牙设备的 UUID
     * @member
@@ -304,9 +219,8 @@ export class IBluetooth {
      * @expo get
     */
    get UUID(){
-       return Properties.of(this).UUID;
+         return  ""
    }
-
    /**
     * 蓝牙开关状态
     * @member
@@ -316,9 +230,8 @@ export class IBluetooth {
      * @expo get
     */
    get isEnabled(){
-       return Properties.of(this).isEnabled;
+         return  false
    }
-
    /**
     * 蓝牙是否已经连接
     * @member
@@ -329,9 +242,8 @@ export class IBluetooth {
      * @expo get
     */
    get isConnected(){
-       return Properties.of(this).isConnected;
+         return  false
    }
-
    /**
     *获取蓝牙服务
     * @member
@@ -341,22 +253,8 @@ export class IBluetooth {
     * @expo method
     */
    getService(serviceUUID){
-       if(typeof(serviceUUID) != "string" || serviceUUID.length < 5){
-           return null;
-       }
-       const {services, mac, UUID} = Properties.of(this);
-       let service = services.get(serviceUUID)
-       if(!service){
-            service = new IBluetooth();
-            Properties.init(service, {mac, deviceUUID:UUID,
-                serviceUUID,
-                characteristics:new Map()
-            })
-            services.set(serviceUUID, service);
-       }
-       return service;
+         return null
    }
-
    /**
     * 发现服务
     * @method
@@ -367,36 +265,8 @@ export class IBluetooth {
     * @mark andr done
     */
     startDiscoverServices(...serviceUUIDs){
-        if(serviceUUIDs.length < 1 || !this.isConnected){
-            return false;
-        }
-        const notFound = serviceUUIDs.filter(uuid=>!this.getService(uuid).isDiscovered);
-        if(notFound.length > 0){
-            native.MIOTBluetooth.discoverServices(notFound)
-        }
-        return true;
+         return false
     }
-
-   /**
-    * 读取连接状态,请使用  isConnected ,链接成功后返回值为 true，断开连接后值为 false
-    * @method
-    * @description
-    *  connected 已连接
-    *  connecting 正在连接
-    *  disconnected 已断开
-    *  disconnecting 正在断开连接
-    *  unknown 未知
-    *
-    * @expo get
-    */
-   // readConnectionStatus(){
-   //     return new Promise((resolve, reject)=>{
-   //          native.MIOTBluetooth.getConnectStatus(ret=>{
-   //              resolve(ret)
-   //          });
-   //     })
-   // }
-
    /**
     * 打开蓝牙链接
     *
@@ -408,46 +278,8 @@ export class IBluetooth {
     * @mark andr done
     */
     connect(type){
-        if(this.isConnected){
-            return Promise.resolve(this);
-        }
-        return new Promise((resolve, reject)=>{
-            //data : ok=> {services:[{uuid:"...", chars:["...", "..."]} ]}
-            //false: {error:100, message:""}
-            native.isAndroid ? native.MIOTBluetooth.connect(this.mac,type, (ok, data)=>{
-                if(!ok){
-                    reject(data)
-                    return;
-                }
-                const {services} = data;
-                (services||[]).forEach(s=>{
-                    const srv = this.getService(s.uuid);
-                    Properties.of(srv).isDiscovered = true;
-                    (s.chars||[]).forEach(c=>{
-                        const chr = srv.getCharacteristic(c);
-                        Properties.of(chr).isDiscovered = true;
-                    })
-                })
-
-            }):native.MIOTBluetooth.connect(this.mac, (ok, data)=>{
-                if(!ok){
-                    reject(data)
-                    return;
-                }
-                const {services} = data;
-                (services||[]).forEach(s=>{
-                    const srv = this.getService(s.uuid);
-                    Properties.of(srv).isDiscovered = true;
-                    (s.chars||[]).forEach(c=>{
-                        const chr = srv.getCharacteristic(c);
-                        Properties.of(chr).isDiscovered = true;
-                    })
-                })
-
-            })
-        });
+         return Promise.resolve(this);
     }
-
    /**
     * 读取 RSSI
     * @method
@@ -457,17 +289,8 @@ export class IBluetooth {
     * @mark andr done
     */
    readRSSI(){
-     return new Promise((resolve, reject)=>{
-       native.MIOTBluetooth.readRSSI((ok,data)=>{
-         if (ok) {
-           resolve(data);
-           return;
-         }
-         reject(data);
-       });
-     });
+      return Promise.resolve(null);
    }
-
    /**
     * 关闭链接
     * @method
@@ -477,27 +300,21 @@ export class IBluetooth {
     * @mark andr done
     */
    disconnect( delay=0 ){
-     native.MIOTBluetooth.disconnectDeviceWithDelay(delay);
    }
-
   /**
    *只在MIUI上支持，维持长连接 如果连接失败，则会隔一段时间尝试重连，如果继续失败，则重连间隔会翻倍，直到上限。
    *
    * @mark andr done
    */
   bindDevice(){
-    native.MIOTBluetooth.bindDevice();
   }
-
   /**
    * 只在MIUI上支持，解除长连接
    *
    * @mark andr done
    */
   unBindDevice(){
-    native.MIOTBluetooth.unBindDevice();
   }
-
   /**
    *设备自动重连开关是否打开
    * @param callback
@@ -505,9 +322,7 @@ export class IBluetooth {
    * @mark andr done
    */
   isAutoReconnect(callback){
-    native.MIOTBluetooth.isAutoReconnect(callback);
   }
-
   /**
    * 设置指定的设备断开后是否自动重连
    * @param enable
@@ -516,11 +331,9 @@ export class IBluetooth {
    * @mark andr done
    */
   setAutoReconnect(enable,callback){
-    native.MIOTBluetooth.setAutoReconnect(enable,callback);
   }
 }
-
-const {bluetoothDevices} = native.LocalCache;
+ const bluetoothDevices={}
 /**
  * 蓝牙事件名集合
  * @typedef BluetoothEvent
@@ -545,17 +358,8 @@ export const BluetoothEvent = createEventManager({
      * @mark andr done
      *
      */
-    bluetoothConnectionStatusChanged:{forever:emitter=>
-        ({mac, isConnected})=>{
-            let bluetooth = bluetoothDevices.get(mac);
-            if(!bluetooth){
-                return;
-            }
-            Properties.of(bluetooth).isConnected = isConnected;
-            emitter.emit(bluetooth, isConnected);
-        }
+    bluetoothConnectionStatusChanged:{
     },
-
     /**
      * 蓝牙设备扫描发现事件
      * @event
@@ -563,16 +367,8 @@ export const BluetoothEvent = createEventManager({
      *
      * @mark andr done
      */
-    bluetoothDeviceDiscovered:{forever:emitter=>
-        ({mac})=>{
-            let bluetooth = bluetoothDevices.get(mac);
-            if(!bluetooth){
-                return;
-            }
-            emitter.emit(bluetooth);
-        }
+    bluetoothDeviceDiscovered:{
     },
-
     /**
      * 蓝牙设备扫描发现失败事件
      * @event
@@ -580,12 +376,8 @@ export const BluetoothEvent = createEventManager({
      *
      * @mark andr done
      */
-    bluetoothDeviceDiscoverFailed:{always:emitter=>
-        ({error})=>{
-            emitter.emit(error);
-        }
+    bluetoothDeviceDiscoverFailed:{
     },
-
     /**
      * 蓝牙服务发现事件
      * @event
@@ -594,22 +386,8 @@ export const BluetoothEvent = createEventManager({
      *
      * @mark andr done
      */
-    bluetoothSeviceDiscovered:{forever:emitter=>
-        ({mac, foundUUIDs})=>{
-            let bluetooth = bluetoothDevices.get(mac);
-            if(!bluetooth){
-                return;
-            }
-            const services = (foundUUIDs||[]).map(uuid=>{
-                const service = bluetooth.getService(uuid);
-                Properties.of(service).isDiscovered = true;
-                return service;
-            })
-            emitter.emit(bluetooth, ...services)
-        }
+    bluetoothSeviceDiscovered:{
     },
-
-
     /**
      * 蓝牙服务发现失败事件
      * @event
@@ -618,17 +396,8 @@ export const BluetoothEvent = createEventManager({
      *
      * @mark andr done
      */
-    bluetoothSeviceDiscoverFailed:{always:emitter=>
-        ({mac, error})=>{
-            let bluetooth = bluetoothDevices.get(mac);
-            if(!bluetooth){
-                return;
-            }
-            emitter.emit(bluetooh, error);
-        }
+    bluetoothSeviceDiscoverFailed:{
     },
-
-
     /**
      * 蓝牙特征发现事件
      * @event
@@ -638,25 +407,8 @@ export const BluetoothEvent = createEventManager({
      *
      * @mark andr done
      */
-    bluetoothCharacteristicDiscovered:{forever:emitter=>
-        ({mac, serviceUUID, foundUUIDs})=>{
-            let bluetooth = bluetoothDevices.get(mac);
-            if(!bluetooth){
-                return;
-            }
-            const service = bluetooth.getService(serviceUUID);
-            if(!service.isDiscovered){
-                return;
-            }
-            const characters = (foundUUIDs||[]).forEach(uuid=>{
-                const character = service.getCharacteristic(uuid)
-                Properties.of(character).isDiscovered = true;
-                return character
-            })
-            emitter.emit(bluetooth, service, ...characters);
-        }
+    bluetoothCharacteristicDiscovered:{
     },
-
     /**
      * 蓝牙特征发现失败事件
      * @event
@@ -666,20 +418,8 @@ export const BluetoothEvent = createEventManager({
      *
      * @mark andr done
      */
-    bluetoothCharacteristicDiscoverFailed:{always:emitter=>
-        ({mac, serviceUUID, error})=>{
-            let bluetooth = bluetoothDevices.get(mac);
-            if(!bluetooth){
-                return;
-            }
-            const service = bluetooth.getService(serviceUUID);
-            if(!service.isDiscovered){
-                return;
-            }
-            emitter.emit(bluetooh, service, error);
-        }
+    bluetoothCharacteristicDiscoverFailed:{
     },
-
     /**
      * 蓝牙特征值变更事件
      * notify, read
@@ -691,27 +431,8 @@ export const BluetoothEvent = createEventManager({
      *
      * @mark andr done
      */
-    bluetoothCharacteristicValueChanged:{forever:emitter=>
-        ({mac, serviceUUID, characteristicUUID, value})=>{
-            let bluetooth = bluetoothDevices.get(mac);
-            if(!bluetooth){
-                return;
-            }
-            const service = bluetooth.getService(serviceUUID);
-            if(!service.isDiscovered){
-                return;
-            }
-            const character = service.getCharacteristic(characteristicUUID);
-            if(!character.isDiscovered){
-                return;
-            }
-            const props = Properties.of(character);
-            props.isValueLoaded = true;
-            props.value = value;
-            emitter.emit(bluetooth, service, character, value);
-        }
+    bluetoothCharacteristicValueChanged:{
     },
-
     /**
      * 蓝牙开关状态变更事件
      * @event
@@ -721,18 +442,9 @@ export const BluetoothEvent = createEventManager({
      *
      * @mark andr done
      */
-    bluetoothStatusChanged:{forever:emitter=>
-        ({mac, isEnabled})=>{
-            let bluetooth = bluetoothDevices.get(mac);
-            if(!bluetooth){
-                return;
-            }
-            Properties.of(bluetooth).isEnabled = isEnabled;
-            emitter.emit(bluetooth, isEnabled);
-        }
+    bluetoothStatusChanged:{
     }
 });
-
 /**
  * @export
  */
@@ -745,16 +457,9 @@ export default {
     * @example
     *   import Bluetooth from 'miot/Bluetooth'
     */
-
    createBluetooth(mac){
-       let bluetooth = bluetoothDevices.get(mac);
-       if(!bluetooth){
-        bluetooth = Properties.init(new IBluetooth(), {mac, services:new Map()});
-           bluetoothDevices.set(mac, bluetooth);
-       }
-       return bluetooth;
+         return null
    },
-
    /**
     * 开始扫描蓝牙设备
     * @method
@@ -767,7 +472,6 @@ export default {
     *      Bluetooth.startScan(ret=>{})
     */
    startScan(durationInMillis,type){
-     native.MIOTBluetooth.startScan(durationInMillis,type);
    },
   /**
    * 扫描指定 serviceIds 的蓝牙设备
@@ -775,9 +479,7 @@ export default {
    * @param serviceIds  serviceId 的数组
    */
   startLeScan(durationInMillis,serviceIds){
-     native.MIOTBluetooth.startLeScan(durationInMillis,serviceIds);
    },
-
    /**
     * 停止扫描蓝牙设备
     * @method
@@ -786,9 +488,7 @@ export default {
     *
     */
    stopScan(){
-     native.MIOTBluetooth.stopScan();
    },
-
    /**
     * 加载本地蓝牙设备
     * @method
@@ -797,9 +497,8 @@ export default {
     * @returns {Promise<Map<uuid, Bluetooth>>}
     */
    retrievePeripheralsForIOS(uuids, opt={withServiceUUID:false}){
-       return new Promise()
+         return Promise.resolve(null);
    },
-
        /**
      * 打开蓝牙
      * @static
@@ -808,9 +507,7 @@ export default {
      * @mark andr done
      */
     enableBluetoothForAndroid(silence=false) {
-         native.MIOTBluetooth.openBluetooth(silence);
     },
-
     /**
      * 判断蓝牙是否开放
      * @static
@@ -818,9 +515,7 @@ export default {
      * @mark andr done
      */
     checkBluetoothIsEnabledForAndroid(callback) {
-      native.MIOTBluetooth.isBluetoothOpen(callback);
     },
-
     /**
      * 判断当前设备是否通过蓝牙网关扫描到了
      * @static
@@ -828,7 +523,5 @@ export default {
      * @mark andr done
      */
     isBleGatewayConnected(callback) {
-      native.MIOTBluetooth.isBleGatewayConnected(callback);
     }
-
 };

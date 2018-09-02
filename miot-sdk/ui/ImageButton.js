@@ -4,45 +4,35 @@
  * @description 按钮
  *
  */
-
 import React from 'react';
-
 import {
   Image,
   TouchableWithoutFeedback,
 } from 'react-native';
-
 export default class ImageButton extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       buttonPressed: false,
     }
   }
-
   static initialState = {
     buttonPressed: false,
   };
-
   static defaultProps = {
     source: null,
     highlightedSource: null,
     onPress: null,
   };
-
   _buttonPressIn() {
     this.setState({ buttonPressed: true });
   }
-
   _buttonPressOut() {
     this.setState({ buttonPressed: false });
   }
-
   _isButtonPressed() {
     return this.state.buttonPressed;
   }
-
   render() {
     let source = this.props.source;
     if (this._isButtonPressed() && this.props.highlightedSource) {
@@ -63,5 +53,4 @@ export default class ImageButton extends React.Component {
     );
   }
 };
-
 // module.exports = ImageButton;

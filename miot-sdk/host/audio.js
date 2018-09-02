@@ -3,8 +3,6 @@
  * @module miot/host/audio
  * @description 音频相关
  */
-import native from "../native";
-
 export default {
   /**
    * 开始录音
@@ -14,34 +12,16 @@ export default {
    * @mark andr done
    */
   startRecord(audioName, settings) {
-    return new Promise((resolve, reject) => {
-      native.MIOTAudio.startRecord(audioName, settings,(ret,message)=>{
-        if(ret){
-          resolve(ret)
-        }else{
-          reject(message)
-        }
-      });
-    });
+     return Promise.resolve(null);
   },
-
   /**
    * 停止录音
    * @return {Promise}
    * @mark andr done
    */
   stopRecord() {
-    return new Promise((resolve, reject) => {
-      native.MIOTAudio.stopRecord((ret,message)=>{
-          if(ret){
-              resolve(ret)
-          }else{
-              reject(message)
-          }
-      });
-    });
+     return Promise.resolve(null);
   },
-
   /**
    * 开始播放
    * @param audioName {string} 文件名
@@ -50,34 +30,16 @@ export default {
    * @mark andr done
    */
   startPlay(audioName, settings) {
-    return new Promise((resolve, reject) => {
-      native.MIOTAudio.startPlay(audioName, settings,(ret,message)=>{
-        if(ret){
-          resolve(ret)
-        }else{
-          reject(message)
-        }
-      });
-    });
+     return Promise.resolve(null);
   },
-
   /**
    * 停止播放
    * @return {Promise}
    * @mark andr done
    */
   stopPlay() {
-    return new Promise((resolve, reject) => {
-      native.MIOTAudio.stopPlay((ret,message)=>{
-        if(ret){
-          resolve(ret)
-        }else{
-          reject(message)
-        }
-      });
-    });
+     return Promise.resolve(null);
   },
-
   /**
    * wav转 amr
    * @param wavPath {string} 读取 wav 文件名
@@ -86,17 +48,8 @@ export default {
    * @mark andr 暂未提供
    */
   wavToAmr(wavPath, savePath) {
-    return new Promise((resolve, reject) => {
-      native.MIOTAudio.wavToAmr(wavPath, savePath,(ret,message)=>{
-        if(ret){
-          resolve(ret)
-        }else{
-          reject(message)
-        }
-      });
-    });
+     return Promise.resolve(null);
   },
-
   /**
    * amr 转 wav
    * @param amrPath {string} 读取 amr 文件名
@@ -105,15 +58,6 @@ export default {
    * @mark andr 暂未提供
    */
   amrToWav(amrPath, savePath) {
-    return new Promise((resolve, reject) => {
-      native.MIOTAudio.amrToWav(amrPath, savePath,(ret,message)=>{
-        if(ret){
-          resolve(ret)
-        }else{
-          reject(message)
-        }
-      });
-    });
+     return Promise.resolve(null);
   }
-
 };

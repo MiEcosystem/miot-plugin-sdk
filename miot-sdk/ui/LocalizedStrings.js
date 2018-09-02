@@ -17,15 +17,12 @@ var localization = NativeModules.ReactLocalization;
 if (!localization) {
   console.error("Something went wrong initializing the native ReactLocalization module.\nPlease check your configuration.\nDid you run 'react-native link'?");
 }
-
 var interfaceLanguage = localization.language.replace(/_/g, '-');
-
 const LanguageMap={
   // language : 适配语言的 key 可以是
   'zh-CN':['zh-Hans','zh-CN'],
   'zh-Hans':['zh-Hans','zh-CN'],
   'zh-Hans-CN':['zh-Hans','zh-CN'],
-
   'zh-TW':['zh-Hant','zh-TW'],
   'zh-MO':['zh-Hant','zh-TW'],
   'zh-HK':['zh-Hant','zh-TW'],
@@ -33,19 +30,15 @@ const LanguageMap={
   'zh-Hant-TW':['zh-Hant','zh-TW'],
   'zh-Hant-HK':['zh-Hant','zh-TW'],
   'zh':['zh-Hans','zh-CN'],
-
   'ko-KR':['krea'],
   'ko-KP':['krea'],
   'krea':['krea'],
   'ko':['krea'],
-
   'in-ID':['in-ID','in','id'],
   'in':['in-ID','in','id'],
   'id':['in-ID','in','id'],
 };
-
 class LocalizedStrings {
-
   _getBestMatchingLanguage(language, props) {
     //If an object with the passed language key exists return it
     if (props[language]) return language;
@@ -64,22 +57,18 @@ class LocalizedStrings {
     //Return the default language (the first coded)
     return Object.keys(props)[0];
   }
-
-
   constructor(props) {
     //Store locally the passed strings
     this.props = props;
     //Set language to its default value (the interface)
     this.setLanguage(interfaceLanguage);
   }
-
   //Overwrite content, use for e.g. dynamicly reload locale from server
   setContent(props){
     this.props = props;
     //Set language to its default value (the interface)
     this.setLanguage(this.language);
   }
-
   //Can be used from ouside the class to force a particular language
   //indipendently from the interface one
   setLanguage(language) {
@@ -103,7 +92,6 @@ class LocalizedStrings {
       }
     }
   }
-
   //Load fallback values for missing translations
   _fallbackValues(defaultStrings, strings) {
     for (var key in defaultStrings) {
@@ -118,23 +106,19 @@ class LocalizedStrings {
       }
     }
   }
-
   //The current language displayed (could differ from the interface language
   // if it has been forced manually and a matching translation has been found)
   getLanguage() {
     return this.language;
   }
-
   //The current interface language (could differ from the language displayed)
   getInterfaceLanguage() {
     return interfaceLanguage;
   }
-
   //The current props (locale object)
   getLocaleObject() {
     return this.props;
   }
-
   //Return an array containing the available languages passed as props in the constructor
   getAvailableLanguages() {
     if (!this.availableLanguages) {
@@ -145,7 +129,6 @@ class LocalizedStrings {
     }
     return this.availableLanguages;
   }
-
   //Format the passed string replacing the numbered placeholders
   //i.e. I'd like some {0} and {1}, or just {0}
   //Use example:
@@ -157,7 +140,6 @@ class LocalizedStrings {
     }
     return res;
   }
-
   //Return a string with the passed key in a different language
   getString(key, language) {
     try {
@@ -167,7 +149,6 @@ class LocalizedStrings {
     }
     return null;
   }
-
   //Replace all occorrencies of a string in another using RegExp
   _replaceAll(original, replacement, str) {
     original = original.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");

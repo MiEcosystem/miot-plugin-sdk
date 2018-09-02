@@ -4,26 +4,14 @@
  * @description 本地文件访问及处理服务
  *
  */
-import native from "../native";
-
 export default {
-
     /**
      * 读取文件列表
      * @mark andr done
      */
     readFileList() {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.readFileList((isSuccess, result) => {
-                if (isSuccess) {
-                    resolve(result);
-                } else {
-                    reject(false, result);
-                }
-            })
-        });
+         return Promise.resolve([]);
     },
-
     /**
      * 读本地文件
      * @param {string} fileName - 文件名
@@ -31,17 +19,8 @@ export default {
      * @mark andr done
      */
     readFile(fileName, opt = {}) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.readFile(fileName, (isSuccess, utf8Content) => {
-                if (isSuccess) {
-                    resolve(utf8Content);
-                } else {
-                    reject(false);
-                }
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * 读文件，转换为 Base64 编码
      * @param {string} fileName - 文件名
@@ -49,17 +28,8 @@ export default {
      * @mark andr done
      */
     readFileToBase64(fileName, opt = {}) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.readFileToBase64(fileName, (isSuccess, base64Content) => {
-                if (isSuccess) {
-                    resolve(base64Content);
-                } else {
-                    reject(false);
-                }
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * 写文件
      * @param {string} fileName - 文件名
@@ -68,17 +38,8 @@ export default {
      * @mark andr done
      */
     writeFile(fileName, utf8Content, opt = {}) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.writeFile(fileName, utf8Content, (isSuccess) => {
-                if (isSuccess) {
-                    resolve(true);
-                } else {
-                    reject(false);
-                }
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * 写文件，输入为 Base64 编码字符串
      * @param {string} fileName - 文件名
@@ -87,17 +48,8 @@ export default {
      * @mark andr done
      */
     writeFileThroughBase64(fileName, base64Content, opt = {}) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.writeFileThroughBase64(fileName, base64Content, (isSuccess) => {
-                if (isSuccess) {
-                    resolve(true);
-                } else {
-                    reject(false);
-                }
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * 向已存在的文件追加内容
      * @param {string} fileName - 文件名
@@ -106,17 +58,8 @@ export default {
      * @mark andr done
      */
     appendFile(fileName, utf8Content, opt = {}) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.appendFile(fileName, utf8Content, (isSuccess) => {
-                if (isSuccess) {
-                    resolve(true);
-                } else {
-                    reject(false);
-                }
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * 向已存在的文件追加内容，输入为base64编码字符串
      * @param {string} fileName - 文件名
@@ -125,17 +68,8 @@ export default {
      * @mark andr done
      */
     appendFileThroughBase64(fileName, base64Content, opt = {}) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.appendFileThroughBase64(fileName, base64Content, (isSuccess) => {
-                if (isSuccess) {
-                    resolve(true);
-                } else {
-                    reject(false);
-                }
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * 删除文件
      * @param {string} fileName - 文件名
@@ -143,17 +77,8 @@ export default {
      * @mark andr done
      */
     deleteFile(fileName, opt = {}) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.deleteFile(fileName, (isSuccess) => {
-                if (isSuccess) {
-                    resolve(true);
-                } else {
-                    reject(false);
-                }
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * @ typedef Params - 参数字典
      * @ property {string} uploadUrl
@@ -162,7 +87,6 @@ export default {
      * @ property {{}} fields
      * @ property {[{fileName: 'xxx'}]} files
      */
-
     /**
      * 上传文件
      * @param {Params} params - 参数字典
@@ -185,34 +109,16 @@ export default {
      *   };
      */
     uploadFile(params) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.uploadFile(params, (isSuccess, response) => {
-                if (isSuccess) {
-                    resolve(response);
-                } else {
-                    reject(response);
-                }
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * 上传文件到小米云FDS
      * @mark andr 咱不提供 因为实现方式和 uploadFile 无差别
      * @param {Params} params - 参数字典
      */
     uploadFileToFDS(params) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.uploadFileToFDS(params, (isSuccess, response) => {
-                if (isSuccess) {
-                    resolve(response);
-                } else {
-                    reject(response);
-                }
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * 下载文件到插件存储空间
      * @mark andr done
@@ -220,30 +126,16 @@ export default {
      * @param {string} fileName - 存储到本地的文件名
      */
     downloadFile(url, fileName) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.downloadFile(url, fileName, (isSuccess, result) => {
-                if (isSuccess) {
-                    resolve(result);
-                } else {
-                    reject(result);
-                }
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * 获取 base64 编码的数据长度
      * @param {string} base64Data - base64 编码的字符串
      * @mark andr done
      */
     dataLengthOfBase64Data(base64Data) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.dataLengthOfBase64Data(base64Data, (length) => {
-                resolve(length);
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * 获取一个data的子data（base64编码）
      * @param {string} base64Data - base64 编码的数据
@@ -252,48 +144,24 @@ export default {
      * @mark andr done
      */
     subBase64DataOfBase64Data(base64Data, loc, len) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.subBase64DataOfBase64Data(base64Data, loc, len, (isSuccess, subData) => {
-                if (isSuccess) {
-                    resolve(subData);
-                } else {
-                    reject(false);
-                }
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * 解压缩一个zip文件，解压缩后的文件会直接存储在插件存储空间的根目录下
      * @param {string} fileName - 文件名（插件存储空间内的文件）
      * @mark andr done
      */
     unzipFile(fileName) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.unzipFile(fileName, (isSuccess) => {
-                isSuccess && resolve(true);
-                !isSuccess && reject(false);
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * 解压缩一个gz文件, 并以base64编码的形式直接返回给插件, 不做本地存储
      * @param {string} fileName - 文件名（插件存储空间内的文件）
      * @mark andr done
      */
     ungzFile(fileName) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.ungzFile(fileName, (isSuccess, base64Data) => {
-                if (isSuccess) {
-                    resolve(base64Data);
-                } else {
-                    reject(false);
-                }
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * 屏幕全屏截图
      * @param {string} imageName - 图片名称，png
@@ -303,17 +171,8 @@ export default {
      * <Image source={{uri:imagePath, scale:PixelRatio.get()}} />
      */
     screenShot(imageName) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.screenShot(imageName, (isSuccess, result) => {
-                if (isSuccess) {
-                    resolve(result);
-                } else {
-                    reject(result);
-                }
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * 自定义范围的屏幕截图
      * @param {string} imageName - 图片名称，png
@@ -321,17 +180,8 @@ export default {
      * @mark andr done
      */
     screenShotInRect(imageName, rect) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.screenShotInRect(imageName, rect, (isSuccess, result) => {
-                if (isSuccess) {
-                    resolve(result);
-                } else {
-                    reject(result);
-                }
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * 长截屏，用来截scrollView，会把超出屏幕的部分也截到
      * @param {number} viewRef - scrollView的引用
@@ -347,17 +197,8 @@ export default {
      *  });
      */
     longScreenShot(viewRef, imageName) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.longScreenShot(viewRef, imageName, (isSuccess, result) => {
-                if (isSuccess) {
-                    resolve(result);
-                } else {
-                    reject(result);
-                }
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * 高德地图截屏
      * @param {number} viewRef - MAMapView(MHMapView的父类)的引用
@@ -373,17 +214,8 @@ export default {
      *   });
      */
     amapScreenShot(viewRef, imageName) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.amapScreenShot(viewRef, imageName, (isSuccess, imagePath) => {
-                if (isSuccess) {
-                    resolve(imagePath);
-                } else {
-                    reject(false);
-                }
-            });
-        });
+         return Promise.resolve(null);
     },
-
     /**
      * 获取图片指定点的色值, 传空数组将返回所有点的色值
      * @param {string} imagePath - 图片文件路径
@@ -391,15 +223,6 @@ export default {
      * @mark andr done
      */
     getRGBAValueFromImageAtPath(imagePath, points) {
-        return new Promise((resolve, reject) => {
-            native.MIOTFile.getRGBAValueFromImageAtPath(imagePath, points, (isSuccess, colorValues) => {
-                if (isSuccess) {
-                    resolve(colorValues);
-                } else {
-                    reject(false);
-                }
-            });
-        });
+         return Promise.resolve(null);
     }
-
 };

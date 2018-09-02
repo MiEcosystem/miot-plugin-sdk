@@ -4,18 +4,13 @@
  * @description 输入对话框
  * @mark andr done
  */
-
-
 import React, {Component} from 'react';
 import {
   requireNativeComponent,
   ViewPropTypes,
 } from 'react-native';
-
 import PropTypes from 'prop-types';
-
 const RCTInputDialog = requireNativeComponent('RCTInputDialog', null);
-
 export default class InputDialog extends Component {
   static propTypes = {
     visible: PropTypes.bool,
@@ -29,7 +24,6 @@ export default class InputDialog extends Component {
     onDismiss: PropTypes.func,
     ...ViewPropTypes,
   };
-
   render() {
     return <RCTInputDialog {...this.props}
                              onDismiss={(event) => {

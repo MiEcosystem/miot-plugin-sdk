@@ -28,21 +28,13 @@
  *
  *
  */
-
-import native,{Properties} from './native'
-
-
 import Smarthome from './service/smarthome'
 import Scene from './service/scene'
 import Security from './service/security'
 import Storage from './service/storage'
-
 import Account from './Account'
-
-const CurrentAccount = Properties.init(new Account(), {id:native.MIOTService.currentAccountID});
-
+ const CurrentAccount = null;
 export default {
-
     /**
      * @member smarthome
      * @description 设备相关 API
@@ -51,7 +43,6 @@ export default {
     get smarthome(){
         return Smarthome;
     },
-
     /**
      * @member account
      * @type {IAccount}
@@ -61,8 +52,6 @@ export default {
     get account(){
         return CurrentAccount;
     },
-
-
     /**
      * @member scene
      * @description 场景 API 的调用
@@ -71,7 +60,6 @@ export default {
     get scene(){
         return Scene;
     },
-
     /**
      * @member security
      * @description 安全相关设置操作
@@ -80,7 +68,6 @@ export default {
     get security(){
         return Security;
     },
-
     /**
      * @member storage
      * @description 用户存储操作, userProfile
@@ -89,8 +76,6 @@ export default {
     get storage(){
         return Storage;
     },
-
-
     /**
      * @method
      * @description 服务器名称
@@ -98,31 +83,19 @@ export default {
     getServerName(){
         return "";
     },
-
     /**
      * @method getTimeZoneOfServer
      * @description 服务器所在时区
      */
     getTimeZoneOfServer(){
-        return new Promise();
+         return Promise.resolve(null);
     },
-
     /**
      * @method getUTCFromServer
      * @description 从米家服务器获取当前UTC时间戳（会发送网络请求）
      * @returns {Promise<long>}
      */
     getUTCFromServer(){
-        return new Promise((resolve, reject)=>{
-            native.MIOTRPC.standardCall("/device/get_utc_time",{}, (ok, res)=>{
-                if(ok && res){
-                    return resolve(res);
-                }
-                reject(res);
-            });
-        })
+         return Promise.resolve(0);
     },
-
-
 }
-

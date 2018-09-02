@@ -34,75 +34,64 @@
  *  Host.storage.set(key, value)
  *
  */
-
-import native, { IOS, ANDROID, Utils } from "./native";
-
 import HostUI from './host/ui'
 import HostLocale from './host/locale'
 import HostFile from './host/file'
 import HostStorage from './host/storage'
 import HostAudio from './host/audio'
 import HostCrypto from './host/crypto'
-
+ const IOS="ios", ANDROID="android";
 export const HOST_TYPE_IOS = IOS;
 export const HOST_TYPE_ANDROID = ANDROID;
-
 export default {
-
     /**
      * @const
-     * @type string
+     * @type {string}
      * @description 返回本地环境的类型, ios|android
      *
      *
      */
     get type() {
-        return native.type;
+         return  "..."
     },
-
     /**
      * @const 系统信息
      * @return {object} 包含sysVersion 系统版本名称 mobileModel 手机型号
      */
     get systemInfo() {
-        return native.MIOTHost.systemInfo;
+         return  {}
     },
-
     /**
      * @const
-     * @type bool
+     * @type {boolean}
      * @description 判断是否是 android
      */
     get isAndroid() {
-        return native.isAndroid;
+         return  false
     },
-
     /**
      * @const
      * @description 判断是否 IOS
      */
     get isIOS() {
-        return native.isIOS;
+         return  false
     },
-
     /**
      * @const
      * @type string
      * @description APP 的版本, 例如"1.0.0"
      */
     get version() {
-        return native.MIOTHost.hostVersion;
+         return  ""
     },
-
     /**
      * @const
      * @type int
      * @description APP 的 apiLevel
      */
     get apiLevel() {
-        return native.MIOTHost.hostApiLevel;
+         return  0
     },
-
     /**
      * @const
      * @see {@link module:miot/host/ui}
@@ -112,7 +101,6 @@ export default {
     get ui() {
         return HostUI;
     },
-
     /**
      * @const
      * @see {@link module:miot/host/locale}
@@ -121,7 +109,6 @@ export default {
     get locale() {
         return HostLocale;
     },
-
     /**
      * 本地数据存储服务
      * @const
@@ -131,7 +118,6 @@ export default {
     get storage() {
         return HostStorage;
     },
-
     /**
      * 本地文件服务
      * @const
@@ -156,5 +142,4 @@ export default {
     get crypto() {
         return HostCrypto;
     },
-
 }

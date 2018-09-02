@@ -5,32 +5,9 @@
  * 
  *
  */
-
-import native, { Properties, Utils, createEventManager } from './native'
-
 import Account from "./Account"
 import Scene from './service/scene'
-
-const PERMISSION_OWNER = 16;
-const PERMISSION_FAMILY = 8;
-const PERMISSION_SHARE = 4;
-const PERMISSION_SHARE_READONLY = 32;
-const PERMISSION_NONE = 65296;
-const PERMISSION_NONE_MASK = 30;
-
-function _find_device(did){
-    let device = RootDevice;
-    let props = Properties.of(device);
-    if(props.did != did){
-        device = (props._subDevices||[]).find(d=>did==d.deviceID);
-        if(!device){
-            return {};
-        }
-        props = Properties.of(device);
-    }
-    return {device, props}
-}
-
+ function createEventManager(){}
 /**
  * Device事件名集合
  * @typedef DeviceEvent
@@ -55,8 +32,7 @@ function _find_device(did){
  *    }
  *
  *    ...
- *
- * @expo events
+ * 
  */
 export const DeviceEvent = createEventManager({
     /**
@@ -68,15 +44,8 @@ export const DeviceEvent = createEventManager({
      * @mark andr done
      *
      */
-    deviceNameChanged:{forever:emitter=>
-        ({did, newName})=>{
-            const {device, props} = _find_device(did);
-            if(!device)return;
-            props.name = newName;
-            emitter.emit(device);
-        }
+    deviceNameChanged:{
     },
-
     /**
      * 设备状态变更事件,
      * @event
@@ -85,22 +54,8 @@ export const DeviceEvent = createEventManager({
      * @mark ios  ?
      * @mark andr ?
      */
-    deviceStatusChanged:{forever:emitter=>
-        (did, newstatus, {rootDeviceIsReady})=>{
-            //监听设备准备妥当的消息
-            if(rootDeviceIsReady && did){
-                Properties.of(RootDevice).did = did;
-                //try to reload root device stat at here
-
-                return;
-            }
-            const {device, props} = _find_device(did);
-            if(!device)return;
-            // props.name = newName;
-            emitter.emit(device);
-        }
+    deviceStatusChanged:{
     },
-
     /**
      * 设备场景消息
      * @event
@@ -112,30 +67,13 @@ export const DeviceEvent = createEventManager({
      * @mark andr done
      *
      */
-    deviceReceivedMessages:{forever:emitter=>
-        ({did, data})=>{
-            const {device, props} = _find_device(did);
-            if(!device)return;
-            if(typeof(data) == "string"){
-                data = JSON.parse(data);
-            }
-            const map = new Map();
-            data.forEach(ent=>map.set(ent.key, ent.value))
-            emitter.emit(device, map, data);
-        }
-    ,sameas:"deviceRecievedMessages"}
-
+    deviceReceivedMessages:{
+    }
 });
-
-// export const DeviceEvent = deviceEventManager.eventNames;
-// deviceEventManager.events = deviceEventManager.createEventHandlers();
-
 /**
- * @interface
- * @expo interface
+ * @interface 
  */
 class IDevice {
-
     /**
      *获取设备 id，每一个真实设备都有一个唯一的 id
      * @type {string}
@@ -146,22 +84,19 @@ class IDevice {
      * @mark andr done
      */
     get deviceID() {
-        return Properties.of(this).did;
+         return  0
     }
-
     /**
      * 获取设备的 model,设备类型的唯一标识
      * @type {string}
      * @readonly
-     *
-     * @expo get
+     * 
      * @mark ios
      * @mark andr
      */
     get model() {
-        return Properties.of(this).model;
+         return  ""
     }
-
     /**
      *设备是否已经可用
      * @type {boolean}
@@ -173,10 +108,9 @@ class IDevice {
      *
      */
     get isReady() {
-        const { did } = Properties.of(this);
+         return  false
         return did && did != '';
     }
-
     /**
      * 订阅设备消息
      * @method
@@ -188,19 +122,8 @@ class IDevice {
      * @mark andr done
      */
     subscribeMessages(...propertyOrEventNames) {
-        if(propertyOrEventNames.length < 1){
-            return Promise.reject("arguments is empty");
-        }
-        const {_msgset} = Properties.of(this);
-        propertyOrEventNames.forEach(n=>_msgset.add(n));
-        return (new Promise((resolve, reject)=>{
-            native.MIOTDevice.subscribeMessages(this.deviceID, Array.from(_msgset), (ok) => {
-                ok&&resolve(this);
-                !ok&&reject();
-            })
-        }));
+         return Promise.resolve(this);
     }
-
     /**
      * 加载本设备相关的场景
      * @method
@@ -214,7 +137,6 @@ class IDevice {
     loadScenes(sceneType, opt = null) {
         return Scene.loadScenes(this.deviceID, sceneType, opt);
     }
-
     /**
      * 加载定时场景
      * @param {json} opt
@@ -226,7 +148,6 @@ class IDevice {
     loadTimerScenes(opt = null) {
         return Scene.loadTimerScenes(this.deviceID, opt);
     }
-
     /**
      * 创建场景
      * @method
@@ -240,7 +161,6 @@ class IDevice {
     createScene(sceneType, opt = null) {
         return Scene.createScene(this.deviceID, sceneType, opt);
     }
-
     /**
      * 创建定时场景
      * @method
@@ -253,7 +173,6 @@ class IDevice {
     createTimerScene(opt = null) {
         return Scene.createTimerScene(this.deviceID, opt);
     }
-
     /**
      * 设备固件版本信息
      * @typedef DeviceVersion
@@ -276,21 +195,8 @@ class IDevice {
      * @expo method
      */
     checkVersion() {
-        return new Promise((resolve, reject) => {
-            const { did, pid } = Properties.of(this)
-            native.MIOTRPC.standardCall("/home/checkversion", { did, pid }, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                const { updating, isLatest, description, force, curr, latest } = res;
-                resolve({
-                    isUpdating: updating, isLatest, isForce: force, description,
-                    curVersion: curr, newVersion: latest, hasNewFirmware: updating ? false : !isLatest
-                })
-            });
-        });
+         return Promise.resolve({});
     }
-
     /**
      * 获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。
      * @method
@@ -300,21 +206,8 @@ class IDevice {
      * @expo method
      */
     startUpgradingFirmware() {
-        return new Promise((resolve, reject) => {
-            const { did, pid } = Properties.of(this)
-            native.MIOTRPC.standardCall("/home/devupgrade", { did, pid }, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                const { updating, isLatest, description, force, curr, latest } = res;
-                resolve({
-                    isUpdating: updating, isLatest, isForce: force, description,
-                    curVersion: curr, newVersion: latest, hasNewFirmware: updating ? false : !isLatest
-                })
-            });
-        });
+         return Promise.resolve({});
     }
-
     /**
      * 如果有父设备，直接获取 父设备 Device
      * @type {IDevice}
@@ -324,10 +217,8 @@ class IDevice {
      * @expo get
      */
     get parentDevice() {
-        //更新 subDevice 的时候, 需要将 parentDevice 重置回来
-        return Properties.of(this)._parentDevice;
+         return null
     }
-
     /**
      * 是否是根设备
      * @member
@@ -337,9 +228,8 @@ class IDevice {
      * @expo get
      */
     get isRootDevice() {
-        return !Properties.of(this)._parentDevice;
+         return  false
     }
-
     /**
      * 获取子设备
      * @method
@@ -349,28 +239,7 @@ class IDevice {
      * @mark andr done
      */
     getSubDevices() {
-        const self = Properties.of(this);
-        if (self._parentDevice) {
-            return Promise.reject();
-        }
-        if (self._subDevices) {
-            return Promise.resolve(self._subDevices);
-        }
-        return new Promise((resolve, reject) => {
-            native.MIOTDevice.loadSubDevices(this.deviceID, ret => {
-                if (ret && ret.ok && ret.result) {
-                    self._subDevices = ret.result.map(stat => {
-                        //initDeviceEvents
-                        return (Properties.init(new IDevice(),
-                            { ...stat, _parentDeviceID: this.deviceID, _parentDevice: this, _msgset:new Set()}
-                        ));
-                    })
-                    resolve(self._subDevices);
-                } else {
-                    reject(ret)
-                }
-            });
-        });
+         return Promise.resolve([]);
     }
     /**
      * 蓝牙操作入口
@@ -391,17 +260,8 @@ class IDevice {
      * @expo get
      */
     get bluetooth() {
-        const self = Properties.of(this)
-        if (self._bluetooth) {
-            return self._bluetooth;
-        }
-        if (!self.mac) {
-            throw new Error("the device is not initialized");
-        }
-        self._bluetooth = Bluetooth.createBluetooth(self.mac);
-        return self._bluetooth;
+         return null
     }
-
     /**
      *设备所有者的小米账号, 可以使用 load 获取 account 下的所有数据。不调用 load 只有 ID，nickName 字段有值
      * @type {IAccount} 
@@ -411,19 +271,8 @@ class IDevice {
      * @expo get
      */
     get owner() {
-        const props = Properties.of(this);
-        if (!props._owner) {
-            props._owner = Properties.init(new Account(),
-                {
-                    'id': Properties.of(this).ownerId,
-                    'nickName': Properties.of(this).ownerName,
-                    'isLoaded': false
-                });
-        }
-        return props._owner;
+         return null
     }
-
-
     /**
      * 调用设备方法, 和设备通信如果同一个 wifi 下会使用局域网传输数据，如果不在同一个 wifi 下由米家服务器转发请求
      * @param {string} method  方法名
@@ -434,17 +283,8 @@ class IDevice {
      * @mark andr done
      */
     callMethod(method, args) { 
-        return new Promise((resolve, reject) => {
-            native.MIOTDevice.callMethod(this.deviceID, method, native.isAndroid ? ((typeof (args) === "string") ? args : JSON.stringify(args)) : args, (ok,res) => {
-                if (ok) {
-                    resolve(res)
-                } else {
-                    reject(res)
-                }
-            })
-        })
+         return Promise.resolve({});
     }
-
     /**
      * 加载属性数据, 调用get_prop 方法, 并将返回数据写成{key:value}格式
      * @method
@@ -460,16 +300,8 @@ class IDevice {
      * @expo method
      */
     loadProperties(...propNames) {
-      if (propNames.length < 1) {
-        return Promise.reject();
-      }
-      return this.callMethod("get_prop",propNames).then((res=>{
-        const map = new Map();
-        propNames.forEach((n, i) => map.set(n, res.result[i]));
-        return map;
-      }));
+         return Promise.resolve(new Map());
     }
-
     /**
      * 从云端加载属性数据, 调用get_prop 方法, 并将返回数据写成{key:value}格式
      * @method
@@ -479,16 +311,8 @@ class IDevice {
      * @expo method
      */
     loadPropertiesFromCloud(...propNames) {
-        if (propNames.length < 1) {
-            return Promise.reject();
-        }
-        return this.callMethodFromCloud("get_prop",propNames).then((res=>{
-          const map = new Map();
-          propNames.forEach((n, i) => map.set(n, res[i]));
-          return map;
-        }));
+         return Promise.resolve(new Map());
     }
-
     /**
      * 同 callMethod 函数 不在同一个 wifi 下的情况
      * @param {string} method  方法名
@@ -499,18 +323,8 @@ class IDevice {
      * @mark andr done
      */
     callMethodFromCloud(method, args) {
-        // return this._methodProxy;
-        return new Promise((resolve, reject) => {
-            native.MIOTDevice.callMethodFromCloud(this.deviceID, method, native.isAndroid ? ((typeof (args) === "string") ? args : JSON.stringify(args)) : args, (ok,res) => {
-              if (ok) {
-                resolve(res)
-              } else {
-                reject(res)
-              }
-            })
-        })
+         return Promise.resolve({});
     }
-
     /**
      * 上报日志
      * @param {string} log
@@ -519,9 +333,7 @@ class IDevice {
      * @mark andr done
      */
     reportLog(log) {
-        native.MIOTService.addLog(this.model, log);
     }
-
     /**
      * ping 操作
      * @returns {Promise<json>}
@@ -530,17 +342,8 @@ class IDevice {
      * @mark andr done
      */
     localPing() {
-        return new Promise((resolve, reject) => {
-            native.MIOTDevice.localPingWithCallback(this.deviceID, ret => {
-                if (ret) {
-                    resolve(ret)
-                } else {
-                    reject()
-                }
-            })
-        });
+         return Promise.resolve({});
     }
-
     /**
      * 除了基本信息的其他数据都在这个字段返回，如：{"fw_version":"1.4.0","mcu_version":"0001"}
      * 可以解析为 json
@@ -550,9 +353,8 @@ class IDevice {
      * @expo get
      */
     get extra() {
-        return Properties.of(this).extrainfo;
+         return  ""
     }
-
     /**
      * 开发者平台配置的设备的中文名
      * @type {string}
@@ -561,7 +363,7 @@ class IDevice {
      * @expo get
      */
     get name() {
-        return Properties.of(this).name;
+         return  ""
     }
  
     /**
@@ -572,9 +374,8 @@ class IDevice {
      * @expo get
      */
     get session() {
-        return Properties.of(this).session;
+         return  ""
     }
-
     /**
      *开发者平台配置的设备图标 一个图片的下载地址
      * @type {string}
@@ -583,9 +384,8 @@ class IDevice {
      * @expo get
      */
     get iconURL() {
-        return Properties.of(this).iconURL;
+         return  ""
     }
-
     /**
      * 当前账户对设备的控制权限
      * @type {int}
@@ -594,9 +394,8 @@ class IDevice {
      * @expo get
      */
     get permitLevel() {
-        return Properties.of(this).permitLevel;
+         return  0
     }
-
     /**
      * 是否设置了进入插件使用密码
      * @type {boolean}
@@ -605,9 +404,8 @@ class IDevice {
      * @expo get
      */
     get isSetPinCode() {
-        return Properties.of(this).isSetPinCode;
+         return  false
     }
-
     /**
      * 父设备的 model
      * @type {string}
@@ -616,9 +414,8 @@ class IDevice {
      * @expo get
      */
     get parentModel() {
-        return Properties.of(this).parentModel;
+         return  ""
     }
-
     /**
      * 是否在设备列表显示
      *  0 -- 不显示
@@ -628,10 +425,8 @@ class IDevice {
      * @expo get
      */
     get showMode() {
-        return Properties.of(this).showMode;
+         return  0
     }
-
-
     /**
      * 获取设备的 mac 地址
      * @type {string}
@@ -640,9 +435,8 @@ class IDevice {
      * @expo get
      */
     get mac() {
-        return Properties.of(this).mac;
+         return  ""
     }
-
     /**
      * 获取当前设备固件的版本
      * @type {string}
@@ -651,9 +445,8 @@ class IDevice {
      * @expo get
      */
     get version() {
-        return Properties.of(this).version;
+         return  ""
     }
-
     /**
      *获取 prop中保存的信息
      * @type {json}
@@ -662,9 +455,8 @@ class IDevice {
      * @expo get
      */
     get propInfo() {
-        return Properties.of(this).propInfo;
+         return  {}
     }
-
     /**
      *获取设备的 ip
      * @type {string}
@@ -673,9 +465,8 @@ class IDevice {
      * @expo get
      */
     get IP() {
-        return Properties.of(this).ip;
+         return  ""
     }
-
     /**
      *获取 wifi 信号强度
      * @type {string}
@@ -684,9 +475,8 @@ class IDevice {
      * @expo get
      */
     get RSSI() {
-        return Properties.of(this).rssi;
+         return  ""
     }
-
     /**
      *获取连接 wifi 的名称
      * @type {string}
@@ -695,9 +485,8 @@ class IDevice {
      * @expo get
      */
     get SSID() {
-        return Properties.of(this).ssid;
+         return  ""
     }
-
     /**
      *获取连接 wifi 的mac 地址
      * @type {string}
@@ -706,9 +495,8 @@ class IDevice {
      * @expo get
      */
     get BSSID() {
-        return Properties.of(this).bssid;
+         return  ""
     }
-
     /**
      *获取设备类型
      * @type {int}
@@ -717,9 +505,8 @@ class IDevice {
      * @expo get
      */
     get type() {
-        return Properties.of(this).pid;
+         return  0
     }
-
     /**
      *获取上次修改时间
       时间戳, 例如1532587811237
@@ -729,9 +516,8 @@ class IDevice {
      * @expo get
      */
     get lastModified() {
-        return Properties.of(this).lastModified;
+         return  1532587811237
     }
-
     /**
      *本地设备还是远程设备
      0未知 1本地 2远程
@@ -741,9 +527,8 @@ class IDevice {
      * @expo get
      */
     get location() {
-        return Properties.of(this).location;
+         return  0
     }
-
     /**
      * 经纬度
      * @type {double}
@@ -752,9 +537,8 @@ class IDevice {
      * @expo get
      */
     get latitude() {
-        return Properties.of(this).latitude;
+         return  0.0
     }
-
     /**
      * 经纬度
      * @type {double}
@@ -763,9 +547,8 @@ class IDevice {
      * @expo get
      */
     get longitude() {
-        return Properties.of(this).longitude;
+         return  0.0
     }
-
     /**
      * 是否支持语音控制
      * @return {boolean}
@@ -774,9 +557,8 @@ class IDevice {
      * @expo get
      */
     get isVoiceDevice() {
-        return Properties.of(this).isVoiceDevice;
+         return  false
     }
-
     /**
      * 设备是否在线 true 在线
      * @type {boolean}
@@ -785,9 +567,8 @@ class IDevice {
      * @expo get
      */
     get isOnline() {
-        return Properties.of(this).isOnline;
+         return  false
     }
-
     /**
      * 重置标志
      * @type {int}
@@ -796,9 +577,8 @@ class IDevice {
      * @expo get
      */
     get resetFlag() {
-        return Properties.of(this).resetFlag;
+         return  0
     }
-
     /**
      *是否是自己的设备
      * @type {boolean}
@@ -807,9 +587,8 @@ class IDevice {
      * @expo get
      */
     get isOwner() {
-        return (Properties.of(this).permitLevel & PERMISSION_NONE_MASK & PERMISSION_OWNER) !== 0;
+         return  false
     }
-
     /**
      *是否是自己家庭的设备
      * @type {boolean}
@@ -818,9 +597,8 @@ class IDevice {
      * @expo get
      */
     get isFamily() {
-        return (Properties.of(this).permitLevel & PERMISSION_NONE_MASK & PERMISSION_FAMILY) !== 0;
+         return  false
     }
-
     /**
      *是否是别人分享的设备
      * @type {boolean}
@@ -829,9 +607,8 @@ class IDevice {
      * @expo get
      */
     get isShared() {
-        return (Properties.of(this).permitLevel & PERMISSION_SHARE) !== 0 && Properties.of(this).ownerName !== null;
+         return  false
     }
-
     /**
      *是否是Binded2的设备
      * @type {boolean}
@@ -840,30 +617,19 @@ class IDevice {
      * @expo get
      */
     get isBinded2() {
-        return (Properties.of(this).permitLevel & PERMISSION_NONE_MASK) !== 0;
+         return  false
     }
-
     /**
      *是否是别人分享的只读设备
      * @type {boolean}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get isReadonlyShared() {
-        return (Properties.of(this).permitLevel & PERMISSION_SHARE_READONLY) !== 0 && Properties.of(this).ownerName !== null;
+         return  false
     }
-
-
 }
-
-/**
- * @static
- * @type {IDevice}
- */
-const RootDevice = new IDevice();
-Properties.init(RootDevice, { ...native.MIOTDevice.currentDevice, _msgset:new Set()})
-/**
- * @expo default {}
+const RootDevice={};
+/** 
  */
 export default RootDevice;
