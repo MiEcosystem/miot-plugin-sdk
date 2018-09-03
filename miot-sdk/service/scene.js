@@ -174,7 +174,7 @@ function createScene(deviceID, sceneType, opt=null){
      return Promise.resolve(null);
 }
 function loadScenes(deviceID, sceneType, opt=null){
-     => promise
+     return Promise.resolve(null);
 }
 /**
  * export
