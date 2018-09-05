@@ -18,5 +18,7 @@
 [https://miecosystem.github.io/miot-plugin-sdk](https://miecosystem.github.io/miot-plugin-sdk) 
 
 ## 调试环境
-    IOS
-    Android
+
+[iOS IPA 包下载地址](https://fir.im/mijiadevelopment)
+    
+Android
