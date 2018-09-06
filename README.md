@@ -22,3 +22,5 @@
 [iOS IPA 包下载地址](https://fir.im/mijiadevelopment)
     
 [Android apk包下载地址](https://fir.im/MiHomeForAndroid)
+
+下载密码: keliyuan
