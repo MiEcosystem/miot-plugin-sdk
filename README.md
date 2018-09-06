@@ -21,4 +21,4 @@
 
 [iOS IPA 包下载地址](https://fir.im/mijiadevelopment)
     
-Android
+[Android apk包下载地址](https://fir.im/MiHomeForAndroid)
