@@ -126,9 +126,10 @@
  Host.ui.openShopPage(100)
 
  Host.locale.language
- Host.locale.getTimezone().then(timezone=>{})
- Host.locale.getCountry().then(country=>{})
- Host.locale.getPlace().then(place=>{})
+ Host.locale.timezone
+ Host.locale.currentTimeMillis.then(time=>{})
+ Host.locale.getCurrentCountry().then(country=>{})
+ Host.locale.getPlaceMark().then(place=>{})
  Host.locale.getGPS().then(gps=>{})
 
 
@@ -424,7 +425,7 @@
 
         
             
-<h4 class="name" id=".isAndroid"><span class="type-signature">(static, constant) </span>isAndroid<span class="type-signature"> :bool</span></h4>
+<h4 class="name" id=".isAndroid"><span class="type-signature">(static, constant) </span>isAndroid<span class="type-signature"> :boolean</span></h4>
 
 
 
@@ -439,7 +440,7 @@
     <ul>
         <li>
             
-<span class="param-type">bool</span>
+<span class="param-type">boolean</span>
 
 
         </li>
