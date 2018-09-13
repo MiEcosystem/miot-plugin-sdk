@@ -276,7 +276,7 @@ bluetooth.disconnect()</code></pre>
     
 
     
-    <h4 class="name" id=".createBluetooth"><span class="type-signature">(static) </span>createBluetooth<span class="signature">(macOrUUID)</span><span class="type-signature"> &rarr; {IBluetooth}</span></h4>
+    <h4 class="name" id=".createBluetooth"><span class="type-signature">(static) </span>createBluetooth<span class="signature">(mac)</span><span class="type-signature"> &rarr; {IBluetooth}</span></h4>
     
 
     
@@ -320,13 +320,13 @@ bluetooth.disconnect()</code></pre>
 
         <tr>
             
-                <td class="name"><code>macOrUUID</code></td>
+                <td class="name"><code>mac</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">string</span>
 
 
             
@@ -419,7 +419,8 @@ bluetooth.disconnect()</code></pre>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import Bluetooth from 'miot/Bluetooth'</code></pre>
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import Bluetooth from 'miot/Bluetooth'
+  const bludtooth = Bluetooth.createBluetooth("a.b.c...")</code></pre>
 
 
 
@@ -548,6 +549,16 @@ bluetooth.disconnect()</code></pre>
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>void</p>
+</div>
+
+
+
+    
 
 
 
@@ -658,7 +669,7 @@ bluetooth.disconnect()</code></pre>
     
 
     
-    <h4 class="name" id=".retrievePeripheralsForIOS"><span class="type-signature">(static) </span>retrievePeripheralsForIOS<span class="signature">(uuids, opt)</span><span class="type-signature"> &rarr; {Promise.&lt;Map.&lt;uuid, Bluetooth>>}</span></h4>
+    <h4 class="name" id=".retrievePeripheralsForIOS"><span class="type-signature">(static) </span>retrievePeripheralsForIOS<span class="signature">(&hellip;UUIDs)</span><span class="type-signature"> &rarr; {Promise.&lt;Map.&lt;uuid, Bluetooth>>}</span></h4>
     
 
     
@@ -690,6 +701,8 @@ bluetooth.disconnect()</code></pre>
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -702,46 +715,33 @@ bluetooth.disconnect()</code></pre>
 
         <tr>
             
-                <td class="name"><code>uuids</code></td>
+                <td class="name"><code>UUIDs</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">string</span>
 
 
             
             </td>
 
             
-
-            
-
-            <td class="description last"><p>serviceUUID or deviceUUID</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opt</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type">*</span>
 
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
 
             
-            </td>
 
-            
-
-            
-
-            <td class="description last"><p>{withServiceUUID:false}</p></td>
+            <td class="description last"><p>deviceUUID</p></td>
         </tr>
 
     
@@ -822,147 +822,13 @@ bluetooth.disconnect()</code></pre>
 
 
 
-
-        
-            
-
+    <h5>Example</h5>
     
-
-    
-    <h4 class="name" id=".startLeScan"><span class="type-signature">(static) </span>startLeScan<span class="signature">(durationInMillis, serviceIds)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>扫描指定 serviceIds 的蓝牙设备</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>durationInMillis</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>扫描时长</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>serviceIds</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>serviceId 的数组</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">...
+  Bluetooth.retrievePeripheralsForIOS({services:["deviceUUID1","deviceUUID2","deviceUUID3"]})
+  Bluetooth.retrievePeripheralsForIOS({devices:["deviceUUID1","deviceUUID2","deviceUUID3"]})
+  ...
+  Bluetooth.retrievePeripheralsForIOS("deviceUUID1","deviceUUID2","deviceUUID3",...)</code></pre>
 
 
 
@@ -972,7 +838,7 @@ bluetooth.disconnect()</code></pre>
     
 
     
-    <h4 class="name" id=".startScan"><span class="type-signature">(static) </span>startScan<span class="signature">(durationInMillis, type)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".startScan"><span class="type-signature">(static) </span>startScan<span class="signature">(durationInMillis, &hellip;serviceUUIDs)</span><span class="type-signature"> &rarr; {void}</span></h4>
     
 
     
@@ -1004,6 +870,8 @@ bluetooth.disconnect()</code></pre>
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -1021,8 +889,21 @@ bluetooth.disconnect()</code></pre>
 
             <td class="type">
             
+                
+<span class="param-type">int</span>
+
+
+            
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -1034,23 +915,33 @@ bluetooth.disconnect()</code></pre>
 
         <tr>
             
-                <td class="name"><code>type</code></td>
+                <td class="name"><code>serviceUUIDs</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">int</span>
+<span class="param-type">string</span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>0经典蓝牙 1 ble 蓝牙</p></td>
+            <td class="description last"><p>指定扫描, 为空时扫描全部</p></td>
         </tr>
 
     
@@ -1109,6 +1000,24 @@ bluetooth.disconnect()</code></pre>
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -1116,7 +1025,7 @@ bluetooth.disconnect()</code></pre>
     <h5>Example</h5>
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import Bluetooth from 'miot/Bluetooth'
-     Bluetooth.startScan(ret=>{})</code></pre>
+     Bluetooth.startScan(30, ...)</code></pre>
 
 
 
@@ -1126,7 +1035,7 @@ bluetooth.disconnect()</code></pre>
     
 
     
-    <h4 class="name" id=".stopScan"><span class="type-signature">(static) </span>stopScan<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".stopScan"><span class="type-signature">(static) </span>stopScan<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
     
 
     
@@ -1196,6 +1105,24 @@ bluetooth.disconnect()</code></pre>
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 

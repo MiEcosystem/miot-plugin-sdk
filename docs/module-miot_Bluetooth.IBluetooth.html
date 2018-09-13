@@ -29,7 +29,7 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-miot_Bluetooth.html">module:miot/Bluetooth</a>.</span>IBluetooth</h2>
+            <span class="ancestors"><a href="module-miot_Bluetooth.html">miot/Bluetooth</a>.</span>IBluetooth</h2>
         
             <div class="class-description"><p>蓝牙设备</p></div>
         
@@ -101,7 +101,7 @@
 
         
             
-<h4 class="name" id="getService"><span class="type-signature"></span>getService<span class="type-signature"> :IBluetoothService</span></h4>
+<h4 class="name" id="getService"><span class="type-signature"></span>getService<span class="type-signature"></span></h4>
 
 
 
@@ -111,16 +111,6 @@
 </div>
 
 <!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">IBluetoothService</span>
-
-
-        </li>
-    </ul>
 
 -->
 
@@ -373,7 +363,7 @@
 
         
             
-<h4 class="name" id="UUID"><span class="type-signature">(readonly) </span>UUID<span class="type-signature"></span></h4>
+<h4 class="name" id="UUID"><span class="type-signature">(readonly) </span>UUID<span class="type-signature"> :string</span></h4>
 
 
 
@@ -383,6 +373,16 @@
 </div>
 
 <!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
 
 -->
 
@@ -434,87 +434,6 @@
 
     
         <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="bindDevice"><span class="type-signature"></span>bindDevice<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>只在MIUI上支持，维持长连接 如果连接失败，则会隔一段时间尝试重连，如果继续失败，则重连间隔会翻倍，直到上限。</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         
             
@@ -808,131 +727,6 @@
     
 
     
-    <h4 class="name" id="isAutoReconnect"><span class="type-signature"></span>isAutoReconnect<span class="signature">(callback)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>设备自动重连开关是否打开</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
     <h4 class="name" id="readRSSI"><span class="type-signature"></span>readRSSI<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;*>}</span></h4>
     
 
@@ -1021,149 +815,6 @@
 </dl>
 
     
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="setAutoReconnect"><span class="type-signature"></span>setAutoReconnect<span class="signature">(enable, callback)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>设置指定的设备断开后是否自动重连</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>enable</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1324,87 +975,6 @@
 </dl>
 
     
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="unBindDevice"><span class="type-signature"></span>unBindDevice<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>只在MIUI上支持，解除长连接</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
