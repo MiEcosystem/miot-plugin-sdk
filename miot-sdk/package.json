@@ -1,8 +1,5 @@
 {
-  "name": "miot",
-  "version": "0.1.0",
-  "api_level":10000, 
-  "api_level_android":[0,1],
-  "api_level_ios":[0,3],
-  "main": "index.js"
-}
+"name":"miot",
+"version":"0.1.0",
+"api_level":10000,
+"main":"index.js"}
