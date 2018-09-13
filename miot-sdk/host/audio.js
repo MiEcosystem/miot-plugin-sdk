@@ -9,6 +9,7 @@ export default {
    * @param audioName {string} 保存文件名
    * @param settings {object} 配置参数 AVSampleRateKey，AVNumberOfChannelsKey，AVLinearPCMBitDepthKey,audioFormatLinearPCM,AVEncoderAudioQualityKey
    * @return {Promise}
+   * 
    * @mark andr done
    */
   startRecord(audioName, settings) {
