@@ -21,9 +21,10 @@
  *  Host.ui.openShopPage(100)
  *
  *  Host.locale.language
- *  Host.locale.getTimezone().then(timezone=>{})
- *  Host.locale.getCountry().then(country=>{})
- *  Host.locale.getPlace().then(place=>{})
+ *  Host.locale.timezone
+ *  Host.locale.currentTimeMillis.then(time=>{})
+ *  Host.locale.getCurrentCountry().then(country=>{})
+ *  Host.locale.getPlaceMark().then(place=>{})
  *  Host.locale.getGPS().then(gps=>{})
  *
  *

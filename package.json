@@ -36,6 +36,7 @@
     "rmc-date-picker": "6.0.8",
     "rmc-picker": "5.0.5",
     "seedrandom": "2.4.3",
-    "victory-native": "0.18.1"
+    "victory-native": "0.18.1",
+    "whatwg-fetch": "2.0.4"
   }
 }
