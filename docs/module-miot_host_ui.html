@@ -137,7 +137,7 @@
     
 
     
-    <h4 class="name" id=".getDevicesWithModel"><span class="type-signature">(static) </span>getDevicesWithModel<span class="signature">(model, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".getDevicesWithModel"><span class="type-signature">(static) </span>getDevicesWithModel<span class="signature">(model)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;devices>>}</span></h4>
     
 
     
@@ -201,29 +201,6 @@
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">getDevicesWithModelCallback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -279,6 +256,24 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Array.&lt;devices>></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -765,7 +760,7 @@
     
 
     
-    <h4 class="name" id=".openDevice"><span class="type-signature">(static) </span>openDevice<span class="signature">(did, model, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".openDevice"><span class="type-signature">(static) </span>openDevice<span class="signature">(did, model)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
     
 
     
@@ -838,7 +833,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">string</span>
 
 
             
@@ -849,29 +844,6 @@
             
 
             <td class="description last"><p>设备的model</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">callback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>callback(error, info) error表示错误信息，info表示被打开的设备信息</p></td>
         </tr>
 
     
@@ -930,6 +902,28 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>返回被打开的 device 信息</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -1603,7 +1597,7 @@
     
 
     
-    <h4 class="name" id=".openPrivacyLicense"><span class="type-signature">(static) </span>openPrivacyLicense<span class="signature">(licenseTitle, licenseUrl, policyTitle, policyUrl, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".openPrivacyLicense"><span class="type-signature">(static) </span>openPrivacyLicense<span class="signature">(licenseTitle, licenseUrl, policyTitle, policyUrl)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -1736,29 +1730,6 @@
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">openPrivacyLicenseCallback</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -1814,6 +1785,24 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -2665,7 +2654,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">json</span>
 
 
             
@@ -2711,7 +2700,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">json</span>
 
 
             
@@ -3287,132 +3276,6 @@
             
 
             <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-                
-
-    
-
-    
-    <h4 class="name" id="~openPrivacyLicenseCallback"><span class="type-signature"></span>openPrivacyLicenseCallback<span class="signature">(result)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>result</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>用户是否同意</p></td>
         </tr>
 
     

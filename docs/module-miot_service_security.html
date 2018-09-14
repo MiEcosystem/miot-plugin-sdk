@@ -152,7 +152,7 @@
 
 
 <div class="description">
-    <p>获取锁绑定信息</p>
+    <p>获取锁绑定信息, 返回数据格式：{&quot;bindtime&quot;:1505180216}</p>
 </div>
 
 
@@ -266,10 +266,6 @@
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    <p>返回数据格式：{&quot;bindtime&quot;:1505180216}</p>
-</div>
-
 
 
 <dl>
@@ -444,12 +440,16 @@
     
 
     
-    <h4 class="name" id=".shareSecureKey"><span class="type-signature">(static) </span>shareSecureKey<span class="signature">(deviceID, shareUid, settings)</span><span class="type-signature"> &rarr; {Promise.&lt;ISecureKey>}</span></h4>
+    <h4 class="name" id=".shareSecureKey"><span class="type-signature">(static) </span>shareSecureKey<span class="signature">(deviceID, shareUid, settings<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;ISecureKey>}</span></h4>
     
 
     
 
 
+
+<div class="description">
+    <p>分享</p>
+</div>
 
 
 
@@ -472,7 +472,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -492,7 +496,19 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last"></td>
@@ -510,7 +526,19 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last"><p>被分享人</p></td>
@@ -526,23 +554,33 @@
             <td class="type">
             
                 
-<span class="param-type">json</span>
+<span class="param-type">Object</span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"><p>{
-     status
-     activeTime
-     expireTime
-     weekdays
-     readonly 被分享人不可接收锁push，false：被分享人可接收锁push，（family关系用户不受这个字段影响）
- }</p></td>
+            
+                <td class="default">
+                
+                    {}
+                
+                </td>
+            
+
+            <td class="description last"><p>readonly = true, 则被分享人不可接收锁push，false则被分享人可接收锁push，（family关系用户不受这个字段影响）</p></td>
         </tr>
 
     

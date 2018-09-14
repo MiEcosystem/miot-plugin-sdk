@@ -280,7 +280,7 @@
     
 
     
-    <h4 class="name" id=".getAvailableFirmwareForDids"><span class="type-signature">(static) </span>getAvailableFirmwareForDids<span class="signature">(deviceIDs)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id=".getAvailableFirmwareForDids"><span class="type-signature">(static) </span>getAvailableFirmwareForDids<span class="signature">(deviceIDs)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
     
 
     
@@ -405,7 +405,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">Promise.&lt;json></span>
 
 
     </dd>
@@ -423,7 +423,7 @@
     
 
     
-    <h4 class="name" id=".getDevicesConfig"><span class="type-signature">(static) </span>getDevicesConfig<span class="signature">(deviceID)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id=".getDevicesConfig"><span class="type-signature">(static) </span>getDevicesConfig<span class="signature">(deviceID)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
     
 
     
@@ -548,7 +548,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise</span>
+<span class="param-type">Promise.&lt;json></span>
 
 
     </dd>
@@ -1000,7 +1000,7 @@
     
 
     
-    <h4 class="name" id=".reportGPSInfo"><span class="type-signature">(static) </span>reportGPSInfo<span class="signature">(deviceID, gpsInfo)</span><span class="type-signature"> &rarr; {Promise.&lt;boolean>}</span></h4>
+    <h4 class="name" id=".reportGPSInfo"><span class="type-signature">(static) </span>reportGPSInfo<span class="signature">(deviceID, gpsInfo)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
     
 
     
@@ -1153,7 +1153,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;boolean></span>
+<span class="param-type">Promise.&lt;json></span>
 
 
     </dd>
@@ -1162,6 +1162,186 @@
     
 
 
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".reportLog"><span class="type-signature">(static) </span>reportLog<span class="signature">(model, log)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>添加一条日志打点。开发者应该在拓展程序内合适时机调用该接口，打点信息会自动写入文件，按 Model 归类，即一个 Model 生成一个日志文件。当用户反馈问题时，勾选 “同时上传日志”，则该 Model 的日志会跟随用户反馈上传，开发者可在 IoT 平台查看用户反馈及下载对应日志文件。</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>model</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>要打 log 到哪个 model 下</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>log</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>具体的 log 数据</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Service.smarthome.reportLog("a.b.c", "hello");
+    Service.smarthome.reportLog(Device.model, `[info]test value is :${v1},${v2},${v3}`)
+    Package.isDebug&amp;&amp;Service.smarthome.reportLog(...)
+
+    Device.reportLog(`...`)</code></pre>
 
 
 
@@ -1305,168 +1485,6 @@
     
 
 
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~reportLog"><span class="type-signature">(inner) </span>reportLog<span class="signature">(model, log)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>添加一条日志打点。开发者应该在拓展程序内合适时机调用该接口，打点信息会自动写入文件，按 Model 归类，即一个 Model 生成一个日志文件。当用户反馈问题时，勾选 “同时上传日志”，则该 Model 的日志会跟随用户反馈上传，开发者可在 IoT 平台查看用户反馈及下载对应日志文件。</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>model</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>要打 log 到哪个 model 下</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>log</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>具体的 log 数据</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Service.smarthome.reportLog("a.b.c", "hello");
-    Service.smarthome.reportLog(Device.model, `[info]test value is :${v1},${v2},${v3}`)
-    Package.isDebug&amp;&amp;Service.smarthome.reportLog(...)
-
-    Device.reportLog(`...`)</code></pre>
 
 
 

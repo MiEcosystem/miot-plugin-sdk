@@ -137,7 +137,7 @@
     
 
     
-    <h4 class="name" id=".get"><span class="type-signature">(static) </span>get<span class="signature">(key)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".get"><span class="type-signature">(static) </span>get<span class="signature">(key)</span><span class="type-signature"> &rarr; {*}</span></h4>
     
 
     
@@ -256,6 +256,24 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -267,7 +285,7 @@
     
 
     
-    <h4 class="name" id=".load"><span class="type-signature">(static) </span>load<span class="signature">(keys)</span><span class="type-signature"> &rarr; {promise}</span></h4>
+    <h4 class="name" id=".load"><span class="type-signature">(static) </span>load<span class="signature">(keys)</span><span class="type-signature"> &rarr; {promise.&lt;Array.&lt;json>>}</span></h4>
     
 
     
@@ -390,7 +408,7 @@
 
         
 <div class="param-desc">
-    <p>返回的promise传出的值是values数组，和传入的keys对应</p>
+    <p>返回的promise传出的值是values数组，和传入的keys对应 [{key,value}]</p>
 </div>
 
 
@@ -401,7 +419,7 @@
     </dt>
     <dd>
         
-<span class="param-type">promise</span>
+<span class="param-type">promise.&lt;Array.&lt;json>></span>
 
 
     </dd>
@@ -419,7 +437,7 @@
     
 
     
-    <h4 class="name" id=".save"><span class="type-signature">(static) </span>save<span class="signature">(keyValues, opt<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".save"><span class="type-signature">(static) </span>save<span class="signature">(keyValues, opt<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {void}</span></h4>
     
 
     
@@ -594,6 +612,24 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -605,7 +641,7 @@
     
 
     
-    <h4 class="name" id=".set"><span class="type-signature">(static) </span>set<span class="signature">(key, val, opt<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".set"><span class="type-signature">(static) </span>set<span class="signature">(key, val, opt<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {void}</span></h4>
     
 
     
@@ -814,6 +850,24 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
