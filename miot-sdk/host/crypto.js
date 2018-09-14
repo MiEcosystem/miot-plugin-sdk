@@ -5,38 +5,38 @@
  */
 export default {
     /**
-     * 
-     * @param {*} content 
+     * @param {string} content
+     * @returns {Promise<string>}
      */
     encodeMD5(content){
-         return Promise.resolve(null);
+       return Promise.resolve('');
     },
-    /**
-     * 
-     * @param {*} content 
+    /** 
+     * @param {string} content
+     * @returns {Promise<string>}
      */
     encodeBase64(content){
-         return Promise.resolve(null);
+         return Promise.resolve('');
     },
     /**
-     * 
-     * @param {*} content 
+     * @param {string} content
+     * @returns {Promise<string>}
      */
     decodeBase64(content){
-         return Promise.resolve(null);
+       return Promise.resolve('');
     },
     /**
-     * 
-     * @param {*} content 
+     * @param {string} content
+     * @returns {Promise<string>}
      */
     encodeSHA1(content){
-         return Promise.resolve(null);
+       return Promise.resolve('');
     },
     /**
-     * 
-     * @param {*} content 
+     *
+     * @param {*} content
      */
     encodeSHA2(content){
-         return Promise.resolve(null);
+       return Promise.resolve('');
     },
 };

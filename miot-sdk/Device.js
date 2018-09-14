@@ -278,9 +278,7 @@ class IDevice {
      * @param {string} method  方法名
      * @param {json} args  参数 
      * @return {Promise<json>} {code:0,result:{},id:""}
-     * 
-     * @expo method
-     * @mark andr done
+     *  
      */
     callMethod(method, args) { 
          return Promise.resolve({});
@@ -296,8 +294,7 @@ class IDevice {
      *      const a = map.get("a")
      *      const b = map.get("b")
      *   })
-     *
-     * @expo method
+     * 
      */
     loadProperties(...propNames) {
          return Promise.resolve(new Map());
@@ -307,8 +304,7 @@ class IDevice {
      * @method
      * @param {*} propNames
      * @returns {Promise<Map>} Map<name, value>
-     *
-     * @expo method
+     * 
      */
     loadPropertiesFromCloud(...propNames) {
          return Promise.resolve(new Map());
@@ -318,9 +314,7 @@ class IDevice {
      * @param {string} method  方法名
      * @param {json} args 参数  
      * @return {Promise<json>} 请求成功返回 {code:0,result:{} } 
-     * 
-     * @expo method
-     * @mark andr done
+     *  
      */
     callMethodFromCloud(method, args) {
          return Promise.resolve({});
@@ -329,17 +323,13 @@ class IDevice {
      * 上报日志
      * @param {string} log
      * 
-     * @expo method
-     * @mark andr done
      */
     reportLog(log) {
     }
     /**
      * ping 操作
      * @returns {Promise<json>}
-     * 
-     * @expo method
-     * @mark andr done
+     *  
      */
     localPing() {
          return Promise.resolve({});
@@ -349,8 +339,7 @@ class IDevice {
      * 可以解析为 json
      * @type {string}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get extra() {
          return  ""
@@ -359,8 +348,7 @@ class IDevice {
      * 开发者平台配置的设备的中文名
      * @type {string}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get name() {
          return  ""
@@ -370,8 +358,7 @@ class IDevice {
      *设备的 session
      * @type {string}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get session() {
          return  ""
@@ -380,8 +367,7 @@ class IDevice {
      *开发者平台配置的设备图标 一个图片的下载地址
      * @type {string}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get iconURL() {
          return  ""
@@ -390,8 +376,7 @@ class IDevice {
      * 当前账户对设备的控制权限
      * @type {int}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get permitLevel() {
          return  0
@@ -400,8 +385,7 @@ class IDevice {
      * 是否设置了进入插件使用密码
      * @type {boolean}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get isSetPinCode() {
          return  false
@@ -410,8 +394,7 @@ class IDevice {
      * 父设备的 model
      * @type {string}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get parentModel() {
          return  ""
@@ -421,8 +404,7 @@ class IDevice {
      *  0 -- 不显示
      * @type {int}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get showMode() {
          return  0
@@ -431,8 +413,7 @@ class IDevice {
      * 获取设备的 mac 地址
      * @type {string}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get mac() {
          return  ""
@@ -441,18 +422,16 @@ class IDevice {
      * 获取当前设备固件的版本
      * @type {string}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get version() {
          return  ""
     }
     /**
-     *获取 prop中保存的信息
+     * 获取 prop中保存的信息
      * @type {json}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get propInfo() {
          return  {}
@@ -461,70 +440,61 @@ class IDevice {
      *获取设备的 ip
      * @type {string}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get IP() {
          return  ""
     }
     /**
-     *获取 wifi 信号强度
+     * 获取 wifi 信号强度
      * @type {string}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get RSSI() {
          return  ""
     }
     /**
-     *获取连接 wifi 的名称
+     * 获取连接 wifi 的名称
      * @type {string}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get SSID() {
          return  ""
     }
     /**
-     *获取连接 wifi 的mac 地址
+     * 获取连接 wifi 的mac 地址
      * @type {string}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get BSSID() {
          return  ""
     }
     /**
-     *获取设备类型
+     * 获取设备类型
      * @type {int}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get type() {
          return  0
     }
     /**
-     *获取上次修改时间
-      时间戳, 例如1532587811237
-     * @type {long}}
+     * 获取上次修改时间戳, 例如1532587811237
+     * @type {long}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get lastModified() {
          return  1532587811237
     }
     /**
-     *本地设备还是远程设备
-     0未知 1本地 2远程
+     * 本地设备还是远程设备, 0未知 1本地 2远程
      * @type {int}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get location() {
          return  0
@@ -533,8 +503,7 @@ class IDevice {
      * 经纬度
      * @type {double}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get latitude() {
          return  0.0
@@ -543,8 +512,7 @@ class IDevice {
      * 经纬度
      * @type {double}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get longitude() {
          return  0.0
@@ -553,8 +521,7 @@ class IDevice {
      * 是否支持语音控制
      * @return {boolean}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get isVoiceDevice() {
          return  false
@@ -563,8 +530,7 @@ class IDevice {
      * 设备是否在线 true 在线
      * @type {boolean}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get isOnline() {
          return  false
@@ -573,8 +539,7 @@ class IDevice {
      * 重置标志
      * @type {int}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get resetFlag() {
          return  0
@@ -583,8 +548,7 @@ class IDevice {
      *是否是自己的设备
      * @type {boolean}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get isOwner() {
          return  false
@@ -593,8 +557,7 @@ class IDevice {
      *是否是自己家庭的设备
      * @type {boolean}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get isFamily() {
          return  false
@@ -603,8 +566,7 @@ class IDevice {
      *是否是别人分享的设备
      * @type {boolean}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get isShared() {
          return  false
@@ -613,8 +575,7 @@ class IDevice {
      *是否是Binded2的设备
      * @type {boolean}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get isBinded2() {
          return  false
@@ -631,5 +592,6 @@ class IDevice {
 }
 const RootDevice={};
 /** 
+ * @export
  */
-export default RootDevice;
+export default RootDevice; 

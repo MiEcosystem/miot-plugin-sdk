@@ -57,46 +57,34 @@ export const PackageEvent = createEventManager({
     packageDidLoaded: { local: true },
     /**
     * 插件将暂时退出前台事件
-    * @event
-    * @mark ios ?
-    * @mark andr done
+    * @event 
     */
     packageWillPause: { always: true },
     /**
     * 插件将重回前台事件
-    * @event
-    * @mark ios ?
-    * @mark andr done
+    * @event 
     */
     packageDidResume: { always: true },
     /**
      * 用户撤销隐私授权时的回调
-     * @event
-     * @mark ios 
-     * @mark andr done
+     * @event 
      */
     packageAuthorizationCancel: { always: true },
     /**
      * 插件接收到场景等通知消息
      * @event 
-     * 
-     * @mark ios 
-     * @mark andr 
+     *  
      * 
      */
     packageReceivedInformation: { always: true },
     /**
     * 插件将退出事件
-    * @event
-    * @mark ios ?
-    * @mark andr done
+    * @event 
     */
     packageWillExit: { always: true },
     /**
     * 从 Native 界面返回到插件,可以通过监听此事件更新已加载过的视图，或进行相应的事件处理。
-    * @event
-    * @mark ios 名字未确定 
-    * @mark andr done
+    * @event 
     */
     packageViewWillAppear: { always: true }
 });
@@ -110,10 +98,7 @@ export default {
      * @const
      * @type {string}
      * @readonly
-     * 
-     * @expo get
-     * @mark ios ?
-     * @mark andr done
+     *  
      */
     get extraInfo() {
          return  ""
@@ -123,10 +108,7 @@ export default {
      * @const
      * @type {int}
      * @readonly
-     * 
-     * @expo get
-     * @mark ios done
-     * @mark andr done
+     *  
      */
     get packageID() {
          return  0
@@ -136,11 +118,7 @@ export default {
      * @const
      * @type {string}
      * @readonly
-     * 
-     * @expo get
-     * @mark 或许不需要 
-     * @mark ios  ?
-     * @mark andr 待读取
+     *  
      */
     get version() {
          return  ""
@@ -150,10 +128,7 @@ export default {
      * @const
      * @type {string}
      * @readonly
-     * 
-     * @expo get
-     * @mark ios  done
-     * @mark andr done
+     *  
      */
     get packageName() {
          return  ""
@@ -163,10 +138,7 @@ export default {
      * @const
      * @type {int}
      * @readonly
-     * 
-     * @expo get
-     * @mark ios  done
-     * @mark andr done
+     *  
      */
     get minApiLevel() {
          return  0
@@ -176,10 +148,7 @@ export default {
      * @const
      * @type {string}
      * @readonly
-     * 
-     * @expo get
-     * @mark ios  ?
-     * @mark andr done
+     *  
      */
     get buildType() {
          return  "release"
@@ -189,8 +158,7 @@ export default {
      * @const
      * @type {boolean}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get isDebug() {
          return  false
@@ -200,10 +168,7 @@ export default {
      * @const
      * @type {string}
      * @readonly
-     * 
-     * @expo get
-     * @mark ios  done
-     * @mark andr done
+     *  
      */
     get models() {
          return  ""
@@ -215,18 +180,14 @@ export default {
      * @param {function} afterPackageEntry 进入后, RootComponent 加载之前执行, 缺省为空
      * @example
      *      Package.entry(App, ()=>{...})
-     *
-     * @expo method
+     * 
      */
     entry(RootComponent, afterPackageEntry = null) {
     },
     /**
      * 强制退出插件
      * @method
-     * 
-     * @expo method
-     * @mark ios  done
-     * @mark andr done
+     *  
      */
     exit() {
     }

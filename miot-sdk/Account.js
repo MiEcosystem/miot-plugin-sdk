@@ -16,9 +16,7 @@
  *
  */
 /**
- * @interface
- *
- * @expo interface
+ * @interface 
  */
 class IAccount{
     /**
@@ -33,8 +31,7 @@ class IAccount{
   /**
    * 当前登录账户 userid
    * @type {string}
-    * @readonly
-    *  
+   * @readonly 
    */
     get ID(){
          return  0
@@ -42,8 +39,7 @@ class IAccount{
   /**
    * 当前登录账户 用户昵称
    * @type {string}
-     * @readonly
-     *  
+   * @readonly 
    */
     get nickName(){
          return  ""
@@ -51,8 +47,7 @@ class IAccount{
   /**
    * 当前登录账户 用户头像的下载地址
    * @type {string}
-     * @readonly
-     *  
+   * @readonly 
    */
     get avatarURL(){
          return  ""
@@ -61,8 +56,7 @@ class IAccount{
   /**
    * 当前登录账户 用户生日
    * @type {string}
-     * @readonly
-     *  
+   * @readonly 
    */
     get birth(){
          return  "..."
@@ -70,8 +64,7 @@ class IAccount{
   /**
    * 当前登录账户 用户邮箱
    * @type {string}
-     * @readonly
-     *  
+   * @readonly 
    */
     get email(){
          return  "..."
@@ -79,8 +72,7 @@ class IAccount{
   /**
    * 当前登录账户 用户电话
    * @type {string}
-     * @readonly
-     *  
+   * @readonly 
    */
     get phone(){
          return  ""
@@ -88,8 +80,7 @@ class IAccount{
   /**
    * 当前登录账户 用户性别
    * @type {string}
-     * @readonly
-     *  
+   * @readonly 
    */
     get sex(){
          return  ""
@@ -97,8 +88,7 @@ class IAccount{
   /**
    * 当前登录账户 用户分享时间
    * @type {string}
-     * @readonly
-     *  
+   * @readonly 
    */
     get shareTime(){
          return  ""
@@ -107,9 +97,7 @@ class IAccount{
    * 加载用户信息，回调方法中会返回时才有用户信息
    * @method
    * @param {boolean} force 强制刷新缓存，加载米家服务器的用户信息
-   * @return {Promise<IAccount>} 
-   *
-   * @mark andr done
+   * @return {Promise<IAccount>}  
    * 
    */
     load(force=false){

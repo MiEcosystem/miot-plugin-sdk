@@ -8,10 +8,10 @@ export default {
     /**
      * 读数据
      * @param {string} componentId 
-     * @param {} keys 
+     * @param {...string} keys 
      * @returns {Promise}
      */
-    getUserConfigs(componentId,keys){
+    getUserConfigs(componentId,...keys){
          return Promise.resolve(null);
     },
     /**
@@ -20,7 +20,6 @@ export default {
      * @param {*} data 
      * @returns {Promise}
      */
-    
     setUserConfigs(componentId,data){
          return Promise.resolve(null);
     }

@@ -31,6 +31,7 @@ export const SceneType={
  */
 export class IScene{
     /**
+     * 
      * @member
      * @type {int}
      * @readonly
@@ -120,9 +121,6 @@ export class IScene{
     }
     set identify(identify){
     }
-    // get data(){
-    //     return Properties.of(this).data;
-    // }
     /**
      * @member
      * @type {json}
@@ -161,13 +159,13 @@ export class IScene{
      * @returns {Promise<boolean>}
      */
     start(){
-         return Promise.resolve(null);
+         return Promise.resolve(false);
     }
     /**
      * @returns {Promise<boolean>}
      */
     remove(){
-         return Promise.resolve(null);
+         return Promise.resolve(false);
     }
 }
 function createScene(deviceID, sceneType, opt=null){
@@ -177,21 +175,21 @@ function loadScenes(deviceID, sceneType, opt=null){
      return Promise.resolve(null);
 }
 /**
- * export
+ * @export
  */
 export default {
     /**
      * 创建场景
-     * @param {*} deviceID 
-     * @param {*} sceneType 
-     * @param {json} opt {identify,name}
+     * @param {string} deviceID 
+     * @param {int} sceneType 
+     * @param {{identify,name}} opt {identify,name}
      * @returns {IScene}
      */
     createScene,
     /**
      * 创建定时场景
-     * @param {*} deviceID 
-     * @param {*} opt 
+     * @param {string} deviceID 
+     * @param {json} opt 
      * @returns {IScene}
      */
     createTimerScene(deviceID, opt){
@@ -199,8 +197,8 @@ export default {
     },
     /**
      * 创建人工场景
-     * @param {*} deviceID 
-     * @param {*} opt 
+     * @param {string} deviceID 
+     * @param {json} opt 
      * @returns {IScene}
      */
     createArtificialScene(deviceID, opt){
@@ -208,8 +206,8 @@ export default {
     },
     /**
      * 创建自动场景
-     * @param {*} deviceID 
-     * @param {*} opt 
+     * @param {string} deviceID 
+     * @param {json} opt 
      * @returns {IScene}
      */
     createAutomaticScene(deviceID, opt){

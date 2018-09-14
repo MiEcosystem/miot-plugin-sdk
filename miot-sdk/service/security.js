@@ -9,20 +9,33 @@
  * 
  */
 export class ISecureKey{
+    /**
+     * 设备 ID
+     * @type {long}
+     * @readonly
+     */
     get deviceID(){
          return  0
     }
+    /**
+     * keyID
+     * @type {long}
+     * @readonly
+     */
     get keyID(){
          return  0
     }
     /**
      * 分享目标的uid
+     * @type {string}
+     * @readonly
      */
     get shareUserID(){
          return  0
     }
     /**
      * 生效时间 UTC时间戳，单位为s
+     * @type {long}
      */
     get activeTime(){
          return  0
@@ -55,23 +68,33 @@ export class ISecureKey{
     }
     set status(status){
     }
+    /**
+     * 是否过期
+     * @type {boolean}
+     * @readonly
+     */
     get isOutOfDate(){
          return  false
     }
     
     /**
-     * @returns {Promise<boolean>}
+     * 保存
+     * @returns {Promise}
      */
     save(){
          return Promise.resolve(null);
     }
     /**
-     * @returns {Promise<boolean>}
+     * 删除
+     * @returns {Promise}
      */
     remove(){
          return Promise.resolve(false);
     }
 }
+/**
+ * @export
+ */
 export default {
     /**
      * 加载设备的安全锁
@@ -79,30 +102,24 @@ export default {
      * @returns {Promise<ISecureKey[]>}
      */
     loadSecureKeys(deviceID){
-         return Promise.resolve(null);
+         return Promise.resolve([]);
     },
     /**
+     * 分享
      * @param deviceID
      * @param shareUid 被分享人
-     * @param {json} settings
-     *  {
-     *      status
-     *      activeTime
-     *      expireTime
-     *      weekdays
-     *      readonly 被分享人不可接收锁push，false：被分享人可接收锁push，（family关系用户不受这个字段影响）
-     *  }
-     *  @returns {Promise<ISecureKey>}
+     * @param {{status,activeTime,expireTime,weekdays,readonly}} [settings={}] readonly = true, 则被分享人不可接收锁push，false则被分享人可接收锁push，（family关系用户不受这个字段影响）
+     * @returns {Promise<ISecureKey>}
      */
     shareSecureKey(deviceID, shareUid, settings={}){ 
          return Promise.resolve(null);
     },
     /**
-     * 获取锁绑定信息
+     * 获取锁绑定信息, 返回数据格式：{"bindtime":1505180216}
      * 
      * @param {*} deviceID 
      * @returns {Promise<json>} 
-     *   返回数据格式：{"bindtime":1505180216}
+     *   
      */
     getLockBindInfo(deviceID){
          return Promise.resolve(null);

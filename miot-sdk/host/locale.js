@@ -1,4 +1,3 @@
-import native from "../native";
 /**
  * @export
  * @module miot/host/locale
@@ -8,63 +7,42 @@ import native from "../native";
 export default {
     /**
      * 获取本地语言
+     * @type {string}
      */
     get language(){
-      return native.MIOTHost.language;
     },
     /**
      * 获取时区 比如 8 -8
+     * @type {string}
      */
     get timeZone(){
-      return native.MIOTHost.timeZone;
     },
     /**
      * 获取本地当前时间
+     * @returns {Promise<long>}
      */
      get currentTimeMillis(){
-      return new Promise((resolve, reject) => {
-        native.MIOTHost.getCurrentTimeMillis(callback => {
-          resolve(callback);
-        });
-      });
+        return Promise.resolve(null);
      },
      /**
       * 获取当前国家
+      * @return {Promise}
       */
      getCurrentCountry(){
-       return new Promise((resolve, reject) => {
-         native.MIOTHost.getLocation((ok, res) => {
-           if (ok)
-             resolve(res.country);
-           else
-             reject(res);
-         });
-       });
+        return Promise.resolve(null);
      },
      /**
       * 获取当前地址
+      * @returns {Promise}
       */
      getPlaceMark(){
-       return new Promise((resolve, reject) => {
-         native.MIOTHost.getLocation((ok, res) => {
-           if (ok)
-             resolve(res.address);
-           else
-             reject(res);
-         });
-       });
+       return Promise.resolve(null);
      },
      /**
       * 获取当前地理经纬度
+      * @returns {Promise}
       */
      getGPS(){
-       return new Promise((resolve, reject) => {
-         native.MIOTHost.getLocation((ok, res) => {
-           if (ok)
-             resolve(res);
-           else
-             reject(res);
-         });
-       });
+        return Promise.resolve(null);
      },
  }

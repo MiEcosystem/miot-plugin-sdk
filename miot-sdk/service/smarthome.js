@@ -20,9 +20,7 @@ export default {
      * 上报gps信息
      * @param {*} deviceID
      * @param {GPSInfo} gpsInfo
-     * @returns {Promise<boolean>}
-     *
-     *
+     * @returns {Promise<json>}
      *
      */
     reportGPSInfo(deviceID, gpsInfo){
@@ -53,16 +51,16 @@ export default {
     /**
      * 检查到有可用更新时，可以主动更新固件。
      * @param deviceIDs
-     * @return {Promise}
+     * @return {Promise<json>}
      */
     getAvailableFirmwareForDids(deviceIDs){
          return Promise.resolve(null);
     },
     /**
-     * @method reportLog
-     * @description 添加一条日志打点。开发者应该在拓展程序内合适时机调用该接口，打点信息会自动写入文件，按 Model 归类，即一个 Model 生成一个日志文件。当用户反馈问题时，勾选 “同时上传日志”，则该 Model 的日志会跟随用户反馈上传，开发者可在 IoT 平台查看用户反馈及下载对应日志文件。
+     * 添加一条日志打点。开发者应该在拓展程序内合适时机调用该接口，打点信息会自动写入文件，按 Model 归类，即一个 Model 生成一个日志文件。当用户反馈问题时，勾选 “同时上传日志”，则该 Model 的日志会跟随用户反馈上传，开发者可在 IoT 平台查看用户反馈及下载对应日志文件。
      * @param {string} model 要打 log 到哪个 model 下
      * @param {string} log 具体的 log 数据
+     * @returns {void}
      *
      * @example
      *     Service.smarthome.reportLog("a.b.c", "hello");
@@ -76,7 +74,7 @@ export default {
     /**
      * 获取支持语音的设备 可以控制的设备列表。
      * @param deviceID  语音设备的 did
-     * @return {Promise}
+     * @return {Promise<json>}
      */
     getDevicesConfig(params){
          return Promise.resolve(null);
