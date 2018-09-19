@@ -114,7 +114,7 @@ export default {
          return  0
     },
     /**
-     * 程序包的版本号, 来自于{@link packageInfo.json} 的 {@link version}
+     * 程序包的版本号, 来自于{@link project.json} 的 {@link version}
      * @const
      * @type {string}
      * @readonly
@@ -124,7 +124,7 @@ export default {
          return  ""
     },
     /**
-     * 程序包名, 来自于{@link packageInfo.json} 的 {@link package_name}
+     * 程序包名, 来自于{@link project.json} 的 {@link package_name}
      * @const
      * @type {string}
      * @readonly
@@ -134,7 +134,7 @@ export default {
          return  ""
     },
     /**
-     * 扩展程序适用的最低 API level, 来自于{@link packageInfo.json} 的 {@link min_api_level}
+     * 扩展程序适用的最低 API level, 来自于{@link project.json} 的 {@link min_api_level}
      * @const
      * @type {int}
      * @readonly

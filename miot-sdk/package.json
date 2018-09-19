@@ -1,5 +1,6 @@
 {
 "name":"miot",
-"version":"0.1.0",
 "api_level":10000,
-"main":"index.js"}
+"sdk_dependencies":{
+"android":0,
+"ios":0}}

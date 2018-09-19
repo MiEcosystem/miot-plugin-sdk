@@ -169,7 +169,7 @@ export default {
      * @param {string} imageName - 图片名称，png, 
      * @return {Promise<string>} - 截图成功回调函数返回存储图片的绝对路径，加载图片时直接使用即可 
      * @example
-     * <Image source={{uri:imagePath, scale:PixelRatio.get()}} />
+     * <Image source={{local:imageName, scale:PixelRatio.get()}} />
      * 
      */
     screenShot(imageName) {

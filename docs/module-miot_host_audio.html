@@ -391,7 +391,7 @@
 
             
 
-            <td class="description last"><p>配置参数 updateAudioPlayerTimeInterval,audioPlayerUid</p></td>
+            <td class="description last"><p>配置参数 updateAudioPlayerTimeInterval 回调间隔, audioPlayerUid 音频的唯一标识</p></td>
         </tr>
 
     
@@ -539,7 +539,7 @@
 
             
 
-            <td class="description last"><p>保存文件名</p></td>
+            <td class="description last"><p>保存文件名，如 audio.mp3</p></td>
         </tr>
 
     
@@ -562,7 +562,12 @@
 
             
 
-            <td class="description last"><p>配置参数 AVSampleRateKey，AVNumberOfChannelsKey，AVLinearPCMBitDepthKey,audioFormatLinearPCM,AVEncoderAudioQualityKey</p></td>
+            <td class="description last"><p>配置参数{ AVSampleRateKey 采样率 默认44100，
+                               AVNumberOfChannelsKey 声道，默认2，
+                               AVLinearPCMBitDepthKey 音频编码比特率 默认16,
+                               AVFormatIDKey 编码格式(AMR,AMR_WB,MPEG4AAC,MPEG4CELP,MPEG4HVXC,MPEG4TwinVQ,AC3,60958AC3),
+                               AVEncoderAudioQualityKey 音质(Min,Low,Medium,High,Max)
+                             }</p></td>
         </tr>
 
     
