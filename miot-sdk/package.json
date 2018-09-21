@@ -1,6 +1,4 @@
 {
 "name":"miot",
 "api_level":10000,
-"sdk_dependencies":{
-"android":0,
-"ios":0}}
+"version":"release"}

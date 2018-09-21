@@ -1,0 +1,7 @@
+{
+    "name": "project-com-xiaomi-demo",
+    "version": "0.0.1",
+    "dependencies": {
+        "react-native-qiniu": "^0.3.0"
+    }
+}
