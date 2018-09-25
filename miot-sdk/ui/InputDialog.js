@@ -10,36 +10,56 @@ import {
   ViewPropTypes,
 } from 'react-native';
 import PropTypes from 'prop-types';
-const RCTInputDialog = requireNativeComponent('RCTInputDialog', null);
 export default class InputDialog extends Component {
   static propTypes = {
+    /**
+     * 是否可见
+     * @member {boolean}
+     */
     visible: PropTypes.bool,
+    /**
+     * 标题
+     * @member {string}  
+     */
     title: PropTypes.string,
+    /**
+     * 
+     * @member {string} 
+     */
     message: PropTypes.string,
+    /**
+     * 
+     * @member {string}   
+     */
     cancel: PropTypes.string,
+    /**
+     * 
+     * @member {string}   
+     */
     confirm: PropTypes.string,
+    /**
+     * 
+     * @member {boolean}   
+     */
     singleLine: PropTypes.bool,
+    /**
+     * 
+     * @event    
+     */
     onConfirm: PropTypes.func,
+    /**
+     * 
+     * @event 
+     */
     onCancel: PropTypes.func,
+    /**
+     * 
+     * @event    
+     */
     onDismiss: PropTypes.func,
     ...ViewPropTypes,
   };
   render() {
-    return <RCTInputDialog {...this.props}
-                             onDismiss={(event) => {
-                               if (this.props.onDismiss) {
-                                 this.props.onDismiss(event.nativeEvent);
-                               }
-                             }}
-                             onCancel={(event) => {
-                               if (this.props.onCancel) {
-                                 this.props.onCancel(event.nativeEvent);
-                               }
-                             }}
-                             onConfirm={(event) => {
-                               if (this.props.onConfirm) {
-                                 this.props.onConfirm(event.nativeEvent);
-                               }
-                             }}/>;
+     return null
   }
 }

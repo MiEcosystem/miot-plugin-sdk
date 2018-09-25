@@ -15,7 +15,7 @@
  *     Package.isDebug
  *     Package.models
  *
- *     Package.entry();
+ *     Package.entry(App, ()=>{...});
  *     Package.exit();
  *  
  *    

@@ -10,35 +10,51 @@ import {
   ViewPropTypes,
 } from 'react-native';
 import PropTypes from 'prop-types';
-const RCTMessageDialog = requireNativeComponent('RCTMessageDialog', null);
 export default class MessageDialog extends Component {
   static propTypes = {
+    /**
+     * 
+     * @member    
+     */
     visible: PropTypes.bool,
+    /**
+     * 
+     * @member    
+     */
     title: PropTypes.string,
+    /**
+     * 
+     * @member    
+     */
     message: PropTypes.string,
+    /**
+     * 
+     * @member    
+     */
     cancel: PropTypes.string,
+    /**
+     * 
+     * @member    
+     */
     confirm: PropTypes.string,
+    /**
+     * 
+     * @event    
+     */
     onConfirm: PropTypes.func,
+    /**
+     * 
+     * @event    
+     */
     onCancel: PropTypes.func,
+    /**
+     * 
+     * @event    
+     */
     onDismiss: PropTypes.func,
     ...ViewPropTypes,
   };
   render() {
-    return <RCTMessageDialog {...this.props}
-                             onDismiss={(event) => {
-                               if (this.props.onDismiss) {
-                                 this.props.onDismiss(event.nativeEvent);
-                               }
-                             }}
-                             onCancel={(event) => {
-                               if (this.props.onCancel) {
-                                 this.props.onCancel(event.nativeEvent);
-                               }
-                             }}
-                             onConfirm={(event) => {
-                               if (this.props.onConfirm) {
-                                 this.props.onConfirm(event.nativeEvent);
-                               }
-                             }}/>;
+     return null
   }
 }

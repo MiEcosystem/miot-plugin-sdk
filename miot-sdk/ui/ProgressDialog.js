@@ -10,23 +10,41 @@ import {
   ViewPropTypes,
 } from 'react-native';
 import PropTypes from 'prop-types';
-const RCTProgressDialog = requireNativeComponent('RCTProgressDialog', null);
 export default class ProgressDialog extends Component {
   static propTypes = {
+    /**
+     * 
+     * @member    
+     */
     visible: PropTypes.bool,
+    /**
+     * 
+     * @member    
+     */
     title: PropTypes.string,
+    /**
+     * 
+     * @member    
+     */
     message: PropTypes.string,
+    /**
+     * 
+     * @member    
+     */
     max: PropTypes.number,
+    /**
+     * 
+     * @member    
+     */
     progress: PropTypes.number,
+    /**
+     * 
+     * @event    
+     */
     onDismiss: PropTypes.func,
     ...ViewPropTypes,
   };
   render() {
-    return <RCTProgressDialog {...this.props}
-                              onDismiss={(event) => {
-                                if (this.props.onDismiss) {
-                                  this.props.onDismiss(event.nativeEvent);
-                                }
-                              }}/>;
+     return null
   }
 }

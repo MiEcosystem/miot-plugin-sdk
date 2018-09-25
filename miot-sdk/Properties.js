@@ -79,7 +79,7 @@ class IProperties{
             return this;
         }
         if(name == "*"){
-            return removeAllListeners();
+            return removeAllProperties();
         }
         this._properties.delete(name);
         this._status.delete(name);
@@ -95,7 +95,7 @@ class IProperties{
             return this;
         }
         if(names[0] == "*"){
-            return removeAllListeners();
+            return removeAllProperties();
         }
         names.forEach(name=>removeProperty(name))
         return this;

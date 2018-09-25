@@ -5,8 +5,11 @@
  * @description 系统提供的一些内置模块,包括提示,高德地图,广告等
  *
  * @example
- *    import {AD,Tip} from 'miot/ui'
- *    import MiotAD from 'miot/ui/AD'
+ *    import {ImageButton,LoadingDialog} from 'miot/ui'
+ *    import MiotImageButton from 'miot/ui/ImageButton'
+ *    import miotui from 'miot/ui'
+ * 
+ *    const btn = <miotui.ImageButton .../>
  */
 import _LocalizedStrings from './LocalizedStrings'
 import _ImageButton from './ImageButton'

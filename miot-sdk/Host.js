@@ -12,7 +12,7 @@
  *  Host.type // ios/ android/ tv
  *  Host.isIOS
  *  Host.isAndroid
- *  Host.isTV
+ * 
  *  Host.version
  *  Host.apiLevel
  *
