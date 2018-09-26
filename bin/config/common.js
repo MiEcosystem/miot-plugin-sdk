@@ -1,1 +1,220 @@
-'use strict';var n=require('child_process'),o=n.spawn,r=n.execSync,e=require('path'),i=require("fs"),t=e.join(__dirname,"..",".."),c=process.cwd();process.chdir(t),process.on('uncaughtException',function(){process.exit(1e3)});try{!(function(){for(var n=arguments.length,o=Array(n),r=0;r<n;r++)o[r]=arguments[r];[2].concat(o)})(1)}catch(n){console.log("PLEASE USE NODE v9 AT LEAST"),process.exit(100)}var l=JSON.parse(i.readFileSync(e.join(t,"miot-sdk","package.json")).toString()),a=l.api_level;function s(n,o,r){var e=i.createReadStream(n);e.on('error',function(o){o&&console.log('read error',n),r&&r(o)});var t=i.createWriteStream(o);t.on('error',function(n){n&&console.log('write error',o),r&&r(n)}),t.on('close',function(n){r&&r(n)}),e.pipe(t)}function u(n){var o=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null,r=arguments.length>2&&void 0!==arguments[2]?arguments[2]:null;(i.readdirSync(n)||[]).forEach(function(t){var c=e.join(n,t),l=i.statSync(c);if(l.isDirectory()){var a=e.relative(r||n,c);o.onDir&&!o.onDir(e.relative(r||n,c))||(u(c,o,r||n),o&&o.afterDir&&o.afterDir(a))}else l.isFile()&&(o.onFile||o)(e.relative(r||n,c))})}module.exports={project_dir:t,process_dir:c,sdkconf:l,API_LEVEL:a,ANDROID:"android",IOS:"ios",IDX_ANDROID:0,IDX_IOS:1,IDX_MOD:2,IDX_PATH:3,IDX_TYPE:4,TYPE_MODULE:1,TYPE_ASSET:2,exec:function(n){var r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:[],e=arguments.length>2&&void 0!==arguments[2]?arguments[2]:null,i=arguments.length>3&&void 0!==arguments[3]&&arguments[3],t=o(n,r);t.stdout.on('data',function(n){i||console.log(n.toString())}),t.stderr.on('data',function(n){i||console.log('error\uff1a'+n)}),t.on('close',function(n){e&&e(n)})},execSync:r,copyFile:s,copyFileSync:function(n,o){i.writeFileSync(o,i.readFileSync(n))},copyFolder:function n(o,r){var t=arguments.length>2&&void 0!==arguments[2]?arguments[2]:null;i.readdir(o,function(c,l){var a=0,u=function(){++a==l.length&&t&&t()};c?u():(l.forEach(function(t){var c=e.join(o,t),l=e.join(r,t);i.stat(c,function(o,r){r.isDirectory()?i.mkdir(l,function(o){o?console.log(o):n(c,l,u)}):s(c,l,u)})}),0===l.length&&t&&t())})},makeDirs:function n(o){var r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;i.exists(o,function(t){t?r&&r():n(e.dirname(o),function(){i.mkdir(o,r||function(){})})})},makeDirsSync:function n(o){!o||o.length<1||i.existsSync(o)||(console.log(o),n(e.dirname(o)),i.mkdirSync(o))},loadAllFiles:function(n){var o=[];return u(n,function(n){return o.push(n)}),o},loadFiles:u,removeDir:function(n){i.existsSync(n)&&u(n,{afterDir:function(o){i.rmdirSync(e.join(n,o))},onFile:function(o){i.unlinkSync(e.join(n,o))}})},objectWithoutProperties:function(n){for(var o={},r=arguments.length,e=Array(r>1?r-1:0),i=1;i<r;i++)e[i-1]=arguments[i];for(var t in n)e.indexOf(t)>=0||Object.prototype.hasOwnProperty.call(n,t)&&(o[t]=n[t]);return o}};
+'use strict';
+
+const { spawn,execSync } = require('child_process'); 
+const path = require('path');
+const fs = require("fs");
+
+const project_dir = path.join(__dirname, "..", "..");
+const process_dir = process.cwd();
+//will be changed to false when export to github
+const DEV=false;
+
+process.chdir(project_dir)
+process.on('uncaughtException', ()=>{
+  process.exit(1000)
+})
+try{
+  (function(...args){return [2,...args]})(1)
+}catch(err){
+  console.log("PLEASE USE NODE v9 AT LEAST")
+  process.exit(100)
+}
+
+if(!DEV){
+  fs.chmodSync(path.join(project_dir, "package.json"), 0o444);
+}
+
+const sdkconf = JSON.parse(fs.readFileSync(path.join(project_dir, "miot-sdk", "package.json")).toString());
+const API_LEVEL = sdkconf.api_level;
+
+const ANDROID = "android"
+const IOS = "ios"
+
+const IDX_ANDROID = 0
+const IDX_IOS = 1
+const IDX_MOD = 2
+const IDX_PATH = 3
+const IDX_TYPE = 4
+
+const TYPE_MODULE = 1
+const TYPE_ASSET = 2
+
+function objectWithoutProperties(obj, ...keys) {
+  var target = {};
+  for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;
+    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+    target[i] = obj[i];
+  }
+  return target;
+}
+
+function exec(command, args=[], onFinish=null, ignore_out=false){
+    const cmd = spawn(command, args);
+    cmd.stdout.on('data', (data) => {
+      ignore_out || console.log(data.toString());
+    });
+    cmd.stderr.on('data', (data) => {
+      ignore_out || console.log(`error：${data}`); 
+    });
+    cmd.on('close', (code) => { 
+      onFinish&&onFinish(code); 
+    });
+}
+
+function makeDirsSync(srcPath){
+  if(!srcPath || srcPath.length < 1 || fs.existsSync(srcPath)){
+    return;
+  }
+  console.log(srcPath)
+  makeDirsSync(path.dirname(srcPath)); 
+  fs.mkdirSync(srcPath); 
+}
+
+function copyFileSync(srcPath, tarPath){
+  fs.writeFileSync(tarPath, fs.readFileSync(srcPath))
+}
+
+function copyFile(srcPath, tarPath, cb) {
+   
+  // console.log("copy_file", srcPath, tarPath)
+    var rs = fs.createReadStream(srcPath)
+    rs.on('error', function (err) {
+      if (err) {
+        console.log('read error', srcPath)
+      }
+      cb && cb(err)
+    })
+  
+    var ws = fs.createWriteStream(tarPath)
+    ws.on('error', function (err) {
+      if (err) {
+        console.log('write error', tarPath)
+      }
+      cb && cb(err)
+    })
+    ws.on('close', function (ex) {
+      cb && cb(ex)
+    })
+  
+    rs.pipe(ws)
+    
+  }
+  
+function copyFolder(srcDir, tarDir, cb = null) {
+    fs.readdir(srcDir, function (err, files) {
+      var count = 0
+      var checkEnd = function () {
+        ++count == files.length && cb && cb()
+      }
+  
+      if (err) {
+        checkEnd()
+        return
+      }
+  
+      files.forEach(function (file) {
+        var srcPath = path.join(srcDir, file)
+        var tarPath = path.join(tarDir, file)
+  
+        fs.stat(srcPath, function (err, stats) {
+          if (stats.isDirectory()) {
+            // console.log('mkdir', tarPath)
+            fs.mkdir(tarPath, function (err) {
+              if (err) {
+                console.log(err)
+                return
+              }
+              copyFolder(srcPath, tarPath, checkEnd)
+            })
+          } else {
+            copyFile(srcPath, tarPath, checkEnd)
+          }
+        })
+      })
+  
+      files.length === 0 && cb && cb()
+    })
+}
+
+function loadFiles(srcDir, onFile=null, rootDir=null) {
+  (fs.readdirSync(srcDir)||[]).forEach(f=>{
+      const _path = path.join(srcDir, f)
+      const stat = fs.statSync(_path);
+      if(stat.isDirectory()){
+        const _p = path.relative(rootDir||srcDir,_path);
+        if(!onFile.onDir||onFile.onDir(path.relative(rootDir||srcDir,_path))){
+          loadFiles(_path, onFile, rootDir||srcDir);
+          onFile&&onFile.afterDir&&onFile.afterDir(_p)
+        }
+      }else if(stat.isFile()){
+        (onFile.onFile||onFile)(path.relative(rootDir||srcDir,_path));
+      } 
+  })
+}
+
+function loadAllFiles(src){
+  const arr=[];
+  loadFiles(src, p=>arr.push(p))
+  return arr;
+}
+
+function makeDirs(filepath,callback=null){
+    fs.exists(filepath,function(exists){
+        if(exists){
+            callback&&callback();
+        }
+        else{
+            makeDirs(path.dirname(filepath),function(){
+                fs.mkdir(filepath,callback||(()=>{}));
+            });
+        }
+    });
+}
+
+function removeDir(srcPath){
+  fs.existsSync(srcPath) && loadFiles(srcPath, {
+    afterDir(p){
+      fs.rmdirSync(path.join(srcPath, p))
+    },
+    onFile(p){
+      fs.unlinkSync(path.join(srcPath, p))
+    }
+  })
+}
+
+module.exports = {
+    DEV,
+    project_dir, 
+    process_dir,
+
+    sdkconf,
+    API_LEVEL,
+
+    ANDROID,
+    IOS,
+    IDX_ANDROID,
+    IDX_IOS,
+    IDX_MOD,
+    IDX_PATH,
+    IDX_TYPE,
+    
+    TYPE_MODULE,
+    TYPE_ASSET,
+
+    exec,
+    execSync,
+    
+    copyFile,
+    copyFileSync,
+    copyFolder,
+    makeDirs,
+    makeDirsSync,
+ 
+    loadAllFiles,
+    loadFiles,
+
+    removeDir, 
+
+    objectWithoutProperties
+}
