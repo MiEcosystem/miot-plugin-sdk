@@ -26,6 +26,10 @@ if(!DEV){
 
 const sdkconf = JSON.parse(fs.readFileSync(path.join(project_dir, "miot-sdk", "package.json")).toString());
 const API_LEVEL = sdkconf.api_level;
+const SDK_VERSION = Math.floor(API_LEVEL / 10000) + "." 
+                  + Math.floor((API_LEVEL % 10000)/100) + "."
+                  + (API_LEVEL % 100);
+sdkconf.version = SDK_VERSION;
 
 const ANDROID = "android"
 const IOS = "ios"
@@ -190,6 +194,7 @@ module.exports = {
 
     sdkconf,
     API_LEVEL,
+    SDK_VERSION,
 
     ANDROID,
     IOS,
