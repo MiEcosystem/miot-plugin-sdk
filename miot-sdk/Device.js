@@ -38,21 +38,16 @@ export const DeviceEvent = createEventManager({
     /**
      * 设备名称变更事件
      * @event
-     * @param {IDevice} device -发生变更的设备
-     *
-     * @mark ios  ?
-     * @mark andr done
-     *
+     * @param {IDevice} device -发生变更的设备 
+     * @since 1.0.0
+     * 
      */
     deviceNameChanged:{
     },
     /**
      * 设备状态变更事件,
      * @event
-     * @param {IDevice} device -发生变更的设备
-     *
-     * @mark ios  ?
-     * @mark andr ?
+     * @param {IDevice} device -发生变更的设备 
      */
     deviceStatusChanged:{
     },
@@ -61,10 +56,7 @@ export const DeviceEvent = createEventManager({
      * @event
      * @param {IDevice} device
      * @param {Map<string,object>} messages -接收到的数据
-     * @param {array} originData -接收到的数据, [{key,time,value}]
-     *
-     * @mark ios  ?
-     * @mark andr done
+     * @param {array} originData -接收到的数据, [{key,time,value}] 
      *
      */
     deviceReceivedMessages:{
@@ -78,10 +70,7 @@ class IDevice {
      *获取设备 id，每一个真实设备都有一个唯一的 id
      * @type {string}
      * @readonly
-     * 
-     * @expo get
-     * @mark ios  done
-     * @mark andr done
+     *  
      */
     get deviceID() {
          return  0
@@ -90,9 +79,7 @@ class IDevice {
      * 获取设备的 model,设备类型的唯一标识
      * @type {string}
      * @readonly
-     * 
-     * @mark ios
-     * @mark andr
+     *  
      */
     get model() {
          return  ""
@@ -101,10 +88,7 @@ class IDevice {
      *设备是否已经可用
      * @type {boolean}
      * @readonly
-     *
-     * @expo get
-     * @mark ios
-     * @mark andr
+     * 
      *
      */
     get isReady() {
@@ -116,10 +100,7 @@ class IDevice {
      * @method
      * @param {...string} propertyOrEventNames -在开发平台上声明的 prop 与 event 名
      * @returns {Promise<IDevice>}
-     *
-     * @expo method
-     * @mark ios
-     * @mark andr done
+     * 
      */
     subscribeMessages(...propertyOrEventNames) {
          return Promise.resolve(this);
@@ -131,8 +112,7 @@ class IDevice {
      * @param {*} opt
      * @returns {Promise<IScene[]>}
      * @see {@link module:miot/service/scene}
-     * 
-     * @expo method
+     *  
      */
     loadScenes(sceneType, opt = null) {
         return Scene.loadScenes(this.deviceID, sceneType, opt);
@@ -142,8 +122,7 @@ class IDevice {
      * @param {json} opt
      * @returns {Promise<IScene[]>}
      * @see {@link module:miot/service/scene}
-     * 
-     * @expo method
+     *  
      */
     loadTimerScenes(opt = null) {
         return Scene.loadTimerScenes(this.deviceID, opt);
@@ -155,8 +134,7 @@ class IDevice {
      * @param {json} opt
      * @returns {IScene}
      * @see {@link module:miot/service/scene}
-     * 
-     * @expo method
+     *  
      */
     createScene(sceneType, opt = null) {
         return Scene.createScene(this.deviceID, sceneType, opt);
@@ -167,8 +145,7 @@ class IDevice {
      * @param {json} opt
      * @returns {IScene}
      * @see {@link module:miot/service/scene}
-     * 
-     * @expo method
+     *  
      */
     createTimerScene(opt = null) {
         return Scene.createTimerScene(this.deviceID, opt);
@@ -183,16 +160,13 @@ class IDevice {
      * @property {string} curVersion
      * @property {string} newVersion
      * @property {string} description
-     * 
-     * @expo def
+     *  
      */
     /**
      * 检查硬件版本信息
      * @method
      * @returns {Promise<DeviceVersion>}
-     * 
-     * 
-     * @expo method
+     *  
      */
     checkVersion() {
          return Promise.resolve({});
@@ -201,9 +175,7 @@ class IDevice {
      * 获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。
      * @method
      * @return {Promise<DeviceVersion>}
-     * 
-     * 
-     * @expo method
+     *  
      */
     startUpgradingFirmware() {
          return Promise.resolve({});
@@ -212,9 +184,7 @@ class IDevice {
      * 如果有父设备，直接获取 父设备 Device
      * @type {IDevice}
      * @readonly
-     * 
-     * 
-     * @expo get
+     *  
      */
     get parentDevice() {
          return null
@@ -224,8 +194,7 @@ class IDevice {
      * @member
      * @type {boolean}
      * @readonly
-     * 
-     * @expo get
+     *  
      */
     get isRootDevice() {
          return  false
@@ -234,9 +203,7 @@ class IDevice {
      * 获取子设备
      * @method
      * @returns {Promise<IDevice[]>}
-     * 
-     * @expo get
-     * @mark andr done
+     *  
      */
     getSubDevices() {
          return Promise.resolve([]);
@@ -256,8 +223,7 @@ class IDevice {
      *
      * })
      * 
-     * 
-     * @expo get
+     *  
      */
     get bluetooth() {
          return null
@@ -267,8 +233,7 @@ class IDevice {
      * @type {IAccount} 
      * @readonly
      * @see {@link module:miot/Account} 
-     * 
-     * @expo get
+     *  
      */
     get owner() {
          return null
