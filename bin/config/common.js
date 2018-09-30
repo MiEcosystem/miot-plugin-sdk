@@ -4,6 +4,7 @@ const { spawn,execSync } = require('child_process');
 const path = require('path');
 const fs = require("fs");
 
+//get current path
 const project_dir = path.join(__dirname, "..", "..");
 const process_dir = process.cwd();
 //will be changed to false when export to github
@@ -64,6 +65,11 @@ function exec(command, args=[], onFinish=null, ignore_out=false){
     cmd.on('close', (code) => { 
       onFinish&&onFinish(code); 
     });
+}
+
+function absolutePath(p){
+  if(!p || p.length < 1)return null;
+  return path.isAbsolute(p)?p:path.join(process_dir, p);
 }
 
 function makeDirsSync(srcPath){
@@ -215,6 +221,7 @@ module.exports = {
     copyFolder,
     makeDirs,
     makeDirsSync,
+    absolutePath,
  
     loadAllFiles,
     loadFiles,
