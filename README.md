@@ -28,3 +28,18 @@
 [Android apk包下载地址](https://fir.im/MiHomeForAndroid)
 
 下载密码: keliyuan
+
+#### android 插件调试
+下载并安装调试环境的 android 米家 apk，依次点击 首页“我的”tab -> 设置 -> 开发者选项 -> RN设备插件调试设置
+
+开启设备 rn 调试 选中
+插件包名 填写 MiEcosystem/miot-plugin-sdk/projects 下项目的相对路径 如：com.xiaomi.demo
+设备 model 按照插件包名对应路径的设备填写 如：xiaomi.demo.v1
+
+插件包下project.json文件 package_name必须为项目的相对路径，developer_id 验证插件包的合法性使用，必须和开放平台配置的一致。models设备的 model 多个用“|”分隔，version插件版本号，min_sdk_api_level 允许运行的米家最小 api 版本
+
+绑定设备后点击米家首页对应的设备，进入到 rn 插件页面。
+
+在 npm start 运行后，如果电脑上配置了 adb，连接手机后输入 adb reverse tcp:8081 tcp:8081 或者用力摇动手机出现的弹框 -> Dev Settings -> Debug server host & port for device,设置npm start的 ip 和端口。如：192.168.1.2:8081
+
+设置完成之后点击 RN 插件页面的左上角 dev 按钮，会 load 插件代码。
