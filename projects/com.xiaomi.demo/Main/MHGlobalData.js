@@ -1,4 +1,4 @@
 var MHGlobal = {}
-var MHPluginSDK = require('NativeModules').MHPluginSDK;
-MHGlobal.deviceName = MHPluginSDK.deviceName;
+import  Device from 'miot';
+MHGlobal.deviceName = Device.name;
 module.exports = MHGlobal

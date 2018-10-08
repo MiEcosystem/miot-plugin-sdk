@@ -23,7 +23,6 @@ import { createStackNavigator } from 'react-navigation';
 import ControlDemo from './ControlDemo';
 import CloudDebug from './CloudDebug';
 import ThirdPartyDemo from './ThirdPartyDemo';
-import { MHPluginSDK } from 'NativeModules';
 import Utils from '../CommonModules/Utils';
 //import Setting from './MHSetting';
 
@@ -33,12 +32,9 @@ import MoreDialog from './MoreDialog';
 // import ImageButton from '../CommonModules/ImageButton.js';;
 
 import { localStrings, getString } from './MHLocalizableString';
-import BlankDemo from './tutorial/BlankDemo';
-import DeviceInfo from './tutorial/device/DeviceInfo';
-import AccountDemo from './tutorial/account/AccountDemo';
 import TutorialDemo from './tutorial/TutorialDemo';
 import UIDemo from './UIDemo';
-import FileStorage from './tutorial/storage/FileStorage';
+import {Package} from "miot";
 
 export default class MainPage extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -51,7 +47,7 @@ export default class MainPage extends React.Component {
             // showDot={1}
             // onPressLeft2={()=>{ MHPluginSDK.closeCurrentPage(); }}
             // onPressRight2={()=>{ navigation.navigate('moreMenu'); }}
-            onPressLeft={() => { MHPluginSDK.closeCurrentPage() }}
+            onPressLeft={() => { Package.exit() }}
             onPressRight={() => {
               // MHPluginSDK.openAddDeviceGroupPage();
               if (Platform.OS == 'android') {
@@ -66,19 +62,6 @@ export default class MainPage extends React.Component {
         </View>
     };
   };
-
-  // 获取插件包内资源路径
-  pathForResource(filename) {
-    return MHPluginSDK.basePath + filename;
-  }
-
-  // 获取插件包内图片source，<Image>用
-  sourceOfImage(filename) {
-    return {
-      uri: this.pathForResource(filename),
-      scale: PixelRatio.get(),
-    }
-  }
 
   componentDidMount() {
     // test module method
@@ -96,7 +79,7 @@ export default class MainPage extends React.Component {
     return (
       <View style={styles.containerAll} >
         <View style={styles.containerIconDemo}>
-          <Image style={styles.iconDemo} source={require('../Resources/control_home.png')} ></Image>
+          <Image style={styles.iconDemo} source={require("../Resources/control_home.png")} ></Image>
           <Text style={styles.iconText}>欢迎使用小米开发板</Text>
         </View>
         <View style={styles.containerMenu}>
@@ -114,7 +97,7 @@ export default class MainPage extends React.Component {
       onPress={this._onOpenSubPage(title, demoName).bind(this)}>
       <View style={[styles.rowContainer, { borderTopColor: '#f1f1f1', borderTopWidth: 1, }]}>
         <Text style={styles.title}>{title}</Text>
-        <Image style={styles.subArrow} source={require('../Resources/sub_arrow.png')} />
+        <Image style={styles.subArrow} source={require("../Resources/sub_arrow.png")} />
       </View>
     </TouchableHighlight>
   }

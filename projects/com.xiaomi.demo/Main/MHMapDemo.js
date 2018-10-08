@@ -17,7 +17,6 @@ import {
   PixelRatio,
 } from 'react-native';
 
-var MHPluginSDK = require('NativeModules').MHPluginSDK;
 var MHMapSearch = require('NativeModules').MHMapSearch;
 import {MHMapView} from 'miot/ui';
 var window = Dimensions.get('window');
@@ -33,7 +32,7 @@ export default class MHMapDemo extends React.Component {
     this.state = {
       zoomLevel: 16.1,
       userLocation: {
-        image: MHPluginSDK.basePath + 'map/003.png',
+        image: require( '../Resources/map/003.png'),
         enabled: false,
         size: {
           width: 64,
@@ -41,8 +40,9 @@ export default class MHMapDemo extends React.Component {
         },
 
       },
+
       userLocationRepresentation: {
-        image: MHPluginSDK.basePath + 'map/003.png',
+        image: require( '../Resources/map/003.png'),
         imageScale: 5,
         showsAccuracyRing: false,
         // strokeColor: [0.9, 0.1, 0.1, 0.9],
@@ -119,7 +119,7 @@ export default class MHMapDemo extends React.Component {
     var annotation = {
       id: 'annotation' + e.nativeEvent.latitude + e.nativeEvent.longitude,
       title: '目标位置',
-      image: MHPluginSDK.basePath + 'map/003.png',
+      image: require( '../Resources/map/003.png'),
       size: {
         width: 64,
         height: 64,

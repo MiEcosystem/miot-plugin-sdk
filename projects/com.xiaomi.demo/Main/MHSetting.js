@@ -22,7 +22,7 @@ import { createStackNavigator } from 'react-navigation';
 
 import MHLocalizableString  from './MHLocalizableString.js';
 import MHGlobal from './MHGlobalData';
-import { MHPluginSDK } from 'NativeModules';
+import {Host,Device,DeviceEvent} from "miot";
 
 // var MoreMenu = require('./MoreMenu');
 // import MoreMenu from  './MoreMenu'
@@ -55,86 +55,83 @@ export default class Setting extends React.Component {
     this._createMenuData();
 
     this.state = {
-      // deviceName:MHPluginSDK.deviceName,
       dataSource: ds.cloneWithRowsAndSections(this._menuData),
     };
-    var eventHandler = function(event){
-      // MHGlobal.deviceName = event.newName;
-      // this.forceUpdate();
-      var ds = new ListView.DataSource({
-        rowHasChanged: (r1, r2)=>r1!==r2,
-        sectionHeaderHasChanged: (s1, s2) => s1 !== s2
-      });
-      this.setState ( {
-        // deviceName:MHPluginSDK.deviceName,
-        dataSource: ds.cloneWithRowsAndSections(this._menuData),
-      });
-    }.bind(this);
-    this._deviceNameChangedListener = DeviceEventEmitter.addListener(MHPluginSDK.deviceNameChangedEvent, eventHandler);
   }
 
   componentWillMount(){
+      this._deviceNameChangedListener = DeviceEvent.deviceNameChanged.addListener((device)=>{
+          MHGlobal.deviceName = device.name;
+          // this.forceUpdate();
+          var ds = new ListView.DataSource({
+              rowHasChanged: (r1, r2)=>r1!==r2,
+              sectionHeaderHasChanged: (s1, s2) => s1 !== s2
+          });
+          this.setState ( {
+              dataSource: ds.cloneWithRowsAndSections(this._menuData),
+          });
+      })
   }
 
   componentDidUnMount(){
-    this._deviceNameChangedListener.remove();
+      this._deviceNameChangedListener.remove();
   }
   _createMenuData() {
     var commonMenuData = [];
     var featureMenuData = [];
     var resetMenuData = [];//listView的footerView好像不支持，用一个section来模拟
-    
-    if (MHPluginSDK.ownerId == MHPluginSDK.userId) // 非分享设备
+
+    if (Device.isOwner) // 非分享设备
     {
       commonMenuData = [
         {
           'name':MHLocalizableString.string.deviceName,
           'subtitle':MHGlobal.deviceName,
           'func': () => {
-            MHPluginSDK.openChangeDeviceName();
+              Host.ui.openChangeDeviceName();
           }
         },
         {
           'name':MHLocalizableString.string.locationManagement,
           'func': () => {
-            MHPluginSDK.openRoomManagementPage();
+              Host.ui.openRoomManagementPage();
           }
         },
         {
           'name': MHLocalizableString.string.shareDevice,
           'func': () => {
-            MHPluginSDK.openShareDevicePage();
+              Host.ui.openShareDevicePage();
           }
         },
         {
           'name': MHLocalizableString.string.ifttt,
           'func': () => {
-            MHPluginSDK.openIftttAutoPage();
+              Host.ui.openIftttAutoPage();
           }
         },
         {
           'name': MHLocalizableString.string.firmwareUpgrate,
           'func': () => {
-            MHPluginSDK.openDeviceUpgradePage();
+            Host.ui.openDeviceUpgradePage();
           }
         },
         {
           'name': MHLocalizableString.string.moreSetting,
           'func': () => {
-            MHPluginSDK.openNewMorePage();
+              Host.ui.openNewMorePage();
           }
         },
         {
           'name': MHLocalizableString.string.addToDesktop,
           'func': () => {
-            MHPluginSDK.openAddToDesktopPage();
+              Host.ui.openAddToDesktopPage();
           }
         },
 
         {
           'name': MHLocalizableString.string.licenseAndPolicy,
           'func': () => {
-            MHPluginSDK.privacyAndProtocolReview("license","https://www.baidu.com","privacy","https://www.baidu.com");
+              Host.ui.privacyAndProtocolReview("license","https://www.baidu.com","privacy","https://www.baidu.com");
           }
         },
 
@@ -154,7 +151,7 @@ export default class Setting extends React.Component {
         {
           'name': MHLocalizableString.string.resetDevice,
           'func': () => {
-            MHPluginSDK.openDeleteDevice();
+              Host.ui.openDeleteDevice();
           }
         },
       ];
@@ -201,7 +198,7 @@ export default class Setting extends React.Component {
             <View style={styles.rowContainer}>
               <Text style={styles.title}>{rowData.name}</Text>
               {/* <Text style= {styles.subtitle}>{rowData.subtitle?MHGlobal.deviceName:'' }</Text>
-              <Image style={styles.subArrow} source={this.props.app.sourceOfImage("sub_arrow.png")} /> */}
+              <Image style={styles.subArrow} source={require("../Resources/sub_arrow.png")} /> */}
             </View>
             <View style={rowID != this._menuData[sectionID].length - 1?styles.separator:{}}></View>
           </View>

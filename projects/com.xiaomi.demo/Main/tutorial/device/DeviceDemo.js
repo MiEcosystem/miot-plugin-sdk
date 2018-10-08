@@ -119,7 +119,7 @@ export default class DeviceDemo extends React.Component {
             <Text style={{ margin: 10, width: width }}>当前设备
               isBinded2: {this.state.device.isBinded2.toString()}</Text>
             <Text style={{ margin: 10, width: width }}>当前设备
-              isReadOnlyShared: {this.state.device.isReadOnlyShared.toString()}</Text>
+              isReadOnlyShared: {this.state.device.isReadonlyShared.toString()}</Text>
             <Text style={{ margin: 10, width: width }}>当前设备
               callMethod: {this.state.callMethodResult}</Text>
             <Text style={{ margin: 10, width: width }}>当前设备

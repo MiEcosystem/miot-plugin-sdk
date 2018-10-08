@@ -110,5 +110,13 @@ export default {
      */
     setDeviceSetting(params){
          return Promise.resolve(null);
+    },
+    /**
+     * 获取服务器中 最新的版本信息，内部调用米家代理接口/home/latest_version
+     * @param model 设备的 model
+     * @return {Promise}
+     */
+    getLatestVersion(model){
+         return Promise.resolve(null);
     }
 }

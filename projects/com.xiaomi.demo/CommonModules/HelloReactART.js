@@ -26,7 +26,6 @@ import ReactART, {Surface,Path,Group,Transform,Shape} from 'ReactNativeART';
 //   Shape,
 // } from 'ReactART';
 import { ImageButton } from 'miot/ui';
-import {MHPluginSDK}  from 'NativeModules';
 
 var TOUCH_UP_DRAG = 0.978;
 var TOUCH_DOWN_DRAG = 0.9;
@@ -34,24 +33,6 @@ var MAX_VEL = 11;
 var BASE_VEL = 0.15;
 
 export default class  HelloReactART extends React.Component {
-// var  = React.createClass({
-  // var mixins = [TimerMixin];
-  static navigationOptions = ({ navigation }) => {
-    const params = navigation.state.params || {};
-
-    return {
-      headerTitle:"HelloReactART",
-      headerLeft:(
-
-        <ImageButton
-          source={{uri:MHPluginSDK.uriNaviBackButtonImage, scale:PixelRatio.get()}}
-           style={[{width:29, height:29,margin:10}]}
-           onPress={()=>{ navigation.goBack() }}
-           />
-      ),
-
-    };
-  };
 
   constructor(props) {
         super(props);

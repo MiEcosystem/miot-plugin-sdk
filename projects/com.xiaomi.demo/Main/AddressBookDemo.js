@@ -11,21 +11,8 @@ import {
 } from 'react-native';
 
 
-var MHPluginSDK = require('NativeModules').MHPluginSDK;
 var Contacts = require('react-native-contacts');
 export default class AddressBookDemo extends React.Component {
-
-  static navigationOptions = ({navigation}) => {
-    const params = navigation.state.params || {};
-    return {
-      headerTitle: 'AddressBookDemo',
-      headerLeft: (
-        <Button onPress={() => {
-          MHPluginSDK.closeCurrentPage();
-        }} title="back" color="#ff3454"/>
-      ),
-    };
-  };
 
   constructor() {
     super();

@@ -1,21 +1,9 @@
 import React from 'react';
 import { Alert, StyleSheet, Text, TouchableOpacity, View ,Button} from 'react-native';
 import Orientation from 'react-native-orientation';
-var MHPluginSDK = require('NativeModules').MHPluginSDK;
 
 export default class OrientationDemo extends React.Component {
 
-static navigationOptions = ({ navigation }) => {
-    const params = navigation.state.params || {};
-    return {
-        headerTitle:"测试Orientation库",
-        headerLeft:(
-        <Button onPress={()=>{
-            MHPluginSDK.closeCurrentPage();
-        }} title="back" color="#ff3454" />
-        ),
-    };
-    };
   componentWillMount() {
     const init = Orientation.getInitialOrientation();
     this.setState({

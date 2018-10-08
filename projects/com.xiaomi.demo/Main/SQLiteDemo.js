@@ -21,21 +21,8 @@ const database_displayname = "SQLite Test Database";
 const database_size = 200000;
 let db;
 
-var MHPluginSDK = require('NativeModules').MHPluginSDK;
 
 export default class SQLiteDemo extends Component {
-
-  static navigationOptions = ({ navigation }) => {
-    const params = navigation.state.params || {};
-    return {
-        headerTitle:"测试sqlite库",
-        headerLeft:(
-        <Button onPress={()=>{
-            MHPluginSDK.closeCurrentPage();
-        }} title="back" color="#ff3454" />
-        ),
-    };
-    };
 
   constructor() {
     super();

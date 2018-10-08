@@ -17,8 +17,8 @@ import {
 } from 'react-native';
 
 
-import { MHPluginSDK } from 'NativeModules'
 import { TitleBarBlack } from 'miot/ui';
+import { Device, DeviceEvent, Host, Package } from "miot";
 
 export default class ControlDemo extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -32,10 +32,6 @@ export default class ControlDemo extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.did = MHPluginSDK.deviceId,
-      this.model = MHPluginSDK.deviceModel,
-      this.apiLevel = MHPluginSDK.apiLevel,
-      this.devMode = MHPluginSDK.devMode,
 
       this.state = {
         requestStatus: false,
@@ -47,19 +43,14 @@ export default class ControlDemo extends React.Component {
   }
 
   componentDidMount() {
-    MHPluginSDK.registerDeviceStatusProps(["prop.on", "prop.usb_on"]);
-    this._deviceStatusListener = DeviceEventEmitter.addListener(
-      MHPluginSDK.deviceStatusUpdatedEventName,
-      (notification) => {
-        MHPluginSDK.getDevicePropertyFromMemCache(["prop.on"], (props) => {
-          ;
-          console.warn('zyz' + props["prop.on"]);
-          if (props.rgb) {
-            var sRGB = "#" + this.getNewRGB(props.rgb >> 16, (props.rgb >> 8) & 0x00ff, (props.rgb & 0x0000ff));
-            this.setState({ "resultViewColor": sRGB });
-          }
-        });
-      }
+      this._deviceStatusListener = DeviceEvent.deviceReceivedMessages.addListener(
+      (device, map, res) => {
+          console.log('Device.addListener', device, map, res, this.state.timerRun);
+          let status = map.get("prop.on")|| {};
+          let sRGB = "#" + this.getNewRGB(status.rgb >> 16, (status.rgb >> 8) & 0x00ff, (status.rgb & 0x0000ff));
+            this.setState({"resultViewColor":sRGB});
+          });
+        Device.subscribeMessages("prop.on","prop.usb_on"
     );
   }
 
@@ -99,16 +90,16 @@ export default class ControlDemo extends React.Component {
             </View>
 
             <View>
-              <Image style={styles.RGBArrowImage} source={require('../Resources/right_arrow.png')} />
+              <Image style={styles.RGBArrowImage} source={require("../Resources/right_arrow.png")} />
             </View>
 
             <View style={[styles.RGBResultView, { backgroundColor: this.state.resultViewColor }]}></View>
 
           </View>
 
-          <TouchableHighlight underlayColor='#ffffff' onPress={this.onSendDidButtonPress.bind(this)}>
-            <Image style={styles.commandButton} source={require('../Resources/button_command.png')} />
-          </TouchableHighlight>
+            <TouchableHighlight underlayColor='#ffffff' onPress={this.onSendDidButtonPress.bind(this)}>
+                <Image style={styles.commandButton} source={require( "../Resources/button_command.png")} />
+              </TouchableHighlight>
 
         </View>
       </View>
@@ -161,13 +152,10 @@ export default class ControlDemo extends React.Component {
   }
 
   onSendDidButtonPress() {
-    MHPluginSDK.callMethod("set_rgb", [(this.state.textR << 16 | this.state.textG << 8 | this.state.textB)], { "id": 1 }, (isSuccess, json) => {
-      console.log("rpc result:" + isSuccess + json);
-      this.setState({ requestStatus: isSuccess })
-      if (isSuccess) {
-        this.state.resultViewColor = '#' + this.getNewRGB(this.state.textR, this.state.textG, this.state.textB);
-        MHPluginSDK.setDeviceProperty({ "rgb": (this.state.textR << 16 | this.state.textG << 8 | this.state.textB) });
-      }
+    Device.callMethod("set_rgb", [(this.state.textR<<16|this.state.textG<<8|this.state.textB)]).then( json => {
+      console.log("rpc result:"+isSuccess+json);
+      this.setState({requestStatus:isSuccess})
+
     });
   }
 

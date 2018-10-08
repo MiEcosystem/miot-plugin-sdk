@@ -7,7 +7,7 @@ import {
     FlatList,
     StyleSheet,
 } from 'react-native';
-import {MHPluginSDK } from 'NativeModules';
+import {Service,Device} from "miot";
 
 export default class CallSmartHomeAPIDemo extends React.Component{
     constructor(props){
@@ -20,8 +20,7 @@ export default class CallSmartHomeAPIDemo extends React.Component{
         return (
             <View>
                 <Button title="点击查询固件版本信息" onPress={()=>{
-                    MHPluginSDK.callSmartHomeAPI("/home/latest_version", {"model":MHPluginSDK.deviceModel}, (response) => {
-                        var result = response['result'];
+                    Service.smarthome.getLatestVersion(Device.model, (result) => {
 
                         var item = [];
                         for (var key in result) {

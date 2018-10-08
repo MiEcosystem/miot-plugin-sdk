@@ -101,13 +101,11 @@ import ImageCapInsetDemo from './ImageCapInsetDemo' // working but no title disp
 
 import { TitleBarBlack } from 'miot/ui';
 import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
-var MHPluginSDK = require('NativeModules').MHPluginSDK;
 
 import CircularSliderDemo from './CircularSliderDemo'
 import ImagePickerDemo from './ImagePickerDemo'
 import DialogTest from './DialogTest';
 import BlankDemo from './tutorial/BlankDemo';
-import DeviceInfo from './tutorial/device/DeviceInfo';
 import AccountDemo from './tutorial/account/AccountDemo';
 import StorageDemo from './tutorial/storage/StorageDemo';
 import TutorialDemo from './tutorial/TutorialDemo';
@@ -139,7 +137,6 @@ const RootStack = createStackNavigator(
     blankDemo: BlankDemo,
     DeviceDemo: DeviceDemo,
     PackageDemo: PackageDemo,
-    deviceInfo: DeviceInfo,
     accountDemo: AccountDemo,
     ControlDemo: ControlDemo,
     CloudDebug: CloudDebug,
@@ -268,17 +265,4 @@ export default class App extends React.Component {
     return <RootStack />;
   }
 
-  // 获取插件包内资源路径
-  pathForResource(filename) {
-    return MHPluginSDK.basePath + filename;
-  }
-
-
-  // 获取插件包内图片source，<Image>用
-  sourceOfImage(filename) {
-    return {
-      uri: this.pathForResource(filename),
-      scale: PixelRatio.get(),
-    }
-  }
 }

@@ -17,7 +17,6 @@ import {
 } from 'react-native';
 
 import Reat from 'react';
-var MHPluginSDK = require('NativeModules').MHPluginSDK;
 
 import Chart from "../CommonModules/Chart/Chart.js";
 

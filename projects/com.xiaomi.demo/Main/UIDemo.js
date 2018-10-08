@@ -16,7 +16,6 @@ import {
   ActionSheetIOS,
 } from 'react-native';
 
-import { MHPluginSDK } from 'NativeModules';
 import { TitleBarBlack } from 'miot/ui';
 
 export default class UIDemo extends React.Component {

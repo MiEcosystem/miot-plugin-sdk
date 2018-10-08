@@ -18,7 +18,6 @@ import {
     DeviceEventEmitter,
 } from 'react-native';
 
-const MHPluginSDK = require('NativeModules').MHPluginSDK;
 
 
 export default class BaseComponent extends Component {

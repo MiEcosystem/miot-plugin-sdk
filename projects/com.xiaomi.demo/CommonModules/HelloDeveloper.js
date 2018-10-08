@@ -12,28 +12,8 @@ import {
 } from 'react-native';
 import { ImageButton } from 'miot/ui';
 
-import { MHPluginSDK } from 'NativeModules';
 // export default class MoreMenu extends React.Component
 export default class HelloDeveloper extends React.Component {
-
-  static navigationOptions = ({ navigation }) => {
-    const params = navigation.state.params || {};
-
-    return {
-      headerTitle: "Hello Developer",
-      headerLeft: (
-
-        <ImageButton
-          source={{ uri: MHPluginSDK.uriNaviBackButtonImage, scale: PixelRatio.get() }}
-          style={[{ width: 29, height: 29, margin: 10 }]}
-          onPress={() => { navigation.goBack() }}
-        />
-      ),
-
-    };
-  };
-
-
 
   constructor(props) {
     super(props);

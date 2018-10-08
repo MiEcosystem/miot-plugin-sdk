@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 
 var window = Dimensions.get('window');
-var MHPluginSDK = require('NativeModules').MHPluginSDK;
 export default class ImagePathDemo extends React.Component {
 
 
@@ -29,26 +28,11 @@ export default class ImagePathDemo extends React.Component {
 <View style = {{width:100,height:100}}></View>
 
       <Image  source={require('../Resources/Images/test_icon1.png')} style = {{width:100,height:100}} />
-      <Image  source={this.sourceOfImage('Images/right_arrow1.png')} style = {{width:100,height:100}} />
-      <Image  source={this.sourceOfImage('RGB_input.png')} style = {{width:100,height:100}} />
+      <Image  source={require('../Resources/Images/right_arrow1.png')} style = {{width:100,height:100}} />
+      <Image  source={require('../Resources/RGB_input.png')} style = {{width:100,height:100}} />
       </View>
     );
   }
-
-  // 获取插件包内资源路径
-  pathForResource(filename) {
-    return MHPluginSDK.basePath + filename;
-  }
-
-
-  // 获取插件包内图片source，<Image>用
-  sourceOfImage(filename) {
-    return {
-      uri:this.pathForResource(filename),
-      scale:PixelRatio.get(),
-    }
-  }
-
 
 }
 

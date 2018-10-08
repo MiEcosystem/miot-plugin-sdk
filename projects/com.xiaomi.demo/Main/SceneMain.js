@@ -1,5 +1,7 @@
 'use strict';
 
+import {Package} from "miot";
+
 var React = require('react-native');
 
 var {
@@ -17,7 +19,6 @@ var {
   DeviceEventEmitter,
 } = React;
 
-import { MHPluginSDK } from 'NativeModules';
 var ImageButton = require('../CommonModules/ImageButton');
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 var rValue = 0;
@@ -34,9 +35,9 @@ class SceneMain extends React.Component {
   }
 
   componentDidMount() {
-    console.log('Trigger: ' + JSON.stringify(MHPluginSDK.extraInfo.trigger));
-    console.log('Action: ' + JSON.stringify(MHPluginSDK.extraInfo.action));
-    console.log('Payload: ' + JSON.stringify(MHPluginSDK.extraInfo.payload));
+    console.log('Trigger: ' + JSON.stringify(Package.extraInfo.trigger));
+    console.log('Action: ' + JSON.stringify(Package.extraInfo.action));
+    console.log('Payload: ' + JSON.stringify(Package.extraInfo.payload));
   }
   test() {
     alert("test");
@@ -47,7 +48,7 @@ class SceneMain extends React.Component {
       <View style={styles.containerAll} >
         <StatusBar barStyle='light-content' />
         <View style={styles.containerIconDemo}>
-          <Image style={styles.iconDemo} source={require('../Resources/control_home.png')} />
+          <Image style={styles.iconDemo} source={require("../Resources/control_home.png")} />
           <Text style={styles.iconText}>开发自定义智能场景</Text>
         </View>
         <View style={styles.containerMenu}>

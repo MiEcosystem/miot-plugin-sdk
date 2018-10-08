@@ -1,4 +1,4 @@
-import { LocalizedStrings } from 'miot/ui';
+import LocalizedStrings from '../CommonModules/LocalizedStrings';
 import IntlMessageFormat from 'intl-messageformat';
 import 'intl';
 import 'intl/locale-data/jsonp/en.js';

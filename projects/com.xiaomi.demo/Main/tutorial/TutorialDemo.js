@@ -32,10 +32,6 @@ export default class TutorialDemo extends React.Component{
                     'key':'callSmartHomeAPIDemo',
                 },
                 {
-                    'title':'设备信息',
-                    'key':'deviceInfo',
-                },
-                {
                     'title':'账户信息',
                     'key':'accountDemo',
                 },
@@ -45,10 +41,6 @@ export default class TutorialDemo extends React.Component{
                 },
                 {
                     'title':'文件存储',
-                    'key':'fileStorage',
-                },
-                {
-                    'title':'账户信息',
                     'key':'fileStorage',
                 },
                 {

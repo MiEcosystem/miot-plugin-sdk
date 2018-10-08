@@ -1,5 +1,5 @@
 //
-//  喜马拉雅SDK 
+//  喜马拉雅SDK
 //  MiHome
 //
 //  Created by Woody on 5/8/14.
@@ -9,7 +9,6 @@
 'use strict';
 
 var React = require('react-native');
-var MHPluginSDK = require('NativeModules').MHPluginSDK;
 var Ximalaya = require('NativeModules').Ximalaya;
 
 var {
@@ -18,7 +17,7 @@ var {
 
 
 /**
- * 喜马拉雅请求类型 
+ * 喜马拉雅请求类型
  **/
 var XMReqType = {
     /** 喜马拉雅内容分类 */
@@ -103,8 +102,8 @@ var XMReqType = {
 class XimalayaSDK extends Component{
 
   /**
-   * 请求数据 
-   **/	
+   * 请求数据
+   **/
   static requestXMData(reqType, params, callback) {
       Ximalaya.requestXMData(reqType, params, (result, error) => {
           if (callback != undefined) {
@@ -143,11 +142,11 @@ class XimalayaSDK extends Component{
 
   static playNextTrackWithCallback(callback) {
       Ximalaya.playNextTrackWithCallback(callback);
-  } 
+  }
 
   static playPrevTrackWithCallback(callback) {
       Ximalaya.playPrevTrackWithCallback(callback);
-  } 
+  }
 
   static setAutoNexTrack(status) {
       Ximalaya.setAutoNexTrack(status);
@@ -191,7 +190,7 @@ class XimalayaSDK extends Component{
 
   static resumeLivePlay() {
       Ximalaya.resumeLivePlay();
-  } 
+  }
 
   static stopLivePlay() {
       Ximalaya.stopLivePlay();

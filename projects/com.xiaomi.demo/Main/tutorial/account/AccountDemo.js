@@ -38,34 +38,6 @@ export default class FetchUserInfo extends React.Component {
     });
   }
 
-  // fetchUserInfo() {
-  //
-  //   this.setState(preState => {
-  //     return { "uid": "", "name": "", "imageUrl": "" };
-  //   });
-  //   var uids = this.state.uid.split(",");
-  //
-  //   MHPluginSDK.fetchUserInfo(uids, (isSuccess, response) => {
-  //     if (isSuccess) {
-  //       this.setState(preState => {
-  //         var newData = [];
-  //         for (let i = 0; i < response.length; i++) {
-  //           newData.push({
-  //             "uid": response[i]["userid"],
-  //             "name": response[i]["nickname"],
-  //             "imageUrl": response[i]["icon"]
-  //           });
-  //         }
-  //
-  //         return {
-  //           "data": newData
-  //         };
-  //       });
-  //     }
-  //   });
-  //
-  // }
-
   render() {
     return (
       <View style={[styles.listContainer, styles.list]}>
@@ -85,61 +57,14 @@ export default class FetchUserInfo extends React.Component {
 
         </View>
         <View style={styles.searchRow}>
-          {/*<TextInput style={[styles.searchTextInput]}*/}
-                     {/*placeholder='输入要查询的uid，多个查询使用uid以逗号分开'*/}
-                     {/*onChangeText={*/}
-                       {/*(text) => {*/}
-                         {/*this.setState(*/}
-                           {/*(preState) => {*/}
-                             {/*return { "uid": text };*/}
-                           {/*}*/}
-                         {/*);*/}
-
-                       {/*}*/}
-                     {/*}*/}
-          {/*/>*/}
         </View>
-        {/*<Button style={styles.button} title="查询" onPress={() => {*/}
-          {/*this.fetchUserInfo();*/}
-        {/*}}/>*/}
-        {/*{this._renderFlatList()}*/}
 
       </View>
 
     );
   }
 
-  _keyExtractor = (item, index) => item.id;
-
-  // _renderFlatList(): ?React.Element<any> {
-  //   if (this.state.data.length == 0) {
-  //     return (<View><Text style={{ margin: 10 }}>没有数据</Text>
-  //     </View>);
-  //   }
-  //   return (
-  //     <FlatList
-  //       ItemSeparatorComponent={ItemSeparator}
-  //       style={styles.list}
-  //       data={this.state.data}
-  //       keyExtractor={this._keyExtractor}
-  //       renderItem={({ item }) => {
-  //
-  //         return (<View style={[{ flexDirection: "row" }]}>
-  //           <Image style={styles.image} source={{ uri: item.imageUrl }}/>
-  //           <View style={{ flexDirection: "column" }}>
-  //             <Text style={[styles.rowTitleText, {}]}>name: {item.name}</Text>
-  //             <Text style={[styles.rowDetailText]}>userId:{item.uid}</Text>
-  //           </View>
-  //         </View>);
-  //
-  //       }
-  //       }/>
-  //   );
-  // }
 }
-const ItemSeparator = ({ highlighted }) => (
-  <View style={highlighted ? styles.separatorHighlighted : styles.separator}/>
-);
 
 var styles = StyleSheet.create({
   listContainer: {

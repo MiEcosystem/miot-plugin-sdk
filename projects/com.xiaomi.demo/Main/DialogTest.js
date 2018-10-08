@@ -17,7 +17,6 @@ import {
   Alert,
 } from 'react-native';
 
-import {MHPluginSDK} from 'NativeModules';
 import { TitleBarBlack,MessageDialog,InputDialog,SingleChoseDialog,MultiChoseDialog,LoadingDialog,ProgressDialog } from 'miot/ui';
 
 

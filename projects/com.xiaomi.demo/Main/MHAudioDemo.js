@@ -15,7 +15,6 @@ import {
 } from 'react-native';
 
 import { Host } from "miot";
-var MHPluginSDK = require('NativeModules').MHPluginSDK;
 const audioPlayerUid = 'com.xiaomi.demoios';
 
 export default class MHAudioDemo extends React.Component {

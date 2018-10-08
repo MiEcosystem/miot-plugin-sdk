@@ -16,7 +16,6 @@ import {
    DeviceEventEmitter,
 } from 'react-native';
 import { TitleBarBlack } from 'miot/ui';
-import {MHPluginSDK}  from 'NativeModules';
 export default class CloudDebug extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
@@ -25,16 +24,6 @@ export default class CloudDebug extends React.Component {
                             onPressLeft={()=>{ navigation.goBack();}}/>,
     };
   };
-
-
-  componentDidMount() {
-
-      MHPluginSDK.callSmartHomeAPI("/scene/list",null, (response) => {
-      console.log("🔴latest version"+JSON.stringify(response));
-    });
-
-  }
-
 
   render() {
     var url= 'https://github.com/MiEcosystem/ios-rn-sdk/blob/master/MiHomePluginSDK/docs/callSmartHomeAPI.md';

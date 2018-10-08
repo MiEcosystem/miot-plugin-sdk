@@ -8,7 +8,7 @@ const fs = require("fs");
 const project_dir = path.join(__dirname, "..", "..");
 const process_dir = process.cwd();
 //will be changed to false when export to github
-const DEV=false;
+const DEV="IS_DEV";
 
 process.chdir(project_dir)
 process.on('uncaughtException', ()=>{

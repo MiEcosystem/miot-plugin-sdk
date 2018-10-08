@@ -21,11 +21,11 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 
-const MHPluginSDK = require('NativeModules').MHPluginSDK;
 const { width, height } = Dimensions.get('window');
-
+import {Host} from 'miot';
 import { ImageButton } from 'miot/ui';
 import { localStrings as LocalizedStrings, getString } from './MHLocalizableString';
+
 
 const TIME = 300;//动画时长
 export default class MoreDialog extends Component {
@@ -47,20 +47,6 @@ export default class MoreDialog extends Component {
   _createMenuData() {
     this._menuData = [
       {
-        'name': 'test string menu',
-        'func': () => {
-          if (Platform.OS === "android") {
-            MHPluginSDK.alertAndroid('测试对话框');
-          } else {
-            AlertIOS.alert(
-              'title',
-              '测试对话框'
-            )
-          }
-          this.dismissDialog(false);
-        },
-      },
-      {
         'name': LocalizedStrings.OpenLibList,
         'func': () => {
           this.props.navigation.navigate('OpenLibList', { title: LocalizedStrings.OpenLibList });
@@ -77,13 +63,13 @@ export default class MoreDialog extends Component {
       {
         'name': '分享',
         'func': () => {
-          MHPluginSDK.openShareListBar('小米智能家庭', '小米智能家庭', 'about_icon_app', 'http://open.home.mi.com');
+          Host.ui.openShareListBar('小米智能家庭', '小米智能家庭', 'about_icon_app', 'http://open.home.mi.com');
         },
       },
       {
         'name': getString('device_more_activity_scence'),
         'func': () => {
-          MHPluginSDK.openIftttAutoPage();
+            Host.ui.openIftttAutoPage();
         },
       },
       {
@@ -96,7 +82,7 @@ export default class MoreDialog extends Component {
       {
         'name': LocalizedStrings.device_more_activity_help_feedback,
         'func': () => {
-          MHPluginSDK.openFeedbackInput();
+            Host.ui.openFeedbackInput();
         },
       },
     ];
@@ -197,8 +183,8 @@ export default class MoreDialog extends Component {
                   }}>
                   <View style={styles.itembkg}>
                     <ImageButton style={styles.closeImg}
-                      source={require('../Resources/title/irv2_more_close_normal.png')}
-                      highlightedSource={require('../Resources/title/irv2_more_close_pressed.png')}
+                      source={require('../Resources/title/irv2_more_close_normal.png' )}
+                      highlightedSource={require('../Resources/title/irv2_more_close_pressed.png' )}
                       onPress={() => this.dismissDialog(true)}
                     />
                   </View>

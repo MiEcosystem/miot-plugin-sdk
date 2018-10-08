@@ -15,7 +15,6 @@ import {
 } from 'react-native';
 import { Host } from "miot";
 import { TitleBarBlack } from 'miot/ui';
-import { MHPluginSDK } from 'NativeModules';
 
 var BUTTONS = [
   '测试对话框',
@@ -234,7 +233,7 @@ export default class MoreMenu extends React.Component {
         <View>
           <View style={styles.rowContainer}>
             <Text style={styles.title}>{rowData}</Text>
-            <Image style={styles.subArrow} source={require('../Resources/sub_arrow.png')} />
+            <Image style={styles.subArrow} source={require( "../Resources/sub_arrow.png" )} />
           </View>
           <View style={styles.separator}></View>
         </View>
@@ -260,14 +259,15 @@ export default class MoreMenu extends React.Component {
   }
 
   showActionSheet() {
-    ActionSheetIOS.showActionSheetWithOptions({
-      options: BUTTONS,
-      destructiveButtonIndex: 1,
-    },
-      (buttonIndex) => {
+    if (Host.isIOS)
+        ActionSheetIOS.showActionSheetWithOptions({
+          options: BUTTONS,
+          destructiveButtonIndex: 1,
+        },
+          (buttonIndex) => {
 
-      });
-  }
+          });
+      }
 };
 
 var styles = StyleSheet.create({

@@ -18,7 +18,6 @@ import React from 'react';
 
 // var ParticleView = require('react-native-particle-system/ParticleView');
 // var ParticleCell = require('react-native-particle-system/ParticleCell');
-var MHPluginSDK = require('NativeModules').MHPluginSDK;
 var starsParticleProps = {
   name : "untitled",
   enabled : true,
