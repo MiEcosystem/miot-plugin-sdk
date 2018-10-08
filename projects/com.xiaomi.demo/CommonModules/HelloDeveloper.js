@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { ImageButton } from 'miot/ui';
 
-import {MHPluginSDK}  from 'NativeModules';
+import { MHPluginSDK } from 'NativeModules';
 // export default class MoreMenu extends React.Component
 export default class HelloDeveloper extends React.Component {
 
@@ -20,14 +20,14 @@ export default class HelloDeveloper extends React.Component {
     const params = navigation.state.params || {};
 
     return {
-      headerTitle:"Hello Developer",
-      headerLeft:(
+      headerTitle: "Hello Developer",
+      headerLeft: (
 
         <ImageButton
-          source={{uri:MHPluginSDK.uriNaviBackButtonImage, scale:PixelRatio.get()}}
-           style={[{width:29, height:29,margin:10}]}
-           onPress={()=>{ navigation.goBack() }}
-           />
+          source={{ uri: MHPluginSDK.uriNaviBackButtonImage, scale: PixelRatio.get() }}
+          style={[{ width: 29, height: 29, margin: 10 }]}
+          onPress={() => { navigation.goBack() }}
+        />
       ),
 
     };
@@ -44,7 +44,7 @@ export default class HelloDeveloper extends React.Component {
     return (
       <View style={styles.containerAll}>
         <View style={styles.containerIcon}>
-          <Image style={styles.icon} source={{uri:MHPluginSDK.basePath + "hello_raise.jpg"}} />
+          <Image style={styles.icon} source={require('../Resources/hello_raise.jpg')} />
         </View>
         <View style={styles.containerText}>
           <Text style={styles.title}>你好，开发者{'\n\n'}

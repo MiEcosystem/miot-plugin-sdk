@@ -197,8 +197,8 @@ export default class MoreDialog extends Component {
                   }}>
                   <View style={styles.itembkg}>
                     <ImageButton style={styles.closeImg}
-                      source={{ uri: MHPluginSDK.basePath + './title/irv2_more_close_normal.png' }}
-                      highlightedSource={{ uri: MHPluginSDK.basePath + './title/irv2_more_close_pressed.png' }}
+                      source={require('../Resources/title/irv2_more_close_normal.png')}
+                      highlightedSource={require('../Resources/title/irv2_more_close_pressed.png')}
                       onPress={() => this.dismissDialog(true)}
                     />
                   </View>

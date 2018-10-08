@@ -96,7 +96,7 @@ export default class MainPage extends React.Component {
     return (
       <View style={styles.containerAll} >
         <View style={styles.containerIconDemo}>
-          <Image style={styles.iconDemo} source={this.sourceOfImage("control_home.png")} ></Image>
+          <Image style={styles.iconDemo} source={require('../Resources/control_home.png')} ></Image>
           <Text style={styles.iconText}>欢迎使用小米开发板</Text>
         </View>
         <View style={styles.containerMenu}>
@@ -114,7 +114,7 @@ export default class MainPage extends React.Component {
       onPress={this._onOpenSubPage(title, demoName).bind(this)}>
       <View style={[styles.rowContainer, { borderTopColor: '#f1f1f1', borderTopWidth: 1, }]}>
         <Text style={styles.title}>{title}</Text>
-        <Image style={styles.subArrow} source={this.sourceOfImage("sub_arrow.png")} />
+        <Image style={styles.subArrow} source={require('../Resources/sub_arrow.png')} />
       </View>
     </TouchableHighlight>
   }

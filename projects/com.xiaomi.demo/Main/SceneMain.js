@@ -17,7 +17,7 @@ var {
   DeviceEventEmitter,
 } = React;
 
-import {MHPluginSDK}  from 'NativeModules';
+import { MHPluginSDK } from 'NativeModules';
 var ImageButton = require('../CommonModules/ImageButton');
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 var rValue = 0;
@@ -34,9 +34,9 @@ class SceneMain extends React.Component {
   }
 
   componentDidMount() {
-    console.log('Trigger: '+JSON.stringify(MHPluginSDK.extraInfo.trigger));
-    console.log('Action: '+JSON.stringify(MHPluginSDK.extraInfo.action));
-    console.log('Payload: '+JSON.stringify(MHPluginSDK.extraInfo.payload));
+    console.log('Trigger: ' + JSON.stringify(MHPluginSDK.extraInfo.trigger));
+    console.log('Action: ' + JSON.stringify(MHPluginSDK.extraInfo.action));
+    console.log('Payload: ' + JSON.stringify(MHPluginSDK.extraInfo.payload));
   }
   test() {
     alert("test");
@@ -47,7 +47,7 @@ class SceneMain extends React.Component {
       <View style={styles.containerAll} >
         <StatusBar barStyle='light-content' />
         <View style={styles.containerIconDemo}>
-          <Image style={styles.iconDemo} source={this.props.app.sourceOfImage("control_home.png")} />
+          <Image style={styles.iconDemo} source={require('../Resources/control_home.png')} />
           <Text style={styles.iconText}>开发自定义智能场景</Text>
         </View>
         <View style={styles.containerMenu}>
@@ -121,7 +121,7 @@ var styles = StyleSheet.create({
     // flex: 1,
     fontSize: 16,
     padding: 4,
-    marginTop:20,
+    marginTop: 20,
     marginLeft: 30,
     marginRight: 30,
     backgroundColor: '#ffffff',
@@ -136,18 +136,18 @@ var route = {
   title: '自定义场景',
   component: SceneMain,
   navLeftButtonStyle: {
-    tintColor:'#ffffff',
+    tintColor: '#ffffff',
   },
   navTitleStyle: {
-    color:'#ffffff',
+    color: '#ffffff',
   },
   navBarStyle: {
-    backgroundColor:'transparent',
+    backgroundColor: 'transparent',
   },
   renderNavLeftComponent(route, navigator, index, navState) {
-    return (<View style={{left:0, width:29+15*2, height:APPBAR_HEIGHT, justifyContent:'center', alignItems:'center'}}>
+    return (<View style={{ left: 0, width: 29 + 15 * 2, height: APPBAR_HEIGHT, justifyContent: 'center', alignItems: 'center' }}>
       <ImageButton
-        source={{uri:MHPluginSDK.uriNaviBackButtonImage, scale:PixelRatio.get()}}
+        source={{ uri: MHPluginSDK.uriNaviBackButtonImage, scale: PixelRatio.get() }}
         onPress={() => {
           if (index === 0) {
             MHPluginSDK.closeCurrentPage();
@@ -155,21 +155,21 @@ var route = {
             navigator.pop();
           }
         }}
-        style={[{width:29, height:29, tintColor: '#000000'}, route.navLeftButtonStyle]}
+        style={[{ width: 29, height: 29, tintColor: '#000000' }, route.navLeftButtonStyle]}
       />
     </View>);
   },
-  renderNavRightComponent: function(route, navigator, index, navState) {
+  renderNavRightComponent: function (route, navigator, index, navState) {
     return (
-      <View style={{left:0, width:29+15*2, height:APPBAR_HEIGHT, justifyContent:'center', alignItems:'center'}}>
+      <View style={{ left: 0, width: 29 + 15 * 2, height: APPBAR_HEIGHT, justifyContent: 'center', alignItems: 'center' }}>
         <TouchableHighlight onPress={() => {
-            var color = rValue<<16|gValue<<8|bValue;
-            var action = MHPluginSDK.extraInfo.action;
-            action.payload.value = color;
-            MHPluginSDK.finishCustomSceneSetupWithAction(action);
-            MHPluginSDK.closeCurrentPage();
-          }}>
-          <Text style={{fontWeight: 'bold',color: '#f0f0f0'}}>确定</Text>
+          var color = rValue << 16 | gValue << 8 | bValue;
+          var action = MHPluginSDK.extraInfo.action;
+          action.payload.value = color;
+          MHPluginSDK.finishCustomSceneSetupWithAction(action);
+          MHPluginSDK.closeCurrentPage();
+        }}>
+          <Text style={{ fontWeight: 'bold', color: '#f0f0f0' }}>确定</Text>
         </TouchableHighlight>
       </View>
     );

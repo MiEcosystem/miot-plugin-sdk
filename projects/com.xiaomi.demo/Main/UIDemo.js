@@ -69,7 +69,7 @@ export default class UIDemo extends React.Component {
         <View>
           <View style={styles.rowContainer}>
             <Text style={styles.title}>{rowData}</Text>
-            <Image style={styles.subArrow} source={{ uri: MHPluginSDK.basePath + 'sub_arrow.png' }} />
+            <Image style={styles.subArrow} source={require('../Resources/sub_arrow.png')} />
           </View>
           <View style={styles.separator}></View>
         </View>
