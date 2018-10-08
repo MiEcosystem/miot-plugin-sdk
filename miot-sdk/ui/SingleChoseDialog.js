@@ -14,57 +14,57 @@ export default class SingleChoseDialog extends Component {
   static propTypes = {
     /**
      * 
-     * @member    
+     * @member {bool}
      */
     visible: PropTypes.bool,
     /**
      * 
-     * @member    
+     * @member {string}
      */
     title: PropTypes.string,
     /**
      * 
-     * @member    
+     * @member {array}
      */
     dataSource: PropTypes.array,
     /**
      * 
-     * @member    
+     * @member {string} 
      */
     dataKey: PropTypes.string,
     /**
      * 
-     * @member    
+     * @member {number}
      */
     check: PropTypes.number,
     /**
      * 
-     * @member    
+     * @member {string}
      */
     cancel: PropTypes.string,
     /**
      * 
-     * @member    
+     * @member {string}
      */
     confirm: PropTypes.string,
     /**
      * 
-     * @event    
+     * @member {func}    
      */
     onConfirm: PropTypes.func,
     /**
      * 
-     * @event    
+     * @member {func}    
      */
     onCancel: PropTypes.func,
     /**
      * 
-     * @event    
+     * @member {func}    
      */
     onCheck: PropTypes.func,
     /**
      * 
-     * @event    
+     * @member {func}    
      */
     onDismiss: PropTypes.func,
     ...ViewPropTypes,

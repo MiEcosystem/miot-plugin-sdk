@@ -14,22 +14,22 @@ export default class ProgressDialog extends Component {
   static propTypes = {
     /**
      * 
-     * @member    
+     * @member {bool}
      */
     visible: PropTypes.bool,
     /**
      * 
-     * @member    
+     * @member {string}
      */
     title: PropTypes.string,
     /**
      * 
-     * @member    
+     * @member {string}
      */
     message: PropTypes.string,
     /**
      * 
-     * @event    
+     * @member {func} 
      */
     onDismiss: PropTypes.func,
     ...ViewPropTypes,

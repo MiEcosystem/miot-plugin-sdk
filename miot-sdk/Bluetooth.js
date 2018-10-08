@@ -452,15 +452,4 @@ export default {
     isBleGatewayConnected() {
          return Promise.resolve(true);
     },
-    },
-    /**
-     * 设置指定的设备断开后是否自动重连
-     * @param enable
-     * @param callback
-     * 
-     * 
-    setAutoReconnect(enable,callback){ 
-        native.MIOTBluetooth.setAutoReconnect(enable,callback);
-    }
-***/
 };

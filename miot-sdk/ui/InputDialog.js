@@ -14,7 +14,7 @@ export default class InputDialog extends Component {
   static propTypes = {
     /**
      * 是否可见
-     * @member {boolean}
+     * @member {bool}
      */
     visible: PropTypes.bool,
     /**
@@ -39,22 +39,21 @@ export default class InputDialog extends Component {
     confirm: PropTypes.string,
     /**
      * 
-     * @member {boolean}   
+     * @member {bool}   
      */
     singleLine: PropTypes.bool,
     /**
      * 
-     * @event    
+     * @member {func}    
      */
     onConfirm: PropTypes.func,
     /**
-     * 
-     * @event 
+     * @member {func}   
      */
     onCancel: PropTypes.func,
     /**
      * 
-     * @event    
+     * @member {func} 
      */
     onDismiss: PropTypes.func,
     ...ViewPropTypes,
