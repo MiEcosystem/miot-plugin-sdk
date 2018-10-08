@@ -303,10 +303,13 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">var findNodeHandle = require('findNodeHandle');
-  var myMapViewRef = findNodeHandle(this.refs.myMapView);
-  Host.file.amapScreenShot(myMapViewRef, 'mapToShare.png').then((imagePath) => { 
-       console.log(imagePath); 
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">const findNodeHandle = require('findNodeHandle');
+  const myMapViewRef = findNodeHandle(this.refs.myMapView);
+  const imageName = 'mapToShare.png';
+  let imageToShow = null;
+  Host.file.amapScreenShot(myMapViewRef, imageName).then(() => { 
+     imageToShow = &lt;Image source={{local:imageName}}>
+       console.log("ok"); 
   });</code></pre>
 
 
@@ -1475,6 +1478,136 @@
 </dl>
 
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".isFileExists"><span class="type-signature">(static) </span>isFileExists<span class="signature">(fileName)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>判断文件是否存在</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fileName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

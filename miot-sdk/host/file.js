@@ -14,6 +14,13 @@ export default {
          return Promise.resolve([]);
     },
     /**
+     * 判断文件是否存在
+     * @param {*} fileName 
+     */
+    isFileExists(fileName){
+         return Promise.resolve(false)
+    },
+    /**
      * 读本地文件
      * @param {string} fileName - 文件名
      * @param {json} [opt={}] - 其他设置项 
@@ -180,6 +187,8 @@ export default {
      * @param {string} imageName - 图片名称，png
      * @param {{l:int, t:int, w:int, h:int}} rect - 截屏范围
      * @return {Promise<string>} -  截图成功 返回图片地址
+     *  
+     * 
      */
     screenShotInRect(imageName, rect) {
          return Promise.resolve("...");
@@ -205,10 +214,13 @@ export default {
      * @param {string} imageName - 图片名称，自动添加后缀png
      * @return {Promise}
      * @example
-     *   var findNodeHandle = require('findNodeHandle');
-     *   var myMapViewRef = findNodeHandle(this.refs.myMapView);
-     *   Host.file.amapScreenShot(myMapViewRef, 'mapToShare.png').then((imagePath) => { 
-     *        console.log(imagePath); 
+     *   const findNodeHandle = require('findNodeHandle');
+     *   const myMapViewRef = findNodeHandle(this.refs.myMapView);
+     *   const imageName = 'mapToShare.png';
+     *   let imageToShow = null;
+     *   Host.file.amapScreenShot(myMapViewRef, imageName).then(() => { 
+     *      imageToShow = <Image source={{local:imageName}}>
+     *        console.log("ok"); 
      *   });
      */
     amapScreenShot(viewRef, imageName) {

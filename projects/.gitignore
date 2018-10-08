@@ -1,5 +1,2 @@
-#node_modules/
-#*/node_modules/
-build/
-*/build/
-temp/
+node_modules/
+*/node_modules/
