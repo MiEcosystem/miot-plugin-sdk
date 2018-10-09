@@ -1,13 +1,15 @@
-import {requireNativeComponent, ViewPropTypes} from 'react-native';
 /**
- * 高德地图 MHMapView
+ * @export
+ * @module miot/ui/AMapView
+ * @description 地图的 js 桥接，内部使用高德地图实现，
  * @mark andr done
  */
+import {requireNativeComponent, ViewPropTypes} from 'react-native';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 const resolveAssetSource = require('resolveAssetSource');
 const MapView = requireNativeComponent('MHMapView', null);
-export default class MHMapView extends Component {
+export default class AMapView extends Component {
     static propTypes = {
         /**
          *

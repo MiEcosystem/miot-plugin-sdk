@@ -18,7 +18,7 @@ import {
 } from 'react-native';
 
 var MHMapSearch = require('NativeModules').MHMapSearch;
-import {MHMapView} from 'miot/ui';
+import {AMapView} from 'miot/ui';
 var window = Dimensions.get('window');
 
 export default class MHMapDemo extends React.Component {
@@ -57,7 +57,7 @@ export default class MHMapDemo extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <MHMapView
+        <AMapView
           style={{width:window.width, height:window.height}}
           distanceFilter={100}
           zoomLevel={this.state.zoomLevel}
