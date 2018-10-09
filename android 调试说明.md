@@ -1,0 +1,19 @@
+#### android 插件调试
+
+1. 下载并安装调试环境的 android 米家 apk，依次点击 首页“我的”tab -> 设置 -> 开发者选项 -> RN设备插件调试设置
+
+2. 开启设备 rn 调试 选中插件包名 填写 MiEcosystem/miot-plugin-sdk/projects 下项目的相对路径 如：com.xiaomi.demo
+设备 model 按照插件包名对应路径的设备填写 如：xiaomi.demo.v1
+   **注意打开米家(com.xiaomi.smarthome 的进程从无到有)就要重新设置1，2步骤。**
+   
+![image](./%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87/20181009-0.png)
+
+3. 插件包下project.json文件配置 package_name必须为项目的相对路径，developer_id 验证插件包的合法性使用，必须和开放平台配置的一致。models设备的 model 多个用“|”分隔，version插件版本号，min_sdk_api_level 允许运行的米家最小 api 版本
+
+![image](./%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87/20181009-1.png)
+4. 绑定设备后点击米家首页对应的设备，进入到 rn 插件页面。
+ ![image](./%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87/20181009-3.png)
+5. 在miot-plugin-sdk目录下，第一次运行先执行npm install,完成后生成文件夹node_modules，如果电脑上配置了 adb，连接手机后输入 adb reverse tcp:8081 tcp:8081 或者用力摇动手机出现的弹框 -> Dev Settings -> Debug server host & port for device,设置npm start的 ip 和端口。如：192.168.1.2:8081,最后运行 npm start ，点击手机上的 Reload。
+
+![image](./%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87/20181009-2.png) ![image](./%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87/20181009-4.png) ![image](./%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87/20181009-5.png)
+设置完成之后点击 RN 插件页面的左上角 dev 按钮，会 load 插件代码。
