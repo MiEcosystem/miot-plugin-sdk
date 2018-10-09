@@ -56,8 +56,23 @@ export const DeviceEvent = createEventManager({
      * @event
      * @param {IDevice} device
      * @param {Map<string,object>} messages -接收到的数据
-     * @param {array} originData -接收到的数据, [{key,time,value}]
-     *
+     * @param {array} originData -接收到的数据, [{key,time,value}] 
+     * 
+     * @example 
+     * 
+     * import {Device, DeviceEvent} from 'miot'
+     * Device.subscribeMessages("power", "rgb");
+     * ...
+     * const subscription = DeviceEvent.deviceReceivedMessages.addListener(
+     * (device, messages)=>{
+     *   if(messages.has('power')){
+     *      const power = messages.get('power');
+     *      ...
+     *   }
+     *   ...
+     * })
+     * ...
+     * 
      */
     deviceReceivedMessages:{
     }
@@ -208,6 +223,25 @@ class IDevice {
     getSubDevices() {
          return Promise.resolve([]);
     }
+    /**
+     * 是否虚拟设备
+     * @type {boolean}
+     * @readonly
+     * 
+     */
+    get isVirtualDevice(){ 
+         return  false
+    }
+    /**
+     * 获取虚拟设备
+     * @method
+     * @returns {Promise<IDevice[]>}
+     * 
+     */
+    getVirtualDevices(){
+         return Promise.resolve([]);
+    }
+    
     /**
      * 蓝牙操作入口
      * @type {IBluetooth}
