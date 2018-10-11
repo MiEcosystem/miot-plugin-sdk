@@ -1,181 +1,157 @@
 'use strict';
 
+import React, { Component } from 'react';
+
+import {
+    Dimensions,
+    StyleSheet,
+    View,
+    TextInput,
+    Text,
+} from 'react-native';
+
 import {Package} from "miot";
+var { height: screenHeight, width: screenWidth } = Dimensions.get('window');
+import { TitleBarBlack } from 'miot/ui';
+import LocalizedStrings  from './MHLocalizableString';
+const maxNum = 100;
 
-var React = require('react-native');
+export default class SceneMain extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+        let value = Package.entryInfo.action.payload.value;
+        if (typeof value  === "string") value=JSON.parse(value);
+        let text = value ? value.text : ''
+        this.state = {
+            text: text,
+            textNum: this.getBLen(text),
+            // textValid: true,
+            numValid: !!value,
+        };
+    }
 
-var {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  Image,
-  View,
-  TextInput,
-  PixelRatio,
-  StatusBar,
-  TouchableOpacity,
-  Platform,
-  DeviceEventEmitter,
-} = React;
+    getBLen = function (str) {
+        if (!str) return 0;
+        if (typeof str != "string") {
+            str += "";
+        }
+        return Math.ceil(str.replace(/[^\x00-\xff]/g, "01").length / 2);
+    }
 
-var ImageButton = require('../CommonModules/ImageButton');
-const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
-var rValue = 0;
-var gValue = 0;
-var bValue = 0;
+    _isValid(str) {
+        return /^([a-zA-Z]|[\u4e00-\u9fbb]|，|。|？|！|,|\.|\?|!|\s)*$/.test(str);
+    }
 
-class SceneMain extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+    render() {
+        return (
+            <View style={styles.pageContanier}>
+                <TitleBarBlack
+                    leftText={LocalizedStrings.string.cancel}
+                    onPressLeft={() => this._cancel()}
+                    // disabled={!this.state.textValid || !this.state.numValid}
+                    disabled={!this.state.numValid}
+                    title={LocalizedStrings.string.voiceBroadcast}
+                    rightText={LocalizedStrings.string.save}
+                    onPressRight={() => this._save()}
+                />
+                <View style={styles.containerAll}>
+                    <View style={styles.separator} />
+                    <View style={{ backgroundColor: "#fff" }}>
+                        <TextInput
+                            multiline={true}
+                            numberOfLines={6}
+                            style={styles.textInput}
+                            value={this.state.text}
+                            placeholder={LocalizedStrings.string.enterPlayContent}
+                            onChangeText={(text) => this.setState({ text })}
+                            onEndEditing={({ nativeEvent }) => this._validateText(nativeEvent.text)}
+                        />
+                        <View style={styles.textNumContainer}>
+                            <Text style={this.state.textNum > maxNum ? styles.textNumInvalid : styles.textNum}>
+                                {this.state.textNum}
+                            </Text>
+                            <Text style={styles.textNum}>{"/" + maxNum}</Text>
+                        </View>
+                        <View style={[styles.separator, { marginHorizontal: 22 }]} />
+                        {/* {this.state.textValid
+              ? <Text style={styles.tip}>
+                支持输入中文、英文，符号仅支持中文逗号、句号、问号、感叹号。
+                </Text>
+              : <Text style={[styles.tip, { color: "#F05353" }]}>
+                含有不支持的字符
+                </Text>
+            } */}
+                    </View>
+                </View>
+            </View >
+        );
+    }
 
-    this.state = {
-      requestStatus: false,
-    };
-  }
+    _validateText(text) {
+        let length = this.getBLen(text);
+        this.setState({
+            textNum: length,
+            numValid: length > 0 && length <= maxNum,
+            // textValid: this._isValid(text)
+        });
+    }
 
-  componentDidMount() {
-  }
-  test() {
-    alert("test");
-  }
+    _cancel() {
+        Package.exit();
+    }
 
-  render() {
-    return (
-      <View style={styles.containerAll} >
-        <StatusBar barStyle='light-content' />
-        <View style={styles.containerIconDemo}>
-          <Image style={styles.iconDemo} source={require("../Resources/control_home.png")} />
-          <Text style={styles.iconText}>开发自定义智能场景</Text>
-        </View>
-        <View style={styles.containerMenu}>
-          <TextInput
-            style={styles.textInput}
-            maxLength={3}
-            placeholder="R: 0-255"
-            onChangeText={(text) => {
-              rValue = text;
-            }}
-          />
-          <TextInput
-            style={styles.textInput}
-            maxLength={3}
-            placeholder="G: 0-255"
-            onChangeText={(text) => {
-              gValue = text;
-            }}
-          />
-          <TextInput
-            style={styles.textInput}
-            maxLength={3}
-            placeholder="B: 0-255"
-            onChangeText={(text) => {
-              bValue = text;
-            }}
-          />
-        </View>
-      </View>
-    );
-  }
+    _save() {
+        Package.exitInfo= {
+            text: this.state.text,
+            type: "PLAY_USER_TTS"
+        };
+        Package.exit();
+    }
 }
 
 var styles = StyleSheet.create({
-  containerAll: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#838383',
-    marginTop: 0,
-  },
-  containerIconDemo: {
-    flex: 1.7,
-    flexDirection: 'column',
-    backgroundColor: '#191919',
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-  },
-  containerMenu: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#ffffff',
-    alignSelf: 'stretch',
-  },
-  iconDemo: {
-    width: 270,
-    height: 181,
-    alignSelf: 'center',
-  },
-  iconText: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: '#ffffff',
-    marginTop: 20,
-    alignSelf: 'center'
-  },
-
-  textInput: {
-    height: 40,
-    borderWidth: 0.5,
-    borderColor: '#0f0f0f',
-    // flex: 1,
-    fontSize: 16,
-    padding: 4,
-    marginTop: 20,
-    marginLeft: 30,
-    marginRight: 30,
-    backgroundColor: '#ffffff',
-  },
+    pageContanier: {
+        width: screenWidth,
+        height: screenHeight,
+        backgroundColor: "#fff",
+    },
+    containerAll: {
+        flex: 1,
+        marginTop: 0,
+        backgroundColor: "#f2f2f2"
+    },
+    separator: {
+        height: 0.5,
+        backgroundColor: '#e5e5e5',
+    },
+    textInput: {
+        height: 225,
+        fontSize: 15,
+        color: '#000',
+        lineHeight: 50,
+        backgroundColor: "#fff",
+        padding: 15,
+    },
+    textNumContainer: {
+        position: 'absolute',
+        top: 181,
+        right: 22,
+        flexDirection: 'row',
+    },
+    textNum: {
+        fontSize: 15,
+        color: '#999'
+    },
+    textNumInvalid: {
+        fontSize: 15,
+        color: '#F05353'
+    },
+    tip: {
+        marginHorizontal: 22,
+        marginTop: 10,
+        marginBottom: 22,
+        fontSize: 12,
+        color: "#999",
+        lineHeight: 17,
+    }
 });
-
-const KEY_OF_SCENEMAIN = 'SceneMain';
-
-// 每个页面export自己的route
-var route = {
-  key: KEY_OF_SCENEMAIN,
-  title: '自定义场景',
-  component: SceneMain,
-  navLeftButtonStyle: {
-    tintColor: '#ffffff',
-  },
-  navTitleStyle: {
-    color: '#ffffff',
-  },
-  navBarStyle: {
-    backgroundColor: 'transparent',
-  },
-  renderNavLeftComponent(route, navigator, index, navState) {
-    return (<View style={{ left: 0, width: 29 + 15 * 2, height: APPBAR_HEIGHT, justifyContent: 'center', alignItems: 'center' }}>
-      <ImageButton
-        source={{ uri: MHPluginSDK.uriNaviBackButtonImage, scale: PixelRatio.get() }}
-        onPress={() => {
-          if (index === 0) {
-            MHPluginSDK.closeCurrentPage();
-          } else {
-            navigator.pop();
-          }
-        }}
-        style={[{ width: 29, height: 29, tintColor: '#000000' }, route.navLeftButtonStyle]}
-      />
-    </View>);
-  },
-  renderNavRightComponent: function (route, navigator, index, navState) {
-    return (
-      <View style={{ left: 0, width: 29 + 15 * 2, height: APPBAR_HEIGHT, justifyContent: 'center', alignItems: 'center' }}>
-        <TouchableHighlight onPress={() => {
-          var color = rValue << 16 | gValue << 8 | bValue;
-          var action = Package.entryInfo.action;
-          action.payload.value = color;
-            Package.exitInfo=color;
-            Package.exit();
-        }}>
-          <Text style={{ fontWeight: 'bold', color: '#f0f0f0' }}>确定</Text>
-        </TouchableHighlight>
-      </View>
-    );
-  },
-  isNavigationBarHidden: false,
-}
-
-module.exports = {
-  component: SceneMain,
-  route: route,
-}

@@ -1,10 +1,10 @@
 import App from "./Main";
-import Simple from './Main/Simple'
-import { Package, Entrance } from "miot"; 
+import SceneMain from './Main/SceneMain'
+import { Package, Entrance } from "miot";
 
 switch (Package.entrance) {
     case Entrance.Scene:
-        Package.entry(Simple, _ => {
+        Package.entry(SceneMain, _ => {
         });
         break;
     default:
