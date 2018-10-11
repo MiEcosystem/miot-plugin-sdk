@@ -21,7 +21,7 @@
  *                          characteristic.value ...
  *                      })
  *                      .write(value, ok=>{})
- *
+ * 
  * bluetooh.getService('a-b-c').getCharacteristic('1-2-3')
  *      .read().then(value=>{}).catch(err=>{...})
  *
@@ -30,7 +30,6 @@
  * bluetooth.disconnect()
  *
  */
- const createEventManager=def=>def
 /**
  * 蓝牙特征值
  * @interface
@@ -273,7 +272,7 @@ export class IBluetooth {
  const bluetoothDevices={}
 /**
  * 蓝牙事件名集合
- * @typedef BluetoothEvent
+ * @namespace BluetoothEvent
  * @example
  *    import {BluetoothEvent} from 'miot'
  *    const subscription = BluetoothEvent.bluetoothServiceDiscovered.addListener(
@@ -286,7 +285,7 @@ export class IBluetooth {
  *    ...
  *
  */
-export const BluetoothEvent = createEventManager({
+export const BluetoothEvent = {
     /**
      * 蓝牙断开连接
      * @event
@@ -372,7 +371,7 @@ export const BluetoothEvent = createEventManager({
      */
     bluetoothStatusChanged:{
     }
-});
+};
 /**
  * @export
  */

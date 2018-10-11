@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Xiaomi MIOT: Module: miot/Device</title>
+    <title>Xiaomi MIOT: Namespace: Entrance</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: miot/Device</h1>
+    <h1 class="page-title">Namespace: Entrance</h1>
 
     
 
@@ -28,8 +28,8 @@
 
 <header>
     
-        
-            
+        <h2>
+            <span class="ancestors"><a href="module-miot_Package.html">miot/Package</a>~</span>Entrance</h2>
         
     
 </header>
@@ -38,24 +38,10 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>设备相关 API</p></div>
+            <div class="description"><p>扩展程序调用的入口类型</p></div>
         
 
         
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <dl class="details">
@@ -92,22 +78,6 @@
 
     
 </dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         
@@ -121,23 +91,9 @@
     
 
     
-        <h3 class="subsection-title">Interfaces</h3>
-
-        <dl>
-            <dt><a href="module-miot_Device-IDevice.html">IDevice</a></dt>
-            <dd></dd>
-        </dl>
-    
 
     
 
-    
-        <h3 class="subsection-title">Namespaces</h3>
-
-        <dl>
-            <dt><a href="module-miot_Device-DeviceEvent.html">DeviceEvent</a></dt>
-            <dd></dd>
-        </dl>
     
 
     
@@ -145,85 +101,13 @@
 
         
             
-<h4 class="name" id=".RootDevice"><span class="type-signature">(static, constant) </span>RootDevice<span class="type-signature"> :IDevice</span></h4>
-
-
-
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">IDevice</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
-
-    
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
-
-        
-                
-<h4 class="name" id="~DeviceVersion">DeviceVersion</h4>
+<h4 class="name" id=".Main"><span class="type-signature">(static, constant) </span>Main<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>设备固件版本信息</p>
+    <p>主入口</p>
 </div>
 
 <!--
@@ -233,192 +117,60 @@
 
 
 
-    <h5 class="subsection-title">Properties:</h5>
+<dl class="details">
 
     
 
-<table class="props">
-    <thead>
-    <tr>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
         
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
             
-                <td class="name"><code>isUpdating</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
+<h4 class="name" id=".Scene"><span class="type-signature">(static, constant) </span>Scene<span class="type-signature"></span></h4>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>isLatest</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
 
 
-            
-            </td>
+<div class="description">
+    <p>场景入口</p>
+</div>
 
-            
+<!--
 
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>isForce</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>hasNewFirmware</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>curVersion</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>newVersion</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>description</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
+-->
 
 
 
@@ -463,7 +215,11 @@
 
 
 
-            
+        
+    
+
+    
+
     
 
     

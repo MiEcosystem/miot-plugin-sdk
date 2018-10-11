@@ -35,9 +35,6 @@ class SceneMain extends React.Component {
   }
 
   componentDidMount() {
-    console.log('Trigger: ' + JSON.stringify(Package.extraInfo.trigger));
-    console.log('Action: ' + JSON.stringify(Package.extraInfo.action));
-    console.log('Payload: ' + JSON.stringify(Package.extraInfo.payload));
   }
   test() {
     alert("test");
@@ -165,10 +162,10 @@ var route = {
       <View style={{ left: 0, width: 29 + 15 * 2, height: APPBAR_HEIGHT, justifyContent: 'center', alignItems: 'center' }}>
         <TouchableHighlight onPress={() => {
           var color = rValue << 16 | gValue << 8 | bValue;
-          var action = MHPluginSDK.extraInfo.action;
+          var action = Package.entryInfo.action;
           action.payload.value = color;
-          MHPluginSDK.finishCustomSceneSetupWithAction(action);
-          MHPluginSDK.closeCurrentPage();
+            Package.exitInfo=color;
+            Package.exit();
         }}>
           <Text style={{ fontWeight: 'bold', color: '#f0f0f0' }}>确定</Text>
         </TouchableHighlight>

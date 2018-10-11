@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Xiaomi MIOT: Module: miot/Device</title>
+    <title>Xiaomi MIOT: Namespace: DeviceEvent</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: miot/Device</h1>
+    <h1 class="page-title">Namespace: DeviceEvent</h1>
 
     
 
@@ -28,8 +28,8 @@
 
 <header>
     
-        
-            
+        <h2>
+            <span class="ancestors"><a href="module-miot_Device.html">module:miot/Device</a>~</span>DeviceEvent</h2>
         
     
 </header>
@@ -38,24 +38,10 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>设备相关 API</p></div>
+            <div class="description"><p>Device事件名集合</p></div>
         
 
         
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <dl class="details">
@@ -94,21 +80,29 @@
 </dl>
 
 
+        
+            <h3>Example</h3>
+            
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {DeviceEvent} from 'miot'
+   ...
+   class MyPage extends React.Component{
+         componentWillMount(){
+             this.subscription = DeviceEvent.deviceReceivedMessages.addListener((device, messages)=>{
+                 if(!this.props.navigation.isFocused()){
+                     return;
+                 }
+                 ...
+             })
+         }
+         ...
+         componentWillUnmount(){
+             ...
+             this.subscription.remove()
+         }
+         ...
+   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   ...</code></pre>
 
         
     
@@ -121,123 +115,49 @@
     
 
     
-        <h3 class="subsection-title">Interfaces</h3>
 
-        <dl>
-            <dt><a href="module-miot_Device-IDevice.html">IDevice</a></dt>
-            <dd></dd>
-        </dl>
+    
+
     
 
     
 
     
-        <h3 class="subsection-title">Namespaces</h3>
 
-        <dl>
-            <dt><a href="module-miot_Device-DeviceEvent.html">DeviceEvent</a></dt>
-            <dd></dd>
-        </dl>
     
 
     
-        <h3 class="subsection-title">Members</h3>
+        <h3 class="subsection-title">Events</h3>
 
         
             
-<h4 class="name" id=".RootDevice"><span class="type-signature">(static, constant) </span>RootDevice<span class="type-signature"> :IDevice</span></h4>
-
-
-
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">IDevice</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
 
     
 
     
-
+    <h4 class="name" id=".event:deviceNameChanged">deviceNameChanged</h4>
     
 
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
-
-    
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
-
-        
-                
-<h4 class="name" id="~DeviceVersion">DeviceVersion</h4>
-
 
 
 
 <div class="description">
-    <p>设备固件版本信息</p>
+    <p>设备名称变更事件</p>
 </div>
 
-<!--
-
--->
 
 
 
 
-    <h5 class="subsection-title">Properties:</h5>
 
+
+
+
+    <h5>Parameters:</h5>
     
 
-<table class="props">
+<table class="params">
     <thead>
     <tr>
         
@@ -259,13 +179,13 @@
 
         <tr>
             
-                <td class="name"><code>isUpdating</code></td>
+                <td class="name"><code>device</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">IDevice</span>
 
 
             
@@ -275,150 +195,193 @@
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>isLatest</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>isForce</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>hasNewFirmware</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>curVersion</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>newVersion</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>description</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
+            <td class="description last"><p>发生变更的设备</p></td>
         </tr>
 
     
     </tbody>
 </table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>1.0.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".event:deviceReceivedMessages">deviceReceivedMessages</h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>设备场景消息</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>device</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">IDevice</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>messages</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Map.&lt;string, object></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>接收到的数据</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>originData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>接收到的数据, [{key,time,value}]</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
 
 
 
@@ -463,9 +426,165 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Device, DeviceEvent} from 'miot'
+Device.subscribeMessages("power", "rgb");
+...
+const subscription = DeviceEvent.deviceReceivedMessages.addListener(
+(device, messages)=>{
+  if(messages.has('power')){
+     const power = messages.get('power');
+     ...
+  }
+  ...
+})
+...</code></pre>
+
+
+
+        
             
+
     
 
+    
+    <h4 class="name" id=".event:deviceStatusChanged">deviceStatusChanged</h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>设备状态变更事件,</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>device</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">IDevice</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>发生变更的设备</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     
 </article>
 

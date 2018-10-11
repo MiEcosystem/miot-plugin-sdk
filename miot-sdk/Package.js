@@ -6,31 +6,50 @@
  *  import {Package} from 'miot'
  *  import Package from 'miot/Package'
  *
+ *      Package.entrance
+ *      Package.entryInfo
+ *      Package.exitInfo={...}
+ * 
  *     Package.pluginID
- *     Package.pacakgeID
+ *     Package.packageID
  *     Package.packageName
  *     Package.version
- *     Package.apiLevel
+ *     Package.minApiLevel
  *     Package.buildType
  *     Package.isDebug
  *     Package.models
  *
  *     Package.entry(App, ()=>{...});
- *     Package.exit();
- *  
- *    
- * 
+ *     Package.exit({...});
+ *
+ *
+ *
  */
 import {
     AppRegistry
 } from "react-native";
 import React from 'react';
- const createEventManager=def=>def
 export const DEBUG = "debug";
 export const RELEASE = "release";
 /**
+ * 扩展程序调用的入口类型
+ * @namespace Entrance
+ */
+export const Entrance = {
+    /**
+     * 主入口
+     * @const
+     */
+    get Main(){return "main"},
+    /**
+     * 场景入口
+     * @const
+     */
+    get Scene(){return "scene"}
+}
+/**
  * Package事件名集合
- * @typedef PackageEvent
+ * @namespace PackageEvent
  * @example
  *    import {PackageEvent} from 'miot'
  *    const subscription = PackageEvent.packageWillPause.addListener(()=>{
@@ -39,15 +58,14 @@ export const RELEASE = "release";
  *    ...
  *    subscription.remove()
  *    ...
- * 
- * 
- * @expo events
+ *
+ *
  */
-export const PackageEvent = createEventManager({
+export const PackageEvent = {
     /**
      * 插件将要加载
      * @event
-     * 
+     *
      */
     packageWillLoad: { local: true },
     /**
@@ -57,58 +75,82 @@ export const PackageEvent = createEventManager({
     packageDidLoaded: { local: true },
     /**
     * 插件将暂时退出前台事件
-    * @event 
+    * @event
     */
     packageWillPause: { always: true },
     /**
     * 插件将重回前台事件
-    * @event 
+    * @event
     */
     packageDidResume: { always: true },
     /**
      * 用户撤销隐私授权时的回调
-     * @event 
+     * @event
      */
     packageAuthorizationCancel: { always: true },
     /**
      * 插件接收到场景等通知消息
-     * @event 
-     *  
-     * 
+     * @event
+     *
+     *
      */
     packageReceivedInformation: { always: true },
     /**
     * 插件将退出事件
-    * @event 
+    * @event
     */
     packageWillExit: { always: true },
     /**
     * 从 Native 界面返回到插件,可以通过监听此事件更新已加载过的视图，或进行相应的事件处理。
-    * @event 
+    * @event
     */
     packageViewWillAppear: { always: true }
-});
+};
 /**
  * @export
- * @expo default
  */
 export default {
     /**
-     * 从通知栏或者推送带过来的 string
+     * 入口类型
      * @const
-     * @type {string}
+     * @type {Entrance}
      * @readonly
-     *  
+     *
      */
-    get extraInfo() {
-         return  ""
+    get entrance(){
+         return  Entrance.Main
+    },
+    /**
+     * 入口信息
+     * @const
+     * @type {json}
+     * @readonly
+     *
+     */
+    get entryInfo() {
+         return  {}
+    },
+    /**
+     * 退出后返回给调用者的信息, 例如自定义场景
+     * @member {json}
+     *
+     * @example
+     *
+     * Package.exitInfo={trigger:{}}
+     *
+     *
+     */
+    get exitInfo(){
+         return  {}
+    },
+    set exitInfo(info){
     },
     /**
      * 小米开放平台生成的插件包 ID
      * @const
      * @type {int}
      * @readonly
-     *  
+     *
      */
     get packageID() {
          return  0
@@ -118,7 +160,7 @@ export default {
      * @const
      * @type {string}
      * @readonly
-     *  
+     *
      */
     get version() {
          return  ""
@@ -128,7 +170,7 @@ export default {
      * @const
      * @type {string}
      * @readonly
-     *  
+     *
      */
     get packageName() {
          return  ""
@@ -138,7 +180,7 @@ export default {
      * @const
      * @type {int}
      * @readonly
-     *  
+     *
      */
     get minApiLevel() {
          return  0
@@ -148,7 +190,7 @@ export default {
      * @const
      * @type {string}
      * @readonly
-     *  
+     *
      */
     get buildType() {
          return  "release"
@@ -158,7 +200,7 @@ export default {
      * @const
      * @type {boolean}
      * @readonly
-     *  
+     *
      */
     get isDebug() {
          return  false
@@ -168,7 +210,7 @@ export default {
      * @const
      * @type {string}
      * @readonly
-     *  
+     *
      */
     get models() {
          return  ""
@@ -179,16 +221,29 @@ export default {
      * @param {React.Component} RootComponent 入口的React Component模块
      * @param {function} afterPackageEntry 进入后, RootComponent 加载之前执行, 缺省为空
      * @example
-     *      Package.entry(App, ()=>{...})
-     * 
+     *
+     * import SceneMain from '...';
+     * import App from '...';
+     *
+     * import {Package, Entrance} from 'miot';
+     *
+     * switch(Package.entrance){
+     *   case Entrance.Scene:
+     *      Package.entry(SceneMain, ()=>{...});
+     *      break;
+     *   default:
+     *      Package.entry(App, ()=>{...});
+     *      break;
+     * }
+     *
      */
     entry(RootComponent, afterPackageEntry = null) {
     },
     /**
      * 强制退出插件
      * @method
-     *  
+     * @param {*} info -如果不为空, 则等同于设置 Package.exitInfo
      */
-    exit() {
+    exit(info=null) {
     }
 }

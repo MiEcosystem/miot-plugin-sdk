@@ -14,7 +14,7 @@
  *   import Bluetooth from 'miot/Bluetooth'
  *   
  */
-import PackageInstance, {PackageEvent as PackageEventNames } from './Package'
+import PackageInstance, {PackageEvent as PackageEventNames, Entrance as Entrances } from './Package'
 import RootDevice, {DeviceEvent as DeviceEventNames} from './Device'
 import {RootDeviceProperties} from "./Properties"
 import ServiceInstance from './Service'
@@ -30,8 +30,14 @@ export const API_LEVEL = 10000
  */
 export const Package=PackageInstance;
 /**
- * 插件全局事件名称
- * {@link module:miot/Package}
+ * 插件入口类型
+ * {@link module:miot/Package~Entrance}
+ * @export
+ */
+export const Entrance=Entrances;
+/**
+ * 插件全局事件
+ * {@link module:miot/Package~PackageEvent}
  * @export
  */
 export const PackageEvent=PackageEventNames;
@@ -43,7 +49,8 @@ export const PackageEvent=PackageEventNames;
  */
 export const Device=RootDevice;
 /**
- * 设备系统事件名称
+ * 设备系统事件
+ * {@link module:miot/Device~DeviceEvent}
  * @export
  */
 export const DeviceEvent=DeviceEventNames;
@@ -79,19 +86,21 @@ export const Resources=ResourcesPack;
  */
 export const Bluetooth = BluetoothFactory;
 /**
- * 蓝牙事件名称
+ * 蓝牙事件
+ * {@link module:miot/Bluetooth~BluetoothEvent}
  * @export
  */
 export const BluetoothEvent = BluetoothEventNames;
 /**
  * 场景类型
+ * {@link module:miot/service/scene~SceneType}
  * @export
  */
 export const SceneType = SceneTypeNames;
 /**
  * @export
  */
-export default {API_LEVEL, Package, PackageEvent, 
+export default {API_LEVEL, Package, PackageEvent, Entrance,
     Device, DeviceEvent, DeviceProperties,
     Service, Host, Resources,
     Bluetooth, BluetoothEvent, SceneType}

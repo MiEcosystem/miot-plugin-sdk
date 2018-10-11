@@ -8,19 +8,22 @@
  */
 /**
  * 场景类型
- * @enum
+ * @namespace SceneType
  */
 export const SceneType={
     /**
      * 定时场景
+     * @const
      */
     get Timer(){return 8;},
     /**
      * 人工场景
+     * @const
      */
     get Artificial(){return 30;},
     /**
      * 自动场景
+     * @const
      */
     get Automatic(){return 15;}
 };

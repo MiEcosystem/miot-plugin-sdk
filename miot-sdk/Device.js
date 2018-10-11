@@ -7,10 +7,9 @@
  */
 import Account from "./Account"
 import Scene from './service/scene'
- function createEventManager(){}
 /**
  * Device事件名集合
- * @typedef DeviceEvent
+ * @namespace DeviceEvent
  * @example
  *    import {DeviceEvent} from 'miot'
  *    ...
@@ -34,7 +33,7 @@ import Scene from './service/scene'
  *    ...
  *
  */
-export const DeviceEvent = createEventManager({
+export const DeviceEvent = {
     /**
      * 设备名称变更事件
      * @event
@@ -76,7 +75,7 @@ export const DeviceEvent = createEventManager({
      */
     deviceReceivedMessages:{
     }
-});
+};
 /**
  * @interface
  */

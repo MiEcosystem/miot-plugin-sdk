@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Xiaomi MIOT: Module: miot/service/scene</title>
+    <title>Xiaomi MIOT: Namespace: BluetoothEvent</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: miot/service/scene</h1>
+    <h1 class="page-title">Namespace: BluetoothEvent</h1>
 
     
 
@@ -28,8 +28,8 @@
 
 <header>
     
-        
-            
+        <h2>
+            <span class="ancestors"><a href="module-miot_Bluetooth.html">miot/Bluetooth</a>~</span>BluetoothEvent</h2>
         
     
 </header>
@@ -38,25 +38,10 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>场景相关服务, 尤其是定时服务</p>
-<p>需要确定是不是在这里统一实现一个完整的定时器的管理, 避免每一次都要重新实现</p></div>
+            <div class="description"><p>蓝牙事件名集合</p></div>
         
 
         
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <dl class="details">
@@ -95,21 +80,18 @@
 </dl>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
+            <h3>Example</h3>
+            
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {BluetoothEvent} from 'miot'
+   const subscription = BluetoothEvent.bluetoothServiceDiscovered.addListener(
+      (bluetooth, ...services)=>{
+         ...
+      }
+    )
+   ...
+   subscription.remove()
+   ...</code></pre>
 
         
     
@@ -122,47 +104,6 @@
     
 
     
-        <h3 class="subsection-title">Interfaces</h3>
-
-        <dl>
-            <dt><a href="module-miot_service_scene.IScene.html">IScene</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-    
-
-    
-        <h3 class="subsection-title">Namespaces</h3>
-
-        <dl>
-            <dt><a href="module-miot_service_scene-SceneType.html">SceneType</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id=".createScene"><span class="type-signature">(static) </span>createScene<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>创建场景</p>
-</div>
-
-<!--
-
--->
-
-
-
-
-<dl class="details">
 
     
 
@@ -175,92 +116,7 @@
     
 
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".loadScenes"><span class="type-signature">(static) </span>loadScenes<span class="type-signature"></span></h4>
-
-
-
-
-<!--
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
+        <h3 class="subsection-title">Events</h3>
 
         
             
@@ -268,7 +124,7 @@
     
 
     
-    <h4 class="name" id=".createArtificialScene"><span class="type-signature">(static) </span>createArtificialScene<span class="signature">(deviceID, opt)</span><span class="type-signature"> &rarr; {IScene}</span></h4>
+    <h4 class="name" id=".event:bluetoothCharacteristicDiscovered">bluetoothCharacteristicDiscovered</h4>
     
 
     
@@ -276,7 +132,7 @@
 
 
 <div class="description">
-    <p>创建人工场景</p>
+    <p>蓝牙特征发现事件</p>
 </div>
 
 
@@ -300,6 +156,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -312,46 +170,95 @@
 
         <tr>
             
-                <td class="name"><code>deviceID</code></td>
+                <td class="name"><code>bluetooh</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">IBluetooth</span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>蓝牙设备</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>opt</code></td>
+                <td class="name"><code>service</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">json</span>
+<span class="param-type">IBluetoothService</span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>蓝牙特征</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>characters</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">IBluetoothCharacteristic</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>发现的蓝牙特征</p></td>
         </tr>
 
     
@@ -410,24 +317,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">IScene</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -439,7 +328,7 @@
     
 
     
-    <h4 class="name" id=".createAutomaticScene"><span class="type-signature">(static) </span>createAutomaticScene<span class="signature">(deviceID, opt)</span><span class="type-signature"> &rarr; {IScene}</span></h4>
+    <h4 class="name" id=".event:bluetoothCharacteristicDiscoverFailed">bluetoothCharacteristicDiscoverFailed</h4>
     
 
     
@@ -447,7 +336,7 @@
 
 
 <div class="description">
-    <p>创建自动场景</p>
+    <p>蓝牙特征发现失败事件</p>
 </div>
 
 
@@ -483,13 +372,13 @@
 
         <tr>
             
-                <td class="name"><code>deviceID</code></td>
+                <td class="name"><code>bluetooh</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">IBluetooth</span>
 
 
             
@@ -499,20 +388,20 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>蓝牙设备</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>opt</code></td>
+                <td class="name"><code>service</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">json</span>
+<span class="param-type">IBluetoothService</span>
 
 
             
@@ -522,310 +411,14 @@
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">IScene</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".createTimerScene"><span class="type-signature">(static) </span>createTimerScene<span class="signature">(deviceID, opt)</span><span class="type-signature"> &rarr; {IScene}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>创建定时场景</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>deviceID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
+            <td class="description last"><p>蓝牙特征</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>opt</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">IScene</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".loadArtificialScenes"><span class="type-signature">(static) </span>loadArtificialScenes<span class="signature">(deviceID, opt)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;IScene>>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>加载人工场景</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>deviceID</code></td>
+                <td class="name"><code>error</code></td>
             
 
             <td class="type">
@@ -841,30 +434,7 @@
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opt</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>{identify,name}</p></td>
+            <td class="description last"><p>错误信息</p></td>
         </tr>
 
     
@@ -923,24 +493,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Array.&lt;IScene>></span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -952,7 +504,7 @@
     
 
     
-    <h4 class="name" id=".loadAutomaticScenes"><span class="type-signature">(static) </span>loadAutomaticScenes<span class="signature">(deviceID, opt)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;IScene>>}</span></h4>
+    <h4 class="name" id=".event:bluetoothCharacteristicValueChanged">bluetoothCharacteristicValueChanged</h4>
     
 
     
@@ -960,7 +512,8 @@
 
 
 <div class="description">
-    <p>加载自动场景</p>
+    <p>蓝牙特征值变更事件
+notify, read</p>
 </div>
 
 
@@ -996,7 +549,76 @@
 
         <tr>
             
-                <td class="name"><code>deviceID</code></td>
+                <td class="name"><code>bluetooh</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">IBluetooth</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>蓝牙设备</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>service</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">IBluetoothService</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>蓝牙服务</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>character</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">IBluetoothCharacteristic</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>蓝牙特征</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
             
 
             <td class="type">
@@ -1012,30 +634,7 @@
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opt</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>{identify,name}</p></td>
+            <td class="description last"><p>数值</p></td>
         </tr>
 
     
@@ -1094,24 +693,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Array.&lt;IScene>></span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -1123,7 +704,7 @@
     
 
     
-    <h4 class="name" id=".loadTimerScenes"><span class="type-signature">(static) </span>loadTimerScenes<span class="signature">(deviceID, opt)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;IScene>>}</span></h4>
+    <h4 class="name" id=".event:bluetoothConnectionStatusChanged">bluetoothConnectionStatusChanged</h4>
     
 
     
@@ -1131,7 +712,7 @@
 
 
 <div class="description">
-    <p>加载定时场景</p>
+    <p>蓝牙断开连接</p>
 </div>
 
 
@@ -1167,13 +748,13 @@
 
         <tr>
             
-                <td class="name"><code>deviceID</code></td>
+                <td class="name"><code>bluetooh</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">IBluetooth</span>
 
 
             
@@ -1183,20 +764,20 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>发生连接打开关闭事件的蓝牙设备</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>opt</code></td>
+                <td class="name"><code>isConnected</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">json</span>
+<span class="param-type">boolean</span>
 
 
             
@@ -1206,7 +787,7 @@
 
             
 
-            <td class="description last"><p>{identify,name}</p></td>
+            <td class="description last"><p>当前连接状态</p></td>
         </tr>
 
     
@@ -1265,34 +846,773 @@
 
 
 
-<h5>Returns:</h5>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".event:bluetoothDeviceDiscovered">bluetoothDeviceDiscovered</h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>蓝牙设备扫描发现事件</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
 
         
 
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Array.&lt;IScene>></span>
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>bluetooh</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">IBluetooth</span>
 
 
-    </dd>
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>扫描发现的蓝牙设备</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 </dl>
 
-    
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id=".event:bluetoothDeviceDiscoverFailed">bluetoothDeviceDiscoverFailed</h4>
     
 
     
 
+
+
+<div class="description">
+    <p>蓝牙设备扫描发现失败事件</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>错误信息</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".event:bluetoothSeviceDiscovered">bluetoothSeviceDiscovered</h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>蓝牙服务发现事件</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>bluetooh</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">IBluetooth</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>蓝牙设备</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>service</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">IBluetoothService</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>发现的蓝牙服务</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".event:bluetoothSeviceDiscoverFailed">bluetoothSeviceDiscoverFailed</h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>蓝牙服务发现失败事件</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>bluetooh</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">IBluetooth</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>蓝牙设备</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>错误信息</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".event:bluetoothStatusChanged">bluetoothStatusChanged</h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>蓝牙开关状态变更事件</p>
+</div>
+
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">event</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>bluetooh</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">IBluetooth</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>蓝牙设备</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isEnabled</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>当前状态</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     
 </article>
 
