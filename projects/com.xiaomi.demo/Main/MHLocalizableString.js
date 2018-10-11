@@ -49,6 +49,11 @@ export const strings = {
     device_more_activity_cancel_license_privacy: 'Withdraw the authorization from User Agreement and Privacy Policy',
     OpenLibList: 'open source library test',
     ViewTest: ' test view',
+      cancel: "Cancel",
+      ok: "OK",
+      save: "Save",
+      saved: "Saved successfully",
+      voiceBroadcast:'voice control'
   },
   'zh-Hans': {
     NUM_PHOTOS: 'Usted {numPhotos, plural, ' +

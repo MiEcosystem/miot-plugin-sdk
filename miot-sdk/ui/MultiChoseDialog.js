@@ -10,58 +10,62 @@ import PropTypes from 'prop-types';
 export default class MultiChoseDialog extends Component {
   static propTypes = {
     /**
-     * 
-     * @member {bool}   
+     *
+     * @member {bool}
      */
     visible: PropTypes.bool,
     /**
-     * 
-     * @member {string}   
+     *
+     * @member {string}
      */
     title: PropTypes.string,
     /**
-     * 
-     * @member {array}   
+     *
+     * @member {array}
+     * @description 建议 array 的每个item 是一个 object，object 至少有展示条目名称、选中状态两个字段
      */
     dataSource: PropTypes.array,
     /**
-     * 
-     * @member {string}   
+     *
+     * @member {string}
+     * @description dataSource每个条目显示名称 object 的字段名
      */
     dataKey: PropTypes.string,
     /**
-     * 
-     * @member {string}   
+     *
+     * @member {string}
+     * @description dataSource每个条目选中状态 object 的字段名
      */
     checkKey: PropTypes.string,
     /**
-     * 
-     * @member {string}   
+     *
+     * @member {string}
      */
     cancel: PropTypes.string,
     /**
-     * 
-     * @member {string}   
+     *
+     * @member {string}
      */
     confirm: PropTypes.string,
     /**
-     * 
-     * @member {func}    
+     *
+     * @member {func}
      */
     onConfirm: PropTypes.func,
     /**
-     * 
-     * @member {func}     
+     *
+     * @member {func}
      */
     onCancel: PropTypes.func,
     /**
-     * 
-     * @member {func}    
+     *
+     * @member {func}
+     * @description 回调会带一个 object 的参数，object.position为点击第几个条目，object.check 为选中状态
      */
     onCheck: PropTypes.func,
     /**
-     * 
-     * @member {func}    
+     *
+     * @member {func}
      */
     onDismiss: PropTypes.func,
     ...ViewPropTypes,
