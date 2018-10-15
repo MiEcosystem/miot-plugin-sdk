@@ -46,7 +46,7 @@
         <article><h1>MIOT SDK</h1><p>A MIOT SDK for react-native plugin program of ios and android</p>
 <h2>编码说明</h2><h3>插件入口调用示例</h3><pre class="prettyprint source lang-js"><code>import React from 'react'
 import {StyleSheet, Text, View, Image} from &quot;react-native&quot;;
-import {Package, Device, Service, Host...} from 'miot'
+import {Entrance, Package, Device, Service, Host...} from 'miot'
 
 class App extends React.Component{
     render(){
@@ -56,10 +56,16 @@ class App extends React.Component{
     }
 }
 
-Package.entry(App, _=>{
-    //do something when the App is ready but not loaded 
-    ...
-})
+switch(Package.entrance){
+    case Entrance.Main:
+        Package.entry(App, _=>{
+            //do something when the App is ready but not loaded 
+            ...
+        })
+        break;
+    default:
+        break;
+}
 </code></pre><h3>Promise 使用特别说明</h3><p>MIOT SDK 在所有的回调场合, 都尽量使用 Promise 方式返回, 在没有特殊说明的情况下, 返回的 Promise, then(data=&gt;{...})则表示调用成功,并返回正确数据, 而 catch(err=&gt;{...})表示调用失败 
 例如:</p>
 <pre class="prettyprint source lang-js"><code>import {Device} from 'miot'

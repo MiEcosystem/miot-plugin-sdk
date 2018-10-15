@@ -9,7 +9,7 @@
  *      Package.entrance
  *      Package.entryInfo
  *      Package.exitInfo={...}
- * 
+ *
  *     Package.pluginID
  *     Package.packageID
  *     Package.packageName
@@ -40,13 +40,14 @@ export const Entrance = {
      * 主入口
      * @const
      */
-    get Main(){return "main"},
+    Main:"main",
     /**
      * 场景入口
      * @const
      */
-    get Scene(){return "scene"}
+    Scene:"scene"
 }
+Object.freeze(Entrance)
 /**
  * Package事件名集合
  * @namespace PackageEvent

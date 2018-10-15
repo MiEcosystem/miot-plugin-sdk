@@ -72,6 +72,14 @@ export default {
     reportLog(model, log){
     },
     /**
+     * 上报设备数据 /device/event
+     * @param {string} deviceID 
+     * @param {array} records 
+     */
+    reportRecords(deviceID, records){
+         return Promise.resolve(null);
+    },
+    /**
      * 获取支持语音的设备 可以控制的设备列表。
      * @param deviceID  语音设备的 did
      * @return {Promise<json>}

@@ -9,21 +9,117 @@
  * res.systemStrings.mijia
  *
  */
+ function createI18n(langStrings, defaultLanguage){}
 import logo from './images/logo.png'
-import en from './strings/en'
 import zh from './strings/zh'
+import zh_tw from "./strings/zh_tw"
+import zh_hk from "./strings/zh_hk"
+import zh_bo from "./strings/zh_bo"
+import en from './strings/en'
+import es from "./strings/es"
+import ko from "./strings/ko"
+import ru from "./strings/ru"
+import it from "./strings/it"
+import fr from "./strings/fr"
+import de from "./strings/de" 
+import id from "./strings/id"  
+import pl from "./strings/pl" 
+import vi from "./strings/vi" 
+import ja from "./strings/ja" 
+import th from "./strings/th"
 /**
- * 支持的语言类型
+ * 常用语言类型
  * @namespace Language
  */
 export const Language={
+    /**
+     * 中文
+     * @const
+     */
     zh:"zh",
+    /**
+     * 繁体中文(台湾)
+     * @const
+     */
     zh_tw:"zh_tw",
+    /**
+     * 繁体中文(香港)
+     * @const
+     */
     zh_hk:"zh_hk",
-    en:"en",
-    
+    /**
+     * 藏语
+     * @const
+     */
+    zh_bo:"zh_bo", 
+    /**
+     * 英语
+     * @const
+     */
+    en:"en", 
+    /**
+     * 西班牙语
+     * @const
+     */
+    es:"es", 
+    /**
+     * 朝鲜语
+     * @const
+     */
+    ko:"ko", 
+    /**
+     * 俄语
+     * @const
+     */
+    ru:"ru", 
+    /**
+     * 意大利
+     * @const
+     */
+    it:"it", 
+    /**
+     * 法语
+     * @const
+     */
+    fr:"fr", 
+    /**
+     * 德语
+     * @const
+     */
+    de:"de", 
+    /**
+     * 印尼
+     * @const
+     */
+    id:"id", 
+    /**
+     * 波兰
+     * @const
+     */
+    pl:"pl", 
+    /**
+     * 越南
+     * @const
+     */
+    vi:"vi", 
+    /**
+     * 日语
+     * @const
+     */
+    ja:"ja", 
+    /**
+     * 傣语
+     * @const
+     */
+    th:"th", 
+    /**
+     * 阿拉伯语
+     * @const
+     */
+    ar:"ar" 
 }
- const i18n={system:{},custom:{}, lang:false}
+Object.freeze(Language);
+ const i18n={system:createI18n({zh,en,zh_tw,zh_hk,zh_bo,es,ko,ru,it,fr,de,id,pl,vi,ja,th}, Language.zh), custom:{}, lang:false}
 export default {
     /**
      * 米家标志
@@ -36,18 +132,43 @@ export default {
      * @param {json} langStrings 
      * @example
      * 
-     * import res from 'miot/resources'
-     * 
-     * res.registerStrings({
-     *  zh:{
-     *      test:"测试字符串"
-     *  },
-     *  en:{
-     *      test:"test strings"
-     *  }
-     * });
-     * 
-     * console.log(res.strings.test)
+     import res from 'miot/resources'
+     res.registerStrings({
+        zh:{
+            t1:"测试字符串",
+            t2:"数值为{1}",
+            t3:["从{1}到{2}", [0, "非法数据"], [1, "错误数据"], [2, "从 二 到 {2}", 1], [(v1,v2)=>v1>100, "太多了"]],
+            t4:{
+                t5:()=>"好的",
+                t6:["最多{1}"],
+                t7:(a,b,c)=>`${a}|${b}|${c}`,
+                t8:"你好"
+            }
+        },
+        en:{
+            t1:"test strigns",
+            t2:"value is {1}",
+            t3:["from {1} to {2}", [0, "invalid data"], [1, "wrong value"], [3, "from three to {2}", 1], [v1=>v1>100, "too more"]],
+            t4:{
+                t5:[()=>"good"],
+                t6:"{1} at most",
+                t7:(a,b,c)=>`${a}/${b}/${c}`
+            }
+        }
+     });
+    const strs = res.strings; 
+    console.log(strs.t1);
+    console.log(strs.t2(123));
+    console.log(strs.t3(0, 1));
+    console.log(strs.t3(1, 2)); 
+    console.log(strs.t3(2, 200));
+    console.log(strs.t3(100, 3000)); 
+    console.log(strs.t3(101, 500));
+    console.log(strs.t4.t5());
+    console.log(strs.t4.t6(20));
+    console.log(strs.t4.t7(5,6,7));
+    console.log(strs.t4.t8);
+    
      * 
      */
     registerStrings(langStrings){
@@ -90,5 +211,26 @@ export default {
      */
     get strings(){
         return i18n.custom.strings;
-    }
+    },
+    /**
+     * 创建本地化字符串
+     * @method
+     * @param {json} langStrings 
+     * @param {Language} defaultLanguage
+     * @example
+     * 
+     * const i18n = res.createI18n({
+     *     zh:{test:"测试"},
+     *     en:{test:"test"}
+     * }, Language.zh)
+     * 
+     * ...
+     * console.log(i18n.strings.test) //> 测试
+     * i18n.language = Language.en;
+     * console.log(i18n.strings.test) //> test
+     * i18n.language = null;
+     * console.log(i18n.strings.test) //> 测试
+     * 
+     */
+    createI18n
 }

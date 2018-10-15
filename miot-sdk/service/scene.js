@@ -15,18 +15,19 @@ export const SceneType={
      * 定时场景
      * @const
      */
-    get Timer(){return 8;},
+    Timer:8,
     /**
      * 人工场景
      * @const
      */
-    get Artificial(){return 30;},
+    Artificial:30,
     /**
      * 自动场景
      * @const
      */
-    get Automatic(){return 15;}
+    Automatic:15
 };
+Object.freeze(SceneType)
 /**
  * 场景
  * @interface

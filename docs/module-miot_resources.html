@@ -330,6 +330,174 @@ res.systemStrings.mijia</p></div>
     
 
     
+    <h4 class="name" id=".createI18n"><span class="type-signature">(static) </span>createI18n<span class="signature">(langStrings, defaultLanguage)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>创建本地化字符串</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>langStrings</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>defaultLanguage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Language</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">const i18n = res.createI18n({
+    zh:{test:"测试"},
+    en:{test:"test"}
+}, Language.zh)
+
+...
+console.log(i18n.strings.test) //> 测试
+i18n.language = Language.en;
+console.log(i18n.strings.test) //> test
+i18n.language = null;
+console.log(i18n.strings.test) //> 测试</code></pre>
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id=".getLanguage"><span class="type-signature">(static) </span>getLanguage<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
@@ -537,17 +705,42 @@ res.systemStrings.mijia</p></div>
     <h5>Example</h5>
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import res from 'miot/resources'
+     res.registerStrings({
+        zh:{
+            t1:"测试字符串",
+            t2:"数值为{1}",
+            t3:["从{1}到{2}", [0, "非法数据"], [1, "错误数据"], [2, "从 二 到 {2}", 1], [(v1,v2)=>v1>100, "太多了"]],
+            t4:{
+                t5:()=>"好的",
+                t6:["最多{1}"],
+                t7:(a,b,c)=>`${a}|${b}|${c}`,
+                t8:"你好"
+            }
+        },
+        en:{
+            t1:"test strigns",
+            t2:"value is {1}",
+            t3:["from {1} to {2}", [0, "invalid data"], [1, "wrong value"], [3, "from three to {2}", 1], [v1=>v1>100, "too more"]],
+            t4:{
+                t5:[()=>"good"],
+                t6:"{1} at most",
+                t7:(a,b,c)=>`${a}/${b}/${c}`
+            }
+        }
+     });
 
-res.registerStrings({
- zh:{
-     test:"测试字符串"
- },
- en:{
-     test:"test strings"
- }
-});
-
-console.log(res.strings.test)</code></pre>
+    const strs = res.strings; 
+    console.log(strs.t1);
+    console.log(strs.t2(123));
+    console.log(strs.t3(0, 1));
+    console.log(strs.t3(1, 2)); 
+    console.log(strs.t3(2, 200));
+    console.log(strs.t3(100, 3000)); 
+    console.log(strs.t3(101, 500));
+    console.log(strs.t4.t5());
+    console.log(strs.t4.t6(20));
+    console.log(strs.t4.t7(5,6,7));
+    console.log(strs.t4.t8);</code></pre>
 
 
 
