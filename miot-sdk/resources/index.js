@@ -137,7 +137,7 @@ export default {
         zh:{
             t1:"测试字符串",
             t2:"数值为{1}",
-            t3:["从{1}到{2}", [0, "非法数据"], [1, "错误数据"], [2, "从 二 到 {2}", 1], [(v1,v2)=>v1>100, "太多了"]],
+            t3:["从{1}到{2}", [0, "非法数据"], [1, "错误数据"], [2, "从 二 到 {2}"], [(v1,v2)=>v1>100, "太多了"]],
             t4:{
                 t5:()=>"好的",
                 t6:["最多{1}"],
@@ -148,7 +148,7 @@ export default {
         en:{
             t1:"test strigns",
             t2:"value is {1}",
-            t3:["from {1} to {2}", [0, "invalid data"], [1, "wrong value"], [3, "from three to {2}", 1], [v1=>v1>100, "too more"]],
+            t3:["from {1} to {2}", [0, "invalid data"], [1, "wrong value"], [3, "from three to {2}"], [v1=>v1>100, "too more"]],
             t4:{
                 t5:[()=>"good"],
                 t6:"{1} at most",

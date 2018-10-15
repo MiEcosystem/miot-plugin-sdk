@@ -40,12 +40,12 @@ export const Entrance = {
      * 主入口
      * @const
      */
-    Main:"main",
+    Main: "main",
     /**
      * 场景入口
      * @const
      */
-    Scene:"scene"
+    Scene: "scene"
 }
 Object.freeze(Entrance)
 /**
@@ -118,7 +118,7 @@ export default {
      * @readonly
      *
      */
-    get entrance(){
+    get entrance() {
          return  Entrance.Main
     },
     /**
@@ -141,10 +141,10 @@ export default {
      *
      *
      */
-    get exitInfo(){
+    get exitInfo() {
          return  {}
     },
-    set exitInfo(info){
+    set exitInfo(info) {
     },
     /**
      * 小米开放平台生成的插件包 ID
@@ -245,6 +245,6 @@ export default {
      * @method
      * @param {*} info -如果不为空, 则等同于设置 Package.exitInfo
      */
-    exit(info=null) {
+    exit(info = null) {
     }
 }
