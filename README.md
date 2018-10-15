@@ -3,7 +3,8 @@
 ## 初始化
     npm install
 
-    注意, 项目中如果需要使用第三方库(仅限于纯js实现), 请进入项目目录(如 projects/com.xiaomi.demo), 执行 npm install -save xxxx, 否则在打包发布时将因为找不到第三方库而失败
+    注意, 项目中如果需要使用第三方库(仅限于纯js实现), 请进入项目目录(如 projects/com.xiaomi.demo), 
+    执行 npm install -save xxxx, 否则在打包发布时将因为找不到第三方库而失败
 
 ## 命令
 
