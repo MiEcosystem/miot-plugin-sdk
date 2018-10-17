@@ -228,5 +228,5 @@ module.exports = {
 
     removeDir, 
 
-    objectWithoutProperties
+    objectWithoutProperties 
 }
