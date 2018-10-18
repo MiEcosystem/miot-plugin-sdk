@@ -1,9 +1,9 @@
-# MIOT SDK 
+# MIOT SDK for React Native
 
 ## 初始化
     1, 安装 node, 版本9.0+
 
-    2, 下载项目, 执行 git clone
+    2, 下载项目, 执行 git clone git@github.com:MiEcosystem/miot-plugin-sdk.git
 
     3, 进入项目, 安装react native, 执行 npm install
 
