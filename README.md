@@ -5,7 +5,7 @@
 
     2, 下载开发环境, 执行 git clone git@github.com:MiEcosystem/miot-plugin-sdk.git
 
-    3, 进入开发环境， 安装ReactNative基础库, 在根目录下执行 npm install
+    3, 进入开发环境, 安装ReactNative基础库, 在根目录下执行 npm install
 
     注意, 项目中如果需要使用第三方库(仅限于纯js实现), 请进入项目目录(如 projects/com.xiaomi.demo), 
     执行 npm install -save xxxx, 否则在打包发布时将因为找不到第三方库而失败
@@ -35,9 +35,9 @@
 ## 文档
 插件开发请参考[MIOT SDK API](https://miecosystem.github.io/miot-plugin-sdk) 
 
-插件从旧框架迁移到新框架可以参考[迁移手册](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/%E8%BF%81%E7%A7%BB%E6%89%8B%E5%86%8C.md)
+插件从旧框架迁移到新框架请参考[迁移手册](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/%E8%BF%81%E7%A7%BB%E6%89%8B%E5%86%8C.md)
 
-插件调试流程请参考 [调试说明](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/%E8%B0%83%E8%AF%95%E8%AF%B4%E6%98%8E.md)
+插件调试流程请参考[调试说明](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/%E8%B0%83%E8%AF%95%E8%AF%B4%E6%98%8E.md)
 
 ## 调试环境
 
