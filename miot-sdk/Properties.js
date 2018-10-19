@@ -79,7 +79,7 @@ class IProperties{
             return this;
         }
         if(name == "*"){
-            return removeAllProperties();
+            return this.removeAllProperties();
         }
         this._properties.delete(name);
         this._status.delete(name);
@@ -95,9 +95,9 @@ class IProperties{
             return this;
         }
         if(names[0] == "*"){
-            return removeAllProperties();
+            return this.removeAllProperties();
         }
-        names.forEach(name=>removeProperty(name))
+        names.forEach(name=>this.removeProperty(name))
         return this;
     }
     /**
@@ -124,7 +124,9 @@ class IProperties{
      * 
      */
     getProperties(...names){
-        return names.reduce((ret, name)=>{ret.set(name, getProperty(name)||null)}, new Map())
+        const props = new Map();
+        names.forEach(name=>props.set(name, this.getProperty(name)||null))
+        return props;
     }
     /**
      * 批量设置属性值
@@ -141,7 +143,19 @@ class IProperties{
      * 
      * 
      */
-    setProperties(nameValues){
+    setProperties(nameValues){ 
+        if(!nameValues){
+            return this;
+        }
+        if(nameValues.constructor.name == 'Map'){
+            nameValues.forEach((value, key)=>{
+                this.setProperty(key, value);
+            })
+        }else{
+            Object.keys(nameValues).forEach(name=>{
+                this.setProperty(name, nameValues[name]);
+            })
+        }
         return this;
     }
     /**
@@ -166,7 +180,22 @@ class IProperties{
      *      sub.remove()
      * 
      */
-    addListener(names, callback){
+    addListener(names, callback){ 
+        if(!callback){
+            return {remove(){}};
+        }
+        const props = Array.isArray(names)?names:(names?[names]:null);
+        if(!props || props.length < 1 || !props[0]){
+            return {remove(){}};
+        }
+        const listener = {props, isAny:props[0]=="*", callback}
+        this._listeners.add(listener);
+        const self = this;
+        return {
+            remove(){
+                self._listeners.delete(listener);
+            }
+        }
     }
  
     /**
@@ -188,9 +217,9 @@ class IProperties{
             return this;
         }
         const props = (names.length < 1 || names[0] == "*")?this._properties.keys():names;
-        const changed = props.filter(p=>isPropertyChanged(p));
+        const changed = props.filter(p=>this.isPropertyChanged(p));
         changed.forEach(p=>this._status.delete(p))
-        return triggerListeners(...changed);
+        return this.triggerListeners(...changed);
     }
     /**
      * 强制触发属性相关事件,但不会检查相关属性是否已经改变
@@ -222,17 +251,18 @@ class IProperties{
             return this;
         }
         if(names[0] == "*"){
-            return removeAllListeners();
+            return this.removeAllListeners();
         }
         const needRemove = new Set();
-        this._listeners.forEach(({props, isAny}, token)=>{
-            if(!isAny){
-                if(props.filter(p=>names.indexOf(p)<0).length < 1){
-                    needRemove.add(token);
-                }
+        this._listeners.forEach(listener=>{
+            const {props, isAny} = listener;
+            if(isAny)return;
+            listener.props = props.filter(p=>names.indexOf(p)<0);
+            if(listener.props.length < 1){
+                needRemove.add(listener);
             }
         });
-        needRemove.forEach(token=>this._listeners.remove(token));
+        needRemove.forEach(listener=>this._listeners.remove(listener));
         return this;
     }
     /**
@@ -240,7 +270,7 @@ class IProperties{
      * @returns {IProperties}
      */
     removeAllListeners(){
-        this._listeners = new Map();
+        this._listeners = new Set();
         return this;
     }
     /**
@@ -248,7 +278,7 @@ class IProperties{
      * @returns {IProperties}
      */
     clear(){
-        return removeAllListeners().removeAllProperties();
+        return this.removeAllListeners().removeAllProperties();
     }
  }
 /**
@@ -256,11 +286,11 @@ class IProperties{
  * @static
  */
  export const createProperties = ()=>{
-    const dp =  new IProperties();
-    dp._properties = new Map();
-    dp._status = new Map();
-    dp._listeners = new Map();
-    return dp;
+    const ps =  new IProperties();
+    ps._properties = new Map();
+    ps._status = new Map();
+    ps._listeners = new Set();
+    return ps;
  }
 /**
  * 根设备属性缓存对象

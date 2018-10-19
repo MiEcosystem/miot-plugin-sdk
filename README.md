@@ -27,7 +27,7 @@
     {
         "package_name":"com.xxx.xxx", //项目包名, 也是创建项目时使用的名称字符串, 正式项目需从小米开放平台申请.
         "models":"xxx.xxx.x1|xxx.xxx.x2", //支持的固件 model 列表, 多个用|隔开
-        "min_sdk_api_level":10000 //支持运行的最低SDK API_LEVEL
+        "min_sdk_api_level":10000 //支持运行的SDK API_LEVEL
     }
 
 ## 文档
