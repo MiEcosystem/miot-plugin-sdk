@@ -37,7 +37,7 @@ class IAccount{
          return  0
     }
   /**
-   * 当前登录账户 用户昵称
+   *  用户昵称
    * @type {string}
    * @readonly 
    */
@@ -45,7 +45,7 @@ class IAccount{
          return  ""
     }
   /**
-   * 当前登录账户 用户头像的下载地址
+   *  用户头像的下载地址
    * @type {string}
    * @readonly 
    */
@@ -54,7 +54,7 @@ class IAccount{
     }
  
   /**
-   * 当前登录账户 用户生日
+   *  用户生日
    * @type {string}
    * @readonly 
    */
@@ -62,7 +62,7 @@ class IAccount{
          return  "..."
     }
   /**
-   * 当前登录账户 用户邮箱
+   *  用户邮箱
    * @type {string}
    * @readonly 
    */
@@ -70,7 +70,7 @@ class IAccount{
          return  "..."
     }
   /**
-   * 当前登录账户 用户电话
+   *  用户电话
    * @type {string}
    * @readonly 
    */
@@ -78,7 +78,7 @@ class IAccount{
          return  ""
     }
   /**
-   * 当前登录账户 用户性别
+   *  用户性别
    * @type {string}
    * @readonly 
    */
@@ -86,7 +86,7 @@ class IAccount{
          return  ""
     }
   /**
-   * 当前登录账户 用户分享时间
+   *  用户分享时间
    * @type {string}
    * @readonly 
    */

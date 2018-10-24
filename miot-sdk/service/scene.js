@@ -1,9 +1,8 @@
 /**
  * @export
  * @module miot/service/scene
- * @description 场景相关服务, 尤其是定时服务
+ * @description 场景相关服务, 包括定时,人工与自动场景
  * 
- * 需要确定是不是在这里统一实现一个完整的定时器的管理, 避免每一次都要重新实现 
  * 
  */
 /**

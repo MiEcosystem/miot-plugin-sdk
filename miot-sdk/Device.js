@@ -7,6 +7,7 @@
  */
 import Account from "./Account"
 import Scene from './service/scene'
+import Bluetooth from "./Bluetooth";
 /**
  * Device事件名集合
  * @namespace DeviceEvent
@@ -55,10 +56,10 @@ export const DeviceEvent = {
      * @event
      * @param {IDevice} device
      * @param {Map<string,object>} messages -接收到的数据
-     * @param {array} originData -接收到的数据, [{key,time,value}] 
-     * 
-     * @example 
-     * 
+     * @param {array} originData -接收到的数据, [{key,time,value}]
+     *
+     * @example
+     *
      * import {Device, DeviceEvent} from 'miot'
      * Device.subscribeMessages("power", "rgb");
      * ...
@@ -71,7 +72,7 @@ export const DeviceEvent = {
      *   ...
      * })
      * ...
-     * 
+     *
      */
     deviceReceivedMessages:{
     }
@@ -226,21 +227,20 @@ class IDevice {
      * 是否虚拟设备
      * @type {boolean}
      * @readonly
-     * 
+     *
      */
-    get isVirtualDevice(){ 
+    get isVirtualDevice(){
          return  false
     }
     /**
      * 获取虚拟设备
      * @method
      * @returns {Promise<IDevice[]>}
-     * 
+     *
      */
     getVirtualDevices(){
          return Promise.resolve([]);
     }
-    
     /**
      * 蓝牙操作入口
      * @type {IBluetooth}
