@@ -13,7 +13,7 @@
 ## 命令
 
     创建项目
-    npm run create --models xxx.xxx.x1|xxx.xxx.x2 com.xxx.xxx
+    npm run create -- --models xxx.xxx.x1|xxx.xxx.x2 com.xxx.xxx
         注: com.xxx.xxx 为在小米开放平台申请的项目包名, xxx.xxx.x1~2为项目注册的model
     
     启动调试
