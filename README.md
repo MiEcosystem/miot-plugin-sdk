@@ -1,4 +1,4 @@
-# MIOT SDK for React Native
+# MIOT SDK (beta) for React Native
 
 ## 初始化
     1, 安装 node, 版本9.0+
