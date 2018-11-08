@@ -50,6 +50,10 @@ export default class TutorialDemo extends React.Component{
                 {
                     'title':'插件包信息',
                     'key':'PackageDemo',
+                },
+                {
+                    'title':'喜马拉雅',
+                    'key':'XimaAudioDemo',
                 }
             ],
         }

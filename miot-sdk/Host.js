@@ -12,9 +12,10 @@
  *  Host.type // ios/ android/ tv
  *  Host.isIOS
  *  Host.isAndroid
- * 
+ *
  *  Host.version
  *  Host.apiLevel
+ *  Host.isDebug
  *
  *
  *  Host.ui.openDeviceListPage()
@@ -92,6 +93,16 @@ export default {
      */
     get apiLevel() {
          return  0
+    },
+    /**
+     * 判断是否是调试版本
+     * @const
+     * @type {boolean}
+     * @readonly
+     *
+     */
+    get isDebug() {
+         return  true
     },
     /**
      * @const

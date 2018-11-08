@@ -73,8 +73,8 @@ export default {
     },
     /**
      * 上报设备数据 /device/event
-     * @param {string} deviceID 
-     * @param {array} records 
+     * @param {string} deviceID
+     * @param {array} records
      */
     reportRecords(deviceID, records){
          return Promise.resolve(null);
@@ -125,6 +125,19 @@ export default {
      * @return {Promise}
      */
     getLatestVersion(model){
+         return Promise.resolve(null);
+    },
+    /**
+     获取设备属性和事件历史记录
+     *
+     * @param did       设备did
+     * @param type      属性为prop,事件为event
+     * @param key       属性名，不需要prop或者event前缀
+     * @param time_start 起始时间单位为秒
+     * @param time_end   结束事件，单位为秒
+     * @return {Promise}
+     */
+    getDeviceData(did,type,key,time_start,time_end){
          return Promise.resolve(null);
     }
 }

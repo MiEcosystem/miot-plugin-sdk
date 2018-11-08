@@ -21,7 +21,7 @@
  *                          characteristic.value ...
  *                      })
  *                      .write(value, ok=>{})
- * 
+ *
  * bluetooh.getService('a-b-c').getCharacteristic('1-2-3')
  *      .read().then(value=>{}).catch(err=>{...})
  *
@@ -41,7 +41,7 @@ export class IBluetoothCharacteristic{
      * @member
      * @type {boolean}
      * @readonly
-     * 
+     *
      */
     get isDiscovered(){
          return  false
@@ -61,7 +61,7 @@ export class IBluetoothCharacteristic{
      * @member
      * @type {string}
      * @readonly
-     * 
+     *
      */
     get UUID(){
          return  ""
@@ -79,7 +79,7 @@ export class IBluetoothCharacteristic{
      *       ...
      *   }
      *   ...
-     * 
+     *
      */
     get value(){
          return  null
@@ -89,7 +89,7 @@ export class IBluetoothCharacteristic{
      * @method
      * @returns {Promise<IBluetoothCharacteristic>}
      *
-     *  
+     *
      */
     read(){
          return Promise.resolve(null);
@@ -99,7 +99,7 @@ export class IBluetoothCharacteristic{
      * @method
      * @param {*} value
      * @returns {Promise<IBluetoothCharacteristic>}
-     *  
+     *
      */
     write(value){
          return Promise.resolve(null);
@@ -109,7 +109,7 @@ export class IBluetoothCharacteristic{
     * @method
     * @param {*} value
     * @returns {Promise<IBluetoothCharacteristic>}
-    *  
+    *
     */
    writeWithoutResponse(value){
       return Promise.resolve(null);
@@ -119,7 +119,7 @@ export class IBluetoothCharacteristic{
     * @method
     * @param {boolean} flag -true 打开监听, false 则关闭监听
     * @returns {Promise<IBluetoothCharacteristic>}
-    *  
+    *
     */
    setNotify(flag){
       return Promise.resolve(null);
@@ -128,7 +128,7 @@ export class IBluetoothCharacteristic{
 /**
  * 蓝牙服务
  * @interface
- * 
+ *
  */
 export class IBluetoothService{
    /**
@@ -136,7 +136,7 @@ export class IBluetoothService{
     * @member
     * @type {string}
     * @readonly
-    * 
+    *
     */
    get UUID(){
          return  ""
@@ -146,7 +146,7 @@ export class IBluetoothService{
     * @member
     * @type {boolean}
     * @readonly
-    * 
+    *
     */
    get isDiscovered(){
          return  false
@@ -156,7 +156,7 @@ export class IBluetoothService{
     * @method
     * @param {...string} characteristicUUIDs -特征的 UUID
     * @returns {boolean}
-    * 
+    *
     */
    startDiscoverCharacteristics(...characteristicUUIDs){
          return false
@@ -164,9 +164,9 @@ export class IBluetoothService{
   /**
    * 获取蓝牙特征
    * @member
-   * @param {string} characteristicUUID 
+   * @param {string} characteristicUUID
    * @returns {IBluetoothCharacteristic}
-   *  
+   *
    */
    getCharacteristic(characteristicUUID){
          return null
@@ -176,7 +176,7 @@ export class IBluetoothService{
  *
  * 蓝牙设备
  * @interface
- * 
+ *
  *
  */
 export class IBluetooth {
@@ -185,7 +185,7 @@ export class IBluetooth {
     * @member
     * @type {string}
     * @readonly
-    * 
+    *
     */
    get mac(){
          return  ""
@@ -195,7 +195,7 @@ export class IBluetooth {
     * @member
     * @type {string}
     * @readonly
-    * 
+    *
     */
    get UUID(){
          return  ""
@@ -205,7 +205,7 @@ export class IBluetooth {
     * @member
     * @type {boolean}
     * @readonly
-    * 
+    *
     */
    get isEnabled(){
          return  false
@@ -215,7 +215,7 @@ export class IBluetooth {
     * @member
     * @type {boolean}
     * @readonly
-    * 
+    *
     */
    get isConnected(){
          return  false
@@ -225,7 +225,7 @@ export class IBluetooth {
     * @member
     * @param {string} serviceUUID
     * @returns {IBluetoothService}
-    * 
+    *
     */
    getService(serviceUUID){
          return null
@@ -235,7 +235,7 @@ export class IBluetooth {
     * @method
     * @param {...string} serviceUUIDs
     * @returns {boolean}
-    * 
+    *
     */
     startDiscoverServices(...serviceUUIDs){
          return false
@@ -246,7 +246,7 @@ export class IBluetooth {
     * @method
     * @returns {Promise<IBluetooth>}
     * @param {int} type android插件链接蓝牙类型 -1 自动判断，0 小米蓝牙协议设备，1 自己的安全芯片设备，2 分享的安全芯片设备，3 普通的蓝牙协议
-    * 
+    *
     */
     connect(type){
          return Promise.resolve(this);
@@ -255,7 +255,7 @@ export class IBluetooth {
     * 读取 RSSI
     * @method
     * @returns {Promise<*>}
-    * 
+    *
     */
    readRSSI(){
       return Promise.resolve(null);
@@ -264,7 +264,7 @@ export class IBluetooth {
     * 关闭链接
     * @method
     * @param {int} delay -延迟时长
-    * 
+    *
     */
    disconnect( delay=0 ){
    }
@@ -290,7 +290,7 @@ export const BluetoothEvent = {
      * 蓝牙断开连接
      * @event
      * @param {IBluetooth} bluetooh -发生连接打开关闭事件的蓝牙设备
-     * @param {boolean} isConnected -当前连接状态 
+     * @param {boolean} isConnected -当前连接状态
      *
      */
     bluetoothConnectionStatusChanged:{
@@ -299,7 +299,7 @@ export const BluetoothEvent = {
      * 蓝牙设备扫描发现事件
      * @event
      * @param {...IBluetooth} bluetooh -扫描发现的蓝牙设备
-     * 
+     *
      */
     bluetoothDeviceDiscovered:{
     },
@@ -307,7 +307,7 @@ export const BluetoothEvent = {
      * 蓝牙设备扫描发现失败事件
      * @event
      * @param {*} error -错误信息
-     * 
+     *
      */
     bluetoothDeviceDiscoverFailed:{
     },
@@ -316,7 +316,7 @@ export const BluetoothEvent = {
      * @event
      * @param {IBluetooth} bluetooh -蓝牙设备
      * @param {...IBluetoothService} service -发现的蓝牙服务
-     * 
+     *
      */
     bluetoothSeviceDiscovered:{
     },
@@ -325,7 +325,7 @@ export const BluetoothEvent = {
      * @event
      * @param {IBluetooth} bluetooh -蓝牙设备
      * @param {*} error -错误信息
-     * 
+     *
      */
     bluetoothSeviceDiscoverFailed:{
     },
@@ -335,7 +335,7 @@ export const BluetoothEvent = {
      * @param {IBluetooth} bluetooh -蓝牙设备
      * @param {IBluetoothService} service -蓝牙特征
      * @param {...IBluetoothCharacteristic} characters -发现的蓝牙特征
-     * 
+     *
      */
     bluetoothCharacteristicDiscovered:{
     },
@@ -345,7 +345,7 @@ export const BluetoothEvent = {
      * @param {IBluetooth} bluetooh -蓝牙设备
      * @param {IBluetoothService} service -蓝牙特征
      * @param {*} error -错误信息
-     * 
+     *
      */
     bluetoothCharacteristicDiscoverFailed:{
     },
@@ -357,7 +357,7 @@ export const BluetoothEvent = {
      * @param {IBluetoothService} service -蓝牙服务
      * @param {IBluetoothCharacteristic} character -蓝牙特征
      * @param {*} value -数值
-     * 
+     *
      */
     bluetoothCharacteristicValueChanged:{
     },
@@ -367,7 +367,7 @@ export const BluetoothEvent = {
      * @type {event}
      * @param {IBluetooth} bluetooh -蓝牙设备
      * @param {boolean} isEnabled -当前状态
-     * 
+     *
      */
     bluetoothStatusChanged:{
     }
@@ -391,7 +391,7 @@ export default {
    /**
     * 开始扫描蓝牙设备
     * @method
-    * @param {int} durationInMillis - 扫描时长 
+    * @param {int} durationInMillis - 扫描时长
     * @param {...string} serviceUUIDs - 指定扫描, 为空时扫描全部
     * @returns {void}
     *
@@ -411,17 +411,17 @@ export default {
    },
    /**
     * 加载本地蓝牙设备
-    * @method 
+    * @method
     * @param {...string} UUIDs - deviceUUID
     * @returns {Promise<Map<uuid, Bluetooth>>}
-    * 
-    * @example 
+    *
+    * @example
     *   ...
     *   Bluetooth.retrievePeripheralsForIOS({services:["deviceUUID1","deviceUUID2","deviceUUID3"]})
     *   Bluetooth.retrievePeripheralsForIOS({devices:["deviceUUID1","deviceUUID2","deviceUUID3"]})
     *   ...
     *   Bluetooth.retrievePeripheralsForIOS("deviceUUID1","deviceUUID2","deviceUUID3",...)
-    * 
+    *
     */
    retrievePeripheralsForIOS(...UUIDs){
          return Promise.resolve(null);
@@ -431,7 +431,7 @@ export default {
      * @static
      * @param {boolean} silence
      * @returns void
-     * 
+     *
      */
     enableBluetoothForAndroid(silence=false) {
     },
@@ -446,7 +446,7 @@ export default {
     /**
      * 判断当前设备是否通过蓝牙网关扫描到了
      * @static
-     * @returns {Promise<boolean>} 
+     * @returns {Promise<boolean>}
      */
     isBleGatewayConnected() {
          return Promise.resolve(true);

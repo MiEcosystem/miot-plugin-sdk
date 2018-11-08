@@ -85,12 +85,12 @@ class Simple extends Component {
     const captureConfig = {
       quality: Math.round(Math.random() * 100) / 100,
       type: Math.random() < 0.5 ? "jpg" : "png",
-      format: Math.random() < 0.5 ? "base64" : "file"
+      // format: Math.random() < 0.5 ? "base64" : "file"
+      format: "base64"
     };
-    if (captureConfig.format === "file") {
-      // captureConfig.filePath =
-      //   RNFS.DocumentDirectoryPath + "/hellogl_capture.png";
-    }
+    // if (captureConfig.format === "file") {
+    //   captureConfig.filePath = "/hellogl_capture.png";
+    // }
     this.refs.helloGL
       .captureFrame(captureConfig)
       .then(captured => this.setState({ captured, captureConfig }));
@@ -242,9 +242,9 @@ class Simple extends Component {
             <AnimatedHelloGL width={256} height={180} />
           </Demo>
 
-          <Demo id={7} current={current} title="7. Blur">
+          {/* <Demo id={7} current={current} title="7. Blur">
             <Surface preload width={256} height={180}>
-              <Blur factor={factor * 2} passes={4}>
+              <Blur factor={0.5} passes={2}>
                 https://i.imgur.com/3On9QEu.jpg
               </Blur>
             </Surface>
@@ -308,11 +308,11 @@ class Simple extends Component {
             <Text>
               Note: This is highly experimental and not yet performant enough.
             </Text>
-          </Demo>
+          </Demo> */}
 
-          <Demo id={9} current={current} title="9. Texture from array">
+          {/* <Demo id={9} current={current} title="9. Texture from array">
             <Text>Not Supported Yet</Text>
-          </Demo>
+          </Demo> */}
         </Demos>
       </View>
     );
