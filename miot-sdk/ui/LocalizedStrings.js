@@ -13,7 +13,6 @@
  */
 'use strict';
 import {Host} from "miot";
-
 var localization = Host.locale.language;
 if (!localization) {
   console.error("Something went wrong initializing the native ReactLocalization module.\nPlease check your configuration.\nDid you run 'react-native link'?");

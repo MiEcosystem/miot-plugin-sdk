@@ -128,7 +128,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     获取设备属性和事件历史记录
+     获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加./user/get_user_device_data
      *
      * @param did       设备did
      * @param type      属性为prop,事件为event
@@ -138,6 +138,19 @@ export default {
      * @return {Promise}
      */
     getDeviceData(did,type,key,time_start,time_end){
+         return Promise.resolve(null);
+    },
+    /**添加设备属性和事件历史记录，/user/set_user_device_data
+     *
+     * @param did       设备did
+     * @param uid       添加到哪个用户下,一般为 Device.ownerId
+     * @param type      属性为prop,事件为event
+     * @param key       属性名，不需要prop或者event前缀
+     * @param time      触发时间
+     * @param value     要保存的数据
+     * @return {Promise}
+     */
+    setDeviceData(did,uid,type,key,time,value){
          return Promise.resolve(null);
     }
 }

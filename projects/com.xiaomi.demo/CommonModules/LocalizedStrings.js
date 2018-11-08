@@ -11,6 +11,7 @@
  * Check the instructions at:
  * https://github.com/stefalda/ReactNativeLocalization
  */
+
 'use strict';
 import {Host} from "miot";
 
