@@ -12,43 +12,19 @@
  * https://github.com/stefalda/ReactNativeLocalization
  */
 'use strict';
-import { NativeModules } from 'react-native';
-var localization = NativeModules.ReactLocalization;
+import {Host} from "miot";
+
+var localization = Host.locale.language;
 if (!localization) {
   console.error("Something went wrong initializing the native ReactLocalization module.\nPlease check your configuration.\nDid you run 'react-native link'?");
 }
-var interfaceLanguage = localization.language.replace(/_/g, '-');
-const LanguageMap={
-  // language : 适配语言的 key 可以是
-  'zh-CN':['zh-Hans','zh-CN'],
-  'zh-Hans':['zh-Hans','zh-CN'],
-  'zh-Hans-CN':['zh-Hans','zh-CN'],
-  'zh-TW':['zh-Hant','zh-TW'],
-  'zh-MO':['zh-Hant','zh-TW'],
-  'zh-HK':['zh-Hant','zh-TW'],
-  'zh-Hant':['zh-Hant','zh-TW'],
-  'zh-Hant-TW':['zh-Hant','zh-TW'],
-  'zh-Hant-HK':['zh-Hant','zh-TW'],
-  'zh':['zh-Hans','zh-CN'],
-  'ko-KR':['krea'],
-  'ko-KP':['krea'],
-  'krea':['krea'],
-  'ko':['krea'],
-  'in-ID':['in-ID','in','id'],
-  'in':['in-ID','in','id'],
-  'id':['in-ID','in','id'],
-};
+var interfaceLanguage = localization.replace(/_/g, '-');
 class LocalizedStrings {
   _getBestMatchingLanguage(language, props) {
     //If an object with the passed language key exists return it
     if (props[language]) return language;
     //if the string is multiple tags, try to match without the final tag
     //(en-US --> en, zh-Hans-CN --> zh-Hans)
-    if (LanguageMap[language]){
-      for (const mapItem of LanguageMap[language]){
-        if (props[mapItem]) return mapItem;
-      }
-    }
     let idx = language.lastIndexOf("-");
     if (idx >= 0) {
       language = language.substring(0, idx);

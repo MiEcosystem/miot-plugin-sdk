@@ -55,7 +55,7 @@ export const strings = {
       saved: "Saved successfully",
       voiceBroadcast:'voice control'
   },
-  'zh-Hans': {
+  'zh': {
     NUM_PHOTOS: 'Usted {numPhotos, plural, ' +
       '=0 {no tiene fotos.}' +
       '=1 {tiene una foto.}' +
@@ -104,7 +104,7 @@ export const strings = {
     OpenLibList: ' 第三方库测试',
     ViewTest: ' 常用的 view 测试',
   },
-  'zh-Hant': {
+  'zh-tw': {
     NUM_PHOTOS: 'You have {numPhotos, plural, ' +
       '=0 {no photos.}' +
       '=1 {one photo.}' +
@@ -122,7 +122,7 @@ export const strings = {
     resetDevice: '重置裝置',
     licenseAndPolicy: '用戶協議和隱私政策',
   },
-  'zh-HK': {
+  'zh-hk': {
     NUM_PHOTOS: 'You have {numPhotos, plural, ' +
       '=0 {no photos.}' +
       '=1 {one photo.}' +
@@ -140,25 +140,7 @@ export const strings = {
     resetDevice: '重置裝置',
     licenseAndPolicy: '用戶協議和隱私政策',
   },
-  'zh-TW': {
-    NUM_PHOTOS: 'You have {numPhotos, plural, ' +
-      '=0 {no photos.}' +
-      '=1 {one photo.}' +
-      'other {# photos.}}',
-    setting: '設置',
-    featureSetting: 'feature setting',
-    commonSetting: '一般設定',
-    deviceName: '裝置名稱',
-    locationManagement: '位置管理',
-    shareDevice: '裝置共用',
-    ifttt: '自動化',
-    firmwareUpgrate: '檢查韌體更新',
-    moreSetting: '更多設定',
-    addToDesktop: '新增到桌面',
-    resetDevice: '重置裝置',
-    licenseAndPolicy: '用戶協議和隱私政策',
-  },
-  'krea': {
+  'ko': {
     NUM_PHOTOS: 'You have {numPhotos, plural, ' +
       '=0 {no photos.}' +
       '=1 {one photo.}' +
