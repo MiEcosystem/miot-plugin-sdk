@@ -135,9 +135,10 @@ export default {
      * @param key       属性名，不需要prop或者event前缀
      * @param time_start 起始时间单位为秒
      * @param time_end   结束事件，单位为秒
+     * @param limit   请求的条数限制
      * @return {Promise}
      */
-    getDeviceData(did,type,key,time_start,time_end){
+    getDeviceData(did,type,key,time_start,time_end,limit){
          return Promise.resolve(null);
     },
     /**添加设备属性和事件历史记录，/user/set_user_device_data
