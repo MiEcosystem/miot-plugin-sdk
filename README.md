@@ -2,9 +2,7 @@
 
 ## 初始化
 
-    1, 安装 node, 版本9.0+ ​
-48
-Docker 使用请参照
+    1, 安装 node, 版本9.0+ 
 
     2, 下载开发环境, 执行 git clone git@github.com:MiEcosystem/miot-plugin-sdk.git
 
@@ -49,6 +47,10 @@ Docker 使用请参照
 
 
 ## 调试环境
+6
+48
+7
+Docker 使用请参照
 
 [iOS IPA 包下载地址](https://fir.im/mijiadevelopment)
     
