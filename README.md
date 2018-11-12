@@ -1,7 +1,7 @@
 # MIOT SDK (beta) for React Native
 
 ## 初始化
-    1, 安装 node, 版本9.0+ （推荐使用Docker的linux容器作为独立的开发环境）
+    1, 安装 node, 版本9.0+ 【推荐使用[Docker](https://www.docker.com/) 的linux容器作为独立的开发环境】
 
     2, 下载开发环境, 执行 git clone git@github.com:MiEcosystem/miot-plugin-sdk.git
 
