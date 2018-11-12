@@ -119,6 +119,14 @@ export default {
     setDeviceSetting(params){
          return Promise.resolve(null);
     },
+    /** 删除服务器中 device 对应的数据，内部调用米家代理接口/device/delsetting
+     *
+     * @param params    请求参数 {did:设备 id,settings:要删除的设置角标的数组}
+     * @return {Promise}
+     */
+    delDeviceSetting(params){
+         return Promise.resolve(null);
+    },
     /**
      * 获取服务器中 最新的版本信息，内部调用米家代理接口/home/latest_version
      * @param model 设备的 model
