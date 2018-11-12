@@ -20,6 +20,10 @@
         注: com.xxx.xxx 为在小米开放平台申请的项目包名, xxx.xxx.x1~2为项目注册的model
     
     启动调试
+6
+48
+7
+Docker 使用请参照
     npm start
         注： Docker下需要将端口（缺省为8081）映射出去，例如 docker run -p 8081:8081 -it ...
     
@@ -47,10 +51,6 @@
 
 
 ## 调试环境
-6
-48
-7
-Docker 使用请参照
 
 [iOS IPA 包下载地址](https://fir.im/mijiadevelopment)
     
