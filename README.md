@@ -1,7 +1,7 @@
 # MIOT SDK (beta) for React Native
 
 ## 初始化
-    1, 安装 node, 版本9.0+
+    1, 安装 node, 版本9.0+ （推荐使用Docker的linux容器作为独立的开发环境）
 
     2, 下载开发环境, 执行 git clone git@github.com:MiEcosystem/miot-plugin-sdk.git
 
@@ -9,7 +9,7 @@
 
     注意, 项目中如果需要使用第三方库(仅限于纯js实现), 请进入项目目录(如 projects/com.xiaomi.demo), 
     执行 npm install --save xxxx, 否则在打包发布时将因为找不到第三方库而失败
-
+    
 ## 命令
 
     创建项目
@@ -18,6 +18,7 @@
     
     启动调试
     npm start
+        注： Docker下需要将端口（缺省为8081）映射出去，例如 docker run -p 8081:8081 -it ...
     
     发布项目
     npm run publish com.xxx.xxx
@@ -41,6 +42,7 @@
 
 插件调试流程请参考[《调试说明》](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/%E8%B0%83%E8%AF%95%E8%AF%B4%E6%98%8E.md)
 
+
 ## 调试环境
 
 [iOS IPA 包下载地址](https://fir.im/mijiadevelopment)
@@ -48,3 +50,4 @@
 [Android apk包下载地址](https://fir.im/MiHomeForAndroid)
 
 下载密码: keliyuan 
+
