@@ -34,7 +34,7 @@ import MoreDialog from './MoreDialog';
 import { localStrings, getString } from './MHLocalizableString';
 import TutorialDemo from './tutorial/TutorialDemo';
 import UIDemo from './UIDemo';
-import {Package} from "miot";
+import { Package, Device, DeviceEvent } from "miot";
 
 export default class MainPage extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -42,7 +42,10 @@ export default class MainPage extends React.Component {
       header:
         <View>
           <TitleBarBlack
-            title={Utils.formats(localStrings).t2('s')} style={{ backgroundColor: '#fff' }}
+            // title={Utils.formats(localStrings).t2('s')} style={{ backgroundColor: '#fff' }}
+            // title={Device.name}
+            title={navigation.state["params"] ? navigation.state.params.name : Device.name}
+            style={{ backgroundColor: '#fff' }}
             subTitle={getString('NUM_PHOTOS', { 'numPhotos': 1 })}
             // showDot={1}
             // onPressLeft2={()=>{ MHPluginSDK.closeCurrentPage(); }}
@@ -62,6 +65,17 @@ export default class MainPage extends React.Component {
         </View>
     };
   };
+
+
+  componentWillMount() {
+    this._deviceNameChangedListener = DeviceEvent.deviceNameChanged.addListener((device) => {
+      this.props.navigation.setParams({
+        name: device.name
+      });
+      this.forceUpdate();
+    });
+  }
+
 
   componentDidMount() {
     // test module method

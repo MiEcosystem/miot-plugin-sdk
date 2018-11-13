@@ -42,14 +42,14 @@ export const DeviceEvent = {
      * @since 1.0.0
      *
      */
-    deviceNameChanged:{
+    deviceNameChanged: {
     },
     /**
      * 设备状态变更事件,
      * @event
      * @param {IDevice} device -发生变更的设备
      */
-    deviceStatusChanged:{
+    deviceStatusChanged: {
     },
     /**
      * 设备场景消息
@@ -74,7 +74,7 @@ export const DeviceEvent = {
      * ...
      *
      */
-    deviceReceivedMessages:{
+    deviceReceivedMessages: {
     }
 };
 /**
@@ -229,7 +229,7 @@ class IDevice {
      * @readonly
      *
      */
-    get isVirtualDevice(){
+    get isVirtualDevice() {
          return  false
     }
     /**
@@ -238,7 +238,7 @@ class IDevice {
      * @returns {Promise<IDevice[]>}
      *
      */
-    getVirtualDevices(){
+    getVirtualDevices() {
          return Promise.resolve([]);
     }
     /**
