@@ -2,6 +2,21 @@
  * @export
  * @module miot/service/scene
  * @description 场景相关服务, 包括定时,人工与自动场景
+ * @example
+ *
+ *  import {Service, Device, SceneType} from 'miot';
+ *
+ *   Service.scene.loadScenes(Device.deviceID, SceneType.Timer)
+ *   .then((sceneArr) => {
+ *      if(sceneArr.length > 0){
+ *         const scene = sceneArr[0];
+ *         scene.setting.enable_push = 1;
+ *         ...
+ *         scene.save().then((res)=>{
+ *            console.log(res)
+ *         });
+ *      }
+ *  });
  *
  *
  */

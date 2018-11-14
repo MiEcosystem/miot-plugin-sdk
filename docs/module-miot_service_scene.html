@@ -109,6 +109,23 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Service, Device, SceneType} from 'miot';
+
+  Service.scene.loadScenes(Device.deviceID, SceneType.Timer)
+  .then((sceneArr) => {
+     if(sceneArr.length > 0){
+        const scene = sceneArr[0];
+        scene.setting.enable_push = 1;
+        ...
+        scene.save().then((res)=>{
+           console.log(res)
+        });
+     }
+ });</code></pre>
+
+
 
         
     
