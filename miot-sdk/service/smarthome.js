@@ -17,7 +17,7 @@ export default {
      * @property subLocality
      */
     /**
-     * 上报gps信息
+     * 上报gps信息 /location/set
      * @param {*} deviceID
      * @param {GPSInfo} gpsInfo
      * @returns {Promise<json>}
@@ -40,7 +40,7 @@ export default {
      * @property spot
      */
     /**
-     * 获取天气
+     * 获取天气 /location/weather
      * @param {*} deviceID
      * @returns {Promise<WeatherInfo>}
      *
@@ -49,7 +49,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 检查到有可用更新时，可以主动更新固件。
+     * 检查到有可用更新时，可以主动更新固件。 /home/multi_checkversion
      * @param deviceIDs
      * @return {Promise<json>}
      */
@@ -80,7 +80,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 获取支持语音的设备 可以控制的设备列表。
+     * 获取支持语音的设备 可以控制的设备列表。 /v2/device/range_get_extra_data
      * @param deviceID  语音设备的 did
      * @return {Promise<json>}
      */
@@ -88,7 +88,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 获取支持语音的设备 可以控制的设备列表。
+     * 获取支持语音的设备 可以控制的设备列表。 /voicectrl/ai_devs
      * @param deviceID  语音设备的 did
      * @return {Promise}
      */
@@ -104,7 +104,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 获取服务器中 device 对应的数据，内部调用米家代理接口/device/getsetting
+     * 获取服务器中 device 对应的数据，内部调用米家代理接口 /device/getsetting
      * @param params 请求参数
      * @return {Promise}
      */
@@ -160,6 +160,46 @@ export default {
      * @return {Promise}
      */
     setDeviceData(did,uid,type,key,time,value){
+         return Promise.resolve(null);
+    },
+    /**添加设备属性和事件历史记录，/home/getmapfileurl
+     *
+     * @param params
+     * @return {Promise}
+     */
+    getMapfileurl(params){
+         return Promise.resolve(null);
+    },
+    /**添加设备属性和事件历史记录，/home/device_list
+     *
+     * @param params
+     * @return {Promise}
+     */
+    getHomeDevice(params){
+         return Promise.resolve(null);
+    },
+    /**添加设备属性和事件历史记录，/home/getmapfileurl
+     *
+     * @param params
+     * @return {Promise}
+     */
+    delUsermap(params){
+         return Promise.resolve(null);
+    },
+    /**添加设备属性和事件历史记录，/home/getmapfileurl
+     *
+     * @param params
+     * @return {Promise}
+     */
+    getRobomapurl(params){
+         return Promise.resolve(null);
+    },
+    /**添加设备属性和事件历史记录，/home/getmapfileurl
+     *
+     * @param params
+     * @return {Promise}
+     */
+    getCountry(params){
          return Promise.resolve(null);
     }
 }

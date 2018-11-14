@@ -2,8 +2,8 @@
  * @export
  * @module miot/service/scene
  * @description 场景相关服务, 包括定时,人工与自动场景
- * 
- * 
+ *
+ *
  */
 /**
  * 场景类型
@@ -30,11 +30,11 @@ Object.freeze(SceneType)
 /**
  * 场景
  * @interface
- * 
+ *
  */
 export class IScene{
     /**
-     * 
+     *
      * @member
      * @type {int}
      * @readonly
@@ -76,7 +76,7 @@ export class IScene{
     }
     /**
      * @member
-     * @type {string} 
+     * @type {string}
      */
     get name(){
          return  ""
@@ -86,7 +86,7 @@ export class IScene{
     /**
      * @member
      * @type {SceneType}
-     * @readonly 
+     * @readonly
      */
     get type(){
          return  0
@@ -96,7 +96,7 @@ export class IScene{
      * @type {boolean}
      * @readonly
      */
-    get isTimer(){ 
+    get isTimer(){
         return this.type + "" == SceneType.Timer + "";
     }
     /**
@@ -143,28 +143,29 @@ export class IScene{
     set authorizedDeviceIDs(...deviceIDs){
     }
     /**
-     * 保存场景
+     * 保存场景 /scene/edit
      * @param {json} opt {authed:[...]}
      * @returns {Promise<boolean>}
      */
-    save(opt=null){ 
+    save(opt=null){
          return Promise.resolve(null);
     }
     /**
-     * 重新加载场景数据
+     * 重新加载场景数据 /scene/get
      * @returns {Promise<boolean>}
      */
     reload(){
          return Promise.resolve(null);
     }
     /**
-     * 启动场景
+     * 启动场景 /scene/start
      * @returns {Promise<boolean>}
      */
     start(){
          return Promise.resolve(false);
     }
     /**
+     * 删除场景 /scene/delete
      * @returns {Promise<boolean>}
      */
     remove(){
@@ -183,16 +184,16 @@ function loadScenes(deviceID, sceneType, opt=null){
 export default {
     /**
      * 创建场景
-     * @param {string} deviceID 
-     * @param {int} sceneType 
+     * @param {string} deviceID
+     * @param {int} sceneType
      * @param {{identify,name}} opt {identify,name}
      * @returns {IScene}
      */
     createScene,
     /**
      * 创建定时场景
-     * @param {string} deviceID 
-     * @param {json} opt 
+     * @param {string} deviceID
+     * @param {json} opt
      * @returns {IScene}
      */
     createTimerScene(deviceID, opt){
@@ -200,8 +201,8 @@ export default {
     },
     /**
      * 创建人工场景
-     * @param {string} deviceID 
-     * @param {json} opt 
+     * @param {string} deviceID
+     * @param {json} opt
      * @returns {IScene}
      */
     createArtificialScene(deviceID, opt){
@@ -209,24 +210,24 @@ export default {
     },
     /**
      * 创建自动场景
-     * @param {string} deviceID 
-     * @param {json} opt 
+     * @param {string} deviceID
+     * @param {json} opt
      * @returns {IScene}
      */
     createAutomaticScene(deviceID, opt){
         return createScene(deviceID, SceneType.Automatic, opt);
     },
     /**
-     * 
-     * @param {*} deviceID 
-     * @param {*} sceneType 
+     * 获取场景列表 /scene/list
+     * @param {*} deviceID
+     * @param {*} sceneType
      * @param {json} opt {identify,name}
      * @returns {Promise<IScene[]>}
      */
     loadScenes,
     /**
-     * 加载定时场景
-     * @param {*} deviceID 
+     * 加载定时场景 /scene/list
+     * @param {*} deviceID
      * @param {json} opt {identify,name}
      * @returns {Promise<IScene[]>}
      */
@@ -234,8 +235,8 @@ export default {
         return loadScenes(deviceID, SceneType.Timer, opt);
     },
     /**
-     * 加载人工场景
-     * @param {*} deviceID 
+     * 加载人工场景 /scene/list
+     * @param {*} deviceID
      * @param {json} opt {identify,name}
      * @returns {Promise<IScene[]>}
      */
@@ -243,8 +244,8 @@ export default {
         return loadScenes(deviceID, SceneType.Artificial, opt);
     },
     /**
-     * 加载自动场景
-     * @param {*} deviceID 
+     * 加载自动场景 /scene/list
+     * @param {*} deviceID
      * @param {json} opt {identify,name}
      * @returns {Promise<IScene[]>}
      */
@@ -252,4 +253,3 @@ export default {
         return loadScenes(deviceID, SceneType.Automatic, opt);
     }
 }
- 

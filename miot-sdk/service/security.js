@@ -6,7 +6,7 @@
 /**
  * 安全锁
  * @interface
- * 
+ *
  */
 export class ISecureKey{
     /**
@@ -61,7 +61,7 @@ export class ISecureKey{
     }
     /**
      * 分享类别，1：暂时，2：周期，3：永久
-     * @type {int} 
+     * @type {int}
      */
     get status(){
          return  1
@@ -76,16 +76,15 @@ export class ISecureKey{
     get isOutOfDate(){
          return  false
     }
-    
     /**
-     * 保存
+     * 保存 /share/bluetoothkeyshare
      * @returns {Promise}
      */
     save(){
          return Promise.resolve(null);
     }
     /**
-     * 删除
+     * 删除 /share/bluetoothkeyshare
      * @returns {Promise}
      */
     remove(){
@@ -97,29 +96,29 @@ export class ISecureKey{
  */
 export default {
     /**
-     * 加载设备的安全锁
-     * @param {*} deviceID 
+     * 加载设备的安全锁 /share/bluetoothkeyshare
+     * @param {*} deviceID
      * @returns {Promise<ISecureKey[]>}
      */
     loadSecureKeys(deviceID){
          return Promise.resolve([]);
     },
     /**
-     * 分享
+     * 分享 /share/bluetoothkeyshare
      * @param deviceID
      * @param shareUid 被分享人
      * @param {{status,activeTime,expireTime,weekdays,readonly}} [settings={}] readonly = true, 则被分享人不可接收锁push，false则被分享人可接收锁push，（family关系用户不受这个字段影响）
      * @returns {Promise<ISecureKey>}
      */
-    shareSecureKey(deviceID, shareUid, settings={}){ 
+    shareSecureKey(deviceID, shareUid, settings={}){
          return Promise.resolve(null);
     },
     /**
-     * 获取锁绑定信息, 返回数据格式：{"bindtime":1505180216}
-     * 
-     * @param {*} deviceID 
-     * @returns {Promise<json>} 
-     *   
+     * 获取锁绑定信息, /device/blelockbindinfo 返回数据格式：{"bindtime":1505180216}
+     *
+     * @param {*} deviceID
+     * @returns {Promise<json>}
+     *
      */
     getLockBindInfo(deviceID){
          return Promise.resolve(null);

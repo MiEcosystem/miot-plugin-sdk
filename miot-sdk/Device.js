@@ -178,7 +178,7 @@ class IDevice {
      *
      */
     /**
-     * 检查硬件版本信息
+     * 检查硬件版本信息 /home/checkversion
      * @method
      * @returns {Promise<DeviceVersion>}
      *
@@ -187,7 +187,7 @@ class IDevice {
          return Promise.resolve({});
     }
     /**
-     * 获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。
+     * 获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。 /home/devupgrade
      * @method
      * @return {Promise<DeviceVersion>}
      *
@@ -233,7 +233,7 @@ class IDevice {
          return  false
     }
     /**
-     * 获取虚拟设备
+     * 获取虚拟设备 /home/virtualdevicectr
      * @method
      * @returns {Promise<IDevice[]>}
      *
