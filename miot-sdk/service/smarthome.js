@@ -136,30 +136,20 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加./user/get_user_device_data
+     * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加. /user/get_user_device_data
      *
-     * @param did       设备did
-     * @param type      属性为prop,事件为event
-     * @param key       属性名，不需要prop或者event前缀
-     * @param time_start 起始时间单位为秒
-     * @param time_end   结束事件，单位为秒
-     * @param limit   请求的条数限制
+     * @param params  {did,type,key,time_start,time_end,limit}   参数含义如下：设备did,属性为prop事件为event,属性名不需要prop或者event前缀,起始时间单位为秒,结束事件单位为秒,请求的条数限制
      * @return {Promise}
      */
-    getDeviceData(did,type,key,time_start,time_end,limit){
+    getDeviceData(params){
          return Promise.resolve(null);
     },
     /**添加设备属性和事件历史记录，/user/set_user_device_data
      *
-     * @param did       设备did
-     * @param uid       添加到哪个用户下,一般为 Device.ownerId
-     * @param type      属性为prop,事件为event
-     * @param key       属性名，不需要prop或者event前缀
-     * @param time      触发时间
-     * @param value     要保存的数据
+     * @param  params {did,uid,type,key,time,value}   参数含义如下：设备did，添加到哪个用户下,一般为 Device.ownerId，属性为prop事件为event，属性名不需要prop或者event前缀，触发时间，要保存的数据
      * @return {Promise}
      */
-    setDeviceData(did,uid,type,key,time,value){
+    setDeviceData(params){
          return Promise.resolve(null);
     },
     /**添加设备属性和事件历史记录，/home/getmapfileurl
