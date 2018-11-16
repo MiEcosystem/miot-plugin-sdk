@@ -17,8 +17,18 @@
  *         });
  *      }
  *  });
+ * @example
+ *    Service.scene.loadArtificialScenes(Device.deviceID, {name:'...', identify:'...'})
+ *    .then(arr=>{...}).catch(err=>{...})
  *
- *
+ * @example
+ * 
+ *   Device.loadTimerScenes().then((sceneArr) => {
+ *     ...
+ *   })
+ *   .catch(err=>{
+ *      console.log(err)
+ *   })
  */
 /**
  * 场景类型
@@ -149,6 +159,7 @@ export class IScene{
     set setting(setting){
     }
     /**
+     * 授权对象 authed
      * @member
      * @type {Array<String>}
      */
@@ -159,29 +170,49 @@ export class IScene{
     }
     /**
      * 保存场景 /scene/edit
-     * @param {json} opt {authed:[...]}
-     * @returns {Promise<boolean>}
+     * @param {json} opt {authed:[...], name, identify, setting}
+     * @returns {Promise<IScene>}
+     * 
+     * @example 
+     * scene.save({setting:{...}}).then(scene=>{...})
+     * 
+     * @example
+     * scene.save().then(scene=>{...}).catch(err=>{...})
+     *  
+     * 
      */
     save(opt=null){
+        if(opt.name){
+            this.name = opt.name;
+        }
+        if(opt.identify){
+            this.identify = opt.identify;
+        }
+        if(opt.setting){
+            this.setting = opt.setting;
+        }
+        if(opt.authed && opt.authed.length > 0){
+            this.authorizedDeviceIDs = opt.authed;
+        }
          return Promise.resolve(null);
     }
     /**
      * 重新加载场景数据 /scene/get
-     * @returns {Promise<boolean>}
+     * @returns {Promise<IScene>}
      */
     reload(){
          return Promise.resolve(null);
     }
     /**
      * 启动场景 /scene/start
-     * @returns {Promise<boolean>}
+     * @returns {Promise<IScene>}
      */
     start(){
          return Promise.resolve(false);
     }
     /**
      * 删除场景 /scene/delete
-     * @returns {Promise<boolean>}
+     * @returns {Promise<IScene>}
      */
     remove(){
          return Promise.resolve(false);
@@ -203,6 +234,21 @@ export default {
      * @param {int} sceneType
      * @param {{identify,name}} opt {identify,name}
      * @returns {IScene}
+     * @example
+     * 
+     * import {Service, Device, SceneType} from 'miot'
+     * 
+     * const scene = Service.createScene(Device.deviceID, SceneType.Timer, {
+     *      identify:...,
+     *      name:'myTimer',
+     *      setting:{...}
+     * });
+     * 
+     * scene.save().then(scene=>{
+     *   ...
+     * })
+     * 
+     * 
      */
     createScene,
     /**

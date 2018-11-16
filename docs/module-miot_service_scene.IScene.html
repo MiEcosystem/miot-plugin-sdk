@@ -106,6 +106,10 @@
 
 
 
+<div class="description">
+    <p>授权对象 authed</p>
+</div>
+
 <!--
 
     <h5>Type:</h5>
@@ -943,7 +947,7 @@
     
 
     
-    <h4 class="name" id="reload"><span class="type-signature"></span>reload<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;boolean>}</span></h4>
+    <h4 class="name" id="reload"><span class="type-signature"></span>reload<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;IScene>}</span></h4>
     
 
     
@@ -1024,7 +1028,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;boolean></span>
+<span class="param-type">Promise.&lt;IScene></span>
 
 
     </dd>
@@ -1042,7 +1046,7 @@
     
 
     
-    <h4 class="name" id="remove"><span class="type-signature"></span>remove<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;boolean>}</span></h4>
+    <h4 class="name" id="remove"><span class="type-signature"></span>remove<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;IScene>}</span></h4>
     
 
     
@@ -1123,7 +1127,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;boolean></span>
+<span class="param-type">Promise.&lt;IScene></span>
 
 
     </dd>
@@ -1141,7 +1145,7 @@
     
 
     
-    <h4 class="name" id="save"><span class="type-signature"></span>save<span class="signature">(opt)</span><span class="type-signature"> &rarr; {Promise.&lt;boolean>}</span></h4>
+    <h4 class="name" id="save"><span class="type-signature"></span>save<span class="signature">(opt)</span><span class="type-signature"> &rarr; {Promise.&lt;IScene>}</span></h4>
     
 
     
@@ -1209,7 +1213,7 @@
                 </td>
             
 
-            <td class="description last"><p>{authed:[...]}</p></td>
+            <td class="description last"><p>{authed:[...], name, identify, setting}</p></td>
         </tr>
 
     
@@ -1279,7 +1283,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;boolean></span>
+<span class="param-type">Promise.&lt;IScene></span>
 
 
     </dd>
@@ -1290,6 +1294,14 @@
 
 
 
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">scene.save({setting:{...}}).then(scene=>{...})</code></pre>
+
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">scene.save().then(scene=>{...}).catch(err=>{...})
+ </code></pre>
+
+
 
         
             
@@ -1297,7 +1309,7 @@
     
 
     
-    <h4 class="name" id="start"><span class="type-signature"></span>start<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;boolean>}</span></h4>
+    <h4 class="name" id="start"><span class="type-signature"></span>start<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;IScene>}</span></h4>
     
 
     
@@ -1378,7 +1390,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;boolean></span>
+<span class="param-type">Promise.&lt;IScene></span>
 
 
     </dd>

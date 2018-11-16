@@ -109,6 +109,24 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Service} from 'miot'
+
+Service.security.shareSecureKey(deviceID, shareUid, {})
+ .then(secureKey=>{
+    ...
+ })
+
+Service.security.loadSecureKeys(deviceID).then(secureKeys=>{
+   if(secureKeys.length > 0){
+      const key = secureKeys[0];
+      key.status = 1;
+      key.save().then(key=>{...})
+   }
+})</code></pre>
+
+
 
         
     

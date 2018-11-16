@@ -109,7 +109,7 @@
 
 
 
-    <h5>Example</h5>
+    <h5>Examples</h5>
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Service, Device, SceneType} from 'miot';
 
@@ -124,6 +124,16 @@
         });
      }
  });</code></pre>
+
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Service.scene.loadArtificialScenes(Device.deviceID, {name:'...', identify:'...'})
+   .then(arr=>{...}).catch(err=>{...})</code></pre>
+
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Device.loadTimerScenes().then((sceneArr) => {
+    ...
+  })
+  .catch(err=>{
+     console.log(err)
+  })</code></pre>
 
 
 
@@ -215,6 +225,21 @@
 
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Service, Device, SceneType} from 'miot'
+
+const scene = Service.createScene(Device.deviceID, SceneType.Timer, {
+     identify:...,
+     name:'myTimer',
+     setting:{...}
+});
+
+scene.save().then(scene=>{
+  ...
+})</code></pre>
 
 
 

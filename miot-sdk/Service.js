@@ -3,28 +3,25 @@
  * @module miot/Service
  * @description 系统服务
  * @example
- *
- * 屏蔽callSmartHomeApi
- *
+ *  
  * import {Service} from 'miot'
  *
- * Service.getServerName().then
- * Service.getUTCTimeFromServer().then()
+ * Service.getServerName().then(time=>{...})
+ * Service.getUTCTimeFromServer().then(...)
  *
- * Service.smarthome.
+ *  Service.smarthome.reportGPSInfo(...).then(...)
  *
  *  Service.account.ID
- *  Serive.account.nickName
+ *  Serivce.account.nickName
  *  Service.account.avatar
- *  Service.account.getProfile().then(profile=>{})
+ *  Service.account.load().then(account=>{})
  *
- * Service.scene.loadTimerScenes(...)
- * Service.security.createSecureKey(...)
+ * Service.scene.loadTimerScenes(...).then(scenes=>{})
+ * Service.security.loadSecureKeys(...).then(keys=>{
+ *    ...
+ * })
  *
- * Service.userConfig.get(key).then()
- * Service.log(key, val).then()
- *
- * Service.reportGPS
+ * Service.storage.getUserConfigs(key).then()  
  *
  *
  */

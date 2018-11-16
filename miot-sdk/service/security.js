@@ -2,6 +2,23 @@
  * @export
  * @module miot/service/security
  * @description 安全相关服务
+ * @example
+ *  
+ * import {Service} from 'miot'
+ * 
+ * Service.security.shareSecureKey(deviceID, shareUid, {})
+ *  .then(secureKey=>{
+ *     ...
+ *  })
+ * 
+ * Service.security.loadSecureKeys(deviceID).then(secureKeys=>{
+ *    if(secureKeys.length > 0){
+ *       const key = secureKeys[0];
+ *       key.status = 1;
+ *       key.save().then(key=>{...})
+ *    }
+ * })
+ * 
  */
 /**
  * 安全锁
@@ -34,7 +51,7 @@ export class ISecureKey{
          return  0
     }
     /**
-     * 生效时间 UTC时间戳，单位为s
+     * 生效时间 UTC时间戳，单位为s, active_time
      * @type {long}
      */
     get activeTime(){
@@ -43,7 +60,7 @@ export class ISecureKey{
     set activeTime(active_time){
     }
     /**
-     * 过期时间 UTC时间戳，单位为s
+     * 过期时间 UTC时间戳，单位为s, expire_time
      */
     get expireTime(){
          return  0

@@ -119,9 +119,9 @@ export default {
     setDeviceSetting(params){
          return Promise.resolve(null);
     },
-    /** 删除服务器中 device 对应的数据，内部调用米家代理接口/device/delsetting
-     *
-     * @param params    请求参数 {did:设备 id,settings:要删除的设置角标的数组}
+    /**
+     * 删除服务器中 device 对应的数据，内部调用米家代理接口/device/delsetting
+     * @param {*} params  - 请求参数 \{did:设备 id,settings:要删除的设置角标的数组}
      * @return {Promise}
      */
     delDeviceSetting(params){
@@ -136,7 +136,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加./user/get_user_device_data
+     * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加./user/get_user_device_data
      *
      * @param did       设备did
      * @param type      属性为prop,事件为event

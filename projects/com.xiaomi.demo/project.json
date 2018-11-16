@@ -1,8 +1,8 @@
 {
   "package_name":"com.xiaomi.demo",
-  "version_code":1,
   "models":"xiaomi.demo.v1|xiaomi.demo.v2|xiaomi.dev.v1|xiaomi.dev.v3",
   "min_sdk_api_level":10000,
+  "version_code":1,
   "entrance":{
     "scene":{
       "trigger_ids":[],
