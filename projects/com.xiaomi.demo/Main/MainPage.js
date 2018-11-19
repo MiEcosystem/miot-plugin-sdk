@@ -69,6 +69,7 @@ export default class MainPage extends React.Component {
 
   componentWillMount() {
     this._deviceNameChangedListener = DeviceEvent.deviceNameChanged.addListener((device) => {
+      console.log("不要以为你改了名字我就不认识你了", device);
       this.props.navigation.setParams({
         name: device.name
       });
@@ -76,6 +77,9 @@ export default class MainPage extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    this._deviceNameChangedListener.remove();
+  }
 
   componentDidMount() {
     // test module method
