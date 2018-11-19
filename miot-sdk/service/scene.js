@@ -182,17 +182,19 @@ export class IScene{
      * 
      */
     save(opt=null){
-        if(opt.name){
-            this.name = opt.name;
-        }
-        if(opt.identify){
-            this.identify = opt.identify;
-        }
-        if(opt.setting){
-            this.setting = opt.setting;
-        }
-        if(opt.authed && opt.authed.length > 0){
-            this.authorizedDeviceIDs = opt.authed;
+        if(opt){
+            if(opt.name){
+                this.name = opt.name;
+            }
+            if(opt.identify){
+                this.identify = opt.identify;
+            }
+            if(opt.setting){
+                this.setting = opt.setting;
+            }
+            if(opt.authed && opt.authed.length > 0){
+                this.authorizedDeviceIDs = opt.authed;
+            }
         }
          return Promise.resolve(null);
     }
@@ -238,7 +240,7 @@ export default {
      * 
      * import {Service, Device, SceneType} from 'miot'
      * 
-     * const scene = Service.createScene(Device.deviceID, SceneType.Timer, {
+     * const scene = Service.scene.createScene(Device.deviceID, SceneType.Timer, {
      *      identify:...,
      *      name:'myTimer',
      *      setting:{...}
