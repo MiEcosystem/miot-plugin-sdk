@@ -231,7 +231,7 @@
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Service, Device, SceneType} from 'miot'
 
-const scene = Service.createScene(Device.deviceID, SceneType.Timer, {
+const scene = Service.scene.createScene(Device.deviceID, SceneType.Timer, {
      identify:...,
      name:'myTimer',
      setting:{...}
