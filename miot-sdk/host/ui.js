@@ -54,7 +54,7 @@ export default {
    * 打开分享列表页面
    * @param {string} title
    * @param {string} description
-   * @param {string} imagePath
+   * @param {string} imagePath 和Image source 一样的格式
    * @param {string} url
    */
   openShareListBar(title, description, imagePath, url) {
