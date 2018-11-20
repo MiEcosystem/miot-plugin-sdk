@@ -201,16 +201,6 @@ export class IBluetooth {
          return  ""
    }
    /**
-    * 蓝牙开关状态
-    * @member
-    * @type {boolean}
-    * @readonly
-    *
-    */
-   get isEnabled(){
-         return  false
-   }
-   /**
     * 蓝牙是否已经连接
     * @member
     * @type {boolean}
@@ -365,7 +355,6 @@ export const BluetoothEvent = {
      * 蓝牙开关状态变更事件
      * @event
      * @type {event}
-     * @param {IBluetooth} bluetooh -蓝牙设备
      * @param {boolean} isEnabled -当前状态
      *
      */
@@ -388,6 +377,14 @@ export default {
    createBluetooth(mac){
          return null
    },
+    /**
+     * 判断蓝牙是否开放
+     * @static
+     * @returns {Promise<boolean>}
+     */
+    checkBluetoothIsEnabled() {
+         return Promise.resolve(true);
+    },
    /**
     * 开始扫描蓝牙设备
     * @method
@@ -434,14 +431,6 @@ export default {
      *
      */
     enableBluetoothForAndroid(silence=false) {
-    },
-    /**
-     * 判断蓝牙是否开放
-     * @static
-     * @returns {Promise<boolean>}
-     */
-    checkBluetoothIsEnabledForAndroid() {
-         return Promise.resolve(true);
     },
     /**
      * 判断当前设备是否通过蓝牙网关扫描到了
