@@ -25,7 +25,7 @@
     
     发布项目
     npm run publish com.xxx.xxx
-        注: 由于SDK尚未正式发布, 该命令暂时无用.
+        注: 缺省的生成的文件位于 projects/com.xxx.xxx/build/publish.pkg, 可以通过 --target 指定任意目标文件
 
 ## 配置
 在项目创建后(如com.xxx.xxx), 在projects/com.xxx.xxx 目录下有项目配置文件 project.json, 结构说明如下:
