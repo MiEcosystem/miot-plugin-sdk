@@ -148,7 +148,7 @@ export default class MoreMenu extends React.Component {
       {
         'name': '分享',
         'func': () => {
-          Host.ui.openShareListBar("小米智能家庭", "小米智能家庭", "about_icon_app", "http://open.home.mi.com");
+          Host.ui.openShareListBar('小米智能家庭', '小米智能家庭', require("../Resources/test_icon.png"), 'http://open.home.mi.com');
           // // 分享到微信
           // Host.ui.shareToWeChatSession("小米智能家庭", "小米智能家庭", this.props.app.pathForResource("icon_demo.png"), null);
           // // 分享到微博
@@ -198,15 +198,14 @@ export default class MoreMenu extends React.Component {
         'func': () => {
           const licenseURL = require('../Resources/raw/license_zh.html');
           const policyURL = require('../Resources/raw/privacy_zh.html');
-          console.warn(licenseURL);
           Host.ui.privacyAndProtocolReview('软件许可及服务协议', licenseURL, '隐私协议', policyURL);
         }
       },
       {
         'name': '授权使用条款和隐私协议',
         'func': () => {
-          const licenseURL = Host.ui.basePath + 'raw/license_zh.html';
-          const policyURL = Host.ui.basePath + 'raw/privacy_zh.html';
+          const licenseURL = require('../Resources/raw/license_zh.html');
+          const policyURL = require('../Resources/raw/privacy_zh.html');
           Host.ui.openPrivacyLicense('软件许可及服务协议', licenseURL, '隐私协议', policyURL, (result) => {
             if (result === 'ok') {
               // 同意授权
@@ -233,7 +232,7 @@ export default class MoreMenu extends React.Component {
         <View>
           <View style={styles.rowContainer}>
             <Text style={styles.title}>{rowData}</Text>
-            <Image style={styles.subArrow} source={require( "../Resources/sub_arrow.png" )} />
+            <Image style={styles.subArrow} source={require("../Resources/sub_arrow.png")} />
           </View>
           <View style={styles.separator}></View>
         </View>
@@ -260,14 +259,14 @@ export default class MoreMenu extends React.Component {
 
   showActionSheet() {
     if (Host.isIOS)
-        ActionSheetIOS.showActionSheetWithOptions({
-          options: BUTTONS,
-          destructiveButtonIndex: 1,
-        },
-          (buttonIndex) => {
+      ActionSheetIOS.showActionSheetWithOptions({
+        options: BUTTONS,
+        destructiveButtonIndex: 1,
+      },
+        (buttonIndex) => {
 
-          });
-      }
+        });
+  }
 };
 
 var styles = StyleSheet.create({
