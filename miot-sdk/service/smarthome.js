@@ -191,5 +191,13 @@ export default {
      */
     getCountry(params){
          return Promise.resolve(null);
+    },
+    /**获取蓝牙锁绑定的时间，/device/blelockbindinfo
+     *
+     * @param params {did} 设备的 id
+     * @return {Promise}
+     */
+    getBleLockBindInfo(params){
+         return Promise.resolve(null);
     }
 }
