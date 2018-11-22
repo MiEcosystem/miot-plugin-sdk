@@ -714,6 +714,154 @@
     
 
     
+    <h4 class="name" id=".getBleLockBindInfo"><span class="type-signature">(static) </span>getBleLockBindInfo<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>获取蓝牙锁绑定的时间，/device/blelockbindinfo</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">did</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>设备的 id</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id=".getCountry"><span class="type-signature">(static) </span>getCountry<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
@@ -857,7 +1005,7 @@
     
 
     
-    <h4 class="name" id=".getDeviceData"><span class="type-signature">(static) </span>getDeviceData<span class="signature">(did, type, key, time_start, time_end, limit)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id=".getDeviceData"><span class="type-signature">(static) </span>getDeviceData<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -865,7 +1013,7 @@
 
 
 <div class="description">
-    <p>获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加./user/get_user_device_data</p>
+    <p>获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加. /user/get_user_device_data</p>
 </div>
 
 
@@ -883,8 +1031,6 @@
     <thead>
     <tr>
         
-        <th>Name</th>
-        
 
         <th>Type</th>
 
@@ -901,8 +1047,6 @@
 
         <tr>
             
-                <td class="name"><code>did</code></td>
-            
 
             <td class="type">
             
@@ -912,97 +1056,7 @@
 
             
 
-            <td class="description last"><p>设备did</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>属性为prop,事件为event</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>属性名，不需要prop或者event前缀</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>time_start</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>起始时间单位为秒</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>time_end</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>结束事件，单位为秒</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>limit</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>请求的条数限制</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -2743,7 +2797,7 @@
     
 
     
-    <h4 class="name" id=".setDeviceData"><span class="type-signature">(static) </span>setDeviceData<span class="signature">(did, uid, type, key, time, value)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id=".setDeviceData"><span class="type-signature">(static) </span>setDeviceData<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -2769,8 +2823,6 @@
     <thead>
     <tr>
         
-        <th>Name</th>
-        
 
         <th>Type</th>
 
@@ -2787,8 +2839,6 @@
 
         <tr>
             
-                <td class="name"><code>did</code></td>
-            
 
             <td class="type">
             
@@ -2798,97 +2848,7 @@
 
             
 
-            <td class="description last"><p>设备did</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>uid</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>添加到哪个用户下,一般为 Device.ownerId</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>属性为prop,事件为event</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>属性名，不需要prop或者event前缀</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>time</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>触发时间</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>要保存的数据</p></td>
+            <td class="description last"></td>
         </tr>
 
     
