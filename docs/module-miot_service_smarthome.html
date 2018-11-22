@@ -764,7 +764,7 @@
             <td class="type">
             
                 
-<span class="param-type">did</span>
+<span class="param-type">json</span>
 
 
             
@@ -774,7 +774,7 @@
 
             
 
-            <td class="description last"><p>设备的 id</p></td>
+            <td class="description last"><p>参数{did}</p></td>
         </tr>
 
     
@@ -1005,7 +1005,7 @@
     
 
     
-    <h4 class="name" id=".getDeviceData"><span class="type-signature">(static) </span>getDeviceData<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id=".getDeviceData"><span class="type-signature">(static) </span>getDeviceData<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -1031,6 +1031,8 @@
     <thead>
     <tr>
         
+        <th>Name</th>
+        
 
         <th>Type</th>
 
@@ -1047,8 +1049,15 @@
 
         <tr>
             
+                <td class="name"><code>params</code></td>
+            
 
             <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
             
             </td>
 
@@ -1056,7 +1065,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>参数{did,type,key,time_start,time_end,limit}含义如下：设备did,属性为prop事件为event,属性名不需要prop或者event前缀,起始时间单位为秒,结束事件单位为秒,请求的条数限制</p></td>
         </tr>
 
     
@@ -2797,7 +2806,7 @@
     
 
     
-    <h4 class="name" id=".setDeviceData"><span class="type-signature">(static) </span>setDeviceData<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id=".setDeviceData"><span class="type-signature">(static) </span>setDeviceData<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -2823,6 +2832,8 @@
     <thead>
     <tr>
         
+        <th>Name</th>
+        
 
         <th>Type</th>
 
@@ -2839,8 +2850,15 @@
 
         <tr>
             
+                <td class="name"><code>params</code></td>
+            
 
             <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
             
             </td>
 
@@ -2848,7 +2866,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>参数{did,uid,type,key,time,value}含义如下：设备did，添加到哪个用户下,一般为 Device.ownerId，属性为prop事件为event，属性名不需要prop或者event前缀，触发时间，要保存的数据</p></td>
         </tr>
 
     

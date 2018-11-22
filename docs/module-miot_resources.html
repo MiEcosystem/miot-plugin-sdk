@@ -38,10 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>系统提供的静态资源, 包括图片, 文字, 基础 styleSheet css 等等</p>
-<p>import res from &quot;miot/resources&quot;</p>
-<p>res.logo
-res.systemStrings.mijia</p></div>
+            <div class="description"><p>系统提供的静态资源, 包括图片, 文字, 基础 styleSheet css 等等</p></div>
         
 
         
@@ -110,6 +107,27 @@ res.systemStrings.mijia</p></div>
 
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import res, {Language} from "miot/resources"
+
+res.logo
+...
+
+console.log(res.systemStrings.mijia)
+
+res.registerStrings({
+  zh:{t1:"测试"},
+  en:{t1:"test"}
+})
+
+console.log(res.strings.t1)
+
+res.setLanguage(Language.zh_hk)
+
+console.log(res.getLanaguage())</code></pre>
 
 
 
