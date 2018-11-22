@@ -1,0 +1,8 @@
+{
+  "package_name":"com.xiaomi.bledemo.ios",
+  "developer_id":"894158105",
+  "models":"xiaomi.bledemo.v1",
+  "min_api_level":"100",
+  "version":"1",
+  "platform":"iphone"
+}
