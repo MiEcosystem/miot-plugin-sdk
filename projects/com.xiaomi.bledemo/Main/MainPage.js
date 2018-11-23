@@ -8,7 +8,10 @@
 import React from 'react';
 
 import {
-    AppRegistry, StyleSheet, Text, View, TouchableHighlight, Platform, PixelRatio, Button
+    AppRegistry, StyleSheet, Text, View, TouchableHighlight,
+    Platform, PixelRatio, Button,
+    WebView
+
 } from "react-native";
 
 import { Bluetooth, BluetoothEvent, DeviceEvent, Device, Service } from "miot";
@@ -26,7 +29,6 @@ export default class MainPage extends React.Component {
     componentDidMount() {
         this.showing = true;
         Bluetooth.checkBluetoothIsEnabled().then(result => {
-            alert(result)
             this.state.isEnable = result;
             if (result) {
                 this.connect();
@@ -132,29 +134,14 @@ export default class MainPage extends React.Component {
     }
 
     render() {
-        return (<View style={styles.container}>
-            <TouchableHighlight style={{ flex: 1 }} underlayColor='#ffffff' onPress={() => {
-                if (this.state.chars['00000010-0000-1000-8000-00805f9b34fb']) {
-                    this.state.chars['00000010-0000-1000-8000-00805f9b34fb'].read().then(s => {
-                        console.log("read", s)
-                        this.setState({
-                            buttonText: s
-                        })
-                    }).catch(err => {
-                        console.log("read fail", err)
-                        this.setState({
-                            buttonText: err
-                        })
-                    });
-                } else {
-                    if (this.state.buttonText === "wait" || this.state.buttonText === "connecting..." || this.state.buttonText === "timeout retrying") this.setState({ buttonText: "wait" }); else this.connect();
-                }
-            }}>
-                <Text style={styles.text}>
-                    {JSON.stringify(this.state.buttonText)}
-                </Text>
-            </TouchableHighlight>
-        </View>);
+        return (
+            <View style={styles.container}>
+                <WebView
+                    source={{ uri: 'https://github.com/facebook/react-native' }}
+                    style={{ marginTop: 20 }}
+                />
+                {/* <Text>{WebView}</Text> */}
+            </View>);
     }
 }
 

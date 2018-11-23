@@ -138,15 +138,16 @@ export default {
     /**
      * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加. /user/get_user_device_data
      *
-     * @param params  {did,type,key,time_start,time_end,limit}   参数含义如下：设备did,属性为prop事件为event,属性名不需要prop或者event前缀,起始时间单位为秒,结束事件单位为秒,请求的条数限制
-     * @return {Promise}
+     * @param {json} params -参数\{did,type,key,time_start,time_end,limit}含义如下：设备did,属性为prop事件为event,属性名不需要prop或者event前缀,起始时间单位为秒,结束事件单位为秒,请求的条数限制
+     * @returns {Promise}
      */
     getDeviceData(params){
          return Promise.resolve(null);
     },
-    /**添加设备属性和事件历史记录，/user/set_user_device_data
+    /**
+     * 添加设备属性和事件历史记录，/user/set_user_device_data
      *
-     * @param  params {did,uid,type,key,time,value}   参数含义如下：设备did，添加到哪个用户下,一般为 Device.ownerId，属性为prop事件为event，属性名不需要prop或者event前缀，触发时间，要保存的数据
+     * @param {json}  params  参数\{did,uid,type,key,time,value}含义如下：设备did，添加到哪个用户下,一般为 Device.ownerId，属性为prop事件为event，属性名不需要prop或者event前缀，触发时间，要保存的数据
      * @return {Promise}
      */
     setDeviceData(params){
@@ -192,9 +193,10 @@ export default {
     getCountry(params){
          return Promise.resolve(null);
     },
-    /**获取蓝牙锁绑定的时间，/device/blelockbindinfo
+    /**
+     * 获取蓝牙锁绑定的时间，/device/blelockbindinfo
      *
-     * @param params {did} 设备的 id
+     * @param {json} params  -参数\{did}
      * @return {Promise}
      */
     getBleLockBindInfo(params){
