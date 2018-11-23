@@ -17,7 +17,7 @@ export default {
      * @property subLocality
      */
     /**
-     * 上报gps信息
+     * 上报gps信息 /location/set
      * @param {*} deviceID
      * @param {GPSInfo} gpsInfo
      * @returns {Promise<json>}
@@ -40,7 +40,7 @@ export default {
      * @property spot
      */
     /**
-     * 获取天气
+     * 获取天气 /location/weather
      * @param {*} deviceID
      * @returns {Promise<WeatherInfo>}
      *
@@ -49,7 +49,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 检查到有可用更新时，可以主动更新固件。
+     * 检查到有可用更新时，可以主动更新固件。 /home/multi_checkversion
      * @param deviceIDs
      * @return {Promise<json>}
      */
@@ -80,7 +80,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 获取支持语音的设备 可以控制的设备列表。
+     * 获取支持语音的设备 可以控制的设备列表。 /v2/device/range_get_extra_data
      * @param deviceID  语音设备的 did
      * @return {Promise<json>}
      */
@@ -88,7 +88,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 获取支持语音的设备 可以控制的设备列表。
+     * 获取支持语音的设备 可以控制的设备列表。 /voicectrl/ai_devs
      * @param deviceID  语音设备的 did
      * @return {Promise}
      */
@@ -104,7 +104,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 获取服务器中 device 对应的数据，内部调用米家代理接口/device/getsetting
+     * 获取服务器中 device 对应的数据，内部调用米家代理接口 /device/getsetting
      * @param params 请求参数
      * @return {Promise}
      */
@@ -119,9 +119,9 @@ export default {
     setDeviceSetting(params){
          return Promise.resolve(null);
     },
-    /** 删除服务器中 device 对应的数据，内部调用米家代理接口/device/delsetting
-     *
-     * @param params    请求参数 {did:设备 id,settings:要删除的设置角标的数组}
+    /**
+     * 删除服务器中 device 对应的数据，内部调用米家代理接口/device/delsetting
+     * @param {*} params  - 请求参数 \{did:设备 id,settings:要删除的设置角标的数组}
      * @return {Promise}
      */
     delDeviceSetting(params){
@@ -136,30 +136,68 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加./user/get_user_device_data
+     * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加. /user/get_user_device_data
      *
-     * @param did       设备did
-     * @param type      属性为prop,事件为event
-     * @param key       属性名，不需要prop或者event前缀
-     * @param time_start 起始时间单位为秒
-     * @param time_end   结束事件，单位为秒
-     * @param limit   请求的条数限制
+     * @param params  {did,type,key,time_start,time_end,limit}   参数含义如下：设备did,属性为prop事件为event,属性名不需要prop或者event前缀,起始时间单位为秒,结束事件单位为秒,请求的条数限制
      * @return {Promise}
      */
-    getDeviceData(did,type,key,time_start,time_end,limit){
+    getDeviceData(params){
          return Promise.resolve(null);
     },
     /**添加设备属性和事件历史记录，/user/set_user_device_data
      *
-     * @param did       设备did
-     * @param uid       添加到哪个用户下,一般为 Device.ownerId
-     * @param type      属性为prop,事件为event
-     * @param key       属性名，不需要prop或者event前缀
-     * @param time      触发时间
-     * @param value     要保存的数据
+     * @param  params {did,uid,type,key,time,value}   参数含义如下：设备did，添加到哪个用户下,一般为 Device.ownerId，属性为prop事件为event，属性名不需要prop或者event前缀，触发时间，要保存的数据
      * @return {Promise}
      */
-    setDeviceData(did,uid,type,key,time,value){
+    setDeviceData(params){
+         return Promise.resolve(null);
+    },
+    /**添加设备属性和事件历史记录，/home/getmapfileurl
+     *
+     * @param params
+     * @return {Promise}
+     */
+    getMapfileurl(params){
+         return Promise.resolve(null);
+    },
+    /**添加设备属性和事件历史记录，/home/device_list
+     *
+     * @param params
+     * @return {Promise}
+     */
+    getHomeDevice(params){
+         return Promise.resolve(null);
+    },
+    /**添加设备属性和事件历史记录，/home/getmapfileurl
+     *
+     * @param params
+     * @return {Promise}
+     */
+    delUsermap(params){
+         return Promise.resolve(null);
+    },
+    /**添加设备属性和事件历史记录，/home/getmapfileurl
+     *
+     * @param params
+     * @return {Promise}
+     */
+    getRobomapurl(params){
+         return Promise.resolve(null);
+    },
+    /**添加设备属性和事件历史记录，/home/getmapfileurl
+     *
+     * @param params
+     * @return {Promise}
+     */
+    getCountry(params){
+         return Promise.resolve(null);
+    },
+    /**获取蓝牙锁绑定的时间，/device/blelockbindinfo
+     *
+     * @param params {did} 设备的 id
+     * @return {Promise}
+     */
+    getBleLockBindInfo(params){
          return Promise.resolve(null);
     }
 }

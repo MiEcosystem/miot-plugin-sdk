@@ -165,7 +165,7 @@ function loadFiles(srcDir, onFile=null, rootDir=null) {
 
 function loadAllFiles(src){
   const arr=[];
-  loadFiles(src, p=>arr.push(p))
+  loadFiles(src, p=>arr.push(p.replace(/\\/g,"/")))
   return arr;
 }
 

@@ -42,14 +42,14 @@ export const DeviceEvent = {
      * @since 1.0.0
      *
      */
-    deviceNameChanged:{
+    deviceNameChanged: {
     },
     /**
      * 设备状态变更事件,
      * @event
      * @param {IDevice} device -发生变更的设备
      */
-    deviceStatusChanged:{
+    deviceStatusChanged: {
     },
     /**
      * 设备场景消息
@@ -74,7 +74,7 @@ export const DeviceEvent = {
      * ...
      *
      */
-    deviceReceivedMessages:{
+    deviceReceivedMessages: {
     }
 };
 /**
@@ -178,7 +178,7 @@ class IDevice {
      *
      */
     /**
-     * 检查硬件版本信息
+     * 检查硬件版本信息 /home/checkversion
      * @method
      * @returns {Promise<DeviceVersion>}
      *
@@ -187,7 +187,7 @@ class IDevice {
          return Promise.resolve({});
     }
     /**
-     * 获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。
+     * 获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。 /home/devupgrade
      * @method
      * @return {Promise<DeviceVersion>}
      *
@@ -229,16 +229,16 @@ class IDevice {
      * @readonly
      *
      */
-    get isVirtualDevice(){
+    get isVirtualDevice() {
          return  false
     }
     /**
-     * 获取虚拟设备
+     * 获取虚拟设备 /home/virtualdevicectr
      * @method
      * @returns {Promise<IDevice[]>}
      *
      */
-    getVirtualDevices(){
+    getVirtualDevices() {
          return Promise.resolve([]);
     }
     /**

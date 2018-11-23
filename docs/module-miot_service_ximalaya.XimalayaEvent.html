@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Xiaomi MIOT: Interface: IBluetoothService</title>
+    <title>Xiaomi MIOT: Namespace: XimalayaEvent</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Interface: IBluetoothService</h1>
+    <h1 class="page-title">Namespace: XimalayaEvent</h1>
 
     
 
@@ -29,9 +29,7 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-miot_Bluetooth.html">module:miot/Bluetooth</a>.</span>IBluetoothService</h2>
-        
-            <div class="class-description"><p>蓝牙服务</p></div>
+            <span class="ancestors"><a href="module-miot_service_ximalaya.html">miot/service/ximalaya</a>.</span>XimalayaEvent</h2>
         
     
 </header>
@@ -39,6 +37,8 @@
 <article>
     <div class="container-overview">
     
+        
+            <div class="description"><p>喜马拉雅事件监听, 原生SDK当中的delegate方法将通过RN的事件通知的方式传递到插件js中，</p></div>
         
 
         
@@ -79,6 +79,26 @@
     
 </dl>
 
+
+        
+            <h3>Example</h3>
+            
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {XimalayaEvent} from 'miot/service/ximalaya';
+     var subscription = XimalayaEvent.LivePlayerDelegate.addListener( 
+       (body) => {
+         if (body.method == "XMLiveRadioPlayerDidFailWithError")
+         {
+           console.log(body.error);
+         }
+       }
+     );
+其中delegate的具体方法名规则为：如原生delegate方法签名只有一段，则直接使用方法名字符串；如原生delegate方法签名不只一段，则用And连接各段并采用camel case：而body中的参数名直接使用原生参数名
+比如-(void)XMLiveRadioPlayerNotifyCacheProgress:(CGFloat)percent
+在js中body.method为"XMLiveRadioPlayerNotifyCacheProgress"
+参数为body.percent
+而-(void)XMLiveRadioPlayerNotifyPlayProgress:(CGFloat)percent currentTime:(NSInteger)currentTime
+在js中body.method为"XMLiveRadioPlayerNotifyPlayProgressAndCurrentTime"
+参数为body.percent和body.currentTime</code></pre>
 
         
     
@@ -97,369 +117,7 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
 
-        
-            
-<h4 class="name" id="getCharacteristic"><span class="type-signature"></span>getCharacteristic<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>获取蓝牙特征</p>
-</div>
-
-<!--
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="isDiscovered"><span class="type-signature">(readonly) </span>isDiscovered<span class="type-signature"> :boolean</span></h4>
-
-
-
-
-<div class="description">
-    <p>蓝牙服务是否已被发现</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">boolean</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="UUID"><span class="type-signature">(readonly) </span>UUID<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    <p>蓝牙服务 UUID</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="startDiscoverCharacteristics"><span class="type-signature"></span>startDiscoverCharacteristics<span class="signature">(&hellip;characteristicUUIDs)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>发现蓝牙特征</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>characteristicUUIDs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>特征的 UUID</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
     
 
     

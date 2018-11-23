@@ -63,7 +63,7 @@ export default class MoreDialog extends Component {
       {
         'name': '分享',
         'func': () => {
-          Host.ui.openShareListBar('小米智能家庭', '小米智能家庭', 'about_icon_app', 'http://open.home.mi.com');
+          Host.ui.openShareListBar('小米智能家庭', '小米智能家庭', require("../Resources/test_icon.png"), 'http://open.home.mi.com');
         },
       },
       {

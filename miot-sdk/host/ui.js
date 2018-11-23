@@ -8,6 +8,8 @@
  *
  */
 const resolveAssetSource = require('resolveAssetSource');
+function resolveUrl(rawUrl) {
+}
 export default {
   /**
    * 弹出删除设备的对话框
@@ -54,7 +56,7 @@ export default {
    * 打开分享列表页面
    * @param {string} title
    * @param {string} description
-   * @param {string} imagePath
+   * @param {string} imagePath 和Image source 一样的格式
    * @param {string} url
    */
   openShareListBar(title, description, imagePath, url) {
@@ -81,18 +83,18 @@ export default {
   /**
    * 查看软件政策和隐私协议
    * @param {string} licenseTitle
-   * @param {string} licenseUrl
+   * @param {string} licenseUrl - require('资源的相对路径')
    * @param {string} policyTitle
-   * @param {string} policyUrl
+   * @param {string} policyUrl - require('资源的相对路径')
    */
   privacyAndProtocolReview(licenseTitle, licenseUrl, policyTitle, policyUrl) {
   },
   /**
    * 软件政策和隐私协议授权
    * @param {string} licenseTitle
-   * @param {string} licenseUrl - 可以是网络地址或者相对路径
+   * @param {string} licenseUrl - require('资源的相对路径')
    * @param {string} policyTitle
-   * @param {string} policyUrl - 可以是网络地址或者相对路径
+   * @param {string} policyUrl - require('资源的相对路径')
    * @returns {Promise}
    */
   openPrivacyLicense(licenseTitle, licenseUrl, policyTitle, policyUrl) {
@@ -160,7 +162,7 @@ export default {
    * @param {string} model  设备的model
    * @returns {Promise<json>} 返回被打开的 device 信息
    */
-  openDevice(did, model,callback) {
+  openDevice(did, model, callback) {
      return Promise.resolve(null);
   },
   /**
