@@ -8,15 +8,13 @@
 import React from 'react';
 
 import {
-    AppRegistry, StyleSheet, Text, View, TouchableHighlight,
-    Platform, PixelRatio, Button,
-    WebView
-
+    AppRegistry, StyleSheet, Text, View, TouchableHighlight, Platform, PixelRatio, Button
 } from "react-native";
 
 import { Bluetooth, BluetoothEvent, DeviceEvent, Device, Service } from "miot";
 
 const bt = Device.bluetooth;
+const DEMOCHAR='00000001-0000-1000-8000-00805f9b34fb';
 export default class MainPage extends React.Component {
 
     constructor(props, context) {
@@ -29,6 +27,7 @@ export default class MainPage extends React.Component {
     componentDidMount() {
         this.showing = true;
         Bluetooth.checkBluetoothIsEnabled().then(result => {
+            alert(result)
             this.state.isEnable = result;
             if (result) {
                 this.connect();
@@ -54,7 +53,7 @@ export default class MainPage extends React.Component {
                     } else if (s.UUID === '00001801-0000-1000-8000-00805f9b34fb') {
                         s.startDiscoverCharacteristics('00002a05-0000-1000-8000-00805f9b34fb')
                     } else if (s.UUID === '0000fe95-0000-1000-8000-00805f9b34fb') {
-                        s.startDiscoverCharacteristics('00000010-0000-1000-8000-00805f9b34fb', '00000020-0000-1000-8000-00805f9b34fb', '00000001-0000-1000-8000-00805f9b34fb', '00000002-0000-1000-8000-00805f9b34fb', '00000013-0000-1000-8000-00805f9b34fb', '00000004-0000-1000-8000-00805f9b34fb', '00000014-0000-1000-8000-00805f9b34fb', '00000015-0000-1000-8000-00805f9b34fb')
+                        s.startDiscoverCharacteristics(DEMOCHAR, '00000020-0000-1000-8000-00805f9b34fb', '00000001-0000-1000-8000-00805f9b34fb', '00000002-0000-1000-8000-00805f9b34fb', '00000013-0000-1000-8000-00805f9b34fb', '00000004-0000-1000-8000-00805f9b34fb', '00000014-0000-1000-8000-00805f9b34fb', '00000015-0000-1000-8000-00805f9b34fb')
                     } else if (s.UUID === '0000fee1-0000-1000-8000-00805f9b34fb') {
                         s.startDiscoverCharacteristics('0000fedd-0000-1000-8000-00805f9b34fb', '0000fede-0000-1000-8000-00805f9b34fb')
                     }
@@ -134,14 +133,29 @@ export default class MainPage extends React.Component {
     }
 
     render() {
-        return (
-            <View style={styles.container}>
-                <WebView
-                    source={{ uri: 'https://github.com/facebook/react-native' }}
-                    style={{ marginTop: 20 }}
-                />
-                {/* <Text>{WebView}</Text> */}
-            </View>);
+        return (<View style={styles.container}>
+            <TouchableHighlight style={{ flex: 1 }} underlayColor='#ffffff' onPress={() => {
+                if (this.state.chars[DEMOCHAR]) {
+                    this.state.chars[DEMOCHAR].read().then(s => {
+                        console.log("read", s)
+                        this.setState({
+                            buttonText: s
+                        })
+                    }).catch(err => {
+                        console.log("read fail", err)
+                        this.setState({
+                            buttonText: err
+                        })
+                    });
+                } else {
+                    if (this.state.buttonText === "wait" || this.state.buttonText === "connecting..." || this.state.buttonText === "timeout retrying") this.setState({ buttonText: "wait" }); else this.connect();
+                }
+            }}>
+                <Text style={styles.text}>
+                    {JSON.stringify(this.state.buttonText)}
+                </Text>
+            </TouchableHighlight>
+        </View>);
     }
 }
 
