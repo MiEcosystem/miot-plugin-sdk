@@ -201,5 +201,14 @@ export default {
      */
     getBleLockBindInfo(params){
          return Promise.resolve(null);
+    },
+    /**
+     * 从服务器批量获取设备属性，/device/batchdevicedatas
+     *
+     * @param {json} params  -参数 [{did:"",props:["prop.aaa","prop.bbb"]}]
+     * @return {Promise}
+     */
+    batchGetDeviceProps(params){
+         return Promise.resolve(null);
     }
 }

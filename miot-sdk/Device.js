@@ -295,7 +295,16 @@ class IDevice {
      *
      */
     loadProperties(...propNames) {
-         return Promise.resolve(new Map());
+        if (propNames.length < 1) {
+            return Promise.reject();
+        }
+        return this.callMethod("get_prop", propNames).then((res => {
+            const map = new Map();
+            if(res.result){
+                propNames.forEach((n, i) => map.set(n, res.result[i]));
+            }
+            return map;
+        }));
     }
     /**
      * 从云端加载属性数据, 调用get_prop 方法, 并将返回数据写成{key:value}格式
@@ -305,7 +314,16 @@ class IDevice {
      *
      */
     loadPropertiesFromCloud(...propNames) {
-         return Promise.resolve(new Map());
+        if (propNames.length < 1) {
+            return Promise.reject();
+        }
+        return this.callMethodFromCloud("get_prop", propNames).then((res => {
+            const map = new Map();
+            if(res.result){
+                propNames.forEach((n, i) => map.set(n, res.result[i]));
+            }
+            return map;
+        }));
     }
     /**
      * 同 callMethod 函数 不在同一个 wifi 下的情况
