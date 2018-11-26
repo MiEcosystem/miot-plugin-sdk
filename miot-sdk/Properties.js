@@ -15,7 +15,7 @@
  * 
  *   Device.loadProperties("prop1", "prop2")
  *      .then(propsMap=>{
- *          DeviceProperties.setProperties(propsMap);
+ *          DeviceProperties.setProperties(propsMap).notifyPropertiesChanged();
  *       })
  *      .catch(err=>{})
  * 
@@ -131,29 +131,41 @@ class IProperties{
     /**
      * 批量设置属性值
      * @param {*} nameValues --属性数值map, 可以为Map<string, object>或object
+     * @param {function} nameConvertor --转换属性名, 如果没有则不转换
      * 
      * @example 
      *     Map map = new Map();
      *     map.set("a", 1)
      *     map.set("b", 2)
-     *     myDeviceProperties.setProperties(map)     
+     *     myDeviceProperties.setProperties(map, n=>n.startsWith("prop.")?n.substr(5):n)     
      *     
      * @example
      *   myDeviceProperties.setProperties({a:1, "b":2})
      * 
      * 
      */
-    setProperties(nameValues){ 
+    setProperties(nameValues, nameConvertor=null){ 
         if(!nameValues){
             return this;
         }
+        switch(typeof(nameConvertor)){
+            case 'function': break;
+            case 'string':{
+                const prefix = nameConvertor;
+                nameConvertor=n=>n.startsWith(prefix)?n.substring(prefix.length):n;
+                break;
+            }
+            default:
+                nameConvertor = n=>n;
+                break;
+        }
         if(nameValues.constructor.name == 'Map'){
             nameValues.forEach((value, key)=>{
-                this.setProperty(key, value);
+                this.setProperty(nameConvertor(key), value);
             })
         }else{
             Object.keys(nameValues).forEach(name=>{
-                this.setProperty(name, nameValues[name]);
+                this.setProperty(nameConvertor(name), nameValues[name]);
             })
         }
         return this;
@@ -182,7 +194,12 @@ class IProperties{
      */
     addListener(names, callback){ 
         if(!callback){
-            return {remove(){}};
+            if(typeof(names) == 'function'){
+                callback = names;
+                names = "*";
+            }else{
+                return {remove(){}};
+            }
         }
         const props = Array.isArray(names)?names:(names?[names]:null);
         if(!props || props.length < 1 || !props[0]){

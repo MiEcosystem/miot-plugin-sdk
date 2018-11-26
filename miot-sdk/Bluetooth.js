@@ -30,6 +30,7 @@
  * bluetooth.disconnect()
  *
  */
+import {RootDevice} from './Device'
 /**
  * 蓝牙特征值
  * @interface
@@ -173,6 +174,50 @@ export class IBluetoothService {
     }
 }
 /**
+ * 蓝牙锁相关
+ * @interface
+ *
+ */
+export class IBluetoothLock {
+    /**
+     * 支持小米加密芯片的蓝牙设备，开关蓝牙锁
+     * @method
+     * @param {int} cmd 操作命令可传入 0 ，1 ，2三个 int 值，分别代表 开锁，上锁，反锁
+     * @returns {Promise<string>}
+     */
+    toggle(cmd) {
+         return Promise.resolve(null);
+    }
+    /**
+     * 支持小米加密芯片的蓝牙设备，获取一次性密码
+     * @method
+     * @param {int} interval 时间间隔，单位为秒，类型为 number，传入 1 到 60 的整数
+     * @param {int} digits 密码位数，类型为 number，传入 6 到 8 的整数
+     * @returns {Promise<int[]>}
+     */
+    getOneTimePassword(interval,digits) {
+         return Promise.resolve(null);
+    }
+    /**
+     * 支持小米加密芯片的蓝牙设备，使用此方法将明文加密为密文后，可发送给设备
+     * @method
+     * @param {string} message 明文
+     * @returns {Promise<string>}
+     */
+    encryptMessage(message) {
+         return Promise.resolve(null);
+    }
+    /**
+     * 支持小米加密芯片的蓝牙设备，使用此方法将明文加密为密文后，可发送给设备
+     * @method
+     * @param {string} encrypted 密文
+     * @returns {Promise<string>}
+     */
+    decryptMessage(encrypted) {
+         return Promise.resolve(null);
+    }
+}
+/**
  *
  * 蓝牙设备
  * @interface
@@ -210,6 +255,15 @@ export class IBluetooth {
     get isConnected() {
          return  false
     }
+    /**
+     * 蓝牙锁相关操作
+     * @returns {IBluetoothLock}
+     *
+     */
+    get securityLock() {
+         return false
+    }
+ 
     /**
      *获取蓝牙服务
      * @member
@@ -366,7 +420,7 @@ export const BluetoothEvent = {
  */
 export default {
     /**
-     * 创建蓝牙设备
+     * 创建蓝牙设备, 但目前只支持RootDevice 的 mac 地址
      * @method
      * @param {string} mac
      * @returns {IBluetooth}
