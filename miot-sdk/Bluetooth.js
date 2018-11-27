@@ -30,7 +30,7 @@
  * bluetooth.disconnect()
  *
  */
-import {RootDevice} from './Device'
+import RootDevice from './Device'
 /**
  * 蓝牙特征值
  * @interface
