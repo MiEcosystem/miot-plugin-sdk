@@ -16,8 +16,10 @@
 ## 命令
 
     创建项目
-    npm run create -- --models xxx.xxx.x1|xxx.xxx.x2 com.xxx.xxx
-        注: com.xxx.xxx 为在小米开放平台申请的项目包名, xxx.xxx.x1~2为项目注册的model
+    npm run create -- --id <plugin_id> --models xxx.xxx.x1|xxx.xxx.x2 com.xxx.xxx
+        注: <plugin_id> 为在小米平台申请的插件编号
+            xxx.xxx.x1~2为项目注册的model 
+            com.xxx.xxx 为项目路径名
     
     启动调试
     npm start
@@ -25,17 +27,18 @@
     
     发布项目
     npm run publish com.xxx.xxx
-        注: 缺省的生成的文件位于 projects/com.xxx.xxx/build/publish.pkg, 可以通过 --target 指定任意目标文件
+        注: 缺省的目标文件位于 projects/com.xxx.xxx/build/publish.pkg, 可以通过 --target 指定任意目标文件
 
 ## 配置
 在项目创建后(如com.xxx.xxx), 在projects/com.xxx.xxx 目录下有项目配置文件 project.json, 结构说明如下:
 
     {
-        "package_name":"com.xxx.xxx", //项目包名, 也是创建项目时使用的名称字符串, 正式项目需从小米开放平台申请.
-        "models":"xxx.xxx.x1|xxx.xxx.x2", //支持的固件 model 列表, 多个用|隔开, 正式项目需在小米开放平台注册.
-        "min_sdk_api_level":10000, //支持运行的SDK API_LEVEL
-        "version_code":1, //版本序号
-        "developer_id":"" //当前版本的开发者账号
+        "plugin_id":12345,                //必填, 插件ID, 开发前需从小米开放平台申请
+        "models":"xxx.xxx.x1|xxx.xxx.x2", //必填, 固件 model 列表, 多个用|隔开
+        "package_path":"com.xxx.xxx",     //项目路径名
+        "min_sdk_api_level":10000,        //支持运行的SDK API_LEVEL
+        "version_code":1,                 //版本序号
+        "developer_id":""                 //当前版本的开发者账号
     }
 
 ## 文档

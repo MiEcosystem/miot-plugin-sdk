@@ -29,7 +29,7 @@ import Smarthome from './service/smarthome'
 import Scene from './service/scene'
 import Security from './service/security'
 import Storage from './service/storage'
-import Ximalaya from './service/ximalaya';
+// import Ximalaya from './service/ximalaya';
 import Account from './Account'
  const CurrentAccount = null;
 export default {
@@ -73,14 +73,6 @@ export default {
      */
     get storage(){
         return Storage;
-    },
-    /**
-     * @member ximalaya 
-     * @description 喜马拉雅内容服务
-     * @see {@link module:miot/service/ximalaya}
-     */
-    get ximalaya(){
-        return Ximalaya;
     },
     /**
      * @method
