@@ -210,5 +210,14 @@ export default {
      */
     batchGetDeviceProps(params){
          return Promise.resolve(null);
+    },
+    /**
+     * 从服务器获取配置文件，/device/getThirdConfig
+     *
+     * @param {json} params  -参数 {"name":"config_version","version":1,"lang":"en","app_id":"XXX"}
+     * @return {Promise}
+     */
+    getThirdConfig(params){
+         return Promise.resolve(null);
     }
 }
