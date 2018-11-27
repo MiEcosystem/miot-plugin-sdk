@@ -189,6 +189,14 @@ export class IBluetoothLock {
          return Promise.resolve(null);
     }
     /**
+     * 支持小米加密芯片的蓝牙设备，在被分享的设备中，调用此方法，可判断分享的电子钥匙是否过期
+     * @method
+     * @returns {Promise<string>}
+     */
+    isShareKeyValid() {
+         return Promise.resolve(null);
+    }
+    /**
      * 支持小米加密芯片的蓝牙设备，获取一次性密码
      * @method
      * @param {int} interval 时间间隔，单位为秒，类型为 number，传入 1 到 60 的整数
@@ -263,7 +271,6 @@ export class IBluetooth {
     get securityLock() {
          return false
     }
- 
     /**
      *获取蓝牙服务
      * @member

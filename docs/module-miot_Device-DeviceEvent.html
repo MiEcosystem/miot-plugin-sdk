@@ -29,7 +29,7 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-miot_Device.html">miot/Device</a>~</span>DeviceEvent</h2>
+            <span class="ancestors"><a href="module-miot_Device.html">module:miot/Device</a>~</span>DeviceEvent</h2>
         
     
 </header>
@@ -276,7 +276,7 @@
 
 
 <div class="description">
-    <p>设备场景消息</p>
+    <p>设备消息</p>
 </div>
 
 
@@ -440,7 +440,11 @@
     <h5>Example</h5>
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Device, DeviceEvent} from 'miot'
-Device.subscribeMessages("power", "rgb");
+
+let msgSubscription = null;
+Device.subscribeMessages("power", "rgb").then(subcription=>{
+     msgSubscription = subcription;
+});
 ...
 const subscription = DeviceEvent.deviceReceivedMessages.addListener(
 (device, messages)=>{
@@ -450,7 +454,9 @@ const subscription = DeviceEvent.deviceReceivedMessages.addListener(
   }
   ...
 })
-...</code></pre>
+...
+
+msgSubscription&amp;&amp;msgSubscription.remove();</code></pre>
 
 
 

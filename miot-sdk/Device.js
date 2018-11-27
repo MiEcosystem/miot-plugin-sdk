@@ -52,7 +52,7 @@ export const DeviceEvent = {
     deviceStatusChanged: {
     },
     /**
-     * 设备场景消息
+     * 设备消息
      * @event
      * @param {IDevice} device
      * @param {Map<string,object>} messages -接收到的数据
@@ -61,7 +61,11 @@ export const DeviceEvent = {
      * @example
      *
      * import {Device, DeviceEvent} from 'miot'
-     * Device.subscribeMessages("power", "rgb");
+     * 
+     * let msgSubscription = null;
+     * Device.subscribeMessages("power", "rgb").then(subcription=>{
+     *      msgSubscription = subcription;
+     * });
      * ...
      * const subscription = DeviceEvent.deviceReceivedMessages.addListener(
      * (device, messages)=>{
@@ -72,7 +76,9 @@ export const DeviceEvent = {
      *   ...
      * })
      * ...
-     *
+     * 
+     * msgSubscription&&msgSubscription.remove();
+     * 
      */
     deviceReceivedMessages: {
     }
@@ -114,7 +120,7 @@ class IDevice {
      * 订阅设备消息
      * @method
      * @param {...string} propertyOrEventNames -在开发平台上声明的 prop 与 event 名
-     * @returns {Promise<IDevice>}
+     * @returns {Promise<EventSubscription>}
      *
      */
     subscribeMessages(...propertyOrEventNames) {
