@@ -16,26 +16,26 @@
 ## 命令
 
     创建项目
-    npm run create -- --id <plugin_id> --models xxx.xxx.x1|xxx.xxx.x2 com.xxx.xxx
+    npm run create -- --id <plugin_id> --models xxx.xxx.x1|xxx.xxx.x2 xxx.yyy.zzz
         注: <plugin_id> 为在小米平台申请的插件编号
             xxx.xxx.x1~2为项目注册的model 
-            com.xxx.xxx 为项目路径名
+            xxx.yyy.zzz 为项目路径名
     
     启动调试
     npm start
         注： Docker下需要将端口（缺省为8081）映射出去，例如 docker run -p 8081:8081 -it ...
     
     发布项目
-    npm run publish com.xxx.xxx
-        注: 缺省的目标文件位于 projects/com.xxx.xxx/build/publish.pkg, 可以通过 --target 指定任意目标文件
+    npm run publish xxx.yyy.zzz
+        注: 缺省的目标文件位于 projects/xxx.yyy.zzz/build/publish.pkg, 可以通过 --target 指定任意目标文件
 
 ## 配置
-在项目创建后(如com.xxx.xxx), 在projects/com.xxx.xxx 目录下有项目配置文件 project.json, 结构说明如下:
+在项目创建后(如xxx.yyy.zzz), 在projects/xxx.yyy.zzz 目录下有项目配置文件 project.json, 结构说明如下:
 
     {
         "plugin_id":12345,                //必填, 插件ID, 开发前需从小米开放平台申请
         "models":"xxx.xxx.x1|xxx.xxx.x2", //必填, 固件 model 列表, 多个用|隔开
-        "package_path":"com.xxx.xxx",     //项目路径名
+        "package_path":"xxx.yyy.zzz",     //项目路径名
         "min_sdk_api_level":10000,        //支持运行的SDK API_LEVEL
         "version_code":1,                 //版本序号
         "developer_id":""                 //当前版本的开发者账号
