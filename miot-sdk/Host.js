@@ -57,8 +57,9 @@ export default {
          return  "..."
     },
     /**
-     * @const 系统信息
+     * @const 
      * @return {object} 包含sysVersion 系统版本名称 mobileModel 手机型号
+     * @description 系统信息
      */
     get systemInfo() {
          return  {}
