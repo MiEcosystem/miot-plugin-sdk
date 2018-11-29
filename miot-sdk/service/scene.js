@@ -166,7 +166,7 @@ export class IScene{
     get authorizedDeviceIDs(){
          return  []
     }
-    set authorizedDeviceIDs(...deviceIDs){
+    set authorizedDeviceIDs(deviceIDs){
     }
     /**
      * 保存场景 /scene/edit
