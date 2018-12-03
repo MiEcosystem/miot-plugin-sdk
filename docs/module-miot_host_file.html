@@ -307,9 +307,9 @@
   const myMapViewRef = findNodeHandle(this.refs.myMapView);
   const imageName = 'mapToShare.png';
   let imageToShow = null;
-  Host.file.amapScreenShot(myMapViewRef, imageName).then(() => { 
+  Host.file.amapScreenShot(myMapViewRef, imageName).then(() => {
      imageToShow = &lt;Image source={{local:imageName}}>
-       console.log("ok"); 
+       console.log("ok");
   });</code></pre>
 
 
@@ -1788,7 +1788,7 @@
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">var findNodeHandle = require('findNodeHandle');
  var myScrollView = findNodeHandle(this.refs.myScrollView);
  Host.file.longScreenShot(myScrollView, 'test2.png').then(imagePath=>{
-     console.log(imagePath); 
+     console.log(imagePath);
  });</code></pre>
 
 
@@ -2191,6 +2191,209 @@
             
                 
 <span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    {}
+                
+                </td>
+            
+
+            <td class="description last"><p>其他设置项</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".readFileToHexString"><span class="type-signature">(static) </span>readFileToHexString<span class="signature">(fileName, opt<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>读本地文件</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fileName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>文件名</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
 
 
             

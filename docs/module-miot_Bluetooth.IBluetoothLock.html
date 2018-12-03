@@ -411,7 +411,11 @@
 
 
 <div class="description">
-    <p>支持小米加密芯片的蓝牙设备，获取一次性密码</p>
+    <p>支持小米加密芯片的蓝牙设备，获取一次性密码组
+假设输入 interval 为 30，则会从当日 0 点开始计算，每 30 分钟为一个刷新间隔。生成的密码在当前刷新间隔及下一个刷新间隔内有效。
+如当日 10:19 生成，则该组密码在 10:00 ~ 10:30（当前刷新间隔） 以及 10:30 ~ 11:00 (下一个刷新间隔) 有效。
+密码组中每条密码使用一次即过期。
+注意设备上获取当前时间（UTC，精度为秒）的准确性由设备保证，否则会有计算误差。</p>
 </div>
 
 
@@ -463,7 +467,7 @@
 
             
 
-            <td class="description last"><p>时间间隔，单位为秒，类型为 number，传入 1 到 60 的整数</p></td>
+            <td class="description last"><p>时间间隔，单位为分钟，类型为 number，传入 10 到 60 的整数</p></td>
         </tr>
 
     
@@ -582,7 +586,7 @@
 
 
 <div class="description">
-    <p>支持小米加密芯片的蓝牙设备，在被分享的设备中，调用此方法，可判断分享的电子钥匙是否过期</p>
+    <p>支持小米加密芯片的蓝牙设备，在被分享的设备中，调用此方法，可判断分享的电子钥匙是否有效</p>
 </div>
 
 
@@ -673,7 +677,7 @@
     
 
     
-    <h4 class="name" id="toggle"><span class="type-signature"></span>toggle<span class="signature">(cmd)</span><span class="type-signature"> &rarr; {Promise.&lt;string>}</span></h4>
+    <h4 class="name" id="toggle"><span class="type-signature"></span>toggle<span class="signature">(cmd, timeout)</span><span class="type-signature"> &rarr; {Promise.&lt;string>}</span></h4>
     
 
     
@@ -734,6 +738,29 @@
             
 
             <td class="description last"><p>操作命令可传入 0 ，1 ，2三个 int 值，分别代表 开锁，上锁，反锁</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>timeout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>毫秒 蓝牙未响应的超时时间</p></td>
         </tr>
 
     

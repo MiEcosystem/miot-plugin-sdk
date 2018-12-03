@@ -30,6 +30,15 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 读本地文件
+     * @param {string} fileName - 文件名
+     * @param {json} [opt={}] - 其他设置项
+     * @returns {Promise}
+     */
+    readFileToHexString(fileName, opt = {}) {
+         return Promise.resolve(null);
+    },
+    /**
      * 读文件，并转换为 Base64 编码
      * @param {string} fileName - 文件名
      * @param {object} [opt={}] - 其他设置项
