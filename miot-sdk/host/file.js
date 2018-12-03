@@ -6,16 +6,16 @@
  */
 export default {
     /**
-     * 读取文件列表 
+     * 读取文件列表
      * @returns {Promise}
-     * 
+     *
      */
     readFileList() {
          return Promise.resolve([]);
     },
     /**
      * 判断文件是否存在
-     * @param {*} fileName 
+     * @param {*} fileName
      */
     isFileExists(fileName){
          return Promise.resolve(false)
@@ -23,7 +23,7 @@ export default {
     /**
      * 读本地文件
      * @param {string} fileName - 文件名
-     * @param {json} [opt={}] - 其他设置项 
+     * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
      */
     readFile(fileName, opt = {}) {
@@ -32,7 +32,7 @@ export default {
     /**
      * 读文件，并转换为 Base64 编码
      * @param {string} fileName - 文件名
-     * @param {object} [opt={}] - 其他设置项 
+     * @param {object} [opt={}] - 其他设置项
      * @returns {Promise}
      */
     readFileToBase64(fileName, opt = {}) {
@@ -52,7 +52,7 @@ export default {
      * 写文件，输入为 Base64 编码字符串
      * @param {string} fileName - 文件名
      * @param {string} base64Content - base64编码后的文件内容字符串
-     * @param {json} [opt={}] - 其他设置项 
+     * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
      */
     writeFileThroughBase64(fileName, base64Content, opt = {}) {
@@ -72,9 +72,9 @@ export default {
      * 向已存在的文件追加内容，输入为base64编码字符串
      * @param {string} fileName - 文件名
      * @param {string} base64Content - base64编码后的文件内容字符串
-     * @param {json} [opt={}] - 其他设置项 
+     * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
-     * 
+     *
      */
     appendFileThroughBase64(fileName, base64Content, opt = {}) {
          return Promise.resolve(null);
@@ -82,7 +82,7 @@ export default {
     /**
      * 删除文件
      * @param {string} fileName - 文件名
-     * @param {json} [opt={}] - 其他设置项 
+     * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
      */
     deleteFile(fileName, opt = {}) {
@@ -98,8 +98,8 @@ export default {
      */
     /**
      * 上传文件
-     * @param {UploadParams} params - 参数字典 
-     * @returns {Promise} 
+     * @param {UploadParams} params - 参数字典
+     * @returns {Promise}
      * @example
      *   let params = {
      *       uploadUrl: 'http://127.0.0.1:3000',
@@ -129,7 +129,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 下载文件到插件存储空间 
+     * 下载文件到插件存储空间
      * @param {string} url - 文件地址
      * @param {string} fileName - 存储到本地的文件名
      * @returns {Promise}
@@ -139,7 +139,7 @@ export default {
     },
     /**
      * 获取 base64 编码的数据长度
-     * @param {string} base64Data - base64 编码的字符串 
+     * @param {string} base64Data - base64 编码的字符串
      * @returns {Promise}
      */
     dataLengthOfBase64Data(base64Data) {
@@ -157,7 +157,7 @@ export default {
     },
     /**
      * 解压缩一个zip文件，解压缩后的文件会直接存储在插件存储空间的根目录下
-     * @param {string} fileName - 文件名（插件存储空间内的文件） 
+     * @param {string} fileName - 文件名（插件存储空间内的文件）
      * @returns {Promise}
      */
     unzipFile(fileName) {
@@ -165,7 +165,7 @@ export default {
     },
     /**
      * 解压缩一个gz文件, 并以base64编码的形式直接返回给插件, 不做本地存储
-     * @param {string} fileName - 文件名（插件存储空间内的文件） 
+     * @param {string} fileName - 文件名（插件存储空间内的文件）
      * @return {Promise}
      */
     ungzFile(fileName) {
@@ -173,11 +173,11 @@ export default {
     },
     /**
      * 屏幕全屏截图
-     * @param {string} imageName - 图片名称，png, 
-     * @return {Promise<string>} - 截图成功回调函数返回存储图片的绝对路径，加载图片时直接使用即可 
+     * @param {string} imageName - 图片名称，png,
+     * @return {Promise<string>} - 截图成功回调函数返回存储图片的绝对路径，加载图片时直接使用即可
      * @example
      * <Image source={{local:imageName, scale:PixelRatio.get()}} />
-     * 
+     *
      */
     screenShot(imageName) {
          return Promise.resolve("...");
@@ -187,8 +187,8 @@ export default {
      * @param {string} imageName - 图片名称，png
      * @param {{l:int, t:int, w:int, h:int}} rect - 截屏范围
      * @return {Promise<string>} -  截图成功 返回图片地址
-     *  
-     * 
+     *
+     *
      */
     screenShotInRect(imageName, rect) {
          return Promise.resolve("...");
@@ -196,13 +196,13 @@ export default {
     /**
      * 长截屏，用来截scrollView，会把超出屏幕的部分也截到
      * @param {number} viewRef - scrollView的引用
-     * @param {string} imageName - 图片名称，png 
+     * @param {string} imageName - 图片名称，png
      * @returns {Promise<string>}
      * @example
      *  var findNodeHandle = require('findNodeHandle');
      *  var myScrollView = findNodeHandle(this.refs.myScrollView);
      *  Host.file.longScreenShot(myScrollView, 'test2.png').then(imagePath=>{
-     *      console.log(imagePath); 
+     *      console.log(imagePath);
      *  });
      */
     longScreenShot(viewRef, imageName) {
@@ -218,9 +218,9 @@ export default {
      *   const myMapViewRef = findNodeHandle(this.refs.myMapView);
      *   const imageName = 'mapToShare.png';
      *   let imageToShow = null;
-     *   Host.file.amapScreenShot(myMapViewRef, imageName).then(() => { 
+     *   Host.file.amapScreenShot(myMapViewRef, imageName).then(() => {
      *      imageToShow = <Image source={{local:imageName}}>
-     *        console.log("ok"); 
+     *        console.log("ok");
      *   });
      */
     amapScreenShot(viewRef, imageName) {
@@ -229,7 +229,7 @@ export default {
     /**
      * 获取图片指定点的色值, 传空数组将返回所有点的色值
      * @param {string} imagePath - 图片文件路径
-     * @param {Array<{x:int,y:int}>} points - 位置数组 
+     * @param {Array<{x:int,y:int}>} points - 位置数组
      * @returns {Promise}
      */
     getRGBAValueFromImageAtPath(imagePath, points) {
