@@ -34,4 +34,4 @@ about: SDK 好像出了点问题💢，或者你不太会用🤔，那就按照�
 
 ### ‼️‼️‼️
 1. 不要贴大段代码！！！
-2. 记得根据issue加上label label label！！！（加上label，有助于我们定位问题并分配给相关负责人）
+2. 记得根据issue加上label label label！！！（加上label，有助于我们定位问题，相关负责人方便认领）
