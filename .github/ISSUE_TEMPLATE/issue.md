@@ -37,4 +37,4 @@ before issue：（不用回答）
 
 不会➕label？看这里：👇
 
-[![label](/Users/liumengzhou/Documents/Work/miot-plugin-sdk/示例图片/label.jpg)]
+![label](../../%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87/label.jpg)
