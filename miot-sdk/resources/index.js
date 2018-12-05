@@ -133,12 +133,12 @@ export const Language={
      * 葡萄牙语
      * @const
      */
-    th:"pt", 
+    pt:"pt", 
     /**
      * 荷兰语
      * @const
      */
-    th:"nl", 
+    nl:"nl", 
     /**
      * 阿拉伯语
      * @const
