@@ -10,6 +10,7 @@
  * ...
  * 
  * console.log(res.systemStrings.mijia)
+ * console.log(res.getSystemString('mijia'))
  * 
  * res.registerStrings({
  *   zh:{t1:"测试"},
@@ -17,6 +18,7 @@
  * })
  * 
  * console.log(res.strings.t1)
+ * console.log(res.getString('t1'))
  * 
  * res.setLanguage(Language.zh_hk)
  * 
@@ -128,6 +130,16 @@ export const Language={
      */
     th:"th", 
     /**
+     * 葡萄牙语
+     * @const
+     */
+    th:"pt", 
+    /**
+     * 荷兰语
+     * @const
+     */
+    th:"nl", 
+    /**
      * 阿拉伯语
      * @const
      */
@@ -171,18 +183,32 @@ export default {
             }
         }
      });
-    const strs = res.strings; 
-    console.log(strs.t1);
-    console.log(strs.t2(123));
-    console.log(strs.t3(0, 1));
-    console.log(strs.t3(1, 2)); 
-    console.log(strs.t3(2, 200));
-    console.log(strs.t3(100, 3000)); 
-    console.log(strs.t3(101, 500));
-    console.log(strs.t4.t5());
-    console.log(strs.t4.t6(20));
-    console.log(strs.t4.t7(5,6,7));
-    console.log(strs.t4.t8);
+    
+    //style recommend
+    console.log(res.strings.t1);
+    console.log(res.strings.t2(123));
+    console.log(res.strings.t3(0, 1));
+    console.log(res.strings.t3(1, 2)); 
+    console.log(res.strings.t3(2, 200));
+    console.log(res.strings.t3(100, 3000)); 
+    console.log(res.strings.t3(101, 500));
+    console.log(res.strings.t4.t5());
+    console.log(res.strings.t4.t6(20));
+    console.log(res.strings.t4.t7(5,6,7));
+    console.log(res.strings.t4.t8);
+    //style traditional
+    console.log(res.getString('t1');
+    console.log(res.getString('t2',123));
+    console.log(res.getString('t3', 0, 1));
+    console.log(res.getString('t3', 1, 2)); 
+    console.log(res.getString('t3', 2, 200));
+    console.log(res.getString('t3', 100, 3000)); 
+    console.log(res.getString('t3', 101, 500));
+    console.log(res.getString('t4.t5');
+    console.log(res.getString('t4.t6', 20));
+    console.log(res.getString('t4.t7', 5,6,7));
+    console.log(res.getString('t4.t8');
+    
     
      * 
      */
@@ -206,7 +232,7 @@ export default {
     setLanguage(lang){
         i18n.lang = lang;
         i18n.system.language = lang;
-        (i18n.users||{}).language = lang;
+        (i18n.custom||{}).language = lang;
     },
     /**
      * 获取系统字符串
@@ -220,12 +246,35 @@ export default {
         return i18n.system.strings;
     },
     /**
+     * 根据主键名获取系统的国际化字符串
+     * @param {string} key -主键名
+     * @param  {...any} params -参数 
+     * @returns {string}
+     * @example
+     *    res.getSystemString('mijia')
+     */
+    getSystemString(key, ...params){
+        return i18n.system.getString(key, ...params);
+    },
+    /**
      * 获取用户自定义字符串
      * @member
      * 
      */
     get strings(){
         return i18n.custom.strings;
+    },
+    /**
+     * 根据主键名获取用户自定义的国际化字符串
+     * @param {string} key -主键名
+     * @param  {...any} params -参数
+     * @returns {string}
+     * @example
+     *    res.getString('t1.tx', 1)
+     *    res.getString('t2')
+     */
+    getString(key, ...params){
+        return i18n.custom.getString(key, ...params);
     },
     /**
      * 创建本地化字符串

@@ -1,4 +1,8 @@
 /**
+ * 
+ * @export
+ * @module miot/ui/LocalizedStrings
+ * @description 国际化字符串
  * Class to localize the ReactNative interface
  *
  * Originally developed by Stefano Falda (stefano.falda@gmail.com)
@@ -10,6 +14,7 @@
  * How to use:
  * Check the instructions at:
  * https://github.com/stefalda/ReactNativeLocalization
+ * 
  */
 'use strict';
 import {Host} from "miot";
