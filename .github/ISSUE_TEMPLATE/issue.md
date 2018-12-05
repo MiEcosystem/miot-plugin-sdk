@@ -11,9 +11,9 @@ before issue：（不用回答）
 ---
 
 #### 环境
-- 电脑操作系统:  [eg.Windows/Mac OS/Linux]
-- 手机系统:     [eg.Android 8.1/iOS 11.0]
-- 相关模块:     [eg.Host/Service/Account]
+- 电脑操作系统:[eg.Windows/Mac OS/Linux]
+- 手机系统:[eg.Android 8.1/iOS 11.0]
+- 相关模块:[eg.Host/Service/Account]
 
 #### 现象
 
