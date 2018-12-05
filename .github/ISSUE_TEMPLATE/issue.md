@@ -34,3 +34,7 @@ before issue：（不用回答）
 ## ‼️‼️‼️
 ### 不要贴大段代码！
 ### 记得根据issue加上label label label！（加上label，有助于我们定位问题，相关负责人方便认领）
+
+不会➕label？看这里：👇
+
+[![label](/Users/liumengzhou/Documents/Work/miot-plugin-sdk/示例图片/label.jpg)]
