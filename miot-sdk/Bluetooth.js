@@ -184,7 +184,7 @@ export class IBluetoothLock {
      * @method
      * @param {int} cmd 操作命令可传入 0 ，1 ，2三个 int 值，分别代表 开锁，上锁，反锁
      * @param {int} timeout 毫秒 蓝牙未响应的超时时间
-     * @returns {Promise<string>}
+     * @returns {Promise<IBluetoothLock>}
      */
     toggle(cmd,timeout) {
          return Promise.resolve(null);
@@ -192,7 +192,7 @@ export class IBluetoothLock {
     /**
      * 支持小米加密芯片的蓝牙设备，在被分享的设备中，调用此方法，可判断分享的电子钥匙是否有效
      * @method
-     * @returns {Promise<string>}
+     * @returns {Promise<IBluetoothLock>}
      */
     isShareKeyValid() {
          return Promise.resolve(null);

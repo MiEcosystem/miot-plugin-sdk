@@ -148,15 +148,7 @@ export default class MoreMenu extends React.Component {
       {
         'name': '分享',
         'func': () => {
-          Host.ui.openShareListBar('小米智能家庭', '小米智能家庭', require("../Resources/test_icon.png"), 'http://open.home.mi.com');
-          // // 分享到微信
-          // Host.ui.shareToWeChatSession("小米智能家庭", "小米智能家庭", this.props.app.pathForResource("icon_demo.png"), null);
-          // // 分享到微博
-          // Host.ui.shareToWB("小米智能家庭", "小米智能家庭", "about_icon_app", null);
-          // // 分享到米聊
-          // Host.ui.shareToML("小米智能家庭", "小米智能家庭", this.props.app.pathForResource("icon_demo.png"), "http://open.home.mi.com");
-          // // 分享到朋友圈
-          // Host.ui.shareToWeChatMoment("小米智能家庭", "小米智能家庭", this.props.app.pathForResource("icon_demo.png"), "http://open.home.mi.com");
+          Host.ui.openShareListBar('小米智能家庭', '小米智能家庭', { uri: 'https://avatars3.githubusercontent.com/u/13726966?s=40&v=4' }, 'https://iot.mi.com/new/index.html');
         }
       },
       {

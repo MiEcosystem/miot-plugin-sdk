@@ -6,6 +6,14 @@
  */
 export default {
     /**
+     * 获取用户的昵称和头像信息
+     * @param {*} uid 
+     * @returns {Promise<json>}
+     */
+    getUserInfo(uid){
+         return Promise.resolve({});
+    },
+    /**
      * @typedef GPSInfo
      * @property lng
      * @property lat
