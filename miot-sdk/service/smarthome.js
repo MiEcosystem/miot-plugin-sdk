@@ -166,7 +166,7 @@ export default {
      * @param params
      * @return {Promise}
      */
-    getMapfileurl(params){
+    getMapfileUrl(params){
          return Promise.resolve(null);
     },
     /**添加设备属性和事件历史记录，/home/device_list
@@ -190,11 +190,11 @@ export default {
      * @param params
      * @return {Promise}
      */
-    getRobomapurl(params){
+    getRobomapUrl(params){
          return Promise.resolve(null);
     },
-    /**添加设备属性和事件历史记录，/home/getmapfileurl
-     *
+    /**
+     * 添加设备属性和事件历史记录，/home/getcountry
      * @param params
      * @return {Promise}
      */
