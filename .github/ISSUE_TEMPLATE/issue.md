@@ -31,10 +31,4 @@ before issue：（不用回答）
 
 尝试过哪些操作？
 
-## ‼️‼️‼️
-### 不要贴大段代码！
-### 记得根据issue加上label label label！（加上label，有助于我们定位问题，相关负责人方便认领）
-
-不会➕label？看这里：👇
-
-![label](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/%E7%A4%BA%E4%BE%8B%E5%9B%BE%E7%89%87/label.jpg)
+### 不要贴大段代码❗️
