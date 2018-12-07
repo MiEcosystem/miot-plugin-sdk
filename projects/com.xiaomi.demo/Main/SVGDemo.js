@@ -181,7 +181,7 @@ export default class SVGDemo extends React.Component {
     width="200"
     >
     <Text
-        fill="none"
+        fill="#ffffff"
         stroke="purple"
         fontSize="20"
         fontWeight="bold"
@@ -481,7 +481,7 @@ test13 = (
     // test12有问题
     render() {
         return (
-           this.test20
+           this.test10
         );
     }
 }

@@ -20,6 +20,11 @@ export default class MultiChoseDialog extends Component {
      */
     title: PropTypes.string,
     /**
+     * 超时自动隐藏，设置0或者不设置不会自动隐藏
+     * @member {number}
+     */
+    timeout: PropTypes.number,
+    /**
      *
      * @member {array}
      * @description 建议 array 的每个item 是一个 object，object 至少有展示条目名称、选中状态两个字段

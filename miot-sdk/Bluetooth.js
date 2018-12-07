@@ -277,7 +277,6 @@ export class IBluetooth {
     get isConnected() {
          return  false
     }
- 
     /**
      * 打开蓝牙链接
      *
@@ -328,7 +327,7 @@ export class IBluetoothLE extends IBluetooth{
      *
      */
     getService(serviceUUID) {
-        return null; 
+        return null;
     }
     /**
      * 发现服务
@@ -346,7 +345,6 @@ export class IBluetoothLE extends IBluetooth{
  * @interface
  */
 export class IBluetoothClassic extends IBluetooth{
-    
 }
  const bluetoothDevices={}
 /**
@@ -470,7 +468,7 @@ export default {
     /**
      * 创建BLE蓝牙设备, 但目前只支持RootDevice 的 mac 地址
      * @method
-     * @param {string} mac 
+     * @param {string} mac
      * @returns {IBluetoothLE}
      * @example
      *   import Bluetooth from 'miot/Bluetooth'
@@ -482,7 +480,7 @@ export default {
     /**
      * 创建经典蓝牙设备, 但目前只支持RootDevice 的 mac 地址
      * @method
-     * @param {string} mac 
+     * @param {string} mac
      * @returns {IBluetoothClassic}
      * @example
      *   import Bluetooth from 'miot/Bluetooth'
@@ -554,4 +552,28 @@ export default {
     isBleGatewayConnected() {
          return Promise.resolve(true);
     },
+    /**
+    * 只在MIUI上支持，维持长连接 如果连接失败，则会隔一段时间尝试重连，如果继续失败，则重连间隔会翻倍，直到上限。
+     * @static
+    *
+    */
+    bindDeviceforMIUI(){
+    },
+    /**
+     * 只在MIUI上支持，解除长连接
+     * @static
+     *
+     */
+    unBindDeviceforMIUI(){
+    },
+    /**
+     * 只在MIUI上支持，维持长连接 如果连接失败，则会隔一段时间尝试重连，如果继续失败，则重连间隔会翻倍，直到上限。
+     * 
+     * @static
+     * @param {*} alert 
+     * @param {*} enable 
+     */
+    setAlertConfigsOnMIUI(alert,enable){
+    },
+ 
 };

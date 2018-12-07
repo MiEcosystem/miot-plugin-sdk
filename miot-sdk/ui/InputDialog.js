@@ -19,41 +19,46 @@ export default class InputDialog extends Component {
     visible: PropTypes.bool,
     /**
      * 标题
-     * @member {string}  
+     * @member {string}
      */
     title: PropTypes.string,
     /**
-     * 
-     * @member {string} 
+     *
+     * @member {string}
      */
     message: PropTypes.string,
     /**
-     * 
-     * @member {string}   
+     * 超时自动隐藏，设置0或者不设置不会自动隐藏
+     * @member {number}
+     */
+    timeout: PropTypes.number,
+    /**
+     *
+     * @member {string}
      */
     cancel: PropTypes.string,
     /**
-     * 
-     * @member {string}   
+     *
+     * @member {string}
      */
     confirm: PropTypes.string,
     /**
-     * 
-     * @member {bool}   
+     *
+     * @member {bool}
      */
     singleLine: PropTypes.bool,
     /**
-     * 
-     * @member {func}    
+     *
+     * @member {func}
      */
     onConfirm: PropTypes.func,
     /**
-     * @member {func}   
+     * @member {func}
      */
     onCancel: PropTypes.func,
     /**
-     * 
-     * @member {func} 
+     *
+     * @member {func}
      */
     onDismiss: PropTypes.func,
     ...ViewPropTypes,

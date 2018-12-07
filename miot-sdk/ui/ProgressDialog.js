@@ -13,33 +13,38 @@ import PropTypes from 'prop-types';
 export default class ProgressDialog extends Component {
   static propTypes = {
     /**
-     * 
-     * @member {bool}   
+     *
+     * @member {bool}
      */
     visible: PropTypes.bool,
     /**
-     * 
-     * @member {string}   
+     *
+     * @member {string}
      */
     title: PropTypes.string,
     /**
-     * 
-     * @member {string}   
+     *
+     * @member {string}
      */
     message: PropTypes.string,
     /**
-     * 
-     * @member {number}   
+     * 超时自动隐藏，设置0或者不设置不会自动隐藏
+     * @member {number}
+     */
+    timeout: PropTypes.number,
+    /**
+     *
+     * @member {number}
      */
     max: PropTypes.number,
     /**
-     * 
+     *
      * @member {number}
      */
     progress: PropTypes.number,
     /**
-     * 
-     * @member {func}    
+     *
+     * @member {func}
      */
     onDismiss: PropTypes.func,
     ...ViewPropTypes,

@@ -24,6 +24,11 @@ export default class SingleChoseDialog extends Component {
      */
     title: PropTypes.string,
     /**
+     * 超时自动隐藏，设置0或者不设置不会自动隐藏
+     * @member {number}
+     */
+    timeout: PropTypes.number,
+    /**
      *
      * @member {array}
      */

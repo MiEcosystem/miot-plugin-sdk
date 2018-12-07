@@ -66,6 +66,7 @@ export default class DialogTest extends React.Component {
                        message={'message'}
                        cancel={'取消'}
                        confirm={'确认'}
+                       timeout={10000}
                        onCancel={(e) => {
                          console.log('onCancel', e);
                        }}
@@ -93,6 +94,7 @@ export default class DialogTest extends React.Component {
                      message={'message'}
                      singleLine={true}
                      cancel={'取消'}
+                     timeout={0}
                      confirm={'确认'}
                      onCancel={(e) => {
                        console.log('onCancel', e);
@@ -122,6 +124,7 @@ export default class DialogTest extends React.Component {
                            dataSource={['message0', 'message1', 'message2', 'message3', 'message4', 'message5', 'message6']}
                            cancel={'取消'}
                            confirm={'确认'}
+                           timeout={0}
                            check={2}
                            onCancel={(e) => {
                              console.log('onCancel', e);
@@ -151,6 +154,7 @@ export default class DialogTest extends React.Component {
           }}>显示MultiChoseDialog</Text>
         </TouchableHighlight>
         <MultiChoseDialog title={'title'}
+                          timeout={0}
                           dataSource={[{'name': 'message0', 'check': true},
                             {'name': 'message1', 'check': true}, {
                               'name': 'message2',
@@ -200,6 +204,7 @@ export default class DialogTest extends React.Component {
         </TouchableHighlight>
         <LoadingDialog title={'title'}
                        message={'message'}
+                       timeout={3000}
                        onDismiss={() => {
                          console.log('onDismiss');
                          this.setState({visLoading: false});
@@ -231,6 +236,7 @@ export default class DialogTest extends React.Component {
         <ProgressDialog message={'message'}
           //title={'title'}
                         max={100}
+                        timeout={2000}
                         progress={this.state.progress}
                         onDismiss={() => {
                           console.log('onDismiss');
