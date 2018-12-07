@@ -115,27 +115,27 @@
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Device} from 'miot'
 
-const bluetooth = Device.bluetooth;
-bluetooth.connect().then(bluetooth=>{
+const ble = Device.getBluetoothLE();
+ble.connect().then(ble=>{
 
 });
- bluetooth.startDiscoverServices("a-b-c-d-e", ...)
+ ble.startDiscoverServices("a-b-c-d-e", ...)
 
-bluetooth.getService("a-b-c-d-e").startDiscoverCharacteristics("1-2-3-4-5",...)
+ble.getService("a-b-c-d-e").startDiscoverCharacteristics("1-2-3-4-5",...)
 
-bluetooth.getService('...').getCharacteristic('...')
+ble.getService('...').getCharacteristic('...')
                      .setNotify(true)
                      .read(characteristic=>{
                          characteristic.value ...
                      })
                      .write(value, ok=>{})
 
-bluetooh.getService('a-b-c').getCharacteristic('1-2-3')
+ble.getService('a-b-c').getCharacteristic('1-2-3')
      .read().then(value=>{}).catch(err=>{...})
 
 
 
-bluetooth.disconnect()</code></pre>
+ble.disconnect()</code></pre>
 
 
 
