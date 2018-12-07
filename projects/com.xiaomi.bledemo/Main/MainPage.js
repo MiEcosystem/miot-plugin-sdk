@@ -46,15 +46,15 @@ export default class MainPage extends React.Component {
             if (bt.isConnected) {
                 services.forEach(s => {
                     this.state.services[s.UUID] = s;
-                    if (s.UUID === "00001000-1720-0206-0100-00805f9bab34") {
+                    if (s.UUID.indexOf("00001000-1720-0206-0100-00805f9bab34")>0) {
                         s.startDiscoverCharacteristics("00002000-1720-0206-0100-00805f9bab34")
-                    } else if (s.UUID === "00001800-0000-1000-8000-00805f9b34fb") {
+                    } else if (s.UUID.indexOf( "00001800-0000-1000-8000-00805f9b34fb")>0) {
                         s.startDiscoverCharacteristics('00002a00-0000-1000-8000-00805f9b34fb', '00002a01-0000-1000-8000-00805f9b34fb')
-                    } else if (s.UUID === '00001801-0000-1000-8000-00805f9b34fb') {
+                    } else if (s.UUID .indexOf('00001801-0000-1000-8000-00805f9b34fb')>0) {
                         s.startDiscoverCharacteristics('00002a05-0000-1000-8000-00805f9b34fb')
-                    } else if (s.UUID === '0000fe95-0000-1000-8000-00805f9b34fb') {
+                    } else if (s.UUID .indexOf('0000fe95-0000-1000-8000-00805f9b34fb')>0) {
                         s.startDiscoverCharacteristics(DEMOCHAR, '00000020-0000-1000-8000-00805f9b34fb', '00000001-0000-1000-8000-00805f9b34fb', '00000002-0000-1000-8000-00805f9b34fb', '00000013-0000-1000-8000-00805f9b34fb', '00000004-0000-1000-8000-00805f9b34fb', '00000014-0000-1000-8000-00805f9b34fb', '00000015-0000-1000-8000-00805f9b34fb')
-                    } else if (s.UUID === '0000fee1-0000-1000-8000-00805f9b34fb') {
+                    } else if (s.UUID.indexOf('0000fee1-0000-1000-8000-00805f9b34fb')>0) {
                         s.startDiscoverCharacteristics('0000fedd-0000-1000-8000-00805f9b34fb', '0000fede-0000-1000-8000-00805f9b34fb')
                     }
                 })
@@ -74,7 +74,9 @@ export default class MainPage extends React.Component {
             }
         })
         this._s3 = BluetoothEvent.bluetoothCharacteristicValueChanged.addListener((bluetooth, service, character, value) => {
-            console.log("bluetoothCharacteristicValueChanged", character.UUID, value);//刷新界面
+            if (service.UUID.indexOf("ffd5")>0){
+                console.log("bluetoothCharacteristicValueChanged", character.UUID, value);//刷新界面
+            }
         })
         this._s4 = BluetoothEvent.bluetoothSeviceDiscoverFailed.addListener((blut, data) => {
             console.log("bluetoothSeviceDiscoverFailed", data);
@@ -82,9 +84,9 @@ export default class MainPage extends React.Component {
         this._s5 = BluetoothEvent.bluetoothCharacteristicDiscoverFailed.addListener((blut, data) => {
             console.log("bluetoothCharacteristicDiscoverFailed", data);
         })
-        this._s6 = BluetoothEvent.bluetoothConnectionStatusChanged.addListener((mac, isConnect) => {
-            console.log("bluetoothConnectionStatusChanged", mac, isConnect);
-            if (bt.mac === mac && !isConnect) {
+        this._s6 = BluetoothEvent.bluetoothConnectionStatusChanged.addListener((blut, isConnect) => {
+            console.log("bluetoothConnectionStatusChanged", blut, isConnect);
+            if (bt.mac === blut.mac && !isConnect) {
                 this.state.chars.clear();
             }
         })
