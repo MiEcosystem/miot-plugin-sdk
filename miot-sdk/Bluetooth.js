@@ -32,7 +32,7 @@
  */
 import RootDevice from './Device'
 /**
- * 蓝牙特征值
+ * BLE蓝牙特征值
  * @interface
  *
  */
@@ -127,7 +127,7 @@ export class IBluetoothCharacteristic {
     }
 }
 /**
- * 蓝牙服务
+ * BLE蓝牙服务类
  * @interface
  *
  */
@@ -232,12 +232,21 @@ export class IBluetoothLock {
 }
 /**
  *
- * 蓝牙设备
+ * 蓝牙组件基本接口
  * @interface
  *
  *
  */
 export class IBluetooth {
+    /**
+     * 是否 BLE 蓝牙
+     * @member
+     * @type {boolean}
+     * @readonly
+     */
+    get isBLE(){
+         return  true
+    }
     /**
      * 蓝牙设备的 mac 地址
      * @member
@@ -268,34 +277,7 @@ export class IBluetooth {
     get isConnected() {
          return  false
     }
-    /**
-     * 蓝牙锁相关操作
-     * @returns {IBluetoothLock}
-     *
-     */
-    get securityLock() {
-         return false
-    }
-    /**
-     *获取蓝牙服务
-     * @member
-     * @param {string} serviceUUID
-     * @returns {IBluetoothService}
-     *
-     */
-    getService(serviceUUID) {
-         return null
-    }
-    /**
-     * 发现服务
-     * @method
-     * @param {...string} serviceUUIDs
-     * @returns {boolean}
-     *
-     */
-    startDiscoverServices(...serviceUUIDs) {
-         return false
-    }
+ 
     /**
      * 打开蓝牙链接
      *
@@ -324,6 +306,47 @@ export class IBluetooth {
      */
     disconnect(delay = 0) {
     }
+}
+/**
+ *  BLE 蓝牙
+ * @interface
+ */
+export class IBluetoothLE extends IBluetooth{
+    /**
+     * 蓝牙锁相关操作
+     * @returns {IBluetoothLock}
+     *
+     */
+    get securityLock() {
+        return null;
+    }
+    /**
+     *获取蓝牙服务
+     * @member
+     * @param {string} serviceUUID
+     * @returns {IBluetoothService}
+     *
+     */
+    getService(serviceUUID) {
+        return null; 
+    }
+    /**
+     * 发现服务
+     * @method
+     * @param {...string} serviceUUIDs
+     * @returns {boolean}
+     *
+     */
+    startDiscoverServices(...serviceUUIDs) {
+        return false;
+    }
+}
+/**
+ * 经典蓝牙
+ * @interface
+ */
+export class IBluetoothClassic extends IBluetooth{
+    
 }
  const bluetoothDevices={}
 /**
@@ -435,12 +458,37 @@ export default {
      * 创建蓝牙设备, 但目前只支持RootDevice 的 mac 地址
      * @method
      * @param {string} mac
+     * @param {boolean} isClassic
      * @returns {IBluetooth}
      * @example
      *   import Bluetooth from 'miot/Bluetooth'
-     *   const bludtooth = Bluetooth.createBluetooth("a.b.c...")
+     *   const bludtoothClassic = Bluetooth.createBluetooth("a.b.c...", true)
      */
-    createBluetooth(mac) {
+    createBluetooth(mac, isClassic=false) {
+         return null
+    },
+    /**
+     * 创建BLE蓝牙设备, 但目前只支持RootDevice 的 mac 地址
+     * @method
+     * @param {string} mac 
+     * @returns {IBluetoothLE}
+     * @example
+     *   import Bluetooth from 'miot/Bluetooth'
+     *   const ble = Bluetooth.createBluetoothLE("a.b.c...")
+     */
+    createBluetoothLE(mac) {
+         return null
+    },
+    /**
+     * 创建经典蓝牙设备, 但目前只支持RootDevice 的 mac 地址
+     * @method
+     * @param {string} mac 
+     * @returns {IBluetoothClassic}
+     * @example
+     *   import Bluetooth from 'miot/Bluetooth'
+     *   const bludtoothClassic = Bluetooth.createBluetoothClassic("a.b.c...")
+     */
+    createBluetoothClassic(mac) {
          return null
     },
     /**

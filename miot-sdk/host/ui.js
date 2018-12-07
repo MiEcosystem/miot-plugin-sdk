@@ -23,6 +23,12 @@ export default {
   openShareDevicePage() {
   },
   /**
+   * 是否保持屏幕常亮
+   * @param {Boolean} flag 默认false
+   */
+  keepScreenNotLock(flag = false) {
+  },
+  /**
    * 打开房间设备管理的页面
    */
   openRoomManagementPage() {

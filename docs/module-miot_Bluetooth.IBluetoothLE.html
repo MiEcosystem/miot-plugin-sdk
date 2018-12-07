@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Xiaomi MIOT: Interface: IScene</title>
+    <title>Xiaomi MIOT: Interface: IBluetoothLE</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Interface: IScene</h1>
+    <h1 class="page-title">Interface: IBluetoothLE</h1>
 
     
 
@@ -29,9 +29,9 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-miot_service_scene.html">module:miot/service/scene</a>.</span>IScene</h2>
+            <span class="ancestors"><a href="module-miot_Bluetooth.html">miot/Bluetooth</a>.</span>IBluetoothLE</h2>
         
-            <div class="class-description"><p>场景</p></div>
+            <div class="class-description"><p>BLE 蓝牙</p></div>
         
     
 </header>
@@ -101,27 +101,17 @@
 
         
             
-<h4 class="name" id="authorizedDeviceIDs"><span class="type-signature"></span>authorizedDeviceIDs<span class="type-signature"> :Array.&lt;String></span></h4>
+<h4 class="name" id="getService"><span class="type-signature"></span>getService<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>授权对象 authed</p>
+    <p>获取蓝牙服务</p>
 </div>
 
 <!--
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Array.&lt;String></span>
-
-
-        </li>
-    </ul>
-
 -->
 
 
@@ -169,726 +159,16 @@
 
         
             
-<h4 class="name" id="createTime"><span class="type-signature">(readonly) </span>createTime<span class="type-signature"> :long</span></h4>
+<h4 class="name" id="securityLock"><span class="type-signature"></span>securityLock<span class="type-signature"></span></h4>
 
 
 
 
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">long</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="deviceID"><span class="type-signature">(readonly) </span>deviceID<span class="type-signature"> :string</span></h4>
-
-
-
+<div class="description">
+    <p>蓝牙锁相关操作</p>
+</div>
 
 <!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="identify"><span class="type-signature"></span>identify<span class="type-signature"> :string</span></h4>
-
-
-
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="isArtificial"><span class="type-signature">(readonly) </span>isArtificial<span class="type-signature"> :boolean</span></h4>
-
-
-
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">boolean</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="isAutomatic"><span class="type-signature">(readonly) </span>isAutomatic<span class="type-signature"> :readonly</span></h4>
-
-
-
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">readonly</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="isNew"><span class="type-signature">(readonly) </span>isNew<span class="type-signature"> :boolean</span></h4>
-
-
-
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">boolean</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="isTimer"><span class="type-signature">(readonly) </span>isTimer<span class="type-signature"> :boolean</span></h4>
-
-
-
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">boolean</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="name"><span class="type-signature"></span>name<span class="type-signature"> :string</span></h4>
-
-
-
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="sceneID"><span class="type-signature">(readonly) </span>sceneID<span class="type-signature"> :int</span></h4>
-
-
-
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">int</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="setting"><span class="type-signature"></span>setting<span class="type-signature"> :json</span></h4>
-
-
-
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">json</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="status"><span class="type-signature">(readonly) </span>status<span class="type-signature"> :int</span></h4>
-
-
-
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">int</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="type"><span class="type-signature">(readonly) </span>type<span class="type-signature"> :SceneType</span></h4>
-
-
-
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">SceneType</span>
-
-
-        </li>
-    </ul>
 
 -->
 
@@ -947,7 +227,7 @@
     
 
     
-    <h4 class="name" id="reload"><span class="type-signature"></span>reload<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;IScene>}</span></h4>
+    <h4 class="name" id="startDiscoverServices"><span class="type-signature"></span>startDiscoverServices<span class="signature">(&hellip;serviceUUIDs)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
     
 
     
@@ -955,209 +235,7 @@
 
 
 <div class="description">
-    <p>重新加载场景数据 /scene/get</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;IScene></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="remove"><span class="type-signature"></span>remove<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;IScene>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>删除场景 /scene/delete</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;IScene></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="save"><span class="type-signature"></span>save<span class="signature">(opt)</span><span class="type-signature"> &rarr; {Promise.&lt;IScene>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>保存场景 /scene/edit</p>
+    <p>发现服务</p>
 </div>
 
 
@@ -1181,9 +259,9 @@
         <th>Type</th>
 
         
-
+        <th>Attributes</th>
         
-        <th>Default</th>
+
         
 
         <th class="last">Description</th>
@@ -1195,29 +273,33 @@
 
         <tr>
             
-                <td class="name"><code>opt</code></td>
+                <td class="name"><code>serviceUUIDs</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">json</span>
+<span class="param-type">string</span>
 
 
             
             </td>
 
             
-
-            
-                <td class="default">
+                <td class="attributes">
                 
-                    null
+
+                
+
+                
+                    &lt;repeatable><br>
                 
                 </td>
             
 
-            <td class="description last"><p>{authed:[...], name, identify, setting}</p></td>
+            
+
+            <td class="description last"></td>
         </tr>
 
     
@@ -1288,116 +370,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;IScene></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-    <h5>Examples</h5>
-    
-    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">scene.save({setting:{...}}).then(scene=>{...})</code></pre>
-
-    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">scene.save().then(scene=>{...}).catch(err=>{...})
- </code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="start"><span class="type-signature"></span>start<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;IScene>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>启动场景 /scene/start</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;IScene></span>
+<span class="param-type">boolean</span>
 
 
     </dd>

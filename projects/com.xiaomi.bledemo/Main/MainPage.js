@@ -13,7 +13,7 @@ import {
 
 import { Bluetooth, BluetoothEvent, DeviceEvent, Device, Service } from "miot";
 
-const bt = Device.bluetooth;
+const bt = Device.getBluetoothLE();
 const DEMOCHAR='00000001-0000-1000-8000-00805f9b34fb';
 export default class MainPage extends React.Component {
 

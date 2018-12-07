@@ -7,9 +7,9 @@
  */
 import Account from "./Account"
 import Scene from './service/scene'
-import Bluetooth from "./Bluetooth";
+import Bluetooth, { IBluetoothClassic } from "./Bluetooth";
 /**
- * Device事件名集合
+ * Device事件集合
  * @namespace DeviceEvent
  * @example
  *    import {DeviceEvent} from 'miot'
@@ -63,7 +63,7 @@ export const DeviceEvent = {
      * import {Device, DeviceEvent} from 'miot'
      * 
      * let msgSubscription = null;
-     * Device.subscribeMessages("power", "rgb").then(subcription=>{
+     * Device.getDeviceWifi().subscribeMessages("power", "rgb").then(subcription=>{
      *      msgSubscription = subcription;
      * });
      * ...
@@ -84,37 +84,89 @@ export const DeviceEvent = {
     }
 };
 /**
+ * 设备网络访问控制类
  * @interface
  */
-class IDevice {
+export class IDeviceWifi{
     /**
-     *获取设备 id，每一个真实设备都有一个唯一的 id
+     * 获取设备ID
+     * @member
      * @type {string}
-     * @readonly
-     *
      */
-    get deviceID() {
-         return  0
-    }
-    /**
-     * 获取设备的 model,设备类型的唯一标识
-     * @type {string}
-     * @readonly
-     *
-     */
-    get model() {
+    get deviceID(){
          return  ""
     }
     /**
-     *设备是否已经可用
-     * @type {boolean}
-     * @readonly
-     *
+     * 调用设备方法, 和设备通信如果同一个 wifi 下会使用局域网传输数据，如果不在同一个 wifi 下由米家服务器转发请求
+     * @param {string} method  方法名
+     * @param {json} args  参数
+     * @return {Promise<json>} {code:0,result:{},id:""}
      *
      */
-    get isReady() {
-         return  false
-        return did && did != '';
+    callMethod(method, args) {
+         return Promise.resolve({});
+    }
+    /**
+     * 加载属性数据, 调用get_prop 方法, 并将返回数据写成{key:value}格式
+     * @method
+     * @param {*} propNames
+     * @returns {Promise<Map>} Map<name, value>
+     * @example
+     *
+     *   Device.getDeviceWifi().loadProperties("a", "b").then(map=>{
+     *      const a = map.get("a")
+     *      const b = map.get("b")
+     *   })
+     *
+     */
+    loadProperties(...propNames) {
+        if (propNames.length < 1) {
+            return Promise.reject();
+        }
+        return this.callMethod("get_prop", propNames).then((res => {
+            const map = new Map();
+            if(res.result){
+                propNames.forEach((n, i) => map.set(n, res.result[i]));
+            }
+            return map;
+        }));
+    }
+    /**
+     * 从云端加载属性数据, 调用get_prop 方法, 并将返回数据写成{key:value}格式
+     * @method
+     * @param {*} propNames
+     * @returns {Promise<Map>} Map<name, value>
+     *
+     */
+    loadPropertiesFromCloud(...propNames) {
+        if (propNames.length < 1) {
+            return Promise.reject();
+        }
+        return this.callMethodFromCloud("get_prop", propNames).then((res => {
+            const map = new Map();
+            if(res.result){
+                propNames.forEach((n, i) => map.set(n, res.result[i]));
+            }
+            return map;
+        }));
+    }
+    /**
+     * 同 callMethod 函数 不在同一个 wifi 下的情况
+     * @param {string} method  方法名
+     * @param {json} args 参数
+     * @return {Promise<json>} 请求成功返回 {code:0,result:{} }
+     *
+     */
+    callMethodFromCloud(method, args) {
+         return Promise.resolve({});
+    }
+    /**
+     * ping 操作
+     * @returns {Promise<json>}
+     *
+     */
+    localPing() {
+         return Promise.resolve({});
     }
     /**
      * 订阅设备消息
@@ -125,51 +177,6 @@ class IDevice {
      */
     subscribeMessages(...propertyOrEventNames) {
          return Promise.resolve(this);
-    }
-    /**
-     * 加载本设备相关的场景
-     * @method
-     * @param {*} sceneType
-     * @param {*} opt
-     * @returns {Promise<IScene[]>}
-     * @see {@link module:miot/service/scene}
-     *
-     */
-    loadScenes(sceneType, opt = null) {
-        return Scene.loadScenes(this.deviceID, sceneType, opt);
-    }
-    /**
-     * 加载定时场景
-     * @param {json} opt
-     * @returns {Promise<IScene[]>}
-     * @see {@link module:miot/service/scene}
-     *
-     */
-    loadTimerScenes(opt = null) {
-        return Scene.loadTimerScenes(this.deviceID, opt);
-    }
-    /**
-     * 创建场景
-     * @method
-     * @param {SceneType} sceneType
-     * @param {json} opt
-     * @returns {IScene}
-     * @see {@link module:miot/service/scene}
-     *
-     */
-    createScene(sceneType, opt = null) {
-        return Scene.createScene(this.deviceID, sceneType, opt);
-    }
-    /**
-     * 创建定时场景
-     * @method
-     * @param {json} opt
-     * @returns {IScene}
-     * @see {@link module:miot/service/scene}
-     *
-     */
-    createTimerScene(opt = null) {
-        return Scene.createTimerScene(this.deviceID, opt);
     }
     /**
      * 设备固件版本信息
@@ -200,6 +207,47 @@ class IDevice {
      */
     startUpgradingFirmware() {
          return Promise.resolve({});
+    }
+}
+/**
+ * @interface
+ */
+class IDevice {
+    /**
+     *获取设备 id，每一个真实设备都有一个唯一的 id
+     * @type {string}
+     * @readonly
+     *
+     */
+    get deviceID() {
+         return  0
+    }
+    /**
+     * 获取设备的 model,设备类型的唯一标识
+     * @type {string}
+     * @readonly
+     *
+     */
+    get model() {
+         return  ""
+    }
+    /**
+     * 获得设备 wifi
+     * @returns {IDeviceWifi}
+     * 
+     */
+    getDeviceWifi(){
+         return null
+    }
+    /**
+     *设备是否已经可用
+     * @type {boolean}
+     * @readonly
+     *
+     *
+     */
+    get isReady() {
+         return false
     }
     /**
      * 如果有父设备，直接获取 父设备 Device
@@ -248,15 +296,15 @@ class IDevice {
          return Promise.resolve([]);
     }
     /**
-     * 蓝牙操作入口
-     * @type {IBluetooth}
-     * @see {@link module:miot/Bluetooth}
-     * @readonly
+     * 获取BLE蓝牙控制类
+     * @method
+     * @returns {IBluetoothLE}
+     * @see {@link module:miot/Bluetooth} 
      * @example
      *
-     * Device.bluetooth.connect()
-     * .then(bluetooth=>{
-     *      bluetooth....
+     * Device.getBluetoothLE().connect()
+     * .then(ble=>{
+     *      ble....
      * })
      * .catch(error=>{
      *
@@ -264,7 +312,27 @@ class IDevice {
      *
      *
      */
-    get bluetooth() {
+    getBluetoothLE() {
+         return null
+    }
+    /**
+     * 获取经典蓝牙控制类
+     * @method
+     * @returns {IBluetoothClassic}
+     * @see {@link module:miot/Bluetooth} 
+     * @example
+     *
+     * Device.getBluetoothClassic().connect()
+     * .then(bluetoothClassic=>{
+     *      bluetoothClassic....
+     * })
+     * .catch(error=>{
+     *
+     * })
+     *
+     *
+     */
+    getBluetoothClassic() {
          return null
     }
     /**
@@ -278,83 +346,56 @@ class IDevice {
          return null
     }
     /**
-     * 调用设备方法, 和设备通信如果同一个 wifi 下会使用局域网传输数据，如果不在同一个 wifi 下由米家服务器转发请求
-     * @param {string} method  方法名
-     * @param {json} args  参数
-     * @return {Promise<json>} {code:0,result:{},id:""}
-     *
-     */
-    callMethod(method, args) {
-         return Promise.resolve({});
-    }
-    /**
-     * 加载属性数据, 调用get_prop 方法, 并将返回数据写成{key:value}格式
-     * @method
-     * @param {*} propNames
-     * @returns {Promise<Map>} Map<name, value>
-     * @example
-     *
-     *   Device.loadProperties("a", "b").then(map=>{
-     *      const a = map.get("a")
-     *      const b = map.get("b")
-     *   })
-     *
-     */
-    loadProperties(...propNames) {
-        if (propNames.length < 1) {
-            return Promise.reject();
-        }
-        return this.callMethod("get_prop", propNames).then((res => {
-            const map = new Map();
-            if(res.result){
-                propNames.forEach((n, i) => map.set(n, res.result[i]));
-            }
-            return map;
-        }));
-    }
-    /**
-     * 从云端加载属性数据, 调用get_prop 方法, 并将返回数据写成{key:value}格式
-     * @method
-     * @param {*} propNames
-     * @returns {Promise<Map>} Map<name, value>
-     *
-     */
-    loadPropertiesFromCloud(...propNames) {
-        if (propNames.length < 1) {
-            return Promise.reject();
-        }
-        return this.callMethodFromCloud("get_prop", propNames).then((res => {
-            const map = new Map();
-            if(res.result){
-                propNames.forEach((n, i) => map.set(n, res.result[i]));
-            }
-            return map;
-        }));
-    }
-    /**
-     * 同 callMethod 函数 不在同一个 wifi 下的情况
-     * @param {string} method  方法名
-     * @param {json} args 参数
-     * @return {Promise<json>} 请求成功返回 {code:0,result:{} }
-     *
-     */
-    callMethodFromCloud(method, args) {
-         return Promise.resolve({});
-    }
-    /**
      * 上报日志
      * @param {string} log
-     *
+     * 
      */
     reportLog(log) {
     }
     /**
-     * ping 操作
-     * @returns {Promise<json>}
+     * 加载本设备相关的场景
+     * @method
+     * @param {*} sceneType
+     * @param {*} opt
+     * @returns {Promise<IScene[]>}
+     * @see {@link module:miot/service/scene}
      *
      */
-    localPing() {
-         return Promise.resolve({});
+    loadScenes(sceneType, opt = null) {
+        return Scene.loadScenes(this.deviceID, sceneType, opt);
+    }
+    /**
+     * 加载定时场景
+     * @param {json} opt
+     * @returns {Promise<IScene[]>}
+     * @see {@link module:miot/service/scene}
+     *
+     */
+    loadTimerScenes(opt = null) {
+        return Scene.loadTimerScenes(this.deviceID, opt);
+    }
+    /**
+     * 创建场景
+     * @method
+     * @param {SceneType} sceneType
+     * @param {json} opt
+     * @returns {IScene}
+     * @see {@link module:miot/service/scene}
+     *
+     */
+    createScene(sceneType, opt = null) {
+        return Scene.createScene(this.deviceID, sceneType, opt);
+    }
+    /**
+     * 创建定时场景
+     * @method
+     * @param {json} opt
+     * @returns {IScene}
+     * @see {@link module:miot/service/scene}
+     *
+     */
+    createTimerScene(opt = null) {
+        return Scene.createTimerScene(this.deviceID, opt);
     }
     /**
      * 除了基本信息的其他数据都在这个字段返回，如：{"fw_version":"1.4.0","mcu_version":"0001"}

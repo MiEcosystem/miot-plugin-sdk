@@ -13,7 +13,7 @@
  *    
  *   ...
  * 
- *   Device.loadProperties("prop1", "prop2")
+ *   Device.getDeviceWifi().loadProperties("prop1", "prop2")
  *      .then(propsMap=>{
  *          DeviceProperties.setProperties(propsMap).notifyPropertiesChanged();
  *       })

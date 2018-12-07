@@ -50,7 +50,7 @@ export default class ControlDemo extends React.Component {
           let sRGB = "#" + this.getNewRGB(status.rgb >> 16, (status.rgb >> 8) & 0x00ff, (status.rgb & 0x0000ff));
             this.setState({"resultViewColor":sRGB});
           });
-        Device.subscribeMessages("prop.on","prop.usb_on"
+        Device.getDeviceWifi().subscribeMessages("prop.on","prop.usb_on"
     );
   }
 
@@ -152,7 +152,7 @@ export default class ControlDemo extends React.Component {
   }
 
   onSendDidButtonPress() {
-    Device.callMethod("set_rgb", [(this.state.textR<<16|this.state.textG<<8|this.state.textB)]).then( json => {
+    Device.getDeviceWifi().callMethod("set_rgb", [(this.state.textR<<16|this.state.textG<<8|this.state.textB)]).then( json => {
       console.log("rpc result:"+isSuccess+json);
       this.setState({requestStatus:isSuccess})
 
