@@ -61,7 +61,7 @@ export const DeviceEvent = {
      * @example
      *
      * import {Device, DeviceEvent} from 'miot'
-     * 
+     *
      * let msgSubscription = null;
      * Device.getDeviceWifi().subscribeMessages("power", "rgb").then(subcription=>{
      *      msgSubscription = subcription;
@@ -76,9 +76,9 @@ export const DeviceEvent = {
      *   ...
      * })
      * ...
-     * 
+     *
      * msgSubscription&&msgSubscription.remove();
-     * 
+     *
      */
     deviceReceivedMessages: {
     }
@@ -234,7 +234,7 @@ class IDevice {
     /**
      * 获得设备 wifi
      * @returns {IDeviceWifi}
-     * 
+     *
      */
     getDeviceWifi(){
          return null
@@ -299,7 +299,7 @@ class IDevice {
      * 获取BLE蓝牙控制类
      * @method
      * @returns {IBluetoothLE}
-     * @see {@link module:miot/Bluetooth} 
+     * @see {@link module:miot/Bluetooth}
      * @example
      *
      * Device.getBluetoothLE().connect()
@@ -319,7 +319,7 @@ class IDevice {
      * 获取经典蓝牙控制类
      * @method
      * @returns {IBluetoothClassic}
-     * @see {@link module:miot/Bluetooth} 
+     * @see {@link module:miot/Bluetooth}
      * @example
      *
      * Device.getBluetoothClassic().connect()
@@ -348,7 +348,7 @@ class IDevice {
     /**
      * 上报日志
      * @param {string} log
-     * 
+     *
      */
     reportLog(log) {
     }
@@ -481,7 +481,7 @@ class IDevice {
          return  ""
     }
     /**
-     * 获取当前设备固件的版本
+     * 获取当前wifi设备固件的版本,ble设备请通过设备的 fe95-0004 自行获取
      * @type {string}
      * @readonly
      *
