@@ -44,6 +44,9 @@
 ## 文档
 插件开发请参考[《MIOT SDK API》](https://miecosystem.github.io/miot-plugin-sdk) 
 
+    特别注意, 最近Device 接口发生变化, callmethod/subscribeMessage/loadProperties 等方法变成在 getDeviveWifi().后调用, 获取蓝牙变成getBluetoothLE()
+    
+
 插件从旧框架迁移到新框架请参考[《迁移手册》](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/%E8%BF%81%E7%A7%BB%E6%89%8B%E5%86%8C.md)
 
 插件调试流程请参考[《调试说明》](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/%E8%B0%83%E8%AF%95%E8%AF%B4%E6%98%8E.md)
