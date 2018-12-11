@@ -43,6 +43,7 @@
 
 ## 文档
 插件开发请参考[《MIOT SDK API》](https://miecosystem.github.io/miot-plugin-sdk) 
+            [《beta版接口变迁日志》](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/beta%20%E7%89%88%E6%9C%AC%E6%8E%A5%E5%8F%A3%E5%8F%98%E8%BF%81%E6%97%A5%E5%BF%97.md)
 
 插件从旧框架迁移到新框架请参考[《迁移手册》](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/%E8%BF%81%E7%A7%BB%E6%89%8B%E5%86%8C.md)
 
