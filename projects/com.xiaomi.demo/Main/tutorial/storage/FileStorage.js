@@ -201,15 +201,35 @@ export default class FileStorage extends React.Component {
     }
   }
 
-  // _readFileToBase64() {
-  //   Host.file.readFileToBase64(this.state.fileName)
-  //     .then((base64Content) => {
-  //       this.setState({ fileContent: base64Content });
-  //     })
-  //     .catch((isSuccess) => {
-  //       alert(isSuccess);
-  //     });
-  // }
+  _readFileToHexString() {
+    Host.file.readFileToHexString(this.state.fileName)
+      .then((hexString) => {
+        this.setState({ fileContent: hexString });
+      })
+      .catch((isSuccess) => {
+        alert(isSuccess);
+      });
+  }
+
+  _readFileToBase64() {
+    Host.file.readFileToBase64(this.state.fileName)
+      .then((base64Content) => {
+        this.setState({ fileContent: base64Content });
+      })
+      .catch((isSuccess) => {
+        alert(isSuccess);
+      });
+  }
+
+  _isFileExist() {
+    Host.file.isFileExists(this.state.fileName)
+      .then((isSuccess) => {
+        alert(isSuccess);
+      })
+      .catch(e => {
+        alert(e);
+      })
+  }
 
   _getLengthOfBase64Data() {
     Host.file.dataLengthOfBase64Data(this.state.fileContent)
@@ -360,6 +380,20 @@ export default class FileStorage extends React.Component {
         <View style={styles.row}>
           <View style={{ flex: 1 }}>
             <Button
+              title="读文件(Base64)"
+              onPress={() => this._readFileToBase64()}
+            />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Button
+              title="读文件(HexString)"
+              onPress={() => this._readFileToHexString()}
+            />
+          </View>
+        </View>
+        <View style={styles.row}>
+          <View style={{ flex: 1 }}>
+            <Button
               title="读取 base64 data长度"
               onPress={() => this._getLengthOfBase64Data()}
             />
@@ -386,10 +420,18 @@ export default class FileStorage extends React.Component {
           </View>
         </View>
         <View style={[styles.row, { justifyContent: "center" }]}>
-          <Button
-            title="删除当前显示的文件"
-            onPress={() => this._deleteFile()}
-          />
+          <View style={{ flex: 1 }}>
+            <Button
+              title="删除当前显示的文件"
+              onPress={() => this._deleteFile()}
+            />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Button
+              title="判断文件是否存在"
+              onPress={() => this._isFileExist()}
+            />
+          </View>
         </View>
         <View style={{ flex: 1, flexDirection: "row", margin: 5 }}>
           <View style={{ flex: 1, padding: 5 }}>
