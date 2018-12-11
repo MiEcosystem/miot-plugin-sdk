@@ -28,6 +28,16 @@ export default class InputDialog extends Component {
      */
     message: PropTypes.string,
     /**
+     * 输入框placeholder，默认为空
+     * @member {string}
+     */
+    placeholder: PropTypes.string,
+    /**
+     * 输入框默认初始值，默认为空
+     * @member {string}
+     */
+    defaultText: PropTypes.string,
+    /**
      * 超时自动隐藏，设置0或者不设置不会自动隐藏
      * @member {number}
      */

@@ -96,6 +96,8 @@ export default class DialogTest extends React.Component {
                      cancel={'取消'}
                      timeout={0}
                      confirm={'确认'}
+                     placeholder={'placeholder'}
+                     defaultText={'default text'}
                      onCancel={(e) => {
                        console.log('onCancel', e);
                      }}
