@@ -14,7 +14,7 @@ export default {
          return Promise.resolve([]);
     },
     /**
-     * 判断文件是否存在
+     * 判断文件是否存在,then(res=>{res==true 存在，res==false不存在}).catch(err=>consloe.log(文件夹没操作权限))
      * @param {*} fileName
      */
     isFileExists(fileName){
