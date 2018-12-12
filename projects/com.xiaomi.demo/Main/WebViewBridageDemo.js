@@ -10,8 +10,10 @@ import {
     Text,
     View,
     TouchableHighlight,
-    WebView, Dimensions
+    WebView, 
+    Dimensions
 } from 'react-native';
+
 const {height, width} = Dimensions.get('window');
 export default class WebViewBridageDemo extends Component {
   constructor(props) {

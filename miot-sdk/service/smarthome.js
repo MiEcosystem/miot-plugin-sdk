@@ -177,7 +177,8 @@ export default {
     getHomeDevice(params){
          return Promise.resolve(null);
     },
-    /**添加设备属性和事件历史记录，/home/getmapfileurl
+    /**
+     *  /user/del_user_map
      *
      * @param params
      * @return {Promise}
@@ -185,7 +186,8 @@ export default {
     delUsermap(params){
          return Promise.resolve(null);
     },
-    /**添加设备属性和事件历史记录，/home/getmapfileurl
+    /**
+     *  /home/getrobomapurl
      *
      * @param params
      * @return {Promise}
@@ -194,7 +196,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 添加设备属性和事件历史记录，/home/getcountry
+     * /home/getcountry
      * @param params
      * @return {Promise}
      */
