@@ -1121,7 +1121,7 @@ ble.disconnect()</code></pre>
 
 
 <div class="description">
-    <p>加载本地蓝牙设备</p>
+    <p>iOS 平台获取已连接 BLE Peripheral，适用于可穿戴长连接设备</p>
 </div>
 
 
@@ -1185,7 +1185,7 @@ ble.disconnect()</code></pre>
 
             
 
-            <td class="description last"><p>deviceUUID</p></td>
+            <td class="description last"><p>Peripheral UUIDs</p></td>
         </tr>
 
     
@@ -1248,6 +1248,10 @@ ble.disconnect()</code></pre>
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    <p>//@mark ios done</p>
+</div>
+
 
 
 <dl>
@@ -1270,11 +1274,7 @@ ble.disconnect()</code></pre>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">...
-  Bluetooth.retrievePeripheralsForIOS({services:["deviceUUID1","deviceUUID2","deviceUUID3"]})
-  Bluetooth.retrievePeripheralsForIOS({devices:["deviceUUID1","deviceUUID2","deviceUUID3"]})
-  ...
-  Bluetooth.retrievePeripheralsForIOS("deviceUUID1","deviceUUID2","deviceUUID3",...)</code></pre>
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Bluetooth.retrievePeripheralsForIOS(["PeripheralUUID1","PeripheralUUID2","PeripheralUUID3"])</code></pre>
 
 
 

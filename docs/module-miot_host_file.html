@@ -111,6 +111,27 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">//给定文件名后下载或者截图后被放到本地目录里, 在&lt;Image/>等标签需要引用时, 使用{local:"filename"}的方式引入
+   const myfile = "testpicture.png"
+   Host.file.downloadFile("http://..../...png", myfile)
+   .then(res=>{
+       const myimg = &lt;Image source={{local:myfile}} .../>
+       ...
+   })
+   .catch(err=>{...})
+
+   ...
+   const myshotfile = "testshot.png"
+   Host.file.screenShot(myshotfile)
+   .then(res=>{
+      const myshotpic = &lt;Image source={{local:myshotfile}} .../>
+      ...
+   });
+   ...</code></pre>
+
+
 
         
     
