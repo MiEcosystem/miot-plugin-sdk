@@ -4,6 +4,10 @@ const fs = require("fs");
 const map = new Map();
 
 map.set("node_modules/react-native/Libraries/Components/WebView/WebView.ios.js", "WebView.ios");
+map.set("node_modules/react-native/Libraries/Renderer/ReactFabric-dev.js", "ReactFabric-dev");
+map.set("node_modules/react-native/Libraries/Renderer/ReactFabric-prod.js", "ReactFabric-prod");
+map.set("node_modules/react-native/Libraries/Renderer/ReactNativeRenderer-dev.js", "ReactNativeRenderer-dev");
+map.set("node_modules/react-native/Libraries/Renderer/ReactNativeRenderer-prod.js", "ReactNativeRenderer-prod");
 
 module.exports = {
 
