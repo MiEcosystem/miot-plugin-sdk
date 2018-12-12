@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 
 import { TitleBarBlack } from 'miot/ui';
+import { Host } from 'miot';
 
 export default class UIDemo extends React.Component {
 
@@ -49,6 +50,7 @@ export default class UIDemo extends React.Component {
           'ProgressDemo',
           'DialogTest',
           'ImageCapInsetDemo',
+          'openShopPage'
         ]),
     };
   }
@@ -78,6 +80,14 @@ export default class UIDemo extends React.Component {
 
   _pressRow(rowData) {
     console.log('row' + rowData + 'clicked!');
+    if (rowData == 'openShopPage') {
+      Host.ui.openShopPage('100').then(e => {
+        console.log("success", e)
+      }).catch(e => {
+        console.log("failed", e)
+      });
+      return;
+    }
     this.props.navigation.navigate(rowData, { title: rowData });
   }
 
