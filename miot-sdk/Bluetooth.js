@@ -10,25 +10,42 @@
  * const ble = Device.getBluetoothLE();
  * ble.connect().then(ble=>{
  *
- * });
  *  ble.startDiscoverServices("a-b-c-d-e", ...)
+ *   ...
+ * });
  *
+ * ...
  * ble.getService("a-b-c-d-e").startDiscoverCharacteristics("1-2-3-4-5",...)
+ * 
+ * ...
+ * const charac = ble.getService('...').getCharacteristic('...')
+ * charac.setNotify().then(characteristic=>{}).catch(err=>{});
+ * charac.read().then(characteristic=>{characteristic.value ... }).catch(err=>{});
+ * charac.write().then(characteristic=>{}).catch(err=>{})
  *
- * ble.getService('...').getCharacteristic('...').setNotify().then(ok=>{});
- * ble.getService('...').getCharacteristic('...').read().then(characteristic=>{characteristic.value ... });
- * ble.getService('...').getCharacteristic('...').write().then(value, ok=>{})
- *
- *
+ * ...
  *
  * ble.disconnect()
  *
  */
 import RootDevice from './Device'
+const getBluetoothUUID128 = id => {
+    if(id){
+        switch(id.length){
+            case 2: id = "000000" + id;break;
+            case 4: id = "00" + id;break;
+            case 8: break;
+            default:
+                return null;
+        }
+        return id + "—0000—1000—8000—00805F9B34FB";
+    }
+    return null;
+}
 /**
  * BLE蓝牙特征值
  * @interface
- *
+ * 
  */
 export class IBluetoothCharacteristic {
     /**
@@ -261,6 +278,7 @@ export class IBluetooth {
     get UUID() {
          return  ""
     }
+    
     /**
      * 蓝牙是否已经连接
      * @member
