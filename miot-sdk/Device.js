@@ -489,6 +489,31 @@ class IDevice {
     get version() {
          return  ""
     }
+    getVersion(decrypt) {
+        return new Promise((resolve, reject) => {
+            if (native.isIOS){
+                native.MIOTDevice.getVersion(decrypt,(ok, data) => {
+                    if (ok) {
+                        resolve(data);
+                        return;
+                    }
+                    reject(data);
+                });
+            }else {
+                if (Properties.of(this).version){
+                    resolve(Properties.of(this).version);
+                } else {
+                    native.MIOTBluetooth.getVersion(decrypt,(ok, data) => {
+                        if (ok) {
+                            resolve(data);
+                            return;
+                        }
+                        reject(data);
+                    });
+                }
+            }
+        });
+    }
     /**
      * 获取 prop中保存的信息
      * @type {json}
