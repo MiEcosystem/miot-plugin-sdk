@@ -179,6 +179,7 @@ export default {
   openPageWithClassName(className) {
   },
   /**
+   * ios特有页面，android 不能使用
    * 打开更多设置页面（通常包括安全设置，常见问题与用户反馈）
    */
   openNewMorePage() {
