@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Xiaomi MIOT: </title>
+    <title>Xiaomi MIOT: Module: miot/ui/TitleBar</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,69 +17,397 @@
 
 <div id="main">
 
-    <h1 class="page-title"></h1>
-
-    
-
-
-
-    
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
+    <h1 class="page-title">Module: miot/ui/TitleBar</h1>
 
     
 
 
 
 
-    <section>
-        <article><h1>MIOT SDK</h1><p>A MIOT SDK for react-native plugin program of ios and android</p>
-<h2>编码说明</h2><h3>插件入口调用示例</h3><pre class="prettyprint source lang-js"><code>import React from 'react'
-import {StyleSheet, Text, View, Image} from &quot;react-native&quot;;
-import {Entrance, Package, Device, Service, Host...} from 'miot'
+<section>
 
-class App extends React.Component{
-    render(){
-        return &lt;View>
-            &lt;Text>device model is : {Device.model}&lt;/Text>
-        &lt;/View>
-    }
-}
+<header>
+    
+        
+            
+        
+    
+</header>
 
-switch(Package.entrance){
-    case Entrance.Main:
-        Package.entry(App, _=>{
-            //do something when the App is ready but not loaded 
-            ...
-        })
-        break;
-    default:
-        break;
-}
-</code></pre><h3>Promise 使用特别说明</h3><p>MIOT SDK 在所有的回调场合, 都尽量使用 Promise 方式返回, 在没有特殊说明的情况下, 返回的 Promise, then(data=&gt;{...})则表示调用成功,并返回正确数据, 而 catch(err=&gt;{...})表示调用失败 
-例如:</p>
-<pre class="prettyprint source lang-js"><code>import {Device} from 'miot'
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>新版导航栏，可以尝试使用</p></div>
+        
 
-Device.owner.load().then(account=>{
-    let email = account.email;
-    ...
-}).catch(err=>{
-    ...
-})
-</code></pre></article>
-    </section>
+        
+            
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>导航栏类型 options: [&quot;dark&quot;, &quot;light&quot;(default)]</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>style</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>导航栏整体的样式</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>leftText</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>左侧文字</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onPressLeft</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>左侧第一个按钮的点击事件，设置该属性将显示默认的「返回」按钮，否则不显示</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onPressLeft2</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>左侧第二个按钮的点击事件，设置 leftText 则显示设置的文字，否则显示默认的「关闭」按钮。</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rightText</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>右侧文字</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onPressRight</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>右侧第一个按钮的点击事件，设置该属性将显示默认的「分享」按钮，否则不显示。</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onPressRight2</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>右侧第二个按钮的点击事件，设置 rightText 则显示设置的文字，否则显示默认的「更多」按钮。</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>title</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>中间的标题文字</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>subTitle</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>中间的副标题文字</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onPressTitle</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>点击标题 / 副标题的事件</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>showDot</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>是否显示右侧「更多」按钮的小红点</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>flex</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>标题部分占导航栏的占比，默认1: 1.5: 1</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Geeook</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
