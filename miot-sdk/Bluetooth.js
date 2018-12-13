@@ -15,15 +15,9 @@
  *
  * ble.getService("a-b-c-d-e").startDiscoverCharacteristics("1-2-3-4-5",...)
  *
- * ble.getService('...').getCharacteristic('...')
- *                      .setNotify(true)
- *                      .read(characteristic=>{
- *                          characteristic.value ...
- *                      })
- *                      .write(value, ok=>{})
- *
- * ble.getService('a-b-c').getCharacteristic('1-2-3')
- *      .read().then(value=>{}).catch(err=>{...})
+ * ble.getService('...').getCharacteristic('...').setNotify().then(ok=>{});
+ * ble.getService('...').getCharacteristic('...').read().then(characteristic=>{characteristic.value ... });
+ * ble.getService('...').getCharacteristic('...').write().then(value, ok=>{})
  *
  *
  *
@@ -337,6 +331,16 @@ export class IBluetoothLE extends IBluetooth{
      *
      */
     startDiscoverServices(...serviceUUIDs) {
+        return false;
+    }
+    /**
+     * 获取蓝牙固件版本
+     * @method
+     * @param {boolean} decrypt
+     * @returns {boolean}
+     *
+     */
+    getVersion(decrypt) {
         return false;
     }
 }

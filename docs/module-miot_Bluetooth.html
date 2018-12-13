@@ -123,15 +123,9 @@ ble.connect().then(ble=>{
 
 ble.getService("a-b-c-d-e").startDiscoverCharacteristics("1-2-3-4-5",...)
 
-ble.getService('...').getCharacteristic('...')
-                     .setNotify(true)
-                     .read(characteristic=>{
-                         characteristic.value ...
-                     })
-                     .write(value, ok=>{})
-
-ble.getService('a-b-c').getCharacteristic('1-2-3')
-     .read().then(value=>{}).catch(err=>{...})
+ble.getService('...').getCharacteristic('...').setNotify().then(ok=>{});
+ble.getService('...').getCharacteristic('...').read().then(characteristic=>{characteristic.value ... });
+ble.getService('...').getCharacteristic('...').write().then(value, ok=>{})
 
 
 
