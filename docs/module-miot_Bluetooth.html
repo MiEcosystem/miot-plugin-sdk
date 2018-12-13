@@ -118,16 +118,20 @@
 const ble = Device.getBluetoothLE();
 ble.connect().then(ble=>{
 
-});
  ble.startDiscoverServices("a-b-c-d-e", ...)
+  ...
+});
 
+...
 ble.getService("a-b-c-d-e").startDiscoverCharacteristics("1-2-3-4-5",...)
 
-ble.getService('...').getCharacteristic('...').setNotify().then(ok=>{});
-ble.getService('...').getCharacteristic('...').read().then(characteristic=>{characteristic.value ... });
-ble.getService('...').getCharacteristic('...').write().then(value, ok=>{})
+...
+const charac = ble.getService('...').getCharacteristic('...')
+charac.setNotify().then(characteristic=>{}).catch(err=>{});
+charac.read().then(characteristic=>{characteristic.value ... }).catch(err=>{});
+charac.write().then(characteristic=>{}).catch(err=>{})
 
-
+...
 
 ble.disconnect()</code></pre>
 
