@@ -109,6 +109,7 @@ import BlankDemo from './tutorial/BlankDemo';
 import AccountDemo from './tutorial/account/AccountDemo';
 import StorageDemo from './tutorial/storage/StorageDemo';
 import TutorialDemo from './tutorial/TutorialDemo';
+import LocaleServer from './tutorial/LocaleServer';
 import CallSmartHomeAPIDemo from './tutorial/cloud/CallSmartHomeAPIDemo.js';
 import OperationDemoIndex from './tutorial/operation/OperationDemoIndex';
 import BLEConnectionDemo from './tutorial/operation/bluetooth/BLEConnectionDemo';
@@ -134,6 +135,7 @@ const RootStack = createStackNavigator(
   {
     Home: MainPage,
     tutorialDemo: TutorialDemo,
+    LocaleServer: LocaleServer,
     blankDemo: BlankDemo,
     DeviceDemo: DeviceDemo,
     PackageDemo: PackageDemo,

@@ -54,6 +54,10 @@ export default class TutorialDemo extends React.Component{
                 {
                     'title':'喜马拉雅',
                     'key':'XimaAudioDemo',
+                },
+                {
+                    'title':'定位相关',
+                    'key':'LocaleServer',
                 }
             ],
         }
