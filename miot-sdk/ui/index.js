@@ -18,6 +18,7 @@ import _ProgressDialog from './ProgressDialog'
 import _MultiChoseDialog from './MultiChoseDialog'
 import _SingleChoseDialog from './SingleChoseDialog'
 import _InputDialog from './InputDialog'
+import _TitleBar from './TitleBar'
 import _TitleBarWhite from './TitleBarWhite'
 import _TitleBarBlack from './TitleBarBlack'
 import _LocalizedStrings from './LocalizedStrings'
@@ -29,8 +30,9 @@ export const ProgressDialog = _ProgressDialog;
 export const MultiChoseDialog = _MultiChoseDialog;
 export const SingleChoseDialog = _SingleChoseDialog;
 export const InputDialog = _InputDialog;
+export const TitleBar = _TitleBar;
 export const TitleBarBlack = _TitleBarBlack;
 export const TitleBarWhite = _TitleBarWhite;
 export const LocalizedStrings = _LocalizedStrings;
 export const AMapView = _AMapView;
-export default {ImageButton,LoadingDialog,MessageDialog,MultiChoseDialog,ProgressDialog,SingleChoseDialog,InputDialog,TitleBarBlack,TitleBarWhite,LocalizedStrings,AMapView}
+export default { ImageButton, LoadingDialog, MessageDialog, MultiChoseDialog, ProgressDialog, SingleChoseDialog, InputDialog, TitleBar, TitleBarBlack, TitleBarWhite, LocalizedStrings, AMapView }
