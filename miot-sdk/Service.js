@@ -3,7 +3,7 @@
  * @module miot/Service
  * @description 系统服务
  * @example
- *  
+ *
  * import {Service} from 'miot'
  *
  * Service.getServerName().then(time=>{...})
@@ -21,7 +21,7 @@
  *    ...
  * })
  *
- * Service.storage.getUserConfigs(key).then()  
+ * Service.storage.getUserConfigs(key).then()
  *
  *
  */
@@ -77,9 +77,15 @@ export default {
     /**
      * @method
      * @description 服务器名称
+     * @return {Promise<{countryName:"",countryCode:"",serverCode:""}>}
      */
     getServerName(){
-        return "";
+        return new Promise((resolve, reject)=>{
+            native.MIOTService.getServerName(res=>{
+               if ( res.countryCode==="us_true") {res.countryCode='us_sg'}
+                resolve(res);
+            });
+        });
     },
     /**
      * @method getTimeZoneOfServer
