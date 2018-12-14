@@ -115,19 +115,19 @@
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Service} from 'miot'
 
-Service.getServerName().then(time=>{...})
+Service.getServerName().then(res=>{...})
 Service.getUTCTimeFromServer().then(...)
 
- Service.smarthome.reportGPSInfo(...).then(...)
+Service.smarthome.reportGPSInfo(...).then(...)
 
- Service.account.ID
- Serivce.account.nickName
- Service.account.avatar
- Service.account.load().then(account=>{})
+Service.account.ID
+Serivce.account.nickName
+Service.account.avatar
+Service.account.load().then(account=>{})
 
 Service.scene.loadTimerScenes(...).then(scenes=>{})
 Service.security.loadSecureKeys(...).then(keys=>{
-   ...
+...
 })
 
 Service.storage.getUserConfigs(key).then()</code></pre>
@@ -508,7 +508,7 @@ Service.storage.getUserConfigs(key).then()</code></pre>
 
 
 <div class="description">
-    <p>服务器名称</p>
+    <p>米家 App 设置的地区和服务器信息</p>
 </div>
 
 

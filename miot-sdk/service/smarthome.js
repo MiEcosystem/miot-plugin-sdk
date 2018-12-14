@@ -58,7 +58,7 @@ export default {
     },
     /**
      * 检查到有可用更新时，可以主动更新固件。 /home/multi_checkversion
-     * @param deviceIDs
+     * @param {array<string>} deviceIDs
      * @return {Promise<json>}
      */
     getAvailableFirmwareForDids(deviceIDs){
@@ -108,7 +108,7 @@ export default {
     },
     /**
      * 获取小爱接口数据，内部调用米家代理接口/v2/api/aivs
-     * @param params 请求参数 {path:string,params:map,header:map,payload:map,env:int,req_method:string,req_header:map}
+     * @param {json} params 请求参数 {path:string,params:map,header:map,payload:map,env:int,req_method:string,req_header:map}
      * @return {Promise}
      * @example
      * Service.smarthome.getAiServiceProxy({
@@ -125,7 +125,7 @@ export default {
     },
     /**
      * 获取服务器中 device 对应的数据，内部调用米家代理接口 /device/getsetting
-     * @param params 请求参数 {did:string,settings:array<string>}
+     * @param {json} params 请求参数 {did:string,settings:array<string>}
      * @return {Promise}
      */
     getDeviceSetting(params){
@@ -133,7 +133,7 @@ export default {
     },
     /**
      * 设置服务器中 device 对应的数据，内部调用米家代理接口/device/setsetting
-     * @param params 请求参数 {did:string,settings:map<key,value>}
+     * @param {json} params 请求参数 {did:string,settings:map<key,value>}
      * @return {Promise}
      */
     setDeviceSetting(params){
@@ -141,7 +141,7 @@ export default {
     },
     /**
      * 删除服务器中 device 对应的数据，内部调用米家代理接口/device/delsetting
-     * @param {map} params  - 请求参数 \{did:设备 id,settings:要删除的设置角标的数组}
+     * @param {json} params  - 请求参数 \{did:设备 id,settings:要删除的设置角标的数组}
      * @return {Promise}
      */
     delDeviceSetting(params){
@@ -183,7 +183,7 @@ export default {
     },
     /**添加设备属性和事件历史记录，/home/getmapfileurl
      *
-     * @param params
+     * @param {json} params
      * @return {Promise}
      */
     getMapfileUrl(params){
@@ -200,7 +200,7 @@ export default {
     /**
      *  /user/del_user_map
      *
-     * @param params
+     * @param {json} params
      * @return {Promise}
      */
     delUsermap(params){
@@ -209,7 +209,7 @@ export default {
     /**
      *  /home/getrobomapurl
      *
-     * @param params
+     * @param {*} arams
      * @return {Promise}
      */
     getRobomapUrl(params){
