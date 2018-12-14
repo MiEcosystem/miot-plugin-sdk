@@ -16,10 +16,6 @@ export default {
    * @type {string}
    */
   get timeZone() {
-      return native.MIOTHost.timeZone;
-    } else {
-      return 'iOS 暂不支持';
-    }
   },
   /**
    * 获取手机地理位置信息

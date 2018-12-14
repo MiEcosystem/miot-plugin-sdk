@@ -81,30 +81,7 @@ export default {
    * @return {Promise<{countryName:"",countryCode:"",serverCode:""}>}
    */
   getServerName() {
-    return new Promise((resolve, reject) => {
-      if (native.isAndroid) {
-        native.MIOTService.getServerName(res => {
-          // Android：美国地区，美国服务器
-          if (res.countryCode === "us_true") {
-            res.countryCode = 'us'
-          }
-          resolve(res);
-        });
-      }
-      else {
-        native.MIOTHost.getCurrentCountryInfoCallback((isSuccess, res) => {
-          if (isSuccess) {
-            // iOS：美国地区，亚洲服务器
-            if (res.countryCode === "us_sg") {
-              res.countryCode = 'us'
-            }
-            resolve(res);
-          } else {
-            reject("地区和服务器信息未正确获取");
-          }
-        })
-      }
-    });
+     return Promise.resolve(null);
   },
   /**
    * @method getTimeZoneOfServer
