@@ -29,6 +29,7 @@
  *
  */
 import RootDevice from './Device'
+import Host from './Host'
 export const getBluetoothUUID128 = id => {
     if(!id || id=='')return null;
     id = id.toUpperCase();
