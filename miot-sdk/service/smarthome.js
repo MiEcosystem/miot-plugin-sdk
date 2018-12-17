@@ -83,7 +83,7 @@ export default {
      * 上报设备数据 /device/event
      * @param {string} deviceID
      * @param {array<map>} records [{type:string,key:string,value:string}]
-     * 
+     *
      * @example
      * Service.smarthome.reportRecords("deviceID", [{type:"a",key:"b",value:"c"}])
      */
@@ -175,7 +175,7 @@ export default {
     },
     /**
      * /user/get_user_coll
-     * @param {*} params 
+     * @param {*} params
      * @return {Promise}
      */
     getUserColl(params){
@@ -191,7 +191,7 @@ export default {
     },
     /**添加设备属性和事件历史记录，/home/device_list
      * 当ssid和bssid均不为空时，表示同时搜索这个局域网内所有未被绑定过的设备
-     * @param {json} params {pid:string ,ssid:string ,bssid:string ,localDidList:array<string>,checkMoreWifi:bool,dids:array<string>} 
+     * @param {json} params {pid:string ,ssid:string ,bssid:string ,localDidList:array<string>,checkMoreWifi:bool,dids:array<string>}
      * @return {Promise}
      */
     getHomeDevice(params){
@@ -249,6 +249,15 @@ export default {
      * @return {Promise}
      */
     getThirdConfig(params){
+         return Promise.resolve(null);
+    },
+    /**
+     * 异步调用第三方云接口  /third/api
+     *
+     * @param {json} params  -参数 {"app_id":"123","dids":["1","2"],"params":json}
+     * @return {Promise}
+     */
+    callThirdPartyAPI(params){
          return Promise.resolve(null);
     }
 }
