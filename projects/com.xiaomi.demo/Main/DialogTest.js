@@ -64,6 +64,7 @@ export default class DialogTest extends React.Component {
         </TouchableHighlight>
         <MessageDialog title={'title'}
                        message={'message'}
+                       cancelable={true}
                        cancel={'取消'}
                        confirm={'确认'}
                        timeout={10000}
@@ -94,6 +95,7 @@ export default class DialogTest extends React.Component {
                      message={'message'}
                      singleLine={true}
                      cancel={'取消'}
+                     cancelable={false}
                      timeout={0}
                      confirm={'确认'}
                      placeholder={'placeholder'}
@@ -126,6 +128,7 @@ export default class DialogTest extends React.Component {
                            dataSource={['message0', 'message1', 'message2', 'message3', 'message4', 'message5', 'message6']}
                            cancel={'取消'}
                            confirm={'确认'}
+                           cancelable={false}
                            timeout={0}
                            check={2}
                            onCancel={(e) => {
@@ -157,6 +160,7 @@ export default class DialogTest extends React.Component {
         </TouchableHighlight>
         <MultiChoseDialog title={'title'}
                           timeout={0}
+                          cancelable={false}
                           dataSource={[{'name': 'message0', 'check': true},
                             {'name': 'message1', 'check': true}, {
                               'name': 'message2',
@@ -206,6 +210,7 @@ export default class DialogTest extends React.Component {
         </TouchableHighlight>
         <LoadingDialog title={'title'}
                        message={'message'}
+                       cancelable={false}
                        timeout={3000}
                        onDismiss={() => {
                          console.log('onDismiss');
@@ -238,7 +243,7 @@ export default class DialogTest extends React.Component {
         <ProgressDialog message={'message'}
           //title={'title'}
                         max={100}
-                        timeout={2000}
+                        cancelable={false}
                         progress={this.state.progress}
                         onDismiss={() => {
                           console.log('onDismiss');

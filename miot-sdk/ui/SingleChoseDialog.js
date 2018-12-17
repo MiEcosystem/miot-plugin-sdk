@@ -20,6 +20,11 @@ export default class SingleChoseDialog extends Component {
     visible: PropTypes.bool,
     /**
      *
+     * @member {bool}
+     */
+    cancelable: PropTypes.bool,
+    /**
+     *
      * @member {string}
      */
     title: PropTypes.string,

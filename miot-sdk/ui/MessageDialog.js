@@ -19,6 +19,11 @@ export default class MessageDialog extends Component {
     visible: PropTypes.bool,
     /**
      *
+     * @member {bool}
+     */
+    cancelable: PropTypes.bool,
+    /**
+     *
      * @member {string}
      */
     title: PropTypes.string,

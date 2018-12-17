@@ -18,6 +18,11 @@ export default class InputDialog extends Component {
      */
     visible: PropTypes.bool,
     /**
+     * 是否可见
+     * @member {bool}
+     */
+    cancelable: PropTypes.bool,
+    /**
      * 标题
      * @member {string}
      */
