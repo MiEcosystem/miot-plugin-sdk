@@ -16,7 +16,7 @@
  *
  * ...
  * ble.getService("a-b-c-d-e").startDiscoverCharacteristics("1-2-3-4-5",...)
- * 
+ *
  * ...
  * const charac = ble.getService('...').getCharacteristic('...')
  * charac.setNotify().then(characteristic=>{}).catch(err=>{});
@@ -46,7 +46,7 @@ export const getBluetoothUUID128 = id => {
 /**
  * BLE蓝牙特征值
  * @interface
- * 
+ *
  */
 export class IBluetoothCharacteristic {
     /**
@@ -279,7 +279,6 @@ export class IBluetooth {
     get UUID() {
          return  ""
     }
-    
     /**
      * 蓝牙是否已经连接
      * @member
