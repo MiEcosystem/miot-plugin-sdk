@@ -8,6 +8,7 @@
 import Account from "./Account"
 import Scene from './service/scene'
 import Bluetooth, { IBluetoothClassic } from "./Bluetooth";
+import Host from "./Host";
 /**
  * Device事件集合
  * @namespace DeviceEvent
@@ -206,6 +207,16 @@ export class IDeviceWifi{
      *
      */
     startUpgradingFirmware() {
+         return Promise.resolve({});
+    }
+     /**
+     * 发送miot-spec消息
+     * @method 方法名,可选方法名为：get_properties，set_properties，invoke_action
+     * @args 方法的参数 类似  set_properties：[{'siid';1,'piid':2,'value';'test'},{'siid';1,'piid':1,'value';YES}],get_properties:去掉前面的value即可，invoke_action：[{'siid';1,'aiid':2,'inList':['value1','value2']}]
+     * @returns {Promise<result>}
+     *
+     */
+    callSpecMethod(method, args) {
          return Promise.resolve({});
     }
 }
