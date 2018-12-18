@@ -174,11 +174,30 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 获取用户收藏
      * /user/get_user_coll
-     * @param {*} params
+     * @param {*} params {did:string}
      * @return {Promise}
      */
     getUserColl(params){
+         return Promise.resolve(null);
+    },
+    /**
+     * 设置用户收藏
+     * /user/get_user_coll
+     * @param {*} params {did:string, name: string, content: string}
+     * @return {Promise}
+     */
+    setUserColl(params){
+         return Promise.resolve(null);
+    },
+    /**
+     * 删除用户收藏
+     * /user/get_user_coll
+     * @param {*} params {coll_id: string, did: string}
+     * @return {Promise}
+     */
+    delUserColl(params){
          return Promise.resolve(null);
     },
     /**添加设备属性和事件历史记录，/home/getmapfileurl
