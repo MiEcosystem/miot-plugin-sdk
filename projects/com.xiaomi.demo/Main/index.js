@@ -100,7 +100,7 @@ import ImageCapInsetDemo from './ImageCapInsetDemo' // working but no title disp
 // ART的demo }
 
 import { TitleBarBlack } from 'miot/ui';
-import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
+// import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 
 import CircularSliderDemo from './CircularSliderDemo'
 import ImagePickerDemo from './ImagePickerDemo'
@@ -257,9 +257,9 @@ const RootStack = createStackNavigator(
           }} />,
       };
     },
-    transitionConfig: () => ({
-      screenInterpolator: CardStackStyleInterpolator.forHorizontal,
-    }),
+    // transitionConfig: () => ({
+    //   screenInterpolator: CardStackStyleInterpolator.forHorizontal,
+    // }),
   }
 );
 export default class App extends React.Component {
