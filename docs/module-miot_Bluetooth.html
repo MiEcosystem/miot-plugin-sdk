@@ -1119,7 +1119,8 @@ ble.disconnect()</code></pre>
 
 
 <div class="description">
-    <p>iOS 平台获取已连接 BLE Peripheral，适用于可穿戴长连接设备</p>
+    <p>iOS 平台获取已连接 BLE Peripheral，适用于可穿戴长连接设备
+对应 coreBLuetooth 中 retrievePeripheralsWithIdentifiers:(NSArray<NSUUID *> *)identifiers 方法</p>
 </div>
 
 
@@ -1272,7 +1273,179 @@ ble.disconnect()</code></pre>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Bluetooth.retrievePeripheralsForIOS(["PeripheralUUID1","PeripheralUUID2","PeripheralUUID3"])</code></pre>
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Bluetooth.retrievePeripheralsForIOS("PeripheralUUID1","PeripheralUUID2","PeripheralUUID3")</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".retrievePeripheralsWithServicesForIOS"><span class="type-signature">(static) </span>retrievePeripheralsWithServicesForIOS<span class="signature">(&hellip;serviceUUIDs)</span><span class="type-signature"> &rarr; {Promise.&lt;Map.&lt;uuid, Bluetooth>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>iOS 平台通过 serviceUUID 获取已连接 BLE Peripheral，适用于可穿戴长连接设备
+对应 coreBLuetooth 中 retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs 方法</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>serviceUUIDs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Peripheral  serviceUUIDs</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>//@mark ios done</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Map.&lt;uuid, Bluetooth>></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Bluetooth.retrievePeripheralsWithServicesForIOS("serviceUUID1","serviceUUID2","serviceUUID3")</code></pre>
 
 
 
@@ -1626,7 +1799,7 @@ ble.disconnect()</code></pre>
     <h5>Example</h5>
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import Bluetooth from 'miot/Bluetooth'
-     Bluetooth.startScan(30, ...)</code></pre>
+     Bluetooth.startScan(3000, 'FE95','FE96')</code></pre>
 
 
 

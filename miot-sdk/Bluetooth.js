@@ -110,6 +110,7 @@ export class IBluetoothCharacteristic {
     }
     /**
      * 写数据
+     * 对应 writeWithResponse
      * @method
      * @param {*} value
      * @returns {Promise<IBluetoothCharacteristic>}
@@ -120,6 +121,7 @@ export class IBluetoothCharacteristic {
     }
     /**
      * 直接写数据
+     * 对应 writeWithoutResponse
      * @method
      * @param {*} value
      * @returns {Promise<IBluetoothCharacteristic>}
@@ -295,10 +297,12 @@ export class IBluetooth {
      *
      * @method
      * @returns {Promise<IBluetooth>}
-     * @param {int} type android插件链接蓝牙类型 -1 自动判断，0 小米蓝牙协议设备，1 自己的安全芯片设备，2 分享的安全芯片设备，3 普通的蓝牙协议
-     *
+     * @param {int} type 蓝牙设备类型 -1 自动判断，0 普通小米蓝牙协议设备，1 安全芯片小米蓝牙设备（比如锁类产品），2 分享的安全芯片小米蓝牙设备，3 普通的BLE蓝牙设备(无 mibeacon，无小米 FE95 service)
+     * @param {string} peripheralID peripheral identifier，可选参数，iOS 平台因为无法获取普通 BLE 蓝牙设备的 Mac，所以当 type 为 3 时，iOS 上需填入 peripheralID
+     * peripheralID 可通过 startScan（）搜索周边蓝牙设备获取（如设备OTA中，设备固件切换，无小米蓝牙协议相关服务时需建立连接），或通过retrievePeripheralsWithServicesForIOS（）搜索已连接设备获取（如可穿戴长连接设备，无法发送 mibeacon）
+     * 建立连接后，SDK 会用 peripheralID 充当 Mac 地址
      */
-    connect(type) {
+    connect(type, peripheralID) {
          return Promise.resolve(this);
     }
     /**
@@ -317,6 +321,32 @@ export class IBluetooth {
      *
      */
     disconnect(delay = 0) {
+    }
+    /**
+     * 获取当前连接设备写操作每包最大字节数
+     * 注：有开发者反馈该系统接口在 iOS 上并不完全准确，不可过于依赖，以实际测试为准
+     * 注：返回是字节数，注意换算，8 bit 为 1 byte，两字符 hexString 长度为 1 byte，如 “FF”
+     * @method
+     * @param {int} type - 0 代表 writeWithResponse, 1 代表 writeWithoutResponse
+     *
+     */
+    maximumWriteValueLength(type = 0){
+      return new Promise((resolve, reject)=>{
+        if(native.isIOS){
+          native.MIOTBluetooth.maximumWriteValueLengthForType(type,(ok,result)=>{
+            if (ok) {
+              resolve(result);
+            }
+            else {
+              reject(result);
+            }
+          });
+        }
+        else{
+            console.log("has no real methord,return default value 20 bytes.");
+            resolve(20*8);
+        }
+      });
     }
 }
 /**
@@ -529,7 +559,7 @@ export default {
      *
      * @example
      *      import Bluetooth from 'miot/Bluetooth'
-     *      Bluetooth.startScan(30, ...)
+     *      Bluetooth.startScan(3000, 'FE95','FE96')
      */
     startScan(durationInMillis, ...serviceUUIDs) {
     },
@@ -543,14 +573,28 @@ export default {
     },
     /**
      * iOS 平台获取已连接 BLE Peripheral，适用于可穿戴长连接设备
+     * 对应 coreBLuetooth 中 retrievePeripheralsWithIdentifiers:(NSArray<NSUUID *> *)identifiers 方法
      * @method
      * @param {...string} UUIDs - Peripheral UUIDs
      * @returns {Promise<Map<uuid, Bluetooth>>}
      * //@mark ios done
      * @example
-     *   Bluetooth.retrievePeripheralsForIOS(["PeripheralUUID1","PeripheralUUID2","PeripheralUUID3"])
+     *   Bluetooth.retrievePeripheralsForIOS("PeripheralUUID1","PeripheralUUID2","PeripheralUUID3")
      */
     retrievePeripheralsForIOS(...UUIDs) {
+         return Promise.resolve(null);
+    },
+    /**
+     * iOS 平台通过 serviceUUID 获取已连接 BLE Peripheral，适用于可穿戴长连接设备
+     * 对应 coreBLuetooth 中 retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs 方法
+     * @method
+     * @param {...string} serviceUUIDs - Peripheral  serviceUUIDs
+     * @returns {Promise<Map<uuid, Bluetooth>>}
+     * //@mark ios done
+     * @example
+     *   Bluetooth.retrievePeripheralsWithServicesForIOS("serviceUUID1","serviceUUID2","serviceUUID3")
+     */
+    retrievePeripheralsWithServicesForIOS(...UUIDs) {
          return Promise.resolve(null);
     },
     /**

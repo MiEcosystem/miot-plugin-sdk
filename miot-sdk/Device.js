@@ -218,6 +218,15 @@ export class IDeviceWifi{
     setFirmwareUpdateErrDic(message) {
          return Promise.resolve({});
     }
+    /**
+     * 设置设备控制页不检查固件升级
+     * @param {boolean} notCheck 是否 不检查更新 true-不自动检查 false-自动检查
+     * @return {Promise}
+     */
+    setFirmwareNotCheckUpdate(notCheck) {
+         return Promise.resolve(null);
+    }
+    
      /**
      * 发送miot-spec消息
      * @method 方法名,可选方法名为：get_properties，set_properties，invoke_action
