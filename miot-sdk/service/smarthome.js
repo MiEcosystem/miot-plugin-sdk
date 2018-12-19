@@ -278,5 +278,23 @@ export default {
      */
     callThirdPartyAPI(params){
          return Promise.resolve(null);
+    },
+    /**
+     * 华米watch配置使用
+     * Android not support yet
+     * @return {Promise}
+     */
+    getMiWatchConfig() {
+        if(native.isAndroid) {
+            return new Promise.reject("not support android yet");
+        }
+        return new Promise((resolve, reject) => {
+            native.MIOTHost.getMiWatchConfigWithCallback((ok, res) => {
+                if(ok) {
+                    return resolve(res);
+                }
+                reject("get failed");
+            });
+        });
     }
 }

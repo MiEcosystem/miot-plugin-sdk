@@ -98,4 +98,23 @@ export default {
   getUTCFromServer() {
      return Promise.resolve(0);
   },
+  /**
+   * 传入域名返回 serverToken 等信息，目前只支持小爱音箱的域名
+   * Android not support yet
+   * @param {string} sid like "xxx.xiaomi.com"
+   * @returns {Promise}
+   */
+  getServiceTokenWithSid(sid) {
+     return Promise.resolve(null);
+  },
+  /**
+   * 某设备向服务器申请did和token
+   * Android not support yet
+   * @param {*} model 设备的model
+   * @param {*} mac 设备的mac地址
+   * @returns {Promise} resolve({res,did,token})
+   */
+  applyForDeviceIDAndToken(model,mac) {
+     return Promise.resolve(null);
+  }
 }

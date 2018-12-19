@@ -500,6 +500,184 @@ Service.storage.getUserConfigs(key).then()</code></pre>
     
 
     
+    <h4 class="name" id=".applyForDeviceIDAndToken"><span class="type-signature">(static) </span>applyForDeviceIDAndToken<span class="signature">(model, mac)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>某设备向服务器申请did和token
+Android not support yet</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>model</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>设备的model</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>mac</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>设备的mac地址</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>resolve({res,did,token})</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id=".getServerName"><span class="type-signature">(static) </span>getServerName<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;{countryName:"", countryCode:"", serverCode:""}>}</span></h4>
     
 
@@ -583,6 +761,157 @@ Service.storage.getUserConfigs(key).then()</code></pre>
     <dd>
         
 <span class="param-type">Promise.&lt;{countryName:"", countryCode:"", serverCode:""}></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getServiceTokenWithSid"><span class="type-signature">(static) </span>getServiceTokenWithSid<span class="signature">(sid)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>传入域名返回 serverToken 等信息，目前只支持小爱音箱的域名
+Android not support yet</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>like &quot;xxx.xiaomi.com&quot;</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
 
 
     </dd>

@@ -4,6 +4,8 @@
  * @description 音频处理
  */
 export default {
+  isAbleToRecord() {
+     return Promise.resolve(null);
   /**
    * 开始录音
    * @param {string} audioName  保存文件名，如 audio.mp3

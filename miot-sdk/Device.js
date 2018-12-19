@@ -209,6 +209,15 @@ export class IDeviceWifi{
     startUpgradingFirmware() {
          return Promise.resolve({});
     }
+    
+    /**
+     * 为设备固件升级失败添加自定义的errorCode与错误提示信息的索引
+     * 注意 分享过来的设备是无法进行固件升级的，所以此时此方法无效。
+     * @param {json} message 以errorCode为key，以错误提示信息为value的字典。key和value的数据类型都须是string。
+     */
+    setFirmwareUpdateErrDic(message) {
+         return Promise.resolve({});
+    }
      /**
      * 发送miot-spec消息
      * @method 方法名,可选方法名为：get_properties，set_properties，invoke_action
