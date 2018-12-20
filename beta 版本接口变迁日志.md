@@ -18,3 +18,12 @@ example:
 1. 注意新框架不再需要之前的`config.plist`文件（可以删除），其中包含配置项`是否适配 iPhone X`，新框架默认适配。
 2. `react-navigation` 升级之后，`SaveAreaView`也同步更新，可以适配**iPhone X, iPhone XR, iPhone Xs, iPhone Xs Max**。
 3. 开发者需要手动更新`node_modules`。
+
+------
+
+## 2018-12-19
+创建项目不再需要 pluginId的参数, 配置文件里的 plugin_id 也取消
+开发者不再关心 pluginId 的事情
+example:
+    npm run create -- --models xxx.xxx.x1|xxx.xxx.x2 xxx.yyy.zzz
+
