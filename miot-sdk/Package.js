@@ -88,14 +88,14 @@ export const PackageEvent = {
      * 用户撤销隐私授权时的回调
      * @event
      */
-    packageAuthorizationCancel: { always: true },
+    packageAuthorizationCancel: { always: true, sameas: native.isIOS ? 'kMHPluginReceivingDeviceCancelAuthorization' : undefined },
     /**
      * 插件接收到场景等通知消息
      * @event
      *
      *
      */
-    packageReceivedInformation: { always: true },
+    packageReceivedInformation: { always: true, sameas: native.isIOS ? 'kMHPluginReceivingForegroundPushEvent' : undefined },
     /**
     * 插件将退出事件
     * @event
@@ -105,7 +105,7 @@ export const PackageEvent = {
     * 从 Native 界面返回到插件,可以通过监听此事件更新已加载过的视图，或进行相应的事件处理。
     * @event
     */
-    packageViewWillAppear: { always: true }
+    packageViewWillAppear: { always: true, sameas: native.isIOS ? 'viewWillAppear' : undefined }
 };
 /**
  * @export
