@@ -4,12 +4,14 @@
 Device 接口发生变化:
 1, 新增`getDeviceWifi()`
 `callmethod/subscribeMessage/loadProperties` 等方法变成在 `getDeviceWifi()`后调用
-example:
-​    `Device.callMethod(...)  => Device.getDeviceWifi().callMethod(...)`
+
+    example:
+    Device.callMethod(...)  => Device.getDeviceWifi().callMethod(...)
 
 2, 新增`getBluetoothLE()`, 取消`Device.bluetooth`
-example:
-​    `Device.bluetooth => Device.getBluetoothLE()`
+
+    example:
+    Device.bluetooth => Device.getBluetoothLE()
 
 ------
 
@@ -24,6 +26,7 @@ example:
 ## 2018-12-19
 创建项目不再需要 pluginId的参数, 配置文件里的 plugin_id 也取消
 开发者不再关心 pluginId 的事情
-example:
+
+    example:
     npm run create -- --models xxx.xxx.x1|xxx.xxx.x2 xxx.yyy.zzz
 
