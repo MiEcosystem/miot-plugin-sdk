@@ -57,6 +57,15 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 获取某指定地区天气环境等信息
+     * /location/area_prop_info
+     * @param {json} params {latitude:xx,longitude:xx,cityId:['pm2.5','realtime']}
+     * @returns {Promise}
+     */
+    getAreaPropInfo(params) {
+         return Promise.resolve(null);
+    },
+    /**
      * 检查到有可用更新时，可以主动更新固件。 /home/multi_checkversion
      * @param {array<string>} deviceIDs
      * @return {Promise<json>}
