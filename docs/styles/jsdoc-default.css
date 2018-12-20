@@ -105,11 +105,11 @@ section
 nav
 {
     display: block;
-    float: right;
+    float: left;
     margin-top: 28px;
     width: 30%;
-    box-sizing: border-box;
-    border-left: 1px solid #ccc;
+    box-sizing: border-box; 
+    border-right: 1px solid #ccc;
     padding-left: 16px;
 }
 
