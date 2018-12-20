@@ -111,6 +111,7 @@ nav
     box-sizing: border-box; 
     border-right: 1px solid #ccc;
     padding-left: 16px;
+    overflow-x: scroll;
 }
 
 nav ul {
