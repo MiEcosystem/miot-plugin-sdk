@@ -87,10 +87,11 @@ export class ISecureKey{
     }
     /**
      * 是否过期
-     * @returns boolean
+     * @type {boolean}
+     * @readonly
      */
-    isOutOfDate(){
-         return false
+    get isOutOfDate(){
+         return  false
     }
     /**
      * 保存 /share/bluetoothkeyshare

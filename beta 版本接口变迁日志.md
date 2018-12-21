@@ -30,3 +30,8 @@ Device 接口发生变化:
     example:
     npm run create -- --models xxx.xxx.x1|xxx.xxx.x2 xxx.yyy.zzz
 
+------
+
+## 2018-12-20
+蓝牙事件BluetoothEvent.bluetoothDeviceDiscovered监听返回的数据变成scan的原始数据json
+而不再是一个蓝牙对象, 绑定关系由插件自己决定.
