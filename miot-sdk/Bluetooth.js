@@ -302,7 +302,7 @@ export class IBluetooth {
      * peripheralID 可通过 startScan（）搜索周边蓝牙设备获取（如设备OTA中，设备固件切换，无小米蓝牙协议相关服务时需建立连接），或通过retrievePeripheralsWithServicesForIOS（）搜索已连接设备获取（如可穿戴长连接设备，无法发送 mibeacon）
      * 建立连接后，SDK 会用 peripheralID 充当 Mac 地址
      */
-    connect(type, peripheralID) {
+    connect(type, peripheralID=0) {
          return Promise.resolve(this);
     }
     /**
@@ -428,8 +428,8 @@ export const BluetoothEvent = {
     /**
      * 蓝牙设备扫描发现事件
      * @event
-     * @param {...IBluetooth} bluetooh -扫描发现的蓝牙设备
-     *
+     * @param {json} bluetoohData --扫描发现的蓝牙设备数据
+     * 
      */
     bluetoothDeviceDiscovered: {
     },
