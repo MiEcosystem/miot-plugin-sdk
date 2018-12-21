@@ -4,14 +4,14 @@
  * @description 米家ReactNative插件SDK
  *
  * @example
- *   import {API_LEVEL, Package, Device, Service, Host, Resources, Bluetooth, DeviceProperties} from 'miot'
- *   import {PackageEvent, DeviceEvent, BluetoothEvent} from 'miot'
- *   import SDK from 'miot'
+ *import {API_LEVEL, Package, Device, Service, Host, Resources, Bluetooth, DeviceProperties} from 'miot'
+ *import {PackageEvent, DeviceEvent, BluetoothEvent} from 'miot'
+ *import SDK from 'miot'
  *   
- *   import {ImageButton, InputDialog} from 'miot/ui'
- *   import Res from 'miot/resources'
+ *import {ImageButton, InputDialog} from 'miot/ui'
+ *import Res from 'miot/resources'
  *
- *   import Bluetooth from 'miot/Bluetooth'
+ *import Bluetooth from 'miot/Bluetooth'
  *   
  */
 import PackageInstance, {PackageEvent as PackageEventNames, Entrance as Entrances } from './Package'

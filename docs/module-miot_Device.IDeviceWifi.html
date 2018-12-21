@@ -353,6 +353,13 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Device.getDeviceWifi().callMethod('getProps', [prop1,prop2])
+ .then(res => console.log('success:', res))
+ .catch(err => console.error('failed:', err))</code></pre>
+
+
 
         
             
@@ -631,6 +638,13 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Device.getDeviceWifi().checkVersion()
+ .then(res => console.log('success:', res))
+ .catch(err => console.log('failed:', err))</code></pre>
+
+
 
         
             
@@ -800,9 +814,9 @@
     <h5>Example</h5>
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Device.getDeviceWifi().loadProperties("a", "b").then(map=>{
-     const a = map.get("a")
-     const b = map.get("b")
-  })</code></pre>
+ const a = map.get("a")
+ const b = map.get("b")
+})</code></pre>
 
 
 
@@ -978,7 +992,7 @@
     
 
     
-    <h4 class="name" id="localPing"><span class="type-signature"></span>localPing<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    <h4 class="name" id="localPing"><span class="type-signature"></span>localPing<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;boolean>}</span></h4>
     
 
     
@@ -986,7 +1000,7 @@
 
 
 <div class="description">
-    <p>ping 操作</p>
+    <p>ping 操作 检查设备本地局域网通信是否可用</p>
 </div>
 
 
@@ -1060,7 +1074,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;json></span>
+<span class="param-type">Promise.&lt;boolean></span>
 
 
     </dd>
@@ -1070,6 +1084,13 @@
 </div>
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Device.getDeviceWifi().localPing()
+ .then(res => console.log('success:', res))
+ .catch(err => console.log('failed:', err))</code></pre>
 
 
 
@@ -1222,6 +1243,13 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Device.getDeviceWifi().setFirmwareNotCheckUpdate(true|false)
+ .then(res => console.log('success:', res))
+ .catch(err => console.log('failed:', err))</code></pre>
+
+
 
         
             
@@ -1238,7 +1266,7 @@
 
 <div class="description">
     <p>为设备固件升级失败添加自定义的errorCode与错误提示信息的索引
-注意 分享过来的设备是无法进行固件升级的，所以此时此方法无效。</p>
+注意 分享过来的设备是无法进行固件升级的，所以此时此方法无效。Android暂未适配</p>
 </div>
 
 
@@ -1349,10 +1377,25 @@
 
 
 <h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
 
+        
+<div class="param-desc">
+    <p>boolean 设置是否成功</p>
 </div>
 
 
+
+    
+</div>
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">let ret = Device.getDeviceWifi().setFirmwareUpdateErrDic('message')</code></pre>
 
 
 
@@ -1454,6 +1497,13 @@
 </div>
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Device.getDeviceWifi().startUpgradingFirmware()
+ .then(res => console.log('success:', res))
+ .catch(err => console.log('failed:', err))</code></pre>
 
 
 
@@ -1616,6 +1666,31 @@
 </div>
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Device, DeviceEvent} from 'miot'
+...
+let msgSubscription = null;
+Device.getDeviceWifi().subscribeMessages('prop1','prop2')
+ .then(subcription => {
+     //call this when you need to unsubscribe the message
+     msgSubscription = subcription;
+ })
+ .catch(() => console.log('subscribe failed'))
+...
+const subscription = DeviceEvent.deviceReceivedMessages.addListener(
+(device, messages)=>{
+  if(messages.has('prop1')){
+     const prop1 = messages.get('prop1');
+     ...
+  }
+  ...
+})
+...
+//unsubscribe the props
+msgSubscription&amp;&amp;msgSubscription.remove();</code></pre>
 
 
 

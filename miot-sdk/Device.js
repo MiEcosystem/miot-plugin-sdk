@@ -88,24 +88,14 @@ export const DeviceEvent = {
  * 设备网络访问控制类
  * @interface
  */
-export class IDeviceWifi{
+export class IDeviceWifi {
     /**
      * 获取设备ID
      * @member
      * @type {string}
      */
-    get deviceID(){
+    get deviceID() {
          return  ""
-    }
-    /**
-     * 调用设备方法, 和设备通信如果同一个 wifi 下会使用局域网传输数据，如果不在同一个 wifi 下由米家服务器转发请求
-     * @param {string} method  方法名
-     * @param {json} args  参数
-     * @return {Promise<json>} {code:0,result:{},id:""}
-     *
-     */
-    callMethod(method, args) {
-         return Promise.resolve({});
     }
     /**
      * 加载属性数据, 调用get_prop 方法, 并将返回数据写成{key:value}格式
@@ -114,10 +104,10 @@ export class IDeviceWifi{
      * @returns {Promise<Map>} Map<name, value>
      * @example
      *
-     *   Device.getDeviceWifi().loadProperties("a", "b").then(map=>{
-     *      const a = map.get("a")
-     *      const b = map.get("b")
-     *   })
+     * Device.getDeviceWifi().loadProperties("a", "b").then(map=>{
+     *  const a = map.get("a")
+     *  const b = map.get("b")
+     * })
      *
      */
     loadProperties(...propNames) {
@@ -126,7 +116,7 @@ export class IDeviceWifi{
         }
         return this.callMethod("get_prop", propNames).then((res => {
             const map = new Map();
-            if(res.result){
+            if (res.result) {
                 propNames.forEach((n, i) => map.set(n, res.result[i]));
             }
             return map;
@@ -145,11 +135,24 @@ export class IDeviceWifi{
         }
         return this.callMethodFromCloud("get_prop", propNames).then((res => {
             const map = new Map();
-            if(res.result){
+            if (res.result) {
                 propNames.forEach((n, i) => map.set(n, res.result[i]));
             }
             return map;
         }));
+    }
+    /**
+     * 调用设备方法, 和设备通信如果同一个 wifi 下会使用局域网传输数据，如果不在同一个 wifi 下由米家服务器转发请求
+     * @param {string} method  方法名
+     * @param {json} args  参数
+     * @return {Promise<json>} {code:0,result:{},id:""}
+     * @example
+     * Device.getDeviceWifi().callMethod('getProps', [prop1,prop2])
+     *  .then(res => console.log('success:', res))
+     *  .catch(err => console.error('failed:', err))
+     */
+    callMethod(method, args) {
+         return Promise.resolve({});
     }
     /**
      * 同 callMethod 函数 不在同一个 wifi 下的情况
@@ -162,9 +165,13 @@ export class IDeviceWifi{
          return Promise.resolve({});
     }
     /**
-     * ping 操作
-     * @returns {Promise<json>}
-     *
+     * ping 操作 检查设备本地局域网通信是否可用
+     * @returns {Promise<boolean>}
+     * 
+     * @example
+     * Device.getDeviceWifi().localPing()
+     *  .then(res => console.log('success:', res))
+     *  .catch(err => console.log('failed:', err))
      */
     localPing() {
          return Promise.resolve({});
@@ -174,7 +181,29 @@ export class IDeviceWifi{
      * @method
      * @param {...string} propertyOrEventNames -在开发平台上声明的 prop 与 event 名
      * @returns {Promise<EventSubscription>}
-     *
+     * @example
+     * import {Device, DeviceEvent} from 'miot'
+     * ...
+     * let msgSubscription = null;
+     * Device.getDeviceWifi().subscribeMessages('prop1','prop2')
+     *  .then(subcription => {
+     *      //call this when you need to unsubscribe the message
+     *      msgSubscription = subcription;
+     *  })
+     *  .catch(() => console.log('subscribe failed'))
+     * ...
+     * const subscription = DeviceEvent.deviceReceivedMessages.addListener(
+     * (device, messages)=>{
+     *   if(messages.has('prop1')){
+     *      const prop1 = messages.get('prop1');
+     *      ...
+     *   }
+     *   ...
+     * })
+     * ...
+     * //unsubscribe the props
+     * msgSubscription&&msgSubscription.remove();
+     * 
      */
     subscribeMessages(...propertyOrEventNames) {
          return Promise.resolve(this);
@@ -195,7 +224,10 @@ export class IDeviceWifi{
      * 检查硬件版本信息 /home/checkversion
      * @method
      * @returns {Promise<DeviceVersion>}
-     *
+     * @example
+     * Device.getDeviceWifi().checkVersion()
+     *  .then(res => console.log('success:', res))
+     *  .catch(err => console.log('failed:', err))
      */
     checkVersion() {
          return Promise.resolve({});
@@ -204,16 +236,21 @@ export class IDeviceWifi{
      * 获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。 /home/devupgrade
      * @method
      * @return {Promise<DeviceVersion>}
-     *
+     * @example
+     * Device.getDeviceWifi().startUpgradingFirmware()
+     *  .then(res => console.log('success:', res))
+     *  .catch(err => console.log('failed:', err))
      */
     startUpgradingFirmware() {
          return Promise.resolve({});
     }
-    
     /**
      * 为设备固件升级失败添加自定义的errorCode与错误提示信息的索引
-     * 注意 分享过来的设备是无法进行固件升级的，所以此时此方法无效。
+     * 注意 分享过来的设备是无法进行固件升级的，所以此时此方法无效。Android暂未适配
      * @param {json} message 以errorCode为key，以错误提示信息为value的字典。key和value的数据类型都须是string。
+     * @return boolean 设置是否成功
+     * @example
+     * let ret = Device.getDeviceWifi().setFirmwareUpdateErrDic('message')
      */
     setFirmwareUpdateErrDic(message) {
          return Promise.resolve({});
@@ -222,18 +259,24 @@ export class IDeviceWifi{
      * 设置设备控制页不检查固件升级
      * @param {boolean} notCheck 是否 不检查更新 true-不自动检查 false-自动检查
      * @return {Promise}
+     * @example
+     * Device.getDeviceWifi().setFirmwareNotCheckUpdate(true|false)
+     *  .then(res => console.log('success:', res))
+     *  .catch(err => console.log('failed:', err))
      */
     setFirmwareNotCheckUpdate(notCheck) {
          return Promise.resolve(null);
     }
-    
-     /**
-     * 发送miot-spec消息
-     * @method 方法名,可选方法名为：get_properties，set_properties，invoke_action
-     * @args 方法的参数 类似  set_properties：[{'siid';1,'piid':2,'value';'test'},{'siid';1,'piid':1,'value';YES}],get_properties:去掉前面的value即可，invoke_action：[{'siid';1,'aiid':2,'inList':['value1','value2']}]
-     * @returns {Promise<result>}
-     *
-     */
+    /**
+    * 发送miot-spec消息
+    * @method 方法名,可选方法名为：get_properties，set_properties，invoke_action
+    * @args 方法的参数 类似  set_properties:[{'siid':1,'piid':2,'value':'test'},{'siid':1,'piid':1,'value':YES}],get_properties:去掉前面的value即可，invoke_action:[{'siid':1,'aiid':2,'inList':['value1','value2']}]
+    * @returns {Promise<result>}
+    * @example
+    * Device.getDeviceWifi().callSpecMethod('get_properties', [{'siid':1,'piid':2}])
+    *  .then(res => console.log('success:', res))
+    *  .catch(err => console.log('failed:', err))
+    */
     callSpecMethod(method, args) {
          return Promise.resolve({});
     }
@@ -265,7 +308,7 @@ class IDevice {
      * @returns {IDeviceWifi}
      *
      */
-    getDeviceWifi(){
+    getDeviceWifi() {
          return null
     }
     /**
@@ -520,19 +563,19 @@ class IDevice {
     }
     getVersion(decrypt) {
         return new Promise((resolve, reject) => {
-            if (native.isIOS){
-                native.MIOTDevice.getVersion(decrypt,(ok, data) => {
+            if (native.isIOS) {
+                native.MIOTDevice.getVersion(decrypt, (ok, data) => {
                     if (ok) {
                         resolve(data);
                         return;
                     }
                     reject(data);
                 });
-            }else {
-                if (Properties.of(this).version){
+            } else {
+                if (Properties.of(this).version) {
                     resolve(Properties.of(this).version);
                 } else {
-                    native.MIOTBluetooth.getVersion(decrypt,(ok, data) => {
+                    native.MIOTBluetooth.getVersion(decrypt, (ok, data) => {
                         if (ok) {
                             resolve(data);
                             return;
