@@ -50,9 +50,10 @@ export default class SceneMain extends React.Component {
           onPressRight={() => {
             var color = rValue << 16 | gValue << 8 | bValue;
             var action = Package.entryInfo;
-            action.payload.value = color;
-            Package.exitInfo = action;
-            Package.exit();
+            action.payload.value = { 'test': 't' };
+            console.log(Package.exitInfo);
+            Package.exitInfo = action; // 设置exitInfo之后插件就会正常退出，无需再调用 Package.exit();
+            // Package.exit();
           }}
         />
         <View style={styles.containerIconDemo}>
