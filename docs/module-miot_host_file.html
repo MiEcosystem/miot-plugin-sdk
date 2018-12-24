@@ -42,7 +42,8 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>本地文件访问及处理服务</p></div>
+            <div class="description"><p>本地文件访问及处理服务
+注意插件文件处理皆处于插件沙盒目录下</p></div>
         
 
         
@@ -118,22 +119,22 @@
     <h5>Example</h5>
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">//给定文件名后下载或者截图后被放到本地目录里, 在&lt;Image/>等标签需要引用时, 使用{local:"filename"}的方式引入
-   const myfile = "testpicture.png"
-   Host.file.downloadFile("http://..../...png", myfile)
-   .then(res=>{
-       const myimg = &lt;Image source={{local:myfile}} .../>
-       ...
-   })
-   .catch(err=>{...})
+const myfile = "testpicture.png"
+Host.file.downloadFile("http://..../...png", myfile)
+.then(res=>{
+    const myimg = &lt;Image source={{local:myfile}} .../>
+    ...
+})
+.catch(err=>{...})
 
+...
+const myshotfile = "testshot.png"
+Host.file.screenShot(myshotfile)
+.then(res=>{
+   const myshotpic = &lt;Image source={{local:myshotfile}} .../>
    ...
-   const myshotfile = "testshot.png"
-   Host.file.screenShot(myshotfile)
-   .then(res=>{
-      const myshotpic = &lt;Image source={{local:myshotfile}} .../>
-      ...
-   });
-   ...</code></pre>
+});
+...</code></pre>
 
 
 
@@ -333,13 +334,13 @@
     <h5>Example</h5>
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">const findNodeHandle = require('findNodeHandle');
-  const myMapViewRef = findNodeHandle(this.refs.myMapView);
-  const imageName = 'mapToShare.png';
-  let imageToShow = null;
-  Host.file.amapScreenShot(myMapViewRef, imageName).then(() => {
-     imageToShow = &lt;Image source={{local:imageName}}>
-       console.log("ok");
-  });</code></pre>
+const myMapViewRef = findNodeHandle(this.refs.myMapView);
+const imageName = 'mapToShare.png';
+let imageToShow = null;
+Host.file.amapScreenShot(myMapViewRef, imageName).then(() => {
+   imageToShow = &lt;Image source={{local:imageName}}>
+   console.log("ok");
+});</code></pre>
 
 
 
@@ -582,6 +583,17 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
+...
+Host.appendFile('name', 'base64').then(_ =>{
+ //写入成功
+ console.log('write success')
+})
+...</code></pre>
+
+
 
         
             
@@ -822,6 +834,17 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
+...
+Host.appendFileThroughBase64('name', 'base64').then(_ =>{
+ //写入成功
+ console.log('write success')
+})
+...</code></pre>
+
+
 
         
             
@@ -970,6 +993,16 @@
 </div>
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
+...
+let len = await Host.file.dataLengthOfBase64Data('data')
+//or
+Host.file.dataLengthOfBase64Data('data').then(len => console.log('len:', len))
+...</code></pre>
 
 
 
@@ -1177,6 +1210,16 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
+...
+Host.deleteFile('name').then(_ =>{
+ console.log('delete success')
+})
+...</code></pre>
+
+
 
         
             
@@ -1192,7 +1235,7 @@
 
 
 <div class="description">
-    <p>下载文件到插件存储空间</p>
+    <p>下载文件到插件沙盒目录</p>
 </div>
 
 
@@ -1348,6 +1391,18 @@
 </div>
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
+...
+Host.downloadFile('url', 'targetName').then(res =>{
+ console.log('download success with res:', res)
+}).catch(err => {
+ console.log('download failed with err:', err)
+})
+...</code></pre>
 
 
 
@@ -1671,6 +1726,19 @@
 </div>
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
+...
+let fileExist = await Host.file.isFileExists('fileName')
+//or
+Host.file.isFileExists('fileName').then(res => {
+console.log('file exist at path:', res)
+}).catch(err => {
+// file name error or get file path with error
+})</code></pre>
 
 
 
@@ -2060,6 +2128,15 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
+...
+Host.readFile('name').then(content =>{
+ console.log('file content:', content)
+})</code></pre>
+
+
 
         
             
@@ -2075,7 +2152,7 @@
 
 
 <div class="description">
-    <p>读取文件列表</p>
+    <p>读取沙盒内文件列表</p>
 </div>
 
 
@@ -2159,6 +2236,15 @@
 </div>
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
+...
+Host.file.readFileList().then(res => {
+ console.log('read fiel list:', res)
+})</code></pre>
 
 
 
@@ -2569,6 +2655,15 @@
 </div>
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
+...
+Host.readFileToHexString('name').then(content =>{
+ console.log('file content:', content)
+})</code></pre>
 
 
 
@@ -3559,21 +3654,29 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">let params = {
-      uploadUrl: 'http://127.0.0.1:3000',
-      method: 'POST', // default 'POST',support 'POST' and 'PUT'
-      headers: {
-          'Accept': 'application/json',
-      },
-      fields: {
-          'hello': 'world',
-      },
-      files: [
-          {
-              fileName: 'fileName.png', // 只能上传插件sandbox里的文件
-          },
-      ]
-  };</code></pre>
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
+...
+let params = {
+ uploadUrl: 'http://127.0.0.1:3000',
+ method: 'POST', // default 'POST',support 'POST' and 'PUT'
+ headers: {
+     'Accept': 'application/json',
+ },
+ fields: {
+     'hello': 'world',
+ },
+ files: [
+     {
+         fileName: 'fileName.png', // 只能上传插件sandbox里的文件
+     },
+ ]
+};
+Host.file.uploadFile(params).then(res => {
+ console.log('upload success with res:', res)
+}).catch(err => {
+ console.log('upload failed with err:', err)
+})
+...</code></pre>
 
 
 
@@ -3724,6 +3827,11 @@
 </div>
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">same as Host.file.uploadFile</code></pre>
 
 
 
@@ -3966,6 +4074,17 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
+...
+Host.writeFile('name', 'content').then(_ =>{
+ //写入成功
+ console.log('write success')
+})
+...</code></pre>
+
+
 
         
             
@@ -4204,6 +4323,17 @@
 </div>
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
+...
+Host.writeFileThroughBase64('name', 'base64').then(_ =>{
+ //写入成功
+ console.log('write success')
+})
+...</code></pre>
 
 
 

@@ -42,6 +42,9 @@
     <div class="container-overview">
     
         
+            <div class="description"><p>设备信息的实例
+仅适用于当前插件适配的设备</p></div>
+        
 
         
 
@@ -81,6 +84,15 @@
     
 </dl>
 
+
+        
+            <h3>Example</h3>
+            
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import 'Device' from 'miot'
+...
+let did = Device.deviceID
+let model = Device.model
+...</code></pre>
 
         
     
@@ -1664,7 +1676,8 @@
 
 
 <div class="description">
-    <p>设备所有者的小米账号, 可以使用 load 获取 account 下的所有数据。不调用 load 只有 ID，nickName 字段有值</p>
+    <p>设备所有者的小米账号, 可以使用 load 获取 account 下的所有数据。
+不调用 load 只有 ID，nickName 字段有值。<br>注:Service.account 不load时只有ID可用，与此处不一样。</p>
 </div>
 
 <!--
@@ -3095,7 +3108,7 @@
 
 
 <div class="description">
-    <p>获得设备 wifi</p>
+    <p>获得设备 wifi 操作对象</p>
 </div>
 
 
@@ -3196,7 +3209,7 @@
 
 
 <div class="description">
-    <p>获取子设备</p>
+    <p>获取子设备列表</p>
 </div>
 
 
@@ -3280,6 +3293,13 @@
 </div>
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import 'Device' from 'miot'
+Device.getSubDevices()  
+.then(devices => {//get device list})  </code></pre>
 
 
 
@@ -3755,7 +3775,7 @@
 
 
 <div class="description">
-    <p>上报日志</p>
+    <p>上报日志，写入文件，在用户反馈时可以查看</p>
 </div>
 
 

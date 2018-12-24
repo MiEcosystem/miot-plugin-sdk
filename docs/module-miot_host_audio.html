@@ -115,6 +115,17 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
+...
+Host.audio.startRecord('sample', {'AVFormatIDKey': 'AMR'})
+ .then(res => {//start record success})
+...
+Host.audio.stopRecord().then(res => {//stop finished})
+...</code></pre>
+
+
 
         
     
@@ -298,6 +309,107 @@
     <dd>
         
 <span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".isAbleToRecord"><span class="type-signature">(static) </span>isAbleToRecord<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>用户是否开启录制权限</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
 
 
     </dd>
@@ -768,7 +880,7 @@
     
 
     
-    <h4 class="name" id=".stopRecord"><span class="type-signature">(static) </span>stopRecord<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;boolean>}</span></h4>
+    <h4 class="name" id=".stopRecord"><span class="type-signature">(static) </span>stopRecord<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -850,7 +962,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;boolean></span>
+<span class="param-type">Promise</span>
 
 
     </dd>

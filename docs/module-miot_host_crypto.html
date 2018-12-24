@@ -42,7 +42,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>加密相关的</p></div>
+            <div class="description"><p>加密模块</p></div>
         
 
         
@@ -115,6 +115,19 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
+...
+const str = '123'
+//async
+let md5 = await Host.crypto.endoceMD5(str)
+
+//normal
+Host.crypto.encodeMD5(str).then(res => {//md5 value is res})
+...</code></pre>
+
+
 
         
     
@@ -149,6 +162,10 @@
     
 
 
+
+<div class="description">
+    <p>base64解码</p>
+</div>
 
 
 
@@ -296,6 +313,10 @@
 
 
 
+<div class="description">
+    <p>base64 编码</p>
+</div>
+
 
 
 
@@ -441,6 +462,10 @@
     
 
 
+
+<div class="description">
+    <p>MD5 编码</p>
+</div>
 
 
 
@@ -588,6 +613,10 @@
 
 
 
+<div class="description">
+    <p>SHA1 编码</p>
+</div>
+
 
 
 
@@ -733,6 +762,10 @@
     
 
 
+
+<div class="description">
+    <p>SHA2 编码</p>
+</div>
 
 
 

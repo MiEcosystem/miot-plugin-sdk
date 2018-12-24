@@ -115,6 +115,16 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
+...
+let language = Host.locale.language
+let timeZone = Host.locale.timeZone
+if (language === 'zh') ...
+... </code></pre>
+
+
 
         
     
@@ -291,7 +301,19 @@
 
 
 <div class="description">
-    <p>获取手机地理位置信息</p>
+    <p>获取手机地理位置信息
+{
+country
+province
+city
+district
+street
+address
+latitude(纬度)
+longitude(经度)
+citycode(城市编码)
+adcode(区域编码)
+}</p>
 </div>
 
 
@@ -357,21 +379,6 @@
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    <p>{
-country
-province
-city
-district
-street
-address
-latitude(纬度)
-longitude(经度)
-citycode(城市编码)
-adcode(区域编码)
-}</p>
-</div>
-
 
 
 <dl>
@@ -390,6 +397,15 @@ adcode(区域编码)
 </div>
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
+...
+Host.locale.getLocation().then(res => {
+ console.log('get location: ', res)
+})</code></pre>
 
 
 

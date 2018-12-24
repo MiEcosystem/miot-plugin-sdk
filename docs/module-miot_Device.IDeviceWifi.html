@@ -111,7 +111,7 @@
 
 
 <div class="description">
-    <p>获取设备ID</p>
+    <p>获取设备ID，same as Device.deviceID</p>
 </div>
 
 <!--
@@ -170,6 +170,13 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Device} from 'miot'
+...
+let did = Device.getDeviceWifi().deviceID</code></pre>
+
+
 
         
     
@@ -191,7 +198,7 @@
 
 
 <div class="description">
-    <p>调用设备方法, 和设备通信如果同一个 wifi 下会使用局域网传输数据，如果不在同一个 wifi 下由米家服务器转发请求</p>
+    <p>调用设备方法<br>若与设备通信处于同一个 wifi 下会使用局域网传输数据，如果不在同一个 wifi 下由米家服务器转发请求</p>
 </div>
 
 
@@ -375,7 +382,7 @@
 
 
 <div class="description">
-    <p>同 callMethod 函数 不在同一个 wifi 下的情况</p>
+    <p>云端调用设备方法<br>同 callMethod 函数 不在同一个 wifi 下的情况</p>
 </div>
 
 
@@ -552,7 +559,7 @@
 
 
 <div class="description">
-    <p>检查硬件版本信息 /home/checkversion</p>
+    <p>检查硬件版本信息<br>/home/checkversion</p>
 </div>
 
 
@@ -660,7 +667,8 @@
 
 
 <div class="description">
-    <p>加载属性数据, 调用get_prop 方法, 并将返回数据写成{key:value}格式</p>
+    <p>加载属性数据
+内部调用get_prop 方法,会依据当前环境选择从本地局域网或者云端获取, 并将返回数据写成{key:value}格式</p>
 </div>
 
 
@@ -834,7 +842,8 @@
 
 
 <div class="description">
-    <p>从云端加载属性数据, 调用get_prop 方法, 并将返回数据写成{key:value}格式</p>
+    <p>从云端加载属性数据
+内部调用get_prop 方法, 并将返回数据写成{key:value}格式</p>
 </div>
 
 
@@ -1108,7 +1117,7 @@
 
 
 <div class="description">
-    <p>设置设备控制页不检查固件升级</p>
+    <p>设置设备控制页不检查固件升级<br>Android暂未适配</p>
 </div>
 
 
@@ -1266,7 +1275,7 @@
 
 <div class="description">
     <p>为设备固件升级失败添加自定义的errorCode与错误提示信息的索引
-注意 分享过来的设备是无法进行固件升级的，所以此时此方法无效。Android暂未适配</p>
+注意 分享过来的设备是无法进行固件升级的，所以此时此方法无效。<br>Android暂未适配</p>
 </div>
 
 
@@ -1413,7 +1422,7 @@
 
 
 <div class="description">
-    <p>获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。 /home/devupgrade</p>
+    <p>获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。<br>/home/devupgrade</p>
 </div>
 
 
@@ -1680,6 +1689,7 @@ Device.getDeviceWifi().subscribeMessages('prop1','prop2')
  })
  .catch(() => console.log('subscribe failed'))
 ...
+//等效于使用DeviceEvent
 const subscription = DeviceEvent.deviceReceivedMessages.addListener(
 (device, messages)=>{
   if(messages.has('prop1')){

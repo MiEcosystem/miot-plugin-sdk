@@ -42,8 +42,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>IAccount 类, 插件并不能直接创建此类
-     调用Service.account.load().then((info)=&gt;{info 中各个字段才有值}}）)， 除用户的 id：Service.account.ID，不能直接获取其他字段</p></div>
+            <div class="description"><p>用于获取当前用户信息,通过Service.account获取当前用户对象实例。<br>其中Service.account.ID可直接使用，其余属性需要使用Service.account.load().then()来进行获取，可参考下方Example。<br>具体的可用属性与方法请参考Interface -&gt; IAccount类API说明。<br>IAccount不支持直接创建使用，如需使用请调用：<br>Service.account.load().then((info)=&gt;{info 中各个字段才有值}}）)</p></div>
         
 
         
@@ -119,10 +118,10 @@
     <h5>Example</h5>
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Service} from 'miot'
-  console.log(Service.account.ID)
-  Service.account.load().then(account=>{
-     console.log(Service.account.nickName)
-  })</code></pre>
+console.log(Service.account.ID)
+Service.account.load().then(account=>{
+ console.log(Service.account.nickName)
+})</code></pre>
 
 
 

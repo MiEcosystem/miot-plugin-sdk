@@ -42,6 +42,8 @@
     <div class="container-overview">
     
         
+            <div class="description"><p>用户信息属性与方法说明</p></div>
+        
 
         
 
@@ -83,6 +85,22 @@
 
 
         
+            <h3>Example</h3>
+            
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Service} from 'miot'
+...
+console.log(Service.account.ID)
+if (Service.account.isLoaded) {
+ console.log(Service.account.nickName)
+}else {
+ Service.account.load().then(account=>{
+     console.log(Service.account.nickName)
+     ...
+ })
+}
+...</code></pre>
+
+        
     
     </div>
 
@@ -109,7 +127,7 @@
 
 
 <div class="description">
-    <p>用户头像的下载地址</p>
+    <p>用户头像的下载地址,依赖于load方法</p>
 </div>
 
 <!--
@@ -177,7 +195,7 @@
 
 
 <div class="description">
-    <p>用户生日</p>
+    <p>用户生日,依赖于load方法</p>
 </div>
 
 <!--
@@ -245,7 +263,7 @@
 
 
 <div class="description">
-    <p>用户邮箱</p>
+    <p>用户邮箱,依赖于load方法</p>
 </div>
 
 <!--
@@ -313,7 +331,7 @@
 
 
 <div class="description">
-    <p>当前登录账户 userid</p>
+    <p>当前登录账户userid,不依赖于load方法</p>
 </div>
 
 <!--
@@ -381,7 +399,7 @@
 
 
 <div class="description">
-    <p>用户详情是否已经加载</p>
+    <p>用户详情是否已经加载,不依赖于load方法。<br>如果已加载则所有属性可直接使用。</p>
 </div>
 
 <!--
@@ -449,7 +467,7 @@
 
 
 <div class="description">
-    <p>用户昵称</p>
+    <p>用户昵称,依赖于load方法</p>
 </div>
 
 <!--
@@ -517,7 +535,7 @@
 
 
 <div class="description">
-    <p>用户电话</p>
+    <p>用户电话,依赖于load方法</p>
 </div>
 
 <!--
@@ -585,7 +603,7 @@
 
 
 <div class="description">
-    <p>用户性别</p>
+    <p>用户性别,依赖于load方法</p>
 </div>
 
 <!--
@@ -653,7 +671,7 @@
 
 
 <div class="description">
-    <p>用户分享时间</p>
+    <p>用户分享时间,依赖于load方法</p>
 </div>
 
 <!--
@@ -733,7 +751,7 @@
 
 
 <div class="description">
-    <p>加载用户信息，回调方法中会返回时才有用户信息</p>
+    <p>加载用户信息，所有依赖于load的用户信息需要在回调方法中会返回时才有值</p>
 </div>
 
 
