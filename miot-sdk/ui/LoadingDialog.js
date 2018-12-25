@@ -13,22 +13,23 @@ import PropTypes from 'prop-types';
 export default class ProgressDialog extends Component {
   static propTypes = {
     /**
-     *
+     * 是否可见
      * @member {bool}
      */
     visible: PropTypes.bool,
     /**
-     *
+     * 是否允许点击空白区域取消显示  
+     * Android Only     
      * @member {bool}
      */
     cancelable: PropTypes.bool,
     /**
-     *
+     * 标题
      * @member {string}
      */
     title: PropTypes.string,
     /**
-     *
+     * 副标题，内容
      * @member {string}
      */
     message: PropTypes.string,
@@ -38,7 +39,7 @@ export default class ProgressDialog extends Component {
      */
     timeout: PropTypes.number,
     /**
-     *
+     * 消失回调
      * @member {func}
      */
     onDismiss: PropTypes.func,

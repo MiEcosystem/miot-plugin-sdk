@@ -4,8 +4,8 @@
  * @description 地图的 js 桥接，内部使用高德地图实现，
  * @mark andr done
  */
-import {requireNativeComponent, ViewPropTypes} from 'react-native';
-import React, {Component} from 'react';
+import { requireNativeComponent, ViewPropTypes } from 'react-native';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 const resolveAssetSource = require('resolveAssetSource');
 const MapView = requireNativeComponent('MHMapView', null);
@@ -86,12 +86,12 @@ export default class AMapView extends Component {
         centerCoordinate: PropTypes.object,
         /**
          * 定位用户位置的模式   
-         * 0 < 不追踪用户的location更新  
-         * 1 < 追踪用户的location更新  
-         * 2 < 追踪用户的location与heading更新  
-         * @member {number}
+         * none < 不追踪用户的location更新  
+         * follow < 追踪用户的location更新  
+         * followWithHeading < 追踪用户的location与heading更新  
+         * @member {string}
          */
-        userTrackingMode: PropTypes.number,
+        userTrackingMode: PropTypes.string,
         /**
          * 罗盘原点位置  
          * 格式：{'x':number, 'y':number}
@@ -102,7 +102,7 @@ export default class AMapView extends Component {
          * 用户定位
          * @member {object}
          */
-        // userLocation: PropTypes.object,
+        userLocation: PropTypes.object,
         /**
          * 用户位置显示样式控制  
          * 格式：{'image':'imagePath', 'imageScale': number, 'showsAccuracyRing':boolean, 'showsHeadingIndicator': boolean, 'lineWidth':number, 'fillColor': color, 'strokeColor': color, 'lineDashPattern':[]}
@@ -169,7 +169,7 @@ export default class AMapView extends Component {
         licenseUrl = resolveAssetSource(licenseUrl);
         if (licenseUrl && (licenseUrl.uri || Array.isArray(licenseUrl))) {
             if (licenseUrl.uri) {
-                licenseUrl = [{uri: licenseUrl.uri}];
+                licenseUrl = [{ uri: licenseUrl.uri }];
             }
         }
         return licenseUrl;

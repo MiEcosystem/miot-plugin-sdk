@@ -142,6 +142,10 @@
 
 
 
+<div class="description">
+    <p>取消标题</p>
+</div>
+
 <!--
 
     <h5>Type:</h5>
@@ -205,6 +209,10 @@
 
 
 
+
+<div class="description">
+    <p>是否允许点击空白区域取消显示<br>Android Only iOS无效</p>
+</div>
 
 <!--
 
@@ -337,6 +345,10 @@
 
 
 
+
+<div class="description">
+    <p>确认标题</p>
+</div>
 
 <!--
 
@@ -530,6 +542,17 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {MultiChoseDialog} from 'miot/ui'
+//dataSource列表数据中，dataKey所定义的值('dataKeyName') 对应项为展示的名称， 与checkKey所定义的值('checkKeyName') 对应的boolean值表示是否选中
+&lt;MultiChoseDialog 
+dataSource = {[{'dataKeyName':'displayName1','checkKeyName':false}, {'dataKeyName':'displayName2','checkKeyName':true} ]}
+dataKey = {'dataKeyName'}
+checkKey = {'checkKeyName'}
+/></code></pre>
+
+
 
         
             
@@ -537,6 +560,10 @@
 
 
 
+
+<div class="description">
+    <p>取消点击回调</p>
+</div>
 
 <!--
 
@@ -662,6 +689,17 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {MultiChoseDialog} from 'miot/ui'
+&lt;MultiChoseDialog 
+...
+onCheck={res => {
+ console.log('click at row ', res.position, ' with checked ', res.check)
+}}
+/></code></pre>
+
+
 
         
             
@@ -669,6 +707,10 @@
 
 
 
+
+<div class="description">
+    <p>确认点击回调</p>
+</div>
 
 <!--
 
@@ -733,6 +775,10 @@
 
 
 
+
+<div class="description">
+    <p>弹窗消失回调</p>
+</div>
 
 <!--
 
@@ -866,6 +912,10 @@
 
 
 
+<div class="description">
+    <p>标题</p>
+</div>
+
 <!--
 
     <h5>Type:</h5>
@@ -929,6 +979,10 @@
 
 
 
+
+<div class="description">
+    <p>是否显示</p>
+</div>
 
 <!--
 

@@ -13,22 +13,23 @@ import PropTypes from 'prop-types';
 export default class MessageDialog extends Component {
   static propTypes = {
     /**
-     *
+     * 
      * @member {bool}
      */
     visible: PropTypes.bool,
     /**
-     *
+     * 是否允许点击空白区域取消显示   
+     * Android Only iOS无效     
      * @member {bool}
      */
     cancelable: PropTypes.bool,
     /**
-     *
+     * 标题
      * @member {string}
      */
     title: PropTypes.string,
     /**
-     *
+     * 副标题，内容
      * @member {string}
      */
     message: PropTypes.string,
@@ -38,27 +39,27 @@ export default class MessageDialog extends Component {
      */
     timeout: PropTypes.number,
     /**
-     *
+     * 取消标题
      * @member {string}
      */
     cancel: PropTypes.string,
     /**
-     *
+     * 确认标题
      * @member {string}
      */
     confirm: PropTypes.string,
     /**
-     *
+     * 确认点击回调
      * @member {func}
      */
     onConfirm: PropTypes.func,
     /**
-     *
+     * 取消点击回调
      * @member {func}
      */
     onCancel: PropTypes.func,
     /**
-     *
+     * 对话框消失回调
      * @member {func}
      */
     onDismiss: PropTypes.func,
