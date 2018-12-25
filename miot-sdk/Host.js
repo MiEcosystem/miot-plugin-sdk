@@ -1,9 +1,9 @@
 /**
  * @export
  * @module miot/Host
- * @description 扩展程序运行时的宿主环境
- *
- * 所有由宿主APP直接提供给扩展程序的接口均列在这里. 主要包括业务页面, 本地数据访问等
+ * @description 
+ * 扩展程序运行时的宿主环境  
+ * 所有由宿主APP直接提供给扩展程序的接口均列在这里. 主要包括原生业务页面, 本地数据访问等
  *
  * @example
  *
@@ -74,7 +74,7 @@ export default {
     },
     /**
      * @const
-     * @description 判断是否 IOS
+     * @description 判断是否 iOS
      */
     get isIOS() {
          return  false
@@ -123,7 +123,7 @@ export default {
         return HostLocale;
     },
     /**
-     * 本地数据存储服务
+     * 本地数据存储服务模块
      * @const
      * @see {@link module:miot/host/storage}
      *
@@ -132,7 +132,7 @@ export default {
         return HostStorage;
     },
     /**
-     * 本地文件服务
+     * 本地文件服务模块
      * @const
      * @see {@link module:miot/host/file}
      */
@@ -140,7 +140,7 @@ export default {
         return HostFile;
     },
     /**
-     * 音频 播放，录制，转码相关
+     * 音频 播放，录制，转码相关模块
      * @const
      * @see {@link module:miot/host/audio}
      */
@@ -148,7 +148,7 @@ export default {
         return HostAudio;
     },
     /**
-     * 加密解密
+     * 加密解密模块
      * @const
      * @see {@link module:miot/host/crypto}
      */

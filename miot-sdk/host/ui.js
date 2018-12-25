@@ -1,9 +1,14 @@
 /**
  * @export
  * @module miot/host/ui
- * @description 本地业务页面访问与处理
- *
- *
+ * @description 本地原生业务页面访问与处理
+ * @example
+ * import {Host} from 'miot'
+ * ...
+ * //删除设备
+ * Host.ui.openDeleteDevice()
+ * //分享设备
+ * Host.ui.openShareDevicePage
  *
  *
  */

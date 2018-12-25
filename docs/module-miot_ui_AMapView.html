@@ -142,6 +142,10 @@
 
 
 
+<div class="description">
+    <p>允许后台更新位置信息</p>
+</div>
+
 <!--
 
     <h5>Type:</h5>
@@ -206,6 +210,10 @@
 
 
 
+<div class="description">
+    <p>标记点数组<br>格式：[{'coordinate':{latitude: number, longitude: number}, 'title':'aaa', 'subtitle':'', 'id':'', 'image':'imagePath'}]</p>
+</div>
+
 <!--
 
     <h5>Type:</h5>
@@ -265,10 +273,14 @@
 
         
             
-<h4 class="name" id="~centerCoordinate"><span class="type-signature">(inner) </span>centerCoordinate<span class="type-signature"> :number</span></h4>
+<h4 class="name" id="~centerCoordinate"><span class="type-signature">(inner) </span>centerCoordinate<span class="type-signature"> :object</span></h4>
 
 
 
+
+<div class="description">
+    <p>中心点坐标<br>格式：{latitude: number, longitude: number}</p>
+</div>
 
 <!--
 
@@ -276,7 +288,7 @@
     <ul>
         <li>
             
-<span class="param-type">number</span>
+<span class="param-type">object</span>
 
 
         </li>
@@ -333,6 +345,10 @@
 
 
 
+
+<div class="description">
+    <p>绘制圆形layer数组<br>格式: [{'coordinate':{latitude: number, longitude: number}, 'radius':number, 'strokeColor': color, 'fillColor': color ,'id': 'string', 'lineWidth': numebr}]</p>
+</div>
 
 <!--
 
@@ -398,6 +414,10 @@
 
 
 
+<div class="description">
+    <p>罗盘原点位置<br>格式：{'x':number, 'y':number}</p>
+</div>
+
 <!--
 
     <h5>Type:</h5>
@@ -457,10 +477,14 @@
 
         
             
-<h4 class="name" id="~desiredAccuracy"><span class="type-signature">(inner) </span>desiredAccuracy<span class="type-signature"> :bool</span></h4>
+<h4 class="name" id="~desiredAccuracy"><span class="type-signature">(inner) </span>desiredAccuracy<span class="type-signature"> :number</span></h4>
 
 
 
+
+<div class="description">
+    <p>定位精度</p>
+</div>
 
 <!--
 
@@ -468,7 +492,7 @@
     <ul>
         <li>
             
-<span class="param-type">bool</span>
+<span class="param-type">number</span>
 
 
         </li>
@@ -525,6 +549,10 @@
 
 
 
+
+<div class="description">
+    <p>设定定位的最小更新距离，即移动多远会提示移动</p>
+</div>
 
 <!--
 
@@ -590,6 +618,10 @@
 
 
 
+<div class="description">
+    <p>设定最小更新角度。默认为1度。</p>
+</div>
+
 <!--
 
     <h5>Type:</h5>
@@ -653,6 +685,10 @@
 
 
 
+
+<div class="description">
+    <p>地图类型<br>0&lt; 普通地图 1&lt; 卫星地图</p>
+</div>
 
 <!--
 
@@ -718,6 +754,12 @@
 
 
 
+<div class="description">
+    <p>绘制自定义线条数组<br>drawStyleIndexes: 颜色索引数组(使用颜色数组中的指定色),成员为number,且为非负数，负数按0处理
+colors: 颜色数组，用于渲染线段
+格式: ['coordinates':[{latitude: number, longitude: number}], 'drawStyleIndexes': [], colors: [color], 'renderGradient': boolean, 'renderLineWidth': number]</p>
+</div>
+
 <!--
 
     <h5>Type:</h5>
@@ -781,6 +823,10 @@
 
 
 
+
+<div class="description">
+    <p>用户缩放地图回调，已经缩放</p>
+</div>
 
 <!--
 
@@ -846,6 +892,10 @@
 
 
 
+<div class="description">
+    <p>用户缩放地图回调，将要缩放</p>
+</div>
+
 <!--
 
     <h5>Type:</h5>
@@ -909,6 +959,10 @@
 
 
 
+
+<div class="description">
+    <p>选中某点标记回调</p>
+</div>
 
 <!--
 
@@ -974,6 +1028,10 @@
 
 
 
+<div class="description">
+    <p>点击某坐标回调</p>
+</div>
+
 <!--
 
     <h5>Type:</h5>
@@ -1037,6 +1095,10 @@
 
 
 
+
+<div class="description">
+    <p>用户位置更新回调</p>
+</div>
 
 <!--
 
@@ -1102,6 +1164,10 @@
 
 
 
+<div class="description">
+    <p>是否自动暂停位置更新</p>
+</div>
+
 <!--
 
     <h5>Type:</h5>
@@ -1166,6 +1232,10 @@
 
 
 
+<div class="description">
+    <p>绘制线条数组,默认格式<br>格式: ['coordinates':[{latitude: number, longitude: number}], 'id':'string']</p>
+</div>
+
 <!--
 
     <h5>Type:</h5>
@@ -1225,10 +1295,14 @@
 
         
             
-<h4 class="name" id="~scaleOrigin"><span class="type-signature">(inner) </span>scaleOrigin<span class="type-signature"> :number</span></h4>
+<h4 class="name" id="~scaleOrigin"><span class="type-signature">(inner) </span>scaleOrigin<span class="type-signature"> :object</span></h4>
 
 
 
+
+<div class="description">
+    <p>比例尺原点位置<br>格式：{'x':number, 'y':number}</p>
+</div>
 
 <!--
 
@@ -1236,7 +1310,7 @@
     <ul>
         <li>
             
-<span class="param-type">number</span>
+<span class="param-type">object</span>
 
 
         </li>
@@ -1293,6 +1367,10 @@
 
 
 
+
+<div class="description">
+    <p>是否显示指南针</p>
+</div>
 
 <!--
 
@@ -1358,6 +1436,10 @@
 
 
 
+<div class="description">
+    <p>是否显示坐标尺</p>
+</div>
+
 <!--
 
     <h5>Type:</h5>
@@ -1421,6 +1503,10 @@
 
 
 
+
+<div class="description">
+    <p>是否显示用户位置</p>
+</div>
 
 <!--
 
@@ -1486,6 +1572,10 @@
 
 
 
+<div class="description">
+    <p>是否显示交通状况</p>
+</div>
+
 <!--
 
     <h5>Type:</h5>
@@ -1545,75 +1635,15 @@
 
         
             
-<h4 class="name" id="~userLocation"><span class="type-signature">(inner) </span>userLocation<span class="type-signature"> :object</span></h4>
-
-
-
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">object</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
 <h4 class="name" id="~userLocationRepresentation"><span class="type-signature">(inner) </span>userLocationRepresentation<span class="type-signature"> :object</span></h4>
 
 
 
 
+<div class="description">
+    <p>用户位置显示样式控制<br>格式：{'image':'imagePath', 'imageScale': number, 'showsAccuracyRing':boolean, 'showsHeadingIndicator': boolean, 'lineWidth':number, 'fillColor': color, 'strokeColor': color, 'lineDashPattern':[]}</p>
+</div>
+
 <!--
 
     <h5>Type:</h5>
@@ -1673,10 +1703,14 @@
 
         
             
-<h4 class="name" id="~userTrackingMode"><span class="type-signature">(inner) </span>userTrackingMode<span class="type-signature"> :string</span></h4>
+<h4 class="name" id="~userTrackingMode"><span class="type-signature">(inner) </span>userTrackingMode<span class="type-signature"> :number</span></h4>
 
 
 
+
+<div class="description">
+    <p>定位用户位置的模式<br>0 &lt; 不追踪用户的location更新<br>1 &lt; 追踪用户的location更新<br>2 &lt; 追踪用户的location与heading更新</p>
+</div>
 
 <!--
 
@@ -1684,7 +1718,7 @@
     <ul>
         <li>
             
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
         </li>
@@ -1741,6 +1775,10 @@
 
 
 
+
+<div class="description">
+    <p>是否允许用户缩放</p>
+</div>
 
 <!--
 
@@ -1805,6 +1843,10 @@
 
 
 
+
+<div class="description">
+    <p>缩放级别, [3, 20]</p>
+</div>
 
 <!--
 

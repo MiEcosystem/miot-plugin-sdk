@@ -1,9 +1,29 @@
 /**
  * @export
  * @module miot/Device
- * @desc 设备相关 API
- *
- *
+ * @description 
+ * 设备相关 API   
+ * IDevice 当前设备实例对象，用于获取当前设备属性等  
+ * IDeviceWifi 当前设备网络操作实例对象，用于发送设备网络操作请求等  
+ * DeviceEvent 当前设备的可订阅事件，用于订阅设备名称状态变化等  
+ * 
+ * @example
+ * import {Device} from 'miot'
+ * ...
+ * //IDevice  
+ * //属性获取  
+ * let did = Device.deviceID
+ * let deviceModel = Device.model
+ * //设备方法，e.g 场景创建
+ * let scene = Device.createTimerScene(params)
+ * 
+ * //IDeviceWifi  
+ * //wifi方法 e.g RPC请求  
+ * Device.getDeviceWifi.callMethod('method_name', params)
+ *  .then(res => {//here is the success result})
+ *  .catch(err => {//error happened})
+ * ...  
+ * 其余具体使用请参考具体API文档
  */
 import Account from "./Account"
 import Scene from './service/scene'
@@ -46,7 +66,7 @@ export const DeviceEvent = {
     deviceNameChanged: {
     },
     /**
-     * 设备状态变更事件,
+     * 设备状态变更事件
      * @event
      * @param {IDevice} device -发生变更的设备
      */
@@ -90,20 +110,24 @@ export const DeviceEvent = {
  */
 export class IDeviceWifi {
     /**
-     * 获取设备ID
+     * 获取设备ID，same as Device.deviceID
      * @member
      * @type {string}
+     * @example
+     * import {Device} from 'miot'
+     * ...
+     * let did = Device.getDeviceWifi().deviceID
      */
     get deviceID() {
          return  ""
     }
     /**
-     * 加载属性数据, 调用get_prop 方法, 并将返回数据写成{key:value}格式
+     * 加载属性数据
+     * 内部调用get_prop 方法,会依据当前环境选择从本地局域网或者云端获取, 并将返回数据写成{key:value}格式
      * @method
      * @param {*} propNames
      * @returns {Promise<Map>} Map<name, value>
      * @example
-     *
      * Device.getDeviceWifi().loadProperties("a", "b").then(map=>{
      *  const a = map.get("a")
      *  const b = map.get("b")
@@ -123,7 +147,8 @@ export class IDeviceWifi {
         }));
     }
     /**
-     * 从云端加载属性数据, 调用get_prop 方法, 并将返回数据写成{key:value}格式
+     * 从云端加载属性数据
+     * 内部调用get_prop 方法, 并将返回数据写成{key:value}格式
      * @method
      * @param {*} propNames
      * @returns {Promise<Map>} Map<name, value>
@@ -142,7 +167,8 @@ export class IDeviceWifi {
         }));
     }
     /**
-     * 调用设备方法, 和设备通信如果同一个 wifi 下会使用局域网传输数据，如果不在同一个 wifi 下由米家服务器转发请求
+     * 调用设备方法  
+     * 若与设备通信处于同一个 wifi 下会使用局域网传输数据，如果不在同一个 wifi 下由米家服务器转发请求
      * @param {string} method  方法名
      * @param {json} args  参数
      * @return {Promise<json>} {code:0,result:{},id:""}
@@ -155,6 +181,7 @@ export class IDeviceWifi {
          return Promise.resolve({});
     }
     /**
+     * 云端调用设备方法  
      * 同 callMethod 函数 不在同一个 wifi 下的情况
      * @param {string} method  方法名
      * @param {json} args 参数
@@ -192,6 +219,7 @@ export class IDeviceWifi {
      *  })
      *  .catch(() => console.log('subscribe failed'))
      * ...
+     * //等效于使用DeviceEvent
      * const subscription = DeviceEvent.deviceReceivedMessages.addListener(
      * (device, messages)=>{
      *   if(messages.has('prop1')){
@@ -221,7 +249,8 @@ export class IDeviceWifi {
      *
      */
     /**
-     * 检查硬件版本信息 /home/checkversion
+     * 检查硬件版本信息   
+     * /home/checkversion
      * @method
      * @returns {Promise<DeviceVersion>}
      * @example
@@ -233,7 +262,8 @@ export class IDeviceWifi {
          return Promise.resolve({});
     }
     /**
-     * 获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。 /home/devupgrade
+     * 获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。   
+     * /home/devupgrade
      * @method
      * @return {Promise<DeviceVersion>}
      * @example
@@ -246,7 +276,8 @@ export class IDeviceWifi {
     }
     /**
      * 为设备固件升级失败添加自定义的errorCode与错误提示信息的索引
-     * 注意 分享过来的设备是无法进行固件升级的，所以此时此方法无效。Android暂未适配
+     * 注意 分享过来的设备是无法进行固件升级的，所以此时此方法无效。  
+     * Android暂未适配
      * @param {json} message 以errorCode为key，以错误提示信息为value的字典。key和value的数据类型都须是string。
      * @return boolean 设置是否成功
      * @example
@@ -256,7 +287,8 @@ export class IDeviceWifi {
          return Promise.resolve({});
     }
     /**
-     * 设置设备控制页不检查固件升级
+     * 设置设备控制页不检查固件升级  
+     * Android暂未适配
      * @param {boolean} notCheck 是否 不检查更新 true-不自动检查 false-自动检查
      * @return {Promise}
      * @example
@@ -283,6 +315,15 @@ export class IDeviceWifi {
 }
 /**
  * @interface
+ * @description
+ * 设备信息的实例
+ * 仅适用于当前插件适配的设备
+ * @example
+ * import 'Device' from 'miot'
+ * ...
+ * let did = Device.deviceID
+ * let model = Device.model
+ * ...
  */
 class IDevice {
     /**
@@ -304,7 +345,7 @@ class IDevice {
          return  ""
     }
     /**
-     * 获得设备 wifi
+     * 获得设备 wifi 操作对象
      * @returns {IDeviceWifi}
      *
      */
@@ -341,10 +382,13 @@ class IDevice {
          return  false
     }
     /**
-     * 获取子设备
+     * 获取子设备列表
      * @method
      * @returns {Promise<IDevice[]>}
-     *
+     * @example
+     * import 'Device' from 'miot'
+     * Device.getSubDevices()  
+     * .then(devices => {//get device list})  
      */
     getSubDevices() {
          return Promise.resolve([]);
@@ -408,7 +452,9 @@ class IDevice {
          return null
     }
     /**
-     *设备所有者的小米账号, 可以使用 load 获取 account 下的所有数据。不调用 load 只有 ID，nickName 字段有值
+     * 设备所有者的小米账号, 可以使用 load 获取 account 下的所有数据。
+     * 不调用 load 只有 ID，nickName 字段有值。  
+     * 注:Service.account 不load时只有ID可用，与此处不一样。
      * @type {IAccount}
      * @readonly
      * @see {@link module:miot/Account}
@@ -418,7 +464,7 @@ class IDevice {
          return null
     }
     /**
-     * 上报日志
+     * 上报日志，写入文件，在用户反馈时可以查看
      * @param {string} log
      *
      */

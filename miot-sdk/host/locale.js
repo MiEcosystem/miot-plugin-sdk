@@ -2,6 +2,13 @@
  * @export
  * @module miot/host/locale
  * @description host 的本地信息, 包括语言，时区和地理位置
+ * @example
+ * import {Host} from 'miot'
+ * ...
+ * let language = Host.locale.language
+ * let timeZone = Host.locale.timeZone
+ * if (language === 'zh') ...
+ * ... 
  *
  */
 export default {
@@ -19,7 +26,6 @@ export default {
   },
   /**
    * 获取手机地理位置信息
-   * @returns {Promise}
    * {
    * country
    * province
@@ -32,6 +38,13 @@ export default {
    * citycode(城市编码)
    * adcode(区域编码)
    * }
+   * @returns {Promise}
+   * @example
+   * import {Host} from 'miot'
+   * ...
+   * Host.locale.getLocation().then(res => {
+   *  console.log('get location: ', res)
+   * })
    */
   getLocation() {
      return Promise.resolve(null);

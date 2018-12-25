@@ -1,32 +1,39 @@
 /**
  * @export
  * @module miot/host/file
- * @description 本地文件访问及处理服务
+ * @description 
+ * 本地文件访问及处理服务
+ * 注意插件文件处理皆处于插件沙盒目录下
  * 
  * @example
- *    //给定文件名后下载或者截图后被放到本地目录里, 在<Image/>等标签需要引用时, 使用{local:"filename"}的方式引入
- *    const myfile = "testpicture.png"
- *    Host.file.downloadFile("http://..../...png", myfile)
- *    .then(res=>{
- *        const myimg = <Image source={{local:myfile}} .../>
- *        ...
- *    })
- *    .catch(err=>{...})
+ * //给定文件名后下载或者截图后被放到本地目录里, 在<Image/>等标签需要引用时, 使用{local:"filename"}的方式引入
+ * const myfile = "testpicture.png"
+ * Host.file.downloadFile("http://..../...png", myfile)
+ * .then(res=>{
+ *     const myimg = <Image source={{local:myfile}} .../>
+ *     ...
+ * })
+ * .catch(err=>{...})
  * 
+ * ...
+ * const myshotfile = "testshot.png"
+ * Host.file.screenShot(myshotfile)
+ * .then(res=>{
+ *    const myshotpic = <Image source={{local:myshotfile}} .../>
  *    ...
- *    const myshotfile = "testshot.png"
- *    Host.file.screenShot(myshotfile)
- *    .then(res=>{
- *       const myshotpic = <Image source={{local:myshotfile}} .../>
- *       ...
- *    });
- *    ...
+ * });
+ * ...
  */
 export default {
     /**
-     * 读取文件列表
+     * 读取沙盒内文件列表
      * @returns {Promise}
-     *
+     * @example
+     * import {Host} from 'miot'
+     * ...
+     * Host.file.readFileList().then(res => {
+     *  console.log('read fiel list:', res)
+     * })
      */
     readFileList() {
          return Promise.resolve([]);
@@ -35,6 +42,16 @@ export default {
      * 判断文件是否存在
      * @param {string} fileName
      * @returns {Promise<boolean>} 
+     * @example
+     * import {Host} from 'miot'
+     * ...
+     * let fileExist = await Host.file.isFileExists('fileName')
+     * //or
+     * Host.file.isFileExists('fileName').then(res => {
+     * console.log('file exist at path:', res)
+     * }).catch(err => {
+     * // file name error or get file path with error
+     * })
      */
     isFileExists(fileName) {
          return Promise.resolve(false)
@@ -44,6 +61,12 @@ export default {
      * @param {string} fileName - 文件名
      * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
+     * @example
+     * import {Host} from 'miot'
+     * ...
+     * Host.readFile('name').then(content =>{
+     *  console.log('file content:', content)
+     * })
      */
     readFile(fileName, opt = {}) {
          return Promise.resolve(null);
@@ -53,6 +76,12 @@ export default {
      * @param {string} fileName - 文件名
      * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
+     * @example
+     * import {Host} from 'miot'
+     * ...
+     * Host.readFileToHexString('name').then(content =>{
+     *  console.log('file content:', content)
+     * })
      */
     readFileToHexString(fileName, opt = {}) {
          return Promise.resolve(null);
@@ -72,6 +101,15 @@ export default {
      * @param {string} utf8Content - 文件内容字符串
      * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
+     * @example
+     * import {Host} from 'miot'
+     * ...
+     * Host.writeFile('name', 'content').then(_ =>{
+     *  //写入成功
+     *  console.log('write success')
+     * })
+     * ...
+     * 
      */
     writeFile(fileName, utf8Content, opt = {}) {
          return Promise.resolve(null);
@@ -82,6 +120,14 @@ export default {
      * @param {string} base64Content - base64编码后的文件内容字符串
      * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
+     * @example
+     * import {Host} from 'miot'
+     * ...
+     * Host.writeFileThroughBase64('name', 'base64').then(_ =>{
+     *  //写入成功
+     *  console.log('write success')
+     * })
+     * ...
      */
     writeFileThroughBase64(fileName, base64Content, opt = {}) {
          return Promise.resolve(null);
@@ -92,6 +138,14 @@ export default {
      * @param {string} utf8Content - 文件内容字符串
      * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
+     * @example
+     * import {Host} from 'miot'
+     * ...
+     * Host.appendFile('name', 'base64').then(_ =>{
+     *  //写入成功
+     *  console.log('write success')
+     * })
+     * ...
      */
     appendFile(fileName, utf8Content, opt = {}) {
          return Promise.resolve(null);
@@ -102,6 +156,14 @@ export default {
      * @param {string} base64Content - base64编码后的文件内容字符串
      * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
+     * @example
+     * import {Host} from 'miot'
+     * ...
+     * Host.appendFileThroughBase64('name', 'base64').then(_ =>{
+     *  //写入成功
+     *  console.log('write success')
+     * })
+     * ...
      *
      */
     appendFileThroughBase64(fileName, base64Content, opt = {}) {
@@ -112,6 +174,13 @@ export default {
      * @param {string} fileName - 文件名
      * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
+     * @example
+     * import {Host} from 'miot'
+     * ...
+     * Host.deleteFile('name').then(_ =>{
+     *  console.log('delete success')
+     * })
+     * ...
      */
     deleteFile(fileName, opt = {}) {
          return Promise.resolve(null);
@@ -129,21 +198,29 @@ export default {
      * @param {UploadParams} params - 参数字典
      * @returns {Promise}
      * @example
-     *   let params = {
-     *       uploadUrl: 'http://127.0.0.1:3000',
-     *       method: 'POST', // default 'POST',support 'POST' and 'PUT'
-     *       headers: {
-     *           'Accept': 'application/json',
-     *       },
-     *       fields: {
-     *           'hello': 'world',
-     *       },
-     *       files: [
-     *           {
-     *               fileName: 'fileName.png', // 只能上传插件sandbox里的文件
-     *           },
-     *       ]
-     *   };
+     * import {Host} from 'miot'
+     * ...
+     * let params = {
+     *  uploadUrl: 'http://127.0.0.1:3000',
+     *  method: 'POST', // default 'POST',support 'POST' and 'PUT'
+     *  headers: {
+     *      'Accept': 'application/json',
+     *  },
+     *  fields: {
+     *      'hello': 'world',
+     *  },
+     *  files: [
+     *      {
+     *          fileName: 'fileName.png', // 只能上传插件sandbox里的文件
+     *      },
+     *  ]
+     * };
+     * Host.file.uploadFile(params).then(res => {
+     *  console.log('upload success with res:', res)
+     * }).catch(err => {
+     *  console.log('upload failed with err:', err)
+     * })
+     * ...
      */
     uploadFile(params) {
          return Promise.resolve(null);
@@ -152,15 +229,26 @@ export default {
      * 上传文件到小米云FDS
      * @param {UploadParams} params - 参数字典
      * @returns {Promise}
+     * @example
+     * same as Host.file.uploadFile
      */
     uploadFileToFDS(params) {
          return Promise.resolve(null);
     },
     /**
-     * 下载文件到插件存储空间
+     * 下载文件到插件沙盒目录
      * @param {string} url - 文件地址
      * @param {string} fileName - 存储到本地的文件名
      * @returns {Promise}
+     * @example
+     * import {Host} from 'miot'
+     * ...
+     * Host.downloadFile('url', 'targetName').then(res =>{
+     *  console.log('download success with res:', res)
+     * }).catch(err => {
+     *  console.log('download failed with err:', err)
+     * })
+     * ...
      */
     downloadFile(url, fileName) {
          return Promise.resolve(null);
@@ -169,6 +257,13 @@ export default {
      * 获取 base64 编码的数据长度
      * @param {string} base64Data - base64 编码的字符串
      * @returns {Promise}
+     * @example
+     * import {Host} from 'miot'
+     * ...
+     * let len = await Host.file.dataLengthOfBase64Data('data')
+     * //or
+     * Host.file.dataLengthOfBase64Data('data').then(len => console.log('len:', len))
+     * ...
      */
     dataLengthOfBase64Data(base64Data) {
          return Promise.resolve(null);
@@ -242,14 +337,14 @@ export default {
      * @param {string} imageName - 图片名称，自动添加后缀png
      * @return {Promise}
      * @example
-     *   const findNodeHandle = require('findNodeHandle');
-     *   const myMapViewRef = findNodeHandle(this.refs.myMapView);
-     *   const imageName = 'mapToShare.png';
-     *   let imageToShow = null;
-     *   Host.file.amapScreenShot(myMapViewRef, imageName).then(() => {
-     *      imageToShow = <Image source={{local:imageName}}>
-     *        console.log("ok");
-     *   });
+     * const findNodeHandle = require('findNodeHandle');
+     * const myMapViewRef = findNodeHandle(this.refs.myMapView);
+     * const imageName = 'mapToShare.png';
+     * let imageToShow = null;
+     * Host.file.amapScreenShot(myMapViewRef, imageName).then(() => {
+     *    imageToShow = <Image source={{local:imageName}}>
+     *    console.log("ok");
+     * });
      */
     amapScreenShot(viewRef, imageName) {
          return Promise.resolve("...");

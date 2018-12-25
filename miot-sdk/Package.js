@@ -88,7 +88,7 @@ export const PackageEvent = {
      * 用户撤销隐私授权时的回调
      * @event
      */
-    packageAuthorizationCancel: { always: true, sameas: native.isIOS ? 'kMHPluginReceivingDeviceCancelAuthorization' : undefined },
+    packageAuthorizationCancel: { always: true, sameas: native.isIOS ? 'kMHPluginReceivingDeviceCancelAuthorization' : 'kMHPluginReceivingDeviceCancelAuthorization' },
     /**
      * 插件接收到场景等通知消息
      * @event
