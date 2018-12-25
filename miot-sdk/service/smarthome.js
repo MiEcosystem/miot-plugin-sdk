@@ -57,6 +57,33 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 设备固件版本信息
+     * @typedef DeviceVersion
+     * @property {boolean} isUpdating
+     * @property {boolean} isLatest
+     * @property {boolean} isForce
+     * @property {boolean} hasNewFirmware
+     * @property {string} curVersion
+     * @property {string} newVersion
+     * @property {string} description
+     *
+     */
+    /**
+     * 检查硬件版本信息
+     * /home/checkversion
+     * @method
+     * @param  {string} did
+     * @param  {*} pid
+     * @returns {Promise<DeviceVersion>}
+     * @example
+     * Device.getDeviceWifi().checkVersion()
+     *  .then(res => console.log('success:', res))
+     *  .catch(err => console.log('failed:', err))
+     */
+    checkDeviceVersion(did,pid) {
+         return Promise.resolve({});
+    },
+    /**
      * 获取某指定地区天气环境等信息
      * /location/area_prop_info
      * @param {json} params {latitude:xx,longitude:xx,cityId:['pm2.5','realtime']}

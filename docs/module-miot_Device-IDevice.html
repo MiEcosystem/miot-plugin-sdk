@@ -1262,6 +1262,74 @@ let model = Device.model
 
         
             
+<h4 class="name" id="lastVersion"><span class="type-signature">(readonly) </span>lastVersion<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>获取当前wifi设备固件的版本</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
 <h4 class="name" id="latitude"><span class="type-signature">(readonly) </span>latitude<span class="type-signature"> :double</span></h4>
 
 
@@ -1677,7 +1745,8 @@ let model = Device.model
 
 <div class="description">
     <p>设备所有者的小米账号, 可以使用 load 获取 account 下的所有数据。
-不调用 load 只有 ID，nickName 字段有值。<br>注:Service.account 不load时只有ID可用，与此处不一样。</p>
+不调用 load 只有 ID，nickName 字段有值。
+注:Service.account 不load时只有ID可用，与此处不一样。</p>
 </div>
 
 <!--
@@ -2375,74 +2444,6 @@ let model = Device.model
         <li>
             
 <span class="param-type">int</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="version"><span class="type-signature">(readonly) </span>version<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    <p>获取当前wifi设备固件的版本,ble设备请通过设备的 fe95-0004 自行获取</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
 
 
         </li>
@@ -3298,8 +3299,153 @@ let model = Device.model
     <h5>Example</h5>
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import 'Device' from 'miot'
-Device.getSubDevices()  
-.then(devices => {//get device list})  </code></pre>
+Device.getSubDevices()
+.then(devices => {//get device list})</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getVersion"><span class="type-signature"></span>getVersion<span class="signature">(decrypt)</span><span class="type-signature"> &rarr; {Promise.&lt;any>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>更新版本号，蓝牙的版本号 connect 之后才能</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>decrypt</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;any></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
 
 
 

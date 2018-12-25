@@ -1,28 +1,28 @@
 /**
  * @export
  * @module miot/Device
- * @description 
- * 设备相关 API   
- * IDevice 当前设备实例对象，用于获取当前设备属性等  
- * IDeviceWifi 当前设备网络操作实例对象，用于发送设备网络操作请求等  
- * DeviceEvent 当前设备的可订阅事件，用于订阅设备名称状态变化等  
- * 
+ * @description
+ * 设备相关 API
+ * IDevice 当前设备实例对象，用于获取当前设备属性等
+ * IDeviceWifi 当前设备网络操作实例对象，用于发送设备网络操作请求等
+ * DeviceEvent 当前设备的可订阅事件，用于订阅设备名称状态变化等
+ *
  * @example
  * import {Device} from 'miot'
  * ...
- * //IDevice  
- * //属性获取  
+ * //IDevice
+ * //属性获取
  * let did = Device.deviceID
  * let deviceModel = Device.model
  * //设备方法，e.g 场景创建
  * let scene = Device.createTimerScene(params)
- * 
- * //IDeviceWifi  
- * //wifi方法 e.g RPC请求  
+ *
+ * //IDeviceWifi
+ * //wifi方法 e.g RPC请求
  * Device.getDeviceWifi.callMethod('method_name', params)
  *  .then(res => {//here is the success result})
  *  .catch(err => {//error happened})
- * ...  
+ * ...
  * 其余具体使用请参考具体API文档
  */
 import Account from "./Account"
@@ -167,7 +167,7 @@ export class IDeviceWifi {
         }));
     }
     /**
-     * 调用设备方法  
+     * 调用设备方法
      * 若与设备通信处于同一个 wifi 下会使用局域网传输数据，如果不在同一个 wifi 下由米家服务器转发请求
      * @param {string} method  方法名
      * @param {json} args  参数
@@ -181,7 +181,7 @@ export class IDeviceWifi {
          return Promise.resolve({});
     }
     /**
-     * 云端调用设备方法  
+     * 云端调用设备方法
      * 同 callMethod 函数 不在同一个 wifi 下的情况
      * @param {string} method  方法名
      * @param {json} args 参数
@@ -194,7 +194,7 @@ export class IDeviceWifi {
     /**
      * ping 操作 检查设备本地局域网通信是否可用
      * @returns {Promise<boolean>}
-     * 
+     *
      * @example
      * Device.getDeviceWifi().localPing()
      *  .then(res => console.log('success:', res))
@@ -231,38 +231,13 @@ export class IDeviceWifi {
      * ...
      * //unsubscribe the props
      * msgSubscription&&msgSubscription.remove();
-     * 
+     *
      */
     subscribeMessages(...propertyOrEventNames) {
          return Promise.resolve(this);
     }
     /**
-     * 设备固件版本信息
-     * @typedef DeviceVersion
-     * @property {boolean} isUpdating
-     * @property {boolean} isLatest
-     * @property {boolean} isForce
-     * @property {boolean} hasNewFirmware
-     * @property {string} curVersion
-     * @property {string} newVersion
-     * @property {string} description
-     *
-     */
-    /**
-     * 检查硬件版本信息   
-     * /home/checkversion
-     * @method
-     * @returns {Promise<DeviceVersion>}
-     * @example
-     * Device.getDeviceWifi().checkVersion()
-     *  .then(res => console.log('success:', res))
-     *  .catch(err => console.log('failed:', err))
-     */
-    checkVersion() {
-         return Promise.resolve({});
-    }
-    /**
-     * 获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。   
+     * 获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。
      * /home/devupgrade
      * @method
      * @return {Promise<DeviceVersion>}
@@ -276,7 +251,7 @@ export class IDeviceWifi {
     }
     /**
      * 为设备固件升级失败添加自定义的errorCode与错误提示信息的索引
-     * 注意 分享过来的设备是无法进行固件升级的，所以此时此方法无效。  
+     * 注意 分享过来的设备是无法进行固件升级的，所以此时此方法无效。
      * Android暂未适配
      * @param {json} message 以errorCode为key，以错误提示信息为value的字典。key和value的数据类型都须是string。
      * @return boolean 设置是否成功
@@ -287,7 +262,7 @@ export class IDeviceWifi {
          return Promise.resolve({});
     }
     /**
-     * 设置设备控制页不检查固件升级  
+     * 设置设备控制页不检查固件升级
      * Android暂未适配
      * @param {boolean} notCheck 是否 不检查更新 true-不自动检查 false-自动检查
      * @return {Promise}
@@ -387,8 +362,8 @@ class IDevice {
      * @returns {Promise<IDevice[]>}
      * @example
      * import 'Device' from 'miot'
-     * Device.getSubDevices()  
-     * .then(devices => {//get device list})  
+     * Device.getSubDevices()
+     * .then(devices => {//get device list})
      */
     getSubDevices() {
          return Promise.resolve([]);
@@ -453,7 +428,7 @@ class IDevice {
     }
     /**
      * 设备所有者的小米账号, 可以使用 load 获取 account 下的所有数据。
-     * 不调用 load 只有 ID，nickName 字段有值。  
+     * 不调用 load 只有 ID，nickName 字段有值。
      * 注:Service.account 不load时只有ID可用，与此处不一样。
      * @type {IAccount}
      * @readonly
@@ -599,37 +574,29 @@ class IDevice {
          return  ""
     }
     /**
-     * 获取当前wifi设备固件的版本,ble设备请通过设备的 fe95-0004 自行获取
+     * 获取当前wifi设备固件的版本
      * @type {string}
      * @readonly
      *
      */
-    get version() {
+    get lastVersion() {
          return  ""
     }
+    /**
+     * 更新版本号，蓝牙的版本号 connect 之后才能
+     * @param decrypt
+     * @return {Promise<any>}
+     */
     getVersion(decrypt) {
         return new Promise((resolve, reject) => {
-            if (native.isIOS) {
-                native.MIOTDevice.getVersion(decrypt, (ok, data) => {
-                    if (ok) {
-                        resolve(data);
-                        return;
-                    }
-                    reject(data);
-                });
-            } else {
-                if (Properties.of(this).version) {
-                    resolve(Properties.of(this).version);
-                } else {
-                    native.MIOTBluetooth.getVersion(decrypt, (ok, data) => {
-                        if (ok) {
-                            resolve(data);
-                            return;
-                        }
-                        reject(data);
-                    });
+            native.MIOTDevice.getVersion(decrypt, (ok, data) => {
+                if (ok) {
+                    Properties.of(this).version=data;
+                    resolve(data);
+                    return;
                 }
-            }
+                reject(data);
+            });
         });
     }
     /**

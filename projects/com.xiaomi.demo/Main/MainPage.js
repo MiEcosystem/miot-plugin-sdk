@@ -90,6 +90,7 @@ export default class MainPage extends React.Component {
   }
 
   render() {
+      console.log("com.xiaomi.demo",'render first',Date.now());
     var rowTutorialDemo = this._createMenuRow(TutorialDemo, '教程', 'tutorialDemo');
     var rowControlDemo = this._createMenuRow(ControlDemo, '控制能力', 'ControlDemo');
     var rowCloudDebug = this._createMenuRow(UIDemo, 'UI能力', 'UIDemo');
