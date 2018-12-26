@@ -237,6 +237,22 @@ export class IDeviceWifi {
          return Promise.resolve(this);
     }
     /**
+     * 获取版本号
+     * @return {Promise<any>}
+     */
+    getVersion() {
+        return new Promise((resolve, reject) => {
+            native.MIOTDevice.getVersion(false,(ok, data) => {
+                if (ok) {
+                    Properties.of(this).version=data;
+                    resolve(data);
+                    return;
+                }
+                reject(data);
+            });
+        });
+    }
+    /**
      * 获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。
      * /home/devupgrade
      * @method
@@ -581,23 +597,6 @@ class IDevice {
      */
     get lastVersion() {
          return  ""
-    }
-    /**
-     * 更新版本号，蓝牙的版本号 connect 之后才能
-     * @param decrypt
-     * @return {Promise<any>}
-     */
-    getVersion(decrypt) {
-        return new Promise((resolve, reject) => {
-            native.MIOTDevice.getVersion(decrypt, (ok, data) => {
-                if (ok) {
-                    Properties.of(this).version=data;
-                    resolve(data);
-                    return;
-                }
-                reject(data);
-            });
-        });
     }
     /**
      * 获取 prop中保存的信息

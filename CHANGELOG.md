@@ -73,4 +73,4 @@ Device 接口发生变化:
 
 ## 2018-12-25
 Device.version, 改为 lastVersion，为缓存的服务器下发的固件版本，
-如果发起了固件更新或者蓝牙设备请使用getVersion(decrypt)。
+如果发起了固件更新或者蓝牙设备请使用 Device.getBluetoothLE().getVersion(), Device.getDeviceWifi().getVersion()。

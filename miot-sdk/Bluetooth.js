@@ -296,14 +296,14 @@ export class IBluetooth {
      * 打开蓝牙链接. option参数peripheralID为iOS 平台的可选参数，因为iOS平台无法获取普通 BLE 蓝牙设备的 Mac，所以当 type 为 3 时，iOS 上需填入 peripheralID
      * peripheralID 可通过 startScan（）搜索周边蓝牙设备获取（如设备OTA中，设备固件切换，无小米蓝牙协议相关服务时需建立连接），或通过retrievePeripheralsWithServicesForIOS（）搜索已连接设备获取（如可穿戴长连接设备，无法发送 mibeacon）
      * 建立连接后，SDK 会用 peripheralID 充当 Mac 地址
-     * 
+     *
      * @method
      * @returns {Promise<IBluetooth>}
      * @param {int} type -蓝牙设备类型 -1 自动判断，0 普通小米蓝牙协议设备，1 安全芯片小米蓝牙设备（比如锁类产品），2 分享的安全芯片小米蓝牙设备，3 普通的BLE蓝牙设备(无 mibeacon，无小米 FE95 service)
      * @param {json} option -附加参数, 格式 {timeout:12000, peripheralID:"..."}, timeout的单位为毫秒, peripheralID是iOS平台参数
-     * 
+     *
      * @example
-     * 
+     *
      * Device.getBluetoothLE()
      *       .connect(3, {peripheralID:"1-a-b-3-c", timeout:12000})
      *       .then(ble=>{
@@ -312,7 +312,7 @@ export class IBluetooth {
      *       .catch(err=>{
      *          ...
      *       });
-     * 
+     *
      */
     connect(type, option=0) {
          return Promise.resolve(this);
@@ -359,6 +359,44 @@ export class IBluetooth {
             resolve(20*8);
         }
       });
+    }
+    /**
+     * 更新版本号，蓝牙的版本号 connect 之后才能
+     * @return {Promise<any>}
+     */
+    getVersion() {
+        return new Promise((resolve, reject) => {
+            function setDeviceVersion(data) {
+                const {mac} = Properties.of(this);
+                let device = RootDevice;
+                let props = Properties.of(device);
+                if (props.mac != mac) {
+                    device = (props._subDevices || []).find(d => mac == d.mac);
+                }
+                if (device) {
+                    device.version = data;
+                }
+            }
+            if (native.isIOS){
+                native.MIOTDevice.getVersion(false,(ok, data) => {
+                    if (ok) {
+                        setDeviceVersion.call(this, data);
+                        resolve(data);
+                        return;
+                    }
+                    reject(data);
+                });
+            } else{
+                native.MIOTBluetooth.getVersion(false,(ok, data) => {
+                    if (ok) {
+                        setDeviceVersion.call(this, data);
+                        resolve(data);
+                        return;
+                    }
+                    reject(data);
+                });
+            }
+        });
     }
 }
 /**
@@ -441,7 +479,7 @@ export const BluetoothEvent = {
      * 蓝牙设备扫描发现事件
      * @event
      * @param {json} bluetoohData --扫描发现的蓝牙设备数据
-     * 
+     *
      */
     bluetoothDeviceDiscovered: {
     },
