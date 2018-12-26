@@ -11,6 +11,11 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 export default class MessageDialog extends Component {
+  
+  static defaultProps = {
+    title:'',
+    message:''
+  }
   static propTypes = {
     /**
      * 
