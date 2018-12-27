@@ -587,7 +587,7 @@ Host.file.amapScreenShot(myMapViewRef, imageName).then(() => {
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
 ...
-Host.appendFile('name', 'base64').then(_ =>{
+Host.fileappendFile('name', 'base64').then(_ =>{
  //写入成功
  console.log('write success')
 })
@@ -838,7 +838,7 @@ Host.appendFile('name', 'base64').then(_ =>{
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
 ...
-Host.appendFileThroughBase64('name', 'base64').then(_ =>{
+Host.fileappendFileThroughBase64('name', 'base64').then(_ =>{
  //写入成功
  console.log('write success')
 })
@@ -1214,7 +1214,7 @@ Host.file.dataLengthOfBase64Data('data').then(len => console.log('len:', len))
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
 ...
-Host.deleteFile('name').then(_ =>{
+Host.filedeleteFile('name').then(_ =>{
  console.log('delete success')
 })
 ...</code></pre>
@@ -1397,7 +1397,7 @@ Host.deleteFile('name').then(_ =>{
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
 ...
-Host.downloadFile('url', 'targetName').then(res =>{
+Host.filedownloadFile('url', 'targetName').then(res =>{
  console.log('download success with res:', res)
 }).catch(err => {
  console.log('download failed with err:', err)
@@ -2132,7 +2132,7 @@ console.log('file exist at path:', res)
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
 ...
-Host.readFile('name').then(content =>{
+Host.filereadFile('name').then(content =>{
  console.log('file content:', content)
 })</code></pre>
 
@@ -2661,7 +2661,7 @@ Host.file.readFileList().then(res => {
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
 ...
-Host.readFileToHexString('name').then(content =>{
+Host.filereadFileToHexString('name').then(content =>{
  console.log('file content:', content)
 })</code></pre>
 
@@ -4078,7 +4078,7 @@ Host.file.uploadFile(params).then(res => {
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
 ...
-Host.writeFile('name', 'content').then(_ =>{
+Host.filewriteFile('name', 'content').then(_ =>{
  //写入成功
  console.log('write success')
 })
@@ -4329,7 +4329,7 @@ Host.writeFile('name', 'content').then(_ =>{
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Host} from 'miot'
 ...
-Host.writeFileThroughBase64('name', 'base64').then(_ =>{
+Host.filewriteFileThroughBase64('name', 'base64').then(_ =>{
  //写入成功
  console.log('write success')
 })

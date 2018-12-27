@@ -160,6 +160,17 @@ export default {
   openTimerSettingPage(onMethod, onParam, offMethod, offParam) {
   },
   /**
+   * @param {string} customTimerIdentifier 自定义定时Identifier
+   * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串
+   * @param {string} onParam   定时到时设备“开”执行的 RPC 指令参数字符串（目前仅支持单参数）
+   * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串
+   * @param {string} offParam  定时到时设备“关”执行的 RPC 指令参数字符串（目前仅支持单参数）
+   *
+   * @description 这个api 应该可以废弃了
+   */
+  openTimerSettingPageWithCustomIdentifier(customTimerIdentifier, onMethod, onParam, offMethod, offParam) {
+  },
+  /**
    * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串
    * @param {json} onParam   定时到时设备“开”执行的 RPC 指令参数，可以是字符串、数字、字典、数组
    * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串

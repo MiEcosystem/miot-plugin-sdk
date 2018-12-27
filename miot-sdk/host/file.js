@@ -64,7 +64,7 @@ export default {
      * @example
      * import {Host} from 'miot'
      * ...
-     * Host.readFile('name').then(content =>{
+     * Host.filereadFile('name').then(content =>{
      *  console.log('file content:', content)
      * })
      */
@@ -79,7 +79,7 @@ export default {
      * @example
      * import {Host} from 'miot'
      * ...
-     * Host.readFileToHexString('name').then(content =>{
+     * Host.filereadFileToHexString('name').then(content =>{
      *  console.log('file content:', content)
      * })
      */
@@ -104,7 +104,7 @@ export default {
      * @example
      * import {Host} from 'miot'
      * ...
-     * Host.writeFile('name', 'content').then(_ =>{
+     * Host.filewriteFile('name', 'content').then(_ =>{
      *  //写入成功
      *  console.log('write success')
      * })
@@ -123,7 +123,7 @@ export default {
      * @example
      * import {Host} from 'miot'
      * ...
-     * Host.writeFileThroughBase64('name', 'base64').then(_ =>{
+     * Host.filewriteFileThroughBase64('name', 'base64').then(_ =>{
      *  //写入成功
      *  console.log('write success')
      * })
@@ -141,7 +141,7 @@ export default {
      * @example
      * import {Host} from 'miot'
      * ...
-     * Host.appendFile('name', 'base64').then(_ =>{
+     * Host.fileappendFile('name', 'base64').then(_ =>{
      *  //写入成功
      *  console.log('write success')
      * })
@@ -159,7 +159,7 @@ export default {
      * @example
      * import {Host} from 'miot'
      * ...
-     * Host.appendFileThroughBase64('name', 'base64').then(_ =>{
+     * Host.fileappendFileThroughBase64('name', 'base64').then(_ =>{
      *  //写入成功
      *  console.log('write success')
      * })
@@ -177,7 +177,7 @@ export default {
      * @example
      * import {Host} from 'miot'
      * ...
-     * Host.deleteFile('name').then(_ =>{
+     * Host.filedeleteFile('name').then(_ =>{
      *  console.log('delete success')
      * })
      * ...
@@ -243,7 +243,7 @@ export default {
      * @example
      * import {Host} from 'miot'
      * ...
-     * Host.downloadFile('url', 'targetName').then(res =>{
+     * Host.filedownloadFile('url', 'targetName').then(res =>{
      *  console.log('download success with res:', res)
      * }).catch(err => {
      *  console.log('download failed with err:', err)

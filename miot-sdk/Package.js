@@ -136,10 +136,15 @@ export default {
      * @member {json}
      *
      * @example
-     *
-     * Package.exitInfo={trigger:{}}
-     *
-     *
+     * //自定义trigger场景保存退出 finishCustomSceneSetupWithTrigger
+     * var trigger = Package.entryInfo;
+     * trigger.payload = { 'xxx': 'xxx' };//trigger payload 数据
+     * Package.exitInfo = trigger; // 设置exitInfo之后插件就会正常退出，无需再调用 Package.exit();
+     * 
+     * //自定义action场景保存退出 finishCustomSceneSetupWithAction
+     * var action = Package.entryInfo;
+     * action.payload = { 'xxx': 'xxx' };//action payload 数据
+     * Package.exitInfo = action; // 设置exitInfo之后插件就会正常退出，无需再调用 Package.exit();
      */
     get exitInfo() {
          return  {}

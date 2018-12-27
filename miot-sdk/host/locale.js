@@ -25,6 +25,13 @@ export default {
   get timeZone() {
   },
   /**
+   * 是否是24小时制计时格式
+   * @type {boolean}
+   */
+  get is24HourTime() {
+  },
+  
+  /**
    * 获取手机地理位置信息
    * {
    * country
