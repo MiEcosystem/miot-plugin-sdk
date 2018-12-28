@@ -33,7 +33,7 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-miot_Device.html">module:miot/Device</a>.</span>IDeviceWifi</h2>
+            <span class="ancestors"><a href="module-miot_Device.html">miot/Device</a>.</span>IDeviceWifi</h2>
         
             <div class="class-description"><p>设备网络访问控制类</p></div>
         
@@ -190,7 +190,7 @@ let did = Device.getDeviceWifi().deviceID</code></pre>
     
 
     
-    <h4 class="name" id="callMethod"><span class="type-signature"></span>callMethod<span class="signature">(method, args)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    <h4 class="name" id="callMethod"><span class="type-signature"></span>callMethod<span class="signature">(method, args, extraPayload)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
     
 
     
@@ -225,6 +225,8 @@ let did = Device.getDeviceWifi().deviceID</code></pre>
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -250,6 +252,10 @@ let did = Device.getDeviceWifi().deviceID</code></pre>
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last"><p>方法名</p></td>
         </tr>
@@ -273,8 +279,41 @@ let did = Device.getDeviceWifi().deviceID</code></pre>
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last"><p>参数</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>extraPayload</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>额外参数，根据设备需求设定。在payload数据中设置额外参数</p></td>
         </tr>
 
     
@@ -365,7 +404,15 @@ let did = Device.getDeviceWifi().deviceID</code></pre>
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Device.getDeviceWifi().callMethod('getProps', [prop1,prop2])
  .then(res => console.log('success:', res))
- .catch(err => console.error('failed:', err))</code></pre>
+ .catch(err => console.error('failed:', err))
+//对应payload参考：
+//{'method': 'getProps', 'params':[prop1,prop2]}
+
+Device.getDeviceWifi().callMethod('getProps', [prop1,prop2], {sid:Device.deviceID, 'key1':'xxxx'})
+ .then(res => console.log('success:', res))
+ .catch(err => console.error('failed:', err))
+//对应payload参考：
+//{'method': 'getProps', 'params':[prop1,prop2], 'sid':'xxxxx', 'key1': 'xxxx'}</code></pre>
 
 
 

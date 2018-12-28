@@ -33,7 +33,7 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="module-miot_Bluetooth.html">module:miot/Bluetooth</a>.</span>IBluetoothLock</h2>
+            <span class="ancestors"><a href="module-miot_Bluetooth.html">miot/Bluetooth</a>.</span>IBluetoothLock</h2>
         
             <div class="class-description"><p>蓝牙锁相关</p></div>
         
@@ -254,6 +254,16 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Bluetooth} from 'miot'
+...
+Bluetooth.createBluetoothLE(...).securityLock().encryptMessage('decryptedMessage')
+ .then(msg => {console.log('decrypt message is ', msg)})
+ .catch(err => {console.log('decrypt message failed, ', err})
+...</code></pre>
+
+
 
         
             
@@ -402,6 +412,16 @@
 </div>
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Bluetooth} from 'miot'
+...
+Bluetooth.createBluetoothLE(...).securityLock().encryptMessage('message')
+ .then(msg => {console.log('encrypted message is ', msg)})
+ .catch(err => {console.log('encrypted message failed, ', err})
+...</code></pre>
 
 
 
@@ -581,6 +601,16 @@
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Bluetooth} from 'miot'
+...
+Bluetooth.createBluetoothLE(...).securityLock().getOneTimePassword(30,6)
+ .then(pwd => {console.log('one time password is ', pwd)})
+ .catch(err => {console.log('get one time password failed, ', err})
+...</code></pre>
+
+
 
         
             
@@ -680,6 +710,16 @@
 </div>
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Bluetooth} from 'miot'
+...
+Bluetooth.createBluetoothLE(...).securityLock().isShareKeyValid()
+ .then(lock => {console.log('ShareKey is valid')})
+ .catch(err => {console.log('ShareKey isn't valid'})
+...</code></pre>
 
 
 
@@ -853,6 +893,18 @@
 </div>
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Bluetooth} from 'miot'
+...
+Bluetooth.createBluetoothLE(...).connect(...).then(device => {
+ device.securityLock().toggle(0,5000)
+     .then(lock => {console.log('toggle success')})
+     .catch(err => {console.log('toggle failed'})
+})
+...</code></pre>
 
 
 

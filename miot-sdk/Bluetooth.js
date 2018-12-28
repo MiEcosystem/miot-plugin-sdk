@@ -200,6 +200,15 @@ export class IBluetoothLock {
      * @param {int} cmd 操作命令可传入 0 ，1 ，2三个 int 值，分别代表 开锁，上锁，反锁
      * @param {int} timeout 毫秒 蓝牙未响应的超时时间
      * @returns {Promise<IBluetoothLock>}
+     * @example
+     * import {Bluetooth} from 'miot'
+     * ...
+     * Bluetooth.createBluetoothLE(...).connect(...).then(device => {
+     *  device.securityLock().toggle(0,5000)
+     *      .then(lock => {console.log('toggle success')})
+     *      .catch(err => {console.log('toggle failed'})
+     * })
+     * ...
      */
     toggle(cmd,timeout) {
          return Promise.resolve(null);
@@ -208,6 +217,13 @@ export class IBluetoothLock {
      * 支持小米加密芯片的蓝牙设备，在被分享的设备中，调用此方法，可判断分享的电子钥匙是否有效
      * @method
      * @returns {Promise<IBluetoothLock>}
+     * @example
+     * import {Bluetooth} from 'miot'
+     * ...
+     * Bluetooth.createBluetoothLE(...).securityLock().isShareKeyValid()
+     *  .then(lock => {console.log('ShareKey is valid')})
+     *  .catch(err => {console.log('ShareKey isn't valid'})
+     * ...
      */
     isShareKeyValid() {
          return Promise.resolve(null);
@@ -222,6 +238,13 @@ export class IBluetoothLock {
      * @param {int} interval 时间间隔，单位为分钟，类型为 number，传入 10 到 60 的整数
      * @param {int} digits 密码位数，类型为 number，传入 6 到 8 的整数
      * @returns {Promise<int[]>}
+     * @example
+     * import {Bluetooth} from 'miot'
+     * ...
+     * Bluetooth.createBluetoothLE(...).securityLock().getOneTimePassword(30,6)
+     *  .then(pwd => {console.log('one time password is ', pwd)})
+     *  .catch(err => {console.log('get one time password failed, ', err})
+     * ...
      */
     getOneTimePassword(interval,digits) {
          return Promise.resolve(null);
@@ -231,6 +254,13 @@ export class IBluetoothLock {
      * @method
      * @param {string} message 明文
      * @returns {Promise<string>}
+     * @example
+     * import {Bluetooth} from 'miot'
+     * ...
+     * Bluetooth.createBluetoothLE(...).securityLock().encryptMessage('message')
+     *  .then(msg => {console.log('encrypted message is ', msg)})
+     *  .catch(err => {console.log('encrypted message failed, ', err})
+     * ...
      */
     encryptMessage(message) {
          return Promise.resolve(null);
@@ -240,6 +270,13 @@ export class IBluetoothLock {
      * @method
      * @param {string} encrypted 密文
      * @returns {Promise<string>}
+     * @example
+     * import {Bluetooth} from 'miot'
+     * ...
+     * Bluetooth.createBluetoothLE(...).securityLock().encryptMessage('decryptedMessage')
+     *  .then(msg => {console.log('decrypt message is ', msg)})
+     *  .catch(err => {console.log('decrypt message failed, ', err})
+     * ...
      */
     decryptMessage(encrypted) {
          return Promise.resolve(null);

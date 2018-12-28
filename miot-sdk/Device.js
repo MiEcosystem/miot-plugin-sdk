@@ -171,13 +171,23 @@ export class IDeviceWifi {
      * 若与设备通信处于同一个 wifi 下会使用局域网传输数据，如果不在同一个 wifi 下由米家服务器转发请求
      * @param {string} method  方法名
      * @param {json} args  参数
+     * @param {json} extraPayload  额外参数，根据设备需求设定。在payload数据中设置额外参数
      * @return {Promise<json>} {code:0,result:{},id:""}
      * @example
      * Device.getDeviceWifi().callMethod('getProps', [prop1,prop2])
      *  .then(res => console.log('success:', res))
      *  .catch(err => console.error('failed:', err))
+     * //对应payload参考：
+     * //{'method': 'getProps', 'params':[prop1,prop2]}
+     * 
+     * Device.getDeviceWifi().callMethod('getProps', [prop1,prop2], {sid:Device.deviceID, 'key1':'xxxx'})
+     *  .then(res => console.log('success:', res))
+     *  .catch(err => console.error('failed:', err))
+     * //对应payload参考：
+     * //{'method': 'getProps', 'params':[prop1,prop2], 'sid':'xxxxx', 'key1': 'xxxx'}
+     * 
      */
-    callMethod(method, args) {
+    callMethod(method, args, extraPayload = null) {
          return Promise.resolve({});
     }
     /**
