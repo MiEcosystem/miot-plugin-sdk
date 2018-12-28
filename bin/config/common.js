@@ -11,14 +11,15 @@ const process_dir = process.cwd();
 const DEV=fs.existsSync(path.join(project_dir, "bin", "config", "common_dev.js"));
 
 process.chdir(project_dir)
-process.on('uncaughtException', ()=>{
-  process.exit(1000)
+process.on('uncaughtException', e=>{
+  e&&console.log(e);
+  process.exit(100)
 })
 try{
   (function(...args){return [2,...args]})(1)
 }catch(err){
   console.log("PLEASE USE NODE v9 AT LEAST")
-  process.exit(100)
+  process.exit(101)
 }
 
 if(!DEV){
