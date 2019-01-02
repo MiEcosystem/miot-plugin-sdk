@@ -179,13 +179,13 @@ export class IDeviceWifi {
      *  .catch(err => console.error('failed:', err))
      * //对应payload参考：
      * //{'method': 'getProps', 'params':[prop1,prop2]}
-     * 
+     *
      * Device.getDeviceWifi().callMethod('getProps', [prop1,prop2], {sid:Device.deviceID, 'key1':'xxxx'})
      *  .then(res => console.log('success:', res))
      *  .catch(err => console.error('failed:', err))
      * //对应payload参考：
      * //{'method': 'getProps', 'params':[prop1,prop2], 'sid':'xxxxx', 'key1': 'xxxx'}
-     * 
+     *
      */
     callMethod(method, args, extraPayload = null) {
          return Promise.resolve({});
