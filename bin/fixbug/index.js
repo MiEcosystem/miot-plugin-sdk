@@ -8,6 +8,7 @@ map.set("node_modules/react-native/Libraries/Renderer/ReactFabric-dev.js", "Reac
 map.set("node_modules/react-native/Libraries/Renderer/ReactFabric-prod.js", "ReactFabric-prod");
 map.set("node_modules/react-native/Libraries/Renderer/ReactNativeRenderer-dev.js", "ReactNativeRenderer-dev");
 map.set("node_modules/react-native/Libraries/Renderer/ReactNativeRenderer-prod.js", "ReactNativeRenderer-prod");
+map.set("node_modules/react-native-sqlite-storage/lib/sqlite.core.js", "sqlite.core");
 
 module.exports = {
 
