@@ -173,7 +173,7 @@ export default class SQLiteDemo extends Component {
 
   loadAndQueryDB = () => {
     this.updateProgress("Opening database ...",true);
-    //创建或者打开一个数据库，插件特有
+    //创建或者打开一个数据库
     //db = SQLite.openDatabase(database_name, database_version, database_displayname, database_size, this.openCB, this.errorCB);
       //从代码中加载一个已有的数据库 米家内部实现，请必须按照这种方式调用，.db文件打包会被过滤掉，可以命名为.html
     db = SQLite.openDatabase({name:'bbb.db',createFromLocation:require('../Resources/Test.html')},this.openCB, this.errorCB);
