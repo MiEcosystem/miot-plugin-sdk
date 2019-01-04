@@ -56,3 +56,6 @@
 
 下载密码: keliyuan 
 
+## 其他文档
+
+[字体使用](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/font.md)
