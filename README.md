@@ -14,7 +14,7 @@
  推荐使用[Docker](https://www.docker.com)的linux容器作为独立的开发环境
     
 ## 命令
-pkg
+
     创建项目
     npm run create -- --models xxx.xxx.x1|xxx.xxx.x2 xxx.yyy.zzz
         注: xxx.xxx.x1~2为项目注册的model 
