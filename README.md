@@ -4,7 +4,7 @@
 
     1, 安装 node, 版本9.0+ 
 
-    2, 下载开发环境, 执行 git clone git@github.com:MiEcosystem/miot-plugin-sdk.git
+    2, 下载开发环境, 执行 git clone git@github.com:MiEcosystem/miot-plugin-sdk.gitpkg
 
     3, 进入开发环境, 安装ReactNative基础库, 在根目录下执行 npm install
 
@@ -14,7 +14,7 @@
  推荐使用[Docker](https://www.docker.com)的linux容器作为独立的开发环境
     
 ## 命令
-
+pkg
     创建项目
     npm run create -- --models xxx.xxx.x1|xxx.xxx.x2 xxx.yyy.zzz
         注: xxx.xxx.x1~2为项目注册的model 
@@ -26,7 +26,7 @@
     
     发布项目
     npm run publish xxx.yyy.zzz
-        注: 缺省的目标文件位于 projects/xxx.yyy.zzz/build/publish.pkg, 可以通过 --target 指定任意目标文件
+        注: 缺省的目标文件位于 projects/xxx.yyy.zzz/build/publish.mpkg, 可以通过 --target 指定任意目标文件
 
 ## 配置
 在项目创建后(如xxx.yyy.zzz), 在projects/xxx.yyy.zzz 目录下有项目配置文件 project.json, 结构说明如下:
