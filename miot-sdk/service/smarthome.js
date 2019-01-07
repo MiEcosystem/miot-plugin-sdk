@@ -138,6 +138,13 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 获取设备时区
+     * @param {string} did 
+     */
+    getDeviceTimeZone(did) {
+         return Promise.resolve(null);
+    },
+    /**
      * 获取支持语音的设备 可以控制的设备列表。 /voicectrl/ai_devs
      * @param deviceID  语音设备的 did
      * @return {Promise}

@@ -20,17 +20,20 @@ export default class CallSmartHomeAPIDemo extends React.Component{
         return (
             <View>
                 <Button title="点击查询固件版本信息" onPress={()=>{
-                    Service.smarthome.getLatestVersion(Device.model, (result) => {
-
-                        var item = [];
-                        for (var key in result) {
-                            // alert(key);
-                            item.push({'key':key,'value':result[key]});
-                        }
-                        this.setState((preState)=>{
-                            return {dataSource:item};
-                        });
-                       });
+                    
+                    Service.smarthome.getLatestVersion(Device.model)
+                        .then((result) => {
+                            var item = [];
+                            for (var key in result) {
+                                item.push({'key':key,'value':result[key]});
+                            }
+                            this.setState((preState)=>{
+                                return {dataSource:item};
+                            });
+                        })
+                        .catch(err => {
+                            alert("error:",err)
+                        })
                 }}/>
                 <FlatList data={this.state.dataSource}
                     ItemSeparatorComponent={({highlighted})=>{

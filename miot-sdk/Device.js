@@ -19,7 +19,7 @@
  *
  * //IDeviceWifi
  * //wifi方法 e.g RPC请求
- * Device.getDeviceWifi.callMethod('method_name', params)
+ * Device.getDeviceWifi().callMethod('method_name', params)
  *  .then(res => {//here is the success result})
  *  .catch(err => {//error happened})
  * ...
@@ -65,6 +65,8 @@ export const DeviceEvent = {
      */
     deviceNameChanged: {
     },
+    deviceTimeZoneChanged: {
+    },
     /**
      * 设备状态变更事件
      * @event
@@ -84,14 +86,14 @@ export const DeviceEvent = {
      * import {Device, DeviceEvent} from 'miot'
      *
      * let msgSubscription = null;
-     * Device.getDeviceWifi().subscribeMessages("power", "rgb").then(subcription=>{
+     * Device.getDeviceWifi().subscribeMessages("prop.power", "event.something").then(subcription=>{
      *      msgSubscription = subcription;
      * });
      * ...
      * const subscription = DeviceEvent.deviceReceivedMessages.addListener(
      * (device, messages)=>{
-     *   if(messages.has('power')){
-     *      const power = messages.get('power');
+     *   if(messages.has('prop.power')){
+     *      const power = messages.get('prop.power');
      *      ...
      *   }
      *   ...
@@ -589,6 +591,13 @@ class IDevice {
      */
     get showMode() {
          return  0
+    }
+    /**
+     * 获取设备时区,非实时加载，可能为空.如果需要自行获取最新设备时区值，请使用smarthome.getDeviceTimeZone(did)
+     * @type {string}
+     */
+    get timeZone() {
+         return  ""
     }
     /**
      * 获取设备的 mac 地址

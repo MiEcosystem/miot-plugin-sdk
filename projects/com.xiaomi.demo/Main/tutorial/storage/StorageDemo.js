@@ -118,14 +118,14 @@ export default class StorageDemo extends React.Component {
             })
             .catch((failure) => { alert(failure) });
         }} />
-        <Text>{this.state.txt}</Text>
+        <Text style={styles.text}>{this.state.txt}</Text>
         <Button title="读取 key0 key1 数据" onPress={() => {
           Host.storage.load([this.state.key, this.state.key1])
             .then((values) => {
               alert(values);
-            });
+            }).catch((failure) => { alert(failure) });
         }} />
-        <Text>{this.state.txtAll}</Text>
+        <Text style={styles.text}>{this.state.txtAll}</Text>
       </View>
 
     );
@@ -141,6 +141,9 @@ var styles = StyleSheet.create({
     paddingLeft: 8,
     paddingVertical: 0,
     height: 35
+  },
+  text: {
+    textAlign:'center'
   }
 
 });

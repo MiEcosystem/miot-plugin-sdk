@@ -127,6 +127,12 @@ export default {
   openDeviceUpgradePage() {
   },
   /**
+   * 打开设备时区设置页
+   */
+  openDeviceTimeZoneSettingPage() {
+    native.MIOTHost.openDeviceTimeZoneSettingPage();
+  },
+  /**
    * 打开H5页面
    * @param {string} url - 链接地址
    */
