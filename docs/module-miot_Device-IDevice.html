@@ -2931,7 +2931,7 @@ let model = Device.model
     
 
     
-    <h4 class="name" id="getBluetoothLE"><span class="type-signature"></span>getBluetoothLE<span class="signature">()</span><span class="type-signature"> &rarr; {IBluetoothLE}</span></h4>
+    <h4 class="name" id="getBluetoothLE"><span class="type-signature"></span>getBluetoothLE<span class="signature">(peripheralUUID)</span><span class="type-signature"> &rarr; {IBluetoothLE}</span></h4>
     
 
     
@@ -2939,7 +2939,9 @@ let model = Device.model
 
 
 <div class="description">
-    <p>获取小米BLE蓝牙控制类, 注意: 在 iOS 平台上必须先执行 scan, 匹配Device 的 mac之后才能 connect 成功, 否则将不能成功执行后来的所有操作.</p>
+    <p>获取小米BLE蓝牙控制类, 
+注意: 在 iOS 平台上, 如果没有指定peripheralUUID, 则须先执行Bluetooth.scan(), 
+扫描到与device.mac匹配的蓝牙设备之后才能 connect 成功, 否则将不能成功执行后来的所有操作.</p>
 </div>
 
 
@@ -2948,6 +2950,65 @@ let model = Device.model
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>peripheralUUID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><ul>
+<li>iOS平台上可以直接指定与设备 mac 匹配的peripheralUUID, android 平台不需要此参数</li>
+</ul></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -3034,7 +3095,9 @@ let model = Device.model
 
     <h5>Example</h5>
     
-    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Device.getBluetoothLE().connect()
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">const peripheralUUID4IOS = ...;
+
+Device.getBluetoothLE(peripheralUUID4IOS).connect()
 .then(ble=>{
      ble....
 })

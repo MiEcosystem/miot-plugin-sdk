@@ -155,4 +155,13 @@ export default {
     get crypto() {
         return HostCrypto;
     },
+    /**
+     * 获取手机wifi信息
+     * @return {Promise}
+     * @example
+     * Host.getWifiInfo().then(res => console("ssid and bssid = ", res.SSID, res.BSSID))
+     */
+    getWifiInfo() {
+         return Promise.resolve(null);
+    }
 }
