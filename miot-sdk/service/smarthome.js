@@ -121,10 +121,10 @@ export default {
     /**
      * 上报设备数据 /device/event
      * @param {string} deviceID
-     * @param {array<map>} records [{type:string,key:string,value:string}]
+     * @param {array<map>} records [{type:string value of 'prop'、'event',key:string,value:string}]
      *
      * @example
-     * Service.smarthome.reportRecords("deviceID", [{type:"a",key:"b",value:"c"}])
+     * Service.smarthome.reportRecords("deviceID", [{type:"prop",key:"b",value:"c"}])
      */
     reportRecords(deviceID, records){
          return Promise.resolve(null);
@@ -342,5 +342,13 @@ export default {
                 reject("get failed");
             });
         });
+    },
+    /**
+     * 获取authCode来做鉴权
+     * @param string} did 设备的 did
+     * @returns {Promise}
+     */
+    getUserDeviceAuth(did){
+         return Promise.resolve(null);
     }
 }

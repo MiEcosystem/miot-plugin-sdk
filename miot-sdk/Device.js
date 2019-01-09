@@ -27,7 +27,6 @@
  */
 import Account from "./Account"
 import Scene from './service/scene'
-import Bluetooth, { IBluetoothClassic } from "./Bluetooth";
 import Host from "./Host";
 /**
  * Device事件集合
@@ -189,7 +188,7 @@ export class IDeviceWifi {
      * //{'method': 'getProps', 'params':[prop1,prop2], 'sid':'xxxxx', 'key1': 'xxxx'}
      *
      */
-    callMethod(method, args, extraPayload = null) {
+    callMethod(method, args, extraPayload = {}) {
          return Promise.resolve({});
     }
     /**
@@ -302,19 +301,6 @@ export class IDeviceWifi {
     setFirmwareNotCheckUpdate(notCheck) {
          return Promise.resolve(null);
     }
-    /**
-    * 发送miot-spec消息
-    * @method 方法名,可选方法名为：get_properties，set_properties，invoke_action
-    * @args 方法的参数 类似  set_properties:[{'siid':1,'piid':2,'value':'test'},{'siid':1,'piid':1,'value':YES}],get_properties:去掉前面的value即可，invoke_action:[{'siid':1,'aiid':2,'inList':['value1','value2']}]
-    * @returns {Promise<result>}
-    * @example
-    * Device.getDeviceWifi().callSpecMethod('get_properties', [{'siid':1,'piid':2}])
-    *  .then(res => console.log('success:', res))
-    *  .catch(err => console.log('failed:', err))
-    */
-    callSpecMethod(method, args) {
-         return Promise.resolve({});
-    }
 }
 /**
  * @interface
@@ -415,7 +401,7 @@ class IDevice {
          return Promise.resolve([]);
     }
     /**
-     * 获取BLE蓝牙控制类
+     * 获取小米BLE蓝牙控制类, 注意: 在 iOS 平台上必须先执行 scan, 匹配Device 的 mac之后才能 connect 成功, 否则将不能成功执行后来的所有操作.
      * @method
      * @returns {IBluetoothLE}
      * @see {@link module:miot/Bluetooth}

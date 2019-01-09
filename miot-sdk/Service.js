@@ -29,6 +29,7 @@ import Smarthome from './service/smarthome'
 import Scene from './service/scene'
 import Security from './service/security'
 import Storage from './service/storage'
+import Spec from './service/spec'
 // import Ximalaya from './service/ximalaya';
 import Account from './Account'
 import Host from './Host';
@@ -74,6 +75,14 @@ export default {
    */
   get storage() {
     return Storage;
+  },
+  /**
+   * @member spec
+   * @description spec 的请求
+   * @see {@link module:miot/service/spec}
+   */
+  get spec() {
+    return Spec;
   },
   /**
    * @method

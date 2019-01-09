@@ -424,7 +424,7 @@ export class IBluetooth {
                     reject(data);
                 });
             } else{
-                native.MIOTBluetooth.getVersion(false,(ok, data) => {
+                native.MIOTBluetooth.getVersion(Properties.of(this).mac,false,(ok, data) => {
                     if (ok) {
                         setDeviceVersion.call(this, data);
                         resolve(data);
@@ -593,40 +593,27 @@ export const BluetoothEvent = {
  */
 export default {
     /**
-     * 创建蓝牙设备, 但目前只支持RootDevice 的 mac 地址
+     * 创建BLE蓝牙设备,
      * @method
-     * @param {string} mac
-     * @param {boolean} isClassic
-     * @returns {IBluetooth}
-     * @example
-     *   import Bluetooth from 'miot/Bluetooth'
-     *   const bludtoothClassic = Bluetooth.createBluetooth("a.b.c...", true)
-     */
-    createBluetooth(mac, isClassic=false) {
-         return null
-    },
-    /**
-     * 创建BLE蓝牙设备, 但目前只支持RootDevice 的 mac 地址
-     * @method
-     * @param {string} mac
+     * @param {string} macOrPeripheralUUID -- iOS传 peripheralUUID, android 传 mac
      * @returns {IBluetoothLE}
      * @example
      *   import Bluetooth from 'miot/Bluetooth'
      *   const ble = Bluetooth.createBluetoothLE("a.b.c...")
      */
-    createBluetoothLE(mac) {
+    createBluetoothLE(macOrPeripheralUUID) {
          return null
     },
     /**
-     * 创建经典蓝牙设备, 但目前只支持RootDevice 的 mac 地址
+     * 创建经典蓝牙设备
      * @method
-     * @param {string} mac
+     * @param {string} macOrPeripheralUUID -- iOS传 peripheralUUID, android 传 mac
      * @returns {IBluetoothClassic}
      * @example
      *   import Bluetooth from 'miot/Bluetooth'
      *   const bludtoothClassic = Bluetooth.createBluetoothClassic("a.b.c...")
      */
-    createBluetoothClassic(mac) {
+    createBluetoothClassic(macOrPeripheralUUID) {
          return null
     },
     /**
@@ -696,24 +683,25 @@ export default {
     /**
      * 判断当前设备是否通过蓝牙网关扫描到了
      * @static
+     *  @param {string} mac
      * @returns {Promise<boolean>}
      */
-    isBleGatewayConnected() {
+    isBleGatewayConnected(mac) {
          return Promise.resolve(true);
     },
     /**
     * 只在MIUI上支持，维持长连接 如果连接失败，则会隔一段时间尝试重连，如果继续失败，则重连间隔会翻倍，直到上限。
-     * @static
-    *
+    * @static
+    * @param {string} mac
     */
-    bindDeviceforMIUI(){
+    bindDeviceforMIUI(mac){
     },
     /**
      * 只在MIUI上支持，解除长连接
      * @static
-     *
+     * @param {string} mac
      */
-    unBindDeviceforMIUI(){
+    unBindDeviceforMIUI(mac){
     },
     /**
      * 只在MIUI上支持，维持长连接 如果连接失败，则会隔一段时间尝试重连，如果继续失败，则重连间隔会翻倍，直到上限。
@@ -721,7 +709,8 @@ export default {
      * @static
      * @param {*} alert
      * @param {*} enable
+     *  @param {string} mac
      */
-    setAlertConfigsOnMIUI(alert,enable){
+    setAlertConfigsOnMIUI(mac,alert,enable){
     },
 };
