@@ -697,7 +697,7 @@ export default {
      * @param {Array}  params [{did: 1, siid: 1, piid: 1},{did: 1, siid:2, piid: 3}]
      * @return {Promise<string>}
      */
-    getPropertiesValue(params: Array) {
+    getPropertiesValue(params) {
          return Promise.resolve(null);
     },
     /**
@@ -705,7 +705,7 @@ export default {
      * @param {Array} params [{did: 1, siid: 1, piid: 1, value:'any'},{did: 1, siid:2, piid: 3, value: 'any'}]
      * @return {Promise<string>}
      */
-    setPropertiesValue(params: Array) {
+    setPropertiesValue(params) {
          return Promise.resolve(null);
     },
     /**

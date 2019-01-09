@@ -263,6 +263,22 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 获取authCode
+     * /user/get_device_auth
+     */
+    getDeviceAuth(did) {
+         return Promise.resolve(null);
+    },
+    // 
+    /**
+     * 用于获取插件所需的一些默认配置信息
+     * @param {json} params {'name':'自定义值','lang':'自定义值','version':'自定义值','model':'modelId'}
+     * /service/getappconfigv2
+     */
+    getAppConfigV2(params){
+         return Promise.resolve(null);
+    },
+    /**
      *  /user/del_user_map
      *
      * @param {json} params

@@ -7,12 +7,12 @@
  *import {API_LEVEL, Package, Device, Service, Host, Resources, Bluetooth, DeviceProperties} from 'miot'
  *import {PackageEvent, DeviceEvent, BluetoothEvent} from 'miot'
  *import SDK from 'miot'
- *   
+ *
  *import {ImageButton, InputDialog} from 'miot/ui'
  *import Res from 'miot/resources'
  *
  *import Bluetooth from 'miot/Bluetooth'
- *   
+ *
  */
 import PackageInstance, {PackageEvent as PackageEventNames, Entrance as Entrances } from './Package'
 import RootDevice, {DeviceEvent as DeviceEventNames} from './Device'
