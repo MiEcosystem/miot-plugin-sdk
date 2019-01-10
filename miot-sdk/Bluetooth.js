@@ -330,7 +330,7 @@ export class IBluetooth {
          return  false
     }
     /**
-     * 打开蓝牙链接. option参数peripheralID为iOS 平台的可选参数，因为iOS平台无法获取普通 BLE 蓝牙设备的 Mac，所以当 type 为 3 时，iOS 上需填入 peripheralID
+     * 打开蓝牙链接. option参数peripheralID为iOS 平台的可选参数，因为iOS平台无法获取普通 BLE 蓝牙设备的 Mac
      * peripheralID 可通过 startScan（）搜索周边蓝牙设备获取（如设备OTA中，设备固件切换，无小米蓝牙协议相关服务时需建立连接），或通过retrievePeripheralsWithServicesForIOS（）搜索已连接设备获取（如可穿戴长连接设备，无法发送 mibeacon）
      * 建立连接后，SDK 会用 peripheralID 充当 Mac 地址
      *
@@ -404,7 +404,7 @@ export class IBluetooth {
     getVersion() {
         return new Promise((resolve, reject) => {
             function setDeviceVersion(data) {
-                const {mac} = Properties.of(this);
+                const {mac} = Properties.of(this).fakemac||{};
                 let device = RootDevice;
                 let props = Properties.of(device);
                 if (props.mac != mac) {
@@ -414,6 +414,7 @@ export class IBluetooth {
                     device.version = data;
                 }
             }
+            const {fakemac} = Properties.of(this);
             if (native.isIOS){
                 native.MIOTDevice.getVersion(false,(ok, data) => {
                     if (ok) {
@@ -424,7 +425,7 @@ export class IBluetooth {
                     reject(data);
                 });
             } else{
-                native.MIOTBluetooth.getVersion(Properties.of(this).mac,false,(ok, data) => {
+                native.MIOTBluetooth.getVersion(fakemac.id, false,(ok, data) => {
                     if (ok) {
                         setDeviceVersion.call(this, data);
                         resolve(data);
@@ -595,25 +596,25 @@ export default {
     /**
      * 创建BLE蓝牙设备,
      * @method
-     * @param {string} macOrPeripheralUUID -- iOS传 peripheralUUID, android 传 mac
+     * @param {string} macOrPeripheralID -- iOS传 peripheralUUID, android 传 mac
      * @returns {IBluetoothLE}
      * @example
      *   import Bluetooth from 'miot/Bluetooth'
      *   const ble = Bluetooth.createBluetoothLE("a.b.c...")
      */
-    createBluetoothLE(macOrPeripheralUUID) {
+    createBluetoothLE(macOrPeripheralID) {
          return null
     },
     /**
      * 创建经典蓝牙设备
      * @method
-     * @param {string} macOrPeripheralUUID -- iOS传 peripheralUUID, android 传 mac
+     * @param {string} macOrPeripheralID -- iOS传 peripheralUUID, android 传 mac
      * @returns {IBluetoothClassic}
      * @example
      *   import Bluetooth from 'miot/Bluetooth'
      *   const bludtoothClassic = Bluetooth.createBluetoothClassic("a.b.c...")
      */
-    createBluetoothClassic(macOrPeripheralUUID) {
+    createBluetoothClassic(macOrPeripheralID) {
          return null
     },
     /**

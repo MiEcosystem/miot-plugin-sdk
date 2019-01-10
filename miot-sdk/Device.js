@@ -402,10 +402,10 @@ class IDevice {
     }
     /**
      * 获取小米BLE蓝牙控制类, 
-     * 注意: 在 iOS 平台上, 如果没有指定peripheralUUID, 则须先执行Bluetooth.scan(), 
+     * 注意: 在 iOS 平台上, 如果没有指定peripheralID, 则须先执行Bluetooth.scan(), 
      * 扫描到与device.mac匹配的蓝牙设备之后才能 connect 成功, 否则将不能成功执行后来的所有操作.
      * @method
-     * @param {string} peripheralUUID -- iOS平台上可以直接指定与设备 mac 匹配的peripheralUUID, android 平台不需要此参数
+     * @param {string} peripheralID -- iOS平台上可以直接指定与设备 mac 匹配的peripheralID, android 平台不需要此参数
      * @returns {IBluetoothLE}
      * @see {@link module:miot/Bluetooth}
      * @example
@@ -422,7 +422,7 @@ class IDevice {
      * 
      *
      */
-    getBluetoothLE(peripheralUUID=null) {
+    getBluetoothLE(peripheralID=null) {
          return null
     }
     /**
