@@ -1,4 +1,5 @@
-{ 
+{
+  "plugin_id":101,
   "package_path":"com.xiaomi.bledemo",
   "models":"xiaomi.bledemo.v1",
   "min_sdk_api_level":10000,

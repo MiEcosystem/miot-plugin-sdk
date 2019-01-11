@@ -13,7 +13,7 @@ import {
   PixelRatio,
   ActionSheetIOS,
 } from 'react-native';
-import { Host, DeviceEvent } from "miot";
+import { Host } from "miot";
 import { TitleBarBlack } from 'miot/ui';
 
 var BUTTONS = [
@@ -174,12 +174,6 @@ export default class MoreMenu extends React.Component {
         }
       },
       {
-        'name': '时区设置',
-        'func': () => {
-          Host.ui.openDeviceTimeZoneSettingPage();
-        }
-      },
-      {
         'name': '添加到桌面',
         'func': () => {
           Host.ui.openAddToDesktopPage();
@@ -214,16 +208,6 @@ export default class MoreMenu extends React.Component {
         }
       }
     ];
-  }
-
-  componentDidMount(){
-    this.listenter = DeviceEvent.deviceTimeZoneChanged.addListener((val)=>{
-      console.log("deviceTimeZoneChanged", val);
-    })
-  }
-
-  componentWillUnmount() {
-    
   }
 
   render() {
