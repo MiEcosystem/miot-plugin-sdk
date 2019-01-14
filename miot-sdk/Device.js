@@ -222,16 +222,8 @@ export class IDeviceWifi {
      * @example
      * import {Device, DeviceEvent} from 'miot'
      * ...
-     * let msgSubscription = null;
-     * Device.getDeviceWifi().subscribeMessages('prop1','prop2')
-     *  .then(subcription => {
-     *      //call this when you need to unsubscribe the message
-     *      msgSubscription = subcription;
-     *  })
-     *  .catch(() => console.log('subscribe failed'))
-     * ...
-     * //等效于使用DeviceEvent
-     * const subscription = DeviceEvent.deviceReceivedMessages.addListener(
+     * //先订阅属性变更事件
+     * const listener = DeviceEvent.deviceReceivedMessages.addListener(
      * (device, messages)=>{
      *   if(messages.has('prop1')){
      *      const prop1 = messages.get('prop1');
@@ -240,8 +232,20 @@ export class IDeviceWifi {
      *   ...
      * })
      * ...
+     * //接下来开始属性变更订阅
+     * let msgSubscription = null;
+     * Device.getDeviceWifi().subscribeMessages('prop1','prop2')
+     *  .then(subcription => {
+     *      //call this when you need to unsubscribe the message
+     *      msgSubscription = subcription;
+     *  })
+     *  .catch(() => console.log('subscribe failed'))
+     * ...
+     * 
+     * ...
      * //unsubscribe the props
      * msgSubscription&&msgSubscription.remove();
+     * listener&&listener.remove();
      *
      */
     subscribeMessages(...propertyOrEventNames) {

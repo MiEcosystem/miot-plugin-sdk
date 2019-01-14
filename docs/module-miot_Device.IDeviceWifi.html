@@ -1710,16 +1710,8 @@ Android暂未适配</p>
     
     <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Device, DeviceEvent} from 'miot'
 ...
-let msgSubscription = null;
-Device.getDeviceWifi().subscribeMessages('prop1','prop2')
- .then(subcription => {
-     //call this when you need to unsubscribe the message
-     msgSubscription = subcription;
- })
- .catch(() => console.log('subscribe failed'))
-...
-//等效于使用DeviceEvent
-const subscription = DeviceEvent.deviceReceivedMessages.addListener(
+//先订阅属性变更事件
+const listener = DeviceEvent.deviceReceivedMessages.addListener(
 (device, messages)=>{
   if(messages.has('prop1')){
      const prop1 = messages.get('prop1');
@@ -1728,8 +1720,20 @@ const subscription = DeviceEvent.deviceReceivedMessages.addListener(
   ...
 })
 ...
+//接下来开始属性变更订阅
+let msgSubscription = null;
+Device.getDeviceWifi().subscribeMessages('prop1','prop2')
+ .then(subcription => {
+     //call this when you need to unsubscribe the message
+     msgSubscription = subcription;
+ })
+ .catch(() => console.log('subscribe failed'))
+...
+
+...
 //unsubscribe the props
-msgSubscription&amp;&amp;msgSubscription.remove();</code></pre>
+msgSubscription&amp;&amp;msgSubscription.remove();
+listener&amp;&amp;listener.remove();</code></pre>
 
 
 

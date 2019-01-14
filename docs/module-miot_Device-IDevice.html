@@ -2931,7 +2931,7 @@ let model = Device.model
     
 
     
-    <h4 class="name" id="getBluetoothLE"><span class="type-signature"></span>getBluetoothLE<span class="signature">(peripheralUUID)</span><span class="type-signature"> &rarr; {IBluetoothLE}</span></h4>
+    <h4 class="name" id="getBluetoothLE"><span class="type-signature"></span>getBluetoothLE<span class="signature">(peripheralID)</span><span class="type-signature"> &rarr; {IBluetoothLE}</span></h4>
     
 
     
@@ -2940,7 +2940,7 @@ let model = Device.model
 
 <div class="description">
     <p>获取小米BLE蓝牙控制类, 
-注意: 在 iOS 平台上, 如果没有指定peripheralUUID, 则须先执行Bluetooth.scan(), 
+注意: 在 iOS 平台上, 如果没有指定peripheralID, 则须先执行Bluetooth.scan(), 
 扫描到与device.mac匹配的蓝牙设备之后才能 connect 成功, 否则将不能成功执行后来的所有操作.</p>
 </div>
 
@@ -2979,7 +2979,7 @@ let model = Device.model
 
         <tr>
             
-                <td class="name"><code>peripheralUUID</code></td>
+                <td class="name"><code>peripheralID</code></td>
             
 
             <td class="type">
@@ -3002,7 +3002,7 @@ let model = Device.model
             
 
             <td class="description last"><ul>
-<li>iOS平台上可以直接指定与设备 mac 匹配的peripheralUUID, android 平台不需要此参数</li>
+<li>iOS平台上可以直接指定与设备 mac 匹配的peripheralID, android 平台不需要此参数</li>
 </ul></td>
         </tr>
 
