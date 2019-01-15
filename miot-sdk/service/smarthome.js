@@ -34,53 +34,6 @@ export default {
     reportGPSInfo(deviceID, gpsInfo){
          return Promise.resolve(null);
     },
-    /**
-     * @typedef WeatherInfo
-     * @property city
-     * @property city_id
-     * @property pub_time
-     * @property aqi
-     * @property pm25
-     * @property pm10
-     * @property so2
-     * @property no2
-     * @property src
-     * @property spot
-     */
-    /**
-     * 获取天气 /location/weather
-     * @param {string} deviceID
-     * @returns {Promise<WeatherInfo>}
-     *
-     */
-    getWeatherInfo(deviceID){
-         return Promise.resolve(null);
-    },
-    /**
-     * 设备固件版本信息
-     * @typedef DeviceVersion
-     * @property {boolean} isUpdating
-     * @property {boolean} isLatest
-     * @property {boolean} isForce
-     * @property {boolean} hasNewFirmware
-     * @property {string} curVersion
-     * @property {string} newVersion
-     * @property {string} description
-     *
-     */
-    /**
-     * 检查硬件版本信息
-     * /home/checkversion
-     * @method
-     * @param  {string} did
-     * @param  {*} pid
-     * @returns {Promise<DeviceVersion>}
-     * @example
-     * Device.getDeviceWifi().checkVersion()
-     *  .then(res => console.log('success:', res))
-     *  .catch(err => console.log('failed:', err))
-     */
-    checkDeviceVersion(did,pid) {
          return Promise.resolve({});
     },
     /**

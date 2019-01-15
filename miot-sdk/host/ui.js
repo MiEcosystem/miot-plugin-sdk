@@ -134,10 +134,10 @@ export default {
   },
   /**
    * 打开H5页面
+   * 不对外提供
    * @param {string} url - 链接地址
    */
   openWebPage(url) {
-  },
   /**
    * 打开商城某商品详情页面
    * @param {string} gid - 商品ID

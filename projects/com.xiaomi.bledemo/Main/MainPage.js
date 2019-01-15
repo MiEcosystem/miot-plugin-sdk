@@ -36,6 +36,7 @@ export default class MainPage extends React.Component {
             }
         });
         this._s5 = BluetoothEvent.bluetoothStatusChanged.addListener((data) => {
+            console.log("bluetoothStatusChanged", data);
             if (!data) {
                 this.setState({ buttonText: "Bluetooth Status = " + data })
             }
@@ -87,7 +88,7 @@ export default class MainPage extends React.Component {
         this._s6 = BluetoothEvent.bluetoothConnectionStatusChanged.addListener((blut, isConnect) => {
             console.log("bluetoothConnectionStatusChanged", blut, isConnect);
             if (bt.mac === blut.mac && !isConnect) {
-                this.state.chars.clear();
+                this.setState({chars: {}});
             }
         })
     }
@@ -103,7 +104,7 @@ export default class MainPage extends React.Component {
                 bt.startDiscoverServices("00001000-1720-0206-0100-00805f9bab34", "00001800-0000-1000-8000-00805f9b34fb", "00001801-0000-1000-8000-00805f9b34fb", "0000fe95-0000-1000-8000-00805f9b34fb", "0000fee1-0000-1000-8000-00805f9b34fb");
                 this.setState({ buttonText: "connected" })
             } else {
-                bt.connect(0).then((data) => {
+                bt.connect(-1).then((data) => {
                     console.log("connected", data);
                     bt.startDiscoverServices("00001000-1720-0206-0100-00805f9bab34", "00001800-0000-1000-8000-00805f9b34fb", "00001801-0000-1000-8000-00805f9b34fb", "0000fe95-0000-1000-8000-00805f9b34fb", "0000fee1-0000-1000-8000-00805f9b34fb");
                     this.setState({ buttonText: "connected" })

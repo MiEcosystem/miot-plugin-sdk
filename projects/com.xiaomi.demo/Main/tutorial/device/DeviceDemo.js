@@ -21,15 +21,15 @@ export default class DeviceDemo extends React.Component {
       callMethodResult: "请求中",
       callMethodFromCloudResult: "请求中"
     };
-    Device.getDeviceWifi().callMethod("get_prop", JSON.stringify(["humidity", "rgb", "temperature"])).then((res) => {
+    Device.getDeviceWifi().callMethod("get_prop", ["humidity", "rgb", "temperature"]).then((res) => {
       this.setState({ callMethodResult: res });
-    });
-    Device.getDeviceWifi().callMethodFromCloud("get_prop", JSON.stringify(["humidity", "rgb", "temperature"])).then((res) => {
+    }).catch(err => {console.log('error:', err)});
+    Device.getDeviceWifi().callMethodFromCloud("get_prop", ["humidity", "rgb", "temperature"]).then((res) => {
       this.setState({ callMethodFromCloudResult: res });
-    });
+    }).catch(err => {console.log('error:', err)});
     this.state.device.owner.load().then(res => {
       this.setState({ deviceOwner: res });
-    });
+    }).catch(err => {console.log('error:', err)});
   }
 
   render() {

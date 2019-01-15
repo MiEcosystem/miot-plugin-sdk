@@ -125,7 +125,6 @@ export default {
      * @param shareUid 被分享人
      * @param {{status,activeTime,expireTime,weekdays,readonly}} [settings={}] readonly = true, 则被分享人不可接收锁push，false则被分享人可接收锁push，（family关系用户不受这个字段影响）。status:分享类别，1：暂时，2：周期，3：永久; weekdays 生效日期（星期几，例如周一和周三对应1和3，[1, 3]），仅在status=2时不可为空
      * @returns {Promise<ISecureKey>}
-     * @example
      * 
      */
     shareSecureKey(deviceID, shareUid, settings={}){
