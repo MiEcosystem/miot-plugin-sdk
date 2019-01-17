@@ -9,7 +9,7 @@ import {
   Image,
   ScrollView, Dimensions
 } from "react-native";
-import { Device } from "miot";
+import { Device, DeviceProperties} from "miot";
 const { width, height } = Dimensions.get("window");
 
 export default class DeviceDemo extends React.Component {
@@ -30,9 +30,29 @@ export default class DeviceDemo extends React.Component {
     this.state.device.owner.load().then(res => {
       this.setState({ deviceOwner: res });
     }).catch(err => {console.log('error:', err)});
+
   }
 
-  render() {
+  componentWillMount() {
+      console.log("componentWillMount...")
+      this.eventSubscription = DeviceProperties.addListener(["on", "mode"], (deviceProps, changeProps)=>{
+            console.log("changeProps", changeProps.getChangeProps())
+      })
+
+      let map = new Map();
+      map.set("on", 1)
+      map.set("mode", 2)
+      map.set("off", 3)
+      DeviceProperties.setProperties(map).notifyPropertiesChanged();
+
+  }
+
+  componentWillUnmount() {
+      console.log("componentWillUnmount...")
+      this.eventSubscription.remove();
+  }
+
+    render() {
     return (
       <View style={[styles.listContainer, styles.list]}>
         <View style={{ flexDirection: "row" }}>
@@ -120,10 +140,7 @@ export default class DeviceDemo extends React.Component {
               isBinded2: {this.state.device.isBinded2.toString()}</Text>
             <Text style={{ margin: 10, width: width }}>当前设备
               isReadOnlyShared: {this.state.device.isReadonlyShared.toString()}</Text>
-            <Text style={{ margin: 10, width: width }}>当前设备
-              callMethod: {this.state.callMethodResult}</Text>
-            <Text style={{ margin: 10, width: width }}>当前设备
-              callMethodFromCloud: {this.state.callMethodFromCloudResult}</Text>
+
           </ScrollView>
         </View>
       </View>

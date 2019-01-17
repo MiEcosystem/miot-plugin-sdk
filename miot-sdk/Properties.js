@@ -7,7 +7,7 @@
  *   //加载根设备的属性缓存对象
  *   import {Device, DeviceProperties} from "miot" 
  *   
- *   const eventSubscription = DeviceProperties.addListener(["prop1", "prop2"], deviceProps=>{
+ *   const eventSubscription = DeviceProperties.addListener(["prop1", "prop2"], (deviceProps, changeProps)=>{
  *      
  *   })
  *    
@@ -252,7 +252,27 @@ class IProperties{
         setImmediate(()=>{
             this._listeners.forEach(({props, isAny, callback})=>{
                 if(isAll || isAny || props.find(p=>names.indexOf(p)>=0)){
-                    callback(this);
+                    callback(this, {
+                        getChangeProps(){
+                            let changeProps = [];
+                            if(isAll){
+                                if(isAny){
+                                    changeProps = [...this._properties];
+                                }else{
+                                    changeProps = props;
+                                }
+                            }else{
+                                if(isAny){
+                                    changeProps = names;
+                                }else{
+                                    props.forEach((p)=>{
+                                        names.indexOf(p) >= 0 ? changeProps.push(p):null;
+                                    })
+                                }
+                            }
+                            return changeProps;
+                        }
+                    });
                 }
             })
         },0);
