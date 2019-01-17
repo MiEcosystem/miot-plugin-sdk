@@ -234,7 +234,8 @@ class IProperties{
             return this;
         }
         const props = (names.length < 1 || names[0] == "*")?this._properties.keys():names;
-        const changed = props.filter(p=>this.isPropertyChanged(p));
+        let tempProps = [...props];
+        const changed = tempProps.filter(p=>this.isPropertyChanged(p));
         changed.forEach(p=>this._status.delete(p))
         return this.triggerListeners(...changed);
     }
@@ -251,7 +252,7 @@ class IProperties{
         setImmediate(()=>{
             this._listeners.forEach(({props, isAny, callback})=>{
                 if(isAll || isAny || props.find(p=>names.indexOf(p)>=0)){
-                    callback();
+                    callback(this);
                 }
             })
         },0);
