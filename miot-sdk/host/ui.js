@@ -133,12 +133,6 @@ export default {
     native.MIOTHost.openDeviceTimeZoneSettingPage();
   },
   /**
-   * 打开H5页面
-   * 不对外提供
-   * @param {string} url - 链接地址
-   */
-  openWebPage(url) {
-  /**
    * 打开商城某商品详情页面
    * @param {string} gid - 商品ID
    */
@@ -205,5 +199,17 @@ export default {
    * 打开更多设置页面（通常包括安全设置，常见问题与用户反馈）
    */
   openNewMorePage() {
+  },
+    
+  /**
+   * 打开小爱训练计划
+   * @param {string} clientId 类的名字
+   * @param {string} did 类的名字
+   * @param {string} aiMiotClientId 类的名字
+   * @param {string} aiClientId 类的名字
+   * @param {string} aiVersion 类的名字
+   */
+  openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion){
+      native.MIOTHost.openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion);
   },
 };

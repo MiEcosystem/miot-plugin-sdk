@@ -239,9 +239,8 @@ export default {
      * @example
      * 
      * import {Service, Device, SceneType} from 'miot'
-     * 
      * const scene = Service.scene.createScene(Device.deviceID, SceneType.Timer, {
-     *      identify:...,
+     *      identify:'identify',
      *      name:'myTimer',
      *      setting:{...}
      * });
@@ -254,16 +253,41 @@ export default {
      */
     createScene,
     /**
-     * 创建定时场景
+     * 创建定时场景  
+     * same as createScene(deviceID, SceneType.Timer, opt);
      * @param {string} deviceID
      * @param {json} opt
      * @returns {IScene}
+     * @example
+     * import {Service, Device, SceneType} from 'miot'
+     * const settinig = {
+     *  enable_timer: true,
+     *  on_time: * * * * *, //crontab string, minute hour day month week
+     *  enable_timer_on: true,
+     *  off_time: * * * * *, //crontab string
+     *  enable_timer_off: true,
+     *  onMethod: 'method_name', //咨询硬件工程师
+     *  on_param: 'param', //咨询硬件工程师
+     *  off_method: 'method_name', //咨询硬件工程师
+     *  off_param: 'param', //咨询硬件工程师
+     * }
+     * 
+     * const scene = Service.scene.createTimerScene(Device.deviceID, {
+     *      identify:'identify',
+     *      name:'myTimer',
+     *      setting:settinig
+     * });
+     * 
+     * scene.save().then(scene=>{
+     *   ...
+     * })
      */
     createTimerScene(deviceID, opt){
-        return createScene(deviceID, SceneType.Timer, opt);
+        return createScene(deviceID, SceneType.Artificial, opt);
     },
     /**
      * 创建人工场景
+     * same as createScene(deviceID, SceneType.Timer, opt);
      * @param {string} deviceID
      * @param {json} opt
      * @returns {IScene}
@@ -273,6 +297,7 @@ export default {
     },
     /**
      * 创建自动场景
+     * same as createScene(deviceID, SceneType.Automatic, opt);
      * @param {string} deviceID
      * @param {json} opt
      * @returns {IScene}

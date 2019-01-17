@@ -91,6 +91,14 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 删除设备上传的信息 /v2/device/del_extra_data
+     * @param {json} params {did:string, keys:[key1,key2]}
+     * @return {Promise<json>}
+     */
+    delDevicesConfig(params){
+         return Promise.resolve(null);
+    },
+    /**
      * 获取设备时区
      * @param {string} did 
      */
