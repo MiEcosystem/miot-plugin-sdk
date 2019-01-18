@@ -351,7 +351,7 @@ export class IBluetooth {
      *       });
      *
      */
-    connect(type, option=0) {
+    connect(type=-1, option=0) {
          return Promise.resolve(this);
     }
     /**
