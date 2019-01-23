@@ -23,10 +23,10 @@ export default class TutorialDemo extends React.Component{
                     'title':'空白页',
                     'key':'blankDemo',
                 },
-                {
-                    'title':'与设备交互',
-                    'key':'OperationDemoIndex',
-                },
+                // {
+                //     'title':'与设备交互',
+                //     'key':'OperationDemoIndex',
+                // },
                 {
                     'title':'与服务器交互 ',
                     'key':'callSmartHomeAPIDemo',
