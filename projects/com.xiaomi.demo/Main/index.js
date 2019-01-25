@@ -112,7 +112,7 @@ import TutorialDemo from './tutorial/TutorialDemo';
 import LocaleServer from './tutorial/LocaleServer';
 import CallSmartHomeAPIDemo from './tutorial/cloud/CallSmartHomeAPIDemo.js';
 import OperationDemoIndex from './tutorial/operation/OperationDemoIndex';
-import BLEConnectionDemo from './tutorial/operation/bluetooth/BLEConnectionDemo';
+// import BLEConnectionDemo from './tutorial/operation/bluetooth/BLEConnectionDemo';
 import UIDemo from './UIDemo';
 import RefreshListView from './RefreshListView';
 import ProgressDemo from './ProgressDemo';
@@ -146,7 +146,7 @@ const RootStack = createStackNavigator(
     fileStorage: FileStorage,
     callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
     OperationDemoIndex: OperationDemoIndex,
-    BLEConnectionDemo: BLEConnectionDemo,
+    // BLEConnectionDemo: BLEConnectionDemo,
 
     UIDemo: UIDemo,
     RefreshListView: RefreshListView,
