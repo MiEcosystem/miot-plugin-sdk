@@ -320,6 +320,34 @@ export default class FileStorage extends React.Component {
     )
   }
 
+    _downLoadFile(){
+        console.log("downLoadFile...")
+        let path = "http://cdn.cnbj0.fds.api.mi-img.com/miio_fw/8229041d5532e4c8389cce0469299ef3_upd_inshow.watch.w1.bin?GalaxyAccessKeyId=5721718224520&Expires=1550972034000&Signature=yCSX06T+IKQ0RHkAznK+H8PRtlc=";
+        Host.file.downloadFile(path, "DFU.zip").then((fileInfo)=>{
+            console.log("downloadFile...fileInfo", fileInfo);
+            this.zipFilePath = fileInfo.path;
+        }).catch((error)=>{
+            console.log("downloadFile...error", error);
+        });
+    }
+
+    _unZipFile(){
+        console.log("unZipFile...")
+        Host.file.unzipFile("DFU.zip", "DFU").then((msg)=>{
+            console.log("unZipFile...msg", msg);
+        }).catch((error)=>{
+            console.log("unZipFile...error", error);
+        });
+    }
+
+    _readFileListWithFolder(){
+        Host.file.readFileList("DFU").then((result)=>{
+            console.log("readFileList...result", result);
+        }).catch((error, msg)=>{
+            console.log("readFileList...error", error, msg);
+        })
+    }
+
   render() {
     return (
       <ScrollView
@@ -349,6 +377,26 @@ export default class FileStorage extends React.Component {
           placeholder="输入文件内容"
           value={this.state.fileContent}
         />
+          <View style={styles.row}>
+              <View style={{ flex: 1 }}>
+                  <Button
+                      title="下载文件"
+                      onPress={() => this._downLoadFile()}
+                  />
+              </View>
+              <View style={{ flex: 1 }}>
+                  <Button
+                      title="解压文件"
+                      onPress={() => this._unZipFile()}
+                  />
+              </View>
+              <View style={{ flex: 1 }}>
+                  <Button
+                      title="读文件列表"
+                      onPress={() => this._readFileListWithFolder()}
+                  />
+              </View>
+          </View>
         <View style={styles.row}>
           <View style={{ flex: 1 }}>
             <Button

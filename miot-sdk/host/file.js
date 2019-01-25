@@ -27,6 +27,7 @@
 export default {
     /**
      * 读取沙盒内文件列表
+     * * @param {string} subFolder 读取沙盒文件夹下某子文件夹中文件内容，用于解压缩文件中带有文件夹，或者读取指定文件夹解压后的文件,标准path结构，不以'/'开头
      * @returns {Promise}
      * @example
      * import {Host} from 'miot'
@@ -34,13 +35,17 @@ export default {
      * Host.file.readFileList().then(res => {
      *  console.log('read fiel list:', res)
      * })
+     * 
+     * Host.file.readFileList('mysubfolder/aaa').then(res => {
+     *  console.log('read fiel list:', res)
+     * })
      */
-    readFileList() {
+    readFileList(subFolder = '') {
          return Promise.resolve([]);
     },
     /**
      * 判断文件是否存在
-     * @param {string} fileName
+     * @param {string} fileName 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @returns {Promise<boolean>} 
      * @example
      * import {Host} from 'miot'
@@ -58,7 +63,7 @@ export default {
     },
     /**
      * 读本地文件
-     * @param {string} fileName - 文件名
+     * @param {string} fileName - 文件名,可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
      * @example
@@ -73,7 +78,7 @@ export default {
     },
     /**
      * 读本地文件
-     * @param {string} fileName - 文件名
+     * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
      * @example
@@ -88,7 +93,7 @@ export default {
     },
     /**
      * 读文件，并转换为 Base64 编码
-     * @param {string} fileName - 文件名
+     * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {object} [opt={}] - 其他设置项
      * @returns {Promise}
      */
@@ -97,7 +102,7 @@ export default {
     },
     /**
      * 写文件
-     * @param {string} fileName - 文件名
+     * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {string} utf8Content - 文件内容字符串
      * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
@@ -116,7 +121,7 @@ export default {
     },
     /**
      * 写文件，输入为 Base64 编码字符串
-     * @param {string} fileName - 文件名
+     * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {string} base64Content - base64编码后的文件内容字符串
      * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
@@ -134,7 +139,7 @@ export default {
     },
     /**
      * 向已存在的文件追加内容
-     * @param {string} fileName - 文件名
+     * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {string} utf8Content - 文件内容字符串
      * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
@@ -152,7 +157,7 @@ export default {
     },
     /**
      * 向已存在的文件追加内容，输入为base64编码字符串
-     * @param {string} fileName - 文件名
+     * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {string} base64Content - base64编码后的文件内容字符串
      * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
@@ -171,7 +176,7 @@ export default {
     },
     /**
      * 删除文件
-     * @param {string} fileName - 文件名
+     * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
      * @example
@@ -281,9 +286,10 @@ export default {
     /**
      * 解压缩一个zip文件，解压缩后的文件会直接存储在插件存储空间的根目录下
      * @param {string} fileName - 文件名（插件存储空间内的文件）
+     * * @param {string} desitinationPath - 目标解压缩文件夹，默认解压到当前文件夹，如果指定名称，压缩包内容会解压到指定文件夹
      * @returns {Promise}
      */
-    unzipFile(fileName) {
+    unzipFile(fileName, desitinationPath = '') {
          return Promise.resolve(null);
     },
     /**

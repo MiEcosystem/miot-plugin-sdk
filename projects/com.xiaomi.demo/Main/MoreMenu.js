@@ -9,7 +9,6 @@ import {
   Image,
   TouchableHighlight,
   Component,
-  StatusBar,
   PixelRatio,
   ActionSheetIOS,
 } from 'react-native';
@@ -159,6 +158,12 @@ export default class MoreMenu extends React.Component {
               alert(JSON.stringify(devices));
             }
           })
+        }
+      },
+      {
+        'name': "开启倒计时",
+        'func': () => {
+          Host.ui.openCountDownPage(false, {});
         }
       },
       {
