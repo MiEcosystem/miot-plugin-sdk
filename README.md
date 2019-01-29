@@ -11,8 +11,10 @@
     注意, 项目中如果需要使用第三方库(仅限于纯js实现), 请进入项目目录(如 projects/com.xiaomi.demo), 
     执行 npm install --save xxxx, 否则在打包发布时将因为找不到第三方库而失败
     
- 推荐使用[Docker](https://www.docker.com)的linux容器作为独立的开发环境
     
+ 推荐使用[Docker](https://www.docker.com)的linux容器作为独立的开发环境
+ 特别警告: 不允许对根目录下的 package.json 文件做任何修改,否则将导致在线打包失败
+
 ## 命令
 
     创建项目
