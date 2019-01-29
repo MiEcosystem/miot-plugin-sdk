@@ -5,16 +5,11 @@
 import React from 'react';
 
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
   Dimensions,
-  ActivityIndicatorIOS,
-  ListView,
-  Image,
-  PixelRatio,
 } from 'react-native';
 
 var MHMapSearch = require('NativeModules').MHMapSearch;

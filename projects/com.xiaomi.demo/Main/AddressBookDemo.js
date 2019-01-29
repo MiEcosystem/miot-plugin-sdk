@@ -1,17 +1,12 @@
 import React from 'react';
 import {
-  Alert,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
   ListView,
-  Button,
-  Image,
 } from 'react-native';
 
 
-var Contacts = require('react-native-contacts');
 export default class AddressBookDemo extends React.Component {
 
   constructor() {
@@ -29,6 +24,7 @@ export default class AddressBookDemo extends React.Component {
   }
 
   componentDidMount() {
+      var Contacts = require('react-native-contacts');
     // var newPerson = {
     //     lastName: "Nietzsche",
     //     firstName: "Friedrich",

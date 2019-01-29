@@ -11,9 +11,7 @@ import {
   Image,
   TouchableHighlight,
   Component,
-  StatusBar,
   PixelRatio,
-  ActionSheetIOS,
 } from 'react-native';
 
 import { TitleBarBlack } from 'miot/ui';

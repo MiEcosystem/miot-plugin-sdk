@@ -5,19 +5,17 @@
 'use strict';
 
 import React from 'React';
-import ART from 'React';
 // import ReactART from 'React'
 // import Transform from ART;
 import {
   PanResponder,
   View,
   Text,
-  PixelRatio,
 } from 'react-native';
 
 import {TimerMixin} from 'react-timer-mixin';
 
-import ReactART, {Surface,Path,Group,Transform,Shape} from 'ReactNativeART';
+import  {Surface,Path,Group,Transform,Shape} from 'ReactNativeART';
 // import {
 //   Surface,
 //   Path,
@@ -25,7 +23,6 @@ import ReactART, {Surface,Path,Group,Transform,Shape} from 'ReactNativeART';
 //   Transform,
 //   Shape,
 // } from 'ReactART';
-import { ImageButton } from 'miot/ui';
 
 var TOUCH_UP_DRAG = 0.978;
 var TOUCH_DOWN_DRAG = 0.9;

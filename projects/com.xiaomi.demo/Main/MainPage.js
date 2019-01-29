@@ -4,36 +4,19 @@ import React from 'react';
 import {
   View,
   Text,
-  AppRegistry,
-  Button,
   TouchableHighlight,
-  TouchableOpacity,
   Platform,
-  Dimensions,
-  Animated,
   StyleSheet,
-  PixelRatio,
-  StatusBar,
   Image,
-  DeviceEventEmitter,
-  NativeModules,
 } from 'react-native';
 
-import { createStackNavigator } from 'react-navigation';
-import ControlDemo from './ControlDemo';
-import CloudDebug from './CloudDebug';
-import ThirdPartyDemo from './ThirdPartyDemo';
-import Utils from '../CommonModules/Utils';
 //import Setting from './MHSetting';
 
-import { ImageButton } from 'miot/ui';
 import { TitleBarBlack } from 'miot/ui';
 import MoreDialog from './MoreDialog';
 // import ImageButton from '../CommonModules/ImageButton.js';;
 
 import { localStrings, getString } from './MHLocalizableString';
-import TutorialDemo from './tutorial/TutorialDemo';
-import UIDemo from './UIDemo';
 import { Package, Device, DeviceEvent } from "miot";
 
 export default class MainPage extends React.Component {
@@ -91,10 +74,10 @@ export default class MainPage extends React.Component {
 
   render() {
       console.log("com.xiaomi.demo",'render first',Date.now());
-    var rowTutorialDemo = this._createMenuRow(TutorialDemo, '教程', 'tutorialDemo');
-    var rowControlDemo = this._createMenuRow(ControlDemo, '控制能力', 'ControlDemo');
-    var rowCloudDebug = this._createMenuRow(UIDemo, 'UI能力', 'UIDemo');
-    var rowThirdPartyDemo = this._createMenuRow(ThirdPartyDemo, '第三方库能力', 'ThirdPartyDemo');
+    var rowTutorialDemo = this._createMenuRow( '教程', 'tutorialDemo');
+    var rowControlDemo = this._createMenuRow( '控制能力', 'ControlDemo');
+    var rowCloudDebug = this._createMenuRow('UI能力', 'UIDemo');
+    var rowThirdPartyDemo = this._createMenuRow('第三方库能力', 'ThirdPartyDemo');
     return (
       <View style={styles.containerAll} >
         <View style={styles.containerIconDemo}>
@@ -110,7 +93,7 @@ export default class MainPage extends React.Component {
       </View>)
   }
 
-  _createMenuRow(component, title, demoName) {
+  _createMenuRow(title, demoName) {
     return <TouchableHighlight
       style={styles.rowContainer} underlayColor='#838383'
       onPress={this._onOpenSubPage(title, demoName).bind(this)}>

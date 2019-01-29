@@ -2,23 +2,16 @@
 
 import React from 'react';
 import {
-  View, Text, AppRegistry, Button,
+  View, Text,
   TouchableHighlight,
-  TouchableOpacity,
-  Platform,
-  Dimensions,
-  Animated,
   StyleSheet,
-  PixelRatio,
-  StatusBar,
   Image,
   TextInput,
-  DeviceEventEmitter,
 } from 'react-native';
 
 
 import { TitleBarBlack } from 'miot/ui';
-import { Device, DeviceEvent, Host, Package } from "miot";
+import { Device, DeviceEvent } from "miot";
 
 export default class ControlDemo extends React.Component {
   static navigationOptions = ({ navigation }) => {

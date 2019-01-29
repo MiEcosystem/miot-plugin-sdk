@@ -111,6 +111,7 @@ export const PackageEvent = {
  * @export
  */
 export default {
+    
     /**
      * 入口类型
      * @const

@@ -1,20 +1,14 @@
 'use strict';
 
 import React, {Component} from 'react';
-import HelloDeveloper from '../CommonModules/HelloDeveloper';
 
 import {
-    Platform,
     StyleSheet,
     Text,
     ListView,
     View,
-    Image,
     TouchableHighlight,
     StatusBar,
-    Modal,
-    Alert,
-    AlertIOS,
     Animated,
     Easing,
     Dimensions,
@@ -86,7 +80,7 @@ export default class MoreDialog extends Component {
     }
 
     onShowDidButtonPress() {
-        this.props.navigator.push(HelloDeveloper.route);
+        this.props.navigation.navigate('helloDeveloper');
     }
 
     /**

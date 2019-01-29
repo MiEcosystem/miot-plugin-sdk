@@ -7,7 +7,6 @@ import {
   TextInput,
   TouchableOpacity,
   Slider,
-  Switch
 } from "react-native";
 
 import { Surface } from "gl-react-native";
@@ -19,7 +18,6 @@ import HueRotate from "./HueRotate";
 import PieProgress from "./PieProgress";
 import OneFingerResponse from "./OneFingerResponse";
 import AnimatedHelloGL from "./AnimatedHelloGL";
-import { Blur } from "gl-react-blur";
 import Button from "./Button";
 
 class Demo extends Component {

@@ -4,12 +4,10 @@
 
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   View,
   Dimensions,
   Image,
-  PixelRatio
 } from 'react-native';
 
 var window = Dimensions.get('window');

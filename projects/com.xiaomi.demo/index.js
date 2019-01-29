@@ -1,7 +1,5 @@
 import App from "./Main";
-import SceneMain from './Main/SceneMain'
 import { Package, Entrance, PackageEvent } from "miot";
-console.log("com.xiaomi.demo",'init',Date.now());
 PackageEvent.packageAuthorizationCancel.addListener(()=>{
     console.log("packageAuthorizationCancel");
     Package.exit();
@@ -9,7 +7,7 @@ PackageEvent.packageAuthorizationCancel.addListener(()=>{
 
 switch (Package.entrance) {
     case Entrance.Scene:
-        Package.entry(SceneMain, _ => {
+        Package.entry(require('./Main/SceneMain'), _ => {
         });
         break;
     default:

@@ -5,7 +5,6 @@ import React, {
 
 import {
   AlertIOS,
-  AppRegistry,
   Platform,
   StyleSheet,
   Text,

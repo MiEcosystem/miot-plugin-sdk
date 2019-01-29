@@ -2,18 +2,10 @@
 
 import React from 'react';
 import {
-   View, Text,AppRegistry,Button,
-   TouchableHighlight,
-   TouchableOpacity,
-   Platform,
-   Dimensions,
-   Animated,
+   View, Text,
    StyleSheet,
-   PixelRatio,
    StatusBar,
-   Image,
    WebView,
-   DeviceEventEmitter,
 } from 'react-native';
 import { TitleBarBlack } from 'miot/ui';
 export default class CloudDebug extends React.Component {

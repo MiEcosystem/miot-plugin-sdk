@@ -7,10 +7,7 @@ import {
   Text,
   Image,
   View,
-  Component,
-  PixelRatio,
 } from 'react-native';
-import { ImageButton } from 'miot/ui';
 
 // export default class MoreMenu extends React.Component
 export default class HelloDeveloper extends React.Component {
@@ -72,14 +69,3 @@ var styles = StyleSheet.create({
   },
 
 });
-
-var route = {
-  key: 'HelloDeveloper',
-  title: 'Welcome!',
-  component: HelloDeveloper,
-}
-
-// module.exports = {
-//   component: HelloDeveloper,
-//   route: route,
-// }

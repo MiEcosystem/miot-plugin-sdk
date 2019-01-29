@@ -5,20 +5,12 @@ import {
   Text,
   ListView,
   View,
-  Image,
   TouchableHighlight,
   Component,
   StatusBar,
   ScrollView,
-  DeviceEventEmitter,
   Button,
 } from 'react-native';
-
-// var ActionSheetIOS = require('ActionSheetIOS');
-// var HelloDeveloper = require('../CommonModules/HelloDeveloper');
-// import HelloReactART from '../CommonModules/HelloReactART';
-// var LocalizedStrings = require('./MHLocalizableString.js').string;
-import { createStackNavigator } from 'react-navigation';
 
 import MHLocalizableString  from './MHLocalizableString.js';
 import MHGlobal from './MHGlobalData';
@@ -26,10 +18,10 @@ import {Host,Device,DeviceEvent} from "miot";
 
 // var MoreMenu = require('./MoreMenu');
 // import MoreMenu from  './MoreMenu'
-var BUTTONS = [
-  '测试对话框',
-  '确定',
-];
+//var BUTTONS = [
+//  '测试对话框',
+//  '确定',
+//];
 
 export default class Setting extends React.Component {
   static navigationOptions = ({ navigation }) => {

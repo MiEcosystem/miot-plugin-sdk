@@ -4,13 +4,10 @@
 
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
-  Dimensions,
-  Image,
   DeviceEventEmitter
 } from 'react-native';
 

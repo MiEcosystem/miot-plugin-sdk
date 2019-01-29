@@ -149,19 +149,17 @@ export default {
    */
   openEditDeviceGroupPage(dids) {
   },
-
-    /**
-     * 开启倒计时界面
-     * @param {Boolean} isCountDownOn 设备的当前状态:YES 为开启，所以我们启动关闭倒计时; NO  为关闭，所以我们启动开启倒计时
-     * @param {{onMethod:string, offMethod:string, onParam:string, offParam:string}} setting {onMethod:string, offMethod:string, onParam:string, offParam:string}
-     * @example
-     *
-     * Host.ui.openCountDownPage(true, {onMethod:"power_on", offMethod:'power_off', onParam:'on', offParam:'off'})
-     *
-     */
-    openCountDownPage(isCountDownOn, setting) {
-
-    },
+  /**
+   * 开启倒计时界面 
+   * @param {Boolean} isCountDownOn 设备的当前状态:YES 为开启，所以我们启动关闭倒计时; NO  为关闭，所以我们启动开启倒计时
+   * @param {{onMethod:string, offMethod:string, onParam:string, offParam:string}} setting {onMethod:string, offMethod:string, onParam:string, offParam:string}
+   * @example
+   * 
+   * Host.ui.openCountDownPage(true, {onMethod:"power_on", offMethod:'power_off', onParam:'on', offParam:'off'})
+   * 
+   */
+  openCountDownPage(isCountDownOn, setting) {
+  },
   /**
    * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串
    * @param {string} onParam   定时到时设备“开”执行的 RPC 指令参数字符串（目前仅支持单参数）

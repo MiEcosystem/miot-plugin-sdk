@@ -2,19 +2,8 @@
 
 import React from 'react';
 import {
-   View, Text,AppRegistry,Button,
-   TouchableHighlight,
-   TouchableOpacity,
-   Platform,
-   Dimensions,
-   Animated,
+   View,
    StyleSheet,
-   PixelRatio,
-   StatusBar,
-   Image,
-   TextInput,
-   WebView,
-   DeviceEventEmitter,
    FlatList,
 } from 'react-native';
 
