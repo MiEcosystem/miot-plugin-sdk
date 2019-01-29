@@ -716,4 +716,21 @@ export default {
     doAction(params) {
          return Promise.resolve(null);
     },
+    /**
+     * @param did 设备的did
+     * @return {Promise<JSON>} 设备的Spec属性详情
+     */
+    getSpecString(did){
+	 // @native :=> promise
+	   	return new Promise((resolve, reject) => {
+			native.MIOTSpec.getSpecString(did,(ok, data) => {
+	           if (ok && data) {
+	               resolve(data);
+	               return;
+	           }
+	           reject(data);
+	       	});
+	   })
+	   // @native end
+    }
 }
