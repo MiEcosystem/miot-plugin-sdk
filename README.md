@@ -13,7 +13,6 @@
     
     
  推荐使用[Docker](https://www.docker.com)的linux容器作为独立的开发环境
- 特别警告: 不允许对根目录下的 package.json 文件做任何修改,否则将导致在线打包失败
 
 ## 命令
 
@@ -40,6 +39,12 @@
         "version_code":1,                 //版本序号
         "developer_id":""                 //当前版本的开发者账号
     }
+
+## 注意
+
+    1, 不允许对根目录下的 package.json 文件做任何修改,否则将导致在线打包失败,
+    2, 只允许在各自项目目录下(projects/xxx.yyy.zzz)引用第三方库, 修改这下面的 package.json, 执行 npm install
+    3, 不允许引用 projects 下其他项目的任何内容
 
 ## 文档
 插件开发请参考[《MIOT SDK API》(MarkDown格式)](https://github.com/MiEcosystem/miot-plugin-sdk/wiki) [《MIOT SDK API》](https://miecosystem.github.io/miot-plugin-sdk) 
