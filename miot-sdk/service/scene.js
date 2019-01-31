@@ -283,7 +283,7 @@ export default {
      * })
      */
     createTimerScene(deviceID, opt){
-        return createScene(deviceID, SceneType.Artificial, opt);
+        return createScene(deviceID, SceneType.Timer, opt);
     },
     /**
      * 创建人工场景
