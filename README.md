@@ -35,9 +35,7 @@
     {
         "models":"xxx.xxx.x1|xxx.xxx.x2", //必填, 固件 model 列表, 多个用|隔开
         "package_path":"xxx.yyy.zzz",     //项目路径名
-        "min_sdk_api_level":10000,        //支持运行的SDK API_LEVEL
-        "version_code":1,                 //版本序号
-        "developer_id":""                 //当前版本的开发者账号
+        "min_sdk_api_level":10000        //支持运行的SDK API_LEVEL 
     }
 
 ## 注意
