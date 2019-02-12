@@ -405,6 +405,15 @@ class IDevice {
          return Promise.resolve([]);
     }
     /**
+     * 实时获取设备的网络信息包括网络强度
+     * @param {String} did 设备id
+     * @method
+     * @returns {Promise<IDevice[]>}
+     */
+    readDeviceNetWorkInfo(did){
+         return Promise.resolve([]);
+    }
+    /**
      * 获取小米BLE蓝牙控制类, 
      * 注意: 在 iOS 平台上, 如果没有指定peripheralID, 则须先执行Bluetooth.scan(), 
      * 扫描到与device.mac匹配的蓝牙设备之后才能 connect 成功, 否则将不能成功执行后来的所有操作.

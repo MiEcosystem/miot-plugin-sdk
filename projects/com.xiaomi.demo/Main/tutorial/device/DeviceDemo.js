@@ -31,6 +31,16 @@ export default class DeviceDemo extends React.Component {
       this.setState({ deviceOwner: res });
     }).catch(err => {console.log('error:', err)});
 
+    // 实时获取设备网络信息
+    Device.readDeviceNetWorkInfo(this.state.device.deviceID).then((ret)=>{
+        console.log("readDeviceNetWorkInfo  ret", ret)
+        this.setState({
+            wifiStrength: ret.wifiStrength
+        })
+    }).catch((error)=>{
+        console.log("readDeviceNetWorkInfo  error", error)
+    })
+
   }
 
   componentWillMount() {
@@ -112,6 +122,8 @@ export default class DeviceDemo extends React.Component {
               IP: {this.state.device.IP}</Text>
             <Text style={{ margin: 10, width: width }}>当前设备
               RSSI: {this.state.device.RSSI}</Text>
+             <Text style={{ margin: 10, width: width }}>当前设备
+                  信号强度: {this.state.wifiStrength}</Text>
             <Text style={{ margin: 10, width: width }}>当前设备
               SSID: {this.state.device.SSID}</Text>
             <Text style={{ margin: 10, width: width }}>当前设备
