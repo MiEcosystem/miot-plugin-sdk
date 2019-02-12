@@ -36,6 +36,7 @@ export default class TitleBarWhite extends Component {
   }
   render() {
     StatusBar.setBarStyle("light-content");
+    StatusBar.setTranslucent(true);
     let leftWidth=this.props.leftTextStyle?this.props.leftTextStyle.width:0;
     let rightWidth=this.props.rightTextStyle?this.props.rightTextStyle.width:0;
     return (
