@@ -57,7 +57,7 @@
 
 [iOS IPA 包下载地址](https://fir.im/mijiadevelopment)
     
-[Android apk包下载地址](https://fir.im/MiHomeForAndroid)
+Android apk包请在代码的根目录查找 SmartHome*.apk文件
 
 下载密码: keliyuan 
 
