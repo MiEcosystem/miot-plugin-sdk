@@ -70,7 +70,8 @@ export default class ParticleDemo extends React.Component {
     var midY = Dimensions.get('window').height/2;
     return (
 
-      <View style={{flex:1, backgroundColor:'black'}}>
+      <View style={{flex:1}}>
+      <Text >功能已移除</Text>
         {/*<ParticleView name={"emitterLayer"} style={{flex:1,backgroundColor:'black'}}*/}
         {/*emitterPosition={{x:midX, y:midY+100}}*/}
         {/*emitterZPosition={0}*/}

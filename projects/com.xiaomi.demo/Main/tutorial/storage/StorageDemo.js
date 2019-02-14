@@ -112,8 +112,9 @@ export default class StorageDemo extends React.Component {
         <Button title="读取 key0 数据" onPress={() => {
           Host.storage.get(this.state.key)
             .then((value) => {
+              console.log(value)
               this.setState({
-                "txt": value
+                "txt": value || "null"
               });
             })
             .catch((failure) => { alert(failure) });
@@ -122,7 +123,9 @@ export default class StorageDemo extends React.Component {
         <Button title="读取 key0 key1 数据" onPress={() => {
           Host.storage.load([this.state.key, this.state.key1])
             .then((values) => {
-              alert(values);
+              console.log(values)
+              var info = "v1:" + (values[0] || "null") + "，v2:" + (values[1] || "null");
+              alert(info);
             }).catch((failure) => { alert(failure) });
         }} />
         <Text style={styles.text}>{this.state.txtAll}</Text>

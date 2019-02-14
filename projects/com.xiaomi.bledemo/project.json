@@ -1,6 +1,6 @@
 { 
   "package_path":"com.xiaomi.bledemo",
-  "models":"xiaomi.bledemo.v1",
+  "models":"miot.sensor_ht.s2",
   "min_sdk_api_level":10000,
   "version_code":1, 
   "developer_id":"894158105"

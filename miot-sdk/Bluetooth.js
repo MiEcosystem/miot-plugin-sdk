@@ -42,7 +42,7 @@ export const getBluetoothUUID128 = id => {
         default:
             return null;
     }
-    return id + "—0000—1000—8000—00805F9B34FB";
+    return id + "-0000-1000-8000-00805F9B34FB";
 }
 /**
  * BLE蓝牙特征值

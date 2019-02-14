@@ -76,7 +76,6 @@ export class SwitchScreen extends Component {
             <View style={styles.componentRow}>
               <RkText>success</RkText>
               <RkSwitch
-                style={{width:45,height:20}}
                 rkType='success'
                 value={this.state.switch3State}
                 onValueChange={() => this.setState({ switch3State: !this.state.switch3State })}

@@ -35,20 +35,7 @@ export default class AddressBookDemo extends React.Component {
     //   }
 
     // AddressBook.addContact(newPerson, (err) => { /*...*/ })
-    Contacts.getAll((err, contacts) => {
-      console.log(err, contacts);
-      //update the first record
-      // let someRecord = contacts[0]
-      // someRecord.emailAddresses.push({
-      //   label: "junk",
-      //   email: "mrniet+junkmail@test.com",
-      // })
-      // Contacts.updateContact(someRecord, (err) => { /*...*/ })
-
-      //delete the second record
-      // Contacts.deleteContact(contacts[1], (err) => { /*...*/ })
-      this.setState({dataSource: this.state.dataSource.cloneWithRows(contacts)});
-    });
+    
     Contacts.checkPermission((err, permission) => {
       // AddressBook.PERMISSION_AUTHORIZED || AddressBook.PERMISSION_UNDEFINED || AddressBook.PERMISSION_DENIED
       if (permission === 'undefined') {
@@ -58,9 +45,24 @@ export default class AddressBookDemo extends React.Component {
       }
       if (permission === 'authorized') {
         // yay!
+        Contacts.getAll((err, contacts) => {
+          console.log(err, contacts);
+          //update the first record
+          // let someRecord = contacts[0]
+          // someRecord.emailAddresses.push({
+          //   label: "junk",
+          //   email: "mrniet+junkmail@test.com",
+          // })
+          // Contacts.updateContact(someRecord, (err) => { /*...*/ })
+    
+          //delete the second record
+          // Contacts.deleteContact(contacts[1], (err) => { /*...*/ })
+          this.setState({dataSource: this.state.dataSource.cloneWithRows(contacts)});
+        });
       }
       if (permission === 'denied') {
         // x.x
+        alert("通讯录未授权")
       }
       console.log(permission);
     });
@@ -76,11 +78,18 @@ export default class AddressBookDemo extends React.Component {
   }
 
   _renderRow(rowData, sectionID, rowID) {
+    var name = rowData.familyName ? rowData.familyName : '';
+    var tels = rowData.phoneNumbers;
+    if(tels[0]) {
+      var tel = tels[0].number;
+    }else {
+      var tel = 'none-empty'
+    }
     return (
       <View>
         <View style={styles.rowContainer}>
           <Text
-            style={styles.title}>{(rowData.familyName ? rowData.familyName : '') + rowData.givenName + rowData.phoneNumbers[0].number}</Text>
+            style={styles.title}>{name + rowData.givenName + tel}</Text>
         </View>
         <View style={styles.separator}></View>
       </View>

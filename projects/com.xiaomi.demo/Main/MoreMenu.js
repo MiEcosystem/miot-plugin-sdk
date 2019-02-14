@@ -12,7 +12,7 @@ import {
   PixelRatio,
   ActionSheetIOS,
 } from 'react-native';
-import { Host, DeviceEvent } from "miot";
+import { Host, DeviceEvent, Device } from "miot";
 import { TitleBarBlack } from 'miot/ui';
 
 var BUTTONS = [
@@ -153,10 +153,10 @@ export default class MoreMenu extends React.Component {
       {
         'name': '获取设备列表数据',
         'func': () => {
-          Host.ui.getDevicesWithModel("xiaomi.watch.band2", (success, devices) => {
-            if (success) {
-              alert(JSON.stringify(devices));
-            }
+          Host.ui.getDevicesWithModel(Device.model).then(devices => {
+            alert(JSON.stringify(devices));
+          }).catch(err => {
+            alert("未获取到设备");
           })
         }
       },

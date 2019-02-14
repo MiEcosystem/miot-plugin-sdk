@@ -108,6 +108,7 @@ import DialogTest from './DialogTest';
 import BlankDemo from './tutorial/BlankDemo';
 import AccountDemo from './tutorial/account/AccountDemo';
 import StorageDemo from './tutorial/storage/StorageDemo';
+import RPCControl from './tutorial/RPCControl';
 import TutorialDemo from './tutorial/TutorialDemo';
 import LocaleServer from './tutorial/LocaleServer';
 import CallSmartHomeAPIDemo from './tutorial/cloud/CallSmartHomeAPIDemo.js';
@@ -145,6 +146,7 @@ const RootStack = createStackNavigator(
     storageDemo: StorageDemo,
     fileStorage: FileStorage,
     callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
+    RPCControl: RPCControl,
     OperationDemoIndex: OperationDemoIndex,
     // BLEConnectionDemo: BLEConnectionDemo,
 

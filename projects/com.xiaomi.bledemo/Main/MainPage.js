@@ -1,6 +1,9 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
+ * 
+ * hmpace.watch.v1
+ * 
  */
 
 'use strict';
@@ -8,13 +11,15 @@
 import React from 'react';
 
 import {
-    AppRegistry, StyleSheet, Text, View, TouchableHighlight, Platform, PixelRatio, Button
+    AppRegistry, StyleSheet, Text, View, TouchableHighlight, 
+    Platform, PixelRatio, Button
 } from "react-native";
 
 import { Bluetooth, BluetoothEvent, DeviceEvent, Device, Service } from "miot";
 
 const bt = Device.getBluetoothLE();
 const DEMOCHAR='00000001-0000-1000-8000-00805f9b34fb';
+let status_enable = false;
 export default class MainPage extends React.Component {
 
     constructor(props, context) {
@@ -78,15 +83,19 @@ export default class MainPage extends React.Component {
             if (service.UUID.indexOf("ffd5")>0){
                 console.log("bluetoothCharacteristicValueChanged", character.UUID, value);//刷新界面
             }
+            this.setState({buttonText:"bluetoothCharacteristicValueChanged:" + character.UUID + ">" + value});
         })
         this._s4 = BluetoothEvent.bluetoothSeviceDiscoverFailed.addListener((blut, data) => {
             console.log("bluetoothSeviceDiscoverFailed", data);
+            this.setState({buttonText:"bluetoothSeviceDiscoverFailed :" + data});
         })
         this._s5 = BluetoothEvent.bluetoothCharacteristicDiscoverFailed.addListener((blut, data) => {
             console.log("bluetoothCharacteristicDiscoverFailed", data);
+            this.setState({buttonText:"bluetoothCharacteristicDiscoverFailed:" + data})
         })
         this._s6 = BluetoothEvent.bluetoothConnectionStatusChanged.addListener((blut, isConnect) => {
             console.log("bluetoothConnectionStatusChanged", blut, isConnect);
+            this.setState({buttonText:"bluetoothConnectionStatusChanged:" + isConnect});
             if (bt.mac === blut.mac && !isConnect) {
                 this.setState({chars: {}});
             }
@@ -135,8 +144,32 @@ export default class MainPage extends React.Component {
         this._s6.remove();
     }
 
+    checkBluetoothIsEnabled(){
+        Bluetooth.checkBluetoothIsEnabled().then(yes=>{
+            status_enable = yes;
+            this.setState({buttonText:"checkBluetoothIsEnabled " + yes})
+        })
+    }
+
+    enableBluetoothForAndroid(){
+        Bluetooth.enableBluetoothForAndroid(!status_enable);
+    }
+    /*
+<Button title="checkBluetoothIsEnabled" 
+                onPress={this.checkBluetoothIsEnabled}
+            />
+
+
+            <Button title="enableBluetoothForAndroid" 
+                onPress={this.enableBluetoothForAndroid}
+            />
+
+*/
     render() {
         return (<View style={styles.container}>
+            
+            
+            
             <TouchableHighlight style={{ flex: 1 }} underlayColor='#ffffff' onPress={() => {
                 if (this.state.chars[DEMOCHAR]) {
                     this.state.chars[DEMOCHAR].read().then(s => {
@@ -151,7 +184,13 @@ export default class MainPage extends React.Component {
                         })
                     });
                 } else {
-                    if (this.state.buttonText === "wait" || this.state.buttonText === "connecting..." || this.state.buttonText === "timeout retrying") this.setState({ buttonText: "wait" }); else this.connect();
+                    if (this.state.buttonText === "wait" 
+                        || this.state.buttonText === "connecting..." 
+                        || this.state.buttonText === "timeout retrying"){
+                            this.setState({ buttonText: "wait" });
+                        }  else {
+                            this.connect();
+                        }
                 }
             }}>
                 <Text style={styles.text}>
@@ -178,6 +217,12 @@ const styles = StyleSheet.create({
         color: '#000000',
         alignSelf: 'stretch',
         marginTop: 300,
+    },
+    testText: {
+      color: '#000000cc',
+      fontSize: 15,
+      textAlignVertical: 'center',
+      textAlign: 'center',
     },
 })
 
