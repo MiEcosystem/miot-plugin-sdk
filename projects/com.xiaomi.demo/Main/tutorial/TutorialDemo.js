@@ -121,6 +121,7 @@ var styles = StyleSheet.create({
       rowTitleText: {
         fontSize: 17,
         fontWeight: '500',
+        color: '#333333',
       },
       rowDetailText: {
         fontSize: 15,

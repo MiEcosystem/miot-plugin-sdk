@@ -23,6 +23,7 @@ import {
   Image,
   Dimensions,
   StatusBar,
+  Platform,
 } from 'react-native';
 import ImageButton from './ImageButton';
 import { SafeAreaView } from 'react-navigation';
@@ -36,7 +37,9 @@ export default class TitleBarBlack extends Component {
   }
   render() {
     StatusBar.setBarStyle('dark-content');
-    StatusBar.setTranslucent(true);
+    if(Platform.OS == 'android'){
+        StatusBar.setTranslucent(true);
+    }
     let leftWidth=this.props.leftTextStyle?this.props.leftTextStyle.width:0;
     let rightWidth=this.props.rightTextStyle?this.props.rightTextStyle.width:0;
     return (

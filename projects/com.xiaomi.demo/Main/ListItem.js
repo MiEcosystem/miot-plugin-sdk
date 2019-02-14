@@ -25,7 +25,7 @@ export default class ListItem extends React.PureComponent {
       return (
         <TouchableOpacity onPress={this._onPress}>
           <View style={{height:44,justifyContent:'center',alignItems:'stretch'}}>
-            <Text style={{textAlign:'center',textAlignVertical:'center'}}>
+            <Text style={{textAlign:'center',textAlignVertical:'center', color: '#000000'}}>
               {this.props.title}
             </Text>
           </View>
