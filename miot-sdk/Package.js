@@ -109,15 +109,6 @@ export const PackageEvent = {
     */
     packageViewWillAppear: { always: true, sameas: native.isIOS ? 'viewWillAppear' : undefined }
 };
-let pluginConfigUpdate;
-DeviceEventEmitter.addListener('onPluginConfigUpdate',(data)=>{
-    Object.assign(native.MIOTDevice, data.device);
-    Object.assign(native.MIOTPackage, data.package);
-    resolveAssetResource(native.MIOTPackage.basePath, native.MIOTPackage.localFilePath, native.MIOTPackage.plugPath);
-    Properties.init(RootDevice, { ...native.MIOTDevice.currentDevice, _msgset: new Set() });
-    console.log("PluginStartTime", 'initPluginConfig', native.MIOTPackage.packageName, RootDevice.deviceID);
-    pluginConfigUpdate && pluginConfigUpdate(RootDevice.deviceID);
-});
 /**
  * @export
  */
