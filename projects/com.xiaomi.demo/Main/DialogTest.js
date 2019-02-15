@@ -4,17 +4,18 @@ import React from 'react';
 
 
 import {
-  StyleSheet,
-  Text,
-  ListView,
-  View,
-  Image,
-  Component,
-  StatusBar,
-  PixelRatio,
-  ActionSheetIOS,
-  TouchableHighlight,
-  Alert,
+    StyleSheet,
+    Text,
+    ListView,
+    View,
+    Image,
+    Component,
+    StatusBar,
+    PixelRatio,
+    ActionSheetIOS,
+    TouchableHighlight,
+    Alert, 
+    Platform,
 } from 'react-native';
 
 import { TitleBarBlack,MessageDialog,InputDialog,SingleChoseDialog,MultiChoseDialog,LoadingDialog,ProgressDialog } from 'miot/ui';
@@ -277,14 +278,27 @@ export default class DialogTest extends React.Component {
           style={styles.rowContainer}
           underlayColor='#838383'
           onPress={() => {
-            ActionSheetIOS.showActionSheetWithOptions({
-              options: ['Cancel', 'message1',"message2","message3"],
-              destructiveButtonIndex: 2,
-              cancelButtonIndex: 0,
-            },
-            (buttonIndex) => {
-              if (buttonIndex === 1) { /* destructive action */ }
-            });
+              if (Platform.OS === 'ios') {
+                  ActionSheetIOS.showActionSheetWithOptions({
+                          options: ['Cancel', 'message1',"message2","message3"],
+                          destructiveButtonIndex: 2,
+                          cancelButtonIndex: 0,
+                      },
+                      (buttonIndex) => {
+                          if (buttonIndex === 1) { /* destructive action */ }
+                      });
+              } else {
+                  Alert.alert(
+                      'ios 特有',
+                      'android不支持',
+
+                      [
+                          {text: 'OK', onPress: () => console.log('OK Pressed')},
+                      ],
+                      { cancelable: false }
+                  )
+              }
+           
 
                     }}>
           <Text style={{

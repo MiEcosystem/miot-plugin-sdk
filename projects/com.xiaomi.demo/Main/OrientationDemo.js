@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, StyleSheet, Text, TouchableOpacity, View ,Button} from 'react-native';
+import { Platform, Alert, StyleSheet, Text, TouchableOpacity, View ,Button} from 'react-native';
 import Orientation from 'react-native-orientation';
 
 export default class OrientationDemo extends React.Component {
@@ -30,6 +30,11 @@ export default class OrientationDemo extends React.Component {
   }
 
   _getSpecificOrientation() {
+    
+    if(Platform.OS.toLowerCase() != 'ios'){
+      Alert.alert('not supported');
+      return;
+    }
     Orientation.getSpecificOrientation((err, orientation) => {
       Alert.alert(`Specific orientation is ${orientation}`);
     });

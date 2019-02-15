@@ -349,6 +349,11 @@ export default class FileStorage extends React.Component {
     }
 
   render() {
+    var shotimg = null;
+    if(this.state.imagePath && this.state.imagePath != ""){
+      shotimg = <Image style={styles.img} 
+      source={{ uri: this.state.imagePath, scale: PixelRatio.get() }} />
+    }
     return (
       <ScrollView
         ref="myScrollView"
@@ -377,26 +382,31 @@ export default class FileStorage extends React.Component {
           placeholder="输入文件内容"
           value={this.state.fileContent}
         />
-          <View style={styles.row}>
-              <View style={{ flex: 1 }}>
-                  <Button
-                      title="下载文件"
-                      onPress={() => this._downLoadFile()}
-                  />
-              </View>
-              <View style={{ flex: 1 }}>
-                  <Button
-                      title="解压文件"
-                      onPress={() => this._unZipFile()}
-                  />
-              </View>
-              <View style={{ flex: 1 }}>
-                  <Button
-                      title="读文件列表"
-                      onPress={() => this._readFileListWithFolder()}
-                  />
-              </View>
-          </View>
+        <View style={styles.row}>
+            <View style={{ flex: 1 }}>
+                <Button
+                    title="下载文件"
+                    onPress={() => this._downLoadFile()}
+                />
+            </View>
+            <View style={{ flex: 1 }}>
+                <Button
+                    title="解压文件"
+                    onPress={() => this._unZipFile()}
+                />
+            </View>
+            <View style={{ flex: 1 }}>
+                <Button
+                    title="读文件列表"
+                    onPress={() => this._readFileListWithFolder()}
+                />
+            </View>
+        </View>
+
+
+
+
+
         <View style={styles.row}>
           <View style={{ flex: 1 }}>
             <Button
@@ -481,6 +491,8 @@ export default class FileStorage extends React.Component {
             />
           </View>
         </View>
+
+
         <View style={{ flex: 1, flexDirection: "row", margin: 5 }}>
           <View style={{ flex: 1, padding: 5 }}>
             <Text style={styles.title}>文件列表</Text>
@@ -490,15 +502,16 @@ export default class FileStorage extends React.Component {
               renderItem={({ item }) => this._renderFileList(item.name)}
             />
           </View>
+
           <View style={{ flex: 1, margin: 5 }}>
             <View style={{ flex: 1, alignItems: "center" }} >
               <Text style={styles.title}>屏幕截图</Text>
-              {this.state.imagePath &&
-                <Image style={styles.img} source={{ uri: this.state.imagePath, scale: PixelRatio.get() }} />
-              }
+              {shotimg}
             </View>
           </View>
+          
         </View>
+
       </ScrollView>
     )
   }
