@@ -768,6 +768,166 @@ Host.ui.openShareDevicePage</code></pre>
     
 
     
+    <h4 class="name" id=".openCountDownPage"><span class="type-signature">(static) </span>openCountDownPage<span class="signature">(isCountDownOn, setting)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>开启倒计时界面</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>isCountDownOn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>设备的当前状态:YES 为开启，所以我们启动关闭倒计时; NO  为关闭，所以我们启动开启倒计时</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>setting</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{onMethod:string, offMethod:string, onParam:string, offParam:string}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Host.ui.openCountDownPage(true, {onMethod:"power_on", offMethod:'power_off', onParam:'on', offParam:'off'})</code></pre>
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id=".openDeleteDevice"><span class="type-signature">(static) </span>openDeleteDevice<span class="signature">(title<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
     
 
@@ -920,7 +1080,7 @@ Host.ui.openShareDevicePage</code></pre>
     
 
     
-    <h4 class="name" id=".openDevice"><span class="type-signature">(static) </span>openDevice<span class="signature">(did, model)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    <h4 class="name" id=".openDevice"><span class="type-signature">(static) </span>openDevice<span class="signature">(did, model, params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
     
 
     
@@ -928,7 +1088,7 @@ Host.ui.openShareDevicePage</code></pre>
 
 
 <div class="description">
-    <p>打开某设备列表中的某个设备</p>
+    <p>打开用户账号下某一设备的插件</p>
 </div>
 
 
@@ -1007,6 +1167,29 @@ Host.ui.openShareDevicePage</code></pre>
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>额外参数，打开插件时传入</p></td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -1067,7 +1250,7 @@ Host.ui.openShareDevicePage</code></pre>
 
         
 <div class="param-desc">
-    <p>返回被打开的 device 信息</p>
+    <p>打开插件失败，返回错误信息；打开插件成功，无回调信息</p>
 </div>
 
 
@@ -3425,6 +3608,230 @@ Host.ui.openShareDevicePage</code></pre>
             
 
             <td class="description last"><p>链接地址</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".openXiaoAiLearnPage"><span class="type-signature">(static) </span>openXiaoAiLearnPage<span class="signature">(clientId, did, aiMiotClientId, aiClientId, aiVersion)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>打开小爱训练计划</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>clientId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>类的名字</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>did</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>类的名字</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>aiMiotClientId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>类的名字</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>aiClientId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>类的名字</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>aiVersion</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>类的名字</p></td>
         </tr>
 
     

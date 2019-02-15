@@ -190,12 +190,13 @@ export default {
   openTimerSettingPageWithVariousTypeParams(onMethod, onParam, offMethod, offParam) {
   },
   /**
-   * 打开某设备列表中的某个设备
+   * 打开用户账号下某一设备的插件
    * @param {string} did  设备的did
    * @param {string} model  设备的model
-   * @returns {Promise<json>} 返回被打开的 device 信息
+   * @param {object} params  额外参数，打开插件时传入
+   * @returns {Promise<json>} 打开插件失败，返回错误信息；打开插件成功，无回调信息
    */
-  openDevice(did, model, callback) {
+  openDevice(did, model, params) {
      return Promise.resolve(null);
   },
   /**
@@ -211,7 +212,6 @@ export default {
    */
   openNewMorePage() {
   },
-    
   /**
    * 打开小爱训练计划
    * @param {string} clientId 类的名字
@@ -220,7 +220,7 @@ export default {
    * @param {string} aiClientId 类的名字
    * @param {string} aiVersion 类的名字
    */
-  openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion){
-      native.MIOTHost.openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion);
+  openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion) {
+    native.MIOTHost.openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion);
   },
 };
