@@ -426,7 +426,7 @@ Host.file.amapScreenShot(myMapViewRef, imageName).then(() => {
                 </td>
             
 
-            <td class="description last"><p>文件名</p></td>
+            <td class="description last"><p>文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'</p></td>
         </tr>
 
     
@@ -677,7 +677,7 @@ Host.fileappendFile('name', 'base64').then(_ =>{
                 </td>
             
 
-            <td class="description last"><p>文件名</p></td>
+            <td class="description last"><p>文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'</p></td>
         </tr>
 
     
@@ -1088,7 +1088,7 @@ Host.file.dataLengthOfBase64Data('data').then(len => console.log('len:', len))
                 </td>
             
 
-            <td class="description last"><p>文件名</p></td>
+            <td class="description last"><p>文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'</p></td>
         </tr>
 
     
@@ -1645,7 +1645,7 @@ Host.filedownloadFile('url', 'targetName').then(res =>{
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'</p></td>
         </tr>
 
     
@@ -2006,7 +2006,7 @@ console.log('file exist at path:', res)
                 </td>
             
 
-            <td class="description last"><p>文件名</p></td>
+            <td class="description last"><p>文件名,可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'</p></td>
         </tr>
 
     
@@ -2153,6 +2153,9 @@ Host.filereadFile('name').then(content =>{
 
 <div class="description">
     <p>读取沙盒内文件列表</p>
+<ul>
+<li>@param {string} subFolder 读取沙盒文件夹下某子文件夹中文件内容，用于解压缩文件中带有文件夹，或者读取指定文件夹解压后的文件,标准path结构，不以'/'开头</li>
+</ul>
 </div>
 
 
@@ -2244,6 +2247,10 @@ Host.filereadFile('name').then(content =>{
 ...
 Host.file.readFileList().then(res => {
  console.log('read fiel list:', res)
+})
+
+Host.file.readFileList('mysubfolder/aaa').then(res => {
+ console.log('read fiel list:', res)
 })</code></pre>
 
 
@@ -2330,7 +2337,7 @@ Host.file.readFileList().then(res => {
                 </td>
             
 
-            <td class="description last"><p>文件名</p></td>
+            <td class="description last"><p>文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'</p></td>
         </tr>
 
     
@@ -2535,7 +2542,7 @@ Host.file.readFileList().then(res => {
                 </td>
             
 
-            <td class="description last"><p>文件名</p></td>
+            <td class="description last"><p>文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'</p></td>
         </tr>
 
     
@@ -3419,7 +3426,10 @@ Host.filereadFileToHexString('name').then(content =>{
 
             
 
-            <td class="description last"><p>文件名（插件存储空间内的文件）</p></td>
+            <td class="description last"><p>文件名（插件存储空间内的文件）</p>
+<ul>
+<li>@param {string} desitinationPath - 目标解压缩文件夹，默认解压到当前文件夹，如果指定名称，压缩包内容会解压到指定文件夹</li>
+</ul></td>
         </tr>
 
     
@@ -3917,7 +3927,7 @@ Host.file.uploadFile(params).then(res => {
                 </td>
             
 
-            <td class="description last"><p>文件名</p></td>
+            <td class="description last"><p>文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'</p></td>
         </tr>
 
     
@@ -4168,7 +4178,7 @@ Host.filewriteFile('name', 'content').then(_ =>{
                 </td>
             
 
-            <td class="description last"><p>文件名</p></td>
+            <td class="description last"><p>文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'</p></td>
         </tr>
 
     
