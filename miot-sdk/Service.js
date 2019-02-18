@@ -26,6 +26,7 @@
  *
  */
 import Smarthome from './service/smarthome'
+import IrController from './service/ircontroller'
 import Scene from './service/scene'
 import Security from './service/security'
 import Storage from './service/storage'
@@ -42,6 +43,15 @@ export default {
    */
   get smarthome() {
     return Smarthome;
+  },
+    
+  /**
+   * @member ircontroller
+   * @description 红外 相关 API
+   * @see {@link module:miot/service/ircontroller}
+   */
+  get ircontroller() {
+    return IrController;
   },
   /**
    * @member account
