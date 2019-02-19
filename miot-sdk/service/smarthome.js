@@ -344,5 +344,22 @@ export default {
      */
     getUserDeviceAuth(did){
          return Promise.resolve(null);
-    }
+    },
+    /**
+     * 获取InterimFileUrl 获取临时文件
+     * @param {json} params  -参数 {obj_name : '{ownerId}/{deviceId}/{index}'}
+     * @returns {Promise}
+     */
+    getInterimFileUrl(params){
+         return Promise.resolve(null);
+    },
+    /**
+     * 获取文件下载地址
+     *
+     * @param {json} params  -参数 {obj_name : '2018/06/08/123456/xiaomi123_181030106.mp3'}
+     * @return {Promise}
+     */
+    getFileUrl(params){
+         return Promise.resolve(null);
+    },
 }
