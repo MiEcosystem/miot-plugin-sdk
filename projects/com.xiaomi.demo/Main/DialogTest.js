@@ -209,8 +209,7 @@ export default class DialogTest extends React.Component {
             height: 45,
           }}>显示LoadingDialog</Text>
         </TouchableHighlight>
-        <LoadingDialog title={'title'}
-                       message={'message'}
+        <LoadingDialog message={'message'}
                        cancelable={false}
                        timeout={3000}
                        onDismiss={() => {

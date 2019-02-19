@@ -350,9 +350,13 @@ export default class FileStorage extends React.Component {
 
   render() {
     var shotimg = null;
-    if(this.state.imagePath && this.state.imagePath != ""){
+    var pic = this.state.imagePath;
+    if(pic && pic != ""){
+      if(pic.startsWith("/")){
+        pic = "file://" + pic;
+      }
       shotimg = <Image style={styles.img} 
-      source={{ uri: this.state.imagePath, scale: PixelRatio.get() }} />
+      source={{ uri: pic, scale: PixelRatio.get() }} />
     }
     return (
       <ScrollView

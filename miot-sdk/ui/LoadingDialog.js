@@ -10,6 +10,7 @@ import {
   ViewPropTypes,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import native from '.././native'
 export default class ProgressDialog extends Component {
   static propTypes = {
     /**
@@ -46,6 +47,7 @@ export default class ProgressDialog extends Component {
     ...ViewPropTypes,
   };
   render() {
+    let showText = this.props.message?this.props.message:this.props.title;
      return null
   }
 }
