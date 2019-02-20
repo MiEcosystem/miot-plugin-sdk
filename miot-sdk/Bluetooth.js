@@ -594,6 +594,18 @@ export const BluetoothEvent = {
  */
 export default {
     /**
+     * 标准化蓝牙UUID为128位大写
+     * @param {string} id 
+     * @returns {string}
+     * 
+     * @example
+     * import {Bluetooth} from 'miot';
+     * const myServiceUUID = Bluetooth.UUID128("0015");
+     * const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590");
+     * 
+     */
+    UUID128:getBluetoothUUID128,
+    /**
      * 创建BLE蓝牙设备,
      * @method
      * @param {string} macOrPeripheralID -- iOS传 peripheralUUID, android 传 mac

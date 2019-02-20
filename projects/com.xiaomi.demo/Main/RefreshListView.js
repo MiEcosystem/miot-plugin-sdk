@@ -1,7 +1,7 @@
 /**
  * Created by sww on 2016/10/20.
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
@@ -18,11 +18,11 @@ import {
   LoadMoreStatus,
 } from '../CommonModules/swrefresh';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 const SIZE = 20;
 export default class RefreshListView extends Component {
   _page = 0;
-  _dataSource = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
+  _dataSource = new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 });
 
   // 构造
   constructor(props) {
@@ -57,7 +57,7 @@ export default class RefreshListView extends Component {
       <SwRefreshScrollView
         onRefresh={this._onRefresh.bind(this)}
         ref="scrollView"
-        //其他你需要设定的属性(包括ScrollView的属性)
+      //其他你需要设定的属性(包括ScrollView的属性)
       >
         <View style={styles.content}>
           <Text>下拉刷新ScrollView</Text>
@@ -82,7 +82,7 @@ export default class RefreshListView extends Component {
         onLoadMore={this._onLoadMore.bind(this)}
         //isShowLoadMore={false}
         renderFooter={() => {
-          (<View style={{backgroundColor: 'white', height: 100}}>
+          (<View style={{ backgroundColor: 'white', height: 100 }}>
             <Text>我是footer</Text>
           </View>);
         }}
@@ -122,8 +122,8 @@ export default class RefreshListView extends Component {
    * @private
    */
   _onListRefersh(finishCallback) {
-    let timer = setTimeout(() => {
-      clearTimeout(timer);
+    this.refresTimer = setTimeout(() => {
+      clearTimeout(this.refresTimer);
       this._page = 0;
       let data = [];
       for (let i = 0; i < SIZE; i++) {
@@ -166,6 +166,12 @@ export default class RefreshListView extends Component {
       // this.refs.scrollView.beginRefresh()
       this.refs.listView.beginRefresh();
     }, 500); //自动调用刷新 新增方法
+  }
+
+  componentWillUnmount() {
+    if (this.refresTimer) {
+      clearTimeout(this.refresTimer);
+    }
   }
 
 }
