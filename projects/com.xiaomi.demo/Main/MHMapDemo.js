@@ -14,6 +14,7 @@ import {
 
 var MHMapSearch = require('NativeModules').MHMapSearch;
 import {AMapView} from 'miot/ui';
+import {Device} from 'miot';
 var window = Dimensions.get('window');
 
 export default class MHMapDemo extends React.Component {
@@ -50,6 +51,12 @@ export default class MHMapDemo extends React.Component {
   }
 
   render() {
+
+    let centerCoordinate = {
+       latitude: Device.latitude,
+       longitude:Device.longitude
+    }
+
     return (
       <View style={styles.container}>
         <AMapView
@@ -59,7 +66,7 @@ export default class MHMapDemo extends React.Component {
           onMapWillZoomByUser={this._onMapWillZoomByUser.bind(this)}
           onMapDidZoomByUser={this._onMapDidZoomByUser.bind(this)}
           showsUserLocation={true}
-          centerCoordinate={null}
+          centerCoordinate={centerCoordinate}
           userTrackingMode='follow'
           showsCompass={false}
           showsScale={false}
