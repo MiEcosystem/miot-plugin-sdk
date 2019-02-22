@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Xiaomi MIOT: Module: miot/Bluetooth</title>
+    <title>Xiaomi MIOT: Module: miot/service/ircontroller</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -21,7 +21,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: miot/Bluetooth</h1>
+    <h1 class="page-title">Module: miot/service/ircontroller</h1>
 
     
 
@@ -42,7 +42,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>蓝牙设备操作类</p></div>
+            <div class="description"><p>红外相关 API</p></div>
         
 
         
@@ -113,31 +113,6 @@
 </div>
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Device} from 'miot'
-
-const ble = Device.getBluetoothLE();
-ble.connect().then(ble=>{
-
- ble.startDiscoverServices("a-b-c-d-e", ...)
-  ...
-});
-
-...
-ble.getService("a-b-c-d-e").startDiscoverCharacteristics("1-2-3-4-5",...)
-
-...
-const charac = ble.getService('...').getCharacteristic('...')
-charac.setNotify().then(characteristic=>{}).catch(err=>{});
-charac.read().then(characteristic=>{characteristic.value ... }).catch(err=>{});
-charac.write().then(characteristic=>{}).catch(err=>{})
-
-...
-
-ble.disconnect()</code></pre>
 
 
 
@@ -152,109 +127,11 @@ ble.disconnect()</code></pre>
     
 
     
-        <h3 class="subsection-title">Interfaces</h3>
-
-        <dl>
-            <dt><a href="module-miot_Bluetooth.IBluetooth.html">IBluetooth</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-miot_Bluetooth.IBluetoothCharacteristic.html">IBluetoothCharacteristic</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-miot_Bluetooth.IBluetoothClassic.html">IBluetoothClassic</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-miot_Bluetooth.IBluetoothLE.html">IBluetoothLE</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-miot_Bluetooth.IBluetoothLock.html">IBluetoothLock</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-miot_Bluetooth.IBluetoothService.html">IBluetoothService</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-    
-
-    
-        <h3 class="subsection-title">Namespaces</h3>
-
-        <dl>
-            <dt><a href="module-miot_Bluetooth-BluetoothEvent.html">BluetoothEvent</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id=".UUID128"><span class="type-signature">(static) </span>UUID128<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>标准化蓝牙UUID为128位大写</p>
-</div>
-
-<!--
-
--->
-
-
-
-
-<dl class="details">
 
     
 
     
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import {Bluetooth} from 'miot';
-const myServiceUUID = Bluetooth.UUID128("0015");
-const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590");</code></pre>
-
-
-
-        
     
 
     
@@ -266,7 +143,7 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
     
 
     
-    <h4 class="name" id=".bindDeviceforMIUI"><span class="type-signature">(static) </span>bindDeviceforMIUI<span class="signature">(mac)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".controllerAdd"><span class="type-signature">(static) </span>controllerAdd<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
     
 
     
@@ -274,7 +151,10 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
 
 <div class="description">
-    <p>只在MIUI上支持，维持长连接 如果连接失败，则会隔一段时间尝试重连，如果继续失败，则重连间隔会翻倍，直到上限。</p>
+    <p>红外遥控器 添加红外遥控器</p>
+<ul>
+<li>/v2/irdevice/controller/add</li>
+</ul>
 </div>
 
 
@@ -310,13 +190,13 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
         <tr>
             
-                <td class="name"><code>mac</code></td>
+                <td class="name"><code>params</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">json</span>
 
 
             
@@ -326,242 +206,7 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
-
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".checkBluetoothIsEnabled"><span class="type-signature">(static) </span>checkBluetoothIsEnabled<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;boolean>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>判断蓝牙是否开放</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;boolean></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".createBluetoothClassic"><span class="type-signature">(static) </span>createBluetoothClassic<span class="signature">(macOrPeripheralID)</span><span class="type-signature"> &rarr; {IBluetoothClassic}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>创建经典蓝牙设备</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>macOrPeripheralID</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><ul>
-<li>iOS传 peripheralUUID, android 传 mac</li>
-</ul></td>
+            <td class="description last"><p>{name:string,parent_id:string,category:int,controller_id(选填):int,lineup_id(选填):string}</p></td>
         </tr>
 
     
@@ -632,7 +277,7 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
     </dt>
     <dd>
         
-<span class="param-type">IBluetoothClassic</span>
+<span class="param-type">Promise.&lt;json></span>
 
 
     </dd>
@@ -644,12 +289,6 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
 
 
-    <h5>Example</h5>
-    
-    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import Bluetooth from 'miot/Bluetooth'
-  const bludtoothClassic = Bluetooth.createBluetoothClassic("a.b.c...")</code></pre>
-
-
 
         
             
@@ -657,7 +296,7 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
     
 
     
-    <h4 class="name" id=".createBluetoothLE"><span class="type-signature">(static) </span>createBluetoothLE<span class="signature">(macOrPeripheralID)</span><span class="type-signature"> &rarr; {IBluetoothLE}</span></h4>
+    <h4 class="name" id=".controllerDel"><span class="type-signature">(static) </span>controllerDel<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
     
 
     
@@ -665,7 +304,10 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
 
 <div class="description">
-    <p>创建BLE蓝牙设备,</p>
+    <p>删除红外设备</p>
+<ul>
+<li>/v2/irdevice/controller/del</li>
+</ul>
 </div>
 
 
@@ -701,13 +343,13 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
         <tr>
             
-                <td class="name"><code>macOrPeripheralID</code></td>
+                <td class="name"><code>params</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">json</span>
 
 
             
@@ -717,9 +359,7 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
             
 
-            <td class="description last"><ul>
-<li>iOS传 peripheralUUID, android 传 mac</li>
-</ul></td>
+            <td class="description last"><p>{did:string}</p></td>
         </tr>
 
     
@@ -790,7 +430,7 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
     </dt>
     <dd>
         
-<span class="param-type">IBluetoothLE</span>
+<span class="param-type">Promise.&lt;json></span>
 
 
     </dd>
@@ -802,12 +442,6 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
 
 
-    <h5>Example</h5>
-    
-    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import Bluetooth from 'miot/Bluetooth'
-  const ble = Bluetooth.createBluetoothLE("a.b.c...")</code></pre>
-
-
 
         
             
@@ -815,7 +449,7 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
     
 
     
-    <h4 class="name" id=".enableBluetoothForAndroid"><span class="type-signature">(static) </span>enableBluetoothForAndroid<span class="signature">(silence)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".controllerUpdate"><span class="type-signature">(static) </span>controllerUpdate<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
     
 
     
@@ -823,7 +457,10 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
 
 <div class="description">
-    <p>打开蓝牙</p>
+    <p>更新红外设备</p>
+<ul>
+<li>/v2/irdevice/controller/update</li>
+</ul>
 </div>
 
 
@@ -859,13 +496,13 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
         <tr>
             
-                <td class="name"><code>silence</code></td>
+                <td class="name"><code>params</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">json</span>
 
 
             
@@ -875,149 +512,7 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>void</p>
-</div>
-
-
-
-    
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".isBleGatewayConnected"><span class="type-signature">(static) </span>isBleGatewayConnected<span class="signature">(mac)</span><span class="type-signature"> &rarr; {Promise.&lt;boolean>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>判断当前设备是否通过蓝牙网关扫描到了</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>mac</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
+            <td class="description last"><p>{did:string,keys:[{code:string,name:string,key_id:int}]}</p></td>
         </tr>
 
     
@@ -1088,7 +583,7 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;boolean></span>
+<span class="param-type">Promise.&lt;json></span>
 
 
     </dd>
@@ -1107,7 +602,7 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
     
 
     
-    <h4 class="name" id=".retrievePeripheralsForIOS"><span class="type-signature">(static) </span>retrievePeripheralsForIOS<span class="signature">(&hellip;UUIDs)</span><span class="type-signature"> &rarr; {Promise.&lt;Map.&lt;uuid, Bluetooth>>}</span></h4>
+    <h4 class="name" id=".getAreas"><span class="type-signature">(static) </span>getAreas<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
     
 
     
@@ -1115,351 +610,10 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
 
 <div class="description">
-    <p>iOS 平台获取已连接 BLE Peripheral，适用于可穿戴长连接设备
-对应 coreBLuetooth 中 retrievePeripheralsWithIdentifiers:(NSArray<NSUUID *> *)identifiers 方法</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>UUIDs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Peripheral UUIDs</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>//@mark ios done</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Map.&lt;uuid, Bluetooth>></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Bluetooth.retrievePeripheralsForIOS("PeripheralUUID1","PeripheralUUID2","PeripheralUUID3")</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".retrievePeripheralsWithServicesForIOS"><span class="type-signature">(static) </span>retrievePeripheralsWithServicesForIOS<span class="signature">(&hellip;serviceUUIDs)</span><span class="type-signature"> &rarr; {Promise.&lt;Map.&lt;uuid, Bluetooth>>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>iOS 平台通过 serviceUUID 获取已连接 BLE Peripheral，适用于可穿戴长连接设备
-对应 coreBLuetooth 中 retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs 方法</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>serviceUUIDs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Peripheral  serviceUUIDs</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>//@mark ios done</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Map.&lt;uuid, Bluetooth>></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Bluetooth.retrievePeripheralsWithServicesForIOS("serviceUUID1","serviceUUID2","serviceUUID3")</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".setAlertConfigsOnMIUI"><span class="type-signature">(static) </span>setAlertConfigsOnMIUI<span class="signature">(alert, enable, mac)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>只在MIUI上支持，维持长连接 如果连接失败，则会隔一段时间尝试重连，如果继续失败，则重连间隔会翻倍，直到上限。</p>
+    <p>（查） 根据地区 id 获取所有的城市信息</p>
+<ul>
+<li>/v2/ircode/area/city/areas</li>
+</ul>
 </div>
 
 
@@ -1495,13 +649,13 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
         <tr>
             
-                <td class="name"><code>alert</code></td>
+                <td class="name"><code>params</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">*</span>
+<span class="param-type">json</span>
 
 
             
@@ -1511,228 +665,7 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>enable</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mac</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
-
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".startScan"><span class="type-signature">(static) </span>startScan<span class="signature">(durationInMillis, &hellip;serviceUUIDs)</span><span class="type-signature"> &rarr; {void}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>开始扫描蓝牙设备</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>durationInMillis</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>扫描时长</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>serviceUUIDs</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>指定扫描, 为空时扫描全部</p></td>
+            <td class="description last"><p>{city_id: int}</p></td>
         </tr>
 
     
@@ -1803,7 +736,7 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
     </dt>
     <dd>
         
-<span class="param-type">void</span>
+<span class="param-type">Promise.&lt;json></span>
 
 
     </dd>
@@ -1815,12 +748,6 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
 
 
-    <h5>Example</h5>
-    
-    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">import Bluetooth from 'miot/Bluetooth'
-     Bluetooth.startScan(3000, 'FE95','FE96')</code></pre>
-
-
 
         
             
@@ -1828,7 +755,7 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
     
 
     
-    <h4 class="name" id=".stopScan"><span class="type-signature">(static) </span>stopScan<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id=".getBrands"><span class="type-signature">(static) </span>getBrands<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
     
 
     
@@ -1836,7 +763,10 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
 
 <div class="description">
-    <p>停止扫描蓝牙设备</p>
+    <p>（查） 红外遥控器  获取某一个遥控器类型的所有省份信息</p>
+<ul>
+<li>/v2/ircode/category/brands</li>
+</ul>
 </div>
 
 
@@ -1845,6 +775,55 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{category: int}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -1910,7 +889,7 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
     </dt>
     <dd>
         
-<span class="param-type">void</span>
+<span class="param-type">Promise.&lt;json></span>
 
 
     </dd>
@@ -1929,7 +908,7 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
     
 
     
-    <h4 class="name" id=".unBindDeviceforMIUI"><span class="type-signature">(static) </span>unBindDeviceforMIUI<span class="signature">(mac)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".getCategories"><span class="type-signature">(static) </span>getCategories<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
     
 
     
@@ -1937,7 +916,10 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
 
 <div class="description">
-    <p>只在MIUI上支持，解除长连接</p>
+    <p>（查） 获取所有支持的红外遥控器种类</p>
+<ul>
+<li>/v2/ircode/categories</li>
+</ul>
 </div>
 
 
@@ -1973,13 +955,13 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
         <tr>
             
-                <td class="name"><code>mac</code></td>
+                <td class="name"><code>params</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">json</span>
 
 
             
@@ -1989,7 +971,7 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>{}</p></td>
         </tr>
 
     
@@ -2048,7 +1030,1861 @@ const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590"
 
 
 <h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
 
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getCities"><span class="type-signature">(static) </span>getCities<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>（查） 红外遥控器 根据省份 id 获取所有的城市</p>
+<ul>
+<li>/v2/ircode/area/province/cities</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{province_id: int}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getIPTVBrands"><span class="type-signature">(static) </span>getIPTVBrands<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>（查） 红外遥控器  获取所有机顶盒支持的品牌</p>
+<ul>
+<li>/v2/ircode/iptv/brands</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{province_id: int}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getKeys"><span class="type-signature">(static) </span>getKeys<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>获取红外设备所有的 key</p>
+<ul>
+<li>/v2/irdevice/controller/keys</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{did:string}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getLineups"><span class="type-signature">(static) </span>getLineups<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>（查） 根据地区 id 获取支持的机顶盒品牌</p>
+<ul>
+<li>/v2/ircode/area/lineups</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{area_id:int}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getList"><span class="type-signature">(static) </span>getList<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>（查） 获取所有遥控器列表</p>
+<ul>
+<li>/v2/irdevice/controllers</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{parent_id:string}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getProvinces"><span class="type-signature">(static) </span>getProvinces<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>（查） 红外遥控器  获取所有省份信息</p>
+<ul>
+<li>/v2/ircode/area/provinces/china</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".keyClick"><span class="type-signature">(static) </span>keyClick<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>发送红外遥控器按键接口</p>
+<ul>
+<li>/v2/irdevice/controller/key/click</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{controller_id:int,did:string,key_id:int}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".keyDel"><span class="type-signature">(static) </span>keyDel<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>删除红外设备的 key</p>
+<ul>
+<li>/v2/irdevice/controller/key/del</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{did:string,key_id:string}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".keyUpdate"><span class="type-signature">(static) </span>keyUpdate<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>更新红外设备的 key 名称</p>
+<ul>
+<li>/v2/irdevice/controller/key/update</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{did:string,name:string}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".queryArea"><span class="type-signature">(static) </span>queryArea<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>（查）  红外遥控器 根据地区名称查询 id</p>
+<ul>
+<li>/v2/ircode/area/area_id</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{province:string,city:string,area:string}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".sendKey"><span class="type-signature">(static) </span>sendKey<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>设置红外遥控所有的按键</p>
+<ul>
+<li>/v2/irdevice/send_key</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{did:string,controller_id:int,key_id(选填):int,ac_key(选填):string}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".setKeys"><span class="type-signature">(static) </span>setKeys<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>设置红外遥控所有的按键</p>
+<ul>
+<li>/v2/irdevice/controller/keys/set</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{keys:[{code:string,key_id(选填):int,name(选填):string}]}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
 </div>
 
 
