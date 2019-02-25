@@ -606,6 +606,20 @@ export default {
      */
     UUID128:getBluetoothUUID128,
     /**
+     * 用以判断两个 UUID 是否相等
+     * @param {string} uuid1 
+     * @param {string} uuid2 
+     */
+    isSameUUID(uuid1, uuid2){
+        if(uuid1 == uuid2){
+            return true;
+        }
+        if(!uuid1 || !uuid2){
+            return false;
+        }
+        return getBluetoothUUID128(uuid1) == getBluetoothUUID128(uuid2);
+    },
+    /**
      * 创建BLE蓝牙设备,
      * @method
      * @param {string} macOrPeripheralID -- iOS传 peripheralUUID, android 传 mac

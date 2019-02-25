@@ -106,6 +106,15 @@ export default {
          return  true
     },
     /**
+     * 是否是国际版APP
+     * @const
+     * @type {boolean}
+     * @readonly
+     */
+    get isInternationalEdition() {
+         return  true
+    },
+    /**
      * @const
      * @see {@link module:miot/host/ui}
      * @description 可调起的host业务页面
