@@ -17,7 +17,7 @@ import {
 
 import { Bluetooth, BluetoothEvent, DeviceEvent, Device, Service } from "miot";
 
-const bt = Device.getBluetoothLE();
+let bt = Device.getBluetoothLE();
 const DEMOCHAR='00000001-0000-1000-8000-00805f9b34fb';
 let status_enable = false;
 export default class MainPage extends React.Component {
@@ -100,6 +100,17 @@ export default class MainPage extends React.Component {
                 this.setState({chars: {}});
             }
         })
+    }
+
+    /**
+     * 更新固件后重新链接设备
+     */
+    update(){
+      Bluetooth.startScan(30000,"1000000-0000-0000-00000000000");//扫描指定设备
+      BluetoothEvent.bluetoothDeviceDiscovered.addListener((result)=>{
+          bt = Bluetooth.createBluetoothLE(result.uuid||result.mac);//android 用 mac 创建设备，ios 用 uuid 创建设备
+          this.connect();
+      })
     }
 
     connect() {
