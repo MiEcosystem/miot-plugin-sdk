@@ -67,6 +67,12 @@ export default {
   openSecuritySetting() {
   },
   /**
+   * api_level 10001
+   * 打开蓝牙网关页面
+   */
+  openBtGatewayActivity() {
+  },
+  /**
    * 打开常见问题页，别名「使用帮助」
    */
   openHelpPage() {
