@@ -115,38 +115,6 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 图表📈统计接口 /v2/user/statistics
-     * @param {json} params 
-     * {
-            did: '', // 设备id
-            // data_type 为 数据类型，包括：
-            // 采样统计 日统计:stat_day / 周统计:stat_week / 月统计:stat_month
-            // 计数统计 日统计:total_day_v2 / 周统计:total_week_v2 / 月统计:total_month_v2
-            data_type: '',
-            key: '', // 需要统计的字段，即统计上报对应的key
-            time_start: 1543593599, // 开始时间
-            time_end: 1541001601, // 结束时间
-            limit: 1000 // 限制次数，0为默认条数
-        }
-     * @return {Promise<json>}
-     {
-        "code": 0,
-        "message": "ok",
-        "result": [
-            {
-                "value": "[12,34]", // 为一个数组形式json串
-                "time": 1543593600 // 时间戳
-            },
-            {
-                "value": "[10,11]",
-                "time": 1541001600
-            }]
-    }
-     */
-    getUserStatistics(params) {
-         return Promise.resolve(null);
-    },
-    /**
      * 获取设备时区
      * @param {string} did 
      */
