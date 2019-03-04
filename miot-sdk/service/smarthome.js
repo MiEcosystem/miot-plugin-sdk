@@ -359,4 +359,14 @@ export default {
     getFileUrl(params) {
          return Promise.resolve(null);
     },
+    /**
+     * api_level 10001
+     * 日志分页拉取
+     *
+     * @param {json} params  -参数 {did,key,type,timestamp,limit}
+     * @return {Promise}
+     */
+    getUserDeviceDataTab(params) {
+         return Promise.resolve(null);
+    },
 }
