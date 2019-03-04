@@ -106,12 +106,12 @@ export default {
          return  true
     },
     /**
-     * 是否是国际版APP
+     * 是否是国际版APP 国内版1 国际版2 欧洲版3
      * @const
      * @type {boolean}
      * @readonly
      */
-    get isInternationalEdition() {
+    get applicationEdition() {
          return  true
     },
     /**
@@ -171,6 +171,12 @@ export default {
      * Host.getWifiInfo().then(res => console("ssid and bssid = ", res.SSID, res.BSSID))
      */
     getWifiInfo() {
+         return Promise.resolve(null);
+    },
+    /**
+     * 获取APP名称
+     */
+    getAppName() {
          return Promise.resolve(null);
     }
 }

@@ -170,6 +170,14 @@ export default {
   openCountDownPage(isCountDownOn, setting) {
   },
   /**
+   * 打开一次性密码设置页
+   * @param {*} did 
+   * @param {*} interval 
+   * @param {*} digits 
+   */
+  openOneTimePassword(did,interval, digits) {
+  },
+  /**
    * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串
    * @param {string} onParam   定时到时设备“开”执行的 RPC 指令参数字符串（目前仅支持单参数）
    * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串
