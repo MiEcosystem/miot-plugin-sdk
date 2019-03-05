@@ -17,14 +17,6 @@ function resolveUrl(rawUrl) {
 }
 export default {
   /**
-   * 是否支持商城
-   * @return {Promise}
-   * @example
-   * Host.ui.canOpenStorePage().then(res => console("can open store = ", res))
-   */
-  canOpenStorePage() {
-  },
-  /**
    * 弹出删除设备的对话框
    * @param {string} [title=null] - 自定义提示，不设置使用默认提示
    */
@@ -80,6 +72,11 @@ export default {
    */
   openShareListBar(title, description, imagePath, url) {
   },
+  /**
+   * @callback getDevicesWithModelCallback
+   * @param {boolean} success
+   * @param {Object} devices
+   */
   /**
    * 获取设备列表中指定model的设备信息
    * @param {string} model - 设备model
@@ -224,5 +221,6 @@ export default {
    * @param {string} aiVersion 类的名字
    */
   openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion) {
+    native.MIOTHost.openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion);
   },
 };
