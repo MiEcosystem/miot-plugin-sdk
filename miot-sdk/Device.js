@@ -202,9 +202,6 @@ export class IDeviceWifi {
     callMethodFromCloud(method, args) {
          return Promise.resolve({});
     }
-    callMethodFromLocal(method, args) {
-         return Promise.resolve({});
-    }
     /**
      * ping 操作 检查设备本地局域网通信是否可用
      * @returns {Promise<boolean>}
