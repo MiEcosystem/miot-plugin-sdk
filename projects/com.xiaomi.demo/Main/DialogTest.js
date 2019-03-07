@@ -61,6 +61,7 @@ export default class DialogTest extends React.Component {
             textAlignVertical: 'center',
             fontFamily:'MI-LANTING--GBK1-Light',
             height: 45,
+            color:'#333333'
           }}>显示MessageDialog</Text>
         </TouchableHighlight>
         <MessageDialog title={'title'}
@@ -89,7 +90,7 @@ export default class DialogTest extends React.Component {
           <Text style={{
             textAlign: 'center',
             fontFamily:'D-DIN',
-            textAlignVertical: 'center', height: 45,
+            textAlignVertical: 'center', height: 45,color:'#333333'
           }}>显示InputDialog</Text>
         </TouchableHighlight>
         <InputDialog title={'title'}
@@ -123,6 +124,7 @@ export default class DialogTest extends React.Component {
             textAlignVertical: 'center',
             fontFamily:'D-DINCondensed-Bold',
             height: 45,
+            color:'#333333'
           }}>显示SingleChoseDialog</Text>
         </TouchableHighlight>
         <SingleChoseDialog title={'title'}
@@ -157,6 +159,7 @@ export default class DialogTest extends React.Component {
             textAlignVertical: 'center',
             fontFamily:'D-DINCondensed',
             height: 45,
+            color:'#333333'
           }}>显示MultiChoseDialog</Text>
         </TouchableHighlight>
         <MultiChoseDialog title={'title'}
@@ -206,7 +209,7 @@ export default class DialogTest extends React.Component {
             textAlign: 'center',
             textAlignVertical: 'center',
             fontFamily:'D-DINExp-Bold',
-            height: 45,
+            height: 45,color:'#333333'
           }}>显示LoadingDialog</Text>
         </TouchableHighlight>
         <LoadingDialog message={'message'}
@@ -237,7 +240,7 @@ export default class DialogTest extends React.Component {
             textAlign: 'center',
             textAlignVertical: 'center',
             fontFamily:'DS-Digital',
-            height: 45,
+            height: 45,color:'#333333'
           }}>显示ProgressDialog</Text>
         </TouchableHighlight>
         <ProgressDialog message={'message'}
@@ -269,7 +272,7 @@ export default class DialogTest extends React.Component {
           <Text style={{
             textAlign: 'center',
             textAlignVertical: 'center',
-            height: 45,
+            height: 45,color:'#333333'
           }}>Alert(RN自带的) </Text>
         </TouchableHighlight>
 
@@ -303,7 +306,7 @@ export default class DialogTest extends React.Component {
           <Text style={{
             textAlign: 'center',
             textAlignVertical: 'center',
-            height: 45,
+            height: 45,color:'#333333'
           }}>ActionSheet(RN自带的,iOS 特有的) </Text>
         </TouchableHighlight>
       </View>
@@ -323,5 +326,8 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     marginTop: 0,
   },
+    textStyle:{
+      color:'#333'
+    },
 });
 

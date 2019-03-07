@@ -209,13 +209,24 @@ export default class MoreMenu extends React.Component {
         'func': () => {
           const licenseURL = require('../Resources/raw/license_zh.html');
           const policyURL = require('../Resources/raw/privacy_zh.html');
-          Host.ui.openPrivacyLicense('软件许可及服务协议', licenseURL, '隐私协议', policyURL, (result) => {
-            if (result === 'ok') {
-              // 同意授权
-            } else {
-              // 取消授权，默认退出插件
-            }
+          let licenseKey = "license-"+Device.deviceID;
+          Host.storage.get(licenseKey).then((res)=>{
+              if(res === true){
+                    // 表示已经授权过
+              }else{
+                  Host.ui.openPrivacyLicense('软件许可及服务协议', licenseURL, '隐私协议', policyURL).then((res)=>{
+                      if(res){
+                          // 表示用户同意授权
+                          Host.storage.set(licenseKey, true).then((res)=>{});
+                      }
+                  }).catch((error)=>{
+                      console.log(error)
+                  })
+              }
+          }).catch((error)=>{
+
           });
+
         }
       }
     ];
