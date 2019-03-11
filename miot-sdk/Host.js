@@ -178,5 +178,5 @@ export default {
      */
     getAppName() {
          return Promise.resolve(null);
-    }
+    },
 }
