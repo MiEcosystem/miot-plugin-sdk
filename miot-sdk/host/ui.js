@@ -13,8 +13,6 @@
  *
  */
 const resolveAssetSource = require('resolveAssetSource');
-function resolveUrl(rawUrl) {
-}
 export default {
   /**
    * 是否支持商城

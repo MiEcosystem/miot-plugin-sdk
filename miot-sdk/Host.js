@@ -179,4 +179,25 @@ export default {
     getAppName() {
          return Promise.resolve(null);
     },
+    /**
+     * 后台执行文件
+     * @since 10002
+     * @param {*} jx 
+     * @param {*} initialProps 
+     * 
+     * @example
+     * 
+     * Host.createBackgroundExecutor(require('./test.jx'), {name1:"testName"})
+     *      .then(executor=>{
+     *          executor.execute("myFunc", 1,2,'a')
+     *                  .then(result=>{
+     *                      console.log(result);
+     *                  })
+     * })
+     * 
+     */
+    createBackgroundExecutor(jx, initialProps={}){
+         return Promise.resolve({execute(method, ...args){}, remove(){}});
+    }
+    
 }
