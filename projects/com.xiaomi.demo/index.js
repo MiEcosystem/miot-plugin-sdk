@@ -1,7 +1,10 @@
 import App from "./Main";
-import { Package, Entrance, PackageEvent } from "miot";
+import {Package, Entrance, PackageEvent, Host, Device} from "miot";
 PackageEvent.packageAuthorizationCancel.addListener(()=>{
+    // 用户撤销授权,需要清除缓存
     console.log("packageAuthorizationCancel");
+    let licenseKey = "license-"+Device.deviceID;
+    Host.storage.set(licenseKey, false);
     Package.exit();
 })
 PackageEvent.packageViewWillAppear.addListener(()=>{console.log("packageViewWillAppear")});

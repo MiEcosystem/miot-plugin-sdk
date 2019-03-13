@@ -143,7 +143,7 @@
     
 
     
-    <h4 class="name" id=".batchGetDeviceProps"><span class="type-signature">(static) </span>batchGetDeviceProps<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id=".batchGetDeviceDatas"><span class="type-signature">(static) </span>batchGetDeviceDatas<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -1508,157 +1508,6 @@
 
 <h5></h5><div style="display:none">
 
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".getAreaPropInfo"><span class="type-signature">(static) </span>getAreaPropInfo<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>获取某指定地区天气环境等信息
-/location/area_prop_info</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>{latitude:xx,longitude:xx,cityId:['pm2.5','realtime']}</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-    </dd>
-</dl>
-
-    
 </div>
 
 
@@ -4155,6 +4004,156 @@ Android not support yet</p>
     
 
     
+    <h4 class="name" id=".getUserDeviceDataTab"><span class="type-signature">(static) </span>getUserDeviceDataTab<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>参数 {did,key,type,timestamp,limit}</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10001
+日志分页拉取</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id=".getUserInfo"><span class="type-signature">(static) </span>getUserInfo<span class="signature">(uid)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
     
 
@@ -4305,7 +4304,183 @@ Android not support yet</p>
     
 
     
-    <h4 class="name" id=".getVoiceVtrlDevices"><span class="type-signature">(static) </span>getVoiceVtrlDevices<span class="signature">(deviceID)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id=".getUserStatistics"><span class="type-signature">(static) </span>getUserStatistics<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>图表📈统计接口 /v2/user/statistics</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>params</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{
+            did: '', // 设备id
+            // data_type 为 数据类型，包括：
+            // 采样统计 日统计:stat_day / 周统计:stat_week / 月统计:stat_month
+            // 计数统计 日统计:total_day_v2 / 周统计:total_week_v2 / 月统计:total_month_v2
+            data_type: '',
+            key: '', // 需要统计的字段，即统计上报对应的key
+            time_start: 1543593599, // 开始时间
+            time_end: 1541001601, // 结束时间
+            limit: 1000 // 限制次数，0为默认条数
+        }</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>{
+        &quot;code&quot;: 0,
+        &quot;message&quot;: &quot;ok&quot;,
+        &quot;result&quot;: [
+            {
+                &quot;value&quot;: &quot;[12,34]&quot;, // 为一个数组形式json串
+                &quot;time&quot;: 1543593600 // 时间戳
+            },
+            {
+                &quot;value&quot;: &quot;[10,11]&quot;,
+                &quot;time&quot;: 1541001600
+            }]
+    }</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;json></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getVoiceCtrlDevices"><span class="type-signature">(static) </span>getVoiceCtrlDevices<span class="signature">(deviceID)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     

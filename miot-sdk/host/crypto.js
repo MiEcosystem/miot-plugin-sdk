@@ -55,6 +55,7 @@ export default {
      return Promise.resolve('');
   },
   /**
+   *  api_level 10001
     * 扫地机的地图转换, base64文件内容转成图片
     * @param content 地图文件
     * @param colorMStr 墙色值

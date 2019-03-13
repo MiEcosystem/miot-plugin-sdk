@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        paddingLeft: 23, paddingRight: 23, fontSize: 14, alignItems: 'center', flex: 1,
+        paddingLeft: 23, paddingRight: 23, fontSize: 14, alignItems: 'center', flex: 1,color:'#333'
     }, subArrow: {
         width: 9, height: 18,
     }, separator: {

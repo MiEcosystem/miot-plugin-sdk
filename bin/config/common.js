@@ -45,6 +45,10 @@ const IDX_TYPE = 4
 const TYPE_MODULE = 1
 const TYPE_ASSET = 2
 
+const SUPPORTED_ASSET_FILE_TYPES = ["jx", "txt", "bin", "htm", "ogg", "db", "svg", "ico",
+        "zip", "gz", "pdf", "xls", "tmp", "doc", "mid", "dat", "dta", "data",
+        "mp3", "wma","avi", "rm", "rmvb", "flv", "mpg", "mpeg","mov", "mkv", "qt"];
+
 function objectWithoutProperties(obj, ...keys) {
   var target = {};
   for (var i in obj) {
@@ -213,6 +217,7 @@ module.exports = {
     
     TYPE_MODULE,
     TYPE_ASSET,
+    SUPPORTED_ASSET_FILE_TYPES,
 
     exec,
     execSync,

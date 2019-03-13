@@ -106,6 +106,15 @@ export default {
          return  true
     },
     /**
+     * 是否是国际版APP 国内版1 国际版2 欧洲版3
+     * @const
+     * @type {boolean}
+     * @readonly
+     */
+    get applicationEdition() {
+         return  true
+    },
+    /**
      * @const
      * @see {@link module:miot/host/ui}
      * @description 可调起的host业务页面
@@ -163,5 +172,11 @@ export default {
      */
     getWifiInfo() {
          return Promise.resolve(null);
-    }
+    },
+    /**
+     * 获取APP名称
+     */
+    getAppName() {
+         return Promise.resolve(null);
+    },
 }

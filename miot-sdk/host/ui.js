@@ -17,6 +17,14 @@ function resolveUrl(rawUrl) {
 }
 export default {
   /**
+   * 是否支持商城
+   * @return {Promise}
+   * @example
+   * Host.ui.canOpenStorePage().then(res => console("can open store = ", res))
+   */
+  canOpenStorePage() {
+  },
+  /**
    * 弹出删除设备的对话框
    * @param {string} [title=null] - 自定义提示，不设置使用默认提示
    */
@@ -59,6 +67,12 @@ export default {
   openSecuritySetting() {
   },
   /**
+   * api_level 10001
+   * 打开蓝牙网关页面
+   */
+  openBtGatewayActivity() {
+  },
+  /**
    * 打开常见问题页，别名「使用帮助」
    */
   openHelpPage() {
@@ -72,11 +86,6 @@ export default {
    */
   openShareListBar(title, description, imagePath, url) {
   },
-  /**
-   * @callback getDevicesWithModelCallback
-   * @param {boolean} success
-   * @param {Object} devices
-   */
   /**
    * 获取设备列表中指定model的设备信息
    * @param {string} model - 设备model
@@ -161,6 +170,14 @@ export default {
   openCountDownPage(isCountDownOn, setting) {
   },
   /**
+   * 打开一次性密码设置页
+   * @param {*} did 
+   * @param {*} interval 
+   * @param {*} digits 
+   */
+  openOneTimePassword(did,interval, digits) {
+  },
+  /**
    * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串
    * @param {string} onParam   定时到时设备“开”执行的 RPC 指令参数字符串（目前仅支持单参数）
    * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串
@@ -221,6 +238,5 @@ export default {
    * @param {string} aiVersion 类的名字
    */
   openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion) {
-    native.MIOTHost.openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion);
   },
 };

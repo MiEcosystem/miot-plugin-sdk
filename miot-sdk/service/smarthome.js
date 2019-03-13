@@ -10,7 +10,7 @@ export default {
      * @param {*} uid 获取用户信息的uid
      * @returns {Promise<json>}
      */
-    getUserInfo(uid){
+    getUserInfo(uid) {
          return Promise.resolve({});
     },
     /**
@@ -31,7 +31,7 @@ export default {
      * @returns {Promise<json>}
      *
      */
-    reportGPSInfo(deviceID, gpsInfo){
+    reportGPSInfo(deviceID, gpsInfo) {
          return Promise.resolve(null);
     },
     /**
@@ -58,24 +58,15 @@ export default {
      *  .then(res => console.log('success:', res))
      *  .catch(err => console.log('failed:', err))
      */
-    checkDeviceVersion(did,pid) {
+    checkDeviceVersion(did, pid) {
          return Promise.resolve({});
-    },
-    /**
-     * 获取某指定地区天气环境等信息
-     * /location/area_prop_info
-     * @param {json} params {latitude:xx,longitude:xx,cityId:['pm2.5','realtime']}
-     * @returns {Promise}
-     */
-    getAreaPropInfo(params) {
-         return Promise.resolve(null);
     },
     /**
      * 检查到有可用更新时，可以主动更新固件。 /home/multi_checkversion
      * @param {array<string>} deviceIDs
      * @return {Promise<json>}
      */
-    getAvailableFirmwareForDids(deviceIDs){
+    getAvailableFirmwareForDids(deviceIDs) {
          return Promise.resolve(null);
     },
     /**
@@ -94,7 +85,7 @@ export default {
      *
      *     Device.reportLog(`...`)
      */
-    reportLog(model, log){
+    reportLog(model, log) {
     },
     /**
      * 上报设备数据 /device/event
@@ -104,7 +95,7 @@ export default {
      * @example
      * Service.smarthome.reportRecords("deviceID", [{type:"prop",key:"b",value:"c"}])
      */
-    reportRecords(deviceID, records){
+    reportRecords(deviceID, records) {
          return Promise.resolve(null);
     },
     /**
@@ -112,7 +103,7 @@ export default {
      * @param {json} params {did:string,prefix:string,limit:int,offset:int}
      * @return {Promise<json>}
      */
-    getDevicesConfig(params){
+    getDevicesConfig(params) {
          return Promise.resolve(null);
     },
     /**
@@ -120,7 +111,39 @@ export default {
      * @param {json} params {did:string, keys:[key1,key2]}
      * @return {Promise<json>}
      */
-    delDevicesConfig(params){
+    delDevicesConfig(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 图表📈统计接口 /v2/user/statistics
+     * @param {json} params 
+     * {
+            did: '', // 设备id
+            // data_type 为 数据类型，包括：
+            // 采样统计 日统计:stat_day / 周统计:stat_week / 月统计:stat_month
+            // 计数统计 日统计:total_day_v2 / 周统计:total_week_v2 / 月统计:total_month_v2
+            data_type: '',
+            key: '', // 需要统计的字段，即统计上报对应的key
+            time_start: 1543593599, // 开始时间
+            time_end: 1541001601, // 结束时间
+            limit: 1000 // 限制次数，0为默认条数
+        }
+     * @return {Promise<json>}
+     {
+        "code": 0,
+        "message": "ok",
+        "result": [
+            {
+                "value": "[12,34]", // 为一个数组形式json串
+                "time": 1543593600 // 时间戳
+            },
+            {
+                "value": "[10,11]",
+                "time": 1541001600
+            }]
+    }
+     */
+    getUserStatistics(params) {
          return Promise.resolve(null);
     },
     /**
@@ -135,7 +158,10 @@ export default {
      * @param deviceID  语音设备的 did
      * @return {Promise}
      */
-    getVoiceVtrlDevices(deviceID){
+    getVoiceCtrlDevices(deviceID) {
+        return this.getVoiceVtrlDevices(deviceID);
+    },
+    getVoiceVtrlDevices(deviceID) {
          return Promise.resolve(null);
     },
     /**
@@ -152,7 +178,7 @@ export default {
      *  req_header: {"Content-Type":"xx"}
      * }).then()
      */
-    getAiServiceProxy(params){
+    getAiServiceProxy(params) {
          return Promise.resolve(null);
     },
     /**
@@ -160,7 +186,7 @@ export default {
      * @param {json} params 请求参数 {did:string,settings:array<string>}
      * @return {Promise}
      */
-    getDeviceSetting(params){
+    getDeviceSetting(params) {
          return Promise.resolve(null);
     },
     /**
@@ -168,7 +194,7 @@ export default {
      * @param {json} params 请求参数 {did:string,settings:map<key,value>}
      * @return {Promise}
      */
-    setDeviceSetting(params){
+    setDeviceSetting(params) {
          return Promise.resolve(null);
     },
     /**
@@ -176,7 +202,7 @@ export default {
      * @param {json} params  - 请求参数 \{did:设备 id,settings:要删除的设置角标的数组}
      * @return {Promise}
      */
-    delDeviceSetting(params){
+    delDeviceSetting(params) {
          return Promise.resolve(null);
     },
     /**
@@ -184,7 +210,7 @@ export default {
      * @param {string} model 设备的 model
      * @return {Promise}
      */
-    getLatestVersion(model){
+    getLatestVersion(model) {
          return Promise.resolve(null);
     },
     /**
@@ -193,7 +219,7 @@ export default {
      * @param {json} params -参数\{did,type,key,time_start,time_end,limit}含义如下：设备did,属性为prop事件为event,属性名不需要prop或者event前缀,起始时间单位为秒,结束事件单位为秒,请求的条数限制
      * @returns {Promise}
      */
-    getDeviceData(params){
+    getDeviceData(params) {
          return Promise.resolve(null);
     },
     /**
@@ -202,7 +228,7 @@ export default {
      * @param {json}  params  参数\{did,uid,type,key,time,value}含义如下：设备did，添加到哪个用户下,一般为 Device.ownerId，属性为prop事件为event，属性名不需要prop或者event前缀，触发时间，要保存的数据
      * @return {Promise}
      */
-    setDeviceData(params){
+    setDeviceData(params) {
          return Promise.resolve(null);
     },
     /**
@@ -211,7 +237,7 @@ export default {
      * @param {*} params {did:string}
      * @return {Promise}
      */
-    getUserColl(params){
+    getUserColl(params) {
          return Promise.resolve(null);
     },
     /**
@@ -220,7 +246,7 @@ export default {
      * @param {*} params {did:string, name: string, content: string}
      * @return {Promise}
      */
-    setUserColl(params){
+    setUserColl(params) {
          return Promise.resolve(null);
     },
     /**
@@ -229,7 +255,7 @@ export default {
      * @param {*} params {coll_id: string, did: string}
      * @return {Promise}
      */
-    delUserColl(params){
+    delUserColl(params) {
          return Promise.resolve(null);
     },
     /**添加设备属性和事件历史记录，/home/getmapfileurl
@@ -237,7 +263,7 @@ export default {
      * @param {json} params
      * @return {Promise}
      */
-    getMapfileUrl(params){
+    getMapfileUrl(params) {
          return Promise.resolve(null);
     },
     /**添加设备属性和事件历史记录，/home/device_list
@@ -245,7 +271,7 @@ export default {
      * @param {json} params {pid:string ,ssid:string ,bssid:string ,localDidList:array<string>,checkMoreWifi:bool,dids:array<string>}
      * @return {Promise}
      */
-    getHomeDevice(params){
+    getHomeDevice(params) {
          return Promise.resolve(null);
     },
     /**
@@ -253,7 +279,7 @@ export default {
      * @param {json} params {'name':'自定义值','lang':'自定义值','version':'自定义值','model':'modelId'}
      * /service/getappconfigv2
      */
-    getAppConfigV2(params){
+    getAppConfigV2(params) {
          return Promise.resolve(null);
     },
     /**
@@ -262,7 +288,7 @@ export default {
      * @param {json} params
      * @return {Promise}
      */
-    delUsermap(params){
+    delUsermap(params) {
          return Promise.resolve(null);
     },
     /**
@@ -271,7 +297,7 @@ export default {
      * @param {*} arams
      * @return {Promise}
      */
-    getRobomapUrl(params){
+    getRobomapUrl(params) {
          return Promise.resolve(null);
     },
     /**
@@ -280,7 +306,7 @@ export default {
      * @param {json} params {"dids": ["xx"]}
      * @return {Promise}
      */
-    getCountry(params){
+    getCountry(params) {
          return Promise.resolve(null);
     },
     /**
@@ -289,7 +315,7 @@ export default {
      * @param {json} params  -参数\{did}
      * @return {Promise}
      */
-    getBleLockBindInfo(params){
+    getBleLockBindInfo(params) {
          return Promise.resolve(null);
     },
     /**
@@ -298,7 +324,10 @@ export default {
      * @param {json} params  -参数 [{did:"",props:["prop.aaa","prop.bbb"]}]
      * @return {Promise}
      */
-    batchGetDeviceProps(params){
+    batchGetDeviceDatas(params) {
+        return this.batchGetDeviceProps(params);
+    },
+    batchGetDeviceProps(params) {
          return Promise.resolve(null);
     },
     /**
@@ -307,7 +336,7 @@ export default {
      * @param {json} params  -参数 {"name":"config_version","version":1,"lang":"en","app_id":"XXX"}
      * @return {Promise}
      */
-    getThirdConfig(params){
+    getThirdConfig(params) {
          return Promise.resolve(null);
     },
     /**
@@ -316,7 +345,7 @@ export default {
      * @param {json} params  -参数 {"app_id":"123","dids":["1","2"],"params":json}
      * @return {Promise}
      */
-    callThirdPartyAPI(params){
+    callThirdPartyAPI(params) {
          return Promise.resolve(null);
     },
     /**
@@ -325,12 +354,12 @@ export default {
      * @return {Promise}
      */
     getMiWatchConfig() {
-        if(native.isAndroid) {
+        if (native.isAndroid) {
             return new Promise.reject("not support android yet");
         }
         return new Promise((resolve, reject) => {
             native.MIOTHost.getMiWatchConfigWithCallback((ok, res) => {
-                if(ok) {
+                if (ok) {
                     return resolve(res);
                 }
                 reject("get failed");
@@ -342,7 +371,7 @@ export default {
      * @param string} did 设备的 did
      * @returns {Promise}
      */
-    getUserDeviceAuth(did){
+    getUserDeviceAuth(did) {
          return Promise.resolve(null);
     },
     /**
@@ -350,7 +379,7 @@ export default {
      * @param {json} params  -参数 {obj_name : '{ownerId}/{deviceId}/{index}'}
      * @returns {Promise}
      */
-    getInterimFileUrl(params){
+    getInterimFileUrl(params) {
          return Promise.resolve(null);
     },
     /**
@@ -359,7 +388,17 @@ export default {
      * @param {json} params  -参数 {obj_name : '2018/06/08/123456/xiaomi123_181030106.mp3'}
      * @return {Promise}
      */
-    getFileUrl(params){
+    getFileUrl(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * @since 10001
+     * 日志分页拉取
+     *
+     * @param {json} params  -参数 {did,key,type,timestamp,limit}
+     * @return {Promise}
+     */
+    getUserDeviceDataTab(params) {
          return Promise.resolve(null);
     },
 }

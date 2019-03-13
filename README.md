@@ -1,5 +1,4 @@
-# MIOT SDK 1.0.0(API_LEVEL:10000) for React Native
-(使用未发布的最新 API 请切换到 SDK_10001 分支)
+# MIOT SDK (API_LEVEL:10001) for React Native
 
 ## 初始化
 
