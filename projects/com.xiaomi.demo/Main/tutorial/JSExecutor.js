@@ -11,7 +11,7 @@ export default class JSExecutor extends React.Component {
 
     componentDidMount() {
         const resolveAssetSource = require("react-native/Libraries/Image/resolveAssetSource");
-        const jsfile = require("../../Resources/js_executor_demo.html");
+        const jsfile = require("../../Resources/test_executor.jx");
         const jspath = resolveAssetSource(jsfile).uri;
         Host.createBackgroundExecutor(jspath).then(executor => {
             console.log("createBackgroundExecutor res:", executor);
@@ -33,7 +33,7 @@ export default class JSExecutor extends React.Component {
 
     call1() {
         if (this.executor) {
-            this.executor.execute("callWithArg1ReturnNumber", "1").then(res => {
+            this.executor.execute("TestObj.callWithArg1ReturnNumber", "1").then(res => {
                 console.log("call 1 result :", res);
             }).catch(err => {
                 console.log("call 1 failed :", err);

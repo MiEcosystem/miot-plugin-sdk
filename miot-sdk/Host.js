@@ -180,21 +180,35 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 后台执行文件
+     * jx执行器
+     * @typedef IExecutor
      * @since 10002
-     * @param {*} jx 
-     * @param {*} initialProps 
-     * 
+     * @property {boolean} isReady  - 是否可用
+     * @property {boolean} isRunning - 是否运行中 
+     * @property {*} execute(method, ...args) - 执行某个函数
+     * @property {} remove() - 删除
+     *
+     */
+    /**
+     * 后台执行文件, 后台最多同时运行三个线程, 超过将销毁最早创建的 executor
+     * @since 10002
+     * @param {*} jx - 可执行的纯 js 文件, 不使用任何高级语法, 如要使用 es6, 请自行编译通过.
+     * @param {json} initialProps - 用于脚本初始化的数据
+     * @returns {Promise<IExecutor>} 
      * @example
      * 
+     * var myexecutor = null;
      * Host.createBackgroundExecutor(require('./test.jx'), {name1:"testName"})
      *      .then(executor=>{
+     *          myexecutor = executor;
      *          executor.execute("myFunc", 1,2,'a')
      *                  .then(result=>{
      *                      console.log(result);
      *                  })
      * })
-     * 
+     * .then(err=>{...})
+     * ....
+     * myexecutor&&myexecutor.remove();
      */
     createBackgroundExecutor(jx, initialProps={}){
          return Promise.resolve({execute(method, ...args){}, remove(){}});
