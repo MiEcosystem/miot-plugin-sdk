@@ -197,6 +197,12 @@ export default class MoreMenu extends React.Component {
         }
       },
       {
+        'name': 'Android手机蓝牙设置页面',
+        'func': () => {
+          Host.ui.openPhoneBluSettingPage();
+        }
+      },
+      {
         'name': '查看使用条款和隐私协议',
         'func': () => {
           const licenseURL = require('../Resources/raw/license_zh.html');

@@ -228,6 +228,13 @@ export default {
   openNewMorePage() {
   },
   /**
+   * @since 10002
+   * android特有页面，ios 不能使用
+   * 打开手机蓝牙设置页面
+  */
+  openPhoneBluSettingPage() {
+  },
+  /**
    * 打开小爱训练计划
    * @param {string} clientId 类的名字
    * @param {string} did 类的名字
