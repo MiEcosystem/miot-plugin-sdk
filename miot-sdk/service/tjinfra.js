@@ -1,7 +1,7 @@
 /**
  * @export
- * @module miot/service/ircontroller
- * @description 红外相关 API
+ * @module miot/service/infra
+ * @description infra
  *
  */
 export default {
