@@ -22,7 +22,7 @@ export default {
   },
   /**
    * 开始录音
-   * @param {string} audioName  保存文件名，如 audio.mp3
+   * @param {string} audioName  保存文件名，如 audio.mp3,也可以传入path，比如:Host.file.storageBasePath+'audio.mp3'
    * @param {json} settings 配置参数{ AVSampleRateKey 采样率 默认44100，
    *                                AVNumberOfChannelsKey 声道，默认2，
    *                                AVLinearPCMBitDepthKey 音频编码比特率 默认16,

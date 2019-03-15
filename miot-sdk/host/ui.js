@@ -169,9 +169,9 @@ export default {
   },
   /**
    * 打开一次性密码设置页
-   * @param {*} did 
-   * @param {*} interval 
-   * @param {*} digits 
+   * @param {*} did   设备did
+   * @param {*} interval  时间间隔，即密码组的刷新时间间隔，单位为分钟，类型为 number，传入 10 到 60 的整数
+   * @param {*} digits 密码位数，类型为 number，传入 6 到 8 的整数
    */
   openOneTimePassword(did,interval, digits) {
   },

@@ -10,9 +10,7 @@ import Host from 'miot/Host';
 export default class JSExecutor extends React.Component {
 
     componentDidMount() {
-        const resolveAssetSource = require("react-native/Libraries/Image/resolveAssetSource");
-        const jsfile = require("../../Resources/test_executor.jx");
-        const jspath = resolveAssetSource(jsfile).uri;
+        const jspath = require("../../Resources/test_executor.jx");
         Host.createBackgroundExecutor(jspath).then(executor => {
             console.log("createBackgroundExecutor res:", executor);
             this.executor = executor;

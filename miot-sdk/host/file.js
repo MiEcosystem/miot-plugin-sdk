@@ -363,5 +363,8 @@ export default {
      */
     getRGBAValueFromImageAtPath(imagePath, points) {
          return Promise.resolve(null);
+    },
+    get storageBasePath(){
+         return Promise.resolve(null);
     }
 };
