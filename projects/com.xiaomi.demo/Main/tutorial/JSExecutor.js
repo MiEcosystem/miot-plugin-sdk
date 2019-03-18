@@ -11,7 +11,7 @@ export default class JSExecutor extends React.Component {
 
     componentDidMount() {
         const jspath = require("../../Resources/test_executor.jx");
-        Host.createBackgroundExecutor(jspath).then(executor => {
+        Host.createBackgroundExecutor(jspath, { 'init1': "1", 'init2': [1, 2] }).then(executor => {
             console.log("createBackgroundExecutor res:", executor);
             this.executor = executor;
         }).catch(err => {
@@ -19,42 +19,18 @@ export default class JSExecutor extends React.Component {
         });
     }
 
-    call0() {
-        if (this.executor) {
-            this.executor.execute("callWithNoArgReturnString").then(res => {
-                console.log("call 0 result :", res);
-            }).catch(err => {
-                console.log("call 0 failed :", err);
-            })
-        }
-    }
-
-    call1() {
-        if (this.executor) {
-            this.executor.execute("TestObj.callWithArg1ReturnNumber", "1").then(res => {
-                console.log("call 1 result :", res);
-            }).catch(err => {
-                console.log("call 1 failed :", err);
-            })
-        }
-    }
-
-    call2() {
-        if (this.executor) {
-            this.executor.execute("callWithArg2ReturnARR", "1", "2").then(res => {
-                console.log("call 2 result :", res);
-            }).catch(err => {
-                console.log("call 2 failed :", err);
-            })
-        }
+    componentWillUnmount() {
+        this.executor&&this.executor.remove();
     }
 
     call3() {
         if (this.executor) {
             this.executor.execute("callWithArg3ReturnOBJ", "1", "2", "3").then(res => {
                 console.log("call 3 result :", res);
+                alert("success: " + JSON.stringify(res));
             }).catch(err => {
                 console.log("call 3 failed :", err);
+                alert("failed: ", JSON.stringify(err));
             })
         }
     }
@@ -63,10 +39,7 @@ export default class JSExecutor extends React.Component {
         return (
             <View>
                 <Text>JSExecutor</Text>
-                <Button onPress={this.call0.bind(this)} title="CallNoParams"></Button>
-                <Button onPress={this.call1.bind(this)} title="CallOneParams"></Button>
-                <Button onPress={this.call2.bind(this)} title="CallTwoParams"></Button>
-                <Button onPress={this.call3.bind(this)} title="CallThreeParams"></Button>
+                <Button onPress={this.call3.bind(this)} title="函数调用"></Button>
             </View>
         )
     }

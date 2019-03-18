@@ -2,7 +2,7 @@
 
 function callWithArg3ReturnOBJ(a,b,c){
 
-    return {aa:initialProps, ab:a+b, c:c};
+    return {'initialProps':initialProps, 'a+b':a+b, 'c':c};
 
 }
 
