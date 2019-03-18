@@ -6,6 +6,9 @@ function callWithArg3ReturnOBJ(a,b,c){
 
 }
 
+function callWithObj(a,b,c) {
+    return {'a':a, 'b':b, 'c':c};
+}
 
 var TestObj = {
 
