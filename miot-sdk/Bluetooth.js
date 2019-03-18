@@ -380,61 +380,14 @@ export class IBluetooth {
      *
      */
     maximumWriteValueLength(type = 0){
-      return new Promise((resolve, reject)=>{
-        if(native.isIOS){
-          native.MIOTBluetooth.maximumWriteValueLengthForType(type,(ok,result)=>{
-            if (ok) {
-              resolve(result);
-            }
-            else {
-              reject(result);
-            }
-          });
-        }
-        else{
-            console.log("has no real methord,return default value 20 bytes.");
-            resolve(20*8);
-        }
-      });
+         return Promise.resolve(null);
     }
     /**
      * 更新版本号，蓝牙的版本号 connect 之后才能
      * @return {Promise<any>}
      */
     getVersion() {
-        return new Promise((resolve, reject) => {
-            function setDeviceVersion(data) {
-                const {mac} = Properties.of(this).fakemac||{};
-                let device = RootDevice;
-                let props = Properties.of(device);
-                if (props.mac != mac) {
-                    device = (props._subDevices || []).find(d => mac == d.mac);
-                }
-                if (device) {
-                    device.version = data;
-                }
-            }
-            const {fakemac} = Properties.of(this);
-            if (native.isIOS){
-                native.MIOTDevice.getVersion(false,(ok, data) => {
-                    if (ok) {
-                        setDeviceVersion.call(this, data);
-                        resolve(data);
-                        return;
-                    }
-                    reject(data);
-                });
-            } else{
-                native.MIOTBluetooth.getVersion(fakemac.id, false,(ok, data) => {
-                    if (ok) {
-                        setDeviceVersion.call(this, data);
-                        resolve(data);
-                        return;
-                    }
-                    reject(data);
-                });
-            }
-        });
+         return Promise.resolve(null);
     }
 }
 /**
