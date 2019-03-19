@@ -401,4 +401,37 @@ export default {
     getUserDeviceDataTab(params) {
          return Promise.resolve(null);
     },
+    /**
+     * @since 10002
+     * /v2/home/range_get_open_config
+     * 通过appid、category、configid获获取对应的配置
+     *
+     * @param {json} params  -参数 {did,category,configids,offset,limit}
+     * @return {Promise}
+     */
+    rangeGetOpenConfig(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * @since 10002
+     * /v2/device/set_extra_data
+     *  写extra_data 字段，必须为map[string] string格式
+     *
+     * @param {json} params  -参数 {did, extra_data}
+     * @return {Promise}
+     */
+    deviceSetExtraData(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * @since 10002
+     * /user/edit_user_coll
+     *  编辑用户收藏
+     *
+     * @param {json} params  -参数 {coll_id, newname， content}
+     * @return {Promise}
+     */
+    editUserColl(params) {
+         return Promise.resolve(null);
+    },
 }
