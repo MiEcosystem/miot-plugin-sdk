@@ -10,7 +10,7 @@
  * const myfile = "testpicture.png"
  * Host.file.downloadFile("http://..../...png", myfile)
  * .then(res=>{
- *     const myimg = <Image source={{local:myfile}} .../>
+ *     const myimg = <Image source={{local:myfile}} ... />
  *     ...
  * })
  * .catch(err=>{...})
@@ -19,7 +19,7 @@
  * const myshotfile = "testshot.png"
  * Host.file.screenShot(myshotfile)
  * .then(res=>{
- *    const myshotpic = <Image source={{local:myshotfile}} .../>
+ *    const myshotpic = <Image source={{local:myshotfile}} ... />
  *    ...
  * });
  * ...
