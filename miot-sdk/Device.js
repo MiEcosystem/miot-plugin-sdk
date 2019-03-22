@@ -483,6 +483,14 @@ class IDevice {
         return Scene.loadTimerScenes(this.deviceID, opt);
     }
     /**
+     * 获取当前设备列表中的指定model的设备列表
+     * @since 10003
+     * @param {string} model 设备model
+     */
+    requestAuthorizedDeviceListData(model) {
+         return Promise
+    }
+    /**
      * 创建场景
      * @method
      * @param {SceneType} sceneType
