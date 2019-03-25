@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Xiaomi MIOT: Module: miot/service/ircontroller</title>
+    <title>Xiaomi MIOT: Module: miot/service/infra</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -21,7 +21,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: miot/service/ircontroller</h1>
+    <h1 class="page-title">Module: miot/service/infra</h1>
 
     
 
@@ -42,7 +42,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>红外相关 API</p></div>
+            <div class="description"><p>infra</p></div>
         
 
         
@@ -143,7 +143,7 @@
     
 
     
-    <h4 class="name" id=".controllerAdd"><span class="type-signature">(static) </span>controllerAdd<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    <h4 class="name" id=".autoMatchRemote"><span class="type-signature">(static) </span>autoMatchRemote<span class="signature">(clientName, page)</span><span class="type-signature"></span></h4>
     
 
     
@@ -151,10 +151,7 @@
 
 
 <div class="description">
-    <p>红外遥控器 添加红外遥控器</p>
-<ul>
-<li>/v2/irdevice/controller/add</li>
-</ul>
+    <p>autoMatchRemote</p>
 </div>
 
 
@@ -190,7 +187,30 @@
 
         <tr>
             
-                <td class="name"><code>params</code></td>
+                <td class="name"><code>clientName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>page</code></td>
             
 
             <td class="type">
@@ -206,7 +226,736 @@
 
             
 
-            <td class="description last"><p>{name:string,parent_id:string,category:int,controller_id(选填):int,lineup_id(选填):string}</p></td>
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".buildIRCode"><span class="type-signature">(static) </span>buildIRCode<span class="signature">(freq, base64Data)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>buildIRCode</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>freq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>base64Data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".createClient"><span class="type-signature">(static) </span>createClient<span class="signature">(name)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>createClient</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".destroyClient"><span class="type-signature">(static) </span>destroyClient<span class="signature">(name)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>destroyClient</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".downloadRemote"><span class="type-signature">(static) </span>downloadRemote<span class="signature">(clientName, remoteId)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>downloadRemote</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>clientName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>remoteId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".exactMatchRemote"><span class="type-signature">(static) </span>exactMatchRemote<span class="signature">(clientName, page)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>exactMatchRemote</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>clientName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>page</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
         </tr>
 
     
@@ -269,19 +1018,11 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    <p>promise</p>
+</div>
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
 
     
 </div>
@@ -296,7 +1037,7 @@
     
 
     
-    <h4 class="name" id=".controllerDel"><span class="type-signature">(static) </span>controllerDel<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    <h4 class="name" id=".exactMatchRemoteIfPower"><span class="type-signature">(static) </span>exactMatchRemoteIfPower<span class="signature">(clientName, page, matchPower)</span><span class="type-signature"></span></h4>
     
 
     
@@ -304,10 +1045,7 @@
 
 
 <div class="description">
-    <p>删除红外设备</p>
-<ul>
-<li>/v2/irdevice/controller/del</li>
-</ul>
+    <p>exactMatchRemoteIfPower</p>
 </div>
 
 
@@ -343,7 +1081,30 @@
 
         <tr>
             
-                <td class="name"><code>params</code></td>
+                <td class="name"><code>clientName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>page</code></td>
             
 
             <td class="type">
@@ -359,7 +1120,30 @@
 
             
 
-            <td class="description last"><p>{did:string}</p></td>
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>matchPower</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
         </tr>
 
     
@@ -422,19 +1206,11 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    <p>promise</p>
+</div>
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
 
     
 </div>
@@ -449,7 +1225,355 @@
     
 
     
-    <h4 class="name" id=".controllerUpdate"><span class="type-signature">(static) </span>controllerUpdate<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    <h4 class="name" id=".fetchAirRemoteInfrared"><span class="type-signature">(static) </span>fetchAirRemoteInfrared<span class="signature">(remoteDict, key, state)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>remoteDict</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".fetchAirTimerInfrared"><span class="type-signature">(static) </span>fetchAirTimerInfrared<span class="signature">(keyDict, state, time)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>keyDict</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>time</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".fetchRemoteInfrared"><span class="type-signature">(static) </span>fetchRemoteInfrared<span class="signature">(remoteDict, key)</span><span class="type-signature"></span></h4>
     
 
     
@@ -457,10 +1581,7 @@
 
 
 <div class="description">
-    <p>更新红外设备</p>
-<ul>
-<li>/v2/irdevice/controller/update</li>
-</ul>
+    <p>fetchRemoteInfrared</p>
 </div>
 
 
@@ -496,7 +1617,7 @@
 
         <tr>
             
-                <td class="name"><code>params</code></td>
+                <td class="name"><code>remoteDict</code></td>
             
 
             <td class="type">
@@ -512,7 +1633,1820 @@
 
             
 
-            <td class="description last"><p>{did:string,keys:[{code:string,name:string,key_id:int}]}</p></td>
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getAirRemoteState"><span class="type-signature">(static) </span>getAirRemoteState<span class="signature">(remoteDict)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>getAirRemoteState</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>remoteDict</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getAllCities"><span class="type-signature">(static) </span>getAllCities<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>加载城市列表</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getAllProviders"><span class="type-signature">(static) </span>getAllProviders<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>加载运营商</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getAllProvinces"><span class="type-signature">(static) </span>getAllProvinces<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>加载全部省份信息（省份不包含城市列表）</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getCityInProvince"><span class="type-signature">(static) </span>getCityInProvince<span class="signature">(province_id)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>getCityInProvince</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>province_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getIRCode"><span class="type-signature">(static) </span>getIRCode<span class="signature">(freq, data)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>getIRCode</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>freq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".getProviderInCity"><span class="type-signature">(static) </span>getProviderInCity<span class="signature">(city_id)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>getProviderInCity</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>city_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".isCustomKey"><span class="type-signature">(static) </span>isCustomKey<span class="signature">(keyDict)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>isCustomKey</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>keyDict</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".isMemoryKey"><span class="type-signature">(static) </span>isMemoryKey<span class="signature">(keyDict)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>isMemoryKey</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>keyDict</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".loadBrands"><span class="type-signature">(static) </span>loadBrands<span class="signature">(clientName)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>loadBrands</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>clientName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".loadCityProviders"><span class="type-signature">(static) </span>loadCityProviders<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>加载城市 - 运营商关联数据</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".loadProviderRemotesByCity"><span class="type-signature">(static) </span>loadProviderRemotesByCity<span class="signature">(city_id, provider)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>获取运营商推荐遥控器</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>city_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>provider</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".missModel"><span class="type-signature">(static) </span>missModel<span class="signature">(clientName, type, brandId, model)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>missModel</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>clientName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>brandId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>model</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".searchAirRemote"><span class="type-signature">(static) </span>searchAirRemote<span class="signature">(clientName, page)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>searchAirRemote</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>clientName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>page</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
         </tr>
 
     
@@ -575,19 +3509,11 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    <p>promise</p>
+</div>
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
 
     
 </div>
@@ -602,7 +3528,7 @@
     
 
     
-    <h4 class="name" id=".getAreas"><span class="type-signature">(static) </span>getAreas<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    <h4 class="name" id=".searchDiy"><span class="type-signature">(static) </span>searchDiy<span class="signature">(clientName, page)</span><span class="type-signature"></span></h4>
     
 
     
@@ -610,10 +3536,7 @@
 
 
 <div class="description">
-    <p>（查） 根据地区 id 获取所有的城市信息</p>
-<ul>
-<li>/v2/ircode/area/city/areas</li>
-</ul>
+    <p>searchDiy</p>
 </div>
 
 
@@ -649,7 +3572,30 @@
 
         <tr>
             
-                <td class="name"><code>params</code></td>
+                <td class="name"><code>clientName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>page</code></td>
             
 
             <td class="type">
@@ -665,7 +3611,7 @@
 
             
 
-            <td class="description last"><p>{city_id: int}</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -728,19 +3674,11 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    <p>promise</p>
+</div>
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
 
     
 </div>
@@ -755,7 +3693,7 @@
     
 
     
-    <h4 class="name" id=".getBrands"><span class="type-signature">(static) </span>getBrands<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
+    <h4 class="name" id=".searchOfficial"><span class="type-signature">(static) </span>searchOfficial<span class="signature">(clientName, page)</span><span class="type-signature"></span></h4>
     
 
     
@@ -763,10 +3701,7 @@
 
 
 <div class="description">
-    <p>（查） 红外遥控器  获取某一个遥控器类型的所有省份信息</p>
-<ul>
-<li>/v2/ircode/category/brands</li>
-</ul>
+    <p>searchOfficial</p>
 </div>
 
 
@@ -802,7 +3737,30 @@
 
         <tr>
             
-                <td class="name"><code>params</code></td>
+                <td class="name"><code>clientName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>page</code></td>
             
 
             <td class="type">
@@ -818,7 +3776,7 @@
 
             
 
-            <td class="description last"><p>{category: int}</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -881,2008 +3839,11 @@
 <h5>Returns:</h5>
 
         
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
-
-    
+<div class="param-desc">
+    <p>promise</p>
 </div>
 
 
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".getCategories"><span class="type-signature">(static) </span>getCategories<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>（查） 获取所有支持的红外遥控器种类</p>
-<ul>
-<li>/v2/ircode/categories</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>{}</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".getCities"><span class="type-signature">(static) </span>getCities<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>（查） 红外遥控器 根据省份 id 获取所有的城市</p>
-<ul>
-<li>/v2/ircode/area/province/cities</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>{province_id: int}</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".getIPTVBrands"><span class="type-signature">(static) </span>getIPTVBrands<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>（查） 红外遥控器  获取所有机顶盒支持的品牌</p>
-<ul>
-<li>/v2/ircode/iptv/brands</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>{province_id: int}</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".getKeys"><span class="type-signature">(static) </span>getKeys<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>获取红外设备所有的 key</p>
-<ul>
-<li>/v2/irdevice/controller/keys</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>{did:string}</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".getLineups"><span class="type-signature">(static) </span>getLineups<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>（查） 根据地区 id 获取支持的机顶盒品牌</p>
-<ul>
-<li>/v2/ircode/area/lineups</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>{area_id:int}</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".getList"><span class="type-signature">(static) </span>getList<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>（查） 获取所有遥控器列表</p>
-<ul>
-<li>/v2/irdevice/controllers</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>{parent_id:string}</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".getProvinces"><span class="type-signature">(static) </span>getProvinces<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>（查） 红外遥控器  获取所有省份信息</p>
-<ul>
-<li>/v2/ircode/area/provinces/china</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>{}</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".keyClick"><span class="type-signature">(static) </span>keyClick<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>发送红外遥控器按键接口</p>
-<ul>
-<li>/v2/irdevice/controller/key/click</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>{controller_id:int,did:string,key_id:int}</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".keyDel"><span class="type-signature">(static) </span>keyDel<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>删除红外设备的 key</p>
-<ul>
-<li>/v2/irdevice/controller/key/del</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>{did:string,key_id:string}</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".keyUpdate"><span class="type-signature">(static) </span>keyUpdate<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>更新红外设备的 key 名称</p>
-<ul>
-<li>/v2/irdevice/controller/key/update</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>{did:string,name:string}</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".queryArea"><span class="type-signature">(static) </span>queryArea<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>（查）  红外遥控器 根据地区名称查询 id</p>
-<ul>
-<li>/v2/ircode/area/area_id</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>{province:string,city:string,area:string}</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".sendKey"><span class="type-signature">(static) </span>sendKey<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>设置红外遥控所有的按键</p>
-<ul>
-<li>/v2/irdevice/send_key</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>{did:string,controller_id:int,key_id(选填):int,ac_key(选填):string}</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".setKeys"><span class="type-signature">(static) </span>setKeys<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;json>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>设置红外遥控所有的按键</p>
-<ul>
-<li>/v2/irdevice/controller/keys/set</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>{keys:[{code:string,key_id(选填):int,name(选填):string}]}</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;json></span>
-
-
-    </dd>
-</dl>
 
     
 </div>
