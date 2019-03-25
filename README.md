@@ -1,4 +1,4 @@
-# MIOT SDK (API_LEVEL:10001) for React Native
+# MIOT SDK (API_LEVEL:10002) for React Native
 
 ## 初始化
 
@@ -55,7 +55,7 @@
 
 [iOS IPA 包下载地址](https://fir.im/mijiadevelopment)
     
-Android apk包请在代码的根目录查找 SmartHome*.apk文件
+[Android APK 包下载地址](https://fir.im/MiHomeForAndroid)
 
 下载密码: keliyuan 
 
