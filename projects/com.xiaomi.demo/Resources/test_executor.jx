@@ -1,0 +1,20 @@
+
+
+function callWithArg3ReturnOBJ(a,b,c){
+
+    return {'initialProps':initialProps, 'a+b':a+b, 'c':c};
+
+}
+
+function callWithObj(a,b,c) {
+    return {'a':a, 'b':b, 'c':c};
+}
+
+var TestObj = {
+
+    callWithArg1ReturnNumber:function(arg){
+        return "data from jx:" + arg;
+    }
+
+}
+

@@ -34,6 +34,7 @@ import Spec from './service/spec'
 // import Ximalaya from './service/ximalaya';
 import Account from './Account'
 import Host from './Host';
+import TJInfra from './service/tjinfra'
  const CurrentAccount = null;
 export default {
   /**

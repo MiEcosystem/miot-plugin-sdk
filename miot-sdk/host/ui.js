@@ -13,8 +13,6 @@
  *
  */
 const resolveAssetSource = require('resolveAssetSource');
-function resolveUrl(rawUrl) {
-}
 export default {
   /**
    * 是否支持商城
@@ -171,9 +169,9 @@ export default {
   },
   /**
    * 打开一次性密码设置页
-   * @param {*} did 
-   * @param {*} interval 
-   * @param {*} digits 
+   * @param {*} did   设备did
+   * @param {*} interval  时间间隔，即密码组的刷新时间间隔，单位为分钟，类型为 number，传入 10 到 60 的整数
+   * @param {*} digits 密码位数，类型为 number，传入 6 到 8 的整数
    */
   openOneTimePassword(did,interval, digits) {
   },
@@ -228,6 +226,13 @@ export default {
    * 打开更多设置页面（通常包括安全设置，常见问题与用户反馈）
    */
   openNewMorePage() {
+  },
+  /**
+   * @since 10002
+   * android特有页面，ios 不能使用
+   * 打开手机蓝牙设置页面
+  */
+  openPhoneBluSettingPage() {
   },
   /**
    * 打开小爱训练计划

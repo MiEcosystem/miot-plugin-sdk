@@ -179,4 +179,43 @@ export default {
     getAppName() {
          return Promise.resolve(null);
     },
+    /**
+     * jx执行器
+     * @typedef IExecutor
+     * @since 10002
+     * @property {boolean} isReady  - 是否可用
+     * @property {boolean} isRunning - 是否运行中 
+     * @property {*} execute(method, ...args) - 执行某个函数
+     * @property {} remove() - 删除
+     *
+     */
+    /**
+     * 后台执行文件, 后台最多同时运行三个线程, 超过将销毁最早创建的 executor
+     * @since 10002
+     * @param {*} jx - 可执行的纯 js 文件, 不使用任何高级语法, 如要使用 es6, 请自行编译通过.
+     * @param {json} initialProps - 用于脚本初始化的数据, 在jx文件中为 'initialProps' 对象，使用方法参考样例 或者sampleProject中 ‘com.xiaomi.demo/Main/tutorial/JSExecutor.js’
+     * @returns {Promise<IExecutor>} 
+     * @example
+     * 
+     * var myexecutor = null;
+     * Host.createBackgroundExecutor(require('./test.jx'), {name1:"testName"})
+     *      .then(executor=>{
+     *          myexecutor = executor;
+     *          executor.execute("myFunc", 1,2,'a')
+     *                  .then(result=>{
+     *                      console.log(result);
+     *                  })
+     *          //支持使用initialProps或者在jx中直接使用
+     *          executor.execute("myFunc2", "initialProps.name1").then(res =>{...})
+     *          //支持使用obj与arr
+     *          executor.execute("SomeObject.myFunc3", {"name":"hello"}, ["a1","a2"]).then(res =>{...})
+     * })
+     * .then(err=>{...})
+     * ....
+     * myexecutor&&myexecutor.remove();
+     */
+    createBackgroundExecutor(jx, initialProps={}){
+         return Promise.resolve({execute(method, ...args){}, remove(){}});
+    }
+    
 }

@@ -380,7 +380,7 @@ export class IBluetooth {
      *
      */
     maximumWriteValueLength(type = 0){
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 更新版本号，蓝牙的版本号 connect 之后才能
@@ -426,7 +426,7 @@ export class IBluetoothLE extends IBluetooth{
     /**
      * 获取蓝牙固件版本
      * @method 
-     * @returns {Promise}
+     * @returns {boolean}
      *
      */
     getVersion() {

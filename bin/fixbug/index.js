@@ -12,8 +12,10 @@ map.set("node_modules/react-native-sqlite-storage/lib/sqlite.core.js", "sqlite.c
 map.set("node_modules/react-navigation-stack/dist/views/Header/HeaderBackButton.js", "HeaderBackButton"); // 
 
 module.exports = {
+
     findContent(mpath) {
         const real = map.get(mpath);
         return real ? fs.readFileSync(path.join(__dirname, real)) : null;
     }
+
 }

@@ -39,11 +39,6 @@ export default class MessageDialog extends Component {
      */
     message: PropTypes.string,
     /**
-     * 超时自动隐藏，设置0或者不设置不会自动隐藏
-     * @member {number}
-     */
-    timeout: PropTypes.number,
-    /**
      * 取消标题
      * @member {string}
      */

@@ -24,6 +24,10 @@ export default class TutorialDemo extends React.Component{
                     'key':'blankDemo',
                 },
                 {
+                    'title': "JSExecutor",
+                    'key':'JSExecutor',
+                },
+                {
                     'title':'RPC与设备交互',
                     'key':'RPCControl',
                 },

@@ -14,6 +14,8 @@ import {
 import { Host } from "miot";
 const audioPlayerUid = 'com.xiaomi.demoios';
 
+var fileName = Host.file.storageBasePath + 'test.wav';
+
 export default class MHAudioDemo extends React.Component {
 
   constructor(props, context) {
@@ -81,7 +83,7 @@ export default class MHAudioDemo extends React.Component {
       AVLinearPCMIsBigEndianKey: false,
       AVLinearPCMIsFloatKey: false,
     };
-    Host.audio.startRecord(Host.file.storageBasePath + 'test.wav', settings).then(() => { console.log('startRecord'); });
+    Host.audio.startRecord(fileName, settings).then(() => { console.log('startRecord'); });
   }
 
   _stopRecordButtonClicked() {
@@ -94,7 +96,8 @@ export default class MHAudioDemo extends React.Component {
       'audioPlayerUid': audioPlayerUid,
       "p": require('../Resources/Test.html')
     };
-    Host.audio.startPlay(require('../Resources/mp3/lovewholelife.mp3'), params).then(() => { console.log('startPlay'); });
+    // Host.audio.startPlay(require('../Resources/mp3/lovewholelife.mp3'), params).then(() => { console.log('startPlay'); });
+    Host.audio.startPlay(fileName, params).then(() => { console.log('startPlay'); });
   }
   _stopPlayButtonClicked() {
     Host.audio.stopPlay().then(() => { console.log('stopPlay'); });

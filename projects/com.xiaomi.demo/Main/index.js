@@ -106,6 +106,7 @@ import CircularSliderDemo from './CircularSliderDemo'
 import ImagePickerDemo from './ImagePickerDemo'
 import DialogTest from './DialogTest';
 import BlankDemo from './tutorial/BlankDemo';
+import JSExecutor from './tutorial/JSExecutor';
 import AccountDemo from './tutorial/account/AccountDemo';
 import StorageDemo from './tutorial/storage/StorageDemo';
 import RPCControl from './tutorial/RPCControl';
@@ -138,6 +139,7 @@ const RootStack = createStackNavigator(
     tutorialDemo: TutorialDemo,
     LocaleServer: LocaleServer,
     blankDemo: BlankDemo,
+    JSExecutor: JSExecutor,
     DeviceDemo: DeviceDemo,
     PackageDemo: PackageDemo,
     accountDemo: AccountDemo,
