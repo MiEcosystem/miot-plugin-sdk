@@ -25,10 +25,8 @@
  *
  *
  */
-import {
-    AppRegistry, DeviceEventEmitter
-} from "react-native";
 import React from 'react';
+import { AppRegistry, DeviceEventEmitter } from "react-native";
 import RootDevice from "./Device";
 import resolveAssetResource from "./native/common/node/resolve";
 export const DEBUG = "debug";
@@ -113,7 +111,6 @@ export const PackageEvent = {
  * @export
  */
 export default {
-    
     /**
      * 入口类型
      * @const
