@@ -173,7 +173,7 @@ export default {
    * @param {*} interval  时间间隔，即密码组的刷新时间间隔，单位为分钟，类型为 number，传入 10 到 60 的整数
    * @param {*} digits 密码位数，类型为 number，传入 6 到 8 的整数
    */
-  openOneTimePassword(did,interval, digits) {
+  openOneTimePassword(did, interval, digits) {
   },
   /**
    * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串
@@ -203,6 +203,15 @@ export default {
    * @param {json} offParam  定时到时设备“关”执行的 RPC 指令参数，可以是字符串、数字、字典、数组
    */
   openTimerSettingPageWithVariousTypeParams(onMethod, onParam, offMethod, offParam) {
+  },
+  /**
+     * 添加或者复制一个红外遥控器
+     * @param {string} did 设备did
+     * @param {number} type 0：添加遥控器；1：复制遥控器。默认0
+     * @param {array} models 一组红外遥控器model，只传入一个model将直接跳转到相应的品牌列表或者机顶盒列表，支持的models见文档。默认空数组[]
+     * @param {object} extra {create_device:true / false} 米家首页列表是否展示虚拟遥控器设备（暂时只有android支持）。默认true
+     */
+  addOrCopyIR(did, type = 0, models = [], extra = { create_device: true }) {
   },
   /**
    * 打开用户账号下某一设备的插件

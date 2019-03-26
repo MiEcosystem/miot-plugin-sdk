@@ -10,6 +10,7 @@ MIOT Spec 获取 设置 property  调用 action
     * [.setPropertiesValue(params)](#module_miot/service/spec.setPropertiesValue) ⇒ <code>Promise.&lt;string&gt;</code>
     * [.doAction(params)](#module_miot/service/spec.doAction) ⇒ <code>Promise.&lt;JSON&gt;</code>
     * [.getSpecString(did)](#module_miot/service/spec.getSpecString) ⇒ <code>Promise.&lt;JSON&gt;</code>
+    * [.getCurrentSpecValue(did)](#module_miot/service/spec.getCurrentSpecValue) ⇒
 
 <a name="module_miot/service/spec.getPropertiesValue"></a>
 
@@ -53,4 +54,17 @@ MIOT Spec 获取 设置 property  调用 action
 | Param | Description |
 | --- | --- |
 | did | 设备的did |
+
+<a name="module_miot/service/spec.getCurrentSpecValue"></a>
+
+### miot/service/spec.getCurrentSpecValue(did) ⇒
+注意调用方法的时候，方法要加上async
+使用方式：let data = await Service.spec.getCurrentSpecValue(did);
+
+**Kind**: static method of [<code>miot/service/spec</code>](#module_miot/service/spec)  
+**Returns**: 设备的Spec属性详情，同上面的getPropertiesValue方法。此方法只返回code为0（get成功）的数据  
+
+| Param | Description |
+| --- | --- |
+| did | 设备的did，必传 |
 
