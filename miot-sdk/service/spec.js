@@ -720,17 +720,28 @@ export default {
      * @param did 设备的did
      * @return {Promise<JSON>} 设备的Spec属性详情
      */
-    getSpecString(did){
-	 // @native :=> promise
-	   	return new Promise((resolve, reject) => {
-			native.MIOTSpec.getSpecString(did,(ok, data) => {
-	           if (ok && data) {
-	               resolve(data);
-	               return;
-	           }
-	           reject(data);
-	       	});
-	   })
-	   // @native end
+    getSpecString(did) {
+        // @native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTSpec.getSpecString(did, (ok, data) => {
+                if (ok && data) {
+                    resolve(data);
+                    return;
+                }
+                reject(data);
+            });
+        })
+        // @native end
+    },
+    /**
+     * 注意调用方法的时候，方法要加上async
+     * 使用方式：let data = await Service.spec.getCurrentSpecValue(did);
+     * @param did 设备的did，必传
+     * @return {} 设备的Spec属性详情，同上面的getPropertiesValue方法。此方法只返回code为0（get成功）的数据
+     */
+    async getCurrentSpecValue(did) {
+        // @native :=> promise
+        return native.MIOTSpec.getCurrentSpecValueWithDid(did);;
+        // @native end
     }
 }

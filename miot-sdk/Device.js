@@ -202,6 +202,14 @@ export class IDeviceWifi {
     callMethodFromCloud(method, args) {
          return Promise.resolve({});
     }
+    /**
+     * 本地调用设备方法
+     * 同 callMethod 函数在同一个 wifi 下的情况
+     * @param {string} method  方法名
+     * @param {json} args 参数
+     * @return {Promise<json>} 请求成功返回 {code:0,result:{} }
+     *
+     */
     callMethodFromLocal(method, args) {
          return Promise.resolve({});
     }
