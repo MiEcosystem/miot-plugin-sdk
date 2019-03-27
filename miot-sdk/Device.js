@@ -228,29 +228,32 @@ export class IDeviceWifi {
     /**
      * 订阅设备消息
      * @method
-     * @param {...string} propertyOrEventNames -在开发平台上声明的 prop 与 event 名
+     * @param {...string} propertyOrEventNames -在开发平台上声明的 prop 与 event 名，注意消息格式为：prop.xxxxx 或者 event.xxxxx ，表示订阅的是设备的属性变化，还是设备的事件响应
      * @returns {Promise<EventSubscription>}
      * @example
      * import {Device, DeviceEvent} from 'miot'
      * ...
-     * //先订阅属性变更事件
+     * //监听 属性变化和事件响应
      * const listener = DeviceEvent.deviceReceivedMessages.addListener(
      * (device, messages)=>{
-     *   if(messages.has('prop1')){
-     *      const prop1 = messages.get('prop1');
-     *      ...
-     *   }
-     *   ...
+     *  if(messages.has('prop.color')){
+     *    console.log('获取到属性变化：',messages.get('prop.color'));
+     *     ...
+     *  } else if (messages.has('event.powerOn')){
+     *    console.log('获取到事件响应：',messages.get('event.powerOn'));
+     *    ...
+     *  }
+     *  ...
      * })
      * ...
-     * //接下来开始属性变更订阅
+     *   //添加订阅：属性变更和事件响应
      * let msgSubscription = null;
-     * Device.getDeviceWifi().subscribeMessages('prop1','prop2')
-     *  .then(subcription => {
-     *      //call this when you need to unsubscribe the message
-     *      msgSubscription = subcription;
-     *  })
-     *  .catch(() => console.log('subscribe failed'))
+     * Device.getDeviceWifi().subscribeMessages('prop.color','event.powerOn')
+     * .then(subcription => {
+     *    //call this when you need to unsubscribe the message
+     *   msgSubscription = subcription;
+     * })
+     * .catch(() => console.log('subscribe failed'))
      * ...
      * 
      * ...
@@ -268,9 +271,9 @@ export class IDeviceWifi {
      */
     getVersion() {
         return new Promise((resolve, reject) => {
-            native.MIOTDevice.getVersion(false,(ok, data) => {
+            native.MIOTDevice.getVersion(false, (ok, data) => {
                 if (ok) {
-                    Properties.of(this).version=data;
+                    Properties.of(this).version = data;
                     resolve(data);
                     return;
                 }
@@ -421,7 +424,7 @@ class IDevice {
      * @method
      * @returns {Promise<IDevice[]>}
      */
-    readDeviceNetWorkInfo(did){
+    readDeviceNetWorkInfo(did) {
          return Promise.resolve([]);
     }
     /**
@@ -446,7 +449,7 @@ class IDevice {
      * 
      *
      */
-    getBluetoothLE(peripheralID=null) {
+    getBluetoothLE(peripheralID = null) {
          return null
     }
     /**
