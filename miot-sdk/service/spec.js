@@ -741,7 +741,7 @@ export default {
      */
     async getCurrentSpecValue(did) {
         // @native :=> promise
-        return native.MIOTSpec.getCurrentSpecValueWithDid(did);;
+        return native.MIOTSpec.getCurrentSpecValueWithDid(did);
         // @native end
     }
 }
