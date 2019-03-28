@@ -9,7 +9,7 @@
  *    import MiotImageButton from 'miot/ui/ImageButton'
  *    import miotui from 'miot/ui'
  *
- *    const btn = <miotui.ImageButton .../>
+ *    const btn = <miotui.ImageButton ... />
  */
 import _ImageButton from './ImageButton'
 import _LoadingDialog from './LoadingDialog'
@@ -23,6 +23,7 @@ import _TitleBarWhite from './TitleBarWhite'
 import _TitleBarBlack from './TitleBarBlack'
 import _LocalizedStrings from './LocalizedStrings'
 import _AMapView from './AMapView'
+import _NumberSpin from './NumberSpinner'
 export const ImageButton = _ImageButton;
 export const LoadingDialog = _LoadingDialog;
 export const MessageDialog = _MessageDialog;
@@ -35,4 +36,10 @@ export const TitleBarBlack = _TitleBarBlack;
 export const TitleBarWhite = _TitleBarWhite;
 export const LocalizedStrings = _LocalizedStrings;
 export const AMapView = _AMapView;
-export default { ImageButton, LoadingDialog, MessageDialog, MultiChoseDialog, ProgressDialog, SingleChoseDialog, InputDialog, TitleBar, TitleBarBlack, TitleBarWhite, LocalizedStrings, AMapView }
+export const NumberSpinner = _NumberSpin;
+export default { ImageButton, 
+    LoadingDialog, MessageDialog, MultiChoseDialog, 
+    ProgressDialog, SingleChoseDialog, InputDialog, 
+    TitleBar, TitleBarBlack, TitleBarWhite, 
+    NumberSpinner,
+    LocalizedStrings, AMapView }
