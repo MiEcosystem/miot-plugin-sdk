@@ -58,11 +58,11 @@ MIOT Spec 获取 设置 property  调用 action
 <a name="module_miot/service/spec.getCurrentSpecValue"></a>
 
 ### miot/service/spec.getCurrentSpecValue(did) ⇒
-注意调用方法的时候，方法要加上async
+刚进入插件时，如果需要获取native缓存的设备的miot-spec数据，则调用此方法获取，注意调用方法的时候，方法要加上async
 使用方式：let data = await Service.spec.getCurrentSpecValue(did);
 
 **Kind**: static method of [<code>miot/service/spec</code>](#module_miot/service/spec)  
-**Returns**: 设备的Spec属性详情，同上面的getPropertiesValue方法。此方法只返回code为0（get成功）的数据  
+**Returns**: 缓存的设备的miotSpec属性，返回值同上面的getPropertiesValue方法。此方法只返回code为0（get成功）的数据  
 
 | Param | Description |
 | --- | --- |

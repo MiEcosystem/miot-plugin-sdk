@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Xiaomi MIOT: Namespace: SceneType</title>
+    <title>Xiaomi MIOT: Module: miot/ui/NumberSpinner</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -21,7 +21,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: SceneType</h1>
+    <h1 class="page-title">Module: miot/ui/NumberSpinner</h1>
 
     
 
@@ -32,8 +32,8 @@
 
 <header>
     
-        <h2>
-            <span class="ancestors"><a href="module-miot_service_scene.html">module:miot/service/scene</a>~</span>SceneType</h2>
+        
+            
         
     
 </header>
@@ -42,10 +42,24 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>场景类型</p></div>
+            <div class="description"><p>数字选择器</p></div>
         
 
         
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <dl class="details">
@@ -82,6 +96,38 @@
 
     
 </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">&lt;NumberSpinner
+        style={{width:200, height:100}}
+        maxValue={30}
+        minValue={1}
+        defaultValue={5}
+        unit={"km"}
+        onNumberChanged={data=>{
+            console.log(`newValue:${data.newValue},oldValue:${data.oldValue}`);
+        }}
+    /></code></pre>
+
 
 
         
@@ -105,16 +151,26 @@
 
         
             
-<h4 class="name" id=".Artificial"><span class="type-signature">(static, constant) </span>Artificial<span class="type-signature"></span></h4>
+<h4 class="name" id="~defaultValue"><span class="type-signature">(inner) </span>defaultValue<span class="type-signature"> :int</span></h4>
 
 
 
 
 <div class="description">
-    <p>人工场景</p>
+    <p>缺省值</p>
 </div>
 
 <!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">int</span>
+
+
+        </li>
+    </ul>
 
 -->
 
@@ -163,16 +219,26 @@
 
         
             
-<h4 class="name" id=".Automatic"><span class="type-signature">(static, constant) </span>Automatic<span class="type-signature"></span></h4>
+<h4 class="name" id="~interval"><span class="type-signature">(inner) </span>interval<span class="type-signature"> :int</span></h4>
 
 
 
 
 <div class="description">
-    <p>自动场景</p>
+    <p>步长，默认为1</p>
 </div>
 
 <!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">int</span>
+
+
+        </li>
+    </ul>
 
 -->
 
@@ -221,16 +287,366 @@
 
         
             
-<h4 class="name" id=".Timer"><span class="type-signature">(static, constant) </span>Timer<span class="type-signature"></span></h4>
+<h4 class="name" id="~label"><span class="type-signature">(inner) </span>label<span class="type-signature"> :string</span></h4>
 
 
 
 
 <div class="description">
-    <p>定时场景</p>
+    <p>单位</p>
 </div>
 
 <!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~maxValue"><span class="type-signature">(inner) </span>maxValue<span class="type-signature"> :int</span></h4>
+
+
+
+
+<div class="description">
+    <p>max</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">int</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~minValue"><span class="type-signature">(inner) </span>minValue<span class="type-signature"> :int</span></h4>
+
+
+
+
+<div class="description">
+    <p>min</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">int</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~onNumberChanged"><span class="type-signature">(inner) </span>onNumberChanged<span class="type-signature"> :func</span></h4>
+
+
+
+
+<div class="description">
+    <p>回调</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">func</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~valueFormat"><span class="type-signature">(inner) </span>valueFormat<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>格式</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~visible"><span class="type-signature">(inner) </span>visible<span class="type-signature"> :bool</span></h4>
+
+
+
+
+<div class="description">
+    <p>是否可见</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">bool</span>
+
+
+        </li>
+    </ul>
 
 -->
 
