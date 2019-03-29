@@ -1,5 +1,6 @@
 /**
  * @export
+ * @since 10003
  * @module miot/ui/NumberSpinner
  * @description 数字选择器
  * @example
@@ -30,7 +31,7 @@ export default class NumberSpinner extends React.Component {
      * 单位
      * @member {string}
      */
-    label: PropTypes.string,
+    unit: PropTypes.string,
     /**
      * max
      * @member {int}

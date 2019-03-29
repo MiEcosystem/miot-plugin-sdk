@@ -11,7 +11,7 @@ export default {
      * @param {...string} keys 保存的数据索引，从0开始
      * @returns {Promise} key，value结构数据
      */
-    getUserConfigs(componentId,...keys){
+    getUserConfigs(componentId, ...keys) {
          return Promise.resolve(null);
     },
     /**
@@ -20,7 +20,7 @@ export default {
      * @param {*} data   key，value结构数据
      * @returns {Promise}
      */
-    setUserConfigs(componentId,data){
+    setUserConfigs(componentId, data) {
          return Promise.resolve(null);
     }
 }
