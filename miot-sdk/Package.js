@@ -29,6 +29,7 @@ import React from 'react';
 import { AppRegistry, DeviceEventEmitter } from "react-native";
 import RootDevice from "./Device";
 import resolveAssetResource from "./native/common/node/resolve";
+import { Package } from '.';
 export const DEBUG = "debug";
 export const RELEASE = "release";
 /**
@@ -87,8 +88,10 @@ export const PackageEvent = {
     /**
      * 用户撤销隐私授权时的回调
      * @event
+     * @param autoExit
      */
-    packageAuthorizationCancel: { always: true, sameas: native.isIOS ? 'kMHPluginReceivingDeviceCancelAuthorization' : 'packageAuthorizationCancel' },
+    packageAuthorizationCancel: { 
+    },
     /**
      * 插件接收到场景等通知消息
      * @event
