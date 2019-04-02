@@ -200,6 +200,7 @@ export default {
   },
   /**
    * 添加或者复制一个红外遥控器
+   * @since 10003
    * @param {string} did 设备did
    * @param {number} type 0：添加遥控器；1：复制遥控器。默认0
    * @param {array} models 一组红外遥控器model，只传入一个model将直接跳转到相应的品牌列表或者机顶盒列表，支持的models见文档。默认空数组[]

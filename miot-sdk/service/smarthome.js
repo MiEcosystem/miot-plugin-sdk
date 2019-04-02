@@ -454,4 +454,62 @@ export default {
     editUserColl(params) {
          return Promise.resolve(null);
     },
+    /**
+     * 门锁米家APP上传Cid,Did,Uid，返回处理结果。函数内部与金服APP建立http连接签名传输配置信息与NFC卡片信息
+     * Service.smarthome.BindNFCCard(params)
+     * @since 10003
+     * @param {json} params {did:'', uid:'', cid:''}
+     */
+    bindNFCCard(params) {
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/nfckey/bind_nfc_card", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+    },
+    /**
+     * 米家app查询NFC卡信息，使用did查询did下绑定的NFC卡列表信息
+     * @since 10003
+     * @param {json} params {did:''}
+     * @return {json}  卡片结果数组
+     * @example
+     * response:
+     * ret={
+        "code":0,
+        "message":"ok",
+        "result":{
+            "list":[{
+                "did":"1234567",
+                "uid":123456789,                    //设备owner的用户id
+                "cid":"111122223333444455",
+                "name":"家",                            //用户设置的卡名称
+                "type":1,                                  //卡片类型，1：手机NFC卡，2：实体卡
+                "status":1,                               //卡片状态，1：有效， 0： 无效
+                "issuer_id":"666666",
+                "time_stamp":1234567890,   // 开卡时间
+                "extra":{
+                    "deviceModel":"RedMi 4X",
+                    "OS":"MIUI 9.5"
+                    }
+                },
+                {
+                ...
+                }
+                ]
+        }
+    }
+     */
+    getNFCCard(params) {
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/nfckey/get_nfc_card", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+    }
 }

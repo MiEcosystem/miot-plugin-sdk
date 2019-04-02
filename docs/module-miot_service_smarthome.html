@@ -301,7 +301,8 @@
 
 
 <div class="description">
-    <p>门锁米家APP上传Cid,Did,Uid，返回处理结果。函数内部与金服APP建立http连接签名传输配置信息与NFC卡片信息</p>
+    <p>门锁米家APP上传Cid,Did,Uid，返回处理结果。函数内部与金服APP建立http连接签名传输配置信息与NFC卡片信息
+Service.smarthome.BindNFCCard(params)</p>
 </div>
 
 
@@ -369,6 +370,9 @@
 
     
 
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10003</li></ul></dd>
     
 
     
@@ -3848,7 +3852,7 @@ Android not support yet</p>
     
 
     
-    <h4 class="name" id=".getNFCCard"><span class="type-signature">(static) </span>getNFCCard<span class="signature">(params)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".getNFCCard"><span class="type-signature">(static) </span>getNFCCard<span class="signature">(params)</span><span class="type-signature"> &rarr; {json}</span></h4>
     
 
     
@@ -3925,6 +3929,9 @@ Android not support yet</p>
     
 
     
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10003</li></ul></dd>
+    
 
     
 
@@ -3967,10 +3974,61 @@ Android not support yet</p>
 
 
 <h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
 
+        
+<div class="param-desc">
+    <p>卡片结果数组</p>
 </div>
 
 
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">json</span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">response:
+ret={
+        "code":0,
+        "message":"ok",
+        "result":{
+            "list":[{
+                "did":"1234567",
+                "uid":123456789,                    //设备owner的用户id
+                "cid":"111122223333444455",
+                "name":"家",                            //用户设置的卡名称
+                "type":1,                                  //卡片类型，1：手机NFC卡，2：实体卡
+                "status":1,                               //卡片状态，1：有效， 0： 无效
+                "issuer_id":"666666",
+                "time_stamp":1234567890,   // 开卡时间
+                "extra":{
+                    "deviceModel":"RedMi 4X",
+                    "OS":"MIUI 9.5"
+                    }
+                },
+                {
+                ...
+                }
+                ]
+        }
+    }</code></pre>
 
 
 
