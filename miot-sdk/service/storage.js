@@ -7,7 +7,7 @@
 export default {
     /**
      * 读数据 /user/get_user_config
-     * @param {string} componentId 厂商APP_ID，需要向小米申请, 0 和 1 预留
+     * @param {number} componentId 厂商APP_ID，需要向小米申请, 0 和 1 预留
      * @param {...string} keys 保存的数据索引，从0开始
      * @returns {Promise} key，value结构数据
      */
