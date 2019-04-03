@@ -363,5 +363,5 @@ export default {
      */
     getRGBAValueFromImageAtPath(imagePath, points) {
          return Promise.resolve(null);
-    }
+    },
 };
