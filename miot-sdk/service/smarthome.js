@@ -214,21 +214,32 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加. /user/get_user_device_data
-     *
-     * @param {json} params -参数\{did,type,key,time_start,time_end,limit}含义如下：设备did,属性为prop事件为event,属性名不需要prop或者event前缀,起始时间单位为秒,结束事件单位为秒,请求的条数限制
-     * @returns {Promise}
-     */
-    getDeviceData(params) {
-         return Promise.resolve(null);
-    },
-    /**
      * 添加设备属性和事件历史记录，/user/set_user_device_data
      *
-     * @param {json}  params  参数\{did,uid,type,key,time,value}含义如下：设备did，添加到哪个用户下,一般为 Device.ownerId，属性为prop事件为event，属性名不需要prop或者event前缀，触发时间，要保存的数据
+     * @param {json}  params  参数\{did,uid,type,key,time,value}含义如下：
+     * did：设备did，
+     * uid：添加到哪个用户下,一般为 Device.ownerId，
+     * type：属性为prop事件为event，属性名不需要prop或者event前缀，亦可以自定义，
+     * time：触发时间戳，
+     * value：要保存的数据
      * @return {Promise}
      */
     setDeviceData(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加.通下面的set_user_device_data的参数一一对应， /user/get_user_device_data
+     *
+     * @param {json} params -参数\{did,type,key,time_start,time_end,limit}含义如下：
+     * did：设备did,
+     * type：类别，属性为prop，事件为event,也可定义其他名称,
+     * key：事件名，可自定义,
+     * time_start：获取此时间戳之后的记录,
+     * time_end：获取此时间戳之前的记录，time_end必须大于time_start,
+     * limit：获取的条数限制.
+     * @returns {Promise}
+     */
+    getDeviceData(params) {
          return Promise.resolve(null);
     },
     /**
@@ -340,6 +351,15 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * /v2/third/synccall
+     * @since 10003
+     * @param {json} params {"uid": , "did":, "api_name": , ...}
+     * @return {Promise<json>} {"code": 0, "policy": <POLICY_NUMBER">, ...}
+     */
+    thirdSyncCall(params) {
+         return Promise.resolve(null);
+    },
+    /**
      * 异步调用第三方云接口  /third/api
      *
      * @param {json} params  -参数 {"app_id":"123","dids":["1","2"],"params":json}
@@ -434,4 +454,62 @@ export default {
     editUserColl(params) {
          return Promise.resolve(null);
     },
+    /**
+     * 门锁米家APP上传Cid,Did,Uid，返回处理结果。函数内部与金服APP建立http连接签名传输配置信息与NFC卡片信息
+     * Service.smarthome.BindNFCCard(params)
+     * @since 10003
+     * @param {json} params {did:'', uid:'', cid:''}
+     */
+    bindNFCCard(params) {
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/nfckey/bind_nfc_card", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+    },
+    /**
+     * 米家app查询NFC卡信息，使用did查询did下绑定的NFC卡列表信息
+     * @since 10003
+     * @param {json} params {did:''}
+     * @return {json}  卡片结果数组
+     * @example
+     * response:
+     * ret={
+        "code":0,
+        "message":"ok",
+        "result":{
+            "list":[{
+                "did":"1234567",
+                "uid":123456789,                    //设备owner的用户id
+                "cid":"111122223333444455",
+                "name":"家",                            //用户设置的卡名称
+                "type":1,                                  //卡片类型，1：手机NFC卡，2：实体卡
+                "status":1,                               //卡片状态，1：有效， 0： 无效
+                "issuer_id":"666666",
+                "time_stamp":1234567890,   // 开卡时间
+                "extra":{
+                    "deviceModel":"RedMi 4X",
+                    "OS":"MIUI 9.5"
+                    }
+                },
+                {
+                ...
+                }
+                ]
+        }
+    }
+     */
+    getNFCCard(params) {
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/nfckey/get_nfc_card", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+    }
 }

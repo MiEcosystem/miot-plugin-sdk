@@ -34,22 +34,22 @@
  * 场景类型
  * @namespace SceneType
  */
-export const SceneType={
+export const SceneType = {
     /**
      * 定时场景
      * @const
      */
-    Timer:8,
+    Timer: 8,
     /**
      * 人工场景
      * @const
      */
-    Artificial:30,
+    Artificial: 30,
     /**
      * 自动场景
      * @const
      */
-    Automatic:15
+    Automatic: 15
 };
 Object.freeze(SceneType)
 /**
@@ -57,14 +57,14 @@ Object.freeze(SceneType)
  * @interface
  *
  */
-export class IScene{
+export class IScene {
     /**
      *
      * @member
      * @type {int}
      * @readonly
      */
-    get sceneID(){
+    get sceneID() {
          return  0
     }
     /**
@@ -72,7 +72,7 @@ export class IScene{
      * @type {boolean}
      * @readonly
      */
-    get isNew(){
+    get isNew() {
          return  false
     }
     /**
@@ -80,7 +80,7 @@ export class IScene{
      * @type {long}
      * @readonly
      */
-    get createTime(){
+    get createTime() {
          return  0
     }
     /**
@@ -88,7 +88,7 @@ export class IScene{
      * @type {int}
      * @readonly
      */
-    get status(){
+    get status() {
          return  0
     }
     /**
@@ -96,24 +96,24 @@ export class IScene{
      * @type {string}
      * @readonly
      */
-    get deviceID(){
+    get deviceID() {
          return  0
     }
     /**
      * @member
      * @type {string}
      */
-    get name(){
+    get name() {
          return  ""
     }
-    set name(name){
+    set name(name) {
     }
     /**
      * @member
      * @type {SceneType}
      * @readonly
      */
-    get type(){
+    get type() {
          return  0
     }
     /**
@@ -121,7 +121,7 @@ export class IScene{
      * @type {boolean}
      * @readonly
      */
-    get isTimer(){
+    get isTimer() {
         return this.type + "" == SceneType.Timer + "";
     }
     /**
@@ -129,7 +129,7 @@ export class IScene{
      * @type {boolean}
      * @readonly
      */
-    get isArtificial(){
+    get isArtificial() {
         return this.type + "" == SceneType.Artificial + "";
     }
     /**
@@ -137,36 +137,36 @@ export class IScene{
      * @type {readonly}
      * @readonly
      */
-    get isAutomatic(){
+    get isAutomatic() {
         return this.type + "" == SceneType.Automatic + "";
     }
     /**
      * @member
      * @type {string}
      */
-    get identify(){
+    get identify() {
          return  ""
     }
-    set identify(identify){
+    set identify(identify) {
     }
     /**
      * @member
      * @type {json}
      */
-    get setting(){
+    get setting() {
          return  {}
     }
-    set setting(setting){
+    set setting(setting) {
     }
     /**
      * 授权对象 authed
      * @member
      * @type {Array<String>}
      */
-    get authorizedDeviceIDs(){
+    get authorizedDeviceIDs() {
          return  []
     }
-    set authorizedDeviceIDs(deviceIDs){
+    set authorizedDeviceIDs(deviceIDs) {
     }
     /**
      * 保存场景 /scene/edit
@@ -181,18 +181,18 @@ export class IScene{
      *  
      * 
      */
-    save(opt=null){
-        if(opt){
-            if(opt.name){
+    save(opt = null) {
+        if (opt) {
+            if (opt.name) {
                 this.name = opt.name;
             }
-            if(opt.identify){
+            if (opt.identify) {
                 this.identify = opt.identify;
             }
-            if(opt.setting){
+            if (opt.setting) {
                 this.setting = opt.setting;
             }
-            if(opt.authed && opt.authed.length > 0){
+            if (opt.authed && opt.authed.length > 0) {
                 this.authorizedDeviceIDs = opt.authed;
             }
         }
@@ -202,28 +202,28 @@ export class IScene{
      * 重新加载场景数据 /scene/get
      * @returns {Promise<IScene>}
      */
-    reload(){
+    reload() {
          return Promise.resolve(null);
     }
     /**
      * 启动场景 /scene/start
      * @returns {Promise<IScene>}
      */
-    start(){
+    start() {
          return Promise.resolve(false);
     }
     /**
      * 删除场景 /scene/delete
      * @returns {Promise<IScene>}
      */
-    remove(){
+    remove() {
          return Promise.resolve(false);
     }
 }
-function createScene(deviceID, sceneType, opt=null){
+function createScene(deviceID, sceneType, opt = null) {
      return Promise.resolve(null);
 }
-function loadScenes(deviceID, sceneType, opt=null){
+function loadScenes(deviceID, sceneType, opt = null) {
      return Promise.resolve(null);
 }
 /**
@@ -254,27 +254,28 @@ export default {
     createScene,
     /**
      * 创建定时场景  
-     * same as createScene(deviceID, SceneType.Timer, opt);
+     * 用法同上面的 createScene(deviceID, SceneType.Timer, opt);
+     * 定时中的 crontab string 详见 [Linux crontab命令](http://www.runoob.com/linux/linux-comm-crontab.html)
      * @param {string} deviceID
      * @param {json} opt
      * @returns {IScene}
      * @example
      * import {Service, Device, SceneType} from 'miot'
      * const settinig = {
-     *  enable_timer: true,
-     *  on_time: * * * * *, //crontab string, minute hour day month week
-     *  enable_timer_on: true,
-     *  off_time: * * * * *, //crontab string
-     *  enable_timer_off: true,
-     *  onMethod: 'method_name', //咨询硬件工程师
-     *  on_param: 'param', //咨询硬件工程师
-     *  off_method: 'method_name', //咨询硬件工程师
-     *  off_param: 'param', //咨询硬件工程师
+     * enable_timer_on: true, //是否开启定时打开。如果enable_timer设置为false，此属性不会起作用
+     * on_time: * * * * *, //crontab string, minute hour day month week。如：59 11 21 3 * 指3月21号11点59分定时开
+     * off_time: * * * * *, //crontab string，同上。
+     * enable_timer_off: true,//是否开启定时关闭。如果enable_timer设置为false，此属性不会起作用
+     * onMethod: 'method_name', //咨询硬件工程师,指硬件端，打开开关的方法
+     * on_param: 'param', //咨询硬件工程师，指硬件端，打开开关应该传入的参数
+     * off_method: 'method_name', //咨询硬件工程师，指硬件端，关闭开关的方法
+     * off_param: 'param', //咨询硬件工程师，关闭开关应该传入的参数
+     * enable_timer: true, //是否开启此定时器，后续打开，关闭定时器，可以设置此属性
      * }
      * 
      * const scene = Service.scene.createTimerScene(Device.deviceID, {
-     *      identify:'identify',
-     *      name:'myTimer',
+     *      identify:'identify',//identify代表定时器的分类，可自定义；如果不需要创建多个分类的定时器，此参数可忽略
+     *      name:'myTimer',//名称，支持中文。比如：起床定时开灯
      *      setting:settinig
      * });
      * 
@@ -282,7 +283,7 @@ export default {
      *   ...
      * })
      */
-    createTimerScene(deviceID, opt){
+    createTimerScene(deviceID, opt) {
         return createScene(deviceID, SceneType.Timer, opt);
     },
     /**
@@ -292,7 +293,7 @@ export default {
      * @param {json} opt
      * @returns {IScene}
      */
-    createArtificialScene(deviceID, opt){
+    createArtificialScene(deviceID, opt) {
         return createScene(deviceID, SceneType.Artificial, opt);
     },
     /**
@@ -302,7 +303,7 @@ export default {
      * @param {json} opt
      * @returns {IScene}
      */
-    createAutomaticScene(deviceID, opt){
+    createAutomaticScene(deviceID, opt) {
         return createScene(deviceID, SceneType.Automatic, opt);
     },
     /**
@@ -319,7 +320,7 @@ export default {
      * @param {json} opt {identify,name}
      * @returns {Promise<IScene[]>}
      */
-    loadTimerScenes(deviceID, opt=null){
+    loadTimerScenes(deviceID, opt = null) {
         return loadScenes(deviceID, SceneType.Timer, opt);
     },
     /**
@@ -328,7 +329,7 @@ export default {
      * @param {json} opt {identify,name}
      * @returns {Promise<IScene[]>}
      */
-    loadArtificialScenes(deviceID, opt=null){
+    loadArtificialScenes(deviceID, opt = null) {
         return loadScenes(deviceID, SceneType.Artificial, opt);
     },
     /**
@@ -337,7 +338,7 @@ export default {
      * @param {json} opt {identify,name}
      * @returns {Promise<IScene[]>}
      */
-    loadAutomaticScenes(deviceID, opt=null){
+    loadAutomaticScenes(deviceID, opt = null) {
         return loadScenes(deviceID, SceneType.Automatic, opt);
     }
 }
