@@ -15,6 +15,19 @@
             console.log(`newValue:${data.newValue},oldValue:${data.oldValue}`);
         }}
     />
+                
+    <NumberSpinner
+        style={{width:300, height:200}}
+        maxValue={30}
+        minValue={-100}
+        interval={2.5}
+        defaultValue={80}
+        valueFormat={"%.1f"}
+        unit={"km"}
+        onNumberChanged={data=>{
+            console.log(`newValue:${data.newValue},oldValue:${data.oldValue}`);
+        }}
+    /> 
  * 
  */
 export default class NumberSpinner extends React.Component {
