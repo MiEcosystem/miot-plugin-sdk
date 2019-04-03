@@ -14,7 +14,7 @@ import {
 import { Host } from "miot";
 const audioPlayerUid = 'com.xiaomi.demoios';
 
-var fileName = Host.file.storageBasePath + 'test.wav';
+var fileName = 'test.wav';
 
 export default class MHAudioDemo extends React.Component {
 
@@ -104,8 +104,8 @@ export default class MHAudioDemo extends React.Component {
   }
 
   _convertButtonClicked() {
-    var wavPath = Host.file.storageBasePath + 'test.wav';
-    var amrPath = Host.file.storageBasePath + 'test.amr';
+    var wavPath = 'test.wav';
+    var amrPath = 'test.amr';
     Host.audio.wavToAmr(wavPath, amrPath).then(() => { console.log('wavToAmr'); });
   }
 
