@@ -63,7 +63,7 @@ export default {
     * @param color1Str 已发现区域色值
     * @returns {Promise<any>}
   */
-  colorsToImageBase64(content, colorMStr, color0Str, color1Str){
-       return Promise.resolve('');
-    },
+  colorsToImageBase64(content, colorMStr, color0Str, color1Str) {
+     return Promise.resolve('');
+  },
 };
