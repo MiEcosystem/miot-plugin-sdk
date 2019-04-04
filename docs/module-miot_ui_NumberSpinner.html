@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Xiaomi MIOT: Interface: IBluetooth</title>
+    <title>Xiaomi MIOT: Module: miot/ui/NumberSpinner</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -21,7 +21,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Interface: IBluetooth</h1>
+    <h1 class="page-title">Module: miot/ui/NumberSpinner</h1>
 
     
 
@@ -32,10 +32,8 @@
 
 <header>
     
-        <h2>
-            <span class="ancestors"><a href="module-miot_Bluetooth.html">miot/Bluetooth</a>.</span>IBluetooth</h2>
         
-            <div class="class-description"><p>蓝牙组件基本接口</p></div>
+            
         
     
 </header>
@@ -44,14 +42,33 @@
     <div class="container-overview">
     
         
+            <div class="description"><p>数字选择器</p></div>
+        
 
         
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <dl class="details">
 
     
 
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10003</li></ul></dd>
     
 
     
@@ -82,6 +99,53 @@
 
     
 </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">&lt;NumberSpinner
+        style={{width:200, height:100}}
+        maxValue={30}
+        minValue={1}
+        defaultValue={5}
+        unit={"km"}
+        onNumberChanged={data=>{
+            console.log(`newValue:${data.newValue},oldValue:${data.oldValue}`);
+        }}
+    />
+
+
+                
+    &lt;NumberSpinner
+        style={{width:300, height:200}}
+        maxValue={30}
+        minValue={-100}
+        interval={2.5}
+        defaultValue={80}
+        valueFormat={"%.1f"}
+        unit={"km"}
+        onNumberChanged={data=>{
+            console.log(`newValue:${data.newValue},oldValue:${data.oldValue}`);
+        }}
+    /> </code></pre>
+
 
 
         
@@ -105,13 +169,13 @@
 
         
             
-<h4 class="name" id="isBLE"><span class="type-signature">(readonly) </span>isBLE<span class="type-signature"> :boolean</span></h4>
+<h4 class="name" id="~defaultValue"><span class="type-signature">(inner) </span>defaultValue<span class="type-signature"> :int</span></h4>
 
 
 
 
 <div class="description">
-    <p>是否 BLE 蓝牙</p>
+    <p>缺省值</p>
 </div>
 
 <!--
@@ -120,7 +184,7 @@
     <ul>
         <li>
             
-<span class="param-type">boolean</span>
+<span class="param-type">int</span>
 
 
         </li>
@@ -173,13 +237,13 @@
 
         
             
-<h4 class="name" id="isConnected"><span class="type-signature">(readonly) </span>isConnected<span class="type-signature"> :boolean</span></h4>
+<h4 class="name" id="~interval"><span class="type-signature">(inner) </span>interval<span class="type-signature"> :int</span></h4>
 
 
 
 
 <div class="description">
-    <p>蓝牙是否已经连接</p>
+    <p>步长，默认为1</p>
 </div>
 
 <!--
@@ -188,7 +252,7 @@
     <ul>
         <li>
             
-<span class="param-type">boolean</span>
+<span class="param-type">int</span>
 
 
         </li>
@@ -241,13 +305,217 @@
 
         
             
-<h4 class="name" id="mac"><span class="type-signature">(readonly) </span>mac<span class="type-signature"> :string</span></h4>
+<h4 class="name" id="~maxValue"><span class="type-signature">(inner) </span>maxValue<span class="type-signature"> :int</span></h4>
 
 
 
 
 <div class="description">
-    <p>蓝牙设备的 mac 地址</p>
+    <p>max</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">int</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~minValue"><span class="type-signature">(inner) </span>minValue<span class="type-signature"> :int</span></h4>
+
+
+
+
+<div class="description">
+    <p>min</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">int</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~onNumberChanged"><span class="type-signature">(inner) </span>onNumberChanged<span class="type-signature"> :func</span></h4>
+
+
+
+
+<div class="description">
+    <p>回调</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">func</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~unit"><span class="type-signature">(inner) </span>unit<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>单位</p>
 </div>
 
 <!--
@@ -309,13 +577,13 @@
 
         
             
-<h4 class="name" id="UUID"><span class="type-signature">(readonly) </span>UUID<span class="type-signature"> :string</span></h4>
+<h4 class="name" id="~valueFormat"><span class="type-signature">(inner) </span>valueFormat<span class="type-signature"> :string</span></h4>
 
 
 
 
 <div class="description">
-    <p>蓝牙设备的 UUID</p>
+    <p>格式</p>
 </div>
 
 <!--
@@ -376,122 +644,29 @@
 
 
         
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
             
+<h4 class="name" id="~visible"><span class="type-signature">(inner) </span>visible<span class="type-signature"> :bool</span></h4>
 
-    
-
-    
-    <h4 class="name" id="connect"><span class="type-signature"></span>connect<span class="signature">(type, option)</span><span class="type-signature"> &rarr; {Promise.&lt;IBluetooth>}</span></h4>
-    
-
-    
 
 
 
 <div class="description">
-    <p>打开蓝牙链接. option参数peripheralID为iOS 平台的可选参数，因为iOS平台无法获取普通 BLE 蓝牙设备的 Mac
-peripheralID 可通过 startScan（）搜索周边蓝牙设备获取（如设备OTA中，设备固件切换，无小米蓝牙协议相关服务时需建立连接），或通过retrievePeripheralsWithServicesForIOS（）搜索已连接设备获取（如可穿戴长连接设备，无法发送 mibeacon）
-建立连接后，SDK 会用 peripheralID 充当 Mac 地址</p>
+    <p>是否可见</p>
 </div>
 
+<!--
 
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
+    <h5>Type:</h5>
+    <ul>
+        <li>
             
-                <td class="name"><code>type</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
+<span class="param-type">bool</span>
 
 
-            
-            </td>
+        </li>
+    </ul>
 
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>蓝牙设备类型 -1 自动判断，0 普通小米蓝牙协议设备，1 安全芯片小米蓝牙设备（比如锁类产品），2 分享的安全芯片小米蓝牙设备，3 普通的BLE蓝牙设备(无 mibeacon，无小米 FE95 service)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>option</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">json</span>
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                    0
-                
-                </td>
-            
-
-            <td class="description last"><p>附加参数, 格式 {timeout:12000, peripheralID:&quot;...&quot;}, timeout的单位为毫秒, peripheralID是iOS平台参数</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
+-->
 
 
 
@@ -536,535 +711,9 @@ peripheralID 可通过 startScan（）搜索周边蓝牙设备获取（如设备
 
 
 
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
         
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;IBluetooth></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Device.getBluetoothLE()
-      .connect(3, {peripheralID:"1-a-b-3-c", timeout:12000})
-      .then(ble=>{
-         ...
-      })
-      .catch(err=>{
-         ...
-      });</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="disconnect"><span class="type-signature"></span>disconnect<span class="signature">(delay)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>关闭链接</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>delay</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                    0
-                
-                </td>
-            
-
-            <td class="description last"><p>延迟时长(毫秒)</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
-
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getVersion"><span class="type-signature"></span>getVersion<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;any>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>更新版本号，蓝牙的版本号 connect 之后才能</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;any></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="maximumWriteValueLength"><span class="type-signature"></span>maximumWriteValueLength<span class="signature">(type)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>获取当前连接设备写操作每包最大长度
-注：有开发者反馈该系统接口在 iOS 上并不完全准确，不可过于依赖，以实际测试为准
-注：返回值单位为 bit，注意换算，8 bit 为 1 byte，两字符 hexString 长度为 1 byte，如 “FF”</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                    0
-                
-                </td>
-            
-
-            <td class="description last"><p>0 代表 writeWithResponse, 1 代表 writeWithoutResponse</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
-
-</div>
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="readRSSI"><span class="type-signature"></span>readRSSI<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;*>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>读取 RSSI</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-<h5></h5><div style="display:none">
- 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;*></span>
-
-
-    </dd>
-</dl>
-
-    
-</div>
-
-
-
-
 
-        
     
 
     

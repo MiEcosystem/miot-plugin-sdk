@@ -65,9 +65,9 @@ export default class TitleBarWhite extends Component {
             style={[styles.titleText]}
             onPress={this.props.onPressTitle}>{this.props.title}</Text>
           {
-            this.props.subTitle && <Text
+            this.props.subTitle ? <Text
               style={[styles.subtitleText]}
-              onPress={this.props.onPressTitle}>{this.props.subTitle}</Text>
+              onPress={this.props.onPressTitle}>{this.props.subTitle}</Text>:<View/>
           }
         </View>
         <ImageButton onPress={this.props.onPressRight2}
