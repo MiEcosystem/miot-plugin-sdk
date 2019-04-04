@@ -324,9 +324,20 @@ export class IBluetooth {
      * @member
      * @type {boolean}
      * @readonly
-     *
+     * 
      */
     get isConnected() {
+         return  false
+    }
+    /**
+     * 蓝牙是否处于连接中
+     * @since 10004
+     * @member
+     * @type {boolean}
+     * @readonly
+     *
+     */
+    get isConnecting() {
          return  false
     }
     /**
