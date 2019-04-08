@@ -122,6 +122,7 @@ import FileStorage from './tutorial/storage/FileStorage';
 import * as Screens from "./uikit/screens";
 import DeviceDemo from "./tutorial/device/DeviceDemo";
 import PackageDemo from "./tutorial/PackageDemo";
+import NavigateUIDemo from "./tutorial/navigation/ui";
 
 // class HomeScreen extends React.Component {
 //   render() {
@@ -139,6 +140,7 @@ const RootStack = createStackNavigator(
     tutorialDemo: TutorialDemo,
     LocaleServer: LocaleServer,
     blankDemo: BlankDemo,
+    NavigateUIDemo: NavigateUIDemo,
     JSExecutor: JSExecutor,
     DeviceDemo: DeviceDemo,
     PackageDemo: PackageDemo,

@@ -248,4 +248,32 @@ export default {
    */
   openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion) {
   },
+  /**
+   * 显示提示用户打开蓝牙的动画示意图, 仅在iOS下有效，Android下无反应
+   */
+  showBLESwitchGuide() {
+    if (native.isAndroid) { return }
+    native.MIOTHost.showBLESwitchGuide()
+  },
+  /**
+   * 隐藏提示用户打开蓝牙的动画示意图, 仅在iOS下有效，Android下无反应
+   */
+  dismissBLESwitchGuide() {
+    if (native.isAndroid) { return }
+    native.MIOTHost.dismissBLESwitchGuide()
+  },
+  /**
+   * 打开用于创建设备组的页面
+   * @param {string} did 当前设备did
+   */
+  openDeviceGroupPageForCreate(did) {
+    native.MIOTHost.openCreateDeviceGroupPage(did)
+  },
+  /**
+   * 打开用于编辑设备组的页面
+   * @param {string} did 当前设备did
+   */
+  openDeviceGroupPageForEdit(did) {
+    native.MIOTHost.openEditDeviceGroupPage(did)
+  },
 };

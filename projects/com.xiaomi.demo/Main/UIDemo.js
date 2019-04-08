@@ -36,6 +36,7 @@ export default class UIDemo extends React.Component {
     this.state = {
       dataSource: ds.cloneWithRows(
         [
+          'NavigateUIDemo',
           'UIKitHome',
           'RefreshListView',
           'swiperDynamic',
