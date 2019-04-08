@@ -243,6 +243,22 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 删除设备属性和事件历史记录.
+     * user/del_user_device_data
+     * @param {json} params {did:'', type: '', key:'',time:number} did:设备ID ;type: 要删除的类型 ;key: 事件名称. motion/alarm ;time:时间戳，单位秒
+     */
+    delDeviceData(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 用于按照时间顺序拉取指定uid,did的发生的属性事件
+     * /v2/user/get_user_device_log
+     * @param {json} params {did:'',limit:number,time_start:number,time_end:number} limit:目前最大为50 , time_start 开始时间戳 time_end 结束时间戳
+     */
+    getUserDeviceLog(params) {
+         return Promise.resolve(null);
+    },
+    /**
      * 获取用户收藏
      * /user/get_user_coll
      * @param {*} params {did:string}
