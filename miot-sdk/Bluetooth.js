@@ -324,7 +324,7 @@ export class IBluetooth {
      * @member
      * @type {boolean}
      * @readonly
-     *
+     * 
      */
     get isConnected() {
          return  false
