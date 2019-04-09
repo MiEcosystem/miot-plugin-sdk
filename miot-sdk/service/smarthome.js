@@ -7,7 +7,7 @@
 export default {
     /**
      * 获取用户的昵称和头像信息
-     * @param {*} uid 获取用户信息的uid
+     * @param {*} uid 获取用户信息的uid或者手机号
      * @returns {Promise<json>}
      */
     getUserInfo(uid) {

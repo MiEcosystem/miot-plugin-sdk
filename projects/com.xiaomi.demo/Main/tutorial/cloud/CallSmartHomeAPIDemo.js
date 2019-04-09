@@ -7,82 +7,101 @@ import {
     FlatList,
     StyleSheet,
 } from 'react-native';
-import {Service,Device} from "miot";
+import { Service, Device, Account } from "miot";
 
-export default class CallSmartHomeAPIDemo extends React.Component{
-    constructor(props){
+export default class CallSmartHomeAPIDemo extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
-            dataSource:[],
+            dataSource: [],
+            apiList: []
         };
     }
-    render(){
+    componentDidMount() {
+        this.setState({
+            apiList: [
+                { name: "点击查询设备对应model最新固件版本信息", handle: this.handleObjRes.bind(this), action: () => { return Service.smarthome.getLatestVersion(Device.model) } },
+                { name: "点击查询当前设备固件版本信息", handle: this.handleArrRes.bind(this), action: () => { return Service.smarthome.getAvailableFirmwareForDids([Device.deviceID]) } },
+                { name: "点击查询当前用户信息", handle: this.handleObjRes.bind(this), action: () => { return Service.smarthome.getUserInfo(Service.account.ID) } },
+            ]
+        })
+    }
+
+    handleObjRes(result) {
+        var item = [];
+        for (var key in result) {
+            item.push({ 'key': key, 'value': result[key] });
+        }
+        this.setState((preState) => {
+            return { dataSource: item };
+        });
+    }
+
+    handleArrRes(result) {
+        if (result instanceof Array) {
+            var items = [];
+            for (var i = 0; i < result.length; i++) {
+                var item = result[i];
+                items.push({ 'key': i, 'value': "----" })
+                for (var key in item) {
+                    items.push({ 'key': key, 'value': "v:" + item[key] });
+                }
+            }
+            this.setState((preState) => {
+                return { dataSource: items };
+            });
+        }
+    }
+
+    render() {
         return (
             <View>
-                <Button title="点击查询设备对应model最新固件版本信息" onPress={()=>{
-                    
-                    Service.smarthome.getLatestVersion(Device.model)
-                        .then((result) => {
-                            var item = [];
-                            for (var key in result) {
-                                item.push({'key':key,'value':result[key]});
-                            }
-                            this.setState((preState)=>{
-                                return {dataSource:item};
-                            });
-                        })
-                        .catch(err => {
-                            alert("error:",err)
-                        })
-                }}/>
-                <Button title="点击查询当前设备固件版本信息" onPress={()=>{
-                    Service.smarthome.getAvailableFirmwareForDids([Device.deviceID])
-                        .then((result) => {
-                            
-                            if(result instanceof Array) {
-                                var items = [];
-                                for (var i = 0; i < result.length; i++) {
-                                    var item = result[i];
-                                    items.push({'key':i,'value':"----"})
-                                    for (var key in item) {
-                                        items.push({'key':key,'value':"v:"+item[key]});
-                                    }
-                                }
-                                this.setState((preState)=>{
-                                    return {dataSource:items};
-                                });
-                            }
-                        })
-                        .catch(err => {
-                            alert("error:",err)
-                        })
-                }}/>
-                <FlatList data={this.state.dataSource}
-                    ItemSeparatorComponent={({highlighted})=>{
+
+                <FlatList
+                    data={this.state.dataSource}
+                    ItemSeparatorComponent={({ highlighted }) => {
                         return (<View style={highlighted ? styles.separatorHighlighted : styles.separator}></View>)
 
                     }}
-                    renderItem={({item})=>{
-                        return (<View style={{flexDirection:'row',margin:10}}>
-                            <Text style={{width:150}}>{item.key}:</Text>
-                            <Text style={{width:150}}>{item.value}</Text>
+                    renderItem={({ item }) => {
+                        return (<View style={{ flexDirection: 'row', margin: 10 }}>
+                            <Text style={{ width: 150 }}>{item.key}:</Text>
+                            <Text style={{ width: 150 }}>{item.value}</Text>
                         </View>);
                     }} />
+                <FlatList
+                    data={this.state.apiList}
+                    ItemSeparatorComponent={({ highlighted }) => {
+                        return (<View style={highlighted ? styles.separatorHighlighted : styles.separator}></View>)
+
+                    }}
+                    renderItem={({ item }) => {
+                        return (
+                            <Button title={item.name} onPress={() => {
+                                item.action().then((result) => {
+                                    item.handle(result)
+                                })
+                                    .catch(err => {
+                                        alert("error:", err)
+                                    })
+                            }} />
+                        )
+                    }
+                    } />
             </View>
 
         )
     }
 }
 
-var styles= StyleSheet.create({
+var styles = StyleSheet.create({
     separator: {
         height: StyleSheet.hairlineWidth,
         backgroundColor: '#bbbbbb',
         marginLeft: 15,
-      },
-      separatorHighlighted: {
+    },
+    separatorHighlighted: {
         height: StyleSheet.hairlineWidth,
         backgroundColor: 'rgb(217, 217, 217)',
-      },
+    },
 });
-
