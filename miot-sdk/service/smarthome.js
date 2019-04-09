@@ -214,6 +214,14 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 获取服务器中 最新的版本信息，
+     * 内部调用米家代理接口/v2/device/latest_ver
+     * @param {string} did 设备did
+     */
+    getLatestVersionV2(did) {
+         return Promise.resolve(null);
+    },
+    /**
      * 添加设备属性和事件历史记录，/user/set_user_device_data
      *
      * @param {json}  params  参数\{did,uid,type,key,time,value}含义如下：
