@@ -62,6 +62,12 @@ export default class UIDemo extends React.Component {
                 }
             },
             {
+                'name': '打开快连成功页面',
+                'func': () => {
+                    Host.ui.openConnectSucceedPage(Device.model, Device.deviceID);
+                }
+            },
+            {
                 'name': '打开一次性密码',
                 'func': () => {
                     Host.ui.openOneTimePassword(Device.deviceID, 30, 6);
