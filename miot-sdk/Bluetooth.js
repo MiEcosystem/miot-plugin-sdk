@@ -31,13 +31,13 @@
 import RootDevice from './Device'
 import Host from './Host'
 export const getBluetoothUUID128 = id => {
-    if(!id || id=='')return null;
+    if (!id || id == '') return null;
     id = id.toUpperCase();
-    if(id.length > 8)return id;
-    switch(id.length){
-        case 2: id = "000000" + id;break;
-        case 4: id = "0000" + id;break;
-        case 6: id = "00" + id;break;
+    if (id.length > 8) return id;
+    switch (id.length) {
+        case 2: id = "000000" + id; break;
+        case 4: id = "0000" + id; break;
+        case 6: id = "00" + id; break;
         case 8: break;
         default:
             return null;
@@ -210,7 +210,7 @@ export class IBluetoothLock {
      * })
      * ...
      */
-    toggle(cmd,timeout) {
+    toggle(cmd, timeout) {
          return Promise.resolve(null);
     }
     /**
@@ -246,7 +246,7 @@ export class IBluetoothLock {
      *  .catch(err => {console.log('get one time password failed, ', err})
      * ...
      */
-    getOneTimePassword(interval,digits) {
+    getOneTimePassword(interval, digits) {
          return Promise.resolve(null);
     }
     /**
@@ -281,6 +281,20 @@ export class IBluetoothLock {
     decryptMessage(encrypted) {
          return Promise.resolve(null);
     }
+    /**
+     * 使用设备的token加密指定数据
+     * @param {string} data Hex Data String
+     */
+    encryptMessageWithToken(data) {
+         return Promise.resolve(null);
+    }
+    /**
+     * 使用设备的token解密指定数据
+     * @param {strng} data Hex Data String
+     */
+    decryptMessageWithToken(data) {
+         return Promise.resolve(null);
+    }
 }
 /**
  *
@@ -296,7 +310,7 @@ export class IBluetooth {
      * @type {boolean}
      * @readonly
      */
-    get isBLE(){
+    get isBLE() {
          return  true
     }
     /**
@@ -362,7 +376,7 @@ export class IBluetooth {
      *       });
      *
      */
-    connect(type=-1, option=0) {
+    connect(type = -1, option = 0) {
          return Promise.resolve(this);
     }
     /**
@@ -390,8 +404,8 @@ export class IBluetooth {
      * @param {int} type - 0 代表 writeWithResponse, 1 代表 writeWithoutResponse
      *
      */
-    maximumWriteValueLength(type = 0){
-       return Promise.resolve(null);
+    maximumWriteValueLength(type = 0) {
+         return Promise.resolve(null);
     }
     /**
      * 更新版本号，蓝牙的版本号 connect 之后才能
@@ -405,7 +419,7 @@ export class IBluetooth {
  *  BLE 蓝牙
  * @interface
  */
-export class IBluetoothLE extends IBluetooth{
+export class IBluetoothLE extends IBluetooth {
     /**
      * 蓝牙锁相关操作
      * @returns {IBluetoothLock}
@@ -448,7 +462,7 @@ export class IBluetoothLE extends IBluetooth{
  * 经典蓝牙
  * @interface
  */
-export class IBluetoothClassic extends IBluetooth{
+export class IBluetoothClassic extends IBluetooth {
 }
  const bluetoothDevices={}
 /**
@@ -567,17 +581,17 @@ export default {
      * const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590");
      * 
      */
-    UUID128:getBluetoothUUID128,
+    UUID128: getBluetoothUUID128,
     /**
      * 用以判断两个 UUID 是否相等
      * @param {string} uuid1 
      * @param {string} uuid2 
      */
-    isSameUUID(uuid1, uuid2){
-        if(uuid1 == uuid2){
+    isSameUUID(uuid1, uuid2) {
+        if (uuid1 == uuid2) {
             return true;
         }
-        if(!uuid1 || !uuid2){
+        if (!uuid1 || !uuid2) {
             return false;
         }
         return getBluetoothUUID128(uuid1) == getBluetoothUUID128(uuid2);
@@ -684,14 +698,14 @@ export default {
     * @static
     * @param {string} mac
     */
-    bindDeviceforMIUI(mac){
+    bindDeviceforMIUI(mac) {
     },
     /**
      * 只在MIUI上支持，解除长连接
      * @static
      * @param {string} mac
      */
-    unBindDeviceforMIUI(mac){
+    unBindDeviceforMIUI(mac) {
     },
     /**
      * 只在MIUI上支持，维持长连接 如果连接失败，则会隔一段时间尝试重连，如果继续失败，则重连间隔会翻倍，直到上限。
@@ -701,6 +715,6 @@ export default {
      * @param {*} enable
      *  @param {string} mac
      */
-    setAlertConfigsOnMIUI(mac,alert,enable){
+    setAlertConfigsOnMIUI(mac, alert, enable) {
     },
 };

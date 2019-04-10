@@ -16,16 +16,16 @@
 import React from 'react';
 
 import {
-  View, Text, AppRegistry, Button,
-  TouchableHighlight,
-  TouchableOpacity,
-  Platform,
-  Dimensions,
-  Animated,
-  StyleSheet,
-  PixelRatio,
-  DeviceEventEmitter,
-  Image,
+    View, Text, AppRegistry, Button,
+    TouchableHighlight,
+    TouchableOpacity,
+    Platform,
+    Dimensions,
+    Animated,
+    StyleSheet,
+    PixelRatio,
+    DeviceEventEmitter,
+    Image,
 } from 'react-native';
 
 import { createStackNavigator } from 'react-navigation'; //
@@ -123,7 +123,7 @@ import * as Screens from "./uikit/screens";
 import DeviceDemo from "./tutorial/device/DeviceDemo";
 import PackageDemo from "./tutorial/PackageDemo";
 import NavigateUIDemo from "./tutorial/navigation/ui";
-
+import DeviceControl from "./Device/DeviceControl";
 // class HomeScreen extends React.Component {
 //   render() {
 //     return (
@@ -135,146 +135,147 @@ import NavigateUIDemo from "./tutorial/navigation/ui";
 // }
 
 const RootStack = createStackNavigator(
-  {
-    Home: MainPage,
-    tutorialDemo: TutorialDemo,
-    LocaleServer: LocaleServer,
-    blankDemo: BlankDemo,
-    NavigateUIDemo: NavigateUIDemo,
-    JSExecutor: JSExecutor,
-    DeviceDemo: DeviceDemo,
-    PackageDemo: PackageDemo,
-    accountDemo: AccountDemo,
-    ControlDemo: ControlDemo,
-    CloudDebug: CloudDebug,
-    storageDemo: StorageDemo,
-    fileStorage: FileStorage,
-    callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
-    RPCControl: RPCControl,
-    OperationDemoIndex: OperationDemoIndex,
-    // BLEConnectionDemo: BLEConnectionDemo,
+    {
+        Home: MainPage,
+        tutorialDemo: TutorialDemo,
+        LocaleServer: LocaleServer,
+        blankDemo: BlankDemo,
+        DeviceControl: DeviceControl,
+        NavigateUIDemo: NavigateUIDemo,
+        JSExecutor: JSExecutor,
+        DeviceDemo: DeviceDemo,
+        PackageDemo: PackageDemo,
+        accountDemo: AccountDemo,
+        ControlDemo: ControlDemo,
+        CloudDebug: CloudDebug,
+        storageDemo: StorageDemo,
+        fileStorage: FileStorage,
+        callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
+        RPCControl: RPCControl,
+        OperationDemoIndex: OperationDemoIndex,
+        // BLEConnectionDemo: BLEConnectionDemo,
 
-    UIDemo: UIDemo,
-    RefreshListView: RefreshListView,
+        UIDemo: UIDemo,
+        RefreshListView: RefreshListView,
 
-    ThirdPartyDemo: ThirdPartyDemo,
-    setting: MHSetting,
-    moreMenu: MoreMenu,
-    // OpenLibList:OpenLibList,
-    helloDeveloper: HelloDeveloper,
-    helloReactART: HelloReactART,
-    mhMapDemo: MHMapDemo,
-    audioDemo: MHAudioDemo,
-    imagePathDemo: ImagePathDemo,
-    //swiper 开始
-    swiperDynamic: Dynamic,
-    swiperLoadMinimal: LoadMinimal,
-    // swiperPhotoView:PhotoView,
-    swiperPhone: Phone,
-    swiperSwiper: Swiper,
-    swiperNumber: SwiperNumber,
-    //swiper 结束
-    ProgressDemo: ProgressDemo,
-    ImageCapInsetDemo: ImageCapInsetDemo,
-    UIKitHome: { screen: Screens.ComponentsScreen },
-    Picker: { screen: Screens.PickerScreen },
-    Button: { screen: Screens.ButtonScreen },
-    Switch: { screen: Screens.SwitchScreen },
-    Choice: { screen: Screens.ChoiceScreen },
-    Tab: { screen: Screens.TabScreen },
-    Card: { screen: Screens.CardScreen },
-    Avatar: { screen: Screens.AvatarScreen },
-    Input: { screen: Screens.InputScreen },
-    Image: { screen: Screens.ImageScreen },
-    Gallery: { screen: Screens.GalleryScreen },
-    Settings: { screen: Screens.SettingsScreen },
-    ChoiceCustomization: { screen: Screens.ChoiceCustomizationScreen },
+        ThirdPartyDemo: ThirdPartyDemo,
+        setting: MHSetting,
+        moreMenu: MoreMenu,
+        // OpenLibList:OpenLibList,
+        helloDeveloper: HelloDeveloper,
+        helloReactART: HelloReactART,
+        mhMapDemo: MHMapDemo,
+        audioDemo: MHAudioDemo,
+        imagePathDemo: ImagePathDemo,
+        //swiper 开始
+        swiperDynamic: Dynamic,
+        swiperLoadMinimal: LoadMinimal,
+        // swiperPhotoView:PhotoView,
+        swiperPhone: Phone,
+        swiperSwiper: Swiper,
+        swiperNumber: SwiperNumber,
+        //swiper 结束
+        ProgressDemo: ProgressDemo,
+        ImageCapInsetDemo: ImageCapInsetDemo,
+        UIKitHome: { screen: Screens.ComponentsScreen },
+        Picker: { screen: Screens.PickerScreen },
+        Button: { screen: Screens.ButtonScreen },
+        Switch: { screen: Screens.SwitchScreen },
+        Choice: { screen: Screens.ChoiceScreen },
+        Tab: { screen: Screens.TabScreen },
+        Card: { screen: Screens.CardScreen },
+        Avatar: { screen: Screens.AvatarScreen },
+        Input: { screen: Screens.InputScreen },
+        Image: { screen: Screens.ImageScreen },
+        Gallery: { screen: Screens.GalleryScreen },
+        Settings: { screen: Screens.SettingsScreen },
+        ChoiceCustomization: { screen: Screens.ChoiceCustomizationScreen },
 
-    // 第三方库 demo 开始
-    SQLiteDemo: SQLiteDemo,
-    OrientationDemo: OrientationDemo,
-    AddressBookDemo: AddressBookDemo,
-    WebViewBridageDemo: WebViewBridageDemo,
-    SVGDemo: SVGDemo,
-    PressExample: PressExample,
-    HoverExample: HoverExample,
-    GroupExample: GroupExample,
-    LegendsView: LegendsView,
-    AxisView: AxisView,
-    ContainersView: ContainersView,
-    CreateContainerView: CreateContainerView,
-    ErrorsTooltipsView: ErrorsTooltipsView,
-    AreaView: AreaView,
-    PieView: PieView,
-    BarView: BarView,
-    ChartView: ChartView,
-    LineView: LineView,
-    ScatterView: ScatterView,
-    BoxPlotView: BoxPlotView,
-    GLSimple: GLSimple,
-    // GLAdvancedEffects:GLAdvancedEffects, //  有bug
-    GLHearts: GLHearts,
-    // GLTests:  GLTests, // 有bug
-    GLAnimated: GLAnimated,
-    GLParticles: GLParticles,
-    GLOrientation: GLOrientation,
-    videoDemo: VideoDemo,
-    ParticleDemo: ParticleDemo,//iOS 特有的,粒子系统
-    ImagePickerDemo: ImagePickerDemo,
+        // 第三方库 demo 开始
+        SQLiteDemo: SQLiteDemo,
+        OrientationDemo: OrientationDemo,
+        AddressBookDemo: AddressBookDemo,
+        WebViewBridageDemo: WebViewBridageDemo,
+        SVGDemo: SVGDemo,
+        PressExample: PressExample,
+        HoverExample: HoverExample,
+        GroupExample: GroupExample,
+        LegendsView: LegendsView,
+        AxisView: AxisView,
+        ContainersView: ContainersView,
+        CreateContainerView: CreateContainerView,
+        ErrorsTooltipsView: ErrorsTooltipsView,
+        AreaView: AreaView,
+        PieView: PieView,
+        BarView: BarView,
+        ChartView: ChartView,
+        LineView: LineView,
+        ScatterView: ScatterView,
+        BoxPlotView: BoxPlotView,
+        GLSimple: GLSimple,
+        // GLAdvancedEffects:GLAdvancedEffects, //  有bug
+        GLHearts: GLHearts,
+        // GLTests:  GLTests, // 有bug
+        GLAnimated: GLAnimated,
+        GLParticles: GLParticles,
+        GLOrientation: GLOrientation,
+        videoDemo: VideoDemo,
+        ParticleDemo: ParticleDemo,//iOS 特有的,粒子系统
+        ImagePickerDemo: ImagePickerDemo,
 
-    // svg
+        // svg
 
-    ARTSVGDemo: ARTSVGDemo,
-    ARTRectDemo: ARTRectDemo,
-    ARTCircleDemo: ARTCircleDemo,
-    ARTEllipseDemo: ARTEllipseDemo,
-    ARTLineDemo: ARTLineDemo,
-    ARTTextDemo: ARTTextDemo,
-    ARTGroupDemo: ARTGroupDemo,
-    ARTGradientDemo: ARTGradientDemo,
-    ARTPatternDemo: ARTPatternDemo,
+        ARTSVGDemo: ARTSVGDemo,
+        ARTRectDemo: ARTRectDemo,
+        ARTCircleDemo: ARTCircleDemo,
+        ARTEllipseDemo: ARTEllipseDemo,
+        ARTLineDemo: ARTLineDemo,
+        ARTTextDemo: ARTTextDemo,
+        ARTGroupDemo: ARTGroupDemo,
+        ARTGradientDemo: ARTGradientDemo,
+        ARTPatternDemo: ARTPatternDemo,
 
 
-    // animation
-    AnimFadeInOutDemo: AnimFadeInOutDemo,
-    AnimTransformDemo: AnimTransformDemo,
-    AnimTranslationDemo: AnimTranslationDemo,
-    AnimEffectsDemo: AnimEffectsDemo,
-    AnimEventsDemo: AnimEventsDemo,
-    LayoutAnimationDemo: LayoutAnimationDemo,
-    AnimCustomCompDemo: AnimCustomCompDemo,
+        // animation
+        AnimFadeInOutDemo: AnimFadeInOutDemo,
+        AnimTransformDemo: AnimTransformDemo,
+        AnimTranslationDemo: AnimTranslationDemo,
+        AnimEffectsDemo: AnimEffectsDemo,
+        AnimEventsDemo: AnimEventsDemo,
+        LayoutAnimationDemo: LayoutAnimationDemo,
+        AnimCustomCompDemo: AnimCustomCompDemo,
 
-    // 第三方库 demo 结束
+        // 第三方库 demo 结束
 
-    // 米家iOS 自定义第三方库<
-    CircularSliderDemo: CircularSliderDemo,
-    // 米家iOS 自定义第三方库>
-    //dialog
-    DialogTest: DialogTest,
-  },
-  {
-    // ThirdPartyDemo
-    initialRouteName: 'Home',
-    navigationOptions: ({ navigation }) => {
-      return {
-        header: <TitleBarBlack title={navigation.state.params ? navigation.state.params.title : ''} style={{ backgroundColor: '#fff' }}
-          onPressLeft={() => {
-            navigation.goBack();
-          }} />,
-      };
+        // 米家iOS 自定义第三方库<
+        CircularSliderDemo: CircularSliderDemo,
+        // 米家iOS 自定义第三方库>
+        //dialog
+        DialogTest: DialogTest,
     },
-      transitionConfig: () => ({
-          screenInterpolator:interpolator,
-      }),
-  }
+    {
+        // ThirdPartyDemo
+        initialRouteName: 'Home',
+        navigationOptions: ({ navigation }) => {
+            return {
+                header: <TitleBarBlack title={navigation.state.params ? navigation.state.params.title : ''} style={{ backgroundColor: '#fff' }}
+                    onPressLeft={() => {
+                        navigation.goBack();
+                    }} />,
+            };
+        },
+        transitionConfig: () => ({
+            screenInterpolator: interpolator,
+        }),
+    }
 );
 
 
-function interpolator(props){
+function interpolator(props) {
     const { layout, position, scene } = props;
 
     if (!layout.isMeasured) {
-        return (props)=>{
+        return (props) => {
             const { navigation, scene } = props;
 
             const focused = navigation.state.index === scene.index;
@@ -287,7 +288,7 @@ function interpolator(props){
             };
         };
     }
-    const interpolate = (props)=>{
+    const interpolate = (props) => {
         const { scene, scenes } = props;
         const index = scene.index;
         const lastSceneIndexInScenes = scenes.length - 1;
@@ -340,7 +341,7 @@ function interpolator(props){
     const width = layout.initWidth;
     const translateX = position.interpolate({
         inputRange: [first, index, last],
-        outputRange: false? [-width, 0, width * 0.3]: [width, 0, width * -0.3],
+        outputRange: false ? [-width, 0, width * 0.3] : [width, 0, width * -0.3],
     });
     const translateY = 0;
 
@@ -351,8 +352,8 @@ function interpolator(props){
 };
 
 export default class App extends React.Component {
-  render() {
-    return <RootStack />;
-  }
+    render() {
+        return <RootStack />;
+    }
 
 }

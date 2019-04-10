@@ -25,17 +25,11 @@ export default class MainPage extends React.Component {
       header:
         <View>
           <TitleBarBlack
-            // title={Utils.formats(localStrings).t2('s')} style={{ backgroundColor: '#fff' }}
-            // title={Device.name}
             title={navigation.state["params"] ? navigation.state.params.name : Device.name}
             style={{ backgroundColor: '#fff' }}
             subTitle={getString('NUM_PHOTOS', { 'numPhotos': 1 })}
-            // showDot={1}
-            // onPressLeft2={()=>{ MHPluginSDK.closeCurrentPage(); }}
-            // onPressRight2={()=>{ navigation.navigate('moreMenu'); }}
             onPressLeft={() => { Package.exit() }}
             onPressRight={() => {
-              // MHPluginSDK.openAddDeviceGroupPage();
               if (Platform.OS == 'android') {
                 navigation.setParams({ showDialog: true });
               } else {
@@ -65,17 +59,12 @@ export default class MainPage extends React.Component {
   }
 
   componentDidMount() {
-    // test module method
-    // const params = {"operation":"query","req_type":"alarm","index":5}
-    // MHPluginSDK.callMethod("alarm_ops",[],{"params":params},(res,json)=>{
-    //   alert("pencilCool")
-    // })
   }
 
   render() {
-      console.log("com.xiaomi.demo",'render first',Date.now());
-    var rowTutorialDemo = this._createMenuRow( '教程', 'tutorialDemo');
-    var rowControlDemo = this._createMenuRow( '控制能力', 'ControlDemo');
+    console.log("com.xiaomi.demo", 'render first', Date.now());
+    var rowTutorialDemo = this._createMenuRow('教程', 'tutorialDemo');
+    var rowControlDemo = this._createMenuRow('设备控制', 'DeviceControl');
     var rowCloudDebug = this._createMenuRow('UI能力', 'UIDemo');
     var rowThirdPartyDemo = this._createMenuRow('第三方库能力', 'ThirdPartyDemo');
     return (
