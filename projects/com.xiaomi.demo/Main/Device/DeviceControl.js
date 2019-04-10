@@ -54,8 +54,10 @@ export default class UIDemo extends React.Component {
                 'func': () => {
                     Device.getSubDevices().then(res => {
                         console.log('subdevices:', res);
+                        alert("子设备共有" + res.length + "个")
                     }).catch(err => {
                         console.log('error:', err)
+                        alert("error:" + err);
                     })
                 }
             },
@@ -67,10 +69,10 @@ export default class UIDemo extends React.Component {
                     console.log("ble:", ble, "lock", ble.securityLock);
                     Device.getBluetoothLE().securityLock.encryptMessageWithToken("4C").then(res => {
                         console.log('encript success :', res);
-                        alert("success" + res.result);
+                        alert("success result:" + res.result);
                     }).catch(err => {
                         console.log(err)
-                        alert("error" + err);
+                        alert("error:" + err);
                     })
                 }
             }

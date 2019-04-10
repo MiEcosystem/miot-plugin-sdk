@@ -485,14 +485,7 @@ export default {
      * @param {json} params {did:'', uid:'', cid:''}
      */
     bindNFCCard(params) {
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/v2/nfckey/bind_nfc_card", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
+         return Promise.resolve(null);
     },
     /**
      * 米家app查询NFC卡信息，使用did查询did下绑定的NFC卡列表信息
@@ -527,13 +520,13 @@ export default {
     }
      */
     getNFCCard(params) {
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/v2/nfckey/get_nfc_card", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
+         return Promise.resolve(null);
+    },
+    /**
+     * /yaokan/insertunmodel
+     * @param {json} params {device:int, id: int, brand: string, model: string}
+     */
+    insertunmodel(params) {
+         return Promise.resolve(null);
     }
 }
