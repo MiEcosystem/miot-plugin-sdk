@@ -91,6 +91,7 @@ import StorageDemo from './tutorial/storage/StorageDemo';
 import TutorialDemo from './tutorial/TutorialDemo';
 // import BLEConnectionDemo from './tutorial/operation/bluetooth/BLEConnectionDemo';
 import UIDemo from './UIDemo';
+import CustomContainer from './uikit/components/CustomContainer';
 import * as Screens from "./uikit/screens";
 import AreaView from './Victory-Native/views/area-view';
 import AxisView from './Victory-Native/views/axis-view';
@@ -106,7 +107,6 @@ import PieView from './Victory-Native/views/pie-view';
 import ScatterView from './Victory-Native/views/scatter-view';
 import VideoDemo from './VideoDemo';
 import WebViewBridageDemo from './WebViewBridageDemo';
-
 // class HomeScreen extends React.Component {
 //   render() {
 //     return (
@@ -124,6 +124,7 @@ const RootStack = createStackNavigator(
         List,
         MoreSetting,
         FirmwareUpgrade,
+        CustomContainer,
         tutorialDemo: TutorialDemo,
         LocaleServer: LocaleServer,
         blankDemo: BlankDemo,

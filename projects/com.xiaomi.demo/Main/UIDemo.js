@@ -37,6 +37,7 @@ export default class UIDemo extends React.Component {
           'ProgressDemo',
           'DialogTest',
           'ImageCapInsetDemo',
+          'CustomContainer'
         ]),
     };
   }
