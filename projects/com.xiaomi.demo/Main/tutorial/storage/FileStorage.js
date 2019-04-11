@@ -1,19 +1,7 @@
+import { Device, Host } from "miot";
 import React from 'react';
-import {
-  Dimensions,
-  PixelRatio,
-  ScrollView,
-  Image,
-  View,
-  Text,
-  Button,
-  FlatList,
-  TextInput,
-  StyleSheet,
-  TouchableHighlight,
-  findNodeHandle,
-} from 'react-native';
-import Host from "miot/Host";
+import { Button, Dimensions, findNodeHandle, FlatList, Image, PixelRatio, ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
+
 const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
 
 
@@ -119,6 +107,7 @@ const imagePathMap = new Map();
 export default class FileStorage extends React.Component {
   constructor(props) {
     super(props);
+    this.fileTime = undefined;
     this.state = {
       dataSource: [],
       fileName: "",
@@ -320,43 +309,95 @@ export default class FileStorage extends React.Component {
     )
   }
 
-    _downLoadFile(){
-        console.log("downLoadFile...")
-        let path = "http://cdn.cnbj0.fds.api.mi-img.com/miio_fw/8229041d5532e4c8389cce0469299ef3_upd_inshow.watch.w1.bin?GalaxyAccessKeyId=5721718224520&Expires=1550972034000&Signature=yCSX06T+IKQ0RHkAznK+H8PRtlc=";
-        Host.file.downloadFile(path, "DFU.zip").then((fileInfo)=>{
-            console.log("downloadFile...fileInfo", fileInfo);
-            this.zipFilePath = fileInfo.path;
-        }).catch((error)=>{
-            console.log("downloadFile...error", error);
-        });
+  _fetchFDSFile() {
+    let did = Device.deviceID;
+    let suffix = "mp3";
+    if (this.file_obj_name) {
+      console.log('param', { 'obj_name': this.file_obj_name })
+      Host.file.getFDSFileInfoWithObjName(this.file_obj_name).then(res => {
+        console.log('getfileurl success', res)
+        alert('获取成功' + JSON.stringify(res))
+      }).catch(err => {
+        console.log('getfileurl failed', err)
+      })
+    } else {
+      alert("先上传文件")
     }
 
-    _unZipFile(){
-        console.log("unZipFile...")
-        Host.file.unzipFile("DFU.zip", "DFU").then((msg)=>{
-            console.log("unZipFile...msg", msg);
-        }).catch((error)=>{
-            console.log("unZipFile...error", error);
-        });
-    }
+  }
 
-    _readFileListWithFolder(){
-        Host.file.readFileList("DFU").then((result)=>{
-            console.log("readFileList...result", result);
-        }).catch((error, msg)=>{
-            console.log("readFileList...error", error, msg);
+  _uploadFDSFile() {
+    let did = Device.deviceID;
+    let suffix = "mp3";
+    Host.file.generateObjNameAndUrlForFDSUpload(did, suffix).then(res => {
+      if (res.hasOwnProperty(suffix) && res[suffix]) {
+        let obj = res[suffix];
+        let obj_name = obj.obj_name;
+        let name = obj_name.substring(obj_name.length - 22)
+        let content = "AC";
+        let time = obj.time;
+        this.file_obj_name = obj_name;
+        console.log("pre upload", res)
+
+        Host.file.writeFile(name, content).then(r => {
+          let param = {
+            uploadUrl: obj.url,
+            method: obj.method,
+            headers: { "Content-Type": "" },
+            files: [{ filename: name }]
+          }
+          Host.file.uploadFileToFDS(param).then(rr => {
+            alert('上传成功' + JSON.stringify(rr))
+            console.log('upload file success', rr)
+          }).catch(err => {
+            alert('上传失败' + JSON.stringify(err))
+            console.log('upload file failed', err)
+          })
+        }).catch(err => {
+          alert('存储临时文件失败' + JSON.stringify(err))
+          console.log("write file failed", err)
         })
-    }
+      }
+    })
+  }
+
+  _downLoadFile() {
+    console.log("downLoadFile...")
+    let path = "http://cdn.cnbj0.fds.api.mi-img.com/miio_fw/8229041d5532e4c8389cce0469299ef3_upd_inshow.watch.w1.bin?GalaxyAccessKeyId=5721718224520&Expires=1550972034000&Signature=yCSX06T+IKQ0RHkAznK+H8PRtlc=";
+    Host.file.downloadFile(path, "DFU.zip").then((fileInfo) => {
+      console.log("downloadFile...fileInfo", fileInfo);
+      this.zipFilePath = fileInfo.path;
+    }).catch((error) => {
+      console.log("downloadFile...error", error);
+    });
+  }
+
+  _unZipFile() {
+    console.log("unZipFile...")
+    Host.file.unzipFile("DFU.zip", "DFU").then((msg) => {
+      console.log("unZipFile...msg", msg);
+    }).catch((error) => {
+      console.log("unZipFile...error", error);
+    });
+  }
+
+  _readFileListWithFolder() {
+    Host.file.readFileList("DFU").then((result) => {
+      console.log("readFileList...result", result);
+    }).catch((error, msg) => {
+      console.log("readFileList...error", error, msg);
+    })
+  }
 
   render() {
     var shotimg = null;
     var pic = this.state.imagePath;
-    if(pic && pic != ""){
-      if(pic.startsWith("/")){
+    if (pic && pic != "") {
+      if (pic.startsWith("/")) {
         pic = "file://" + pic;
       }
-      shotimg = <Image style={styles.img} 
-      source={{ uri: pic, scale: PixelRatio.get() }} />
+      shotimg = <Image style={styles.img}
+        source={{ uri: pic, scale: PixelRatio.get() }} />
     }
     return (
       <ScrollView
@@ -387,24 +428,38 @@ export default class FileStorage extends React.Component {
           value={this.state.fileContent}
         />
         <View style={styles.row}>
-            <View style={{ flex: 1 }}>
-                <Button
-                    title="下载文件"
-                    onPress={() => this._downLoadFile()}
-                />
-            </View>
-            <View style={{ flex: 1 }}>
-                <Button
-                    title="解压文件"
-                    onPress={() => this._unZipFile()}
-                />
-            </View>
-            <View style={{ flex: 1 }}>
-                <Button
-                    title="读文件列表"
-                    onPress={() => this._readFileListWithFolder()}
-                />
-            </View>
+          <View style={{ flex: 1 }}>
+            <Button
+              title="上传FDS文件"
+              onPress={() => this._uploadFDSFile()}
+            />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Button
+              title="获取FDS文件"
+              onPress={() => this._fetchFDSFile()}
+            />
+          </View>
+        </View>
+        <View style={styles.row}>
+          <View style={{ flex: 1 }}>
+            <Button
+              title="下载文件"
+              onPress={() => this._downLoadFile()}
+            />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Button
+              title="解压文件"
+              onPress={() => this._unZipFile()}
+            />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Button
+              title="读文件列表"
+              onPress={() => this._readFileListWithFolder()}
+            />
+          </View>
         </View>
 
 
@@ -513,7 +568,7 @@ export default class FileStorage extends React.Component {
               {shotimg}
             </View>
           </View>
-          
+
         </View>
 
       </ScrollView>

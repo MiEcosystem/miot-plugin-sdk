@@ -13,117 +13,100 @@
 */
 'use strict';
 
+// ART的demo }
+import { TitleBarBlack } from 'miot/ui';
+import { FirmwareUpgrade, MoreSetting } from "miot/ui/CommonSetting";
 import React from 'react';
-
-import {
-    View, Text, AppRegistry, Button,
-    TouchableHighlight,
-    TouchableOpacity,
-    Platform,
-    Dimensions,
-    Animated,
-    StyleSheet,
-    PixelRatio,
-    DeviceEventEmitter,
-    Image,
-} from 'react-native';
-
 import { createStackNavigator } from 'react-navigation'; //
-import MainPage from './MainPage';
-import ControlDemo from './ControlDemo';
-import CloudDebug from './CloudDebug';
-import ThirdPartyDemo from './ThirdPartyDemo';
-import MHSetting from './MHSetting';
-import VideoDemo from './VideoDemo';
-import MHAudioDemo from './MHAudioDemo';
-import MoreMenu from './MoreMenu';
-import MHMapDemo from './MHMapDemo';
-import ImagePathDemo from './NewStructureTest'
 import HelloDeveloper from '../CommonModules/HelloDeveloper';
 import HelloReactART from '../CommonModules/HelloReactART';
-import LineView from './Victory-Native/views/line-view';
-import SVGDemo from './SVGDemo';
-import PieView from './Victory-Native/views/pie-view';
-import BarView from './Victory-Native/views/bar-view';
-import ScatterView from './Victory-Native/views/scatter-view';
-import ContainersView from './Victory-Native/views/containers-view';
-import AxisView from './Victory-Native/views/axis-view';
 import AddressBookDemo from './AddressBookDemo';
-import CreateContainerView from './Victory-Native/views/create-container-view';
-import ErrorsTooltipsView from './Victory-Native/views/errors-tooltips-view';
-import ChartView from './Victory-Native/views/chart-view';
-import LegendsView from './Victory-Native/views/legends-view';
-import WebViewBridageDemo from './WebViewBridageDemo';
-import AreaView from './Victory-Native/views/area-view';
-import OrientationDemo from './OrientationDemo';
-import { GroupExample, HoverExample, PressExample } from './SVGDemo2';
-import SQLiteDemo from './SQLiteDemo';
-import BoxPlotView from './Victory-Native/views/boxplot-view';
-import GLSimple from './gl/Simple';
-import GLParticles from './gl/Particles';
+import AnimCustomCompDemo from './AnimationComponentDemo/AnimCustomCompDemo'; //自定义动画组
+import AnimEffectsDemo from './AnimationComponentDemo/AnimEffectsDemo'; //动画特效
+import AnimEventsDemo from './AnimationComponentDemo/AnimEventsDemo'; //动画事件
+import AnimFadeInOutDemo from './AnimationComponentDemo/AnimFadeInOutDemo'; //淡入淡出
+import AnimTransformDemo from './AnimationComponentDemo/AnimTransformDemo'; //旋转翻转
+import AnimTranslationDemo from './AnimationComponentDemo/AnimTranslationDemo'; //平行移动
+import LayoutAnimationDemo from './AnimationComponentDemo/LayoutAnimationDemo'; //其他动画
+import ARTCircleDemo from './ARTComponentDemo/ARTCircleDemo'; //圆形：Circle，
+import ARTEllipseDemo from './ARTComponentDemo/ARTEllipseDemo'; //椭圆：Ellipse
+import ARTGradientDemo from './ARTComponentDemo/ARTGradientDemo'; //LinearGradient：线性渐变,RadialGradient：径向渐变
+import ARTGroupDemo from './ARTComponentDemo/ARTGroupDemo'; //分组：Group,
+import ARTLineDemo from './ARTComponentDemo/ARTLineDemo'; //直线：Line,多边线：Polyline
+import ARTPatternDemo from './ARTComponentDemo/ARTPatternDemo'; //Pattern 图案
+import ARTRectDemo from './ARTComponentDemo/ARTRectDemo'; //矩形：Rect，多边形：Polygon,多边线：Polyline
+// ART的demo  {
+import ARTSVGDemo from './ARTComponentDemo/ARTSVGDemo'; //图片：SVG，
+import ARTTextDemo from './ARTComponentDemo/ARTTextDemo'; //文字：Text
+// import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
+import CircularSliderDemo from './CircularSliderDemo';
+import CloudDebug from './CloudDebug';
+import ControlDemo from './ControlDemo';
+import DeviceControl from "./Device/DeviceControl";
+import DialogTest from './DialogTest';
 import GLAnimated from './gl/Animated';
-import GLOrientation from './gl/Orientation';
 // import GLAdvancedEffects from './gl/AdvancedEffects';
 import GLHearts from './gl/Hearts';
+import GLOrientation from './gl/Orientation';
+import GLParticles from './gl/Particles';
+import GLSimple from './gl/Simple';
+import ImageCapInsetDemo from './ImageCapInsetDemo'; // working but no title displayed
+import ImagePickerDemo from './ImagePickerDemo';
+import MainPage from './MainPage';
+import MHAudioDemo from './MHAudioDemo';
+import MHMapDemo from './MHMapDemo';
+import MHSetting from './MHSetting';
+import MoreMenu from './MoreMenu';
+import ImagePathDemo from './NewStructureTest';
+import OrientationDemo from './OrientationDemo';
 // import GLTests from './gl/Tests';
 // import OpenLibList from './OpenLibList';
 import ParticleDemo from './ParticleDemo';
-
-// ART的demo  {
-
-import ARTSVGDemo from './ARTComponentDemo/ARTSVGDemo'; //图片：SVG，
-import ARTRectDemo from './ARTComponentDemo/ARTRectDemo';//矩形：Rect，多边形：Polygon,多边线：Polyline
-import ARTCircleDemo from './ARTComponentDemo/ARTCircleDemo';//圆形：Circle，
-import ARTEllipseDemo from './ARTComponentDemo/ARTEllipseDemo';//椭圆：Ellipse
-import ARTLineDemo from './ARTComponentDemo/ARTLineDemo';//直线：Line,多边线：Polyline
-import ARTTextDemo from './ARTComponentDemo/ARTTextDemo';//文字：Text
-import ARTGroupDemo from './ARTComponentDemo/ARTGroupDemo';//分组：Group,
-import ARTGradientDemo from './ARTComponentDemo/ARTGradientDemo';//LinearGradient：线性渐变,RadialGradient：径向渐变
-import ARTPatternDemo from './ARTComponentDemo/ARTPatternDemo';//Pattern 图案
-
-
-import AnimFadeInOutDemo from './AnimationComponentDemo/AnimFadeInOutDemo';//淡入淡出
-import AnimTransformDemo from './AnimationComponentDemo/AnimTransformDemo';//旋转翻转
-import AnimTranslationDemo from './AnimationComponentDemo/AnimTranslationDemo';//平行移动
-import AnimEffectsDemo from './AnimationComponentDemo/AnimEffectsDemo';//动画特效
-import AnimEventsDemo from './AnimationComponentDemo/AnimEventsDemo';//动画事件
-import LayoutAnimationDemo from './AnimationComponentDemo/LayoutAnimationDemo'; //其他动画
-import AnimCustomCompDemo from './AnimationComponentDemo/AnimCustomCompDemo'; //自定义动画组
-import Dynamic from './swiper/Dynamic/'
-import LoadMinimal from './swiper/LoadMinimal/'
-import Phone from './swiper/Phone/'
+import ProgressDemo from './ProgressDemo';
+import RefreshListView from './RefreshListView';
+import SQLiteDemo from './SQLiteDemo';
+import SVGDemo from './SVGDemo';
+import { GroupExample, HoverExample, PressExample } from './SVGDemo2';
+import Dynamic from './swiper/Dynamic/';
+import LoadMinimal from './swiper/LoadMinimal/';
+import Phone from './swiper/Phone/';
 // import PhotoView from './swiper/PhotoView/' // not working
-import Swiper from './swiper/Swiper/'  // working but no title displayed
-import SwiperNumber from './swiper/SwiperNumber/' // working but no title displayed
-import ImageCapInsetDemo from './ImageCapInsetDemo' // working but no title displayed
-
-// ART的demo }
-
-import { TitleBarBlack } from 'miot/ui';
-// import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
-
-import CircularSliderDemo from './CircularSliderDemo'
-import ImagePickerDemo from './ImagePickerDemo'
-import DialogTest from './DialogTest';
-import BlankDemo from './tutorial/BlankDemo';
-import JSExecutor from './tutorial/JSExecutor';
+import Swiper from './swiper/Swiper/'; // working but no title displayed
+import SwiperNumber from './swiper/SwiperNumber/'; // working but no title displayed
+import ThirdPartyDemo from './ThirdPartyDemo';
 import AccountDemo from './tutorial/account/AccountDemo';
-import StorageDemo from './tutorial/storage/StorageDemo';
-import RPCControl from './tutorial/RPCControl';
-import TutorialDemo from './tutorial/TutorialDemo';
-import LocaleServer from './tutorial/LocaleServer';
+import BlankDemo from './tutorial/BlankDemo';
 import CallSmartHomeAPIDemo from './tutorial/cloud/CallSmartHomeAPIDemo.js';
+import DeviceDemo from "./tutorial/device/DeviceDemo";
+import JSExecutor from './tutorial/JSExecutor';
+import List from "./tutorial/List";
+import LocaleServer from './tutorial/LocaleServer';
+import NavigateUIDemo from "./tutorial/navigation/ui";
 import OperationDemoIndex from './tutorial/operation/OperationDemoIndex';
+import PackageDemo from "./tutorial/PackageDemo";
+import RPCControl from './tutorial/RPCControl';
+import Setting from "./tutorial/Setting";
+import FileStorage from './tutorial/storage/FileStorage';
+import StorageDemo from './tutorial/storage/StorageDemo';
+import TutorialDemo from './tutorial/TutorialDemo';
 // import BLEConnectionDemo from './tutorial/operation/bluetooth/BLEConnectionDemo';
 import UIDemo from './UIDemo';
-import RefreshListView from './RefreshListView';
-import ProgressDemo from './ProgressDemo';
-import FileStorage from './tutorial/storage/FileStorage';
 import * as Screens from "./uikit/screens";
-import DeviceDemo from "./tutorial/device/DeviceDemo";
-import PackageDemo from "./tutorial/PackageDemo";
-import NavigateUIDemo from "./tutorial/navigation/ui";
-import DeviceControl from "./Device/DeviceControl";
+import AreaView from './Victory-Native/views/area-view';
+import AxisView from './Victory-Native/views/axis-view';
+import BarView from './Victory-Native/views/bar-view';
+import BoxPlotView from './Victory-Native/views/boxplot-view';
+import ChartView from './Victory-Native/views/chart-view';
+import ContainersView from './Victory-Native/views/containers-view';
+import CreateContainerView from './Victory-Native/views/create-container-view';
+import ErrorsTooltipsView from './Victory-Native/views/errors-tooltips-view';
+import LegendsView from './Victory-Native/views/legends-view';
+import LineView from './Victory-Native/views/line-view';
+import PieView from './Victory-Native/views/pie-view';
+import ScatterView from './Victory-Native/views/scatter-view';
+import VideoDemo from './VideoDemo';
+import WebViewBridageDemo from './WebViewBridageDemo';
+
 // class HomeScreen extends React.Component {
 //   render() {
 //     return (
@@ -137,6 +120,10 @@ import DeviceControl from "./Device/DeviceControl";
 const RootStack = createStackNavigator(
     {
         Home: MainPage,
+        Setting,
+        List,
+        MoreSetting,
+        FirmwareUpgrade,
         tutorialDemo: TutorialDemo,
         LocaleServer: LocaleServer,
         blankDemo: BlankDemo,

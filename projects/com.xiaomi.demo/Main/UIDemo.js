@@ -1,20 +1,8 @@
 'use strict';
 
-import React from 'react';
-
-
-import {
-  StyleSheet,
-  Text,
-  ListView,
-  View,
-  Image,
-  TouchableHighlight,
-  Component,
-  PixelRatio,
-} from 'react-native';
-
 import { TitleBarBlack } from 'miot/ui';
+import React from 'react';
+import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
 export default class UIDemo extends React.Component {
 
@@ -36,6 +24,7 @@ export default class UIDemo extends React.Component {
     this.state = {
       dataSource: ds.cloneWithRows(
         [
+          'List',
           'NavigateUIDemo',
           'UIKitHome',
           'RefreshListView',
