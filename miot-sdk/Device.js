@@ -390,6 +390,7 @@ class IDevice {
     }
     /**
      * 获取子设备列表
+     * @since 10004
      * @method
      * @returns {Promise<IDevice[]>}
      * @example

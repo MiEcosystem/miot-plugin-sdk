@@ -283,6 +283,7 @@ export class IBluetoothLock {
     }
     /**
      * 使用设备的token加密指定数据
+     * @since 10004
      * @param {string} data Hex Data String
      */
     encryptMessageWithToken(data) {
@@ -290,6 +291,7 @@ export class IBluetoothLock {
     }
     /**
      * 使用设备的token解密指定数据
+     * @since 10004
      * @param {strng} data Hex Data String
      */
     decryptMessageWithToken(data) {

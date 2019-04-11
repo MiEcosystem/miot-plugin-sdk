@@ -216,6 +216,7 @@ export default {
     /**
      * 获取服务器中 最新的版本信息，
      * 内部调用米家代理接口/v2/device/latest_ver
+     * @since 10004
      * @param {string} did 设备did
      */
     getLatestVersionV2(did) {
@@ -253,6 +254,7 @@ export default {
     /**
      * 删除设备属性和事件历史记录.
      * user/del_user_device_data
+     * @since 10004
      * @param {json} params {did:'', type: '', key:'',time:number} did:设备ID ;type: 要删除的类型 ;key: 事件名称. motion/alarm ;time:时间戳，单位秒
      */
     delDeviceData(params) {
@@ -261,6 +263,7 @@ export default {
     /**
      * 用于按照时间顺序拉取指定uid,did的发生的属性事件
      * /v2/user/get_user_device_log
+     * @since 10004
      * @param {json} params {did:'',limit:number,time_start:number,time_end:number} limit:目前最大为50 , time_start 开始时间戳 time_end 结束时间戳
      */
     getUserDeviceLog(params) {
@@ -524,6 +527,7 @@ export default {
     },
     /**
      * /yaokan/insertunmodel
+     * @since 10004
      * @param {json} params {device:int, id: int, brand: string, model: string}
      */
     insertunmodel(params) {

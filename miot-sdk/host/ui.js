@@ -250,28 +250,33 @@ export default {
   },
   /**
    * 显示提示用户打开蓝牙的动画示意图, 仅在iOS下有效，Android下无反应
+   * @since 10004
    */
   showBLESwitchGuide() {
   },
   /**
    * 隐藏提示用户打开蓝牙的动画示意图, 仅在iOS下有效，Android下无反应
+   * @since 10004
    */
   dismissBLESwitchGuide() {
   },
   /**
    * 打开用于创建设备组的页面
+   * @since 10004
    * @param {string} did 当前设备did
    */
   openDeviceGroupPageForCreate(did) {
   },
   /**
    * 打开用于编辑设备组的页面
+   * @since 10004
    * @param {string} did 当前设备did
    */
   openDeviceGroupPageForEdit(did) {
   },
   /**
    * 打开设备快连成功页面
+   * @since 10004
    * @param {string} model 设备model
    * @param {string} did 设备did
    */

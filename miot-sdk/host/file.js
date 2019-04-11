@@ -192,6 +192,7 @@ export default {
     },
     /**
      * 获取用于上传FDS文件的obj_name以及用于上传的url
+     * @since 10004
      * @param {string} did 设备did
      * @param {string} suffix 文件后缀 例如 'mp3', 'txt'
      * @example
@@ -232,6 +233,7 @@ export default {
     },
     /**
      * 获取FDS文件的信息，包含下载地址等信息
+     * @since 10004
      * @param {string} obj_name generateObjNameAndUrlForFDSUpload 生成的 obj_name
      * @example
      *  let did = Device.deviceID;
