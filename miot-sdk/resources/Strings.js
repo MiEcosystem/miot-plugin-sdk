@@ -1,5 +1,5 @@
 import Host from "miot/Host";
-getStrings = strings => {
+const getStrings = strings => {
   const language = Host.locale.language;
   return strings[language] || strings['zh'];
 }
