@@ -96,7 +96,9 @@ export default class FirmwareUpgrade extends React.Component {
     return (
       <View style={styles.container}>
         <Separator />
-        <ScrollView>
+        <ScrollView
+          showsVerticalScrollIndicator={false}>
+          <View style={[styles.blank, { borderTopWidth: 0 }]} />
           {this.renderList(items)}
           <Separator />
         </ScrollView>
@@ -108,5 +110,13 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Styles.common.backgroundColor,
     flex: 1,
+  },
+  blank: {
+    height: 8,
+    backgroundColor: Styles.common.backgroundColor,
+    borderTopColor: Styles.common.hairlineColor,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: Styles.common.hairlineColor,
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
 });
