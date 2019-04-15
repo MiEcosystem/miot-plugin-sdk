@@ -56,7 +56,7 @@ export default class UIDemo extends React.Component {
                 }
             },
             {
-                'name': '显示打开蓝牙引导',
+                'name': '显示打开蓝牙引导(仅ios)',
                 'func': () => {
                     Host.ui.showBLESwitchGuide();
                 }
