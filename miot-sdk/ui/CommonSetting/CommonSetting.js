@@ -1,13 +1,12 @@
-'use strict';
-import { Device, Host } from "miot";
-import { DeviceEvent } from "miot/Device";
+import { Device, Host } from 'miot';
+import { DeviceEvent } from 'miot/Device';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { RkButton } from 'react-native-ui-kitten';
-import { strings, Styles } from "../../resources";
-import ListItem from "../ListItem/ListItem";
-import Separator from "../Separator";
+import { strings, Styles } from '../../resources';
+import ListItem from '../ListItem/ListItem';
+import Separator from '../Separator';
 const firstOptions = {
   /**
    * 按键设置，多键开关必选，其余设备必不选
@@ -28,7 +27,7 @@ const firstOptions = {
   /**
    * 智能场景
    */
-  IFTTT: 'ifttt',
+  IFTTT: 'ifttt'
 };
 const firstAllOptions = {
   ...firstOptions,
@@ -55,8 +54,8 @@ const firstAllOptions = {
   /**
    * 法律信息，必选
    */
-  LEGAL_INFO: 'legalInfo',
-}
+  LEGAL_INFO: 'legalInfo'
+};
 const secondOptions = {
   /**
    * 固件升级——固件自动升级
@@ -69,8 +68,8 @@ const secondOptions = {
   /**
    * 法律信息——加入用户体验计划
    */
-  USER_EXPERIENCE_PROGRAM: 'userExperienceProgram',
-}
+  USER_EXPERIENCE_PROGRAM: 'userExperienceProgram'
+};
 const secondAllOptions = {
   ...secondOptions,
   /**
@@ -96,14 +95,14 @@ const secondAllOptions = {
   /**
    * 法律信息——隐私政策，必选
    */
-  PRIVACY_POLICY: 'privacyPolicy',
-}
+  PRIVACY_POLICY: 'privacyPolicy'
+};
 export const SETTING_KEYS = {
   // 一级菜单
   first_options: firstOptions,
   // 二级菜单
   second_options: secondOptions
-}
+};
 export { firstAllOptions, secondAllOptions };
 /**
  * @export
@@ -153,6 +152,7 @@ export default class CommonSetting extends React.Component {
     firstOptions: PropTypes.array,
     secondOptions: PropTypes.array,
     extraOptions: PropTypes.object,
+    navigation: PropTypes.object.isRequired
   }
   static defaultProps = {
     firstOptions: [
@@ -160,12 +160,12 @@ export default class CommonSetting extends React.Component {
       firstAllOptions.SHARE,
       firstAllOptions.BTGATEWAY,
       firstAllOptions.VOICE_AUTH,
-      firstAllOptions.IFTTT,
+      firstAllOptions.IFTTT
     ],
     secondOptions: [
       secondAllOptions.AUTO_UPGRADE,
       secondAllOptions.TIMEZONE,
-      secondAllOptions.USER_EXPERIENCE_PROGRAM,
+      secondAllOptions.USER_EXPERIENCE_PROGRAM
     ]
   }
   getCommonSetting(state) {
@@ -215,13 +215,11 @@ export default class CommonSetting extends React.Component {
         title: strings.legalInfo,
         onPress: _ => this.privacyAndProtocolReview()
       }
-    }
+    };
   }
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      name: Device.name,
-    }
+    this.state = { name: Device.name };
     this.commonSetting = this.getCommonSetting(this.state);
   }
   /**
@@ -254,7 +252,8 @@ export default class CommonSetting extends React.Component {
     if (this.props.navigation) {
       const params = { secondOptions: this.props.secondOptions };
       this.props.navigation.navigate(page, params);
-    } else {
+    }
+    else {
       console.warn("props 'navigation' is required for CommonSetting");
     }
   }
@@ -275,8 +274,8 @@ export default class CommonSetting extends React.Component {
     ];
     const keys = [...requireKeys1, ...this.props.firstOptions, ...requireKeys2];
     const items = keys.map(key => {
-      if (key !== undefined &&
-        this.commonSetting[key] !== undefined) {
+      if (key !== undefined
+        && this.commonSetting[key] !== undefined) {
         return this.commonSetting[key];
       }
     });
@@ -291,13 +290,13 @@ export default class CommonSetting extends React.Component {
             const showSeparator = index !== items.length - 1;
             return (
               <ListItem
-                key={item.title + index}
+                key={item.title}
                 title={item.title || ''}
                 value={item.value}
                 onPress={item.onPress}
                 showSeparator={showSeparator}
               />
-            )
+            );
           })
         }
         <Separator />
@@ -307,13 +306,15 @@ export default class CommonSetting extends React.Component {
             contentStyle={styles.buttonText}
             onPress={_ => this.openDeleteDevice()}
             activeOpacity={0.8}
-          >{strings.deleteDevice}</RkButton>
+          >
+            {strings.deleteDevice}
+          </RkButton>
         </View>
       </View>
     );
   }
   componentWillMount() {
-    this._deviceNameChangedListener = DeviceEvent.deviceNameChanged.addListener((device) => {
+    this._deviceNameChangedListener = DeviceEvent.deviceNameChanged.addListener(device => {
       this.state.name = device.name;
       this.commonSetting = this.getCommonSetting(this.state);
       this.forceUpdate();
@@ -332,19 +333,19 @@ const styles = StyleSheet.create({
     height: 32,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    paddingLeft: Styles.common.padding,
+    paddingLeft: Styles.common.padding
   },
   title: {
     fontSize: 11,
     color: 'rgba(0,0,0,0.5)',
-    lineHeight: 14,
+    lineHeight: 14
   },
   bottomContainer: {
     height: 90,
     backgroundColor: Styles.common.backgroundColor,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   buttonContainer: {
     flex: 1,
@@ -353,13 +354,13 @@ const styles = StyleSheet.create({
     borderWidth: 0.3,
     borderColor: 'rgba(0,0,0,0.2)',
     backgroundColor: '#fff',
-    marginHorizontal: Styles.common.padding,
+    marginHorizontal: Styles.common.padding
   },
   buttonText: {
     fontSize: 13,
     fontWeight: 'bold',
     // fontFamily: 'MI-LANTING--GBK1-Bold',
     color: '#F43F31',
-    lineHeight: 18,
+    lineHeight: 18
   }
 });
