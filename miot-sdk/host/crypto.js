@@ -48,7 +48,7 @@ export default {
      return Promise.resolve('');
   },
   /**
-   * SHA2 编码
+   * SHA256 编码
    * @param {*} content
    */
   encodeSHA2(content) {
