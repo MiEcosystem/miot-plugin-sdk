@@ -1,15 +1,8 @@
-import React, {
-  Component,
-} from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-} from "react-native";
-import { Blur } from "gl-react-blur";
 import { Surface } from "gl-react-native";
-import Heart from "./../../gl/Hearts/Heart";
+import React, { Component } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
 import seedrandom from "seedrandom";
+import Heart from "./../Hearts/Heart";
 
 const styles = StyleSheet.create({
   container: {

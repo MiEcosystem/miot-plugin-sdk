@@ -27,7 +27,7 @@ var {
 
 import  Rectangle from './Rectangle.art';
 
-import Circle from '../../CommonModules/Chart/Circle';
+import Circle from '../../../CommonModules/Chart/Circle';
 
 export default class ARTGradientDemo extends React.Component {
   render() {

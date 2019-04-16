@@ -94,7 +94,7 @@ export default class MHAudioDemo extends React.Component {
     var params = {
       'updateAudioPlayerTimeInterval': 1,
       'audioPlayerUid': audioPlayerUid,
-      "p": require('../Resources/Test.html')
+      "p": require('../../Resources/Test.html')
     };
     // Host.audio.startPlay(require('../Resources/mp3/lovewholelife.mp3'), params).then(() => { console.log('startPlay'); });
     Host.audio.startPlay(fileName, params).then(() => { console.log('startPlay'); });

@@ -22,7 +22,7 @@ var {
   Path,
 } = ART;
 
-import Wedge from '../../CommonModules/Chart/Wedge';
+import Wedge from '../../../CommonModules/Chart/Wedge';
 
 export default class ARTEllipseDemo extends React.Component {
 

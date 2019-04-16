@@ -22,7 +22,7 @@ var {
   Path
 } = ART;
 
-import Circle from '../../CommonModules/Chart/Circle';
+import Circle from '../../../CommonModules/Chart/Circle';
 
 export default class ARTCircleDemo extends React.Component {
 

@@ -26,8 +26,6 @@ var {
 
 import  Rectangle from  './Rectangle.art';
 
-import Circle from '../../CommonModules/Chart/Circle';
-
 export default class ARTPatternDemo extends React.Component {
   render() {
     var textHeight = 20;

@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ListView,
-} from 'react-native';
+import { ListView, StyleSheet, Text, View } from 'react-native';
 
 
 export default class AddressBookDemo extends React.Component {
@@ -19,23 +14,9 @@ export default class AddressBookDemo extends React.Component {
     };
   };
 
-  componentWillMount() {
-
-  }
-
   componentDidMount() {
-      var Contacts = require('react-native-contacts');
-    // var newPerson = {
-    //     lastName: "Nietzsche",
-    //     firstName: "Friedrich",
-    //     emailAddresses: [{
-    //       label: "work",
-    //       email: "mrniet@example.com",
-    //     }],
-    //   }
+    var Contacts = require('react-native-contacts');
 
-    // AddressBook.addContact(newPerson, (err) => { /*...*/ })
-    
     Contacts.checkPermission((err, permission) => {
       // AddressBook.PERMISSION_AUTHORIZED || AddressBook.PERMISSION_UNDEFINED || AddressBook.PERMISSION_DENIED
       if (permission === 'undefined') {
@@ -47,21 +28,10 @@ export default class AddressBookDemo extends React.Component {
         // yay!
         Contacts.getAll((err, contacts) => {
           console.log(err, contacts);
-          //update the first record
-          // let someRecord = contacts[0]
-          // someRecord.emailAddresses.push({
-          //   label: "junk",
-          //   email: "mrniet+junkmail@test.com",
-          // })
-          // Contacts.updateContact(someRecord, (err) => { /*...*/ })
-    
-          //delete the second record
-          // Contacts.deleteContact(contacts[1], (err) => { /*...*/ })
-          this.setState({dataSource: this.state.dataSource.cloneWithRows(contacts)});
+          this.setState({ dataSource: this.state.dataSource.cloneWithRows(contacts) });
         });
       }
       if (permission === 'denied') {
-        // x.x
         alert("通讯录未授权")
       }
       console.log(permission);
@@ -72,7 +42,7 @@ export default class AddressBookDemo extends React.Component {
     return (
       <View>
         <ListView style={styles.list} dataSource={this.state.dataSource}
-                  renderRow={this._renderRow.bind(this)}/>
+          renderRow={this._renderRow.bind(this)} />
       </View>
     );
   }
@@ -80,9 +50,9 @@ export default class AddressBookDemo extends React.Component {
   _renderRow(rowData, sectionID, rowID) {
     var name = rowData.familyName ? rowData.familyName : '';
     var tels = rowData.phoneNumbers;
-    if(tels[0]) {
+    if (tels[0]) {
       var tel = tels[0].number;
-    }else {
+    } else {
       var tel = 'none-empty'
     }
     return (
@@ -96,7 +66,6 @@ export default class AddressBookDemo extends React.Component {
     );
   }
 }
-
 
 var styles = StyleSheet.create({
   container: {

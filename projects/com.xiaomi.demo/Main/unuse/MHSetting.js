@@ -12,8 +12,8 @@ import {
   Button,
 } from 'react-native';
 
-import MHLocalizableString  from './MHLocalizableString.js';
-import MHGlobal from './MHGlobalData';
+import MHLocalizableString  from '../MHLocalizableString.js';
+import MHGlobal from '../MHGlobalData';
 import {Host,Device,DeviceEvent} from "miot";
 
 // var MoreMenu = require('./MoreMenu');

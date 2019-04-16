@@ -19,7 +19,7 @@ import {SafeAreaView} from 'react-navigation';
 const {width, height} = Dimensions.get('window');
 import {Host} from 'miot';
 import {ImageButton, LoadingDialog} from 'miot/ui';
-import {localStrings as LocalizedStrings, getString} from './MHLocalizableString';
+import {localStrings as LocalizedStrings, getString} from '../MHLocalizableString';
 
 const TIME = 300;//动画时长
 export default class MoreDialog extends Component {

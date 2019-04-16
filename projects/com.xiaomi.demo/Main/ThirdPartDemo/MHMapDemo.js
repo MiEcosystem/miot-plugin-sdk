@@ -28,7 +28,7 @@ export default class MHMapDemo extends React.Component {
     this.state = {
       zoomLevel: 16.1,
       userLocation: {
-        image: require( '../Resources/map/003.png'),
+        image: require( '../../Resources/map/003.png'),
         enabled: false,
         size: {
           width: 64,
@@ -38,7 +38,7 @@ export default class MHMapDemo extends React.Component {
       },
 
       userLocationRepresentation: {
-        image: require( '../Resources/map/003.png'),
+        image: require( '../../Resources/map/003.png'),
         imageScale: 5,
         showsAccuracyRing: false,
         // strokeColor: [0.9, 0.1, 0.1, 0.9],
@@ -121,7 +121,7 @@ export default class MHMapDemo extends React.Component {
     var annotation = {
       id: 'annotation' + e.nativeEvent.latitude + e.nativeEvent.longitude,
       title: '目标位置',
-      image: require( '../Resources/map/003.png'),
+      image: require( '../../Resources/map/003.png'),
       size: {
         width: 64,
         height: 64,

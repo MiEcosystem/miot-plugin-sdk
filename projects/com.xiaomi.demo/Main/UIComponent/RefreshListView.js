@@ -16,7 +16,7 @@ import {
   SwRefreshListView,
   RefreshStatus,
   LoadMoreStatus,
-} from '../CommonModules/swrefresh';
+} from '../../CommonModules/swrefresh';
 
 const { width, height } = Dimensions.get('window');
 const SIZE = 20;

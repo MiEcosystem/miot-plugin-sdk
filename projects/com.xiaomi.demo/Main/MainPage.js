@@ -1,23 +1,12 @@
 'use strict';
 
-import React from 'react';
-import {
-  View,
-  Text,
-  TouchableHighlight,
-  Platform,
-  StyleSheet,
-  Image,
-} from 'react-native';
-
-//import Setting from './MHSetting';
-
+import { Device, DeviceEvent, Package } from "miot";
 import { TitleBarBlack } from 'miot/ui';
-import MoreDialog from './MoreDialog';
-// import ImageButton from '../CommonModules/ImageButton.js';;
+import React from 'react';
+import { Image, Platform, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { getString } from './MHLocalizableString';
 
-import { localStrings, getString } from './MHLocalizableString';
-import { Package, Device, DeviceEvent } from "miot";
+
 
 export default class MainPage extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -36,9 +25,6 @@ export default class MainPage extends React.Component {
                 navigation.navigate('moreMenu', { 'title': '设置' });
               }
             }} />
-          <MoreDialog
-            visible={typeof navigation.state.params === 'undefined' ? false : navigation.state.params.showDialog}
-            navigation={navigation} />
         </View>
     };
   };

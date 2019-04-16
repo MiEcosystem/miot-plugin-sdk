@@ -100,6 +100,7 @@ export default {
     },
     /**
      * - /v2/device/range_get_extra_data
+     * @deprecated 10004 开始废弃， 后续版本会移除该方法。
      * @param {json} params {did:string,prefix:string,limit:int,offset:int}
      * @return {Promise<json>}
      */
@@ -108,6 +109,7 @@ export default {
     },
     /**
      * 删除设备上传的信息 /v2/device/del_extra_data
+     * @deprecated 10004 开始废弃， 后续版本会移除该方法。
      * @param {json} params {did:string, keys:[key1,key2]}
      * @return {Promise<json>}
      */
@@ -183,6 +185,7 @@ export default {
     },
     /**
      * 获取服务器中 device 对应的数据，内部调用米家代理接口 /device/getsetting
+     * @deprecated 10004 开始废弃， 后续版本会移除该方法。
      * @param {json} params 请求参数 {did:string,settings:array<string>}
      * @return {Promise}
      */
@@ -191,6 +194,7 @@ export default {
     },
     /**
      * 设置服务器中 device 对应的数据，内部调用米家代理接口/device/setsetting
+     * @deprecated 10004 开始废弃， 后续版本会移除该方法。
      * @param {json} params 请求参数 {did:string,settings:map<key,value>}
      * @return {Promise}
      */
@@ -199,6 +203,7 @@ export default {
     },
     /**
      * 删除服务器中 device 对应的数据，内部调用米家代理接口/device/delsetting
+     * @deprecated 10004 开始废弃， 后续版本会移除该方法。
      * @param {json} params  - 请求参数 \{did:设备 id,settings:要删除的设置角标的数组}
      * @return {Promise}
      */
@@ -357,15 +362,71 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 从服务器批量获取设备属性，/device/batchdevicedatas
-     *
+     * 获取设备的属性，属性设置会在设备被删除时清空
+     * api call /device/batchdevicedatas
+     * 
+     * error code: 
+     * 0 - 成功
+     * -7 - 没有找到注册的设备
+     * -6 - 设备对应uid不为0 
+     * -4 - server err
+     * 
+     * @since 10004
      * @param {json} params  -参数 [{did:"",props:["prop.aaa","prop.bbb"]}]
      * @return {Promise}
+     * @example
+     * let params = {'did':Device.deviceID, 'props': [   
+     *  "prop.s_push_switch_<uid>"
+     * ]}   
+     * Service.smarthome.batchGetDeviceDatas(params).then(...)
+     * 
+     * 
      */
     batchGetDeviceDatas(params) {
-        return this.batchGetDeviceProps(params);
+         return Promise.resolve(null);
     },
-    batchGetDeviceProps(params) {
+    /**
+     * 设置设备属性, 属性设置会在设备被删除时清空
+     * 备注： props最多20个，最多同时300个设备（目前max设备数)，属性需要以prop.s 开头
+     * 
+     * error code: 
+     * 0 - 成功
+     * -7 - 没有找到注册的设备
+     * -6 - 设备对应uid不为0 
+     * -4 - server err
+     * 
+     * @since 10004
+     * @param {json} params {did: string, props: json}
+     * @example
+     * let params = {'did':Device.deviceID, 'props': {   
+     *  "prop.s_push_switch_xxx":"0"
+     * }}   
+     * Service.smarthome.batchSetDeviceDatas(params).then(...)
+     * 
+     */
+    batchSetDeviceDatas(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 设置设备属性，e.g 配置摄像头/门铃设备的属性
+     * props最多20个, 属性需要以"prop.s_"开头。
+     * 
+     * error code: 
+     * 0 - 成功
+     * -7 - 没有找到注册的设备
+     * -6 - 设备对应uid不为0 
+     * -4 - server err
+     * 
+     * @since 10004
+     * @param {json} params {did: string, props: json}
+     * @example
+     * let params = {'did':Device.deviceID, 'props': {   
+     *  "prop.s_notify_screen_dev_enable":"0", //0,关； 1，开   
+     *  "prop.s_notify_screen_dev_did":"123456789" // 接收rpc的音响设备  
+     * }}   
+     * Service.smarthome.setDeviceProp(params).then(...)
+     */
+    setDeviceProp(params) {
          return Promise.resolve(null);
     },
     /**
@@ -544,7 +605,7 @@ export default {
     /**
      * call api /v2/home/range_get_open_config
      * @since 10004
-     * @param {json} params json params
+     * @param {json} params json params {did:string, category:string, configids:array, offset: int, limit:int}, did: 设备did。 category 配置类别， configids： 配置id 为空时返回所有配置，不超过20个，不为空时没有数量限制， offset 偏移；limit 数量，不超过20
      */
     getRangeOpenConfig(params) {
          return Promise.resolve(null);

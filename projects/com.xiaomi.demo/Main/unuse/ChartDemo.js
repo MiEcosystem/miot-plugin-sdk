@@ -18,7 +18,7 @@ import {
 
 import Reat from 'react';
 
-import Chart from "../CommonModules/Chart/Chart.js";
+import Chart from "../../CommonModules/Chart/Chart.js";
 
 const styles = StyleSheet.create({
     container: {
@@ -57,14 +57,3 @@ export default class ChartDemo extends React.Component {
         );
     }
 }
-
-// var route = {
-//   key: 'ChartDemo',
-//   title: '图表示例',
-//   component: ChartDemo,
-// };
-
-// module.exports = {
-//   component: ChartDemo,
-//   route: route,
-// }

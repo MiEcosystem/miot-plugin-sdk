@@ -12,7 +12,7 @@ export default class Simple extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.hello}>Hello </Text>
-        <Image source={require("../Resources/icon_demo.png")}
+        <Image source={require("../../Resources/icon_demo.png")}
                style={{ width: 50, height: 50, backgroundColor: "black" }}/>
       </View>
     );

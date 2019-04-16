@@ -5,16 +5,9 @@
  * @flow
  */
 import React, { Component } from 'react';
-import {
-    StyleSheet,
-    Text,
-    View,
-    TouchableHighlight,
-    WebView, 
-    Dimensions
-} from 'react-native';
+import { Dimensions, StyleSheet, Text, TouchableHighlight, View, WebView } from 'react-native';
 
-const {height, width} = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 export default class WebViewBridageDemo extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +27,7 @@ export default class WebViewBridageDemo extends Component {
   render() {
     //可测试跳转
     //const uri = {uri:"https://c4.account.xiaomi.com/longPolling/login?ticket=4926acb931c9-b04f-4347-a332-8ee289a4390c&dc=c4"};
-    const uri = require('../Resources/index.html')
+    const uri = require('../../Resources/index.html')
     return (
       <View style={styles.container}>
         <TouchableHighlight
@@ -44,7 +37,7 @@ export default class WebViewBridageDemo extends Component {
           <Text>发送数据到WebView</Text>
         </TouchableHighlight>
         <View>
-          <Text style={{width:width,textAlign:'center'}}>来自WebView的数据: <Text>{ this.state.webViewData }</Text></Text>
+          <Text style={{ width: width, textAlign: 'center' }}>来自WebView的数据: <Text>{this.state.webViewData}</Text></Text>
         </View>
         <WebView
           style={styles.webview}

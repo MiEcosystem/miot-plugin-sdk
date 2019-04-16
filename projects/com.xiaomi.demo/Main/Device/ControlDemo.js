@@ -1,17 +1,11 @@
 'use strict';
 
-import React from 'react';
-import {
-  View, Text,
-  TouchableHighlight,
-  StyleSheet,
-  Image,
-  TextInput,
-} from 'react-native';
-
-
-import { TitleBarBlack } from 'miot/ui';
 import { Device, DeviceEvent } from "miot";
+import { TitleBarBlack } from 'miot/ui';
+import React from 'react';
+import { Image, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
+
+
 
 export default class ControlDemo extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -26,24 +20,24 @@ export default class ControlDemo extends React.Component {
     super(props, context);
 
 
-      this.state = {
-        requestStatus: false,
-        textR: '',
-        textG: '',
-        textB: '',
-        resultViewColor: '#000000',
-      };
+    this.state = {
+      requestStatus: false,
+      textR: '',
+      textG: '',
+      textB: '',
+      resultViewColor: '#000000',
+    };
   }
 
   componentDidMount() {
-      this._deviceStatusListener = DeviceEvent.deviceReceivedMessages.addListener(
+    this._deviceStatusListener = DeviceEvent.deviceReceivedMessages.addListener(
       (device, map, res) => {
-          console.log('Device.addListener', device, map, res, this.state.timerRun);
-          let status = map.get("prop.on")|| {};
-          let sRGB = "#" + this.getNewRGB(status.rgb >> 16, (status.rgb >> 8) & 0x00ff, (status.rgb & 0x0000ff));
-            this.setState({"resultViewColor":sRGB});
-          });
-        Device.getDeviceWifi().subscribeMessages("prop.on","prop.usb_on"
+        console.log('Device.addListener', device, map, res, this.state.timerRun);
+        let status = map.get("prop.on") || {};
+        let sRGB = "#" + this.getNewRGB(status.rgb >> 16, (status.rgb >> 8) & 0x00ff, (status.rgb & 0x0000ff));
+        this.setState({ "resultViewColor": sRGB });
+      });
+    Device.getDeviceWifi().subscribeMessages("prop.on", "prop.usb_on"
     );
   }
 
@@ -55,7 +49,7 @@ export default class ControlDemo extends React.Component {
     return (
       <View style={styles.containerAll}>
         <View style={styles.containerIconDemo}>
-          <Image style={styles.iconDemo} source={require('../Resources/icon_demo.png')} />
+          <Image style={styles.iconDemo} source={require('../../Resources/icon_demo.png')} />
           <Text style={styles.iconText}>通过指令控制三原色灯珠 {this.props.message}</Text>
         </View>
 
@@ -83,16 +77,16 @@ export default class ControlDemo extends React.Component {
             </View>
 
             <View>
-              <Image style={styles.RGBArrowImage} source={require("../Resources/right_arrow.png")} />
+              <Image style={styles.RGBArrowImage} source={require("../../Resources/right_arrow.png")} />
             </View>
 
             <View style={[styles.RGBResultView, { backgroundColor: this.state.resultViewColor }]}></View>
 
           </View>
 
-            <TouchableHighlight underlayColor='#ffffff' onPress={this.onSendDidButtonPress.bind(this)}>
-                <Image style={styles.commandButton} source={require( "../Resources/button_command.png")} />
-              </TouchableHighlight>
+          <TouchableHighlight underlayColor='#ffffff' onPress={this.onSendDidButtonPress.bind(this)}>
+            <Image style={styles.commandButton} source={require("../../Resources/button_command.png")} />
+          </TouchableHighlight>
 
         </View>
       </View>
@@ -145,9 +139,9 @@ export default class ControlDemo extends React.Component {
   }
 
   onSendDidButtonPress() {
-    Device.getDeviceWifi().callMethod("set_rgb", [(this.state.textR<<16|this.state.textG<<8|this.state.textB)]).then( json => {
-      console.log("rpc result:"+isSuccess+json);
-      this.setState({requestStatus:isSuccess})
+    Device.getDeviceWifi().callMethod("set_rgb", [(this.state.textR << 16 | this.state.textG << 8 | this.state.textB)]).then(json => {
+      console.log("rpc result:" + isSuccess + json);
+      this.setState({ requestStatus: isSuccess })
 
     });
   }

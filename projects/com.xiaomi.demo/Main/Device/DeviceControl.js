@@ -118,10 +118,6 @@ export default class UIDemo extends React.Component {
         this.props.navigation.navigate('helloReactART');
     }
 
-    showChart() {
-        this.props.navigator.push(ChartDemo.route);
-    }
-
     showActionSheet() {
         if (Host.isIOS)
             ActionSheetIOS.showActionSheetWithOptions({

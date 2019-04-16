@@ -2,16 +2,10 @@
 
 
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ListView,
-  Button
-} from 'react-native';
-
-
+import { ListView, StyleSheet, Text, View } from 'react-native';
 import SQLite from 'react-native-sqlite-storage';
+
+
 SQLite.DEBUG(true);
 SQLite.enablePromise(false);
 
@@ -29,7 +23,8 @@ export default class SQLiteDemo extends Component {
     this.state = {
       progress: [],
       ds: new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1 !== r2}
+        rowHasChanged: (r1, r2) => r1 !== r2
+      }
       )
     };
   }
@@ -51,8 +46,8 @@ export default class SQLiteDemo extends Component {
   }
 
   errorCB = (err) => {
-    console.log("error: ",err);
-    this.updateProgress("Error: "+ (err.message || err));
+    console.log("error: ", err);
+    this.updateProgress("Error: " + (err.message || err));
     return false;
   }
 
@@ -74,15 +69,15 @@ export default class SQLiteDemo extends Component {
   }
 
   populateDatabase = (db) => {
-    if (!db){
-    this.updateProgress("Database is open fail");
+    if (!db) {
+      this.updateProgress("Database is open fail");
       return;
     }
     this.updateProgress("Database integrity check");
     db.executeSql('SELECT 1 FROM Version LIMIT 1', [],
       () => {
         this.updateProgress("Database is ready ... executing query ...");
-        db.transaction(this.queryEmployees,this.errorCB,() => {
+        db.transaction(this.queryEmployees, this.errorCB, () => {
           this.updateProgress("Processing completed");
         });
       },
@@ -91,7 +86,7 @@ export default class SQLiteDemo extends Component {
         this.updateProgress("Database not yet ready ... populating data");
         db.transaction(this.populateDB, this.errorCB, () => {
           this.updateProgress("Database populated ... executing query ...");
-          db.transaction(this.queryEmployees,this.errorCB, () => {
+          db.transaction(this.queryEmployees, this.errorCB, () => {
             console.log("Transaction is now finished");
             this.updateProgress("Processing completed");
             this.closeDatabase();
@@ -158,11 +153,11 @@ export default class SQLiteDemo extends Component {
     console.log("Executing employee query...");
 
     tx.executeSql('SELECT a.name, b.name as deptName FROM Employees a, Departments b WHERE a.department = b.department_id and a.department=?', [3],
-      this.queryEmployeesSuccess,this.errorCB);
+      this.queryEmployeesSuccess, this.errorCB);
     //tx.executeSql('SELECT a.name, from TEST', [],() => {},this.errorCB);
   }
 
-  queryEmployeesSuccess = (tx,results) => {
+  queryEmployeesSuccess = (tx, results) => {
     this.updateProgress("Query completed");
     var len = results.rows.length;
     for (let i = 0; i < len; i++) {
@@ -172,12 +167,12 @@ export default class SQLiteDemo extends Component {
   }
 
   loadAndQueryDB = () => {
-    this.updateProgress("Opening database ...",true);
+    this.updateProgress("Opening database ...", true);
     //创建或者打开一个数据库
     //db = SQLite.openDatabase(database_name, database_version, database_displayname, database_size, this.openCB, this.errorCB);
-      //从代码中加载一个已有的数据库 米家内部实现，请必须按照这种方式调用，.db文件打包会被过滤掉，可以命名为.html
-    db = SQLite.openDatabase({name:database_name,createFromLocation:require('../Resources/Test.html')},
-    this.openCB, this.errorCB);
+    //从代码中加载一个已有的数据库 米家内部实现，请必须按照这种方式调用，.db文件打包会被过滤掉，可以命名为.html
+    db = SQLite.openDatabase({ name: database_name, createFromLocation: require('../../Resources/Test.html') },
+      this.openCB, this.errorCB);
     this.populateDatabase(db);
   }
 
@@ -190,14 +185,14 @@ export default class SQLiteDemo extends Component {
     if (db) {
       console.log("Closing database ...");
       this.updateProgress("Closing database");
-      db.close(this.closeCB,this.errorCB);
+      db.close(this.closeCB, this.errorCB);
     } else {
       this.updateProgress("Database was not OPENED");
     }
   }
 
   runDemo = () => {
-    this.updateProgress("Starting SQLite Callback Demo",true);
+    this.updateProgress("Starting SQLite Callback Demo", true);
     this.loadAndQueryDB();
   }
 
@@ -226,7 +221,7 @@ export default class SQLiteDemo extends Component {
         enableEmptySections={true}
         dataSource={this.state.ds.cloneWithRows(this.state.progress)}
         renderRow={this.renderProgressEntry}
-        style={listStyles.liContainer}/>
+        style={listStyles.liContainer} />
     </View>);
   }
 }
