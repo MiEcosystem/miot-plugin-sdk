@@ -535,6 +535,7 @@ export default {
     },
     /**
      * call api /scene/idfy_get
+     * @since 10004
      * @param {json} params json params
      */
     getIDFY(params) {
@@ -542,6 +543,7 @@ export default {
     },
     /**
      * call api /v2/home/range_get_open_config
+     * @since 10004
      * @param {json} params json params
      */
     getRangeOpenConfig(params) {
