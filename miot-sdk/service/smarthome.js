@@ -532,5 +532,19 @@ export default {
      */
     insertunmodel(params) {
          return Promise.resolve(null);
+    },
+    /**
+     * call api /scene/idfy_get
+     * @param {json} params json params
+     */
+    getIDFY(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * call api /v2/home/range_get_open_config
+     * @param {json} params json params
+     */
+    getRangeOpenConfig(params) {
+         return Promise.resolve(null);
     }
 }

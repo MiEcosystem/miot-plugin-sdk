@@ -769,12 +769,13 @@ class IDevice {
          return  false
     }
     /**
-     *是否是Binded2的设备
+     *是否是已经绑定的设备
+     * @since 10004 
      * @type {boolean}
      * @readonly
      *
      */
-    get isBinded2() {
+    get isBinded() {
          return  false
     }
     /**
