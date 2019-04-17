@@ -11,7 +11,7 @@ const ICON_SIZE = Platform.select({ android: 26, ios: 24 }); // 当android设置
 /**
  * @export
  * @author Geeook
- * @since 20190401
+ * @since 10004
  * @module ListItem
  * @description 普通列表项
  * @property {string} title - 左侧主标题

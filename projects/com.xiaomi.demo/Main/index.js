@@ -20,6 +20,7 @@ import React from 'react';
 import { createStackNavigator } from 'react-navigation'; //
 import HelloDeveloper from '../CommonModules/HelloDeveloper';
 import HelloReactART from '../CommonModules/HelloReactART';
+import AccountDemo from './Account';
 import AnimCustomCompDemo from './AnimationComponentDemo/AnimCustomCompDemo'; //自定义动画组
 import AnimEffectsDemo from './AnimationComponentDemo/AnimEffectsDemo'; //动画特效
 import AnimEventsDemo from './AnimationComponentDemo/AnimEventsDemo'; //动画事件
@@ -29,12 +30,15 @@ import AnimTranslationDemo from './AnimationComponentDemo/AnimTranslationDemo'; 
 import LayoutAnimationDemo from './AnimationComponentDemo/LayoutAnimationDemo'; //其他动画
 import ControlDemo from './Device/ControlDemo';
 import DeviceControl from "./Device/DeviceControl";
+import DeviceDemo from "./Device/DeviceDemo";
 import MHAudioDemo from './Host/MHAudioDemo';
 import OrientationDemo from './Host/OrientationDemo';
+import NavigateUIDemo from "./Host/UI";
 import VideoDemo from './Host/VideoDemo';
 import MainPage from './MainPage';
 import MoreMenu from './MoreMenu';
 import ImagePathDemo from './NewStructureTest';
+import CallSmartHomeAPIDemo from './Service/smarthome';
 import AddressBookDemo from './ThirdPartDemo/AddressBookDemo';
 import ARTCircleDemo from './ThirdPartDemo/ARTComponentDemo/ARTCircleDemo'; //圆形：Circle，
 import ARTEllipseDemo from './ThirdPartDemo/ARTComponentDemo/ARTEllipseDemo'; //椭圆：Ellipse
@@ -77,14 +81,10 @@ import LineView from './ThirdPartDemo/Victory-Native/views/line-view';
 import PieView from './ThirdPartDemo/Victory-Native/views/pie-view';
 import ScatterView from './ThirdPartDemo/Victory-Native/views/scatter-view';
 import WebViewBridageDemo from './ThirdPartDemo/WebViewBridageDemo';
-import AccountDemo from './tutorial/account/AccountDemo';
 import BlankDemo from './tutorial/BlankDemo';
-import CallSmartHomeAPIDemo from './tutorial/cloud/CallSmartHomeAPIDemo.js';
-import DeviceDemo from "./tutorial/device/DeviceDemo";
 import JSExecutor from './tutorial/JSExecutor';
 import List from "./tutorial/List";
 import LocaleServer from './tutorial/LocaleServer';
-import NavigateUIDemo from "./tutorial/navigation/ui";
 import OperationDemoIndex from './tutorial/operation/OperationDemoIndex';
 import PackageDemo from "./tutorial/PackageDemo";
 import RPCControl from './tutorial/RPCControl';

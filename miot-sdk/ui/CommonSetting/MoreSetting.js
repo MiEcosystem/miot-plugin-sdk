@@ -13,7 +13,7 @@ import { secondAllOptions } from "./CommonSetting";
 /**
  * @export
  * @author Geeook
- * @since 20190408
+ * @since 10004
  * @module MoreSetting
  * @description 二级菜单页面——更多设置
  * @property {array} secondOptions - 二级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项

@@ -107,7 +107,7 @@ export { firstAllOptions, secondAllOptions };
 /**
  * @export
  * @author Geeook
- * @since 20190404
+ * @since 10004
  * @module CommonSetting
  * @description 米家通用设置项
  * @property {array} firstOptions - 一级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项
