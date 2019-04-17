@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Xiaomi MIOT: Module: miot/ui/InputDialog</title>
+    <title>Xiaomi MIOT: Module: CommonSetting</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -21,7 +21,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: miot/ui/InputDialog</h1>
+    <h1 class="page-title">Module: CommonSetting</h1>
 
     
 
@@ -42,13 +42,278 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>输入对话框</p></div>
+            <div class="description"><p>米家通用设置项</p></div>
         
 
         
             
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>firstOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>一级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>secondOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>二级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>extraOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>其他特殊配置项</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>navigation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>必须传入当前插件的路由，即 <code>this.props.navigation</code>，否则无法跳转二级页面</p>
+<pre class="prettyprint source lang-js"><code>// extraOptions
+extraOptions: {
+  showUpgrade: bool // 固件升级是否显示二级菜单。默认值true
+  licenseUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明
+  policyUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明
+  deleteDeviceMessage: string // 删除设备的弹窗中自定义提示文案，见 miot/Host.ui.openDeleteDevice 的传参说明
+}</code></pre><p><strong>注意：</strong>
+<strong>1. 如果需要显示「更多设置」「固件升级」的二级菜单页面，需要从 miot/ui/CommonSetting 中导出 MoreSetting 和 FirmwareUpgrade 页面，</strong>
+   <strong>并放在项目入口文件index.js的RootStack中。</strong></p>
+<pre class="prettyprint source lang-js"><code>// index.js snippet
+import { FirmwareUpgrade, MoreSetting } from &quot;miot/ui/CommonSetting&quot;;
+...
+const RootStack = createStackNavigator(
+{
+    Setting, // 设置页
+    MoreSetting, // 二级菜单——更多设置
+    FirmwareUpgrade, // 二级菜单——固件升级
+}
+...
+)</code></pre><p><strong>2. 必须传入当前插件的路由，即 <code>this.props.navigation</code>，否则无法跳转二级页面</strong></p>
+<pre class="prettyprint source lang-js"><code>&lt;CommonSetting
+  navigation={this.props.navigation}
+/></code></pre></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10004</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Geeook</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>com.xiaomi.demo->教程->插件通用设置项</li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="chooseFirmwareUpgrade"><span class="type-signature"></span>chooseFirmwareUpgrade<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>点击「固件升级」，选择性跳转</p>
+</div>
 
 
 
@@ -117,48 +382,162 @@
 
 
         
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
             
-<h4 class="name" id="~cancel"><span class="type-signature">(inner) </span>cancel<span class="type-signature"> :string</span></h4>
 
+    
+
+    
+    <h4 class="name" id="openDeleteDevice"><span class="type-signature"></span>openDeleteDevice<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
 
 
 
 <div class="description">
-    <p>取消标题</p>
+    <p>弹出「删除设备」弹窗</p>
 </div>
 
-<!--
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
             
+
+    
+
+    
+    <h4 class="name" id="openSubPage"><span class="type-signature"></span>openSubPage<span class="signature">(page)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>打开二级菜单</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>page</code></td>
+            
+
+            <td class="type">
+            
+                
 <span class="param-type">string</span>
 
 
-        </li>
-    </ul>
+            
+            </td>
 
--->
+            
+
+            
+
+            <td class="description last"><p>index.js的RootStack中页面定义的key</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
 
 
 
@@ -203,30 +582,45 @@
 
 
 
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
         
             
-<h4 class="name" id="~cancelable"><span class="type-signature">(inner) </span>cancelable<span class="type-signature"> :bool</span></h4>
 
+    
+
+    
+    <h4 class="name" id="privacyAndProtocolReview"><span class="type-signature"></span>privacyAndProtocolReview<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
 
 
 
 <div class="description">
-    <p>是否允许点击空白区域取消显示<br>Android Only</p>
+    <p>点击「法律信息」，传入用户协议和隐私政策的文件地址</p>
 </div>
 
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">bool</span>
 
 
-        </li>
-    </ul>
 
--->
+
+
+
+
+
 
 
 
@@ -271,757 +665,21 @@
 
 
 
-        
-            
-<h4 class="name" id="~confirm"><span class="type-signature">(inner) </span>confirm<span class="type-signature"> :string</span></h4>
 
 
 
 
-<div class="description">
-    <p>确认标题</p>
+
+
+<h5></h5><div style="display:none">
+
 </div>
 
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
 
 
 
 
         
-            
-<h4 class="name" id="~defaultText"><span class="type-signature">(inner) </span>defaultText<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    <p>输入框默认初始值，默认为空</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~message"><span class="type-signature">(inner) </span>message<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    <p>副标题，内容</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~onCancel"><span class="type-signature">(inner) </span>onCancel<span class="type-signature"> :func</span></h4>
-
-
-
-
-<div class="description">
-    <p>取消点击回调</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">func</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~onConfirm"><span class="type-signature">(inner) </span>onConfirm<span class="type-signature"> :func</span></h4>
-
-
-
-
-<div class="description">
-    <p>确认点击回调</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">func</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~onDismiss"><span class="type-signature">(inner) </span>onDismiss<span class="type-signature"> :func</span></h4>
-
-
-
-
-<div class="description">
-    <p>对话框消失回调</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">func</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~placeholder"><span class="type-signature">(inner) </span>placeholder<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    <p>输入框placeholder，默认为空</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~singleLine"><span class="type-signature">(inner) </span>singleLine<span class="type-signature"> :bool</span></h4>
-
-
-
-
-<div class="description">
-    <p>是否单行显示</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">bool</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~timeout"><span class="type-signature">(inner) </span>timeout<span class="type-signature"> :number</span></h4>
-
-
-
-
-<div class="description">
-    <p>超时自动隐藏，设置0或者不设置不会自动隐藏</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">number</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~title"><span class="type-signature">(inner) </span>title<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    <p>标题</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~visible"><span class="type-signature">(inner) </span>visible<span class="type-signature"> :bool</span></h4>
-
-
-
-
-<div class="description">
-    <p>是否可见</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">bool</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
-
     
 
     

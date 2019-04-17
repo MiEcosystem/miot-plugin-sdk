@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Xiaomi MIOT: Module: miot/ui/InputDialog</title>
+    <title>Xiaomi MIOT: Module: Switch</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -21,7 +21,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: miot/ui/InputDialog</h1>
+    <h1 class="page-title">Module: Switch</h1>
 
     
 
@@ -42,7 +42,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>输入对话框</p></div>
+            <div class="description"><p>Switch for Android and iOS，但是是高度定制的米家绿哈哈哈</p></div>
         
 
         
@@ -62,12 +62,111 @@
 
 
 
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>开关状态，默认值 false</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>disabled</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>是否禁用，默认值 false</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onValueChange</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>切换开关的回调函数</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
 <dl class="details">
 
     
 
     
-
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>20190403</li></ul></dd>
     
 
     
@@ -80,6 +179,15 @@
 
     
 
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Geeook</li>
+        </ul>
+    </dd>
     
 
     
@@ -132,894 +240,6 @@
 
     
 
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="~cancel"><span class="type-signature">(inner) </span>cancel<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    <p>取消标题</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~cancelable"><span class="type-signature">(inner) </span>cancelable<span class="type-signature"> :bool</span></h4>
-
-
-
-
-<div class="description">
-    <p>是否允许点击空白区域取消显示<br>Android Only</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">bool</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~confirm"><span class="type-signature">(inner) </span>confirm<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    <p>确认标题</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~defaultText"><span class="type-signature">(inner) </span>defaultText<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    <p>输入框默认初始值，默认为空</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~message"><span class="type-signature">(inner) </span>message<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    <p>副标题，内容</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~onCancel"><span class="type-signature">(inner) </span>onCancel<span class="type-signature"> :func</span></h4>
-
-
-
-
-<div class="description">
-    <p>取消点击回调</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">func</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~onConfirm"><span class="type-signature">(inner) </span>onConfirm<span class="type-signature"> :func</span></h4>
-
-
-
-
-<div class="description">
-    <p>确认点击回调</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">func</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~onDismiss"><span class="type-signature">(inner) </span>onDismiss<span class="type-signature"> :func</span></h4>
-
-
-
-
-<div class="description">
-    <p>对话框消失回调</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">func</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~placeholder"><span class="type-signature">(inner) </span>placeholder<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    <p>输入框placeholder，默认为空</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~singleLine"><span class="type-signature">(inner) </span>singleLine<span class="type-signature"> :bool</span></h4>
-
-
-
-
-<div class="description">
-    <p>是否单行显示</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">bool</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~timeout"><span class="type-signature">(inner) </span>timeout<span class="type-signature"> :number</span></h4>
-
-
-
-
-<div class="description">
-    <p>超时自动隐藏，设置0或者不设置不会自动隐藏</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">number</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~title"><span class="type-signature">(inner) </span>title<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    <p>标题</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="~visible"><span class="type-signature">(inner) </span>visible<span class="type-signature"> :bool</span></h4>
-
-
-
-
-<div class="description">
-    <p>是否可见</p>
-</div>
-
-<!--
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">bool</span>
-
-
-        </li>
-    </ul>
-
--->
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
     
 
     
