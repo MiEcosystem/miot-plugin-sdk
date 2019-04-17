@@ -113,7 +113,6 @@ export { firstAllOptions, secondAllOptions };
  * @property {array} firstOptions - 一级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项
  * @property {array} secondOptions - 二级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项
  * @property {object} extraOptions - 其他特殊配置项
- * @property {object} navigation - 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面
  * ```js
  * // extraOptions
  * extraOptions: {
@@ -123,6 +122,7 @@ export { firstAllOptions, secondAllOptions };
  *   deleteDeviceMessage: string // 删除设备的弹窗中自定义提示文案，见 miot/Host.ui.openDeleteDevice 的传参说明
  * }
  * ```
+ * @property {object} navigation - 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面
  * **注意：**
  * **1. 如果需要显示「更多设置」「固件升级」的二级菜单页面，需要从 miot/ui/CommonSetting 中导出 MoreSetting 和 FirmwareUpgrade 页面，**
  *    **并放在项目入口文件index.js的RootStack中。**
