@@ -1,5 +1,5 @@
 { 
   "package_path":"com.xiaomi.demo",
-  "min_sdk_api_level":10000,
+  "min_sdk_api_level":10004,
   "version_code":1 
 }

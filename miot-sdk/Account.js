@@ -1,5 +1,7 @@
 /**
- * @export
+ * @export public
+ * @doc_name 账户模块
+ * @doc_index 2
  * @module miot/Account
  * @description 
  * 用于获取当前用户信息,通过Service.account获取当前用户对象实例。  

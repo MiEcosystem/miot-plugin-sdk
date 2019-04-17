@@ -1,5 +1,7 @@
 /**
- * @export
+ * @export public
+ * @doc_name 常用UI组件
+ * @doc_index 21
  * @module miot/ui/ProgressDialog
  * @description 进度对话框，当进度到达max设置之后自动消失
  * @mark andr done

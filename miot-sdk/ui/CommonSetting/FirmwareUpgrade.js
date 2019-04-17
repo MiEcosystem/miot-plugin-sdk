@@ -14,9 +14,11 @@ const ListItemType = {
   LIST_ITEM_WITH_SLIDER: 'ListItemWithSlider',
 }
 /**
- * @export
+ * @export public
+ * @doc_name CommonSetting
+ * @doc_index 23
  * @author Geeook
- * @since 20190408
+ * @since 10004
  * @module FirmwareUpgrade
  * @description 二级菜单页面——固件升级
  * @property {array} secondOptions - 二级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项

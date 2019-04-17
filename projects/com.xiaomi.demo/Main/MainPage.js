@@ -1,23 +1,12 @@
 'use strict';
 
-import React from 'react';
-import {
-  View,
-  Text,
-  TouchableHighlight,
-  Platform,
-  StyleSheet,
-  Image,
-} from 'react-native';
-
-//import Setting from './MHSetting';
-
+import { Device, DeviceEvent, Package } from "miot";
 import { TitleBarBlack } from 'miot/ui';
-import MoreDialog from './MoreDialog';
-// import ImageButton from '../CommonModules/ImageButton.js';;
+import React from 'react';
+import { Image, Platform, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { getString } from './MHLocalizableString';
 
-import { localStrings, getString } from './MHLocalizableString';
-import { Package, Device, DeviceEvent } from "miot";
+
 
 export default class MainPage extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -36,9 +25,6 @@ export default class MainPage extends React.Component {
                 navigation.navigate('moreMenu', { 'title': '设置' });
               }
             }} />
-          <MoreDialog
-            visible={typeof navigation.state.params === 'undefined' ? false : navigation.state.params.showDialog}
-            navigation={navigation} />
         </View>
     };
   };
@@ -68,8 +54,9 @@ export default class MainPage extends React.Component {
     var rowCloudDebug = this._createMenuRow('UI能力', 'UIDemo');
     var rowThirdPartyDemo = this._createMenuRow('第三方库能力', 'ThirdPartyDemo');
     return (
-      <View style={styles.containerAll} >
-        <View style={styles.containerIconDemo}>
+      <View style={styles.containerAll}>
+        <View style={styles.containerIconDemo} 
+           testID="mytest">
           <Image style={styles.iconDemo} source={require("../Resources/control_home.png")} ></Image>
           <Text style={styles.iconText}>欢迎使用小米开发板</Text>
         </View>
