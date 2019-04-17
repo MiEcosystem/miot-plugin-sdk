@@ -54,8 +54,9 @@ export default class MainPage extends React.Component {
     var rowCloudDebug = this._createMenuRow('UI能力', 'UIDemo');
     var rowThirdPartyDemo = this._createMenuRow('第三方库能力', 'ThirdPartyDemo');
     return (
-      <View style={styles.containerAll} >
-        <View style={styles.containerIconDemo}>
+      <View style={styles.containerAll}>
+        <View style={styles.containerIconDemo} 
+           testID="mytest">
           <Image style={styles.iconDemo} source={require("../Resources/control_home.png")} ></Image>
           <Text style={styles.iconText}>欢迎使用小米开发板</Text>
         </View>
