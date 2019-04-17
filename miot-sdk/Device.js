@@ -779,7 +779,7 @@ class IDevice {
     }
     /**
      *是否是已经绑定的设备
-     * @since 10004 
+     * @since 10005
      * @type {boolean}
      * @readonly
      *
