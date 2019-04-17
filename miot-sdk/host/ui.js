@@ -1,5 +1,7 @@
 /**
- * @export
+ * @export public
+ * @doc_name 原生_页面导航模块
+ * @doc_index 13
  * @module miot/host/ui
  * @description 本地原生业务页面访问与处理
  * @example
@@ -170,6 +172,7 @@ export default {
   openOneTimePassword(did, interval, digits) {
   },
   /**
+   * @deprecated 10004 开始废弃， 后续版本会移除该方法。
    * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串
    * @param {string} onParam   定时到时设备“开”执行的 RPC 指令参数字符串（目前仅支持单参数）
    * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串
@@ -180,6 +183,7 @@ export default {
   openTimerSettingPage(onMethod, onParam, offMethod, offParam) {
   },
   /**
+   * @deprecated 10004 开始废弃， 后续版本会移除该方法。
    * @param {string} customTimerIdentifier 自定义定时Identifier
    * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串
    * @param {string} onParam   定时到时设备“开”执行的 RPC 指令参数字符串（目前仅支持单参数）

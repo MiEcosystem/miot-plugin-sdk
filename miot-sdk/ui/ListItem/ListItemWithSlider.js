@@ -11,7 +11,9 @@ const PADDING = 24;
 const THUMB_SIZE = 24;
 const THUMB_TOUCH_SIZE = { width: 50, height: 50 };
 /**
- * @export
+ * @export public
+ * @doc_name ListItem
+ * @doc_index 22
  * @author Geeook
  * @since 10004
  * @module ListItemWithSlider

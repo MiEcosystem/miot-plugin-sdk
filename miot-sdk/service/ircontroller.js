@@ -1,5 +1,6 @@
 /**
- * @export
+ * @export private
+ * @doc_name 红外相关API
  * @module miot/service/ircontroller
  * @description 红外相关 API
  *

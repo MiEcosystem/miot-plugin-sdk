@@ -105,7 +105,8 @@ export const SETTING_KEYS = {
 };
 export { firstAllOptions, secondAllOptions };
 /**
- * @export
+ * @export public
+ * @name CommonSetting
  * @author Geeook
  * @since 10004
  * @module CommonSetting

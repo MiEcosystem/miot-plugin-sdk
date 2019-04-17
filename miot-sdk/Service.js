@@ -1,5 +1,7 @@
 /**
- * @export
+ * @export public
+ * @doc_name 系统服务模块
+ * @doc_index 7
  * @module miot/Service
  * @description 系统服务模块，提供了设备，红外，场景，安全，存储，miot-spec协议，账号等子服务模块
  * @example
@@ -25,16 +27,15 @@
  *
  *
  */
-import Smarthome from './service/smarthome'
-import IrController from './service/ircontroller'
-import Scene from './service/scene'
-import Security from './service/security'
-import Storage from './service/storage'
-import Spec from './service/spec'
-// import Ximalaya from './service/ximalaya';
-import Account from './Account'
-import Host from './Host';
-import TJInfra from './service/tjinfra'
+import Account from './Account';
+import native, { Properties } from './native';
+import IrController from './service/ircontroller';
+import Scene from './service/scene';
+import Security from './service/security';
+import Smarthome from './service/smarthome';
+import Spec from './service/spec';
+import Storage from './service/storage';
+import TJInfra from './service/tjinfra';
  const CurrentAccount = null;
 export default {
   /**
@@ -45,7 +46,6 @@ export default {
   get smarthome() {
     return Smarthome;
   },
-    
   /**
    * @member ircontroller
    * @description 红外 相关 API
@@ -134,7 +134,7 @@ export default {
    * @param {*} mac 设备的mac地址
    * @returns {Promise} resolve({res,did,token})
    */
-  applyForDeviceIDAndToken(model,mac) {
+  applyForDeviceIDAndToken(model, mac) {
      return Promise.resolve(null);
   }
 }

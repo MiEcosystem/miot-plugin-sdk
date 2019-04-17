@@ -1,5 +1,7 @@
 /**
- * @export
+ * @export public
+ * @doc_name 原生_本地化模块
+ * @doc_index 11
  * @module miot/host/locale
  * @description host 的本地信息, 包括语言，时区和地理位置
  * @example

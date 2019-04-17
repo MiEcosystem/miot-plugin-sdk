@@ -3,7 +3,9 @@
 ## ListItem
 普通列表项
 
-**Export**:   
+**Export**: public  
+**Doc_name**: ListItem  
+**Doc_index**: 22  
 **Since**: 10004  
 **Author**: Geeook  
 **Properties**
@@ -27,7 +29,9 @@
 ## ListItemWithSlider
 带滑动条的列表项
 
-**Export**:   
+**Export**: public  
+**Doc_name**: ListItem  
+**Doc_index**: 22  
 **Since**: 10004  
 **Author**: Geeook  
 **Properties**
@@ -51,7 +55,9 @@
 ## ListItemWithSwitch
 带开关的列表项
 
-**Export**:   
+**Export**: public  
+**Doc_name**: ListItem  
+**Doc_index**: 22  
 **Since**: 10004  
 **Author**: Geeook  
 **Properties**

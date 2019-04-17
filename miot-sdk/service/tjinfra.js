@@ -1,5 +1,6 @@
 /**
- * @export
+ * @export private
+ * @doc_name 红外库组件
  * @module miot/service/infra
  * @description infra
  *

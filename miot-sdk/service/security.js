@@ -1,5 +1,7 @@
 /**
- * @export
+ * @export public
+ * @doc_name 系统服务_安全模块
+ * @doc_index 16
  * @module miot/service/security
  * @description 安全相关服务
  * @example

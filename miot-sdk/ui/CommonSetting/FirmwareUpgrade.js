@@ -14,7 +14,9 @@ const ListItemType = {
   LIST_ITEM_WITH_SLIDER: 'ListItemWithSlider',
 }
 /**
- * @export
+ * @export public
+ * @doc_name CommonSetting
+ * @doc_index 23
  * @author Geeook
  * @since 10004
  * @module FirmwareUpgrade

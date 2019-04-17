@@ -3,7 +3,9 @@ import React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { Styles } from "../resources";
 /**
- * @export
+ * @export public
+ * @doc_name 常用UI组件
+ * @doc_index 21
  * @author Geeook
  * @since 20190410
  * @module Separator

@@ -1,5 +1,7 @@
 /**
- * @export
+ * @export public 
+ * @doc_name 系统服务_场景模块
+ * @doc_index 15
  * @module miot/service/scene
  * @description 场景相关服务, 包括定时,人工与自动场景 
  *    

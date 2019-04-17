@@ -11,7 +11,9 @@ import ListItem from '../ListItem/ListItem';
 import Separator from '../Separator';
 import { secondAllOptions } from "./CommonSetting";
 /**
- * @export
+ * @export public
+ * @doc_name CommonSetting
+ * @doc_index 23
  * @author Geeook
  * @since 10004
  * @module MoreSetting
