@@ -11,11 +11,9 @@ const PADDING = 24;
 const THUMB_SIZE = 24;
 const THUMB_TOUCH_SIZE = { width: 50, height: 50 };
 /**
- * @export public
- * @doc_name ListItem
- * @doc_index 22
+ * @export
  * @author Geeook
- * @since 10004
+ * @since 20190402
  * @module ListItemWithSlider
  * @description 带滑动条的列表项
  * @property {string} title - 标题

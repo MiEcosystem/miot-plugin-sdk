@@ -1,7 +1,5 @@
 /**
- * @export public
- * @doc_name 常用UI组件
- * @doc_index 21
+ * @export
  * @since 10003
  * @module miot/ui/NumberSpinner
  * @description 数字选择器
@@ -31,27 +29,52 @@
         }}
     /> 
  * 
- * @property {bool} visible 是否可见
- * @property {string} unit 单位
- * @property {int} max 最大值
- * @property {int} min 最小值
- * @property {int} interval 步长，默认为1
- * @property {int} defaultValue 默认值
- * @property {string} valueFormat 格式
- * @property {func} onNumberChanged 值改变的回调
  */
 export default class NumberSpinner extends React.Component {
   static defaultProps = {
     valueFormat: Platform.select({ ios: '%0.0f' })
   }
   static propTypes = {
+    /**
+     * 是否可见
+     * @member {bool}
+     */
     visible: PropTypes.bool,
+    /**
+     * 单位
+     * @member {string}
+     */
     unit: PropTypes.string,
+    /**
+     * max
+     * @member {int}
+     */
     maxValue: PropTypes.number,
+    /**
+     * min
+     * @member {int}
+     */
     minValue: PropTypes.number,
+    /**
+     * 步长，默认为1
+     * @member {int}
+     */
     interval: PropTypes.number,
+    /**
+     * 缺省值
+     * @member {int}
+     */
     defaultValue: PropTypes.number,
+    /**
+     * 格式
+     * @member {string}
+     */
     valueFormat: PropTypes.string,
+    /**
+     * 回调
+     * @member {func} 
+     * 
+     */
     onNumberChanged: PropTypes.func,
     ...ViewPropTypes,
   };

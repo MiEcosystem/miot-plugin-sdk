@@ -9,11 +9,9 @@ const { width } = Dimensions.get('window');
 const THIN_HEIGHT = 50;
 const PADDING = 24;
 /**
- * @export public
- * @doc_name ListItem
- * @doc_index 22
+ * @export
  * @author Geeook
- * @since 10004
+ * @since 20190403
  * @module ListItemWithSwitch
  * @description 带开关的列表项
  * @property {string} title - 左侧主标题

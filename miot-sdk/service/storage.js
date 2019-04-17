@@ -1,7 +1,5 @@
 /**
- * @export public
- * @doc_name 系统服务_云端配置
- * @doc_index 19
+ * @export
  * @module miot/service/storage
  * @description MIOT 云端提供的各种暂存服务, 包括文件上传,下载?
  *
@@ -19,7 +17,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 读取三方数据 /user/get_third_user_config
+     * /user/get_third_user_config
      * @param {string} model device model
      * @param  {...number} keys key 列表
      * @example

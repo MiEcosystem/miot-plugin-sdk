@@ -20,7 +20,7 @@ import React from 'react';
 import { createStackNavigator } from 'react-navigation'; //
 import HelloDeveloper from '../CommonModules/HelloDeveloper';
 import HelloReactART from '../CommonModules/HelloReactART';
-import AccountDemo from './Account';
+import AddressBookDemo from './AddressBookDemo';
 import AnimCustomCompDemo from './AnimationComponentDemo/AnimCustomCompDemo'; //自定义动画组
 import AnimEffectsDemo from './AnimationComponentDemo/AnimEffectsDemo'; //动画特效
 import AnimEventsDemo from './AnimationComponentDemo/AnimEventsDemo'; //动画事件
@@ -28,63 +28,60 @@ import AnimFadeInOutDemo from './AnimationComponentDemo/AnimFadeInOutDemo'; //�
 import AnimTransformDemo from './AnimationComponentDemo/AnimTransformDemo'; //旋转翻转
 import AnimTranslationDemo from './AnimationComponentDemo/AnimTranslationDemo'; //平行移动
 import LayoutAnimationDemo from './AnimationComponentDemo/LayoutAnimationDemo'; //其他动画
-import ControlDemo from './Device/ControlDemo';
+import ARTCircleDemo from './ARTComponentDemo/ARTCircleDemo'; //圆形：Circle，
+import ARTEllipseDemo from './ARTComponentDemo/ARTEllipseDemo'; //椭圆：Ellipse
+import ARTGradientDemo from './ARTComponentDemo/ARTGradientDemo'; //LinearGradient：线性渐变,RadialGradient：径向渐变
+import ARTGroupDemo from './ARTComponentDemo/ARTGroupDemo'; //分组：Group,
+import ARTLineDemo from './ARTComponentDemo/ARTLineDemo'; //直线：Line,多边线：Polyline
+import ARTPatternDemo from './ARTComponentDemo/ARTPatternDemo'; //Pattern 图案
+import ARTRectDemo from './ARTComponentDemo/ARTRectDemo'; //矩形：Rect，多边形：Polygon,多边线：Polyline
+// ART的demo  {
+import ARTSVGDemo from './ARTComponentDemo/ARTSVGDemo'; //图片：SVG，
+import ARTTextDemo from './ARTComponentDemo/ARTTextDemo'; //文字：Text
+// import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
+import CircularSliderDemo from './CircularSliderDemo';
+import CloudDebug from './CloudDebug';
+import ControlDemo from './ControlDemo';
 import DeviceControl from "./Device/DeviceControl";
-import DeviceDemo from "./Device/DeviceDemo";
-import MHAudioDemo from './Host/MHAudioDemo';
-import OrientationDemo from './Host/OrientationDemo';
-import NavigateUIDemo from "./Host/UI";
-import VideoDemo from './Host/VideoDemo';
+import DialogTest from './DialogTest';
+import GLAnimated from './gl/Animated';
+// import GLAdvancedEffects from './gl/AdvancedEffects';
+import GLHearts from './gl/Hearts';
+import GLOrientation from './gl/Orientation';
+import GLParticles from './gl/Particles';
+import GLSimple from './gl/Simple';
+import ImageCapInsetDemo from './ImageCapInsetDemo'; // working but no title displayed
+import ImagePickerDemo from './ImagePickerDemo';
 import MainPage from './MainPage';
+import MHAudioDemo from './MHAudioDemo';
+import MHMapDemo from './MHMapDemo';
+import MHSetting from './MHSetting';
 import MoreMenu from './MoreMenu';
 import ImagePathDemo from './NewStructureTest';
-import CallSmartHomeAPIDemo from './Service/smarthome';
-import AddressBookDemo from './ThirdPartDemo/AddressBookDemo';
-import ARTCircleDemo from './ThirdPartDemo/ARTComponentDemo/ARTCircleDemo'; //圆形：Circle，
-import ARTEllipseDemo from './ThirdPartDemo/ARTComponentDemo/ARTEllipseDemo'; //椭圆：Ellipse
-import ARTGradientDemo from './ThirdPartDemo/ARTComponentDemo/ARTGradientDemo'; //LinearGradient：线性渐变,RadialGradient：径向渐变
-import ARTGroupDemo from './ThirdPartDemo/ARTComponentDemo/ARTGroupDemo'; //分组：Group,
-import ARTLineDemo from './ThirdPartDemo/ARTComponentDemo/ARTLineDemo'; //直线：Line,多边线：Polyline
-import ARTPatternDemo from './ThirdPartDemo/ARTComponentDemo/ARTPatternDemo'; //Pattern 图案
-import ARTRectDemo from './ThirdPartDemo/ARTComponentDemo/ARTRectDemo'; //矩形：Rect，多边形：Polygon,多边线：Polyline
-// ART的demo  {
-import ARTSVGDemo from './ThirdPartDemo/ARTComponentDemo/ARTSVGDemo'; //图片：SVG，
-import ARTTextDemo from './ThirdPartDemo/ARTComponentDemo/ARTTextDemo'; //文字：Text
-// import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
-import CircularSliderDemo from './ThirdPartDemo/CircularSliderDemo';
-import ImagePickerDemo from './ThirdPartDemo/ImagePickerDemo';
-import MHMapDemo from './ThirdPartDemo/MHMapDemo';
-import GLAnimated from './ThirdPartDemo/openGL/Animated';
-// import GLAdvancedEffects from './openGL/AdvancedEffects';
-import GLHearts from './ThirdPartDemo/openGL/Hearts';
-import GLOrientation from './ThirdPartDemo/openGL/Orientation';
-import GLParticles from './ThirdPartDemo/openGL/Particles';
-import GLSimple from './ThirdPartDemo/openGL/Simple';
-// import GLTests from './ThirdPartDemo/openGL/Tests';
+import OrientationDemo from './OrientationDemo';
+// import GLTests from './gl/Tests';
 // import OpenLibList from './OpenLibList';
-import ParticleDemo from './ThirdPartDemo/ParticleDemo';
-import ProgressDemo from './ThirdPartDemo/ProgressDemo';
-import SQLiteDemo from './ThirdPartDemo/SQLiteDemo';
-import SVGDemo from './ThirdPartDemo/SVGDemo';
-import { GroupExample, HoverExample, PressExample } from './ThirdPartDemo/SVGDemo2';
-import ThirdPartyDemo from './ThirdPartDemo/ThirdPartyDemo';
-import AreaView from './ThirdPartDemo/Victory-Native/views/area-view';
-import AxisView from './ThirdPartDemo/Victory-Native/views/axis-view';
-import BarView from './ThirdPartDemo/Victory-Native/views/bar-view';
-import BoxPlotView from './ThirdPartDemo/Victory-Native/views/boxplot-view';
-import ChartView from './ThirdPartDemo/Victory-Native/views/chart-view';
-import ContainersView from './ThirdPartDemo/Victory-Native/views/containers-view';
-import CreateContainerView from './ThirdPartDemo/Victory-Native/views/create-container-view';
-import ErrorsTooltipsView from './ThirdPartDemo/Victory-Native/views/errors-tooltips-view';
-import LegendsView from './ThirdPartDemo/Victory-Native/views/legends-view';
-import LineView from './ThirdPartDemo/Victory-Native/views/line-view';
-import PieView from './ThirdPartDemo/Victory-Native/views/pie-view';
-import ScatterView from './ThirdPartDemo/Victory-Native/views/scatter-view';
-import WebViewBridageDemo from './ThirdPartDemo/WebViewBridageDemo';
+import ParticleDemo from './ParticleDemo';
+import ProgressDemo from './ProgressDemo';
+import RefreshListView from './RefreshListView';
+import SQLiteDemo from './SQLiteDemo';
+import SVGDemo from './SVGDemo';
+import { GroupExample, HoverExample, PressExample } from './SVGDemo2';
+import Dynamic from './swiper/Dynamic/';
+import LoadMinimal from './swiper/LoadMinimal/';
+import Phone from './swiper/Phone/';
+// import PhotoView from './swiper/PhotoView/' // not working
+import Swiper from './swiper/Swiper/'; // working but no title displayed
+import SwiperNumber from './swiper/SwiperNumber/'; // working but no title displayed
+import ThirdPartyDemo from './ThirdPartyDemo';
+import AccountDemo from './tutorial/account/AccountDemo';
 import BlankDemo from './tutorial/BlankDemo';
+import CallSmartHomeAPIDemo from './tutorial/cloud/CallSmartHomeAPIDemo.js';
+import DeviceDemo from "./tutorial/device/DeviceDemo";
 import JSExecutor from './tutorial/JSExecutor';
 import List from "./tutorial/List";
 import LocaleServer from './tutorial/LocaleServer';
+import NavigateUIDemo from "./tutorial/navigation/ui";
 import OperationDemoIndex from './tutorial/operation/OperationDemoIndex';
 import PackageDemo from "./tutorial/PackageDemo";
 import RPCControl from './tutorial/RPCControl';
@@ -92,19 +89,24 @@ import Setting from "./tutorial/Setting";
 import FileStorage from './tutorial/storage/FileStorage';
 import StorageDemo from './tutorial/storage/StorageDemo';
 import TutorialDemo from './tutorial/TutorialDemo';
-import DialogTest from './UIComponent/DialogTest';
-import ImageCapInsetDemo from './UIComponent/ImageCapInsetDemo'; // working but no title displayed
-import RefreshListView from './UIComponent/RefreshListView';
-import Dynamic from './UIComponent/swiper/Dynamic/';
-import LoadMinimal from './UIComponent/swiper/LoadMinimal/';
-import Phone from './UIComponent/swiper/Phone/';
-import Swiper from './UIComponent/swiper/Swiper/'; // working but no title displayed
-import SwiperNumber from './UIComponent/swiper/SwiperNumber/'; // working but no title displayed
 // import BLEConnectionDemo from './tutorial/operation/bluetooth/BLEConnectionDemo';
-import UIDemo from './UIComponent/UIDemo';
+import UIDemo from './UIDemo';
 import CustomContainer from './uikit/components/CustomContainer';
 import * as Screens from "./uikit/screens";
-import MHSetting from './unuse/MHSetting';
+import AreaView from './Victory-Native/views/area-view';
+import AxisView from './Victory-Native/views/axis-view';
+import BarView from './Victory-Native/views/bar-view';
+import BoxPlotView from './Victory-Native/views/boxplot-view';
+import ChartView from './Victory-Native/views/chart-view';
+import ContainersView from './Victory-Native/views/containers-view';
+import CreateContainerView from './Victory-Native/views/create-container-view';
+import ErrorsTooltipsView from './Victory-Native/views/errors-tooltips-view';
+import LegendsView from './Victory-Native/views/legends-view';
+import LineView from './Victory-Native/views/line-view';
+import PieView from './Victory-Native/views/pie-view';
+import ScatterView from './Victory-Native/views/scatter-view';
+import VideoDemo from './VideoDemo';
+import WebViewBridageDemo from './WebViewBridageDemo';
 // class HomeScreen extends React.Component {
 //   render() {
 //     return (
@@ -133,6 +135,7 @@ const RootStack = createStackNavigator(
         PackageDemo: PackageDemo,
         accountDemo: AccountDemo,
         ControlDemo: ControlDemo,
+        CloudDebug: CloudDebug,
         storageDemo: StorageDemo,
         fileStorage: FileStorage,
         callSmartHomeAPIDemo: CallSmartHomeAPIDemo,

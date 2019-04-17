@@ -11,9 +11,7 @@ const BACK_HEIGHT = 24;
 const MARGIN = 3;
 const BORDER_WIDTH = Platform.select({ android: 1, ios: 0.5 });
 /**
- * @export public
- * @doc_name 常用UI组件
- * @doc_index 21
+ * @export
  * @author Geeook
  * @since 20190403
  * @module Switch

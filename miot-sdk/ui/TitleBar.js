@@ -1,7 +1,5 @@
 /**
- * @export public
- * @doc_name 常用UI组件
- * @doc_index 21
+ * @export
  * @module miot/ui/TitleBar
  * @description 新版导航栏，可以尝试使用
  * @property type 导航栏类型 options: ["dark", "light"(default)]

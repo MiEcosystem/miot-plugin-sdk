@@ -1,7 +1,5 @@
 /**
- * @export public
- * @doc_name 常用UI组件
- * @doc_index 21
+ * @export
  * @module miot/ui/LoadingDialog
  * @description 加载对话框
  * @mark andr done

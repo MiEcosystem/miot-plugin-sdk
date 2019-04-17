@@ -1,7 +1,5 @@
 /**
- * @export public
- * @doc_name 常用UI组件
- * @doc_index 21
+ * @export
  * @module miot/ui/MessageDialog
  * @description 消息对话框
  * @mark andr done

@@ -9,11 +9,9 @@ const THIN_HEIGHT = 50;
 const PADDING = 24;
 const ICON_SIZE = Platform.select({ android: 26, ios: 24 }); // 当android设置24的时候，图形会挤压形成锯齿
 /**
- * @export public
- * @doc_name ListItem
- * @doc_index 22
+ * @export
  * @author Geeook
- * @since 10004
+ * @since 20190401
  * @module ListItem
  * @description 普通列表项
  * @property {string} title - 左侧主标题

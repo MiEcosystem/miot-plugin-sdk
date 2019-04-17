@@ -1,7 +1,5 @@
 /**
- * @export public
- * @doc_name 原生_页面导航模块
- * @doc_index 13
+ * @export
  * @module miot/host/ui
  * @description 本地原生业务页面访问与处理
  * @example
@@ -155,7 +153,7 @@ export default {
   /**
    * 开启倒计时界面 
    * @param {Boolean} isCountDownOn 设备的当前状态:YES 为开启，所以我们启动关闭倒计时; NO  为关闭，所以我们启动开启倒计时
-   * @param {{onMethod:string, offMethod:string, onParam:string, offParam:string}} setting {onMethod:string, offMethod:string, onParam:string, offParam:string},指硬件端，打开/关闭 倒计时应该 执行的方法/传入的参数，请咨询硬件工程师
+   * @param {{onMethod:string, offMethod:string, onParam:string, offParam:string}} setting {onMethod:string, offMethod:string, onParam:string, offParam:string}
    * @example
    * 
    * Host.ui.openCountDownPage(true, {onMethod:"power_on", offMethod:'power_off', onParam:'on', offParam:'off'})
@@ -172,36 +170,31 @@ export default {
   openOneTimePassword(did, interval, digits) {
   },
   /**
-   * @deprecated 10004 开始废弃， 后续版本会移除该方法。
    * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串
    * @param {string} onParam   定时到时设备“开”执行的 RPC 指令参数字符串（目前仅支持单参数）
    * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串
    * @param {string} offParam  定时到时设备“关”执行的 RPC 指令参数字符串（目前仅支持单参数）
    *
-   * @description 这个api 应该可以废弃了，使用下面的openTimerSettingPageWithVariousTypeParams
+   * @description 这个api 应该可以废弃了
    */
   openTimerSettingPage(onMethod, onParam, offMethod, offParam) {
   },
   /**
-   * @deprecated 10004 开始废弃， 后续版本会移除该方法。
    * @param {string} customTimerIdentifier 自定义定时Identifier
    * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串
    * @param {string} onParam   定时到时设备“开”执行的 RPC 指令参数字符串（目前仅支持单参数）
    * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串
    * @param {string} offParam  定时到时设备“关”执行的 RPC 指令参数字符串（目前仅支持单参数）
    *
-   * @description 这个api 应该可以废弃了，使用下面的openTimerSettingPageWithVariousTypeParams
+   * @description 这个api 应该可以废弃了
    */
   openTimerSettingPageWithCustomIdentifier(customTimerIdentifier, onMethod, onParam, offMethod, offParam) {
   },
   /**
-   * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串，指硬件端，打开定时应该执行的方法，请咨询硬件工程师
-   * @param {json} onParam   定时到时设备“开”执行的 RPC 指令参数，可以是字符串、数字、字典、数组，指硬件端，打开定时应该传入的参数，请咨询硬件工程师
-   * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串,,参数请与嵌入式的同学沟通，指硬件端，关闭定时应该执行的方法，请咨询硬件工程师
-   * @param {json} offParam  定时到时设备“关”执行的 RPC 指令参数，可以是字符串、数字、字典、数组，指硬件端，关闭定时应该传入的参数，请咨询硬件工程师
-   * @example
-   * 
-   * Host.ui.openTimerSettingPageWithVariousTypeParams("power_on", ["on", "title"], 'off',"title"}),
+   * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串
+   * @param {json} onParam   定时到时设备“开”执行的 RPC 指令参数，可以是字符串、数字、字典、数组
+   * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串
+   * @param {json} offParam  定时到时设备“关”执行的 RPC 指令参数，可以是字符串、数字、字典、数组
    */
   openTimerSettingPageWithVariousTypeParams(onMethod, onParam, offMethod, offParam) {
   },
@@ -247,12 +240,12 @@ export default {
   },
   /**
    * 打开小爱训练计划
-   * @param {string} clientId 
-   * @param {string} did 设备 ID
-   * @param {string} aiMiotClientId 米家的客户端 ID
-   * @param {string} aiClientId 水滴平台的客户端
-   * @param {string} aiVersion "" 不隐藏 "thirdpart" 隐藏 “一段录音” “设备控制” 按钮 "audio" 隐藏 “一段录音” 按钮 "device" 隐藏 “设备控制” 按钮
- */
+   * @param {string} clientId 类的名字
+   * @param {string} did 类的名字
+   * @param {string} aiMiotClientId 类的名字
+   * @param {string} aiClientId 类的名字
+   * @param {string} aiVersion 类的名字
+   */
   openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion) {
   },
   /**

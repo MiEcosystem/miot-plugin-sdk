@@ -1,7 +1,5 @@
 /**
- * @export public
- * @doc_name 常用UI组件
- * @doc_index 21
+ * @export
  * @module miot/ui/TitleBarWhite
  * @description 白色标题栏
  * @property leftTextStyle 左侧文字样式，和 leftText 一起使用，不设置使用米家默认值

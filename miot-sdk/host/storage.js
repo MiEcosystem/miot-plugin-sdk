@@ -1,7 +1,5 @@
 /**
- * @export public
- * @doc_name 原生_本地存储模块
- * @doc_index 12
+ * @export
  * @module miot/host/storage
  * @description 本地轻量级存储服务, 键值对格式
  */

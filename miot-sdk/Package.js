@@ -1,7 +1,5 @@
 /**
- * @export public
- * @doc_name 插件导航模块
- * @doc_index 6
+ * @export
  * @module miot/Package
  * @description 扩展程序包参数, 主要来自于{@link packageInfo.json} 的配置与系统本身的特性
  * @example
@@ -117,7 +115,7 @@ export const PackageEvent = {
  */
 export default {
     /**
-     * 入口类型,Main or Scene
+     * 入口类型
      * @const
      * @type {Entrance}
      * @readonly
@@ -127,7 +125,7 @@ export default {
          return  Entrance.Main
     },
     /**
-     * 打开rn插件时，从native传递到RN的初始化数据信息
+     * 入口信息
      * @const
      * @type {json}
      * @readonly

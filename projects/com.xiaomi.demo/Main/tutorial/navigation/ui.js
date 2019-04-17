@@ -76,6 +76,10 @@ export default class UIDemo extends React.Component {
         ];
     }
 
+    componentWillUnmount() {
+
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -101,6 +105,18 @@ export default class UIDemo extends React.Component {
     _pressRow(rowID) {
         console.log("row" + rowID + "clicked!");
         this._menuData[rowID].func();
+    }
+
+    onShowDidButtonPress() {
+        this.props.navigation.navigate('helloDeveloper');
+    }
+
+    showReactART() {
+        this.props.navigation.navigate('helloReactART');
+    }
+
+    showChart() {
+        this.props.navigator.push(ChartDemo.route);
     }
 
     showActionSheet() {

@@ -11,11 +11,9 @@ import ListItem from '../ListItem/ListItem';
 import Separator from '../Separator';
 import { secondAllOptions } from "./CommonSetting";
 /**
- * @export public
- * @doc_name CommonSetting
- * @doc_index 23
+ * @export
  * @author Geeook
- * @since 10004
+ * @since 20190408
  * @module MoreSetting
  * @description 二级菜单页面——更多设置
  * @property {array} secondOptions - 二级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项
