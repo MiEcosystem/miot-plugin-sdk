@@ -64,6 +64,13 @@ export const DeviceEvent = {
      */
     deviceNameChanged: {
     },
+    /**
+     * 设备时区变更事件
+     * @event
+     * @param {IDevice} device -发生变更的设备
+     * @since 1.0.0
+     *
+     */
     deviceTimeZoneChanged: {
     },
     /**
@@ -266,7 +273,7 @@ export class IDeviceWifi {
          return Promise.resolve(this);
     }
     /**
-     * 获取版本号
+     * 获取设备固件版本信息
      * @return {Promise<any>}
      */
     getVersion() {
@@ -301,7 +308,7 @@ export class IDeviceWifi {
      * @param {json} message 以errorCode为key，以错误提示信息为value的字典。key和value的数据类型都须是string。
      * @return boolean 设置是否成功
      * @example
-     * let ret = Device.getDeviceWifi().setFirmwareUpdateErrDic('message')
+     * let ret = Device.getDeviceWifi().setFirmwareUpdateErrDic({"3":'无法连接'})
      */
     setFirmwareUpdateErrDic(message) {
          return Promise.resolve({});
@@ -370,7 +377,7 @@ class IDevice {
          return false
     }
     /**
-     * 如果有父设备，直接获取 父设备 Device
+     * 如果有父设备，直接获取 父设备 Device，一般是网关子设备才会有父设备
      * @type {IDevice}
      * @readonly
      *
@@ -379,7 +386,7 @@ class IDevice {
          return null
     }
     /**
-     * 是否是根设备
+     * 是否是根设备，从首页点击设备进入插件，此设备即为根设备。
      * @member
      * @type {boolean}
      * @readonly
@@ -389,7 +396,7 @@ class IDevice {
          return  false
     }
     /**
-     * 获取子设备列表
+     * 获取子设备列表，一般网关才会有子设备
      * @since 10004
      * @method
      * @returns {Promise<IDevice[]>}
@@ -414,7 +421,7 @@ class IDevice {
      * 获取虚拟设备 /home/virtualdevicectr
      * @method
      * @returns {Promise<IDevice[]>}
-     *
+     * @description 废弃中，后续将不支持虚拟设备
      */
     getVirtualDevices() {
          return Promise.resolve([]);
@@ -475,8 +482,8 @@ class IDevice {
     /**
      * 加载本设备相关的场景
      * @method
-     * @param {*} sceneType
-     * @param {*} opt
+     * @param {*} sceneType  SceneType.Timer(定时场景)，SceneType.Artificial(人工场景)，SceneType.Automatic(自动场景)
+     * @param {*} opt {identify,name} identify：代表场景的分类，创建场景时可自定义此参数；如果获取场景的时候传入identify，表示获取identify类场景列表；如果不需要对场景分类，此参数可忽略。name:场景名字
      * @returns {Promise<IScene[]>}
      * @see {@link module:miot/service/scene}
      *
@@ -486,7 +493,7 @@ class IDevice {
     }
     /**
      * 加载定时场景
-     * @param {json} opt
+     * @param {json} opt 同上loadScenes的opt
      * @returns {Promise<IScene[]>}
      * @see {@link module:miot/service/scene}
      *
@@ -505,8 +512,8 @@ class IDevice {
     /**
      * 创建场景
      * @method
-     * @param {SceneType} sceneType
-     * @param {json} opt
+     * @param {SceneType} 同上loadScenes的sceneType
+     * @param {json} opt  同上loadScenes的opt，此处传入opt，后续获取场景时，可根据此opt来筛选
      * @returns {IScene}
      * @see {@link module:miot/service/scene}
      *
@@ -517,7 +524,7 @@ class IDevice {
     /**
      * 创建定时场景
      * @method
-     * @param {json} opt
+     * @param {json} opt 同上loadScenes的opt，此处传入opt，后续获取场景时，可根据此opt来筛选
      * @returns {IScene}
      * @see {@link module:miot/service/scene}
      *
@@ -545,7 +552,7 @@ class IDevice {
          return  ""
     }
     /**
-     *设备的 token 加密后生成的固定值
+     *设备的 token 加密后生成的固定值，在设备快连入网时生成，能唯一标识设备的生命周期，直至被重置、重新快连入网。注意该 Session 并非设备与服务器交互时认证所用 Token，只能用于标识作用
      * @type {string}
      * @readonly
      *
@@ -563,7 +570,7 @@ class IDevice {
          return  ""
     }
     /**
-     * 当前账户对设备的控制权限
+     * 当前账户对设备的控制权限，主要用于分享的设备 4:普通分享 36:只读分享
      * @type {int}
      * @readonly
      *
@@ -670,7 +677,7 @@ class IDevice {
          return  ""
     }
     /**
-     * 获取设备类型
+     * 获取设备类型，设备类型可在后台设备产品信息里面查看
      * @type {int}
      * @readonly
      *
@@ -697,7 +704,7 @@ class IDevice {
          return  0
     }
     /**
-     * 经纬度
+     * 纬度
      * @type {double}
      * @readonly
      *
@@ -706,7 +713,7 @@ class IDevice {
          return  0.0
     }
     /**
-     * 经纬度
+     * 经度
      * @type {double}
      * @readonly
      *
@@ -733,7 +740,7 @@ class IDevice {
          return  false
     }
     /**
-     * 重置标志
+     * 重置标志，本地设备才会返回该字段，为1时表示设备刚刚reset过
      * @type {int}
      * @readonly
      *

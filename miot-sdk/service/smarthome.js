@@ -15,19 +15,19 @@ export default {
     },
     /**
      * @typedef GPSInfo
-     * @property lng
-     * @property lat
-     * @property adminArea
-     * @property countryCode
-     * @property locality
-     * @property thoroughfare
-     * @property language - zh_CN
-     * @property subLocality
+     * @property lng - 经度
+     * @property lat - 维度
+     * @property adminArea - 省
+     * @property countryCode - 国家代号（CN等）
+     * @property locality - 城市
+     * @property thoroughfare - 区
+     * @property language - 语言代号（zh_CN等）
+     * @property subLocality - 街道
      */
     /**
      * 上报gps信息 /location/set
-     * @param {string} deviceID
-     * @param {GPSInfo} gpsInfo
+     * @param {string} deviceID 设备ID
+     * @param {GPSInfo} gpsInfo {lng,lat,countryCode,adminArea,locality,subLocality,thoroughfare,language} 依次为 {，，，，，，，}
      * @returns {Promise<json>}
      *
      */
@@ -37,21 +37,21 @@ export default {
     /**
      * 设备固件版本信息
      * @typedef DeviceVersion
-     * @property {boolean} isUpdating
-     * @property {boolean} isLatest
-     * @property {boolean} isForce
-     * @property {boolean} hasNewFirmware
-     * @property {string} curVersion
-     * @property {string} newVersion
-     * @property {string} description
+     * @property {boolean} isUpdating - 是否ota升级中
+     * @property {boolean} isLatest - 是否是最新版本
+     * @property {boolean} isForce - 是否强制升级
+     * @property {boolean} hasNewFirmware - 是否有新固件
+     * @property {string} curVersion - 当前固件版本
+     * @property {string} newVersion - 新固件版本
+     * @property {string} description - 描述
      *
      */
     /**
      * 检查硬件版本信息
      * /home/checkversion
      * @method
-     * @param  {string} did
-     * @param  {*} pid
+     * @param  {string} 设备ID
+     * @param  {*} pid 设备PID
      * @returns {Promise<DeviceVersion>}
      * @example
      * Device.getDeviceWifi().checkVersion()
@@ -63,7 +63,7 @@ export default {
     },
     /**
      * 检查到有可用更新时，可以主动更新固件。 /home/multi_checkversion
-     * @param {array<string>} deviceIDs
+     * @param {array<string>} deviceIDs 设备ID
      * @return {Promise<json>}
      */
     getAvailableFirmwareForDids(deviceIDs) {
@@ -89,8 +89,8 @@ export default {
     },
     /**
      * 上报设备数据 /device/event
-     * @param {string} deviceID
-     * @param {array<map>} records [{type:string value of 'prop'、'event',key:string,value:string}]
+     * @param {string} deviceID 设备ID
+     * @param {array<map>} records [{type,key,value}] 其中：type为'prop'或'event'，key，value均为自定义string
      *
      * @example
      * Service.smarthome.reportRecords("deviceID", [{type:"prop",key:"b",value:"c"}])
@@ -312,6 +312,7 @@ export default {
     /**添加设备属性和事件历史记录，/home/device_list
      * 当ssid和bssid均不为空时，表示同时搜索这个局域网内所有未被绑定过的设备
      * @param {json} params {pid:string ,ssid:string ,bssid:string ,localDidList:array<string>,checkMoreWifi:bool,dids:array<string>}
+     * 其中，pid：设备PID，ssid：wifi名称，bssid：wifi网关mac，locatDidList：本地设备did列表，补充ssid和bssid的本地查询条件，会与ssid查到的本地列表一起返回其中未被绑定的在线设备，checkMoreWifi：检查2.4gwifi下的本地设备列表，did：要拉取列表的设备的did，如果为空表示所有设备
      * @return {Promise}
      */
     getHomeDevice(params) {

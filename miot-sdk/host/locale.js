@@ -37,7 +37,7 @@ export default {
    * country
    * province
    * city
-   * district
+   * district(区域)
    * street
    * address
    * latitude(纬度)

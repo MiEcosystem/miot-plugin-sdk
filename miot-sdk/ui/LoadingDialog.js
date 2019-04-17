@@ -1,8 +1,13 @@
-/**
+ /**
  * @export
  * @module miot/ui/LoadingDialog
- * @description 加载对话框
- * @mark andr done
+ * @description 输入对话框
+ * @property {bool} visible 是否可见
+ * @property {bool} cancelable 是否允许点击空白区域取消显示,仅限Android
+ * @property {string} title 标题
+ * @property {string} message 副标题，内容
+ * @property {func} onDismiss 对话框消失回调
+ * @property {number} timeout 超时自动隐藏，设置0或者不设置不会自动隐藏
  */
 import React, {Component} from 'react';
 import {
@@ -13,36 +18,11 @@ import PropTypes from 'prop-types';
 import native from '.././native'
 export default class ProgressDialog extends Component {
   static propTypes = {
-    /**
-     * 是否可见
-     * @member {bool}
-     */
     visible: PropTypes.bool,
-    /**
-     * 是否允许点击空白区域取消显示  
-     * Android Only     
-     * @member {bool}
-     */
     cancelable: PropTypes.bool,
-    /**
-     * 标题
-     * @member {string}
-     */
     title: PropTypes.string,
-    /**
-     * 副标题，内容
-     * @member {string}
-     */
     message: PropTypes.string,
-    /**
-     * 超时自动隐藏，设置0或者不设置不会自动隐藏
-     * @member {number}
-     */
     timeout: PropTypes.number,
-    /**
-     * 消失回调
-     * @member {func}
-     */
     onDismiss: PropTypes.func,
     ...ViewPropTypes,
   };

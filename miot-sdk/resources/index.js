@@ -283,8 +283,8 @@ export default {
     /**
      * 创建本地化字符串
      * @method
-     * @param {json} langStrings 
-     * @param {Language} defaultLanguage
+     * @param {json} langStrings  多语言字符串
+     * @param {Language} defaultLanguage 默认语言
      * @example
      * 
      * const i18n = res.createI18n({

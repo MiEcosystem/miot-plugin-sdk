@@ -17,7 +17,7 @@
 export default {
   /**
    * MD5 编码
-   * @param {string} content
+   * @param {string} content 需要编码的字符串
    * @returns {Promise<string>}
    */
   encodeMD5(content) {
@@ -25,7 +25,7 @@ export default {
   },
   /** 
    * base64 编码
-   * @param {string} content
+   * @param {string} content 需要编码的字符串
    * @returns {Promise<string>}
    */
   encodeBase64(content) {
@@ -33,7 +33,7 @@ export default {
   },
   /**
    * base64解码
-   * @param {string} content
+   * @param {string} content 需要解码的字符串
    * @returns {Promise<string>}
    */
   decodeBase64(content) {
@@ -41,15 +41,21 @@ export default {
   },
   /**
    * SHA1 编码
-   * @param {string} content
+   * @param {string} content 需要编码的字符串
    * @returns {Promise<string>}
    */
   encodeSHA1(content) {
      return Promise.resolve('');
   },
   /**
+<<<<<<< HEAD
    * SHA256 编码
    * @param {*} content
+=======
+   * SHA2 编码
+   * @param {*} content 需要编码的字符串
+   * @returns {Promise<string>}
+>>>>>>> add docks
    */
   encodeSHA2(content) {
      return Promise.resolve('');

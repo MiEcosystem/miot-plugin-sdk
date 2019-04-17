@@ -115,7 +115,7 @@ export const PackageEvent = {
  */
 export default {
     /**
-     * 入口类型
+     * 入口类型,Main or Scene
      * @const
      * @type {Entrance}
      * @readonly
@@ -125,7 +125,7 @@ export default {
          return  Entrance.Main
     },
     /**
-     * 入口信息
+     * 打开rn插件时，从native传递到RN的初始化数据信息
      * @const
      * @type {json}
      * @readonly

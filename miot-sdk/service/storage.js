@@ -17,7 +17,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * /user/get_third_user_config
+     * 读取三方数据 /user/get_third_user_config
      * @param {string} model device model
      * @param  {...number} keys key 列表
      * @example
