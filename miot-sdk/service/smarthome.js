@@ -16,6 +16,18 @@ export default {
          return Promise.resolve({});
     },
     /**
+     * 通过UID批量获取用户信息
+     * @since 10005
+     * @param {array} uids uid 数组， 仅支持uid，不支持手机号查询 
+     * @example
+     * Service.smarthome.getUserInfoList([uid1,uid2]).then(res => {
+     *  console.log('user info :', res.list)
+     * })
+     */
+    getUserInfoList(uids) {
+         return Promise.resolve(null);
+    },
+    /**
      * @typedef GPSInfo
      * @property lng - 经度
      * @property lat - 维度

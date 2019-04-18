@@ -1,13 +1,7 @@
+import { Device, Service } from "miot";
 import React from 'react';
+import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
 
-import {
-    View,
-    Text,
-    Button,
-    FlatList,
-    StyleSheet,
-} from 'react-native';
-import { Service, Device, Account } from "miot";
 
 export default class CallSmartHomeAPIDemo extends React.Component {
     constructor(props) {
@@ -24,6 +18,7 @@ export default class CallSmartHomeAPIDemo extends React.Component {
                 { name: "点击查询当前设备固件版本信息", handle: this.handleArrRes.bind(this), action: () => { return Service.smarthome.getAvailableFirmwareForDids([Device.deviceID]) } },
                 { name: "点击查询设备最新版本信息V2", handle: this.handleObjRes.bind(this), action: () => { return Service.smarthome.getLatestVersionV2(Device.deviceID) } },
                 { name: "点击查询当前用户信息", handle: this.handleObjRes.bind(this), action: () => { return Service.smarthome.getUserInfo(Service.account.ID) } },
+                { name: "点击查询批量用户信息", handle: this.handleArrRes.bind(this), action: () => { return Service.smarthome.getUserInfoList([Service.account.ID, '894158105']) } },
             ]
         })
     }
@@ -39,19 +34,24 @@ export default class CallSmartHomeAPIDemo extends React.Component {
     }
 
     handleArrRes(result) {
-        if (result instanceof Array) {
-            var items = [];
-            for (var i = 0; i < result.length; i++) {
-                var item = result[i];
-                items.push({ 'key': i, 'value': "----" })
-                for (var key in item) {
-                    items.push({ 'key': key, 'value': "v:" + item[key] });
-                }
+        console.log(result instanceof Array)
+        if (!(result instanceof Array)) {
+            result = result.list;
+            if (!(result instanceof Array)) {
+                return;
             }
-            this.setState((preState) => {
-                return { dataSource: items };
-            });
         }
+        var items = [];
+        for (var i = 0; i < result.length; i++) {
+            var item = result[i];
+            items.push({ 'key': i, 'value': "----" })
+            for (var key in item) {
+                items.push({ 'key': key, 'value': "v:" + item[key] });
+            }
+        }
+        this.setState((preState) => {
+            return { dataSource: items };
+        });
     }
 
     render() {
