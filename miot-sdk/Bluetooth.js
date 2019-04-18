@@ -84,6 +84,7 @@ export class IBluetoothCharacteristic {
      * 数值, 配合 isValueLoaded 使用
      * @member
      * @type {*}
+     * @returns hexstring
      * @readonly
      * @example
      *
@@ -112,7 +113,7 @@ export class IBluetoothCharacteristic {
      * 写数据
      * 对应 writeWithResponse
      * @method
-     * @param {*} value
+     * @param {*} value hexstring
      * @returns {Promise<IBluetoothCharacteristic>}
      *
      */
@@ -266,7 +267,7 @@ export class IBluetoothLock {
          return Promise.resolve(null);
     }
     /**
-     * 支持小米加密芯片的蓝牙设备，使用此方法将明文加密为密文后，可发送给设备
+     * 支持小米加密芯片的蓝牙设备，使用此方法将密文解密为明文
      * @method
      * @param {string} encrypted 密文
      * @returns {Promise<string>}
@@ -435,7 +436,7 @@ export class IBluetooth {
          return Promise.resolve(null);
     }
     /**
-     * 关闭链接
+     * 关闭链接 **注意小米协议的蓝牙设备，退出插件的时候，一定要调用此方法，关闭蓝牙连接，否则下次打开插件的时候，会提示蓝牙无法连接**
      * @method
      * @param {int} delay -延迟时长(毫秒)
      *
@@ -454,7 +455,7 @@ export class IBluetooth {
          return Promise.resolve(null);
     }
     /**
-     * 更新版本号，蓝牙的版本号 connect 之后才能
+     * 更新版本号，蓝牙的版本号 connect 之后才能查看
      * @return {Promise<any>}
      */
     getVersion() {

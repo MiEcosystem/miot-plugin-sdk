@@ -1,9 +1,27 @@
-/**
+   /**
  * @export
  * @module miot/ui/SingleChoseDialog
  * @description 单选对话框
- * @mark andr done
+ * 
+ * @example
+ * import {SingleChoseDialog} from 'miot/ui'
+ * <SingleChoseDialog 
+ * dataSource={['message0', 'message1', 'message2', 'message3', 'message4', 'message5', 'message6']}
+ * ...
+ * />
  *
+ * @property {bool} visible 是否可见
+ * @property {bool} cancelable 是否允许点击空白区域取消显示,仅限Android
+ * @property {string} title 标题
+ * @property {number} timeout 超时自动隐藏，设置0或者不设置不会自动隐藏
+ * @property {array<string>} dataSource 数据源
+ * @property {number} check 选中第几个数据源
+ * @property {string} cancel 取消标题
+ * @property {string} confirm 确认标题
+ * @property {func} onConfirm 确认点击回调
+ * @property {func} onCancel 取消点击回调
+ * @property {func} onDismiss 对话框消失回调
+ * @property {func} onCheck 某一行选中状态变更回调
  */
 import React, {Component} from 'react';
 import {
@@ -13,73 +31,17 @@ import {
 import PropTypes from 'prop-types';
 export default class SingleChoseDialog extends Component {
   static propTypes = {
-    /**
-     * 是否可见
-     * @member {bool}
-     */
     visible: PropTypes.bool,
-    /**
-     * 是否允许点击空白区域取消显示   
-     * Android Only iOS无效
-     * @member {bool}
-     */
     cancelable: PropTypes.bool,
-    /**
-     * 
-     * @member {string}
-     */
     title: PropTypes.string,
-    /**
-     * 超时自动隐藏，设置0或者不设置不会自动隐藏
-     * @member {number}
-     */
     timeout: PropTypes.number,
-    /**
-     * 数据源列表
-     * @member {array<string>}
-     * @example
-     * <SingleChoseDialog 
-     * dataSource={['message0', 'message1', 'message2', 'message3', 'message4', 'message5', 'message6']}
-     * ...
-     * />
-     */
     dataSource: PropTypes.array,
-    /**
-     * 选中第几个数据源
-     * @member {number}
-     * @description 选中第几个数据的 index
-     *
-     */
     check: PropTypes.number,
-    /**
-     * 取消标题
-     * @member {string}
-     */
     cancel: PropTypes.string,
-    /**
-     * 确认标题
-     * @member {string}
-     */
     confirm: PropTypes.string,
-    /**
-     * 确认点击回调
-     * @member {func}
-     */
     onConfirm: PropTypes.func,
-    /**
-     * 取消点击回调
-     * @member {func}
-     */
     onCancel: PropTypes.func,
-    /**
-     * 选中状态变更回调
-     * @member {func}
-     */
     onCheck: PropTypes.func,
-    /**
-     * 弹窗消失回调
-     * @member {func}
-     */
     onDismiss: PropTypes.func,
     ...ViewPropTypes,
   };

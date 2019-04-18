@@ -11,7 +11,7 @@ const PADDING = 24;
 /**
  * @export
  * @author Geeook
- * @since 20190403
+ * @since 10004
  * @module ListItemWithSwitch
  * @description 带开关的列表项
  * @property {string} title - 左侧主标题

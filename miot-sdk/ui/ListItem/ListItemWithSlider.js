@@ -13,7 +13,7 @@ const THUMB_TOUCH_SIZE = { width: 50, height: 50 };
 /**
  * @export
  * @author Geeook
- * @since 20190402
+ * @since 10004
  * @module ListItemWithSlider
  * @description 带滑动条的列表项
  * @property {string} title - 标题
