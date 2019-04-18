@@ -38,6 +38,7 @@ import VideoDemo from './Host/VideoDemo';
 import MainPage from './MainPage';
 import MoreMenu from './MoreMenu';
 import ImagePathDemo from './NewStructureTest';
+import MemberAPIDemo from './Service/member';
 import CallSmartHomeAPIDemo from './Service/smarthome';
 import AddressBookDemo from './ThirdPartDemo/AddressBookDemo';
 import ARTCircleDemo from './ThirdPartDemo/ARTComponentDemo/ARTCircleDemo'; //圆形：Circle，
@@ -136,6 +137,7 @@ const RootStack = createStackNavigator(
         storageDemo: StorageDemo,
         fileStorage: FileStorage,
         callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
+        MemberAPIDemo,
         RPCControl: RPCControl,
         OperationDemoIndex: OperationDemoIndex,
         // BLEConnectionDemo: BLEConnectionDemo,

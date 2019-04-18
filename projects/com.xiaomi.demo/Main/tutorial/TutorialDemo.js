@@ -33,6 +33,10 @@ export default class TutorialDemo extends React.Component {
           'key': 'callSmartHomeAPIDemo',
         },
         {
+          'title': '成员相关 ',
+          'key': 'MemberAPIDemo',
+        },
+        {
           'title': '账户信息',
           'key': 'accountDemo',
         },

@@ -6,6 +6,23 @@
  * @description 智能家庭 API
  *
  */
+/**
+ * 成员类型
+ * @namespace MemberType
+ */
+export const MemberType = {
+    /**
+     * 人
+     * @const
+     */
+    Person: "person",
+    /**
+     * 宠物
+     * @const
+     */
+    Pet: 'pet'
+};
+Object.freeze(MemberType)
 export default {
     /**
      * 获取用户的昵称和头像信息
@@ -623,6 +640,70 @@ export default {
      * @param {json} params json params {did:string, category:string, configids:array, offset: int, limit:int}, did: 设备did。 category 配置类别， configids： 配置id 为空时返回所有配置，不超过20个，不为空时没有数量限制， offset 偏移；limit 数量，不超过20
      */
     getRangeOpenConfig(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * @typedef MemberPet
+     * @property {string} id 
+     * @property {string} name      名称
+     * @property {string} sex       性别
+     * @property {string} birth     生日
+     * @property {double} weight    重量
+     * @property {string} species   物种
+     * @property {string} variety   品种
+     * @property {string} food_cate 食品
+     * @property {int} active_rate  活跃度
+     * @property {int} castrated    阉割
+     * @property {int} special_mark 特殊标志
+     */
+    /**
+     * @typedef MemberPerson
+     * @property {string} id 
+     * @property {string} name      姓名
+     * @property {string} sex       性别
+     * @property {string} birth     生日
+     * @property {double} height    身高
+     * @property {double} weight    体重
+     * @property {string} relation  关系
+     * @property {string} icon      预留项，暂不支持设置
+     * @property {int} xiaomi_id    小米uid
+     * @property {string} region    国家区域
+     * @property {int} special_mark 特殊标志
+     */
+    /**
+     * 创建 成员， 参考 MemberPerson 或者 MemberPet 的内容，按需填写。
+     * @since 10005
+     * @param {MemberType} type 成员类型 pet or person
+     * @param {MemberPerson} info  - MemberPerson 或者 MemberPet
+     */
+    createMember(type, info) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 更新成员信息
+     * @since 10005
+     * @param {MemberType} type 
+     * @param {string} member_id 
+     * @param {MemberPerson} info - MemberPerson 或者 MemberPet 只填写需要更新的项目
+     */
+    updateMember(type, member_id, info) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 删除成员
+     * @since 10005
+     * @param {MemberType} type 
+     * @param {Array} member_ids 成员id列表
+     */
+    deleteMember(type, member_ids) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 加载指定种类的成员列表
+     * @since 10005
+     * @param {MemberType} type 
+     */
+    loadMembers(type) {
          return Promise.resolve(null);
     }
 }
