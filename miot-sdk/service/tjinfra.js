@@ -183,30 +183,27 @@ export default {
      * @param {int} city_id 
      * @param {int} provider 
      */
-    loadProviderRemotesByCity(city_id, provider) { 
+    loadProviderRemotesByCity(city_id, provider) {
          return Promise.resolve(null);
     },
     /**
      * 加载城市 - 运营商关联数据
      */
-    loadCityProviders() { 
+    loadCityProviders() {
          return Promise.resolve(null);
     },
-    
     /**
      * getProviderInCity
      * @param {int} city_id 
      */
-    getProviderInCity(city_id) { 
+    getProviderInCity(city_id) {
          return Promise.resolve(null);
     },
-    
     /**
      * getCityInProvince
      * @param {int} province_id 
      */
-    getCityInProvince(province_id) { 
+    getCityInProvince(province_id) {
          return Promise.resolve(null);
     },
-    
 }
