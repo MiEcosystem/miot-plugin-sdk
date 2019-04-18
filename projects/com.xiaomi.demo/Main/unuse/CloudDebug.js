@@ -1,41 +1,35 @@
 'use strict';
 
+import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
-import {
-   View, Text,
-   StyleSheet,
-   StatusBar,
-   WebView,
-} from 'react-native';
-import { TitleBarBlack } from 'miot/ui';
+import { StatusBar, StyleSheet, Text, View, WebView } from 'react-native';
 export default class CloudDebug extends React.Component {
-
   static navigationOptions = ({ navigation }) => {
     return {
-      header:<TitleBarBlack title={"调试云端API"} style={{backgroundColor:'#fff'}}
-                            onPressLeft={()=>{ navigation.goBack();}}/>,
+      header: <TitleBar type='dark' title={"调试云端API"} style={{ backgroundColor: '#fff' }}
+        onPressLeft={() => { navigation.goBack(); }} />,
     };
   };
 
   render() {
-    var url= 'https://github.com/MiEcosystem/ios-rn-sdk/blob/master/MiHomePluginSDK/docs/callSmartHomeAPI.md';
+    var url = 'https://github.com/MiEcosystem/ios-rn-sdk/blob/master/MiHomePluginSDK/docs/callSmartHomeAPI.md';
     return (
       <View style={styles.container} >
-        <StatusBar barStyle='default'/>
+        <StatusBar barStyle='default' />
         <Text>其他云端api请参见：</Text>
-        <WebView source={{uri:url}} />
+        <WebView source={{ uri: url }} />
       </View>
     );
   }
 }
 
 var styles = StyleSheet.create({
-    container: {
+  container: {
 
-        borderTopColor:'#f1f1f1',
-        borderTopWidth:1,
-        flex:1,
-    },
+    borderTopColor: '#f1f1f1',
+    borderTopWidth: 1,
+    flex: 1,
+  },
 });
 
 

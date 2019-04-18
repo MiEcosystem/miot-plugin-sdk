@@ -1,21 +1,9 @@
 'use strict';
 
+import { Device, Host } from "miot";
+import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
-import {
-    StyleSheet,
-    Text,
-    ListView,
-    View,
-    Image,
-    TouchableHighlight,
-    Component,
-    PixelRatio,
-    ActionSheetIOS,
-} from 'react-native';
-import { Host, DeviceEvent, Device } from "miot";
-import { TitleBarBlack } from 'miot/ui';
-import Service from 'miot/Service';
-
+import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 var BUTTONS = [
     '测试对话框',
     '确定',
@@ -25,7 +13,7 @@ export default class UIDemo extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
         return {
-            header: <TitleBarBlack title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
+            header: <TitleBar type='dark' title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
                 onPressLeft={() => { navigation.goBack(); }} />,
         };
     };

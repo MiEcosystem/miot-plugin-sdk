@@ -106,7 +106,8 @@ export const SETTING_KEYS = {
 export { firstAllOptions, secondAllOptions };
 /**
  * @export public
- * @name CommonSetting
+ * @doc_name CommonSetting
+ * @doc_index 23
  * @author Geeook
  * @since 10004
  * @module CommonSetting
