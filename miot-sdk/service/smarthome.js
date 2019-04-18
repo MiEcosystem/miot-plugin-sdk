@@ -404,13 +404,13 @@ export default {
      * -4 - server err
      * 
      * @since 10005
-     * @param {json} params  -参数 [{did:"",props:["prop.aaa","prop.bbb"]}]
+     * @param {array} params  -参数 [{did:"",props:["prop.aaa","prop.bbb"]}]
      * @return {Promise}
      * @example
      * let params = {'did':Device.deviceID, 'props': [   
      *  "prop.s_push_switch_<uid>"
      * ]}   
-     * Service.smarthome.batchGetDeviceDatas(params).then(...)
+     * Service.smarthome.batchGetDeviceDatas([params]).then(...)
      * 
      * 
      */
@@ -428,12 +428,12 @@ export default {
      * -4 - server err
      * 
      * @since 10005
-     * @param {json} params {did: string, props: json}
+     * @param {array} params [{did: string, props: json}]
      * @example
      * let params = {'did':Device.deviceID, 'props': {   
      *  "prop.s_push_switch_xxx":"0"
      * }}   
-     * Service.smarthome.batchSetDeviceDatas(params).then(...)
+     * Service.smarthome.batchSetDeviceDatas([params]).then(...)
      * 
      */
     batchSetDeviceDatas(params) {
