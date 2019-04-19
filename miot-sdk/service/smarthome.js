@@ -629,9 +629,23 @@ export default {
     /**
      * call api /scene/idfy_get
      * @since 10005
-     * @param {json} params json params
+     * @param {object} params json params
+     * @param {string} params.indetify 唯一标识符，场景的id，一般填did
+     * @example
+     * let params = {identify:Device.deviceID}
+     * Service.smarthome.getIDFY(params)
      */
     getIDFY(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * call api /scene/idfy_get
+     * @param {object} params json params
+     * @example
+     * let params = {"identify":"554011","st_id":7,"setting":{"aqi_link":"0","exception_alert":"1","blue_sky_alert":"0"},"authed":["554011"]}
+     * Service.smarthome.editIDFY(params)
+     */
+    editIDFY(params) {
          return Promise.resolve(null);
     },
     /**
