@@ -1,10 +1,9 @@
 'use strict';
 
-import { TitleBarBlack } from 'miot/ui';
+import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import ListItem from '../UIComponent/ListItem';
-
 
 const DemoInfo = [
   { id: 'SQLiteDemo', title: "sqlite", key: "0" },
@@ -63,7 +62,7 @@ export default class ThirdPartyDemo extends React.Component {
   static navigationOptions = ({ navigation }) => {
 
     return {
-      header: <TitleBarBlack title={"第三方库Demo"} style={{ backgroundColor: '#fff' }}
+      header: <TitleBar type='dark' title={"第三方库Demo"} style={{ backgroundColor: '#fff' }}
         onPressLeft={() => { navigation.goBack(); }} />,
     };
   };

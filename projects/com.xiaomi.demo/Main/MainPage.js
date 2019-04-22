@@ -1,7 +1,7 @@
 'use strict';
 
 import { Device, DeviceEvent, Package } from "miot";
-import { TitleBarBlack } from 'miot/ui';
+import TitleBar from "miot/ui/TitleBar";
 import React from 'react';
 import { Image, Platform, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { getString } from './MHLocalizableString';
@@ -13,9 +13,9 @@ export default class MainPage extends React.Component {
     return {
       header:
         <View>
-          <TitleBarBlack
+          <TitleBar
+            type='dark'
             title={navigation.state["params"] ? navigation.state.params.name : Device.name}
-            style={{ backgroundColor: '#fff' }}
             subTitle={getString('NUM_PHOTOS', { 'numPhotos': 1 })}
             onPressLeft={() => { Package.exit() }}
             onPressRight={() => {
@@ -55,8 +55,8 @@ export default class MainPage extends React.Component {
     var rowThirdPartyDemo = this._createMenuRow('第三方库能力', 'ThirdPartyDemo');
     return (
       <View style={styles.containerAll}>
-        <View style={styles.containerIconDemo} 
-           testID="mytest">
+        <View style={styles.containerIconDemo}
+          testID="mytest">
           <Image style={styles.iconDemo} source={require("../Resources/control_home.png")} ></Image>
           <Text style={styles.iconText}>欢迎使用小米开发板</Text>
         </View>

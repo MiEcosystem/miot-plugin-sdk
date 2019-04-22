@@ -18,7 +18,17 @@ export default class CallSmartHomeAPIDemo extends React.Component {
                 { name: "点击查询当前设备固件版本信息", handle: this.handleArrRes.bind(this), action: () => { return Service.smarthome.getAvailableFirmwareForDids([Device.deviceID]) } },
                 { name: "点击查询设备最新版本信息V2", handle: this.handleObjRes.bind(this), action: () => { return Service.smarthome.getLatestVersionV2(Device.deviceID) } },
                 { name: "点击查询当前用户信息", handle: this.handleObjRes.bind(this), action: () => { return Service.smarthome.getUserInfo(Service.account.ID) } },
-                { name: "点击查询批量用户信息", handle: this.handleArrRes.bind(this), action: () => { return Service.smarthome.getUserInfoList([Service.account.ID, '894158105']) } },
+                { name: "点击查询当前用户信息", handle: this.handleObjRes.bind(this), action: () => { return Service.smarthome.getUserInfo(Service.account.ID) } },
+                {
+                    name: "Batch 设置信息", handle: this.handleObjRes.bind(this), action: () => {
+                        return Service.smarthome.batchSetDeviceDatas([{ did: Device.deviceID, props: { "prop.s_string": 'name', "prop.s_json": JSON.stringify({ 'jname': 'test' }) } }])
+                    }
+                },
+                {
+                    name: "Batch 获取信息", handle: this.handleObjRes.bind(this), action: () => {
+                        return Service.smarthome.batchGetDeviceDatas([{ did: Device.deviceID, props: ["prop.s_string", "prop.s_json"] }])
+                    }
+                },
             ]
         })
     }

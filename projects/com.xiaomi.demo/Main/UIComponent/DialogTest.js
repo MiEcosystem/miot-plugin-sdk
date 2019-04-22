@@ -1,19 +1,16 @@
 'use strict';
 
-import { InputDialog, LoadingDialog, MessageDialog, MultiChoseDialog, ProgressDialog, SingleChoseDialog, TitleBarBlack } from 'miot/ui';
+import { InputDialog, LoadingDialog, MessageDialog, MultiChoseDialog, ProgressDialog, SingleChoseDialog } from 'miot/ui';
+import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ActionSheetIOS, Alert, Platform, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
-
-
-
-
 
 export default class DialogTest extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
 
     return {
-      header: <TitleBarBlack title={'DialogTest'} style={{ backgroundColor: '#fff' }}
+      header: <TitleBar type='dark' title={'DialogTest'} style={{ backgroundColor: '#fff' }}
         onPressLeft={() => {
           navigation.goBack();
         }} />,

@@ -1,15 +1,14 @@
 'use strict';
 
-import { TitleBarBlack } from 'miot/ui';
+import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
-
 export default class UIDemo extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
 
     return {
-      header: <TitleBarBlack title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
+      header: <TitleBar type='dark' title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
         onPressLeft={() => {
           navigation.goBack();
         }} />,
@@ -24,20 +23,18 @@ export default class UIDemo extends React.Component {
     this.state = {
       dataSource: ds.cloneWithRows(
         [
-          'List',
-          'NavigateUIDemo',
-          'UIKitHome',
-          'RefreshListView',
-          'swiperDynamic',
-          'swiperLoadMinimal',
-          // 'PhotoView',
-          'swiperPhone',
-          'swiperSwiper',
-          'swiperNumber',
-          'ProgressDemo',
-          'DialogTest',
-          'ImageCapInsetDemo',
-          'CustomContainer'
+          { name: '自定义列表项', router: 'List' },
+          { name: 'Host.ui 原生导航', router: 'NavigateUIDemo' },
+          { name: 'UIKitHome', router: 'UIKitHome' },
+          { name: 'RefreshListView', router: 'RefreshListView' },
+          { name: 'swiperDynamic', router: 'swiperDynamic' },
+          { name: 'swiperLoadMinimal', router: 'swiperLoadMinimal' },
+          { name: 'swiperPhone', router: 'swiperPhone' },
+          { name: 'swiperSwiper', router: 'swiperSwiper' },
+          { name: 'swiperNumber', router: 'swiperNumber' },
+          { name: 'ProgressDemo', router: 'ProgressDemo' },
+          { name: 'DialogTest', router: 'DialogTest' },
+          { name: 'ImageCapInsetDemo', router: 'ImageCapInsetDemo' }
         ]),
     };
   }
@@ -53,10 +50,10 @@ export default class UIDemo extends React.Component {
 
   _renderRow(rowData, sectionID, rowID) {
     return (
-      <TouchableHighlight underlayColor='#838383' onPress={() => this._pressRow(rowData)}>
+      <TouchableHighlight underlayColor='#838383' onPress={() => this._pressRow(rowData.router)}>
         <View>
           <View style={styles.rowContainer}>
-            <Text style={styles.title}>{rowData}</Text>
+            <Text style={styles.title}>{rowData.name}</Text>
             <Image style={styles.subArrow} source={require('../../Resources/sub_arrow.png')} />
           </View>
           <View style={styles.separator}></View>

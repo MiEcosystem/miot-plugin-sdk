@@ -1,20 +1,9 @@
 'use strict';
 
+import { Device, DeviceEvent, Host } from "miot";
+import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  ListView,
-  View,
-  Image,
-  TouchableHighlight,
-  Component,
-  PixelRatio,
-  ActionSheetIOS,
-} from 'react-native';
-import { Host, DeviceEvent, Device } from "miot";
-import { TitleBarBlack } from 'miot/ui';
-
+import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 var BUTTONS = [
   '测试对话框',
   '确定',
@@ -24,7 +13,7 @@ export default class MoreMenu extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      header: <TitleBarBlack title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
+      header: <TitleBar type='dark' title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
         onPressLeft={() => { navigation.goBack(); }} />,
     };
   };
@@ -215,21 +204,21 @@ export default class MoreMenu extends React.Component {
         'func': () => {
           const licenseURL = require('../Resources/raw/license_zh.html');
           const policyURL = require('../Resources/raw/privacy_zh.html');
-          let licenseKey = "license-"+Device.deviceID;
-          Host.storage.get(licenseKey).then((res)=>{
-              if(res === true){
-                    // 表示已经授权过
-              }else{
-                  Host.ui.openPrivacyLicense('软件许可及服务协议', licenseURL, '隐私协议', policyURL).then((res)=>{
-                      if(res){
-                          // 表示用户同意授权
-                          Host.storage.set(licenseKey, true).then((res)=>{});
-                      }
-                  }).catch((error)=>{
-                      console.log(error)
-                  })
-              }
-          }).catch((error)=>{
+          let licenseKey = "license-" + Device.deviceID;
+          Host.storage.get(licenseKey).then((res) => {
+            if (res === true) {
+              // 表示已经授权过
+            } else {
+              Host.ui.openPrivacyLicense('软件许可及服务协议', licenseURL, '隐私协议', policyURL).then((res) => {
+                if (res) {
+                  // 表示用户同意授权
+                  Host.storage.set(licenseKey, true).then((res) => { });
+                }
+              }).catch((error) => {
+                console.log(error)
+              })
+            }
+          }).catch((error) => {
 
           });
 
@@ -238,14 +227,14 @@ export default class MoreMenu extends React.Component {
     ];
   }
 
-  componentDidMount(){
-    this.listenter = DeviceEvent.deviceTimeZoneChanged.addListener((val)=>{
+  componentDidMount() {
+    this.listenter = DeviceEvent.deviceTimeZoneChanged.addListener((val) => {
       console.log("deviceTimeZoneChanged", val);
     })
   }
 
   componentWillUnmount() {
-    
+
   }
 
   render() {

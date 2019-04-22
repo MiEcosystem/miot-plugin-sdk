@@ -14,8 +14,8 @@
 'use strict';
 
 // ART的demo }
-import { TitleBarBlack } from 'miot/ui';
 import { FirmwareUpgrade, MoreSetting } from "miot/ui/CommonSetting";
+import TitleBar from "miot/ui/TitleBar";
 import React from 'react';
 import { createStackNavigator } from 'react-navigation'; //
 import HelloDeveloper from '../CommonModules/HelloDeveloper';
@@ -116,136 +116,138 @@ import MHSetting from './unuse/MHSetting';
 //   }
 // }
 
-const RootStack = createStackNavigator(
-    {
-        Home: MainPage,
-        Setting,
-        List,
-        MoreSetting,
-        FirmwareUpgrade,
-        CustomContainer,
-        tutorialDemo: TutorialDemo,
-        LocaleServer: LocaleServer,
-        blankDemo: BlankDemo,
-        DeviceControl: DeviceControl,
-        NavigateUIDemo: NavigateUIDemo,
-        JSExecutor: JSExecutor,
-        DeviceDemo: DeviceDemo,
-        PackageDemo: PackageDemo,
-        accountDemo: AccountDemo,
-        ControlDemo: ControlDemo,
-        storageDemo: StorageDemo,
-        fileStorage: FileStorage,
-        callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
-        MemberAPIDemo,
-        RPCControl: RPCControl,
-        OperationDemoIndex: OperationDemoIndex,
-        // BLEConnectionDemo: BLEConnectionDemo,
+const RootStack = createStackNavigator({
+    Home: MainPage,
+    Setting,
+    List,
+    MoreSetting,
+    FirmwareUpgrade,
+    CustomContainer,
+    tutorialDemo: TutorialDemo,
+    LocaleServer: LocaleServer,
+    blankDemo: BlankDemo,
+    DeviceControl: DeviceControl,
+    NavigateUIDemo: NavigateUIDemo,
+    JSExecutor: JSExecutor,
+    DeviceDemo: DeviceDemo,
+    PackageDemo: PackageDemo,
+    accountDemo: AccountDemo,
+    ControlDemo: ControlDemo,
+    storageDemo: StorageDemo,
+    fileStorage: FileStorage,
+    callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
+    MemberAPIDemo,
+    RPCControl: RPCControl,
+    OperationDemoIndex: OperationDemoIndex,
+    // BLEConnectionDemo: BLEConnectionDemo,
 
-        UIDemo: UIDemo,
-        RefreshListView: RefreshListView,
+    UIDemo: UIDemo,
+    RefreshListView: RefreshListView,
 
-        ThirdPartyDemo: ThirdPartyDemo,
-        setting: MHSetting,
-        moreMenu: MoreMenu,
-        // OpenLibList:OpenLibList,
-        helloDeveloper: HelloDeveloper,
-        helloReactART: HelloReactART,
-        mhMapDemo: MHMapDemo,
-        audioDemo: MHAudioDemo,
-        imagePathDemo: ImagePathDemo,
-        //swiper 开始
-        swiperDynamic: Dynamic,
-        swiperLoadMinimal: LoadMinimal,
-        // swiperPhotoView:PhotoView,
-        swiperPhone: Phone,
-        swiperSwiper: Swiper,
-        swiperNumber: SwiperNumber,
-        //swiper 结束
-        ProgressDemo: ProgressDemo,
-        ImageCapInsetDemo: ImageCapInsetDemo,
-        UIKitHome: { screen: Screens.ComponentsScreen },
-        Picker: { screen: Screens.PickerScreen },
-        Button: { screen: Screens.ButtonScreen },
-        Switch: { screen: Screens.SwitchScreen },
-        Choice: { screen: Screens.ChoiceScreen },
-        Tab: { screen: Screens.TabScreen },
-        Card: { screen: Screens.CardScreen },
-        Avatar: { screen: Screens.AvatarScreen },
-        Input: { screen: Screens.InputScreen },
-        Image: { screen: Screens.ImageScreen },
-        Gallery: { screen: Screens.GalleryScreen },
-        Settings: { screen: Screens.SettingsScreen },
-        ChoiceCustomization: { screen: Screens.ChoiceCustomizationScreen },
+    ThirdPartyDemo: ThirdPartyDemo,
+    setting: MHSetting,
+    moreMenu: MoreMenu,
+    // OpenLibList:OpenLibList,
+    helloDeveloper: HelloDeveloper,
+    helloReactART: HelloReactART,
+    mhMapDemo: MHMapDemo,
+    audioDemo: MHAudioDemo,
+    imagePathDemo: ImagePathDemo,
+    //swiper 开始
+    swiperDynamic: Dynamic,
+    swiperLoadMinimal: LoadMinimal,
+    // swiperPhotoView:PhotoView,
+    swiperPhone: Phone,
+    swiperSwiper: Swiper,
+    swiperNumber: SwiperNumber,
+    //swiper 结束
+    ProgressDemo: ProgressDemo,
+    ImageCapInsetDemo: ImageCapInsetDemo,
+    UIKitHome: { screen: Screens.ComponentsScreen },
+    Picker: { screen: Screens.PickerScreen },
+    Button: { screen: Screens.ButtonScreen },
+    Switch: { screen: Screens.SwitchScreen },
+    Choice: { screen: Screens.ChoiceScreen },
+    Tab: { screen: Screens.TabScreen },
+    Card: { screen: Screens.CardScreen },
+    Avatar: { screen: Screens.AvatarScreen },
+    Input: { screen: Screens.InputScreen },
+    Image: { screen: Screens.ImageScreen },
+    Gallery: { screen: Screens.GalleryScreen },
+    Settings: { screen: Screens.SettingsScreen },
+    ChoiceCustomization: { screen: Screens.ChoiceCustomizationScreen },
 
-        // 第三方库 demo 开始
-        SQLiteDemo: SQLiteDemo,
-        OrientationDemo: OrientationDemo,
-        AddressBookDemo: AddressBookDemo,
-        WebViewBridageDemo: WebViewBridageDemo,
-        SVGDemo: SVGDemo,
-        PressExample: PressExample,
-        HoverExample: HoverExample,
-        GroupExample: GroupExample,
-        LegendsView: LegendsView,
-        AxisView: AxisView,
-        ContainersView: ContainersView,
-        CreateContainerView: CreateContainerView,
-        ErrorsTooltipsView: ErrorsTooltipsView,
-        AreaView: AreaView,
-        PieView: PieView,
-        BarView: BarView,
-        ChartView: ChartView,
-        LineView: LineView,
-        ScatterView: ScatterView,
-        BoxPlotView: BoxPlotView,
-        GLSimple: GLSimple,
-        // GLAdvancedEffects:GLAdvancedEffects, //  有bug
-        GLHearts: GLHearts,
-        // GLTests:  GLTests, // 有bug
-        GLAnimated: GLAnimated,
-        GLParticles: GLParticles,
-        GLOrientation: GLOrientation,
-        videoDemo: VideoDemo,
-        ParticleDemo: ParticleDemo,//iOS 特有的,粒子系统
-        ImagePickerDemo: ImagePickerDemo,
+    // 第三方库 demo 开始
+    SQLiteDemo: SQLiteDemo,
+    OrientationDemo: OrientationDemo,
+    AddressBookDemo: AddressBookDemo,
+    WebViewBridageDemo: WebViewBridageDemo,
+    SVGDemo: SVGDemo,
+    PressExample: PressExample,
+    HoverExample: HoverExample,
+    GroupExample: GroupExample,
+    LegendsView: LegendsView,
+    AxisView: AxisView,
+    ContainersView: ContainersView,
+    CreateContainerView: CreateContainerView,
+    ErrorsTooltipsView: ErrorsTooltipsView,
+    AreaView: AreaView,
+    PieView: PieView,
+    BarView: BarView,
+    ChartView: ChartView,
+    LineView: LineView,
+    ScatterView: ScatterView,
+    BoxPlotView: BoxPlotView,
+    GLSimple: GLSimple,
+    // GLAdvancedEffects:GLAdvancedEffects, //  有bug
+    GLHearts: GLHearts,
+    // GLTests:  GLTests, // 有bug
+    GLAnimated: GLAnimated,
+    GLParticles: GLParticles,
+    GLOrientation: GLOrientation,
+    videoDemo: VideoDemo,
+    ParticleDemo: ParticleDemo,//iOS 特有的,粒子系统
+    ImagePickerDemo: ImagePickerDemo,
 
-        // svg
+    // svg
 
-        ARTSVGDemo: ARTSVGDemo,
-        ARTRectDemo: ARTRectDemo,
-        ARTCircleDemo: ARTCircleDemo,
-        ARTEllipseDemo: ARTEllipseDemo,
-        ARTLineDemo: ARTLineDemo,
-        ARTTextDemo: ARTTextDemo,
-        ARTGroupDemo: ARTGroupDemo,
-        ARTGradientDemo: ARTGradientDemo,
-        ARTPatternDemo: ARTPatternDemo,
+    ARTSVGDemo: ARTSVGDemo,
+    ARTRectDemo: ARTRectDemo,
+    ARTCircleDemo: ARTCircleDemo,
+    ARTEllipseDemo: ARTEllipseDemo,
+    ARTLineDemo: ARTLineDemo,
+    ARTTextDemo: ARTTextDemo,
+    ARTGroupDemo: ARTGroupDemo,
+    ARTGradientDemo: ARTGradientDemo,
+    ARTPatternDemo: ARTPatternDemo,
 
 
-        // animation
-        AnimFadeInOutDemo: AnimFadeInOutDemo,
-        AnimTransformDemo: AnimTransformDemo,
-        AnimTranslationDemo: AnimTranslationDemo,
-        AnimEffectsDemo: AnimEffectsDemo,
-        AnimEventsDemo: AnimEventsDemo,
-        LayoutAnimationDemo: LayoutAnimationDemo,
-        AnimCustomCompDemo: AnimCustomCompDemo,
+    // animation
+    AnimFadeInOutDemo: AnimFadeInOutDemo,
+    AnimTransformDemo: AnimTransformDemo,
+    AnimTranslationDemo: AnimTranslationDemo,
+    AnimEffectsDemo: AnimEffectsDemo,
+    AnimEventsDemo: AnimEventsDemo,
+    LayoutAnimationDemo: LayoutAnimationDemo,
+    AnimCustomCompDemo: AnimCustomCompDemo,
 
-        // 第三方库 demo 结束
+    // 第三方库 demo 结束
 
-        // 米家iOS 自定义第三方库<
-        CircularSliderDemo: CircularSliderDemo,
-        // 米家iOS 自定义第三方库>
-        //dialog
-        DialogTest: DialogTest,
-    },
+    // 米家iOS 自定义第三方库<
+    CircularSliderDemo: CircularSliderDemo,
+    // 米家iOS 自定义第三方库>
+    //dialog
+    DialogTest: DialogTest,
+},
     {
         // ThirdPartyDemo
         initialRouteName: 'Home',
         navigationOptions: ({ navigation }) => {
             return {
-                header: <TitleBarBlack title={navigation.state.params ? navigation.state.params.title : ''} style={{ backgroundColor: '#fff' }}
+                header: <TitleBar
+                    title={navigation.state.params ? navigation.state.params.title : ''}
+                    // style={{ backgroundColor: '#fff' }}
+                    type='dark'
                     onPressLeft={() => {
                         navigation.goBack();
                     }} />,
@@ -254,8 +256,7 @@ const RootStack = createStackNavigator(
         transitionConfig: () => ({
             screenInterpolator: interpolator,
         }),
-    }
-);
+    });
 
 
 function interpolator(props) {
@@ -317,8 +318,9 @@ function interpolator(props) {
     };
 
     if (!interpolate) return { opacity: 0 };
-
-    const { first, last } = interpolate(props);
+    const p = interpolate(props);
+    if (!p) return;
+    const { first, last } = p
     const index = scene.index;
     const opacity = position.interpolate({
         inputRange: [first, first + 0.01, index, last - 0.01, last],

@@ -350,7 +350,20 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 获取AppConfig
+     * @param {object} params 请求参数
+     * @param {string} params.name configName
+     * @param {string} params.model device model
+     * @param {string} params.lang lang e.g: zh_CN
+     * @param {string} params.result_level 值为1，则不返回content来节省流量， 默认为0
+     * @param {string} params.version version
+     */
+    getAppConfig(params) {
+         return Promise.resolve(null);
+    },
+    /**
      * 用于获取插件所需的一些默认配置信息
+     * @deprecated 10010, SDKLevel 10010 废弃该接口，使用getAppConfig
      * @param {json} params {'name':'自定义值','lang':'自定义值','version':'自定义值','model':'modelId'}
      * /service/getappconfigv2
      */
@@ -404,13 +417,13 @@ export default {
      * -4 - server err
      * 
      * @since 10005
-     * @param {json} params  -参数 [{did:"",props:["prop.aaa","prop.bbb"]}]
+     * @param {array} params  -参数 [{did:"",props:["prop.aaa","prop.bbb"]}]
      * @return {Promise}
      * @example
      * let params = {'did':Device.deviceID, 'props': [   
      *  "prop.s_push_switch_<uid>"
      * ]}   
-     * Service.smarthome.batchGetDeviceDatas(params).then(...)
+     * Service.smarthome.batchGetDeviceDatas([params]).then(...)
      * 
      * 
      */
@@ -428,12 +441,12 @@ export default {
      * -4 - server err
      * 
      * @since 10005
-     * @param {json} params {did: string, props: json}
+     * @param {array} params [{did: string, props: json}]
      * @example
      * let params = {'did':Device.deviceID, 'props': {   
      *  "prop.s_push_switch_xxx":"0"
      * }}   
-     * Service.smarthome.batchSetDeviceDatas(params).then(...)
+     * Service.smarthome.batchSetDeviceDatas([params]).then(...)
      * 
      */
     batchSetDeviceDatas(params) {
@@ -465,6 +478,12 @@ export default {
      * 从服务器获取配置文件，/device/getThirdConfig
      *
      * @param {json} params  -参数 {"name":"config_version","version":1,"lang":"en","app_id":"XXX"}
+     * @param {string} params.name configName
+     * @param {string} params.model device model
+     * @param {string} params.app_id app_id
+     * @param {string} params.lang lang e.g: zh_CN
+     * @param {string} params.result_level 值为1，则不返回content来节省流量， 默认为0
+     * @param {string} params.version version
      * @return {Promise}
      */
     getThirdConfig(params) {
@@ -629,9 +648,23 @@ export default {
     /**
      * call api /scene/idfy_get
      * @since 10005
-     * @param {json} params json params
+     * @param {object} params json params
+     * @param {string} params.indetify 唯一标识符，场景的id，一般填did
+     * @example
+     * let params = {identify:Device.deviceID}
+     * Service.smarthome.getIDFY(params)
      */
     getIDFY(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * call api /scene/idfy_get
+     * @param {object} params json params
+     * @example
+     * let params = {"identify":"554011","st_id":7,"setting":{"aqi_link":"0","exception_alert":"1","blue_sky_alert":"0"},"authed":["554011"]}
+     * Service.smarthome.editIDFY(params)
+     */
+    editIDFY(params) {
          return Promise.resolve(null);
     },
     /**

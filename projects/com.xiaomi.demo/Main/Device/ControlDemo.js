@@ -1,17 +1,16 @@
 'use strict';
 
 import { Device, DeviceEvent } from "miot";
-import { TitleBarBlack } from 'miot/ui';
+import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { Image, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
-
 
 
 export default class ControlDemo extends React.Component {
   static navigationOptions = ({ navigation }) => {
 
     return {
-      header: <TitleBarBlack title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
+      header: <TitleBar type='dark' title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
         onPressLeft={() => { navigation.goBack(); }} />,
     };
   };
