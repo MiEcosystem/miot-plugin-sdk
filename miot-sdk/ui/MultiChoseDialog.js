@@ -6,7 +6,7 @@
  * @description 多选对话框
  * @mark andr done
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { requireNativeComponent, ViewPropTypes, } from 'react-native';
 import PropTypes from 'prop-types';
 export default class MultiChoseDialog extends Component {

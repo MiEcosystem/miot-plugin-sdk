@@ -6,17 +6,16 @@
  * @description 消息对话框
  * @mark andr done
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   requireNativeComponent,
   ViewPropTypes,
 } from 'react-native';
 import PropTypes from 'prop-types';
 export default class MessageDialog extends Component {
-  
   static defaultProps = {
-    title:'',
-    message:''
+    title: '',
+    message: ''
   }
   static propTypes = {
     /**

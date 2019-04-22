@@ -6,7 +6,7 @@
  * @description 进度对话框，当进度到达max设置之后自动消失
  * @mark andr done
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   requireNativeComponent,
   ViewPropTypes,

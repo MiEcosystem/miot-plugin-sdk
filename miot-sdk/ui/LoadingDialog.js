@@ -6,7 +6,7 @@
  * @description 加载对话框
  * @mark andr done
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   requireNativeComponent,
   ViewPropTypes,
@@ -49,7 +49,7 @@ export default class ProgressDialog extends Component {
     ...ViewPropTypes,
   };
   render() {
-    let showText = this.props.message?this.props.message:this.props.title;
+    let showText = this.props.message ? this.props.message : this.props.title;
      return null
   }
 }

@@ -71,6 +71,7 @@ export class IScene {
      */
     get sceneID() {
          return  0
+        return Properties.of(this).data.us_id
     }
     /**
      * 是否是新的场景
