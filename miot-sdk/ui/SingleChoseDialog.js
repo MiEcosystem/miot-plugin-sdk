@@ -25,7 +25,7 @@
  * @property {func} onDismiss 对话框消失回调
  * @property {func} onCheck 某一行选中状态变更回调
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   requireNativeComponent,
   ViewPropTypes,

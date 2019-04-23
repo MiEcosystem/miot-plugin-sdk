@@ -14,7 +14,7 @@
  * @property {func} onDismiss 对话框消失回调
  * @property {number} timeout 超时自动隐藏，设置0或者不设置不会自动隐藏
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   requireNativeComponent,
   ViewPropTypes,

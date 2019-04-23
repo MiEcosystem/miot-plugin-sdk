@@ -11,7 +11,7 @@
  * @property {func} onDismiss 对话框消失回调
  * @property {number} timeout 超时自动隐藏，设置0或者不设置不会自动隐藏
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   requireNativeComponent,
   ViewPropTypes,
@@ -29,7 +29,7 @@ export default class ProgressDialog extends Component {
     ...ViewPropTypes,
   };
   render() {
-    let showText = this.props.message?this.props.message:this.props.title;
+    let showText = this.props.message ? this.props.message : this.props.title;
      return null
   }
 }

@@ -34,6 +34,7 @@ import DeviceDemo from "./Device/DeviceDemo";
 import MHAudioDemo from './Host/MHAudioDemo';
 import OrientationDemo from './Host/OrientationDemo';
 import NavigateUIDemo from "./Host/UI";
+import PrivacyDemo from "./Host/UI/privacy";
 import VideoDemo from './Host/VideoDemo';
 import MainPage from './MainPage';
 import MoreMenu from './MoreMenu';
@@ -116,6 +117,33 @@ import MHSetting from './unuse/MHSetting';
 //   }
 // }
 
+<<<<<<< HEAD
+const RootStack = createStackNavigator(
+    {
+        Home: MainPage,
+        Setting,
+        List,
+        MoreSetting,
+        FirmwareUpgrade,
+        CustomContainer,
+        tutorialDemo: TutorialDemo,
+        LocaleServer: LocaleServer,
+        blankDemo: BlankDemo,
+        DeviceControl: DeviceControl,
+        NavigateUIDemo: NavigateUIDemo,
+        JSExecutor: JSExecutor,
+        DeviceDemo: DeviceDemo,
+        PackageDemo: PackageDemo,
+        accountDemo: AccountDemo,
+        ControlDemo: ControlDemo,
+        storageDemo: StorageDemo,
+        fileStorage: FileStorage,
+        callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
+        MemberAPIDemo,
+        RPCControl: RPCControl,
+        OperationDemoIndex: OperationDemoIndex,
+        // BLEConnectionDemo: BLEConnectionDemo,
+=======
 const RootStack = createStackNavigator({
     Home: MainPage,
     Setting,
@@ -139,7 +167,9 @@ const RootStack = createStackNavigator({
     MemberAPIDemo,
     RPCControl: RPCControl,
     OperationDemoIndex: OperationDemoIndex,
+    PrivacyDemo,
     // BLEConnectionDemo: BLEConnectionDemo,
+>>>>>>> dac8aedfb302256aaf985ac5d5d58aa1698cc3ae
 
     UIDemo: UIDemo,
     RefreshListView: RefreshListView,

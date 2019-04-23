@@ -50,14 +50,9 @@ export default {
      return Promise.resolve('');
   },
   /**
-<<<<<<< HEAD
    * SHA256 编码
-   * @param {*} content
-=======
-   * SHA2 编码
    * @param {*} content 需要编码的字符串
    * @returns {Promise<string>}
->>>>>>> add docks
    */
   encodeSHA2(content) {
      return Promise.resolve('');

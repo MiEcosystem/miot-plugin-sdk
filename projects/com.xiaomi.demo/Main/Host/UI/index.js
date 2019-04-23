@@ -60,6 +60,19 @@ export default class UIDemo extends React.Component {
                 'func': () => {
                     Host.ui.openOneTimePassword(Device.deviceID, 30, 6);
                 }
+            },
+
+            {
+                'name': '用户协议与隐私政策',
+                'func': () => {
+                    this.props.navigation.navigate('PrivacyDemo', { 'title': '用户协议与隐私政策' });
+                }
+            },
+            {
+                'name': '打开定时',
+                'func': () => {
+                    Host.ui.openTimerSettingPageWithOptions({ onMethod: "power_on", onParam: "on", offMethod: "power_off", offParam: "off", displayName: "这是一个自定义标题" })
+                }
             }
         ];
     }

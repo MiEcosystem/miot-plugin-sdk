@@ -130,6 +130,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 通过前缀分批拉取设备的配置信息
      * - /v2/device/range_get_extra_data
      * @deprecated 10005 开始废弃， 后续版本会移除该方法。推荐使用 batchGetDeviceDatas
      * @param {json} params {did:string,prefix:string,limit:int,offset:int}
@@ -371,18 +372,20 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 石头扫地机器人专用，撤销隐私时删除扫地机地图
      *  /user/del_user_map
      *
-     * @param {json} params
+     * @param {json} params {did} 设备ID
      * @return {Promise}
      */
     delUsermap(params) {
          return Promise.resolve(null);
     },
     /**
+     * 石头扫地机器人专用，获取fds存储文件url
      *  /home/getrobomapurl
      *
-     * @param {*} arams
+     * @param {*} arams {“obj_name”:”xxx/12345678/87654321/1.0”}，obj_name格式为:fds存储文件夹/did/uid/obj_name
      * @return {Promise}
      */
     getRobomapUrl(params) {
@@ -417,7 +420,7 @@ export default {
      * -4 - server err
      * 
      * @since 10005
-     * @param {array} params  -参数 [{did:"",props:["prop.aaa","prop.bbb"]}]
+     * @param {json} params  -参数 [{did:"",props:["prop.aaa","prop.bbb"]}]
      * @return {Promise}
      * @example
      * let params = {'did':Device.deviceID, 'props': [   
@@ -441,7 +444,7 @@ export default {
      * -4 - server err
      * 
      * @since 10005
-     * @param {array} params [{did: string, props: json}]
+     * @param {json} params {did: string, props: json}
      * @example
      * let params = {'did':Device.deviceID, 'props': {   
      *  "prop.s_push_switch_xxx":"0"
@@ -463,6 +466,28 @@ export default {
      * -4 - server err
      * 
      * @since 10005
+     * @param {json} params {did: string, props: json}
+     * @example
+     * let params = {'did':Device.deviceID, 'props': {   
+     *  "prop.s_notify_screen_dev_enable":"0", //0,关； 1，开   
+     *  "prop.s_notify_screen_dev_did":"123456789" // 接收rpc的音响设备  
+     * }}   
+     * Service.smarthome.setDeviceProp(params).then(...)
+     */
+    setDeviceProp(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 设置设备属性，e.g 配置摄像头/门铃设备的属性
+     * props最多20个, 属性需要以"prop.s_"开头。
+     * 
+     * error code: 
+     * 0 - 成功
+     * -7 - 没有找到注册的设备
+     * -6 - 设备对应uid不为0 
+     * -4 - server err
+     * 
+     * @since 10004
      * @param {json} params {did: string, props: json}
      * @example
      * let params = {'did':Device.deviceID, 'props': {   
