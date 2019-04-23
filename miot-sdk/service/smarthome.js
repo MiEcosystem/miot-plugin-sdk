@@ -99,6 +99,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 通过前缀分批拉取设备的配置信息
      * - /v2/device/range_get_extra_data
      * @deprecated 10004 开始废弃， 后续版本会移除该方法。
      * @param {json} params {did:string,prefix:string,limit:int,offset:int}
@@ -327,18 +328,20 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 石头扫地机器人专用，撤销隐私时删除扫地机地图
      *  /user/del_user_map
      *
-     * @param {json} params
+     * @param {json} params {did} 设备ID
      * @return {Promise}
      */
     delUsermap(params) {
          return Promise.resolve(null);
     },
     /**
+     * 石头扫地机器人专用，获取fds存储文件url
      *  /home/getrobomapurl
      *
-     * @param {*} arams
+     * @param {*} arams {“obj_name”:”xxx/12345678/87654321/1.0”}，obj_name格式为:fds存储文件夹/did/uid/obj_name
      * @return {Promise}
      */
     getRobomapUrl(params) {
