@@ -138,8 +138,13 @@ export default class ListItemWithSwitch extends React.Component {
     if (!this.props.showSeparator) return null;
     return this.props.separator || <Separator style={{ marginLeft: Styles.common.padding }} />
   }
+  // 父组件更新数据
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.state.value) {
+      this.setState({ value: nextProps.value });
+    }
+  }
   _onValueChange(value) {
-    console.log('switch value', value);
     this.setState({ value });
     if (this.props.onValueChange) {
       this.props.onValueChange(value);

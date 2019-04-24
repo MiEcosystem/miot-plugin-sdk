@@ -38,7 +38,8 @@ export default class Switch extends React.Component {
     Animated.spring(this.offsetX,
       {
         toValue,
-        duration: 200,
+        bounciness: 11,
+        speed: 9,
       }
     ).start();
     return (
