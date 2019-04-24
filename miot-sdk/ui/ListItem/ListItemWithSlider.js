@@ -139,8 +139,16 @@ export default class ListItemWithSlider extends React.Component {
     }
     return val;
   }
+  // 父组件更新数据
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.state.value) {
+      this.setState({
+        value: nextProps.value,
+        valueStr: this.format(nextProps.value)
+      });
+    }
+  }
   _onSlidingComplete(value) {
-    console.log('slider value', value);
     this.setState({
       value,
       valueStr: this.format(value)
