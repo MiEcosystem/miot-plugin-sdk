@@ -218,14 +218,18 @@ export default {
    * Host.ui.openTimerSettingPageWithOptions({onMethod:"power_on", onParam: "on", offMethod: "power_off", offParam: "off", displayName:"设置xxx定时"})
    */
   openTimerSettingPageWithOptions(options) {
-    if (native.isAndroid) {
-      if (typeof (options) != "string") {
-        options = JSON.stringify(options);
-      }
-    }
-    native.MIOTHost.openTimerSettingPageWithOptions(options);
   },
   /**
+   * 更多设置-多键开关设置页面
+   * @since 10010 ,SDKLevel 10010 开始提供使用
+   * @param {string} did  设备did
+   * @param {string} mac  设备mac
+   * @example
+   * Host.ui.openPowerMultikeyPage(did, mac);
+  */
+  openPowerMultikeyPage(did, mac){
+  },
+    /**
    * 添加或者复制一个红外遥控器
    * @since 10003
    * @param {string} did 设备did
