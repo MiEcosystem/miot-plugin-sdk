@@ -8,7 +8,9 @@ import {
   Text,
   View,
   TouchableOpacity,
-  DeviceEventEmitter
+  DeviceEventEmitter,
+    PermissionsAndroid,
+    Platform,NativeModules
 } from 'react-native';
 
 import { Host } from "miot";
@@ -73,17 +75,33 @@ export default class MHAudioDemo extends React.Component {
     );
   }
 
-  _startRecordButtonClicked() {
-    var settings = {
-      AVFormatIDKey: 'audioFormatLinearPCM',
-      AVSampleRateKey: 9500,
-      AVNumberOfChannelsKey: 2,
-      AVEncoderAudioQualityKey: 'audioQualityHigh',
-      AVLinearPCMBitDepthKey: 16,
-      AVLinearPCMIsBigEndianKey: false,
-      AVLinearPCMIsFloatKey: false,
-    };
-    Host.audio.startRecord(fileName, settings).then(() => { console.log('startRecord'); });
+    _startRecordButtonClicked() {
+
+      var settings = {
+          AVFormatIDKey: 'audioFormatLinearPCM',
+          AVSampleRateKey: 9500,
+          AVNumberOfChannelsKey: 2,
+          AVEncoderAudioQualityKey: 'audioQualityHigh',
+          AVLinearPCMBitDepthKey: 16,
+          AVLinearPCMIsBigEndianKey: false,
+          AVLinearPCMIsFloatKey: false,
+      };
+
+    if(Platform.OS === 'android'){
+
+        PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.RECORD_AUDIO, null)
+            .then((granted) => {
+                console.log("granted", granted);
+                if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                    Host.audio.startRecord(fileName, settings).then(() => { console.log('startRecord'); });
+                }
+            }).catch((error)=>{
+                console.log("error", error)
+        })
+    }else{
+        Host.audio.startRecord(fileName, settings).then(() => { console.log('startRecord'); });
+    }
+
   }
 
   _stopRecordButtonClicked() {
