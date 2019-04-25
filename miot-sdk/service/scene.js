@@ -241,7 +241,7 @@ export class IScene {
  * @param {string} deviceID 设备id
  * @param {SceneType} sceneType 场景类型
  * @param {*} opt {identify,name} 同上面的identify，name
- * @returns {Promise<IScene>}
+ * @returns {IScene}
  */
 function createScene(deviceID, sceneType, opt = null) {
      return Promise.resolve(null);
