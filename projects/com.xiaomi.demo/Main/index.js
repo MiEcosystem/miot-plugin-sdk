@@ -84,6 +84,7 @@ import PieView from './ThirdPartDemo/Victory-Native/views/pie-view';
 import ScatterView from './ThirdPartDemo/Victory-Native/views/scatter-view';
 import WebViewBridageDemo from './ThirdPartDemo/WebViewBridageDemo';
 import BlankDemo from './tutorial/BlankDemo';
+import CardPage from "./tutorial/CardPage";
 import JSExecutor from './tutorial/JSExecutor';
 import List from "./tutorial/List";
 import LocaleServer from './tutorial/LocaleServer';
@@ -121,6 +122,7 @@ const RootStack = createStackNavigator({
     Home: MainPage,
     Setting,
     List,
+    CardPage,
     MoreSetting,
     FirmwareUpgrade,
     CustomContainer,
