@@ -3,7 +3,6 @@ import { Device } from 'miot';
 import { DeviceEvent } from 'miot/Device';
 import Host from 'miot/Host';
 import TitleBar from 'miot/ui/TitleBar';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { strings, Styles } from '../../resources';
@@ -11,9 +10,7 @@ import ListItem from '../ListItem/ListItem';
 import Separator from '../Separator';
 import { secondAllOptions } from "./CommonSetting";
 /**
- * @export public
- * @doc_name CommonSetting
- * @doc_index 23
+ * @export
  * @author Geeook
  * @since 10004
  * @module MoreSetting
@@ -32,14 +29,6 @@ export default class MoreSetting extends React.Component {
         />
     };
   };
-  static propTypes = {
-    secondOptions: PropTypes.array,
-  }
-  static defaultProps = {
-    secondOptions: [
-      secondAllOptions.TIMEZONE,
-    ]
-  }
   getMoreSetting(state) {
     return {
       [secondAllOptions.SECURITY]: {
@@ -66,6 +55,7 @@ export default class MoreSetting extends React.Component {
     this.state = {
       timeZone: Device.timeZone // 从未设置过时区的话，为空字符串
     }
+    this.secondOptions = this.props.navigation.state.params.secondOptions || [secondAllOptions.TIMEZONE];
     this.moreSetting = this.getMoreSetting(this.state);
   }
   componentWillMount() {
@@ -81,7 +71,7 @@ export default class MoreSetting extends React.Component {
   render() {
     const requireKeys1 = [secondAllOptions.SECURITY, secondAllOptions.FEEDBACK];
     const requireKeys2 = [secondAllOptions.ADD_TO_DESKTOP];
-    const keys = [...requireKeys1, ...this.props.secondOptions, ...requireKeys2];
+    const keys = [...requireKeys1, ...this.secondOptions, ...requireKeys2];
     const items = keys.map(key => {
       if (key !== undefined &&
         this.moreSetting[key] !== undefined) {
