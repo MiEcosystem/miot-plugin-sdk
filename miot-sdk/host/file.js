@@ -1,5 +1,7 @@
 /**
- * @export
+ * @export public
+ * @doc_name 原生_文件模块
+ * @doc_index 10
  * @module miot/host/file
  * @description 
  * 本地文件访问及处理服务
@@ -188,6 +190,71 @@ export default {
      * ...
      */
     deleteFile(fileName, opt = {}) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 获取用于上传FDS文件的obj_name以及用于上传的url
+     * 设备需要申请配置FDS权限，参考 https://iot.mi.com/new/guide.html?file=08-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/03-%E5%AD%98%E5%82%A8/01-%E4%BD%BF%E7%94%A8FDS%E5%AD%98%E5%82%A8%E7%94%A8%E6%88%B7%E6%96%87%E4%BB%B6
+     * @since 10004
+     * @param {string} did 设备did
+     * @param {string} suffix 文件后缀 例如 'mp3', 'txt'
+     * @example
+     *  let did = Device.deviceID;
+        let suffix = "mp3";
+        Host.file.generateObjNameAndUrlForFDSUpload(did, suffix).then(res => {
+        if (res.hasOwnProperty(suffix) && res[suffix]) {
+            let obj = res[suffix];
+            let obj_name = obj.obj_name;
+            let name = obj_name.substring(obj_name.length - 22)
+            let content = "AC";
+            let time = obj.time;
+            this.file_obj_name = obj_name;
+            console.log("pre upload", res)
+            Host.file.writeFile(name, content).then(r => {
+                let param = {
+                    uploadUrl: obj.url,
+                    method: obj.method,
+                    headers: { "Content-Type": "" },
+                    files: [{ filename: name }]
+                }
+                Host.file.uploadFileToFDS(param).then(rr => {
+                    alert('上传成功' + JSON.stringify(rr))
+                    console.log('upload file success', rr)
+                }).catch(err => {
+                    alert('上传失败' + JSON.stringify(err))
+                    console.log('upload file failed', err)
+                })
+            }).catch(err => {
+                alert('存储临时文件失败' + JSON.stringify(err))
+                console.log("write file failed", err)
+            })
+        }
+        })
+     */
+    generateObjNameAndUrlForFDSUpload(did, suffix) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 获取FDS文件的信息，包含下载地址等信息
+     * 设备需要申请配置FDS权限，参考 https://iot.mi.com/new/guide.html?file=08-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/03-%E5%AD%98%E5%82%A8/01-%E4%BD%BF%E7%94%A8FDS%E5%AD%98%E5%82%A8%E7%94%A8%E6%88%B7%E6%96%87%E4%BB%B6
+     * @since 10004
+     * @param {string} obj_name generateObjNameAndUrlForFDSUpload 生成的 obj_name
+     * @example
+     *  let did = Device.deviceID;
+        let suffix = "mp3";
+        let file_obj_name = this.file_obj_name //从服务端获取或者本地获取,通过generateObjNameAndUrlForFDSUpload 生成
+        if (file_obj_name) {
+        Host.file.getFDSFileInfoWithObjName(file_obj_name).then(res => {
+            console.log('getfileurl success', res)
+            alert('获取成功' + JSON.stringify(res))
+        }).catch(err => {
+            console.log('getfileurl failed', err)
+        })
+        } else {
+        alert("先上传文件")
+        }
+     */
+    getFDSFileInfoWithObjName(obj_name) {
          return Promise.resolve(null);
     },
     /**

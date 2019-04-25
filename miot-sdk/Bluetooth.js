@@ -1,5 +1,7 @@
 /**
- * @export
+ * @export public
+ * @doc_name 蓝牙模块
+ * @doc_index 3
  * @module miot/Bluetooth
  * @description 蓝牙设备操作类
  *
@@ -28,16 +30,16 @@
  * ble.disconnect()
  *
  */
-import RootDevice from './Device'
-import Host from './Host'
+import RootDevice from './Device';
+import Host from './Host';
 export const getBluetoothUUID128 = id => {
-    if(!id || id=='')return null;
+    if (!id || id == '') return null;
     id = id.toUpperCase();
-    if(id.length > 8)return id;
-    switch(id.length){
-        case 2: id = "000000" + id;break;
-        case 4: id = "0000" + id;break;
-        case 6: id = "00" + id;break;
+    if (id.length > 8) return id;
+    switch (id.length) {
+        case 2: id = "000000" + id; break;
+        case 4: id = "0000" + id; break;
+        case 6: id = "00" + id; break;
         case 8: break;
         default:
             return null;
@@ -84,6 +86,7 @@ export class IBluetoothCharacteristic {
      * 数值, 配合 isValueLoaded 使用
      * @member
      * @type {*}
+     * @returns hexstring
      * @readonly
      * @example
      *
@@ -112,7 +115,7 @@ export class IBluetoothCharacteristic {
      * 写数据
      * 对应 writeWithResponse
      * @method
-     * @param {*} value
+     * @param {*} value hexstring
      * @returns {Promise<IBluetoothCharacteristic>}
      *
      */
@@ -210,7 +213,7 @@ export class IBluetoothLock {
      * })
      * ...
      */
-    toggle(cmd,timeout) {
+    toggle(cmd, timeout) {
          return Promise.resolve(null);
     }
     /**
@@ -246,7 +249,7 @@ export class IBluetoothLock {
      *  .catch(err => {console.log('get one time password failed, ', err})
      * ...
      */
-    getOneTimePassword(interval,digits) {
+    getOneTimePassword(interval, digits) {
          return Promise.resolve(null);
     }
     /**
@@ -266,7 +269,7 @@ export class IBluetoothLock {
          return Promise.resolve(null);
     }
     /**
-     * 支持小米加密芯片的蓝牙设备，使用此方法将明文加密为密文后，可发送给设备
+     * 支持小米加密芯片的蓝牙设备，使用此方法将密文解密为明文
      * @method
      * @param {string} encrypted 密文
      * @returns {Promise<string>}
@@ -279,6 +282,22 @@ export class IBluetoothLock {
      * ...
      */
     decryptMessage(encrypted) {
+         return Promise.resolve(null);
+    }
+    /**
+     * 使用设备的token加密指定数据
+     * @since 10004
+     * @param {string} data Hex Data String
+     */
+    encryptMessageWithToken(data) {
+         return Promise.resolve(null);
+    }
+    /**
+     * 使用设备的token解密指定数据
+     * @since 10004
+     * @param {strng} data Hex Data String
+     */
+    decryptMessageWithToken(data) {
          return Promise.resolve(null);
     }
 }
@@ -296,7 +315,7 @@ export class IBluetooth {
      * @type {boolean}
      * @readonly
      */
-    get isBLE(){
+    get isBLE() {
          return  true
     }
     /**
@@ -324,16 +343,71 @@ export class IBluetooth {
      * @member
      * @type {boolean}
      * @readonly
-     *
+     * 
      */
     get isConnected() {
+         return  false
+    }
+    /**
+     * 蓝牙是否处于连接中
+     * @since 10004
+     * @member
+     * @type {boolean}
+     * @readonly
+     *
+     */
+    get isConnecting() {
          return  false
     }
     /**
      * 打开蓝牙链接. option参数peripheralID为iOS 平台的可选参数，因为iOS平台无法获取普通 BLE 蓝牙设备的 Mac
      * peripheralID 可通过 startScan（）搜索周边蓝牙设备获取（如设备OTA中，设备固件切换，无小米蓝牙协议相关服务时需建立连接），或通过retrievePeripheralsWithServicesForIOS（）搜索已连接设备获取（如可穿戴长连接设备，无法发送 mibeacon）
      * 建立连接后，SDK 会用 peripheralID 充当 Mac 地址
-     *
+     * error code :
+     * 0 - 成功  
+     * -1: 请求失败  
+     * -2: 请求取消哦  
+     * -3: 参数异常  
+     * -4: 蓝牙不支持  
+     * -5: 蓝牙已关闭  
+     * -6: 连接不可用  
+     * -7: 超时  
+     * -10: token失效  
+     * -11: 请求过于频繁  
+     * -12: 配置未准备  
+     * -13: 请求中  
+     * -14: 请求被拒绝  
+     * -15: 未知异常  
+     * -16: 安全芯片：设备已经被重置，没有注册的Key信息，需要用户重新绑定  
+     * -17: 安全芯片：设备已经被绑定，需要用户解除绑定并且按设备的复位键清除绑定  
+     * -18: 安全芯片：分享的钥匙已过期  
+     * -19: 安全芯片：共享登录时没有获取到共享的Key  
+     * -20: 安全芯片：注册时验证设备返回的证书和设备签名失败  
+     * -21: 安全芯片：Owner登录时解析设备返回的证书和签名失败  
+     * -22: 安全芯片：Owner登录时设备返回失败  
+     * -23: 安全芯片：共享用户登录时解析设备返回的证书和签名失败  
+     * -24: 安全芯片：共享用户登录时设备返回失败  
+     * -25: 安全芯片：共享用户登录时获取SharedKeyId为空  
+     * -26: 安全芯片：Owner登录时绑定LTMK到服务器失败  
+     * -27: 连接设备过程中，Notify操作失败  
+     * -28: 数据传输过程中，数据发送失败  
+     * -29: 普通安全：注册时获取did失败  
+     * -30: 普通安全：注册时绑定did失败  
+     * -31: 普通安全：登录时验证设备返回的token失败  
+     * -32: 蓝牙连接过程中收到连接断开的广播  
+     * -33: 安全芯片：绑定的时候需要用户在设备输入配对码  
+     * -34: 安全芯片：绑定时设备输入的配对码失败  
+     * -35: 安全芯片：绑定时配对码过期  
+     * -36: 安全芯片：绑定时获取固件版本号失败  
+     * -37: 安全芯片：绑定时当前app不支持固件的版本，需要提示用户升级app  
+     * -38: 安全芯片：从服务端同步到加密的LTMK，解密的时候pincode为空  
+     * -39: 蓝牙Mesh绑定过程中，服务端校验设备证书失败  
+     * -40: 蓝牙Mesh绑定过程中，服务端校验设备签名失败  
+     * -41: 蓝牙Mesh绑定过程中，设备校验服务端证书失败  
+     * -42: 蓝牙Mesh绑定过程中，设备校验服务端签名失败  
+     * -43: 蓝牙Mesh绑定过程中，设备校验服务端公钥失败  
+     * -44: 蓝牙Mesh绑定过程中，获取Mesh配置信息失败  
+     * -45: 蓝牙Mesh绑定过程中，给服务端发送Mesh配置结果时失败  
      * @method
      * @returns {Promise<IBluetooth>}
      * @param {int} type -蓝牙设备类型 -1 自动判断，0 普通小米蓝牙协议设备，1 安全芯片小米蓝牙设备（比如锁类产品），2 分享的安全芯片小米蓝牙设备，3 普通的BLE蓝牙设备(无 mibeacon，无小米 FE95 service)
@@ -351,7 +425,7 @@ export class IBluetooth {
      *       });
      *
      */
-    connect(type=-1, option=0) {
+    connect(type = -1, option = 0) {
          return Promise.resolve(this);
     }
     /**
@@ -364,7 +438,7 @@ export class IBluetooth {
          return Promise.resolve(null);
     }
     /**
-     * 关闭链接
+     * 关闭链接 **注意小米协议的蓝牙设备，退出插件的时候，一定要调用此方法，关闭蓝牙连接，否则下次打开插件的时候，会提示蓝牙无法连接**
      * @method
      * @param {int} delay -延迟时长(毫秒)
      *
@@ -379,11 +453,11 @@ export class IBluetooth {
      * @param {int} type - 0 代表 writeWithResponse, 1 代表 writeWithoutResponse
      *
      */
-    maximumWriteValueLength(type = 0){
-       return Promise.resolve(null);
+    maximumWriteValueLength(type = 0) {
+         return Promise.resolve(null);
     }
     /**
-     * 更新版本号，蓝牙的版本号 connect 之后才能
+     * 更新版本号，蓝牙的版本号 connect 之后才能查看
      * @return {Promise<any>}
      */
     getVersion() {
@@ -394,7 +468,7 @@ export class IBluetooth {
  *  BLE 蓝牙
  * @interface
  */
-export class IBluetoothLE extends IBluetooth{
+export class IBluetoothLE extends IBluetooth {
     /**
      * 蓝牙锁相关操作
      * @returns {IBluetoothLock}
@@ -437,7 +511,7 @@ export class IBluetoothLE extends IBluetooth{
  * 经典蓝牙
  * @interface
  */
-export class IBluetoothClassic extends IBluetooth{
+export class IBluetoothClassic extends IBluetooth {
 }
  const bluetoothDevices={}
 /**
@@ -556,17 +630,17 @@ export default {
      * const myCharacterUUID = Bluetooth.UUID128("f7255c06-e981-46f1-be3d-86c5cd1bb590");
      * 
      */
-    UUID128:getBluetoothUUID128,
+    UUID128: getBluetoothUUID128,
     /**
      * 用以判断两个 UUID 是否相等
      * @param {string} uuid1 
      * @param {string} uuid2 
      */
-    isSameUUID(uuid1, uuid2){
-        if(uuid1 == uuid2){
+    isSameUUID(uuid1, uuid2) {
+        if (uuid1 == uuid2) {
             return true;
         }
-        if(!uuid1 || !uuid2){
+        if (!uuid1 || !uuid2) {
             return false;
         }
         return getBluetoothUUID128(uuid1) == getBluetoothUUID128(uuid2);
@@ -673,14 +747,14 @@ export default {
     * @static
     * @param {string} mac
     */
-    bindDeviceforMIUI(mac){
+    bindDeviceforMIUI(mac) {
     },
     /**
      * 只在MIUI上支持，解除长连接
      * @static
      * @param {string} mac
      */
-    unBindDeviceforMIUI(mac){
+    unBindDeviceforMIUI(mac) {
     },
     /**
      * 只在MIUI上支持，维持长连接 如果连接失败，则会隔一段时间尝试重连，如果继续失败，则重连间隔会翻倍，直到上限。
@@ -690,6 +764,6 @@ export default {
      * @param {*} enable
      *  @param {string} mac
      */
-    setAlertConfigsOnMIUI(mac,alert,enable){
+    setAlertConfigsOnMIUI(mac, alert, enable) {
     },
 };

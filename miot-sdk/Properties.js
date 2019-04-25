@@ -1,5 +1,5 @@
 /**
- * @export
+ * @export private
  * @module miot/Properties
  * @desc 用于设备属性集合的本地缓存工具类
  *  
@@ -32,15 +32,15 @@
  *   myDeviceProperties.clear();
  *
  */
- /**
-  * @interface
-  */
-class IProperties{
+/**
+ * @interface
+ */
+class IProperties {
     /**
      * 获取属性
      * @param {*} name 
      */
-    getProperty(name){
+    getProperty(name) {
         return this._properties.get(name);
     }
     /**
@@ -49,7 +49,7 @@ class IProperties{
      * @param {*} value 
      * @returns {IProperties}
      */
-    setProperty(name, value){
+    setProperty(name, value) {
         this._properties.set(name, value)
         this._status.set(name, true)
         return this;
@@ -58,7 +58,7 @@ class IProperties{
      * 获取所有的属性名
      * @returns {Set<string>}
      */
-    getPropertyNames(){
+    getPropertyNames() {
         return this._properties.keys();
     }
     /**
@@ -66,7 +66,7 @@ class IProperties{
      * @param {*} name 
      * @returns {boolean}
      */
-    hasProperty(name){
+    hasProperty(name) {
         return this._properties.has(name);
     }
     /**
@@ -74,11 +74,11 @@ class IProperties{
      * @param {string} name -属性名称, 如果为*则表示删除所有属性 
      * @returns {IProperties}
      */
-    removeProperty(name){
-        if(!name){
+    removeProperty(name) {
+        if (!name) {
             return this;
         }
-        if(name == "*"){
+        if (name == "*") {
             return this.removeAllProperties();
         }
         this._properties.delete(name);
@@ -90,21 +90,21 @@ class IProperties{
      * @param {Array<string>} names -如果第一个 name 为*, 则表示删除所有属性
      * @returns {IProperties}
      */
-    removeProperties(...names){
-        if(names.length < 1){
+    removeProperties(...names) {
+        if (names.length < 1) {
             return this;
         }
-        if(names[0] == "*"){
+        if (names[0] == "*") {
             return this.removeAllProperties();
         }
-        names.forEach(name=>this.removeProperty(name))
+        names.forEach(name => this.removeProperty(name))
         return this;
     }
     /**
      * 删除所有属性
      * @returns {IProperties}
      */
-    removeAllProperties(){
+    removeAllProperties() {
         this._properties = new Map();
         this._status = new Map();
         return this;
@@ -114,7 +114,7 @@ class IProperties{
      * @param {*} name 
      * @returns {boolean}
      */
-    isPropertyChanged(name){
+    isPropertyChanged(name) {
         return this._status.get(name);
     }
     /**
@@ -123,9 +123,9 @@ class IProperties{
      * @returns {Map<string, object>}
      * 
      */
-    getProperties(...names){
+    getProperties(...names) {
         const props = new Map();
-        names.forEach(name=>props.set(name, this.getProperty(name)||null))
+        names.forEach(name => props.set(name, this.getProperty(name) || null))
         return props;
     }
     /**
@@ -144,27 +144,27 @@ class IProperties{
      * 
      * 
      */
-    setProperties(nameValues, nameConvertor=null){ 
-        if(!nameValues){
+    setProperties(nameValues, nameConvertor = null) {
+        if (!nameValues) {
             return this;
         }
-        switch(typeof(nameConvertor)){
+        switch (typeof (nameConvertor)) {
             case 'function': break;
-            case 'string':{
+            case 'string': {
                 const prefix = nameConvertor;
-                nameConvertor=n=>n.startsWith(prefix)?n.substring(prefix.length):n;
+                nameConvertor = n => n.startsWith(prefix) ? n.substring(prefix.length) : n;
                 break;
             }
             default:
-                nameConvertor = n=>n;
+                nameConvertor = n => n;
                 break;
         }
-        if(nameValues.constructor.name == 'Map'){
-            nameValues.forEach((value, key)=>{
+        if (nameValues.constructor.name == 'Map') {
+            nameValues.forEach((value, key) => {
                 this.setProperty(nameConvertor(key), value);
             })
-        }else{
-            Object.keys(nameValues).forEach(name=>{
+        } else {
+            Object.keys(nameValues).forEach(name => {
                 this.setProperty(nameConvertor(name), nameValues[name]);
             })
         }
@@ -192,29 +192,28 @@ class IProperties{
      *      sub.remove()
      * 
      */
-    addListener(names, callback){ 
-        if(!callback){
-            if(typeof(names) == 'function'){
+    addListener(names, callback) {
+        if (!callback) {
+            if (typeof (names) == 'function') {
                 callback = names;
                 names = "*";
-            }else{
-                return {remove(){}};
+            } else {
+                return { remove() { } };
             }
         }
-        const props = Array.isArray(names)?names:(names?[names]:null);
-        if(!props || props.length < 1 || !props[0]){
-            return {remove(){}};
+        const props = Array.isArray(names) ? names : (names ? [names] : null);
+        if (!props || props.length < 1 || !props[0]) {
+            return { remove() { } };
         }
-        const listener = {props, isAny:props[0]=="*", callback}
+        const listener = { props, isAny: props[0] == "*", callback }
         this._listeners.add(listener);
         const self = this;
         return {
-            remove(){
+            remove() {
                 self._listeners.delete(listener);
             }
         }
     }
- 
     /**
      * 检查并触发属性变化事件, 一般情况下, 在设置了新的属性数值后, 应该调用此方法触发监听事件
      * @param {*} names -属性名, 如果为空或 names[0]=="*" 则自动检查所有的属性变化
@@ -229,14 +228,14 @@ class IProperties{
      * 
      * 
      */
-    notifyPropertiesChanged(...names){
-        if(this._listeners.size < 1){
+    notifyPropertiesChanged(...names) {
+        if (this._listeners.size < 1) {
             return this;
         }
-        const props = (names.length < 1 || names[0] == "*")?this._properties.keys():names;
+        const props = (names.length < 1 || names[0] == "*") ? this._properties.keys() : names;
         let tempProps = [...props];
-        const changed = tempProps.filter(p=>this.isPropertyChanged(p));
-        changed.forEach(p=>this._status.delete(p))
+        const changed = tempProps.filter(p => this.isPropertyChanged(p));
+        changed.forEach(p => this._status.delete(p))
         return this.triggerListeners(...changed);
     }
     /**
@@ -244,29 +243,29 @@ class IProperties{
      * @param {*} names -如果names[0]=="*"则表示触发所有的事件
      * @returns {IProperties}
      */
-    triggerListeners(...names){
-        if(this._listeners.size < 1 || names.length < 1){
+    triggerListeners(...names) {
+        if (this._listeners.size < 1 || names.length < 1) {
             return this;
         }
         const isAll = names[0] == "*";
-        setImmediate(()=>{
-            this._listeners.forEach(({props, isAny, callback})=>{
-                if(isAll || isAny || props.find(p=>names.indexOf(p)>=0)){
+        setImmediate(() => {
+            this._listeners.forEach(({ props, isAny, callback }) => {
+                if (isAll || isAny || props.find(p => names.indexOf(p) >= 0)) {
                     callback(this, {
-                        getChangeProps(){
+                        getChangeProps() {
                             let changeProps = [];
-                            if(isAll){
-                                if(isAny){
+                            if (isAll) {
+                                if (isAny) {
                                     changeProps = [...this._properties];
-                                }else{
+                                } else {
                                     changeProps = props;
                                 }
-                            }else{
-                                if(isAny){
+                            } else {
+                                if (isAny) {
                                     changeProps = names;
-                                }else{
-                                    props.forEach((p)=>{
-                                        names.indexOf(p) >= 0 ? changeProps.push(p):null;
+                                } else {
+                                    props.forEach((p) => {
+                                        names.indexOf(p) >= 0 ? changeProps.push(p) : null;
                                     })
                                 }
                             }
@@ -275,7 +274,7 @@ class IProperties{
                     });
                 }
             })
-        },0);
+        }, 0);
         return this;
     }
     /**
@@ -284,30 +283,30 @@ class IProperties{
      * @returns {IProperties}
      * 
      */
-    removeListeners(...names){
-        if(names.length < 1){
+    removeListeners(...names) {
+        if (names.length < 1) {
             return this;
         }
-        if(names[0] == "*"){
+        if (names[0] == "*") {
             return this.removeAllListeners();
         }
         const needRemove = new Set();
-        this._listeners.forEach(listener=>{
-            const {props, isAny} = listener;
-            if(isAny)return;
-            listener.props = props.filter(p=>names.indexOf(p)<0);
-            if(listener.props.length < 1){
+        this._listeners.forEach(listener => {
+            const { props, isAny } = listener;
+            if (isAny) return;
+            listener.props = props.filter(p => names.indexOf(p) < 0);
+            if (listener.props.length < 1) {
                 needRemove.add(listener);
             }
         });
-        needRemove.forEach(listener=>this._listeners.remove(listener));
+        needRemove.forEach(listener => this._listeners.remove(listener));
         return this;
     }
     /**
      * 删除所有的事件监听
      * @returns {IProperties}
      */
-    removeAllListeners(){
+    removeAllListeners() {
         this._listeners = new Set();
         return this;
     }
@@ -315,21 +314,21 @@ class IProperties{
      * 清除缓存并删除所有的事件监听
      * @returns {IProperties}
      */
-    clear(){
+    clear() {
         return this.removeAllListeners().removeAllProperties();
     }
- }
+}
 /**
  * 创建一个新的属性缓存对象
  * @static
  */
- export const createProperties = ()=>{
-    const ps =  new IProperties();
+export const createProperties = () => {
+    const ps = new IProperties();
     ps._properties = new Map();
     ps._status = new Map();
     ps._listeners = new Set();
     return ps;
- }
+}
 /**
  * 根设备属性缓存对象
  * @static

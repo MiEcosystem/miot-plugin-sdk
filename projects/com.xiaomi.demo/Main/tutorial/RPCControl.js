@@ -1,23 +1,15 @@
 'use strict';
 
+import { Device } from "miot";
+import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
-import {
-    View, Text,
-    TouchableHighlight,
-    StyleSheet,
-    Image,
-    TextInput,
-    Button
-} from 'react-native';
-
-import { TitleBarBlack } from 'miot/ui';
-import { Device, DeviceEvent } from "miot";
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default class RPCControl extends React.Component {
     static navigationOptions = ({ navigation }) => {
 
         return {
-            header: <TitleBarBlack title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
+            header: <TitleBar type='dark' title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
                 onPressLeft={() => { navigation.goBack(); }} />,
         };
     };
@@ -109,6 +101,7 @@ export default class RPCControl extends React.Component {
             var result = JSON.stringify(res);
             this.setState({ result })
         }).catch(err => {
+            console.log('error:', err)
             var result = JSON.stringify(err);
             result = "Error: \n" + result;
             this.setState({ result })
@@ -149,7 +142,7 @@ export default class RPCControl extends React.Component {
         var paramsString = JSON.stringify(params)
         var method = 'get_count_down'
         var extraString = ''
-        this.setState({ params, paramsString, method ,extraString})
+        this.setState({ params, paramsString, method, extraString })
     }
 
     setPramsTo_light_props() {
@@ -158,7 +151,7 @@ export default class RPCControl extends React.Component {
         var extra = { id: Device.deviceID }
         var extraString = JSON.stringify(extra)
         var method = 'get_device_prop'
-        this.setState({ params, paramsString, method , extraString, extra})
+        this.setState({ params, paramsString, method, extraString, extra })
     }
 
     setPramsTo_light_toggle() {
@@ -167,7 +160,7 @@ export default class RPCControl extends React.Component {
         var extra = { 'sid': Device.deviceID }
         var extraString = JSON.stringify(extra)
         var method = 'set_power'
-        this.setState({ params, paramsString, method, extraString ,extra})
+        this.setState({ params, paramsString, method, extraString, extra })
     }
 
     onMethodTextRChanged(event) {
@@ -181,12 +174,12 @@ export default class RPCControl extends React.Component {
         try {
             var params = JSON.parse(paramsString)
             this.setState({
-                params,paramsString,result: 'None'
+                params, paramsString, result: 'None'
             })
         } catch (err) {
             var params = []
             this.setState({
-                params,paramsString,result: "prase params failed"
+                params, paramsString, result: "prase params failed"
             })
         }
     }

@@ -1,28 +1,13 @@
 'use strict';
 
 import { Package } from "miot";
+import TitleBar from 'miot/ui/TitleBar';
 import React from "react";
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  Image,
-  View,
-  TextInput,
-  PixelRatio,
-  StatusBar,
-  TouchableOpacity,
-  Platform,
-  DeviceEventEmitter,
-} from "react-native"
-import { ImageButton, TitleBarBlack } from 'miot/ui'
-import PackageDemo from "./tutorial/PackageDemo";
+import { Image, Platform, StyleSheet, Text, TextInput, View } from "react-native";
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 var rValue = 0;
 var gValue = 0;
 var bValue = 0;
-
 export default class SceneMain extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -41,7 +26,7 @@ export default class SceneMain extends React.Component {
   render() {
     return (
       <View style={styles.containerAll} >
-        <TitleBarBlack
+        <TitleBar type='dark'
           onPressLeft={() => Package.exit()}
           // disabled={!this.state.textValid || !this.state.numValid}
           disabled={!this.state.numValid}

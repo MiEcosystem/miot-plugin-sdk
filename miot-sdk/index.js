@@ -22,7 +22,7 @@ import HostInstance  from './Host'
 import ResourcesPack from './resources'
 import BluetoothFactory, {BluetoothEvent as BluetoothEventNames} from './Bluetooth'
 import {SceneType as SceneTypeNames} from './service/scene'
-export const API_LEVEL = 10003
+export const API_LEVEL = 10005
 /**
  * 插件包基本配置
  * {@link module:miot/Package}

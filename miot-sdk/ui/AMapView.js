@@ -1,12 +1,15 @@
 /**
- * @export
+ * @export public
+ * @doc_name 地图组件
+ * @doc_index 20
  * @module miot/ui/AMapView
  * @description 地图的 js 桥接，内部使用高德地图实现，
  * @mark andr done
  */
-import { requireNativeComponent, ViewPropTypes } from 'react-native';
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { requireNativeComponent, ViewPropTypes } from 'react-native';
+import Host from '../Host';
 const resolveAssetSource = require('resolveAssetSource');
 const MapView = requireNativeComponent('MHMapView', null);
 export default class AMapView extends Component {
@@ -162,37 +165,8 @@ export default class AMapView extends Component {
         onMapDidZoomByUser: PropTypes.func,
         ...ViewPropTypes,
     };
-    // render() {
-    //     //@native :=> null
-    //     if (this.props.userLocation) this.props.userLocation.image = AMapView.resloveUri(this.props.userLocation.image);
-    //     if (this.props.userLocationRepresentation) this.props.userLocationRepresentation.image = AMapView.resloveUri(this.props.userLocationRepresentation.image);
-    //     if (this.props.annotations && Array.isArray(this.props.annotations)) this.props.annotations.forEach(item => {
-    //         item.image = AMapView.resloveUri(item.image)
-    //     });
-    //     return <MapView {...this.props} />;
-    //     //@native end
-    // }
     render() {
-        let propsObject = JSON.parse(JSON.stringify(this.props));
-        console.log("AMapView reslove  begin...", propsObject);
-        if (propsObject.userLocation) {
-            propsObject.userLocation.image = AMapView.resloveUri(propsObject.userLocation.image);
-        }
-        if (propsObject.userLocationRepresentation) {
-            propsObject.userLocationRepresentation.image = AMapView.resloveUri(propsObject.userLocationRepresentation.image);
-        }
-        if (propsObject.annotations && Array.isArray(propsObject.annotations)) {
-            propsObject.annotations.forEach(item => {
-                item.image = AMapView.resloveUri(item.image)
-            });
-        }
-        console.log("AMapView reslove  end...", propsObject);
-        return <MapView {...propsObject}
-                        userLocation={propsObject.userLocation}
-                        userLocationRepresentation={propsObject.userLocationRepresentation}
-                        annotations={propsObject.annotations}
-                        centerCoordinate={propsObject.centerCoordinate}
-        />;
+         return null
     }
     static resloveUri(licenseUrl) {
         licenseUrl = resolveAssetSource(licenseUrl);

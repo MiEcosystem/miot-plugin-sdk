@@ -13,116 +13,99 @@
 */
 'use strict';
 
+// ART的demo }
+import { FirmwareUpgrade, MoreSetting } from "miot/ui/CommonSetting";
+import TitleBar from "miot/ui/TitleBar";
 import React from 'react';
-
-import {
-  View, Text, AppRegistry, Button,
-  TouchableHighlight,
-  TouchableOpacity,
-  Platform,
-  Dimensions,
-  Animated,
-  StyleSheet,
-  PixelRatio,
-  DeviceEventEmitter,
-  Image,
-} from 'react-native';
-
 import { createStackNavigator } from 'react-navigation'; //
-import MainPage from './MainPage';
-import ControlDemo from './ControlDemo';
-import CloudDebug from './CloudDebug';
-import ThirdPartyDemo from './ThirdPartyDemo';
-import MHSetting from './MHSetting';
-import VideoDemo from './VideoDemo';
-import MHAudioDemo from './MHAudioDemo';
-import MoreMenu from './MoreMenu';
-import MHMapDemo from './MHMapDemo';
-import ImagePathDemo from './NewStructureTest'
 import HelloDeveloper from '../CommonModules/HelloDeveloper';
 import HelloReactART from '../CommonModules/HelloReactART';
-import LineView from './Victory-Native/views/line-view';
-import SVGDemo from './SVGDemo';
-import PieView from './Victory-Native/views/pie-view';
-import BarView from './Victory-Native/views/bar-view';
-import ScatterView from './Victory-Native/views/scatter-view';
-import ContainersView from './Victory-Native/views/containers-view';
-import AxisView from './Victory-Native/views/axis-view';
-import AddressBookDemo from './AddressBookDemo';
-import CreateContainerView from './Victory-Native/views/create-container-view';
-import ErrorsTooltipsView from './Victory-Native/views/errors-tooltips-view';
-import ChartView from './Victory-Native/views/chart-view';
-import LegendsView from './Victory-Native/views/legends-view';
-import WebViewBridageDemo from './WebViewBridageDemo';
-import AreaView from './Victory-Native/views/area-view';
-import OrientationDemo from './OrientationDemo';
-import { GroupExample, HoverExample, PressExample } from './SVGDemo2';
-import SQLiteDemo from './SQLiteDemo';
-import BoxPlotView from './Victory-Native/views/boxplot-view';
-import GLSimple from './gl/Simple';
-import GLParticles from './gl/Particles';
-import GLAnimated from './gl/Animated';
-import GLOrientation from './gl/Orientation';
-// import GLAdvancedEffects from './gl/AdvancedEffects';
-import GLHearts from './gl/Hearts';
-// import GLTests from './gl/Tests';
-// import OpenLibList from './OpenLibList';
-import ParticleDemo from './ParticleDemo';
-
-// ART的demo  {
-
-import ARTSVGDemo from './ARTComponentDemo/ARTSVGDemo'; //图片：SVG，
-import ARTRectDemo from './ARTComponentDemo/ARTRectDemo';//矩形：Rect，多边形：Polygon,多边线：Polyline
-import ARTCircleDemo from './ARTComponentDemo/ARTCircleDemo';//圆形：Circle，
-import ARTEllipseDemo from './ARTComponentDemo/ARTEllipseDemo';//椭圆：Ellipse
-import ARTLineDemo from './ARTComponentDemo/ARTLineDemo';//直线：Line,多边线：Polyline
-import ARTTextDemo from './ARTComponentDemo/ARTTextDemo';//文字：Text
-import ARTGroupDemo from './ARTComponentDemo/ARTGroupDemo';//分组：Group,
-import ARTGradientDemo from './ARTComponentDemo/ARTGradientDemo';//LinearGradient：线性渐变,RadialGradient：径向渐变
-import ARTPatternDemo from './ARTComponentDemo/ARTPatternDemo';//Pattern 图案
-
-
-import AnimFadeInOutDemo from './AnimationComponentDemo/AnimFadeInOutDemo';//淡入淡出
-import AnimTransformDemo from './AnimationComponentDemo/AnimTransformDemo';//旋转翻转
-import AnimTranslationDemo from './AnimationComponentDemo/AnimTranslationDemo';//平行移动
-import AnimEffectsDemo from './AnimationComponentDemo/AnimEffectsDemo';//动画特效
-import AnimEventsDemo from './AnimationComponentDemo/AnimEventsDemo';//动画事件
-import LayoutAnimationDemo from './AnimationComponentDemo/LayoutAnimationDemo'; //其他动画
+import AccountDemo from './Account';
 import AnimCustomCompDemo from './AnimationComponentDemo/AnimCustomCompDemo'; //自定义动画组
-import Dynamic from './swiper/Dynamic/'
-import LoadMinimal from './swiper/LoadMinimal/'
-import Phone from './swiper/Phone/'
-// import PhotoView from './swiper/PhotoView/' // not working
-import Swiper from './swiper/Swiper/'  // working but no title displayed
-import SwiperNumber from './swiper/SwiperNumber/' // working but no title displayed
-import ImageCapInsetDemo from './ImageCapInsetDemo' // working but no title displayed
-
-// ART的demo }
-
-import { TitleBarBlack } from 'miot/ui';
+import AnimEffectsDemo from './AnimationComponentDemo/AnimEffectsDemo'; //动画特效
+import AnimEventsDemo from './AnimationComponentDemo/AnimEventsDemo'; //动画事件
+import AnimFadeInOutDemo from './AnimationComponentDemo/AnimFadeInOutDemo'; //淡入淡出
+import AnimTransformDemo from './AnimationComponentDemo/AnimTransformDemo'; //旋转翻转
+import AnimTranslationDemo from './AnimationComponentDemo/AnimTranslationDemo'; //平行移动
+import LayoutAnimationDemo from './AnimationComponentDemo/LayoutAnimationDemo'; //其他动画
+import ControlDemo from './Device/ControlDemo';
+import DeviceControl from "./Device/DeviceControl";
+import DeviceDemo from "./Device/DeviceDemo";
+import MHAudioDemo from './Host/MHAudioDemo';
+import OrientationDemo from './Host/OrientationDemo';
+import NavigateUIDemo from "./Host/UI";
+import VideoDemo from './Host/VideoDemo';
+import MainPage from './MainPage';
+import MoreMenu from './MoreMenu';
+import ImagePathDemo from './NewStructureTest';
+import MemberAPIDemo from './Service/member';
+import CallSmartHomeAPIDemo from './Service/smarthome';
+import AddressBookDemo from './ThirdPartDemo/AddressBookDemo';
+import ARTCircleDemo from './ThirdPartDemo/ARTComponentDemo/ARTCircleDemo'; //圆形：Circle，
+import ARTEllipseDemo from './ThirdPartDemo/ARTComponentDemo/ARTEllipseDemo'; //椭圆：Ellipse
+import ARTGradientDemo from './ThirdPartDemo/ARTComponentDemo/ARTGradientDemo'; //LinearGradient：线性渐变,RadialGradient：径向渐变
+import ARTGroupDemo from './ThirdPartDemo/ARTComponentDemo/ARTGroupDemo'; //分组：Group,
+import ARTLineDemo from './ThirdPartDemo/ARTComponentDemo/ARTLineDemo'; //直线：Line,多边线：Polyline
+import ARTPatternDemo from './ThirdPartDemo/ARTComponentDemo/ARTPatternDemo'; //Pattern 图案
+import ARTRectDemo from './ThirdPartDemo/ARTComponentDemo/ARTRectDemo'; //矩形：Rect，多边形：Polygon,多边线：Polyline
+// ART的demo  {
+import ARTSVGDemo from './ThirdPartDemo/ARTComponentDemo/ARTSVGDemo'; //图片：SVG，
+import ARTTextDemo from './ThirdPartDemo/ARTComponentDemo/ARTTextDemo'; //文字：Text
 // import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
-
-import CircularSliderDemo from './CircularSliderDemo'
-import ImagePickerDemo from './ImagePickerDemo'
-import DialogTest from './DialogTest';
+import CircularSliderDemo from './ThirdPartDemo/CircularSliderDemo';
+import ImagePickerDemo from './ThirdPartDemo/ImagePickerDemo';
+import MHMapDemo from './ThirdPartDemo/MHMapDemo';
+import GLAnimated from './ThirdPartDemo/openGL/Animated';
+// import GLAdvancedEffects from './openGL/AdvancedEffects';
+import GLHearts from './ThirdPartDemo/openGL/Hearts';
+import GLOrientation from './ThirdPartDemo/openGL/Orientation';
+import GLParticles from './ThirdPartDemo/openGL/Particles';
+import GLSimple from './ThirdPartDemo/openGL/Simple';
+// import GLTests from './ThirdPartDemo/openGL/Tests';
+// import OpenLibList from './OpenLibList';
+import ParticleDemo from './ThirdPartDemo/ParticleDemo';
+import ProgressDemo from './ThirdPartDemo/ProgressDemo';
+import SQLiteDemo from './ThirdPartDemo/SQLiteDemo';
+import SVGDemo from './ThirdPartDemo/SVGDemo';
+import { GroupExample, HoverExample, PressExample } from './ThirdPartDemo/SVGDemo2';
+import ThirdPartyDemo from './ThirdPartDemo/ThirdPartyDemo';
+import AreaView from './ThirdPartDemo/Victory-Native/views/area-view';
+import AxisView from './ThirdPartDemo/Victory-Native/views/axis-view';
+import BarView from './ThirdPartDemo/Victory-Native/views/bar-view';
+import BoxPlotView from './ThirdPartDemo/Victory-Native/views/boxplot-view';
+import ChartView from './ThirdPartDemo/Victory-Native/views/chart-view';
+import ContainersView from './ThirdPartDemo/Victory-Native/views/containers-view';
+import CreateContainerView from './ThirdPartDemo/Victory-Native/views/create-container-view';
+import ErrorsTooltipsView from './ThirdPartDemo/Victory-Native/views/errors-tooltips-view';
+import LegendsView from './ThirdPartDemo/Victory-Native/views/legends-view';
+import LineView from './ThirdPartDemo/Victory-Native/views/line-view';
+import PieView from './ThirdPartDemo/Victory-Native/views/pie-view';
+import ScatterView from './ThirdPartDemo/Victory-Native/views/scatter-view';
+import WebViewBridageDemo from './ThirdPartDemo/WebViewBridageDemo';
 import BlankDemo from './tutorial/BlankDemo';
 import JSExecutor from './tutorial/JSExecutor';
-import AccountDemo from './tutorial/account/AccountDemo';
-import StorageDemo from './tutorial/storage/StorageDemo';
-import RPCControl from './tutorial/RPCControl';
-import TutorialDemo from './tutorial/TutorialDemo';
+import List from "./tutorial/List";
 import LocaleServer from './tutorial/LocaleServer';
-import CallSmartHomeAPIDemo from './tutorial/cloud/CallSmartHomeAPIDemo.js';
 import OperationDemoIndex from './tutorial/operation/OperationDemoIndex';
-// import BLEConnectionDemo from './tutorial/operation/bluetooth/BLEConnectionDemo';
-import UIDemo from './UIDemo';
-import RefreshListView from './RefreshListView';
-import ProgressDemo from './ProgressDemo';
-import FileStorage from './tutorial/storage/FileStorage';
-import * as Screens from "./uikit/screens";
-import DeviceDemo from "./tutorial/device/DeviceDemo";
 import PackageDemo from "./tutorial/PackageDemo";
-
+import RPCControl from './tutorial/RPCControl';
+import Setting from "./tutorial/Setting";
+import FileStorage from './tutorial/storage/FileStorage';
+import StorageDemo from './tutorial/storage/StorageDemo';
+import TutorialDemo from './tutorial/TutorialDemo';
+import DialogTest from './UIComponent/DialogTest';
+import ImageCapInsetDemo from './UIComponent/ImageCapInsetDemo'; // working but no title displayed
+import RefreshListView from './UIComponent/RefreshListView';
+import Dynamic from './UIComponent/swiper/Dynamic/';
+import LoadMinimal from './UIComponent/swiper/LoadMinimal/';
+import Phone from './UIComponent/swiper/Phone/';
+import Swiper from './UIComponent/swiper/Swiper/'; // working but no title displayed
+import SwiperNumber from './UIComponent/swiper/SwiperNumber/'; // working but no title displayed
+// import BLEConnectionDemo from './tutorial/operation/bluetooth/BLEConnectionDemo';
+import UIDemo from './UIComponent/UIDemo';
+import CustomContainer from './uikit/components/CustomContainer';
+import * as Screens from "./uikit/screens";
+import MHSetting from './unuse/MHSetting';
 // class HomeScreen extends React.Component {
 //   render() {
 //     return (
@@ -133,24 +116,58 @@ import PackageDemo from "./tutorial/PackageDemo";
 //   }
 // }
 
+<<<<<<< HEAD
 const RootStack = createStackNavigator(
-  {
+    {
+        Home: MainPage,
+        Setting,
+        List,
+        MoreSetting,
+        FirmwareUpgrade,
+        CustomContainer,
+        tutorialDemo: TutorialDemo,
+        LocaleServer: LocaleServer,
+        blankDemo: BlankDemo,
+        DeviceControl: DeviceControl,
+        NavigateUIDemo: NavigateUIDemo,
+        JSExecutor: JSExecutor,
+        DeviceDemo: DeviceDemo,
+        PackageDemo: PackageDemo,
+        accountDemo: AccountDemo,
+        ControlDemo: ControlDemo,
+        storageDemo: StorageDemo,
+        fileStorage: FileStorage,
+        callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
+        MemberAPIDemo,
+        RPCControl: RPCControl,
+        OperationDemoIndex: OperationDemoIndex,
+        // BLEConnectionDemo: BLEConnectionDemo,
+=======
+const RootStack = createStackNavigator({
     Home: MainPage,
+    Setting,
+    List,
+    MoreSetting,
+    FirmwareUpgrade,
+    CustomContainer,
     tutorialDemo: TutorialDemo,
     LocaleServer: LocaleServer,
     blankDemo: BlankDemo,
+    DeviceControl: DeviceControl,
+    NavigateUIDemo: NavigateUIDemo,
     JSExecutor: JSExecutor,
     DeviceDemo: DeviceDemo,
     PackageDemo: PackageDemo,
     accountDemo: AccountDemo,
     ControlDemo: ControlDemo,
-    CloudDebug: CloudDebug,
     storageDemo: StorageDemo,
     fileStorage: FileStorage,
     callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
+    MemberAPIDemo,
     RPCControl: RPCControl,
     OperationDemoIndex: OperationDemoIndex,
     // BLEConnectionDemo: BLEConnectionDemo,
+>>>>>>> dac8aedfb302256aaf985ac5d5d58aa1698cc3ae
 
     UIDemo: UIDemo,
     RefreshListView: RefreshListView,
@@ -249,30 +266,32 @@ const RootStack = createStackNavigator(
     // 米家iOS 自定义第三方库>
     //dialog
     DialogTest: DialogTest,
-  },
-  {
-    // ThirdPartyDemo
-    initialRouteName: 'Home',
-    navigationOptions: ({ navigation }) => {
-      return {
-        header: <TitleBarBlack title={navigation.state.params ? navigation.state.params.title : ''} style={{ backgroundColor: '#fff' }}
-          onPressLeft={() => {
-            navigation.goBack();
-          }} />,
-      };
-    },
-      transitionConfig: () => ({
-          screenInterpolator:interpolator,
-      }),
-  }
-);
+},
+    {
+        // ThirdPartyDemo
+        initialRouteName: 'Home',
+        navigationOptions: ({ navigation }) => {
+            return {
+                header: <TitleBar
+                    title={navigation.state.params ? navigation.state.params.title : ''}
+                    // style={{ backgroundColor: '#fff' }}
+                    type='dark'
+                    onPressLeft={() => {
+                        navigation.goBack();
+                    }} />,
+            };
+        },
+        transitionConfig: () => ({
+            screenInterpolator: interpolator,
+        }),
+    });
 
 
-function interpolator(props){
+function interpolator(props) {
     const { layout, position, scene } = props;
 
     if (!layout.isMeasured) {
-        return (props)=>{
+        return (props) => {
             const { navigation, scene } = props;
 
             const focused = navigation.state.index === scene.index;
@@ -285,7 +304,7 @@ function interpolator(props){
             };
         };
     }
-    const interpolate = (props)=>{
+    const interpolate = (props) => {
         const { scene, scenes } = props;
         const index = scene.index;
         const lastSceneIndexInScenes = scenes.length - 1;
@@ -327,8 +346,9 @@ function interpolator(props){
     };
 
     if (!interpolate) return { opacity: 0 };
-
-    const { first, last } = interpolate(props);
+    const p = interpolate(props);
+    if (!p) return;
+    const { first, last } = p
     const index = scene.index;
     const opacity = position.interpolate({
         inputRange: [first, first + 0.01, index, last - 0.01, last],
@@ -338,7 +358,7 @@ function interpolator(props){
     const width = layout.initWidth;
     const translateX = position.interpolate({
         inputRange: [first, index, last],
-        outputRange: false? [-width, 0, width * 0.3]: [width, 0, width * -0.3],
+        outputRange: false ? [-width, 0, width * 0.3] : [width, 0, width * -0.3],
     });
     const translateY = 0;
 
@@ -349,8 +369,8 @@ function interpolator(props){
 };
 
 export default class App extends React.Component {
-  render() {
-    return <RootStack />;
-  }
+    render() {
+        return <RootStack />;
+    }
 
 }

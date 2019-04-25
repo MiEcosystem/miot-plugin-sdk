@@ -1,5 +1,7 @@
 /**
- * @export
+ * @export public
+ * @doc_name 原生模块
+ * @doc_index 5
  * @module miot/Host
  * @description 
  * 扩展程序运行时的宿主环境  
@@ -58,7 +60,7 @@ export default {
     },
     /**
      * @const 
-     * @return {object} 包含sysVersion 系统版本名称 mobileModel 手机型号
+     * @type {object} 包含sysVersion 系统版本名称 mobileModel 手机型号
      * @description 系统信息
      */
     get systemInfo() {
@@ -74,7 +76,8 @@ export default {
     },
     /**
      * @const
-     * @description 判断是否 iOS
+     * @type {boolean}
+     * @description 判断是否 iOS，和上面那个方法二选一即可
      */
     get isIOS() {
          return  false
@@ -108,7 +111,7 @@ export default {
     /**
      * 是否是国际版APP 国内版1 国际版2 欧洲版3
      * @const
-     * @type {boolean}
+     * @type {int}
      * @readonly
      */
     get applicationEdition() {
@@ -214,8 +217,7 @@ export default {
      * ....
      * myexecutor&&myexecutor.remove();
      */
-    createBackgroundExecutor(jx, initialProps={}){
+    createBackgroundExecutor(jx, initialProps = {}) {
          return Promise.resolve({execute(method, ...args){}, remove(){}});
     }
-    
 }

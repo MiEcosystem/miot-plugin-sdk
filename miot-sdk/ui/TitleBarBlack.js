@@ -1,5 +1,8 @@
 /**
- * @export
+ * @export public
+ * @doc_name 常用UI组件
+ * @doc_index 21
+ * @deprecated 10005; since 10005 TitleBarBlack was deprecated, use TitleBar instead.
  * @module miot/ui/TitleBarBlack
  * @description 黑色标题栏
  * @property leftTextStyle 左侧文字样式，和 leftText 一起使用，不设置使用米家默认值
@@ -15,20 +18,12 @@
  * @property onPressTitle 点击标题的事件
  * @property showDot 是否显示右侧更多按钮的空点
  */
-import React, {Component} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Dimensions,
-  StatusBar,
-  Platform,
-} from 'react-native';
-import ImageButton from './ImageButton';
-import { SafeAreaView } from 'react-navigation';
+import React, { Component } from 'react';
+import { Dimensions, Image, Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { RkButton } from "react-native-ui-kitten";
-const {width, height} = Dimensions.get('window');
+import { SafeAreaView } from 'react-navigation';
+import ImageButton from './ImageButton';
+const { width, height } = Dimensions.get('window');
 const titleHeight = 44;
 const imgHeight = 28;
 export default class TitleBarBlack extends Component {
@@ -37,29 +32,29 @@ export default class TitleBarBlack extends Component {
   }
   render() {
     StatusBar.setBarStyle('dark-content');
-    if(Platform.OS == 'android'){
-        StatusBar.setTranslucent(true);
+    if (Platform.OS == 'android') {
+      StatusBar.setTranslucent(true);
     }
-    let leftWidth=this.props.leftTextStyle?this.props.leftTextStyle.width:0;
-    let rightWidth=this.props.rightTextStyle?this.props.rightTextStyle.width:0;
+    let leftWidth = this.props.leftTextStyle ? this.props.leftTextStyle.width : 0;
+    let rightWidth = this.props.rightTextStyle ? this.props.rightTextStyle.width : 0;
     return (
-      <SafeAreaView style={[styles.titleBarContainer,this.props.style]}>
+      <SafeAreaView style={[styles.titleBarContainer, this.props.style]}>
         {this.props.leftText
-          ?<RkButton onPress={this.props.onPressLeft}
-                     contentStyle={[styles.leftRightText, this.props.leftTextStyle]}
-                     style={[styles.leftRightText, { height: this.props.onPressLeft ? titleHeight : 0, width:leftWidth?leftWidth:imgHeight+14*2 }]}>{this.props.leftText}</RkButton>
+          ? <RkButton onPress={this.props.onPressLeft}
+            contentStyle={[styles.leftRightText, this.props.leftTextStyle]}
+            style={[styles.leftRightText, { height: this.props.onPressLeft ? titleHeight : 0, width: leftWidth ? leftWidth : imgHeight + 14 * 2 }]}>{this.props.leftText}</RkButton>
           : <ImageButton onPress={this.props.onPressLeft}
-                         style={[styles.img, {height: this.props.onPressLeft ? imgHeight : 0}]}
-                         source={require('../resources/title/std_tittlebar_main_device_back_normal.png')}
-                         highlightedSource={require('../resources/title/std_tittlebar_main_device_back_press.png')}/>
+            style={[styles.img, { height: this.props.onPressLeft ? imgHeight : 0 }]}
+            source={require('../resources/title/std_tittlebar_main_device_back_normal.png')}
+            highlightedSource={require('../resources/title/std_tittlebar_main_device_back_press.png')} />
         }
         <ImageButton onPress={this.props.onPressLeft2}
-                     style={[styles.img, {
-                       marginLeft: 0,
-                       height: this.props.onPressLeft2 ? imgHeight : 0,
-                     }]}
-                     source={require('../resources/title/std_tittlebar_main_device_back2_normal.png')}
-                     highlightedSource={require('../resources/title/std_tittlebar_main_device_back2_press.png')}/>
+          style={[styles.img, {
+            marginLeft: 0,
+            height: this.props.onPressLeft2 ? imgHeight : 0,
+          }]}
+          source={require('../resources/title/std_tittlebar_main_device_back2_normal.png')}
+          highlightedSource={require('../resources/title/std_tittlebar_main_device_back2_press.png')} />
         <View style={[styles.textContainer]}>
           <Text
             style={[styles.titleText]}
@@ -67,29 +62,29 @@ export default class TitleBarBlack extends Component {
           {
             this.props.subTitle ? <Text
               style={[styles.subtitleText]}
-              onPress={this.props.onPressTitle}>{this.props.subTitle}</Text>:<View/>
+              onPress={this.props.onPressTitle}>{this.props.subTitle}</Text> : <View />
           }
         </View>
         <ImageButton onPress={this.props.onPressRight2}
-                     style={[styles.img, {
-                       marginRight: 0,
-                       height: this.props.onPressRight2 ? imgHeight : 0,
-                     }]}
-                     source={require('../resources/title/std_tittlebar_main_device_share_normal.png')}
-                     highlightedSource={require('../resources/title/std_tittlebar_main_device_share_press.png')}/>
+          style={[styles.img, {
+            marginRight: 0,
+            height: this.props.onPressRight2 ? imgHeight : 0,
+          }]}
+          source={require('../resources/title/std_tittlebar_main_device_share_normal.png')}
+          highlightedSource={require('../resources/title/std_tittlebar_main_device_share_press.png')} />
         {this.props.rightText
-          ?<RkButton onPress={this.props.onPressRight}
-                     contentStyle={[styles.leftRightText, this.props.rightTextStyle]}
-                     style={[styles.leftRightText, { height: this.props.onPressRight ? titleHeight : 0, width:rightWidth?rightWidth:imgHeight+14*2 }]}>{this.props.rightText}</RkButton>
-            : <ImageButton onPress={this.props.onPressRight}
-                           style={[styles.img, { height: this.props.onPressRight ? imgHeight : 0 }]}
-                           source={require('../resources/title/std_tittlebar_main_device_more_normal.png')}
-                           highlightedSource={require('../resources/title/std_tittlebar_main_device_more_press.png')}/>
+          ? <RkButton onPress={this.props.onPressRight}
+            contentStyle={[styles.leftRightText, this.props.rightTextStyle]}
+            style={[styles.leftRightText, { height: this.props.onPressRight ? titleHeight : 0, width: rightWidth ? rightWidth : imgHeight + 14 * 2 }]}>{this.props.rightText}</RkButton>
+          : <ImageButton onPress={this.props.onPressRight}
+            style={[styles.img, { height: this.props.onPressRight ? imgHeight : 0 }]}
+            source={require('../resources/title/std_tittlebar_main_device_more_normal.png')}
+            highlightedSource={require('../resources/title/std_tittlebar_main_device_more_press.png')} />
         }
         {
           this.props.showDot &&
           <Image style={styles.dot}
-                 source={require('../resources/title/std_tittlebar_main_device_massage_point.png')}/>
+            source={require('../resources/title/std_tittlebar_main_device_massage_point.png')} />
         }
       </SafeAreaView>
     );
@@ -100,7 +95,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: width,
     alignItems: 'flex-end',
-    height:  StatusBar.currentHeight + titleHeight,
+    height: StatusBar.currentHeight + titleHeight,
   },
   textContainer: {
     height: titleHeight,
@@ -122,11 +117,11 @@ const styles = StyleSheet.create({
   },
   leftRightText: {
     flexDirection: 'column',
-    backgroundColor:'#0000',
+    backgroundColor: '#0000',
     color: '#00000088',
     fontSize: 14,
-    alignItems:'center',
-    justifyContent:'center',
+    alignItems: 'center',
+    justifyContent: 'center',
     textAlignVertical: "center",
     textAlign: "center"
   },

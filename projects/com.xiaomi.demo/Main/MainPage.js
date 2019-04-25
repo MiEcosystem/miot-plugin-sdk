@@ -1,50 +1,30 @@
 'use strict';
 
+import { Device, DeviceEvent, Package } from "miot";
+import TitleBar from "miot/ui/TitleBar";
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableHighlight,
-  Platform,
-  StyleSheet,
-  Image,
-} from 'react-native';
+import { Image, Platform, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { getString } from './MHLocalizableString';
 
-//import Setting from './MHSetting';
 
-import { TitleBarBlack } from 'miot/ui';
-import MoreDialog from './MoreDialog';
-// import ImageButton from '../CommonModules/ImageButton.js';;
-
-import { localStrings, getString } from './MHLocalizableString';
-import { Package, Device, DeviceEvent } from "miot";
 
 export default class MainPage extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       header:
         <View>
-          <TitleBarBlack
-            // title={Utils.formats(localStrings).t2('s')} style={{ backgroundColor: '#fff' }}
-            // title={Device.name}
+          <TitleBar
+            type='dark'
             title={navigation.state["params"] ? navigation.state.params.name : Device.name}
-            style={{ backgroundColor: '#fff' }}
             subTitle={getString('NUM_PHOTOS', { 'numPhotos': 1 })}
-            // showDot={1}
-            // onPressLeft2={()=>{ MHPluginSDK.closeCurrentPage(); }}
-            // onPressRight2={()=>{ navigation.navigate('moreMenu'); }}
             onPressLeft={() => { Package.exit() }}
             onPressRight={() => {
-              // MHPluginSDK.openAddDeviceGroupPage();
               if (Platform.OS == 'android') {
                 navigation.setParams({ showDialog: true });
               } else {
                 navigation.navigate('moreMenu', { 'title': '设置' });
               }
             }} />
-          <MoreDialog
-            visible={typeof navigation.state.params === 'undefined' ? false : navigation.state.params.showDialog}
-            navigation={navigation} />
         </View>
     };
   };
@@ -65,22 +45,18 @@ export default class MainPage extends React.Component {
   }
 
   componentDidMount() {
-    // test module method
-    // const params = {"operation":"query","req_type":"alarm","index":5}
-    // MHPluginSDK.callMethod("alarm_ops",[],{"params":params},(res,json)=>{
-    //   alert("pencilCool")
-    // })
   }
 
   render() {
-      console.log("com.xiaomi.demo",'render first',Date.now());
-    var rowTutorialDemo = this._createMenuRow( '教程', 'tutorialDemo');
-    var rowControlDemo = this._createMenuRow( '控制能力', 'ControlDemo');
+    console.log("com.xiaomi.demo", 'render first', Date.now());
+    var rowTutorialDemo = this._createMenuRow('教程', 'tutorialDemo');
+    var rowControlDemo = this._createMenuRow('设备控制', 'DeviceControl');
     var rowCloudDebug = this._createMenuRow('UI能力', 'UIDemo');
     var rowThirdPartyDemo = this._createMenuRow('第三方库能力', 'ThirdPartyDemo');
     return (
-      <View style={styles.containerAll} >
-        <View style={styles.containerIconDemo}>
+      <View style={styles.containerAll}>
+        <View style={styles.containerIconDemo}
+          testID="mytest">
           <Image style={styles.iconDemo} source={require("../Resources/control_home.png")} ></Image>
           <Text style={styles.iconText}>欢迎使用小米开发板</Text>
         </View>

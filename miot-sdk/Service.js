@@ -1,7 +1,9 @@
 /**
- * @export
+ * @export public
+ * @doc_name 系统服务模块
+ * @doc_index 7
  * @module miot/Service
- * @description 系统服务
+ * @description 系统服务模块，提供了设备，红外，场景，安全，存储，miot-spec协议，账号等子服务模块
  * @example
  *
  * import {Service} from 'miot'
@@ -25,16 +27,15 @@
  *
  *
  */
-import Smarthome from './service/smarthome'
-import IrController from './service/ircontroller'
-import Scene from './service/scene'
-import Security from './service/security'
-import Storage from './service/storage'
-import Spec from './service/spec'
-// import Ximalaya from './service/ximalaya';
-import Account from './Account'
-import Host from './Host';
-import TJInfra from './service/tjinfra'
+import Account from './Account';
+import native, { Properties } from './native';
+import IrController from './service/ircontroller';
+import Scene from './service/scene';
+import Security from './service/security';
+import Smarthome from './service/smarthome';
+import Spec from './service/spec';
+import Storage from './service/storage';
+import TJInfra from './service/tjinfra';
  const CurrentAccount = null;
 export default {
   /**
@@ -45,7 +46,6 @@ export default {
   get smarthome() {
     return Smarthome;
   },
-    
   /**
    * @member ircontroller
    * @description 红外 相关 API
@@ -105,7 +105,7 @@ export default {
   },
   /**
    * @method getTimeZoneOfServer
-   * @description 服务器所在时区
+   * @description 获取服务器所在时区
    */
   getTimeZoneOfServer() {
      return Promise.resolve(null);
@@ -120,8 +120,8 @@ export default {
   },
   /**
    * 传入域名返回 serverToken 等信息，目前只支持小爱音箱的域名
-   * Android not support yet
-   * @param {string} sid like "xxx.xiaomi.com"
+   * android暂时不支持此方法
+   * @param {string} sid 域名，类似"xxx.xiaomi.com"
    * @returns {Promise}
    */
   getServiceTokenWithSid(sid) {
@@ -129,12 +129,12 @@ export default {
   },
   /**
    * 某设备向服务器申请did和token
-   * Android not support yet
+   * Android暂不支持此方法
    * @param {*} model 设备的model
    * @param {*} mac 设备的mac地址
    * @returns {Promise} resolve({res,did,token})
    */
-  applyForDeviceIDAndToken(model,mac) {
+  applyForDeviceIDAndToken(model, mac) {
      return Promise.resolve(null);
   }
 }

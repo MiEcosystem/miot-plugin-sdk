@@ -1,33 +1,64 @@
 /**
- * @export
+ * @export public
+ * @doc_name 系统服务_智能家庭模块
+ * @doc_index 18
  * @module miot/service/smarthome
  * @description 智能家庭 API
  *
  */
+/**
+ * 成员类型
+ * @namespace MemberType
+ */
+export const MemberType = {
+    /**
+     * 人
+     * @const
+     */
+    Person: "person",
+    /**
+     * 宠物
+     * @const
+     */
+    Pet: 'pet'
+};
+Object.freeze(MemberType)
 export default {
     /**
      * 获取用户的昵称和头像信息
-     * @param {*} uid 获取用户信息的uid
+     * @param {*} uid 获取用户信息的uid或者手机号
      * @returns {Promise<json>}
      */
     getUserInfo(uid) {
          return Promise.resolve({});
     },
     /**
+     * 通过UID批量获取用户信息
+     * @since 10005
+     * @param {array} uids uid 数组， 仅支持uid，不支持手机号查询 
+     * @example
+     * Service.smarthome.getUserInfoList([uid1,uid2]).then(res => {
+     *  console.log('user info :', res.list)
+     * })
+     */
+    getUserInfoList(uids) {
+         return Promise.resolve(null);
+    },
+    /**
      * @typedef GPSInfo
-     * @property lng
-     * @property lat
-     * @property adminArea
-     * @property countryCode
-     * @property locality
-     * @property thoroughfare
-     * @property language - zh_CN
-     * @property subLocality
+     * @property lng - 经度
+     * @property lat - 维度
+     * @property adminArea - 省
+     * @property countryCode - 国家代号（CN等）
+     * @property locality - 城市
+     * @property thoroughfare - 区
+     * @property language - 语言代号（zh_CN等）
+     * @property subLocality - 街道
      */
     /**
      * 上报gps信息 /location/set
-     * @param {string} deviceID
-     * @param {GPSInfo} gpsInfo
+     * @param {string} deviceID 设备ID
+     * @param {GPSInfo} gpsInfo {lng,lat,countryCode,adminArea,locality,subLocality,thoroughfare,language} 依次为 {，，，，，，，}
      * @returns {Promise<json>}
      *
      */
@@ -37,21 +68,21 @@ export default {
     /**
      * 设备固件版本信息
      * @typedef DeviceVersion
-     * @property {boolean} isUpdating
-     * @property {boolean} isLatest
-     * @property {boolean} isForce
-     * @property {boolean} hasNewFirmware
-     * @property {string} curVersion
-     * @property {string} newVersion
-     * @property {string} description
+     * @property {boolean} isUpdating - 是否ota升级中
+     * @property {boolean} isLatest - 是否是最新版本
+     * @property {boolean} isForce - 是否强制升级
+     * @property {boolean} hasNewFirmware - 是否有新固件
+     * @property {string} curVersion - 当前固件版本
+     * @property {string} newVersion - 新固件版本
+     * @property {string} description - 描述
      *
      */
     /**
      * 检查硬件版本信息
      * /home/checkversion
      * @method
-     * @param  {string} did
-     * @param  {*} pid
+     * @param  {string} 设备ID
+     * @param  {*} pid 设备PID
      * @returns {Promise<DeviceVersion>}
      * @example
      * Device.getDeviceWifi().checkVersion()
@@ -63,7 +94,7 @@ export default {
     },
     /**
      * 检查到有可用更新时，可以主动更新固件。 /home/multi_checkversion
-     * @param {array<string>} deviceIDs
+     * @param {array<string>} deviceIDs 设备ID
      * @return {Promise<json>}
      */
     getAvailableFirmwareForDids(deviceIDs) {
@@ -89,8 +120,8 @@ export default {
     },
     /**
      * 上报设备数据 /device/event
-     * @param {string} deviceID
-     * @param {array<map>} records [{type:string value of 'prop'、'event',key:string,value:string}]
+     * @param {string} deviceID 设备ID
+     * @param {array<map>} records [{type,key,value}] 其中：type为'prop'或'event'，key，value均为自定义string
      *
      * @example
      * Service.smarthome.reportRecords("deviceID", [{type:"prop",key:"b",value:"c"}])
@@ -99,7 +130,9 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 通过前缀分批拉取设备的配置信息
      * - /v2/device/range_get_extra_data
+     * @deprecated 10005 开始废弃， 后续版本会移除该方法。推荐使用 batchGetDeviceDatas
      * @param {json} params {did:string,prefix:string,limit:int,offset:int}
      * @return {Promise<json>}
      */
@@ -108,6 +141,7 @@ export default {
     },
     /**
      * 删除设备上传的信息 /v2/device/del_extra_data
+     * @deprecated 10005 开始废弃， 后续版本会移除该方法。batchSetDeviceDatas 设置的属性会随着设备删除自动清空
      * @param {json} params {did:string, keys:[key1,key2]}
      * @return {Promise<json>}
      */
@@ -183,6 +217,7 @@ export default {
     },
     /**
      * 获取服务器中 device 对应的数据，内部调用米家代理接口 /device/getsetting
+     * @deprecated 10005 开始废弃， 后续版本会移除该方法。 推荐使用 batchGetDeviceDatas
      * @param {json} params 请求参数 {did:string,settings:array<string>}
      * @return {Promise}
      */
@@ -191,6 +226,7 @@ export default {
     },
     /**
      * 设置服务器中 device 对应的数据，内部调用米家代理接口/device/setsetting
+     * @deprecated 10005 开始废弃， 后续版本会移除该方法。推荐使用 batchSetDeviceDatas
      * @param {json} params 请求参数 {did:string,settings:map<key,value>}
      * @return {Promise}
      */
@@ -199,6 +235,7 @@ export default {
     },
     /**
      * 删除服务器中 device 对应的数据，内部调用米家代理接口/device/delsetting
+     * @deprecated 10005 开始废弃， 后续版本会移除该方法。 不建议再使用，batchSetDeviceDatas 设置的属性会随着设备删除自动清空
      * @param {json} params  - 请求参数 \{did:设备 id,settings:要删除的设置角标的数组}
      * @return {Promise}
      */
@@ -211,6 +248,15 @@ export default {
      * @return {Promise}
      */
     getLatestVersion(model) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 获取服务器中 最新的版本信息，
+     * 内部调用米家代理接口/v2/device/latest_ver
+     * @since 10004
+     * @param {string} did 设备did
+     */
+    getLatestVersionV2(did) {
          return Promise.resolve(null);
     },
     /**
@@ -240,6 +286,24 @@ export default {
      * @returns {Promise}
      */
     getDeviceData(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 删除设备属性和事件历史记录.
+     * user/del_user_device_data
+     * @since 10004
+     * @param {json} params {did:'', type: '', key:'',time:number} did:设备ID ;type: 要删除的类型 ;key: 事件名称. motion/alarm ;time:时间戳，单位秒
+     */
+    delDeviceData(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 用于按照时间顺序拉取指定uid,did的发生的属性事件
+     * /v2/user/get_user_device_log
+     * @since 10004
+     * @param {json} params {did:'',limit:number,time_start:number,time_end:number} limit:目前最大为50 , time_start 开始时间戳 time_end 结束时间戳
+     */
+    getUserDeviceLog(params) {
          return Promise.resolve(null);
     },
     /**
@@ -280,6 +344,7 @@ export default {
     /**添加设备属性和事件历史记录，/home/device_list
      * 当ssid和bssid均不为空时，表示同时搜索这个局域网内所有未被绑定过的设备
      * @param {json} params {pid:string ,ssid:string ,bssid:string ,localDidList:array<string>,checkMoreWifi:bool,dids:array<string>}
+     * 其中，pid：设备PID，ssid：wifi名称，bssid：wifi网关mac，locatDidList：本地设备did列表，补充ssid和bssid的本地查询条件，会与ssid查到的本地列表一起返回其中未被绑定的在线设备，checkMoreWifi：检查2.4gwifi下的本地设备列表，did：要拉取列表的设备的did，如果为空表示所有设备
      * @return {Promise}
      */
     getHomeDevice(params) {
@@ -294,18 +359,20 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 石头扫地机器人专用，撤销隐私时删除扫地机地图
      *  /user/del_user_map
      *
-     * @param {json} params
+     * @param {json} params {did} 设备ID
      * @return {Promise}
      */
     delUsermap(params) {
          return Promise.resolve(null);
     },
     /**
+     * 石头扫地机器人专用，获取fds存储文件url
      *  /home/getrobomapurl
      *
-     * @param {*} arams
+     * @param {*} arams {“obj_name”:”xxx/12345678/87654321/1.0”}，obj_name格式为:fds存储文件夹/did/uid/obj_name
      * @return {Promise}
      */
     getRobomapUrl(params) {
@@ -330,15 +397,93 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 从服务器批量获取设备属性，/device/batchdevicedatas
-     *
+     * 获取设备的属性，属性设置会在设备被删除时清空
+     * api call /device/batchdevicedatas
+     * 
+     * error code: 
+     * 0 - 成功
+     * -7 - 没有找到注册的设备
+     * -6 - 设备对应uid不为0 
+     * -4 - server err
+     * 
+     * @since 10005
      * @param {json} params  -参数 [{did:"",props:["prop.aaa","prop.bbb"]}]
      * @return {Promise}
+     * @example
+     * let params = {'did':Device.deviceID, 'props': [   
+     *  "prop.s_push_switch_<uid>"
+     * ]}   
+     * Service.smarthome.batchGetDeviceDatas([params]).then(...)
+     * 
+     * 
      */
     batchGetDeviceDatas(params) {
-        return this.batchGetDeviceProps(params);
+         return Promise.resolve(null);
     },
-    batchGetDeviceProps(params) {
+    /**
+     * 设置设备属性, 属性设置会在设备被删除时清空
+     * 备注： props最多20个，最多同时300个设备（目前max设备数)，属性需要以prop.s 开头
+     * 
+     * error code: 
+     * 0 - 成功
+     * -7 - 没有找到注册的设备
+     * -6 - 设备对应uid不为0 
+     * -4 - server err
+     * 
+     * @since 10005
+     * @param {json} params {did: string, props: json}
+     * @example
+     * let params = {'did':Device.deviceID, 'props': {   
+     *  "prop.s_push_switch_xxx":"0"
+     * }}   
+     * Service.smarthome.batchSetDeviceDatas([params]).then(...)
+     * 
+     */
+    batchSetDeviceDatas(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 设置设备属性，e.g 配置摄像头/门铃设备的属性
+     * props最多20个, 属性需要以"prop.s_"开头。
+     * 
+     * error code: 
+     * 0 - 成功
+     * -7 - 没有找到注册的设备
+     * -6 - 设备对应uid不为0 
+     * -4 - server err
+     * 
+     * @since 10005
+     * @param {json} params {did: string, props: json}
+     * @example
+     * let params = {'did':Device.deviceID, 'props': {   
+     *  "prop.s_notify_screen_dev_enable":"0", //0,关； 1，开   
+     *  "prop.s_notify_screen_dev_did":"123456789" // 接收rpc的音响设备  
+     * }}   
+     * Service.smarthome.setDeviceProp(params).then(...)
+     */
+    setDeviceProp(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 设置设备属性，e.g 配置摄像头/门铃设备的属性
+     * props最多20个, 属性需要以"prop.s_"开头。
+     * 
+     * error code: 
+     * 0 - 成功
+     * -7 - 没有找到注册的设备
+     * -6 - 设备对应uid不为0 
+     * -4 - server err
+     * 
+     * @since 10004
+     * @param {json} params {did: string, props: json}
+     * @example
+     * let params = {'did':Device.deviceID, 'props': {   
+     *  "prop.s_notify_screen_dev_enable":"0", //0,关； 1，开   
+     *  "prop.s_notify_screen_dev_did":"123456789" // 接收rpc的音响设备  
+     * }}   
+     * Service.smarthome.setDeviceProp(params).then(...)
+     */
+    setDeviceProp(params) {
          return Promise.resolve(null);
     },
     /**
@@ -461,14 +606,7 @@ export default {
      * @param {json} params {did:'', uid:'', cid:''}
      */
     bindNFCCard(params) {
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/v2/nfckey/bind_nfc_card", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
+         return Promise.resolve(null);
     },
     /**
      * 米家app查询NFC卡信息，使用did查询did下绑定的NFC卡列表信息
@@ -503,13 +641,108 @@ export default {
     }
      */
     getNFCCard(params) {
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/v2/nfckey/get_nfc_card", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
+         return Promise.resolve(null);
+    },
+    /**
+     * /yaokan/insertunmodel
+     * @since 10004
+     * @param {json} params {device:int, id: int, brand: string, model: string}
+     */
+    insertunmodel(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * call api /scene/idfy_get
+     * @since 10005
+     * @param {object} params json params
+     * @param {string} params.indetify 唯一标识符，场景的id，一般填did
+     * @example
+     * let params = {identify:Device.deviceID}
+     * Service.smarthome.getIDFY(params)
+     */
+    getIDFY(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * call api /scene/idfy_get
+     * @param {object} params json params
+     * @example
+     * let params = {"identify":"554011","st_id":7,"setting":{"aqi_link":"0","exception_alert":"1","blue_sky_alert":"0"},"authed":["554011"]}
+     * Service.smarthome.editIDFY(params)
+     */
+    editIDFY(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * call api /v2/home/range_get_open_config
+     * @since 10005
+     * @param {json} params json params {did:string, category:string, configids:array, offset: int, limit:int}, did: 设备did。 category 配置类别， configids： 配置id 为空时返回所有配置，不超过20个，不为空时没有数量限制， offset 偏移；limit 数量，不超过20
+     */
+    getRangeOpenConfig(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * @typedef MemberPet
+     * @property {string} id 
+     * @property {string} name      名称
+     * @property {string} sex       性别
+     * @property {string} birth     生日
+     * @property {double} weight    重量
+     * @property {string} species   物种
+     * @property {string} variety   品种
+     * @property {string} food_cate 食品
+     * @property {int} active_rate  活跃度
+     * @property {int} castrated    阉割
+     * @property {int} special_mark 特殊标志
+     */
+    /**
+     * @typedef MemberPerson
+     * @property {string} id 
+     * @property {string} name      姓名
+     * @property {string} sex       性别
+     * @property {string} birth     生日
+     * @property {double} height    身高
+     * @property {double} weight    体重
+     * @property {string} relation  关系
+     * @property {string} icon      预留项，暂不支持设置
+     * @property {int} xiaomi_id    小米uid
+     * @property {string} region    国家区域
+     * @property {int} special_mark 特殊标志
+     */
+    /**
+     * 创建 成员， 参考 MemberPerson 或者 MemberPet 的内容，按需填写。
+     * @since 10005
+     * @param {MemberType} type 成员类型 pet or person
+     * @param {MemberPerson} info  - MemberPerson 或者 MemberPet
+     */
+    createMember(type, info) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 更新成员信息
+     * @since 10005
+     * @param {MemberType} type 
+     * @param {string} member_id 
+     * @param {MemberPerson} info - MemberPerson 或者 MemberPet 只填写需要更新的项目
+     */
+    updateMember(type, member_id, info) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 删除成员
+     * @since 10005
+     * @param {MemberType} type 
+     * @param {Array} member_ids 成员id列表
+     */
+    deleteMember(type, member_ids) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 加载指定种类的成员列表
+     * @since 10005
+     * @param {MemberType} type 
+     */
+    loadMembers(type) {
+         return Promise.resolve(null);
     }
 }

@@ -1,5 +1,7 @@
 /**
- * @export
+ * @export public
+ * @doc_name 系统服务_安全模块
+ * @doc_index 16
  * @module miot/service/security
  * @description 安全相关服务
  * @example
@@ -35,7 +37,7 @@ export class ISecureKey{
          return  0
     }
     /**
-     * keyID
+     * 电子钥匙 ID
      * @type {long}
      * @readonly
      */
@@ -113,7 +115,7 @@ export class ISecureKey{
 export default {
     /**
      * 加载设备的安全锁 /share/bluetoothkeyshare
-     * @param {*} deviceID
+     * @param {*} deviceID 设备ID
      * @returns {Promise<ISecureKey[]>}
      */
     loadSecureKeys(deviceID){
@@ -121,7 +123,7 @@ export default {
     },
     /**
      * 分享 /share/bluetoothkeyshare
-     * @param deviceID 被分享设备
+     * @param deviceID 被分享设备ID
      * @param shareUid 被分享人
      * @param {{status,activeTime,expireTime,weekdays,readonly}} [settings={}] readonly = true, 则被分享人不可接收锁push，false则被分享人可接收锁push，（family关系用户不受这个字段影响）。status:分享类别，1：暂时，2：周期，3：永久; weekdays 生效日期（星期几，例如周一和周三对应1和3，[1, 3]），仅在status=2时不可为空
      * @returns {Promise<ISecureKey>}
