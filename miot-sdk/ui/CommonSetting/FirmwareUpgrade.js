@@ -1,7 +1,6 @@
 'use strict';
 import Host from 'miot/Host';
 import TitleBar from 'miot/ui/TitleBar';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { strings, Styles } from '../../resources';
@@ -33,14 +32,6 @@ export default class FirmwareUpgrade extends React.Component {
         />
     };
   };
-  static propTypes = {
-    secondOptions: PropTypes.array,
-  }
-  static defaultProps = {
-    secondOptions: [
-      secondAllOptions.AUTO_UPGRADE
-    ]
-  }
   firmwareSetting = {
     [secondAllOptions.AUTO_UPGRADE]: {
       type: ListItemType.LIST_ITEM_WITH_SWITCH,
@@ -56,6 +47,7 @@ export default class FirmwareUpgrade extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    this.secondOptions = this.props.navigation.state.params.secondOptions || [secondAllOptions.AUTO_UPGRADE];
   }
   renderList(items) {
     return items.map((item, index) => {
@@ -86,7 +78,7 @@ export default class FirmwareUpgrade extends React.Component {
   }
   render() {
     const requireKeys2 = [secondAllOptions.CHECK_UPGRADE];
-    const keys = [...this.props.secondOptions, ...requireKeys2];
+    const keys = [...this.secondOptions, ...requireKeys2];
     const items = keys.map(key => {
       if (key !== undefined &&
         this.firmwareSetting[key] !== undefined) {
