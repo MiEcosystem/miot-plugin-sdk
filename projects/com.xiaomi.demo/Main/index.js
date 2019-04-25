@@ -105,6 +105,7 @@ import Swiper from './UIComponent/swiper/Swiper/'; // working but no title displ
 import SwiperNumber from './UIComponent/swiper/SwiperNumber/'; // working but no title displayed
 // import BLEConnectionDemo from './tutorial/operation/bluetooth/BLEConnectionDemo';
 import UIDemo from './UIComponent/UIDemo';
+import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo';
 import CustomContainer from './uikit/components/CustomContainer';
 import * as Screens from "./uikit/screens";
 import MHSetting from './unuse/MHSetting';
@@ -146,6 +147,7 @@ const RootStack = createStackNavigator({
     // BLEConnectionDemo: BLEConnectionDemo,
 
     UIDemo: UIDemo,
+    MiotAndroidScrollViewDemo: MiotAndroidScrollViewDemo,
     RefreshListView: RefreshListView,
 
     ThirdPartyDemo: ThirdPartyDemo,

@@ -24,6 +24,7 @@ import _TitleBarBlack from './TitleBarBlack'
 import _LocalizedStrings from './LocalizedStrings'
 import _AMapView from './AMapView'
 import _NumberSpin from './NumberSpinner'
+import _MiotAndroidScrollView from './android/scrollview/MiotAndroidScrollView'
 export const ImageButton = _ImageButton;
 export const LoadingDialog = _LoadingDialog;
 export const MessageDialog = _MessageDialog;
@@ -37,9 +38,10 @@ export const TitleBarWhite = _TitleBarWhite;
 export const LocalizedStrings = _LocalizedStrings;
 export const AMapView = _AMapView;
 export const NumberSpinner = _NumberSpin;
+export const MiotAndroidScrollView = _MiotAndroidScrollView;
 export default { ImageButton, 
     LoadingDialog, MessageDialog, MultiChoseDialog, 
     ProgressDialog, SingleChoseDialog, InputDialog, 
     TitleBar, TitleBarBlack, TitleBarWhite, 
     NumberSpinner,
-    LocalizedStrings, AMapView }
+    LocalizedStrings, AMapView, MiotAndroidScrollView }
