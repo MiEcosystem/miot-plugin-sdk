@@ -56,6 +56,24 @@ const firstAllOptions = {
    */
   LEGAL_INFO: 'legalInfo'
 };
+/**
+ * 分享设备的设置项
+ * 0: 不显示
+ * 1: 显示
+ */
+const firstSharedOptions = {
+  [firstAllOptions.NAME]: 0,
+  [firstAllOptions.MEMBER_SET]: 0,
+  [firstAllOptions.LOCATION]: 0,
+  [firstAllOptions.SHARE]: 0,
+  [firstAllOptions.BTGATEWAY]: 0,
+  [firstAllOptions.VOICE_AUTH]: 0,
+  [firstAllOptions.IFTTT]: 0,
+  [firstAllOptions.FIRMWARE_UPGRADE]: 0,
+  [firstAllOptions.MORE]: 1,
+  [firstAllOptions.HELP]: 1,
+  [firstAllOptions.LEGAL_INFO]: 1,
+};
 const secondOptions = {
   /**
    * 固件升级——固件自动升级
@@ -274,7 +292,11 @@ export default class CommonSetting extends React.Component {
       firstAllOptions.HELP,
       firstAllOptions.LEGAL_INFO
     ];
-    const keys = [...requireKeys1, ...this.props.firstOptions, ...requireKeys2];
+    let keys = [...requireKeys1, ...this.props.firstOptions, ...requireKeys2];
+    // 如果是共享设备，需要过滤一下
+    if (Device.isShared) {
+      keys = keys.filter(key => firstSharedOptions[key]);
+    }
     const items = keys.map(key => {
       if (key !== undefined
         && this.commonSetting[key] !== undefined) {
