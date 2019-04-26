@@ -465,28 +465,6 @@ export default {
      * -6 - 设备对应uid不为0 
      * -4 - server err
      * 
-     * @since 10005
-     * @param {json} params {did: string, props: json}
-     * @example
-     * let params = {'did':Device.deviceID, 'props': {   
-     *  "prop.s_notify_screen_dev_enable":"0", //0,关； 1，开   
-     *  "prop.s_notify_screen_dev_did":"123456789" // 接收rpc的音响设备  
-     * }}   
-     * Service.smarthome.setDeviceProp(params).then(...)
-     */
-    setDeviceProp(params) {
-         return Promise.resolve(null);
-    },
-    /**
-     * 设置设备属性，e.g 配置摄像头/门铃设备的属性
-     * props最多20个, 属性需要以"prop.s_"开头。
-     * 
-     * error code: 
-     * 0 - 成功
-     * -7 - 没有找到注册的设备
-     * -6 - 设备对应uid不为0 
-     * -4 - server err
-     * 
      * @since 10004
      * @param {json} params {did: string, props: json}
      * @example
