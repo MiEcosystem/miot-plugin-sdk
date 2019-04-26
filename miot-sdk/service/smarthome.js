@@ -217,7 +217,7 @@ export default {
     },
     /**
      * 获取服务器中 device 对应的数据，内部调用米家代理接口 /device/getsetting
-     * @deprecated 10005 开始废弃， 后续版本会移除该方法。 推荐使用 batchGetDeviceDatas
+     * @deprecated 10010 开始废弃， 后续版本会移除该方法。 推荐使用 getDeviceSettingV2
      * @param {json} params 请求参数 {did:string,settings:array<string>}
      * @return {Promise}
      */
@@ -225,8 +225,20 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 获取服务器中 device 对应的数据，内部调用米家代理接口 /v2/device/getsettingv2
+     * @since 10010
+     * @param {object} params 
+     * @param {object} params.did   设备did
+     * @param {object} params.last_id   上一次请求返回的id，用于分页
+     * @param {object} params.prefix_filter filter
+     * @param {object} params.settings 指定设置的key数组
+     * @return {Promise}
+     */
+    getDeviceSettingV2(params) {
+         return Promise.resolve(null);
+    },
+    /**
      * 设置服务器中 device 对应的数据，内部调用米家代理接口/device/setsetting
-     * @deprecated 10005 开始废弃， 后续版本会移除该方法。推荐使用 batchSetDeviceDatas
      * @param {json} params 请求参数 {did:string,settings:map<key,value>}
      * @return {Promise}
      */
