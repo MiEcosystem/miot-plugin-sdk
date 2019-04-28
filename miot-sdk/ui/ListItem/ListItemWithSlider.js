@@ -118,6 +118,7 @@ export default class ListItemWithSlider extends React.Component {
               trackStyle={[styles.trackStyle, this.sliderStyle.trackStyle]}
               thumbStyle={[styles.thumbStyle, this.sliderStyle.thumbStyle]}
               value={this.state.value}
+              onValueChange={value => this._onValueChange(value)}
               onSlidingComplete={value => this._onSlidingComplete(value)}
             />
           </View>
@@ -139,18 +140,26 @@ export default class ListItemWithSlider extends React.Component {
   }
   // 父组件更新数据
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== this.state.value) {
+    if (nextProps.sliderProps === undefined) return;
+    if (typeof nextProps.sliderProps.value !== 'number') {
+      console.warn('sliderProps.value is not a number');
+      return;
+    }
+    const { value } = nextProps.sliderProps;
+    if (value !== this.state.value) {
       this.setState({
-        value: nextProps.value,
-        valueStr: this.format(nextProps.value)
+        value,
+        valueStr: this.format(value)
       });
     }
   }
-  _onSlidingComplete(value) {
+  _onValueChange(value) {
     this.setState({
       value,
       valueStr: this.format(value)
     });
+  }
+  _onSlidingComplete(value) {
     if (this.props.onSlidingComplete) {
       this.props.onSlidingComplete(value);
     }
