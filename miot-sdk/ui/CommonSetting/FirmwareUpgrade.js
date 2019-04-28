@@ -79,12 +79,7 @@ export default class FirmwareUpgrade extends React.Component {
   render() {
     const requireKeys2 = [secondAllOptions.CHECK_UPGRADE];
     const keys = [...this.secondOptions, ...requireKeys2];
-    const items = keys.map(key => {
-      if (key !== undefined &&
-        this.firmwareSetting[key] !== undefined) {
-        return this.firmwareSetting[key];
-      }
-    });
+    const items = keys.map(key => this.firmwareSetting[key]).filter(item => item);
     return (
       <View style={styles.container}>
         <Separator />

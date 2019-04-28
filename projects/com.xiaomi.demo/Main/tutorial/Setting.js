@@ -24,6 +24,10 @@ export default class Setting extends React.Component {
 
   constructor(props, context) {
     super(props, context);
+    this.state = {
+      sliderValue: 25,
+      switchValue: false,
+    }
   }
 
   render() {
@@ -36,8 +40,8 @@ export default class Setting extends React.Component {
     ]
     // 显示部分二级菜单项
     const secondOptions = [
-      second_options.AUTO_UPGRADE,
-      second_options.TIMEZONE,
+      // second_options.AUTO_UPGRADE,
+      // second_options.TIMEZONE,
     ]
     // 显示固件升级二级菜单
     const extraOptions = {
@@ -63,11 +67,13 @@ export default class Setting extends React.Component {
             />
             <ListItemWithSwitch
               title='三个'
-              onValueChange={value => console.log(value)}
+              value={this.state.switchValue}
+              onValueChange={value => this.onValueChange(value)}
             />
             <ListItemWithSlider
               title='测试'
-              onSlidingComplete={value => console.log(value)}
+              sliderProps={{ value: this.state.sliderValue }}
+              onSlidingComplete={value => this.onSlidingComplete(value)}
               showSeparator={false}
             />
           </View>
@@ -75,7 +81,7 @@ export default class Setting extends React.Component {
           <CommonSetting
             navigation={this.props.navigation}
             firstOptions={firstOptions}
-            secondOptions={secondOptions}
+            // secondOptions={secondOptions}
             extraOptions={extraOptions}
           />
           <View style={{ height: 20 }} />
@@ -84,8 +90,17 @@ export default class Setting extends React.Component {
     );
   }
 
+  onValueChange(value) {
+    console.log(value);
+  }
+
+  onSlidingComplete(value) {
+    console.log(value);
+  }
+
   componentDidMount() {
     // TODO: 拉取功能设置项里面的初始值，比如开关状态，slider的value
+    setTimeout(_ => this.setState({ switchValue: true, sliderValue: 75 }), 1000);
   }
 }
 

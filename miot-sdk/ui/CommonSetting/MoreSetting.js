@@ -72,12 +72,7 @@ export default class MoreSetting extends React.Component {
     const requireKeys1 = [secondAllOptions.SECURITY, secondAllOptions.FEEDBACK];
     const requireKeys2 = [secondAllOptions.ADD_TO_DESKTOP];
     const keys = [...requireKeys1, ...this.secondOptions, ...requireKeys2];
-    const items = keys.map(key => {
-      if (key !== undefined &&
-        this.moreSetting[key] !== undefined) {
-        return this.moreSetting[key];
-      }
-    });
+    const items = keys.map(key => this.moreSetting[key]).filter(item => item);
     return (
       <View style={styles.container}>
         <Separator />
