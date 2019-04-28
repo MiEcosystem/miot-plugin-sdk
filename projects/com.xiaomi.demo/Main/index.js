@@ -90,6 +90,7 @@ import List from "./tutorial/List";
 import LocaleServer from './tutorial/LocaleServer';
 import OperationDemoIndex from './tutorial/operation/OperationDemoIndex';
 import PackageDemo from "./tutorial/PackageDemo";
+import Parallax from "./tutorial/Parallax";
 import RPCControl from './tutorial/RPCControl';
 import Setting from "./tutorial/Setting";
 import FileStorage from './tutorial/storage/FileStorage';
@@ -97,6 +98,7 @@ import StorageDemo from './tutorial/storage/StorageDemo';
 import TutorialDemo from './tutorial/TutorialDemo';
 import DialogTest from './UIComponent/DialogTest';
 import ImageCapInsetDemo from './UIComponent/ImageCapInsetDemo'; // working but no title displayed
+import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo';
 import RefreshListView from './UIComponent/RefreshListView';
 import Dynamic from './UIComponent/swiper/Dynamic/';
 import LoadMinimal from './UIComponent/swiper/LoadMinimal/';
@@ -105,7 +107,6 @@ import Swiper from './UIComponent/swiper/Swiper/'; // working but no title displ
 import SwiperNumber from './UIComponent/swiper/SwiperNumber/'; // working but no title displayed
 // import BLEConnectionDemo from './tutorial/operation/bluetooth/BLEConnectionDemo';
 import UIDemo from './UIComponent/UIDemo';
-import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo';
 import CustomContainer from './uikit/components/CustomContainer';
 import * as Screens from "./uikit/screens";
 import MHSetting from './unuse/MHSetting';
@@ -127,6 +128,7 @@ const RootStack = createStackNavigator({
     MoreSetting,
     FirmwareUpgrade,
     CustomContainer,
+    Parallax,
     tutorialDemo: TutorialDemo,
     LocaleServer: LocaleServer,
     blankDemo: BlankDemo,
