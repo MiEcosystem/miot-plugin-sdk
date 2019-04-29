@@ -71,7 +71,13 @@ export default class UIDemo extends React.Component {
             {
                 'name': '打开定时',
                 'func': () => {
-                    Host.ui.openTimerSettingPageWithOptions({ onMethod: "power_on", onParam: "on", offMethod: "power_off", offParam: "off", displayName: "这是一个自定义标题" })
+                    Host.ui.openTimerSettingPageWithOptions({ onMethod: "power_on", onParam: "on", offMethod: "power_off", offParam: "off", timerTitle: "这是一个自定义标题", displayName:"自定义场景名称" })
+                }
+            },
+            {
+                'name': '多键开关',
+                'func': () => {
+                    Host.ui.openPowerMultikeyPage(Device.deviceID)
                 }
             },
             {

@@ -64,7 +64,15 @@ export default class UIDemo extends React.Component {
                         alert("error:" + err);
                     })
                 }
-            }
+            },
+            {
+                'name': '设备model信息',
+                'func': () => {
+                    Device.loadRealDeviceConfig(Device.model).then(res => {
+                        alert(JSON.stringify(res))
+                    })
+                }
+            },
         ];
     }
 

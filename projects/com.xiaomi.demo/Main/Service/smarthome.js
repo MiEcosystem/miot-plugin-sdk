@@ -1,4 +1,5 @@
 import { Device, Service } from "miot";
+import Host from "miot/Host";
 import React from 'react';
 import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
 
@@ -29,6 +30,18 @@ export default class CallSmartHomeAPIDemo extends React.Component {
                         return Service.smarthome.batchGetDeviceDatas([{ did: Device.deviceID, props: ["prop.s_string", "prop.s_json"] }])
                     }
                 },
+                {
+                    name: "getDeviceSettingV2", handle: this.handleObjRes.bind(this), action: () => {
+                        return Service.smarthome.getDeviceSettingV2({ did: Device.deviceID, settings: ['test'] })
+                    }
+                },
+                {
+                    name: "当前服务器国家码", handle: this.handleObjRes.bind(this), action: () => {
+                        return Host.getCurrentCountry().then(res => {
+                            return new Promise.resolve({ "res": res })
+                        })
+                    }
+                },
             ]
         })
     }
@@ -36,7 +49,7 @@ export default class CallSmartHomeAPIDemo extends React.Component {
     handleObjRes(result) {
         var item = [];
         for (var key in result) {
-            item.push({ 'key': key, 'value': result[key] });
+            item.push({ 'key': key, 'value': JSON.stringify(result[key]) });
         }
         this.setState((preState) => {
             return { dataSource: item };
@@ -56,7 +69,7 @@ export default class CallSmartHomeAPIDemo extends React.Component {
             var item = result[i];
             items.push({ 'key': i, 'value': "----" })
             for (var key in item) {
-                items.push({ 'key': key, 'value': "v:" + item[key] });
+                items.push({ 'key': key, 'value': "v:" + JSON.stringify(item[key]) });
             }
         }
         this.setState((preState) => {

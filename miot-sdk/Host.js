@@ -38,12 +38,12 @@
  *  Host.storage.set(key, value)
  *
  */
-import HostUI from './host/ui'
-import HostLocale from './host/locale'
-import HostFile from './host/file'
-import HostStorage from './host/storage'
-import HostAudio from './host/audio'
-import HostCrypto from './host/crypto'
+import HostAudio from './host/audio';
+import HostCrypto from './host/crypto';
+import HostFile from './host/file';
+import HostLocale from './host/locale';
+import HostStorage from './host/storage';
+import HostUI from './host/ui';
  const IOS="ios", ANDROID="android";
 export const HOST_TYPE_IOS = IOS;
 export const HOST_TYPE_ANDROID = ANDROID;
@@ -180,6 +180,23 @@ export default {
      * 获取APP名称
      */
     getAppName() {
+         return Promise.resolve(null);
+    },
+    /**
+     * 获取当前登陆用户的服务器国家
+     * e.g 
+     * "cn" //中国大陆
+     * "sg"   //新加坡
+     * "tw"  //台湾
+     * "in"   //印度
+     * "ru"   //俄罗斯
+     * "hk"   //香港
+     * "us"   //美国
+     * "tr"   //土耳其
+     * "kr"   //韩国
+     * "de"   //德国
+     */
+    getCurrentCountry() {
          return Promise.resolve(null);
     },
     /**

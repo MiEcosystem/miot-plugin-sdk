@@ -753,5 +753,28 @@ export default {
      */
     loadMembers(type) {
          return Promise.resolve(null);
+    },
+    /**
+     * call /app/user/setpdata, 其中的time为关键信息，在getpdata使用时将利用此值。
+     * @since 10010
+     * @param {object} params params
+     * @param {long} params.time setpddata的时间戳
+     * @param {string} params.key key 字串
+     * @param {string} params.value value值
+     */
+    setUserPDData(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * call /app/user/getpdata
+     * 此接口的时间戳范围是反的，即：time_start > time_end ,否则获取不到。
+     * @since 10010
+     * @param {object} params params
+     * @param {object} params.time_end 筛选结果的时间戳
+     * @param {object} params.time_start 筛选结果的时间戳
+     * @param {object} params.key 获取的key
+     */
+    getUserPDData(params) {
+         return Promise.resolve(null);
     }
 }
