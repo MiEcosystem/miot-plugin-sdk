@@ -73,6 +73,12 @@ export default class UIDemo extends React.Component {
                 'func': () => {
                     Host.ui.openTimerSettingPageWithOptions({ onMethod: "power_on", onParam: "on", offMethod: "power_off", offParam: "off", displayName: "这是一个自定义标题" })
                 }
+            },
+            {
+                'name': '多键开关设置(蓝牙设备)',
+                'func': () => {
+                    Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac);
+                }
             }
         ];
     }
