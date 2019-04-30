@@ -33,7 +33,7 @@ export default class ParallaxAndroid extends React.Component {
       header:
         <TitleBar
           type='dark'
-          title='ScrollView透明背景交互方案'
+          title='ScrollView 吸附效果demo'
           style={{ backgroundColor: '#fff' }}
           onPressLeft={_ => navigation.goBack()}
         />

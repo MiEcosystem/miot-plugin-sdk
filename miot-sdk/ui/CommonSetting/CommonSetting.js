@@ -9,50 +9,50 @@ import ListItem from '../ListItem/ListItem';
 import Separator from '../Separator';
 const firstOptions = {
   /**
-   * 按键设置，多键开关必选，其余设备必不选
+   * 按键设置，多键开关`必选`，其余设备`必不选`
    */
   MEMBER_SET: 'memberSet',
   /**
-   * 设备共享
+   * 设备共享, `可选`
    */
   SHARE: 'share',
   /**
-   * 蓝牙网关
+   * 蓝牙网关, `可选`
    */
   BTGATEWAY: 'btGateway',
   /**
-   * 语音授权
+   * 语音授权, `可选`
    */
   VOICE_AUTH: 'voiceAuth',
   /**
-   * 智能场景
+   * 智能场景, `可选`
    */
-  IFTTT: 'ifttt'
+  IFTTT: 'ifttt',
+  /**
+   * 固件升级，`可选`
+   */
+  FIRMWARE_UPGRADE: 'firmwareUpgrade',
 };
 const firstAllOptions = {
   ...firstOptions,
   /**
-   * 设备名称，必选
+   * 设备名称，`必选`
    */
   NAME: 'name',
   /**
-   * 位置管理，必选
+   * 位置管理，`必选`
    */
   LOCATION: 'location',
   /**
-   * 使用帮助，必选
+   * 使用帮助，`必选`
    */
   HELP: 'help',
   /**
-   * 固件升级，必选
-   */
-  FIRMWARE_UPGRADE: 'firmwareUpgrade',
-  /**
-   * 更多设置，必选
+   * 更多设置，`必选`
    */
   MORE: 'more',
   /**
-   * 法律信息，必选
+   * 法律信息，`必选`
    */
   LEGAL_INFO: 'legalInfo'
 };
@@ -76,42 +76,42 @@ const firstSharedOptions = {
 };
 const secondOptions = {
   /**
-   * 固件升级——固件自动升级
+   * 固件升级——固件自动升级, `可选`
    */
   AUTO_UPGRADE: 'autoUpgrade',
   /**
-   * 更多设置——设备时区
+   * 更多设置——设备时区, `可选`
    */
   TIMEZONE: 'timezone',
   /**
-   * 法律信息——加入用户体验计划
+   * 法律信息——加入用户体验计划, `可选`
    */
   USER_EXPERIENCE_PROGRAM: 'userExperienceProgram'
 };
 const secondAllOptions = {
   ...secondOptions,
   /**
-   * 固件升级——检查固件更新，必选
+   * 固件升级——检查固件更新，`必选`
    */
   CHECK_UPGRADE: 'checkUpgrade',
   /**
-   * 更多设置——安全设置，必选
+   * 更多设置——安全设置，`必选`
    */
   SECURITY: 'security',
   /**
-   * 更多设置——反馈问题，必选
+   * 更多设置——反馈问题，`必选`
    */
   FEEDBACK: 'feedback',
   /**
-   * 更多设置——添加桌面快捷方式，必选
+   * 更多设置——添加桌面快捷方式，`必选`
    */
   ADD_TO_DESKTOP: 'addToDesktop',
   /**
-   * 法律信息——用户协议，必选
+   * 法律信息——用户协议，`必选`
    */
   USER_AGREEMENT: 'userAgreement',
   /**
-   * 法律信息——隐私政策，必选
+   * 法律信息——隐私政策，`必选`
    */
   PRIVACY_POLICY: 'privacyPolicy'
 };
@@ -136,7 +136,8 @@ export { firstAllOptions, secondAllOptions };
  * ```js
  * // extraOptions
  * extraOptions: {
- *   showUpgrade: bool // 固件升级是否显示二级菜单。默认值true
+ *   showUpgrade: bool // 「固件升级」是否显示二级菜单。默认值true。一般来说，wifi设备显示二级菜单，蓝牙设备不显示二级菜单
+ *   upgradePageKey: string // 「固件升级」如果不显示二级菜单，请传入想跳转页面的key(定义在 index.js 的 RootStack 中)
  *   licenseUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明
  *   policyUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明
  *   deleteDeviceMessage: string // 删除设备的弹窗中自定义提示文案，见 miot/Host.ui.openDeleteDevice 的传参说明
@@ -180,7 +181,8 @@ export default class CommonSetting extends React.Component {
       firstAllOptions.SHARE,
       firstAllOptions.BTGATEWAY,
       firstAllOptions.VOICE_AUTH,
-      firstAllOptions.IFTTT
+      firstAllOptions.IFTTT,
+      firstAllOptions.FIRMWARE_UPGRADE
     ],
     secondOptions: [
       secondAllOptions.AUTO_UPGRADE,
@@ -201,7 +203,7 @@ export default class CommonSetting extends React.Component {
       },
       [firstAllOptions.MEMBER_SET]: {
         title: strings.memberSet,
-        onPress: _ => console.warn('unavailable temporarily')
+        onPress: _ => Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac)
       },
       [firstAllOptions.SHARE]: {
         title: strings.share,
@@ -254,10 +256,19 @@ export default class CommonSetting extends React.Component {
    */
   chooseFirmwareUpgrade() {
     // 默认是wifi设备固件升级的二级页面
-    const { showUpgrade } = this.props.extraOptions || {};
+    const { showUpgrade, upgradePageKey } = this.props.extraOptions || {};
     if (showUpgrade === false) {
       // 蓝牙统一OTA界面
-      console.warn('bt dfu ui is unavailable temporarily');
+      if (upgradePageKey === undefined) {
+        console.warn('请在 extraOptions.upgradePageKey 中填写你想跳转的固件升级页面, 传给 CommonSetting 组件');
+        return;
+      }
+      if (typeof upgradePageKey !== 'string') {
+        console.warn('upgradePageKey 必须是字符串, 是你在 index.js 的 RootStack 中定义的页面 key');
+        return;
+      }
+      this.openSubPage(upgradePageKey, {}); // 跳转到开发者指定页面
+      console.warn('蓝牙统一OTA界面正在火热开发中');
     }
     else {
       // wifi设备固件升级
@@ -268,9 +279,8 @@ export default class CommonSetting extends React.Component {
    * @description 打开二级菜单
    * @param {string} page index.js的RootStack中页面定义的key
    */
-  openSubPage(page) {
+  openSubPage(page, params = { secondOptions: this.props.secondOptions }) {
     if (this.props.navigation) {
-      const params = { secondOptions: this.props.secondOptions };
       this.props.navigation.navigate(page, params);
     }
     else {
@@ -287,7 +297,6 @@ export default class CommonSetting extends React.Component {
   render() {
     const requireKeys1 = [firstAllOptions.NAME, firstAllOptions.LOCATION];
     const requireKeys2 = [
-      firstAllOptions.FIRMWARE_UPGRADE,
       firstAllOptions.MORE,
       firstAllOptions.HELP,
       firstAllOptions.LEGAL_INFO
