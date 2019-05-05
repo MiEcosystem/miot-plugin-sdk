@@ -14,6 +14,7 @@
  *
  *
  */
+import {Device} from "../index";
 const resolveAssetSource = require('resolveAssetSource');
 export default {
   /**
