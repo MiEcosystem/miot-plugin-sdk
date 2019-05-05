@@ -247,7 +247,6 @@ export default {
     },
     /**
      * 删除服务器中 device 对应的数据，内部调用米家代理接口/device/delsetting
-     * @deprecated 10005 开始废弃， 后续版本会移除该方法。 不建议再使用，batchSetDeviceDatas 设置的属性会随着设备删除自动清空
      * @param {json} params  - 请求参数 \{did:设备 id,settings:要删除的设置角标的数组}
      * @return {Promise}
      */
@@ -273,7 +272,7 @@ export default {
     },
     /**
      * 添加设备属性和事件历史记录，/user/set_user_device_data
-     *
+     * @deprecated 10005
      * @param {json}  params  参数\{did,uid,type,key,time,value}含义如下：
      * did：设备did，
      * uid：添加到哪个用户下,一般为 Device.ownerId，
@@ -674,6 +673,7 @@ export default {
     },
     /**
      * call api /scene/idfy_get
+     * @since 10005
      * @param {object} params json params
      * @example
      * let params = {"identify":"554011","st_id":7,"setting":{"aqi_link":"0","exception_alert":"1","blue_sky_alert":"0"},"authed":["554011"]}

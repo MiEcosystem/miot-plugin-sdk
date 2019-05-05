@@ -195,6 +195,7 @@ export default {
      * "tr"   //土耳其
      * "kr"   //韩国
      * "de"   //德国
+     * @since 10010
      */
     getCurrentCountry() {
          return Promise.resolve(null);

@@ -31,7 +31,6 @@ import React from 'react';
 import { AppRegistry, DeviceEventEmitter } from "react-native";
 import RootDevice from "./Device";
 import resolveAssetResource from "./native/common/node/resolve";
-import { Package } from '.';
 export const DEBUG = "debug";
 export const RELEASE = "release";
 /**
@@ -92,7 +91,7 @@ export const PackageEvent = {
      * @event
      * @param autoExit
      */
-    packageAuthorizationCancel: { 
+    packageAuthorizationCancel: {
     },
     /**
      * 插件接收到场景等通知消息
