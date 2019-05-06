@@ -306,12 +306,7 @@ export default class CommonSetting extends React.Component {
     if (Device.isShared) {
       keys = keys.filter(key => firstSharedOptions[key]);
     }
-    const items = keys.map(key => {
-      if (key !== undefined
-        && this.commonSetting[key] !== undefined) {
-        return this.commonSetting[key];
-      }
-    });
+    const items = keys.map(key => this.commonSetting[key]).filter(item => item);
     return (
       <View style={styles.container}>
         <View style={styles.titleContainer}>
