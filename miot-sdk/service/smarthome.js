@@ -755,7 +755,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * call /app/user/setpdata, 其中的time为关键信息，在getpdata使用时将利用此值。
+     * call /user/setpdata, 其中的time为关键信息，在getpdata使用时将利用此值。
      * @since 10010
      * @param {object} params params
      * @param {long} params.time setpddata的时间戳
@@ -766,7 +766,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * call /app/user/getpdata
+     * call /user/getpdata
      * 此接口的时间戳范围是反的，即：time_start > time_end ,否则获取不到。
      * @since 10010
      * @param {object} params params
