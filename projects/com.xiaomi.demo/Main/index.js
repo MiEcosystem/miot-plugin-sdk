@@ -116,33 +116,6 @@ import MHSetting from './unuse/MHSetting';
 //   }
 // }
 
-<<<<<<< HEAD
-const RootStack = createStackNavigator(
-    {
-        Home: MainPage,
-        Setting,
-        List,
-        MoreSetting,
-        FirmwareUpgrade,
-        CustomContainer,
-        tutorialDemo: TutorialDemo,
-        LocaleServer: LocaleServer,
-        blankDemo: BlankDemo,
-        DeviceControl: DeviceControl,
-        NavigateUIDemo: NavigateUIDemo,
-        JSExecutor: JSExecutor,
-        DeviceDemo: DeviceDemo,
-        PackageDemo: PackageDemo,
-        accountDemo: AccountDemo,
-        ControlDemo: ControlDemo,
-        storageDemo: StorageDemo,
-        fileStorage: FileStorage,
-        callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
-        MemberAPIDemo,
-        RPCControl: RPCControl,
-        OperationDemoIndex: OperationDemoIndex,
-        // BLEConnectionDemo: BLEConnectionDemo,
-=======
 const RootStack = createStackNavigator({
     Home: MainPage,
     Setting,
@@ -167,7 +140,6 @@ const RootStack = createStackNavigator({
     RPCControl: RPCControl,
     OperationDemoIndex: OperationDemoIndex,
     // BLEConnectionDemo: BLEConnectionDemo,
->>>>>>> dac8aedfb302256aaf985ac5d5d58aa1698cc3ae
 
     UIDemo: UIDemo,
     RefreshListView: RefreshListView,
