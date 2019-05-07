@@ -1,6 +1,6 @@
 ---
 name: 📝Issue 模版
-about: 如有问题，请按照此模版提issue，否则您的issue处理优先级将会被降低，谢谢配合
+about: 请务必使用此模版提issue，严格按格式提交，“必填”项必须要填，如不遵守，我们可能会降低处理的优先级
 title: ''
 labels: ''
 assignees: blockdate
@@ -24,8 +24,11 @@ assignees: blockdate
 **公司名称（必填）**
 贵司的简称
 
-**项目名称（必填）**
-此issue关联的项目名称或项目ID，如您不清楚，请咨询贵司的项目经理
+**是否为新产品（必填）**
+若是旧框架插件迁移相关，请填"否"
+
+**产品名称/Model（必填）**
+此issue关联的产品名称和model,如"小米开发板/xiaomi.demo.v1"。(若您不清楚，请咨询贵司的项目经理)
 
 **环境（必填）**
 - 电脑操作系统:[eg.Windows/Mac OS/Linux]
