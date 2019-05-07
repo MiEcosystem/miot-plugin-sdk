@@ -431,11 +431,11 @@ export default {
      * -4 - server err
      * 
      * @since 10005
-     * @param {json} params  -参数 [{did:"",props:["prop.aaa","prop.bbb"]}]
+     * @param {json} params  -参数 [{did:"",props:["prop.saaa","prop.sbbb"]}]
      * @return {Promise}
      * @example
      * let params = {'did':Device.deviceID, 'props': [   
-     *  "prop.s_push_switch_<uid>"
+     *  "prop.s_push_switch"
      * ]}   
      * Service.smarthome.batchGetDeviceDatas([params]).then(...)
      * 
