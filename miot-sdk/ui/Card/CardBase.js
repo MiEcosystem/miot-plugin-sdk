@@ -19,7 +19,7 @@ const DEFAULT_STYLE = {
 /**
  * @export
  * @author Geeook
- * @since
+ * @since 10010
  * @module CardBase
  * @description 基础卡片
  * @property {component} innerView - 卡片内部 View, 不传该参数将显示默认的 icon + text

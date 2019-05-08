@@ -240,7 +240,7 @@ export default {
      * 具体使用参考generateObjNameAndUrlForFDSUpload
      * @since 10011
      * @param {string} did 
-     * @param {string || array<string>} suffix 
+     * @param {string} suffix string or array<string>
      */
     generateObjNameAndUrlForLogFileFDSUpload(did, suffix) {
          return Promise.resolve(null);
