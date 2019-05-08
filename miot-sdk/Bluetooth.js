@@ -736,7 +736,7 @@ export default {
     /**
      * 判断当前设备是否通过蓝牙网关扫描到了
      * @static
-     *  @param {string} mac
+     * @param {string} mac
      * @returns {Promise<boolean>}
      */
     isBleGatewayConnected(mac) {
