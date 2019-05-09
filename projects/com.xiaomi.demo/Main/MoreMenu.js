@@ -156,6 +156,12 @@ export default class MoreMenu extends React.Component {
         }
       },
       {
+        'name': "开启定时",
+        'func': () => {
+          Host.ui.openTimerSettingPageWithVariousTypeParams("power_on", ["on", "title"], 'off', "title")
+        }
+      },
+      {
         'name': '打开自动化界面',
         'func': () => {
           Host.ui.openIftttAutoPage();

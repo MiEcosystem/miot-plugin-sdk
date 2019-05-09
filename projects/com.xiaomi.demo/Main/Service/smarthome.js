@@ -42,6 +42,22 @@ export default class CallSmartHomeAPIDemo extends React.Component {
                         })
                     }
                 },
+                {
+                    name: "getDeviceDataRaw", handle: this.handleObjRes.bind(this), action: () => {
+                        let params = {
+                            "uid": Service.account.ID,               // 用户id
+                            "did": Device.deviceID,         // 设备ID
+                            "type": "store",             // 查询事件；当查询属性时type用prop
+                            "key": "opt_log",             // 事件名称；当查询属性时value填具体属性，比如"aqi"
+                            "time_start": 1464658990,    // 开始UTC时间
+                            "time_end": 1464663600,      // 结束UTC时间
+                            "limit": 20                  // 最多返回结果数目，上限500。注意按需填写，返回数据越多查询越慢
+                        }
+                        return Service.smarthome.getDeviceDataRaw(params).then(res => {
+                            return new Promise.resolve({ "getDeviceDataRaw res": res })
+                        })
+                    }
+                },
             ]
         })
     }

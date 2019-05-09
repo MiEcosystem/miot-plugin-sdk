@@ -776,5 +776,21 @@ export default {
      */
     getUserPDData(params) {
          return Promise.resolve(null);
+    },
+    /**
+     * App获取设备上报操作记录
+     * request /v2/user/get_device_data_raw
+     * @since 10011
+     * @param {object} params 参数
+     * @param {int} params.did 设备did
+     * @param {string} params.uid 用户UID
+     * @param {string} params.type  查询事件；当查询属性时使用 'prop', 否则使用 'store'操作
+     * @param {string} params.key   事件名称；当查询属性时value填具体属性，比如"aqi"
+     * @param {int} params.time_start   开始UTC时间
+     * @param {int} params.time_end 结束UTC时间
+     * @param {int} params.limit    最多返回结果数目，上限500。注意按需填写，返回数据越多查询越慢
+     */
+    getDeviceDataRaw(params) {
+         return Promise.resolve(null);
     }
 }
