@@ -450,9 +450,9 @@ export default {
      * 
      * error code: 
      * 0 - 成功
-     * -7 - 没有找到注册的设备
-     * -6 - 设备对应uid不为0 
-     * -4 - server err
+     * 7 - 没有找到注册的设备
+     * 6 - 设备对应uid为0 
+     * 4 - server err
      * 
      * @since 10005
      * @param {json} params {did: string, props: json}
