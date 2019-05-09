@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 系统服务模块
- * @doc_index 7
+ * @doc_index 8
  * @module miot/Service
  * @description 系统服务模块，提供了设备，红外，场景，安全，存储，miot-spec协议，账号等子服务模块
  * @example

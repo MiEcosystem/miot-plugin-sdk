@@ -5,7 +5,7 @@ import { Styles } from "../resources";
 /**
  * @export public
  * @doc_name 常用UI组件
- * @doc_index 21
+ * @doc_index 22
  * @author Geeook
  * @since 20190410
  * @module Separator

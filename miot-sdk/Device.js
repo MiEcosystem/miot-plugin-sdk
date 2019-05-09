@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 插件设备模块
- * @doc_index 4
+ * @doc_index 5
  * @module miot/Device
  * @description
  * 设备相关 API
@@ -255,7 +255,7 @@ export class IDeviceWifi {
     /**
      * 订阅设备消息
      * @method
-     * @param {...string} propertyOrEventNames -在开发平台上声明的 prop 与 event 名，注意消息格式为：prop.xxxxx 或者 event.xxxxx ，表示订阅的是设备的属性变化，还是设备的事件响应
+     * @param {...string} propertyOrEventNames -在开发平台上声明的 prop 与 event 名，注意消息格式为：prop.xxxxx 或者 event.xxxxx ，表示订阅的是设备的属性变化，还是设备的事件响应.如果是miot-spec设备。则为prop.siid.piid，event.siid.eiid
      * @returns {Promise<EventSubscription>}
      * @example
      * import {Device, DeviceEvent} from 'miot'

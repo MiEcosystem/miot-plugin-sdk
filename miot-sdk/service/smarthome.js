@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 系统服务_智能家庭模块
- * @doc_index 18
+ * @doc_index 19
  * @module miot/service/smarthome
  * @description 智能家庭 API
  *

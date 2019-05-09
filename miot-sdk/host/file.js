@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 原生_文件模块
- * @doc_index 10
+ * @doc_index 11
  * @module miot/host/file
  * @description 
  * 本地文件访问及处理服务
