@@ -416,6 +416,14 @@ class IDevice {
          return  false
     }
     /**
+     * 批量删除设备, 不能删除 小米路由器/本地蓝牙/局域网直连设备
+     * @since 10011
+     * @param {object[]} didAndPids did 与 pid（Device.type） 列表 [{did:xx,pid:xx}, {did:xx,pid:xx}]
+     */
+    deleteDevices(didAndPids) {
+         return Promise.resolve(null);
+    }
+    /**
      * 获取子设备列表，一般网关才会有子设备
      * @since 10004
      * @method
