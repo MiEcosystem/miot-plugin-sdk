@@ -183,6 +183,13 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 获取Android手机屏幕相关信息
+     * @since 10011
+     */
+    getPhoneScreenInfo() {
+         return Promise.resolve(null);
+    },
+    /**
      * 获取当前登陆用户的服务器国家
      * e.g 
      * "cn" //中国大陆
