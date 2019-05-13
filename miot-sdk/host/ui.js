@@ -14,7 +14,7 @@
  *
  *
  */
-import { Device } from "../index";
+import native from "../native";
 const resolveAssetSource = require('resolveAssetSource');
 export default {
   /**
@@ -323,5 +323,12 @@ export default {
    * @param {string} did 设备did
    */
   openConnectSucceedPage(model, did) {
+  },
+  /**
+   * 打开Zigbee 网关插件开启子设备快连
+   * @since 10020
+   * @param {string} did 网关设备did
+   */
+  openZigbeeConnectDeviceList(did) {
   }
 };
