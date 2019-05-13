@@ -859,15 +859,96 @@ export default {
      * request /v2/user/get_device_data_raw
      * @since 10011
      * @param {object} params 参数
-     * @param {int} params.did 设备did
+     * @param {string} params.did 设备did
      * @param {string} params.uid 用户UID
      * @param {string} params.type  查询事件；当查询属性时使用 'prop', 否则使用 'store'操作
      * @param {string} params.key   事件名称；当查询属性时value填具体属性，比如"aqi"
-     * @param {int} params.time_start   开始UTC时间
-     * @param {int} params.time_end 结束UTC时间
-     * @param {int} params.limit    最多返回结果数目，上限500。注意按需填写，返回数据越多查询越慢
+     * @param {string} params.time_start   开始UTC时间
+     * @param {string} params.time_end 结束UTC时间
+     * @param {string} params.limit    最多返回结果数目，上限500。注意按需填写，返回数据越多查询越慢
      */
     getDeviceDataRaw(params) {
          return Promise.resolve(null);
-    }
+    },
+    /**
+     * 透传米家APP与小米支付创建session
+     * request /v2/nfckey/create_se_session
+     * @param {object} params params
+     * @param {string} params.did did
+     * @param {object} params.reqData // 透传给Mipay的数据
+     * @param {string} params.reqData.userId // 透传给Mipay的数据
+     * @param {string} params.reqData.cplc // 透传给Mipay的数据
+     * @param {string} params.reqData.deviceType // 透传给Mipay的数据
+     * @param {string} params.reqData.deviceId // 透传给Mipay的数据
+     * @param {string} params.reqData.timestamp // 透传给Mipay的数据
+     * @param {string} params.reqData.sign // 透传给Mipay的数据
+     */
+    createSeSession(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 透传替换ISD key
+     * request /v2/nfckey/replace_se_isdkey
+     * @param {object} params params
+     * @param {string} params.did did
+     * @param {object} params.reqData // 透传给Mipay的数据
+     * @param {string} params.reqData.sessionId // 透传给Mipay的数据
+     * @param {string} params.reqData.partnerId // 透传给Mipay的数据
+     * @param {string} params.reqData.userId // 透传给Mipay的数据
+     * @param {string} params.reqData.cplc // 透传给Mipay的数据
+     * @param {string} params.reqData.timestamp // 透传给Mipay的数据
+     * @param {string} params.reqData.sign // 透传给Mipay的数据
+     */
+    replaceSEISDkey(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 透传锁主密钥重置
+     * request /v2/nfckey/reset_lock_primarykey
+     * @param {object} params params
+     * @param {string} params.did did
+     * @param {object} params.reqData // 透传给Mipay的数据
+     * @param {string} params.reqData.sessionId // 透传给Mipay的数据
+     * @param {string} params.reqData.partnerId // 透传给Mipay的数据
+     * @param {string} params.reqData.userId // 透传给Mipay的数据
+     * @param {string} params.reqData.cplc // 透传给Mipay的数据
+     * @param {string} params.reqData.timestamp // 透传给Mipay的数据
+     * @param {string} params.reqData.sign // 透传给Mipay的数据
+     */
+    resetLockPrimaryKey(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 处理芯片返回
+     * request /v2/nfckey/handle_se_response
+     * @param {object} params params
+     * @param {string} params.did did
+     * @param {object} params.reqData // 透传给Mipay的数据
+     * @param {string} params.reqData.sessionId // 透传给Mipay的数据
+     * @param {string} params.reqData.userId // 透传给Mipay的数据
+     * @param {string} params.reqData.cplc // 透传给Mipay的数据
+     * @param {object[]} params.reqData.seResps // 这是一个数组透传给Mipay的数据
+     * @param {string} params.reqData.seResps[].data // 这是一个透传给Mipay的数据
+     * @param {string} params.reqData.seResps[].statusWord // 这是一个透传给Mipay的数据
+     * @param {string} params.reqData.timestamp // 透传给Mipay的数据
+     * @param {string} params.reqData.sign // 透传给Mipay的数据
+     * @example
+     * let param = {
+     *  "did":"1234567",
+     *  "reqData":{ // 透传给Mipay的数据
+     *      "sessionId":"999999999", 
+     *      "userId":"12340000",
+     *      "cplc":"asdghjklmnbvd",
+     *      "seResps":[
+     *          {"data":"","statusWord":"9000"},
+     *          {"data":"","statusWord":"6A80"}
+     *      ],
+     *      "timestamp":1234567890,
+     *      "sign":"shaddgkldsjlkeri"
+     *  }
+     * }
+     */
+    handleSEResponse(params) {
+         return Promise.resolve(null);
+    },
 }
