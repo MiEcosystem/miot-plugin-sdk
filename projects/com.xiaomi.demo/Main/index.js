@@ -92,6 +92,7 @@ import RPCControl from './tutorial/RPCControl';
 import Setting from "./tutorial/Setting";
 import FileStorage from './tutorial/storage/FileStorage';
 import StorageDemo from './tutorial/storage/StorageDemo';
+import TitleBarDemo from "./tutorial/TitleBarDemo";
 import TutorialDemo from './tutorial/TutorialDemo';
 import CardPage from "./UIComponent/CardPage";
 import DialogTest from './UIComponent/DialogTest';
@@ -128,6 +129,7 @@ const RootStack = createStackNavigator({
     FirmwareUpgrade,
     CustomContainer,
     Parallax,
+    TitleBarDemo,
     tutorialDemo: TutorialDemo,
     LocaleServer: LocaleServer,
     blankDemo: BlankDemo,
