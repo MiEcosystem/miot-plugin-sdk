@@ -43,7 +43,7 @@
     3, 不允许引用 projects 下其他项目的任何内容
 
 ## 文档
-插件开发请参考[《MIOT SDK API》(MarkDown格式)](https://github.com/MiEcosystem/miot-plugin-sdk/wiki)
+插件开发请参考[《MIOT SDK API》](https://github.com/MiEcosystem/miot-plugin-sdk/wiki)
             [《CHANGELOG》](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/CHANGELOG.md)
 
 插件从旧框架迁移到新框架请参考[《迁移手册》](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/%E8%BF%81%E7%A7%BB%E6%89%8B%E5%86%8C.md)
