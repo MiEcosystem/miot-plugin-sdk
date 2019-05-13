@@ -32,6 +32,7 @@ const DEFAULT_STYLE = {
  * @property {style} cardStyle - 卡片容器的自定义样式, 默认样式 `{ width: screenWidth - 30, height:66 }`
  * @property {style} iconStyle - 左侧图标的自定义样式
  * @property {style} textStyle - 右侧文案的自定义样式
+ * @property {string} underlayColor - 卡片点击态颜色，默认 rgba(0,0,0,0.05)
  */
 export default class CardBase extends React.Component {
   static propTypes = {
@@ -44,19 +45,29 @@ export default class CardBase extends React.Component {
     onPress: PropTypes.func,
     cardStyle: PropTypes.object,
     iconStyle: PropTypes.object,
-    textStyle: PropTypes.object
+    textStyle: PropTypes.object,
+    underlayColor: PropTypes.string
   }
   static defaultProps = {
     showDismiss: false,
     visible: true,
+    underlayColor: Styles.common.underlayColor
   }
   constructor(props, context) {
     super(props, context);
-    const { height } = this.props.cardStyle;
+    const { height, marginTop } = this.props.cardStyle;
     this.cardHeight = height || DEFAULT_STYLE.HEIGHT;
     this.height = new Animated.Value(1);
     this.scale = new Animated.Value(1);
     this.opacity = new Animated.Value(1);
+    this.marginTop = marginTop || 0;
+  }
+  componentDidMount() {
+    this.height.addListener(e => {
+      this.refs.card.setNativeProps({
+        marginTop: this.marginTop * e.value
+      });
+    });
   }
   /**
    * @description 渲染卡片内部View。默认显示 icon + text
@@ -183,6 +194,7 @@ export default class CardBase extends React.Component {
     const { animatedViewStyle, containerStyle } = this.getCorrectStyle(cardStyle);
     return (
       <Animated.View
+        ref='card'
         style={[animatedViewStyle, {
           opacity: this.opacity,
           height: this.height.interpolate({
@@ -193,7 +205,7 @@ export default class CardBase extends React.Component {
       >
         <TouchableHighlight
           style={[containerStyle, { flex: 1 }]}
-          underlayColor={Styles.common.underlayColor}
+          underlayColor={this.props.underlayColor}
           disabled={!this.props.onPress}
           onPress={this.props.onPress}
         >
