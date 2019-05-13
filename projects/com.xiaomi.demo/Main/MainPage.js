@@ -3,7 +3,7 @@
 import { Device, DeviceEvent, Package } from "miot";
 import TitleBar from "miot/ui/TitleBar";
 import React from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { getString } from './MHLocalizableString';
 
 
@@ -19,11 +19,7 @@ export default class MainPage extends React.Component {
             subTitle={getString('NUM_PHOTOS', { 'numPhotos': 1 })}
             onPressLeft={() => { Package.exit() }}
             onPressRight={() => {
-              if (Platform.OS == 'android') {
-                navigation.setParams({ showDialog: true });
-              } else {
-                navigation.navigate('moreMenu', { 'title': '设置' });
-              }
+              navigation.navigate('moreMenu', { 'title': '设置' });
             }} />
         </View>
     };

@@ -34,6 +34,7 @@ import DeviceDemo from "./Device/DeviceDemo";
 import MHAudioDemo from './Host/MHAudioDemo';
 import OrientationDemo from './Host/OrientationDemo';
 import NavigateUIDemo from "./Host/UI";
+import PrivacyDemo from "./Host/UI/privacy";
 import VideoDemo from './Host/VideoDemo';
 import MainPage from './MainPage';
 import MoreMenu from './MoreMenu';
@@ -93,8 +94,11 @@ import Setting from "./tutorial/Setting";
 import FileStorage from './tutorial/storage/FileStorage';
 import StorageDemo from './tutorial/storage/StorageDemo';
 import TutorialDemo from './tutorial/TutorialDemo';
+import CardPage from "./UIComponent/CardPage";
 import DialogTest from './UIComponent/DialogTest';
 import ImageCapInsetDemo from './UIComponent/ImageCapInsetDemo'; // working but no title displayed
+import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo';
+import Parallax from "./UIComponent/Parallax";
 import RefreshListView from './UIComponent/RefreshListView';
 import Dynamic from './UIComponent/swiper/Dynamic/';
 import LoadMinimal from './UIComponent/swiper/LoadMinimal/';
@@ -120,9 +124,11 @@ const RootStack = createStackNavigator({
     Home: MainPage,
     Setting,
     List,
+    CardPage,
     MoreSetting,
     FirmwareUpgrade,
     CustomContainer,
+    Parallax,
     tutorialDemo: TutorialDemo,
     LocaleServer: LocaleServer,
     blankDemo: BlankDemo,
@@ -139,9 +145,11 @@ const RootStack = createStackNavigator({
     MemberAPIDemo,
     RPCControl: RPCControl,
     OperationDemoIndex: OperationDemoIndex,
+    PrivacyDemo,
     // BLEConnectionDemo: BLEConnectionDemo,
 
     UIDemo: UIDemo,
+    MiotAndroidScrollViewDemo: MiotAndroidScrollViewDemo,
     RefreshListView: RefreshListView,
 
     ThirdPartyDemo: ThirdPartyDemo,

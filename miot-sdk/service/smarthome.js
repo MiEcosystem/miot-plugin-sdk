@@ -217,7 +217,7 @@ export default {
     },
     /**
      * 获取服务器中 device 对应的数据，内部调用米家代理接口 /device/getsetting
-     * @deprecated 10005 开始废弃， 后续版本会移除该方法。 推荐使用 batchGetDeviceDatas
+     * @deprecated 10010 开始废弃， 后续版本会移除该方法。 推荐使用 getDeviceSettingV2
      * @param {json} params 请求参数 {did:string,settings:array<string>}
      * @return {Promise}
      */
@@ -225,8 +225,20 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 获取服务器中 device 对应的数据，内部调用米家代理接口 /v2/device/getsettingv2
+     * @since 10010
+     * @param {object} params 
+     * @param {object} params.did   设备did
+     * @param {object} params.last_id   上一次请求返回的id，用于分页
+     * @param {object} params.prefix_filter filter
+     * @param {object} params.settings 指定设置的key数组
+     * @return {Promise}
+     */
+    getDeviceSettingV2(params) {
+         return Promise.resolve(null);
+    },
+    /**
      * 设置服务器中 device 对应的数据，内部调用米家代理接口/device/setsetting
-     * @deprecated 10005 开始废弃， 后续版本会移除该方法。推荐使用 batchSetDeviceDatas
      * @param {json} params 请求参数 {did:string,settings:map<key,value>}
      * @return {Promise}
      */
@@ -235,7 +247,6 @@ export default {
     },
     /**
      * 删除服务器中 device 对应的数据，内部调用米家代理接口/device/delsetting
-     * @deprecated 10005 开始废弃， 后续版本会移除该方法。 不建议再使用，batchSetDeviceDatas 设置的属性会随着设备删除自动清空
      * @param {json} params  - 请求参数 \{did:设备 id,settings:要删除的设置角标的数组}
      * @return {Promise}
      */
@@ -261,7 +272,7 @@ export default {
     },
     /**
      * 添加设备属性和事件历史记录，/user/set_user_device_data
-     *
+     * @deprecated 10005
      * @param {json}  params  参数\{did,uid,type,key,time,value}含义如下：
      * did：设备did，
      * uid：添加到哪个用户下,一般为 Device.ownerId，
@@ -351,7 +362,20 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 获取AppConfig
+     * @param {object} params 请求参数
+     * @param {string} params.name configName
+     * @param {string} params.model device model
+     * @param {string} params.lang lang e.g: zh_CN
+     * @param {string} params.result_level 值为1，则不返回content来节省流量， 默认为0
+     * @param {string} params.version version
+     */
+    getAppConfig(params) {
+         return Promise.resolve(null);
+    },
+    /**
      * 用于获取插件所需的一些默认配置信息
+     * @deprecated 10010, SDKLevel 10010 废弃该接口，使用getAppConfig
      * @param {json} params {'name':'自定义值','lang':'自定义值','version':'自定义值','model':'modelId'}
      * /service/getappconfigv2
      */
@@ -407,11 +431,11 @@ export default {
      * -4 - server err
      * 
      * @since 10005
-     * @param {json} params  -参数 [{did:"",props:["prop.aaa","prop.bbb"]}]
+     * @param {json} params  -参数 [{did:"",props:["prop.saaa","prop.sbbb"]}]
      * @return {Promise}
      * @example
      * let params = {'did':Device.deviceID, 'props': [   
-     *  "prop.s_push_switch_<uid>"
+     *  "prop.s_push_switch"
      * ]}   
      * Service.smarthome.batchGetDeviceDatas([params]).then(...)
      * 
@@ -422,7 +446,7 @@ export default {
     },
     /**
      * 设置设备属性, 属性设置会在设备被删除时清空
-     * 备注： props最多20个，最多同时300个设备（目前max设备数)，属性需要以prop.s 开头
+     * 备注： props最多20个，最多同时300个设备（目前max设备数)，属性需要以prop.s_ 开头
      * 
      * error code: 
      * 0 - 成功
@@ -468,6 +492,12 @@ export default {
      * 从服务器获取配置文件，/device/getThirdConfig
      *
      * @param {json} params  -参数 {"name":"config_version","version":1,"lang":"en","app_id":"XXX"}
+     * @param {string} params.name configName
+     * @param {string} params.model device model
+     * @param {string} params.app_id app_id
+     * @param {string} params.lang lang e.g: zh_CN
+     * @param {string} params.result_level 值为1，则不返回content来节省流量， 默认为0
+     * @param {string} params.version version
      * @return {Promise}
      */
     getThirdConfig(params) {
@@ -643,6 +673,7 @@ export default {
     },
     /**
      * call api /scene/idfy_get
+     * @since 10005
      * @param {object} params json params
      * @example
      * let params = {"identify":"554011","st_id":7,"setting":{"aqi_link":"0","exception_alert":"1","blue_sky_alert":"0"},"authed":["554011"]}
@@ -721,6 +752,29 @@ export default {
      * @param {MemberType} type 
      */
     loadMembers(type) {
+         return Promise.resolve(null);
+    },
+    /**
+     * call /user/setpdata, 其中的time为关键信息，在getpdata使用时将利用此值。
+     * @since 10010
+     * @param {object} params params
+     * @param {long} params.time setpddata的时间戳
+     * @param {string} params.key key 字串
+     * @param {string} params.value value值
+     */
+    setUserPDData(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * call /user/getpdata
+     * 此接口的时间戳范围是反的，即：time_start > time_end ,否则获取不到。
+     * @since 10010
+     * @param {object} params params
+     * @param {object} params.time_end 筛选结果的时间戳
+     * @param {object} params.time_start 筛选结果的时间戳
+     * @param {object} params.key 获取的key
+     */
+    getUserPDData(params) {
          return Promise.resolve(null);
     }
 }

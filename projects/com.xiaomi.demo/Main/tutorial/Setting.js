@@ -37,6 +37,7 @@ export default class Setting extends React.Component {
       first_options.SHARE,
       first_options.IFTTT,
       first_options.VOICE_AUTH,
+      first_options.FIRMWARE_UPGRADE,
     ]
     // 显示部分二级菜单项
     const secondOptions = [
@@ -46,6 +47,7 @@ export default class Setting extends React.Component {
     // 显示固件升级二级菜单
     const extraOptions = {
       showUpgrade: true,
+      // upgradePageKey: 'FirmwareUpgrade',
       // licenseUrl: require('../resources/html/license_zh.html'),
       // policyUrl: require('../resources/html/privacy_zh.html'),
       deleteDeviceMessage: '真的要删除？你不再考虑考虑？'

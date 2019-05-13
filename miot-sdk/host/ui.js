@@ -14,6 +14,7 @@
  *
  *
  */
+import {Device} from "../index";
 const resolveAssetSource = require('resolveAssetSource');
 export default {
   /**
@@ -96,19 +97,19 @@ export default {
   },
   /**
    * 查看软件政策和隐私协议
-   * @param {string} licenseTitle
-   * @param {string} licenseUrl - require('资源的相对路径')
-   * @param {string} policyTitle
-   * @param {string} policyUrl - require('资源的相对路径')
+   * @param {string} licenseTitle optional 可以为空
+   * @param {string} licenseUrl optional require('资源的相对路径')
+   * @param {string} policyTitle 不可以为空
+   * @param {string} policyUrl 不可以为空 require('资源的相对路径')
    */
   privacyAndProtocolReview(licenseTitle, licenseUrl, policyTitle, policyUrl) {
   },
   /**
    * 软件政策和隐私协议授权
-   * @param {string} licenseTitle
-   * @param {string} licenseUrl - require('资源的相对路径')
-   * @param {string} policyTitle
-   * @param {string} policyUrl - require('资源的相对路径')
+   * @param {string} licenseTitle optional 可以为空
+   * @param {string} licenseUrl optional require('资源的相对路径')
+   * @param {string} policyTitle 不可以为空
+   * @param {string} policyUrl 不可以为空 require('资源的相对路径')
    * @returns {Promise}
    */
   openPrivacyLicense(licenseTitle, licenseUrl, policyTitle, policyUrl) {
@@ -206,6 +207,30 @@ export default {
   openTimerSettingPageWithVariousTypeParams(onMethod, onParam, offMethod, offParam) {
   },
   /**
+   * 扩展自 openTimerSettingPageWithVariousTypeParams , 新增支持自定义name使用
+   * @since 10010 ,SDKLevel 10010 开始提供使用
+   * @param {object} options 配置信息
+   * @param {string} options.onMethod 配置定时开启的 method 名
+   * @param {object} options.onParam 配置定时开启的 参数
+   * @param {string} options.offMethod 配置定时关闭的 method 名
+   * @param {object} options.offParam 配置定时关闭的 参数
+   * @param {string} options.displayName 配置场景日志显示的名称
+   * @example
+   * Host.ui.openTimerSettingPageWithOptions({onMethod:"power_on", onParam: "on", offMethod: "power_off", offParam: "off", displayName:"设置xxx定时"})
+   */
+  openTimerSettingPageWithOptions(options) {
+  },
+  /**
+   * 更多设置-多键开关设置页面
+   * @since 10010 ,SDKLevel 10010 开始提供使用
+   * @param {string} did  设备did 指定设备ID
+   * @param {string} mac  设备mac option, 在不传递时。默认使用当前设备
+   * @example
+   * Host.ui.openPowerMultikeyPage(did, mac);
+  */
+  openPowerMultikeyPage(did, mac = null){
+  },
+    /**
    * 添加或者复制一个红外遥控器
    * @since 10003
    * @param {string} did 设备did
@@ -233,6 +258,7 @@ export default {
   openPageWithClassName(className) {
   },
   /**
+   * @deprecated 10010 开始废弃， 后续版本会移除该方法。推荐使用 `miot/ui/CommonSetting`
    * ios特有页面，android 不能使用
    * 打开更多设置页面（通常包括安全设置，常见问题与用户反馈）
    */

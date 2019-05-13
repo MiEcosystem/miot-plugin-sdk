@@ -24,6 +24,8 @@ export default class UIDemo extends React.Component {
       dataSource: ds.cloneWithRows(
         [
           { name: '自定义列表项', router: 'List' },
+          { name: '自定义列卡片', router: 'CardPage' },
+          { name: 'ScrollView 吸附效果 demo', router: 'Parallax' },
           { name: 'Host.ui 原生导航', router: 'NavigateUIDemo' },
           { name: 'UIKitHome', router: 'UIKitHome' },
           { name: 'RefreshListView', router: 'RefreshListView' },
@@ -34,7 +36,8 @@ export default class UIDemo extends React.Component {
           { name: 'swiperNumber', router: 'swiperNumber' },
           { name: 'ProgressDemo', router: 'ProgressDemo' },
           { name: 'DialogTest', router: 'DialogTest' },
-          { name: 'ImageCapInsetDemo', router: 'ImageCapInsetDemo' }
+          { name: 'ImageCapInsetDemo', router: 'ImageCapInsetDemo' },
+          { name: 'MiotAndroidScrollViewDemo(仅Android)', router: 'MiotAndroidScrollViewDemo' }
         ]),
     };
   }

@@ -4,7 +4,15 @@
  * @doc_index 21
  * @module miot/ui/MessageDialog
  * @description 消息对话框
- * @mark andr done
+ * @property {bool} visible 是否可见
+ * @property {bool} cancelable 是否允许点击空白区域取消显示,仅限Android
+ * @property {string} title 标题
+ * @property {string} message 副标题，内容
+ * @property {string} cancel 取消标题
+ * @property {string} confirm 确认标题
+ * @property {func} onConfirm 确认点击回调
+ * @property {func} onCancel 取消点击回调
+ * @property {func} onDismiss 对话框消失回调
  */
 import React, { Component } from 'react';
 import {
@@ -18,51 +26,14 @@ export default class MessageDialog extends Component {
     message: ''
   }
   static propTypes = {
-    /**
-     * 
-     * @member {bool}
-     */
     visible: PropTypes.bool,
-    /**
-     * 是否允许点击空白区域取消显示   
-     * Android Only iOS无效     
-     * @member {bool}
-     */
     cancelable: PropTypes.bool,
-    /**
-     * 标题
-     * @member {string}
-     */
     title: PropTypes.string,
-    /**
-     * 副标题，内容
-     * @member {string}
-     */
     message: PropTypes.string,
-    /**
-     * 取消标题
-     * @member {string}
-     */
     cancel: PropTypes.string,
-    /**
-     * 确认标题
-     * @member {string}
-     */
     confirm: PropTypes.string,
-    /**
-     * 确认点击回调
-     * @member {func}
-     */
     onConfirm: PropTypes.func,
-    /**
-     * 取消点击回调
-     * @member {func}
-     */
     onCancel: PropTypes.func,
-    /**
-     * 对话框消失回调
-     * @member {func}
-     */
     onDismiss: PropTypes.func,
     ...ViewPropTypes,
   };

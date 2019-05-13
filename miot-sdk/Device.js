@@ -27,9 +27,27 @@
  * ...
  * 其余具体使用请参考具体API文档
  */
-import Account from "./Account"
-import Scene from './service/scene'
-import Host from "./Host";
+import Account from "./Account";
+import Scene from './service/scene';
+const PERMISSION_OWNER = 16;
+const PERMISSION_FAMILY = 8;
+const PERMISSION_SHARE = 4;
+const PERMISSION_SHARE_READONLY = 32;
+const PERMISSION_NONE = 65296;
+const PERMISSION_NONE_MASK = 30;
+const INTERVAL_SUBSCRIBE_MSG_SECONDS = (2 * 60 + 50);//2'50"
+export function _find_device(did) {
+    let device = RootDevice;
+    let props = Properties.of(device);
+    if (props.did != did) {
+        device = (props._subDevices || []).find(d => did == d.deviceID);
+        if (!device) {
+            return {};
+        }
+        props = Properties.of(device);
+    }
+    return { device, props }
+}
 /**
  * Device事件集合
  * @namespace DeviceEvent
@@ -411,7 +429,23 @@ class IDevice {
          return Promise.resolve([]);
     }
     /**
+     * @typedef {Object} DeviceConfig
+     * @property {string} deviceIconURL 设备的实物icon url
+     * @property {string} deviceName 设备类型的名称
+     * @property {string} resetPageURL 设备的重置引导url
+     */
+    /**
+     * 获取某个model设备的默认配置，例如iconurl，名称等等
+     * @since 10010
+     * @param {string} model 指定设备的model
+     * @returns {DeviceConfig} 设备配置
+     */
+    loadRealDeviceConfig(model) {
+         return Promise.resolve({});
+    }
+    /**
      * 是否虚拟设备
+     * @deprecated 10010 废弃中，后续将不支持虚拟设备
      * @type {boolean}
      * @readonly
      *
@@ -421,7 +455,7 @@ class IDevice {
     }
     /**
      * 获取虚拟设备 /home/virtualdevicectr
-     * @method
+     * @deprecated 10010 废弃中，后续将不支持虚拟设备
      * @returns {Promise<IDevice[]>}
      * @description 废弃中，后续将不支持虚拟设备
      */

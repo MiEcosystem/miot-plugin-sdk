@@ -373,5 +373,15 @@ export default {
      */
     loadAutomaticScenes(deviceID, opt = null) {
         return loadScenes(deviceID, SceneType.Automatic, opt);
+    },
+    /**
+     * 获取指定设备的智能日志信息
+     * @since 10010
+     * @param {string} did 拉取设备的did
+     * @param {long} timestamp 时间戳限制
+     * @param {int} limit 拉取日志数量限制，小于等于50
+     */
+    loadScenesHistoryForDevice(did, timestamp = -1, limit = 50) {
+         return Promise.resolve(null);
     }
 }
