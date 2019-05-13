@@ -302,8 +302,8 @@ export default class CommonSetting extends React.Component {
       firstAllOptions.LEGAL_INFO
     ];
     let keys = [...requireKeys1, ...this.props.firstOptions, ...requireKeys2];
-    // 如果是共享设备，需要过滤一下
-    if (Device.isShared) {
+    // 如果是共享设备/家庭设备，需要过滤一下
+    if (Device.isOwner === false) {
       keys = keys.filter(key => firstSharedOptions[key]);
     }
     const items = keys.map(key => this.commonSetting[key]).filter(item => item);

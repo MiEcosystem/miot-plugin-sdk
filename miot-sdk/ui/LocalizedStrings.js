@@ -17,8 +17,8 @@
  * 
  */
 'use strict';
-import {Host} from "miot";
-var localization = Host.locale.language;
+import locale from "miot/host/locale";
+var localization = locale.language;
 if (!localization) {
   console.error("Something went wrong initializing the native ReactLocalization module.\nPlease check your configuration.\nDid you run 'react-native link'?");
 }
@@ -44,7 +44,7 @@ class LocalizedStrings {
     this.setLanguage(interfaceLanguage);
   }
   //Overwrite content, use for e.g. dynamicly reload locale from server
-  setContent(props){
+  setContent(props) {
     this.props = props;
     //Set language to its default value (the interface)
     this.setLanguage(this.language);
