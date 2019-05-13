@@ -272,7 +272,6 @@ export default {
     },
     /**
      * 添加设备属性和事件历史记录，/user/set_user_device_data
-     * @deprecated 10005
      * @param {json}  params  参数\{did,uid,type,key,time,value}含义如下：
      * did：设备did，
      * uid：添加到哪个用户下,一般为 Device.ownerId，
@@ -755,6 +754,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 设置用户信息
      * call /user/setpdata, 其中的time为关键信息，在getpdata使用时将利用此值。
      * @since 10010
      * @param {object} params params
@@ -766,6 +766,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 获取用户信息
      * call /user/getpdata
      * 此接口的时间戳范围是反的，即：time_start > time_end ,否则获取不到。
      * @since 10010
