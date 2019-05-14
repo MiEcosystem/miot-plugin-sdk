@@ -25,6 +25,8 @@ export default class UIDemo extends React.Component {
         [
           { name: '自定义列表项', router: 'List' },
           { name: '自定义卡片', router: 'CardPage' },
+          { name: '单选框', router: 'RadioExample' },
+          { name: '拖拽选择档位组件', router: 'GearExample' },
           { name: 'ScrollView 吸附效果 demo', router: 'Parallax' },
           { name: 'Host.ui 原生导航', router: 'NavigateUIDemo' },
           { name: 'UIKitHome', router: 'UIKitHome' },
