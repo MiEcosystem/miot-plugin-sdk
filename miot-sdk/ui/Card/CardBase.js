@@ -4,9 +4,7 @@ import { Animated, Dimensions, Easing, Image, StyleSheet, Text, TouchableHighlig
 import { Images, Styles } from '../../resources';
 const { width } = Dimensions.get('window');
 const DURATION_OUT = 250;
-const DURATION_IN = 300;
-const OPACITY_DELAY = 100;
-const SCALE_DELAY = 0;
+const DURATION_IN = 250;
 const DEFAULT_STYLE = {
   MARGIN_H: 15,
   HEIGHT: 66,
@@ -58,7 +56,6 @@ export default class CardBase extends React.Component {
     const { height, marginTop } = this.props.cardStyle;
     this.cardHeight = height || DEFAULT_STYLE.HEIGHT;
     this.height = new Animated.Value(1);
-    this.scale = new Animated.Value(1);
     this.opacity = new Animated.Value(1);
     this.marginTop = marginTop || 0;
   }
@@ -77,7 +74,7 @@ export default class CardBase extends React.Component {
       const { icon, text, iconStyle, textStyle } = this.props;
       return (
         <Animated.View
-          style={[styles.innerContainer, { opacity: this.opacity, transform: [{ scale: this.scale }] }]}
+          style={[styles.innerContainer, { opacity: this.opacity }]}
         >
           {
             icon
@@ -100,7 +97,7 @@ export default class CardBase extends React.Component {
     }
     return (
       <Animated.View
-        style={[{ flex: 1 }, { opacity: this.opacity, transform: [{ scale: this.scale }] }]}
+        style={[{ flex: 1 }, { opacity: this.opacity }]}
       >
         {this.props.innerView}
       </Animated.View>
@@ -147,11 +144,6 @@ export default class CardBase extends React.Component {
     if (!this.props.visible) {
       Animated.parallel(
         [
-          Animated.timing(this.scale, {
-            toValue,
-            duration: DURATION_OUT,
-            easing: Easing.ease,
-          }),
           Animated.timing(this.height, {
             toValue,
             duration: DURATION_OUT,
@@ -159,11 +151,13 @@ export default class CardBase extends React.Component {
           }),
           Animated.timing(this.opacity, {
             toValue,
-            duration: DURATION_OUT - OPACITY_DELAY,
+            duration: DURATION_OUT * 0.4,
             easing: Easing.ease,
-            delay: OPACITY_DELAY,
           })
-        ]
+        ],
+        {
+          stopTogether: false
+        }
       ).start();
     }
     // 出现
@@ -172,20 +166,14 @@ export default class CardBase extends React.Component {
         [
           Animated.timing(this.opacity, {
             toValue,
-            duration: DURATION_IN,
+            duration: DURATION_IN * 0.5,
             easing: Easing.ease,
+            delay: DURATION_IN * 0.5
           }),
           Animated.timing(this.height, {
             toValue,
             duration: DURATION_IN,
             easing: Easing.ease,
-            // delay: OPACITY_DELAY,
-          }),
-          Animated.timing(this.scale, {
-            toValue,
-            duration: DURATION_IN - SCALE_DELAY,
-            easing: Easing.ease,
-            delay: SCALE_DELAY,
           })
         ]
       ).start();
