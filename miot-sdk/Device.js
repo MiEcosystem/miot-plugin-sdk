@@ -793,7 +793,7 @@ class IDevice {
          return  0
     }
     /**
-     *是否是自己的设备
+     *是否是自己的设备，若是别人（包含家属）分享给你的设备，isOwner则为false
      * @type {boolean}
      * @readonly
      *
@@ -802,7 +802,7 @@ class IDevice {
          return  false
     }
     /**
-     *是否是自己家庭的设备
+     *是否是自己家庭的设备，如果是家属分享给你的设备，isFamily则为true，注意此时isShared为false（iOS暂不支持分享给家属）
      * @type {boolean}
      * @readonly
      *
@@ -811,7 +811,7 @@ class IDevice {
          return  false
     }
     /**
-     *是否是别人分享的设备
+     *是否是别人分享的设备，若是家属分享给你的设备，isShared为fasle，isFamily为true
      * @type {boolean}
      * @readonly
      *
