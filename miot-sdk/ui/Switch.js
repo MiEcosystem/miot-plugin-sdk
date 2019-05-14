@@ -1,4 +1,3 @@
-'use strict';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Animated, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -40,7 +39,7 @@ export default class Switch extends React.Component {
     Animated.spring(this.offsetX,
       {
         toValue,
-        bounciness: 11,
+        bounciness: 9,
         speed: 9,
       }
     ).start();
