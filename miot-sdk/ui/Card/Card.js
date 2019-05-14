@@ -65,6 +65,7 @@ export default class Card extends React.Component {
   }
   // android 卡片动效对于阴影的处理
   componentWillReceiveProps(newProps) {
+    if (newProps.showShadow === false) return;
     if (newProps.visible === this.props.visible) return;
     // 隐藏
     if (newProps.visible === false) {
