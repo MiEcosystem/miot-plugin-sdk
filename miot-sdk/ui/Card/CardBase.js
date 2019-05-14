@@ -55,8 +55,9 @@ export default class CardBase extends React.Component {
     super(props, context);
     const { height, marginTop } = this.props.cardStyle;
     this.cardHeight = height || DEFAULT_STYLE.HEIGHT;
-    this.height = new Animated.Value(1);
-    this.opacity = new Animated.Value(1);
+    const initValue = this.props.visible ? 1 : 0;
+    this.height = new Animated.Value(initValue);
+    this.opacity = new Animated.Value(initValue);
     this.marginTop = marginTop || 0;
   }
   componentDidMount() {

@@ -60,7 +60,7 @@ export default class Card extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      showShadow: this.props.showShadow
+      showShadow: this.props.visible && this.props.showShadow
     }
   }
   // android 卡片动效对于阴影的处理

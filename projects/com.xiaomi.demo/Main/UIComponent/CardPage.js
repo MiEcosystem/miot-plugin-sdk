@@ -22,13 +22,14 @@ export default class CardPage extends React.Component {
 
   constructor(props, context) {
     super(props, context);
+    const visible = Math.random() > 0.5 ? true : false;
     this.state = {
-      visible: true,
-      visible1: true,
-      visible2: true,
-      visible3: true,
-      visible4: true,
-      text: '隐藏全部'
+      visible,
+      visible1: visible,
+      visible2: visible,
+      visible3: visible,
+      visible4: visible,
+      text: visible ? '隐藏全部' : '显示全部'
     };
   }
 
