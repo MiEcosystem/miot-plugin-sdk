@@ -5,7 +5,7 @@ import { Animated, StyleSheet, TouchableWithoutFeedback, View } from 'react-nati
 /**
  * @exports
  * @author Li Yue
- * @since
+ * @since 10011
  * @module Radio
  * @description Radio for Android and iOS.
  * @property {bool} isChecked - 按钮的选中状态，默认值 false

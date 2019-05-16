@@ -7,7 +7,7 @@ const BORDER_COLOR = '#ccc';
 /**
  * @export
  * @author Geeook
- * @since
+ * @since 10011
  * @module Clickable
  * @description 点击动效
  * @property {bool} select - 是否被选择

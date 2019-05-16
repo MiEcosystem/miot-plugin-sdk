@@ -8,7 +8,7 @@ const DEFAULT_MARGIN = 12;
 /**
  * @export
  * @author Geeook
- * @since
+ * @since 10011
  * @module NormalGear
  * @description 档位控件，点按选择
  * @property {array<string>} options - 档位可选项，以字符串数组表示，必填

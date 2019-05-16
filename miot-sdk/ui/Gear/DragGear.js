@@ -20,7 +20,7 @@ const releaseAnimationConfig = {
 /**
  * @export
  * @author Geeook
- * @since
+ * @since 10011
  * @module DragGear
  * @description 档位控件，拖拽选择
  * （❗️注意：考虑到性能优化，android 系统在拖拽和移动动效中不会实时更新中间的文字）
@@ -151,11 +151,12 @@ export default class DragGear extends React.Component {
     this.state.pan.setOffset(this.translateX);
     this.state.pan.setValue(0);
     // 为了准确确定释放位置，需要在起手的时候，计算出手势触摸点和中心点的偏差
-    this.offset = gesture.x0 - this.currentCoord;
+    const { pageX } = e.nativeEvent;
+    this.offset = pageX - this.currentCoord;
     this.pressToChoose = false;
     console.log('⬇️⬇️⬇️⬇️⬇️⬇️⬇️拖拽开始⬇️⬇️⬇️⬇️⬇️⬇️⬇️');
     console.log(`被选项中心坐标 ${this.currentCoord}`);
-    console.log(`触摸点坐标 ${gesture.x0}`);
+    console.log(`触摸点坐标 ${pageX}`);
   }
   /**
    * @description 手势释放回调

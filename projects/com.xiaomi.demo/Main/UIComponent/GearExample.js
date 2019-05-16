@@ -34,9 +34,9 @@ export default class GearExample extends React.Component {
         <ScrollView>
           <View style={styles.contentStyle}>
             <DragGear
-              options={['off', '1', '2']}
-              normalStyle={{ width: 35 }}
-              margin={20}
+              options={['off', '1', '2', '3', '4', '5']}
+              // normalStyle={{ width: 35 }}
+              // margin={20}
               selectColor={Styles.common.MHGreen}
               textStyle={{ fontSize: 16, fontFamily: 'DS-Digital' }}
               maxWidth={width}
@@ -45,9 +45,9 @@ export default class GearExample extends React.Component {
               containerStyle={{ backgroundColor: '#fff' }}
             />
             <NormalGear
-              options={['off', '1', '2', '3', '4', '5', '6', '7', '8']}
-              normalStyle={{ width: 60 }}
-              margin={25}
+              options={['off', '1', '2', '3', '4', '5']}
+              // normalStyle={{ width: 60 }}
+              // margin={25}
               selectColor={Styles.common.MHGreen}
               textStyle={{ fontSize: 16, fontFamily: 'DS-Digital' }}
               maxWidth={width}
