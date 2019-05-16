@@ -301,12 +301,13 @@ export default class CommonSetting extends React.Component {
       firstAllOptions.HELP,
       firstAllOptions.LEGAL_INFO
     ];
-    let keys = [...requireKeys1, ...this.props.firstOptions, ...requireKeys2];
-    // 如果是共享设备，需要过滤一下
-    if (Device.isShared) {
-      keys = keys.filter(key => firstSharedOptions[key]);
+    let options = this.props.firstOptions.filter(key => key && Object.values(firstOptions).includes(key)); // 去掉杂质
+    options = [...new Set(options)]; // 去除重复
+    let keys = [...requireKeys1, ...options, ...requireKeys2]; // 拼接必选项和可选项
+    if (Device.isOwner === false) {
+      keys = keys.filter(key => firstSharedOptions[key]); // 如果是共享设备或者家庭设备，需要过滤一下
     }
-    const items = keys.map(key => this.commonSetting[key]).filter(item => item);
+    const items = keys.map(key => this.commonSetting[key]).filter(item => item); // 防空
     return (
       <View style={styles.container}>
         <View style={styles.titleContainer}>
