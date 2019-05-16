@@ -8,7 +8,8 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
 import Separator from '../Separator';
-import { secondAllOptions } from "./CommonSetting";
+import { secondAllOptions, SETTING_KEYS } from "./CommonSetting";
+const { second_options } = SETTING_KEYS;
 /**
  * @export
  * @author Geeook
@@ -71,7 +72,9 @@ export default class MoreSetting extends React.Component {
   render() {
     const requireKeys1 = [secondAllOptions.SECURITY, secondAllOptions.FEEDBACK];
     const requireKeys2 = [secondAllOptions.ADD_TO_DESKTOP];
-    const keys = [...requireKeys1, ...this.secondOptions, ...requireKeys2];
+    let options = this.secondOptions.filter(key => key && Object.values(second_options).includes(key)); // 去掉杂质
+    options = [...new Set(options)]; // 去除重复
+    const keys = [...requireKeys1, ...options, ...requireKeys2];
     const items = keys.map(key => this.moreSetting[key]).filter(item => item);
     return (
       <View style={styles.container}>
