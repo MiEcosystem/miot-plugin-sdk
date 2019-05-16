@@ -22,6 +22,7 @@ export default {
       // fontWeight: 'bold',
       fontSize: 15,
       lineHeight: 20,
+      color: '#000',
       // fontFamily: 'MI-LANTING_GB-OUTSIDE-YS',
       // fontFamily: 'Kmedium',
     },
