@@ -72,7 +72,7 @@ const firstSharedOptions = {
   [firstAllOptions.FIRMWARE_UPGRADE]: 0,
   [firstAllOptions.MORE]: 1,
   [firstAllOptions.HELP]: 1,
-  [firstAllOptions.LEGAL_INFO]: 1,
+  [firstAllOptions.LEGAL_INFO]: 0, // 20190516，分享设备不显示「法律信息」
 };
 const secondOptions = {
   /**
@@ -136,8 +136,8 @@ export { firstAllOptions, secondAllOptions };
  * ```js
  * // extraOptions
  * extraOptions: {
- *   showUpgrade: bool // 「固件升级」是否显示二级菜单。默认值true。一般来说，wifi设备显示二级菜单，蓝牙设备不显示二级菜单
- *   upgradePageKey: string // 「固件升级」如果不显示二级菜单，请传入想跳转页面的key(定义在 index.js 的 RootStack 中)
+ *   showUpgrade: bool // 「固件升级」是否跳转原生固件升级页面。默认值true。一般来说，wifi设备跳转原生固件升级页面，蓝牙设备不跳转原生固件升级页面
+ *   upgradePageKey: string // 「固件升级」如果不跳转原生固件升级页面，请传入想跳转页面的key(定义在 index.js 的 RootStack 中)
  *   licenseUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明
  *   policyUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明
  *   deleteDeviceMessage: string // 删除设备的弹窗中自定义提示文案，见 miot/Host.ui.openDeleteDevice 的传参说明
@@ -255,7 +255,7 @@ export default class CommonSetting extends React.Component {
    * @description 点击「固件升级」，选择性跳转
    */
   chooseFirmwareUpgrade() {
-    // 默认是wifi设备固件升级的二级页面
+    // 默认是wifi设备固件升级的原生页面
     const { showUpgrade, upgradePageKey } = this.props.extraOptions || {};
     if (showUpgrade === false) {
       // 蓝牙统一OTA界面
@@ -272,7 +272,10 @@ export default class CommonSetting extends React.Component {
     }
     else {
       // wifi设备固件升级
-      this.openSubPage('FirmwareUpgrade');
+      // this.openSubPage('FirmwareUpgrade');
+      // 20190516，「固件自动升级」不能做成通用功能所以去掉，
+      // 那么二级页面「FirmwareUpgrade」只剩下「检查固件升级」一项，遂藏之
+      Host.ui.openDeviceUpgradePage();
     }
   }
   /**
