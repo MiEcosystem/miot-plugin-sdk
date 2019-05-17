@@ -2,10 +2,12 @@ import flattenStyle from 'flattenStyle';
 import ImageStylePropTypes from 'ImageStylePropTypes';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { NativeModules, requireNativeComponent, StyleSheet } from 'react-native';
+import { NativeModules, requireNativeComponent, StyleSheet, ViewPropTypes, Image } from 'react-native';
+import ImageResizeMode from 'ImageResizeMode';
 import resolveAssetSource from 'resolveAssetSource';
 import StyleSheetPropType from 'StyleSheetPropType';
 import { ViewContextTypes } from 'ViewContext';
+var merge = require('merge');
 var { ImageLoader } = NativeModules;
 let _requestId = 1;
 function generateRequestId() {
@@ -175,7 +177,7 @@ export default class MHImage extends React.Component {
           : null,
       });
       if (this.context.isInAParentText) {
-        return <RCTTextInlineImage {...nativeProps} />;
+        return <Image {...nativeProps} />;
       } else {
         return <RKImage {...nativeProps} />;
       }
@@ -197,8 +199,8 @@ var cfg = {
   },
 };
 var RKImage = requireNativeComponent('MHImageView', MHImage, cfg);
-var RCTTextInlineImage = requireNativeComponent(
-  'MHTextInlineImage',
-  MHImage,
-  cfg,
-);
+// var RCTTextInlineImage = requireNativeComponent(
+//     'RCTTextInlineImage',
+//     MHImage,
+//     cfg,
+// );
