@@ -554,6 +554,14 @@ class IDevice {
          return Promise
     }
     /**
+     * 将当前手机的定位信息作为新的设备位置进行上报，该操作会更新设备的地理位置信息。
+     * @since 10020
+     * @returns {Promise}
+     */
+    reportDeviceGPSInfo() {
+         return Promise
+    }
+    /**
      * 创建场景
      * @method
      * @param {SceneType} 同上loadScenes的sceneType

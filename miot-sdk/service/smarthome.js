@@ -58,9 +58,9 @@ export default {
      * @property adminArea - 省
      * @property countryCode - 国家代号（CN等）
      * @property locality - 城市
-     * @property thoroughfare - 区
+     * @property thoroughfare - 街道
      * @property language - 语言代号（zh_CN等）
-     * @property subLocality - 街道
+     * @property subLocality - 区
      */
     /**
      * 上报gps信息 /location/set

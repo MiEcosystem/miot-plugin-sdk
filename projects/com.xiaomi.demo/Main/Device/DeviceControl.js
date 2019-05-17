@@ -89,6 +89,18 @@ export default class UIDemo extends React.Component {
                     })
                 }
             },
+            {
+                'name': '打印设备经纬度',
+                'func': () => {
+                    alert(JSON.stringify({ lat: Device.latitude, lng: Device.longitude }))
+                }
+            },
+            {
+                'name': '使用当前手机位置作为设备的新位置信息',
+                'func': () => {
+                    Device.reportDeviceGPSInfo()
+                }
+            },
         ];
     }
 
