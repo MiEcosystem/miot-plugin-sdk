@@ -212,10 +212,12 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 提供返回设备数据统计服务，使用该接口需要配置产品model以支持使用，建议找对接的产品人员进行操作。
      * 图表📈统计接口 /v2/user/statistics
+     * 注:由于sds限额问题，可能会出现一次拉不到或者拉不完数据的情况，会返回code:0和message:“sds throttle”
      * @param {object} params 
      * @param {string} params.did did
-     * @param {string} params.data_type 数据类型 包括： 采样统计 日统计:stat_day / 周统计:stat_week / 月统计:stat_month ; 计数统计 日统计:total_day_v2 / 周统计:total_week_v2 / 月统计:total_month_v2
+     * @param {string} params.data_type 数据类型 包括： 采样统计 日统计:stat_day / 周统计:stat_week / 月统计:stat_month ; 计数统计(总次数，耗电量那种)(即将废弃) 日统计:total_day_v2 / 周统计:total_week_v2 / 月统计:total_month_v2
      * @param {string} params.key 需要统计的字段，即统计上报对应的key
      * @param {string} params.time_start 开始时间
      * @param {string} params.time_end 结束时间
@@ -760,6 +762,7 @@ export default {
     /**
      * call api /v2/home/range_get_open_config
      * @since 10005
+     * @deprecated 10011 改用 Service.smarthome.rangeGetOpenConfig
      * @param {json} params json params {did:string, category:string, configids:array, offset: int, limit:int}, did: 设备did。 category 配置类别， configids： 配置id 为空时返回所有配置，不超过20个，不为空时没有数量限制， offset 偏移；limit 数量，不超过20
      */
     getRangeOpenConfig(params) {

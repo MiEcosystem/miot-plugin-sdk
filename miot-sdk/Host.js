@@ -191,18 +191,8 @@ export default {
     },
     /**
      * 获取当前登陆用户的服务器国家
-     * e.g 
-     * "cn" //中国大陆
-     * "sg"   //新加坡
-     * "tw"  //台湾
-     * "in"   //印度
-     * "ru"   //俄罗斯
-     * "hk"   //香港
-     * "us"   //美国
-     * "tr"   //土耳其
-     * "kr"   //韩国
-     * "de"   //德国
      * @since 10010
+     * @deprecated 10011 改用 Service.getServerName
      */
     getCurrentCountry() {
          return Promise.resolve(null);

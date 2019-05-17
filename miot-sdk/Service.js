@@ -96,8 +96,8 @@ export default {
     return Spec;
   },
   /**
-   * @method
-   * @description 米家 App 设置的地区和服务器信息
+   * @method getServerName
+   * @description 获取 米家 App 设置的地区和服务器信息
    * @return {Promise<{countryName:"",countryCode:"",serverCode:""}>}
    */
   getServerName() {
