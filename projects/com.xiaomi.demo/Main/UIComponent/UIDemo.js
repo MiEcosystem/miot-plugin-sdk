@@ -37,6 +37,7 @@ export default class UIDemo extends React.Component {
           { name: 'ProgressDemo', router: 'ProgressDemo' },
           { name: 'DialogTest', router: 'DialogTest' },
           { name: 'ImageCapInsetDemo', router: 'ImageCapInsetDemo' },
+          { name: 'NumberSpinnerDemo', router: 'NumberSpinnerDemo' },
           { name: 'MiotAndroidScrollViewDemo(仅Android)', router: 'MiotAndroidScrollViewDemo' }
         ]),
     };
