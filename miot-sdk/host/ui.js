@@ -14,7 +14,7 @@
  *
  *
  */
-import {Device} from "../index";
+import native from "../native";
 const resolveAssetSource = require('resolveAssetSource');
 export default {
   /**
@@ -228,16 +228,16 @@ export default {
    * @example
    * Host.ui.openPowerMultikeyPage(did, mac);
   */
-  openPowerMultikeyPage(did, mac = null){
+  openPowerMultikeyPage(did, mac = null) {
   },
-    /**
-   * 添加或者复制一个红外遥控器
-   * @since 10003
-   * @param {string} did 设备did
-   * @param {number} type 0：添加遥控器；1：复制遥控器。默认0
-   * @param {array} models 一组红外遥控器model，只传入一个model将直接跳转到相应的品牌列表或者机顶盒列表，支持的models见文档。默认空数组[]
-   * @param {object} extra {create_device:true / false} 米家首页列表是否展示虚拟遥控器设备（暂时只有android支持）。默认true
-   */
+  /**
+ * 添加或者复制一个红外遥控器
+ * @since 10003
+ * @param {string} did 设备did
+ * @param {number} type 0：添加遥控器；1：复制遥控器。默认0
+ * @param {array} models 一组红外遥控器model，只传入一个model将直接跳转到相应的品牌列表或者机顶盒列表，支持的models见文档。默认空数组[]
+ * @param {object} extra {create_device:true / false} 米家首页列表是否展示虚拟遥控器设备（暂时只有android支持）。默认true
+ */
   addOrCopyIR(did, type = 0, models = [], extra = { create_device: true }) {
   },
   /**
@@ -296,14 +296,14 @@ export default {
   /**
    * 打开用于创建设备组的页面
    * @since 10004
-   * @param {string} did 当前设备did
+   * @param {string[]} did did列表
    */
   openDeviceGroupPageForCreate(did) {
   },
   /**
    * 打开用于编辑设备组的页面
    * @since 10004
-   * @param {string} did 当前设备did
+   * @param {string[]} did did列表
    */
   openDeviceGroupPageForEdit(did) {
   },
