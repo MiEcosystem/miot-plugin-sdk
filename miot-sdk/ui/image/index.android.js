@@ -1,9 +1,9 @@
 import flattenStyle from 'flattenStyle';
+import ImageResizeMode from 'ImageResizeMode';
 import ImageStylePropTypes from 'ImageStylePropTypes';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { NativeModules, requireNativeComponent, StyleSheet, ViewPropTypes, Image } from 'react-native';
-import ImageResizeMode from 'ImageResizeMode';
+import { Image, NativeModules, requireNativeComponent, StyleSheet, ViewPropTypes } from 'react-native';
 import resolveAssetSource from 'resolveAssetSource';
 import StyleSheetPropType from 'StyleSheetPropType';
 import { ViewContextTypes } from 'ViewContext';
@@ -126,8 +126,8 @@ export default class MHImage extends React.Component {
   static abortPrefetch(requestId) {
     ImageLoader.abortRequest(requestId);
   }
-  async queryCache(urls) {
-    return await ImageLoader.queryCache(urls);
+  queryCache(urls) {
+    return ImageLoader.queryCache(urls);
   }
   static contextTypes = ViewContextTypes
   render() {
