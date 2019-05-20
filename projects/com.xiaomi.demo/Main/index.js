@@ -69,6 +69,7 @@ import SQLiteDemo from './ThirdPartDemo/SQLiteDemo';
 import SVGDemo from './ThirdPartDemo/SVGDemo';
 import { GroupExample, HoverExample, PressExample } from './ThirdPartDemo/SVGDemo2';
 import ThirdPartyDemo from './ThirdPartDemo/ThirdPartyDemo';
+import ReactNativeCameraDemo from './ThirdPartDemo/ReactNativeCameraDemo';
 import AreaView from './ThirdPartDemo/Victory-Native/views/area-view';
 import AxisView from './ThirdPartDemo/Victory-Native/views/axis-view';
 import BarView from './ThirdPartDemo/Victory-Native/views/bar-view';
@@ -190,6 +191,7 @@ const RootStack = createStackNavigator({
     OrientationDemo: OrientationDemo,
     AddressBookDemo: AddressBookDemo,
     WebViewBridageDemo: WebViewBridageDemo,
+    ReactNativeCameraDemo: ReactNativeCameraDemo,
     SVGDemo: SVGDemo,
     PressExample: PressExample,
     HoverExample: HoverExample,
