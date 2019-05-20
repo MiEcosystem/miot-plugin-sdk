@@ -80,3 +80,19 @@ export default {
      return Promise.resolve(null);
   },
 };
+export const AudioEvent = {
+  /**
+   * 播放完毕事件
+   * @event
+   * @param {audioPlayerUid,isSuccess}  -音频播放完毕的UId，是否播放成功
+   * @since 1.0.0
+   *
+   */
+  audioPlayerDidFinishPlaying: {
+  },
+  updateAudioPlayerTime: {
+  },
+  audioPlayerDidStartPlaying: {
+  }
+}
+buildEvents(AudioEvent);
