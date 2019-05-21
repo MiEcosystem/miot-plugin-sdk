@@ -182,6 +182,11 @@ export default {
     getAppName() {
          return Promise.resolve(null);
     },
+    /**
+     * 获取Android手机屏幕相关信息
+     * @since 10011
+     */
+    getPhoneScreenInfo() {
          return Promise.resolve(null);
     },
     /**

@@ -9,6 +9,22 @@ import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
 import Separator from '../Separator';
 import { secondAllOptions, SETTING_KEYS } from "./CommonSetting";
+/**
+ * 分享设备的设置项
+ * 0: 不显示
+ * 1: 显示
+ */
+const secondSharedOptions = {
+  [secondAllOptions.ADD_TO_DESKTOP]: 1,
+  [secondAllOptions.AUTO_UPGRADE]: 1,
+  [secondAllOptions.CHECK_UPGRADE]: 1,
+  [secondAllOptions.FEEDBACK]: 1,
+  [secondAllOptions.PRIVACY_POLICY]: 1,
+  [secondAllOptions.SECURITY]: 0,
+  [secondAllOptions.TIMEZONE]: 1,
+  [secondAllOptions.USER_AGREEMENT]: 1,
+  [secondAllOptions.USER_EXPERIENCE_PROGRAM]: 1,
+};
 const { second_options } = SETTING_KEYS;
 /**
  * @export
@@ -74,7 +90,10 @@ export default class MoreSetting extends React.Component {
     const requireKeys2 = [secondAllOptions.ADD_TO_DESKTOP];
     let options = this.secondOptions.filter(key => key && Object.values(second_options).includes(key)); // 去掉杂质
     options = [...new Set(options)]; // 去除重复
-    const keys = [...requireKeys1, ...options, ...requireKeys2];
+    let keys = [...requireKeys1, ...options, ...requireKeys2];
+    if (Device.isOwner === false) {
+      keys = keys.filter(key => secondSharedOptions[key]); // 如果是共享设备或者家庭设备，需要过滤一下
+    }
     const items = keys.map(key => this.moreSetting[key]).filter(item => item);
     return (
       <View style={styles.container}>

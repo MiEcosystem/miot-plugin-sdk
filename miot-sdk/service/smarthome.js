@@ -819,9 +819,9 @@ export default {
      * 删除成员
      * @since 10005
      * @param {MemberType} type 
-     * @param {Array} member_id 成员id列表
+     * @param {Array} member_ids 成员id列表
      */
-    deleteMember(type, member_id) {
+    deleteMember(type, member_ids) {
          return Promise.resolve(null);
     },
     /**
