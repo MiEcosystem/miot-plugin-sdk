@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 原生模块
- * @doc_index 6
+ * @doc_index 7
  * @module miot/Host
  * @description 
  * 扩展程序运行时的宿主环境  
@@ -60,8 +60,8 @@ export default {
     },
     /**
      * @const 
-     * @type {object} 包含sysVersion 系统版本名称 mobileModel 手机型号
-     * @description 系统信息
+     * @type {object} 
+     * @description 系统信息 包含sysVersion 系统版本名称 mobileModel 手机型号
      */
     get systemInfo() {
          return  {}

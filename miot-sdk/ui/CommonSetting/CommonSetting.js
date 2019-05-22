@@ -125,7 +125,7 @@ export { firstAllOptions, secondAllOptions };
 /**
  * @export public
  * @doc_name 通用设置
- * @doc_index 24
+ * @doc_index 25
  * @author Geeook
  * @since 10004
  * @module CommonSetting

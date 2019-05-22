@@ -11,7 +11,7 @@ const ICON_SIZE = Platform.select({ android: 26, ios: 24 }); // 当android设置
 /**
  * @export public
  * @doc_name 列表控件
- * @doc_index 23
+ * @doc_index 24
  * @author Geeook
  * @since 10004
  * @module ListItem

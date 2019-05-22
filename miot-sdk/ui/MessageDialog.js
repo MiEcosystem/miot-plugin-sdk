@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 常用UI组件
- * @doc_index 22
+ * @doc_index 23
  * @module miot/ui/MessageDialog
  * @description 消息对话框
  * @property {bool} visible 是否可见

@@ -27,7 +27,6 @@ export default class MHAudioDemo extends React.Component {
   }
 
   componentWillMount() {
-    this.s_1 = AudioEvent.audioPlayerDidFinishPlaying
     this.s0 = AudioEvent.updateAudioPlayerTime.addListener((event) => {
       if (event.audioPlayerUid === audioPlayerUid) {
         console.log(event.currentTime);//播放器播放的时间
