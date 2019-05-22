@@ -16,8 +16,8 @@
 - [点按选档(NormalGear)](#点按选档NormalGear)
 - [拖拽选档(DragGear)](#拖拽选档DragGear)
 - [单选框(Radio)](#单选框Radio)
-- [复选框](#checkbox)
-- [开关](#switch)
+- [复选框(Checkbox)](#复选框Checkbox)
+- [开关(Switch)](#开关Switch)
 
 **开发中**
 
@@ -650,86 +650,50 @@ getInnerView() {
 | changeCheck        | <code>function</code> | 改变选中状态的函数                                           |
 | id                 | <code>number</code>   | 单选按钮的 id，默认值 `-1`                                   |
 
-## Checkbox
+## 复选框(Checkbox)
 
-/**
+### 预览
 
- \* *@export*
+![](./UIDocImages/checkbox.gif)
 
- \* *@author* Geeook
+### 基本信息
 
- \* *@since* 10004
+| 基本信息  |                             |
+| --------- | --------------------------- |
+| 中文名称  | 复选框                      |
+| 描述      | 多选时可使用，有动效。      |
+| 位置      | `miot/ui/Checkbox/Checkbox` |
+| SDK_Level | `SDK_10011`                 |
+| 注意事项  | \                           |
 
- \* *@module* ListItemWithSwitch
+### 使用方法
 
- \* *@description* 带开关的列表项
+```jsx
+// 方形
+<Checkbox
+  style={{ width: 60, height: 60 }}
+  checked={this.state.checked3}
+  checkedColor='lightgreen'
+  onValueChange={checked => this.setState({ checked3: checked })}
+/>
+// 圆形
+<Checkbox
+  style={{ width: 60, height: 60, borderRadius: 30 }}
+  checked={this.state.checked3}
+  checkedColor='lightgreen'
+  onValueChange={checked => this.setState({ checked3: checked })}
+/>
+```
 
- \* *@property* {string} title - 左侧主标题
+### 参数
 
- \* *@property* {string} subtitle - 左侧副标题，主标题下方
+| Name         | Type                | Description              |
+| ------------ | ------------------- | ------------------------ |
+| style        | <code>style</code>  | 样式                     |
+| disabled     | <code>bool</code>   | 是否禁用，默认 `false`   |
+| checked      | <code>bool</code>   | 是否勾选，默认 `false`   |
+| checkedColor | <code>string</code> | 勾选背景颜色，默认米家绿 |
 
- \* *@property* {string} valueText - 主标题右侧文案
+## 开关(Switch)
 
- \* *@property* {bool} value - 开关状态，默认值 false
-
- \* *@property* {bool} disabled - 是否禁用开关，默认值 false
-
- \* *@property* {function} onPress - 列表项点击事件，不传则不具有点击态（disabled）
-
- \* *@property* {function} onValueChange - 开关切换事件
-
- \* *@property* {bool} showSeparator - 是否显示分割线，默认值 true
-
- \* *@property* {component} separator - 自定义分割线，不传将显示默认样式的分割线
-
- \* *@property* {style} containerStyle - 列表项的自定义样式
-
- \* *@property* {style} titleStyle - 主标题的自定义样式
-
- \* *@property* {style} subtitleStyle - 副标题的自定义样式
-
- \* *@property* {style} valueTextStyle - 主标题右侧文案的自定义样式
-
- */
-
-## Switch
-
-/**
-
- \* *@export*
-
- \* *@author* Geeook
-
- \* *@since* 10004
-
- \* *@module* ListItemWithSwitch
-
- \* *@description* 带开关的列表项
-
- \* *@property* {string} title - 左侧主标题
-
- \* *@property* {string} subtitle - 左侧副标题，主标题下方
-
- \* *@property* {string} valueText - 主标题右侧文案
-
- \* *@property* {bool} value - 开关状态，默认值 false
-
- \* *@property* {bool} disabled - 是否禁用开关，默认值 false
-
- \* *@property* {function} onPress - 列表项点击事件，不传则不具有点击态（disabled）
-
- \* *@property* {function} onValueChange - 开关切换事件
-
- \* *@property* {bool} showSeparator - 是否显示分割线，默认值 true
-
- \* *@property* {component} separator - 自定义分割线，不传将显示默认样式的分割线
-
- \* *@property* {style} containerStyle - 列表项的自定义样式
-
- \* *@property* {style} titleStyle - 主标题的自定义样式
-
- \* *@property* {style} subtitleStyle - 副标题的自定义样式
-
- \* *@property* {style} valueTextStyle - 主标题右侧文案的自定义样式
-
- */
+敬请期待
