@@ -33,19 +33,19 @@
 
 ### 预览
 
-![](./UIDocImages/titlebar1.jpg)
+![](./UIDocImages/titlebar1.png)
 
-![](./UIDocImages/titlebar2.jpg)
+![](./UIDocImages/titlebar2.png)
 
-![](./UIDocImages/titlebar3.jpg)
+![](./UIDocImages/titlebar3.png)
 
-![](./UIDocImages/titlebar4.jpg)
+![](./UIDocImages/titlebar4.png)
 
-![](./UIDocImages/titlebar5.jpg)
+![](./UIDocImages/titlebar5.png)
 
-![](./UIDocImages/titlebar6.jpg)
+![](./UIDocImages/titlebar6.png)
 
-![](./UIDocImages/titlebar7.jpg)
+![](./UIDocImages/titlebar7.png)
 
  ### 基本信息
 
@@ -98,7 +98,7 @@
 
 ### 预览
 
-![](./UIDocImages/listitem.jpg)
+![](./UIDocImages/listitem.png)
 
 ### 基本信息
 
@@ -146,7 +146,7 @@
 
 ### 预览
 
-![](./UIDocImages/listitemwithswitch.jpg)
+![](./UIDocImages/listitemwithswitch.png)
 
 ### 基本信息
 
@@ -197,7 +197,7 @@
 
 ### 预览
 
-![](./UIDocImages/listitemwithslider.jpg)
+![](./UIDocImages/listitemwithslider.png)
 
 ### 基本信息
 
@@ -251,7 +251,7 @@
 
 ### 预览
 
-![](./UIDocImages/separator.jpg)
+![](./UIDocImages/separator.png)
 
 ### 基本信息
 
@@ -283,11 +283,11 @@
 
 #### 一级页面所有设置项
 
-![](./UIDocImages/commonsetting.jpg)
+![](./UIDocImages/commonsetting.png)
 
 #### 一级页面必选设置项
 
-![](./UIDocImages/commonsetting1.jpg)
+![](./UIDocImages/commonsetting1.png)
 
 #### 「更多设置」二级页面所有设置项
 
