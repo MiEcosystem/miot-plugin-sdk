@@ -309,16 +309,107 @@
 
 #### 详细说明
 
-- 
+- 米家PM归纳总结出了米家插件常用的设置项，并且规定了哪些必选，哪些可选。见下表。
+
+  ##### 米家通用设置项速查表
+
+  | key                | 一级                 | 分享设备<br />是否显示 | 二级                                                         | 分享设备<br />是否显示 | key                                                          |
+  | ------------------ | -------------------- | ---------------------- | ------------------------------------------------------------ | ---------------------- | ------------------------------------------------------------ |
+  | `NAME`             | 设备名称（==必选==） | ❌                      | \                                                            |                        | \                                                            |
+  | `LOCATION`         | 位置管理（==必选==） | ❌                      | \                                                            |                        | \                                                            |
+  | `MEMBER_SET`       | 按键设置（可选）     | ❌                      | \                                                            |                        | \                                                            |
+  | `SHARE`            | 设备共享（可选）     | ❌                      | \                                                            |                        | \                                                            |
+  | `BTGATEWAY`        | 蓝牙网关（可选）     | ❌                      | \                                                            |                        | \                                                            |
+  | `VOICE_AUTH`       | 语音授权（可选）     | ❌                      | \                                                            |                        | \                                                            |
+  | `IFTTT`            | 智能场景（可选）     | ❌                      | \                                                            |                        | \                                                            |
+  | `FIRMWARE_UPGRADE` | 固件升级（可选）     | ❌                      | \                                                            |                        | \                                                            |
+  | `MORE`             | 更多设置（==必选==） | ✅                      | 安全设置（==必选==）<br />反馈问题（==必选==）<br />设备时区（可选）<br />添加桌面快捷方式（==必选==） | ❌<br />✅<br />✅<br />✅ | `SECURITY`<br />`FEEDBACK`<br />`TIMEZONE`<br />`ADD_TO_DESKTOP` |
+  | `HELP`             | 使用帮助（==必选==） | ✅                      | \                                                            |                        | \                                                            |
+  | `LEGAL_INFO`       | 法律信息（==必选==） | ❌                      | \                                                            |                        | \                                                            |
+  | \                  | 删除设备（==必选==） | ✅                      | \                                                            |                        | \                                                            |
+
+- 插件设置页面一般包含`功能设置`和`通用设置`：`通用设置`放在页面下半部分，直接引用此组件即可;`功能设置`放在页面上半部分，主要显示通用设置项之外的，和插件功能强相关的设置项，可以考虑使用[ListItem](#普通列表项ListItem)、[ListItemWithSwitch](#带开关的列表项ListItemWithSwitch)和[ListItemWithSlider](#带滑动条的列表项ListItemWithSlider) 这些UI组件。
+- 使用时用数组传入要展示的可选项key即可，数组内key的顺序代表可选项从上往下的展示顺序。如果不传，则显示全部设置项，如果传🈳️数组则显示必选项。详见[使用方法](#使用方法-5)⬇️。
+- **必选项的位置固定**，不需要传入key，即使传入也不会改变它是否显示以及位置。
+- 组建内部已经做了国际化，适配米家所有的语种，毋需开发者另外配置。
+- 对于分享设备（普通分享/分享给家人）应该展示哪些设置项，组件内部也已经实现了控制，毋需开发者另外配置。其中，一级只显示「更多设置」、「使用帮助」和「删除设备」，「更多设置」的二级页面则屏蔽了「安全设置」。详见[米家通用设置项速查表](#米家通用设置项速查表)⬆️。
+- 通用设置项中「设备名称」和「设备时区」的修改展示逻辑，组件内部已实现，毋需开发者另外配置。
+- 点击设置项跳转到米家原生页面后，`android`和`iOS`的UI展示可能不完全一致，米家APP的同事正在排期开发，不要慌也不要催。
+- 鉴于蓝牙设备的固件升级页面需要在插件内自己实现，而`Wi-Fi`设备的固件升级可以直接跳转到原生页面。所以组件允许插件开发者自定义「固件升级」的路由跳转。
+- 为了能够成功路由到`更多设置`二级页面，需要将`更多设置`页面导出，放在插件入口文件的`RootStack`中，并将插件的路由导航传给组件。详见[使用方法](#使用方法-5)⬇️。
+- 二级页面的key现在包含`AUTO_UPGRADE`（固件自动升级）、`TIMEZONE`（设备时区）、`USER_EXPERIENCE_PROGRAM`（加入用户体验计划）。目前只有`TIMEZONE`有效，其余两个可以先忽略。
+- 虽然此组件从`SDK_10005`开始可用，但是由于产品定义的迭代，所以上述说明以`SDK_10011`最新代码为准，之前的版本可能稍微有些出入，但出入很小，不必惊讶。
 
 ### 使用方法
 
 ```jsx
-<Separator /> // 通栏
-<Separator style={{ marginLeft: 24，height: 2 }} /> // 左边距24，height设置2无效
+// 入口文件 index.js
+// 把「更多设置」页面放在路由堆栈中
+import { MoreSetting } from "miot/ui/CommonSetting";
+
+//...
+
+const RootStack = createStackNavigator(
+{
+	Setting, // 设置页
+	MoreSetting, // 二级菜单——更多设置
+}
+//...
+)
+
+// 设置页 Setting.js
+import { CommonSetting, SETTING_KEYS } from "miot/ui/CommonSetting";
+
+// ...
+
+render() {
+    const { first_options, second_options } = SETTING_KEYS; // 一级和二级可选项的keys
+    // 按顺序显示「设备共享」「智能场景」和「固件升级」
+    // 通过枚举传入key，别自己写字符串
+    const firstOptions = [
+      first_options.SHARE,
+      first_options.IFTTT,
+      first_options.FIRMWARE_UPGRADE,
+    ]
+    // 「更多设置」二级页面需要显示「设备时区」
+    const secondOptions = [
+      second_options.TIMEZONE,
+    ]
+    // 写法之一 蓝牙设备
+    const extraOptions = {
+      showUpgrade: false, // 不跳转到原生的固件升级页面
+      upgradePageKey: 'MyCustomPage', // 跳转到自己写的页面，传入该页面在 RootStack 中定义的 key
+      licenseUrl: require('../resources/html/license_zh.html'), // 用户协议的资源，必填
+      policyUrl: require('../resources/html/privacy_zh.html'), // 隐私政策的资源，必填
+      deleteDeviceMessage: '真的要删除？你不再考虑考虑？' // 删除设备的提示语，选填
+    }
+    // 写法之二 Wi-Fi设备
+    const extraOptions = {
+      // showUpgrade: true, // 跳转到原生的固件升级页面，也可以不写，是默认行为
+      licenseUrl: require('../resources/html/license_zh.html'), // 用户协议的资源，必填
+      policyUrl: require('../resources/html/privacy_zh.html'), // 隐私政策的资源，必填
+    }
+    return (
+      // ...
+      <CommonSetting
+        navigation={this.props.navigation} // 插件的路由导航，必填
+        firstOptions={firstOptions}
+        secondOptions={secondOptions}
+        extraOptions={extraOptions}
+      />
+      // ...
+    );
+  }
 ```
 
 ### 参数
+
+| Name | Type | Description |
+| --- | --- | --- |
+| firstOptions | <code>array</code> | 一级可选设置项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项 |
+| secondOptions | <code>array</code> | 二级可选设置项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项 |
+| extraOptions | <code>object</code> | 其他特殊配置项，详见[使用方法](#使用方法-5)⬆️。 |
+| navigation | <code>object</code> | 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面 |
 
 ## Card
 
