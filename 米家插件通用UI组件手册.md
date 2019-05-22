@@ -12,7 +12,7 @@
 - [带滑动条的列表项(ListItemWithSlider)](#带滑动条的列表项ListItemWithSlider)
 - [横向分割线(Separator)](#横向分割线Separator)
 - [米家插件通用设置(CommonSetting)](#米家插件通用设置CommonSetting)
-- [卡片容器](#card)
+- [卡片容器(Card)](#卡片容器Card)
 - [点按选档](#normalgear)
 - [拖拽选档](#draggear)
 - [单选框](#radio)
@@ -413,47 +413,100 @@ render() {
 | extraOptions | <code>object</code> | 其他特殊配置项，详见[使用方法](#使用方法-5)⬆️。 |
 | navigation | <code>object</code> | 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面 |
 
-## Card
+## 卡片容器(Card)
 
-/**
+### 预览
 
- \* *@export*
+![](./UIDocImages/card.png)
 
- \* *@author* Geeook
+![](./UIDocImages/card.gif)
 
- \* *@since* 10004
+![](./UIDocImages/card1.gif)
 
- \* *@module* ListItemWithSwitch
+### 基本信息
 
- \* *@description* 带开关的列表项
+| 基本信息  |                                                         |
+| --------- | ------------------------------------------------------- |
+| 中文名称  | 卡片容器                                                |
+| 描述      | 卡片容器，有阴影，有弹出和收起动效。                    |
+| 位置      | `miot/ui/Card/Card`                                     |
+| SDK_Level | `SDK_10010`                                             |
+| 说明      | 为了更好地扩展，开发者可以自定义卡片内部视图`innerView` |
+| 注意事项  | \                                                       |
 
- \* *@property* {string} title - 左侧主标题
+### 使用方法
 
- \* *@property* {string} subtitle - 左侧副标题，主标题下方
+```jsx
+// 自定义样式的卡片
+<Card
+  icon={require('./x/x')}
+  text="自定义卡片"
+  visible={this.state.visible3}
+  dismiss={_ => this.setState({ visible3: false })}
+  showDismiss
+  onPress={_ => this.setState({ visible2: false })}
+  cardStyle={{ width: width / 2, height: 75, borderRadius: 12, backgroundColor: 'pink' }}
+  iconStyle={{ width: ICON_SIZE, height: ICON_SIZE }}
+  textStyle={{ fontSize: 10, color: 'red' }}
+/>
 
- \* *@property* {string} valueText - 主标题右侧文案
+// 自定义内部视图的卡片
+<Card
+  innerView={this.getInnerView()}
+  visible={this.state.visible4}
+  dismiss={_ => this.setState({ visible4: false })}
+  showShadow={false}
+  showDismiss
+  onPress={_ => this.setState({ visible3: false })}
+  cardStyle={{ width: 222, height: 80 }}
+/>
 
- \* *@property* {bool} value - 开关状态，默认值 false
+// 插件开发者可以自定义内部视图
+getInnerView() {
+  return (
+    <View style={styles.innerContainer}>
+      <Image
+        style={styles.innerIcon}
+        source={require('./x/x')}
+        resizeMode="contain"
+      />
+      <View style={{ flex: 1 }}>
+        <Text
+          style={styles.innerTitle}
+          numberOfLines={1}
+        >
+          {'自定义innerView的标题'}
+        </Text>
+        <Text
+          style={styles.innersubTitle}
+          numberOfLines={1}
+        >
+          {'自定义innerView的副标题'}
+        </Text>
+      </View>
+    </View>
+  );
+}
+```
 
- \* *@property* {bool} disabled - 是否禁用开关，默认值 false
+### 参数
 
- \* *@property* {function} onPress - 列表项点击事件，不传则不具有点击态（disabled）
-
- \* *@property* {function} onValueChange - 开关切换事件
-
- \* *@property* {bool} showSeparator - 是否显示分割线，默认值 true
-
- \* *@property* {component} separator - 自定义分割线，不传将显示默认样式的分割线
-
- \* *@property* {style} containerStyle - 列表项的自定义样式
-
- \* *@property* {style} titleStyle - 主标题的自定义样式
-
- \* *@property* {style} subtitleStyle - 副标题的自定义样式
-
- \* *@property* {style} valueTextStyle - 主标题右侧文案的自定义样式
-
- */
+| Name          | Type                   | Description                                                  |
+| ------------- | ---------------------- | ------------------------------------------------------------ |
+| innerView     | <code>component</code> | 卡片内部 View, 不传该参数将显示默认的左 `icon` + 右 `text`   |
+| icon          | <code>int</code>       | 左侧图标的资源 id, 参照`Image`的`resource`属性, 不传将不显示图标 |
+| text          | <code>string</code>    | 右侧文案                                                     |
+| visible       | <code>bool</code>      | 是否显示卡片, 默认值 `true`                                  |
+| showDismiss   | <code>bool</code>      | 是否显示右上角的关闭按钮, 默认值 `false`                     |
+| dismiss       | <code>function</code>  | 点右上角关闭按钮的回调函数                                   |
+| showShadow    | <code>bool</code>      | 是否显示卡片阴影, 默认值 `true`                              |
+| onPress       | <code>function</code>  | 点击事件, 不传该参数将显示禁用态                             |
+| cardStyle     | <code>style</code>     | 卡片容器的自定义样式, 默认样式 `{ width: screenWidth - 30, height:66 }` |
+| iconStyle     | <code>style</code>     | 左侧图标的自定义样式                                         |
+| textStyle     | <code>style</code>     | 右侧文案的自定义样式                                         |
+| underlayColor | <code>string</code>    | 卡片点击态颜色，默认 `rgba(0,0,0,0.05)`                      |
+| shadowColor   | <code>string</code>    | 阴影颜色，默认 `'#000'`，❗️android 平台只支持16进制的 `shadowColor` |
+| shadowOpacity | <code>number</code>    | 阴影透明度，默认 `0.03`                                      |
 
 ## NormalGear
 
