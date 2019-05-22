@@ -29,6 +29,8 @@
 
 - 米家弹窗
 
+***
+
 ## 导航栏(TitleBar)
 
 ### 预览
@@ -94,6 +96,8 @@
 | onPressTitle | `func` | 点击标题的事件 |
 | showDot | `bool` | 是否显示右侧更多按钮的小红点 |
 
+***
+
 ## 普通列表项(ListItem)
 
 ### 预览
@@ -141,6 +145,8 @@
 | titleStyle | <code>style</code> | 标题的自定义样式 |
 | subtitleStyle | <code>style</code> | 副标题的自定义样式 |
 | valueStyle | <code>style</code> | 右侧文案的自定义样式 |
+
+***
 
 ## 带开关的列表项(ListItemWithSwitch)
 
@@ -192,6 +198,8 @@
 | titleStyle | <code>style</code> | 主标题的自定义样式 |
 | subtitleStyle | <code>style</code> | 副标题的自定义样式 |
 | valueTextStyle | <code>style</code> | 主标题右侧文案的自定义样式 |
+
+***
 
 ## 带滑动条的列表项(ListItemWithSlider)
 
@@ -247,6 +255,8 @@
 | showSeparator | <code>bool</code> | 是否显示分割线，默认值 `true` |
 | separator | <code>component</code> | 自定义分割线，不传将显示默认样式的分割线 |
 
+***
+
 ## 横向分割线(Separator)
 
 ### 预览
@@ -276,6 +286,8 @@
 | Name | Type | Description |
 | --- | --- | --- |
 | style | <code>style</code> | 自定义样式 |
+
+***
 
 ## 米家插件通用设置(CommonSetting)
 
@@ -413,6 +425,8 @@ render() {
 | extraOptions | <code>object</code> | 其他特殊配置项，详见[使用方法](#使用方法-5)⬆️。 |
 | navigation | <code>object</code> | 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面 |
 
+***
+
 ## 卡片容器(Card)
 
 ### 预览
@@ -508,6 +522,8 @@ getInnerView() {
 | shadowColor   | <code>string</code>    | 阴影颜色，默认 `'#000'`，❗️android 平台只支持16进制的 `shadowColor` |
 | shadowOpacity | <code>number</code>    | 阴影透明度，默认 `0.03`                                      |
 
+***
+
 ## 点按选档(NormalGear)
 
 ### 预览
@@ -553,6 +569,8 @@ getInnerView() {
 | selectColor    | <code>string</code>              | 被选择档位的背景色                                           |
 | selectIndex    | <code>number</code>              | 被选择档位的数组下标                                         |
 | onSelect       | <code>function</code>            | 选择某档位后的回调函数                                       |
+
+***
 
 ## 拖拽选档(DragGear)
 
@@ -600,6 +618,8 @@ getInnerView() {
 | selectColor    | <code>string</code>              | 被选择档位的背景色                                           |
 | selectIndex    | <code>number</code>              | 被选择档位的数组下标                                         |
 | onSelect       | <code>function</code>            | 选择某档位后的回调函数                                       |
+
+***
 
 ## 单选框(Radio)
 
@@ -650,6 +670,8 @@ getInnerView() {
 | changeCheck        | <code>function</code> | 改变选中状态的函数                                           |
 | id                 | <code>number</code>   | 单选按钮的 id，默认值 `-1`                                   |
 
+***
+
 ## 复选框(Checkbox)
 
 ### 预览
@@ -693,6 +715,8 @@ getInnerView() {
 | disabled     | <code>bool</code>   | 是否禁用，默认 `false`   |
 | checked      | <code>bool</code>   | 是否勾选，默认 `false`   |
 | checkedColor | <code>string</code> | 勾选背景颜色，默认米家绿 |
+
+***
 
 ## 开关(Switch)
 
