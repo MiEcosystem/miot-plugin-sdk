@@ -6,13 +6,12 @@
 
 **已完成**
 
-- [导航栏(TitleBar)](#导航栏(TitleBar))
-
--  [普通列表项(ListItem)](#普通列表项(ListItem))
-- [带开关的列表项(ListItemWithSwitch)](#带开关的列表项(ListItemWithSwitch))
-- [带滑动条的列表项(ListItemWithSlider)](#带滑动条的列表项(ListItemWithSlider))
-- [横向分割线(Separator)](#横向分割线(Separator))
-- [米家插件通用设置(CommonSetting)](#米家插件通用设置(CommonSetting))
+- [导航栏(TitleBar)](#导航栏TitleBar)
+- [普通列表项(ListItem)](#普通列表项ListItem)
+- [带开关的列表项(ListItemWithSwitch)](#带开关的列表项ListItemWithSwitch)
+- [带滑动条的列表项(ListItemWithSlider)](#带滑动条的列表项ListItemWithSlider)
+- [横向分割线(Separator)](#横向分割线Separator)
+- [米家插件通用设置(CommonSetting)](#米家插件通用设置CommonSetting)
 - [卡片容器](#card)
 - [点按选档](#normalgear)
 - [拖拽选档](#draggear)
