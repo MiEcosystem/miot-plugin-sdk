@@ -13,9 +13,9 @@
 - [横向分割线(Separator)](#横向分割线Separator)
 - [米家插件通用设置(CommonSetting)](#米家插件通用设置CommonSetting)
 - [卡片容器(Card)](#卡片容器Card)
-- [点按选档](#normalgear)
-- [拖拽选档](#draggear)
-- [单选框](#radio)
+- [点按选档(NormalGear)](#点按选档NormalGear)
+- [拖拽选档(DragGear)](#拖拽选档DragGear)
+- [单选框(Radio)](#单选框Radio)
 - [复选框](#checkbox)
 - [开关](#switch)
 
@@ -508,131 +508,131 @@ getInnerView() {
 | shadowColor   | <code>string</code>    | 阴影颜色，默认 `'#000'`，❗️android 平台只支持16进制的 `shadowColor` |
 | shadowOpacity | <code>number</code>    | 阴影透明度，默认 `0.03`                                      |
 
-## NormalGear
+## 点按选档(NormalGear)
 
-/**
+### 预览
 
- \* *@export*
+![](./UIDocImages/normalgear.gif)
 
- \* *@author* Geeook
+### 基本信息
 
- \* *@since* 10004
+| 基本信息  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 中文名称  | 点按选档                                                     |
+| 描述      | 点击不同选项中某一项进行选择，无动效。<br />适用于电暖器、净化器的档位切换。 |
+| 位置      | `miot/ui/Gear/NormalGear`                                    |
+| SDK_Level | `SDK_10011`                                                  |
+| 注意事项  | \                                                            |
 
- \* *@module* ListItemWithSwitch
+### 使用方法
 
- \* *@description* 带开关的列表项
+```jsx
+<NormalGear
+  options={['off', '1', '2', '3', '4', '5']}
+  normalStyle={{ width: 60 }}
+  margin={20}
+  selectColor={'green'}
+  textStyle={{ fontSize: 16, fontFamily: 'DS-Digital' }}
+  maxWidth={width}
+  selectIndex={this.state.selectIndex}
+  onSelect={index => console.log(`select${index}`)}
+  containerStyle={{ backgroundColor: '#fff' }}
+/>
+```
 
- \* *@property* {string} title - 左侧主标题
+### 参数
 
- \* *@property* {string} subtitle - 左侧副标题，主标题下方
+| Name           | Type                             | Description                                                  |
+| -------------- | -------------------------------- | ------------------------------------------------------------ |
+| options        | <code>array&lt;string&gt;</code> | 档位可选项，以字符串数组表示，必填。<br />❗️每项文字尽量精简  |
+| margin         | <code>number</code>              | 档位选项之间的间距，默认 `12`, 示意图 \|12⭕️12⭕️12\|           |
+| maxWidth       | <code>number</code>              | 容器宽度最大值，不传则默认屏幕宽度。 如果所有档位的宽度 + 间距占据的宽度 <= `maxWidth`，则取实际宽度； 否则容器宽度取 `maxWidth`，各个档位的宽度和间距自适应减小。 |
+| containerStyle | <code>style</code>               | 容器样式，设置宽高无效                                       |
+| normalStyle    | <code>style</code>               | 普通档位样式，如果没有设置宽高，则默认宽高为 `50`            |
+| textStyle      | <code>style</code>               | 档位文字的样式                                               |
+| selectColor    | <code>string</code>              | 被选择档位的背景色                                           |
+| selectIndex    | <code>number</code>              | 被选择档位的数组下标                                         |
+| onSelect       | <code>function</code>            | 选择某档位后的回调函数                                       |
 
- \* *@property* {string} valueText - 主标题右侧文案
+## 拖拽选档(DragGear)
 
- \* *@property* {bool} value - 开关状态，默认值 false
+### 预览
 
- \* *@property* {bool} disabled - 是否禁用开关，默认值 false
+![](./UIDocImages/draggear.gif)
 
- \* *@property* {function} onPress - 列表项点击事件，不传则不具有点击态（disabled）
+### 基本信息
 
- \* *@property* {function} onValueChange - 开关切换事件
+| 基本信息  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 中文名称  | 拖拽选档                                                     |
+| 描述      | 使用拖拽手势或者直接点击从不同选项中选择一项，有动效。<br />适用于电暖器、净化器的档位切换。 |
+| 位置      | `miot/ui/Gear/DragGear`                                      |
+| SDK_Level | `SDK_10011`                                                  |
+| 注意事项  | \                                                            |
 
- \* *@property* {bool} showSeparator - 是否显示分割线，默认值 true
+### 使用方法
 
- \* *@property* {component} separator - 自定义分割线，不传将显示默认样式的分割线
+```jsx
+// 参数和 NormalGear 一致
+<DragGear
+  options={['off', '1', '2', '3', '4', '5']}
+  normalStyle={{ width: 60 }}
+  margin={20}
+  selectColor={'green'}
+  textStyle={{ fontSize: 16, fontFamily: 'DS-Digital' }}
+  maxWidth={width}
+  selectIndex={this.state.selectIndex}
+  onSelect={index => console.log(`select${index}`)}
+  containerStyle={{ backgroundColor: '#fff' }}
+/>
+```
 
- \* *@property* {style} containerStyle - 列表项的自定义样式
+### 参数
 
- \* *@property* {style} titleStyle - 主标题的自定义样式
+| Name           | Type                             | Description                                                  |
+| -------------- | -------------------------------- | ------------------------------------------------------------ |
+| options        | <code>array&lt;string&gt;</code> | 档位可选项，以字符串数组表示，必填。<br />❗️每项文字尽量精简  |
+| margin         | <code>number</code>              | 档位选项之间的间距，默认 `12`, 示意图 \|12⭕️12⭕️12\|           |
+| maxWidth       | <code>number</code>              | 容器宽度最大值，不传则默认屏幕宽度。 如果所有档位的宽度 + 间距占据的宽度 <= `maxWidth`，则取实际宽度； 否则容器宽度取 `maxWidth`，各个档位的宽度和间距自适应减小。 |
+| containerStyle | <code>style</code>               | 容器样式，设置宽高无效                                       |
+| normalStyle    | <code>style</code>               | 普通档位样式，如果没有设置宽高，则默认宽高为 `50`            |
+| textStyle      | <code>style</code>               | 档位文字的样式                                               |
+| selectColor    | <code>string</code>              | 被选择档位的背景色                                           |
+| selectIndex    | <code>number</code>              | 被选择档位的数组下标                                         |
+| onSelect       | <code>function</code>            | 选择某档位后的回调函数                                       |
 
- \* *@property* {style} subtitleStyle - 副标题的自定义样式
+## 单选框(Radio)
 
- \* *@property* {style} valueTextStyle - 主标题右侧文案的自定义样式
+### 预览
 
- */
+![](./UIDocImages/separator.png)
 
-## DragGear
+### 基本信息
 
-/**
+| 基本信息  |            |
+| --------- | ---------- |
+| 中文名称  | 单选框     |
+| 描述      |            |
+| 位置      | `miot/ui/` |
+| SDK_Level | `SDK_100`  |
+| 注意事项  |            |
 
- \* *@export*
+### 使用方法
 
- \* *@author* Geeook
+```jsx
 
- \* *@since* 10004
+```
 
- \* *@module* ListItemWithSwitch
+### 参数
 
- \* *@description* 带开关的列表项
-
- \* *@property* {string} title - 左侧主标题
-
- \* *@property* {string} subtitle - 左侧副标题，主标题下方
-
- \* *@property* {string} valueText - 主标题右侧文案
-
- \* *@property* {bool} value - 开关状态，默认值 false
-
- \* *@property* {bool} disabled - 是否禁用开关，默认值 false
-
- \* *@property* {function} onPress - 列表项点击事件，不传则不具有点击态（disabled）
-
- \* *@property* {function} onValueChange - 开关切换事件
-
- \* *@property* {bool} showSeparator - 是否显示分割线，默认值 true
-
- \* *@property* {component} separator - 自定义分割线，不传将显示默认样式的分割线
-
- \* *@property* {style} containerStyle - 列表项的自定义样式
-
- \* *@property* {style} titleStyle - 主标题的自定义样式
-
- \* *@property* {style} subtitleStyle - 副标题的自定义样式
-
- \* *@property* {style} valueTextStyle - 主标题右侧文案的自定义样式
-
- */
-
-## Radio
-
-/**
-
- \* *@export*
-
- \* *@author* Geeook
-
- \* *@since* 10004
-
- \* *@module* ListItemWithSwitch
-
- \* *@description* 带开关的列表项
-
- \* *@property* {string} title - 左侧主标题
-
- \* *@property* {string} subtitle - 左侧副标题，主标题下方
-
- \* *@property* {string} valueText - 主标题右侧文案
-
- \* *@property* {bool} value - 开关状态，默认值 false
-
- \* *@property* {bool} disabled - 是否禁用开关，默认值 false
-
- \* *@property* {function} onPress - 列表项点击事件，不传则不具有点击态（disabled）
-
- \* *@property* {function} onValueChange - 开关切换事件
-
- \* *@property* {bool} showSeparator - 是否显示分割线，默认值 true
-
- \* *@property* {component} separator - 自定义分割线，不传将显示默认样式的分割线
-
- \* *@property* {style} containerStyle - 列表项的自定义样式
-
- \* *@property* {style} titleStyle - 主标题的自定义样式
-
- \* *@property* {style} subtitleStyle - 副标题的自定义样式
-
- \* *@property* {style} valueTextStyle - 主标题右侧文案的自定义样式
-
- */
+| Name               | Type                  | Description                                                  |
+| ------------------ | --------------------- | ------------------------------------------------------------ |
+| isChecked          | <code>bool</code>     | 按钮的选中状态，默认值 `false`                               |
+| customizeBigCircle | <code>object</code>   | 大圆的尺寸、圆角半径、边宽，默认值 `{}`                      |
+| isCheckedBigCircle | <code>object</code>   | 大圆在选中和非选中状态下的边框颜色、背景色，默认值 非选中状态：边框#666，背景#999。选中状态：边框#060，背景#090 |
+| circleBg           | <code>string</code>   | 小圆的背景色，默认值 `white`                                 |
+| changeCheck        | <code>function</code> | 改变选中状态的函数                                           |
+| id                 | <code>number</code>   | 单选按钮的 id，默认值 `-1`                                   |
 
 ## Checkbox
 
