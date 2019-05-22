@@ -41,8 +41,8 @@ export default {
     /**
      * 通过UID批量获取用户信息
      * @since 10005
-     * @param {[string]} uids uid 数组， 仅支持uid，不支持手机号查询 
-     * @returns {Promise<[object]>}
+     * @param {Array<string>} uids uid数组，仅支持uid，不支持手机号查询 
+     * @return {Promise<Array<object>>}
      * @example
      * Service.smarthome.getUserInfoList([uid1,uid2]).then(res => {
      *  console.log('user info :', res.list)
@@ -279,7 +279,7 @@ export default {
      * @deprecated 10010 开始废弃， 后续版本会移除该方法。 推荐使用 getDeviceSettingV2
      * @param {object} params 请求参数
      * @param {string} params.did did
-     * @param {[string]} params.settings 指定设置的key数组
+     * @param {Array<string>} params.settings 指定设置的key数组
      * @return {Promise}
      */
     getDeviceSetting(params) {
@@ -292,7 +292,7 @@ export default {
      * @param {string} params.did   设备did
      * @param {string} params.last_id   上一次请求返回的id，用于分页
      * @param {string} params.prefix_filter filter
-     * @param {[string]} params.settings 指定设置的key数组
+     * @param {Array<string>} params.settings 指定设置的key数组
      * @return {Promise}
      */
     getDeviceSettingV2(params) {

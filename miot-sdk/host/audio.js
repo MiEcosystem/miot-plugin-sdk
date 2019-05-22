@@ -80,18 +80,47 @@ export default {
      return Promise.resolve(null);
   },
 };
+/**
+ * Audio播放事件名集合
+ * @namespace AudioEvent
+ * @example
+ *    import { AudioEvent } from 'miot/host/audio';
+ *    const subscription = AudioEvent.audioPlayerDidFinishPlaying.addListener(
+ *       (event)=>{
+ *          ...
+ *       }
+ *     )
+ *    ...
+ *    subscription.remove()
+ *    ...
+ *
+ */
 export const AudioEvent = {
   /**
    * 播放完毕事件
    * @event
-   * @param {audioPlayerUid,isSuccess}  -音频播放完毕的UId，是否播放成功
-   * @since 1.0.0
+   * @param {json} event -{audioPlayerUid,isSuccess}音频播放的Uid，是否播放成功
+   * @since 10020
    *
    */
   audioPlayerDidFinishPlaying: {
   },
+  /**
+   * 播放进度事件
+   * @event
+   * @param {json} params  -{audioPlayerUid,currentTime}音频播放的Uid，播放当前进度
+   * @since 10020
+   *
+   */
   updateAudioPlayerTime: {
   },
+  /**
+   * 播放开始事件
+   * @event
+   * @param {json} event -{audioPlayerUid,isSuccess}音频播放的Uid，是否成功开始播放
+   * @since 10020
+   *
+   */
   audioPlayerDidStartPlaying: {
   }
 }
