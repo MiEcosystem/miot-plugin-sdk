@@ -605,22 +605,38 @@ getInnerView() {
 
 ### 预览
 
-![](./UIDocImages/separator.png)
+![](./UIDocImages/radio.gif)
 
 ### 基本信息
 
-| 基本信息  |            |
-| --------- | ---------- |
-| 中文名称  | 单选框     |
-| 描述      |            |
-| 位置      | `miot/ui/` |
-| SDK_Level | `SDK_100`  |
-| 注意事项  |            |
+| 基本信息  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 中文名称  | 单选框                                                       |
+| 描述      | 就像网页上的单选按钮一样，点击某一项就能把它选中，有动画效果。 |
+| 位置      | `miot/ui/Radio`                                              |
+| SDK_Level | `SDK_10011`                                                  |
+| 注意事项  | \                                                            |
 
 ### 使用方法
 
 ```jsx
-
+<Radio
+  isChecked={option.isChecked}
+  changeCheck={this.changeOne}
+  id={option.id}
+  customizeBigCircle={{
+    borderWidth: 4,
+    width: 50,
+    height: 50,
+    borderRadius: 30
+  }}
+  isCheckedBigCircle={{
+    borderColorChecked: '#00C',
+    backgroundColorChecked: '#33F',
+    borderColor: '#666',
+    backgroundColor: '#999'
+  }}
+/>
 ```
 
 ### 参数
@@ -629,7 +645,7 @@ getInnerView() {
 | ------------------ | --------------------- | ------------------------------------------------------------ |
 | isChecked          | <code>bool</code>     | 按钮的选中状态，默认值 `false`                               |
 | customizeBigCircle | <code>object</code>   | 大圆的尺寸、圆角半径、边宽，默认值 `{}`                      |
-| isCheckedBigCircle | <code>object</code>   | 大圆在选中和非选中状态下的边框颜色、背景色，默认值 非选中状态：边框#666，背景#999。选中状态：边框#060，背景#090 |
+| isCheckedBigCircle | <code>object</code>   | 大圆在选中和非选中状态下的边框颜色、背景色。<br />默认值<br />非选中状态：`边框#666，背景#999`。<br />选中状态：`边框#060，背景#090` |
 | circleBg           | <code>string</code>   | 小圆的背景色，默认值 `white`                                 |
 | changeCheck        | <code>function</code> | 改变选中状态的函数                                           |
 | id                 | <code>number</code>   | 单选按钮的 id，默认值 `-1`                                   |
