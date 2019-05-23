@@ -654,7 +654,7 @@ getInnerView() {
     borderWidth: 4,
     width: 50,
     height: 50,
-    borderRadius: 30
+    borderRadius: 25
   }}
   isCheckedBigCircle={{
     borderColorChecked: '#00C',
@@ -668,15 +668,15 @@ getInnerView() {
 
 ### 参数
 
-| Name               | Type                  | Description                                                  |
-| ------------------ | --------------------- | ------------------------------------------------------------ |
-| isChecked          | <code>bool</code>     | 按钮的选中状态，默认值 `false`                               |
-| customizeBigCircle | <code>object</code>   | 大圆的尺寸、圆角半径、边宽，默认值 `{}`                      |
-| isCheckedBigCircle | <code>object</code>   | 大圆在选中和非选中状态下的边框颜色、背景色。<br />默认值<br />非选中状态：`边框#666，背景#999`。<br />选中状态：`边框#060，背景#090` |
-| circleBg           | <code>string</code>   | 小圆的背景色，默认值 `white`                                 |
-| changeCheck        | <code>function</code> | 改变选中状态的函数，参数为单选按钮的 `id`                    |
-| id                 | <code>number</code>   | 单选按钮的 id，用来区分不同的按钮，实现单选功能，默认值 `-1` |
-| disabled           | `bool`                | 单选按钮的可选状态，默认值 `false`                           |
+| Name                  | Type                  | Description                                                  |
+| --------------------- | --------------------- | ------------------------------------------------------------ |
+| isChecked             | <code>bool</code>     | 按钮的选中状态，默认值 `false`                               |
+| bigCircleStyle        | <code>object</code>   | 大圆的尺寸、圆角半径、边宽，默认值 `{}`                      |
+| checkedBigCircleStyle | <code>object</code>   | 大圆在选中和非选中状态下的边框颜色、背景色。<br />默认值<br />非选中状态：`边框#666，背景#999`。<br />选中状态：`边框#060，背景#090` |
+| smallCircleBg         | <code>string</code>   | 小圆的背景色，默认值 `white`                                 |
+| changeCheck           | <code>function</code> | 改变选中状态的函数，参数为单选按钮的 `id`                    |
+| id                    | <code>number</code>   | 单选按钮的 id，用来区分不同的按钮，实现单选功能，默认值 `-1` |
+| disabled              | `bool`                | 单选按钮的可选状态，默认值 `false`                           |
 
 ***
 
