@@ -709,15 +709,52 @@ getInnerView() {
 
 ### 参数
 
-| Name         | Type                | Description              |
-| ------------ | ------------------- | ------------------------ |
-| style        | <code>style</code>  | 样式                     |
-| disabled     | <code>bool</code>   | 是否禁用，默认 `false`   |
-| checked      | <code>bool</code>   | 是否勾选，默认 `false`   |
-| checkedColor | <code>string</code> | 勾选背景颜色，默认米家绿 |
+| Name          | Type                | Description              |
+| ------------- | ------------------- | ------------------------ |
+| style         | <code>style</code>  | 样式                     |
+| disabled      | <code>bool</code>   | 是否禁用，默认 `false`   |
+| checked       | <code>bool</code>   | 是否勾选，默认 `false`   |
+| checkedColor  | <code>string</code> | 勾选背景颜色，默认米家绿 |
+| onValueChange | `function`          | 点击回调函数             |
 
 ***
 
 ## 开关(Switch)
 
-敬请期待
+### 预览
+
+![](./UIDocImages/switch.gif)
+
+### 基本信息
+
+| 基本信息  |                                          |
+| --------- | ---------------------------------------- |
+| 中文名称  | 开关                                     |
+| 描述      | Android和iOS都可以用的简单开关，有动效。 |
+| 位置      | `miot/ui/Switch`                         |
+| SDK_Level | `SDK_10012`                              |
+| 注意事项  | \                                        |
+
+### 使用方法
+
+```jsx
+<Switch
+  style={{ width: 60, height: 30 }}
+  onTintColor='red'
+  tintColor='blue'
+  value={this.state.value}
+  disabled={this.props.disabled}
+  onValueChange={value => this._onValueChange(value)}
+/>
+```
+
+### 参数
+
+| Name          | Type                  | Description              |
+| ------------- | --------------------- | ------------------------ |
+| value         | <code>bool</code>     | 开关状态，默认值 `false` |
+| style         | <code>style</code>    | 开关样式，仅支持宽高     |
+| onTintColor   | <code>string</code>   | 打开时的背景颜色         |
+| tintColor     | <code>string</code>   | 关闭时的背景颜色         |
+| disabled      | <code>bool</code>     | 是否禁用，默认值 `false` |
+| onValueChange | <code>function</code> | 切换开关的回调函数       |
