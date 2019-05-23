@@ -325,9 +325,9 @@
 
 | Name          | Type                | Description                                                  |
 | ------------- | ------------------- | ------------------------------------------------------------ |
-| firstOptions  | <code>array</code>  | 一级页面可选设置项的keys，<br />详见[米家通用设置项速查表](#米家通用设置项速查表)⬇️<br />keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项 |
-| secondOptions | <code>array</code>  | 二级页面可选设置项的keys，<br />详见[米家通用设置项速查表](#米家通用设置项速查表)⬇️<br />keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项 |
-| extraOptions  | <code>object</code> | 其他特殊配置项<br />{<br />showUpgrade // 是否跳转到原生的固件升级页面<br />upgradePageKey // 如果不跳转原生页面，传入想跳转页面的key<br />licenseUrl // 用户协议的资源<br />policyUrl // 隐私政策的资源<br />deleteDeviceMessage // 删除设备的提示语，选填<br />}<br />详见[使用方法](#使用方法-5)⬇️。 |
+| firstOptions  | <code>array</code>  | 一级页面可选设置项的keys，<br />详见[米家通用设置项速查表](#米家通用设置项速查表)⬇️<br />keys的顺序代表显示的顺序，不传将显示全部，传空数组将只显示必选项。 |
+| secondOptions | <code>array</code>  | 二级页面可选设置项的keys，<br />详见[米家通用设置项速查表](#米家通用设置项速查表)⬇️<br />二级页面从属于一级页面，目前暂时只有「更多设置」二级页面可以配置可选项「设备时区」，传入该设置项的key就显示该设置项，不传则不显示。 |
+| extraOptions  | <code>object</code> | 其他特殊配置项<br />{<br />showUpgrade // 是否跳转到原生的固件升级页面<br />upgradePageKey // 如果`showUpgrade = false`，传入想跳转页面的key<br />licenseUrl // 用户协议的资源，将用于「法律信息」二级页面<br />policyUrl // 隐私政策的资源，将用于「法律信息」二级页面<br />deleteDeviceMessage // 删除设备的提示语，选填<br />}<br />详见[使用方法](#使用方法-5)⬇️。 |
 | navigation    | <code>object</code> | 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面 |
 
 #### 详细说明
@@ -735,13 +735,13 @@ getInnerView() {
 
 ### 基本信息
 
-| 基本信息  |                                              |
-| --------- | -------------------------------------------- |
-| 中文名称  | 开关                                         |
-| 描述      | `Android`和`iOS`都可以用的简单开关，有动效。 |
-| 位置      | `miot/ui/Switch`                             |
-| SDK_Level | `SDK_10012`                                  |
-| 注意事项  | \                                            |
+| 基本信息  |                      |
+| --------- | -------------------- |
+| 中文名称  | 开关                 |
+| 描述      | 简单的开关，有动效。 |
+| 位置      | `miot/ui/Switch`     |
+| SDK_Level | `SDK_10012`          |
+| 注意事项  | \                    |
 
 ### 使用方法
 
