@@ -41,13 +41,9 @@
 
 ![](./UIDocImages/titlebar3.png)
 
-![](./UIDocImages/titlebar4.png)
-
 ![](./UIDocImages/titlebar5.png)
 
 ![](./UIDocImages/titlebar6.png)
-
-![](./UIDocImages/titlebar7.png)
 
  ### 基本信息
 
@@ -106,13 +102,13 @@
 
 ### 基本信息
 
-| 基本信息  |                                                      |
-| --------- | ---------------------------------------------------- |
-| 中文名称  | 普通列表项                                           |
-| 描述      | 常用的列表项，带有右箭头，可设置标题/副标题/右侧文字 |
-| 位置      | `miot/ui/ListItem/ListItem`                          |
-| SDK_Level | `SDK_10004`                                          |
-| 注意事项  | \                                                    |
+| 基本信息  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 中文名称  | 普通列表项                                                   |
+| 描述      | 常用的列表项，带有右箭头（可隐藏），可设置标题/副标题/右侧文字 |
+| 位置      | `miot/ui/ListItem/ListItem`                                  |
+| SDK_Level | `SDK_10004`                                                  |
+| 注意事项  | \                                                            |
 
 ### 使用方法
 
@@ -121,6 +117,7 @@
   title='自定义样式'
   subtitle='这是用来测试副标题的文案，尽量写长一点争取可以换行。'
   value='这是一段测试右侧文案'
+  hideArrow={true}
   containerStyle={{ width: width * 0.8, backgroundColor: 'lightblue' }}
   titleStyle={{ fontSize: 17, color: 'red' }}
   subtitleStyle={{ fontSize: 10, color: 'green' }}
@@ -140,6 +137,7 @@
 | onPress | <code>function</code> | 点击事件 |
 | disabled | <code>bool</code> | 是否禁用点击，默认值 `false` |
 | showSeparator | <code>bool</code> | 是否显示分割线，默认值 `true` |
+| hideArrow | `bool` | 是否隐藏右侧箭头图片，默认值 `false`(`❗️SDK_10012`新增) |
 | separator | <code>component</code> | 自定义分割线，不传将显示默认样式的分割线 |
 | containerStyle | <code>style</code> | 列表项的自定义样式 |
 | titleStyle | <code>style</code> | 标题的自定义样式 |
@@ -234,6 +232,8 @@
   titleStyle={{ fontSize: 17, color: 'red' }}
   valueStyle={{ fontSize: 10, color: 'yellow' }}
   showWithPercent={false}
+  unit={'cal'}
+  onValueChange={value => console.log(value)}
   onSlidingComplete={value => console.log(value)}
   separator={<Separator />}
 />
@@ -246,7 +246,9 @@
 | title | <code>string</code> | 标题 |
 | sliderProps | <code>object</code> | `slider` 的属性值<br />默认值<br />{<br />  minimumValue:0,<br />  maximumValue:100,<br />  step:1,<br />  value:50<br />}<br />`minimumValue`: 最小值<br />`maximumValue`: 最大值<br />`step`: 步长<br />`value`: 当前值 |
 | showWithPercent | <code>bool</code> | 是否以百分比显示当前值，默认值 `true` |
+| unit | `string` | 当前值的单位。`showWithPercent = true` 将不显示单位<br />(`❗️SDK_10012`新增) |
 | sliderStyle | <code>object</code> | `slider` 的自定义样式<br />默认值<br />{<br />minimumTrackTintColor: "#32BAC0",<br />maximumTrackTintColor: "rgba(0,0,0,0.15)",<br />thumbTintColor: "#32BAC0",<br />style: {},<br />trackStyle: { height: 2, borderRadius: 1 },<br />thumbStyle: { width: 24, height: 24, borderRadius: 12 }<br />}<br />`minimumTrackTintColor`: slider 左侧已填充颜色<br />`maximumTrackTintColor`: slider 右侧未填充颜色<br />`thumbTintColor`: 可移动圆圈的填充颜色<br />`style`: slider 容器的自定义样式<br />`trackStyle`: 轨的自定义样式<br />`thumbStyle`: 可移动圆圈的自定义样式 |
+| onValueChange | `function` | 滑动回调函数，返回实时的滑动值(`❗️SDK_10012`新增) |
 | onSlidingComplete | <code>function</code> | 滑动结束回调函数 |
 | disabled | <code>bool</code> | 是否禁用滑动，默认值 `false` |
 | containerStyle | <code>style</code> | 列表项的自定义样式 |
@@ -303,11 +305,11 @@
 
 #### 「更多设置」二级页面所有设置项
 
-![](./UIDocImages/moresetting.png)
+![](./UIDocImages/moresetting.jpg)
 
 #### 「更多设置」二级页面必选设置项
 
-![](./UIDocImages/moresetting1.png)
+![](./UIDocImages/moresetting1.jpg)
 
 ### 基本信息
 
@@ -318,6 +320,15 @@
 | 位置      | `miot/ui/CommonSetting/CommonSetting`                        |
 | SDK_Level | `SDK_10005`                                                  |
 | 注意事项  | 鉴于好多插件开发者**使用不当/直接复制demo**，需要说明的注意事项比较多，详见[详细说明](#详细说明)⬇️ |
+
+### 参数
+
+| Name          | Type                | Description                                                  |
+| ------------- | ------------------- | ------------------------------------------------------------ |
+| firstOptions  | <code>array</code>  | 一级页面可选设置项的keys，<br />详见[米家通用设置项速查表](#米家通用设置项速查表)⬇️<br />keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项 |
+| secondOptions | <code>array</code>  | 二级页面可选设置项的keys，<br />详见[米家通用设置项速查表](#米家通用设置项速查表)⬇️<br />keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项 |
+| extraOptions  | <code>object</code> | 其他特殊配置项<br />{<br />showUpgrade // 是否跳转到原生的固件升级页面<br />upgradePageKey // 如果不跳转原生页面，传入想跳转页面的key<br />licenseUrl // 用户协议的资源<br />policyUrl // 隐私政策的资源<br />deleteDeviceMessage // 删除设备的提示语，选填<br />}<br />详见[使用方法](#使用方法-5)⬇️。 |
+| navigation    | <code>object</code> | 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面 |
 
 #### 详细说明
 
@@ -347,7 +358,7 @@
 - 对于分享设备（普通分享/分享给家人）应该展示哪些设置项，组件内部也已经实现了控制，毋需开发者另外配置。其中，一级只显示「更多设置」、「使用帮助」和「删除设备」，「更多设置」的二级页面则屏蔽了「安全设置」。详见[米家通用设置项速查表](#米家通用设置项速查表)⬆️。
 - 通用设置项中「设备名称」和「设备时区」的修改展示逻辑，组件内部已实现，毋需开发者另外配置。
 - 点击设置项跳转到米家原生页面后，`android`和`iOS`的UI展示可能不完全一致，米家APP的同事正在排期开发，不要慌也不要催。
-- 鉴于蓝牙设备的固件升级页面需要在插件内自己实现，而`Wi-Fi`设备的固件升级可以直接跳转到原生页面。所以组件允许插件开发者自定义「固件升级」的路由跳转。
+- 鉴于蓝牙设备的固件升级页面需要在插件内自己实现，而`Wi-Fi`设备的固件升级可以直接跳转到原生页面。所以组件允许插件开发者自定义「固件升级」的路由跳转。通过在`extraOptions`中配置`showUpgrade`和`upgradePageKey`即可实现。详见[使用方法](#使用方法-5)⬇️。
 - 为了能够成功路由到`更多设置`二级页面，需要将`更多设置`页面导出，放在插件入口文件的`RootStack`中，并将插件的路由导航传给组件。详见[使用方法](#使用方法-5)⬇️。
 - 二级页面的key现在包含`AUTO_UPGRADE`（固件自动升级）、`TIMEZONE`（设备时区）、`USER_EXPERIENCE_PROGRAM`（加入用户体验计划）。目前只有`TIMEZONE`有效，其余两个可以先忽略。
 - 虽然此组件从`SDK_10005`开始可用，但是由于产品定义的迭代，所以上述说明以`SDK_10011`最新代码为准，之前的版本可能稍微有些出入，但出入很小，不必惊讶。
@@ -377,36 +388,38 @@ import { CommonSetting, SETTING_KEYS } from "miot/ui/CommonSetting";
 // ...
 
 render() {
-    const { first_options, second_options } = SETTING_KEYS; // 一级和二级可选项的keys
-    // 按顺序显示「设备共享」「智能场景」和「固件升级」
-    // 通过枚举传入key，别自己写字符串
+    const { first_options, second_options } = SETTING_KEYS; // 一级页面和二级页面可选项的keys
+    // 比如我想在一级页面按顺序显示「设备共享」「智能场景」和「固件升级」
+    // 通过枚举值 first_options 传入这三个设置项的key
     const firstOptions = [
       first_options.SHARE,
       first_options.IFTTT,
       first_options.FIRMWARE_UPGRADE,
     ]
-    // 「更多设置」二级页面需要显示「设备时区」
+    // 然后我想在「更多设置」二级页面显示「设备时区」
     const secondOptions = [
       second_options.TIMEZONE,
     ]
-    // 写法之一 蓝牙设备
+    // 假如我的设备是一个蓝牙设备，那么写法可以参考下面
     const extraOptions = {
       showUpgrade: false, // 不跳转到原生的固件升级页面
       upgradePageKey: 'MyCustomPage', // 跳转到自己写的页面，传入该页面在 RootStack 中定义的 key
-      licenseUrl: require('../resources/html/license_zh.html'), // 用户协议的资源，必填
-      policyUrl: require('../resources/html/privacy_zh.html'), // 隐私政策的资源，必填
+      licenseUrl: require('../resources/html/license_zh.html'), // 用户协议的资源
+      policyUrl: require('../resources/html/privacy_zh.html'), // 隐私政策的资源
       deleteDeviceMessage: '真的要删除？你不再考虑考虑？' // 删除设备的提示语，选填
     }
-    // 写法之二 Wi-Fi设备
+    
+    // 假如我的设备是一个Wi-Fi设备，那么写法可以参考下面
     const extraOptions = {
       // showUpgrade: true, // 跳转到原生的固件升级页面，也可以不写，是默认行为
-      licenseUrl: require('../resources/html/license_zh.html'), // 用户协议的资源，必填
-      policyUrl: require('../resources/html/privacy_zh.html'), // 隐私政策的资源，必填
+      licenseUrl: require('../resources/html/license_zh.html'), // 用户协议的资源
+      policyUrl: require('../resources/html/privacy_zh.html'), // 隐私政策的资源
+      deleteDeviceMessage: '真的要删除？你不再考虑考虑？' // 删除设备的提示语，选填
     }
     return (
       // ...
       <CommonSetting
-        navigation={this.props.navigation} // 插件的路由导航，必填
+        navigation={this.props.navigation} // 插件的路由导航，必填！！！
         firstOptions={firstOptions}
         secondOptions={secondOptions}
         extraOptions={extraOptions}
@@ -416,14 +429,7 @@ render() {
   }
 ```
 
-### 参数
-
-| Name | Type | Description |
-| --- | --- | --- |
-| firstOptions | <code>array</code> | 一级可选设置项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项 |
-| secondOptions | <code>array</code> | 二级可选设置项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项 |
-| extraOptions | <code>object</code> | 其他特殊配置项，详见[使用方法](#使用方法-5)⬆️。 |
-| navigation | <code>object</code> | 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面 |
+`这么详细还不明白🌶🍐💉🐮🍺`
 
 ***
 
@@ -431,7 +437,7 @@ render() {
 
 ### 预览
 
-![](./UIDocImages/card.png)
+![](./UIDocImages/card.jpg)
 
 ![](./UIDocImages/card.gif)
 
@@ -729,13 +735,13 @@ getInnerView() {
 
 ### 基本信息
 
-| 基本信息  |                                          |
-| --------- | ---------------------------------------- |
-| 中文名称  | 开关                                     |
-| 描述      | Android和iOS都可以用的简单开关，有动效。 |
-| 位置      | `miot/ui/Switch`                         |
-| SDK_Level | `SDK_10012`                              |
-| 注意事项  | \                                        |
+| 基本信息  |                                              |
+| --------- | -------------------------------------------- |
+| 中文名称  | 开关                                         |
+| 描述      | `Android`和`iOS`都可以用的简单开关，有动效。 |
+| 位置      | `miot/ui/Switch`                             |
+| SDK_Level | `SDK_10012`                                  |
+| 注意事项  | \                                            |
 
 ### 使用方法
 
