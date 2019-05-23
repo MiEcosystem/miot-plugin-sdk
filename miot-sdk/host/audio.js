@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 原生_音频模块
- * @doc_index 8
+ * @doc_index 9
  * @module miot/host/audio
  * @description 
  * 音频处理

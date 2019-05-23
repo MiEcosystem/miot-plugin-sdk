@@ -75,13 +75,7 @@ export default class UIDemo extends React.Component {
                 }
             },
             {
-                'name': '多键开关',
-                'func': () => {
-                    Host.ui.openPowerMultikeyPage(Device.deviceID)
-                }
-            },
-            {
-                'name': '多键开关设置(蓝牙设备)',
+                'name': '多键开关设置',
                 'func': () => {
                     Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac);
                 }

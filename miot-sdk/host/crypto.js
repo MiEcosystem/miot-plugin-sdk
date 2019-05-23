@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 原生_加密模块
- * @doc_index 9
+ * @doc_index 10
  * @module miot/host/crypto
  * @description 
  * 加密模块
@@ -60,6 +60,7 @@ export default {
   /**
    *  api_level 10001
     * 扫地机的地图转换, base64文件内容转成图片
+    * @since 10001
     * @param content 地图文件
     * @param colorMStr 墙色值
     * @param color0Str 背景色值

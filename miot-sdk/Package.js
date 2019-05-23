@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 插件导航模块
- * @doc_index 6
+ * @doc_index 7
  * @module miot/Package
  * @description 扩展程序包参数, 主要来自于{@link packageInfo.json} 的配置与系统本身的特性
  * @example
@@ -31,7 +31,6 @@ import React from 'react';
 import { AppRegistry, DeviceEventEmitter } from "react-native";
 import RootDevice from "./Device";
 import resolveAssetResource from "./native/common/node/resolve";
-import { Package } from '.';
 export const DEBUG = "debug";
 export const RELEASE = "release";
 /**
@@ -92,7 +91,7 @@ export const PackageEvent = {
      * @event
      * @param autoExit
      */
-    packageAuthorizationCancel: { 
+    packageAuthorizationCancel: {
     },
     /**
      * 插件接收到场景等通知消息

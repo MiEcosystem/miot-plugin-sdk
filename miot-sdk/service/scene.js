@@ -1,7 +1,7 @@
 /**
  * @export public 
  * @doc_name 系统服务_场景模块
- * @doc_index 15
+ * @doc_index 16
  * @module miot/service/scene
  * @description 场景相关服务, 包括定时,人工与自动场景 
  *    
@@ -299,10 +299,10 @@ export default {
      * on_time: * * * * *, //crontab string, minute hour day month week。如：59 11 21 3 * 指3月21号11点59分定时开
      * off_time: * * * * *, //crontab string，同上。
      * enable_timer_off: true,//是否开启定时关闭。如果enable_timer设置为false，此属性不会起作用
-     * onMethod: 'method_name', //咨询硬件工程师,指硬件端，打开开关的方法
-     * on_param: 'param', //咨询硬件工程师，指硬件端，打开开关应该传入的参数
-     * off_method: 'method_name', //咨询硬件工程师，指硬件端，关闭开关的方法
-     * off_param: 'param', //咨询硬件工程师，关闭开关应该传入的参数
+     * onMethod: 'method_name', //咨询硬件工程师,指硬件端，打开开关的方法。miot-spec下，一般为：set_properties
+     * on_param: 'param', //咨询硬件工程师，指硬件端，打开开关应该传入的参数。miot-spec下，一般为：[{did,siid,piid,value}]
+     * off_method: 'method_name', //咨询硬件工程师，指硬件端，关闭开关的方法。miot-spec下，一般为：set_properties
+     * off_param: 'param', //咨询硬件工程师，关闭开关应该传入的参数。 miot-spec下，一般为：[{did,siid,piid,value}]
      * enable_timer: true, //是否开启此定时器，后续打开，关闭定时器，可以设置此属性
      * }
      * 

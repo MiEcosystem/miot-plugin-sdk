@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 原生_页面导航模块
- * @doc_index 13
+ * @doc_index 14
  * @module miot/host/ui
  * @description 本地原生业务页面访问与处理
  * @example
@@ -14,6 +14,7 @@
  *
  *
  */
+import { Device } from "../index";
 const resolveAssetSource = require('resolveAssetSource');
 export default {
   /**
@@ -105,6 +106,15 @@ export default {
   },
   /**
    * 软件政策和隐私协议授权
+   * 隐私协议弹框需求：
+   * a. 所有接入米家的设备，绑定成功后第一次进插件，都需要隐私弹框，后续再进不需弹框
+   * b. 取消隐私授权/解绑设备后，重新绑定设备，仍需遵循规则a
+   * 插件端可按如下方案实现：
+   * 1. 使用batchSetDeviceDatas存储一个标志位，用来记录是否“隐私弹框”过
+   * 2. 进入插件时batchGetDeviceDatas获取此标志位，若为NO，弹框，同时设置标志位为YES；若为YES，不弹框
+   * 3. 设备取消授权或解绑设备时，此标志位米家后台会自动清除，故遵循了上述需求b
+   * 4. 异常处理：进插件时，如果网络异常等原因导致batchGetDeviceDatas失败，就不弹框（此时99%情况是第2+次进插件）
+   *
    * @param {string} licenseTitle optional 可以为空
    * @param {string} licenseUrl optional require('资源的相对路径')
    * @param {string} policyTitle 不可以为空
@@ -148,7 +158,7 @@ export default {
   openAddDeviceGroupPage() {
   },
   /**
-   * @param {Array} dids- 包含组设备did的数组
+   * @param {Array} dids - 包含组设备did的数组
    */
   openEditDeviceGroupPage(dids) {
   },
@@ -227,16 +237,16 @@ export default {
    * @example
    * Host.ui.openPowerMultikeyPage(did, mac);
   */
-  openPowerMultikeyPage(did, mac = null){
+  openPowerMultikeyPage(did, mac = null) {
   },
-    /**
-   * 添加或者复制一个红外遥控器
-   * @since 10003
-   * @param {string} did 设备did
-   * @param {number} type 0：添加遥控器；1：复制遥控器。默认0
-   * @param {array} models 一组红外遥控器model，只传入一个model将直接跳转到相应的品牌列表或者机顶盒列表，支持的models见文档。默认空数组[]
-   * @param {object} extra {create_device:true / false} 米家首页列表是否展示虚拟遥控器设备（暂时只有android支持）。默认true
-   */
+  /**
+ * 添加或者复制一个红外遥控器
+ * @since 10003
+ * @param {string} did 设备did
+ * @param {number} type 0：添加遥控器；1：复制遥控器。默认0
+ * @param {array} models 一组红外遥控器model，只传入一个model将直接跳转到相应的品牌列表或者机顶盒列表，支持的models见文档。默认空数组[]
+ * @param {object} extra {create_device:true / false} 米家首页列表是否展示虚拟遥控器设备（暂时只有android支持）。默认true
+ */
   addOrCopyIR(did, type = 0, models = [], extra = { create_device: true }) {
   },
   /**

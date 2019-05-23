@@ -13,35 +13,28 @@
 */
 'use strict';
 
+import { TitleBar } from 'miot/ui';
 import React from 'react';
-
-import {
-    View, Text, AppRegistry, Button,
-    TouchableHighlight,
-    TouchableOpacity,
-    Platform,
-    Dimensions,
-    Animated,
-    StyleSheet,
-    PixelRatio,
-    DeviceEventEmitter,
-    Image,
-} from 'react-native';
-
-import { TitleBarBlack } from 'miot/ui';
 import { createStackNavigator } from 'react-navigation'; //
-import MainPage from './MainPage';
-import Package from 'miot/Package'
+import Guide from './Guide';
+import NormalBle from './NormalBle';
+import XiaomiBle from './XiaomiBle';
+
 const RootStack = createStackNavigator(
     {
-        Home: MainPage,
+        mible: XiaomiBle,
+        normalble: NormalBle,
+        guide: Guide,
     },
     {
         // ThirdPartyDemo
-        initialRouteName: 'Home',
+        initialRouteName: 'guide',
         navigationOptions: ({ navigation }) => {
             return {
-                header: <TitleBarBlack title={navigation.state.params ? navigation.state.params.title : ''} style={{ backgroundColor: '#fff' }}
+                header: <TitleBar
+                    title={navigation.state.params ? navigation.state.params.title : ''}
+                    // style={{ backgroundColor: '#fff' }}
+                    type='dark'
                     onPressLeft={() => {
                         navigation.goBack();
                     }} />,

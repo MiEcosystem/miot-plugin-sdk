@@ -28,6 +28,9 @@ const DEFAULT_STYLE = {
  * @property {style} cardStyle - 卡片容器的自定义样式, 默认样式 `{ width: screenWidth - 30, height:66 }`
  * @property {style} iconStyle - 左侧图标的自定义样式
  * @property {style} textStyle - 右侧文案的自定义样式
+ * @property {string} underlayColor - 卡片点击态颜色，默认 rgba(0,0,0,0.05)
+ * @property {string} shadowColor - 阴影颜色，默认 '#000'，❗️android 平台只支持16进制的 shadowColor
+ * @property {number} shadowOpacity - 阴影透明度，默认 0.03
  */
 export default class Card extends React.Component {
   static propTypes = {
@@ -41,22 +44,29 @@ export default class Card extends React.Component {
     onPress: PropTypes.func,
     cardStyle: PropTypes.object,
     iconStyle: PropTypes.object,
-    textStyle: PropTypes.object
+    textStyle: PropTypes.object,
+    underlayColor: PropTypes.string,
+    shadowColor: PropTypes.string,
+    shadowOpacity: PropTypes.number
   }
   static defaultProps = {
     visible: true,
     showDismiss: false,
     showShadow: true,
-    cardStyle: {}
+    cardStyle: {},
+    shadowColor: '#000',
+    shadowOpacity: 0.03
   }
   constructor(props, context) {
     super(props, context);
     this.state = {
-      showShadow: this.props.showShadow
+      showShadow: this.props.visible && this.props.showShadow
     }
   }
   // android 卡片动效对于阴影的处理
   componentWillReceiveProps(newProps) {
+    if (newProps.showShadow === false) return;
+    if (newProps.visible === this.props.visible) return;
     // 隐藏
     if (newProps.visible === false) {
       this.setState({ showShadow: false });
@@ -70,12 +80,12 @@ export default class Card extends React.Component {
     const shadowIOS = this.props.showShadow
       ? {
         position: 'relative',
-        shadowColor: '#000',
-        shadowOpacity: 0.03,
+        shadowColor: this.props.shadowColor,
+        shadowOpacity: this.props.shadowOpacity,
         shadowOffset: { width: 0, height: 8 }
       }
       : {};
-    const cardStyle = StyleSheet.flatten([DEFAULT_STYLE.MARGIN_TOP, this.props.cardStyle, shadowIOS]);
+    const cardStyle = StyleSheet.flatten([{}, DEFAULT_STYLE.MARGIN_TOP, this.props.cardStyle, shadowIOS]);
     return (
       <CardBase
         {...this.props}
@@ -85,7 +95,7 @@ export default class Card extends React.Component {
   }
   renderCardAndroid() {
     if (!this.state.showShadow) {
-      const cardStyle = StyleSheet.flatten([DEFAULT_STYLE.MARGIN_TOP, this.props.cardStyle]);
+      const cardStyle = StyleSheet.flatten([{}, DEFAULT_STYLE.MARGIN_TOP, this.props.cardStyle]);
       return (
         <CardBase
           {...this.props}
@@ -100,9 +110,9 @@ export default class Card extends React.Component {
         width: width || DEFAULT_STYLE.WIDTH,
         height: height || DEFAULT_STYLE.HEIGHT,
         radius: borderRadius || DEFAULT_STYLE.RADIUS,
-        color: '#000',
+        color: this.props.shadowColor,
         border: 10,
-        opacity: 0.03,
+        opacity: this.props.shadowOpacity,
         x: 0,
         y: 6,
         style: shadowAndroidStyle
@@ -121,7 +131,7 @@ export default class Card extends React.Component {
    * @description 筛选出`this.props.cardStyle`中的定位信息，传给`shadowAndroid`的`style`
    */
   getCorrectStyle() {
-    const shadowAndroidStyle = DEFAULT_STYLE.MARGIN_TOP;
+    const shadowAndroidStyle = Object.assign({}, DEFAULT_STYLE.MARGIN_TOP);
     const cardStyle = {};
     Object.keys(this.props.cardStyle).forEach(key => {
       if (key.toString().startsWith('margin')) {

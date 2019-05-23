@@ -73,6 +73,22 @@ export default class UIDemo extends React.Component {
                     })
                 }
             },
+            {
+                'name': '指定model设备列表',
+                'func': () => {
+                    Device.requestAuthorizedDeviceListData(Device.model).then(res => {
+                        alert(JSON.stringify(res))
+                    })
+                }
+            },
+            {
+                'name': '指定model设备列表v2',
+                'func': () => {
+                    Host.ui.getDevicesWithModel(Device.model).then(res => {
+                        alert(JSON.stringify(res))
+                    })
+                }
+            },
         ];
     }
 

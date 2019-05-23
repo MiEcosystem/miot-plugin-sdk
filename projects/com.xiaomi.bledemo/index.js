@@ -1,5 +1,5 @@
-import { Package, Entrance } from "miot";
-import MainPage from "./Main/MainPage";
+import { Entrance, Package } from "miot";
+import MainPage from "./Main/index";
 
 switch (Package.entrance) {
     case Entrance.Scene:

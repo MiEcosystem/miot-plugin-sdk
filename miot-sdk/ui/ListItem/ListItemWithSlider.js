@@ -12,8 +12,8 @@ const THUMB_SIZE = 24;
 const THUMB_TOUCH_SIZE = { width: 50, height: 50 };
 /**
  * @export public
- * @doc_name ListItem
- * @doc_index 22
+ * @doc_name 列表控件
+ * @doc_index 23
  * @author Geeook
  * @since 10004
  * @module ListItemWithSlider

@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 蓝牙模块
- * @doc_index 3
+ * @doc_index 4
  * @module miot/Bluetooth
  * @description 蓝牙设备操作类
  *
@@ -736,7 +736,7 @@ export default {
     /**
      * 判断当前设备是否通过蓝牙网关扫描到了
      * @static
-     *  @param {string} mac
+     * @param {string} mac
      * @returns {Promise<boolean>}
      */
     isBleGatewayConnected(mac) {

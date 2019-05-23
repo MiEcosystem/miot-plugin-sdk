@@ -1,6 +1,6 @@
-import Host from "miot/Host";
+import locale from "miot/host/locale";
 const getStrings = strings => {
-  const language = Host.locale.language;
+  const language = locale.language;
   return strings[language] || strings['zh'];
 }
 // 为了 autoComplete

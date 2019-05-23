@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 插件设备模块
- * @doc_index 4
+ * @doc_index 5
  * @module miot/Device
  * @description
  * 设备相关 API
@@ -255,7 +255,7 @@ export class IDeviceWifi {
     /**
      * 订阅设备消息
      * @method
-     * @param {...string} propertyOrEventNames -在开发平台上声明的 prop 与 event 名，注意消息格式为：prop.xxxxx 或者 event.xxxxx ，表示订阅的是设备的属性变化，还是设备的事件响应
+     * @param {...string} propertyOrEventNames -在开发平台上声明的 prop 与 event 名，注意消息格式为：prop.xxxxx 或者 event.xxxxx ，表示订阅的是设备的属性变化，还是设备的事件响应.如果是miot-spec设备。则为prop.siid.piid，event.siid.eiid
      * @returns {Promise<EventSubscription>}
      * @example
      * import {Device, DeviceEvent} from 'miot'
@@ -416,6 +416,14 @@ class IDevice {
          return  false
     }
     /**
+     * 批量删除设备, 不能删除 小米路由器/本地蓝牙/局域网直连设备
+     * @since 10011
+     * @param {object[]} didAndPids did 与 pid（Device.type） 列表 [{did:xx,pid:xx}, {did:xx,pid:xx}]
+     */
+    deleteDevices(didAndPids) {
+         return Promise.resolve(null);
+    }
+    /**
      * 获取子设备列表，一般网关才会有子设备
      * @since 10004
      * @method
@@ -445,7 +453,6 @@ class IDevice {
     }
     /**
      * 是否虚拟设备
-     * @deprecated 10010 废弃中，后续将不支持虚拟设备
      * @type {boolean}
      * @readonly
      *
@@ -455,9 +462,7 @@ class IDevice {
     }
     /**
      * 获取虚拟设备 /home/virtualdevicectr
-     * @deprecated 10010 废弃中，后续将不支持虚拟设备
      * @returns {Promise<IDevice[]>}
-     * @description 废弃中，后续将不支持虚拟设备
      */
     getVirtualDevices() {
          return Promise.resolve([]);
