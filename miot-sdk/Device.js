@@ -437,6 +437,22 @@ class IDevice {
          return Promise.resolve([]);
     }
     /**
+     * 获取蓝牙网关关联的普通蓝牙设备列表。
+     * @param {string} [did=Device.deviceID] 蓝牙网关的did，可以为空，为空时默认取当前Device.deviceID
+     * @returns {Promise} 返回数组设备信息的promise
+     */
+    getLinkedBTDevices(did = null) {
+         return Promise.resolve([]);
+    }
+    /**
+     * 获取蓝牙网关关联的蓝牙Mesh设备列表。
+     * @param {string} [did=Device.deviceID] 蓝牙网关的did，可以为空，为空时默认取当前Device.deviceID
+     * @returns {Promise} 返回数组设备信息的promise
+     */
+    getLinkedBTMeshDevices(did = null) {
+         return Promise.resolve([]);
+    }
+    /**
      * @typedef {Object} DeviceConfig
      * @property {string} deviceIconURL 设备的实物icon url
      * @property {string} deviceName 设备类型的名称

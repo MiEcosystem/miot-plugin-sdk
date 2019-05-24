@@ -51,6 +51,32 @@ export default class UIDemo extends React.Component {
                 }
             },
             {
+                'name': '打开第一个子设备',
+                'func': () => {
+                    Device.getSubDevices().then(res => {
+                        if (res.length) {
+                            Host.ui.openDevice(res[0].deviceID, res[0].model, { dismiss_current_plug: false })
+                        }
+                    }).catch(err => {
+                        console.log('error:', err)
+                        alert("error:" + err);
+                    })
+                }
+            },
+            {
+                'name': '打开第一个子设备(退出当前插件)',
+                'func': () => {
+                    Device.getSubDevices().then(res => {
+                        if (res.length) {
+                            Host.ui.openDevice(res[0].deviceID, res[0].model, { dismiss_current_plug: true })
+                        }
+                    }).catch(err => {
+                        console.log('error:', err)
+                        alert("error:" + err);
+                    })
+                }
+            },
+            {
                 'name': '蓝牙token加密',
                 'func': () => {
                     let ble = Device.getBluetoothLE()

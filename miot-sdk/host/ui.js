@@ -245,7 +245,9 @@ export default {
  * @param {string} did 设备did
  * @param {number} type 0：添加遥控器；1：复制遥控器。默认0
  * @param {array} models 一组红外遥控器model，只传入一个model将直接跳转到相应的品牌列表或者机顶盒列表，支持的models见文档。默认空数组[]
- * @param {object} extra {create_device:true / false} 米家首页列表是否展示虚拟遥控器设备（暂时只有android支持）。默认true
+ * @param {object} extra 额外配置，会传入打开的插件页，也有部分特殊功能定义字段如下：
+ * @param {boolean} [extra.create_device = true] 米家首页列表是否展示虚拟遥控器设备。默认true。暂时只有android支持
+ * @param {boolean} [extra.dismiss_current_plug = true] since 10020 。在推出新的插件页面时，关掉当前页面，返回app首页。iOS Only
  */
   addOrCopyIR(did, type = 0, models = [], extra = { create_device: true }) {
   },
@@ -253,7 +255,8 @@ export default {
    * 打开用户账号下某一设备的插件
    * @param {string} did  设备的did
    * @param {string} model  设备的model
-   * @param {object} params  额外参数，打开插件时传入
+   * @param {object} params  额外参数，打开插件时传入，也有部分特殊功能定义字段如下：
+   * @param {boolean} [params.dismiss_current_plug = true] since 10020 。是否在推出新的插件页面时，关掉当前页面，返回app首页。iOS Only
    * @returns {Promise<json>} 打开插件失败，返回错误信息；打开插件成功，无回调信息
    */
   openDevice(did, model, params) {
