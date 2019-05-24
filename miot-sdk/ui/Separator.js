@@ -7,7 +7,7 @@ import { Styles } from "../resources";
  * @doc_name 常用UI组件
  * @doc_index 23
  * @author Geeook
- * @since 20190410
+ * @since
  * @module Separator
  * @description 横向分割线，常用于导航栏和列表项
  * @property {object} style - 自定义样式，maxHeight = 1

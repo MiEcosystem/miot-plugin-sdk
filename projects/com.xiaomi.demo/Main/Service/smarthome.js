@@ -76,7 +76,6 @@ export default class CallSmartHomeAPIDemo extends React.Component {
                 { name: "上报设备数据", handle: this.handleObjRes.bind(this), action: () => { return Service.smarthome.reportRecords(Device.deviceID, [{ type: "prop", key: "b", value: "c" }]) } },
                 { name: "获取支持语音的设备-语音设备可用", handle: this.handleObjRes.bind(this), action: () => { return Service.smarthome.getVoiceCtrlDevices(Device.deviceID) } },
                 { name: "当前服务器国家码", handle: this.handleObjRes.bind(this), action: () => { return Host.getCurrentCountry().then(res => { return new Promise.resolve({ "res": res }) }) } },
-
             ]
         })
     }

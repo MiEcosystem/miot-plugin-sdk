@@ -94,18 +94,23 @@ import RPCControl from './tutorial/RPCControl';
 import Setting from "./tutorial/Setting";
 import FileStorage from './tutorial/storage/FileStorage';
 import StorageDemo from './tutorial/storage/StorageDemo';
+import TitleBarDemo from "./tutorial/TitleBarDemo";
 import TutorialDemo from './tutorial/TutorialDemo';
 import CardPage from "./UIComponent/CardPage";
+import CheckboxDemo from "./UIComponent/CheckboxDemo";
 import DialogTest from './UIComponent/DialogTest';
+import GearExample from './UIComponent/GearExample';
 import ImageCapInsetDemo from './UIComponent/ImageCapInsetDemo'; // working but no title displayed
 import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo';
 import Parallax from "./UIComponent/Parallax";
+import RadioExample from "./UIComponent/RadioExample";
 import RefreshListView from './UIComponent/RefreshListView';
 import Dynamic from './UIComponent/swiper/Dynamic/';
 import LoadMinimal from './UIComponent/swiper/LoadMinimal/';
 import Phone from './UIComponent/swiper/Phone/';
 import Swiper from './UIComponent/swiper/Swiper/'; // working but no title displayed
 import SwiperNumber from './UIComponent/swiper/SwiperNumber/'; // working but no title displayed
+import ToastExample from "./UIComponent/ToastExample";
 // import BLEConnectionDemo from './tutorial/operation/bluetooth/BLEConnectionDemo';
 import UIDemo from './UIComponent/UIDemo';
 import CustomContainer from './uikit/components/CustomContainer';
@@ -130,6 +135,11 @@ const RootStack = createStackNavigator({
     FirmwareUpgrade,
     CustomContainer,
     Parallax,
+    TitleBarDemo,
+    GearExample,
+    RadioExample,
+    CheckboxDemo,
+    ToastExample,
     tutorialDemo: TutorialDemo,
     LocaleServer: LocaleServer,
     blankDemo: BlankDemo,

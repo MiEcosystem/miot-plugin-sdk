@@ -6,7 +6,8 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { strings, Styles } from '../../resources';
 import { ListItem, ListItemWithSwitch } from '../ListItem';
 import Separator from '../Separator';
-import { secondAllOptions } from "./CommonSetting";
+import { secondAllOptions, SETTING_KEYS } from "./CommonSetting";
+const { second_options } = SETTING_KEYS;
 const ListItemType = {
   LIST_ITEM: 'ListItem',
   LIST_ITEM_WITH_SWITCH: 'ListItemWithSwitch',
@@ -78,7 +79,9 @@ export default class FirmwareUpgrade extends React.Component {
   }
   render() {
     const requireKeys2 = [secondAllOptions.CHECK_UPGRADE];
-    const keys = [...this.secondOptions, ...requireKeys2];
+    let options = this.secondOptions.filter(key => key && Object.values(second_options).includes(key)); // 去掉杂质
+    options = [...new Set(options)]; // 去除重复
+    const keys = [...options, ...requireKeys2];
     const items = keys.map(key => this.firmwareSetting[key]).filter(item => item);
     return (
       <View style={styles.container}>

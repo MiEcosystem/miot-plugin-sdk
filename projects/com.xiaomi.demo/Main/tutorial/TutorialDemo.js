@@ -17,6 +17,10 @@ export default class TutorialDemo extends React.Component {
           'key': 'Setting',
         },
         {
+          'title': '导航栏 TitleBar Demo',
+          'key': 'TitleBarDemo',
+        },
+        {
           'title': '空白页',
           'key': 'blankDemo',
         },

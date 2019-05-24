@@ -453,7 +453,6 @@ class IDevice {
     }
     /**
      * 是否虚拟设备
-     * @deprecated 10010 废弃中，后续将不支持虚拟设备
      * @type {boolean}
      * @readonly
      *
@@ -463,9 +462,7 @@ class IDevice {
     }
     /**
      * 获取虚拟设备 /home/virtualdevicectr
-     * @deprecated 10010 废弃中，后续将不支持虚拟设备
      * @returns {Promise<IDevice[]>}
-     * @description 废弃中，后续将不支持虚拟设备
      */
     getVirtualDevices() {
          return Promise.resolve([]);
