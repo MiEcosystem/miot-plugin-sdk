@@ -360,7 +360,8 @@
 ```jsx
 // 入口文件 index.js
 // 把「更多设置」页面放在路由堆栈中
-import { MoreSetting } from "miot/ui/CommonSetting";
+// 为了兼容 <SDK_10011 的版本，需要把「固件升级」页面也放在路由堆栈中
+import { FirmwareUpgrade, MoreSetting } from "miot/ui/CommonSetting";
 
 //...
 
@@ -368,6 +369,7 @@ const RootStack = createStackNavigator(
 {
   Setting, // 设置页
   MoreSetting, // 更多设置
+  FirmwareUpgrade, // 固件升级
 }
 //...
 )
