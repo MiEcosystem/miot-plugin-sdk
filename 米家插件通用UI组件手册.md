@@ -642,13 +642,13 @@ getInnerView() {
   isChecked={option.isChecked}
   changeCheck={this.changeOne}
   id={option.id}
-  customizeBigCircle={{
+  bigCircleStyle={{
     borderWidth: 4,
-    width: 50,
-    height: 50,
-    borderRadius: 25
+    width: 40,
+    height: 40,
+    borderRadius: 20
   }}
-  isCheckedBigCircle={{
+  checkedBigCircleStyle={{
     borderColorChecked: '#00C',
     backgroundColorChecked: '#33F',
     borderColor: '#666',
