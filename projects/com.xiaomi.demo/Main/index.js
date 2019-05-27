@@ -90,6 +90,8 @@ import List from "./tutorial/List";
 import LocaleServer from './tutorial/LocaleServer';
 import OperationDemoIndex from './tutorial/operation/OperationDemoIndex';
 import PackageDemo from "./tutorial/PackageDemo";
+import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo";
+import StringSpinnerDemo from "./UIComponent/StringSpinnerDemo";
 import RPCControl from './tutorial/RPCControl';
 import Setting from "./tutorial/Setting";
 import FileStorage from './tutorial/storage/FileStorage';
@@ -165,7 +167,7 @@ const RootStack = createStackNavigator({
     MiotAndroidScrollViewDemo: MiotAndroidScrollViewDemo,
     RefreshListView: RefreshListView,
     NumberSpinnerDemo: NumberSpinnerDemo,
-
+    StringSpinnerDemo: StringSpinnerDemo,
     ThirdPartyDemo: ThirdPartyDemo,
     setting: MHSetting,
     moreMenu: MoreMenu,
