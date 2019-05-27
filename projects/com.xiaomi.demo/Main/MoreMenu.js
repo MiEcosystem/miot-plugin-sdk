@@ -14,7 +14,6 @@ export default class MoreMenu extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       header: <TitleBar type='dark' title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
-        // header: <TitleBar type='dark' title='www' style={{ backgroundColor: '#fff' }}
         onPressLeft={() => { navigation.goBack(); }} />,
     };
   };

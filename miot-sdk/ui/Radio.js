@@ -9,11 +9,12 @@ import { Animated, StyleSheet, TouchableWithoutFeedback, View } from 'react-nati
  * @module Radio
  * @description Radio for Android and iOS.
  * @property {bool} isChecked - 按钮的选中状态，默认值 false
- * @property {object} customizeBigCircle - 大圆的尺寸、圆角半径、边宽，默认值 {}
- * @property {object} isCheckedBigCircle - 大圆在选中和非选中状态下的边框颜色、背景色，默认值 非选中状态：边框#666，背景#999。选中状态：边框#060，背景#090
- * @property {string} circleBg - 小圆的背景色，默认值 white
+ * @property {object} bigCircleStyle - 大圆的尺寸、圆角半径、边宽，默认值 {}
+ * @property {object} checkedBigCircleStyle - 大圆在选中和非选中状态下的边框颜色、背景色，默认值 非选中状态：边框#666，背景#999。选中状态：边框#060，背景#090
+ * @property {string} smallCircleBg - 小圆的背景色，默认值 white
  * @property {function} changeCheck - 改变选中状态的函数，参数为单选按钮的 id
- * @property {number} id - 单选按钮的 id，用于区别不同的单选按钮，默认值 -1
+ * @property {number} id - 单选按钮的 id，用来区分不同的按钮，实现单选功能，默认值 -1
+ * @property {bool} disabled - 单选按钮的可选状态，默认值 false
  */
 class Radio extends Component {
   constructor(props) {
@@ -63,27 +64,31 @@ class Radio extends Component {
     changeCheck(id);
   }
   render() {
-    let { circleBg, isChecked, customizeBigCircle, isCheckedBigCircle } = this.props;
-    let { borderColorChecked, backgroundColorChecked, borderColor, backgroundColor } = isCheckedBigCircle;
+    let { smallCircleBg, isChecked, bigCircleStyle, checkedBigCircleStyle, disabled } = this.props;
+    let { borderColorChecked, backgroundColorChecked, borderColor, backgroundColor } = checkedBigCircleStyle;
     let { scale, opacity } = this.state;
     return (
-      <TouchableWithoutFeedback onPress={this.changeRadioCheck}>
+      <TouchableWithoutFeedback
+        onPress={this.changeRadioCheck}
+        disabled={disabled}
+      >
         <View style={[
           styles.btn,
-          customizeBigCircle,
+          bigCircleStyle,
           {
             borderColor: isChecked ? borderColorChecked : borderColor,
-            backgroundColor: isChecked ? backgroundColorChecked : backgroundColor
+            backgroundColor: isChecked ? backgroundColorChecked : backgroundColor,
+            opacity: disabled ? .3 : 1
           }
         ]}>
           <Animated.View style={[
             styles.smallCircle,
-            customizeBigCircle,
+            bigCircleStyle,
             {
               borderWidth: 0,
               transform: [{ scale }],
               opacity,
-              backgroundColor: circleBg
+              backgroundColor: smallCircleBg
             }
           ]}></Animated.View>
         </View>
@@ -92,25 +97,27 @@ class Radio extends Component {
   }
 }
 Radio.defaultProps = {
-  customizeBigCircle: {},
-  isCheckedBigCircle: {
+  bigCircleStyle: {},
+  checkedBigCircleStyle: {
     borderColorChecked: '#060',
     backgroundColorChecked: '#090',
     borderColor: '#666',
     backgroundColor: '#999'
   },
-  circleBg: 'white',
+  smallCircleBg: 'white',
   isChecked: false,
   changeCheck: function () { },
-  id: -1
+  id: -1,
+  disabled: false
 }
 Radio.propTypes = {
-  customizeBigCircle: PropTypes.object,
-  isCheckedBigCircle: PropTypes.object,
-  circleBg: PropTypes.string,
+  bigCircleStyle: PropTypes.object,
+  checkedBigCircleStyle: PropTypes.object,
+  smallCircleBg: PropTypes.string,
   isChecked: PropTypes.bool,
   changeCheck: PropTypes.func,
-  id: PropTypes.number
+  id: PropTypes.number,
+  disabled: PropTypes.bool
 }
 const styles = StyleSheet.create({
   btn: {
@@ -118,12 +125,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderStyle: 'solid',
     borderWidth: 2,
-    borderRadius: 60,
+    borderRadius: 40,
     width: 80,
     height: 80
   },
   smallCircle: {
-    borderRadius: 60,
+    borderRadius: 40,
     width: 80,
     height: 80
   }
