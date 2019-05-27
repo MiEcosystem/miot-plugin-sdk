@@ -2,6 +2,8 @@
     "name": "project-com-xiaomi-demo",
     "version": "0.0.1",
     "dependencies": {
+        "mobx": "^5.9.4",
+        "mobx-react": "^5.4.4",
         "react-native-iphone-x-helper": "^1.2.0",
         "react-native-root-toast": "^3.0.2"
     }

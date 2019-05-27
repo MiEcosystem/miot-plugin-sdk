@@ -127,6 +127,14 @@ export default class UIDemo extends React.Component {
                     Device.reportDeviceGPSInfo()
                 }
             },
+
+            {
+                'name': 'parentDevice',
+                'func': () => {
+                    console.log(Device.parentDevice)
+                    alert(Device.parentDevice.deviceID)
+                }
+            },
         ];
     }
 

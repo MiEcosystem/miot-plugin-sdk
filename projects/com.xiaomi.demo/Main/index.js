@@ -54,6 +54,7 @@ import ARTTextDemo from './ThirdPartDemo/ARTComponentDemo/ARTTextDemo'; //文字
 // import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 import CircularSliderDemo from './ThirdPartDemo/CircularSliderDemo';
 import ImagePickerDemo from './ThirdPartDemo/ImagePickerDemo';
+import MOBX from './ThirdPartDemo/MOBX';
 import MHMapDemo from './ThirdPartDemo/MHMapDemo';
 import GLAnimated from './ThirdPartDemo/openGL/Animated';
 // import GLAdvancedEffects from './openGL/AdvancedEffects';
@@ -65,11 +66,11 @@ import GLSimple from './ThirdPartDemo/openGL/Simple';
 // import OpenLibList from './OpenLibList';
 import ParticleDemo from './ThirdPartDemo/ParticleDemo';
 import ProgressDemo from './ThirdPartDemo/ProgressDemo';
+import ReactNativeCameraDemo from './ThirdPartDemo/ReactNativeCameraDemo';
 import SQLiteDemo from './ThirdPartDemo/SQLiteDemo';
 import SVGDemo from './ThirdPartDemo/SVGDemo';
 import { GroupExample, HoverExample, PressExample } from './ThirdPartDemo/SVGDemo2';
 import ThirdPartyDemo from './ThirdPartDemo/ThirdPartyDemo';
-import ReactNativeCameraDemo from './ThirdPartDemo/ReactNativeCameraDemo';
 import AreaView from './ThirdPartDemo/Victory-Native/views/area-view';
 import AxisView from './ThirdPartDemo/Victory-Native/views/axis-view';
 import BarView from './ThirdPartDemo/Victory-Native/views/bar-view';
@@ -89,7 +90,6 @@ import List from "./tutorial/List";
 import LocaleServer from './tutorial/LocaleServer';
 import OperationDemoIndex from './tutorial/operation/OperationDemoIndex';
 import PackageDemo from "./tutorial/PackageDemo";
-import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo";
 import RPCControl from './tutorial/RPCControl';
 import Setting from "./tutorial/Setting";
 import FileStorage from './tutorial/storage/FileStorage';
@@ -102,6 +102,7 @@ import DialogTest from './UIComponent/DialogTest';
 import GearExample from './UIComponent/GearExample';
 import ImageCapInsetDemo from './UIComponent/ImageCapInsetDemo'; // working but no title displayed
 import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo';
+import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo";
 import Parallax from "./UIComponent/Parallax";
 import RadioExample from "./UIComponent/RadioExample";
 import RefreshListView from './UIComponent/RefreshListView';
@@ -116,6 +117,7 @@ import UIDemo from './UIComponent/UIDemo';
 import CustomContainer from './uikit/components/CustomContainer';
 import * as Screens from "./uikit/screens";
 import MHSetting from './unuse/MHSetting';
+
 // class HomeScreen extends React.Component {
 //   render() {
 //     return (
@@ -140,6 +142,7 @@ const RootStack = createStackNavigator({
     RadioExample,
     CheckboxDemo,
     ToastExample,
+    MOBX,
     tutorialDemo: TutorialDemo,
     LocaleServer: LocaleServer,
     blankDemo: BlankDemo,

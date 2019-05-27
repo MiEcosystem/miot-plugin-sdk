@@ -954,4 +954,19 @@ export default {
     handleSEResponse(params) {
          return Promise.resolve(null);
     },
+    /**
+     * 上报蓝牙设备信息
+     * call: /v2/device/bledevice_info
+     * 等效于: /v2/blemesh/dev_info
+     * @param {object} params 参数
+     * @param {string} prarms.did 设备did
+     * @param {string} prarms.fw_ver 设备当前固件版本号
+     * @param {string} prarms.hw_ver 设备的硬件平台
+     * @param {string} prarms.latitude 纬度，number字符串
+     * @param {string} prarms.longitude 经度，number字符串
+     * @param {string} prarms.iternetip app/网关IP地址
+     */
+    reportBLEDeviceInfo(params) {
+         return Promise.resolve(null);
+    }
 }
