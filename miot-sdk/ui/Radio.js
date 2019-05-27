@@ -12,8 +12,8 @@ import { Animated, StyleSheet, TouchableWithoutFeedback, View } from 'react-nati
  * @property {object} customizeBigCircle - 大圆的尺寸、圆角半径、边宽，默认值 {}
  * @property {object} isCheckedBigCircle - 大圆在选中和非选中状态下的边框颜色、背景色，默认值 非选中状态：边框#666，背景#999。选中状态：边框#060，背景#090
  * @property {string} circleBg - 小圆的背景色，默认值 white
- * @property {function} changeCheck - 改变选中状态的函数
- * @property {number} id - 单选按钮的 id，默认值 -1
+ * @property {function} changeCheck - 改变选中状态的函数，参数为单选按钮的 id
+ * @property {number} id - 单选按钮的 id，用于区别不同的单选按钮，默认值 -1
  */
 class Radio extends Component {
   constructor(props) {
