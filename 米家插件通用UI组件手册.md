@@ -295,21 +295,13 @@
 
 ### 预览
 
-#### 一级页面所有设置项
+#### 一级页面
 
-![](./UIDocImages/commonsetting.png)
+![](./UIDocImages/commonsetting.jpg)
 
-#### 一级页面必选设置项
-
-![](./UIDocImages/commonsetting1.png)
-
-#### 「更多设置」二级页面所有设置项
+#### 「更多设置」二级页面
 
 ![](./UIDocImages/moresetting.jpg)
-
-#### 「更多设置」二级页面必选设置项
-
-![](./UIDocImages/moresetting1.jpg)
 
 ### 基本信息
 
