@@ -152,10 +152,11 @@ export default {
   openShopPage(gid) {
   },
   /**
+   * @param {String} groupModel - 设备组model
    * 打开创建设备组页
    * 只有特定设备支持创建设备组统一管理
    */
-  openAddDeviceGroupPage() {
+  openAddDeviceGroupPage(groupModel="") {
   },
   /**
    * @param {Array} dids - 包含组设备did的数组
