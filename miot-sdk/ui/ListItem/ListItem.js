@@ -10,8 +10,8 @@ const PADDING = 24;
 const ICON_SIZE = Platform.select({ android: 26, ios: 24 }); // 当android设置24的时候，图形会挤压形成锯齿
 /**
  * @export public
- * @doc_name ListItem
- * @doc_index 22
+ * @doc_name 列表控件
+ * @doc_index 23
  * @author Geeook
  * @since 10004
  * @module ListItem

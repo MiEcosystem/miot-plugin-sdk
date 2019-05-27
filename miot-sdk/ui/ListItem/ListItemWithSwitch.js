@@ -10,8 +10,8 @@ const THIN_HEIGHT = 50;
 const PADDING = 24;
 /**
  * @export public
- * @doc_name ListItem
- * @doc_index 22
+ * @doc_name 列表控件
+ * @doc_index 23
  * @author Geeook
  * @since 10004
  * @module ListItemWithSwitch

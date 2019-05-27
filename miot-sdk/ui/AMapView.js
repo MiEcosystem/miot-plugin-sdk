@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 地图组件
- * @doc_index 20
+ * @doc_index 21
  * @module miot/ui/AMapView
  * @description 地图的 js 桥接，内部使用高德地图实现，
  * @mark andr done

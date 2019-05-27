@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 常用UI组件
- * @doc_index 21
+ * @doc_index 22
  * @since 10003
  * @module miot/ui/NumberSpinner
  * @description 数字选择器

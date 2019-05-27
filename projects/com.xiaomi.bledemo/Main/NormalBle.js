@@ -185,7 +185,7 @@ export default class MainPage extends React.Component {
                                 <View style={{ marginTop: 20 }}>
                                     <Text style={[{ backgroundColor: 'white' }]}>service: {val.uuid}</Text>
                                     {
-                                        val.char.map((v, i) => {
+                                        (val.char || []).map((v, i) => {
                                             return (<CommonCell
                                                 title={"char: " + v}
                                             />)

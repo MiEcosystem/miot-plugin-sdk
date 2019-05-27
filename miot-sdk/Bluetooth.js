@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 蓝牙模块
- * @doc_index 3
+ * @doc_index 4
  * @module miot/Bluetooth
  * @description 蓝牙设备操作类
  *

@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 系统服务_智能家庭模块
- * @doc_index 18
+ * @doc_index 19
  * @module miot/service/smarthome
  * @description 智能家庭 API
  *
@@ -25,9 +25,15 @@ export const MemberType = {
 Object.freeze(MemberType)
 export default {
     /**
+     * @typedef {Object} UserInfo
+     * @property {number} uid user id; since 10010
+     * @property {string} nickName user nick name
+     * @property {string} avatarURL user avatarURL
+     */
+    /**
      * 获取用户的昵称和头像信息
      * @param {*} uid 获取用户信息的uid或者手机号
-     * @returns {Promise<json>}
+     * @returns {Promise<UserInfo>} a promise with user info
      */
     getUserInfo(uid) {
          return Promise.resolve({});
@@ -35,7 +41,8 @@ export default {
     /**
      * 通过UID批量获取用户信息
      * @since 10005
-     * @param {array} uids uid 数组， 仅支持uid，不支持手机号查询 
+     * @param {Array<string>} uids uid数组，仅支持uid，不支持手机号查询 
+     * @return {Promise<Array<object>>}
      * @example
      * Service.smarthome.getUserInfoList([uid1,uid2]).then(res => {
      *  console.log('user info :', res.list)
@@ -59,7 +66,16 @@ export default {
      * 上报gps信息 /location/set
      * @param {string} deviceID 设备ID
      * @param {GPSInfo} gpsInfo {lng,lat,countryCode,adminArea,locality,subLocality,thoroughfare,language} 依次为 {，，，，，，，}
-     * @returns {Promise<json>}
+     * @returns {Promise<object>}
+     * @example
+     * //获取手机地理信息，iOS必须是真机且开启定位权限
+     * Host.locale.getLocation().then(res => {
+     *  console.log('get location: ', res)
+     *  var {longitude,latitude} = res;
+     * }) 
+     * if (latitude && longitude) {
+     *  Service.smarthome.reportGPSInfo(Device.deviceID, {})
+     * }
      *
      */
     reportGPSInfo(deviceID, gpsInfo) {
@@ -68,21 +84,32 @@ export default {
     /**
      * 设备固件版本信息
      * @typedef DeviceVersion
-     * @property {boolean} isUpdating - 是否ota升级中
+     * @property {boolean} isUpdating - 是否ota升级中 为true时，otaState才有效
      * @property {boolean} isLatest - 是否是最新版本
      * @property {boolean} isForce - 是否强制升级
      * @property {boolean} hasNewFirmware - 是否有新固件
      * @property {string} curVersion - 当前固件版本
      * @property {string} newVersion - 新固件版本
      * @property {string} description - 描述
+     * @property {OTAState} otaState -设备OTA状态， since 10011
      *
      */
     /**
-     * 检查硬件版本信息
+     * 设备固件otaState
+     * @since 10011
+     * @typedef OTAState
+     * @param {string} state ota 状态
+     * @param {number} startTime 开始时间
+     * @param {number} progress 进度
+     * @param {string} failedReason 失败原因
+     * @param {number} failedCode   失败code
+     */
+    /**
+     * 获取指定设备的新版本信息
      * /home/checkversion
      * @method
-     * @param  {string} 设备ID
-     * @param  {*} pid 设备PID
+     * @param  {string} 设备did
+     * @param  {number} pid 设备类型，使用Device.type,即可
      * @returns {Promise<DeviceVersion>}
      * @example
      * Device.getDeviceWifi().checkVersion()
@@ -98,6 +125,23 @@ export default {
      * @return {Promise<json>}
      */
     getAvailableFirmwareForDids(deviceIDs) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 获取服务器中 最新的版本信息，内部调用米家代理接口/home/latest_version
+     * @param {string} model 设备的 model
+     * @return {Promise}
+     */
+    getLatestVersion(model) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 获取服务器中 最新的版本信息，
+     * 内部调用米家代理接口/v2/device/latest_ver
+     * @since 10004
+     * @param {string} did 设备did
+     */
+    getLatestVersionV2(did) {
          return Promise.resolve(null);
     },
     /**
@@ -130,6 +174,17 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * /v2/device/set_extra_data
+     *  写extra_data 字段，必须为map[string] string格式
+     * @since 10002
+     * @deprecated 10005 不推荐使用，后续版本会移除该方法。建议使用batchSetDeviceDatas
+     * @param {json} params  -参数 {did, extra_data}
+     * @return {Promise}
+     */
+    deviceSetExtraData(params) {
+         return Promise.resolve(null);
+    },
+    /**
      * 通过前缀分批拉取设备的配置信息
      * - /v2/device/range_get_extra_data
      * @deprecated 10005 开始废弃， 后续版本会移除该方法。推荐使用 batchGetDeviceDatas
@@ -149,20 +204,25 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 获取设备时区
+     * @deprecated 10005, 内部取用extra_Data 中设置的数据，建议自行在batchSetDeviceData中实现
+     * @param {string} did 
+     */
+    getDeviceTimeZone(did) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 提供返回设备数据统计服务，使用该接口需要配置产品model以支持使用，建议找对接的产品人员进行操作。
      * 图表📈统计接口 /v2/user/statistics
-     * @param {json} params 
-     * {
-            did: '', // 设备id
-            // data_type 为 数据类型，包括：
-            // 采样统计 日统计:stat_day / 周统计:stat_week / 月统计:stat_month
-            // 计数统计 日统计:total_day_v2 / 周统计:total_week_v2 / 月统计:total_month_v2
-            data_type: '',
-            key: '', // 需要统计的字段，即统计上报对应的key
-            time_start: 1543593599, // 开始时间
-            time_end: 1541001601, // 结束时间
-            limit: 1000 // 限制次数，0为默认条数
-        }
-     * @return {Promise<json>}
+     * 注:由于sds限额问题，可能会出现一次拉不到或者拉不完数据的情况，会返回code:0和message:“sds throttle”
+     * @param {object} params 
+     * @param {string} params.did did
+     * @param {string} params.data_type 数据类型 包括： 采样统计 日统计:stat_day / 周统计:stat_week / 月统计:stat_month ; 计数统计(总次数，耗电量那种)(即将废弃) 日统计:total_day_v2 / 周统计:total_week_v2 / 月统计:total_month_v2
+     * @param {string} params.key 需要统计的字段，即统计上报对应的key
+     * @param {string} params.time_start 开始时间
+     * @param {string} params.time_end 结束时间
+     * @param {string} params.limit 限制次数，0为默认条数
+     * @return {Promise<Object>}
      {
         "code": 0,
         "message": "ok",
@@ -181,13 +241,6 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 获取设备时区
-     * @param {string} did 
-     */
-    getDeviceTimeZone(did) {
-         return Promise.resolve(null);
-    },
-    /**
      * 获取支持语音的设备 可以控制的设备列表。 /voicectrl/ai_devs
      * @param deviceID  语音设备的 did
      * @return {Promise}
@@ -201,6 +254,14 @@ export default {
     /**
      * 获取小爱接口数据，内部调用米家代理接口/v2/api/aivs
      * @param {json} params 请求参数 {path:string,params:map,header:map,payload:map,env:int,req_method:string,req_header:map}
+     * @param {string} params.path
+     * @param {string} params.params
+     * @param {string} params.params.did
+     * @param {string} params.params.client_id
+     * @param {string} params.header
+     * @param {string} params.env
+     * @param {string} params.req_method
+     * @param {string} params.req_header
      * @return {Promise}
      * @example
      * Service.smarthome.getAiServiceProxy({
@@ -218,7 +279,9 @@ export default {
     /**
      * 获取服务器中 device 对应的数据，内部调用米家代理接口 /device/getsetting
      * @deprecated 10010 开始废弃， 后续版本会移除该方法。 推荐使用 getDeviceSettingV2
-     * @param {json} params 请求参数 {did:string,settings:array<string>}
+     * @param {object} params 请求参数
+     * @param {string} params.did did
+     * @param {Array<string>} params.settings 指定设置的key数组
      * @return {Promise}
      */
     getDeviceSetting(params) {
@@ -228,10 +291,10 @@ export default {
      * 获取服务器中 device 对应的数据，内部调用米家代理接口 /v2/device/getsettingv2
      * @since 10010
      * @param {object} params 
-     * @param {object} params.did   设备did
-     * @param {object} params.last_id   上一次请求返回的id，用于分页
-     * @param {object} params.prefix_filter filter
-     * @param {object} params.settings 指定设置的key数组
+     * @param {string} params.did   设备did
+     * @param {string} params.last_id   上一次请求返回的id，用于分页
+     * @param {string} params.prefix_filter filter
+     * @param {Array<string>} params.settings 指定设置的key数组
      * @return {Promise}
      */
     getDeviceSettingV2(params) {
@@ -239,7 +302,9 @@ export default {
     },
     /**
      * 设置服务器中 device 对应的数据，内部调用米家代理接口/device/setsetting
-     * @param {json} params 请求参数 {did:string,settings:map<key,value>}
+     * @param {object} params 请求参数 {did:string,settings:map<key,value>}
+     * @param {string} params.did did
+     * @param {object} params.settings 指定设置的key数组
      * @return {Promise}
      */
     setDeviceSetting(params) {
@@ -247,63 +312,59 @@ export default {
     },
     /**
      * 删除服务器中 device 对应的数据，内部调用米家代理接口/device/delsetting
-     * @param {json} params  - 请求参数 \{did:设备 id,settings:要删除的设置角标的数组}
+     * @param {json} params  - 请求参数
+     * @param {string} params.did did
+     * @param {object} params.settings 指定要删除的key数组
      * @return {Promise}
      */
     delDeviceSetting(params) {
          return Promise.resolve(null);
     },
     /**
-     * 获取服务器中 最新的版本信息，内部调用米家代理接口/home/latest_version
-     * @param {string} model 设备的 model
-     * @return {Promise}
-     */
-    getLatestVersion(model) {
-         return Promise.resolve(null);
-    },
-    /**
-     * 获取服务器中 最新的版本信息，
-     * 内部调用米家代理接口/v2/device/latest_ver
-     * @since 10004
-     * @param {string} did 设备did
-     */
-    getLatestVersionV2(did) {
-         return Promise.resolve(null);
-    },
-    /**
      * 添加设备属性和事件历史记录，/user/set_user_device_data
-     * @deprecated 10005
-     * @param {json}  params  参数\{did,uid,type,key,time,value}含义如下：
-     * did：设备did，
-     * uid：添加到哪个用户下,一般为 Device.ownerId，
-     * type：属性为prop事件为event，属性名不需要prop或者event前缀，亦可以自定义，
-     * time：触发时间戳，
-     * value：要保存的数据
+     * @param {object} params  参数
+     * @param {string} params.did 设备did，
+     * @param {string} params.uid 添加到哪个用户下,一般为 Device.ownerId，
+     * @param {string} params.type 属性为prop事件为event，属性名不需要prop或者event前缀，亦可以自定义，
+     * @param {string} params.key 要保存的数据K
+     * @param {string} params.value 要保存的数据V
+     * @param {number} params.time 触发时间戳，
      * @return {Promise}
      */
     setDeviceData(params) {
          return Promise.resolve(null);
     },
     /**
-     * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加.通下面的set_user_device_data的参数一一对应， /user/get_user_device_data
+     * 查询用户名下设备上报的属性和事件
+     * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加.
+     * 通下面的set_user_device_data的参数一一对应， /user/get_user_device_data
      *
      * @param {json} params -参数\{did,type,key,time_start,time_end,limit}含义如下：
-     * did：设备did,
-     * type：类别，属性为prop，事件为event,也可定义其他名称,
-     * key：事件名，可自定义,
-     * time_start：获取此时间戳之后的记录,
-     * time_end：获取此时间戳之前的记录，time_end必须大于time_start,
-     * limit：获取的条数限制.
+     * @param {string} params.did 设备id。 必选参数
+     * @param {string} params.uid 要查询的用户id 。必选参数
+     * @param {string} params.key 事件名，可自定义,定义与SDS表中key一致。必选参数
+     * @param {string} params.type 定义与SDS表中type一致。必选参数。可参考SDS文档中的示例
+     * @param {string} params.time_start 数据起点。必选参数
+     * @param {string} params.time_end 数据终点。必选参数，time_end必须大于time_start,
+     * @param {string} params.group 返回数据的方式，默认raw,可选值为hour、day、week、month。可选参数.
+     * @param {string} params.limit 返回数据的条数，默认20，最大1000。可选参数.
      * @returns {Promise}
      */
     getDeviceData(params) {
          return Promise.resolve(null);
     },
     /**
-     * 删除设备属性和事件历史记录.
+     * 删除用户的设备信息（prop和event 除外）.
+     * 删除对应时间戳的上报的数据，无法删除type为prop和event,删除后可用get_user_device_data校验。
+     * 如果get_user_device_data校验返回的为[]表示删除成功。
      * user/del_user_device_data
      * @since 10004
-     * @param {json} params {did:'', type: '', key:'',time:number} did:设备ID ;type: 要删除的类型 ;key: 事件名称. motion/alarm ;time:时间戳，单位秒
+     * @param {object} params {did:'', type: '', key:'',time:number} did:设备ID ;type: 要删除的类型 ;key: 事件名称. motion/alarm ;time:时间戳，单位秒
+     * @param {string} params.did 设备id。 必选参数
+     * @param {string} params.type type 定义与SDS表中type一致。必选参数。可参考SDS文档中的示例
+     * @param {string} params.key key 事件名，可自定义,定义与SDS表中key一致。必选参数
+     * @param {string} params.time 指定时间戳
+     * @param {string} params.value 指定值
      */
     delDeviceData(params) {
          return Promise.resolve(null);
@@ -312,7 +373,11 @@ export default {
      * 用于按照时间顺序拉取指定uid,did的发生的属性事件
      * /v2/user/get_user_device_log
      * @since 10004
-     * @param {json} params {did:'',limit:number,time_start:number,time_end:number} limit:目前最大为50 , time_start 开始时间戳 time_end 结束时间戳
+     * @param {object} params 参数
+     * @param {string} params.did 
+     * @param {number} params.limit         目前最大为50
+     * @param {number} params.time_start    开始时间
+     * @param {number} params.time_end      结束时间
      */
     getUserDeviceLog(params) {
          return Promise.resolve(null);
@@ -320,7 +385,8 @@ export default {
     /**
      * 获取用户收藏
      * /user/get_user_coll
-     * @param {*} params {did:string}
+     * @param {object} params 参数
+     * @param {string} params.did did
      * @return {Promise}
      */
     getUserColl(params) {
@@ -329,32 +395,75 @@ export default {
     /**
      * 设置用户收藏
      * /user/get_user_coll
-     * @param {*} params {did:string, name: string, content: string}
+     * @param {object} params 参数
+     * @param {string} params.did did
+     * @param {string} params.name name
+     * @param {string} params.content content
      * @return {Promise}
      */
     setUserColl(params) {
          return Promise.resolve(null);
     },
     /**
+     * /user/edit_user_coll
+     *  编辑用户收藏
+     * @since 10002
+     * @param {json} params  -参数 {coll_id, newname， content}
+     * @return {Promise}
+     */
+    editUserColl(params) {
+         return Promise.resolve(null);
+    },
+    /**
      * 删除用户收藏
      * /user/get_user_coll
-     * @param {*} params {coll_id: string, did: string}
+     * @param {*} params 参数
+     * @param {string} params.did did
+     * @param {string} params.coll_id coll_id
      * @return {Promise}
      */
     delUserColl(params) {
          return Promise.resolve(null);
     },
-    /**添加设备属性和事件历史记录，/home/getmapfileurl
-     *
+    /**
+     * 添加设备属性和事件历史记录，/home/getmapfileurl
      * @param {json} params
      * @return {Promise}
      */
     getMapfileUrl(params) {
          return Promise.resolve(null);
     },
-    /**添加设备属性和事件历史记录，/home/device_list
+    /**
+     * 石头扫地机器人专用，获取fds存储文件url
+     *  /home/getrobomapurl
+     *
+     * @param {*} arams {“obj_name”:”xxx/12345678/87654321/1.0”}，obj_name格式为:fds存储文件夹/did/uid/obj_name
+     * @return {Promise}
+     */
+    getRobomapUrl(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 石头扫地机器人专用，撤销隐私时删除扫地机地图
+     *  /user/del_user_map
+     *
+     * @param {json} params {did} 设备ID
+     * @return {Promise}
+     */
+    delUsermap(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 添加设备属性和事件历史记录，/home/device_list
      * 当ssid和bssid均不为空时，表示同时搜索这个局域网内所有未被绑定过的设备
      * @param {json} params {pid:string ,ssid:string ,bssid:string ,localDidList:array<string>,checkMoreWifi:bool,dids:array<string>}
+     * @param {string} params.pid               Device.type
+     * @param {string} params.ssid              wifi 的 ssid
+     * @param {string} params.bssid             wifi 的bssid
+     * @param {string} params.dids              要拉取列表的设备的didi，如果为空表示所有设备
+     * @param {string} params.localDidList      本地设备did列表，补充ssid和bssid的本地查询条件，会与ssid查到的本地列表一起返回其中未被绑定的在线设备
+     * @param {string} params.checkMoreWifi     检查2.4gwifi下的本地设备列表
+     * @param {boolean} params.getHuamiDevices  获取华米设备,如华米手环
      * 其中，pid：设备PID，ssid：wifi名称，bssid：wifi网关mac，locatDidList：本地设备did列表，补充ssid和bssid的本地查询条件，会与ssid查到的本地列表一起返回其中未被绑定的在线设备，checkMoreWifi：检查2.4gwifi下的本地设备列表，did：要拉取列表的设备的did，如果为空表示所有设备
      * @return {Promise}
      */
@@ -362,7 +471,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 获取AppConfig
+     * 获取AppConfig配置文件
      * @param {object} params 请求参数
      * @param {string} params.name configName
      * @param {string} params.model device model
@@ -383,26 +492,6 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 石头扫地机器人专用，撤销隐私时删除扫地机地图
-     *  /user/del_user_map
-     *
-     * @param {json} params {did} 设备ID
-     * @return {Promise}
-     */
-    delUsermap(params) {
-         return Promise.resolve(null);
-    },
-    /**
-     * 石头扫地机器人专用，获取fds存储文件url
-     *  /home/getrobomapurl
-     *
-     * @param {*} arams {“obj_name”:”xxx/12345678/87654321/1.0”}，obj_name格式为:fds存储文件夹/did/uid/obj_name
-     * @return {Promise}
-     */
-    getRobomapUrl(params) {
-         return Promise.resolve(null);
-    },
-    /**
      * 获取设备所在网络的IP地址所属国家
      * /home/getcountry
      * @param {json} params {"dids": ["xx"]}
@@ -414,7 +503,8 @@ export default {
     /**
      * 获取蓝牙锁绑定的时间，/device/blelockbindinfo
      *
-     * @param {json} params  -参数\{did}
+     * @param {json} params  -参数
+     * @param {string} params.did  did
      * @return {Promise}
      */
     getBleLockBindInfo(params) {
@@ -431,7 +521,9 @@ export default {
      * -4 - server err
      * 
      * @since 10005
-     * @param {json} params  -参数 [{did:"",props:["prop.saaa","prop.sbbb"]}]
+     * @param {object} params  -参数
+     * @param {string} params.did did
+     * @param {string[]} params.props props 列表,属性需要以"prop.s_"开头 e.g ["prop.s_aaa","prop.s_bbb"]
      * @return {Promise}
      * @example
      * let params = {'did':Device.deviceID, 'props': [   
@@ -450,12 +542,14 @@ export default {
      * 
      * error code: 
      * 0 - 成功
-     * -7 - 没有找到注册的设备
-     * -6 - 设备对应uid不为0 
-     * -4 - server err
+     * 7 - 没有找到注册的设备
+     * 6 - 设备对应uid为0 
+     * 4 - server err
      * 
      * @since 10005
-     * @param {json} params {did: string, props: json}
+     * @param {object} params {did: string, props: json}
+     * @param {string} params.did did
+     * @param {object} params.props props 键值对， 属性需要以"prop.s_"开头
      * @example
      * let params = {'did':Device.deviceID, 'props': {   
      *  "prop.s_push_switch_xxx":"0"
@@ -477,7 +571,9 @@ export default {
      * -4 - server err
      * 
      * @since 10004
-     * @param {json} params {did: string, props: json}
+     * @param {object} params 参数
+     * @param {string} params.did did
+     * @param {object} params.props props 键值对， 属性需要以"prop.s_"开头
      * @example
      * let params = {'did':Device.deviceID, 'props': {   
      *  "prop.s_notify_screen_dev_enable":"0", //0,关； 1，开   
@@ -504,7 +600,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * /v2/third/synccall
+     * /v2/third/synccall. 兼容三方厂商使用
      * @since 10003
      * @param {json} params {"uid": , "did":, "api_name": , ...}
      * @return {Promise<json>} {"code": 0, "policy": <POLICY_NUMBER">, ...}
@@ -557,7 +653,7 @@ export default {
     },
     /**
      * 获取文件下载地址
-     *
+     * @deprecated 10004 使用 Host.file.getFDSFileInfoWithObjName
      * @param {json} params  -参数 {obj_name : '2018/06/08/123456/xiaomi123_181030106.mp3'}
      * @return {Promise}
      */
@@ -565,46 +661,27 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * @since 10001
      * 日志分页拉取
-     *
-     * @param {json} params  -参数 {did,key,type,timestamp,limit}
+     * @since 10001
+     * @param {object} params 参数
+     * @param {string} params.did
+     * @param {string} params.key
+     * @param {string} params.type
+     * @param {string} params.timestamp
+     * @param {string} params.limit
      * @return {Promise}
      */
     getUserDeviceDataTab(params) {
          return Promise.resolve(null);
     },
     /**
-     * @since 10002
      * /v2/home/range_get_open_config
      * 通过appid、category、configid获获取对应的配置
-     *
+     * @since 10002
      * @param {json} params  -参数 {did,category,configids,offset,limit}
      * @return {Promise}
      */
     rangeGetOpenConfig(params) {
-         return Promise.resolve(null);
-    },
-    /**
-     * @since 10002
-     * /v2/device/set_extra_data
-     *  写extra_data 字段，必须为map[string] string格式
-     *
-     * @param {json} params  -参数 {did, extra_data}
-     * @return {Promise}
-     */
-    deviceSetExtraData(params) {
-         return Promise.resolve(null);
-    },
-    /**
-     * @since 10002
-     * /user/edit_user_coll
-     *  编辑用户收藏
-     *
-     * @param {json} params  -参数 {coll_id, newname， content}
-     * @return {Promise}
-     */
-    editUserColl(params) {
          return Promise.resolve(null);
     },
     /**
@@ -685,6 +762,7 @@ export default {
     /**
      * call api /v2/home/range_get_open_config
      * @since 10005
+     * @deprecated 10011 改用 Service.smarthome.rangeGetOpenConfig
      * @param {json} params json params {did:string, category:string, configids:array, offset: int, limit:int}, did: 设备did。 category 配置类别， configids： 配置id 为空时返回所有配置，不超过20个，不为空时没有数量限制， offset 偏移；limit 数量，不超过20
      */
     getRangeOpenConfig(params) {
@@ -755,6 +833,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 设置用户信息
      * call /user/setpdata, 其中的time为关键信息，在getpdata使用时将利用此值。
      * @since 10010
      * @param {object} params params
@@ -766,6 +845,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 获取用户信息
      * call /user/getpdata
      * 此接口的时间戳范围是反的，即：time_start > time_end ,否则获取不到。
      * @since 10010
@@ -776,5 +856,102 @@ export default {
      */
     getUserPDData(params) {
          return Promise.resolve(null);
-    }
+    },
+    /**
+     * App获取设备上报操作记录
+     * request /v2/user/get_device_data_raw
+     * @since 10011
+     * @param {object} params 参数
+     * @param {string} params.did 设备did
+     * @param {string} params.uid 用户UID
+     * @param {string} params.type  查询事件；当查询属性时使用 'prop', 否则使用 'store'操作
+     * @param {string} params.key   事件名称；当查询属性时value填具体属性，比如"aqi"
+     * @param {string} params.time_start   开始UTC时间
+     * @param {string} params.time_end 结束UTC时间
+     * @param {string} params.limit    最多返回结果数目，上限500。注意按需填写，返回数据越多查询越慢
+     */
+    getDeviceDataRaw(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 透传米家APP与小米支付创建session
+     * request /v2/nfckey/create_se_session
+     * @param {object} params params
+     * @param {string} params.did did
+     * @param {object} params.reqData // 透传给Mipay的数据
+     * @param {string} params.reqData.userId // 透传给Mipay的数据
+     * @param {string} params.reqData.cplc // 透传给Mipay的数据
+     * @param {string} params.reqData.deviceType // 透传给Mipay的数据
+     * @param {string} params.reqData.deviceId // 透传给Mipay的数据
+     * @param {string} params.reqData.timestamp // 透传给Mipay的数据
+     * @param {string} params.reqData.sign // 透传给Mipay的数据
+     */
+    createSeSession(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 透传替换ISD key
+     * request /v2/nfckey/replace_se_isdkey
+     * @param {object} params params
+     * @param {string} params.did did
+     * @param {object} params.reqData // 透传给Mipay的数据
+     * @param {string} params.reqData.sessionId // 透传给Mipay的数据
+     * @param {string} params.reqData.partnerId // 透传给Mipay的数据
+     * @param {string} params.reqData.userId // 透传给Mipay的数据
+     * @param {string} params.reqData.cplc // 透传给Mipay的数据
+     * @param {string} params.reqData.timestamp // 透传给Mipay的数据
+     * @param {string} params.reqData.sign // 透传给Mipay的数据
+     */
+    replaceSEISDkey(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 透传锁主密钥重置
+     * request /v2/nfckey/reset_lock_primarykey
+     * @param {object} params params
+     * @param {string} params.did did
+     * @param {object} params.reqData // 透传给Mipay的数据
+     * @param {string} params.reqData.sessionId // 透传给Mipay的数据
+     * @param {string} params.reqData.partnerId // 透传给Mipay的数据
+     * @param {string} params.reqData.userId // 透传给Mipay的数据
+     * @param {string} params.reqData.cplc // 透传给Mipay的数据
+     * @param {string} params.reqData.timestamp // 透传给Mipay的数据
+     * @param {string} params.reqData.sign // 透传给Mipay的数据
+     */
+    resetLockPrimaryKey(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 处理芯片返回
+     * request /v2/nfckey/handle_se_response
+     * @param {object} params params
+     * @param {string} params.did did
+     * @param {object} params.reqData // 透传给Mipay的数据
+     * @param {string} params.reqData.sessionId // 透传给Mipay的数据
+     * @param {string} params.reqData.userId // 透传给Mipay的数据
+     * @param {string} params.reqData.cplc // 透传给Mipay的数据
+     * @param {Array<object>} params.reqData.seResps // 这是一个数组透传给Mipay的数据
+     * @param {string} params.reqData.seResps[].data // 这是一个透传给Mipay的数据
+     * @param {string} params.reqData.seResps[].statusWord // 这是一个透传给Mipay的数据
+     * @param {string} params.reqData.timestamp // 透传给Mipay的数据
+     * @param {string} params.reqData.sign // 透传给Mipay的数据
+     * @example
+     * let param = {
+     *  "did":"1234567",
+     *  "reqData":{ // 透传给Mipay的数据
+     *      "sessionId":"999999999", 
+     *      "userId":"12340000",
+     *      "cplc":"asdghjklmnbvd",
+     *      "seResps":[
+     *          {"data":"","statusWord":"9000"},
+     *          {"data":"","statusWord":"6A80"}
+     *      ],
+     *      "timestamp":1234567890,
+     *      "sign":"shaddgkldsjlkeri"
+     *  }
+     * }
+     */
+    handleSEResponse(params) {
+         return Promise.resolve(null);
+    },
 }

@@ -1,4 +1,3 @@
-'use strict';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Animated, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -13,9 +12,9 @@ const BORDER_WIDTH = Platform.select({ android: 1, ios: 0.5 });
 /**
  * @export public
  * @doc_name 常用UI组件
- * @doc_index 21
+ * @doc_index 22
  * @author Geeook
- * @since 20190403
+ * @since
  * @module Switch
  * @description Switch for Android and iOS，但是是高度定制的米家绿哈哈哈
  * @property {bool} value - 开关状态，默认值 false
@@ -40,7 +39,7 @@ export default class Switch extends React.Component {
     Animated.spring(this.offsetX,
       {
         toValue,
-        bounciness: 11,
+        bounciness: 9,
         speed: 9,
       }
     ).start();
