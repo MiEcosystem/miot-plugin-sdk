@@ -137,7 +137,7 @@
 | onPress | <code>function</code> | 点击事件 |
 | disabled | <code>bool</code> | 是否禁用点击，默认值 `false` |
 | showSeparator | <code>bool</code> | 是否显示分割线，默认值 `true` |
-| hideArrow | `bool` | 是否隐藏右侧箭头图片，默认值 `false`(`❗️SDK_10012`新增) |
+| hideArrow | `bool` | 是否隐藏右侧箭头图片，默认值 `false`(`❗️SDK_10020`新增) |
 | separator | <code>component</code> | 自定义分割线，不传将显示默认样式的分割线 |
 | containerStyle | <code>style</code> | 列表项的自定义样式 |
 | titleStyle | <code>style</code> | 标题的自定义样式 |
@@ -246,9 +246,9 @@
 | title | <code>string</code> | 标题 |
 | sliderProps | <code>object</code> | `slider` 的属性值<br />默认值<br />{<br />  minimumValue:0,<br />  maximumValue:100,<br />  step:1,<br />  value:50<br />}<br />`minimumValue`: 最小值<br />`maximumValue`: 最大值<br />`step`: 步长<br />`value`: 当前值 |
 | showWithPercent | <code>bool</code> | 是否以百分比显示当前值，默认值 `true` |
-| unit | `string` | 当前值的单位。`showWithPercent = true` 将不显示单位<br />(`❗️SDK_10012`新增) |
+| unit | `string` | 当前值的单位。`showWithPercent = true` 将不显示单位<br />(`❗️SDK_10020`新增) |
 | sliderStyle | <code>object</code> | `slider` 的自定义样式<br />默认值<br />{<br />minimumTrackTintColor: "#32BAC0",<br />maximumTrackTintColor: "rgba(0,0,0,0.15)",<br />thumbTintColor: "#32BAC0",<br />style: {},<br />trackStyle: { height: 2, borderRadius: 1 },<br />thumbStyle: { width: 24, height: 24, borderRadius: 12 }<br />}<br />`minimumTrackTintColor`: slider 左侧已填充颜色<br />`maximumTrackTintColor`: slider 右侧未填充颜色<br />`thumbTintColor`: 可移动圆圈的填充颜色<br />`style`: slider 容器的自定义样式<br />`trackStyle`: 轨的自定义样式<br />`thumbStyle`: 可移动圆圈的自定义样式 |
-| onValueChange | `function` | 滑动回调函数，返回实时的滑动值(`❗️SDK_10012`新增) |
+| onValueChange | `function` | 滑动回调函数，返回实时的滑动值(`❗️SDK_10020`新增) |
 | onSlidingComplete | <code>function</code> | 滑动结束回调函数 |
 | disabled | <code>bool</code> | 是否禁用滑动，默认值 `false` |
 | containerStyle | <code>style</code> | 列表项的自定义样式 |
@@ -632,7 +632,7 @@ getInnerView() {
 | 中文名称  | 单选框                                                       |
 | 描述      | 就像网页上的单选按钮一样，点击某一项就能把它选中，有动画效果。<br />如果按钮为 `disabled` 状态，则显示半透明效果并且不可点击。 |
 | 位置      | `miot/ui/Radio`                                              |
-| SDK_Level | `SDK_10012`                                                  |
+| SDK_Level | `SDK_10020`                                                  |
 | 注意事项  | \                                                            |
 
 ### 使用方法
@@ -732,7 +732,7 @@ getInnerView() {
 | 中文名称  | 开关                 |
 | 描述      | 简单的开关，有动效。 |
 | 位置      | `miot/ui/Switch`     |
-| SDK_Level | `SDK_10012`          |
+| SDK_Level | `SDK_10020`          |
 | 注意事项  | \                    |
 
 ### 使用方法
