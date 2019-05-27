@@ -28,6 +28,7 @@ export default class UIDemo extends React.Component {
           { name: '单选框', router: 'RadioExample' },
           { name: '复选框', router: 'CheckboxDemo' },
           { name: '拖拽选择档位组件', router: 'GearExample' },
+          { name: '开关', router: 'SwitchDemo' },
           { name: '第三方 toast 组件使用示例', router: 'ToastExample' },
           { name: 'ScrollView 吸附效果 demo', router: 'Parallax' },
           { name: 'Host.ui 原生导航', router: 'NavigateUIDemo' },

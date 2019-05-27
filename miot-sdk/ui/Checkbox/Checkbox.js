@@ -16,6 +16,7 @@ const UNCHECKED_BORDER_COLOR = 'rgba(0,0,0,0.1)';
  * @property {bool} disabled - 是否禁用，默认 false
  * @property {bool} checked - 是否勾选，默认 false
  * @property {string} checkedColor - 勾选背景颜色，默认米家绿
+ * @property {function} onValueChange - 点击回调函数
  */
 export default class Checkbox extends React.Component {
   static propTypes = {
