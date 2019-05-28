@@ -25,13 +25,7 @@ export default class StringSpinnerDemo extends React.Component {
                         style={{ width: 300, height: 300, backgroundColor: '#ffffff', }}
                         dataSource={['a', 'b', 'c', 'd']}
                         defaultValue={'c'}
-                        lineColor="#cc0000"
-                        textColor="#ff0000"
-                        selectTextColor="#0000FF"
-                        fontSize={12}
-                        selectFontSize={30}
-                        rowHeight={70}
-                        selectBgColor="#f5f5f5"
+                        pickerInnerStyle={{ lineColor: "#cc0000", textColor: "#ff0000", selectTextColor: "#0000FF", fontSize: 12, selectFontSize: 30, rowHeight: 70, selectBgColor: "#f5f5f5" }}
                         onValueChanged={(data) => { this.updateOneValue(data) }}
                     />
                     <Text style={{ marginTop: 20, color: "#666", fontSize: 14 }}>{"选中的值为：" + this.state.oneValue}</Text>

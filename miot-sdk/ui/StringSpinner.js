@@ -29,13 +29,15 @@
  * @property {array}   dataSource 数据源
  * @property {object}  defaultValue 默认值
  * @property {func}    onValueChanged 值改变的回调
- * @property {string}  textColor 文字颜色 默认值 0x000000
- * @property {number}  fontSize  文字大小 默认值 22
- * @property {string}  selectTextColor 文字选中颜色 默认值 0x00aa71
- * @property {number}  selectFontSize  文字选中大小 默认值 22
- * @property {string}  selectBgColor 文字选中背景 默认值 0xffffff
- * @property {string}  lineColor 分割线颜色 默认值 0xe5e5e5
- * @property {number}  rowHeight  行高 默认值 42
+ * 
+ * @property {object}  pickerInnerStyle picker内部属性，包含了以下字段：
+ * textColor 文字颜色 默认值 0x000000
+ * fontSize  文字大小 默认值 22
+ * selectTextColor 文字选中颜色 默认值 0x00aa71
+ * selectFontSize  文字选中大小 默认值 22
+ * selectBgColor 文字选中背景 默认值 0xffffff
+ * lineColor 分割线颜色 默认值 0xe5e5e5
+ * rowHeight  行高 默认值 42
  */
 export default class StringSpinner extends React.Component {
     static propTypes = {
@@ -43,17 +45,14 @@ export default class StringSpinner extends React.Component {
         dataSource: PropTypes.array,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         onValueChanged: PropTypes.func,
-        textColor: PropTypes.string,
-        fontSize: PropTypes.number,
-        selectTextColor: PropTypes.string,
-        selectFontSize: PropTypes.number,
-        selectBgColor: PropTypes.string,
-        lineColor: PropTypes.string,
-        rowHeight: PropTypes.number,
+        pickerInnerStyle: PropTypes.object,
         ...ViewPropTypes,
     };
     componentWillMount() {
         this.realprops = { ...this.props };
+        let pickerInnerStyle = this.realprops.pickerInnerStyle;
+        this.realprops = Object.assign(this.realprops, pickerInnerStyle);
+        delete this.realprops.pickerInnerStyle;
         this.realprops.onValueChanged = (event) => {
             if (this.props.onValueChanged) {
                 this.props.onValueChanged({ ...event.nativeEvent });
