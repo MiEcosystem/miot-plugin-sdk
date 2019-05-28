@@ -101,11 +101,11 @@ import DialogTest from './UIComponent/DialogTest';
 import GearExample from './UIComponent/GearExample';
 import ImageCapInsetDemo from './UIComponent/ImageCapInsetDemo'; // working but no title displayed
 import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo';
+import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo";
 import Parallax from "./UIComponent/Parallax";
 import RadioExample from "./UIComponent/RadioExample";
 import RefreshListView from './UIComponent/RefreshListView';
 import StringSpinnerDemo from "./UIComponent/StringSpinnerDemo";
-import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo";
 import Dynamic from './UIComponent/swiper/Dynamic/';
 import LoadMinimal from './UIComponent/swiper/LoadMinimal/';
 import Phone from './UIComponent/swiper/Phone/';
@@ -265,8 +265,7 @@ const RootStack = createStackNavigator({
 },
     {
         // ThirdPartyDemo
-        // initialRouteName: 'Home',
-        initialRouteName: 'RadioExample',
+        initialRouteName: 'Home',
         navigationOptions: ({ navigation }) => {
             return {
                 header: <TitleBar

@@ -117,8 +117,7 @@ Radio.propTypes = {
   isChecked: PropTypes.bool,
   disabled: PropTypes.bool,
   changeCheck: PropTypes.func,
-  id: PropTypes.number,
-  disabled: PropTypes.bool
+  id: PropTypes.number
 }
 const styles = StyleSheet.create({
   btn: {
