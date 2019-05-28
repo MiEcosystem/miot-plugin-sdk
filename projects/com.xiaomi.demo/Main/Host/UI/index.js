@@ -85,6 +85,12 @@ export default class UIDemo extends React.Component {
                 'func': () => {
                     Host.ui.openZigbeeConnectDeviceList(Device.deviceID);
                 }
+            },
+            {
+                'name': 'openNewMorePage',
+                'func': () => {
+                    Host.ui.openNewMorePage();
+                }
             }
         ];
     }

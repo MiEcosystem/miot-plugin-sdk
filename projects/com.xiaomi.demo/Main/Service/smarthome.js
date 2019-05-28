@@ -17,8 +17,7 @@ export default class CallSmartHomeAPIDemo extends React.Component {
         this.setState({
             apiList: [
 
-                { name: "获取普通蓝牙列表", group: '蓝牙网关', handle: this.handleObjRes.bind(this), action: () => { return Device.getLinkedBTDevices() } },
-                { name: "获取蓝牙mesh 设备列表", handle: this.handleObjRes.bind(this), action: () => { return Device.getLinkedBTMeshDevices() } },
+                { name: "获取关联蓝牙列表", group: '蓝牙网关', handle: this.handleObjRes.bind(this), action: () => { return Device.getLinkedBTDevices() } },
 
                 { name: "点击查询当前用户信息", group: '用户信息', handle: this.handleObjRes.bind(this), action: () => { return Service.smarthome.getUserInfo(Service.account.ID) } },
                 { name: "点击查询用户信息列表", handle: this.handleObjRes.bind(this), action: () => { return Service.smarthome.getUserInfoList([Service.account.ID, '894158105']) } },
