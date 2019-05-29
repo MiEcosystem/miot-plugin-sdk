@@ -55,6 +55,7 @@ import ARTTextDemo from './ThirdPartDemo/ARTComponentDemo/ARTTextDemo'; //文字
 import CircularSliderDemo from './ThirdPartDemo/CircularSliderDemo';
 import ImagePickerDemo from './ThirdPartDemo/ImagePickerDemo';
 import MHMapDemo from './ThirdPartDemo/MHMapDemo';
+import MOBX from './ThirdPartDemo/MOBX';
 import GLAnimated from './ThirdPartDemo/openGL/Animated';
 // import GLAdvancedEffects from './openGL/AdvancedEffects';
 import GLHearts from './ThirdPartDemo/openGL/Hearts';
@@ -143,6 +144,7 @@ const RootStack = createStackNavigator({
     RadioExample,
     CheckboxDemo,
     ToastExample,
+    MOBX,
     SwitchDemo,
     tutorialDemo: TutorialDemo,
     LocaleServer: LocaleServer,

@@ -115,8 +115,9 @@ Radio.propTypes = {
   checkedBigCircleStyle: PropTypes.object,
   smallCircleBg: PropTypes.string,
   isChecked: PropTypes.bool,
+  disabled: PropTypes.bool,
   changeCheck: PropTypes.func,
-  id: PropTypes.number
+  id: PropTypes.number,
 }
 const styles = StyleSheet.create({
   btn: {

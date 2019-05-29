@@ -22,6 +22,7 @@ const DEFAULT_STYLE = {
  * @property {string} text - 右侧文案
  * @property {bool} visible - 是否显示卡片, 默认值 true
  * @property {bool} showDismiss - 是否显示右上角的关闭按钮, 默认值 false
+ * @property {bool} disabled - 是否禁用卡片点击, 默认值 false
  * @property {function} dismiss - 点右上角关闭按钮的回调函数
  * @property {bool} showShadow - 是否显示卡片阴影, 默认值 true
  * @property {function} onPress - 点击事件, 不传该参数将显示禁用态
@@ -39,6 +40,7 @@ export default class Card extends React.Component {
     text: PropTypes.string,
     visible: PropTypes.bool,
     showDismiss: PropTypes.bool,
+    disabled: PropTypes.bool,
     dismiss: PropTypes.func,
     showShadow: PropTypes.bool,
     onPress: PropTypes.func,
@@ -52,6 +54,7 @@ export default class Card extends React.Component {
   static defaultProps = {
     visible: true,
     showDismiss: false,
+    disabled: false,
     showShadow: true,
     cardStyle: {},
     shadowColor: '#000',

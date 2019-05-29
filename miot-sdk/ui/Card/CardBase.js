@@ -9,7 +9,7 @@ const DEFAULT_STYLE = {
   MARGIN_H: 15,
   HEIGHT: 66,
   WIDTH: width - 15 * 2,
-  RADIUS: 8,
+  // RADIUS: 8,
   ICON_SIZE: 35,
   CLOSE_AREA: 30,
   CLOSE_SIZE: 20
@@ -25,6 +25,7 @@ const DEFAULT_STYLE = {
  * @property {string} text - 右侧文案
  * @property {bool} visible - 是否显示卡片, 默认值 true
  * @property {bool} showDismiss - 是否显示右上角的关闭按钮, 默认值 false
+ * @property {bool} disabled - 是否禁用卡片点击, 默认值 false
  * @property {function} dismiss - 点右上角关闭按钮的回调函数
  * @property {function} onPress - 点击事件, 不传该参数将显示禁用态
  * @property {style} cardStyle - 卡片容器的自定义样式, 默认样式 `{ width: screenWidth - 30, height:66 }`
@@ -38,6 +39,7 @@ export default class CardBase extends React.Component {
     icon: PropTypes.number,
     text: PropTypes.string,
     showDismiss: PropTypes.bool,
+    disabled: PropTypes.bool,
     dismiss: PropTypes.func,
     visible: PropTypes.bool,
     onPress: PropTypes.func,
@@ -48,6 +50,7 @@ export default class CardBase extends React.Component {
   }
   static defaultProps = {
     showDismiss: false,
+    disabled: false,
     visible: true,
     underlayColor: Styles.common.underlayColor
   }
@@ -195,7 +198,7 @@ export default class CardBase extends React.Component {
         <TouchableHighlight
           style={[containerStyle, { flex: 1 }]}
           underlayColor={this.props.underlayColor}
-          disabled={!this.props.onPress}
+          disabled={this.props.disabled}
           onPress={this.props.onPress}
         >
           <View style={{ flex: 1 }}>
@@ -215,7 +218,7 @@ const styles = StyleSheet.create({
     // height: DEFAULT_STYLE.HEIGHT,
     width: DEFAULT_STYLE.WIDTH,
     backgroundColor: '#fff',
-    borderRadius: DEFAULT_STYLE.RADIUS
+    // borderRadius: DEFAULT_STYLE.RADIUS
   },
   innerContainer: {
     flex: 1,
@@ -230,7 +233,8 @@ const styles = StyleSheet.create({
   },
   innerText: {
     flex: 1,
-    fontSize: 14
+    fontSize: 14,
+    color: '#000',
   },
   closeArea: {
     width: DEFAULT_STYLE.CLOSE_AREA,

@@ -14,7 +14,7 @@ export default {
   common: {
     padding: PADDING,
     MHGreen: '#32BAC0',
-    underlayColor: 'rgba(0,0,0,0.4)',
+    underlayColor: 'rgba(0,0,0,0.25)',
     hairlineColor: HAIRLINE_COLOR,
     backgroundColor: '#f7f7f7',
     separatorHeight: SEPARATOR_HEIGHT,
