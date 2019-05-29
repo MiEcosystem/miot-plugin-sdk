@@ -9,20 +9,12 @@
  * @example
  *
  <StringSpinner
-    style={{width:200, height:100}}
-    dataSource={['a','b','c','d']}
-    defaultValue={"d"}
-    lineColor="#cc0000"
-    textColor="#ff0000"
-    selectTextColor="#0000FF"
-    fontSize={12}
-    selectFontSize={30}
-    rowHeight={50}
-    selectBgColor="#f5f5f5"
-    onValueChanged={data=>{
-        console.log(`newValue:${data}`);
-    }}
- />
+    style={{ width: 300, height: 300, backgroundColor: '#ffffff', }}
+    dataSource={['a', 'b', 'c', 'd']}
+    defaultValue={'c'}
+    pickerInnerStyle={{ lineColor: "#cc0000", textColor: "#ff0000", selectTextColor: "#0000FF", fontSize: 12, selectFontSize: 30, rowHeight: 70, selectBgColor: "#f5f5f5" }}
+    onValueChanged={(data) => { this.updateOneValue(data) }}
+/>
  *
  *
  * @property {bool}    visible 是否可见
