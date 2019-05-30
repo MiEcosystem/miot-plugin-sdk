@@ -55,7 +55,10 @@ export default class NumberSpinner extends React.Component {
     onNumberChanged: PropTypes.func,
     ...ViewPropTypes,
   };
-  render() {
+  componentWillMount() {
+       return null
+  }
+    render() {
      return null
   }
 }
