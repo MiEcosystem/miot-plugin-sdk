@@ -39,7 +39,7 @@ export default class SwitchDemo extends React.Component {
               tintColor='lightpink'
               value={this.state.value}
               disabled={this.props.disabled}
-              onValueChange={value => this.setState({ value })}
+              onValueChange={value => console.log(value)}
             />
             <Switch
               style={{ width: 80, height: 40 }}
@@ -47,7 +47,7 @@ export default class SwitchDemo extends React.Component {
               tintColor='lightpink'
               value={this.state.value}
               disabled={this.props.disabled}
-              onValueChange={value => this.setState({ value })}
+              onValueChange={value => console.log(value)}
             />
             <Switch
               style={{ width: 120, height: 60 }}
@@ -55,7 +55,7 @@ export default class SwitchDemo extends React.Component {
               tintColor='lightpink'
               value={this.state.value}
               disabled={this.props.disabled}
-              onValueChange={value => this.setState({ value })}
+              onValueChange={value => console.log(value)}
             />
           </View>
         </ScrollView>

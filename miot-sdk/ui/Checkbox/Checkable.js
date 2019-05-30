@@ -30,27 +30,28 @@ class Rectangle extends React.Component {
   }
 }
 const AnimatedRectangle = Animated.createAnimatedComponent(Rectangle);
+const degree = 43; //  旋转角度
 /**
  * @author Geeook
  * @description `Checkbox` 勾选动效
  * @property {number} size - 整体尺寸大小，和 `Checkbox` 的尺寸相等，默认 50
+ * @property {bool} visible - 是否显示
  */
 export default class Checkable extends React.Component {
   static propTypes = {
-    size: PropTypes.number.isRequired
+    size: PropTypes.number.isRequired,
+    visible: PropTypes.bool.isRequired
   }
   static defaultProps = {
-    size: 50
+    size: 50,
+    visible: false
   }
   constructor(props, context) {
+    console.log('constructor checkable');
     super(props, context);
     this.state = {
-      height: new Animated.Value(0),
-      opacity: new Animated.Value(0),
-      scale: new Animated.Value(0),
+      animatedWidth: new Animated.Value(0)
     }
-  }
-  render() {
     // 计算各种数值
     const { size } = this.props;
     const containerHeight = size; // 容器高度
@@ -60,59 +61,57 @@ export default class Checkable extends React.Component {
     const leftRectangleWidth = intersectionHeight; // 左矩形的长度
     const rightRectangleWidth = size; // 右矩形的长度
     const rectangleHeight = size / 10; // 矩形的宽度
-    const degree = 43; //  旋转角度
-    const animationConfig = { // 动画配置参数
+    this.animationConfig = { // 动画配置参数
       toValue: rightRectangleWidth,
       speed: 9,
       bounciness: 9,
     }
-    // Animated.parallel(
-    //   [
-    //     Animated.timing(this.state.opacity,
-    //       {
-    //         toValue: 1,
-    //         duration: 200,
-    //       }
-    //     ),
-    //     Animated.timing(this.state.scale,
-    //       {
-    //         toValue: 1,
-    //         duration: 200,
-    //       }
-    //     )
-    //   ]
-    // ).start(_ => {
-    Animated.spring(this.state.height, animationConfig).start();
-    // });
+    this.containerHeight = containerHeight;
+    this.leftWidth = leftWidth;
+    this.rightWidth = rightWidth;
+    this.intersectionHeight = intersectionHeight;
+    this.leftRectangleWidth = leftRectangleWidth;
+    this.rightRectangleWidth = rightRectangleWidth;
+    this.rectangleHeight = rectangleHeight;
+  }
+  render() {
+    console.log('render checkable');
+    if (!this.props.visible) {
+      this.preVisible = false;
+      return <View />;
+    }
+    if (!this.preVisible) {
+      this.state.animatedWidth.setValue(0);
+      Animated.spring(this.state.animatedWidth, this.animationConfig).start();
+    }
+    this.preVisible = true;
     return (
       <View style={{ flexDirection: 'row' }}>
         <Surface
-          width={leftWidth}
-          height={containerHeight}
+          width={this.leftWidth}
+          height={this.containerHeight}
           style={{ backgroundColor: 'transparent' }}
         >
           <AnimatedRectangle
-            // scale={this.state.scale}
-            // opacity={this.state.opacity}
             transform={new Transform().rotate(degree).translate()}
             fill={'#fff'}
-            width={leftRectangleWidth}
-            height={rectangleHeight}
-            y={intersectionHeight}
-            x={leftWidth}
+            width={this.leftRectangleWidth}
+            height={this.rectangleHeight}
+            y={this.intersectionHeight}
+            x={this.leftWidth}
           />
         </Surface>
         <Surface
-          width={rightWidth}
-          height={containerHeight}
+          width={this.rightWidth}
+          height={this.containerHeight}
           style={{ backgroundColor: 'transparent', marginLeft: -0.5 }}
         >
           <AnimatedRectangle
             transform={new Transform().rotate(-degree)}
             fill={'#fff'}
-            width={this.state.height}
-            height={rectangleHeight}
-            y={intersectionHeight}
+            width={this.state.animatedWidth}
+            height={this.rectangleHeight}
+            y={this.intersectionHeight}
             x={0}
           />
         </Surface>

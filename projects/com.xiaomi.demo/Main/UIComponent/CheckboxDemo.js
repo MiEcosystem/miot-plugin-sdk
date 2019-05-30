@@ -21,44 +21,45 @@ export default class CheckboxDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked1: true,
-      checked2: false,
-      checked3: true,
-      checked4: false,
-      checked5: true,
+      checked: false,
     }
   }
 
+  componentDidMount() {
+    setTimeout(_ => this.setState({ checked: true }), 1000);
+  }
+
   render() {
+    console.log('render Demo');
     const list = [
       {
         style: { width: 20, height: 20 },
-        checked: this.state.checked1,
-        onValueChange: checked => this.setState({ checked1: checked })
+        checked: this.state.checked,
+        onValueChange: checked => console.log(checked)
       },
       {
         style: { width: 40, height: 40, borderRadius: 20 },
-        checked: this.state.checked2,
+        checked: this.state.checked,
         checkedColor: 'skyblue',
-        onValueChange: checked => this.setState({ checked2: checked })
+        onValueChange: checked => console.log(checked)
       },
       {
         style: { width: 60, height: 60 },
-        checked: this.state.checked3,
+        checked: this.state.checked,
         checkedColor: 'lightgreen',
-        onValueChange: checked => this.setState({ checked3: checked })
+        onValueChange: checked => console.log(checked)
       },
       {
         style: { width: 80, height: 80, borderRadius: 40 },
-        checked: this.state.checked4,
+        checked: this.state.checked,
         checkedColor: 'lightpink',
-        onValueChange: checked => this.setState({ checked4: checked })
+        onValueChange: checked => console.log(checked)
       },
       {
         style: { width: 100, height: 100 },
-        checked: this.state.checked5,
+        checked: this.state.checked,
         checkedColor: 'lightblue',
-        onValueChange: checked => this.setState({ checked5: checked })
+        onValueChange: checked => console.log(checked)
       }
     ]
     return (
