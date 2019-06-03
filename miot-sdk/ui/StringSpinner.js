@@ -40,17 +40,6 @@ export default class StringSpinner extends React.Component {
         pickerInnerStyle: PropTypes.object,
         ...ViewPropTypes,
     };
-    componentWillMount() {
-        this.realprops = { ...this.props };
-        let pickerInnerStyle = this.realprops.pickerInnerStyle;
-        this.realprops = Object.assign(this.realprops, pickerInnerStyle);
-        delete this.realprops.pickerInnerStyle;
-        this.realprops.onValueChanged = (event) => {
-            if (this.props.onValueChanged) {
-                this.props.onValueChanged({ ...event.nativeEvent });
-            }
-        }
-    }
     render() {
          return null
     }
