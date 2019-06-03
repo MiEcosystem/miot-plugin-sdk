@@ -217,11 +217,11 @@ export default {
      * 注:由于sds限额问题，可能会出现一次拉不到或者拉不完数据的情况，会返回code:0和message:“sds throttle”
      * @param {object} params 
      * @param {string} params.did did
-     * @param {string} params.data_type 数据类型 包括： 采样统计 日统计:stat_day / 周统计:stat_week / 月统计:stat_month ; 计数统计(总次数，耗电量那种)(即将废弃) 日统计:total_day_v2 / 周统计:total_week_v2 / 月统计:total_month_v2
+     * @param {string} params.data_type 数据类型 包括： 采样统计 日统计:stat_day_v3 / 周统计:stat_week_v3 / 月统计:stat_month_v3;
      * @param {string} params.key 需要统计的字段，即统计上报对应的key
-     * @param {string} params.time_start 开始时间
-     * @param {string} params.time_end 结束时间
-     * @param {string} params.limit 限制次数，0为默认条数
+     * @param {number} params.time_start 开始时间
+     * @param {number} params.time_end 结束时间
+     * @param {number} params.limit 限制次数，0为默认条数
      * @return {Promise<Object>}
      {
         "code": 0,
