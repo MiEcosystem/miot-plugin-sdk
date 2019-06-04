@@ -131,8 +131,12 @@ export default class UIDemo extends React.Component {
             {
                 'name': 'parentDevice',
                 'func': () => {
-                    console.log(Device.parentDevice)
-                    alert(Device.parentDevice.deviceID)
+                    if (Device.parentDevice) {
+                        alert("当前设备存在 父设备，父设备ID为" + Device.parentDevice.deviceID)
+                    } else {
+                        alert("当前设备没有parentDevice")
+                    }
+
                 }
             },
         ];
