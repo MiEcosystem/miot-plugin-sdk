@@ -1,6 +1,6 @@
 import Host from 'miot/Host';
 import React, { Component } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View ,PermissionsAndroid} from 'react-native';
 import Camera, { RNCamera } from 'react-native-camera';
 
 export default class ReactNativeCameraDemo extends Component {
@@ -42,6 +42,13 @@ export default class ReactNativeCameraDemo extends Component {
     takePicture = async function () {
         if (Host.isIOS) {
             if (!await Camera.checkDeviceAuthorizationStatus()) {
+                alert('相机权限未开启')
+                return
+            }
+        }
+
+        if(Host.isAndroid){
+            if(!await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.CAMERA)){
                 alert('相机权限未开启')
                 return
             }
