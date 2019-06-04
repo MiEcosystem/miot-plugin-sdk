@@ -41,24 +41,21 @@
  * @property {func} onNumberChanged 值改变的回调
  */
 export default class NumberSpinner extends React.Component {
-  static defaultProps = {
-    valueFormat: Platform.select({ ios: '%0.0f' })
-  }
-  static propTypes = {
-    visible: PropTypes.bool,
-    unit: PropTypes.string,
-    maxValue: PropTypes.number,
-    minValue: PropTypes.number,
-    interval: PropTypes.number,
-    defaultValue: PropTypes.number,
-    valueFormat: PropTypes.string,
-    onNumberChanged: PropTypes.func,
-    ...ViewPropTypes,
-  };
-  componentWillMount() {
-       return null
-  }
+    static defaultProps = {
+        valueFormat: Platform.select({ ios: '%0.0f' })
+    }
+    static propTypes = {
+        visible: PropTypes.bool,
+        unit: PropTypes.string,
+        maxValue: PropTypes.number,
+        minValue: PropTypes.number,
+        interval: PropTypes.number,
+        defaultValue: PropTypes.number,
+        valueFormat: PropTypes.string,
+        onNumberChanged: PropTypes.func,
+        ...ViewPropTypes,
+    };
     render() {
-     return null
-  }
+         return null
+    }
 }

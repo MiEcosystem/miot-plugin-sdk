@@ -4,7 +4,7 @@
  * @doc_index 23
  * @since 10020
  * @module miot/ui/StringSpinner
- * @description 字符串选择器
+ * @description 字符串选择器,兼容NumberSpinner（支持NumberSpinner的所有属性）
  *
  * @example
  *
@@ -18,18 +18,20 @@
  *
  *
  * @property {bool}    visible 是否可见
- * @property {array}   dataSource 数据源
- * @property {object}  defaultValue 默认值
+ * @property {style} style - 开关样式，仅支持宽高
+ * @property {array<string>}   dataSource 数据源
+ * @property {string}  defaultValue 默认值
  * @property {func}    onValueChanged 值改变的回调
- * 
- * @property {object}  pickerInnerStyle picker内部属性，包含了以下字段：
- * textColor 文字颜色 默认值 0x000000
- * fontSize  文字大小 默认值 22
- * selectTextColor 文字选中颜色 默认值 0x00aa71
- * selectFontSize  文字选中大小 默认值 22
- * selectBgColor 文字选中背景 默认值 0xffffff
- * lineColor 分割线颜色 默认值 0xe5e5e5
- * rowHeight  行高 默认值 42
+ * @property {string}    unit 单位 默认：无
+ * @property {string}  pickerInnerStyle.textColor 文字颜色 默认值 #000000
+ * @property {string}  pickerInnerStyle.selectTextColor 文字选中颜色 默认值 #00aa71
+ * @property {string}  pickerInnerStyle.selectBgColor 文字选中背景 默认值 #ffffff
+ * @property {string}  pickerInnerStyle.unitTextColor 单位字体颜色 默认值 #00aa71
+ * @property {string}  pickerInnerStyle.lineColor 分割线颜色 默认值 #e5e5e5
+ * @property {number}  pickerInnerStyle.fontSize 文字大小 默认值 22
+ * @property {number}  pickerInnerStyle.selectFontSize 文字选中大小 默认值 22
+ * @property {number}  pickerInnerStyle.unitFontSize 单位字体大小 默认值 12
+ * @property {number}  pickerInnerStyle.rowHeight 行高 默认值 42
  */
 export default class StringSpinner extends React.Component {
     static propTypes = {
