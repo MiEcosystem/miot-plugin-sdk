@@ -7,6 +7,7 @@
 **已完成**
 
 - [导航栏(TitleBar)](#导航栏TitleBar)
+- [新版导航栏(NavigationBar)](#新版导航栏NavigationBar)
 - [普通列表项(ListItem)](#普通列表项ListItem)
 - [带开关的列表项(ListItemWithSwitch)](#带开关的列表项ListItemWithSwitch)
 - [带滑动条的列表项(ListItemWithSlider)](#带滑动条的列表项ListItemWithSlider)
@@ -21,13 +22,16 @@
 
 **开发中**
 
-- 新版导航栏
-
-- 常用卡片
+- 无极拖拽卡片
+- 消息弹框
+- 加载弹框
 
 **计划中**
 
-- 米家弹窗
+- 单选弹框
+- 多选弹框
+- 输入弹框
+- 分享弹框
 
 ***
 
@@ -93,6 +97,84 @@
 | showDot | `bool` | 是否显示右侧更多按钮的小红点 |
 
 ***
+
+## 新版导航栏(NavigationBar)
+
+### 预览
+
+![](./UIDocImages/NavigationBar1.png)
+
+![](./UIDocImages/NavigationBar2.png)
+
+![](./UIDocImages/NavigationBar3.png)
+
+![](./UIDocImages/NavigationBar4.png)
+
+### 基本信息
+
+| 基本信息  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 中文名称  | 米家插件导航栏                                               |
+| 描述      | 新版的米家插件导航栏，根据最新的米家插件设计规范开发<br />按照设计规范要求，推荐插件开发者使用新版导航栏 |
+| 位置      | `miot/ui/NavigationBar`                                      |
+| SDK_Level | `SDK_10021`                                                  |
+| 注意事项  | \                                                            |
+
+### 使用方法
+
+```jsx
+<NavigationBar
+  backgroundColor='transparent'
+  type={NavigationBar.TYPE.DARK}
+  left={[
+    {
+      key: NavigationBar.ICON.BACK,
+      onPress: _ => this.props.navigation.goBack()
+    },
+    {
+      key: NavigationBar.ICON.CLOSE,
+      onPress: _ => console.log('onPress')
+    }
+  ]}
+  right={[
+    {
+      key: NavigationBar.ICON.COLLECT,
+      disable: true,
+      onPress: _ => console.log('onPress')
+    },
+    {
+      key: NavigationBar.ICON.MORE,
+      showDot: this.state.showDot,
+      onPress: _ => console.log('onPress')
+    }
+  ]}
+  title='标题'
+  subtitle='副标题'
+  onPressTitle={_ => console.log('onPressTitle')}
+/>
+```
+
+### 参数
+
+| Name            | Type                             | Description                                                  |
+| --------------- | -------------------------------- | ------------------------------------------------------------ |
+| type            | <code>string</code>              | 导航栏类型：<br />`NavigationBar.TYPE.DARK` 表示深色背景白色文字<br />`NavigationBar.TYPE.LIGHT` 相反 |
+| backgroundColor | <code>object</code>              | 导航栏背景色                                                 |
+| left            | <code>array&lt;object&gt;</code> | 左侧按钮的集合，最多显示两个，多余无效，每个按钮用一个`object`表示<br /> {<br />key // 按钮的key，在`NavigationBar.ICON`中枚举定义<br />disable // 是否禁用按钮<br />showDot // 是否显示小红点<br />onPress // 点击按钮的回调函数<br />} |
+| right           | <code>array&lt;object&gt;</code> | 右侧按钮的集合，最多显示两个，多余无效，每个按钮用一个`object`表示 `{ key, disable, showDot, onPress }` |
+| title           | <code>string</code>              | 中间的标题                                                   |
+| subtitle        | <code>string</code>              | 中间的副标题                                                 |
+| onPressTitle    | <code>string</code>              | 点击标题的事件                                               |
+
+### 和`Titlebar` 对比
+
+- 在原有图标基础上支持更多的图标（共16种），但不支持自定义图标，只能从 `NavigationBar.ICON` 中选择，图标样式也有改动
+- 传参有改动，删除 `leftTextStyle/leftText/rightTextStyle/rightText/style`，增加 `left/right/backgroundColor`
+- `type` 含义变更：之前 `dark` 表示白底黑字，容易误导，现在表示**深色背景白色文字**
+- 考虑到某些语言不好兼容的情况，导航栏左右侧只支持图标，不再支持文字
+- 导航栏高度固定，不允许更改，背景色仍然可以自定义
+
+------
 
 ## 普通列表项(ListItem)
 
