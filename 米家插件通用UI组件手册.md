@@ -717,8 +717,8 @@ getInnerView() {
 
 | Param          | Type                                                 | Description                                                  |
 | -------------- | ---------------------------------------------------- | ------------------------------------------------------------ |
-| cardType       | [<code>CARD\_TYPE</code>](#CARD_TYPE)                | 卡片类型，右侧是否是开关，默认是 `CARD_TYPE.NORMAL`          |
-| cardRadiusType | [<code>CARD\_RADIUS\_TYPE</code>](#CARD_RADIUS_TYPE) | 卡片圆角类型，定义四个角是圆角还是直角，默认是 `CARD_RADIUS_TYPE.ALL`，所有的卡片类型有效 |
+| cardType       | [<code>CARD\_TYPE</code>](#card_type卡片类型)                | 卡片类型，右侧是否是开关，默认是 `CARD_TYPE.NORMAL`          |
+| cardRadiusType | [<code>CARD\_RADIUS\_TYPE</code>](#card_radius_type卡片圆角类型) | 卡片圆角类型，定义四个角是圆角还是直角，默认是 `CARD_RADIUS_TYPE.ALL`，所有的卡片类型有效 |
 | icon           | <code>number</code>                                  | 左侧图标的资源 id, 参照`Image`的`resource`属性，所有的卡片类型有效 |
 | title          | <code>string</code>                                  | 左侧主标题，所有的卡片类型有效                               |
 | titleStyle     | <code>style</code>                                   | 左侧主标题的自定义样式，所有的卡片类型有效                   |
@@ -1122,8 +1122,8 @@ let max = [2029, 4, 16];
 | title         | <code>string</code>                                          | 标题                                                         |
 | showSubtitle  | <code>bool</code>                                            | 是否显示副标题，副标题显示的内容固定，和`type`有关           |
 | confirmColor  | <code>string</code>                                          | 确定按钮的颜色，默认米家绿                                   |
-| type          | [<code>TYPE</code>](#TYPE)                                   | 时间选择器类型                                               |
-| singleType    | [<code>SINGLE\_TYPE</code>](#SINGLE_TYPE)                    | 单个picker时的选择器类型                                     |
+| type          | [<code>TYPE</code>](#type时间选择器类型)                                   | 时间选择器类型                                               |
+| singleType    | [<code>SINGLE\_TYPE</code>](#single_type单个picker时选择器的类型也就是显示的单位)                    | 单个picker时的选择器类型                                     |
 | current       | <code>array&lt;string&gt;</code> \| <code>arraynumber&gt;</code> \| <code>Date</code> | 当前选中值，可传入数字数组，字符串数组，Date实例，对所有时间选择器类型有效 |
 | min           | <code>array&lt;string&gt;</code> \| <code>array&lt;number&gt;</code> \| <code>Date</code> | 最小值，可传入数字数组，字符串数组，Date实例，只对`'single'`和`'date'`类型生效 |
 | max           | <code>array&lt;string&gt;</code> \| <code>array&lt;number&gt;</code> \| <code>Date</code> | 最大值，可传入数字数组，字符串数组，Date实例，只对`'single'`和`'date'`类型生效 |
