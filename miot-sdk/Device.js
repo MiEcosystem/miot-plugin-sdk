@@ -433,7 +433,7 @@ class IDevice {
      * Device.getSubDevices()
      * .then(devices => {//get device list})
      */
-    getSubDevices() {
+    getSubDevices(useCache = false) {
          return Promise.resolve([]);
     }
     /**
