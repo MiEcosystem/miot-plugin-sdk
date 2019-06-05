@@ -977,4 +977,4 @@ getInnerView() {
 
 ***
 
-> 文档难免有疏漏、错误或者和Demo代码不一致的地方，[请不吝指正](https://github.com/MiEcosystem/miot-plugin-sdk/issues/new/choose)，或者联系[Geeook](liumengzhou@xiaomi.com)。
+> 文档难免有疏漏、错误或者和Demo代码不一致的地方，[请不吝指正](https://github.com/MiEcosystem/miot-plugin-sdk/issues/new/choose)，或者联系[Geeook](mailto:liumengzhou@xiaomi.com)。
