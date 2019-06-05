@@ -49,6 +49,26 @@ export default class RadioExample extends React.Component {
             id: 4,
             isChecked: false,
             value: '21--30'
+          },
+          {
+            id: 5,
+            isChecked: false,
+            value: '101--110',
+            disabled: true
+          }
+        ],
+        country: [
+          {
+            id: 6,
+            isChecked: true,
+            value: '中国',
+            disabled: true
+          },
+          {
+            id: 7,
+            isChecked: false,
+            value: '美国',
+            disabled: true
           }
         ]
       }
@@ -84,7 +104,7 @@ export default class RadioExample extends React.Component {
 
   render() {
     let { allRadios } = this.state;
-    let { sex, age } = allRadios;
+    let { sex, age, country } = allRadios;
 
     let viewSex = sex.map(option => {
       return (
@@ -96,11 +116,11 @@ export default class RadioExample extends React.Component {
             isChecked={option.isChecked}
             changeCheck={this.changeOne}
             id={option.id}
-            customizeBigCircle={{
+            bigCircleStyle={{
               borderWidth: 2,
               width: 30,
               height: 30,
-              borderRadius: 20
+              borderRadius: 15
             }}
           />
           <Text style={styles.text}>{option.value}</Text>
@@ -118,18 +138,48 @@ export default class RadioExample extends React.Component {
             isChecked={option.isChecked}
             changeCheck={this.changeOne}
             id={option.id}
-            customizeBigCircle={{
+            bigCircleStyle={{
               borderWidth: 4,
-              width: 50,
-              height: 50,
-              borderRadius: 30
+              width: 40,
+              height: 40,
+              borderRadius: 20
             }}
-            isCheckedBigCircle={{
+            checkedBigCircleStyle={{
               borderColorChecked: '#00C',
               backgroundColorChecked: '#33F',
               borderColor: '#666',
               backgroundColor: '#999'
             }}
+            disabled={option.disabled}
+          />
+          <Text style={styles.text}>{option.value}</Text>
+        </View>
+      );
+    });
+
+    let viewCountry = country.map(option => {
+      return (
+        <View
+          style={styles.option}
+          key={option.id}
+        >
+          <Radio
+            isChecked={option.isChecked}
+            changeCheck={this.changeOne}
+            id={option.id}
+            bigCircleStyle={{
+              borderWidth: 2,
+              width: 30,
+              height: 30,
+              borderRadius: 15
+            }}
+            checkedBigCircleStyle={{
+              borderColorChecked: '#00C',
+              backgroundColorChecked: '#33F',
+              borderColor: '#666',
+              backgroundColor: '#999'
+            }}
+            disabled={option.disabled}
           />
           <Text style={styles.text}>{option.value}</Text>
         </View>
@@ -143,6 +193,8 @@ export default class RadioExample extends React.Component {
         <Separator />
         <Text style={styles.field}>选择年龄段：</Text>
         {viewAge}
+        <Text style={styles.field}>选择国家：</Text>
+        {viewCountry}
       </View>
     );
   }
