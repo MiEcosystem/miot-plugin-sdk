@@ -203,6 +203,7 @@
   subtitle='这是用来测试副标题的文案，尽量写长一点争取可以换行。'
   value='这是一段测试右侧文案'
   hideArrow={true}
+  showDot={true}
   containerStyle={{ width: width * 0.8, backgroundColor: 'lightblue' }}
   titleStyle={{ fontSize: 17, color: 'red' }}
   subtitleStyle={{ fontSize: 10, color: 'green' }}
@@ -223,6 +224,7 @@
 | disabled | <code>bool</code> | 是否禁用点击，默认值 `false` |
 | showSeparator | <code>bool</code> | 是否显示分割线，默认值 `true` |
 | hideArrow | `bool` | 是否隐藏右侧箭头图片，默认值 `false`(`❗️SDK_10020`新增) |
+| showDot | `bool` | 是否显示小红点，默认值`false`(`❗️SDK_10021`新增) |
 | separator | <code>component</code> | 自定义分割线，不传将显示默认样式的分割线 |
 | containerStyle | <code>style</code> | 列表项的自定义样式 |
 | titleStyle | <code>style</code> | 标题的自定义样式 |
@@ -406,7 +408,8 @@
 | ------------- | ------------------- | ------------------------------------------------------------ |
 | firstOptions  | <code>array</code>  | 一级页面可选设置项的keys，<br />详见[米家通用设置项速查表](#米家通用设置项速查表)⬇️<br />keys的顺序代表显示的顺序，不传将显示全部，传空数组将只显示必选项。 |
 | secondOptions | <code>array</code>  | 二级页面可选设置项的keys，<br />详见[米家通用设置项速查表](#米家通用设置项速查表)⬇️<br />二级页面从属于一级页面，目前暂时只有「更多设置」二级页面可以配置可选项「设备时区」，传入该设置项的key就显示该设置项，不传则不显示。 |
-| extraOptions  | <code>object</code> | 其他特殊配置项<br />{<br />showUpgrade // 是否跳转到原生的固件升级页面<br />upgradePageKey // 如果`showUpgrade = false`，传入想跳转页面的key<br />licenseUrl // 用户协议的资源，将用于「法律信息」二级页面<br />policyUrl // 隐私政策的资源，将用于「法律信息」二级页面<br />deleteDeviceMessage // 删除设备的提示语，选填<br />}<br />详见[使用方法](#使用方法-5)⬇️。 |
+| showDot       | `array`             | 定义哪些列表项需要显示小红点。为了便于扩展，每个列表项都可以显示小红点，默认全部**不显示**，某列表项需要小红点，传入该列表项的`key`即可。详见[使用方法](#使用方法-6)⬇️。(`❗️SDK_10021`新增) |
+| extraOptions  | <code>object</code> | 其他特殊配置项<br />{<br />showUpgrade // 是否跳转到原生的固件升级页面<br />upgradePageKey // 如果showUpgrade = false，传入想跳转页面的key<br />licenseUrl // 用户协议的资源，将用于「法律信息」二级页面<br />policyUrl // 隐私政策的资源，将用于「法律信息」二级页面<br />deleteDeviceMessage // 删除设备的提示语，选填<br />}<br />详见[使用方法](#使用方法-6)⬇️。 |
 | navigation    | <code>object</code> | 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面 |
 
 #### 详细说明
@@ -431,14 +434,14 @@
   | \                  | 删除设备(**必选**) | ✅                      | \                                                            |                        | \                                                            |
 
 - 插件设置页面一般包含`功能设置`和`通用设置`：`通用设置`放在页面下半部分，直接引用此组件即可;`功能设置`放在页面上半部分，主要显示通用设置项之外的，和插件功能强相关的设置项，可以考虑使用[ListItem](#普通列表项ListItem)、[ListItemWithSwitch](#带开关的列表项ListItemWithSwitch)和[ListItemWithSlider](#带滑动条的列表项ListItemWithSlider) 这些UI组件。
-- 使用时用数组传入要展示的可选项key即可，数组内key的顺序代表可选项从上往下的展示顺序。如果不传，则显示全部设置项，如果传🈳️数组则显示必选项。详见[使用方法](#使用方法-5)⬇️。
+- 使用时用数组传入要展示的可选项key即可，数组内key的顺序代表可选项从上往下的展示顺序。如果不传，则显示全部设置项，如果传🈳️数组则显示必选项。详见[使用方法](#使用方法-6)⬇️。
 - **必选项的位置固定**，不需要传入key，即使传入也不会改变它是否显示以及位置。
 - 组建内部已经做了国际化，适配米家所有的语种，毋需开发者另外配置。
 - 对于分享设备（普通分享/分享给家人）应该展示哪些设置项，组件内部也已经实现了控制，毋需开发者另外配置。其中，一级只显示「更多设置」、「使用帮助」和「删除设备」，「更多设置」的二级页面则屏蔽了「安全设置」。详见[米家通用设置项速查表](#米家通用设置项速查表)⬆️。
 - 通用设置项中「设备名称」和「设备时区」的修改展示逻辑，组件内部已实现，毋需开发者另外配置。
 - 点击设置项跳转到米家原生页面后，`android`和`iOS`的UI展示可能不完全一致，米家APP的同事正在排期开发，不要慌也不要催。
-- 鉴于蓝牙设备的固件升级页面需要在插件内自己实现，而`Wi-Fi`设备的固件升级可以直接跳转到原生页面。所以组件允许插件开发者自定义「固件升级」的路由跳转。通过在`extraOptions`中配置`showUpgrade`和`upgradePageKey`即可实现。详见[使用方法](#使用方法-5)⬇️。
-- 为了能够成功路由到`更多设置`二级页面，需要将`更多设置`页面导出，放在插件入口文件的`RootStack`中，并将插件的路由导航传给组件。详见[使用方法](#使用方法-5)⬇️。
+- 鉴于蓝牙设备的固件升级页面需要在插件内自己实现，而`Wi-Fi`设备的固件升级可以直接跳转到原生页面。所以组件允许插件开发者自定义「固件升级」的路由跳转。通过在`extraOptions`中配置`showUpgrade`和`upgradePageKey`即可实现。详见[使用方法](#使用方法-6)⬇️。
+- 为了能够成功路由到`更多设置`二级页面，需要将`更多设置`页面导出，放在插件入口文件的`RootStack`中，并将插件的路由导航传给组件。详见[使用方法](#使用方法-6)⬇️。
 - 二级页面的key现在包含`AUTO_UPGRADE`（固件自动升级）、`TIMEZONE`（设备时区）、`USER_EXPERIENCE_PROGRAM`（加入用户体验计划）。目前只有`TIMEZONE`有效，其余两个可以先忽略。
 - 虽然此组件从`SDK_10005`开始可用，但是由于产品定义的迭代，所以上述说明以`SDK_10011`最新代码为准，之前的版本可能稍微有些出入，但出入很小，不必惊讶。
 
@@ -481,6 +484,11 @@ render() {
     const secondOptions = [
       second_options.TIMEZONE,
     ]
+    // 然后我想让「智能场景」和「固件升级」显示小红点
+    const showDot = [
+      first_options.IFTTT,
+      first_options.FIRMWARE_UPGRADE
+    ]
     // 假如我的设备是一个蓝牙设备，那么写法可以参考下面
     const extraOptions = {
       showUpgrade: false, // 不跳转到原生的固件升级页面
@@ -503,6 +511,7 @@ render() {
         navigation={this.props.navigation} // 插件的路由导航，必填！！！
         firstOptions={firstOptions}
         secondOptions={secondOptions}
+        showDot={showDot}
         extraOptions={extraOptions}
       />
       // ...
@@ -626,7 +635,7 @@ getInnerView() {
 | 描述      | 基于卡片容器开发的米家插件常用的功能卡片，有阴影，有弹出和收起动效。 |
 | 位置      | `miot/ui/Card/MHCard`                                        |
 | SDK_Level | `SDK_10021`                                                  |
-| 说明      | 可以通过设置卡片四角的圆角，把小卡片拼接成一个大的卡片List，详见[使用方法](#使用方法-5)⬇️。 |
+| 说明      | 可以通过设置卡片四角的圆角，把小卡片拼接成一个大的卡片List，详见[使用方法](#使用方法-8)⬇️。 |
 | 注意事项  | \                                                            |
 
 ### 使用方法
@@ -744,7 +753,9 @@ getInnerView() {
 
 ### 预览
 
-![](/Users/yueli/react%20native/rn-plugin/exports/miot-plugin-sdk/UIDocImages/mhcard.png)
+![](./UIDocImages/modecard.png)
+
+![](./UIDocImages/modecard.gif)
 
 ### 基本信息
 
@@ -754,8 +765,8 @@ getInnerView() {
 | 描述      | 此卡片用于3-5个属于同一级别和类别的功能或模式逻辑下，只能选中其中一个。 |
 | 位置      | `miot/ui/ModeCard`                                           |
 | SDK_Level | `SDK_10021`                                                  |
-| 说明      | 可以设置卡片的圆角类型，与标题拼接在一起。可以设置是否显示阴影，模式3、4可以添加描述。详见使用方法⬇️。 |
-| 注意事项  | 由于安卓的阴影显示存在问题，在和标题进行卡片拼接时，不能显示阴影，showShadow 属性请传入 false。 |
+| 说明      | 可以设置卡片的圆角类型，与标题拼接在一起。可以设置是否显示阴影，模式3、4可以添加描述。详见[使用方法](#使用方法-9)⬇️。 |
+| 注意事项  | 由于安卓的阴影显示存在问题，在和标题进行卡片拼接时，不能显示阴影，`showShadow` 属性请传入 `false`。 |
 
 ### 使用方法
 
@@ -804,17 +815,17 @@ getInnerView() {
 | TOP    | <code>string</code> | <code>&quot;top&quot;</code>    | 上方圆角下方直角 |
 | BOTTOM | <code>string</code> | <code>&quot;bottom&quot;</code> | 上方直角下方圆角 |
 
-| Param                  | Type                            | Description                                                  |
-| ---------------------- | ------------------------------- | ------------------------------------------------------------ |
-| modes                  | <code>array</code>              | 模式数组，默认值：`[]`                                       |
-| radiusType             | <code>CARD\_RADIUS\_TYPE</code> | 卡片圆角类型，定义四个角是圆角还是直角，默认是 `CARD_RADIUS_TYPE.ALL`，所有的卡片类型有效 |
-| pressIn                | <code>function</code>           | 按下模式时执行的函数，默认值：`function(){}`                 |
-| pressOut               | <code>function</code>           | 手指抬起模式时执行的函数，默认值：`function(){}`             |
-| modesKey               | <code>string</code>             | 模式数组对应的 key，默认值：`''`                             |
-| descriptionStyle       | <code>style</code>              | 描述文字的样式，默认值：`{}`                                 |
-| activeDescriptionStyle | <code>style</code>              | 描述文字的高亮样式，默认值：`{}`                             |
-| showShadow             | <code>bool</code>               | 是否显示卡片阴影, 默认值 `true`。由于安卓的阴影显示存在问题，在和标题进行卡片拼接时，不能显示阴影，请传入 `false` |
-| modeCardStyle          | <code>style</code>              | 模式卡片样式, 默认值 `{}`                                    |
+| Param                  | Type                                                         | Description                                                  |
+| ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| modes                  | <code>array</code>                                           | 模式数组，默认值：`[]`                                       |
+| radiusType             | [<code>CARD\_RADIUS\_TYPE</code>](#card_radius_type卡片圆角类型-1) | 卡片圆角类型，定义四个角是圆角还是直角，默认是 `CARD_RADIUS_TYPE.ALL`，所有的卡片类型有效 |
+| pressIn                | <code>function</code>                                        | 按下模式时执行的函数，默认值：`function(){}`                 |
+| pressOut               | <code>function</code>                                        | 手指抬起模式时执行的函数，默认值：`function(){}`             |
+| modesKey               | <code>string</code>                                          | 模式数组对应的 key，默认值：`''`                             |
+| descriptionStyle       | <code>style</code>                                           | 描述文字的样式，默认值：`{}`                                 |
+| activeDescriptionStyle | <code>style</code>                                           | 描述文字的高亮样式，默认值：`{}`                             |
+| showShadow             | <code>bool</code>                                            | 是否显示卡片阴影, 默认值 `true`。由于安卓的阴影显示存在问题，在和标题进行卡片拼接时，不能显示阴影，请传入 `false` |
+| modeCardStyle          | <code>style</code>                                           | 模式卡片样式, 默认值 `{}`                                    |
 
 ------
 
