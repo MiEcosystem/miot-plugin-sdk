@@ -261,8 +261,8 @@ const RootStack = createStackNavigator({
 },
     {
         // ThirdPartyDemo
-        // initialRouteName: 'Home',
-        initialRouteName: 'moreMenu',
+        initialRouteName: 'Home',
+        // initialRouteName: 'moreMenu',
         navigationOptions: ({ navigation }) => {
             return {
                 header: <TitleBar
