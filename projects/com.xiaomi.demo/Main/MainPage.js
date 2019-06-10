@@ -1,6 +1,6 @@
 'use strict';
 
-import { Device, DeviceEvent, Package } from "miot";
+import {Device, DeviceEvent, Host, Package} from "miot";
 import TitleBar from "miot/ui/TitleBar";
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';

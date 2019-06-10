@@ -139,6 +139,16 @@ export default class UIDemo extends React.Component {
 
                 }
             },
+            {
+                'name': 'Android 手机NFC支持',
+                'func': () => {
+                    Host.phoneHasNfcForAndroid().then((res)=>{
+                        alert(JSON.stringify(res))
+                    }).catch((error)=>{
+                        alert(JSON.stringify(error))
+                    })
+                }
+            },
         ];
     }
 

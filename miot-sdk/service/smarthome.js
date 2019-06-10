@@ -876,6 +876,7 @@ export default {
     /**
      * 透传米家APP与小米支付创建session
      * request /v2/nfckey/create_se_session
+     * @since 10011
      * @param {object} params params
      * @param {string} params.did did
      * @param {object} params.reqData // 透传给Mipay的数据
@@ -892,6 +893,7 @@ export default {
     /**
      * 透传替换ISD key
      * request /v2/nfckey/replace_se_isdkey
+     * @since 10011
      * @param {object} params params
      * @param {string} params.did did
      * @param {object} params.reqData // 透传给Mipay的数据
@@ -908,6 +910,7 @@ export default {
     /**
      * 透传锁主密钥重置
      * request /v2/nfckey/reset_lock_primarykey
+     * @since 10011
      * @param {object} params params
      * @param {string} params.did did
      * @param {object} params.reqData // 透传给Mipay的数据
@@ -924,6 +927,7 @@ export default {
     /**
      * 处理芯片返回
      * request /v2/nfckey/handle_se_response
+     * @since 10011
      * @param {object} params params
      * @param {string} params.did did
      * @param {object} params.reqData // 透传给Mipay的数据
@@ -958,6 +962,7 @@ export default {
      * 上报蓝牙设备信息
      * call: /v2/device/bledevice_info
      * 等效于: /v2/blemesh/dev_info
+     * @since 10020
      * @param {object} params 参数
      * @param {string} prarms.did 设备did
      * @param {string} prarms.fw_ver 设备当前固件版本号

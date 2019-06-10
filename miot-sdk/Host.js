@@ -229,5 +229,15 @@ export default {
      */
     createBackgroundExecutor(jx, initialProps = {}) {
          return Promise.resolve({execute(method, ...args){}, remove(){}});
-    }
+    },
+    /**
+     * android 手机是否有NFC功能
+     * @since 10021
+     * @return {Promise}
+     * @example
+     * Host.phoneHasNfcForAndroid().then(res => console(res))
+     */
+    phoneHasNfcForAndroid(){
+         return Promise.resolve(null);
+    },
 }
