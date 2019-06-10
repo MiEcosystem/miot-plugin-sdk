@@ -101,7 +101,6 @@ import CheckboxDemo from "./UIComponent/CheckboxDemo";
 import DialogTest from './UIComponent/DialogTest';
 import GearExample from './UIComponent/GearExample';
 import ImageCapInsetDemo from './UIComponent/ImageCapInsetDemo'; // working but no title displayed
-import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo';
 import ModeCardDemo from './UIComponent/ModeCardDemo';
 import MHDatePickerDemo from "./UIComponent/MHDatePickerDemo";
 import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo';
