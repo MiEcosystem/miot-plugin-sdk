@@ -1,7 +1,31 @@
 import locale from "miot/host/locale";
+const placeholderRegex = /(\{[\d|\w]+\})/;
 const getStrings = strings => {
   const language = locale.language;
   return strings[language] || strings['zh'];
+}
+const formatString = (str, ...valuesForPlaceholders) => {
+  return (str || '')
+    .split(placeholderRegex)
+    .filter(textPart => !!textPart)
+    .map(textPart => {
+      if (textPart.match(placeholderRegex)) {
+        const matchedKey = textPart.slice(1, -1);
+        let valueForPlaceholder = valuesForPlaceholders[matchedKey];
+        // If no value found, check if working with an object instead
+        if (valueForPlaceholder == undefined) {
+          const valueFromObjectPlaceholder = valuesForPlaceholders[0][matchedKey];
+          if (valueFromObjectPlaceholder !== undefined) {
+            valueForPlaceholder = valueFromObjectPlaceholder;
+          } else {
+            // If value still isn't found, then it must have been undefined/null
+            return valueForPlaceholder;
+          }
+        }
+        return valueForPlaceholder;
+      }
+      return textPart;
+    }).join('');
 }
 // 为了 autoComplete
 let strings = {
@@ -25,7 +49,32 @@ let strings = {
   security: '',
   feedback: '',
   timezone: '',
-  addToDesktop: ''
+  addToDesktop: '',
+  // MHDatePicker
+  cancel: '',
+  ok: '',
+  am: '',
+  pm: '',
+  months: '',
+  days: '',
+  hours: '',
+  minutes: '',
+  seconds: '',
+  month: '',
+  day: '',
+  hour: '',
+  minute: '',
+  second: '',
+  yearUnit: '',
+  monthUnit: '',
+  dayUnit: '',
+  hourUnit: '',
+  minuteUnit: '',
+  secondUnit: '',
+  dateSubTitle: '',
+  time24SubTitle: '',
+  time12SubTitle: '',
+  singleSubTitle: '',
 }
 strings = getStrings({
   zh: {
@@ -50,6 +99,31 @@ strings = getStrings({
     feedback: '反馈问题',
     timezone: '设备时区',
     addToDesktop: '添加桌面快捷方式',
+    // MHDatePicker
+    cancel: '取消',
+    ok: '确定',
+    am: '上午',
+    pm: '下午',
+    months: '个月',
+    days: '天',
+    hours: '小时',
+    minutes: '分钟',
+    seconds: '秒钟',
+    month: '个月',
+    day: '天',
+    hour: '小时',
+    minute: '分钟',
+    second: '秒钟',
+    yearUnit: '年',
+    monthUnit: '月',
+    dayUnit: '日',
+    hourUnit: '时',
+    minuteUnit: '分',
+    secondUnit: '秒',
+    dateSubTitle: '{0}年{1}月{2}日', // 2019年06月03日
+    time24SubTitle: '{0}:{1}', // 11:43
+    time12SubTitle: '{0} {1}:{2}', // 上午 11:43
+    singleSubTitle: '{0} {1}', // 5 小时
   },
   zh_tw: {
     setting: '設定',
@@ -119,6 +193,31 @@ strings = getStrings({
     feedback: 'Feedback',
     timezone: 'Device time zone',
     addToDesktop: 'Add to Home screen',
+    // MHDatePicker
+    cancel: 'Cancel',
+    ok: 'Confirm',
+    am: 'AM',
+    pm: 'PM',
+    months: 'months',
+    days: 'days',
+    hours: 'hours',
+    minutes: 'minutes',
+    seconds: 'seconds',
+    month: 'month',
+    day: 'day',
+    hour: 'hour',
+    minute: 'minute',
+    second: 'second',
+    yearUnit: '',
+    monthUnit: '',
+    dayUnit: '',
+    hourUnit: '',
+    minuteUnit: '',
+    secondUnit: '',
+    dateSubTitle: '{0}-{1}-{2}', // 2019-06-03
+    time24SubTitle: '{0}:{1}', // 11:43
+    time12SubTitle: '{1}:{2} {0}', // 11:43 am
+    singleSubTitle: '{0} {1}', // 1 hour | 2 hours
   },
   ko: {
     setting: '설정',
@@ -375,3 +474,4 @@ strings = getStrings({
   }
 });
 export default strings;
+export { formatString };

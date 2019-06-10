@@ -34,28 +34,33 @@ export default class List extends React.Component {
           <View style={{ alignItems: 'center' }}>
             <ListItem
               title='只有标题'
+              showDot={true}
               onPress={_ => console.log(0)}
             />
             <ListItem
               title='标题加右侧文案'
               value='这是一段测试右侧文案'
+              showDot={true}
               onPress={_ => console.log(1)}
             />
             <ListItem
               title='标题加副标题'
               subtitle='这是用来测试副标题的文案，尽量写长一点争取可以换行。'
+              showDot={true}
               onPress={_ => console.log(2)}
               disabled={true}
             />
             <ListItem
               title='标题加副标题加右侧文案标题加副标题加右侧文案'
               subtitle='这是用来测试副标题的文案，尽量写长一点争取可以换行。'
+              showDot={true}
               value='测试右侧文案，写长一点争取可以截断。'
               onPress={_ => console.log(3)}
             />
             <ListItem
               title='自定义样式'
               subtitle='这是用来测试副标题的文案，尽量写长一点争取可以换行。'
+              showDot={true}
               value='这是一段测试右侧文案'
               containerStyle={{ width: width * 0.8, backgroundColor: 'lightblue' }}
               titleStyle={{ fontSize: 17, color: 'red' }}

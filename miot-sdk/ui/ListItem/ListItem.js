@@ -1,12 +1,13 @@
-'use strict';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Dimensions, Image, Platform, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { Images, Styles } from '../../resources';
 import Separator from "../Separator";
 const { width } = Dimensions.get('window');
+const dot = require('../../resources/title/dot.png');
 const THIN_HEIGHT = 50;
 const PADDING = 24;
+const dotSize = 8;
 const ICON_SIZE = Platform.select({ android: 26, ios: 24 }); // 当android设置24的时候，图形会挤压形成锯齿
 /**
  * @export public
@@ -23,6 +24,7 @@ const ICON_SIZE = Platform.select({ android: 26, ios: 24 }); // 当android设置
  * @property {bool} disabled - 是否禁用点击，默认值 false
  * @property {bool} showSeparator - 是否显示分割线，默认值 true
  * @property {bool} hideArrow - 是否隐藏右侧箭头图片，默认值 `false`
+ * @property {bool} showDot - 是否显示小红点，默认值 `false`
  * @property {component} separator - 自定义分割线，不传将显示默认样式的分割线
  * @property {style} containerStyle - 列表项的自定义样式
  * @property {style} titleStyle - 标题的自定义样式
@@ -38,6 +40,7 @@ export default class ListItem extends React.Component {
     disabled: PropTypes.bool,
     showSeparator: PropTypes.bool,
     hideArrow: PropTypes.bool,
+    showDot: PropTypes.bool,
     separator: PropTypes.element,
     containerStyle: PropTypes.object,
     titleStyle: PropTypes.object,
@@ -52,6 +55,7 @@ export default class ListItem extends React.Component {
     disabled: false,
     showSeparator: true,
     hideArrow: false,
+    showDot: false,
     containerStyle: {},
     titleStyle: {},
     subtitleStyle: {},
@@ -90,17 +94,25 @@ export default class ListItem extends React.Component {
         >
           <View style={[styles.container, this.props.containerStyle, extraContainerStyle]}>
             <View style={styles.left}>
-              <Text
-                numberOfLines={1}
-                ellipsizeMode='tail'
-                style={[Styles.common.title, this.props.titleStyle]}
-              >
-                {this.props.title}
-              </Text>
+              <View style={{ flexDirection: 'row', paddingVertical: 2 }}>
+                <Text
+                  numberOfLines={1}
+                  style={[Styles.common.title, this.props.titleStyle]}
+                >
+                  {this.props.title}
+                </Text>
+                {this.props.showDot
+                  ? <Image
+                    style={styles.dot}
+                    resizeMode='contain'
+                    source={dot}
+                  />
+                  : null
+                }
+              </View>
               {this.props.subtitle ?
                 <Text
                   numberOfLines={2}
-                  ellipsizeMode='tail'
                   style={[Styles.common.subtitle, this.props.subtitleStyle]}
                 >
                   {this.props.subtitle}
@@ -159,4 +171,10 @@ var styles = StyleSheet.create({
     width: ICON_SIZE,
     height: ICON_SIZE,
   },
+  dot: {
+    marginTop: -1,
+    marginLeft: 1,
+    width: dotSize,
+    height: dotSize
+  }
 });

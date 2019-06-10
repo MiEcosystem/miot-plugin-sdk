@@ -132,6 +132,7 @@ export { firstAllOptions, secondAllOptions };
  * @description 米家通用设置项
  * @property {array} firstOptions - 一级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项
  * @property {array} secondOptions - 二级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项
+ * @property {array} showDot - 定义哪些列表项需要显示小红点。为了便于扩展每个列表项都可以显示小红点，默认全部**不显示**，需要显示传入该列表项的key即可。
  * @property {object} extraOptions - 其他特殊配置项
  * ```js
  * // extraOptions
@@ -172,6 +173,7 @@ export default class CommonSetting extends React.Component {
   static propTypes = {
     firstOptions: PropTypes.array,
     secondOptions: PropTypes.array,
+    showDot: PropTypes.array,
     extraOptions: PropTypes.object,
     navigation: PropTypes.object.isRequired
   }
@@ -188,7 +190,9 @@ export default class CommonSetting extends React.Component {
       secondAllOptions.AUTO_UPGRADE,
       secondAllOptions.TIMEZONE,
       secondAllOptions.USER_EXPERIENCE_PROGRAM
-    ]
+    ],
+    showDot: [],
+    extraOptions: {},
   }
   getCommonSetting(state) {
     return {
@@ -248,7 +252,7 @@ export default class CommonSetting extends React.Component {
    * @description 点击「法律信息」，传入用户协议和隐私政策的文件地址
    */
   privacyAndProtocolReview() {
-    const { licenseUrl, policyUrl } = this.props.extraOptions || {};
+    const { licenseUrl, policyUrl } = this.props.extraOptions;
     Host.ui.privacyAndProtocolReview('', licenseUrl, '', policyUrl);
   }
   /**
@@ -256,7 +260,7 @@ export default class CommonSetting extends React.Component {
    */
   chooseFirmwareUpgrade() {
     // 默认是wifi设备固件升级的原生页面
-    const { showUpgrade, upgradePageKey } = this.props.extraOptions || {};
+    const { showUpgrade, upgradePageKey } = this.props.extraOptions;
     if (showUpgrade === false) {
       // 蓝牙统一OTA界面
       if (upgradePageKey === undefined) {
@@ -294,7 +298,7 @@ export default class CommonSetting extends React.Component {
    * @description 弹出「删除设备」弹窗
    */
   openDeleteDevice() {
-    const { deleteDeviceMessage } = this.props.extraOptions || {};
+    const { deleteDeviceMessage } = this.props.extraOptions;
     Host.ui.openDeleteDevice(deleteDeviceMessage);
   }
   render() {
@@ -310,7 +314,13 @@ export default class CommonSetting extends React.Component {
     if (Device.isOwner === false) {
       keys = keys.filter(key => firstSharedOptions[key]); // 如果是共享设备或者家庭设备，需要过滤一下
     }
-    const items = keys.map(key => this.commonSetting[key]).filter(item => item); // 防空
+    const items = keys.map(key => {
+      const item = this.commonSetting[key];
+      if (item) {
+        item.showDot = (this.props.showDot || []).includes(key);
+      }
+      return item;
+    }).filter(item => item); // 防空
     return (
       <View style={styles.container}>
         <View style={styles.titleContainer}>
@@ -319,11 +329,13 @@ export default class CommonSetting extends React.Component {
         <Separator style={{ marginLeft: Styles.common.padding }} />
         {
           items.map((item, index) => {
+            if (!item) return null;
             const showSeparator = index !== items.length - 1;
             return (
               <ListItem
                 key={item.title}
                 title={item.title || ''}
+                showDot={item.showDot || false}
                 value={item.value}
                 onPress={item.onPress}
                 showSeparator={showSeparator}

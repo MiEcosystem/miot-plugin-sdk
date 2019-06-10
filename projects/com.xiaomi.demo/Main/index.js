@@ -87,6 +87,7 @@ import BlankDemo from './tutorial/BlankDemo';
 import JSExecutor from './tutorial/JSExecutor';
 import List from "./tutorial/List";
 import LocaleServer from './tutorial/LocaleServer';
+import NavigationBarDemo from "./tutorial/NavigationBarDemo";
 import OperationDemoIndex from './tutorial/operation/OperationDemoIndex';
 import PackageDemo from "./tutorial/PackageDemo";
 import RPCControl from './tutorial/RPCControl';
@@ -100,6 +101,7 @@ import CheckboxDemo from "./UIComponent/CheckboxDemo";
 import DialogTest from './UIComponent/DialogTest';
 import GearExample from './UIComponent/GearExample';
 import ImageCapInsetDemo from './UIComponent/ImageCapInsetDemo'; // working but no title displayed
+import MHDatePickerDemo from "./UIComponent/MHDatePickerDemo";
 import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo';
 import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo";
 import Parallax from "./UIComponent/Parallax";
@@ -118,7 +120,6 @@ import UIDemo from './UIComponent/UIDemo';
 import CustomContainer from './uikit/components/CustomContainer';
 import * as Screens from "./uikit/screens";
 import MHSetting from './unuse/MHSetting';
-
 // class HomeScreen extends React.Component {
 //   render() {
 //     return (
@@ -144,6 +145,8 @@ const RootStack = createStackNavigator({
     CheckboxDemo,
     ToastExample,
     SwitchDemo,
+    MHDatePickerDemo,
+    NavigationBarDemo,
     tutorialDemo: TutorialDemo,
     LocaleServer: LocaleServer,
     blankDemo: BlankDemo,

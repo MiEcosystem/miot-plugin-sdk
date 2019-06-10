@@ -28,7 +28,7 @@ export default {
     },
     subtitle: {
       fontSize: 12,
-      lineHeight: 16,
+      // lineHeight: 16,
       color: 'rgba(0,0,0,0.6)',
     },
     separator: {

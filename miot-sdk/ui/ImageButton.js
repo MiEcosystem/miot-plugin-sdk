@@ -5,10 +5,7 @@
  *
  */
 import React from 'react';
-import {
-  Image,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { Image, TouchableWithoutFeedback } from 'react-native';
 export default class ImageButton extends React.Component {
   constructor(props) {
     super(props);
@@ -42,6 +39,7 @@ export default class ImageButton extends React.Component {
     //   Platform.OS === 'android' ? TouchableNativeFeedback : TouchableWithoutFeedback;
     return (
       <TouchableWithoutFeedback
+        disabled={this.props.disabled}
         onPress={this.props.onPress}
         onPressIn={this._buttonPressIn.bind(this)}
         onPressOut={this._buttonPressOut.bind(this)}

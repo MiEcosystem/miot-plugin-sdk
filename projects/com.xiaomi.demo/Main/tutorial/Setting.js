@@ -8,6 +8,8 @@ import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
+const { first_options, second_options } = SETTING_KEYS;
+
 export default class Setting extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
@@ -27,11 +29,11 @@ export default class Setting extends React.Component {
     this.state = {
       sliderValue: 25,
       switchValue: false,
+      showDot: [],
     }
   }
 
   render() {
-    const { first_options, second_options } = SETTING_KEYS;
     // 显示部分一级菜单项
     const firstOptions = [
       first_options.SHARE,
@@ -65,6 +67,7 @@ export default class Setting extends React.Component {
             <Separator style={{ marginLeft: Styles.common.padding }} />
             <ListItem
               title='这是'
+              showDot={true}
               onPress={_ => console.log(0)}
             />
             <ListItemWithSwitch
@@ -86,6 +89,7 @@ export default class Setting extends React.Component {
           <CommonSetting
             navigation={this.props.navigation}
             firstOptions={firstOptions}
+            showDot={this.state.showDot}
             // secondOptions={secondOptions}
             extraOptions={extraOptions}
           />
@@ -105,7 +109,13 @@ export default class Setting extends React.Component {
 
   componentDidMount() {
     // TODO: 拉取功能设置项里面的初始值，比如开关状态，slider的value
-    setTimeout(_ => this.setState({ switchValue: true, sliderValue: 75 }), 1000);
+    setTimeout(_ => this.setState({
+      switchValue: true,
+      sliderValue: 75,
+      showDot: [
+        first_options.FIRMWARE_UPGRADE
+      ]
+    }), 2000);
   }
 }
 

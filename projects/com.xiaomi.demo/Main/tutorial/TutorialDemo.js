@@ -21,6 +21,10 @@ export default class TutorialDemo extends React.Component {
           'key': 'TitleBarDemo',
         },
         {
+          'title': '新版导航栏 NavigationBar Demo',
+          'key': 'NavigationBarDemo',
+        },
+        {
           'title': '空白页',
           'key': 'blankDemo',
         },
