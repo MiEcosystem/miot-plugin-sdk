@@ -2,18 +2,10 @@
 
 'use strict';
 
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  DeviceEventEmitter,
-  PermissionsAndroid,
-  Platform, NativeModules
-} from 'react-native';
+import { AudioEvent, Host } from "miot";
+import React from 'react';
+import { PermissionsAndroid, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { Host } from "miot";
 const audioPlayerUid = 'com.xiaomi.demoios';
 
 var fileName = 'test.wav';
@@ -49,8 +41,9 @@ export default class MHAudioDemo extends React.Component {
   }
 
   componentWillUnmount() {
-    this.updateAudioPlayerTimeListener.remove();
-    this.audioPlayerDidFinishPlayingListener.remove();
+    this.s0.remove();
+    this.s1.remove();
+    this.s2.remove();
   }
 
   render() {
