@@ -101,6 +101,8 @@ import CheckboxDemo from "./UIComponent/CheckboxDemo";
 import DialogTest from './UIComponent/DialogTest';
 import GearExample from './UIComponent/GearExample';
 import ImageCapInsetDemo from './UIComponent/ImageCapInsetDemo'; // working but no title displayed
+import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo';
+import ModeCardDemo from './UIComponent/ModeCardDemo';
 import MHDatePickerDemo from "./UIComponent/MHDatePickerDemo";
 import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo';
 import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo";
@@ -120,6 +122,7 @@ import UIDemo from './UIComponent/UIDemo';
 import CustomContainer from './uikit/components/CustomContainer';
 import * as Screens from "./uikit/screens";
 import MHSetting from './unuse/MHSetting';
+
 // class HomeScreen extends React.Component {
 //   render() {
 //     return (
@@ -265,10 +268,12 @@ const RootStack = createStackNavigator({
     // 米家iOS 自定义第三方库>
     //dialog
     DialogTest: DialogTest,
+    ModeCardDemo
 },
     {
         // ThirdPartyDemo
         initialRouteName: 'Home',
+        // initialRouteName: 'ModeCardDemo',
         navigationOptions: ({ navigation }) => {
             return {
                 header: <TitleBar

@@ -25,6 +25,7 @@ export default class UIDemo extends React.Component {
         [
           { name: '自定义列表项', router: 'List' },
           { name: '自定义卡片', router: 'CardPage' },
+          { name: '模式卡片', router: 'ModeCardDemo' },
           { name: '单选框', router: 'RadioExample' },
           { name: '复选框', router: 'CheckboxDemo' },
           { name: '拖拽选择档位组件', router: 'GearExample' },
