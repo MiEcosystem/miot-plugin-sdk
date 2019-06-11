@@ -330,7 +330,7 @@ export default {
      * @example
      * import {Host} from 'miot'
      * ...
-     * Host.filedownloadFile('url', 'targetName').then(res =>{
+     * Host.file.downloadFile('url', 'targetName').then(res =>{
      *  console.log('download success with res:', res)
      * }).catch(err => {
      *  console.log('download failed with err:', err)

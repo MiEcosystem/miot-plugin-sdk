@@ -156,9 +156,10 @@ export default {
    * 打开创建设备组页
    * 只有特定设备支持创建设备组统一管理
    */
-  openAddDeviceGroupPage(groupModel="") {
+  openAddDeviceGroupPage(groupModel = "") {
   },
   /**
+   * 打开编辑设备组页
    * @param {Array} dids - 包含组设备did的数组
    */
   openEditDeviceGroupPage(dids) {
