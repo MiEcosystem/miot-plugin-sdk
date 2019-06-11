@@ -26,6 +26,17 @@
  * });
  * ...
  */
+export const FileEvent = {
+    /**
+     * 文件下载时的进度事件通知
+     * @param filename  文件名
+     * @param url       下载地址
+     * @param totalBytes    下载总大小
+     * @param downloadBytes 已下载文件大小
+     */
+    fileDownloadProgress: {
+    },
+};
 export default {
     /**
      * 读取沙盒内文件列表
