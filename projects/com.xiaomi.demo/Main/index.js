@@ -36,6 +36,8 @@ import OrientationDemo from './Host/OrientationDemo';
 import NavigateUIDemo from "./Host/UI";
 import PrivacyDemo from "./Host/UI/privacy";
 import VideoDemo from './Host/VideoDemo';
+import ImageTest from './issues/imageTest/imageTest';
+import SmarthomeDemo from './issues/smarthomeDemo';
 import MainPage from './MainPage';
 import MoreMenu from './MoreMenu';
 import ImagePathDemo from './NewStructureTest';
@@ -254,6 +256,8 @@ const RootStack = createStackNavigator({
     // 米家iOS 自定义第三方库>
     //dialog
     DialogTest: DialogTest,
+    ImageTest,
+    SmarthomeDemo
 },
     {
         // ThirdPartyDemo
