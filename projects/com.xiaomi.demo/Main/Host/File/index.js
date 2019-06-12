@@ -395,7 +395,7 @@ export default class FileStorage extends React.Component {
   }
 
   _readFileListWithFolder() {
-    Host.file.readFileList("DFU").then((result) => {
+    Host.file.readFileList(this.state.fileName || "DFU").then((result) => {
       console.log("readFileList...result", result);
     }).catch((error, msg) => {
       console.log("readFileList...error", error, msg);

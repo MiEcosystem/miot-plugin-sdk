@@ -1,9 +1,7 @@
+import { Host, Service } from "miot";
 import React from "react";
+import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 
-import {
-  View, Text, TextInput, Button, StyleSheet, Image, ScrollView, Dimensions
-} from "react-native";
-import { Package, Service, Host } from "miot";
 
 const { width, height } = Dimensions.get("window");
 
@@ -11,7 +9,7 @@ export default class LocalServer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      locale: {}, server: {}
+      locale: {}, server: {}, location: 'loading'
     };
   }
 
@@ -20,7 +18,7 @@ export default class LocalServer extends React.Component {
       this.setState({ server: server });
     });
     Host.locale.getLocation().then(locale => {
-      this.setState({ locale: locale });
+      this.setState({ location: JSON.stringify(locale) });
     })
   }
 
@@ -35,18 +33,15 @@ export default class LocalServer extends React.Component {
       <View style={{ flexDirection: "row" }}>
         <ScrollView
           contentContainerStyle={{ alignItems: "stretch", justifyContent: "center" }}>
+
           <Text style={{ margin: 10, width: width }}> countryName:{this.state.server.countryName}</Text>
           <Text style={{ margin: 10, width: width }}> countryCode: {this.state.server.countryCode}</Text>
           <Text style={{ margin: 10, width: width }}> serverCode: {this.state.server.serverCode}</Text>
-          <Text style={{ margin: 10, width: width }}> country: {this.state.locale.country}</Text>
-          <Text style={{ margin: 10, width: width }}> province: {this.state.locale.province}</Text>
-          <Text style={{ margin: 10, width: width }}> city: {this.state.locale.city}</Text>
-          <Text style={{ margin: 10, width: width }}> district: {this.state.locale.district}</Text>
-          <Text style={{ margin: 10, width: width }}> address: {this.state.locale.address}</Text>
-          <Text style={{ margin: 10, width: width }}> latitude: {this.state.locale.latitude}</Text>
-          <Text style={{ margin: 10, width: width }}> longitude: {this.state.locale.longitude}</Text>
-          <Text style={{ margin: 10, width: width }}> citycode: {this.state.locale.citycode}</Text>
-          <Text style={{ margin: 10, width: width }}> adcode: {this.state.locale.adcode}</Text>
+
+          <Text style={{ margin: 10, width: width }}> local.language: {Host.locale.language}</Text>
+          <Text style={{ margin: 10, width: width }}> local.timeZone: {Host.locale.timeZone}</Text>
+          <Text style={{ margin: 10, width: width }}> local.is24HourTime: {Host.locale.is24HourTime}</Text>
+          <Text style={{ margin: 10, width: width }}> local.location: {this.state.location}</Text>
         </ScrollView>
       </View>
     </View>

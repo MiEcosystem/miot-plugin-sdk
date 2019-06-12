@@ -1,27 +1,16 @@
 'use strict';
 
-import { Device, Package } from "miot";
-import TitleBar from "miot/ui/TitleBar";
+import Host from 'miot/Host';
+import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
-import { getString } from './MHLocalizableString';
 
+export default class HostDemo extends React.Component {
 
-
-export default class MainPage extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      header:
-        <View>
-          <TitleBar
-            type='dark'
-            title={navigation.state["params"] ? navigation.state.params.name : Device.name}
-            subTitle={getString('NUM_PHOTOS', { 'numPhotos': 1 })}
-            onPressLeft={() => { Package.exit() }}
-            onPressRight={() => {
-              navigation.navigate('Setting', { 'title': '设置' });
-            }} />
-        </View>
+      header: <TitleBar type='dark' title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
+        onPressLeft={() => { navigation.goBack(); }} />,
     };
   };
 
@@ -39,51 +28,41 @@ export default class MainPage extends React.Component {
   _createMenuData() {
     this._menuData = [
       {
-        'name': '常用功能',
+        'name': 'Native导航模块-ui',
         'func': () => {
-          this.props.navigation.navigate('tutorialDemo', { title: '常用功能' })
+          this.props.navigation.navigate('NavigateUIDemo', { title: 'Native导航模块-ui' })
         }
       },
       {
-        'name': '账户信息(Account)',
+        'name': '文件存储与截图-file',
         'func': () => {
-          this.props.navigation.navigate('accountDemo', { title: '账户信息(Account)' })
+          this.props.navigation.navigate('fileStorage', { title: '文件存储与截图-file' })
         }
       },
       {
-        'name': '设备控制(Device)',
+        'name': '本地KV存储-storage',
         'func': () => {
-          this.props.navigation.navigate('DeviceControl', { title: '设备控制(Device)' })
+          this.props.navigation.navigate('storageDemo', { title: '本地KV存储-storage' })
         }
       },
       {
-        'name': 'Native交互(Host)',
+        'name': '本地化相关-local',
         'func': () => {
-          this.props.navigation.navigate('HostDemo', { title: 'Native交互(Host)' })
+          this.props.navigation.navigate('LocaleServer', { title: '本地化相关-local' })
         }
       },
       {
-        'name': '接口服务(Service)',
+        "name": '创建独立js线程',
         'func': () => {
-          this.props.navigation.navigate('ServiceDemo', { title: '接口服务(Service)' })
+          this.props.navigation.navigate('JSExecutor', { title: "创建独立js线程" })
         }
       },
       {
-        'name': 'UI能力(miot/ui)',
+        "name": 'sim卡信息',
         'func': () => {
-          this.props.navigation.navigate('UIDemo', { title: 'UI能力(miot/ui)' })
-        }
-      },
-      {
-        'name': '第三方库能力',
-        'func': () => {
-          this.props.navigation.navigate('ThirdPartyDemo', { title: '第三方库能力' })
-        }
-      },
-      {
-        'name': '旧-设置页面(不推荐使用)',
-        'func': () => {
-          this.props.navigation.navigate('moreMenu', { title: '设置页面(不推荐使用)' })
+          Host.getOperatorsInfo().then(res => {
+            console.log(res);
+          })
         }
       }
     ];
@@ -107,7 +86,7 @@ export default class MainPage extends React.Component {
         <View>
           <View style={styles.rowContainer}>
             <Text style={styles.title}>{rowData}</Text>
-            <Image style={styles.subArrow} source={require("../Resources/sub_arrow.png")} />
+            <Image style={styles.subArrow} source={require("../../Resources/sub_arrow.png")} />
           </View>
           <View style={styles.separator}></View>
         </View>
@@ -118,11 +97,8 @@ export default class MainPage extends React.Component {
   _pressRow(rowID) {
     this._menuData[rowID].func();
   }
-}
 
-
-
-
+};
 
 var styles = StyleSheet.create({
   container: {

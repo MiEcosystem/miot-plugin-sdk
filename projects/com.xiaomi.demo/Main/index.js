@@ -31,14 +31,22 @@ import LayoutAnimationDemo from './AnimationComponentDemo/LayoutAnimationDemo'; 
 import ControlDemo from './Device/ControlDemo';
 import DeviceControl from "./Device/DeviceControl";
 import DeviceDemo from "./Device/DeviceDemo";
+import HostDemo from "./Host";
+import FileStorage from './Host/File';
+import JSExecutor from './Host/JSExecutor';
+import LocaleServer from './Host/Local';
 import MHAudioDemo from './Host/MHAudioDemo';
 import OrientationDemo from './Host/OrientationDemo';
+import StorageDemo from './Host/Storage';
 import NavigateUIDemo from "./Host/UI";
 import PrivacyDemo from "./Host/UI/privacy";
 import VideoDemo from './Host/VideoDemo';
 import MainPage from './MainPage';
 import MoreMenu from './MoreMenu';
 import ImagePathDemo from './NewStructureTest';
+// import GLTests from './ThirdPartDemo/openGL/Tests';
+// import OpenLibList from './OpenLibList';
+import ServiceDemo from './Service';
 import CallSmartHomeAPIDemo from './Service/smarthome';
 import AddressBookDemo from './ThirdPartDemo/AddressBookDemo';
 import ARTCircleDemo from './ThirdPartDemo/ARTComponentDemo/ARTCircleDemo'; //圆形：Circle，
@@ -61,8 +69,6 @@ import GLHearts from './ThirdPartDemo/openGL/Hearts';
 import GLOrientation from './ThirdPartDemo/openGL/Orientation';
 import GLParticles from './ThirdPartDemo/openGL/Particles';
 import GLSimple from './ThirdPartDemo/openGL/Simple';
-// import GLTests from './ThirdPartDemo/openGL/Tests';
-// import OpenLibList from './OpenLibList';
 import ParticleDemo from './ThirdPartDemo/ParticleDemo';
 import ProgressDemo from './ThirdPartDemo/ProgressDemo';
 import ReactNativeCameraDemo from './ThirdPartDemo/ReactNativeCameraDemo';
@@ -84,16 +90,10 @@ import PieView from './ThirdPartDemo/Victory-Native/views/pie-view';
 import ScatterView from './ThirdPartDemo/Victory-Native/views/scatter-view';
 import WebViewBridageDemo from './ThirdPartDemo/WebViewBridageDemo';
 import BlankDemo from './tutorial/BlankDemo';
-import JSExecutor from './tutorial/JSExecutor';
-import List from "./tutorial/List";
-import LocaleServer from './tutorial/LocaleServer';
 import NavigationBarDemo from "./tutorial/NavigationBarDemo";
-import OperationDemoIndex from './tutorial/operation/OperationDemoIndex';
 import PackageDemo from "./tutorial/PackageDemo";
 import RPCControl from './tutorial/RPCControl';
 import Setting from "./tutorial/Setting";
-import FileStorage from './tutorial/storage/FileStorage';
-import StorageDemo from './tutorial/storage/StorageDemo';
 import TitleBarDemo from "./tutorial/TitleBarDemo";
 import TutorialDemo from './tutorial/TutorialDemo';
 import CardPage from "./UIComponent/CardPage";
@@ -101,9 +101,10 @@ import CheckboxDemo from "./UIComponent/CheckboxDemo";
 import DialogTest from './UIComponent/DialogTest';
 import GearExample from './UIComponent/GearExample';
 import ImageCapInsetDemo from './UIComponent/ImageCapInsetDemo'; // working but no title displayed
-import ModeCardDemo from './UIComponent/ModeCardDemo';
+import List from "./UIComponent/List";
 import MHDatePickerDemo from "./UIComponent/MHDatePickerDemo";
 import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo';
+import ModeCardDemo from './UIComponent/ModeCardDemo';
 import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo";
 import Parallax from "./UIComponent/Parallax";
 import RadioExample from "./UIComponent/RadioExample";
@@ -149,6 +150,8 @@ const RootStack = createStackNavigator({
     SwitchDemo,
     MHDatePickerDemo,
     NavigationBarDemo,
+    HostDemo,
+    ServiceDemo,
     tutorialDemo: TutorialDemo,
     LocaleServer: LocaleServer,
     blankDemo: BlankDemo,
@@ -163,7 +166,6 @@ const RootStack = createStackNavigator({
     fileStorage: FileStorage,
     callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
     RPCControl: RPCControl,
-    OperationDemoIndex: OperationDemoIndex,
     PrivacyDemo,
     // BLEConnectionDemo: BLEConnectionDemo,
 

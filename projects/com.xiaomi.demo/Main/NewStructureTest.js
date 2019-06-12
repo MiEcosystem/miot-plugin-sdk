@@ -2,16 +2,11 @@
 
 'use strict';
 
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  Dimensions,
-  Image,
-} from 'react-native';
-import MHImage from "miot/ui/image";
-
+import LottieView from 'lottie-react-native';
+import React from 'react';
+import { Dimensions, StyleSheet, View } from 'react-native';
 var window = Dimensions.get('window');
+const resolveAssetSource = require('resolveAssetSource');
 export default class ImagePathDemo extends React.Component {
 
 
@@ -21,14 +16,12 @@ export default class ImagePathDemo extends React.Component {
   //http://cookbook.supor.com/Swast2SpEjewRAnE.mp4;
   render() {
 
-
+    let source = resolveAssetSource(require('./../Resources/lottie.txt'))
+    alert(source.uri)
     return (
       <View style={styles.container}>
-<View style = {{width:100,height:100}}></View>
-
-      <MHImage  source={require('../Resources/Images/test_icon1.png')} style = {{width:100,height:100}} />
-      <Image  source={require('../Resources/Images/right_arrow1.png')} style = {{width:100,height:100}} />
-      <Image  source={require('../Resources/RGB_input.png')} style = {{width:100,height:100}} />
+        <View style={{ width: 100, height: 100 }}></View>
+        <LottieView source={{ uri: source.uri }} autoPlay loop />;
       </View>
     );
   }

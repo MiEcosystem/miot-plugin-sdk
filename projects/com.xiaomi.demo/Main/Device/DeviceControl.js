@@ -39,6 +39,18 @@ export default class UIDemo extends React.Component {
                 }
             },
             {
+                'name': 'RPC指令控制',
+                'func': () => {
+                    this.props.navigation.navigate('RPCControl', { title: 'RPC指令控制' })
+                }
+            },
+            {
+                'name': '当前设备信息',
+                'func': () => {
+                    this.props.navigation.navigate('DeviceDemo', { title: '当前设备信息' })
+                }
+            },
+            {
                 'name': '获取所有子设备',
                 'func': () => {
                     Device.getSubDevices().then(res => {

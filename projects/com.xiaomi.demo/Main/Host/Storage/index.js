@@ -1,14 +1,7 @@
-import React from "react";
-import {
-  Text,
-  View,
-  Button,
-  TextInput,
-  StyleSheet,
-  FlatList
-} from "react-native";
-
 import { Host } from "miot";
+import React from "react";
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+
 
 export default class StorageDemo extends React.Component {
   constructor(props) {
@@ -146,7 +139,7 @@ var styles = StyleSheet.create({
     height: 35
   },
   text: {
-    textAlign:'center'
+    textAlign: 'center'
   }
 
 });

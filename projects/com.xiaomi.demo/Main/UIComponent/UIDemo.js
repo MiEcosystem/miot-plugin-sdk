@@ -23,6 +23,7 @@ export default class UIDemo extends React.Component {
     this.state = {
       dataSource: ds.cloneWithRows(
         [
+          { name: '导航栏使用', router: 'TitleBarDemo' },
           { name: '自定义列表项', router: 'List' },
           { name: '自定义卡片', router: 'CardPage' },
           { name: '模式卡片', router: 'ModeCardDemo' },
