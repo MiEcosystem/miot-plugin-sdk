@@ -5,7 +5,7 @@ import {
     Text, ToastAndroid,
 } from 'react-native';
 
-import { NumberSpinner } from 'miot/ui'
+import {NumberSpinner, StringSpinner} from 'miot/ui'
 import { Host } from 'miot'
 
 export default class NumberSpinnerDemo extends React.Component {
@@ -41,10 +41,9 @@ export default class NumberSpinnerDemo extends React.Component {
                         minValue={1}
                         interval={1}
                         defaultValue={6}
-                        valueFormat={"%1.f"}
+                        valueFormat={"%1.0f"}
+                        lineStyle={"none"}          // 不推荐使用，  推荐使用 pickerInnerStyle
                         unit={"月"}
-                        unitTextColor={this.state.unitTextColor}
-                        unitFontSize={this.state.unitFontSize}
                         onNumberChanged={(data) => { this.updateValueMonth(data) }}
                     />
                     <NumberSpinner
@@ -52,10 +51,10 @@ export default class NumberSpinnerDemo extends React.Component {
                         maxValue={30}
                         minValue={1}
                         interval={1}
-                        defaultValue={80}
+                        defaultValue={20}
                         valueFormat={"%1.0f"}
-                        lineStyle={"none"}
                         unit={"日"}
+                        pickerInnerStyle={{ lineColor: "#ff0000", textColor: "#ff0000", selectTextColor: "#00ff00", fontSize: 14, selectFontSize: 18, rowHeight: 54, selectBgColor: "#eeeeee", unitFontSize: 12, unitTextColor: '#f7632a' }}
                         onNumberChanged={(data) => { this.updateValueDay(data) }}
                     />
                 </View>
@@ -84,7 +83,7 @@ export default class NumberSpinnerDemo extends React.Component {
 
     showToastAndroid(data) {
         if (Host.isAndroid) {
-            ToastAndroid.show(`newValue:${data},oldValue:${data.oldValue}`, ToastAndroid.SHORT)
+            ToastAndroid.show(`newValue:${data.newValue},oldValue:${data.oldValue}`, ToastAndroid.SHORT)
         }
     }
 }
