@@ -49,6 +49,7 @@ import ImagePathDemo from './NewStructureTest';
 import ServiceDemo from './Service';
 import CallSmartHomeAPIDemo from './Service/smarthome';
 import AddressBookDemo from './ThirdPartDemo/AddressBookDemo';
+import AnimatedSVGDemo from './ThirdPartDemo/AnimatedSVGDemo';
 import ARTCircleDemo from './ThirdPartDemo/ARTComponentDemo/ARTCircleDemo'; //圆形：Circle，
 import ARTEllipseDemo from './ThirdPartDemo/ARTComponentDemo/ARTEllipseDemo'; //椭圆：Ellipse
 import ARTGradientDemo from './ThirdPartDemo/ARTComponentDemo/ARTGradientDemo'; //LinearGradient：线性渐变,RadialGradient：径向渐变
@@ -269,7 +270,8 @@ const RootStack = createStackNavigator({
     // 米家iOS 自定义第三方库>
     //dialog
     DialogTest: DialogTest,
-    ModeCardDemo
+    ModeCardDemo,
+    AnimatedSVGDemo
 },
     {
         // ThirdPartyDemo
