@@ -851,6 +851,30 @@ class IDevice {
     get isReadonlyShared() {
          return  false
     }
+    /**
+     * 检查当前设备是否支持HomeKit
+     * @since 10021
+     * @returns {Promise<boolean>} 是否支持
+     */
+    checkIsHomeKitDevice() {
+         return Promise
+    }
+    /**
+     * 检查当前设备是否接入了HomeKit
+     * @since 10021
+     * @returns {Promise<boolean>} 是否接入
+     */
+    checkHomeKitConnected() {
+         return Promise
+    }
+    /**
+     * 将当前设备绑定到HomeKit中
+     * @since 10021
+     * @returns {Promise} 成功进入then，失败进入catch
+     */
+    bindToHomeKit() {
+         return Promise
+    }
 }
 const RootDevice={};
 /**

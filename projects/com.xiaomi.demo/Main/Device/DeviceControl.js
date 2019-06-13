@@ -154,10 +154,36 @@ export default class UIDemo extends React.Component {
             {
                 'name': 'Android 手机NFC支持',
                 'func': () => {
-                    Host.phoneHasNfcForAndroid().then((res)=>{
+                    Host.phoneHasNfcForAndroid().then((res) => {
                         alert(JSON.stringify(res))
-                    }).catch((error)=>{
+                    }).catch((error) => {
                         alert(JSON.stringify(error))
+                    })
+                }
+            },
+            {
+                'name': '是否是HomeKit设备',
+                'func': () => {
+                    Device.checkIsHomeKitDevice().then(res => {
+                        alert((res ? "是" : "不是") + ' HomeKit 设备')
+                    })
+                }
+            },
+            {
+                'name': '是否连接了HomeKit',
+                'func': () => {
+                    Device.checkHomeKitConnected().then(res => {
+                        alert((res ? "已经" : "没有") + ' 连入HomeKit')
+                    })
+                }
+            },
+            {
+                'name': '添加到HomeKit',
+                'func': () => {
+                    Device.bindToHomeKit().then((res) => {
+                        alert('添加成功')
+                    }).catch((error) => {
+                        alert("添加失败" + JSON.stringify(error))
                     })
                 }
             },
