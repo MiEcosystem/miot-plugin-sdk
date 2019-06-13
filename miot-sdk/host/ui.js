@@ -15,6 +15,7 @@
  *
  */
 import native from "../native";
+import Service from "../Service";
 const resolveAssetSource = require('resolveAssetSource');
 export default {
   /**
@@ -153,13 +154,13 @@ export default {
   },
   /**
    * @param {String} groupModel - 设备组model
-   * 打开创建设备组页
+   * 打开创建设备组页，只有在设备页内，需要创建设备组时，才能调用此方法。如果是设备组页面内，请使用下面的openEditDeviceGroupPage方法
    * 只有特定设备支持创建设备组统一管理
    */
   openAddDeviceGroupPage(groupModel = "") {
   },
   /**
-   * 打开编辑设备组页
+   * 打开编辑设备组页，只有在设备组页内，需要修改设备组时，才能调用此方法。如果是设备页面内，请使用上面的openAddDeviceGroupPage方法
    * @param {Array} dids - 包含组设备did的数组
    */
   openEditDeviceGroupPage(dids) {

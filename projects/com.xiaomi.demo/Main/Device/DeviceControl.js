@@ -1,6 +1,6 @@
 'use strict';
 
-import { Device, Host } from "miot";
+import { Device, Host, Service } from "miot";
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
@@ -127,7 +127,6 @@ export default class UIDemo extends React.Component {
                     Device.reportDeviceGPSInfo()
                 }
             },
-
             {
                 'name': 'parentDevice',
                 'func': () => {
@@ -137,6 +136,27 @@ export default class UIDemo extends React.Component {
                         alert("当前设备没有parentDevice")
                     }
 
+                }
+            },
+            {
+                'name': '打开设备组添加页（支持设备组的设备调用此方法）',
+                'func': () => {
+                    Host.ui.openAddDeviceGroupPage(Device.model);
+                }
+            },
+            {
+                'name': '打开设备组编辑页(设备组才可调用此方法)',
+                'func': () => {
+                    Device.getVirtualDevices().then(res => {
+
+                        let devices = res.map(stat => {
+                            //initDeviceEvents
+                            return stat.deviceID;
+                        })
+                        Host.ui.openEditDeviceGroupPage(devices);
+                    }).catch(err => {
+                        console.log(err);
+                    })
                 }
             },
         ];
