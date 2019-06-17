@@ -2,7 +2,7 @@ import { Device, Host } from 'miot';
 import { DeviceEvent } from 'miot/Device';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
@@ -302,6 +302,9 @@ export default class CommonSetting extends React.Component {
     Host.ui.openDeleteDevice(deleteDeviceMessage);
   }
   render() {
+    // 如果不设置英文字体，那么外文字符串将显示不全（Android）
+    let fontFamily = {};
+    if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' }
     const requireKeys1 = [firstAllOptions.NAME, firstAllOptions.LOCATION];
     const requireKeys2 = [
       firstAllOptions.MORE,
@@ -347,7 +350,7 @@ export default class CommonSetting extends React.Component {
         <View style={styles.bottomContainer}>
           <RkButton
             style={styles.buttonContainer}
-            contentStyle={styles.buttonText}
+            contentStyle={[styles.buttonText, fontFamily]}
             onPress={_ => this.openDeleteDevice()}
             activeOpacity={0.8}
           >

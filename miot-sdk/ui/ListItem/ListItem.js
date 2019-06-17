@@ -85,6 +85,9 @@ export default class ListItem extends React.Component {
       flex: 1,
       textAlign: 'right',
     }
+    // 如果不设置英文字体，那么外文字符串将显示不全（Android）
+    let fontFamily = {};
+    if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' }
     return (
       <View style={{ backgroundColor: '#fff' }}>
         <TouchableHighlight
@@ -97,7 +100,7 @@ export default class ListItem extends React.Component {
               <View style={{ flexDirection: 'row', paddingVertical: 2 }}>
                 <Text
                   numberOfLines={1}
-                  style={[Styles.common.title, this.props.titleStyle]}
+                  style={[Styles.common.title, this.props.titleStyle, fontFamily]}
                 >
                   {this.props.title}
                 </Text>

@@ -88,7 +88,7 @@ export default class Setting extends React.Component {
           <View style={styles.blank} />
           <CommonSetting
             navigation={this.props.navigation}
-            firstOptions={firstOptions}
+            // firstOptions={firstOptions}
             showDot={this.state.showDot}
             // secondOptions={secondOptions}
             extraOptions={extraOptions}

@@ -148,10 +148,10 @@ const navigationBarHeightThin = 52; // 导航栏高度，无副标题
 const navigationBarHeightFat = 65; // 导航栏高度，有副标题
 const paddingHorizontal = 9; // 导航栏左右内边距
 const iconSize = 40; // 图标尺寸
-const lightTitleColor = '#000'; // 浅色背景下标题颜色
-const darkTitleColor = '#fff'; // 深色背景下标题颜色
-const lightSubtitleColor = '#666'; // 浅色背景下副标题颜色
-const darkSubtitleColor = '#fff'; // 深色背景下副标题颜色
+const lightTitleColor = '#000000'; // 浅色背景下标题颜色
+const darkTitleColor = '#ffffff'; // 深色背景下标题颜色
+const lightSubtitleColor = '#666666'; // 浅色背景下副标题颜色
+const darkSubtitleColor = '#ffffff'; // 深色背景下副标题颜色
 export default class NavigationBar extends Component {
   static propTypes = {
     type: PropTypes.oneOf([TYPE.DARK, TYPE.LIGHT]),
@@ -261,9 +261,9 @@ export default class NavigationBar extends Component {
    */
   render() {
     this.isDarkStyle = this.props.type === TYPE.DARK;
-    StatusBar.setBarStyle(this.isDarkStyle ? 'light-content' : 'dark-content');
+    StatusBar.setBarStyle(this.isDarkStyle ? 'light-content' : 'dark-content'); // 测试过的机型都有效：华为荣耀V9，红米Note4X，小米Mix2
     if (Platform.OS == 'android') {
-      StatusBar.setTranslucent(true);
+      StatusBar.setTranslucent(true); // 测试过的机型几乎都无效：华为荣耀V9，红米Note4X，小米Mix2
     }
     const leftIcons = this.getIconsOfType(this.props.left);
     const rightIcons = this.getIconsOfType(this.props.right);
@@ -273,7 +273,8 @@ export default class NavigationBar extends Component {
     containerHeight += this.props.subtitle ? navigationBarHeightFat : navigationBarHeightThin;
     const backgroundColor = this.props.backgroundColor
       ? this.props.backgroundColor
-      : (this.isDarkStyle ? '#000' : '#fff');
+      : (this.isDarkStyle ? '#000000' : '#ffffff');
+    // StatusBar.setBackgroundColor(backgroundColor); // 仅对某些机型有效：华为荣耀V9
     const containerStyle = {
       backgroundColor,
       height: containerHeight
