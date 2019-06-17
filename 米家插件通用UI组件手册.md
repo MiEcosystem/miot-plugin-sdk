@@ -195,7 +195,7 @@
 
 ### 和`Titlebar` 对比
 
-- 在原有图标基础上支持更多的图标（共16种），但不支持自定义图标，只能从 [NavigationBar.ICON](#navigationbar.icon图标列表) 中选择，图标样式也有改动
+- 在原有图标基础上支持更多的图标（共16种），但不支持自定义图标，只能从 [NavigationBar.ICON](#navigationbaricon-图标列表) 中选择，图标样式也有改动
 - 传参有改动，删除 `leftTextStyle/leftText/rightTextStyle/rightText/style`，增加 `left/right/backgroundColor`
 - `type` 含义变更：之前 `dark` 表示白底黑字，容易误导，现在表示**深色背景白色文字**
 - 考虑到某些语言不好兼容的情况，导航栏左右侧只支持图标，不再支持文字
