@@ -97,6 +97,7 @@ import RPCControl from './tutorial/RPCControl';
 import Setting from "./tutorial/Setting";
 import TitleBarDemo from "./tutorial/TitleBarDemo";
 import TutorialDemo from './tutorial/TutorialDemo';
+import AbsoluteTouch from './UIComponent/AbsoluteTouch';
 import CardPage from "./UIComponent/CardPage";
 import CheckboxDemo from "./UIComponent/CheckboxDemo";
 import DialogTest from './UIComponent/DialogTest';
@@ -271,7 +272,8 @@ const RootStack = createStackNavigator({
     //dialog
     DialogTest: DialogTest,
     ModeCardDemo,
-    AnimatedSVGDemo
+    AnimatedSVGDemo,
+    AbsoluteTouch
 },
     {
         // ThirdPartyDemo
