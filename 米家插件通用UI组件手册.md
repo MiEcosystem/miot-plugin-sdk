@@ -173,9 +173,29 @@
 | subtitle        | <code>string</code>              | 中间的副标题                                                 |
 | onPressTitle    | <code>string</code>              | 点击标题的事件                                               |
 
+### NavigationBar.ICON 图标列表
+
+| 枚举值                            | 中文描述      | 图标                                           |
+| --------------------------------- | ------------- | ---------------------------------------------- |
+| `NavigationBar.ICON.ADD`          | 添加          | ![](./UIDocImages/navigation/add.png)          |
+| `NavigationBar.ICON.BACK`         | 返回          | ![](./UIDocImages/navigation/back.png)         |
+| `NavigationBar.ICON.CLOSE`        | 关闭          | ![](./UIDocImages/navigation/close.png)        |
+| `NavigationBar.ICON.COLLECT`      | 收藏/喜欢     | ![](./UIDocImages/navigation/collect.png)      |
+| `NavigationBar.ICON.COMPLETE`     | 完成/确认     | ![](./UIDocImages/navigation/complete.png)     |
+| `NavigationBar.ICON.DELETE`       | 删除          | ![](./UIDocImages/navigation/delete.png)       |
+| `NavigationBar.ICON.DETAIL`       | 详情          | ![](./UIDocImages/navigation/detail.png)       |
+| `NavigationBar.ICON.MORE`         | 更多          | ![](./UIDocImages/navigation/more.png)         |
+| `NavigationBar.ICON.NEXT`         | 下一步/下一页 | ![](./UIDocImages/navigation/next.png)         |
+| `NavigationBar.ICON.PROFILE`      | 个人中心/我的 | ![](./UIDocImages/navigation/profile.png)      |
+| `NavigationBar.ICON.QR`           | 二维码/扫一扫 | ![](./UIDocImages/navigation/qr.png)           |
+| `NavigationBar.ICON.SEARCH`       | 搜索          | ![](./UIDocImages/navigation/search.png)       |
+| `NavigationBar.ICON.SELECT_ALL`   | 全选          | ![](./UIDocImages/navigation/select_all.png)   |
+| `NavigationBar.ICON.SELECTED_ALL` | 全部选中      | ![](./UIDocImages/navigation/selected_all.png) |
+| `NavigationBar.ICON.SHARE`        | 分享          | ![](./UIDocImages/navigation/share.png)        |
+
 ### 和`Titlebar` 对比
 
-- 在原有图标基础上支持更多的图标（共16种），但不支持自定义图标，只能从 `NavigationBar.ICON` 中选择，图标样式也有改动
+- 在原有图标基础上支持更多的图标（共16种），但不支持自定义图标，只能从 [NavigationBar.ICON](#navigationbar.icon图标列表) 中选择，图标样式也有改动
 - 传参有改动，删除 `leftTextStyle/leftText/rightTextStyle/rightText/style`，增加 `left/right/backgroundColor`
 - `type` 含义变更：之前 `dark` 表示白底黑字，容易误导，现在表示**深色背景白色文字**
 - 考虑到某些语言不好兼容的情况，导航栏左右侧只支持图标，不再支持文字
