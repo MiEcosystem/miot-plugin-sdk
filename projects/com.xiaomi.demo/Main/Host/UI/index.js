@@ -32,18 +32,6 @@ export default class UIDemo extends React.Component {
     _createMenuData() {
         this._menuData = [
             {
-                'name': '打开创建设备组',
-                'func': () => {
-                    Host.ui.openDeviceGroupPageForCreate(Device.deviceID);
-                }
-            },
-            {
-                'name': '打开编辑设备组',
-                'func': () => {
-                    Host.ui.openDeviceGroupPageForEdit(Device.deviceID);
-                }
-            },
-            {
                 'name': '显示打开蓝牙引导(仅ios)',
                 'func': () => {
                     Host.ui.showBLESwitchGuide();
