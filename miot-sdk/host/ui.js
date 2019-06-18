@@ -14,8 +14,8 @@
  *
  *
  */
+import { Device } from "../index";
 import native from "../native";
-import { NativeModules } from 'react-native';
 const resolveAssetSource = require('resolveAssetSource');
 export default {
   /**
@@ -251,7 +251,12 @@ export default {
   /**
    * 开启倒计时界面 
    * @param {Boolean} isCountDownOn 设备的当前状态:YES 为开启，所以我们启动关闭倒计时; NO  为关闭，所以我们启动开启倒计时
-   * @param {{onMethod:string, offMethod:string, onParam:string, offParam:string}} setting {onMethod:string, offMethod:string, onParam:string, offParam:string},指硬件端，打开/关闭 倒计时应该 执行的方法/传入的参数，请咨询硬件工程师
+   * @param {object} setting 设置倒计时页面的属性 
+   * @param {string} setting.onMethod 指硬件端，打开 倒计时应该 执行的方法，请咨询硬件工程师
+   * @param {string} setting.onParam 指硬件端，打开 倒计时应该 传入的参数，请咨询硬件工程师
+   * @param {string} setting.offMethod 指硬件端，关闭 倒计时应该 执行的方法，请咨询硬件工程师
+   * @param {string} setting.offParam 指硬件端，关闭 倒计时应该 传入的参数，请咨询硬件工程师
+   * @param {string} setting.identify since 10021, 用于设置倒计时的identify
    * @example
    * 
    * Host.ui.openCountDownPage(true, {onMethod:"power_on", offMethod:'power_off', onParam:'on', offParam:'off'})
