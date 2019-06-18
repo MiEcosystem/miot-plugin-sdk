@@ -15,6 +15,7 @@
  *
  */
 import native from "../native";
+import { NativeModules } from 'react-native';
 const resolveAssetSource = require('resolveAssetSource');
 export default {
   /**
@@ -226,6 +227,15 @@ export default {
   openShopPage(gid) {
   },
   /**
+   * 打开Mesh灯组 添加/编辑 页,Device.pid为17，则为Mesh设备组
+   * @since 10021
+   * @param {String} type - 需要打开创建设备组页面时，type=add，需要打开编辑设备组页面时，type=edit
+   * @param {String} did - 设备did。如果是创建，则是以当前实际设备的did为基础，进入创建灯组页面。如果是编辑，则是灯组的虚拟设备did。
+   */
+  openMeshDeviceGroupPage(type, did) {
+  },
+  /**
+   * 打开创建设备组页，如果是支持Mesh的设备，请使用上面的openMeshDeviceGroupPage
    * @param {String} groupModel - 设备组model
    * 打开创建设备组页，只有在设备页内，需要创建设备组时，才能调用此方法。如果是设备组页面内，请使用下面的openEditDeviceGroupPage方法
    * 只有特定设备支持创建设备组统一管理

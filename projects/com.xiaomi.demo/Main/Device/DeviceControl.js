@@ -151,27 +151,6 @@ export default class UIDemo extends React.Component {
                 }
             },
             {
-                'name': '打开设备组添加页（支持设备组的设备调用此方法）',
-                'func': () => {
-                    Host.ui.openAddDeviceGroupPage(Device.model);
-                }
-            },
-            {
-                'name': '打开设备组编辑页(设备组才可调用此方法)',
-                'func': () => {
-                    Device.getVirtualDevices().then(res => {
-
-                        let devices = res.map(stat => {
-                            //initDeviceEvents
-                            return stat.deviceID;
-                        })
-                        Host.ui.openEditDeviceGroupPage(devices);
-                    }).catch(err => {
-                        console.log(err);
-                    })
-                }
-            },
-            {
                 'name': 'Android 手机NFC支持',
                 'func': () => {
                     Host.phoneHasNfcForAndroid().then((res) => {
@@ -207,6 +186,39 @@ export default class UIDemo extends React.Component {
                     })
                 }
             },
+            {
+                'name': '打开设备组添加页（支持设备组的设备调用此方法）',
+                'func': () => {
+                    Host.ui.openAddDeviceGroupPage(Device.model);
+                }
+            },
+            {
+                'name': '打开设备组编辑页(设备组才可调用此方法)',
+                'func': () => {
+                    Device.getVirtualDevices().then(res => {
+
+                        let devices = res.map(stat => {
+                            //initDeviceEvents
+                            return stat.deviceID;
+                        })
+                        Host.ui.openEditDeviceGroupPage(devices);
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                }
+            },
+            {
+                'name': '打开Mesh设备组添加页（支持mesh设备组的设备调用此方法）',
+                'func': () => {
+                    Host.ui.openMeshDeviceGroupPage("add", Device.deviceID);
+                }
+            },
+            {
+                'name': '打开Mesh设备组编辑页（mesh设备组调用此方法）',
+                'func': () => {
+                    Host.ui.openMeshDeviceGroupPage("edit", Device.deviceID);
+                }
+            }
         ];
     }
 
