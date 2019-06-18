@@ -30,6 +30,7 @@
 import Account from './Account';
 import native, { Properties } from './native';
 import IrController from './service/ircontroller';
+import MHRoom from './service/room';
 import Scene from './service/scene';
 import Security from './service/security';
 import Smarthome from './service/smarthome';
@@ -94,6 +95,9 @@ export default {
    */
   get spec() {
     return Spec;
+  },
+  get room() {
+    return MHRoom;
   },
   /**
    * @method getServerName

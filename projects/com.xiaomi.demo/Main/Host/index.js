@@ -62,6 +62,7 @@ export default class HostDemo extends React.Component {
         'func': () => {
           Host.getOperatorsInfo().then(res => {
             console.log(res);
+            alert(JSON.stringify(res));
           })
         }
       }

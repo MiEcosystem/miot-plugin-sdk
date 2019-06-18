@@ -31,6 +31,12 @@ export default class HostDemo extends React.Component {
         'func': () => {
           this.props.navigation.navigate('callSmartHomeAPIDemo', { title: '智能家庭接口模块-smarthome' })
         }
+      },
+      {
+        'name': '智能家庭接口模块-room',
+        'func': () => {
+          this.props.navigation.navigate('MHRoomDemo', { title: '智能家庭接口模块-room' })
+        }
       }
     ];
   }

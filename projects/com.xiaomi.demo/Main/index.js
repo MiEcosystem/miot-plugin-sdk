@@ -47,6 +47,7 @@ import ImagePathDemo from './NewStructureTest';
 // import GLTests from './ThirdPartDemo/openGL/Tests';
 // import OpenLibList from './OpenLibList';
 import ServiceDemo from './Service';
+import MHRoomDemo from "./Service/room";
 import CallSmartHomeAPIDemo from './Service/smarthome';
 import AddressBookDemo from './ThirdPartDemo/AddressBookDemo';
 import AnimatedSVGDemo from './ThirdPartDemo/AnimatedSVGDemo';
@@ -148,6 +149,7 @@ const RootStack = createStackNavigator({
     GearExample,
     RadioExample,
     CheckboxDemo,
+    MHRoomDemo,
     ToastExample,
     SwitchDemo,
     MHDatePickerDemo,

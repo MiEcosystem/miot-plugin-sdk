@@ -153,7 +153,9 @@ export default class MoreMenu extends React.Component {
       {
         'name': "开启倒计时",
         'func': () => {
-          Host.ui.openCountDownPage(false, {});
+          let setting = {onMethod:"power_on", offMethod:'power_off', onParam:'on', offParam:'off', identify: 'aaaa'}
+          //   let setting = {}
+          Host.ui.openCountDownPage(false, setting);
         }
       },
       {
