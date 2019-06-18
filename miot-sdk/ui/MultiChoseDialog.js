@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 常用UI组件
- * @doc_index 22
+ * @doc_index 23
  * @module miot/ui/MultiChoseDialog
  * @description 多选对话框
  * 

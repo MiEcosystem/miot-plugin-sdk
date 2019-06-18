@@ -56,6 +56,7 @@ const DemoInfo = [
   { id: 'mhMapDemo', title: "米家桥接(地图)", key: "41" },
   { id: 'audioDemo', title: "米家桥接(audio)", key: "42" },
   { id: 'DialogTest', title: "dialog测试", key: "43" },
+  { id: 'ReactNativeCameraDemo', title: "ReactNativeCameraDemo测试", key: "44" },
 ]
 
 export default class ThirdPartyDemo extends React.Component {

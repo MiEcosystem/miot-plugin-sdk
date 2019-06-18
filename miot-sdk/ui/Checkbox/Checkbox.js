@@ -16,6 +16,7 @@ const UNCHECKED_BORDER_COLOR = 'rgba(0,0,0,0.1)';
  * @property {bool} disabled - 是否禁用，默认 false
  * @property {bool} checked - 是否勾选，默认 false
  * @property {string} checkedColor - 勾选背景颜色，默认米家绿
+ * @property {function} onValueChange - 点击回调函数
  */
 export default class Checkbox extends React.Component {
   static propTypes = {
@@ -32,17 +33,26 @@ export default class Checkbox extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    this.state = {
+      checked: this.props.checked,
+    }
+  }
+  componentWillReceiveProps(newProps) {
+    if (newProps.checked !== this.state.checked) {
+      this.setState({ checked: newProps.checked });
+    }
   }
   backgroundColor = new Animated.Value(0);
   render() {
-    const toValue = this.props.checked ? 1 : 0;
+    console.log('render checkbox');
+    const toValue = this.state.checked ? 1 : 0;
     const backgroundColor = this.backgroundColor.interpolate({
       inputRange: [0, 1],
       outputRange: [UNCHECKED_BACKGROUNDCOLOR, this.props.checkedColor]
     });
     const { borderWidth, borderColor, width, height } = this.props.style;
     const size = Math.min(width || SIZE, height || SIZE);
-    const borderStyle = this.props.checked
+    const borderStyle = this.state.checked
       ? { borderWidth: 0 }
       : {
         borderWidth: borderWidth || 1,
@@ -67,21 +77,21 @@ export default class Checkbox extends React.Component {
           onPress={_ => this._onValueChange()}
         >
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            {this.props.checked
-              ? <Checkable size={size} />
-              : null
-            }
+            <Checkable
+              size={size}
+              visible={this.state.checked}
+            />
           </View>
         </TouchableWithoutFeedback>
       </Animated.View>
     );
   }
   _onValueChange() {
+    const checked = !this.state.checked;
     if (this.props.onValueChange) {
-      this.props.onValueChange(!this.props.checked);
-    } else {
-      console.warn("Checkbox props 'onValueChange' is required");
+      this.props.onValueChange(checked);
     }
+    this.setState({ checked });
   }
 }
 var styles = StyleSheet.create({

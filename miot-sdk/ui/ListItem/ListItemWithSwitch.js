@@ -11,7 +11,7 @@ const PADDING = 24;
 /**
  * @export public
  * @doc_name 列表控件
- * @doc_index 23
+ * @doc_index 24
  * @author Geeook
  * @since 10004
  * @module ListItemWithSwitch
@@ -58,12 +58,12 @@ export default class ListItemWithSwitch extends React.Component {
     subtitleStyle: {},
     valueTextStyle: {},
   }
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      value: this.props.value,
-    }
-  }
+  // constructor(props, context) {
+  //   super(props, context);
+  //   this.state = {
+  //     value: this.props.value,
+  //   }
+  // }
   render() {
     let extraContainerStyle = {
       height: THIN_HEIGHT,
@@ -125,7 +125,7 @@ export default class ListItemWithSwitch extends React.Component {
             </View>
             <View style={styles.right}>
               <Switch
-                value={this.state.value}
+                value={this.props.value}
                 disabled={this.props.disabled}
                 onValueChange={value => this._onValueChange(value)}
               />
@@ -140,14 +140,14 @@ export default class ListItemWithSwitch extends React.Component {
     if (!this.props.showSeparator) return null;
     return this.props.separator || <Separator style={{ marginLeft: Styles.common.padding }} />
   }
-  // 父组件更新数据
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== this.state.value) {
-      this.setState({ value: nextProps.value });
-    }
-  }
+  // // 父组件更新数据
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.value !== this.state.value) {
+  //     this.setState({ value: nextProps.value });
+  //   }
+  // }
   _onValueChange(value) {
-    this.setState({ value });
+    // this.setState({ value });
     if (this.props.onValueChange) {
       this.props.onValueChange(value);
     }

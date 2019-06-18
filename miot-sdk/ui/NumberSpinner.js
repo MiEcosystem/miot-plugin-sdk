@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 常用UI组件
- * @doc_index 22
+ * @doc_index 23
  * @since 10003
  * @module miot/ui/NumberSpinner
  * @description 数字选择器
@@ -41,21 +41,21 @@
  * @property {func} onNumberChanged 值改变的回调
  */
 export default class NumberSpinner extends React.Component {
-  static defaultProps = {
-    valueFormat: Platform.select({ ios: '%0.0f' })
-  }
-  static propTypes = {
-    visible: PropTypes.bool,
-    unit: PropTypes.string,
-    maxValue: PropTypes.number,
-    minValue: PropTypes.number,
-    interval: PropTypes.number,
-    defaultValue: PropTypes.number,
-    valueFormat: PropTypes.string,
-    onNumberChanged: PropTypes.func,
-    ...ViewPropTypes,
-  };
-  render() {
-     return null
-  }
+    static defaultProps = {
+        valueFormat: Platform.select({ ios: '%0.0f' })
+    }
+    static propTypes = {
+        visible: PropTypes.bool,
+        unit: PropTypes.string,
+        maxValue: PropTypes.number,
+        minValue: PropTypes.number,
+        interval: PropTypes.number,
+        defaultValue: PropTypes.number,
+        valueFormat: PropTypes.string,
+        onNumberChanged: PropTypes.func,
+        ...ViewPropTypes,
+    };
+    render() {
+         return null
+    }
 }

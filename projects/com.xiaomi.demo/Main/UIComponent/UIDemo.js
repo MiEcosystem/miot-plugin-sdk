@@ -28,6 +28,7 @@ export default class UIDemo extends React.Component {
           { name: '单选框', router: 'RadioExample' },
           { name: '复选框', router: 'CheckboxDemo' },
           { name: '拖拽选择档位组件', router: 'GearExample' },
+          { name: '开关', router: 'SwitchDemo' },
           { name: '第三方 toast 组件使用示例', router: 'ToastExample' },
           { name: 'ScrollView 吸附效果 demo', router: 'Parallax' },
           { name: 'Host.ui 原生导航', router: 'NavigateUIDemo' },
@@ -41,6 +42,8 @@ export default class UIDemo extends React.Component {
           { name: 'ProgressDemo', router: 'ProgressDemo' },
           { name: 'DialogTest', router: 'DialogTest' },
           { name: 'ImageCapInsetDemo', router: 'ImageCapInsetDemo' },
+          { name: 'NumberSpinnerDemo', router: 'NumberSpinnerDemo' },
+          { name: 'StringSpinnerDemo', router: 'StringSpinnerDemo' },
           { name: 'MiotAndroidScrollViewDemo(仅Android)', router: 'MiotAndroidScrollViewDemo' }
         ]),
     };

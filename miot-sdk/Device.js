@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 插件设备模块
- * @doc_index 5
+ * @doc_index 6
  * @module miot/Device
  * @description
  * 设备相关 API
@@ -433,7 +433,16 @@ class IDevice {
      * Device.getSubDevices()
      * .then(devices => {//get device list})
      */
-    getSubDevices() {
+    getSubDevices(useCache = false) {
+         return Promise.resolve([]);
+    }
+    /**
+     * 获取蓝牙网关关联的普通蓝牙和蓝牙mesh设备列表。
+     * @since 10020
+     * @param {string} [did=Device.deviceID] 蓝牙网关的did，可以为空，为空时默认取当前Device.deviceID
+     * @returns {Promise} 返回数组设备信息的promise， {"mesh":[], "normal":""}
+     */
+    getLinkedBTDevices(did = null) {
          return Promise.resolve([]);
     }
     /**
@@ -548,6 +557,14 @@ class IDevice {
      * @param {string} model 设备model
      */
     requestAuthorizedDeviceListData(model) {
+         return Promise
+    }
+    /**
+     * 将当前手机的定位信息作为新的设备位置进行上报，该操作会更新设备的地理位置信息。
+     * @since 10020
+     * @returns {Promise}
+     */
+    reportDeviceGPSInfo() {
          return Promise
     }
     /**
@@ -790,7 +807,7 @@ class IDevice {
          return  0
     }
     /**
-     *是否是自己的设备
+     *是否是自己的设备，若是别人（包含家属）分享给你的设备，isOwner则为false
      * @type {boolean}
      * @readonly
      *
@@ -799,7 +816,7 @@ class IDevice {
          return  false
     }
     /**
-     *是否是自己家庭的设备
+     *是否是自己家庭的设备，如果是家属分享给你的设备，isFamily则为true，注意此时isShared为false（iOS暂不支持分享给家属）
      * @type {boolean}
      * @readonly
      *
@@ -808,7 +825,7 @@ class IDevice {
          return  false
     }
     /**
-     *是否是别人分享的设备
+     *是否是别人分享的设备，若是家属分享给你的设备，isShared为fasle，isFamily为true
      * @type {boolean}
      * @readonly
      *

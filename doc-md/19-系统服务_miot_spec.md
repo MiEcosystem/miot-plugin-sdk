@@ -5,7 +5,7 @@ MIOT Spec 获取 设置 property  调用 action
 
 **Export**: public  
 **Doc_name**: 系统服务_miot_spec  
-**Doc_index**: 18  
+**Doc_index**: 19  
 
 * [miot/service/spec](#module_miot/service/spec)
     * [.getPropertiesValue(params)](#module_miot/service/spec.getPropertiesValue) ⇒ <code>Promise.&lt;string&gt;</code>

@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 系统服务_智能家庭模块
- * @doc_index 19
+ * @doc_index 20
  * @module miot/service/smarthome
  * @description 智能家庭 API
  *
@@ -58,9 +58,9 @@ export default {
      * @property adminArea - 省
      * @property countryCode - 国家代号（CN等）
      * @property locality - 城市
-     * @property thoroughfare - 区
+     * @property thoroughfare - 街道
      * @property language - 语言代号（zh_CN等）
-     * @property subLocality - 街道
+     * @property subLocality - 区
      */
     /**
      * 上报gps信息 /location/set
@@ -217,11 +217,11 @@ export default {
      * 注:由于sds限额问题，可能会出现一次拉不到或者拉不完数据的情况，会返回code:0和message:“sds throttle”
      * @param {object} params 
      * @param {string} params.did did
-     * @param {string} params.data_type 数据类型 包括： 采样统计 日统计:stat_day / 周统计:stat_week / 月统计:stat_month ; 计数统计(总次数，耗电量那种)(即将废弃) 日统计:total_day_v2 / 周统计:total_week_v2 / 月统计:total_month_v2
+     * @param {string} params.data_type 数据类型 包括： 采样统计 日统计:stat_day_v3 / 周统计:stat_week_v3 / 月统计:stat_month_v3;
      * @param {string} params.key 需要统计的字段，即统计上报对应的key
-     * @param {string} params.time_start 开始时间
-     * @param {string} params.time_end 结束时间
-     * @param {string} params.limit 限制次数，0为默认条数
+     * @param {number} params.time_start 开始时间
+     * @param {number} params.time_end 结束时间
+     * @param {number} params.limit 限制次数，0为默认条数
      * @return {Promise<Object>}
      {
         "code": 0,
@@ -876,6 +876,7 @@ export default {
     /**
      * 透传米家APP与小米支付创建session
      * request /v2/nfckey/create_se_session
+     * @since 10011
      * @param {object} params params
      * @param {string} params.did did
      * @param {object} params.reqData // 透传给Mipay的数据
@@ -892,6 +893,7 @@ export default {
     /**
      * 透传替换ISD key
      * request /v2/nfckey/replace_se_isdkey
+     * @since 10011
      * @param {object} params params
      * @param {string} params.did did
      * @param {object} params.reqData // 透传给Mipay的数据
@@ -908,6 +910,7 @@ export default {
     /**
      * 透传锁主密钥重置
      * request /v2/nfckey/reset_lock_primarykey
+     * @since 10011
      * @param {object} params params
      * @param {string} params.did did
      * @param {object} params.reqData // 透传给Mipay的数据
@@ -924,6 +927,7 @@ export default {
     /**
      * 处理芯片返回
      * request /v2/nfckey/handle_se_response
+     * @since 10011
      * @param {object} params params
      * @param {string} params.did did
      * @param {object} params.reqData // 透传给Mipay的数据
@@ -954,4 +958,20 @@ export default {
     handleSEResponse(params) {
          return Promise.resolve(null);
     },
+    /**
+     * 上报蓝牙设备信息
+     * call: /v2/device/bledevice_info
+     * 等效于: /v2/blemesh/dev_info
+     * @since 10020
+     * @param {object} params 参数
+     * @param {string} prarms.did 设备did
+     * @param {string} prarms.fw_ver 设备当前固件版本号
+     * @param {string} prarms.hw_ver 设备的硬件平台
+     * @param {string} prarms.latitude 纬度，number字符串
+     * @param {string} prarms.longitude 经度，number字符串
+     * @param {string} prarms.iternetip app/网关IP地址
+     */
+    reportBLEDeviceInfo(params) {
+         return Promise.resolve(null);
+    }
 }

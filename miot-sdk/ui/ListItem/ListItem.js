@@ -11,7 +11,7 @@ const ICON_SIZE = Platform.select({ android: 26, ios: 24 }); // 当android设置
 /**
  * @export public
  * @doc_name 列表控件
- * @doc_index 23
+ * @doc_index 24
  * @author Geeook
  * @since 10004
  * @module ListItem
@@ -22,6 +22,7 @@ const ICON_SIZE = Platform.select({ android: 26, ios: 24 }); // 当android设置
  * @property {function} onPress - 点击事件
  * @property {bool} disabled - 是否禁用点击，默认值 false
  * @property {bool} showSeparator - 是否显示分割线，默认值 true
+ * @property {bool} hideArrow - 是否隐藏右侧箭头图片，默认值 `false`
  * @property {component} separator - 自定义分割线，不传将显示默认样式的分割线
  * @property {style} containerStyle - 列表项的自定义样式
  * @property {style} titleStyle - 标题的自定义样式
@@ -36,6 +37,7 @@ export default class ListItem extends React.Component {
     onPress: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
     showSeparator: PropTypes.bool,
+    hideArrow: PropTypes.bool,
     separator: PropTypes.element,
     containerStyle: PropTypes.object,
     titleStyle: PropTypes.object,
@@ -49,6 +51,7 @@ export default class ListItem extends React.Component {
     onPress: _ => { },
     disabled: false,
     showSeparator: true,
+    hideArrow: false,
     containerStyle: {},
     titleStyle: {},
     subtitleStyle: {},
@@ -117,10 +120,13 @@ export default class ListItem extends React.Component {
                 </Text>
                 : null
               }
-              <Image
-                style={styles.icon}
-                source={Images.common.right_arrow}
-              />
+              {!this.props.hideArrow
+                ? <Image
+                  style={styles.icon}
+                  source={Images.common.right_arrow}
+                />
+                : null
+              }
             </View>
           </View>
         </TouchableHighlight>

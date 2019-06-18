@@ -1,6 +1,6 @@
 'use strict';
 
-import { Device, Host } from "miot";
+import { Device, Host, Service } from "miot";
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
@@ -51,6 +51,32 @@ export default class UIDemo extends React.Component {
                 }
             },
             {
+                'name': '打开第一个子设备',
+                'func': () => {
+                    Device.getSubDevices().then(res => {
+                        if (res.length) {
+                            Host.ui.openDevice(res[0].deviceID, res[0].model, { dismiss_current_plug: false })
+                        }
+                    }).catch(err => {
+                        console.log('error:', err)
+                        alert("error:" + err);
+                    })
+                }
+            },
+            {
+                'name': '打开第一个子设备(退出当前插件)',
+                'func': () => {
+                    Device.getSubDevices().then(res => {
+                        if (res.length) {
+                            Host.ui.openDevice(res[0].deviceID, res[0].model, { dismiss_current_plug: true })
+                        }
+                    }).catch(err => {
+                        console.log('error:', err)
+                        alert("error:" + err);
+                    })
+                }
+            },
+            {
                 'name': '蓝牙token加密',
                 'func': () => {
                     let ble = Device.getBluetoothLE()
@@ -86,6 +112,50 @@ export default class UIDemo extends React.Component {
                 'func': () => {
                     Host.ui.getDevicesWithModel(Device.model).then(res => {
                         alert(JSON.stringify(res))
+                    })
+                }
+            },
+            {
+                'name': '打印设备经纬度',
+                'func': () => {
+                    alert(JSON.stringify({ lat: Device.latitude, lng: Device.longitude }))
+                }
+            },
+            {
+                'name': '使用当前手机位置作为设备的新位置信息',
+                'func': () => {
+                    Device.reportDeviceGPSInfo()
+                }
+            },
+            {
+                'name': 'parentDevice',
+                'func': () => {
+                    if (Device.parentDevice) {
+                        alert("当前设备存在 父设备，父设备ID为" + Device.parentDevice.deviceID)
+                    } else {
+                        alert("当前设备没有parentDevice")
+                    }
+
+                }
+            },
+            {
+                'name': '打开设备组添加页（支持设备组的设备调用此方法）',
+                'func': () => {
+                    Host.ui.openAddDeviceGroupPage(Device.model);
+                }
+            },
+            {
+                'name': '打开设备组编辑页(设备组才可调用此方法)',
+                'func': () => {
+                    Device.getVirtualDevices().then(res => {
+
+                        let devices = res.map(stat => {
+                            //initDeviceEvents
+                            return stat.deviceID;
+                        })
+                        Host.ui.openEditDeviceGroupPage(devices);
+                    }).catch(err => {
+                        console.log(err);
                     })
                 }
             },

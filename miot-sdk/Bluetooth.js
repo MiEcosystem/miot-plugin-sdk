@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 蓝牙模块
- * @doc_index 4
+ * @doc_index 5
  * @module miot/Bluetooth
  * @description 蓝牙设备操作类
  *
@@ -207,7 +207,7 @@ export class IBluetoothLock {
      * import {Bluetooth} from 'miot'
      * ...
      * Bluetooth.createBluetoothLE(...).connect(...).then(device => {
-     *  device.securityLock().toggle(0,5000)
+     *  device.securityLock.toggle(0,5000)
      *      .then(lock => {console.log('toggle success')})
      *      .catch(err => {console.log('toggle failed'})
      * })
@@ -223,7 +223,7 @@ export class IBluetoothLock {
      * @example
      * import {Bluetooth} from 'miot'
      * ...
-     * Bluetooth.createBluetoothLE(...).securityLock().isShareKeyValid()
+     * Bluetooth.createBluetoothLE(...).securityLock.isShareKeyValid()
      *  .then(lock => {console.log('ShareKey is valid')})
      *  .catch(err => {console.log('ShareKey isn't valid'})
      * ...
@@ -244,7 +244,7 @@ export class IBluetoothLock {
      * @example
      * import {Bluetooth} from 'miot'
      * ...
-     * Bluetooth.createBluetoothLE(...).securityLock().getOneTimePassword(30,6)
+     * Bluetooth.createBluetoothLE(...).securityLock.getOneTimePassword(30,6)
      *  .then(pwd => {console.log('one time password is ', pwd)})
      *  .catch(err => {console.log('get one time password failed, ', err})
      * ...
@@ -260,7 +260,7 @@ export class IBluetoothLock {
      * @example
      * import {Bluetooth} from 'miot'
      * ...
-     * Bluetooth.createBluetoothLE(...).securityLock().encryptMessage('message')
+     * Bluetooth.createBluetoothLE(...).securityLock.encryptMessage('message')
      *  .then(msg => {console.log('encrypted message is ', msg)})
      *  .catch(err => {console.log('encrypted message failed, ', err})
      * ...
@@ -276,7 +276,7 @@ export class IBluetoothLock {
      * @example
      * import {Bluetooth} from 'miot'
      * ...
-     * Bluetooth.createBluetoothLE(...).securityLock().encryptMessage('decryptedMessage')
+     * Bluetooth.createBluetoothLE(...).securityLock.encryptMessage('decryptedMessage')
      *  .then(msg => {console.log('decrypt message is ', msg)})
      *  .catch(err => {console.log('decrypt message failed, ', err})
      * ...
