@@ -102,6 +102,8 @@ import AbsoluteTouch from './UIComponent/AbsoluteTouch';
 import CardPage from "./UIComponent/CardPage";
 import CheckboxDemo from "./UIComponent/CheckboxDemo";
 import DialogTest from './UIComponent/DialogTest';
+import DialogTest2 from './UIComponent/DialogTest2';
+import DialogTest3 from './UIComponent/DialogTest3';
 import GearExample from './UIComponent/GearExample';
 import ImageCapInsetDemo from './UIComponent/ImageCapInsetDemo'; // working but no title displayed
 import List from "./UIComponent/List";
@@ -273,6 +275,8 @@ const RootStack = createStackNavigator({
     // 米家iOS 自定义第三方库>
     //dialog
     DialogTest: DialogTest,
+    DialogTest2,
+    DialogTest3,
     ModeCardDemo,
     AnimatedSVGDemo,
     AbsoluteTouch

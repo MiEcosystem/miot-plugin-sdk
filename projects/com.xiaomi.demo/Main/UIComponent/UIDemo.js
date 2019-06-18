@@ -1,5 +1,6 @@
 'use strict';
 
+import { MessageDialog } from 'miot/ui';
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
@@ -44,6 +45,29 @@ export default class UIDemo extends React.Component {
           { name: 'swiperNumber', router: 'swiperNumber' },
           { name: 'ProgressDemo', router: 'ProgressDemo' },
           { name: 'DialogTest', router: 'DialogTest' },
+          {
+            name: 'DialogTest2',
+            router: 'DialogTest2',
+            messageDialog: <MessageDialog
+              message={'复用的消息对话框'}
+              cancelable={true}
+              cancel=''
+              confirm={'确认'}
+              visible={true}
+            />
+          },
+          {
+            name: 'DialogTest3',
+            router: 'DialogTest3',
+            messageDialog: <MessageDialog
+              message={'再次复用消息对话框'}
+              title='DialogTest3'
+              cancelable={true}
+              cancel='关闭'
+              confirm={'确认'}
+              visible={true}
+            />
+          },
           { name: 'ImageCapInsetDemo', router: 'ImageCapInsetDemo' },
           { name: 'NumberSpinnerDemo', router: 'NumberSpinnerDemo' },
           { name: 'StringSpinnerDemo', router: 'StringSpinnerDemo' },
@@ -64,7 +88,7 @@ export default class UIDemo extends React.Component {
 
   _renderRow(rowData, sectionID, rowID) {
     return (
-      <TouchableHighlight underlayColor='#838383' onPress={() => this._pressRow(rowData.router)}>
+      <TouchableHighlight underlayColor='#838383' onPress={() => this._pressRow(rowData.router, rowData.messageDialog)}>
         <View>
           <View style={styles.rowContainer}>
             <Text style={styles.title}>{rowData.name}</Text>
@@ -76,9 +100,12 @@ export default class UIDemo extends React.Component {
     );
   }
 
-  _pressRow(rowData) {
+  _pressRow(rowData, messageDialog = {}) {
     console.log('row' + rowData + 'clicked!');
-    this.props.navigation.navigate(rowData, { title: rowData });
+    this.props.navigation.navigate(rowData, {
+      title: rowData,
+      messageDialog
+    });
   }
 
 }
