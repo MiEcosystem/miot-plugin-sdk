@@ -14,6 +14,7 @@ PackageEvent.packageDidLoaded.addListener(() => { console.log("packageDidLoaded"
 PackageEvent.packageDidResume.addListener(() => { console.log("packageDidResume") });
 PackageEvent.packageWillPause.addListener(() => { console.log("packageWillPause") });
 PackageEvent.packageWillExit.addListener(() => { console.log("packageWillExit") });
+// Package.disableAutoCheckUpgrade = true;
 switch (Package.entrance) {
     case Entrance.Scene:
         Package.entry(Scene, _ => {
