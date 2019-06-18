@@ -97,80 +97,7 @@ export default {
   openBtGatewayPage() {
   },
   /**
-   * 弹窗请求隐私政策和用户协议授权。
-   * @since 10021
-   * @param {object} option 配置数据
-   * @param {string} option.privacyURL 隐私协议本地资源
-   * @param {string} [option.agreementURL] 用户协议本地资源，未设置时显示为默认的用户协议
-   * @param {string} [option.experiencePlanURL] 用户体验计划本地资源，为空时不显示
-   * @param {boolean} [option.hideAgreement=false] 是否隐藏用户协议，默认显示用户协议
-   * @returns {Promise} 弹窗授权结果
-   * @example
-   * 
-   * //仅供参考
-   * //可以参考project/com.xiaomi.demo/Main/Host/UI/privacy.js部分样例
-   * 
-   * //batchGetDeviceDatas 设置的属性在设备删除以及设备取消授权之后会自动清空，因此只需要在请求授权检测时，检查下flag即可。撤销授权时可以不用手动清理flag
-   * const agreementURL = require('xxxxx.html');
-   * const privacyURL = require('xxxxx.html');
-   * var options = {agreementURL, privacyURL};
-   * //options.hideAgreement = this.state.hideAgreement;
-   * Service.smarthome.batchGetDeviceDatas([{ did: Device.deviceID, props: ["prop.s_auth_config"] }]).then(res => {
-   *  console.log('batchGetDeviceDatas ', res);
-   *  let alreadyAuthed = false;
-   *  let result = res[Device.deviceID];
-   *  let config;
-   *  if (result && result['prop.s_auth_config']) {
-   *    config = result['prop.s_auth_config']
-   *  }
-   *  if (config) {
-   *    try {
-   *      let authJson = JSON.parse(config);
-   *      console.log('auth config ', authJson)
-   *      alreadyAuthed = authJson.privacyAuthed && true;
-   *    } catch (err) {
-   *      //json解析失败，不处理
-   *    }
-   *  }
-   *  if (alreadyAuthed) {
-   *    //已授权，不再弹窗显示
-   *    alert("已经授权")
-   *    return new Promise.resolve("已经授权")
-   *  } else {
-   *    return Host.ui.alertLegalInformationAuthorization(options).then(res => {
-   *      console.log('授权结果', res)
-   *      if (res) {
-   *        return Service.smarthome.batchSetDeviceDatas([{ did: Device.deviceID, props: { "prop.s_auth_config": JSON.stringify({ 'privacyAuthed': 'true' }) } }])
-   *      } else {
-   *        return new Promise.reject("取消授权")
-   *      }
-   *    })
-   *  }
-   * }).catch(err => {
-   *   //没能授权成功
-   *  alert('授权错误'+err)
-   *  Package.exit()
-   * });
-   * 
-   */
-  alertLegalInformationAuthorization(option) {
-  },
-  /**
-   * 查看隐私政策和用户协议信息
-   * @since 10021
-   * @param {object} option 配置数据
-   * @param {string} option.privacyURL 隐私协议本地资源
-   * @param {string} [option.agreementURL] 用户协议本地资源，未设置时不显示用户协议栏
-   * @param {string} [option.experiencePlanURL] 用户体验计划本地资源，为空时不显示
-   * @param {string} [option.hideAgreement=false] 是否隐藏用户协议，默认显示用户协议
-   * @returns {Promise} 弹窗授权结果
-   * 
-   */
-  previewLegalInformationAuthorization(option) {
-  },
-  /**
    * 查看软件政策和隐私协议
-   * @deprecated 10021, 从10021版本开始废弃，建议使用 previewLegalInformationAuthorization
    * @param {string} licenseTitle optional 可以为空
    * @param {string} licenseUrl optional require('资源的相对路径')
    * @param {string} policyTitle 不可以为空
@@ -189,7 +116,6 @@ export default {
    * 3. 设备取消授权或解绑设备时，此标志位米家后台会自动清除，故遵循了上述需求b
    * 4. 异常处理：进插件时，如果网络异常等原因导致batchGetDeviceDatas失败，就不弹框（此时99%情况是第2+次进插件）
    *
-   * @deprecated 10021, 从10021版本开始废弃，建议使用 alertLegalInformationAuthorization
    * @param {string} licenseTitle optional 可以为空
    * @param {string} licenseUrl optional require('资源的相对路径')
    * @param {string} policyTitle 不可以为空

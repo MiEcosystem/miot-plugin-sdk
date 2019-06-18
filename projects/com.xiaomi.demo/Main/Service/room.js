@@ -27,7 +27,7 @@ export default class MHRoomDemo extends React.Component {
           }
         },
         {
-          name: "修改第一个房间名称", group: 'MHRoom', handle: this.handleObjRes.bind(this), action: () => {
+          name: "修改auto_create房间名称", group: 'MHRoom', handle: this.handleObjRes.bind(this), action: () => {
             return Service.room.loadAllRoom(true).then(res => {
               return new Promise.resolve(res.filter(item => { return item.name === 'auto_create' || item.name === 'auto_create_1' }))
             }).then(rooms => {
@@ -114,7 +114,7 @@ export default class MHRoomDemo extends React.Component {
                     })
                       .catch(err => {
                         console.log("err", err)
-                        alert("error: "+JSON.stringify(err))
+                        alert("error: " + JSON.stringify(err))
                       })
                   }}
                 />
