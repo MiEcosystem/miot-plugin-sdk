@@ -74,6 +74,41 @@ const firstSharedOptions = {
   [firstAllOptions.HELP]: 1,
   [firstAllOptions.LEGAL_INFO]: 0, // 20190516，分享设备不显示「法律信息」
 };
+/**
+ * 某些特殊设备类型不显示某些设置项
+ * key: 设置项的key
+ * value: 不显示该设置项的设备类型列表, 用 pid 表示设备类型, [] 表示支持所有设备
+ * 0:  wifi单模设备
+ * 1:  yunyi设备
+ * 2:  云接入设备
+ * 3:  zigbee设备
+ * 5:  虚拟设备
+ * 6:  蓝牙单模设备
+ * 7:  本地AP设备
+ * 8:  蓝牙wifi双模设备
+ * 9:  其他
+ * 10: 功能插件
+ * 11: SIM卡设备
+ * 12: 网线设备
+ * 13: NB-IoT
+ * 14: 第三方云接入
+ * 15: 红外遥控器
+ * 16: BLE Mesh
+ * 17: 虚拟设备（新设备组）
+ */
+const excludeOptions = {
+  [firstAllOptions.NAME]: [],
+  [firstAllOptions.MEMBER_SET]: [],
+  [firstAllOptions.LOCATION]: [],
+  [firstAllOptions.SHARE]: [],
+  [firstAllOptions.BTGATEWAY]: [],
+  [firstAllOptions.VOICE_AUTH]: [],
+  [firstAllOptions.IFTTT]: [],
+  [firstAllOptions.FIRMWARE_UPGRADE]: [],
+  [firstAllOptions.MORE]: [],
+  [firstAllOptions.HELP]: [],
+  [firstAllOptions.LEGAL_INFO]: ['5', '15', '17'] // 新增策略：灯组、红外遥控器等虚拟设备不显示法律信息，20190619
+};
 const secondOptions = {
   /**
    * 固件升级——固件自动升级, `可选`
@@ -142,6 +177,7 @@ export { firstAllOptions, secondAllOptions };
  *   licenseUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明
  *   policyUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明
  *   deleteDeviceMessage: string // 删除设备的弹窗中自定义提示文案，见 miot/Host.ui.openDeleteDevice 的传参说明
+ *   excludeRequiredOptions: [] // 如果想要屏蔽必选项，在这里传入 key 即可，一级/二级菜单的 key 都可以。特殊需要，谨慎使用❗️
  * }
  * ```
  * @property {object} navigation - 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面
@@ -246,6 +282,7 @@ export default class CommonSetting extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = { name: Device.name };
+    console.log(`Device.type: ${Device.type}`);
     this.commonSetting = this.getCommonSetting(this.state);
   }
   /**
@@ -286,7 +323,7 @@ export default class CommonSetting extends React.Component {
    * @description 打开二级菜单
    * @param {string} page index.js的RootStack中页面定义的key
    */
-  openSubPage(page, params = { secondOptions: this.props.secondOptions }) {
+  openSubPage(page, params = { secondOptions: this.props.secondOptions, excludeRequiredOptions: this.props.extraOptions.excludeRequiredOptions }) {
     if (this.props.navigation) {
       this.props.navigation.navigate(page, params);
     }
@@ -305,18 +342,31 @@ export default class CommonSetting extends React.Component {
     // 如果不设置英文字体，那么外文字符串将显示不全（Android）
     let fontFamily = {};
     if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' }
+    // 1. 装填必选项
     const requireKeys1 = [firstAllOptions.NAME, firstAllOptions.LOCATION];
     const requireKeys2 = [
       firstAllOptions.MORE,
       firstAllOptions.HELP,
       firstAllOptions.LEGAL_INFO
     ];
-    let options = this.props.firstOptions.filter(key => key && Object.values(firstOptions).includes(key)); // 去掉杂质
-    options = [...new Set(options)]; // 去除重复
-    let keys = [...requireKeys1, ...options, ...requireKeys2]; // 拼接必选项和可选项
+    // 2. 去掉杂质
+    let options = this.props.firstOptions.filter(key => key && Object.values(firstOptions).includes(key));
+    // 3. 去除重复
+    options = [...new Set(options)];
+    // 4. 拼接必选项和可选项
+    let keys = [...requireKeys1, ...options, ...requireKeys2];
+    // 5. 权限控制，如果是共享设备或者家庭设备，需要过滤一下
     if (Device.isOwner === false) {
-      keys = keys.filter(key => firstSharedOptions[key]); // 如果是共享设备或者家庭设备，需要过滤一下
+      keys = keys.filter(key => firstSharedOptions[key]);
     }
+    // 6. 根据设备类型进一步过滤
+    keys = keys.filter(key => !excludeOptions[key].includes(Device.type));
+    // 7. 根据开发者特殊需要，隐藏某些必选项
+    const { excludeRequiredOptions } = this.props.extraOptions;
+    if (excludeOptions instanceof Array) {
+      keys = keys.filter(key => !excludeRequiredOptions.includes(key));
+    }
+    // 8. 根据最终的设置项 keys 渲染数据
     const items = keys.map(key => {
       const item = this.commonSetting[key];
       if (item) {

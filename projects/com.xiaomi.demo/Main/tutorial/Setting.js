@@ -2,6 +2,7 @@
 
 import { strings, Styles } from 'miot/resources';
 import { CommonSetting, SETTING_KEYS } from "miot/ui/CommonSetting";
+import { secondAllOptions } from "miot/ui/CommonSetting/CommonSetting";
 import { ListItem, ListItemWithSlider, ListItemWithSwitch } from 'miot/ui/ListItem';
 import Separator from 'miot/ui/Separator';
 import TitleBar from 'miot/ui/TitleBar';
@@ -44,7 +45,7 @@ export default class Setting extends React.Component {
     // 显示部分二级菜单项
     const secondOptions = [
       // second_options.AUTO_UPGRADE,
-      // second_options.TIMEZONE,
+      second_options.TIMEZONE,
     ]
     // 显示固件升级二级菜单
     const extraOptions = {
@@ -52,7 +53,8 @@ export default class Setting extends React.Component {
       // upgradePageKey: 'FirmwareUpgrade',
       // licenseUrl: require('../resources/html/license_zh.html'),
       // policyUrl: require('../resources/html/privacy_zh.html'),
-      deleteDeviceMessage: '真的要删除？你不再考虑考虑？'
+      deleteDeviceMessage: '真的要删除？你不再考虑考虑？',
+      excludeRequiredOptions: [secondAllOptions.SECURITY]
     }
     return (
       <View style={styles.container}>
@@ -90,7 +92,7 @@ export default class Setting extends React.Component {
             navigation={this.props.navigation}
             // firstOptions={firstOptions}
             showDot={this.state.showDot}
-            // secondOptions={secondOptions}
+            secondOptions={secondOptions}
             extraOptions={extraOptions}
           />
           <View style={{ height: 20 }} />

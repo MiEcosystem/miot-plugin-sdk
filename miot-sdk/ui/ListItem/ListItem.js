@@ -78,16 +78,20 @@ export default class ListItem extends React.Component {
       flex: 2,
     }
     if (this.props.value) {
-      extraRightStyle.flex = 4;
+      extraRightStyle.flex = 5;
     }
     const valueStyle = {
       marginRight: -7,
+      textAlignVertical: 'center',
       flex: 1,
       textAlign: 'right',
     }
     // 如果不设置英文字体，那么外文字符串将显示不全（Android）
     let fontFamily = {};
-    if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' }
+    if (Platform.OS === 'android') {
+      fontFamily = { fontFamily: 'Kmedium' }
+      valueStyle.height = THIN_HEIGHT;
+    }
     return (
       <View style={{ backgroundColor: '#fff' }}>
         <TouchableHighlight

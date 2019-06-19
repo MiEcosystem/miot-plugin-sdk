@@ -4,8 +4,9 @@ import { DeviceEvent } from 'miot/Device';
 import Host from 'miot/Host';
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { strings, Styles } from '../../resources';
+import smarthome from '../../service/smarthome';
 import ListItem from '../ListItem/ListItem';
 import Separator from '../Separator';
 import { secondAllOptions, SETTING_KEYS } from "./CommonSetting";
@@ -70,9 +71,10 @@ export default class MoreSetting extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      timeZone: Device.timeZone // 从未设置过时区的话，为空字符串
+      timeZone: Device.timeZone || '' // 从未设置过时区的话，为空字符串
     }
     this.secondOptions = this.props.navigation.state.params.secondOptions || [secondAllOptions.TIMEZONE];
+    this.excludeRequiredOptions = this.props.navigation.state.params.excludeRequiredOptions || [];
     this.moreSetting = this.getMoreSetting(this.state);
   }
   componentWillMount() {
@@ -81,6 +83,19 @@ export default class MoreSetting extends React.Component {
       this.moreSetting = this.getMoreSetting(this.state);
       this.forceUpdate();
     });
+  }
+  componentDidMount() {
+    // android 无法直接获取常量 Device.timeZone
+    if (Platform.OS === 'android'
+      && !this.state.timeZone) {
+      smarthome.getDeviceTimeZone(Device.deviceID)
+        .then(({ result }) => {
+          this.state.timeZone = (result.data || {})['timezone'] || '';
+          this.moreSetting = this.getMoreSetting(this.state);
+          this.forceUpdate();
+        })
+        .catch(error => console.log(`获取设备时区失败，错误：`, error));
+    }
   }
   componentWillUnmount() {
     this._deviceTimeZoneChangedListener.remove();
@@ -94,6 +109,7 @@ export default class MoreSetting extends React.Component {
     if (Device.isOwner === false) {
       keys = keys.filter(key => secondSharedOptions[key]); // 如果是共享设备或者家庭设备，需要过滤一下
     }
+    keys = keys.filter(key => !this.excludeRequiredOptions.includes(key));
     const items = keys.map(key => this.moreSetting[key]).filter(item => item);
     return (
       <View style={styles.container}>
