@@ -30,6 +30,7 @@ const DemoInfo = [
   { id: 'BoxPlotView', title: "绘图表BoxPlotView ", key: "20" },
 
   { id: 'GLSimple', title: "gl 的简单demo", key: "21" },
+  // { id: 'GLTests', title: "openGL Tests", key: "45" },
   { id: 'GLHearts', title: "gl GLHearts", key: "211" },
   { id: 'GLAnimated', title: "gl GLAnimated", key: "212" },
   { id: 'GLParticles', title: "gl GLParticles", key: "213" },
