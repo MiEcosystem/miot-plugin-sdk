@@ -675,6 +675,7 @@ class IDevice {
     /**
      * 获取设备时区,非实时加载，可能为空.如果需要自行获取最新设备时区值，请使用smarthome.getDeviceTimeZone(did)
      * @type {string}
+     * @deprecated   10021开始废弃，10021及后续版本建议使用 Device.getDeviceTimeZone().then
      */
     get timeZone() {
          return  ""
@@ -882,6 +883,14 @@ class IDevice {
      * @returns {Promise} 成功进入then，失败进入catch
      */
     bindToHomeKit() {
+         return Promise
+    }
+    /**
+     * 获取当前设备的时区信息
+     * @since 10021
+     * @returns {Promise} 成功进入then，失败进入catch
+     */
+    getDeviceTimeZone() {
          return Promise
     }
 }

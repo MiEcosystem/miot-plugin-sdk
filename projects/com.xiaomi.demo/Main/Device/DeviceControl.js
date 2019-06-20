@@ -218,6 +218,16 @@ export default class UIDemo extends React.Component {
                 'func': () => {
                     Host.ui.openMeshDeviceGroupPage("edit", Device.deviceID);
                 }
+            },
+            {
+                'name': '获取设备时区信息',
+                'func': () => {
+                    Device.getDeviceTimeZone().then((res)=>{
+                        alert(JSON.stringify(res))
+                    }).catch((error)=>{
+                        alert(error)
+                    })
+                }
             }
         ];
     }
