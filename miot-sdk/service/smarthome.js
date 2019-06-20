@@ -521,9 +521,9 @@ export default {
      * -4 - server err
      * 
      * @since 10005
-     * @param {object} params  -参数
-     * @param {string} params.did did
-     * @param {string[]} params.props props 列表,属性需要以"prop.s_"开头 e.g ["prop.s_aaa","prop.s_bbb"]
+     * @param {object[]} params  -参数
+     * @param {string} params[].did did
+     * @param {string[]} params[].props props 列表,属性需要以"prop.s_"开头 e.g ["prop.s_aaa","prop.s_bbb"]
      * @return {Promise}
      * @example
      * let params = {'did':Device.deviceID, 'props': [   
@@ -547,9 +547,9 @@ export default {
      * 4 - server err
      * 
      * @since 10005
-     * @param {object} params {did: string, props: json}
-     * @param {string} params.did did
-     * @param {object} params.props props 键值对， 属性需要以"prop.s_"开头
+     * @param {object[]} params {did: string, props: json}
+     * @param {string} params[].did did
+     * @param {object} params[].props props 键值对， 属性需要以"prop.s_"开头
      * @example
      * let params = {'did':Device.deviceID, 'props': {   
      *  "prop.s_push_switch_xxx":"0"
