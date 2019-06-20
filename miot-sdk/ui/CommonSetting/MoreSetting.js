@@ -4,9 +4,8 @@ import { DeviceEvent } from 'miot/Device';
 import Host from 'miot/Host';
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
-import { Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { strings, Styles } from '../../resources';
-import smarthome from '../../service/smarthome';
 import ListItem from '../ListItem/ListItem';
 import Separator from '../Separator';
 import { secondAllOptions, SETTING_KEYS } from "./CommonSetting";
@@ -86,16 +85,14 @@ export default class MoreSetting extends React.Component {
   }
   componentDidMount() {
     // android 无法直接获取常量 Device.timeZone
-    if (Platform.OS === 'android'
-      && !this.state.timeZone) {
-      smarthome.getDeviceTimeZone(Device.deviceID)
-        .then(({ result }) => {
-          this.state.timeZone = (result.data || {})['timezone'] || '';
-          this.moreSetting = this.getMoreSetting(this.state);
-          this.forceUpdate();
-        })
-        .catch(error => console.log(`获取设备时区失败，错误：`, error));
-    }
+    Device.getDeviceTimeZone()
+      .then(result => {
+        console.log(result);
+        this.state.timeZone = (result || {})['timeZone'] || '';
+        this.moreSetting = this.getMoreSetting(this.state);
+        this.forceUpdate();
+      })
+      .catch(error => console.log(`获取设备时区失败，错误：`, error));
   }
   componentWillUnmount() {
     this._deviceTimeZoneChangedListener.remove();

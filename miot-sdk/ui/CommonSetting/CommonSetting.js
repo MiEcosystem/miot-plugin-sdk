@@ -400,11 +400,12 @@ export default class CommonSetting extends React.Component {
         <View style={styles.bottomContainer}>
           <RkButton
             style={styles.buttonContainer}
-            contentStyle={[styles.buttonText, fontFamily]}
             onPress={_ => this.openDeleteDevice()}
             activeOpacity={0.8}
           >
-            {strings.deleteDevice}
+            <Text style={[styles.buttonText, fontFamily]}>
+              {strings.deleteDevice}
+            </Text>
           </RkButton>
         </View>
       </View>
@@ -457,6 +458,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: 'bold',
     // fontFamily: 'MI-LANTING--GBK1-Bold',
+    flex: 1,
+    textAlign: 'center',
     color: '#F43F31',
     lineHeight: 18
   }
