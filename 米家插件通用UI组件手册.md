@@ -2,7 +2,8 @@
 
 ## 前言
 
-为了统一米家插件的UI风格，提高插件接入效率，米家插件SDK计划提供给插件开发者一套常用的UI组件，目前正在持续开发输出中。
+为了统一米家插件的UI风格，提高插件接入效率，米家插件SDK计划提供给插件开发者一套常用的UI组件，目前正在持续开发输出中。<br />
+**⚠️SDK_Level指的是从`SDK_XXXXX`开始可以使用该组件**
 
 > 文档难免有疏漏、错误或者和Demo代码不一致的地方，[请不吝指正](https://github.com/MiEcosystem/miot-plugin-sdk/issues/new/choose)，或者联系[Geeook](mailto:liumengzhou@xiaomi.com)。
 
@@ -66,7 +67,7 @@
 | SDK_Level | `SDK_10000`                            |
 | 注意事项  | \                                      |
 
-*⚠️SDK_Level指的是从`SDK_XXXXX`开始可以使用该组件*
+**⚠️SDK_Level指的是从`SDK_XXXXX`开始可以使用该组件**
 
 ### 使用方法
 
