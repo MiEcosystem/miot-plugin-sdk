@@ -103,7 +103,7 @@
 | onPressTitle | `func` | 点击标题的事件 |
 | showDot | `bool` | 是否显示右侧更多按钮的小红点 |
 
-[⬆️TOP](#前言)
+[⬆️回到目录](#前言)
 
 ***
 
@@ -203,7 +203,9 @@
 - 考虑到某些语言不好兼容的情况，导航栏左右侧只支持图标，不再支持文字
 - 导航栏高度固定，不允许更改，背景色仍然可以自定义
 
-------
+[⬆️回到目录](#前言)
+
+***
 
 ## 普通列表项(ListItem)
 
@@ -257,6 +259,8 @@
 | subtitleStyle | <code>style</code> | 副标题的自定义样式 |
 | valueStyle | <code>style</code> | 右侧文案的自定义样式 |
 
+[⬆️回到目录](#前言)
+
 ***
 
 ## 带开关的列表项(ListItemWithSwitch)
@@ -309,6 +313,8 @@
 | titleStyle | <code>style</code> | 主标题的自定义样式 |
 | subtitleStyle | <code>style</code> | 副标题的自定义样式 |
 | valueTextStyle | <code>style</code> | 主标题右侧文案的自定义样式 |
+
+[⬆️回到目录](#前言)
 
 ***
 
@@ -370,6 +376,8 @@
 | showSeparator | <code>bool</code> | 是否显示分割线，默认值 `true` |
 | separator | <code>component</code> | 自定义分割线，不传将显示默认样式的分割线 |
 
+[⬆️回到目录](#前言)
+
 ***
 
 ## 分割线(Separator)
@@ -403,6 +411,8 @@
 | --- | --- | --- |
 | type | `string` | 分割线类型，横向`row`或者纵向`column`，默认横向<br />(`❗️SDK_10021`新增) |
 | style | <code>style</code> | 自定义样式 |
+
+[⬆️回到目录](#前言)
 
 ***
 
@@ -545,7 +555,7 @@ render() {
   }
 ```
 
-`这么详细还不明白🌶🍐💉💧🐮🍺`
+[⬆️回到目录](#前言)
 
 ***
 
@@ -644,6 +654,8 @@ getInnerView() {
 | underlayColor | <code>string</code>    | 卡片点击态颜色，默认 `rgba(0,0,0,0.05)`                      |
 | shadowColor   | <code>string</code>    | 阴影颜色，默认 `'#000'`，❗️android 平台只支持16进制的 `shadowColor` |
 | shadowOpacity | <code>number</code>    | 阴影透明度，默认 `0.03`                                      |
+
+[⬆️回到目录](#前言)
 
 ***
 
@@ -773,7 +785,9 @@ getInnerView() {
 | showShadow     | <code>bool</code>                                    | 是否显示卡片阴影，默认是 `false`，所有的卡片类型有效         |
 | marginTop      | <code>number</code>                                  | 卡片的上边距，默认 `0`，所有的卡片类型有效                   |
 
-------
+[⬆️回到目录](#前言)
+
+***
 
 ## 模式卡片(ModeCard)
 
@@ -853,7 +867,9 @@ getInnerView() {
 | showShadow             | <code>bool</code>                                            | 是否显示卡片阴影, 默认值 `true`。由于安卓的阴影显示存在问题，在和标题进行卡片拼接时，不能显示阴影，请传入 `false` |
 | modeCardStyle          | <code>style</code>                                           | 模式卡片样式, 默认值 `{}`                                    |
 
-------
+[⬆️回到目录](#前言)
+
+***
 
 ## 点按选档(NormalGear)
 
@@ -900,6 +916,8 @@ getInnerView() {
 | selectColor    | <code>string</code>              | 被选择档位的背景色                                           |
 | selectIndex    | <code>number</code>              | 被选择档位的数组下标                                         |
 | onSelect       | <code>function</code>            | 选择某档位后的回调函数                                       |
+
+[⬆️回到目录](#前言)
 
 ***
 
@@ -949,6 +967,8 @@ getInnerView() {
 | selectColor    | <code>string</code>              | 被选择档位的背景色                                           |
 | selectIndex    | <code>number</code>              | 被选择档位的数组下标                                         |
 | onSelect       | <code>function</code>            | 选择某档位后的回调函数                                       |
+
+[⬆️回到目录](#前言)
 
 ***
 
@@ -1022,6 +1042,8 @@ getInnerView() {
 | onValueChange         | <code>function</code>                          | 滑动时的回调函数                                             |
 | onSlidingComplete     | <code>function</code>                          | 滑动结束的回调函数                                           |
 
+[⬆️回到目录](#前言)
+
 ***
 
 ## 单选框(Radio)
@@ -1075,6 +1097,8 @@ getInnerView() {
 | id                    | <code>number</code>   | 单选按钮的 id，用来区分不同的按钮，实现单选功能，默认值 `-1` |
 | disabled              | `bool`                | 单选按钮的可选状态，默认值 `false`                           |
 
+[⬆️回到目录](#前言)
+
 ***
 
 ## 复选框(Checkbox)
@@ -1122,6 +1146,8 @@ getInnerView() {
 | checkedColor  | <code>string</code> | 勾选背景颜色，默认米家绿 |
 | onValueChange | `function`          | 点击回调函数             |
 
+[⬆️回到目录](#前言)
+
 ***
 
 ## 开关(Switch)
@@ -1163,6 +1189,8 @@ getInnerView() {
 | tintColor     | <code>string</code>   | 关闭时的背景颜色         |
 | disabled      | <code>bool</code>     | 是否禁用，默认值 `false` |
 | onValueChange | <code>function</code> | 切换开关的回调函数       |
+
+[⬆️回到目录](#前言)
 
 ***
 
@@ -1211,6 +1239,8 @@ getInnerView() {
 | defaultValue    | <code>int</code>    | 默认值        |
 | valueFormat     | <code>string</code> | 格式          |
 | onNumberChanged | <code>func</code>   | 值改变的回调  |
+
+[⬆️回到目录](#前言)
 
 ***
 
@@ -1274,6 +1304,8 @@ getInnerView() {
 | pickerInnerStyle.selectFontSize  | <code>number</code>              | 文字选中大小 默认值 `22`      |
 | pickerInnerStyle.unitFontSize    | <code>number</code>              | 单位字体大小 默认值 `12`      |
 | pickerInnerStyle.rowHeight       | <code>number</code>              | 行高 默认值 `42`              |
+
+[⬆️回到目录](#前言)
 
 ***
 
@@ -1429,6 +1461,8 @@ let max = [2029, 4, 16];
 | onSelect      | <code>function</code>                                        | 选好之后的回调函数，返回所有picker的选中值 组成的数组 / 拼接的字符串 / 以及计算出的Date实例, 详见官方 Demo（com.xiaomi.demo->UI能力->时间选择器） |
 | onDismiss     | <code>function</code>                                        | 点击`Modal`内容外面/取消按钮/确定按钮，Modal隐藏时的回调函数 |
 
-------
+[⬆️回到目录](#前言)
+
+***
 
 > 文档难免有疏漏、错误或者和Demo代码不一致的地方，[请不吝指正](https://github.com/MiEcosystem/miot-plugin-sdk/issues/new/choose)，或者联系[Geeook](mailto:liumengzhou@xiaomi.com)。
