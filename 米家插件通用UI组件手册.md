@@ -103,6 +103,8 @@
 | onPressTitle | `func` | 点击标题的事件 |
 | showDot | `bool` | 是否显示右侧更多按钮的小红点 |
 
+[⬆️TOP](#前言)
+
 ***
 
 ## 新版导航栏(NavigationBar)
