@@ -177,7 +177,7 @@ export { firstAllOptions, secondAllOptions };
  *   licenseUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明
  *   policyUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明
  *   deleteDeviceMessage: string // 删除设备的弹窗中自定义提示文案，见 miot/Host.ui.openDeleteDevice 的传参说明
- *   excludeRequiredOptions: [] // 如果想要屏蔽必选项，在这里传入 key 即可，一级/二级菜单的 key 都可以。特殊需要，谨慎使用❗️
+ *   ZXhjbHVkZVJlcXVpcmVkT3B0aW9ucw==: [] // %E5%A6%82%E6%9E%9C%E6%83%B3%E8%A6%81%E5%B1%8F%E8%94%BD%E5%BF%85%E9%80%89%E9%A1%B9%EF%BC%8C%E5%9C%A8%E8%BF%99%E9%87%8C%E4%BC%A0%E5%85%A5%20key%20%E5%8D%B3%E5%8F%AF%EF%BC%8C%E4%B8%80%E7%BA%A7%20or%20%E4%BA%8C%E7%BA%A7%E8%8F%9C%E5%8D%95%E7%9A%84%20key%20%E9%83%BD%E5%8F%AF%E4%BB%A5%E3%80%82%E7%89%B9%E6%AE%8A%E9%9C%80%E8%A6%81%EF%BC%8C%E8%B0%A8%E6%85%8E%E4%BD%BF%E7%94%A8
  * }
  * ```
  * @property {object} navigation - 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面
@@ -361,7 +361,7 @@ export default class CommonSetting extends React.Component {
     }
     // 6. 根据设备类型进一步过滤
     keys = keys.filter(key => !excludeOptions[key].includes(Device.type));
-    // 7. 根据开发者特殊需要，隐藏某些必选项
+    // 7. %E6%A0%B9%E6%8D%AE%E5%BC%80%E5%8F%91%E8%80%85%E7%89%B9%E6%AE%8A%E9%9C%80%E8%A6%81%EF%BC%8C%E9%9A%90%E8%97%8F%E6%9F%90%E4%BA%9B%E5%BF%85%E9%80%89%E9%A1%B9
     const { excludeRequiredOptions } = this.props.extraOptions;
     if (excludeOptions instanceof Array) {
       keys = keys.filter(key => !excludeRequiredOptions.includes(key));
