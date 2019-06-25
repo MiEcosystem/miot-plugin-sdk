@@ -6,18 +6,18 @@
 
 **已完成**
 
-- [导航栏(TitleBar)](#导航栏(TitleBar))
-- [普通列表项(ListItem)](#普通列表项(ListItem))
-- [带开关的列表项(ListItemWithSwitch)](#带开关的列表项(ListItemWithSwitch))
-- [带滑动条的列表项(ListItemWithSlider)](#带滑动条的列表项(ListItemWithSlider))
-- [横向分割线(Separator)](#横向分割线(Separator))
-- [米家插件通用设置(CommonSetting)](#米家插件通用设置(CommonSetting))
-- [卡片容器(Card)](#卡片容器(Card))
-- [点按选档(NormalGear)](#点按选档(NormalGear))
-- [拖拽选档(DragGear)](#拖拽选档(DragGear))
-- [单选框(Radio)](#单选框(Radio))
-- [复选框(Checkbox)](#复选框(Checkbox))
-- [开关(Switch)](#开关(Switch))
+- [导航栏-TitleBar](#导航栏-TitleBar)
+- [普通列表项-ListItem](#普通列表项-ListItem)
+- [带开关的列表项-ListItemWithSwitch](#带开关的列表项-ListItemWithSwitch)
+- [带滑动条的列表项-ListItemWithSlider](#带滑动条的列表项-ListItemWithSlider)
+- [横向分割线-Separator](#横向分割线-Separator)
+- [米家插件通用设置-CommonSetting](#米家插件通用设置-CommonSetting)
+- [卡片容器-Card](#卡片容器-Card)
+- [点按选档-NormalGear](#点按选档-NormalGear)
+- [拖拽选档-DragGear](#拖拽选档-DragGear)
+- [单选框-Radio](#单选框-Radio)
+- [复选框-Checkbox](#复选框-Checkbox)
+- [开关-Switch](#开关-Switch)
 
 **开发中**
 
@@ -31,7 +31,7 @@
 
 ***
 
-## 导航栏(TitleBar)
+## 导航栏-TitleBar
 
 ### 预览
 
@@ -94,7 +94,7 @@
 
 ***
 
-## 普通列表项(ListItem)
+## 普通列表项-ListItem
 
 ### 预览
 
@@ -146,7 +146,7 @@
 
 ***
 
-## 带开关的列表项(ListItemWithSwitch)
+## 带开关的列表项-ListItemWithSwitch
 
 ### 预览
 
@@ -199,7 +199,7 @@
 
 ***
 
-## 带滑动条的列表项(ListItemWithSlider)
+## 带滑动条的列表项-ListItemWithSlider
 
 ### 预览
 
@@ -259,7 +259,7 @@
 
 ***
 
-## 横向分割线(Separator)
+## 横向分割线-Separator
 
 ### 预览
 
@@ -291,7 +291,7 @@
 
 ***
 
-## 米家插件通用设置(CommonSetting)
+## 米家插件通用设置-CommonSetting
 
 ### 预览
 
@@ -343,7 +343,7 @@
   | `LEGAL_INFO`       | 法律信息(**必选**) | ❌                      | \                                                            |                        | \                                                            |
   | \                  | 删除设备(**必选**) | ✅                      | \                                                            |                        | \                                                            |
 
-- 插件设置页面一般包含`功能设置`和`通用设置`：`通用设置`放在页面下半部分，直接引用此组件即可;`功能设置`放在页面上半部分，主要显示通用设置项之外的，和插件功能强相关的设置项，可以考虑使用[ListItem](#普通列表项(ListItem))、[ListItemWithSwitch](#带开关的列表项(ListItemWithSwitch))和[ListItemWithSlider](#带滑动条的列表项(ListItemWithSlider)) 这些UI组件。
+- 插件设置页面一般包含`功能设置`和`通用设置`：`通用设置`放在页面下半部分，直接引用此组件即可;`功能设置`放在页面上半部分，主要显示通用设置项之外的，和插件功能强相关的设置项，可以考虑使用[ListItem](#普通列表项-ListItem)、[ListItemWithSwitch](#带开关的列表项-ListItemWithSwitch)和[ListItemWithSlider](#带滑动条的列表项-ListItemWithSlider) 这些UI组件。
 - 使用时用数组传入要展示的可选项key即可，数组内key的顺序代表可选项从上往下的展示顺序。如果不传，则显示全部设置项，如果传🈳️数组则显示必选项。详见[使用方法](#使用方法-5)⬇️。
 - **必选项的位置固定**，不需要传入key，即使传入也不会改变它是否显示以及位置。
 - 组建内部已经做了国际化，适配米家所有的语种，毋需开发者另外配置。
@@ -427,7 +427,7 @@ render() {
 
 ***
 
-## 卡片容器(Card)
+## 卡片容器-Card
 
 ### 预览
 
@@ -524,7 +524,7 @@ getInnerView() {
 
 ***
 
-## 点按选档(NormalGear)
+## 点按选档-NormalGear
 
 ### 预览
 
@@ -572,7 +572,7 @@ getInnerView() {
 
 ***
 
-## 拖拽选档(DragGear)
+## 拖拽选档-DragGear
 
 ### 预览
 
@@ -621,7 +621,7 @@ getInnerView() {
 
 ***
 
-## 单选框(Radio)
+## 单选框-Radio
 
 ### 预览
 
@@ -674,7 +674,7 @@ getInnerView() {
 
 ***
 
-## 复选框(Checkbox)
+## 复选框-Checkbox
 
 ### 预览
 
@@ -721,7 +721,7 @@ getInnerView() {
 
 ***
 
-## 开关(Switch)
+## 开关-Switch
 
 ### 预览
 
