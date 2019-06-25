@@ -21,6 +21,11 @@ export default {
   get language() {
   },
   /**
+   * 获取系统语言
+   */
+  get systemLanguage() {
+  },
+  /**
    * 获取时区
    * @type {string}
    */

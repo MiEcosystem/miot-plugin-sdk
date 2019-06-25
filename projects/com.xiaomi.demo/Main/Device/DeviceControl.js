@@ -235,7 +235,7 @@ export default class UIDemo extends React.Component {
                     Device.changeDeviceName("新名称").then((res) => {
                         alert(JSON.stringify(res))
                     }).catch((error) => {
-                        console.log(error)
+                        alert(error)
                     })
                 }
             }

@@ -383,5 +383,5 @@ export default {
      */
     loadScenesHistoryForDevice(did, timestamp = -1, limit = 50) {
          return Promise.resolve(null);
-    }
+    },
 }
