@@ -893,6 +893,24 @@ class IDevice {
     getDeviceTimeZone() {
          return Promise
     }
+    /**
+     * 修改设备/子设备的名字，注意不支持蓝牙网关对子设备名称的修改
+     * @since 10022
+     * @param {String} newName 设备的新的名称
+     * @param {String} did 如果修改自身的名称，可不传，如果修改子设备的，则需要传子设备的did。如果did是其他，调用此方法会走reject
+     * @returns {Promise} 成功进入then，失败进入catch，成功时，res为新名称。同时，DeviceEvent的deviceNameChanged会被触发
+     */
+    changeDeviceName(newName, did = null) {
+        return new Promise((resolve, reject) => {
+            native.MIOTDevice.changeDeviceName(newName, did, (ok, res) => {
+                if (ok) {
+                    resolve(res);
+                } else {
+                    reject(res);
+                }
+            })
+        });
+    }
 }
 const RootDevice={};
 /**
