@@ -9,53 +9,52 @@
 
 **已完成**
 
-- [导航栏(TitleBar)](#导航栏TitleBar)
-- [新版导航栏(NavigationBar)](#新版导航栏NavigationBar)
-- [普通列表项(ListItem)](#普通列表项ListItem)
-- [带开关的列表项(ListItemWithSwitch)](#带开关的列表项ListItemWithSwitch)
-- [带滑动条的列表项(ListItemWithSlider)](#带滑动条的列表项ListItemWithSlider)
-- [分割线(Separator)](#分割线Separator)
-- [米家插件通用设置(CommonSetting)](#米家插件通用设置CommonSetting)
-- [卡片容器(Card)](#卡片容器Card)
-- [常用卡片(MHCard)](#常用卡片MHCard)
-- [模式卡片(ModeCard)](#模式卡片ModeCard)
-- [点按选档(NormalGear)](#点按选档NormalGear)
-- [拖拽选档(DragGear)](#拖拽选档DragGear)
-- [滑动选档(SlideGear)](#滑动选档SlideGear)
-- [单选框(Radio)](#单选框Radio)
-- [复选框(Checkbox)](#复选框Checkbox)
-- [开关(Switch)](#开关Switch)
-- [数字选择器(NumberSpinner)](#数字选择器NumberSpinner)
-- [通用选择器(StringSpinner)](#通用选择器StringSpinner)
-- [时间选择器(MHDatePicker)](#时间选择器MHDatePicker)
+- [导航栏-TitleBar](#导航栏-TitleBar)
+- [新版导航栏-NavigationBar](#新版导航栏-NavigationBar)
+- [普通列表项-ListItem](#普通列表项-ListItem)
+- [带开关的列表项-ListItemWithSwitch](#带开关的列表项-ListItemWithSwitch)
+- [带滑动条的列表项-ListItemWithSlider](#带滑动条的列表项-ListItemWithSlider)
+- [分割线-Separator](#分割线-Separator)
+- [米家插件通用设置-CommonSetting](#米家插件通用设置-CommonSetting)
+- [卡片容器-Card](#卡片容器-Card)
+- [常用卡片-MHCard](#常用卡片-MHCard)
+- [模式卡片-ModeCard](#模式卡片-ModeCard)
+- [点按选档-NormalGear](#点按选档-NormalGear)
+- [拖拽选档-DragGear](#拖拽选档-DragGear)
+- [滑动选档-SlideGear](#滑动选档-SlideGear)
+- [单选框-Radio](#单选框-Radio)
+- [复选框-Checkbox](#复选框-Checkbox)
+- [开关-Switch](#开关-Switch)
+- [数字选择器-NumberSpinner](#数字选择器-NumberSpinner)
+- [通用选择器-StringSpinner](#通用选择器-StringSpinner)
+- [时间选择器-MHDatePicker](#时间选择器-MHDatePicker)
 
 **开发中**
 
 - 消息弹框
 - 加载弹框
-
-**计划中**
-
 - 单选弹框
 - 多选弹框
 - 输入弹框
 - 分享弹框
 
+**计划中**
+
 ***
 
-## 导航栏(TitleBar)
+## 导航栏-TitleBar
 
 ### 预览
 
-![](./UIDocImages/titlebar1.png)
+![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_acb178a700580c1731c619debf50d12b.png)
 
-![](./UIDocImages/titlebar2.png)
+![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_678254c3dbe5781f9db92b4c814a6978.png)
 
-![](./UIDocImages/titlebar3.png)
+![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_160b4081a4bb163392c097da3eebcb2c.png)
 
-![](./UIDocImages/titlebar5.png)
+![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_0558de421000dc8d0af834f57bd104e1.png)
 
-![](./UIDocImages/titlebar6.png)
+![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_3ad4688fd5449bee7ea84b172c07426c.png)
 
  ### 基本信息
 
@@ -108,7 +107,7 @@
 
 ***
 
-## 新版导航栏(NavigationBar)
+## 新版导航栏-NavigationBar
 
 ### 预览
 
@@ -208,11 +207,11 @@
 
 ***
 
-## 普通列表项(ListItem)
+## 普通列表项-ListItem
 
 ### 预览
 
-![](./UIDocImages/listitem.png)
+![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_9a70b4bc22847b4a6492ec09dcb0ce3b.png)
 
 ### 基本信息
 
@@ -264,11 +263,11 @@
 
 ***
 
-## 带开关的列表项(ListItemWithSwitch)
+## 带开关的列表项-ListItemWithSwitch
 
 ### 预览
 
-![](./UIDocImages/listitemwithswitch.png)
+![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_77f18354bfb78e11440c2028f6f4766e.png)
 
 ### 基本信息
 
@@ -319,11 +318,11 @@
 
 ***
 
-## 带滑动条的列表项(ListItemWithSlider)
+## 带滑动条的列表项-ListItemWithSlider
 
 ### 预览
 
-![](./UIDocImages/listitemwithslider.png)
+![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_3b654d16a8d8e3044829a7a67d96456d.png)
 
 ### 基本信息
 
@@ -381,11 +380,11 @@
 
 ***
 
-## 分割线(Separator)
+## 分割线-Separator
 
 ### 预览
 
-![](./UIDocImages/separator.png)
+![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_f09f96a7b8d74950a2cc963b2fe17cc4.png)
 
 ### 基本信息
 
@@ -417,17 +416,17 @@
 
 ***
 
-## 米家插件通用设置(CommonSetting)
+## 米家插件通用设置-CommonSetting
 
 ### 预览
 
 #### 一级页面
 
-![](./UIDocImages/commonsetting.jpg)
+![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_jpg_11ebc7bcae63daa16fc3463c1be40b20.jpg)
 
 #### 「更多设置」二级页面
 
-![](./UIDocImages/moresetting.jpg)
+![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_jpg_7dd207ca72e9179f682dd83ae7fe714b.jpg)
 
 ### 基本信息
 
@@ -470,7 +469,7 @@
   | `LEGAL_INFO`       | 法律信息(**必选**) | ❌                      | \                                                            |                        | \                                                            |
   | \                  | 删除设备(**必选**) | ✅                      | \                                                            |                        | \                                                            |
 
-- 插件设置页面一般包含`功能设置`和`通用设置`：`通用设置`放在页面下半部分，直接引用此组件即可;`功能设置`放在页面上半部分，主要显示通用设置项之外的，和插件功能强相关的设置项，可以考虑使用[ListItem](#普通列表项ListItem)、[ListItemWithSwitch](#带开关的列表项ListItemWithSwitch)和[ListItemWithSlider](#带滑动条的列表项ListItemWithSlider) 这些UI组件。
+- 插件设置页面一般包含`功能设置`和`通用设置`：`通用设置`放在页面下半部分，直接引用此组件即可;`功能设置`放在页面上半部分，主要显示通用设置项之外的，和插件功能强相关的设置项，可以考虑使用[ListItem](#普通列表项-ListItem)、[ListItemWithSwitch](#带开关的列表项-ListItemWithSwitch)和[ListItemWithSlider](#带滑动条的列表项-ListItemWithSlider) 这些UI组件。
 - 使用时用数组传入要展示的可选项key即可，数组内key的顺序代表可选项从上往下的展示顺序。如果不传，则显示全部设置项，如果传🈳️数组则显示必选项。详见[使用方法](#使用方法-6)⬇️。
 - **必选项的位置固定**，不需要传入key，即使传入也不会改变它是否显示以及位置。
 - 组建内部已经做了国际化，适配米家所有的语种，毋需开发者另外配置。
@@ -534,7 +533,7 @@ render() {
       policyUrl: require('../resources/html/privacy_zh.html'), // 隐私政策的资源
       deleteDeviceMessage: '真的要删除？你不再考虑考虑？' // 删除设备的提示语，选填
     }
-    
+
     // 假如我的设备是一个Wi-Fi设备，那么写法可以参考下面
     const extraOptions = {
       // showUpgrade: true, // 跳转到原生的固件升级页面，也可以不写，是默认行为
@@ -560,15 +559,15 @@ render() {
 
 ***
 
-## 卡片容器(Card)
+## 卡片容器-Card
 
 ### 预览
 
-![](./UIDocImages/card.jpg)
+![image](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_jpg_7b8c8e79a8e0eb220ae56750426f6037.jpg)
 
-![](./UIDocImages/card.gif)
+![image](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_gif_ed8c2b16ba2c60b37af6ef005e2768fb.gif)
 
-![](./UIDocImages/card1.gif)
+![image](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_gif_b666829fe8691ff7a1e942b9036304c6.gif)
 
 ### 基本信息
 
@@ -660,7 +659,7 @@ getInnerView() {
 
 ***
 
-## 常用卡片(MHCard)
+## 常用卡片-MHCard
 
 ### 预览
 
@@ -790,7 +789,7 @@ getInnerView() {
 
 ***
 
-## 模式卡片(ModeCard)
+## 模式卡片-ModeCard
 
 ### 预览
 
@@ -872,11 +871,11 @@ getInnerView() {
 
 ***
 
-## 点按选档(NormalGear)
+## 点按选档-NormalGear
 
 ### 预览
 
-![](./UIDocImages/normalgear.gif)
+![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_gif_723dd0a31c3bd45c67259b7531b28be8.gif)
 
 ### 基本信息
 
@@ -922,11 +921,11 @@ getInnerView() {
 
 ***
 
-## 拖拽选档(DragGear)
+## 拖拽选档-DragGear
 
 ### 预览
 
-![](./UIDocImages/draggear.gif)
+![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_gif_4c87594da4d9e8ca87a3d15e664c3390.gif)
 
 ### 基本信息
 
@@ -973,7 +972,7 @@ getInnerView() {
 
 ***
 
-## 滑动选档(SlideGear)
+## 滑动选档-SlideGear
 
 ### 预览
 
@@ -1047,11 +1046,11 @@ getInnerView() {
 
 ***
 
-## 单选框(Radio)
+## 单选框-Radio
 
 ### 预览
 
-![](./UIDocImages/radio.gif)
+![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_gif_71d7b5c65bdb086bda248bbb6e93c4eb.gif)
 
 ### 基本信息
 
@@ -1102,11 +1101,11 @@ getInnerView() {
 
 ***
 
-## 复选框(Checkbox)
+## 复选框-Checkbox
 
 ### 预览
 
-![](./UIDocImages/checkbox.gif)
+![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_gif_0eadec20d0c24848124287c1774d3d7b.gif)
 
 ### 基本信息
 
@@ -1151,11 +1150,11 @@ getInnerView() {
 
 ***
 
-## 开关(Switch)
+## 开关-Switch
 
 ### 预览
 
-![](./UIDocImages/switch.gif)
+![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_gif_e4cab8878fee60aa93c8b85e05b52611.gif)
 
 ### 基本信息
 
@@ -1195,7 +1194,7 @@ getInnerView() {
 
 ***
 
-## 数字选择器(NumberSpinner)
+## 数字选择器-NumberSpinner
 
 ### 预览
 
@@ -1245,7 +1244,7 @@ getInnerView() {
 
 ***
 
-## 通用选择器(StringSpinner)
+## 通用选择器-StringSpinner
 
 ### 预览
 
@@ -1310,7 +1309,7 @@ getInnerView() {
 
 ***
 
-## 时间选择器(MHDatePicker)
+## 时间选择器-MHDatePicker
 
 ### 预览
 
