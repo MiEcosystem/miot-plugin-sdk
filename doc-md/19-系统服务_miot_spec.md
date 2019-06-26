@@ -45,7 +45,7 @@ MIOT Spec 获取 设置 property  调用 action
 
 | Param | Type | Description |
 | --- | --- | --- |
-| params | <code>JSON</code> | {did: action.did, siid: action.siid, aiid: action.iid, in: action.params} |
+| params | <code>JSON</code> | {did: action.did, siid: action.siid, aiid: action.iid, in: action.params},其中，action.params为数组。例如 {did: 1, siid: 1, aiid: 1, in: [17,"shanghai"]} |
 
 <a name="module_miot/service/spec.getSpecString"></a>
 
