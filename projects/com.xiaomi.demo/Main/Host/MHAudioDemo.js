@@ -2,18 +2,10 @@
 
 'use strict';
 
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  DeviceEventEmitter,
-    PermissionsAndroid,
-    Platform,NativeModules
-} from 'react-native';
+import { AudioEvent, Host } from "miot";
+import React from 'react';
+import { PermissionsAndroid, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { Host } from "miot";
 const audioPlayerUid = 'com.xiaomi.demoios';
 
 var fileName = 'test.wav';
@@ -27,30 +19,31 @@ export default class MHAudioDemo extends React.Component {
   }
 
   componentWillMount() {
-    this.updateAudioPlayerTimeListener = DeviceEventEmitter.addListener(Host.audio.updateAudioPlayerTimeEvent, (event) => {
+    this.s0 = AudioEvent.updateAudioPlayerTime.addListener((event) => {
       if (event.audioPlayerUid === audioPlayerUid) {
         console.log(event.currentTime);//播放器播放的时间
       }
     });
-    this.audioPlayerDidFinishPlayingListener = DeviceEventEmitter.addListener(Host.audio.audioPlayerDidFinishPlayingEvent, (event) => {
+    this.s1 = AudioEvent.audioPlayerDidFinishPlaying.addListener((event) => {
+      console.log("播放完成,再次播放");
       if (event.audioPlayerUid === audioPlayerUid) {
         console.warn("播放完成,再次播放");
         this._startPlayButtonClicked();
       }
-    });
-    this.audioPlayerDidStartPlayingListener = DeviceEventEmitter.addListener('audioPlayerDidStartPlaying', (event) => {
+    })
+    this.s2 = AudioEvent.audioPlayerDidStartPlaying.addListener((event) => {
       if (event.audioPlayerUid === audioPlayerUid) {
         alert('播放开始');
         console.warn(JSON.stringify(event));
       }
     });
 
-
   }
 
   componentWillUnmount() {
-    this.updateAudioPlayerTimeListener.remove();
-    this.audioPlayerDidFinishPlayingListener.remove();
+    this.s0.remove();
+    this.s1.remove();
+    this.s2.remove();
   }
 
   render() {
@@ -75,31 +68,31 @@ export default class MHAudioDemo extends React.Component {
     );
   }
 
-    _startRecordButtonClicked() {
+  _startRecordButtonClicked() {
 
-      var settings = {
-          AVFormatIDKey: 'audioFormatLinearPCM',
-          AVSampleRateKey: 9500,
-          AVNumberOfChannelsKey: 2,
-          AVEncoderAudioQualityKey: 'audioQualityHigh',
-          AVLinearPCMBitDepthKey: 16,
-          AVLinearPCMIsBigEndianKey: false,
-          AVLinearPCMIsFloatKey: false,
-      };
+    var settings = {
+      AVFormatIDKey: 'audioFormatLinearPCM',
+      AVSampleRateKey: 9500,
+      AVNumberOfChannelsKey: 2,
+      AVEncoderAudioQualityKey: 'audioQualityHigh',
+      AVLinearPCMBitDepthKey: 16,
+      AVLinearPCMIsBigEndianKey: false,
+      AVLinearPCMIsFloatKey: false,
+    };
 
-    if(Platform.OS === 'android'){
+    if (Platform.OS === 'android') {
 
-        PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.RECORD_AUDIO, null)
-            .then((granted) => {
-                console.log("granted", granted);
-                if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                    Host.audio.startRecord(fileName, settings).then(() => { console.log('startRecord'); });
-                }
-            }).catch((error)=>{
-                console.log("error", error)
+      PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.RECORD_AUDIO, null)
+        .then((granted) => {
+          console.log("granted", granted);
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            Host.audio.startRecord(fileName, settings).then(() => { console.log('startRecord'); });
+          }
+        }).catch((error) => {
+          console.log("error", error)
         })
-    }else{
-        Host.audio.startRecord(fileName, settings).then(() => { console.log('startRecord'); });
+    } else {
+      Host.audio.startRecord(fileName, settings).then(() => { console.log('startRecord'); });
     }
 
   }

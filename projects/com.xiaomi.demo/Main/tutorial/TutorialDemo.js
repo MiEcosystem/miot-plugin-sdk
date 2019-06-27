@@ -17,6 +17,10 @@ export default class TutorialDemo extends React.Component {
           'key': 'Setting',
         },
         {
+          'title': '导航栏 TitleBar Demo',
+          'key': 'TitleBarDemo',
+        },
+        {
           'title': '空白页',
           'key': 'blankDemo',
         },
@@ -31,10 +35,6 @@ export default class TutorialDemo extends React.Component {
         {
           'title': '与服务器交互 ',
           'key': 'callSmartHomeAPIDemo',
-        },
-        {
-          'title': '成员相关 ',
-          'key': 'MemberAPIDemo',
         },
         {
           'title': '账户信息',

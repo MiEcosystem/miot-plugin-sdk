@@ -1,7 +1,7 @@
 /**
  * @export public
- * @doc_name 系统服务_MIOT_Spec
- * @doc_index 17
+ * @doc_name 系统服务_miot_spec
+ * @doc_index 19
  * @module miot/service/spec
  * @description MIOT Spec 获取 设置 property  调用 action
  *
