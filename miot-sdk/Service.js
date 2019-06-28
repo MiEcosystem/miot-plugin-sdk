@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 系统服务模块
- * @doc_index 7
+ * @doc_index 9
  * @module miot/Service
  * @description 系统服务模块，提供了设备，红外，场景，安全，存储，miot-spec协议，账号等子服务模块
  * @example
@@ -96,8 +96,8 @@ export default {
     return Spec;
   },
   /**
-   * @method
-   * @description 米家 App 设置的地区和服务器信息
+   * @method getServerName
+   * @description 获取 米家 App 设置的地区和服务器信息
    * @return {Promise<{countryName:"",countryCode:"",serverCode:""}>}
    */
   getServerName() {

@@ -4,14 +4,12 @@ import { Animated, Dimensions, Easing, Image, StyleSheet, Text, TouchableHighlig
 import { Images, Styles } from '../../resources';
 const { width } = Dimensions.get('window');
 const DURATION_OUT = 250;
-const DURATION_IN = 300;
-const OPACITY_DELAY = 100;
-const SCALE_DELAY = 0;
+const DURATION_IN = 250;
 const DEFAULT_STYLE = {
   MARGIN_H: 15,
   HEIGHT: 66,
   WIDTH: width - 15 * 2,
-  RADIUS: 8,
+  // RADIUS: 8,
   ICON_SIZE: 35,
   CLOSE_AREA: 30,
   CLOSE_SIZE: 20
@@ -19,7 +17,7 @@ const DEFAULT_STYLE = {
 /**
  * @export
  * @author Geeook
- * @since
+ * @since 10010
  * @module CardBase
  * @description 基础卡片
  * @property {component} innerView - 卡片内部 View, 不传该参数将显示默认的 icon + text
@@ -27,11 +25,13 @@ const DEFAULT_STYLE = {
  * @property {string} text - 右侧文案
  * @property {bool} visible - 是否显示卡片, 默认值 true
  * @property {bool} showDismiss - 是否显示右上角的关闭按钮, 默认值 false
+ * @property {bool} disabled - 是否禁用卡片点击, 默认值 false
  * @property {function} dismiss - 点右上角关闭按钮的回调函数
  * @property {function} onPress - 点击事件, 不传该参数将显示禁用态
  * @property {style} cardStyle - 卡片容器的自定义样式, 默认样式 `{ width: screenWidth - 30, height:66 }`
  * @property {style} iconStyle - 左侧图标的自定义样式
  * @property {style} textStyle - 右侧文案的自定义样式
+ * @property {string} underlayColor - 卡片点击态颜色，默认 rgba(0,0,0,0.05)
  */
 export default class CardBase extends React.Component {
   static propTypes = {
@@ -39,24 +39,36 @@ export default class CardBase extends React.Component {
     icon: PropTypes.number,
     text: PropTypes.string,
     showDismiss: PropTypes.bool,
+    disabled: PropTypes.bool,
     dismiss: PropTypes.func,
     visible: PropTypes.bool,
     onPress: PropTypes.func,
     cardStyle: PropTypes.object,
     iconStyle: PropTypes.object,
-    textStyle: PropTypes.object
+    textStyle: PropTypes.object,
+    underlayColor: PropTypes.string
   }
   static defaultProps = {
     showDismiss: false,
+    disabled: false,
     visible: true,
+    underlayColor: Styles.common.underlayColor
   }
   constructor(props, context) {
     super(props, context);
-    const { height } = this.props.cardStyle;
+    const { height, marginTop } = this.props.cardStyle;
     this.cardHeight = height || DEFAULT_STYLE.HEIGHT;
-    this.height = new Animated.Value(1);
-    this.scale = new Animated.Value(1);
-    this.opacity = new Animated.Value(1);
+    const initValue = this.props.visible ? 1 : 0;
+    this.height = new Animated.Value(initValue);
+    this.opacity = new Animated.Value(initValue);
+    this.marginTop = marginTop || 0;
+  }
+  componentDidMount() {
+    this.height.addListener(e => {
+      this.refs.card.setNativeProps({
+        marginTop: this.marginTop * e.value
+      });
+    });
   }
   /**
    * @description 渲染卡片内部View。默认显示 icon + text
@@ -66,7 +78,7 @@ export default class CardBase extends React.Component {
       const { icon, text, iconStyle, textStyle } = this.props;
       return (
         <Animated.View
-          style={[styles.innerContainer, { opacity: this.opacity, transform: [{ scale: this.scale }] }]}
+          style={[styles.innerContainer, { opacity: this.opacity }]}
         >
           {
             icon
@@ -89,7 +101,7 @@ export default class CardBase extends React.Component {
     }
     return (
       <Animated.View
-        style={[{ flex: 1 }, { opacity: this.opacity, transform: [{ scale: this.scale }] }]}
+        style={[{ flex: 1 }, { opacity: this.opacity }]}
       >
         {this.props.innerView}
       </Animated.View>
@@ -136,11 +148,6 @@ export default class CardBase extends React.Component {
     if (!this.props.visible) {
       Animated.parallel(
         [
-          Animated.timing(this.scale, {
-            toValue,
-            duration: DURATION_OUT,
-            easing: Easing.ease,
-          }),
           Animated.timing(this.height, {
             toValue,
             duration: DURATION_OUT,
@@ -148,11 +155,13 @@ export default class CardBase extends React.Component {
           }),
           Animated.timing(this.opacity, {
             toValue,
-            duration: DURATION_OUT - OPACITY_DELAY,
+            duration: DURATION_OUT * 0.4,
             easing: Easing.ease,
-            delay: OPACITY_DELAY,
           })
-        ]
+        ],
+        {
+          stopTogether: false
+        }
       ).start();
     }
     // 出现
@@ -161,20 +170,14 @@ export default class CardBase extends React.Component {
         [
           Animated.timing(this.opacity, {
             toValue,
-            duration: DURATION_IN,
+            duration: DURATION_IN * 0.5,
             easing: Easing.ease,
+            delay: DURATION_IN * 0.5
           }),
           Animated.timing(this.height, {
             toValue,
             duration: DURATION_IN,
             easing: Easing.ease,
-            // delay: OPACITY_DELAY,
-          }),
-          Animated.timing(this.scale, {
-            toValue,
-            duration: DURATION_IN - SCALE_DELAY,
-            easing: Easing.ease,
-            delay: SCALE_DELAY,
           })
         ]
       ).start();
@@ -183,6 +186,7 @@ export default class CardBase extends React.Component {
     const { animatedViewStyle, containerStyle } = this.getCorrectStyle(cardStyle);
     return (
       <Animated.View
+        ref='card'
         style={[animatedViewStyle, {
           opacity: this.opacity,
           height: this.height.interpolate({
@@ -193,8 +197,8 @@ export default class CardBase extends React.Component {
       >
         <TouchableHighlight
           style={[containerStyle, { flex: 1 }]}
-          underlayColor={Styles.common.underlayColor}
-          disabled={!this.props.onPress}
+          underlayColor={this.props.underlayColor}
+          disabled={this.props.disabled}
           onPress={this.props.onPress}
         >
           <View style={{ flex: 1 }}>
@@ -214,7 +218,7 @@ const styles = StyleSheet.create({
     // height: DEFAULT_STYLE.HEIGHT,
     width: DEFAULT_STYLE.WIDTH,
     backgroundColor: '#fff',
-    borderRadius: DEFAULT_STYLE.RADIUS
+    // borderRadius: DEFAULT_STYLE.RADIUS
   },
   innerContainer: {
     flex: 1,
@@ -229,7 +233,8 @@ const styles = StyleSheet.create({
   },
   innerText: {
     flex: 1,
-    fontSize: 14
+    fontSize: 14,
+    color: '#000',
   },
   closeArea: {
     width: DEFAULT_STYLE.CLOSE_AREA,

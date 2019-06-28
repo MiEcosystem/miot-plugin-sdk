@@ -74,8 +74,11 @@ export default class Setting extends React.Component {
             />
             <ListItemWithSlider
               title='测试'
+              showWithPercent={false}
+              unit={'cal'}
               sliderProps={{ value: this.state.sliderValue }}
               onSlidingComplete={value => this.onSlidingComplete(value)}
+              onValueChange={value => console.log(value)}
               showSeparator={false}
             />
           </View>

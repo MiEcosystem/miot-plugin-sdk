@@ -14,46 +14,47 @@
  *import Bluetooth from 'miot/Bluetooth'
  *
  */
-import PackageInstance, {PackageEvent as PackageEventNames, Entrance as Entrances } from './Package'
-import RootDevice, {DeviceEvent as DeviceEventNames} from './Device'
-import {RootDeviceProperties} from "./Properties"
-import ServiceInstance from './Service'
-import HostInstance  from './Host'
-import ResourcesPack from './resources'
-import BluetoothFactory, {BluetoothEvent as BluetoothEventNames} from './Bluetooth'
-import {SceneType as SceneTypeNames} from './service/scene'
-export const API_LEVEL = 10010
+import BluetoothFactory, { BluetoothEvent as BluetoothEventNames } from './Bluetooth';
+import RootDevice, { DeviceEvent as DeviceEventNames } from './Device';
+import HostInstance from './Host';
+import { AudioEvent as AudioEventNames } from './host/audio';
+import PackageInstance, { Entrance as Entrances, PackageEvent as PackageEventNames } from './Package';
+import { RootDeviceProperties } from "./Properties";
+import ResourcesPack from './resources';
+import ServiceInstance from './Service';
+import { SceneType as SceneTypeNames } from './service/scene';
+export const API_LEVEL = 10020
 /**
  * 插件包基本配置
  * {@link module:miot/Package}
  * @export
  */
-export const Package=PackageInstance;
+export const Package = PackageInstance;
 /**
  * 插件入口类型
  * {@link module:miot/Package~Entrance}
  * @export
  */
-export const Entrance=Entrances;
+export const Entrance = Entrances;
 /**
  * 插件全局事件
  * {@link module:miot/Package~PackageEvent}
  * @export
  */
-export const PackageEvent=PackageEventNames;
+export const PackageEvent = PackageEventNames;
 /**
  * 当前设备
  * {@link module:miot/Device}
  * @type {IDevice}
  * @export
  */
-export const Device=RootDevice;
+export const Device = RootDevice;
 /**
  * 设备系统事件
  * {@link module:miot/Device~DeviceEvent}
  * @export
  */
-export const DeviceEvent=DeviceEventNames;
+export const DeviceEvent = DeviceEventNames;
 /**
  * 当前设备属性缓存
  * {@link module:miot/Properties}
@@ -66,19 +67,19 @@ export const DeviceProperties = RootDeviceProperties;
  * {@link module:miot/Service}
  * @export
  */
-export const Service=ServiceInstance;
+export const Service = ServiceInstance;
 /**
  * 插件运行环境的本地服务
  * {@link module:miot/Host}
  * @export
  */
-export const Host=HostInstance;
+export const Host = HostInstance;
 /**
  * 资源类
  * {@link module:miot/resources}
  * @export
  */
-export const Resources=ResourcesPack;
+export const Resources = ResourcesPack;
 /**
  * 蓝牙类
  * {@link module:miot/Bluetooth}
@@ -97,10 +98,14 @@ export const BluetoothEvent = BluetoothEventNames;
  * @export
  */
 export const SceneType = SceneTypeNames;
+export const AudioEvent = AudioEventNames;
 /**
  * @export
  */
-export default {API_LEVEL, Package, PackageEvent, Entrance,
+export default {
+    API_LEVEL, Package, PackageEvent, Entrance,
     Device, DeviceEvent, DeviceProperties,
     Service, Host, Resources,
-    Bluetooth, BluetoothEvent, SceneType}
+    Bluetooth, BluetoothEvent, SceneType,
+    AudioEvent
+}

@@ -71,13 +71,25 @@ export default class UIDemo extends React.Component {
             {
                 'name': '打开定时',
                 'func': () => {
-                    Host.ui.openTimerSettingPageWithOptions({ onMethod: "power_on", onParam: "on", offMethod: "power_off", offParam: "off", timerTitle: "这是一个自定义标题", displayName:"自定义场景名称" })
+                    Host.ui.openTimerSettingPageWithOptions({ onMethod: "power_on", onParam: "on", offMethod: "power_off", offParam: "off", timerTitle: "这是一个自定义标题", displayName: "自定义场景名称" })
                 }
             },
             {
                 'name': '多键开关设置',
                 'func': () => {
                     Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac);
+                }
+            },
+            {
+                'name': 'zigbee 子设备快连(网关设备)',
+                'func': () => {
+                    Host.ui.openZigbeeConnectDeviceList(Device.deviceID);
+                }
+            },
+            {
+                'name': 'openNewMorePage',
+                'func': () => {
+                    Host.ui.openNewMorePage();
                 }
             }
         ];

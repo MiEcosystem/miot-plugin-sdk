@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 系统服务_安全模块
- * @doc_index 16
+ * @doc_index 18
  * @module miot/service/security
  * @description 安全相关服务
  * @example
@@ -27,13 +27,13 @@
  * @interface
  *
  */
-export class ISecureKey{
+export class ISecureKey {
     /**
      * 设备 ID
      * @type {long}
      * @readonly
      */
-    get deviceID(){
+    get deviceID() {
          return  0
     }
     /**
@@ -41,7 +41,7 @@ export class ISecureKey{
      * @type {long}
      * @readonly
      */
-    get keyID(){
+    get keyID() {
          return  0
     }
     /**
@@ -49,63 +49,63 @@ export class ISecureKey{
      * @type {string}
      * @readonly
      */
-    get shareUserID(){
+    get shareUserID() {
          return  0
     }
     /**
      * 生效时间 UTC时间戳，单位为s, active_time
      * @type {long}
      */
-    get activeTime(){
+    get activeTime() {
          return  0
     }
-    set activeTime(active_time){
+    set activeTime(active_time) {
     }
     /**
      * 过期时间 UTC时间戳，单位为s, expire_time
      */
-    get expireTime(){
+    get expireTime() {
          return  0
     }
-    set expireTime(expire_time){
+    set expireTime(expire_time) {
     }
     /**
      * 生效日期（星期几，例如周一和周三对应1和3，[1, 3]，星期天对应0），仅在status=2时不可为空
      * @type {Array<int>}
      */
-    get weekdays(){
+    get weekdays() {
          return []
     }
-    set weekdays(weekdays){
+    set weekdays(weekdays) {
     }
     /**
      * 分享类别，1：暂时，2：周期，3：永久
      * @type {int}
      */
-    get status(){
+    get status() {
          return  1
     }
-    set status(status){
+    set status(status) {
     }
     /**
      * 是否过期
      * @returns boolean
      */
-    isOutOfDate(){
+    isOutOfDate() {
          return false
     }
     /**
      * 保存 /share/bluetoothkeyshare
      * @returns {Promise}
      */
-    save(){
+    save() {
          return Promise.resolve(null);
     }
     /**
      * 删除 /share/bluetoothkeyshare
      * @returns {Promise}
      */
-    remove(){
+    remove() {
          return Promise.resolve(false);
     }
 }
@@ -118,7 +118,7 @@ export default {
      * @param {*} deviceID 设备ID
      * @returns {Promise<ISecureKey[]>}
      */
-    loadSecureKeys(deviceID){
+    loadSecureKeys(deviceID) {
          return Promise.resolve([]);
     },
     /**
@@ -129,7 +129,7 @@ export default {
      * @returns {Promise<ISecureKey>}
      * 
      */
-    shareSecureKey(deviceID, shareUid, settings={}){
+    shareSecureKey(deviceID, shareUid, settings = {}) {
          return Promise.resolve(null);
     },
     /**
@@ -139,7 +139,7 @@ export default {
      * @returns {Promise<json>}
      *
      */
-    getLockBindInfo(deviceID){
+    getLockBindInfo(deviceID) {
          return Promise.resolve(null);
     }
 }

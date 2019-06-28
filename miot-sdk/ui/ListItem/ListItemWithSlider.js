@@ -12,8 +12,8 @@ const THUMB_SIZE = 24;
 const THUMB_TOUCH_SIZE = { width: 50, height: 50 };
 /**
  * @export public
- * @doc_name ListItem
- * @doc_index 22
+ * @doc_name 列表控件
+ * @doc_index 24
  * @author Geeook
  * @since 10004
  * @module ListItemWithSlider
@@ -22,6 +22,7 @@ const THUMB_TOUCH_SIZE = { width: 50, height: 50 };
  * @property {object} sliderProps - slider的属性值，默认值 {minimumValue:0,maximumValue:100,step:1,value:50}
  * minimumValue：最小值；maximumValue：最大值；step：步长；value：当前值
  * @property {bool} showWithPercent - 是否以百分比显示当前值，默认值 true
+ * @property {string} unit - 当前值的单位。`showWithPercent = true` 将不显示单位
  * @property {object} sliderStyle - slider 的自定义样式
  * 默认值 
  * {
@@ -32,6 +33,7 @@ const THUMB_TOUCH_SIZE = { width: 50, height: 50 };
  *   trackStyle: { height: 2, borderRadius: 1 }, // 轨 的自定义样式
  *   thumbStyle: { width: 24, height: 24, borderRadius: 12 }, // 可移动圆圈 的自定义样式
  * }
+ * @property {function} onValueChange - 滑动回调函数，返回实时的滑动值
  * @property {function} onSlidingComplete - 滑动结束回调函数
  * @property {bool} disabled - 是否禁用滑动，默认值 false
  * @property {style} containerStyle - 列表项的自定义样式
@@ -45,7 +47,9 @@ export default class ListItemWithSlider extends React.Component {
     title: PropTypes.string.isRequired,
     sliderProps: PropTypes.object,
     showWithPercent: PropTypes.bool,
+    unit: PropTypes.string,
     sliderStyle: PropTypes.object,
+    onValueChange: PropTypes.func,
     onSlidingComplete: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
     containerStyle: PropTypes.object,
@@ -57,6 +61,7 @@ export default class ListItemWithSlider extends React.Component {
   static defaultProps = {
     title: '',
     showWithPercent: true,
+    unit: '',
     disabled: false,
     containerStyle: {},
     titleStyle: {},
@@ -136,9 +141,9 @@ export default class ListItemWithSlider extends React.Component {
   format(val) {
     if (this.props.showWithPercent) {
       const { minimumValue: min, maximumValue: max } = this.sliderProps;
-      return Math.round((val - min) / (max - min) * 100) + '%';
+      return Math.round((val - min) / (max - min) * 100) + ' %';
     }
-    return val;
+    return val + ' ' + this.props.unit;
   }
   // 父组件更新数据
   componentWillReceiveProps(nextProps) {
@@ -160,6 +165,9 @@ export default class ListItemWithSlider extends React.Component {
       value,
       valueStr: this.format(value)
     });
+    if (this.props.onValueChange) {
+      this.props.onValueChange(value);
+    }
   }
   _onSlidingComplete(value) {
     if (this.props.onSlidingComplete) {

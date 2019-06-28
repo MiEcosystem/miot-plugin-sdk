@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 原生_页面导航模块
- * @doc_index 13
+ * @doc_index 15
  * @module miot/host/ui
  * @description 本地原生业务页面访问与处理
  * @example
@@ -14,7 +14,8 @@
  *
  *
  */
-import {Device} from "../index";
+import native from "../native";
+import Service from "../Service";
 const resolveAssetSource = require('resolveAssetSource');
 export default {
   /**
@@ -106,6 +107,15 @@ export default {
   },
   /**
    * 软件政策和隐私协议授权
+   * 隐私协议弹框需求：
+   * a. 所有接入米家的设备，绑定成功后第一次进插件，都需要隐私弹框，后续再进不需弹框
+   * b. 取消隐私授权/解绑设备后，重新绑定设备，仍需遵循规则a
+   * 插件端可按如下方案实现：
+   * 1. 使用batchSetDeviceDatas存储一个标志位，用来记录是否“隐私弹框”过
+   * 2. 进入插件时batchGetDeviceDatas获取此标志位，若为NO，弹框，同时设置标志位为YES；若为YES，不弹框
+   * 3. 设备取消授权或解绑设备时，此标志位米家后台会自动清除，故遵循了上述需求b
+   * 4. 异常处理：进插件时，如果网络异常等原因导致batchGetDeviceDatas失败，就不弹框（此时99%情况是第2+次进插件）
+   *
    * @param {string} licenseTitle optional 可以为空
    * @param {string} licenseUrl optional require('资源的相对路径')
    * @param {string} policyTitle 不可以为空
@@ -143,13 +153,15 @@ export default {
   openShopPage(gid) {
   },
   /**
-   * 打开创建设备组页
+   * @param {String} groupModel - 设备组model
+   * 打开创建设备组页，只有在设备页内，需要创建设备组时，才能调用此方法。如果是设备组页面内，请使用下面的openEditDeviceGroupPage方法
    * 只有特定设备支持创建设备组统一管理
    */
-  openAddDeviceGroupPage() {
+  openAddDeviceGroupPage(groupModel = "") {
   },
   /**
-   * @param {Array} dids- 包含组设备did的数组
+   * 打开编辑设备组页，只有在设备组页内，需要修改设备组时，才能调用此方法。如果是设备页面内，请使用上面的openAddDeviceGroupPage方法
+   * @param {Array} dids - 包含组设备did的数组
    */
   openEditDeviceGroupPage(dids) {
   },
@@ -196,10 +208,10 @@ export default {
   openTimerSettingPageWithCustomIdentifier(customTimerIdentifier, onMethod, onParam, offMethod, offParam) {
   },
   /**
-   * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串，指硬件端，打开定时应该执行的方法，请咨询硬件工程师
-   * @param {json} onParam   定时到时设备“开”执行的 RPC 指令参数，可以是字符串、数字、字典、数组，指硬件端，打开定时应该传入的参数，请咨询硬件工程师
-   * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串,,参数请与嵌入式的同学沟通，指硬件端，关闭定时应该执行的方法，请咨询硬件工程师
-   * @param {json} offParam  定时到时设备“关”执行的 RPC 指令参数，可以是字符串、数字、字典、数组，指硬件端，关闭定时应该传入的参数，请咨询硬件工程师
+   * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串，指硬件端，打开定时应该执行的方法，请咨询硬件工程师,miot-spec下，一般为：set_properties
+   * @param {json} onParam   定时到时设备“开”执行的 RPC 指令参数，可以是字符串、数字、字典、数组，指硬件端，打开定时应该传入的参数，请咨询硬件工程师，iot-spec下，一般为：[{did,siid,piid,value}]
+   * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串,,参数请与嵌入式的同学沟通，指硬件端，关闭定时应该执行的方法，请咨询硬件工程师，miot-spec下，一般为：set_properties
+   * @param {json} offParam  定时到时设备“关”执行的 RPC 指令参数，可以是字符串、数字、字典、数组，指硬件端，关闭定时应该传入的参数，请咨询硬件工程师，miot-spec下，一般为：[{did,siid,piid,value}]
    * @example
    * 
    * Host.ui.openTimerSettingPageWithVariousTypeParams("power_on", ["on", "title"], 'off',"title"}),
@@ -210,10 +222,10 @@ export default {
    * 扩展自 openTimerSettingPageWithVariousTypeParams , 新增支持自定义name使用
    * @since 10010 ,SDKLevel 10010 开始提供使用
    * @param {object} options 配置信息
-   * @param {string} options.onMethod 配置定时开启的 method 名
-   * @param {object} options.onParam 配置定时开启的 参数
-   * @param {string} options.offMethod 配置定时关闭的 method 名
-   * @param {object} options.offParam 配置定时关闭的 参数
+   * @param {string} options.onMethod 配置定时开启的 method 名，同上面openTimerSettingPageWithVariousTypeParams的参数onMethod
+   * @param {object} options.onParam 配置定时开启的 参数，同上面openTimerSettingPageWithVariousTypeParams的参数onParam
+   * @param {string} options.offMethod 配置定时关闭的 method 名，同上面openTimerSettingPageWithVariousTypeParams的参数offMethod
+   * @param {object} options.offParam 配置定时关闭的 参数，同上面openTimerSettingPageWithVariousTypeParams的参数offParam
    * @param {string} options.displayName 配置场景日志显示的名称
    * @example
    * Host.ui.openTimerSettingPageWithOptions({onMethod:"power_on", onParam: "on", offMethod: "power_off", offParam: "off", displayName:"设置xxx定时"})
@@ -228,23 +240,26 @@ export default {
    * @example
    * Host.ui.openPowerMultikeyPage(did, mac);
   */
-  openPowerMultikeyPage(did, mac = null){
+  openPowerMultikeyPage(did, mac = null) {
   },
-    /**
-   * 添加或者复制一个红外遥控器
-   * @since 10003
-   * @param {string} did 设备did
-   * @param {number} type 0：添加遥控器；1：复制遥控器。默认0
-   * @param {array} models 一组红外遥控器model，只传入一个model将直接跳转到相应的品牌列表或者机顶盒列表，支持的models见文档。默认空数组[]
-   * @param {object} extra {create_device:true / false} 米家首页列表是否展示虚拟遥控器设备（暂时只有android支持）。默认true
-   */
+  /**
+ * 添加或者复制一个红外遥控器
+ * @since 10003
+ * @param {string} did 设备did
+ * @param {number} type 0：添加遥控器；1：复制遥控器。默认0
+ * @param {array} models 一组红外遥控器model，只传入一个model将直接跳转到相应的品牌列表或者机顶盒列表，支持的models见文档。默认空数组[]
+ * @param {object} extra 额外配置，会传入打开的插件页，也有部分特殊功能定义字段如下：
+ * @param {boolean} [extra.create_device = true] 米家首页列表是否展示虚拟遥控器设备。默认true。暂时只有android支持
+ * @param {boolean} [extra.dismiss_current_plug = true] since 10020 。在推出新的插件页面时，关掉当前页面，返回app首页。iOS Only
+ */
   addOrCopyIR(did, type = 0, models = [], extra = { create_device: true }) {
   },
   /**
    * 打开用户账号下某一设备的插件
    * @param {string} did  设备的did
    * @param {string} model  设备的model
-   * @param {object} params  额外参数，打开插件时传入
+   * @param {object} params  额外参数，打开插件时传入，也有部分特殊功能定义字段如下：
+   * @param {boolean} [params.dismiss_current_plug = true] since 10020 。是否在推出新的插件页面时，关掉当前页面，返回app首页。iOS Only
    * @returns {Promise<json>} 打开插件失败，返回错误信息；打开插件成功，无回调信息
    */
   openDevice(did, model, params) {
@@ -314,5 +329,12 @@ export default {
    * @param {string} did 设备did
    */
   openConnectSucceedPage(model, did) {
+  },
+  /**
+   * 打开Zigbee 网关插件开启子设备快连
+   * @since 10020
+   * @param {string} did 网关设备did
+   */
+  openZigbeeConnectDeviceList(did) {
   }
 };

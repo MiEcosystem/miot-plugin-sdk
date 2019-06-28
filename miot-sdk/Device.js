@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 插件设备模块
- * @doc_index 4
+ * @doc_index 6
  * @module miot/Device
  * @description
  * 设备相关 API
@@ -255,7 +255,7 @@ export class IDeviceWifi {
     /**
      * 订阅设备消息
      * @method
-     * @param {...string} propertyOrEventNames -在开发平台上声明的 prop 与 event 名，注意消息格式为：prop.xxxxx 或者 event.xxxxx ，表示订阅的是设备的属性变化，还是设备的事件响应
+     * @param {...string} propertyOrEventNames -在开发平台上声明的 prop 与 event 名，注意消息格式为：prop.xxxxx 或者 event.xxxxx ，表示订阅的是设备的属性变化，还是设备的事件响应.如果是miot-spec设备。则为prop.siid.piid，event.siid.eiid
      * @returns {Promise<EventSubscription>}
      * @example
      * import {Device, DeviceEvent} from 'miot'
@@ -416,6 +416,14 @@ class IDevice {
          return  false
     }
     /**
+     * 批量删除设备, 不能删除 小米路由器/本地蓝牙/局域网直连设备
+     * @since 10011
+     * @param {object[]} didAndPids did 与 pid（Device.type） 列表 [{did:xx,pid:xx}, {did:xx,pid:xx}]
+     */
+    deleteDevices(didAndPids) {
+         return Promise.resolve(null);
+    }
+    /**
      * 获取子设备列表，一般网关才会有子设备
      * @since 10004
      * @method
@@ -425,7 +433,16 @@ class IDevice {
      * Device.getSubDevices()
      * .then(devices => {//get device list})
      */
-    getSubDevices() {
+    getSubDevices(useCache = false) {
+         return Promise.resolve([]);
+    }
+    /**
+     * 获取蓝牙网关关联的普通蓝牙和蓝牙mesh设备列表。
+     * @since 10020
+     * @param {string} [did=Device.deviceID] 蓝牙网关的did，可以为空，为空时默认取当前Device.deviceID
+     * @returns {Promise} 返回数组设备信息的promise， {"mesh":[], "normal":""}
+     */
+    getLinkedBTDevices(did = null) {
          return Promise.resolve([]);
     }
     /**
@@ -445,7 +462,6 @@ class IDevice {
     }
     /**
      * 是否虚拟设备
-     * @deprecated 10010 废弃中，后续将不支持虚拟设备
      * @type {boolean}
      * @readonly
      *
@@ -455,9 +471,7 @@ class IDevice {
     }
     /**
      * 获取虚拟设备 /home/virtualdevicectr
-     * @deprecated 10010 废弃中，后续将不支持虚拟设备
      * @returns {Promise<IDevice[]>}
-     * @description 废弃中，后续将不支持虚拟设备
      */
     getVirtualDevices() {
          return Promise.resolve([]);
@@ -543,6 +557,14 @@ class IDevice {
      * @param {string} model 设备model
      */
     requestAuthorizedDeviceListData(model) {
+         return Promise
+    }
+    /**
+     * 将当前手机的定位信息作为新的设备位置进行上报，该操作会更新设备的地理位置信息。
+     * @since 10020
+     * @returns {Promise}
+     */
+    reportDeviceGPSInfo() {
          return Promise
     }
     /**
@@ -785,7 +807,7 @@ class IDevice {
          return  0
     }
     /**
-     *是否是自己的设备
+     *是否是自己的设备，若是别人（包含家属）分享给你的设备，isOwner则为false
      * @type {boolean}
      * @readonly
      *
@@ -794,7 +816,7 @@ class IDevice {
          return  false
     }
     /**
-     *是否是自己家庭的设备
+     *是否是自己家庭的设备，如果是家属分享给你的设备，isFamily则为true，注意此时isShared为false（iOS暂不支持分享给家属）
      * @type {boolean}
      * @readonly
      *
@@ -803,7 +825,7 @@ class IDevice {
          return  false
     }
     /**
-     *是否是别人分享的设备
+     *是否是别人分享的设备，若是家属分享给你的设备，isShared为fasle，isFamily为true
      * @type {boolean}
      * @readonly
      *

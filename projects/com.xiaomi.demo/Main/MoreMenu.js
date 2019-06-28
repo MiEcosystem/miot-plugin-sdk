@@ -14,12 +14,14 @@ export default class MoreMenu extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       header: <TitleBar type='dark' title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
+        // header: <TitleBar type='dark' title='www' style={{ backgroundColor: '#fff' }}
         onPressLeft={() => { navigation.goBack(); }} />,
     };
   };
 
   constructor(props) {
     super(props);
+    console.warn('强烈推荐使用「通用设置项」: `miot/ui/CommonSetting`, 你可以在「首页」-「教程」-「插件通用设置项」中查看使用示例')
     var ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
@@ -153,6 +155,12 @@ export default class MoreMenu extends React.Component {
         'name': "开启倒计时",
         'func': () => {
           Host.ui.openCountDownPage(false, {});
+        }
+      },
+      {
+        'name': "开启定时",
+        'func': () => {
+          Host.ui.openTimerSettingPageWithVariousTypeParams("power_on", ["on", "title"], 'off', "title")
         }
       },
       {

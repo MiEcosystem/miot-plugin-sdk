@@ -11,20 +11,22 @@
  *
  *    const btn = <miotui.ImageButton ... />
  */
-import _ImageButton from './ImageButton'
-import _LoadingDialog from './LoadingDialog'
-import _MessageDialog from './MessageDialog'
-import _ProgressDialog from './ProgressDialog'
-import _MultiChoseDialog from './MultiChoseDialog'
-import _SingleChoseDialog from './SingleChoseDialog'
-import _InputDialog from './InputDialog'
-import _TitleBar from './TitleBar'
-import _TitleBarWhite from './TitleBarWhite'
-import _TitleBarBlack from './TitleBarBlack'
-import _LocalizedStrings from './LocalizedStrings'
-import _AMapView from './AMapView'
-import _NumberSpin from './NumberSpinner'
-import _MiotAndroidScrollView from './android/scrollview/MiotAndroidScrollView'
+import _AMapView from './AMapView';
+import _MiotAndroidScrollView from './android/scrollview/MiotAndroidScrollView';
+import _MHImage from './image';
+import _ImageButton from './ImageButton';
+import _InputDialog from './InputDialog';
+import _LoadingDialog from './LoadingDialog';
+import _LocalizedStrings from './LocalizedStrings';
+import _MessageDialog from './MessageDialog';
+import _MultiChoseDialog from './MultiChoseDialog';
+import _NumberSpin from './NumberSpinner';
+import _StringSpin from './StringSpinner';
+import _ProgressDialog from './ProgressDialog';
+import _SingleChoseDialog from './SingleChoseDialog';
+import _TitleBar from './TitleBar';
+import _TitleBarBlack from './TitleBarBlack';
+import _TitleBarWhite from './TitleBarWhite';
 export const ImageButton = _ImageButton;
 export const LoadingDialog = _LoadingDialog;
 export const MessageDialog = _MessageDialog;
@@ -38,10 +40,14 @@ export const TitleBarWhite = _TitleBarWhite;
 export const LocalizedStrings = _LocalizedStrings;
 export const AMapView = _AMapView;
 export const NumberSpinner = _NumberSpin;
+export const StringSpinner = _StringSpin;
 export const MiotAndroidScrollView = _MiotAndroidScrollView;
-export default { ImageButton, 
-    LoadingDialog, MessageDialog, MultiChoseDialog, 
-    ProgressDialog, SingleChoseDialog, InputDialog, 
-    TitleBar, TitleBarBlack, TitleBarWhite, 
-    NumberSpinner,
-    LocalizedStrings, AMapView, MiotAndroidScrollView }
+export const MHImage = _MHImage;
+export default {
+    ImageButton, MHImage,
+    LoadingDialog, MessageDialog, MultiChoseDialog,
+    ProgressDialog, SingleChoseDialog, InputDialog,
+    TitleBar, TitleBarBlack, TitleBarWhite,
+    NumberSpinner, StringSpinner,
+    LocalizedStrings, AMapView, MiotAndroidScrollView
+}

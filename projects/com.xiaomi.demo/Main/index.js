@@ -39,7 +39,6 @@ import VideoDemo from './Host/VideoDemo';
 import MainPage from './MainPage';
 import MoreMenu from './MoreMenu';
 import ImagePathDemo from './NewStructureTest';
-import MemberAPIDemo from './Service/member';
 import CallSmartHomeAPIDemo from './Service/smarthome';
 import AddressBookDemo from './ThirdPartDemo/AddressBookDemo';
 import ARTCircleDemo from './ThirdPartDemo/ARTComponentDemo/ARTCircleDemo'; //圆形：Circle，
@@ -66,6 +65,7 @@ import GLSimple from './ThirdPartDemo/openGL/Simple';
 // import OpenLibList from './OpenLibList';
 import ParticleDemo from './ThirdPartDemo/ParticleDemo';
 import ProgressDemo from './ThirdPartDemo/ProgressDemo';
+import ReactNativeCameraDemo from './ThirdPartDemo/ReactNativeCameraDemo';
 import SQLiteDemo from './ThirdPartDemo/SQLiteDemo';
 import SVGDemo from './ThirdPartDemo/SVGDemo';
 import { GroupExample, HoverExample, PressExample } from './ThirdPartDemo/SVGDemo2';
@@ -93,23 +93,32 @@ import RPCControl from './tutorial/RPCControl';
 import Setting from "./tutorial/Setting";
 import FileStorage from './tutorial/storage/FileStorage';
 import StorageDemo from './tutorial/storage/StorageDemo';
+import TitleBarDemo from "./tutorial/TitleBarDemo";
 import TutorialDemo from './tutorial/TutorialDemo';
 import CardPage from "./UIComponent/CardPage";
+import CheckboxDemo from "./UIComponent/CheckboxDemo";
 import DialogTest from './UIComponent/DialogTest';
+import GearExample from './UIComponent/GearExample';
 import ImageCapInsetDemo from './UIComponent/ImageCapInsetDemo'; // working but no title displayed
 import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo';
+import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo";
 import Parallax from "./UIComponent/Parallax";
+import RadioExample from "./UIComponent/RadioExample";
 import RefreshListView from './UIComponent/RefreshListView';
+import StringSpinnerDemo from "./UIComponent/StringSpinnerDemo";
 import Dynamic from './UIComponent/swiper/Dynamic/';
 import LoadMinimal from './UIComponent/swiper/LoadMinimal/';
 import Phone from './UIComponent/swiper/Phone/';
 import Swiper from './UIComponent/swiper/Swiper/'; // working but no title displayed
 import SwiperNumber from './UIComponent/swiper/SwiperNumber/'; // working but no title displayed
+import SwitchDemo from "./UIComponent/SwitchDemo";
+import ToastExample from "./UIComponent/ToastExample";
 // import BLEConnectionDemo from './tutorial/operation/bluetooth/BLEConnectionDemo';
 import UIDemo from './UIComponent/UIDemo';
 import CustomContainer from './uikit/components/CustomContainer';
 import * as Screens from "./uikit/screens";
 import MHSetting from './unuse/MHSetting';
+
 // class HomeScreen extends React.Component {
 //   render() {
 //     return (
@@ -129,6 +138,12 @@ const RootStack = createStackNavigator({
     FirmwareUpgrade,
     CustomContainer,
     Parallax,
+    TitleBarDemo,
+    GearExample,
+    RadioExample,
+    CheckboxDemo,
+    ToastExample,
+    SwitchDemo,
     tutorialDemo: TutorialDemo,
     LocaleServer: LocaleServer,
     blankDemo: BlankDemo,
@@ -142,7 +157,6 @@ const RootStack = createStackNavigator({
     storageDemo: StorageDemo,
     fileStorage: FileStorage,
     callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
-    MemberAPIDemo,
     RPCControl: RPCControl,
     OperationDemoIndex: OperationDemoIndex,
     PrivacyDemo,
@@ -151,7 +165,8 @@ const RootStack = createStackNavigator({
     UIDemo: UIDemo,
     MiotAndroidScrollViewDemo: MiotAndroidScrollViewDemo,
     RefreshListView: RefreshListView,
-
+    NumberSpinnerDemo: NumberSpinnerDemo,
+    StringSpinnerDemo: StringSpinnerDemo,
     ThirdPartyDemo: ThirdPartyDemo,
     setting: MHSetting,
     moreMenu: MoreMenu,
@@ -190,6 +205,7 @@ const RootStack = createStackNavigator({
     OrientationDemo: OrientationDemo,
     AddressBookDemo: AddressBookDemo,
     WebViewBridageDemo: WebViewBridageDemo,
+    ReactNativeCameraDemo: ReactNativeCameraDemo,
     SVGDemo: SVGDemo,
     PressExample: PressExample,
     HoverExample: HoverExample,

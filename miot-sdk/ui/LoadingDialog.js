@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 常用UI组件
- * @doc_index 21
+ * @doc_index 23
  * @module miot/ui/LoadingDialog
  * @description 输入对话框
  * @property {bool} visible 是否可见
