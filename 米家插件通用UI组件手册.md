@@ -2056,4 +2056,249 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 
 ***
 
+## 米家弹窗-分享弹窗-ShareDialog
+
+### 预览
+
+![](./UIDocImages/sharedialog.png)
+
+![](./UIDocImages/sharedialog.gif)
+
+### 基本信息
+
+| 基本信息  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 中文名称  | 分享弹窗                                                     |
+| 描述      | 弹窗提示，让用户选择分享到指定平台                             |
+| 位置      | `miot/ui/Dialog/ShareDialog`                                 |
+| SDK_Level | `SDK_10022`                                                  |
+| 注意事项  | `Android`下`Swiper`和`Modal`显示有冲突，所以需要`Modal`先显示，`Swiper`后显示。表现为弹窗先显示后，图标才开始刷新显示，属于正常现象 |
+
+### 使用方法
+
+```jsx
+<ShareDialog
+  visible={this.state.visible13}
+  title='不分页的分享弹窗'
+  onDismiss={_ => this.onDismiss('13')}
+/>
+<ShareDialog
+  visible={this.state.visible14}
+  title='分页的分享弹窗'
+  options={
+    Array.from({ length: 15 }, (v, i) => ({
+      icon: testIcon,
+      text: [`米家`, `微信`, `QQ`, `微博`, `朋友圈`, `收藏`, `即刻`][~~(Math.random() * 7)],
+      callback: () => console.log('分享成功')
+    }))
+  }
+  onDismiss={_ => this.onDismiss('14')}
+/>
+```
+
+### 参数
+
+#### Opiton(分享选项)
+
+| Name | Type | Description |
+| --- | --- | --- |
+| icon | <code>number</code> | 图标的资源, `require('../xx/xx.png’)` |
+| text | <code>string</code> | 图标下方的文字说明 |
+| callback | <code>function</code> | 点击图标的回调函数 |
+
+| Param | Type | Description |
+| --- | --- | --- |
+| animationType | <code>string</code> | modal 显示动效, 默认`'fade'`，参考 https://facebook.github.io/react-native/docs/0.54/modal#animationtype |
+| visible | <code>bool</code> | 是否显示 modal, 默认`false`，参考 https://facebook.github.io/react-native/docs/0.54/modal#visible |
+| title | <code>string</code> | 标题文字 |
+| options | [<code>Array&lt;Opiton&gt;</code>](#Opiton分享选项) | 分享选项，一页最多显示**8个**，当可选项**>8个**时，允许左右滑动分页 |
+| buttons | [<code>Array&lt;Button&gt;</code>](#button按钮)    | 和`AbstractDialog`的`buttons`属性相同    |
+| onDismiss | <code>function</code> | Modal 隐藏时的回调函数 |
+
+[⬆️回到目录](#目录)
+
+***
+
+## 米家弹窗-操作列表-ActionSheet
+
+### 预览
+
+![](./UIDocImages/actionsheet.png)
+
+### 基本信息
+
+| 基本信息  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 中文名称  | 操作列表                                                     |
+| 描述      | 弹窗提示，让用户选择不同的操作，和iOS原生的[ActionSheet](https://facebook.github.io/react-native/docs/0.54/actionsheetios#docsNav)相似 |
+| 位置      | `miot/ui/Dialog/ActionSheet`                                 |
+| SDK_Level | `SDK_10022`                                                  |
+| 注意事项  |  |
+
+### 使用方法
+
+```jsx
+<ActionSheet
+  visible={this.state.visible15}
+  options={[
+    {
+      title: '🙈',
+      subtitle: '🙈',
+      onPress: _ => console.log('非礼勿视')
+    },
+    {
+      title: '🙉',
+      onPress: _ => console.log('非礼勿听')
+    },
+    {
+      title: '🙊',
+      subtitle: '🙊',
+      onPress: _ => console.log('非礼勿言')
+    }
+  ]}
+  buttons={[
+    {
+      text: '取消',
+      style: { color: 'lightblue' },
+      callback: _ => this.setState({ visible15: false })
+    }
+  ]}
+  onDismiss={_ => this.onDismiss('15')}
+/>
+```
+
+### 参数
+
+#### Opiton(可点击的选项)
+
+| Name | Type | Description |
+| --- | --- | --- |
+| title | <code>string</code> | 主文案 |
+| subtitle | <code>string</code> | 副文案 |
+| onPress | <code>function</code> | 点击回调函数 |
+
+| Param | Type | Description |
+| --- | --- | --- |
+| animationType | <code>string</code> | modal 显示动效, 默认`'fade'`，参考 https://facebook.github.io/react-native/docs/0.54/modal#animationtype |
+| visible | <code>bool</code> | 是否显示 modal, 默认`false`，参考 https://facebook.github.io/react-native/docs/0.54/modal#visible |
+| options | [<code>Array&lt;Opiton&gt;</code>](#Opiton可点击的选项) | 可点击的选项 |
+| buttons | [<code>Array&lt;Button&gt;</code>](#button按钮)        | 和`AbstractDialog`的`buttons`属性相同 |
+| onDismiss | <code>function</code> | Modal 隐藏时的回调函数 |
+
+[⬆️回到目录](#目录)
+
+***
+
+## 米家弹窗-选择弹窗-ChoiceDialog
+
+### 预览
+
+![](./UIDocImages/choicedialog.gif)
+
+![](./UIDocImages/choicedialog1.gif)
+
+### 基本信息
+
+| 基本信息  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 中文名称  | 选择弹窗                                                     |
+| 描述      | 弹窗让用户从不同选项中选择一项或者多项 |
+| 位置      | `miot/ui/Dialog/ChoiceDialog`                                 |
+| SDK_Level | `SDK_10022`                                                  |
+| 注意事项  |  |
+
+### 使用方法
+
+```jsx
+<ChoiceDialog
+  visible={this.state.visible16}
+  title={'单选弹窗'}
+  options={[
+    {
+      title: 'Test',
+      subtitle: 'test',
+    },
+    {
+      title: 'Test',
+    },
+    {
+      title: '测试',
+      subtitle: '测试',
+    }
+  ]}
+  selectedIndexArray={this.state.selectedIndexArray}
+  onDismiss={_ => this.onDismiss('16')}
+  onSelect={result => this.state.selectedIndexArray = result}
+/>
+<ChoiceDialog
+  type={ChoiceDialog.TYPE.MULTIPLE}
+  visible={this.state.visible17}
+  title={'多选弹窗'}
+  options={[
+    {
+      title: '🙈',
+      subtitle: '🙈',
+    },
+    {
+      title: '🙉',
+      subtitle: '🙉',
+    },
+    {
+      title: '🙊',
+      subtitle: '🙊',
+    }
+  ]}
+  selectedIndexArray={this.state.selectedIndexArray1}
+  color="#f0ac3d"
+  buttons={[
+    {
+      text: '保存',
+      style: { color: 'lightblue' },
+      callback: result => {
+        console.log(`选中的选项`, result);
+        this.setState({
+          visible17: false,
+          selectedIndexArray1: result
+        });
+      }
+    }
+  ]}
+  onDismiss={_ => this.onDismiss('17')}
+/>
+```
+
+### 参数
+
+#### TYPE(选择弹窗的类型)
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| SINGLE | <code>string</code> | <code>&quot;single&quot;</code> | 单选弹窗，将不显示底部按钮，选择某项之后弹窗消失 |
+| MULTIPLE | <code>string</code> | <code>&quot;multiple&quot;</code> | 多选弹窗 |
+
+#### Opiton(可选项)
+
+| Name | Type | Description |
+| --- | --- | --- |
+| title | <code>string</code> | 主文案 |
+| subtitle | <code>string</code> | 副文案 |
+
+| Param              | Type                                              | Description                                                  |
+| ------------------ | ------------------------------------------------- | ------------------------------------------------------------ |
+| animationType      | <code>string</code>                               | modal 显示动效, 默认`'fade'`，参考 https://facebook.github.io/react-native/docs/0.54/modal#animationtype |
+| visible            | <code>bool</code>                                 | 是否显示 modal, 默认`false`，参考 https://facebook.github.io/react-native/docs/0.54/modal#visible |
+| type               | [<code>TYPE</code>](#TYPE选择弹窗的类型)          | 选择弹窗类型，定义是单选弹窗还是多选弹窗，默认是单选弹窗     |
+| title              | <code>string</code>                               | 标题                                                         |
+| options            | [<code>Array&lt;Opiton&gt;</code>](#Opiton可选项) | 可选项                                                       |
+| selectedIndexArray | <code>Array&lt;number&gt;</code>                  | 选中选项的下标，默认全部未选中                               |
+| color              | <code>string</code>                               | 选中态颜色，单选时表示选中文字颜色，多选时表示勾选框勾选背景颜色，默认米家绿 |
+| icon               | <code>number</code>                               | 选项被选中时的选中图标，放在文字前面，`TYPE.SINGLE`可用，默认绿色右箭头图片 |
+| buttons            | [<code>Array&lt;Button&gt;</code>](#button按钮)   | 和`AbstractDialog`的`buttons`属性相同                        |
+| onSelect           | <code>function</code>                             | 选项选择后的确认回调，返回选中选项的下标数组，`TYPE.SINGLE`可用 |
+| onDismiss          | <code>function</code>                             | Modal 隐藏时的回调函数                                       |
+
+[⬆️回到目录](#目录)
+
+***
+
 > 文档难免有疏漏、错误或者和Demo代码不一致的地方，[请不吝指正](https://github.com/MiEcosystem/miot-plugin-sdk/issues/new/choose)，或者联系[Geeook](mailto:liumengzhou@xiaomi.com)。
