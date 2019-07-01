@@ -28,7 +28,7 @@ const DEFAULT_BLOCK_COLOR = '#fff'; // 滑块默认颜色
 /**
  * @export
  * @author Geeook
- * @since 10021
+ * @since 10022
  * @module SlideGear
  * @description 档位控件，滑动选择
  * @property {TYPE} type - 容器和滑块的圆角类型
