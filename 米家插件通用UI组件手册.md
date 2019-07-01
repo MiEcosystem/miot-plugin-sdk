@@ -10,9 +10,9 @@
 
 3. 可运行`com.xiaomi.demo`，在「首页」—「UI能力(miot/ui)」页面中查看组件使用效果
 
-4. 为了方便阅读本文档，可以在目录中点击标题直接跳转到组件说明，在组件说明的末尾可点击*「⬆️回到目录」*快速回到目录。另外如果你使用Chrome浏览器，推荐使用插件[Smart TOC](https://chrome.google.com/webstore/detail/smart-toc/lifgeihcfpkmmlfjbailfpfhbahhibba?hl=zh-CN)
+4. 为了方便阅读本文档，可以在目录中点击标题直接跳转到组件说明，在组件说明的末尾可点击`「⬆️回到目录」`快速回到目录。另外如果你使用Chrome浏览器，推荐使用插件[Smart TOC](https://chrome.google.com/webstore/detail/smart-toc/lifgeihcfpkmmlfjbailfpfhbahhibba?hl=zh-CN)
 
-![](./UIDocImages/toc.png)
+![](./UIDocImages/toc.jpg)
 
 ![](./UIDocImages/demo.gif)
 
