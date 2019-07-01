@@ -1,3 +1,4 @@
 import DragGear from "./DragGear";
 import NormalGear from "./NormalGear";
-export { NormalGear, DragGear };
+import SlideGear from "./SlideGear";
+export { NormalGear, DragGear, SlideGear };

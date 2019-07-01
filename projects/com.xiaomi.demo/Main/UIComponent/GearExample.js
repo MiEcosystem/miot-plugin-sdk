@@ -1,5 +1,5 @@
 import { Styles } from 'miot/resources';
-import { DragGear, NormalGear } from 'miot/ui/Gear';
+import { DragGear, NormalGear, SlideGear } from "miot/ui/Gear";
 import Separator from 'miot/ui/Separator';
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
@@ -22,8 +22,10 @@ export default class GearExample extends React.Component {
 
   constructor(props, context) {
     super(props, context);
+    this.options = ['off', '1', '2', '3', '4', '5'];
     this.state = {
       selectIndex: 2,
+      index: 2,
     };
   }
 
@@ -33,28 +35,68 @@ export default class GearExample extends React.Component {
         <Separator />
         <ScrollView>
           <View style={styles.contentStyle}>
+            <Text style={styles.title}>
+              {'选择档位 '}
+              <Text style={{ color: '#f0ac3d' }}>
+                {`${this.options[this.state.index]}`}
+              </Text>
+            </Text>
+            <Text style={styles.label}>
+              拖拽 / 点击选择档位
+            </Text>
             <DragGear
-              options={['off', '1', '2', '3', '4', '5']}
+              options={this.options}
               // normalStyle={{ width: 35 }}
-              // margin={20}
+              margin={0}
               selectColor={Styles.common.MHGreen}
               textStyle={{ fontSize: 16, fontFamily: 'DS-Digital' }}
-              maxWidth={width}
+              // maxWidth={width * 0.75}
               selectIndex={this.state.selectIndex}
-              onSelect={index => console.log(`select${index}`)}
+              onSelect={index => this.callback(index)}
               containerStyle={{ backgroundColor: '#fff' }}
             />
+            <Text style={styles.label}>
+              {`滑动选择档位(圆形滑块)`}
+            </Text>
+            <SlideGear
+              options={this.options}
+              value={this.state.selectIndex}
+              containerStyle={{ width: width * 0.75 }}
+              onValueChange={index => this.callback(index)}
+              onSlidingComplete={index => this.callback(index)}
+            />
+            <Text style={styles.label}>
+              {`滑动选择档位(方形滑块)`}
+            </Text>
+            <SlideGear
+              type={SlideGear.TYPE.RECTANGLE}
+              options={this.options}
+              showEndText={false}
+              containerStyle={{ width: width * 0.75, height: 66 }}
+              blockStyle={{ width: 30, backgroundColor: 'red' }}
+              minimumTrackTintColor='lightpink'
+              maximumTrackTintColor='skyblue'
+              value={this.state.selectIndex}
+              onValueChange={index => this.callback(index)}
+              onSlidingComplete={index => this.callback(index)}
+            />
+            <Text style={styles.label}>
+              点击选择档位
+            </Text>
             <NormalGear
-              options={['off', '1', '2', '3', '4', '5']}
+              options={this.options}
               // normalStyle={{ width: 60 }}
-              // margin={25}
+              margin={0}
               selectColor={Styles.common.MHGreen}
               textStyle={{ fontSize: 16, fontFamily: 'DS-Digital' }}
               maxWidth={width}
               selectIndex={this.state.selectIndex}
-              onSelect={index => console.log(`select${index}`)}
+              onSelect={index => this.callback(index)}
               containerStyle={{ backgroundColor: '#fff' }}
             />
+            <Text style={styles.label}>
+              拖拽动画效果
+            </Text>
             <View style={styles.demo2}>
               <Text>{'👇可以直接左右拖拽👇'}</Text>
               <Draggable />
@@ -65,12 +107,16 @@ export default class GearExample extends React.Component {
             </View>
           </View>
         </ScrollView>
-      </View>
+      </View >
     );
   }
 
+  callback(index) {
+    this.setState({ index });
+  }
+
   componentDidMount() {
-    setTimeout(_ => this.setState({ selectIndex: 4 }), 500);
+    setTimeout(_ => this.setState({ selectIndex: 4, index: 4 }), 1000);
   }
 
 }
@@ -83,7 +129,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   demo1: {
-    paddingVertical: 10,
+    paddingVertical: 5,
     width: 200,
     flexDirection: 'row',
     alignItems: 'center',
@@ -93,7 +139,20 @@ const styles = StyleSheet.create({
     position: 'relative',
     backgroundColor: 'lightpink',
     width,
-    height: 120,
+    height: 100,
     alignItems: 'center',
+  },
+  label: {
+    marginVertical: 5,
+    alignSelf: 'flex-start',
+    fontSize: 15
+  },
+  title: {
+    width,
+    textAlign: 'center',
+    marginVertical: 10,
+    alignSelf: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
   }
 });

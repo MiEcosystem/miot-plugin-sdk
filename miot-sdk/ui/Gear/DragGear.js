@@ -84,7 +84,6 @@ export default class DragGear extends React.Component {
       dragToValueMin: 0,
       dragToValueMax: 0,
     };
-    this.translateX = 0; // 记录拖拽距离
     this.offset = 0; // 手势触摸点和中心左边偏差值
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -117,12 +116,6 @@ export default class DragGear extends React.Component {
         const index = this.getClosetIndex(moveX);
         this.setState({ currentOption: this.props.options[index] || '' });
       }
-      const { dragToValueMin: min, dragToValueMax: max } = this.state;
-      if (e.value >= min && e.value <= max) {
-        this.translateX = e.value;
-        return;
-      }
-      this.translateX = e.value < min ? min : max;
     });
     // 拖拽手势坐标监听，为了更新中间的文字
     if (Platform.OS === 'ios') {
@@ -147,9 +140,6 @@ export default class DragGear extends React.Component {
   _onPanResponderGrant(e, gesture) {
     // 放大动画
     Animated.timing(this.state.scale, dragStartAnimationConfig).start();
-    // 每次拖拽手势开始时，需要重置
-    this.state.pan.setOffset(this.translateX);
-    this.state.pan.setValue(0);
     // 为了准确确定释放位置，需要在起手的时候，计算出手势触摸点和中心点的偏差
     const { pageX } = e.nativeEvent;
     this.offset = pageX - this.currentCoord;
@@ -177,6 +167,9 @@ export default class DragGear extends React.Component {
     // 重置 selectIndex
     this.setState({ selectIndex: index }, _ => {
       this.getDragRange(_ => {
+        // 这行十分重要！！！
+        // 在计算出新的可拖拽范围之后，Block position 重新定位在新的 -min
+        // 此时pan.setValue(0)，直接将 Block 吸附在了新的位置上
         this.state.pan.setValue(0);
         Animated.timing(this.state.scale, releaseAnimationConfig).start(_ => {
           if (Platform.OS == 'android') {
@@ -245,19 +238,22 @@ export default class DragGear extends React.Component {
    * @description 所有的固定选项
    */
   renderOptions() {
-    const optionStyle = {
-      width: this.optionWidth,
-      height: this.optionWidth,
-      borderRadius: this.optionWidth / 2,
-      borderWidth: 0
-    };
+    const style = StyleSheet.flatten([
+      this.props.normalStyle,
+      {
+        width: this.optionWidth,
+        height: this.optionWidth,
+        borderRadius: this.optionWidth / 2,
+        borderWidth: 0
+      }
+    ]);
     return this.props.options.map((option, index) => {
       return (
         <Clickable
           key={option}
           onPress={_ => this.onPress(index)}
           text={option || ''}
-          style={[this.props.normalStyle, optionStyle]}
+          style={style}
           textStyle={this.props.textStyle}
         />
       )
@@ -362,7 +358,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    // backgroundColor: 'lightblue',
-    // backgroundColor: '#fff'
   }
 });

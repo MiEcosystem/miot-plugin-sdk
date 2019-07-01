@@ -102,6 +102,7 @@ import TutorialDemo from './tutorial/TutorialDemo';
 import AbsoluteTouch from './UIComponent/AbsoluteTouch';
 import CardPage from "./UIComponent/CardPage";
 import CheckboxDemo from "./UIComponent/CheckboxDemo";
+import DialogExample from "./UIComponent/DialogExample";
 import DialogTest from './UIComponent/DialogTest';
 import DialogTest2 from './UIComponent/DialogTest2';
 import DialogTest3 from './UIComponent/DialogTest3';
@@ -156,6 +157,7 @@ const RootStack = createStackNavigator({
     ToastExample,
     SwitchDemo,
     MHDatePickerDemo,
+    DialogExample,
     NavigationBarDemo,
     HostDemo,
     ServiceDemo,

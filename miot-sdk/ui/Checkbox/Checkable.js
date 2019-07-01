@@ -13,7 +13,8 @@ const {
 class Rectangle extends React.Component {
   static propTypes = {
     width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired
+    height: PropTypes.number.isRequired,
+    degree: PropTypes.number.isRequired,
   };
   render() {
     const { width, height } = this.props;
@@ -26,7 +27,13 @@ class Rectangle extends React.Component {
       .arc(0, height, height / 2)
       .line(-newWidth, 0)
       .close();
-    return <Shape {...this.props} d={path} />;
+    return (
+      <Shape
+        transform={new Transform().rotate(this.props.degree)}
+        {...this.props}
+        d={path}
+      />
+    );
   }
 }
 const AnimatedRectangle = Animated.createAnimatedComponent(Rectangle);
@@ -93,7 +100,7 @@ export default class Checkable extends React.Component {
           style={{ backgroundColor: 'transparent' }}
         >
           <AnimatedRectangle
-            transform={new Transform().rotate(degree).translate()}
+            degree={degree}
             fill={'#fff'}
             width={this.leftRectangleWidth}
             height={this.rectangleHeight}
@@ -107,7 +114,7 @@ export default class Checkable extends React.Component {
           style={{ backgroundColor: 'transparent', marginLeft: -0.5 }}
         >
           <AnimatedRectangle
-            transform={new Transform().rotate(-degree)}
+            degree={-degree}
             fill={'#fff'}
             width={this.state.animatedWidth}
             height={this.rectangleHeight}
