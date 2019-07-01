@@ -789,7 +789,9 @@ getInnerView() {
 | -------------- | ---------------------------------------------------- | ------------------------------------------------------------ |
 | cardType       | [<code>CARD\_TYPE</code>](#card_type卡片类型)                | 卡片类型，右侧是否是开关，默认是 `CARD_TYPE.NORMAL`          |
 | cardRadiusType | [<code>CARD\_RADIUS\_TYPE</code>](#card_radius_type卡片圆角类型) | 卡片圆角类型，定义四个角是圆角还是直角，默认是 `CARD_RADIUS_TYPE.ALL`，所有的卡片类型有效 |
-| icon           | <code>number</code>                                  | 左侧图标的资源 id, 参照`Image`的`resource`属性，所有的卡片类型有效 |
+| iconContainerStyle | <code>style</code> | 图标容器的样式 |
+| icon | <code>number</code> | 左侧图标的资源 id, 参照`Image`的`resource`属性，所有的卡片类型有效 |
+| iconStyle | <code>style</code> | 图标的样式 |
 | title          | <code>string</code>                                  | 左侧主标题，所有的卡片类型有效                               |
 | titleStyle     | <code>style</code>                                   | 左侧主标题的自定义样式，所有的卡片类型有效                   |
 | subtitle       | <code>string</code>                                  | 左侧副标题，如果有的话，显示在主标题的下方，没有则不显示，所有的卡片类型有效 |
