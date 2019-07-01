@@ -985,7 +985,7 @@ getInnerView() {
 | 中文名称  | 滑动选档                                                     |
 | 描述      | 类似于Slider，使用滑动手势选择具体值。<br />适用于一段范围的选值或者较多档位的切换。 |
 | 位置      | `miot/ui/Gear/SlideGear`                                     |
-| SDK_Level | `SDK_10021`                                                  |
+| SDK_Level | `SDK_10022`                                                  |
 | 注意事项  | \                                                            |
 
 ### 使用方法
