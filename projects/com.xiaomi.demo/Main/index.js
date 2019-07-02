@@ -75,6 +75,7 @@ import ParticleDemo from './ThirdPartDemo/ParticleDemo';
 import ProgressDemo from './ThirdPartDemo/ProgressDemo';
 import ReactNativeCameraDemo from './ThirdPartDemo/ReactNativeCameraDemo';
 import LinearGradientDemo from './ThirdPartDemo/LinearGradientDemo';
+import ReactNativeBlurDemo from './ThirdPartDemo/ReactNativeBlurDemo';
 import SQLiteDemo from './ThirdPartDemo/SQLiteDemo';
 import SVGDemo from './ThirdPartDemo/SVGDemo';
 import { GroupExample, HoverExample, PressExample } from './ThirdPartDemo/SVGDemo2';
@@ -223,6 +224,7 @@ const RootStack = createStackNavigator({
     WebViewBridageDemo: WebViewBridageDemo,
     ReactNativeCameraDemo: ReactNativeCameraDemo,
     LinearGradientDemo: LinearGradientDemo,
+    ReactNativeBlurDemo: ReactNativeBlurDemo,
     SVGDemo: SVGDemo,
     PressExample: PressExample,
     HoverExample: HoverExample,
