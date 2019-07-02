@@ -60,7 +60,7 @@ const DemoInfo = [
   { id: 'DialogTest', title: "dialog测试", key: "43" },
   { id: 'ReactNativeCameraDemo', title: "ReactNativeCameraDemo测试", key: "44" },
   { id: 'LinearGradientDemo', title: "LinearGradientDemo测试", key: "45" },
-  { id: 'ReactNativeBlurDemo', title: "ReactNativeBlurDemo", key: "46" },
+  { id: 'ReactNativeBlurDemo', title: "ReactNativeBlurDemo测试", key: "46" },
 ]
 
 export default class ThirdPartyDemo extends React.Component {

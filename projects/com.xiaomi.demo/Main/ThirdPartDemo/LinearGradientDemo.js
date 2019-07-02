@@ -3,12 +3,24 @@ import React, { Component } from 'react';
 import {  StyleSheet, Text, View } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
+import TitleBar from "miot/ui/TitleBar";
 
 /**
  * 开源库
  *  https://github.com/react-native-community/react-native-linear-gradient
  */
 export default class LinearGradientDemo extends Component {
+
+    static navigationOptions = ({ navigation }) => {
+
+        return {
+            header: <TitleBar type='dark' title={'LinearGradientDemo测试'} style={{ backgroundColor: '#fff' }}
+                              onPressLeft={() => {
+                                  navigation.goBack();
+                              }} />,
+        };
+    };
+
     render() {
         return (
             <View style={styles.container}>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Image, Text, findNodeHandle, StyleSheet } from "react-native";
 import { BlurView } from "@react-native-community/blur";
+import TitleBar from "miot/ui/TitleBar";
 
 
 /**
@@ -8,6 +9,16 @@ import { BlurView } from "@react-native-community/blur";
  *  https://github.com/react-native-community/react-native-blur
  */
 export default class ReactNativeBlurDemo extends Component {
+
+    static navigationOptions = ({ navigation }) => {
+
+        return {
+            header: <TitleBar type='dark' title={'ReactNativeBlurDemo测试'} style={{ backgroundColor: '#fff' }}
+                              onPressLeft={() => {
+                                  navigation.goBack();
+                              }} />,
+        };
+    };
 
     constructor(props) {
         super(props);
