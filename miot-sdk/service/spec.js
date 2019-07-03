@@ -712,7 +712,7 @@ export default {
     },
     /**
      * 请求调用设备的方法
-     * @param {JSON} params {did: action.did, siid: action.siid, aiid: action.iid, in: action.params}
+     * @param {JSON} params {did: action.did, siid: action.siid, aiid: action.iid, in: action.params},其中，action.params为数组。例如 {did: 1, siid: 1, aiid: 1, in: [17,"shanghai"]}
      * @return {Promise<JSON>}
      */
     doAction(params) {

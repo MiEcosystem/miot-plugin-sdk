@@ -124,6 +124,17 @@ export default class CardPage extends React.Component {
               titleStyle={{ color: '#f0ac3d', fontSize: 18 }}
               subtitle='副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题'
               subtitleStyle={{ color: 'blue', fontSize: 15 }}
+              iconContainerStyle={{
+                width: 40,
+                height: 40,
+                borderRadius: 20,
+                backgroundColor: 'lightblue'
+              }}
+              iconStyle={{
+                width: 20,
+                height: 20,
+                borderRadius: 10,
+              }}
               rightText='测试测试测试测试测试测试测试测试测试'
               rightTextStyle={{ color: '#f43f31', fontSize: 13 }}
               cardType={MHCard.CARD_TYPE.NORMAL}

@@ -205,7 +205,7 @@ export default {
    * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串
    * @param {string} offParam  定时到时设备“关”执行的 RPC 指令参数字符串（目前仅支持单参数）
    *
-   * @description 这个api 应该可以废弃了，使用下面的openTimerSettingPageWithVariousTypeParams
+   * @description 这个api 应该可以废弃了，使用下面的openTimerSettingPageWithOptions
    */
   openTimerSettingPage(onMethod, onParam, offMethod, offParam) {
   },
@@ -217,7 +217,7 @@ export default {
    * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串
    * @param {string} offParam  定时到时设备“关”执行的 RPC 指令参数字符串（目前仅支持单参数）
    *
-   * @description 这个api 应该可以废弃了，使用下面的openTimerSettingPageWithVariousTypeParams
+   * @description 这个api 应该可以废弃了，使用下面的openTimerSettingPageWithOptions
    */
   openTimerSettingPageWithCustomIdentifier(customTimerIdentifier, onMethod, onParam, offMethod, offParam) {
   },
@@ -241,8 +241,9 @@ export default {
    * @param {string} options.offMethod 配置定时关闭的 method 名，同上面openTimerSettingPageWithVariousTypeParams的参数offMethod
    * @param {object} options.offParam 配置定时关闭的 参数，同上面openTimerSettingPageWithVariousTypeParams的参数offParam
    * @param {string} options.displayName 配置场景日志显示的名称
+   * @param {string} options.identify 自定义定时Identifier
    * @example
-   * Host.ui.openTimerSettingPageWithOptions({onMethod:"power_on", onParam: "on", offMethod: "power_off", offParam: "off", displayName:"设置xxx定时"})
+   * Host.ui.openTimerSettingPageWithOptions({onMethod:"power_on", onParam: "on", offMethod: "power_off", offParam: "off", displayName:"设置xxx定时"，identify:"plug_usb_countdowm"})
    */
   openTimerSettingPageWithOptions(options) {
   },

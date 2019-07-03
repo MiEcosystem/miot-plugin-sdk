@@ -78,11 +78,14 @@ export default class NormalGear extends React.Component {
     }
   }
   renderOptions() {
-    const optionStyle = {
-      width: this.optionWidth,
-      height: this.optionWidth,
-      borderRadius: this.optionWidth / 2,
-    };
+    const style = StyleSheet.flatten([
+      this.props.normalStyle,
+      {
+        width: this.optionWidth,
+        height: this.optionWidth,
+        borderRadius: this.optionWidth / 2,
+      }
+    ]);
     return this.props.options.map((option, index) => {
       return (
         <Clickable
@@ -91,7 +94,7 @@ export default class NormalGear extends React.Component {
           selectColor={this.props.selectColor}
           onPress={_ => this.onPress(index)}
           text={option || ''}
-          style={[this.props.normalStyle, optionStyle]}
+          style={style}
           textStyle={this.props.textStyle}
         />
       )

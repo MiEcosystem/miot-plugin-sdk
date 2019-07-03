@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    lineHeight: 22,
+    // lineHeight: 22,
     fontFamily: 'D-DINCondensed-Bold',
     textAlignVertical: 'center',
     textAlign: 'center',

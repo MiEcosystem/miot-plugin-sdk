@@ -39,8 +39,9 @@ export default class LocalServer extends React.Component {
           <Text style={{ margin: 10, width: width }}> serverCode: {this.state.server.serverCode}</Text>
 
           <Text style={{ margin: 10, width: width }}> local.language: {Host.locale.language}</Text>
+          <Text style={{ margin: 10, width: width }}> local.systemLanguage: {Host.locale.systemLanguage}</Text>
           <Text style={{ margin: 10, width: width }}> local.timeZone: {Host.locale.timeZone}</Text>
-          <Text style={{ margin: 10, width: width }}> local.is24HourTime: {Host.locale.is24HourTime}</Text>
+          <Text style={{ margin: 10, width: width }}> local.is24HourTime: {""+Host.locale.is24HourTime}</Text>
           <Text style={{ margin: 10, width: width }}> local.location: {this.state.location}</Text>
         </ScrollView>
       </View>

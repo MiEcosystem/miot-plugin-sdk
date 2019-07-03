@@ -12,6 +12,7 @@ export default {
     right_arrow: require('./images/right_arrow.png'),
     close: require('./images/close.png'),
     mihome: require('./images/mihome.png'),
+    selectIcon: require('./images/select_icon.png'),
   },
   /**
    * 导航栏

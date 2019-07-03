@@ -49,6 +49,7 @@ import ImagePathDemo from './NewStructureTest';
 import ServiceDemo from './Service';
 import MHRoomDemo from "./Service/room";
 import CallSmartHomeAPIDemo from './Service/smarthome';
+import MiotSpecDemo from './Service/MiotSpecDemo';
 import AddressBookDemo from './ThirdPartDemo/AddressBookDemo';
 import AnimatedSVGDemo from './ThirdPartDemo/AnimatedSVGDemo';
 import ARTCircleDemo from './ThirdPartDemo/ARTComponentDemo/ARTCircleDemo'; //圆形：Circle，
@@ -74,6 +75,8 @@ import GLSimple from './ThirdPartDemo/openGL/Simple';
 import ParticleDemo from './ThirdPartDemo/ParticleDemo';
 import ProgressDemo from './ThirdPartDemo/ProgressDemo';
 import ReactNativeCameraDemo from './ThirdPartDemo/ReactNativeCameraDemo';
+import LinearGradientDemo from './ThirdPartDemo/LinearGradientDemo';
+import ReactNativeBlurDemo from './ThirdPartDemo/ReactNativeBlurDemo';
 import SQLiteDemo from './ThirdPartDemo/SQLiteDemo';
 import SVGDemo from './ThirdPartDemo/SVGDemo';
 import { GroupExample, HoverExample, PressExample } from './ThirdPartDemo/SVGDemo2';
@@ -101,6 +104,7 @@ import TutorialDemo from './tutorial/TutorialDemo';
 import AbsoluteTouch from './UIComponent/AbsoluteTouch';
 import CardPage from "./UIComponent/CardPage";
 import CheckboxDemo from "./UIComponent/CheckboxDemo";
+import DialogExample from "./UIComponent/DialogExample";
 import DialogTest from './UIComponent/DialogTest';
 import DialogTest2 from './UIComponent/DialogTest2';
 import DialogTest3 from './UIComponent/DialogTest3';
@@ -155,6 +159,7 @@ const RootStack = createStackNavigator({
     ToastExample,
     SwitchDemo,
     MHDatePickerDemo,
+    DialogExample,
     NavigationBarDemo,
     HostDemo,
     ServiceDemo,
@@ -171,6 +176,7 @@ const RootStack = createStackNavigator({
     storageDemo: StorageDemo,
     fileStorage: FileStorage,
     callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
+    MiotSpecDemo: MiotSpecDemo,
     RPCControl: RPCControl,
     PrivacyDemo,
     // BLEConnectionDemo: BLEConnectionDemo,
@@ -219,6 +225,8 @@ const RootStack = createStackNavigator({
     AddressBookDemo: AddressBookDemo,
     WebViewBridageDemo: WebViewBridageDemo,
     ReactNativeCameraDemo: ReactNativeCameraDemo,
+    LinearGradientDemo: LinearGradientDemo,
+    ReactNativeBlurDemo: ReactNativeBlurDemo,
     SVGDemo: SVGDemo,
     PressExample: PressExample,
     HoverExample: HoverExample,

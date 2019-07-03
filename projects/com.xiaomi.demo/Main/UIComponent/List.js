@@ -39,7 +39,7 @@ export default class List extends React.Component {
             />
             <ListItem
               title='标题加右侧文案'
-              value='这是一段测试右侧文案'
+              value='小米米家智能墙壁开关(单火线单键版)'
               showDot={true}
               onPress={_ => console.log(1)}
             />

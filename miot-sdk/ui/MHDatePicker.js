@@ -643,8 +643,6 @@ const styles = StyleSheet.create({
     height: pickerContainerHeight,
     justifyContent: 'space-between'
   },
-  spinnerStyle: {
-  },
   buttons: {
     height: buttonHeight,
     flexDirection: 'row',

@@ -107,6 +107,16 @@ export default class UIDemo extends React.Component {
                         console.log(error)
                     });
                 }
+            },
+            {
+                'name': '是否支持商城',
+                'func': () => {
+                    Host.ui.canOpenStorePage().then((isSupport) => {
+                        alert("是否支持商城: "+isSupport)
+                    }).catch((error) => {
+                        console.log(error)
+                    });
+                }
             }
         ];
     }

@@ -222,9 +222,19 @@ export default class UIDemo extends React.Component {
             {
                 'name': '获取设备时区信息',
                 'func': () => {
-                    Device.getDeviceTimeZone().then((res)=>{
+                    Device.getDeviceTimeZone().then((res) => {
                         alert(JSON.stringify(res))
-                    }).catch((error)=>{
+                    }).catch((error) => {
+                        alert(error)
+                    })
+                }
+            },
+            {
+                'name': '修改设备名称',
+                'func': () => {
+                    Device.changeDeviceName("新名称").then((res) => {
+                        alert(JSON.stringify(res))
+                    }).catch((error) => {
                         alert(error)
                     })
                 }
