@@ -32,10 +32,6 @@ export default {
    */
   openDeleteDevice(title = null) {
   },
-  /**
-   * 打开分享设备的页面
-   */
-  openShareDevicePage() {
   },
   /**
    * 是否保持屏幕常亮
