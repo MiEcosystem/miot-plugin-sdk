@@ -33,18 +33,17 @@ export default class LoadingDialog extends React.Component {
   componentWillReceiveProps(newProps) {
     if (newProps.visible !== this.state.visible) {
       this.setState({ visible: newProps.visible });
-      if (newProps.visible === true) { // 显示 Modal 之后开始计时
-        const timeout = this.props.timeout;
-        if (timeout && typeof parseInt(timeout) === "number") {
-          this.timer = setTimeout(_ => {
-            this.setState({ visible: false });
-            this.props.onDismiss && this.props.onDismiss();
-          }, parseInt(timeout));
-        }
-      }
     }
   }
   render() {
+    if (!this.props.visible) return null;
+    const timeout = this.props.timeout;
+    if (timeout && typeof parseInt(timeout) === "number") {
+      this.timer = setTimeout(_ => {
+        this.setState({ visible: false });
+        this.props.onDismiss && this.props.onDismiss();
+      }, parseInt(timeout));
+    }
     return (
       <AbstractDialog
         animationType={this.props.animationType}
