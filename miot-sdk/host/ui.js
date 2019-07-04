@@ -14,6 +14,7 @@
  *
  *
  */
+import { Device } from "../index";
 import native from "../native";
 import Service from "../Service";
 const resolveAssetSource = require('resolveAssetSource');
@@ -153,6 +154,15 @@ export default {
   openShopPage(gid) {
   },
   /**
+   * 打开Mesh灯组 添加/编辑 页,Device.pid为17，则为Mesh设备组
+   * @since 10021
+   * @param {String} type - 需要打开创建设备组页面时，type=add，需要打开编辑设备组页面时，type=edit
+   * @param {String} did - 设备did。如果是创建，则是以当前实际设备的did为基础，进入创建灯组页面。如果是编辑，则是灯组的虚拟设备did。
+   */
+  openMeshDeviceGroupPage(type, did) {
+  },
+  /**
+   * 打开创建设备组页，如果是支持Mesh的设备，请使用上面的openMeshDeviceGroupPage
    * @param {String} groupModel - 设备组model
    * 打开创建设备组页，只有在设备页内，需要创建设备组时，才能调用此方法。如果是设备组页面内，请使用下面的openEditDeviceGroupPage方法
    * 只有特定设备支持创建设备组统一管理
@@ -168,7 +178,12 @@ export default {
   /**
    * 开启倒计时界面 
    * @param {Boolean} isCountDownOn 设备的当前状态:YES 为开启，所以我们启动关闭倒计时; NO  为关闭，所以我们启动开启倒计时
-   * @param {{onMethod:string, offMethod:string, onParam:string, offParam:string}} setting {onMethod:string, offMethod:string, onParam:string, offParam:string},指硬件端，打开/关闭 倒计时应该 执行的方法/传入的参数，请咨询硬件工程师
+   * @param {object} setting 设置倒计时页面的属性 
+   * @param {string} setting.onMethod 指硬件端，打开 倒计时应该 执行的方法，请咨询硬件工程师
+   * @param {string} setting.onParam 指硬件端，打开 倒计时应该 传入的参数，请咨询硬件工程师
+   * @param {string} setting.offMethod 指硬件端，关闭 倒计时应该 执行的方法，请咨询硬件工程师
+   * @param {string} setting.offParam 指硬件端，关闭 倒计时应该 传入的参数，请咨询硬件工程师
+   * @param {string} setting.identify since 10021, 用于设置倒计时的identify
    * @example
    * 
    * Host.ui.openCountDownPage(true, {onMethod:"power_on", offMethod:'power_off', onParam:'on', offParam:'off'})
@@ -309,20 +324,6 @@ export default {
   dismissBLESwitchGuide() {
   },
   /**
-   * 打开用于创建设备组的页面
-   * @since 10004
-   * @param {string} did 当前设备did
-   */
-  openDeviceGroupPageForCreate(did) {
-  },
-  /**
-   * 打开用于编辑设备组的页面
-   * @since 10004
-   * @param {string} did 当前设备did
-   */
-  openDeviceGroupPageForEdit(did) {
-  },
-  /**
    * 打开设备快连成功页面
    * @since 10004
    * @param {string} model 设备model
@@ -336,5 +337,16 @@ export default {
    * @param {string} did 网关设备did
    */
   openZigbeeConnectDeviceList(did) {
+  },
+  /**
+   * android 特有， 跳转到小米钱包
+   * @param params
+   * @return {Promise}
+   * @example
+   * let params = {action:'issue_mifare',type:'1',product_id:'66666-00211',source_channel:'mijia'};
+   * Host.ui.openMiPayPageForAndroid(params).then((res)=>{console.log(res)}).catch((error)=>{ console.log(error)});
+   */
+  openMiPayPageForAndroid(params) {
+     return Promise.resolve(null);
   }
 };

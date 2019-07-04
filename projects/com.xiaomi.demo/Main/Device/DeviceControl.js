@@ -39,6 +39,18 @@ export default class UIDemo extends React.Component {
                 }
             },
             {
+                'name': 'RPC指令控制',
+                'func': () => {
+                    this.props.navigation.navigate('RPCControl', { title: 'RPC指令控制' })
+                }
+            },
+            {
+                'name': '当前设备信息',
+                'func': () => {
+                    this.props.navigation.navigate('DeviceDemo', { title: '当前设备信息' })
+                }
+            },
+            {
                 'name': '获取所有子设备',
                 'func': () => {
                     Device.getSubDevices().then(res => {
@@ -139,6 +151,42 @@ export default class UIDemo extends React.Component {
                 }
             },
             {
+                'name': 'Android 手机NFC支持',
+                'func': () => {
+                    Host.phoneHasNfcForAndroid().then((res) => {
+                        alert(JSON.stringify(res))
+                    }).catch((error) => {
+                        alert(JSON.stringify(error))
+                    })
+                }
+            },
+            {
+                'name': '是否是HomeKit设备',
+                'func': () => {
+                    Device.checkIsHomeKitDevice().then(res => {
+                        alert((res ? "是" : "不是") + ' HomeKit 设备')
+                    })
+                }
+            },
+            {
+                'name': '是否连接了HomeKit',
+                'func': () => {
+                    Device.checkHomeKitConnected().then(res => {
+                        alert((res ? "已经" : "没有") + ' 连入HomeKit')
+                    })
+                }
+            },
+            {
+                'name': '添加到HomeKit',
+                'func': () => {
+                    Device.bindToHomeKit().then((res) => {
+                        alert('添加成功')
+                    }).catch((error) => {
+                        alert("添加失败" + JSON.stringify(error))
+                    })
+                }
+            },
+            {
                 'name': '打开设备组添加页（支持设备组的设备调用此方法）',
                 'func': () => {
                     Host.ui.openAddDeviceGroupPage(Device.model);
@@ -159,6 +207,28 @@ export default class UIDemo extends React.Component {
                     })
                 }
             },
+            {
+                'name': '打开Mesh设备组添加页（支持mesh设备组的设备调用此方法）',
+                'func': () => {
+                    Host.ui.openMeshDeviceGroupPage("add", Device.deviceID);
+                }
+            },
+            {
+                'name': '打开Mesh设备组编辑页（mesh设备组调用此方法）',
+                'func': () => {
+                    Host.ui.openMeshDeviceGroupPage("edit", Device.deviceID);
+                }
+            },
+            {
+                'name': '获取设备时区信息',
+                'func': () => {
+                    Device.getDeviceTimeZone().then((res)=>{
+                        alert(JSON.stringify(res))
+                    }).catch((error)=>{
+                        alert(error)
+                    })
+                }
+            }
         ];
     }
 

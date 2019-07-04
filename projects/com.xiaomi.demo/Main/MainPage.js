@@ -1,9 +1,9 @@
 'use strict';
 
-import { Device, DeviceEvent, Package } from "miot";
+import { Device, Package } from "miot";
 import TitleBar from "miot/ui/TitleBar";
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { getString } from './MHLocalizableString';
 
 
@@ -19,67 +19,104 @@ export default class MainPage extends React.Component {
             subTitle={getString('NUM_PHOTOS', { 'numPhotos': 1 })}
             onPressLeft={() => { Package.exit() }}
             onPressRight={() => {
-              navigation.navigate('moreMenu', { 'title': '设置' });
+              navigation.navigate('Setting', { 'title': '设置' });
             }} />
         </View>
     };
   };
 
-
-  componentWillMount() {
-    this._deviceNameChangedListener = DeviceEvent.deviceNameChanged.addListener((device) => {
-      console.log("不要以为你改了名字我就不认识你了", device);
-      this.props.navigation.setParams({
-        name: device.name
-      });
-      this.forceUpdate();
+  constructor(props) {
+    super(props);
+    var ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
     });
+    this._createMenuData();
+    this.state = {
+      dataSource: ds.cloneWithRows(this._menuData.map((o) => (o.name))),
+    };
+  }
+
+  _createMenuData() {
+    this._menuData = [
+      {
+        'name': '常用功能',
+        'func': () => {
+          this.props.navigation.navigate('tutorialDemo', { title: '常用功能' })
+        }
+      },
+      {
+        'name': '账户信息(Account)',
+        'func': () => {
+          this.props.navigation.navigate('accountDemo', { title: '账户信息(Account)' })
+        }
+      },
+      {
+        'name': '设备控制(Device)',
+        'func': () => {
+          this.props.navigation.navigate('DeviceControl', { title: '设备控制(Device)' })
+        }
+      },
+      {
+        'name': 'Native交互(Host)',
+        'func': () => {
+          this.props.navigation.navigate('HostDemo', { title: 'Native交互(Host)' })
+        }
+      },
+      {
+        'name': '接口服务(Service)',
+        'func': () => {
+          this.props.navigation.navigate('ServiceDemo', { title: '接口服务(Service)' })
+        }
+      },
+      {
+        'name': 'UI能力(miot/ui)',
+        'func': () => {
+          this.props.navigation.navigate('UIDemo', { title: 'UI能力(miot/ui)' })
+        }
+      },
+      {
+        'name': '第三方库能力',
+        'func': () => {
+          this.props.navigation.navigate('ThirdPartyDemo', { title: '第三方库能力' })
+        }
+      },
+      {
+        'name': '旧-设置页面(不推荐使用)',
+        'func': () => {
+          this.props.navigation.navigate('moreMenu', { title: '设置页面(不推荐使用)' })
+        }
+      }
+    ];
   }
 
   componentWillUnmount() {
-    this._deviceNameChangedListener.remove();
-  }
 
-  componentDidMount() {
   }
 
   render() {
-    console.log("com.xiaomi.demo", 'render first', Date.now());
-    var rowTutorialDemo = this._createMenuRow('教程', 'tutorialDemo');
-    var rowControlDemo = this._createMenuRow('设备控制', 'DeviceControl');
-    var rowCloudDebug = this._createMenuRow('UI能力', 'UIDemo');
-    var rowThirdPartyDemo = this._createMenuRow('第三方库能力', 'ThirdPartyDemo');
     return (
-      <View style={styles.containerAll}>
-        <View style={styles.containerIconDemo}
-          testID="mytest">
-          <Image style={styles.iconDemo} source={require("../Resources/control_home.png")} ></Image>
-          <Text style={styles.iconText}>欢迎使用小米开发板</Text>
-        </View>
-        <View style={styles.containerMenu}>
-          {rowTutorialDemo}
-          {rowControlDemo}
-          {rowCloudDebug}
-          {rowThirdPartyDemo}
-        </View>
-      </View>)
-  }
-
-  _createMenuRow(title, demoName) {
-    return <TouchableHighlight
-      style={styles.rowContainer} underlayColor='#838383'
-      onPress={this._onOpenSubPage(title, demoName).bind(this)}>
-      <View style={[styles.rowContainer, { borderTopColor: '#f1f1f1', borderTopWidth: 1, }]}>
-        <Text style={styles.title}>{title}</Text>
-        <Image style={styles.subArrow} source={require("../Resources/sub_arrow.png")} />
+      <View style={styles.container}>
+        <ListView style={styles.list} dataSource={this.state.dataSource} renderRow={this._renderRow.bind(this)} />
       </View>
-    </TouchableHighlight>
+    );
   }
 
-  _onOpenSubPage(title, demoName) {
-    return function () {
-      this.props.navigation.navigate(demoName, { title: title })
-    }
+  _renderRow(rowData, sectionID, rowID) {
+    return (
+      <TouchableHighlight underlayColor='#838383' onPress={() => this._pressRow(rowID)}>
+        <View>
+          <View style={styles.rowContainer}>
+            <Text style={styles.title}>{rowData}</Text>
+            <Image style={styles.subArrow} source={require("../Resources/sub_arrow.png")} />
+          </View>
+          <View style={styles.separator}></View>
+        </View>
+      </TouchableHighlight>
+    );
+  }
+
+  _pressRow(rowID) {
+    this._menuData[rowID].func();
   }
 }
 
@@ -88,61 +125,43 @@ export default class MainPage extends React.Component {
 
 
 var styles = StyleSheet.create({
-  containerAll: {
+  container: {
     flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#838383',
+    borderTopColor: '#f1f1f1',
+    borderTopWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
+    marginBottom: 0,
     marginTop: 0,
   },
-  containerIconDemo: {
-    flex: 1.7,
-    flexDirection: 'column',
-    backgroundColor: '#191919',
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-  },
-  containerMenu: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#ffffff',
-    alignSelf: 'stretch',
-  },
-  iconDemo: {
-    width: 270,
-    height: 181,
-    alignSelf: 'center',
-  },
-  iconText: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: '#ffffff',
-    marginTop: 20,
-    alignSelf: 'center'
-  },
   rowContainer: {
+    height: 52,
     alignSelf: 'stretch',
     flexDirection: 'row',
+    paddingLeft: 23,
+    paddingRight: 23,
+    alignItems: 'center',
     flex: 1,
   },
+  list: {
+    alignSelf: 'stretch',
+  },
+
   title: {
-    fontSize: 17,
+    fontSize: 15,
+    color: '#333333',
     alignItems: 'center',
-    alignSelf: 'center',
-    color: '#000000',
     flex: 1,
-    marginLeft: 15
   },
   subArrow: {
-    width: 9,
-    height: 17,
-    marginRight: 15,
-    alignSelf: 'center',
+    width: 7,
+    height: 14,
   },
   separator: {
-    height: 0.5,
-    alignSelf: 'stretch',
-    backgroundColor: '#dddddd',
-    marginLeft: 15,
-    marginRight: 15,
-  },
+    height: 1 / PixelRatio.get(),
+    backgroundColor: '#e5e5e5',
+    marginLeft: 20,
+  }
 });

@@ -116,8 +116,9 @@ export default class CallSmartHomeAPIDemo extends React.Component {
 
     render() {
         return (
-            <View>
+            <View style={{ flex: 1 }}>
                 <FlatList
+                    style={{ height: 200 }}
                     data={this.state.dataSource}
                     keyExtractor={item => item.key}
                     ItemSeparatorComponent={({ highlighted }) => {

@@ -2,7 +2,7 @@ import { Device, Host } from 'miot';
 import { DeviceEvent } from 'miot/Device';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
@@ -74,6 +74,41 @@ const firstSharedOptions = {
   [firstAllOptions.HELP]: 1,
   [firstAllOptions.LEGAL_INFO]: 0, // 20190516，分享设备不显示「法律信息」
 };
+/**
+ * 某些特殊设备类型不显示某些设置项
+ * key: 设置项的key
+ * value: 不显示该设置项的设备类型列表, 用 pid 表示设备类型, [] 表示支持所有设备
+ * 0:  wifi单模设备
+ * 1:  yunyi设备
+ * 2:  云接入设备
+ * 3:  zigbee设备
+ * 5:  虚拟设备
+ * 6:  蓝牙单模设备
+ * 7:  本地AP设备
+ * 8:  蓝牙wifi双模设备
+ * 9:  其他
+ * 10: 功能插件
+ * 11: SIM卡设备
+ * 12: 网线设备
+ * 13: NB-IoT
+ * 14: 第三方云接入
+ * 15: 红外遥控器
+ * 16: BLE Mesh
+ * 17: 虚拟设备（新设备组）
+ */
+const excludeOptions = {
+  [firstAllOptions.NAME]: [],
+  [firstAllOptions.MEMBER_SET]: [],
+  [firstAllOptions.LOCATION]: [],
+  [firstAllOptions.SHARE]: [],
+  [firstAllOptions.BTGATEWAY]: [],
+  [firstAllOptions.VOICE_AUTH]: [],
+  [firstAllOptions.IFTTT]: [],
+  [firstAllOptions.FIRMWARE_UPGRADE]: [],
+  [firstAllOptions.MORE]: [],
+  [firstAllOptions.HELP]: [],
+  [firstAllOptions.LEGAL_INFO]: ['5', '15', '17'] // 新增策略：灯组、红外遥控器等虚拟设备不显示法律信息，20190619
+};
 const secondOptions = {
   /**
    * 固件升级——固件自动升级, `可选`
@@ -132,6 +167,7 @@ export { firstAllOptions, secondAllOptions };
  * @description 米家通用设置项
  * @property {array} firstOptions - 一级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项
  * @property {array} secondOptions - 二级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项
+ * @property {array} showDot - 定义哪些列表项需要显示小红点。为了便于扩展每个列表项都可以显示小红点，默认全部**不显示**，需要显示传入该列表项的key即可。
  * @property {object} extraOptions - 其他特殊配置项
  * ```js
  * // extraOptions
@@ -141,6 +177,7 @@ export { firstAllOptions, secondAllOptions };
  *   licenseUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明
  *   policyUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明
  *   deleteDeviceMessage: string // 删除设备的弹窗中自定义提示文案，见 miot/Host.ui.openDeleteDevice 的传参说明
+ *   ZXhjbHVkZVJlcXVpcmVkT3B0aW9ucw==: [] // %E5%A6%82%E6%9E%9C%E6%83%B3%E8%A6%81%E5%B1%8F%E8%94%BD%E5%BF%85%E9%80%89%E9%A1%B9%EF%BC%8C%E5%9C%A8%E8%BF%99%E9%87%8C%E4%BC%A0%E5%85%A5%20key%20%E5%8D%B3%E5%8F%AF%EF%BC%8C%E4%B8%80%E7%BA%A7%20or%20%E4%BA%8C%E7%BA%A7%E8%8F%9C%E5%8D%95%E7%9A%84%20key%20%E9%83%BD%E5%8F%AF%E4%BB%A5%E3%80%82%E7%89%B9%E6%AE%8A%E9%9C%80%E8%A6%81%EF%BC%8C%E8%B0%A8%E6%85%8E%E4%BD%BF%E7%94%A8
  * }
  * ```
  * @property {object} navigation - 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面
@@ -172,6 +209,7 @@ export default class CommonSetting extends React.Component {
   static propTypes = {
     firstOptions: PropTypes.array,
     secondOptions: PropTypes.array,
+    showDot: PropTypes.array,
     extraOptions: PropTypes.object,
     navigation: PropTypes.object.isRequired
   }
@@ -188,7 +226,9 @@ export default class CommonSetting extends React.Component {
       secondAllOptions.AUTO_UPGRADE,
       secondAllOptions.TIMEZONE,
       secondAllOptions.USER_EXPERIENCE_PROGRAM
-    ]
+    ],
+    showDot: [],
+    extraOptions: {},
   }
   getCommonSetting(state) {
     return {
@@ -242,13 +282,14 @@ export default class CommonSetting extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = { name: Device.name };
+    console.log(`Device.type: ${Device.type}`);
     this.commonSetting = this.getCommonSetting(this.state);
   }
   /**
    * @description 点击「法律信息」，传入用户协议和隐私政策的文件地址
    */
   privacyAndProtocolReview() {
-    const { licenseUrl, policyUrl } = this.props.extraOptions || {};
+    const { licenseUrl, policyUrl } = this.props.extraOptions;
     Host.ui.privacyAndProtocolReview('', licenseUrl, '', policyUrl);
   }
   /**
@@ -256,7 +297,7 @@ export default class CommonSetting extends React.Component {
    */
   chooseFirmwareUpgrade() {
     // 默认是wifi设备固件升级的原生页面
-    const { showUpgrade, upgradePageKey } = this.props.extraOptions || {};
+    const { showUpgrade, upgradePageKey } = this.props.extraOptions;
     if (showUpgrade === false) {
       // 蓝牙统一OTA界面
       if (upgradePageKey === undefined) {
@@ -282,7 +323,7 @@ export default class CommonSetting extends React.Component {
    * @description 打开二级菜单
    * @param {string} page index.js的RootStack中页面定义的key
    */
-  openSubPage(page, params = { secondOptions: this.props.secondOptions }) {
+  openSubPage(page, params = { secondOptions: this.props.secondOptions, excludeRequiredOptions: this.props.extraOptions.excludeRequiredOptions }) {
     if (this.props.navigation) {
       this.props.navigation.navigate(page, params);
     }
@@ -294,23 +335,45 @@ export default class CommonSetting extends React.Component {
    * @description 弹出「删除设备」弹窗
    */
   openDeleteDevice() {
-    const { deleteDeviceMessage } = this.props.extraOptions || {};
+    const { deleteDeviceMessage } = this.props.extraOptions;
     Host.ui.openDeleteDevice(deleteDeviceMessage);
   }
   render() {
+    // 如果不设置英文字体，那么外文字符串将显示不全（Android）
+    let fontFamily = {};
+    if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' }
+    // 1. 装填必选项
     const requireKeys1 = [firstAllOptions.NAME, firstAllOptions.LOCATION];
     const requireKeys2 = [
       firstAllOptions.MORE,
       firstAllOptions.HELP,
       firstAllOptions.LEGAL_INFO
     ];
-    let options = this.props.firstOptions.filter(key => key && Object.values(firstOptions).includes(key)); // 去掉杂质
-    options = [...new Set(options)]; // 去除重复
-    let keys = [...requireKeys1, ...options, ...requireKeys2]; // 拼接必选项和可选项
+    // 2. 去掉杂质
+    let options = this.props.firstOptions.filter(key => key && Object.values(firstOptions).includes(key));
+    // 3. 去除重复
+    options = [...new Set(options)];
+    // 4. 拼接必选项和可选项
+    let keys = [...requireKeys1, ...options, ...requireKeys2];
+    // 5. 权限控制，如果是共享设备或者家庭设备，需要过滤一下
     if (Device.isOwner === false) {
-      keys = keys.filter(key => firstSharedOptions[key]); // 如果是共享设备或者家庭设备，需要过滤一下
+      keys = keys.filter(key => firstSharedOptions[key]);
     }
-    const items = keys.map(key => this.commonSetting[key]).filter(item => item); // 防空
+    // 6. 根据设备类型进一步过滤
+    keys = keys.filter(key => !excludeOptions[key].includes(Device.type));
+    // 7. %E6%A0%B9%E6%8D%AE%E5%BC%80%E5%8F%91%E8%80%85%E7%89%B9%E6%AE%8A%E9%9C%80%E8%A6%81%EF%BC%8C%E9%9A%90%E8%97%8F%E6%9F%90%E4%BA%9B%E5%BF%85%E9%80%89%E9%A1%B9
+    const { excludeRequiredOptions } = this.props.extraOptions;
+    if (excludeOptions instanceof Array) {
+      keys = keys.filter(key => !excludeRequiredOptions.includes(key));
+    }
+    // 8. 根据最终的设置项 keys 渲染数据
+    const items = keys.map(key => {
+      const item = this.commonSetting[key];
+      if (item) {
+        item.showDot = (this.props.showDot || []).includes(key);
+      }
+      return item;
+    }).filter(item => item); // 防空
     return (
       <View style={styles.container}>
         <View style={styles.titleContainer}>
@@ -319,11 +382,13 @@ export default class CommonSetting extends React.Component {
         <Separator style={{ marginLeft: Styles.common.padding }} />
         {
           items.map((item, index) => {
+            if (!item) return null;
             const showSeparator = index !== items.length - 1;
             return (
               <ListItem
                 key={item.title}
                 title={item.title || ''}
+                showDot={item.showDot || false}
                 value={item.value}
                 onPress={item.onPress}
                 showSeparator={showSeparator}
@@ -335,11 +400,12 @@ export default class CommonSetting extends React.Component {
         <View style={styles.bottomContainer}>
           <RkButton
             style={styles.buttonContainer}
-            contentStyle={styles.buttonText}
             onPress={_ => this.openDeleteDevice()}
             activeOpacity={0.8}
           >
-            {strings.deleteDevice}
+            <Text style={[styles.buttonText, fontFamily]}>
+              {strings.deleteDevice}
+            </Text>
           </RkButton>
         </View>
       </View>
@@ -392,6 +458,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: 'bold',
     // fontFamily: 'MI-LANTING--GBK1-Bold',
+    flex: 1,
+    textAlign: 'center',
     color: '#F43F31',
     lineHeight: 18
   }

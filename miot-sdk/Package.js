@@ -27,10 +27,14 @@
  *
  *
  */
+import { MessageDialog } from 'miot/ui';
 import React from 'react';
-import { AppRegistry, DeviceEventEmitter } from "react-native";
+import { AppRegistry, DeviceEventEmitter, View } from "react-native";
+import { Device, Package } from '.';
 import RootDevice from "./Device";
+import Host from './Host';
 import resolveAssetResource from "./native/common/node/resolve";
+import { strings } from './resources';
 export const DEBUG = "debug";
 export const RELEASE = "release";
 /**

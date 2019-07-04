@@ -18,12 +18,13 @@ import BluetoothFactory, { BluetoothEvent as BluetoothEventNames } from './Bluet
 import RootDevice, { DeviceEvent as DeviceEventNames } from './Device';
 import HostInstance from './Host';
 import { AudioEvent as AudioEventNames } from './host/audio';
+import { FileEvent as FileEventNames } from './host/file';
 import PackageInstance, { Entrance as Entrances, PackageEvent as PackageEventNames } from './Package';
 import { RootDeviceProperties } from "./Properties";
 import ResourcesPack from './resources';
 import ServiceInstance from './Service';
 import { SceneType as SceneTypeNames } from './service/scene';
-export const API_LEVEL = 10020
+export const API_LEVEL = 10021
 /**
  * 插件包基本配置
  * {@link module:miot/Package}
@@ -98,6 +99,7 @@ export const BluetoothEvent = BluetoothEventNames;
  * @export
  */
 export const SceneType = SceneTypeNames;
+export const FileEvent = FileEventNames;
 export const AudioEvent = AudioEventNames;
 /**
  * @export
@@ -107,5 +109,5 @@ export default {
     Device, DeviceEvent, DeviceProperties,
     Service, Host, Resources,
     Bluetooth, BluetoothEvent, SceneType,
-    AudioEvent
+    FileEvent, AudioEvent
 }

@@ -13,6 +13,7 @@ const DemoInfo = [
   { id: 'WebViewBridageDemo', title: "webview 和react-native双向通信", key: "4" },
   { id: 'SVGDemo', title: "SVG:shape", key: "5" },
   { id: 'PressExample', title: "SVG:PressExample", key: "6" },
+  { id: 'AnimatedSVGDemo', title: "SVG 动画", key: "44" },
   { id: 'HoverExample', title: "SVG:HoverExample", key: "7" },
   { id: 'GroupExample', title: "SVG:group", key: "8" },
   { id: 'LegendsView', title: "绘图表LegendsView", key: "9" },
@@ -29,6 +30,7 @@ const DemoInfo = [
   { id: 'BoxPlotView', title: "绘图表BoxPlotView ", key: "20" },
 
   { id: 'GLSimple', title: "gl 的简单demo", key: "21" },
+  // { id: 'GLTests', title: "openGL Tests", key: "45" },
   { id: 'GLHearts', title: "gl GLHearts", key: "211" },
   { id: 'GLAnimated', title: "gl GLAnimated", key: "212" },
   { id: 'GLParticles', title: "gl GLParticles", key: "213" },

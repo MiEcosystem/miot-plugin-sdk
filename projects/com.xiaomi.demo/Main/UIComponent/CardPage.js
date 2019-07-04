@@ -79,6 +79,7 @@ export default class CardPage extends React.Component {
               text="默认卡片有icon/文字/阴影/，没有圆角/右上角x"
               visible={this.state.visible1}
               dismiss={_ => this.setState({ visible1: false })}
+              cardStyle={{ marginBottom: 50, }}
             />
             <Card
               text="没有图标，没有阴影，只有文字"

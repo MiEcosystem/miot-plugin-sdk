@@ -26,6 +26,17 @@
  * });
  * ...
  */
+export const FileEvent = {
+    /**
+     * 文件下载时的进度事件通知
+     * @param filename  文件名
+     * @param url       下载地址
+     * @param totalBytes    下载总大小
+     * @param downloadBytes 已下载文件大小
+     */
+    fileDownloadProgress: {
+    },
+};
 export default {
     /**
      * 读取沙盒内文件列表
@@ -81,7 +92,6 @@ export default {
     /**
      * 读本地文件
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
-     * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
      * @example
      * import {Host} from 'miot'
@@ -96,7 +106,6 @@ export default {
     /**
      * 读文件，并转换为 Base64 编码
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
-     * @param {object} [opt={}] - 其他设置项
      * @returns {Promise}
      */
     readFileToBase64(fileName, opt = {}) {
@@ -106,7 +115,6 @@ export default {
      * 写文件
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {string} utf8Content - 文件内容字符串
-     * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
      * @example
      * import {Host} from 'miot'
@@ -125,7 +133,6 @@ export default {
      * 写文件，输入为 Base64 编码字符串
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {string} base64Content - base64编码后的文件内容字符串
-     * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
      * @example
      * import {Host} from 'miot'
@@ -143,7 +150,6 @@ export default {
      * 向已存在的文件追加内容
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {string} utf8Content - 文件内容字符串
-     * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
      * @example
      * import {Host} from 'miot'
@@ -161,7 +167,6 @@ export default {
      * 向已存在的文件追加内容，输入为base64编码字符串
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {string} base64Content - base64编码后的文件内容字符串
-     * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
      * @example
      * import {Host} from 'miot'
@@ -179,7 +184,6 @@ export default {
     /**
      * 删除文件
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
-     * @param {json} [opt={}] - 其他设置项
      * @returns {Promise}
      * @example
      * import {Host} from 'miot'

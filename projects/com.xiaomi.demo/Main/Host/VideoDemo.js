@@ -1,27 +1,17 @@
 'use strict';
-import React, {
-  Component
-} from 'react';
+import React, { Component } from 'react';
+import { Alert, AlertIOS, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Video from 'react-native-video';
 
-import {
-  AlertIOS,
-  Alert,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
 
 let isLoading = true;
-import Video from 'react-native-video';
 export default class VideoDemo extends Component {
   constructor(props) {
     super(props);
     this.onLoad = this.onLoad.bind(this);
     this.onProgress = this.onProgress.bind(this);
     this.onBuffer = this.onBuffer.bind(this);
-    isLoading= true;
+    isLoading = true;
   }
   state = {
     rate: 1,
@@ -34,8 +24,8 @@ export default class VideoDemo extends Component {
     paused: true,
     skin: 'custom',
     ignoreSilentSwitch: null,
-    isBuffering: false, 
-    videoSource : {
+    isBuffering: false,
+    videoSource: {
       uri: 'http://cookbook.supor.com/Swast2SpEjewRAnE.mp4',
       type: 'mp4',
       isAsset: true,
@@ -46,12 +36,12 @@ export default class VideoDemo extends Component {
   onLoad(data) {
     console.log('On load fired!');
     isLoading = false;
-    this.setState({duration: data.duration});
+    this.setState({ duration: data.duration });
 
   }
 
   onProgress(data) {
-    this.setState({currentTime: data.currentTime});
+    this.setState({ currentTime: data.currentTime });
   }
 
   onBuffer({ isBuffering }) {
@@ -70,17 +60,18 @@ export default class VideoDemo extends Component {
     const isSelected = this.state.skin == skin;
     const selectControls = skin == 'native' || skin == 'embed';
     return (
-      <TouchableOpacity onPress={() => { 
-        if(isLoading){
+      <TouchableOpacity onPress={() => {
+        if (isLoading) {
           Alert.alert("wait the video loaded");
           return;
         }
         // isLoading = true;
         this.setState({
-        controls: selectControls,
-        skin: skin
-      }) }}>
-        <Text style={[styles.controlOption, {fontWeight: isSelected ? "bold" : "normal"}]}>
+          controls: selectControls,
+          skin: skin
+        })
+      }}>
+        <Text style={[styles.controlOption, { fontWeight: isSelected ? "bold" : "normal" }]}>
           {skin}
         </Text>
       </TouchableOpacity>
@@ -91,13 +82,14 @@ export default class VideoDemo extends Component {
     const isSelected = (this.state.rate == rate);
 
     return (
-      <TouchableOpacity onPress={() => { 
-        if(isLoading){
+      <TouchableOpacity onPress={() => {
+        if (isLoading) {
           Alert.alert("wait the video loaded");
           return;
         }
-        this.setState({rate: rate}) }}>
-        <Text style={[styles.controlOption, {fontWeight: isSelected ? "bold" : "normal"}]}>
+        this.setState({ rate: rate })
+      }}>
+        <Text style={[styles.controlOption, { fontWeight: isSelected ? "bold" : "normal" }]}>
           {rate}x
         </Text>
       </TouchableOpacity>
@@ -109,12 +101,13 @@ export default class VideoDemo extends Component {
 
     return (
       <TouchableOpacity onPress={() => {
-        if(isLoading){
+        if (isLoading) {
           Alert.alert("wait the video loaded");
           return;
         }
-         this.setState({resizeMode: resizeMode}) }}>
-        <Text style={[styles.controlOption, {fontWeight: isSelected ? "bold" : "normal"}]}>
+        this.setState({ resizeMode: resizeMode })
+      }}>
+        <Text style={[styles.controlOption, { fontWeight: isSelected ? "bold" : "normal" }]}>
           {resizeMode}
         </Text>
       </TouchableOpacity>
@@ -125,13 +118,14 @@ export default class VideoDemo extends Component {
     const isSelected = (this.state.volume == volume);
 
     return (
-      <TouchableOpacity onPress={() => { 
-        if(isLoading){
+      <TouchableOpacity onPress={() => {
+        if (isLoading) {
           Alert.alert("wait the video loaded");
           return;
         }
-        this.setState({volume: volume}) }}>
-        <Text style={[styles.controlOption, {fontWeight: isSelected ? "bold" : "normal"}]}>
+        this.setState({ volume: volume })
+      }}>
+        <Text style={[styles.controlOption, { fontWeight: isSelected ? "bold" : "normal" }]}>
           {volume * 100}%
         </Text>
       </TouchableOpacity>
@@ -143,12 +137,13 @@ export default class VideoDemo extends Component {
 
     return (
       <TouchableOpacity onPress={() => {
-        if(isLoading){
+        if (isLoading) {
           Alert.alert("wait the video loaded");
           return;
         }
-         this.setState({ignoreSilentSwitch: ignoreSilentSwitch}) }}>
-        <Text style={[styles.controlOption, {fontWeight: isSelected ? "bold" : "normal"}]}>
+        this.setState({ ignoreSilentSwitch: ignoreSilentSwitch })
+      }}>
+        <Text style={[styles.controlOption, { fontWeight: isSelected ? "bold" : "normal" }]}>
           {ignoreSilentSwitch}
         </Text>
       </TouchableOpacity>
@@ -160,7 +155,7 @@ export default class VideoDemo extends Component {
     const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.fullScreen} onPress={() => {this.setState({paused: !this.state.paused})}}>
+        <TouchableOpacity style={styles.fullScreen} onPress={() => { this.setState({ paused: !this.state.paused }) }}>
           <Video
             source={this.state.videoSource}
             // source={require('../Resources/mp4/broadchurch.mp4')}
@@ -176,6 +171,15 @@ export default class VideoDemo extends Component {
             onProgress={this.onProgress}
             onEnd={() => { AlertIOS.alert('Done!') }}
             repeat={true}
+            ref={(ref) => {
+              this.player = ref
+            }}
+            onError={() => {
+              console.log('Callback when video cannot be loaded');
+            }}
+            onSeek={payload => {
+              console.log(payload);
+            }}
           />
         </TouchableOpacity>
 
@@ -218,10 +222,17 @@ export default class VideoDemo extends Component {
 
           <View style={styles.trackingControls}>
             <View style={styles.progress}>
-              <View style={[styles.innerProgressCompleted, {flex: flexCompleted}]} />
-              <View style={[styles.innerProgressRemaining, {flex: flexRemaining}]} />
+              <View style={[styles.innerProgressCompleted, { flex: flexCompleted }]} />
+              <View style={[styles.innerProgressRemaining, { flex: flexRemaining }]} />
             </View>
           </View>
+          <TouchableOpacity
+            onPress={() => {
+              this.player.seek(120);
+            }}
+          >
+            <Text style={styles.seek}>seek方法</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -376,5 +387,8 @@ const styles = StyleSheet.create({
   nativeVideoControls: {
     top: 184,
     height: 300
+  },
+  seek: {
+    color: 'yellow'
   }
 });

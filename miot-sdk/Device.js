@@ -27,7 +27,6 @@
  * ...
  * 其余具体使用请参考具体API文档
  */
-import Account from "./Account";
 import Scene from './service/scene';
 const PERMISSION_OWNER = 16;
 const PERMISSION_FAMILY = 8;
@@ -297,16 +296,25 @@ export class IDeviceWifi {
      * @return {Promise<any>}
      */
     getVersion() {
-        return new Promise((resolve, reject) => {
-            native.MIOTDevice.getVersion(false, (ok, data) => {
-                if (ok) {
-                    Properties.of(this).version = data;
-                    resolve(data);
-                    return;
-                }
-                reject(data);
-            });
-        });
+         return Promise.resolve({});
+    }
+    /**
+     * 检查设备固件升级弹窗。该方法会触发升级弹窗alert提示。
+     * 建议使用场景为需要屏蔽默认的插件启动检测的弹窗，自行寻找合适的时机触发该检测机制。
+     * 不支持单模蓝牙、组设备、虚拟设备、离线设备、分享设备。
+     * @returns {Promise}
+     * @example
+     * 
+     * //首先屏蔽默认弹窗
+     * Package.disableAutoCheckUpgrade = true;
+     * //....
+     * //在合适的时间触发
+     * Device.getDeviceWifi().checkFirmwareUpdateAndAlert().then(res => { }).catch(err => { })
+     */
+    checkFirmwareUpdateAndAlert() {
+        //virture device: did contain virtual, model contain virtual
+        //分享设备预计虚拟设备和离线设备都不检查
+         return Promise.resolve({});
     }
     /**
      * 获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。
@@ -667,6 +675,7 @@ class IDevice {
     /**
      * 获取设备时区,非实时加载，可能为空.如果需要自行获取最新设备时区值，请使用smarthome.getDeviceTimeZone(did)
      * @type {string}
+     * @deprecated   10021开始废弃，10021及后续版本建议使用 Device.getDeviceTimeZone().then
      */
     get timeZone() {
          return  ""
@@ -851,6 +860,38 @@ class IDevice {
      */
     get isReadonlyShared() {
          return  false
+    }
+    /**
+     * 检查当前设备是否支持HomeKit
+     * @since 10021
+     * @returns {Promise<boolean>} 是否支持
+     */
+    checkIsHomeKitDevice() {
+         return Promise
+    }
+    /**
+     * 检查当前设备是否接入了HomeKit
+     * @since 10021
+     * @returns {Promise<boolean>} 是否接入
+     */
+    checkHomeKitConnected() {
+         return Promise
+    }
+    /**
+     * 将当前设备绑定到HomeKit中
+     * @since 10021
+     * @returns {Promise} 成功进入then，失败进入catch
+     */
+    bindToHomeKit() {
+         return Promise
+    }
+    /**
+     * 获取当前设备的时区信息
+     * @since 10021
+     * @returns {Promise} 成功进入then，失败进入catch
+     */
+    getDeviceTimeZone() {
+         return Promise
     }
 }
 const RootDevice={};

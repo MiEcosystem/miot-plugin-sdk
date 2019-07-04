@@ -193,6 +193,18 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 获取手机运营商信息
+     * 返回值中：
+     * name 运营商名称-与手机语言一致
+     * simOperator 运营商 国家编码(三位)+网络编码 参考 https://en.wikipedia.org/wiki/Mobile_country_code
+     * countryCode 运营商国家码，ISO 3166-1 country code
+     * @since 10021
+     * @returns {Promise} 运营商信息 {'1':{name:'',simOperator:'',,countryCode:''},'2':{...}}
+     */
+    getOperatorsInfo() {
+         return Promise.resolve(null);
+    },
+    /**
      * jx执行器
      * @typedef IExecutor
      * @since 10002
@@ -229,5 +241,15 @@ export default {
      */
     createBackgroundExecutor(jx, initialProps = {}) {
          return Promise.resolve({execute(method, ...args){}, remove(){}});
-    }
+    },
+    /**
+     * android 手机是否有NFC功能
+     * @since 10021
+     * @return {Promise}
+     * @example
+     * Host.phoneHasNfcForAndroid().then(res => console(res))
+     */
+    phoneHasNfcForAndroid() {
+         return Promise.resolve(null);
+    },
 }

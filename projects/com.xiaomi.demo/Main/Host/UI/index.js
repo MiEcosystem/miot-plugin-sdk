@@ -32,18 +32,6 @@ export default class UIDemo extends React.Component {
     _createMenuData() {
         this._menuData = [
             {
-                'name': '打开创建设备组',
-                'func': () => {
-                    Host.ui.openDeviceGroupPageForCreate(Device.deviceID);
-                }
-            },
-            {
-                'name': '打开编辑设备组',
-                'func': () => {
-                    Host.ui.openDeviceGroupPageForEdit(Device.deviceID);
-                }
-            },
-            {
                 'name': '显示打开蓝牙引导(仅ios)',
                 'func': () => {
                     Host.ui.showBLESwitchGuide();
@@ -75,6 +63,18 @@ export default class UIDemo extends React.Component {
                 }
             },
             {
+                'name': '打开默认倒计时',
+                'func': () => {
+                    Host.ui.openCountDownPage(true, { onMethod: "power_on", offMethod: 'power_off', onParam: 'on', offParam: 'off' });
+                }
+            },
+            {
+                'name': '打开自定义倒计时',
+                'func': () => {
+                    Host.ui.openCountDownPage(true, { onMethod: "power_on", offMethod: 'power_off', onParam: 'on', offParam: 'off', identify: "custom" });
+                }
+            },
+            {
                 'name': '多键开关设置',
                 'func': () => {
                     Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac);
@@ -90,6 +90,22 @@ export default class UIDemo extends React.Component {
                 'name': 'openNewMorePage',
                 'func': () => {
                     Host.ui.openNewMorePage();
+                }
+            },
+            {
+                'name': '跳转到小米钱包（仅Android）',
+                'func': () => {
+                    let params = {
+                        action: 'issue_mifare',
+                        type: '1',
+                        product_id: '66666-00211',
+                        source_channel: 'mijia',
+                    };
+                    Host.ui.openMiPayPageForAndroid(params).then((res) => {
+                        console.log(res)
+                    }).catch((error) => {
+                        console.log(error)
+                    });
                 }
             }
         ];
