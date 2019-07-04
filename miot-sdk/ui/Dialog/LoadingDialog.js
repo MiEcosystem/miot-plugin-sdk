@@ -36,13 +36,21 @@ export default class LoadingDialog extends React.Component {
     }
   }
   render() {
-    if (!this.props.visible) return null;
+    console.log('LoadingDialog render');
     const timeout = this.props.timeout;
     if (timeout && typeof parseInt(timeout) === "number") {
-      this.timer = setTimeout(_ => {
-        this.setState({ visible: false });
-        this.props.onDismiss && this.props.onDismiss();
-      }, parseInt(timeout));
+      if (!this.state.visible) {
+        this.timer = null;
+        clearTimeout(this.timer);
+      }
+      else {
+        if (!this.timer) {
+          this.timer = setTimeout(_ => {
+            this.setState({ visible: false });
+            this.props.onDismiss && this.props.onDismiss();
+          }, parseInt(timeout));
+        }
+      }
     }
     return (
       <AbstractDialog
