@@ -52,7 +52,9 @@ export default class PrivacyDemo extends React.Component {
           if (this.state.experience) {
             options.experiencePlanURL = licenseURL;
           }
-          options.hideAgreement = this.state.hideAgreement
+          // options.hideAgreement = this.state.hideAgreement
+          options.hideAgreement = true
+          options.hideUserExperiencePlan = true;
 
           /** 
           Service.smarthome.batchGetDeviceDatas([{ did: Device.deviceID, props: ["prop.s_auth_config"] }]).then(res => {
@@ -96,6 +98,7 @@ export default class PrivacyDemo extends React.Component {
 
           //这里在正式使用时需要判断是否已经授权,建议使用上面注释的部分
           Host.ui.alertLegalInformationAuthorization(options).then((res) => {
+              console.log("res", res)
             if (res) {
               // 表示用户同意授权
               Host.storage.set(licenseKey, true).then((res) => { });
@@ -122,9 +125,11 @@ export default class PrivacyDemo extends React.Component {
           if (this.state.experience) {
             options.experiencePlanURL = licenseURL;
           }
-          options.hideAgreement = this.state.hideAgreement
+          options.hideAgreement = true
+          options.hideUserExperiencePlan = true;
 
           Host.ui.previewLegalInformationAuthorization(options).then((res) => {
+            console.log("res", res)
             if (res) {
               // 表示用户同意授权
               Host.storage.set(licenseKey, true).then((res) => { });
