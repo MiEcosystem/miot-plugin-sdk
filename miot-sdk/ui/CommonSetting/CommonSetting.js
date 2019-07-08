@@ -75,6 +75,24 @@ const firstSharedOptions = {
   [firstAllOptions.LEGAL_INFO]: 0, // 20190516，分享设备不显示「法律信息」
 };
 /**
+ * 20190708 / SDK_10023
+ * 所有设置项顺序固定
+ * 权重值越大，排序越靠后，为了可扩展性，权重不能依次递增+1
+ */
+const firstAllOptionsWeight = {
+  [firstAllOptions.NAME]: 0,
+  [firstAllOptions.MEMBER_SET]: 3,
+  [firstAllOptions.LOCATION]: 6,
+  [firstAllOptions.SHARE]: 9,
+  [firstAllOptions.BTGATEWAY]: 12,
+  [firstAllOptions.VOICE_AUTH]: 15,
+  [firstAllOptions.IFTTT]: 18,
+  [firstAllOptions.FIRMWARE_UPGRADE]: 21,
+  [firstAllOptions.MORE]: 24,
+  [firstAllOptions.HELP]: 27,
+  [firstAllOptions.LEGAL_INFO]: 30
+};
+/**
  * 某些特殊设备类型不显示某些设置项
  * key: 设置项的key
  * value: 不显示该设置项的设备类型列表, 用 pid 表示设备类型, [] 表示支持所有设备
@@ -355,6 +373,8 @@ export default class CommonSetting extends React.Component {
     options = [...new Set(options)];
     // 4. 拼接必选项和可选项
     let keys = [...requireKeys1, ...options, ...requireKeys2];
+    // 4.5 所有设置项顺序固定，20190708 / SDK_10023
+    keys.sort((keyA, keyB) => firstAllOptionsWeight[keyA] - firstAllOptionsWeight[keyB]);
     // 5. 权限控制，如果是共享设备或者家庭设备，需要过滤一下
     if (Device.isOwner === false) {
       keys = keys.filter(key => firstSharedOptions[key]);

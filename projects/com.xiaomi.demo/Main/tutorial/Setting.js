@@ -37,10 +37,13 @@ export default class Setting extends React.Component {
   render() {
     // 显示部分一级菜单项
     const firstOptions = [
-      first_options.SHARE,
-      first_options.IFTTT,
-      first_options.VOICE_AUTH,
       first_options.FIRMWARE_UPGRADE,
+      first_options.VOICE_AUTH,
+      first_options.SHARE,
+      first_options.BTGATEWAY,
+      first_options.IFTTT,
+      first_options.MEMBER_SET,
+      first_options.BTGATEWAY,
     ]
     // 显示部分二级菜单项
     const secondOptions = [
@@ -90,7 +93,7 @@ export default class Setting extends React.Component {
           <View style={styles.blank} />
           <CommonSetting
             navigation={this.props.navigation}
-            // firstOptions={firstOptions}
+            firstOptions={firstOptions}
             showDot={this.state.showDot}
             secondOptions={secondOptions}
             extraOptions={extraOptions}
