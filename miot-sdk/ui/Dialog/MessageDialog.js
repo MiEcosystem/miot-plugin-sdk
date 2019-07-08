@@ -86,6 +86,7 @@ export default class MessageDialog extends React.Component {
     this.state = {
       checked: false
     }
+    this.process(props);
   }
   componentWillReceiveProps(props) {
     this.process(props);

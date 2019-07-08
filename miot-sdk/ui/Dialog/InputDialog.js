@@ -125,6 +125,7 @@ export default class InputDialog extends React.Component {
       borderWidth: 0.3,
       borderColor: '#e5e5e5',
     });
+    this.process(props);
   }
   componentWillReceiveProps(props) {
     this.process(props);
@@ -135,6 +136,7 @@ export default class InputDialog extends React.Component {
     this.inputs = props.inputs || [{
       placeholder: '自定义占位字符',
       defaultValue: '自定义默认值',
+      textInputProps: { autoFocus: true }
     }]
     // 拦截 onChangeText，记录输入文字
     for (let i = 0; i < this.inputs.length; i++) {

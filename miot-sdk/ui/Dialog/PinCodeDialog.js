@@ -54,12 +54,12 @@ export default class PinCodeDialog extends React.Component {
     digit: 6,
     color: Styles.common.MHGreen,
   }
-  componentWillReceiveProps(newProps) {
-    if (newProps.visible === true) {
+  componentWillReceiveProps(props) {
+    if (props.visible === true) {
       this.state.numArr = Array.from({ length: this.digit }, v => undefined);
       this.state.value = '';
     }
-    this.process(newProps);
+    this.process(props);
   }
   constructor(props, context) {
     super(props, context);
@@ -74,6 +74,7 @@ export default class PinCodeDialog extends React.Component {
       value: '',
       checked: false
     }
+    this.process(props);
   }
   process(props) {
     this.state.checked = (props.checkboxData || {})['checked'] || false;
