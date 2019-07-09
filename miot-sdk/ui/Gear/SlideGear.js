@@ -79,22 +79,18 @@ export default class SlideGear extends React.Component {
   constructor(props, context) {
     super(props, context);
     if (this.props.options.length === 0) {
+      console.warn('options 为空数组');
       this.showNothing = true;
       return;
     }
-    const { margin, blockWidth, blockHeight, containerWidth, containerHeight } = this.getCorrectLayout();
+    const { margin, blockWidth, blockHeight, containerHeight } = this.getCorrectLayout();
     this.margin = margin;
     this.blockWidth = blockWidth;
     this.blockHeight = blockHeight;
-    this.containerWidth = containerWidth;
     this.containerHeight = containerHeight;
+    this.options = this.props.options;
     this.length = this.props.options.length;
-    console.log(
-      `滑块高度: ${blockHeight}
-    滑块宽度: ${blockWidth}
-    滑块间距: ${margin}
-    容器高度: ${containerHeight}
-    容器宽度: ${containerWidth}`);
+    console.log(`滑块高度: ${blockHeight}\n滑块宽度: ${blockWidth}\n滑块周围间距: ${margin}\n容器高度: ${containerHeight}`);
     this.state = {
       pan: new Animated.Value(0),
       moveX: new Animated.Value(0),
@@ -116,14 +112,48 @@ export default class SlideGear extends React.Component {
       onPanResponderRelease: this._onPanResponderRelease.bind(this)
     });
   }
+  /**
+   * 接收 options / value 动态变化
+   * @param {object} newProps 
+   */
   componentWillReceiveProps(newProps) {
-    if (this.showNothing) return;
-    const { value } = newProps;
-    if (value !== this.props.value) {
-      if (value < 0 || value >= this.length) return;
-      this.currentCoord = this.coords[value];
-      this.getDragRange();
+    const { value, options } = newProps;
+    if (value === this.props.value && this.isSameArray(options, this.props.options)) return; // 没有变化
+    if (!this.isSameArray(options, this.props.options)) { // options 变化
+      if (!(options instanceof Array) || options.length === 0) { // 更新后的 options 不是数组或者是空数组
+        console.warn('options 不是数组或者是空数组');
+        this.showNothing = true;
+        return;
+      }
+      else { // options 正确更新
+        this.showNothing = false;
+        this.options = options;
+        this.length = options.length;
+      }
     }
+    if (value !== this.props.value) { // value 变化
+      if (value < 0 || value >= this.length) { // 更新后的 value 越界
+        console.warn('value 不在 options 范围内');
+        this.state.value = 0; // 如果越界，设置一个默认值
+      }
+      else {
+        this.state.value = value; // value 正确更新
+      }
+    }
+    this.calculateCoord(this.containerLayout); // 根据更新后的 options 和 value 重新计算各个选项坐标和滑块坐标
+  }
+  /**
+   * 判断两个数组是否完全相等
+   * @param {array} arr1 
+   * @param {array} arr2 
+   */
+  isSameArray(arr1, arr2) {
+    if (!(arr1 instanceof Array) || !(arr2 instanceof Array)) return false;
+    if (arr1.length !== arr2.length) return false;
+    for (let i = 0; i < arr1.length; i++) {
+      if (arr1[i] !== arr2[i]) return false;
+    }
+    return true;
   }
   componentWillMount() {
     // 拖拽变化值监听
@@ -167,9 +197,7 @@ export default class SlideGear extends React.Component {
     const { pageX } = e.nativeEvent;
     this.offset = pageX - this.currentCoord;
     console.log('⬇️⬇️⬇️⬇️⬇️⬇️⬇️滑动开始⬇️⬇️⬇️⬇️⬇️⬇️⬇️');
-    console.log(`滑块中心坐标 ${this.currentCoord}`);
-    console.log(`触摸点坐标 ${pageX}`);
-    console.log(`this.translateX ${this.translateX}`);
+    console.log(`滑块中心坐标: ${this.currentCoord}\n触摸点坐标: ${pageX}\nthis.translateX: ${this.translateX}`);
   }
   /**
    * @description 手势释放回调
@@ -189,8 +217,8 @@ export default class SlideGear extends React.Component {
     if (this.props.onSlidingComplete) {
       this.props.onSlidingComplete(index);
     }
-    console.log(`手势结束坐标: ${coord}\n滑块最终坐标: ${this.currentCoord}\n离滑块最近的选项下标: ${index}`);
     this.offset = 0;
+    console.log(`手势结束坐标: ${coord}\n滑块最终坐标: ${this.currentCoord}\n离滑块最近的选项下标: ${index}`);
     console.log('⬆️⬆️⬆️⬆️⬆️⬆️⬆️滑动结束⬆️⬆️⬆️⬆️⬆️⬆️⬆️');
   }
   /**
@@ -199,7 +227,6 @@ export default class SlideGear extends React.Component {
    */
   getCorrectLayout() {
     const containerHeight = this.props.containerStyle.height || DEFAULT_HEIGHT; // 容器高度
-    const containerWidth = this.props.containerStyle.width || screenWidth; // 容器宽度
     const blockWidth = this.props.blockStyle.width || DEFAULT_SIZE; // 滑块宽度
     // 重新计算
     let margin = ~~(containerHeight / 10);
@@ -210,24 +237,31 @@ export default class SlideGear extends React.Component {
       margin,
       blockWidth: this.props.type === TYPE.CIRCLE ? blockHeight : blockWidth,
       blockHeight,
-      containerWidth,
       containerHeight,
     };
+  }
+  _onLayout() {
+    this._container.measure((x, y, w, h, px, py) => {
+      this.calculateCoord({ x, y, w, h, px, py });
+    })
   }
   /**
    * @description 计算整个容器的大小和在屏幕上的位置，从而确定每个选项的圆心坐标
    */
-  calculateCoord() {
-    this._container.measure((x, y, w, h, px, py) => {
-      console.log(`容器起始坐标: ${x}\n宽度: ${w}`);
-      const offset = this.margin * 2 + this.blockWidth;
-      const startCoord = x + offset / 2;
-      const d = (w - offset) / (this.length - 1);
-      this.coords = this.props.options.map((v, i) => startCoord + d * i);
-      console.log('各选项中心坐标', this.coords);
-      this.currentCoord = this.coords[this.state.value];
-      this.getDragRange();
-    })
+  calculateCoord(obj) {
+    const { x, y, w, h } = obj;
+    this.containerLayout = obj;
+    const offset = this.margin * 2 + this.blockWidth;
+    const startCoord = x + offset / 2;
+    const d = (w - offset) / (this.length - 1);
+    console.log(`容器起始坐标: ${x}\n实际宽度: ${w}\n各选项中心坐标间距: ${d}`);
+    if (d <= 0) {
+      console.warn('容器实际宽度 < 滑块宽度，滑块无法移动，请仔细检查 containerStyle 或者增加容器的宽度');
+    }
+    this.coords = this.options.map((v, i) => d > 0 ? (startCoord + d * i) : 0);
+    console.log('各选项中心坐标', this.coords);
+    this.currentCoord = this.coords[this.state.value];
+    this.getDragRange();
   }
   /**
    * @description 计算可拖拽的范围
@@ -237,10 +271,9 @@ export default class SlideGear extends React.Component {
       dragToValueMin: this.coords[0] - this.currentCoord || 0,
       dragToValueMax: this.coords[this.length - 1] - this.currentCoord || 0,
     }, _ => {
+      console.log(`滑块中心坐标: ${this.currentCoord}\n可滑动范围: ${this.state.dragToValueMin} ~ ${this.state.dragToValueMax}`);
       callback && callback();
     });
-    console.log('滑块中心坐标', this.currentCoord);
-    console.log(`可滑动范围: ${this.state.dragToValueMin} ~ ${this.state.dragToValueMax}`);
   }
   /**
    * @description 滑块
@@ -330,7 +363,7 @@ export default class SlideGear extends React.Component {
             ]}
           >
             <Text style={[styles.text, { color: this.props.leftTextColor }]}>
-              {this.props.options[0]}
+              {this.options[0]}
             </Text>
           </View>
           : null
@@ -356,7 +389,7 @@ export default class SlideGear extends React.Component {
         ]}
       >
         <Text style={[styles.text, { color: this.props.rightTextColor }]}>
-          {this.props.options[this.length - 1]}
+          {this.options[this.length - 1]}
         </Text>
       </View>
     )
@@ -364,14 +397,13 @@ export default class SlideGear extends React.Component {
   render() {
     if (this.showNothing) return null;
     const containerStyle = {
-      width: this.containerWidth,
       height: this.containerHeight,
       borderRadius: this.props.type === TYPE.CIRCLE ? this.containerHeight / 2 : 0,
       backgroundColor: this.props.maximumTrackTintColor
     };
     return (
       <View
-        onLayout={_ => this.calculateCoord()}
+        onLayout={_ => this._onLayout()}
         ref={container => this._container = container}
         style={[
           this.props.containerStyle,
