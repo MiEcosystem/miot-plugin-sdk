@@ -6,11 +6,14 @@ export default class CallSmartHomeAPIDemo extends React.Component {
     constructor(props) {
         super(props);
     }
-    componentWillMount() {
 
-        this.subscription = DeviceEvent.deviceReceivedMessages.addListener((device, messages) => {
-            console.log(device + messages);
-        });
+
+    componentDidMount() {
+
+        this._deviceStatusListener = DeviceEvent.deviceReceivedMessages.addListener(
+            (device, map, res) => {
+                console.log('Device.addListener', device, map, res);
+            });
         this._deviceNameChangedListener = DeviceEvent.deviceNameChanged.addListener((device) => {
             console.log("不要以为你改了名字我就不认识你了", device);
             this.props.navigation.setParams({
@@ -21,8 +24,8 @@ export default class CallSmartHomeAPIDemo extends React.Component {
     }
 
     componentWillUnmount() {
-        this._deviceNameChangedListener.remove();
-        this.subscription && this.subscription.remove();
+        this._deviceStatusListener && this._deviceStatusListener.remove();
+        this._deviceNameChangedListener && this._deviceNameChangedListener.remove();
     }
     render() {
         var setProperty = this._createMenuRow({ key: 1, title: '设置属性' });
@@ -30,6 +33,8 @@ export default class CallSmartHomeAPIDemo extends React.Component {
         var invokeAction = this._createMenuRow({ key: 3, title: '调用方法' });
         var subscribe = this._createMenuRow({ key: 4, title: '订阅' });
         var specString = this._createMenuRow({ key: 5, title: '获取设备spec详情' });
+        var creteScene = this._createMenuRow({ key: 6, title: '创建自动化' });
+
         return (
             <View style={{ flex: 1 }}>
                 <View style={styles.containerMenu}>
@@ -38,6 +43,7 @@ export default class CallSmartHomeAPIDemo extends React.Component {
                     {invokeAction}
                     {subscribe}
                     {specString}
+                    {creteScene}
                 </View>
             </View>
 
@@ -89,7 +95,7 @@ export default class CallSmartHomeAPIDemo extends React.Component {
                 });
                 break;
             case 4:
-                Device.getDeviceWifi().subscribeMessages('prop.2.1', 'prop.3.1').then(res => {
+                Device.getDeviceWifi().subscribeMessages("prop.IR_01A", "prop.IR_02A", "prop.IR_03A").then(res => {
                     console.log('subscribeMessages', res)
                 }).catch(res => {
                     console.log(res, 'catch')
@@ -100,6 +106,53 @@ export default class CallSmartHomeAPIDemo extends React.Component {
                     console.log('getSpecString', JSON.stringify(res));
                 }).catch(res => {
                     console.log(res, 'catch');
+                });
+                break;
+            case 6:
+                Service.scene.editSceneRecord({
+                    "authed": {},
+                    "create_time": 1555297843,
+                    "identify": "",
+                    "local_dev": "",
+                    "name": "向手机发送通知",
+                    "setting": {
+                        "action_list": [{
+                            "id": 1,
+                            "model": "phone",
+                            "name": "向手机发送通知",
+                            "payload": {
+                                "desc": "手动执行",
+                                "title": "智能通知"
+                            },
+                            "sa_id": "",
+                            "tr_id": 201,
+                            "type": 1
+                        }],
+                        "enable": 1,
+                        "enable_push": 0,
+                        "launch": {
+                            "attr": [{
+                                "default_value": 0,
+                                "device_abbr": "",
+                                "key": "",
+                                "name": "手动执行",
+                                "sc_id": "",
+                                "src": "user",
+                                "tr_id": 101
+                            }],
+                            "express": 0
+                        }
+                    },
+                    "sr_id": 0,
+                    "st_id": 30,
+                    "status": 0,
+                    "type": 0,
+                    "uid": 894158105,
+                    "us_id": 1075301858
+                }).then(res => {
+                    console.log('11111');
+                }).catch(res => {
+                    console.log('22222');
                 });
                 break;
             default:
