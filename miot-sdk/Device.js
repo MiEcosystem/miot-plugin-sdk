@@ -911,6 +911,14 @@ class IDevice {
             })
         });
     }
+     /**
+     * 获取当前设备的设备信息
+     * @since 10023
+     * @returns {Promise} 成功进入then，失败进入catch
+     */
+    getCurrentDeviceValue() {
+         return Promise
+    }
 }
 const RootDevice={};
 /**

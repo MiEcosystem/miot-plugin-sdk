@@ -238,6 +238,16 @@ export default class UIDemo extends React.Component {
                         alert(error)
                     })
                 }
+            },
+            {
+                'name': '获取设备当前属性',
+                'func':()=>{
+                    Device.getCurrentDeviceValue().then(res=>{
+                        console.log(res)
+                    }).catch(err=>{
+                        console.log(err)
+                    });
+                }
             }
         ];
     }

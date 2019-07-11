@@ -33,7 +33,7 @@ export default class CallSmartHomeAPIDemo extends React.Component {
         var invokeAction = this._createMenuRow({ key: 3, title: '调用方法' });
         var subscribe = this._createMenuRow({ key: 4, title: '订阅' });
         var specString = this._createMenuRow({ key: 5, title: '获取设备spec详情' });
-        var creteScene = this._createMenuRow({ key: 6, title: '创建自动化' });
+        var specValue = this._createMenuRow({ key: 6, title: '获取miotspec设备当前属性' });
 
         return (
             <View style={{ flex: 1 }}>
@@ -43,7 +43,7 @@ export default class CallSmartHomeAPIDemo extends React.Component {
                     {invokeAction}
                     {subscribe}
                     {specString}
-                    {creteScene}
+                    {specValue}
                 </View>
             </View>
 
@@ -68,12 +68,6 @@ export default class CallSmartHomeAPIDemo extends React.Component {
         switch (params.key) {
             case 1:
                 this.on = !this.on;
-                let data = await Service.spec.getCurrentSpecValue('1040002218');
-                console.log(data);
-                this.setState({
-                    data: data,
-                });
-                return;
                 Service.spec.setPropertiesValue([{ did, siid: 2, piid: 1, value: this.on }]).then(res => {
                     console.log('setPropertiesValue', res)
                 }).catch(res => {
@@ -109,50 +103,10 @@ export default class CallSmartHomeAPIDemo extends React.Component {
                 });
                 break;
             case 6:
-                Service.scene.editSceneRecord({
-                    "authed": {},
-                    "create_time": 1555297843,
-                    "identify": "",
-                    "local_dev": "",
-                    "name": "向手机发送通知",
-                    "setting": {
-                        "action_list": [{
-                            "id": 1,
-                            "model": "phone",
-                            "name": "向手机发送通知",
-                            "payload": {
-                                "desc": "手动执行",
-                                "title": "智能通知"
-                            },
-                            "sa_id": "",
-                            "tr_id": 201,
-                            "type": 1
-                        }],
-                        "enable": 1,
-                        "enable_push": 0,
-                        "launch": {
-                            "attr": [{
-                                "default_value": 0,
-                                "device_abbr": "",
-                                "key": "",
-                                "name": "手动执行",
-                                "sc_id": "",
-                                "src": "user",
-                                "tr_id": 101
-                            }],
-                            "express": 0
-                        }
-                    },
-                    "sr_id": 0,
-                    "st_id": 30,
-                    "status": 0,
-                    "type": 0,
-                    "uid": 894158105,
-                    "us_id": 1075301858
-                }).then(res => {
-                    console.log('11111');
-                }).catch(res => {
-                    console.log('22222');
+                let data = await Service.spec.getCurrentSpecValue(Device.deviceID);
+                console.log(data);
+                this.setState({
+                    data: data,
                 });
                 break;
             default:
