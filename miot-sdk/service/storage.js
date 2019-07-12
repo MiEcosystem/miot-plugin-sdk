@@ -45,5 +45,26 @@ export default {
      */
     setThirdUserConfigs(model, key, data) {
          return Promise.resolve(null);
-    }
+    },
+    /**
+     * 写数据 /user/set_user_config
+     * 创建或修改设置插件自由存储空间。如果数据超过服务器设置的阈值，自动分段存储到云端。
+     * 但是分段存储会占用额外的key，比如key=100时，分出的新段会存储在101,102,103...等后续相邻的key上，
+     * 因此如果插件方需要存储多个key-value，建议多个key之间相差较大
+     * @param {string} model
+     * @param {number} key
+     * @param {json} data
+     */
+    setThirdUserConfigsForOneKey(model, key, data) {
+       return Promise.resolve(null);
+    },
+    /**
+     * 与setThirdUserConfigsForOneKey配套使用，会把分段的数据自动合并后返回，使得分段行为对调用者透明
+     * @param model
+     * @param key
+     * @returns {Promise<any>}
+     */
+    getThirdUserConfigsForOneKey(model, key) {
+       return Promise.resolve(null);
+    },
 }
