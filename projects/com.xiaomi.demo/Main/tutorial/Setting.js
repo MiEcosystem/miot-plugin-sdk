@@ -56,8 +56,13 @@ export default class Setting extends React.Component {
       // upgradePageKey: 'FirmwareUpgrade',
       // licenseUrl: require('../resources/html/license_zh.html'),
       // policyUrl: require('../resources/html/privacy_zh.html'),
-      deleteDeviceMessage: '真的要删除？你不再考虑考虑？',
-      excludeRequiredOptions: [secondAllOptions.SECURITY]
+      deleteDeviceMessage: 'test',
+      excludeRequiredOptions: [secondAllOptions.SECURITY],
+      option: {
+        privacyURL: require('../../Resources/raw/privacy_zh.html'),
+        agreementURL: require('../../Resources/raw/license_zh.html'),
+        experiencePlanURL: '',
+      }
     }
     return (
       <View style={styles.container}>
