@@ -654,7 +654,8 @@ class IDevice {
          return  false
     }
     /**
-     * 父设备的 model
+     * 父设备的 model,10023及其之后返回空字符串
+     * @deprecated   10023开始废弃，10023及后续版本建议使用 Device.parentDevice.model
      * @type {string}
      * @readonly
      *
@@ -810,7 +811,7 @@ class IDevice {
      * 重置标志，本地设备才会返回该字段，为1时表示设备刚刚reset过
      * @type {int}
      * @readonly
-     *
+     * @deprecated 10023开始废弃，后续不再提供此字段，此方法永远返回0
      */
     get resetFlag() {
          return  0
@@ -911,21 +912,21 @@ class IDevice {
             })
         });
     }
-  /**
-   * 获取设备定向推荐信息：展示推荐入口使用
-   * @since 10023
-   * @param {String} model
-   * @param {String} did
-   * @returns {Promise}
-   */
-  getRecommendScenes(model, did) {
-     return Promise
-  }
-     /**
-     * 获取当前设备的设备信息
+    /**
+     * 获取设备定向推荐信息：展示推荐入口使用
      * @since 10023
-     * @returns {Promise} 成功进入then，失败进入catch
+     * @param {String} model
+     * @param {String} did
+     * @returns {Promise}
      */
+    getRecommendScenes(model, did) {
+         return Promise
+    }
+    /**
+    * 获取当前设备的设备信息
+    * @since 10023
+    * @returns {Promise} 成功进入then，失败进入catch
+    */
     getCurrentDeviceValue() {
          return Promise
     }
