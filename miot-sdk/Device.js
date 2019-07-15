@@ -911,6 +911,16 @@ class IDevice {
             })
         });
     }
+  /**
+   * 获取设备定向推荐信息：展示推荐入口使用
+   * @since 10023
+   * @param {String} model
+   * @param {String} did
+   * @returns {Promise}
+   */
+  getRecommendScenes(model, did) {
+     return Promise
+  }
      /**
      * 获取当前设备的设备信息
      * @since 10023

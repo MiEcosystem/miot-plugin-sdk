@@ -238,6 +238,14 @@ export default {
    * @param {object} options.offParam 配置定时关闭的 参数，同上面openTimerSettingPageWithVariousTypeParams的参数offParam
    * @param {string} options.displayName 配置场景日志显示的名称
    * @param {string} options.identify 自定义定时Identifier
+   * @param {string} options.onTimerTips 定时列表页面、设置时间页面 打开副标题（默认：开启时间）
+   * @param {string} options.offTimerTips 定时列表页面、设置时间页面 关闭时间副标题（默认：关闭时间）
+   * @param {string} options.listTimerTips 定时列表页面 定时时间段副标题（默认：开启时段）
+   * @param {boolean} options.bothTimerMustBeSet 是否强制要求设置时间段？ true: 强制设置时间段(默认：false)如果设置true,忽略下面三个参数
+   * @param {boolean} options.showOnTimerType 是否可以创建：定时开启？ true: 可以，false:不可以(默认：true)
+   * @param {boolean} options.showOffTimerType 是否可以创建：定时关闭？ true: 可以，false:不可以(默认：true)
+   * @param {boolean} options.showPeriodTimerType 是否可以创建：时间段定时？ true: 可以，false:不可以(默认：true)
+   * 注意：showOnTimerType、showOffTimerType、showPeriodTimerType三个参数至少有一个为true，才有效，否则三个中任意都会被忽略掉
    * @example
    * Host.ui.openTimerSettingPageWithOptions({onMethod:"power_on", onParam: "on", offMethod: "power_off", offParam: "off", displayName:"设置xxx定时"，identify:"plug_usb_countdowm"})
    */
@@ -343,6 +351,17 @@ export default {
    * Host.ui.openMiPayPageForAndroid(params).then((res)=>{console.log(res)}).catch((error)=>{ console.log(error)});
    */
   openMiPayPageForAndroid(params) {
+     return Promise.resolve(null);
+  },
+  /**
+   * 跳转到设备定向推荐界面
+   * @since 10023
+   * @param {String} did
+   * @param {number} recommendId
+   * @return {Promise}
+   * @example
+   */
+  openPluginRecommendScene(did, recommendId) {
      return Promise.resolve(null);
   }
 };

@@ -240,6 +240,16 @@ export default class UIDemo extends React.Component {
                 }
             },
             {
+              'name': '获取设备定向推荐信息',
+              'func': () => {
+                Device.getRecommendScenes(Device.model, Device.deviceID).then((res) => {
+                  console.log("res", res)
+                  alert(JSON.stringify(res))
+                }).catch((error) => {
+                  alert(error)
+                })
+              },
+              {
                 'name': '获取设备当前属性',
                 'func':()=>{
                     Device.getCurrentDeviceValue().then(res=>{
