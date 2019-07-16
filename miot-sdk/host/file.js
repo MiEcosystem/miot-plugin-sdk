@@ -387,6 +387,21 @@ export default {
          return Promise.resolve(null);
     },
     /**
+    * 保存指定照片文件到系统相册
+    * @param {string} fileName 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
+    * @returns {Promise}
+    * @example
+    * import {Host} from 'miot'
+    * ...
+    * Host.file.saveImageToPhotosAlbum('name').then(_ =>{
+    *  console.log('successful save to PhotosAlbum')
+    * })
+    * ...
+    */
+    saveImageToPhotosAlbum(fileName) {
+       return Promise.resolve(false)
+    },
+    /**
      * 屏幕全屏截图
      * @param {string} imageName - 图片名称，png,
      * @return {Promise<string>} - 截图成功回调函数返回存储图片的绝对路径，加载图片时直接使用即可
