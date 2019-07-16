@@ -299,24 +299,6 @@ export class IDeviceWifi {
          return Promise.resolve({});
     }
     /**
-     * 检查设备固件升级弹窗。该方法会触发升级弹窗alert提示。
-     * 建议使用场景为需要屏蔽默认的插件启动检测的弹窗，自行寻找合适的时机触发该检测机制。
-     * 不支持单模蓝牙、组设备、虚拟设备、离线设备、分享设备。
-     * @returns {Promise}
-     * @example
-     * 
-     * //首先屏蔽默认弹窗
-     * Package.disableAutoCheckUpgrade = true;
-     * //....
-     * //在合适的时间触发
-     * Device.getDeviceWifi().checkFirmwareUpdateAndAlert().then(res => { }).catch(err => { })
-     */
-    checkFirmwareUpdateAndAlert() {
-        //virture device: did contain virtual, model contain virtual
-        //分享设备预计虚拟设备和离线设备都不检查
-         return Promise.resolve({});
-    }
-    /**
      * 获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。
      * /home/devupgrade
      * @method
@@ -914,42 +896,22 @@ class IDevice {
     }
     // @native begin
     /**
-     * 获取设备定向推荐信息：展示推荐入口使用
-     * @since 10023
-     * @param {String} model
-     * @param {String} did
+     * 检查设备固件升级弹窗。该方法会触发升级弹窗alert提示。
+     * 建议使用场景为需要屏蔽默认的插件启动检测的弹窗，自行寻找合适的时机触发该检测机制。
+     * 不支持单模蓝牙、组设备、虚拟设备、离线设备、分享设备。
      * @returns {Promise}
+     * @example
+     * 
+     * //首先屏蔽默认弹窗
+     * Package.disableAutoCheckUpgrade = true;
+     * //....
+     * //在合适的时间触发
+     * Device.checkFirmwareUpdateAndAlert().then(res => { }).catch(err => { })
      */
-    getRecommendScenes(model, did) {
-        return new Promise((resolve, reject) => {
-            native.MIOTDevice.getRecommendScenes(model, did, (ok, res) => {
-                if (ok) {
-                    if (native.isAndroid && typeof res === "string") {
-                        // Android返回的是字符串格式
-                        res = JSON.parse(res)
-                    }
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        });
-    }
-    /**
-    * 获取当前设备的设备信息
-    * @since 10024
-    * @returns {Promise} 成功进入then，失败进入catch
-    */
-    getCurrentDeviceValue() {
-        return new Promise((resolve, reject) => {
-            native.MIOTDevice.getCurrentDeviceValue((ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
+    checkFirmwareUpdateAndAlert() {
+        //virture device: did contain virtual, model contain virtual
+        //分享设备预计虚拟设备和离线设备都不检查
+         return Promise.resolve({});
     }
 }
 const RootDevice={};
