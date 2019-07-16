@@ -255,6 +255,7 @@ export default class UIDemo extends React.Component {
                 'func': () => {
                     Device.getCurrentDeviceValue().then(res => {
                         console.log(res)
+                        alert(JSON.stringify(res))
                     }).catch(err => {
                         console.log(err)
                     });
