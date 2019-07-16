@@ -912,6 +912,7 @@ class IDevice {
             })
         });
     }
+    // @native begin
     /**
      * 获取设备定向推荐信息：展示推荐入口使用
      * @since 10023
@@ -920,15 +921,35 @@ class IDevice {
      * @returns {Promise}
      */
     getRecommendScenes(model, did) {
-         return Promise
+        return new Promise((resolve, reject) => {
+            native.MIOTDevice.getRecommendScenes(model, did, (ok, res) => {
+                if (ok) {
+                    if (native.isAndroid && typeof res === "string") {
+                        // Android返回的是字符串格式
+                        res = JSON.parse(res)
+                    }
+                    resolve(res);
+                } else {
+                    reject(res);
+                }
+            })
+        });
     }
     /**
     * 获取当前设备的设备信息
-    * @since 10023
+    * @since 10024
     * @returns {Promise} 成功进入then，失败进入catch
     */
     getCurrentDeviceValue() {
-         return Promise
+        return new Promise((resolve, reject) => {
+            native.MIOTDevice.getCurrentDeviceValue((ok, res) => {
+                if (ok) {
+                    resolve(res);
+                } else {
+                    reject(res);
+                }
+            })
+        })
     }
 }
 const RootDevice={};
