@@ -144,7 +144,18 @@ export default class UIDemo extends React.Component {
               'name': '跳转到设备定向推荐界面',
               'func': () => {
                 // recommendId 通过 Device.getRecommendScenes(Device.model, Device.deviceID).then 来获取
-                Host.ui.openPluginRecommendScene(Device.deviceID, 1010);
+                Device.getRecommendScenes(Device.model, Device.deviceID).then((res)=>{
+                  console.log(res);
+                  if(res.scene_recom.length > 0  && res.scene_recom[0].info){
+                    console.log("res", res.scene_recom[0].info.sr_id);
+                    Host.ui.openPluginRecommendScene(Device.deviceID, parseInt(res.scene_recom[0].info.sr_id));
+                  }else{
+                    alert(JSON.stringify(res))
+                  }
+                }).catch((error)=>{
+                  alert(error)
+                })
+
               }
             }
         ];

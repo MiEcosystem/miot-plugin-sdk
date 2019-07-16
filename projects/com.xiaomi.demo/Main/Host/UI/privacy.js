@@ -53,8 +53,8 @@ export default class PrivacyDemo extends React.Component {
             options.experiencePlanURL = licenseURL;
           }
           // options.hideAgreement = this.state.hideAgreement
-          options.hideAgreement = true
-          options.hideUserExperiencePlan = true;
+          options.hideAgreement = false
+          options.hideUserExperiencePlan = false;
 
           /** 
           Service.smarthome.batchGetDeviceDatas([{ did: Device.deviceID, props: ["prop.s_auth_config"] }]).then(res => {
