@@ -62,6 +62,7 @@ export default class Setting extends React.Component {
         privacyURL: require('../../Resources/raw/privacy_zh.html'),
         agreementURL: require('../../Resources/raw/license_zh.html'),
         experiencePlanURL: '',
+        hideAgreement: true
       }
     }
     return (

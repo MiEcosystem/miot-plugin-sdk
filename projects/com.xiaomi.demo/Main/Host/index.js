@@ -28,6 +28,12 @@ export default class HostDemo extends React.Component {
   _createMenuData() {
     this._menuData = [
       {
+        'name': 'Host Props 信息',
+        'func': () => {
+          this.props.navigation.navigate('HostPropsInfoDemo', { title: 'Host Props 信息' })
+        }
+      },
+      {
         'name': 'Native导航模块-ui',
         'func': () => {
           this.props.navigation.navigate('NavigateUIDemo', { title: 'Native导航模块-ui' })

@@ -41,6 +41,7 @@ import StorageDemo from './Host/Storage';
 import NavigateUIDemo from "./Host/UI";
 import PrivacyDemo from "./Host/UI/privacy";
 import VideoDemo from './Host/VideoDemo';
+import HostPropsInfoDemo from './Host/HostPropsInfoDemo';
 import MainPage from './MainPage';
 import MoreMenu from './MoreMenu';
 import ImagePathDemo from './NewStructureTest';
@@ -251,6 +252,7 @@ const RootStack = createStackNavigator({
     GLParticles: GLParticles,
     GLOrientation: GLOrientation,
     videoDemo: VideoDemo,
+    HostPropsInfoDemo: HostPropsInfoDemo,
     ParticleDemo: ParticleDemo,//iOS 特有的,粒子系统
     ImagePickerDemo: ImagePickerDemo,
 
