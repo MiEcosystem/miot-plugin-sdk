@@ -464,7 +464,7 @@ export default class MHDatePicker extends React.Component {
         animationType={this.props.animationType}
         transparent={true}
         visible={this.state.visible}
-        onRequestClose={_ => { }}
+        onRequestClose={_ => this.dismiss()}
       >
         <View style={styles.background}>
           <TouchableWithoutFeedback
