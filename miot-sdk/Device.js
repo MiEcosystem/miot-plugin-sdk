@@ -913,6 +913,16 @@ class IDevice {
         //分享设备预计虚拟设备和离线设备都不检查
          return Promise.resolve({});
     }
+    /**
+     * 获取设备定向推荐信息：展示推荐入口使用
+     * @since 10023
+     * @param {String} model
+     * @param {String} did
+     * @returns {Promise}
+     */
+    getRecommendScenes(model, did) {
+         return Promise.resolve({});
+    }
 }
 const RootDevice={};
 /**

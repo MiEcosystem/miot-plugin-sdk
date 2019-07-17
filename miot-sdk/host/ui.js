@@ -353,4 +353,14 @@ export default {
   openMiPayPageForAndroid(params) {
      return Promise.resolve(null);
   },
+  /**
+   * 跳转到设备定向推荐界面
+   * @since 10023
+   * @param {String} did
+   * @param {number} recommendId
+   * @return {Promise}
+   * @example
+   */
+  openPluginRecommendScene(did, recommendId) {
+  }
 };
