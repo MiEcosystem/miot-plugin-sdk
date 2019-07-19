@@ -22,10 +22,12 @@ export default class GearExample extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    this.options = ['off', '1', '2', '3', '4', '5'];
+    this.options = Array.from({ length: 10 }, (v, i) => i);
+    this.options1 = Array.from({ length: 6 }, (v, i) => i);
     this.state = {
-      selectIndex: 2,
-      index: 2,
+      selectIndex: 0,
+      index: 0,
+      disabled: true,
     };
   }
 
@@ -45,7 +47,7 @@ export default class GearExample extends React.Component {
               拖拽 / 点击选择档位
             </Text>
             <DragGear
-              options={this.options}
+              options={this.options1}
               // normalStyle={{ width: 35 }}
               margin={0}
               selectColor={Styles.common.MHGreen}
@@ -61,6 +63,7 @@ export default class GearExample extends React.Component {
             <SlideGear
               options={this.options}
               value={this.state.selectIndex}
+              disabled={this.state.disabled}
               containerStyle={{ width: width * 0.75 }}
               onValueChange={index => this.callback(index)}
               onSlidingComplete={index => this.callback(index)}
@@ -84,7 +87,7 @@ export default class GearExample extends React.Component {
               点击选择档位
             </Text>
             <NormalGear
-              options={this.options}
+              options={this.options1}
               // normalStyle={{ width: 60 }}
               margin={0}
               selectColor={Styles.common.MHGreen}
@@ -116,7 +119,7 @@ export default class GearExample extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(_ => this.setState({ selectIndex: 4, index: 4 }), 1000);
+    setTimeout(_ => this.setState({ selectIndex: 5, index: 5, disabled: false }), 1500); // 在从服务器获取到选中值之前，先禁用滑动
   }
 
 }

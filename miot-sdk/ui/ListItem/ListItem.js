@@ -104,7 +104,7 @@ export default class ListItem extends React.Component {
               <View style={{ flexDirection: 'row', paddingVertical: 2 }}>
                 <Text
                   numberOfLines={1}
-                  style={[Styles.common.title, this.props.titleStyle, fontFamily]}
+                  style={[Styles.common.title, fontFamily, this.props.titleStyle]}
                 >
                   {this.props.title}
                 </Text>

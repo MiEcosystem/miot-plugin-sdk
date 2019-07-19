@@ -12,7 +12,7 @@ const BORDER_COLOR = '#ccc';
  * @description 点击动效
  * @property {bool} select - 是否被选择
  * @property {string} selectColor - 被选择的背景色
- * @property {string} text - 中间的文字内容
+ * @property {string|number} text - 中间的文字内容
  * @property {style} style - 整体容器的样式
  * @property {style} textStyle - 中间的文字大小
  * @property {function} onPress - 点击回调函数
@@ -23,7 +23,7 @@ export default class Clickable extends React.Component {
     selectColor: PropTypes.string,
     style: PropTypes.object,
     onPress: PropTypes.func.isRequired,
-    text: PropTypes.string.isRequired,
+    text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     textStyle: PropTypes.object,
   }
   static defaultProps = {

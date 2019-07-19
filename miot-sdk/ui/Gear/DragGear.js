@@ -24,7 +24,7 @@ const releaseAnimationConfig = {
  * @module DragGear
  * @description 档位控件，拖拽选择
  * （❗️注意：考虑到性能优化，android 系统在拖拽和移动动效中不会实时更新中间的文字）
- * @property {array<string>} options - 档位可选项，以字符串数组表示，必填
+ * @property {array<string>|array<number>} options - 档位可选项，以字符串数组表示，必填
  * @property {number} margin - 档位选项之间的间距，默认 12, 示意图 |12🛑12⭕️12|
  * @property {number} maxWidth
  * 容器宽度最大值，不传则默认屏幕宽度。
@@ -39,7 +39,7 @@ const releaseAnimationConfig = {
  */
 export default class DragGear extends React.Component {
   static propTypes = {
-    options: PropTypes.array.isRequired,
+    options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
     containerStyle: PropTypes.object,
     normalStyle: PropTypes.object,
     textStyle: PropTypes.object,
@@ -114,14 +114,14 @@ export default class DragGear extends React.Component {
       if (this.pressToChoose && Platform.OS === 'ios') {
         const moveX = this.currentCoord + e.value;
         const index = this.getClosetIndex(moveX);
-        this.setState({ currentOption: this.props.options[index] || '' });
+        this.setState({ currentOption: this.props.options[index] });
       }
     });
     // 拖拽手势坐标监听，为了更新中间的文字
     if (Platform.OS === 'ios') {
       this.state.moveX.addListener(e => {
         const index = this.getClosetIndex(e.value);
-        this.setState({ currentOption: this.props.options[index] || '' });
+        this.setState({ currentOption: this.props.options[index] });
       });
     }
   }
@@ -252,7 +252,7 @@ export default class DragGear extends React.Component {
         <Clickable
           key={option}
           onPress={_ => this.onPress(index)}
-          text={option || ''}
+          text={option}
           style={style}
           textStyle={this.props.textStyle}
         />

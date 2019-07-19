@@ -41,6 +41,7 @@ const DEFAULT_BLOCK_COLOR = '#fff'; // 滑块默认颜色
  * @property {string} maximumTrackTintColor - 滑块右侧填充颜色
  * @property {string} rightTextColor - 最右侧文字颜色，`showEndText = true`时有效
  * @property {number} value - 被选择档位的数组下标, `0<=value<=options.length -1`
+ * @property {boolean} disabled - 是否禁用交互，默认`false`
  * @property {function} onValueChange - 滑动时的回调函数
  * @property {function} onSlidingComplete - 滑动结束的回调函数
  */
@@ -56,6 +57,7 @@ export default class SlideGear extends React.Component {
     maximumTrackTintColor: PropTypes.string,
     rightTextColor: PropTypes.string,
     value: PropTypes.number,
+    disabled: PropTypes.bool,
     onValueChange: PropTypes.func,
     onSlidingComplete: PropTypes.func.isRequired,
   }
@@ -70,6 +72,7 @@ export default class SlideGear extends React.Component {
     maximumTrackTintColor: '#dfe2e3',
     rightTextColor: '#999',
     value: 0,
+    disabled: false
   }
   /**
    * @description 容器和滑块的圆角类型
@@ -100,11 +103,18 @@ export default class SlideGear extends React.Component {
     };
     this.translateX = 0; // 记录拖拽距离
     this.offset = 0; // 手势触摸点和中心左边偏差值
+    this.constructPanResponder(props);
+  }
+  /**
+   * 根据传参动态创建手势控制器
+   * @param {object} props 
+   */
+  constructPanResponder(props) {
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onStartShouldSetPanResponderCapture: () => false,
-      onMoveShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponderCapture: () => true,
+      onMoveShouldSetPanResponder: () => !props.disabled,
+      onMoveShouldSetPanResponderCapture: () => !props.disabled,
       onShouldBlockNativeResponder: () => false,
       onPanResponderTerminationRequest: () => false,
       onPanResponderGrant: this._onPanResponderGrant.bind(this),
@@ -117,7 +127,13 @@ export default class SlideGear extends React.Component {
    * @param {object} newProps 
    */
   componentWillReceiveProps(newProps) {
-    const { value, options } = newProps;
+    if (this.sliding) {  // 为了避免不必要的冲突，在滑动时，拒绝一切外部状态更新
+      return;
+    }
+    const { value, options, disabled } = newProps;
+    if (disabled !== this.props.disabled) {
+      this.constructPanResponder(newProps);
+    }
     if (value === this.props.value && this.isSameArray(options, this.props.options)) return; // 没有变化
     if (!this.isSameArray(options, this.props.options)) { // options 变化
       if (!(options instanceof Array) || options.length === 0) { // 更新后的 options 不是数组或者是空数组
@@ -191,6 +207,7 @@ export default class SlideGear extends React.Component {
    */
   _onPanResponderGrant(e, gesture) {
     // 每次拖拽手势开始时，需要重置
+    this.sliding = true; // 表示正在滑动交互
     this.state.pan.setOffset(this.translateX);
     this.state.pan.setValue(0);
     // 为了准确确定释放位置，需要在起手的时候，计算出手势触摸点和中心点的偏差
@@ -220,6 +237,7 @@ export default class SlideGear extends React.Component {
     this.offset = 0;
     console.log(`手势结束坐标: ${coord}\n滑块最终坐标: ${this.currentCoord}\n离滑块最近的选项下标: ${index}`);
     console.log('⬆️⬆️⬆️⬆️⬆️⬆️⬆️滑动结束⬆️⬆️⬆️⬆️⬆️⬆️⬆️');
+    this.sliding = false;
   }
   /**
    * @description 根据选项的宽度、间距和 maxWidth ，计算容器实际宽度，选项实际宽度，实际间距
@@ -401,13 +419,15 @@ export default class SlideGear extends React.Component {
       borderRadius: this.props.type === TYPE.CIRCLE ? this.containerHeight / 2 : 0,
       backgroundColor: this.props.maximumTrackTintColor
     };
+    const opacity = this.props.disabled ? 0.3 : 1;
     return (
       <View
         onLayout={_ => this._onLayout()}
         ref={container => this._container = container}
         style={[
           this.props.containerStyle,
-          containerStyle
+          containerStyle,
+          { opacity }
         ]}
       >
         {this.renderRightText()}

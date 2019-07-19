@@ -227,16 +227,10 @@ export default class AbstractDialog extends React.Component {
         animationType={this.props.animationType}
         transparent={true}
         visible={this.state.visible}
-        onRequestClose={_ => { }}
+        onRequestClose={_ => this.dismiss()}
       >
         <View style={Styles.dialog.background}>
-          <TouchableWithoutFeedback
-            onPress={_ => {
-              if (this.props.canDismiss) {
-                this.dismiss();
-              }
-            }}
-          >
+          <TouchableWithoutFeedback onPress={_ => this.dismiss()} >
             <View style={{ width, height }} />
           </TouchableWithoutFeedback>
           <View style={[Styles.dialog.modal, this.props.style]}>
@@ -252,8 +246,10 @@ export default class AbstractDialog extends React.Component {
    * 隐藏 Modal
    */
   dismiss() {
-    this.setState({ visible: false });
-    this.props.onDismiss && this.props.onDismiss();
+    if (this.props.canDismiss) {
+      this.setState({ visible: false });
+      this.props.onDismiss && this.props.onDismiss();
+    }
   }
 }
 const styles = StyleSheet.create({
