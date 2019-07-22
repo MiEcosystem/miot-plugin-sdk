@@ -77,11 +77,11 @@ export default class Switch extends React.Component {
   }
   render() {
     const backgroundColor = this.state.value ? this.props.onTintColor : this.props.tintColor;
-    const opacity = this.props.disabled ? 0.5 : 1;
+    const opacity = this.props.disabled ? 0.3 : 1;
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { opacity }]}>
         <TouchableOpacity
-          style={[styles.back, this.backStyle, { backgroundColor, opacity }]}
+          style={[styles.back, this.backStyle, { backgroundColor }]}
           disabled={this.props.disabled}
           activeOpacity={0.8}
           onPress={_ => this._onValueChange()}

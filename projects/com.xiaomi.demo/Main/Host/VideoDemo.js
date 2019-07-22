@@ -177,6 +177,9 @@ export default class VideoDemo extends Component {
             onError={() => {
               console.log('Callback when video cannot be loaded');
             }}
+            onSeek={payload => {
+              console.log(payload);
+            }}
           />
         </TouchableOpacity>
 

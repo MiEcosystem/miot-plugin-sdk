@@ -457,10 +457,11 @@ export class IBluetooth {
          return Promise.resolve(null);
     }
     /**
-     * 更新版本号，蓝牙的版本号 connect 之后才能查看
+     * 更新版本号，蓝牙的版本号 connect 之后才能查看。
+     * @param isCrypto 是否加密了。兼容ninebot，一般可不传或者传空
      * @return {Promise<any>}
      */
-    getVersion() {
+    getVersion(isCrypto = false) {
          return Promise.resolve(null);
     }
 }
