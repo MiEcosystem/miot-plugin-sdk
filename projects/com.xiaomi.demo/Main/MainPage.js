@@ -1,6 +1,6 @@
 'use strict';
 
-import { Device, Package } from "miot";
+import {Device, Host, Package} from "miot";
 import TitleBar from "miot/ui/TitleBar";
 import React from 'react';
 import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
@@ -91,6 +91,17 @@ export default class MainPage extends React.Component {
 
   componentWillUnmount() {
 
+  }
+
+  componentWillMount() {
+    // const licenseURL = require('../Resources/raw/license_zh.html');
+    // const policyURL = require('../Resources/raw/privacy_zh.html');
+    // Host.ui.openPrivacyLicense('软件许可及服务协议', licenseURL, '隐私协议', policyURL).then((res) => {
+    //   if (res) {
+    //   }
+    // }).catch((error) => {
+    //   console.log(error)
+    // })
   }
 
   render() {
