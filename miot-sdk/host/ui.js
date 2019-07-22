@@ -93,7 +93,142 @@ export default {
   openBtGatewayPage() {
   },
   /**
+   * 弹窗请求隐私政策和用户协议授权， 支持显示用户体验计划
+   * @since 10023
+   * @param {object} option 配置数据
+   * @param {string} option.privacyURL 隐私协议本地资源
+   * @param {string} [option.agreementURL] 用户协议本地资源，未设置时如果hideAgreement=false，显示为默认的用户协议
+   * @param {string} [option.experiencePlanURL] 用户体验计划本地资源，为空时如果hideUserExperiencePlan=false，则显示米家默认用户体验计划
+   * @param {boolean} [option.hideAgreement=false] 是否隐藏用户协议，默认显示用户协议
+   * @param {boolean} [option.hideUserExperiencePlan=false] 是否隐藏用户体验计划，默认显示用户体验计划
+   * @returns {Promise} 弹窗授权结果
+   * @example
+   * 
+   * //仅供参考
+   * //可以参考project/com.xiaomi.demo/Main/Host/UI/privacy.js部分样例
+   * 
+   * //batchGetDeviceDatas 设置的属性在设备删除以及设备取消授权之后会自动清空，因此只需要在请求授权检测时，检查下flag即可。撤销授权时可以不用手动清理flag
+   * const agreementURL = require('xxxxx.html');
+   * const privacyURL = require('xxxxx.html');
+   * var options = {agreementURL, privacyURL};
+   * //options.hideAgreement = this.state.hideAgreement;
+   * Service.smarthome.batchGetDeviceDatas([{ did: Device.deviceID, props: ["prop.s_auth_config"] }]).then(res => {
+   *  console.log('batchGetDeviceDatas ', res);
+   *  let alreadyAuthed = false;
+   *  let result = res[Device.deviceID];
+   *  let config;
+   *  if (result && result['prop.s_auth_config']) {
+   *    config = result['prop.s_auth_config']
+   *  }
+   *  if (config) {
+   *    try {
+   *      let authJson = JSON.parse(config);
+   *      console.log('auth config ', authJson)
+   *      alreadyAuthed = authJson.privacyAuthed && true;
+   *    } catch (err) {
+   *      //json解析失败，不处理
+   *    }
+   *  }
+   *  if (alreadyAuthed) {
+   *    //已授权，不再弹窗显示
+   *    alert("已经授权")
+   *    return new Promise.resolve("已经授权")
+   *  } else {
+   *    return Host.ui.alertLegalInformationAuthorization(options).then(res => {
+   *      console.log('授权结果', res)
+   *      if (res) {
+   *        return Service.smarthome.batchSetDeviceDatas([{ did: Device.deviceID, props: { "prop.s_auth_config": JSON.stringify({ 'privacyAuthed': 'true' }) } }])
+   *      } else {
+   *        return new Promise.reject("取消授权")
+   *      }
+   *    })
+   *  }
+   * }).catch(err => {
+   *   //没能授权成功
+   *  alert('授权错误'+err)
+   *  Package.exit()
+   * });
+   * 
+   */
+  alertLegalInformationAuthorization(option) {
+    const optionCopy = Object.assign({}, option);
+    if (!optionCopy.force && (Device.isShared || Device.isFamily)) {
+      console.warn("分享设备不建议进行弹窗请求隐私授权。")
+      return;
+    }
+    if (optionCopy.privacyURL) {
+      optionCopy.privacyURL = resolveUrl(optionCopy.privacyURL);
+    }
+    if (optionCopy.agreementURL) {
+      optionCopy.agreementURL = resolveUrl(optionCopy.agreementURL);
+    }
+    if (optionCopy.hideAgreement) {
+      delete optionCopy['agreementURL']//iOS下设置为“”则隐藏该项目
+    }
+    if (optionCopy.experiencePlanURL) {
+      optionCopy.experiencePlanURL = resolveUrl(optionCopy.experiencePlanURL);
+    }
+    if (optionCopy.hideUserExperiencePlan) {
+      delete optionCopy['experiencePlanURL']
+    }
+    // 内部事件，不需要提供给外部, 如果显示了隐私政策弹窗，需要通知关闭掉固件升级弹窗
+    DeviceEventEmitter.emit('MH_Event_ShowPrivacyLicenseDialog', { isShowingPrivacyLicenseDialog:true });
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.showDeclarationWithConfig(optionCopy, (ret, res) => {
+        if (ret === 'ok' || ret === true || ret === 'true') {
+          resolve(true);
+        } else {
+          reject(false);
+        }
+      });
+    })
+  },
+  /**
+   * 查看隐私政策和用户协议信息， 支持显示用户体验计划
+   * @since 10023
+   * @param {object} option 配置数据
+   * @param {string} option.privacyURL 隐私协议本地资源
+   * @param {string} [option.agreementURL] 用户协议本地资源，未设置时如果hideAgreement=false，显示为默认的用户协议
+   * @param {string} [option.experiencePlanURL] 用户体验计划本地资源，为空时如果hideUserExperiencePlan=false，则显示米家默认用户体验计划
+   * @param {boolean} [option.hideAgreement=false] 是否隐藏用户协议，默认显示用户协议
+   * @param {boolean} [option.hideUserExperiencePlan=false] 是否隐藏用户体验计划，默认显示用户体验计划
+   * @returns {Promise} 授权结果
+   * 
+   */
+  previewLegalInformationAuthorization(option) {
+    const optionCopy = Object.assign({}, option);
+    if (!optionCopy.force && (Device.isShared || Device.isFamily)) {
+      console.warn("分享设备不建议进行弹窗请求隐私授权。")
+      return;
+    }
+    if (optionCopy.privacyURL) {
+      optionCopy.privacyURL = resolveUrl(optionCopy.privacyURL);
+    }
+    if (optionCopy.agreementURL) {
+      optionCopy.agreementURL = resolveUrl(optionCopy.agreementURL);
+    }
+    if (optionCopy.hideAgreement) {
+      delete optionCopy['agreementURL']
+    }
+    if (optionCopy.experiencePlanURL) {
+      optionCopy.experiencePlanURL = resolveUrl(optionCopy.experiencePlanURL);
+    }
+    if (optionCopy.hideUserExperiencePlan) {
+      delete optionCopy['experiencePlanURL']
+    }
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.openDeclarationWithConfig(optionCopy, (ok, res) => {
+        if (ok) {
+          resolve(true);
+        } else {
+          reject(false);
+        }
+      });
+    })
+  },
+  /**
    * 查看软件政策和隐私协议
+   * @deprecated 10023废弃， 请使用 previewLegalInformationAuthorization
    * @param {string} licenseTitle optional 可以为空
    * @param {string} licenseUrl optional require('资源的相对路径')
    * @param {string} policyTitle 不可以为空
@@ -112,6 +247,7 @@ export default {
    * 3. 设备取消授权或解绑设备时，此标志位米家后台会自动清除，故遵循了上述需求b
    * 4. 异常处理：进插件时，如果网络异常等原因导致batchGetDeviceDatas失败，就不弹框（此时99%情况是第2+次进插件）
    *
+   * @deprecated   10023废弃， 请使用 alertLegalInformationAuthorization 替换
    * @param {string} licenseTitle optional 可以为空
    * @param {string} licenseUrl optional require('资源的相对路径')
    * @param {string} policyTitle 不可以为空
@@ -354,8 +490,8 @@ export default {
      return Promise.resolve(null);
   },
   /**
-   * 跳转到设备定向推荐界面
-   * @since 10023
+   * 跳转到设备定向推荐界面,注意：SDK_10024及其之后才可使用
+   * @since 10024
    * @param {String} did
    * @param {number} recommendId
    * @return {Promise}

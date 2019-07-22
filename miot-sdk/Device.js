@@ -914,8 +914,8 @@ class IDevice {
          return Promise.resolve({});
     }
     /**
-     * 获取设备定向推荐信息：展示推荐入口使用
-     * @since 10023
+     * 获取设备定向推荐信息，展示推荐入口使用。注意：SDK_10024及其之后才可使用
+     * @since 10024
      * @param {String} model
      * @param {String} did
      * @returns {Promise}
