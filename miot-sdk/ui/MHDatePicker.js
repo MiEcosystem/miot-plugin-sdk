@@ -120,8 +120,8 @@ const defaultYearOffset = 15;
  * @param {TYPE} type - 时间选择器类型, enum('single', 'time24', 'time12', 'date')
  * @param {SINGLE_TYPE} singleType - 单个picker时的选择器类型, enum('month', 'day', 'hour', 'minute', 'second')
  * @param {array<string>|array<number>|Date} current - 当前选中值，可传入数字数组，字符串数组，Date实例，对所有时间选择器类型有效
- * @param {array<string>|array<number>|Date} min - 最小值，可传入数字数组，字符串数组，Date实例，只对`'single'`和`'date'`类型生效
- * @param {array<string>|array<number>|Date} max - 最大值，可传入数字数组，字符串数组，Date实例，只对`'single'`和`'date'`类型生效
+ * @param {array<string>|array<number>|Date} min - 最小值，可传入数字数组，字符串数组，Date实例，只对`'single'`和`'date'`类型生效。对于 date 类型，默认值：现在向前15年
+ * @param {array<string>|array<number>|Date} max - 最大值，可传入数字数组，字符串数组，Date实例，只对`'single'`和`'date'`类型生效。对于 date 类型，默认值：现在向后15年
  * @param {function} onSelect - 选好之后的回调函数，返回所有picker的选中值 组成的数组 / 拼接的字符串 / 以及计算出的Date实例, 详见使用 demo
  * @param {function} onDismiss - 点击`Modal`内容外面/取消按钮/确定按钮，Modal隐藏时的回调函数
  */
