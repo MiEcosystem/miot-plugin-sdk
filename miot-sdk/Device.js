@@ -299,7 +299,7 @@ export class IDeviceWifi {
          return Promise.resolve({});
     }
     /**
-     * 获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。
+     * 升级设备固件.可以和Service.smarthome.getAvailableFirmwareForDids搭配使用，先检查是否有可用版本，如果有，展示信息给用户，让用户确认，或者直接升级。
      * /home/devupgrade
      * @method
      * @return {Promise<DeviceVersion>}
