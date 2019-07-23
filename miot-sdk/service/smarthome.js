@@ -120,7 +120,7 @@ export default {
          return Promise.resolve({});
     },
     /**
-     * 检查到有可用更新时，可以主动更新固件。 /home/multi_checkversion
+     * // 获取可用固件更新，传参为dids。 /home/multi_checkversion
      * @param {array<string>} deviceIDs 设备ID
      * @return {Promise<json>}
      */
