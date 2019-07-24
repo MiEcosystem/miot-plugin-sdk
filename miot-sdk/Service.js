@@ -37,6 +37,7 @@ import Smarthome from './service/smarthome';
 import Spec from './service/spec';
 import Storage from './service/storage';
 import TJInfra from './service/tjinfra';
+import apiRepo from './service/apiRepo';
  const CurrentAccount = null;
 export default {
   /**
@@ -98,6 +99,14 @@ export default {
   },
   get room() {
     return MHRoom;
+  },
+  /**
+   * 通用的请求米家后台接口的方法
+   * @param {string} api - 接口地址，比如'/location/set'
+   * @param {object} params 传入参数，根据和米家后台商议的数据格式来传入，比如{ did: 'xxxx', pid: 'xxxx' }
+   */
+  callSmartHomeAPI(api, params) {
+     return Promise.resolve(null);
   },
   /**
    * @method getServerName
