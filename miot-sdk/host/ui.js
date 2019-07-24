@@ -285,6 +285,12 @@ export default {
   openShopPage(gid) {
   },
   /**
+   * 打开商城搜索结果页面
+   * @param {string} keyword - 搜索关键字
+   */
+  openShopSearchPage(keyword) {
+  },
+  /**
    * 打开Mesh灯组 添加/编辑 页,Device.pid为17，则为Mesh设备组
    * @since 10021
    * @param {String} type - 需要打开创建设备组页面时，type=add，需要打开编辑设备组页面时，type=edit

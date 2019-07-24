@@ -156,6 +156,18 @@ export default class UIDemo extends React.Component {
                         alert(error)
                     })
                 }
+            },
+            {
+                'name': '打开有品商品详情页',
+                'func': () => {
+                    Host.ui.openShopPage(102763); // 小米台灯
+                }
+            },
+            {
+                'name': '打开有品搜索结果页',
+                'func': () => {
+                    Host.ui.openShopSearchPage('小米台灯'); // 小米台灯
+                }
             }
         ];
     }
