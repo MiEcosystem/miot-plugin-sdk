@@ -182,8 +182,6 @@ export default {
     getAppName() {
          return Promise.resolve(null);
     },
-         return Promise.resolve(null);
-    },
     /**
      * 获取当前登陆用户的服务器国家
      * @since 10010
