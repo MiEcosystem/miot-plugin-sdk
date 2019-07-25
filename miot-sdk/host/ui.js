@@ -172,7 +172,7 @@ export default {
       delete optionCopy['experiencePlanURL']
     }
     // 内部事件，不需要提供给外部, 如果显示了隐私政策弹窗，需要通知关闭掉固件升级弹窗
-    DeviceEventEmitter.emit('MH_Event_ShowPrivacyLicenseDialog', { isShowingPrivacyLicenseDialog:true });
+    DeviceEventEmitter.emit('MH_Event_ShowPrivacyLicenseDialog', { isShowingPrivacyLicenseDialog: true });
     return new Promise((resolve, reject) => {
       native.MIOTHost.showDeclarationWithConfig(optionCopy, (ret, res) => {
         if (ret === 'ok' || ret === true || ret === 'true') {
@@ -375,9 +375,9 @@ export default {
    * @since 10010 ,SDKLevel 10010 开始提供使用
    * @param {object} options 配置信息
    * @param {string} options.onMethod 配置定时开启的 method 名，同上面openTimerSettingPageWithVariousTypeParams的参数onMethod
-   * @param {object} options.onParam 配置定时开启的 参数，同上面openTimerSettingPageWithVariousTypeParams的参数onParam
+   * @param {string} options.onParam 配置定时开启的 参数，同上面openTimerSettingPageWithVariousTypeParams的参数onParam
    * @param {string} options.offMethod 配置定时关闭的 method 名，同上面openTimerSettingPageWithVariousTypeParams的参数offMethod
-   * @param {object} options.offParam 配置定时关闭的 参数，同上面openTimerSettingPageWithVariousTypeParams的参数offParam
+   * @param {string} options.offParam 配置定时关闭的 参数，同上面openTimerSettingPageWithVariousTypeParams的参数offParam
    * @param {string} options.displayName 配置场景日志显示的名称
    * @param {string} options.identify 自定义定时Identifier
    * @param {string} options.onTimerTips 定时列表页面、设置时间页面 打开副标题（默认：开启时间）
