@@ -389,7 +389,7 @@ export default class CommonSetting extends React.Component {
     keys = keys.filter(key => !excludeOptions[key].includes(Device.type));
     // 7. %E6%A0%B9%E6%8D%AE%E5%BC%80%E5%8F%91%E8%80%85%E7%89%B9%E6%AE%8A%E9%9C%80%E8%A6%81%EF%BC%8C%E9%9A%90%E8%97%8F%E6%9F%90%E4%BA%9B%E5%BF%85%E9%80%89%E9%A1%B9
     const { excludeRequiredOptions } = this.props.extraOptions;
-    if (excludeOptions instanceof Array) {
+    if (excludeRequiredOptions instanceof Array) {
       keys = keys.filter(key => !excludeRequiredOptions.includes(key));
     }
     // 8. 根据最终的设置项 keys 渲染数据
