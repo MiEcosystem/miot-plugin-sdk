@@ -351,6 +351,20 @@ export class IDeviceWifi {
  */
 class IDevice {
     /**
+     * 是否有固件更新，为了显示小红点
+     * @type {boolean}
+     */
+    get needUpgrade() {
+         return  0
+    }
+    /**
+     * 是否有固件更新，为了显示小红点
+     * @type {boolean}
+     */
+    set needUpgrade(value) {
+        Properties.of(this).needUpgrade = value;
+    }
+    /**
      *获取设备 id，每一个真实设备都有一个唯一的 id
      * @type {string}
      * @readonly

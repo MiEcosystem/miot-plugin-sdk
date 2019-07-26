@@ -2,7 +2,7 @@
 
 import { strings, Styles } from 'miot/resources';
 import { CommonSetting, SETTING_KEYS } from "miot/ui/CommonSetting";
-import { secondAllOptions } from "miot/ui/CommonSetting/CommonSetting";
+import { firstAllOptions, secondAllOptions } from "miot/ui/CommonSetting/CommonSetting";
 import { ListItem, ListItemWithSlider, ListItemWithSwitch } from 'miot/ui/ListItem';
 import Separator from 'miot/ui/Separator';
 import TitleBar from 'miot/ui/TitleBar';
@@ -57,7 +57,7 @@ export default class Setting extends React.Component {
       // licenseUrl: require('../resources/html/license_zh.html'),
       // policyUrl: require('../resources/html/privacy_zh.html'),
       deleteDeviceMessage: 'test',
-      excludeRequiredOptions: [secondAllOptions.SECURITY],
+      excludeRequiredOptions: [firstAllOptions.LOCATION, secondAllOptions.SECURITY],
       option: {
         privacyURL: require('../../Resources/raw/privacy_zh.html'),
         agreementURL: require('../../Resources/raw/license_zh.html'),
