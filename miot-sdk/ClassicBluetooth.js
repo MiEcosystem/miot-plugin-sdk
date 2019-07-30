@@ -5,7 +5,6 @@
  * @module miot/ClassicBluetooth
  * @description 经典蓝牙设备操作类  仅支持Android, sdk 10023 提供支持
  * @since 10023
- * @example
  *
  *
  */
@@ -15,7 +14,7 @@ export default {
      * @since 10023
      * @returns {Promise<any>}  成功进入then，失败进入catch
      */
-    create(){
+    create() {
          return Promise.resolve(null);
     },
     /**
@@ -25,7 +24,7 @@ export default {
      * @param {string} transport  连接中心设备的相应服务的UUID
      * @returns {Promise<any>}  成功进入then，失败进入catch
      */
-    connectSocket(macAddress, transportUUID){
+    connectSocket(macAddress, transportUUID) {
          return Promise.resolve(null);
     },
     /**
@@ -33,7 +32,7 @@ export default {
      * @since 10023
      * @returns {Promise<any>}  成功进入then，失败进入catch
      */
-    disconnectSocket(){
+    disconnectSocket() {
          return Promise.resolve(null);
     },
     /**
@@ -42,7 +41,7 @@ export default {
      * @param {string} data
      * @returns {Promise<any>}  成功进入then，失败进入catch
      */
-    write(data){
+    write(data) {
          return Promise.resolve(null);
     },
     /**
@@ -52,7 +51,7 @@ export default {
      * @param {int} profile
      * @returns {Promise<any>} 成功进入then, 返回对应的profile，失败进入catch
      */
-    prepareBluetoothProfile(profile){
+    prepareBluetoothProfile(profile) {
          return Promise.resolve(null);
     },
     /**
@@ -62,7 +61,7 @@ export default {
      * @param {int} profile  BluetoothProfile 接口类的类型（ BluetoothProfile.HEADSET，BluetoothProfile.A2DP等）
      * @returns {Promise<any>} 成功进入then, 返回值没有实际作用，失败进入catch
      */
-    connectBluetoothProfile(macAddress, profile){
+    connectBluetoothProfile(macAddress, profile) {
          return Promise.resolve(null);
     },
     /**
@@ -72,7 +71,7 @@ export default {
      * @param {int} profile
      * @returns {Promise<any>}  成功进入then, 返回值没有实际作用，失败进入catch
      */
-    disconnectBluetoothProfile(macAddress, profile){
+    disconnectBluetoothProfile(macAddress, profile) {
          return Promise.resolve(null);
     },
     /**
@@ -83,7 +82,7 @@ export default {
      * @param {int} profile
      * @returns {Promise<any>}  成功进入then, 返回值{"state": 0}，失败进入catch
      */
-    getBluetoothProfileState(macAddress, profile){
+    getBluetoothProfileState(macAddress, profile) {
          return Promise.resolve(null);
     },
     /**
@@ -91,29 +90,29 @@ export default {
      * @since 10023
      * @returns {Promise<any>}  成功进入then，失败进入catch
      */
-    destroy(){
+    destroy() {
          return Promise.resolve(null);
     }
 }
 export const ClassicBluetoothEvent = {
-  /**
-   * BondStateChange 状态改变事件
-   * 返回的数据格式为：{"macAddress": "xxx", "state":xxx}
-   * state 取值为：BOND_BONDING = 11;BOND_NONE = 10;BOND_BONDED = 12;
-   */
+    /**
+     * BondStateChange 状态改变事件
+     * 返回的数据格式为：{"macAddress": "xxx", "state":xxx}
+     * state 取值为：BOND_BONDING = 11;BOND_NONE = 10;BOND_BONDED = 12;
+     */
     classicBlueBondStateChanged: {
     },
-  /**
-   * 经典蓝牙连接状态改变事件
-   * 返回的数据格式为：{"macAddress": "xxx", "state":xxx}
-   * state 取值为：DISCONNECTED = 0;CONNECTING = 1;CONNECTED = 2;DISCONNECTING = 3;NO_STATE = 4;
-   */
+    /**
+     * 经典蓝牙连接状态改变事件
+     * 返回的数据格式为：{"macAddress": "xxx", "state":xxx}
+     * state 取值为：DISCONNECTED = 0;CONNECTING = 1;CONNECTED = 2;DISCONNECTING = 3;NO_STATE = 4;
+     */
     classicBlueConnectionStateChanged: {
     },
-  /**
-   * 收到数据事件
-   * 返回的数据格式为：{"macAddress": "xxx", "data":"xxx"}
-   */
+    /**
+     * 收到数据事件
+     * 返回的数据格式为：{"macAddress": "xxx", "data":"xxx"}
+     */
     classicBlueReceivedData: {
     },
 }

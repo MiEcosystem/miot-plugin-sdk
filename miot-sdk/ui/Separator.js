@@ -19,7 +19,7 @@ const TYPE = {
  * @doc_name 常用UI组件
  * @doc_index 23
  * @author Geeook
- * @since
+ * @since 10004
  * @module Separator
  * @description 分割线，常用于导航栏和列表项等
  * @property {string} type - 分割线类型，横向(row)或者纵向(column)，默认横向

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Animated, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 /**
- * @exports
+ * @export
  * @author Li Yue
  * @since 10011
  * @module Radio

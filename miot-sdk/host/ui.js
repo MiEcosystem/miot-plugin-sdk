@@ -501,7 +501,6 @@ export default {
    * @param {String} did
    * @param {number} recommendId
    * @return {Promise}
-   * @example
    */
   openPluginRecommendScene(did, recommendId) {
   }

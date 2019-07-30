@@ -12,8 +12,8 @@
  * - 导航栏高度固定，不允许更改，背景色仍然可以自定义
  * @property {string} type - 导航栏类型：`NavigationBar.TYPE.DARK` 表示*深色背景白色文字*，`NavigationBar.TYPE.LIGHT` 相反
  * @property {object} backgroundColor - 导航栏背景色
- * @property {[{ key, disable, showDot, onPress }]} left - 左侧按钮的集合，最多显示两个，多余无效
- * @property {[{ key, disable, showDot, onPress }]} right - 右侧按钮的集合，最多显示两个，多余无效
+ * @property {array} left - 左侧按钮的集合，最多显示两个，多余无效 [{ key, disable, showDot, onPress }]
+ * @property {array} right - 右侧按钮的集合，最多显示两个，多余无效 [{ key, disable, showDot, onPress }]
  * @property {string} title - 中间的标题
  * @property {string} subtitle - 中间的副标题
  * @property {string} onPressTitle - 点击标题的事件
