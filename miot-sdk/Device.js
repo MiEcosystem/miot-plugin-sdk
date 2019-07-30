@@ -28,6 +28,7 @@
  * 其余具体使用请参考具体API文档
  */
 import Scene from './service/scene';
+import { Device } from ".";
 const PERMISSION_OWNER = 16;
 const PERMISSION_FAMILY = 8;
 const PERMISSION_SHARE = 4;
@@ -193,6 +194,13 @@ export class IDeviceWifi {
             return map;
         }));
     }
+    /** 
+     * 检查设备固件升级弹窗.使用方法：Device.getDeviceWifi().checkFirmwareUpdateAndAlert()
+     * 已废弃，请使用Device.checkFirmwareUpdateAndAlert()来代替。
+     */
+    checkFirmwareUpdateAndAlert() {
+        return Device.checkFirmwareUpdateAndAlert();
+    }
     /**
      * 调用设备方法
      * 若与设备通信处于同一个 wifi 下会使用局域网传输数据，如果不在同一个 wifi 下由米家服务器转发请求
@@ -299,25 +307,7 @@ export class IDeviceWifi {
          return Promise.resolve({});
     }
     /**
-     * 检查设备固件升级弹窗。该方法会触发升级弹窗alert提示。
-     * 建议使用场景为需要屏蔽默认的插件启动检测的弹窗，自行寻找合适的时机触发该检测机制。
-     * 不支持单模蓝牙、组设备、虚拟设备、离线设备、分享设备。
-     * @returns {Promise}
-     * @example
-     * 
-     * //首先屏蔽默认弹窗
-     * Package.disableAutoCheckUpgrade = true;
-     * //....
-     * //在合适的时间触发
-     * Device.getDeviceWifi().checkFirmwareUpdateAndAlert().then(res => { }).catch(err => { })
-     */
-    checkFirmwareUpdateAndAlert() {
-        //virture device: did contain virtual, model contain virtual
-        //分享设备预计虚拟设备和离线设备都不检查
-         return Promise.resolve({});
-    }
-    /**
-     * 获取固件的状态，可以确认是否需要升级，也可以获得当前的升级状态。
+     * 升级设备固件.可以和Service.smarthome.getAvailableFirmwareForDids搭配使用，先检查是否有可用版本，如果有，展示信息给用户，让用户确认，或者直接升级。
      * /home/devupgrade
      * @method
      * @return {Promise<DeviceVersion>}
@@ -654,7 +644,8 @@ class IDevice {
          return  false
     }
     /**
-     * 父设备的 model
+     * 父设备的 model,10023及其之后返回空字符串
+     * @deprecated   10023开始废弃，10023及后续版本建议使用 Device.parentDevice.model
      * @type {string}
      * @readonly
      *
@@ -810,7 +801,7 @@ class IDevice {
      * 重置标志，本地设备才会返回该字段，为1时表示设备刚刚reset过
      * @type {int}
      * @readonly
-     *
+     * @deprecated 10023开始废弃，后续不再提供此字段，此方法永远返回0
      */
     get resetFlag() {
          return  0
@@ -892,6 +883,54 @@ class IDevice {
      */
     getDeviceTimeZone() {
          return Promise
+    }
+    /**
+     * 修改设备/子设备的名字，注意不支持蓝牙网关对子设备名称的修改
+     * @since 10022
+     * @param {String} newName 设备的新的名称
+     * @param {String} did 如果修改自身的名称，可不传，如果修改子设备的，则需要传子设备的did。如果did是其他，调用此方法会走reject
+     * @returns {Promise} 成功进入then，失败进入catch，成功时，res为新名称。同时，DeviceEvent的deviceNameChanged会被触发
+     */
+    changeDeviceName(newName, did = null) {
+        return new Promise((resolve, reject) => {
+            native.MIOTDevice.changeDeviceName(newName, did, (ok, res) => {
+                if (ok) {
+                    resolve(res);
+                } else {
+                    reject(res);
+                }
+            })
+        });
+    }
+    // @native begin
+    /**
+     * 检查设备固件升级弹窗。该方法会触发升级弹窗alert提示。
+     * 建议使用场景为需要屏蔽默认的插件启动检测的弹窗，自行寻找合适的时机触发该检测机制。
+     * 不支持单模蓝牙、组设备、虚拟设备、离线设备、分享设备。
+     * @since 10023
+     * @returns {Promise}
+     * @example
+     * 
+     * //首先屏蔽默认弹窗
+     * Package.disableAutoCheckUpgrade = true;
+     * //....
+     * //在合适的时间触发
+     * Device.checkFirmwareUpdateAndAlert().then(res => { }).catch(err => { })
+     */
+    checkFirmwareUpdateAndAlert() {
+        //virture device: did contain virtual, model contain virtual
+        //分享设备预计虚拟设备和离线设备都不检查
+         return Promise.resolve({});
+    }
+    /**
+     * 获取设备定向推荐信息，展示推荐入口使用。注意：SDK_10024及其之后才可使用
+     * @since 10024
+     * @param {String} model
+     * @param {String} did
+     * @returns {Promise}
+     */
+    getRecommendScenes(model, did) {
+         return Promise.resolve({});
     }
 }
 const RootDevice={};

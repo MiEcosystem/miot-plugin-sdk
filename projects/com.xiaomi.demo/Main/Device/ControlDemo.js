@@ -31,12 +31,12 @@ export default class ControlDemo extends React.Component {
   componentDidMount() {
     this._deviceStatusListener = DeviceEvent.deviceReceivedMessages.addListener(
       (device, map, res) => {
-        console.log('Device.addListener', device, map, res, this.state.timerRun);
-        let status = map.get("prop.on") || {};
-        let sRGB = "#" + this.getNewRGB(status.rgb >> 16, (status.rgb >> 8) & 0x00ff, (status.rgb & 0x0000ff));
-        this.setState({ "resultViewColor": sRGB });
+        console.log('Device.addListener', device, map, res);
+        // let status = map.get("prop.on") || {};
+        // let sRGB = "#" + this.getNewRGB(status.rgb >> 16, (status.rgb >> 8) & 0x00ff, (status.rgb & 0x0000ff));
+        // this.setState({ "resultViewColor": sRGB });
       });
-    Device.getDeviceWifi().subscribeMessages("prop.on", "prop.usb_on"
+    Device.getDeviceWifi().subscribeMessages("prop.IR_01A", "prop.IR_02A"
     );
   }
 

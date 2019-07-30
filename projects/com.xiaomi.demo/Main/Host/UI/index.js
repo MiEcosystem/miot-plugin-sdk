@@ -63,6 +63,28 @@ export default class UIDemo extends React.Component {
                 }
             },
             {
+                'name': '打开定时-Demo2',
+                'func': () => {
+                    let params = {
+                        onMethod: "power_on",
+                        onParam: "on",
+                        offMethod: "power_off",
+                        offParam: "off",
+                        timerTitle: "这是一个自定义标题",
+                        displayName: "自定义场景名称",
+                        identify: "identify_1",
+                        onTimerTips: '',
+                        offTimerTips: '定时列表页面、设置时间页面 关闭时间副标题（默认：关闭时间）',
+                        listTimerTips: '定时列表页面 定时时间段副标题（默认：开启时段）',
+                        bothTimerMustBeSet: false,
+                        showOnTimerType: true,
+                        showOffTimerType: false,
+                        showPeriodTimerType: true,
+                    }
+                    Host.ui.openTimerSettingPageWithOptions(params);
+                }
+            },
+            {
                 'name': '打开默认倒计时',
                 'func': () => {
                     Host.ui.openCountDownPage(true, { onMethod: "power_on", offMethod: 'power_off', onParam: 'on', offParam: 'off' });
@@ -106,6 +128,33 @@ export default class UIDemo extends React.Component {
                     }).catch((error) => {
                         console.log(error)
                     });
+                }
+            },
+            {
+                'name': '是否支持商城',
+                'func': () => {
+                    Host.ui.canOpenStorePage().then((isSupport) => {
+                        alert("是否支持商城: " + isSupport)
+                    }).catch((error) => {
+                        console.log(error)
+                    });
+                }
+            },
+            {
+                'name': '跳转到设备定向推荐界面',
+                'func': () => {
+                    // recommendId 通过 Device.getRecommendScenes(Device.model, Device.deviceID).then 来获取
+                    Device.getRecommendScenes(Device.model, Device.deviceID).then((res) => {
+                        console.log(res);
+                        if (res.scene_recom.length > 0 && res.scene_recom[0].info) {
+                            console.log("res", res.scene_recom[0].info.sr_id);
+                            Host.ui.openPluginRecommendScene(Device.deviceID, parseInt(res.scene_recom[0].info.sr_id));
+                        } else {
+                            alert(JSON.stringify(res))
+                        }
+                    }).catch((error) => {
+                        alert(error)
+                    })
                 }
             }
         ];

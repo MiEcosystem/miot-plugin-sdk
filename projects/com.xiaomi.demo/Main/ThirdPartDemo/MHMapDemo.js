@@ -9,15 +9,28 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Dimensions,
+  Dimensions,StatusBar
 } from 'react-native';
 
 var MHMapSearch = require('NativeModules').MHMapSearch;
 import {AMapView} from 'miot/ui';
-import {Device} from 'miot';
+import {Device, Host} from 'miot';
+import TitleBar from "miot/ui/TitleBar";
 var window = Dimensions.get('window');
 
+const headerHeight = (StatusBar.currentHeight || 0) + 55;
+
 export default class MHMapDemo extends React.Component {
+
+  static navigationOptions = ({ navigation }) => {
+
+    return {
+      header: <TitleBar type='dark' title={'米家桥接高德地图测试'} style={{ backgroundColor: '#fff' }}
+                        onPressLeft={() => {
+                          navigation.goBack();
+                        }} />,
+    };
+  };
 
   constructor(props, context) {
     super(props, context);
@@ -47,7 +60,21 @@ export default class MHMapDemo extends React.Component {
       annotations: [],
       circles: [],
       polylines: [],
+      mapHeight: window.height-headerHeight
     };
+  }
+
+  componentWillMount() {
+    if(Host.isAndroid){
+      Host.getPhoneScreenInfo().then((phoneScreenInfo)=>{
+        let mapHeight = phoneScreenInfo.viewHeight-headerHeight;
+        this.setState({
+          mapHeight:mapHeight
+        })
+      }).catch((error)=>{
+
+      });
+    }
   }
 
   render() {
@@ -60,7 +87,7 @@ export default class MHMapDemo extends React.Component {
     return (
       <View style={styles.container}>
         <AMapView
-          style={{width:window.width, height:window.height}}
+          style={{width:window.width, height:this.state.mapHeight}}
           distanceFilter={100}
           zoomLevel={this.state.zoomLevel}
           onMapWillZoomByUser={this._onMapWillZoomByUser.bind(this)}
@@ -78,7 +105,9 @@ export default class MHMapDemo extends React.Component {
           circles={this.state.circles}
           polylines={this.state.polylines}
           multiPolylines={this.state.multiPolylines}
-          mapType={1}
+          mapType={0}
+          language={0}
+          logoPosition={0}
         />
         <TouchableOpacity style={styles.walkingRouteSearch} onPress={this._walkingRouteSearchButtonClicked.bind(this)}>
           <Text style={{fontSize: 20}}>步行路径规划</Text>

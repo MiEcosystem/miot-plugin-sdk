@@ -1,7 +1,7 @@
 'use strict';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Dimensions, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Dimensions, Platform, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { Styles } from '../../resources';
 import Separator from '../Separator';
 import Switch from '../Switch';
@@ -81,6 +81,9 @@ export default class ListItemWithSwitch extends React.Component {
         extraStyle.maxWidth = (this.props.containerStyle.width - PADDING * 2) * 0.4;
       }
     }
+    if (Platform.OS === 'android') {
+      extraStyle.fontFamily = 'Kmedium';
+    }
     return (
       <View style={{ backgroundColor: '#fff' }}>
         <TouchableHighlight
@@ -94,7 +97,7 @@ export default class ListItemWithSwitch extends React.Component {
                 <Text
                   numberOfLines={1}
                   ellipsizeMode='tail'
-                  style={[Styles.common.title, this.props.extraTitleStyle, extraStyle]}
+                  style={[Styles.common.title, extraStyle, this.props.titleStyle]}
                 >
                   {this.props.title}
                 </Text>

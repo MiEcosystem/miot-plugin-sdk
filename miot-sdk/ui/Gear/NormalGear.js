@@ -11,7 +11,7 @@ const DEFAULT_MARGIN = 12;
  * @since 10011
  * @module NormalGear
  * @description 档位控件，点按选择
- * @property {array<string>} options - 档位可选项，以字符串数组表示，必填
+ * @property {array<string>|array<number>} options - 档位可选项，以字符串数组表示，必填
  * @property {number} margin - 档位选项之间的间距，默认 12, 示意图 |12🛑12⭕️12|
  * @property {number} maxWidth
  * 容器宽度最大值，不传则默认屏幕宽度。
@@ -26,7 +26,7 @@ const DEFAULT_MARGIN = 12;
  */
 export default class NormalGear extends React.Component {
   static propTypes = {
-    options: PropTypes.array.isRequired,
+    options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
     containerStyle: PropTypes.object,
     normalStyle: PropTypes.object,
     textStyle: PropTypes.object,
@@ -78,11 +78,14 @@ export default class NormalGear extends React.Component {
     }
   }
   renderOptions() {
-    const optionStyle = {
-      width: this.optionWidth,
-      height: this.optionWidth,
-      borderRadius: this.optionWidth / 2,
-    };
+    const style = StyleSheet.flatten([
+      this.props.normalStyle,
+      {
+        width: this.optionWidth,
+        height: this.optionWidth,
+        borderRadius: this.optionWidth / 2,
+      }
+    ]);
     return this.props.options.map((option, index) => {
       return (
         <Clickable
@@ -90,8 +93,8 @@ export default class NormalGear extends React.Component {
           select={this.state.selectArray[index]}
           selectColor={this.props.selectColor}
           onPress={_ => this.onPress(index)}
-          text={option || ''}
-          style={[this.props.normalStyle, optionStyle]}
+          text={option}
+          style={style}
           textStyle={this.props.textStyle}
         />
       )

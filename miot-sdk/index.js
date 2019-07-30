@@ -15,6 +15,7 @@
  *
  */
 import BluetoothFactory, { BluetoothEvent as BluetoothEventNames } from './Bluetooth';
+import ClassicBluetoothFactory, { ClassicBluetoothEvent as ClassicBluetoothEventNames } from './ClassicBluetooth';
 import RootDevice, { DeviceEvent as DeviceEventNames } from './Device';
 import HostInstance from './Host';
 import { AudioEvent as AudioEventNames } from './host/audio';
@@ -24,7 +25,7 @@ import { RootDeviceProperties } from "./Properties";
 import ResourcesPack from './resources';
 import ServiceInstance from './Service';
 import { SceneType as SceneTypeNames } from './service/scene';
-export const API_LEVEL = 10021
+export const API_LEVEL = 10023
 /**
  * 插件包基本配置
  * {@link module:miot/Package}
@@ -94,6 +95,18 @@ export const Bluetooth = BluetoothFactory;
  */
 export const BluetoothEvent = BluetoothEventNames;
 /**
+ * 蓝牙类
+ * {@link module:miot/ClassicBluetooth}
+ * @export
+ */
+export const ClassicBluetooth = ClassicBluetoothFactory;
+/**
+ * 蓝牙事件
+ * {@link module:miot/ClassicBluetooth~ClassicBluetoothEvent}
+ * @export
+ */
+export const ClassicBluetoothEvent = ClassicBluetoothEventNames;
+/**
  * 场景类型
  * {@link module:miot/service/scene~SceneType}
  * @export
@@ -109,5 +122,5 @@ export default {
     Device, DeviceEvent, DeviceProperties,
     Service, Host, Resources,
     Bluetooth, BluetoothEvent, SceneType,
-    FileEvent, AudioEvent
+    FileEvent, AudioEvent, ClassicBluetooth, ClassicBluetoothEvent
 }

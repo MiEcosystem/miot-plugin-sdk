@@ -120,7 +120,7 @@ export default {
          return Promise.resolve({});
     },
     /**
-     * 检查到有可用更新时，可以主动更新固件。 /home/multi_checkversion
+     * // 获取可用固件更新，传参为dids。 /home/multi_checkversion
      * @param {array<string>} deviceIDs 设备ID
      * @return {Promise<json>}
      */
@@ -471,13 +471,13 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 获取AppConfig配置文件
+     * 获取AppConfig配置文件，1. 插件端有一些自己的信息需要配置，可使用此接口 2. 局限性：只有小米内部有权配置，之后可能会出对外版（目前只能找米家产品经理/工程师帮忙配置）3.维护起来很不方便，不建议使用。
+     * 
      * @param {object} params 请求参数
-     * @param {string} params.name configName
-     * @param {string} params.model device model
-     * @param {string} params.lang lang e.g: zh_CN
-     * @param {string} params.result_level 值为1，则不返回content来节省流量， 默认为0
-     * @param {string} params.version version
+     * @param {string} params.name configName 配置的名字
+     * @param {string} params.lang lang 可选: zh_CN、zh_TW、en，zh-hant，一般请使用zh_CN和en	
+     * @param {string} params.result_level  正常传"0"，若传“1”，则会提供一个downloadurl，而不是直接返回content，以节省流量。取得downloadurl后，通过Host.file.downloadFile下载文件，然后使用
+     * @param {string} params.version version 后台配置的version，大概率为"1"，如果不对，可以找米家工程师帮忙查询，查询地址：http://plato.io.mi.srv/#/appconfig/client
      */
     getAppConfig(params) {
          return Promise.resolve(null);

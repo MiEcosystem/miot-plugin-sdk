@@ -2,7 +2,7 @@
 
 import { strings, Styles } from 'miot/resources';
 import { CommonSetting, SETTING_KEYS } from "miot/ui/CommonSetting";
-import { secondAllOptions } from "miot/ui/CommonSetting/CommonSetting";
+import { firstAllOptions, secondAllOptions } from "miot/ui/CommonSetting/CommonSetting";
 import { ListItem, ListItemWithSlider, ListItemWithSwitch } from 'miot/ui/ListItem';
 import Separator from 'miot/ui/Separator';
 import TitleBar from 'miot/ui/TitleBar';
@@ -37,10 +37,13 @@ export default class Setting extends React.Component {
   render() {
     // 显示部分一级菜单项
     const firstOptions = [
-      first_options.SHARE,
-      first_options.IFTTT,
-      first_options.VOICE_AUTH,
       first_options.FIRMWARE_UPGRADE,
+      first_options.VOICE_AUTH,
+      first_options.SHARE,
+      first_options.BTGATEWAY,
+      first_options.IFTTT,
+      first_options.MEMBER_SET,
+      first_options.BTGATEWAY,
     ]
     // 显示部分二级菜单项
     const secondOptions = [
@@ -53,8 +56,14 @@ export default class Setting extends React.Component {
       // upgradePageKey: 'FirmwareUpgrade',
       // licenseUrl: require('../resources/html/license_zh.html'),
       // policyUrl: require('../resources/html/privacy_zh.html'),
-      deleteDeviceMessage: '真的要删除？你不再考虑考虑？',
-      excludeRequiredOptions: [secondAllOptions.SECURITY]
+      deleteDeviceMessage: 'test',
+      excludeRequiredOptions: [firstAllOptions.LOCATION, secondAllOptions.SECURITY],
+      option: {
+        privacyURL: require('../../Resources/raw/privacy_zh.html'),
+        agreementURL: require('../../Resources/raw/license_zh.html'),
+        experiencePlanURL: '',
+        hideAgreement: true
+      }
     }
     return (
       <View style={styles.container}>
@@ -90,7 +99,7 @@ export default class Setting extends React.Component {
           <View style={styles.blank} />
           <CommonSetting
             navigation={this.props.navigation}
-            // firstOptions={firstOptions}
+            firstOptions={firstOptions}
             showDot={this.state.showDot}
             secondOptions={secondOptions}
             extraOptions={extraOptions}

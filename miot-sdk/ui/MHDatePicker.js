@@ -180,7 +180,7 @@ export default class MHDatePicker extends React.Component {
   static SINGLE_TYPE = SINGLE_TYPE;
   constructor(props, context) {
     super(props, context);
-    const { currentArray, dataSourceArray } = this.init();
+    const { currentArray, dataSourceArray } = this.init(props);
     const subtitle = this.getSubtitle(currentArray);
     this.state = {
       visible: this.props.visible,
@@ -312,8 +312,8 @@ export default class MHDatePicker extends React.Component {
   /**
    * 初始化数据，包括每个picker的范围和选中值
    */
-  init() {
-    const { type, singleType, current, min, max } = this.props;
+  init(props) {
+    const { type, singleType, current, min, max } = props;
     const currentArray = this.convert(current || new Date());
     switch (type) {
       case TYPE.DATE:
@@ -353,12 +353,15 @@ export default class MHDatePicker extends React.Component {
   }
   componentWillReceiveProps(newProps) {
     if (newProps.visible !== this.state.visible) {
-      if (this.props.current === undefined) {
-        const currentArray = this.init()['currentArray'];
-        this.state.currentArray = currentArray;
-        this.state.subtitle = this.getSubtitle(currentArray);
-      }
       this.setState({ visible: newProps.visible });
+    }
+    if (newProps.current === undefined
+      || newProps.current !== this.props.current) {
+      const currentArray = this.convert(newProps.current || new Date());
+      this.setState({
+        currentArray,
+        subtitle: this.getSubtitle(currentArray)
+      });
     }
   }
   /**
@@ -461,7 +464,7 @@ export default class MHDatePicker extends React.Component {
         animationType={this.props.animationType}
         transparent={true}
         visible={this.state.visible}
-        onRequestClose={_ => { }}
+        onRequestClose={_ => this.dismiss()}
       >
         <View style={styles.background}>
           <TouchableWithoutFeedback
@@ -642,8 +645,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: pickerContainerHeight,
     justifyContent: 'space-between'
-  },
-  spinnerStyle: {
   },
   buttons: {
     height: buttonHeight,

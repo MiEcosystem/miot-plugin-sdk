@@ -58,7 +58,9 @@ const disabledOpacity = 0.35;
  * @description 米家插件首页常用卡片, 包括普通卡片（右侧箭头）和开关卡片（右侧开关），使用 `miot/ui/Card` 作为容器
  * @param {CARD_TYPE} cardType - 卡片类型，右侧是否是开关，默认是 `CARD_TYPE.NORMAL`
  * @param {CARD_RADIUS_TYPE} cardRadiusType - 卡片圆角类型，定义四个角是圆角还是直角，默认是 `CARD_RADIUS_TYPE.ALL`，所有的卡片类型有效
+ * @param {style} iconContainerStyle - 图标容器的样式
  * @param {number} icon - 左侧图标的资源 id, 参照`Image`的`resource`属性，所有的卡片类型有效
+ * @param {style} iconStyle - 图标的样式
  * @param {string} title - 左侧主标题，所有的卡片类型有效
  * @param {style} titleStyle - 左侧主标题的自定义样式，所有的卡片类型有效
  * @param {string} subtitle - 左侧副标题，如果有的话，显示在主标题的下方，没有则不显示，所有的卡片类型有效
@@ -85,7 +87,9 @@ export default class MHCard extends React.Component {
       CARD_RADIUS_TYPE.TOP,
       CARD_RADIUS_TYPE.BOTTOM
     ]),
+    iconContainerStyle: PropTypes.object,
     icon: PropTypes.number.isRequired,
+    iconStyle: PropTypes.object,
     title: PropTypes.string.isRequired,
     titleStyle: PropTypes.object,
     subtitle: PropTypes.string,
@@ -159,11 +163,13 @@ export default class MHCard extends React.Component {
     }
     return (
       <View style={[styles.container, this.radiusStyle, opacityStyle]}>
-        <Image
-          style={styles.icon}
-          source={this.props.icon}
-          resizeMode='contain'
-        />
+        <View style={[styles.iconContainer, this.props.iconContainerStyle]}>
+          <Image
+            style={[styles.icon, this.props.iconStyle]}
+            source={this.props.icon}
+            resizeMode='contain'
+          />
+        </View>
         <View style={styles.textContainer}>
           <View style={styles.titleContainer}>
             <Text
@@ -236,6 +242,12 @@ var styles = StyleSheet.create({
     backgroundColor: '#fff',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  iconContainer: {
+    width: ICON_SIZE,
+    height: ICON_SIZE,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   icon: {
     width: ICON_SIZE,

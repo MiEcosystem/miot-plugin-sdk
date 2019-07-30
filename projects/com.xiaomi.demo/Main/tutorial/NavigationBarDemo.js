@@ -158,8 +158,8 @@ export default class NavigationBarDemo extends React.Component {
             onPress: _ => console.log('onPress')
           }
         ],
-        title: '标题超长/副标题超长/左右按钮数量不一致/标题超长/副标题超长/左右按钮数量不一致',
-        subtitle: '标题超长/副标题超长/左右按钮数量不一致/标题超长/副标题超长/左右按钮数量不一致',
+        title: '常用ABCabc123',
+        subtitle: '常用ABCabc123',
         onPressTitle: _ => console.log('onPressTitle'),
       }
     });

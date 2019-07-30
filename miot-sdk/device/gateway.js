@@ -21,7 +21,7 @@ export default class IDeviceGateWay {
   }
   /**
    * 获取蓝牙网关关联的普通蓝牙和蓝牙mesh设备列表。
-   * @param {string} [did=Device.deviceID] 蓝牙网关的did，可以为空，为空时默认取当前Device.deviceID
+   * @param {string} [did=Device.deviceID] 蓝牙网关的did，可以为空，为空时默认取当前的Device.deviceID
    * @returns {Promise} 返回数组设备信息的promise， {"mesh":[], "normal":""}
    */
   getLinkedBTDevices(did = null) {

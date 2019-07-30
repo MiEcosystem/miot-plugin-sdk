@@ -75,6 +75,24 @@ const firstSharedOptions = {
   [firstAllOptions.LEGAL_INFO]: 0, // 20190516，分享设备不显示「法律信息」
 };
 /**
+ * 20190708 / SDK_10023
+ * 所有设置项顺序固定
+ * 权重值越大，排序越靠后，为了可扩展性，权重不能依次递增+1
+ */
+const firstAllOptionsWeight = {
+  [firstAllOptions.NAME]: 0,
+  [firstAllOptions.MEMBER_SET]: 3,
+  [firstAllOptions.LOCATION]: 6,
+  [firstAllOptions.SHARE]: 9,
+  [firstAllOptions.BTGATEWAY]: 12,
+  [firstAllOptions.VOICE_AUTH]: 15,
+  [firstAllOptions.IFTTT]: 18,
+  [firstAllOptions.FIRMWARE_UPGRADE]: 21,
+  [firstAllOptions.MORE]: 24,
+  [firstAllOptions.HELP]: 27,
+  [firstAllOptions.LEGAL_INFO]: 30
+};
+/**
  * 某些特殊设备类型不显示某些设置项
  * key: 设置项的key
  * value: 不显示该设置项的设备类型列表, 用 pid 表示设备类型, [] 表示支持所有设备
@@ -174,10 +192,11 @@ export { firstAllOptions, secondAllOptions };
  * extraOptions: {
  *   showUpgrade: bool // 「固件升级」是否跳转原生固件升级页面。默认值true。一般来说，wifi设备跳转原生固件升级页面，蓝牙设备不跳转原生固件升级页面
  *   upgradePageKey: string // 「固件升级」如果不跳转原生固件升级页面，请传入想跳转页面的key(定义在 index.js 的 RootStack 中)
- *   licenseUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明
- *   policyUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明
+ *   licenseUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明，SDK_10023 开始废弃
+ *   policyUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明，SDK_10023 开始废弃
  *   deleteDeviceMessage: string // 删除设备的弹窗中自定义提示文案，见 miot/Host.ui.openDeleteDevice 的传参说明
  *   ZXhjbHVkZVJlcXVpcmVkT3B0aW9ucw==: [] // %E5%A6%82%E6%9E%9C%E6%83%B3%E8%A6%81%E5%B1%8F%E8%94%BD%E5%BF%85%E9%80%89%E9%A1%B9%EF%BC%8C%E5%9C%A8%E8%BF%99%E9%87%8C%E4%BC%A0%E5%85%A5%20key%20%E5%8D%B3%E5%8F%AF%EF%BC%8C%E4%B8%80%E7%BA%A7%20or%20%E4%BA%8C%E7%BA%A7%E8%8F%9C%E5%8D%95%E7%9A%84%20key%20%E9%83%BD%E5%8F%AF%E4%BB%A5%E3%80%82%E7%89%B9%E6%AE%8A%E9%9C%80%E8%A6%81%EF%BC%8C%E8%B0%A8%E6%85%8E%E4%BD%BF%E7%94%A8
+ *   option: object // 见 miot/Host.ui.previewLegalInformationAuthorization 的传参说明
  * }
  * ```
  * @property {object} navigation - 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面
@@ -289,8 +308,13 @@ export default class CommonSetting extends React.Component {
    * @description 点击「法律信息」，传入用户协议和隐私政策的文件地址
    */
   privacyAndProtocolReview() {
-    const { licenseUrl, policyUrl } = this.props.extraOptions;
-    Host.ui.privacyAndProtocolReview('', licenseUrl, '', policyUrl);
+    const { licenseUrl, policyUrl, option } = this.props.extraOptions;
+    if (option === undefined) { // 兼容旧写法
+      Host.ui.privacyAndProtocolReview('', licenseUrl, '', policyUrl);
+    }
+    else {
+      Host.ui.previewLegalInformationAuthorization(option);
+    }
   }
   /**
    * @description 点击「固件升级」，选择性跳转
@@ -355,6 +379,8 @@ export default class CommonSetting extends React.Component {
     options = [...new Set(options)];
     // 4. 拼接必选项和可选项
     let keys = [...requireKeys1, ...options, ...requireKeys2];
+    // 4.5 所有设置项顺序固定，20190708 / SDK_10023
+    keys.sort((keyA, keyB) => firstAllOptionsWeight[keyA] - firstAllOptionsWeight[keyB]);
     // 5. 权限控制，如果是共享设备或者家庭设备，需要过滤一下
     if (Device.isOwner === false) {
       keys = keys.filter(key => firstSharedOptions[key]);
@@ -363,7 +389,7 @@ export default class CommonSetting extends React.Component {
     keys = keys.filter(key => !excludeOptions[key].includes(Device.type));
     // 7. %E6%A0%B9%E6%8D%AE%E5%BC%80%E5%8F%91%E8%80%85%E7%89%B9%E6%AE%8A%E9%9C%80%E8%A6%81%EF%BC%8C%E9%9A%90%E8%97%8F%E6%9F%90%E4%BA%9B%E5%BF%85%E9%80%89%E9%A1%B9
     const { excludeRequiredOptions } = this.props.extraOptions;
-    if (excludeOptions instanceof Array) {
+    if (excludeRequiredOptions instanceof Array) {
       keys = keys.filter(key => !excludeRequiredOptions.includes(key));
     }
     // 8. 根据最终的设置项 keys 渲染数据

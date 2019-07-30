@@ -304,6 +304,10 @@ export default {
      * off_method: 'method_name', //咨询硬件工程师，指硬件端，关闭开关的方法。miot-spec下，一般为：set_properties
      * off_param: 'param', //咨询硬件工程师，关闭开关应该传入的参数。 miot-spec下，一般为：[{did,siid,piid,value}]
      * enable_timer: true, //是否开启此定时器，后续打开，关闭定时器，可以设置此属性
+     * timer_type: "0",//用来区分普通定时和倒计时，为空（或者为"0"）表示普通定时，为"1"表示倒计时
+     * on_filter: "cn_workday" // 后台用来过滤日期,目前只在大陆地区生效：cn_workday 表示工作日，cn_freeday 表示节假日
+     * off_filter:"cn_freeday" // 后台用来过滤日期,目前只在大陆地区生效：cn_workday 表示工作日，cn_freeday 表示节假日
+     // 
      * }
      * 
      * const scene = Service.scene.createTimerScene(Device.deviceID, {
@@ -383,5 +387,5 @@ export default {
      */
     loadScenesHistoryForDevice(did, timestamp = -1, limit = 50) {
          return Promise.resolve(null);
-    }
+    },
 }

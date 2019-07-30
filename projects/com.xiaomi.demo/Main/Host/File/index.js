@@ -306,6 +306,28 @@ export default class FileStorage extends React.Component {
       });
   }
 
+    _screenShotAndSaveToPhotosAlbum() {
+      let imageName = "screen_" + new Date().getTime() + ".png";
+      Host.file.screenShot(imageName)
+        .then((imagePath) => {
+          imagePathMap.set(imageName, imagePath);
+          this.setState({
+            imagePath: imagePath
+          });
+          this._readFileList();
+          Host.file.saveImageToPhotosAlbum(imageName).then(_ =>{
+            alert(imagePath + " 已保存到系统相册");
+          }).catch((result)=>{
+            alert(result);
+          })
+
+
+        })
+        .catch((result) => {
+          alert(result);
+        });
+    }
+
   _renderFileList(item) {
     return (
       <View>
@@ -549,6 +571,14 @@ export default class FileStorage extends React.Component {
                 onPress={() => this._longScreenShot()}
               />
             </View>
+          </View>
+          <View style={styles.row}>
+             <View style={{ flex: 1 }}>
+                <Button
+                    title="截图并保存到相册"
+                    onPress={() => this._screenShotAndSaveToPhotosAlbum()}
+                />
+              </View>
           </View>
           <View style={[styles.row, { justifyContent: "center" }]}>
             <View style={{ flex: 1 }}>

@@ -9,7 +9,7 @@ import {
   Image,
   ScrollView, Dimensions
 } from "react-native";
-import { Device, DeviceProperties} from "miot";
+import { Device, DeviceProperties } from "miot";
 const { width, height } = Dimensions.get("window");
 
 export default class DeviceDemo extends React.Component {
@@ -23,51 +23,51 @@ export default class DeviceDemo extends React.Component {
     };
     Device.getDeviceWifi().callMethod("get_prop", ["humidity", "rgb", "temperature"]).then((res) => {
       this.setState({ callMethodResult: res });
-    }).catch(err => {console.log('error:', err)});
+    }).catch(err => { console.log('error:', err) });
     Device.getDeviceWifi().callMethodFromCloud("get_prop", ["humidity", "rgb", "temperature"]).then((res) => {
       this.setState({ callMethodFromCloudResult: res });
-    }).catch(err => {console.log('error:', err)});
+    }).catch(err => { console.log('error:', err) });
     this.state.device.owner.load().then(res => {
       this.setState({ deviceOwner: res });
-    }).catch(err => {console.log('error:', err)});
+    }).catch(err => { console.log('error:', err) });
 
     // 实时获取设备网络信息
-    Device.readDeviceNetWorkInfo(this.state.device.deviceID).then((ret)=>{
-        console.log("readDeviceNetWorkInfo  ret", ret)
-        this.setState({
-            wifiStrength: ret.wifiStrength
-        })
-    }).catch((error)=>{
-        console.log("readDeviceNetWorkInfo  error", error)
+    Device.readDeviceNetWorkInfo(this.state.device.deviceID).then((ret) => {
+      console.log("readDeviceNetWorkInfo  ret", ret)
+      this.setState({
+        wifiStrength: ret.wifiStrength
+      })
+    }).catch((error) => {
+      console.log("readDeviceNetWorkInfo  error", error)
     })
 
   }
 
   componentWillMount() {
-      console.log("componentWillMount...")
-      this.eventSubscription = DeviceProperties.addListener(["on", "mode"], (deviceProps, changeProps)=>{
-            console.log("changeProps", changeProps.getChangeProps())
-      })
+    console.log("componentWillMount...")
+    this.eventSubscription = DeviceProperties.addListener(["on", "mode"], (deviceProps, changeProps) => {
+      console.log("changeProps", changeProps.getChangeProps())
+    })
 
-      let map = new Map();
-      map.set("on", 1)
-      map.set("mode", 2)
-      map.set("off", 3)
-      DeviceProperties.setProperties(map).notifyPropertiesChanged();
+    let map = new Map();
+    map.set("on", 1)
+    map.set("mode", 2)
+    map.set("off", 3)
+    DeviceProperties.setProperties(map).notifyPropertiesChanged();
 
   }
 
   componentWillUnmount() {
-      console.log("componentWillUnmount...")
-      this.eventSubscription.remove();
+    console.log("componentWillUnmount...")
+    this.eventSubscription.remove();
   }
 
-    render() {
+  render() {
     return (
       <View style={[styles.listContainer, styles.list]}>
         <View style={{ flexDirection: "row" }}>
           <Image source={{ uri: this.state.device.iconURL }}
-                 style={{ width: 50, height: 50, margin: 10 }}/>
+            style={{ width: 50, height: 50, margin: 10 }} />
           <ScrollView contentContainerStyle={{ alignItems: "stretch", justifyContent: "center" }}>
             <Text style={{ margin: 10, width: width }}>当前设备
               deviceID: {this.state.device.deviceID}</Text>
@@ -75,7 +75,7 @@ export default class DeviceDemo extends React.Component {
               model: {this.state.device.model}</Text>
             <View style={{ flexDirection: "row" }}>
               <Image source={{ uri: this.state.deviceOwner.avatarURL }}
-                     style={{ width: 50, height: 50, margin: 10}}/>
+                style={{ width: 50, height: 50, margin: 10 }} />
               <View>
                 <Text style={{ margin: 10, width: width }}>owner id: {this.state.deviceOwner.ID}</Text>
                 <Text
@@ -93,7 +93,7 @@ export default class DeviceDemo extends React.Component {
             <Text style={{ margin: 10, width: width }}>当前设备
               userId: {this.state.device.userId}</Text>
             <Text style={{ margin: 10, width: width }}>当前设备
-              extra: {this.state.device.extra}</Text>
+              extra: {JSON.stringify(this.state.device.extra)}</Text>
             <Text style={{ margin: 10, width: width }}>当前设备
               name: {this.state.device.name}</Text>
             <Text style={{ margin: 10, width: width }}>当前设备
@@ -122,7 +122,7 @@ export default class DeviceDemo extends React.Component {
               IP: {this.state.device.IP}</Text>
             <Text style={{ margin: 10, width: width }}>当前设备
               RSSI: {this.state.device.RSSI}</Text>
-             <Text style={{ margin: 10, width: width }}>当前设备
+            <Text style={{ margin: 10, width: width }}>当前设备
                   信号强度: {this.state.wifiStrength}</Text>
             <Text style={{ margin: 10, width: width }}>当前设备
               SSID: {this.state.device.SSID}</Text>

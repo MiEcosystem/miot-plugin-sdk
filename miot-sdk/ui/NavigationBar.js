@@ -1,6 +1,6 @@
 /**
  * @export
- * @since
+ * @since 10021
  * @author Geeook
  * @module miot/ui/NavigationBar
  * @description 插件导航栏，左侧通常一个按钮，中间标题/副标题，右侧通常一到两个按钮。
@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    lineHeight: 22,
+    // lineHeight: 22,
     fontFamily: 'D-DINCondensed-Bold',
     textAlignVertical: 'center',
     textAlign: 'center',

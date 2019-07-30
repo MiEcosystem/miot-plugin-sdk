@@ -78,7 +78,7 @@ export default class ListItem extends React.Component {
       flex: 2,
     }
     if (this.props.value) {
-      extraRightStyle.flex = 5;
+      extraRightStyle.flex = 8;
     }
     const valueStyle = {
       marginRight: -7,
@@ -104,7 +104,7 @@ export default class ListItem extends React.Component {
               <View style={{ flexDirection: 'row', paddingVertical: 2 }}>
                 <Text
                   numberOfLines={1}
-                  style={[Styles.common.title, this.props.titleStyle, fontFamily]}
+                  style={[Styles.common.title, fontFamily, this.props.titleStyle]}
                 >
                   {this.props.title}
                 </Text>
@@ -127,11 +127,11 @@ export default class ListItem extends React.Component {
                 : null
               }
             </View>
-            <View style={{ width: 10 }} />
+            <View style={{ width: 5 }} />
             <View style={[styles.right, extraRightStyle]}>
               {this.props.value ?
                 <Text
-                  numberOfLines={2}
+                  numberOfLines={1}
                   ellipsizeMode='tail'
                   style={[Styles.common.subtitle, this.props.valueStyle, valueStyle]}
                 >

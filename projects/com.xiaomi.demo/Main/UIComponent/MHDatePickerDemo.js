@@ -40,6 +40,7 @@ export default class MHDatePickerDemo extends React.Component {
       valueText3: '',
       valueText4: '',
       valueText5: '',
+      current: [2019, 6, 3],
     }
   }
 
@@ -149,11 +150,11 @@ export default class MHDatePickerDemo extends React.Component {
             <MHDatePicker
               animationType='slide'
               visible={this.state.visible4}
-              title='自定义标题(自己处理多语言)，隐藏副标题'
-              showSubtitle={false}
+              title='自定义标题(自己处理多语言)'
+              showSubtitle={true}
               confirmColor='#f0ac3d'
               type={MHDatePicker.TYPE.DATE}
-              current={current}
+              current={this.state.current}
               min={min}
               max={max}
               onSelect={res => this.onSelect(res, '4')}
@@ -177,6 +178,12 @@ export default class MHDatePickerDemo extends React.Component {
         </ScrollView>
       </View>
     );
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ current: [2019, 7, 10] })
+    }, 3000);
   }
 
   // `Modal` 隐藏了，父组件必须要同步更新状态，但不必用 `setState` 触发 `render`

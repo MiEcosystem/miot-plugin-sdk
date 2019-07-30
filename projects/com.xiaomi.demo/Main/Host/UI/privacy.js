@@ -30,7 +30,8 @@ export default class PrivacyDemo extends React.Component {
       agreement: true,
       privacy: true,
       hideAgreement: false,
-      experience: true,
+      hideUserExperiencePlan: false,
+      experience: false,
     };
   }
 
@@ -53,6 +54,7 @@ export default class PrivacyDemo extends React.Component {
             options.experiencePlanURL = licenseURL;
           }
           options.hideAgreement = this.state.hideAgreement
+          options.hideUserExperiencePlan = this.state.hideUserExperiencePlan;
 
           /** 
           Service.smarthome.batchGetDeviceDatas([{ did: Device.deviceID, props: ["prop.s_auth_config"] }]).then(res => {
@@ -96,6 +98,7 @@ export default class PrivacyDemo extends React.Component {
 
           //这里在正式使用时需要判断是否已经授权,建议使用上面注释的部分
           Host.ui.alertLegalInformationAuthorization(options).then((res) => {
+            console.log("res", res)
             if (res) {
               // 表示用户同意授权
               Host.storage.set(licenseKey, true).then((res) => { });
@@ -123,8 +126,10 @@ export default class PrivacyDemo extends React.Component {
             options.experiencePlanURL = licenseURL;
           }
           options.hideAgreement = this.state.hideAgreement
+          options.hideUserExperiencePlan = this.state.hideUserExperiencePlan;
 
           Host.ui.previewLegalInformationAuthorization(options).then((res) => {
+            console.log("res", res)
             if (res) {
               // 表示用户同意授权
               Host.storage.set(licenseKey, true).then((res) => { });
@@ -187,7 +192,7 @@ export default class PrivacyDemo extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={[styles.rowContainer, { flexDirection: "column", height: 150 }]}>
+        <View style={[{ flexDirection: "column",alignItems: 'center',  padding: 20}]}>
           <Text>自定义用户协议</Text>
           <Switch
             style={{ width: 50, height: 25 }}
@@ -196,15 +201,6 @@ export default class PrivacyDemo extends React.Component {
             value={this.state.agreement}
             // disabled={this.props.disabled}
             onValueChange={value => this.setState({ agreement: value })}
-          />
-          <Text>隐藏用户协议</Text>
-          <Switch
-            style={{ width: 50, height: 25 }}
-            onTintColor='skyblue'
-            tintColor='lightgray'
-            value={this.state.hideAgreement}
-            // disabled={this.props.disabled}
-            onValueChange={value => this.setState({ hideAgreement: value })}
           />
           <Text>自定义隐私协议</Text>
           <Switch
@@ -215,14 +211,23 @@ export default class PrivacyDemo extends React.Component {
             // disabled={this.props.disabled}
             onValueChange={value => this.setState({ privacy: value })}
           />
-          <Text>体验计划</Text>
+          <Text>隐藏用户协议</Text>
+          <Switch
+            style={{ width: 50, height: 25 }}
+            onTintColor='skyblue'
+            tintColor='lightgray'
+            value={this.state.hideAgreement}
+            // disabled={this.props.disabled}
+            onValueChange={value => this.setState({ hideAgreement: value })}
+          />
+          <Text>隐藏体验计划</Text>
           <Switch
             style={{ width: 50, height: 25 }}
             onTintColor='skyblue'
             tintColor='lightgray'
             value={this.state.experience}
             // disabled={this.props.disabled}
-            onValueChange={value => this.setState({ experience: value })}
+            onValueChange={value => this.setState({ experience: value, hideUserExperiencePlan: value })}
           />
         </View>
         <ListView style={styles.list} dataSource={this.state.dataSource} renderRow={this._renderRow.bind(this)} />

@@ -39,7 +39,7 @@ export default class List extends React.Component {
             />
             <ListItem
               title='标题加右侧文案'
-              value='这是一段测试右侧文案'
+              value='小米米家智能墙壁开关(单火线单键版)'
               showDot={true}
               onPress={_ => console.log(1)}
             />
@@ -58,7 +58,7 @@ export default class List extends React.Component {
               onPress={_ => console.log(3)}
             />
             <ListItem
-              title='自定义样式'
+              title='ABCabc123测试ABCabc123测试ABCabc123测试ABCabc123测试'
               subtitle='这是用来测试副标题的文案，尽量写长一点争取可以换行。'
               showDot={true}
               value='这是一段测试右侧文案'
@@ -75,7 +75,7 @@ export default class List extends React.Component {
               onSlidingComplete={value => console.log(value)}
             />
             <ListItemWithSlider
-              title='自定义样式的滑动条列表项自定义样式的滑动条列表项'
+              title='ABCabc123测试ABCabc123测试ABCabc123测试ABCabc123测试'
               sliderProps={{ minimumValue: 25, maximumValue: 75, value: 60 }}
               sliderStyle={{
                 minimumTrackTintColor: "red",
@@ -118,7 +118,7 @@ export default class List extends React.Component {
               onValueChange={value => console.log(value)}
             />
             <ListItemWithSwitch
-              title='标题测试标题测试标题测试标题测试标题测试标题测试'
+              title='ABCabc123测试ABCabc123测试ABCabc123测试ABCabc123测试'
               valueText='测试测试测试测试测试测试测试测试测试测试测试'
               subtitle='副标题测试副标题测试副标题测试副标题测试副标题测试副标题测试'
               onPress={_ => console.log('do what u want to do')}

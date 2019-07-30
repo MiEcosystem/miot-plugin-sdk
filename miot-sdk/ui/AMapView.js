@@ -107,6 +107,18 @@ export default class AMapView extends Component {
          */
         userLocation: PropTypes.object,
         /**
+         * 地图语言的支持, 目前仅支持中英文, 默认中文
+         * 0: 表示中文;  1: 表示英文
+         * @member {number}
+         */
+        language: PropTypes.number,
+        /**
+         * 地图logo的显示位置, 默认左边底部
+         * 0: 左边底部;   1：中间底部;   2：右边底部;
+         * @member {number}
+         */
+        logoPosition: PropTypes.number,
+        /**
          * 用户位置显示样式控制  
          * 格式：{'image':'imagePath', 'imageScale': number, 'showsAccuracyRing':boolean, 'showsHeadingIndicator': boolean, 'lineWidth':number, 'fillColor': color, 'strokeColor': color, 'lineDashPattern':[]}
          * @member {object}
