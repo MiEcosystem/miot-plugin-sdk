@@ -90,7 +90,7 @@ export default class ChoiceItem extends React.Component {
         <Image
           source={this.props.icon}
           resizeMode='center'
-          style={styles.iconContainer}
+          style={styles.icon}
         />
       </View>
     )
