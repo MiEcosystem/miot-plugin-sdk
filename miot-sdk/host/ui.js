@@ -273,6 +273,12 @@ export default {
   openDeviceUpgradePage() {
   },
   /**
+   * 打开Mesh设备固件升级页
+   * @since 10025
+   */
+  openBleMeshDeviceUpgradePage() {
+  },
+  /**
    * 打开设备时区设置页
    */
   openDeviceTimeZoneSettingPage() {

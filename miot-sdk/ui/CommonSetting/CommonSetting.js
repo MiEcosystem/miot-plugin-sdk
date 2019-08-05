@@ -350,7 +350,12 @@ export default class CommonSetting extends React.Component {
       // 那么二级页面「FirmwareUpgrade」只剩下「检查固件升级」一项，遂藏之
       Device.needUpgrade = false;
       this.removeKeyFromShowDot(firstAllOptions.FIRMWARE_UPGRADE);
-      Host.ui.openDeviceUpgradePage();
+      if (Device.type === '16') { // mesh device
+        Host.ui.openBleMeshDeviceUpgradePage();
+      }
+      else {
+        Host.ui.openDeviceUpgradePage();
+      }
     }
   }
   /**
