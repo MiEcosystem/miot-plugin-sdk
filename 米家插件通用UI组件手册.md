@@ -18,7 +18,7 @@
 
 **⚠️SDK_Level指的是从`SDK_XXXXX`开始可以使用该组件**
 
-> 文档难免有疏漏、错误或者和Demo代码不一致的地方，[请不吝指正](https://github.com/MiEcosystem/miot-plugin-sdk/issues/new/choose)，或者联系[Geeook](mailto:liumengzhou@xiaomi.com)。
+> 文档难免有疏漏、错误或者和Demo代码不一致的地方，[请不吝指正](https://github.com/MiEcosystem/miot-plugin-sdk/issues/new/choose)。
 
 ## 目录
 
@@ -52,6 +52,7 @@
 - [米家弹窗-分享弹窗-ShareDialog](#米家弹窗-分享弹窗-ShareDialog)
 - [米家弹窗-操作列表-ActionSheet](#米家弹窗-操作列表-ActionSheet)
 - [米家弹窗-选择弹窗-ChoiceDialog](#米家弹窗-选择弹窗-ChoiceDialog)
+- [空白页面-BlankPage](#空白页面-BlankPage)
 
 **开发中**📝
 
@@ -517,7 +518,7 @@
     }
     ```
 
-  -  支持`Mesh`的蓝牙设备：需要**开发者自行实现检查固件升级的逻辑**，如果固件存在更新，则通过`showDot`属性设置「固件升级」显示小红点，点击后将直接跳转到原生的固件升级页面，在该页面可以查看固件版本，升级固件。配置如下：
+  - 支持`Mesh`的蓝牙设备：需要**开发者自行实现检查固件升级的逻辑**，如果固件存在更新，则通过`showDot`属性设置「固件升级」显示小红点，点击后将直接跳转到原生的固件升级页面，在该页面可以查看固件版本，升级固件。配置如下：
 
     ```js
     const extraOptions = {
@@ -2355,4 +2356,89 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 
 ***
 
-> 文档难免有疏漏、错误或者和Demo代码不一致的地方，[请不吝指正](https://github.com/MiEcosystem/miot-plugin-sdk/issues/new/choose)，或者联系[Geeook](mailto:liumengzhou@xiaomi.com)。
+## 空白页面-BlankPage
+
+### 预览
+
+![](./UIDocImages/blankpage1.png)
+
+![](./UIDocImages/blankpage2.png)
+
+### 基本信息
+
+| 基本信息  |                      |
+| --------- | -------------------- |
+| 中文名称  | 空白页面                 |
+| 描述      | 就是一个普通的空白页面，在数据未加载完毕或者加载失败的时候显示 |
+| 位置      | `miot/ui/BlankPage`     |
+| SDK_Level | `SDK_10024`          |
+| 注意事项  | \                    |
+
+### 使用方法
+
+```jsx
+const props1 = {
+  // type: BlankPage.TYPE.BUTTON, // 默认是按钮
+  button: {
+    text: '无列表时点击此按钮',
+    callback: _ => alert('点击按钮')
+  }
+  message: '你还没创建一条数据...',
+  desc: '点击按钮查看创建方法',
+  extraInfo: 'ABCabc123测试'
+}
+const props2 = {
+  type: BlankPage.TYPE.UNDERLINE,
+  underline: {
+    text: '无列表时点击此链接',
+    callback: _ => alert('点击超链接')
+  }
+  message: '你还没创建一条数据...',
+  desc: '点击按钮查看创建方法',
+  extraInfo: 'ABCabc123测试'
+}
+...
+<BlankPage {...props1} />
+<BlankPage {...props2} />
+```
+
+### 参数
+
+#### TYPE(空白页面底部视图类型)
+
+| Name      | Type                | Value                              | Description        |
+| --------- | ------------------- | ---------------------------------- | ------------------ |
+| BUTTON    | <code>string</code> | <code>&quot;button&quot;</code>    | 底部是按钮         |
+| UNDERLINE | <code>string</code> | <code>&quot;underline&quot;</code> | 底部是下划线超链接 |
+
+#### Underline(下划线)
+
+| Name      | Type                             | Description          |
+| --------- | -------------------------------- | -------------------- |
+| text      | <code>string</code>              | 下划线文字           |
+| textStyle | <code>ViewPropTypes.style</code> | 文字样式             |
+| callback  | <code>function</code>            | 点击下划线的回调函数 |
+
+#### Button(按钮)
+
+| Name        | Type                             | Description        |
+| ----------- | -------------------------------- | ------------------ |
+| text        | <code>string</code>              | 按钮文字           |
+| buttonStyle | <code>ViewPropTypes.style</code> | 按钮样式           |
+| textStyle   | <code>ViewPropTypes.style</code> | 按钮文字样式       |
+| callback    | <code>function</code>            | 点击按钮的回调函数 |
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | [<code>TYPE</code>](#TYPE空白页面底部视图类型) | 空白页面底部视图类型，是按钮还是下划线，默认是按钮 |
+| underline | [<code>Underline</code>](#Underline下划线) | 下划线相关数据，`TYPE.UNDERLINE`时有效 |
+| button | [<code>Button</code>](#Button按钮) | 按钮相关数据，`TYPE.BUTTON`时有效 |
+| icon | <code>resource</code> | 图标资源 |
+| iconStyle | <code>ViewPropTypes.style</code> | 图标样式 |
+| message | <code>string</code> | 图标正下方的主要文案，必填 |
+| desc | <code>string</code> | `message`下方的描述解释文案，选填 |
+| extraInfo | <code>string</code> | 底部按钮上方的描述解释文案，选填，`TYPE.BUTTON`时有效 |
+
+***
+
+> 文档难免有疏漏、错误或者和Demo代码不一致的地方，[请不吝指正](https://github.com/MiEcosystem/miot-plugin-sdk/issues/new/choose)。
