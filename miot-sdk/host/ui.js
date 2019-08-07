@@ -287,6 +287,7 @@ export default {
   /**
    * 打开商城搜索结果页面
    * @param {string} keyword - 搜索关键字
+   * @since 10024
    */
   openShopSearchPage(keyword) {
   },
