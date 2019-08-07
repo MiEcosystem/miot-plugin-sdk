@@ -79,6 +79,16 @@ export default class CallSmartHomeAPIDemo extends React.Component {
                 { name: "上报设备数据", handle: this.handleObjRes.bind(this), action: () => { return Service.smarthome.reportRecords(Device.deviceID, [{ type: "prop", key: "b", value: "c" }]) } },
                 { name: "获取支持语音的设备-语音设备可用", handle: this.handleObjRes.bind(this), action: () => { return Service.smarthome.getVoiceCtrlDevices(Device.deviceID) } },
                 { name: "当前服务器国家码", handle: this.handleObjRes.bind(this), action: () => { return Host.getCurrentCountry().then(res => { return new Promise.resolve({ "res": res }) }) } },
+                { name: "获取AppConfig配置文件信息", handle: this.handleObjRes.bind(this), action: () => {
+                    let params = {
+                      name: "local_timer_config",
+                      lang:'zh_CN',
+                      version:"1",
+                      result_level:'0'
+                    }
+                    return Service.smarthome.getAppConfig(params);
+                  }
+                },
             ]
         })
     }
@@ -128,7 +138,7 @@ export default class CallSmartHomeAPIDemo extends React.Component {
                     renderItem={({ item }) => {
                         return (<View style={{ flexDirection: 'row', margin: 10 }}>
                             <Text style={{ width: 150 }}>{item.key}:</Text>
-                            <Text style={{ width: 150 }}>{item.value}</Text>
+                            <Text style={{ width: 150 ,fontFamily:'normal'}}>{item.value}</Text>
                         </View>);
                     }} />
                 <FlatList
