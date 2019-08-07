@@ -2432,7 +2432,7 @@ const props2 = {
 | --- | --- | --- |
 | type | [<code>TYPE</code>](#TYPE空白页面底部视图类型) | 空白页面底部视图类型，是按钮还是下划线，默认是按钮 |
 | underline | [<code>Underline</code>](#Underline下划线) | 下划线相关数据，`TYPE.UNDERLINE`时有效 |
-| button | [<code>Button</code>](#Button按钮) | 按钮相关数据，`TYPE.BUTTON`时有效 |
+| button | [<code>Button</code>](#button按钮-1) | 按钮相关数据，`TYPE.BUTTON`时有效 |
 | icon | <code>resource</code> | 图标资源 |
 | iconStyle | <code>ViewPropTypes.style</code> | 图标样式 |
 | message | <code>string</code> | 图标正下方的主要文案，必填 |
