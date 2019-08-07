@@ -103,10 +103,10 @@ export default {
    * @param {boolean} [option.hideUserExperiencePlan=false] 是否隐藏用户体验计划，默认显示用户体验计划
    * @returns {Promise} 弹窗授权结果
    * @example
-   * 
+   *
    * //仅供参考
    * //可以参考project/com.xiaomi.demo/Main/Host/UI/privacy.js部分样例
-   * 
+   *
    * //batchGetDeviceDatas 设置的属性在设备删除以及设备取消授权之后会自动清空，因此只需要在请求授权检测时，检查下flag即可。撤销授权时可以不用手动清理flag
    * const agreementURL = require('xxxxx.html');
    * const privacyURL = require('xxxxx.html');
@@ -148,7 +148,7 @@ export default {
    *  alert('授权错误'+err)
    *  Package.exit()
    * });
-   * 
+   *
    */
   alertLegalInformationAuthorization(option) {
     const optionCopy = Object.assign({}, option);
@@ -193,7 +193,7 @@ export default {
    * @param {boolean} [option.hideAgreement=false] 是否隐藏用户协议，默认显示用户协议
    * @param {boolean} [option.hideUserExperiencePlan=false] 是否隐藏用户体验计划，默认显示用户体验计划
    * @returns {Promise} 授权结果
-   * 
+   *
    */
   previewLegalInformationAuthorization(option) {
     const optionCopy = Object.assign({}, option);
@@ -280,9 +280,16 @@ export default {
   },
   /**
    * 打开设备时区设置页
+   * apiLevel在10025，增加参数的支持，APP修改时区是否需要同步到设备端，前提是设备需要支持miIO.set_timezone 方法
+   * 如果sync_device为true，服务端会给设备发送rpc,例如： {'method':'miIO.set_timezone','params':["Asia/Chongqing"]}
+   * @param {Object} {"sync_device": false}  true-需要同步给设备 false-不需要同步给设备（默认）
+   * @since 10025
    */
-  openDeviceTimeZoneSettingPage() {
-    native.MIOTHost.openDeviceTimeZoneSettingPage();
+  openDeviceTimeZoneSettingPage(params=null) {
+    if(!params){
+      params = {"sync_device": false}
+    }
+    native.MIOTHost.openDeviceTimeZoneSettingPage(params);
   },
   /**
    * 打开商城某商品详情页面
@@ -319,18 +326,18 @@ export default {
   openEditDeviceGroupPage(dids) {
   },
   /**
-   * 开启倒计时界面 
+   * 开启倒计时界面
    * @param {Boolean} isCountDownOn 设备的当前状态:YES 为开启，所以我们启动关闭倒计时; NO  为关闭，所以我们启动开启倒计时
-   * @param {object} setting 设置倒计时页面的属性 
+   * @param {object} setting 设置倒计时页面的属性
    * @param {string} setting.onMethod 指硬件端，打开 倒计时应该 执行的方法，请咨询硬件工程师
    * @param {string} setting.onParam 指硬件端，打开 倒计时应该 传入的参数，请咨询硬件工程师
    * @param {string} setting.offMethod 指硬件端，关闭 倒计时应该 执行的方法，请咨询硬件工程师
    * @param {string} setting.offParam 指硬件端，关闭 倒计时应该 传入的参数，请咨询硬件工程师
    * @param {string} setting.identify since 10021, 用于设置倒计时的identify
    * @example
-   * 
+   *
    * Host.ui.openCountDownPage(true, {onMethod:"power_on", offMethod:'power_off', onParam:'on', offParam:'off'})
-   * 
+   *
    */
   openCountDownPage(isCountDownOn, setting) {
   },
@@ -371,7 +378,7 @@ export default {
    * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串,,参数请与嵌入式的同学沟通，指硬件端，关闭定时应该执行的方法，请咨询硬件工程师，miot-spec下，一般为：set_properties
    * @param {json} offParam  定时到时设备“关”执行的 RPC 指令参数，可以是字符串、数字、字典、数组，指硬件端，关闭定时应该传入的参数，请咨询硬件工程师，miot-spec下，一般为：[{did,siid,piid,value}]
    * @example
-   * 
+   *
    * Host.ui.openTimerSettingPageWithVariousTypeParams("power_on", ["on", "title"], 'off',"title"}),
    */
   openTimerSettingPageWithVariousTypeParams(onMethod, onParam, offMethod, offParam) {
@@ -455,7 +462,7 @@ export default {
   },
   /**
    * 打开小爱训练计划
-   * @param {string} clientId 
+   * @param {string} clientId
    * @param {string} did 设备 ID
    * @param {string} aiMiotClientId 米家的客户端 ID
    * @param {string} aiClientId 水滴平台的客户端
