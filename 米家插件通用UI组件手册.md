@@ -3,11 +3,26 @@
 ## 前言
 
 为了统一米家插件的UI风格，提高插件接入效率，米家插件SDK计划提供给插件开发者一套常用的UI组件，目前正在持续开发输出中。<br />
+
+1. 所有组件的源码在`/miot-sdk/ui/`文件夹下
+
+2. 所有组件的使用方法demo在`/projects/com.xiaomi.demo/Main/UIComponent/`文件夹中
+
+3. 可运行`com.xiaomi.demo`，在「首页」—「UI能力(miot/ui)」页面中查看组件使用效果
+
+![](./UIDocImages/demo.gif)
+
+4. 为了方便阅读本文档，可以在目录中点击标题直接跳转到组件说明，在组件说明的末尾可点击`「⬆️回到目录」`快速回到目录。另外如果你使用Chrome浏览器，推荐使用插件[Smart TOC](https://chrome.google.com/webstore/detail/smart-toc/lifgeihcfpkmmlfjbailfpfhbahhibba?hl=zh-CN)
+
+![](./UIDocImages/toc.jpg)
+
 **⚠️SDK_Level指的是从`SDK_XXXXX`开始可以使用该组件**
 
-> 文档难免有疏漏、错误或者和Demo代码不一致的地方，[请不吝指正](https://github.com/MiEcosystem/miot-plugin-sdk/issues/new/choose)，或者联系[Geeook](mailto:liumengzhou@xiaomi.com)。
+> 文档难免有疏漏、错误或者和Demo代码不一致的地方，[请不吝指正](https://github.com/MiEcosystem/miot-plugin-sdk/issues/new/choose)。
 
-**已完成**
+## 目录
+
+**已完成**🎉
 
 - [导航栏-TitleBar](#导航栏-TitleBar)
 - [新版导航栏-NavigationBar](#新版导航栏-NavigationBar)
@@ -28,17 +43,25 @@
 - [数字选择器-NumberSpinner](#数字选择器-NumberSpinner)
 - [通用选择器-StringSpinner](#通用选择器-StringSpinner)
 - [时间选择器-MHDatePicker](#时间选择器-MHDatePicker)
+- [米家弹窗-通用弹窗容器-AbstractDialog](#米家弹窗-通用弹窗容器-AbstractDialog)
+- [米家弹窗-加载弹窗-LoadingDialog](#米家弹窗-加载弹窗-LoadingDialog)
+- [米家弹窗-进度弹窗-ProgressDialog](#米家弹窗-进度弹窗-ProgressDialog)
+- [米家弹窗-消息弹窗-MessageDialog](#米家弹窗-消息弹窗-MessageDialog)
+- [米家弹窗-输入弹窗-InputDialog](#米家弹窗-输入弹窗-InputDialog)
+- [米家弹窗-密码弹窗-PinCodeDialog](#米家弹窗-密码弹窗-PinCodeDialog)
+- [米家弹窗-分享弹窗-ShareDialog](#米家弹窗-分享弹窗-ShareDialog)
+- [米家弹窗-操作列表-ActionSheet](#米家弹窗-操作列表-ActionSheet)
+- [米家弹窗-选择弹窗-ChoiceDialog](#米家弹窗-选择弹窗-ChoiceDialog)
+- [空白页面-BlankPage](#空白页面-BlankPage)
 
-**开发中**
+**开发中**📝
 
-- 消息弹框
-- 加载弹框
-- 单选弹框
-- 多选弹框
-- 输入弹框
-- 分享弹框
+- 新版导航栏扩展
 
-**计划中**
+**计划中**💡
+
+- 插件二级页面常用组件
+- 拓展ListItem
 
 ***
 
@@ -103,7 +126,7 @@
 | onPressTitle | `func` | 点击标题的事件 |
 | showDot | `bool` | 是否显示右侧更多按钮的小红点 |
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -203,7 +226,7 @@
 - 考虑到某些语言不好兼容的情况，导航栏左右侧只支持图标，不再支持文字
 - 导航栏高度固定，不允许更改，背景色仍然可以自定义
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -259,7 +282,7 @@
 | subtitleStyle | <code>style</code> | 副标题的自定义样式 |
 | valueStyle | <code>style</code> | 右侧文案的自定义样式 |
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -314,7 +337,7 @@
 | subtitleStyle | <code>style</code> | 副标题的自定义样式 |
 | valueTextStyle | <code>style</code> | 主标题右侧文案的自定义样式 |
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -376,7 +399,7 @@
 | showSeparator | <code>bool</code> | 是否显示分割线，默认值 `true` |
 | separator | <code>component</code> | 自定义分割线，不传将显示默认样式的分割线 |
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -412,7 +435,7 @@
 | type | `string` | 分割线类型，横向`row`或者纵向`column`，默认横向<br />(`❗️SDK_10021`新增) |
 | style | <code>style</code> | 自定义样式 |
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -445,7 +468,7 @@
 | firstOptions  | <code>array</code>  | 一级页面可选设置项的keys，<br />详见[米家通用设置项速查表](#米家通用设置项速查表)⬇️<br />keys的顺序代表显示的顺序，不传将显示全部，传空数组将只显示必选项。 |
 | secondOptions | <code>array</code>  | 二级页面可选设置项的keys，<br />详见[米家通用设置项速查表](#米家通用设置项速查表)⬇️<br />二级页面从属于一级页面，目前暂时只有「更多设置」二级页面可以配置可选项「设备时区」，传入该设置项的key就显示该设置项，不传则不显示。 |
 | showDot       | `array`             | 定义哪些列表项需要显示小红点。为了便于扩展，每个列表项都可以显示小红点，默认全部**不显示**，某列表项需要小红点，传入该列表项的`key`即可。详见[使用方法](#使用方法-6)⬇️。(`❗️SDK_10021`新增) |
-| extraOptions  | <code>object</code> | 其他特殊配置项<br />{<br />showUpgrade // 是否跳转到原生的固件升级页面<br />upgradePageKey // 如果showUpgrade = false，传入想跳转页面的key<br />licenseUrl // 用户协议的资源，将用于「法律信息」二级页面<br />policyUrl // 隐私政策的资源，将用于「法律信息」二级页面<br />deleteDeviceMessage // 删除设备的提示语，选填<br />}<br />详见[使用方法](#使用方法-6)⬇️。 |
+| extraOptions  | <code>object</code> | 其他特殊配置项<br />{<br />showUpgrade // 是否跳转到原生的固件升级页面<br />upgradePageKey // 如果showUpgrade = false，传入想跳转页面的key<br />licenseUrl // 用户协议的资源，将用于「法律信息」二级页面，(`❗️SDK_10023`废弃)<br />policyUrl // 隐私政策的资源，将用于「法律信息」二级页面，(`❗️SDK_10023`废弃)<br />option // 查看隐私政策和用户协议的接口传参，具体见[Host.ui.previewLegalInformationAuthorization](https://github.com/MiEcosystem/miot-plugin-sdk/blob/SDK_10023/miot-sdk/host/ui.js#L189) 的传参说明，之后将废弃掉`licenseUrl`和`policyUrl`，(`❗️SDK_10023`新增)<br />deleteDeviceMessage // 删除设备的提示语，选填<br />}<br />详见[使用方法](#使用方法-6)⬇️。 |
 | navigation    | <code>object</code> | 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面 |
 
 #### 详细说明
@@ -470,16 +493,63 @@
   | \                  | 删除设备(**必选**) | ✅                      | \                                                            |                        | \                                                            |
 
 - 插件设置页面一般包含`功能设置`和`通用设置`：`通用设置`放在页面下半部分，直接引用此组件即可;`功能设置`放在页面上半部分，主要显示通用设置项之外的，和插件功能强相关的设置项，可以考虑使用[ListItem](#普通列表项-ListItem)、[ListItemWithSwitch](#带开关的列表项-ListItemWithSwitch)和[ListItemWithSlider](#带滑动条的列表项-ListItemWithSlider) 这些UI组件。
+
 - 使用时用数组传入要展示的可选项key即可，数组内key的顺序代表可选项从上往下的展示顺序。如果不传，则显示全部设置项，如果传🈳️数组则显示必选项。详见[使用方法](#使用方法-6)⬇️。
+
 - **必选项的位置固定**，不需要传入key，即使传入也不会改变它是否显示以及位置。
+
+- 可选项的相对顺序固定，无法改变。
+
 - 组建内部已经做了国际化，适配米家所有的语种，毋需开发者另外配置。
+
 - 对于分享设备（普通分享/分享给家人）应该展示哪些设置项，组件内部也已经实现了控制，毋需开发者另外配置。其中，一级只显示「更多设置」、「使用帮助」和「删除设备」，「更多设置」的二级页面则屏蔽了「安全设置」。详见[米家通用设置项速查表](#米家通用设置项速查表)⬆️。
+
 - 通用设置项中「设备名称」和「设备时区」的修改展示逻辑，组件内部已实现，毋需开发者另外配置。
+
 - 点击设置项跳转到米家原生页面后，`android`和`iOS`的UI展示可能不完全一致，米家APP的同事正在排期开发，不要慌也不要催。
-- 鉴于蓝牙设备的固件升级页面需要在插件内自己实现，而`Wi-Fi`设备的固件升级可以直接跳转到原生页面。所以组件允许插件开发者自定义「固件升级」的路由跳转。通过在`extraOptions`中配置`showUpgrade`和`upgradePageKey`即可实现。详见[使用方法](#使用方法-6)⬇️。
+
+- **固件升级相关**
+
+  - `Wi-Fi`设备：固件可以更新时，固件升级设置项会显示小红点（无需插件开发者开发），点击后将直接跳转到原生的固件升级页面，在该页面可以查看固件版本，升级固件。配置如下：
+
+    ```js
+    const extraOptions = {
+      showUpgrade: true
+    }
+    ```
+
+  - 支持`Mesh`的蓝牙设备：需要**开发者自行实现检查固件升级的逻辑**，如果固件存在更新，则通过`showDot`属性设置「固件升级」显示小红点，点击后将直接跳转到原生的固件升级页面，在该页面可以查看固件版本，升级固件。配置如下：
+
+    ```js
+    const extraOptions = {
+      showUpgrade: true
+    }
+    // 如果检查到有固件更新
+    const showDot = [
+      first_options.FIRMWARE_UPGRADE
+    ]
+    ```
+
+  - 普通蓝牙设备：和`Mesh`设备一样，需要**开发者自行实现检查固件升级的逻辑**。此外，**需要开发者自行实现固件升级页面**，并将页面的`key`传入通用设置组件，点击后将跳转到自定义的固件升级页面。配置如下：
+
+    ```js
+    const extraOptions = {
+      showUpgrade: false,
+      upgradePageKey: 'FirmwareUpgrade', // 传入自定义的固件升级页面的key，就是在插件入口的RootStack中定义的那个
+    }
+    // 如果检查到有固件更新
+    const showDot = [
+      first_options.FIRMWARE_UPGRADE
+    ]
+    ```
+
 - 为了能够成功路由到`更多设置`二级页面，需要将`更多设置`页面导出，放在插件入口文件的`RootStack`中，并将插件的路由导航传给组件。详见[使用方法](#使用方法-6)⬇️。
+
 - 二级页面的key现在包含`AUTO_UPGRADE`（固件自动升级）、`TIMEZONE`（设备时区）、`USER_EXPERIENCE_PROGRAM`（加入用户体验计划）。目前只有`TIMEZONE`有效，其余两个可以先忽略。
+
 - 虽然此组件从`SDK_10005`开始可用，但是由于产品定义的迭代，所以上述说明以`SDK_10011`最新代码为准，之前的版本可能稍微有些出入，但出入很小，不必惊讶。
+
+- 对于某些十分特殊的设备（比如：灯组），可能需要屏蔽必选的设置项（比如：安全设置），请提issue或者联系相关开发同事。
 
 ### 使用方法
 
@@ -555,7 +625,7 @@ render() {
   }
 ```
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -655,7 +725,7 @@ getInnerView() {
 | shadowColor   | <code>string</code>    | 阴影颜色，默认 `'#000'`，❗️android 平台只支持16进制的 `shadowColor` |
 | shadowOpacity | <code>number</code>    | 阴影透明度，默认 `0.03`                                      |
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -767,7 +837,9 @@ getInnerView() {
 | -------------- | ---------------------------------------------------- | ------------------------------------------------------------ |
 | cardType       | [<code>CARD\_TYPE</code>](#card_type卡片类型)                | 卡片类型，右侧是否是开关，默认是 `CARD_TYPE.NORMAL`          |
 | cardRadiusType | [<code>CARD\_RADIUS\_TYPE</code>](#card_radius_type卡片圆角类型) | 卡片圆角类型，定义四个角是圆角还是直角，默认是 `CARD_RADIUS_TYPE.ALL`，所有的卡片类型有效 |
-| icon           | <code>number</code>                                  | 左侧图标的资源 id, 参照`Image`的`resource`属性，所有的卡片类型有效 |
+| iconContainerStyle | <code>style</code> | 图标容器的样式 |
+| icon | <code>number</code> | 左侧图标的资源 id, 参照`Image`的`resource`属性，所有的卡片类型有效 |
+| iconStyle | <code>style</code> | 图标的样式 |
 | title          | <code>string</code>                                  | 左侧主标题，所有的卡片类型有效                               |
 | titleStyle     | <code>style</code>                                   | 左侧主标题的自定义样式，所有的卡片类型有效                   |
 | subtitle       | <code>string</code>                                  | 左侧副标题，如果有的话，显示在主标题的下方，没有则不显示，所有的卡片类型有效 |
@@ -785,7 +857,7 @@ getInnerView() {
 | showShadow     | <code>bool</code>                                    | 是否显示卡片阴影，默认是 `false`，所有的卡片类型有效         |
 | marginTop      | <code>number</code>                                  | 卡片的上边距，默认 `0`，所有的卡片类型有效                   |
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -867,7 +939,7 @@ getInnerView() {
 | showShadow             | <code>bool</code>                                            | 是否显示卡片阴影, 默认值 `true`。由于安卓的阴影显示存在问题，在和标题进行卡片拼接时，不能显示阴影，请传入 `false` |
 | modeCardStyle          | <code>style</code>                                           | 模式卡片样式, 默认值 `{}`                                    |
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -917,7 +989,7 @@ getInnerView() {
 | selectIndex    | <code>number</code>              | 被选择档位的数组下标                                         |
 | onSelect       | <code>function</code>            | 选择某档位后的回调函数                                       |
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -968,7 +1040,7 @@ getInnerView() {
 | selectIndex    | <code>number</code>              | 被选择档位的数组下标                                         |
 | onSelect       | <code>function</code>            | 选择某档位后的回调函数                                       |
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -1039,10 +1111,11 @@ getInnerView() {
 | maximumTrackTintColor | <code>string</code>                            | 滑块右侧填充颜色                                             |
 | rightTextColor        | <code>string</code>                            | 最右侧文字颜色，`showEndText = true`时有效                   |
 | value                 | <code>number</code>                            | 被选择档位的数组下标, `0<=value<=options.length -1`          |
+| disabled              | `boolean`                                      | 是否禁用交互，默认`false`(`❗️SDK_10023`新增)                  |
 | onValueChange         | <code>function</code>                          | 滑动时的回调函数                                             |
 | onSlidingComplete     | <code>function</code>                          | 滑动结束的回调函数                                           |
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -1097,7 +1170,7 @@ getInnerView() {
 | id                    | <code>number</code>   | 单选按钮的 id，用来区分不同的按钮，实现单选功能，默认值 `-1` |
 | disabled              | `bool`                | 单选按钮的可选状态，默认值 `false`                           |
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -1146,7 +1219,7 @@ getInnerView() {
 | checkedColor  | <code>string</code> | 勾选背景颜色，默认米家绿 |
 | onValueChange | `function`          | 点击回调函数             |
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -1190,7 +1263,7 @@ getInnerView() {
 | disabled      | <code>bool</code>     | 是否禁用，默认值 `false` |
 | onValueChange | <code>function</code> | 切换开关的回调函数       |
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -1240,7 +1313,7 @@ getInnerView() {
 | valueFormat     | <code>string</code> | 格式          |
 | onNumberChanged | <code>func</code>   | 值改变的回调  |
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -1305,7 +1378,7 @@ getInnerView() {
 | pickerInnerStyle.unitFontSize    | <code>number</code>              | 单位字体大小 默认值 `12`      |
 | pickerInnerStyle.rowHeight       | <code>number</code>              | 行高 默认值 `42`              |
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
@@ -1461,8 +1534,911 @@ let max = [2029, 4, 16];
 | onSelect      | <code>function</code>                                        | 选好之后的回调函数，返回所有picker的选中值 组成的数组 / 拼接的字符串 / 以及计算出的Date实例, 详见官方 Demo（com.xiaomi.demo->UI能力->时间选择器） |
 | onDismiss     | <code>function</code>                                        | 点击`Modal`内容外面/取消按钮/确定按钮，Modal隐藏时的回调函数 |
 
-[⬆️回到目录](#前言)
+[⬆️回到目录](#目录)
 
 ***
 
-> 文档难免有疏漏、错误或者和Demo代码不一致的地方，[请不吝指正](https://github.com/MiEcosystem/miot-plugin-sdk/issues/new/choose)，或者联系[Geeook](mailto:liumengzhou@xiaomi.com)。
+## 米家弹窗-通用弹窗容器-AbstractDialog
+
+### 背景
+
+SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDialog`和`LoadingDialog`等。但这些弹窗都是由原生组件导出，不易维护和修改，且存在着一些问题：
+
+- [Loading Dialog样式Android和iOS的不一致 #938](https://github.com/MiEcosystem/miot-plugin-sdk/issues/938)
+- [米家Dialog类组件文字颜色是否可以提供自定义 #921](https://github.com/MiEcosystem/miot-plugin-sdk/issues/921)
+- [InputDialog 控件在 iOS 端调用不起来，在 android 可以 #908](https://github.com/MiEcosystem/miot-plugin-sdk/issues/908)
+- [新Dialog需求 #877](https://github.com/MiEcosystem/miot-plugin-sdk/issues/877)
+- [各种 Dialog 的各种问题 #719](https://github.com/MiEcosystem/miot-plugin-sdk/issues/719)
+- [Loading Dialog 在iOS上无法手动取消 #554](https://github.com/MiEcosystem/miot-plugin-sdk/issues/554)
+- [SingleChoiceDialog更新Check属性后无法更新选中项目（iOS表现正常） #454](https://github.com/MiEcosystem/miot-plugin-sdk/issues/454)
+- [MessageDialog 为什么只显示一次？ #222](https://github.com/MiEcosystem/miot-plugin-sdk/issues/222)
+- [MessageDialog 问题 #214](https://github.com/MiEcosystem/miot-plugin-sdk/issues/214)
+- [LoadingDialog 相关 #123](https://github.com/MiEcosystem/miot-plugin-sdk/issues/123)
+- [miot/ui Dialog 相关组件疑问 #110](https://github.com/MiEcosystem/miot-plugin-sdk/issues/110)
+
+这些问题的解决依赖于两个平台的APP发版，十分不灵活，因此我们用纯JS实现了一组弹窗，并抽象出通用的弹窗容器，允许开发者在满足设计规范的同时自定义弹窗内容。以下所有的弹窗都是基于`AbstractDialog`实现，如果开发者在实现自定义弹窗的时候有任何问题，可以阅读源码参考。
+
+### 预览
+
+![](./UIDocImages/abstractdialog.png)
+
+![](./UIDocImages/abstractdialog1.png)
+
+### 基本信息
+
+| 基本信息  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 中文名称  | 米家插件通用弹窗容器                                         |
+| 描述      | 符合米家插件设计规范的通用弹窗容器，除顶部标题和底部按钮外，可自定义弹窗内容 |
+| 位置      | `miot/ui/Dialog/AbstractDialog`                              |
+| SDK_Level | `SDK_10022`                                                  |
+| 注意事项  | \                                                            |
+
+### 使用方法
+
+```jsx
+<AbstractDialog
+  visible={this.state.visible0}
+  title={testTitle}
+  subtitle={testTitle}
+  showSubtitle
+  onDismiss={_ => this.onDismiss('0')}
+/>
+
+// 自定义内容
+<AbstractDialog
+  visible={this.state.visible1}
+  title={testTitle}
+  subtitle={testTitle}
+  showSubtitle
+  onDismiss={_ => this.onDismiss('1')}
+  buttons={[
+    {
+      text: '是吗',
+      style: { color: 'lightpink' },
+      callback: _ => console.log('是吗')
+    },
+    {
+      text: '是啊',
+      style: { color: '#f0ac3d' },
+      callback: _ => console.log('是啊')
+    }
+  ]}
+>
+  <View
+    style={{
+      flex: 1,
+      height: 200,
+      backgroundColor: 'lightblue',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}
+    >
+    <Text>你看她笑得多开心啊</Text>
+  </View>
+</AbstractDialog>
+```
+
+### 参数
+
+#### Button(按钮)
+
+| Name     | Type                  | Description        |
+| -------- | --------------------- | ------------------ |
+| text     | <code>string</code>   | 按钮的文字         |
+| style    | <code>style</code>    | 按钮的样式         |
+| callback | <code>function</code> | 点击按钮的回调函数 |
+
+| Param         | Type                                            | Description                                                  |
+| ------------- | ----------------------------------------------- | ------------------------------------------------------------ |
+| animationType | <code>string</code>                             | modal 显示动效, 默认`'fade'`，参考 https://facebook.github.io/react-native/docs/0.54/modal#animationtype |
+| visible       | <code>bool</code>                               | 是否显示 modal, 默认`false`，参考 https://facebook.github.io/react-native/docs/0.54/modal#visible |
+| style         | <code>style</code>                              | modal 的自定义样式                                           |
+| title         | <code>string</code>                             | 标题                                                         |
+| subtitle      | <code>string</code>                             | 副标题                                                       |
+| showTitle     | <code>bool</code>                               | 是否显示标题，如果`false`，整个标题都不显示（包括副标题），默认`true` |
+| showSubtitle  | <code>bool</code>                               | 是否显示副标题，默认`false`                                  |
+| canDismiss    | <code>bool</code>                               | 是否允许点击蒙层背景隐藏 Modal，默认`true`                   |
+| buttons       | [<code>Array&lt;Button&gt;</code>](#button按钮) | 按钮数组，定义底部按钮的属性，只能显示1～2个按钮，多传将失效。默认左取消右确定，左灰右绿，点击回调都是隐藏 Modal |
+| showButton    | <code>bool</code>                               | 是否显示按钮，默认`true`                                     |
+| onDismiss     | <code>function</code>                           | 点击`Modal`内容外面/取消按钮/确定按钮，Modal隐藏时的回调函数 |
+
+[⬆️回到目录](#目录)
+
+***
+
+## 米家弹窗-加载弹窗-LoadingDialog
+
+### 预览
+
+![](./UIDocImages/loadingdialog.gif)
+
+### 基本信息
+
+| 基本信息  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 中文名称  | 加载弹窗                                                     |
+| 描述      | 通过加载动画和文案提示用户需要等待，点击背景不会隐藏，可通过改变`visible` 属性隐藏，也可以设置超时时间 |
+| 位置      | `miot/ui/Dialog/LoadingDialog`                               |
+| SDK_Level | `SDK_10022`                                                  |
+| 注意事项  | \                                                            |
+
+### 使用方法
+
+```jsx
+<LoadingDialog
+  visible={this.state.visible2}
+  message='加载中，请稍后...'
+  timeout={3000}
+  onDismiss={_ => this.onDismiss('2')}
+/>
+```
+
+### 参数
+
+| Param         | Type                  | Description                                                  |
+| ------------- | --------------------- | ------------------------------------------------------------ |
+| animationType | <code>string</code>   | modal 显示动效, 默认`'fade'`，参考 https://facebook.github.io/react-native/docs/0.54/modal#animationtype |
+| visible       | <code>bool</code>     | 是否显示 modal, 默认`false`，参考 https://facebook.github.io/react-native/docs/0.54/modal#visible |
+| message       | <code>string</code>   | 显示文字                                                     |
+| timeout       | <code>number</code>   | Modal 隐藏的超时时间(ms)，如果不主动设置隐藏的话             |
+| onDismiss     | <code>function</code> | Modal隐藏时的回调函数                                        |
+
+[⬆️回到目录](#目录)
+
+***
+
+## 米家弹窗-进度弹窗-ProgressDialog
+
+### 预览
+
+![](./UIDocImages/progressdialog.gif)
+
+### 基本信息
+
+| 基本信息  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 中文名称  | 进度弹窗                                                     |
+| 描述      | 在需要用户长时间等待的时候，告知用户当前进度，比如最常用场景：下载。点击背景不会隐藏，可通过改变`visible` 属性隐藏，也可以设置`autoDismiss`在进度完成后自动隐藏 |
+| 位置      | `miot/ui/Dialog/ProgressDialog`                              |
+| SDK_Level | `SDK_10022`                                                  |
+| 注意事项  | \                                                            |
+
+### 使用方法
+
+```jsx
+<ProgressDialog
+  autoDismiss
+  visible={this.state.visible3}
+  message='下载中，请稍后...'
+  color='#f0ac3d'
+  unfilledColor='#fff'
+  textColor='blue'
+  progress={this.state.progress}
+  onDismiss={_ => this.onDismiss('3')}
+/>
+```
+
+### 参数
+
+| Param         | Type                  | Description                                                  |
+| ------------- | --------------------- | ------------------------------------------------------------ |
+| animationType | <code>string</code>   | modal 显示动效, 默认`'fade'`，参考 https://facebook.github.io/react-native/docs/0.54/modal#animationtype |
+| visible       | <code>bool</code>     | 是否显示 modal, 默认`false`，参考 https://facebook.github.io/react-native/docs/0.54/modal#visible |
+| message       | <code>string</code>   | 提示信息文字                                                 |
+| progress      | <code>number</code>   | 当前进度，默认`0`，范围为 `0～1`                             |
+| color         | <code>string</code>   | progressBar 填充颜色，默认米家绿                             |
+| unfilledColor | <code>string</code>   | progressBar 未填充颜色，默认`#f1f1f1`                        |
+| textColor     | <code>string</code>   | 进度百分比文字颜色，默认米家绿                               |
+| autoDismiss   | <code>bool</code>     | 是否在进度条读完之后自动隐藏 Modal, 默认`false`              |
+| onDismiss     | <code>function</code> | Modal 隐藏时的回调函数                                       |
+
+[⬆️回到目录](#目录)
+
+***
+
+## 米家弹窗-消息弹窗-MessageDialog
+
+### 预览
+
+![](./UIDocImages/messagedialog.png)
+
+![](./UIDocImages/messagedialog1.png)
+
+![](./UIDocImages/messagedialog2.png)
+
+![](./UIDocImages/messagedialog3.png)
+
+### 基本信息
+
+| 基本信息  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 中文名称  | 消息弹窗                                                     |
+| 描述      | 弹出一段消息文字提示用户。允许多行文案，但请尽量精简，组件最多显示**15**行。同时允许其他交互，比如勾选和下划线点击 |
+| 位置      | `miot/ui/Dialog/MessageDialog`                               |
+| SDK_Level | `SDK_10022`                                                  |
+| 注意事项  | \                                                            |
+
+### 使用方法
+
+```jsx
+// 无标题
+<MessageDialog
+  visible={this.state.visible4}
+  buttons={[
+    {
+      text: '我了解了',
+      style: { color: 'lightpink' },
+      callback: _ => this.setState({ visible4: false })
+    },
+  ]}
+  onDismiss={_ => this.onDismiss('4')}
+/>
+// 有标题
+<MessageDialog
+  visible={this.state.visible5}
+  title='消息弹窗自定义标题'
+  message={testText}
+  buttons={[
+    {
+      text: '消失',
+      style: { color: 'lightpink' },
+      callback: _ => this.setState({ visible5: false })
+    },
+    {
+      text: '不消失',
+      style: { color: 'lightblue' },
+      callback: _ => console.log('不消失')
+    },
+  ]}
+  onDismiss={_ => this.onDismiss('5')}
+/>
+// 带下划线
+<MessageDialog
+  type={MessageDialog.TYPE.UNDERLINE}
+  visible={this.state.visible6}
+  color='#f0ac3d'
+  title='下划线消息弹窗'
+  message={testText}
+  extraText='你点我一下试试'
+  extra={{
+    onPress: _ => alert('点击了下划线')
+  }}
+  buttons={[
+    {
+      text: '取消',
+      style: { color: 'lightpink' },
+      callback: _ => this.setState({ visible6: false })
+    },
+    {
+      text: '确认',
+      style: { color: 'lightblue' },
+      callback: obj => {
+        console.log(`是否点击了下划线: ${obj.hasPressUnderlineText}`);
+        this.setState({ visible6: false })
+      }
+    },
+  ]}
+  onDismiss={_ => this.onDismiss('6')}
+/>
+// 带勾选框
+<MessageDialog
+  type={MessageDialog.TYPE.CHECKBOX}
+  visible={this.state.visible7}
+  color='#f0ac3d'
+  title='勾选框消息弹窗'
+  message={testText}
+  extraText='快点我试试'
+  extra={this.state.extra}
+  buttons={[
+    {
+      text: '取消',
+      style: { color: 'lightpink' },
+      callback: _ => this.setState({ visible7: false })
+    },
+    {
+      text: '确认',
+      style: { color: 'lightblue' },
+      callback: obj => {
+        console.log(`是否勾选: ${obj.checked}`);
+        this.setState({ visible7: false })
+      }
+    },
+  ]}
+  onDismiss={_ => this.onDismiss('7')}
+/>
+```
+
+### 参数
+
+#### TYPE(消息弹窗的类型)
+
+| Name      | Type                | Default                            | Description        |
+| --------- | ------------------- | ---------------------------------- | ------------------ |
+| SIMPLE    | <code>string</code> | <code>&quot;simple&quot;</code>    | 普通，只有提示文字 |
+| UNDERLINE | <code>string</code> | <code>&quot;underline&quot;</code> | 带下划线超链接     |
+| CHECKBOX  | <code>string</code> | <code>&quot;checkbox&quot;</code>  | 带勾选框           |
+
+#### Extra(下划线超链接或者勾选框需要的其他数据)
+| Name    | Type                  | Description                                        |
+| ------- | --------------------- | -------------------------------------------------- |
+| checked | <code>boolean</code>  | 勾选框的初始勾选状态，只对`TYPE.CHECKBOX`有效      |
+| onPress | <code>function</code> | 点击下划线链接的回调函数，只对`TYPE.UNDERLINE`有效 |
+
+| Param         | Type                                                         | Description                                                  |
+| ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| animationType | <code>string</code>                                          | modal 显示动效, 默认`'fade'`，参考 https://facebook.github.io/react-native/docs/0.54/modal#animationtype |
+| visible       | <code>bool</code>                                            | 是否显示 modal, 默认`false`，参考 https://facebook.github.io/react-native/docs/0.54/modal#visible |
+| type          | [<code>TYPE</code>](#type消息弹窗的类型)                     | 消息弹窗的类型。是否只有提示文字，是否有下划线超链接，或者是否有勾选项，详见 `TYPE`，默认 `TYPE.SIMPLE` |
+| color         | <code>string</code>                                          | 下划线超链接的文字颜色 / 勾选框的勾选颜色，默认米家绿        |
+| title         | <code>string</code>                                          | 标题文字，不传或者为空字符串将不显示标题栏，默认不显示       |
+| message       | <code>string</code>                                          | 提示信息文字，可显示单行或者多行，最多**15**行               |
+| extraText     | <code>string</code>                                          | 下划线超链接的文字 / 勾选框右侧的说明文字                    |
+| extra         | [<code>Extra</code>](#extra下划线超链接或者勾选框需要的其他数据) | 下划线超链接或者勾选框需要的其他数据，只对`TYPE.UNDERLINE`和`TYPE.CHECKBOX`有效 |
+| buttons       | [<code>Array&lt;Button&gt;</code>](#button按钮)              | 和`AbstractDialog`的`buttons`属性相同                        |
+| onDismiss     | <code>function</code>                                        | Modal 隐藏时的回调函数                                       |
+
+[⬆️回到目录](#目录)
+
+***
+
+## 米家弹窗-输入弹窗-InputDialog
+
+### 预览
+
+![](./UIDocImages/inputdialog.png)
+
+![](./UIDocImages/inputdialog1.png)
+
+![](./UIDocImages/inputdialog2.png)
+
+![](./UIDocImages/inputdialog3.png)
+
+### 基本信息
+
+| 基本信息  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 中文名称  | 输入弹窗                                                     |
+| 描述      | 提示用户录入信息并记录。输入框弹窗的业务场景有时候会很复杂，如果本组件无法满足你的业务需求，请使用 `AbstractDialog` 参考本组件源码自行实现 |
+| 位置      | `miot/ui/Dialog/InputDialog`                                 |
+| SDK_Level | `SDK_10022`                                                  |
+| 注意事项  | `TextInput` 的 `onEndEditing`不能使用                        |
+
+### 使用方法
+
+```jsx
+<InputDialog
+  visible={this.state.visible8}
+  title='最简单输入弹窗'
+  onDismiss={_ => this.onDismiss('8')}
+/>
+<InputDialog
+  type={InputDialog.TYPE.UNDERLINE}
+  visible={this.state.visible9}
+  title='带下划线输入弹窗'
+  underlineData={{
+    leftText: '请输入你的ID',
+    underlineText: '还没有ID？注册一个',
+    onPress: _ => alert('你注册的ID是123456')
+  }}
+  buttons={[
+    {
+      text: '取消',
+      style: { color: 'lightpink' },
+      callback: _ => this.setState({ visible9: false })
+    },
+    {
+      text: '保存',
+      style: { color: 'lightblue' },
+      callback: result => {
+        console.log(`结果`, result);
+        this.setState({ visible9: false });
+      }
+    },
+  ]}
+  onDismiss={_ => this.onDismiss('9')}
+/>
+<InputDialog
+  type={InputDialog.TYPE.CHECKBOX}
+  visible={this.state.visible10}
+  title='带☑️输入弹窗'
+  checkboxData={{
+    checked: true,
+      text: '记住密码'
+  }}
+  buttons={[
+    {
+      text: '取消',
+      style: { color: 'lightpink' },
+      callback: _ => this.setState({ visible10: false })
+    },
+    {
+      text: '保存',
+      style: { color: 'lightblue' },
+      callback: result => {
+        console.log(`结果`, result);
+        this.setState({ visible10: false });
+      }
+    },
+  ]}
+  onDismiss={_ => this.onDismiss('10')}
+/>
+<InputDialog
+  visible={this.state.visible11}
+  type={InputDialog.TYPE.BOTH}
+  color='#f0ac3d'
+  title='多TextInput复杂输入弹窗'
+  underlineData={{
+    leftText: '请输入你的ID',
+    underlineText: '还没有ID？注册一个',
+    onPress: _ => alert('你注册的ID是123456')
+  }}
+  inputs={this.state.inputs}
+  checkboxData={this.state.checkboxData}
+  buttons={[
+    {
+      text: '取消',
+      style: { color: 'lightpink' },
+      callback: _ => this.setState({ visible11: false })
+    },
+    {
+      text: '保存',
+      style: { color: 'lightblue' },
+      callback: result => {
+        console.log(`结果`, result);
+        this.setState({ visible11: false });
+      }
+    },
+  ]}
+  onDismiss={_ => this.onDismiss('11')}
+/>
+```
+
+### 参数
+
+#### TYPE(输入弹窗的类型)
+
+| Name      | Type                | Default                            | Description                                                 |
+| --------- | ------------------- | ---------------------------------- | ----------------------------------------------------------- |
+| SIMPLE    | <code>string</code> | <code>&quot;simple&quot;</code>    | 普通，只有输入框                                            |
+| UNDERLINE | <code>string</code> | <code>&quot;underline&quot;</code> | 输入框上方有文字说明和下划线超链接                          |
+| CHECKBOX  | <code>string</code> | <code>&quot;checkbox&quot;</code>  | 输入框下方有勾选框和文字                                    |
+| BOTH      | <code>string</code> | <code>&quot;both&quot;</code>      | 输入框上方有文字说明和下划线超链接 输入框下方有勾选框和文字 |
+
+#### UnderlineData(输入框上方下划线数据)
+
+| Name          | Type                  | Description              |
+| ------------- | --------------------- | ------------------------ |
+| leftText      | <code>string</code>   | 左侧说明文字             |
+| underlineText | <code>string</code>   | 右侧下划线文字           |
+| onPress       | <code>function</code> | 点击下划线文字的回调函数 |
+
+#### Input(输入框)
+
+| Name           | Type                  | Description                                                  |
+| -------------- | --------------------- | ------------------------------------------------------------ |
+| placeholder    | <code>string</code>   | 占位文字，参考 https://facebook.github.io/react-native/docs/0.54/textinput#placeholder |
+| defaultValue   | <code>string</code>   | 初始默认文字，参考 https://facebook.github.io/react-native/docs/0.54/textinput#defaultvalue |
+| onChangeText   | <code>function</code> | 文字变化回调，参考 https://facebook.github.io/react-native/docs/0.54/textinput#onchangetext |
+| textInputProps | <code>Object</code>   | 其他 TextInput 支持的属性，参考 https://facebook.github.io/react-native/docs/0.54/textinput#props |
+
+#### CheckboxData(输入框下方勾选框数据)
+
+| Name    | Type                 | Description          |
+| ------- | -------------------- | -------------------- |
+| checked | <code>boolean</code> | 勾选框的初始勾选状态 |
+| text    | <code>string</code>  | 勾选框右侧的说明文字 |
+
+| Param         | Type                                                         | Description                                                  |
+| ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| animationType | <code>string</code>                                          | modal 显示动效, 默认`'fade'`，参考 https://facebook.github.io/react-native/docs/0.54/modal#animationtype |
+| visible       | <code>bool</code>                                            | 是否显示 modal, 默认`false`，参考 https://facebook.github.io/react-native/docs/0.54/modal#visible |
+| type          | [<code>TYPE</code>](#TYPE输入弹窗的类型)                     | 输入弹窗的类型。是否只有输入框，输入框上方是否有下划线超链接，输入框下方是否有勾选项，详见 `TYPE`，默认 `TYPE.SIMPLE` |
+| color         | <code>string</code>                                          | 下划线超链接的文字颜色 / 勾选框的勾选颜色，默认米家绿        |
+| title         | <code>string</code>                                          | 标题文字                                                     |
+| underlineData | [<code>UnderlineData</code>](#UnderlineData输入框上方下划线数据) | 输入框上方的数据，包括左侧说明文字，右侧下划线文字及其点击回调函数，只对 `TYPE.UNDERLINE` 和 `TYPE.BOTH` 有效 |
+| inputs        | [<code>Array&lt;Input&gt;</code>](#Input输入框)              | 输入框数组，定义输入框的属性，对所有的 `TYPE` 有效           |
+| checkboxData  | [<code>CheckboxData</code>](#CheckboxData输入框下方勾选框数据) | 输入框下方的数据，包括勾选状态，描述文字，只对 `TYPE.CHECKBOX` 和 `TYPE.BOTH` 有效 |
+| buttons       | [<code>Array&lt;Button&gt;</code>](#button按钮)              | 和`AbstractDialog`的`buttons`属性相同                        |
+| onDismiss     | <code>function</code>                                        | Modal 隐藏时的回调函数                                       |
+
+[⬆️回到目录](#目录)
+
+***
+
+## 米家弹窗-密码弹窗-PinCodeDialog
+
+### 预览
+
+![](./UIDocImages/pincodedialog.gif)
+
+### 基本信息
+
+| 基本信息  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 中文名称  | 密码弹窗                                                     |
+| 描述      | 用于输入密码或者验证码，允许输入**3～6位**                      |
+| 位置      | `miot/ui/Dialog/PinCodeDialog`                                 |
+| SDK_Level | `SDK_10022`                                                  |
+| 注意事项  |                                                           |
+
+### 使用方法
+
+```jsx
+<PinCodeDialog
+  visible={this.state.visible12}
+  title='密码/验证码弹窗'
+  message={testText}
+  digit={6}
+  color='#f0ac3d'
+  checkboxData={this.state.checkboxData}
+  buttons={[
+    {
+      text: '确定',
+      style: { color: 'lightblue' },
+      callback: result => {
+        console.log(`结果`, result);
+        this.setState({ visible12: false });
+      }
+    },
+  ]}
+  onDismiss={_ => this.onDismiss('12')}
+/>
+```
+
+### 参数
+
+#### CheckboxData(勾选框相关数据)
+
+| Name | Type | Description |
+| --- | --- | --- |
+| checked | <code>boolean</code> | 勾选框的初始勾选状态 |
+| text | <code>string</code> | 勾选框右侧的说明文字 |
+
+| Param         | Type                                                     | Description                                                  |
+| ------------- | -------------------------------------------------------- | ------------------------------------------------------------ |
+| animationType | <code>string</code>                                      | modal 显示动效, 默认`'fade'`，参考 https://facebook.github.io/react-native/docs/0.54/modal#animationtype |
+| visible       | <code>bool</code>                                        | 是否显示 modal, 默认`false`，参考 https://facebook.github.io/react-native/docs/0.54/modal#visible |
+| title         | <code>string</code>                                      | 标题文字                                                     |
+| message       | <code>string</code>                                      | 文字说明                                                     |
+| digit         | <code>number</code>                                      | 输入框数量，允许3～6个，默认是6个                            |
+| color         | <code>string</code>                                      | 勾选框的勾选颜色 / 输入框focus时的边框颜色，默认米家绿       |
+| checkboxData  | [<code>CheckboxData</code>](#CheckboxData勾选框相关数据) | 输入框下方的勾选状态和描述文字，如果不传将不显示             |
+| buttons       | [<code>Array&lt;Button&gt;</code>](#button按钮)          | 和`AbstractDialog`的`buttons`属性相同                        |
+| onDismiss     | <code>function</code>                                    | Modal 隐藏时的回调函数                                       |
+
+[⬆️回到目录](#目录)
+
+***
+
+## 米家弹窗-分享弹窗-ShareDialog
+
+### 预览
+
+![](./UIDocImages/sharedialog.png)
+
+![](./UIDocImages/sharedialog.gif)
+
+### 基本信息
+
+| 基本信息  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 中文名称  | 分享弹窗                                                     |
+| 描述      | 弹窗提示，让用户选择分享到指定平台                             |
+| 位置      | `miot/ui/Dialog/ShareDialog`                                 |
+| SDK_Level | `SDK_10022`                                                  |
+| 注意事项  | `Android`下`Swiper`和`Modal`显示有冲突，所以需要`Modal`先显示，`Swiper`后显示。表现为弹窗先显示后，图标才开始刷新显示，属于正常现象 |
+
+### 使用方法
+
+```jsx
+<ShareDialog
+  visible={this.state.visible13}
+  title='不分页的分享弹窗'
+  onDismiss={_ => this.onDismiss('13')}
+/>
+<ShareDialog
+  visible={this.state.visible14}
+  title='分页的分享弹窗'
+  options={
+    Array.from({ length: 15 }, (v, i) => ({
+      icon: testIcon,
+      text: [`米家`, `微信`, `QQ`, `微博`, `朋友圈`, `收藏`, `即刻`][~~(Math.random() * 7)],
+      callback: () => console.log('分享成功')
+    }))
+  }
+  onDismiss={_ => this.onDismiss('14')}
+/>
+```
+
+### 参数
+
+#### Opiton(分享选项)
+
+| Name | Type | Description |
+| --- | --- | --- |
+| icon | <code>number</code> | 图标的资源, `require('../xx/xx.png’)` |
+| text | <code>string</code> | 图标下方的文字说明 |
+| callback | <code>function</code> | 点击图标的回调函数 |
+
+| Param | Type | Description |
+| --- | --- | --- |
+| animationType | <code>string</code> | modal 显示动效, 默认`'fade'`，参考 https://facebook.github.io/react-native/docs/0.54/modal#animationtype |
+| visible | <code>bool</code> | 是否显示 modal, 默认`false`，参考 https://facebook.github.io/react-native/docs/0.54/modal#visible |
+| title | <code>string</code> | 标题文字 |
+| options | [<code>Array&lt;Opiton&gt;</code>](#Opiton分享选项) | 分享选项，一页最多显示**8个**，当可选项**>8个**时，允许左右滑动分页 |
+| buttons | [<code>Array&lt;Button&gt;</code>](#button按钮)    | 和`AbstractDialog`的`buttons`属性相同    |
+| onDismiss | <code>function</code> | Modal 隐藏时的回调函数 |
+
+[⬆️回到目录](#目录)
+
+***
+
+## 米家弹窗-操作列表-ActionSheet
+
+### 预览
+
+![](./UIDocImages/actionsheet.png)
+
+### 基本信息
+
+| 基本信息  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 中文名称  | 操作列表                                                     |
+| 描述      | 弹窗提示，让用户选择不同的操作，和iOS原生的[ActionSheet](https://facebook.github.io/react-native/docs/0.54/actionsheetios#docsNav)相似 |
+| 位置      | `miot/ui/Dialog/ActionSheet`                                 |
+| SDK_Level | `SDK_10022`                                                  |
+| 注意事项  |  |
+
+### 使用方法
+
+```jsx
+<ActionSheet
+  visible={this.state.visible15}
+  options={[
+    {
+      title: '🙈',
+      subtitle: '🙈',
+      onPress: _ => console.log('非礼勿视')
+    },
+    {
+      title: '🙉',
+      onPress: _ => console.log('非礼勿听')
+    },
+    {
+      title: '🙊',
+      subtitle: '🙊',
+      onPress: _ => console.log('非礼勿言')
+    }
+  ]}
+  buttons={[
+    {
+      text: '取消',
+      style: { color: 'lightblue' },
+      callback: _ => this.setState({ visible15: false })
+    }
+  ]}
+  onDismiss={_ => this.onDismiss('15')}
+/>
+```
+
+### 参数
+
+#### Opiton(可点击的选项)
+
+| Name | Type | Description |
+| --- | --- | --- |
+| title | <code>string</code> | 主文案 |
+| subtitle | <code>string</code> | 副文案 |
+| onPress | <code>function</code> | 点击回调函数 |
+
+| Param | Type | Description |
+| --- | --- | --- |
+| animationType | <code>string</code> | modal 显示动效, 默认`'fade'`，参考 https://facebook.github.io/react-native/docs/0.54/modal#animationtype |
+| visible | <code>bool</code> | 是否显示 modal, 默认`false`，参考 https://facebook.github.io/react-native/docs/0.54/modal#visible |
+| options | [<code>Array&lt;Opiton&gt;</code>](#Opiton可点击的选项) | 可点击的选项 |
+| buttons | [<code>Array&lt;Button&gt;</code>](#button按钮)        | 和`AbstractDialog`的`buttons`属性相同 |
+| onDismiss | <code>function</code> | Modal 隐藏时的回调函数 |
+
+[⬆️回到目录](#目录)
+
+***
+
+## 米家弹窗-选择弹窗-ChoiceDialog
+
+### 预览
+
+![](./UIDocImages/choicedialog.gif)
+
+![](./UIDocImages/choicedialog1.gif)
+
+### 基本信息
+
+| 基本信息  |                                                              |
+| --------- | ------------------------------------------------------------ |
+| 中文名称  | 选择弹窗                                                     |
+| 描述      | 弹窗让用户从不同选项中选择一项或者多项 |
+| 位置      | `miot/ui/Dialog/ChoiceDialog`                                 |
+| SDK_Level | `SDK_10022`                                                  |
+| 注意事项  |  |
+
+### 使用方法
+
+```jsx
+<ChoiceDialog
+  visible={this.state.visible16}
+  title={'单选弹窗'}
+  options={[
+    {
+      title: 'Test',
+      subtitle: 'test',
+    },
+    {
+      title: 'Test',
+    },
+    {
+      title: '测试',
+      subtitle: '测试',
+    }
+  ]}
+  selectedIndexArray={this.state.selectedIndexArray}
+  onDismiss={_ => this.onDismiss('16')}
+  onSelect={result => this.state.selectedIndexArray = result}
+/>
+<ChoiceDialog
+  type={ChoiceDialog.TYPE.MULTIPLE}
+  visible={this.state.visible17}
+  title={'多选弹窗'}
+  options={[
+    {
+      title: '🙈',
+      subtitle: '🙈',
+    },
+    {
+      title: '🙉',
+      subtitle: '🙉',
+    },
+    {
+      title: '🙊',
+      subtitle: '🙊',
+    }
+  ]}
+  selectedIndexArray={this.state.selectedIndexArray1}
+  color="#f0ac3d"
+  buttons={[
+    {
+      text: '保存',
+      style: { color: 'lightblue' },
+      callback: result => {
+        console.log(`选中的选项`, result);
+        this.setState({
+          visible17: false,
+          selectedIndexArray1: result
+        });
+      }
+    }
+  ]}
+  onDismiss={_ => this.onDismiss('17')}
+/>
+```
+
+### 参数
+
+#### TYPE(选择弹窗的类型)
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| SINGLE | <code>string</code> | <code>&quot;single&quot;</code> | 单选弹窗，将不显示底部按钮，选择某项之后弹窗消失 |
+| MULTIPLE | <code>string</code> | <code>&quot;multiple&quot;</code> | 多选弹窗 |
+
+#### Opiton(可选项)
+
+| Name | Type | Description |
+| --- | --- | --- |
+| title | <code>string</code> | 主文案 |
+| subtitle | <code>string</code> | 副文案 |
+
+| Param              | Type                                              | Description                                                  |
+| ------------------ | ------------------------------------------------- | ------------------------------------------------------------ |
+| animationType      | <code>string</code>                               | modal 显示动效, 默认`'fade'`，参考 https://facebook.github.io/react-native/docs/0.54/modal#animationtype |
+| visible            | <code>bool</code>                                 | 是否显示 modal, 默认`false`，参考 https://facebook.github.io/react-native/docs/0.54/modal#visible |
+| type               | [<code>TYPE</code>](#TYPE选择弹窗的类型)          | 选择弹窗类型，定义是单选弹窗还是多选弹窗，默认是单选弹窗     |
+| title              | <code>string</code>                               | 标题                                                         |
+| options            | [<code>Array&lt;Opiton&gt;</code>](#Opiton可选项) | 可选项                                                       |
+| selectedIndexArray | <code>Array&lt;number&gt;</code>                  | 选中选项的下标，默认全部未选中                               |
+| color              | <code>string</code>                               | 选中态颜色，单选时表示选中文字颜色，多选时表示勾选框勾选背景颜色，默认米家绿 |
+| icon               | <code>number</code>                               | 选项被选中时的选中图标，放在文字前面，`TYPE.SINGLE`可用，默认绿色右箭头图片 |
+| buttons            | [<code>Array&lt;Button&gt;</code>](#button按钮)   | 和`AbstractDialog`的`buttons`属性相同                        |
+| onSelect           | <code>function</code>                             | 选项选择后的确认回调，返回选中选项的下标数组，`TYPE.SINGLE`可用 |
+| onDismiss          | <code>function</code>                             | Modal 隐藏时的回调函数                                       |
+
+[⬆️回到目录](#目录)
+
+***
+
+## 空白页面-BlankPage
+
+### 预览
+
+![](./UIDocImages/blankpage1.png)
+
+![](./UIDocImages/blankpage2.png)
+
+### 基本信息
+
+| 基本信息  |                      |
+| --------- | -------------------- |
+| 中文名称  | 空白页面                 |
+| 描述      | 就是一个普通的空白页面，在数据未加载完毕或者加载失败的时候显示 |
+| 位置      | `miot/ui/BlankPage`     |
+| SDK_Level | `SDK_10024`          |
+| 注意事项  | \                    |
+
+### 使用方法
+
+```jsx
+const props1 = {
+  // type: BlankPage.TYPE.BUTTON, // 默认是按钮
+  button: {
+    text: '无列表时点击此按钮',
+    callback: _ => alert('点击按钮')
+  }
+  message: '你还没创建一条数据...',
+  desc: '点击按钮查看创建方法',
+  extraInfo: 'ABCabc123测试'
+}
+const props2 = {
+  type: BlankPage.TYPE.UNDERLINE,
+  underline: {
+    text: '无列表时点击此链接',
+    callback: _ => alert('点击超链接')
+  }
+  message: '你还没创建一条数据...',
+  desc: '点击按钮查看创建方法',
+  extraInfo: 'ABCabc123测试'
+}
+...
+<BlankPage {...props1} />
+<BlankPage {...props2} />
+```
+
+### 参数
+
+#### TYPE(空白页面底部视图类型)
+
+| Name      | Type                | Value                              | Description        |
+| --------- | ------------------- | ---------------------------------- | ------------------ |
+| BUTTON    | <code>string</code> | <code>&quot;button&quot;</code>    | 底部是按钮         |
+| UNDERLINE | <code>string</code> | <code>&quot;underline&quot;</code> | 底部是下划线超链接 |
+
+#### Underline(下划线)
+
+| Name      | Type                             | Description          |
+| --------- | -------------------------------- | -------------------- |
+| text      | <code>string</code>              | 下划线文字           |
+| textStyle | <code>ViewPropTypes.style</code> | 文字样式             |
+| callback  | <code>function</code>            | 点击下划线的回调函数 |
+
+#### Button(按钮)
+
+| Name        | Type                             | Description        |
+| ----------- | -------------------------------- | ------------------ |
+| text        | <code>string</code>              | 按钮文字           |
+| buttonStyle | <code>ViewPropTypes.style</code> | 按钮样式           |
+| textStyle   | <code>ViewPropTypes.style</code> | 按钮文字样式       |
+| callback    | <code>function</code>            | 点击按钮的回调函数 |
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | [<code>TYPE</code>](#TYPE空白页面底部视图类型) | 空白页面底部视图类型，是按钮还是下划线，默认是按钮 |
+| underline | [<code>Underline</code>](#Underline下划线) | 下划线相关数据，`TYPE.UNDERLINE`时有效 |
+| button | [<code>Button</code>](#button按钮-1) | 按钮相关数据，`TYPE.BUTTON`时有效 |
+| icon | <code>resource</code> | 图标资源 |
+| iconStyle | <code>ViewPropTypes.style</code> | 图标样式 |
+| message | <code>string</code> | 图标正下方的主要文案，必填 |
+| desc | <code>string</code> | `message`下方的描述解释文案，选填 |
+| extraInfo | <code>string</code> | 底部按钮上方的描述解释文案，选填，`TYPE.BUTTON`时有效 |
+
+***
+
+> 文档难免有疏漏、错误或者和Demo代码不一致的地方，[请不吝指正](https://github.com/MiEcosystem/miot-plugin-sdk/issues/new/choose)。
