@@ -467,7 +467,7 @@
 | firstOptions  | <code>array</code>  | 一级页面可选设置项的keys，<br />详见[米家通用设置项速查表](#米家通用设置项速查表)⬇️<br />keys的顺序代表显示的顺序，不传将显示全部，传空数组将只显示必选项。 |
 | secondOptions | <code>array</code>  | 二级页面可选设置项的keys，<br />详见[米家通用设置项速查表](#米家通用设置项速查表)⬇️<br />二级页面从属于一级页面，目前暂时只有「更多设置」二级页面可以配置可选项「设备时区」，传入该设置项的key就显示该设置项，不传则不显示。 |
 | showDot       | `array`             | 定义哪些列表项需要显示小红点。为了便于扩展，每个列表项都可以显示小红点，默认全部**不显示**，某列表项需要小红点，传入该列表项的`key`即可。详见[使用方法](#使用方法-6)⬇️。(`❗️SDK_10021`新增) |
-| extraOptions  | <code>object</code> | 其他特殊配置项<br />{<br />showUpgrade // 是否跳转到原生的固件升级页面<br />upgradePageKey // 如果showUpgrade = false，传入想跳转页面的key<br />licenseUrl // 用户协议的资源，将用于「法律信息」二级页面<br />policyUrl // 隐私政策的资源，将用于「法律信息」二级页面<br />deleteDeviceMessage // 删除设备的提示语，选填<br />}<br />详见[使用方法](#使用方法-6)⬇️。 |
+| extraOptions  | <code>object</code> | 其他特殊配置项<br />{<br />showUpgrade // 是否跳转到原生的固件升级页面<br />upgradePageKey // 如果showUpgrade = false，传入想跳转页面的key<br />licenseUrl // 用户协议的资源，将用于「法律信息」二级页面，(`❗️SDK_10023`废弃)<br />policyUrl // 隐私政策的资源，将用于「法律信息」二级页面，(`❗️SDK_10023`废弃)<br />option // 查看隐私政策和用户协议的接口传参，具体见[Host.ui.previewLegalInformationAuthorization](https://github.com/MiEcosystem/miot-plugin-sdk/blob/SDK_10023/miot-sdk/host/ui.js#L189) 的传参说明，之后将废弃掉`licenseUrl`和`policyUrl`，(`❗️SDK_10023`新增)<br />deleteDeviceMessage // 删除设备的提示语，选填<br />}<br />详见[使用方法](#使用方法-6)⬇️。 |
 | navigation    | <code>object</code> | 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面 |
 
 #### 详细说明
@@ -492,16 +492,63 @@
   | \                  | 删除设备(**必选**) | ✅                      | \                                                            |                        | \                                                            |
 
 - 插件设置页面一般包含`功能设置`和`通用设置`：`通用设置`放在页面下半部分，直接引用此组件即可;`功能设置`放在页面上半部分，主要显示通用设置项之外的，和插件功能强相关的设置项，可以考虑使用[ListItem](#普通列表项-ListItem)、[ListItemWithSwitch](#带开关的列表项-ListItemWithSwitch)和[ListItemWithSlider](#带滑动条的列表项-ListItemWithSlider) 这些UI组件。
+
 - 使用时用数组传入要展示的可选项key即可，数组内key的顺序代表可选项从上往下的展示顺序。如果不传，则显示全部设置项，如果传🈳️数组则显示必选项。详见[使用方法](#使用方法-6)⬇️。
+
 - **必选项的位置固定**，不需要传入key，即使传入也不会改变它是否显示以及位置。
+
+- 可选项的相对顺序固定，无法改变。
+
 - 组建内部已经做了国际化，适配米家所有的语种，毋需开发者另外配置。
+
 - 对于分享设备（普通分享/分享给家人）应该展示哪些设置项，组件内部也已经实现了控制，毋需开发者另外配置。其中，一级只显示「更多设置」、「使用帮助」和「删除设备」，「更多设置」的二级页面则屏蔽了「安全设置」。详见[米家通用设置项速查表](#米家通用设置项速查表)⬆️。
+
 - 通用设置项中「设备名称」和「设备时区」的修改展示逻辑，组件内部已实现，毋需开发者另外配置。
+
 - 点击设置项跳转到米家原生页面后，`android`和`iOS`的UI展示可能不完全一致，米家APP的同事正在排期开发，不要慌也不要催。
-- 鉴于蓝牙设备的固件升级页面需要在插件内自己实现，而`Wi-Fi`设备的固件升级可以直接跳转到原生页面。所以组件允许插件开发者自定义「固件升级」的路由跳转。通过在`extraOptions`中配置`showUpgrade`和`upgradePageKey`即可实现。详见[使用方法](#使用方法-6)⬇️。
+
+- **固件升级相关**
+
+  - `Wi-Fi`设备：固件可以更新时，固件升级设置项会显示小红点（无需插件开发者开发），点击后将直接跳转到原生的固件升级页面，在该页面可以查看固件版本，升级固件。配置如下：
+
+    ```js
+    const extraOptions = {
+      showUpgrade: true
+    }
+    ```
+
+  -  支持`Mesh`的蓝牙设备：需要**开发者自行实现检查固件升级的逻辑**，如果固件存在更新，则通过`showDot`属性设置「固件升级」显示小红点，点击后将直接跳转到原生的固件升级页面，在该页面可以查看固件版本，升级固件。配置如下：
+
+    ```js
+    const extraOptions = {
+      showUpgrade: true
+    }
+    // 如果检查到有固件更新
+    const showDot = [
+      first_options.FIRMWARE_UPGRADE
+    ]
+    ```
+
+  - 普通蓝牙设备：和`Mesh`设备一样，需要**开发者自行实现检查固件升级的逻辑**。此外，**需要开发者自行实现固件升级页面**，并将页面的`key`传入通用设置组件，点击后将跳转到自定义的固件升级页面。配置如下：
+
+    ```js
+    const extraOptions = {
+      showUpgrade: false,
+      upgradePageKey: 'FirmwareUpgrade', // 传入自定义的固件升级页面的key，就是在插件入口的RootStack中定义的那个
+    }
+    // 如果检查到有固件更新
+    const showDot = [
+      first_options.FIRMWARE_UPGRADE
+    ]
+    ```
+
 - 为了能够成功路由到`更多设置`二级页面，需要将`更多设置`页面导出，放在插件入口文件的`RootStack`中，并将插件的路由导航传给组件。详见[使用方法](#使用方法-6)⬇️。
+
 - 二级页面的key现在包含`AUTO_UPGRADE`（固件自动升级）、`TIMEZONE`（设备时区）、`USER_EXPERIENCE_PROGRAM`（加入用户体验计划）。目前只有`TIMEZONE`有效，其余两个可以先忽略。
+
 - 虽然此组件从`SDK_10005`开始可用，但是由于产品定义的迭代，所以上述说明以`SDK_10011`最新代码为准，之前的版本可能稍微有些出入，但出入很小，不必惊讶。
+
+- 对于某些十分特殊的设备（比如：灯组），可能需要屏蔽必选的设置项（比如：安全设置），请提issue或者联系相关开发同事。
 
 ### 使用方法
 
@@ -1063,6 +1110,7 @@ getInnerView() {
 | maximumTrackTintColor | <code>string</code>                            | 滑块右侧填充颜色                                             |
 | rightTextColor        | <code>string</code>                            | 最右侧文字颜色，`showEndText = true`时有效                   |
 | value                 | <code>number</code>                            | 被选择档位的数组下标, `0<=value<=options.length -1`          |
+| disabled              | `boolean`                                      | 是否禁用交互，默认`false`(`❗️SDK_10023`新增)                  |
 | onValueChange         | <code>function</code>                          | 滑动时的回调函数                                             |
 | onSlidingComplete     | <code>function</code>                          | 滑动结束的回调函数                                           |
 
