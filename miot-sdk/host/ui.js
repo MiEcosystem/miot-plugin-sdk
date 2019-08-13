@@ -285,9 +285,9 @@ export default {
    * @param {Object} {"sync_device": false}  true-需要同步给设备 false-不需要同步给设备（默认）
    * @since 10025
    */
-  openDeviceTimeZoneSettingPage(params=null) {
-    if(!params){
-      params = {"sync_device": false}
+  openDeviceTimeZoneSettingPage(params = null) {
+    if (!params) {
+      params = { "sync_device": false }
     }
     native.MIOTHost.openDeviceTimeZoneSettingPage(params);
   },
@@ -517,5 +517,11 @@ export default {
    * @return {Promise}
    */
   openPluginRecommendScene(did, recommendId) {
+  },
+  /**
+   * 刷新设备列表，同时刷新设备列表页UI
+   * @since 10025
+   */
+  refreshDeviceList() {
   }
 };
