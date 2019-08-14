@@ -3,6 +3,7 @@
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Service } from "miot";
 
 export default class HostDemo extends React.Component {
 
@@ -41,6 +42,22 @@ export default class HostDemo extends React.Component {
         'name': 'miot-spec模块',
         'func': () => {
           this.props.navigation.navigate('MiotSpecDemo', { title: 'miot-spec模块' })
+        }
+      },
+      {
+        'name': '通用的米家后台API调用接口',
+        'func': () => {
+          Service.callSmartHomeAPI('/home/profiles', { uids: [Service.account.ID, '894158105'] })
+            .then(res => alert(JSON.stringify(res)))
+            .catch(e => alert(e));
+        }
+      },
+      {
+        'name': '通用的米家后台API调用接口(错误测试)',
+        'func': () => {
+          Service.callSmartHomeAPI('/xx/xx', {})
+            .then(res => alert(JSON.stringify(res)))
+            .catch(e => alert(e));
         }
       }
     ];

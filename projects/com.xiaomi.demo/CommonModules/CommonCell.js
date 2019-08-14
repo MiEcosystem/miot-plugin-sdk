@@ -14,7 +14,7 @@ export default class CommonCell extends React.Component {
       <TouchableOpacity onPress={this.props.onPress}>
         <View style={styles.container}>
           { /*左边*/}
-          <Text style={{ marginLeft: 8 }}>{this.props.title}</Text>
+          <Text style={{ marginLeft: 8, fontFamily:'normal' }}>{this.props.title}</Text>
           { /*右边*/}
           {this.renderRightView()}
         </View>

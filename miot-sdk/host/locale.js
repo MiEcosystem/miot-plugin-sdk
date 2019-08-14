@@ -62,4 +62,23 @@ export default {
   getLocation() {
      return Promise.resolve(null);
   },
+  /**
+   * 获取手机的时区信息
+   * @since 10024
+   * @returns {Promise}
+   * @example
+   * Host.locale.getSystemTimeZone().then...
+   * result = {"timeZone":"Asia/Shanghai"}
+   */
+  getSystemTimeZone(){
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.getSystemTimezoneNameWithCallback((ok, result)=>{
+        if(ok){
+          resolve(result)
+        }else{
+          reject(result);
+        }
+      });
+    })
+  }
 }

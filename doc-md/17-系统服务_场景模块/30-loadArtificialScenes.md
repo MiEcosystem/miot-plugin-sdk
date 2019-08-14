@@ -1,0 +1,12 @@
+<a name="module_miot/service/scene--module.exports.loadArtificialScenes"></a>
+
+## .loadArtificialScenes(deviceID, opt) ⇒ <code>Promise.&lt;Array.&lt;IScene&gt;&gt;</code>
+加载人工场景 /scene/list
+
+**Kind**: static function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| deviceID | <code>\*</code> | 设备id |
+| opt | <code>json</code> | {identify,name} |
+

@@ -2,7 +2,7 @@ import locale from "miot/host/locale";
 const placeholderRegex = /(\{[\d|\w]+\})/;
 const getStrings = strings => {
   const language = locale.language;
-  return strings[language] || strings['zh'];
+  return strings[language] || strings['en'];
 }
 const formatString = (str, ...valuesForPlaceholders) => {
   return (str || '')

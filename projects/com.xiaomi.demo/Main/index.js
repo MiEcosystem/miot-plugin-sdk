@@ -42,15 +42,17 @@ import NavigateUIDemo from "./Host/UI";
 import PrivacyDemo from "./Host/UI/privacy";
 import VideoDemo from './Host/VideoDemo';
 import HostPropsInfoDemo from './Host/HostPropsInfoDemo';
+import ImageTest from './issues/imageTest/imageTest';
+import SmarthomeDemo from './issues/smarthomeDemo';
 import MainPage from './MainPage';
 import MoreMenu from './MoreMenu';
 import ImagePathDemo from './NewStructureTest';
 // import GLTests from './ThirdPartDemo/openGL/Tests';
 // import OpenLibList from './OpenLibList';
 import ServiceDemo from './Service';
+import MiotSpecDemo from './Service/MiotSpecDemo';
 import MHRoomDemo from "./Service/room";
 import CallSmartHomeAPIDemo from './Service/smarthome';
-import MiotSpecDemo from './Service/MiotSpecDemo';
 import AddressBookDemo from './ThirdPartDemo/AddressBookDemo';
 import AnimatedSVGDemo from './ThirdPartDemo/AnimatedSVGDemo';
 import ARTCircleDemo from './ThirdPartDemo/ARTComponentDemo/ARTCircleDemo'; //圆形：Circle，
@@ -66,6 +68,7 @@ import ARTTextDemo from './ThirdPartDemo/ARTComponentDemo/ARTTextDemo'; //文字
 // import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 import CircularSliderDemo from './ThirdPartDemo/CircularSliderDemo';
 import ImagePickerDemo from './ThirdPartDemo/ImagePickerDemo';
+import LinearGradientDemo from './ThirdPartDemo/LinearGradientDemo';
 import MHMapDemo from './ThirdPartDemo/MHMapDemo';
 import GLAnimated from './ThirdPartDemo/openGL/Animated';
 // import GLAdvancedEffects from './openGL/AdvancedEffects';
@@ -75,9 +78,8 @@ import GLParticles from './ThirdPartDemo/openGL/Particles';
 import GLSimple from './ThirdPartDemo/openGL/Simple';
 import ParticleDemo from './ThirdPartDemo/ParticleDemo';
 import ProgressDemo from './ThirdPartDemo/ProgressDemo';
-import ReactNativeCameraDemo from './ThirdPartDemo/ReactNativeCameraDemo';
-import LinearGradientDemo from './ThirdPartDemo/LinearGradientDemo';
 import ReactNativeBlurDemo from './ThirdPartDemo/ReactNativeBlurDemo';
+import ReactNativeCameraDemo from './ThirdPartDemo/ReactNativeCameraDemo';
 import SQLiteDemo from './ThirdPartDemo/SQLiteDemo';
 import SVGDemo from './ThirdPartDemo/SVGDemo';
 import { GroupExample, HoverExample, PressExample } from './ThirdPartDemo/SVGDemo2';
@@ -103,6 +105,8 @@ import Setting from "./tutorial/Setting";
 import TitleBarDemo from "./tutorial/TitleBarDemo";
 import TutorialDemo from './tutorial/TutorialDemo';
 import AbsoluteTouch from './UIComponent/AbsoluteTouch';
+import BlankPageDemo from "./UIComponent/BlankPageDemo";
+import BlankPageEntry from "./UIComponent/BlankPageEntry";
 import CardPage from "./UIComponent/CardPage";
 import CheckboxDemo from "./UIComponent/CheckboxDemo";
 import DialogExample from "./UIComponent/DialogExample";
@@ -164,6 +168,8 @@ const RootStack = createStackNavigator({
     NavigationBarDemo,
     HostDemo,
     ServiceDemo,
+    BlankPageEntry,
+    BlankPageDemo,
     tutorialDemo: TutorialDemo,
     LocaleServer: LocaleServer,
     blankDemo: BlankDemo,
@@ -289,7 +295,9 @@ const RootStack = createStackNavigator({
     DialogTest3,
     ModeCardDemo,
     AnimatedSVGDemo,
-    AbsoluteTouch
+    AbsoluteTouch,
+    ImageTest,
+    SmarthomeDemo
 },
     {
         // ThirdPartyDemo

@@ -1,6 +1,6 @@
-import { Host, Service } from "miot";
+import {Device, Host, Service} from "miot";
 import React from "react";
-import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Dimensions, ScrollView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 
 const { width, height } = Dimensions.get("window");
@@ -43,6 +43,21 @@ export default class LocalServer extends React.Component {
           <Text style={{ margin: 10, width: width }}> local.timeZone: {Host.locale.timeZone}</Text>
           <Text style={{ margin: 10, width: width }}> local.is24HourTime: {""+Host.locale.is24HourTime}</Text>
           <Text style={{ margin: 10, width: width }}> local.location: {this.state.location}</Text>
+
+          <View>
+            <TouchableOpacity style={{marginTop: 10, height: 40, backgroundColor: "#2196F3", justifyContent: 'center', alignItems: 'center'}} onPress={(e)=>{
+              // Service.account.ID
+              Host.locale.getSystemTimeZone().then((res) => {
+                console.log("res", res)
+                alert(JSON.stringify(res))
+                }).catch((error) => {
+                  console.log("error", error)
+                  alert(JSON.stringify(error))
+                })
+              }}>
+              <Text style={{color: "#ffffff"}}>获取手机的时区信息</Text>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </View>
     </View>

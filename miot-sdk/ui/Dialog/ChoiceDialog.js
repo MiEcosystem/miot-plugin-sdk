@@ -132,7 +132,10 @@ export default class ChoiceDialog extends React.Component {
             </View>
           )
         })}
-        <Separator />
+        {this.props.type === TYPE.MULTIPLE
+          ? <Separator />
+          : null
+        }
       </AbstractDialog>
     );
   }

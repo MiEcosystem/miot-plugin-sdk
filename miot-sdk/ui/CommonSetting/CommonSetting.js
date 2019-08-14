@@ -300,9 +300,15 @@ export default class CommonSetting extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
-    this.state = { name: Device.name };
+    this.state = {
+      name: Device.name,
+      showDot: props.showDot,
+    };
     console.log(`Device.type: ${Device.type}`);
     this.commonSetting = this.getCommonSetting(this.state);
+  }
+  componentWillReceiveProps(props) {
+    this.setState({ showDot: props.showDot });
   }
   /**
    * @description 点击「法律信息」，传入用户协议和隐私政策的文件地址
@@ -332,6 +338,8 @@ export default class CommonSetting extends React.Component {
         console.warn('upgradePageKey 必须是字符串, 是你在 index.js 的 RootStack 中定义的页面 key');
         return;
       }
+      Device.needUpgrade = false;
+      this.removeKeyFromShowDot(firstAllOptions.FIRMWARE_UPGRADE);
       this.openSubPage(upgradePageKey, {}); // 跳转到开发者指定页面
       console.warn('蓝牙统一OTA界面正在火热开发中');
     }
@@ -340,7 +348,26 @@ export default class CommonSetting extends React.Component {
       // this.openSubPage('FirmwareUpgrade');
       // 20190516，「固件自动升级」不能做成通用功能所以去掉，
       // 那么二级页面「FirmwareUpgrade」只剩下「检查固件升级」一项，遂藏之
+      Device.needUpgrade = false;
+      this.removeKeyFromShowDot(firstAllOptions.FIRMWARE_UPGRADE);
       Host.ui.openDeviceUpgradePage();
+    }
+  }
+  /**
+   * @description 从 this.state.showDot 移除某key，从而隐藏小红点
+   * @param {string} key 
+   */
+  removeKeyFromShowDot(key) {
+    const showDotTmp = [...this.state.showDot];
+    const index = showDotTmp.indexOf(key);
+    if (index !== -1) {
+      showDotTmp.splice(index, 1);
+      this.setState({ showDot: showDotTmp });
+    }
+    else {
+      if (key === firstAllOptions.FIRMWARE_UPGRADE) {
+        this.forceUpdate();
+      }
     }
   }
   /**
@@ -396,7 +423,11 @@ export default class CommonSetting extends React.Component {
     const items = keys.map(key => {
       const item = this.commonSetting[key];
       if (item) {
-        item.showDot = (this.props.showDot || []).includes(key);
+        item.showDot = (this.state.showDot || []).includes(key);
+        // 如果是固件升级设置项，且开发者没有传入是否显示
+        if (key === firstAllOptions.FIRMWARE_UPGRADE && !item.showDot) {
+          item.showDot = Device.needUpgrade;
+        }
       }
       return item;
     }).filter(item => item); // 防空

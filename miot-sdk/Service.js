@@ -37,6 +37,7 @@ import Smarthome from './service/smarthome';
 import Spec from './service/spec';
 import Storage from './service/storage';
 import TJInfra from './service/tjinfra';
+import apiRepo from './service/apiRepo';
  const CurrentAccount = null;
 export default {
   /**
@@ -98,6 +99,21 @@ export default {
   },
   get room() {
     return MHRoom;
+  },
+  /**
+   * @method callSmartHomeAPI
+   * @since 10024
+   * @description 通用的请求米家后台接口的方法，与米家服务器交互。
+   * 不同设备开放的接口请参照与米家后台对接时提供的文档或说明，以后台给出的信息为准。
+   * 米家客户端只封装透传网络请求，无法对接口调用结果解释，有问题请直接联系项目对接后台人员或 PM。
+   * 
+   * 想使用某个接口之前，先检查 SDK 是否已经收录，可在 `miot-sdk/service/apiRepo.js` 文件中查阅。
+   * 如果 SDK 暂时没有收录，可通过 issue 提出申请，提供接口的相关信息。
+   * @param {string} api - 接口地址，比如'/location/set'
+   * @param {object} params 传入参数，根据和米家后台商议的数据格式来传入，比如{ did: 'xxxx', pid: 'xxxx' }
+   */
+  callSmartHomeAPI(api, params) {
+     return Promise.resolve(null);
   },
   /**
    * @method getServerName
