@@ -1,4 +1,4 @@
-# MIOT SDK (API_LEVEL:10020) for React Native
+# MIOT SDK (API_LEVEL:10023) for React Native
 
 ## 初始化
 
@@ -43,6 +43,12 @@
     3, 不允许引用 projects 下其他项目的任何内容
 
 ## 文档
+🎉 UI组件说明文档正式公开
+
+[正式版](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/%E7%B1%B3%E5%AE%B6%E6%8F%92%E4%BB%B6%E9%80%9A%E7%94%A8UI%E7%BB%84%E4%BB%B6%E6%89%8B%E5%86%8C.md)，仅包括已经发布的组件
+
+[预览版](https://github.com/MiEcosystem/miot-plugin-sdk/blob/ui_doc/%E7%B1%B3%E5%AE%B6%E6%8F%92%E4%BB%B6%E9%80%9A%E7%94%A8UI%E7%BB%84%E4%BB%B6%E6%89%8B%E5%86%8C.md)，包括已经发布的组件和开发完成待发布的组件
+
 插件开发请参考[《MIOT SDK API》](https://github.com/MiEcosystem/miot-plugin-sdk/wiki)
             [《CHANGELOG》](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/CHANGELOG.md)
 
