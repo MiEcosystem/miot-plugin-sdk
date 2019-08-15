@@ -523,5 +523,6 @@ export default {
    * @since 10025
    */
   refreshDeviceList() {
+     return Promise.resolve(null);
   }
 };
