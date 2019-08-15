@@ -89,7 +89,7 @@ export default class ChoiceItem extends React.Component {
       <View style={[styles.iconContainer, paddingTop]}>
         <Image
           source={this.props.icon}
-          resizeMode='center'
+          resizeMode='contain'
           style={styles.icon}
         />
       </View>
