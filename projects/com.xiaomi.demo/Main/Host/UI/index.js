@@ -171,7 +171,11 @@ export default class UIDemo extends React.Component {
             }, {
                 'name': '刷新设备列表',
                 'func': () => {
-                    Host.ui.refreshDeviceList(); // 小米台灯
+                    Host.ui.refreshDeviceList().then((res)=>{
+                      alert(JSON.stringify(res))
+                    }).catch((error)=>{
+                      alert(JSON.stringify(error))
+                    })
                 }
             }
         ];
