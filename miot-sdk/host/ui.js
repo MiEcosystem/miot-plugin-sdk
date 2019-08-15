@@ -521,6 +521,7 @@ export default {
   /**
    * 刷新设备列表，同时刷新设备列表页UI
    * @since 10025
+   * @return {Promise}
    */
   refreshDeviceList() {
      return Promise.resolve(null);
