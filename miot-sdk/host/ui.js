@@ -16,7 +16,6 @@
  */
 import { Device } from "../index";
 import native from "../native";
-import Service from "../Service";
 const resolveAssetSource = require('resolveAssetSource');
 export default {
   /**
