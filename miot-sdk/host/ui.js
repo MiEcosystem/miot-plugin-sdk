@@ -273,7 +273,7 @@ export default {
   openDeviceUpgradePage() {
   },
   /**
-   * 打开Mesh设备固件升级页
+   * 打开Mesh设备固件升级页。分享的设备点击此接口无反应（理论上分享的设备不应该出现调用此接口的菜单）
    * @since 10025
    */
   openBleMeshDeviceUpgradePage() {
