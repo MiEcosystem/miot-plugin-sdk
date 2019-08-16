@@ -273,7 +273,7 @@ export default {
   openDeviceUpgradePage() {
   },
   /**
-   * 打开Mesh设备固件升级页
+   * 打开Mesh设备固件升级页。分享的设备点击此接口无反应（理论上分享的设备不应该出现调用此接口的菜单）
    * @since 10025
    */
   openBleMeshDeviceUpgradePage() {
@@ -285,9 +285,9 @@ export default {
    * @param {Object} {"sync_device": false}  true-需要同步给设备 false-不需要同步给设备（默认）
    * @since 10025
    */
-  openDeviceTimeZoneSettingPage(params=null) {
-    if(!params){
-      params = {"sync_device": false}
+  openDeviceTimeZoneSettingPage(params = null) {
+    if (!params) {
+      params = { "sync_device": false }
     }
     native.MIOTHost.openDeviceTimeZoneSettingPage(params);
   },
@@ -517,5 +517,13 @@ export default {
    * @return {Promise}
    */
   openPluginRecommendScene(did, recommendId) {
+  },
+  /**
+   * 刷新设备列表，同时刷新设备列表页UI
+   * @since 10025
+   * @return {Promise}
+   */
+  refreshDeviceList() {
+     return Promise.resolve(null);
   }
 };
