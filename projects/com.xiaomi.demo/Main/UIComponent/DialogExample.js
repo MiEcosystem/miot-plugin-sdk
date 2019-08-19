@@ -253,6 +253,8 @@ export default class DialogExample extends React.Component {
             />
             <MessageDialog
               visible={this.state.visible4}
+              message='测试abcABC123'
+              messageStyle={{textAlign: 'center', backgroundColor: 'lightblue'}}
               buttons={[
                 {
                   text: '我了解了',

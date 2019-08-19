@@ -35,6 +35,17 @@ import RootDevice from "./Device";
 import Host from './Host';
 import resolveAssetResource from "./native/common/node/resolve";
 import { strings } from './resources';
+/**
+ * @description JS端通知Native端的事件类型
+ * @enum {number}
+ */
+const EVENT_TYPE = {
+    /**
+     * 插件路由发生变化
+     */
+    NAVIGATION_STATE_CHANGE: 1,
+}
+Object.freeze(EVENT_TYPE);
 export const DEBUG = "debug";
 export const RELEASE = "release";
 /**
