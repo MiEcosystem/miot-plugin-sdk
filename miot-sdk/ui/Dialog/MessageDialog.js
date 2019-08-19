@@ -51,7 +51,8 @@ Object.freeze(TYPE);
  * @param {TYPE} type - 消息弹窗的类型。是否只有提示文字，是否有下划线超链接，或者是否有勾选项，详见 `TYPE`，默认 `TYPE.SIMPLE`
  * @param {string} color - 下划线超链接的文字颜色 / 勾选框的勾选颜色，默认米家绿
  * @param {string} title - 标题文字，不传或者为空字符串将不显示标题栏，默认不显示
- * @param {string} message - 提示信息文字，可显示单行或者多行，最多**10**行
+ * @param {string} message - 提示信息文字，可显示单行或者多行，最多**15**行
+ * @param {ViewPropTypes.style} messageStyle - 提示信息文字自定义样式
  * @param {string} extraText - 下划线超链接的文字 / 勾选框右侧的说明文字
  * @param {Extra} extra - 下划线超链接或者勾选框需要的其他数据，只对`TYPE.UNDERLINE`和`TYPE.CHECKBOX`有效
  * @param {Button[]} buttons - 按钮数组，定义底部按钮的属性，只能显示1～2个按钮，多传将失效。默认左取消右确定，左灰右绿，点击回调都是隐藏 Modal
@@ -65,6 +66,7 @@ export default class MessageDialog extends React.Component {
     color: PropTypes.string,
     title: PropTypes.string,
     message: PropTypes.string,
+    messageStyle: PropTypes.object,
     extraText: PropTypes.string,
     extra: PropTypes.object,
     buttons: PropTypes.arrayOf(PropTypes.object),
@@ -178,7 +180,7 @@ export default class MessageDialog extends React.Component {
         <View style={[styles.container, paddingTop]}>
           <Text
             numberOfLines={15}
-            style={styles.message}
+            style={[styles.message,this.props.messageStyle]}
           >
             {this.props.message || ''}
           </Text>
