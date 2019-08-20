@@ -468,7 +468,7 @@
 | firstOptions  | <code>array</code>  | 一级页面可选设置项的keys，<br />详见[米家通用设置项速查表](#米家通用设置项速查表)⬇️<br />keys的顺序代表显示的顺序，不传将显示全部，传空数组将只显示必选项。 |
 | secondOptions | <code>array</code>  | 二级页面可选设置项的keys，<br />详见[米家通用设置项速查表](#米家通用设置项速查表)⬇️<br />二级页面从属于一级页面，目前暂时只有「更多设置」二级页面可以配置可选项「设备时区」，传入该设置项的key就显示该设置项，不传则不显示。 |
 | showDot       | `array`             | 定义哪些列表项需要显示小红点。为了便于扩展，每个列表项都可以显示小红点，默认全部**不显示**，某列表项需要小红点，传入该列表项的`key`即可。详见[使用方法](#使用方法-6)⬇️。(`❗️SDK_10021`新增) |
-| extraOptions  | <code>object</code> | 其他特殊配置项<br />{<br />showUpgrade // 是否跳转到原生的固件升级页面<br />upgradePageKey // 如果showUpgrade = false，传入想跳转页面的key<br />licenseUrl // 用户协议的资源，将用于「法律信息」二级页面，(`❗️SDK_10023`废弃)<br />policyUrl // 隐私政策的资源，将用于「法律信息」二级页面，(`❗️SDK_10023`废弃)<br />option // 查看隐私政策和用户协议的接口传参，具体见[Host.ui.previewLegalInformationAuthorization](https://github.com/MiEcosystem/miot-plugin-sdk/blob/SDK_10023/miot-sdk/host/ui.js#L189) 的传参说明，之后将废弃掉`licenseUrl`和`policyUrl`，(`❗️SDK_10023`新增)<br />deleteDeviceMessage // 删除设备的提示语，选填<br />}<br />详见[使用方法](#使用方法-6)⬇️。 |
+| extraOptions  | <code>object</code> | 其他特殊配置项<br />{<br />showUpgrade // 是否跳转到原生的固件升级页面<br />upgradePageKey // 如果showUpgrade = false，传入想跳转页面的key<br />licenseUrl // 用户协议的资源，将用于「法律信息」二级页面，(`❗️SDK_10023`废弃)<br />policyUrl // 隐私政策的资源，将用于「法律信息」二级页面，(`❗️SDK_10023`废弃)<br />option // 查看隐私政策和用户协议的接口传参，具体见[Host.ui.previewLegalInformationAuthorization](https://github.com/MiEcosystem/miot-plugin-sdk/blob/SDK_10023/miot-sdk/host/ui.js#L189) 的传参说明，之后将废弃掉`licenseUrl`和`policyUrl`，(`❗️SDK_10023`新增)<br />deleteDeviceMessage // 删除设备的提示语，选填<br />syncDevice // 插件端设置时区后是否需要后台同步到设备端，具体见 [Host.ui.openDeviceTimeZoneSettingPage](https://github.com/MiEcosystem/miot-plugin-sdk/blob/SDK_10025/miot-sdk/host/ui.js#L282)的传参说明 (`❗️SDK_10025`新增)<br />}<br />详见[使用方法](#使用方法-6)⬇️。 |
 | navigation    | <code>object</code> | 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面 |
 
 #### 详细说明
@@ -1779,6 +1779,7 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
   visible={this.state.visible5}
   title='消息弹窗自定义标题'
   message={testText}
+  messageStyle={{textAlign: 'center', backgroundColor: 'lightblue'}}
   buttons={[
     {
       text: '消失',
@@ -1873,6 +1874,7 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 | color         | <code>string</code>                                          | 下划线超链接的文字颜色 / 勾选框的勾选颜色，默认米家绿        |
 | title         | <code>string</code>                                          | 标题文字，不传或者为空字符串将不显示标题栏，默认不显示       |
 | message       | <code>string</code>                                          | 提示信息文字，可显示单行或者多行，最多**15**行               |
+| messageStyle  | `style`                                                      | 提示信息文字自定义样式(`❗️SDK_10025`新增)                     |
 | extraText     | <code>string</code>                                          | 下划线超链接的文字 / 勾选框右侧的说明文字                    |
 | extra         | [<code>Extra</code>](#extra下划线超链接或者勾选框需要的其他数据) | 下划线超链接或者勾选框需要的其他数据，只对`TYPE.UNDERLINE`和`TYPE.CHECKBOX`有效 |
 | buttons       | [<code>Array&lt;Button&gt;</code>](#button按钮)              | 和`AbstractDialog`的`buttons`属性相同                        |
