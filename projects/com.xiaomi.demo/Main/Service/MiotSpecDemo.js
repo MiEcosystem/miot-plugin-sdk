@@ -14,13 +14,11 @@ export default class CallSmartHomeAPIDemo extends React.Component {
     }
 
     componentDidMount() {
-        if(!this.state.dataArray.length){
-            Host.file.readFile('miot-spec-config').then(res=>{
-                if(res){
-                    this.setState({dataArray:JSON.parse(res)});
-                }
-            }).catch(err=>{});
-        }
+        Host.file.readFile('miot-spec-config').then(res=>{
+            if(res){
+                this.setState({dataArray:JSON.parse(res)});
+            }
+        }).catch(err=>{});
         this._deviceStatusListener = DeviceEvent.deviceReceivedMessages.addListener(
             (device, map, res) => {
                 this.setState({result:JSON.stringify(res)})
