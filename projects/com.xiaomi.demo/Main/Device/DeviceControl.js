@@ -248,6 +248,12 @@ export default class UIDemo extends React.Component {
                         alert(error)
                     })
                 }
+            },{
+                'name': '获取miot-spec设备当前信息',
+                'func': async () => {
+                    let data = await Service.spec.getCurrentSpecValue(Device.deviceID);
+                    alert(JSON.stringify(data));
+                }
             }
         ];
     }
