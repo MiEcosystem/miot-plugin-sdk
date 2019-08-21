@@ -1,7 +1,8 @@
 /**
  * @export public
  * @doc_name 常用UI组件
- * @doc_index 23
+ * @doc_index 1
+ * @doc_directory ui
  * @module miot/ui/SingleChoseDialog
  * @description 单选对话框
  * 
@@ -25,12 +26,9 @@
  * @property {func} onDismiss 对话框消失回调
  * @property {func} onCheck 某一行选中状态变更回调
  */
-import React, { Component } from 'react';
-import {
-  requireNativeComponent,
-  ViewPropTypes,
-} from 'react-native';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { requireNativeComponent, ViewPropTypes } from 'react-native';
 export default class SingleChoseDialog extends Component {
   static propTypes = {
     visible: PropTypes.bool,

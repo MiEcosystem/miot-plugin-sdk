@@ -1,7 +1,8 @@
 /**
  * @export public
- * @doc_name 系统服务_云端配置
- * @doc_index 21
+ * @doc_name 云端配置
+ * @doc_index 6
+ * @doc_directory service
  * @module miot/service/storage
  * @description MIOT 云端提供的各种暂存服务, 包括文件上传,下载?
  *

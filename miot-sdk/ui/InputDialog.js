@@ -1,7 +1,8 @@
 /**
  * @export public
  * @doc_name 常用UI组件
- * @doc_index 23
+ * @doc_index 1
+ * @doc_directory ui
  * @module miot/ui/InputDialog
  * @description 输入对话框
  * @property {bool} visible 是否可见

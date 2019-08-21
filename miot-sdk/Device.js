@@ -1,7 +1,8 @@
 /**
  * @export public
  * @doc_name 插件设备模块
- * @doc_index 6
+ * @doc_index 5
+ * @doc_directory sdk
  * @module miot/Device
  * @description
  * 设备相关 API

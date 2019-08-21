@@ -17,7 +17,8 @@ const TYPE = {
 /**
  * @export public
  * @doc_name 常用UI组件
- * @doc_index 23
+ * @doc_index 1
+ * @doc_directory ui
  * @author Geeook
  * @since 10004
  * @module Separator
