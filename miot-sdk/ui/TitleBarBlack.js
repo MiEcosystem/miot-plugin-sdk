@@ -1,7 +1,8 @@
 /**
  * @export public
  * @doc_name 常用UI组件
- * @doc_index 23
+ * @doc_index 1
+ * @doc_directory ui
  * @deprecated 10005; since 10005 TitleBarBlack was deprecated, use TitleBar instead.
  * @module miot/ui/TitleBarBlack
  * @description 黑色标题栏

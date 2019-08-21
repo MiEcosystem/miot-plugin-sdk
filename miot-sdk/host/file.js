@@ -1,7 +1,8 @@
 /**
  * @export public
- * @doc_name 原生_文件模块
- * @doc_index 12
+ * @doc_name 文件模块
+ * @doc_index 4
+ * @doc_directory host
  * @module miot/host/file
  * @description 
  * 本地文件访问及处理服务
@@ -399,7 +400,7 @@ export default {
     * ...
     */
     saveImageToPhotosAlbum(fileName) {
-       return Promise.resolve(false)
+         return Promise.resolve(false)
     },
     /**
      * 屏幕全屏截图

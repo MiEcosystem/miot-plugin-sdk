@@ -178,7 +178,8 @@ export { firstAllOptions, secondAllOptions };
 /**
  * @export public
  * @doc_name 通用设置
- * @doc_index 25
+ * @doc_index 3
+ * @doc_directory ui
  * @author Geeook
  * @since 10004
  * @module CommonSetting

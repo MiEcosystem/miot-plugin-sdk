@@ -1,7 +1,8 @@
 /**
  * @export public
- * @doc_name 原生_本地化模块
- * @doc_index 13
+ * @doc_name 本地化模块
+ * @doc_index 5
+ * @doc_directory host
  * @module miot/host/locale
  * @description host 的本地信息, 包括语言，时区和地理位置
  * @example
@@ -70,12 +71,12 @@ export default {
    * Host.locale.getSystemTimeZone().then...
    * result = {"timeZone":"Asia/Shanghai"}
    */
-  getSystemTimeZone(){
+  getSystemTimeZone() {
     return new Promise((resolve, reject) => {
-      native.MIOTHost.getSystemTimezoneNameWithCallback((ok, result)=>{
-        if(ok){
+      native.MIOTHost.getSystemTimezoneNameWithCallback((ok, result) => {
+        if (ok) {
           resolve(result)
-        }else{
+        } else {
           reject(result);
         }
       });

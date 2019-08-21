@@ -1,7 +1,8 @@
 /**
  * @export public
- * @doc_name 原生_页面导航模块
- * @doc_index 15
+ * @doc_name 页面导航模块
+ * @doc_index 7
+ * @doc_directory host
  * @module miot/host/ui
  * @description 本地原生业务页面访问与处理
  * @example

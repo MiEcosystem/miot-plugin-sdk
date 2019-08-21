@@ -1,7 +1,8 @@
 /**
  * @export public
  * @doc_name 常用UI组件
- * @doc_index 23
+ * @doc_index 1
+ * @doc_directory ui
  * @module miot/ui/LoadingDialog
  * @description 输入对话框
  * @property {bool} visible 是否可见
@@ -11,13 +12,10 @@
  * @property {func} onDismiss 对话框消失回调
  * @property {number} timeout 超时自动隐藏，设置0或者不设置不会自动隐藏
  */
-import React, { Component } from 'react';
-import {
-  requireNativeComponent,
-  ViewPropTypes,
-} from 'react-native';
 import PropTypes from 'prop-types';
-import native from '.././native'
+import React, { Component } from 'react';
+import { requireNativeComponent, ViewPropTypes } from 'react-native';
+import native from '.././native';
 export default class ProgressDialog extends Component {
   static propTypes = {
     visible: PropTypes.bool,

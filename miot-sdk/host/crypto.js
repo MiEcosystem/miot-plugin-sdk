@@ -1,7 +1,8 @@
 /**
  * @export public
- * @doc_name 原生_加密模块
- * @doc_index 11
+ * @doc_name 加密模块
+ * @doc_index 3
+ * @doc_directory host
  * @module miot/host/crypto
  * @description 
  * 加密模块

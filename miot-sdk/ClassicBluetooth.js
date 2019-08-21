@@ -1,7 +1,8 @@
 /**
  * @export public
  * @doc_name 经典蓝牙模块
- * @doc_index 10
+ * @doc_index 2
+ * @doc_directory bluetooth
  * @module miot/ClassicBluetooth
  * @description 经典蓝牙设备操作类  仅支持Android, sdk 10023 提供支持
  * @since 10023

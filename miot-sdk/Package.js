@@ -1,7 +1,8 @@
 /**
  * @export public
  * @doc_name 插件导航模块
- * @doc_index 8
+ * @doc_index 6
+ * @doc_directory sdk
  * @module miot/Package
  * @description 扩展程序包参数, 主要来自于{@link packageInfo.json} 的配置与系统本身的特性
  * @example
