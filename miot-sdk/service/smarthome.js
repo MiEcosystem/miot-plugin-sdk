@@ -975,5 +975,21 @@ export default {
      */
     reportBLEDeviceInfo(params) {
          return Promise.resolve(null);
+    },
+    /**
+     * 绿米：批量获取设备成员信息
+     * @param {string} prarms.dids app/网关IP地址
+     * @param {string} prarms.get_sub_relation  标识是否拉取成员信息
+     * @param {string} prarms.get_online_status 是否获取设备在线状态，true获取 false不获取
+     */
+    getMultiSwitchInfoWithDids(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 绿米：获取设备模板信息
+     * @param {string} model 设备model
+     */
+    getMultiSwitchTemplateWithModel(model) {
+         return Promise.resolve(null);
     }
 }
