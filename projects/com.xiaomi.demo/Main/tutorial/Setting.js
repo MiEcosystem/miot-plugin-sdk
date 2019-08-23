@@ -8,6 +8,7 @@ import Separator from 'miot/ui/Separator';
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import {Entrance, Package} from "miot";
 
 const { first_options, second_options } = SETTING_KEYS;
 
@@ -20,7 +21,15 @@ export default class Setting extends React.Component {
           type='dark'
           title={strings.setting}
           style={{ backgroundColor: '#fff' }}
-          onPressLeft={_ => navigation.goBack()}
+          onPressLeft={()=>{
+              if(Package.entrance !== Entrance.Main && !Package.pageParams.isBackToMainPage){
+                // 如果是通过Host.ui.openPluginPage 跳转到此页面，且不需要返回到插件首页，则直接调用退出插件api
+                Package.exit();
+              }else{
+                navigation.goBack();
+              }
+            }
+          }
         />
     };
   };

@@ -17,6 +17,7 @@
  */
 import { Device } from "../index";
 import native from "../native";
+import {Entrance} from "../Package";
 const resolveAssetSource = require('resolveAssetSource');
 export default {
   /**
@@ -440,6 +441,20 @@ export default {
    */
   openDevice(did, model, params) {
      return Promise.resolve(null);
+  },
+  /**
+   * 打开用户账号下某一设备的插件,可支持跳转到插件的某一页面
+   * 至于跳转到哪个页面，需要插件方做支持，示例可以参考com.xiaomi.demo 中  Host.ui.openPluginPage 的使用
+   * @since 10026
+   * @param {string} did  设备的did
+   * @param {string} pageName  将打开插件的某一页面, 此参数将会赋值给 Package.entrance, 默认为 Entrance.Main
+   * @param {object} pageParams  将打开插件的某一页面的参数，此参数将会赋值给 Package.entranceParams， 默认为空
+   * @param {boolean} [pageParams.isBackToMainPage = true] 打开的插件页面按返回，是否需要返回到插件首页
+   * @example
+   * let pageParams = {did:Device.deviceID,model:Device.model}
+   * Host.ui.openPluginPage(Device.deviceID, PluginEntrance.Setting, pageParams)
+   */
+  openPluginPage(did, pageName=Entrance.Main, pageParams={isBackToMainPage: true}) {
   },
   /**
    * 打开一个原生类 className ，界面类类名 注意 用此方法打开的vc初始化时不需要传参数，
