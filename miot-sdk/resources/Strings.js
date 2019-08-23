@@ -131,6 +131,7 @@ strings = getStrings({
     time24SubTitle: '{0}:{1}', // 11:43
     time12SubTitle: '{0} {1}:{2}', // 上午 11:43
     singleSubTitle: '{0} {1}', // 5 小时
+    // 升级相关
     firmwareUpgradeExit: '退出',
     firmwareUpgradeUpdate: '升级',
     firmwareUpgradeLook: '去看看',
@@ -161,6 +162,32 @@ strings = getStrings({
     feedback: '反饋問題',
     timezone: '裝置時區',
     addToDesktop: '新増捷徑至桌面',
+    // MHDatePicker
+    cancel: '取消',
+    ok: '确定',
+    am: '上午',
+    pm: '下午',
+    months: '个月',
+    days: '天',
+    hours: '小时',
+    minutes: '分钟',
+    seconds: '秒钟',
+    month: '个月',
+    day: '天',
+    hour: '小时',
+    minute: '分钟',
+    second: '秒钟',
+    yearUnit: '年',
+    monthUnit: '月',
+    dayUnit: '日',
+    hourUnit: '时',
+    minuteUnit: '分',
+    secondUnit: '秒',
+    dateSubTitle: '{0}年{1}月{2}日', // 2019年06月03日
+    time24SubTitle: '{0}:{1}', // 11:43
+    time12SubTitle: '{0} {1}:{2}', // 上午 11:43
+    singleSubTitle: '{0} {1}', // 5 小时
+    // 升级相关
     firmwareUpgradeExit: '退出',
     firmwareUpgradeUpdate: '升級',
     firmwareUpgradeLook: '看看',
@@ -191,6 +218,32 @@ strings = getStrings({
     feedback: '反饋問題',
     timezone: '裝置時區',
     addToDesktop: '新增捷徑到桌面',
+    // MHDatePicker
+    cancel: '取消',
+    ok: '确定',
+    am: '上午',
+    pm: '下午',
+    months: '个月',
+    days: '天',
+    hours: '小时',
+    minutes: '分钟',
+    seconds: '秒钟',
+    month: '个月',
+    day: '天',
+    hour: '小时',
+    minute: '分钟',
+    second: '秒钟',
+    yearUnit: '年',
+    monthUnit: '月',
+    dayUnit: '日',
+    hourUnit: '时',
+    minuteUnit: '分',
+    secondUnit: '秒',
+    dateSubTitle: '{0}年{1}月{2}日', // 2019年06月03日
+    time24SubTitle: '{0}:{1}', // 11:43
+    time12SubTitle: '{0} {1}:{2}', // 上午 11:43
+    singleSubTitle: '{0} {1}', // 5 小时
+    // 升级相关
     firmwareUpgradeExit: '退出',
     firmwareUpgradeUpdate: '升級',
     firmwareUpgradeLook: '去看看',
@@ -246,6 +299,7 @@ strings = getStrings({
     time24SubTitle: '{0}:{1}', // 11:43
     time12SubTitle: '{1}:{2} {0}', // 11:43 am
     singleSubTitle: '{0} {1}', // 1 hour | 2 hours
+    // 升级相关
     firmwareUpgradeExit: 'Exit',
     firmwareUpgradeUpdate: 'Update',
     firmwareUpgradeLook: 'Take a look',
@@ -276,6 +330,32 @@ strings = getStrings({
     feedback: '피드백',
     timezone: '디바이스 시간대',
     addToDesktop: '홈 화면에 추가',
+    // MHDatePicker
+    cancel: 'Cancel',
+    ok: 'Confirm',
+    am: 'AM',
+    pm: 'PM',
+    months: 'months',
+    days: 'days',
+    hours: 'hours',
+    minutes: 'minutes',
+    seconds: 'seconds',
+    month: 'month',
+    day: 'day',
+    hour: 'hour',
+    minute: 'minute',
+    second: 'second',
+    yearUnit: '',
+    monthUnit: '',
+    dayUnit: '',
+    hourUnit: '',
+    minuteUnit: '',
+    secondUnit: '',
+    dateSubTitle: '{0}-{1}-{2}', // 2019-06-03
+    time24SubTitle: '{0}:{1}', // 11:43
+    time12SubTitle: '{1}:{2} {0}', // 11:43 am
+    singleSubTitle: '{0} {1}', // 1 hour | 2 hours
+    // 升级相关
     firmwareUpgradeExit: '나가기',
     firmwareUpgradeUpdate: '업데이트',
     firmwareUpgradeLook: '확인해보세요',
@@ -306,6 +386,32 @@ strings = getStrings({
     feedback: 'Отзыв',
     timezone: 'Часовой пояс устройства',
     addToDesktop: 'Добавить на главный экран',
+    // MHDatePicker
+    cancel: 'Cancel',
+    ok: 'Confirm',
+    am: 'AM',
+    pm: 'PM',
+    months: 'months',
+    days: 'days',
+    hours: 'hours',
+    minutes: 'minutes',
+    seconds: 'seconds',
+    month: 'month',
+    day: 'day',
+    hour: 'hour',
+    minute: 'minute',
+    second: 'second',
+    yearUnit: '',
+    monthUnit: '',
+    dayUnit: '',
+    hourUnit: '',
+    minuteUnit: '',
+    secondUnit: '',
+    dateSubTitle: '{0}-{1}-{2}', // 2019-06-03
+    time24SubTitle: '{0}:{1}', // 11:43
+    time12SubTitle: '{1}:{2} {0}', // 11:43 am
+    singleSubTitle: '{0} {1}', // 1 hour | 2 hours
+    // 升级相关
     firmwareUpgradeExit: 'Выход',
     firmwareUpgradeUpdate: 'Обновление',
     firmwareUpgradeLook: 'Посмотреть',
@@ -336,6 +442,32 @@ strings = getStrings({
     feedback: 'Comentario',
     timezone: 'Zona horaria del dispositivo',
     addToDesktop: 'Añadir a la pantalla de Inicio',
+    // MHDatePicker
+    cancel: 'Cancel',
+    ok: 'Confirm',
+    am: 'AM',
+    pm: 'PM',
+    months: 'months',
+    days: 'days',
+    hours: 'hours',
+    minutes: 'minutes',
+    seconds: 'seconds',
+    month: 'month',
+    day: 'day',
+    hour: 'hour',
+    minute: 'minute',
+    second: 'second',
+    yearUnit: '',
+    monthUnit: '',
+    dayUnit: '',
+    hourUnit: '',
+    minuteUnit: '',
+    secondUnit: '',
+    dateSubTitle: '{0}-{1}-{2}', // 2019-06-03
+    time24SubTitle: '{0}:{1}', // 11:43
+    time12SubTitle: '{1}:{2} {0}', // 11:43 am
+    singleSubTitle: '{0} {1}', // 1 hour | 2 hours
+    // 升级相关
     firmwareUpgradeExit: 'Salir',
     firmwareUpgradeUpdate: 'Actualizar',
     firmwareUpgradeLook: 'Echa un vistazo',
@@ -366,6 +498,32 @@ strings = getStrings({
     feedback: 'Retour',
     timezone: 'Fuseau horaire de l’appareil',
     addToDesktop: "Ajouter à l'écran d'accueil'",
+    // MHDatePicker
+    cancel: 'Cancel',
+    ok: 'Confirm',
+    am: 'AM',
+    pm: 'PM',
+    months: 'months',
+    days: 'days',
+    hours: 'hours',
+    minutes: 'minutes',
+    seconds: 'seconds',
+    month: 'month',
+    day: 'day',
+    hour: 'hour',
+    minute: 'minute',
+    second: 'second',
+    yearUnit: '',
+    monthUnit: '',
+    dayUnit: '',
+    hourUnit: '',
+    minuteUnit: '',
+    secondUnit: '',
+    dateSubTitle: '{0}-{1}-{2}', // 2019-06-03
+    time24SubTitle: '{0}:{1}', // 11:43
+    time12SubTitle: '{1}:{2} {0}', // 11:43 am
+    singleSubTitle: '{0} {1}', // 1 hour | 2 hours
+    // 升级相关
     firmwareUpgradeExit: 'Quitter',
     firmwareUpgradeUpdate: 'Mettre à jour',
     firmwareUpgradeLook: 'Jeter un coup d\'œil',
@@ -396,6 +554,32 @@ strings = getStrings({
     feedback: 'Feedback',
     timezone: 'Fuso orario del dispositivo',
     addToDesktop: 'Aggiungi a schermata iniziale',
+    // MHDatePicker
+    cancel: 'Cancel',
+    ok: 'Confirm',
+    am: 'AM',
+    pm: 'PM',
+    months: 'months',
+    days: 'days',
+    hours: 'hours',
+    minutes: 'minutes',
+    seconds: 'seconds',
+    month: 'month',
+    day: 'day',
+    hour: 'hour',
+    minute: 'minute',
+    second: 'second',
+    yearUnit: '',
+    monthUnit: '',
+    dayUnit: '',
+    hourUnit: '',
+    minuteUnit: '',
+    secondUnit: '',
+    dateSubTitle: '{0}-{1}-{2}', // 2019-06-03
+    time24SubTitle: '{0}:{1}', // 11:43
+    time12SubTitle: '{1}:{2} {0}', // 11:43 am
+    singleSubTitle: '{0} {1}', // 1 hour | 2 hours
+    // 升级相关
     firmwareUpgradeExit: 'Esci',
     firmwareUpgradeUpdate: 'Aggiorna',
     firmwareUpgradeLook: 'Guarda',
@@ -426,6 +610,32 @@ strings = getStrings({
     feedback: 'Feedback',
     timezone: 'Gerätezeitzone',
     addToDesktop: 'Zur Startseite hinzufügen',
+    // MHDatePicker
+    cancel: 'Cancel',
+    ok: 'Confirm',
+    am: 'AM',
+    pm: 'PM',
+    months: 'months',
+    days: 'days',
+    hours: 'hours',
+    minutes: 'minutes',
+    seconds: 'seconds',
+    month: 'month',
+    day: 'day',
+    hour: 'hour',
+    minute: 'minute',
+    second: 'second',
+    yearUnit: '',
+    monthUnit: '',
+    dayUnit: '',
+    hourUnit: '',
+    minuteUnit: '',
+    secondUnit: '',
+    dateSubTitle: '{0}-{1}-{2}', // 2019-06-03
+    time24SubTitle: '{0}:{1}', // 11:43
+    time12SubTitle: '{1}:{2} {0}', // 11:43 am
+    singleSubTitle: '{0} {1}', // 1 hour | 2 hours
+    // 升级相关
     firmwareUpgradeExit: 'Beenden',
     firmwareUpgradeUpdate: 'Aktualisieren',
     firmwareUpgradeLook: 'Ansehen',
@@ -456,6 +666,32 @@ strings = getStrings({
     feedback: 'Umpan balik',
     timezone: 'Zona waktu perangkat',
     addToDesktop: 'Tambahkan ke layar Beranda',
+    // MHDatePicker
+    cancel: 'Cancel',
+    ok: 'Confirm',
+    am: 'AM',
+    pm: 'PM',
+    months: 'months',
+    days: 'days',
+    hours: 'hours',
+    minutes: 'minutes',
+    seconds: 'seconds',
+    month: 'month',
+    day: 'day',
+    hour: 'hour',
+    minute: 'minute',
+    second: 'second',
+    yearUnit: '',
+    monthUnit: '',
+    dayUnit: '',
+    hourUnit: '',
+    minuteUnit: '',
+    secondUnit: '',
+    dateSubTitle: '{0}-{1}-{2}', // 2019-06-03
+    time24SubTitle: '{0}:{1}', // 11:43
+    time12SubTitle: '{1}:{2} {0}', // 11:43 am
+    singleSubTitle: '{0} {1}', // 1 hour | 2 hours
+    // 升级相关
     firmwareUpgradeExit: 'Keluar',
     firmwareUpgradeUpdate: 'Perbarui',
     firmwareUpgradeLook: 'Lihat',
@@ -486,6 +722,32 @@ strings = getStrings({
     feedback: 'Informacje zwrotne',
     timezone: 'Strefa czasowa urządzenia',
     addToDesktop: 'Dodaj do ekranu głównego',
+    // MHDatePicker
+    cancel: 'Cancel',
+    ok: 'Confirm',
+    am: 'AM',
+    pm: 'PM',
+    months: 'months',
+    days: 'days',
+    hours: 'hours',
+    minutes: 'minutes',
+    seconds: 'seconds',
+    month: 'month',
+    day: 'day',
+    hour: 'hour',
+    minute: 'minute',
+    second: 'second',
+    yearUnit: '',
+    monthUnit: '',
+    dayUnit: '',
+    hourUnit: '',
+    minuteUnit: '',
+    secondUnit: '',
+    dateSubTitle: '{0}-{1}-{2}', // 2019-06-03
+    time24SubTitle: '{0}:{1}', // 11:43
+    time12SubTitle: '{1}:{2} {0}', // 11:43 am
+    singleSubTitle: '{0} {1}', // 1 hour | 2 hours
+    // 升级相关
     firmwareUpgradeExit: 'Wyjdź',
     firmwareUpgradeUpdate: 'Aktualizuj',
     firmwareUpgradeLook: 'Przegląd',
@@ -516,6 +778,32 @@ strings = getStrings({
     feedback: 'Phản hồi',
     timezone: 'Múi giờ thiết bị',
     addToDesktop: 'Thêm vào Màn hình chính',
+    // MHDatePicker
+    cancel: 'Cancel',
+    ok: 'Confirm',
+    am: 'AM',
+    pm: 'PM',
+    months: 'months',
+    days: 'days',
+    hours: 'hours',
+    minutes: 'minutes',
+    seconds: 'seconds',
+    month: 'month',
+    day: 'day',
+    hour: 'hour',
+    minute: 'minute',
+    second: 'second',
+    yearUnit: '',
+    monthUnit: '',
+    dayUnit: '',
+    hourUnit: '',
+    minuteUnit: '',
+    secondUnit: '',
+    dateSubTitle: '{0}-{1}-{2}', // 2019-06-03
+    time24SubTitle: '{0}:{1}', // 11:43
+    time12SubTitle: '{1}:{2} {0}', // 11:43 am
+    singleSubTitle: '{0} {1}', // 1 hour | 2 hours
+    // 升级相关
     firmwareUpgradeExit: 'Thoát',
     firmwareUpgradeUpdate: 'Cập nhật',
     firmwareUpgradeLook: 'Xem xét',
@@ -546,6 +834,32 @@ strings = getStrings({
     feedback: 'フィードバック',
     timezone: 'デバイスタイムゾーン',
     addToDesktop: 'ホーム画面に追加する',
+    // MHDatePicker
+    cancel: 'Cancel',
+    ok: 'Confirm',
+    am: 'AM',
+    pm: 'PM',
+    months: 'months',
+    days: 'days',
+    hours: 'hours',
+    minutes: 'minutes',
+    seconds: 'seconds',
+    month: 'month',
+    day: 'day',
+    hour: 'hour',
+    minute: 'minute',
+    second: 'second',
+    yearUnit: '',
+    monthUnit: '',
+    dayUnit: '',
+    hourUnit: '',
+    minuteUnit: '',
+    secondUnit: '',
+    dateSubTitle: '{0}-{1}-{2}', // 2019-06-03
+    time24SubTitle: '{0}:{1}', // 11:43
+    time12SubTitle: '{1}:{2} {0}', // 11:43 am
+    singleSubTitle: '{0} {1}', // 1 hour | 2 hours
+    // 升级相关
     firmwareUpgradeExit: '終了',
     firmwareUpgradeUpdate: '更新',
     firmwareUpgradeLook: '調べる',
@@ -576,6 +890,32 @@ strings = getStrings({
     feedback: 'คำติชม',
     timezone: 'โซนเวลาของอุปกรณ์',
     addToDesktop: 'เพิ่มไปยังหน้าโฮม',
+    // MHDatePicker
+    cancel: 'Cancel',
+    ok: 'Confirm',
+    am: 'AM',
+    pm: 'PM',
+    months: 'months',
+    days: 'days',
+    hours: 'hours',
+    minutes: 'minutes',
+    seconds: 'seconds',
+    month: 'month',
+    day: 'day',
+    hour: 'hour',
+    minute: 'minute',
+    second: 'second',
+    yearUnit: '',
+    monthUnit: '',
+    dayUnit: '',
+    hourUnit: '',
+    minuteUnit: '',
+    secondUnit: '',
+    dateSubTitle: '{0}-{1}-{2}', // 2019-06-03
+    time24SubTitle: '{0}:{1}', // 11:43
+    time12SubTitle: '{1}:{2} {0}', // 11:43 am
+    singleSubTitle: '{0} {1}', // 1 hour | 2 hours
+    // 升级相关
     firmwareUpgradeExit: 'ออก',
     firmwareUpgradeUpdate: 'อัปเดต',
     firmwareUpgradeLook: 'ลองดู',
