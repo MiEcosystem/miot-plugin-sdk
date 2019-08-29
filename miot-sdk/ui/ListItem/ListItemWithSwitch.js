@@ -11,7 +11,8 @@ const PADDING = 24;
 /**
  * @export public
  * @doc_name 列表控件
- * @doc_index 24
+ * @doc_index 2
+ * @doc_directory ui
  * @author Geeook
  * @since 10004
  * @module ListItemWithSwitch

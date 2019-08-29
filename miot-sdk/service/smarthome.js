@@ -1,11 +1,13 @@
 /**
  * @export public
- * @doc_name 系统服务_智能家庭模块
- * @doc_index 20
+ * @doc_name 智能家庭模块
+ * @doc_index 5
+ * @doc_directory service
  * @module miot/service/smarthome
  * @description 智能家庭 API
  *
  */
+import native from "../native";
 import Host from "../Host";
 /**
  * 成员类型

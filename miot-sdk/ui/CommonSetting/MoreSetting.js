@@ -50,6 +50,7 @@ export default class MoreSetting extends React.Component {
     };
   };
   getMoreSetting(state) {
+    const sync_device = !!this.props.navigation.state.params.syncDevice;
     return {
       [secondAllOptions.SECURITY]: {
         title: strings.security,
@@ -62,7 +63,7 @@ export default class MoreSetting extends React.Component {
       [secondAllOptions.TIMEZONE]: {
         title: strings.timezone,
         value: state.timeZone,
-        onPress: _ => Host.ui.openDeviceTimeZoneSettingPage()
+        onPress: _ => Host.ui.openDeviceTimeZoneSettingPage({ sync_device })
       },
       [secondAllOptions.ADD_TO_DESKTOP]: {
         title: strings.addToDesktop,

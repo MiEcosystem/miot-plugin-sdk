@@ -63,7 +63,8 @@ export default class Setting extends React.Component {
         agreementURL: require('../../Resources/raw/license_zh.html'),
         experiencePlanURL: '',
         hideAgreement: true
-      }
+      },
+      syncDevice: true,
     }
     return (
       <View style={styles.container}>

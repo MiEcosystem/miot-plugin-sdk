@@ -1,7 +1,8 @@
 /**
  * @export public
  * @doc_name 常用UI组件
- * @doc_index 23
+ * @doc_index 1
+ * @doc_directory ui
  * @since 10020
  * @module miot/ui/StringSpinner
  * @description 字符串选择器,兼容NumberSpinner（支持NumberSpinner的所有属性）

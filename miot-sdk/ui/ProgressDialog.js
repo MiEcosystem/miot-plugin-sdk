@@ -1,7 +1,8 @@
 /**
  * @export public
  * @doc_name 常用UI组件
- * @doc_index 23
+ * @doc_index 1
+ * @doc_directory ui
  * @module miot/ui/ProgressDialog
  * @description 进度对话框，当进度到达max设置之后自动消失
  * 
@@ -14,12 +15,9 @@
  * @property {func} onDismiss 对话框消失回调
  * @property {number} timeout 超时自动隐藏，设置0或者不设置不会自动隐藏
  */
-import React, { Component } from 'react';
-import {
-  requireNativeComponent,
-  ViewPropTypes,
-} from 'react-native';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { requireNativeComponent, ViewPropTypes } from 'react-native';
 export default class ProgressDialog extends Component {
   static propTypes = {
     visible: PropTypes.bool,

@@ -1,7 +1,8 @@
 /**
  * @export public
  * @doc_name 原生模块
- * @doc_index 7
+ * @doc_index 1
+ * @doc_directory host
  * @module miot/Host
  * @description 
  * 扩展程序运行时的宿主环境  

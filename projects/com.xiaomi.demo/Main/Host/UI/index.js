@@ -168,6 +168,15 @@ export default class UIDemo extends React.Component {
                 'func': () => {
                     Host.ui.openShopSearchPage('小米台灯'); // 小米台灯
                 }
+            }, {
+                'name': '刷新设备列表',
+                'func': () => {
+                    Host.ui.refreshDeviceList().then((res)=>{
+                      alert(JSON.stringify(res))
+                    }).catch((error)=>{
+                      alert(JSON.stringify(error))
+                    })
+                }
             }
         ];
     }

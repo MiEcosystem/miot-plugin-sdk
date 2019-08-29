@@ -1,7 +1,8 @@
 /**
  * @export public
  * @doc_name 常用UI组件
- * @doc_index 23
+ * @doc_index 1
+ * @doc_directory ui
  * @module miot/ui/MessageDialog
  * @description 消息对话框
  * @property {bool} visible 是否可见
@@ -14,12 +15,9 @@
  * @property {func} onCancel 取消点击回调
  * @property {func} onDismiss 对话框消失回调
  */
-import React, { Component } from 'react';
-import {
-  requireNativeComponent,
-  ViewPropTypes,
-} from 'react-native';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { requireNativeComponent, ViewPropTypes } from 'react-native';
 export default class MessageDialog extends Component {
   static defaultProps = {
     title: '',

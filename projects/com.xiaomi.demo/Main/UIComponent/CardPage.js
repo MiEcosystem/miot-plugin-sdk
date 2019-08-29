@@ -35,6 +35,8 @@ export default class CardPage extends React.Component {
       visible5,
       text1: visible5 ? '隐藏👇' : '显示👇',
       value: false,
+      isOrangeLogo: false,
+      picture: Images.common.mihome
     };
   }
 
@@ -66,7 +68,30 @@ export default class CardPage extends React.Component {
     );
   }
 
+  //切换图片
+  changePic = () => {
+    if (this.state.isOrangeLogo) {
+      //当前是橙色图片，变为绿色
+      this.setState(state => {
+        return {
+          picture: Images.common.mihome,
+          isOrangeLogo: !state.isOrangeLogo
+        }
+      });
+    } else {
+      //当前是绿色图片，变为橙色
+      this.setState(state => {
+        return {
+          picture: require("miot/resources/images/logo.png"),
+          isOrangeLogo: !state.isOrangeLogo
+        }
+      });
+    }
+  }
+
   render() {
+    let { picture } = this.state;
+
     return (
       <View style={styles.container}>
         <Separator style={{ height: 0.75 }} />
@@ -80,6 +105,12 @@ export default class CardPage extends React.Component {
               visible={this.state.visible1}
               dismiss={_ => this.setState({ visible1: false })}
               cardStyle={{ marginBottom: 50, }}
+            />
+            <Card
+              icon={picture}
+              text="点击卡片，切换图片"
+              cardStyle={{ marginBottom: 50, }}
+              onPress={this.changePic}
             />
             <Card
               text="没有图标，没有阴影，只有文字"

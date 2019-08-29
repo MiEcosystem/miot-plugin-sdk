@@ -1,7 +1,8 @@
 /**
  * @export public
  * @doc_name 系统服务模块
- * @doc_index 9
+ * @doc_index 1
+ * @doc_directory service
  * @module miot/Service
  * @description 系统服务模块，提供了设备，红外，场景，安全，存储，miot-spec协议，账号等子服务模块
  * @example
@@ -29,6 +30,7 @@
  */
 import Account from './Account';
 import native, { Properties } from './native';
+import apiRepo from './service/apiRepo';
 import IrController from './service/ircontroller';
 import MHRoom from './service/room';
 import Scene from './service/scene';
@@ -37,7 +39,6 @@ import Smarthome from './service/smarthome';
 import Spec from './service/spec';
 import Storage from './service/storage';
 import TJInfra from './service/tjinfra';
-import apiRepo from './service/apiRepo';
  const CurrentAccount = null;
 export default {
   /**
