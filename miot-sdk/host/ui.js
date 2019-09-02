@@ -528,6 +528,12 @@ export default {
   openZigbeeConnectDeviceList(did) {
   },
   /**
+   * 打开设备网络信息页面，米家已提供入口：设置 - 更多设置 - 网络信息。此方法只针对wifi设备，combo设备，蓝牙设备请不要调用此方法。
+   * @since 10026
+   */
+  openDeviceNetworkInfoPage() {
+  },
+  /**
    * android 特有， 跳转到小米钱包
    * @param params
    * @return {Promise}
