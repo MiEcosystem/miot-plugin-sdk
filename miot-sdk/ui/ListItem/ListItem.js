@@ -76,7 +76,7 @@ export default class ListItem extends React.Component {
       }
     }
     let extraRightStyle = {
-      flex: 2,
+      flex: 0,
     }
     if (this.props.value) {
       extraRightStyle.flex = 8;
