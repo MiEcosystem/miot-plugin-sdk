@@ -100,7 +100,6 @@ const API_REPO = {
   '/user/set_user_config': {},
   '/user/set_third_user_config': {},
   '/v2/device/multi_button_template': {},
-  '/device/deviceinfo': {},
-  '/v2/third/synccall': {}
+  '/device/deviceinfo': {}
 }
 export default API_REPO;
