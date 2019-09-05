@@ -223,10 +223,11 @@ export class IDeviceWifi {
      * 同 callMethod 函数 不在同一个 wifi 下的情况
      * @param {string} method  方法名
      * @param {json} args 参数
-     * @return {Promise<json>} 请求成功返回 {code:0,result:{} }
+     * @param {json} extraPayload  (API Level 10027新增)额外参数，根据设备需求设定。在payload数据中设置额外参数
+     * @return {Promise<json>} 请求成功返回 {code:0,result:{} }   
      *
      */
-    callMethodFromCloud(method, args) {
+    callMethodFromCloud(method, args, extraPayload = {}) {
          return Promise.resolve({});
     }
     /**
@@ -234,10 +235,11 @@ export class IDeviceWifi {
      * 同 callMethod 函数在同一个 wifi 下的情况
      * @param {string} method  方法名
      * @param {json} args 参数
+     * @param {json} extraPayload  (API Level 10027新增)额外参数，根据设备需求设定。在payload数据中设置额外参数
      * @return {Promise<json>} 请求成功返回 {code:0,result:{} }
      *
      */
-    callMethodFromLocal(method, args) {
+    callMethodFromLocal(method, args, extraPayload = {}) {
          return Promise.resolve({});
     }
     /**
