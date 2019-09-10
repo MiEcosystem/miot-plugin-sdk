@@ -8,7 +8,6 @@
  *
  */
 import native from "../native";
-import Host from "../Host";
 /**
  * 成员类型
  * @namespace MemberType

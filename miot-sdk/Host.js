@@ -128,7 +128,7 @@ export default {
      * @readonly
      */
     get appConfigEnv() {
-       return  true
+         return  true
     },
     /**
      * @const
