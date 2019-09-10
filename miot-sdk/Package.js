@@ -141,16 +141,16 @@ export default {
     get entrance() {
          return  Entrance.Main
     },
-  /**
-   * 入口类型参数, Host.ui.openPluginPage(did, pageName, pageParams) 中 pageParams的值
-   * @const
-   * @type {object}
-   * @readonly
-   *
-   */
-  get pageParams() {
-     return  {}
-  },
+    /**
+     * 入口类型参数, Host.ui.openPluginPage(did, pageName, pageParams) 中 pageParams的值
+     * @const
+     * @type {object}
+     * @readonly
+     *
+     */
+    get pageParams() {
+         return  {}
+    },
     /**
      * 打开rn插件时，从native传递到RN的初始化数据信息
      * @const
