@@ -4,8 +4,8 @@
  * @doc_index 1
  * @doc_directory host
  * @module miot/Host
- * @description 
- * 扩展程序运行时的宿主环境  
+ * @description
+ * 扩展程序运行时的宿主环境
  * 所有由宿主APP直接提供给扩展程序的接口均列在这里. 主要包括原生业务页面, 本地数据访问等
  *
  * @example
@@ -60,8 +60,8 @@ export default {
          return  "..."
     },
     /**
-     * @const 
-     * @type {object} 
+     * @const
+     * @type {object}
      * @description 系统信息 包含sysVersion 系统版本名称 mobileModel 手机型号
      */
     get systemInfo() {
@@ -220,7 +220,7 @@ export default {
      * @typedef IExecutor
      * @since 10002
      * @property {boolean} isReady  - 是否可用
-     * @property {boolean} isRunning - 是否运行中 
+     * @property {boolean} isRunning - 是否运行中
      * @property {*} execute(method, ...args) - 执行某个函数
      * @property {} remove() - 删除
      *
@@ -230,9 +230,9 @@ export default {
      * @since 10002
      * @param {*} jx - 可执行的纯 js 文件, 不使用任何高级语法, 如要使用 es6, 请自行编译通过.
      * @param {json} initialProps - 用于脚本初始化的数据, 在jx文件中为 'initialProps' 对象，使用方法参考样例 或者sampleProject中 ‘com.xiaomi.demo/Main/tutorial/JSExecutor.js’
-     * @returns {Promise<IExecutor>} 
+     * @returns {Promise<IExecutor>}
      * @example
-     * 
+     *
      * var myexecutor = null;
      * Host.createBackgroundExecutor(require('./test.jx'), {name1:"testName"})
      *      .then(executor=>{
@@ -263,4 +263,13 @@ export default {
     phoneHasNfcForAndroid() {
          return Promise.resolve(null);
     },
+  /**
+   * 页面有输入框，需要打开软键盘，页面适配软键盘
+   * @since 10027
+   * @param {boolean} shouldAdapter  true: 表示进行适配,建议UI用ScrollView包裹起来，当输入框在屏幕的下半部分时，只会触发ScrollView滚动; false： 整个页面滚动, demo可参考SoftKeyboardAdapterTestDemo.js
+   * @returns {Promise}
+   */
+  pageShouldAdapterSoftKeyboard(shouldAdapter) {
+     return Promise.resolve(null);
+  },
 }

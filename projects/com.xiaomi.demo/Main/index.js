@@ -133,6 +133,7 @@ import SwitchDemo from "./UIComponent/SwitchDemo";
 import ToastExample from "./UIComponent/ToastExample";
 // import BLEConnectionDemo from './tutorial/operation/bluetooth/BLEConnectionDemo';
 import UIDemo from './UIComponent/UIDemo';
+import SoftKeyboardAdapterTestDemo from './UIComponent/SoftKeyboardAdapterTestDemo';
 import CustomContainer from './uikit/components/CustomContainer';
 import * as Screens from "./uikit/screens";
 import MHSetting from './unuse/MHSetting';
@@ -193,6 +194,7 @@ function createRootStack(initPage) {
 
       UIDemo: UIDemo,
       MiotAndroidScrollViewDemo: MiotAndroidScrollViewDemo,
+      SoftKeyboardAdapterTestDemo: SoftKeyboardAdapterTestDemo,
       RefreshListView: RefreshListView,
       NumberSpinnerDemo: NumberSpinnerDemo,
       StringSpinnerDemo: StringSpinnerDemo,
