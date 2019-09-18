@@ -6,14 +6,14 @@
  * @module miot/service/security
  * @description 安全相关服务
  * @example
- *  
+ *
  * import {Service} from 'miot'
- * 
+ *
  * Service.security.shareSecureKey(deviceID, shareUid, {})
  *  .then(secureKey=>{
  *     ...
  *  })
- * 
+ *
  * Service.security.loadSecureKeys(deviceID).then(secureKeys=>{
  *    if(secureKeys.length > 0){
  *       const key = secureKeys[0];
@@ -21,7 +21,7 @@
  *       key.save().then(key=>{...})
  *    }
  * })
- * 
+ *
  */
 /**
  * 安全锁
@@ -123,12 +123,13 @@ export default {
          return Promise.resolve([]);
     },
     /**
-     * 分享 /share/bluetoothkeyshare
+     * 分享蓝牙锁的钥匙 /share/bluetoothkeyshare
+     * 锁固件版本在 2.0.0 及以上， 不支持钥匙的分享
      * @param deviceID 被分享设备ID
      * @param shareUid 被分享人
      * @param {{status,activeTime,expireTime,weekdays,readonly}} [settings={}] readonly = true, 则被分享人不可接收锁push，false则被分享人可接收锁push，（family关系用户不受这个字段影响）。status:分享类别，1：暂时，2：周期，3：永久; weekdays 生效日期（星期几，例如周一和周三对应1和3，[1, 3]），仅在status=2时不可为空
      * @returns {Promise<ISecureKey>}
-     * 
+     *
      */
     shareSecureKey(deviceID, shareUid, settings = {}) {
          return Promise.resolve(null);
