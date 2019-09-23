@@ -352,7 +352,7 @@ export default {
      * @param {string} params.time_start 数据起点。必选参数
      * @param {string} params.time_end 数据终点。必选参数，time_end必须大于time_start,
      * @param {string} params.group 返回数据的方式，默认raw,可选值为hour、day、week、month。可选参数.
-     * @param {string} params.limit 返回数据的条数，默认20，最大1000。可选参数.
+     * @param {string} params.limit 返回数据的条数，默认20，最大1000。建议不要设置limit，一次拉20条，分页来拉取。可选参数.
      * @returns {Promise}
      */
     getDeviceData(params) {
