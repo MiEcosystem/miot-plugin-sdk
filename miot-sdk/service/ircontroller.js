@@ -12,7 +12,7 @@ export default {
      * @param {json} params {parent_id:string}
      * @return {Promise<json>}
      */
-    getList(params){
+    getList(params) {
          return Promise.resolve(null);
     },
     /**
@@ -21,7 +21,7 @@ export default {
      * @param {json} params {}
      * @return {Promise<json>}
      */
-    getCategories(params){
+    getCategories(params) {
          return Promise.resolve(null);
     },
     /**
@@ -30,7 +30,7 @@ export default {
      * @param {json} params {province:string,city:string,area:string}
      * @return {Promise<json>}
      */
-    queryArea(params){
+    queryArea(params) {
          return Promise.resolve(null);
     },
     /**
@@ -39,7 +39,7 @@ export default {
      * @param {json} params {area_id:int}
      * @return {Promise<json>}
      */
-    getLineups(params){
+    getLineups(params) {
          return Promise.resolve(null);
     },
     /**
@@ -48,7 +48,7 @@ export default {
      * @param {json} params {province_id: int}
      * @return {Promise<json>}
      */
-    getCities(params){
+    getCities(params) {
          return Promise.resolve(null);
     },
     /**
@@ -57,7 +57,7 @@ export default {
      * @param {json} params {}
      * @return {Promise<json>}
      */
-    getProvinces(params){
+    getProvinces(params) {
          return Promise.resolve(null);
     },
     /**
@@ -66,7 +66,7 @@ export default {
      * @param {json} params {city_id: int}
      * @return {Promise<json>}
      */
-    getAreas(params){
+    getAreas(params) {
          return Promise.resolve(null);
     },
     /**
@@ -75,7 +75,7 @@ export default {
      * @param {json} params {province_id: int}
      * @return {Promise<json>}
      */
-    getIPTVBrands(params){
+    getIPTVBrands(params) {
          return Promise.resolve(null);
     },
     /**
@@ -84,7 +84,7 @@ export default {
      * @param {json} params {category: int}
      * @return {Promise<json>}
      */
-    getBrands(params){
+    getBrands(params) {
          return Promise.resolve(null);
     },
     /**
@@ -93,7 +93,7 @@ export default {
      * @param {json} params {name:string,parent_id:string,category:int,controller_id(选填):int,lineup_id(选填):string}
      * @return {Promise<json>}
      */
-    controllerAdd(params){
+    controllerAdd(params) {
          return Promise.resolve(null);
     },
     /**
@@ -102,7 +102,7 @@ export default {
      * @param {json} params {keys:[{code:string,key_id(选填):int,name(选填):string}]}
      * @return {Promise<json>}
      */
-    setKeys(params){
+    setKeys(params) {
          return Promise.resolve(null);
     },
     /**
@@ -111,7 +111,7 @@ export default {
      * @param {json} params {did:string,controller_id:int,key_id(选填):int,ac_key(选填):string}
      * @return {Promise<json>}
      */
-    sendKey(params){
+    sendKey(params) {
          return Promise.resolve(null);
     },
     /**
@@ -120,7 +120,7 @@ export default {
      * @param {json} params {did:string}
      * @return {Promise<json>}
      */
-    controllerDel(params){
+    controllerDel(params) {
          return Promise.resolve(null);
     },
     /**
@@ -129,7 +129,7 @@ export default {
      * @param {json} params {did:string,keys:[{code:string,name:string,key_id:int}]}
      * @return {Promise<json>}
      */
-    controllerUpdate(params){
+    controllerUpdate(params) {
          return Promise.resolve(null);
     },
     /**
@@ -138,7 +138,7 @@ export default {
      * @param {json} params {did:string}
      * @return {Promise<json>}
      */
-    getKeys(params){
+    getKeys(params) {
          return Promise.resolve(null);
     },
     /**
@@ -147,7 +147,7 @@ export default {
      * @param {json} params {did:string,name:string}
      * @return {Promise<json>}
      */
-    keyUpdate(params){
+    keyUpdate(params) {
          return Promise.resolve(null);
     },
     /**
@@ -156,7 +156,7 @@ export default {
      * @param {json} params {did:string,key_id:string}
      * @return {Promise<json>}
      */
-    keyDel(params){
+    keyDel(params) {
          return Promise.resolve(null);
     },
     /**
@@ -165,7 +165,43 @@ export default {
      * @param {json} params {controller_id:int,did:string,key_id:int}
      * @return {Promise<json>}
      */
-    keyClick(params){
+    keyClick(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     *   获取有状态红外码
+     *  - /v2/ircode/controller/functions
+     * @param {json} params {controller_id:int}
+     * @return {Promise<json>}
+     */
+    getIrCodeFunctions(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     *   获取无状态红外码
+     *  - /v2/ircode/controller/keys
+     * @param {json} params {controller_id:int}
+     * @return {Promise<json>}
+     */
+    getIrCodeKeys(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 获取遥控器信息
+     * - /v2/irdevice/controller/info
+     * @param {json} params {did:string}
+     * @return {Promise<json>}
+     */
+    getIrCodeInfo(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 获取遥控器品牌名
+     * - /v2/ircode/brand
+     * @param {json} params {brand_id:int}
+     * @return {Promise<json>}
+     */
+    getIrCodeBrand(params) {
          return Promise.resolve(null);
     },
 }

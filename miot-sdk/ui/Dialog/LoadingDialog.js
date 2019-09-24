@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
   },
   message: {
     marginLeft: 15 + 20,
+    flex: 1,
     fontSize: 15,
     color: 'rgba(0,0,0,0.8)',
   }

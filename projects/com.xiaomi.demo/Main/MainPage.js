@@ -1,6 +1,6 @@
 'use strict';
 
-import { Device, Package, Host } from "miot";
+import {Device, Package, Host, Entrance} from "miot";
 import TitleBar from "miot/ui/TitleBar";
 import React from 'react';
 import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
@@ -114,6 +114,13 @@ export default class MainPage extends React.Component {
         <ListView style={styles.list} dataSource={this.state.dataSource} renderRow={this._renderRow.bind(this)} />
       </View>
     );
+  }
+
+  componentDidMount() {
+    console.log("MainPage  componentDidMount...")
+    if(Package.pageParams.isBackToMainPage && Package.entrance !== Entrance.Main){
+      this.props.navigation.navigate(Package.entrance)
+    }
   }
 
   _renderRow(rowData, sectionID, rowID) {

@@ -17,7 +17,9 @@
  */
 import { Device } from "../index";
 import native from "../native";
+import { Entrance } from "../Package";
 import Service from "../Service";
+
 const resolveAssetSource = require('resolveAssetSource');
 export default {
   /**
@@ -443,6 +445,33 @@ export default {
      return Promise.resolve(null);
   },
   /**
+   * 打开用户账号下某一设备的插件,可支持跳转到插件的某一页面
+   * 至于跳转到哪个页面，**需要插件方做支持**，示例可以参考com.xiaomi.demo 中 Host.ui.openPluginPage 的使用
+   * 整体流程如下：
+   * 插件调用此方法openPluginPage
+   *      ⬇  ️
+   * 将参数传到native
+   *      ⬇
+   * native调用打开插件的方法，带上此处传递的参数
+   *      ⬇
+   * native打开RN页面，将参数传递到Package.js
+   *      ⬇
+   * 支持打开内部页面的插件，通过Package.entrance获取将要跳转到哪个页面，通过Package.pageParams获取此页面需要的页面参数
+   *      ⬇
+   * 打开插件对应页面，注意：如果isBackToMainPage为true，则需要在你的插件首页的componentDidMount中，增加跳转逻辑，反之，则应该在index.js中控制入口界面。详细使用请参考Demo中 openPluginPage、Package.entrance、Package.pageParams三个方法的使用
+   *
+   * @since 10026
+   * @param {string} did  设备的did
+   * @param {string} pageName  将打开插件的某一页面, 此参数将会赋值给 Package.entrance, 默认为 Entrance.Main
+   * @param {object} pageParams  将打开插件的某一页面的参数，此参数将会赋值给 Package.entranceParams， 默认为空
+   * @param {boolean} [pageParams.isBackToMainPage = true] 打开的插件页面按返回，是否需要返回到插件首页
+   * @example
+   * let pageParams = {did:Device.deviceID,model:Device.model}
+   * Host.ui.openPluginPage(Device.deviceID, PluginEntrance.Setting, pageParams)
+   */
+  openPluginPage(did, pageName = Entrance.Main, pageParams = { isBackToMainPage: true }) {
+  },
+  /**
    * 打开一个原生类 className ，界面类类名 注意 用此方法打开的vc初始化时不需要传参数，
    * 需要传参的viewController暂时还需要手动导出
    * @param {string} className 类的名字
@@ -499,6 +528,12 @@ export default {
    * @param {string} did 网关设备did
    */
   openZigbeeConnectDeviceList(did) {
+  },
+  /**
+   * 打开设备网络信息页面，米家已提供入口：设置 - 更多设置 - 网络信息。此方法只针对wifi设备，combo设备，蓝牙设备请不要调用此方法。
+   * @since 10026
+   */
+  openDeviceNetworkInfoPage() {
   },
   /**
    * android 特有， 跳转到小米钱包

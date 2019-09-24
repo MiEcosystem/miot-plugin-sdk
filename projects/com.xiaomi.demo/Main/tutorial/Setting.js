@@ -1,5 +1,6 @@
 'use strict';
 
+import { Entrance, Package } from "miot";
 import { strings, Styles } from 'miot/resources';
 import { CommonSetting, SETTING_KEYS } from "miot/ui/CommonSetting";
 import { firstAllOptions, secondAllOptions } from "miot/ui/CommonSetting/CommonSetting";
@@ -20,7 +21,15 @@ export default class Setting extends React.Component {
           type='dark'
           title={strings.setting}
           style={{ backgroundColor: '#fff' }}
-          onPressLeft={_ => navigation.goBack()}
+          onPressLeft={() => {
+            if (Package.entrance !== Entrance.Main && !Package.pageParams.isBackToMainPage) {
+              // 如果是通过Host.ui.openPluginPage 跳转到此页面，且不需要返回到插件首页，则直接调用退出插件api
+              Package.exit();
+            } else {
+              navigation.goBack();
+            }
+          }
+          }
         />
     };
   };
@@ -65,6 +74,7 @@ export default class Setting extends React.Component {
         hideAgreement: true
       },
       syncDevice: true,
+      // networkInfoConfig: -1,
     }
     return (
       <View style={styles.container}>

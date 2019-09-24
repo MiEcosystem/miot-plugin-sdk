@@ -26,6 +26,7 @@ const secondSharedOptions = {
   [secondAllOptions.USER_EXPERIENCE_PROGRAM]: 1,
 };
 const { second_options } = SETTING_KEYS;
+const NETWORK_INFO = 'networkInfo'; // 「网络信息」设置项的 key
 /**
  * @export
  * @author Geeook
@@ -52,6 +53,10 @@ export default class MoreSetting extends React.Component {
   getMoreSetting(state) {
     const sync_device = !!this.props.navigation.state.params.syncDevice;
     return {
+      [NETWORK_INFO]: {
+        title: strings.networkInfo,
+        onPress: _ => Host.ui.openDeviceNetworkInfoPage()
+      },
       [secondAllOptions.SECURITY]: {
         title: strings.security,
         onPress: _ => Host.ui.openSecuritySetting()
@@ -103,6 +108,17 @@ export default class MoreSetting extends React.Component {
   }
   render() {
     const requireKeys1 = [secondAllOptions.SECURITY, secondAllOptions.FEEDBACK];
+    // 判断是否显示「网络信息」
+    // 1 显示
+    // 0 不显示
+    // -1 默认配置: wifi 设备显示，其余不显示
+    const networkInfoConfig = this.props.navigation.state.params.networkInfoConfig;
+    if (networkInfoConfig === 1) requireKeys1.unshift(NETWORK_INFO);
+    else if (networkInfoConfig === -1 || networkInfoConfig === undefined) {
+      if (['0', '8'].includes(Device.type)) { // 0 wifi 设备 8 双模设备
+        requireKeys1.unshift(NETWORK_INFO);
+      }
+    }
     const requireKeys2 = [secondAllOptions.ADD_TO_DESKTOP];
     let options = this.secondOptions.filter(key => key && Object.values(second_options).includes(key)); // 去掉杂质
     options = [...new Set(options)]; // 去除重复

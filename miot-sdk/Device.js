@@ -290,7 +290,7 @@ export class IDeviceWifi {
      * })
      * .catch(() => console.log('subscribe failed'))
      * ...
-     * 
+     *
      * ...
      * //unsubscribe the props
      * msgSubscription&&msgSubscription.remove();
@@ -359,20 +359,6 @@ export class IDeviceWifi {
  * ...
  */
 class IDevice {
-    /**
-     * 是否有固件更新，为了显示小红点
-     * @type {boolean}
-     */
-    get needUpgrade() {
-         return  0
-    }
-    /**
-     * 是否有固件更新，为了显示小红点
-     * @type {boolean}
-     */
-    set needUpgrade(value) {
-        Properties.of(this).needUpgrade = value;
-    }
     /**
      *获取设备 id，每一个真实设备都有一个唯一的 id
      * @type {string}
@@ -499,17 +485,17 @@ class IDevice {
          return Promise.resolve([]);
     }
     /**
-     * 获取小米BLE蓝牙控制类, 
-     * 注意: 在 iOS 平台上, 如果没有指定peripheralID, 则须先执行Bluetooth.scan(), 
+     * 获取小米BLE蓝牙控制类,
+     * 注意: 在 iOS 平台上, 如果没有指定peripheralID, 则须先执行Bluetooth.scan(),
      * 扫描到与device.mac匹配的蓝牙设备之后才能 connect 成功, 否则将不能成功执行后来的所有操作.
      * @method
      * @param {string} peripheralID -- iOS平台上可以直接指定与设备 mac 匹配的peripheralID, android 平台不需要此参数
      * @returns {IBluetoothLE}
      * @see {@link module:miot/Bluetooth}
      * @example
-     * 
+     *
      * const peripheralUUID4IOS = ...;
-     * 
+     *
      * Device.getBluetoothLE(peripheralUUID4IOS).connect()
      * .then(ble=>{
      *      ble....
@@ -517,7 +503,7 @@ class IDevice {
      * .catch(error=>{
      *
      * })
-     * 
+     *
      *
      */
     getBluetoothLE(peripheralID = null) {
@@ -925,7 +911,7 @@ class IDevice {
      * @since 10023
      * @returns {Promise}
      * @example
-     * 
+     *
      * //首先屏蔽默认弹窗
      * Package.disableAutoCheckUpgrade = true;
      * //....

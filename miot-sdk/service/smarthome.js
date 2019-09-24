@@ -8,7 +8,7 @@
  *
  */
 import native from "../native";
-import Host from "../Host";
+
 /**
  * 成员类型
  * @namespace MemberType
@@ -44,7 +44,7 @@ export default {
     /**
      * 通过UID批量获取用户信息
      * @since 10005
-     * @param {Array<string>} uids uid数组，仅支持uid，不支持手机号查询 
+     * @param {Array<string>} uids uid数组，仅支持uid，不支持手机号查询
      * @return {Promise<Array<object>>}
      * @example
      * Service.smarthome.getUserInfoList([uid1,uid2]).then(res => {
@@ -75,7 +75,7 @@ export default {
      * Host.locale.getLocation().then(res => {
      *  console.log('get location: ', res)
      *  var {longitude,latitude} = res;
-     * }) 
+     * })
      * if (latitude && longitude) {
      *  Service.smarthome.reportGPSInfo(Device.deviceID, {})
      * }
@@ -148,8 +148,8 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 添加一条日志打点。  
-     * 开发者应该在拓展程序内合适时机调用该接口，打点信息会自动写入文件，按 Model 归类，即一个 Model 生成一个日志文件。  
+     * 添加一条日志打点。
+     * 开发者应该在拓展程序内合适时机调用该接口，打点信息会自动写入文件，按 Model 归类，即一个 Model 生成一个日志文件。
      * 当用户反馈问题时，勾选 “同时上传日志”，则该 Model 的日志会跟随用户反馈上传，
      * 开发者可在 IoT 平台查看用户反馈及下载对应日志文件。用户反馈查看入口：数据中心—用户反馈，如果看不到数据中心入口，联系自己所属企业管理员修改账号权限。
      * @param {string} model 要打 log 到哪个 model 下
@@ -209,7 +209,7 @@ export default {
     /**
      * 获取设备时区
      * @deprecated 10005, 内部取用extra_Data 中设置的数据，建议自行在batchSetDeviceData中实现
-     * @param {string} did 
+     * @param {string} did
      */
     getDeviceTimeZone(did) {
          return Promise.resolve(null);
@@ -218,7 +218,7 @@ export default {
      * 提供返回设备数据统计服务，使用该接口需要配置产品model以支持使用，建议找对接的产品人员进行操作。
      * 图表📈统计接口 /v2/user/statistics
      * 注:由于sds限额问题，可能会出现一次拉不到或者拉不完数据的情况，会返回code:0和message:“sds throttle”
-     * @param {object} params 
+     * @param {object} params
      * @param {string} params.did did
      * @param {string} params.data_type 数据类型 包括： 采样统计 日统计:stat_day_v3 / 周统计:stat_week_v3 / 月统计:stat_month_v3;
      * @param {string} params.key 需要统计的字段，即统计上报对应的key
@@ -293,7 +293,7 @@ export default {
     /**
      * 获取服务器中 device 对应的数据，内部调用米家代理接口 /v2/device/getsettingv2
      * @since 10010
-     * @param {object} params 
+     * @param {object} params
      * @param {string} params.did   设备did
      * @param {string} params.last_id   上一次请求返回的id，用于分页
      * @param {string} params.prefix_filter filter
@@ -377,7 +377,7 @@ export default {
      * /v2/user/get_user_device_log
      * @since 10004
      * @param {object} params 参数
-     * @param {string} params.did 
+     * @param {string} params.did
      * @param {number} params.limit         目前最大为50
      * @param {number} params.time_start    开始时间
      * @param {number} params.time_end      结束时间
@@ -478,7 +478,7 @@ export default {
      * 默认获取的是release版数据， 如果需要获取preview版数据， 可以在米家APP中 我的-->开发者设置-->其他设置的界面中 “AppConfig接口拉取preview版数据”  置为选中状态
      * @param {object} params 请求参数
      * @param {string} params.name configName 配置的名字
-     * @param {string} params.lang lang 可选: zh_CN、zh_TW、en，zh-hant，一般请使用zh_CN和en	
+     * @param {string} params.lang lang 可选: zh_CN、zh_TW、en，zh-hant，一般请使用zh_CN和en
      * @param {string} params.result_level  正常传"0"，若传“1”，则会提供一个downloadurl，而不是直接返回content，以节省流量。取得downloadurl后，通过Host.file.downloadFile下载文件，然后使用
      * @param {string} params.version version 后台配置的version，大概率为"1"，如果不对，可以找米家工程师帮忙查询，查询地址：http://plato.io.mi.srv/#/appconfig/client
      */
@@ -516,25 +516,25 @@ export default {
     /**
      * 获取设备的属性，属性设置会在设备被删除时清空
      * api call /device/batchdevicedatas
-     * 
-     * error code: 
+     *
+     * error code:
      * 0 - 成功
      * -7 - 没有找到注册的设备
-     * -6 - 设备对应uid不为0 
+     * -6 - 设备对应uid不为0
      * -4 - server err
-     * 
+     *
      * @since 10005
      * @param {object[]} params  -参数
      * @param {string} params[].did did
      * @param {string[]} params[].props props 列表,属性需要以"prop.s_"开头 e.g ["prop.s_aaa","prop.s_bbb"]
      * @return {Promise}
      * @example
-     * let params = {'did':Device.deviceID, 'props': [   
+     * let params = {'did':Device.deviceID, 'props': [
      *  "prop.s_push_switch"
-     * ]}   
+     * ]}
      * Service.smarthome.batchGetDeviceDatas([params]).then(...)
-     * 
-     * 
+     *
+     *
      */
     batchGetDeviceDatas(params) {
          return Promise.resolve(null);
@@ -542,23 +542,23 @@ export default {
     /**
      * 设置设备属性, 属性设置会在设备被删除时清空
      * 备注： props最多20个，最多同时300个设备（目前max设备数)，属性需要以prop.s_ 开头
-     * 
-     * error code: 
+     *
+     * error code:
      * 0 - 成功
      * 7 - 没有找到注册的设备
-     * 6 - 设备对应uid为0 
+     * 6 - 设备对应uid为0
      * 4 - server err
-     * 
+     *
      * @since 10005
      * @param {object[]} params {did: string, props: json}
      * @param {string} params[].did did
      * @param {object} params[].props props 键值对， 属性需要以"prop.s_"开头
      * @example
-     * let params = {'did':Device.deviceID, 'props': {   
+     * let params = {'did':Device.deviceID, 'props': {
      *  "prop.s_push_switch_xxx":"0"
-     * }}   
+     * }}
      * Service.smarthome.batchSetDeviceDatas([params]).then(...)
-     * 
+     *
      */
     batchSetDeviceDatas(params) {
          return Promise.resolve(null);
@@ -566,22 +566,22 @@ export default {
     /**
      * 设置设备属性，e.g 配置摄像头/门铃设备的属性
      * props最多20个, 属性需要以"prop.s_"开头。
-     * 
-     * error code: 
+     *
+     * error code:
      * 0 - 成功
      * -7 - 没有找到注册的设备
-     * -6 - 设备对应uid不为0 
+     * -6 - 设备对应uid不为0
      * -4 - server err
-     * 
+     *
      * @since 10004
      * @param {object} params 参数
      * @param {string} params.did did
      * @param {object} params.props props 键值对， 属性需要以"prop.s_"开头
      * @example
-     * let params = {'did':Device.deviceID, 'props': {   
-     *  "prop.s_notify_screen_dev_enable":"0", //0,关； 1，开   
-     *  "prop.s_notify_screen_dev_did":"123456789" // 接收rpc的音响设备  
-     * }}   
+     * let params = {'did':Device.deviceID, 'props': {
+     *  "prop.s_notify_screen_dev_enable":"0", //0,关； 1，开
+     *  "prop.s_notify_screen_dev_did":"123456789" // 接收rpc的音响设备
+     * }}
      * Service.smarthome.setDeviceProp(params).then(...)
      */
     setDeviceProp(params) {
@@ -773,7 +773,7 @@ export default {
     },
     /**
      * @typedef MemberPet
-     * @property {string} id 
+     * @property {string} id
      * @property {string} name      名称
      * @property {string} sex       性别
      * @property {string} birth     生日
@@ -787,7 +787,7 @@ export default {
      */
     /**
      * @typedef MemberPerson
-     * @property {string} id 
+     * @property {string} id
      * @property {string} name      姓名
      * @property {string} sex       性别
      * @property {string} birth     生日
@@ -811,8 +811,8 @@ export default {
     /**
      * 更新成员信息
      * @since 10005
-     * @param {MemberType} type 
-     * @param {string} member_id 
+     * @param {MemberType} type
+     * @param {string} member_id
      * @param {MemberPerson} info - MemberPerson 或者 MemberPet 只填写需要更新的项目
      */
     updateMember(type, member_id, info) {
@@ -821,7 +821,7 @@ export default {
     /**
      * 删除成员
      * @since 10005
-     * @param {MemberType} type 
+     * @param {MemberType} type
      * @param {Array} member_id 成员id列表
      */
     deleteMember(type, member_id) {
@@ -830,7 +830,7 @@ export default {
     /**
      * 加载指定种类的成员列表
      * @since 10005
-     * @param {MemberType} type 
+     * @param {MemberType} type
      */
     loadMembers(type) {
          return Promise.resolve(null);
@@ -946,7 +946,7 @@ export default {
      * let param = {
      *  "did":"1234567",
      *  "reqData":{ // 透传给Mipay的数据
-     *      "sessionId":"999999999", 
+     *      "sessionId":"999999999",
      *      "userId":"12340000",
      *      "cplc":"asdghjklmnbvd",
      *      "seResps":[

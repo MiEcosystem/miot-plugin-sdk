@@ -1,6 +1,7 @@
 import { Device, Entrance, Host, Package, PackageEvent } from "miot";
 import App from "./Main";
 import Scene from './Main/SceneMain';
+import {PluginEntrance} from "./Main/PluginEntrance";
 PackageEvent.packageAuthorizationCancel.addListener(() => {
     // 用户撤销授权,需要清除缓存
     console.log("packageAuthorizationCancel");
@@ -22,11 +23,21 @@ PackageEvent.packageWillExit.addListener(() => { console.log("packageWillExit") 
  * @type {boolean}
  */
 Package.disableAutoCheckUpgrade = false;
+console.log("package", Package)
+
+/**
+ * 插件开发者可以在此判断，需要进入插件哪个页面, 同时也可以在 例如：App.js 中做判断，需要进入哪个页面
+ * 通过 Host.ui.openPluginPage 打开插件某一页面，如果需要返回到插件首页，应该去首页的componentDidMount里面处理（可参考MainPage.js）。
+ */
 switch (Package.entrance) {
     case Entrance.Scene:
         Package.entry(Scene, _ => {
         });
         break;
+    case PluginEntrance.Setting:
+      Package.entry(App, _ => {
+      });
+      break;
     default:
         Package.entry(App, _ => {
         });

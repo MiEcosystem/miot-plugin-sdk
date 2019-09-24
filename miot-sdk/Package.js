@@ -36,6 +36,17 @@ import RootDevice from "./Device";
 import Host from './Host';
 import resolveAssetResource from "./native/common/node/resolve";
 import { strings } from './resources';
+/**
+ * @description JS端通知Native端的事件类型
+ * @enum {number}
+ */
+const EVENT_TYPE = {
+    /**
+     * 插件路由发生变化
+     */
+    NAVIGATION_STATE_CHANGE: 1,
+}
+Object.freeze(EVENT_TYPE);
 export const DEBUG = "debug";
 export const RELEASE = "release";
 /**
@@ -121,7 +132,7 @@ export const PackageEvent = {
  */
 export default {
     /**
-     * 入口类型,Main or Scene
+     * 入口类型,Main or Scene or 用户自定义（Host.ui.openPluginPage(did, pageName, pageParams) 中 pageName的值）
      * @const
      * @type {Entrance}
      * @readonly
@@ -129,6 +140,16 @@ export default {
      */
     get entrance() {
          return  Entrance.Main
+    },
+    /**
+     * 入口类型参数, Host.ui.openPluginPage(did, pageName, pageParams) 中 pageParams的值
+     * @const
+     * @type {object}
+     * @readonly
+     *
+     */
+    get pageParams() {
+         return  {}
     },
     /**
      * 打开rn插件时，从native传递到RN的初始化数据信息
@@ -148,12 +169,12 @@ export default {
      * //自定义trigger场景保存退出 finishCustomSceneSetupWithTrigger
      * var trigger = Package.entryInfo;
      * trigger.payload = { 'xxx': 'xxx' };//trigger payload 数据
-     * Package.exitInfo = trigger; 
+     * Package.exitInfo = trigger;
      *
      * //自定义action场景保存退出 finishCustomSceneSetupWithAction
      * var action = Package.entryInfo;
      * action.payload = { 'xxx': 'xxx' };//action payload 数据
-     * Package.exitInfo = action; 
+     * Package.exitInfo = action;
      * ...
      * Package.exit();
      */
@@ -261,13 +282,13 @@ export default {
      * @method
      * @param {*} info -如果不为空, 则等同于设置 Package.exitInfo
      * @example
-     *   
+     *
      *   Package.exit({...});
-     * 
+     *
      * @example
      *  Package.exitInfo = {...}
      *  Package.exit();
-     * 
+     *
      */
     exit(info = null) {
     }
