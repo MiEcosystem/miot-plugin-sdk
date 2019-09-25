@@ -101,6 +101,7 @@ const API_REPO = {
   '/user/set_third_user_config': {},
   '/v2/device/multi_button_template': {},
   '/device/deviceinfo': {},
-  '/v2/device/ble_event': {}
+  '/v2/device/ble_event': {},
+  '/share/get_share_user': {}
 }
 export default API_REPO;
