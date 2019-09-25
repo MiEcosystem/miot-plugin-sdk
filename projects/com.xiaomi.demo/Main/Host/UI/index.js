@@ -93,7 +93,7 @@ export default class UIDemo extends React.Component {
             {
                 'name': '打开自定义倒计时',
                 'func': () => {
-                    Host.ui.openCountDownPage(true, { onMethod: "power_on", offMethod: 'power_off', onParam: 'on', offParam: 'off', identify: "custom" });
+                    Host.ui.openCountDownPage(true, { onMethod: "power_on", offMethod: 'power_off', onParam: 'on', offParam: 'off', identify: "custom", displayName: '自定义名称' });
                 }
             },
             {
@@ -171,10 +171,10 @@ export default class UIDemo extends React.Component {
             }, {
                 'name': '刷新设备列表',
                 'func': () => {
-                    Host.ui.refreshDeviceList().then((res)=>{
-                      alert(JSON.stringify(res))
-                    }).catch((error)=>{
-                      alert(JSON.stringify(error))
+                    Host.ui.refreshDeviceList().then((res) => {
+                        alert(JSON.stringify(res))
+                    }).catch((error) => {
+                        alert(JSON.stringify(error))
                     })
                 }
             }
