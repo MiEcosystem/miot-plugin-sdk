@@ -269,7 +269,7 @@ export default class InputDialog extends React.Component {
         title={this.props.title}
         buttons={this.buttons}
         onDismiss={_ => this._onDismiss()}
-        style={{ bottom: ~~(height * 0.38) }}
+        style={{ bottom: ~~(height * 0.45) }}
       >
         <View style={[styles.container]}>
           {this.renderUpExtra()}

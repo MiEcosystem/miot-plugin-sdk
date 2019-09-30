@@ -167,6 +167,7 @@ export default {
     },
     /**
      * 上报设备数据 /device/event
+     * 会更新状态+存到历史(相当于调用setDeviceData 接口)+触发自动化
      * @param {string} deviceID 设备ID
      * @param {array<map>} records [{type,key,value}] 其中：type为'prop'或'event'，key，value均为自定义string
      *
@@ -325,11 +326,12 @@ export default {
     },
     /**
      * 添加设备属性和事件历史记录，/user/set_user_device_data
+     * 对于蓝牙设备，params.key 可参考文档  https://iot.mi.com/new/guide.html?file=04-嵌入式开发指南/06-BLE产品接入/06-米家BLE%20Object定义#/
      * @param {object} params  参数
      * @param {string} params.did 设备did，
      * @param {string} params.uid 添加到哪个用户下,一般为 Device.ownerId，
-     * @param {string} params.type 属性为prop事件为event，属性名不需要prop或者event前缀，亦可以自定义，
-     * @param {string} params.key 要保存的数据K
+     * @param {string} params.type 属性为prop, 事件为event
+     * @param {string} params.key 要保存的数据K, 属性或事件名，(注意：如果设备是蓝牙设备，传入的是object id， 且为十进制数据；如果是wifi设备，才传入自定义属性或事件名，可以在开发者平台-产品-功能定义中查看)
      * @param {string} params.value 要保存的数据V
      * @param {number} params.time 触发时间戳，
      * @return {Promise}
@@ -341,16 +343,17 @@ export default {
      * 查询用户名下设备上报的属性和事件
      * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加.
      * 通下面的set_user_device_data的参数一一对应， /user/get_user_device_data
+     * 对于蓝牙设备，params.key 可参考文档  https://iot.mi.com/new/guide.html?file=04-嵌入式开发指南/06-BLE产品接入/06-米家BLE%20Object定义#/
      *
      * @param {json} params -参数\{did,type,key,time_start,time_end,limit}含义如下：
      * @param {string} params.did 设备id。 必选参数
      * @param {string} params.uid 要查询的用户id 。必选参数
-     * @param {string} params.key 事件名，可自定义,定义与SDS表中key一致。必选参数
-     * @param {string} params.type 定义与SDS表中type一致。必选参数。可参考SDS文档中的示例
+     * @param {string} params.key 属性或事件名，必选参数。(注意：如果设备是蓝牙设备，传入的是object id， 且为十进制数据；如果是wifi设备，才传入自定义属性或事件名，可以在开发者平台-产品-功能定义中查看)
+     * @param {string} params.type 必选参数[prop/event], 如果是查询上报的属性则type为prop，查询上报的事件则type为event,
      * @param {string} params.time_start 数据起点。必选参数
      * @param {string} params.time_end 数据终点。必选参数，time_end必须大于time_start,
      * @param {string} params.group 返回数据的方式，默认raw,可选值为hour、day、week、month。可选参数.
-     * @param {string} params.limit 返回数据的条数，默认20，最大1000。可选参数.
+     * @param {string} params.limit 返回数据的条数，默认20，最大1000。建议不要设置limit，一次拉20条，分页来拉取。可选参数.
      * @returns {Promise}
      */
     getDeviceData(params) {
