@@ -18,6 +18,8 @@
 import { Device } from "../index";
 import native from "../native";
 import { Entrance } from "../Package";
+import Service from "../Service";
+
 const resolveAssetSource = require('resolveAssetSource');
 export default {
   /**
@@ -452,12 +454,12 @@ export default {
    *      ⬇
    * native调用打开插件的方法，带上此处传递的参数
    *      ⬇
-   * native打开RN页面，将参数传递到Package.js 
+   * native打开RN页面，将参数传递到Package.js
    *      ⬇
    * 支持打开内部页面的插件，通过Package.entrance获取将要跳转到哪个页面，通过Package.pageParams获取此页面需要的页面参数
    *      ⬇
    * 打开插件对应页面，注意：如果isBackToMainPage为true，则需要在你的插件首页的componentDidMount中，增加跳转逻辑，反之，则应该在index.js中控制入口界面。详细使用请参考Demo中 openPluginPage、Package.entrance、Package.pageParams三个方法的使用
-   * 
+   *
    * @since 10026
    * @param {string} did  设备的did
    * @param {string} pageName  将打开插件的某一页面, 此参数将会赋值给 Package.entrance, 默认为 Entrance.Main

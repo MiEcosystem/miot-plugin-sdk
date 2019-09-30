@@ -8,6 +8,7 @@
  *
  */
 import native from "../native";
+
 /**
  * 成员类型
  * @namespace MemberType
