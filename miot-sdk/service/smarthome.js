@@ -672,8 +672,8 @@ export default {
      * @param {string} params.did
      * @param {string} params.key
      * @param {string} params.type
-     * @param {string} params.timestamp
-     * @param {string} params.limit
+     * @param {number} params.timestamp
+     * @param {number} params.limit
      * @return {Promise}
      */
     getUserDeviceDataTab(params) {
