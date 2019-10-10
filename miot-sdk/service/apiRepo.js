@@ -102,6 +102,10 @@ const API_REPO = {
   '/v2/device/multi_button_template': {},
   '/device/deviceinfo': {},
   '/v2/device/ble_event': {},
-  '/share/get_share_user': {}
+  '/share/get_share_user': {},
+  '/v2/aftersale/validate': {},
+  '/v2/aftersale/create': {},
+  '/v2/aftersale/list': {},
+  '/v2/aftersale/detail': {}
 }
 export default API_REPO;
