@@ -1,6 +1,6 @@
 ---
 name: 📝Issue 模版
-about: Github issue机制已被废弃，请去小米开发者平台的[工单系统](https://iot.mi.com/fe-op/personalCenter/feedback)提工单，点击[查看详情](https://github.com/MiEcosystem/miot-plugin-sdk/issues/1623)。
+about: Github issue机制已被废弃，请去小米开发者平台的工单系统提工单，新创建的这个 issue 将被关闭。
 title: ''
 labels: ''
 assignees: zanetti4
