@@ -1,3 +1,11 @@
+/*
+ * @description: 
+ * @since: 
+ * @author: 
+ * @Date: 2019-10-14 19:39:26
+ * @param: 
+ * @example: 
+ */
 /**
  * @export public
  * @doc_name 安全模块
