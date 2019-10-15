@@ -135,6 +135,12 @@ export default class MainPage extends React.Component {
     connect() {
         this.addLog("准备开始蓝牙连接")
         if (bt.isConnected) {
+            bt.getVersion().then(version => {
+                this.addLog("设备版本为：" + version);
+            }).then(err => {
+                console.log(err, '-------');
+            });
+            console.log();
             this.addLog("蓝牙设备已经连接")
             this.addLog("开始发先服务")
             bt.startDiscoverServices();
@@ -144,6 +150,11 @@ export default class MainPage extends React.Component {
             bt.connect(-1).then((data) => {
                 this.addLog("ble connect successed: " + JSON.stringify(data))
                 this.addLog("startDiscoverServices")
+                bt.getVersion().then(version => {
+                    this.addLog("设备版本为：" + version);
+                }).then(err => {
+                    console.log(err, '-------');
+                });
                 bt.startDiscoverServices();
             }).catch((data) => {
                 this.addLog("ble connect failed: " + JSON.stringify(data))
@@ -191,7 +202,7 @@ export default class MainPage extends React.Component {
                     {
                         this.state.services.map((val, index) => {
                             return (
-                                <View style={{ marginTop: 20 }}>
+                                <View key={index} style={{ marginTop: 20 }}>
                                     <Text style={[{ backgroundColor: 'white' }]}>service: {val.uuid}</Text>
                                     {
                                         val.char.map((v, i) => {
