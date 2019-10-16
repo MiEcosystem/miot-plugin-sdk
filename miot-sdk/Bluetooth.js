@@ -458,14 +458,25 @@ export class IBluetooth {
          return Promise.resolve(null);
     }
     /**
+     * 
      * 更新版本号，蓝牙的版本号 connect 之后才能查看。
      * @param {boolean} isFromlocal 10028版本开始支持。是否本地读取。仅限iOS，是否直接从设备读取版本号，默认为否，从服务端读取版本号，如果出现升级/降级时版本号错误的情况，此处请传true。
      * 注意：此属性对Android无效，Android默认本地读取。
      * 注意：如果从本地读取的版本号错误，说明版本号在固件端时加密的
-     * @param {boolean} isCrypto 10028版本开始支持。版本号是否是加密的,默认没加密。如果isCrypto为true，直接返回加密数据，使用时需要自己解密
+     * @param {boolean} isCrypto 10028版本开始支持。版本号是否是加密的,默认没加密。如果读出来的数据，是乱码的，请将isCrypto设置为true，然后使用Device.getBluetoothLE().securityLock.decryptMessageWithToken(version)解密，如果还是不对，那就说明固件端自己做了加密，需要把这个数据再进行解密一次。
      * @return {Promise<any>}
+     * 
+     * @example 正常情况
+     * Device.getBluetoothLE().getVersion().then()
+     * 
+     * @example 加密情况
+     * Device.getBluetoothLE().getVersion(true, true).then(version => {
+     *   var data = Device.getBluetoothLE().securityLock.decryptMessageWithToken(version).then(data => {
+     *       console.log("设备版本为：" + data);
+     *    })
+     * })
      */
-    getVersion(isFromlocal = false,isCrypto=false) {
+    getVersion(isFromlocal = false, isCrypto = false) {
          return Promise.resolve(null);
     }
 }
