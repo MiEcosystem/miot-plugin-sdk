@@ -31,6 +31,7 @@
 import Account from './Account';
 import native, { Properties } from './native';
 import apiRepo from './service/apiRepo';
+import omitApi from './service/omitApi';
 import IrController from './service/ircontroller';
 import MHRoom from './service/room';
 import Scene from './service/scene';
