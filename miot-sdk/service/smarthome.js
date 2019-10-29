@@ -131,6 +131,7 @@ export default {
     },
     /**
      * 获取服务器中 最新的版本信息，内部调用米家代理接口/home/latest_version
+     * @deprecated 请使用下面的getLatestVersionV2
      * @param {string} model 设备的 model
      * @return {Promise}
      */
