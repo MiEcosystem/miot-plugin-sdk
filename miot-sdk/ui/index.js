@@ -43,6 +43,18 @@ export const NumberSpinner = _NumberSpin;
 export const StringSpinner = _StringSpin;
 export const MiotAndroidScrollView = _MiotAndroidScrollView;
 export const MHImage = _MHImage;
+export {default as BigNumber} from './BigNumber';
+export {default as CardButton} from './CardButton';
+export {default as CircleButton} from './CircleButton';
+export {default as ContainerWithGap} from './ContainerWithGap';
+export {default as ContainerWithShadowAndSeparator} from './ContainerWithShadowAndSeparator';
+export {default as DeviceWithInfo} from './DeviceWithInfo';
+export {default as LightControl} from './LightControl';
+export {default as PageWithNormalNavigator} from './PageWithNormalNavigator';
+export {default as SelectorWithButton} from './SelectorWithButton';
+export {default as SliderWithHeader} from './SliderWithHeader';
+export {default as WallSwitch} from './WallSwitch';
+export {default as SmallNumbers} from './SmallNumbers';
 export default {
     ImageButton, MHImage,
     LoadingDialog, MessageDialog, MultiChoseDialog,

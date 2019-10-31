@@ -193,6 +193,9 @@ export default {
     get packageID() {
          return  0
     },
+    get pluginID() {
+       return  0
+    },
     /**
      * 程序包的版本号, 来自于{@link project.json} 的 {@link version}
      * @const

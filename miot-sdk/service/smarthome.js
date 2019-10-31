@@ -121,6 +121,19 @@ export default {
     checkDeviceVersion(did, pid) {
          return Promise.resolve({});
     },
+    // @native begin
+    getProtocolUrls(params) {
+      return new Promise((resolve, reject) => {
+        native.MIOTRPC.standardCall("/v2/plugin/get_protocol", params, (ok, res) => {
+          console.log(111, ok, res);
+          if(ok) {
+            return resolve(res);
+          }
+          reject(res);
+        });
+      });
+    },
+    // @native end
     /**
      * // 获取可用固件更新，传参为dids。 /home/multi_checkversion
      * @param {array<string>} deviceIDs 设备ID

@@ -114,6 +114,7 @@ export const ClassicBluetoothEvent = ClassicBluetoothEventNames;
 export const SceneType = SceneTypeNames;
 export const FileEvent = FileEventNames;
 export const AudioEvent = AudioEventNames;
+import * as Utils from './utils';
 /**
  * @export
  */
@@ -122,5 +123,6 @@ export default {
     Device, DeviceEvent, DeviceProperties,
     Service, Host, Resources,
     Bluetooth, BluetoothEvent, SceneType,
-    FileEvent, AudioEvent, ClassicBluetooth, ClassicBluetoothEvent
+    FileEvent, AudioEvent, ClassicBluetooth, ClassicBluetoothEvent,
+    Utils
 }

@@ -401,7 +401,6 @@ export default class CommonSetting extends React.Component {
     // 如果不设置英文字体，那么外文字符串将显示不全（Android）
     let fontFamily = {};
     if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' }
-    // 1. 装填必选项
     const requireKeys1 = [firstAllOptions.NAME, firstAllOptions.LOCATION];
     const requireKeys2 = [
       firstAllOptions.MORE,
