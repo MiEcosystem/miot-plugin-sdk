@@ -2,6 +2,15 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Animated } from 'react-native';
+/**
+ * @export
+ * @author Li Yue
+ * @since 10030
+ * @module Radio
+ * @description 组件的显示、隐藏效果，下拉淡入和收起淡出。
+ * @property {bool} isShown - 组件的显示状态，默认值 false
+ * @property {number} childrenHeight - 子组件的总高度，默认值0
+ */
 export default class FadeSlide extends Component {
     constructor(props) {
         super(props);
