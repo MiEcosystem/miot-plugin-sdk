@@ -14,6 +14,7 @@
 'use strict';
 
 // ART的demo }
+import { Entrance, Package } from "miot";
 import { FirmwareUpgrade, MoreSetting } from "miot/ui/CommonSetting";
 import TitleBar from "miot/ui/TitleBar";
 import React from 'react';
@@ -27,12 +28,14 @@ import AnimEventsDemo from './AnimationComponentDemo/AnimEventsDemo'; //动画�
 import AnimFadeInOutDemo from './AnimationComponentDemo/AnimFadeInOutDemo'; //淡入淡出
 import AnimTransformDemo from './AnimationComponentDemo/AnimTransformDemo'; //旋转翻转
 import AnimTranslationDemo from './AnimationComponentDemo/AnimTranslationDemo'; //平行移动
+import FadeSlideDemo from './AnimationComponentDemo/FadeSlideDemo';
 import LayoutAnimationDemo from './AnimationComponentDemo/LayoutAnimationDemo'; //其他动画
 import ControlDemo from './Device/ControlDemo';
 import DeviceControl from "./Device/DeviceControl";
 import DeviceDemo from "./Device/DeviceDemo";
 import HostDemo from "./Host";
 import FileStorage from './Host/File';
+import HostPropsInfoDemo from './Host/HostPropsInfoDemo';
 import JSExecutor from './Host/JSExecutor';
 import LocaleServer from './Host/Local';
 import MHAudioDemo from './Host/MHAudioDemo';
@@ -41,12 +44,12 @@ import StorageDemo from './Host/Storage';
 import NavigateUIDemo from "./Host/UI";
 import PrivacyDemo from "./Host/UI/privacy";
 import VideoDemo from './Host/VideoDemo';
-import HostPropsInfoDemo from './Host/HostPropsInfoDemo';
 import ImageTest from './issues/imageTest/imageTest';
 import SmarthomeDemo from './issues/smarthomeDemo';
 import MainPage from './MainPage';
 import MoreMenu from './MoreMenu';
 import ImagePathDemo from './NewStructureTest';
+import { PluginEntrance } from "./PluginEntrance";
 // import GLTests from './ThirdPartDemo/openGL/Tests';
 // import OpenLibList from './OpenLibList';
 import ServiceDemo from './Service';
@@ -123,6 +126,7 @@ import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo";
 import Parallax from "./UIComponent/Parallax";
 import RadioExample from "./UIComponent/RadioExample";
 import RefreshListView from './UIComponent/RefreshListView';
+import SoftKeyboardAdapterTestDemo from './UIComponent/SoftKeyboardAdapterTestDemo';
 import StringSpinnerDemo from "./UIComponent/StringSpinnerDemo";
 import Dynamic from './UIComponent/swiper/Dynamic/';
 import LoadMinimal from './UIComponent/swiper/LoadMinimal/';
@@ -133,12 +137,9 @@ import SwitchDemo from "./UIComponent/SwitchDemo";
 import ToastExample from "./UIComponent/ToastExample";
 // import BLEConnectionDemo from './tutorial/operation/bluetooth/BLEConnectionDemo';
 import UIDemo from './UIComponent/UIDemo';
-import SoftKeyboardAdapterTestDemo from './UIComponent/SoftKeyboardAdapterTestDemo';
 import CustomContainer from './uikit/components/CustomContainer';
 import * as Screens from "./uikit/screens";
 import MHSetting from './unuse/MHSetting';
-import {Entrance, Package} from "miot";
-import {PluginEntrance} from "./PluginEntrance";
 
 // class HomeScreen extends React.Component {
 //   render() {
@@ -151,178 +152,179 @@ import {PluginEntrance} from "./PluginEntrance";
 // }
 
 function createRootStack(initPage) {
-  return createStackNavigator({
-      Home: MainPage,
-      Setting,
-      List,
-      CardPage,
-      MoreSetting,
-      FirmwareUpgrade,
-      CustomContainer,
-      Parallax,
-      TitleBarDemo,
-      GearExample,
-      RadioExample,
-      CheckboxDemo,
-      MHRoomDemo,
-      ToastExample,
-      SwitchDemo,
-      MHDatePickerDemo,
-      DialogExample,
-      NavigationBarDemo,
-      HostDemo,
-      ServiceDemo,
-      BlankPageEntry,
-      BlankPageDemo,
-      tutorialDemo: TutorialDemo,
-      LocaleServer: LocaleServer,
-      blankDemo: BlankDemo,
-      DeviceControl: DeviceControl,
-      NavigateUIDemo: NavigateUIDemo,
-      JSExecutor: JSExecutor,
-      DeviceDemo: DeviceDemo,
-      PackageDemo: PackageDemo,
-      accountDemo: AccountDemo,
-      ControlDemo: ControlDemo,
-      storageDemo: StorageDemo,
-      fileStorage: FileStorage,
-      callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
-      MiotSpecDemo: MiotSpecDemo,
-      RPCControl: RPCControl,
-      PrivacyDemo,
-      // BLEConnectionDemo: BLEConnectionDemo,
+    return createStackNavigator({
+        Home: MainPage,
+        Setting,
+        List,
+        CardPage,
+        MoreSetting,
+        FirmwareUpgrade,
+        CustomContainer,
+        Parallax,
+        TitleBarDemo,
+        GearExample,
+        RadioExample,
+        CheckboxDemo,
+        MHRoomDemo,
+        ToastExample,
+        SwitchDemo,
+        MHDatePickerDemo,
+        DialogExample,
+        NavigationBarDemo,
+        HostDemo,
+        ServiceDemo,
+        BlankPageEntry,
+        BlankPageDemo,
+        tutorialDemo: TutorialDemo,
+        LocaleServer: LocaleServer,
+        blankDemo: BlankDemo,
+        DeviceControl: DeviceControl,
+        NavigateUIDemo: NavigateUIDemo,
+        JSExecutor: JSExecutor,
+        DeviceDemo: DeviceDemo,
+        PackageDemo: PackageDemo,
+        accountDemo: AccountDemo,
+        ControlDemo: ControlDemo,
+        storageDemo: StorageDemo,
+        fileStorage: FileStorage,
+        callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
+        MiotSpecDemo: MiotSpecDemo,
+        RPCControl: RPCControl,
+        PrivacyDemo,
+        // BLEConnectionDemo: BLEConnectionDemo,
 
-      UIDemo: UIDemo,
-      MiotAndroidScrollViewDemo: MiotAndroidScrollViewDemo,
-      SoftKeyboardAdapterTestDemo: SoftKeyboardAdapterTestDemo,
-      RefreshListView: RefreshListView,
-      NumberSpinnerDemo: NumberSpinnerDemo,
-      StringSpinnerDemo: StringSpinnerDemo,
-      ThirdPartyDemo: ThirdPartyDemo,
-      setting: MHSetting,
-      moreMenu: MoreMenu,
-      // OpenLibList:OpenLibList,
-      helloDeveloper: HelloDeveloper,
-      helloReactART: HelloReactART,
-      mhMapDemo: MHMapDemo,
-      audioDemo: MHAudioDemo,
-      imagePathDemo: ImagePathDemo,
-      //swiper 开始
-      swiperDynamic: Dynamic,
-      swiperLoadMinimal: LoadMinimal,
-      // swiperPhotoView:PhotoView,
-      swiperPhone: Phone,
-      swiperSwiper: Swiper,
-      swiperNumber: SwiperNumber,
-      //swiper 结束
-      ProgressDemo: ProgressDemo,
-      ImageCapInsetDemo: ImageCapInsetDemo,
-      UIKitHome: { screen: Screens.ComponentsScreen },
-      Picker: { screen: Screens.PickerScreen },
-      Button: { screen: Screens.ButtonScreen },
-      Switch: { screen: Screens.SwitchScreen },
-      Choice: { screen: Screens.ChoiceScreen },
-      Tab: { screen: Screens.TabScreen },
-      Card: { screen: Screens.CardScreen },
-      Avatar: { screen: Screens.AvatarScreen },
-      Input: { screen: Screens.InputScreen },
-      Image: { screen: Screens.ImageScreen },
-      Gallery: { screen: Screens.GalleryScreen },
-      Settings: { screen: Screens.SettingsScreen },
-      ChoiceCustomization: { screen: Screens.ChoiceCustomizationScreen },
+        UIDemo: UIDemo,
+        MiotAndroidScrollViewDemo: MiotAndroidScrollViewDemo,
+        SoftKeyboardAdapterTestDemo: SoftKeyboardAdapterTestDemo,
+        RefreshListView: RefreshListView,
+        NumberSpinnerDemo: NumberSpinnerDemo,
+        StringSpinnerDemo: StringSpinnerDemo,
+        ThirdPartyDemo: ThirdPartyDemo,
+        setting: MHSetting,
+        moreMenu: MoreMenu,
+        // OpenLibList:OpenLibList,
+        helloDeveloper: HelloDeveloper,
+        helloReactART: HelloReactART,
+        mhMapDemo: MHMapDemo,
+        audioDemo: MHAudioDemo,
+        imagePathDemo: ImagePathDemo,
+        //swiper 开始
+        swiperDynamic: Dynamic,
+        swiperLoadMinimal: LoadMinimal,
+        // swiperPhotoView:PhotoView,
+        swiperPhone: Phone,
+        swiperSwiper: Swiper,
+        swiperNumber: SwiperNumber,
+        //swiper 结束
+        ProgressDemo: ProgressDemo,
+        ImageCapInsetDemo: ImageCapInsetDemo,
+        UIKitHome: { screen: Screens.ComponentsScreen },
+        Picker: { screen: Screens.PickerScreen },
+        Button: { screen: Screens.ButtonScreen },
+        Switch: { screen: Screens.SwitchScreen },
+        Choice: { screen: Screens.ChoiceScreen },
+        Tab: { screen: Screens.TabScreen },
+        Card: { screen: Screens.CardScreen },
+        Avatar: { screen: Screens.AvatarScreen },
+        Input: { screen: Screens.InputScreen },
+        Image: { screen: Screens.ImageScreen },
+        Gallery: { screen: Screens.GalleryScreen },
+        Settings: { screen: Screens.SettingsScreen },
+        ChoiceCustomization: { screen: Screens.ChoiceCustomizationScreen },
 
-      // 第三方库 demo 开始
-      SQLiteDemo: SQLiteDemo,
-      OrientationDemo: OrientationDemo,
-      AddressBookDemo: AddressBookDemo,
-      WebViewBridageDemo: WebViewBridageDemo,
-      ReactNativeCameraDemo: ReactNativeCameraDemo,
-      LinearGradientDemo: LinearGradientDemo,
-      ReactNativeBlurDemo: ReactNativeBlurDemo,
-      SVGDemo: SVGDemo,
-      PressExample: PressExample,
-      HoverExample: HoverExample,
-      GroupExample: GroupExample,
-      LegendsView: LegendsView,
-      AxisView: AxisView,
-      ContainersView: ContainersView,
-      CreateContainerView: CreateContainerView,
-      ErrorsTooltipsView: ErrorsTooltipsView,
-      AreaView: AreaView,
-      PieView: PieView,
-      BarView: BarView,
-      ChartView: ChartView,
-      LineView: LineView,
-      ScatterView: ScatterView,
-      BoxPlotView: BoxPlotView,
-      GLSimple: GLSimple,
-      // GLAdvancedEffects:GLAdvancedEffects, //  有bug
-      GLHearts: GLHearts,
-      // GLTests:  GLTests, // 有bug
-      GLAnimated: GLAnimated,
-      GLParticles: GLParticles,
-      GLOrientation: GLOrientation,
-      videoDemo: VideoDemo,
-      HostPropsInfoDemo: HostPropsInfoDemo,
-      ParticleDemo: ParticleDemo,//iOS 特有的,粒子系统
-      ImagePickerDemo: ImagePickerDemo,
+        // 第三方库 demo 开始
+        SQLiteDemo: SQLiteDemo,
+        OrientationDemo: OrientationDemo,
+        AddressBookDemo: AddressBookDemo,
+        WebViewBridageDemo: WebViewBridageDemo,
+        ReactNativeCameraDemo: ReactNativeCameraDemo,
+        LinearGradientDemo: LinearGradientDemo,
+        ReactNativeBlurDemo: ReactNativeBlurDemo,
+        SVGDemo: SVGDemo,
+        PressExample: PressExample,
+        HoverExample: HoverExample,
+        GroupExample: GroupExample,
+        LegendsView: LegendsView,
+        AxisView: AxisView,
+        ContainersView: ContainersView,
+        CreateContainerView: CreateContainerView,
+        ErrorsTooltipsView: ErrorsTooltipsView,
+        AreaView: AreaView,
+        PieView: PieView,
+        BarView: BarView,
+        ChartView: ChartView,
+        LineView: LineView,
+        ScatterView: ScatterView,
+        BoxPlotView: BoxPlotView,
+        GLSimple: GLSimple,
+        // GLAdvancedEffects:GLAdvancedEffects, //  有bug
+        GLHearts: GLHearts,
+        // GLTests:  GLTests, // 有bug
+        GLAnimated: GLAnimated,
+        GLParticles: GLParticles,
+        GLOrientation: GLOrientation,
+        videoDemo: VideoDemo,
+        HostPropsInfoDemo: HostPropsInfoDemo,
+        ParticleDemo: ParticleDemo,//iOS 特有的,粒子系统
+        ImagePickerDemo: ImagePickerDemo,
 
-      // svg
+        // svg
 
-      ARTSVGDemo: ARTSVGDemo,
-      ARTRectDemo: ARTRectDemo,
-      ARTCircleDemo: ARTCircleDemo,
-      ARTEllipseDemo: ARTEllipseDemo,
-      ARTLineDemo: ARTLineDemo,
-      ARTTextDemo: ARTTextDemo,
-      ARTGroupDemo: ARTGroupDemo,
-      ARTGradientDemo: ARTGradientDemo,
-      ARTPatternDemo: ARTPatternDemo,
+        ARTSVGDemo: ARTSVGDemo,
+        ARTRectDemo: ARTRectDemo,
+        ARTCircleDemo: ARTCircleDemo,
+        ARTEllipseDemo: ARTEllipseDemo,
+        ARTLineDemo: ARTLineDemo,
+        ARTTextDemo: ARTTextDemo,
+        ARTGroupDemo: ARTGroupDemo,
+        ARTGradientDemo: ARTGradientDemo,
+        ARTPatternDemo: ARTPatternDemo,
 
 
-      // animation
-      AnimFadeInOutDemo: AnimFadeInOutDemo,
-      AnimTransformDemo: AnimTransformDemo,
-      AnimTranslationDemo: AnimTranslationDemo,
-      AnimEffectsDemo: AnimEffectsDemo,
-      AnimEventsDemo: AnimEventsDemo,
-      LayoutAnimationDemo: LayoutAnimationDemo,
-      AnimCustomCompDemo: AnimCustomCompDemo,
+        // animation
+        AnimFadeInOutDemo: AnimFadeInOutDemo,
+        AnimTransformDemo: AnimTransformDemo,
+        AnimTranslationDemo: AnimTranslationDemo,
+        AnimEffectsDemo: AnimEffectsDemo,
+        AnimEventsDemo: AnimEventsDemo,
+        LayoutAnimationDemo: LayoutAnimationDemo,
+        FadeSlideDemo,
+        AnimCustomCompDemo: AnimCustomCompDemo,
 
-      // 第三方库 demo 结束
+        // 第三方库 demo 结束
 
-      // 米家iOS 自定义第三方库<
-      CircularSliderDemo: CircularSliderDemo,
-      // 米家iOS 自定义第三方库>
-      //dialog
-      DialogTest: DialogTest,
-      DialogTest2,
-      DialogTest3,
-      ModeCardDemo,
-      AnimatedSVGDemo,
-      AbsoluteTouch,
-      ImageTest,
-      SmarthomeDemo
+        // 米家iOS 自定义第三方库<
+        CircularSliderDemo: CircularSliderDemo,
+        // 米家iOS 自定义第三方库>
+        //dialog
+        DialogTest: DialogTest,
+        DialogTest2,
+        DialogTest3,
+        ModeCardDemo,
+        AnimatedSVGDemo,
+        AbsoluteTouch,
+        ImageTest,
+        SmarthomeDemo
     },
-    {
-      // ThirdPartyDemo
-      initialRouteName: initPage,
-      // initialRouteName: 'ModeCardDemo',
-      navigationOptions: ({ navigation }) => {
-        return {
-          header: <TitleBar
-            title={navigation.state.params ? navigation.state.params.title : ''}
-            // style={{ backgroundColor: '#fff' }}
-            type='dark'
-            onPressLeft={() => {
-              navigation.goBack();
-            }} />,
-        };
-      },
-      transitionConfig: () => ({
-        screenInterpolator: interpolator,
-      }),
-    });
+        {
+            // ThirdPartyDemo
+            initialRouteName: initPage,
+            // initialRouteName: 'ModeCardDemo',
+            navigationOptions: ({ navigation }) => {
+                return {
+                    header: <TitleBar
+                        title={navigation.state.params ? navigation.state.params.title : ''}
+                        // style={{ backgroundColor: '#fff' }}
+                        type='dark'
+                        onPressLeft={() => {
+                            navigation.goBack();
+                        }} />,
+                };
+            },
+            transitionConfig: () => ({
+                screenInterpolator: interpolator,
+            }),
+        });
 }
 
 
@@ -409,38 +411,38 @@ function interpolator(props) {
 
 export default class App extends React.Component {
 
-    constructor(props){
-      super(props);
+    constructor(props) {
+        super(props);
 
-      this.initData()
+        this.initData()
     }
 
-  /**
-   * 也可以在此判断，需要进入插件哪个页面
-   */
-  initData() {
-    this.initPage = "Home";
-    switch (Package.entrance) {
-      case Entrance.Scene:
-        this.initPage = Entrance.Scene;
-        break;
-      case PluginEntrance.Setting:
-        this.initPage = PluginEntrance.Setting;
-        break;
-      default:
+    /**
+     * 也可以在此判断，需要进入插件哪个页面
+     */
+    initData() {
         this.initPage = "Home";
-        break;
+        switch (Package.entrance) {
+            case Entrance.Scene:
+                this.initPage = Entrance.Scene;
+                break;
+            case PluginEntrance.Setting:
+                this.initPage = PluginEntrance.Setting;
+                break;
+            default:
+                this.initPage = "Home";
+                break;
+        }
+        if (Package.pageParams && Package.pageParams.isBackToMainPage) {
+            // 需要返回到首页，则首先进入到插件首页，然后插件首页中跳转到真正需要跳转到的page页面
+            this.initPage = "Home";
+        }
     }
-    if(Package.pageParams && Package.pageParams.isBackToMainPage){
-      // 需要返回到首页，则首先进入到插件首页，然后插件首页中跳转到真正需要跳转到的page页面
-      this.initPage = "Home";
-    }
-  }
 
 
     render() {
-      let RootStack = createRootStack(this.initPage);
-      return <RootStack />
+        let RootStack = createRootStack(this.initPage);
+        return <RootStack />
     }
 
 }
