@@ -131,13 +131,13 @@ export default class Setting extends React.Component {
 
   componentDidMount() {
     // TODO: 拉取功能设置项里面的初始值，比如开关状态，slider的value
-    setTimeout(_ => this.setState({
+    this.setState({
       switchValue: true,
       sliderValue: 75,
       showDot: [
         first_options.FIRMWARE_UPGRADE
       ]
-    }), 2000);
+    })
   }
 }
 

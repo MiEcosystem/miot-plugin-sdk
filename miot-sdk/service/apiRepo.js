@@ -101,6 +101,11 @@ const API_REPO = {
   '/user/set_third_user_config': {},
   '/v2/device/multi_button_template': {},
   '/device/deviceinfo': {},
-  '/v2/device/ble_event': {}
+  '/v2/device/ble_event': {},
+  '/share/get_share_user': {},
+  '/v2/aftersale/validate': {},
+  '/v2/aftersale/create': {},
+  '/v2/aftersale/list': {},
+  '/v2/aftersale/detail': {}
 }
 export default API_REPO;

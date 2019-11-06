@@ -39,6 +39,7 @@ import Smarthome from './service/smarthome';
 import Spec from './service/spec';
 import Storage from './service/storage';
 import TJInfra from './service/tjinfra';
+import MiotCamera from './service/miotcamera';
  const CurrentAccount = null;
 export default {
   /**
@@ -48,6 +49,14 @@ export default {
    */
   get smarthome() {
     return Smarthome;
+  },
+  /**
+   * @member miotcamera
+   * @description 摄像机相关 API
+   * @see {@link module:miot/service/miotcamera}
+   */
+  get miotcamera() {
+    return MiotCamera;
   },
   /**
    * @member ircontroller
