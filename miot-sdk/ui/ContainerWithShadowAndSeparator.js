@@ -1,9 +1,9 @@
-import React, {PureComponent, Fragment} from 'react';
+import React, {Component, PureComponent, Fragment} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import Separator from './Separator';
 import {adjustSize} from '../utils/sizes';
-class GapWrap extends PureComponent {
+class GapWrap extends Component {
   state = {
     shown: true
   };
@@ -28,7 +28,7 @@ class GapWrap extends PureComponent {
     );
   }
 }
-export default class ContainerWithShadowAndSeparator extends PureComponent {
+export default class ContainerWithShadowAndSeparator extends Component {
   static propTypes = {
     containerStyle: PropTypes.any,
     separatorStyle: PropTypes.any,

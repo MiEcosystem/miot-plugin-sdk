@@ -125,7 +125,6 @@ export default {
     getProtocolUrls(params) {
       return new Promise((resolve, reject) => {
         native.MIOTRPC.standardCall("/v2/plugin/get_protocol", params, (ok, res) => {
-          console.log(111, ok, res);
           if(ok) {
             return resolve(res);
           }

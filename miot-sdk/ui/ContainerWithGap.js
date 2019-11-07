@@ -19,14 +19,26 @@ class GapWrap extends PureComponent {
     }
     let gapSize = shown ? gap : 0;
     return (
-      <View style={[StylesGap.container, {
-        [horizontal ? 'marginRight' : 'marginBottom']: gapSize
-      }, horizontal ? {
-        flex: 1
-      } : null]} onLayout={this.onLayout}>
-        {children}
-      </View>
+      <Fragment>
+        <View style={horizontal ? {
+          flex: 1
+        } : null}>
+          {children}
+        </View>
+        <View style={[StylesGap.gap, {
+          [horizontal ? 'width' : 'height']: gapSize
+        }]}></View>
+      </Fragment>
     );
+    // return (
+    //   <View style={[StylesGap.container, {
+    //     [horizontal ? 'marginRight' : 'marginBottom']: gapSize
+    //   }, horizontal ? {
+    //     flex: 1
+    //   } : null]} onLayout={this.onLayout}>
+    //     {children}
+    //   </View>
+    // );
   }
 }
 export default class ContainerWithGap extends PureComponent {
@@ -78,5 +90,7 @@ const Styles = StyleSheet.create({
   container: {}
 });
 const StylesGap = StyleSheet.create({
-  container: {}
+  gap: {
+    alignSelf: 'stretch'
+  }
 });
