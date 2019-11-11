@@ -90,19 +90,23 @@ export default class AbstractDialog extends React.Component {
         if (language !== 'zh') {
             //当前米家 app 语言不是中文
             titleLines = 3;
-            height = { height: 86 }
+            height.maxHeight = 86;
         }
         return (
             <View style={[styles.titleContainer, height]}>
                 <Text
                     numberOfLines={titleLines}
-                    style={[{
-                        width: Styles.dialog.modal.width * 0.75,
-                        textAlign: 'center',
-                        fontSize: 15,
-                        fontWeight: 'bold',
-                        color: '#000'
-                    }, marginBottom]}
+                    style={[
+                        {
+                            width: Styles.dialog.modal.width * 0.75,
+                            textAlign: 'center',
+                            fontSize: 15,
+                            fontWeight: 'bold',
+                            fontFamily: '',
+                            color: '#000'
+                        },
+                        marginBottom
+                    ]}
                 >
                     {this.props.title || ''}
                 </Text>
