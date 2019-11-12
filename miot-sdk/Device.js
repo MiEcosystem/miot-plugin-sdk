@@ -890,6 +890,7 @@ class IDevice {
         return new Promise((resolve, reject) => {
             native.MIOTDevice.changeDeviceName(newName, did, (ok, res) => {
                 if (ok) {
+                    Properties.of(this).name = newName;
                     resolve(res);
                 } else {
                     reject(res);

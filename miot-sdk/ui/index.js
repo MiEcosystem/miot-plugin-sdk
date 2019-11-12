@@ -22,6 +22,7 @@ import _MessageDialog from './MessageDialog';
 import _MultiChoseDialog from './MultiChoseDialog';
 import _NumberSpin from './NumberSpinner';
 import _StringSpin from './StringSpinner';
+import _RobotMapView from './RobotMapView';
 import _ProgressDialog from './ProgressDialog';
 import _SingleChoseDialog from './SingleChoseDialog';
 import _TitleBar from './TitleBar';
@@ -41,6 +42,7 @@ export const LocalizedStrings = _LocalizedStrings;
 export const AMapView = _AMapView;
 export const NumberSpinner = _NumberSpin;
 export const StringSpinner = _StringSpin;
+export const RobotMapView = _RobotMapView;
 export const MiotAndroidScrollView = _MiotAndroidScrollView;
 export const MHImage = _MHImage;
 export {default as BigNumber} from './BigNumber';
@@ -60,6 +62,6 @@ export default {
     LoadingDialog, MessageDialog, MultiChoseDialog,
     ProgressDialog, SingleChoseDialog, InputDialog,
     TitleBar, TitleBarBlack, TitleBarWhite,
-    NumberSpinner, StringSpinner,
+    NumberSpinner, StringSpinner, RobotMapView,
     LocalizedStrings, AMapView, MiotAndroidScrollView
 }
