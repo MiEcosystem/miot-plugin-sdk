@@ -161,7 +161,7 @@ export default class MainPage extends React.Component {
                 bt.startDiscoverServices();
             }).catch((data) => {
                 this.addLog("ble connect failed: " + JSON.stringify(data))
-                if (data.code === 7) {
+                if (data.code === -7) {
                     Bluetooth.retrievePeripheralsWithServicesForIOS('serviceid1', 'serviceid2').then(res => {
                         //在这里可以获取到已经连接的蓝牙对象，小米协议设备返回-7，大几率是本身已经连接，在这里可以选择
                         // 1. 获取到蓝牙的uuid，通过普通蓝牙对象操作
