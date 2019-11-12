@@ -141,8 +141,6 @@ import UIDemo from './UIComponent/UIDemo';
 import CustomContainer from './uikit/components/CustomContainer';
 import * as Screens from "./uikit/screens";
 import MHSetting from './unuse/MHSetting';
-import { Entrance, Package } from "miot";
-import { PluginEntrance } from "./PluginEntrance";
 
 // class HomeScreen extends React.Component {
 //   render() {
