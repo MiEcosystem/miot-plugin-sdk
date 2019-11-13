@@ -54,7 +54,7 @@
 
 插件从旧框架迁移到新框架请参考[《迁移手册》](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/%E8%BF%81%E7%A7%BB%E6%89%8B%E5%86%8C.md)
 
-插件调试流程请参考[《调试说明》](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/%E8%B0%83%E8%AF%95%E8%AF%B4%E6%98%8E.md)
+插件调试流程请参考[《调试说明》](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/doc-md/02-%E5%BC%80%E5%8F%91%E7%AE%80%E4%BB%8B/03-%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8F.md)
 
 
 ## 调试环境
