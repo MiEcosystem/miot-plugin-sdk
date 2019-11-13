@@ -118,8 +118,10 @@ export default class CallSmartHomeAPIDemo extends React.Component {
                     return;
                 }
                 Service.spec.setPropertiesValue([{ did: array[0], siid: parseInt(array[1]), piid: parseInt(array[2]), value: array.length > 3 ? this._parseValue(array[3]) : null }]).then(res => {
+                    console.log('resolve');
                     this.setState({ result: JSON.stringify(res) });
                 }).catch(res => {
+                    console.log('catch');
                     this.setState({ result: res.message });
                 });
                 break;
