@@ -47,11 +47,12 @@ export default class extends Component {
             ]
         });
 
-        console.log(666666);
+        // console.log(666666);
+        // Alert.alert(666666);
     }
     render() {
         return (
-            <Swiper showsButtons>
+            <Swiper showsButtons autoplay>
                 {this.state.items.map((item, key) => {
                     return (
                         <View key={key} style={item.css}>
