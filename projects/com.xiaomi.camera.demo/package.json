@@ -5,6 +5,6 @@
             "start":"node ../../bin/runProject.js"
         },
         "dependencies":{
-            
+            "base64-js": "^1.2"
         }
     }

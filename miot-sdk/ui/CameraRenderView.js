@@ -26,6 +26,11 @@
  * @property {MISSDataBits} audioRecordDataBits 对讲音频的 data bits 默认：FLAG_AUDIO_DATABITS_16
  * @property {number} maximumZoomScale 最大缩放比例 默认2.0
  * @property {number} minimumZoomScale 最小缩放比例 默认1.0
+ * @property {number} scale 缩放比例 默认1.0
+ * @property {bool} useLenCorrent 是否开启畸变矫正 default true
+ * @property {number} correctRadius 畸变矫正-radius default 1.1
+ * @property {number} osdx 畸变矫正-osdx default 0.0
+ * @property {number} osdy 畸变矫正-osdy default 0.0
  */
 /**
  * 音视频codec
@@ -68,7 +73,7 @@ export const MISSSampleRate = {
      * 16000
      * @const
      */
-	FLAG_AUDIO_SAMPLE_16K: 3,
+    FLAG_AUDIO_SAMPLE_16K: 3,
 };
 Object.freeze(MISSSampleRate);
 /**
@@ -85,7 +90,7 @@ export const MISSDataBits = {
      * 16bits
      * @const
      */
-	FLAG_AUDIO_DATABITS_16: 1,
+    FLAG_AUDIO_DATABITS_16: 1,
 };
 Object.freeze(MISSDataBits);
 /**
@@ -102,7 +107,7 @@ export const MISSAudioChannel = {
      * 双通道
      * @const
      */
-	FLAG_AUDIO_CHANNEL_STERO: 1,
+    FLAG_AUDIO_CHANNEL_STERO: 1,
 };
 Object.freeze(MISSAudioChannel);
 export default class CameraRenderView extends React.Component {
@@ -114,6 +119,11 @@ export default class CameraRenderView extends React.Component {
         audioRecordDataBits: PropTypes.oneOf([MISSDataBits.FLAG_AUDIO_DATABITS_8, MISSDataBits.FLAG_AUDIO_DATABITS_16]),
         maximumZoomScale: PropTypes.number,
         minimumZoomScale: PropTypes.number,
+        scale: PropTypes.number,
+        useLenCorrent: PropTypes.bool,
+        correctRadius: PropTypes.number,
+        osdx: PropTypes.number,
+        osdy: PropTypes.number,
         ...ViewPropTypes,
     };
     render() {
