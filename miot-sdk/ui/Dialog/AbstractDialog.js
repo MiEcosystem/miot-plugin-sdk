@@ -92,6 +92,12 @@ export default class AbstractDialog extends React.Component {
             titleLines = 3;
             height.maxHeight = 86;
         }
+        //只给安卓手机设置字体为空字符串
+        let fontFamily = {};
+        if (Platform.OS === 'android') {
+            //Android 设备或模拟器
+            fontFamily.fontFamily = '';
+        }
         return (
             <View style={[styles.titleContainer, height]}>
                 <Text
@@ -102,10 +108,10 @@ export default class AbstractDialog extends React.Component {
                             textAlign: 'center',
                             fontSize: 15,
                             fontWeight: 'bold',
-                            fontFamily: '',
                             color: '#000'
                         },
-                        marginBottom
+                        marginBottom,
+                        fontFamily
                     ]}
                 >
                     {this.props.title || ''}
