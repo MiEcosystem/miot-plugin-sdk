@@ -9,12 +9,12 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Dimensions,StatusBar
+  Dimensions, StatusBar
 } from 'react-native';
 
 var MHMapSearch = require('NativeModules').MHMapSearch;
-import {AMapView} from 'miot/ui';
-import {Device, Host} from 'miot';
+import { AMapView } from 'miot/ui';
+import { Device, Host } from 'miot';
 import TitleBar from "miot/ui/TitleBar";
 var window = Dimensions.get('window');
 
@@ -26,9 +26,9 @@ export default class MHMapDemo extends React.Component {
 
     return {
       header: <TitleBar type='dark' title={'米家桥接高德地图测试'} style={{ backgroundColor: '#fff' }}
-                        onPressLeft={() => {
-                          navigation.goBack();
-                        }} />,
+        onPressLeft={() => {
+          navigation.goBack();
+        }} />,
     };
   };
 
@@ -41,7 +41,7 @@ export default class MHMapDemo extends React.Component {
     this.state = {
       zoomLevel: 16.1,
       userLocation: {
-        image: require( '../../Resources/map/003.png'),
+        image: require('../../Resources/map/003.png'),
         enabled: false,
         size: {
           width: 64,
@@ -51,7 +51,7 @@ export default class MHMapDemo extends React.Component {
       },
 
       userLocationRepresentation: {
-        image: require( '../../Resources/map/003.png'),
+        image: require('../../Resources/map/003.png'),
         imageScale: 5,
         showsAccuracyRing: false,
         // strokeColor: [0.9, 0.1, 0.1, 0.9],
@@ -60,18 +60,18 @@ export default class MHMapDemo extends React.Component {
       annotations: [],
       circles: [],
       polylines: [],
-      mapHeight: window.height-headerHeight
+      mapHeight: window.height - headerHeight
     };
   }
 
   componentWillMount() {
-    if(Host.isAndroid){
-      Host.getPhoneScreenInfo().then((phoneScreenInfo)=>{
-        let mapHeight = phoneScreenInfo.viewHeight-headerHeight;
+    if (Host.isAndroid) {
+      Host.getPhoneScreenInfo().then((phoneScreenInfo) => {
+        let mapHeight = phoneScreenInfo.viewHeight - headerHeight;
         this.setState({
-          mapHeight:mapHeight
+          mapHeight: mapHeight
         })
-      }).catch((error)=>{
+      }).catch((error) => {
 
       });
     }
@@ -80,14 +80,14 @@ export default class MHMapDemo extends React.Component {
   render() {
 
     let centerCoordinate = {
-       latitude: Device.latitude,
-       longitude:Device.longitude
+      latitude: Device.latitude,
+      longitude: Device.longitude
     }
 
     return (
       <View style={styles.container}>
         <AMapView
-          style={{width:window.width, height:this.state.mapHeight}}
+          style={{ width: window.width, height: this.state.mapHeight }}
           distanceFilter={100}
           zoomLevel={this.state.zoomLevel}
           onMapWillZoomByUser={this._onMapWillZoomByUser.bind(this)}
@@ -110,7 +110,7 @@ export default class MHMapDemo extends React.Component {
           logoPosition={0}
         />
         <TouchableOpacity style={styles.walkingRouteSearch} onPress={this._walkingRouteSearchButtonClicked.bind(this)}>
-          <Text style={{fontSize: 20}}>步行路径规划</Text>
+          <Text style={{ fontSize: 20 }}>步行路径规划</Text>
         </TouchableOpacity>
       </View>
     );
@@ -142,7 +142,7 @@ export default class MHMapDemo extends React.Component {
       lineWidth: 2,
     };
     this.setState({
-      circles : new Array(circle),
+      circles: new Array(circle),
     });
   }
 
@@ -150,13 +150,13 @@ export default class MHMapDemo extends React.Component {
     var annotation = {
       id: 'annotation' + e.nativeEvent.latitude + e.nativeEvent.longitude,
       title: '目标位置',
-      image: require( '../../Resources/map/003.png'),
+      image: require('../../Resources/map/003.png'),
       size: {
         width: 64,
         height: 64,
       },
-      canShowCallout: false,
-      lockedScreenPoint:{x:0.5,y:1},//控制图标绘制起点相对点击的位置，android 测了
+      canShowCallout: true,
+      lockedScreenPoint: { x: 0.5, y: 1 },//控制图标绘制起点相对点击的位置，android 测了
       coordinate: {
         latitude: e.nativeEvent.latitude,
         longitude: e.nativeEvent.longitude,
@@ -179,7 +179,7 @@ export default class MHMapDemo extends React.Component {
       'longitude': this.destinationLongitude,
     };
 
-    MHMapSearch.walkingRouteSearch(originCoordinate, destinationCoordinate, 0, (isSuccess, json)=>{
+    MHMapSearch.walkingRouteSearch(originCoordinate, destinationCoordinate, 0, (isSuccess, json) => {
       if (isSuccess) {
         this.route = json;
         var path = this.route.paths[0];
@@ -193,12 +193,12 @@ export default class MHMapDemo extends React.Component {
             //   'coordinates': coordinates,
             // };
             var multiPolyline = {
-              'id':'multiPolyline' + i,
-              'coordinates':coordinates,
-              'drawStyleIndexes':[0,1,2],
-              'renderGradient':true,
-              'renderLineWidth':12,
-              'colors':[0xff0096ff,0xfff6c623,0xffff6600]
+              'id': 'multiPolyline' + i,
+              'coordinates': coordinates,
+              'drawStyleIndexes': [0, 1, 2],
+              'renderGradient': true,
+              'renderLineWidth': 12,
+              'colors': [0xff0096ff, 0xfff6c623, 0xffff6600]
             };
             polylines.push(multiPolyline);
           }
@@ -222,13 +222,13 @@ export default class MHMapDemo extends React.Component {
     var tempArray = str.split(',');
     console.log(tempArray);
     var coordinates = [];
-    for (var i = 0; i < tempArray.length; i+=2) {
-      if (tempArray[i] && tempArray[i+1]){
-          var coordinate = {
-            'longitude': parseFloat(tempArray[i]),
-            'latitude': parseFloat(tempArray[i+1]),
-          }
-          coordinates.push(coordinate);
+    for (var i = 0; i < tempArray.length; i += 2) {
+      if (tempArray[i] && tempArray[i + 1]) {
+        var coordinate = {
+          'longitude': parseFloat(tempArray[i]),
+          'latitude': parseFloat(tempArray[i + 1]),
+        }
+        coordinates.push(coordinate);
       }
     }
     console.log(coordinates);
