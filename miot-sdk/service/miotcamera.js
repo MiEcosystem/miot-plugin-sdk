@@ -21,16 +21,16 @@ export const MISSCommand = {
     MISS_CMD_SPEAKER_START_RESP: 0x107,	/**< C->S, speaker start resp */
     MISS_CMD_SPEAKER_STOP: 0x108,	/**< C->S, speaker stop */
     MISS_CMD_STREAM_CTRL_REQ: 0x109,	/**< C->S, video quality req */
-    MISS_CMD_STREAM_CTRL_RESP: 0x110,	/**< S->C, video quality response */
-    MISS_CMD_GET_AUDIO_FORMAT_REQ: 0x111,	/**< C->S, get audio format */
-    MISS_CMD_GET_AUDIO_FORMAT_RESP: 0x112,  /**< S->C, audio format response */
-    MISS_CMD_PLAYBACK_REQ: 0x113,	/**< C->S, playback request */
-    MISS_CMD_PLAYBACK_RESP: 0x114,	/**< S->C, playback response */
-    MISS_CMD_PLAYBACK_SET_SPEED: 0x115,	/**< C->S, playback speed */
-    MISS_CMD_DEVINFO_REQ: 0x116,	/**< C->S, device info request */
-    MISS_CMD_DEVINFO_RESP: 0x117,	/**< S->C, device info response */
-    MISS_CMD_MOTOR_REQ: 0x118,	/**< C->S, device motor control */
-    MISS_CMD_MOTOR_RESP: 0x119,	/**< S->C, device motor control response */
+    MISS_CMD_STREAM_CTRL_RESP: 0x10A,	/**< S->C, video quality response */
+    MISS_CMD_GET_AUDIO_FORMAT_REQ: 0x10B,	/**< C->S, get audio format */
+    MISS_CMD_GET_AUDIO_FORMAT_RESP: 0x10C,  /**< S->C, audio format response */
+    MISS_CMD_PLAYBACK_REQ: 0x10D,	/**< C->S, playback request */
+    MISS_CMD_PLAYBACK_RESP: 0x10E,	/**< S->C, playback response */
+    MISS_CMD_PLAYBACK_SET_SPEED: 0x10F,	/**< C->S, playback speed */
+    MISS_CMD_DEVINFO_REQ: 0x110,	/**< C->S, device info request */
+    MISS_CMD_DEVINFO_RESP: 0x111,	/**< S->C, device info response */
+    MISS_CMD_MOTOR_REQ: 0x112,	/**< C->S, device motor control */
+    MISS_CMD_MOTOR_RESP: 0x113,	/**< S->C, device motor control response */
 };
 Object.freeze(MISSCommand);
 /**
