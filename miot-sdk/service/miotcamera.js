@@ -111,6 +111,14 @@ export default {
          return 
     /**
      * 发送RDT命令到设备
+     * @param {object} params json data
+     * @returns {Promise<number>} a promise with return code
+     */
+    sendRDTJSONCommandToDevice(params) {
+         return Promise.resolve(null);
+    },
+    /**
+     * 发送RDT命令到设备
      * @param {string} params base64 encoded data
      * @returns {Promise<number>} a promise with return code
      */
@@ -119,7 +127,7 @@ export default {
     },
     /**
      * 注册接收RDT命令回调
-     * @param {string} callbackName 收到RDT回调 { data: Base64String }
+     * @param {string} callbackName 收到RDT回调 { data: Object/Base64String }
      */
     bindRDTDataReceiveCallback(callbackName) {
          return 
