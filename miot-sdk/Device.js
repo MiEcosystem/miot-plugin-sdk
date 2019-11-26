@@ -242,48 +242,6 @@ export class IDeviceWifi {
     callMethodFromLocal(method, args, extraPayload = {}) {
          return Promise.resolve({});
     }
-    /**
-     * 
-     * @param {json} payload  数据格式 @{@"id" : @(id), @"method" : @"method", @"params" : originData, @"other" : other}
-     * @param {number} length  每一帧的长度
-     * @param {string} type   类型，例如“scene”
-     * @retun {Promise<json>} 请求成功返回 {code:0,result:{} }
-     */
-    sendKeyFramePayLoad(payload, length, type) {
-        return new Promise((resolve, reject) => {
-            if (native.isAndroid) {
-                native.MIOTDevice.sendKeyFramePayLoad((typeof (payload) === "string") ? args : JSON.stringify(args), length, type,
-                    (ok, res) => {
-                        if (ok) {
-                            resolve(res)
-                        } else {
-                            reject(res)
-                        }
-                    })
-            } else {
-                //need deviceID
-                //args._miot_device_id = this.deviceID;
-                native.MIOTDevice.sendKeyFramePayLoad(payload, length, type, (ok, res) => {
-                    if (ok) {
-                        resolve(res)
-                    } else {
-                        reject(res)
-                    }
-                })
-            }
-        })
-    }
-    // @native end
-    /**
-     * ping 操作 检查设备本地局域网通信是否可用
-     * @returns {Promise<boolean>}
-     *
-     * @example
-     * Device.getDeviceWifi().localPing()
-     *  .then(res => console.log('success:', res))
-     *  .catch(err => console.log('failed:', err))
-     */
-    localPing() {
          return Promise.resolve({});
     }
     /**
