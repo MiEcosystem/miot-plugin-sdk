@@ -11,6 +11,7 @@
  * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 'use strict';
 
 // ART的demo }
@@ -34,6 +35,7 @@ import ControlDemo from './Device/ControlDemo';
 import DeviceControl from "./Device/DeviceControl";
 import DeviceDemo from "./Device/DeviceDemo";
 import HostDemo from "./Host";
+import HostEventDemo from "./Host/HostEventDemo";
 import FileStorage from './Host/File';
 import HostPropsInfoDemo from './Host/HostPropsInfoDemo';
 import JSExecutor from './Host/JSExecutor';
@@ -173,6 +175,7 @@ function createRootStack(initPage) {
     DialogExample,
     NavigationBarDemo,
     HostDemo,
+    HostEventDemo:HostEventDemo,
     ServiceDemo,
     BlankPageEntry,
     BlankPageDemo,

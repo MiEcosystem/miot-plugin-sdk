@@ -40,6 +40,7 @@ import Smarthome from './service/smarthome';
 import Spec from './service/spec';
 import Storage from './service/storage';
 import TJInfra from './service/tjinfra';
+import MiotCamera from './service/miotcamera';
  const CurrentAccount = null;
 export default {
   /**
@@ -49,6 +50,14 @@ export default {
    */
   get smarthome() {
     return Smarthome;
+  },
+  /**
+   * @member miotcamera
+   * @description 摄像机相关 API
+   * @see {@link module:miot/service/miotcamera}
+   */
+  get miotcamera() {
+    return MiotCamera;
   },
   /**
    * @member ircontroller
@@ -157,6 +166,22 @@ export default {
    * @returns {Promise} resolve({res,did,token})
    */
   applyForDeviceIDAndToken(model, mac) {
+     return Promise.resolve(null);
+  },
+  /**
+   * @method callSpecificAPI
+   * @since 10031
+   * @description 调用当前手机设备的网关http服务
+   * 只封装透传网络请求，无法对接口调用结果解释，有问题请直接联系项目对接后台人员或 PM。
+   * 
+   * @param {string} url - url
+   * @param {string} method - 如 'get', 'post'等 不区分大小写 暂时只支持 get 和 post 
+   * @param {object} params 传入参数，比如{ did: 'xxxx', pid: 'xxxx' }
+   * @returns {Promise}
+   * 成功时：返回网络请求的结果对应字符串， 相当于：response.body().string()
+   * 失败时：{"code":xxx, "message":"xxx" }
+   */
+  callSpecificAPI(url, method, params) {
      return Promise.resolve(null);
   }
 }

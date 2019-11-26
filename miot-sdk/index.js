@@ -17,7 +17,7 @@
 import BluetoothFactory, { BluetoothEvent as BluetoothEventNames } from './Bluetooth';
 import ClassicBluetoothFactory, { ClassicBluetoothEvent as ClassicBluetoothEventNames } from './ClassicBluetooth';
 import RootDevice, { DeviceEvent as DeviceEventNames } from './Device';
-import HostInstance from './Host';
+import HostInstance, {HostEvent as HostEventNames} from './Host';
 import { AudioEvent as AudioEventNames } from './host/audio';
 import { FileEvent as FileEventNames } from './host/file';
 import PackageInstance, { Entrance as Entrances, PackageEvent as PackageEventNames } from './Package';
@@ -76,6 +76,7 @@ export const Service = ServiceInstance;
  * @export
  */
 export const Host = HostInstance;
+export const HostEvent = HostEventNames;
 /**
  * 资源类
  * {@link module:miot/resources}
@@ -121,7 +122,7 @@ import * as Utils from './utils';
 export default {
     API_LEVEL, Package, PackageEvent, Entrance,
     Device, DeviceEvent, DeviceProperties,
-    Service, Host, Resources,
+    Service, Host, HostEvent, Resources,
     Bluetooth, BluetoothEvent, SceneType,
     FileEvent, AudioEvent, ClassicBluetooth, ClassicBluetoothEvent,
     Utils

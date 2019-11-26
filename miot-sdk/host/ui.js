@@ -21,8 +21,8 @@ import native from "../native";
 const resolveAssetSource = require('resolveAssetSource');
 // @native begin
 function resolveUrlWithLink(url) {
-  if(typeof url === 'string' && (/https?\:\/\//i).test(url)) {
-    return native.isAndroid ? [{uri: url}] : url;
+  if (typeof url === 'string' && (/https?\:\/\//i).test(url)) {
+    return native.isAndroid ? [{ uri: url }] : url;
   }
   return resolveUrl(url);
 }
@@ -287,6 +287,12 @@ export default {
    * @since 10025
    */
   openBleMeshDeviceUpgradePage() {
+  },
+  /**
+   * 打开灯组2.0固件升级页。分享的设备点击此接口无反应（理论上分享的设备不应该出现调用此接口的菜单）
+   * @since 10031
+   */
+  openLightGroupUpgradePage() {
   },
   /**
    * 打开设备时区设置页
