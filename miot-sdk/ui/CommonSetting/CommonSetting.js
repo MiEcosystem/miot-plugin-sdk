@@ -363,7 +363,7 @@ export default class CommonSetting extends React.Component {
   }
   /**
    * @description 从 this.state.showDot 移除某key，从而隐藏小红点
-   * @param {string} key 
+   * @param {string} key
    */
   removeKeyFromShowDot(key) {
     const showDotTmp = [...this.state.showDot];
