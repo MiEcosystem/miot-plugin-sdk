@@ -31,6 +31,7 @@
 import Scene from './service/scene';
 const PERMISSION_OWNER = 16;
 const PERMISSION_FAMILY = 8;
+const PERMISSION_FAMILY_IOS = 68;
 const PERMISSION_SHARE = 4;
 const PERMISSION_SHARE_READONLY = 32;
 const PERMISSION_NONE = 65296;
@@ -611,7 +612,7 @@ class IDevice {
          return  ""
     }
     /**
-     * 当前账户对设备的控制权限，主要用于分享的设备 4:普通分享 36:只读分享
+     * 当前账户对设备的控制权限，主要用于分享的设备 4:普通分享 36:只读分享 68:家庭分享
      * @type {int}
      * @readonly
      *
@@ -808,6 +809,7 @@ class IDevice {
      */
     get isFamily() {
          return  false
+        return permitLevel == PERMISSION_FAMILY || permitLevel == PERMISSION_FAMILY_IOS;
     }
     /**
      *是否是别人分享的设备，若是家属分享给你的设备，isShared为fasle，isFamily为true
@@ -817,6 +819,7 @@ class IDevice {
      */
     get isShared() {
          return  false
+        return (permitLevel == PERMISSION_SHARE || permitLevel == PERMISSION_SHARE_READONLY) && Properties.of(this).ownerName !== null;
     }
     /**
      *是否是已经绑定的设备
