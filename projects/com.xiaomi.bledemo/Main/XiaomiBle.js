@@ -13,6 +13,7 @@ import Host from "miot/Host";
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import CommonCell from './CommonCell';
+import { IBluetoothLock } from "miot";
 
 
 let bt = Device.getBluetoothLE();
@@ -55,6 +56,7 @@ export default class MainPage extends React.Component {
             if (services.length <= 0) { return }
             console.log("bluetoothSeviceDiscovered", blut.mac, services.map(s => s.UUID), bt.isConnected)
             this.addLog("蓝牙服务发现完成：\n" + JSON.stringify(services.map(s => s.UUID)))
+
             let s = services.map(s => { return { uuid: s.UUID, char: [] } })
             this.setState({
                 services: s
@@ -66,6 +68,14 @@ export default class MainPage extends React.Component {
                     s.startDiscoverCharacteristics()
                 })
             }
+            Device.getBluetoothLE().getVersion(true, true).then(version => {
+                var data = Device.getBluetoothLE().securityLock.decryptMessageWithToken(version).then(data => {
+                    console.log("设备版本为：" + data);
+                    this.addLog("设备版本为：" + version);
+                })
+            }).catch(err => {
+                console.log(err, '-------');
+            });
         })
         this._s2 = BluetoothEvent.bluetoothCharacteristicDiscovered.addListener((bluetooth, service, characters) => {
             console.log("bluetoothCharacteristicDiscovered", characters.map(s => s.UUID), bt.isConnected);
@@ -135,6 +145,12 @@ export default class MainPage extends React.Component {
     connect() {
         this.addLog("准备开始蓝牙连接")
         if (bt.isConnected) {
+            // bt.getVersion(true, true).then(version => {
+            //     this.addLog("设备版本为：" + version);
+            // }).then(err => {
+            //     console.log(err, '-------');
+            // });
+            console.log();
             this.addLog("蓝牙设备已经连接")
             this.addLog("开始发先服务")
             bt.startDiscoverServices();
@@ -142,12 +158,10 @@ export default class MainPage extends React.Component {
             this.addLog("蓝牙正处于连接中，请等待连接结果后再试")
         } else {
             bt.connect(-1).then((data) => {
-                this.addLog("ble connect successed: " + JSON.stringify(data))
-                this.addLog("startDiscoverServices")
                 bt.startDiscoverServices();
             }).catch((data) => {
                 this.addLog("ble connect failed: " + JSON.stringify(data))
-                if (data.code === 7) {
+                if (data.code === -7) {
                     Bluetooth.retrievePeripheralsWithServicesForIOS('serviceid1', 'serviceid2').then(res => {
                         //在这里可以获取到已经连接的蓝牙对象，小米协议设备返回-7，大几率是本身已经连接，在这里可以选择
                         // 1. 获取到蓝牙的uuid，通过普通蓝牙对象操作
@@ -191,7 +205,7 @@ export default class MainPage extends React.Component {
                     {
                         this.state.services.map((val, index) => {
                             return (
-                                <View style={{ marginTop: 20 }}>
+                                <View key={index} style={{ marginTop: 20 }}>
                                     <Text style={[{ backgroundColor: 'white' }]}>service: {val.uuid}</Text>
                                     {
                                         val.char.map((v, i) => {

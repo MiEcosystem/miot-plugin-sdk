@@ -4,7 +4,7 @@
  * @doc_index 2
  * @doc_directory host
  * @module miot/host/audio
- * @description 
+ * @description
  * 音频处理
  * @example
  * import {Host} from 'miot'
@@ -60,6 +60,24 @@ export default {
    * @return {Promise}
    */
   stopPlay() {
+     return Promise.resolve(null);
+  },
+  /**
+   * 获取当前录制声音的峰值声音强度。
+   * for iOS： 对应的原生api为 [AVAudioRecorder peakPowerForChannel:0]
+   * iOS官方文档：https://developer.apple.com/documentation/avfoundation/avaudiorecorder/1389463-peakpowerforchannel?language=objc
+   * 返回值为0 表示满刻度或最大；返回值为-160表示最小（即接近静默）。
+   * 取值范围是 -160 - 0， -160 意味着接近silence（静音），0 表示 最大的可测强度
+   * 但是实际在测试过程中发现会大于0的输出情况，该值在测试极限情况出现过 10.5 的情况
+   *
+   * for android： 取值范围是0-2^15，对应的原生api 为 MediaRecorder.getMaxAmplitude()
+   *
+   * @since 10030
+   * @return {Promise}
+   * 成功时：{"code":0, "data":xxx}    失败时：{"code":-1, "message":"xxx" }
+   *
+   */
+  getRecordingPeakPower() {
      return Promise.resolve(null);
   },
   /**

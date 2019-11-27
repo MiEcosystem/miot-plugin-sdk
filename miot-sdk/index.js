@@ -25,7 +25,7 @@ import { RootDeviceProperties } from "./Properties";
 import ResourcesPack from './resources';
 import ServiceInstance from './Service';
 import { SceneType as SceneTypeNames } from './service/scene';
-export const API_LEVEL = 10027
+export const API_LEVEL = 10030
 /**
  * 插件包基本配置
  * {@link module:miot/Package}
@@ -114,6 +114,7 @@ export const ClassicBluetoothEvent = ClassicBluetoothEventNames;
 export const SceneType = SceneTypeNames;
 export const FileEvent = FileEventNames;
 export const AudioEvent = AudioEventNames;
+import * as Utils from './utils';
 /**
  * @export
  */
@@ -122,5 +123,6 @@ export default {
     Device, DeviceEvent, DeviceProperties,
     Service, Host, Resources,
     Bluetooth, BluetoothEvent, SceneType,
-    FileEvent, AudioEvent, ClassicBluetooth, ClassicBluetoothEvent
+    FileEvent, AudioEvent, ClassicBluetooth, ClassicBluetoothEvent,
+    Utils
 }

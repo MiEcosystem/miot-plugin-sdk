@@ -83,6 +83,8 @@ let strings = {
   firmwareUpgradeForceUpdating: '',
   firmwareUpgradeNew_pre: '',
   firmwareUpgradeNew_sub: '',
+  handling: '',
+  error: ''
 }
 strings = getStrings({
   zh: {
@@ -141,6 +143,8 @@ strings = getStrings({
     firmwareUpgradeForceUpdating: '您的设备正在升级，请稍后，以体验更丰富的功能',
     firmwareUpgradeNew_pre: '检测到设备有最新固件版本',
     firmwareUpgradeNew_sub: '，是否升级',
+    handling: '操作中...',
+    error: '处理失败，请稍后再试'
   },
   zh_tw: {
     setting: '設定',
@@ -198,6 +202,8 @@ strings = getStrings({
     firmwareUpgradeForceUpdating: '您的裝置正在升級，請稍後，以體驗更豐富的功能',
     firmwareUpgradeNew_pre: '檢測到裝置有最新韌體版本',
     firmwareUpgradeNew_sub: '，是否升級',
+    handling: '執行中...',
+    error: '處理失敗，請重試'
   },
   zh_hk: {
     setting: '設定',
@@ -255,6 +261,8 @@ strings = getStrings({
     firmwareUpgradeForceUpdating: '您的裝置正在升級，請稍後，以體驗更豐富的功能',
     firmwareUpgradeNew_pre: '檢測到裝置有最新韌體版本',
     firmwareUpgradeNew_sub: '，是否升級',
+    handling: '執行中...',
+    error: '處理失敗，請重試'
   },
   en: {
     setting: 'Settings',
@@ -312,6 +320,8 @@ strings = getStrings({
     firmwareUpgradeForceUpdating: 'Your device is updating, try again later',
     firmwareUpgradeNew_pre: 'Firmware update ',
     firmwareUpgradeNew_sub: ' available. Update now?',
+    handling: 'Running…',
+    error: 'Could not operate, please try again later'
   },
   ko: {
     setting: '설정',
@@ -369,6 +379,8 @@ strings = getStrings({
     firmwareUpgradeForceUpdating: '기기를 업데이트 중입니다. 나중에 다시 시도하십시오.',
     firmwareUpgradeNew_pre: '펌웨어 업데이트 ',
     firmwareUpgradeNew_sub: ' 가능, 지금 업데이트 하시겠습니까?',
+    handling: '실행 중...',
+    error: '다시 시도'
   },
   ru: {
     setting: 'Настройки',
@@ -426,6 +438,8 @@ strings = getStrings({
     firmwareUpgradeForceUpdating: 'Устройство обновляется, попробуйте позже',
     firmwareUpgradeNew_pre: 'Доступно обновление ПО ',
     firmwareUpgradeNew_sub: ', обновить сейчас?',
+    handling: 'Загрузка...',
+    error: 'Попробовать снова'
   },
   es: {
     setting: 'Configuración',
@@ -483,6 +497,8 @@ strings = getStrings({
     firmwareUpgradeForceUpdating: 'Tu dispositivo se está actualizando, inténtalo más tarde',
     firmwareUpgradeNew_pre: 'Actualización ',
     firmwareUpgradeNew_sub: ' de firmware disponible, ¿actualizar ahora?',
+    handling: 'Ejecutándose...',
+    error: 'Reintentar'
   },
   fr: {
     setting: 'Paramètres',
@@ -540,6 +556,8 @@ strings = getStrings({
     firmwareUpgradeForceUpdating: 'Votre appareil est en cours de mise à jour. Réessayez plus tard',
     firmwareUpgradeNew_pre: 'Mise à jour du micrologiciel ',
     firmwareUpgradeNew_sub: ' disponible. Mettre à jour maintenant ?',
+    handling: 'En cours d’exécution…',
+    error: 'Réessayer'
   },
   it: {
     setting: 'Impostazioni',
@@ -597,6 +615,8 @@ strings = getStrings({
     firmwareUpgradeForceUpdating: 'Il dispositivo è in fase di aggiornamento. Riprova più tardi',
     firmwareUpgradeNew_pre: 'Aggiornamento firmware ',
     firmwareUpgradeNew_sub: ' disponibile. Aggiornare adesso?',
+    handling: 'In esecuzione…',
+    error: 'Riprova'
   },
   de: {
     setting: 'Einstellungen',
@@ -654,6 +674,8 @@ strings = getStrings({
     firmwareUpgradeForceUpdating: 'Ihr Gerät wird aktualisiert, versuchen Sie es später erneut',
     firmwareUpgradeNew_pre: 'Firmware-Aktualisierung ',
     firmwareUpgradeNew_sub: ' verfügbar, jetzt aktualisieren?',
+    handling: 'Wird ausgeführt...',
+    error: 'Erneut versuchen'
   },
   id: {
     setting: 'Pengaturan',
@@ -711,6 +733,8 @@ strings = getStrings({
     firmwareUpgradeForceUpdating: 'Perangkat sedang diperbarui, coba lagi nanti',
     firmwareUpgradeNew_pre: 'Pembaruan firmware ',
     firmwareUpgradeNew_sub: ' tersedia, perbarui sekarang?',
+    handling: 'Menjalankan...',
+    error: 'Coba lagi'
   },
   pl: {
     setting: 'Ustawienia',
@@ -768,6 +792,8 @@ strings = getStrings({
     firmwareUpgradeForceUpdating: 'Urządzenie jest aktualizowane, spróbuj ponownie później.',
     firmwareUpgradeNew_pre: 'Dostępna jest aktualizacja oprogramowania sprzętowego dla ',
     firmwareUpgradeNew_sub: '. Zaktualizować teraz?',
+    handling: 'Pracuje…',
+    error: 'Spróbuj ponownie'
   },
   vi: {
     setting: 'Cài đặt',
@@ -825,6 +851,8 @@ strings = getStrings({
     firmwareUpgradeForceUpdating: 'Thiết bị của bạn đang cập nhật, hãy thử lại sau',
     firmwareUpgradeNew_pre: 'Đã có bản cập nhật chương trình cơ sở ',
     firmwareUpgradeNew_sub: ', cập nhật ngay bây giờ?',
+    handling: 'Đang thực hiện',
+    error: 'Thử lại'
   },
   ja: {
     setting: '設定',
@@ -882,6 +910,8 @@ strings = getStrings({
     firmwareUpgradeForceUpdating: 'デバイスは更新中です。後で再試行してください',
     firmwareUpgradeNew_pre: 'ファームウェア更新プログラム ',
     firmwareUpgradeNew_sub: ' が公開されています。今すぐ更新しますか?',
+    handling: '実行中',
+    error: '再試行する'
   },
   th: {
     setting: 'การตั้งค่า',
@@ -939,6 +969,8 @@ strings = getStrings({
     firmwareUpgradeForceUpdating: 'อุปกรณ์กำลังอัปเดต ลองอีกครั้งในภายหลัง',
     firmwareUpgradeNew_pre: 'เฟิร์มแวร์อัปเดต ',
     firmwareUpgradeNew_sub: ' ใช้ได้แล้ว อัปเดตตอนนี้หรือไม่',
+    handling: 'ในการดำเนินการ',
+    error: 'ลองอีกครั้ง'
   }
 });
 export default strings;

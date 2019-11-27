@@ -15,6 +15,7 @@ export default class MHAudioDemo extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
+      audioRecorderPeakPower: ''
     };
   }
 
@@ -44,9 +45,15 @@ export default class MHAudioDemo extends React.Component {
     this.s0.remove();
     this.s1.remove();
     this.s2.remove();
+    this._stopPeakPowerLoop();
   }
 
   render() {
+
+    // 如果不设置英文字体，那么外文字符串将显示不全（Android）
+    let fontFamily = {};
+    if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' }
+
     return (
       <View style={styles.container}>
         <TouchableOpacity style={{ top: 100 }} onPress={this._startRecordButtonClicked.bind(this)}>
@@ -55,13 +62,16 @@ export default class MHAudioDemo extends React.Component {
         <TouchableOpacity style={{ top: 150 }} onPress={this._stopRecordButtonClicked.bind(this)}>
           <Text style={{ fontSize: 20 }}>录音结束</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{ top: 200 }} onPress={this._startPlayButtonClicked.bind(this)}>
+        <View style={{ top: 200 }}>
+          <Text style={[{ fontSize: 14 }, fontFamily]}>peakPower：{this.state.audioRecorderPeakPower}</Text>
+        </View>
+        <TouchableOpacity style={{ top: 250 }} onPress={this._startPlayButtonClicked.bind(this)}>
           <Text style={{ fontSize: 20 }}>播放开始</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{ top: 250 }} onPress={this._stopPlayButtonClicked.bind(this)}>
+        <TouchableOpacity style={{ top: 300 }} onPress={this._stopPlayButtonClicked.bind(this)}>
           <Text style={{ fontSize: 20 }}>播放结束</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{ top: 300 }} onPress={this._convertButtonClicked.bind(this)}>
+        <TouchableOpacity style={{ top: 350 }} onPress={this._convertButtonClicked.bind(this)}>
           <Text style={{ fontSize: 20 }}>格式转换</Text>
         </TouchableOpacity>
       </View>
@@ -79,26 +89,36 @@ export default class MHAudioDemo extends React.Component {
       AVLinearPCMIsBigEndianKey: false,
       AVLinearPCMIsFloatKey: false,
     };
-
     if (Platform.OS === 'android') {
 
       PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.RECORD_AUDIO, null)
         .then((granted) => {
           console.log("granted", granted);
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            Host.audio.startRecord(fileName, settings).then(() => { console.log('startRecord'); });
+            Host.audio.startRecord(fileName, settings).then(() => {
+              console.log('startRecord');
+              this._startPeakPowerLoop();
+            });
           }
         }).catch((error) => {
-          console.log("error", error)
-        })
+        console.log("error", error)
+      })
     } else {
-      Host.audio.startRecord(fileName, settings).then(() => { console.log('startRecord'); });
+      Host.audio.startRecord(fileName, settings).then(() => {
+        console.log('startRecord');
+        this._startPeakPowerLoop();
+      }).catch((err) => {
+        console.log('startRecord catch error' + err);
+      });
     }
 
   }
 
   _stopRecordButtonClicked() {
-    Host.audio.stopRecord().then(() => { console.log('stopRecord'); });
+    Host.audio.stopRecord().then(() => {
+      console.log('stopRecord');
+      this._stopPeakPowerLoop();
+    });
   }
 
   _startPlayButtonClicked() {
@@ -120,7 +140,30 @@ export default class MHAudioDemo extends React.Component {
     Host.audio.wavToAmr(wavPath, amrPath).then(() => { console.log('wavToAmr'); });
   }
 
+  _startPeakPowerLoop() {
+    this.peakPowerTimer = setInterval(
+      () => {
+        Host.audio.getRecordingPeakPower().then((res) => {
+          if (res != null) {
+            this.setState({ audioRecorderPeakPower: JSON.stringify(res) });
+            console.log('peakpower err : ' + JSON.stringify(res));
+          }
+        }).catch((err) => {
+          this.setState({ audioRecorderPeakPower: JSON.stringify(err) });
+          console.log('peakpower err : ' + JSON.stringify(err));
+        })
+      },
+      500
+    );
+  }
+
+  _stopPeakPowerLoop() {
+    this.peakPowerTimer && clearInterval(this.peakPowerTimer);
+    this.peakPowerTimer = undefined;
+    this.setState({ audioRecorderPeakPower: '' });
+  }
 }
+
 
 
 const styles = StyleSheet.create({

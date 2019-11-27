@@ -122,6 +122,18 @@ export default {
     checkDeviceVersion(did, pid) {
          return Promise.resolve({});
     },
+    // @native begin
+    getProtocolUrls(params) {
+      return new Promise((resolve, reject) => {
+        native.MIOTRPC.standardCall("/v2/plugin/get_protocol", params, (ok, res) => {
+          if(ok) {
+            return resolve(res);
+          }
+          reject(res);
+        });
+      });
+    },
+    // @native end
     /**
      * // 获取可用固件更新，传参为dids。 /home/multi_checkversion
      * @param {array<string>} deviceIDs 设备ID
@@ -132,6 +144,7 @@ export default {
     },
     /**
      * 获取服务器中 最新的版本信息，内部调用米家代理接口/home/latest_version
+     * @deprecated 请使用下面的getLatestVersionV2
      * @param {string} model 设备的 model
      * @return {Promise}
      */
@@ -673,8 +686,8 @@ export default {
      * @param {string} params.did
      * @param {string} params.key
      * @param {string} params.type
-     * @param {string} params.timestamp
-     * @param {string} params.limit
+     * @param {number} params.timestamp
+     * @param {number} params.limit
      * @return {Promise}
      */
     getUserDeviceDataTab(params) {

@@ -17,10 +17,16 @@
  */
 import { Device } from "../index";
 import native from "../native";
-import { Entrance } from "../Package";
-import Service from "../Service";
 
 const resolveAssetSource = require('resolveAssetSource');
+// @native begin
+function resolveUrlWithLink(url) {
+  if(typeof url === 'string' && (/https?\:\/\//i).test(url)) {
+    return native.isAndroid ? [{uri: url}] : url;
+  }
+  return resolveUrl(url);
+}
+// @native end
 export default {
   /**
    * 是否支持商城
@@ -161,16 +167,16 @@ export default {
       return;
     }
     if (optionCopy.privacyURL) {
-      optionCopy.privacyURL = resolveUrl(optionCopy.privacyURL);
+      optionCopy.privacyURL = resolveUrlWithLink(optionCopy.privacyURL);
     }
     if (optionCopy.agreementURL) {
-      optionCopy.agreementURL = resolveUrl(optionCopy.agreementURL);
+      optionCopy.agreementURL = resolveUrlWithLink(optionCopy.agreementURL);
     }
     if (optionCopy.hideAgreement) {
       delete optionCopy['agreementURL']//iOS下设置为“”则隐藏该项目
     }
     if (optionCopy.experiencePlanURL) {
-      optionCopy.experiencePlanURL = resolveUrl(optionCopy.experiencePlanURL);
+      optionCopy.experiencePlanURL = resolveUrlWithLink(optionCopy.experiencePlanURL);
     }
     if (optionCopy.hideUserExperiencePlan) {
       delete optionCopy['experiencePlanURL']
@@ -206,16 +212,16 @@ export default {
       return;
     }
     if (optionCopy.privacyURL) {
-      optionCopy.privacyURL = resolveUrl(optionCopy.privacyURL);
+      optionCopy.privacyURL = resolveUrlWithLink(optionCopy.privacyURL);
     }
     if (optionCopy.agreementURL) {
-      optionCopy.agreementURL = resolveUrl(optionCopy.agreementURL);
+      optionCopy.agreementURL = resolveUrlWithLink(optionCopy.agreementURL);
     }
     if (optionCopy.hideAgreement) {
       delete optionCopy['agreementURL']
     }
     if (optionCopy.experiencePlanURL) {
-      optionCopy.experiencePlanURL = resolveUrl(optionCopy.experiencePlanURL);
+      optionCopy.experiencePlanURL = resolveUrlWithLink(optionCopy.experiencePlanURL);
     }
     if (optionCopy.hideUserExperiencePlan) {
       delete optionCopy['experiencePlanURL']
@@ -339,9 +345,10 @@ export default {
    * @param {string} setting.offMethod 指硬件端，关闭 倒计时应该 执行的方法，请咨询硬件工程师
    * @param {string} setting.offParam 指硬件端，关闭 倒计时应该 传入的参数，请咨询硬件工程师
    * @param {string} setting.identify since 10021, 用于设置倒计时的identify
+   * @param {string} options.displayName 配置场景日志显示的名称：注意，不会更改倒计时页面的标题，只会上传到服务端
    * @example
    *
-   * Host.ui.openCountDownPage(true, {onMethod:"power_on", offMethod:'power_off', onParam:'on', offParam:'off'})
+   * Host.ui.openCountDownPage(true, {onMethod:"power_on", offMethod:'power_off', onParam:'on', offParam:'off',displayName:"新名字"})
    *
    */
   openCountDownPage(isCountDownOn, setting) {
@@ -469,7 +476,7 @@ export default {
    * let pageParams = {did:Device.deviceID,model:Device.model}
    * Host.ui.openPluginPage(Device.deviceID, PluginEntrance.Setting, pageParams)
    */
-  openPluginPage(did, pageName = Entrance.Main, pageParams = { isBackToMainPage: true }) {
+  openPluginPage(did, pageName = 'main', pageParams = { isBackToMainPage: true }) {
   },
   /**
    * 打开一个原生类 className ，界面类类名 注意 用此方法打开的vc初始化时不需要传参数，
@@ -518,6 +525,7 @@ export default {
    * 打开设备快连成功页面
    * @since 10004
    * @param {string} model 设备model
+   
    * @param {string} did 设备did
    */
   openConnectSucceedPage(model, did) {
