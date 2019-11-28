@@ -21,7 +21,7 @@ class GapWrap extends Component {
     return (
       <View onLayout={this.onLayout}>
         {hasSeparator && shown ? (
-          <Separator style={{height: adjustSize(3)}} />
+          <Separator style={{height: Math.min(adjustSize(3), 1), opacity: 0.35}} />
         ) : null}
         {children}
       </View>
