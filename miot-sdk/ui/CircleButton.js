@@ -22,11 +22,7 @@ export default class CircleButton extends Component {
     onPress: PropTypes.func,
     title: PropTypes.string,
     icon: PropTypes.any,
-    iconSelected: PropTypes.any,
-    iconText: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ])
+    iconSelected: PropTypes.any
   };
   static defaultProps = {
     sizeLevel: 0,
@@ -37,8 +33,7 @@ export default class CircleButton extends Component {
     onPress: NOOP,
     title: '',
     icon: null,
-    iconSelected: null,
-    iconText: ''
+    iconSelected: null
   };
   onPress = () => {
     let {disabled, onPress} = this.props;
@@ -48,7 +43,7 @@ export default class CircleButton extends Component {
     onPress();
   }
   render() {
-    let {sizeLevel, selected, title, icon, iconSelected, iconText, themeColor, disabled, horizontal} = this.props;
+    let {sizeLevel, selected, title, icon, iconSelected, themeColor, disabled, horizontal} = this.props;
     let containerSizeStyle = Styles[['container0', 'container1', 'container2', 'container3'][sizeLevel || 0]] || Styles.container0;
     let iconContainerSizeStyle = Styles[['iconContainer0', 'iconContainer1', 'iconContainer2', 'iconContainer3'][sizeLevel || 0]] || Styles.iconContainer0;
     let iconSizeStyle = Styles[['icon0', 'icon1', 'icon2', 'icon3'][sizeLevel || 0]] || Styles.icon0;
@@ -59,11 +54,7 @@ export default class CircleButton extends Component {
           backgroundColor: themeColor || ColorGreen,
           borderColor: themeColor || ColorGreen
         } : null, disabled ? Styles.iconContainerDisabled : null, disabled && selected ? Styles.iconContainerDisabledSelected : null])} activeOpacity={1} onPress={this.onPress}>
-          {icon ? (
-            <Image style={StyleSheet.flatten([Styles.icon, iconSizeStyle])} source={selected && !disabled ? (iconSelected || iconSelected) : icon} />
-          ) : (
-            <Text style={[Styles.iconText, selected && !disabled ? Styles.iconTextSelected : null]}>{iconText}</Text>
-          )}
+          <Image style={StyleSheet.flatten([Styles.icon, iconSizeStyle])} source={selected && !disabled ? (iconSelected || iconSelected) : icon} />
         </TouchableOpacity>
         {title ? (
           <Text style={StyleSheet.flatten([Styles.title, selected ? {
@@ -145,14 +136,6 @@ const Styles = StyleSheet.create({
   },
   icon0: {
     width: Size60
-  },
-  iconText: {
-    fontFamily: FontLantingLight,
-    fontSize: adjustSize(36),
-    color: '#000'
-  },
-  iconTextSelected: {
-    color: '#FFF'
   },
   title: {
     marginTop: adjustSize(27),

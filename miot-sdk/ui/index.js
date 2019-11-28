@@ -51,13 +51,12 @@ export {default as CircleButton} from './CircleButton';
 export {default as ContainerWithGap} from './ContainerWithGap';
 export {default as ContainerWithShadowAndSeparator} from './ContainerWithShadowAndSeparator';
 export {default as DeviceWithInfo} from './DeviceWithInfo';
-export {default as Fan} from './Fan';
 export {default as LightControl} from './LightControl';
 export {default as PageWithNormalNavigator} from './PageWithNormalNavigator';
 export {default as SelectorWithButton} from './SelectorWithButton';
 export {default as SliderWithHeader} from './SliderWithHeader';
-export {default as SmallNumbers} from './SmallNumbers';
 export {default as WallSwitch} from './WallSwitch';
+export {default as SmallNumbers} from './SmallNumbers';
 export default {
     ImageButton, MHImage,
     LoadingDialog, MessageDialog, MultiChoseDialog,

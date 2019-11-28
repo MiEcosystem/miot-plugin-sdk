@@ -129,7 +129,6 @@ const Styles = StyleSheet.create({
   subtitle: {
     fontFamily: FontLantingLight,
     fontSize: adjustSize(36),
-    lineHeight: adjustSize(42),
     color: '#999'
   },
   switchContainer: {
