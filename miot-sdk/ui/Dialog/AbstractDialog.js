@@ -1,7 +1,7 @@
 import { Host } from 'miot';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Dimensions, Modal, StyleSheet, Text, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
+import { Platform, Dimensions, Modal, StyleSheet, Text, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
 import { strings, Styles } from '../../resources';
 import Separator from '../Separator';
 const { width, height } = Dimensions.get('window');

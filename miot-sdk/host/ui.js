@@ -17,7 +17,7 @@
  */
 import { Device } from "../index";
 import native from "../native";
-
+// import { Entrance } from "../Package";
 const resolveAssetSource = require('resolveAssetSource');
 // @native begin
 function resolveUrlWithLink(url) {
@@ -525,7 +525,6 @@ export default {
    * 打开设备快连成功页面
    * @since 10004
    * @param {string} model 设备model
-   
    * @param {string} did 设备did
    */
   openConnectSucceedPage(model, did) {
