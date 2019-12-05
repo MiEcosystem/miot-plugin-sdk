@@ -3,10 +3,8 @@
 import {Device, Package, Host, Entrance} from "miot";
 import TitleBar from "miot/ui/TitleBar";
 import React from 'react';
-import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Image, PixelRatio, StyleSheet, Text, TouchableHighlight, View, ListView } from 'react-native';
 import { getString } from './MHLocalizableString';
-
-
 
 export default class MainPage extends React.Component {
   static navigationOptions = ({ navigation }) => {

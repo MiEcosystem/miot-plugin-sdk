@@ -21,7 +21,8 @@ export default class CircularSliderDemo extends React.Component {
                     minimumValue={0}
                     maximumValue={100}
                     value={100}
-                    onUpdate={this._onUpdate.bind(this)} ref="sliderA" />
+                    onUpdate={this._onUpdate.bind(this)} 
+                 />
             );
         } else {
             return <View></View>

@@ -46,6 +46,7 @@ export default class ParallaxAndroid extends React.Component {
       scrollMode: false,
       contentInsetY: contentInsetBottom,
     }
+    this.myRef = React.createRef()
   }
 
   render() {
@@ -59,7 +60,8 @@ export default class ParallaxAndroid extends React.Component {
         {this.state.scrollMode && this._renderBackground()}
         {/* <View style={{ height: safeAreaHeight, width: windowWidth, backgroundColor: 'red' }} /> */}
         <ScrollView
-          ref="scrollView"
+          // ref="scrollView"
+          ref={this.myRef}
           style={styles.foregroundContainer}
           showsVerticalScrollIndicator={false}
           onScroll={e => this._onScroll(e)}
@@ -135,14 +137,14 @@ export default class ParallaxAndroid extends React.Component {
   }
 
   _onScrollEndDrag() {
+    const { current } = this.myRef || {}
     if (this.contentOffsetY < contentInsetBottom * 0.5) {
-      console.log("bottom");
-      this.refs.scrollView && this.refs.scrollView.scrollTo({ x: 0, y: 0, animated: true });
+      current && current.scrollTo({ x: 0, y: 0, animated: true });
       this.setState({ scrollMode: false });
     }
     else if (this.contentOffsetY < contentInsetBottom) {
       console.log("top");
-      this.refs.scrollView && this.refs.scrollView.scrollTo({ x: 0, y: contentInsetBottom, animated: true });
+      current && current.scrollTo({ x: 0, y: contentInsetBottom, animated: true });
     }
   }
 }

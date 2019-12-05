@@ -39,13 +39,18 @@
  *  Host.storage.set(key, value)
  *
  */
+import { DeviceEventEmitter } from "react-native";
 import HostAudio from './host/audio';
 import HostCrypto from './host/crypto';
 import HostFile from './host/file';
 import HostLocale from './host/locale';
 import HostStorage from './host/storage';
 import HostUI from './host/ui';
- const IOS="ios", ANDROID="android";
+//@native = const IOS="ios", ANDROID="android";
+import native, {ANDROID, buildEvents, DEBUG, IOS} from "./native";
+//@native
+// const resolveAssetSource = require('resolveAssetSource');
+const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 export const HOST_TYPE_IOS = IOS;
 export const HOST_TYPE_ANDROID = ANDROID;
 export default {
@@ -57,7 +62,8 @@ export default {
      *
      */
     get type() {
-         return  "..."
+        //@native => "..."
+        return native.type;
     },
     /**
      * @const
@@ -65,7 +71,8 @@ export default {
      * @description 系统信息 包含sysVersion 系统版本名称 mobileModel 手机型号
      */
     get systemInfo() {
-         return  {}
+        //@native => {}
+        return native.MIOTHost.systemInfo;
     },
     /**
      * @const
@@ -73,7 +80,8 @@ export default {
      * @description 判断是否是 android
      */
     get isAndroid() {
-         return  false
+        //@native => false
+        return native.isAndroid;
     },
     /**
      * @const
@@ -81,7 +89,8 @@ export default {
      * @description 判断是否 iOS，和上面那个方法二选一即可
      */
     get isIOS() {
-         return  false
+        //@native => false
+        return native.isIOS;
     },
     /**
      * @const
@@ -89,7 +98,8 @@ export default {
      * @description APP 的版本, 例如"1.0.0"
      */
     get version() {
-         return  ""
+        //@native => ""
+        return native.MIOTHost.appVersion || native.MIOTHost.systemInfo.sysVersion;
     },
     /**
      * @const
@@ -97,7 +107,8 @@ export default {
      * @description APP 的 apiLevel
      */
     get apiLevel() {
-         return  0
+        //@native => 0
+        return native.isAndroid ? native.MIOTHost.systemInfo.hostApiLevel : native.MIOTHost.apiLevel;
     },
     /**
      * 判断是否是调试版本
@@ -107,7 +118,8 @@ export default {
      *
      */
     get isDebug() {
-         return  true
+        //@native => true
+        return native.MIOTHost.buildType === DEBUG;
     },
     /**
      * 是否是国际版APP 国内版1 国际版2 欧洲版3
@@ -116,7 +128,8 @@ export default {
      * @readonly
      */
     get applicationEdition() {
-         return  true
+        //@native => true
+        return native.isAndroid ? (this.ui.checkStoreSupporttedOnAndroid() ? 1 : 2) : native.MIOTHost.ApplicationEdition
     },
     /**
      * 获取 米家APP中 我的-->开发者设置-->其他设置，  AppConfig接口拉取preview版数据 是否选中的状态
@@ -128,7 +141,8 @@ export default {
      * @readonly
      */
     get appConfigEnv() {
-         return  true
+        //@native => true
+        return native.MIOTHost.appConfigEnv
     },
     /**
      * @const
@@ -187,21 +201,64 @@ export default {
      * Host.getWifiInfo().then(res => console("ssid and bssid = ", res.SSID, res.BSSID))
      */
     getWifiInfo() {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTHost.getConnectedWifi((ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      * 获取APP名称
      */
     getAppName() {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTHost.getAppName(name => {
+                resolve(name);
+            })
+        })
+        //@native end
     },
+    //@native begin
+    /**
+     * 获取Android手机屏幕相关信息(包括状态栏高度)
+     * @since 10012
+     * @returns {Promise} 手机屏幕相关信息 {'viewWidth':xxx, 'viewHeight':xxx}
+     */
+    getPhoneScreenInfo() {
+        if (native.isAndroid) {
+            return new Promise((resolve, reject) => {
+                native.MIOTHost.getPhoneScreenInfo((isSuccess, info) => {
+                    if (isSuccess) {
+                        resolve(info);
+                    } else {
+                        reject(info);
+                    }
+                })
+            })
+        } else {
+            return new Promise.reject("iOS not support")
+        }
+    },
+    //@native end
     /**
      * 获取当前登陆用户的服务器国家
      * @since 10010
      * @deprecated 10011 改用 Service.getServerName
      */
     getCurrentCountry() {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTHost.loadCurrentCountryCode(country => {
+                resolve(country);
+            })
+        })
+        //@native end
     },
     /**
      * 获取手机运营商信息
@@ -213,7 +270,17 @@ export default {
      * @returns {Promise} 运营商信息 {'1':{name:'',simOperator:'',,countryCode:''},'2':{...}}
      */
     getOperatorsInfo() {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTHost.loadOperatorsType((ok, res) => {
+                if (ok) {
+                    resolve(res);
+                } else {
+                    reject(res);
+                }
+            });
+        });
+        //@native end
     },
     /**
      * jx执行器
@@ -251,7 +318,61 @@ export default {
      * myexecutor&&myexecutor.remove();
      */
     createBackgroundExecutor(jx, initialProps = {}) {
-         return Promise.resolve({execute(method, ...args){}, remove(){}});
+        //@native :=> promise {execute(method, ...args){}, remove(){}}
+        return new Promise((resolve, reject) => {
+            jx = resolveAssetSource(jx);
+            console.log("ready to run jx:" + jx);
+            native.MIOTHost.createExecutor(jx.uri, native.isAndroid ? JSON.stringify(initialProps || {}) : initialProps || {}, (ok, res) => {
+                if (ok) {
+                    const status = { running: false, ready: true };
+                    const executor = {
+                        get id() { return res },
+                        get isReady() {
+                            return status.ready;
+                        },
+                        get isRunning() {
+                            return status.running;
+                        },
+                        execute(method, ...args) {
+                            if (!status.ready) {
+                                return Promise.reject(1, "thread is not ready");
+                            }
+                            // if (status.running) {
+                            //     return Promise.reject(2, "thread is running");
+                            // }
+                            // status.running = true;
+                            return new Promise((resolve, reject) => {
+                                native.MIOTHost.executeMethod(executor.id, method, native.isAndroid ? JSON.stringify([...args]) : [...args],
+                                    (ok, res, st) => {
+                                        // status.running = false;
+                                        if (!status.ready) {
+                                            reject("executor is removed");
+                                        } else if (ok) {
+                                            resolve(res);
+                                        } else {
+                                            if (st == "destroyed") {
+                                                status.ready = false;
+                                            }
+                                            reject(res);
+                                        }
+                                    });
+                            });
+                        },
+                        remove() {
+                            if (!status.ready) {
+                                return;
+                            }
+                            status.ready = false;
+                            native.MIOTHost.removeExecutor(executor.id);
+                        }
+                    };
+                    resolve(executor);
+                } else {
+                    reject(res);
+                }
+            });
+        });
+        //@native end
     },
     /**
      * android 手机是否有NFC功能
@@ -261,7 +382,21 @@ export default {
      * Host.phoneHasNfcForAndroid().then(res => console(res))
      */
     phoneHasNfcForAndroid() {
-         return Promise.resolve(null);
+        //@native :=> promise
+        if (native.isAndroid) {
+            return new Promise((resolve, reject) => {
+                native.MIOTHost.phoneHasNfc((isOk, result) => {
+                    if (isOk) {
+                        resolve(result);
+                    } else {
+                        reject(result);
+                    }
+                })
+            })
+        } else {
+            return new Promise.reject("not support ios yet");
+        }
+        //@native end
     },
   /**
    * 页面有输入框，需要打开软键盘，页面适配软键盘
@@ -270,6 +405,47 @@ export default {
    * @returns {Promise}
    */
   pageShouldAdapterSoftKeyboard(shouldAdapter) {
-     return Promise.resolve(null);
+    //@native :=> promise
+    if (native.isAndroid) {
+      return new Promise((resolve, reject) => {
+        native.MIOTHost.pageShouldAdapterSoftKeyboard(shouldAdapter, (isOk, result) => {
+          if (isOk) {
+            resolve(result);
+          } else {
+            reject(result);
+          }
+        })
+      })
+    } else {
+      return new Promise.resolve(true);
+    }
+    //@native end
   },
 }
+export const HostEvent = {
+    /**
+     * 手机网络状态变更事件
+     * @since 10031
+     * @event
+     * @param{object}  接收到的数据 {networkState: xxx}
+     *              networkState可取值如下：
+     *             -1 ：DefaultState
+     *              0 ：网络不可用
+     *              1 ：蜂窝网络 2G 3G 4G
+     *              2 ：WiFi网络
+     *
+     * @example
+     * 可查看HostEventDemo.js
+     *
+     */
+    cellPhoneNetworkStateChanged: {
+        //@native begin
+        forever: emitter => (result) => {
+            emitter.emit({
+                networkState:result.networkState
+            });
+        }
+        //@native end
+    }
+}
+buildEvents(HostEvent)

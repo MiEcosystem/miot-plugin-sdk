@@ -8,6 +8,8 @@
  *
  */
 //import Device ,{_find_device} from './../Device'
+//@native
+import native from './../native'; // {Properties, buildEvents}
 const SET = "/miotspec/prop/set";
 const GET = "/miotspec/prop/get";
 const ACTION = "/miotspec/action";
@@ -701,7 +703,17 @@ export default {
      * @return {Promise<string>}
      */
     getPropertiesValue(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.standardCall(GET, { 'params': params }, (ok, res) => {
+                if (ok) {
+                    resolve(res);
+                } else {
+                    reject(res);
+                }
+            })
+        })
+        //@native end
     },
     /**
      * 请求设置设备的属性值，设置成功后会更新 Native
@@ -709,7 +721,17 @@ export default {
      * @return {Promise<string>}
      */
     setPropertiesValue(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.standardCall(SET, { 'params': params }, (ok, res) => {
+                if (ok) {
+                    resolve(res);
+                } else {
+                    reject(res);
+                }
+            })
+        })
+        //@native end
     },
     /**
      * 请求调用设备的方法
@@ -717,7 +739,17 @@ export default {
      * @return {Promise<JSON>}
      */
     doAction(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.standardCall(ACTION, { 'params': params }, (ok, res) => {
+                if (ok) {
+                    resolve(res);
+                } else {
+                    reject(res);
+                }
+            })
+        })
+        //@native end
     },
     /**
      * @param did 设备的did

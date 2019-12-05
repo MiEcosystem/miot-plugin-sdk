@@ -17,6 +17,8 @@
  * Host.crypto.encodeMD5(str).then(res => {//md5 value is res})
  * ...
  */
+//@native
+import native from "../native";
 export default {
   /**
    * MD5 编码
@@ -24,7 +26,18 @@ export default {
    * @returns {Promise<string>}
    */
   encodeMD5(content) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.encodeMD5(content, (res, callback) => {
+        if (native.isIOS) { resolve(res); return; }
+        if (res) {
+          resolve(callback);
+        } else {
+          reject(callback);
+        }
+      });
+    });
+    //@native end
   },
   /** 
    * base64 编码
@@ -32,7 +45,18 @@ export default {
    * @returns {Promise<string>}
    */
   encodeBase64(content) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.encodeBase64(content, (res, callback) => {
+        if (native.isIOS) { resolve(res); return; }
+        if (res) {
+          resolve(callback);
+        } else {
+          reject(callback);
+        }
+      });
+    });
+    //@native end
   },
   /**
    * base64解码
@@ -40,7 +64,18 @@ export default {
    * @returns {Promise<string>}
    */
   decodeBase64(content) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.decodeBase64(content, (res, callback) => {
+        if (native.isIOS) { resolve(res); return; }
+        if (res) {
+          resolve(callback);
+        } else {
+          reject(callback);
+        }
+      });
+    });
+    //@native end
   },
   /**
    * SHA1 编码
@@ -48,7 +83,18 @@ export default {
    * @returns {Promise<string>}
    */
   encodeSHA1(content) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.encodeSHA1(content, (res, callback) => {
+        if (native.isIOS) { resolve(res); return; }
+        if (res) {
+          resolve(callback);
+        } else {
+          reject(callback);
+        }
+      });
+    });
+    //@native end
   },
   /**
    * SHA256 编码
@@ -56,7 +102,18 @@ export default {
    * @returns {Promise<string>}
    */
   encodeSHA2(content) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.encodeSHA2(content, (res, callback) => {
+        if (native.isIOS) { resolve(res); return; }
+        if (res) {
+          resolve(callback);
+        } else {
+          reject(callback);
+        }
+      });
+    });
+    //@native end
   },
   /**
    *  api_level 10001
@@ -69,7 +126,17 @@ export default {
     * @returns {Promise<any>}
   */
   colorsToImageBase64(content, colorMStr, color0Str, color1Str) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.colorsToImageBase64(content, colorMStr, color0Str, color1Str, (ok, res) => {
+        if (ok) {
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      });
+    });
+    //@native end
   },
   /**
    * ApiLevel: 10020
@@ -87,7 +154,17 @@ export default {
    * >=10 房间区域
    */
   pointsToImageBase64(width, height, points, colorsMap) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.pointsToImageBase64(width, height, points, colorsMap, (ok, res) => {
+        if (ok) {
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      });
+    });
+    //@native end
   },
   /**
    * ApiLevel: 10023
@@ -106,6 +183,16 @@ export default {
    * >=10 房间区域
    */
   pointsScaleToImageBase64(width, height, points, colorsMap, scale) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.pointsScaleToImageBase64(width, height, points, colorsMap, scale, (ok, res) => {
+        if (ok) {
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      });
+    });
+    //@native end
   }
 };

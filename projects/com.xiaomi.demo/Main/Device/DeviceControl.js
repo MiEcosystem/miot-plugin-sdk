@@ -1,6 +1,6 @@
 'use strict';
 
-import { Device, Host, Service } from "miot";
+import { Device, Host, Service, DeviceEvent } from "miot";
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
@@ -290,10 +290,6 @@ export default class UIDemo extends React.Component {
                 }
             }
         ];
-    }
-
-    componentWillUnmount() {
-
     }
 
     render() {

@@ -22,7 +22,7 @@ class GapWrap extends PureComponent {
       <Fragment>
         <View style={horizontal ? {
           flex: 1
-        } : null}>
+        } : null} onLayout={this.onLayout}>
           {children}
         </View>
         <View style={[StylesGap.gap, {

@@ -59,6 +59,14 @@ export default class HostDemo extends React.Component {
             .then(res => alert(JSON.stringify(res)))
             .catch(e => alert(e));
         }
+      },
+      {
+        'name': 'callSpecificAPI',
+        'func': () => {
+          Service.callSpecificAPI('http://api.goseek.cn/Tools/holiday', 'get', { "date": "20191102" })
+            .then(res => alert(JSON.stringify(res)))
+            .catch(e => alert(JSON.stringify(e)));
+        }
       }
     ];
   }

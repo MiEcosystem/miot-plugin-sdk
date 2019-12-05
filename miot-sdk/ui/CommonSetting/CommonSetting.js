@@ -363,7 +363,7 @@ export default class CommonSetting extends React.Component {
   }
   /**
    * @description 从 this.state.showDot 移除某key，从而隐藏小红点
-   * @param {string} key
+   * @param {string} key 
    */
   removeKeyFromShowDot(key) {
     const showDotTmp = [...this.state.showDot];
@@ -461,17 +461,18 @@ export default class CommonSetting extends React.Component {
           })
         }
         <Separator />
-        <View style={styles.bottomContainer}>
-          <RkButton
-            style={styles.buttonContainer}
-            onPress={_ => this.openDeleteDevice()}
-            activeOpacity={0.8}
-          >
-            <Text style={[styles.buttonText, fontFamily]}>
-              {strings.deleteDevice}
-            </Text>
-          </RkButton>
-        </View>
+        {!Device.isFamily ?
+          (<View style={styles.bottomContainer}>
+            <RkButton
+              style={styles.buttonContainer}
+              onPress={_ => this.openDeleteDevice()}
+              activeOpacity={0.8}
+            >
+              <Text style={[styles.buttonText, fontFamily]}>
+                {strings.deleteDevice}
+              </Text>
+            </RkButton>
+          </View>) : null}
       </View>
     );
   }

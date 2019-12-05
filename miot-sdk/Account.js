@@ -18,6 +18,8 @@
  * })
  *
  */
+//@native
+import native, { Properties } from './native';
 /**
  * @interface 
  * @description
@@ -45,7 +47,8 @@ class IAccount {
      *  
      */
     get isLoaded() {
-         return  false
+        //@native => false
+        return Properties.of(this).isLoaded;
     }
     /**
      * 当前登录账户userid,不依赖于load方法
@@ -53,7 +56,8 @@ class IAccount {
      * @readonly 
      */
     get ID() {
-         return  0
+        //@native => 0
+        return Properties.of(this).id;
     }
     /**
      *  用户昵称,依赖于load方法
@@ -61,7 +65,8 @@ class IAccount {
      * @readonly 
      */
     get nickName() {
-         return  ""
+        //@native => ""
+        return Properties.of(this).nickName;
     }
     /**
      *  用户头像的下载地址,依赖于load方法
@@ -69,7 +74,8 @@ class IAccount {
      * @readonly 
      */
     get avatarURL() {
-         return  ""
+        //@native => ""
+        return Properties.of(this).avatarURL;
     }
     /**
      *  用户生日,依赖于load方法
@@ -77,7 +83,8 @@ class IAccount {
      * @readonly 
      */
     get birth() {
-         return  "..."
+        //@native => "..."
+        return Properties.of(this).birth;
     }
     /**
      *  用户邮箱,依赖于load方法
@@ -85,7 +92,8 @@ class IAccount {
      * @readonly 
      */
     get email() {
-         return  "..."
+        //@native => "..."
+        return Properties.of(this).email;
     }
     /**
      *  用户电话,依赖于load方法
@@ -93,7 +101,8 @@ class IAccount {
      * @readonly 
      */
     get phone() {
-         return  ""
+        //@native => ""
+        return Properties.of(this).phone;
     }
     /**
      *  用户性别,依赖于load方法
@@ -101,7 +110,8 @@ class IAccount {
      * @readonly 
      */
     get sex() {
-         return  ""
+        //@native => ""
+        return Properties.of(this).sex;
     }
     /**
      *  用户分享时间,依赖于load方法
@@ -109,7 +119,8 @@ class IAccount {
      * @readonly 
      */
     get shareTime() {
-         return  ""
+        //@native => ""
+        return Properties.of(this).shareTime;
     }
     /**
      * 加载用户信息，所有依赖于load的用户信息需要在回调方法中会返回时才有值
@@ -119,7 +130,30 @@ class IAccount {
      * 
      */
     load(force = false) {
-         return Promise.resolve(this);
+        //@native :=> Promise.resolve(this);
+        //@mark andr done
+        const detail = Properties.of(this);
+        if (!force && detail.isLoaded) {
+            return Promise.resolve(this);
+        }
+        return new Promise((resolve, reject) => {
+            native.MIOTService.loadAccountInfo(detail.id,
+                (status, resp) => {
+                    if (status) {
+                        if (!resp.nickName || resp.nickName == '') {
+                            resp.nickName = detail.nickName || "";
+                        }
+                        Properties.init(this, {
+                            ...resp, isLoaded: true,
+                            id: detail.id
+                        });
+                        resolve(this)
+                    } else {
+                        reject({ ok: false, message: "" })
+                    }
+                })
+        });
+        //@native end
     }
 }
 export default IAccount;

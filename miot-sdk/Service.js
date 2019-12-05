@@ -28,6 +28,8 @@
  *
  *
  */
+//@native
+// import Ximalaya from './service/ximalaya';
 import Account from './Account';
 import native, { Properties } from './native';
 import apiRepo from './service/apiRepo';
@@ -40,7 +42,9 @@ import Smarthome from './service/smarthome';
 import Spec from './service/spec';
 import Storage from './service/storage';
 import TJInfra from './service/tjinfra';
- const CurrentAccount = null;
+import MiotCamera from './service/miotcamera';
+//@native = const CurrentAccount = null;
+const CurrentAccount = Properties.init(new Account(), { id: native.MIOTService.currentAccountID });
 export default {
   /**
    * @member smarthome
@@ -49,6 +53,14 @@ export default {
    */
   get smarthome() {
     return Smarthome;
+  },
+  /**
+   * @member miotcamera
+   * @description 摄像机相关 API
+   * @see {@link module:miot/service/miotcamera}
+   */
+  get miotcamera() {
+    return MiotCamera;
   },
   /**
    * @member ircontroller
@@ -67,6 +79,11 @@ export default {
   get account() {
     return CurrentAccount;
   },
+  //@native begin
+  get tjinfra() {
+    return TJInfra;
+  },
+  //@native end
   /**
    * @member scene
    * @description 场景 API 的调用
@@ -115,7 +132,30 @@ export default {
    * @param {object} params 传入参数，根据和米家后台商议的数据格式来传入，比如{ did: 'xxxx', pid: 'xxxx' }
    */
   callSmartHomeAPI(api, params) {
-     return Promise.resolve(null);
+    //@native :=> promise
+    return new Promise((resolve, reject) => {
+      const includeApi = omitApi.some(item => {
+        return api.startsWith(item)
+      })
+      if (includeApi) {
+        native.MIOTRPC.standardCall(api, params, (ok, res) => {
+          if (ok) {
+            return resolve(res);
+          }
+          reject(res);
+        });
+      } else if (apiRepo[api]) {
+        native.MIOTRPC.standardCall(api, params, (ok, res) => {
+          if (ok) {
+            return resolve(res);
+          }
+          reject(res);
+        });
+      } else {
+        reject(`失败，原因如下:\n1. api路径填写错误，请检查\n2. sdk 暂未收录该接口，请联系米家插件框架的开发人员`);
+      }
+    });
+    //@native end
   },
   /**
    * @method getServerName
@@ -123,14 +163,41 @@ export default {
    * @return {Promise<{countryName:"",countryCode:"",serverCode:""}>}
    */
   getServerName() {
-     return Promise.resolve(null);
+    //@native :=> promise
+    return new Promise((resolve, reject) => {
+      if (native.isAndroid) {
+        native.MIOTService.getServerName(res => {
+          // Android：美国地区，美国服务器
+          if (res.countryCode === "us_true") {
+            res.countryCode = 'us'
+          }
+          resolve(res);
+        });
+      }
+      else {
+        native.MIOTHost.getCurrentCountryInfoCallback((isSuccess, res) => {
+          if (isSuccess) {
+            // iOS：美国地区，亚洲服务器
+            if (res.countryCode === "us_sg") {
+              res.countryCode = 'us'
+            }
+            resolve(res);
+          } else {
+            reject("地区和服务器信息未正确获取");
+          }
+        })
+      }
+    });
+    //@native end
   },
   /**
    * @method getTimeZoneOfServer
    * @description 获取服务器所在时区
    */
   getTimeZoneOfServer() {
-     return Promise.resolve(null);
+    //@native :=> promise
+    return new Promise();
+    //@native end
   },
   /**
    * @method getUTCFromServer
@@ -138,7 +205,16 @@ export default {
    * @returns {Promise<long>}
    */
   getUTCFromServer() {
-     return Promise.resolve(0);
+    //@native :=> promise 0
+    return new Promise((resolve, reject) => {
+      native.MIOTRPC.standardCall("/device/get_utc_time", {}, (ok, res) => {
+        if (ok && res) {
+          return resolve(res);
+        }
+        reject(res);
+      });
+    })
+    //@native end
   },
   /**
    * 传入域名返回 serverToken 等信息，目前只支持小爱音箱的域名
@@ -147,7 +223,19 @@ export default {
    * @returns {Promise}
    */
   getServiceTokenWithSid(sid) {
-     return Promise.resolve(null);
+    //@native :=> promise
+    if (native.isAndroid) {
+      return new Promise.reject('Android not support yet')
+    }
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.getServiceTokenWithSid(sid, (err, res) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve(res);
+      });
+    });
+    //@native end
   },
   /**
    * 某设备向服务器申请did和token
@@ -157,6 +245,44 @@ export default {
    * @returns {Promise} resolve({res,did,token})
    */
   applyForDeviceIDAndToken(model, mac) {
-     return Promise.resolve(null);
+    //@native :=> promise
+    if (native.isAndroid) {
+      return new Promise.reject('Android not support yet')
+    }
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.applyForDeviceIDAndToken(model, mac, (err, res, did, token) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve({ res, did, token });
+      })
+    })
+    //@native end
+  },
+  /**
+   * @method callSpecificAPI
+   * @since 10031
+   * @description 调用当前手机设备的网关http服务
+   * 只封装透传网络请求，无法对接口调用结果解释，有问题请直接联系项目对接后台人员或 PM。
+   * 
+   * @param {string} url - url
+   * @param {string} method - 如 'get', 'post'等 不区分大小写 暂时只支持 get 和 post 
+   * @param {object} params 传入参数，比如{ did: 'xxxx', pid: 'xxxx' }
+   * @returns {Promise}
+   * 成功时：返回网络请求的结果对应字符串， 相当于：response.body().string()
+   * 失败时：{"code":xxx, "message":"xxx" }
+   */
+  callSpecificAPI(url, method, params) {
+    //@native :=> promise
+    return new Promise((resolve, reject) => {
+      native.MIOTService.callSpecificAPI(url, method, params, (ok, res) => {
+        if (ok) {
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      })
+    })
+    //@native end
   }
 }

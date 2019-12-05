@@ -156,4 +156,3 @@ var styles = StyleSheet.create({
     marginLeft: 20,
   },
 });
-
