@@ -461,17 +461,18 @@ export default class CommonSetting extends React.Component {
           })
         }
         <Separator />
-        <View style={styles.bottomContainer}>
-          <RkButton
-            style={styles.buttonContainer}
-            onPress={_ => this.openDeleteDevice()}
-            activeOpacity={0.8}
-          >
-            <Text style={[styles.buttonText, fontFamily]}>
-              {strings.deleteDevice}
-            </Text>
-          </RkButton>
-        </View>
+        {!Device.isFamily ?
+          (<View style={styles.bottomContainer}>
+            <RkButton
+              style={styles.buttonContainer}
+              onPress={_ => this.openDeleteDevice()}
+              activeOpacity={0.8}
+            >
+              <Text style={[styles.buttonText, fontFamily]}>
+                {strings.deleteDevice}
+              </Text>
+            </RkButton>
+          </View>) : null}
       </View>
     );
   }

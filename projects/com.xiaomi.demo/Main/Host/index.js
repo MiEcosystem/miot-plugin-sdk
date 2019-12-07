@@ -34,6 +34,12 @@ export default class HostDemo extends React.Component {
         }
       },
       {
+        'name': 'HostEventDemo-手机系统事件监听',
+        'func': () => {
+          this.props.navigation.navigate('HostEventDemo', { title: '手机系统事件监听' })
+        }
+      },
+      {
         'name': 'Native导航模块-ui',
         'func': () => {
           this.props.navigation.navigate('NavigateUIDemo', { title: 'Native导航模块-ui' })

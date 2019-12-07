@@ -107,7 +107,7 @@ export default class SlideGear extends React.Component {
     }
     /**
      * 根据传参动态创建手势控制器
-     * @param {object} props 
+     * @param {object} props
      */
     constructPanResponder(props) {
         this.panResponder = PanResponder.create({
@@ -124,7 +124,7 @@ export default class SlideGear extends React.Component {
     }
     /**
      * 接收 options / value 动态变化
-     * @param {object} newProps 
+     * @param {object} newProps
      */
     componentWillReceiveProps(newProps) {
         if (this.sliding) {  // 为了避免不必要的冲突，在滑动时，拒绝一切外部状态更新
@@ -134,7 +134,7 @@ export default class SlideGear extends React.Component {
         if (disabled !== this.props.disabled) {
             this.constructPanResponder(newProps);
         }
-        if (value === this.props.value && this.isSameArray(options, this.props.options)) return; // 没有变化
+        if ((value === this.props.value || value === this.state.value) && this.isSameArray(options, this.props.options)) return; // 没有变化
         if (!this.isSameArray(options, this.props.options)) { // options 变化
             if (!(options instanceof Array) || options.length === 0) { // 更新后的 options 不是数组或者是空数组
                 console.warn('options 不是数组或者是空数组');
@@ -160,8 +160,8 @@ export default class SlideGear extends React.Component {
     }
     /**
      * 判断两个数组是否完全相等
-     * @param {array} arr1 
-     * @param {array} arr2 
+     * @param {array} arr1
+     * @param {array} arr2
      */
     isSameArray(arr1, arr2) {
         if (!(arr1 instanceof Array) || !(arr2 instanceof Array)) return false;
