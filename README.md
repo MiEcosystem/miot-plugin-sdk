@@ -2,7 +2,7 @@
 
 ## 初始化
 
-    1, 安装 node, 版本9.0+ 
+    1, 安装 node, 版本9.0+ (推荐mac上：npm版本6.12.1，node版本v12.13.1)
 
     2, 下载开发环境, 执行 git clone git@github.com:MiEcosystem/miot-plugin-sdk.git
 
@@ -11,9 +11,6 @@
     !注意, 项目中如果需要使用第三方库(仅限于纯js实现), 请进入项目目录(如 projects/com.xiaomi.demo), 
     执行 npm install --save xxxx, 否则在打包发布时将因为找不到第三方库而失败
     
-    
- 推荐使用[Docker](https://www.docker.com)的linux容器作为独立的开发环境
-
 ## 命令
 
     创建项目
@@ -23,7 +20,15 @@
     启动调试
     npm start
         注： Docker下需要将端口（缺省为8081）映射出去，例如 docker run -p 8081:8081 -it ...
+    运行Demo
+    在/miot-workspace下，执行 npm install 
+    如果fsevent报错，可忽略。其他报错，请查看issues，或者提工单。然后
+    cd projects/com.xiaomi.demo
+    npm install
+    然后就可以npm start，开始调试demo了
     
+    ！注意：之所以需要在com.xiaomi.demo下再执行一次npm install，是因为我们在com.xiao.demo引入了纯js的第三方库：react-native-root-toast。作为第三方库引入的示例！如果不执行npm install，直接调试com.xiaomi.demo会报错找不到react-native-root-toast！
+
     发布项目
     npm run publish xxx.yyy.zzz
         注: 缺省的目标文件位于 projects/xxx.yyy.zzz/build/publish.mpkg, 可以通过 --target 指定任意目标文件
