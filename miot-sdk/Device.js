@@ -29,6 +29,7 @@
  * 其余具体使用请参考具体API文档
  */
 import Scene from './service/scene';
+import { Device } from ".";
 const PERMISSION_OWNER = 16;
 const PERMISSION_FAMILY = 8;
 const PERMISSION_FAMILY_IOS = 68;
@@ -194,6 +195,13 @@ export class IDeviceWifi {
             }
             return map;
         }));
+    }
+    /** 
+     * 检查设备固件升级弹窗.使用方法：Device.getDeviceWifi().checkFirmwareUpdateAndAlert()
+     * 已废弃，请使用Device.checkFirmwareUpdateAndAlert()来代替。
+     */
+    checkFirmwareUpdateAndAlert() {
+        return Device.checkFirmwareUpdateAndAlert();
     }
     /**
      * 调用设备方法
@@ -896,6 +904,7 @@ class IDevice {
      * 检查wifi设备固件升级弹窗。该方法会触发升级弹窗alert提示。
      * 建议使用场景为需要屏蔽默认的插件启动检测的弹窗，自行寻找合适的时机触发该检测机制。
      * 不支持单模蓝牙、组设备、虚拟设备、离线设备、分享设备。
+     * @since 10023
      * @returns {Promise}
      * @example
      *
