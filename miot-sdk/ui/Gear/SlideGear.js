@@ -267,6 +267,9 @@ export default class SlideGear extends React.Component {
      * @description 计算整个容器的大小和在屏幕上的位置，从而确定每个选项的圆心坐标
      */
     calculateCoord(obj) {
+        if(!obj) {
+          return;
+        }
         const { x, y, w, h } = obj;
         this.containerLayout = obj;
         const offset = this.margin * 2 + this.blockWidth;
