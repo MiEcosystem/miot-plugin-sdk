@@ -191,7 +191,7 @@ export default {
     },
     /**
      * 获取手机wifi信息
-     * @return {Promise<object>>}
+     * @return {Promise<object>}
      * 成功时：{BSSID:xxx, SSID:xxx}
      * 失败时：返回的是错误信息，字符串格式
      * @example
@@ -206,7 +206,7 @@ export default {
     },
     /**
      * 获取APP名称
-     * @return {Promise<string>>}
+     * @return {Promise<string>}
      *
      */
     getAppName() {
@@ -215,7 +215,7 @@ export default {
     /**
      * 获取Android手机屏幕相关信息(包括状态栏高度)
      * @since 10012
-     * @returns {Promise<object>>} 手机屏幕相关信息 {'viewWidth':xxx, 'viewHeight':xxx}
+     * @returns {Promise<object>} 手机屏幕相关信息 {'viewWidth':xxx, 'viewHeight':xxx}
      */
     getPhoneScreenInfo() {
          return Promise.resolve(null);

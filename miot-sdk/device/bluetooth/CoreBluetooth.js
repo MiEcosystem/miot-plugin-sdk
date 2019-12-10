@@ -1,6 +1,6 @@
 /**
  * @export public
- * @doc_name 蓝牙服务/特征模块
+ * @doc_name 蓝牙服务-特征模块
  * @doc_index 5
  * @doc_directory bluetooth
  * @module miot/device/bluetooth

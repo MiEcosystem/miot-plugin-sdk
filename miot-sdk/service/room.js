@@ -1,8 +1,8 @@
 /**
  * @export public
  * @doc_name 房间模块
- * @doc_index 5
- * @doc_directory sdk
+ * @doc_index 8
+ * @doc_directory service
  * @module miot/service/Room
  * @description
  * 家庭房间管理是指对米家APP中“米家 tab”页面的房间进行管理，主要包括房间信息的获取、增加和修改。
