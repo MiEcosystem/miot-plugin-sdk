@@ -1,6 +1,6 @@
 'use strict';
 import { Device } from 'miot';
-import { DeviceEvent } from 'miot/Device';
+import { DeviceEvent } from 'miot';
 import Host from 'miot/Host';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';

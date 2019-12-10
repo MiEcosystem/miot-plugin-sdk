@@ -45,12 +45,6 @@ export default class MainPage extends React.Component {
         }
       },
       {
-        'name': '账户信息(Account)',
-        'func': () => {
-          this.props.navigation.navigate('accountDemo', { title: '账户信息(Account)' })
-        }
-      },
-      {
         'name': '设备控制(Device)',
         'func': () => {
           this.props.navigation.navigate('DeviceControl', { title: '设备控制(Device)' })

@@ -15,8 +15,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import CommonCell from './CommonCell';
 import { IBluetoothLock } from "miot";
 
-
-let bt = Device.getBluetoothLE();
+let bt;
 const DEMOCHAR = '00000001-0000-1000-8000-00805f9b34fb';
 let status_enable = false;
 export default class MainPage extends React.Component {
@@ -31,6 +30,9 @@ export default class MainPage extends React.Component {
             isEnable: false,
             log: ''
         }
+    }
+    componentWillMount(){
+        bt = Device.getBluetoothLE();
     }
 
     componentDidMount() {
@@ -162,7 +164,7 @@ export default class MainPage extends React.Component {
             }).catch((data) => {
                 this.addLog("ble connect failed: " + JSON.stringify(data))
                 if (data.code === -7) {
-                    Bluetooth.retrievePeripheralsWithServicesForIOS('serviceid1', 'serviceid2').then(res => {
+                    Bluetooth.retrievePeripheralsWithServicesForIOS('181D', 'FE95').then(res => {
                         //在这里可以获取到已经连接的蓝牙对象，小米协议设备返回-7，大几率是本身已经连接，在这里可以选择
                         // 1. 获取到蓝牙的uuid，通过普通蓝牙对象操作
                         /**
@@ -209,7 +211,7 @@ export default class MainPage extends React.Component {
                                     <Text style={[{ backgroundColor: 'white' }]}>service: {val.uuid}</Text>
                                     {
                                         val.char.map((v, i) => {
-                                            return (<CommonCell
+                                            return (<CommonCell key={i}
                                                 title={"char: " + v}
                                             />)
                                         })

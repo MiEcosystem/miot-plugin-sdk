@@ -43,12 +43,16 @@ export default {
      * 读取沙盒内文件列表
      * * @param {string} subFolder 读取沙盒文件夹下某子文件夹中文件内容，用于解压缩文件中带有文件夹，或者读取指定文件夹解压后的文件,标准path结构，不以'/'开头
      * @returns {Promise}
+     * 成功时：[{name:xxx}, {name: xxx}, ...]  数组的形式返回数组
+     * 失败时：result: {"code":xxx, "message":"xxx" }
      * @example
      * import {Host} from 'miot'
      * ...
      * Host.file.readFileList().then(res => {
      *  console.log('read fiel list:', res)
-     * })
+     * }).catch((isOk, result)=>{
+     *   console.log(isOk, result)
+     * });
      * 
      * Host.file.readFileList('mysubfolder/aaa').then(res => {
      *  console.log('read fiel list:', res)
@@ -60,7 +64,9 @@ export default {
     /**
      * 判断文件是否存在
      * @param {string} fileName 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
-     * @returns {Promise<boolean>} 
+     * @returns {Promise<boolean>}
+     * 成功时：直接返回true or false
+     * 失败时：{"code":xxx, "message":"xxx" }
      * @example
      * import {Host} from 'miot'
      * ...
@@ -76,10 +82,12 @@ export default {
          return Promise.resolve(false)
     },
     /**
-     * 读本地文件
+     * 读本地文件， 读取普通字符串， 与之对应的写文件为Host.file.writeFile(fileName, content)
      * @param {string} fileName - 文件名,可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {json} [opt={}] - 其他设置项
-     * @returns {Promise}
+     * @returns {Promise<String>}
+     * 成功时：直接返回文件内容
+     * 失败时：{"code":xxx, "message":"xxx" }
      * @example
      * import {Host} from 'miot'
      * ...
@@ -91,9 +99,11 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 读本地文件
+     * 读本地文件， 通常用于读取蓝牙设备需要的文件数据
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @returns {Promise}
+     * 成功时：直接返回文件内容
+     * 失败时：{"code":xxx, "message":"xxx" }
      * @example
      * import {Host} from 'miot'
      * ...
@@ -108,15 +118,19 @@ export default {
      * 读文件，并转换为 Base64 编码
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @returns {Promise}
+     * 成功时：直接返回文件内容
+     * 失败时：{"code":xxx, "message":"xxx" }
      */
     readFileToBase64(fileName, opt = {}) {
          return Promise.resolve(null);
     },
     /**
-     * 写文件
+     * 写文件， 与之对应的读文件为Host.file.readFile(fileName)
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {string} utf8Content - 文件内容字符串
      * @returns {Promise}
+     * 成功时：直接返回true
+     * 失败时：{"code":xxx, "message":"xxx" }
      * @example
      * import {Host} from 'miot'
      * ...
@@ -131,10 +145,12 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 写文件，输入为 Base64 编码字符串
+     * 写文件，输入为 未经过base64转换的字符串， api内部会对普通字符串做Base64 编码后存放到文件中
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
-     * @param {string} base64Content - base64编码后的文件内容字符串
+     * @param {string} fileContent - 需要写入的文件内容
      * @returns {Promise}
+     * 成功时：直接返回true
+     * 失败时：{"code":xxx, "message":"xxx" }
      * @example
      * import {Host} from 'miot'
      * ...
@@ -144,14 +160,16 @@ export default {
      * })
      * ...
      */
-    writeFileThroughBase64(fileName, base64Content, opt = {}) {
+    writeFileThroughBase64(fileName, fileContent, opt = {}) {
          return Promise.resolve(null);
     },
     /**
-     * 向已存在的文件追加内容
+     * 向已存在的文件追加内容, 通常是通过使用writeFile接口来写的文件
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {string} utf8Content - 文件内容字符串
      * @returns {Promise}
+     * 成功时：直接返回true
+     * 失败时：{"code":xxx, "message":"xxx" }
      * @example
      * import {Host} from 'miot'
      * ...
@@ -165,10 +183,12 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 向已存在的文件追加内容，输入为base64编码字符串
+     * 向已存在的文件追加内容，输入为 未经过base64转换的字符串， api内部会对字符串做Base64 编码后存放到文件中
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
-     * @param {string} base64Content - base64编码后的文件内容字符串
+     * @param {string} fileContent - 需要写入的文件内容
      * @returns {Promise}
+     * 成功时：直接返回true
+     * 失败时：{"code":xxx, "message":"xxx" }
      * @example
      * import {Host} from 'miot'
      * ...
@@ -179,13 +199,15 @@ export default {
      * ...
      *
      */
-    appendFileThroughBase64(fileName, base64Content, opt = {}) {
+    appendFileThroughBase64(fileName, fileContent, opt = {}) {
          return Promise.resolve(null);
     },
     /**
      * 删除文件
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @returns {Promise}
+     * 成功时：直接返回true
+     * 失败时：{"code":xxx, "message":"xxx" }
      * @example
      * import {Host} from 'miot'
      * ...
@@ -328,10 +350,12 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 下载文件到插件沙盒目录
+     * 下载文件到插件沙盒目录, 文件下载完成后才会回调
      * @param {string} url - 文件地址
      * @param {string} fileName - 存储到本地的文件名
      * @returns {Promise}
+     * 成功时：{header:{}, path:xxx, filename:xxx,status:xxx}
+     * 失败时：{"code":xxx, "message":"xxx" }
      * @example
      * import {Host} from 'miot'
      * ...
@@ -348,7 +372,7 @@ export default {
     /**
      * 获取 base64 编码的数据长度
      * @param {string} base64Data - base64 编码的字符串
-     * @returns {Promise}
+     * @returns {Promise}  返回具体的长度
      * @example
      * import {Host} from 'miot'
      * ...
@@ -375,6 +399,8 @@ export default {
      * @param {string} fileName - 文件名（插件存储空间内的文件）
      * * @param {string} desitinationPath - 目标解压缩文件夹，默认解压到当前文件夹，如果指定名称，压缩包内容会解压到指定文件夹
      * @returns {Promise}
+     * 成功时：返回true
+     * 失败时：{"code":xxx, "message":"xxx" }
      */
     unzipFile(fileName, desitinationPath = '') {
          return Promise.resolve(null);
@@ -383,6 +409,8 @@ export default {
      * 解压缩一个gz文件, 并以base64编码的形式直接返回给插件, 不做本地存储
      * @param {string} fileName - 文件名（插件存储空间内的文件）
      * @return {Promise}
+     * 成功时：返回文件的内容
+     * 失败时：{"code":xxx, "message":"xxx" }
      */
     ungzFile(fileName) {
          return Promise.resolve(null);
@@ -391,6 +419,8 @@ export default {
     * 保存指定照片文件到系统相册
     * @param {string} fileName 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
     * @returns {Promise}
+     * 成功时：返回true
+     * 失败时：{"code":xxx, "message":"xxx" }
     * @example
     * import {Host} from 'miot'
     * ...
@@ -406,6 +436,8 @@ export default {
      * 屏幕全屏截图
      * @param {string} imageName - 图片名称，png,
      * @return {Promise<string>} - 截图成功回调函数返回存储图片的绝对路径，加载图片时直接使用即可
+     * 成功时：返回图片的路径
+     * 失败时：{"code":xxx, "message":"xxx" }
      * @example
      * <Image source={{local:imageName, scale:PixelRatio.get()}} />
      *
@@ -418,7 +450,8 @@ export default {
      * @param {string} imageName - 图片名称，png
      * @param {{l:int, t:int, w:int, h:int}} rect - 截屏范围
      * @return {Promise<string>} -  截图成功 返回图片地址
-     *
+     * 成功时：返回图片的路径
+     * 失败时：{"code":xxx, "message":"xxx" }
      *
      */
     screenShotInRect(imageName, rect) {
@@ -429,6 +462,8 @@ export default {
      * @param {number} viewRef - scrollView的引用
      * @param {string} imageName - 图片名称，png
      * @returns {Promise<string>}
+     * 成功时：返回图片的路径
+     * 失败时：{"code":xxx, "message":"xxx" }
      * @example
      *  var findNodeHandle = require('findNodeHandle');
      *  var myScrollView = findNodeHandle(this.refs.myScrollView);
@@ -444,6 +479,8 @@ export default {
      * @param {number} viewRef - MAMapView(MHMapView的父类)的引用
      * @param {string} imageName - 图片名称，自动添加后缀png
      * @return {Promise}
+     * 成功时：返回图片的路径
+     * 失败时：{"code":xxx, "message":"xxx" }
      * @example
      * const findNodeHandle = require('findNodeHandle');
      * const myMapViewRef = findNodeHandle(this.refs.myMapView);

@@ -14,9 +14,11 @@
  *import Bluetooth from 'miot/Bluetooth'
  *
  */
-import BluetoothFactory, { BluetoothEvent as BluetoothEventNames } from './Bluetooth';
-import ClassicBluetoothFactory, { ClassicBluetoothEvent as ClassicBluetoothEventNames } from './ClassicBluetooth';
-import RootDevice, { DeviceEvent as DeviceEventNames } from './Device';
+//new
+import  RootDevice , { DeviceEvent as MIOTDeviceEvent } from './device/BasicDevice';
+import ClassicBluetoothFactory,{ClassicBluetoothEvent as MIOTClassicBluetoothEvent} from './device/bluetooth/ClassicDevice';
+import BluetoothFactory from './device/bluetooth';
+import {BluetoothEvent as MIOTBluetoothEvent} from './device/bluetooth/BluetoothDevice'
 import HostInstance, {HostEvent as HostEventNames} from './Host';
 import { AudioEvent as AudioEventNames } from './host/audio';
 import { FileEvent as FileEventNames } from './host/file';
@@ -51,12 +53,14 @@ export const PackageEvent = PackageEventNames;
  * @export
  */
 export const Device = RootDevice;
+console.log(RootDevice);
 /**
- * 设备系统事件
+ * 当前设备
  * {@link module:miot/Device~DeviceEvent}
+ * @type {IDevice}
  * @export
  */
-export const DeviceEvent = DeviceEventNames;
+export const DeviceEvent = MIOTDeviceEvent;
 /**
  * 当前设备属性缓存
  * {@link module:miot/Properties}
@@ -94,19 +98,19 @@ export const Bluetooth = BluetoothFactory;
  * {@link module:miot/Bluetooth~BluetoothEvent}
  * @export
  */
-export const BluetoothEvent = BluetoothEventNames;
+export const BluetoothEvent = MIOTBluetoothEvent;
 /**
- * 蓝牙类
+ * 经典蓝牙类
  * {@link module:miot/ClassicBluetooth}
  * @export
  */
 export const ClassicBluetooth = ClassicBluetoothFactory;
 /**
- * 蓝牙事件
- * {@link module:miot/ClassicBluetooth~ClassicBluetoothEvent}
+ * 经典蓝牙事件
+ * {@link module:miot/ClassicBluetooth～ClassicBluetoothEvent}
  * @export
  */
-export const ClassicBluetoothEvent = ClassicBluetoothEventNames;
+export const ClassicBluetoothEvent = MIOTClassicBluetoothEvent;
 /**
  * 场景类型
  * {@link module:miot/service/scene~SceneType}
@@ -120,10 +124,10 @@ import * as Utils from './utils';
  * @export
  */
 export default {
-    API_LEVEL, Package, PackageEvent, Entrance,
-    Device, DeviceEvent, DeviceProperties,
-    Service, Host, HostEvent, Resources,
-    Bluetooth, BluetoothEvent, SceneType,
-    FileEvent, AudioEvent, ClassicBluetooth, ClassicBluetoothEvent,
+    Device,DeviceEvent,Bluetooth,BluetoothEvent,ClassicBluetooth,ClassicBluetoothEvent,
+    API_LEVEL, Package, PackageEvent, Entrance, DeviceProperties,
+    Service, Host,HostEvent, Resources,
+    SceneType,
+    FileEvent, AudioEvent,
     Utils
 }

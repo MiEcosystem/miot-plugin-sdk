@@ -1,5 +1,6 @@
-import { Device, Host } from 'miot';
-import { DeviceEvent } from 'miot/Device';
+import { Device, Host, DeviceEvent } from 'miot';
+// import {Device,DeviceEvent} from 'miot'
+// import {Host} from 'miot';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';

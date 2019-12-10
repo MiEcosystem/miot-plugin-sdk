@@ -46,15 +46,15 @@ export default class HostDemo extends React.Component {
         }
       },
       {
-        'name': '文件存储与截图-file',
+        'name': '本地文件存储与截图-file',
         'func': () => {
-          this.props.navigation.navigate('fileStorage', { title: '文件存储与截图-file' })
+          this.props.navigation.navigate('FileDemo', { title: '本地文件存储与截图-file' })
         }
       },
       {
         'name': '本地KV存储-storage',
         'func': () => {
-          this.props.navigation.navigate('storageDemo', { title: '本地KV存储-storage' })
+          this.props.navigation.navigate('KVStorageDemo', { title: '本地KV存储-storage' })
         }
       },
       {
