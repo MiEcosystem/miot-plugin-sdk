@@ -17,16 +17,8 @@
  */
 import { Device } from "../index";
 import native from "../native";
+import ProtocolManager from '../utils/protocol-helper';
 // import { Entrance } from "../Package";
-const resolveAssetSource = require('resolveAssetSource');
-// @native begin
-function resolveUrlWithLink(url) {
-  if (typeof url === 'string' && (/https?\:\/\//i).test(url)) {
-    return native.isAndroid ? [{ uri: url }] : url;
-  }
-  return resolveUrl(url);
-}
-// @native end
 export default {
   /**
    * 是否支持商城
@@ -161,35 +153,48 @@ export default {
    *
    */
   alertLegalInformationAuthorization(option) {
-    const optionCopy = Object.assign({}, option);
-    if (!optionCopy.force && (Device.isShared || Device.isFamily)) {
+    if (true == ProtocolManager.getLegalInfoAuthHasShowed()) {
+      return new Promise.resolve(true);
+    }
+    if (!option.force && (Device.isShared || Device.isFamily)) {
       console.warn("分享设备不建议进行弹窗请求隐私授权。")
-      return;
+      return new Promise.resolve(true);;
     }
-    if (optionCopy.privacyURL) {
-      optionCopy.privacyURL = resolveUrlWithLink(optionCopy.privacyURL);
-    }
-    if (optionCopy.agreementURL) {
-      optionCopy.agreementURL = resolveUrlWithLink(optionCopy.agreementURL);
-    }
-    if (optionCopy.hideAgreement) {
-      delete optionCopy['agreementURL']//iOS下设置为“”则隐藏该项目
-    }
-    if (optionCopy.experiencePlanURL) {
-      optionCopy.experiencePlanURL = resolveUrlWithLink(optionCopy.experiencePlanURL);
-    }
-    if (optionCopy.hideUserExperiencePlan) {
-      delete optionCopy['experiencePlanURL']
-    }
-    // 内部事件，不需要提供给外部, 如果显示了隐私政策弹窗，需要通知关闭掉固件升级弹窗
-    DeviceEventEmitter.emit('MH_Event_ShowPrivacyLicenseDialog', { isShowingPrivacyLicenseDialog: true });
     return new Promise((resolve, reject) => {
-      native.MIOTHost.showDeclarationWithConfig(optionCopy, (ret, res) => {
-        if (ret === 'ok' || ret === true || ret === 'true') {
-          resolve(true);
-        } else {
-          reject(false);
+      return ProtocolManager.getLegalAuthInfoProtocol().then(protocols => {
+        let optionCopy = Object.assign({}, option);
+        if (protocols && protocols.privacyURL && protocols.privacyURL.length > 0) {
+          optionCopy = Object.assign(optionCopy, protocols);
         }
+        if (optionCopy.privacyURL) {
+          optionCopy.privacyURL = ProtocolManager.resolveUrlWithLink(optionCopy.privacyURL);
+        }
+        if (optionCopy.agreementURL) {
+          optionCopy.agreementURL = ProtocolManager.resolveUrlWithLink(optionCopy.agreementURL);
+        }
+        if (optionCopy.hideAgreement) {
+          delete optionCopy['agreementURL']//iOS下设置为“”则隐藏该项目
+        }
+        if (optionCopy.experiencePlanURL) {
+          optionCopy.experiencePlanURL = ProtocolManager.resolveUrlWithLink(optionCopy.experiencePlanURL);
+        }
+        if (optionCopy.hideUserExperiencePlan) {
+          delete optionCopy['experiencePlanURL']
+        }
+        if (true == ProtocolManager.getLegalInfoAuthHasShowed()) {
+          return new Promise.resolve(true);
+        }
+        // 内部事件，不需要提供给外部, 如果显示了隐私政策弹窗，需要通知关闭掉固件升级弹窗
+        DeviceEventEmitter.emit('MH_Event_ShowPrivacyLicenseDialog', { isShowingPrivacyLicenseDialog: true });
+        console.log('showaleert');
+        ProtocolManager.setLegalInfoAuthHasShowed(true);
+        native.MIOTHost.showDeclarationWithConfig(optionCopy, (ret, res) => {
+          if (ret === 'ok' || ret === true || ret === 'true') {
+            resolve(true);
+          } else {
+            reject(false);
+          }
+        });
       });
     })
   },
@@ -206,33 +211,38 @@ export default {
    *
    */
   previewLegalInformationAuthorization(option) {
-    const optionCopy = Object.assign({}, option);
+    let optionCopy = Object.assign({}, option);
     if (!optionCopy.force && (Device.isShared || Device.isFamily)) {
       console.warn("分享设备不建议进行弹窗请求隐私授权。")
       return;
     }
-    if (optionCopy.privacyURL) {
-      optionCopy.privacyURL = resolveUrlWithLink(optionCopy.privacyURL);
-    }
-    if (optionCopy.agreementURL) {
-      optionCopy.agreementURL = resolveUrlWithLink(optionCopy.agreementURL);
-    }
-    if (optionCopy.hideAgreement) {
-      delete optionCopy['agreementURL']
-    }
-    if (optionCopy.experiencePlanURL) {
-      optionCopy.experiencePlanURL = resolveUrlWithLink(optionCopy.experiencePlanURL);
-    }
-    if (optionCopy.hideUserExperiencePlan) {
-      delete optionCopy['experiencePlanURL']
-    }
     return new Promise((resolve, reject) => {
-      native.MIOTHost.openDeclarationWithConfig(optionCopy, (ok, res) => {
-        if (ok) {
-          resolve(true);
-        } else {
-          reject(false);
+      ProtocolManager.getLegalAuthInfoProtocol().then(protocols => {
+        if (protocols && protocols.privacyURL && protocols.privacyURL.length > 0) {
+          optionCopy = Object.assign(optionCopy, protocols);
         }
+        if (optionCopy.privacyURL) {
+          optionCopy.privacyURL = ProtocolManager.resolveUrlWithLink(optionCopy.privacyURL);
+        }
+        if (optionCopy.agreementURL) {
+          optionCopy.agreementURL = ProtocolManager.resolveUrlWithLink(optionCopy.agreementURL);
+        }
+        if (optionCopy.hideAgreement) {
+          delete optionCopy['agreementURL']
+        }
+        if (optionCopy.experiencePlanURL) {
+          optionCopy.experiencePlanURL = ProtocolManager.resolveUrlWithLink(optionCopy.experiencePlanURL);
+        }
+        if (optionCopy.hideUserExperiencePlan) {
+          delete optionCopy['experiencePlanURL']
+        }
+        native.MIOTHost.openDeclarationWithConfig(optionCopy, (ok, res) => {
+          if (ok) {
+            resolve(true);
+          } else {
+            reject(false);
+          }
+        });
       });
     })
   },

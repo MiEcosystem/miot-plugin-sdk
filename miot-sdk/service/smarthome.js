@@ -123,14 +123,14 @@ export default {
     },
     // @native begin
     getProtocolUrls(params) {
-      return new Promise((resolve, reject) => {
-        native.MIOTRPC.standardCall("/v2/plugin/get_protocol", params, (ok, res) => {
-          if(ok) {
-            return resolve(res);
-          }
-          reject(res);
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.standardCall("/v2/plugin/get_protocol", params, (ok, res) => {
+                if (ok) {
+                    return resolve(res);
+                }
+                reject(res);
+            });
         });
-      });
     },
     // @native end
     /**
