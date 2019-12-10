@@ -53,6 +53,7 @@ export default class Airer extends Component {
   render() {
     let {lightOn} = this.props;
     let {value} = this.state;
+    lightOn = true;
     let height = value.interpolate({
       inputRange: [0, 100],
       outputRange: [0, CenterHeight]
@@ -66,7 +67,8 @@ export default class Airer extends Component {
         <Animated.Image style={[Styles.light, lightOn ? {
           height
         } : {
-          display: 'none'
+          display: 'none',
+          height: 0
         }]} source={SourceLight} />
         <Image style={Styles.lower} source={SourceLower} />
       </View>
