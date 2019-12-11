@@ -162,7 +162,7 @@ export class BasicDevice {
     * 获取小米WiFi设备控制类
     * Device.getDeviceWifi().callMethod(xxx)
     */
-    getDeviceWifi(){
+    getDeviceWifi() {
          return null
     }
     /**
@@ -511,14 +511,14 @@ export class BasicDevice {
     getDeviceTimeZone() {
          return Promise
     }
-     /**
-     * 是否虚拟设备，虚拟设备主要指老的设备组（Yeelight灯组，飞利浦灯组）。
-     * **注意：mesh设备组，灯组2.0均不是虚拟设备**
-     * @since 10003 
-     * @type {boolean}
-     * @readonly
-     *
-     */
+    /**
+    * 是否虚拟设备，虚拟设备主要指老的设备组（Yeelight灯组，飞利浦灯组）。
+    * **注意：mesh设备组，灯组2.0均不是虚拟设备**
+    * @since 10003 
+    * @type {boolean}
+    * @readonly
+    *
+    */
     get isVirtualDevice() {
          return  false
     }
@@ -545,10 +545,7 @@ export class BasicDevice {
         });
         // @native end
     }
-   
-    
     // @programe mark deprecated
-    
     /**
      * 获取虚拟设备的子设备列表，
      * @deprecated since 10032 请使用Device.getDeviceWifi().getVirtualDevices()代替
@@ -556,10 +553,10 @@ export class BasicDevice {
     getVirtualDevices() {
          return Promise.resolve([]);
     }
-     /**
-     * 获取设备定向推荐信息，展示推荐入口使用：用于获取插件上方偶尔弹出的提示条/广告条数据，比如：设备信号差，请调整设备位置。
-     * @deprecated since 10032 请使用Device.getDeviceWifi().getRecommendScenes()代替
-     */
+    /**
+    * 获取设备定向推荐信息，展示推荐入口使用：用于获取插件上方偶尔弹出的提示条/广告条数据，比如：设备信号差，请调整设备位置。
+    * @deprecated since 10032 请使用Device.getDeviceWifi().getRecommendScenes()代替
+    */
     getRecommendScenes(model, did) {
          return Promise.resolve({});
     }
@@ -569,7 +566,7 @@ export class BasicDevice {
      */
     requestAuthorizedDeviceListData(model) {
          return Promise
-     }
+    }
     /**
      * 除了基本信息的其他部分额外信息都在这个字段返回，如：{"fw_version":"1.4.0","mcu_version":"0001","isSetPincode":0}
      * 可以解析为 json
@@ -581,10 +578,10 @@ export class BasicDevice {
     get extra() {
          return  ""
     }
-     /**
-     * 检查当前设备是否支持HomeKit，Android系统不支持HomeKit设备。需要在plato平台配置homekit_config，包含在内的设备，isHomekit才可能返回true
-     * @deprecated since 10032 请使用Device.getDeviceWifi().checkIsHomeKitDevice()
-     */
+    /**
+    * 检查当前设备是否支持HomeKit，Android系统不支持HomeKit设备。需要在plato平台配置homekit_config，包含在内的设备，isHomekit才可能返回true
+    * @deprecated since 10032 请使用Device.getDeviceWifi().checkIsHomeKitDevice()
+    */
     checkIsHomeKitDevice() {
          return Promise
     }
@@ -603,10 +600,10 @@ export class BasicDevice {
     bindToHomeKit() {
          return Promise
     }
-     /**
-     * 检查wifi设备固件升级弹窗。该方法会触发升级弹窗alert提示。
-     * @deprecated since 10032,请使用Device.getDeviceWifi().checkFirmwareUpdateAndAlert()
-     */
+    /**
+    * 检查wifi设备固件升级弹窗。该方法会触发升级弹窗alert提示。
+    * @deprecated since 10032,请使用Device.getDeviceWifi().checkFirmwareUpdateAndAlert()
+    */
     checkFirmwareUpdateAndAlert() {
          return Promise.resolve({});
     }
@@ -680,16 +677,16 @@ export class BasicDevice {
     createTimerScene(opt = null) {
         return Scene.createTimerScene(this.deviceID, opt);
     }
-     /**
-     * 加载本设备相关的场景
-     * @deprecated since 10032 请使用Service.scene.loadScenes(BasicDevice.deviceID,sceneType,opt)
-     * @method
-     * @param {*} sceneType  SceneType.Timer(定时场景)，SceneType.Artificial(人工场景)，SceneType.Automatic(自动场景)
-     * @param {*} opt {identify,name} identify：代表场景的分类，创建场景时可自定义此参数；如果获取场景的时候传入identify，表示获取identify类场景列表；如果不需要对场景分类，此参数可忽略。name:场景名字
-     * @returns {Promise<IScene[]>}
-     * @see {@link module:miot/service/scene}
-     *
-     */
+    /**
+    * 加载本设备相关的场景
+    * @deprecated since 10032 请使用Service.scene.loadScenes(BasicDevice.deviceID,sceneType,opt)
+    * @method
+    * @param {*} sceneType  SceneType.Timer(定时场景)，SceneType.Artificial(人工场景)，SceneType.Automatic(自动场景)
+    * @param {*} opt {identify,name} identify：代表场景的分类，创建场景时可自定义此参数；如果获取场景的时候传入identify，表示获取identify类场景列表；如果不需要对场景分类，此参数可忽略。name:场景名字
+    * @returns {Promise<IScene[]>}
+    * @see {@link module:miot/service/scene}
+    *
+    */
     loadScenes(sceneType, opt = null) {
         return Scene.loadScenes(this.deviceID, sceneType, opt);
     }
@@ -704,7 +701,6 @@ export class BasicDevice {
     loadTimerScenes(opt = null) {
         return Scene.loadTimerScenes(this.deviceID, opt);
     }
-    
     /**
      * 上报日志，写入文件，在用户反馈时可以查看。比如某个地方报错/出错了，打上log，用户反馈后，能在后台查看到。查看地址：https://iot.mi.com/fe-op/operationCenter/userFeedback
      * @deprecated since 10032,请使用Service.smarthome.reportLog()代替。

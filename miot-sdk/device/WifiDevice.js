@@ -35,16 +35,16 @@ export default class IDeviceWifi {
     /**
      * 获取设备ID，same as Device.deviceID
      * @member
+     * @deprecated since 10032,请使用Device.deviceID;
      * @type {string}
      * @example
      * import {Device} from 'miot'
      * ...
      * let did = Device.getDeviceWifi().deviceID
      */
-    // get deviceID() {
-    //     //@native => ""
-    //     return Properties.of(this).did;
-    // }
+    get deviceID() {
+         return  ""
+    }
     /**
     * @typedef {Object} NetworkInfo
     * @property {string} bssid  wifi 的mac地址
