@@ -26,6 +26,7 @@
  */
 import native, { NativeTimer, PackageExitAction, Properties } from '../native';
 const INTERVAL_SUBSCRIBE_MSG_SECONDS = (2 * 60 + 50);//2'50"
+import BasicDevice from './BasicDevice';
 /**
  * 设备网络访问控制类
  * @interface
@@ -44,13 +45,13 @@ export default class IDeviceWifi {
     //     //@native => ""
     //     return Properties.of(this).did;
     // }
-     /**
-     * @typedef {Object} NetworkInfo
-     * @property {string} bssid  wifi 的mac地址
-     * @property {number} rssi   wifi的原始信号强度，android和iOS为保持一致，不要使用。
-     * @property {string} ssid  wifi 的名称
-     * @property {number} wifiStrength  wifi的信号强度，adnroid和iOS保持一致后的，推荐使用。正常wifi/combo设备返回0-100之间的值，蓝牙设备返回0
-     */
+    /**
+    * @typedef {Object} NetworkInfo
+    * @property {string} bssid  wifi 的mac地址
+    * @property {number} rssi   wifi的原始信号强度，android和iOS为保持一致，不要使用。
+    * @property {string} ssid  wifi 的名称
+    * @property {number} wifiStrength  wifi的信号强度，adnroid和iOS保持一致后的，推荐使用。正常wifi/combo设备返回0-100之间的值，蓝牙设备返回0
+    */
     /**
      * 实时获取设备的网络信息包括网络强度，此方法一般情况下不走reject
      * @param {String} did 设备id
@@ -285,11 +286,11 @@ export default class IDeviceWifi {
     checkFirmwareUpdateAndAlert() {
          return Promise.resolve({});
     }
-     /**
-     * 检查当前设备是否支持HomeKit，Android系统不支持HomeKit设备。需要在plato平台配置homekit_config，包含在内的设备，isHomekit才可能返回true
-     * @since 10021
-     * @returns {Promise<boolean>} 是否支持  res = true or false
-     */
+    /**
+    * 检查当前设备是否支持HomeKit，Android系统不支持HomeKit设备。需要在plato平台配置homekit_config，包含在内的设备，isHomekit才可能返回true
+    * @since 10021
+    * @returns {Promise<boolean>} 是否支持  res = true or false
+    */
     checkIsHomeKitDevice() {
          return Promise
     }
