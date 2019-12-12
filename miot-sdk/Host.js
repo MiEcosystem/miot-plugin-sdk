@@ -47,13 +47,12 @@
  *  Host.storage.set(key, value)
  *
  */
-import { DeviceEventEmitter } from "react-native";
 import HostAudio from './host/audio';
 import HostCrypto from './host/crypto';
 import HostFile from './host/file';
 import HostLocale from './host/locale';
 import HostStorage from './host/storage';
-import HostUI from './host/ui';
+// import HostUI from './host/ui';
  const IOS="ios", ANDROID="android";
 export const HOST_TYPE_IOS = IOS;
 export const HOST_TYPE_ANDROID = ANDROID;
@@ -146,7 +145,8 @@ export default {
      *
      */
     get ui() {
-        return HostUI;
+        let ui = require('./host/ui').default;
+        return ui;
     },
     /**
      * @const
@@ -291,15 +291,15 @@ export default {
     phoneHasNfcForAndroid() {
          return Promise.resolve(null);
     },
-  /**
-   * 页面有输入框，需要打开软键盘，页面适配软键盘
-   * @since 10027
-   * @param {boolean} shouldAdapter  true: 表示进行适配,建议UI用ScrollView包裹起来，当输入框在屏幕的下半部分时，只会触发ScrollView滚动; false： 整个页面滚动, demo可参考SoftKeyboardAdapterTestDemo.js
-   * @returns {Promise<boolean>} 设置成功返回true(iOS没有实现这个接口,直接返回true)
-   */
-  pageShouldAdapterSoftKeyboard(shouldAdapter) {
-     return Promise.resolve(null);
-  },
+    /**
+     * 页面有输入框，需要打开软键盘，页面适配软键盘
+     * @since 10027
+     * @param {boolean} shouldAdapter  true: 表示进行适配,建议UI用ScrollView包裹起来，当输入框在屏幕的下半部分时，只会触发ScrollView滚动; false： 整个页面滚动, demo可参考SoftKeyboardAdapterTestDemo.js
+     * @returns {Promise<boolean>} 设置成功返回true(iOS没有实现这个接口,直接返回true)
+     */
+    pageShouldAdapterSoftKeyboard(shouldAdapter) {
+         return Promise.resolve(null);
+    },
 }
 export const HostEvent = {
     /**

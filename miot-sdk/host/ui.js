@@ -15,7 +15,7 @@
  *
  *
  */
-import Device from "../device";
+import Device from "../device/BasicDevice";
 import native from "../native";
 import ProtocolManager from '../utils/protocol-helper';
 // import { Entrance } from "../Package";

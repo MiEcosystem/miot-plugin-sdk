@@ -31,8 +31,8 @@
 import { MessageDialog } from 'miot/ui';
 import React from 'react';
 import { AppRegistry, DeviceEventEmitter, View } from "react-native";
-import { Device, Package, Service } from '.';
-import RootDevice from "./device/BasicDevice";
+import Service from './Service';
+import Device from "./device/BasicDevice";
 import Host from './Host';
 import resolveAssetResource from "./native/common/node/resolve";
 import { strings } from './resources';

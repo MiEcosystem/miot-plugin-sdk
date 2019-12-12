@@ -1,4 +1,5 @@
-import { Device, Service, Package, Resources, Host } from 'miot';
+import Device from "../device/BasicDevice";
+import Service from "../Service";
 import native from "../native";
 let resolveAssetSource = require('resolveAssetSource');
 export default class ProtocolManager {
@@ -7,8 +8,9 @@ export default class ProtocolManager {
   static getLegalAuthInfoProtocol() {
     return new Promise((resolve, reject) => {
       let { model } = Device;
-      let { pluginID: plugin_id, version: plugin_version } = Package;
-      let language = Host.locale.language;
+      let plugin_id = native.MIOTPackage.packageID;
+      let plugin_version = native.MIOTPackage.version;
+      let language = native.language;
       Service.getServerName().then(({ countryCode: country }) => {
         let baseParams = {
           model,

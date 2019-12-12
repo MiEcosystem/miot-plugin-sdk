@@ -15,11 +15,11 @@
  *
  */
 //new
-import  RootDevice , { DeviceEvent as MIOTDeviceEvent } from './device/BasicDevice';
-import ClassicBluetoothFactory,{ClassicBluetoothEvent as MIOTClassicBluetoothEvent} from './device/bluetooth/ClassicDevice';
+import RootDevice, { DeviceEvent as MIOTDeviceEvent } from './device/BasicDevice';
+import ClassicBluetoothFactory, { ClassicBluetoothEvent as MIOTClassicBluetoothEvent } from './device/bluetooth/ClassicDevice';
 import BluetoothFactory from './device/bluetooth';
-import {BluetoothEvent as MIOTBluetoothEvent} from './device/bluetooth/BluetoothDevice'
-import HostInstance, {HostEvent as HostEventNames} from './Host';
+import { BluetoothEvent as MIOTBluetoothEvent } from './device/bluetooth/BluetoothDevice'
+import HostInstance, { HostEvent as HostEventNames } from './Host';
 import { AudioEvent as AudioEventNames } from './host/audio';
 import { FileEvent as FileEventNames } from './host/file';
 import PackageInstance, { Entrance as Entrances, PackageEvent as PackageEventNames } from './Package';
@@ -80,6 +80,7 @@ export const Service = ServiceInstance;
  * @export
  */
 export const Host = HostInstance;
+console.log(HostInstance);
 export const HostEvent = HostEventNames;
 /**
  * 资源类
@@ -124,9 +125,9 @@ import * as Utils from './utils';
  * @export
  */
 export default {
-    Device,DeviceEvent,Bluetooth,BluetoothEvent,ClassicBluetooth,ClassicBluetoothEvent,
+    Device, DeviceEvent, Bluetooth, BluetoothEvent, ClassicBluetooth, ClassicBluetoothEvent,
     API_LEVEL, Package, PackageEvent, Entrance, DeviceProperties,
-    Service, Host,HostEvent, Resources,
+    Service, Host, HostEvent, Resources,
     SceneType,
     FileEvent, AudioEvent,
     Utils

@@ -35,10 +35,10 @@
  *
  */
 import native, { buildEvents, Properties } from '../../native';
-import {IBluetoothService} from './CoreBluetooth';
-import {getBluetoothUUID128} from './index';
+import { IBluetoothService } from './CoreBluetooth';
+import { getBluetoothUUID128 } from './index';
 import RootDevice from '../BasicDevice';
-import Host from '../../Host';
+// import Host from '../../Host';
 /**
  *
  * 蓝牙组件基本接口,主要提供了蓝牙设备的基本属性，蓝牙设备的基本操作，和蓝牙设备事件等功能。
@@ -47,15 +47,14 @@ import Host from '../../Host';
 //  @native begin
 const mac_uuid_for_ios = native.isIOS ? new Map() : null;
 const { bluetoothDevices } = native.LocalCache;
-export function setMacUuid(key,value){
+export function setMacUuid(key, value) {
     value && mac_uuid_for_ios.set(key, value);
 }
-export function getMacUuid(){
+export function getMacUuid() {
     return mac_uuid_for_ios;
 }
 // @native end
-export class IBluetooth{
-    
+export class IBluetooth {
     /**
      * 是否 BLE 蓝牙。如果不是，则是经典蓝牙
      * @member

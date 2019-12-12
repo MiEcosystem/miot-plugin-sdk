@@ -7,7 +7,6 @@
  * @description 智能家庭 API
  *
  */
-import native from "../native";
 /**
  * 成员类型
  * @namespace MemberType
