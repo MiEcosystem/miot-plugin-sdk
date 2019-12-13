@@ -1,7 +1,6 @@
 /**
  * @export public
- * @doc_name 基础插件设备模块，主要是设备的一些基础属性，基础方法等
- * @doc_index 2
+ * @doc_name 基础插件设备模块
  * @doc_directory device
  * @module miot/device
  * @description
@@ -10,7 +9,6 @@
  * 部分对象方法主要包含：获取小米WiFi设备控制类，获取蓝牙设备控制类，修改时区，修改设备名称，获取定向推荐，获取当前设备属性等。
  * 设备事件主要有：设备名称更改，设备时区更改，设备状态更改，获取到设备消息
  * 
- * ## DeviceEvent 当前设备事件：可以理解为iOS中的通知，或者Android中的广播.表示此事件发生后，通知监听此事件的组件执行某操作。
  * @example
  * 
  * componentDidMount(){
@@ -19,17 +17,18 @@
  *      this.setState({});
  *   });
  * }
+ * 
  * 一定要记得，用完后要移除，否则可能报错
+ * 
  *  componentWillUnmount(){
  *      this._deviceNameChangedListener && this._deviceNameChangedListener.remove();
  *  }
  * 
- * ## BasicDevice 当前设备实例对象，用于获取当前设备属性,调用设备基础方法等
+ * BasicDevice 当前设备实例对象，用于获取当前设备属性,调用设备基础方法等
  *
  * @example
  * import {Device} from 'miot/device'
- * ...
- * //Device
+ * 
  * //属性获取
  * let did = Device.deviceID
  * let deviceModel = Device.model
@@ -37,8 +36,11 @@
  * Device.getDeviceWifi().callMethod('method_name', params)
  *  .then(res => {//here is the success result})
  *  .catch(err => {//error happened})
- * ...
+ * 
  * 其余具体使用请参考具体API文档
+ */
+/**
+ *  DeviceEvent 当前设备事件：可以理解为iOS中的通知，或者Android中的广播.表示此事件发生后，通知监听此事件的组件执行某操作。
  */
 export const DeviceEvent = {
     /**
