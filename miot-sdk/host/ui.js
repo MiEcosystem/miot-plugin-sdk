@@ -84,7 +84,7 @@ export default {
   /**
    * 获取设备列表中指定model的设备信息
    * @param {string} model - 设备model
-   * @returns {Promise<Array<devices>>}
+   * @returns {Promise<devices[]>}
    *
    */
   getDevicesWithModel(model) {

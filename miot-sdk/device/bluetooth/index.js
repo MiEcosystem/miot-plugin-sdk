@@ -36,7 +36,7 @@
  *
  */
 import native, { Properties } from '../../native';
-import { IBluetooth as BluetoothDevice, getMacUuid, setMacUuid } from './BluetoothDevice'
+import { IBluetooth as BluetoothDevice, getMacUuid, setMacUuid, IBluetooth } from './BluetoothDevice'
 import LockDevice from './LockDevice';
 export const getBluetoothUUID128 = id => {
     if (!id || id == '') return null;
@@ -168,7 +168,7 @@ export default {
      * @param {...string} UUIDs - Peripheral UUIDs 。外设UUID，比如小米手环UUID
      * @example
      *   Bluetooth.retrievePeripheralsForIOS("PeripheralUUID1","PeripheralUUID2","PeripheralUUID3")
-     * @returns resolve: {Promise<Map<uuid, IBluetooth>>} 返回一个map，key为UUID，value为IBluetooth对象
+     * @returns {Promise<Map{uuid:IBluetooth}>} resolve: 返回一个map，key为UUID，value为IBluetooth对象
      *           reject: false（android调用时）
      */
     retrievePeripheralsForIOS(...UUIDs) {
@@ -182,7 +182,7 @@ export default {
      * @param {...string} serviceUUIDs - Peripheral  serviceUUIDs service的UUID
      * @example
      *   Bluetooth.retrievePeripheralsWithServicesForIOS("serviceUUID1","serviceUUID2","serviceUUID3")
-     * @returns  resolve：{Promise<Map<uuid, IBluetooth>>} 返回一个map，key为UUID，value为IBluetooth对象
+     * @returns {Promise<Map{uuid:IBluetooth}>}  resolve：返回一个map，key为UUID，value为IBluetooth对象
      *            reject：false（android调用时）
      */
     retrievePeripheralsWithServicesForIOS(...UUIDs) {

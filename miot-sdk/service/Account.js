@@ -137,7 +137,7 @@ class IAccount {
    * 批量获取账号信息
    * @since 10032
    * @param {Array<string>} ids  数组，仅支持账号id，不支持手机号查询
-   * @returns {Promise<Array<object>>}  账号信息列表(数组结构)
+   * @returns {Promise<object[]>}  账号信息列表(数组结构)
    * 成功时：[{ID:xxx, avatarURL: {size_75:xxx,size_90:xxx,...}, icon:xxx, nickName:xxx, userName:xxx}, ...]
    * 失败时：{"code":xxx, "message":"xxx" }
    */

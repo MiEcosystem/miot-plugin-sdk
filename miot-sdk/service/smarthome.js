@@ -45,7 +45,7 @@ export default {
      * @deprecated 已废弃，请使用 Service.account.getAccountInfoList 方法
      * @since 10005
      * @param {Array<string>} uids uid数组，仅支持uid，不支持手机号查询
-     * @return {Promise<Array<object>>}
+     * @return {Promise<object[]>}
      * @example
      * Service.smarthome.getUserInfoList([uid1,uid2]).then(res => {
      *  console.log('user info :', res.list)

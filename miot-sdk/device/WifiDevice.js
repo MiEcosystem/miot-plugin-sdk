@@ -1,6 +1,6 @@
 /**
  * @export public
- * @doc_name 插件设备模块
+ * @doc_name 插件网络操作模块
  * @doc_index 3
  * @doc_directory device
  * @module miot/device
@@ -326,7 +326,7 @@ export default class IDeviceWifi {
      * @property {string} product_name 设备的产品名称
      * @property {string} product_icon 设备图标
      * @property {string} product_id 设备类别id
-     * @property {Object<array<DeviceExtra>>} devices
+     * @property {Object<DeviceExtra[]>} devices
      *
      */
     /**
@@ -334,7 +334,7 @@ export default class IDeviceWifi {
      * 用途：秒秒测有一个设备互联的功能，比如牙刷可以连电子表，然后电子表上展示倒计时。
      * @since 10003
      * @param {string} model 设备model
-     * @returns {Promise<array<DeviceProductInfo>>}
+     * @returns {Promise<DeviceProductInfo[]>}
      *      resolve：设备列表数组
      *      reject：{message:xxx} 找不到授权的model  无法找到任何设备
      */
@@ -346,7 +346,7 @@ export default class IDeviceWifi {
      * @since  10003
      * 涉及接口：/home/virtualdevicectr。可抓包此接口查看，返回的为此接口的数据
      * 使用场景：展示灯组设备的子设备列表，可通过此接口获取数据
-     * @returns {Promise<array<BasicDevice>>}
+     * @returns {Promise<BasicDevice[]>}
      *      resolve:子设备列表
      *      reject：{code: xxx, message: xxx}网络错误
      */

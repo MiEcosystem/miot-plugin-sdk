@@ -64,7 +64,7 @@ export default {
   /**
    * 获取所有 keys 的 values
    * @param {array} keys
-   * @return {promise<Array<json>>} 返回的promise传出的值是values数组，和传入的keys对应 [{key,value}]
+   * @return {promise<json[]>} 返回的promise传出的值是values数组，和传入的keys对应 [{key,value}]
    * 成功时：["value1", "value2", ...]
    * 失败时：string类型字符串
    * @example

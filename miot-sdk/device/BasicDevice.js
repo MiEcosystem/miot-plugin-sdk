@@ -1,6 +1,7 @@
 /**
  * @export public
  * @doc_name 基础插件设备模块
+ * @doc_index 2
  * @doc_directory device
  * @module miot/device
  * @description
@@ -8,7 +9,6 @@
  * 设备对象的属性，请直接查看下面各个API/属性说明
  * 部分对象方法主要包含：获取小米WiFi设备控制类，获取蓝牙设备控制类，修改时区，修改设备名称，获取定向推荐，获取当前设备属性等。
  * 设备事件主要有：设备名称更改，设备时区更改，设备状态更改，获取到设备消息
- * 
  * @example
  * 
  * componentDidMount(){
@@ -40,7 +40,7 @@
  * 其余具体使用请参考具体API文档
  */
 /**
- *  DeviceEvent 当前设备事件：可以理解为iOS中的通知，或者Android中的广播.表示此事件发生后，通知监听此事件的组件执行某操作。
+ * @description  DeviceEvent 当前设备事件：可以理解为iOS中的通知，或者Android中的广播.表示此事件发生后，通知监听此事件的组件执行某操作。
  */
 export const DeviceEvent = {
     /**
@@ -57,7 +57,6 @@ export const DeviceEvent = {
      * @event
      * @param {IDevice} device -发生变更的设备
      * @since 1.0.0
-     *
      */
     deviceTimeZoneChanged: {
     },
@@ -112,6 +111,7 @@ export const DeviceEvent = {
     deviceReceivedMessages: {
     }
 };
+buildEvents(DeviceEvent)
 export class BasicDevice {
     /**
      *获取设备 id，每一个真实设备都有一个唯一的 id
@@ -187,8 +187,6 @@ export class BasicDevice {
      * .catch(error=>{
      *
      * })
-     *
-     *
      */
     getBluetoothLE(peripheralID = null) {
          return null
@@ -400,7 +398,7 @@ export class BasicDevice {
     /**
      * 获取上次修改（修改名称，绑定/解绑等）的时间戳, 例如1532587811237
      * 暂时没想到它的使用场景，有开发者想到了可以联系米家更新文档
-     * @type {long}
+     * @type {long} 时间戳
      * @readonly
      *
      */
@@ -411,7 +409,7 @@ export class BasicDevice {
      * 本地设备还是远程设备, 0未知 1本地 2远程。
      * iOS中，本地设备指的是既没有绑定到iot平台，又不是被分享的设备。**注意：不是寻常理解的，同一个路由器的是本地设备，不同路由器的是远程设备，iOS中，无法获取一个设备是否在同一个局域网**
      * 
-     * @type {int}
+     * @type {int}  0未知 1本地 2远程。
      * @readonly
      *
      */
@@ -554,19 +552,7 @@ export class BasicDevice {
      */
     getVirtualDevices() {
          return Promise.resolve([]);
-    }
-    /**
-    * 获取设备定向推荐信息，展示推荐入口使用：用于获取插件上方偶尔弹出的提示条/广告条数据，比如：设备信号差，请调整设备位置。
-    * @deprecated since 10032 请使用Device.getDeviceWifi().getRecommendScenes()代替
-    */
-    getRecommendScenes(model, did) {
          return Promise.resolve({});
-    }
-    /**
-     * 获取当前设备列表中的指定model的设备列表。需要在common_extra_config增加配置，暂时用于秒秒测的互联互通功能。
-     * @deprecated since 10032，请使用Device.getDeviceWifi().requestAuthorizedDeviceListData()代替
-     */
-    requestAuthorizedDeviceListData(model) {
          return Promise
     }
     /**
@@ -665,7 +651,7 @@ export class BasicDevice {
      *
      */
     createScene(sceneType, opt = null) {
-        return Scene.createScene(this.deviceID, sceneType, opt);
+         return  ""
     }
     /**
      * 创建定时场景
@@ -677,7 +663,7 @@ export class BasicDevice {
      *
      */
     createTimerScene(opt = null) {
-        return Scene.createTimerScene(this.deviceID, opt);
+         return  ""
     }
     /**
     * 加载本设备相关的场景
@@ -690,7 +676,7 @@ export class BasicDevice {
     *
     */
     loadScenes(sceneType, opt = null) {
-        return Scene.loadScenes(this.deviceID, sceneType, opt);
+         return  ""
     }
     /**
      * 加载定时场景
@@ -701,7 +687,7 @@ export class BasicDevice {
      *
      */
     loadTimerScenes(opt = null) {
-        return Scene.loadTimerScenes(this.deviceID, opt);
+         return  ""
     }
     /**
      * 上报日志，写入文件，在用户反馈时可以查看。比如某个地方报错/出错了，打上log，用户反馈后，能在后台查看到。查看地址：https://iot.mi.com/fe-op/operationCenter/userFeedback
@@ -712,8 +698,7 @@ export class BasicDevice {
     reportLog(log) {
     }
 }
-const RootDevice={};
 /**
- * @export
+ * @export 导出rootDevice
  */
 export default RootDevice;
