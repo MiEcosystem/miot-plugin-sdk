@@ -59,7 +59,9 @@ export default class CircleButton extends Component {
     // let iconSizeStyle = Styles[['icon0', 'icon1', 'icon2', 'icon3'][sizeLevel || 0]] || Styles.icon0;
     // let titleSizeStyle = Styles[['title0', 'title1', 'title2', 'title3'][sizeLevel || 0]] || Styles.title0;
     return (
-      <View style={StyleSheet.flatten([Styles.container, containerSizeStyle, horizontal ? Styles.containerHorizontal : null])}>
+      <View style={StyleSheet.flatten([Styles.container, containerSizeStyle, horizontal ? Styles.containerHorizontal : null, disabled ? {
+        opacity: 0.3
+      } : null])}>
         <TouchableOpacity style={StyleSheet.flatten([Styles.iconContainer, iconContainerSizeStyle, selected ? {
           backgroundColor: themeColor || ColorGreen,
           borderColor: themeColor || ColorGreen
@@ -104,8 +106,7 @@ const Styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(176, 182, 184, 0.4)',
-    opacity: 1
+    borderColor: 'rgba(176, 182, 184, 0.4)'
   },
   iconContainer0: {
     width: Size120,
@@ -129,11 +130,11 @@ const Styles = StyleSheet.create({
   },
   iconContainerDisabled: {
     backgroundColor: 'transparent',
-    borderColor: 'rgba(197, 201, 203, 0.3)'
+    borderColor: 'rgba(197, 201, 203, 1)'
   },
   iconContainerDisabledSelected: {
     backgroundColor: 'rgba(197, 201, 203, 0.3)',
-    borderColor: 'rgba(197, 201, 203, 0.3)'
+    borderColor: 'rgba(197, 201, 203, 1)'
   },
   icon: {
     resizeMode: 'contain',
@@ -153,7 +154,7 @@ const Styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: adjustSize(42),
     fontFamily: FontDefault,
-    color: '#000'
+    color: '#7F7F7F'
   },
   title3: {
     display: 'none'

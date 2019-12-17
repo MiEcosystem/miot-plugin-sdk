@@ -61,6 +61,10 @@ export {default as SmallNumbers} from './SmallNumbers';
 export {default as WallSwitch} from './WallSwitch';
 export {default as Airer} from './Airer';
 export {default as DoubleSelectors} from './DoubleSelectors';
+export {default as Curtain} from './Curtain';
+export {default as CurtainStyle} from './CurtainStyle';
+export {default as PrimeButton} from './PrimeButton';
+export {default as QAList} from './QAList';
 export default {
     ImageButton, MHImage,
     LoadingDialog, MessageDialog, MultiChoseDialog,

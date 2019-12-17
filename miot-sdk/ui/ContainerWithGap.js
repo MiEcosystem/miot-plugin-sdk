@@ -14,7 +14,6 @@ class GapWrap extends PureComponent {
   render() {
     let {gap, horizontal, children} = this.props;
     let {shown} = this.state;
-    console.log(333, shown)
     if(!children) {
       return null;
     }
