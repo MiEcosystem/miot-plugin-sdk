@@ -536,7 +536,10 @@ export class BasicDevice {
         return new Promise((resolve, reject) => {
             native.MIOTDevice.changeDeviceName(newName, did, (ok, res) => {
                 if (ok) {
-                    Properties.of(this).name = newName;
+                    const { device, props } = _find_device(did);
+                    if (device && props) {
+                        props.name = newName;
+                    }
                     resolve(res);
                 } else {
                     reject(res);
