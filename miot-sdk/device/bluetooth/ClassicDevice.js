@@ -8,6 +8,10 @@
  * 本文件提供了经典蓝牙设备的创建，连接，读写，断连。此处不再提供example，请大家移步详细使用文档查看。
  * @since 10023
  */
+/**
+ * 经典蓝牙设备操作类
+ * @interface
+ */
 export default class ClassicBluetoothFactory {
     /**
      * 初始化经典蓝牙,返回的数据没有实际作用, 执行到catch表示初始化失败。
@@ -94,6 +98,11 @@ export default class ClassicBluetoothFactory {
          return Promise.resolve(null);
     }
 }
+/**
+ * 经典蓝牙事件名集合
+ * @namespace ClassicBluetoothEvent
+ * @example
+ */
 export const ClassicBluetoothEvent = {
     /**
      * BondStateChange 状态改变事件

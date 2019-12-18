@@ -54,7 +54,8 @@ export const getBluetoothUUID128 = id => {
 }
  const bluetoothDevices={}
 /**
- * @export
+ * 蓝牙操作入口类
+ * @interface
  */
 export default {
     /**
@@ -85,7 +86,6 @@ export default {
     },
     /**
      * 创建蓝牙设备,自动确定是普通蓝牙设备还是蓝牙锁设备。
-     * @method
      * @param {string} macOrPeripheralID -- iOS传 peripheralUUID, android 传 mac
      * @returns {IBluetooth}
      * @example
@@ -97,7 +97,6 @@ export default {
     },
     /**
      * 创建经典蓝牙设备
-     * @method
      * @param {string} macOrPeripheralID -- iOS传 peripheralUUID, android 传 mac
      * @returns {IBluetoothClassic}
      * @example
@@ -127,7 +126,6 @@ export default {
     },
     /**
      * 开始扫描蓝牙设备，此方法没有回调，扫描得到的结果，通过BluetoothEvent.bluetoothDeviceDiscovered.addListener()来获取扫描的结果，获取到正确的蓝牙设备对象后，记得调用下面的Bluetooth.stopScan()来停止蓝牙扫描。
-     * @method
      * @param {int} durationInMillis - 扫描时长
      * @param {...string} serviceUUIDs - 指定扫描包含了此service的蓝牙设备, 为空时扫描全部
      * @returns {void}
@@ -152,7 +150,6 @@ export default {
     },
     /**
      * 停止扫描蓝牙设备,此方法同样没有回调方法。获取到需要的设备，或者返回上一页，记得调用stopScan
-     * @method
      * @returns {void}
      *
      */
@@ -164,11 +161,10 @@ export default {
      * const ble = Device.getBluetoothLE();ble.connect().then(ble=>{})
      * 因机制不同，android可以正常连接到。所以提供了下面两个方法，专门用于iOS连接失败后，获取已连接的ble对象。
      * 此方法对应 coreBLuetooth 中 retrievePeripheralsWithIdentifiers:(NSArray<NSUUID *> *)identifiers 方法
-     * @method
      * @param {...string} UUIDs - Peripheral UUIDs 。外设UUID，比如小米手环UUID
      * @example
      *   Bluetooth.retrievePeripheralsForIOS("PeripheralUUID1","PeripheralUUID2","PeripheralUUID3")
-     * @returns {Promise<Map{uuid:IBluetooth}>} resolve: 返回一个map，key为UUID，value为IBluetooth对象
+     * @returns {Promise<Map<uuid,IBluetooth>>} resolve: 返回一个map，key为UUID，value为IBluetooth对象
      *           reject: false（android调用时）
      */
     retrievePeripheralsForIOS(...UUIDs) {
@@ -178,11 +174,10 @@ export default {
      * iOS 平台通过 serviceUUID 获取已连接 BLE Peripheral，适用于可穿戴长连接设备
      * 使用场景同上面的retrievePeripheralsForIOS方法，不同点在于，此处是根据serviceUUID来筛选，表示筛选包含此serviceUUID的蓝牙设备
      * 对应 coreBLuetooth 中 retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs 方法
-     * @method
      * @param {...string} serviceUUIDs - Peripheral  serviceUUIDs service的UUID
      * @example
      *   Bluetooth.retrievePeripheralsWithServicesForIOS("serviceUUID1","serviceUUID2","serviceUUID3")
-     * @returns {Promise<Map{uuid:IBluetooth}>}  resolve：返回一个map，key为UUID，value为IBluetooth对象
+     * @returns {Promise<Map<uuid,IBluetooth>>}  resolve：返回一个map，key为UUID，value为IBluetooth对象
      *            reject：false（android调用时）
      */
     retrievePeripheralsWithServicesForIOS(...UUIDs) {

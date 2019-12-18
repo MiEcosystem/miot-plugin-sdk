@@ -40,7 +40,9 @@
  * 其余具体使用请参考具体API文档
  */
 /**
- * @description  DeviceEvent 当前设备事件：可以理解为iOS中的通知，或者Android中的广播.表示此事件发生后，通知监听此事件的组件执行某操作。
+ * 设备事件集合
+ * @description DeviceEvent 当前设备事件：可以理解为iOS中的通知，或者Android中的广播.表示此事件发生后，通知监听此事件的组件执行某操作。
+ * @namespace DeviceEvent
  */
 export const DeviceEvent = {
     /**
@@ -112,10 +114,14 @@ export const DeviceEvent = {
     }
 };
 buildEvents(DeviceEvent)
+/**
+ * 基础设备控制类
+ * @interface
+ */
 export class BasicDevice {
     /**
      *获取设备 id，每一个真实设备都有一个唯一的 id
-     * @type {string}
+     * @return {string}
      * @readonly
      *
      */
@@ -124,7 +130,7 @@ export class BasicDevice {
     }
     /**
      * 获取设备的 model,设备类型的唯一标识
-     * @type {string}
+     * @return {string}
      * @readonly
      *
      */
@@ -133,7 +139,7 @@ export class BasicDevice {
     }
     /**
      *设备是否已经可用,没有did的设备的插件，可能调用此方法判断接口是否可用。此方法没什么其他存在的意义，一般也不需要使用此方法
-     * @type {boolean}
+     * @return {boolean}
      * @readonly
      *
      *
@@ -143,7 +149,7 @@ export class BasicDevice {
     }
     /**
      * 如果有父设备，直接获取 父设备 Device，一般是网关子设备才会有父设备，注意：**设备组的子设备没有父设备，或者说设备组子设备的父设备不是这个设备组**
-     * @type {BasicDevice}
+     * @return {BasicDevice}
      * @readonly
      *
      */
@@ -153,7 +159,7 @@ export class BasicDevice {
     /**
      * 是否是根设备，没有父设备的设备，即为根设备。一般网关子设备不是根设备，其他的都是
      * @member
-     * @type {boolean}
+     * @return {boolean}
      * @readonly
      *
      */
@@ -268,7 +274,7 @@ export class BasicDevice {
      * 设备所有者的小米账号, 可以使用 load 获取 account 下的所有数据。
      * 不调用 load 只有 ID，nickName 字段有值。
      * 注:Service.account 不load时只有ID可用，与此处不一样。
-     * @type {IAccount} 账号信息。详见Account.js
+     * @return {IAccount} 账号信息。详见Account.js
      * @readonly
      * @see {@link module:miot/Account}
      *
@@ -278,7 +284,7 @@ export class BasicDevice {
     }
     /**
      * 设备的名称。注意与loadRealDeviceConfig返回的deviceName的区别
-     * @type {string}
+     * @return {string}
      * @readonly
      *
      */
@@ -288,7 +294,7 @@ export class BasicDevice {
     /**
      * 设备的 token 加密后生成的固定值，在设备快连入网时生成，能唯一标识设备的生命周期，直至被重置、重新快连入网。可以使用此字段，鉴定设备有没有被重新绑定。注意该 Session 并非设备与服务器交互时认证所用 Token，只能用于标识作用
      * 使用方法：将session保存到手机里(Host.storage.set)，或者userdata（Service.smarthome.setDeviceData）,后续打开插件后，对比保存的session与当前session，如果相同，则表示未重置
-     * @type {string}
+     * @return {string}
      * @readonly
      *
      */
@@ -297,7 +303,7 @@ export class BasicDevice {
     }
     /**
      *开发者平台配置的设备图标 一个图片的下载地址，和米家设备列表页的图标一样
-     * @type {string}
+     * @return {string}
      * @readonly
      *
      */
@@ -306,7 +312,7 @@ export class BasicDevice {
     }
     /**
      * 当前账户对设备的控制权限，主要用于分享的设备 4:普通分享 36:只读分享。一般情况下，分享的设备可以被控制，但是不能添加/删除/修改 自动化和倒计时定时。如果出现被分享的设备，有不该有的功能，请通过此处的permitLevel判断并增加权限控制
-     * @type {int}
+     * @return {int}
      * @readonly
      *
      */
@@ -315,7 +321,7 @@ export class BasicDevice {
     }
     /**
      * 是否设置了进入插件使用密码，如果你们的设置页面有修改密码功能，可以通过此字段，判断密码是否设置了。
-     * @type {boolean}
+     * @return {boolean}
      * @readonly
      *
      */
@@ -325,7 +331,7 @@ export class BasicDevice {
     /**
      * 是否在设备列表显示，一般不需要使用此方法。
      *  0 -- 不显示
-     * @type {int}
+     * @return {int}
      * @readonly
      *
      */
@@ -334,7 +340,7 @@ export class BasicDevice {
     }
     /**
      * 获取设备的 mac 地址，蓝牙设备返回为空字符串
-     * @type {string}
+     * @return {string}
      * @readonly
      *
      */
@@ -343,7 +349,7 @@ export class BasicDevice {
     }
     /**
      * 获取当前固件的版本，记住，只能获取wifi设备/combo设备的固件版本，其他设备的固件版本，请使用其他方法读取。比如：蓝牙使用BTDevice.getVersion()。如果是zigbee，红外等设备，请尝试此方法和蓝牙的getVersion方法，看哪个能获取到正确的值，然后就使用哪个。
-     * @type {string}
+     * @return {string}
      * @readonly
      *
      */
@@ -352,7 +358,7 @@ export class BasicDevice {
     }
     /**
      *获取设备的 ip，蓝牙设备的ip为空
-     * @type {string}
+     * @return {string}
      * @readonly
      *
      */
@@ -361,7 +367,7 @@ export class BasicDevice {
     }
     /**
      * 获取 wifi 信号强度，蓝牙/Mesh设备的为空
-     * @type {string}
+     * @return {string}
      * @readonly
      *
      */
@@ -370,7 +376,7 @@ export class BasicDevice {
     }
     /**
      * 获取连接 wifi 的名称，蓝牙/Mesh设备的为空
-     * @type {string}
+     * @return {string}
      * @readonly
      *
      */
@@ -379,7 +385,7 @@ export class BasicDevice {
     }
     /**
      * 获取连接 wifi 的mac 地址，蓝牙/Mesh设备为空
-     * @type {string}
+     * @return {string}
      * @readonly
      *
      */
@@ -388,7 +394,7 @@ export class BasicDevice {
     }
     /**
      * 获取设备类型，0：wifi单模设备，1：yunyi设备，2：云接入设备，3：zigbee设备，5：虚拟设备，6：蓝牙单模设备，7：本地AP设备，8：蓝牙wifi双模设备，9：其他，10：功能插件，11：SIM卡设备，12：网线设备，13：NB-IoT，14：第三方云接入，15：红外遥控器，16：BLE Mesh，17：虚拟设备（新设备组）
-     * @type {int}
+     * @return {int}
      * @readonly
      *
      */
@@ -398,7 +404,7 @@ export class BasicDevice {
     /**
      * 获取上次修改（修改名称，绑定/解绑等）的时间戳, 例如1532587811237
      * 暂时没想到它的使用场景，有开发者想到了可以联系米家更新文档
-     * @type {long} 时间戳
+     * @return {long} 时间戳
      * @readonly
      *
      */
@@ -409,7 +415,7 @@ export class BasicDevice {
      * 本地设备还是远程设备, 0未知 1本地 2远程。
      * iOS中，本地设备指的是既没有绑定到iot平台，又不是被分享的设备。**注意：不是寻常理解的，同一个路由器的是本地设备，不同路由器的是远程设备，iOS中，无法获取一个设备是否在同一个局域网**
      * 
-     * @type {int}  0未知 1本地 2远程。
+     * @return {int}  0未知 1本地 2远程。
      * @readonly
      *
      */
@@ -418,7 +424,7 @@ export class BasicDevice {
     }
     /**
      * 设备的纬度
-     * @type {double}
+     * @return {double}
      * @readonly
      *
      */
@@ -427,7 +433,7 @@ export class BasicDevice {
     }
     /**
      * 设备的经度
-     * @type {double}
+     * @return {double}
      * @readonly
      *
      */
@@ -445,7 +451,7 @@ export class BasicDevice {
     }
     /**
      * 设备是否在线 true 在线。离线设备在插件内几乎所有功能均不可操作
-     * @type {boolean}
+     * @return {boolean}
      * @readonly
      *
      */
@@ -454,7 +460,7 @@ export class BasicDevice {
     }
     /**
      *是否是自己的设备，若是别人（包含家属）分享给你的设备，isOwner则为false
-     * @type {boolean}
+     * @return {boolean}
      * @readonly
      *
      */
@@ -463,7 +469,7 @@ export class BasicDevice {
     }
     /**
      * 当前账户对设备的控制权限，主要用于分享的设备 4:普通分享 36:只读分享 68:家庭分享
-     * @type {boolean}
+     * @return {boolean}
      * @readonly
      *
      */
@@ -473,7 +479,7 @@ export class BasicDevice {
     }
     /**
      *是否是别人分享的设备，若是家属分享给你的设备，isShared为fasle，isFamily为true
-     * @type {boolean}
+     * @return {boolean}
      * @readonly
      *
      */
@@ -484,7 +490,7 @@ export class BasicDevice {
     /**
      *是否是已经绑定的设备，一般返回true
      * @since 10005
-     * @type {boolean}
+     * @return {boolean}
      * @readonly
      *
      */
@@ -494,7 +500,7 @@ export class BasicDevice {
     /**
      * 是否是别人分享的只读设备,权限比isShared更小。受iot后台基础配置 - 产品共享影响。产品共享可配置为：支持（用户不可选共享权限），支持（用户可选共享权限）（可查看可操作设备，可查看不可操作设备），不支持共享
      * 如果后台配置选择的支持（用户可选共享权限），然后设备拥有者分享时选择的是可查看不可操作设备，则此选项为True
-     * @type {boolean}
+     * @return {boolean}
      * @readonly
      *
      */
@@ -515,7 +521,7 @@ export class BasicDevice {
     * 是否虚拟设备，虚拟设备主要指老的设备组（Yeelight灯组，飞利浦灯组）。
     * **注意：mesh设备组，灯组2.0均不是虚拟设备**
     * @since 10003 
-    * @type {boolean}
+    * @return {boolean}
     * @readonly
     *
     */
@@ -562,7 +568,7 @@ export class BasicDevice {
      * 除了基本信息的其他部分额外信息都在这个字段返回，如：{"fw_version":"1.4.0","mcu_version":"0001","isSetPincode":0}
      * 可以解析为 json
      * @deprecated since 10032 此字段后台无人维护，也无人知道它存在的含义，故废弃。
-     * @type {string}
+     * @return {string}
      * @readonly
      *
      */
@@ -609,7 +615,7 @@ export class BasicDevice {
     /**
      * 父设备的 model,10023及其之后返回空字符串
      * @deprecated   10023开始废弃，10023及后续版本建议使用 Device.parentDevice.model
-     * @type {string}
+     * @return {string}
      * @readonly
      *
      */
@@ -618,7 +624,7 @@ export class BasicDevice {
     }
     /**
      * 获取设备时区,非实时加载，可能为空.如果需要自行获取最新设备时区值，请使用smarthome.getDeviceTimeZone(did)
-     * @type {string}
+     * @return {string}
      * @deprecated   10021开始废弃，10021及后续版本建议使用 Device.getDeviceTimeZone().then
      */
     get timeZone() {
@@ -627,7 +633,7 @@ export class BasicDevice {
     /**
      * 获取 prop中保存的信息。当某设备有莫人属性时，这里为莫人属性的值，否则无此字段。不同设备类型，propInfo中包含的属性可能不同，propInfo一半是个json。
      * @deprecated 因此属性极大造成米家设备列表页接口响应时长变长，现已废弃，一般都会返回null。若需要这里面的属性，请直接通过callMethod去读取。
-     * @type {json}
+     * @return {json}
      * @readonly
      *
      */
@@ -637,7 +643,7 @@ export class BasicDevice {
     /**
      * 重置标志，本地设备才会返回该字段，为1时表示设备刚刚reset过
      * @deprecated 10023开始废弃，后续不再提供此字段，此方法永远返回0
-     * @type {int}
+     * @return {int}
      * @readonly
      */
     get resetFlag() {
