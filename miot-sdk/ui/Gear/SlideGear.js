@@ -115,7 +115,7 @@ export default class SlideGear extends React.Component {
             onStartShouldSetPanResponderCapture: () => false,
             onMoveShouldSetPanResponder: () => !props.disabled,
             onMoveShouldSetPanResponderCapture: () => !props.disabled,
-            onShouldBlockNativeResponder: () => false,
+            onShouldBlockNativeResponder: () => true,
             onPanResponderTerminationRequest: () => false,
             onPanResponderGrant: this._onPanResponderGrant.bind(this),
             onPanResponderMove: Animated.event([null, { dx: this.state.pan, moveX: this.state.moveX }]),
