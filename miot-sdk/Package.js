@@ -208,6 +208,12 @@ export default {
          return  ""
     },
     /**
+     * 获取React Native版本
+     */
+    get rnVersion() {
+        return "0.54.4";
+    },
+    /**
      * 程序包名, 来自于{@link project.json} 的 {@link package_name}
      * @const
      * @type {string}
