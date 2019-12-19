@@ -33,7 +33,7 @@ import native, { Properties } from '../../native';
  * @interface
  *
  */
-export default class IBluetoothLock{
+export default class IBluetoothLock {
     /**
      * 支持小米加密芯片的蓝牙设备，开关蓝牙锁
      * @method
@@ -96,7 +96,7 @@ export default class IBluetoothLock{
          return Promise.resolve(null);
     }
     /**
-     * 支持小米加密芯片的蓝牙设备，使用此方法将明文加密为密文后，可发送给设备
+     * 支持小米加密芯片的蓝牙设备，使用此方法将明文加密为密文后，可发送给设备。然后小米加密芯片会解密，设备端可以直接拿到解密后的数据。
      * @method
      * @param {string} message 明文
      * @example
