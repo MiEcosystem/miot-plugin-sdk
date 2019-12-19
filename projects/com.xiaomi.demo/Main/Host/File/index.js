@@ -1,3 +1,6 @@
+/**
+ * @deprecated  该部分废弃， 请查看 Host/FileDemo.js
+ */
 import { Device, FileEvent, Host } from "miot";
 import { ProgressDialog } from 'miot/ui';
 import React from 'react';

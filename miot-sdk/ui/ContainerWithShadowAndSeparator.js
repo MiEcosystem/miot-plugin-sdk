@@ -13,7 +13,7 @@ class GapWrap extends Component {
     });
   }
   render() {
-    let {hasSeparator, horizontal, children} = this.props;
+    let {hasSeparator, horizontal, separatorStyle, children} = this.props;
     let {shown} = this.state;
     if(!children) {
       return null;
@@ -21,7 +21,7 @@ class GapWrap extends Component {
     return (
       <View onLayout={this.onLayout}>
         {hasSeparator && shown ? (
-          <Separator style={{height: Math.min(adjustSize(3), 1), opacity: 0.35}} />
+          <Separator style={{height: Math.min(adjustSize(3), 1), opacity: 0.35, marginHorizontal: adjustSize(60)}} />
         ) : null}
         {children}
       </View>
@@ -49,7 +49,7 @@ export default class ContainerWithShadowAndSeparator extends Component {
       return !!child;
     }).map((child, index) => {
       return (
-        <GapWrap key={index} hasSeparator={index > 0} horizontal={horizontal}>
+        <GapWrap key={index} hasSeparator={index > 0} horizontal={horizontal} separatorStyle={separatorStyle}>
           {child}
         </GapWrap>
       );

@@ -18,6 +18,7 @@
 export default {
   /**
    * 用户是否开启录制权限
+   * 在Android平台下需要动态获取录音权限
    * @return {boolean}
    */
   isAbleToRecord() {

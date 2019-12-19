@@ -15,22 +15,14 @@
  *
  *
  */
-import { Device } from "../index";
+import Device from "../device/BasicDevice";
 import native from "../native";
-
-const resolveAssetSource = require('resolveAssetSource');
-// @native begin
-function resolveUrlWithLink(url) {
-  if (typeof url === 'string' && (/https?\:\/\//i).test(url)) {
-    return native.isAndroid ? [{ uri: url }] : url;
-  }
-  return resolveUrl(url);
-}
-// @native end
+import ProtocolManager from '../utils/protocol-helper';
+// import { Entrance } from "../Package";
 export default {
   /**
    * 是否支持商城
-   * @return {Promise}
+   * @return {Promise<Boolean>}
    * @example
    * Host.ui.canOpenStorePage().then(res => console("can open store = ", res))
    */
@@ -61,6 +53,7 @@ export default {
   },
   /**
    * 打开添加智能的页面
+   * @deprecated  sdk 10032版本开始废弃，请使用 Service.scene.openIftttAutoPage()
    */
   openIftttAutoPage() {
   },
@@ -81,17 +74,17 @@ export default {
   },
   /**
    * 打开分享列表页面
-   * @param {string} title
-   * @param {string} description
+   * @param {string} title 标题
+   * @param {string} description 描述
    * @param {string} imagePath 和Image source 一样的格式
-   * @param {string} url
+   * @param {string} url 分享链接
    */
   openShareListBar(title, description, imagePath, url) {
   },
   /**
    * 获取设备列表中指定model的设备信息
    * @param {string} model - 设备model
-   * @returns {Promise<Array<devices>>}
+   * @returns {Promise<devices[]>}
    *
    */
   getDevicesWithModel(model) {
@@ -111,7 +104,7 @@ export default {
    * @param {string} [option.experiencePlanURL] 用户体验计划本地资源，为空时如果hideUserExperiencePlan=false，则显示米家默认用户体验计划
    * @param {boolean} [option.hideAgreement=false] 是否隐藏用户协议，默认显示用户协议
    * @param {boolean} [option.hideUserExperiencePlan=false] 是否隐藏用户体验计划，默认显示用户体验计划
-   * @returns {Promise} 弹窗授权结果
+   * @returns {Promise<Boolean>} 弹窗授权结果
    * @example
    *
    * //仅供参考
@@ -161,35 +154,48 @@ export default {
    *
    */
   alertLegalInformationAuthorization(option) {
-    const optionCopy = Object.assign({}, option);
-    if (!optionCopy.force && (Device.isShared || Device.isFamily)) {
+    if (true == ProtocolManager.getLegalInfoAuthHasShowed()) {
+      return new Promise.resolve(true);
+    }
+    if (!option.force && (Device.isShared || Device.isFamily)) {
       console.warn("分享设备不建议进行弹窗请求隐私授权。")
-      return;
+      return new Promise.resolve(true);;
     }
-    if (optionCopy.privacyURL) {
-      optionCopy.privacyURL = resolveUrlWithLink(optionCopy.privacyURL);
-    }
-    if (optionCopy.agreementURL) {
-      optionCopy.agreementURL = resolveUrlWithLink(optionCopy.agreementURL);
-    }
-    if (optionCopy.hideAgreement) {
-      delete optionCopy['agreementURL']//iOS下设置为“”则隐藏该项目
-    }
-    if (optionCopy.experiencePlanURL) {
-      optionCopy.experiencePlanURL = resolveUrlWithLink(optionCopy.experiencePlanURL);
-    }
-    if (optionCopy.hideUserExperiencePlan) {
-      delete optionCopy['experiencePlanURL']
-    }
-    // 内部事件，不需要提供给外部, 如果显示了隐私政策弹窗，需要通知关闭掉固件升级弹窗
-    DeviceEventEmitter.emit('MH_Event_ShowPrivacyLicenseDialog', { isShowingPrivacyLicenseDialog: true });
     return new Promise((resolve, reject) => {
-      native.MIOTHost.showDeclarationWithConfig(optionCopy, (ret, res) => {
-        if (ret === 'ok' || ret === true || ret === 'true') {
-          resolve(true);
-        } else {
-          reject(false);
+      return ProtocolManager.getLegalAuthInfoProtocol().then(protocols => {
+        let optionCopy = Object.assign({}, option);
+        if (protocols && protocols.privacyURL && protocols.privacyURL.length > 0) {
+          optionCopy = Object.assign(optionCopy, protocols);
         }
+        if (optionCopy.privacyURL) {
+          optionCopy.privacyURL = ProtocolManager.resolveUrlWithLink(optionCopy.privacyURL);
+        }
+        if (optionCopy.agreementURL) {
+          optionCopy.agreementURL = ProtocolManager.resolveUrlWithLink(optionCopy.agreementURL);
+        }
+        if (optionCopy.hideAgreement) {
+          delete optionCopy['agreementURL']//iOS下设置为“”则隐藏该项目
+        }
+        if (optionCopy.experiencePlanURL) {
+          optionCopy.experiencePlanURL = ProtocolManager.resolveUrlWithLink(optionCopy.experiencePlanURL);
+        }
+        if (optionCopy.hideUserExperiencePlan) {
+          delete optionCopy['experiencePlanURL']
+        }
+        if (true == ProtocolManager.getLegalInfoAuthHasShowed()) {
+          return new Promise.resolve(true);
+        }
+        // 内部事件，不需要提供给外部, 如果显示了隐私政策弹窗，需要通知关闭掉固件升级弹窗
+        DeviceEventEmitter.emit('MH_Event_ShowPrivacyLicenseDialog', { isShowingPrivacyLicenseDialog: true });
+        console.log('showaleert');
+        ProtocolManager.setLegalInfoAuthHasShowed(true);
+        native.MIOTHost.showDeclarationWithConfig(optionCopy, (ret, res) => {
+          if (ret === 'ok' || ret === true || ret === 'true') {
+            resolve(true);
+          } else {
+            reject(false);
+          }
+        });
       });
     })
   },
@@ -202,37 +208,42 @@ export default {
    * @param {string} [option.experiencePlanURL] 用户体验计划本地资源，为空时如果hideUserExperiencePlan=false，则显示米家默认用户体验计划
    * @param {boolean} [option.hideAgreement=false] 是否隐藏用户协议，默认显示用户协议
    * @param {boolean} [option.hideUserExperiencePlan=false] 是否隐藏用户体验计划，默认显示用户体验计划
-   * @returns {Promise} 授权结果
+   * @returns {Promise<Boolean>} 授权结果
    *
    */
   previewLegalInformationAuthorization(option) {
-    const optionCopy = Object.assign({}, option);
+    let optionCopy = Object.assign({}, option);
     if (!optionCopy.force && (Device.isShared || Device.isFamily)) {
       console.warn("分享设备不建议进行弹窗请求隐私授权。")
       return;
     }
-    if (optionCopy.privacyURL) {
-      optionCopy.privacyURL = resolveUrlWithLink(optionCopy.privacyURL);
-    }
-    if (optionCopy.agreementURL) {
-      optionCopy.agreementURL = resolveUrlWithLink(optionCopy.agreementURL);
-    }
-    if (optionCopy.hideAgreement) {
-      delete optionCopy['agreementURL']
-    }
-    if (optionCopy.experiencePlanURL) {
-      optionCopy.experiencePlanURL = resolveUrlWithLink(optionCopy.experiencePlanURL);
-    }
-    if (optionCopy.hideUserExperiencePlan) {
-      delete optionCopy['experiencePlanURL']
-    }
     return new Promise((resolve, reject) => {
-      native.MIOTHost.openDeclarationWithConfig(optionCopy, (ok, res) => {
-        if (ok) {
-          resolve(true);
-        } else {
-          reject(false);
+      ProtocolManager.getLegalAuthInfoProtocol().then(protocols => {
+        if (protocols && protocols.privacyURL && protocols.privacyURL.length > 0) {
+          optionCopy = Object.assign(optionCopy, protocols);
         }
+        if (optionCopy.privacyURL) {
+          optionCopy.privacyURL = ProtocolManager.resolveUrlWithLink(optionCopy.privacyURL);
+        }
+        if (optionCopy.agreementURL) {
+          optionCopy.agreementURL = ProtocolManager.resolveUrlWithLink(optionCopy.agreementURL);
+        }
+        if (optionCopy.hideAgreement) {
+          delete optionCopy['agreementURL']
+        }
+        if (optionCopy.experiencePlanURL) {
+          optionCopy.experiencePlanURL = ProtocolManager.resolveUrlWithLink(optionCopy.experiencePlanURL);
+        }
+        if (optionCopy.hideUserExperiencePlan) {
+          delete optionCopy['experiencePlanURL']
+        }
+        native.MIOTHost.openDeclarationWithConfig(optionCopy, (ok, res) => {
+          if (ok) {
+            resolve(true);
+          } else {
+            reject(false);
+          }
+        });
       });
     })
   },
@@ -262,7 +273,7 @@ export default {
    * @param {string} licenseUrl optional require('资源的相对路径')
    * @param {string} policyTitle 不可以为空
    * @param {string} policyUrl 不可以为空 require('资源的相对路径')
-   * @returns {Promise}
+   * @returns {Promise<Boolean>}
    */
   openPrivacyLicense(licenseTitle, licenseUrl, policyTitle, policyUrl) {
      return Promise.resolve({});
@@ -344,6 +355,7 @@ export default {
   },
   /**
    * 开启倒计时界面
+   * @deprecated  sdk 10032版本开始废弃，请使用 Service.scene.openCountDownPage()
    * @param {Boolean} isCountDownOn 设备的当前状态:YES 为开启，所以我们启动关闭倒计时; NO  为关闭，所以我们启动开启倒计时
    * @param {object} setting 设置倒计时页面的属性
    * @param {string} setting.onMethod 指硬件端，打开 倒计时应该 执行的方法，请咨询硬件工程师
@@ -361,9 +373,9 @@ export default {
   },
   /**
    * 打开一次性密码设置页
-   * @param {*} did   设备did
-   * @param {*} interval  时间间隔，即密码组的刷新时间间隔，单位为分钟，类型为 number，传入 10 到 60 的整数
-   * @param {*} digits 密码位数，类型为 number，传入 6 到 8 的整数
+   * @param {string} did   设备did
+   * @param {int} interval  时间间隔，即密码组的刷新时间间隔，单位为分钟，类型为 number，传入 10 到 60 的整数
+   * @param {int} digits 密码位数，类型为 number，传入 6 到 8 的整数
    */
   openOneTimePassword(did, interval, digits) {
   },
@@ -403,6 +415,7 @@ export default {
   },
   /**
    * 扩展自 openTimerSettingPageWithVariousTypeParams , 新增支持自定义name使用
+   * @deprecated  sdk 10032版本开始废弃，请使用 Service.scene.openTimerSettingPageWithOptions()
    * @since 10010 ,SDKLevel 10010 开始提供使用
    * @param {object} options 配置信息
    * @param {string} options.onMethod 配置定时开启的 method 名，同上面openTimerSettingPageWithVariousTypeParams的参数onMethod
@@ -531,7 +544,6 @@ export default {
    * 打开设备快连成功页面
    * @since 10004
    * @param {string} model 设备model
-   
    * @param {string} did 设备did
    */
   openConnectSucceedPage(model, did) {
@@ -552,7 +564,7 @@ export default {
   /**
    * android 特有， 跳转到小米钱包
    * @param params
-   * @return {Promise}
+   * @return {Promise<object>}
    * @example
    * let params = {action:'issue_mifare',type:'1',product_id:'66666-00211',source_channel:'mijia'};
    * Host.ui.openMiPayPageForAndroid(params).then((res)=>{console.log(res)}).catch((error)=>{ console.log(error)});

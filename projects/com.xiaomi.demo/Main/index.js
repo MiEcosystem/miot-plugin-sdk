@@ -22,7 +22,6 @@ import React from 'react';
 import { createStackNavigator } from 'react-navigation'; //
 import HelloDeveloper from '../CommonModules/HelloDeveloper';
 import HelloReactART from '../CommonModules/HelloReactART';
-import AccountDemo from './Account';
 import AnimCustomCompDemo from './AnimationComponentDemo/AnimCustomCompDemo'; //自定义动画组
 import AnimEffectsDemo from './AnimationComponentDemo/AnimEffectsDemo'; //动画特效
 import AnimEventsDemo from './AnimationComponentDemo/AnimEventsDemo'; //动画事件
@@ -34,15 +33,17 @@ import LayoutAnimationDemo from './AnimationComponentDemo/LayoutAnimationDemo'; 
 import ControlDemo from './Device/ControlDemo';
 import DeviceControl from "./Device/DeviceControl";
 import DeviceDemo from "./Device/DeviceDemo";
+/********    Host 部分   ********/
 import HostDemo from "./Host";
 import HostEventDemo from "./Host/HostEventDemo";
 import FileStorage from './Host/File';
+import FileDemo from './Host/FileDemo';
 import HostPropsInfoDemo from './Host/HostPropsInfoDemo';
 import JSExecutor from './Host/JSExecutor';
 import LocaleServer from './Host/Local';
 import MHAudioDemo from './Host/MHAudioDemo';
 import OrientationDemo from './Host/OrientationDemo';
-import StorageDemo from './Host/Storage';
+import KVStorageDemo from './Host/KVStorageDemo';
 import NavigateUIDemo from "./Host/UI";
 import PrivacyDemo from "./Host/UI/privacy";
 import VideoDemo from './Host/VideoDemo';
@@ -54,10 +55,16 @@ import ImagePathDemo from './NewStructureTest';
 import { PluginEntrance } from "./PluginEntrance";
 // import GLTests from './ThirdPartDemo/openGL/Tests';
 // import OpenLibList from './OpenLibList';
+/********    Service 部分   ********/
 import ServiceDemo from './Service';
 import MiotSpecDemo from './Service/MiotSpecDemo';
-import MHRoomDemo from "./Service/room";
+import MHRoomDemo from "./Service/RoomDemo";
+import MHSceneDemo from "./Service/SceneDemo";
+import AccountDemo from './Service/AccountDemo';
 import CallSmartHomeAPIDemo from './Service/smarthome';
+import CloudStorageDemo from './Service/CloudStorageDemo';
+
+/********    UI 部分   ********/
 import AddressBookDemo from './ThirdPartDemo/AddressBookDemo';
 import AnimatedSVGDemo from './ThirdPartDemo/AnimatedSVGDemo';
 import ARTCircleDemo from './ThirdPartDemo/ARTComponentDemo/ARTCircleDemo'; //圆形：Circle，
@@ -168,7 +175,6 @@ function createRootStack(initPage) {
     GearExample,
     RadioExample,
     CheckboxDemo,
-    MHRoomDemo,
     ToastExample,
     SwitchDemo,
     MHDatePickerDemo,
@@ -177,6 +183,8 @@ function createRootStack(initPage) {
     HostDemo,
     HostEventDemo:HostEventDemo,
     ServiceDemo,
+    MHRoomDemo:MHRoomDemo,
+    MHSceneDemo:MHSceneDemo,
     BlankPageEntry,
     BlankPageDemo,
     tutorialDemo: TutorialDemo,
@@ -187,10 +195,12 @@ function createRootStack(initPage) {
     JSExecutor: JSExecutor,
     DeviceDemo: DeviceDemo,
     PackageDemo: PackageDemo,
-    accountDemo: AccountDemo,
+    AccountDemo: AccountDemo,
+    CloudStorageDemo: CloudStorageDemo,
     ControlDemo: ControlDemo,
-    storageDemo: StorageDemo,
+    KVStorageDemo: KVStorageDemo,
     fileStorage: FileStorage,
+    FileDemo: FileDemo,
     callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
     MiotSpecDemo: MiotSpecDemo,
     RPCControl: RPCControl,

@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 智能摄像机模块
- * @doc_index 5
+ * @doc_index 7
  * @doc_directory service
  * @module miot/service/miotcamera
  * @description 摄像机 API
