@@ -54,6 +54,10 @@ export function getMacUuid() {
     return mac_uuid_for_ios;
 }
 // @native end
+/**
+ * 基础蓝牙设操作类
+ * @interface
+ */
 export class IBluetooth {
     /**
      * 是否 BLE 蓝牙。如果不是，则是经典蓝牙

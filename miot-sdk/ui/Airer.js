@@ -28,7 +28,7 @@ export default class Airer extends Component {
     let currValue = this.currValue;
     this.aniPosition = Animated.timing(this.state.value, {
       toValue: position,
-      duration: Math.abs(currValue - position) * 100,
+      duration: Math.abs(currValue - position) * 3,
       easing: Easing.inOut(Easing.linear)
     }).start();
   }

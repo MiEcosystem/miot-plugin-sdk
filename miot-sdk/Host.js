@@ -301,6 +301,21 @@ export default {
          return Promise.resolve(null);
     },
 }
+/**
+ * Host事件集合
+ * @namespace HostEvent
+ * @example
+ *    import { HostEvent } from 'miot/host';
+ *    const subscription = HostEvent.cellPhoneNetworkStateChanged.addListener(
+ *       (event)=>{
+ *          ...
+ *       }
+ *     )
+ *    ...
+ *    subscription.remove()
+ *    ...
+ *
+ */
 export const HostEvent = {
     /**
      * 手机网络状态变更事件
