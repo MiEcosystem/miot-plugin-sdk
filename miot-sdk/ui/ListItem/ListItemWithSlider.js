@@ -5,6 +5,7 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Slider from "react-native-slider";
 import { Styles } from '../../resources';
 import Separator from "../Separator";
+import {FontDefault} from '../../utils/fonts';
 const { width } = Dimensions.get('window');
 const HEIGHT = 77;
 const PADDING = 24;
@@ -94,6 +95,7 @@ export default class ListItemWithSlider extends React.Component {
   render() {
     let extraStyle = {
       maxWidth: (width - PADDING * 2) * 0.7,
+      fontFamily: FontDefault
     }
     if (this.props.containerStyle.width) {
       extraStyle = {

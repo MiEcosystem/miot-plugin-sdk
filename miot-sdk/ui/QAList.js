@@ -1,8 +1,9 @@
 import React, {Component}  from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, Platform} from 'react-native';
 import PropTypes from 'prop-types';
 import {adjustSize} from '../utils/sizes';
 import {FontDefault} from '../utils/fonts';
+const isAndroid = Platform.OS === 'android';
 export default class QAList extends Component {
   static propTypes = {
     list: PropTypes.arrayOf(PropTypes.shape({
@@ -20,10 +21,11 @@ export default class QAList extends Component {
     }
     return list.map((item, index) => {
       let {title, text} = item;
+      // android加换行符，是为了解决部分安卓手机最后一行显示不全的问题
       return (
         <View key={String(index)} style={Styles.item}>
           <Text style={Styles.title}>{title || ''}</Text>
-          <Text style={Styles.text}>{text || ''}</Text>
+          <Text style={Styles.text}>{text || ''}{isAndroid ? '\n' : ''}</Text>
         </View>
       );
     });

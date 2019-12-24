@@ -134,7 +134,7 @@ export default class SlideGear extends React.Component {
         if (disabled !== this.props.disabled) {
             this.constructPanResponder(newProps);
         }
-        if ((value === this.props.value || value === this.state.value) && this.isSameArray(options, this.props.options)) return; // 没有变化
+        if ((value === this.state.value) && this.isSameArray(options, this.props.options)) return; // 没有变化
         if (!this.isSameArray(options, this.props.options)) { // options 变化
             if (!(options instanceof Array) || options.length === 0) { // 更新后的 options 不是数组或者是空数组
                 console.warn('options 不是数组或者是空数组');
@@ -282,6 +282,7 @@ export default class SlideGear extends React.Component {
         this.coords = this.options.map((v, i) => d > 0 ? (startCoord + d * i) : 0);
         console.log('各选项中心坐标', this.coords);
         this.currentCoord = this.coords[this.state.value];
+        this.totalWidth = w;
         this.getDragRange();
     }
     /**
@@ -364,12 +365,19 @@ export default class SlideGear extends React.Component {
      * 滑块左侧背景
      */
     renderBackground() {
+      const { dragToValueMin: min, dragToValueMax: max } = this.state;
+      // 在没有找到自我定位的时候，要在舞台后面低调
+      if (min === undefined) return null;
         return (
-            <View
+            <Animated.View
                 ref={background => this._background = background}
                 style={{
                     position: 'absolute',
-                    width: this.margin * 2 + this.blockWidth - (this.state.dragToValueMin || 0),
+                    // width: this.margin * 2 + this.blockWidth - (this.state.dragToValueMin || 0),
+                    width: this.state.pan.interpolate({
+                      inputRange: [min - 1, min, max, max + 1],
+                      outputRange: [this.margin * 2 + this.blockWidth, this.margin * 2 + this.blockWidth, this.totalWidth, this.totalWidth]
+                    }),
                     height: this.containerHeight,
                     borderRadius: this.props.type === TYPE.CIRCLE ? this.containerHeight / 2 : 0,
                     backgroundColor: this.props.minimumTrackTintColor
@@ -398,7 +406,7 @@ export default class SlideGear extends React.Component {
                     </View>
                     : null
                 }
-            </View>
+            </Animated.View>
         )
     }
     /**
