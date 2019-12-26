@@ -164,6 +164,8 @@ const Styles = StyleSheet.create({
   },
   titleHorizontal: {
     marginTop: 0,
+    flex: 1,
+    textAlign: 'left',
     marginLeft: adjustSize(39)
   }
 });
