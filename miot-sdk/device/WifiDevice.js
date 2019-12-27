@@ -33,6 +33,9 @@ const INTERVAL_SUBSCRIBE_MSG_SECONDS = (2 * 60 + 50);//2'50"
  * @interface
  */
 export default class IDeviceWifi {
+    set deviceID(deviceID) {
+        Properties.of(this).deviceID = deviceID;
+    }
     /**
      * 获取设备ID，same as Device.deviceID
      * @member
@@ -45,6 +48,7 @@ export default class IDeviceWifi {
      */
     get deviceID() {
          return  ""
+        return Properties.of(this).deviceID;
     }
     /**
     * @typedef {Object} NetworkInfo
