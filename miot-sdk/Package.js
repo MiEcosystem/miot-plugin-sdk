@@ -562,7 +562,7 @@ export default {
      * 获取React Native版本
      */
     get rnVersion() {
-        return "0.54.4";
+        return "0.61.1";
     },
     /**
      * 程序包名, 来自于{@link project.json} 的 {@link package_name}
