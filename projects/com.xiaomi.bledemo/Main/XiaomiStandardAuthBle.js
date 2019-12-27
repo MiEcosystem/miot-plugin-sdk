@@ -6,9 +6,7 @@
  *
  */
 
-import {
-  Bluetooth, BluetoothEvent, Device, Host
-} from 'miot';
+import { Bluetooth, BluetoothEvent, Device,Host } from 'miot';
 //import Host from 'miot/Host';
 import React from 'react';
 import {
@@ -25,6 +23,7 @@ let statusEnable = false;
 const UUID_SERVICE = '00000100-0065-6C62-2E74-6F696D2E696D';
 const UUID_LED_READ_WRITE = '00000101-0065-6C62-2E74-6F696D2E696D';
 const UUID_BUTTON_READ_WRITE_NOTIFY = '00000102-0065-6C62-2E74-6F696D2E696D';
+const AUTH_TYPE = 4
 
 export default class MainPage extends React.Component {
 
@@ -43,7 +42,7 @@ export default class MainPage extends React.Component {
 
   componentDidMount() {
     this.showing = true;
-
+    this.addLog('测试流程：先 连接蓝牙，随后开启特征订阅，发送测试数据(0101...01)之后会收到发送的测试数据回复。');
     Bluetooth.checkBluetoothIsEnabled().then(result => {
       this.state.isEnable = result;
       if (result) {
@@ -110,7 +109,7 @@ export default class MainPage extends React.Component {
       if (service.UUID.indexOf('ffd5') > 0) {
         console.log('bluetoothCharacteristicValueChanged', character.UUID, value);//刷新界面
       }
-      if (character.UUID === UUID_BUTTON_READ_WRITE_NOTIFY) {
+      if (character.UUID.toUpperCase() === UUID_BUTTON_READ_WRITE_NOTIFY.toUpperCase()) {
         this.addLog('收到回复：' + value);
         bt.securityLock.decryptMessage(value).then(res => {
           this.addLog('收到回复：' + res);
@@ -130,7 +129,7 @@ export default class MainPage extends React.Component {
       console.log('bluetoothConnectionStatusChanged', blut, isConnect);
       if (bt.mac === blut.mac) {
         this.setState({ connectState: isConnect });
-        this.addLog('蓝牙' + JSON.stringify(blut) + '状态变化' + isConnect);
+        this.addLog('蓝牙' + JSON.stringify(blut) + '状态变化：' + isConnect ? '已连接' : '未连接');
         if (!isConnect) {
           this.setState({
             connectState: '未连接',
@@ -146,7 +145,7 @@ export default class MainPage extends React.Component {
   componentWillUnmount() {
     this.showing = false;
     if (bt.isConnected) {
-      bt.disconnect();
+      // bt.disconnect();
       console.log('disconnect');
     }
     this._s1.remove();
@@ -179,18 +178,17 @@ export default class MainPage extends React.Component {
       this.addLog('蓝牙尚未连接或者service未发现');
       return;
     }
-    bt.securityLock.encryptMessage('01010101')
+    testStr = '01010101'
+    bt.securityLock.encryptMessage(testStr)
       .then(hex => {
         bt.getService(UUID_SERVICE).getCharacteristic(UUID_LED_READ_WRITE).writeWithoutResponse(hex);
       })
       .then(res => {
-        this.addLog('write res' + JSON.stringify(res));
+        this.addLog('测试数据写入成功:'+testStr);
       })
       .catch(err => {
-        this.addLog('write error' + JSON.stringify(err));
+        this.addLog('测试数据写入失败' + JSON.stringify(err));
       });
-
-
   }
 
   /**
@@ -200,7 +198,7 @@ export default class MainPage extends React.Component {
     Bluetooth.startScan(30000, '1000000-0000-0000-00000000000');//扫描指定设备
     BluetoothEvent.bluetoothDeviceDiscovered.addListener(result => {
       bt = Bluetooth.createBluetoothLE(result.uuid || result.mac);//android 用 mac 创建设备，ios 用 uuid 创建设备
-      // this.connect();
+      this.connect();
     });
   }
 
@@ -209,7 +207,7 @@ export default class MainPage extends React.Component {
     bt.startOTA(test);
   }
 
-  connect() {
+  connect(disconnectOntimeOut = true) {
     this.setState({ connectState: '连接中。。。' });
     this.addLog('准备开始蓝牙连接');
     if (bt.isConnected) {
@@ -223,15 +221,30 @@ export default class MainPage extends React.Component {
       this.addLog('蓝牙正处于连接中，请等待连接结果后再试');
     }
     else {
+      const that = this;
       bt.connect(4).then(data => {
-        this.setState({ connectState: '已连接' });
+        that.setState({ connectState: '已连接' });
         bt.startDiscoverServices();
       }).catch(data => {
-        this.setState({ connectState: '连接失败' });
-        this.addLog('ble connect failed: ' + JSON.stringify(data));
-        if (data.code === -7) {
-          // Bluetooth.retrievePeripheralsWithServicesForIOS('serviceid1', 'serviceid2').then(res => {
-          // });
+        that.setState({ connectState: '连接失败' });
+        that.addLog('ble connect failed: ' + JSON.stringify(data));
+        if (data.code === -7 && disconnectOntimeOut) {
+          Bluetooth.retrievePeripheralsWithServicesForIOS('FE95')
+            .then(res => {
+              that.addLog('获取已连接设备：' + JSON.stringify(res));
+              return new Promise((resolve, reject) => {
+                for (const key in res) {
+                  //判断V是自己要断连的设备
+                  that.addLog('准备断开连接：' + key);
+                  Bluetooth.createBluetoothLE(key).disconnect();
+                }
+                resolve();
+              });
+            })
+            .then(() => {
+              //重连设备
+              that.connect(false);
+            });
         }
       });
     }
@@ -262,7 +275,7 @@ export default class MainPage extends React.Component {
     return (
       <View style={styles.mainContainer}>
         <View style={{
-          flex: 1, flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: 'black', borderTopWidth: 1, borderTopColor: 'black'
+          flex: 2, flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: 'black', borderTopWidth: 1, borderTopColor: 'black'
         }}
         >
           <View style={[styles.actionContainer]}>
@@ -270,11 +283,7 @@ export default class MainPage extends React.Component {
             <CommonCell title="断开蓝牙" onPress={() => this.disconnect()} />
             <CommonCell isSwitch isOn={this.state.testCharNotify} title="特征订阅" onValueChange={val => this.enableNotify(val)} onPress={() => this.enableNotify(!this.state.testCharNotify)} />
             <CommonCell title="发送测试数据" onPress={() => this.sendTestText()} />
-
-            {/* <CommonCell title="测试OTA流程" onPress={() => this.doOTA()} />
-
-            <CommonCell title="测试分包传输" onPress={() => this.doOTA(false)} /> */}
-
+            {/* <CommonCell title="固件升级(测试中断)" onPress={() => NativeModules.MHPluginSDK.openBLECommonDFUPage({ fake_dfu_url: this.state.fake_dfu_url, auth_type: 3, hook_dfu_fragment: 2 })} /> */}
             <CommonCell title="固件升级-指定DFU" onPress={() => Host.ui.openBleCommonDeviceUpgradePage({ fake_dfu_url: this.state.fake_dfu_url, auth_type: 4 })} />
             <CommonCell title="固件升级-常规" onPress={() => Host.ui.openBleCommonDeviceUpgradePage({ auth_type: 4 })} />
           </View>

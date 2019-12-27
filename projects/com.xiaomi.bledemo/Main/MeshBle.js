@@ -7,19 +7,17 @@
  */
 
 import {
-  Bluetooth, BluetoothEvent, Device, Host
+  Bluetooth, BluetoothEvent, Device, Service
 } from 'miot';
-//import Host from 'miot/Host';
+import Host from 'miot/Host';
 import React from 'react';
 import {
-  ScrollView, StyleSheet, Text, View, TextInput, NativeModules
+  ScrollView, StyleSheet, Text, View, NativeModules
 } from 'react-native';
 
 import CommonCell from './CommonCell';
 
 let bt = Device.getBluetoothLE();
-let statusEnable = false;
-
 
 //uuids for testing.
 const UUID_SERVICE = '00000100-0065-6C62-2E74-6F696D2E696D';
@@ -35,9 +33,9 @@ export default class MainPage extends React.Component {
       services: [],
       isEnable: false,
       connectState: '未连接',
-      testCharNotify: false,
-      log: '',
-      fake_dfu_url: 'https://cdn.cnbj0.fds.api.mi-img.com/miio_fw/67d8939fc7767b055445dd1b50da5b2f_upd_zimi.mosq.v1.bin?GalaxyAccessKeyId=5721718224520&Expires=1581933403000&Signature=pGNN4+oC9CgEXbxn2Jstmu5KVQ8='
+      lightStatu: false,
+      lightBrightness: 0,
+      log: ''
     };
   }
 
@@ -60,7 +58,6 @@ export default class MainPage extends React.Component {
       if (!isOn) {
         this.setState({
           connectState: '未连接',
-          testCharNotify: false,
           chars: {},
           services: []
         });
@@ -134,13 +131,13 @@ export default class MainPage extends React.Component {
         if (!isConnect) {
           this.setState({
             connectState: '未连接',
-            testCharNotify: false,
             chars: {},
             services: []
           });
         }
       }
     });
+    this.readLightProp();
   }
 
   componentWillUnmount() {
@@ -163,15 +160,7 @@ export default class MainPage extends React.Component {
       return;
     }
     this.addLog('switch' + val);
-    bt.getService(UUID_SERVICE).getCharacteristic(UUID_BUTTON_READ_WRITE_NOTIFY).setNotify(val)
-      .then(res => {
-        this.setState({ testCharNotify: val });
-        this.addLog((val ? '开启' : '关闭') + '特征值通知成功');
-      })
-      .catch(err => {
-        this.setState({ testCharNotify: !val });
-        this.addLog((val ? '开启' : '关闭') + '特征值通知失败：' + JSON.stringify(err));
-      });
+    //   });
   }
 
   sendTestText() {
@@ -223,16 +212,12 @@ export default class MainPage extends React.Component {
       this.addLog('蓝牙正处于连接中，请等待连接结果后再试');
     }
     else {
-      bt.connect(4).then(data => {
+      bt.connect(5).then(data => {
         this.setState({ connectState: '已连接' });
         bt.startDiscoverServices();
       }).catch(data => {
         this.setState({ connectState: '连接失败' });
         this.addLog('ble connect failed: ' + JSON.stringify(data));
-        if (data.code === -7) {
-          // Bluetooth.retrievePeripheralsWithServicesForIOS('serviceid1', 'serviceid2').then(res => {
-          // });
-        }
       });
     }
   }
@@ -242,41 +227,86 @@ export default class MainPage extends React.Component {
     bt.disconnect();
   }
 
-  checkBluetoothIsEnabled() {
-    Bluetooth.checkBluetoothIsEnabled().then(yes => {
-      statusEnable = yes;
-    });
-  }
-
-  enableBluetoothForAndroid() {
-    Bluetooth.enableBluetoothForAndroid(!statusEnable);
-  }
-
   addLog(string) {
     let { log } = this.state;
     log = string + '\n' + log;
     this.setState({ log });
   }
 
+  readLightProp() {
+    const params = [{ did: Device.deviceID, siid: 2, piid: 1 }, { did: Device.deviceID, siid: 2, piid: 2 }];
+    Service.spec.getPropertiesValue(params).then(result => {
+      if (result instanceof Array && result.length >= 2) {
+        const on_prop = result[0];
+        const lightStatu = on_prop.value;
+        const bright_prop = result[1];
+        const lightBrightness = bright_prop.value;
+        this.setState({ lightStatu, lightBrightness });
+        this.addLog('获取灯属性成功,' + JSON.stringify(result));
+      }
+      else {
+        this.addLog('获取灯属性失败,' + JSON.stringify(result));
+      }
+
+    }).catch(err => {
+      this.addLog('read light prop failed,' + JSON.stringify(err));
+    });
+  }
+
+  toggleLight(on) {
+    const params = [{
+      did: Device.deviceID, siid: 2, piid: 1, value: on
+    }];
+    this.addLog('open light :' + JSON.stringify(params));
+    Service.spec.setPropertiesValue(params).then(result => {
+      this.addLog('toggle Light success,' + JSON.stringify(result));
+      this.setState({ lightStatu: on });
+    }).catch(err => {
+      this.addLog('toggle Light failed,' + JSON.stringify(err));
+    });
+  }
+
+  changeBrightness() {
+    const number = ((Math.floor(Math.random() * 100) + 1 + this.state.brightness) % 100) + 1;
+    const params = [{
+      did: Device.deviceID, siid: 2, piid: 2, value: number
+    }];
+    Service.spec.setPropertiesValue(params).then(result => {
+      if (result instanceof Array && result.length >= 1) {
+        const res = result[0];
+        if (res.code < 0) {
+          this.addLog('修改灯色 failed,code = ' + res.code);
+        }
+        else {
+          const lightBrightness = number;
+          this.setState({ lightBrightness });
+          this.addLog('修改灯色 success,' + JSON.stringify(result));
+        }
+      }
+      else {
+        this.addLog('修改灯色 failed');
+      }
+    }).catch(err => {
+      this.addLog('修改灯色 failed,' + JSON.stringify(err));
+    });
+  }
+
   render() {
     return (
       <View style={styles.mainContainer}>
         <View style={{
-          flex: 1, flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: 'black', borderTopWidth: 1, borderTopColor: 'black'
+          flex: 2, flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: 'black', borderTopWidth: 1, borderTopColor: 'black'
         }}
         >
           <View style={[styles.actionContainer]}>
-            <CommonCell title="连接蓝牙" onPress={() => this.connect()} />
-            <CommonCell title="断开蓝牙" onPress={() => this.disconnect()} />
-            <CommonCell isSwitch isOn={this.state.testCharNotify} title="特征订阅" onValueChange={val => this.enableNotify(val)} onPress={() => this.enableNotify(!this.state.testCharNotify)} />
-            <CommonCell title="发送测试数据" onPress={() => this.sendTestText()} />
-
-            {/* <CommonCell title="测试OTA流程" onPress={() => this.doOTA()} />
-
-            <CommonCell title="测试分包传输" onPress={() => this.doOTA(false)} /> */}
-
-            <CommonCell title="固件升级-指定DFU" onPress={() => Host.ui.openBleCommonDeviceUpgradePage({ fake_dfu_url: this.state.fake_dfu_url, auth_type: 4 })} />
-            <CommonCell title="固件升级-常规" onPress={() => Host.ui.openBleCommonDeviceUpgradePage({ auth_type: 4 })} />
+            <CommonCell title="开灯" onPress={() => this.toggleLight(true)} />
+            <CommonCell title="关灯" onPress={() => this.toggleLight(false)} />
+            <CommonCell title="随机灯色" onPress={() => this.changeBrightness()} />
+            <CommonCell title="同步状态" onPress={() => this.readLightProp()} />
+            {/* <CommonCell title="连接蓝牙" onPress={() => this.connect()} /> */}
+            {/* <CommonCell title="断开蓝牙" onPress={() => this.disconnect()} /> */}
+            <CommonCell title="固件升级-旧" onPress={() => Host.ui.openBleMeshDeviceUpgradePage()} />
+            <CommonCell title="固件升级-新常规" onPress={() => Host.ui.openBleCommonDeviceUpgradePage({ auth_type: 5 })} />
           </View>
           <ScrollView style={{ flex: 1, borderRightWidth: 1, borderRightColor: 'black' }}>
             <Text>
@@ -288,22 +318,14 @@ export default class MainPage extends React.Component {
               {this.state.services.length}
 个
             </Text>
-            <Text>
-测试特征值通知开启：
-              {this.state.testCharNotify ? '开启' : '关闭'}
+            <Text style={{ color: !this.state.lightStatu ? 'red' : 'green' }}>
+测试灯状态：
+              {this.state.lightStatu ? '开启' : '关闭'}
             </Text>
-            <Text style={{ marginTop: 20 }}>
-测试下载DFU地址：
+            <Text style={{ color: !this.state.lightStatu ? 'red' : 'green' }}>
+测试灯亮度：
+              {'' + this.state.lightBrightness}
             </Text>
-            <TextInput
-              style={{
-                height: 200, borderColor: 'gray', borderWidth: 1, justifyContent: 'center'
-              }}
-              multiline
-              numberOfLines={0}
-              onChangeText={text => this.setState({ fake_dfu_url: text })}
-              value={this.state.fake_dfu_url}
-            />
           </ScrollView>
           <ScrollView style={{ flex: 1 }}>
 
@@ -354,7 +376,6 @@ const styles = StyleSheet.create({
   actionContainer: {
     minWidth: 100,
     flexDirection: 'column',
-    // justifyContent: 'space-between',
     marginBottom: 0,
     marginTop: 0,
     alignItems: 'center',

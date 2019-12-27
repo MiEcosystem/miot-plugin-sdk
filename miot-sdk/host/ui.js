@@ -300,6 +300,17 @@ export default {
   openBleMeshDeviceUpgradePage() {
   },
   /**
+   * 打开通用协议的蓝牙固件OTA页面。分享的设备点击此接口无反应（理论上分享的设备不应该出现调用此接口的菜单）
+   * @since 10033
+   * @param {Object} params 请求参数
+   * @param {number} params.auth_type 指定设备的协议类型 0: 普通小米蓝牙协议设备(新接入设备已废弃该类型)，1: 安全芯片小米蓝牙设备（比如锁类产品） 4: Standard Auth 标准蓝牙认证协议(通常2019.10.1之后上线的新蓝牙设备) 5: mesh 设备
+   * @param {string} params.fake_dfu_url 指定写入DFU的下载地址，仅在测试环境下有效，指定之后可以强制更新指定DFU固件版本
+   * @example
+   * Host.ui.openBLECommonDFUPage({auth_type: 3 })
+   */
+  openBleCommonDeviceUpgradePage(params) {
+  },
+  /**
    * 打开灯组2.0固件升级页。分享的设备点击此接口无反应（理论上分享的设备不应该出现调用此接口的菜单）
    * @since 10031
    */
