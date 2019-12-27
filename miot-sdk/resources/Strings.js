@@ -84,7 +84,8 @@ let strings = {
   firmwareUpgradeNew_pre: '',
   firmwareUpgradeNew_sub: '',
   handling: '',
-  error: ''
+  error: '',
+  createLightGroup: ''
 }
 strings = getStrings({
   zh: {
@@ -144,7 +145,10 @@ strings = getStrings({
     firmwareUpgradeNew_pre: '检测到设备有最新固件版本',
     firmwareUpgradeNew_sub: '，是否升级',
     handling: '操作中...',
-    error: '处理失败，请稍后再试'
+    error: '处理失败，请稍后再试',
+    createLightGroup: '创建灯组（新）',
+    manageLightGroup: '灯组管理（新）',
+    deleteLightGroup: '解散灯组'
   },
   zh_tw: {
     setting: '設定',
@@ -203,7 +207,10 @@ strings = getStrings({
     firmwareUpgradeNew_pre: '檢測到裝置有最新韌體版本',
     firmwareUpgradeNew_sub: '，是否升級',
     handling: '執行中...',
-    error: '處理失敗，請重試'
+    error: '處理失敗，請重試',
+    createLightGroup: 'Create light group(new)',
+    manageLightGroup: 'Manage devices(new)',
+    deleteLightGroup: 'Disband light group'
   },
   zh_hk: {
     setting: '設定',
@@ -262,7 +269,10 @@ strings = getStrings({
     firmwareUpgradeNew_pre: '檢測到裝置有最新韌體版本',
     firmwareUpgradeNew_sub: '，是否升級',
     handling: '執行中...',
-    error: '處理失敗，請重試'
+    error: '處理失敗，請重試',
+    createLightGroup: 'Create light group(new)',
+    manageLightGroup: 'Manage devices(new)',
+    deleteLightGroup: 'Disband light group'
   },
   en: {
     setting: 'Settings',
@@ -321,7 +331,10 @@ strings = getStrings({
     firmwareUpgradeNew_pre: 'Firmware update ',
     firmwareUpgradeNew_sub: ' available. Update now?',
     handling: 'Running…',
-    error: 'Could not operate, please try again later'
+    error: 'Could not operate, please try again later',
+    createLightGroup: 'Create light group(new)',
+    manageLightGroup: 'Manage devices(new)',
+    deleteLightGroup: 'Disband light group'
   },
   ko: {
     setting: '설정',
@@ -380,7 +393,10 @@ strings = getStrings({
     firmwareUpgradeNew_pre: '펌웨어 업데이트 ',
     firmwareUpgradeNew_sub: ' 가능, 지금 업데이트 하시겠습니까?',
     handling: '실행 중...',
-    error: '다시 시도'
+    error: '다시 시도',
+    createLightGroup: 'Create light group(new)',
+    manageLightGroup: 'Manage devices(new)',
+    deleteLightGroup: 'Disband light group'
   },
   ru: {
     setting: 'Настройки',
@@ -439,7 +455,10 @@ strings = getStrings({
     firmwareUpgradeNew_pre: 'Доступно обновление ПО ',
     firmwareUpgradeNew_sub: ', обновить сейчас?',
     handling: 'Загрузка...',
-    error: 'Попробовать снова'
+    error: 'Попробовать снова',
+    createLightGroup: 'Create light group(new)',
+    manageLightGroup: 'Manage devices(new)',
+    deleteLightGroup: 'Disband light group'
   },
   es: {
     setting: 'Configuración',
@@ -498,7 +517,10 @@ strings = getStrings({
     firmwareUpgradeNew_pre: 'Actualización ',
     firmwareUpgradeNew_sub: ' de firmware disponible, ¿actualizar ahora?',
     handling: 'Ejecutándose...',
-    error: 'Reintentar'
+    error: 'Reintentar',
+    createLightGroup: 'Create light group(new)',
+    manageLightGroup: 'Manage devices(new)',
+    deleteLightGroup: 'Disband light group'
   },
   fr: {
     setting: 'Paramètres',
@@ -557,7 +579,10 @@ strings = getStrings({
     firmwareUpgradeNew_pre: 'Mise à jour du micrologiciel ',
     firmwareUpgradeNew_sub: ' disponible. Mettre à jour maintenant ?',
     handling: 'En cours d’exécution…',
-    error: 'Réessayer'
+    error: 'Réessayer',
+    createLightGroup: 'Create light group(new)',
+    manageLightGroup: 'Manage devices(new)',
+    deleteLightGroup: 'Disband light group'
   },
   it: {
     setting: 'Impostazioni',
@@ -616,7 +641,10 @@ strings = getStrings({
     firmwareUpgradeNew_pre: 'Aggiornamento firmware ',
     firmwareUpgradeNew_sub: ' disponibile. Aggiornare adesso?',
     handling: 'In esecuzione…',
-    error: 'Riprova'
+    error: 'Riprova',
+    createLightGroup: 'Create light group(new)',
+    manageLightGroup: 'Manage devices(new)',
+    deleteLightGroup: 'Disband light group'
   },
   de: {
     setting: 'Einstellungen',
@@ -675,7 +703,10 @@ strings = getStrings({
     firmwareUpgradeNew_pre: 'Firmware-Aktualisierung ',
     firmwareUpgradeNew_sub: ' verfügbar, jetzt aktualisieren?',
     handling: 'Wird ausgeführt...',
-    error: 'Erneut versuchen'
+    error: 'Erneut versuchen',
+    createLightGroup: 'Create light group(new)',
+    manageLightGroup: 'Manage devices(new)',
+    deleteLightGroup: 'Disband light group'
   },
   id: {
     setting: 'Pengaturan',
@@ -734,7 +765,10 @@ strings = getStrings({
     firmwareUpgradeNew_pre: 'Pembaruan firmware ',
     firmwareUpgradeNew_sub: ' tersedia, perbarui sekarang?',
     handling: 'Menjalankan...',
-    error: 'Coba lagi'
+    error: 'Coba lagi',
+    createLightGroup: 'Create light group(new)',
+    manageLightGroup: 'Manage devices(new)',
+    deleteLightGroup: 'Disband light group'
   },
   pl: {
     setting: 'Ustawienia',
@@ -793,7 +827,10 @@ strings = getStrings({
     firmwareUpgradeNew_pre: 'Dostępna jest aktualizacja oprogramowania sprzętowego dla ',
     firmwareUpgradeNew_sub: '. Zaktualizować teraz?',
     handling: 'Pracuje…',
-    error: 'Spróbuj ponownie'
+    error: 'Spróbuj ponownie',
+    createLightGroup: 'Create light group(new)',
+    manageLightGroup: 'Manage devices(new)',
+    deleteLightGroup: 'Disband light group'
   },
   vi: {
     setting: 'Cài đặt',
@@ -852,7 +889,10 @@ strings = getStrings({
     firmwareUpgradeNew_pre: 'Đã có bản cập nhật chương trình cơ sở ',
     firmwareUpgradeNew_sub: ', cập nhật ngay bây giờ?',
     handling: 'Đang thực hiện',
-    error: 'Thử lại'
+    error: 'Thử lại',
+    createLightGroup: 'Create light group(new)',
+    manageLightGroup: 'Manage devices(new)',
+    deleteLightGroup: 'Disband light group'
   },
   ja: {
     setting: '設定',
@@ -911,7 +951,10 @@ strings = getStrings({
     firmwareUpgradeNew_pre: 'ファームウェア更新プログラム ',
     firmwareUpgradeNew_sub: ' が公開されています。今すぐ更新しますか?',
     handling: '実行中',
-    error: '再試行する'
+    error: '再試行する',
+    createLightGroup: 'Create light group(new)',
+    manageLightGroup: 'Manage devices(new)',
+    deleteLightGroup: 'Disband light group'
   },
   th: {
     setting: 'การตั้งค่า',
@@ -970,7 +1013,10 @@ strings = getStrings({
     firmwareUpgradeNew_pre: 'เฟิร์มแวร์อัปเดต ',
     firmwareUpgradeNew_sub: ' ใช้ได้แล้ว อัปเดตตอนนี้หรือไม่',
     handling: 'ในการดำเนินการ',
-    error: 'ลองอีกครั้ง'
+    error: 'ลองอีกครั้ง',
+    createLightGroup: 'Create light group(new)',
+    manageLightGroup: 'Manage devices(new)',
+    deleteLightGroup: 'Disband light group'
   }
 });
 export default strings;

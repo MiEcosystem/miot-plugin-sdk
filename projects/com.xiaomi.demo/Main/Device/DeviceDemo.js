@@ -9,8 +9,9 @@ import {
   Image,
   ScrollView, Dimensions
 } from "react-native";
-import { Device, DeviceProperties } from "miot";
 const { width, height } = Dimensions.get("window");
+import {Device, DeviceProperties} from "miot";
+import MIOT from "miot";
 
 export default class DeviceDemo extends React.Component {
   constructor(props) {
@@ -21,6 +22,12 @@ export default class DeviceDemo extends React.Component {
       callMethodResult: "请求中",
       callMethodFromCloudResult: "请求中"
     };
+  }
+
+  componentWillMount() {
+    console.log("componentWillMount...");
+    console.log(MIOT);
+    console.log(Device);
     Device.getDeviceWifi().callMethod("get_prop", ["humidity", "rgb", "temperature"]).then((res) => {
       this.setState({ callMethodResult: res });
     }).catch(err => { console.log('error:', err) });
@@ -41,10 +48,6 @@ export default class DeviceDemo extends React.Component {
       console.log("readDeviceNetWorkInfo  error", error)
     })
 
-  }
-
-  componentWillMount() {
-    console.log("componentWillMount...")
     this.eventSubscription = DeviceProperties.addListener(["on", "mode"], (deviceProps, changeProps) => {
       console.log("changeProps", changeProps.getChangeProps())
     })

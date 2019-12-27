@@ -3,7 +3,7 @@ import React, {PureComponent} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import {adjustSize} from '../utils/sizes';
-import {FontLantingLight, FontKmedium} from '../utils/fonts';
+import {FontDefault, FontKmedium} from '../utils/fonts';
 import {ColorGreen} from '../utils/colors';
 export default class BigNumber extends PureComponent {
   static propTypes = {
@@ -35,7 +35,7 @@ const Styles = StyleSheet.create({
   },
   title: {
     fontSize: adjustSize(42),
-    fontFamily: FontLantingLight,
+    fontFamily: FontDefault,
     color: 'rgba(0, 0, 0, 0.9)'
   },
   number: {

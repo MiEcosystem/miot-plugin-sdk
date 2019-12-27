@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 插件导航模块
- * @doc_index 6
+ * @doc_index 1
  * @doc_directory sdk
  * @module miot/Package
  * @description 扩展程序包参数, 主要来自于{@link packageInfo.json} 的配置与系统本身的特性
@@ -31,14 +31,15 @@
 import { MessageDialog } from 'miot/ui';
 import React from 'react';
 import { AppRegistry, DeviceEventEmitter, View } from "react-native";
-import { Device, Package } from '.';
-import RootDevice from "./Device";
+import Service from './Service';
+import Device from "./device/BasicDevice";
 import Host from './Host';
 //@native begin
 import native, { buildEvents, PackageExitAction, Properties } from './native';
 //@native end
 import resolveAssetResource from "./native/common/node/resolve";
 import { strings } from './resources';
+import ProtocolManager from './utils/protocol-helper'
 /**
  * @description JS端通知Native端的事件类型
  * @enum {number}
@@ -150,9 +151,9 @@ DeviceEventEmitter.addListener('onPluginConfigUpdate', (data) => {
     if (data.file) { Object.assign(native.MIOTFile, data.file); }
     if (data.audio) { Object.assign(native.MIOTAudio, data.audio); }
     resolveAssetResource(native.MIOTPackage.basePath, native.MIOTPackage.localFilePath, native.MIOTPackage.plugPath);
-    Properties.init(RootDevice, { ...native.MIOTDevice.currentDevice, _msgset: new Set() });
-    console.log("PluginStartTime", 'initPluginConfig', native.MIOTPackage.packageName, RootDevice.deviceID);
-    pluginConfigUpdate && pluginConfigUpdate(RootDevice.deviceID);
+    Properties.init(Device, { ...native.MIOTDevice.currentDevice, _msgset: new Set() });
+    console.log("PluginStartTime", 'initPluginConfig', native.MIOTPackage.packageName, Device.deviceID);
+    pluginConfigUpdate && pluginConfigUpdate(Device.deviceID);
 });
 /**
  * entryInfo={entrance:scene|main,info:{json}}
@@ -173,7 +174,7 @@ function callPackageLifecycle(type, data) {
 function onPluginEvent(type, data = {}) {
     if (!native.MIOTPackage.onDeventJs) return;
     if (native.isIOS) {
-        native.MIOTPackage.onDeventJs(type, data, ()=>{});
+        native.MIOTPackage.onDeventJs(type, data, () => { });
     }
     else {
         native.MIOTPackage.onDeventJs(type, data);
@@ -259,6 +260,11 @@ class PackageRoot extends React.Component {
                 event: 'show'
             });
         PackageEvent.packageDidLoaded.emit();
+        this.checkLegalInformationAuthorization().then(res => {
+            console.log('resolve yes', res);
+        }).catch(err => {
+            console.log('resolve false', err);
+        });
         this.listener = DeviceEventEmitter.addListener('MH_FirmwareNeedUpdateAlert', (params) => {
             Device.needUpgrade = params.needUpgrade;
             if (this.state.isShowingPrivacyLicenseDialog) {
@@ -325,6 +331,94 @@ class PackageRoot extends React.Component {
         PackageEvent.packageWillExit.emit();
         this.listener && this.listener.remove();
         this.ShowPrivacyLicenseDialogListener && this.ShowPrivacyLicenseDialogListener.remove();
+        ProtocolManager.setLegalInfoAuthHasShowed(false);
+    }
+    checkLegalInformationAuthorization() {
+        if (true == ProtocolManager.getLegalInfoAuthHasShowed()) {
+            return new Promise.reject("隐私授权已确认");
+        }
+        if (false == Device.isOnline) {
+            // console.log('checkLegalInformationAuthorization catch:', '设备离线');
+            return new Promise.reject("设备离线");
+        }
+        if ((Device.isShared || Device.isFamily)) {
+            return new Promise.reject("分享设备不建议进行弹窗请求隐私授权。");
+        }
+        return new Promise((resolve, reject) => {
+            Service.smarthome.batchGetDeviceDatas([{ did: Device.deviceID, props: ["prop.s_auth_config"] }]).then(res => {
+                // console.log('batchGetDeviceDatas ', res);
+                let alreadyAuthed = true;
+                if (!res) {
+                    reject("data error res null");
+                    return;
+                }
+                let result = res[Device.deviceID];
+                if (!result) {
+                    reject("data error result null");
+                    return;
+                }
+                let config = result['prop.s_auth_config'];
+                if (config) {
+                    try {
+                        let authJson = JSON.parse(config);
+                        // console.log('auth config ', authJson)
+                        alreadyAuthed = authJson.privacyAuthed && true;
+                    } catch (err) {
+                        reject("json parse error");
+                        return;
+                    }
+                } else {
+                    // 设备初识化进入 没有注册过这个设备的s_auth_config属性就会为null 并不代表已经同意了用户协议
+                    alreadyAuthed = false;
+                }
+                if (alreadyAuthed) {
+                    reject("已经授权");
+                } else {
+                    ProtocolManager.getLegalAuthInfoProtocol().then(protocol => {
+                        if (!protocol || !protocol.privacyURL) {
+                            reject("获取url失败");
+                            return;
+                        }
+                        if (protocol.privacyURL) {
+                            protocol.privacyURL = ProtocolManager.resolveUrlWithLink(protocol.privacyURL);
+                        }
+                        if (protocol.agreementURL) {
+                            protocol.agreementURL = ProtocolManager.resolveUrlWithLink(protocol.agreementURL);
+                        }
+                        if (protocol.hideAgreement) {
+                            delete protocol['agreementURL']//iOS下设置为“”则隐藏该项目
+                        }
+                        if (protocol.experiencePlanURL) {
+                            protocol.experiencePlanURL = ProtocolManager.resolveUrlWithLink(protocol.experiencePlanURL);
+                        }
+                        if (protocol.hideUserExperiencePlan) {
+                            delete protocol['experiencePlanURL']
+                        }
+                        if (true == ProtocolManager.getLegalInfoAuthHasShowed()) {
+                            reject('隐私授权已确认');
+                            return;
+                        }
+                        DeviceEventEmitter.emit('MH_Event_ShowPrivacyLicenseDialog', { isShowingPrivacyLicenseDialog: true });
+                        ProtocolManager.setLegalInfoAuthHasShowed(true);
+                        native.MIOTHost.showDeclarationWithConfig(protocol, (ret, res) => {
+                            if (ret === 'ok' || ret === true || ret === 'true') {
+                                Service.smarthome.batchSetDeviceDatas([{ did: Device.deviceID, props: { "prop.s_auth_config": JSON.stringify({ 'privacyAuthed': true }) } }]);
+                                resolve('ok');
+                            } else {
+                                Package.exit();
+                                reject("不同意协议，插件退出");
+                                return;
+                            }
+                        });
+                    }).catch(err => {
+                        reject(err);
+                    });
+                }
+            }).catch(err => {
+                // console.log('batchGetDeviceDatas catch:', err);
+                reject(err);
+            });
+        });
     }
     render() {
         const { App } = extra;
@@ -388,7 +482,7 @@ export default {
         //@native => {}
         //@native begin
         // 保证是json，Android传递过来是字符串格式
-        if(this.entryInfo && this.entryInfo.pageParams && typeof this.entryInfo.pageParams === 'string'){
+        if (this.entryInfo && this.entryInfo.pageParams && typeof this.entryInfo.pageParams === 'string') {
             this.entryInfo.pageParams = JSON.parse(this.entryInfo.pageParams);
         }
         return this.entryInfo.pageParams || {};
@@ -450,8 +544,8 @@ export default {
         return native.MIOTPackage.packageID;
     },
     get pluginID() {
-      //@native => 0
-      return native.MIOTPackage.pluginID;
+        //@native => 0
+        return native.MIOTPackage.pluginID;
     },
     /**
      * 程序包的版本号, 来自于{@link project.json} 的 {@link version}
@@ -463,6 +557,12 @@ export default {
     get version() {
         //@native => ""
         return native.MIOTPackage.version;
+    },
+    /**
+     * 获取React Native版本
+     */
+    get rnVersion() {
+        return "0.54.4";
     },
     /**
      * 程序包名, 来自于{@link project.json} 的 {@link package_name}

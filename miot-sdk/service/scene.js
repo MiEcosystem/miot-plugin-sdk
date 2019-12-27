@@ -4,8 +4,16 @@
  * @doc_index 2
  * @doc_directory service
  * @module miot/service/scene
- * @description 场景相关服务, 包括定时,人工与自动场景 
- *    
+ * @description 场景相关服务, 包括定时,人工与自动场景（SceneType 类中）
+ * 定时场景：是指设备的有关倒计时或设置时间触发设备执行某一动作的智能自动化；
+ * 例如米家app中 “智能”->“+”->“定时” 创建的自动化或通过openTimerSettingPageWithOptions或openCountDownPage 提供的API 创建的智能自动化都属于定时场景。
+ * 人工场景：是指需要手动执行的智能自动化；
+ * 例如米家app中 “智能”->“+”->“手动执行” 创建的自动化属于人工场景
+ * 自动场景：主要是指设备之间相互关联的能够自动促发的智能自动化；
+ * 例如米家app中 “智能”->“+”-> 选择某一设备 创建的智能自动化, 通常有 if...then... 的执行过程。
+ *
+ * 更多详细介绍可以参考：https://iot.mi.com/new/doc/05-米家扩展程序开发指南/03-智能自动化/01-概述.html
+ *
  * @example
  *
  *  import {Service, Device, SceneType} from 'miot';
@@ -23,7 +31,7 @@
  *  });
  * @example
  *    //加载此设备名称为name，类别为identify的所有人工场景 
- *    //备注：name字段慎用，后台有如此判断逻辑：if(req.name != "") req.did=req.identify... 。这个会导致请求接口提示have no device permit
+ *    ** 注意：name字段慎用，后台有如此判断逻辑：if(req.name != "") req.did=req.identify... 。这个会导致请求接口提示have no device permit。**
  *    Service.scene.loadArtificialScenes(Device.deviceID, {name:'...', identify:'...'})
  *    .then(arr=>{...}).catch(err=>{...})
  *
@@ -323,7 +331,12 @@ export class IScene {
  * 创建场景 
  * @param {string} deviceID 设备id
  * @param {SceneType} sceneType 场景类型
- * @param {*} opt {identify,name} 同上面的identify，name
+ * @param {object} opt {identify, us_id, name, setting }
+ * @param {string} opt.identify
+ * @param {string} opt.us_id  场景的唯一标识。创建时传"0"
+ * @param {string} opt.name   场景名称
+ * @param {object} opt.setting  可参考createTimerScene
+ *
  * @returns {IScene}
  */
 function createScene(deviceID, sceneType, opt = null) {
@@ -376,9 +389,13 @@ function loadScenes(deviceID, sceneType, opt = null) {
 export default {
     /**
      * 创建场景
-     * @param {string} deviceID  设备id
-     * @param {int} sceneType 场景类型
-     * @param {{identify,name}} opt {identify,name,setting} 同上面的identify，name
+     * @param {string} deviceID 设备id
+     * @param {SceneType} sceneType 场景类型
+     * @param {object} opt {identify, us_id, name, setting }
+     * @param {string} opt.identify
+     * @param {string} opt.us_id  场景的唯一标识。创建时传"0"
+     * @param {string} opt.name   场景名称
+     * @param {object} opt.setting  可参考createTimerScene
      * @returns {IScene}
      * @example
      * 
@@ -574,4 +591,64 @@ export default {
         })
     },
     //@native end
+    /**
+     * 打开添加智能的页面(米家APP实现)
+     * @since 10032 ,SDKLevel 10032 开始提供使用
+     * @example
+     * Service.scene.openIftttAutoPage()
+     */
+    openIftttAutoPage() {
+        //@native begin
+        //@mark andr done
+        native.MIOTHost.openIftttAutoPage();
+        //@native end
+    },
+    /**
+     * 打开时间设置页面(米家APP实现)
+     * @since 10032 ,SDKLevel 10032 开始提供使用
+     * @param {object} options 配置信息
+     * @param {string} options.onMethod 配置定时开启的 method 名，同上面openTimerSettingPageWithVariousTypeParams的参数onMethod
+     * @param {string} options.onParam 配置定时开启的 参数，同上面openTimerSettingPageWithVariousTypeParams的参数onParam
+     * @param {string} options.offMethod 配置定时关闭的 method 名，同上面openTimerSettingPageWithVariousTypeParams的参数offMethod
+     * @param {string} options.offParam 配置定时关闭的 参数，同上面openTimerSettingPageWithVariousTypeParams的参数offParam
+     * @param {string} options.displayName 配置场景日志显示的名称
+     * @param {string} options.identify 自定义定时Identifier
+     * @param {string} options.onTimerTips 定时列表页面、设置时间页面 打开副标题（默认：开启时间）
+     * @param {string} options.offTimerTips 定时列表页面、设置时间页面 关闭时间副标题（默认：关闭时间）
+     * @param {string} options.listTimerTips 定时列表页面 定时时间段副标题（默认：开启时段）
+     * @param {boolean} options.bothTimerMustBeSet 是否强制要求设置时间段？ true: 强制设置时间段(默认：false)如果设置true,忽略下面三个参数
+     * @param {boolean} options.showOnTimerType 是否可以创建：定时开启？ true: 可以，false:不可以(默认：true)
+     * @param {boolean} options.showOffTimerType 是否可以创建：定时关闭？ true: 可以，false:不可以(默认：true)
+     * @param {boolean} options.showPeriodTimerType 是否可以创建：时间段定时？ true: 可以，false:不可以(默认：true)
+     * 注意：showOnTimerType、showOffTimerType、showPeriodTimerType三个参数至少有一个为true，才有效，否则三个中任意都会被忽略掉
+     * @example
+     * Host.ui.openTimerSettingPageWithOptions({onMethod:"power_on", onParam: "on", offMethod: "power_off", offParam: "off", displayName:"设置xxx定时"，identify:"plug_usb_countdowm"})
+     */
+    openTimerSettingPageWithOptions(options) {
+        //@native begin
+        native.MIOTHost.openTimerSettingPageWithOptions(options);
+        //@native end
+    },
+    /**
+     * 开启倒计时界面
+     * @param {Boolean} isCountDownOn 设备的当前状态:YES 为开启，所以我们启动关闭倒计时; NO  为关闭，所以我们启动开启倒计时
+     * @param {object} setting 设置倒计时页面的属性
+     * @param {string} setting.onMethod 指硬件端，打开 倒计时应该 执行的方法，请咨询硬件工程师
+     * @param {string} setting.onParam 指硬件端，打开 倒计时应该 传入的参数，请咨询硬件工程师
+     * @param {string} setting.offMethod 指硬件端，关闭 倒计时应该 执行的方法，请咨询硬件工程师
+     * @param {string} setting.offParam 指硬件端，关闭 倒计时应该 传入的参数，请咨询硬件工程师
+     * @param {string} setting.identify since 10021, 用于设置倒计时的identify
+     * @param {string} options.displayName 配置场景日志显示的名称：注意，不会更改倒计时页面的标题，只会上传到服务端
+     * @example
+     *
+     * Host.ui.openCountDownPage(true, {onMethod:"power_on", offMethod:'power_off', onParam:'on', offParam:'off',displayName:"新名字"})
+     *
+     */
+    openCountDownPage(isCountDownOn, setting) {
+        //@native begin
+        //@mark ios done
+        //@mark android undone
+        native.MIOTHost.launchCountDownWhenDevice(isCountDownOn, setting);
+        //@native end
+    },
 }

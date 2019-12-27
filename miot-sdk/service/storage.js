@@ -4,7 +4,7 @@
  * @doc_index 6
  * @doc_directory service
  * @module miot/service/storage
- * @description MIOT 云端提供的各种暂存服务, 包括文件上传,下载?
+ * @description MIOT 云端提供的暂存服务
  *
  */
 //@native
@@ -105,6 +105,9 @@ export default {
    * @param {string} model
    * @param {number} key
    * @param {json} data
+   * @returns {Rromise<any>} Promise
+   * 成功时：true
+   * 失败时：{"code":xxx, "message":"xxx" }
    */
   setThirdUserConfigsForOneKey(model, key, data) {
     //@native :=> promise
@@ -129,6 +132,8 @@ export default {
    * @param model
    * @param key
    * @returns {Promise<any>}
+   * 成功时：{key:xxx, data:xxx}   data 为set时的数据
+   * 失败时：{"code":xxx, "message":"xxx" }
    */
   getThirdUserConfigsForOneKey(model, key) {
     //@native :=> promise

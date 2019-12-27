@@ -7,7 +7,7 @@ import SlideGear from './Gear/SlideGear';
 import ContainerWithShadowAndSeparator from './ContainerWithShadowAndSeparator';
 import {log} from '../utils/fns';
 import {adjustSize} from '../utils/sizes';
-import {FontLantingLight} from '../utils/fonts';
+import {FontDefault} from '../utils/fonts';
 import {ColorGreen} from '../utils/colors';
 export default class SliderWithHeader extends Component {
   static propTypes = {
@@ -61,7 +61,9 @@ export default class SliderWithHeader extends Component {
       <Wrap>
         <View style={Styles.container}>
         {title || subtitle || showSwitch ? (
-          <View style={Styles.header}>
+          <View style={[Styles.header, disabled ? {
+            opacity: 0.3
+          } : null]}>
             {title || subtitle ? (
               <View style={Styles.titleContainer}>
                 {title ? (
@@ -107,7 +109,7 @@ const Styles = StyleSheet.create({
   },
   title: {
     fontSize: adjustSize(42),
-    fontFamily: FontLantingLight,
+    fontFamily: FontDefault,
     color: '#000'
   },
   titleSeparator: {
@@ -118,7 +120,7 @@ const Styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: adjustSize(36),
-    fontFamily: FontLantingLight,
+    fontFamily: FontDefault,
     color: 'rgba(0, 0, 0, 0.6)'
   },
   sliderContainer: {

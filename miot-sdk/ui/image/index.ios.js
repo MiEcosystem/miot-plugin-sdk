@@ -19,7 +19,7 @@ export default class MHImage extends React.Component {
      *
      * See https://facebook.github.io/react-native/docs/image.html#source
      */
-    // source: ImageSourcePropType,
+    source: ImageSourcePropType,
     /**
      * A static image to display while loading the image source.
      *

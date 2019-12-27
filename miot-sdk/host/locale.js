@@ -27,6 +27,7 @@ export default {
   },
   /**
    * 获取系统语言
+   * @type {string}
    */
   get systemLanguage() {
     //@native
@@ -52,7 +53,7 @@ export default {
   },
   /**
    * 获取手机地理位置信息
-   * {
+   * @returns {Promise<object>}{
    * country
    * province
    * city
@@ -64,7 +65,6 @@ export default {
    * citycode(城市编码)
    * adcode(区域编码)
    * }
-   * @returns {Promise}
    * @example
    * import {Host} from 'miot'
    * ...

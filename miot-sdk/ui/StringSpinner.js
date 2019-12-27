@@ -37,7 +37,7 @@
 //@native begin
 import PropTypes from 'prop-types';
 import React from 'react';
-import { requireNativeComponent, ViewPropTypes } from 'react-native';
+import { requireNativeComponent, ViewPropTypes, View, Platform } from 'react-native';
 const MiotStringPicker = requireNativeComponent('MHStringPicker');
 //@native end
 export default class StringSpinner extends React.Component {
@@ -51,11 +51,17 @@ export default class StringSpinner extends React.Component {
     };
     render() {
         //@native :=> null
-        return <MiotStringPicker {...this.props} {...this.props.pickerInnerStyle} onValueChanged={(event) => {
-            if (this.props.onValueChanged) {
-                this.props.onValueChanged({ ...event.nativeEvent });
-            }
-        }} />
+        return (
+            <MiotStringPicker
+                {...this.props}
+                {...this.props.pickerInnerStyle}
+                onValueChanged={(event) => {
+                    if (this.props.onValueChanged) {
+                        this.props.onValueChanged({ ...event.nativeEvent });
+                    }
+                }}
+            />
+        )
         //@native end
     }
 }

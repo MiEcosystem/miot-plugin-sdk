@@ -3,7 +3,7 @@ import React, {PureComponent, Fragment} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import {adjustSize} from '../utils/sizes';
-import {FontLantingLight, FontKmedium} from '../utils/fonts';
+import {FontDefault, FontKmedium} from '../utils/fonts';
 import {ColorGreen} from '../utils/colors';
 export default class SmallNumber extends PureComponent {
   static propTypes = {
@@ -72,7 +72,7 @@ const Styles = StyleSheet.create({
   },
   title: {
     fontSize: adjustSize(36),
-    fontFamily: FontLantingLight,
+    fontFamily: FontDefault,
     color: '#1C2229',
     opacity: 1
   },

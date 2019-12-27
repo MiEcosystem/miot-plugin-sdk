@@ -52,12 +52,19 @@ export {default as ContainerWithGap} from './ContainerWithGap';
 export {default as ContainerWithShadowAndSeparator} from './ContainerWithShadowAndSeparator';
 export {default as DeviceWithInfo} from './DeviceWithInfo';
 export {default as Fan} from './Fan';
+export {default as HeaterHeader} from './HeaterHeader';
 export {default as LightControl} from './LightControl';
 export {default as PageWithNormalNavigator} from './PageWithNormalNavigator';
 export {default as SelectorWithButton} from './SelectorWithButton';
 export {default as SliderWithHeader} from './SliderWithHeader';
 export {default as SmallNumbers} from './SmallNumbers';
 export {default as WallSwitch} from './WallSwitch';
+export {default as Airer} from './Airer';
+export {default as DoubleSelectors} from './DoubleSelectors';
+export {default as Curtain} from './Curtain';
+export {default as CurtainStyle} from './CurtainStyle';
+export {default as PrimeButton} from './PrimeButton';
+export {default as QAList} from './QAList';
 export default {
     ImageButton, 
     // MHImage,

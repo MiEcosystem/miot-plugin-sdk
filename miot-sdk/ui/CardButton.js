@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Switch from './Switch';
 import ContainerWithShadowAndSeparator from './ContainerWithShadowAndSeparator';
 import {adjustSize} from '../utils/sizes';
-import {FontLantingLight, FontKmedium} from '../utils/fonts';
+import {FontDefault, FontKmedium} from '../utils/fonts';
 import {ColorGreen} from '../utils/colors';
 const SourceArrow = require('../resources/images/right_arrow.png');
 export default class CardButton extends PureComponent {
@@ -122,12 +122,12 @@ const Styles = StyleSheet.create({
     flex: 1
   },
   title: {
-    fontFamily: FontLantingLight,
+    fontFamily: FontDefault,
     fontSize: adjustSize(45),
     color: '#000'
   },
   subtitle: {
-    fontFamily: FontLantingLight,
+    fontFamily: FontDefault,
     fontSize: adjustSize(36),
     lineHeight: adjustSize(42),
     color: '#999'
@@ -136,7 +136,7 @@ const Styles = StyleSheet.create({
     marginLeft: adjustSize(30)
   },
   rightText: {
-    fontFamily: FontLantingLight,
+    fontFamily: FontDefault,
     fontSize: adjustSize(36),
     color: '#999',
     marginLeft: adjustSize(30)

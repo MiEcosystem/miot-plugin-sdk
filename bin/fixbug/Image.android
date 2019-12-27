@@ -31,6 +31,14 @@ const TextInlineImageNativeComponent = require('./TextInlineImageNativeComponent
 
 import type {ImageProps as ImagePropsType} from './ImageProps';
 
+const ImageResizeMode = {
+  contain: 'contain',
+  cover: 'cover',
+  stretch: 'stretch',
+  center: 'center',
+  repeat: 'repeat',
+}
+
 let _requestId = 1;
 function generateRequestId() {
   return _requestId++;
@@ -355,7 +363,7 @@ Image.resolveAssetSource = resolveAssetSource;
  * error found when Flow v0.89 was deployed. To see the error, delete this
  * comment and run Flow. */
 Image.propTypes = ImageProps;
-Image.resizeMode =  ImageProps.resizeMode;
+Image.resizeMode =  ImageResizeMode;
 const styles = StyleSheet.create({
   base: {
     overflow: 'hidden',

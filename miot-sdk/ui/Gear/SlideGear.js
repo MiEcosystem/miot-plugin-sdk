@@ -107,7 +107,7 @@ export default class SlideGear extends React.Component {
     }
     /**
      * 根据传参动态创建手势控制器
-     * @param {object} props 
+     * @param {object} props
      */
     constructPanResponder(props) {
         this.panResponder = PanResponder.create({
@@ -115,7 +115,7 @@ export default class SlideGear extends React.Component {
             onStartShouldSetPanResponderCapture: () => false,
             onMoveShouldSetPanResponder: () => !props.disabled,
             onMoveShouldSetPanResponderCapture: () => !props.disabled,
-            onShouldBlockNativeResponder: () => false,
+            onShouldBlockNativeResponder: () => true,
             onPanResponderTerminationRequest: () => false,
             onPanResponderGrant: this._onPanResponderGrant.bind(this),
             onPanResponderMove: Animated.event([null, { dx: this.state.pan, moveX: this.state.moveX }]),
@@ -124,7 +124,7 @@ export default class SlideGear extends React.Component {
     }
     /**
      * 接收 options / value 动态变化
-     * @param {object} newProps 
+     * @param {object} newProps
      */
     componentWillReceiveProps(newProps) {
         if (this.sliding) {  // 为了避免不必要的冲突，在滑动时，拒绝一切外部状态更新
@@ -134,7 +134,7 @@ export default class SlideGear extends React.Component {
         if (disabled !== this.props.disabled) {
             this.constructPanResponder(newProps);
         }
-        if (value === this.props.value && this.isSameArray(options, this.props.options)) return; // 没有变化
+        if ((value === this.state.value) && this.isSameArray(options, this.props.options)) return; // 没有变化
         if (!this.isSameArray(options, this.props.options)) { // options 变化
             if (!(options instanceof Array) || options.length === 0) { // 更新后的 options 不是数组或者是空数组
                 console.warn('options 不是数组或者是空数组');
@@ -160,8 +160,8 @@ export default class SlideGear extends React.Component {
     }
     /**
      * 判断两个数组是否完全相等
-     * @param {array} arr1 
-     * @param {array} arr2 
+     * @param {array} arr1
+     * @param {array} arr2
      */
     isSameArray(arr1, arr2) {
         if (!(arr1 instanceof Array) || !(arr2 instanceof Array)) return false;
@@ -267,6 +267,9 @@ export default class SlideGear extends React.Component {
      * @description 计算整个容器的大小和在屏幕上的位置，从而确定每个选项的圆心坐标
      */
     calculateCoord(obj) {
+        if(!obj) {
+          return;
+        }
         const { x, y, w, h } = obj;
         this.containerLayout = obj;
         const offset = this.margin * 2 + this.blockWidth;
@@ -279,6 +282,7 @@ export default class SlideGear extends React.Component {
         this.coords = this.options.map((v, i) => d > 0 ? (startCoord + d * i) : 0);
         console.log('各选项中心坐标', this.coords);
         this.currentCoord = this.coords[this.state.value];
+        this.totalWidth = w;
         this.getDragRange();
     }
     /**
@@ -361,12 +365,19 @@ export default class SlideGear extends React.Component {
      * 滑块左侧背景
      */
     renderBackground() {
+      const { dragToValueMin: min, dragToValueMax: max } = this.state;
+      // 在没有找到自我定位的时候，要在舞台后面低调
+      if (min === undefined) return null;
         return (
-            <View
+            <Animated.View
                 ref={background => this._background = background}
                 style={{
                     position: 'absolute',
-                    width: this.margin * 2 + this.blockWidth - (this.state.dragToValueMin || 0),
+                    // width: this.margin * 2 + this.blockWidth - (this.state.dragToValueMin || 0),
+                    width: this.state.pan.interpolate({
+                      inputRange: [min - 1, min, max, max + 1],
+                      outputRange: [this.margin * 2 + this.blockWidth, this.margin * 2 + this.blockWidth, this.totalWidth, this.totalWidth]
+                    }),
                     height: this.containerHeight,
                     borderRadius: this.props.type === TYPE.CIRCLE ? this.containerHeight / 2 : 0,
                     backgroundColor: this.props.minimumTrackTintColor
@@ -395,7 +406,7 @@ export default class SlideGear extends React.Component {
                     </View>
                     : null
                 }
-            </View>
+            </Animated.View>
         )
     }
     /**

@@ -1,19 +1,25 @@
 //@native begin
-import React, {Component, Fragment} from 'react';
-import {StyleSheet, View, ScrollView, DeviceEventEmitter} from 'react-native';
-import {SafeAreaView} from 'react-navigation';
+import React, { Component, Fragment } from 'react';
+import { StyleSheet, View, ScrollView, DeviceEventEmitter, Dimensions, Platform } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import PropTypes from 'prop-types';
-import Device from '../Device';
+import {Device} from 'miot';
 import NavigationBar from './NavigationBar';
 import Separator from './Separator';
-import {Styles as CommonStyle} from '../resources';
-import {DialogComponent} from '../utils/dialog-manager';
-import {getNavigation} from '../utils/navigation-helper';
-import {adjustSize} from '../utils/sizes';
+import { Styles as CommonStyle } from '../resources';
+import { DialogComponent } from '../utils/dialog-manager';
+import { getNavigation } from '../utils/navigation-helper';
+import { adjustSize } from '../utils/sizes';
+const window = Dimensions.get('window');
+const isIos = Platform.OS === 'ios';
+const isIphoneX = isIos && window.width === 375 && window.height === 812;
 // export const REQUESTSETBACKGROUND = 'PageWithNormalNavigator_REQUESTSETBACKGROUND';
+export const PageWithNormalNavigatorKey = 'PageWithNormalNavigator_key';
 export function getBackgroundEventKey() {
   let navigation = getNavigation();
+  let {params} = navigation.state;
   let page = navigation.state.routeName;
+  let key = (params && params[PageWithNormalNavigatorKey]) ? params[PageWithNormalNavigatorKey] : page;
   return 'PageWithNormalNavigator_REQUESTSETBACKGROUND:' + page;
 }
 class BackgroundComponent extends Component {
@@ -21,6 +27,9 @@ class BackgroundComponent extends Component {
     component: null
   };
   componentDidMount() {
+    if(!this.props.eventKey) {
+      return;
+    }
     this.REQUESTSETBACKGROUND = DeviceEventEmitter.addListener(this.props.eventKey, component => {
       this.setState({
         component
@@ -32,7 +41,7 @@ class BackgroundComponent extends Component {
     this.REQUESTSETBACKGROUND = null;
   }
   render() {
-    let {component} = this.state;
+    let { component } = this.state;
     return (
       <View style={StylesBackground.container}>
         {component}
@@ -42,8 +51,8 @@ class BackgroundComponent extends Component {
 }
 // export const REQUESTSETNAVIGATION = 'PageWithNormalNavigator_REQUESTSETNAVIGATION';
 const NavigationState = {};
-function saveNavigationState(page, state) {
-  NavigationState[page] = state;
+function saveNavigationState(key, state) {
+  NavigationState[key] = state;
 }
 function removeNavigationState() {
   // let navigation = getNavigation();
@@ -51,23 +60,29 @@ function removeNavigationState() {
   // NavigationState[page] = null;
 }
 export function getNavigationState() {
-  let navigation = getNavigation();
-  let page = navigation.state.routeName;
-  return NavigationState[page];
+  // let navigation = getNavigation();
+  // let page = navigation.state.routeName;
+  let key = getNavigationEventKey();
+  return NavigationState[key];
 }
 export function getNavigationEventKey() {
   let navigation = getNavigation();
+  let {params} = navigation.state;
   let page = navigation.state.routeName;
-  return 'PageWithNormalNavigator_REQUESTSETNAVIGATION:' + page;
+  let key = (params && params[PageWithNormalNavigatorKey]) ? params[PageWithNormalNavigatorKey] : page;
+  return 'PageWithNormalNavigator_REQUESTSETNAVIGATION:' + key;
 }
 class WrapedNavigation extends Component {
   state = {
-    pageKey: getNavigation().state.routeName
+    pageKey: getNavigationEventKey()
   };
   static getDerivedStateFromProps(props) {
     return props;
   }
   componentDidMount() {
+    if(!this.props.eventKey) {
+      return;
+    }
     this.REQUESTSETNAVIGATION = DeviceEventEmitter.addListener(this.props.eventKey, props => {
       this.setState(state => {
         return {
@@ -83,7 +98,7 @@ class WrapedNavigation extends Component {
     removeNavigationState();
   }
   render() {
-    let {pageKey, title, backgroundColor, type, withSeperator, ...restNavigatorParams} = this.state;
+    let { pageKey, title, backgroundColor, type, withSeperator, ...restNavigatorParams } = this.state;
     saveNavigationState(pageKey, this.state);
     return (
       <Fragment>
@@ -104,23 +119,29 @@ export default class PageWithNormalNavigator extends Component {
   };
   state = {
     backgroundEventKey: getBackgroundEventKey(),
-    navigationEventKey: getNavigationEventKey()
+    navigationEventKey: getNavigationEventKey(),
+    height: '100%'
   };
+  onLayout = (e) => {
+    this.setState({
+      height: e.nativeEvent.layout.height
+    })
+  }
   componentDidMount() {
     let key = getBackgroundEventKey();
   }
   render() {
-    let {navigatorParams, containerStyle, contentStyle} = this.props;
-    let {backgroundEventKey, navigationEventKey} = this.state;
+    let { navigatorParams, containerStyle, contentStyle } = this.props;
+    let { backgroundEventKey, navigationEventKey, height: minHeight } = this.state;
     return (
       <View style={[Styles.container, containerStyle]}>
         <BackgroundComponent eventKey={backgroundEventKey} />
         <WrapedNavigation eventKey={navigationEventKey} {...navigatorParams} />
-        <SafeAreaView style={Styles.safearea}>
-          <ScrollView style={[Styles.content, contentStyle]} alwaysBounceVertical={false} contentContainerStyle={Styles.contentInner} showsVerticalScrollIndicator={false}>
+          <ScrollView style={[Styles.content, contentStyle]} alwaysBounceVertical={false} contentContainerStyle={[Styles.contentInner, {
+            minHeight
+          }]} showsVerticalScrollIndicator={false} onLayout={this.onLayout}>
             {this.props.children}
           </ScrollView>
-        </SafeAreaView>
         <DialogComponent />
       </View>
     );
@@ -138,8 +159,8 @@ const Styles = StyleSheet.create({
     flex: 1
   },
   contentInner: {
-    minHeight: '100%',
-    paddingBottom: adjustSize(30)
+    // minHeight: '100%'
+    paddingBottom: isIphoneX ? 34 : adjustSize(30)
   }
 });
 const StylesBackground = StyleSheet.create({

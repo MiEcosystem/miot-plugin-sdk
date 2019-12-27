@@ -24,8 +24,10 @@ export function wrapBackWithViewName(RouterStack) {
         return purposeState;
       }
     }
-    if(action.type === 'Navigation/BACK') {
-      CachedNavigations = CachedNavigations.slice(0, -1);
+    if(action.type === 'Navigation/COMPLETE_TRANSITION' && state) {
+      setTimeout(() => {
+        CachedNavigations = CachedNavigations.slice(0, state.index + 1);
+      });
     }
     return defaultGetStateForAction(action, state);
   };

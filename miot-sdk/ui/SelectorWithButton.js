@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 import Switch from './Switch';
 import CircleButton from './CircleButton';
 import ContainerWithShadowAndSeparator from './ContainerWithShadowAndSeparator';
+import Host from '../Host';
 import {adjustSize} from '../utils/sizes';
 import {NOOP, log, isSameArrayElements} from '../utils/fns';
-import {FontLantingLight} from '../utils/fonts';
+import {FontDefault} from '../utils/fonts';
 import {ColorGreen} from '../utils/colors';
 export default class SelectorWithButton extends Component {
   static propTypes = {
@@ -22,9 +23,9 @@ export default class SelectorWithButton extends Component {
     disabled: PropTypes.bool,
     switchDisabled: PropTypes.bool,
     themeColor: PropTypes.any,
-    horizontal: PropTypes.bool,
-    separator: PropTypes.bool,
-    sizeLevel: PropTypes.oneOf([0, 1, 2, 3, '']),
+    // horizontal: PropTypes.bool,
+    // separator: PropTypes.bool,
+    // sizeLevel: PropTypes.oneOf([0, 1, 2, 3, '']),
     multiple: PropTypes.bool,
     minSelected: PropTypes.number,
     maxSelected: PropTypes.number,
@@ -41,9 +42,9 @@ export default class SelectorWithButton extends Component {
     disabled: false,
     switchDisabled: false,
     themeColor: '',
-    horizontal: false,
-    separator: false,
-    sizeLevel: '',
+    // horizontal: false,
+    // separator: false,
+    // sizeLevel: '',
     multiple: false,
     minSelected: 1,
     maxSelected: Infinity,
@@ -91,18 +92,22 @@ export default class SelectorWithButton extends Component {
       return null;
     // });
   }
+  getSizeLevel(items, sizeLevel) {
+    let itemCount = items.length;
+    return (itemCount <= 2 ? 0 : itemCount === 3 ? 1 : itemCount === 4 ? 2 : 3);
+  }
   getSelectors = () => {
-    let {items, sizeLevel, themeColor, disabled, switchDisabled, horizontal, separator} = this.props;
+    let {items, themeColor, disabled, switchDisabled, separator} = this.props;
     let {selectedIndexs} = this.state;
     let itemCount = items.length;
-    sizeLevel = [0, 1, 2, 3].indexOf(sizeLevel) !== -1 ? sizeLevel : (itemCount <= 2 ? 0 : itemCount === 3 ? 1 : itemCount === 4 ? 2 : 3);
+    let sizeLevel = this.getSizeLevel(items);
     return items.map((item, index) => {
       let selected = selectedIndexs.indexOf(index) !== -1;
-      let isHorizontal = horizontal && itemCount === 2;
-      let hasSeparator = isHorizontal && separator;
+      let isHorizontal = itemCount === 2;
+      let hasSeparator = isHorizontal;
       let hideTitle = itemCount >= 5 || items.findIndex(item => {
         return item && item.icon;
-      }) === -1;
+      }) === -1 || (itemCount >= 3 && Host.locale.language !== 'zh');
       return (
         <Fragment key={index}>
           {hasSeparator && index > 0 ? (
@@ -131,11 +136,14 @@ export default class SelectorWithButton extends Component {
       return null;
     }
     let Wrap = hasShadow ? ContainerWithShadowAndSeparator : Fragment;
+    let sizeLevel = this.getSizeLevel(items);
     return (
       <Wrap>
         <View style={Styles.container}>
         {title || subtitle || showSwitch ? (
-          <View style={Styles.header}>
+          <View style={[Styles.header, disabled ? {
+            opacity: 0.3
+          } : null]}>
             {title || subtitle ? (
               <View style={Styles.titleContainer}>
                 {title ? (
@@ -154,7 +162,7 @@ export default class SelectorWithButton extends Component {
             ) : null}
           </View>
         ) : null}
-          <View style={[Styles.selectors, title || subtitle || showSwitch ? Styles.selectorWithHeader : null]}>
+          <View style={[Styles.selectors, title || subtitle || showSwitch ? Styles.selectorsWithHeader : null, items.length >= 4 ? null : [Styles.selectorsPadding0, Styles.selectorsPadding1, Styles.selectorsPadding2, Styles.selectorsPadding3][sizeLevel]]}>
             {this.getSelectors()}
           </View>
         </View>
@@ -181,7 +189,7 @@ const Styles = StyleSheet.create({
   },
   title: {
     fontSize: adjustSize(42),
-    fontFamily: FontLantingLight,
+    fontFamily: FontDefault,
     color: '#000'
   },
   titleSeparator: {
@@ -192,14 +200,29 @@ const Styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: adjustSize(36),
-    fontFamily: FontLantingLight,
+    fontFamily: FontDefault,
     color: 'rgba(0, 0, 0, 0.6)'
   },
   selectors: {
     paddingVertical: adjustSize(60),
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center'
+  },
+  selectorsWithHeader: {
+    paddingTop: 0
+  },
+  selectorsPadding0: {
+    paddingHorizontal: adjustSize(0)
+  },
+  selectorsPadding1: {
+    paddingHorizontal: adjustSize(78)
+  },
+  selectorsPadding2: {
+    paddingHorizontal: adjustSize(0)
+  },
+  selectorsPadding3: {
+    paddingHorizontal: adjustSize(0)
   },
   selectorWithHeader: {
     paddingTop: 0
@@ -208,7 +231,7 @@ const Styles = StyleSheet.create({
     width: 1,
     height: adjustSize(120),
     backgroundColor: 'rgba(0, 0, 0, 0.15)',
-    marginHorizontal: adjustSize(30)
+    marginHorizontal: adjustSize(60)
   }
 });
 //@native end

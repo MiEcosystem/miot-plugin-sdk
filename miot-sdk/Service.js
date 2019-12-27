@@ -4,7 +4,14 @@
  * @doc_index 1
  * @doc_directory service
  * @module miot/Service
- * @description 系统服务模块，提供了设备，红外，场景，安全，存储，miot-spec协议，账号等子服务模块
+ * @description Service 模块提供的能力主要包括米家服务端及米家云平台提供的服务能力
+ * 能力主要包括：
+ * 账号管理(Account.js)
+ * 房间管理(room.js)
+ * 智能场景(scene.js)
+ * 云服务(smarthome.js)
+ * Spec协议(spec.js)
+ * 云存储(storage.js)
  * @example
  *
  * import {Service} from 'miot'
@@ -30,7 +37,7 @@
  */
 //@native
 // import Ximalaya from './service/ximalaya';
-import Account from './Account';
+import Account from './service/Account';
 import native, { Properties } from './native';
 import apiRepo from './service/apiRepo';
 import omitApi from './service/omitApi';

@@ -2,7 +2,7 @@
 import React, {Component, PureComponent, Fragment} from 'react';
 import {StyleSheet, DeviceEventEmitter, View, ScrollView, Image, ART} from 'react-native';
 import {SafeAreaView} from 'react-navigation';
-import Device from '../Device';
+import Device from '../device';
 import NavigationBar from './NavigationBar';
 import Separator from './Separator';
 import {Styles as CommonStyle} from '../resources';

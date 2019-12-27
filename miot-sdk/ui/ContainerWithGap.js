@@ -51,7 +51,7 @@ export default class ContainerWithGap extends PureComponent {
   static defaultProps = {
     containerStyle: {},
     horizontal: false,
-    gap: 10,
+    gap: 7,
     outerGap: 0
   };
   getContents() {

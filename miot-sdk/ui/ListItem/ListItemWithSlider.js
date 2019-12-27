@@ -5,6 +5,7 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Slider from "react-native-slider";
 import { Styles } from '../../resources';
 import Separator from "../Separator";
+import {FontDefault} from '../../utils/fonts';
 const { width } = Dimensions.get('window');
 const HEIGHT = 77;
 const PADDING = 24;
@@ -20,12 +21,13 @@ const THUMB_TOUCH_SIZE = { width: 50, height: 50 };
  * @module ListItemWithSlider
  * @description 带滑动条的列表项
  * @property {string} title - 标题
+ * @property {string} subtitle - 副标题，优先级高于自动计算的值
  * @property {object} sliderProps - slider的属性值，默认值 {minimumValue:0,maximumValue:100,step:1,value:50}
  * minimumValue：最小值；maximumValue：最大值；step：步长；value：当前值
  * @property {bool} showWithPercent - 是否以百分比显示当前值，默认值 true
  * @property {string} unit - 当前值的单位。`showWithPercent = true` 将不显示单位
  * @property {object} sliderStyle - slider 的自定义样式
- * 默认值 
+ * 默认值
  * {
  *   minimumTrackTintColor: "#32BAC0", // slider 左侧已填充颜色
  *   maximumTrackTintColor: "rgba(0,0,0,0.15)", // slider 右侧未填充颜色
@@ -46,6 +48,7 @@ const THUMB_TOUCH_SIZE = { width: 50, height: 50 };
 export default class ListItemWithSlider extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string,
     sliderProps: PropTypes.object,
     showWithPercent: PropTypes.bool,
     unit: PropTypes.string,
@@ -61,6 +64,7 @@ export default class ListItemWithSlider extends React.Component {
   }
   static defaultProps = {
     title: '',
+    subtitle: '',
     showWithPercent: true,
     unit: '',
     disabled: false,
@@ -68,6 +72,7 @@ export default class ListItemWithSlider extends React.Component {
     titleStyle: {},
     valueStyle: {},
     showSeparator: true,
+    onSlidingComplete: () => {}
   }
   constructor(props, context) {
     super(props, context);
@@ -90,6 +95,7 @@ export default class ListItemWithSlider extends React.Component {
   render() {
     let extraStyle = {
       maxWidth: (width - PADDING * 2) * 0.7,
+      fontFamily: FontDefault
     }
     if (this.props.containerStyle.width) {
       extraStyle = {
@@ -109,7 +115,7 @@ export default class ListItemWithSlider extends React.Component {
             </Text>
             <View style={styles.separatorCol} />
             <Text style={[styles.value, this.props.valueStyle]}>
-              {this.state.valueStr}
+              {this.props.subtitle || this.state.valueStr}
             </Text>
           </View>
           <View style={styles.down}>

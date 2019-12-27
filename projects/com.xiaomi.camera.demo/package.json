@@ -1,0 +1,10 @@
+{
+    "name": "project-com-xiaomi-camera-demo",
+    "version": "1.0.28",
+    "scripts": {
+        "start": "node ../../bin/runProject.js"
+    },
+    "dependencies": {
+        "base64-js": "^1.2"
+    }
+}
