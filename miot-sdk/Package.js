@@ -40,6 +40,7 @@ import native, { buildEvents, PackageExitAction, Properties } from './native';
 import resolveAssetResource from "./native/common/node/resolve";
 import { strings } from './resources';
 import ProtocolManager from './utils/protocol-helper'
+import rnPackageJSON from 'react-native/package.json'
 /**
  * @description JS端通知Native端的事件类型
  * @enum {number}
@@ -562,7 +563,7 @@ export default {
      * 获取React Native版本
      */
     get rnVersion() {
-        return "0.61.1";
+        return rnPackageJSON.version;
     },
     /**
      * 程序包名, 来自于{@link project.json} 的 {@link package_name}
