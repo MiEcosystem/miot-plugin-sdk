@@ -9,8 +9,8 @@ export default class IDeviceGateWay {
   /**
    * 获取子设备列表，如果是蓝牙网关的子设备列表，请使用下面的：getLinkedBTDevices方法
    * @since 10020
-   * @returns {Promise<IDevice[]>}
-   *    resolve：array<IDevice> 设备列表
+   * @returns {Promise<BasicDevice[]>}
+   *    resolve：array<BasicDevice> 设备列表
    *    reject：{code: xxx, message: xxx} -1:找不到设备  其他code：网络错误
    */
   getSubDevices() {

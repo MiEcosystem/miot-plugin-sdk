@@ -24,14 +24,18 @@
  *
  *  **注意：callMethod，loadProperties等几个直接和设备打交道的方法，排查错误的流程一般为：抓包查看请求参数是否没问题，插件和固件端联调看看固件端是否有收到正确的参数并返回正确的值！**
  */
+import { DeviceEventEmitter } from "react-native";
 import native, { NativeTimer, PackageExitAction, Properties } from '../native';
+import RootDevice, { BasicDevice } from './BasicDevice';
 const INTERVAL_SUBSCRIBE_MSG_SECONDS = (2 * 60 + 50);//2'50"
-import BasicDevice from './BasicDevice';
 /**
  * 设备网络访问控制类
  * @interface
  */
 export default class IDeviceWifi {
+    set deviceID(deviceID) {
+        Properties.of(this).deviceID = deviceID;
+    }
     /**
      * 获取设备ID，same as Device.deviceID
      * @member
@@ -44,6 +48,7 @@ export default class IDeviceWifi {
      */
     get deviceID() {
          return  ""
+        return Properties.of(this).deviceID;
     }
     /**
     * @typedef {Object} NetworkInfo
