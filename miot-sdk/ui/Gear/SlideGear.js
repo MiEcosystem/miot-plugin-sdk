@@ -119,7 +119,8 @@ export default class SlideGear extends React.Component {
             onPanResponderTerminationRequest: () => false,
             onPanResponderGrant: this._onPanResponderGrant.bind(this),
             onPanResponderMove: Animated.event([null, { dx: this.state.pan, moveX: this.state.moveX }]),
-            onPanResponderRelease: this._onPanResponderRelease.bind(this)
+            onPanResponderRelease: this._onPanResponderRelease.bind(this),
+            onPanResponderTerminate: this._onPanResponderRelease.bind(this)
         });
     }
     /**
@@ -295,6 +296,8 @@ export default class SlideGear extends React.Component {
         }, _ => {
             console.log(`滑块中心坐标: ${this.currentCoord}\n可滑动范围: ${this.state.dragToValueMin} ~ ${this.state.dragToValueMax}`);
             callback && callback();
+            this.state.pan.setOffset(0);
+            this.state.pan.setValue(0);
         });
     }
     /**
