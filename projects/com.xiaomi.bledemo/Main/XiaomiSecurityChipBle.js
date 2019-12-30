@@ -12,7 +12,7 @@ import {
 //import Host from 'miot/Host';
 import React from 'react';
 import {
-  ScrollView, StyleSheet, Text, View, TextInput
+  ScrollView, StyleSheet, Text, View, TextInput, NativeModules
 } from 'react-native';
 
 import CommonCell from './CommonCell';
@@ -285,8 +285,11 @@ export default class MainPage extends React.Component {
             <CommonCell isSwitch isOn={this.state.testCharNotify} title="特征订阅" onValueChange={val => this.enableNotify(val)} onPress={() => this.enableNotify(!this.state.testCharNotify)} />
             <CommonCell title="发送测试数据" onPress={() => this.sendTestText()} />
             {/* <CommonCell title="固件升级(测试中断)" onPress={() => NativeModules.MHPluginSDK.openBLECommonDFUPage({ fake_dfu_url: this.state.fake_dfu_url, auth_type: 3, hook_dfu_fragment: 2 })} /> */}
-            <CommonCell title="固件升级-指定DFU" onPress={() => Host.ui.openBleCommonDeviceUpgradePage({ fake_dfu_url: this.state.fake_dfu_url, auth_type: AUTH_TYPE })} />
-            <CommonCell title="固件升级-常规" onPress={() => Host.ui.openBleCommonDeviceUpgradePage({ auth_type: AUTH_TYPE })} />
+            {/* <CommonCell title="固件升级-指定DFU" onPress={() => Host.ui.openBleCommonDeviceUpgradePage({ fake_dfu_url: this.state.fake_dfu_url, auth_type: AUTH_TYPE })} />
+            <CommonCell title="固件升级-常规" onPress={() => Host.ui.openBleCommonDeviceUpgradePage({ auth_type: AUTH_TYPE })} /> */}
+
+            <CommonCell title="固件升级-指定DFU" onPress={() => (Host.isAndroid ? NativeModules.MIOTHost : NativeModules.MHPluginSDK).openBleOtaDeviceUpgradePage({ fake_dfu_url: this.state.fake_dfu_url, auth_type: 1 })} />
+            <CommonCell title="固件升级-常规" onPress={() => (Host.isAndroid ? NativeModules.MIOTHost : NativeModules.MHPluginSDK).openBleOtaDeviceUpgradePage({ auth_type: 1 })} />
           </View>
           <ScrollView style={{ flex: 1, borderRightWidth: 1, borderRightColor: 'black' }}>
             <Text>

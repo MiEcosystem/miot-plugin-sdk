@@ -9,6 +9,7 @@
 import {
   Bluetooth, BluetoothEvent, Device, Service
 } from 'miot';
+import { StringSpinner } from 'miot/ui';
 import Host from 'miot/Host';
 import React from 'react';
 import {
@@ -17,7 +18,7 @@ import {
 
 import CommonCell from './CommonCell';
 
-let bt = Device.getBluetoothLE();
+const bt = Device.getBluetoothLE();
 
 //uuids for testing.
 const UUID_SERVICE = '00000100-0065-6C62-2E74-6F696D2E696D';
@@ -29,13 +30,14 @@ export default class MainPage extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      chars: {},
-      services: [],
       isEnable: false,
       connectState: '未连接',
       lightStatu: false,
       lightBrightness: 0,
-      log: ''
+      log: '',
+      firmwareList: [{ name: '版本未获取', url: '' }],
+      fake_dfu_url: '',
+      fake_dfu_name: ''
     };
   }
 
@@ -52,179 +54,12 @@ export default class MainPage extends React.Component {
         Host.ui.showBLESwitchGuide();
       }
     });
-    this._s5 = BluetoothEvent.bluetoothStatusChanged.addListener(isOn => {
-      console.log('bluetoothStatusChanged', isOn);
-      this.addLog('蓝牙状态发生变化 ： ' + JSON.stringify(isOn));
-      if (!isOn) {
-        this.setState({
-          connectState: '未连接',
-          chars: {},
-          services: []
-        });
-      }
-    });
-    this._s1 = BluetoothEvent.bluetoothSeviceDiscovered.addListener((blut, services) => {
-      if (services.length <= 0) {
-        return;
-      }
-      console.log('bluetoothSeviceDiscovered', blut.mac, services.map(s => s.UUID), bt.isConnected);
-      this.addLog('发现蓝牙服务更新：' + JSON.stringify(services.map(s => s.UUID)));
-
-      const s = services.map(s => ({ uuid: s.UUID, char: [] }));
-      this.setState({ services: s });
-      if (bt.isConnected) {
-        this.addLog('开始扫描特征值');
-        services.forEach(s => {
-          this.state.services[s.UUID] = s;
-          s.startDiscoverCharacteristics();
-        });
-      }
-      Device.getBluetoothLE().getVersion(true, true).then(version => {
-        // Device.getBluetoothLE().securityLock.decryptMessageWithToken(version).then(data => {
-        //   this.addLog('设备版本为：' + version + ', 解析结果：' + JSON.stringify(data));
-        // });
-      }).catch(err => {
-        // console.log(err, '-------');
-      });
-    });
-    this._s2 = BluetoothEvent.bluetoothCharacteristicDiscovered.addListener((bluetooth, service, characters) => {
-      console.log('bluetoothCharacteristicDiscovered', characters.map(s => s.UUID), bt.isConnected);
-      this.addLog('发现蓝牙特征值更新，具体参见右上部分属性列表');
-      const { services } = this.state;
-      services.forEach(s => {
-        if (s.uuid === service.UUID) {
-          s.char = characters.map(s => s.UUID);
-        }
-      });
-      this.setState({ services });
-      if (bt.isConnected) {
-        characters.forEach(c => {
-          this.state.chars[c.UUID] = c;
-        });
-      }
-    });
-    this._s3 = BluetoothEvent.bluetoothCharacteristicValueChanged.addListener((bluetooth, service, character, value) => {
-      if (service.UUID.indexOf('ffd5') > 0) {
-        console.log('bluetoothCharacteristicValueChanged', character.UUID, value);//刷新界面
-      }
-      if (character.UUID === UUID_BUTTON_READ_WRITE_NOTIFY) {
-        this.addLog('收到回复：' + value);
-        bt.securityLock.decryptMessage(value).then(res => {
-          this.addLog('收到回复：' + res);
-        });
-      }
-      // this.addLog('bluetoothCharacteristicValueChanged:' + character.UUID + '>' + value);
-    });
-    this._s4 = BluetoothEvent.bluetoothSeviceDiscoverFailed.addListener((blut, data) => {
-      console.log('bluetoothSeviceDiscoverFailed', data);
-    //   this.setState({ buttonText: 'bluetoothSeviceDiscoverFailed :' + data });
-    });
-    this._s5 = BluetoothEvent.bluetoothCharacteristicDiscoverFailed.addListener((blut, data) => {
-      console.log('bluetoothCharacteristicDiscoverFailed', data);
-    //   this.setState({ buttonText: 'bluetoothCharacteristicDiscoverFailed:' + data });
-    });
-    this._s6 = BluetoothEvent.bluetoothConnectionStatusChanged.addListener((blut, isConnect) => {
-      console.log('bluetoothConnectionStatusChanged', blut, isConnect);
-      if (bt.mac === blut.mac) {
-        this.setState({ connectState: isConnect });
-        this.addLog('蓝牙' + JSON.stringify(blut) + '状态变化' + isConnect);
-        if (!isConnect) {
-          this.setState({
-            connectState: '未连接',
-            chars: {},
-            services: []
-          });
-        }
-      }
-    });
+    this.checkOTAVersion();
     this.readLightProp();
   }
 
   componentWillUnmount() {
     this.showing = false;
-    if (bt.isConnected) {
-      bt.disconnect();
-      console.log('disconnect');
-    }
-    this._s1.remove();
-    this._s2.remove();
-    this._s3.remove();
-    this._s4.remove();
-    this._s5.remove();
-    this._s6.remove();
-  }
-
-  enableNotify(val) {
-    if (!bt.isConnected || this.state.services.length <= 0) {
-      this.addLog('蓝牙尚未连接或者service未发现');
-      return;
-    }
-    this.addLog('switch' + val);
-    //   });
-  }
-
-  sendTestText() {
-    if (!bt.isConnected || this.state.services.length <= 0) {
-      this.addLog('蓝牙尚未连接或者service未发现');
-      return;
-    }
-    bt.securityLock.encryptMessage('01010101')
-      .then(hex => {
-        bt.getService(UUID_SERVICE).getCharacteristic(UUID_LED_READ_WRITE).writeWithoutResponse(hex);
-      })
-      .then(res => {
-        this.addLog('write res' + JSON.stringify(res));
-      })
-      .catch(err => {
-        this.addLog('write error' + JSON.stringify(err));
-      });
-
-
-  }
-
-  /**
-     * 更新固件后重新链接设备
-     */
-  update() {
-    Bluetooth.startScan(30000, '1000000-0000-0000-00000000000');//扫描指定设备
-    BluetoothEvent.bluetoothDeviceDiscovered.addListener(result => {
-      bt = Bluetooth.createBluetoothLE(result.uuid || result.mac);//android 用 mac 创建设备，ios 用 uuid 创建设备
-      // this.connect();
-    });
-  }
-
-  doOTA(test = true) {
-    test ? this.addLog('开启OTA测试 分包传输') : this.addLog('开启OTA DFU 分包传输');
-    bt.startOTA(test);
-  }
-
-  connect() {
-    this.setState({ connectState: '连接中。。。' });
-    this.addLog('准备开始蓝牙连接');
-    if (bt.isConnected) {
-      console.log();
-      this.addLog('蓝牙设备已经连接');
-      this.addLog('开始发先服务');
-      this.setState({ connectState: '已连接' });
-      bt.startDiscoverServices();
-    }
-    else if (bt.isConnecting) {
-      this.addLog('蓝牙正处于连接中，请等待连接结果后再试');
-    }
-    else {
-      bt.connect(5).then(data => {
-        this.setState({ connectState: '已连接' });
-        bt.startDiscoverServices();
-      }).catch(data => {
-        this.setState({ connectState: '连接失败' });
-        this.addLog('ble connect failed: ' + JSON.stringify(data));
-      });
-    }
-  }
-
-  disconnect() {
-    this.setState({ connectState: '断开连接中。。。' });
-    bt.disconnect();
   }
 
   addLog(string) {
@@ -291,6 +126,25 @@ export default class MainPage extends React.Component {
     });
   }
 
+  checkOTAVersion() {
+    fetch('http://support.io.mi.srv/product/if_productinfo?model=' + Device.model)
+      .then(response => response.json())
+      .then(response => {
+        const fileName = response.result.update_file;
+        if (fileName === undefined) {
+          return new Promise.reject('fetch version failed');
+        }
+        return fetch('http://support.io.mi.srv/product/if_firmware_versionlist?name=' + fileName);
+      })
+      .then(response => response.json())
+      .then(response => {
+        const infos = response.result;
+        const versionMap = infos.map(info => ({ name: info.version, url: info.sign_url }));
+        const { url, name } = versionMap[0];
+        this.setState({ firmwareList: versionMap, fake_dfu_url: url, fake_dfu_name: name });
+      });
+  }
+
   render() {
     return (
       <View style={styles.mainContainer}>
@@ -303,20 +157,23 @@ export default class MainPage extends React.Component {
             <CommonCell title="关灯" onPress={() => this.toggleLight(false)} />
             <CommonCell title="随机灯色" onPress={() => this.changeBrightness()} />
             <CommonCell title="同步状态" onPress={() => this.readLightProp()} />
-            {/* <CommonCell title="连接蓝牙" onPress={() => this.connect()} /> */}
-            {/* <CommonCell title="断开蓝牙" onPress={() => this.disconnect()} /> */}
+            <CommonCell title="更新固件列表" onPress={() => this.checkOTAVersion()} />
             <CommonCell title="固件升级-旧" onPress={() => Host.ui.openBleMeshDeviceUpgradePage()} />
-            <CommonCell title="固件升级-新常规" onPress={() => Host.ui.openBleCommonDeviceUpgradePage({ auth_type: 5 })} />
+            <CommonCell
+              title="新-固件升级-指定DFU"
+              onPress={() => {
+                if (this.state.fake_dfu_url === '' || this.state.fake_dfu_url === undefined) {
+                  this.addLog('请先选择需要升级的固件版本');
+                }
+                (Host.isAndroid ? NativeModules.MIOTHost : NativeModules.MHPluginSDK).openBleOtaDeviceUpgradePage({ fake_dfu_url: this.state.fake_dfu_url, fake_dfu_name: 'debug:' + this.state.fake_dfu_name, auth_type: 5 });
+              }}
+            />
+            <CommonCell title="新-固件升级-常规" onPress={() => (Host.isAndroid ? NativeModules.MIOTHost : NativeModules.MHPluginSDK).openBleOtaDeviceUpgradePage({ auth_type: 5 })} />
           </View>
           <ScrollView style={{ flex: 1, borderRightWidth: 1, borderRightColor: 'black' }}>
             <Text>
 蓝牙状态：
               {this.state.connectState}
-            </Text>
-            <Text>
-发现Service：
-              {this.state.services.length}
-个
             </Text>
             <Text style={{ color: !this.state.lightStatu ? 'red' : 'green' }}>
 测试灯状态：
@@ -326,28 +183,28 @@ export default class MainPage extends React.Component {
 测试灯亮度：
               {'' + this.state.lightBrightness}
             </Text>
-          </ScrollView>
-          <ScrollView style={{ flex: 1 }}>
-
-            {
-              this.state.services.map((val, index) => (
-                <View key={index} style={{ marginTop: 20 }}>
-                  <Text style={[{ backgroundColor: 'white' }]}>
-service:
-                    {' '}
-                    {val.uuid}
-                  </Text>
-                  {
-                    val.char.map((v, i) => (
-                      <CommonCell
-                        title={'char: ' + v}
-                      />
-                    ))
-                  }
-
-                </View>
-              ))
-          }
+            <Text style={{ color: 'black', marginTop: 30 }}>
+左侧选择 ’新-固件升级-指定DFU’时,将强制写入下方选择的DFU版本。更新完成之后查看版本即可。更新点击 ‘检测固件版本’：
+            </Text>
+            <StringSpinner
+              style={{ width: 300, height: 100, backgroundColor: '#ffffff' }}
+              dataSource={this.state.firmwareList.map(e => e.name)}
+              defaultValue="1.4.0_0001"
+              pickerInnerStyle={{
+                lineColor: '#cc0000', textColor: '#ff0000', selectTextColor: '#0000FF', fontSize: 12, selectFontSize: 16, rowHeight: 30, selectBgColor: '#f5f5f5'
+              }}
+              onValueChanged={data => {
+                const { url, name } = this.state.firmwareList.filter(e => e.name === data.newValue)[0];
+                const a = this.state.firmwareList.filter(e => e.name === data.newValue);
+                if (url !== undefined) {
+                  this.addLog('选择测试版本：' + data.newValue + ', 测试下载链接：' + JSON.stringify(url));
+                  this.setState({ fake_dfu_url: url, fake_dfu_name: name });
+                }
+                else {
+                  this.addLog('选择测试版本异常：' + JSON.stringify(data) + JSON.stringify(a));
+                }
+              }}
+            />
           </ScrollView>
         </View>
         <View style={{ flex: 2, flexDirection: 'column' }}>
