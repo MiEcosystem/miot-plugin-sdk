@@ -1,10 +1,19 @@
 export default class IDeviceGateWay {
+  // @native begin
+  constructor(deviceID, originDevice) {
+    Properties.of(this).did = deviceID;
+    Properties.of(this).originDevice = originDevice;
+  }
   /**
    * 获取设备deviceID，same as Device.deviceID
    * @since 10020
    */
   get deviceID() {
-     return  ""
+    return Properties.of(this).did;
+  }
+  //获取rootDevice
+  get originDevice() {
+    return Properties.of(this).originDevice;
   }
   /**
    * 获取子设备列表，如果是蓝牙网关的子设备列表，请使用下面的：getLinkedBTDevices方法

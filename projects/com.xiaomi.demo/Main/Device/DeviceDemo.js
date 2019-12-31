@@ -155,7 +155,8 @@ export default class DeviceDemo extends React.Component {
               isBinded2: {this.state.device.isBinded2.toString()}</Text>
             <Text style={{ margin: 10, width: width }}>当前设备
               isReadOnlyShared: {this.state.device.isReadonlyShared.toString()}</Text>
-
+              <Text style={{ margin: 10, width: width }}>当前设备
+              是否是根设备: {this.state.device.isRootDevice?"是":"否"}</Text>
           </ScrollView>
         </View>
       </View>

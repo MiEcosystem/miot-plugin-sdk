@@ -12,7 +12,7 @@
  * 经典蓝牙设备操作类
  * @interface
  */
-export default class ClassicBluetoothFactory {
+export default {
     /**
      * 初始化经典蓝牙,返回的数据没有实际作用, 执行到catch表示初始化失败。
      * @since 10023
@@ -20,7 +20,7 @@ export default class ClassicBluetoothFactory {
      */
     create() {
          return Promise.resolve(null);
-    }
+    },
     /**
      * 根据device 的mac 地址，与中心设备建立socket 链接, 返回的数据没有实际作用, 执行到catch表示连接失败
      * @since 10023
@@ -30,7 +30,7 @@ export default class ClassicBluetoothFactory {
      */
     connectSocket(macAddress, transportUUID) {
          return Promise.resolve(null);
-    }
+    },
     /**
      * 断开与中心设备的socket连接, 返回的数据没有实际作用, 执行到catch表示断开连接失败
      * @since 10023
@@ -38,7 +38,7 @@ export default class ClassicBluetoothFactory {
      */
     disconnectSocket() {
          return Promise.resolve(null);
-    }
+    },
     /**
      * 向蓝牙设备写入数据, 返回的数据没有实际作用, 执行到catch表示写失败
      * @since 10023
@@ -47,7 +47,7 @@ export default class ClassicBluetoothFactory {
      */
     write(data) {
          return Promise.resolve(null);
-    }
+    },
     /**
      * 事先准备要需要的BluetoothProfile, 具体的类型是profile, 具体的数值参考Android Api: BluetoothProfile.HEADSET，BluetoothProfile.A2DP
      * HEADSET = 1;A2DP = 2;HEALTH = 3;
@@ -57,7 +57,7 @@ export default class ClassicBluetoothFactory {
      */
     prepareBluetoothProfile(profile) {
          return Promise.resolve(null);
-    }
+    },
     /**
      * 连接类型为profile（比如BluetoothProfile.HEADSET，BluetoothProfile.A2DP) 的蓝牙服务
      * @since 10023
@@ -67,7 +67,7 @@ export default class ClassicBluetoothFactory {
      */
     connectBluetoothProfile(macAddress, profile) {
          return Promise.resolve(null);
-    }
+    },
     /**
      * 断开类型为profile（比如BluetoothProfile.HEADSET，BluetoothProfile.A2DP) 的蓝牙服务
      * @since 10023
@@ -77,7 +77,7 @@ export default class ClassicBluetoothFactory {
      */
     disconnectBluetoothProfile(macAddress, profile) {
          return Promise.resolve(null);
-    }
+    },
     /**
      * 获取类型为profile的BluetoothProfile的当前状态, 返回值有四个选项,参考android api : BluetoothProfile.STATE_DISCONNECTED等
      * STATE_DISCONNECTED = 0; STATE_CONNECTING = 1;STATE_CONNECTED = 2;TATE_DISCONNECTING = 3;
@@ -88,7 +88,7 @@ export default class ClassicBluetoothFactory {
      */
     getBluetoothProfileState(macAddress, profile) {
          return Promise.resolve(null);
-    }
+    },
     /**
      * 销毁蓝牙服务
      * @since 10023

@@ -22,6 +22,7 @@ import NormalBle from './NormalBle';
 import StandardAuthBle from './XiaomiStandardAuthBle';
 import SecurityChipBle from './XiaomiSecurityChipBle';
 import MeshBle from './MeshBle';
+import ClassicBle from './ClassicBle';
 
 const RootStack = createStackNavigator(
   {
@@ -29,6 +30,7 @@ const RootStack = createStackNavigator(
     securityChip: SecurityChipBle,
     normalble: NormalBle,
     meshble:MeshBle,
+    classicBle:ClassicBle,
     guide: {
       screen: Guide,
       navigationOptions: ({ navigation }) => ({

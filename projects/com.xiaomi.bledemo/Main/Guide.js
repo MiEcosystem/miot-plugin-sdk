@@ -11,7 +11,8 @@ export default class Guide extends React.Component {
         { title: 'StandardAuth  蓝牙板 Demo', sceen: 'standardAuth' },
         { title: 'SecurityChip  蓝牙板 Demo', sceen: 'securityChip' },
         { title: 'Mesh蓝牙开发板 Demo', sceen: 'meshble' },
-        { title: '非小米协议蓝牙设备 Demo', sceen: 'normalble' }
+        { title: '非小米协议蓝牙设备 Demo', sceen: 'normalble' },
+        { title: 'Android 经典蓝牙 Demo', sceen: 'classicBle' }
         // { title: '普通蓝牙设备Demo', sceen: 'normalble' }
       ]
     };

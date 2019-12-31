@@ -26,16 +26,18 @@
  */
 import { DeviceEventEmitter } from "react-native";
 import native, { NativeTimer, PackageExitAction, Properties } from '../native';
-import RootDevice, { BasicDevice } from './BasicDevice';
+import { BasicDevice, _find_device } from './BasicDevice';
 const INTERVAL_SUBSCRIBE_MSG_SECONDS = (2 * 60 + 50);//2'50"
 /**
  * 设备网络访问控制类
  * @interface
  */
 export default class IDeviceWifi {
+    // @native begin
     set deviceID(deviceID) {
         Properties.of(this).deviceID = deviceID;
     }
+    //@ native end
     /**
      * 获取设备ID，same as Device.deviceID
      * @member
@@ -48,7 +50,6 @@ export default class IDeviceWifi {
      */
     get deviceID() {
          return  ""
-        return Properties.of(this).deviceID;
     }
     /**
     * @typedef {Object} NetworkInfo

@@ -165,6 +165,7 @@ export class BasicDevice {
      */
     get isRootDevice() {
          return  false
+        return !(parent && Object.keys(parent).length > 0);
     }
     /**
     * 获取小米WiFi设备控制类
