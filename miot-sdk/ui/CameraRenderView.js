@@ -174,10 +174,12 @@ export default class CameraRenderView extends React.Component {
      */
     stopAudioRecord() {
          return null
+    }
     /**
      * 隐藏SurfaceView only for Android
      * @since 10033
      */
     hidesSurfaceView() {
          return null
+    }
 }
