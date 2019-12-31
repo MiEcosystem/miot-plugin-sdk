@@ -79,7 +79,7 @@ export default class UIDemo extends React.Component {
                         bothTimerMustBeSet: false,
                         showOnTimerType: true,
                         showOffTimerType: false,
-                        showPeriodTimerType: true,
+                        showPeriodTimerType: false,
                     }
                     Host.ui.openTimerSettingPageWithOptions(params);
                 }

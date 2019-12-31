@@ -11,48 +11,60 @@
  * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 'use strict';
 
 // ART的demo }
+import { Entrance, Package } from "miot";
 import { FirmwareUpgrade, MoreSetting } from "miot/ui/CommonSetting";
 import TitleBar from "miot/ui/TitleBar";
 import React from 'react';
 import { createStackNavigator } from 'react-navigation'; //
 import HelloDeveloper from '../CommonModules/HelloDeveloper';
 import HelloReactART from '../CommonModules/HelloReactART';
-import AccountDemo from './Account';
 import AnimCustomCompDemo from './AnimationComponentDemo/AnimCustomCompDemo'; //自定义动画组
 import AnimEffectsDemo from './AnimationComponentDemo/AnimEffectsDemo'; //动画特效
 import AnimEventsDemo from './AnimationComponentDemo/AnimEventsDemo'; //动画事件
 import AnimFadeInOutDemo from './AnimationComponentDemo/AnimFadeInOutDemo'; //淡入淡出
 import AnimTransformDemo from './AnimationComponentDemo/AnimTransformDemo'; //旋转翻转
 import AnimTranslationDemo from './AnimationComponentDemo/AnimTranslationDemo'; //平行移动
+import FadeSlideDemo from './AnimationComponentDemo/FadeSlideDemo';
 import LayoutAnimationDemo from './AnimationComponentDemo/LayoutAnimationDemo'; //其他动画
 import ControlDemo from './Device/ControlDemo';
 import DeviceControl from "./Device/DeviceControl";
 import DeviceDemo from "./Device/DeviceDemo";
+/********    Host 部分   ********/
 import HostDemo from "./Host";
+import HostEventDemo from "./Host/HostEventDemo";
 import FileStorage from './Host/File';
+import FileDemo from './Host/FileDemo';
+import HostPropsInfoDemo from './Host/HostPropsInfoDemo';
 import JSExecutor from './Host/JSExecutor';
 import LocaleServer from './Host/Local';
 import MHAudioDemo from './Host/MHAudioDemo';
 import OrientationDemo from './Host/OrientationDemo';
-import StorageDemo from './Host/Storage';
+import KVStorageDemo from './Host/KVStorageDemo';
 import NavigateUIDemo from "./Host/UI";
 import PrivacyDemo from "./Host/UI/privacy";
 import VideoDemo from './Host/VideoDemo';
-import HostPropsInfoDemo from './Host/HostPropsInfoDemo';
 import ImageTest from './issues/imageTest/imageTest';
 import SmarthomeDemo from './issues/smarthomeDemo';
 import MainPage from './MainPage';
 import MoreMenu from './MoreMenu';
 import ImagePathDemo from './NewStructureTest';
+import { PluginEntrance } from "./PluginEntrance";
 // import GLTests from './ThirdPartDemo/openGL/Tests';
 // import OpenLibList from './OpenLibList';
+/********    Service 部分   ********/
 import ServiceDemo from './Service';
 import MiotSpecDemo from './Service/MiotSpecDemo';
-import MHRoomDemo from "./Service/room";
+import MHRoomDemo from "./Service/RoomDemo";
+import MHSceneDemo from "./Service/SceneDemo";
+import AccountDemo from './Service/AccountDemo';
 import CallSmartHomeAPIDemo from './Service/smarthome';
+import CloudStorageDemo from './Service/CloudStorageDemo';
+
+/********    UI 部分   ********/
 import AddressBookDemo from './ThirdPartDemo/AddressBookDemo';
 import AnimatedSVGDemo from './ThirdPartDemo/AnimatedSVGDemo';
 import ARTCircleDemo from './ThirdPartDemo/ARTComponentDemo/ARTCircleDemo'; //圆形：Circle，
@@ -123,6 +135,7 @@ import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo";
 import Parallax from "./UIComponent/Parallax";
 import RadioExample from "./UIComponent/RadioExample";
 import RefreshListView from './UIComponent/RefreshListView';
+import SoftKeyboardAdapterTestDemo from './UIComponent/SoftKeyboardAdapterTestDemo';
 import StringSpinnerDemo from "./UIComponent/StringSpinnerDemo";
 import RobotMapDemo from "./UIComponent/RobotMapDemo";
 import Dynamic from './UIComponent/swiper/Dynamic/';
@@ -134,12 +147,9 @@ import SwitchDemo from "./UIComponent/SwitchDemo";
 import ToastExample from "./UIComponent/ToastExample";
 // import BLEConnectionDemo from './tutorial/operation/bluetooth/BLEConnectionDemo';
 import UIDemo from './UIComponent/UIDemo';
-import SoftKeyboardAdapterTestDemo from './UIComponent/SoftKeyboardAdapterTestDemo';
 import CustomContainer from './uikit/components/CustomContainer';
 import * as Screens from "./uikit/screens";
 import MHSetting from './unuse/MHSetting';
-import { Entrance, Package } from "miot";
-import { PluginEntrance } from "./PluginEntrance";
 
 // class HomeScreen extends React.Component {
 //   render() {
@@ -165,14 +175,16 @@ function createRootStack(initPage) {
     GearExample,
     RadioExample,
     CheckboxDemo,
-    MHRoomDemo,
     ToastExample,
     SwitchDemo,
     MHDatePickerDemo,
     DialogExample,
     NavigationBarDemo,
     HostDemo,
+    HostEventDemo:HostEventDemo,
     ServiceDemo,
+    MHRoomDemo:MHRoomDemo,
+    MHSceneDemo:MHSceneDemo,
     BlankPageEntry,
     BlankPageDemo,
     tutorialDemo: TutorialDemo,
@@ -183,10 +195,12 @@ function createRootStack(initPage) {
     JSExecutor: JSExecutor,
     DeviceDemo: DeviceDemo,
     PackageDemo: PackageDemo,
-    accountDemo: AccountDemo,
+    AccountDemo: AccountDemo,
+    CloudStorageDemo: CloudStorageDemo,
     ControlDemo: ControlDemo,
-    storageDemo: StorageDemo,
+    KVStorageDemo: KVStorageDemo,
     fileStorage: FileStorage,
+    FileDemo: FileDemo,
     callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
     MiotSpecDemo: MiotSpecDemo,
     RPCControl: RPCControl,
@@ -289,6 +303,7 @@ function createRootStack(initPage) {
     AnimEffectsDemo: AnimEffectsDemo,
     AnimEventsDemo: AnimEventsDemo,
     LayoutAnimationDemo: LayoutAnimationDemo,
+    FadeSlideDemo,
     AnimCustomCompDemo: AnimCustomCompDemo,
 
     // 第三方库 demo 结束
@@ -438,7 +453,6 @@ export default class App extends React.Component {
       this.initPage = "Home";
     }
   }
-
 
   render() {
     let RootStack = createRootStack(this.initPage);

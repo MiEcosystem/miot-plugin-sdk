@@ -1,3 +1,11 @@
+/*
+ * @description: 
+ * @since: 
+ * @author: 
+ * @Date: 2019-10-14 19:39:26
+ * @param: 
+ * @example: 
+ */
 /**
  * @export public
  * @doc_name 安全模块
@@ -128,16 +136,16 @@ export default {
      * @param deviceID 被分享设备ID
      * @param shareUid 被分享人
      * @param {{status,activeTime,expireTime,weekdays,readonly}} [settings={}] readonly = true, 则被分享人不可接收锁push，false则被分享人可接收锁push，（family关系用户不受这个字段影响）。status:分享类别，1：暂时，2：周期，3：永久; weekdays 生效日期（星期几，例如周一和周三对应1和3，[1, 3]），仅在status=2时不可为空
-     * @returns {Promise<ISecureKey>}
+     * @returns {Promise<ISecureKey>} 分享成功返回锁的信息；reject的时候返回的是object，如果该锁已经分享给被分享人会返回失败，错误码为-101；其他错误情形留意返回的错误信息
      *
      */
     shareSecureKey(deviceID, shareUid, settings = {}) {
          return Promise.resolve(null);
     },
     /**
-     * 获取锁绑定信息, /device/blelockbindinfo 返回数据格式：{"bindtime":1505180216}
+     * 获取锁绑定信息, /device/blelockbindinfo 返回数据格式：{"bindtime":1505180216}，bindtime是锁的绑定时间
      *
-     * @param {*} deviceID
+     * @param {string} deviceID
      * @returns {Promise<json>}
      *
      */

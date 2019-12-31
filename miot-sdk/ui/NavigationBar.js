@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'stretch',
     marginHorizontal: 5,
   },
   title: {

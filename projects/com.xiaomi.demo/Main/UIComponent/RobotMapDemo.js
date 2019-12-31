@@ -8,9 +8,9 @@ import {
 } from 'react-native';
 
 const resolveAssetSource = require('resolveAssetSource');
-import {RobotMapView} from 'miot/ui'
+import { RobotMapView } from 'miot/ui'
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 export default class RobotMapDemo extends React.Component {
 
@@ -19,13 +19,13 @@ export default class RobotMapDemo extends React.Component {
         this.state = {
             mapImages: [{
                 source: require('../../Resources/robot/charge.png'),
-                position: {x: 125, y: 125}, size: {w: 10, h: 10},
+                position: { x: 125, y: 125 }, size: { w: 29, h: 39 },
                 rotation: 0,
                 name: 'charge'
             }, {
                 source: require('../../Resources/robot/robot.png'),
-                position: {x: 140, y: 140},
-                size: {w: 10, h: 10},
+                position: { x: 140, y: 140 },
+                size: { w: 29, h: 29 },
                 name: 'robot'
             }]
         }
@@ -37,28 +37,28 @@ export default class RobotMapDemo extends React.Component {
             this.setState({
                 mapImages: [{
                     source: require('../../Resources/robot/charge.png'),
-                    position: {x: 125, y: 125},
-                    size: {w: 10, h: 10},
+                    position: { x: 125, y: 125 },
+                    size: { w: 29, h: 39 },
                     rotation: 0,
                     name: 'charge'
                 }, {
                     source: require('../../Resources/robot/robot.png'),
                     bgSource: require('../../Resources/robot/robot_working.png'),
-                    position: {x: 135, y: 135},
-                    size: {w: 10, h: 10},
+                    position: { x: 135, y: 135 },
+                    size: { w: 29, h: 29 },
                     name: 'robot'
                 }]
             })
-            this.updateMapData(pointsStr, true, 'robot', false);
+            this.updateMapData(pointsStr, true, 'robot', true);
         }, 1000)
     }
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
                 <RobotMapView
-                    style={{width: width, height: width, backgroundColor: '#f5f5f5'}}
-                    mapStyle={{wallColor: '#75c4fa', floorColor: '#468ad6', lineColor: '#9bc4e3'}}
+                    style={{ width: width, height: width, backgroundColor: '#f5f5f5' }}
+                    mapStyle={{ wallColor: '#75c4fa', floorColor: '#468ad6', lineColor: '#9bc4e3' }}
                     imageSources={this.state.mapImages}
                     ref='mapView'
                 />
@@ -72,7 +72,7 @@ export default class RobotMapDemo extends React.Component {
                         color: '#666666'
                     }}>清扫</Text>
                 </TouchableHighlight>
-                <TouchableHighlight onPress={this._stopSweep.bind(this)} style={{marginTop: 20}}>
+                <TouchableHighlight onPress={this._stopSweep.bind(this)} style={{ marginTop: 20 }}>
                     <Text style={{
                         fontSize: 12,
                         padding: 15,
@@ -82,7 +82,7 @@ export default class RobotMapDemo extends React.Component {
                         color: '#666666'
                     }}>暂停</Text>
                 </TouchableHighlight>
-                <TouchableHighlight onPress={this._backCharge.bind(this)} style={{marginTop: 20}}>
+                <TouchableHighlight onPress={this._backCharge.bind(this)} style={{ marginTop: 20 }}>
                     <Text style={{
                         fontSize: 12,
                         padding: 15,
@@ -91,6 +91,16 @@ export default class RobotMapDemo extends React.Component {
                         borderWidth: 0.5,
                         color: '#666666'
                     }}>回充</Text>
+                </TouchableHighlight>
+                <TouchableHighlight onPress={this._cleanMapView.bind(this)} style={{ marginTop: 20 }}>
+                    <Text style={{
+                        fontSize: 12,
+                        padding: 15,
+                        alignSelf: 'center',
+                        borderColor: '#cccccc',
+                        borderWidth: 0.5,
+                        color: '#666666'
+                    }}>清除地图</Text>
                 </TouchableHighlight>
             </View>
         )
@@ -104,12 +114,14 @@ export default class RobotMapDemo extends React.Component {
             this.setState({
                 mapImages: [{
                     source: require('../../Resources/robot/charge.png'),
-                    position: {x: 125, y: 125},
+                    position: { x: 125, y: 125 },
+                    size: { w: 29, h: 39 },
                     name: 'charge'
                 }, {
                     source: require('../../Resources/robot/robot.png'),
                     bgSource: require('../../Resources/robot/robot_working.png'),
-                    name: 'robot'
+                    name: 'robot',
+                    size: { w: 29, h: 29 },
                 }]
             })
         }, 2000)
@@ -121,13 +133,13 @@ export default class RobotMapDemo extends React.Component {
             this.setState({
                 mapImages: [{
                     source: require('../../Resources/robot/charge.png'),
-                    position: {x: 125, y: 125},
-                    size: {w: 10, h: 10},
+                    position: { x: 125, y: 125 },
+                    size: { w: 29, h: 39 },
                     rotation: 0,
                     name: 'charge'
                 }, {
                     source: require('../../Resources/robot/robot.png'),
-                    size: {w: 10, h: 10},
+                    size: { w: 29, h: 29 },
                     name: 'robot'
                 }]
             })
@@ -138,23 +150,29 @@ export default class RobotMapDemo extends React.Component {
     _backCharge() {
         //rpc,收到回到充电座的订阅后
         this.refs.mapView.positionForImage('robot').then((position) => {
-            let sleepLoc = {x: position.x + 5, y: position.y - 5};
+            let sleepLoc = { x: position.x + 15, y: position.y - 15 };
             this.setState({
                 mapImages: [{
                     source: require('../../Resources/robot/charge.png'),
-                    name: 'charge'
+                    name: 'charge',
+                    size: { w: 20, h: 30 },
                 }, {
                     source: require('../../Resources/robot/robot.png'),
-                    name: 'robot'
+                    name: 'robot',
+                    size: { w: 20, h: 20 },
                 }, {
                     source: require('../../Resources/robot/sleep.png'),
-                    size: {w: 10, h: 10},
+                    size: { w: 20, h: 20 },
                     position: sleepLoc,
                     name: 'sleep'
                 }]
             })
         })
 
+    }
+
+    _cleanMapView() {
+        this.refs.mapView.cleanMapView();
     }
 
 

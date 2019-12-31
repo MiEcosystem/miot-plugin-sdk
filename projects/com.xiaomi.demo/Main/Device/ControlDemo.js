@@ -1,6 +1,7 @@
 'use strict';
 
 import { Device, DeviceEvent } from "miot";
+import MIOT from "miot";
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { Image, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
@@ -29,6 +30,8 @@ export default class ControlDemo extends React.Component {
   }
 
   componentDidMount() {
+    console.log(MIOT);
+    console.log(Device);
     this._deviceStatusListener = DeviceEvent.deviceReceivedMessages.addListener(
       (device, map, res) => {
         console.log('Device.addListener', device, map, res);
@@ -36,8 +39,7 @@ export default class ControlDemo extends React.Component {
         // let sRGB = "#" + this.getNewRGB(status.rgb >> 16, (status.rgb >> 8) & 0x00ff, (status.rgb & 0x0000ff));
         // this.setState({ "resultViewColor": sRGB });
       });
-    Device.getDeviceWifi().subscribeMessages("prop.IR_01A", "prop.IR_02A"
-    );
+    Device.getDeviceWifi().subscribeMessages("prop.IR_01A", "prop.IR_02A");
   }
 
   componentWillUnmount() {

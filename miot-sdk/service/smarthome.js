@@ -34,14 +34,16 @@ export default {
      */
     /**
      * 获取用户的昵称和头像信息
+     * @deprecated 已废弃，请使用 Service.account.getAccountInfoById 方法
      * @param {*} uid 获取用户信息的uid或者手机号
-     * @returns {Promise<UserInfo>} a promise with user info
+     * @returns {Promise<UserInfo>} 用户信息
      */
     getUserInfo(uid) {
          return Promise.resolve({});
     },
     /**
      * 通过UID批量获取用户信息
+     * @deprecated 已废弃，请使用 Service.account.getAccountInfoList 方法
      * @since 10005
      * @param {Array<string>} uids uid数组，仅支持uid，不支持手机号查询
      * @return {Promise<Array<object>>}
@@ -121,6 +123,18 @@ export default {
     checkDeviceVersion(did, pid) {
          return Promise.resolve({});
     },
+    // @native begin
+    getProtocolUrls(params) {
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.standardCall("/v2/plugin/get_protocol", params, (ok, res) => {
+                if (ok) {
+                    return resolve(res);
+                }
+                reject(res);
+            });
+        });
+    },
+    // @native end
     /**
      * // 获取可用固件更新，传参为dids。 /home/multi_checkversion
      * @param {array<string>} deviceIDs 设备ID
@@ -131,6 +145,7 @@ export default {
     },
     /**
      * 获取服务器中 最新的版本信息，内部调用米家代理接口/home/latest_version
+     * @deprecated 请使用下面的getLatestVersionV2
      * @param {string} model 设备的 model
      * @return {Promise}
      */
@@ -151,6 +166,7 @@ export default {
      * 开发者应该在拓展程序内合适时机调用该接口，打点信息会自动写入文件，按 Model 归类，即一个 Model 生成一个日志文件。
      * 当用户反馈问题时，勾选 “同时上传日志”，则该 Model 的日志会跟随用户反馈上传，
      * 开发者可在 IoT 平台查看用户反馈及下载对应日志文件。用户反馈查看入口：数据中心—用户反馈，如果看不到数据中心入口，联系自己所属企业管理员修改账号权限。
+     * 查看地址：https://iot.mi.com/fe-op/operationCenter/userFeedback
      * @param {string} model 要打 log 到哪个 model 下
      * @param {string} log 具体的 log 数据
      * @returns {void}
@@ -160,7 +176,6 @@ export default {
      *     Service.smarthome.reportLog(Device.model, `[info]test value is :${v1},${v2},${v3}`)
      *     Package.isDebug&&Service.smarthome.reportLog(...)
      *
-     *     Device.reportLog(`...`)
      */
     reportLog(model, log) {
     },
@@ -347,7 +362,7 @@ export default {
      * @param {json} params -参数\{did,type,key,time_start,time_end,limit}含义如下：
      * @param {string} params.did 设备id。 必选参数
      * @param {string} params.uid 要查询的用户id 。必选参数
-     * @param {string} params.key 属性或事件名，必选参数。(注意：如果设备是蓝牙设备，传入的是object id， 且为十进制数据；如果是wifi设备，才传入自定义属性或事件名，可以在开发者平台-产品-功能定义中查看)
+     * @param {string} params.key 属性或事件名，必选参数。(注意：如果设备是蓝牙设备，传入的是object id， 且为十进制数据；如果是wifi设备，才传入自定义属性或事件名，可以在开发者平台-产品-功能定义中查看)，如果是miot-spec设备，请传入（siid.piid或者siid.eiid）
      * @param {string} params.type 必选参数[prop/event], 如果是查询上报的属性则type为prop，查询上报的事件则type为event,
      * @param {string} params.time_start 数据起点。必选参数
      * @param {string} params.time_end 数据终点。必选参数，time_end必须大于time_start,
@@ -366,7 +381,7 @@ export default {
      * @since 10004
      * @param {object} params {did:'', type: '', key:'',time:number} did:设备ID ;type: 要删除的类型 ;key: 事件名称. motion/alarm ;time:时间戳，单位秒
      * @param {string} params.did 设备id。 必选参数
-     * @param {string} params.type type 定义与SDS表中type一致。必选参数。可参考SDS文档中的示例
+     * @param {string} params.type type 定义与SDS表中type一致。必选参数。可参考SDS文档中的示例：https://iot.mi.com/new/doc/08-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/03-%E5%AD%98%E5%82%A8/02-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8-SDS.html?h=del_user_device_data
      * @param {string} params.key key 事件名，可自定义,定义与SDS表中key一致。必选参数
      * @param {string} params.time 指定时间戳
      * @param {string} params.value 指定值
@@ -431,6 +446,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
+     * 石头扫地机专用
      * 添加设备属性和事件历史记录，/home/getmapfileurl
      * @param {json} params
      * @return {Promise}
@@ -476,7 +492,8 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 获取AppConfig配置文件，1. 插件端有一些自己的信息需要配置，可使用此接口 2. 局限性：只有小米内部有权配置，之后可能会出对外版（目前只能找米家产品经理/工程师帮忙配置）3.维护起来很不方便，不建议使用。
+     * 获取AppConfig配置文件，1. 插件端有一些自己的信息需要配置，可使用此接口 2. 局限性：只有小米内部有权配置，之后可能会出对外版（目前只能找米家产品经理/工程师帮忙配置）
+     *  **维护起来很不方便，不建议使用。**
      * 默认获取的是release版数据， 如果需要获取preview版数据， 可以在米家APP中 我的-->开发者设置-->其他设置的界面中 “AppConfig接口拉取preview版数据”  置为选中状态
      * @param {object} params 请求参数
      * @param {string} params.name configName 配置的名字
@@ -649,7 +666,7 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 获取InterimFileUrl 获取临时文件
+     * 获取InterimFileUrl 获取临时文件。文档请参考：https://iot.mi.com/new/doc/08-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/03-%E5%AD%98%E5%82%A8/01-%E4%BD%BF%E7%94%A8FDS%E5%AD%98%E5%82%A8%E7%94%A8%E6%88%B7%E6%96%87%E4%BB%B6.html#%E5%9B%9B%EF%BC%8Efds%E5%AD%98%E5%82%A8%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD%E6%B5%81%E7%A8%8B
      * @param {json} params  -参数 {obj_name : '{ownerId}/{deviceId}/{index}'}
      * @returns {Promise}
      */
@@ -681,7 +698,7 @@ export default {
     },
     /**
      * /v2/home/range_get_open_config
-     * 通过appid、category、configid获获取对应的配置
+     * 通过appid、category、configid获获取对应的配置，请参考文档文档：https://iot.mi.com/new/doc/08-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/03-%E5%AD%98%E5%82%A8/03-KV-OpenConfig.html
      * @since 10002
      * @param {json} params  -参数 {did,category,configids,offset,limit}
      * @return {Promise}

@@ -1,5 +1,6 @@
-import { Device, Host } from 'miot';
-import { DeviceEvent } from 'miot/Device';
+import { Device, Host, DeviceEvent } from 'miot';
+// import {Device,DeviceEvent} from 'miot'
+// import {Host} from 'miot';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
@@ -401,7 +402,6 @@ export default class CommonSetting extends React.Component {
     // 如果不设置英文字体，那么外文字符串将显示不全（Android）
     let fontFamily = {};
     if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' }
-    // 1. 装填必选项
     const requireKeys1 = [firstAllOptions.NAME, firstAllOptions.LOCATION];
     const requireKeys2 = [
       firstAllOptions.MORE,
@@ -462,17 +462,18 @@ export default class CommonSetting extends React.Component {
           })
         }
         <Separator />
-        <View style={styles.bottomContainer}>
-          <RkButton
-            style={styles.buttonContainer}
-            onPress={_ => this.openDeleteDevice()}
-            activeOpacity={0.8}
-          >
-            <Text style={[styles.buttonText, fontFamily]}>
-              {strings.deleteDevice}
-            </Text>
-          </RkButton>
-        </View>
+        {!Device.isFamily ?
+          (<View style={styles.bottomContainer}>
+            <RkButton
+              style={styles.buttonContainer}
+              onPress={_ => this.openDeleteDevice()}
+              activeOpacity={0.8}
+            >
+              <Text style={[styles.buttonText, fontFamily]}>
+                {strings.deleteDevice}
+              </Text>
+            </RkButton>
+          </View>) : null}
       </View>
     );
   }

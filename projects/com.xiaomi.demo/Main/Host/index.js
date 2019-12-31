@@ -34,21 +34,27 @@ export default class HostDemo extends React.Component {
         }
       },
       {
+        'name': 'HostEventDemo-手机系统事件监听',
+        'func': () => {
+          this.props.navigation.navigate('HostEventDemo', { title: '手机系统事件监听' })
+        }
+      },
+      {
         'name': 'Native导航模块-ui',
         'func': () => {
           this.props.navigation.navigate('NavigateUIDemo', { title: 'Native导航模块-ui' })
         }
       },
       {
-        'name': '文件存储与截图-file',
+        'name': '本地文件存储与截图-file',
         'func': () => {
-          this.props.navigation.navigate('fileStorage', { title: '文件存储与截图-file' })
+          this.props.navigation.navigate('FileDemo', { title: '本地文件存储与截图-file' })
         }
       },
       {
         'name': '本地KV存储-storage',
         'func': () => {
-          this.props.navigation.navigate('storageDemo', { title: '本地KV存储-storage' })
+          this.props.navigation.navigate('KVStorageDemo', { title: '本地KV存储-storage' })
         }
       },
       {

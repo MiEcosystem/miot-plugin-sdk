@@ -127,7 +127,8 @@ export default class AMapView extends Component {
         userLocationRepresentation: PropTypes.object,
         /**
          * 标记点数组  
-         * 格式：[{'coordinate':{latitude: number, longitude: number}, 'title':'aaa', 'subtitle':'', 'id':'', 'image':'imagePath'}]
+         * 格式：[{'coordinate':{latitude: number, longitude: number}, 'title':'aaa', 'subtitle':'', 'id':'', 'image':'imagePath', 'canShowCallout': true}]
+         * canShowCallout 是否点击后显示title
          * @member {array}
          */
         annotations: PropTypes.array,

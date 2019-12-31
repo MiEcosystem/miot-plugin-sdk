@@ -1,10 +1,10 @@
 'use strict';
 
-import { Device, Host, Service } from "miot";
+import { Device, Host, Service, DeviceEvent } from "miot";
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
-import {PluginEntrance} from "../PluginEntrance";
+import { PluginEntrance } from "../PluginEntrance";
 var BUTTONS = [
     '测试对话框',
     '确定',
@@ -90,37 +90,37 @@ export default class UIDemo extends React.Component {
                 }
             },
             {
-              'name': '打开插件的Setting页面(需要返回到插件首页)',
-              'func': () => {
-                let pageParams = {
-                  did:Device.deviceID,
-                  model:Device.model,
+                'name': '打开插件的Setting页面(需要返回到插件首页)',
+                'func': () => {
+                    let pageParams = {
+                        did: Device.deviceID,
+                        model: Device.model,
+                    }
+                    Host.ui.openPluginPage(Device.deviceID, PluginEntrance.Setting, pageParams).then((res) => {
+                        // 此处最好不要做任何事, android会退出此插件
+                        console.log("res", res)
+                    }).catch((error) => {
+                        // 打开插件失败
+                        console.log("error", error)
+                    })
                 }
-                Host.ui.openPluginPage(Device.deviceID, PluginEntrance.Setting, pageParams).then((res)=>{
-                  // 此处最好不要做任何事, android会退出此插件
-                  console.log("res", res)
-                }).catch((error)=>{
-                  // 打开插件失败
-                  console.log("error", error)
-                })
-              }
             },
             {
-              'name': '打开插件的Setting页面(不需要返回插件首页)',
-              'func': () => {
-                let pageParams = {
-                  did:Device.deviceID,
-                  model:Device.model,
-                  isBackToMainPage: false
+                'name': '打开插件的Setting页面(不需要返回插件首页)',
+                'func': () => {
+                    let pageParams = {
+                        did: Device.deviceID,
+                        model: Device.model,
+                        isBackToMainPage: false
+                    }
+                    Host.ui.openPluginPage(Device.deviceID, PluginEntrance.Setting, pageParams).then((res) => {
+                        // 此处最好不要做任何事, android会退出此插件
+                        console.log("res", res)
+                    }).catch((error) => {
+                        // 打开插件失败
+                        console.log("error", error)
+                    })
                 }
-                Host.ui.openPluginPage(Device.deviceID, PluginEntrance.Setting, pageParams).then((res)=>{
-                  // 此处最好不要做任何事, android会退出此插件
-                  console.log("res", res)
-                }).catch((error)=>{
-                  // 打开插件失败
-                  console.log("error", error)
-                })
-              }
             },
             {
                 'name': '蓝牙token加密',
@@ -259,7 +259,7 @@ export default class UIDemo extends React.Component {
                     Device.getDeviceTimeZone().then((res) => {
                         alert(JSON.stringify(res))
                     }).catch((error) => {
-                        alert(error)
+                        alert(JSON.stringify(error))
                     })
                 }
             },
@@ -269,7 +269,7 @@ export default class UIDemo extends React.Component {
                     Device.changeDeviceName("新名称").then((res) => {
                         alert(JSON.stringify(res))
                     }).catch((error) => {
-                        alert(error)
+                        alert(JSON.stringify(error))
                     })
                 }
             },
@@ -279,10 +279,10 @@ export default class UIDemo extends React.Component {
                     Device.getRecommendScenes(Device.model, Device.deviceID).then((res) => {
                         alert(JSON.stringify(res))
                     }).catch((error) => {
-                        alert(error)
+                        alert(JSON.stringify(error))
                     })
                 }
-            },{
+            }, {
                 'name': '获取miot-spec设备当前信息',
                 'func': async () => {
                     let data = await Service.spec.getCurrentSpecValue(Device.deviceID);
@@ -290,10 +290,6 @@ export default class UIDemo extends React.Component {
                 }
             }
         ];
-    }
-
-    componentWillUnmount() {
-
     }
 
     render() {

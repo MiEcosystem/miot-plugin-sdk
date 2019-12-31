@@ -4,7 +4,14 @@
  * @doc_index 1
  * @doc_directory service
  * @module miot/Service
- * @description 系统服务模块，提供了设备，红外，场景，安全，存储，miot-spec协议，账号等子服务模块
+ * @description Service 模块提供的能力主要包括米家服务端及米家云平台提供的服务能力
+ * 能力主要包括：
+ * 账号管理(Account.js)
+ * 房间管理(room.js)
+ * 智能场景(scene.js)
+ * 云服务(smarthome.js)
+ * Spec协议(spec.js)
+ * 云存储(storage.js)
  * @example
  *
  * import {Service} from 'miot'
@@ -28,9 +35,10 @@
  *
  *
  */
-import Account from './Account';
+import Account from './service/Account';
 import native, { Properties } from './native';
 import apiRepo from './service/apiRepo';
+import omitApi from './service/omitApi';
 import IrController from './service/ircontroller';
 import MHRoom from './service/room';
 import Scene from './service/scene';
@@ -165,6 +173,22 @@ export default {
    * @returns {Promise} resolve({res,did,token})
    */
   applyForDeviceIDAndToken(model, mac) {
+     return Promise.resolve(null);
+  },
+  /**
+   * @method callSpecificAPI
+   * @since 10031
+   * @description 调用当前手机设备的网关http服务
+   * 只封装透传网络请求，无法对接口调用结果解释，有问题请直接联系项目对接后台人员或 PM。
+   * 
+   * @param {string} url - url
+   * @param {string} method - 如 'get', 'post'等 不区分大小写 暂时只支持 get 和 post 
+   * @param {object} params 传入参数，比如{ did: 'xxxx', pid: 'xxxx' }
+   * @returns {Promise}
+   * 成功时：返回网络请求的结果对应字符串， 相当于：response.body().string()
+   * 失败时：{"code":xxx, "message":"xxx" }
+   */
+  callSpecificAPI(url, method, params) {
      return Promise.resolve(null);
   }
 }
