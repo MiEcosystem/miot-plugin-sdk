@@ -1,7 +1,7 @@
 import Device from "../device/BasicDevice";
 import Service from "../Service";
 import native from "../native";
-let resolveAssetSource = require('resolveAssetSource');
+let resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 export default class ProtocolManager {
   static _legalInfoAuthHasShowed = false;
   static _UniUrl = 'https://home.mi.com/miot/activity/privacy/index.html';

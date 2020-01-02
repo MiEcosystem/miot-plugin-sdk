@@ -29,6 +29,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { requireNativeComponent, ViewPropTypes } from 'react-native';
+//@native
+const RCTSingleChoseDialog = requireNativeComponent('RCTSingleChoseDialog', null);
 export default class SingleChoseDialog extends Component {
   static propTypes = {
     visible: PropTypes.bool,
@@ -46,6 +48,28 @@ export default class SingleChoseDialog extends Component {
     ...ViewPropTypes,
   };
   render() {
-     return null
+    //@native :=> null
+    return <RCTSingleChoseDialog {...this.props}
+      onDismiss={(event) => {
+        if (this.props.onDismiss) {
+          this.props.onDismiss(event.nativeEvent);
+        }
+      }}
+      onCancel={(event) => {
+        if (this.props.onCancel) {
+          this.props.onCancel(event.nativeEvent);
+        }
+      }}
+      onCheck={(event) => {
+        if (this.props.onCheck) {
+          this.props.onCheck(event.nativeEvent);
+        }
+      }}
+      onConfirm={(event) => {
+        if (this.props.onConfirm) {
+          this.props.onConfirm(event.nativeEvent);
+        }
+      }} />;
+    //@native end
   }
 }

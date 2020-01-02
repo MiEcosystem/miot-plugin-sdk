@@ -1,33 +1,52 @@
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * @flow strict-local
+ */
+//'use strict';
+//import MiotAndroidScrollView from 'react-native/Libraries/Components/ScrollView/ScrollView'
+//
+//export default MiotAndroidScrollView
 'use strict';
 import {
     ScrollView,
     Platform,
+    Animated,
+    ColorPropType,
+    EdgeInsetsPropType,
+    PointPropType,
+    StyleSheet,
+    ViewPropTypes,
 } from 'react-native';
-const Animated = require('Animated');
-const ColorPropType = require('ColorPropType');
-const EdgeInsetsPropType = require('EdgeInsetsPropType');
-const PointPropType = require('PointPropType');
+//const Animated = require('Animated');
+//const ColorPropType = require('ColorPropType');
+//const EdgeInsetsPropType = require('EdgeInsetsPropType');
+//const PointPropType = require('PointPropType');
 const PropTypes = require('prop-types');
-const React = require('React');
-const ReactNative = require('ReactNative');
-const ScrollResponder = require('ScrollResponder');
-const ScrollViewStickyHeader = require('ScrollViewStickyHeader');
-const StyleSheet = require('StyleSheet');
-const StyleSheetPropType = require('StyleSheetPropType');
-const View = require('View');
-const ViewPropTypes = require('ViewPropTypes');
-const ViewStylePropTypes = require('ViewStylePropTypes');
+const React = require('react');//const React = require('React');
+const ReactNative = require('react-native');//const ReactNative = require('ReactNative');
+import ScrollResponder from 'react-native/Libraries/Components/ScrollResponder';//const ScrollResponder = require('ScrollResponder');
+import ScrollViewStickyHeader from 'react-native/Libraries/Components/ScrollView/ScrollViewStickyHeader';//const ScrollViewStickyHeader = require('ScrollViewStickyHeader');
+//const StyleSheet = require('StyleSheet');
+import StyleSheetPropType from 'react-native/Libraries/DeprecatedPropTypes/DeprecatedStyleSheetPropType';//const StyleSheetPropType = require('StyleSheetPropType');
+import View from 'react-native/Libraries/Components/View/View';//const View = require('View');
+//const ViewPropTypes = require('ViewPropTypes');
+import ViewStylePropTypes from 'react-native/Libraries/DeprecatedPropTypes/DeprecatedViewStylePropTypes';//const ViewStylePropTypes = require('ViewStylePropTypes');
 const createReactClass = require('create-react-class');
-const dismissKeyboard = require('dismissKeyboard');
-const flattenStyle = require('flattenStyle');
+import dismissKeyboard from 'react-native/Libraries/Utilities/dismissKeyboard';//const dismissKeyboard = require('dismissKeyboard');
+import flattenStyle from 'react-native/Libraries/StyleSheet/flattenStyle';//const flattenStyle = require('flattenStyle');
 const invariant = require('fbjs/lib/invariant');
 import processDecelerationRate from './DecelerationRate';
-const requireNativeComponent = require('requireNativeComponent');
+import requireNativeComponent from 'react-native/Libraries/ReactNative/requireNativeComponent';//const requireNativeComponent = require('requireNativeComponent');
 /* $FlowFixMe(>=0.54.0 site=react_native_oss) This comment suppresses an error
  * found when Flow v0.54 was deployed. To see the error delete this comment and
  * run Flow. */
 const warning = require('fbjs/lib/warning');
-const resolveAssetSource = require('resolveAssetSource');
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';//const resolveAssetSource = require('resolveAssetSource');
 import type {NativeMethodsMixinType} from 'ReactNativeTypes';
 /**
  * Component that wraps platform ScrollView while providing

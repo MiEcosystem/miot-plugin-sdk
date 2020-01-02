@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View, Platform } from 'react-native';
 import { RkTextInput, RkTheme } from 'react-native-ui-kitten';
 import { Styles } from '../../resources';
 import Checkbox from '../Checkbox/Checkbox';
@@ -262,6 +262,7 @@ export default class InputDialog extends React.Component {
   }
   render() {
     if (!this.props.visible) return null;
+    const absDialogStyle = Platform.OS === 'ios' ? {bottom: ~~(height * 0.45)} : {}
     return (
       <AbstractDialog
         animationType={this.props.animationType}
@@ -269,7 +270,7 @@ export default class InputDialog extends React.Component {
         title={this.props.title}
         buttons={this.buttons}
         onDismiss={_ => this._onDismiss()}
-        style={{ bottom: ~~(height * 0.45) }}
+        style={absDialogStyle}
       >
         <View style={[styles.container]}>
           {this.renderUpExtra()}

@@ -52,7 +52,61 @@ export const getBluetoothUUID128 = id => {
     }
     return id + "-0000-1000-8000-00805F9B34FB";
 }
- const bluetoothDevices={}
+//@native begin
+const Fakemac = (mac, deviceUUID) => ({
+    mac,
+    deviceUUID,
+    get id() {
+        return native.isAndroid ? this.mac : (this.mac ? this.mac : this.deviceUUID);
+    }
+})
+//@native end
+//@native = const bluetoothDevices={}
+const { bluetoothDevices } = native.LocalCache;
+//@native
+// const mac_uuid_for_ios = native.isIOS ? new Map() : null;
+//@native begin
+export function takeBluetooth(mac, uuid, isClassic = false) {
+    if (!mac && !uuid) {
+        return null;//error
+    }
+    let ios_uuid = getMacUuid();
+    if (native.isAndroid) {
+        uuid = null;
+    } else if (ios_uuid) {
+        if (uuid) {
+            uuid = getBluetoothUUID128(uuid);
+        }
+        if (mac) {
+            const _uuid = ios_uuid.get(mac);
+            if (!_uuid) {
+                setMacUuid(mac, uuid);
+            } else {
+                uuid = _uuid;
+            }
+        }
+    }
+    let bluetooth = bluetoothDevices.get(uuid || mac);
+    if (!bluetooth && uuid) {
+        bluetooth = bluetoothDevices.get(mac);
+        if (bluetooth) {
+            bluetoothDevices.set(uuid, bluetooth);
+        }
+    }
+    if (!bluetooth) {
+        const fakemac = Fakemac(mac, uuid);
+        let securityChip = new LockDevice();
+        Properties.init(securityChip, { fakemac });
+        bluetooth = Properties.init(new BluetoothDevice(), { fakemac, services: new Map(), securityChip, isClassic });
+        mac && bluetoothDevices.set(mac, bluetooth);
+        uuid && bluetoothDevices.set(uuid, bluetooth);
+    } else {
+        //强制设置类型
+        Properties.of(bluetooth).isClassic = isClassic;
+    }
+    return bluetooth;
+}
+//@native end
 /**
  * 蓝牙操作入口类
  * @interface
@@ -93,7 +147,11 @@ export default {
      *   const ble = Bluetooth.createBluetoothLE("a.b.c...")
      */
     createBluetoothLE(macOrPeripheralID) {
-         return null
+        //@native :=> null
+        return native.isAndroid
+            ? takeBluetooth(macOrPeripheralID, null, false)
+            : takeBluetooth(null, macOrPeripheralID, false);
+        //@native end
     },
     /**
      * 创建经典蓝牙设备
@@ -104,7 +162,11 @@ export default {
      *   const bludtoothClassic = Bluetooth.createBluetoothClassic("a.b.c...")
      */
     createBluetoothClassic(macOrPeripheralID) {
-         return null
+        //@native :=> null
+        return native.isAndroid
+            ? takeBluetooth(macOrPeripheralID, null, true)
+            : takeBluetooth(null, macOrPeripheralID, true);
+        //@native end
     },
     /**
      * 判断蓝牙是否开放,如果没打开，可以调用Host.ui.showBLESwitchGuide()打开提示页面，让用户打开蓝牙。
@@ -122,7 +184,26 @@ export default {
      * @returns {Promise<boolean>} 此方法不会走reject
      */
     checkBluetoothIsEnabled() {
-         return Promise.resolve(true);
+        //@native :=> promise true
+        //@mark andr done
+        if (native.isAndroid) {
+            return new Promise((resolve, reject) => {
+                native.MIOTBluetooth.isBluetoothOpen(flag => {
+                    resolve(flag);
+                });
+            })
+        } else {
+            return new Promise((resolve, reject) => {
+                native.MIOTBluetooth.getBluetoothStateCallback(flag => {
+                    if (flag == 5) {
+                        resolve(true)
+                    } else {
+                        resolve(false)
+                    }
+                });
+            })
+        }
+        //@native end
     },
     /**
      * 开始扫描蓝牙设备，此方法没有回调，扫描得到的结果，通过BluetoothEvent.bluetoothDeviceDiscovered.addListener()来获取扫描的结果，获取到正确的蓝牙设备对象后，记得调用下面的Bluetooth.stopScan()来停止蓝牙扫描。
@@ -147,6 +228,10 @@ export default {
         })
      */
     startScan(durationInMillis, ...serviceUUIDs) {
+        //@native begin
+        //  native.MIOTBluetooth.startScan(durationInMillis,isBLE?1:0, serviceUUIDs);
+        native.MIOTBluetooth.startLeScan(durationInMillis, serviceUUIDs);
+        //@native end
     },
     /**
      * 停止扫描蓝牙设备,此方法同样没有回调方法。获取到需要的设备，或者返回上一页，记得调用stopScan
@@ -154,6 +239,9 @@ export default {
      *
      */
     stopScan() {
+        //@native begin
+        native.MIOTBluetooth.stopScan();
+        //@native end
     },
     /**
      * iOS 平台获取已连接 BLE的蓝牙设备，适用于可穿戴长连接设备，一般此种类型的设备不需要断开。此方法可以理解为，根据UUID去获取已经连接的蓝牙设备
@@ -168,7 +256,17 @@ export default {
      *           reject: false（android调用时）
      */
     retrievePeripheralsForIOS(...UUIDs) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            if (native.isIOS) {
+                native.MIOTBluetooth.retrievePeripheralsWithIdentifiers(UUIDs, (result) => {
+                    resolve(result);
+                });
+            } else {
+                reject(false);
+            }
+        })
+        //@native end
     },
     /**
      * iOS 平台通过 serviceUUID 获取已连接 BLE Peripheral，适用于可穿戴长连接设备
@@ -181,7 +279,17 @@ export default {
      *            reject：false（android调用时）
      */
     retrievePeripheralsWithServicesForIOS(...UUIDs) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            if (native.isIOS) {
+                native.MIOTBluetooth.retrievePeripheralsWithServices(UUIDs, (result) => {
+                    resolve(result);
+                });
+            } else {
+                reject(false);
+            }
+        })
+        //@native end
     },
     /**
      * 打开蓝牙（Android），iOS无法直接操作蓝牙的打开，只能通过Host.ui.showBLESwitchGuide();提示用户打开蓝牙。
@@ -191,6 +299,12 @@ export default {
      *
      */
     enableBluetoothForAndroid(silence = false) {
+        //@native begin
+        //@mark andr done
+        if (native.isAndroid) {
+            native.MIOTBluetooth.openBluetooth(silence);
+        }
+        //@native end
     },
     /**
      * 判断当前设备是否通过蓝牙网关扫描到了。
@@ -200,7 +314,20 @@ export default {
      * @returns {Promise<boolean>}，此方法不会走reject
      */
     isBleGatewayConnected(mac) {
-         return Promise.resolve(true);
+        //@native :=> promise true
+        //@mark andr done
+        return new Promise((resolve, reject) => {
+            if (native.isAndroid) {
+                native.MIOTBluetooth.isBleGatewayConnected(mac, flag => {
+                    resolve(flag);
+                });
+            } else {
+                native.MIOTHost.isBtGateWaySubDeviceWithMac(mac, flag => {
+                    resolve(flag);
+                });
+            }
+        })
+        //@native end
     },
     /**
     * 只在MIUI上支持，维持长连接 如果连接失败，则会隔一段时间尝试重连，如果继续失败，则重连间隔会翻倍，直到上限。
@@ -208,6 +335,12 @@ export default {
     * @param {string} mac
     */
     bindDeviceforMIUI(mac) {
+        //@native begin
+        //@mark andr done
+        if (native.isAndroid) {
+            native.MIOTBluetooth.bindDevice(mac);
+        }
+        //@native end
     },
     /**
      * 只在MIUI上支持，解除长连接
@@ -215,6 +348,12 @@ export default {
      * @param {string} mac
      */
     unBindDeviceforMIUI(mac) {
+        //@native begin
+        //@mark andr done
+        if (native.isAndroid) {
+            native.MIOTBluetooth.unBindDevice(mac);
+        }
+        //@native end
     },
     /**
      * 只在MIUI上支持，维持长连接 如果连接失败，则会隔一段时间尝试重连，如果继续失败，则重连间隔会翻倍，直到上限。
@@ -225,5 +364,15 @@ export default {
      *  @param {string} mac
      */
     setAlertConfigsOnMIUI(mac, alert, enable) {
+        //@native begin
+        //@mark andr done
+        if (native.isAndroid) {
+            return new Promise((resolve, reject) => {
+                native.MIOTBluetooth.setAlertConfigs(mac, alert, enable, result => resolve(result));
+            })
+        } else {
+            Promise.reject("not MIUI");
+        }
+        //@native end
     },
 };

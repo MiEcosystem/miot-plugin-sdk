@@ -15,6 +15,8 @@
  * Host.audio.stopRecord().then(res => {//stop finished})
  * ...
  */
+//@native
+import native, { buildEvents } from "../native";
 export default {
   /**
    * 用户是否开启录制权限
@@ -22,7 +24,9 @@ export default {
    * @return {boolean}
    */
   isAbleToRecord() {
-     return Promise.resolve(null);
+    //@native :=> Promise.resolve(null);
+    return native.MIOTAudio.isAbleToRecord
+    //@native end
   },
   /**
    * 开始录音
@@ -38,14 +42,36 @@ export default {
    *
    */
   startRecord(audioName, settings) {
-     return Promise.resolve(null);
+    //@native :=> Promise.resolve(null);
+    //@mark andr done
+    return new Promise((resolve, reject) => {
+      native.MIOTAudio.startRecord(this.getFilePath(audioName), settings, (ret, message) => {
+        if (ret) {
+          resolve(ret)
+        } else {
+          reject(message)
+        }
+      });
+    });
+    //@native end
   },
   /**
    * 停止录音
    * @return {Promise}
    */
   stopRecord() {
-     return Promise.resolve(null);
+    //@native :=> Promise.resolve(null);
+    //@mark andr done
+    return new Promise((resolve, reject) => {
+      native.MIOTAudio.stopRecord((ret, message) => {
+        if (ret) {
+          resolve(ret)
+        } else {
+          reject(message)
+        }
+      });
+    });
+    //@native end
   },
   /**
    * 开始播放
@@ -54,14 +80,40 @@ export default {
    * @return {Promise}
    */
   startPlay(audioName, settings) {
-     return Promise.resolve(null);
+    //@native :=> Promise.resolve(null);
+    //@mark andr done
+    return new Promise((resolve, reject) => {
+      //use to load required audio
+      const resolveAssetSource = require("react-native/Libraries/Image/resolveAssetSource");
+      var resource = resolveAssetSource(audioName)
+      audioName = resource ? resource.uri : this.getFilePath(audioName)
+      native.MIOTAudio.startPlay(audioName, settings, (ret, message) => {
+        if (ret) {
+          resolve(ret)
+        } else {
+          reject(message)
+        }
+      });
+    });
+    //@native end
   },
   /**
    * 停止播放
    * @return {Promise}
    */
   stopPlay() {
-     return Promise.resolve(null);
+    //@native :=> Promise.resolve(null);
+    //@mark andr done
+    return new Promise((resolve, reject) => {
+      native.MIOTAudio.stopPlay((ret, message) => {
+        if (ret) {
+          resolve(ret)
+        } else {
+          reject(message)
+        }
+      });
+    });
+    //@native end
   },
   /**
    * 获取当前录制声音的峰值声音强度。
@@ -79,7 +131,18 @@ export default {
    *
    */
   getRecordingPeakPower() {
-     return Promise.resolve(null);
+    //@native :=> Promise.resolve(null);
+    //@mark andr done
+    return new Promise((resolve, reject) => {
+      native.MIOTAudio.getRecordingPeakPower((ret, message) => {
+        if (ret) {
+          resolve(message)
+        } else {
+          reject(message)
+        }
+      });
+    });
+    //@native end
   },
   /**
    * wav转 amr
@@ -88,7 +151,18 @@ export default {
    * @return {Promise}
    */
   wavToAmr(wavPath, savePath) {
-     return Promise.resolve(null);
+    //@native :=> Promise.resolve(null);
+    //@mark andr 暂未提供
+    return new Promise((resolve, reject) => {
+      native.isIOS && native.MIOTAudio.wavToAmr(this.getFilePath(wavPath), this.getFilePath(savePath), (ret, message) => {
+        if (ret) {
+          resolve(ret)
+        } else {
+          reject(message)
+        }
+      });
+    });
+    //@native end
   },
   /**
    * amr 转 wav
@@ -97,8 +171,31 @@ export default {
    * @return {Promise}
    */
   amrToWav(amrPath, savePath) {
-     return Promise.resolve(null);
+    //@native :=> Promise.resolve(null);
+    //@mark andr 暂未提供
+    return new Promise((resolve, reject) => {
+      native.isIOS && native.MIOTAudio.amrToWav(this.getFilePath(amrPath), this.getFilePath(savePath), (ret, message) => {
+        if (ret) {
+          resolve(ret)
+        } else {
+          reject(message)
+        }
+      });
+    });
+    //@native end
   },
+  //@native begin
+  getFilePath(fileName) {
+    if (typeof (fileName) != 'string') {
+      return fileName;
+    }
+    if (fileName.substr(0, 1) == '/') {
+      return native.MIOTFile.storageBasePath + fileName;
+    } else {
+      return native.MIOTFile.storageBasePath + '/' + fileName;
+    }
+  }
+  //@native end
 };
 /**
  * Audio播放事件名集合
@@ -124,6 +221,11 @@ export const AudioEvent = {
    *
    */
   audioPlayerDidFinishPlaying: {
+    //@native begin
+    forever: emitter => (event) => {
+      emitter.emit(event);
+    }
+    //@native end
   },
   /**
    * 播放进度事件
@@ -133,6 +235,11 @@ export const AudioEvent = {
    *
    */
   updateAudioPlayerTime: {
+    //@native begin
+    forever: emitter => (event) => {
+      emitter.emit(event);
+    }
+    //@native end
   },
   /**
    * 播放开始事件
@@ -142,6 +249,11 @@ export const AudioEvent = {
    *
    */
   audioPlayerDidStartPlaying: {
+    //@native begin
+    forever: emitter => (event) => {
+      emitter.emit(event);
+    }
+    //@native end
   }
 }
 buildEvents(AudioEvent);

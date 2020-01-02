@@ -17,6 +17,8 @@
  * Host.crypto.encodeMD5(str).then(res => {//md5 value is res})
  * ...
  */
+//@native
+import native from "../native";
 export default {
   /**
    * MD5 编码
@@ -24,7 +26,18 @@ export default {
    * @returns {Promise<string>} 使用md5编码后的字符串
    */
   encodeMD5(content) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.encodeMD5(content, (res, callback) => {
+        if (native.isIOS) { resolve(res); return; }
+        if (res) {
+          resolve(callback);
+        } else {
+          reject(callback);
+        }
+      });
+    });
+    //@native end
   },
   /** 
    * base64 编码
@@ -32,7 +45,18 @@ export default {
    * @returns {Promise<string>} 使用base64编码后的字符串
    */
   encodeBase64(content) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.encodeBase64(content, (res, callback) => {
+        if (native.isIOS) { resolve(res); return; }
+        if (res) {
+          resolve(callback);
+        } else {
+          reject(callback);
+        }
+      });
+    });
+    //@native end
   },
   /**
    * base64解码
@@ -40,7 +64,18 @@ export default {
    * @returns {Promise<string>} 使用base64解码后的字符串
    */
   decodeBase64(content) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.decodeBase64(content, (res, callback) => {
+        if (native.isIOS) { resolve(res); return; }
+        if (res) {
+          resolve(callback);
+        } else {
+          reject(callback);
+        }
+      });
+    });
+    //@native end
   },
   /**
    * SHA1 编码
@@ -48,7 +83,18 @@ export default {
    * @returns {Promise<string>} 使用SHA1编码后的字符串
    */
   encodeSHA1(content) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.encodeSHA1(content, (res, callback) => {
+        if (native.isIOS) { resolve(res); return; }
+        if (res) {
+          resolve(callback);
+        } else {
+          reject(callback);
+        }
+      });
+    });
+    //@native end
   },
   /**
    * SHA256 编码
@@ -56,7 +102,18 @@ export default {
    * @returns {Promise<string>} 使用SHA256编码后的字符串
    */
   encodeSHA2(content) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.encodeSHA2(content, (res, callback) => {
+        if (native.isIOS) { resolve(res); return; }
+        if (res) {
+          resolve(callback);
+        } else {
+          reject(callback);
+        }
+      });
+    });
+    //@native end
   },
   /**
     * @deprecated
@@ -71,7 +128,9 @@ export default {
     * @returns {Promise<any>} 使用base64编码后的图片数据(Android是string类型)
   */
   colorsToImageBase64(content, colorMStr, color0Str, color1Str) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return this.robotCleanerMapColorsToImageBase64(content, colorMStr, color0Str, color1Str);
+    //@native end
   },
   /**
     *  api_level 10032
@@ -84,7 +143,17 @@ export default {
     * @returns {Promise<any>} 使用base64编码后的图片数据(Android是string类型)
   */
   robotCleanerMapColorsToImageBase64(content, colorMStr, color0Str, color1Str) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.colorsToImageBase64(content, colorMStr, color0Str, color1Str, (ok, res) => {
+        if (ok) {
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      });
+    });
+    //@native end
   },
   /**
    * @deprecated
@@ -104,7 +173,9 @@ export default {
    * >=10 房间区域
    */
   pointsToImageBase64(width, height, points, colorsMap) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return this.robotCleanerMapPointsToImageBase64(width, height, points, colorsMap);
+    //@native end
   },
   /**
    * ApiLevel: 10032
@@ -123,7 +194,17 @@ export default {
    * @returns {Promise<string>} 使用base64编码后的图片数据
    */
   robotCleanerMapPointsToImageBase64(width, height, points, colorsMap) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.pointsToImageBase64(width, height, points, colorsMap, (ok, res) => {
+        if (ok) {
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      });
+    });
+    //@native end
   },
   /**
    * @deprecated
@@ -144,7 +225,9 @@ export default {
    * >=10 房间区域
    */
   pointsScaleToImageBase64(width, height, points, colorsMap, scale) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return this.robotCleanerPointsScaleToImageBase64(width, height, points, colorsMap, scale);
+    //@native end
   },
     /**
    * ApiLevel: 10032
@@ -164,6 +247,16 @@ export default {
    * @returns {Promise<string>} 使用base64编码后的图片数据
    */
   robotCleanerPointsScaleToImageBase64(width, height, points, colorsMap, scale) {
-     return Promise.resolve('');
+    //@native :=> Promise.resolve('');
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.pointsScaleToImageBase64(width, height, points, colorsMap, scale, (ok, res) => {
+        if (ok) {
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      });
+    });
+    //@native end
   }
 };
