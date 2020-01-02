@@ -16,7 +16,8 @@
     audioCodec={MISSCodec.MISS_CODEC_AUDIO_G711A}
     audioRecordSampleRate={MISSSampleRate.FLAG_AUDIO_SAMPLE_8K}
     audioRecordChannel={MISSAudioChannel.FLAG_AUDIO_CHANNEL_MONO}
-    audioRecordDataBits={MISSDataBits.FLAG_AUDIO_DATABITS_16} >
+    audioRecordDataBits={MISSDataBits.FLAG_AUDIO_DATABITS_16}
+    fullscreenState={false} >
 />
  *
  * @property {MISSCodec} videoCodec 接收视频的编码格式 默认：MISS_CODEC_VIDEO_H264
@@ -31,6 +32,8 @@
  * @property {number} correctRadius 畸变矫正-radius default 1.1
  * @property {number} osdx 畸变矫正-osdx default 0.0
  * @property {number} osdy 畸变矫正-osdy default 0.0
+ * @property {bool} fullscreenState 是否是全屏状态 since 10033
+ * @property {bool} forceSoftDecode 强制软解 since 10033
  */
 /**
  * 音视频codec
@@ -124,6 +127,13 @@ export default class CameraRenderView extends React.Component {
         correctRadius: PropTypes.number,
         osdx: PropTypes.number,
         osdy: PropTypes.number,
+        fullscreenState: PropTypes.bool,
+        forceSoftDecode: PropTypes.bool,
+        /**
+         * 用户单击回调
+         * @member {func}
+         */
+        onClick: PropTypes.func,
         ...ViewPropTypes,
     };
     render() {
@@ -164,4 +174,12 @@ export default class CameraRenderView extends React.Component {
      */
     stopAudioRecord() {
          return null
+    }
+    /**
+     * 隐藏SurfaceView only for Android
+     * @since 10033
+     */
+    hidesSurfaceView() {
+         return null
+    }
 }

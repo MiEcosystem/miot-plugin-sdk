@@ -86,12 +86,33 @@ export const MISSConnectState = {
     MISS_Connection_ReceivedFirstFrame: 3,
 };
 Object.freeze(MISSConnectState);
+/**
+ * Alarm Event Type
+ * @namespace AlarmEventType
+ */
+export const AlarmEventType = {
+    EventType_All: 1 << 0,
+    EventType_AI: 1 << 1,
+    EventType_Face: 1 << 2,
+    EventType_KnownFace: 1 << 3,
+    EventType_PeopleMotion: 1 << 4,
+    EventType_ObjectMotion: 1 << 5,
+    EventType_BabyCry: 1 << 6,
+};
+Object.freeze(AlarmEventType);
 export default {
     /**
      * 连接设备
      * @param {string} callbackName 链接状态变更回调 { state: MISSConnectState, error: MISSError }
      */
     connectToDeviceWithStateChangeCallBack(callbackName) {
+         return 
+    },
+    /**
+     * 断开连接设备
+     * @since 10033
+     */
+    disconnectToDevice() {
          return 
     },
     /**
@@ -131,4 +152,36 @@ export default {
      */
     bindRDTDataReceiveCallback(callbackName) {
          return 
+    /**
+     * 打开报警视频页面
+     * @since 10033
+     * @param {number} AlarmEventType 取或
+     */
+    showAlarmVideos(localRecognizeEvents) {
+        NativeModules.MHCameraSDK.showAlarmVideos(Device.deviceID, localRecognizeEvents)
+    },
+    /**
+     * 打开云储存页面
+     * @since 10033
+     * @param {BOOL} supportHevc 是否支持 H265
+     * @param {useV2API} 是否使用 V2 接口
+     */
+    showCloudStorage(supportHevc, useV2API) {
+        NativeModules.MHCameraSDK.showCloudStorage(Device.deviceID, supportHevc, useV2API)
+    },
+    /**
+     * 打开云储存设置页面
+     * @since 10033
+     */
+    showCloudStorageSetting() {
+        NativeModules.MHCameraSDK.showCloudStorageSetting(Device.deviceID)
+    },
+    /**
+     * 打开人脸识别页面
+     * @since 10033
+     * @param {BOOL} isVip 
+     */
+    showFaceRecognize(isVip) {
+        NativeModules.MHCameraSDK.showFaceRecognize(Device.deviceID, isVip)
+    },
 }
