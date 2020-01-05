@@ -106,6 +106,7 @@ export default {
   },
   //@native begin
   /**
+   * android 设备暂不支持该方法 会直接reject(false)
    * 删除设备
    * 注意：此方法只做删除设备的活，不会返回上一页。所以在then里面，需要自己调用closeCurrentPage
    */
@@ -363,7 +364,7 @@ export default {
     let optionCopy = Object.assign({}, option);
     if (!optionCopy.force && (Device.isShared || Device.isFamily)) {
       console.warn("分享设备不建议进行弹窗请求隐私授权。")
-      return;
+      return new Promise.reject(false);;
     }
     return new Promise((resolve, reject) => {
       ProtocolManager.getLegalAuthInfoProtocol().then(protocols => {
@@ -392,7 +393,7 @@ export default {
             reject(false);
           }
         });
-      });
+      })
     })
   },
   /**
@@ -416,6 +417,7 @@ export default {
    * 隐私协议弹框需求：
    * a. 所有接入米家的设备，绑定成功后第一次进插件，都需要隐私弹框，后续再进不需弹框
    * b. 取消隐私授权/解绑设备后，重新绑定设备，仍需遵循规则a
+  
    * 插件端可按如下方案实现：
    * 1. 使用batchSetDeviceDatas存储一个标志位，用来记录是否“隐私弹框”过
    * 2. 进入插件时batchGetDeviceDatas获取此标志位，若为NO，弹框，同时设置标志位为YES；若为YES，不弹框
@@ -761,15 +763,15 @@ export default {
     //@native end
   },
   /**
- * 添加或者复制一个红外遥控器
- * @since 10003
- * @param {string} did 设备did
- * @param {number} type 0：添加遥控器；1：复制遥控器。默认0
- * @param {array} models 一组红外遥控器model，只传入一个model将直接跳转到相应的品牌列表或者机顶盒列表，支持的models见文档。默认空数组[]
- * @param {object} extra 额外配置，会传入打开的插件页，也有部分特殊功能定义字段如下：
- * @param {boolean} [extra.create_device = true] 米家首页列表是否展示虚拟遥控器设备。默认true。暂时只有android支持
- * @param {boolean} [extra.dismiss_current_plug = true] since 10020 。在推出新的插件页面时，关掉当前页面，返回app首页。iOS Only
- */
+  * 添加或者复制一个红外遥控器
+  * @since 10003
+  * @param {string} did 设备did
+  * @param {number} type 0：添加遥控器；1：复制遥控器。默认0
+  * @param {array} models 一组红外遥控器model，只传入一个model将直接跳转到相应的品牌列表或者机顶盒列表，支持的models见文档。默认空数组[]
+  * @param {object} extra 额外配置，会传入打开的插件页，也有部分特殊功能定义字段如下：
+  * @param {boolean} [extra.create_device = true] 米家首页列表是否展示虚拟遥控器设备。默认true。暂时只有android支持
+  * @param {boolean} [extra.dismiss_current_plug = true] since 10020 。在推出新的插件页面时，关掉当前页面，返回app首页。iOS Only
+  */
   addOrCopyIR(did, type = 0, models = [], extra = { create_device: true }) {
     //@native begin
     if (native.isAndroid) {
@@ -908,7 +910,7 @@ export default {
    * @param {string} aiMiotClientId 米家的客户端 ID
    * @param {string} aiClientId 水滴平台的客户端
    * @param {string} aiVersion "" 不隐藏 "thirdpart" 隐藏 “一段录音” “设备控制” 按钮 "audio" 隐藏 “一段录音” 按钮 "device" 隐藏 “设备控制” 按钮
- */
+  */
   openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion) {
     //@native begin
     native.MIOTHost.openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion);

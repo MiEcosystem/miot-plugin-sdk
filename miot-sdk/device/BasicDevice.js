@@ -243,7 +243,6 @@ export class BasicDevice {
         //@native => ""
         return Properties.of(this).model;
     }
-    
     /**
     * 获取小米WiFi设备控制类
     * Device.getDeviceWifi().callMethod(xxx)
@@ -258,7 +257,6 @@ export class BasicDevice {
         return self._device_wifi;
         //@native end
     }
-    
     /**
      *设备是否已经可用,没有did的设备的插件，可能调用此方法判断接口是否可用。此方法没什么其他存在的意义，一般也不需要使用此方法
      * @return {boolean}
@@ -451,7 +449,6 @@ export class BasicDevice {
         return takeBluetooth(self.mac, peripheralID, false);
         //@native end
     }
-    
     /**
      * @typedef {Object} GPSInfo
      * @property {number} longitude  经度
@@ -592,12 +589,16 @@ export class BasicDevice {
         //@native begin
         if (native.isAndroid) {
             // 同ios一致
-            let tempExtra = JSON.parse(this.extra);
-            if (tempExtra && tempExtra["fw_version"] && typeof tempExtra["fw_version"] == "string" && tempExtra["fw_version"].length > 0) {
-                if (tempExtra["mcu_version"] && typeof tempExtra["mcu_version"] == "string" && tempExtra["mcu_version"].length > 0) {
-                    return tempExtra["fw_version"] + "." + tempExtra["mcu_version"]
+            if (this.extra && typeof this.extra === "string") {
+                let tempExtra = JSON.parse(this.extra);
+                if (tempExtra && tempExtra["fw_version"] && typeof tempExtra["fw_version"] == "string" && tempExtra["fw_version"].length > 0) {
+                    if (tempExtra["mcu_version"] && typeof tempExtra["mcu_version"] == "string" && tempExtra["mcu_version"].length > 0) {
+                        return tempExtra["fw_version"] + "." + tempExtra["mcu_version"]
+                    } else {
+                        return tempExtra["fw_version"];
+                    }
                 } else {
-                    return tempExtra["fw_version"];
+                    return Properties.of(this).version;
                 }
             } else {
                 return Properties.of(this).version;
@@ -804,7 +805,6 @@ export class BasicDevice {
         })
         //@native end
     }
-    
     /**
      * 修改设备/子设备的名字，注意不支持蓝牙网关对子设备名称的修改
      * @since 10022

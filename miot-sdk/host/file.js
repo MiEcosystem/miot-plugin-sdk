@@ -605,9 +605,9 @@ export default {
         //@mark andr done
         return new Promise((resolve, reject) => {
             native.MIOTFile.unzipFile(fileName, desitinationPath, (isSuccess, msg) => {
-                if(isSuccess){
+                if (isSuccess) {
                     resolve(true);
-                }else{
+                } else {
                     reject(msg);
                 }
             });

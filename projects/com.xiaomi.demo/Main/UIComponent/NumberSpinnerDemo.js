@@ -2,7 +2,7 @@ import React from 'react';
 
 import {
     View,
-    Text, ToastAndroid,
+    Text, ToastAndroid, Button
 } from 'react-native';
 
 import {NumberSpinner, StringSpinner} from 'miot/ui'
@@ -16,6 +16,7 @@ export default class NumberSpinnerDemo extends React.Component {
             maxMonth: 12,
             unitTextColor: '#f7632a',
             unitFontSize: 20,
+            visible: true,
         }
     }
 

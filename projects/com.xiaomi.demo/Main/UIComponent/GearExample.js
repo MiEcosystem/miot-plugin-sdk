@@ -68,8 +68,16 @@ export default class GearExample extends React.Component {
                                 width: width * 0.75,
                                 // height: 60
                             }}
-                            onValueChange={index => this.callback(index)}
-                            onSlidingComplete={index => this.callback(index)}
+                            leftTextColor='yellowgreen'
+                            rightTextColor='skyblue'
+                            onValueChange={index => {
+                                this.callback(index)
+                                console.log('onValueChange: ', index)
+                            }}
+                            onSlidingComplete={index => {
+                                this.callback(index)
+                                console.log('onSlidingComplete: ', index)
+                            }}
                         />
                         <Text style={styles.label}>
                             {`滑动选择档位(方形滑块)`}

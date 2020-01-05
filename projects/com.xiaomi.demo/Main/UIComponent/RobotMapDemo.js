@@ -7,7 +7,7 @@ import {
     TouchableHighlight
 } from 'react-native';
 
-const resolveAssetSource = require('resolveAssetSource');
+const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 import { RobotMapView } from 'miot/ui'
 
 const { width } = Dimensions.get('window');

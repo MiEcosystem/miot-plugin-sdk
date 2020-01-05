@@ -39,7 +39,8 @@ export default class CheckboxDemo extends React.Component {
       },
       {
         style: { width: 40, height: 40, borderRadius: 20 },
-        checked: this.state.checked,
+        checked: true,
+        disabled: true,
         checkedColor: 'skyblue',
         onValueChange: checked => console.log(checked)
       },

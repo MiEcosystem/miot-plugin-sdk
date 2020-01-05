@@ -4,7 +4,7 @@ import {
   StyleSheet, Text, View, TouchableOpacity, Platform, ScrollView
 } from 'react-native';
 import Service from 'miot/Service';
-import {Device, SceneType} from "miot";
+import { Device, SceneType } from "miot";
 
 export default class MHSceneDemo extends React.Component {
 
@@ -28,9 +28,9 @@ export default class MHSceneDemo extends React.Component {
   render() {
 
     return (
-      <View style={{flex:1}}>
+      <View style={{ flex: 1 }}>
         <ScrollView>
-          <Text style={[{fontSize: 14, color: '#666666', marginLeft: 20, marginTop: 10}, this.fontFamily]}>以下为跳转到米家APP提供的UI</Text>
+          <Text style={[{ fontSize: 14, color: '#666666', marginLeft: 20, marginTop: 10 }, this.fontFamily]}>以下为跳转到米家APP提供的UI</Text>
           <TouchableOpacity
             style={styles.btnStyle}
             onPress={(e) => {
@@ -58,7 +58,7 @@ export default class MHSceneDemo extends React.Component {
             <Text style={[styles.textStyle, this.fontFamily]}>打开倒计时页面</Text>
           </TouchableOpacity>
 
-          <Text style={[{fontSize: 14, color: '#666666', marginLeft: 20, marginTop: 10}, this.fontFamily]}>以下为非UI的API，存网络请求</Text>
+          <Text style={[{ fontSize: 14, color: '#666666', marginLeft: 20, marginTop: 10 }, this.fontFamily]}>以下为非UI的API，存网络请求</Text>
 
           <TouchableOpacity
             style={styles.btnStyle}
@@ -68,7 +68,72 @@ export default class MHSceneDemo extends React.Component {
           >
             <Text style={[styles.textStyle, this.fontFamily]}>加载此设备所有的自动场景</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              this._loadTimerScenes();
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>加载此设备所有的定时场景</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              this._loadScenesHistoryForDevice();
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>加载设备的智能日志信息</Text>
+          </TouchableOpacity>
 
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              this._createTimerScene();
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>创建定时场景</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              this._saveTimerScene();
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>保存定时场景（修改后的）</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              this._reloadTimerScene();
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>刷新场景（修改后的）</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              this._startTimerScene();
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>启动场景</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              this._removeTimerScene();
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>删除场景</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              this._removeErrorTimerScene();
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>删除场景（报错）</Text>
+          </TouchableOpacity>
         </ScrollView>
 
       </View>
@@ -76,7 +141,7 @@ export default class MHSceneDemo extends React.Component {
   }
 
 
-  _openTimerSettingPageWithOptions(){
+  _openTimerSettingPageWithOptions() {
     let params = {
       onMethod: "power_on",
       onParam: "on",
@@ -96,7 +161,7 @@ export default class MHSceneDemo extends React.Component {
     Service.scene.openTimerSettingPageWithOptions(params);
   }
 
-  _openCountDownPage(){
+  _openCountDownPage() {
     let params = {
       onMethod: "power_on",
       offMethod: 'power_off',
@@ -107,28 +172,87 @@ export default class MHSceneDemo extends React.Component {
     }
     Service.scene.openCountDownPage(true, params);
   }
-
-  _loadAutomaticScenes(){
+  _loadTimerScenes() {
+    Service.scene.loadScenes(Device.deviceID, SceneType.Timer).then(scenes => {
+      alert(JSON.stringify(scenes));
+      this.scene = scenes[0];
+    });
+  }
+  _loadAutomaticScenes() {
 
     // 如下方式 等价于 Service.scene.loadAutomaticScenes(Device.deviceID)
 
-    Service.scene.loadScenes(Device.deviceID, SceneType.Automatic).then((scenes)=>{
+    Service.scene.loadScenes(Device.deviceID, SceneType.Automatic).then((scenes) => {
       console.log('scenes', scenes)
-      if(scenes && scenes.length > 0){
+      if (scenes && scenes.length > 0) {
         let scene = {
           sceneID: scenes[0].sceneID,
-          createTime:scenes[0].createTime,
+          createTime: scenes[0].createTime,
           status: scenes[0].status,
           name: scenes[0].name,
           type: scenes[0].type,
         }
         alert(JSON.stringify(scene))
-      }else{
+      } else {
         alert("该设备没有自动场景")
       }
-    }).catch((error)=>{
+    }).catch((error) => {
       console.log('error', error)
     })
+  }
+
+  _loadScenesHistoryForDevice() {
+    Service.scene.loadScenesHistoryForDevice(Device.deviceID).then((res) => {
+      alert(JSON.stringify(res));
+    }).catch((err) => {
+      alert(JSON.stringify(err));
+    })
+  }
+  _createTimerScene() {
+    let params = { "identify": "identify_1", "setting": { "off_filter": "", "enable_timer": true, "enable_timer_on": true, "timer_type": "0", "on_time": "0 50 11 5 1 * 2020", "off_method": "power_off", "on_param": "on", "on_method": "power_on", "on_filter": "", "off_time": "0 40 10 5 1 * 2020", "off_param": "off", "enable_timer_off": false }, "name": "自定义场景名称" };
+    this.scene = Service.scene.createTimerScene(Device.deviceID, params);
+    alert(JSON.stringify(this.scene));
+  }
+  _saveTimerScene() {
+    this.scene.identify = "newIdentify";
+    this.scene.name = "newName";
+    this.scene.save();
+  }
+  _reloadTimerScene() {
+    this.scene.reload().then(res => {
+      alert(JSON.stringify(res));
+    }).catch(err => {
+      alert(JSON.stringify(err));
+    });
+  }
+  _startTimerScene() {
+    this.scene.start().then(res => {
+      alert(JSON.stringify(res));
+    }).catch(err => {
+      alert(JSON.stringify(err));
+    });
+  }
+  _removeTimerScene() {
+    if (!this.scene || !this.scene.remove) {
+      alert("scene还没赋值，请确保‘加载此设备所有的定时场景有数据’");
+      return;
+    }
+    this.scene.remove().then(res => {
+      alert(JSON.stringify(res));
+    }).catch(err => {
+      alert(JSON.stringify(err));
+    });
+  }
+  _removeErrorTimerScene() {
+    if (!this.scene || !this.scene.remove) {
+      alert("scene还没赋值，请确保‘加载此设备所有的定时场景有数据’");
+      return;
+    }
+    this.scene.remove().then(res => {
+      alert(JSON.stringify(res));
+    }).catch(err => {
+      alert("error" + JSON.stringify(err));
+    });
   }
 
 }
@@ -143,8 +267,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  textStyle:{
-    color:'#ffffff',
-    fontSize:14,
+  textStyle: {
+    color: '#ffffff',
+    fontSize: 14,
   }
 });

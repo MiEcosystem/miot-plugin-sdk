@@ -14,10 +14,10 @@ import {
   View
 } from 'react-native';
 
-import {Device, FileEvent, Host} from "miot";
-import {ProgressDialog} from 'miot/ui';
+import { Device, FileEvent, Host } from "miot";
+import { ProgressDialog } from 'miot/ui';
 
-const {width: screenWidth, height: screenHeight} = Dimensions.get("screen");
+const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
 
 const imagePathMap = new Map();
 
@@ -49,7 +49,7 @@ export default class FileStorage extends React.Component {
       let progress = downloaded / all * 100;
       let visProgress = progress < 100;
       console.log(progress)
-      this.setState({progress, visProgress})
+      this.setState({ progress, visProgress })
     });
   }
 
@@ -63,7 +63,7 @@ export default class FileStorage extends React.Component {
         pic = "file://" + pic;
       }
       shotimg = <Image style={styles.img}
-                       source={{uri: pic, scale: PixelRatio.get()}}/>
+        source={{ uri: pic, scale: PixelRatio.get() }} />
     }
 
     return (
@@ -71,22 +71,22 @@ export default class FileStorage extends React.Component {
         <ScrollView
           ref="myScrollView"
         >
-          <View style={[styles.row, {marginTop: 10}]}>
+          <View style={[styles.row, { marginTop: 10 }]}>
             <Text style={styles.title}>文件名: </Text>
             <TextInput
               onChangeText={(text) => {
-                this.setState({fileName: text})
+                this.setState({ fileName: text })
               }}
-              style={{flex: 1, marginLeft: 10}}
+              style={{ flex: 1, marginLeft: 10 }}
               placeholder="输入文件名"
               value={this.state.fileName}
             />
           </View>
           <TextInput
             onChangeText={(text) => {
-              this.setState({fileContent: text})
+              this.setState({ fileContent: text })
             }}
-            style={{height: 150}}
+            style={{ height: 150 }}
             multiline={true}
             numberOfLines={12}
             placeholder="输入文件内容"
@@ -94,13 +94,13 @@ export default class FileStorage extends React.Component {
           />
 
           <View style={styles.row}>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Button
                 title="写文件"
                 onPress={() => this._writeFile()}
               />
             </View>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Button
                 title="写文件(Base64)"
                 onPress={() => this._writeFileThroughBase64()}
@@ -108,13 +108,13 @@ export default class FileStorage extends React.Component {
             </View>
           </View>
           <View style={styles.row}>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Button
                 title="向文件追加内容"
                 onPress={() => this._appendFile()}
               />
             </View>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Button
                 title="向文件追加内容(Base64)"
                 onPress={() => this._appendFileThroughBase64()}
@@ -122,13 +122,13 @@ export default class FileStorage extends React.Component {
             </View>
           </View>
           <View style={styles.row}>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Button
                 title="读文件"
                 onPress={() => this._readFile()}
               />
             </View>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Button
                 title="读文件(Base64)"
                 onPress={() => this._readFileToBase64()}
@@ -137,13 +137,13 @@ export default class FileStorage extends React.Component {
           </View>
 
           <View style={styles.row}>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Button
                 title="上传FDS文件"
                 onPress={() => this._uploadFDSFile()}
               />
             </View>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Button
                 title="获取FDS文件"
                 onPress={() => this._fetchFDSFile()}
@@ -151,19 +151,19 @@ export default class FileStorage extends React.Component {
             </View>
           </View>
           <View style={styles.row}>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Button
                 title="下载文件"
                 onPress={() => this._downLoadFile()}
               />
             </View>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Button
                 title="解压文件"
                 onPress={() => this._unZipFile()}
               />
             </View>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Button
                 title="读文件列表"
                 onPress={() => this._readFileList()}
@@ -171,14 +171,14 @@ export default class FileStorage extends React.Component {
             </View>
           </View>
 
-          <View style={[styles.row, {justifyContent: "center"}]}>
-            <View style={{flex: 1}}>
+          <View style={[styles.row, { justifyContent: "center" }]}>
+            <View style={{ flex: 1 }}>
               <Button
                 title="删除当前显示的文件"
                 onPress={() => this._deleteFile()}
               />
             </View>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Button
                 title="判断文件是否存在"
                 onPress={() => this._isFileExist()}
@@ -187,13 +187,13 @@ export default class FileStorage extends React.Component {
           </View>
 
           <View style={styles.row}>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Button
                 title="截图当前页面"
                 onPress={() => this._screenShot()}
               />
             </View>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Button
                 title="长截屏"
                 onPress={() => this._longScreenShot()}
@@ -201,7 +201,7 @@ export default class FileStorage extends React.Component {
             </View>
           </View>
           <View style={styles.row}>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Button
                 title="截图并保存到相册"
                 onPress={() => this._screenShotAndSaveToPhotosAlbum()}
@@ -210,18 +210,18 @@ export default class FileStorage extends React.Component {
           </View>
 
 
-          <View style={{flex: 1, flexDirection: "row", margin: 5}}>
-            <View style={{flex: 1, padding: 5}}>
+          <View style={{ flex: 1, flexDirection: "row", margin: 5 }}>
+            <View style={{ flex: 1, padding: 5 }}>
               <Text style={styles.title}>文件列表</Text>
-              <View style={{height: 1 / PixelRatio.get(), backgroundColor: '#666'}}/>
+              <View style={{ height: 1 / PixelRatio.get(), backgroundColor: '#666' }} />
               <FlatList
                 data={this.state.dataSource}
-                renderItem={({item}) => this._renderFileList(item.name)}
+                renderItem={({ item }) => this._renderFileList(item.name)}
               />
             </View>
 
-            <View style={{flex: 1, margin: 5}}>
-              <View style={{flex: 1, alignItems: "center"}}>
+            <View style={{ flex: 1, margin: 5 }}>
+              <View style={{ flex: 1, alignItems: "center" }}>
                 <Text style={styles.title}>屏幕截图</Text>
                 {shotimg}
               </View>
@@ -237,9 +237,9 @@ export default class FileStorage extends React.Component {
           progress={this.state.progress}
           onDismiss={() => {
             console.log('onDismiss');
-            this.setState({visProgress: false});
+            this.setState({ visProgress: false });
           }}
-          visible={this.state.visProgress}/>
+          visible={this.state.visProgress} />
       </View>
     )
   }
@@ -248,11 +248,11 @@ export default class FileStorage extends React.Component {
     return (
       <View>
         <TouchableHighlight
-          style={[styles.row, {height: 30}]}
+          style={[styles.row, { height: 30 }]}
         >
-          <Text style={[{color: '#333333'}, this.fontFamily]}>{item}</Text>
+          <Text style={[{ color: '#333333' }, this.fontFamily]}>{item}</Text>
         </TouchableHighlight>
-        <View style={{height: 1 / PixelRatio.get(), backgroundColor: '#666'}}/>
+        <View style={{ height: 1 / PixelRatio.get(), backgroundColor: '#666' }} />
       </View>
     )
   }
@@ -290,7 +290,7 @@ export default class FileStorage extends React.Component {
     }
 
     Host.file.writeFileThroughBase64(this.state.fileName, this.state.fileContent).then((isSuccess) => {
-      alert(JSON.stringify(isSuccess));
+      alert(isSuccess);
     }).catch((error) => {
       alert(JSON.stringify(error))
     });
@@ -322,7 +322,7 @@ export default class FileStorage extends React.Component {
   _readFileToBase64() {
     Host.file.readFileToBase64(this.state.fileName)
       .then((base64Content) => {
-        this.setState({fileContent: base64Content});
+        this.setState({ fileContent: base64Content });
       })
       .catch((isSuccess) => {
         alert(isSuccess);
@@ -358,8 +358,8 @@ export default class FileStorage extends React.Component {
         this._readFileList();
         alert(isSuccess);
       })
-      .catch((isSuccess) => {
-        alert(isSuccess);
+      .catch((err) => {
+        alert(JSON.stringify(err));
       });
   }
 
@@ -423,7 +423,7 @@ export default class FileStorage extends React.Component {
     let did = Device.deviceID;
     let suffix = "mp3";
     if (this.file_obj_name) {
-      console.log('param', {'obj_name': this.file_obj_name})
+      console.log('param', { 'obj_name': this.file_obj_name })
       Host.file.getFDSFileInfoWithObjName(this.file_obj_name).then(res => {
         console.log('getfileurl success', res)
         alert('获取成功' + JSON.stringify(res))
@@ -453,8 +453,8 @@ export default class FileStorage extends React.Component {
           let param = {
             uploadUrl: obj.url,
             method: obj.method,
-            headers: {"Content-Type": ""},
-            files: [{filename: name}]
+            headers: { "Content-Type": "" },
+            files: [{ filename: name }]
           }
           Host.file.uploadFileToFDS(param).then(rr => {
             alert('上传成功' + JSON.stringify(rr))
@@ -468,7 +468,7 @@ export default class FileStorage extends React.Component {
           console.log("write file failed", err)
         })
       }
-    }).catch((error)=>{
+    }).catch((error) => {
       console.log(error);
       alert(JSON.stringify(error))
     })
@@ -490,10 +490,10 @@ export default class FileStorage extends React.Component {
     console.log("unZipFile...")
     Host.file.unzipFile("test.zip", "TEST").then((msg) => {
       console.log("unZipFile...msg", msg);
-      alert('解压成功： '+JSON.stringify(msg))
+      alert('解压成功： ' + JSON.stringify(msg))
     }).catch((error) => {
       console.log("unZipFile...error", error);
-      alert('解压失败： '+JSON.stringify(error))
+      alert('解压失败： ' + JSON.stringify(error))
     });
   }
 

@@ -26,7 +26,6 @@ import RPCControl from './tutorial/RPCControl'; // ui设备控制-RPCControl
 
 // 旧 设置页面T
 import MHMapDemo from './ThirdPartDemo/MHMapDemo'; // 旧 设置页面-高德地图
-import MHAudioDemo from './Host/MHAudioDemo'; // 旧 设置页面-音频/ 旧 设置页面-视频
 
 // native 交互服务
 import ThirdPartyDemo from './ThirdPartDemo/ThirdPartyDemo';  // 第三方库
@@ -37,6 +36,7 @@ import SoftKeyboardAdapterTestDemo from './UIComponent/SoftKeyboardAdapterTestDe
 import TitleBarDemo from "./tutorial/TitleBarDemo";  //  ui-导航栏使用
 import List from "./UIComponent/List";  // ui-自定义列表项
 import CardPage from "./UIComponent/CardPage"; // ui-自定义列卡片
+import IndependentCardDemo from "./UIComponent/IndependentCardDemo"; // ui - 独立卡片
 import ModeCardDemo from './UIComponent/ModeCardDemo';  // ui-模式卡片
 import RadioExample from "./UIComponent/RadioExample"; // ui-单选框
 import CheckboxDemo from "./UIComponent/CheckboxDemo"; // ui-复选框
@@ -57,10 +57,11 @@ import ProgressDemo from './ThirdPartDemo/ProgressDemo';  // ui-ProgressDemo
 import DialogTest from './UIComponent/DialogTest'; // ui-DialogTest
 import DialogTest2 from './UIComponent/DialogTest2'; // ui-DialogTest2
 import DialogTest3 from './UIComponent/DialogTest3'; // ui-DialogTest3
+import ImageButtonDemo from './UIComponent/ImageButtonDemo'
 import ImageCapInsetDemo from './UIComponent/ImageCapInsetDemo'; // ui-ImageCapInsetDemo working but no title displayed
 import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo"; // ui-NumberSpinnerDemo
 import StringSpinnerDemo from "./UIComponent/StringSpinnerDemo"; // ui-StringSpinnerDemo
-// import RobotMapDemo from "./UIComponent/RobotMapDemo";
+import RobotMapDemo from "./UIComponent/RobotMapDemo";
 import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo'; // ui-MiotAndroidScrollViewDemo
 import AbsoluteTouch from './UIComponent/AbsoluteTouch'; // ui-AbsoluteTouch
 
@@ -89,6 +90,9 @@ import StorageDemo from './Host/Storage';
 import LocaleServer from './Host/Local';
 import JSExecutor from './Host/JSExecutor';
 import * as Screens from "./uikit/screens";
+import MHAudioDemo from './Host/MHAudioDemo';
+import VideoDemo from './Host/VideoDemo';
+import CryptoDemo from './Host/CryptoDemo';
 
 // 常用功能
 import TutorialDemo from './tutorial/TutorialDemo';
@@ -99,7 +103,6 @@ import OrientationDemo from './Host/OrientationDemo';
 import KVStorageDemo from './Host/KVStorageDemo';
 import NavigateUIDemo from "./Host/UI";
 import PrivacyDemo from "./Host/UI/privacy";
-import VideoDemo from './Host/VideoDemo';
 import ImageTest from './issues/imageTest/imageTest';
 import SmarthomeDemo from './issues/smarthomeDemo';
 import MainPage from './MainPage';
@@ -201,6 +204,7 @@ function createRootStack(initPage) {
     TitleBarDemo,
     List,
     CardPage,
+    IndependentCardDemo,
     ModeCardDemo,
     RadioExample,
     CheckboxDemo,
@@ -228,8 +232,10 @@ function createRootStack(initPage) {
     DialogTest2,
     DialogTest3,
     ImageCapInsetDemo,
+    ImageButtonDemo,
     NumberSpinnerDemo,
     StringSpinnerDemo,
+    RobotMapDemo,
     MiotAndroidScrollViewDemo,
     AbsoluteTouch,
     // 接口服务
@@ -290,6 +296,7 @@ function createRootStack(initPage) {
     GLParticles: GLParticles,  // ios 包有问题
     GLOrientation: GLOrientation,  // ios 包有问题
     videoDemo: VideoDemo,
+    cryptoDemo: CryptoDemo,
     HostPropsInfoDemo: HostPropsInfoDemo,
     ParticleDemo: ParticleDemo,//iOS 特有的,粒子系统
     ImagePickerDemo: ImagePickerDemo,
@@ -331,6 +338,7 @@ function createRootStack(initPage) {
     Setting,
     List,
     CardPage,
+    IndependentCardDemo,
     MoreSetting,
     FirmwareUpgrade,
     CustomContainer,
@@ -377,7 +385,7 @@ function createRootStack(initPage) {
     RefreshListView: RefreshListView,
     NumberSpinnerDemo: NumberSpinnerDemo,
     StringSpinnerDemo: StringSpinnerDemo,
-    // RobotMapDemo: RobotMapDemo,
+    RobotMapDemo: RobotMapDemo,
     ThirdPartyDemo: ThirdPartyDemo,
     setting: MHSetting,
     moreMenu: MoreMenu,
@@ -397,6 +405,7 @@ function createRootStack(initPage) {
     //swiper 结束
     ProgressDemo: ProgressDemo,
     ImageCapInsetDemo: ImageCapInsetDemo,
+    ImageButtonDemo,
     UIKitHome: { screen: Screens.ComponentsScreen },
     Picker: { screen: Screens.PickerScreen },
     Button: { screen: Screens.ButtonScreen },

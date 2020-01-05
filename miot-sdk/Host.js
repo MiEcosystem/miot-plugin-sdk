@@ -133,6 +133,7 @@ export default {
      * @const
      * @type {int}
      * @readonly
+     * @deprecated 10033
      */
     get applicationEdition() {
         //@native => true
@@ -236,7 +237,7 @@ export default {
         return new Promise((resolve, reject) => {
             native.MIOTHost.getAppName(name => {
                 resolve(name);
-            })
+            });
         })
         //@native end
     },
