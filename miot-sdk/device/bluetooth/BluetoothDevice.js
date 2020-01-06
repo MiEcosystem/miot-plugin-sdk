@@ -349,15 +349,34 @@ export class IBluetooth {
      * @param {boolean} isFromlocal 10028版本开始支持。是否本地读取。仅限iOS，是否直接从设备读取版本号，默认为否，从服务端读取版本号，如果出现升级/降级时版本号错误的情况，此处请传true。
      * 注意：此属性对Android无效，Android默认本地读取。
      * 注意：如果从本地读取的版本号错误，说明版本号在固件端时加密的
-     * @param {boolean} isCrypto 10028版本开始支持。版本号是否是加密的,默认没加密。如果读出来的数据，是乱码的，请将isCrypto设置为true，然后使用Device.getBluetoothLE().securityLock.decryptMessageWithToken(version)解密，如果还是不对，那就说明固件端自己做了加密，需要把这个数据再进行解密一次。
+     * @param {boolean} isCrypto 10028版本开始支持。版本号是否是加密的,默认没加密。如果读出来的数据，是乱码的，请将isCrypto设置为true，然后使用Device.getBluetoothLE().securityLock.decryptMessageWithToken(version)解密，如果读出来的为hexstring，则需要将hexstring转化为普通的string，如果还是不对，那就说明固件端自己做了加密，需要把这个数据再进行解密一次，再转string。
      * 
-     * @example 正常情况
+     * @example 正常情况，如果返回的是hexstring，则需要将hexstring转化为普通的string
      * Device.getBluetoothLE().getVersion().then()
      * 
      * @example 加密情况
+     * 
+     * function hexCharCodeToStr(hexCharCodeStr) {
+     *  var trimedStr = hexCharCodeStr.trim();
+     *  var rawStr = trimedStr.substr(0, 2).toLowerCase() === "0x"?trimedStr.substr(2):trimedStr;
+     *  var len = rawStr.length;
+     *   if (len % 2 !== 0) {
+     *      alert("Illegal Format ASCII Code!");
+     *      return "";
+     *   }
+     *   var curCharCode;
+     *   var resultStr = [];
+     *   for (var i = 0; i < len; i = i + 2) {
+     *      curCharCode = parseInt(rawStr.substr(i, 2), 16); // ASCII Code Value
+     *      resultStr.push(String.fromCharCode(curCharCode));
+     *   }
+     *   return resultStr.join("");
+     *  }
+     * 
      * Device.getBluetoothLE().getVersion(true, true).then(version => {
      *   var data = Device.getBluetoothLE().securityLock.decryptMessageWithToken(version).then(data => {
-     *       console.log("设备版本为：" + data);
+     *       let lastVersion = hexCharCodeToStr(data.result);
+     *       console.log("设备版本为：" + lastVersion);
      *    })
      * })
      * 
