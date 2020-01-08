@@ -67,6 +67,8 @@
 ## 调试环境
 
 [iOS IPA 包下载地址](https://fir.im/mijiadevelopment)
+
+[ios IPA 包下载地址(RN54,SDK_10032,供大家临时使用)](https://fir.im/mijiadevelopment?release_id=5df8b0b3f94548387f934dc0)
     
 [Android APK 包下载地址](https://fir.im/MiHomeForAndroid)
 
