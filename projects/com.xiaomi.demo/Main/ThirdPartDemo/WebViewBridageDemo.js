@@ -27,8 +27,8 @@ export default class WebViewBridageDemo extends Component {
 
   render() {
     //可测试跳转
-    const uri = { uri: "https://www.baidu.com" };
-    // const uri = require('../../Resources/index.html')
+    // const uri = { uri: "https://www.baidu.com" };
+    const uri = require('../../Resources/index.html')
     return (
       <View style={styles.container}>
         <TouchableHighlight
