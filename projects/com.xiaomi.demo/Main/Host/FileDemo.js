@@ -313,8 +313,12 @@ export default class FileStorage extends React.Component {
           fileContent: utf8Content
         });
       })
-      .catch((isSuccess) => {
-        alert(isSuccess);
+      .catch((err) => {
+        if (typeof obj === "string") {
+          alert(err);
+        } else {
+          alert(JSON.stringify(err));
+        }
       });
   }
 
@@ -324,8 +328,12 @@ export default class FileStorage extends React.Component {
       .then((base64Content) => {
         this.setState({ fileContent: base64Content });
       })
-      .catch((isSuccess) => {
-        alert(isSuccess);
+      .catch((err) => {
+        if (typeof obj === "string") {
+          alert(err);
+        } else {
+          alert(JSON.stringify(err));
+        }
       });
   }
 

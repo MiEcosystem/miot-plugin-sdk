@@ -444,7 +444,7 @@ export default class UIDemo extends React.Component {
             <TouchableHighlight underlayColor='#838383' onPress={() => this._pressRow(rowID)}>
                 <View>
                     <View style={styles.rowContainer}>
-                        <View style={{ flex: 1, height: 30 }}>
+                        <View style={{ flex: 1 }}>
                             <Text style={styles.title}>{rowData.name}</Text>
                             <Text style={styles.subtitle}>{rowData.subtitle}</Text>
                         </View>
@@ -487,7 +487,7 @@ var styles = StyleSheet.create({
     },
 
     rowContainer: {
-        height: 52,
+        height: 62,
         alignSelf: 'stretch',
         flexDirection: 'row',
         paddingLeft: 23,

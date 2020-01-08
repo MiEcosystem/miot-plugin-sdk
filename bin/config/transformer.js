@@ -3,7 +3,7 @@ require('../setupBabel')();
 
 
 //TRANSFORMER
-const metro_transformer = require('metro-react-native-babel-transformer/src/index');
+const metro_transformer = require('@react-native-community/cli/node_modules/metro-react-native-babel-transformer/src/index.js');
 //require("node_modules/@react-native-community/cli/node_modules/metro-babel-transformer/src");
 
 const path = require('path');

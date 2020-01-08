@@ -44,7 +44,7 @@ export default class HostPropsInfoDemo extends Component {
       this.setState({ operatorsInfo: '没有获取到operatorsInfo error: ' + err });
     });
     Host.phoneHasNfcForAndroid().then((res) => {
-      this.setState({ phoneHasNfcForAndroid: res });
+      this.setState({ phoneHasNfcForAndroid: JSON.stringify(res) });
     }).catch((err) => {
       this.setState({ phoneHasNfcForAndroid: 'error:' + err });
     });

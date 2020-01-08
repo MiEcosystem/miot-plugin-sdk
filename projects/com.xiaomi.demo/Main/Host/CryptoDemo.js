@@ -26,7 +26,7 @@ export default class CryptoDemo extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text style={{ fontSize: 20, top: 80 }}>{this.state.md5Text}</Text>
+        <Text style={[{ fontSize: 20, top: 80 }, fontFamily]}>{this.state.md5Text}</Text>
         <TouchableOpacity style={{ top: 120 }}
           onPress={() => {
             Host.crypto.encodeMD5('hello MIoT').then((res) => {
@@ -35,9 +35,9 @@ export default class CryptoDemo extends React.Component {
               this.setState({ md5Text: 'md5 failed: ' + err })
             });
           }}>
-          <Text style={{ fontSize: 20 }}>MD5 加密</Text>
+          <Text style={[{ fontSize: 20 }, fontFamily]}>MD5 加密</Text>
         </TouchableOpacity >
-        <Text style={{ fontSize: 20, top: 180 }}>{this.state.base64Text}</Text>
+        <Text style={[{ fontSize: 20, top: 180 }, fontFamily]}>{this.state.base64Text}</Text>
         <TouchableOpacity style={{ top: 220 }}
           onPress={() => {
             Host.crypto.encodeBase64('hello MIoT').then((res) => {
@@ -50,9 +50,9 @@ export default class CryptoDemo extends React.Component {
               this.setState({ base64Text: 'encodeBase64 failed: ' + err })
             });
           }}>
-          <Text style={{ fontSize: 20 }}>Base 64 加解密</Text>
+          <Text style={[{ fontSize: 20 }, fontFamily]}>Base 64 加解密</Text>
         </TouchableOpacity >
-        <Text style={{ fontSize: 20, top: 280 }}>{this.state.SHA1Text}</Text>
+        <Text style={[{ fontSize: 20, top: 280 }, fontFamily]}>{this.state.SHA1Text}</Text>
         <TouchableOpacity style={{ top: 320 }}
           onPress={() => {
             Host.crypto.encodeSHA1('hello MIoT').then((res) => {
@@ -61,9 +61,9 @@ export default class CryptoDemo extends React.Component {
               this.setState({ SHA1Text: 'encodeSHA1 failed: ' + err })
             });
           }}>
-          <Text style={{ fontSize: 20 }}>点击SHA1</Text>
+          <Text style={[{ fontSize: 20 }, fontFamily]}>点击SHA1</Text>
         </TouchableOpacity >
-        <Text style={{ fontSize: 20, top: 380 }}>{this.state.SHA2Text}</Text>
+        <Text style={[{ fontSize: 20, top: 380 }, fontFamily]}>{this.state.SHA2Text}</Text>
         <TouchableOpacity style={{ top: 420 }}
           onPress={() => {
             Host.crypto.encodeSHA2('hello MIoT').then((res) => {
@@ -72,7 +72,7 @@ export default class CryptoDemo extends React.Component {
               this.setState({ SHA2Text: 'encodeSHA2 failed: ' + err })
             });
           }}>
-          <Text style={{ fontSize: 20 }}>点击SHA2</Text>
+          <Text style={[{ fontSize: 20 }, fontFamily]}>点击SHA2</Text>
         </TouchableOpacity >
       </View >
     );

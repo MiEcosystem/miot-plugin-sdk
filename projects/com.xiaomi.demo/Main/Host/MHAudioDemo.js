@@ -78,11 +78,11 @@ export default class MHAudioDemo extends React.Component {
           <Text style={{ fontSize: 20 }}>播放结束</Text>
         </TouchableOpacity>
         <TouchableOpacity style={{ top: 350 }} onPress={this._convertButtonWavToAmrClicked.bind(this)}>
-          <Text style={{ fontSize: 20 }}>格式转换 wav -> Amr</Text>
+          <Text style={[{ fontSize: 20 }, fontFamily: fontFamily]}>格式转换 wav -> Amr</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{ top: 400 }} onPress={this._convertButtonAmrToWavClicked.bind(this)}>
-          <Text style={{ fontSize: 20 }}>格式转换 amr -> Wav</Text>
-        </TouchableOpacity>
+      <TouchableOpacity style={{ top: 400 }} onPress={this._convertButtonAmrToWavClicked.bind(this)}>
+        <Text style={[{ fontSize: 20 }, fontFamily: fontFamily]}>格式转换 amr -> Wav</Text>
+        </TouchableOpacity >
       </View >
     );
   }
