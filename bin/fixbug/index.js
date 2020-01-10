@@ -20,6 +20,7 @@ map.set("node_modules/event-target-shim/dist/event-target-shim.js", "eventTarget
 map.set("node_modules/react-native/Libraries/Modal/Modal.js", "Modal"); //RN610:修复_reactNative.Modal.propType crash问题
 map.set("node_modules/react-native-swiper/src/index.js","react-native-swiper.index");//RN610:修复swiper中android端不使用ViewPagerAndroid渲染scrollView的问题
 map.set("node_modules/react-native/Libraries/Alert/Alert.js", "Alert") // RN61: 修复 alert 被意外重写的问题
+map.set("node_modules/react-navigation/src/routers/createConfigGetter.js", "YeelightNavigation") // Yeelight 导航出现文字的问题
 
 module.exports = {
 
