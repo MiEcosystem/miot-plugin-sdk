@@ -72,6 +72,8 @@
     
 [Android APK 包下载地址](https://fir.im/MiHomeForAndroid)
 
+[Android APK 包下载地址(RN54,SDK_10032,供大家临时使用)](https://fir.im/MiHomeForAndroid?release_id=5e09d91223389f7111e96a03)
+
 下载密码: keliyuan 
 
 ## 其他文档
