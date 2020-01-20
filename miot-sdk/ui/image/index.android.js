@@ -1,12 +1,12 @@
-import flattenStyle from 'flattenStyle';
-import ImageResizeMode from 'ImageResizeMode';
-import ImageStylePropTypes from 'ImageStylePropTypes';
+import flattenStyle from 'react-native/Libraries/StyleSheet/flattenStyle';
+import ImageResizeMode from 'react-native/Libraries/Image/ImageResizeMode';
+import ImageStylePropTypes from 'react-native/Libraries/DeprecatedPropTypes/DeprecatedImageStylePropTypes';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Image, NativeModules, requireNativeComponent, StyleSheet, ViewPropTypes } from 'react-native';
-import resolveAssetSource from 'resolveAssetSource';
-import StyleSheetPropType from 'StyleSheetPropType';
-import { ViewContextTypes } from 'ViewContext';
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
+import StyleSheetPropType from 'react-native/Libraries/DeprecatedPropTypes/DeprecatedStyleSheetPropType';
+import { ViewContextTypes } from './ViewContext';
 var merge = require('merge');
 var { ImageLoader } = NativeModules;
 let _requestId = 1;

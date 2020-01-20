@@ -58,6 +58,14 @@ export default class List extends React.Component {
               onPress={_ => console.log(3)}
             />
             <ListItem
+              title="not show separator"
+              showSeparator={false}
+            />
+            <ListItem
+              title="hideArrow"
+              hideArrow={true}
+            />
+            <ListItem
               title='ABCabc123测试ABCabc123测试ABCabc123测试ABCabc123测试'
               subtitle='这是用来测试副标题的文案，尽量写长一点争取可以换行。'
               showDot={true}
@@ -88,7 +96,8 @@ export default class List extends React.Component {
               titleStyle={{ fontSize: 17, color: 'red' }}
               valueStyle={{ fontSize: 10, color: 'yellow' }}
               showWithPercent={false}
-              onSlidingComplete={value => console.log(value)}
+              onSlidingComplete={value => console.log('onSlidingComplete: ', value)}
+              onValueChange={value => console.log('onValueChange: ', value)}
               separator={<Separator />}
             />
             <ListItemWithSwitch

@@ -64,18 +64,6 @@ export default class MoreMenu extends React.Component {
         }
       },
       {
-        'name': '音频',
-        'func': () => {
-          this.props.navigation.navigate('audioDemo', { 'title': '音频Demo' });
-        }
-      },
-      {
-        'name': '视频',
-        'func': () => {
-          this.props.navigation.navigate('videoDemo', { 'title': '视频Demo' });
-        }
-      },
-      {
         'name': '新目录结构获取图片方式测试',
         'func': () => {
           this.props.navigation.navigate('imagePathDemo', { 'title': '新目录结构获取图片方式测试' });

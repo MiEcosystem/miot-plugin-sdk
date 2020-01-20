@@ -5,18 +5,28 @@
  * @description infra
  *
  */
+//@native
+import native from "../native";
+//@native
+const { TJInfra } = native;
 export default {
     /**
      * createClient
      * @param {String} name 
      */
     createClient(name) {
+        //@native begin
+        TJInfra.createClient(name);
+        //@native end
     },
     /**
      * destroyClient
      * @param {String} name 
      */
     destroyClient(name) {
+        //@native begin
+        TJInfra.destroyClient(name)
+        //@native end
     },
     /**
      * exactMatchRemote
@@ -25,7 +35,17 @@ export default {
      * @returns promise
      */
     exactMatchRemote(clientName, page) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.exactMatchRemote(clientName, native.isAndroid ? JSON.stringify(page) : page, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        })
+        //@native end
     },
     /**
      * exactMatchRemoteIfPower
@@ -35,7 +55,17 @@ export default {
      * @returns promise
      */
     exactMatchRemoteIfPower(clientName, page, matchPower) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.exactMatchRemoteIfPower(clientName, native.isAndroid ? JSON.stringify(page) : page, matchPower, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        })
+        //@native end
     },
     /**
      * searchDiy
@@ -44,7 +74,17 @@ export default {
      * @returns promise
      */
     searchDiy(clientName, page) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.searchDiy(clientName, native.isAndroid ? JSON.stringify(page) : page, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        })
+        //@native end
     },
     /**
      * searchOfficial
@@ -53,7 +93,17 @@ export default {
      * @returns promise
      */
     searchOfficial(clientName, page) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.searchOfficial(clientName, native.isAndroid ? JSON.stringify(page) : page, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        })
+        //@native end
     },
     /**
      * searchAirRemote
@@ -62,7 +112,17 @@ export default {
      * @returns promise
      */
     searchAirRemote(clientName, page) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.searchAirRemote(clientName, native.isAndroid ? JSON.stringify(page) : page, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        })
+        //@native end
     },
     /**
      * downloadRemote
@@ -70,14 +130,34 @@ export default {
      * @param {string} remoteId 
      */
     downloadRemote(clientName, remoteId) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.downloadRemote(clientName, remoteId, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        })
+        //@native end
     },
     /**
      * loadBrands
      * @param {string} clientName 
      */
     loadBrands(clientName) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.loadBrands(clientName, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        });
+        //@native end
     },
     /**
      * autoMatchRemote
@@ -85,7 +165,17 @@ export default {
      * @param {json} page 
      */
     autoMatchRemote(clientName, page) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.autoMatchRemote(clientName, native.isAndroid ? JSON.stringify(page) : page, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        });
+        //@native end
     },
     /**
      * missModel
@@ -95,7 +185,9 @@ export default {
      * @param {string} model 
      */
     missModel(clientName, type, brandId, model) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        TJInfra.missModel(clientName, type, brandId, model);
+        //@native end
     },
     /**
      * getIRCode
@@ -103,7 +195,17 @@ export default {
      * @param {string} data 
      */
     getIRCode(freq, data) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.getIRCode(freq, data, (ok, header, content) => {
+                if (ok) {
+                    resolve({ 'header': header, 'content': content });
+                } else {
+                    reject('failed');
+                }
+            })
+        });
+        //@native end
     },
     /**
      * buildIRCode
@@ -111,7 +213,17 @@ export default {
      * @param {string} base64Data 
      */
     buildIRCode(freq, base64Data) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.buildIRCode(freq, base64Data, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        });
+        //@native end
     },
     /**
      * fetchRemoteInfrared
@@ -119,7 +231,17 @@ export default {
      * @param {json} key 
      */
     fetchRemoteInfrared(remoteDict, key) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.fetchRemoteInfrared(native.isAndroid ? JSON.stringify(remoteDict) : remoteDict, native.isAndroid ? JSON.stringify(key) : key, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        });
+        //@native end
     },
     /**
      * 
@@ -128,7 +250,17 @@ export default {
      * @param {json} state 
      */
     fetchAirRemoteInfrared(remoteDict, key, state) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.fetchAirRemoteInfrared(native.isAndroid ? JSON.stringify(remoteDict) : remoteDict, native.isAndroid ? JSON.stringify(key) : key, native.isAndroid ? JSON.stringify(state) : state, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        });
+        //@native end
     },
     /**
      * 
@@ -137,46 +269,116 @@ export default {
      * @param {json} time 
      */
     fetchAirTimerInfrared(keyDict, state, time) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.fetchAirTimerInfrared(native.isAndroid ? JSON.stringify(keyDict) : keyDict, native.isAndroid ? JSON.stringify(state) : state, native.isAndroid ? JSON.stringify(time) : time, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        });
+        //@native end
     },
     /**
      * getAirRemoteState
      * @param {json} remoteDict 
      */
     getAirRemoteState(remoteDict) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.getAirRemoteState(native.isAndroid ? JSON.stringify(remoteDict) : remoteDict, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        });
+        //@native end
     },
     /**
      * isMemoryKey
      * @param {json} keyDict 
      */
     isMemoryKey(keyDict) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.isMemoryKey(native.isAndroid ? JSON.stringify(keyDict) : keyDict, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        });
+        //@native end
     },
     /**
      * isCustomKey
      * @param {json} keyDict 
      */
     isCustomKey(keyDict) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.isCustomKey(native.isAndroid ? JSON.stringify(keyDict) : keyDict, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        });
+        //@native end
     },
     /**
      * 加载全部省份信息（省份不包含城市列表）
      */
     getAllProvinces() {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.getAllProvinces((ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        });
+        //@native end
     },
     /**
      * 加载城市列表
      */
     getAllCities() {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.getAllCities((ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        });
+        //@native end
     },
     /**
      * 加载运营商
      */
     getAllProviders() {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.getAllProviders((ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        });
+        //@native end
     },
     /**
      * 获取运营商推荐遥控器
@@ -184,26 +386,83 @@ export default {
      * @param {int} provider 
      */
     loadProviderRemotesByCity(city_id, provider) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.loadProviderRemotesByCity(city_id, provider, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        });
+        //@native end
     },
     /**
      * 加载城市 - 运营商关联数据
      */
     loadCityProviders() {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.loadCityProviders((ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        });
+        //@native end
     },
     /**
      * getProviderInCity
      * @param {int} city_id 
      */
     getProviderInCity(city_id) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.getProviderInCity(city_id, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        });
+        //@native end
     },
     /**
      * getCityInProvince
      * @param {int} province_id 
      */
     getCityInProvince(province_id) {
-         return Promise.resolve(null);
+        //@native :=> promise 
+        return new Promise((resolve, reject) => {
+            TJInfra.getCityInProvince(province_id, (ok, res) => {
+                if (ok) {
+                    resolve(this.convertResultDataToJson(res));
+                } else {
+                    reject(res);
+                }
+            })
+        });
+        //@native end
     },
+    //@native begin
+    /**
+     * 对于Android这边，data的格式统一为：{code:x, result:"xxx"}
+     * 保证与ios统一，对result进行一次json转换
+     * @param data
+     * @returns {*}
+     */
+    convertResultDataToJson(data) {
+        if (native.isAndroid && data && data.result) {
+            data.result = JSON.parse(data.result);
+        } else if (native.isAndroid && data) {
+            //no resule, set data to result
+            return { code: 0, result: data }
+        }
+        return data;
+    }
+    //@native end
 }

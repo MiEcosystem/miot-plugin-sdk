@@ -40,9 +40,27 @@ export default class HostDemo extends React.Component {
         }
       },
       {
-        'name': 'Native导航模块-ui',
+        'name': '音频',
         'func': () => {
-          this.props.navigation.navigate('NavigateUIDemo', { title: 'Native导航模块-ui' })
+          this.props.navigation.navigate('audioDemo', { 'title': '音频Demo' });
+        }
+      },
+      {
+        'name': '视频',
+        'func': () => {
+          this.props.navigation.navigate('videoDemo', { 'title': '视频Demo' });
+        }
+      },
+      {
+        'name': '加密',
+        'func': () => {
+          this.props.navigation.navigate('cryptoDemo', { 'title': '加密Demo' });
+        }
+      },
+      {
+        'name': 'Route 到 Native 页面 - Host.ui',
+        'func': () => {
+          this.props.navigation.navigate('NavigateUIDemo', { title: 'Route 到 Native 页面 - Host.ui' })
         }
       },
       {

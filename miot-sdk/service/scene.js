@@ -44,6 +44,8 @@
  *      console.log(err)
  *   })
  */
+//@native
+import native, { Properties } from "../native";
 /**
  * 场景类型
  * @namespace SceneType
@@ -80,7 +82,8 @@ export class IScene {
      * @readonly
      */
     get sceneID() {
-         return  0
+        //@native => 0
+        console.log(Properties.of(this).data.us_id);
         return Properties.of(this).data.us_id
     }
     /**
@@ -90,7 +93,8 @@ export class IScene {
      * @readonly
      */
     get isNew() {
-         return  false
+        //@native => false
+        return !this.sceneID;
     }
     /**
      * 场景的创建时间
@@ -99,7 +103,8 @@ export class IScene {
      * @readonly
      */
     get createTime() {
-         return  0
+        //@native => 0
+        return Properties.of(this).data.create_time;
     }
     /**
      * 场景是否开启
@@ -108,7 +113,8 @@ export class IScene {
      * @readonly
      */
     get status() {
-         return  0
+        //@native => 0
+        return Properties.of(this).data.status || 0;
     }
     /**
      * 定时场景的设备的did
@@ -117,7 +123,8 @@ export class IScene {
      * @readonly
      */
     get deviceID() {
-         return  0
+        //@native => 0
+        return Properties.of(this).deviceID;
     }
     /**
      * 场景名称
@@ -125,9 +132,12 @@ export class IScene {
      * @type {string}
      */
     get name() {
-         return  ""
+        //@native => ""
+        return (Properties.of(this).data || {}).name
     }
     set name(name) {
+        //@native
+        Properties.of(this).data.name = name;
     }
     /**
      * 场景类型，只读
@@ -136,7 +146,8 @@ export class IScene {
      * @readonly
      */
     get type() {
-         return  0
+        //@native => 0
+        return Properties.of(this).data.st_id
     }
     /**
      * 是否是定时场景，只读
@@ -170,9 +181,12 @@ export class IScene {
      * @type {string}
      */
     get identify() {
-         return  ""
+        //@native => ""
+        return Properties.of(this).data.identify;
     }
     set identify(identify) {
+        //@native
+        Properties.of(this).data.identify = identify
     }
     /**
      * 场景的更多属性，详见 {@link module:miot/service/scene/createTimerScene}
@@ -180,9 +194,12 @@ export class IScene {
      * @type {json}
      */
     get setting() {
-         return  {}
+        //@native => {}
+        return Properties.of(this).data.setting || {};
     }
     set setting(setting) {
+        //@native
+        Properties.of(this).data.setting = setting || {};
     }
     /**
      * 授权设备列表，指场景关联的那些设备的deviceID
@@ -190,9 +207,12 @@ export class IScene {
      * @type {Array<String>}
      */
     get authorizedDeviceIDs() {
-         return  []
+        //@native => []
+        return Properties.of(this).data.authed || [this.deviceID]
     }
     set authorizedDeviceIDs(deviceIDs) {
+        //@native
+        Properties.of(this).data.authed = deviceIDs.map(id => id + "");
     }
     /**
      * 保存场景 /scene/edit
@@ -222,7 +242,28 @@ export class IScene {
                 this.authorizedDeviceIDs = opt.authed;
             }
         }
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            const params = {
+                us_id: this.sceneID,
+                st_id: this.type,
+                name: this.name || '',
+                identify: this.identify,
+                setting: this.setting,
+                authed: this.authorizedDeviceIDs
+            };
+            native.MIOTRPC.standardCall("/scene/edit", params, (ok, res) => {
+                if (ok) {
+                    const self = Properties.of(this)
+                    self.data.us_id = self.data.us_id || res.us_id;
+                    self.data.status = res.status;
+                    return resolve(this, res)
+                } else {
+                    return reject(res)
+                }
+            });
+        });
+        //@native end
     }
     /**
      * 重新加载场景数据 /scene/get 
@@ -230,7 +271,21 @@ export class IScene {
      * @returns {Promise<IScene>}
      */
     reload() {
-         return Promise.resolve(null);
+        //@native :=> promise
+        if (this.isNew) {
+            return Promise.reject(false);
+        }
+        const self = Properties.of(this);
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.standardCall("/scene/get", { us_id: this.sceneID }, (ok, res) => {
+                if (ok && res.result) {
+                    self.data = res.result;
+                    return resolve(this, res);
+                }
+                reject(res)
+            });
+        })
+        //@native end
     }
     /**
      * 启动场景 /scene/start
@@ -238,7 +293,17 @@ export class IScene {
      * @returns {Promise<IScene>}
      */
     start() {
-         return Promise.resolve(false);
+        //@native :=> promise false
+        if (this.isNew) {
+            return Promise.reject(false);
+        }
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.standardCall("/scene/start", { us_id: this.sceneID }, (ok, res) => {
+                ok && resolve(this, res)
+                !ok && reject(res)
+            })
+        })
+        //@native end
     }
     /**
      * 删除场景 /scene/delete
@@ -246,7 +311,20 @@ export class IScene {
      * @returns {Promise<IScene>}
      */
     remove() {
-         return Promise.resolve(false);
+        //@native :=> promise false
+        if (this.isNew) {
+            return Promise.reject(this);
+        }
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.standardCall("/scene/delete", { us_id: this.sceneID }, (ok, res) => {
+                if (ok) {
+                    Properties.of(this).data.us_id = 0;
+                    return resolve(this, res);
+                }
+                reject(res);
+            });
+        });
+        //@native end
     }
 }
 /**
@@ -262,7 +340,15 @@ export class IScene {
  * @returns {IScene}
  */
 function createScene(deviceID, sceneType, opt = null) {
-     return Promise.resolve(null);
+    //@native :=> promise
+    const { identify, us_id, name, setting } = opt || {};
+    return Properties.init(new IScene(), {
+        data: {
+            st_id: sceneType, us_id, identify, name, authed: [deviceID + ""],
+            setting: setting || {}, deviceID
+        }
+    });
+    //@native end
 }
 /**
  * 加载场景 
@@ -272,7 +358,30 @@ function createScene(deviceID, sceneType, opt = null) {
  * @returns {Promise<IScene>}
  */
 function loadScenes(deviceID, sceneType, opt = null) {
-     return Promise.resolve(null);
+    //@native begin => promise
+    const params = {
+        did: deviceID,
+        st_id: sceneType,
+        type: 0 //强制是云端
+    };
+    const { identify, name } = opt || {};
+    if (identify) {
+        params.identify = identify;
+    }
+    if (name) {
+        params.name = name;
+    }
+    return new Promise((resolve, reject) => {
+        native.MIOTRPC.standardCall("/scene/list", params, (ok, res) => {
+            if (!ok || !res) {
+                return reject(res);
+            }
+            resolve(Object.keys(res).map(k => {
+                return Properties.init(new IScene(), { data: { name, identify, ...res[k], st_id: sceneType }, deviceID });
+            }));
+        })
+    })
+    //@native end
 }
 /**
  * @export
@@ -405,8 +514,83 @@ export default {
      * @param {int} limit 拉取日志数量限制，小于等于50
      */
     loadScenesHistoryForDevice(did, timestamp = -1, limit = 50) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        let params = { did, limit, "command": "history" }
+        if (timestamp !== -1) {
+            params.timestamp = timestamp;
+        }
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.standardCall("/scene/history", params, (ok, res) => {
+                if (ok) {
+                    resolve(res);
+                } else {
+                    reject(res);
+                }
+            })
+        })
+        //@native end
     },
+    //@native begin
+    editSceneRecord(params) {
+        return new Promise((resolve, reject) => {
+            native.MIOTService.editSceneRecord(params, (ok, res) => {
+                if (ok) {
+                    resolve(res);
+                } else {
+                    reject(res);
+                }
+            })
+        })
+    },
+    /**
+     * 批量删除自动化、场景
+     * @param {Array}  params 自动化、场景us_id数组
+     */
+    deleteSceneRecords(params) {
+        return new Promise((resolve, reject) => {
+            native.MIOTService.deleteSceneRecords(params, (ok, res) => {
+                if (ok) {
+                    resolve(res);
+                } else {
+                    reject(res);
+                }
+            })
+        })
+    },
+    triggerTemplatesForQualified(did) {
+        return new Promise((resolve, reject) => {
+            native.MIOTService.triggerTemplatesForQualifiedDid(did, (ok, res) => {
+                if (ok) {
+                    resolve(res)
+                } else {
+                    reject(res)
+                }
+            })
+        })
+    },
+    actionTemplatesForQualified(did) {
+        return new Promise((resolve, reject) => {
+            native.MIOTService.actionTemplatesForQualifiedDid(did, (ok, res) => {
+                if (ok) {
+                    resolve(res)
+                } else {
+                    reject(res)
+                }
+            })
+        })
+    },
+    loadSceneTemplate() {
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.standardCall("/scene/tplv2", null, (ok, res) => {
+                if (ok) {
+                    resolve(res);
+                } else {
+                    reject(res);
+                }
+            })
+        })
+    },
+    //@native end
     /**
      * 打开添加智能的页面(米家APP实现)
      * @since 10032 ,SDKLevel 10032 开始提供使用
@@ -414,6 +598,10 @@ export default {
      * Service.scene.openIftttAutoPage()
      */
     openIftttAutoPage() {
+        //@native begin
+        //@mark andr done
+        native.MIOTHost.openIftttAutoPage();
+        //@native end
     },
     /**
      * 打开时间设置页面(米家APP实现)
@@ -437,6 +625,9 @@ export default {
      * Host.ui.openTimerSettingPageWithOptions({onMethod:"power_on", onParam: "on", offMethod: "power_off", offParam: "off", displayName:"设置xxx定时"，identify:"plug_usb_countdowm"})
      */
     openTimerSettingPageWithOptions(options) {
+        //@native begin
+        native.MIOTHost.openTimerSettingPageWithOptions(options);
+        //@native end
     },
     /**
      * 开启倒计时界面
@@ -454,5 +645,10 @@ export default {
      *
      */
     openCountDownPage(isCountDownOn, setting) {
+        //@native begin
+        //@mark ios done
+        //@mark android undone
+        native.MIOTHost.launchCountDownWhenDevice(isCountDownOn, setting);
+        //@native end
     },
 }

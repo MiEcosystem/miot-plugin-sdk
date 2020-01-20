@@ -27,6 +27,7 @@ export default class UIDemo extends React.Component {
           { name: '导航栏使用', router: 'TitleBarDemo' },
           { name: '自定义列表项', router: 'List' },
           { name: '自定义卡片', router: 'CardPage' },
+          { name: '独立卡片', router: 'IndependentCardDemo' },
           { name: '模式卡片', router: 'ModeCardDemo' },
           { name: '单选框', router: 'RadioExample' },
           { name: '复选框', router: 'CheckboxDemo' },
@@ -71,9 +72,10 @@ export default class UIDemo extends React.Component {
             />
           },
           { name: 'ImageCapInsetDemo', router: 'ImageCapInsetDemo' },
+          { name: 'ImageButtonDemo', router: 'ImageButtonDemo' },
           { name: 'NumberSpinnerDemo', router: 'NumberSpinnerDemo' },
           { name: 'StringSpinnerDemo', router: 'StringSpinnerDemo' },
-          { name: 'RobotMapDemo', router: 'RobotMapDemo' },
+          { name: 'RobotMapDemo(待废弃)', router: 'RobotMapDemo' },
           { name: 'MiotAndroidScrollViewDemo(仅Android)', router: 'MiotAndroidScrollViewDemo' },
           { name: '绝对定位点击测试', router: 'AbsoluteTouch' },
           { name: '输入法软键盘适配测试', router: 'SoftKeyboardAdapterTestDemo' },
@@ -156,4 +158,3 @@ var styles = StyleSheet.create({
     marginLeft: 20,
   },
 });
-

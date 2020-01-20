@@ -7,6 +7,8 @@
  * @description 摄像机 API
  *
  */
+//@native
+import {Device} from "miot"
 import { NativeModules, Platform } from 'react-native';
 /**
  * MISS 命令
@@ -86,13 +88,54 @@ export const MISSConnectState = {
     MISS_Connection_ReceivedFirstFrame: 3,
 };
 Object.freeze(MISSConnectState);
+/**
+ * Alarm Event Type
+ * @namespace AlarmEventType
+ */
+export const AlarmEventType = {
+    EventType_All: 1 << 0,
+    EventType_AI: 1 << 1,
+    EventType_Face: 1 << 2,
+    EventType_KnownFace: 1 << 3,
+    EventType_PeopleMotion: 1 << 4,
+    EventType_ObjectMotion: 1 << 5,
+    EventType_BabyCry: 1 << 6,
+};
+Object.freeze(AlarmEventType);
 export default {
     /**
      * 连接设备
      * @param {string} callbackName 链接状态变更回调 { state: MISSConnectState, error: MISSError }
      */
     connectToDeviceWithStateChangeCallBack(callbackName) {
-         return 
+        //@native :=>
+        if (Platform.OS === 'android') {
+            NativeModules.MHCameraSDK.startConnect(Device.deviceID, callbackName);
+        } else {
+            NativeModules.MHCameraSDK.connectToDeviceWithDid(Device.deviceID, Device.model, callbackName);
+        }
+        //@native end
+    },
+    /**
+     * 断开连接设备
+     * @since 10033
+     */
+    disconnectToDevice() {
+        //@native :=>
+        if (Platform.OS === 'android') {
+            console.log('待实现')
+        } else {
+            return new Promise((resolve, reject) => {
+                NativeModules.MHCameraSDK.disconnectToDeviceWithDid(Device.deviceID, (result, retCode) => {
+                    if (result) {
+                        resolve(result)
+                    } else {
+                        reject(retCode)
+                    }
+                });
+            })
+        }
+        //@native end
     },
     /**
      * 发送miss命令到设备
@@ -101,21 +144,68 @@ export default {
      * @returns {Promise<number>} a promise with return code
      */
     sendP2PCommandToDevice(command, params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        if (Platform.OS === 'android') {
+            return new Promise((resolve, reject) => {
+                NativeModules.MHCameraSDK.sendServerCmd(Device.deviceID, command, JSON.stringify(params), (result, retCode) => {
+                    if (result) {
+                        resolve(retCode);
+                    } else {
+                        reject(retCode);
+                    }
+                });
+            });
+        } else {
+            return new Promise((resolve, reject) => {
+                NativeModules.MHCameraSDK.sendP2PCommandToDeviceWith(Device.deviceID, command, params, (result, retCode) => {
+                    if (result) {
+                        resolve(retCode);
+                    } else {
+                        reject(retCode);
+                    }
+                });
+            });
+        }
+        //@native end
     },
     /**
      * 注册接收命令回调
      * @param {string} callbackName 收到p2p command回调 { command: MISSCommand, data: Object/Base64String }
      */
     bindP2PCommandReceiveCallback(callbackName) {
-         return 
+        //@native :=>
+        NativeModules.MHCameraSDK.bindP2PCommandReceiveWithDid(Device.deviceID, callbackName);
+        //@native
+    },
     /**
      * 发送RDT命令到设备
      * @param {object} params json data
      * @returns {Promise<number>} a promise with return code
      */
     sendRDTJSONCommandToDevice(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        if (Platform.OS === 'android') {
+            return new Promise((resolve, reject) => {
+                NativeModules.MHCameraSDK.sendRDTCommandToDevice(Device.deviceID, JSON.stringify(params), (result, retCode) => {
+                    if (result) {
+                        resolve(retCode);
+                    } else {
+                        reject(retCode);
+                    }
+                });
+            });
+        } else {
+            return new Promise((resolve, reject) => {
+                NativeModules.MHCameraSDK.sendRDTCommandJSONToDeviceWith(Device.deviceID, params, (result, retCode) => {
+                    if (result) {
+                        resolve(retCode);
+                    } else {
+                        reject(retCode);
+                    }
+                });
+            });
+        }
+        //@native end
     },
     /**
      * 发送RDT命令到设备
@@ -123,12 +213,73 @@ export default {
      * @returns {Promise<number>} a promise with return code
      */
     sendRDTCommandToDevice(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        if (Platform.OS === 'android') {
+            return new Promise((resolve, reject) => {
+                NativeModules.MHCameraSDK.sendRDTCommandToDevice(Device.deviceID, params, (result, retCode) => {
+                    if (result) {
+                        resolve(retCode);
+                    } else {
+                        reject(retCode);
+                    }
+                });
+            });
+        } else {
+            return new Promise((resolve, reject) => {
+                NativeModules.MHCameraSDK.sendRDTCommandToDeviceWith(Device.deviceID, params, (result, retCode) => {
+                    if (result) {
+                        resolve(retCode);
+                    } else {
+                        reject(retCode);
+                    }
+                });
+            });
+        }
+        //@native end
     },
     /**
      * 注册接收RDT命令回调
      * @param {string} callbackName 收到RDT回调 { data: Object/Base64String }
      */
     bindRDTDataReceiveCallback(callbackName) {
-         return 
+        //@native :=>
+        if (Platform.OS === 'android') {
+            NativeModules.MHCameraSDK.bindRDTDataReceiveCallback(Device.deviceID, callbackName);
+        } else {
+            NativeModules.MHCameraSDK.bindRDTDataReceiveWithDid(Device.deviceID, callbackName);
+        }
+        //@native
+    },
+    /**
+     * 打开报警视频页面
+     * @since 10033
+     * @param {number} AlarmEventType 取或
+     */
+    showAlarmVideos(localRecognizeEvents) {
+        NativeModules.MHCameraSDK.showAlarmVideos(Device.deviceID, localRecognizeEvents)
+    },
+    /**
+     * 打开云储存页面
+     * @since 10033
+     * @param {BOOL} supportHevc 是否支持 H265
+     * @param {useV2API} 是否使用 V2 接口
+     */
+    showCloudStorage(supportHevc, useV2API) {
+        NativeModules.MHCameraSDK.showCloudStorage(Device.deviceID, supportHevc, useV2API)
+    },
+    /**
+     * 打开云储存设置页面
+     * @since 10033
+     */
+    showCloudStorageSetting() {
+        NativeModules.MHCameraSDK.showCloudStorageSetting(Device.deviceID)
+    },
+    /**
+     * 打开人脸识别页面
+     * @since 10033
+     * @param {BOOL} isVip 
+     */
+    showFaceRecognize(isVip) {
+        NativeModules.MHCameraSDK.showFaceRecognize(Device.deviceID, isVip)
+    },
 }

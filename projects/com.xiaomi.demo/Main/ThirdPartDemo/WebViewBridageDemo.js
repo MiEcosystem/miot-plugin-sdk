@@ -24,9 +24,10 @@ export default class WebViewBridageDemo extends Component {
   handleMessage(e) {
     this.setState({ webViewData: e.nativeEvent.data });
   }
+
   render() {
     //可测试跳转
-    //const uri = {uri:"https://c4.account.xiaomi.com/longPolling/login?ticket=4926acb931c9-b04f-4347-a332-8ee289a4390c&dc=c4"};
+    // const uri = { uri: "https://www.baidu.com" };
     const uri = require('../../Resources/index.html')
     return (
       <View style={styles.container}>

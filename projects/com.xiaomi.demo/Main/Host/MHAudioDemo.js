@@ -42,9 +42,9 @@ export default class MHAudioDemo extends React.Component {
   }
 
   componentWillUnmount() {
-    this.s0.remove();
-    this.s1.remove();
-    this.s2.remove();
+    this.s0 && this.s0.remove();
+    this.s1 && this.s1.remove();
+    this.s2 && this.s2.remove();
     this._stopPeakPowerLoop();
   }
 
@@ -56,6 +56,12 @@ export default class MHAudioDemo extends React.Component {
 
     return (
       <View style={styles.container}>
+        <TouchableOpacity style={{ top: 60 }}
+          onPress={() => {
+            alert(Host.audio.isAbleToRecord());
+          }}>
+          <Text style={{ fontSize: 20 }}>isAbleToRecord</Text>
+        </TouchableOpacity >
         <TouchableOpacity style={{ top: 100 }} onPress={this._startRecordButtonClicked.bind(this)}>
           <Text style={{ fontSize: 20 }}>录音开始</Text>
         </TouchableOpacity>
@@ -71,10 +77,13 @@ export default class MHAudioDemo extends React.Component {
         <TouchableOpacity style={{ top: 300 }} onPress={this._stopPlayButtonClicked.bind(this)}>
           <Text style={{ fontSize: 20 }}>播放结束</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{ top: 350 }} onPress={this._convertButtonClicked.bind(this)}>
-          <Text style={{ fontSize: 20 }}>格式转换</Text>
+        <TouchableOpacity style={{ top: 350 }} onPress={this._convertButtonWavToAmrClicked.bind(this)}>
+          <Text style={[{ fontSize: 20 }, fontFamily: fontFamily]}>格式转换 wav -> Amr</Text>
         </TouchableOpacity>
-      </View>
+      <TouchableOpacity style={{ top: 400 }} onPress={this._convertButtonAmrToWavClicked.bind(this)}>
+        <Text style={[{ fontSize: 20 }, fontFamily: fontFamily]}>格式转换 amr -> Wav</Text>
+        </TouchableOpacity >
+      </View >
     );
   }
 
@@ -101,8 +110,8 @@ export default class MHAudioDemo extends React.Component {
             });
           }
         }).catch((error) => {
-        console.log("error", error)
-      })
+          console.log("error", error);
+        })
     } else {
       Host.audio.startRecord(fileName, settings).then(() => {
         console.log('startRecord');
@@ -134,10 +143,32 @@ export default class MHAudioDemo extends React.Component {
     Host.audio.stopPlay().then(() => { console.log('stopPlay'); });
   }
 
-  _convertButtonClicked() {
+  _convertButtonWavToAmrClicked() {
     var wavPath = 'test.wav';
     var amrPath = 'test.amr';
-    Host.audio.wavToAmr(wavPath, amrPath).then(() => { console.log('wavToAmr'); });
+    Host.audio.wavToAmr(wavPath, amrPath)
+      .then(() => {
+        console.log('wavToAmr success');
+        alert('wavToAmr success');
+      })
+      .catch(() => {
+        console.log('wavToAmr fail');
+        alert('wavToAmr fail');
+      });
+  }
+
+  _convertButtonAmrToWavClicked() {
+    var wavPath = 'test.wav';
+    var amrPath = 'test.amr';
+    Host.audio.amrToWav(amrPath, wavPath)
+      .then(() => {
+        console.log('amrToWav success');
+        alert('amrToWav success');
+      })
+      .catch(() => {
+        console.log('amrToWav fail');
+        alert('amrToWav fail');
+      });
   }
 
   _startPeakPowerLoop() {

@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import React from 'React';
+import React from 'react';
 // import ReactART from 'React'
 // import Transform from ART;
 import {
@@ -15,7 +15,8 @@ import {
 
 import {TimerMixin} from 'react-timer-mixin';
 
-import  {Surface,Path,Group,Transform,Shape} from 'ReactNativeART';
+import  {Surface,Path,Group,Transform,Shape} from 'react-native/Libraries/ART/ReactNativeART';
+// ReactNativeART
 // import {
 //   Surface,
 //   Path,

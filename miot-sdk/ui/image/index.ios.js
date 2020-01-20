@@ -1,13 +1,13 @@
-import EdgeInsetsPropType from 'EdgeInsetsPropType';
-import flattenStyle from 'flattenStyle';
-import ImageResizeMode from 'ImageResizeMode';
-import ImageSourcePropType from 'ImageSourcePropType';
-import ImageStylePropTypes from 'ImageStylePropTypes';
+import EdgeInsetsPropType from 'react-native/Libraries/StyleSheet/EdgeInsetsPropType';
+import flattenStyle from 'react-native/Libraries/StyleSheet/flattenStyle';
+import ImageResizeMode from 'react-native/Libraries/Image/ImageResizeMode';
+import ImageSourcePropType from 'react-native/Libraries/DeprecatedPropTypes/DeprecatedImageSourcePropType';
+import ImageStylePropTypes from 'react-native/Libraries/DeprecatedPropTypes/DeprecatedImageStylePropTypes';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { requireNativeComponent, StyleSheet } from 'react-native';
-import resolveAssetSource from 'resolveAssetSource';
-import StyleSheetPropType from 'StyleSheetPropType';
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
+import StyleSheetPropType from 'react-native/Libraries/DeprecatedPropTypes/DeprecatedStyleSheetPropType';
 export default class MHImage extends React.Component {
   static propTypes = {
     /**

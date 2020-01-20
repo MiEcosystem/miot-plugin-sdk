@@ -30,6 +30,7 @@ export default class StringSpinnerDemo extends React.Component {
                 <View style={{ flexDirection: 'row' }}>
 
                   <StringSpinner
+                    visible={false}
                     style={{ width: 120, height: 200, backgroundColor: '#ffffff', }}
                     dataSource={['a', 'b', 'c', 'd', 'e', 'f', 'g']}
                     defaultValue={'c'}

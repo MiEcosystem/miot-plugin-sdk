@@ -293,7 +293,7 @@ export default class FileStorage extends React.Component {
   }
 
   _longScreenShot() {
-    let node = findNodeHandle(this.refs.myScrollView);
+    let node = findNodeHandle(this.myScrollView);
     let imageName = "screen_" + new Date().getTime() + ".png";
     Host.file.longScreenShot(node, imageName)
       .then((imagePath) => {
@@ -440,7 +440,8 @@ export default class FileStorage extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView
-          ref="myScrollView"
+          // ref="myScrollView"
+          ref={webview => this.myScrollView = webview}
         >
           <View style={styles.row}>
             <Text style={styles.title}>文件名</Text>

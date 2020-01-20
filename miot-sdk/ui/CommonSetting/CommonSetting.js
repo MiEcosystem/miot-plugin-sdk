@@ -347,7 +347,7 @@ export default class CommonSetting extends React.Component {
     super(props, context);
     this.state = {
       name: Device.name,
-      showDot: props.showDot,
+      showDot: Array.isArray(props.showDot) ? props.showDot : [],
       countryCode: null
     };
     console.log(`Device.type: ${Device.type}`);

@@ -177,6 +177,7 @@ export default class PinCodeDialog extends React.Component {
   }
   render() {
     if (!this.props.visible) return null;
+    const absDialogStyle = Platform.OS === 'ios' ? {bottom: ~~(height * 0.38)} : {}
     return (
       <AbstractDialog
         animationType={this.props.animationType}
@@ -184,7 +185,7 @@ export default class PinCodeDialog extends React.Component {
         title={this.props.title}
         buttons={this.buttons}
         onDismiss={_ => this._onDismiss()}
-        style={{ bottom: ~~(height * 0.38) }}
+        style={absDialogStyle}
       >
         <View style={[styles.container]}>
           {this.renderUpExtra()}

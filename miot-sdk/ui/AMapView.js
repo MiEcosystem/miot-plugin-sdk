@@ -11,7 +11,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { requireNativeComponent, ViewPropTypes } from 'react-native';
 import Host from '../Host';
-const resolveAssetSource = require('resolveAssetSource');
+// const resolveAssetSource = require('resolveAssetSource');
+const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 const MapView = requireNativeComponent('MHMapView', null);
 export default class AMapView extends Component {
     static propTypes = {
@@ -180,7 +181,30 @@ export default class AMapView extends Component {
         ...ViewPropTypes,
     };
     render() {
-         return null
+        //@native :=> null
+        let propsObject = JSON.parse(JSON.stringify(this.props));
+        console.log("AMapView reslove  begin...", propsObject);
+        if (propsObject.userLocation) {
+            propsObject.userLocation.image = AMapView.resloveUri(propsObject.userLocation.image);
+        }
+        if (propsObject.userLocationRepresentation) {
+            propsObject.userLocationRepresentation.image = AMapView.resloveUri(propsObject.userLocationRepresentation.image);
+        }
+        if (propsObject.annotations && Array.isArray(propsObject.annotations)) {
+            propsObject.annotations.forEach(item => {
+                item.image = AMapView.resloveUri(item.image)
+            });
+        }
+        if (Host.isDebug) {
+            console.log("AMapView reslove  end...", propsObject);
+        }
+        return <MapView {...this.props}
+            userLocation={propsObject.userLocation}
+            userLocationRepresentation={propsObject.userLocationRepresentation}
+            annotations={propsObject.annotations}
+            centerCoordinate={propsObject.centerCoordinate}
+        />;
+        //@native end
     }
     static resloveUri(licenseUrl) {
         licenseUrl = resolveAssetSource(licenseUrl);

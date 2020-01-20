@@ -10,13 +10,13 @@ import Host from 'miot/Host';
 export default class JSExecutor extends React.Component {
 
     componentDidMount() {
-        const jspath = require("../../Resources/test_executor.jx");
-        Host.createBackgroundExecutor(jspath, { 'init1': "1", 'init2': [1, 2] }).then(executor => {
-            console.log("createBackgroundExecutor res:", executor);
-            this.executor = executor;
-        }).catch(err => {
-            console.log("createBackgroundExecutor error: ", err);
-        });
+        // const jspath = require("../../Resources/test_executor.jx");
+        // Host.createBackgroundExecutor(jspath, { 'init1': "1", 'init2': [1, 2] }).then(executor => {
+        //     console.log("createBackgroundExecutor res:", executor);
+        //     this.executor = executor;
+        // }).catch(err => {
+        //     console.log("createBackgroundExecutor error: ", err);
+        // });
     }
 
     componentWillUnmount() {

@@ -47,7 +47,7 @@ export default class SwitchDemo extends React.Component {
               onTintColor='lightblue'
               tintColor='lightpink'
               value={this.state.value}
-              disabled={this.state.disabled}
+              disabled={true}
               onValueChange={value => console.log(value)}
             />
             <Switch

@@ -158,7 +158,7 @@ export default class VideoDemo extends Component {
         <TouchableOpacity style={styles.fullScreen} onPress={() => { this.setState({ paused: !this.state.paused }) }}>
           <Video
             source={this.state.videoSource}
-            // source={require('../Resources/mp4/broadchurch.mp4')}
+            // source={require('../../Resources/mp4/broadchurch.mp4')}
             style={styles.fullScreen}
             rate={this.state.rate}
             paused={this.state.paused}

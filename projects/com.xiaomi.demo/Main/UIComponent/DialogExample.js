@@ -67,6 +67,7 @@ export default class DialogExample extends React.Component {
             visible15: false,
             visible16: false,
             visible17: false,
+            visible18: false,
         };
     }
 
@@ -81,6 +82,12 @@ export default class DialogExample extends React.Component {
                             onPress={_ => this.setState({ visible0: true })}
                         >
                             {'通用弹窗容器显示默认内容(AbstractDialog)'}
+                        </Text>
+                        <Text
+                            style={styles.label}
+                            onPress={_ => this.setState({ visible18: true })}
+                        >
+                            {'通用弹窗容器canNotDismiss (AbstractDialog)'}
                         </Text>
                         <Text
                             style={styles.label}
@@ -208,6 +215,17 @@ export default class DialogExample extends React.Component {
                             //   subtitle={testTitle}
                             //   showSubtitle
                             onDismiss={_ => this.onDismiss('0')}
+                        />
+                        <AbstractDialog
+                            canDismiss={false}
+                            visible={this.state.visible18}
+                            // title={testTitle}
+                            // title={testText}
+                            // title={titleEnglish}
+                            title={titleEnglish3}
+                            //   subtitle={testTitle}
+                            //   showSubtitle
+                            onDismiss={_ => this.onDismiss('18')}
                         />
                         <AbstractDialog
                             visible={this.state.visible1}

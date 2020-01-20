@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {StyleSheet, ListView} from "react-native";
 import seedrandom from "seedrandom";
-import Dimensions from "Dimensions";
+import Dimensions from "react-native/Libraries/Utilities/Dimensions";
 const { width: viewportWidth } = Dimensions.get("window");
 import {Surface} from "gl-react-native";
 import Heart from "./Heart";

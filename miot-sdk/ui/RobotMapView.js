@@ -36,6 +36,15 @@
  * @property {string}  mapStyle.floorColor 文字颜色 默认值 #000000
  * @property {string}  mapStyle.lineColor 文字颜色 默认值 #000000
  */
+//@native begin
+import PropTypes from 'prop-types';
+import React from 'react';
+import { requireNativeComponent, ViewPropTypes, NativeModules, findNodeHandle, Platform, UIManager } from 'react-native';
+const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
+const merge = require('merge');
+const MHRobotMap = requireNativeComponent('MHSweepingMap');
+const { MHSweepingMapManager } = NativeModules;
+//@native end
 export default class RobotMapView extends React.Component {
     static propTypes = {
         imageSources: PropTypes.array,
@@ -43,15 +52,69 @@ export default class RobotMapView extends React.Component {
         ...ViewPropTypes,
     };
     render() {
-         return null
+        //@native :=> null
+        const mapStyle = this.props.mapStyle || {};
+        let imageSources = this.props.imageSources;
+        let newImagesources = [];
+        // 对图片资源的转换
+        if (imageSources) {
+            let len = imageSources.length;
+            for (let i = 0; i < len; i++) {
+                newImagesources[i] = { ...imageSources[i] };
+                if (imageSources[i].source) {
+                    if (Platform.OS === 'android') {
+                        newImagesources[i].source = [resolveAssetSource(imageSources[i].source)];
+                    } else {
+                        newImagesources[i].source = resolveAssetSource(imageSources[i].source);
+                    }
+                }
+                if (imageSources[i].bgSource) {
+                    if (Platform.OS === 'android') {
+                        newImagesources[i].bgSource = [resolveAssetSource(imageSources[i].bgSource)];
+                    } else {
+                        newImagesources[i].bgSource = resolveAssetSource(imageSources[i].bgSource);
+                    }
+                }
+            }
+        }
+        const nativeProps = merge(this.props, {
+            imageSources: newImagesources,
+            wallColor: mapStyle.wallColor,
+            floorColor: mapStyle.floorColor,
+            lineColor: mapStyle.lineColor,
+        });
+        return <MHRobotMap
+            ref="robotMapView"
+            {...nativeProps} />
+        // ref="robotMapView" {...this.props} wallColor={mapStyle.wallColor} floorColor={mapStyle.floorColor} lineColor={mapStyle.lineColor}
+        //@native end
     }
     //更新地图数据
     updateData(pointsStr, autoCenter, robotImage, scaleToFit) {
-         return null
+        //@native :=> null
+        if (Platform.OS === 'android') {
+            UIManager.dispatchViewManagerCommand(
+                findNodeHandle(this),
+                UIManager.MHSweepingMap.Commands.addMapWithPoints,
+                [{ points: pointsStr, name: robotImage, autoCenter: autoCenter, scaleToFit: scaleToFit }],
+            )
+        } else {
+            MHSweepingMapManager.addSweepingMapWithPoints(pointsStr, autoCenter, robotImage, scaleToFit, findNodeHandle(this.refs.robotMapView));
+        }
+        //@native end
     }
     //获取图片当前位置
     positionForImage(name) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            MHSweepingMapManager.positionWithImageName(name, findNodeHandle(this.refs.robotMapView), (ok, res) => {
+                if (ok) {
+                    resolve(res);
+                } else {
+                    reject(res);
+                }
+            });
+            //@native end
         });
     }
     //清理地图上的所有内容
