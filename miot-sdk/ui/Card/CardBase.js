@@ -62,10 +62,14 @@ export default class CardBase extends React.Component {
     this.height = new Animated.Value(initValue);
     this.opacity = new Animated.Value(initValue);
     this.marginTop = marginTop || 0;
+    this.cardRef = null;
+    this.setCardRef = element => {
+      this.cardRef = element;
+    };
   }
   componentDidMount() {
     this.height.addListener(e => {
-      this.refs.card.setNativeProps({
+      this.cardRef.setNativeProps({
         marginTop: this.marginTop * e.value
       });
     });
@@ -186,7 +190,7 @@ export default class CardBase extends React.Component {
     const { animatedViewStyle, containerStyle } = this.getCorrectStyle(cardStyle);
     return (
       <Animated.View
-        ref='card'
+        ref={this.setCardRef}
         style={[animatedViewStyle, {
           opacity: this.opacity,
           height: this.height.interpolate({
