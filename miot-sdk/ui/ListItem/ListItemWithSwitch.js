@@ -72,7 +72,7 @@ export default class ListItemWithSwitch extends React.Component {
     if (this.props.subtitle) {
       extraContainerStyle = {
         paddingVertical: 8,
-        height: undefined,
+        height: 60,
       }
     }
     let extraStyle = {}

@@ -1,12 +1,13 @@
 import React from 'react';
-import { StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
+import {
+  StyleSheet, Switch, Text, TouchableOpacity, View
+} from 'react-native';
 
 export default class CommonCell extends React.Component {
+
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      isOn: false
-    }
+    this.state = { isOn: false };
   }
 
   render() {
@@ -21,31 +22,40 @@ export default class CommonCell extends React.Component {
       </TouchableOpacity>
     );
   }
+
   // cell右边显示的内容
   renderRightView() {
     // 判断
     if (this.props.isSwitch) {
       return (
-        <Switch value={this.state.isOn == true} onValueChange={() => { this.setState({ isOn: !this.state.isOn }) }} style={{ marginRight: 8 }} />
-      )
-    } else {
+        <Switch
+          value={this.props.isOn === true}
+          onValueChange={val => {
+            this.props.onValueChange(val);
+          }}
+          style={{ marginRight: 8 }}
+        />
+      );
+    }
+    else {
       return (
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           {/* {this.rightTitle()} */}
           {/* <Image source={require('./../Source/common_arrow_right.png')} style={{ width: 8, height: 13, marginRight: 8 }} /> */}
         </View>
-      )
+      );
     }
   }
+
   rightTitle() {
     if (this.props.rightTitle.length > 0) {
       return (
         <Text style={{ color: 'gray' }}>{this.props.rightTitle}</Text>
-      )
+      );
     }
   }
 
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -59,4 +69,4 @@ const styles = StyleSheet.create({
     //垂直居中
     alignItems: 'center'
   }
-})
+});

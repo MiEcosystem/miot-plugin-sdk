@@ -64,18 +64,6 @@ export default class MoreMenu extends React.Component {
         }
       },
       {
-        'name': '音频',
-        'func': () => {
-          this.props.navigation.navigate('audioDemo', { 'title': '音频Demo' });
-        }
-      },
-      {
-        'name': '视频',
-        'func': () => {
-          this.props.navigation.navigate('videoDemo', { 'title': '视频Demo' });
-        }
-      },
-      {
         'name': '新目录结构获取图片方式测试',
         'func': () => {
           this.props.navigation.navigate('imagePathDemo', { 'title': '新目录结构获取图片方式测试' });
@@ -154,7 +142,7 @@ export default class MoreMenu extends React.Component {
       {
         'name': "开启倒计时",
         'func': () => {
-          let setting = {onMethod:"power_on", offMethod:'power_off', onParam:'on', offParam:'off', identify: 'aaaa'}
+          let setting = { onMethod: "power_on", offMethod: 'power_off', onParam: 'on', offParam: 'off', identify: 'aaaa' }
           //   let setting = {}
           Host.ui.openCountDownPage(false, setting);
         }
@@ -216,18 +204,18 @@ export default class MoreMenu extends React.Component {
           const policyURL = require('../Resources/raw/privacy_zh.html');
           let licenseKey = "license-" + Device.deviceID;
           Host.storage.get(licenseKey).then((res) => {
-            if (res === true) {
-              // 表示已经授权过
-            } else {
-              Host.ui.openPrivacyLicense('软件许可及服务协议', licenseURL, '隐私协议', policyURL).then((res) => {
-                if (res) {
-                  // 表示用户同意授权
-                  Host.storage.set(licenseKey, true).then((res) => { });
-                }
-              }).catch((error) => {
-                console.log(error)
-              })
-            }
+            // if (res === true) {
+            //   // 表示已经授权过
+            // } else {
+            Host.ui.openPrivacyLicense('软件许可及服务协议', licenseURL, '隐私协议', policyURL).then((res) => {
+              if (res) {
+                // 表示用户同意授权
+                Host.storage.set(licenseKey, true).then((res) => { });
+              }
+            }).catch((error) => {
+              console.log(error)
+            })
+            // }
           }).catch((error) => {
 
           });

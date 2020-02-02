@@ -5,6 +5,7 @@ import Switch from 'miot/ui/Switch';
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import ProtocolManager from "miot/utils/protocol-helper";
 var BUTTONS = [
   '测试对话框',
   '确定',
@@ -95,6 +96,8 @@ export default class PrivacyDemo extends React.Component {
             Package.exit()
           });
           */
+
+          ProtocolManager.setLegalInfoAuthHasShowed(false); //这里作为demo需要强制显示，所以需要将该值置为false，实际生产环境中不应该这样做
 
           //这里在正式使用时需要判断是否已经授权,建议使用上面注释的部分
           Host.ui.alertLegalInformationAuthorization(options).then((res) => {
@@ -192,7 +195,7 @@ export default class PrivacyDemo extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={[{ flexDirection: "column",alignItems: 'center',  padding: 20}]}>
+        <View style={[{ flexDirection: "column", alignItems: 'center', padding: 20 }]}>
           <Text>自定义用户协议</Text>
           <Switch
             style={{ width: 50, height: 25 }}

@@ -12,7 +12,7 @@ DeviceEventEmitter,
 if (Platform.OS === 'ios') {
   var MHWrapperCircularSlider = requireNativeComponent('MHWrapperCircularSlider');
   var MHCircularSliderConsts = MHWrapperCircularSlider.Constants;
-  var MHCircularSliderViewManager = require('NativeModules').MHWrapperCircularSlider;
+  var MHCircularSliderViewManager = require('react-native/Libraries/BatchedBridge/NativeModules').MHWrapperCircularSlider;
 }
 
 export default class MHCircularSlider extends React.Component {

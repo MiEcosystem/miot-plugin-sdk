@@ -1,5 +1,6 @@
-import { Device, Host } from 'miot';
-import { DeviceEvent } from 'miot/Device';
+import { Device, Host, DeviceEvent, Service } from 'miot';
+// import {Device,DeviceEvent} from 'miot'
+// import {Host} from 'miot';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
@@ -7,6 +8,23 @@ import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
 import Separator from '../Separator';
+function getModelType() {
+  return Device.model ? Device.model.split('.')[1] : '';
+}
+let countryCode = null;
+function getCountryCode() {
+  return new Promise((resolve, reject) => {
+    if (countryCode) {
+      resolve(countryCode);
+      return;
+    }
+    Service.getServerName().then(({ countryCode }) => {
+      countryCode = (countryCode || '').toLowerCase();
+      resolve(countryCode);
+    }).catch(reject);
+  });
+}
+getCountryCode().then(() => { }).catch(() => { });
 const firstOptions = {
   /**
    * 按键设置，多键开关`必选`，其余设备`必不选`
@@ -32,6 +50,14 @@ const firstOptions = {
    * 固件升级，`可选`
    */
   FIRMWARE_UPGRADE: 'firmwareUpgrade',
+  /**
+   * 新建设备组
+   */
+  CREATE_GROUP: 'createGroup',
+  /**
+   * 管理设备组
+   */
+  MANAGE_GROUP: 'manageGroup'
 };
 const firstAllOptions = {
   ...firstOptions,
@@ -70,6 +96,8 @@ const firstSharedOptions = {
   [firstAllOptions.VOICE_AUTH]: 0,
   [firstAllOptions.IFTTT]: 0,
   [firstAllOptions.FIRMWARE_UPGRADE]: 0,
+  [firstAllOptions.CREATE_GROUP]: 0,
+  [firstAllOptions.MANAGE_GROUP]: 0,
   [firstAllOptions.MORE]: 1,
   [firstAllOptions.HELP]: 1,
   [firstAllOptions.LEGAL_INFO]: 0, // 20190516，分享设备不显示「法律信息」
@@ -81,6 +109,8 @@ const firstSharedOptions = {
  */
 const firstAllOptionsWeight = {
   [firstAllOptions.NAME]: 0,
+  [firstAllOptions.CREATE_GROUP]: 1,
+  [firstAllOptions.MANAGE_GROUP]: 1,
   [firstAllOptions.MEMBER_SET]: 3,
   [firstAllOptions.LOCATION]: 6,
   [firstAllOptions.SHARE]: 9,
@@ -123,6 +153,8 @@ const excludeOptions = {
   [firstAllOptions.VOICE_AUTH]: [],
   [firstAllOptions.IFTTT]: [],
   [firstAllOptions.FIRMWARE_UPGRADE]: [],
+  [firstAllOptions.CREATE_GROUP]: ['17'],
+  [firstAllOptions.MANAGE_GROUP]: [],
   [firstAllOptions.MORE]: [],
   [firstAllOptions.HELP]: [],
   [firstAllOptions.LEGAL_INFO]: ['5', '15', '17'] // 新增策略：灯组、红外遥控器等虚拟设备不显示法律信息，20190619
@@ -242,7 +274,9 @@ export default class CommonSetting extends React.Component {
       firstAllOptions.BTGATEWAY,
       firstAllOptions.VOICE_AUTH,
       firstAllOptions.IFTTT,
-      firstAllOptions.FIRMWARE_UPGRADE
+      firstAllOptions.FIRMWARE_UPGRADE,
+      firstAllOptions.CREATE_GROUP,
+      firstAllOptions.MANAGE_GROUP
     ],
     secondOptions: [
       secondAllOptions.AUTO_UPGRADE,
@@ -291,6 +325,14 @@ export default class CommonSetting extends React.Component {
         title: strings.firmwareUpgrade,
         onPress: _ => this.chooseFirmwareUpgrade()
       },
+      [firstAllOptions.CREATE_GROUP]: {
+        title: strings[`create${getModelType()[0].toUpperCase()}${getModelType().slice(1)}Group`],
+        onPress: _ => this.createGroup()
+      },
+      [firstAllOptions.MANAGE_GROUP]: {
+        title: strings[`manage${getModelType()[0].toUpperCase()}${getModelType().slice(1)}Group`],
+        onPress: _ => this.manageGroup()
+      },
       [firstAllOptions.MORE]: {
         title: strings.more,
         onPress: _ => this.openSubPage('MoreSetting')
@@ -305,7 +347,8 @@ export default class CommonSetting extends React.Component {
     super(props, context);
     this.state = {
       name: Device.name,
-      showDot: props.showDot,
+      showDot: Array.isArray(props.showDot) ? props.showDot : [],
+      countryCode: null
     };
     console.log(`Device.type: ${Device.type}`);
     this.commonSetting = this.getCommonSetting(this.state);
@@ -331,6 +374,7 @@ export default class CommonSetting extends React.Component {
   chooseFirmwareUpgrade() {
     // 默认是wifi设备固件升级的原生页面
     const { showUpgrade, upgradePageKey } = this.props.extraOptions;
+    let { countryCode } = this.state;
     if (showUpgrade === false) {
       // 蓝牙统一OTA界面
       if (upgradePageKey === undefined) {
@@ -356,10 +400,27 @@ export default class CommonSetting extends React.Component {
       if (Device.type === '16') { // mesh device
         Host.ui.openBleMeshDeviceUpgradePage();
       }
+      else if (countryCode === 'cn' && Device.type === '17' && ['light'].indexOf(getModelType()) !== -1) {
+        // 2019/11/21 新灯组2.0需求
+        // 虚拟组设备，跳v2.0固件更新页
+        Host.ui.openLightGroupUpgradePage();
+      }
       else {
         Host.ui.openDeviceUpgradePage();
       }
     }
+  }
+  /**
+   * 创建组设备
+   */
+  createGroup() {
+    Host.ui.openMeshDeviceGroupPage('add', Device.deviceID);
+  }
+  /**
+   * 管理组设备
+   */
+  manageGroup() {
+    Host.ui.openMeshDeviceGroupPage('edit', Device.deviceID);
   }
   /**
    * @description 从 this.state.showDot 移除某key，从而隐藏小红点
@@ -397,11 +458,27 @@ export default class CommonSetting extends React.Component {
     const { deleteDeviceMessage } = this.props.extraOptions;
     Host.ui.openDeleteDevice(deleteDeviceMessage);
   }
+  componentDidMount() {
+    getCountryCode().then(countryCode => {
+      this.setState({
+        countryCode
+      });
+    }).catch(() => { });
+  }
   render() {
+    let { countryCode } = this.state;
     // 如果不设置英文字体，那么外文字符串将显示不全（Android）
     let fontFamily = {};
     if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' }
-    const requireKeys1 = [firstAllOptions.NAME, firstAllOptions.LOCATION];
+    let requireKeys1 = [firstAllOptions.NAME, firstAllOptions.LOCATION];
+    // 创建组设备
+    if (countryCode === 'cn' && Device.type !== '17' && ['light'].indexOf(getModelType()) !== -1) {
+      requireKeys1.push(firstAllOptions.CREATE_GROUP);
+    }
+    // 管理组设备
+    if (countryCode === 'cn' && Device.type === '17' && ['light'].indexOf(getModelType()) !== -1) {
+      requireKeys1.push(firstAllOptions.MANAGE_GROUP);
+    }
     const requireKeys2 = [
       firstAllOptions.MORE,
       firstAllOptions.HELP,
@@ -469,7 +546,7 @@ export default class CommonSetting extends React.Component {
               activeOpacity={0.8}
             >
               <Text style={[styles.buttonText, fontFamily]}>
-                {strings.deleteDevice}
+                {Device.type === '17' && Device.isOwner ? (strings[`delete${(Device.model || '').split('.')[1][0].toUpperCase()}${(Device.model || '').split('.')[1].slice(1)}Group`]) : strings.deleteDevice}
               </Text>
             </RkButton>
           </View>) : null}
@@ -490,7 +567,7 @@ export default class CommonSetting extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    // backgroundColor: '#fff'
   },
   titleContainer: {
     height: 32,

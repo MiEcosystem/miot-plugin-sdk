@@ -122,6 +122,7 @@ export default class RadioExample extends React.Component {
               height: 30,
               borderRadius: 15
             }}
+            smallCircleBg="#000"
           />
           <Text style={styles.text}>{option.value}</Text>
         </View>

@@ -3,7 +3,7 @@ import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import LinearGradient from 'react-native-linear-gradient';
 import {adjustSize} from '../utils/sizes';
-import {FontLantingLight} from '../utils/fonts';
+import {FontDefault} from '../utils/fonts';
 import {log} from '../utils/fns';
 const SwitchBgColorsOn = ["#fff", "#f1f1f2"];
 const SwitchBgColorsOff = ["#f1f1f2", "#fff"];
@@ -126,7 +126,7 @@ const Styles = StyleSheet.create({
   //   height: adjustSize(84)
   // },
   // name: {
-  //   fontFamily: FontLantingLight,
+  //   fontFamily: FontDefault,
   //   fontSize: adjustSize(33),
   //   lineHeight: adjustSize(42),
   //   textAlign: 'center',

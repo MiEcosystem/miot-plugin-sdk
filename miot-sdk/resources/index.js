@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 系统资源
- * @doc_index 7
+ * @doc_index 2
  * @doc_directory sdk
  * @module miot/resources
  * @description 系统提供的静态资源, 包括图片, 文字, 基础 styleSheet css 等等
@@ -27,9 +27,10 @@
  * 
  * console.log(res.getLanaguage())
  * 
+ * function createI18n(langStrings, defaultLanguage){}
  * 
  */
- function createI18n(langStrings, defaultLanguage){}
+import native, { createI18n } from '../native';
 import Images from "./Images";
 import logo from './images/logo.png';
 import strings from "./Strings";
@@ -153,7 +154,8 @@ export const Language = {
     ar: "ar"
 }
 Object.freeze(Language);
- const i18n={system:createI18n({zh,en,zh_tw,zh_hk,zh_bo,es,ko,ru,it,fr,de,id,pl,vi,ja,th}, Language.zh), custom:{}, lang:false}
+//@native = const i18n={system:createI18n({zh,en,zh_tw,zh_hk,zh_bo,es,ko,ru,it,fr,de,id,pl,vi,ja,th}, Language.zh), custom:{}, lang:false}
+const i18n = { system: createI18n({ zh, en, zh_tw, zh_hk, zh_bo, es, ko, ru, it, fr, de, id, pl, vi, ja, th }, native.language), custom: false, lang: false };
 export default {
     /**
      * 米家标志
@@ -221,6 +223,8 @@ export default {
      */
     registerStrings(langStrings) {
         if (!langStrings) return;
+        //@native
+        i18n.custom = createI18n(langStrings, native.language);
         if (i18n.lang) {
             i18n.language = lang;
         }

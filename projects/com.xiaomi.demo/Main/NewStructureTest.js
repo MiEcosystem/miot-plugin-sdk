@@ -5,23 +5,21 @@
 import LottieView from 'lottie-react-native';
 import React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
-var window = Dimensions.get('window');
-const resolveAssetSource = require('resolveAssetSource');
-export default class ImagePathDemo extends React.Component {
+const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 
+const window = Dimensions.get('window');
+
+export default class ImagePathDemo extends React.Component {
 
 
 
   //需要在工程本地导入一个名为'broadchurch'的mp4文件;
   //http://cookbook.supor.com/Swast2SpEjewRAnE.mp4;
   render() {
-
-    let source = resolveAssetSource(require('./../Resources/lottie.txt'))
-    alert(source.uri)
     return (
       <View style={styles.container}>
         <View style={{ width: 100, height: 100 }}></View>
-        <LottieView source={{ uri: source.uri }} autoPlay loop />;
+          <LottieView source={require('../Resources/lottie.json')} autoPlay loop />
       </View>
     );
   }

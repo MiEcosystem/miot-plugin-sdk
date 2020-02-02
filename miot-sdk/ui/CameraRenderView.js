@@ -16,7 +16,8 @@
     audioCodec={MISSCodec.MISS_CODEC_AUDIO_G711A}
     audioRecordSampleRate={MISSSampleRate.FLAG_AUDIO_SAMPLE_8K}
     audioRecordChannel={MISSAudioChannel.FLAG_AUDIO_CHANNEL_MONO}
-    audioRecordDataBits={MISSDataBits.FLAG_AUDIO_DATABITS_16} >
+    audioRecordDataBits={MISSDataBits.FLAG_AUDIO_DATABITS_16}
+    fullscreenState={false} >
 />
  *
  * @property {MISSCodec} videoCodec 接收视频的编码格式 默认：MISS_CODEC_VIDEO_H264
@@ -31,7 +32,17 @@
  * @property {number} correctRadius 畸变矫正-radius default 1.1
  * @property {number} osdx 畸变矫正-osdx default 0.0
  * @property {number} osdy 畸变矫正-osdy default 0.0
+ * @property {bool} fullscreenState 是否是全屏状态 since 10033
+ * @property {bool} forceSoftDecode 强制软解 since 10033
  */
+//@native begin
+import PropTypes from 'prop-types';
+import React from 'react';
+import { requireNativeComponent, ViewPropTypes, NativeModules, findNodeHandle, Platform, UIManager } from 'react-native';
+import { Device } from 'miot';
+const merge = require('merge');
+const MHCameraGLView = requireNativeComponent('MHCameraOpenGLView');
+//@native end
 /**
  * 音视频codec
  * @namespace MISSCodec
@@ -124,44 +135,134 @@ export default class CameraRenderView extends React.Component {
         correctRadius: PropTypes.number,
         osdx: PropTypes.number,
         osdy: PropTypes.number,
+        fullscreenState: PropTypes.bool,
+        forceSoftDecode: PropTypes.bool,
+        /**
+         * 用户单击回调
+         * @member {func}
+         */
+        onClick: PropTypes.func,
         ...ViewPropTypes,
     };
     render() {
-         return null
+        //@native :=> null
+        const nativeProps = merge(this.props, {
+            did: Device.deviceID
+        });
+        return <MHCameraGLView
+            ref="cameraGLView"
+            {...nativeProps} />
+        //@native end
     }
     /**
      * 开始渲染视频
      */
     startRender() {
-         return null
+        //@native :=> null
+        if (Platform.OS === 'android') {
+            UIManager.dispatchViewManagerCommand(
+                findNodeHandle(this.refs.cameraGLView),
+                UIManager.MHCameraOpenGLView.Commands.startRender,
+                [],
+            )
+        } else {
+            NativeModules.MHCameraOpenGLViewManager.startRender(findNodeHandle(this.refs.cameraGLView));
+        }
+        //@native end
     }
     /**
      * 停止渲染视频
      */
     stopRender() {
-         return null
+        //@native :=> null
+        if (Platform.OS === 'android') {
+            UIManager.dispatchViewManagerCommand(
+                findNodeHandle(this.refs.cameraGLView),
+                UIManager.MHCameraOpenGLView.Commands.stopRender,
+                [],
+            )
+        } else {
+            NativeModules.MHCameraOpenGLViewManager.stopRender(findNodeHandle(this.refs.cameraGLView));
+        }
+        //@native end
     }
     /**
      * 开始播放声音
      */
     startAudioPlay() {
-         return null
+        //@native :=> null
+        if (Platform.OS === 'android') {
+            UIManager.dispatchViewManagerCommand(
+                findNodeHandle(this.refs.cameraGLView),
+                UIManager.MHCameraOpenGLView.Commands.startAudioPlay,
+                [],
+            )
+        } else {
+            NativeModules.MHCameraOpenGLViewManager.startAudioPlay(findNodeHandle(this.refs.cameraGLView));
+        }
+        //@native end
     }
     /**
      * 停止播放声音
      */
     stopAudioPlay() {
-         return null
+        //@native :=> null
+        if (Platform.OS === 'android') {
+            UIManager.dispatchViewManagerCommand(
+                findNodeHandle(this.refs.cameraGLView),
+                UIManager.MHCameraOpenGLView.Commands.stopAudioPlay,
+                [],
+            )
+        } else {
+            NativeModules.MHCameraOpenGLViewManager.stopAudioPlay(findNodeHandle(this.refs.cameraGLView));
+        }
+        //@native end
     }
     /**
      * 开始录制声音
      */
     startAudioRecord() {
-         return null
+        //@native :=> null
+        if (Platform.OS === 'android') {
+            UIManager.dispatchViewManagerCommand(
+                findNodeHandle(this.refs.cameraGLView),
+                UIManager.MHCameraOpenGLView.Commands.startAudioRecord,
+                [],
+            )
+        } else {
+            NativeModules.MHCameraOpenGLViewManager.startAudioRecord(findNodeHandle(this.refs.cameraGLView));
+        }
+        //@native end
     }
     /**
      * 停止录制声音
      */
     stopAudioRecord() {
-         return null
+        //@native :=> null
+        if (Platform.OS === 'android') {
+            UIManager.dispatchViewManagerCommand(
+                findNodeHandle(this.refs.cameraGLView),
+                UIManager.MHCameraOpenGLView.Commands.stopAudioRecord,
+                [],
+            )
+        } else {
+            NativeModules.MHCameraOpenGLViewManager.stopAudioRecord(findNodeHandle(this.refs.cameraGLView));
+        }
+        //@native end
+    }
+    /**
+     * 隐藏SurfaceView only for Android
+     * @since 10033
+     */
+    hidesSurfaceView() {
+        //@native :=> null
+        if (Platform.OS === 'android') {
+            UIManager.dispatchViewManagerCommand(
+                findNodeHandle(this.refs.cameraGLView),
+                UIManager.MHCameraOpenGLView.Commands.hidesSurfaceView,
+                [],
+            )
+        }
+        //@native end
+    }
 }

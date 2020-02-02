@@ -115,11 +115,12 @@ export default class SlideGear extends React.Component {
             onStartShouldSetPanResponderCapture: () => false,
             onMoveShouldSetPanResponder: () => !props.disabled,
             onMoveShouldSetPanResponderCapture: () => !props.disabled,
-            onShouldBlockNativeResponder: () => false,
+            onShouldBlockNativeResponder: () => true,
             onPanResponderTerminationRequest: () => false,
             onPanResponderGrant: this._onPanResponderGrant.bind(this),
             onPanResponderMove: Animated.event([null, { dx: this.state.pan, moveX: this.state.moveX }]),
-            onPanResponderRelease: this._onPanResponderRelease.bind(this)
+            onPanResponderRelease: this._onPanResponderRelease.bind(this),
+            onPanResponderTerminate: this._onPanResponderRelease.bind(this)
         });
     }
     /**
@@ -134,7 +135,7 @@ export default class SlideGear extends React.Component {
         if (disabled !== this.props.disabled) {
             this.constructPanResponder(newProps);
         }
-        if ((value === this.props.value || value === this.state.value) && this.isSameArray(options, this.props.options)) return; // 没有变化
+        if ((value === this.state.value) && this.isSameArray(options, this.props.options)) return; // 没有变化
         if (!this.isSameArray(options, this.props.options)) { // options 变化
             if (!(options instanceof Array) || options.length === 0) { // 更新后的 options 不是数组或者是空数组
                 console.warn('options 不是数组或者是空数组');
@@ -267,6 +268,9 @@ export default class SlideGear extends React.Component {
      * @description 计算整个容器的大小和在屏幕上的位置，从而确定每个选项的圆心坐标
      */
     calculateCoord(obj) {
+        if(!obj) {
+          return;
+        }
         const { x, y, w, h } = obj;
         this.containerLayout = obj;
         const offset = this.margin * 2 + this.blockWidth;
@@ -279,6 +283,7 @@ export default class SlideGear extends React.Component {
         this.coords = this.options.map((v, i) => d > 0 ? (startCoord + d * i) : 0);
         console.log('各选项中心坐标', this.coords);
         this.currentCoord = this.coords[this.state.value];
+        this.totalWidth = w;
         this.getDragRange();
     }
     /**
@@ -291,6 +296,8 @@ export default class SlideGear extends React.Component {
         }, _ => {
             console.log(`滑块中心坐标: ${this.currentCoord}\n可滑动范围: ${this.state.dragToValueMin} ~ ${this.state.dragToValueMax}`);
             callback && callback();
+            this.state.pan.setOffset(0);
+            this.state.pan.setValue(0);
         });
     }
     /**
@@ -361,12 +368,19 @@ export default class SlideGear extends React.Component {
      * 滑块左侧背景
      */
     renderBackground() {
+      const { dragToValueMin: min, dragToValueMax: max } = this.state;
+      // 在没有找到自我定位的时候，要在舞台后面低调
+      if (min === undefined) return null;
         return (
-            <View
+            <Animated.View
                 ref={background => this._background = background}
                 style={{
                     position: 'absolute',
-                    width: this.margin * 2 + this.blockWidth - (this.state.dragToValueMin || 0),
+                    // width: this.margin * 2 + this.blockWidth - (this.state.dragToValueMin || 0),
+                    width: this.state.pan.interpolate({
+                      inputRange: [min - 1, min, max, max + 1],
+                      outputRange: [this.margin * 2 + this.blockWidth, this.margin * 2 + this.blockWidth, this.totalWidth, this.totalWidth]
+                    }),
                     height: this.containerHeight,
                     borderRadius: this.props.type === TYPE.CIRCLE ? this.containerHeight / 2 : 0,
                     backgroundColor: this.props.minimumTrackTintColor
@@ -395,7 +409,7 @@ export default class SlideGear extends React.Component {
                     </View>
                     : null
                 }
-            </View>
+            </Animated.View>
         )
     }
     /**

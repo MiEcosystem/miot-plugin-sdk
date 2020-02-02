@@ -1,3 +1,6 @@
+/**
+ * @deprecated  该部分废弃， 请查看 Host/KVStorageDemo.js
+ */
 import {Device, Host, Service} from "miot";
 import React from "react";
 import { Button, StyleSheet, Text, TextInput, View, TouchableOpacity } from "react-native";

@@ -5,6 +5,8 @@
  * @description 红外相关 API
  *
  */
+//@native
+import native, { Properties } from "../native";
 export default {
     /**
      * （查） 获取所有遥控器列表
@@ -13,7 +15,16 @@ export default {
      * @return {Promise<json>}
      */
     getList(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/irdevice/controllers", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      * （查） 获取所有支持的红外遥控器种类
@@ -22,7 +33,16 @@ export default {
      * @return {Promise<json>}
      */
     getCategories(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/ircode/categories", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      * （查）  红外遥控器 根据地区名称查询 id
@@ -31,7 +51,16 @@ export default {
      * @return {Promise<json>}
      */
     queryArea(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/ircode/area/area_id", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      * （查） 根据地区 id 获取支持的机顶盒品牌
@@ -40,7 +69,16 @@ export default {
      * @return {Promise<json>}
      */
     getLineups(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/ircode/area/lineups", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      * （查） 红外遥控器 根据省份 id 获取所有的城市
@@ -49,7 +87,16 @@ export default {
      * @return {Promise<json>}
      */
     getCities(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/ircode/area/province/cities", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      * （查） 红外遥控器  获取所有省份信息
@@ -58,7 +105,16 @@ export default {
      * @return {Promise<json>}
      */
     getProvinces(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/ircode/area/provinces/china", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      * （查） 根据地区 id 获取所有的城市信息
@@ -67,7 +123,16 @@ export default {
      * @return {Promise<json>}
      */
     getAreas(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/ircode/area/city/areas", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      * （查） 红外遥控器  获取所有机顶盒支持的品牌
@@ -76,7 +141,16 @@ export default {
      * @return {Promise<json>}
      */
     getIPTVBrands(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/ircode/iptv/brands", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      * （查） 红外遥控器  获取某一个遥控器类型的所有省份信息
@@ -85,7 +159,16 @@ export default {
      * @return {Promise<json>}
      */
     getBrands(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/ircode/category/brands", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      * 红外遥控器 添加红外遥控器
@@ -94,7 +177,16 @@ export default {
      * @return {Promise<json>}
      */
     controllerAdd(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/irdevice/controller/add", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      * 设置红外遥控所有的按键
@@ -103,7 +195,16 @@ export default {
      * @return {Promise<json>}
      */
     setKeys(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/irdevice/controller/keys/set", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      * 设置红外遥控所有的按键
@@ -112,7 +213,16 @@ export default {
      * @return {Promise<json>}
      */
     sendKey(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/irdevice/send_key", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      *  删除红外设备
@@ -121,7 +231,16 @@ export default {
      * @return {Promise<json>}
      */
     controllerDel(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/irdevice/controller/del", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      *  更新红外设备
@@ -130,7 +249,16 @@ export default {
      * @return {Promise<json>}
      */
     controllerUpdate(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/irdevice/controller/update", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      *  获取红外设备所有的 key
@@ -139,7 +267,16 @@ export default {
      * @return {Promise<json>}
      */
     getKeys(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/irdevice/controller/keys", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      *  更新红外设备的 key 名称
@@ -148,7 +285,16 @@ export default {
      * @return {Promise<json>}
      */
     keyUpdate(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/irdevice/controller/key/update", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      *  删除红外设备的 key
@@ -157,7 +303,16 @@ export default {
      * @return {Promise<json>}
      */
     keyDel(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/irdevice/controller/key/del", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      *  发送红外遥控器按键接口
@@ -166,7 +321,16 @@ export default {
      * @return {Promise<json>}
      */
     keyClick(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/irdevice/controller/key/click", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      *   获取有状态红外码
@@ -175,7 +339,16 @@ export default {
      * @return {Promise<json>}
      */
     getIrCodeFunctions(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/ircode/controller/functions", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      *   获取无状态红外码
@@ -184,7 +357,16 @@ export default {
      * @return {Promise<json>}
      */
     getIrCodeKeys(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/ircode/controller/keys", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      * 获取遥控器信息
@@ -193,7 +375,16 @@ export default {
      * @return {Promise<json>}
      */
     getIrCodeInfo(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/irdevice/controller/info", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
     /**
      * 获取遥控器品牌名
@@ -202,6 +393,15 @@ export default {
      * @return {Promise<json>}
      */
     getIrCodeBrand(params) {
-         return Promise.resolve(null);
+        //@native :=> promise
+        return new Promise((resolve, reject) => {
+            native.MIOTRPC.nativeCall("/v2/ircode/brand", params, (ok, res) => {
+                if (!ok) {
+                    return reject(res);
+                }
+                resolve(res);
+            });
+        });
+        //@native end
     },
 }

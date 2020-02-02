@@ -217,9 +217,9 @@ class ModeCardDemo extends Component {
 
   //按下模式
   pressInDemo = (index, key) => {
+    console.log(`pressInDemo ${index} ${key}`)
     this.setState((state) => {
       let modes = state[key];
-
       modes[index].isPressing = true;
       return { [key]: modes };
     });
@@ -227,6 +227,7 @@ class ModeCardDemo extends Component {
 
   //手指抬起模式
   pressOutDemo = (index, key) => {
+    console.log(`pressOutDemo ${index} ${key}`)
     this.setState((state) => {
       let modes = state[key];
       let theMode = modes[index];

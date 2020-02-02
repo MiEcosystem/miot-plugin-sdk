@@ -188,6 +188,7 @@ export default class MHDatePickerDemo extends React.Component {
 
   // `Modal` 隐藏了，父组件必须要同步更新状态，但不必用 `setState` 触发 `render`
   onDismiss(index) {
+    console.log('onDismiss')
     this.state['visible' + index] = false;
   }
 

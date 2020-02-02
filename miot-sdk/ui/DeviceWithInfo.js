@@ -3,7 +3,7 @@ import {StyleSheet, View, Text, Image, ART} from 'react-native';
 import PropTypes from 'prop-types';
 import {fixHex} from '../utils/colors';
 import {adjustSize} from '../utils/sizes';
-import {FontLantingLight} from '../utils/fonts';
+import {FontDefault} from '../utils/fonts';
 import {NOOP} from '../utils/fns';
 const {Surface, Group, Shape, Path, Transform} = ART;
 const PI = Math.PI;
@@ -102,14 +102,14 @@ const Styles = StyleSheet.create({
     alignItems: 'center'
   },
   infoTitle: {
-    fontFamily: FontLantingLight,
+    fontFamily: FontDefault,
     fontSize: adjustSize(45),
     lineHeight: adjustSize(60),
     color: '#000'
   },
   infoSubtitle: {
     marginTop: adjustSize(9),
-    fontFamily: FontLantingLight,
+    fontFamily: FontDefault,
     fontSize: adjustSize(36),
     lineHeight: adjustSize(48),
     color: '#B2B2B2'

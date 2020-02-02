@@ -101,10 +101,12 @@ export default class CardPage extends React.Component {
           <View style={{ alignItems: 'center', paddingVertical: 20 }}>
             <Card
               icon={Images.common.mihome}
-              text="默认卡片有icon/文字/阴影/，没有圆角/右上角x"
+              text="默认卡片有icon/文字/蓝色阴影/，没有圆角/右上角x"
               visible={this.state.visible1}
               dismiss={_ => this.setState({ visible1: false })}
               cardStyle={{ marginBottom: 50, }}
+              shadowColor='#4287f5'
+              shadowOpacity={0.5}
             />
             <Card
               icon={picture}
@@ -113,12 +115,13 @@ export default class CardPage extends React.Component {
               onPress={this.changePic}
             />
             <Card
-              text="没有图标，没有阴影，只有文字"
+              text="没有图标，没有阴影，只有文字，点击变成黑色背景"
               visible={this.state.visible2}
               dismiss={_ => this.setState({ visible2: false })}
               showShadow={false}
               showDismiss
               onPress={_ => this.setState({ visible1: false })}
+              underlayColor='#000'
             />
             <Card
               icon={Images.common.mihome}

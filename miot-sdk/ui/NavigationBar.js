@@ -236,13 +236,24 @@ export default class NavigationBar extends Component {
     }
     return (
       <View style={[styles.titleContainer]}>
-        <Text
-          numberOfLines={1}
-          style={[styles.title, titleColor]}
-          onPress={onPressTitle}
-        >
-          {title || ''}
-        </Text>
+        {
+          React.isValidElement(title) ?
+            <View
+              numberOfLines={1}
+              style={[styles.titleView, titleColor]}
+              onPress={onPressTitle}
+            >
+              {title || ''}
+            </View> : 
+            <Text
+              numberOfLines={1}
+              style={[styles.title, titleColor]}
+              onPress={onPressTitle}
+            >
+              {title || ''}
+            </Text>
+        }
+      
         {subtitle
           ? <Text
             numberOfLines={1}
@@ -308,6 +319,13 @@ const styles = StyleSheet.create({
     fontFamily: 'D-DINCondensed-Bold',
     textAlignVertical: 'center',
     textAlign: 'center',
+  },
+  titleView: {
+    fontSize: 16,
+    fontFamily: 'D-DINCondensed-Bold',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   subtitle: {
     fontSize: 12.6,

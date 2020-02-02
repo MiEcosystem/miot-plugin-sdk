@@ -11,43 +11,57 @@
  * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-'use strict';
+
 
 import { TitleBar } from 'miot/ui';
 import React from 'react';
 import { createStackNavigator } from 'react-navigation'; //
+import { Package } from 'miot';
 import Guide from './Guide';
 import NormalBle from './NormalBle';
-import XiaomiBle from './XiaomiBle';
+import StandardAuthBle from './XiaomiStandardAuthBle';
+import SecurityChipBle from './XiaomiSecurityChipBle';
+import MeshBle from './MeshBle';
+import ClassicBle from './ClassicBle';
+import BluetoothApiUnitCaseDemo from './BluetoothApiUnitCaseDemo';
 
 const RootStack = createStackNavigator(
-    {
-        mible: XiaomiBle,
-        normalble: NormalBle,
-        guide: Guide,
-    },
-    {
-        // ThirdPartyDemo
-        initialRouteName: 'guide',
-        navigationOptions: ({ navigation }) => {
-            return {
-                header: <TitleBar
-                    title={navigation.state.params ? navigation.state.params.title : ''}
-                    // style={{ backgroundColor: '#fff' }}
-                    type='dark'
-                    onPressLeft={() => {
-                        navigation.goBack();
-                    }} />,
-            };
-        },
-        // transitionConfig: () => ({
-        //   screenInterpolator: CardStackStyleInterpolator.forHorizontal,
-        // }),
+  {
+    standardAuth: StandardAuthBle,
+    securityChip: SecurityChipBle,
+    normalble: NormalBle,
+    meshble:MeshBle,
+    classicBle:ClassicBle,
+    BluetoothApiUnitCaseDemo:BluetoothApiUnitCaseDemo,
+    guide: {
+      screen: Guide,
+      navigationOptions: ({ navigation }) => ({
+        header: <TitleBar
+          title="蓝牙Demo"
+          onPressLeft={() => {
+            Package.exit();
+          }}
+        />
+      })
     }
+  },
+  {
+    // ThirdPartyDemo
+    initialRouteName: 'guide',
+    navigationOptions: ({ navigation }) => ({
+      header: <TitleBar
+        title={navigation.state.params ? navigation.state.params.title : ''}
+        onPressLeft={() => {
+          navigation.goBack();
+        }}
+      />
+    })
+  }
 );
 export default class App extends React.Component {
-    render() {
-        return <RootStack />;
-    }
+
+  render() {
+    return <RootStack />;
+  }
 
 }

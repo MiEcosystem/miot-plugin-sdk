@@ -7,7 +7,7 @@ import {
     TouchableHighlight
 } from 'react-native';
 
-const resolveAssetSource = require('resolveAssetSource');
+const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 import { RobotMapView } from 'miot/ui'
 
 const { width } = Dimensions.get('window');
@@ -19,13 +19,13 @@ export default class RobotMapDemo extends React.Component {
         this.state = {
             mapImages: [{
                 source: require('../../Resources/robot/charge.png'),
-                position: { x: 125, y: 125 }, size: { w: 10, h: 10 },
+                position: { x: 125, y: 125 }, size: { w: 29, h: 39 },
                 rotation: 0,
                 name: 'charge'
             }, {
                 source: require('../../Resources/robot/robot.png'),
                 position: { x: 140, y: 140 },
-                size: { w: 10, h: 10 },
+                size: { w: 29, h: 29 },
                 name: 'robot'
             }]
         }
@@ -38,18 +38,18 @@ export default class RobotMapDemo extends React.Component {
                 mapImages: [{
                     source: require('../../Resources/robot/charge.png'),
                     position: { x: 125, y: 125 },
-                    size: { w: 10, h: 10 },
+                    size: { w: 29, h: 39 },
                     rotation: 0,
                     name: 'charge'
                 }, {
                     source: require('../../Resources/robot/robot.png'),
                     bgSource: require('../../Resources/robot/robot_working.png'),
                     position: { x: 135, y: 135 },
-                    size: { w: 10, h: 10 },
+                    size: { w: 29, h: 29 },
                     name: 'robot'
                 }]
             })
-            this.updateMapData(pointsStr, true, 'robot', false);
+            this.updateMapData(pointsStr, true, 'robot', true);
         }, 1000)
     }
 
@@ -115,13 +115,13 @@ export default class RobotMapDemo extends React.Component {
                 mapImages: [{
                     source: require('../../Resources/robot/charge.png'),
                     position: { x: 125, y: 125 },
-                    size: { w: 10, h: 10 },
+                    size: { w: 29, h: 39 },
                     name: 'charge'
                 }, {
                     source: require('../../Resources/robot/robot.png'),
                     bgSource: require('../../Resources/robot/robot_working.png'),
                     name: 'robot',
-                    size: { w: 10, h: 10 },
+                    size: { w: 29, h: 29 },
                 }]
             })
         }, 2000)
@@ -134,12 +134,12 @@ export default class RobotMapDemo extends React.Component {
                 mapImages: [{
                     source: require('../../Resources/robot/charge.png'),
                     position: { x: 125, y: 125 },
-                    size: { w: 10, h: 10 },
+                    size: { w: 29, h: 39 },
                     rotation: 0,
                     name: 'charge'
                 }, {
                     source: require('../../Resources/robot/robot.png'),
-                    size: { w: 10, h: 10 },
+                    size: { w: 29, h: 29 },
                     name: 'robot'
                 }]
             })
@@ -154,13 +154,15 @@ export default class RobotMapDemo extends React.Component {
             this.setState({
                 mapImages: [{
                     source: require('../../Resources/robot/charge.png'),
-                    name: 'charge'
+                    name: 'charge',
+                    size: { w: 20, h: 30 },
                 }, {
                     source: require('../../Resources/robot/robot.png'),
-                    name: 'robot'
+                    name: 'robot',
+                    size: { w: 20, h: 20 },
                 }, {
                     source: require('../../Resources/robot/sleep.png'),
-                    size: { w: 10, h: 10 },
+                    size: { w: 20, h: 20 },
                     position: sleepLoc,
                     name: 'sleep'
                 }]
