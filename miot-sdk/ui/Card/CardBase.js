@@ -69,7 +69,7 @@ export default class CardBase extends React.Component {
   }
   componentDidMount() {
     this.height.addListener(e => {
-      this.cardRef.setNativeProps({
+      this.cardRef && this.cardRef.setNativeProps({
         marginTop: this.marginTop * e.value
       });
     });
