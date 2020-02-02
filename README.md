@@ -1,4 +1,4 @@
-# MIOT SDK (API_LEVEL:10031) for React Native
+# MIOT SDK (API_LEVEL:10033) for React Native
 
 ## 初始化
 
@@ -24,7 +24,8 @@
     运行Demo
     在/miot-workspace下，执行 
         npm install 
-    如果fsevent报错，可忽略。其他报错，请查看issues，或者提工单。然后
+    如果windows 下 fsevents报错，可忽略。mac下，可执行npm install fsevents@latest。
+    其他报错，请查看issues，或者提工单。然后
         cd projects/com.xiaomi.demo
         npm install
     然后就可以npm start，开始调试demo了
