@@ -134,9 +134,67 @@ export default class MHSceneDemo extends React.Component {
           >
             <Text style={[styles.textStyle, this.fontFamily]}>删除场景（报错）</Text>
           </TouchableOpacity>
+
+          <Text style={[{ fontSize: 14, color: '#666666', marginLeft: 20, marginTop: 10 }, this.fontFamily]}>部分工具类API</Text>
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              let params = {
+                hour: 12,
+                minute: 30,
+                repeatType: 0,  // 0: 执行一次  1: 每天  2 :中国大陆法定工作日  3：中国大陆法定节假日  4: 自定义
+                weekday: [true, true, false, false, true, true, true,],
+                on_filter: '', // 中国大陆法定工作日填cn_workday  中国大陆法定节假日填 cn_freeday 其他type不填
+                // (Platform.OS == 'ios') ? (weekday: [true, true, false, false, true, true, true,])
+                //   : (weekday: [
+                //     {day: 0, value: true },
+                //     {day: 1, value: true },
+                //     {day: 2, value: false },
+                //     {day: 3, value: false },
+                //     {day: 4, value: true },
+                //     {day: 5, value: true },
+                //     {day: 6, value: true },])
+              }
+              Service.scene.convertDateToCron(params)
+                .then((res) => {
+                  console.log(JSON.stringify(res));
+                  alert(JSON.stringify(res))
+                })
+                .catch((error) => {
+                  console.log(JSON.stringify(error));
+                  alert(JSON.stringify(error))
+                })
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>将时和分转化为cron表达式</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              //  中国大陆法定节假日     cn_freeday
+              //  中国大陆法定工作日     cn_workday
+              let params = {
+                'cron': '58 30 12 20 1 0,1,4,5,6 2020',
+                'on_filter': 'cn_workday',
+                'off_filter': ''
+              }
+              Service.scene.convertCronToDate(params)
+                .then((res) => {
+                  console.log(JSON.stringify(res));
+                  alert(JSON.stringify(res))
+                })
+                .catch((error) => {
+                  console.log(JSON.stringify(error));
+                  alert(JSON.stringify(error))
+                })
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>将cron表达式转化为时和分</Text>
+          </TouchableOpacity>
+
         </ScrollView>
 
-      </View>
+      </View >
     );
   }
 
