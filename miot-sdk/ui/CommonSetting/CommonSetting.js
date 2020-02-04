@@ -8,23 +8,41 @@ import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
 import Separator from '../Separator';
+let modelType = '';
 function getModelType() {
-  return Device.model ? Device.model.split('.')[1] : '';
-}
-let countryCode = null;
-function getCountryCode() {
   return new Promise((resolve, reject) => {
-    if (countryCode) {
-      resolve(countryCode);
+    if(modelType) {
+      resolve(modelType);
       return;
     }
-    Service.getServerName().then(({ countryCode }) => {
-      countryCode = (countryCode || '').toLowerCase();
-      resolve(countryCode);
-    }).catch(reject);
+    Service.spec.getSpecString(Device.deviceID).then(instance => {
+      if(instance && instance.type) {
+        modelType = instance.type.split(':')[3];
+        resolve(modelType);
+        return;
+      }
+      resolve(Device.model ? Device.model.split('.')[1] : '');
+    }).catch(e => {
+      resolve(Device.model ? Device.model.split('.')[1] : '');
+    });
   });
 }
-getCountryCode().then(() => { }).catch(() => { });
+getModelType().then(() => { }).catch(() => { });
+// 2020/02/04 灯组2.0需求，去掉cn的判断
+// let countryCode = '';
+// function getCountryCode() {
+//   return new Promise((resolve, reject) => {
+//     if (countryCode) {
+//       resolve(countryCode);
+//       return;
+//     }
+//     Service.getServerName().then(({ countryCode }) => {
+//       countryCode = (countryCode || '').toLowerCase();
+//       resolve(countryCode);
+//     }).catch(reject);
+//   });
+// }
+// getCountryCode().then(() => { }).catch(() => { });
 const firstOptions = {
   /**
    * 按键设置，多键开关`必选`，其余设备`必不选`
@@ -287,6 +305,10 @@ export default class CommonSetting extends React.Component {
     extraOptions: {},
   }
   getCommonSetting(state) {
+    let {modelType} = state || {};
+    if(!modelType) {
+      modelType = '  ';
+    }
     return {
       [firstAllOptions.NAME]: {
         title: strings.name,
@@ -326,11 +348,11 @@ export default class CommonSetting extends React.Component {
         onPress: _ => this.chooseFirmwareUpgrade()
       },
       [firstAllOptions.CREATE_GROUP]: {
-        title: strings[`create${getModelType()[0].toUpperCase()}${getModelType().slice(1)}Group`],
+        title: strings[`create${modelType[0].toUpperCase()}${modelType.slice(1)}Group`],
         onPress: _ => this.createGroup()
       },
       [firstAllOptions.MANAGE_GROUP]: {
-        title: strings[`manage${getModelType()[0].toUpperCase()}${getModelType().slice(1)}Group`],
+        title: strings[`manage${modelType[0].toUpperCase()}${modelType.slice(1)}Group`],
         onPress: _ => this.manageGroup()
       },
       [firstAllOptions.MORE]: {
@@ -348,7 +370,8 @@ export default class CommonSetting extends React.Component {
     this.state = {
       name: Device.name,
       showDot: Array.isArray(props.showDot) ? props.showDot : [],
-      countryCode: null
+      // countryCode,
+      modelType
     };
     console.log(`Device.type: ${Device.type}`);
     this.commonSetting = this.getCommonSetting(this.state);
@@ -374,7 +397,7 @@ export default class CommonSetting extends React.Component {
   chooseFirmwareUpgrade() {
     // 默认是wifi设备固件升级的原生页面
     const { showUpgrade, upgradePageKey } = this.props.extraOptions;
-    let { countryCode } = this.state;
+    let { modelType } = this.state;
     if (showUpgrade === false) {
       // 蓝牙统一OTA界面
       if (upgradePageKey === undefined) {
@@ -400,7 +423,7 @@ export default class CommonSetting extends React.Component {
       if (Device.type === '16') { // mesh device
         Host.ui.openBleMeshDeviceUpgradePage();
       }
-      else if (countryCode === 'cn' && Device.type === '17' && ['light'].indexOf(getModelType()) !== -1) {
+      else if (Device.type === '17' && ['light'].indexOf(modelType) !== -1) {
         // 2019/11/21 新灯组2.0需求
         // 虚拟组设备，跳v2.0固件更新页
         Host.ui.openLightGroupUpgradePage();
@@ -414,13 +437,13 @@ export default class CommonSetting extends React.Component {
    * 创建组设备
    */
   createGroup() {
-    Host.ui.openMeshDeviceGroupPage('add', Device.deviceID);
+    Host.ui.openMeshDeviceGroupPage('add', Device.deviceID, 2);
   }
   /**
    * 管理组设备
    */
   manageGroup() {
-    Host.ui.openMeshDeviceGroupPage('edit', Device.deviceID);
+    Host.ui.openMeshDeviceGroupPage('edit', Device.deviceID, 2);
   }
   /**
    * @description 从 this.state.showDot 移除某key，从而隐藏小红点
@@ -459,24 +482,34 @@ export default class CommonSetting extends React.Component {
     Host.ui.openDeleteDevice(deleteDeviceMessage);
   }
   componentDidMount() {
-    getCountryCode().then(countryCode => {
+    // getCountryCode().then(countryCode => {
+    //   this.setState({
+    //     countryCode
+    //   });
+    // }).catch(() => { });
+    getModelType().then(modelType => {
+      this.commonSetting = this.getCommonSetting({
+        ...this.state,
+        modelType
+      });
       this.setState({
-        countryCode
+        modelType
       });
     }).catch(() => { });
   }
   render() {
-    let { countryCode } = this.state;
+    let { modelType } = this.state;
     // 如果不设置英文字体，那么外文字符串将显示不全（Android）
     let fontFamily = {};
     if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' }
     let requireKeys1 = [firstAllOptions.NAME, firstAllOptions.LOCATION];
     // 创建组设备
-    if (countryCode === 'cn' && Device.type !== '17' && ['light'].indexOf(getModelType()) !== -1) {
+    // 蓝牙单模和组设备不能创建
+    if (['6', '17'].indexOf(Device.type) === -1 && ['light'].indexOf(modelType) !== -1) {
       requireKeys1.push(firstAllOptions.CREATE_GROUP);
     }
     // 管理组设备
-    if (countryCode === 'cn' && Device.type === '17' && ['light'].indexOf(getModelType()) !== -1) {
+    if (Device.type === '17' && ['light'].indexOf(modelType) !== -1) {
       requireKeys1.push(firstAllOptions.MANAGE_GROUP);
     }
     const requireKeys2 = [
