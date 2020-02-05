@@ -3,6 +3,7 @@ import React, {Component, Fragment} from 'react';
 import Resources, {Language} from '../resources';
 import i18n from '../resources/Strings';
 import {LoadingDialog, MessageDialog, InputDialog} from '../ui/Dialog';
+import {getNavigationEventKey} from '../ui/PageWithNormalNavigator';
 import {NOOP, log} from './fns';
 const LANGUAGE = Resources.getLanguage();
 // const i18n = (Resources.createI18n({
@@ -12,7 +13,8 @@ const LANGUAGE = Resources.getLanguage();
 //     ok: '确定'
 //   }
 // }, LANGUAGE) || {}).strings;
-let componentRef = null;
+// let componentRef = null;
+let componentRefs = {};
 export const TYPES = {
   loading: 'loading',
   message: 'message',
@@ -37,7 +39,12 @@ export class DialogComponent extends Component {
     return true;
   }
   componentDidMount() {
-    componentRef = this;
+    // componentRef = this;
+    componentRefs[getNavigationEventKey()] = this;
+  }
+  componentWillUnmount() {
+    // 可能先退出页面，后执行此处，导致获取到的key不对并误删
+    // componentRefs[getNavigationEventKey()] = null;
   }
   render() {
     let {type, visible, message, inputs, timeout, buttons} = this.state;
@@ -57,6 +64,7 @@ export class DialogComponent extends Component {
   }
 }
 export function hideDialog() {
+  let componentRef = componentRefs[getNavigationEventKey()];
   componentRef && componentRef.hide();
 }
 export function showError({
@@ -66,6 +74,7 @@ export function showError({
   message: i18n.error,
   timeout: 2000
 }) {
+  let componentRef = componentRefs[getNavigationEventKey()];
   componentRef && componentRef.setState({
     type: TYPES.loading,
     visible: true,
@@ -78,6 +87,7 @@ export function showLoading({
 } = {
   message: i18n.handling
 }) {
+  let componentRef = componentRefs[getNavigationEventKey()];
   componentRef && componentRef.setState({
     type: TYPES.loading,
     visible: true,
@@ -100,6 +110,7 @@ export function showMessage({
   if(!message) {
     return;
   }
+  let componentRef = componentRefs[getNavigationEventKey()];
   componentRef && componentRef.setState({
     type: TYPES.message,
     visible: true,
@@ -147,6 +158,7 @@ export function showInput({
   if(!message) {
     return;
   }
+  let componentRef = componentRefs[getNavigationEventKey()];
   componentRef && componentRef.setState({
     type: TYPES.input,
     visible: true,

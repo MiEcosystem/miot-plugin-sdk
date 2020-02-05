@@ -22,6 +22,7 @@ export default class CircleButton extends Component {
     sizeLevel: PropTypes.oneOf([0, 1, 2, 3]),
     themeColor: PropTypes.any,
     disabled: PropTypes.bool,
+    showHighlight: PropTypes.bool,
     selected: PropTypes.bool,
     horizontal: PropTypes.bool,
     onPress: PropTypes.func,
@@ -37,6 +38,7 @@ export default class CircleButton extends Component {
     sizeLevel: 0,
     themeColor: '',
     disabled: false,
+    showHighlight: false,
     selected: false,
     horizontal: false,
     onPress: NOOP,
@@ -45,6 +47,9 @@ export default class CircleButton extends Component {
     iconSelected: null,
     iconText: ''
   };
+  state = {
+    isPressing: false
+  };
   onPress = () => {
     let {disabled, onPress} = this.props;
     if(disabled) {
@@ -52,20 +57,33 @@ export default class CircleButton extends Component {
     }
     onPress();
   }
+  onPressIn = () => {
+    let {showHighlight} = this.props;
+    if(showHighlight) {
+      this.setState({
+        isPressing: true
+      });
+    }
+  }
+  onPressOut = () => {
+    this.setState({
+      isPressing: false
+    });
+  }
   render() {
     let {sizeLevel, selected, title, icon, iconSelected, iconText, themeColor, disabled, horizontal} = this.props;
+    let {isPressing} = this.state;
     let containerSizeStyle = Styles[['container0', 'container1', 'container2', 'container3'][sizeLevel || 0]] || Styles.container0;
     let iconContainerSizeStyle = Styles[['iconContainer0', 'iconContainer1', 'iconContainer2', 'iconContainer3'][sizeLevel || 0]] || Styles.iconContainer0;
-    // let iconSizeStyle = Styles[['icon0', 'icon1', 'icon2', 'icon3'][sizeLevel || 0]] || Styles.icon0;
-    // let titleSizeStyle = Styles[['title0', 'title1', 'title2', 'title3'][sizeLevel || 0]] || Styles.title0;
+    selected = selected || isPressing;
     return (
       <View style={StyleSheet.flatten([Styles.container, containerSizeStyle, horizontal ? Styles.containerHorizontal : null, disabled ? {
         opacity: 0.3
       } : null])}>
-        <TouchableOpacity style={StyleSheet.flatten([Styles.iconContainer, iconContainerSizeStyle, selected ? {
+        <TouchableOpacity disabled={disabled} style={StyleSheet.flatten([Styles.iconContainer, iconContainerSizeStyle, selected ? {
           backgroundColor: themeColor || ColorGreen,
           borderColor: themeColor || ColorGreen
-        } : null, disabled ? Styles.iconContainerDisabled : null, disabled && selected ? Styles.iconContainerDisabledSelected : null])} activeOpacity={1} onPress={this.onPress}>
+        } : null, disabled ? Styles.iconContainerDisabled : null, disabled && selected ? Styles.iconContainerDisabledSelected : null])} activeOpacity={1} onPress={this.onPress} onPressIn={this.onPressIn} onPressOut={this.onPressOut}>
           {icon ? (
             <Image style={StyleSheet.flatten([Styles.icon])} source={selected && !disabled ? (iconSelected || iconSelected) : icon} />
           ) : (

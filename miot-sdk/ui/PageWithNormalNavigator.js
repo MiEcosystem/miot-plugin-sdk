@@ -110,6 +110,13 @@ class WrapedNavigation extends Component {
     );
   }
 }
+export function getContentEventKey() {
+  let navigation = getNavigation();
+  let {params} = navigation.state;
+  let page = navigation.state.routeName;
+  let key = (params && params[PageWithNormalNavigatorKey]) ? params[PageWithNormalNavigatorKey] : page;
+  return 'PageWithNormalNavigator_REQUESTSETCONTENT:' + page;
+}
 export default class PageWithNormalNavigator extends Component {
   static propTypes = {
     // containerStyle: View.propTypes.style,
@@ -120,6 +127,7 @@ export default class PageWithNormalNavigator extends Component {
   state = {
     backgroundEventKey: getBackgroundEventKey(),
     navigationEventKey: getNavigationEventKey(),
+    contentEventKey: getContentEventKey(),
     height: '100%'
   };
   onLayout = (e) => {
@@ -127,8 +135,22 @@ export default class PageWithNormalNavigator extends Component {
       height: e.nativeEvent.layout.height
     })
   }
+  listeners = [];
   componentDidMount() {
-    let key = getBackgroundEventKey();
+    this.listeners.push(DeviceEventEmitter.addListener(this.state.contentEventKey, params => {
+      if(!this.refContent) {
+        return;
+      }
+      try {
+        this.refContent.setNativeProps(params);
+      } catch(e) {}
+    }));
+  }
+  componentWillUnmount() {
+    while(this.listeners.length) {
+      let listener = this.listeners.pop();
+      listener && listener.remove();
+    }
   }
   render() {
     let { navigatorParams, containerStyle, contentStyle } = this.props;
@@ -137,7 +159,7 @@ export default class PageWithNormalNavigator extends Component {
       <View style={[Styles.container, containerStyle]}>
         <BackgroundComponent eventKey={backgroundEventKey} />
         <WrapedNavigation eventKey={navigationEventKey} {...navigatorParams} />
-          <ScrollView style={[Styles.content, contentStyle]} alwaysBounceVertical={false} contentContainerStyle={[Styles.contentInner, {
+          <ScrollView ref={ref => {this.refContent = ref}} style={[Styles.content, contentStyle]} alwaysBounceVertical={false} contentContainerStyle={[Styles.contentInner, {
             minHeight
           }]} showsVerticalScrollIndicator={false} onLayout={this.onLayout}>
             {this.props.children}
