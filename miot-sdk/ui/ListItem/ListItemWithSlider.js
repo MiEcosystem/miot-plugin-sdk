@@ -159,7 +159,13 @@ export default class ListItemWithSlider extends React.Component {
       console.warn('sliderProps.value is not a number');
       return;
     }
-    const { value } = nextProps.sliderProps;
+    const { value, minimumValue, maximumValue } = nextProps.sliderProps;
+    if (minimumValue !== this.sliderProps.minimumValue) {
+      this.sliderProps.minimumValue = minimumValue;
+    }
+    if (maximumValue !== this.sliderProps.maximumValue) {
+      this.sliderProps.maximumValue = maximumValue;
+    }
     if (value !== this.state.value) {
       this.setState({
         value,
