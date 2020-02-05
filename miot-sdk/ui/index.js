@@ -65,8 +65,9 @@ export {default as Curtain} from './Curtain';
 export {default as CurtainStyle} from './CurtainStyle';
 export {default as PrimeButton} from './PrimeButton';
 export {default as QAList} from './QAList';
+export {default as MultiButtons} from './MultiButtons';
 export default {
-    ImageButton, 
+    ImageButton,
     // MHImage,
     LoadingDialog, MessageDialog, MultiChoseDialog,
     ProgressDialog, SingleChoseDialog, InputDialog,
