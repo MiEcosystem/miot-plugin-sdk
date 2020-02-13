@@ -13,7 +13,7 @@
  */
 import _AMapView from './AMapView';
 import _MiotAndroidScrollView from './android/scrollview/MiotAndroidScrollView';
-// import _MHImage from './image';
+import _MHImage from './image';
 import _ImageButton from './ImageButton';
 import _InputDialog from './InputDialog';
 import _LoadingDialog from './LoadingDialog';
@@ -44,7 +44,7 @@ export const NumberSpinner = _NumberSpin;
 export const StringSpinner = _StringSpin;
 export const RobotMapView = _RobotMapView;
 export const MiotAndroidScrollView = _MiotAndroidScrollView;
-// export const MHImage = _MHImage;
+export const MHImage = _MHImage;
 export {default as BigNumber} from './BigNumber';
 export {default as CardButton} from './CardButton';
 export {default as CircleButton} from './CircleButton';
@@ -68,7 +68,7 @@ export {default as QAList} from './QAList';
 export {default as MultiButtons} from './MultiButtons';
 export default {
     ImageButton,
-    // MHImage,
+    MHImage,
     LoadingDialog, MessageDialog, MultiChoseDialog,
     ProgressDialog, SingleChoseDialog, InputDialog,
     TitleBar, TitleBarBlack, TitleBarWhite,

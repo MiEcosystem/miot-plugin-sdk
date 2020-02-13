@@ -941,7 +941,7 @@ export class BasicDevice {
      */
     readDeviceNetWorkInfo(did) {
         //@native :=> promise []
-        return this.getDeviceWifi().readDeviceNetWorkInfo();
+        return this.getDeviceWifi().readDeviceNetWorkInfo(did);
         //@native end
     }
     /**

@@ -4,9 +4,14 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 import { Device, Service, Host } from "miot";
 import CommonCell from '../../CommonModules/CommonCell';
+import Package from 'miot/Package';
 
-let KKookongApiKey = 'E1F0EEA5B365121753C181D1485A7964';
+let KKookongApiKey_Ios_Debug = '60095E329B9CA04FCFE98ED51B70CCD9';
+let KKookongApiKey_Ios_Release = '87250803BEA2D0D1CCB7055DFAB036A3';
+
 let KKookongManagerIdentifier = 'managerIdentify_ac_kookong_xiaomidemo';
+
+let KKooKongInitIRData = '{"id":10727}';
 
 export default class KooKongDemo extends React.Component {
 
@@ -28,14 +33,18 @@ export default class KooKongDemo extends React.Component {
           name: "registerWithKey",
           group: '注册sdk',
           action: () => {
-            Service.kookong.registerWithKey(KKookongApiKey, null)
+            if (Package.isDebug) {
+              Service.kookong.registerWithKey(KKookongApiKey_Ios_Debug, null);
+            } else {
+              Service.kookong.registerWithKey(KKookongApiKey_Ios_Release, null);
+            }
           }
         },
         {
           name: "createZipACManager",
           group: '创建 带状态控制的空凋控制实例',
           action: () => {
-            Service.kookong.createZipACManager(KKookongManagerIdentifier, 'remoteid', {}, null).then((res) => {
+            Service.kookong.createZipACManager(KKookongManagerIdentifier, '10727', JSON.parse(KKooKongInitIRData), null).then((res) => {
               alert('success:' + JSON.stringify(res));
             }).catch((res) => {
               alert('fail:' + JSON.stringify(res));

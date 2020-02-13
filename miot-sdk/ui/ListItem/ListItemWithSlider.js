@@ -160,10 +160,10 @@ export default class ListItemWithSlider extends React.Component {
       return;
     }
     const { value, minimumValue, maximumValue } = nextProps.sliderProps;
-    if (minimumValue !== this.sliderProps.minimumValue) {
+    if (minimumValue !== undefined && minimumValue !== this.sliderProps.minimumValue) {
       this.sliderProps.minimumValue = minimumValue;
     }
-    if (maximumValue !== this.sliderProps.maximumValue) {
+    if (maximumValue !== undefined && maximumValue !== this.sliderProps.maximumValue) {
       this.sliderProps.maximumValue = maximumValue;
     }
     if (value !== this.state.value) {
