@@ -117,7 +117,6 @@ import MiotSpecDemo from './Service/MiotSpecDemo';
 import MHRoomDemo from "./Service/RoomDemo";
 import MHSceneDemo from "./Service/SceneDemo";
 import AccountDemo from './Service/AccountDemo';
-import KookongDemo from './Service/KookongDemo';
 import CallSmartHomeAPIDemo from './Service/smarthome';
 import CloudStorageDemo from './Service/CloudStorageDemo';
 
@@ -369,7 +368,6 @@ function createRootStack(initPage) {
     DeviceDemo: DeviceDemo,
     PackageDemo: PackageDemo,
     AccountDemo: AccountDemo,
-    KookongDemo: KookongDemo,
     CloudStorageDemo: CloudStorageDemo,
     ControlDemo: ControlDemo,
     KVStorageDemo: KVStorageDemo,
