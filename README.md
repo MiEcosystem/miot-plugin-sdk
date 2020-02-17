@@ -59,6 +59,8 @@
 
 插件开发请参考[《MIOT SDK API》](https://github.com/MiEcosystem/miot-plugin-sdk/wiki)
             [《CHANGELOG》](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/CHANGELOG.md)
+            
+插件从RN54版本升至61版本请参考[《升级指南》](https://github.com/MiEcosystem/miot-plugin-sdk/wiki/RN61%E5%BC%80%E5%8F%91%E8%80%85%E5%8D%87%E7%BA%A7%E6%8C%87%E5%8D%97)
 
 插件从旧框架迁移到新框架请参考[《迁移手册》](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/%E8%BF%81%E7%A7%BB%E6%89%8B%E5%86%8C.md)
 
