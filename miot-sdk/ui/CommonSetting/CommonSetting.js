@@ -11,12 +11,12 @@ import Separator from '../Separator';
 let modelType = '';
 function getModelType() {
   return new Promise((resolve, reject) => {
-    if(modelType) {
+    if (modelType) {
       resolve(modelType);
       return;
     }
     Service.spec.getSpecString(Device.deviceID).then(instance => {
-      if(instance && instance.type) {
+      if (instance && instance.type) {
         modelType = instance.type.split(':')[3];
         resolve(modelType);
         return;
@@ -305,8 +305,8 @@ export default class CommonSetting extends React.Component {
     extraOptions: {},
   }
   getCommonSetting(state) {
-    let {modelType} = state || {};
-    if(!modelType) {
+    let { modelType } = state || {};
+    if (!modelType) {
       modelType = '  ';
     }
     return {
@@ -398,6 +398,7 @@ export default class CommonSetting extends React.Component {
     // 默认是wifi设备固件升级的原生页面
     const { showUpgrade, upgradePageKey } = this.props.extraOptions;
     let { modelType } = this.state;
+    Device.needUpgrade = false;
     if (showUpgrade === false) {
       // 蓝牙统一OTA界面
       if (upgradePageKey === undefined) {
@@ -408,7 +409,6 @@ export default class CommonSetting extends React.Component {
         console.warn('upgradePageKey 必须是字符串, 是你在 index.js 的 RootStack 中定义的页面 key');
         return;
       }
-      Device.needUpgrade = false;
       this.removeKeyFromShowDot(firstAllOptions.FIRMWARE_UPGRADE);
       this.openSubPage(upgradePageKey, {}); // 跳转到开发者指定页面
       console.warn('蓝牙统一OTA界面正在火热开发中');
@@ -418,7 +418,6 @@ export default class CommonSetting extends React.Component {
       // this.openSubPage('FirmwareUpgrade');
       // 20190516，「固件自动升级」不能做成通用功能所以去掉，
       // 那么二级页面「FirmwareUpgrade」只剩下「检查固件升级」一项，遂藏之
-      Device.needUpgrade = false;
       this.removeKeyFromShowDot(firstAllOptions.FIRMWARE_UPGRADE);
       if (Device.type === '16') { // mesh device
         Host.ui.openBleMeshDeviceUpgradePage();

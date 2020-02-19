@@ -19,7 +19,6 @@
  */
 //@native
 import native from "../native";
-import tr from "../resources/strings/tr";
 export default {
   /**
    * MD5 编码
@@ -259,30 +258,5 @@ export default {
       });
     });
     //@native end
-  },
-  //@native begin
-  /**
-   * 追觅扫地机器人
-   * @since 10035
-   * @param {int} width : 图片宽度
-   * @param {int} height : 图片高度
-   * @param {string} traces: 点集合等信息
-   * @returns {Promise<string>} 使用base64编码后的图片数据
-   * 成功时：{"code":0, "data":"xxx" } // data 注意判断空值 返回的base64图片值不包括前缀 'data:image/png;base64'
-   * 失败时：{"code":-1, "message":"points in json must has valid length" }
-   *        {"code":-2, "message":"input parmas width or height must > 0" }
-   *        {"code":-3, "message":"points in json must be valid array json string"}
-   */
-  zhuimiRobotTracesToImageBase64(width, height, traces) {
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.zhuimiRobotTracesToImageBase64(width, height, traces, (ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      });
-    });
   }
-  //@native end
 };

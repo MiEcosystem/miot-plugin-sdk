@@ -607,7 +607,7 @@ export default {
      */
     get isDebug() {
         //@native => false
-        return this.buildType.toLowerCase() === DEBUG;
+        return this.buildType === DEBUG;
     },
     /**
      * 适配的固件 model, 来自于@link packageInfo.json 的
