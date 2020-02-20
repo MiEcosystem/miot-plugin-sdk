@@ -106,6 +106,6 @@ const API_REPO = {
   '/v2/aftersale/validate': {},
   '/v2/aftersale/create': {},
   '/v2/aftersale/list': {},
-  '/v2/aftersale/detail': {}
+  '/v2/aftersale/detail': {},
 }
 export default API_REPO;
