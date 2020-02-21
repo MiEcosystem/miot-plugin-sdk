@@ -50,6 +50,7 @@ import Spec from './service/spec';
 import Storage from './service/storage';
 import TJInfra from './service/tjinfra';
 import MiotCamera from './service/miotcamera';
+import Kookong from './service/kookong';
 //@native = const CurrentAccount = null;
 const CurrentAccount = Properties.init(new Account(), { id: native.MIOTService.currentAccountID });
 export default {
@@ -125,6 +126,9 @@ export default {
   },
   get room() {
     return MHRoom;
+  },
+  get kookong() {
+    return Kookong;
   },
   /**
    * @method callSmartHomeAPI

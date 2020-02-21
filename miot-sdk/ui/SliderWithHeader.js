@@ -12,7 +12,10 @@ import {ColorGreen} from '../utils/colors';
 export default class SliderWithHeader extends Component {
   static propTypes = {
     options: PropTypes.array,
-    initValue: PropTypes.any,
+    min: PropTypes.number,
+    max: PropTypes.number,
+    step: PropTypes.number,
+    initValue: PropTypes.number,
     onSlidingChange: PropTypes.func,
     onSlidingComplete: PropTypes.func,
     disabled: PropTypes.bool,
@@ -20,6 +23,8 @@ export default class SliderWithHeader extends Component {
     themeColor: PropTypes.any,
     title: PropTypes.string,
     subtitle: PropTypes.string,
+    contentType: PropTypes.string,
+    showEndText: PropTypes.bool,
     showSwitch: PropTypes.bool,
     switchOn: PropTypes.bool,
     onSwitch: PropTypes.func,
@@ -27,7 +32,10 @@ export default class SliderWithHeader extends Component {
   };
   static defaultProps = {
     options: [],
-    initValue: null,
+    min: 0,
+    max: 0,
+    step: 0,
+    initValue: 0,
     onSlidingChange: log,
     onSlidingComplete: log,
     disabled: false,
@@ -35,22 +43,29 @@ export default class SliderWithHeader extends Component {
     themeColor: '',
     title: '',
     subtitle: '',
+    contentType: '',
+    showEndText: true,
     showSwitch: false,
     switchOn: true,
     onSwitch: log,
     hasShadow: true
   };
   onSlidingChange = (v) => {
-    let {onSlidingChange, options} = this.props;
-    onSlidingChange(options[v]);
+    let {onSlidingChange, options, min, max, step} = this.props;
+    let isRange = min !== max && step !== 0;
+    // let isRange = false;
+    onSlidingChange(isRange ? v : options[v]);
   }
   onSlidingComplete = (v) => {
-    let {onSlidingComplete, options} = this.props;
-    onSlidingComplete(options[v]);
+    let {onSlidingComplete, options, min, max, step} = this.props;
+    let isRange = min !== max && step !== 0;
+    // let isRange = false;
+    onSlidingComplete(isRange ? v : options[v]);
   }
   render() {
-    let {options, disabled, switchDisabled, themeColor, showSwitch, switchOn, onSwitch, initValue, title, subtitle, hasShadow} = this.props;
-    if(!options || !options.length) {
+    let {options, disabled, switchDisabled, themeColor, showSwitch, switchOn, onSwitch, initValue, title, subtitle, hasShadow, min, max, step, contentType, showEndText} = this.props;
+    let isRange = min !== max && step !== 0;
+    if((!options || !options.length) && !isRange) {
       return null;
     }
     let initSelectedIndex = options.findIndex(option => {
@@ -83,7 +98,7 @@ export default class SliderWithHeader extends Component {
           </View>
         ) : null}
           <View style={[Styles.sliderContainer, title || subtitle || showSwitch ? Styles.sliderContainerWithHeader : null]}>
-            <SlideGear disabled={disabled || (showSwitch && switchDisabled)} containerStyle={Styles.slider} options={options} minimumTrackTintColor={themeColor || ColorGreen} value={Math.max(0, initSelectedIndex)} onValueChange={this.onSlidingChange} onSlidingComplete={this.onSlidingComplete} />
+            <SlideGear disabled={disabled || (showSwitch && switchDisabled)} containerStyle={Styles.slider} options={isRange ? [] : options} minimumTrackTintColor={themeColor || ColorGreen} contentType={contentType} showEndText={showEndText} value={isRange ? initValue : Math.max(0, initSelectedIndex)} optionMin={min} optionMax={max} optionStep={step} onValueChange={this.onSlidingChange} onSlidingComplete={this.onSlidingComplete} />
           </View>
         </View>
       </Wrap>

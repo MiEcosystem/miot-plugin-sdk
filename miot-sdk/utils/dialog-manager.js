@@ -2,7 +2,7 @@
 import React, {Component, Fragment} from 'react';
 import Resources, {Language} from '../resources';
 import i18n from '../resources/Strings';
-import {LoadingDialog, MessageDialog, InputDialog} from '../ui/Dialog';
+import {LoadingDialog, MessageDialog, InputDialog, ChoiceDialog} from '../ui/Dialog';
 import {getNavigationEventKey} from '../ui/PageWithNormalNavigator';
 import {NOOP, log} from './fns';
 const LANGUAGE = Resources.getLanguage();
@@ -18,7 +18,8 @@ let componentRefs = {};
 export const TYPES = {
   loading: 'loading',
   message: 'message',
-  input: 'input'
+  input: 'input',
+  selector: 'selector'
 };
 export class DialogComponent extends Component {
   state = {
@@ -47,7 +48,7 @@ export class DialogComponent extends Component {
     // componentRefs[getNavigationEventKey()] = null;
   }
   render() {
-    let {type, visible, message, inputs, timeout, buttons} = this.state;
+    let {type, visible, message, inputs, timeout, buttons, options, selectedIndexs, selectorType, onSelect} = this.state;
     return (
       <Fragment>
         {visible && type === TYPES.loading ? (
@@ -58,6 +59,9 @@ export class DialogComponent extends Component {
         ) : null}
         {visible && type === TYPES.input ? (
           <InputDialog visible={visible && type === TYPES.input} title={message} inputs={inputs} buttons={buttons} onDismiss={this.hide} />
+        ) : null}
+        {visible && type === TYPES.selector ? (
+          <ChoiceDialog visible={visible && type === TYPES.selector} title={message} options={options} selectedIndexArray={selectedIndexs} type={selectorType} onSelect={onSelect} />
         ) : null}
       </Fragment>
     );
@@ -178,4 +182,28 @@ export function showInput({
     }]
   });
 }
+export function showSelector({
+  message = '',
+  selectedIndexs = [],
+  options = [],
+  onSelect = log
+} = {
+  message: '',
+  selectedIndexs: [],
+  options: [],
+  onSelect: log
+}) {
+  if(!options || !options.length) {
+    return;
+  }
+  let componentRef = componentRefs[getNavigationEventKey()];
+  componentRef && componentRef.setState({
+    type: TYPES.selector,
+    visible: true,
+    message,
+    selectedIndexs,
+    options,
+    onSelect
+  });
+};
 //@native end

@@ -1,13 +1,12 @@
 //@native begin
 import React, {Component, PureComponent, Fragment} from 'react';
-import {StyleSheet, DeviceEventEmitter, View, ScrollView, Image, ART} from 'react-native';
+import {StyleSheet, DeviceEventEmitter, View, ScrollView, Image, ART, Animated} from 'react-native';
 import {SafeAreaView} from 'react-navigation';
 import Device from '../device';
 import NavigationBar from './NavigationBar';
 import Separator from './Separator';
 import {Styles as CommonStyle} from '../resources';
 import PropTypes from 'prop-types';
-import Lodash from 'lodash-node';
 import {Svg, Rect, Defs, RadialGradient, LinearGradient, Stop} from 'react-native-svg';
 import {DialogComponent} from '../utils/dialog-manager';
 import {window, adjustSize} from '../utils/sizes';
@@ -166,15 +165,29 @@ export default class LightControl extends Component {
     color: 0,
     colorTemperature: 0
   };
-  static getDerivedStateFromProps(props, state) {
-    let {direction} = state;
+  brightnessPercent = new Animated.Value(100);
+  colorPercent = new Animated.Value(0);
+  colorTemperaturePercent = new Animated.Value(0);
+  // static getDerivedStateFromProps(props, state) {
+  //   let {direction} = state;
+  //   // 操作中，不接受外部传props引起的更新
+  //   let brightnessRange = props.brightnessRange;
+  //   return direction ? null : {
+  //     brightnessPercent: props.supportBrightness ? mergePercent(props.brightness, brightnessRange ? brightnessRange[0] : 0, brightnessRange ? brightnessRange[1] : 100, 0, 100) : 100,
+  //     colorPercent: props.supportColor ? ColorGetter.getPercentFromColor(transformDigtalToHex(props.color)) * 100 : 0,
+  //     colorTemperaturePercent: props.supportColorTemperature ? getColorTemperaturePercent(props.colorTemperature, props.colorTemperatureRange) : 0
+  //   };
+  // }
+  UNSAFE_componentWillReceiveProps(props) {
+    let {direction} = this.state;
     // 操作中，不接受外部传props引起的更新
     let brightnessRange = props.brightnessRange;
-    return direction ? null : {
-      brightnessPercent: props.supportBrightness ? mergePercent(props.brightness, brightnessRange ? brightnessRange[0] : 0, brightnessRange ? brightnessRange[1] : 100, 0, 100) : 100,
-      colorPercent: props.supportColor ? ColorGetter.getPercentFromColor(transformDigtalToHex(props.color)) * 100 : 0,
-      colorTemperaturePercent: props.supportColorTemperature ? getColorTemperaturePercent(props.colorTemperature, props.colorTemperatureRange) : 0
-    };
+    if(direction) {
+      return;
+    }
+    this.brightnessPercent.setValue(props.supportBrightness ? mergePercent(props.brightness, brightnessRange ? brightnessRange[0] : 0, brightnessRange ? brightnessRange[1] : 100, 0, 100) : 100);
+    this.colorPercent.setValue(props.supportColor ? ColorGetter.getPercentFromColor(transformDigtalToHex(props.color)) * 100 : 0);
+    this.colorTemperaturePercent.setValue(props.supportColorTemperature ? getColorTemperaturePercent(props.colorTemperature, props.colorTemperatureRange) : 0);
   }
   width = window.width;
   height = window.height;
@@ -187,7 +200,7 @@ export default class LightControl extends Component {
     let x0 = null, y0 = null;
     let brightnessPercent0 = null;
     let colorPercent0 = null;
-    let onmove = Lodash.throttle(e => {
+    let onmove = e => {
       let {disabled, supportBrightness, brightnessRange, onBrightnessChanging, supportColor, onColorChanging, supportColorTemperature, onColorTemperatureChanging, colorTemperatureRange, onSetStart} = this.props;
       let {direction} = this.state;
       let width = this.width;
@@ -211,32 +224,35 @@ export default class LightControl extends Component {
         return;
       }
       if(direction === 1 && supportBrightness && onBrightnessChanging) {
-        let newBrightnessPercent = Math.min(100, Math.max(0, brightnessPercent0 - (diffY / adjustSize(660) * 100)));
-        this.setState({
-          brightnessPercent: newBrightnessPercent
-        });
+        let newBrightnessPercent = Math.min(100, Math.max(0, brightnessPercent0 - (diffY / adjustSize(990) * 100)));
+        // this.setState({
+        //   brightnessPercent: newBrightnessPercent
+        // });
+        this.brightnessPercent.setValue(newBrightnessPercent);
         onBrightnessChanging(Math.round(mergePercent(newBrightnessPercent, 0, 100, brightnessRange ? brightnessRange[0] : 0, brightnessRange ? brightnessRange[1] : 100)), {pageX, pageY});
         return;
       }
       if(direction === 2 && supportColor && onColorChanging) {
         // +100 是为了防止出现负数
-        let newColorPercent = (colorPercent0 + (diffX / adjustSize(900) * 100) + 100) % 100;
-        this.setState({
-          colorPercent: newColorPercent
-        });
+        let newColorPercent = (colorPercent0 + (diffX / adjustSize(1200) * 100) + 100) % 100;
+        // this.setState({
+        //   colorPercent: newColorPercent
+        // });
+        this.colorPercent.setValue(newColorPercent);
         onColorChanging(transformHexToDigtal(ColorGetter.getColorFromPercent(newColorPercent)), {pageX, pageY});
         return;
       }
       if(direction === 2 && supportColorTemperature && onColorTemperatureChanging) {
         // +100 是为了防止出现负数
-        let newColorTemperaturePercent = (colorTemperaturePercent0 + (diffX / adjustSize(900) * 100) + 100) % 100;
-        this.setState({
-          colorTemperaturePercent: newColorTemperaturePercent
-        });
+        let newColorTemperaturePercent = (colorTemperaturePercent0 + (diffX / adjustSize(1200) * 100) + 100) % 100;
+        // this.setState({
+        //   colorTemperaturePercent: newColorTemperaturePercent
+        // });
+        this.colorTemperaturePercent.setValue(newColorTemperaturePercent);
         onColorTemperatureChanging(Math.round(getColorTemperatureFromPercent(newColorTemperaturePercent, colorTemperatureRange)), {pageX, pageY});
         return;
       }
-    }, 60);
+    };
     this.responders = {
       onStartShouldSetResponder: e => {
         let {disabled, supportBrightness, supportColor, supportColorTemperature} = this.props;
@@ -250,9 +266,9 @@ export default class LightControl extends Component {
         let {pageX, pageY} = e.nativeEvent;
         x0 = pageX;
         y0 = pageY;
-        brightnessPercent0 = this.state.brightnessPercent;
-        colorPercent0 = this.state.colorPercent;
-        colorTemperaturePercent0 = this.state.colorTemperaturePercent;
+        brightnessPercent0 = this.brightnessPercent.__getValue();
+        colorPercent0 = this.colorPercent.__getValue();
+        colorTemperaturePercent0 = this.colorTemperaturePercent.__getValue();
         this.setState({
           direction: 0
         });
@@ -270,13 +286,13 @@ export default class LightControl extends Component {
           colorPercent0 = null;
           colorTemperaturePercent0 = null;
           if(direction === 1 && supportBrightness && typeof onBrightnessChanged === 'function') {
-            onBrightnessChanged(Math.round(mergePercent(state.brightnessPercent, 0, 100, brightnessRange ? brightnessRange[0] : 0, brightnessRange ? brightnessRange[1] : 100)));
+            onBrightnessChanged(Math.round(mergePercent(this.brightnessPercent.__getValue(), 0, 100, brightnessRange ? brightnessRange[0] : 0, brightnessRange ? brightnessRange[1] : 100)));
           }
           if(direction === 2 && supportColor && typeof onColorChanged === 'function') {
-            onColorChanged(transformHexToDigtal(ColorGetter.getColorFromPercent(state.colorPercent)));
+            onColorChanged(transformHexToDigtal(ColorGetter.getColorFromPercent(this.colorPercent.__getValue())));
           }
           if(direction === 2 && supportColorTemperature && typeof onColorTemperatureChanged === 'function') {
-            onColorTemperatureChanged(Math.round(getColorTemperatureFromPercent(state.colorTemperaturePercent, colorTemperatureRange)));
+            onColorTemperatureChanged(Math.round(getColorTemperatureFromPercent(this.colorTemperaturePercent.__getValue(), colorTemperatureRange)));
           }
           if(typeof onSetEnd === 'function') {
             onSetEnd();
@@ -308,10 +324,26 @@ export default class LightControl extends Component {
       supportColor,
       supportColorTemperature
     } = this.props;
-    let {direction, brightnessPercent, colorPercent, colorTemperaturePercent} = this.state;
+    let {direction} = this.state;
+    let {brightnessPercent, colorPercent, colorTemperaturePercent} = this;
     let linearStops = supportColor ? LinearStopsColor : supportColorTemperature ? LinearStopsColorTemperature : null;
     let showBrightness = !disabled && supportBrightness && direction === 1;
     let showColorOrColorTemperature = !disabled && (supportColor || supportColorTemperature) && direction === 2;
+    let brightnessHeight = brightnessPercent.interpolate({
+      inputRange: [0, 100],
+      outputRange: [0, adjustSize(630)]
+    });
+    let brightnessIndicatorBottom = brightnessPercent.interpolate({
+      inputRange: [0, 100],
+      outputRange: [adjustSize(39), adjustSize(666)]
+    });
+    let colorOrColorTemperatureIndicatorLeft = supportColor ? colorPercent.interpolate({
+      inputRange: [0, 100],
+      outputRange: [adjustSize(12), adjustSize(900)]
+    }) : supportColorTemperature ? colorTemperaturePercent.interpolate({
+      inputRange: [0, 100],
+      outputRange: [adjustSize(12), adjustSize(900)]
+    }) : 0;
     return (
       <View style={Styles.container} {...this.responders} onLayout={this.onLayout}>
         <View style={[Styles.brightness, {
@@ -320,12 +352,12 @@ export default class LightControl extends Component {
           <Image style={Styles.iconBrightnessHigh} source={SourceBrightnessHigh} />
           <View style={Styles.brightnessBar}>
             <View style={Styles.brightnessBarBack}>
-              <View key={String(Math.round(Date.now() / 100))} style={[Styles.brightnessBarFore, {
-                height: (brightnessPercent || 0) + '%'
-              }]}></View>
+              <Animated.View key={String(Math.round(Date.now() / 100))} style={[Styles.brightnessBarFore, {
+                height: brightnessHeight
+              }]}></Animated.View>
             </View>
-            <Image key={String(Math.round(Date.now() / 100))} style={[Styles.iconBrightnessIndicator, {
-              bottom: getBrightnessIndicatorBottom(brightnessPercent || 0)
+            <Animated.Image key={String(Math.round(Date.now() / 100))} style={[Styles.iconBrightnessIndicator, {
+              bottom: brightnessIndicatorBottom
             }]} source={SourceTriangle} />
           </View>
           <Image style={Styles.iconBrightnessLow} source={SourceBrightnessLow} />
@@ -333,8 +365,8 @@ export default class LightControl extends Component {
         <View style={[Styles.colorOrColorTemperature, {
           opacity: showColorOrColorTemperature ? 1 : 0
         }]}>
-          <Image style={[Styles.iconColorOrColorTemperatureIndicator, {
-            left: getColorOrColorTemperatureIndicatorLeft(supportColor ? (colorPercent || 0) : (colorTemperaturePercent || 0))
+          <Animated.Image style={[Styles.iconColorOrColorTemperatureIndicator, {
+            left: colorOrColorTemperatureIndicatorLeft
           }]} source={SourceTriangle} />
           {showColorOrColorTemperature ? (
             <Svg width={adjustSize(900)} height={adjustSize(12)}>

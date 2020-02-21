@@ -40,7 +40,7 @@ export default class GearExample extends React.Component {
                         <Text style={styles.title}>
                             {'选择档位 '}
                             <Text style={{ color: '#f0ac3d' }}>
-                                {`${this.options[this.state.index]}`}
+                                {this.state.index}
                             </Text>
                         </Text>
                         <Text style={styles.label}>
@@ -78,6 +78,58 @@ export default class GearExample extends React.Component {
                                 this.callback(index)
                                 console.log('onSlidingComplete: ', index)
                             }}
+                            showEndText={false}
+                        />
+                        <Text style={styles.label}>
+                            {`111色温滑动选择档位(圆形滑块)`}
+                        </Text>
+                        <SlideGear
+                            optionMin={3000}
+                            optionMax={8000}
+                            optionStep={1}
+                            value={this.state.selectIndex}
+                            disabled={this.state.disabled}
+                            containerStyle={{
+                                width: width * 0.75,
+                                // height: 60
+                            }}
+                            leftTextColor='yellowgreen'
+                            rightTextColor='skyblue'
+                            onValueChange={index => {
+                                this.callback(index)
+                                console.log('onValueChange: ', index)
+                            }}
+                            onSlidingComplete={index => {
+                                this.callback(index)
+                                console.log('onSlidingComplete: ', index)
+                            }}
+                            contentType={SlideGear.CONTENTTYPE.COLORTEM}
+                        />
+                        <Text style={styles.label}>
+                            {`222颜色滑动选择档位(圆形滑块)`}
+                        </Text>
+                        <SlideGear
+                            optionMin={0}
+                            optionMax={16777215}
+                            optionStep={1}
+                            value={this.state.selectIndex}
+                            disabled={this.state.disabled}
+                            containerStyle={{
+                                width: width * 0.75,
+                                // height: 60
+                            }}
+                            leftTextColor='yellowgreen'
+                            rightTextColor='skyblue'
+                            onValueChange={index => {
+                                this.callback(index)
+                                // console.log('onValueChange: ', index)
+                            }}
+                            onSlidingComplete={index => {
+                                this.callback(index)
+                                console.log('onSlidingComplete: ', index)
+                            }}
+                            contentType={SlideGear.CONTENTTYPE.COLOR}
+                            showEndText={false}
                         />
                         <Text style={styles.label}>
                             {`滑动选择档位(方形滑块)`}
@@ -96,7 +148,7 @@ export default class GearExample extends React.Component {
                         />
                         <Text style={styles.label}>
                             点击选择档位
-            </Text>
+                        </Text>
                         <NormalGear
                             options={this.options1}
                             // normalStyle={{ width: 60 }}
@@ -121,16 +173,16 @@ export default class GearExample extends React.Component {
                         </View>
                     </View>
                 </ScrollView>
-            </View >
+            </View>
         );
     }
 
     callback(index) {
-        this.setState({ index });
+        this.setState({ index, selectIndex: index });
     }
 
     componentDidMount() {
-        setTimeout(_ => this.setState({ selectIndex: 5, index: 5, disabled: false }), 1500); // 在从服务器获取到选中值之前，先禁用滑动
+        setTimeout(_ => this.setState({ selectIndex: 6127, index: 5, disabled: false }), 1500); // 在从服务器获取到选中值之前，先禁用滑动
     }
 
 }
