@@ -542,6 +542,7 @@ export default {
             })
         })
     },
+    //@native end
     /**
      * 批量删除自动化、场景
      * @param {Array}  params 自动化、场景us_id数组
