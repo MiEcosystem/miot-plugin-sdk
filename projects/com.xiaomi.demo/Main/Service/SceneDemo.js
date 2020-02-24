@@ -84,6 +84,101 @@ export default class MHSceneDemo extends React.Component {
           >
             <Text style={[styles.textStyle, this.fontFamily]}>加载设备的智能日志信息</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              this._createTimerScene();
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>创建定时场景</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              this._saveTimerScene();
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>保存定时场景（修改后的）</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              this._reloadTimerScene();
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>刷新场景（修改后的）</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              this._startTimerScene();
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>启动场景</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              this._removeTimerScene();
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>删除场景</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              this._removeErrorTimerScene();
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>删除场景（报错）</Text>
+          </TouchableOpacity>
+
+          <Text style={[{ fontSize: 14, color: '#666666', marginLeft: 20, marginTop: 10 }, this.fontFamily]}>部分工具类API</Text>
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              let params = {
+                hour: 12,
+                minute: 30,
+                repeatType: 0,  // 0: 执行一次  1: 每天  2 :中国大陆法定工作日  3：中国大陆法定节假日  4: 自定义
+                weekday: [true, true, false, false, true, true, true,],   // 只有repeatType为4的时候才有效
+                on_filter: '', // 中国大陆法定工作日填cn_workday  中国大陆法定节假日填 cn_freeday 其他type不填
+              }
+              Service.scene.convertDateToCron(params)
+                .then((res) => {
+                  console.log(JSON.stringify(res));
+                  alert(JSON.stringify(res))
+                })
+                .catch((error) => {
+                  console.log(JSON.stringify(error));
+                  alert(JSON.stringify(error))
+                })
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>将时和分转化为cron表达式</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnStyle}
+            onPress={(e) => {
+              let params = {
+                'cron': '57 30 12 5 2 * 2020',
+                'on_filter': '',    // 中国大陆法定工作日填cn_workday  中国大陆法定节假日填 cn_freeday 其他type不填
+                'off_filter': ''
+              }
+              Service.scene.convertCronToDate(params)
+                .then((res) => {
+                  console.log(JSON.stringify(res));
+                  alert(JSON.stringify(res))
+                })
+                .catch((error) => {
+                  console.log(JSON.stringify(error));
+                  alert(JSON.stringify(error))
+                })
+            }}
+          >
+            <Text style={[styles.textStyle, this.fontFamily]}>将cron表达式转化为时和分</Text>
+          </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.btnStyle}
@@ -136,7 +231,7 @@ export default class MHSceneDemo extends React.Component {
           </TouchableOpacity>
         </ScrollView>
 
-      </View>
+      </View >
     );
   }
 

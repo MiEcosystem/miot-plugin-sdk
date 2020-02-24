@@ -2,13 +2,6 @@
   "name": "project-com-xiaomi-demo",
   "version": "0.0.1",
   "dependencies": {
-    "@react-native-community/blur": "^3.3.1",
-    "lottie-react-native": "2.5.5",
-    "react-native-image-capinsets": "0.5.0",
-    "react-native-image-picker": "0.26.10",
-    "react-native-iphone-x-helper": "^1.2.0",
-    "react-native-root-toast": "^3.2.0",
-    "react-native-video": "2.0.0",
-    "seedrandom": "2.4.3"
+    "react-native-root-toast": "^3.2.0"
   }
 }

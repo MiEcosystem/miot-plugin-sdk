@@ -580,17 +580,18 @@ export default {
    * @since 10021
    * @param {String} type - 需要打开创建设备组页面时，type=add，需要打开编辑设备组页面时，type=edit
    * @param {String} did - 设备did。如果是创建，则是以当前实际设备的did为基础，进入创建灯组页面。如果是编辑，则是灯组的虚拟设备did。
+   * @param {int} version - 灯组版本，目前可选值有1和2，分别代表灯组1.0(旧版灯组)和灯组2.0 ;默认为灯组1.0
    */
-  openMeshDeviceGroupPage(type, did) {
+  openMeshDeviceGroupPage(type, did, version = 1) {
     //@native begin
     if (native.isAndroid) {
-      native.MIOTHost.openMeshDeviceGroupPage(type, did);
+      native.MIOTHost.openMeshDeviceGroupPage(type, did, version);
       return;
     }
     if (type === 'add') {
-      NativeModules.MHDeviceGroup.create(did);
+      NativeModules.MHDeviceGroup.create(did, version);
     } else if (type === 'edit') {
-      NativeModules.MHDeviceGroup.edit(did);
+      NativeModules.MHDeviceGroup.edit(did, version);
     }
     //@native end
   },

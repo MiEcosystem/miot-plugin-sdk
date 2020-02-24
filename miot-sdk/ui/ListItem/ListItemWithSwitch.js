@@ -30,6 +30,7 @@ const PADDING = 24;
  * @property {style} titleStyle - 主标题的自定义样式
  * @property {style} subtitleStyle - 副标题的自定义样式
  * @property {style} valueTextStyle - 主标题右侧文案的自定义样式
+ * @property {style} switchStyle - 主标题右侧文案的自定义样式
  */
 export default class ListItemWithSwitch extends React.Component {
   static propTypes = {
@@ -46,6 +47,7 @@ export default class ListItemWithSwitch extends React.Component {
     titleStyle: PropTypes.object,
     subtitleStyle: PropTypes.object,
     valueTextStyle: PropTypes.object,
+    switchStyle: PropTypes.object,
   }
   static defaultProps = {
     title: '',
@@ -58,6 +60,7 @@ export default class ListItemWithSwitch extends React.Component {
     titleStyle: {},
     subtitleStyle: {},
     valueTextStyle: {},
+    switchStyle: {},
   }
   // constructor(props, context) {
   //   super(props, context);
@@ -129,6 +132,7 @@ export default class ListItemWithSwitch extends React.Component {
             </View>
             <View style={styles.right}>
               <Switch
+                style={this.props.switchStyle}
                 value={this.props.value}
                 disabled={this.props.disabled}
                 onValueChange={value => this._onValueChange(value)}

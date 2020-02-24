@@ -542,6 +542,7 @@ export default {
             })
         })
     },
+    //@native end
     /**
      * 批量删除自动化、场景
      * @param {Array}  params 自动化、场景us_id数组
@@ -651,4 +652,99 @@ export default {
         native.MIOTHost.launchCountDownWhenDevice(isCountDownOn, setting);
         //@native end
     },
+    //@native begin
+    /**
+     * 将时和分转化为cron表达式
+     * @since 10034
+     * @param {object} params
+     * @param {int} params.hour  时
+     * @param {int} params.minute  分
+     * @param {string} params.on_filter  定时开启标识符
+     *              中国大陆法定节假日     cn_freeday
+     *              中国大陆法定工作日     cn_workday
+     *              其他不填，为空
+     * @param {string} params.off_filter  定时关闭标识符
+     *              中国大陆法定节假日     cn_freeday
+     *              中国大陆法定工作日     cn_workday
+     *              其他不填，为空
+     * @param {int} params.repeatType  重复类型  0: 执行一次  1: 每天  2 :中国大陆法定工作日  3：中国大陆法定节假日  4: 自定义
+     * @param {array} params.weekday  当repeatType为4的时候才有效，必须将七天的数据都带上
+     *          [true,        // 代表周日 被选中
+     *           true,         // 代表周一 被选中
+     *           false,        // 代表周一 未被选中
+     *           false,
+     *           true,
+     *           true,
+     *           true]
+     * @returns {Promise<object>}
+     * 成功时：{"data":"xxx","code":0}   例如：{"data":"16 30 18 18 1 * 2020","code":0}
+     * 失败时：{"code":xxx, "message":"xxx" }
+     * @example
+     * 可参考 com.xiaomi.demo 中的 SceneDemo.js
+     */
+    convertDateToCron(params) {
+        //@native :=> Promise.resolve('');
+        return new Promise((resolve, reject) => {
+            native.MIOTHost.convertDateToCron(params, (ok, res) => {
+                if (ok) {
+                    resolve(res);
+                } else {
+                    reject(res);
+                }
+            });
+        });
+        //@native end
+    },
+    /**
+     * 将cron表达式转化为时和分
+     * @since 10034
+     * @param {Object} params
+     *   {
+     *      "cron": "58 30 12 * * 0,1,2,3,4,5,6 *",
+     *      "on_filter": "cn_workday", // 定时开启标识符 这两个参数一般由服务端传回
+     *      "off_filter": "cn_workday", // 定时关闭标识符 这两个参数一般由服务端传回
+     * }
+     *     中国大陆法定节假日     cn_freeday
+     *     中国大陆法定工作日     cn_workday
+     *     其他不填，为空
+     * @returns {Promise<object>}
+     * 成功时：{"data":{object},"code":0}
+     * 例如：
+     * {
+     *  "data": {
+     *    "weekday": [
+     *          true,
+     *          true,
+     *          false,
+     *          false,
+     *          true,
+     *          true,
+     *          true
+     *    ],
+     *   "timerOnDetail": "12:30",
+     *   "repeatStr": "周日, 周一, 周四, 周五, 周六",
+     *   "repeatType": 4,
+     *   "minute": 30,
+     *   "hour": 12
+     *   },
+     *  "code": 0
+     * }
+     * 失败时：{"code":xxx, "message":"xxx" }
+     * @example
+     * 可参考 com.xiaomi.demo 中的 SceneDemo.js
+     */
+    convertCronToDate(params) {
+        //@native :=> Promise.resolve('');
+        return new Promise((resolve, reject) => {
+            native.MIOTHost.convertCronToDate(params, (ok, res) => {
+                if (ok) {
+                    resolve(res);
+                } else {
+                    reject(res);
+                }
+            });
+        });
+        //@native end
+    },
+    //@native end
 }
