@@ -282,4 +282,26 @@ export default {
     showFaceRecognize(isVip) {
         NativeModules.MHCameraSDK.showFaceRecognize(Device.deviceID, isVip)
     },
+    /**
+     * 执行FFmpeg命令
+     * @param {object} params json data
+     * @returns {Promise<number>} a promise with return code
+     */
+    ffmpegCommand(command) {
+        //@native :=> promise
+        if (Platform.OS === 'android') {
+            // TODO:
+        } else {
+            return new Promise((resolve, reject) => {
+                NativeModules.MHCameraSDK.ffmpegCommand(command, (err) => {
+                    if (err) {
+                        resolve(err);
+                    } else {
+                        reject(err);
+                    }
+                });
+            });
+        }
+        //@native end
+    },
 }
