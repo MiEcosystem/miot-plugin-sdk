@@ -469,7 +469,8 @@ export default {
     //@native end
   },
   /**
-   * 打开设备检查固件升级页
+   * 打开设备检查固件升级页（先检查，后可升级）
+   * 针对wifi、AP、第三方云等可以联网的设备的统一OTA方案
    */
   openDeviceUpgradePage() {
     //@native begin
@@ -480,6 +481,7 @@ export default {
   /**
    * 打开Mesh设备固件升级页。分享的设备点击此接口无反应（理论上分享的设备不应该出现调用此接口的菜单）
    * @since 10025
+   * 后续蓝牙统一OTA接口openBleCommonDeviceUpgradePage接口传参数param.auth_type = 5时也可以实现此功能（两种方式的原生实现一致），但为了向前兼容厂商已调用的此接口，所以此接口不能下掉
    */
   openBleMeshDeviceUpgradePage() {
     //@native begin
@@ -501,6 +503,7 @@ export default {
    * @param {string} params.fake_dfu_url 指定写入DFU的下载地址，仅在测试环境下有效，指定之后可以强制更新指定DFU固件版本
    * @example
    * Host.ui.openBleCommonDeviceUpgradePage({auth_type: 3 })
+   * 目前ios在进行OTA前，可以先断开与设备的蓝牙连接，然后再从设备广播的信息中拿到设备auth_type的值（无需传参auth_type），但是安卓暂时不好实现所以接口增加了参数auth_type
    */
   openBleCommonDeviceUpgradePage(params) {
     //@native begin

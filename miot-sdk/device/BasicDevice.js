@@ -47,6 +47,7 @@ import Scene from '../service/scene';
 import IDeviceWifi from './WifiDevice';
 // import Host from '../Host';
 import { takeBluetooth } from "./bluetooth";
+import {report} from '../decorator/ReportDecorator';
 const PERMISSION_OWNER = 16;
 const PERMISSION_FAMILY = 8;
 const PERMISSION_FAMILY_IOS = 68;
@@ -332,6 +333,7 @@ export class BasicDevice {
      *      resolve：array<BasicDevice>子设备列表
      *      reject：{code:xxx,message:xxx} -1:找不到网关设备  其他code：服务端错误/网络错误
      */
+    @report
     getSubDevices(useCache = false) {
         //@native :=> promise []
         const self = Properties.of(this);
@@ -394,6 +396,7 @@ export class BasicDevice {
      *      reject：不会走reject
      * 
      */
+    @report
     loadRealDeviceConfig(model) {
         //@native :=> promise {}
         return new Promise((resolve, reject) => {
@@ -467,6 +470,7 @@ export class BasicDevice {
      *      resolve：GPSInfo
      *      reject：{code:xxx,message:xxx} 其他code：网络错误/服务端错误
      */
+    @report
     reportDeviceGPSInfo() {
         //@native :=> Promise
         return new Promise((resolve, reject) => {
@@ -786,6 +790,7 @@ export class BasicDevice {
      * resolve：timezone string
      * reject：{code: xxx, message: xxx}
      */
+    @report
     getDeviceTimeZone() {
         //@native :=> Promise
         if (native.isIOS) {
@@ -814,6 +819,7 @@ export class BasicDevice {
      *      resolve：成功时，res为新名称。同时，DeviceEvent的deviceNameChanged会被触发
      *      reject：{code: xxx, message: xxx} -1:新名称不合法  -2:非当前设备或者子设备，没有改名权限  其他code：网络问题/服务端问题
      */
+    @report
     changeDeviceName(newName, did = null) {
         // @native begin
         return new Promise((resolve, reject) => {
@@ -839,6 +845,7 @@ export class BasicDevice {
     *       resolve:类似{'prop.2.1':'on','prop.light':8}这样的{key:value}键值对，其中键为设备属性名称，值为设备属性值
     *       reject：device.prop为空，则走reject，返回null
     */
+   @report
     getCurrentDeviceValue() {
         return new Promise((resolve, reject) => {
             native.MIOTDevice.getCurrentDeviceValue((ok, res) => {
@@ -872,6 +879,7 @@ export class BasicDevice {
      * 获取当前设备列表中的指定model的设备列表。需要在common_extra_config增加配置，暂时用于秒秒测的互联互通功能。
      * @deprecated since 10032，请使用Device.getDeviceWifi().requestAuthorizedDeviceListData()代替
      */
+    @report
     requestAuthorizedDeviceListData(model) {
         //@native :=> Promise
         return new Promise((resolve, reject) => {

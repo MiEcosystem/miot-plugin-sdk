@@ -131,10 +131,23 @@ class TouchableText extends React.Component<Props, State> {
     let props = this.props;
     if (Platform !== 'ios') {
       if (props.style) {
-        if (!props.style.fontFamily) {
-          props = {
-            ...props,
-            style: [props.style, { fontFamily: ""}],
+        if (Array.isArray(props.style)) {
+          const hasFont = props.style.find(item => Object.prototype.toString.call(item) === '[object Object]' && item.fontFamily )
+          if (!hasFont) {
+            props = {
+              ...props,
+              style: [props.style, { fontFamily: ""}],
+            }
+          }
+        } else if (Object.prototype.toString.call(props.style) === '[object Object]') {
+          if (!props.style.fontFamily) {
+            props = {
+              ...props,
+              style: {
+                ...props.style, 
+                fontFamily: "",
+              },
+            }
           }
         }
       }

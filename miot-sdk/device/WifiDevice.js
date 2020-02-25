@@ -27,6 +27,7 @@
 import { DeviceEventEmitter } from "react-native";
 import native, { NativeTimer, PackageExitAction, Properties } from '../native';
 import { BasicDevice, _find_device } from './BasicDevice';
+import {report} from '../decorator/ReportDecorator';
 const INTERVAL_SUBSCRIBE_MSG_SECONDS = (2 * 60 + 50);//2'50"
 /**
  * 设备网络访问控制类
@@ -67,6 +68,7 @@ export default class IDeviceWifi {
      *      resolve：NetworkInfo
      *      reject：不会走reject
      */
+    @report
     readDeviceNetWorkInfo(did) {
         //@native :=> promise []
         return new Promise((resolve, reject) => {
@@ -108,6 +110,7 @@ export default class IDeviceWifi {
      * })
      *
      */
+    @report
     loadProperties(...propNames) {
         if (propNames.length < 1) {
             return Promise.reject();
@@ -128,6 +131,7 @@ export default class IDeviceWifi {
      * @returns {Promise<Map>} Map<name, value> 同上
      *
      */
+    @report
     loadPropertiesFromCloud(...propNames) {
         if (propNames.length < 1) {
             return Promise.reject();
@@ -161,6 +165,7 @@ export default class IDeviceWifi {
      * //{'method': 'getProps', 'params':[prop1,prop2], 'sid':'xxxxx', 'key1': 'xxxx'}
      *
      */
+    @report
     callMethod(method, args, extraPayload = {}) {
         //@native :=> promise {}
         //@mark andr done
@@ -188,6 +193,7 @@ export default class IDeviceWifi {
      * @return {Promise<json>} 请求成功返回 {code:0,result:{} } 透传
      *
      */
+    @report
     callMethodFromCloud(method, args, extraPayload = {}) {
         //@native :=> promise {}
         //@mark andr done
@@ -224,6 +230,7 @@ export default class IDeviceWifi {
      * @return {Promise<json>} 请求成功返回 {code:0,result:{} } 透传
      *
      */
+    @report
     callMethodFromLocal(method, args, extraPayload = {}) {
         //@native :=> promise {}
         //@mark andr done
@@ -261,6 +268,7 @@ export default class IDeviceWifi {
      * @retun {Promise<json>} 请求成功返回 {code:0,result:{} }
      * 请求失败返回 {code:xxx, message:xxx}
      */
+    @report
     sendKeyFramePayLoad(payload, length, type) {
         return new Promise((resolve, reject) => {
             if (native.isAndroid) {
@@ -295,6 +303,7 @@ export default class IDeviceWifi {
      *  .then(res => console.log('success:', res))
      *  .catch(err => console.log('failed:', err))
      */
+    @report
     localPing() {
         //@native :=> promise {}
         //@mark andr done
@@ -355,6 +364,7 @@ export default class IDeviceWifi {
      *      resolve：EventSubscription 订阅监听
      *      reject：订阅ID或者空
      */
+    @report
     subscribeMessages(...propertyOrEventNames) {
         //@native :=> promise this
         if (propertyOrEventNames.length < 1) {
@@ -427,6 +437,7 @@ export default class IDeviceWifi {
      *      resolve：version
      *      reject：null
      */
+    @report
     getVersion() {
         //@native :=> promise {}
         return new Promise((resolve, reject) => {
@@ -465,6 +476,7 @@ export default class IDeviceWifi {
      *      resolve：DeviceVersion
      *      reject：{code: xxx, message: xxx} 其他code:网络错误/服务端错误
      */
+    @report
     startUpgradingFirmware() {
         //@native :=> promise {}
         return new Promise((resolve, reject) => {
@@ -491,6 +503,7 @@ export default class IDeviceWifi {
      * @example
      * let ret = Device.getDeviceWifi().setFirmwareUpdateErrDic({"3":'无法连接'})
      */
+    @report
     setFirmwareUpdateErrDic(message) {
         //@native :=> promise {}
         if (native.isIOS) {
@@ -515,6 +528,7 @@ export default class IDeviceWifi {
      *      resolve: "set success"
      *      reject: "not a MHDeviceViewControllerBase"
      */
+    @report
     setFirmwareNotCheckUpdate(notCheck) {
         //@native :=> promise
         if (native.isAndroid) {
@@ -546,6 +560,7 @@ export default class IDeviceWifi {
      *      resolve：res={needUpgradge,force,upgrading，latestVersion} ,其中：needUpgrade:是否需要升级，force：是否需要强制升级，updrading：是否正在升级，latestVersion：最新版本版本号
      *      reject：{code: xxx, message: xxx} 401:设备所有者才可升级  其他code:网络错误/服务端错误
      */
+   @report
     checkFirmwareUpdateAndAlert() {
         //@native :=> promise {}
         let { device } = _find_device(this.deviceID);
@@ -598,6 +613,7 @@ export default class IDeviceWifi {
     * @since 10021
     * @returns {Promise<boolean>} 是否支持  res = true or false
     */
+   @report
     checkIsHomeKitDevice() {
         //@native :=> Promise
         let { device } = _find_device(this.deviceID);
@@ -620,6 +636,7 @@ export default class IDeviceWifi {
      * @since 10021
      * @returns {Promise<boolean>} 是否接入 res = true or false
      */
+    @report
     checkHomeKitConnected() {
         //@native :=> Promise
         if (native.isAndroid) {
@@ -643,6 +660,7 @@ export default class IDeviceWifi {
      * @returns {Promise} 成功进入then，失败进入catch resolve ：res = true；reject：res={code:xxx,message:xxx}
      *
      */
+    @report
     bindToHomeKit() {
         //@native :=> Promise
         if (native.isAndroid) {
@@ -686,6 +704,7 @@ export default class IDeviceWifi {
      *      resolve：设备列表数组
      *      reject：{message:xxx} 找不到授权的model  无法找到任何设备
      */
+    @report
     requestAuthorizedDeviceListData(model) {
         //@native :=> Promise
         return new Promise((resolve, reject) => {
@@ -708,6 +727,7 @@ export default class IDeviceWifi {
      *      resolve:子设备列表
      *      reject：{code: xxx, message: xxx}网络错误
      */
+    @report
     getVirtualDevices() {
         //@native :=> promise []
         let { device } = _find_device(this.deviceID);
@@ -746,6 +766,7 @@ export default class IDeviceWifi {
      *      resolve:定向推荐数据。米家的同学可通过下面的wiki查询
      *      reject: {code: xxx, message: xxx} -1 获取设备定向推荐数据失败
      */
+    @report
     getRecommendScenes(model, did) {
         //@native :=> promise {}
         //隐藏此请求的wiki地址：https://wiki.n.miui.com/pages/viewpage.action?pageId=166637359
@@ -775,6 +796,7 @@ export default class IDeviceWifi {
         //@native end
     }
     //@native begin
+    @report
     updateHomeKitAuthorizationData(data) {
         if (native.isAndroid) {
             return new Promise.reject({ code: -1, message: 'Android not support HomeKit' })

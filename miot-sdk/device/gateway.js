@@ -1,6 +1,7 @@
 //@native begin
 import native, { Properties } from './../native';
 import { BasicDevice, _find_device } from './BasicDevice';
+import {report} from '../decorator/ReportDecorator';
 //@native end
 export default class IDeviceGateWay {
   // @native begin
@@ -27,6 +28,7 @@ export default class IDeviceGateWay {
    *    resolve：array<BasicDevice> 设备列表
    *    reject：{code: xxx, message: xxx} -1:找不到设备  其他code：网络错误
    */
+  @report
   getSubDevices() {
     //@native :=> promise []
     let { device } = _find_device(this.deviceID);
@@ -76,6 +78,7 @@ export default class IDeviceGateWay {
   /**
    * 获取支持连接的model列表，暂未实现
    */
+  @report
   supportModelToConnect() {
   }
   // @native end
@@ -89,6 +92,7 @@ export default class IDeviceGateWay {
    *    resolve：返回数组设备信息的promise， {"mesh":[Device], "normal":[Device]}
    *    reject：{code: xxx, error: xxx, extra:xxx} code固定等于-1，error.code： -1:获取设备列表失败  -2:网关设备不存在，请检查是否在线  401:无法获取配置信息  404:无法查询到相关设备
    */
+  @report
   getLinkedBTDevices(did = null) {
     //@native :=> promise []
     did = did || this.deviceID;

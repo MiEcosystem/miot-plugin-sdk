@@ -20,6 +20,7 @@
  */
 //@native
 import native, { Properties } from '../native';
+import {report} from '../decorator/ReportDecorator';
 /**
  * @interface
  * @description
@@ -130,6 +131,7 @@ class IAccount {
    * 成功时：{IAccount}  可以查看 IAccount 类(位于Account.js中)具体信息
    * 失败时：{"code":xxx, "message":"xxx" }
    */
+  @report
   load(force = false) {
     //@native :=> Promise.resolve(this);
     //@mark andr done
@@ -164,6 +166,7 @@ class IAccount {
    * 成功时：{IAccount}  可以查看 IAccount 类(位于Account.js中)具体信息
    * 失败时：{"code":xxx, "message":"xxx" }
    */
+  @report
   getAccountInfoById(accountId) {
     //@native :=> promise {}
     return new Promise((resolve, reject) => {
@@ -195,6 +198,7 @@ class IAccount {
    * 成功时：[{ID:xxx, avatarURL: {size_75:xxx,size_90:xxx,...}, icon:xxx, nickName:xxx, userName:xxx}, ...]
    * 失败时：{"code":xxx, "message":"xxx" }
    */
+  @report
   getAccountInfoList(ids) {
     //@native :=> promise
     return new Promise((resolve, reject) => {

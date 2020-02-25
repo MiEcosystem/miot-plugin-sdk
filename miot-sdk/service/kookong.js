@@ -1,6 +1,7 @@
 //@native
 import native, { Properties } from '../native';
-export default {
+import {report} from '../decorator/ReportDecorator';
+class IKookong {
   /**
    *  注册sdk
    *  暂时米家只支持KooKong sdk的压缩方案，非压缩方案暂不支持，如果需要支持非压缩方案，请联系米家或者提交工单
@@ -13,6 +14,7 @@ export default {
    *  {"code":0,"message":"success"}
    *  {"code":-1,"message":"register sdk failed"}
    */
+  @report
   registerWithKey(apikey, checkid) {
     //@native :=>
     return new Promise((resolve, reject) => {
@@ -25,7 +27,7 @@ export default {
       })
     })
     //@native end
-  },
+  }
   /**
    *  创建 带状态控制的空凋控制实例
    *
@@ -40,6 +42,7 @@ export default {
    *  {"code":-2,"message":"create manager fail"}
    *  {"code":-1,"message":"identifier cannot be null"}
    */
+  @report
   createZipACManager(managerIdentifier, remoteid, irData, array) {
     //@native :=> promise
     return new Promise((resolve, reject) => {
@@ -52,7 +55,7 @@ export default {
       })
     })
     //@native end
-  },
+  }
   /**
    *  创建 带状态控制的空凋控制实例
    *
@@ -65,6 +68,7 @@ export default {
    *  {"code":-2,"message":"create manager fail"}
    *  {"code":-1,"message":"identifier cannot be null"}
    */
+  @report
   createNonACManager(managerIdentifier, irData) {
     //@native :=> promise
     return new Promise((resolve, reject) => {
@@ -77,7 +81,7 @@ export default {
       })
     })
     //@native end
-  },
+  }
   /**
    *  移除 带状态控制的空凋控制实例 一般在退出插件时候调用
    *
@@ -88,6 +92,7 @@ export default {
    *  {"code":0,"message":"success"}
    *  {"code":-1,"message":"identifier cannot be null"}
    */
+  @report
   removeACManager(managerIdentifier) {
     //@native :=> promise
     return new Promise((resolve, reject) => {
@@ -100,7 +105,7 @@ export default {
       })
     })
     //@native end
-  },
+  }
   /**
    *  判断是否可以支持 风量 风向 温度 的控制
    *
@@ -114,6 +119,7 @@ export default {
    *  {"code":-1,"message":"identifier cannot be null"}
    *  {"code":-102,"message":"not found manager, make sure you have already called createZipACManager yet"}
    */
+  @report
   canControlWithType(managerIdentifier, type = -1) {
     //@native :=> promise
     return new Promise((resolve, reject) => {
@@ -126,13 +132,14 @@ export default {
       })
     })
     //@native end
-  },
+  }
   /**
    *  获取当前控制的指定type的值
    *  
    *  @since 10035
    *  @param {string} managerIdentifier    ACManager对应的唯一的key,一般是自定义的string
-   *  @param {int} type 0：模式 1：风量  2：风向 3：温度 4：开关状态
+   *  @param {int} type 0：模式 1：风量  2：风向 3：温度 4：开关状态 103：扫风模式
+   *                    当type=103时，ios默认不做任何控制处理，默认返回成功
    *  @returns {Promise<bool, json>} 第一个bool代表是否调用成功
    *  json可能返回的值 
    *  {"code":0,"message":"success","data":{"result":#int#}}
@@ -140,6 +147,7 @@ export default {
    *  {"code":-1,"message":"identifier cannot be null"}
    *  {"code":-102,"message":"not found manager, make sure you have already called createZipACManager yet"}
    */
+  @report
   getCurrentValueWithType(managerIdentifier, type) {
     //@native :=> promise
     return new Promise((resolve, reject) => {
@@ -152,7 +160,7 @@ export default {
       })
     })
     //@native end
-  },
+  }
   /**
    *  获取当前控制的指定type的所有的能控制的值
    *
@@ -166,6 +174,7 @@ export default {
    *  {"code":-1,"message":"identifier cannot be null"}
    *  {"code":-102,"message":"not found manager, make sure you have already called createZipACManager yet"}
    */
+  @report
   getAllSupportValueWithType(managerIdentifier, type) {
     //@native :=> promise
     return new Promise((resolve, reject) => {
@@ -178,14 +187,15 @@ export default {
       })
     })
     //@native end
-  },
+  }
   /**
    *  发送控制指令
    *  
    *  @since 10035
    *  @param {string} managerIdentifier    ACManager对应的唯一的key
    *  @param {int} stateValue 控制值 sdk不对该值做任何处理，直接透传回native
-   *  @param {int} type 0：模式 1：风量  2：风向 3：温度 4：开关状态
+   *  @param {int} type 0：模式 1：风量  2：风向 3：温度 4：开关状态 103：扫风模式
+   *                    当type=103时，ios默认不做任何控制处理，默认返回成功
    *  @returns {Promise<bool, json>} 第一个bool代表是否调用成功，第二个参数json代表返回具体信息
    *          值得注意的是，由于红外是无法知道执行结果的，所以调用成功不代表执行成功。
    *  json可能返回的值 
@@ -194,6 +204,7 @@ export default {
    *  {"code":-1,"message":"identifier cannot be null"}
    *  {"code":-102,"message":"not found manager, make sure you have already called createZipACManager yet"}
    */
+  @report
   changeStateValueForType(managerIdentifier, stateValue, type) {
     //@native :=> promise
     return new Promise((resolve, reject) => {
@@ -208,3 +219,5 @@ export default {
     //@native end
   }
 }
+const Kookoong = new IKookong();
+export default Kookoong;
