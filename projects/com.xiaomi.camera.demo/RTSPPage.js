@@ -10,19 +10,11 @@ import {
     View, ViewPropTypes, Text, Button
 } from 'react-native';
 
-import { DeviceEventEmitter, Platform } from 'react-native';
-import { MISSCommand, AlarmEventType } from "miot/service/miotcamera";
-import { MISSCodec, MISSSampleRate, MISSDataBits, MISSAudioChannel } from 'miot/ui/CameraRenderView';
-import base64js from 'base64-js';
-import room from 'miot/service/room';
 import Orientation from 'react-native-orientation';
-import th from 'miot/resources/strings/th';
 
 import { SafeAreaView } from 'react-native';
 
-const kConnectionCallBackName = 'connectionCallBack';
-const merge = require('merge');
-const MHRTSPView = requireNativeComponent('MHRTSPView');
+import RTSPRenderView from 'miot/ui/RTSPRenderView';
 
 export default class RTSPPage extends React.Component {
     static navigationOptions = {
@@ -51,6 +43,7 @@ export default class RTSPPage extends React.Component {
             type: 'light',
             style: { backgroundColor: 'transparent' },
             onPressRight: () => {
+                alert('asdf2');
                 console.log("right menu")
             }
         })
@@ -75,14 +68,10 @@ export default class RTSPPage extends React.Component {
     }
 
     render() {
-        const nativeProps = merge(this.props, {
-            //did: Device.deviceID
-        });
-
         return (
             <View style={styles.main}>
                 <SafeAreaView style={{ backgroundColor: "black" }}></SafeAreaView>
-                <MHRTSPView
+                <RTSPRenderView
                     ref="rtspView"
                     style={styles.videoNormal}
                     isPlay={this.state.isPlay}
@@ -99,17 +88,15 @@ export default class RTSPPage extends React.Component {
                         })
                     }
                 >
-                </MHRTSPView>
+                </RTSPRenderView>
                 <View style={styles.videoToolBar}>
                     <Button style={styles.videoToolBarItem}
                         onPress={() => {
-                            NativeModules.MHRTSPViewManager.setPath(
-                                findNodeHandle(this.refs.rtspView),
-                                "rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov",
-                                (success) => {
-                                    console.log(success)
-                                }
-                            );
+                            this.refs.rtspView.setPath("rtsp://192.168.1.105/mjcamera.mkv").then(() => {
+                                alert('success');
+                            }).catch(() => {
+                                alert('fail');
+                            });
                         }}
                         title="设置"
                     />

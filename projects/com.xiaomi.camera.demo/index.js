@@ -66,7 +66,8 @@ const NaviApp = createStackNavigator({
                     type={navigation.state.params ? navigation.state.params.type : 'dark'}
                     style={navigation.state.params? navigation.state.params.style : {backgroundColor: 'white'}}
                     onPressLeft={() => {
-                        navigation.pop();
+                        //navigation.pop();
+                        Package.exit();
                     }} 
                     onPressRight={navigation.state.params? navigation.state.params.onPressRight : null}
                     />
