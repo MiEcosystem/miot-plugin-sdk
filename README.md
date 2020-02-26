@@ -71,13 +71,13 @@
 
 ## 调试环境
 
-[iOS IPA 包下载地址](https://fir.im/mijiadevelopment) [备用地址](http://www.jappstore.com/mijiadevelopment)
+[iOS IPA 包下载地址](https://fir.im/mijiadevelopment) 打不开请使用[备用地址](http://www.jappstore.com/mijiadevelopment)
 
-[ios IPA 包下载地址(RN54,SDK_10032,供大家临时使用)](https://fir.im/mijiadevelopment?release_id=5df8b0b3f94548387f934dc0)  [备用地址](http://www.jappstore.com/mijiadevelopment?release_id=5df8b0b3f94548387f934dc0)
+[ios IPA 包下载地址(RN54,SDK_10032,供大家临时使用)](https://fir.im/mijiadevelopment?release_id=5df8b0b3f94548387f934dc0) 打不开请使用[备用地址](http://www.jappstore.com/mijiadevelopment?release_id=5df8b0b3f94548387f934dc0)
     
-[Android APK 包下载地址](https://fir.im/MiHomeForAndroid)  [备用地址](http://www.jappstore.com/MiHomeForAndroid)
+[Android APK 包下载地址](https://fir.im/MiHomeForAndroid) 打不开请使用[备用地址](http://www.jappstore.com/MiHomeForAndroid)
 
-[Android APK 包下载地址(RN54,SDK_10032,供大家临时使用)](https://fir.im/MiHomeForAndroid?release_id=5e09d91223389f7111e96a03)  [备用地址](http://www.jappstore.com/MiHomeForAndroid?release_id=5e09d91223389f7111e96a03)
+[Android APK 包下载地址(RN54,SDK_10032,供大家临时使用)](https://fir.im/MiHomeForAndroid?release_id=5e09d91223389f7111e96a03) 打不开请使用[备用地址](http://www.jappstore.com/MiHomeForAndroid?release_id=5e09d91223389f7111e96a03)
 
 下载密码: keliyuan 
 
