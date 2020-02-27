@@ -248,6 +248,14 @@ export default class UIDemo extends React.Component {
                 }
             },
             {
+                'name': '打开网关设备产品百科页面',
+                'subtitle': 'openProductBaikeWebPage 网关设备',
+                'func': () => {
+                    let url = 'https://home.mi.com/baike/index.html#/label/gateway';
+                    Host.ui.openProductBaikeWebPage(url);
+                }
+            },
+            {
                 'name': '打开商城某商品详情页面',
                 'subtitle': 'openShopPage 小米台灯',
                 'func': () => {

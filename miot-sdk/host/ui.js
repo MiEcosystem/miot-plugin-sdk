@@ -573,7 +573,24 @@ export default {
     //@mark andr done
     const url = `https://app.xiaomiyoupin.com/searchfilter?keyword=${keyword}`;
     if (native.isIOS) {
-      return native.MIOTHost.openShopPage(url);
+      native.MIOTHost.openShopPage(url);
+      return;
+    }
+    this.openWebPage(url);
+    //@native end
+  },
+  /**
+   * 打开产品百科H5页面
+   * @since 10035
+   * @param {string} url - 链接地址
+   * 值得注意的是，米家对该接口能够打开的url做了限制，目前支持的是包含 "*.mi.com",@"*.xiaomi.com",@"*.xiaomiyoupin.com"的域名
+   */
+  openProductBaikeWebPage(url) {
+    //@native begin
+    //@mark andr done
+    if (native.isIOS) {
+      native.MIOTHost.openProductBaikeWebPage(url);
+      return;
     }
     this.openWebPage(url);
     //@native end

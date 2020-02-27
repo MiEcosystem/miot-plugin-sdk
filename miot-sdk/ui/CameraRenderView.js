@@ -146,12 +146,10 @@ export default class CameraRenderView extends React.Component {
     };
     render() {
         //@native :=> null
-        const nativeProps = merge(this.props, {
-            did: Device.deviceID
-        });
         return <MHCameraGLView
             ref="cameraGLView"
-            {...nativeProps} />
+            did={Device.deviceID}
+            {...this.props} />
         //@native end
     }
     /**
