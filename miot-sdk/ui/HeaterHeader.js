@@ -13,7 +13,7 @@ const Source6 = require('../resources/images/heater-dot6.png');
 function getRandomBetween(min, max) {
   return Math.random() * (max - min) + min;
 }
-export default class UIComponent extends PureComponent {
+export default class HeaterHeader extends PureComponent {
   render() {
     let {title, disabled, themeColor} = this.props;
     let color = disabled ? '#47525F' : (themeColor || '#FA9E19');

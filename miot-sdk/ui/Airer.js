@@ -18,12 +18,14 @@ export default class Airer extends Component {
   static propTypes = {
     position: PropTypes.number,
     lightOn: PropTypes.bool,
+    controlable: PropTypes.bool,
     onValueChanging: PropTypes.func,
     onValueChange: PropTypes.func
   };
   static defaultProps = {
     position: 0,
     lightOn: false,
+    controlable: false,
     onValueChanging: log,
     onValueChange: log
   };
@@ -97,14 +99,15 @@ export default class Airer extends Component {
     this.stopAnimation();
   }
   render() {
-    let {lightOn} = this.props;
+    let {lightOn, controlable} = this.props;
     let {value} = this;
     let height = value.interpolate({
       inputRange: [0, 100],
       outputRange: [CenterHeight, 0]
     });
+    let panHandlers = controlable ? this.panResponder.panHandlers : {};
     return (
-      <View style={Styles.container}{...this.panResponder.panHandlers}>
+      <View style={Styles.container} {...panHandlers}>
         <Image style={Styles.upper} source={SourceUpper} />
         <Animated.Image style={[Styles.center, {
           height
@@ -117,7 +120,8 @@ export default class Airer extends Component {
         }]} source={SourceLight} />
         <Image style={Styles.lower} source={SourceLower} />
         <Animated.View style={[Styles.btnWrap, {
-          top: height
+          top: height,
+          opacity: controlable ? 1 : 0
         }]}>
           <View style={Styles.btn}>
             <View style={Styles.btnInner}></View>

@@ -1,6 +1,6 @@
 //@native begin
 import React, {PureComponent, Fragment} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Animated} from 'react-native';
 import PropTypes from 'prop-types';
 import {adjustSize} from '../utils/sizes';
 import {FontDefault, FontKmedium} from '../utils/fonts';
@@ -17,19 +17,42 @@ export default class SmallNumber extends PureComponent {
     })),
     themeColor: PropTypes.any
   };
+  offsetX = new Animated.Value(0);
+  containerWidth = 0;
+  centerWidth = 0;
+  centerX = 0;
+  onLayoutContainer = e => {
+    let {width} = e.nativeEvent.layout;
+    this.containerWidth = width;
+    if(width && this.centerWidth) {
+      this.offsetX.setValue(width / 2 - this.centerWidth / 2 - this.centerX);
+    }
+  }
+  onLayoutCenter = e => {
+    let {width, x} = e.nativeEvent.layout;
+    this.centerWidth = width;
+    this.centerX = x;
+    if(width && this.containerWidth) {
+      this.offsetX.setValue(this.containerWidth / 2 - width / 2 - x);
+    }
+  }
   getItems = () => {
     let {list, themeColor} = this.props;
-    return list.filter(item => {
+    let filtered = list.filter(item => {
       return item && (item.title !== undefined) && (item.number !== undefined);
-    }).map((item, index) => {
+    });
+    let total = filtered.length;
+    let isOdd = total % 2 === 1;
+    let centerIndex = total <= 0 ? 0 : isOdd ? total / 2 - 0.5 : total / 2;
+    return filtered.map((item, index) => {
       let {title, number} = item;
       let theme = item.themeColor || themeColor;
       return (
         <Fragment key={index}>
           {index > 0 ? (
-            <View style={Styles.separator}></View>
+            <View style={Styles.separator} onLayout={centerIndex === index && !isOdd ? this.onLayoutCenter : null}></View>
           ) : null}
-          <View style={Styles.item}>
+          <View style={Styles.item} onLayout={centerIndex === index && isOdd ? this.onLayoutCenter : null}>
             <Text style={[Styles.number, theme ? {
               color: theme
             } : null, isNaN(number) ? {
@@ -47,24 +70,31 @@ export default class SmallNumber extends PureComponent {
       return null;
     }
     let items = this.getItems();
+    let offsetX = this.offsetX;
     return (
-      <View style={Styles.container}>
-        {items}
+      <View style={Styles.container} onLayout={this.onLayoutContainer}>
+        <Animated.View style={[Styles.containerInner, {
+          transform: [{
+            translateX: offsetX
+          }]
+        }]}>
+          {items}
+        </Animated.View>
       </View>
     );
   }
 }
 const Styles = StyleSheet.create({
-  container: {
+  containerInner: {
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'center',
-    paddingBottom: adjustSize(30)
+    justifyContent: 'center'
   },
   separator: {
-    width: adjustSize(3),
+    width: adjustSize(2.1),
     height: adjustSize(135),
     marginHorizontal: adjustSize(45),
+    marginTop: adjustSize(12),
     backgroundColor: 'rgba(0, 0, 0, 0.2)'
   },
   item: {
@@ -73,15 +103,16 @@ const Styles = StyleSheet.create({
   title: {
     fontSize: adjustSize(36),
     fontFamily: FontDefault,
+    lineHeight: adjustSize(48),
     color: '#1C2229',
     opacity: 1
   },
   number: {
     fontSize: adjustSize(102),
-    fontFamily: FontKmedium,
+    fontFamily: 'Helvetica',
     lineHeight: adjustSize(123),
     color: '#1C2229',
-    opacity: 0.6
+    opacity: 0.8
   }
 });
 //@native end

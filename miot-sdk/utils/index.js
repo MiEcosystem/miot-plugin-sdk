@@ -6,7 +6,6 @@ import fns from './fns';
 import fonts from './fonts';
 import navigationHelper from './navigation-helper';
 import sizes from './sizes';
-import getTemplateValue from './getTemplateValue';
 export {
   colors,
   crossViewData,
@@ -14,7 +13,6 @@ export {
   fns,
   fonts,
   navigationHelper,
-  sizes,
-  getTemplateValue
+  sizes
 }
 //@native end

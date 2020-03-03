@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: width,
     alignItems: 'flex-end',
-    height: StatusBar.currentHeight + titleHeight,
+    height: (StatusBar.currentHeight || 0) + titleHeight,
   },
   textContainer: {
     height: titleHeight,
@@ -141,6 +141,6 @@ const styles = StyleSheet.create({
     height: 10,
     resizeMode: 'contain',
     right: 14,
-    top: StatusBar.currentHeight + (titleHeight - 28) / 2,
+    top: (StatusBar.currentHeight || 0) + (titleHeight - 28) / 2,
   },
 });

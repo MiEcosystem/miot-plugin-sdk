@@ -406,8 +406,8 @@ class PackageRoot extends React.Component {
                                 Service.smarthome.batchSetDeviceDatas([{ did: Device.deviceID, props: { "prop.s_auth_config": JSON.stringify({ 'privacyAuthed': true }) } }]);
                                 resolve('ok');
                             } else {
-                                Package.exit();
                                 reject("不同意协议，插件退出");
+                                native.MIOTHost.closeCurrentPage();
                                 return;
                             }
                         });
@@ -432,7 +432,7 @@ class PackageRoot extends React.Component {
                 confirm={this.state.firmwareUpdateSure}
                 onCancel={(e) => {
                     if (this.state.packageExitOnFirmwareUpdateCancel) {
-                        Package.exit();
+                        native.MIOTHost.closeCurrentPage();
                     }
                 }}
                 onConfirm={(e) => {
