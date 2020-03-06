@@ -16,6 +16,7 @@ import { SafeAreaView } from 'react-native';
 const kConnectionCallBackName = 'connectionCallBack';
 const kCommandReceiveCallBackName = 'commandReceiveCallBack';
 const kRDTDataReceiveCallBackName = 'rdtDataReceiveCallBack';
+const kBpsDataReceiveCallbackName = "bpsDataReceiveCallback";
 
 export default class MainPage extends React.Component {
     static navigationOptions = {
@@ -25,6 +26,7 @@ export default class MainPage extends React.Component {
     state = {
         pstate: 0,
         error: 0,
+        bps:0,
         showPlayToolBar: true,
         fullScreen: false
     }
@@ -82,6 +84,13 @@ export default class MainPage extends React.Component {
             console.log(data);
         });
 
+        DeviceEventEmitter.addListener(kBpsDataReceiveCallbackName, ({data}) => {
+            that.setState({
+                bps: data
+            })
+        })
+        Service.miotcamera.bindBPSReceiveCallback(kBpsDataReceiveCallbackName);
+
         this._sendRDTCommand.bind(this);
     }
 
@@ -100,6 +109,22 @@ export default class MainPage extends React.Component {
             console.log('send rdt result');
             console.log(retCode);
         });
+    }
+
+    _onVideoClick(e) {
+        alert("click video");
+        this.setState({
+            showPlayToolBar: !this.state.showPlayToolBar
+        })
+        console.log("click video view");
+    }
+
+    _videoControlLayout() {
+        if (this.state.showPlayToolBar) {
+            return (this._videoToolbar());
+        } else {
+            return;
+        }
     }
 
     _videoToolbar() {
@@ -178,33 +203,44 @@ export default class MainPage extends React.Component {
         return (
             <View style={styles.main}>
                 <SafeAreaView style={{backgroundColor:"black"}}></SafeAreaView>
-                <CameraRenderView
-                    ref="openGLViewRef"
-                    maximumZoomScale={3.0}
-                    style={this.state.fullScreen ? styles.videoFullScreen : styles.videoNormal}
-                    videoCodec={MISSCodec.MISS_CODEC_VIDEO_H264}
-                    audioCodec={MISSCodec.MISS_CODEC_AUDIO_G711A}
-                    audioRecordSampleRate={MISSSampleRate.FLAG_AUDIO_SAMPLE_8K}
-                    audioRecordChannel={MISSAudioChannel.FLAG_AUDIO_CHANNEL_MONO}
-                    audioRecordDataBits={MISSDataBits.FLAG_AUDIO_DATABITS_16}
-                    fullscreenState={this.state.fullScreen}
-                    correctRadius={1.2}
-                    osdx={0.243}
-                    osdy={0.03964}
-                    onClick={(e) => {
-                        this.setState({
-                            showPlayToolBar: !this.state.showPlayToolBar
-                        })
-                        console.log("did single tap on camera view x: %d y:%d", e.nativeEvent.x, e.nativeEvent.y)
-                    }}
-                >
-                    <Text style={{ width: "100%", color: 'white', backgroundColor: "#10101010" }}>
-                        Connection state:{this.state.pstate}{"\n"}
-                        Error:{this.state.error}
-                    </Text>
-                    {this._videoToolbar()}
-                </CameraRenderView>
+                <View
+                    style={this.state.fullScreen? styles.videoFullScreen:styles.videoNormal}>
 
+                    <CameraRenderView
+                        ref="openGLViewRef"
+                        maximumZoomScale={3.0}
+                        style={styles.videoView}
+                        videoCodec={MISSCodec.MISS_CODEC_VIDEO_H264}
+                        audioCodec={MISSCodec.MISS_CODEC_AUDIO_G711A}
+                        audioRecordSampleRate={MISSSampleRate.FLAG_AUDIO_SAMPLE_8K}
+                        audioRecordChannel={MISSAudioChannel.FLAG_AUDIO_CHANNEL_MONO}
+                        audioRecordDataBits={MISSDataBits.FLAG_AUDIO_DATABITS_16}
+                        fullscreenState={this.state.fullScreen}
+                        videoRate={15}
+                        correctRadius={1.2}
+                        osdx={0.243}
+                        osdy={0.03964}
+                        onVideoClick={this._onVideoClick.bind(this)}
+                        did={Device.deviceID}
+                    >
+                    </CameraRenderView>
+                    
+
+                    <View style={styles.videoInfo}>
+                        <Text style={{ width: "100%", color: 'white', backgroundColor: "#10101010"}}>
+                            Connection state:{this.state.pstate}{"\n"}
+                            Error:{this.state.error}{"\n"}
+                            Bps:{this.state.bps}{" b/s"}
+                        </Text>
+                    </View>
+
+                    <View style={styles.videoControl}>
+                        {this._videoControlLayout()}
+                    </View>
+
+                </View>
+
+                
                 <View style={styles.body}>
                     <Text style={styles.bodyText}>
                         hello, this is a tiny plugin project of MIOT{"\n"}
@@ -250,6 +286,62 @@ export default class MainPage extends React.Component {
                     </View>
                 </View>
 
+                <Button
+                    onPress={() => {
+                        Service.miotcamera.sendP2PCommandToDevice(MISSCommand.MISS_CMD_AUDIO_START, {}).then(retCode => {
+                            console.log("audio stop get send callback");
+                            console.log(retCode);
+                        });
+                        this.refs.openGLViewRef.startAudioPlay();
+                    }}
+                    title="start audio"
+                />
+
+                <Button
+                    onPress={() => {
+                        Service.miotcamera.sendP2PCommandToDevice(MISSCommand.MISS_CMD_AUDIO_STOP, {}).then(retCode => {
+                            console.log("audio stop get send callback");
+                            console.log(retCode);
+                        });
+                        this.refs.openGLViewRef.stopAudioPlay();
+                    }}
+                    title="stop audio"
+                />
+                <Button
+                    onPress={() => {
+                        if (Platform.OS === 'android') {
+                            this.refs.openGLViewRef.startRecord('/sdcard/xiaomi_video_record.mp4', null).then(retCode => {
+                                console.log('start record, retCode: ' + retCode);
+                            })
+                        } else {
+                            this.refs.openGLViewRef.startRecord('', null).then(retCode => {
+                                console.log('start record, retCode: ' + retCode);
+                            })
+                        }
+                    }}
+                    title="start record"
+                />
+                <Button
+                    onPress={() => {
+                        this.refs.openGLViewRef.stopRecord();
+                    }}
+                    title="stop record"
+                />
+                <Button
+                    onPress={() => {
+                        if (Platform.OS === 'android') {
+                            this.refs.openGLViewRef.snapShot('/sdcard/xiaomi_snapshot.jpg').then(_ => {
+                                console.log('success snap shot');
+                            })
+                        } else {
+                            this.refs.openGLViewRef.snapShot('').then(_ => {
+                                console.log('success snap shot');
+                            })
+                        }
+                    }}
+                    title="snap shot"
+                />
+
                 <View style={styles.bottomBar}>
                     <View style={styles.bottomBarItem}>
                         <Button
@@ -275,7 +367,7 @@ export default class MainPage extends React.Component {
                                     console.log("speaker on get send callback");
                                     console.log(retCode);
                                 });
-                                // start Audio Record at MISS_CMD_SPEAKER_START_RESP 
+                                // start Audio Record at MISS_CMD_SPEAKER_START_RESP
                             }}
                             title="Speak: start"
                         />
@@ -329,18 +421,36 @@ const styles = StyleSheet.create({
 
     videoNormal: {
         backgroundColor: 'black',
-        flexDirection: "column",
-        justifyContent: 'space-between',
         width: "100%",
-        aspectRatio: 1920.0 / 1080.0
+        aspectRatio: 1920.0 / 1080.0,
+        position:"relative",
     },
     videoFullScreen: {
         backgroundColor: 'black',
-        flexDirection: "column",
-        justifyContent: "space-between",
         width: "100%",
-        height: "100%"
+        height: "100%",
+        position:"relative",
     },
+
+    videoView: {
+        position: "absolute",
+        width:"100%",
+        height:"100%",
+    },
+
+    videoInfo: {
+        position:"absolute",
+        width:"100%",
+        height:80,
+
+    },
+    videoControl: {
+        position:"absolute",
+        bottom:0,
+        width:"100%",
+        height:80
+    },
+
     videoToolBar: {
         backgroundColor: '#FFF1',
         alignSelf: "flex-end",
@@ -357,7 +467,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginRight: 5,
     },
-    
+
     body: {
         backgroundColor: '#ffa',
         width: "100%",
@@ -366,16 +476,16 @@ const styles = StyleSheet.create({
         alignItems: "flex-start",
         justifyContent: "space-between", padding: 10
     },
-    bodyText: { 
-        color: "gray", 
+    bodyText: {
+        color: "gray",
         fontSize: 13
     },
-    bodyControl: { 
-        flexDirection: "column", 
+    bodyControl: {
+        flexDirection: "column",
     },
 
     bottomBar: {
-         width: "100%", 
+         width: "100%",
          flexDirection: "row"
     },
     bottomBarItem: {

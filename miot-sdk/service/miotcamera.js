@@ -123,14 +123,15 @@ export default {
     disconnectToDevice() {
         //@native :=>
         if (Platform.OS === 'android') {
-            console.log('待实现')
+            // console.log('待实现')
+          NativeModules.MHCameraSDK.release(Device.deviceID)
         } else {
             return new Promise((resolve, reject) => {
-                NativeModules.MHCameraSDK.disconnectToDeviceWithDid(Device.deviceID, (result, retCode) => {
+                NativeModules.MHCameraSDK.c(Device.deviceID, (result, retCode) => {
                     if (result) {
-                        resolve(result)
+                        resolve(result);
                     } else {
-                        reject(retCode)
+                        reject(retCode);
                     }
                 });
             })
@@ -277,9 +278,18 @@ export default {
     /**
      * 打开人脸识别页面
      * @since 10033
-     * @param {BOOL} isVip 
+     * @param {BOOL} isVip
      */
     showFaceRecognize(isVip) {
         NativeModules.MHCameraSDK.showFaceRecognize(Device.deviceID, isVip)
     },
+     
+    /* 注册收到数据速率 Bytes per second，每秒回调一次
+     * @param {string} callbackName 回调名称 { rate: number }
+     */
+    bindBPSReceiveCallback(callbackName) {
+        //@native :=>
+        NativeModules.MHCameraSDK.bindBpsDataCallback(Device.deviceID, callbackName);
+        //@native
+    }
 }

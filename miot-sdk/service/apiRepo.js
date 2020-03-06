@@ -107,5 +107,16 @@ const API_REPO = {
   '/v2/aftersale/create': {},
   '/v2/aftersale/list': {},
   '/v2/aftersale/detail': {},
+  '/wx/app/v1/get/pushSwitch': {},
+  '/wx/app/v1/put/pushSwitch': {},
+  // 摄像机API
+  '/miot/camera/app/v1/get/alarmSwitch': {},
+  '/miot/camera/app/v1/put/motionDetectionSwitch': {},
+  '/miot/camera/app/v1/put/sensitive': {},
+  '/miot/camera/app/v1/put/pushSwitch': {},
+  '/miot/camera/app/v1/put/areaChangePushSwitch': {},
+  '/miot/camera/app/v1/put/pedestrianDetectionPushSwitch': {},
+  '/miot/camera/app/v1/put/babyCryPushSwitch': {},
+  '/miot/camera/app/v1/put/aiPushSwitch': {},
 }
 export default API_REPO;

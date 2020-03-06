@@ -9,7 +9,7 @@ module.exports = {
     },
     transformer: {
       /* transformer options */
-      babelTransformerPath: path.join(project_dir, "bin", "config", DEV ? "transformerForBuild.js" : "transformer.js"),
+      babelTransformerPath: path.join(project_dir, "bin", "config", DEV ? "transformerForSDK.js" : "transformer.js"),
     },
     serializer: {
       /* serializer options */
