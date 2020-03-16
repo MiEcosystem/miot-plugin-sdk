@@ -20,12 +20,14 @@
 //@native
 import native from "../native";
 import tr from "../resources/strings/tr";
-export default {
+import {report} from "../decorator/ReportDecorator";
+class ICrypto{
   /**
    * MD5 编码
    * @param {string} content 需要编码的字符串
    * @returns {Promise<string>} 使用md5编码后的字符串
    */
+  @report
   encodeMD5(content) {
     //@native :=> Promise.resolve('');
     return new Promise((resolve, reject) => {
@@ -39,12 +41,13 @@ export default {
       });
     });
     //@native end
-  },
+  }
   /** 
    * base64 编码
    * @param {string} content 需要编码的字符串
    * @returns {Promise<string>} 使用base64编码后的字符串
    */
+  @report
   encodeBase64(content) {
     //@native :=> Promise.resolve('');
     return new Promise((resolve, reject) => {
@@ -58,12 +61,13 @@ export default {
       });
     });
     //@native end
-  },
+  }
   /**
    * base64解码
    * @param {string} content 需要解码的字符串
    * @returns {Promise<string>} 使用base64解码后的字符串
    */
+  @report
   decodeBase64(content) {
     //@native :=> Promise.resolve('');
     return new Promise((resolve, reject) => {
@@ -77,12 +81,13 @@ export default {
       });
     });
     //@native end
-  },
+  }
   /**
    * SHA1 编码
    * @param {string} content 需要编码的字符串
    * @returns {Promise<string>} 使用SHA1编码后的字符串
    */
+  @report
   encodeSHA1(content) {
     //@native :=> Promise.resolve('');
     return new Promise((resolve, reject) => {
@@ -96,12 +101,13 @@ export default {
       });
     });
     //@native end
-  },
+  }
   /**
    * SHA256 编码
    * @param {string} content 需要编码的字符串
    * @returns {Promise<string>} 使用SHA256编码后的字符串
    */
+  @report
   encodeSHA2(content) {
     //@native :=> Promise.resolve('');
     return new Promise((resolve, reject) => {
@@ -115,7 +121,7 @@ export default {
       });
     });
     //@native end
-  },
+  }
   /**
     * @deprecated
     * @description 该接口从10032开始废弃，建议使用{@see robotCleanerMapColorsToImageBase64 }代替
@@ -128,11 +134,12 @@ export default {
     * @param {string} color1Str 已发现区域色值
     * @returns {Promise<any>} 使用base64编码后的图片数据(Android是string类型)
   */
+  @report
   colorsToImageBase64(content, colorMStr, color0Str, color1Str) {
     //@native :=> Promise.resolve('');
     return this.robotCleanerMapColorsToImageBase64(content, colorMStr, color0Str, color1Str);
     //@native end
-  },
+  }
   /**
     *  api_level 10032
     * 扫地机的地图转换, base64文件内容转成图片
@@ -143,6 +150,7 @@ export default {
     * @param {string} color1Str 已发现区域色值
     * @returns {Promise<any>} 使用base64编码后的图片数据(Android是string类型)
   */
+ @report
   robotCleanerMapColorsToImageBase64(content, colorMStr, color0Str, color1Str) {
     //@native :=> Promise.resolve('');
     return new Promise((resolve, reject) => {
@@ -155,7 +163,7 @@ export default {
       });
     });
     //@native end
-  },
+  }
   /**
    * @deprecated
    * @description 该接口从10032开始废弃，建议使用{@see robotCleanerMapPointsToImageBase64 }代替
@@ -173,11 +181,12 @@ export default {
    * 1 发现区域 #C6D8FA
    * >=10 房间区域
    */
+  @report
   pointsToImageBase64(width, height, points, colorsMap) {
     //@native :=> Promise.resolve('');
     return this.robotCleanerMapPointsToImageBase64(width, height, points, colorsMap);
     //@native end
-  },
+  }
   /**
    * ApiLevel: 10032
    * @since 10032
@@ -194,6 +203,7 @@ export default {
    * >=10 房间区域
    * @returns {Promise<string>} 使用base64编码后的图片数据
    */
+  @report
   robotCleanerMapPointsToImageBase64(width, height, points, colorsMap) {
     //@native :=> Promise.resolve('');
     return new Promise((resolve, reject) => {
@@ -206,7 +216,7 @@ export default {
       });
     });
     //@native end
-  },
+  }
   /**
    * @deprecated
    * @description 该接口从10032开始废弃，建议使用{@see robotCleanerPointsScaleToImageBase64 }代替
@@ -225,11 +235,12 @@ export default {
    * 1 发现区域 #C6D8FA
    * >=10 房间区域
    */
+  @report
   pointsScaleToImageBase64(width, height, points, colorsMap, scale) {
     //@native :=> Promise.resolve('');
     return this.robotCleanerPointsScaleToImageBase64(width, height, points, colorsMap, scale);
     //@native end
-  },
+  }
   /**
  * ApiLevel: 10032
  * @since 10032
@@ -247,6 +258,7 @@ export default {
  * >=10 房间区域
  * @returns {Promise<string>} 使用base64编码后的图片数据
  */
+  @report
   robotCleanerPointsScaleToImageBase64(width, height, points, colorsMap, scale) {
     //@native :=> Promise.resolve('');
     return new Promise((resolve, reject) => {
@@ -259,7 +271,7 @@ export default {
       });
     });
     //@native end
-  },
+  }
   //@native begin
   /**
    * 追觅扫地机器人
@@ -273,6 +285,7 @@ export default {
    *        {"code":-2, "message":"input parmas width or height must > 0" }
    *        {"code":-3, "message":"points in json must be valid array json string"}
    */
+  @report
   zhuimiRobotTracesToImageBase64(width, height, traces) {
     return new Promise((resolve, reject) => {
       native.MIOTHost.zhuimiRobotTracesToImageBase64(width, height, traces, (ok, res) => {
@@ -285,4 +298,6 @@ export default {
     });
   }
   //@native end
-};
+}
+const CryptoInstance = new ICrypto();
+export default CryptoInstance;

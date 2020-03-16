@@ -1,6 +1,6 @@
 'use strict';
 import React, { Component } from 'react';
-import { Alert, AlertIOS, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Video from 'react-native-video';
 
 
@@ -24,12 +24,18 @@ export default class VideoDemo extends Component {
     paused: true,
     skin: 'custom',
     ignoreSilentSwitch: null,
+    selectedVideoTrack: {
+      type: 'index',
+      value: 1,
+    },
     isBuffering: false,
     videoSource: {
-      uri: 'http://cookbook.supor.com/Swast2SpEjewRAnE.mp4',
+      // uri: 'http://cookbook.supor.com/Swast2SpEjewRAnE.mp4',
+      // uri: encodeURI('file:///sdcard/track.mp4'),
+      uri: encodeURI('file:///private/var/containers/Bundle/Application/2D96B6BC-DEBC-4F15-A6F8-4068AC1E0FB7/MiHome.app/track.mp4'),
       type: 'mp4',
       isAsset: true,
-      isNetwork: true,
+      isNetwork: false,
     },
   };
 
@@ -150,6 +156,30 @@ export default class VideoDemo extends Component {
     )
   }
 
+  renderSelectedVideoTrackSwitchControl(disableTrack) {
+    const isAuto = disableTrack == 'auto';
+    const selectedVideoTrack = {
+      type: isAuto ? 'auto' : 'index',
+      value: isAuto ? null : parseInt(disableTrack)
+    }
+    const isSelected = (this.state.selectedVideoTrack.type == selectedVideoTrack.type
+      && this.state.selectedVideoTrack.value == selectedVideoTrack.value);
+
+    return (
+      <TouchableOpacity onPress={() => {
+        if (isLoading) {
+          Alert.alert("wait the video loaded");
+          return;
+        }
+        this.setState({ selectedVideoTrack: selectedVideoTrack });
+      }}>
+        <Text style={[styles.controlOption, { color: isSelected ? "red" : "white" }]}>
+          {disableTrack}
+        </Text>
+      </TouchableOpacity>
+    )
+  }
+
   renderCustomSkin() {
     const flexCompleted = this.getCurrentTimePercentage() * 100;
     const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
@@ -165,11 +195,12 @@ export default class VideoDemo extends Component {
             volume={this.state.volume}
             muted={this.state.muted}
             ignoreSilentSwitch={this.state.ignoreSilentSwitch}
+            selectedVideoTrack={this.state.selectedVideoTrack}
             resizeMode={this.state.resizeMode}
             onLoad={this.onLoad}
             onBuffer={this.onBuffer}
             onProgress={this.onProgress}
-            onEnd={() => { AlertIOS.alert('Done!') }}
+            onEnd={() => {alert('Done!') }}
             repeat={true}
             ref={(ref) => {
               this.player = ref
@@ -189,6 +220,11 @@ export default class VideoDemo extends Component {
               {this.renderSkinControl('custom')}
               {this.renderSkinControl('native')}
               {this.renderSkinControl('embed')}
+            </View>
+            <View style={styles.trackSwitchControls}>
+              {this.renderSelectedVideoTrackSwitchControl('auto')}
+              {this.renderSelectedVideoTrackSwitchControl('0')}
+              {this.renderSelectedVideoTrackSwitchControl('1')}
             </View>
           </View>
           <View style={styles.generalControls}>
@@ -255,7 +291,7 @@ export default class VideoDemo extends Component {
             onLoad={this.onLoad}
             onBuffer={this.onBuffer}
             onProgress={this.onProgress}
-            onEnd={() => { AlertIOS.alert('Done!') }}
+            onEnd={() => { alert('Done!') }}
             repeat={true}
             controls={this.state.controls}
           />
@@ -266,6 +302,12 @@ export default class VideoDemo extends Component {
               {this.renderSkinControl('custom')}
               {this.renderSkinControl('native')}
               {this.renderSkinControl('embed')}
+            </View>
+
+            <View style={styles.trackSwitchControls}>
+              {this.renderSelectedVideoTrackSwitchControl('auto')}
+              {this.renderSelectedVideoTrackSwitchControl('0')}
+              {this.renderSelectedVideoTrackSwitchControl('1')}
             </View>
           </View>
           <View style={styles.generalControls}>
@@ -297,7 +339,6 @@ export default class VideoDemo extends Component {
             }
           </View>
         </View>
-
       </View>
     );
   }
@@ -371,6 +412,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   ignoreSilentSwitchControl: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  trackSwitchControls: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',

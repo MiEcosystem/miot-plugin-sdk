@@ -23,6 +23,7 @@
  */
 import native, { Properties } from '../../native';
 import { getBluetoothUUID128 } from './index';
+import {report} from "../../decorator/ReportDecorator";
 /**
  * BLE蓝牙特征值
  * @interface
@@ -89,6 +90,7 @@ export class IBluetoothCharacteristic {
      *      resolve： 返回当前对象，value为读取到的value
      *      reject：100:设备正在连接中  101:设备不存在  102:服务或者特征值未发现
      */
+    @report
     read() {
         //@native :=> promise
         //@mark andr done
@@ -117,6 +119,7 @@ export class IBluetoothCharacteristic {
      *      resolve： 返回当前对象，value为成功写入的value
      *      reject：100:设备正在连接中  102:服务或者特征值未发现
      */
+    @report
     write(value) {
         //@native :=> promise
         //@mark andr done
@@ -145,6 +148,7 @@ export class IBluetoothCharacteristic {
      *      resolve： 返回当前对象，value为成功写入的value
      *      reject：{code: xxx, message: xxx} 100:设备正在连接中  102:服务或者特征值未发现
      */
+    @report
     writeWithoutResponse(value) {
         //@native :=> promise
         //@mark andr done
@@ -185,6 +189,7 @@ export class IBluetoothCharacteristic {
      *      resolve：当前对象
      *      reject：{code: xxx, message: xxx}  100:设备正在连接中  102:服务或者特征值未发现
      */
+    @report
     setNotify(flag) {
         //@native :=> promise
         //@mark andr done
@@ -259,6 +264,7 @@ export class IBluetoothService {
      * @returns {boolean}
      *
      */
+    @report
     startDiscoverCharacteristics(...characteristicUUIDs) {
         //@native :=> false
         //@mark andr done
@@ -280,6 +286,7 @@ export class IBluetoothService {
      * @returns {IBluetoothCharacteristic}
      *
      */
+    @report
     getCharacteristic(characteristicUUID) {
         //@native :=> null
         //@mark andr done

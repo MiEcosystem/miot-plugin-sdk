@@ -28,6 +28,7 @@
  *
  */
 import native, { Properties } from '../../native';
+import {report} from "../../decorator/ReportDecorator";
 /**
  * 蓝牙锁相关
  * @interface
@@ -52,6 +53,7 @@ export default class IBluetoothLock {
      *      resolve：hex string
      *      reject：{code: xxx, message: xxx} 1：设备正在切换中 2：加密失败 3：找不到服务 4：超时
      */
+    @report
     toggle(cmd, timeout) {
         //@native :=> promise
         //@mark andr done
@@ -82,6 +84,7 @@ export default class IBluetoothLock {
      *      resolve：null
      *      reject：null
      */
+    @report
     isShareKeyValid() {
         //@native :=> promise
         //@mark andr done
@@ -118,6 +121,7 @@ export default class IBluetoothLock {
      *      resolve：int[8],意思是生成8个一次性密码，每个密码的长度等于digits。比如 [123456,234567,....]
      *      reject：{code: xxx, message:xxx} 1:设备owner才可调用  2:参数不正确  3:生成的密码长度不对  4:网络错误
      */
+    @report
     getOneTimePassword(interval, digits) {
         //@native :=> promise
         //@mark andr done
@@ -149,6 +153,7 @@ export default class IBluetoothLock {
      *      resolve: 加密后的string
      *      reject：{code: xxx, message: xxx} 1:必须是16进制字符串  2:设备未绑定  3:加密出错  
      */
+    @report
     encryptMessage(message) {
         //@native :=> promise
         //@mark andr done
@@ -180,6 +185,7 @@ export default class IBluetoothLock {
      *      resolve：解密后的string
      *      reject：{code: xxx, message: xxx}  1:必须是16进制字符串  2:设备未绑定 3:解密出错
      */
+    @report
     decryptMessage(encrypted) {
         //@native :=> promise
         //@mark andr done
@@ -204,6 +210,7 @@ export default class IBluetoothLock {
      *      resolve：{"result": :"encripted string"} result字段即为加密后的string
      *      reject：{code: xxx, message: xxx} 1:必须16进制字符串  2:获取device token 失败  3:加密失败
      */
+    @report
     encryptMessageWithToken(data) {
         //@native :=> promise
         return new Promise((resolve, reject) => {
@@ -227,6 +234,7 @@ export default class IBluetoothLock {
      *      resolve：{"result": :"encripted string"} result字段即为解密后的string
      *      reject：{code: xxx, message: xxx} 1:必须16进制字符串  2:获取device token 失败  3:解密失败
      */
+    @report
     decryptMessageWithToken(data) {
         //@native :=> promise
         return new Promise((resolve, reject) => {

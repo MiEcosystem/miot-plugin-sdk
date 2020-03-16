@@ -21,6 +21,7 @@
  */
 //@native begin
 import native, { Properties } from '../native';
+import {report} from "../decorator/ReportDecorator";
 //@native end
 export class IMHRoom {
   /**
@@ -59,6 +60,7 @@ export class IMHRoom {
    * 成功时：{"code":0, "data":'update success'}
    * 失败时：{"code":xxx, "message":"xxx" }
    */
+  @report
   updateName(newName) {
     //@native begin
     const json = Properties.of(this);
@@ -80,7 +82,7 @@ export class IMHRoom {
 }
 //@native
 let cachedRooms;
-export default {
+class IMiotRoom {
   /**
    * 获取所有房间列表
    * @since 10020
@@ -89,6 +91,7 @@ export default {
    * 成功时：[{IMHRoom},...]
    * 失败时：{"code":xxx, "message":"xxx" }
    */
+  @report
   loadAllRoom(forceReload = false) {
     //@native begin
     if (cachedRooms && !forceReload) {
@@ -111,7 +114,7 @@ export default {
       });
     });
     //@native end
-  },
+  }
   /**
    * 使用指定名称创建房间
    * @since 10020
@@ -120,6 +123,7 @@ export default {
    * 成功时：{IMHRoom}
    * 失败时：{"code":xxx, "message":"xxx" }
    */
+  @report
   createRoom(name) {
     //@native begin
     if (!name) {
@@ -148,3 +152,5 @@ export default {
     //@native end
   }
 };
+const MiotRoomInstance = new IMiotRoom();
+export default MiotRoomInstance;

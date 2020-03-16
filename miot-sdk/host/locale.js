@@ -16,7 +16,8 @@
  */
 //@native
 import native from "../native";
-export default {
+import {report} from "../decorator/ReportDecorator";
+class ILocale {
   /**
    * 获取米家 APP 语言
    * @type {string}
@@ -24,7 +25,7 @@ export default {
   get language() {
     //@native
     return native.language;
-  },
+  }
   /**
    * 获取系统语言
    * @type {string}
@@ -32,7 +33,7 @@ export default {
   get systemLanguage() {
     //@native
     return native.MIOTHost.systemLanguage;
-  },
+  }
   /**
    * 获取时区
    * @type {string}
@@ -41,7 +42,7 @@ export default {
     //@native begin
     return native.MIOTHost.timeZone;
     //@native end
-  },
+  }
   /**
    * 是否是24小时制计时格式
    * @type {boolean}
@@ -50,7 +51,7 @@ export default {
     //@native begin
     return native.MIOTHost.is24HourTime;
     //@native end
-  },
+  }
   /**
    * 获取手机地理位置信息
    * @returns {Promise<object>}{
@@ -72,6 +73,7 @@ export default {
    *  console.log('get location: ', res)
    * })
    */
+  @report
   getLocation() {
     //@native :=> promise
     return new Promise((resolve, reject) => {
@@ -99,7 +101,7 @@ export default {
       }
     });
     //@native end
-  },
+  }
   /**
    * 获取手机的时区信息
    * @since 10024
@@ -108,6 +110,7 @@ export default {
    * Host.locale.getSystemTimeZone().then...
    * result = {"timeZone":"Asia/Shanghai"}
    */
+  @report
   getSystemTimeZone() {
     return new Promise((resolve, reject) => {
       native.MIOTHost.getSystemTimezoneNameWithCallback((ok, result) => {
@@ -120,3 +123,5 @@ export default {
     })
   }
 }
+const LocaleInstance = new ILocale();
+export default LocaleInstance;

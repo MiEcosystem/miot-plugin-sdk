@@ -46,6 +46,7 @@
  */
 //@native
 import native, { Properties } from "../native";
+import {report} from "../decorator/ReportDecorator";
 /**
  * 场景类型
  * @namespace SceneType
@@ -227,6 +228,7 @@ export class IScene {
      *  
      * 
      */
+    @report
     save(opt = null) {
         if (opt) {
             if (opt.name) {
@@ -270,6 +272,7 @@ export class IScene {
      * 用法：scene.reload();
      * @returns {Promise<IScene>}
      */
+    @report
     reload() {
         //@native :=> promise
         if (this.isNew) {
@@ -292,6 +295,7 @@ export class IScene {
      * 用法：scene.start();
      * @returns {Promise<IScene>}
      */
+    @report
     start() {
         //@native :=> promise false
         if (this.isNew) {
@@ -310,6 +314,7 @@ export class IScene {
      * 用法：scene.remove();
      * @returns {Promise<IScene>}
      */
+    @report
     remove() {
         //@native :=> promise false
         if (this.isNew) {
@@ -383,10 +388,7 @@ function loadScenes(deviceID, sceneType, opt = null) {
     })
     //@native end
 }
-/**
- * @export
- */
-export default {
+class IMiotScene {
     /**
      * 创建场景
      * @param {string} deviceID 设备id
@@ -412,7 +414,12 @@ export default {
      * 
      * 
      */
-    createScene,
+    @report
+    createScene(deviceID, sceneType, opt) {
+        //@native :=> promise
+        return createScene(deviceID, sceneType, opt);
+        //@native end
+    }
     /**
      * 创建定时场景  
      * 用法同上面的 createScene(deviceID, SceneType.Timer, opt);
@@ -448,9 +455,10 @@ export default {
      *   ...
      * })
      */
+    @report
     createTimerScene(deviceID, opt) {
         return createScene(deviceID, SceneType.Timer, opt);
-    },
+    }
     /**
      * 创建人工场景
      * same as createScene(deviceID, SceneType.Timer, opt);
@@ -458,9 +466,10 @@ export default {
      * @param {json} opt 同上面opt
      * @returns {IScene}
      */
+    @report
     createArtificialScene(deviceID, opt) {
         return createScene(deviceID, SceneType.Artificial, opt);
-    },
+    }
     /**
      * 创建自动场景
      * same as createScene(deviceID, SceneType.Automatic, opt);
@@ -468,9 +477,10 @@ export default {
      * @param {json} opt 同上面opt
      * @returns {IScene}
      */
+    @report
     createAutomaticScene(deviceID, opt) {
         return createScene(deviceID, SceneType.Automatic, opt);
-    },
+    }
     /**
      * 获取场景列表 /scene/list
      * @param {*} deviceID 设备id
@@ -478,34 +488,40 @@ export default {
      * @param {json} opt {identify,name}
      * @returns {Promise<IScene[]>}
      */
-    loadScenes,
+    @report
+    loadScenes(deviceID, sceneType, opt = null){
+        return loadScenes(deviceID, sceneType, opt);
+    }
     /**
      * 加载定时场景 /scene/list
      * @param {*} deviceID 设备id
      * @param {json} opt {identify,name}
      * @returns {Promise<IScene[]>}
      */
+    @report
     loadTimerScenes(deviceID, opt = null) {
         return loadScenes(deviceID, SceneType.Timer, opt);
-    },
+    }
     /**
      * 加载人工场景 /scene/list
      * @param {*} deviceID 设备id
      * @param {json} opt {identify,name}
      * @returns {Promise<IScene[]>}
      */
+    @report
     loadArtificialScenes(deviceID, opt = null) {
         return loadScenes(deviceID, SceneType.Artificial, opt);
-    },
+    }
     /**
      * 加载自动场景 /scene/list
      * @param {*} deviceID 设备id
      * @param {json} opt {identify,name}
      * @returns {Promise<IScene[]>}
      */
+    @report
     loadAutomaticScenes(deviceID, opt = null) {
         return loadScenes(deviceID, SceneType.Automatic, opt);
-    },
+    }
     /**
      * 获取指定设备的智能日志信息
      * @since 10010
@@ -513,6 +529,7 @@ export default {
      * @param {long} timestamp 时间戳限制
      * @param {int} limit 拉取日志数量限制，小于等于50
      */
+    @report
     loadScenesHistoryForDevice(did, timestamp = -1, limit = 50) {
         //@native :=> promise
         let params = { did, limit, "command": "history" }
@@ -529,8 +546,9 @@ export default {
             })
         })
         //@native end
-    },
+    }
     //@native begin
+    @report
     editSceneRecord(params) {
         return new Promise((resolve, reject) => {
             native.MIOTService.editSceneRecord(params, (ok, res) => {
@@ -541,11 +559,12 @@ export default {
                 }
             })
         })
-    },
+    }
     /**
      * 批量删除自动化、场景
      * @param {Array}  params 自动化、场景us_id数组
      */
+    @report
     deleteSceneRecords(params) {
         return new Promise((resolve, reject) => {
             native.MIOTService.deleteSceneRecords(params, (ok, res) => {
@@ -556,7 +575,8 @@ export default {
                 }
             })
         })
-    },
+    }
+    @report
     triggerTemplatesForQualified(did) {
         return new Promise((resolve, reject) => {
             native.MIOTService.triggerTemplatesForQualifiedDid(did, (ok, res) => {
@@ -567,7 +587,8 @@ export default {
                 }
             })
         })
-    },
+    }
+    @report
     actionTemplatesForQualified(did) {
         return new Promise((resolve, reject) => {
             native.MIOTService.actionTemplatesForQualifiedDid(did, (ok, res) => {
@@ -578,7 +599,8 @@ export default {
                 }
             })
         })
-    },
+    }
+    @report
     loadSceneTemplate() {
         return new Promise((resolve, reject) => {
             native.MIOTRPC.standardCall("/scene/tplv2", null, (ok, res) => {
@@ -589,20 +611,21 @@ export default {
                 }
             })
         })
-    },
+    }
     //@native end
     /**
      * 打开添加智能的页面(米家APP实现)
-     * @since 10032 ,SDKLevel 10032 开始提供使用
+     * @since 10032 ,SDKLevel 10032 开始提供使用,注意分享的用户无法打开
      * @example
      * Service.scene.openIftttAutoPage()
      */
+    @report
     openIftttAutoPage() {
         //@native begin
         //@mark andr done
         native.MIOTHost.openIftttAutoPage();
         //@native end
-    },
+    }
     /**
      * 打开时间设置页面(米家APP实现)
      * @since 10032 ,SDKLevel 10032 开始提供使用
@@ -622,13 +645,14 @@ export default {
      * @param {boolean} options.showPeriodTimerType 是否可以创建：时间段定时？ true: 可以，false:不可以(默认：true)
      * 注意：showOnTimerType、showOffTimerType、showPeriodTimerType三个参数至少有一个为true，才有效，否则三个中任意都会被忽略掉
      * @example
-     * Host.ui.openTimerSettingPageWithOptions({onMethod:"power_on", onParam: "on", offMethod: "power_off", offParam: "off", displayName:"设置xxx定时"，identify:"plug_usb_countdowm"})
+     * Service.scene.openTimerSettingPageWithOptions({onMethod:"power_on", onParam: "on", offMethod: "power_off", offParam: "off", displayName:"设置xxx定时"，identify:"plug_usb_countdowm"})
      */
+    @report
     openTimerSettingPageWithOptions(options) {
         //@native begin
         native.MIOTHost.openTimerSettingPageWithOptions(options);
         //@native end
-    },
+    }
     /**
      * 开启倒计时界面
      * @param {Boolean} isCountDownOn 设备的当前状态:YES 为开启，所以我们启动关闭倒计时; NO  为关闭，所以我们启动开启倒计时
@@ -641,16 +665,17 @@ export default {
      * @param {string} options.displayName 配置场景日志显示的名称：注意，不会更改倒计时页面的标题，只会上传到服务端
      * @example
      *
-     * Host.ui.openCountDownPage(true, {onMethod:"power_on", offMethod:'power_off', onParam:'on', offParam:'off',displayName:"新名字"})
+     * Service.scene.openCountDownPage(true, {onMethod:"power_on", offMethod:'power_off', onParam:'on', offParam:'off',displayName:"新名字"})
      *
      */
+    @report
     openCountDownPage(isCountDownOn, setting) {
         //@native begin
         //@mark ios done
         //@mark android undone
         native.MIOTHost.launchCountDownWhenDevice(isCountDownOn, setting);
         //@native end
-    },
+    }
     //@native begin
     /**
      * 将时和分转化为cron表达式
@@ -681,6 +706,7 @@ export default {
      * @example
      * 可参考 com.xiaomi.demo 中的 SceneDemo.js
      */
+    @report
     convertDateToCron(params) {
         //@native :=> Promise.resolve('');
         return new Promise((resolve, reject) => {
@@ -693,7 +719,7 @@ export default {
             });
         });
         //@native end
-    },
+    }
     /**
      * 将cron表达式转化为时和分
      * @since 10034
@@ -732,6 +758,7 @@ export default {
      * @example
      * 可参考 com.xiaomi.demo 中的 SceneDemo.js
      */
+    @report
     convertCronToDate(params) {
         //@native :=> Promise.resolve('');
         return new Promise((resolve, reject) => {
@@ -744,6 +771,11 @@ export default {
             });
         });
         //@native end
-    },
+    }
     //@native end
 }
+const MiotSceneInstance = new IMiotScene();
+/**
+ * @export
+ */
+export default MiotSceneInstance;

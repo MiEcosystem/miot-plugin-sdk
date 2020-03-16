@@ -38,6 +38,7 @@ import native, { buildEvents, Properties } from '../../native';
 import { IBluetoothService } from './CoreBluetooth';
 import { getBluetoothUUID128 } from './index';
 import RootDevice from '../BasicDevice';
+import {report} from "../../decorator/ReportDecorator";
 // import Host from '../../Host';
 /**
  *
@@ -180,6 +181,7 @@ export class IBluetooth {
      *       });
      *
      */
+    @report
     connect(type = -1, option = 0) {
         //@native :=> promise this
         //@mark andr done
@@ -278,6 +280,7 @@ export class IBluetooth {
      * @returns {Promise<*>}
      *
      */
+    @report
     readRSSI() {
         //@native :=> promise
         //@mark andr done
@@ -300,6 +303,7 @@ export class IBluetooth {
      * @param {int} delay -延迟时长(毫秒)
      *
      */
+    @report
     disconnect(delay = 0) {
         //@native begin
         //@mark andr done
@@ -323,6 +327,7 @@ export class IBluetooth {
      *        resolve: iOS时，返回系统返回的长度，Android返回160bit
      *        reject：iOS设备未连接会reject connect the device first，Android 不会走reject
      */
+    @report
     maximumWriteValueLength(type = 0) {
         //@native :=> promise
         return new Promise((resolve, reject) => {
@@ -384,6 +389,7 @@ export class IBluetooth {
      *      resolve：如果能正常读取成功，一般为：1.0.2等类似样式的string，如果是加密的且使用example里面的方法并不能获取解密后的：请咨询你们的固件工程师，让他们提供解密方法。
      *      reject：{code: xxx, message: xxx}100:设备正在连接中，请连接成功后重试  101:蓝牙外设设备不能存在  102:无法发现版本信息对应的服务或者特征值 103:当前设备没有版本号，无法读取
      */
+    @report
     getVersion(isFromlocal = false, isCrypto = false) {
         //@native :=> promise
         return new Promise((resolve, reject) => {
@@ -448,6 +454,7 @@ export class IBluetooth {
         const { securityChip } = Properties.of(this);
         return securityChip;
     }
+    @report
     getService(serviceUUID) {
         const fullUUID = getBluetoothUUID128(serviceUUID);
         if (!fullUUID) {
@@ -466,6 +473,7 @@ export class IBluetooth {
         }
         return service;
     }
+    @report
     startDiscoverServices(...serviceUUIDs) {
         if (!this.isConnected) {
             return false;

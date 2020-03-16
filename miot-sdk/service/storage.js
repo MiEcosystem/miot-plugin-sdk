@@ -9,7 +9,8 @@
  */
 //@native
 import native from '../native';
-export default {
+import {report} from "../decorator/ReportDecorator";
+class ICloudStorage {
   /**
    * 读取米家的用户配置信息 /user/get_user_config（获取/user/set_user_config写入的用户配置）
    * @param {number} componentId 厂商APP_ID(Cloud ID)，需要向小米申请, 0 和 1 预留
@@ -19,6 +20,7 @@ export default {
    * @example
    * getUserConfigs(componentId, k1,k2,k3).then(res => {...})
    */
+  @report
   getUserConfigs(componentId, ...keys) {
     //@native :=> promise
     return new Promise((resolve, reject) => {
@@ -31,7 +33,7 @@ export default {
         });
     });
     //@native end
-  },
+  }
   /**
    * 读取三方数据,该接口读取厂商的用户配置信息 /user/get_third_user_config，对应的写的接口为：set_third_user_config。
    * @param {string} model 设备Model
@@ -40,6 +42,7 @@ export default {
    * @example
    * getThirdUserConfigs(model, k1,k2,k3).then(res => {...})
    */
+  @report
   getThirdUserConfigs(model, ...keys) {
     //@native :=> promise
     return new Promise((resolve, reject) => {
@@ -52,7 +55,7 @@ export default {
         });
     });
     //@native end
-  },
+  }
   /**
    * 写数据 /user/set_user_config
    * @param {string} componentId 厂商APP_ID(Cloud ID)，需要向小米申请，0和1预留
@@ -60,6 +63,7 @@ export default {
    * @returns {Promise}
    * @deprecated 10023开始废弃，建议使用 setThirdUserConfigsForOneKey, data数据量支持分段保存
    */
+  @report
   setUserConfigs(componentId, data) {
     //@native :=> promise
     const params = Object.keys(data || []).map(key => ({ "component_id": componentId, key, data: data[key] || {} }))
@@ -75,7 +79,7 @@ export default {
       });
     });
     //@native end
-  },
+  }
   /**
    * 写数据 /user/set_user_config， data的数据量不能超过2048字节
    * @param {string} model 
@@ -83,6 +87,7 @@ export default {
    * @param {json} data
    * @deprecated 10023开始废弃，建议使用setThirdUserConfigsForOneKey, data数据量支持分段保存
    */
+  @report
   setThirdUserConfigs(model, key, data) {
     //@native :=> promise
     const params = { model, key, data }
@@ -95,7 +100,7 @@ export default {
       });
     });
     //@native end
-  },
+  }
   /**
    * 写数据 /user/set_user_config
    * 创建或修改设置插件自由存储空间。如果数据超过服务器设置的阈值，自动分段存储到云端。
@@ -109,6 +114,7 @@ export default {
    * 成功时：true
    * 失败时：{"code":xxx, "message":"xxx" }
    */
+  @report
   setThirdUserConfigsForOneKey(model, key, data) {
     //@native :=> promise
     // const params = { model, key, data }
@@ -125,7 +131,7 @@ export default {
       });
     });
     //@native end
-  },
+  }
   /**
    * 与setThirdUserConfigsForOneKey配套使用，会把分段的数据自动合并后返回，使得分段行为对调用者透明
    * @since 10023
@@ -135,6 +141,7 @@ export default {
    * 成功时：{key:xxx, data:xxx}   data 为set时的数据
    * 失败时：{"code":xxx, "message":"xxx" }
    */
+  @report
   getThirdUserConfigsForOneKey(model, key) {
     //@native :=> promise
     let keys = [];
@@ -171,7 +178,7 @@ export default {
         });
     });
     //@native end
-  },
+  }
   //@native begin
   /**
    *  需要考虑存储数据的大小，数据量太大需要分段存储
@@ -180,6 +187,7 @@ export default {
    * @param data
    * @returns {*}  datas:[]
    */
+  @report
   _convertParamsForThirdUserConfig(model, key, data) {
     /**
      * 此处代码参考 Android  原生实现
@@ -242,8 +250,9 @@ export default {
       dataStart += maxLength;
     }
     return arrayDatas;
-  },
+  }
   // mainkeys 中的value都是子key
+  @report
   _parseMainkeysValue(mainkeysData) {
     if (!mainkeysData) {
       return null;
@@ -278,8 +287,9 @@ export default {
     } else {
       return null;
     }
-  },
+  }
   // 子key中的value合并
+  @report
   _parseChildkeysValue(mainKey, childKeysValue) {
     if (!childKeysValue) {
       return null;
@@ -305,6 +315,8 @@ export default {
     resultData.data = totalData;
     resultData.key = mainKey;
     return resultData;
-  },
+  }
   //@native end
 }
+const CloudStorageInstance = new ICloudStorage();
+export default CloudStorageInstance;

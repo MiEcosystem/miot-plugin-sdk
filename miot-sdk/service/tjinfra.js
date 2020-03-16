@@ -7,33 +7,37 @@
  */
 //@native
 import native from "../native";
+import {report} from "../decorator/ReportDecorator";
 //@native
 const { TJInfra } = native;
-export default {
+class ITJInfra {
     /**
      * createClient
      * @param {String} name 
      */
+    @report
     createClient(name) {
         //@native begin
         TJInfra.createClient(name);
         //@native end
-    },
+    }
     /**
      * destroyClient
      * @param {String} name 
      */
+    @report
     destroyClient(name) {
         //@native begin
         TJInfra.destroyClient(name)
         //@native end
-    },
+    }
     /**
      * exactMatchRemote
      * @param {string} clientName 
      * @param {json} page 
      * @returns promise
      */
+    @report
     exactMatchRemote(clientName, page) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -46,7 +50,7 @@ export default {
             })
         })
         //@native end
-    },
+    }
     /**
      * exactMatchRemoteIfPower
      * @param {string} clientName 
@@ -54,6 +58,7 @@ export default {
      * @param {bool} matchPower 
      * @returns promise
      */
+    @report
     exactMatchRemoteIfPower(clientName, page, matchPower) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -66,13 +71,14 @@ export default {
             })
         })
         //@native end
-    },
+    }
     /**
      * searchDiy
      * @param {string} clientName 
      * @param {json} page 
      * @returns promise
      */
+    @report
     searchDiy(clientName, page) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -85,13 +91,14 @@ export default {
             })
         })
         //@native end
-    },
+    }
     /**
      * searchOfficial
      * @param {string} clientName 
      * @param {json} page 
      * @returns promise
      */
+    @report
     searchOfficial(clientName, page) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -104,13 +111,14 @@ export default {
             })
         })
         //@native end
-    },
+    }
     /**
      * searchAirRemote
      * @param {string} clientName 
      * @param {json} page 
      * @returns promise
      */
+    @report
     searchAirRemote(clientName, page) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -123,12 +131,13 @@ export default {
             })
         })
         //@native end
-    },
+    }
     /**
      * downloadRemote
      * @param {string} clientName 
      * @param {string} remoteId 
      */
+    @report
     downloadRemote(clientName, remoteId) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -141,11 +150,12 @@ export default {
             })
         })
         //@native end
-    },
+    }
     /**
      * loadBrands
      * @param {string} clientName 
      */
+    @report
     loadBrands(clientName) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -158,12 +168,13 @@ export default {
             })
         });
         //@native end
-    },
+    }
     /**
      * autoMatchRemote
      * @param {string} clientName 
      * @param {json} page 
      */
+    @report
     autoMatchRemote(clientName, page) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -176,7 +187,7 @@ export default {
             })
         });
         //@native end
-    },
+    }
     /**
      * missModel
      * @param {string} clientName 
@@ -184,16 +195,18 @@ export default {
      * @param {int} brandId 
      * @param {string} model 
      */
+    @report
     missModel(clientName, type, brandId, model) {
         //@native :=> promise 
         TJInfra.missModel(clientName, type, brandId, model);
         //@native end
-    },
+    }
     /**
      * getIRCode
      * @param {int} freq 
      * @param {string} data 
      */
+    @report
     getIRCode(freq, data) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -206,12 +219,13 @@ export default {
             })
         });
         //@native end
-    },
+    }
     /**
      * buildIRCode
      * @param {int} freq 
      * @param {string} base64Data 
      */
+    @report
     buildIRCode(freq, base64Data) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -224,12 +238,13 @@ export default {
             })
         });
         //@native end
-    },
+    }
     /**
      * fetchRemoteInfrared
      * @param {json} remoteDict 
      * @param {json} key 
      */
+    @report
     fetchRemoteInfrared(remoteDict, key) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -242,13 +257,14 @@ export default {
             })
         });
         //@native end
-    },
+    }
     /**
      * 
      * @param {json} remoteDict 
      * @param {json} key 
      * @param {json} state 
      */
+    @report
     fetchAirRemoteInfrared(remoteDict, key, state) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -261,13 +277,14 @@ export default {
             })
         });
         //@native end
-    },
+    }
     /**
      * 
      * @param {json} keyDict 
      * @param {json} state 
      * @param {json} time 
      */
+    @report
     fetchAirTimerInfrared(keyDict, state, time) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -280,11 +297,12 @@ export default {
             })
         });
         //@native end
-    },
+    }
     /**
      * getAirRemoteState
      * @param {json} remoteDict 
      */
+    @report
     getAirRemoteState(remoteDict) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -297,11 +315,12 @@ export default {
             })
         });
         //@native end
-    },
+    }
     /**
      * isMemoryKey
      * @param {json} keyDict 
      */
+    @report
     isMemoryKey(keyDict) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -314,11 +333,12 @@ export default {
             })
         });
         //@native end
-    },
+    }
     /**
      * isCustomKey
      * @param {json} keyDict 
      */
+    @report
     isCustomKey(keyDict) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -331,10 +351,11 @@ export default {
             })
         });
         //@native end
-    },
+    }
     /**
      * 加载全部省份信息（省份不包含城市列表）
      */
+    @report
     getAllProvinces() {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -347,10 +368,11 @@ export default {
             })
         });
         //@native end
-    },
+    }
     /**
      * 加载城市列表
      */
+    @report
     getAllCities() {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -363,10 +385,11 @@ export default {
             })
         });
         //@native end
-    },
+    }
     /**
      * 加载运营商
      */
+    @report
     getAllProviders() {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -379,12 +402,13 @@ export default {
             })
         });
         //@native end
-    },
+    }
     /**
      * 获取运营商推荐遥控器
      * @param {int} city_id 
      * @param {int} provider 
      */
+    @report
     loadProviderRemotesByCity(city_id, provider) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -397,10 +421,11 @@ export default {
             })
         });
         //@native end
-    },
+    }
     /**
      * 加载城市 - 运营商关联数据
      */
+    @report
     loadCityProviders() {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -413,11 +438,12 @@ export default {
             })
         });
         //@native end
-    },
+    }
     /**
      * getProviderInCity
      * @param {int} city_id 
      */
+    @report
     getProviderInCity(city_id) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -430,11 +456,12 @@ export default {
             })
         });
         //@native end
-    },
+    }
     /**
      * getCityInProvince
      * @param {int} province_id 
      */
+    @report
     getCityInProvince(province_id) {
         //@native :=> promise 
         return new Promise((resolve, reject) => {
@@ -447,7 +474,7 @@ export default {
             })
         });
         //@native end
-    },
+    }
     //@native begin
     /**
      * 对于Android这边，data的格式统一为：{code:x, result:"xxx"}
@@ -455,6 +482,7 @@ export default {
      * @param data
      * @returns {*}
      */
+    @report
     convertResultDataToJson(data) {
         if (native.isAndroid && data && data.result) {
             data.result = JSON.parse(data.result);
@@ -466,3 +494,5 @@ export default {
     }
     //@native end
 }
+const TJInfraInstance = new ITJInfra();
+export default TJInfraInstance;

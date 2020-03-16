@@ -17,7 +17,8 @@
     audioRecordSampleRate={MISSSampleRate.FLAG_AUDIO_SAMPLE_8K}
     audioRecordChannel={MISSAudioChannel.FLAG_AUDIO_CHANNEL_MONO}
     audioRecordDataBits={MISSDataBits.FLAG_AUDIO_DATABITS_16}
-    fullscreenState={false} >
+    fullscreenState={false}
+    videoRate={15} >
 />
  *
  * @property {MISSCodec} videoCodec 接收视频的编码格式 默认：MISS_CODEC_VIDEO_H264
@@ -25,6 +26,7 @@
  * @property {MISSSampleRate} audioRecordSampleRate 对讲音频的 sample rate 默认：FLAG_AUDIO_SAMPLE_8K
  * @property {MISSAudioChannel} audioRecordChannel 对讲音频的 channel 默认：FLAG_AUDIO_CHANNEL_MONO
  * @property {MISSDataBits} audioRecordDataBits 对讲音频的 data bits 默认：FLAG_AUDIO_DATABITS_16
+ * @property {number} videoRate 视频fps
  * @property {number} maximumZoomScale 最大缩放比例 默认2.0
  * @property {number} minimumZoomScale 最小缩放比例 默认1.0
  * @property {number} scale 缩放比例 默认1.0
@@ -128,6 +130,7 @@ export default class CameraRenderView extends React.Component {
         audioRecordSampleRate: PropTypes.oneOf([MISSSampleRate.FLAG_AUDIO_SAMPLE_8K, MISSSampleRate.FLAG_AUDIO_SAMPLE_16K]),
         audioRecordChannel: PropTypes.oneOf([MISSAudioChannel.FLAG_AUDIO_CHANNEL_MONO, MISSAudioChannel.FLAG_AUDIO_CHANNEL_STERO]),
         audioRecordDataBits: PropTypes.oneOf([MISSDataBits.FLAG_AUDIO_DATABITS_8, MISSDataBits.FLAG_AUDIO_DATABITS_16]),
+        videoRate: PropTypes.number,
         maximumZoomScale: PropTypes.number,
         minimumZoomScale: PropTypes.number,
         scale: PropTypes.number,
@@ -262,5 +265,69 @@ export default class CameraRenderView extends React.Component {
             )
         }
         //@native end
+    }
+    /**
+     * 开始录像
+     */
+    startRecord(filePath, timeCallBackName) {
+        if (Platform.OS === 'android') {
+            return new Promise((resolve, reject) => {
+                NativeModules.MHCameraSDK.startRecord(Device.deviceID, filePath, timeCallBackName, this.props.videoCodec, this.props.audioRecordSampleRate, (result, retCode) => {
+                    if (result) {
+                        resolve(retCode);
+                    } else {
+                        reject(retCode);
+                    }
+                });
+            });
+        } else {
+            return new Promise((resolve, reject) => {
+                NativeModules.MHCameraOpenGLViewManager.startRecord(findNodeHandle(this.refs.cameraGLView), filePath, timeCallBackName, (result, retCode) => {
+                    if (result) {
+                        resolve(retCode);
+                    } else {
+                        reject(retCode);
+                    }
+                });
+            });
+        }
+    }
+    /**
+     * 停止录像
+     */
+    stopRecord() {
+        if (Platform.OS === 'android') {
+            NativeModules.MHCameraSDK.stopRecord(Device.deviceID);
+        } else {
+            NativeModules.MHCameraOpenGLViewManager.stopRecord(findNodeHandle(this.refs.cameraGLView));
+        }
+    }
+    /**
+     * 截屏
+     */
+    snapShot(filePath) {
+        if (Platform.OS === 'android') {
+            return new Promise((resolve, reject) => {
+                NativeModules.MHCameraSDK.snapShot(Device.deviceID, filePath, (result) => {
+                    if (result) {
+                        console.log('snapShot success!');
+                        resolve();
+                    } else {
+                        console.log('snapShot failed!');
+                        reject();
+                    }
+                });
+            });
+        } else {
+            return new Promise((resolve, reject) => {
+                NativeModules.MHCameraOpenGLViewManager.snapShot(findNodeHandle(this.refs.cameraGLView), filePath, (result) => {
+                    if (result) {
+                        resolve();
+                    } else {
+                        reject();
+                    }
+                })
+            });
+        }
     }
 }

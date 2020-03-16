@@ -419,6 +419,32 @@ export default {
         //@native end
     },
     /**
+     * android 连接指定ssid得wifi 使用此api不需要特别权限
+     * @since 10036
+     * @return {Promise<JSON>}  
+     * @example
+     * Host.connectWifiWithSsid().then((result)=>{
+     *   console.log(result);
+     * }))
+     */
+    connectWifiWithSsid(ssid) {
+      //@native :=> promise
+      if (native.isAndroid) {
+          return new Promise((resolve, reject) => {
+              native.MIOTHost.connectWifiWithSSID(ssid ,(isOk, res) => {
+                  if (isOk) {
+                      resolve(res);
+                  } else {
+                      reject(res);
+                  }
+              })
+          })
+      } else {
+          return new Promise.reject("not support ios yet");
+      }
+      //@native end
+  },
+    /**
      * 页面有输入框，需要打开软键盘，页面适配软键盘
      * @since 10027
      * @param {boolean} shouldAdapter  true: 表示进行适配,建议UI用ScrollView包裹起来，当输入框在屏幕的下半部分时，只会触发ScrollView滚动; false： 整个页面滚动, demo可参考SoftKeyboardAdapterTestDemo.js

@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Xiaomi MIOT: Interface: IBluetooth</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<nav>
+    <h2><a href="index.html">MIOT SDK</a></h2><h3>Modules</h3><ul><li><a href="module-AbstractDialog.html">AbstractDialog</a></li><li><a href="module-ActionSheet.html">ActionSheet</a></li><li><a href="module-BlankPage.html">BlankPage</a></li><li><a href="module-Card.html">Card</a></li><li><a href="module-CardBase.html">CardBase</a></li><li><a href="module-Checkbox.html">Checkbox</a></li><li><a href="module-ChoiceDialog.html">ChoiceDialog</a></li><li><a href="module-ChoiceItem.html">ChoiceItem</a></li><li><a href="module-Clickable.html">Clickable</a></li><li><a href="module-CommonSetting.html">CommonSetting</a></li><li><a href="module-DragGear.html">DragGear</a></li><li><a href="module-FirmwareUpgrade.html">FirmwareUpgrade</a></li><li><a href="module-IndependentCard.html">IndependentCard</a></li><li><a href="module-InputDialog.html">InputDialog</a></li><li><a href="module-ListItem.html">ListItem</a></li><li><a href="module-ListItemWithSlider.html">ListItemWithSlider</a></li><li><a href="module-ListItemWithSwitch.html">ListItemWithSwitch</a></li><li><a href="module-LoadingDialog.html">LoadingDialog</a></li><li><a href="module-MessageDialog.html">MessageDialog</a></li><li><a href="module-MHCard.html">MHCard</a></li><li><a href="module-MHDatePicker.html">MHDatePicker</a></li><li><a href="module-miot.html">miot</a></li><li><a href="module-miot_device.html">miot/device</a></li><li><a href="module-miot_device_bluetooh.html">miot/device/bluetooh</a></li><li><a href="module-miot_device_bluetooth.html">miot/device/bluetooth</a></li><li><a href="module-miot_Host.html">miot/Host</a></li><li><a href="module-miot_host_audio.html">miot/host/audio</a></li><li><a href="module-miot_host_crypto.html">miot/host/crypto</a></li><li><a href="module-miot_host_file.html">miot/host/file</a></li><li><a href="module-miot_host_locale.html">miot/host/locale</a></li><li><a href="module-miot_host_storage.html">miot/host/storage</a></li><li><a href="module-miot_host_ui.html">miot/host/ui</a></li><li><a href="module-miot_Package.html">miot/Package</a></li><li><a href="module-miot_Properties.html">miot/Properties</a></li><li><a href="module-miot_resources.html">miot/resources</a></li><li><a href="module-miot_Service.html">miot/Service</a></li><li><a href="module-miot_service_Account.html">miot/service/Account</a></li><li><a href="module-miot_service_infra.html">miot/service/infra</a></li><li><a href="module-miot_service_ircontroller.html">miot/service/ircontroller</a></li><li><a href="module-miot_service_miotcamera.html">miot/service/miotcamera</a></li><li><a href="module-miot_service_Room.html">miot/service/Room</a></li><li><a href="module-miot_service_scene.html">miot/service/scene</a></li><li><a href="module-miot_service_security.html">miot/service/security</a></li><li><a href="module-miot_service_smarthome.html">miot/service/smarthome</a></li><li><a href="module-miot_service_spec.html">miot/service/spec</a></li><li><a href="module-miot_service_storage.html">miot/service/storage</a></li><li><a href="module-miot_ui.html">miot/ui</a></li><li><a href="module-miot_ui_.html">miot/ui/</a></li><li><a href="module-miot_ui_AMapView.html">miot/ui/AMapView</a></li><li><a href="module-miot_ui_CameraRender.html">miot/ui/CameraRender</a></li><li><a href="module-miot_ui_ImageButton.html">miot/ui/ImageButton</a></li><li><a href="module-miot_ui_InputDialog.html">miot/ui/InputDialog</a></li><li><a href="module-miot_ui_LoadingDialog.html">miot/ui/LoadingDialog</a></li><li><a href="module-miot_ui_LocalizedStrings.html">miot/ui/LocalizedStrings</a></li><li><a href="module-miot_ui_MessageDialog.html">miot/ui/MessageDialog</a></li><li><a href="module-miot_ui_NavigationBar.html">miot/ui/NavigationBar</a></li><li><a href="module-miot_ui_NumberSpinner.html">miot/ui/NumberSpinner</a></li><li><a href="module-miot_ui_ProgressDialog.html">miot/ui/ProgressDialog</a></li><li><a href="module-miot_ui_RobotMap.html">miot/ui/RobotMap</a></li><li><a href="module-miot_ui_SingleChoseDialog.html">miot/ui/SingleChoseDialog</a></li><li><a href="module-miot_ui_StringSpinner.html">miot/ui/StringSpinner</a></li><li><a href="module-miot_ui_TitleBar.html">miot/ui/TitleBar</a></li><li><a href="module-miot_ui_TitleBarBlack.html">miot/ui/TitleBarBlack</a></li><li><a href="module-miot_ui_TitleBarWhite.html">miot/ui/TitleBarWhite</a></li><li><a href="module-ModeCard.html">ModeCard</a></li><li><a href="module-MoreSetting.html">MoreSetting</a></li><li><a href="module-NormalGear.html">NormalGear</a></li><li><a href="module-PinCodeDialog.html">PinCodeDialog</a></li><li><a href="module-ProgressDialog.html">ProgressDialog</a></li><li><a href="module-Radio.html">Radio</a></li><li><a href="module-Separator.html">Separator</a></li><li><a href="module-ShareDialog.html">ShareDialog</a></li><li><a href="module-SlideGear.html">SlideGear</a></li><li><a href="module-Switch.html">Switch</a></li></ul><h3>Classes</h3><ul><li><a href="module.html#.exports">exports</a></li><li><a href="module-miot_service_security-ISecurity.html">ISecurity</a></li><li><a href="Rectangle.html">Rectangle</a></li></ul><h3>Events</h3><ul><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothCharacteristicDiscovered">bluetoothCharacteristicDiscovered</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothCharacteristicDiscoverFailed">bluetoothCharacteristicDiscoverFailed</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothCharacteristicValueChanged">bluetoothCharacteristicValueChanged</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothConnectionStatusChanged">bluetoothConnectionStatusChanged</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothDeviceDiscovered">bluetoothDeviceDiscovered</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothDeviceDiscoverFailed">bluetoothDeviceDiscoverFailed</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothSeviceDiscovered">bluetoothSeviceDiscovered</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothSeviceDiscoverFailed">bluetoothSeviceDiscoverFailed</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothStatusChanged">bluetoothStatusChanged</a></li><li><a href="module-miot_device-DeviceEvent.html#.event:deviceNameChanged">deviceNameChanged</a></li><li><a href="module-miot_device-DeviceEvent.html#.event:deviceReceivedMessages">deviceReceivedMessages</a></li><li><a href="module-miot_device-DeviceEvent.html#.event:deviceStatusChanged">deviceStatusChanged</a></li><li><a href="module-miot_device-DeviceEvent.html#.event:deviceTimeZoneChanged">deviceTimeZoneChanged</a></li><li><a href="module-miot_host_audio-AudioEvent.html#.event:audioPlayerDidFinishPlaying">audioPlayerDidFinishPlaying</a></li><li><a href="module-miot_host_audio-AudioEvent.html#.event:audioPlayerDidStartPlaying">audioPlayerDidStartPlaying</a></li><li><a href="module-miot_host_audio-AudioEvent.html#.event:updateAudioPlayerTime">updateAudioPlayerTime</a></li><li><a href="module-miot_Host-HostEvent.html#.event:cellPhoneNetworkStateChanged">cellPhoneNetworkStateChanged</a></li><li><a href="module-miot_Package-PackageEvent.html#.event:packageAuthorizationCancel">packageAuthorizationCancel</a></li><li><a href="module-miot_Package-PackageEvent.html#.event:packageDidLoaded">packageDidLoaded</a></li><li><a href="module-miot_Package-PackageEvent.html#.event:packageDidResume">packageDidResume</a></li><li><a href="module-miot_Package-PackageEvent.html#.event:packageReceivedInformation">packageReceivedInformation</a></li><li><a href="module-miot_Package-PackageEvent.html#.event:packageViewWillAppear">packageViewWillAppear</a></li><li><a href="module-miot_Package-PackageEvent.html#.event:packageWillExit">packageWillExit</a></li><li><a href="module-miot_Package-PackageEvent.html#.event:packageWillLoad">packageWillLoad</a></li><li><a href="module-miot_Package-PackageEvent.html#.event:packageWillPause">packageWillPause</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-miot_device_bluetooh-BluetoothEvent.html">BluetoothEvent</a></li><li><a href="module-miot_device_bluetooth-ClassicBluetoothEvent.html">ClassicBluetoothEvent</a></li><li><a href="module-miot_device-DeviceEvent.html">DeviceEvent</a></li><li><a href="module-miot_host_audio-AudioEvent.html">AudioEvent</a></li><li><a href="module-miot_Host-HostEvent.html">HostEvent</a></li><li><a href="module-miot_Package-Entrance.html">Entrance</a></li><li><a href="module-miot_Package-PackageEvent.html">PackageEvent</a></li><li><a href="module-miot_resources-Language.html">Language</a></li><li><a href="module-miot_service_miotcamera-AlarmEventType.html">AlarmEventType</a></li><li><a href="module-miot_service_miotcamera-MISSCommand.html">MISSCommand</a></li><li><a href="module-miot_service_miotcamera-MISSConnectState.html">MISSConnectState</a></li><li><a href="module-miot_service_miotcamera-MISSError.html">MISSError</a></li><li><a href="module-miot_service_scene-SceneType.html">SceneType</a></li><li><a href="module-miot_service_smarthome-MemberType.html">MemberType</a></li><li><a href="module-miot_ui_CameraRender-MISSAudioChannel.html">MISSAudioChannel</a></li><li><a href="module-miot_ui_CameraRender-MISSCodec.html">MISSCodec</a></li><li><a href="module-miot_ui_CameraRender-MISSDataBits.html">MISSDataBits</a></li><li><a href="module-miot_ui_CameraRender-MISSSampleRate.html">MISSSampleRate</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-miot_device.html">miot/device</a></li><li><a href="module-miot_device.BasicDevice.html">BasicDevice</a></li><li><a href="module-miot_device_bluetooh.IBluetooth.html">IBluetooth</a></li><li><a href="module-miot_device_bluetooth.html">miot/device/bluetooth</a></li><li><a href="module-miot_device_bluetooth.IBluetoothCharacteristic.html">IBluetoothCharacteristic</a></li><li><a href="module-miot_device_bluetooth.IBluetoothService.html">IBluetoothService</a></li><li><a href="module-miot_Properties-IProperties.html">IProperties</a></li><li><a href="module-miot_service_Account-IAccount.html">IAccount</a></li><li><a href="module-miot_service_scene.IScene.html">IScene</a></li><li><a href="module-miot_service_security.ISecureKey.html">ISecureKey</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AbstractDialog">AbstractDialog</a></li><li><a href="global.html#accessibilityLabel">accessibilityLabel</a></li><li><a href="global.html#accessible">accessible</a></li><li><a href="global.html#blurRadius">blurRadius</a></li><li><a href="global.html#capInsets">capInsets</a></li><li><a href="global.html#CARD_RADIUS_TYPE">CARD_RADIUS_TYPE</a></li><li><a href="global.html#CARD_TYPE">CARD_TYPE</a></li><li><a href="global.html#constructArray">constructArray</a></li><li><a href="global.html#CONTENTTYPE">CONTENTTYPE</a></li><li><a href="global.html#defaultSource">defaultSource</a></li><li><a href="global.html#deviceID">deviceID</a></li><li><a href="global.html#excludeOptions">excludeOptions</a></li><li><a href="global.html#firstAllOptionsWeight">firstAllOptionsWeight</a></li><li><a href="global.html#firstSharedOptions">firstSharedOptions</a></li><li><a href="global.html#getLinkedBTDevices">getLinkedBTDevices</a></li><li><a href="global.html#getSize">getSize</a></li><li><a href="global.html#getSubDevices">getSubDevices</a></li><li><a href="global.html#layerScaleFilter">layerScaleFilter</a></li><li><a href="global.html#loadingIndicatorSource">loadingIndicatorSource</a></li><li><a href="global.html#miot/ui/MultiChoseDialog">miot/ui/MultiChoseDialog</a></li><li><a href="global.html#onError">onError</a></li><li><a href="global.html#onLayout">onLayout</a></li><li><a href="global.html#onLoad">onLoad</a></li><li><a href="global.html#onLoadEnd">onLoadEnd</a></li><li><a href="global.html#onLoadStart">onLoadStart</a></li><li><a href="global.html#onPartialLoad">onPartialLoad</a></li><li><a href="global.html#onProgress">onProgress</a></li><li><a href="global.html#prefetch">prefetch</a></li><li><a href="global.html#report">report</a></li><li><a href="global.html#resizeMethod">resizeMethod</a></li><li><a href="global.html#resizeMode">resizeMode</a></li><li><a href="global.html#secondSharedOptions">secondSharedOptions</a></li><li><a href="global.html#SINGLE_TYPE">SINGLE_TYPE</a></li><li><a href="global.html#source">source</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#supportModelToConnect">supportModelToConnect</a></li><li><a href="global.html#testID">testID</a></li><li><a href="global.html#TYPE">TYPE</a></li></ul>
+</nav>
+
+<div id="main">
+
+    <h1 class="page-title">Interface: IBluetooth</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="module-miot_device_bluetooh.html">miot/device/bluetooh</a>.</span>IBluetooth</h2>
+        
+            <div class="class-description"><p>基础蓝牙设操作类</p></div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="isBLE"><span class="type-signature">(readonly) </span>isBLE<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>是否 BLE 蓝牙。如果不是，则是经典蓝牙</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="isConnected"><span class="type-signature">(readonly) </span>isConnected<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>蓝牙是否已经连接</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="isConnecting"><span class="type-signature">(readonly) </span>isConnecting<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>蓝牙是否处于连接中</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10004</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="mac"><span class="type-signature">(readonly) </span>mac<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>蓝牙设备的 mac 地址</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="UUID"><span class="type-signature">(readonly) </span>UUID<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    <p>蓝牙设备的 UUID</p>
+</div>
+
+<!--
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+-->
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="connect"><span class="type-signature"></span>connect<span class="signature">(type, option)</span><span class="type-signature"> &rarr; {Promise.&lt;IBluetooth>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>打开蓝牙链接. option参数peripheralID为iOS 平台的可选参数，因为iOS平台无法获取普通 BLE 蓝牙设备的 Mac
+peripheralID 可通过 startScan（）搜索周边蓝牙设备获取（如设备OTA中，设备固件切换，无小米蓝牙协议相关服务时需建立连接），或通过retrievePeripheralsWithServicesForIOS（）搜索已连接设备获取（如可穿戴长连接设备，无法发送 mibeacon）
+建立连接后，SDK 会用 peripheralID 充当 Mac 地址
+error code :
+0 - 成功
+-1: 请求失败
+-2: 请求取消哦
+-3: 参数异常
+-4: 蓝牙不支持
+-5: 蓝牙已关闭
+-6: 连接不可用
+-7: 超时
+-10: token失效
+-11: 请求过于频繁
+-12: 配置未准备
+-13: 请求中
+-14: 请求被拒绝
+-15: 未知异常
+-16: 安全芯片：设备已经被重置，没有注册的Key信息，需要用户重新绑定
+-17: 安全芯片：设备已经被绑定，需要用户解除绑定并且按设备的复位键清除绑定
+-18: 安全芯片：分享的钥匙已过期
+-19: 安全芯片：共享登录时没有获取到共享的Key
+-20: 安全芯片：注册时验证设备返回的证书和设备签名失败
+-21: 安全芯片：Owner登录时解析设备返回的证书和签名失败
+-22: 安全芯片：Owner登录时设备返回失败
+-23: 安全芯片：共享用户登录时解析设备返回的证书和签名失败
+-24: 安全芯片：共享用户登录时设备返回失败
+-25: 安全芯片：共享用户登录时获取SharedKeyId为空
+-26: 安全芯片：Owner登录时绑定LTMK到服务器失败
+-27: 连接设备过程中，Notify操作失败
+-28: 数据传输过程中，数据发送失败
+-29: 普通安全：注册时获取did失败
+-30: 普通安全：注册时绑定did失败
+-31: 普通安全：登录时验证设备返回的token失败
+-32: 蓝牙连接过程中收到连接断开的广播
+-33: 安全芯片：绑定的时候需要用户在设备输入配对码
+-34: 安全芯片：绑定时设备输入的配对码失败
+-35: 安全芯片：绑定时配对码过期
+-36: 安全芯片：绑定时获取固件版本号失败
+-37: 安全芯片：绑定时当前app不支持固件的版本，需要提示用户升级app
+-38: 安全芯片：从服务端同步到加密的LTMK，解密的时候pincode为空
+-39: 蓝牙Mesh绑定过程中，服务端校验设备证书失败
+-40: 蓝牙Mesh绑定过程中，服务端校验设备签名失败
+-41: 蓝牙Mesh绑定过程中，设备校验服务端证书失败
+-42: 蓝牙Mesh绑定过程中，设备校验服务端签名失败
+-43: 蓝牙Mesh绑定过程中，设备校验服务端公钥失败
+-44: 蓝牙Mesh绑定过程中，获取Mesh配置信息失败
+-45: 蓝牙Mesh绑定过程中，给服务端发送Mesh配置结果时失败</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>蓝牙设备类型 -1: 自动判断，0: 普通小米蓝牙协议设备，1: 安全芯片小米蓝牙设备（比如锁类产品），2: 分享的安全芯片小米蓝牙设备，3: 普通的BLE蓝牙设备(无 mibeacon，无小米 FE95 service)， 4: Standard Auth 标准蓝牙认证协议(通常2019.10.1之后上线的新设备，使用的都是该蓝牙协议，具体详情可以与设备端开发沟通)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>option</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">json</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last"><p>附加参数, 格式 {timeout:12000, peripheralID:&quot;...&quot;}, timeout的单位为毫秒, peripheralID是iOS平台参数</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;IBluetooth></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">Device.getBluetoothLE()
+      .connect(3, {peripheralID:"1-a-b-3-c", timeout:12000})
+      .then(ble=>{
+         ...
+      })
+      .catch(err=>{
+         ...
+      });</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="disconnect"><span class="type-signature"></span>disconnect<span class="signature">(delay)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>关闭链接 <strong>注意小米协议的蓝牙设备，退出插件的时候，一定要调用此方法，关闭蓝牙连接，否则下次打开插件的时候，会提示蓝牙无法连接</strong></p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>delay</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last"><p>延迟时长(毫秒)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getVersion"><span class="type-signature"></span>getVersion<span class="signature">(isFromlocal, isCrypto)</span><span class="type-signature"> &rarr; {Promise.&lt;any>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>更新版本号，蓝牙的版本号 connect 之后才能查看。</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>isFromlocal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>10028版本开始支持。是否本地读取。仅限iOS，是否直接从设备读取版本号，默认为否，从服务端读取版本号，如果出现升级/降级时版本号错误的情况，此处请传true。
+注意：此属性对Android无效，Android默认本地读取。
+注意：如果从本地读取的版本号错误，说明版本号在固件端时加密的</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isCrypto</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>10028版本开始支持。版本号是否是加密的,默认没加密。如果读出来的数据，是乱码的，请将isCrypto设置为true，然后使用Device.getBluetoothLE().securityLock.decryptMessageWithToken(version)解密，如果读出来的为hexstring，则需要将hexstring转化为普通的string，如果还是不对，那就说明固件端自己做了加密，需要把这个数据再进行解密一次，再转string。</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>resolve：如果能正常读取成功，一般为：1.0.2等类似样式的string，如果是加密的且使用example里面的方法并不能获取解密后的：请咨询你们的固件工程师，让他们提供解密方法。
+reject：{code: xxx, message: xxx}100:设备正在连接中，请连接成功后重试  101:蓝牙外设设备不能存在  102:无法发现版本信息对应的服务或者特征值 103:当前设备没有版本号，无法读取</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;any></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">正常情况，如果返回的是hexstring，则需要将hexstring转化为普通的string
+Device.getBluetoothLE().getVersion().then()</code></pre>
+
+    <pre class="prettyprint" style="width:100%;"><code style="width:100%;">加密情况
+
+function hexCharCodeToStr(hexCharCodeStr) {
+ var trimedStr = hexCharCodeStr.trim();
+ var rawStr = trimedStr.substr(0, 2).toLowerCase() === "0x"?trimedStr.substr(2):trimedStr;
+ var len = rawStr.length;
+  if (len % 2 !== 0) {
+     alert("Illegal Format ASCII Code!");
+     return "";
+  }
+  var curCharCode;
+  var resultStr = [];
+  for (var i = 0; i &lt; len; i = i + 2) {
+     curCharCode = parseInt(rawStr.substr(i, 2), 16); // ASCII Code Value
+     resultStr.push(String.fromCharCode(curCharCode));
+  }
+  return resultStr.join("");
+ }
+
+Device.getBluetoothLE().getVersion(true, true).then(version => {
+  var data = Device.getBluetoothLE().securityLock.decryptMessageWithToken(version).then(data => {
+      let lastVersion = hexCharCodeToStr(data.result);
+      console.log("设备版本为：" + lastVersion);
+   })
+})</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="maximumWriteValueLength"><span class="type-signature"></span>maximumWriteValueLength<span class="signature">(type)</span><span class="type-signature"> &rarr; {Promise.&lt;number>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>获取当前连接设备写操作每包最大长度
+注：有开发者反馈该系统接口在 iOS 上并不完全准确，不可过于依赖，以实际测试为准。（比如，charac.write()写入10byte成功，写入11byte失败，则max为10）
+注：返回值单位为 bit，注意换算，8 bit 为 1 byte，两字符 hexString 长度为 1 byte，如 “FF”</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last"><p>0 代表 writeWithResponse, 1 代表 writeWithoutResponse，理论上结果是一样的。</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>最大长度
+resolve: iOS时，返回系统返回的长度，Android返回160bit
+reject：iOS设备未连接会reject connect the device first，Android 不会走reject</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;number></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="readRSSI"><span class="type-signature"></span>readRSSI<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;*>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>读取 RSSI</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+<h5></h5><div style="display:none">
+ 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;*></span>
+
+
+    </dd>
+</dl>
+
+    
+</div>
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    MIOT SDK <a href="https://www.xiaomi.com">@xiaomi</a> 
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

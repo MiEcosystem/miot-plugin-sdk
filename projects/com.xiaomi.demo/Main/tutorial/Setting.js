@@ -75,6 +75,7 @@ export default class Setting extends React.Component {
       },
       syncDevice: true,
       // networkInfoConfig: -1,
+      bleOtaAuthType: 5,
     }
     return (
       <View style={styles.container}>

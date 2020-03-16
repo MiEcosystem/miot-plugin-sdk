@@ -20,17 +20,20 @@
  */
 //@native
 import native, { buildEvents } from "../native";
-export default {
+import {report} from "../decorator/ReportDecorator";
+class IAudio{
   /**
    * 用户是否开启录制权限
    * 在Android平台下 由于需要动态获取录音权限，所以该方法固定返回true，但是并不意味着可以录音。
    * @return {boolean}
    */
+  @report
   isAbleToRecord() {
     //@native :=> false;
     return native.MIOTAudio.isAbleToRecord;
     //@native end
-  },
+  }
+  
   /**
    * 开始录音
    * 在Android平台下 由于需要动态获取录音权限 使用方法请参考 请参考 com.xiaomi.demo 中 MHAudioDemo 的用法
@@ -43,11 +46,11 @@ export default {
    *                              }
    *
    * @return {Promise}
-   * @example   
+   * @example
    * import { Host } from "miot";
    * import React from 'react';
    * import { PermissionsAndroid, Platform } from 'react-native';
-   * 
+   *
    * var settings = {
    *   AVFormatIDKey: 'audioFormatLinearPCM',
    *   AVSampleRateKey: 9500,
@@ -76,8 +79,9 @@ export default {
    *     console.log('startRecord catch error' + err);
    *   });
    * }
-   * 
+   *
    */
+  @report
   startRecord(audioName, settings) {
     //@native :=> Promise.resolve(null);
     //@mark andr done
@@ -91,11 +95,12 @@ export default {
       });
     });
     //@native end
-  },
+  }
   /**
    * 停止录音
    * @return {Promise}
    */
+  @report
   stopRecord() {
     //@native :=> Promise.resolve(null);
     //@mark andr done
@@ -109,13 +114,14 @@ export default {
       });
     });
     //@native end
-  },
+  }
   /**
    * 开始播放
    * @param {string} audioName 文件名
    * @param {json} settings 配置参数 updateAudioPlayerTimeInterval 回调间隔, audioPlayerUid 音频的唯一标识
    * @return {Promise}
    */
+  @report
   startPlay(audioName, settings) {
     //@native :=> Promise.resolve(null);
     //@mark andr done
@@ -133,11 +139,12 @@ export default {
       });
     });
     //@native end
-  },
+  }
   /**
    * 停止播放
    * @return {Promise}
    */
+  @report
   stopPlay() {
     //@native :=> Promise.resolve(null);
     //@mark andr done
@@ -151,7 +158,7 @@ export default {
       });
     });
     //@native end
-  },
+  }
   /**
    * 获取当前录制声音的峰值声音强度。
    * for iOS： 对应的原生api为 [AVAudioRecorder peakPowerForChannel:0]
@@ -167,6 +174,7 @@ export default {
    * 成功时：{"code":0, "data":xxx}    失败时：{"code":-1, "message":"xxx" }
    *
    */
+  @report
   getRecordingPeakPower() {
     //@native :=> Promise.resolve(null);
     //@mark andr done
@@ -180,7 +188,7 @@ export default {
       });
     });
     //@native end
-  },
+  }
   /**
    * wav转 amr
    * android暂不支持该方法
@@ -188,6 +196,7 @@ export default {
    * @param {string} savePath 保存 amr 文件名
    * @return {Promise}
    */
+  @report
   wavToAmr(wavPath, savePath) {
     //@native :=> Promise.resolve(null);
     //@mark andr 暂未提供
@@ -205,7 +214,7 @@ export default {
       });
     });
     //@native end
-  },
+  }
   /**
    * amr 转 wav
    * android暂不支持该方法
@@ -213,6 +222,7 @@ export default {
    * @param {string} savePath 保存 wav 文件名
    * @return {Promise}
    */
+  @report
   amrToWav(amrPath, savePath) {
     //@native :=> Promise.resolve(null);
     //@mark andr 暂未提供
@@ -230,8 +240,9 @@ export default {
       });
     });
     //@native end
-  },
+  }
   //@native begin
+  @report
   getFilePath(fileName) {
     if (typeof (fileName) != 'string') {
       return fileName;
@@ -242,8 +253,10 @@ export default {
       return native.MIOTFile.storageBasePath + '/' + fileName;
     }
   }
-  //@native end
+    
 };
+const AudioInstance = new IAudio();  
+export default AudioInstance;
 /**
  * Audio播放事件名集合
  * @namespace AudioEvent

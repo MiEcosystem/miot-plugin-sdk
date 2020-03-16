@@ -41,6 +41,7 @@ import Account from './service/Account';
 import native, { Properties } from './native';
 import apiRepo from './service/apiRepo';
 import omitApi from './service/omitApi';
+import cameraSubDomains from './service/cameraSubDomain'
 import IrController from './service/ircontroller';
 import MHRoom from './service/room';
 import Scene from './service/scene';
@@ -166,6 +167,37 @@ export default {
         reject(`失败，原因如下:\n1. api路径填写错误，请检查\n2. sdk 暂未收录该接口，请联系米家插件框架的开发人员`);
       }
     });
+    //@native end
+  },
+  /**
+   * @method callSmartHomeCameraAPI
+   * @since 10035
+   * @description 专用摄像头相关接口请求
+   * api in `miot-sdk/service/apiRepo.js`
+   * subDomain in `miot-sdk/service/cameraSubDomain.js`
+   * 
+   * @param {string} api 接口地址
+   * @param {string} subDomain subDomain
+   * @param {bool}   post 是否POST方法
+   * @param {object} params 传入参数
+   */
+  callSmartHomeCameraAPI(api, subDomain, post, params) {
+    //@native :=> promise
+    return new Promise((resolve, reject) => {
+      if (apiRepo[api] && cameraSubDomains[subDomain]) {
+        native.MIOTService.callSmartHomeCameraAPI(api, subDomain, post, params, (ok, res) => {
+          if (ok) {
+            if (typeof(str) === "string") {
+              res = JSON.parse(str);
+            }
+            return resolve(res);
+          }
+          reject(res);
+        })
+      } else {
+        reject('失败，原因如下:\n1. api路径填写错误，请检查\n2. sdk 暂未收录该接口，请联系米家插件框架的开发人员');
+      }
+    })
     //@native end
   },
   /**

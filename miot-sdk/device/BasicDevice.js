@@ -309,6 +309,7 @@ export class BasicDevice {
      * @since 10011
      * @param {object[]} didAndPids did 与 pid（Device.type） 列表 [{did:xx,pid:xx}, {did:xx,pid:xx}]
      */
+    @report
     deleteDevices(didAndPids) {
         //@native :=> promise
         return new Promise((resolve, reject) => {
@@ -368,6 +369,7 @@ export class BasicDevice {
      *      resolve：array<DeviceData> {iconURL,did,model,userId,extra,name,session,permitLevel,parentId,parentModel,mac,propInfo,ip,ssid,bssid,pid,latitude,longitude,isVoiceDevice,isOnline,ownerId,ownerName}，字段具体含义和BasicDevice中对应字段含义一样
      *      reject：{code:xxx,error:xxx,extra:xxx} code只会等于-1。 res.code -1:网关设备不存在  401:只能查找当前设备或者父网关设备的列表  404:无子设备数据
      */
+    @report
     getLinkedBTDevices(did = null) {
         //@native :=> promise []
         did = did || this.deviceID;
@@ -443,6 +445,7 @@ export class BasicDevice {
      *
      * })
      */
+    @report
     getBluetoothLE(peripheralID = null) {
         //@native :=> null
         const self = Properties.of(this);
@@ -863,6 +866,7 @@ export class BasicDevice {
      * 获取虚拟设备的子设备列表，
      * @deprecated since 10032 请使用Device.getDeviceWifi().getVirtualDevices()代替
      */
+    @report
     getVirtualDevices() {
         //@native :=> promise []
         return this.getDeviceWifi().getVirtualDevices();
@@ -871,6 +875,7 @@ export class BasicDevice {
     * 获取设备定向推荐信息，展示推荐入口使用：用于获取插件上方偶尔弹出的提示条/广告条数据，比如：设备信号差，请调整设备位置。
     * @deprecated since 10032 请使用Device.getDeviceWifi().getRecommendScenes()代替
     */
+   @report
     getRecommendScenes(model, did) {
         //@native :=> promise {}
         return this.getDeviceWifi().getRecommendScenes(model, did);
@@ -909,6 +914,7 @@ export class BasicDevice {
     * 检查当前设备是否支持HomeKit，Android系统不支持HomeKit设备。需要在plato平台配置homekit_config，包含在内的设备，isHomekit才可能返回true
     * @deprecated since 10032 请使用Device.getDeviceWifi().checkIsHomeKitDevice()
     */
+   @report
     checkIsHomeKitDevice() {
         //@native :=> Promise
         return this.getDeviceWifi().checkIsHomeKitDevice();
@@ -918,6 +924,7 @@ export class BasicDevice {
      * 检查当前设备是否已经接入了HomeKit，Android不支持。如果没有接入，可以调用下面的bindToHomeKit方法，将设备接入
      * @deprecated since 10032 请使用Device.getDeviceWifi().checkHomeKitConnected()
      */
+    @report
     checkHomeKitConnected() {
         //@native :=> Promise
         return this.getDeviceWifi().checkHomeKitConnected();
@@ -928,6 +935,7 @@ export class BasicDevice {
      * @deprecated since 10032 请使用Device.getDeviceWifi().bindToHomeKit()
      * 
      */
+    @report
     bindToHomeKit() {
         //@native :=> Promise
         return this.getDeviceWifi().bindToHomeKit();
@@ -937,6 +945,7 @@ export class BasicDevice {
     * 检查wifi设备固件升级弹窗。该方法会触发升级弹窗alert提示。
     * @deprecated since 10032,请使用Device.getDeviceWifi().checkFirmwareUpdateAndAlert()
     */
+   @report
     checkFirmwareUpdateAndAlert() {
         //@native :=> promise {}
         return this.getDeviceWifi().checkFirmwareUpdateAndAlert();
@@ -947,6 +956,7 @@ export class BasicDevice {
      * @return {Object} NetworkInfo
      * @deprecated since 10032 即将废弃，请使用Device.getDeviceWifi().readDeviceNetWorkInfo()。
      */
+    @report
     readDeviceNetWorkInfo(did) {
         //@native :=> promise []
         return this.getDeviceWifi().readDeviceNetWorkInfo(did);
@@ -1003,6 +1013,7 @@ export class BasicDevice {
      * @see {@link module:miot/service/scene}
      *
      */
+    @report
     createScene(sceneType, opt = null) {
         //@native => ""
         return Scene.createScene(this.deviceID, sceneType, opt);
@@ -1016,6 +1027,7 @@ export class BasicDevice {
      * @see {@link module:miot/service/scene}
      *
      */
+    @report
     createTimerScene(opt = null) {
         //@native => ""
         return Scene.createTimerScene(this.deviceID, opt);
@@ -1030,6 +1042,7 @@ export class BasicDevice {
     * @see {@link module:miot/service/scene}
     *
     */
+   @report
     loadScenes(sceneType, opt = null) {
         //@native => ""
         return Scene.loadScenes(this.deviceID, sceneType, opt);
@@ -1042,6 +1055,7 @@ export class BasicDevice {
      * @see {@link module:miot/service/scene}
      *
      */
+    @report
     loadTimerScenes(opt = null) {
         //@native => ""
         return Scene.loadTimerScenes(this.deviceID, opt);
@@ -1052,6 +1066,7 @@ export class BasicDevice {
      * @param {string} log
      *
      */
+    @report
     reportLog(log) {
         //@native begin
         //Android上参数 log 必须是string类型
