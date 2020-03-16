@@ -837,7 +837,6 @@ class IFile{
     /**
      * 沙盒路径
      */
-    @report
     get storageBasePath() {
         //@native begin
         return native.MIOTFile.storageBasePath;
