@@ -98,6 +98,14 @@ export default class MainPage extends React.Component {
         Orientation.lockToPortrait()
     }
 
+    _joinPath(dirPath, fileName) {
+        if (dirPath.endsWith('/')) {
+            return dirPath + fileName
+        } else {
+            return dirPath + '/' + fileName
+        }
+    }
+
     _sendRDTCommand() {
         Service.miotcamera.bindRDTDataReceiveCallback(kRDTDataReceiveCallBackName);
         var buf = new ArrayBuffer(8);
@@ -309,15 +317,9 @@ export default class MainPage extends React.Component {
                 />
                 <Button
                     onPress={() => {
-                        if (Platform.OS === 'android') {
-                            this.refs.openGLViewRef.startRecord('/sdcard/xiaomi_video_record.mp4', null).then(retCode => {
-                                console.log('start record, retCode: ' + retCode);
-                            })
-                        } else {
-                            this.refs.openGLViewRef.startRecord('', null).then(retCode => {
-                                console.log('start record, retCode: ' + retCode);
-                            })
-                        }
+                        this.refs.openGLViewRef.startRecord(this._joinPath(Host.file.storageBasePath, 'xiaomi_video_record.mp4'), null).then(retCode => {
+                            console.log('start record, retCode: ' + retCode);
+                        })
                     }}
                     title="start record"
                 />
@@ -329,15 +331,9 @@ export default class MainPage extends React.Component {
                 />
                 <Button
                     onPress={() => {
-                        if (Platform.OS === 'android') {
-                            this.refs.openGLViewRef.snapShot('/sdcard/xiaomi_snapshot.jpg').then(_ => {
-                                console.log('success snap shot');
-                            })
-                        } else {
-                            this.refs.openGLViewRef.snapShot('').then(_ => {
-                                console.log('success snap shot');
-                            })
-                        }
+                        this.refs.openGLViewRef.snapShot(this._joinPath(Host.file.storageBasePath, 'xiaomi_snapshot.jpg')).then(_ => {
+                            console.log('success snap shot');
+                        })
                     }}
                     title="snap shot"
                 />
