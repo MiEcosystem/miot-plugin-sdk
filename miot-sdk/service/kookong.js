@@ -1,5 +1,3 @@
-//@native
-import native, { Properties } from '../native';
 import {report} from '../decorator/ReportDecorator';
 class IKookong {
   /**
@@ -16,17 +14,7 @@ class IKookong {
    */
   @report
   registerWithKey(apikey, checkid) {
-    //@native :=>
-    return new Promise((resolve, reject) => {
-      native.KooKong.registerWithKey(apikey, checkid, (ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      })
-    })
-    //@native end
+     return 
   }
   /**
    *  创建 带状态控制的空凋控制实例
@@ -44,17 +32,7 @@ class IKookong {
    */
   @report
   createZipACManager(managerIdentifier, remoteid, irData, array) {
-    //@native :=> promise
-    return new Promise((resolve, reject) => {
-      native.KooKong.createZipACManager(managerIdentifier, remoteid, irData, array, (ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      })
-    })
-    //@native end
+     return Promise.resolve(null);
   }
   /**
    *  创建 带状态控制的空凋控制实例
@@ -70,17 +48,7 @@ class IKookong {
    */
   @report
   createNonACManager(managerIdentifier, irData) {
-    //@native :=> promise
-    return new Promise((resolve, reject) => {
-      native.KooKong.createNonACManager(managerIdentifier, irData, (ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      })
-    })
-    //@native end
+     return Promise.resolve(null);
   }
   /**
    *  移除 带状态控制的空凋控制实例 一般在退出插件时候调用
@@ -94,17 +62,7 @@ class IKookong {
    */
   @report
   removeACManager(managerIdentifier) {
-    //@native :=> promise
-    return new Promise((resolve, reject) => {
-      native.KooKong.removeACManager(managerIdentifier, (ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      })
-    })
-    //@native end
+     return Promise.resolve(null);
   }
   /**
    *  判断是否可以支持 风量 风向 温度 的控制
@@ -121,17 +79,7 @@ class IKookong {
    */
   @report
   canControlWithType(managerIdentifier, type = -1) {
-    //@native :=> promise
-    return new Promise((resolve, reject) => {
-      native.KooKong.canControlWithType(managerIdentifier, type, (ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      })
-    })
-    //@native end
+     return Promise.resolve(null);
   }
   /**
    *  获取当前控制的指定type的值
@@ -149,17 +97,7 @@ class IKookong {
    */
   @report
   getCurrentValueWithType(managerIdentifier, type) {
-    //@native :=> promise
-    return new Promise((resolve, reject) => {
-      native.KooKong.getCurrentValueWithType(managerIdentifier, type, (ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      })
-    })
-    //@native end
+     return Promise.resolve(null);
   }
   /**
    *  获取当前控制的指定type的所有的能控制的值
@@ -176,17 +114,7 @@ class IKookong {
    */
   @report
   getAllSupportValueWithType(managerIdentifier, type) {
-    //@native :=> promise
-    return new Promise((resolve, reject) => {
-      native.KooKong.getAllSupportValueWithType(managerIdentifier, type, (ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      })
-    })
-    //@native end
+     return Promise.resolve(null);
   }
   /**
    *  发送控制指令
@@ -206,17 +134,7 @@ class IKookong {
    */
   @report
   changeStateValueForType(managerIdentifier, stateValue, type) {
-    //@native :=> promise
-    return new Promise((resolve, reject) => {
-      native.KooKong.changeStateValueForType(managerIdentifier, stateValue, type, (ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      })
-    })
-    //@native end
+     return Promise.resolve(null);
   }
 }
 const Kookoong = new IKookong();

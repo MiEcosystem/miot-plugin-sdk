@@ -18,8 +18,6 @@
  *    console.log("error", error)
  * });
  */
-//@native
-import native, { Utils } from "../native";
 import {report} from "../decorator/ReportDecorator";
 class IStorage {
   /**
@@ -47,27 +45,7 @@ class IStorage {
    */
   @report
   get(key) {
-    //@native :=> Promise.resolve(null);
-    //@mark andr done
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.loadInfoCallback(key, value => {
-        if (value) {
-          let res = JSON.parse(value);
-          if (res.expire > 0) {
-            if (res.expire + res.time > new Date().getTime()) {
-              resolve(res.value);
-            } else {
-              reject("expired");
-            }
-          } else {
-            resolve(res.value);
-          }
-        } else {
-          resolve(value);
-        }
-      });
-    });
-    //@native end
+     return Promise.resolve(null);
   }
   /**
    * 和 get 相对应，持久化一个 key=value 的数据
@@ -85,15 +63,6 @@ class IStorage {
    */
   @report
   set(key, val, opt = { expire: 0 }) {
-    //@native begin 
-    //@mark andr done
-    let value = {
-      "value": val,
-      "expire": opt ? opt.expire : 0,
-      "time": new Date().getTime()
-    };
-    native.MIOTHost.saveInfo(key, JSON.stringify(value));
-    //@native end
   }
   /**
    * 获取所有 keys 的 values
@@ -110,15 +79,7 @@ class IStorage {
    */
   @report
   load(keys) {
-    //@native :=> promise
-    if (Utils.typeName(keys) !== "array") {
-      return Promise.reject("传入参数不是数组");
-    }
-    let promiseArray = keys.map(key => {
-      return this.get(key);
-    });
-    return Promise.all(promiseArray);
-    //@native end
+     return Promise.resolve(null);
   }
   /**
    * 保存所有 keyValues 的数据，例如{key1:value1 , key2:value2 , key3:value3}

@@ -15,42 +15,11 @@
  *
  *
  */
-//@native
-import { DeviceEventEmitter, NativeModules } from 'react-native';
 import Device from "../device/BasicDevice";
 import native from "../native";
 import { Entrance } from "../Package";
 // const resolveAssetSource = require('resolveAssetSource');
 const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
-//@native begin
-function resolveUrl(rawUrl) {
-  //@mark andr done
-  let newUrl = resolveAssetSource(rawUrl);
-  console.log('解析后的URL', newUrl);
-  if (newUrl && (newUrl.uri || Array.isArray(newUrl))) {
-    if (typeof newUrl.uri === 'string') {
-      if (native.isAndroid) {
-        return [{ uri: newUrl.uri }];
-      } else {
-        return newUrl.uri;
-      }
-      // 一段自以为有用但其实没用的代码
-      // let uri = newUrl.uri;
-      // // iOS 特殊处理
-      // // 传入网络地址 {uri: 'www.xx.com'}
-      // if (typeof rawUrl === 'object') {
-      //   return uri;
-      // }
-      // if (!uri.includes('Resources')) {
-      //   console.warn('资源应该放在项目的Resoucre文件下');
-      //   return uri;
-      // }
-      // // 传入require 资源id
-      // return native.MIOTHost.basePath + uri.split(/(Resources\/|\?)/)[2];
-    }
-  }
-}
-//@native end
 // @native begin
 function resolveUrlWithLink(url) {
   if (typeof url === 'string' && (/https?\:\/\//i).test(url)) {
@@ -71,72 +40,14 @@ class IUi {
    */
   @report
   canOpenStorePage() {
-    //@native begin
-    //@mark andr done
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.checkStoreSupportted(support => {
-        resolve(support);
-      });
-    });
-    //@native end
   }
-  //@native begin
-  /**
-   * 检测Android是否支持集成了商城,目前是通过当前的服务来判断的
-   * @returns {boolean}
-   * @deprecated  方法存在问题，废弃
-   */
-  @report
-  checkStoreSupporttedOnAndroid() {
-    let globalSettingServer = native.MIOTService.currentServerName;
-    return !(globalSettingServer === "" || globalSettingServer === "cn" || globalSettingServer === "st");
-  }
-  //@native end
   /**
    * 弹出删除设备的对话框
    * @param {string} [title=null] - 自定义提示，不设置使用默认提示
    */
   @report
   openDeleteDevice(title = null) {
-    //@native begin
-    //@mark andr done
-    if (native.isAndroid) {
-      native.MIOTHost.openDeleteDevice(title);
-    } else {
-      title ? native.MIOTHost.openDeleteDeviceWithCustomMessage(title) :
-        native.MIOTHost.openDeleteDevice();
-    }
-    //@native end
   }
-  //@native begin
-  /**
-   * android 设备暂不支持该方法 会直接reject(false)
-   * 删除设备
-   * 注意：此方法只做删除设备的活，不会返回上一页。所以在then里面，需要自己调用closeCurrentPage
-   */
-  @report
-  openDeleteDeviceWithCallback() {
-    return new Promise((resolve, reject) => {
-      if (native.isAndroid) reject(false);
-      native.MIOTHost.openDeleteDeviceWithCallback((ok) => {
-        if (ok) {
-          resolve(true)
-        } else {
-          reject(false)
-        }
-      });
-    })
-  }
-  // @native end
-  /**
-   * 打开分享设备的页面
-   */
-  @report
-  openShareDevicePage() {
-    //@native begin
-    //@mark andr done
-    native.MIOTHost.openShareDevicePage();
-    //@native end
   }
   /**
    * 是否保持屏幕常亮
@@ -144,30 +55,18 @@ class IUi {
    */
   @report
   keepScreenNotLock(flag = false) {
-    //@native begin
-    //@mark andr done
-    native.MIOTHost.keepScreenNotLock(flag);
-    //@native end
   }
   /**
    * 打开房间设备管理的页面
    */
   @report
   openRoomManagementPage() {
-    //@native begin
-    //@mark andr done
-    native.MIOTHost.openRoomManagementPage();
-    //@native end
   }
   /**
    * 打开语音设备管理的页面
    */
   @report
   openVoiceCtrlDeviceAuthPage() {
-    //@native begin
-    //@mark andr done
-    native.MIOTHost.openVoiceCtrlDeviceAuthPage();
-    //@native end
   }
   /**
    * 打开添加智能的页面,注意分享的用户无法打开
@@ -175,44 +74,24 @@ class IUi {
    */
   @report
   openIftttAutoPage() {
-    //@native begin
-    //@mark andr done
-    native.MIOTHost.openIftttAutoPage();
-    //@native end
   }
   /**
    * 打开反馈页
    */
   @report
   openFeedbackInput() {
-    //@native begin
-    //@mark andr done
-    native.MIOTHost.openFeedbackInput();
-    //@native end
   }
   /**
    * 打开安全管理页
    */
   @report
   openSecuritySetting() {
-    //@native begin
-    //@mark andr done
-    native.MIOTHost.openSecuritySetting();
-    //@native end
   }
   /**
    * 打开常见问题页，别名「使用帮助」
    */
   @report
   openHelpPage() {
-    //@native begin
-    //@mark andr done
-    if (native.isAndroid) {
-      native.MIOTHost.openHelpPage();
-    } else {
-      native.MIOTHost.openFeedback();
-    }
-    //@native end
   }
   /**
    * 打开分享列表页面
@@ -223,11 +102,6 @@ class IUi {
    */
   @report
   openShareListBar(title, description, imagePath, url) {
-    //@native begin
-    //@mark andr done
-    imagePath = ProtocolManager.resolveUrl(imagePath);
-    native.MIOTHost.openShareListBar(title, description, imagePath, url);
-    //@native end
   }
   /**
    * 获取设备列表中指定model的设备信息
@@ -237,28 +111,13 @@ class IUi {
    */
   @report
   getDevicesWithModel(model) {
-    //@native :=> promise []
-    //@mark andr done
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.getDevicesWithModel(model, (ok, devices) => {
-        if (ok) {
-          resolve(devices)
-        } else {
-          reject(false)
-        }
-      });
-    })
-    //@native end
+     return Promise.resolve([]);
   }
   /**
    * 打开蓝牙网关页
    */
   @report
   openBtGatewayPage() {
-    //@native begin
-    //@mark andr done
-    native.MIOTHost.openBtGatewayPage();
-    //@native end
   }
   /**
    * 弹窗请求隐私政策和用户协议授权， 支持显示用户体验计划
@@ -424,12 +283,6 @@ class IUi {
    */
   @report
   privacyAndProtocolReview(licenseTitle, licenseUrl, policyTitle, policyUrl) {
-    //@native begin
-    //@mark andr done
-    licenseUrl = ProtocolManager.resolveUrl(licenseUrl);
-    policyUrl = ProtocolManager.resolveUrl(policyUrl);
-    native.MIOTHost.privacyAndProtocolReview(licenseTitle, licenseUrl, policyTitle, policyUrl);
-    //@native end
   }
   /**
    * 软件政策和隐私协议授权
@@ -451,43 +304,19 @@ class IUi {
    */
   @report
   openPrivacyLicense(licenseTitle, licenseUrl, policyTitle, policyUrl) {
-    //@native :=> promise {}
-    //@mark andr done
-    //内部事件，不需要提供给外部, 如果显示了隐私政策弹窗，需要通知关闭掉固件升级弹窗
-    DeviceEventEmitter.emit('MH_Event_ShowPrivacyLicenseDialog', { isShowingPrivacyLicenseDialog: true });
-    licenseUrl = ProtocolManager.resolveUrl(licenseUrl);
-    policyUrl = ProtocolManager.resolveUrl(policyUrl);
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.openPrivacyLicense(licenseTitle, licenseUrl, policyTitle, policyUrl, ret => {
-        // Android 返回 true；iOS 返回 'ok'
-        if (ret === 'ok' || ret === true || ret === 'true') {
-          resolve(true);
-        } else {
-          resolve(false);
-        }
-      });
-    });
-    //@native end
+     return Promise.resolve({});
   }
   /**
    * 打开重命名对话框
    */
   @report
   openChangeDeviceName() {
-    //@native begin
-    //@mark andr done
-    native.MIOTHost.openChangeDeviceName();
-    //@native end
   }
   /**
    * 添加桌面快捷方式
    */
   @report
   openAddToDesktopPage() {
-    //@native begin
-    //@mark andr done
-    native.MIOTHost.openAddToDesktopPage();
-    //@native end
   }
   /**
    * 打开设备检查固件升级页（先检查，后可升级）
@@ -495,10 +324,6 @@ class IUi {
    */
   @report
   openDeviceUpgradePage() {
-    //@native begin
-    //@mark andr done
-    native.MIOTHost.openDeviceUpgradePage();
-    //@native end
   }
   /**
    * 打开Mesh设备固件升级页。分享的设备点击此接口无反应（理论上分享的设备不应该出现调用此接口的菜单）
@@ -507,48 +332,14 @@ class IUi {
    */
   @report
   openBleMeshDeviceUpgradePage() {
-    //@native begin
-    //@mark andr done
-    if (Device.type !== '16') {
-      console.warn('只有mesh设备支持调用该接口');
-      return;
-    }
-    native.MIOTHost.openBleMeshDeviceUpgradePage();
-    //@native end
   }
-  //@native begin
-  /**
-   * 原生代码未合并，暂时隐藏，预计下版本增加
-   * 打开通用协议的蓝牙固件OTA页面。分享的设备点击此接口无反应（理论上分享的设备不应该出现调用此接口的菜单）
-   * @since 1003?
-   * @param {Object} params 请求参数
-   * @param {number} params.auth_type 指定设备的协议类型 0: 普通小米蓝牙协议设备(新接入设备已废弃该类型)，1: 安全芯片小米蓝牙设备（比如锁类产品） 4: Standard Auth 标准蓝牙认证协议(通常2019.10.1之后上线的新蓝牙设备) 5: mesh 设备
-   * @param {string} params.fake_dfu_url 指定写入DFU的下载地址，仅在测试环境下有效，指定之后可以强制更新指定DFU固件版本
-   * @example
-   * Host.ui.openBleCommonDeviceUpgradePage({auth_type: 5 })
-   * 目前ios在进行OTA前，可以先断开与设备的蓝牙连接，然后再从设备广播的信息中拿到设备auth_type的值（无需传参auth_type），但是安卓暂时不好实现所以接口增加了参数auth_type
-   */
-  @report
-  openBleCommonDeviceUpgradePage(params) {
-    //@native begin
-    //@mark andr done
-    // if (Device.type !== '16' || Device.type !== '6') {
-    //   console.warn('只有ble设备支持调用该接口');
-    //   return;
-    // }
-    native.MIOTHost.openBleOtaDeviceUpgradePage(params);
-    //@native end
   }
-  //@native end
   /**
    * 打开灯组2.0固件升级页。分享的设备点击此接口无反应（理论上分享的设备不应该出现调用此接口的菜单）
    * @since 10031
    */
   @report
   openLightGroupUpgradePage() {
-    //@native begin
-    native.MIOTHost.openLightGroupUpgradePage();
-    //@native end
   }
   /**
    * 打开设备时区设置页
@@ -564,32 +355,12 @@ class IUi {
     }
     native.MIOTHost.openDeviceTimeZoneSettingPage(params);
   }
-  //@native begin
-  /**
-   * 打开H5页面
-   * 不对外提供
-   * @param {string} url - 链接地址
-   */
-  @report
-  openWebPage(url) {
-    //@mark andr done
-    native.MIOTHost.openWebPage(url);
-  }
-  //@native end
   /**
    * 打开商城某商品详情页面
    * @param {string} gid - 商品ID
    */
   @report
   openShopPage(gid) {
-    //@native begin
-    //@mark andr done
-    const url = `https://app.xiaomiyoupin.com/shop/detail?gid=${gid}`;
-    if (native.isIOS) {
-      return native.MIOTHost.openShopPage(url);
-    }
-    this.openWebPage(url);
-    //@native end
   }
   /**
    * 打开商城搜索结果页面
@@ -598,15 +369,6 @@ class IUi {
    */
   @report
   openShopSearchPage(keyword) {
-    //@native begin
-    //@mark andr done
-    const url = `https://app.xiaomiyoupin.com/searchfilter?keyword=${keyword}`;
-    if (native.isIOS) {
-      native.MIOTHost.openShopPage(url);
-      return;
-    }
-    this.openWebPage(url);
-    //@native end
   }
   /**
    * 打开产品百科H5页面
@@ -616,14 +378,6 @@ class IUi {
    */
   @report
   openProductBaikeWebPage(url) {
-    //@native begin
-    //@mark andr done
-    if (native.isIOS) {
-      native.MIOTHost.openProductBaikeWebPage(url);
-      return;
-    }
-    this.openWebPage(url);
-    //@native end
   }
   /**
    * 打开Mesh灯组 添加/编辑 页,Device.pid为17，则为Mesh设备组
@@ -634,17 +388,6 @@ class IUi {
    */
   @report
   openMeshDeviceGroupPage(type, did, version = 1) {
-    //@native begin
-    if (native.isAndroid) {
-      native.MIOTHost.openMeshDeviceGroupPage(type, did, version);
-      return;
-    }
-    if (type === 'add') {
-      NativeModules.MHDeviceGroup.create(did, version);
-    } else if (type === 'edit') {
-      NativeModules.MHDeviceGroup.edit(did, version);
-    }
-    //@native end
   }
   /**
    * 打开创建设备组页，如果是支持Mesh的设备，请使用上面的openMeshDeviceGroupPage
@@ -654,18 +397,6 @@ class IUi {
    */
   @report
   openAddDeviceGroupPage(groupModel = "") {
-    //@native begin
-    //@mark andr done
-    if (native.isAndroid) {
-      if (!groupModel || groupModel === "") {
-        native.MIOTHost.openAddDeviceGroupPage();
-      } else {
-        native.MIOTHost.openAddDeviceGroupPageWithGroupModel(groupModel)
-      }
-    } else {
-      native.MIOTHost.openAddDeviceGroupPage();
-    }
-    //@native end
   }
   /**
    * 打开编辑设备组页，只有在设备组页内，需要修改设备组时，才能调用此方法。如果是设备页面内，请使用上面的openAddDeviceGroupPage方法
@@ -673,10 +404,6 @@ class IUi {
    */
   @report
   openEditDeviceGroupPage(dids) {
-    //@native begin
-    //@mark andr done
-    native.MIOTHost.openEditDeviceGroupPage(dids);
-    //@native end
   }
   /**
    * 开启倒计时界面
@@ -696,13 +423,7 @@ class IUi {
    */
   @report
   openCountDownPage(isCountDownOn, setting) {
-    //@native begin
-    //@mark ios done
-    //@mark android undone
-    native.MIOTHost.launchCountDownWhenDevice(isCountDownOn, setting);
-    //@native end
   }
-  //@native end
   /**
    * 打开一次性密码设置页
    * @param {string} did   设备did
@@ -711,9 +432,6 @@ class IUi {
    */
   @report
   openOneTimePassword(did, interval, digits) {
-    //@native begin
-    native.MIOTHost.openOneTimePassword(did, interval, digits);
-    //@native end
   }
   /**
    * @deprecated 10004 开始废弃， 后续版本会移除该方法。
@@ -726,11 +444,6 @@ class IUi {
    */
   @report
   openTimerSettingPage(onMethod, onParam, offMethod, offParam) {
-    //@native begin
-    //@mark andr done
-    console.warn("using deprecated api openTimerSettingPage, use openTimerSettingPageWithVariousTypeParams instead")
-    native.MIOTHost.openTimerSettingPage(onMethod, onParam, offMethod, offParam);
-    //@native end
   }
   /**
    * @deprecated 10004 开始废弃， 后续版本会移除该方法。
@@ -744,10 +457,6 @@ class IUi {
    */
   @report
   openTimerSettingPageWithCustomIdentifier(customTimerIdentifier, onMethod, onParam, offMethod, offParam) {
-    //@native begin
-    console.warn("using deprecated api openTimerSettingPage, use openTimerSettingPageWithVariousTypeParams instead")
-    native.MIOTHost.openTimerSettingPageWithCustomIdentifier(customTimerIdentifier, onMethod, onParam, offMethod, offParam);
-    //@native end
   }
   /**
    * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串，指硬件端，打开定时应该执行的方法，请咨询硬件工程师,miot-spec下，一般为：set_properties
@@ -760,18 +469,6 @@ class IUi {
    */
   @report
   openTimerSettingPageWithVariousTypeParams(onMethod, onParam, offMethod, offParam) {
-    //@native begin
-    //@mark andr done
-    if (native.isAndroid) {
-      if (typeof (onParam) != "string") {
-        onParam = JSON.stringify(onParam);
-      }
-      if (typeof (offParam) != "string") {
-        offParam = JSON.stringify(offParam);
-      }
-    }
-    native.MIOTHost.openTimerSettingPageWithVariousTypeParams(onMethod, onParam, offMethod, offParam);
-    //@native end
   }
   /**
    * 扩展自 openTimerSettingPageWithVariousTypeParams , 新增支持自定义name使用
@@ -797,9 +494,6 @@ class IUi {
    */
   @report
   openTimerSettingPageWithOptions(options) {
-    //@native begin
-    native.MIOTHost.openTimerSettingPageWithOptions(options);
-    //@native end
   }
   /**
    * 更多设置-多键开关设置页面
@@ -811,17 +505,6 @@ class IUi {
   */
   @report
   openPowerMultikeyPage(did, mac = null) {
-    //@native begin
-    if (native.isAndroid) {
-      if (mac) {
-        native.MIOTHost.openPowerMultikeyPage(did, mac);
-      } else {
-        native.MIOTHost.openPowerMultikeyPage(did, Device.mac);
-      }
-    } else {
-      native.MIOTHost.openPowerMultikeyPage(did);
-    }
-    //@native end
   }
   /**
   * 添加或者复制一个红外遥控器
@@ -835,19 +518,6 @@ class IUi {
   */
   @report
   addOrCopyIR(did, type = 0, models = [], extra = { create_device: true }) {
-    //@native begin
-    if (native.isAndroid) {
-      native.MIOTHost.openAddIRController(did, type, models, extra);
-    } else {
-      const params = {
-        type: type === 1 ? 'copy' : 'add',
-        gatewayID: did || '',
-        models: models || [],
-        ...extra
-      }
-      native.MIOTHost.addOrCopyIR(params);
-    }
-    //@native end
   }
   /**
    * 打开用户账号下某一设备的插件
@@ -859,20 +529,7 @@ class IUi {
    */
   @report
   openDevice(did, model, params) {
-    //@native :=> promise
-    //@mark andr done
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.openDevice(did, model, params, (error, info) => {
-        // 打开插件失败，返回错误信息
-        if (error) {
-          reject({ error, info });
-        } else {
-          // 打开插件成功，无回调信息
-          resolve(true);
-        }
-      });
-    })
-    //@native end
+     return Promise.resolve(null);
   }
   /**
    * 打开用户账号下某一设备的插件,可支持跳转到插件的某一页面
@@ -901,28 +558,6 @@ class IUi {
    */
   @report
   openPluginPage(did, pageName = 'main', pageParams = { isBackToMainPage: true }) {
-    //@native begin
-    if (pageParams === null) {
-      pageParams = { isBackToMainPage: true }
-    }
-    if (pageParams.isBackToMainPage === null) {
-      pageParams.isBackToMainPage = true;
-    }
-    if (typeof pageParams.isBackToMainPage === "undefined") {
-      pageParams.isBackToMainPage = true;
-    }
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.openPluginPage(did, pageName, pageParams, (isOk, info) => {
-        // 打开插件成功，仅仅返回true
-        if (isOk) {
-          resolve(info);
-        } else {
-          // 打开插件失败，返回错误信息
-          reject(info)
-        }
-      });
-    })
-    //@native end
   }
   /**
    * 打开一个原生类 className ，界面类类名 注意 用此方法打开的vc初始化时不需要传参数，
@@ -931,14 +566,6 @@ class IUi {
    */
   @report
   openPageWithClassName(className) {
-    //@native begin
-    //@mark andr 暂不提供
-    if (native.isIOS) {
-      native.MIOTHost.openPageWithClassName(className);
-    } else {
-      console.warn('method [openPageWithClassName] can only be invoked on iOS, Android is not implemented. ')
-    }
-    //@native end
   }
   /**
    * @deprecated 10010 开始废弃， 后续版本会移除该方法。推荐使用 `miot/ui/CommonSetting`
@@ -947,13 +574,6 @@ class IUi {
    */
   @report
   openNewMorePage() {
-    //@native begin
-    console.warn(`using deprecated api 'openNewMorePage', use 'miot/ui/CommonSetting' component instead.
-    See example https://github.com/MiEcosystem/miot-plugin-sdk/blob/SDK_10004/projects/com.xiaomi.demo/Main/tutorial/Setting.js for more details`);
-    if (native.isIOS) {
-      native.MIOTHost.openNewMorePage();
-    }
-    //@native end
   }
   /**
    * @since 10002
@@ -962,13 +582,6 @@ class IUi {
   */
   @report
   openPhoneBluSettingPage() {
-    //@native begin
-    if (native.isAndroid) {
-      native.MIOTHost.openPhoneBluSettingActivity();
-    } else {
-      console.warn('method [openPhoneBluSettingPage] can only be invoked on Android, iOS is not implemented. ')
-    }
-    //@native end
   }
   /**
    * 打开小爱训练计划
@@ -980,9 +593,6 @@ class IUi {
   */
   @report
   openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion) {
-    //@native begin
-    native.MIOTHost.openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion);
-    //@native end
   }
   /**
    * 显示提示用户打开蓝牙的动画示意图, 仅在iOS下有效，Android下无反应
@@ -990,13 +600,6 @@ class IUi {
    */
   @report
   showBLESwitchGuide() {
-    //@native begin
-    if (native.isAndroid) {
-      console.warn('method [showBLESwitchGuide] can only be invoked on iOS, Android is not implemented. ')
-      return
-    }
-    native.MIOTHost.showBLESwitchGuide()
-    //@native end
   }
   /**
    * 隐藏提示用户打开蓝牙的动画示意图, 仅在iOS下有效，Android下无反应
@@ -1004,13 +607,6 @@ class IUi {
    */
   @report
   dismissBLESwitchGuide() {
-    //@native begin
-    if (native.isAndroid) {
-      console.warn('method [dismissBLESwitchGuide] can only be invoked on iOS, Android is not implemented. ')
-      return
-    }
-    native.MIOTHost.dismissBLESwitchGuide()
-    //@native end
   }
   /**
    * 打开设备快连成功页面
@@ -1020,9 +616,6 @@ class IUi {
    */
   @report
   openConnectSucceedPage(model, did) {
-    //@native begin
-    native.MIOTHost.openConnectSucceedPage(model, did)
-    //@native end
   }
   /**
    * 打开Zigbee 网关插件开启子设备快连
@@ -1031,9 +624,6 @@ class IUi {
    */
   @report
   openZigbeeConnectDeviceList(did) {
-    //@native begin
-    native.MIOTHost.openZigbeeConnectDeviceList(did)
-    //@native end
   }
   /**
    * 打开设备网络信息页面，米家已提供入口：设置 - 更多设置 - 网络信息。此方法只针对wifi设备，combo设备，蓝牙设备请不要调用此方法。
@@ -1041,9 +631,6 @@ class IUi {
    */
   @report
   openDeviceNetworkInfoPage() {
-    //@native begin
-    native.MIOTHost.openDeviceNetworkInfoPage()
-    //@native end
   }
   /**
    * android 特有， 跳转到小米钱包
@@ -1055,21 +642,7 @@ class IUi {
    */
   @report
   openMiPayPageForAndroid(params) {
-    //@native :=> promise
-    if (native.isAndroid) {
-      return new Promise((resolve, reject) => {
-        native.MIOTHost.openMiPayPage(params, (isOk, result) => {
-          if (isOk) {
-            resolve(result);
-          } else {
-            reject(result);
-          }
-        })
-      })
-    } else {
-      return new Promise.reject("not support ios yet");
-    }
-    //@native end
+     return Promise.resolve(null);
   }
   /**
    * 跳转到设备定向推荐界面,注意：SDK_10024及其之后才可使用
@@ -1079,9 +652,6 @@ class IUi {
    */
   @report
   openPluginRecommendScene(did, recommendId) {
-    //@native begin
-    native.MIOTHost.openPluginRecommendScene(did, recommendId);
-    //@native end
   }
   /**
    * 刷新设备列表，同时刷新设备列表页UI
@@ -1090,17 +660,7 @@ class IUi {
    */
   @report
   refreshDeviceList() {
-    //@native :=> promise
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.refreshDeviceList((isOk, result) => {
-        if (isOk) {
-          resolve(result);
-        } else {
-          reject(result);
-        }
-      })
-    })
-    //@native end
+     return Promise.resolve(null);
   }
   /**
    * 跳转到终端设备指定的设置页面 如 iPhone和安卓手机的系统设置页面
@@ -1111,9 +671,6 @@ class IUi {
    */
   @report
   openTerminalDeviceSettingPage(type) {
-    //@native begin
-    native.MIOTHost.openDeviceSettingPageWithType(type);
-    //@native end
   }
 };
 const UiInstance = new IUi();

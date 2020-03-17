@@ -16,8 +16,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { requireNativeComponent, ViewPropTypes } from 'react-native';
 import native from '.././native';
-//@native
-const RCTLoadingDialog = requireNativeComponent('RCTLoadingDialog', null);
 export default class ProgressDialog extends Component {
   static propTypes = {
     visible: PropTypes.bool,
@@ -30,15 +28,6 @@ export default class ProgressDialog extends Component {
   };
   render() {
     let showText = this.props.message ? this.props.message : this.props.title;
-    //@native :=> null
-    return <RCTLoadingDialog {...this.props}
-      message={native.isAndroid ? showText : ""}
-      title={native.isIOS ? showText : ""}
-      onDismiss={(event) => {
-        if (this.props.onDismiss) {
-          this.props.onDismiss(event.nativeEvent);
-        }
-      }} />;
-    //@native end
+     return null
   }
 }

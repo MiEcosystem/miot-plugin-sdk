@@ -19,38 +19,30 @@
  * })
  *
  */
-//@native begin
-import native, { Properties } from '../native';
-import {report} from "../decorator/ReportDecorator";
-//@native end
 export class IMHRoom {
   /**
    * 房间所属的家庭ID
    */
   get homeID() {
-    //@native => 0
-    return Properties.of(this).homeId;
+     return  0
   }
   /**
    * 房间ID
    */
   get roomID() {
-    //@native => 0
-    return Properties.of(this).roomId;
+     return  0
   }
   /**
    * 房间名称
    */
   get name() {
-    //@native => 0
-    return Properties.of(this).name;
+     return  0
   }
   /**
    * 房间的分享标识
    */
   get shareFlag() {
-    //@native => 0
-    return Properties.of(this).shareFlag;
+     return  0
   }
   /**
    * 更新房间名称
@@ -62,26 +54,8 @@ export class IMHRoom {
    */
   @report
   updateName(newName) {
-    //@native begin
-    const json = Properties.of(this);
-    const forkJson = { ...json };
-    forkJson.name = newName;
-    return new Promise((resolve, reject) => {
-      native.MHRoom.editRoom(forkJson, (suc, res) => {
-        if (suc) {
-          json.name = newName;
-          resolve({ code: 0, data: 'update success' });
-        }
-        else {
-          reject({ code: -1, message: res });
-        }
-      });
-    });
-    //@native end
   }
 }
-//@native
-let cachedRooms;
 class IMiotRoom {
   /**
    * 获取所有房间列表
@@ -93,27 +67,6 @@ class IMiotRoom {
    */
   @report
   loadAllRoom(forceReload = false) {
-    //@native begin
-    if (cachedRooms && !forceReload) {
-      return new Promise.resolve(cachedRooms);
-    }
-    return new Promise((resolve, reject) => {
-      native.MHRoom.getRoomList((suc, res) => {
-        if (suc) {
-          if (res) {
-            cachedRooms = res.map(item => (Properties.init(new IMHRoom(), { ...item })));
-            resolve(cachedRooms);
-          }
-          else {
-            resolve([]);
-          }
-        }
-        else {
-          reject({ code: 401, message: '当前设备没有权限操作房间功能' });
-        }
-      });
-    });
-    //@native end
   }
   /**
    * 使用指定名称创建房间
@@ -125,31 +78,6 @@ class IMiotRoom {
    */
   @report
   createRoom(name) {
-    //@native begin
-    if (!name) {
-      return new Promise.reject({ code: -2, message: '房间名称不能为空' });
-    }
-    if (typeof name !== 'string') {
-      return new Promise.reject({ code: -3, message: '房间名称必须是字符串' });
-    }
-    return new Promise((resolve, reject) => {
-      native.MHRoom.addNewRoomWithName(name, (suc, res) => {
-        if (suc) {
-          if (res) {
-            const newRoom = Properties.init(new IMHRoom(), { ...res });
-            if (cachedRooms) {
-              cachedRooms.push(newRoom);
-            }
-            resolve(newRoom);
-          } else {
-            reject({ code: 404, message: res });
-          }
-        } else {
-          reject({ code: -1, message: res });
-        }
-      });
-    });
-    //@native end
   }
 };
 const MiotRoomInstance = new IMiotRoom();

@@ -50,8 +50,8 @@ export default class App extends React.Component {
 
 const NaviApp = createStackNavigator({
     MainPage: { 
-        //screen: MainPage
-        screen: RTSPPage
+        screen: MainPage
+        //screen: RTSPPage
     }
 },{
     initialRouteName: 'MainPage',

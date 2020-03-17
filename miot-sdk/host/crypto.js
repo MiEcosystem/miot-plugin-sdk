@@ -17,8 +17,6 @@
  * Host.crypto.encodeMD5(str).then(res => {//md5 value is res})
  * ...
  */
-//@native
-import native from "../native";
 import tr from "../resources/strings/tr";
 import {report} from "../decorator/ReportDecorator";
 class ICrypto{
@@ -29,18 +27,7 @@ class ICrypto{
    */
   @report
   encodeMD5(content) {
-    //@native :=> Promise.resolve('');
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.encodeMD5(content, (res, callback) => {
-        if (native.isIOS) { resolve(res); return; }
-        if (res) {
-          resolve(callback);
-        } else {
-          reject(callback);
-        }
-      });
-    });
-    //@native end
+     return Promise.resolve('');
   }
   /** 
    * base64 编码
@@ -49,18 +36,7 @@ class ICrypto{
    */
   @report
   encodeBase64(content) {
-    //@native :=> Promise.resolve('');
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.encodeBase64(content, (res, callback) => {
-        if (native.isIOS) { resolve(res); return; }
-        if (res) {
-          resolve(callback);
-        } else {
-          reject(callback);
-        }
-      });
-    });
-    //@native end
+     return Promise.resolve('');
   }
   /**
    * base64解码
@@ -69,18 +45,7 @@ class ICrypto{
    */
   @report
   decodeBase64(content) {
-    //@native :=> Promise.resolve('');
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.decodeBase64(content, (res, callback) => {
-        if (native.isIOS) { resolve(res); return; }
-        if (res) {
-          resolve(callback);
-        } else {
-          reject(callback);
-        }
-      });
-    });
-    //@native end
+     return Promise.resolve('');
   }
   /**
    * SHA1 编码
@@ -89,18 +54,7 @@ class ICrypto{
    */
   @report
   encodeSHA1(content) {
-    //@native :=> Promise.resolve('');
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.encodeSHA1(content, (res, callback) => {
-        if (native.isIOS) { resolve(res); return; }
-        if (res) {
-          resolve(callback);
-        } else {
-          reject(callback);
-        }
-      });
-    });
-    //@native end
+     return Promise.resolve('');
   }
   /**
    * SHA256 编码
@@ -109,18 +63,7 @@ class ICrypto{
    */
   @report
   encodeSHA2(content) {
-    //@native :=> Promise.resolve('');
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.encodeSHA2(content, (res, callback) => {
-        if (native.isIOS) { resolve(res); return; }
-        if (res) {
-          resolve(callback);
-        } else {
-          reject(callback);
-        }
-      });
-    });
-    //@native end
+     return Promise.resolve('');
   }
   /**
     * @deprecated
@@ -136,9 +79,7 @@ class ICrypto{
   */
   @report
   colorsToImageBase64(content, colorMStr, color0Str, color1Str) {
-    //@native :=> Promise.resolve('');
-    return this.robotCleanerMapColorsToImageBase64(content, colorMStr, color0Str, color1Str);
-    //@native end
+     return Promise.resolve('');
   }
   /**
     *  api_level 10032
@@ -152,17 +93,7 @@ class ICrypto{
   */
  @report
   robotCleanerMapColorsToImageBase64(content, colorMStr, color0Str, color1Str) {
-    //@native :=> Promise.resolve('');
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.colorsToImageBase64(content, colorMStr, color0Str, color1Str, (ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      });
-    });
-    //@native end
+     return Promise.resolve('');
   }
   /**
    * @deprecated
@@ -183,9 +114,7 @@ class ICrypto{
    */
   @report
   pointsToImageBase64(width, height, points, colorsMap) {
-    //@native :=> Promise.resolve('');
-    return this.robotCleanerMapPointsToImageBase64(width, height, points, colorsMap);
-    //@native end
+     return Promise.resolve('');
   }
   /**
    * ApiLevel: 10032
@@ -205,17 +134,7 @@ class ICrypto{
    */
   @report
   robotCleanerMapPointsToImageBase64(width, height, points, colorsMap) {
-    //@native :=> Promise.resolve('');
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.pointsToImageBase64(width, height, points, colorsMap, (ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      });
-    });
-    //@native end
+     return Promise.resolve('');
   }
   /**
    * @deprecated
@@ -237,9 +156,7 @@ class ICrypto{
    */
   @report
   pointsScaleToImageBase64(width, height, points, colorsMap, scale) {
-    //@native :=> Promise.resolve('');
-    return this.robotCleanerPointsScaleToImageBase64(width, height, points, colorsMap, scale);
-    //@native end
+     return Promise.resolve('');
   }
   /**
  * ApiLevel: 10032
@@ -260,44 +177,8 @@ class ICrypto{
  */
   @report
   robotCleanerPointsScaleToImageBase64(width, height, points, colorsMap, scale) {
-    //@native :=> Promise.resolve('');
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.pointsScaleToImageBase64(width, height, points, colorsMap, scale, (ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      });
-    });
-    //@native end
+     return Promise.resolve('');
   }
-  //@native begin
-  /**
-   * 追觅扫地机器人
-   * @since 10035
-   * @param {int} width : 图片宽度
-   * @param {int} height : 图片高度
-   * @param {string} traces: 点集合等信息
-   * @returns {Promise<string>} 使用base64编码后的图片数据
-   * 成功时：{"code":0, "data":"xxx" } // data 注意判断空值 返回的base64图片值不包括前缀 'data:image/png;base64'
-   * 失败时：{"code":-1, "message":"points in json must has valid length" }
-   *        {"code":-2, "message":"input parmas width or height must > 0" }
-   *        {"code":-3, "message":"points in json must be valid array json string"}
-   */
-  @report
-  zhuimiRobotTracesToImageBase64(width, height, traces) {
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.zhuimiRobotTracesToImageBase64(width, height, traces, (ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      });
-    });
-  }
-  //@native end
 }
 const CryptoInstance = new ICrypto();
 export default CryptoInstance;

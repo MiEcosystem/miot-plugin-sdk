@@ -625,7 +625,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
-    height: 42,
+    height: 55,
     borderRadius: 5,
     borderWidth: 0.3,
     borderColor: 'rgba(0,0,0,0.2)',

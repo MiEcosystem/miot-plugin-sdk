@@ -7,8 +7,6 @@
  * @description 摄像机 API
  *
  */
-//@native
-import { Device } from "miot"
 import { NativeModules, Platform } from 'react-native';
 import { report } from "../decorator/ReportDecorator";
 /**
@@ -110,13 +108,7 @@ class IMiotCamera {
    */
   @report
   connectToDeviceWithStateChangeCallBack(callbackName) {
-    //@native :=>
-    if (Platform.OS === 'android') {
-      NativeModules.MHCameraSDK.startConnect(Device.deviceID, callbackName);
-    } else {
-      NativeModules.MHCameraSDK.connectToDeviceWithDid(Device.deviceID, Device.model, callbackName);
-    }
-    //@native end
+     return 
   }
   /**
    * 断开连接设备
@@ -124,22 +116,7 @@ class IMiotCamera {
    */
   @report
   disconnectToDevice() {
-    //@native :=>
-    if (Platform.OS === 'android') {
-      // console.log('待实现')
-      NativeModules.MHCameraSDK.release(Device.deviceID)
-    } else {
-      return new Promise((resolve, reject) => {
-        NativeModules.MHCameraSDK.c(Device.deviceID, (result, retCode) => {
-          if (result) {
-            resolve(result);
-          } else {
-            reject(retCode);
-          }
-        });
-      })
-    }
-    //@native end
+     return 
   }
   /**
    * 发送miss命令到设备
@@ -149,29 +126,7 @@ class IMiotCamera {
    */
   @report
   sendP2PCommandToDevice(command, params) {
-    //@native :=> promise
-    if (Platform.OS === 'android') {
-      return new Promise((resolve, reject) => {
-        NativeModules.MHCameraSDK.sendServerCmd(Device.deviceID, command, JSON.stringify(params), (result, retCode) => {
-          if (result) {
-            resolve(retCode);
-          } else {
-            reject(retCode);
-          }
-        });
-      });
-    } else {
-      return new Promise((resolve, reject) => {
-        NativeModules.MHCameraSDK.sendP2PCommandToDeviceWith(Device.deviceID, command, params, (result, retCode) => {
-          if (result) {
-            resolve(retCode);
-          } else {
-            reject(retCode);
-          }
-        });
-      });
-    }
-    //@native end
+     return Promise.resolve(null);
   }
   /**
    * 注册接收命令回调
@@ -179,9 +134,7 @@ class IMiotCamera {
    */
   @report
   bindP2PCommandReceiveCallback(callbackName) {
-    //@native :=>
-    NativeModules.MHCameraSDK.bindP2PCommandReceiveWithDid(Device.deviceID, callbackName);
-    //@native
+     return 
   }
   /**
    * 发送RDT命令到设备
@@ -190,29 +143,7 @@ class IMiotCamera {
    */
   @report
   sendRDTJSONCommandToDevice(params) {
-    //@native :=> promise
-    if (Platform.OS === 'android') {
-      return new Promise((resolve, reject) => {
-        NativeModules.MHCameraSDK.sendRDTCommandToDevice(Device.deviceID, JSON.stringify(params), (result, retCode) => {
-          if (result) {
-            resolve(retCode);
-          } else {
-            reject(retCode);
-          }
-        });
-      });
-    } else {
-      return new Promise((resolve, reject) => {
-        NativeModules.MHCameraSDK.sendRDTCommandJSONToDeviceWith(Device.deviceID, params, (result, retCode) => {
-          if (result) {
-            resolve(retCode);
-          } else {
-            reject(retCode);
-          }
-        });
-      });
-    }
-    //@native end
+     return Promise.resolve(null);
   }
   /**
    * 发送RDT命令到设备
@@ -221,29 +152,7 @@ class IMiotCamera {
    */
   @report
   sendRDTCommandToDevice(params) {
-    //@native :=> promise
-    if (Platform.OS === 'android') {
-      return new Promise((resolve, reject) => {
-        NativeModules.MHCameraSDK.sendRDTCommandToDevice(Device.deviceID, params, (result, retCode) => {
-          if (result) {
-            resolve(retCode);
-          } else {
-            reject(retCode);
-          }
-        });
-      });
-    } else {
-      return new Promise((resolve, reject) => {
-        NativeModules.MHCameraSDK.sendRDTCommandToDeviceWith(Device.deviceID, params, (result, retCode) => {
-          if (result) {
-            resolve(retCode);
-          } else {
-            reject(retCode);
-          }
-        });
-      });
-    }
-    //@native end
+     return Promise.resolve(null);
   }
   /**
    * 注册接收RDT命令回调
@@ -251,13 +160,7 @@ class IMiotCamera {
    */
   @report
   bindRDTDataReceiveCallback(callbackName) {
-    //@native :=>
-    if (Platform.OS === 'android') {
-      NativeModules.MHCameraSDK.bindRDTDataReceiveCallback(Device.deviceID, callbackName);
-    } else {
-      NativeModules.MHCameraSDK.bindRDTDataReceiveWithDid(Device.deviceID, callbackName);
-    }
-    //@native
+     return 
   }
   /**
    * 打开报警视频页面
@@ -266,7 +169,7 @@ class IMiotCamera {
    */
   @report
   showAlarmVideos(localRecognizeEvents) {
-    NativeModules.MHCameraSDK.showAlarmVideos(Device.deviceID, localRecognizeEvents)
+     return 
   }
   /**
    * 打开云储存页面
@@ -276,7 +179,7 @@ class IMiotCamera {
    */
   @report
   showCloudStorage(supportHevc, useV2API) {
-    NativeModules.MHCameraSDK.showCloudStorage(Device.deviceID, supportHevc, useV2API)
+     return 
   }
   /**
    * 打开云储存设置页面
@@ -284,7 +187,7 @@ class IMiotCamera {
    */
   @report
   showCloudStorageSetting() {
-    NativeModules.MHCameraSDK.showCloudStorageSetting(Device.deviceID)
+     return 
   }
   /**
    * 打开人脸识别页面
@@ -293,40 +196,21 @@ class IMiotCamera {
    */
   @report
   showFaceRecognize(isVip) {
-    NativeModules.MHCameraSDK.showFaceRecognize(Device.deviceID, isVip)
+     return 
   }
   /* 注册收到数据速率 Bytes per second，每秒回调一次
    * @param {string} callbackName 回调名称 { rate: number }
    */
   @report
   bindBPSReceiveCallback(callbackName) {
-    //@native :=>
-    NativeModules.MHCameraSDK.bindBpsDataCallback(Device.deviceID, callbackName);
-    //@native
+     return 
   }
   /*
   * 拉取当前正在播放时间戳 js端控制拉取节奏
   */
   @report
   getCurrentFrameInfo() {
-    return new Promise((resolve, reject) => {
-      NativeModules.MHCameraSDK.getCurrentFrameInfo(Device.deviceID, (result, data) => {
-        if (result) {
-          if (typeof (data) === "string") {
-            try {
-              let frameInfo = JSON.parse(data);
-              resolve(frameInfo);
-            } catch (e) {
-              reject("invalid json str");
-            }
-          } else {
-            reject("wrong result type")
-          }
-        } else {
-          reject("invalid return code");
-        }
-      });
-    })
+     return Promise.resolve(null);
   }
 }
 const MiotCameraInstance = new IMiotCamera();
