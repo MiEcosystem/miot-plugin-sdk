@@ -7,8 +7,7 @@
  * @description 智能家庭 API
  *
  */
-//@native
-import native from "../native";
+import {report} from "../decorator/ReportDecorator";
 /**
  * 成员类型
  * @namespace MemberType
@@ -26,7 +25,7 @@ export const MemberType = {
     Pet: 'pet'
 };
 Object.freeze(MemberType)
-export default {
+class ISmartHome {
     /**
      * @typedef {Object} UserInfo
      * @property {number} uid user id; since 10010
@@ -39,22 +38,10 @@ export default {
      * @param {*} uid 获取用户信息的uid或者手机号
      * @returns {Promise<UserInfo>} 用户信息
      */
+    @report
     getUserInfo(uid) {
-        //@native :=> promise {}
-        return new Promise((resolve, reject) => {
-            native.MIOTService.loadAccountInfo(uid,
-                (status, resp) => {
-                    if (status && resp) {
-                        console.log("rep:", resp)
-                        //iOS 下获取某用户信息为直接透传，因此有时为nickname
-                        resolve({ nickName: resp.nickname || resp.nickName, avatarURL: resp.avatarURL, uid: resp.currentAccountID2 || resp.userid || resp.id })
-                    } else {
-                        reject({ ok: false, message: "" })
-                    }
-                });
-        })
-        //@native end
-    },
+         return Promise.resolve({});
+    }
     /**
      * 通过UID批量获取用户信息
      * @deprecated 已废弃，请使用 Service.account.getAccountInfoList 方法
@@ -66,19 +53,10 @@ export default {
      *  console.log('user info :', res.list)
      * })
      */
+    @report
     getUserInfoList(uids) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/home/profiles", { uids }, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * @typedef GPSInfo
      * @property lng - 经度
@@ -106,47 +84,10 @@ export default {
      * }
      *
      */
+    @report
     reportGPSInfo(deviceID, gpsInfo) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/location/set", { ...gpsInfo, did: deviceID }, (ok, res) => {
-                ok && resolve(res || true);
-                !ok && reject(res);
-            })
-        })
-        //@native end
-    },
-    //@native begin
-    /**
-     * @typedef WeatherInfo
-     * @property city - 城市名称
-     * @property city_id - 城市ID
-     * @property pub_time - 发布时间
-     * @property aqi - 空气指数
-     * @property pm25 - PM2.5
-     * @property pm10 - PM1.0
-     * @property so2 - 二氧化硫
-     * @property no2 - 二氧化氮
-     * @property src - 数据来源，eg：中国环境监测总站
-     */
-    /**
-     * 获取天气 /location/weather
-     * 该API 改为私有
-     * @param {string} deviceID 设备ID
-     * @returns {Promise<WeatherInfo>}
-     *
-     */
-    getWeatherInfo(deviceID) {
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/location/weather", { did: deviceID }, (ok, res) => {
-                if (ok && res.aqi) {
-                    return resolve(res.aqi);
-                }
-                reject(res);
-            })
-        });
-    },
-    //@native end
+         return Promise.resolve(null);
+    }
     /**
      * 设备固件版本信息
      * @typedef DeviceVersion
@@ -182,25 +123,12 @@ export default {
      *  .then(res => console.log('success:', res))
      *  .catch(err => console.log('failed:', err))
      */
+    @report
     checkDeviceVersion(did, pid) {
-        //@native :=> promise {}
-        return new Promise((resolve, reject) => {
-            //const { did, pid } = Properties.of(this)
-            native.MIOTRPC.standardCall("/home/checkversion", { did, pid }, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                const { updating, isLatest, description, force, curr, latest, ota_start_time, ota_progress, ota_failed_code, ota_failed_reason, ota_status } = res;
-                resolve({
-                    isUpdating: updating, isLatest, isForce: force, description,
-                    curVersion: curr, newVersion: latest, hasNewFirmware: updating ? false : !isLatest,
-                    otaState: { state: ota_status, startTime: ota_start_time, progress: ota_progress, failedCode: ota_failed_code, failedReason: ota_failed_reason }
-                })
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve({});
+    }
     // @native begin
+    @report
     getProtocolUrls(params) {
         return new Promise((resolve, reject) => {
             native.MIOTRPC.standardCall("/v2/plugin/get_protocol", params, (ok, res) => {
@@ -210,120 +138,37 @@ export default {
                 reject(res);
             });
         });
-    },
+    }
     // @native end
-    //@native begin
-    getAreaPropInfo(params) {
-        // 有限公开
-        // 获取某指定地区天气环境等信息
-        // /location/area_prop_info
-        // { "longitude": "116.3249176", "latitude": "40.0365709" }
-        // { "area_id": "101280601" }
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/location/area_prop_info", params, (ok, res) => {
-                if (ok) {
-                    return resolve(res);
-                }
-                reject(res);
-            })
-        });
-    },
-    //@native end
     /**
      * // 获取可用固件更新，传参为dids。 /home/multi_checkversion
      * @param {array<string>} deviceIDs 设备ID
      * @return {Promise<json>}
      */
+    @report
     getAvailableFirmwareForDids(deviceIDs) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            var resultHandler = (ok, res) => {
-                console.log("res:", res)
-                if (!ok || res == null) {
-                    return reject(res);
-                }
-                if (res.list) {
-                    //Android获取的接口数据在list字段下
-                    res = res.list;
-                }
-                if (res instanceof Array) {
-                    var result = []
-                    for (var i = 0; i < res.length; i++) {
-                        var item = res[i];
-                        if (native.isIOS) {
-                            const { updating, isLatest, desp, force, currentVersion, latest } = item;
-                            result.push({
-                                isUpdating: updating, isLatest, isForce: force, description: desp,
-                                curVersion: currentVersion, newVersion: latest,
-                                hasNewFirmware: updating ? false : !isLatest
-                            })
-                        } else {
-                            const { updating, isLatest, description, force, curr, latest } = item;
-                            result.push(
-                                {
-                                    isUpdating: updating, isLatest, isForce: force, description,
-                                    curVersion: curr, newVersion: latest,
-                                    hasNewFirmware: updating ? false : !isLatest
-                                }
-                            );
-                        }
-                    }
-                    resolve(result)
-                } else {
-                    const { updating, isLatest, description, force, curr, latest } = res;
-                    resolve(
-                        {
-                            isUpdating: updating, isLatest, isForce: force, description,
-                            curVersion: curr, newVersion: latest,
-                            hasNewFirmware: updating ? false : !isLatest
-                        }
-                    );
-                }
-            };
-            if (native.isIOS) {
-                native.MIOTHost.getAvailableFirmwareForDids(deviceIDs, resultHandler)
-                return
-            }
-            native.MIOTRPC.standardCall("/home/multi_checkversion", { "dids": deviceIDs }, resultHandler);
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 获取服务器中 最新的版本信息，内部调用米家代理接口/home/latest_version
      * @deprecated 请使用下面的getLatestVersionV2
      * @param {string} model 设备的 model
      * @return {Promise}
      */
+    @report
     getLatestVersion(model) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/home/latest_version", { model }, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 获取服务器中 最新的版本信息，
      * 内部调用米家代理接口/v2/device/latest_ver
      * @since 10004
      * @param {string} did 设备did
      */
+    @report
     getLatestVersionV2(did) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/v2/device/latest_ver", { did }, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 添加一条日志打点。
      * 开发者应该在拓展程序内合适时机调用该接口，打点信息会自动写入文件，按 Model 归类，即一个 Model 生成一个日志文件。
@@ -340,14 +185,9 @@ export default {
      *     Package.isDebug&&Service.smarthome.reportLog(...)
      *
      */
+    @report
     reportLog(model, log) {
-        //@native begin
-        // model = (typeof(model)=="string")?model:(model?model.model:null)
-        if (!model) return;
-        //直接执行, 无返回
-        native.MIOTService.addLog(model, log + "");
-        //@native end
-    },
+    }
     /**
      * 上报设备数据 /device/event
      * 会更新状态+存到历史(相当于调用setDeviceData 接口)+触发自动化
@@ -357,18 +197,10 @@ export default {
      * @example
      * Service.smarthome.reportRecords("deviceID", [{type:"prop",key:"b",value:"c"}])
      */
+    @report
     reportRecords(deviceID, records) {
-        //@native :=> promise null
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/device/event", { did: deviceID, datas: records }, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * /v2/device/set_extra_data
      *  写extra_data 字段，必须为map[string] string格式
@@ -377,19 +209,10 @@ export default {
      * @param {json} params  -参数 {did, extra_data}
      * @return {Promise}
      */
+    @report
     deviceSetExtraData(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            console.warn("deviceSetExtraData was deprecated since 10005, use batchGetDeviceDatas instead。")
-            native.MIOTRPC.standardCall("/v2/device/set_extra_data", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 通过前缀分批拉取设备的配置信息
      * - /v2/device/range_get_extra_data
@@ -397,55 +220,29 @@ export default {
      * @param {json} params {did:string,prefix:string,limit:int,offset:int}
      * @return {Promise<json>}
      */
+    @report
     getDevicesConfig(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            console.warn("getDevicesConfig was deprecated since 10005, use batchGetDeviceDatas instead。")
-            native.MIOTRPC.nativeCall("/v2/device/range_get_extra_data", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 删除设备上传的信息 /v2/device/del_extra_data
      * @deprecated 10005 开始废弃， 后续版本会移除该方法。batchSetDeviceDatas 设置的属性会随着设备删除自动清空
      * @param {json} params {did:string, keys:[key1,key2]}
      * @return {Promise<json>}
      */
+    @report
     delDevicesConfig(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            console.warn("delDevicesConfig was deprecated since 10005, this function will no longer support。")
-            native.MIOTRPC.nativeCall("/v2/device/del_extra_data", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 获取设备时区
      * @deprecated 10005, 内部取用extra_Data 中设置的数据，建议自行在batchSetDeviceData中实现
      * @param {string} did
      */
+    @report
     getDeviceTimeZone(did) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/v2/device/get_extra_data", { did: did, keys: ["timezone"] }, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            })
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 提供返回设备数据统计服务，使用该接口需要配置产品model以支持使用，建议找对接的产品人员进行操作。
      * 图表📈统计接口 /v2/user/statistics
@@ -472,38 +269,23 @@ export default {
             }]
     }
      */
+    @report
     getUserStatistics(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/v2/user/statistics", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 获取支持语音的设备 可以控制的设备列表。 /voicectrl/ai_devs
      * @param deviceID  语音设备的 did
      * @return {Promise}
      */
+    @report
     getVoiceCtrlDevices(deviceID) {
         return this.getVoiceVtrlDevices(deviceID);
-    },
+    }
+    @report
     getVoiceVtrlDevices(deviceID) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall('/voicectrl/ai_devs', { "did": deviceID }, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 获取小爱接口数据，内部调用米家代理接口/v2/api/aivs
      * @param {json} params 请求参数 {path:string,params:map,header:map,payload:map,env:int,req_method:string,req_header:map}
@@ -526,18 +308,10 @@ export default {
      *  req_header: {"Content-Type":"xx"}
      * }).then()
      */
+    @report
     getAiServiceProxy(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/v2/api/aivs", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 获取服务器中 device 对应的数据，内部调用米家代理接口 /device/getsetting
      * @deprecated 10010 开始废弃， 后续版本会移除该方法。 推荐使用 getDeviceSettingV2
@@ -546,19 +320,10 @@ export default {
      * @param {Array<string>} params.settings 指定设置的key数组
      * @return {Promise}
      */
+    @report
     getDeviceSetting(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            console.warn("getDeviceSetting was deprecated since 10010, use getDeviceSettingV2 instead.")
-            native.MIOTRPC.nativeCall("/device/getsetting", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 获取服务器中 device 对应的数据，内部调用米家代理接口 /v2/device/getsettingv2
      * @since 10010
@@ -569,18 +334,10 @@ export default {
      * @param {Array<string>} params.settings 指定设置的key数组
      * @return {Promise}
      */
+    @report
     getDeviceSettingV2(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/v2/device/getsettingv2", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 设置服务器中 device 对应的数据，内部调用米家代理接口/device/setsetting
      * @param {object} params 请求参数 {did:string,settings:map<key,value>}
@@ -588,18 +345,10 @@ export default {
      * @param {object} params.settings 指定设置的key数组
      * @return {Promise}
      */
+    @report
     setDeviceSetting(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall('/device/setsetting', params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 删除服务器中 device 对应的数据，内部调用米家代理接口/device/delsetting
      * @param {json} params  - 请求参数
@@ -607,18 +356,10 @@ export default {
      * @param {object} params.settings 指定要删除的key数组
      * @return {Promise}
      */
+    @report
     delDeviceSetting(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/device/delsetting", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 添加设备属性和事件历史记录，/user/set_user_device_data
      * 对于蓝牙设备，params.key 可参考文档  https://iot.mi.com/new/guide.html?file=04-嵌入式开发指南/06-BLE产品接入/06-米家BLE%20Object定义#/
@@ -631,18 +372,10 @@ export default {
      * @param {number} params.time 触发时间戳，
      * @return {Promise}
      */
+    @report
     setDeviceData(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/user/set_user_device_data", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 查询用户名下设备上报的属性和事件
      * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加.
@@ -660,18 +393,10 @@ export default {
      * @param {string} params.limit 返回数据的条数，默认20，最大1000。可选参数.
      * @returns {Promise}
      */
+    @report
     getDeviceData(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/user/get_user_device_data", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 删除用户的设备信息（prop和event 除外）.
      * 删除对应时间戳的上报的数据，无法删除type为prop和event,删除后可用get_user_device_data校验。
@@ -685,18 +410,10 @@ export default {
      * @param {string} params.time 指定时间戳
      * @param {string} params.value 指定值
      */
+    @report
     delDeviceData(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/user/del_user_device_data", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 用于按照时间顺序拉取指定uid,did的发生的属性事件
      * /v2/user/get_user_device_log
@@ -707,18 +424,10 @@ export default {
      * @param {number} params.time_start    开始时间
      * @param {number} params.time_end      结束时间
      */
+    @report
     getUserDeviceLog(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/v2/user/get_user_device_log", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 获取用户收藏
      * /user/get_user_coll
@@ -726,18 +435,10 @@ export default {
      * @param {string} params.did did
      * @return {Promise}
      */
+    @report
     getUserColl(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/user/get_user_coll", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 设置用户收藏
      * /user/get_user_coll
@@ -747,18 +448,10 @@ export default {
      * @param {string} params.content content
      * @return {Promise}
      */
+    @report
     setUserColl(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/user/set_user_coll", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * /user/edit_user_coll
      *  编辑用户收藏
@@ -766,18 +459,10 @@ export default {
      * @param {json} params  -参数 {coll_id, newname， content}
      * @return {Promise}
      */
+    @report
     editUserColl(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/user/edit_user_coll", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 删除用户收藏
      * /user/get_user_coll
@@ -786,36 +471,20 @@ export default {
      * @param {string} params.coll_id coll_id
      * @return {Promise}
      */
+    @report
     delUserColl(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/user/del_user_coll", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 石头扫地机专用
      * 添加设备属性和事件历史记录，/home/getmapfileurl
      * @param {json} params
      * @return {Promise}
      */
+    @report
     getMapfileUrl(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/home/getmapfileurl", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 石头扫地机器人专用，获取fds存储文件url
      *  /home/getrobomapurl
@@ -823,18 +492,10 @@ export default {
      * @param {*} arams {“obj_name”:”xxx/12345678/87654321/1.0”}，obj_name格式为:fds存储文件夹/did/uid/obj_name
      * @return {Promise}
      */
+    @report
     getRobomapUrl(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/home/getrobomapurl", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 石头扫地机器人专用，撤销隐私时删除扫地机地图
      *  /user/del_user_map
@@ -842,18 +503,10 @@ export default {
      * @param {json} params {did} 设备ID
      * @return {Promise}
      */
+    @report
     delUsermap(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/user/del_user_map", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 添加设备属性和事件历史记录，/home/device_list
      * 当ssid和bssid均不为空时，表示同时搜索这个局域网内所有未被绑定过的设备
@@ -868,19 +521,10 @@ export default {
      * 其中，pid：设备PID，ssid：wifi名称，bssid：wifi网关mac，locatDidList：本地设备did列表，补充ssid和bssid的本地查询条件，会与ssid查到的本地列表一起返回其中未被绑定的在线设备，checkMoreWifi：检查2.4gwifi下的本地设备列表，did：要拉取列表的设备的did，如果为空表示所有设备
      * @return {Promise}
      */
+    @report
     getHomeDevice(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            //iOS 端getHuamiDevices 参数皆为true，如果不设置，默认使用true
-            native.MIOTRPC.standardCall("/home/device_list", { 'getHuamiDevices': true, ...params }, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 获取AppConfig配置文件，1. 插件端有一些自己的信息需要配置，可使用此接口 2. 局限性：只有小米内部有权配置，之后可能会出对外版（目前只能找米家产品经理/工程师帮忙配置）
      *  **维护起来很不方便，不建议使用。**
@@ -891,58 +535,30 @@ export default {
      * @param {string} params.result_level  正常传"0"，若传“1”，则会提供一个downloadurl，而不是直接返回content，以节省流量。取得downloadurl后，通过Host.file.downloadFile下载文件，然后使用
      * @param {string} params.version version 后台配置的version，大概率为"1"，如果不对，可以找米家工程师帮忙查询，查询地址：http://plato.io.mi.srv/#/appconfig/client
      */
+    @report
     getAppConfig(params) {
-        //@native :=> promise
-        if (params && params.name) {
-            let isPreview = (native.MIOTHost.appConfigEnv === 1 ? true : false);
-            params.name = isPreview ? params.name + "_preview" : params.name;
-        }
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/service/getappconfig", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 用于获取插件所需的一些默认配置信息
      * @deprecated 10010, SDKLevel 10010 废弃该接口，使用getAppConfig
      * @param {json} params {'name':'自定义值','lang':'自定义值','version':'自定义值','model':'modelId'}
      * /service/getappconfigv2
      */
+    @report
     getAppConfigV2(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/service/getappconfigv2", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 获取设备所在网络的IP地址所属国家
      * /home/getcountry
      * @param {json} params {"dids": ["xx"]}
      * @return {Promise}
      */
+    @report
     getCountry(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/home/getcountry", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 获取蓝牙锁绑定的时间，/device/blelockbindinfo
      *
@@ -950,18 +566,10 @@ export default {
      * @param {string} params.did  did
      * @return {Promise}
      */
+    @report
     getBleLockBindInfo(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/device/blelockbindinfo", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 获取设备的属性，属性设置会在设备被删除时清空
      * api call /device/batchdevicedatas
@@ -985,11 +593,10 @@ export default {
      *
      *
      */
+    @report
     batchGetDeviceDatas(params) {
-        //@native :=> promise
-        return this.batchGetDeviceProps(params);
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 设置设备属性, 属性设置会在设备被删除时清空
      * 备注： props最多20个，最多同时300个设备（目前max设备数)，属性需要以prop.s_ 开头
@@ -1011,18 +618,10 @@ export default {
      * Service.smarthome.batchSetDeviceDatas([params]).then(...)
      *
      */
+    @report
     batchSetDeviceDatas(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/v2/device/batch_set_props", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 设置设备属性，e.g 配置摄像头/门铃设备的属性
      * props最多20个, 属性需要以"prop.s_"开头。
@@ -1044,30 +643,10 @@ export default {
      * }}
      * Service.smarthome.setDeviceProp(params).then(...)
      */
+    @report
     setDeviceProp(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/v2/device/set_props", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
-    //@native begin
-    batchGetDeviceProps(params) {
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/device/batchdevicedatas", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-    },
-    //@native end
+         return Promise.resolve(null);
+    }
     /**
      * 从服务器获取配置文件，/device/getThirdConfig
      *
@@ -1080,122 +659,36 @@ export default {
      * @param {string} params.version version
      * @return {Promise}
      */
+    @report
     getThirdConfig(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/device/getThirdConfig", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * /v2/third/synccall. 兼容三方厂商使用
      * @since 10003
      * @param {json} params {"uid": , "did":, "api_name": , ...}
      * @return {Promise<json>} {"code": 0, "policy": <POLICY_NUMBER">, ...}
      */
+    @report
     thirdSyncCall(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/v2/third/synccall", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 异步调用第三方云接口  /third/api
      *
      * @param {json} params  -参数 {"app_id":"123","dids":["1","2"],"params":json}
      * @return {Promise}
      */
+    @report
     callThirdPartyAPI(params) {
-        //@native :=> promise
-        //这个接口在iOS原生下处于无人维护了，直接切换到纯JS使用
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/third/api", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                // 和 ios统一
-                if (res.code !== undefined && res.code === 0 && res.result !== undefined) {
-                    let result = res.result;
-                    if (result.interval) {
-                        let p = { "sid": result.sid, 'interval': result.interval }
-                        this.callThirdApiResult(result, 1, 1, result.max_retry).then(r => {
-                            resolve(r);
-                        }).catch(e => {
-                            reject(e);
-                        });
-                    } else {
-                        resolve(result);
-                    }
-                } else {
-                    reject(res);
-                }
-            });
-        });
-        //@native end
-    },
-    //@native begin
-    callThirdApiResultWithCallBack(rsp, retryTime, realTime, max, that, callback) {
-        rsp = { ...rsp, retry_time: retryTime };
-        native.MIOTRPC.nativeCall("/third/api_result", rsp, (ok, res) => {
-            if (!ok) {
-                if (res && res.code === -17) {
-                    console.log('retry time :' + { realTime } + ' please wait');
-                } else {
-                    callback(ok, res);
-                    return;
-                }
-            }
-            if (res.code === 0 && res.result) {
-                callback(ok, res.result);
-            } else if (res.code === -17) {
-                if (retryTime < max) {
-                    let interval = rsp.interval;
-                    interval = interval / 10.0 > 0.5 ? interval : 0.5;
-                    interval = interval * Math.pow(2, (realTime - 1));
-                    interval = interval > rsp.interval ? rsp.interval : interval;
-                    let retryC = (interval < rsp.interval / 2.0 && realTime < 4) ? retryTime : retryTime + 1;
-                    let realT = realTime + 1;
-                    setTimeout(() => {
-                        that.callThirdApiResultWithCallBack(rsp, retryC, realT, max, that, callback);
-                    }, interval * 1000)
-                } else {
-                    callback(false, { "message": "client time out", code: -408 });
-                }
-            } else {
-                callback(false, res);
-            }
-        });
-    },
-    callThirdApiResult(rsp, retryTime, realTime, max) {
-        let that = this;
-        return new Promise((resolve, reject) => {
-            this.callThirdApiResultWithCallBack(rsp, retryTime, realTime, max, that, (ok, res) => {
-                console.log("callThirdApiResult retryTime:" + retryTime + " realTime:" + realTime + " maxcount:" + max + " result: " + ok + " response:" + res);
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            });
-        });
-    },
-    //@native end
+         return Promise.resolve(null);
+    }
     /**
      * 华米watch配置使用
      * Android not support yet
      * @return {Promise}
      */
+    @report
     getMiWatchConfig() {
         if (native.isAndroid) {
             return new Promise.reject("not support android yet");
@@ -1208,59 +701,35 @@ export default {
                 reject("get failed");
             });
         });
-    },
+    }
     /**
      * 获取authCode来做鉴权
      * @param string} did 设备的 did
      * @returns {Promise}
      */
+    @report
     getUserDeviceAuth(did) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/user/get_device_auth", { did }, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 获取InterimFileUrl 获取临时文件。文档请参考：https://iot.mi.com/new/doc/08-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/03-%E5%AD%98%E5%82%A8/01-%E4%BD%BF%E7%94%A8FDS%E5%AD%98%E5%82%A8%E7%94%A8%E6%88%B7%E6%96%87%E4%BB%B6.html#%E5%9B%9B%EF%BC%8Efds%E5%AD%98%E5%82%A8%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD%E6%B5%81%E7%A8%8B
      * @param {json} params  -参数 {obj_name : '{ownerId}/{deviceId}/{index}'}
      * @returns {Promise}
      */
+    @report
     getInterimFileUrl(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/v2/home/get_interim_file_url", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 获取文件下载地址
      * @deprecated 10004 使用 Host.file.getFDSFileInfoWithObjName
      * @param {json} params  -参数 {obj_name : '2018/06/08/123456/xiaomi123_181030106.mp3'}
      * @return {Promise}
      */
+    @report
     getFileUrl(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/home/getfileurl", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 日志分页拉取
      * @since 10001
@@ -1272,18 +741,10 @@ export default {
      * @param {number} params.limit
      * @return {Promise}
      */
+    @report
     getUserDeviceDataTab(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/v2/user/getuserdevicedatatab", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * /v2/home/range_get_open_config
      * 通过appid、category、configid获获取对应的配置，请参考文档文档：https://iot.mi.com/new/doc/08-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/03-%E5%AD%98%E5%82%A8/03-KV-OpenConfig.html
@@ -1291,36 +752,20 @@ export default {
      * @param {json} params  -参数 {did,category,configids,offset,limit}
      * @return {Promise}
      */
+    @report
     rangeGetOpenConfig(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/v2/home/range_get_open_config", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 门锁米家APP上传Cid,Did,Uid，返回处理结果。函数内部与金服APP建立http连接签名传输配置信息与NFC卡片信息
      * Service.smarthome.BindNFCCard(params)
      * @since 10003
      * @param {json} params {did:'', uid:'', cid:''}
      */
+    @report
     bindNFCCard(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/v2/nfckey/bind_nfc_card", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 米家app查询NFC卡信息，使用did查询did下绑定的NFC卡列表信息
      * @since 10003
@@ -1353,35 +798,19 @@ export default {
         }
     }
      */
+    @report
     getNFCCard(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/v2/nfckey/get_nfc_card", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * /yaokan/insertunmodel
      * @since 10004
      * @param {json} params {device:int, id: int, brand: string, model: string}
      */
+    @report
     insertunmodel(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/yaokan/insertunmodel", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * call api /scene/idfy_get
      * @since 10005
@@ -1391,18 +820,10 @@ export default {
      * let params = {identify:Device.deviceID}
      * Service.smarthome.getIDFY(params)
      */
+    @report
     getIDFY(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/scene/idfy_get", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * call api /scene/idfy_get
      * @since 10005
@@ -1411,59 +832,43 @@ export default {
      * let params = {"identify":"554011","st_id":7,"setting":{"aqi_link":"0","exception_alert":"1","blue_sky_alert":"0"},"authed":["554011"]}
      * Service.smarthome.editIDFY(params)
      */
+    @report
     editIDFY(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/scene/idfy_edit", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * call api /v2/home/range_get_open_config
      * @since 10005
      * @deprecated 10011 改用 Service.smarthome.rangeGetOpenConfig
      * @param {json} params json params {did:string, category:string, configids:array, offset: int, limit:int}, did: 设备did。 category 配置类别， configids： 配置id 为空时返回所有配置，不超过20个，不为空时没有数量限制， offset 偏移；limit 数量，不超过20
      */
+    @report
     getRangeOpenConfig(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/v2/home/range_get_open_config", params, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * @typedef MemberPet
-     * @property {string} id
-     * @property {string} name      名称
-     * @property {string} sex       性别
-     * @property {string} birth     生日
+     * @property {string} id  成员id（必填且不可为空） 标识用户下成员id，若设置小米id则为对应小米id
+     * @property {string} name      名称  成员昵称（必填且不可为空）  不得加入emoji及米家命名标准以外的特殊字符，长度定义为20中文或40个英文
+     * @property {string} sex       性别  公：male  母：female   未选择：unknown
+     * @property {string} birth     生日  格式：xxxx-xx
      * @property {double} weight    重量
      * @property {string} species   物种
      * @property {string} variety   品种
      * @property {string} food_cate 食品
      * @property {int} active_rate  活跃度
-     * @property {int} castrated    阉割
+     * @property {int} castrated    阉割   定义：-1:否   0:未设定   1:是
      * @property {int} special_mark 特殊标志
      */
     /**
      * @typedef MemberPerson
-     * @property {string} id
-     * @property {string} name      姓名
-     * @property {string} sex       性别
-     * @property {string} birth     生日
+     * @property {string} id  成员id（必填且不可为空） 标识用户下成员id，若设置小米id则为对应小米id
+     * @property {string} name      姓名  成员昵称（必填且不可为空）  不得加入emoji及米家命名标准以外的特殊字符，长度定义为20中文或40个英文
+     * @property {string} sex       性别  成员性别（必填且不可为空）  男性：male  女性：female  未选择：unknown
+     * @property {string} birth     生日  格式：xxxx-xx-xx
      * @property {double} height    身高
      * @property {double} weight    体重
-     * @property {string} relation  关系
+     * @property {string} relation  关系  与主账号关系
      * @property {string} icon      预留项，暂不支持设置
      * @property {int} xiaomi_id    小米uid
      * @property {string} region    国家区域
@@ -1475,19 +880,10 @@ export default {
      * @param {MemberType} type 成员类型 pet or person
      * @param {MemberPerson} info  - MemberPerson 或者 MemberPet
      */
+    @report
     createMember(type, info) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/v2/user/create_member", { type, info }, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 更新成员信息
      * @since 10005
@@ -1495,56 +891,29 @@ export default {
      * @param {string} member_id
      * @param {MemberPerson} info - MemberPerson 或者 MemberPet 只填写需要更新的项目
      */
+    @report
     updateMember(type, member_id, info) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/v2/user/update_member", { type, member_id, info }, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 删除成员
      * @since 10005
      * @param {MemberType} type
      * @param {Array} member_id 成员id列表
      */
+    @report
     deleteMember(type, member_id) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/v2/user/remove_member", { type, member_id }, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 加载指定种类的成员列表
      * @since 10005
      * @param {MemberType} type
      */
+    @report
     loadMembers(type) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/v2/user/get_member", { type }, (ok, res) => {
-                if (ok && res instanceof Array) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 设置用户信息
      * call /user/setpdata, 其中的time为关键信息，在getpdata使用时将利用此值。
@@ -1554,19 +923,10 @@ export default {
      * @param {string} params.key key 字串
      * @param {string} params.value value值
      */
+    @report
     setUserPDData(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/user/setpdata", params, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 获取用户信息
      * call /user/getpdata
@@ -1577,19 +937,10 @@ export default {
      * @param {object} params.time_start 筛选结果的时间戳
      * @param {object} params.key 获取的key
      */
+    @report
     getUserPDData(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/user/getpdata", params, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * App获取设备上报操作记录
      * request /v2/user/get_device_data_raw
@@ -1603,19 +954,10 @@ export default {
      * @param {string} params.time_end 结束UTC时间
      * @param {string} params.limit    最多返回结果数目，上限500。注意按需填写，返回数据越多查询越慢
      */
+    @report
     getDeviceDataRaw(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/v2/user/get_device_data_raw", params, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 透传米家APP与小米支付创建session
      * request /v2/nfckey/create_se_session
@@ -1630,19 +972,10 @@ export default {
      * @param {string} params.reqData.timestamp // 透传给Mipay的数据
      * @param {string} params.reqData.sign // 透传给Mipay的数据
      */
+    @report
     createSeSession(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/v2/nfckey/create_se_session", params, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 透传替换ISD key
      * request /v2/nfckey/replace_se_isdkey
@@ -1657,19 +990,10 @@ export default {
      * @param {string} params.reqData.timestamp // 透传给Mipay的数据
      * @param {string} params.reqData.sign // 透传给Mipay的数据
      */
+    @report
     replaceSEISDkey(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/v2/nfckey/replace_se_isdkey", params, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 透传锁主密钥重置
      * request /v2/nfckey/reset_lock_primarykey
@@ -1684,19 +1008,10 @@ export default {
      * @param {string} params.reqData.timestamp // 透传给Mipay的数据
      * @param {string} params.reqData.sign // 透传给Mipay的数据
      */
+    @report
     resetLockPrimaryKey(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/v2/nfckey/reset_lock_primarykey", params, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 处理芯片返回
      * request /v2/nfckey/handle_se_response
@@ -1728,19 +1043,10 @@ export default {
      *  }
      * }
      */
+    @report
     handleSEResponse(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/v2/nfckey/handle_se_response", params, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
-    },
+         return Promise.resolve(null);
+    }
     /**
      * 上报蓝牙设备信息
      * call: /v2/device/bledevice_info
@@ -1754,17 +1060,23 @@ export default {
      * @param {string} prarms.longitude 经度，number字符串
      * @param {string} prarms.iternetip app/网关IP地址
      */
+    @report
     reportBLEDeviceInfo(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.nativeCall("/v2/device/bledevice_info", params, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
+         return Promise.resolve(null);
+    }
+    /**
+     * since 10036
+     * @param {string} eventName 事件名
+     * @param {map} params kv键值对，key和value都必须是string类型
+     * @example
+     * let eventName = 'testEvent';
+     * let params = {'key1':'value1','key2':'value2','tip':'tips'};
+     * Service.smarthome.reportEvent(eventName,params);
+     */
+    @report
+    reportEvent(eventName,params){
+        native.MIOTService.reportEvent(eventName,params);
     }
 }
+const SmartHomeInstance = new ISmartHome();
+export default SmartHomeInstance;

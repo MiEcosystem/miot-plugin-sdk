@@ -69,6 +69,7 @@ export default class FileStorage extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView
+          style={{backgroundColor: '#ffffff'}}
           ref="myScrollView"
         >
           <View style={[styles.row, { marginTop: 10 }]}>

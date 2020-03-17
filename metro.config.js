@@ -17,6 +17,6 @@ module.exports = {
     server: {
       /* server options */
     }
-  
+
     /* general options */
   };

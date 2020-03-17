@@ -241,7 +241,7 @@ export { firstAllOptions, secondAllOptions };
  * ```js
  * // extraOptions
  * extraOptions: {
- *   showUpgrade: bool // 「固件升级」是否跳转原生固件升级页面。默认值true。一般来说，wifi设备跳转原生固件升级页面，蓝牙设备不跳转原生固件升级页面
+ *   showUpgrade: bool // 「固件升级」是否跳转原生固件升级页面。默认值true。一般来说，wifi设备跳转原生固件升级页面，蓝牙设备（传入bleOtaAuthType除外）不跳转原生固件升级页面
  *   upgradePageKey: string // 「固件升级」如果不跳转原生固件升级页面，请传入想跳转页面的key(定义在 index.js 的 RootStack 中)
  *   licenseUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明，SDK_10023 开始废弃
  *   policyUrl: 资源id, // 见 miot/Host.ui.privacyAndProtocolReview 的传参说明，SDK_10023 开始废弃
@@ -250,6 +250,7 @@ export { firstAllOptions, secondAllOptions };
  *   option: object // 见 miot/Host.ui.previewLegalInformationAuthorization 的传参说明
  *   syncDevice: bool // 插件端设置时区后是否需要后台同步到设备端, 见 miot/Host.ui.openDeviceTimeZoneSettingPage 的传参说明
  *   networkInfoConfig: number // 「更多设置」页面是否显示「网络信息」设置项。0：不显示；1：显示；-1：米家默认配置（蓝牙设备不显示，Wi-Fi设备显示）
+ *   bleOtaAuthType: number // 打开通用的蓝牙固件OTA的原生页面。指定设备的协议类型 0: 普通小米蓝牙协议设备(新接入设备已废弃该类型)，1: 安全芯片小米蓝牙设备（比如锁类产品） 4: Standard Auth 标准蓝牙认证协议(通常2019.10.1之后上线的新蓝牙设备) 5: mesh 设备
  * }
  * ```
  * @property {object} navigation - 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面
@@ -396,7 +397,7 @@ export default class CommonSetting extends React.Component {
    */
   chooseFirmwareUpgrade() {
     // 默认是wifi设备固件升级的原生页面
-    const { showUpgrade, upgradePageKey } = this.props.extraOptions;
+    const { showUpgrade, upgradePageKey, bleOtaAuthType } = this.props.extraOptions;
     let { modelType } = this.state;
     Device.needUpgrade = false;
     if (showUpgrade === false) {
@@ -426,6 +427,9 @@ export default class CommonSetting extends React.Component {
         // 2019/11/21 新灯组2.0需求
         // 虚拟组设备，跳v2.0固件更新页
         Host.ui.openLightGroupUpgradePage();
+      }
+      else if ([0, 1, 4, 5].includes(bleOtaAuthType)) {
+        Host.ui.openBleCommonDeviceUpgradePage({ auth_type: bleOtaAuthType });
       }
       else {
         Host.ui.openDeviceUpgradePage();
@@ -621,7 +625,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
-    height: 42,
+    height: 55,
     borderRadius: 5,
     borderWidth: 0.3,
     borderColor: 'rgba(0,0,0,0.2)',

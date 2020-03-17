@@ -18,8 +18,6 @@
  * })
  *
  */
-//@native
-import native, { Properties } from '../native';
 import {report} from '../decorator/ReportDecorator';
 /**
  * @interface
@@ -48,8 +46,7 @@ class IAccount {
    *
    */
   get isLoaded() {
-    //@native => false
-    return Properties.of(this).isLoaded;
+     return  false
   }
   /**
    * 当前登录账户userid,不依赖于load方法
@@ -57,8 +54,7 @@ class IAccount {
    * @readonly
    */
   get ID() {
-    //@native => 0
-    return Properties.of(this).id;
+     return  0
   }
   /**
    *  用户昵称,依赖于load方法
@@ -66,8 +62,7 @@ class IAccount {
    * @readonly
    */
   get nickName() {
-    //@native => ""
-    return Properties.of(this).nickName;
+     return  ""
   }
   /**
    *  用户头像的下载地址,依赖于load方法
@@ -75,8 +70,7 @@ class IAccount {
    * @readonly
    */
   get avatarURL() {
-    //@native => ""
-    return Properties.of(this).avatarURL;
+     return  ""
   }
   /**
    *  用户生日,依赖于load方法
@@ -84,8 +78,7 @@ class IAccount {
    * @readonly
    */
   get birth() {
-    //@native => "..."
-    return Properties.of(this).birth;
+     return  "..."
   }
   /**
    *  用户邮箱,依赖于load方法
@@ -93,8 +86,7 @@ class IAccount {
    * @readonly
    */
   get email() {
-    //@native => "..."
-    return Properties.of(this).email;
+     return  "..."
   }
   /**
    *  用户电话,依赖于load方法
@@ -102,8 +94,7 @@ class IAccount {
    * @readonly
    */
   get phone() {
-    //@native => ""
-    return Properties.of(this).phone;
+     return  ""
   }
   /**
    *  用户性别,依赖于load方法
@@ -111,8 +102,7 @@ class IAccount {
    * @readonly
    */
   get sex() {
-    //@native => ""
-    return Properties.of(this).sex;
+     return  ""
   }
   /**
    *  用户分享时间,依赖于load方法
@@ -120,8 +110,7 @@ class IAccount {
    * @readonly
    */
   get shareTime() {
-    //@native => ""
-    return Properties.of(this).shareTime;
+     return  ""
   }
   /**
    * 加载用户信息，所有依赖于load的用户信息需要在回调方法中会返回时才有值
@@ -133,30 +122,7 @@ class IAccount {
    */
   @report
   load(force = false) {
-    //@native :=> Promise.resolve(this);
-    //@mark andr done
-    const detail = Properties.of(this);
-    if (!force && detail.isLoaded) {
-      return Promise.resolve(this);
-    }
-    return new Promise((resolve, reject) => {
-      native.MIOTService.loadAccountInfo(detail.id, (isOk, resp) => {
-        if (isOk) {
-          if (!resp.nickName || resp.nickName === '') {
-            resp.nickName = detail.nickName || '';
-          }
-          Properties.init(this, {
-            ...resp,
-            isLoaded: true,
-            id: detail.id
-          });
-          resolve(this);
-        } else {
-          reject(resp);
-        }
-      });
-    });
-    //@native end
+     return Promise.resolve(this);
   }
   /**
    * 获取指定某一账号id的信息
@@ -168,27 +134,7 @@ class IAccount {
    */
   @report
   getAccountInfoById(accountId) {
-    //@native :=> promise {}
-    return new Promise((resolve, reject) => {
-      native.MIOTService.loadAccountInfo(accountId, (isOk, resp) => {
-        if (isOk && resp) {
-          //iOS 下获取某用户信息为直接透传，因此有时为nickname
-          resolve({
-            ID: resp.id || resp.currentAccountID2 || resp.userid,
-            avatarURL: resp.avatarURL,
-            birth: resp.birth,
-            email: resp.email,
-            nickName: resp.nickname || resp.nickName,
-            phone: resp.phone,
-            sex: resp.sex,
-            shareTime: resp.shareTime,
-          });
-        } else {
-          reject(resp);
-        }
-      });
-    });
-    //@native end
+     return Promise.resolve({});
   }
   /**
    * 批量获取账号信息
@@ -200,32 +146,7 @@ class IAccount {
    */
   @report
   getAccountInfoList(ids) {
-    //@native :=> promise
-    return new Promise((resolve, reject) => {
-      native.MIOTRPC.standardCall('/home/profiles', { uids: ids }, (ok, res) => {
-        if (ok) {
-          const accountInfos = [];
-          if (res === null || res.list === null || res.list.length === 0) {
-            resolve(accountInfos);
-          } else {
-            const len = res.list.length;
-            for (let i = 0; i < len; i++) {
-              accountInfos.push({
-                ID: res.list[i].userId,
-                avatarURL: res.list[i].avatarUrl,
-                icon: res.list[i].icon,
-                nickName: res.list[i].nickname,
-                userName: res.list[i].userName,
-              });
-            }
-            resolve(accountInfos);
-          }
-        } else {
-          reject(res);
-        }
-      });
-    });
-    //@native end
+     return Promise.resolve(null);
   }
 }
 export default IAccount;

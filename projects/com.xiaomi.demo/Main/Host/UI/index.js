@@ -436,6 +436,20 @@ export default class UIDemo extends React.Component {
                     Host.ui.openNewMorePage();
                 }
             },
+            {
+                'name': 'openTerminalDeviceSettingPage',
+                'subtitle': '打开手机设置页中米家app配置页面',
+                'func': () => {
+                    Host.ui.openTerminalDeviceSettingPage(1);
+                }
+            },
+            {
+                'name': 'openTerminalDeviceSettingPage',
+                'subtitle': '打开手机WiFi设置页面',
+                'func': () => {
+                    Host.ui.openTerminalDeviceSettingPage(2);
+                }
+            },
         ];
     }
 

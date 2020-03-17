@@ -67,6 +67,7 @@ export {default as PrimeButton} from './PrimeButton';
 export {default as QAList} from './QAList';
 export {default as MultiButtons} from './MultiButtons';
 export {default as Consumable} from './Consumable';
+export {default as ImageHeader} from './ImageHeader';
 export default {
     ImageButton,
     // MHImage,

@@ -94,6 +94,14 @@ export default class HostDemo extends React.Component {
         'func': () => {
           this.props.navigation.navigate('KookongDemo', { title: '酷控api Dem' });
         }
+      },
+      {
+        'name': 'callSmartHomeCameraAPI',
+        'func': () => {
+          Service.callSmartHomeCameraAPI('/wx/app/v1/put/pushSwitch', 'connect.camera', true, {})
+          .then( res => alert(JSON.stringify(res)))
+          .catch(e => alert(JSON.stringify(e)))
+        }
       }
 
     ];

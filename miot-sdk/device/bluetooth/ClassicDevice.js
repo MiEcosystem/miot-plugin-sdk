@@ -8,8 +8,6 @@
  * 本文件提供了经典蓝牙设备的创建，连接，读写，断连。此处不再提供example，请大家移步详细使用文档查看。
  * @since 10023
  */
-//@native
-import native, { buildEvents } from '../../native';
 /**
  * 经典蓝牙设备操作类
  * @interface
@@ -21,21 +19,7 @@ export default {
      * @returns {Promise<any>}  成功进入then，失败进入catch
      */
     create() {
-        //@native :=> promise
-        //@mark andr done
-        if (native.isIOS) {
-            return new Promise.reject("ios is not support...")
-        }
-        return new Promise((resolve, reject) => {
-            native.ClassicBluetooth.create((isSuccess, result) => {
-                if (isSuccess) {
-                    resolve(result);
-                } else {
-                    reject(result);
-                }
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     },
     /**
      * 根据device 的mac 地址，与中心设备建立socket 链接, 返回的数据没有实际作用, 执行到catch表示连接失败
@@ -45,21 +29,7 @@ export default {
      * @returns {Promise<any>}  成功进入then，失败进入catch
      */
     connectSocket(macAddress, transportUUID) {
-        //@native :=> promise
-        //@mark andr done
-        if (native.isIOS) {
-            return new Promise.reject("ios is not support...")
-        }
-        return new Promise((resolve, reject) => {
-            native.ClassicBluetooth.connectSocket(macAddress, transportUUID, (isSuccess, result) => {
-                if (isSuccess) {
-                    resolve(result);
-                } else {
-                    reject(result);
-                }
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     },
     /**
      * 断开与中心设备的socket连接, 返回的数据没有实际作用, 执行到catch表示断开连接失败
@@ -67,21 +37,7 @@ export default {
      * @returns {Promise<any>}  成功进入then，失败进入catch
      */
     disconnectSocket() {
-        //@native :=> promise
-        //@mark andr done
-        if (native.isIOS) {
-            return new Promise.reject("ios is not support...")
-        }
-        return new Promise((resolve, reject) => {
-            native.ClassicBluetooth.disconnectSocket((isSuccess, result) => {
-                if (isSuccess) {
-                    resolve(result);
-                } else {
-                    reject(result);
-                }
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     },
     /**
      * 向蓝牙设备写入数据, 返回的数据没有实际作用, 执行到catch表示写失败
@@ -90,21 +46,7 @@ export default {
      * @returns {Promise<any>}  成功进入then，失败进入catch
      */
     write(data) {
-        //@native :=> promise
-        //@mark andr done
-        if (native.isIOS) {
-            return new Promise.reject("ios is not support...")
-        }
-        return new Promise((resolve, reject) => {
-            native.ClassicBluetooth.write(data, (isSuccess, result) => {
-                if (isSuccess) {
-                    resolve(result);
-                } else {
-                    reject(result);
-                }
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     },
     /**
      * 事先准备要需要的BluetoothProfile, 具体的类型是profile, 具体的数值参考Android Api: BluetoothProfile.HEADSET，BluetoothProfile.A2DP
@@ -114,21 +56,7 @@ export default {
      * @returns {Promise<any>} 成功进入then, 返回对应的profile，失败进入catch
      */
     prepareBluetoothProfile(profile) {
-        //@native :=> promise
-        //@mark andr done
-        if (native.isIOS) {
-            return new Promise.reject("ios is not support...")
-        }
-        return new Promise((resolve, reject) => {
-            native.ClassicBluetooth.prepareBluetoothProfile(profile, (isSuccess, result) => {
-                if (isSuccess) {
-                    resolve(result);
-                } else {
-                    reject(result);
-                }
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     },
     /**
      * 连接类型为profile（比如BluetoothProfile.HEADSET，BluetoothProfile.A2DP) 的蓝牙服务
@@ -138,21 +66,7 @@ export default {
      * @returns {Promise<any>} 成功进入then, 返回值没有实际作用，失败进入catch
      */
     connectBluetoothProfile(macAddress, profile) {
-        //@native :=> promise
-        //@mark andr done
-        if (native.isIOS) {
-            return new Promise.reject("ios is not support...")
-        }
-        return new Promise((resolve, reject) => {
-            native.ClassicBluetooth.connectBluetoothProfile(macAddress, profile, (isSuccess, result) => {
-                if (isSuccess) {
-                    resolve(result);
-                } else {
-                    reject(result);
-                }
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     },
     /**
      * 断开类型为profile（比如BluetoothProfile.HEADSET，BluetoothProfile.A2DP) 的蓝牙服务
@@ -162,21 +76,7 @@ export default {
      * @returns {Promise<any>}  成功进入then, 返回值没有实际作用，失败进入catch
      */
     disconnectBluetoothProfile(macAddress, profile) {
-        //@native :=> promise
-        //@mark andr done
-        if (native.isIOS) {
-            return new Promise.reject("ios is not support...")
-        }
-        return new Promise((resolve, reject) => {
-            native.ClassicBluetooth.disconnectBluetoothProfile(macAddress, profile, (isSuccess, result) => {
-                if (isSuccess) {
-                    resolve(result);
-                } else {
-                    reject(result);
-                }
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     },
     /**
      * 获取类型为profile的BluetoothProfile的当前状态, 返回值有四个选项,参考android api : BluetoothProfile.STATE_DISCONNECTED等
@@ -187,21 +87,7 @@ export default {
      * @returns {Promise<any>}  成功进入then, 返回值{"state": 0}，失败进入catch
      */
     getBluetoothProfileState(macAddress, profile) {
-        //@native :=> promise
-        //@mark andr done
-        if (native.isIOS) {
-            return new Promise.reject("ios is not support...")
-        }
-        return new Promise((resolve, reject) => {
-            native.ClassicBluetooth.getBluetoothProfileState(macAddress, profile, (isSuccess, result) => {
-                if (isSuccess) {
-                    resolve(result);
-                } else {
-                    reject(result);
-                }
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     },
     /**
      * 销毁蓝牙服务
@@ -209,21 +95,7 @@ export default {
      * @returns {Promise<any>}  成功进入then，失败进入catch
      */
     destroy() {
-        //@native :=> promise
-        //@mark andr done
-        if (native.isIOS) {
-            return new Promise.reject("ios is not support...")
-        }
-        return new Promise((resolve, reject) => {
-            native.ClassicBluetooth.destroy((isSuccess, result) => {
-                if (isSuccess) {
-                    resolve(result);
-                } else {
-                    reject(result);
-                }
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     }
 }
 /**
@@ -237,11 +109,6 @@ export const ClassicBluetoothEvent = {
      * state 取值为：BOND_BONDING = 11;BOND_NONE = 10;BOND_BONDED = 12;
      */
     classicBlueBondStateChanged: {
-        //@native begin
-        forever: emitter => (event) => {
-            emitter.emit(event);
-        }
-        //@native end
     },
     /**
      * 经典蓝牙连接状态改变事件
@@ -249,22 +116,12 @@ export const ClassicBluetoothEvent = {
      * state 取值为：DISCONNECTED = 0;CONNECTING = 1;CONNECTED = 2;DISCONNECTING = 3;NO_STATE = 4;
      */
     classicBlueConnectionStateChanged: {
-        //@native begin
-        forever: emitter => (event) => {
-            emitter.emit(event);
-        }
-        //@native end
     },
     /**
      * 收到数据事件
      * 返回的数据格式为：{"macAddress": "xxx", "data":"xxx"}
      */
     classicBlueReceivedData: {
-        //@native begin
-        forever: emitter => (event) => {
-            emitter.emit(event);
-        }
-        //@native end
     },
 }
 buildEvents(ClassicBluetoothEvent);

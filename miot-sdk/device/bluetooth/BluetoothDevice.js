@@ -38,6 +38,7 @@ import native, { buildEvents, Properties } from '../../native';
 import { IBluetoothService } from './CoreBluetooth';
 import { getBluetoothUUID128 } from './index';
 import RootDevice from '../BasicDevice';
+import {report} from "../../decorator/ReportDecorator";
 // import Host from '../../Host';
 /**
  *
@@ -66,8 +67,7 @@ export class IBluetooth {
      * @readonly
      */
     get isBLE() {
-        //@native => true
-        return !Properties.of(this).isClassic;
+         return  true
     }
     /**
      * 蓝牙设备的 mac 地址
@@ -77,8 +77,7 @@ export class IBluetooth {
      *
      */
     get mac() {
-        //@native => ""
-        return (Properties.of(this).fakemac || {}).mac;
+         return  ""
     }
     /**
      * 蓝牙设备的 UUID
@@ -88,8 +87,7 @@ export class IBluetooth {
      *
      */
     get UUID() {
-        //@native => ""
-        return (Properties.of(this).fakemac || {}).deviceUUID;
+         return  ""
     }
     /**
      * 蓝牙是否已经连接
@@ -99,8 +97,7 @@ export class IBluetooth {
      *
      */
     get isConnected() {
-        //@native => false
-        return Properties.of(this).isConnected;
+         return  false
     }
     /**
      * 蓝牙是否处于连接中
@@ -111,8 +108,7 @@ export class IBluetooth {
      *
      */
     get isConnecting() {
-        //@native => false
-        return Properties.of(this)._connecting;
+         return  false
     }
     /**
      * 打开蓝牙链接. option参数peripheralID为iOS 平台的可选参数，因为iOS平台无法获取普通 BLE 蓝牙设备的 Mac
@@ -180,97 +176,9 @@ export class IBluetooth {
      *       });
      *
      */
+    @report
     connect(type = -1, option = 0) {
-        //@native :=> promise this
-        //@mark andr done
-        //@mark iOS  done
-        if (!Number.isInteger(type)) {
-            return Promise.reject({ code: 101, msg: "the first param type is error, param type must be an integer" })
-        }
-        const self = Properties.of(this);
-        if (self._connecting && !native.isIOS) {
-            //ios 下的connecting状态交由native管理
-            return Promise.reject({ code: 100, msg: "the bluetooth is connecting now, please waiting for a moment" });
-        }
-        option = option || {};
-        if (self.isConnected && !option.forceReconnect) {
-            option.forceReconnect = self._disconnect_timeout && self._disconnect_timeout >= new Date().getTime();
-            if (!option.forceReconnect) {
-                return Promise.resolve(this);
-            }
-        }
-        const { fakemac } = self;
-        if (option && option.peripheralID) {
-            if (!fakemac.deviceUUID) {
-                fakemac.deviceUUID = option.peripheralID;
-            } else if (fakemac.deviceUUID !== option.peripheralID) {
-                // if (Host.isDebug) {
-                //     // 不再支持option中使用 option.peripheralID 进行连接
-                //     let messate = "peripheralID in option :" + option.peripheralID + " not complie with current ble uuid:" + fakemac.deviceUUID + ", peripheralID in option is no longer supported, please use Bluetooth.createBluetoothLE(peripheralID).connect() or Bluetooth.createBluetoothClassic(peripheralID).connect() instead."
-                //     throw new Error(messate);
-                // } else {
-                //NOTE: 在当前ble对象连接另外一个uuid的外设时，创建另一个外设的uuid ble对象，避免某些用户反馈蓝牙扫描无返回等问题
-                Bluetooth.createBluetoothClassic(option.peripheralID);
-                // }
-            }
-        }
-        if (mac_uuid_for_ios && !fakemac.deviceUUID) {
-            if (!fakemac.mac) {
-                return Promise.reject({ code: 10, msg: "invalid bluetooth on IOS" });
-            }
-            fakemac.deviceUUID = mac_uuid_for_ios.get(fakemac.mac);
-            if (!fakemac.deviceUUID) {
-                //TOFIX: 等待iOSAPP更新后开放
-                // return Promise.reject({code:10, msg:"not found the bluetooth for " + fakemac.mac + "  on IOS"});
-            }
-        }
-        self._connecting = true;
-        return new Promise((resolve, reject) => {
-            //data : ok=> {services:[{uuid:"...", chars:["...", "..."]} ]}
-            //false: {error:100, message:""}
-            const callback = (ok, data) => {
-                self._connecting = false;
-                self._disconnect_timeout = 0;
-                if (!ok) {
-                    self.isConnected = false;
-                    if (native.isIOS) {
-                        //统一code ios:android
-                        let err_map = { 0: -6, 1: -15, 2: -7, 3: -10, 5: -1, 6: -16, 7: -18, 8: -20, 4: 0 }
-                        if (data.code !== undefined) {
-                            console.log(data.code)
-                            if (err_map[data.code] !== undefined) {
-                                data.code = err_map[data.code];
-                            }
-                        }
-                    }
-                    reject(data)
-                    return;
-                }
-                self.isConnected = true;
-                const { services } = data;
-                (services || []).forEach(s => {
-                    const srv = this.getService(s.uuid);
-                    if (!srv) return;
-                    Properties.of(srv).isDiscovered = true;
-                    (s.chars || []).forEach(c => {
-                        const chr = srv.getCharacteristic(c);
-                        if (!chr) return;
-                        Properties.of(chr).isDiscovered = true;
-                    })
-                })
-                resolve(data);
-                native.MIOTEventEmitter.emit('bluetoothSeviceDiscovered', {
-                    mac: fakemac.id, foundUUIDs: (services || []).map(s => s.uuid)
-                });
-                (services || []).forEach(s => {
-                    native.MIOTEventEmitter.emit('bluetoothCharacteristicDiscovered', {
-                        mac: fakemac.id, serviceUUID: s.uuid, foundUUIDs: s.chars || []
-                    });
-                })
-            }
-            native.MIOTBluetooth.connect(fakemac.id, type, option, callback);
-        });
-        //@native end
+         return Promise.resolve(this);
     }
     /**
      * 读取 RSSI
@@ -278,21 +186,9 @@ export class IBluetooth {
      * @returns {Promise<*>}
      *
      */
+    @report
     readRSSI() {
-        //@native :=> promise
-        //@mark andr done
-        //@mark iOS done
-        return new Promise((resolve, reject) => {
-            const { fakemac } = Properties.of(this);
-            native.MIOTBluetooth.readRSSI(fakemac.id, (ok, data) => {
-                if (ok) {
-                    resolve(data);
-                    return;
-                }
-                reject(data);
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     }
     /**
      * 关闭链接 **注意小米协议的蓝牙设备，退出插件的时候，一定要调用此方法，关闭蓝牙连接，否则下次打开插件的时候，会提示蓝牙无法连接**
@@ -300,18 +196,8 @@ export class IBluetooth {
      * @param {int} delay -延迟时长(毫秒)
      *
      */
+    @report
     disconnect(delay = 0) {
-        //@native begin
-        //@mark andr done
-        //@mark iOS done
-        const self = Properties.of(this);
-        if (self._connecting && !native.isIOS) {
-            return false;
-        }
-        self._disconnect_timeout = new Date().getTime() + ((delay && delay > 0) ? delay : 0) + 1;
-        native.MIOTBluetooth.disconnectDeviceWithDelay(self.fakemac.id, delay);
-        return true;
-        //@native end
     }
     /**
      * 获取当前连接设备写操作每包最大长度
@@ -323,25 +209,9 @@ export class IBluetooth {
      *        resolve: iOS时，返回系统返回的长度，Android返回160bit
      *        reject：iOS设备未连接会reject connect the device first，Android 不会走reject
      */
+    @report
     maximumWriteValueLength(type = 0) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            if (native.isIOS) {
-                native.MIOTBluetooth.maximumWriteValueLengthForType(type, (ok, result) => {
-                    if (ok) {
-                        resolve(result);
-                    }
-                    else {
-                        reject(result);
-                    }
-                });
-            }
-            else {
-                console.log("has no real methord,return default value 20 bytes.");
-                resolve(20 * 8);
-            }
-        });
-        //@native end
+         return Promise.resolve(null);
     }
     /**
      * 
@@ -384,98 +254,10 @@ export class IBluetooth {
      *      resolve：如果能正常读取成功，一般为：1.0.2等类似样式的string，如果是加密的且使用example里面的方法并不能获取解密后的：请咨询你们的固件工程师，让他们提供解密方法。
      *      reject：{code: xxx, message: xxx}100:设备正在连接中，请连接成功后重试  101:蓝牙外设设备不能存在  102:无法发现版本信息对应的服务或者特征值 103:当前设备没有版本号，无法读取
      */
+    @report
     getVersion(isFromlocal = false, isCrypto = false) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            function setDeviceVersion(data) {
-                const { mac } = Properties.of(this).fakemac || {};
-                let device = RootDevice;
-                let props = Properties.of(device);
-                if (props.mac != mac) {
-                    device = (props._subDevices || []).find(d => mac == d.mac);
-                }
-                if (device) {
-                    device.version = data;
-                }
-            }
-            const { fakemac } = Properties.of(this);
-            if (native.isIOS) {
-                if (!isFromlocal) {
-                    native.MIOTDevice.getVersion(false, (ok, data) => {
-                        if (ok) {
-                            setDeviceVersion.call(this, data);
-                            resolve(data);
-                            return;
-                        }
-                        reject(data);
-                    });
-                } else {
-                    native.MIOTBluetooth.readHexStringWithCallback(fakemac.id, '0004', 'FE95', (ok, data) => {
-                        if (!isCrypto) {
-                            function hex2a(hexstring) {
-                                var hex = hexstring.toString();
-                                var str = '';
-                                for (var i = 0; (i < hex.length && hex.substr(i, 2) !== '00'); i += 2)
-                                    str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-                                return str;
-                            }
-                            data = hex2a(data)
-                        }
-                        if (ok) {
-                            setDeviceVersion.call(this, data);
-                            resolve(data);
-                            return;
-                        }
-                        reject(data);
-                    });
-                }
-            } else {
-                native.MIOTBluetooth.getVersion(fakemac.id, false, (ok, data) => {
-                    if (ok) {
-                        setDeviceVersion.call(this, data);
-                        resolve(data);
-                        return;
-                    }
-                    reject(data);
-                });
-            }
-        });
-        //@native end
+         return Promise.resolve(null);
     }
-    //@native begin
-    //特别注意, 真正的实现都放在这里
-    get securityLock() {
-        const { securityChip } = Properties.of(this);
-        return securityChip;
-    }
-    getService(serviceUUID) {
-        const fullUUID = getBluetoothUUID128(serviceUUID);
-        if (!fullUUID) {
-            return null;
-        }
-        const { services, fakemac } = Properties.of(this);
-        let service = services.get(fullUUID);
-        if (!service) {
-            service = new IBluetoothService();
-            Properties.init(service, {
-                fakemac,
-                serviceUUID, fullUUID,
-                characteristics: new Map()
-            })
-            services.set(fullUUID, service);
-        }
-        return service;
-    }
-    startDiscoverServices(...serviceUUIDs) {
-        if (!this.isConnected) {
-            return false;
-        }
-        const notFound = serviceUUIDs;//serviceUUIDs.filter(uuid => !this.getService(uuid).isDiscovered);
-        const { fakemac } = Properties.of(this);
-        native.MIOTBluetooth.discoverServices(fakemac.id, notFound)
-        return true;
-    }
-    //@native end
 }
 /**
  * 蓝牙事件名集合
@@ -501,39 +283,6 @@ export const BluetoothEvent = {
      *
      */
     bluetoothConnectionStatusChanged: {
-        //@native begin
-        //@mark andr done
-        //uuid 为iOS单独添加
-        forever: emitter => ({ mac, isConnected, uuid }) => {
-            // if (Host.isDebug) {
-            console.log("Bluetooth", "bluetoothConnectionStatusChanged", mac);
-            // }
-            let bluetooth = bluetoothDevices.get(mac);
-            if (!bluetooth) {
-                return;
-            }
-            const ble = Properties.of(bluetooth);
-            ble._disconnect_timeout = 0;
-            if (uuid && uuid !== '') {
-                //如果iOS端传递了uuid参数
-                ble.deviceUUID = uuid
-            }
-            if (ble.isConnected !== isConnected) {//防止重复回调，android 连接状态是 false 会多次回调，但是 java 中没有保存链接状态
-                ble.isConnected = isConnected;
-                //reset status of bluetoothLE
-                if (!isConnected) {
-                    ble.services.forEach(s => {
-                        const srv = Properties.of(s);
-                        srv.isDiscovered = false;
-                        srv.characteristics.forEach(c => {
-                            Properties.of(c).isDiscovered = false;
-                        });
-                    });
-                }
-                emitter.emit(bluetooth, isConnected);
-            }
-        }
-        //@native end
     },
     /**
      * 蓝牙设备扫描发现事件
@@ -542,36 +291,6 @@ export const BluetoothEvent = {
      *
      */
     bluetoothDeviceDiscovered: {
-        //@native begin
-        //@mark andr done
-        forever: emitter => (data) => {
-            // if (Host.isDebug) {
-            console.log("Bluetooth", "bluetoothDeviceDiscovered", data);
-            // }
-            if (mac_uuid_for_ios) {
-                if (data.uuid) {
-                    data.uuid = data.uuid.toUpperCase();
-                }
-                if (data.mac && data.uuid) {
-                    mac_uuid_for_ios.set(data.mac, data.uuid);
-                    let ble = bluetoothDevices.get(data.mac);
-                    if (ble) {
-                        const { fakemac } = Properties.of(ble);
-                        if (fakemac) {
-                            fakemac.deviceUUID = data.uuid;
-                        }
-                        bluetoothDevices.set(data.uuid, ble);
-                    }
-                }
-            }
-            // let bluetooth = bluetoothDevices.get(mac);
-            // if (!bluetooth) {
-            //     emitter.emit(bluetooth, mac);
-            //     return;
-            // }
-            emitter.emit(data);
-        }
-        //@native end
     },
     /**
      * 蓝牙设备扫描发现失败事件
@@ -580,15 +299,6 @@ export const BluetoothEvent = {
      *
      */
     bluetoothDeviceDiscoverFailed: {
-        //@native begin
-        //@mark andr done
-        always: emitter => ({ error }) => {
-            // if (Host.isDebug) {
-            console.log("Bluetooth", "bluetoothDeviceDiscoverFailed", error);
-            // }
-            emitter.emit(error);
-        }
-        //@native end
     },
     /**
      * 蓝牙服务发现事件
@@ -598,24 +308,6 @@ export const BluetoothEvent = {
      *
      */
     bluetoothSeviceDiscovered: {
-        //@native begin
-        //@mark andr done
-        forever: emitter => ({ mac, foundUUIDs }) => {
-            // if (Host.isDebug) {
-            console.log("Bluetooth", "bluetoothSeviceDiscovered", mac, foundUUIDs);
-            // }
-            let bluetooth = bluetoothDevices.get(mac);
-            if (!bluetooth) {
-                return;
-            }
-            const services = (foundUUIDs || []).map(uuid => {
-                const service = bluetooth.getService(uuid);
-                Properties.of(service).isDiscovered = true;
-                return service;
-            })
-            emitter.emit(bluetooth, services)
-        }
-        //@native end
     },
     /**
      * 蓝牙服务发现失败事件
@@ -625,19 +317,6 @@ export const BluetoothEvent = {
      *
      */
     bluetoothSeviceDiscoverFailed: {
-        //@native begin
-        //@mark andr done
-        always: emitter => ({ mac, error }) => {
-            // if (Host.isDebug) {
-            console.log("Bluetooth", "bluetoothSeviceDiscoverFailed", mac);
-            // }
-            let bluetooth = bluetoothDevices.get(mac);
-            if (!bluetooth) {
-                return;
-            }
-            emitter.emit(bluetooh, error);
-        }
-        //@native end
     },
     /**
      * 蓝牙特征发现事件
@@ -648,28 +327,6 @@ export const BluetoothEvent = {
      *
      */
     bluetoothCharacteristicDiscovered: {
-        //@native begin
-        //@mark andr done
-        forever: emitter => ({ mac, serviceUUID, foundUUIDs }) => {
-            // if (Host.isDebug) {
-            console.log("Bluetooth", "bluetoothCharacteristicDiscovered", mac, foundUUIDs);
-            // }
-            let bluetooth = bluetoothDevices.get(mac);
-            if (!bluetooth) {
-                return;
-            }
-            const service = bluetooth.getService(serviceUUID);
-            if (!service.isDiscovered) {
-                return;
-            }
-            const characters = (foundUUIDs || []).map(uuid => {
-                const character = service.getCharacteristic(uuid)
-                Properties.of(character).isDiscovered = true;
-                return character
-            })
-            emitter.emit(bluetooth, service, characters);
-        }
-        //@native end
     },
     /**
      * 蓝牙特征发现失败事件
@@ -680,23 +337,6 @@ export const BluetoothEvent = {
      *
      */
     bluetoothCharacteristicDiscoverFailed: {
-        //@native begin
-        //@mark andr done
-        always: emitter => ({ mac, serviceUUID, error }) => {
-            // if (Host.isDebug) {
-            console.log("Bluetooth", "bluetoothCharacteristicDiscoverFailed", mac);
-            // }
-            let bluetooth = bluetoothDevices.get(mac);
-            if (!bluetooth) {
-                return;
-            }
-            const service = bluetooth.getService(serviceUUID);
-            if (!service.isDiscovered) {
-                return;
-            }
-            emitter.emit(bluetooh, service, error);
-        }
-        //@native end
     },
     /**
      * 蓝牙特征值变更事件
@@ -709,30 +349,6 @@ export const BluetoothEvent = {
      *
      */
     bluetoothCharacteristicValueChanged: {
-        //@native begin
-        //@mark andr done
-        forever: emitter => ({ mac, serviceUUID, characteristicUUID, value }) => {
-            // if (Host.isDebug) {
-            console.log("Bluetooth", "bluetoothCharacteristicValueChanged", mac);
-            // }
-            let bluetooth = bluetoothDevices.get(mac);
-            if (!bluetooth) {
-                return;
-            }
-            const service = bluetooth.getService(serviceUUID);
-            if (!service.isDiscovered) {
-                return;
-            }
-            const character = service.getCharacteristic(characteristicUUID);
-            if (!character.isDiscovered) {
-                return;
-            }
-            const props = Properties.of(character);
-            props.isValueLoaded = true;
-            props.value = value;
-            emitter.emit(bluetooth, service, character, value);
-        }
-        //@native end
     },
     /**
      * 蓝牙开关状态变更事件
@@ -742,15 +358,6 @@ export const BluetoothEvent = {
      *
      */
     bluetoothStatusChanged: {
-        //@native begin
-        //@mark andr done
-        forever: emitter => ({ isEnabled }) => {
-            // if (Host.isDebug) {
-            console.log("Bluetooth", "bluetoothStatusChanged", isEnabled);
-            // }
-            emitter.emit(isEnabled);
-        }
-        //@native end
     }
 };
 buildEvents(BluetoothEvent);

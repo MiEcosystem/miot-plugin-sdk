@@ -169,7 +169,7 @@ export default class VideoDemo extends Component {
             onLoad={this.onLoad}
             onBuffer={this.onBuffer}
             onProgress={this.onProgress}
-            onEnd={() => { AlertIOS.alert('Done!') }}
+            onEnd={() => { alert('Done!') }}
             repeat={true}
             ref={(ref) => {
               this.player = ref
@@ -255,7 +255,7 @@ export default class VideoDemo extends Component {
             onLoad={this.onLoad}
             onBuffer={this.onBuffer}
             onProgress={this.onProgress}
-            onEnd={() => { AlertIOS.alert('Done!') }}
+            onEnd={() => { alert('Done!') }}
             repeat={true}
             controls={this.state.controls}
           />
