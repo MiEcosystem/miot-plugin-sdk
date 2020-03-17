@@ -39,41 +39,6 @@
  * 
  * 其余具体使用请参考具体API文档
  */
-//@native begin
-import { DeviceEventEmitter } from "react-native";
-import Account from "../service/Account";
-import native, { buildEvents, Properties } from '../native';
-import Scene from '../service/scene';
-import IDeviceWifi from './WifiDevice';
-// import Host from '../Host';
-import { takeBluetooth } from "./bluetooth";
-import {report} from '../decorator/ReportDecorator';
-const PERMISSION_OWNER = 16;
-const PERMISSION_FAMILY = 8;
-const PERMISSION_FAMILY_IOS = 68;
-const PERMISSION_SHARE = 4;
-const PERMISSION_SHARE_READONLY = 32;
-const PERMISSION_NONE_MASK = 30;
-// 仅仅搜索当前设备和子设备
-export function _find_device(did) {
-    let device = RootDevice;
-    let props = Properties.of(device);
-    if (props.did != did) {
-        device = (props._subDevices || []).find(d => did == d.deviceID);
-        if (!device) {
-            device = props.parentDevice;
-            if (!device) {
-                device = (props._virtualDevices || []).find(d => did == d.deviceID);
-                if (!device) {
-                    return {};
-                }
-            }
-        }
-        props = Properties.of(device);
-    }
-    return { device, props }
-}
-//@native end
 /**
  * 设备事件集合
  * @description DeviceEvent 当前设备事件：可以理解为iOS中的通知，或者Android中的广播.表示此事件发生后，通知监听此事件的组件执行某操作。
@@ -88,15 +53,6 @@ export const DeviceEvent = {
      *
      */
     deviceNameChanged: {
-        //@native begin
-        forever: emitter => ({ did, newName }) => {
-            console.log("修改后的设备名称：", newName);
-            const { device, props } = _find_device(did);
-            if (!device) return;
-            props.name = newName;
-            emitter.emit(device);
-        }
-        //@native end
     },
     /**
      * 设备时区变更事件
@@ -105,15 +61,6 @@ export const DeviceEvent = {
      * @since 1.0.0
      */
     deviceTimeZoneChanged: {
-        //@native begin
-        forever: emitter => ({ did, timeZone }) => {
-            console.log("修改后的设备时区：", timeZone);
-            const { device, props } = _find_device(did);
-            if (!device) return;
-            props.timeZone = timeZone;
-            emitter.emit(device);
-        }
-        //@native end
     },
     /**
      * 设备状态变更事件
@@ -121,20 +68,6 @@ export const DeviceEvent = {
      * @param {IDevice} device -发生变更的设备
      */
     deviceStatusChanged: {
-        //@native begin
-        forever: emitter => (did, newstatus, { rootDeviceIsReady }) => {
-            //监听设备准备妥当的消息
-            if (rootDeviceIsReady && did) {
-                Properties.of(RootDevice).did = did;
-                //try to reload root device stat at here
-                return;
-            }
-            const { device, props } = _find_device(did);
-            if (!device) return;
-            // props.name = newName;
-            emitter.emit(device);
-        }
-        //@native end
     },
     /**
      * 设备消息,注意订阅的消息都是通过此方法返回。
@@ -178,28 +111,6 @@ export const DeviceEvent = {
      *
      */
     deviceReceivedMessages: {
-        //@native begin
-        forever: emitter => ({ did, data, subcribeId }) => {
-            // if (Host.isDebug) {
-            console.log('deviceReceivedMessages', did, data, subcribeId, native.LocalCache.deviceUsingSubscribers)
-            // }
-            if (subcribeId) {
-                const { deviceUsingSubscribers } = native.LocalCache;
-                if (deviceUsingSubscribers && !deviceUsingSubscribers.has(subcribeId)) {
-                    return;
-                }
-            }
-            const { device, props } = _find_device(did);
-            if (!device) return;
-            if (typeof (data) == "string") {
-                data = JSON.parse(data);
-            }
-            const map = new Map();
-            data.forEach(ent => map.set(ent.key, ent.value))
-            emitter.emit(device, map, data);
-        }
-        , sameas: native.isIOS ? "deviceRecievedMessages" : "deviceRecievedMessages"
-        //@native end
     }
 };
 buildEvents(DeviceEvent)
@@ -208,22 +119,6 @@ buildEvents(DeviceEvent)
  * @interface
  */
 export class BasicDevice {
-    //@native begin
-    /**
-     * 是否有固件更新，为了显示小红点,一般不需要开发者设置，自己使用
-     * @return {boolean}
-     */
-    get needUpgrade() {
-        return Properties.of(this).needUpgrade;
-    }
-    /**
-     * 是否有固件更新，为了显示小红点
-     * @param {boolean}
-     */
-    set needUpgrade(value) {
-        Properties.of(this).needUpgrade = value;
-    }
-    //@native end
     /**
      *获取设备 id，每一个真实设备都有一个唯一的 id
      * @return {string}
@@ -231,8 +126,7 @@ export class BasicDevice {
      *
      */
     get deviceID() {
-        //@native => 0
-        return Properties.of(this).did;
+         return  0
     }
     /**
      * 获取设备的 model,设备类型的唯一标识
@@ -241,22 +135,14 @@ export class BasicDevice {
      *
      */
     get model() {
-        //@native => ""
-        return Properties.of(this).model;
+         return  ""
     }
     /**
     * 获取小米WiFi设备控制类
     * Device.getDeviceWifi().callMethod(xxx)
     */
     getDeviceWifi() {
-        //@native :=> null
-        const self = Properties.of(this);
-        if (!self._device_wifi) {
-            self._device_wifi = Properties.init(new IDeviceWifi(), self);
-            self._device_wifi.deviceID = this.deviceID;
-        }
-        return self._device_wifi;
-        //@native end
+         return null
     }
     /**
      *设备是否已经可用,没有did的设备的插件，可能调用此方法判断接口是否可用。此方法没什么其他存在的意义，一般也不需要使用此方法
@@ -266,10 +152,7 @@ export class BasicDevice {
      *
      */
     get isReady() {
-        //@native :=> false
-        const { did } = Properties.of(this);
-        return did && did != '';
-        //@native end
+         return false
     }
     /**
      * 如果有父设备，直接获取 父设备 Device，一般是网关子设备才会有父设备，注意：**设备组的子设备没有父设备，或者说设备组子设备的父设备不是这个设备组**
@@ -278,19 +161,7 @@ export class BasicDevice {
      *
      */
     get parentDevice() {
-        //@native :=> null
-        //更新 subDevice 的时候, 需要将 parentDevice 重置回来
-        let _parent = Properties.of(this)._parentDevice;//load subdevice ,from js
-        if (!_parent) {
-            let parent = Properties.of(this).parentDevice;//export from native
-            if (parent && parent.did) {
-                _parent = new BasicDevice();
-                Properties.init(_parent, { ...parent, _msgset: new Set() });
-                Properties.of(this)._parentDevice = _parent;
-            }
-        }
-        return _parent;
-        //@native end
+         return null
     }
     /**
      * 是否是根设备，没有父设备的设备，即为根设备。一般网关子设备不是根设备，其他的都是
@@ -300,8 +171,7 @@ export class BasicDevice {
      *
      */
     get isRootDevice() {
-        //@native => false
-        let parent = Properties.of(this).parentDevice;
+         return  false
         return !(parent && Object.keys(parent).length > 0);
     }
     /**
@@ -310,16 +180,7 @@ export class BasicDevice {
      * @param {object[]} didAndPids did 与 pid（Device.type） 列表 [{did:xx,pid:xx}, {did:xx,pid:xx}]
      */
     deleteDevices(didAndPids) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/user/del_owner_device_batch", { devList: didAndPids }, (ok, res) => {
-                if (!ok) {
-                    return reject(res);
-                }
-                resolve(res);
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     }
     /**
      * 获取子设备列表，一般网关才会有子设备，注意此方法无法获取设备组的子设备。获取虚拟设备组的子设备，请使用Device.getDeviceWifi().getVirtualDevices()方法。Mesh设备组暂时没有查询子设备的方法。
@@ -335,30 +196,7 @@ export class BasicDevice {
      */
     @report
     getSubDevices(useCache = false) {
-        //@native :=> promise []
-        const self = Properties.of(this);
-        if (self.parentDevice && Object.keys(self.parentDevice).length > 0) {
-            return Promise.reject('parent device exist, current device is a sub device, can not load sub devices');
-        }
-        if (useCache && self._subDevices) {
-            return Promise.resolve(self._subDevices);
-        }
-        return new Promise((resolve, reject) => {
-            native.MIOTDevice.loadSubDevices(this.deviceID, (ok, result) => {
-                if (ok && result) {
-                    self._subDevices = result.map(stat => {
-                        //initDeviceEvents
-                        return (Properties.init(new BasicDevice(),
-                            { ...stat, _parentDeviceID: this.deviceID, _parentDevice: this, _msgset: new Set() }
-                        ));
-                    })
-                    resolve(self._subDevices);
-                } else {
-                    reject(result)
-                }
-            });
-        });
-        //@native end
+         return Promise.resolve([]);
     }
     /**
      * 获取蓝牙网关关联的普通蓝牙和蓝牙mesh设备列表。
@@ -369,17 +207,7 @@ export class BasicDevice {
      *      reject：{code:xxx,error:xxx,extra:xxx} code只会等于-1。 res.code -1:网关设备不存在  401:只能查找当前设备或者父网关设备的列表  404:无子设备数据
      */
     getLinkedBTDevices(did = null) {
-        //@native :=> promise []
-        did = did || this.deviceID;
-        return new Promise((resolve, reject) => {
-            native.MIOTDevice.getLinkedBTDevices(did, (ok, res) => {
-                if (!ok || !res) {
-                    return reject({ code: -1, error: res, extra: 'fetch bledevice info failed' });
-                }
-                resolve(res);
-            })
-        })
-        //@native end
+         return Promise.resolve([]);
     }
     /**
      * @typedef {Object} DeviceConfig
@@ -398,17 +226,7 @@ export class BasicDevice {
      */
     @report
     loadRealDeviceConfig(model) {
-        //@native :=> promise {}
-        return new Promise((resolve, reject) => {
-            native.MIOTHost.loadRealDeviceConfig(model, (ok, res) => {
-                if (ok) {
-                    resolve(res)
-                } else {
-                    reject(res)
-                }
-            })
-        })
-        //@native end
+         return Promise.resolve({});
     }
     /**
     * 是否虚拟设备，虚拟设备主要指老的设备组（Yeelight灯组，飞利浦灯组）。
@@ -419,8 +237,7 @@ export class BasicDevice {
     *
     */
     get isVirtualDevice() {
-        //@native => false
-        return Properties.of(this).isVirtual || Properties.of(this)._is_virtual;
+         return  false
     }
     /**
      * 获取小米BLE蓝牙控制类,
@@ -444,13 +261,7 @@ export class BasicDevice {
      * })
      */
     getBluetoothLE(peripheralID = null) {
-        //@native :=> null
-        const self = Properties.of(this);
-        if (!self.mac) {
-            throw new Error("the device is not initialized");
-        }
-        return takeBluetooth(self.mac, peripheralID, false);
-        //@native end
+         return null
     }
     /**
      * @typedef {Object} GPSInfo
@@ -472,20 +283,7 @@ export class BasicDevice {
      */
     @report
     reportDeviceGPSInfo() {
-        //@native :=> Promise
-        return new Promise((resolve, reject) => {
-            native.MIOTDevice.reportDeviceGPSInfo((ok, res) => {
-                if (ok) {
-                    let data = Properties.of(this)
-                    data.latitude = res.latitude || res.lat;
-                    data.longitude = res.longitude || res.lng
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
+         return Promise
     }
     /**
      * 设备所有者的小米账号, 可以使用 load 获取 account 下的所有数据。
@@ -497,18 +295,7 @@ export class BasicDevice {
      *
      */
     get owner() {
-        //@native :=> null
-        const props = Properties.of(this);
-        if (!props._owner) {
-            props._owner = Properties.init(new Account(),
-                {
-                    'id': Properties.of(this).ownerId,
-                    'nickName': Properties.of(this).ownerName,
-                    'isLoaded': false
-                });
-        }
-        return props._owner;
-        //@native end
+         return null
     }
     /**
      * 设备的名称。注意与loadRealDeviceConfig返回的deviceName的区别
@@ -517,8 +304,7 @@ export class BasicDevice {
      *
      */
     get name() {
-        //@native => ""
-        return Properties.of(this).name;
+         return  ""
     }
     /**
      * 设备的 token 加密后生成的固定值，在设备快连入网时生成，能唯一标识设备的生命周期，直至被重置、重新快连入网。可以使用此字段，鉴定设备有没有被重新绑定。注意该 Session 并非设备与服务器交互时认证所用 Token，只能用于标识作用
@@ -528,8 +314,7 @@ export class BasicDevice {
      *
      */
     get session() {
-        //@native => ""
-        return Properties.of(this).session;
+         return  ""
     }
     /**
      *开发者平台配置的设备图标 一个图片的下载地址，和米家设备列表页的图标一样
@@ -538,8 +323,7 @@ export class BasicDevice {
      *
      */
     get iconURL() {
-        //@native => ""
-        return Properties.of(this).iconURL;
+         return  ""
     }
     /**
      * 当前账户对设备的控制权限，主要用于分享的设备 4:普通分享 36:只读分享。一般情况下，分享的设备可以被控制，但是不能添加/删除/修改 自动化和倒计时定时。如果出现被分享的设备，有不该有的功能，请通过此处的permitLevel判断并增加权限控制
@@ -548,8 +332,7 @@ export class BasicDevice {
      *
      */
     get permitLevel() {
-        //@native => 0
-        return Properties.of(this).permitLevel;
+         return  0
     }
     /**
      * 是否设置了进入插件使用密码，如果你们的设置页面有修改密码功能，可以通过此字段，判断密码是否设置了。
@@ -558,8 +341,7 @@ export class BasicDevice {
      *
      */
     get isSetPinCode() {
-        //@native => false
-        return Properties.of(this).isSetPinCode;
+         return  false
     }
     /**
      * 是否在设备列表显示，一般不需要使用此方法。
@@ -569,8 +351,7 @@ export class BasicDevice {
      *
      */
     get showMode() {
-        //@native => 0
-        return Properties.of(this).showMode;
+         return  0
     }
     /**
      * 获取设备的 mac 地址，蓝牙设备返回为空字符串
@@ -579,8 +360,7 @@ export class BasicDevice {
      *
      */
     get mac() {
-        //@native => ""
-        return Properties.of(this).mac;
+         return  ""
     }
     /**
      * 获取当前固件的版本，记住，只能获取wifi设备/combo设备的固件版本，其他设备的固件版本，请使用其他方法读取。比如：蓝牙使用BTDevice.getVersion()。如果是zigbee，红外等设备，请尝试此方法和蓝牙的getVersion方法，看哪个能获取到正确的值，然后就使用哪个。
@@ -589,27 +369,7 @@ export class BasicDevice {
      *
      */
     get lastVersion() {
-        //@native => ""
-        //@native begin
-        if (native.isAndroid) {
-            // 同ios一致
-            if (this.extra && typeof this.extra === "string") {
-                let tempExtra = JSON.parse(this.extra);
-                if (tempExtra && tempExtra["fw_version"] && typeof tempExtra["fw_version"] == "string" && tempExtra["fw_version"].length > 0) {
-                    if (tempExtra["mcu_version"] && typeof tempExtra["mcu_version"] == "string" && tempExtra["mcu_version"].length > 0) {
-                        return tempExtra["fw_version"] + "." + tempExtra["mcu_version"]
-                    } else {
-                        return tempExtra["fw_version"];
-                    }
-                } else {
-                    return Properties.of(this).version;
-                }
-            } else {
-                return Properties.of(this).version;
-            }
-        }
-        return Properties.of(this).version;
-        //@native end
+         return  ""
     }
     /**
      *获取设备的 ip，蓝牙设备的ip为空
@@ -618,8 +378,7 @@ export class BasicDevice {
      *
      */
     get IP() {
-        //@native => ""
-        return Properties.of(this).ip;
+         return  ""
     }
     /**
      * 获取 wifi 信号强度，蓝牙/Mesh设备的为空
@@ -628,8 +387,7 @@ export class BasicDevice {
      *
      */
     get RSSI() {
-        //@native => ""
-        return Properties.of(this).rssi;
+         return  ""
     }
     /**
      * 获取连接 wifi 的名称，蓝牙/Mesh设备的为空
@@ -638,8 +396,7 @@ export class BasicDevice {
      *
      */
     get SSID() {
-        //@native => ""
-        return Properties.of(this).ssid;
+         return  ""
     }
     /**
      * 获取连接 wifi 的mac 地址，蓝牙/Mesh设备为空
@@ -648,8 +405,7 @@ export class BasicDevice {
      *
      */
     get BSSID() {
-        //@native => ""
-        return Properties.of(this).bssid;
+         return  ""
     }
     /**
      * 获取设备类型，0：wifi单模设备，1：yunyi设备，2：云接入设备，3：zigbee设备，5：虚拟设备，6：蓝牙单模设备，7：本地AP设备，8：蓝牙wifi双模设备，9：其他，10：功能插件，11：SIM卡设备，12：网线设备，13：NB-IoT，14：第三方云接入，15：红外遥控器，16：BLE Mesh，17：虚拟设备（新设备组）
@@ -658,8 +414,7 @@ export class BasicDevice {
      *
      */
     get type() {
-        //@native => 0
-        return Properties.of(this).pid;
+         return  0
     }
     /**
      * 获取上次修改（修改名称，绑定/解绑等）的时间戳, 例如1532587811237
@@ -669,8 +424,7 @@ export class BasicDevice {
      *
      */
     get lastModified() {
-        //@native => 1532587811237
-        return Properties.of(this).lastModified;
+         return  1532587811237
     }
     /**
      * 本地设备还是远程设备, 0未知 1本地 2远程。
@@ -681,8 +435,7 @@ export class BasicDevice {
      *
      */
     get location() {
-        //@native => 0
-        return Properties.of(this).location;
+         return  0
     }
     /**
      * 设备的纬度
@@ -691,8 +444,7 @@ export class BasicDevice {
      *
      */
     get latitude() {
-        //@native => 0.0
-        return Properties.of(this).latitude;
+         return  0.0
     }
     /**
      * 设备的经度
@@ -701,8 +453,7 @@ export class BasicDevice {
      *
      */
     get longitude() {
-        //@native => 0.0
-        return Properties.of(this).longitude;
+         return  0.0
     }
     /**
      * 是否支持语音（一般指小爱同学）控制
@@ -711,8 +462,7 @@ export class BasicDevice {
      *
      */
     get isVoiceDevice() {
-        //@native => false
-        return Properties.of(this).isVoiceDevice;
+         return  false
     }
     /**
      * 设备是否在线 true 在线。离线设备在插件内几乎所有功能均不可操作
@@ -721,8 +471,7 @@ export class BasicDevice {
      *
      */
     get isOnline() {
-        //@native => false
-        return Properties.of(this).isOnline;
+         return  false
     }
     /**
      *是否是自己的设备，若是别人（包含家属）分享给你的设备，isOwner则为false
@@ -731,8 +480,7 @@ export class BasicDevice {
      *
      */
     get isOwner() {
-        //@native => false
-        return (Properties.of(this).permitLevel & PERMISSION_NONE_MASK & PERMISSION_OWNER) !== 0;
+         return  false
     }
     /**
      * 当前账户对设备的控制权限，主要用于分享的设备 4:普通分享 36:只读分享 68:家庭分享
@@ -741,8 +489,7 @@ export class BasicDevice {
      *
      */
     get isFamily() {
-        //@native => false
-        let permitLevel = Properties.of(this).permitLevel;
+         return  false
         return permitLevel == PERMISSION_FAMILY || permitLevel == PERMISSION_FAMILY_IOS;
     }
     /**
@@ -752,8 +499,7 @@ export class BasicDevice {
      *
      */
     get isShared() {
-        //@native => false
-        let permitLevel = Properties.of(this).permitLevel;
+         return  false
         return (permitLevel == PERMISSION_SHARE || permitLevel == PERMISSION_SHARE_READONLY) && Properties.of(this).ownerName !== null;
     }
     /**
@@ -764,14 +510,8 @@ export class BasicDevice {
      *
      */
     get isBinded() {
-        //@native => false
-        return (Properties.of(this).permitLevel & PERMISSION_NONE_MASK) !== 0;
+         return  false
     }
-    //@native begin
-    get isBinded2() {
-        return this.isBinded;
-    }
-    //@native end
     /**
      * 是否是别人分享的只读设备,权限比isShared更小。受iot后台基础配置 - 产品共享影响。产品共享可配置为：支持（用户不可选共享权限），支持（用户可选共享权限）（可查看可操作设备，可查看不可操作设备），不支持共享
      * 如果后台配置选择的支持（用户可选共享权限），然后设备拥有者分享时选择的是可查看不可操作设备，则此选项为True
@@ -780,8 +520,7 @@ export class BasicDevice {
      *
      */
     get isReadonlyShared() {
-        //@native => false
-        return (Properties.of(this).permitLevel & PERMISSION_SHARE_READONLY) !== 0 && Properties.of(this).ownerName !== null;
+         return  false
     }
     /**
      * 获取当前设备的时区信息（国际标准时区）。**注意：国际标准时区中，没有Asia/Beijing。**
@@ -792,23 +531,7 @@ export class BasicDevice {
      */
     @report
     getDeviceTimeZone() {
-        //@native :=> Promise
-        if (native.isIOS) {
-            let tempTimeZone = {
-                timeZone: this.timeZone
-            }
-            return new Promise.resolve(tempTimeZone)
-        }
-        return new Promise((resolve, reject) => {
-            native.MIOTDevice.getDeviceTimeZone(this.deviceID, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
+         return Promise
     }
     /**
      * 修改设备/子设备的名字，注意不支持蓝牙网关对子设备名称的修改
@@ -837,61 +560,15 @@ export class BasicDevice {
         });
         // @native end
     }
-    //@native begin
-    /**
-    * 获取当前设备的设备信息
-    * @since 10024
-    * @returns {Promise<Object>}当前设备的值 
-    *       resolve:类似{'prop.2.1':'on','prop.light':8}这样的{key:value}键值对，其中键为设备属性名称，值为设备属性值
-    *       reject：device.prop为空，则走reject，返回null
-    */
-   @report
-    getCurrentDeviceValue() {
-        return new Promise((resolve, reject) => {
-            native.MIOTDevice.getCurrentDeviceValue((ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-    }
-    //@native end
     // @programe mark deprecated
     /**
      * 获取虚拟设备的子设备列表，
      * @deprecated since 10032 请使用Device.getDeviceWifi().getVirtualDevices()代替
      */
     getVirtualDevices() {
-        //@native :=> promise []
-        return this.getDeviceWifi().getVirtualDevices();
-    }
-    /**
-    * 获取设备定向推荐信息，展示推荐入口使用：用于获取插件上方偶尔弹出的提示条/广告条数据，比如：设备信号差，请调整设备位置。
-    * @deprecated since 10032 请使用Device.getDeviceWifi().getRecommendScenes()代替
-    */
-    getRecommendScenes(model, did) {
-        //@native :=> promise {}
-        return this.getDeviceWifi().getRecommendScenes(model, did);
-    }
-    /**
-     * 获取当前设备列表中的指定model的设备列表。需要在common_extra_config增加配置，暂时用于秒秒测的互联互通功能。
-     * @deprecated since 10032，请使用Device.getDeviceWifi().requestAuthorizedDeviceListData()代替
-     */
-    @report
-    requestAuthorizedDeviceListData(model) {
-        //@native :=> Promise
-        return new Promise((resolve, reject) => {
-            native.MIOTDevice.requestAuthorizedDeviceListData(model, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
+         return Promise.resolve([]);
+         return Promise.resolve({});
+         return Promise
     }
     /**
      * 除了基本信息的其他部分额外信息都在这个字段返回，如：{"fw_version":"1.4.0","mcu_version":"0001","isSetPincode":0}
@@ -902,26 +579,21 @@ export class BasicDevice {
      *
      */
     get extra() {
-        //@native => ""
-        return Properties.of(this).extrainfo || Properties.of(this).extra;
+         return  ""
     }
     /**
     * 检查当前设备是否支持HomeKit，Android系统不支持HomeKit设备。需要在plato平台配置homekit_config，包含在内的设备，isHomekit才可能返回true
     * @deprecated since 10032 请使用Device.getDeviceWifi().checkIsHomeKitDevice()
     */
     checkIsHomeKitDevice() {
-        //@native :=> Promise
-        return this.getDeviceWifi().checkIsHomeKitDevice();
-        //@native end
+         return Promise
     }
     /**
      * 检查当前设备是否已经接入了HomeKit，Android不支持。如果没有接入，可以调用下面的bindToHomeKit方法，将设备接入
      * @deprecated since 10032 请使用Device.getDeviceWifi().checkHomeKitConnected()
      */
     checkHomeKitConnected() {
-        //@native :=> Promise
-        return this.getDeviceWifi().checkHomeKitConnected();
-        //@native end
+         return Promise
     }
     /**
      * 将当前设备绑定到HomeKit中
@@ -929,18 +601,14 @@ export class BasicDevice {
      * 
      */
     bindToHomeKit() {
-        //@native :=> Promise
-        return this.getDeviceWifi().bindToHomeKit();
-        //@native end
+         return Promise
     }
     /**
     * 检查wifi设备固件升级弹窗。该方法会触发升级弹窗alert提示。
     * @deprecated since 10032,请使用Device.getDeviceWifi().checkFirmwareUpdateAndAlert()
     */
     checkFirmwareUpdateAndAlert() {
-        //@native :=> promise {}
-        return this.getDeviceWifi().checkFirmwareUpdateAndAlert();
-        //@native end
+         return Promise.resolve({});
     }
     /**
      * 实时获取设备的网络信息包括网络强度，此方法一般情况下不走reject
@@ -948,9 +616,7 @@ export class BasicDevice {
      * @deprecated since 10032 即将废弃，请使用Device.getDeviceWifi().readDeviceNetWorkInfo()。
      */
     readDeviceNetWorkInfo(did) {
-        //@native :=> promise []
-        return this.getDeviceWifi().readDeviceNetWorkInfo(did);
-        //@native end
+         return Promise.resolve([]);
     }
     /**
      * 父设备的 model,10023及其之后返回空字符串
@@ -960,8 +626,7 @@ export class BasicDevice {
      *
      */
     get parentModel() {
-        //@native => ""
-        return Properties.of(this).parentModel;
+         return  ""
     }
     /**
      * 获取设备时区,非实时加载，可能为空.如果需要自行获取最新设备时区值，请使用smarthome.getDeviceTimeZone(did)
@@ -969,8 +634,7 @@ export class BasicDevice {
      * @deprecated   10021开始废弃，10021及后续版本建议使用 Device.getDeviceTimeZone().then
      */
     get timeZone() {
-        //@native => ""
-        return Properties.of(this).timeZone;
+         return  ""
     }
     /**
      * 获取 prop中保存的信息。当某设备有莫人属性时，这里为莫人属性的值，否则无此字段。不同设备类型，propInfo中包含的属性可能不同，propInfo一半是个json。
@@ -980,8 +644,7 @@ export class BasicDevice {
      *
      */
     get propInfo() {
-        //@native => {}
-        return Properties.of(this).propInfo;
+         return  {}
     }
     /**
      * 重置标志，本地设备才会返回该字段，为1时表示设备刚刚reset过
@@ -990,8 +653,7 @@ export class BasicDevice {
      * @readonly
      */
     get resetFlag() {
-        //@native => 0
-        return Properties.of(this).resetFlag;
+         return  0
     }
     /**
      * 创建场景
@@ -1004,8 +666,7 @@ export class BasicDevice {
      *
      */
     createScene(sceneType, opt = null) {
-        //@native => ""
-        return Scene.createScene(this.deviceID, sceneType, opt);
+         return  ""
     }
     /**
      * 创建定时场景
@@ -1017,8 +678,7 @@ export class BasicDevice {
      *
      */
     createTimerScene(opt = null) {
-        //@native => ""
-        return Scene.createTimerScene(this.deviceID, opt);
+         return  ""
     }
     /**
     * 加载本设备相关的场景
@@ -1031,8 +691,7 @@ export class BasicDevice {
     *
     */
     loadScenes(sceneType, opt = null) {
-        //@native => ""
-        return Scene.loadScenes(this.deviceID, sceneType, opt);
+         return  ""
     }
     /**
      * 加载定时场景
@@ -1043,8 +702,7 @@ export class BasicDevice {
      *
      */
     loadTimerScenes(opt = null) {
-        //@native => ""
-        return Scene.loadTimerScenes(this.deviceID, opt);
+         return  ""
     }
     /**
      * 上报日志，写入文件，在用户反馈时可以查看。比如某个地方报错/出错了，打上log，用户反馈后，能在后台查看到。查看地址：https://iot.mi.com/fe-op/operationCenter/userFeedback
@@ -1053,26 +711,8 @@ export class BasicDevice {
      *
      */
     reportLog(log) {
-        //@native begin
-        //Android上参数 log 必须是string类型
-        if (Object.prototype.toString.call(log) == '[object String]') {
-            native.MIOTService.addLog(this.model, log);
-        } else {
-            native.MIOTService.addLog(this.model, String(log));
-        }
-        //@native end
     }
 }
-//@native begin
-/**
- * @static
- * @return {BasicDevice}
- */
-const RootDevice = new BasicDevice();
-if (native.MIOTDevice) {
-    Properties.init(RootDevice, { ...native.MIOTDevice.currentDevice, _msgset: new Set() })
-}
-//@native end
 /**
  * @export 导出rootDevice
  */

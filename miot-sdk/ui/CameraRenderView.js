@@ -35,14 +35,6 @@
  * @property {bool} fullscreenState 是否是全屏状态 since 10033
  * @property {bool} forceSoftDecode 强制软解 since 10033
  */
-//@native begin
-import PropTypes from 'prop-types';
-import React from 'react';
-import { requireNativeComponent, ViewPropTypes, NativeModules, findNodeHandle, Platform, UIManager } from 'react-native';
-import { Device } from 'miot';
-const merge = require('merge');
-const MHCameraGLView = requireNativeComponent('MHCameraOpenGLView');
-//@native end
 /**
  * 音视频codec
  * @namespace MISSCodec
@@ -145,122 +137,49 @@ export default class CameraRenderView extends React.Component {
         ...ViewPropTypes,
     };
     render() {
-        //@native :=> null
-        return <MHCameraGLView
-            ref="cameraGLView"
-            did={Device.deviceID}
-            {...this.props} />
-        //@native end
+         return null
     }
     /**
      * 开始渲染视频
      */
     startRender() {
-        //@native :=> null
-        if (Platform.OS === 'android') {
-            UIManager.dispatchViewManagerCommand(
-                findNodeHandle(this.refs.cameraGLView),
-                UIManager.MHCameraOpenGLView.Commands.startRender,
-                [],
-            )
-        } else {
-            NativeModules.MHCameraOpenGLViewManager.startRender(findNodeHandle(this.refs.cameraGLView));
-        }
-        //@native end
+         return null
     }
     /**
      * 停止渲染视频
      */
     stopRender() {
-        //@native :=> null
-        if (Platform.OS === 'android') {
-            UIManager.dispatchViewManagerCommand(
-                findNodeHandle(this.refs.cameraGLView),
-                UIManager.MHCameraOpenGLView.Commands.stopRender,
-                [],
-            )
-        } else {
-            NativeModules.MHCameraOpenGLViewManager.stopRender(findNodeHandle(this.refs.cameraGLView));
-        }
-        //@native end
+         return null
     }
     /**
      * 开始播放声音
      */
     startAudioPlay() {
-        //@native :=> null
-        if (Platform.OS === 'android') {
-            UIManager.dispatchViewManagerCommand(
-                findNodeHandle(this.refs.cameraGLView),
-                UIManager.MHCameraOpenGLView.Commands.startAudioPlay,
-                [],
-            )
-        } else {
-            NativeModules.MHCameraOpenGLViewManager.startAudioPlay(findNodeHandle(this.refs.cameraGLView));
-        }
-        //@native end
+         return null
     }
     /**
      * 停止播放声音
      */
     stopAudioPlay() {
-        //@native :=> null
-        if (Platform.OS === 'android') {
-            UIManager.dispatchViewManagerCommand(
-                findNodeHandle(this.refs.cameraGLView),
-                UIManager.MHCameraOpenGLView.Commands.stopAudioPlay,
-                [],
-            )
-        } else {
-            NativeModules.MHCameraOpenGLViewManager.stopAudioPlay(findNodeHandle(this.refs.cameraGLView));
-        }
-        //@native end
+         return null
     }
     /**
      * 开始录制声音
      */
     startAudioRecord() {
-        //@native :=> null
-        if (Platform.OS === 'android') {
-            UIManager.dispatchViewManagerCommand(
-                findNodeHandle(this.refs.cameraGLView),
-                UIManager.MHCameraOpenGLView.Commands.startAudioRecord,
-                [],
-            )
-        } else {
-            NativeModules.MHCameraOpenGLViewManager.startAudioRecord(findNodeHandle(this.refs.cameraGLView));
-        }
-        //@native end
+         return null
     }
     /**
      * 停止录制声音
      */
     stopAudioRecord() {
-        //@native :=> null
-        if (Platform.OS === 'android') {
-            UIManager.dispatchViewManagerCommand(
-                findNodeHandle(this.refs.cameraGLView),
-                UIManager.MHCameraOpenGLView.Commands.stopAudioRecord,
-                [],
-            )
-        } else {
-            NativeModules.MHCameraOpenGLViewManager.stopAudioRecord(findNodeHandle(this.refs.cameraGLView));
-        }
-        //@native end
+         return null
     }
     /**
      * 隐藏SurfaceView only for Android
      * @since 10033
      */
     hidesSurfaceView() {
-        //@native :=> null
-        if (Platform.OS === 'android') {
-            UIManager.dispatchViewManagerCommand(
-                findNodeHandle(this.refs.cameraGLView),
-                UIManager.MHCameraOpenGLView.Commands.hidesSurfaceView,
-                [],
-            )
-        }
-        //@native end
+         return null
     }
 }
