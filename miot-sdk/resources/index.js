@@ -162,8 +162,7 @@ export const Language = {
     tr: "tr"
 }
 Object.freeze(Language);
-//@native = const i18n={system:createI18n({zh,en,zh_tw,zh_hk,zh_bo,es,ko,ru,it,fr,de,id,pl,vi,ja,th}, Language.zh), custom:{}, lang:false}
-const i18n = { system: createI18n({ zh, en, zh_tw, zh_hk, zh_bo, es, ko, ru, it, fr, de, id, pl, vi, ja, th, tr, nl, pt }, native.language), custom: false, lang: false };
+ const i18n={system:createI18n({zh,en,zh_tw,zh_hk,zh_bo,es,ko,ru,it,fr,de,id,pl,vi,ja,th}, Language.zh), custom:{}, lang:false}
 export default {
     /**
      * 米家标志
@@ -231,8 +230,6 @@ export default {
      */
     registerStrings(langStrings) {
         if (!langStrings) return;
-        //@native
-        i18n.custom = createI18n(langStrings, native.language);
         if (i18n.lang) {
             i18n.language = lang;
         }

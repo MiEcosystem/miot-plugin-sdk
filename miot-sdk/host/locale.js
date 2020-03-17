@@ -14,42 +14,30 @@
  * ... 
  *
  */
-//@native
-import native from "../native";
 export default {
   /**
    * 获取米家 APP 语言
    * @type {string}
    */
   get language() {
-    //@native
-    return native.language;
   },
   /**
    * 获取系统语言
    * @type {string}
    */
   get systemLanguage() {
-    //@native
-    return native.MIOTHost.systemLanguage;
   },
   /**
    * 获取时区
    * @type {string}
    */
   get timeZone() {
-    //@native begin
-    return native.MIOTHost.timeZone;
-    //@native end
   },
   /**
    * 是否是24小时制计时格式
    * @type {boolean}
    */
   get is24HourTime() {
-    //@native begin
-    return native.MIOTHost.is24HourTime;
-    //@native end
   },
   /**
    * 获取手机地理位置信息
@@ -73,32 +61,7 @@ export default {
    * })
    */
   getLocation() {
-    //@native :=> promise
-    return new Promise((resolve, reject) => {
-      if (native.isAndroid) {
-        native.MIOTHost.getLocation((ok, res) => {
-          if (ok)
-            resolve({ ...res, AOIName: res.aoiname });
-          else
-            reject(res);
-        });
-      } else {
-        // 只能用iPhone 真机测试
-        native.MHMapLocation.reLocationWithReGeocode(true, (locationParams, regeocodeParmas, errorParams) => {
-          if (errorParams && errorParams.code) {
-            console.log('请求地理位置信息出错，错误信息：' + errorParams);
-            reject('请求地理位置信息出错，错误信息：' + JSON.stringify(errorParams));
-          } else {
-            if (regeocodeParmas.formattedAddress) {
-              regeocodeParmas.address = regeocodeParmas.formattedAddress;
-              delete regeocodeParmas.formattedAddress;
-            }
-            resolve({ ...locationParams, ...regeocodeParmas });
-          }
-        })
-      }
-    });
-    //@native end
+     return Promise.resolve(null);
   },
   /**
    * 获取手机的时区信息

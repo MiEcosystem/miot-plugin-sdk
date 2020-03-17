@@ -17,8 +17,6 @@
  * });
  */
 //import Device ,{_find_device} from './../Device'
-//@native
-import native from './../native'; // {Properties, buildEvents}
 const SET = "/miotspec/prop/set";
 const GET = "/miotspec/prop/get";
 const ACTION = "/miotspec/action";
@@ -718,17 +716,7 @@ export default {
      * 失败时：{code:xxx, message:xxx}
      */
     getPropertiesValue(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall(GET, { 'params': params }, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
+         return Promise.resolve(null);
     },
     /**
      * 请求设置设备的属性值，由于是发起网络请求，数据的正确性可以通过抓包来查看；
@@ -742,17 +730,7 @@ export default {
      * 失败时：{code:xxx, message:xxx}
      */
     setPropertiesValue(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall(SET, { 'params': params }, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
+         return Promise.resolve(null);
     },
     /**
      * 请求调用设备的方法,由于是发起网络请求，数据的正确性可以通过抓包来查看；
@@ -766,17 +744,7 @@ export default {
      * 失败时：{code:xxx, message:xxx}
      */
     doAction(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall(ACTION, { 'params': params }, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
+         return Promise.resolve(null);
     },
     /**
      * 获取设备的spec详情, 由于是发起网络请求，数据的正确性可以通过抓包来查看；

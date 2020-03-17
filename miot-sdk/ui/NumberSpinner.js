@@ -41,14 +41,6 @@
  * @property {string} valueFormat 格式
  * @property {func} onNumberChanged 值改变的回调
  */
-//@native begin
-import native from 'miot/native';
-import { StringSpinner } from 'miot/ui';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { Platform, requireNativeComponent, ViewPropTypes } from 'react-native';
-const MiotNumberPicker = native.isAndroid ? requireNativeComponent('MIOTNumberPicker') : null;
-//@native end
 export default class NumberSpinner extends React.Component {
     static defaultProps = {
         valueFormat: Platform.select({ ios: '%0.0f' })
@@ -65,17 +57,6 @@ export default class NumberSpinner extends React.Component {
         ...ViewPropTypes,
     };
     render() {
-        //@native :=> null
-        return native.isAndroid ? <MiotNumberPicker {...this.props} {...this.props.pickerInnerStyle} lineStyle={this.props.lineStyle || "default"} onValueChanged={(event) => {
-            if (this.props.onNumberChanged) {
-                const val = event.nativeEvent || {};
-                const result = {
-                    newValue: parseFloat(val.newValue + ""),
-                    oldValue: parseFloat(val.oldValue + "")
-                }
-                this.props.onNumberChanged(result);
-            }
-        }} /> : <StringSpinner type={1} {...this.props} defaultValue={this.props.defaultValue + ""} onValueChanged={this.props.onNumberChanged} />;
-        //@native end
+         return null
     }
 }

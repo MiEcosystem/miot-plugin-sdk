@@ -37,8 +37,7 @@ export class IBluetoothCharacteristic {
      *
      */
     get isDiscovered() {
-        //@native => false
-        return Properties.of(this).isDiscovered;
+         return  false
     }
     /**
      * 数值是否已经加载, 为 true 时,本类才能读到正确的 value。read/write/writeWithoutResponse等方法的成功调用，bluetoothCharacteristicValueChanged事件执行，都会将此属性置为true
@@ -48,8 +47,7 @@ export class IBluetoothCharacteristic {
      *
      */
     get isValueLoaded() {
-        //@native => false
-        return Properties.of(this).isValueLoaded;
+         return  false
     }
     /**
      * 特征值的 UUID
@@ -59,8 +57,7 @@ export class IBluetoothCharacteristic {
      *
      */
     get UUID() {
-        //@native => ""
-        return Properties.of(this).characteristicUUID;
+         return  ""
     }
     /**
      * 数值, 配合 isValueLoaded 使用
@@ -79,8 +76,7 @@ export class IBluetoothCharacteristic {
      *
      */
     get value() {
-        //@native => null
-        return Properties.of(this).value;
+         return  null
     }
     /**
      * 读取蓝牙数据
@@ -90,23 +86,7 @@ export class IBluetoothCharacteristic {
      *      reject：100:设备正在连接中  101:设备不存在  102:服务或者特征值未发现
      */
     read() {
-        //@native :=> promise
-        //@mark andr done
-        //@mark iOS done
-        return new Promise((resolve, reject) => {
-            const self = Properties.of(this);
-            const { fakemac, serviceUUID, characteristicUUID } = self;
-            native.MIOTBluetooth.readHexStringWithCallback(fakemac.id, characteristicUUID, serviceUUID, (ok, data) => {
-                if (ok) {
-                    self.value = data;
-                    self.isValueLoaded = true;
-                    resolve(self);
-                    return;
-                }
-                reject(data);
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     }
     /**
      * 写数据
@@ -118,23 +98,7 @@ export class IBluetoothCharacteristic {
      *      reject：100:设备正在连接中  102:服务或者特征值未发现
      */
     write(value) {
-        //@native :=> promise
-        //@mark andr done
-        //@mark iOS done
-        return new Promise((resolve, reject) => {
-            const self = Properties.of(this);
-            const { fakemac, serviceUUID, characteristicUUID } = self;
-            native.MIOTBluetooth.writeHexStringWithCallback(fakemac.id, value, characteristicUUID, serviceUUID, 0, (ok, error) => {
-                if (ok) {
-                    self.value = value;
-                    self.isValueLoaded = true;
-                    resolve(this);
-                    return;
-                }
-                reject(error);
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     }
     /**
      * 直接写数据
@@ -146,23 +110,7 @@ export class IBluetoothCharacteristic {
      *      reject：{code: xxx, message: xxx} 100:设备正在连接中  102:服务或者特征值未发现
      */
     writeWithoutResponse(value) {
-        //@native :=> promise
-        //@mark andr done
-        //@mark iOS  done
-        return new Promise((resolve, reject) => {
-            const self = Properties.of(this);
-            const { fakemac, serviceUUID, characteristicUUID } = self;
-            native.MIOTBluetooth.writeHexStringWithCallback(fakemac.id, value, characteristicUUID, serviceUUID, 1, (ok, error) => {
-                if (ok) {
-                    self.value = value;
-                    self.isValueLoaded = true;
-                    resolve(this);
-                    return;
-                }
-                reject(error);
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     }
     /**
      * 设置数值变化监听开关，如果成功监听了，可以接收到属性变化事件bluetoothCharacteristicValueChanged
@@ -186,42 +134,7 @@ export class IBluetoothCharacteristic {
      *      reject：{code: xxx, message: xxx}  100:设备正在连接中  102:服务或者特征值未发现
      */
     setNotify(flag) {
-        //@native :=> promise
-        //@mark andr done
-        //@mark iOS done
-        if (native.isAndroid) {
-            return new Promise((resolve, reject) => {
-                const self = Properties.of(this);
-                const { fakemac, serviceUUID, characteristicUUID } = self;
-                native.MIOTBluetooth.setNotifyWithCallback(fakemac.id, flag, characteristicUUID, serviceUUID, (ok, error) => {
-                    if (ok) {
-                        resolve(this);
-                    } else {
-                        // 如果失败，在进行一次indicate
-                        native.MIOTBluetooth.setIndicationWithCallback(fakemac.id, flag, characteristicUUID, serviceUUID, (ok, error) => {
-                            if (ok) {
-                                resolve(this);
-                                return;
-                            }
-                            reject(error);
-                        });
-                    }
-                });
-            });
-        } else {
-            return new Promise((resolve, reject) => {
-                const self = Properties.of(this);
-                const { fakemac, serviceUUID, characteristicUUID } = self;
-                native.MIOTBluetooth.setNotifyWithCallback(fakemac.id, flag, characteristicUUID, serviceUUID, (ok, error) => {
-                    if (ok) {
-                        resolve(this);
-                        return;
-                    }
-                    reject(error);
-                });
-            });
-        }
-        //@native end
+         return Promise.resolve(null);
     }
 }
 /**
@@ -238,8 +151,7 @@ export class IBluetoothService {
      *
      */
     get UUID() {
-        //@native => ""
-        return Properties.of(this).serviceUUID;
+         return  ""
     }
     /**
      * 蓝牙服务是否已被发现,被发现的蓝牙服务才可以继续扫描特征值，蓝牙断开时，isDiscovered为false
@@ -249,8 +161,7 @@ export class IBluetoothService {
      *
      */
     get isDiscovered() {
-        //@native => false
-        return Properties.of(this).isDiscovered;
+         return  false
     }
     /**
      * 发现蓝牙特征，此方法返回true or false，表示是否开始发现蓝牙特征值。发现的蓝牙特征值需要通过订阅BluetoothEvent的bluetoothCharacteristicDiscovered来使用
@@ -260,18 +171,7 @@ export class IBluetoothService {
      *
      */
     startDiscoverCharacteristics(...characteristicUUIDs) {
-        //@native :=> false
-        //@mark andr done
-        //@mark iOS done
-        if (!this.isDiscovered) {
-            return false;
-        }
-        const notFound = characteristicUUIDs;//.filter(uuid => !this.getCharacteristic(uuid).isDiscovered)
-        const self = Properties.of(this);
-        const { fakemac, serviceUUID, characteristicUUID } = self;
-        native.MIOTBluetooth.discoverCharacteristics(fakemac.id, notFound, serviceUUID);
-        return true;
-        //@native end
+         return false
     }
     /**
      * 获取蓝牙特征值，如果没有，会创建一个，然后保存到缓存中，注意新创建的并不能直接使用，需要被发现后才可真正使用
@@ -281,20 +181,6 @@ export class IBluetoothService {
      *
      */
     getCharacteristic(characteristicUUID) {
-        //@native :=> null
-        //@mark andr done
-        const fullUUID = getBluetoothUUID128(characteristicUUID);
-        if (!fullUUID) {
-            return null;
-        }
-        const { characteristics, fakemac } = Properties.of(this);
-        let character = characteristics.get(fullUUID);
-        if (!character) {
-            character = new IBluetoothCharacteristic();
-            Properties.init(character, { fakemac, serviceUUID: this.UUID, characteristicUUID, fullUUID })
-            characteristics.set(fullUUID, character)
-        }
-        return character;
-        //@native end
+         return null
     }
 }
