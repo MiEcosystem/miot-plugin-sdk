@@ -31,6 +31,11 @@ function resolveUrlWithLink(url) {
 import ProtocolManager from '../utils/protocol-helper';
 // import { Entrance } from "../Package";
 import { report } from "../decorator/ReportDecorator";
+/**
+ * 原生UI管理
+ * @interface
+ *
+ */
 class IUi {
   /**
    * 是否支持商城

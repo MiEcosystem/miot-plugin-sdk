@@ -18,8 +18,13 @@
  * Host.audio.stopRecord().then(res => {//stop finished})
  * ...
  */
-import {report} from "../decorator/ReportDecorator";
-class IAudio{
+import { report } from "../decorator/ReportDecorator";
+/**
+ * 音频
+ * @interface
+ *
+ */
+class IAudio {
   /**
    * 用户是否开启录制权限
    * 在Android平台下 由于需要动态获取录音权限，所以该方法固定返回true，但是并不意味着可以录音。
@@ -29,7 +34,6 @@ class IAudio{
   isAbleToRecord() {
      return false;
   }
-  
   /**
    * 开始录音
    * 在Android平台下 由于需要动态获取录音权限 使用方法请参考 请参考 com.xiaomi.demo 中 MHAudioDemo 的用法

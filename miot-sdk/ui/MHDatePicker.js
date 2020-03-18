@@ -410,7 +410,7 @@ export default class MHDatePicker extends React.Component {
             else style = { width: monthWidth };
           }
           return (
-            <View style={[{ flexDirection: 'row' }, style]}>
+            <View key={index + this.unitArray[index]} style={[{ flexDirection: 'row' }, style]}>
               <StringSpinner
                 key={index + this.unitArray[index]}
                 style={style}

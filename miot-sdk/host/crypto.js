@@ -18,8 +18,13 @@
  * ...
  */
 import tr from "../resources/strings/tr";
-import {report} from "../decorator/ReportDecorator";
-class ICrypto{
+import { report } from "../decorator/ReportDecorator";
+/**
+ * 加密
+ * @interface
+ *
+ */
+class ICrypto {
   /**
    * MD5 编码
    * @param {string} content 需要编码的字符串
@@ -91,7 +96,7 @@ class ICrypto{
     * @param {string} color1Str 已发现区域色值
     * @returns {Promise<any>} 使用base64编码后的图片数据(Android是string类型)
   */
- @report
+  @report
   robotCleanerMapColorsToImageBase64(content, colorMStr, color0Str, color1Str) {
      return Promise.resolve('');
   }

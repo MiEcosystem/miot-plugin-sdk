@@ -14,7 +14,12 @@
  * ... 
  *
  */
-import {report} from "../decorator/ReportDecorator";
+import { report } from "../decorator/ReportDecorator";
+/**
+ * 本地化
+ * @interface
+ *
+ */
 class ILocale {
   /**
    * 获取米家 APP 语言

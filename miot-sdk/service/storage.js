@@ -7,7 +7,12 @@
  * @description MIOT 云端提供的暂存服务
  *
  */
-import {report} from "../decorator/ReportDecorator";
+import { report } from "../decorator/ReportDecorator";
+/**
+ * 云端配置管理
+ * @interface
+ *
+ */
 class ICloudStorage {
   /**
    * 读取米家的用户配置信息 /user/get_user_config（获取/user/set_user_config写入的用户配置）

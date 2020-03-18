@@ -44,7 +44,7 @@
  *      console.log(err)
  *   })
  */
-import {report} from "../decorator/ReportDecorator";
+import { report } from "../decorator/ReportDecorator";
 /**
  * 场景类型
  * @namespace SceneType
@@ -378,7 +378,7 @@ class IMiotScene {
      * @returns {Promise<IScene[]>}
      */
     @report
-    loadScenes(deviceID, sceneType, opt = null){
+    loadScenes(deviceID, sceneType, opt = null) {
         return loadScenes(deviceID, sceneType, opt);
     }
     /**

@@ -18,7 +18,12 @@
  *    console.log("error", error)
  * });
  */
-import {report} from "../decorator/ReportDecorator";
+import { report } from "../decorator/ReportDecorator";
+/**
+ * 存储管理
+ * @interface
+ *
+ */
 class IStorage {
   /**
    * 获取一个key 保存的字符串，如果已经调用 set 则返回对应的值，未调用 set 则返回空字串 ''
