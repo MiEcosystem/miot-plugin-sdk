@@ -107,6 +107,6 @@ class IStorage {
       this.set(key, keyValues[key], opt);
     }
   }
-};
+}
 const StorageInstance = new IStorage();
 export default StorageInstance;

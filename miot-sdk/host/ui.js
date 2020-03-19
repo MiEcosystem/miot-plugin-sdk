@@ -22,7 +22,7 @@ import { Entrance } from "../Package";
 const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 // @native begin
 function resolveUrlWithLink(url) {
-  if (typeof url === 'string' && (/https?\:\/\//i).test(url)) {
+  if (typeof url === 'string' && (/https?:\/\//i).test(url)) {
     return native.isAndroid ? [{ uri: url }] : url;
   }
   return resolveUrl(url);
@@ -189,7 +189,7 @@ class IUi {
     }
     if (!option.force && (Device.isShared || Device.isFamily)) {
       console.warn("分享设备不建议进行弹窗请求隐私授权。")
-      return new Promise.resolve(true);;
+      return new Promise.resolve(true);
     }
     return new Promise((resolve, reject) => {
       return ProtocolManager.getLegalAuthInfoProtocol().then(protocols => {
@@ -246,7 +246,7 @@ class IUi {
     let optionCopy = Object.assign({}, option);
     if (!optionCopy.force && (Device.isShared || Device.isFamily)) {
       console.warn("分享设备不建议进行弹窗请求隐私授权。")
-      return new Promise.reject(false);;
+      return new Promise.reject(false);
     }
     return new Promise((resolve, reject) => {
       ProtocolManager.getLegalAuthInfoProtocol().then(protocols => {
@@ -677,6 +677,6 @@ class IUi {
   @report
   openTerminalDeviceSettingPage(type) {
   }
-};
+}
 const UiInstance = new IUi();
 export default UiInstance;

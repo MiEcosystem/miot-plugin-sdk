@@ -16,7 +16,7 @@
  *  .catch(err => {//error happened})
  * ...
  * 其余具体使用请参考具体API文档，出现问题请查看：[按功能-概述](https://iot.mi.com/new/doc/05-%E7%B1%B3%E5%AE%B6%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/04-%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/02-%E6%8C%89%E5%8A%9F%E8%83%BD/01-%E6%A6%82%E8%BF%B0.html)
- * 
+ *
  * 名词解释：
  * 云端：特指小米iot云平台，接入小米的设备，都是指接入小米iot云平台的设备，设备一般都可以直接或者间接和iot云平台通讯
  * 本地局域网：指设备和手机在同一个局域网时，手机可直接与设备通讯，读取设备数据，本地局域网时，一般通过udp协议来与设备进行交互
@@ -28,7 +28,8 @@ import { DeviceEventEmitter } from "react-native";
 import native, { NativeTimer, PackageExitAction, Properties } from '../native';
 import { BasicDevice, _find_device } from './BasicDevice';
 import {report} from '../decorator/ReportDecorator';
-const INTERVAL_SUBSCRIBE_MSG_SECONDS = (2 * 60 + 50);//2'50"
+const INTERVAL_SUBSCRIBE_MSG_SECONDS = (9 * 60 + 50);//9'50"
+const INTERVAL_SUBSCRIBLE_MSG_ERROR = (5*1000); // 5秒
 /**
  * 设备网络访问控制类
  * @interface
@@ -76,7 +77,7 @@ export default class IDeviceWifi {
      * 内部调用get_prop 方法,Android会依据当前环境选择从本地局域网或者云端获取, iOS因获取不到wifi信息，会默认走云端获取，并将返回数据写成{key:value}格式
      * @method
      * @param {*} propNames 属性名称，若propNames长度小于一个，则走reject。普通设备传：prop.propertyName, miot-spec设备传prop.siid.piid
-     * @returns {Promise<Map>} Map<name, value> 
+     * @returns {Promise<Map>} Map<name, value>
      * @example
      * Device.getDeviceWifi().loadProperties("prop.light", "prop.2.1").then(map=>{
      *  const a = map.get("a")
@@ -276,8 +277,8 @@ export default class IDeviceWifi {
      * Device.getDeviceWifi().setFirmwareNotCheckUpdate(true|false)
      *  .then(res => console.log('success:', res))
      *  .catch(err => console.log('failed:', err))
-     * 
-     * @return {Promise}  
+     *
+     * @return {Promise}
      *      resolve: "set success"
      *      reject: "not a MHDeviceViewControllerBase"
      */

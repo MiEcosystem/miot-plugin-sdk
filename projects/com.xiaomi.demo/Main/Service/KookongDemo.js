@@ -6,8 +6,9 @@ import { Device, Service, Host } from "miot";
 import CommonCell from '../../CommonModules/CommonCell';
 import Package from 'miot/Package';
 
-let KKookongApiKey_Ios_Debug = '60095E329B9CA04FCFE98ED51B70CCD9';
-let KKookongApiKey_Ios_Release = '87250803BEA2D0D1CCB7055DFAB036A3';
+let KKookongApiKey_Ios_Debug = '60095E329B----51B70CCD9';//开发时请换成实际可用key
+let KKookongApiKey_Ios_Release = '87250803----55DFAB036A3';//开发时请换成实际可用key
+let KKookongApiKey_Android = '91423A3CBA44F36A45C8CABB572A4B2F';
 
 let KKookongManagerIdentifier = 'managerIdentify_ac_kookong_xiaomidemo';
 
@@ -33,10 +34,14 @@ export default class KooKongDemo extends React.Component {
           name: "registerWithKey",
           group: '注册sdk',
           action: () => {
-            if (Package.isDebug) {
-              Service.kookong.registerWithKey(KKookongApiKey_Ios_Debug, null);
-            } else {
-              Service.kookong.registerWithKey(KKookongApiKey_Ios_Release, null);
+            if(Host.isAndroid){
+              Service.kookong.registerWithKey(KKookongApiKey_Android, null);
+            }else{
+              if (Package.isDebug) {
+                Service.kookong.registerWithKey(KKookongApiKey_Ios_Debug, null);
+              } else {
+                Service.kookong.registerWithKey(KKookongApiKey_Ios_Release, null);
+              }
             }
           }
         },
