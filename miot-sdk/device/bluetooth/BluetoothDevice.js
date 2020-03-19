@@ -36,9 +36,9 @@
  */
 import native, { buildEvents, Properties } from '../../native';
 import { IBluetoothService } from './CoreBluetooth';
-import { getBluetoothUUID128 } from './index';
+import Bluetooth, { getBluetoothUUID128 } from './index';
 import RootDevice from '../BasicDevice';
-import {report} from "../../decorator/ReportDecorator";
+import { report } from "../../decorator/ReportDecorator";
 // import Host from '../../Host';
 /**
  *
@@ -53,6 +53,13 @@ export function setMacUuid(key, value) {
 }
 export function getMacUuid() {
     return mac_uuid_for_ios;
+}
+function hex2a(hexstring) {
+    var hex = hexstring.toString();
+    var str = '';
+    for (var i = 0; (i < hex.length && hex.substr(i, 2) !== '00'); i += 2)
+        str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+    return str;
 }
 // @native end
 /**

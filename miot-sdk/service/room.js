@@ -79,6 +79,6 @@ class IMiotRoom {
   @report
   createRoom(name) {
   }
-};
+}
 const MiotRoomInstance = new IMiotRoom();
 export default MiotRoomInstance;
