@@ -212,6 +212,16 @@ class IMiotCamera {
   getCurrentFrameInfo() {
      return Promise.resolve(null);
   }
+  /**
+  * 执行FFmpeg命令
+  * @param {object} command string
+  * @param {String} callback string
+  * @param {Block} complete (eror) =>
+  */
+  @report
+  ffmpegCommand(command, callbackName, complete) {
+     return 
+  }
 }
 const MiotCameraInstance = new IMiotCamera();
 export default MiotCameraInstance;

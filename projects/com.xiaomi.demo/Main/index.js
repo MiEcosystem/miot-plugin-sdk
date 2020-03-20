@@ -34,6 +34,7 @@ import SoftKeyboardAdapterTestDemo from './UIComponent/SoftKeyboardAdapterTestDe
 
 // ul
 import TitleBarDemo from "./tutorial/TitleBarDemo";  //  ui-导航栏使用
+import TabBarDemo from "./tutorial/TabBarDemo";  //  ui-导航栏使用
 import List from "./UIComponent/List";  // ui-自定义列表项
 import CardPage from "./UIComponent/CardPage"; // ui-自定义列卡片
 import IndependentCardDemo from "./UIComponent/IndependentCardDemo"; // ui - 独立卡片
@@ -203,6 +204,7 @@ function createRootStack(initPage) {
     UIDemo,
     SoftKeyboardAdapterTestDemo: SoftKeyboardAdapterTestDemo,
     TitleBarDemo,
+    TabBarDemo,
     List,
     CardPage,
     IndependentCardDemo,
