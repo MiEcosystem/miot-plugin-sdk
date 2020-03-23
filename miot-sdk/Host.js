@@ -294,7 +294,8 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * android 连接指定ssid得wifi 使用此api不需要特别权限
+     * android 连接指定ssid得wifi，要求该wifi之前已经连接过 使用此api不需要特别权限
+     * @param   ssid 需要去掉字串两端的引号。在native层会自己处理
      * @since 10036
      * @return {Promise<JSON>}  
      * @example

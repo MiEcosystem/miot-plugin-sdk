@@ -20,7 +20,7 @@ Service.spec.getSpecString(xxx).then(res => {
 ```
 
 * [miot/service/spec](#module_miot/service/spec)
-    * [.getPropertiesValue(params)](#module_miot/service/spec.getPropertiesValue) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
+    * [.getPropertiesValue(params, datasource)](#module_miot/service/spec.getPropertiesValue) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
     * [.setPropertiesValue(params)](#module_miot/service/spec.setPropertiesValue) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
     * [.doAction(params)](#module_miot/service/spec.doAction) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
     * [.getSpecString(did)](#module_miot/service/spec.getSpecString) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
@@ -28,7 +28,7 @@ Service.spec.getSpecString(xxx).then(res => {
 
 <a name="module_miot/service/spec.getPropertiesValue"></a>
 
-### miot/service/spec.getPropertiesValue(params) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
+### miot/service/spec.getPropertiesValue(params, datasource) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
 请求获取设备的属性值； 由于是发起网络请求，数据的正确性可以通过抓包来查看；
 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
 code 具体表示什么意思可以查看： https://iot.mi.com/new/doc/05-米家扩展程序开发指南/05-功能接口/06-MIOT-Spec.html
@@ -42,6 +42,7 @@ code 具体表示什么意思可以查看： https://iot.mi.com/new/doc/05-米�
 | Param | Type | Description |
 | --- | --- | --- |
 | params | <code>Array</code> | [{did: 1, siid: 1, piid: 1},{did: 1, siid:2, piid: 3},……] |
+| datasource | <code>int</code> | 从10036开始增加datasource: datasource=1  优先从缓存读取，没有读取到下发rpc datasource=2  直接下发rpc datasource=3  直接读缓存;没有缓存的 code 是 -70xxxx 后台的默认策略是datasource=3 |
 
 <a name="module_miot/service/spec.setPropertiesValue"></a>
 

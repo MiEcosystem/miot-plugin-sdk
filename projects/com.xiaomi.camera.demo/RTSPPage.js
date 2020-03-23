@@ -140,9 +140,9 @@ export default class RTSPPage extends React.Component {
                             Service.miotcamera.ffmpegCommand(
                                 'ffmpeg -i rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov -target ntsc-vcd ' + NativeModules.MIOTPackage.localFilePath + '/' + Date.now() + '.mpg',
                                 kFFmpegProcessCallbackName,
-                                (error) => {
+                                (isSuccess, errInfo) => {
                                     this.setState({
-                                        testButtonName: error ? "转码成功" : "转码失败: error"
+                                        testButtonName: isSuccess ? "转码成功" : "转码失败:" + JSON.stringify(errInfo)
                                     })
                                 }
                             )

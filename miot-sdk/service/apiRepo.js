@@ -130,5 +130,7 @@ const API_REPO = {
   '/miot/camera/app/v1/add/face': {},
   '/common/app/m3u8': {},
   '/common/app/v1/img': {},
+  '/miot/camera/app/v1/put/faceSwitch':{},
+  '/miot/camera/app/v1/put/babyCrySwitch':{}
 }
 export default API_REPO;
