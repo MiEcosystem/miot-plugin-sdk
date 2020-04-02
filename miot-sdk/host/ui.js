@@ -184,50 +184,7 @@ class IUi {
    */
   @report
   alertLegalInformationAuthorization(option) {
-    if (true == ProtocolManager.getLegalInfoAuthHasShowed()) {
-      return new Promise.resolve(true);
-    }
-    if (!option.force && (Device.isShared || Device.isFamily)) {
-      console.warn("分享设备不建议进行弹窗请求隐私授权。")
-      return new Promise.resolve(true);
-    }
-    return new Promise((resolve, reject) => {
-      return ProtocolManager.getLegalAuthInfoProtocol().then(protocols => {
-        let optionCopy = Object.assign({}, option);
-        if (protocols && protocols.privacyURL && protocols.privacyURL.length > 0) {
-          optionCopy = Object.assign(optionCopy, protocols);
-        }
-        if (optionCopy.privacyURL) {
-          optionCopy.privacyURL = ProtocolManager.resolveUrlWithLink(optionCopy.privacyURL);
-        }
-        if (optionCopy.agreementURL) {
-          optionCopy.agreementURL = ProtocolManager.resolveUrlWithLink(optionCopy.agreementURL);
-        }
-        if (optionCopy.hideAgreement) {
-          delete optionCopy['agreementURL']//iOS下设置为“”则隐藏该项目
-        }
-        if (optionCopy.experiencePlanURL) {
-          optionCopy.experiencePlanURL = ProtocolManager.resolveUrlWithLink(optionCopy.experiencePlanURL);
-        }
-        if (optionCopy.hideUserExperiencePlan) {
-          delete optionCopy['experiencePlanURL']
-        }
-        if (true == ProtocolManager.getLegalInfoAuthHasShowed()) {
-          return new Promise.resolve(true);
-        }
-        // 内部事件，不需要提供给外部, 如果显示了隐私政策弹窗，需要通知关闭掉固件升级弹窗
-        DeviceEventEmitter.emit('MH_Event_ShowPrivacyLicenseDialog', { isShowingPrivacyLicenseDialog: true });
-        console.log('showaleert');
-        ProtocolManager.setLegalInfoAuthHasShowed(true);
-        native.MIOTHost.showDeclarationWithConfig(optionCopy, (ret, res) => {
-          if (ret === 'ok' || ret === true || ret === 'true') {
-            resolve(true);
-          } else {
-            reject(false);
-          }
-        });
-      });
-    })
+     return Promise.resolve(null);
   }
   /**
    * 查看隐私政策和用户协议信息， 支持显示用户体验计划
@@ -243,40 +200,7 @@ class IUi {
    */
   @report
   previewLegalInformationAuthorization(option) {
-    let optionCopy = Object.assign({}, option);
-    if (!optionCopy.force && (Device.isShared || Device.isFamily)) {
-      console.warn("分享设备不建议进行弹窗请求隐私授权。")
-      return new Promise.reject(false);
-    }
-    return new Promise((resolve, reject) => {
-      ProtocolManager.getLegalAuthInfoProtocol().then(protocols => {
-        if (protocols && protocols.privacyURL && protocols.privacyURL.length > 0) {
-          optionCopy = Object.assign(optionCopy, protocols);
-        }
-        if (optionCopy.privacyURL) {
-          optionCopy.privacyURL = ProtocolManager.resolveUrlWithLink(optionCopy.privacyURL);
-        }
-        if (optionCopy.agreementURL) {
-          optionCopy.agreementURL = ProtocolManager.resolveUrlWithLink(optionCopy.agreementURL);
-        }
-        if (optionCopy.hideAgreement) {
-          delete optionCopy['agreementURL']
-        }
-        if (optionCopy.experiencePlanURL) {
-          optionCopy.experiencePlanURL = ProtocolManager.resolveUrlWithLink(optionCopy.experiencePlanURL);
-        }
-        if (optionCopy.hideUserExperiencePlan) {
-          delete optionCopy['experiencePlanURL']
-        }
-        native.MIOTHost.openDeclarationWithConfig(optionCopy, (ok, res) => {
-          if (ok) {
-            resolve(true);
-          } else {
-            reject(false);
-          }
-        });
-      })
-    })
+     return Promise.resolve(null);
   }
   /**
    * 查看软件政策和隐私协议
@@ -294,6 +218,7 @@ class IUi {
    * 隐私协议弹框需求：
    * a. 所有接入米家的设备，绑定成功后第一次进插件，都需要隐私弹框，后续再进不需弹框
    * b. 取消隐私授权/解绑设备后，重新绑定设备，仍需遵循规则a
+ 
    * 插件端可按如下方案实现：
    * 1. 使用batchSetDeviceDatas存储一个标志位，用来记录是否“隐私弹框”过
    * 2. 进入插件时batchGetDeviceDatas获取此标志位，若为NO，弹框，同时设置标志位为YES；若为YES，不弹框

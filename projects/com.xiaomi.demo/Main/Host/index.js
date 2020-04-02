@@ -82,6 +82,12 @@ export default class HostDemo extends React.Component {
         }
       },
       {
+        'name': '相册相关-PhotoDemo',
+        'func': () => {
+          this.props.navigation.navigate('PhotoDemo', { title: '相册相关-PhotoDemo' })
+        }
+      },
+      {
         "name": '创建独立js线程',
         'func': () => {
           this.props.navigation.navigate('JSExecutor', { title: "创建独立js线程" })

@@ -85,6 +85,7 @@ import DeviceDemo from "./Device/DeviceDemo";
 import HostDemo from "./Host";
 import HostEventDemo from "./Host/HostEventDemo";
 import FileDemo from './Host/FileDemo';
+import PhotoDemo from './Host/PhotoDemo';
 import HostPropsInfoDemo from './Host/HostPropsInfoDemo';
 import FileStorage from './Host/File';
 import StorageDemo from './Host/Storage';
@@ -377,6 +378,7 @@ function createRootStack(initPage) {
     KVStorageDemo: KVStorageDemo,
     fileStorage: FileStorage,
     FileDemo: FileDemo,
+    PhotoDemo: PhotoDemo,
     callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
     MiotSpecDemo: MiotSpecDemo,
     RPCControl: RPCControl,
