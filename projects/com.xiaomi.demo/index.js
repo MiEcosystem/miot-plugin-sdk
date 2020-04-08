@@ -45,10 +45,10 @@ class Apps extends React.Component {
 }
 switch (Package.entrance) {
     case Entrance.Scene:
-        Package.entry(Apps, _ => {})
+        Package.entry(App, _ => {})
         break;
     case PluginEntrance.Setting:
-        Package.entry(Apps, _ => {});
+        Package.entry(App, _ => {});
         break;
     default:
         Package.entry(App, _ => {})

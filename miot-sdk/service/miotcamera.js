@@ -192,14 +192,6 @@ class IMiotCamera {
   @report
   showCloudStorageSetting() {
      return 
-  }
-  /**
-   * 打开人脸识别页面
-   * @since 10033
-   * @param {BOOL} isVip
-   */
-  @report
-  showFaceRecognize(isVip) {
      return 
   }
   /* 注册收到数据速率 Bytes per second，每秒回调一次
@@ -225,6 +217,22 @@ class IMiotCamera {
   @report
   ffmpegCommand(command, callbackName, complete) {
      return 
+  }
+  /**
+   * 获取视频缩略图片接口（如报警视频列表缩略图） 
+   * @param {string} imgStoreId 图片id
+   * @returns {Promise<String>} 文件路径
+   */
+  @report
+  getFileIdImage(imgStoreId) {
+      NativeModules.MHCameraSDK.getfileIdImage(Device.deviceID, Device.model, imgStoreId,(success,result)=>{
+        if(success){
+          resolve(result);
+        }else{
+          reject("getFileIdImage failed");
+        }
+      });
+    })
   }
 }
 const MiotCameraInstance = new IMiotCamera();

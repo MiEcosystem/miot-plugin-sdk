@@ -49,12 +49,12 @@ export default class App extends React.Component {
 }
 
 const NaviApp = createStackNavigator({
-    MainPage: { 
-        screen: MainPage
-        //screen: RTSPPage
+  RTSPPage: { 
+        // screen: MainPage
+        screen: RTSPPage
     }
 },{
-    initialRouteName: 'MainPage',
+    initialRouteName: 'RTSPPage',
     navigationOptions: ({ navigation }) => {
         if (navigation.state.params && navigation.state.params.show) {
             return { header: null }

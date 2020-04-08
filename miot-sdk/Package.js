@@ -46,7 +46,7 @@ const EVENT_TYPE = {
     /**
      * 插件路由发生变化
      */
-    NAVIGATION_STATE_CHANGE: 1,
+    NAVIGATION_STATE_CHANGE: 1
 }
 Object.freeze(EVENT_TYPE);
 export const DEBUG = "debug";
@@ -104,6 +104,12 @@ export const PackageEvent = {
     * @event
     */
     packageDidResume: { always: true },
+    /**
+     * SDK弹出的隐私同意时的回调
+     * @event
+     * @since 10037
+     */
+    packageAuthorizationAgreed: { always: true },
     /**
      * 用户撤销隐私授权时的回调
      * @event

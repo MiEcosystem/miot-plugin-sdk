@@ -131,6 +131,8 @@ const API_REPO = {
   '/common/app/m3u8': {},
   '/common/app/v1/img': {},
   '/miot/camera/app/v1/put/faceSwitch':{},
-  '/miot/camera/app/v1/put/babyCrySwitch':{}
+  '/miot/camera/app/v1/put/babyCrySwitch':{},
+  // '/v2/device/multi_check_device_version':{},
+  '/miot/camera/app/v1/put/babyCrySwitch':{},
 }
 export default API_REPO;

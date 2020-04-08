@@ -170,6 +170,48 @@ class ISmartHome {
          return Promise.resolve(null);
     }
     /**
+     * 调用Device.getWifiDevice()的检测固件是否有升级的api, 达到与相关行为一致的目的。
+     * @param {*} did 设备did
+     */
+    @report
+    getFirmwareUpdateInfo(did) {
+      let app_level = native.MIOTHost.appVersion || native.MIOTHost.systemInfo.sysVersion;
+      let platform = native.isAndroid ? 'android' : 'ios';
+      let check_reqs = [{ did: did }];
+      native.MIOTRPC.standardCall('/v2/device/multi_check_device_version', { app_level, platform, check_reqs }, (ok, res) => {
+          if (!ok) {
+              return reject(res);
+          }
+          let infos = res.list;
+          let needUpgrade = false;
+          let upgrading = false;
+          let latestVersion = '';
+          if (!(infos instanceof Array) || infos.length <= 0) {
+                    // infos 非数组，不处理
+              return resolve({ needUpgrade: false, force: false, upgrading: false });
+          }
+          let latest = infos[0]
+          if (!latest) {
+              //不升级提示
+              return resolve({ needUpgrade: false, force: false, upgrading: false });
+          }
+          latestVersion = latest.latest;
+          //根据native逻辑，只有需要升级和升级中更需要跳转升级页面
+          if (!latest.isLatest && latest.latest !== latest.curr && !latest.updating) {
+              if (latest.ota_status === 'failed') {
+                //更新失败
+              } else {
+                  //需要更新
+                  needUpgrade = true;
+              }
+          } else if (latest.ota_status === 'downloading' || latest.ota_status === 'downloaded' || latest.ota_status === 'installing') {
+              //正在升级安装
+              upgrading = true;
+          }
+          return resolve({ needUpgrade, force: latest.force, upgrading, latestVersion });
+      })
+    }
+    /**
      * 添加一条日志打点。
      * 开发者应该在拓展程序内合适时机调用该接口，打点信息会自动写入文件，按 Model 归类，即一个 Model 生成一个日志文件。
      * 当用户反馈问题时，勾选 “同时上传日志”，则该 Model 的日志会跟随用户反馈上传，
