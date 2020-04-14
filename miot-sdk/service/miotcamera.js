@@ -101,6 +101,9 @@ export const AlarmEventType = {
   EventType_BabyCry: 1 << 6,
 };
 Object.freeze(AlarmEventType);
+/**
+ * @export
+ */
 class IMiotCamera {
   /**
    * 连接设备
@@ -166,7 +169,7 @@ class IMiotCamera {
    * 打开报警视频页面
    * 这个接口按照现有的标准报警视频交互，报警视频列表页筛选项默认有：全部、物体移动、人性移动、AI；如果是vip用户，就再加上人脸、宝宝哭声这两个筛选项；
    * 这里添加这个localRecognizeEvents的目的是：主要处理，部分model不是vip，也会有宝宝哭声的筛选项，这个参数的作用：用户如果不是vip，但是又有默认选项之外的筛选项时，通过这个参数来添加人脸或者宝宝哭声的选项。
-   * 
+   *
    * 现在除创米021那几款摄像头，都只传0就行了
    * @since 10033
    * @param {number} AlarmEventType 取或
@@ -192,6 +195,22 @@ class IMiotCamera {
   @report
   showCloudStorageSetting() {
      return 
+  }
+  /**
+   * 打开报警视频播放页面
+   * @since 10037
+   * @param data  jsonobj=>str 从push点击跳转进来后，如果是smartscene 就把extra字段捞出来放到这里
+   */
+  openAlarmVideoPlayer(data) {
+     return 
+  }
+  /**
+   * 打开人脸识别页面
+   * @since 10033
+   * @param {BOOL} isVip
+   */
+  @report
+  showFaceRecognize(isVip) {
      return 
   }
   /* 注册收到数据速率 Bytes per second，每秒回调一次
@@ -220,6 +239,7 @@ class IMiotCamera {
   }
   /**
    * 下载m3u8视频并合成mp4
+   * @since 10037
    * @param fileId
    * @param filePath
    * @param callbackName
@@ -233,6 +253,7 @@ class IMiotCamera {
   }
   /**
    * 获取报警视频m3u8播放地址
+   * @since 10037
    * @param fileId 视频fileId
    * @param isAlarm 是否报警视频
    * @param videoCodec 视频编码如 "H264", "H265"
@@ -249,7 +270,8 @@ class IMiotCamera {
     })
   }
   /**
-   * 获取视频缩略图片接口（如报警视频列表缩略图） 
+   * 获取视频缩略图片接口（如报警视频列表缩略图）
+   * @since 10037
    * @param {string} imgStoreId 图片id
    * @returns {Promise<String>} 文件路径
    */

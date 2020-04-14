@@ -19,6 +19,10 @@
  * })
  *
  */
+/**
+ * 房间
+ * @interface
+ */
 export class IMHRoom {
   /**
    * 房间所属的家庭ID
@@ -56,6 +60,9 @@ export class IMHRoom {
   updateName(newName) {
   }
 }
+/**
+ * @export
+ */
 class IMiotRoom {
   /**
    * 获取所有房间列表

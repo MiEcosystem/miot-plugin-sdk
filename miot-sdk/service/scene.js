@@ -279,6 +279,9 @@ function createScene(deviceID, sceneType, opt = null) {
 function loadScenes(deviceID, sceneType, opt = null) {
      return Promise.resolve(null);
 }
+/**
+ * @export
+ */
 class IMiotScene {
     /**
      * 创建场景

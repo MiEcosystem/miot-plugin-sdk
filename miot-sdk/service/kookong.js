@@ -1,4 +1,7 @@
 import {report} from '../decorator/ReportDecorator';
+/**
+ * @export
+ */
 class IKookong {
   /**
    *  注册sdk

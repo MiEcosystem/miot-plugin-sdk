@@ -5,14 +5,14 @@
  * @doc_directory bluetooth
  * @module miot/device/bluetooth
  * @description 蓝牙设备操作类
- * 蓝牙设备的开发，详见：https://iot.mi.com/new/doc/05-%E7%B1%B3%E5%AE%B6%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/04-%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/03-%E6%8C%89%E8%AE%BE%E5%A4%87/02-%E8%93%9D%E7%89%99%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/02-%E8%93%9D%E7%89%99%E8%AE%BE%E5%A4%87%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97.html，此处不再赘述蓝牙开发的流程以及蓝牙的工作原理。
- * **默认大家对iOS中的CoreBluetooth和Android中的android.bluetooth有一定了解，了解了这些内容再来读此文档，事半功倍。**
- * 蓝牙设备由1个js文件拆分为5个js文件，主要为：
- * index.js 蓝牙设备相关入口文件
- * BluetoothDevice.js 普通蓝牙设备功能文件，包含了蓝牙设备的基本操作，比如发现，连接，取消链接，蓝牙事件等模块。
- * LockDevice.js 蓝牙锁独有的相关功能文件，提供了蓝牙锁的开关锁，密码管理，加解密等功能
- * CoreBluetooth.js 蓝牙服务/特征值管理类文件，提供了蓝牙服务，蓝牙特征值等模块
- * ClassicDevice.js 经典蓝牙功能文件，包含了经典蓝牙的连接，数据读写等操作，一般开发者不用关心此文件。
+ * 蓝牙设备的开发，详见：[蓝牙设备](https://iot.mi.com/new/doc/app-development/extension-development/device-management/device.html#%E8%93%9D%E7%89%99%E8%AE%BE%E5%A4%87)，此处不再赘述蓝牙开发的流程以及蓝牙的工作原理。
+ * **默认大家对iOS中的CoreBluetooth和Android中的android.bluetooth有一定了解，了解了这些内容再来读此文档，事半功倍。**  
+ * 蓝牙设备由1个js文件拆分为5个js文件，主要为：  
+ * index.js 蓝牙设备相关入口文件  
+ * BluetoothDevice.js 普通蓝牙设备功能文件，包含了蓝牙设备的基本操作，比如发现，连接，取消链接，蓝牙事件等模块。  
+ * LockDevice.js 蓝牙锁独有的相关功能文件，提供了蓝牙锁的开关锁，密码管理，加解密等功能  
+ * CoreBluetooth.js 蓝牙服务/特征值管理类文件，提供了蓝牙服务，蓝牙特征值等模块  
+ * ClassicDevice.js 经典蓝牙功能文件，包含了经典蓝牙的连接，数据读写等操作，一般开发者不用关心此文件。  
  * 每个文件的具体功能，请直接查看此文件的具体文档。
  * 
  * @example
@@ -196,7 +196,7 @@ export default {
      * 判断当前设备是否通过蓝牙网关扫描到了。
      * 已知使用场景：如果是，可以考虑在更多设置加一个去蓝牙网关的入口，跳转到蓝牙网关页面，然后可以操作网关绑定此设备为子设备
      * @static
-     * @param {string} mac
+     * @param {string} mac 蓝牙子设备mac
      * @returns {Promise<boolean>}，此方法不会走reject
      */
     isBleGatewayConnected(mac) {
