@@ -109,6 +109,13 @@ class IUi {
   openShareListBar(title, description, imagePath, url) {
   }
   /**
+   * 打开系统分享文件页面
+   * @param {string} pathOrUrl 分享文件的全路径或者链接url。
+   */
+  @report
+  openSystemShareWindow(pathOrUrl) {
+  }
+  /**
    * 获取设备列表中指定model的设备信息
    * @param {string} model - 设备model
    * @returns {Promise<devices[]>}
@@ -218,7 +225,6 @@ class IUi {
    * 隐私协议弹框需求：
    * a. 所有接入米家的设备，绑定成功后第一次进插件，都需要隐私弹框，后续再进不需弹框
    * b. 取消隐私授权/解绑设备后，重新绑定设备，仍需遵循规则a
- 
    * 插件端可按如下方案实现：
    * 1. 使用batchSetDeviceDatas存储一个标志位，用来记录是否“隐私弹框”过
    * 2. 进入插件时batchGetDeviceDatas获取此标志位，若为NO，弹框，同时设置标志位为YES；若为YES，不弹框
@@ -601,6 +607,13 @@ class IUi {
    */
   @report
   openTerminalDeviceSettingPage(type) {
+  }
+  /**
+   *  打开手机系统位置信息设置页, iOS 的位置设置页面在手机设置页中米家app配置页面中
+   *  @since 10038
+   */
+  @report
+  openPhoneLocationServerSettingPage(){
   }
 }
 const UiInstance = new IUi();

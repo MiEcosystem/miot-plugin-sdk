@@ -8,6 +8,7 @@
  * @description RTSP视频渲染组件
  */
 export default class RTSPRenderView extends React.Component {
-    render() {
-    }
-}
+  render() {
+  }
+  stopPlay() {
+     return null

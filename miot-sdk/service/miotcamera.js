@@ -101,6 +101,9 @@ export const AlarmEventType = {
   EventType_BabyCry: 1 << 6,
 };
 Object.freeze(AlarmEventType);
+/**
+ * @export
+ */
 class IMiotCamera {
   /**
    * 连接设备
@@ -192,14 +195,6 @@ class IMiotCamera {
   @report
   showCloudStorageSetting() {
      return 
-  }
-  /**
-   * 打开人脸识别页面
-   * @since 10033
-   * @param {BOOL} isVip
-   */
-  @report
-  showFaceRecognize(isVip) {
      return 
   }
   /* 注册收到数据速率 Bytes per second，每秒回调一次
@@ -225,6 +220,55 @@ class IMiotCamera {
   @report
   ffmpegCommand(command, callbackName, complete) {
      return 
+  }
+  /**
+   * 下载m3u8视频并合成mp4
+   * @since 10037
+   * @param fileId
+   * @param filePath
+   * @param callbackName
+   * @returns
+   *    state : 1. onStart (开始下载)  2. onComplete（下载完成）  3. onError（失败）  4. onProgress（下载进度）
+   *    errorInfo : 失败描述（state = onError时才有）
+   *    progress : 下载进度0 - 100 (state = onProgress时才有)
+   */
+  @report
+  downloadM3U8ToMP4(fileId, filePath, callbackName) {
+  }
+  /**
+   * 获取报警视频m3u8播放地址
+   * @since 10037
+   * @param fileId 视频fileId
+   * @param isAlarm 是否报警视频
+   * @param videoCodec 视频编码如 "H264", "H265"
+   */
+  @report
+  getVideoFileUrl(fileId, isAlarm, videoCodec) {
+      NativeModules.MHCameraSDK.getVideoFileUrl(Device.deviceID, Device.model, fileId, isAlarm, videoCodec, (success,result)=>{
+        if(success){
+          resolve(result);
+        }else{
+          reject("getFileIdImage failed");
+        }
+      });
+    })
+  }
+  /**
+   * 获取视频缩略图片接口（如报警视频列表缩略图） 
+   * @since 10037
+   * @param {string} imgStoreId 图片id
+   * @returns {Promise<String>} 文件路径
+   */
+  @report
+  getFileIdImage(imgStoreId) {
+      NativeModules.MHCameraSDK.getfileIdImage(Device.deviceID, Device.model, imgStoreId,(success,result)=>{
+        if(success){
+          resolve(result);
+        }else{
+          reject("getFileIdImage failed");
+        }
+      });
+    })
   }
 }
 const MiotCameraInstance = new IMiotCamera();

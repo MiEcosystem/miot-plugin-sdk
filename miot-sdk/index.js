@@ -27,7 +27,7 @@ import { RootDeviceProperties } from "./Properties";
 import ResourcesPack from './resources';
 import ServiceInstance from './Service';
 import { SceneType as SceneTypeNames } from './service/scene';
-export const API_LEVEL = 10036
+export const API_LEVEL = 10037
 /**
  * 插件包基本配置
  * {@link module:miot/Package}

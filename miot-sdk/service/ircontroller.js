@@ -6,6 +6,9 @@
  *
  */
 import {report} from "../decorator/ReportDecorator";
+/**
+ * @export
+ */
 class IIrcontroller {
     /**
      * （查） 获取所有遥控器列表

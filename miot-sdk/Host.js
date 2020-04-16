@@ -295,9 +295,9 @@ export default {
     },
     /**
      * android 连接指定ssid得wifi，要求该wifi之前已经连接过 使用此api不需要特别权限
-     * @param   ssid 需要去掉字串两端的引号。在native层会自己处理
+     * @param   ssid 需要去掉字串两端的引号。在native层会自己增加""
      * @since 10036
-     * @return {Promise<JSON>}  
+     * @return {Promise<JSON>}
      * @example
      * Host.connectWifiWithSsid().then((result)=>{
      *   console.log(result);
@@ -305,6 +305,14 @@ export default {
      */
     connectWifiWithSsid(ssid) {
        return Promise.resolve(null);
+  },
+  /**
+   * @since 10037
+   * @param type 0 for mobile  1 for wifi 2 for null
+   * equal to android's bindProcessToNetwork
+   */
+  bindProcessToNetwork(type) {
+     return Promise.resolve(null);
   },
     /**
      * 页面有输入框，需要打开软键盘，页面适配软键盘
@@ -315,6 +323,16 @@ export default {
     pageShouldAdapterSoftKeyboard(shouldAdapter) {
          return Promise.resolve(null);
     },
+    /**
+     * 检测手机位置服务是否打开
+     *  @since 10038
+     * @returns {Promise<Object>}
+     * 成功时：{"code":0, "data":{locationServerIsOpen: true/false}}
+     * 失败时：{"code":-1, "message":"xxx" }
+     */
+    checkPhoneLocationServerIsOpen(){
+         return Promise.resolve(null);
+    }
 }
 /**
  * Host事件集合

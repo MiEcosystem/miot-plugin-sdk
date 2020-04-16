@@ -537,6 +537,7 @@ export default class FileStorage extends React.Component {
           files: [{
             filename: obj.fileName,
             range: { start: 2, length: 10 },
+            formdata: { name: 'custom_name', filename: 'custom_filename'},
           }]
         }
         Host.file.uploadFile(param).then(rr => {

@@ -10,25 +10,25 @@
  * 部分对象方法主要包含：获取小米WiFi设备控制类，获取蓝牙设备控制类，修改时区，修改设备名称，获取定向推荐，获取当前设备属性等。
  * 设备事件主要有：设备名称更改，设备时区更改，设备状态更改，获取到设备消息
  * @example
- * 
+ *
  * componentDidMount(){
  *      this._deviceNameChangedListener = DeviceEvent.deviceNameChanged.addListener(device => {
  *      this.state.name = device.name;
  *      this.setState({});
  *   });
  * }
- * 
+ *
  * 一定要记得，用完后要移除，否则可能报错
- * 
+ *
  *  componentWillUnmount(){
  *      this._deviceNameChangedListener && this._deviceNameChangedListener.remove();
  *  }
- * 
+ *
  * BasicDevice 当前设备实例对象，用于获取当前设备属性,调用设备基础方法等
  *
  * @example
  * import {Device} from 'miot/device'
- * 
+ *
  * //属性获取
  * let did = Device.deviceID
  * let deviceModel = Device.model
@@ -36,7 +36,7 @@
  * Device.getDeviceWifi().callMethod('method_name', params)
  *  .then(res => {//here is the success result})
  *  .catch(err => {//error happened})
- * 
+ *
  * 其余具体使用请参考具体API文档
  */
 /**
@@ -89,7 +89,7 @@ export const DeviceEvent = {
      * Device.getDeviceWifi().subscribeMessages("prop.2.1", "event.3.1").then(subcription=>{
      *      msgSubscription = subcription;
      * });
-     * 
+     *
      * ...
      * const subscription = DeviceEvent.deviceReceivedMessages.addListener(
      * (device, messages)=>{
@@ -111,6 +111,15 @@ export const DeviceEvent = {
      *
      */
     deviceReceivedMessages: {
+    },
+    /**
+     * 多键开关名称变更事件
+     * @event
+     * @param {Map<string, object>} value {"1":{"ai_desc":"","home_id":1,"id":1,"name":"","icon":"","room_id":1},"2":{"ai_desc":"","home_id":1,"id":2,"name":"","icon":"","room_id":1}}
+     * @param {String} did 设备did
+     * @since 10037
+     */
+    multiSwitchNameChanged: {
     }
 };
 buildEvents(DeviceEvent)
@@ -224,7 +233,7 @@ export class BasicDevice {
      * @returns {DeviceConfig} 设备配置
      *      resolve：DeviceConfig
      *      reject：不会走reject
-     * 
+     *
      */
     @report
     loadRealDeviceConfig(model) {
@@ -233,7 +242,7 @@ export class BasicDevice {
     /**
     * 是否虚拟设备，虚拟设备主要指老的设备组（Yeelight灯组，飞利浦灯组）。
     * **注意：mesh设备组，灯组2.0均不是虚拟设备**
-    * @since 10003 
+    * @since 10003
     * @return {boolean}
     * @readonly
     *
@@ -251,7 +260,7 @@ export class BasicDevice {
      * @example
      *
      * import {Device} from 'miot/device'
-     * 
+     *
      * const peripheralUUID4IOS = ...;
      *
      * Device.getBluetoothLE(peripheralUUID4IOS).connect()
@@ -432,7 +441,7 @@ export class BasicDevice {
     /**
      * 本地设备还是远程设备, 0未知 1本地 2远程。
      * iOS中，本地设备指的是既没有绑定到iot平台，又不是被分享的设备。**注意：不是寻常理解的，同一个路由器的是本地设备，不同路由器的是远程设备，iOS中，无法获取一个设备是否在同一个局域网**
-     * 
+     *
      * @return {int}  0未知 1本地 2远程。
      * @readonly
      *
@@ -528,7 +537,7 @@ export class BasicDevice {
     /**
      * 获取当前设备的时区信息（国际标准时区）。**注意：国际标准时区中，没有Asia/Beijing。**
      * @since 10021
-     * @returns {Promise} 成功进入then，失败进入catch。then：res="Asia/Shanghai"; 
+     * @returns {Promise} 成功进入then，失败进入catch。then：res="Asia/Shanghai";
      * resolve：timezone string
      * reject：{code: xxx, message: xxx}
      */
@@ -604,7 +613,7 @@ export class BasicDevice {
     /**
      * 将当前设备绑定到HomeKit中
      * @deprecated since 10032 请使用Device.getDeviceWifi().bindToHomeKit()
-     * 
+     *
      */
     @report
     bindToHomeKit() {

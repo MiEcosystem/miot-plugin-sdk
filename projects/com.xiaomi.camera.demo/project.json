@@ -1,6 +1,6 @@
 { 
         "package_path": "com.xiaomi.camera.demo",
-        "min_sdk_api_level":10032,
+        "min_sdk_api_level":10036,
         "developer_id": "",
         "version_code":1,
         "entrance_scene":{

@@ -349,8 +349,9 @@ class IFile {
      *  },
      *  files: [
      *      {
-     *          fileName: 'fileName.png', // 只能上传插件sandbox里的文件
-     *          range: {start: 10, lenght: 100} // since 10036 从start开始读取lengt长度的文件，可选，不配置则表示文件从头到尾
+     *          filename: 'fileName.png', // 必选， 只能上传插件sandbox里的文件
+     *          range: {start: 10, length: 100} // 可选， since 10037， 从start开始读取lengt长度的文件，可选，不配置则表示文件从头到尾
+     *          formdata: {name: 'name1.png', filename: 'customFileName.png'} // 可选， since 10038， 用于自定义formdata中的name和filename
      *      },
      *  ]
      * };
@@ -544,10 +545,10 @@ class IFile {
      * @since 10037
      * @returns {Promise}
      * 成功时：{"code":0, "data":[] }
-     *      返回图片和视频信息 
+     *      返回图片和视频信息
      *          ios 返回 图片scheme协议 miotph:// 视频scheme miotvideo://
      *          android 返回图片和视频文件的fileurl
-     *      每个图片信息包含key 
+     *      每个图片信息包含key
      *      {'url':<'miotph://XXXXXX'(ios) 'file://XXXXXX' (android)>,
      *      'mediaType' : <number>, // 0 : unknowntype, 1: image, 2:video, 3: audio(10037暂不支持)
      *      'pixelWidth' :<number>, // width信息，0 代表unknown

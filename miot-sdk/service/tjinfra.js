@@ -6,6 +6,9 @@
  *
  */
 import {report} from "../decorator/ReportDecorator";
+/**
+ * @export
+ */
 class ITJInfra {
     /**
      * createClient
