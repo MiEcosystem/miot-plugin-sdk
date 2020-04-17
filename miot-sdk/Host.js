@@ -57,6 +57,15 @@ import HostStorage from './host/storage';
 const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 export const HOST_TYPE_IOS = IOS;
 export const HOST_TYPE_ANDROID = ANDROID;
+export const LocationAuthStatus = {
+    LocationAuthStatus_NotDetermined: 0,
+    LocationAuthStatus_Restricted: 1,
+    LocationAuthStatus_Denied: 2,
+    LocationAuthStatus_AuthorizedAlways: 3,
+    LocationAuthStatus_AuthorizedWhenInUse: 4,
+    LocationAuthStatus_Authorized: 5,
+  };
+  Object.freeze(LocationAuthStatus);
 export default {
     /**
      * @const
@@ -324,13 +333,23 @@ export default {
          return Promise.resolve(null);
     },
     /**
-     * 检测手机位置服务是否打开
+     * 检测Android系统位置服务(不同于权限)是否打开  only Android
      *  @since 10038
      * @returns {Promise<Object>}
      * 成功时：{"code":0, "data":{locationServerIsOpen: true/false}}
      * 失败时：{"code":-1, "message":"xxx" }
      */
-    checkPhoneLocationServerIsOpen(){
+    checkAndroidLocationServerIsOpen(){
+         return Promise.resolve(null);
+    },
+    /**
+     * 获取iOS定位授权的权限状态 only iOS
+     *  @since 10038
+     * @returns {Promise<Object>}
+     * 成功时：{LocationAuthStatus}
+     * 失败时：{"message":"xxx" }
+     */
+    getIOSLocationAuthorizationStatus() {
          return Promise.resolve(null);
     }
 }

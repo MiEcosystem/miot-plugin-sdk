@@ -609,11 +609,11 @@ class IUi {
   openTerminalDeviceSettingPage(type) {
   }
   /**
-   *  打开手机系统位置信息设置页, iOS 的位置设置页面在手机设置页中米家app配置页面中
+   *  打开Android系统位置信息设置页(不同于权限配置页) only Android
    *  @since 10038
    */
   @report
-  openPhoneLocationServerSettingPage(){
+  openAndroidLocationServerSettingPage(){
   }
 }
 const UiInstance = new IUi();

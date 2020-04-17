@@ -70,6 +70,20 @@ export default class RTSPPage extends React.Component {
           this.exitListener.remove();
           this.refs.rtspDemo.stopPlay();
         })
+
+        // 下载测试视频
+        let path = "http://techslides.com/demos/sample-videos/small.mp4";
+        let fileName = "small.mp4"
+        Host.file.downloadFile(path, fileName).then((fileInfo) => {
+            console.log("downloadFile...fileInfo", fileInfo);
+            let path = (Platform.OS === "android" ? 'file://' : '') + Host.file.storageBasePath + '/'
+            this.setState({
+                path: path + fileName
+            })
+        }).catch((error) => {
+            console.log("downloadFile...error", error);
+            alert(JSON.stringify(error))
+        });
     }
 
     componentWillUnmount() {
@@ -85,6 +99,11 @@ export default class RTSPPage extends React.Component {
                     ref="rtspDemo"
                     style={styles.videoNormal}
                     path={this.state.path}
+                    onPathLoad={(e) => {
+                        this.setState({
+                            isPlay: e.nativeEvent.isSuccess
+                        })
+                    }}
                     isPlay={this.state.isPlay}
                     onPlaySuccess={_ =>
                         alert('播放成功')
@@ -115,7 +134,7 @@ export default class RTSPPage extends React.Component {
                     }
 
                     onLoad={(e) => {
-                      console.log("onLoad", e.nativeEvent);
+                        console.log("onLoad", e.nativeEvent);
                     }}
 
                     onEnd={(e) => {

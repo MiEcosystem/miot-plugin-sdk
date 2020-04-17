@@ -475,10 +475,10 @@ export default class UIDemo extends React.Component {
                 }
             },
           {
-            'name': 'checkPhoneLocationServerIsOpen',
-            'subtitle': '检测手机位置服务是否打开',
+            'name': 'checkAndroidLocationServerIsOpen',
+            'subtitle': '检测手机位置服务是否打开(only Android)',
             'func': () => {
-              Host.checkPhoneLocationServerIsOpen().then(result=>{
+              Host.checkAndroidLocationServerIsOpen().then((result)=>{
                 console.log(result.data.locationServerIsOpen);
                 alert(JSON.stringify(result))
               }).catch(error=>{
@@ -487,12 +487,23 @@ export default class UIDemo extends React.Component {
             }
           },
           {
-            'name': 'openPhoneLocationServerSettingPage',
-            'subtitle': '打开手机系统位置信息设置页',
+            'name': 'openAndroidLocationServerSettingPage',
+            'subtitle': '打开手机系统位置信息设置页(only Android)',
             'func': () => {
-              Host.ui.openPhoneLocationServerSettingPage();
+              Host.ui.openAndroidLocationServerSettingPage();
             }
-          }
+          },
+          {
+            'name': 'getIOSLocationAuthorizationStatus',
+            'subtitle': '获取定位授权状态(only iOS)',
+            'func': () => {
+              Host.getIOSLocationAuthorizationStatus().then((result)=>{
+                alert(JSON.stringify(result))
+              }).catch((error)=>{
+                alert(JSON.stringify(error))
+              })
+            }
+          },
         ];
     }
 
