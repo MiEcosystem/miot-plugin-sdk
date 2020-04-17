@@ -201,6 +201,7 @@ class IMiotCamera {
    * @since 10037
    * @param data  jsonobj=>str 从push点击跳转进来后，如果是smartscene 就把extra字段捞出来放到这里
    */
+  @report
   openAlarmVideoPlayer(data) {
      return 
   }
@@ -260,14 +261,7 @@ class IMiotCamera {
    */
   @report
   getVideoFileUrl(fileId, isAlarm, videoCodec) {
-      NativeModules.MHCameraSDK.getVideoFileUrl(Device.deviceID, Device.model, fileId, isAlarm, videoCodec, (success,result)=>{
-        if(success){
-          resolve(result);
-        }else{
-          reject("getFileIdImage failed");
-        }
-      });
-    })
+     return Promise.resolve(null);
   }
   /**
    * 获取视频缩略图片接口（如报警视频列表缩略图）
@@ -277,14 +271,7 @@ class IMiotCamera {
    */
   @report
   getFileIdImage(imgStoreId) {
-      NativeModules.MHCameraSDK.getfileIdImage(Device.deviceID, Device.model, imgStoreId,(success,result)=>{
-        if(success){
-          resolve(result);
-        }else{
-          reject("getFileIdImage failed");
-        }
-      });
-    })
+     return Promise.resolve(null);
   }
 }
 const MiotCameraInstance = new IMiotCamera();
