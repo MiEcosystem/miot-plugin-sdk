@@ -498,9 +498,9 @@ export default class UIDemo extends React.Component {
             'subtitle': '获取定位授权状态(only iOS)',
             'func': () => {
               Host.getIOSLocationAuthorizationStatus().then((result)=>{
-                alert(JSON.stringify(result))
+                alert('成功:' + JSON.stringify(result))
               }).catch((error)=>{
-                alert(JSON.stringify(error))
+                alert('失败:' + JSON.stringify(error))
               })
             }
           },
