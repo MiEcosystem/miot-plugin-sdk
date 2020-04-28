@@ -96,6 +96,10 @@ const firstAllOptions = {
    */
   MORE: 'more',
   /**
+   * 安全设置，`必选`
+   */
+  SECURITY: 'security',
+  /**
    * 法律信息，`必选`
    */
   LEGAL_INFO: 'legalInfo'
@@ -118,6 +122,7 @@ const firstSharedOptions = {
   [firstAllOptions.MANAGE_GROUP]: 0,
   [firstAllOptions.MORE]: 1,
   [firstAllOptions.HELP]: 1,
+  [firstAllOptions.SECURITY]: 0,
   [firstAllOptions.LEGAL_INFO]: 0, // 20190516，分享设备不显示「法律信息」
 };
 /**
@@ -138,6 +143,7 @@ const firstAllOptionsWeight = {
   [firstAllOptions.FIRMWARE_UPGRADE]: 21,
   [firstAllOptions.MORE]: 24,
   [firstAllOptions.HELP]: 27,
+  [firstAllOptions.SECURITY]: 28,
   [firstAllOptions.LEGAL_INFO]: 30
 };
 /**
@@ -175,6 +181,7 @@ const excludeOptions = {
   [firstAllOptions.MANAGE_GROUP]: [],
   [firstAllOptions.MORE]: [],
   [firstAllOptions.HELP]: [],
+  [firstAllOptions.SECURITY]: [],
   [firstAllOptions.LEGAL_INFO]: ['5', '15', '17'] // 新增策略：灯组、红外遥控器等虚拟设备不显示法律信息，20190619
 };
 const secondOptions = {
@@ -310,7 +317,7 @@ export default class CommonSetting extends React.Component {
     if (!modelType) {
       modelType = '  ';
     }
-    return {
+    let ret = {
       [firstAllOptions.NAME]: {
         title: strings.name,
         value: state.name,
@@ -365,6 +372,14 @@ export default class CommonSetting extends React.Component {
         onPress: _ => this.privacyAndProtocolReview()
       }
     };
+    // 2020/4/20 锁类和保险箱类，安全设置从更多设置中移出来
+    if(['lock', 'safe-box'].indexOf(modelType) !== -1) {
+      ret[firstAllOptions.SECURITY] = {
+        title: strings.security,
+        onPress: _ => Host.ui.openSecuritySetting()
+      };
+    }
+    return ret;
   }
   constructor(props, context) {
     super(props, context);
@@ -470,8 +485,13 @@ export default class CommonSetting extends React.Component {
    * @param {string} page index.js的RootStack中页面定义的key
    */
   openSubPage(page, params = { networkInfoConfig: this.props.extraOptions.networkInfoConfig, syncDevice: this.props.extraOptions.syncDevice, secondOptions: this.props.secondOptions, excludeRequiredOptions: this.props.extraOptions.excludeRequiredOptions }) {
+    let excludeRequiredOptions = params.excludeRequiredOptions || [];
     if (this.props.navigation) {
-      this.props.navigation.navigate(page, params);
+      this.props.navigation.navigate(page, {
+        ...params,
+        // 2020/4/20 锁类和保险箱类，去掉更多设置页中的安全设置
+        excludeRequiredOptions: (['lock', 'safe-box'].indexOf(this.state.modelType) !== -1 && excludeRequiredOptions.indexOf(secondAllOptions.SECURITY) === -1) ? [...excludeRequiredOptions, secondAllOptions.SECURITY] : excludeRequiredOptions
+      });
     }
     else {
       console.warn("props 'navigation' is required for CommonSetting");
@@ -518,6 +538,7 @@ export default class CommonSetting extends React.Component {
     const requireKeys2 = [
       firstAllOptions.MORE,
       firstAllOptions.HELP,
+      firstAllOptions.SECURITY,
       firstAllOptions.LEGAL_INFO
     ];
     // 2. 去掉杂质

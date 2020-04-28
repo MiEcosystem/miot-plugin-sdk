@@ -136,7 +136,8 @@ export default class Setting extends React.Component {
       switchValue: true,
       sliderValue: 75,
       showDot: [
-        first_options.FIRMWARE_UPGRADE
+        // 固件升级显示小红点是自动的，依据 Device.needUpgrade, 开发者无需配置
+        // first_options.FIRMWARE_UPGRADE 
       ]
     })
   }

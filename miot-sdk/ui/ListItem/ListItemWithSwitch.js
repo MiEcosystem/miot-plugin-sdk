@@ -48,6 +48,8 @@ export default class ListItemWithSwitch extends React.Component {
     subtitleStyle: PropTypes.object,
     valueTextStyle: PropTypes.object,
     switchStyle: PropTypes.object,
+    tintColor: PropTypes.string,
+    onTintColor: PropTypes.string
   }
   static defaultProps = {
     title: '',
@@ -61,6 +63,8 @@ export default class ListItemWithSwitch extends React.Component {
     subtitleStyle: {},
     valueTextStyle: {},
     switchStyle: {},
+    tintColor: undefined,
+    onTintColor: undefined
   }
   // constructor(props, context) {
   //   super(props, context);
@@ -135,6 +139,8 @@ export default class ListItemWithSwitch extends React.Component {
                 style={this.props.switchStyle}
                 value={this.props.value}
                 disabled={this.props.disabled}
+                tintColor={this.props.tintColor}
+                onTintColor={this.props.onTintColor}
                 onValueChange={value => this._onValueChange(value)}
               />
             </View>

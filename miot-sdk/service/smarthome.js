@@ -422,20 +422,29 @@ class ISmartHome {
          return Promise.resolve(null);
     }
     /**
-     * 查询用户名下设备上报的属性和事件
-     * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加.
-     * 通下面的set_user_device_data的参数一一对应， /user/get_user_device_data
-     * 对于蓝牙设备，params.key 可参考文档  https://iot.mi.com/new/guide.html?file=04-嵌入式开发指南/06-BLE产品接入/06-米家BLE%20Object定义#/
+     * 查询用户名下设备上报的属性和事件  
+     * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加.  
+     * 通下面的set_user_device_data的参数一一对应， /user/get_user_device_data  
+     * 对于蓝牙设备，params.key 可参考文档 [米家BLE Object定义](https://iot.mi.com/new/doc/embedded-development/ble/object-definition.html)
+     *
+     * error code:
+     * 
+     * | code | desc |
+     * | :-: | --- |
+     * |  0  | 成功 |
+     * | -8  | 请求参数缺失或者类型不对 |
+     * | -4  | 服务器错误 |
+     * | -1  | 请求uid无权限获取did的相关数据 |
      *
      * @param {json} params -参数\{did,type,key,time_start,time_end,limit}含义如下：
      * @param {string} params.did 设备id。 必选参数
-     * @param {string} params.uid 要查询的用户id 。必选参数
      * @param {string} params.key 属性或事件名，必选参数。(注意：如果设备是蓝牙设备，传入的是object id， 且为十进制数据；如果是wifi设备，才传入自定义属性或事件名，可以在开发者平台-产品-功能定义中查看)，如果是miot-spec设备，请传入（siid.piid或者siid.eiid）
      * @param {string} params.type 必选参数[prop/event], 如果是查询上报的属性则type为prop，查询上报的事件则type为event,
-     * @param {string} params.time_start 数据起点。必选参数
-     * @param {string} params.time_end 数据终点。必选参数，time_end必须大于time_start,
+     * @param {number} params.time_start 数据起点。必选参数
+     * @param {number} params.time_end 数据终点。必选参数，time_end必须大于time_start,
      * @param {string} params.group 返回数据的方式，默认raw,可选值为hour、day、week、month。可选参数.
      * @param {string} params.limit 返回数据的条数，默认20，最大1000。可选参数.
+     * @param {number} params.uid 要查询的用户id 。可选参数
      * @returns {Promise}
      */
     @report
@@ -616,19 +625,23 @@ class ISmartHome {
          return Promise.resolve(null);
     }
     /**
-     * 获取设备的属性，属性设置会在设备被删除时清空
-     * api call /device/batchdevicedatas
+     * 获取设备的属性，属性设置会在设备被删除时清空  
+     * api call /device/batchdevicedatas  
+     * 对于蓝牙设备，params.props 可参考文档 [米家BLE Object定义](https://iot.mi.com/new/doc/embedded-development/ble/object-definition.html)  
      *
      * error code:
-     * 0 - 成功
-     * -7 - 没有找到注册的设备
-     * -6 - 设备对应uid不为0
-     * -4 - server err
+     * 
+     * | code | desc |
+     * | :-: | --- |
+     * |  0  | 成功 |
+     * | -7  | 没有找到注册的设备 |
+     * | -6  | 设备对应uid不为0 |
+     * | -4  | server err |
      *
      * @since 10005
      * @param {object[]} params  -参数
      * @param {string} params[].did did
-     * @param {string[]} params[].props props 列表,属性需要以"prop.s_"开头 e.g ["prop.s_aaa","prop.s_bbb"]
+     * @param {string[]} params[].props props 列表,属性需要以"prop.s_"开头 e.g ["prop.s_aaa","prop.s_bbb"]，如果设备是蓝牙设备，传入的是object id， 且为十进制数据，如prop.4100
      * @return {Promise}
      * @example
      * let params = {'did':Device.deviceID, 'props': [

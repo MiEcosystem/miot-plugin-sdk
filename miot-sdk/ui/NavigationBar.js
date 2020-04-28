@@ -244,7 +244,7 @@ export default class NavigationBar extends Component {
               onPress={onPressTitle}
             >
               {title || ''}
-            </View> : 
+            </View> :
             <Text
               numberOfLines={1}
               style={[styles.title, titleColor]}
@@ -253,7 +253,6 @@ export default class NavigationBar extends Component {
               {title || ''}
             </Text>
         }
-      
         {subtitle
           ? <Text
             numberOfLines={1}
@@ -267,15 +266,31 @@ export default class NavigationBar extends Component {
       </View>
     )
   }
+  componentWillReceiveProps(newProps) {
+    this.updateStyleType(this.props, newProps);
+  }
+  componentWillMount() {
+    this.updateStyleType(this.props, null);
+  }
+  updateStyleType(props, newProps) {
+    let newIsDartStyle = (newProps ? newProps.type : props.type) === TYPE.DARK;
+    if(newIsDartStyle !== this.isDarkStyle) {
+      this.isDarkStyle = newIsDartStyle;
+      StatusBar.setBarStyle(this.isDarkStyle ? 'light-content' : 'dark-content');
+      if (Platform.OS == 'android') {
+        StatusBar.setTranslucent(true); // 测试过的机型几乎都无效：华为荣耀V9，红米Note4X，小米Mix2
+      }
+    }
+  }
   /**
    * 导航栏在进入插件的时候就已经生成，并且常驻，所以样式判断逻辑不能写在 constructor 中
    */
   render() {
-    this.isDarkStyle = this.props.type === TYPE.DARK;
-    StatusBar.setBarStyle(this.isDarkStyle ? 'light-content' : 'dark-content'); // 测试过的机型都有效：华为荣耀V9，红米Note4X，小米Mix2
-    if (Platform.OS == 'android') {
-      StatusBar.setTranslucent(true); // 测试过的机型几乎都无效：华为荣耀V9，红米Note4X，小米Mix2
-    }
+    // this.isDarkStyle = this.props.type === TYPE.DARK;
+    // StatusBar.setBarStyle(this.isDarkStyle ? 'light-content' : 'dark-content'); // 测试过的机型都有效：华为荣耀V9，红米Note4X，小米Mix2
+    // if (Platform.OS == 'android') {
+    //   StatusBar.setTranslucent(true); // 测试过的机型几乎都无效：华为荣耀V9，红米Note4X，小米Mix2
+    // }
     const leftIcons = this.getIconsOfType(this.props.left);
     const rightIcons = this.getIconsOfType(this.props.right);
     leftIcons.length < rightIcons.length && leftIcons.push({}); // 补位空白

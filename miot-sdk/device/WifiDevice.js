@@ -26,10 +26,19 @@
  */
 import { DeviceEventEmitter } from "react-native";
 import native, { NativeTimer, PackageExitAction, Properties } from '../native';
-import { BasicDevice, _find_device } from './BasicDevice';
+import { BasicDevice, _find_device,PollPropMap } from './BasicDevice';
 import {report} from '../decorator/ReportDecorator';
+import Service from "../Service";
+import { MIOTEventEmitter } from "../native";
+import { Device } from "..";
 const INTERVAL_SUBSCRIBE_MSG_SECONDS = (9 * 60 + 50);//9'50"
 const INTERVAL_SUBSCRIBLE_MSG_ERROR = (5*1000); // 5秒
+const INTERVAL_POLL_MSG = 5*1000;//5秒
+const DEVICE_MESSAGE= 'deviceRecievedMessages';//设备属性变化消息事件名与DeviceEvent.deviceReceivedMessages保持一致
+function isNumber(num){
+    var numReg = new RegExp("^[0-9]*$");
+    return numReg.test(num);
+}
 /**
  * 设备网络访问控制类
  * @interface

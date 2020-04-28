@@ -4,7 +4,7 @@
  * @doc_index 4
  * @doc_directory bluetooth
  * @module miot/device/bluetooth
- * @description 经典蓝牙设备操作类 sdk 10023  仅支持Android。iOS因为苹果的MFI认证（麻烦且收益低，暂时生态链公司及其它iot合作公司使用），暂没有经典蓝牙设备可以和iPhone通讯。详细使用方法请参考：[经典蓝牙开发指南](https://iot.mi.com/new/doc/05-%E7%B1%B3%E5%AE%B6%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/04-%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/03-%E6%8C%89%E8%AE%BE%E5%A4%87/02-%E8%93%9D%E7%89%99%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/04-%E7%BB%8F%E5%85%B8%E8%93%9D%E7%89%99%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97.html)
+ * @description 经典蓝牙设备操作类 sdk 10023  仅支持Android。iOS因为苹果的MFI认证（麻烦且收益低，暂时生态链公司及其它iot合作公司使用），暂没有经典蓝牙设备可以和iPhone通讯。详细使用方法请参考：[经典蓝牙开发指南](https://iot.mi.com/new/doc/app-development/extension-development/device-management/device.html#%E7%BB%8F%E5%85%B8%E8%93%9D%E7%89%99%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97)  
  * 本文件提供了经典蓝牙设备的创建，连接，读写，断连。此处不再提供example，请大家移步详细使用文档查看。
  * @since 10023
  */
