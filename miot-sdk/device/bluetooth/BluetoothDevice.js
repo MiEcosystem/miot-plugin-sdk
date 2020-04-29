@@ -227,6 +227,7 @@ export class IBluetooth {
      * 注：有开发者反馈该系统接口在 iOS 上并不完全准确，不可过于依赖，以实际测试为准。（比如，charac.write()写入10byte成功，写入11byte失败，则max为10）
      * 注：返回值单位为 bit，注意换算，8 bit 为 1 byte，两字符 hexString 长度为 1 byte，如 “FF”
      * @method
+     * @deprecated Use {@readReliableMTU} 建议使用readReliableMTU
      * @param {int} type - 0 代表 writeWithResponse, 1 代表 writeWithoutResponse，理论上结果是一样的。
      * @return {Promise<number>} 最大长度
      *        resolve: iOS时，返回系统返回的长度，Android返回160bit
@@ -234,6 +235,26 @@ export class IBluetooth {
      */
     @report
     maximumWriteValueLength(type = 0) {
+         return Promise.resolve(null);
+    }
+    /**
+     * 获取当前连接设备单包可交互的最大MTU值，单位为byte。
+     * 当结果 reliable === true 时，表示该结果值为手机与设备进行了一次固定大小的文件传输交换测试，可以确保结果MTU为可交互的MTU大小，否则结果值为系统默认值，不可信。
+     * 支持的设备会返回有效MTU大小，不支持的设备会返回默认值。仅支持 WriteWithoutResponse 方式
+     * 注：该接口仅可用于支持通用OTA方案的蓝牙固件之上，固件限制具体如下：
+     * RC4协议设备不支持。
+     * StandardAuth标准认证 version >= 1.1.0 
+     * Mesh认证 version >= 1.4.0
+     * SecureAuth认证 version >= 2.3.0
+     * 返回结果值为{reliable:true, mtu: 111},reliable 表示结果值是否可靠，mtu 表示单包可传递最大大小
+     * @method
+     * @since 10038
+     * @param {Object} params - 暂时可以不传。
+     * @param {double} params.timeout 数据交互超时限时，默认为2s
+     * @return {Promise<Object>} 最大可读写长度,单位为byte
+     */
+    @report
+    readReliableMTU(params = { timeout: 2 }) {
          return Promise.resolve(null);
     }
     /**

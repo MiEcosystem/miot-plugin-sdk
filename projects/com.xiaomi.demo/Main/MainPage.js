@@ -128,6 +128,8 @@ export default class MainPage extends React.Component {
         } catch (err) {
           //json解析失败，不处理
         }
+      } else {
+        alreadyAuthed = false;
       }
       if (alreadyAuthed) {
         console.log("已经授权");

@@ -203,6 +203,16 @@ export default {
          return Promise.resolve(true);
     },
     /**
+     * 获取信号强度RSSI
+     *  @since 10038
+     * @returns {Promise<Object>}
+     * 成功时：{"code":0, "data":{RSSI: 0/1/2/3 信号依此减弱}}
+     * 失败时：{"code":-1, "message":"xxx" }
+     */
+    getBtGateWaySubDeviceRSSI(mac){
+         return Promise.resolve(null);
+    },
+    /**
     * 只在MIUI上支持，维持长连接 如果连接失败，则会隔一段时间尝试重连，如果继续失败，则重连间隔会翻倍，直到上限。
     * @static
     * @param {string} mac

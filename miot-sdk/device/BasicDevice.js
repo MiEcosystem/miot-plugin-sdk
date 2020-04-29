@@ -485,6 +485,12 @@ export class BasicDevice {
     get isOnline() {
          return  false
     }
+   /**
+    * 获取蓝牙设备的mtu大小，当设备connect/disconnect 时候，会发生变化
+    */
+    get mtu(){
+         return  default value is 23
+    }
     /**
      *是否是自己的设备，若是别人（包含家属）分享给你的设备，isOwner则为false
      * @return {boolean}
@@ -734,6 +740,20 @@ export class BasicDevice {
      */
     @report
     reportLog(log) {
+    }
+}
+export class PollPropMap{
+    static PROP_TYPE_UNKNOWN = 0;
+    static PROP_TYPE_MIOT_SPEC = 1;
+    static PROP_TYPE_PROFILE = 2;
+    static MSG_SOURCE_POLL = 1;
+    constructor(){
+        // this.propSet = new Set();
+        // this.specPropSet = new Set();
+        // this.profilePropSet = new Set();
+        this.propInfoMap = new Map();//map<prop,{prop,subscription,updateTime,value,propType,siid,piid>
+        this.subscribeInfoMap = new Map();//map<subscribId,set<prop>>
+        //this.miotDeviceType = PollPropMap.DEVICE_TYPE_UNKNOWN;
     }
 }
 /**

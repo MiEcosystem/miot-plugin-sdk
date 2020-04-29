@@ -1,6 +1,6 @@
 'use strict';
 
-import { Device, Host, Service, DeviceEvent } from "miot";
+import { Bluetooth, Device, Host, Service, DeviceEvent } from "miot";
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
@@ -282,13 +282,24 @@ export default class UIDemo extends React.Component {
                         alert(JSON.stringify(error))
                     })
                 }
-            }, {
+            }, 
+            {
                 'name': '获取miot-spec设备当前信息',
                 'func': async () => {
                     let data = await Service.spec.getCurrentSpecValue(Device.deviceID);
                     alert(JSON.stringify(data));
                 }
-            }
+            },
+            {
+                'name': '获取设设备蓝牙信号强度(蓝牙子设备)',
+                'func': () => {
+                    Bluetooth.getBtGateWaySubDeviceRSSI(Device.mac).then(res => {
+                        alert(JSON.stringify(res))
+                      }).catch(err => {
+                        alert(JSON.stringify(err))
+                      })
+                }
+            },
         ];
     }
 

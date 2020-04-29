@@ -240,17 +240,19 @@ class IMiotCamera {
   }
   /**
    * 下载m3u8视频并合成mp4
-   * @since 10037
+   * @since 10038
    * @param fileId
    * @param filePath
    * @param callbackName
+   * @param isAlarm 是否报警视频
+   * @param videoCodec 视频编码如 "H264", "H265"
    * @returns
    *    state : 1. onStart (开始下载)  2. onComplete（下载完成）  3. onError（失败）  4. onProgress（下载进度）
    *    errorInfo : 失败描述（state = onError时才有）
    *    progress : 下载进度0 - 100 (state = onProgress时才有)
    */
   @report
-  downloadM3U8ToMP4(fileId, filePath, callbackName) {
+  downloadM3U8ToMP4(fileId, filePath, callbackName, isAlarm=false, videoCodec='H265') {
   }
   /**
    * 获取报警视频m3u8播放地址

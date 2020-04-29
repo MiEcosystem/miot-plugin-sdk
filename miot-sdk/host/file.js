@@ -349,8 +349,9 @@ class IFile {
      *  },
      *  files: [
      *      {
-     *          fileName: 'fileName.png', // 只能上传插件sandbox里的文件
-     *          range: {start: 10, lenght: 100} // since 10036 从start开始读取lengt长度的文件，可选，不配置则表示文件从头到尾
+     *          filename: 'fileName.png', // 必选， 只能上传插件sandbox里的文件
+     *          range: {start: 10, length: 100} // 可选， since 10037， 从start开始读取lengt长度的文件，可选，不配置则表示文件从头到尾
+     *          formdata: {name: 'name1.png', filename: 'customFileName.png'} // 可选， since 10038， 用于自定义formdata中的name和filename
      *      },
      *  ]
      * };
@@ -377,9 +378,14 @@ class IFile {
          return Promise.resolve(null);
     }
     /**
+     * @ typedef DownloadParams - 参数字典
+     * @ property {string} taskID -  可选 since 10038 下载任务唯一标示, 如 MD5(url + timestamp)
+     */
+    /**
      * 下载文件到插件沙盒目录, 文件下载完成后才会回调
      * @param {string} url - 文件地址
      * @param {string} fileName - 存储到本地的文件名
+     * @param {DownloadParams} params 参数字典 可选 since 10038
      * @returns {Promise}
      * 成功时：{header:{}, path:xxx, filename:xxx,status:xxx}
      * 失败时：{"code":xxx, "message":"xxx" }
@@ -394,7 +400,17 @@ class IFile {
      * ...
      */
     @report
-    downloadFile(url, fileName) {
+    downloadFile(url, fileName, params = null) {
+         return Promise.resolve(null);
+    }
+    /**
+     * 取消指定的下载任务
+     * @param {string} taskID - since 10038 下载任务的唯一ID， 与 downloadFile 传入的 taskID 一致
+     * @returns {Promise}
+     * 成功时：{code:0, data:{}}
+     * 失败时：{code:-1, message:'xxx'}
+     */
+    cancelDownloadFile(taskID) {
          return Promise.resolve(null);
     }
     /**
@@ -544,10 +560,10 @@ class IFile {
      * @since 10037
      * @returns {Promise}
      * 成功时：{"code":0, "data":[] }
-     *      返回图片和视频信息 
+     *      返回图片和视频信息
      *          ios 返回 图片scheme协议 miotph:// 视频scheme miotvideo://
      *          android 返回图片和视频文件的fileurl
-     *      每个图片信息包含key 
+     *      每个图片信息包含key
      *      {'url':<'miotph://XXXXXX'(ios) 'file://XXXXXX' (android)>,
      *      'mediaType' : <number>, // 0 : unknowntype, 1: image, 2:video, 3: audio(10037暂不支持)
      *      'pixelWidth' :<number>, // width信息，0 代表unknown

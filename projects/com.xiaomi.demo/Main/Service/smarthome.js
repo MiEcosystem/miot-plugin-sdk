@@ -90,12 +90,13 @@ export default class CallSmartHomeAPIDemo extends React.Component {
                         return Service.smarthome.getAppConfig(params);
                     }
                 },
-                { name: "插件事件上报reportEvent", handle: this.handleObjRes.bind(this), action: () => {
+                {
+                    name: "插件事件上报reportEvent", handle: this.handleObjRes.bind(this), action: () => {
                         let eventName = 'testEvent';
-                        let params = {'key1':'value1','key2':'value2','tip':'tips'};
-                        Service.smarthome.reportEvent(eventName,params); 
+                        let params = { 'key1': 'value1', 'key2': 'value2', 'tip': 'tips' };
+                        Service.smarthome.reportEvent(eventName, params);
                         return Promise.resolve("reported");
-                    } 
+                    }
                 },
             ]
         })

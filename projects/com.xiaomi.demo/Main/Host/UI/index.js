@@ -4,7 +4,7 @@ import { Device, Host, DeviceEvent } from "miot";
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import {
- ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View 
+    ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View
 } from 'react-native';
 var BUTTONS = [
     '测试对话框',
@@ -17,16 +17,16 @@ export default class UIDemo extends React.Component {
         return {
             header: <TitleBar type='dark' title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
                 onPressLeft={() => {
- navigation.goBack(); 
-}} />
+                    navigation.goBack();
+                }} />
         };
     };
 
     constructor(props) {
         super(props);
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         this._createMenuData();
-        this.state = {dataSource: ds.cloneWithRows(this._menuData.map(o => ({ 'name': o.name, 'subtitle': o.subtitle })))};
+        this.state = { dataSource: ds.cloneWithRows(this._menuData.map(o => ({ 'name': o.name, 'subtitle': o.subtitle }))) };
     }
 
     componentDidMount() {
@@ -73,11 +73,11 @@ export default class UIDemo extends React.Component {
                 'func': () => {
                     Host.ui.openDeleteDeviceWithCallback()
                         .then(res => {
- console.log(res) 
-})
+                            console.log(res)
+                        })
                         .catch(err => {
- console.log(err) 
-});
+                            console.log(err)
+                        });
                 }
             },
             {
@@ -159,7 +159,7 @@ export default class UIDemo extends React.Component {
                 'name': '打开系统分享文件页面',
                 'subtitle': 'openSystemShareWindow',
                 'func': () => {
-                    const path = Host.file.storageBasePath+'/test.wav';
+                    const path = Host.file.storageBasePath + '/test.wav';
                     Host.ui.openSystemShareWindow(path);
                 }
             },
@@ -195,6 +195,7 @@ export default class UIDemo extends React.Component {
                     options.experiencePlanURL = licenseURL;
                     options.hideAgreement = false;
                     options.hideUserExperiencePlan = false;
+                    //这是为了演示需要，使用的是强制弹出的模式 具体使用方法可以参考iot文档 或 com.xiaomi.demo/MainPage.js部分样例
                     Host.ui.alertLegalInformationAuthorization(options).then(res => {
                         alert('成功');
                     }).catch(() => {
@@ -434,7 +435,7 @@ export default class UIDemo extends React.Component {
                             console.log("res", res.scene_recom[0].info.sr_id);
                             Host.ui.openPluginRecommendScene(Device.deviceID, parseInt(res.scene_recom[0].info.sr_id));
                         }
- else {
+                        else {
                             alert('res: ' + JSON.stringify(res));
                         }
                     }).catch(error => {
@@ -473,7 +474,37 @@ export default class UIDemo extends React.Component {
                 'func': () => {
                     Host.ui.openTerminalDeviceSettingPage(2);
                 }
+            },
+          {
+            'name': 'checkAndroidLocationServerIsOpen',
+            'subtitle': '检测手机位置服务是否打开(only Android)',
+            'func': () => {
+              Host.checkAndroidLocationServerIsOpen().then((result)=>{
+                console.log(result.data.locationServerIsOpen);
+                alert(JSON.stringify(result))
+              }).catch((error)=>{
+                alert(JSON.stringify(error))
+              })
             }
+          },
+          {
+            'name': 'openAndroidLocationServerSettingPage',
+            'subtitle': '打开手机系统位置信息设置页(only Android)',
+            'func': () => {
+              Host.ui.openAndroidLocationServerSettingPage();
+            }
+          },
+          {
+            'name': 'getIOSLocationAuthorizationStatus',
+            'subtitle': '获取定位授权状态(only iOS)',
+            'func': () => {
+              Host.getIOSLocationAuthorizationStatus().then((result)=>{
+                alert('成功:' + JSON.stringify(result))
+              }).catch((error)=>{
+                alert('失败:' + JSON.stringify(error))
+              })
+            }
+          },
         ];
     }
 

@@ -134,5 +134,6 @@ const API_REPO = {
   '/miot/camera/app/v1/put/babyCrySwitch':{},
   // '/v2/device/multi_check_device_version':{},
   '/miot/camera/app/v1/put/babyCrySwitch':{},
+  '/app/v2/public/get_weekday_info':{},
 }
 export default API_REPO;
