@@ -22,8 +22,8 @@ const TYPE = {
   /**
    * 多选列表项
    */
-  MULTIPLE: 'multiple',
-}
+  MULTIPLE: 'multiple'
+};
 Object.freeze(TYPE);
 /**
  * @export
@@ -47,7 +47,7 @@ export default class ChoiceItem extends React.Component {
     selected: PropTypes.bool,
     color: PropTypes.string,
     icon: PropTypes.number,
-    onPress: PropTypes.func,
+    onPress: PropTypes.func
   }
   static defaultProps = {
     type: TYPE.STATELESS,
@@ -66,7 +66,7 @@ export default class ChoiceItem extends React.Component {
       selected: props.selected
     };
   }
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.selected !== this.state.selected) {
       this.setState({ selected: newProps.selected });
     }
@@ -79,7 +79,7 @@ export default class ChoiceItem extends React.Component {
         <View
           style={{
             width: 38,
-            height: fatHeight,
+            height: fatHeight
           }}
         />);
     }
@@ -89,11 +89,11 @@ export default class ChoiceItem extends React.Component {
       <View style={[styles.iconContainer, paddingTop]}>
         <Image
           source={this.props.icon}
-          resizeMode='contain'
+          resizeMode="contain"
           style={styles.icon}
         />
       </View>
-    )
+    );
   }
   renderText() {
     const color = { color: "#000000" };
@@ -118,7 +118,7 @@ export default class ChoiceItem extends React.Component {
           : null
         }
       </View>
-    )
+    );
   }
   renderCheckbox() {
     if (this.props.type !== TYPE.MULTIPLE) return null;
@@ -132,9 +132,9 @@ export default class ChoiceItem extends React.Component {
         }}
         checked={this.state.selected}
         checkedColor={this.props.color}
-        onValueChange={selected => this._onValueChange(selected)}
+        onValueChange={(selected) => this._onValueChange(selected)}
       />
-    )
+    );
   }
   render() {
     const height = { height: thinHeight };
@@ -143,8 +143,8 @@ export default class ChoiceItem extends React.Component {
     }
     return (
       <TouchableHighlight
-        underlayColor='rgba(0,0,0,0.05)'
-        onPress={_ => this._onPress()}
+        underlayColor="rgba(0,0,0,0.05)"
+        onPress={() => this._onPress()}
       >
         <View style={[styles.container, height]}>
           {this.renderIcon()}
@@ -182,15 +182,15 @@ const styles = StyleSheet.create({
   iconContainer: {
     width: 38,
     alignSelf: 'stretch',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   icon: {
     width: 10,
-    height: 10,
+    height: 10
   },
   textContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   title: {
     alignSelf: 'stretch',

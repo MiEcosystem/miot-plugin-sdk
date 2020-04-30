@@ -24,10 +24,26 @@ import { Dimensions, Image, Platform, StatusBar, StyleSheet, Text, View } from '
 import { RkButton } from "react-native-ui-kitten";
 import { SafeAreaView } from 'react-navigation';
 import ImageButton from './ImageButton';
-const { width, height } = Dimensions.get('window');
+import PropTypes from 'prop-types';
+const { width } = Dimensions.get('window');
 const titleHeight = 44;
 const imgHeight = 28;
 export default class TitleBarBlack extends Component {
+  static propTypes = {
+    leftTextStyle: PropTypes.any,
+    rightTextStyle: PropTypes.any,
+    style: PropTypes.any,
+    leftText: PropTypes.string,
+    rightText: PropTypes.string,
+    onPressLeft: PropTypes.func,
+    onPressLeft2: PropTypes.func,
+    onPressRight: PropTypes.func,
+    onPressRight2: PropTypes.func,
+    onPressTitle: PropTypes.func,
+    title: PropTypes.string,
+    subTitle: PropTypes.string,
+    showDot: PropTypes.bool
+  };
   constructor(props) {
     super(props);
   }
@@ -52,7 +68,7 @@ export default class TitleBarBlack extends Component {
         <ImageButton onPress={this.props.onPressLeft2}
           style={[styles.img, {
             marginLeft: 0,
-            height: this.props.onPressLeft2 ? imgHeight : 0,
+            height: this.props.onPressLeft2 ? imgHeight : 0
           }]}
           source={require('../resources/title/std_tittlebar_main_device_back2_normal.png')}
           highlightedSource={require('../resources/title/std_tittlebar_main_device_back2_press.png')} />
@@ -69,7 +85,7 @@ export default class TitleBarBlack extends Component {
         <ImageButton onPress={this.props.onPressRight2}
           style={[styles.img, {
             marginRight: 0,
-            height: this.props.onPressRight2 ? imgHeight : 0,
+            height: this.props.onPressRight2 ? imgHeight : 0
           }]}
           source={require('../resources/title/std_tittlebar_main_device_share_normal.png')}
           highlightedSource={require('../resources/title/std_tittlebar_main_device_share_press.png')} />
@@ -96,25 +112,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: width,
     alignItems: 'flex-end',
-    height: (StatusBar.currentHeight || 0) + titleHeight,
+    height: (StatusBar.currentHeight || 0) + titleHeight
   },
   textContainer: {
     height: titleHeight,
     flex: 1,
     alignItems: 'stretch',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   titleText: {
     color: '#000000cc',
     fontSize: 15,
     textAlignVertical: 'center',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   subtitleText: {
     color: '#00000088',
     fontSize: 12,
     textAlignVertical: 'center',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   leftRightText: {
     flexDirection: 'column',
@@ -133,7 +149,7 @@ const styles = StyleSheet.create({
     marginLeft: 14,
     marginTop: (titleHeight - 28) / 2,
     marginBottom: (titleHeight - 28) / 2,
-    marginRight: 14,
+    marginRight: 14
   },
   dot: {
     position: 'absolute',
@@ -141,6 +157,6 @@ const styles = StyleSheet.create({
     height: 10,
     resizeMode: 'contain',
     right: 14,
-    top: (StatusBar.currentHeight || 0) + (titleHeight - 28) / 2,
-  },
+    top: (StatusBar.currentHeight || 0) + (titleHeight - 28) / 2
+  }
 });

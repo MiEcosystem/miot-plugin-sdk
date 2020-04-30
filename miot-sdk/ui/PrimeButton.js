@@ -1,9 +1,9 @@
-import React, {Component}  from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
-import {adjustSize} from '../utils/sizes';
-import {FontDefault} from '../utils/fonts';
-import {NOOP} from '../utils/fns';
+import { adjustSize } from '../utils/sizes';
+import { FontDefault } from '../utils/fonts';
+import { NOOP } from '../utils/fns';
 export default class PrimeButton extends Component {
   static propTypes = {
     title: PropTypes.string,
@@ -18,14 +18,14 @@ export default class PrimeButton extends Component {
     onClick: NOOP
   };
   onPress = () => {
-    let {onClick} = this.props;
-    if(typeof onClick === 'function') {
+    let { onClick } = this.props;
+    if (typeof onClick === 'function') {
       onClick();
     }
   }
   render() {
-    let {title, themeColor, textColor} = this.props;
-    if(!title) {
+    let { title, themeColor, textColor } = this.props;
+    if (!title) {
       return null;
     }
     return (
@@ -42,7 +42,7 @@ export default class PrimeButton extends Component {
     );
   }
 }
-const Styles = {
+const Styles = StyleSheet.create({
   container: {
     marginHorizontal: adjustSize(72)
   },
@@ -59,4 +59,4 @@ const Styles = {
     textAlign: 'center',
     color: '#000'
   }
-};
+});

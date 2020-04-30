@@ -4,15 +4,20 @@ import { Device, DeviceEvent } from "miot";
 import MIOT from "miot";
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
-import { Image, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import {
+ Image, StyleSheet, Text, TextInput, TouchableHighlight, View 
+} from 'react-native';
 
 
 export default class ControlDemo extends React.Component {
+
   static navigationOptions = ({ navigation }) => {
 
     return {
       header: <TitleBar type='dark' title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
-        onPressLeft={() => { navigation.goBack(); }} />,
+        onPressLeft={() => {
+ navigation.goBack(); 
+}} />
     };
   };
 
@@ -25,7 +30,7 @@ export default class ControlDemo extends React.Component {
       textR: '',
       textG: '',
       textB: '',
-      resultViewColor: '#000000',
+      resultViewColor: '#000000'
     };
   }
 
@@ -43,7 +48,7 @@ export default class ControlDemo extends React.Component {
   }
 
   componentWillUnmount() {
-    this._deviceStatusListener.remove();
+    this._deviceStatusListener && this._deviceStatusListener.remove();
   }
 
   render() {
@@ -118,7 +123,8 @@ export default class ControlDemo extends React.Component {
 
     if (Math.round(max) == 0) {
       return '000000';
-    } else {
+    }
+ else {
       k = max / 255;
       resultR = Math.round(r / k);
       resultG = Math.round(g / k);
@@ -132,9 +138,15 @@ export default class ControlDemo extends React.Component {
     if (Math.round(resultR) == 0) {
       if (Math.round(resultG) == 0) {
         stringRGB = '00' + stringRGB;
-      } else if (Math.round(resultG) < 16 && Math.round(resultG) > 0) { stringRGB = '0' + stringRGB; }
+      }
+ else if (Math.round(resultG) < 16 && Math.round(resultG) > 0) {
+ stringRGB = '0' + stringRGB; 
+}
       stringRGB = '00' + stringRGB;
-    } else if (Math.round(resultR) < 16 && Math.round(resultR) > 0) { stringRGB = '0' + stringRGB; }
+    }
+ else if (Math.round(resultR) < 16 && Math.round(resultR) > 0) {
+ stringRGB = '0' + stringRGB; 
+}
     console.log("stringRGB 2 : ", stringRGB);
     return stringRGB;
   }
@@ -153,7 +165,7 @@ var styles = StyleSheet.create({
   containerAll: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#838383',
+    backgroundColor: '#838383'
     // marginTop: 66,
   },
   containerIconDemo: {
@@ -168,17 +180,17 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     backgroundColor: '#ffffff',
-    alignSelf: 'stretch',
+    alignSelf: 'stretch'
   },
   flowRight: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
 
   iconDemo: {
     alignSelf: 'center',
     width: 192,
-    height: 177,
+    height: 177
   },
   iconText: {
     fontSize: 20,
@@ -193,7 +205,7 @@ var styles = StyleSheet.create({
     color: '#000000',
     marginRight: 10,
     marginTop: 20,
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   RGBInput: {
     height: 38,
@@ -206,7 +218,7 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#48BBEC',
     color: '#48BBEC',
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   RGBArrowImage: {
     height: 31.9,
@@ -214,7 +226,7 @@ var styles = StyleSheet.create({
     paddingRight: 3,
     marginTop: 62,
     marginRight: 10,
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   RGBResultView: {
     height: 135,
@@ -222,24 +234,20 @@ var styles = StyleSheet.create({
     marginTop: 10,
     borderWidth: 1,
     borderColor: '#48BBEC',
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
 
   commandButton: {
     marginTop: 13,
     height: 40,
     width: 314,
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
 
-  navBarRightButton: {
-    paddingRight: 10,
-  },
+  navBarRightButton: {paddingRight: 10},
   navBarText: {
     fontSize: 16,
-    marginVertical: 10,
+    marginVertical: 10
   },
-  navBarButtonText: {
-    color: '#5890FF',
-  },
+  navBarButtonText: {color: '#5890FF'}
 });

@@ -69,7 +69,7 @@ const TYPE = {
    * 浅色背景
    */
   LIGHT: 'light'
-}
+};
 Object.freeze(TYPE);
 /**
  * 图标资源的索引
@@ -138,8 +138,8 @@ const ICON = {
   /**
    * 分享
    */
-  SHARE: 'share',
-}
+  SHARE: 'share'
+};
 Object.freeze(ICON);
 const { light, dark, dot } = Images.navigation; // 图标集合
 const { width } = Dimensions.get('window'); // 屏幕宽度
@@ -160,12 +160,13 @@ export default class NavigationBar extends Component {
     right: PropTypes.array,
     title: PropTypes.string,
     subtitle: PropTypes.string,
+    backgroundColor: PropTypes.any,
     onPressTitle: PropTypes.func
   }
   static defaultProps = {
     type: TYPE.LIGHT,
     left: [],
-    right: [],
+    right: []
   }
   static TYPE = TYPE;
   static ICON = ICON;
@@ -175,18 +176,17 @@ export default class NavigationBar extends Component {
    */
   getIconsOfType(arr) {
     const icons = this.isDarkStyle ? dark : light;
-    return arr.map(item => {
+    return arr.map((item) => {
       const { key, disable } = item;
       if (disable) {
         item.source = icons[key] ? icons[key].disable : null; // 可能key 不存在
         item.highlightedSource = null;
-      }
-      else {
+      } else {
         item.source = icons[key] ? icons[key].normal : null;
         item.highlightedSource = icons[key] ? icons[key].press : null;
       }
       return item;
-    }).filter(item => item.source); // 过滤找到资源的图标
+    }).filter((item) => item.source); // 过滤找到资源的图标
   }
   /**
    * @description 根据处理后的按钮集合数据渲染按钮
@@ -197,7 +197,7 @@ export default class NavigationBar extends Component {
     return icons.map((icon, i) => {
       // 如果没有找过图标资源，则显示占位空白
       if (!icon.source) {
-        return <View key={icon.key + i} style={{ width: iconSize }} />
+        return <View key={icon.key + i} style={{ width: iconSize }} />;
       }
       return (
         <View
@@ -207,7 +207,7 @@ export default class NavigationBar extends Component {
           {icon.showDot
             ? <Image
               style={styles.dot}
-              resizeMode='contain'
+              resizeMode="contain"
               source={dot}
             />
             : null
@@ -220,8 +220,8 @@ export default class NavigationBar extends Component {
             highlightedSource={icon.highlightedSource}
           />
         </View>
-      )
-    })
+      );
+    });
   }
   /**
    * 中间标题部分
@@ -230,10 +230,10 @@ export default class NavigationBar extends Component {
     const { title, subtitle, onPressTitle } = this.props;
     const titleColor = {
       color: this.isDarkStyle ? darkTitleColor : lightTitleColor
-    }
+    };
     const subtitleColor = {
       color: this.isDarkStyle ? darkSubtitleColor : lightSubtitleColor
-    }
+    };
     return (
       <View style={[styles.titleContainer]}>
         {
@@ -264,17 +264,17 @@ export default class NavigationBar extends Component {
           : null
         }
       </View>
-    )
+    );
   }
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     this.updateStyleType(this.props, newProps);
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.updateStyleType(this.props, null);
   }
   updateStyleType(props, newProps) {
     let newIsDartStyle = (newProps ? newProps.type : props.type) === TYPE.DARK;
-    if(newIsDartStyle !== this.isDarkStyle) {
+    if (newIsDartStyle !== this.isDarkStyle) {
       this.isDarkStyle = newIsDartStyle;
       StatusBar.setBarStyle(this.isDarkStyle ? 'light-content' : 'dark-content');
       if (Platform.OS == 'android') {
@@ -304,7 +304,7 @@ export default class NavigationBar extends Component {
     const containerStyle = {
       backgroundColor,
       height: containerHeight
-    }
+    };
     return (
       <SafeAreaView style={[styles.container, containerStyle, { paddingTop: StatusBar.currentHeight }]}>
         {this.renderIcons(leftIcons)}
@@ -319,40 +319,40 @@ const styles = StyleSheet.create({
     width,
     paddingHorizontal,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   titleContainer: {
     flex: 1,
     alignSelf: 'stretch',
     justifyContent: 'center',
     alignItems: 'stretch',
-    marginHorizontal: 5,
+    marginHorizontal: 5
   },
   title: {
     fontSize: 16,
     // lineHeight: 22,
     fontFamily: 'D-DINCondensed-Bold',
     textAlignVertical: 'center',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   titleView: {
     fontSize: 16,
     fontFamily: 'D-DINCondensed-Bold',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   subtitle: {
     fontSize: 12.6,
     lineHeight: 17,
     fontFamily: 'MI-LANTING--GBK1-Light',
     textAlignVertical: 'center',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   icon: {
     position: 'absolute',
     width: iconSize,
-    height: iconSize,
+    height: iconSize
   },
   dot: {
     width: iconSize,

@@ -1,6 +1,6 @@
 'use strict';
 
-import { Device, Host, DeviceEvent } from "miot";
+import { Device, Host, DeviceEvent, PackageEvent } from "miot";
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import {
@@ -159,8 +159,8 @@ export default class UIDemo extends React.Component {
                 'name': '打开系统分享文件页面',
                 'subtitle': 'openSystemShareWindow',
                 'func': () => {
-                    const path = Host.file.storageBasePath + '/test.wav';
-                    Host.ui.openSystemShareWindow(path);
+                    // const path = Host.file.storageBasePath+'/test.wav';
+                    Host.ui.openSystemShareWindow('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433650723&di=44f673bd1ccbde2af32e1f7565de4484&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn%2Fw640h759%2F20180111%2F9ee0-fyqnick6733536.jpg');
                 }
             },
             {
@@ -504,6 +504,18 @@ export default class UIDemo extends React.Component {
                 alert('失败:' + JSON.stringify(error))
               })
             }
+          },
+          {
+              'name': '监听跳转到Native页面',
+              'subtitle': 'iOS Only',
+              'func': () => {
+                  this.disappearListener = PackageEvent.packageViewWillDisappearIOS.addListener(() => {
+                      alert("packageViewWillDisappearIOS");
+                      this.disappearListener && this.disappearListener.remove();
+                      this.disappearListener = null;
+                  });
+                  Host.ui.openNewMorePage();
+              }
           },
         ];
     }

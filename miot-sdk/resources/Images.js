@@ -12,7 +12,7 @@ export default {
     right_arrow: require('./images/right_arrow.png'),
     close: require('./images/close.png'),
     mihome: require('./images/mihome.png'),
-    selectIcon: require('./images/select_icon.png'),
+    selectIcon: require('./images/select_icon.png')
   },
   /**
    * 导航栏
@@ -32,7 +32,7 @@ export default {
       add: {
         normal: require('./images/navigation/dark/add_n_dark.png'),
         press: require('./images/navigation/dark/add_p_dark.png'),
-        disable: require('./images/navigation/dark/add_d_dark.png'),
+        disable: require('./images/navigation/dark/add_d_dark.png')
       },
       /**
        * 返回
@@ -40,7 +40,7 @@ export default {
       back: {
         normal: require('./images/navigation/dark/back_n_dark.png'),
         press: require('./images/navigation/dark/back_p_dark.png'),
-        disable: require('./images/navigation/dark/back_d_dark.png'),
+        disable: require('./images/navigation/dark/back_d_dark.png')
       },
       /**
        * 关闭
@@ -48,7 +48,7 @@ export default {
       close: {
         normal: require('./images/navigation/dark/close_n_dark.png'),
         press: require('./images/navigation/dark/close_p_dark.png'),
-        disable: require('./images/navigation/dark/close_d_dark.png'),
+        disable: require('./images/navigation/dark/close_d_dark.png')
       },
       /**
        * 收藏
@@ -56,7 +56,7 @@ export default {
       collect: {
         normal: require('./images/navigation/dark/collect_n_dark.png'),
         press: require('./images/navigation/dark/collect_p_dark.png'),
-        disable: require('./images/navigation/dark/collect_d_dark.png'),
+        disable: require('./images/navigation/dark/collect_d_dark.png')
       },
       /**
        * 完成
@@ -64,7 +64,7 @@ export default {
       complete: {
         normal: require('./images/navigation/dark/complete_n_dark.png'),
         press: require('./images/navigation/dark/complete_p_dark.png'),
-        disable: require('./images/navigation/dark/complete_d_dark.png'),
+        disable: require('./images/navigation/dark/complete_d_dark.png')
       },
       /**
        * 删除
@@ -72,7 +72,7 @@ export default {
       delete: {
         normal: require('./images/navigation/dark/delete_n_dark.png'),
         press: require('./images/navigation/dark/delete_p_dark.png'),
-        disable: require('./images/navigation/dark/delete_d_dark.png'),
+        disable: require('./images/navigation/dark/delete_d_dark.png')
       },
       /**
        * 详情
@@ -80,7 +80,7 @@ export default {
       detail: {
         normal: require('./images/navigation/dark/detail_n_dark.png'),
         press: require('./images/navigation/dark/detail_p_dark.png'),
-        disable: require('./images/navigation/dark/detail_d_dark.png'),
+        disable: require('./images/navigation/dark/detail_d_dark.png')
       },
       /**
        * 更多
@@ -88,7 +88,7 @@ export default {
       more: {
         normal: require('./images/navigation/dark/more_n_dark.png'),
         press: require('./images/navigation/dark/more_p_dark.png'),
-        disable: require('./images/navigation/dark/more_d_dark.png'),
+        disable: require('./images/navigation/dark/more_d_dark.png')
       },
       /**
        * 下一步
@@ -96,7 +96,7 @@ export default {
       next: {
         normal: require('./images/navigation/dark/next_n_dark.png'),
         press: require('./images/navigation/dark/next_p_dark.png'),
-        disable: require('./images/navigation/dark/next_d_dark.png'),
+        disable: require('./images/navigation/dark/next_d_dark.png')
       },
       /**
        * 个人中心
@@ -104,7 +104,7 @@ export default {
       profile: {
         normal: require('./images/navigation/dark/profile_n_dark.png'),
         press: require('./images/navigation/dark/profile_p_dark.png'),
-        disable: require('./images/navigation/dark/profile_d_dark.png'),
+        disable: require('./images/navigation/dark/profile_d_dark.png')
       },
       /**
        * 二维码
@@ -112,7 +112,7 @@ export default {
       qr: {
         normal: require('./images/navigation/dark/qr_n_dark.png'),
         press: require('./images/navigation/dark/qr_p_dark.png'),
-        disable: require('./images/navigation/dark/qr_d_dark.png'),
+        disable: require('./images/navigation/dark/qr_d_dark.png')
       },
       /**
        * 搜索
@@ -120,7 +120,7 @@ export default {
       search: {
         normal: require('./images/navigation/dark/search_n_dark.png'),
         press: require('./images/navigation/dark/search_p_dark.png'),
-        disable: require('./images/navigation/dark/search_d_dark.png'),
+        disable: require('./images/navigation/dark/search_d_dark.png')
       },
       /**
        * 全选
@@ -128,7 +128,7 @@ export default {
       select_all: {
         normal: require('./images/navigation/dark/select_all_n_dark.png'),
         press: require('./images/navigation/dark/select_all_p_dark.png'),
-        disable: require('./images/navigation/dark/select_all_d_dark.png'),
+        disable: require('./images/navigation/dark/select_all_d_dark.png')
       },
       /**
        * 全部选中
@@ -136,7 +136,7 @@ export default {
       selected_all: {
         normal: require('./images/navigation/dark/selected_all_n_dark.png'),
         press: require('./images/navigation/dark/selected_all_p_dark.png'),
-        disable: require('./images/navigation/dark/selected_all_d_dark.png'),
+        disable: require('./images/navigation/dark/selected_all_d_dark.png')
       },
       /**
        * 设置
@@ -144,7 +144,7 @@ export default {
       setting: {
         normal: require('./images/navigation/dark/setting_n_dark.png'),
         press: require('./images/navigation/dark/setting_p_dark.png'),
-        disable: require('./images/navigation/dark/setting_d_dark.png'),
+        disable: require('./images/navigation/dark/setting_d_dark.png')
       },
       /**
        * 分享
@@ -152,7 +152,7 @@ export default {
       share: {
         normal: require('./images/navigation/dark/share_n_dark.png'),
         press: require('./images/navigation/dark/share_p_dark.png'),
-        disable: require('./images/navigation/dark/share_d_dark.png'),
+        disable: require('./images/navigation/dark/share_d_dark.png')
       }
     },
     /**
@@ -165,7 +165,7 @@ export default {
       add: {
         normal: require('./images/navigation/light/add_n_light.png'),
         press: require('./images/navigation/light/add_p_light.png'),
-        disable: require('./images/navigation/light/add_d_light.png'),
+        disable: require('./images/navigation/light/add_d_light.png')
       },
       /**
        * 返回
@@ -173,7 +173,7 @@ export default {
       back: {
         normal: require('./images/navigation/light/back_n_light.png'),
         press: require('./images/navigation/light/back_p_light.png'),
-        disable: require('./images/navigation/light/back_d_light.png'),
+        disable: require('./images/navigation/light/back_d_light.png')
       },
       /**
        * 关闭
@@ -181,7 +181,7 @@ export default {
       close: {
         normal: require('./images/navigation/light/close_n_light.png'),
         press: require('./images/navigation/light/close_p_light.png'),
-        disable: require('./images/navigation/light/close_d_light.png'),
+        disable: require('./images/navigation/light/close_d_light.png')
       },
       /**
        * 收藏
@@ -189,7 +189,7 @@ export default {
       collect: {
         normal: require('./images/navigation/light/collect_n_light.png'),
         press: require('./images/navigation/light/collect_p_light.png'),
-        disable: require('./images/navigation/light/collect_d_light.png'),
+        disable: require('./images/navigation/light/collect_d_light.png')
       },
       /**
        * 完成
@@ -197,7 +197,7 @@ export default {
       complete: {
         normal: require('./images/navigation/light/complete_n_light.png'),
         press: require('./images/navigation/light/complete_p_light.png'),
-        disable: require('./images/navigation/light/complete_d_light.png'),
+        disable: require('./images/navigation/light/complete_d_light.png')
       },
       /**
        * 删除
@@ -205,7 +205,7 @@ export default {
       delete: {
         normal: require('./images/navigation/light/delete_n_light.png'),
         press: require('./images/navigation/light/delete_p_light.png'),
-        disable: require('./images/navigation/light/delete_d_light.png'),
+        disable: require('./images/navigation/light/delete_d_light.png')
       },
       /**
        * 详情
@@ -213,7 +213,7 @@ export default {
       detail: {
         normal: require('./images/navigation/light/detail_n_light.png'),
         press: require('./images/navigation/light/detail_p_light.png'),
-        disable: require('./images/navigation/light/detail_d_light.png'),
+        disable: require('./images/navigation/light/detail_d_light.png')
       },
       /**
        * 更多
@@ -221,7 +221,7 @@ export default {
       more: {
         normal: require('./images/navigation/light/more_n_light.png'),
         press: require('./images/navigation/light/more_p_light.png'),
-        disable: require('./images/navigation/light/more_d_light.png'),
+        disable: require('./images/navigation/light/more_d_light.png')
       },
       /**
        * 下一步
@@ -229,7 +229,7 @@ export default {
       next: {
         normal: require('./images/navigation/light/next_n_light.png'),
         press: require('./images/navigation/light/next_p_light.png'),
-        disable: require('./images/navigation/light/next_d_light.png'),
+        disable: require('./images/navigation/light/next_d_light.png')
       },
       /**
        * 个人中心
@@ -237,7 +237,7 @@ export default {
       profile: {
         normal: require('./images/navigation/light/profile_n_light.png'),
         press: require('./images/navigation/light/profile_p_light.png'),
-        disable: require('./images/navigation/light/profile_d_light.png'),
+        disable: require('./images/navigation/light/profile_d_light.png')
       },
       /**
        * 二维码
@@ -245,7 +245,7 @@ export default {
       qr: {
         normal: require('./images/navigation/light/qr_n_light.png'),
         press: require('./images/navigation/light/qr_p_light.png'),
-        disable: require('./images/navigation/light/qr_d_light.png'),
+        disable: require('./images/navigation/light/qr_d_light.png')
       },
       /**
        * 搜索
@@ -253,7 +253,7 @@ export default {
       search: {
         normal: require('./images/navigation/light/search_n_light.png'),
         press: require('./images/navigation/light/search_p_light.png'),
-        disable: require('./images/navigation/light/search_d_light.png'),
+        disable: require('./images/navigation/light/search_d_light.png')
       },
       /**
        * 全选
@@ -261,7 +261,7 @@ export default {
       select_all: {
         normal: require('./images/navigation/light/select_all_n_light.png'),
         press: require('./images/navigation/light/select_all_p_light.png'),
-        disable: require('./images/navigation/light/select_all_d_light.png'),
+        disable: require('./images/navigation/light/select_all_d_light.png')
       },
       /**
        * 全部选中
@@ -269,7 +269,7 @@ export default {
       selected_all: {
         normal: require('./images/navigation/light/selected_all_n_light.png'),
         press: require('./images/navigation/light/selected_all_p_light.png'),
-        disable: require('./images/navigation/light/selected_all_d_light.png'),
+        disable: require('./images/navigation/light/selected_all_d_light.png')
       },
       /**
        * 设置
@@ -277,7 +277,7 @@ export default {
       setting: {
         normal: require('./images/navigation/light/setting_n_light.png'),
         press: require('./images/navigation/light/setting_p_light.png'),
-        disable: require('./images/navigation/light/setting_d_light.png'),
+        disable: require('./images/navigation/light/setting_d_light.png')
       },
       /**
        * 分享
@@ -285,8 +285,8 @@ export default {
       share: {
         normal: require('./images/navigation/light/share_n_light.png'),
         press: require('./images/navigation/light/share_p_light.png'),
-        disable: require('./images/navigation/light/share_d_light.png'),
+        disable: require('./images/navigation/light/share_d_light.png')
       }
     }
   }
-}
+};

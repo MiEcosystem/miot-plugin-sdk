@@ -17,122 +17,122 @@ import { Animated, StyleSheet, TouchableWithoutFeedback, View } from 'react-nati
  * @property {bool} disabled - 单选按钮的可选状态，默认值 false
  */
 class Radio extends Component {
-    constructor(props) {
-        super(props);
-        let { isChecked } = props;
-        let circleOpacity = isChecked ? 1 : 0;
-        let circleScale = isChecked ? .5 : .4;
-        this.state = {
-            scale: new Animated.Value(circleScale),
-            opacity: new Animated.Value(circleOpacity)
-        }
+  constructor(props) {
+    super(props);
+    let { isChecked } = props;
+    let circleOpacity = isChecked ? 1 : 0;
+    let circleScale = isChecked ? .5 : .4;
+    this.state = {
+      scale: new Animated.Value(circleScale),
+      opacity: new Animated.Value(circleOpacity)
+    };
+  }
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    let { isChecked } = nextProps;
+    if (isChecked) {
+      // 选中
+      this.changeStatus(.5, 1);
+    } else {
+      // 取消选中
+      this.changeStatus(.4, 0);
     }
-    componentWillReceiveProps(nextProps) {
-        let { isChecked } = nextProps;
-        if (isChecked) {
-            //选中
-            this.changeStatus(.5, 1);
-        } else {
-            //取消选中
-            this.changeStatus(.4, 0);
-        }
-    }
-    //改变选中状态时，执行动画 
+  }
+    // 改变选中状态时，执行动画
     changeStatus = (scaleTo, opacityTo) => {
-        let { scale, opacity } = this.state;
-        Animated.parallel([
-            Animated.spring(                  // 随时间变化而执行动画
-                scale,            // 动画中的变量值
-                {
-                    toValue: scaleTo,
-                    bounciness: 15,
-                    speed: 9,                   // 透明度最终变为1，即完全不透明
-                }
-            ),
-            Animated.timing(                  // 随时间变化而执行动画
-                opacity,            // 动画中的变量值
-                {
-                    toValue: opacityTo,                   // 透明度最终变为1，即完全不透明
-                    duration: 200,              // 让动画持续一段时间
-                }
-            )
-        ]).start();
+      let { scale, opacity } = this.state;
+      Animated.parallel([
+        Animated.spring( // 随时间变化而执行动画
+          scale, // 动画中的变量值
+          {
+            toValue: scaleTo,
+            bounciness: 15,
+            speed: 9 // 透明度最终变为1，即完全不透明
+          }
+        ),
+        Animated.timing( // 随时间变化而执行动画
+          opacity, // 动画中的变量值
+          {
+            toValue: opacityTo, // 透明度最终变为1，即完全不透明
+            duration: 200 // 让动画持续一段时间
+          }
+        )
+      ]).start();
     }
-    //改变该按钮的状态
+    // 改变该按钮的状态
     changeRadioCheck = () => {
-        let { changeCheck, id } = this.props;
-        changeCheck(id);
+      let { changeCheck, id } = this.props;
+      changeCheck(id);
     }
     render() {
-        let { smallCircleBg, isChecked, bigCircleStyle, checkedBigCircleStyle, disabled } = this.props;
-        let { borderColorChecked, backgroundColorChecked, borderColor, backgroundColor } = checkedBigCircleStyle;
-        let { scale, opacity } = this.state;
-        return (
-            <TouchableWithoutFeedback
-                onPress={this.changeRadioCheck}
-                disabled={disabled}
-            >
-                <View style={[
-                    styles.btn,
-                    bigCircleStyle,
-                    {
-                        borderColor: isChecked ? borderColorChecked : borderColor,
-                        backgroundColor: isChecked ? backgroundColorChecked : backgroundColor,
-                        opacity: disabled ? .3 : 1
-                    }
-                ]}>
-                    <Animated.View style={[
-                        styles.smallCircle,
-                        bigCircleStyle,
-                        {
-                            borderWidth: 0,
-                            transform: [{ scale }],
-                            opacity,
-                            backgroundColor: smallCircleBg
-                        }
-                    ]}></Animated.View>
-                </View>
-            </TouchableWithoutFeedback>
-        );
+      let { smallCircleBg, isChecked, bigCircleStyle, checkedBigCircleStyle, disabled } = this.props;
+      let { borderColorChecked, backgroundColorChecked, borderColor, backgroundColor } = checkedBigCircleStyle;
+      let { scale, opacity } = this.state;
+      return (
+        <TouchableWithoutFeedback
+          onPress={this.changeRadioCheck}
+          disabled={disabled}
+        >
+          <View style={[
+            styles.btn,
+            bigCircleStyle,
+            {
+              borderColor: isChecked ? borderColorChecked : borderColor,
+              backgroundColor: isChecked ? backgroundColorChecked : backgroundColor,
+              opacity: disabled ? .3 : 1
+            }
+          ]}>
+            <Animated.View style={[
+              styles.smallCircle,
+              bigCircleStyle,
+              {
+                borderWidth: 0,
+                transform: [{ scale }],
+                opacity,
+                backgroundColor: smallCircleBg
+              }
+            ]}></Animated.View>
+          </View>
+        </TouchableWithoutFeedback>
+      );
     }
 }
 Radio.defaultProps = {
-    bigCircleStyle: {},
-    checkedBigCircleStyle: {
-        borderColorChecked: '#060',
-        backgroundColorChecked: '#090',
-        borderColor: '#666',
-        backgroundColor: '#999'
-    },
-    smallCircleBg: 'white',
-    isChecked: false,
-    changeCheck: function () { },
-    id: -1,
-    disabled: false
-}
+  bigCircleStyle: {},
+  checkedBigCircleStyle: {
+    borderColorChecked: '#060',
+    backgroundColorChecked: '#090',
+    borderColor: '#666',
+    backgroundColor: '#999'
+  },
+  smallCircleBg: 'white',
+  isChecked: false,
+  changeCheck: function() { },
+  id: -1,
+  disabled: false
+};
 Radio.propTypes = {
-    bigCircleStyle: PropTypes.object,
-    checkedBigCircleStyle: PropTypes.object,
-    smallCircleBg: PropTypes.string,
-    isChecked: PropTypes.bool,
-    disabled: PropTypes.bool,
-    changeCheck: PropTypes.func,
-    id: PropTypes.number,
-}
+  bigCircleStyle: PropTypes.object,
+  checkedBigCircleStyle: PropTypes.object,
+  smallCircleBg: PropTypes.string,
+  isChecked: PropTypes.bool,
+  disabled: PropTypes.bool,
+  changeCheck: PropTypes.func,
+  id: PropTypes.number
+};
 const styles = StyleSheet.create({
-    btn: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderStyle: 'solid',
-        borderWidth: 2,
-        borderRadius: 40,
-        width: 80,
-        height: 80
-    },
-    smallCircle: {
-        borderRadius: 40,
-        width: 80,
-        height: 80
-    }
+  btn: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderStyle: 'solid',
+    borderWidth: 2,
+    borderRadius: 40,
+    width: 80,
+    height: 80
+  },
+  smallCircle: {
+    borderRadius: 40,
+    width: 80,
+    height: 80
+  }
 });
 export default Radio;

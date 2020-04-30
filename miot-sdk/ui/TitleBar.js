@@ -38,14 +38,27 @@ const dotSize = 10;
 export default class TitleBar extends Component {
   static propTypes = {
     type: PropTypes.oneOf(['dark', 'light']),
+    leftTextStyle: PropTypes.any,
+    rightTextStyle: PropTypes.any,
+    style: PropTypes.any,
+    leftText: PropTypes.string,
+    rightText: PropTypes.string,
+    onPressLeft: PropTypes.func,
+    onPressLeft2: PropTypes.func,
+    onPressRight: PropTypes.func,
+    onPressRight2: PropTypes.func,
+    onPressTitle: PropTypes.func,
+    title: PropTypes.string,
+    subTitle: PropTypes.string,
+    showDot: PropTypes.bool
   }
   static defaultProps = {
-    type: 'light',
+    type: 'light'
   }
   constructor(props) {
     super(props);
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.isDarkStyle = this.props.type === 'dark';
     if (Platform.OS == 'android') {
       StatusBar.setTranslucent(true);
@@ -61,18 +74,19 @@ export default class TitleBar extends Component {
     let subtitleTextStyle = this.isDarkStyle ? styles.blackSubtitleText : styles.whiteSubtitleText;
     let leftRightTextStyle = this.isDarkStyle ? styles.blackLeftRightText : styles.whiteLeftRightText;
     const back_n = this.isDarkStyle ? require('../resources/title/std_tittlebar_main_device_back_normal.png') : require("../resources/title/std_tittlebar_main_device_back_white_normal.png");
-    const back_p = this.isDarkStyle ? require('../resources/title/std_tittlebar_main_device_back_press.png') : require("../resources/title/std_tittlebar_main_device_back_white_press.png")
-    const set_n = this.isDarkStyle ? require('../resources/title/std_tittlebar_main_device_back2_normal.png') : require("../resources/title/std_titlebar_setting_back_normal.png")
-    const set_p = this.isDarkStyle ? require('../resources/title/std_tittlebar_main_device_back2_press.png') : require("../resources/title/std_titlebar__setting_back_press.png")
-    const share_n = this.isDarkStyle ? require('../resources/title/std_tittlebar_main_device_share_normal.png') : require("../resources/title/std_tittlebar_main_device_share_white_normal.png")
-    const share_p = this.isDarkStyle ? require('../resources/title/std_tittlebar_main_device_share_press.png') : require("../resources/title/std_tittlebar_main_device_share_white_press.png")
-    const more_n = this.isDarkStyle ? require('../resources/title/std_tittlebar_main_device_more_normal.png') : require("../resources/title/std_tittlebar_main_device_more_white_normal.png")
-    const more_p = this.isDarkStyle ? require('../resources/title/std_tittlebar_main_device_more_press.png') : require("../resources/title/std_tittlebar_main_device_more_white_press.png")
-    const message = this.isDarkStyle ? require('../resources/title/std_tittlebar_main_device_massage_point.png') : require("../resources/title/std_tittlebar_main_device_massage_point.png")
+    const back_p = this.isDarkStyle ? require('../resources/title/std_tittlebar_main_device_back_press.png') : require("../resources/title/std_tittlebar_main_device_back_white_press.png");
+    const set_n = this.isDarkStyle ? require('../resources/title/std_tittlebar_main_device_back2_normal.png') : require("../resources/title/std_titlebar_setting_back_normal.png");
+    const set_p = this.isDarkStyle ? require('../resources/title/std_tittlebar_main_device_back2_press.png') : require("../resources/title/std_titlebar__setting_back_press.png");
+    const share_n = this.isDarkStyle ? require('../resources/title/std_tittlebar_main_device_share_normal.png') : require("../resources/title/std_tittlebar_main_device_share_white_normal.png");
+    const share_p = this.isDarkStyle ? require('../resources/title/std_tittlebar_main_device_share_press.png') : require("../resources/title/std_tittlebar_main_device_share_white_press.png");
+    const more_n = this.isDarkStyle ? require('../resources/title/std_tittlebar_main_device_more_normal.png') : require("../resources/title/std_tittlebar_main_device_more_white_normal.png");
+    const more_p = this.isDarkStyle ? require('../resources/title/std_tittlebar_main_device_more_press.png') : require("../resources/title/std_tittlebar_main_device_more_white_press.png");
+    const message = this.isDarkStyle ? require('../resources/title/std_tittlebar_main_device_massage_point.png') : require("../resources/title/std_tittlebar_main_device_massage_point.png");
     // 为了保持两端统一，传参的 height 只定义除 StatusBar 外的部分，即覆盖 titleHeight
     const { height } = this.props.style || {};
     let containerHeight = {};
     let dotTop = {}; // 小红点偏移位置
+    let offset;
     if (height !== undefined) {
       containerHeight = { height: (StatusBar.currentHeight || 0) + height };
       offset = height - titleHeight;
@@ -95,7 +109,7 @@ export default class TitleBar extends Component {
         <ImageButton onPress={this.props.onPressLeft2}
           style={[styles.img, {
             marginLeft: 0,
-            height: this.props.onPressLeft2 ? imgHeight : 0,
+            height: this.props.onPressLeft2 ? imgHeight : 0
           }]}
           source={set_n}
           highlightedSource={set_p} />
@@ -120,7 +134,7 @@ export default class TitleBar extends Component {
         <ImageButton onPress={this.props.onPressRight2}
           style={[styles.img, {
             marginRight: 0,
-            height: this.props.onPressRight2 ? imgHeight : 0,
+            height: this.props.onPressRight2 ? imgHeight : 0
           }]}
           source={share_n}
           highlightedSource={share_p} />
@@ -140,7 +154,7 @@ export default class TitleBar extends Component {
           this.props.showDot &&
           <Image
             style={[styles.dot, dotTop]}
-            resizeMode='contain'
+            resizeMode="contain"
             source={message}
           />
         }
@@ -167,13 +181,13 @@ const styles = StyleSheet.create({
     height: titleHeight,
     flex: 1,
     alignItems: 'stretch',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   blackTitleText: {
     color: '#000000cc',
     fontSize: 15,
     textAlignVertical: 'center',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   whiteTitleText: {
     color: "#ffffffcc",
@@ -185,7 +199,7 @@ const styles = StyleSheet.create({
     color: '#00000088',
     fontSize: 12,
     textAlignVertical: 'center',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   whiteSubtitleText: {
     color: "#ffffff88",
@@ -216,7 +230,7 @@ const styles = StyleSheet.create({
     height: imgHeight,
     resizeMode: 'contain',
     marginHorizontal: marginH,
-    marginVertical: marginV,
+    marginVertical: marginV
   },
   dot: {
     position: 'absolute',
@@ -224,6 +238,6 @@ const styles = StyleSheet.create({
     height: dotSize,
     resizeMode: 'contain',
     right: marginH,
-    top: statusBarHeight + marginV,
-  },
+    top: statusBarHeight + marginV
+  }
 });

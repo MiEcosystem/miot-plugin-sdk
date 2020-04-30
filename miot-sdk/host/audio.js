@@ -6,9 +6,9 @@
  * @module miot/host/audio
  * @description
  * 音频处理
- * 
+ *
  *  重要： 请参考 com.xiaomi.demo 中 MHAudioDemo 中各个api的用法。
- * 
+ *
  * @example
  * import {Host} from 'miot'
  * ...
@@ -171,5 +171,5 @@ class IAudio {
    */
   audioPlayerDidStartPlaying: {
   }
-}
+};
 buildEvents(AudioEvent);

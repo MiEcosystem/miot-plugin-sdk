@@ -11,8 +11,8 @@ const { second_options } = SETTING_KEYS;
 const ListItemType = {
   LIST_ITEM: 'ListItem',
   LIST_ITEM_WITH_SWITCH: 'ListItemWithSwitch',
-  LIST_ITEM_WITH_SLIDER: 'ListItemWithSlider',
-}
+  LIST_ITEM_WITH_SLIDER: 'ListItemWithSlider'
+};
 /**
  * @export
  * @author Geeook
@@ -26,10 +26,10 @@ export default class FirmwareUpgrade extends React.Component {
     return {
       header:
         <TitleBar
-          type='dark'
+          type="dark"
           title={strings.firmwareUpgrade}
           style={{ backgroundColor: '#fff' }}
-          onPressLeft={_ => navigation.goBack()}
+          onPressLeft={() => navigation.goBack()}
         />
     };
   };
@@ -38,13 +38,13 @@ export default class FirmwareUpgrade extends React.Component {
       type: ListItemType.LIST_ITEM_WITH_SWITCH,
       title: strings.autoUpgrade,
       value: true,
-      onValueChange: _ => console.warn('固件自动升级接口暂不支持')
+      onValueChange: () => console.warn('固件自动升级接口暂不支持')
     },
     [secondAllOptions.CHECK_UPGRADE]: {
       type: ListItemType.LIST_ITEM,
       title: strings.checkUpgrade,
-      onPress: _ => Host.ui.openDeviceUpgradePage()
-    },
+      onPress: () => Host.ui.openDeviceUpgradePage()
+    }
   }
   constructor(props, context) {
     super(props, context);
@@ -63,7 +63,7 @@ export default class FirmwareUpgrade extends React.Component {
               onPress={item.onPress}
               showSeparator={showSeparator}
             />
-          )
+          );
         case ListItemType.LIST_ITEM_WITH_SWITCH:
           return (
             <ListItemWithSwitch
@@ -73,16 +73,17 @@ export default class FirmwareUpgrade extends React.Component {
               onValueChange={item.onValueChange}
               showSeparator={showSeparator}
             />
-          )
+          );
       }
-    })
+      return undefined;
+    });
   }
   render() {
     const requireKeys2 = [secondAllOptions.CHECK_UPGRADE];
-    let options = this.secondOptions.filter(key => key && Object.values(second_options).includes(key)); // 去掉杂质
+    let options = this.secondOptions.filter((key) => key && Object.values(second_options).includes(key)); // 去掉杂质
     options = [...new Set(options)]; // 去除重复
     const keys = [...options, ...requireKeys2];
-    const items = keys.map(key => this.firmwareSetting[key]).filter(item => item);
+    const items = keys.map((key) => this.firmwareSetting[key]).filter((item) => item);
     return (
       <View style={styles.container}>
         <Separator />
@@ -99,7 +100,7 @@ export default class FirmwareUpgrade extends React.Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Styles.common.backgroundColor,
-    flex: 1,
+    flex: 1
   },
   blank: {
     height: 8,
@@ -107,6 +108,6 @@ const styles = StyleSheet.create({
     borderTopColor: Styles.common.hairlineColor,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomColor: Styles.common.hairlineColor,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
+    borderBottomWidth: StyleSheet.hairlineWidth
+  }
 });

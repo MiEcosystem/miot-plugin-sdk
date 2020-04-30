@@ -52,10 +52,10 @@
  * ble.disconnect()
  *
  */
-//new
+// new
 import BasicDevice, { DeviceEvent as MIOTDeviceEvent } from './BasicDevice';
 import MIOTBluetooth from './bluetooth';
-import { IBluetooth as BluetoothDevice, BluetoothEvent as MIOTBluetoothEvent } from './bluetooth/BluetoothDevice'
+import { IBluetooth as BluetoothDevice, BluetoothEvent as MIOTBluetoothEvent } from './bluetooth/BluetoothDevice';
 import { IBluetoothService as MIOTIBluetoothService, IBluetoothCharacteristic as MIOTIBluetoothCharacteristic } from './bluetooth/CoreBluetooth';
 import LockDevice from './bluetooth/LockDevice';
 import ClassicBluetoothFactory, { ClassicBluetoothEvent as MIOTClassicBluetoothEvent } from './bluetooth/ClassicDevice';
@@ -70,5 +70,5 @@ export const ClassicBluetoothEvent = MIOTClassicBluetoothEvent;
 export const IBluetoothService = MIOTIBluetoothService;
 export const IBluetoothCharacteristic = MIOTIBluetoothCharacteristic;
 export default {
-    Device, DeviceEvent, Bluetooth, BluetoothEvent, IBluetooth, IBluetoothLock, ClassicBluetooth, ClassicBluetoothEvent, IBluetoothService, IBluetoothCharacteristic
-}
+  Device, DeviceEvent, Bluetooth, BluetoothEvent, IBluetooth, IBluetoothLock, ClassicBluetooth, ClassicBluetoothEvent, IBluetoothService, IBluetoothCharacteristic
+};

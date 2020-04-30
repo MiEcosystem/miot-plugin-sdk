@@ -16,16 +16,16 @@
  *    console.log("error", error)
  * });
  */
-//import Device ,{_find_device} from './../Device'
+// import Device ,{_find_device} from './../Device'
 const SET = "/miotspec/prop/set";
 const GET = "/miotspec/prop/get";
 const ACTION = "/miotspec/action";
 //
-///**
+// /**
 // * spec 中的方法
 // * @interface
 // */
-//export class ISpecAction {
+// export class ISpecAction {
 //    /**
 //     * 请求参数，在发送请求前设置
 //     * @type {Array}
@@ -132,13 +132,13 @@ const ACTION = "/miotspec/action";
 //        //@native => false
 //        return Properties.of(this).protocol.out;
 //    }
-//}
+// }
 //
-///**
+// /**
 // * spec 中的属性
 // * @interface
 // */
-//export class ISpecProperty {
+// export class ISpecProperty {
 //
 //    /**
 //     *  从Native获取，如果 setPropertiesValue 接口返回失败，和设备的真实状态一致。
@@ -341,13 +341,13 @@ const ACTION = "/miotspec/action";
 //        //@native => false
 //        return Properties.of(this).protocol['max-length'];
 //    }
-//}
+// }
 //
-///**
+// /**
 // * spec 中的服务，包含 property:ISpecProperty,action:ISpecAction,event:暂时未使用到
 // * @interface
 // */
-//export class ISpecService {
+// export class ISpecService {
 //
 //    /**
 //     * 获取协议下的 property
@@ -477,16 +477,16 @@ const ACTION = "/miotspec/action";
 //        //@native => false
 //        return Properties.of(this).protocol.description;
 //    }
-//}
+// }
 //
-///**
+// /**
 // *
 // * miot spec 的封装
 // * @interface
 // *
 // *
 // */
-//export class IDeviceSpec {
+// export class IDeviceSpec {
 //
 //    /**
 //     * 从 Native 获取到 spec 的描述文件，根据描述文件可以生成设备的属性和方法，必须先调用这个方法,如果不支持 spec 会 catch error
@@ -691,20 +691,20 @@ const ACTION = "/miotspec/action";
 //        })
 //        //@native end
 //    }
-//}
+// }
 export default {
-    ///**
-    // * 创建Spec设备,  miot/Device.getDeviceSpec() 或者 DeviceSpec.createSpec(miot/Device.deviceID)
-    // * @method
-    // * @param {string} deviceID
-    // * @returns {ISpecDevice}
-    // */
-    //createSpec(deviceID) {
-    //    //@native :=> null
-    //    return Properties.init(new ISpecDevice(), {did: deviceID});
-    //    //@native end
-    //},
-    /**
+  // /**
+  // * 创建Spec设备,  miot/Device.getDeviceSpec() 或者 DeviceSpec.createSpec(miot/Device.deviceID)
+  // * @method
+  // * @param {string} deviceID
+  // * @returns {ISpecDevice}
+  // */
+  // createSpec(deviceID) {
+  //    //@native :=> null
+  //    return Properties.init(new ISpecDevice(), {did: deviceID});
+  //    //@native end
+  // },
+  /**
      * 请求获取设备的属性值； 由于是发起网络请求，数据的正确性可以通过抓包来查看；
      * 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
      * code 具体表示什么意思可以查看： https://iot.mi.com/new/doc/05-米家扩展程序开发指南/05-功能接口/06-MIOT-Spec.html
@@ -720,10 +720,10 @@ export default {
      * 获取设备属性失败时： [{"did":"xxx","siid":x,"piid":x,"code":xxx},……]
      * 失败时：{code:xxx, message:xxx}
      */
-    getPropertiesValue(params,datasource = 1) {
-         return Promise.resolve(null);
-    },
-    /**
+  getPropertiesValue(params, datasource = 1) {
+     return Promise.resolve(null);
+  },
+  /**
      * 请求设置设备的属性值，由于是发起网络请求，数据的正确性可以通过抓包来查看；
      * 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
      * code 具体表示什么意思可以查看： https://iot.mi.com/new/doc/05-米家扩展程序开发指南/05-功能接口/06-MIOT-Spec.html
@@ -734,10 +734,10 @@ export default {
      * 设置设备属性失败时：  [{"did":"xxx","siid":x,"piid":x,"code":xxx },……]
      * 失败时：{code:xxx, message:xxx}
      */
-    setPropertiesValue(params) {
-         return Promise.resolve(null);
-    },
-    /**
+  setPropertiesValue(params) {
+     return Promise.resolve(null);
+  },
+  /**
      * 请求调用设备的方法,由于是发起网络请求，数据的正确性可以通过抓包来查看；
      * 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
      * code 具体表示什么意思可以查看： https://iot.mi.com/new/doc/05-米家扩展程序开发指南/05-功能接口/06-MIOT-Spec.html
@@ -748,10 +748,10 @@ export default {
      * 方法执行失败时：  {"did":"xxx","siid":x,"piid":x,"code":xxx }
      * 失败时：{code:xxx, message:xxx}
      */
-    doAction(params) {
-         return Promise.resolve(null);
-    },
-    /**
+  doAction(params) {
+     return Promise.resolve(null);
+  },
+  /**
      * 获取设备的spec详情, 由于是发起网络请求，数据的正确性可以通过抓包来查看；
      * 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
      * @param did 设备的did
@@ -759,20 +759,10 @@ export default {
      * 方法执行成功时：直接返回设备具体内容，json结构字符串
      * 失败时：{code:xxx, message:xxx}
      */
-    getSpecString(did) {
-        // @native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTSpec.getSpecString(did, (ok, data) => {
-                if (ok && data) {
-                    resolve(data);
-                    return;
-                }
-                reject(data);
-            });
-        })
-        // @native end
-    },
-    /**
+  getSpecString(did) {
+     return Promise.resolve(null);
+  },
+  /**
      * 刚进入插件时，如果需要获取米家APP缓存的设备的miot-spec数据，则调用此方法获取，有可能没有数据,不建议使用
      * 注意调用方法的时候，方法要加上async
      * 使用方式：let data = await Service.spec.getCurrentSpecValue(did);
@@ -783,9 +773,7 @@ export default {
      * Android：string类型, {"code":0, "result":"[]"} or {"code":0, "result":"[{"did":"xxx","siid":x,"piid":x,"code":0 }, ...]"}
      * iOS： 返回值同上面的getPropertiesValue方法。此方法只返回code为0（get成功）的数据
      */
-    getCurrentSpecValue(did) {
-        // @native :=> promise
-        return native.MIOTSpec.getCurrentSpecValueWithDid(did);
-        // @native end
-    }
-}
+  getCurrentSpecValue(did) {
+     return Promise.resolve(null);
+  }
+};

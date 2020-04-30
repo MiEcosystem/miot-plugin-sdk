@@ -1,10 +1,10 @@
 /*
- * @description: 
- * @since: 
- * @author: 
+ * @description:
+ * @since:
+ * @author:
  * @Date: 2019-10-14 19:39:26
- * @param: 
- * @example: 
+ * @param:
+ * @example:
  */
 /**
  * @export public
@@ -37,80 +37,80 @@
  *
  */
 export class ISecureKey {
-    /**
+  /**
      * 设备 ID
      * @type {long}
      * @readonly
      */
-    get deviceID() {
-         return  0
-    }
-    /**
+  get deviceID() {
+     return  0
+  }
+  /**
      * 电子钥匙 ID
      * @type {long}
      * @readonly
      */
-    get keyID() {
-         return  0
-    }
-    /**
+  get keyID() {
+     return  0
+  }
+  /**
      * 分享目标的uid
      * @type {string}
      * @readonly
      */
-    get shareUserID() {
-         return  0
-    }
-    /**
+  get shareUserID() {
+     return  0
+  }
+  /**
      * 生效时间 UTC时间戳，单位为s, active_time
      * @type {long}
      */
-    get activeTime() {
-         return  0
-    }
-    set activeTime(active_time) {
-    }
-    /**
+  get activeTime() {
+     return  0
+  }
+  set activeTime(active_time) {
+  }
+  /**
      * 过期时间 UTC时间戳，单位为s, expire_time
      */
-    get expireTime() {
-         return  0
-    }
-    set expireTime(expire_time) {
-    }
-    /**
+  get expireTime() {
+     return  0
+  }
+  set expireTime(expire_time) {
+  }
+  /**
      * 生效日期（星期几，例如周一和周三对应1和3，[1, 3]，星期天对应0），仅在status=2时不可为空
      * @type {Array<int>}
      */
-    get weekdays() {
-         return []
-    }
-    set weekdays(weekdays) {
-    }
-    /**
+  get weekdays() {
+     return []
+  }
+  set weekdays(weekdays) {
+  }
+  /**
      * 分享类别，1：暂时，2：周期，3：永久
      * @type {int}
      */
-    get status() {
-         return  1
-    }
-    set status(status) {
-    }
+  get status() {
+     return  1
+  }
+  set status(status) {
+  }
     /**
      * 是否过期
      * @returns boolean
      */
     @report
-    isOutOfDate() {
-         return false
-    }
+  isOutOfDate() {
+     return false
+  }
     /**
      * 保存 /share/bluetoothkeyshare
      * @returns {Promise}
      */
     @report
     save() {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 删除 /share/bluetoothkeyshare
@@ -118,7 +118,7 @@ export class ISecureKey {
      */
     @report
     remove() {
-         return Promise.resolve(false);
+       return Promise.resolve(false);
     }
 }
 /**
@@ -131,9 +131,9 @@ class ISecurity {
      * @returns {Promise<ISecureKey[]>}
      */
     @report
-    loadSecureKeys(deviceID) {
-         return Promise.resolve([]);
-    }
+  loadSecureKeys(deviceID) {
+     return Promise.resolve([]);
+  }
     /**
      * 分享蓝牙锁的钥匙 /share/bluetoothkeyshare
      * 锁固件版本在 2.0.0 及以上， 不支持钥匙的分享
@@ -145,7 +145,7 @@ class ISecurity {
      */
     @report
     shareSecureKey(deviceID, shareUid, settings = {}) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取锁绑定信息, /device/blelockbindinfo 返回数据格式：{"bindtime":1505180216}，bindtime是锁的绑定时间
@@ -156,7 +156,7 @@ class ISecurity {
      */
     @report
     getLockBindInfo(deviceID) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
 }
 const SecurityInstance = new ISecurity();

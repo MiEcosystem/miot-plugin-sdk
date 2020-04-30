@@ -9,21 +9,21 @@
  * @providesModule decelerationRate
  */
 'use strict';
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 function decelerationRate(
-    decelerationRate: number | 'normal' | 'fast',
+  decelerationRate: number | 'normal' | 'fast',
 ): number {
-    if (decelerationRate === 'normal') {
-        return Platform.select({
-            ios: 0.998,
-            android: 0.985,
-        });
-    } else if (decelerationRate === 'fast') {
-        return Platform.select({
-            ios: 0.99,
-            android: 0.9,
-        });
-    }
-    return decelerationRate;
+  if (decelerationRate === 'normal') {
+    return Platform.select({
+      ios: 0.998,
+      android: 0.985
+    });
+  } else if (decelerationRate === 'fast') {
+    return Platform.select({
+      ios: 0.99,
+      android: 0.9
+    });
+  }
+  return decelerationRate;
 }
 export default decelerationRate;

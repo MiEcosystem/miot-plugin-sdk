@@ -17,7 +17,7 @@ const CARD_TYPE = {
    * 开关卡片，卡片右侧是开关
    */
   SWITCH: 'switch'
-}
+};
 Object.freeze(CARD_TYPE);
 /**
  * @description 卡片圆角类型
@@ -40,11 +40,11 @@ const CARD_RADIUS_TYPE = {
    * 上方直角下方圆角
    */
   BOTTOM: 'bottom'
-}
+};
 Object.freeze(CARD_RADIUS_TYPE);
 const { width } = Dimensions.get('window');
 const cardMargin = 10; // 卡片左右间距
-const cardWidth = width - cardMargin * 2 // 卡片的宽度
+const cardWidth = width - cardMargin * 2; // 卡片的宽度
 const cardHeight = 80; // 卡片的高度
 const cardPadding = 20; // 卡片内边距
 const ICON_SIZE = 40; // 左侧图标尺寸
@@ -105,7 +105,7 @@ export default class MHCard extends React.Component {
     disabled: PropTypes.bool,
     visible: PropTypes.bool,
     showShadow: PropTypes.bool,
-    marginTop: PropTypes.number,
+    marginTop: PropTypes.number
   }
   static defaultProps = {
     cardType: CARD_TYPE.NORMAL,
@@ -116,7 +116,7 @@ export default class MHCard extends React.Component {
     disabled: false,
     visible: true,
     showShadow: false,
-    marginTop: 0,
+    marginTop: 0
   }
   /**
    * @description 卡片类型
@@ -132,19 +132,19 @@ export default class MHCard extends React.Component {
     super(props);
     this.radiusStyle = {
       [CARD_RADIUS_TYPE.ALL]: {
-        borderRadius: 10,
+        borderRadius: 10
       },
       [CARD_RADIUS_TYPE.NONE]: {
-        borderRadius: 0,
+        borderRadius: 0
       },
       [CARD_RADIUS_TYPE.TOP]: {
         borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
+        borderTopRightRadius: 10
       },
       [CARD_RADIUS_TYPE.BOTTOM]: {
         borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-      },
+        borderBottomRightRadius: 10
+      }
     }[this.props.cardRadiusType];
     /**
      * 将样式作为属性传入组件的时候，要保证
@@ -155,19 +155,19 @@ export default class MHCard extends React.Component {
       width: cardWidth,
       height: cardHeight,
       marginTop: this.props.marginTop
-    }])
+    }]);
   }
   renderInnerView() {
     const opacityStyle = {
       opacity: this.props.disabled ? disabledOpacity : 1
-    }
+    };
     return (
       <View style={[styles.container, this.radiusStyle, opacityStyle]}>
         <View style={[styles.iconContainer, this.props.iconContainerStyle]}>
           <Image
             style={[styles.icon, this.props.iconStyle]}
             source={this.props.icon}
-            resizeMode='contain'
+            resizeMode="contain"
           />
         </View>
         <View style={styles.textContainer}>
@@ -200,7 +200,7 @@ export default class MHCard extends React.Component {
         </View>
         {this.renderRight()}
       </View>
-    )
+    );
   }
   renderRight() {
     if (this.props.cardType === CARD_TYPE.NORMAL) {
@@ -209,19 +209,17 @@ export default class MHCard extends React.Component {
         <Image
           style={styles.arrow}
           source={Images.common.right_arrow}
-          resizeMode='contain'
+          resizeMode="contain"
         />
-      )
-    }
-    else if (this.props.cardType === CARD_TYPE.SWITCH) {
+      );
+    } else if (this.props.cardType === CARD_TYPE.SWITCH) {
       return (
         <Switch
           value={this.props.switchValue}
           {...this.props}
         />
-      )
-    }
-    else {
+      );
+    } else {
       console.warn('cardType must be one of CARD_TYPE');
     }
   }
@@ -235,13 +233,13 @@ export default class MHCard extends React.Component {
     );
   }
 }
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: cardPadding,
     backgroundColor: '#fff',
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   iconContainer: {
     width: ICON_SIZE,
@@ -258,25 +256,25 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 14,
+    marginLeft: 14
   },
   titleContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   subtitle: {
     fontSize: 12,
     lineHeight: 16,
-    color: '#666',
+    color: '#666'
   },
   rightText: {
     flex: 0.5,
     textAlign: 'right',
     fontSize: 16,
-    color: '#000',
+    color: '#000'
   },
   arrow: {
     width: ARROW_SIZE,
-    height: ARROW_SIZE,
+    height: ARROW_SIZE
   }
 });

@@ -5,7 +5,7 @@
  * @description 红外相关 API
  *
  */
-import {report} from "../decorator/ReportDecorator";
+import { report } from "../decorator/ReportDecorator";
 /**
  * @export
  */
@@ -17,9 +17,9 @@ class IIrcontroller {
      * @return {Promise<json>}
      */
     @report
-    getList(params) {
-         return Promise.resolve(null);
-    }
+  getList(params) {
+     return Promise.resolve(null);
+  }
     /**
      * （查） 获取所有支持的红外遥控器种类
      * - /v2/ircode/categories
@@ -28,7 +28,7 @@ class IIrcontroller {
      */
     @report
     getCategories(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * （查）  红外遥控器 根据地区名称查询 id
@@ -38,7 +38,7 @@ class IIrcontroller {
      */
     @report
     queryArea(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * （查） 根据地区 id 获取支持的机顶盒品牌
@@ -48,7 +48,7 @@ class IIrcontroller {
      */
     @report
     getLineups(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * （查） 红外遥控器 根据省份 id 获取所有的城市
@@ -58,7 +58,7 @@ class IIrcontroller {
      */
     @report
     getCities(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * （查） 红外遥控器  获取所有省份信息
@@ -68,7 +68,7 @@ class IIrcontroller {
      */
     @report
     getProvinces(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * （查） 根据地区 id 获取所有的城市信息
@@ -78,7 +78,7 @@ class IIrcontroller {
      */
     @report
     getAreas(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * （查） 红外遥控器  获取所有机顶盒支持的品牌
@@ -88,7 +88,7 @@ class IIrcontroller {
      */
     @report
     getIPTVBrands(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * （查） 红外遥控器  获取某一个遥控器类型的所有省份信息
@@ -98,7 +98,7 @@ class IIrcontroller {
      */
     @report
     getBrands(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 红外遥控器 添加红外遥控器
@@ -108,7 +108,7 @@ class IIrcontroller {
      */
     @report
     controllerAdd(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 设置红外遥控所有的按键
@@ -118,7 +118,7 @@ class IIrcontroller {
      */
     @report
     setKeys(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 设置红外遥控所有的按键
@@ -128,7 +128,7 @@ class IIrcontroller {
      */
     @report
     sendKey(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      *  删除红外设备
@@ -138,7 +138,7 @@ class IIrcontroller {
      */
     @report
     controllerDel(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      *  更新红外设备
@@ -148,7 +148,7 @@ class IIrcontroller {
      */
     @report
     controllerUpdate(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      *  获取红外设备所有的 key
@@ -158,7 +158,7 @@ class IIrcontroller {
      */
     @report
     getKeys(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      *  更新红外设备的 key 名称
@@ -168,7 +168,7 @@ class IIrcontroller {
      */
     @report
     keyUpdate(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      *  删除红外设备的 key
@@ -178,7 +178,7 @@ class IIrcontroller {
      */
     @report
     keyDel(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      *  发送红外遥控器按键接口
@@ -188,7 +188,7 @@ class IIrcontroller {
      */
     @report
     keyClick(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      *   获取有状态红外码
@@ -198,7 +198,7 @@ class IIrcontroller {
      */
     @report
     getIrCodeFunctions(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      *   获取无状态红外码
@@ -208,7 +208,7 @@ class IIrcontroller {
      */
     @report
     getIrCodeKeys(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取遥控器信息
@@ -218,7 +218,7 @@ class IIrcontroller {
      */
     @report
     getIrCodeInfo(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取遥控器品牌名
@@ -228,7 +228,7 @@ class IIrcontroller {
      */
     @report
     getIrCodeBrand(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
 }
 const IrcontrollerInstance = new IIrcontroller();

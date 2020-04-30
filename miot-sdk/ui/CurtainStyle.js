@@ -1,11 +1,20 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Image, Text} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Image, Text } from 'react-native';
+import PropTypes from 'prop-types';
 import Radio from './Radio';
-import {adjustSize} from '../utils/sizes';
-import {FontDefault} from '../utils/fonts';
+import { adjustSize } from '../utils/sizes';
+import { FontDefault } from '../utils/fonts';
 export default class CurtainStyle extends Component {
+  static propTypes = {
+    icons: PropTypes.array,
+    titles: PropTypes.arrayOf(PropTypes.string),
+    ids: PropTypes.array,
+    checkedId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    disabled: PropTypes.bool,
+    onValueChange: PropTypes.func
+  };
   getItems() {
-    let {icons = [], titles = [], ids = [], checkedId, disabled} = this.props;
+    let { icons = [], titles = [], ids = [], checkedId, disabled } = this.props;
     return titles.map((_, index) => {
       let title = titles[index];
       let icon = icons[index];
@@ -27,8 +36,8 @@ export default class CurtainStyle extends Component {
     });
   }
   onCheckChange = (id) => {
-    let {onValueChange} = this.props;
-    if(typeof onValueChange === 'function') {
+    let { onValueChange } = this.props;
+    if (typeof onValueChange === 'function') {
       onValueChange(id);
     }
   }

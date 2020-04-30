@@ -42,43 +42,43 @@
  * @namespace MISSCodec
  */
 export const MISSCodec = {
-    /**
+  /**
      * H264
      * @const
      */
-    MISS_CODEC_VIDEO_H264: 0x4,
-    /**
+  MISS_CODEC_VIDEO_H264: 0x4,
+  /**
      * H265
      * @const
      */
-    MISS_CODEC_VIDEO_H265: 0x5,
-    /**
+  MISS_CODEC_VIDEO_H265: 0x5,
+  /**
      * G711
      * @const
      */
-    MISS_CODEC_AUDIO_G711A: 0x403,
-    /**
+  MISS_CODEC_AUDIO_G711A: 0x403,
+  /**
      * AAC
      * @const
      */
-    MISS_CODEC_AUDIO_AAC: 0x406,
+  MISS_CODEC_AUDIO_AAC: 0x406
 };
-Object.freeze(MISSCodec)
+Object.freeze(MISSCodec);
 /**
  * 音频sample rate
  * @namespace MISSSampleRate
  */
 export const MISSSampleRate = {
-    /**
+  /**
      * 8000
      * @const
      */
-    FLAG_AUDIO_SAMPLE_8K: 0,
-    /**
+  FLAG_AUDIO_SAMPLE_8K: 0,
+  /**
      * 16000
      * @const
      */
-    FLAG_AUDIO_SAMPLE_16K: 3,
+  FLAG_AUDIO_SAMPLE_16K: 3
 };
 Object.freeze(MISSSampleRate);
 /**
@@ -86,16 +86,16 @@ Object.freeze(MISSSampleRate);
  * @namespace MISSDataBits
  */
 export const MISSDataBits = {
-    /**
+  /**
      * 8bits
      * @const
      */
-    FLAG_AUDIO_DATABITS_8: 0,
-    /**
+  FLAG_AUDIO_DATABITS_8: 0,
+  /**
      * 16bits
      * @const
      */
-    FLAG_AUDIO_DATABITS_16: 1,
+  FLAG_AUDIO_DATABITS_16: 1
 };
 Object.freeze(MISSDataBits);
 /**
@@ -103,104 +103,104 @@ Object.freeze(MISSDataBits);
  * @namespace MISSAudioChannel
  */
 export const MISSAudioChannel = {
-    /**
+  /**
      * 单通道
      * @const
      */
-    FLAG_AUDIO_CHANNEL_MONO: 0,
-    /**
+  FLAG_AUDIO_CHANNEL_MONO: 0,
+  /**
      * 双通道
      * @const
      */
-    FLAG_AUDIO_CHANNEL_STERO: 1,
+  FLAG_AUDIO_CHANNEL_STERO: 1
 };
 Object.freeze(MISSAudioChannel);
 export default class CameraRenderView extends React.Component {
     static propTypes = {
-        videoCodec: PropTypes.oneOf([MISSCodec.MISS_CODEC_VIDEO_H264, MISSCodec.MISS_CODEC_VIDEO_H265]),
-        audioCodec: PropTypes.oneOf([MISSCodec.MISS_CODEC_AUDIO_G711A, MISSCodec.MISS_CODEC_AUDIO_AAC]),
-        audioRecordSampleRate: PropTypes.oneOf([MISSSampleRate.FLAG_AUDIO_SAMPLE_8K, MISSSampleRate.FLAG_AUDIO_SAMPLE_16K]),
-        audioRecordChannel: PropTypes.oneOf([MISSAudioChannel.FLAG_AUDIO_CHANNEL_MONO, MISSAudioChannel.FLAG_AUDIO_CHANNEL_STERO]),
-        audioRecordDataBits: PropTypes.oneOf([MISSDataBits.FLAG_AUDIO_DATABITS_8, MISSDataBits.FLAG_AUDIO_DATABITS_16]),
-        videoRate: PropTypes.number,
-        maximumZoomScale: PropTypes.number,
-        minimumZoomScale: PropTypes.number,
-        scale: PropTypes.number,
-        useLenCorrent: PropTypes.bool,
-        correctRadius: PropTypes.number,
-        osdx: PropTypes.number,
-        osdy: PropTypes.number,
-        fullscreenState: PropTypes.bool,
-        forceSoftDecode: PropTypes.bool,
-        /**
+      videoCodec: PropTypes.oneOf([MISSCodec.MISS_CODEC_VIDEO_H264, MISSCodec.MISS_CODEC_VIDEO_H265]),
+      audioCodec: PropTypes.oneOf([MISSCodec.MISS_CODEC_AUDIO_G711A, MISSCodec.MISS_CODEC_AUDIO_AAC]),
+      audioRecordSampleRate: PropTypes.oneOf([MISSSampleRate.FLAG_AUDIO_SAMPLE_8K, MISSSampleRate.FLAG_AUDIO_SAMPLE_16K]),
+      audioRecordChannel: PropTypes.oneOf([MISSAudioChannel.FLAG_AUDIO_CHANNEL_MONO, MISSAudioChannel.FLAG_AUDIO_CHANNEL_STERO]),
+      audioRecordDataBits: PropTypes.oneOf([MISSDataBits.FLAG_AUDIO_DATABITS_8, MISSDataBits.FLAG_AUDIO_DATABITS_16]),
+      videoRate: PropTypes.number,
+      maximumZoomScale: PropTypes.number,
+      minimumZoomScale: PropTypes.number,
+      scale: PropTypes.number,
+      useLenCorrent: PropTypes.bool,
+      correctRadius: PropTypes.number,
+      osdx: PropTypes.number,
+      osdy: PropTypes.number,
+      fullscreenState: PropTypes.bool,
+      forceSoftDecode: PropTypes.bool,
+      /**
          * 用户单击回调
          * @member {func}
          */
-        onVideoClick: PropTypes.func,
-        ...ViewPropTypes,
+      onVideoClick: PropTypes.func,
+      ...ViewPropTypes
     };
     render() {
-         return null
+       return null
     }
     /**
      * 开始渲染视频
      */
     startRender() {
-         return null
+       return null
     }
     /**
      * 停止渲染视频
      */
     stopRender() {
-         return null
+       return null
     }
     /**
      * 开始播放声音
      */
     startAudioPlay() {
-         return null
+       return null
     }
     /**
      * 停止播放声音
      */
     stopAudioPlay() {
-         return null
+       return null
     }
     /**
      * 开始录制声音
      */
     startAudioRecord() {
-         return null
+       return null
     }
     /**
      * 停止录制声音
      */
     stopAudioRecord() {
-         return null
+       return null
     }
     /**
      * 隐藏SurfaceView only for Android
      * @since 10033
      */
     hidesSurfaceView() {
-         return null
+       return null
     }
     /**
      * 开始录像
      */
     startRecord(filePath, timeCallBackName) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 停止录像
      */
     stopRecord() {
-         return null
+       return null
     }
     /**
      * 截屏
      */
     snapShot(filePath) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
 }

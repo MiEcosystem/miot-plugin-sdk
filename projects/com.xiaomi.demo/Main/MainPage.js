@@ -1,12 +1,17 @@
 'use strict';
 
-import { Device, Package, Host, Entrance, Service } from "miot";
+import {
+ Device, Package, Host, Entrance, Service,DeviceEvent
+} from "miot";
 import TitleBar from "miot/ui/TitleBar";
 import React from 'react';
-import { Image, PixelRatio, StyleSheet, Text, TouchableHighlight, View, ListView } from 'react-native';
+import {
+ Image, PixelRatio, StyleSheet, Text, TouchableHighlight, View, ListView
+} from 'react-native';
 import { getString } from './MHLocalizableString';
 
 export default class MainPage extends React.Component {
+
   static navigationOptions = ({ navigation }) => {
     return {
       header:
@@ -15,7 +20,9 @@ export default class MainPage extends React.Component {
             type='dark'
             title={navigation.state["params"] ? navigation.state.params.name : Device.name}
             subTitle={getString('NUM_PHOTOS', { 'numPhotos': 1 })}
-            onPressLeft={() => { Package.exit() }}
+            onPressLeft={() => {
+              Package.exit()
+            }}
             onPressRight={() => {
               navigation.navigate('Setting', { 'title': '设置' });
             }} />
@@ -25,13 +32,9 @@ export default class MainPage extends React.Component {
 
   constructor(props) {
     super(props);
-    var ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
+    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this._createMenuData();
-    this.state = {
-      dataSource: ds.cloneWithRows(this._menuData.map((o) => (o.name))),
-    };
+    this.state = {dataSource: ds.cloneWithRows(this._menuData.map(o => (o.name)))};
   }
 
   _createMenuData() {
@@ -82,7 +85,7 @@ export default class MainPage extends React.Component {
   }
 
   componentWillUnmount() {
-
+    this._deviceOnlineListener &&  this._deviceOnlineListener.remove();
   }
 
   componentWillMount() {
@@ -98,6 +101,10 @@ export default class MainPage extends React.Component {
     // }).catch((error) => {
     //   console.log(error)
     // })
+    this._deviceOnlineListener = DeviceEvent.deviceStatusChanged.addListener((device,newstatus)=>{
+      console.log(device.isOnline);
+      alert("设备状态改变:"+JSON.stringify(newstatus));
+    });
   }
 
   render() {
@@ -125,7 +132,8 @@ export default class MainPage extends React.Component {
           let authJson = JSON.parse(config);
           console.log('auth config ', authJson)
           alreadyAuthed = authJson.privacyAuthed && true;
-        } catch (err) {
+        }
+        catch (err) {
           //json解析失败，不处理
         }
       } else {
@@ -143,11 +151,9 @@ export default class MainPage extends React.Component {
       options.experiencePlanURL = licenseURL;
       options.hideAgreement = false;
       options.hideUserExperiencePlan = false;
-      Host.ui.alertLegalInformationAuthorization(options).then((res) => {
+      Host.ui.alertLegalInformationAuthorization(options).then(res => {
         console.log("res", res)
-        if (res) {
-        }
-      }).catch((error) => {
+      }).catch(error => {
         console.log(error)
       })
     }).catch({});
@@ -170,6 +176,7 @@ export default class MainPage extends React.Component {
   _pressRow(rowID) {
     this._menuData[rowID].func();
   }
+
 }
 
 
@@ -186,7 +193,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffffff',
     marginBottom: 0,
-    marginTop: 0,
+    marginTop: 0
   },
   rowContainer: {
     height: 52,
@@ -195,25 +202,23 @@ var styles = StyleSheet.create({
     paddingLeft: 23,
     paddingRight: 23,
     alignItems: 'center',
-    flex: 1,
+    flex: 1
   },
-  list: {
-    alignSelf: 'stretch',
-  },
+  list: {alignSelf: 'stretch'},
 
   title: {
     fontSize: 15,
     color: '#333333',
     alignItems: 'center',
-    flex: 1,
+    flex: 1
   },
   subArrow: {
     width: 7,
-    height: 14,
+    height: 14
   },
   separator: {
     height: 1 / PixelRatio.get(),
     backgroundColor: '#e5e5e5',
-    marginLeft: 20,
+    marginLeft: 20
   }
 });

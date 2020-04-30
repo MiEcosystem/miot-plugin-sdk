@@ -1,6 +1,6 @@
 // 兼容老版本
 import Bluetooth, { getBluetoothUUID128 as MIOTGetBluetoothUUID, takeBluetooth as MIOTTakeBluetooth } from "./device/bluetooth";
-import { IBluetooth as BluetoothDevice, BluetoothEvent as MIOTBluetoothEvent } from './device/bluetooth/BluetoothDevice'
+import { IBluetooth as BluetoothDevice, BluetoothEvent as MIOTBluetoothEvent } from './device/bluetooth/BluetoothDevice';
 import { IBluetoothService as MIOTIBluetoothService, IBluetoothCharacteristic as MIOTIBluetoothCharacteristic } from './device/bluetooth/CoreBluetooth';
 import LockDevice from './device/bluetooth/LockDevice';
 export default Bluetooth;

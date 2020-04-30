@@ -38,24 +38,24 @@
  */
 export default class RobotMapView extends React.Component {
     static propTypes = {
-        imageSources: PropTypes.array,
-        mapStyle: PropTypes.object,
-        ...ViewPropTypes,
+      imageSources: PropTypes.array,
+      mapStyle: PropTypes.object,
+      ...ViewPropTypes
     };
     render() {
-         return null
+       return null
     }
-    //更新地图数据
+    // 更新地图数据
     updateData(pointsStr, autoCenter, robotImage, scaleToFit) {
-         return null
+       return null
     }
-    //获取图片当前位置
+    // 获取图片当前位置
     positionForImage(name) {
-         return Promise.resolve(null);
-        });
+       return Promise.resolve(null);
+      });
     }
-    //清理地图上的所有内容
+    // 清理地图上的所有内容
     cleanMapView() {
-        MHSweepingMapManager.cleanMapView(findNodeHandle(this.refs.robotMapView));
+      MHSweepingMapManager.cleanMapView(findNodeHandle(this.refs.robotMapView));
     }
 }

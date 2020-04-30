@@ -5,7 +5,7 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Slider from "react-native-slider";
 import { Styles } from '../../resources';
 import Separator from "../Separator";
-import {FontDefault} from '../../utils/fonts';
+import { FontDefault } from '../../utils/fonts';
 const { width } = Dimensions.get('window');
 const HEIGHT = 77;
 const PADDING = 24;
@@ -60,7 +60,7 @@ export default class ListItemWithSlider extends React.Component {
     titleStyle: PropTypes.object,
     valueStyle: PropTypes.object,
     showSeparator: PropTypes.bool,
-    separator: PropTypes.element,
+    separator: PropTypes.element
   }
   static defaultProps = {
     title: '',
@@ -85,22 +85,22 @@ export default class ListItemWithSlider extends React.Component {
     this.sliderStyle = Object.assign({
       minimumTrackTintColor: Styles.common.MHGreen,
       maximumTrackTintColor: "rgba(0,0,0,0.15)",
-      thumbTintColor: Styles.common.MHGreen,
+      thumbTintColor: Styles.common.MHGreen
     }, this.props.sliderStyle);
     this.state = {
       value: this.sliderProps.value,
-      valueStr: this.format(this.sliderProps.value),
-    }
+      valueStr: this.format(this.sliderProps.value)
+    };
   }
   render() {
     let extraStyle = {
       maxWidth: (width - PADDING * 2) * 0.7,
       fontFamily: FontDefault
-    }
+    };
     if (this.props.containerStyle.width) {
       extraStyle = {
-        maxWidth: (this.props.containerStyle.width - PADDING * 2) * 0.7,
-      }
+        maxWidth: (this.props.containerStyle.width - PADDING * 2) * 0.7
+      };
     }
     return (
       <View style={{ backgroundColor: '#fff' }}>
@@ -108,7 +108,7 @@ export default class ListItemWithSlider extends React.Component {
           <View style={[styles.up]}>
             <Text
               numberOfLines={1}
-              ellipsizeMode='tail'
+              ellipsizeMode="tail"
               style={[Styles.common.title, this.props.titleStyle, extraStyle]}
             >
               {this.props.title}
@@ -132,8 +132,8 @@ export default class ListItemWithSlider extends React.Component {
               trackStyle={[styles.trackStyle, this.sliderStyle.trackStyle]}
               thumbStyle={[styles.thumbStyle, this.sliderStyle.thumbStyle]}
               value={this.state.value}
-              onValueChange={value => this._onValueChange(value)}
-              onSlidingComplete={value => this._onSlidingComplete(value)}
+              onValueChange={(value) => this._onValueChange(value)}
+              onSlidingComplete={(value) => this._onSlidingComplete(value)}
             />
           </View>
         </View>
@@ -143,17 +143,17 @@ export default class ListItemWithSlider extends React.Component {
   }
   renderSeparator() {
     if (!this.props.showSeparator) return null;
-    return this.props.separator || <Separator style={{ marginLeft: Styles.common.padding }} />
+    return this.props.separator || <Separator style={{ marginLeft: Styles.common.padding }} />;
   }
   format(val) {
     if (this.props.showWithPercent) {
       const { minimumValue: min, maximumValue: max } = this.sliderProps;
-      return Math.round((val - min) / (max - min) * 100) + ' %';
+      return `${ Math.round((val - min) / (max - min) * 100) } %`;
     }
-    return val + ' ' + this.props.unit;
+    return `${ val } ${ this.props.unit }`;
   }
   // 父组件更新数据
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.sliderProps === undefined) return;
     if (typeof nextProps.sliderProps.value !== 'number') {
       console.warn('sliderProps.value is not a number');
@@ -188,33 +188,33 @@ export default class ListItemWithSlider extends React.Component {
     }
   }
 }
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     width: width,
     backgroundColor: '#fff',
     paddingHorizontal: PADDING,
-    height: HEIGHT,
+    height: HEIGHT
   },
   up: {
     marginTop: 11,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   down: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   separatorCol: {
     height: 14,
     width: 0.5,
     marginHorizontal: 5,
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: 'rgba(0,0,0,0.2)'
   },
   value: {
     fontSize: 12,
     color: Styles.common.MHGreen,
     lineHeight: 16,
-    flex: 1,
+    flex: 1
   },
   trackStyle: {
     height: 2,
@@ -223,6 +223,6 @@ var styles = StyleSheet.create({
   thumbStyle: {
     width: THUMB_SIZE,
     height: THUMB_SIZE,
-    borderRadius: THUMB_SIZE / 2,
+    borderRadius: THUMB_SIZE / 2
   }
 });

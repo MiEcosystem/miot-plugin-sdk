@@ -1,11 +1,11 @@
-import React, {PureComponent} from 'react';
-import {StyleSheet, View, Text, Image, ART} from 'react-native';
+import React, { PureComponent } from 'react';
+import { StyleSheet, View, Text, Image, ART } from 'react-native';
 import PropTypes from 'prop-types';
-import {fixHex} from '../utils/colors';
-import {adjustSize} from '../utils/sizes';
-import {FontDefault} from '../utils/fonts';
-import {NOOP} from '../utils/fns';
-const {Surface, Group, Shape, Path, Transform} = ART;
+import { fixHex } from '../utils/colors';
+import { adjustSize } from '../utils/sizes';
+import { FontDefault } from '../utils/fonts';
+// import { NOOP } from '../utils/fns';
+const { Surface, Group, Shape, Path } = ART;
 const PI = Math.PI;
 export default class DeviceWithInfo extends PureComponent {
   static propTypes = {
@@ -17,8 +17,8 @@ export default class DeviceWithInfo extends PureComponent {
     themeColor: PropTypes.any
   };
   render() {
-    let {icon, title, subtitle, holdPlace, progress, themeColor} = this.props;
-    if(!progress) {
+    let { icon, title, subtitle, holdPlace, progress, themeColor } = this.props;
+    if (!progress) {
       progress = 0;
     }
     progress = Math.min(1, Math.max(0, progress));
@@ -36,7 +36,7 @@ export default class DeviceWithInfo extends PureComponent {
       .arcTo(startX, startY, r, r, false, false);
     let PathCircle = new Path()
       .moveTo(startX, startY);
-    if(progress >= 0.5) {
+    if (progress >= 0.5) {
       PathCircle.arcTo(halfX, halfY, r, r, false, false);
     }
     PathCircle.arcTo(endX, endY, r, r, false, false);
@@ -47,19 +47,19 @@ export default class DeviceWithInfo extends PureComponent {
     return (
       <View style={Styles.container}>
         <View style={Styles.deviceContainer}>
-            <Surface width={r * 2} height={r * 2} style={{
-              position: 'absolute',
-              left: 0,
-              top: adjustSize(15 / 2)
-            }}>
-              <Shape d={PathCircleBase} strokeWidth={1} stroke={themeColor ? (fixHex(themeColor) + '33').slice(0, 9) : '#33ABF233'} />
-              {progress > 0 ? (
-                <Group>
-                  <Shape d={PathCircle} strokeWidth={1} stroke={themeColor || '#33ABF2'} />
-                  <Shape d={PathDot} strokeWidth={1} fill={themeColor || '#33ABF2'} />
-                </Group>
-              ) : null}
-            </Surface>
+          <Surface width={r * 2} height={r * 2} style={{
+            position: 'absolute',
+            left: 0,
+            top: adjustSize(15 / 2)
+          }}>
+            <Shape d={PathCircleBase} strokeWidth={1} stroke={themeColor ? (`${ fixHex(themeColor) }33`).slice(0, 9) : '#33ABF233'} />
+            {progress > 0 ? (
+              <Group>
+                <Shape d={PathCircle} strokeWidth={1} stroke={themeColor || '#33ABF2'} />
+                <Shape d={PathDot} strokeWidth={1} fill={themeColor || '#33ABF2'} />
+              </Group>
+            ) : null}
+          </Surface>
           <View style={[Styles.deviceInner, themeColor ? {
             backgroundColor: themeColor
           } : null]}>

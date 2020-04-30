@@ -30,9 +30,9 @@ export default class MHImage extends React.Component {
         uri: PropTypes.string,
         width: PropTypes.number,
         height: PropTypes.number,
-        scale: PropTypes.number,
+        scale: PropTypes.number
       }),
-      PropTypes.number,
+      PropTypes.number
     ]),
     /**
      * layerScaleFilter iOS only
@@ -80,7 +80,7 @@ export default class MHImage extends React.Component {
       'contain',
       'stretch',
       'repeat',
-      'center',
+      'center'
     ]),
     /**
      * A unique identifier for this element to be used in UI Automation
@@ -118,6 +118,10 @@ export default class MHImage extends React.Component {
      * Invoked when load either succeeds or fails.
      */
     onLoadEnd: PropTypes.func,
+    /**
+     * img url
+     */
+    src: PropTypes.any
   }
   static resizeMode = ImageResizeMode
   /**
@@ -134,8 +138,8 @@ export default class MHImage extends React.Component {
       uri,
       success,
       failure ||
-      function () {
-        console.warn('Failed to get size for image: ' + uri);
+      function() {
+        console.warn(`Failed to get size for image: ${ uri }`);
       },
     );
   }
@@ -152,7 +156,7 @@ export default class MHImage extends React.Component {
     const source = resolveAssetSource(this.props.source) || {
       uri: undefined,
       width: undefined,
-      height: undefined,
+      height: undefined
     };
     let sources;
     let style;
@@ -191,10 +195,10 @@ export default class MHImage extends React.Component {
       />
     );
   }
-};
+}
 const styles = StyleSheet.create({
   base: {
-    overflow: 'hidden',
-  },
+    overflow: 'hidden'
+  }
 });
 const MHImageView = requireNativeComponent('MHImageView', null);

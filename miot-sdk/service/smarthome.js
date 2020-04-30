@@ -13,23 +13,23 @@ import { report } from "../decorator/ReportDecorator";
  * @namespace MemberType
  */
 export const MemberType = {
-    /**
+  /**
      * 人
      * @const
      */
-    Person: "person",
-    /**
+  Person: "person",
+  /**
      * 宠物
      * @const
      */
-    Pet: 'pet'
+  Pet: 'pet'
 };
-Object.freeze(MemberType)
+Object.freeze(MemberType);
 /**
  * @export
  */
 class ISmartHome {
-    /**
+  /**
      * @typedef {Object} UserInfo
      * @property {number} uid user id; since 10010
      * @property {string} nickName user nick name
@@ -42,9 +42,9 @@ class ISmartHome {
      * @returns {Promise<UserInfo>} 用户信息
      */
     @report
-    getUserInfo(uid) {
-         return Promise.resolve({});
-    }
+  getUserInfo(uid) {
+     return Promise.resolve({});
+  }
     /**
      * 通过UID批量获取用户信息
      * @deprecated 已废弃，请使用 Service.account.getAccountInfoList 方法
@@ -58,7 +58,7 @@ class ISmartHome {
      */
     @report
     getUserInfoList(uids) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * @typedef GPSInfo
@@ -89,7 +89,7 @@ class ISmartHome {
      */
     @report
     reportGPSInfo(deviceID, gpsInfo) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 设备固件版本信息
@@ -128,21 +128,8 @@ class ISmartHome {
      */
     @report
     checkDeviceVersion(did, pid) {
-         return Promise.resolve({});
+       return Promise.resolve({});
     }
-    // @native begin
-    @report
-    getProtocolUrls(params) {
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall("/v2/plugin/get_protocol", params, (ok, res) => {
-                if (ok) {
-                    return resolve(res);
-                }
-                reject(res);
-            });
-        });
-    }
-    // @native end
     /**
      * // 获取可用固件更新，传参为dids。 /home/multi_checkversion
      * @param {array<string>} deviceIDs 设备ID
@@ -150,7 +137,7 @@ class ISmartHome {
      */
     @report
     getAvailableFirmwareForDids(deviceIDs) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取服务器中 最新的版本信息，内部调用米家代理接口/home/latest_version
@@ -160,7 +147,7 @@ class ISmartHome {
      */
     @report
     getLatestVersion(model) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取服务器中 最新的版本信息，
@@ -170,7 +157,7 @@ class ISmartHome {
      */
     @report
     getLatestVersionV2(did) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 调用Device.getWifiDevice()的检测固件是否有升级的api, 达到与相关行为一致的目的。
@@ -178,41 +165,7 @@ class ISmartHome {
      */
     @report
     getFirmwareUpdateInfo(did) {
-      let app_level = native.MIOTHost.appVersion || native.MIOTHost.systemInfo.sysVersion;
-      let platform = native.isAndroid ? 'android' : 'ios';
-      let check_reqs = [{ did: did }];
-      native.MIOTRPC.standardCall('/v2/device/multi_check_device_version', { app_level, platform, check_reqs }, (ok, res) => {
-          if (!ok) {
-              return reject(res);
-          }
-          let infos = res.list;
-          let needUpgrade = false;
-          let upgrading = false;
-          let latestVersion = '';
-          if (!(infos instanceof Array) || infos.length <= 0) {
-                    // infos 非数组，不处理
-              return resolve({ needUpgrade: false, force: false, upgrading: false });
-          }
-          let latest = infos[0]
-          if (!latest) {
-              //不升级提示
-              return resolve({ needUpgrade: false, force: false, upgrading: false });
-          }
-          latestVersion = latest.latest;
-          //根据native逻辑，只有需要升级和升级中更需要跳转升级页面
-          if (!latest.isLatest && latest.latest !== latest.curr && !latest.updating) {
-              if (latest.ota_status === 'failed') {
-                //更新失败
-              } else {
-                  //需要更新
-                  needUpgrade = true;
-              }
-          } else if (latest.ota_status === 'downloading' || latest.ota_status === 'downloaded' || latest.ota_status === 'installing') {
-              //正在升级安装
-              upgrading = true;
-          }
-          return resolve({ needUpgrade, force: latest.force, upgrading, latestVersion });
-      })
+       return Promise.resolve(null);
     }
     /**
      * 添加一条日志打点。
@@ -244,7 +197,7 @@ class ISmartHome {
      */
     @report
     reportRecords(deviceID, records) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * /v2/device/set_extra_data
@@ -256,7 +209,7 @@ class ISmartHome {
      */
     @report
     deviceSetExtraData(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 通过前缀分批拉取设备的配置信息
@@ -267,7 +220,7 @@ class ISmartHome {
      */
     @report
     getDevicesConfig(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 删除设备上传的信息 /v2/device/del_extra_data
@@ -277,7 +230,7 @@ class ISmartHome {
      */
     @report
     delDevicesConfig(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取设备时区
@@ -286,7 +239,7 @@ class ISmartHome {
      */
     @report
     getDeviceTimeZone(did) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 提供返回设备数据统计服务，使用该接口需要配置产品model以支持使用，建议找对接的产品人员进行操作。
@@ -316,7 +269,7 @@ class ISmartHome {
      */
     @report
     getUserStatistics(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取支持语音的设备 可以控制的设备列表。 /voicectrl/ai_devs
@@ -325,11 +278,11 @@ class ISmartHome {
      */
     @report
     getVoiceCtrlDevices(deviceID) {
-        return this.getVoiceVtrlDevices(deviceID);
+      return this.getVoiceVtrlDevices(deviceID);
     }
     @report
     getVoiceVtrlDevices(deviceID) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取小爱接口数据，内部调用米家代理接口/v2/api/aivs
@@ -355,7 +308,7 @@ class ISmartHome {
      */
     @report
     getAiServiceProxy(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取服务器中 device 对应的数据，内部调用米家代理接口 /device/getsetting
@@ -367,7 +320,7 @@ class ISmartHome {
      */
     @report
     getDeviceSetting(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取服务器中 device 对应的数据，内部调用米家代理接口 /v2/device/getsettingv2
@@ -381,7 +334,7 @@ class ISmartHome {
      */
     @report
     getDeviceSettingV2(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 设置服务器中 device 对应的数据，内部调用米家代理接口/device/setsetting
@@ -392,7 +345,7 @@ class ISmartHome {
      */
     @report
     setDeviceSetting(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 删除服务器中 device 对应的数据，内部调用米家代理接口/device/delsetting
@@ -403,7 +356,7 @@ class ISmartHome {
      */
     @report
     delDeviceSetting(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 添加设备属性和事件历史记录，/user/set_user_device_data
@@ -419,16 +372,16 @@ class ISmartHome {
      */
     @report
     setDeviceData(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
-     * 查询用户名下设备上报的属性和事件  
-     * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加.  
-     * 通下面的set_user_device_data的参数一一对应， /user/get_user_device_data  
+     * 查询用户名下设备上报的属性和事件
+     * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加.
+     * 通下面的set_user_device_data的参数一一对应， /user/get_user_device_data
      * 对于蓝牙设备，params.key 可参考文档 [米家BLE Object定义](https://iot.mi.com/new/doc/embedded-development/ble/object-definition.html)
      *
      * error code:
-     * 
+     *
      * | code | desc |
      * | :-: | --- |
      * |  0  | 成功 |
@@ -440,8 +393,8 @@ class ISmartHome {
      * @param {string} params.did 设备id。 必选参数
      * @param {string} params.key 属性或事件名，必选参数。(注意：如果设备是蓝牙设备，传入的是object id， 且为十进制数据；如果是wifi设备，才传入自定义属性或事件名，可以在开发者平台-产品-功能定义中查看)，如果是miot-spec设备，请传入（siid.piid或者siid.eiid）
      * @param {string} params.type 必选参数[prop/event], 如果是查询上报的属性则type为prop，查询上报的事件则type为event,
-     * @param {number} params.time_start 数据起点。必选参数
-     * @param {number} params.time_end 数据终点。必选参数，time_end必须大于time_start,
+     * @param {number} params.time_start 数据起点，单位是秒。必选参数
+     * @param {number} params.time_end 数据终点，单位是秒。必选参数，time_end必须大于time_start,
      * @param {string} params.group 返回数据的方式，默认raw,可选值为hour、day、week、month。可选参数.
      * @param {string} params.limit 返回数据的条数，默认20，最大1000。可选参数.
      * @param {number} params.uid 要查询的用户id 。可选参数
@@ -449,7 +402,7 @@ class ISmartHome {
      */
     @report
     getDeviceData(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 删除用户的设备信息（prop和event 除外）.
@@ -466,7 +419,7 @@ class ISmartHome {
      */
     @report
     delDeviceData(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 用于按照时间顺序拉取指定uid,did的发生的属性事件
@@ -480,7 +433,7 @@ class ISmartHome {
      */
     @report
     getUserDeviceLog(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取用户收藏
@@ -491,7 +444,7 @@ class ISmartHome {
      */
     @report
     getUserColl(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 设置用户收藏
@@ -504,7 +457,7 @@ class ISmartHome {
      */
     @report
     setUserColl(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * /user/edit_user_coll
@@ -515,7 +468,7 @@ class ISmartHome {
      */
     @report
     editUserColl(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 删除用户收藏
@@ -527,7 +480,7 @@ class ISmartHome {
      */
     @report
     delUserColl(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 石头扫地机专用
@@ -537,7 +490,7 @@ class ISmartHome {
      */
     @report
     getMapfileUrl(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 石头扫地机器人专用，获取fds存储文件url
@@ -548,7 +501,7 @@ class ISmartHome {
      */
     @report
     getRobomapUrl(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 石头扫地机器人专用，撤销隐私时删除扫地机地图
@@ -559,7 +512,7 @@ class ISmartHome {
      */
     @report
     delUsermap(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 添加设备属性和事件历史记录，/home/device_list
@@ -577,7 +530,7 @@ class ISmartHome {
      */
     @report
     getHomeDevice(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取AppConfig配置文件，1. 插件端有一些自己的信息需要配置，可使用此接口 2. 局限性：只有小米内部有权配置，之后可能会出对外版（目前只能找米家产品经理/工程师帮忙配置）
@@ -591,7 +544,7 @@ class ISmartHome {
      */
     @report
     getAppConfig(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 用于获取插件所需的一些默认配置信息
@@ -601,7 +554,7 @@ class ISmartHome {
      */
     @report
     getAppConfigV2(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取设备所在网络的IP地址所属国家
@@ -611,7 +564,7 @@ class ISmartHome {
      */
     @report
     getCountry(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取蓝牙锁绑定的时间，/device/blelockbindinfo
@@ -622,15 +575,15 @@ class ISmartHome {
      */
     @report
     getBleLockBindInfo(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
-     * 获取设备的属性，属性设置会在设备被删除时清空  
-     * api call /device/batchdevicedatas  
-     * 对于蓝牙设备，params.props 可参考文档 [米家BLE Object定义](https://iot.mi.com/new/doc/embedded-development/ble/object-definition.html)  
+     * 获取设备的属性，属性设置会在设备被删除时清空
+     * api call /device/batchdevicedatas
+     * 对于蓝牙设备，params.props 可参考文档 [米家BLE Object定义](https://iot.mi.com/new/doc/embedded-development/ble/object-definition.html)
      *
      * error code:
-     * 
+     *
      * | code | desc |
      * | :-: | --- |
      * |  0  | 成功 |
@@ -653,7 +606,7 @@ class ISmartHome {
      */
     @report
     batchGetDeviceDatas(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 设置设备属性, 属性设置会在设备被删除时清空
@@ -678,7 +631,7 @@ class ISmartHome {
      */
     @report
     batchSetDeviceDatas(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 设置设备属性，e.g 配置摄像头/门铃设备的属性
@@ -703,7 +656,7 @@ class ISmartHome {
      */
     @report
     setDeviceProp(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 从服务器获取配置文件，/device/getThirdConfig
@@ -719,7 +672,7 @@ class ISmartHome {
      */
     @report
     getThirdConfig(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * /v2/third/synccall. 兼容三方厂商使用
@@ -729,7 +682,7 @@ class ISmartHome {
      */
     @report
     thirdSyncCall(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 异步调用第三方云接口  /third/api
@@ -739,7 +692,7 @@ class ISmartHome {
      */
     @report
     callThirdPartyAPI(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 华米watch配置使用
@@ -748,17 +701,17 @@ class ISmartHome {
      */
     @report
     getMiWatchConfig() {
-        if (native.isAndroid) {
-            return new Promise.reject("not support android yet");
-        }
-        return new Promise((resolve, reject) => {
-            native.MIOTHost.getMiWatchConfigWithCallback((ok, res) => {
-                if (ok) {
-                    return resolve(res);
-                }
-                reject("get failed");
-            });
+      if (isAndroid) {
+        return Promise.reject("not support android yet");
+      }
+      return new Promise((resolve, reject) => {
+        native.MIOTHost.getMiWatchConfigWithCallback((ok, res) => {
+          if (ok) {
+            return resolve(res);
+          }
+          reject("get failed");
         });
+      });
     }
     /**
      * 获取authCode来做鉴权
@@ -767,7 +720,7 @@ class ISmartHome {
      */
     @report
     getUserDeviceAuth(did) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取InterimFileUrl 获取临时文件。文档请参考：https://iot.mi.com/new/doc/08-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/03-%E5%AD%98%E5%82%A8/01-%E4%BD%BF%E7%94%A8FDS%E5%AD%98%E5%82%A8%E7%94%A8%E6%88%B7%E6%96%87%E4%BB%B6.html#%E5%9B%9B%EF%BC%8Efds%E5%AD%98%E5%82%A8%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD%E6%B5%81%E7%A8%8B
@@ -776,7 +729,7 @@ class ISmartHome {
      */
     @report
     getInterimFileUrl(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取文件下载地址
@@ -786,7 +739,7 @@ class ISmartHome {
      */
     @report
     getFileUrl(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 日志分页拉取
@@ -801,7 +754,7 @@ class ISmartHome {
      */
     @report
     getUserDeviceDataTab(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * /v2/home/range_get_open_config
@@ -812,7 +765,7 @@ class ISmartHome {
      */
     @report
     rangeGetOpenConfig(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 门锁米家APP上传Cid,Did,Uid，返回处理结果。函数内部与金服APP建立http连接签名传输配置信息与NFC卡片信息
@@ -822,7 +775,7 @@ class ISmartHome {
      */
     @report
     bindNFCCard(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 米家app查询NFC卡信息，使用did查询did下绑定的NFC卡列表信息
@@ -857,7 +810,7 @@ class ISmartHome {
      */
     @report
     getNFCCard(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * /yaokan/insertunmodel
@@ -866,7 +819,7 @@ class ISmartHome {
      */
     @report
     insertunmodel(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * call api /scene/idfy_get
@@ -879,7 +832,7 @@ class ISmartHome {
      */
     @report
     getIDFY(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * call api /scene/idfy_get
@@ -891,7 +844,7 @@ class ISmartHome {
      */
     @report
     editIDFY(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * call api /v2/home/range_get_open_config
@@ -901,7 +854,7 @@ class ISmartHome {
      */
     @report
     getRangeOpenConfig(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * @typedef MemberPet
@@ -939,7 +892,7 @@ class ISmartHome {
      */
     @report
     createMember(type, info) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 更新成员信息
@@ -950,7 +903,7 @@ class ISmartHome {
      */
     @report
     updateMember(type, member_id, info) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 删除成员
@@ -960,7 +913,7 @@ class ISmartHome {
      */
     @report
     deleteMember(type, member_id) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 加载指定种类的成员列表
@@ -969,7 +922,7 @@ class ISmartHome {
      */
     @report
     loadMembers(type) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 设置用户信息
@@ -982,7 +935,7 @@ class ISmartHome {
      */
     @report
     setUserPDData(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取用户信息
@@ -996,7 +949,7 @@ class ISmartHome {
      */
     @report
     getUserPDData(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * App获取设备上报操作记录
@@ -1013,7 +966,7 @@ class ISmartHome {
      */
     @report
     getDeviceDataRaw(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 透传米家APP与小米支付创建session
@@ -1031,7 +984,7 @@ class ISmartHome {
      */
     @report
     createSeSession(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 透传替换ISD key
@@ -1049,7 +1002,7 @@ class ISmartHome {
      */
     @report
     replaceSEISDkey(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 透传锁主密钥重置
@@ -1067,7 +1020,7 @@ class ISmartHome {
      */
     @report
     resetLockPrimaryKey(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 处理芯片返回
@@ -1102,7 +1055,7 @@ class ISmartHome {
      */
     @report
     handleSEResponse(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 上报蓝牙设备信息
@@ -1119,7 +1072,7 @@ class ISmartHome {
      */
     @report
     reportBLEDeviceInfo(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * since 10036
@@ -1132,7 +1085,7 @@ class ISmartHome {
      */
     @report
     reportEvent(eventName, params) {
-        native.MIOTService.reportEvent(eventName, params);
+      native.MIOTService.reportEvent(eventName, params);
     }
 }
 const SmartHomeInstance = new ISmartHome();

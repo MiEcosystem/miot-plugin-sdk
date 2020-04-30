@@ -36,6 +36,9 @@ export default class MainPage extends React.Component {
             title: "Camera Name",
             type: 'light',
             style: {backgroundColor: 'transparent'},
+            onPressLeft: () => {
+                Package.exit();
+            },
             onPressRight: () => {
                 console.log("right menu")
             }
@@ -279,9 +282,9 @@ export default class MainPage extends React.Component {
                         />
                         <Button
                             onPress={() => {
-                                this.props.navigation.push('MainPage', { title: 'PlayBack' })
+                                this.props.navigation.push('RTSPPage', { title: 'RTSPPage' })
                             }}
-                            title="navigate"
+                            title="RTSP"
                         />
                     </View>
                 </View>
@@ -478,7 +481,8 @@ const styles = StyleSheet.create({
     },
     bodyText: {
         color: "gray",
-        fontSize: 13
+        fontSize: 13,
+        maxWidth: '50%'
     },
     bodyControl: {
         flexDirection: "column",

@@ -1,13 +1,13 @@
-import React, {Fragment, useState} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import PrimeButton from './PrimeButton';
-import {ColorGreen} from '../utils/colors';
-import {FontDefault} from '../utils/fonts';
-import {adjustSize} from '../utils/sizes';
-import {NOOP} from '../utils/fns';
+import { ColorGreen } from '../utils/colors';
+import { FontDefault } from '../utils/fonts';
+import { adjustSize } from '../utils/sizes';
+import { NOOP } from '../utils/fns';
 export default function Consumable(props) {
-  let {title, titleColor, subtitle, subtitleColor, reset, buy, icon, onBuy, onReset} = props;
+  let { title, titleColor, subtitle, subtitleColor, reset, buy, icon, onBuy, onReset } = props;
   return (
     <View style={Styles.container}>
       <View style={Styles.content}>

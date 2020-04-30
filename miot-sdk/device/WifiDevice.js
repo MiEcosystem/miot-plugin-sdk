@@ -25,44 +25,27 @@
  *  **注意：callMethod，loadProperties等几个直接和设备打交道的方法，排查错误的流程一般为：抓包查看请求参数是否没问题，插件和固件端联调看看固件端是否有收到正确的参数并返回正确的值！**
  */
 import { DeviceEventEmitter } from "react-native";
-import native, { NativeTimer, PackageExitAction, Properties } from '../native';
-import { BasicDevice, _find_device,PollPropMap } from './BasicDevice';
-import {report} from '../decorator/ReportDecorator';
+import native, { NativeTimer, PackageExitAction, Properties, MIOTEventEmitter, isIOS, isAndroid } from '../native';
+import { BasicDevice, _find_device, PollPropMap } from './BasicDevice';
+import { report } from '../decorator/ReportDecorator';
 import Service from "../Service";
-import { MIOTEventEmitter } from "../native";
-import { Device } from "..";
-const INTERVAL_SUBSCRIBE_MSG_SECONDS = (9 * 60 + 50);//9'50"
-const INTERVAL_SUBSCRIBLE_MSG_ERROR = (5*1000); // 5秒
-const INTERVAL_POLL_MSG = 5*1000;//5秒
-const DEVICE_MESSAGE= 'deviceRecievedMessages';//设备属性变化消息事件名与DeviceEvent.deviceReceivedMessages保持一致
-function isNumber(num){
-    var numReg = new RegExp("^[0-9]*$");
-    return numReg.test(num);
+// import { Device } from "..";
+const INTERVAL_SUBSCRIBE_MSG_SECONDS = (9 * 60 + 50);// 9'50"
+const INTERVAL_SUBSCRIBLE_MSG_ERROR = (5 * 1000); // 5秒
+const INTERVAL_POLL_MSG = 5 * 1000;// 5秒
+const DEVICE_MESSAGE = 'deviceRecievedMessages';// 设备属性变化消息事件名与DeviceEvent.deviceReceivedMessages保持一致
+function isNumber(num) {
+  let numReg = new RegExp("^[0-9]*$");
+  return numReg.test(num);
 }
 /**
  * 设备网络访问控制类
  * @interface
  */
 export default class IDeviceWifi {
-    // @native begin
-    set deviceID(deviceID) {
-        Properties.of(this).deviceID = deviceID;
-    }
-    //@ native end
-    /**
-     * 获取设备ID，same as Device.deviceID
-     * @member
-     * @deprecated since 10032,请使用Device.deviceID;
-     * @type {string}
-     * @example
-     * import {Device} from 'miot'
-     * ...
-     * let did = Device.getDeviceWifi().deviceID
-     */
-    get deviceID() {
-         return  ""
-    }
-    /**
+     return  ""
+  }
+  /**
     * @typedef {Object} NetworkInfo
     * @property {string} bssid  wifi 的mac地址
     * @property {number} rssi   wifi的原始信号强度，android和iOS为保持一致，不要使用。
@@ -78,9 +61,9 @@ export default class IDeviceWifi {
      *      reject：不会走reject
      */
     @report
-    readDeviceNetWorkInfo(did) {
-         return Promise.resolve([]);
-    }
+  readDeviceNetWorkInfo(did) {
+     return Promise.resolve([]);
+  }
     /**
      * 加载属性数据，
      * 内部调用get_prop 方法,Android会依据当前环境选择从本地局域网或者云端获取, iOS因获取不到wifi信息，会默认走云端获取，并将返回数据写成{key:value}格式
@@ -96,16 +79,16 @@ export default class IDeviceWifi {
      */
     @report
     loadProperties(...propNames) {
-        if (propNames.length < 1) {
-            return Promise.reject();
+      if (propNames.length < 1) {
+        return Promise.reject();
+      }
+      return this.callMethod("get_prop", propNames).then(((res) => {
+        const map = new Map();
+        if (res.result) {
+          propNames.forEach((n, i) => map.set(n, res.result[i]));
         }
-        return this.callMethod("get_prop", propNames).then((res => {
-            const map = new Map();
-            if (res.result) {
-                propNames.forEach((n, i) => map.set(n, res.result[i]));
-            }
-            return map;
-        }));
+        return map;
+      }));
     }
     /**
      * 强制从云端加载属性数据
@@ -117,16 +100,16 @@ export default class IDeviceWifi {
      */
     @report
     loadPropertiesFromCloud(...propNames) {
-        if (propNames.length < 1) {
-            return Promise.reject();
+      if (propNames.length < 1) {
+        return Promise.reject();
+      }
+      return this.callMethodFromCloud("get_prop", propNames).then(((res) => {
+        const map = new Map();
+        if (res.result) {
+          propNames.forEach((n, i) => map.set(n, res.result[i]));
         }
-        return this.callMethodFromCloud("get_prop", propNames).then((res => {
-            const map = new Map();
-            if (res.result) {
-                propNames.forEach((n, i) => map.set(n, res.result[i]));
-            }
-            return map;
-        }));
+        return map;
+      }));
     }
     /**
      * 调用设备方法
@@ -151,7 +134,7 @@ export default class IDeviceWifi {
      */
     @report
     callMethod(method, args, extraPayload = {}) {
-         return Promise.resolve({});
+       return Promise.resolve({});
     }
     /**
      * 强制通过云端调用设备方法
@@ -164,7 +147,7 @@ export default class IDeviceWifi {
      */
     @report
     callMethodFromCloud(method, args, extraPayload = {}) {
-         return Promise.resolve({});
+       return Promise.resolve({});
     }
     /**
      * 本地调用设备方法，会直接根据设备ip和端口，发送udp请求，直接和设备通讯。**注意：如果不在同一个路由器，rpc会失败，而不会自动的走云端的方法，使用此方法前，可通过下面的localPing去判断是否是同一个局域网**
@@ -176,9 +159,20 @@ export default class IDeviceWifi {
      */
     @report
     callMethodFromLocal(method, args, extraPayload = {}) {
-         return Promise.resolve({});
+       return Promise.resolve({});
     }
-         return Promise.resolve({});
+    /**
+     * ping 操作 检查设备本地局域网通信是否可用，如果某个功能需要强制走本地,又不确定它是否在同一个局域网下，可以先调用此方法检查。
+     * @returns {Promise<boolean>}
+     *
+     * @example
+     * Device.getDeviceWifi().localPing()
+     *  .then(res => console.log('success:', res))
+     *  .catch(err => console.log('failed:', err))
+     */
+    @report
+    localPing() {
+       return Promise.resolve({});
     }
     /**
      * 订阅设备消息。指插件端监听设备属性变化或者事件执行的消息。比如：洗衣机洗完衣服了，需要手机发出“嘀嘀”的声音通知用户，我们就可以监听衣服洗完了这个事件。
@@ -223,7 +217,7 @@ export default class IDeviceWifi {
      */
     @report
     subscribeMessages(...propertyOrEventNames) {
-         return Promise.resolve(this);
+       return Promise.resolve(this);
     }
     /**
      * 获取当前设备固件版本信息。蓝牙设备请不要用此方法，需要用BTDevice.getVersion()方法。
@@ -234,7 +228,7 @@ export default class IDeviceWifi {
      */
     @report
     getVersion() {
-         return Promise.resolve({});
+       return Promise.resolve({});
     }
     /**
      * 设备固件版本信息
@@ -262,7 +256,7 @@ export default class IDeviceWifi {
      */
     @report
     startUpgradingFirmware() {
-         return Promise.resolve({});
+       return Promise.resolve({});
     }
     /**
      * 为设备固件升级失败添加自定义的errorCode与错误提示信息的索引，以便给用户以友好易懂的错误提示，暂时仅供石头扫地机使用。注意 分享过来的设备是无法进行固件升级的，所以此时此方法也无效。
@@ -275,7 +269,7 @@ export default class IDeviceWifi {
      */
     @report
     setFirmwareUpdateErrDic(message) {
-         return Promise.resolve({});
+       return Promise.resolve({});
     }
     /**
      * 设置设备控制页不检查固件升级，避免出现弹框，已废弃。
@@ -293,7 +287,7 @@ export default class IDeviceWifi {
      */
     @report
     setFirmwareNotCheckUpdate(notCheck) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 检查wifi设备固件升级弹窗。该方法会触发升级弹窗alert提示。
@@ -313,7 +307,7 @@ export default class IDeviceWifi {
      */
    @report
     checkFirmwareUpdateAndAlert() {
-         return Promise.resolve({});
+       return Promise.resolve({});
     }
     /**
     * 检查当前设备是否支持HomeKit，Android系统不支持HomeKit设备。需要在plato平台配置homekit_config，包含在内的设备，isHomekit才可能返回true
@@ -321,18 +315,18 @@ export default class IDeviceWifi {
     * @returns {Promise<boolean>} 是否支持  res = true or false
     */
    @report
-    checkIsHomeKitDevice() {
-         return Promise
-    }
+   checkIsHomeKitDevice() {
+      return Promise
+   }
     /**
      * 检查当前设备是否已经接入了HomeKit，Android不支持。如果没有接入，可以调用下面的bindToHomeKit方法，将设备接入
      * @since 10021
      * @returns {Promise<boolean>} 是否接入 res = true or false
      */
     @report
-    checkHomeKitConnected() {
-         return Promise
-    }
+   checkHomeKitConnected() {
+      return Promise
+   }
     /**
      * 将当前设备绑定到HomeKit中
      * 绑定失败部分code：-1:system version 10.0 support hard auth bind or system version 11.3 support soft auth bind
@@ -342,7 +336,7 @@ export default class IDeviceWifi {
      */
     @report
     bindToHomeKit() {
-         return Promise
+       return Promise
     }
     /**
      * @typedef {Object} DeviceExtra
@@ -372,7 +366,7 @@ export default class IDeviceWifi {
      */
     @report
     requestAuthorizedDeviceListData(model) {
-         return Promise
+       return Promise
     }
     /**
      * 获取虚拟设备的子设备列表，暂时已上线的虚拟设备有：yeelink和philips灯组。其他的暂不支持。注意：mesh灯组，和灯组2.0，无法通过此接口获取子设备（暂未开放）
@@ -385,7 +379,7 @@ export default class IDeviceWifi {
      */
     @report
     getVirtualDevices() {
-         return Promise.resolve([]);
+       return Promise.resolve([]);
     }
     /**
      * 获取设备定向推荐信息，展示推荐入口使用：用于获取插件上方偶尔弹出的提示条/广告条数据，比如：设备信号差，请调整设备位置。
@@ -399,6 +393,6 @@ export default class IDeviceWifi {
      */
     @report
     getRecommendScenes(model, did) {
-         return Promise.resolve({});
+       return Promise.resolve({});
     }
 }

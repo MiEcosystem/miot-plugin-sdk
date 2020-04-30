@@ -11,6 +11,8 @@ import th from 'miot/resources/strings/th';
 
 function createRootStack(initPage) {
     return createStackNavigator({
+        MainPage,
+        RTSPPage,
         Home: {
             screen: MainPage,
         },
@@ -20,12 +22,16 @@ function createRootStack(initPage) {
         navigationOptions: ({ navigation }) => {
             return {
                 header: 
-                <TitleBar
-                    title={navigation.state.params ? navigation.state.params.title : 'Home'}
-                    type='dark'
-                    onPressLeft={() => {
-                        navigation.goBack();
-                    }} />
+                    <TitleBar
+                        title={navigation.state.params ? navigation.state.params.title : 'Page Name'}
+                        type={navigation.state.params ? navigation.state.params.type : 'dark'}
+                        leftText={navigation.state.params ? navigation.state.params.leftText : null}
+                        rightText={navigation.state.params ? navigation.state.params.rightText : null}
+                        onPressLeft={navigation.state.params ? navigation.state.params.onPressLeft : () => { navigation.goBack() }}
+                        onPressRight={navigation.state.params ? navigation.state.params.onPressRight : null}
+                        leftTextStyle={navigation.state.params ? navigation.state.params.leftTextStyle : null}
+                        rightTextStyle={navigation.state.params ? navigation.state.params.rightTextStyle : null}
+                    />
             };
         }
     })
@@ -39,7 +45,7 @@ export default class App extends React.Component {
     }
 
     initData() {
-        this.initPage = "Home";
+        this.initPage = "MainPage";
     }
 
     render() {
@@ -48,34 +54,6 @@ export default class App extends React.Component {
     }
 }
 
-const NaviApp = createStackNavigator({
-  RTSPPage: { 
-        // screen: MainPage
-        screen: RTSPPage
-    }
-},{
-    initialRouteName: 'RTSPPage',
-    navigationOptions: ({ navigation }) => {
-        if (navigation.state.params && navigation.state.params.show) {
-            return { header: null }
-        } else {
-            return {
-                header:
-                <TitleBar
-                    title={navigation.state.params ? navigation.state.params.title : 'Home'}
-                    type={navigation.state.params ? navigation.state.params.type : 'dark'}
-                    style={navigation.state.params? navigation.state.params.style : {backgroundColor: 'white'}}
-                    onPressLeft={() => {
-                        //navigation.pop();
-                        Package.exit();
-                    }} 
-                    onPressRight={navigation.state.params? navigation.state.params.onPressRight : null}
-                    />
-            }
-        }
-    }
-});
-
-Package.entry(NaviApp, () => {
+Package.entry(App, () => {
 
 })

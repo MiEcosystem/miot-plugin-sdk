@@ -55,7 +55,12 @@ export default class TutorialDemo extends React.Component {
         {
           'title': '定位相关',
           'key': 'LocaleServer',
+        },
+        {
+          'title': '系统深色模式',
+          'key': 'DarkModeDemo',
         }
+
       ],
     }
   }

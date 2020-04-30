@@ -34,14 +34,14 @@ export default class NormalGear extends React.Component {
     maxWidth: PropTypes.number,
     selectColor: PropTypes.string,
     selectIndex: PropTypes.number,
-    onSelect: PropTypes.func.isRequired,
+    onSelect: PropTypes.func.isRequired
   }
   static defaultProps = {
     options: [],
     normalStyle: {},
     margin: DEFAULT_MARGIN,
     maxWidth: screenWidth,
-    selectIndex: 0,
+    selectIndex: 0
   }
   constructor(props, context) {
     super(props, context);
@@ -54,7 +54,7 @@ export default class NormalGear extends React.Component {
     this.optionWidth = optionWidth;
     this.margin = margin;
     this.containerWidth = containerWidth;
-    console.log(`选项宽度 ${optionWidth} 间距 ${margin} 总体宽度 ${containerWidth}`);
+    console.log(`选项宽度 ${ optionWidth } 间距 ${ margin } 总体宽度 ${ containerWidth }`);
     // 也不能太拥挤吧
     if (this.optionWidth < 20) {
       this.showNothing = true;
@@ -62,14 +62,14 @@ export default class NormalGear extends React.Component {
       return;
     }
     // 初始状态，全部为 false
-    this.selectArray = Array.from({ length: this.props.options.length }, select => false);
+    this.selectArray = Array.from({ length: this.props.options.length }, () => false);
     const selectArray = Array.from(this.selectArray);
     selectArray[this.props.selectIndex] = true;
     this.state = {
       selectArray
     };
   }
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (this.showNothing) return;
     const { selectIndex } = newProps;
     if (selectIndex !== this.props.selectIndex) {
@@ -83,7 +83,7 @@ export default class NormalGear extends React.Component {
       {
         width: this.optionWidth,
         height: this.optionWidth,
-        borderRadius: this.optionWidth / 2,
+        borderRadius: this.optionWidth / 2
       }
     ]);
     return this.props.options.map((option, index) => {
@@ -92,13 +92,13 @@ export default class NormalGear extends React.Component {
           key={option}
           select={this.state.selectArray[index]}
           selectColor={this.props.selectColor}
-          onPress={_ => this.onPress(index)}
+          onPress={() => this.onPress(index)}
           text={option}
           style={style}
           textStyle={this.props.textStyle}
         />
-      )
-    })
+      );
+    });
   }
   /**
      * @description 根据选项的宽度、间距和 maxWidth ，计算容器实际宽度，选项实际宽度，实际间距
@@ -138,7 +138,7 @@ export default class NormalGear extends React.Component {
     }
   }
 }
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',

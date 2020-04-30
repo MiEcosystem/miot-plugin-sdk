@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import {StyleSheet, TouchableOpacity, View, Text, Image} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, TouchableOpacity, View, Text, Image } from 'react-native';
 import PropTypes from 'prop-types';
-import {ColorGreen} from '../utils/colors';
-import {adjustSize} from '../utils/sizes';
-import {FontDefault} from '../utils/fonts';
-import {NOOP} from '../utils/fns';
+import { ColorGreen } from '../utils/colors';
+import { adjustSize } from '../utils/sizes';
+import { FontDefault } from '../utils/fonts';
+import { NOOP } from '../utils/fns';
 // const Size168 = adjustSize(168);
 // const Size150 = adjustSize(150);
 // const Size138 = adjustSize(138);
@@ -51,15 +51,15 @@ export default class CircleButton extends Component {
     isPressing: false
   };
   onPress = () => {
-    let {disabled, onPress} = this.props;
-    if(disabled) {
+    let { disabled, onPress } = this.props;
+    if (disabled) {
       return;
     }
     onPress();
   }
   onPressIn = () => {
-    let {showHighlight} = this.props;
-    if(showHighlight) {
+    let { showHighlight } = this.props;
+    if (showHighlight) {
       this.setState({
         isPressing: true
       });
@@ -71,8 +71,8 @@ export default class CircleButton extends Component {
     });
   }
   render() {
-    let {sizeLevel, selected, title, icon, iconSelected, iconText, themeColor, disabled, horizontal} = this.props;
-    let {isPressing} = this.state;
+    let { sizeLevel, selected, title, icon, iconSelected, iconText, themeColor, disabled, horizontal } = this.props;
+    let { isPressing } = this.state;
     let containerSizeStyle = Styles[['container0', 'container1', 'container2', 'container3'][sizeLevel || 0]] || Styles.container0;
     let iconContainerSizeStyle = Styles[['iconContainer0', 'iconContainer1', 'iconContainer2', 'iconContainer3'][sizeLevel || 0]] || Styles.iconContainer0;
     selected = selected || isPressing;
