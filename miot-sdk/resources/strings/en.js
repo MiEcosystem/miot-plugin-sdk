@@ -1,4 +1,4 @@
 export default {
-    mijia:"SmartHome"
+  mijia: "SmartHome"
     
-}
+};

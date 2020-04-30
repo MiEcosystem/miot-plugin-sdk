@@ -14,11 +14,11 @@
  *import Bluetooth from 'miot/Bluetooth'
  *
  */
-//new
+// new
 import RootDevice, { DeviceEvent as MIOTDeviceEvent } from './device/BasicDevice';
 import ClassicBluetoothFactory, { ClassicBluetoothEvent as MIOTClassicBluetoothEvent } from './device/bluetooth/ClassicDevice';
 import BluetoothFactory from './device/bluetooth';
-import { BluetoothEvent as MIOTBluetoothEvent } from './device/bluetooth/BluetoothDevice'
+import { BluetoothEvent as MIOTBluetoothEvent } from './device/bluetooth/BluetoothDevice';
 import HostInstance, { HostEvent as HostEventNames } from './Host';
 import { AudioEvent as AudioEventNames } from './host/audio';
 import { FileEvent as FileEventNames } from './host/file';
@@ -125,10 +125,10 @@ import * as Utils from './utils';
  * @export
  */
 export default {
-    Device, DeviceEvent, Bluetooth, BluetoothEvent, ClassicBluetooth, ClassicBluetoothEvent,
-    API_LEVEL, Package, PackageEvent, Entrance, DeviceProperties,
-    Service, Host, HostEvent, Resources,
-    SceneType,
-    FileEvent, AudioEvent,
-    Utils
-}
+  Device, DeviceEvent, Bluetooth, BluetoothEvent, ClassicBluetooth, ClassicBluetoothEvent,
+  API_LEVEL, Package, PackageEvent, Entrance, DeviceProperties,
+  Service, Host, HostEvent, Resources,
+  SceneType,
+  FileEvent, AudioEvent,
+  Utils
+};

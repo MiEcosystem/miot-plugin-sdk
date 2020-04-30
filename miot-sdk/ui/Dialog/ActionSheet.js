@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import ChoiceItem from '../ListItem/ChoiceItem';
 import Separator from '../Separator';
 import AbstractDialog from './AbstractDialog';
@@ -44,7 +44,7 @@ export default class ActionSheet extends React.Component {
     options: [],
     canDismiss: true
   }
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.visible !== this.state.visible) {
       this.setState({ visible: newProps.visible });
     }
@@ -53,7 +53,7 @@ export default class ActionSheet extends React.Component {
     super(props, context);
     this.state = {
       visible: props.visible
-    }
+    };
   }
   render() {
     return (
@@ -62,7 +62,7 @@ export default class ActionSheet extends React.Component {
         visible={this.state.visible}
         showTitle={false}
         buttons={this.props.buttons}
-        onDismiss={_ => this._onDismiss()}
+        onDismiss={() => this._onDismiss()}
         canDismiss={this.props.canDismiss}
       >
         {this.props.options.map((option, index) => {
@@ -73,11 +73,11 @@ export default class ActionSheet extends React.Component {
               <ChoiceItem
                 title={option.title || ''}
                 subtitle={option.subtitle || ''}
-                onPress={_ => this._onPress(option.onPress)}
+                onPress={() => this._onPress(option.onPress)}
               />
               <Separator />
             </View>
-          )
+          );
         })}
       </AbstractDialog>
     );

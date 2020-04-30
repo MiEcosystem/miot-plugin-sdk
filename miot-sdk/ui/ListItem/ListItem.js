@@ -46,13 +46,13 @@ export default class ListItem extends React.Component {
     containerStyle: PropTypes.object,
     titleStyle: PropTypes.object,
     subtitleStyle: PropTypes.object,
-    valueStyle: PropTypes.object,
+    valueStyle: PropTypes.object
   }
   static defaultProps = {
     title: '',
     subtitle: '',
     value: '',
-    onPress: _ => { },
+    onPress: () => { },
     disabled: false,
     showSeparator: true,
     hideArrow: false,
@@ -60,24 +60,24 @@ export default class ListItem extends React.Component {
     containerStyle: {},
     titleStyle: {},
     subtitleStyle: {},
-    valueStyle: {},
+    valueStyle: {}
   }
   constructor(props, context) {
     super(props, context);
   }
   render() {
     let extraContainerStyle = {
-      height: THIN_HEIGHT,
+      height: THIN_HEIGHT
     };
     if (this.props.subtitle) {
       extraContainerStyle = {
         paddingVertical: 8,
-        height: undefined,
-      }
+        height: undefined
+      };
     }
     let extraRightStyle = {
-      flex: 0,
-    }
+      flex: 0
+    };
     if (this.props.value) {
       extraRightStyle.flex = 8;
     }
@@ -85,12 +85,12 @@ export default class ListItem extends React.Component {
       marginRight: -7,
       textAlignVertical: 'center',
       flex: 1,
-      textAlign: 'right',
-    }
+      textAlign: 'right'
+    };
     // 如果不设置英文字体，那么外文字符串将显示不全（Android）
     let fontFamily = {};
     if (Platform.OS === 'android') {
-      fontFamily = { fontFamily: 'Kmedium' }
+      fontFamily = { fontFamily: 'Kmedium' };
       valueStyle.height = THIN_HEIGHT;
     }
     return (
@@ -112,7 +112,7 @@ export default class ListItem extends React.Component {
                 {this.props.showDot
                   ? <Image
                     style={styles.dot}
-                    resizeMode='contain'
+                    resizeMode="contain"
                     source={dot}
                   />
                   : null
@@ -133,7 +133,7 @@ export default class ListItem extends React.Component {
               {this.props.value ?
                 <Text
                   numberOfLines={1}
-                  ellipsizeMode='tail'
+                  ellipsizeMode="tail"
                   style={[Styles.common.subtitle, this.props.valueStyle, valueStyle]}
                 >
                   {this.props.value}
@@ -156,28 +156,28 @@ export default class ListItem extends React.Component {
   }
   renderSeparator() {
     if (!this.props.showSeparator) return null;
-    return this.props.separator || <Separator style={{ marginLeft: Styles.common.padding }} />
+    return this.props.separator || <Separator style={{ marginLeft: Styles.common.padding }} />;
   }
 }
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     width: width,
     backgroundColor: '#fff',
     paddingHorizontal: PADDING,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   left: {
-    flex: 8,
+    flex: 8
   },
   right: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end'
   },
   icon: {
     width: ICON_SIZE,
-    height: ICON_SIZE,
+    height: ICON_SIZE
   },
   dot: {
     marginTop: -1,

@@ -1,11 +1,11 @@
-import React, {PureComponent, Component} from 'react';
-import {StyleSheet, View, Animated, Easing} from 'react-native';
-import {Svg, Defs, LinearGradient, Stop, Path, Ellipse, ClipPath} from 'react-native-svg';
+import React, { Component } from 'react';
+import { StyleSheet, View, Animated, Easing } from 'react-native';
+import { Svg, Defs, LinearGradient, Stop, Path } from 'react-native-svg';
 import PropTypes from 'prop-types';
-import {adjustSize} from '../utils/sizes';
+import { adjustSize } from '../utils/sizes';
 const Size708 = adjustSize(708);
 function getCircleCenter(type, index) {
-  switch(type) {
+  switch (type) {
     case 0:
     case 1:
       return {
@@ -31,7 +31,7 @@ function getCircleCenter(type, index) {
   }
 }
 function getCircleColors(type, index) {
-  switch(type) {
+  switch (type) {
     case 0:
       return ([['#475154'], ['#475154', '#4A5867'], ['#2D3947'], ['#F7F7F7']])[index] || '#475154';
     case 1:
@@ -47,7 +47,7 @@ function getCircleColors(type, index) {
   }
 }
 function getCircleOpacity(type, index) {
-  switch(type) {
+  switch (type) {
     case 0:
     case 1:
     case 2:
@@ -60,16 +60,35 @@ function getCircleOpacity(type, index) {
   }
 }
 class Circle extends Component {
+  static propTypes = {
+    disabled: PropTypes.bool,
+    duration: PropTypes.number,
+    color: PropTypes.string,
+    opacity: PropTypes.number,
+    rx: PropTypes.number,
+    ry: PropTypes.number,
+    center: PropTypes.shape({
+      x: PropTypes.number,
+      y: PropTypes.number
+    }),
+    centerInner: PropTypes.shape({
+      x: PropTypes.number,
+      y: PropTypes.number
+    }),
+    counterClock: PropTypes.bool,
+    rxInner: PropTypes.number,
+    ryInner: PropTypes.number
+  };
   state = {
     rotation: new Animated.Value(0)
   };
   inited = false;
   currentValue = 0;
-  rotate({disabled, duration = 4000}) {
-    if(!this.inited) {
+  rotate({ disabled, duration = 4000 }) {
+    if (!this.inited) {
       return;
     }
-    if(disabled) {
+    if (disabled) {
       this.stopRotation();
       return;
     }
@@ -81,9 +100,9 @@ class Circle extends Component {
       toValue: 1,
       duration: isReset ? duration : duration * ((1 - this.currentValue) || 0.01),
       easing: Easing.inOut(Easing.linear)
-    }).start(({finished}) => {
-      if(finished) {
-        if(this.props.disabled) {
+    }).start(({ finished }) => {
+      if (finished) {
+        if (this.props.disabled) {
           return;
         }
         this.state.rotation.setValue(0);
@@ -93,17 +112,17 @@ class Circle extends Component {
   }
   stopRotation() {
     // this.aniRotation && this.aniRotation.stop();
-    this.state.rotation.stopAnimation(v => {
+    this.state.rotation.stopAnimation((v) => {
       this.currentValue = v;
     });
     this.aniRotation = null;
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
-    if(nextProps && nextProps.disabled) {
+    if (nextProps && nextProps.disabled) {
       this.stopRotation();
       return;
     }
-    if(nextProps && this.props && nextProps.duration === this.props.duration && nextProps.disabled === this.props.disabled) {
+    if (nextProps && this.props && nextProps.duration === this.props.duration && nextProps.disabled === this.props.disabled) {
       return;
     }
     this.rotate(nextProps || {});
@@ -116,20 +135,20 @@ class Circle extends Component {
     this.stopRotation();
   }
   render() {
-    let {color, opacity, rx, ry, center: {x, y}, initRotation, counterClock, centerInner: {x: ix, y: iy}, rxInner, ryInner} = this.props;
-    let {rotation} = this.state;
+    let { color, opacity, rx, ry, center: { x, y }, counterClock, centerInner: { x: ix, y: iy }, rxInner, ryInner } = this.props;
+    let { rotation } = this.state;
     let r = rotation.interpolate({
       inputRange: [0, 1],
       outputRange: !counterClock ? ['0deg', '360deg'] : ['360deg', '0deg']
     });
     let d = `
-      M${118 + x - rx} ${118 + y}
-      A${rx} ${ry} 0 0 1 ${118 + x + rx} ${118 + y}
-      L${118 + ix + rxInner} ${118 + iy}
-      A${rxInner} ${ryInner} 0 0 0 ${118 + ix - rxInner} ${118 + iy}
-      A${rxInner} ${ryInner} 0 0 0 ${118 + ix + rxInner} ${118 + iy}
-      L${118 + x + rx} ${118 + y}
-      A${rx} ${ry} 0 0 1 ${118 + x - rx} ${118 + y}
+      M${ 118 + x - rx } ${ 118 + y }
+      A${ rx } ${ ry } 0 0 1 ${ 118 + x + rx } ${ 118 + y }
+      L${ 118 + ix + rxInner } ${ 118 + iy }
+      A${ rxInner } ${ ryInner } 0 0 0 ${ 118 + ix - rxInner } ${ 118 + iy }
+      A${ rxInner } ${ ryInner } 0 0 0 ${ 118 + ix + rxInner } ${ 118 + iy }
+      L${ 118 + x + rx } ${ 118 + y }
+      A${ rx } ${ ry } 0 0 1 ${ 118 + x - rx } ${ 118 + y }
     `;
     return (
       <Animated.View style={[Styles.circleWrap, {
@@ -157,7 +176,7 @@ export default class Fan extends Component {
     noDisableColor: PropTypes.bool,
     speedLevel: PropTypes.number,
     // 白色/关闭/直吹风/自然风/睡眠风/自动
-    type: PropTypes.oneOf([-1, 0, 1, 2, 3, 4]),
+    type: PropTypes.oneOf([-1, 0, 1, 2, 3, 4])
     // 中心颜色一定要填，因为根据ui动效分解图，用多个圆叠加起来实现，中心会有外层圆的颜色
     // 20/02/18优化逻辑，可以去掉此参数
     // centerColor: PropTypes.any
@@ -169,7 +188,7 @@ export default class Fan extends Component {
     type: -1
   };
   render() {
-    let {disabled, type, speedLevel, noDisableColor} = this.props;
+    let { disabled, type, speedLevel, noDisableColor } = this.props;
     let centerInner = getCircleCenter(type, 3);
     let rxInner = 91;
     let ryInner = 91;

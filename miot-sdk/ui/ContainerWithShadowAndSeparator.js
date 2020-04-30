@@ -1,10 +1,14 @@
-import React, {Component, PureComponent, Fragment} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
-import {BoxShadow} from 'react-native-shadow';
+import { BoxShadow } from 'react-native-shadow';
 import Separator from './Separator';
-import {adjustSize} from '../utils/sizes';
+import { adjustSize } from '../utils/sizes';
 class GapWrap extends Component {
+  static propTypes = {
+    hasSeparator: PropTypes.bool,
+    separatorStyle: PropTypes.any
+  };
   state = {
     shown: true
   };
@@ -14,15 +18,15 @@ class GapWrap extends Component {
     });
   }
   render() {
-    let {hasSeparator, horizontal, separatorStyle, children} = this.props;
-    let {shown} = this.state;
-    if(!children) {
+    let { hasSeparator, separatorStyle, children } = this.props;
+    let { shown } = this.state;
+    if (!children) {
       return null;
     }
     return (
       <View onLayout={this.onLayout}>
         {hasSeparator && shown ? (
-          <Separator style={[{height: Math.min(adjustSize(3), 1), opacity: 0.35, marginHorizontal: adjustSize(60)}, separatorStyle]} />
+          <Separator style={[{ height: Math.min(adjustSize(3), 1), opacity: 0.35, marginHorizontal: adjustSize(60) }, separatorStyle]} />
         ) : null}
         {children}
       </View>
@@ -45,12 +49,12 @@ export default class ContainerWithShadowAndSeparator extends Component {
     height: adjustSize(240)
   };
   getContents() {
-    let {children, separatorStyle, horizontal} = this.props;
-    if(!children) {
+    let { children, separatorStyle, horizontal } = this.props;
+    if (!children) {
       return null;
     }
-    let type = horizontal ? 'column' : 'row';
-    return (Array.isArray(children) ? children : [children]).filter(child => {
+    // let type = horizontal ? 'column' : 'row';
+    return (Array.isArray(children) ? children : [children]).filter((child) => {
       return !!child;
     }).map((child, index) => {
       return (
@@ -61,7 +65,7 @@ export default class ContainerWithShadowAndSeparator extends Component {
     });
   }
   onLayout = (e) => {
-    let {width, height} = e.nativeEvent.layout;
+    let { width, height } = e.nativeEvent.layout;
     this.setState({
       width,
       height
@@ -69,14 +73,14 @@ export default class ContainerWithShadowAndSeparator extends Component {
   }
   render() {
     let contents = this.getContents();
-    let {containerStyle, horizontal} = this.props;
-    let {width, height} = this.state;
-    if(!contents) {
+    let { containerStyle, horizontal } = this.props;
+    let { width, height } = this.state;
+    if (!contents) {
       return null;
     }
     return (
       <View style={[Styles.box, {
-        height: height <=1 ? 0 : height + adjustSize(9),
+        height: height <= 1 ? 0 : height + adjustSize(9),
         overflow: 'visible'
       }]}>
         <BoxShadow setting={{

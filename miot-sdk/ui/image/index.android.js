@@ -7,8 +7,8 @@ import { Image, NativeModules, requireNativeComponent, StyleSheet, ViewPropTypes
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 import StyleSheetPropType from 'react-native/Libraries/DeprecatedPropTypes/DeprecatedStyleSheetPropType';
 import { ViewContextTypes } from './ViewContext';
-var merge = require('merge');
-var { ImageLoader } = NativeModules;
+let merge = require('merge');
+let { ImageLoader } = NativeModules;
 let _requestId = 1;
 function generateRequestId() {
   return _requestId++;
@@ -23,7 +23,7 @@ export default class MHImage extends React.Component {
     source: PropTypes.oneOfType([
       PropTypes.shape({
         uri: PropTypes.string,
-        headers: PropTypes.objectOf(PropTypes.string),
+        headers: PropTypes.objectOf(PropTypes.string)
       }),
       // Opaque type returned by require('./image.jpg')
       PropTypes.number,
@@ -33,9 +33,9 @@ export default class MHImage extends React.Component {
           uri: PropTypes.string,
           width: PropTypes.number,
           height: PropTypes.number,
-          headers: PropTypes.objectOf(PropTypes.string),
+          headers: PropTypes.objectOf(PropTypes.string)
         }),
-      ),
+      )
     ]),
     /**
      * blurRadius: the blur radius of the blur filter added to the image
@@ -48,10 +48,10 @@ export default class MHImage extends React.Component {
      */
     loadingIndicatorSource: PropTypes.oneOfType([
       PropTypes.shape({
-        uri: PropTypes.string,
+        uri: PropTypes.string
       }),
       // Opaque type returned by require('./image.jpg')
-      PropTypes.number,
+      PropTypes.number
     ]),
     progressiveRenderingEnabled: PropTypes.bool,
     fadeDuration: PropTypes.number,
@@ -88,7 +88,7 @@ export default class MHImage extends React.Component {
      *
      * See https://facebook.github.io/react-native/docs/image.html#resizemode
      */
-    resizeMode: PropTypes.oneOf(['cover', 'contain', 'stretch', 'center']),
+    resizeMode: PropTypes.oneOf(['cover', 'contain', 'stretch', 'center'])
   }
   static resizeMode = ImageResizeMode
   /**
@@ -102,13 +102,13 @@ export default class MHImage extends React.Component {
    */
   static getSize(url, success, failure) {
     return ImageLoader.getSize(url)
-      .then(function (sizes) {
+      .then(function(sizes) {
         success(sizes.width, sizes.height);
       })
       .catch(
         failure ||
-        function () {
-          console.warn('Failed to get size for image: ' + url);
+        function() {
+          console.warn(`Failed to get size for image: ${ url }`);
         },
       );
   }
@@ -118,7 +118,7 @@ export default class MHImage extends React.Component {
    *
    * See https://facebook.github.io/react-native/docs/image.html#prefetch
    */
-  static prefetch(url) {
+  static prefetch(url, callback) {
     const requestId = generateRequestId();
     callback && callback(requestId);
     return ImageLoader.prefetchImage(url, requestId);
@@ -174,7 +174,7 @@ export default class MHImage extends React.Component {
         headers: source.headers,
         loadingIndicatorSrc: loadingIndicatorSource
           ? loadingIndicatorSource.uri
-          : null,
+          : null
       });
       if (this.context.isInAParentText) {
         return <Image {...nativeProps} />;
@@ -184,21 +184,21 @@ export default class MHImage extends React.Component {
     }
     return null;
   }
-};
-var styles = StyleSheet.create({
+}
+const styles = StyleSheet.create({
   base: {
-    overflow: 'hidden',
-  },
+    overflow: 'hidden'
+  }
 });
-var cfg = {
+let cfg = {
   nativeOnly: {
     src: true,
     headers: true,
     loadingIndicatorSrc: true,
-    shouldNotifyLoadEvents: true,
-  },
+    shouldNotifyLoadEvents: true
+  }
 };
-var RKImage = requireNativeComponent('MHImageView', MHImage, cfg);
+let RKImage = requireNativeComponent('MHImageView', MHImage, cfg);
 // var RCTTextInlineImage = requireNativeComponent(
 //     'RCTTextInlineImage',
 //     MHImage,

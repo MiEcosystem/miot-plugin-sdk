@@ -1,6 +1,5 @@
 'use strict';
-import { Device } from 'miot';
-import { DeviceEvent } from 'miot';
+import { Device, DeviceEvent } from 'miot';
 import Host from 'miot/Host';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -23,7 +22,7 @@ const secondSharedOptions = {
   [secondAllOptions.SECURITY]: 0,
   [secondAllOptions.TIMEZONE]: 1,
   [secondAllOptions.USER_AGREEMENT]: 1,
-  [secondAllOptions.USER_EXPERIENCE_PROGRAM]: 1,
+  [secondAllOptions.USER_EXPERIENCE_PROGRAM]: 1
 };
 const { second_options } = SETTING_KEYS;
 const NETWORK_INFO = 'networkInfo'; // 「网络信息」设置项的 key
@@ -40,11 +39,11 @@ export default class MoreSetting extends React.Component {
     return {
       header:
         <NavigationBar
-          backgroundColor='#ffffff'
+          backgroundColor="#ffffff"
           type={NavigationBar.TYPE.LIGHT}
           left={[{
             key: NavigationBar.ICON.BACK,
-            onPress: _ => navigation.goBack()
+            onPress: () => navigation.goBack()
           }]}
           title={strings.more}
         />
@@ -55,53 +54,67 @@ export default class MoreSetting extends React.Component {
     return {
       [NETWORK_INFO]: {
         title: strings.networkInfo,
-        onPress: _ => Host.ui.openDeviceNetworkInfoPage()
+        onPress: () => Host.ui.openDeviceNetworkInfoPage()
       },
       [secondAllOptions.SECURITY]: {
         title: strings.security,
-        onPress: _ => Host.ui.openSecuritySetting()
+        onPress: () => Host.ui.openSecuritySetting()
       },
       [secondAllOptions.FEEDBACK]: {
         title: strings.feedback,
-        onPress: _ => Host.ui.openFeedbackInput()
+        onPress: () => Host.ui.openFeedbackInput()
       },
       [secondAllOptions.TIMEZONE]: {
         title: strings.timezone,
         value: state.timeZone,
-        onPress: _ => Host.ui.openDeviceTimeZoneSettingPage({ sync_device })
+        onPress: () => Host.ui.openDeviceTimeZoneSettingPage({ sync_device })
       },
       [secondAllOptions.ADD_TO_DESKTOP]: {
         title: strings.addToDesktop,
-        onPress: _ => Host.ui.openAddToDesktopPage()
+        onPress: () => Host.ui.openAddToDesktopPage()
       }
-    }
+    };
   }
   constructor(props, context) {
     super(props, context);
     this.state = {
       timeZone: Device.timeZone || '' // 从未设置过时区的话，为空字符串
-    }
+    };
     this.secondOptions = this.props.navigation.state.params.secondOptions || [secondAllOptions.TIMEZONE];
     this.excludeRequiredOptions = this.props.navigation.state.params.excludeRequiredOptions || [];
     this.moreSetting = this.getMoreSetting(this.state);
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this._deviceTimeZoneChangedListener = DeviceEvent.deviceTimeZoneChanged.addListener((device) => {
-      this.state.timeZone = device.timeZone;
-      this.moreSetting = this.getMoreSetting(this.state);
-      this.forceUpdate();
+      // this.state.timeZone = device.timeZone;
+      // this.moreSetting = this.getMoreSetting(this.state);
+      // this.forceUpdate();
+      this.moreSetting = this.getMoreSetting({
+        ...this.state,
+        timeZone: device.timeZone
+      });
+      this.setState({
+        timeZone: device.timeZone
+      });
     });
   }
   componentDidMount() {
     // android 无法直接获取常量 Device.timeZone
     Device.getDeviceTimeZone()
-      .then(result => {
+      .then((result) => {
         console.log(result);
-        this.state.timeZone = (result || {})['timeZone'] || '';
-        this.moreSetting = this.getMoreSetting(this.state);
-        this.forceUpdate();
+        // this.state.timeZone = (result || {})['timeZone'] || '';
+        // this.moreSetting = this.getMoreSetting(this.state);
+        // this.forceUpdate();
+        this.moreSetting = this.getMoreSetting({
+          ...this.state,
+          timeZone: (result || {})['timeZone'] || ''
+        });
+        this.setState({
+          timeZone: (result || {})['timeZone'] || ''
+        });
       })
-      .catch(error => console.log(`获取设备时区失败，错误：`, error));
+      .catch((error) => console.log(`获取设备时区失败，错误：`, error));
   }
   componentWillUnmount() {
     this._deviceTimeZoneChangedListener.remove();
@@ -120,14 +133,14 @@ export default class MoreSetting extends React.Component {
       }
     }
     const requireKeys2 = [secondAllOptions.ADD_TO_DESKTOP];
-    let options = this.secondOptions.filter(key => key && Object.values(second_options).includes(key)); // 去掉杂质
+    let options = this.secondOptions.filter((key) => key && Object.values(second_options).includes(key)); // 去掉杂质
     options = [...new Set(options)]; // 去除重复
     let keys = [...requireKeys1, ...options, ...requireKeys2];
     if (Device.isOwner === false) {
-      keys = keys.filter(key => secondSharedOptions[key]); // 如果是共享设备或者家庭设备，需要过滤一下
+      keys = keys.filter((key) => secondSharedOptions[key]); // 如果是共享设备或者家庭设备，需要过滤一下
     }
-    keys = keys.filter(key => !this.excludeRequiredOptions.includes(key));
-    const items = keys.map(key => this.moreSetting[key]).filter(item => item);
+    keys = keys.filter((key) => !this.excludeRequiredOptions.includes(key));
+    const items = keys.map((key) => this.moreSetting[key]).filter((item) => item);
     return (
       <View style={styles.container}>
         <Separator />
@@ -145,7 +158,7 @@ export default class MoreSetting extends React.Component {
                   onPress={item.onPress}
                   showSeparator={showSeparator}
                 />
-              )
+              );
             })
           }
           <Separator />
@@ -157,7 +170,7 @@ export default class MoreSetting extends React.Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Styles.common.backgroundColor,
-    flex: 1,
+    flex: 1
   },
   blank: {
     height: 8,
@@ -165,6 +178,6 @@ const styles = StyleSheet.create({
     borderTopColor: Styles.common.hairlineColor,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomColor: Styles.common.hairlineColor,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
+    borderBottomWidth: StyleSheet.hairlineWidth
+  }
 });

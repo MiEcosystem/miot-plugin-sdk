@@ -1,14 +1,14 @@
 import locale from "miot/host/locale";
 const placeholderRegex = /(\{[\d|\w]+\})/;
-const getStrings = strings => {
+const getStrings = (strings) => {
   const language = locale.language;
   return strings[language] || strings['en'];
-}
+};
 const formatString = (str, ...valuesForPlaceholders) => {
   return (str || '')
     .split(placeholderRegex)
-    .filter(textPart => !!textPart)
-    .map(textPart => {
+    .filter((textPart) => !!textPart)
+    .map((textPart) => {
       if (textPart.match(placeholderRegex)) {
         const matchedKey = textPart.slice(1, -1);
         let valueForPlaceholder = valuesForPlaceholders[matchedKey];
@@ -26,7 +26,7 @@ const formatString = (str, ...valuesForPlaceholders) => {
       }
       return textPart;
     }).join('');
-}
+};
 // 为了 autoComplete
 let strings = {
   setting: '',
@@ -86,7 +86,7 @@ let strings = {
   handling: '',
   error: '',
   createLightGroup: ''
-}
+};
 strings = getStrings({
   zh: {
     setting: '设置',

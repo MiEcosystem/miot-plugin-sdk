@@ -24,8 +24,8 @@ const TYPE = {
   /**
    * 底部是下划线超链接
    */
-  UNDERLINE: 'underline',
-}
+  UNDERLINE: 'underline'
+};
 Object.freeze(TYPE);
 /**
  * 下划线
@@ -60,18 +60,19 @@ Object.freeze(TYPE);
 export default class BlankPage extends React.Component {
   static propTypes = {
     type: PropTypes.oneOf([TYPE.BUTTON, TYPE.UNDERLINE]),
+    icon: PropTypes.any,
     underline: PropTypes.object,
     button: PropTypes.object,
     iconStyle: ViewPropTypes.style,
     message: PropTypes.string.isRequired,
     desc: PropTypes.string,
-    extraInfo: PropTypes.string,
+    extraInfo: PropTypes.string
   }
   static defaultProps = {
     type: TYPE.BUTTON,
     underline: {},
     button: {},
-    icon: imageSource,
+    icon: imageSource
   }
   /**
    * @description 空白页面底部视图类型
@@ -88,7 +89,7 @@ export default class BlankPage extends React.Component {
           <Image
             source={this.props.icon}
             style={[styles.image, this.props.iconStyle]}
-            resizeMode='contain'
+            resizeMode="contain"
           />
         </View>
         <Text
@@ -107,7 +108,7 @@ export default class BlankPage extends React.Component {
           : null
         }
       </View>
-    )
+    );
   }
   /**
    * 底部的按钮或者下划线
@@ -118,7 +119,7 @@ export default class BlankPage extends React.Component {
       return (
         <View style={[styles.bottom, { marginBottom: safeBottom * 2 }]}>
           <Text
-            onPress={_ => this.onPress(callback)}
+            onPress={() => this.onPress(callback)}
             numberOfLines={1}
             style={[
               styles.desc,
@@ -133,11 +134,10 @@ export default class BlankPage extends React.Component {
             {text}
           </Text>
         </View>
-      )
-    }
-    else {
+      );
+    } else {
       let fontFamily = {};
-      if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' }
+      if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' };
       const { text, callback, buttonStyle, textStyle } = this.props.button;
       return (
         <View style={styles.bottom}>
@@ -152,7 +152,7 @@ export default class BlankPage extends React.Component {
           }
           <RkButton
             style={[styles.buttonContainer, buttonStyle]}
-            onPress={_ => this.onPress(callback)}
+            onPress={() => this.onPress(callback)}
             activeOpacity={0.8}
           >
             <Text style={[styles.buttonText, fontFamily, textStyle]}>
@@ -160,14 +160,13 @@ export default class BlankPage extends React.Component {
             </Text>
           </RkButton>
         </View>
-      )
+      );
     }
   }
   onPress(callback) {
     if (typeof callback === 'function') {
       callback();
-    }
-    else {
+    } else {
       console.warn('请传入有效的点击回调函数');
     }
   }
@@ -185,35 +184,35 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#f7f7f7',
     flex: 1,
-    width,
+    width
   },
   center: {
     marginTop: imageMarginTop,
     width,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   imageContainer: {
     width: imageContainerSize,
     height: imageContainerSize,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   image: {
     width: imageWidth,
     height: imageHeight,
-    marginTop: 5,
+    marginTop: 5
   },
   message: {
     width,
     fontSize: 15,
     color: '#999',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   desc: {
     width,
     paddingHorizontal: padding,
     fontSize: 13,
     color: '#999',
-    lineHeight: 18,
+    lineHeight: 18
   },
   bottom: {
     width,

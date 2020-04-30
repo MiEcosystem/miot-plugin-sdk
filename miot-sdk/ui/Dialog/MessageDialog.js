@@ -24,8 +24,8 @@ const TYPE = {
   /**
    * 带勾选框
    */
-  CHECKBOX: 'checkbox',
-}
+  CHECKBOX: 'checkbox'
+};
 Object.freeze(TYPE);
 /**
  * 下划线超链接或者勾选框需要的其他数据
@@ -70,13 +70,13 @@ export default class MessageDialog extends React.Component {
     extraText: PropTypes.string,
     extra: PropTypes.object,
     buttons: PropTypes.arrayOf(PropTypes.object),
-    onDismiss: PropTypes.func,
+    onDismiss: PropTypes.func
   }
   static defaultProps = {
     type: TYPE.SIMPLE,
     color: Styles.common.MHGreen,
     message: `请自定义提示文案`,
-    extra: {},
+    extra: {}
   }
   /**
    * @description 消息弹窗的类型
@@ -87,10 +87,10 @@ export default class MessageDialog extends React.Component {
     super(props, context);
     this.state = {
       checked: false
-    }
+    };
     this.process(props);
   }
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     this.process(props);
   }
   process(props) {
@@ -105,14 +105,12 @@ export default class MessageDialog extends React.Component {
         button.callback = () => {
           if (props.type === TYPE.UNDERLINE) {
             callbackOrigin({ hasPressUnderlineText: this.hasPressUnderlineText });
-          }
-          else if (props.type === TYPE.CHECKBOX) {
+          } else if (props.type === TYPE.CHECKBOX) {
             callbackOrigin({ checked: this.state.checked });
-          }
-          else {
+          } else {
             callbackOrigin({});
           }
-        }
+        };
       }
     }
     this.buttons = buttons;
@@ -127,16 +125,16 @@ export default class MessageDialog extends React.Component {
             <Text
               numberOfLines={1}
               style={[styles.underlineText, { color: this.props.color }]}
-              onPress={_ => this.onPressUnderlineText()}
+              onPress={() => this.onPressUnderlineText()}
             >
               {this.props.extraText || ''}
             </Text>
           </View>
-        )
+        );
       case TYPE.CHECKBOX:
         return (
           <TouchableOpacity
-            onPress={_ => this.onPressCheckbox()}
+            onPress={() => this.onPressCheckbox()}
             activeOpacity={1}
             style={{ paddingTop }}
           >
@@ -149,7 +147,7 @@ export default class MessageDialog extends React.Component {
                   height: 20,
                   borderRadius: 10
                 }}
-                onValueChange={checked => this.state.checked = checked}
+                onValueChange={(checked) => this.state.checked = checked}
               />
               <Text
                 style={styles.checkboxText}
@@ -159,7 +157,7 @@ export default class MessageDialog extends React.Component {
               </Text>
             </View>
           </TouchableOpacity>
-        )
+        );
       default:
         return null;
     }
@@ -175,12 +173,12 @@ export default class MessageDialog extends React.Component {
         title={this.props.title}
         showTitle={showTitle}
         buttons={this.buttons}
-        onDismiss={_ => this._onDismiss()}
+        onDismiss={() => this._onDismiss()}
       >
         <View style={[styles.container, paddingTop]}>
           <Text
             numberOfLines={15}
-            style={[styles.message,this.props.messageStyle]}
+            style={[styles.message, this.props.messageStyle]}
           >
             {this.props.message || ''}
           </Text>
@@ -207,28 +205,28 @@ const styles = StyleSheet.create({
     paddingHorizontal,
     paddingVertical,
     backgroundColor: '#fff',
-    borderRadius: Styles.dialog.modal.borderRadius,
+    borderRadius: Styles.dialog.modal.borderRadius
   },
   message: {
     fontSize: 15,
     color: '#666',
     lineHeight: 22,
     fontFamily: 'MI-LANTING--GBK1-Light',
-    fontWeight: '400',
+    fontWeight: '400'
   },
   underlineText: {
     flex: 1,
     textDecorationLine: 'underline',
-    fontSize: 14,
+    fontSize: 14
   },
   extraContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   checkboxText: {
     flex: 1,
     marginLeft: 8,
     fontSize: 14,
     color: '#999'
-  },
+  }
 });

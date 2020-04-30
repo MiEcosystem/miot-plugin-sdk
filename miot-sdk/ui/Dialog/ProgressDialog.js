@@ -31,14 +31,14 @@ export default class ProgressDialog extends React.Component {
     unfilledColor: PropTypes.string,
     textColor: PropTypes.string,
     autoDismiss: PropTypes.bool,
-    onDismiss: PropTypes.func,
+    onDismiss: PropTypes.func
   }
   static defaultProps = {
     progress: 0,
     color: Styles.common.MHGreen,
     unfilledColor: '#f1f1f1',
     textColor: Styles.common.MHGreen,
-    autoDismiss: false,
+    autoDismiss: false
   }
   constructor(props, context) {
     super(props, context);
@@ -46,7 +46,7 @@ export default class ProgressDialog extends React.Component {
       visible: this.props.visible
     };
   }
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.visible !== this.state.visible) {
       this.setState({ visible: newProps.visible });
     }
@@ -55,12 +55,12 @@ export default class ProgressDialog extends React.Component {
     if (this.props.autoDismiss
       && this.state.visible === true
       && this.props.progress >= 1) { // 传参不一定刚好等于1，可能大于1
-      this.timer = setTimeout(_ => {
+      this.timer = setTimeout(() => {
         this.setState({ visible: false });
         this.props.onDismiss && this.props.onDismiss();
       }, 100);
     }
-    const progressText = `${Math.round(this.props.progress * 100)}%`;
+    const progressText = `${ Math.round(this.props.progress * 100) }%`;
     return (
       <AbstractDialog
         animationType={this.props.animationType}
@@ -95,7 +95,7 @@ export default class ProgressDialog extends React.Component {
             height={3}
             borderRadius={2.5}
             borderWidth={0.3}
-            borderColor='#e5e5e5'
+            borderColor="#e5e5e5"
             useNativeDriver={true}
           />
         </View>
@@ -113,14 +113,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: padding,
     justifyContent: 'center',
-    borderRadius: Styles.dialog.modal.borderRadius,
+    borderRadius: Styles.dialog.modal.borderRadius
   },
   messageContainer: {
     flexDirection: 'row',
-    marginBottom: 12,
+    marginBottom: 12
   },
   message: {
     fontSize: 15,
-    color: 'rgba(0,0,0,0.8)',
-  },
+    color: 'rgba(0,0,0,0.8)'
+  }
 });

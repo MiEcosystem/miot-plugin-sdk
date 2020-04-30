@@ -15,7 +15,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { requireNativeComponent, ViewPropTypes } from 'react-native';
-import native from '.././native';
+import { isIOS, isAndroid } from '.././native';
 export default class ProgressDialog extends Component {
   static propTypes = {
     visible: PropTypes.bool,
@@ -24,7 +24,7 @@ export default class ProgressDialog extends Component {
     message: PropTypes.string,
     timeout: PropTypes.number,
     onDismiss: PropTypes.func,
-    ...ViewPropTypes,
+    ...ViewPropTypes
   };
   render() {
     let showText = this.props.message ? this.props.message : this.props.title;

@@ -33,7 +33,7 @@ class IndependentCard extends Component {
     };
   }
   componentDidMount() {
-    //根据 radiusType 设置卡片圆角
+    // 根据 radiusType 设置卡片圆角
     let radius = {};
     this.setState((state, props) => {
       let { radiusType } = props;
@@ -44,13 +44,13 @@ class IndependentCard extends Component {
         case 'top':
           radius = {
             borderTopLeftRadius: radiusValue,
-            borderTopRightRadius: radiusValue,
+            borderTopRightRadius: radiusValue
           };
           break;
         case 'bottom':
           radius = {
             borderBottomLeftRadius: radiusValue,
-            borderBottomRightRadius: radiusValue,
+            borderBottomRightRadius: radiusValue
           };
           break;
         default:
@@ -61,16 +61,16 @@ class IndependentCard extends Component {
       return { radius };
     });
   }
-  //改变开关状态
+  // 改变开关状态
   changeSwitchValue = () => {
     let { value, changeValue, switchKey } = this.props;
     if (changeValue) {
-      //传入了 changeValue 函数
+      // 传入了 changeValue 函数
       changeValue(value, switchKey);
     }
   }
   render() {
-    let { radius } = this.state;
+    // let { radius } = this.state;
     let { picture, title1, title2, value, onTintColor, tintColor, switchStyle, disabled, disabledCard } = this.props;
     let subTitleRN = <Text
       style={styles.title2}
@@ -116,13 +116,13 @@ IndependentCard.defaultProps = {
   title2: '',
   value: false,
   switchKey: '',
-  changeValue: function () { },
+  changeValue: function() { },
   onTintColor: Styles.common.MHGreen,
   tintColor: OFF_COLOR,
   switchStyle: {},
   disabled: false,
   disabledCard: false
-}
+};
 IndependentCard.propTypes = {
   radiusType: PropTypes.string,
   picture: PropTypes.number,
@@ -136,7 +136,7 @@ IndependentCard.propTypes = {
   switchStyle: PropTypes.object,
   disabled: PropTypes.bool,
   disabledCard: PropTypes.bool
-}
+};
 const styles = StyleSheet.create({
   card: {
     flex: 1,
@@ -145,27 +145,27 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   picture: {
     width: pictureLength,
     height: pictureLength,
     borderRadius: pictureLength / 2,
-    marginRight: 14,
+    marginRight: 14
   },
   title: {
-    flex: 1,
+    flex: 1
   },
   title1: {
     fontSize: 15,
-    color: 'black',
+    color: 'black'
   },
   title2: {
     fontSize: 12,
     color: '#666'
   },
   switchView: {
-    paddingLeft: 30,
+    paddingLeft: 30
   }
 });
 export default IndependentCard;

@@ -11,7 +11,7 @@
  * let language = Host.locale.language
  * let timeZone = Host.locale.timeZone
  * if (language === 'zh') ...
- * ... 
+ * ...
  *
  */
 import { report } from "../decorator/ReportDecorator";
@@ -83,12 +83,12 @@ class ILocale {
     return new Promise((resolve, reject) => {
       native.MIOTHost.getSystemTimezoneNameWithCallback((ok, result) => {
         if (ok) {
-          resolve(result)
+          resolve(result);
         } else {
           reject(result);
         }
       });
-    })
+    });
   }
 }
 const LocaleInstance = new ILocale();

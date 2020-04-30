@@ -50,151 +50,151 @@ import { report } from "../decorator/ReportDecorator";
  * @namespace SceneType
  */
 export const SceneType = {
-    /**
+  /**
      * 定时场景
      * @const
      */
-    Timer: 8,
-    /**
+  Timer: 8,
+  /**
      * 人工场景
      * @const
      */
-    Artificial: 30,
-    /**
+  Artificial: 30,
+  /**
      * 自动场景
      * @const
      */
-    Automatic: 15
+  Automatic: 15
 };
-Object.freeze(SceneType)
+Object.freeze(SceneType);
 /**
  * 场景
  * @interface
  *
  */
 export class IScene {
-    /**
+  /**
      *
      * 场景id
      * @member
      * @type {int}
      * @readonly
      */
-    get sceneID() {
-         return  0
-        return Properties.of(this).data.us_id
-    }
-    /**
+  get sceneID() {
+     return  0
+    return Properties.of(this).data.us_id;
+  }
+  /**
      * 是否是新的场景
      * @member
      * @type {boolean}
      * @readonly
      */
-    get isNew() {
-         return  false
-    }
-    /**
+  get isNew() {
+     return  false
+  }
+  /**
      * 场景的创建时间
      * @member
      * @type {long}
      * @readonly
      */
-    get createTime() {
-         return  0
-    }
-    /**
+  get createTime() {
+     return  0
+  }
+  /**
      * 场景是否开启
      * @member
      * @type {int}
      * @readonly
      */
-    get status() {
-         return  0
-    }
-    /**
+  get status() {
+     return  0
+  }
+  /**
      * 定时场景的设备的did
      * @member
      * @type {string}
      * @readonly
      */
-    get deviceID() {
-         return  0
-    }
-    /**
+  get deviceID() {
+     return  0
+  }
+  /**
      * 场景名称
      * @member
      * @type {string}
      */
-    get name() {
-         return  ""
-    }
-    set name(name) {
-    }
-    /**
+  get name() {
+     return  ""
+  }
+  set name(name) {
+  }
+  /**
      * 场景类型，只读
      * @member
      * @type {SceneType}
      * @readonly
      */
-    get type() {
-         return  0
-    }
-    /**
+  get type() {
+     return  0
+  }
+  /**
      * 是否是定时场景，只读
      * @member
      * @type {boolean}
      * @readonly
      */
-    get isTimer() {
-        return this.type + "" == SceneType.Timer + "";
-    }
-    /**
+  get isTimer() {
+    return `${ this.type }` == `${ SceneType.Timer }`;
+  }
+  /**
      * 是否是人工场景，只读
      * @member
      * @type {boolean}
      * @readonly
      */
-    get isArtificial() {
-        return this.type + "" == SceneType.Artificial + "";
-    }
-    /**
+  get isArtificial() {
+    return `${ this.type }` == `${ SceneType.Artificial }`;
+  }
+  /**
      * 是否是自动场景，只读
      * @member
      * @type {readonly}
      * @readonly
      */
-    get isAutomatic() {
-        return this.type + "" == SceneType.Automatic + "";
-    }
-    /**
+  get isAutomatic() {
+    return `${ this.type }` == `${ SceneType.Automatic }`;
+  }
+  /**
      * 代表场景的分类，创建场景时可自定义此参数；如果获取场景的时候传入identify，表示获取identify类场景列表；如果不需要对场景分类，此参数可忽略。
      * @type {string}
      */
-    get identify() {
-         return  ""
-    }
-    set identify(identify) {
-    }
-    /**
+  get identify() {
+     return  ""
+  }
+  set identify(identify) {
+  }
+  /**
      * 场景的更多属性，详见 {@link module:miot/service/scene/createTimerScene}
      * @member
      * @type {json}
      */
-    get setting() {
-         return  {}
-    }
-    set setting(setting) {
-    }
-    /**
+  get setting() {
+     return  {}
+  }
+  set setting(setting) {
+  }
+  /**
      * 授权设备列表，指场景关联的那些设备的deviceID
      * @member
      * @type {Array<String>}
      */
-    get authorizedDeviceIDs() {
-         return  []
-    }
-    set authorizedDeviceIDs(deviceIDs) {
-    }
+  get authorizedDeviceIDs() {
+     return  []
+  }
+  set authorizedDeviceIDs(deviceIDs) {
+  }
     /**
      * 保存场景 /scene/edit
      * @param {json} opt {authed:[...], name, identify, setting} 同上面的authed，name，identify，setting
@@ -209,23 +209,23 @@ export class IScene {
      * 
      */
     @report
-    save(opt = null) {
-        if (opt) {
-            if (opt.name) {
-                this.name = opt.name;
-            }
-            if (opt.identify) {
-                this.identify = opt.identify;
-            }
-            if (opt.setting) {
-                this.setting = opt.setting;
-            }
-            if (opt.authed && opt.authed.length > 0) {
-                this.authorizedDeviceIDs = opt.authed;
-            }
-        }
-         return Promise.resolve(null);
+  save(opt = null) {
+    if (opt) {
+      if (opt.name) {
+        this.name = opt.name;
+      }
+      if (opt.identify) {
+        this.identify = opt.identify;
+      }
+      if (opt.setting) {
+        this.setting = opt.setting;
+      }
+      if (opt.authed && opt.authed.length > 0) {
+        this.authorizedDeviceIDs = opt.authed;
+      }
     }
+     return Promise.resolve(null);
+  }
     /**
      * 重新加载场景数据 /scene/get 
      * 用法：scene.reload();
@@ -233,7 +233,7 @@ export class IScene {
      */
     @report
     reload() {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 启动场景 /scene/start
@@ -242,7 +242,7 @@ export class IScene {
      */
     @report
     start() {
-         return Promise.resolve(false);
+       return Promise.resolve(false);
     }
     /**
      * 删除场景 /scene/delete
@@ -251,7 +251,7 @@ export class IScene {
      */
     @report
     remove() {
-         return Promise.resolve(false);
+       return Promise.resolve(false);
     }
 }
 /**
@@ -267,7 +267,7 @@ export class IScene {
  * @returns {IScene}
  */
 function createScene(deviceID, sceneType, opt = null) {
-     return Promise.resolve(null);
+   return Promise.resolve(null);
 }
 /**
  * 加载场景 
@@ -277,7 +277,7 @@ function createScene(deviceID, sceneType, opt = null) {
  * @returns {Promise<IScene>}
  */
 function loadScenes(deviceID, sceneType, opt = null) {
-     return Promise.resolve(null);
+   return Promise.resolve(null);
 }
 /**
  * @export
@@ -309,9 +309,9 @@ class IMiotScene {
      * 
      */
     @report
-    createScene(deviceID, sceneType, opt) {
-         return Promise.resolve(null);
-    }
+  createScene(deviceID, sceneType, opt) {
+     return Promise.resolve(null);
+  }
     /**
      * 创建定时场景  
      * 用法同上面的 createScene(deviceID, SceneType.Timer, opt);
@@ -349,7 +349,7 @@ class IMiotScene {
      */
     @report
     createTimerScene(deviceID, opt) {
-        return createScene(deviceID, SceneType.Timer, opt);
+      return createScene(deviceID, SceneType.Timer, opt);
     }
     /**
      * 创建人工场景
@@ -360,7 +360,7 @@ class IMiotScene {
      */
     @report
     createArtificialScene(deviceID, opt) {
-        return createScene(deviceID, SceneType.Artificial, opt);
+      return createScene(deviceID, SceneType.Artificial, opt);
     }
     /**
      * 创建自动场景
@@ -371,7 +371,7 @@ class IMiotScene {
      */
     @report
     createAutomaticScene(deviceID, opt) {
-        return createScene(deviceID, SceneType.Automatic, opt);
+      return createScene(deviceID, SceneType.Automatic, opt);
     }
     /**
      * 获取场景列表 /scene/list
@@ -382,7 +382,7 @@ class IMiotScene {
      */
     @report
     loadScenes(deviceID, sceneType, opt = null) {
-        return loadScenes(deviceID, sceneType, opt);
+      return loadScenes(deviceID, sceneType, opt);
     }
     /**
      * 加载定时场景 /scene/list
@@ -392,7 +392,7 @@ class IMiotScene {
      */
     @report
     loadTimerScenes(deviceID, opt = null) {
-        return loadScenes(deviceID, SceneType.Timer, opt);
+      return loadScenes(deviceID, SceneType.Timer, opt);
     }
     /**
      * 加载人工场景 /scene/list
@@ -402,7 +402,7 @@ class IMiotScene {
      */
     @report
     loadArtificialScenes(deviceID, opt = null) {
-        return loadScenes(deviceID, SceneType.Artificial, opt);
+      return loadScenes(deviceID, SceneType.Artificial, opt);
     }
     /**
      * 加载自动场景 /scene/list
@@ -412,7 +412,7 @@ class IMiotScene {
      */
     @report
     loadAutomaticScenes(deviceID, opt = null) {
-        return loadScenes(deviceID, SceneType.Automatic, opt);
+      return loadScenes(deviceID, SceneType.Automatic, opt);
     }
     /**
      * 获取指定设备的智能日志信息
@@ -423,7 +423,7 @@ class IMiotScene {
      */
     @report
     loadScenesHistoryForDevice(did, timestamp = -1, limit = 50) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 打开添加智能的页面(米家APP实现)
@@ -476,7 +476,7 @@ class IMiotScene {
     @report
     openCountDownPage(isCountDownOn, setting) {
     }
-         return Promise.resolve('');
+       return Promise.resolve('');
     }
     /**
      * 将cron表达式转化为时和分
@@ -518,7 +518,7 @@ class IMiotScene {
      */
     @report
     convertCronToDate(params) {
-         return Promise.resolve('');
+       return Promise.resolve('');
     }
 }
 const MiotSceneInstance = new IMiotScene();

@@ -28,7 +28,7 @@
  *
  */
 import native, { Properties } from '../../native';
-import {report} from "../../decorator/ReportDecorator";
+import { report } from "../../decorator/ReportDecorator";
 /**
  * 蓝牙锁相关
  * @interface
@@ -54,9 +54,9 @@ export default class IBluetoothLock {
      *      reject：{code: xxx, message: xxx} 1：设备正在切换中 2：加密失败 3：找不到服务 4：超时
      */
     @report
-    toggle(cmd, timeout) {
-         return Promise.resolve(null);
-    }
+  toggle(cmd, timeout) {
+     return Promise.resolve(null);
+  }
     /**
      * 支持小米加密芯片的蓝牙设备，在被分享的设备中，调用此方法，可判断分享的电子钥匙是否有效。**设备owner调用此方法会走reject**
      * @method
@@ -73,7 +73,7 @@ export default class IBluetoothLock {
      */
     @report
     isShareKeyValid() {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 支持小米加密芯片的蓝牙设备，获取一次性密码组。 **设备owner调用此方法才有效**
@@ -97,7 +97,7 @@ export default class IBluetoothLock {
      */
     @report
     getOneTimePassword(interval, digits) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 支持小米加密芯片的蓝牙设备，使用此方法将明文加密为密文后，可发送给设备。然后小米加密芯片会解密，设备端可以直接拿到解密后的数据。
@@ -116,7 +116,7 @@ export default class IBluetoothLock {
      */
     @report
     encryptMessage(message) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 支持小米加密芯片的蓝牙设备，使用此方法将密文解密为明文
@@ -135,7 +135,7 @@ export default class IBluetoothLock {
      */
     @report
     decryptMessage(encrypted) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 使用设备的token加密指定数据
@@ -147,7 +147,7 @@ export default class IBluetoothLock {
      */
     @report
     encryptMessageWithToken(data) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 使用设备的token解密指定数据
@@ -159,6 +159,6 @@ export default class IBluetoothLock {
      */
     @report
     decryptMessageWithToken(data) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
 }

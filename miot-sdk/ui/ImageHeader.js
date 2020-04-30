@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Image} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Image } from 'react-native';
 import PropTypes from 'prop-types';
-import {adjustSize} from '../utils/sizes';
+import { adjustSize } from '../utils/sizes';
 export default class ImageHeader extends Component {
   static propTypes = {
     icon: PropTypes.any,
@@ -9,8 +9,8 @@ export default class ImageHeader extends Component {
     containerStyle: PropTypes.any
   };
   render() {
-    let {icon, iconStyle, containerStyle} = this.props;
-    if(!icon) {
+    let { icon, iconStyle, containerStyle } = this.props;
+    if (!icon) {
       return null;
     }
     return (

@@ -21,15 +21,31 @@
  */
 import React, { Component } from "react";
 import {
- Dimensions, Image, Platform, StatusBar, StyleSheet, Text, View 
+  Dimensions, Image, Platform, StatusBar, StyleSheet, Text, View
 } from "react-native";
 import { RkButton } from "react-native-ui-kitten";
 import { SafeAreaView } from "react-navigation";
 import ImageButton from "./ImageButton";
-const { width, height } = Dimensions.get("window");
+import PropTypes from 'prop-types';
+const { width } = Dimensions.get("window");
 const titleHeight = 44;
 const imgHeight = 28;
 export default class TitleBarWhite extends Component {
+  static propTypes = {
+    leftTextStyle: PropTypes.any,
+    rightTextStyle: PropTypes.any,
+    style: PropTypes.any,
+    leftText: PropTypes.string,
+    rightText: PropTypes.string,
+    onPressLeft: PropTypes.func,
+    onPressLeft2: PropTypes.func,
+    onPressRight: PropTypes.func,
+    onPressRight2: PropTypes.func,
+    onPressTitle: PropTypes.func,
+    title: PropTypes.string,
+    subTitle: PropTypes.string,
+    showDot: PropTypes.bool
+  };
   constructor(props) {
     super(props);
   }

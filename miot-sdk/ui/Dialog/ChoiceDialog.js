@@ -16,8 +16,8 @@ const TYPE = {
   /**
    * 多选弹窗
    */
-  MULTIPLE: 'multiple',
-}
+  MULTIPLE: 'multiple'
+};
 Object.freeze(TYPE);
 /**
  * 可选项
@@ -60,19 +60,21 @@ export default class ChoiceDialog extends React.Component {
     color: PropTypes.string,
     icon: PropTypes.number,
     buttons: PropTypes.arrayOf(PropTypes.object),
-    onDismiss: PropTypes.func,
+    title: PropTypes.string,
+    onSelect: PropTypes.func,
+    onDismiss: PropTypes.func
   }
   static defaultProps = {
     type: TYPE.SINGLE,
     options: [],
-    selectedIndexArray: [],
+    selectedIndexArray: []
   }
   /**
    * @description 选择弹窗的类型
    * @enum {string}
    */
   static TYPE = TYPE
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.visible !== this.state.visible) {
       this.setState({ visible: newProps.visible });
     }
@@ -94,14 +96,14 @@ export default class ChoiceDialog extends React.Component {
             if (item) selectedIndexArray.push(i);
           }
           callbackOrigin(selectedIndexArray);
-        }
+        };
       }
     }
     this.buttons = buttons;
     this.state = {
       visible: props.visible,
-      selectedArray: [],
-    }
+      selectedArray: []
+    };
   }
   render() {
     if (!this.props.visible) return null;
@@ -112,7 +114,7 @@ export default class ChoiceDialog extends React.Component {
         title={this.props.title}
         showButton={this.props.type === TYPE.MULTIPLE}
         buttons={this.buttons}
-        onDismiss={_ => this._onDismiss()}
+        onDismiss={() => this._onDismiss()}
       >
         {this.props.options.map((option, index) => {
           return (
@@ -127,10 +129,10 @@ export default class ChoiceDialog extends React.Component {
                 selected={this.state.selectedArray[index]}
                 color={this.props.color}
                 icon={this.props.icon}
-                onPress={selected => this._onPress(selected, index)}
+                onPress={(selected) => this._onPress(selected, index)}
               />
             </View>
-          )
+          );
         })}
         {this.props.type === TYPE.MULTIPLE
           ? <Separator />
@@ -140,10 +142,10 @@ export default class ChoiceDialog extends React.Component {
     );
   }
   _onPress(selected, index) {
-    if (selected) console.log(`第${index + 1}项被选中`);
-    else console.log(`第${index + 1}项取消选中`);
+    if (selected) console.log(`第${ index + 1 }项被选中`);
+    else console.log(`第${ index + 1 }项取消选中`);
     if (this.props.type === TYPE.SINGLE) {
-      const selectedArray = Array.from({ length: this.props.options.length }, v => false);
+      const selectedArray = Array.from({ length: this.props.options.length }, () => false);
       selectedArray[index] = selected;
       this.setState({
         selectedArray,
@@ -151,8 +153,7 @@ export default class ChoiceDialog extends React.Component {
       });
       this._onDismiss();
       this.props.onSelect && this.props.onSelect([index]);
-    }
-    else {
+    } else {
       const selectedArray = this.state.selectedArray;
       selectedArray[index] = selected;
       this.setState({ selectedArray });

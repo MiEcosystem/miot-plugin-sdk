@@ -8,7 +8,7 @@ const BACK_WIDTH = 44; // 默认宽度
 const BACK_HEIGHT = 24; // 默认高度
 const BORDER_WIDTH = StyleSheet.hairlineWidth;
 const ratio = 6.5; // 容器高度和滚球尺寸比例
-const minMargin = 2.5 // 容器和滚球之间的最小间距
+const minMargin = 2.5; // 容器和滚球之间的最小间距
 /**
  * @export public
  * @doc_name 常用UI组件
@@ -32,21 +32,21 @@ export default class Switch extends React.Component {
     onTintColor: PropTypes.string,
     tintColor: PropTypes.string,
     disabled: PropTypes.bool,
-    onValueChange: PropTypes.func.isRequired,
+    onValueChange: PropTypes.func.isRequired
   }
   static defaultProps = {
     value: false,
     style: {},
     onTintColor: Styles.common.MHGreen,
     tintColor: OFF_COLOR,
-    disabled: false,
+    disabled: false
   }
   offsetX = new Animated.Value(0);
   constructor(props) {
     super(props);
     this.state = {
       value: this.props.value
-    }
+    };
     // 根据style的宽度计算出滚球的大小和间距
     const { width, height } = this.props.style;
     const backWidth = width || BACK_WIDTH;
@@ -61,17 +61,17 @@ export default class Switch extends React.Component {
     this.backStyle = {
       width: backWidth,
       height: backHeight,
-      borderRadius: backHeight / 2,
-    }
-    //滚球实际样式
+      borderRadius: backHeight / 2
+    };
+    // 滚球实际样式
     this.circleStyle = {
       margin,
       width: circleSize,
       height: circleSize,
-      borderRadius: circleSize / 2,
-    }
+      borderRadius: circleSize / 2
+    };
   }
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.value !== this.state.value) {
       this.setState({ value: newProps.value }, this.animated);
     }
@@ -85,7 +85,7 @@ export default class Switch extends React.Component {
           style={[styles.back, this.backStyle, { backgroundColor }]}
           disabled={this.props.disabled}
           activeOpacity={0.8}
-          onPress={_ => this._onValueChange()}
+          onPress={() => this._onValueChange()}
         >
           <Animated.View
             style={[styles.circle, this.circleStyle, { transform: [{ translateX: this.offsetX }] }]}
@@ -100,7 +100,7 @@ export default class Switch extends React.Component {
       {
         toValue,
         bounciness: 9,
-        speed: 9,
+        speed: 9
       }
     ).start();
   }
@@ -118,17 +118,17 @@ export default class Switch extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   back: {
     justifyContent: 'center',
     borderWidth: BORDER_WIDTH,
-    borderColor: BORDER_COLOR,
+    borderColor: BORDER_COLOR
   },
   circle: {
     position: 'absolute',
     borderWidth: BORDER_WIDTH,
     borderColor: BORDER_COLOR,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   }
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { Styles } from "../resources";
+import PropTypes from 'prop-types';
 /**
  * 分割线类型
  */
@@ -12,8 +13,8 @@ const TYPE = {
   /**
    * 纵向
    */
-  COLUMN: 'column',
-}
+  COLUMN: 'column'
+};
 /**
  * @export public
  * @doc_name 常用UI组件
@@ -27,6 +28,10 @@ const TYPE = {
  * @property {object} style - 自定义样式，maxHeight = 1
  */
 export default class Separator extends React.PureComponent {
+  static propTypes = {
+    type: PropTypes.string,
+    style: PropTypes.any
+  };
   static defaultProps = {
     type: TYPE.ROW
   }
@@ -43,10 +48,9 @@ export default class Separator extends React.PureComponent {
         backgroundColor: 'transparent',
         height: 1,
         justifyContent: 'center'
-      }
+      };
       separatorStyle = StyleSheet.flatten([Styles.common.separator, this.props.style, maxHeight]);
-    }
-    else {
+    } else {
       let maxWidth = {};
       if (this.props.style && this.props.style.width) {
         if (this.props.style.width > 1) {
@@ -57,7 +61,7 @@ export default class Separator extends React.PureComponent {
         backgroundColor: 'transparent',
         width: 1,
         alignItems: 'center'
-      }
+      };
       separatorStyle = StyleSheet.flatten([
         {
           width: StyleSheet.hairlineWidth,
@@ -74,6 +78,6 @@ export default class Separator extends React.PureComponent {
         </View>,
       ios:
         <View style={separatorStyle} />
-    })
+    });
   }
 }

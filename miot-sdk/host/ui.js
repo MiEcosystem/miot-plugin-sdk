@@ -16,18 +16,10 @@
  *
  */
 import Device from "../device/BasicDevice";
-import native from "../native";
-import { Entrance } from "../Package";
+import native, { isIOS, isAndroid } from "../native";
+// import { Entrance } from "../Package";
 // const resolveAssetSource = require('resolveAssetSource');
-const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
-// @native begin
-function resolveUrlWithLink(url) {
-  if (typeof url === 'string' && (/https?:\/\//i).test(url)) {
-    return native.isAndroid ? [{ uri: url }] : url;
-  }
-  return resolveUrl(url);
-}
-// @native end
+// const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 import ProtocolManager from '../utils/protocol-helper';
 // import { Entrance } from "../Package";
 import { report } from "../decorator/ReportDecorator";
@@ -53,6 +45,11 @@ class IUi {
   @report
   openDeleteDevice(title = null) {
   }
+  /**
+   * 打开分享设备的页面
+   */
+  @report
+  openShareDevicePage() {
   }
   /**
    * 是否保持屏幕常亮
@@ -242,7 +239,7 @@ class IUi {
   @report
   openDeviceTimeZoneSettingPage(params = null) {
     if (!params) {
-      params = { "sync_device": false }
+      params = { "sync_device": false };
     }
     native.MIOTHost.openDeviceTimeZoneSettingPage(params);
   }
@@ -568,7 +565,7 @@ class IUi {
    *  @since 10038
    */
   @report
-  openAndroidLocationServerSettingPage(){
+  openAndroidLocationServerSettingPage() {
   }
 }
 const UiInstance = new IUi();
