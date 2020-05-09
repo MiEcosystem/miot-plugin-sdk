@@ -634,7 +634,8 @@ export class BasicDevice {
      */
     @report
     readDeviceNetWorkInfo(did) {
-         return Promise.resolve([]);
+
+      return Promise.resolve([]);
     }
     /**
      * 父设备的 model,10023及其之后返回空字符串
