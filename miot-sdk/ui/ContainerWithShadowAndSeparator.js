@@ -109,7 +109,8 @@ const Styles = StyleSheet.create({
   },
   container: {
     borderRadius: adjustSize(30),
-    overflow: 'hidden'
+    overflow: 'hidden',
+    backgroundColor: '#fff'
   },
   containerHorizontal: {
     flexDirection: 'row'

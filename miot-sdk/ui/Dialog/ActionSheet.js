@@ -29,6 +29,7 @@ import AbstractDialog from './AbstractDialog';
  * @param {Opiton[]} options - 可点击的选项
  * @param {Button[]} buttons - 按钮数组，定义底部按钮的属性，只能显示1～2个按钮，多传将失效。默认左取消右确定，左灰右绿，点击回调都是隐藏 Modal
  * @param {function} onDismiss - Modal 隐藏时的回调函数
+ * @param {bool} canDismiss - 点击背景时是否隐藏，默认ture
  */
 export default class ActionSheet extends React.Component {
   static propTypes = {
@@ -37,9 +38,11 @@ export default class ActionSheet extends React.Component {
     options: PropTypes.arrayOf(PropTypes.object),
     buttons: PropTypes.arrayOf(PropTypes.object),
     onDismiss: PropTypes.func,
+    canDismiss: PropTypes.bool
   }
   static defaultProps = {
-    options: []
+    options: [],
+    canDismiss: true
   }
   componentWillReceiveProps(newProps) {
     if (newProps.visible !== this.state.visible) {
@@ -60,6 +63,7 @@ export default class ActionSheet extends React.Component {
         showTitle={false}
         buttons={this.props.buttons}
         onDismiss={_ => this._onDismiss()}
+        canDismiss={this.props.canDismiss}
       >
         {this.props.options.map((option, index) => {
           return (

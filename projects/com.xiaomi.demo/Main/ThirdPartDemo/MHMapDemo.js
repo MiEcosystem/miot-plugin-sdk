@@ -97,6 +97,7 @@ export default class MHMapDemo extends React.Component {
           userTrackingMode='follow'
           showsCompass={false}
           showsScale={false}
+          zoomEnabled={false}
           userLocationRepresentation={this.state.userLocationRepresentation}
           annotations={this.state.annotations}
           onSingleTappedAtCoordinate={this._onSingleTappedAtCoordinate.bind(this)}

@@ -69,6 +69,7 @@ export default class FileStorage extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView
+          style={{backgroundColor: '#ffffff'}}
           ref="myScrollView"
         >
           <View style={[styles.row, { marginTop: 10 }]}>
@@ -137,6 +138,12 @@ export default class FileStorage extends React.Component {
           </View>
 
           <View style={styles.row}>
+          <View style={{ flex: 1 }}>
+              <Button
+                title="上传文件"
+                onPress={() => this._uploadFile()}
+              />
+            </View>
             <View style={{ flex: 1 }}>
               <Button
                 title="上传FDS文件"
@@ -207,6 +214,12 @@ export default class FileStorage extends React.Component {
                 onPress={() => this._screenShotAndSaveToPhotosAlbum()}
               />
             </View>
+            <View style={{ flex: 1 }}>
+              <Button
+                title="保存文件到相册"
+                onPress={() => this._saveFileToPhotosAlbum()}
+              />
+            </View>
           </View>
 
 
@@ -216,7 +229,7 @@ export default class FileStorage extends React.Component {
               <View style={{ height: 1 / PixelRatio.get(), backgroundColor: '#666' }} />
               <FlatList
                 data={this.state.dataSource}
-                renderItem={({ item }) => this._renderFileList(item.name)}
+                renderItem={({ item }) => this._renderFileList(item)}
               />
             </View>
 
@@ -245,12 +258,13 @@ export default class FileStorage extends React.Component {
   }
 
   _renderFileList(item) {
+    let info = item.name+'  \nsize:'+item.size;
     return (
       <View>
         <TouchableHighlight
-          style={[styles.row, { height: 30 }]}
+          style={[styles.row, { height: 40 }]}
         >
-          <Text style={[{ color: '#333333' }, this.fontFamily]}>{item}</Text>
+          <Text style={[{ color: '#333333' }, this.fontFamily]}>{info}</Text>
         </TouchableHighlight>
         <View style={{ height: 1 / PixelRatio.get(), backgroundColor: '#666' }} />
       </View>
@@ -427,6 +441,24 @@ export default class FileStorage extends React.Component {
       });
   }
 
+  // 保存文件到相册
+  _saveFileToPhotosAlbum() {
+
+    let url = 'http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_mp4_855379f77b74ca565e8ef7d68c08264c.mp4';
+
+    let fileName = "file" + new Date().getTime() + ".mp4";
+    Host.file.downloadFile(url, fileName).then((res)=>{
+      this._readFileList();
+      Host.file.saveFileToPhotosAlbum(fileName).then(()=>{
+        alert(fileName + " 已保存到系统相册");
+      }).catch((result)=>{
+        alert(result);
+      })
+    }).catch((error)=>{
+      alert(JSON.stringify(error));
+    })
+  }
+
   _fetchFDSFile() {
     let did = Device.deviceID;
     let suffix = "mp3";
@@ -444,7 +476,7 @@ export default class FileStorage extends React.Component {
 
   }
 
-  _uploadFDSFile() {
+  __generateUploadInfo(complete) {
     let did = Device.deviceID;
     let suffix = "mp3";
     Host.file.generateObjNameAndUrlForFDSUpload(did, suffix).then(res => {
@@ -452,33 +484,71 @@ export default class FileStorage extends React.Component {
         let obj = res[suffix];
         let obj_name = obj.obj_name;
         let name = obj_name.substring(obj_name.length - 22)
-        let content = "AC";
+        let content = "this is sample content 这是个示例内容 😄💻";
         let time = obj.time;
         this.file_obj_name = obj_name;
         console.log("pre upload", res)
-
         Host.file.writeFile(name, content).then(r => {
-          let param = {
-            uploadUrl: obj.url,
-            method: obj.method,
-            headers: { "Content-Type": "" },
-            files: [{ filename: name }]
-          }
-          Host.file.uploadFileToFDS(param).then(rr => {
-            alert('上传成功' + JSON.stringify(rr))
-            console.log('upload file success', rr)
-          }).catch(err => {
-            alert('上传失败' + JSON.stringify(err))
-            console.log('upload file failed', err)
-          })
+          complete([true, {url: obj.url, method: obj.method, fileName: name}])
         }).catch(err => {
           alert('存储临时文件失败' + JSON.stringify(err))
           console.log("write file failed", err)
+          complete([false, err])
         })
+      } else {
+        complete([false, {}])
       }
     }).catch((error) => {
       console.log(error);
       alert(JSON.stringify(error))
+      complete([false, error])
+    })
+  }
+
+  _uploadFDSFile() {
+    this.__generateUploadInfo(([isSuccess, obj]) => {
+      if (isSuccess) {
+        let param = {
+          uploadUrl: obj.url,
+          method: obj.method,
+          headers: { "Content-Type": "" },
+          files: [{ filename: obj.fileName }]
+        }
+        Host.file.uploadFileToFDS(param).then(rr => {
+          alert('上传成功' + JSON.stringify(rr))
+          console.log('upload file success', rr)
+        }).catch(err => {
+          alert('上传失败' + JSON.stringify(err))
+          console.log('upload file failed', err)
+        })
+      } else {
+        alert(obj)
+      }
+    })
+  }
+
+  _uploadFile() {
+    this.__generateUploadInfo(([isSuccess, obj]) => {
+      if (isSuccess) {
+        let param = {
+          uploadUrl: obj.url,
+          method: obj.method,
+          headers: { "Content-Type": "" },
+          files: [{
+            filename: obj.fileName,
+            range: { start: 2, length: 10 },
+          }]
+        }
+        Host.file.uploadFile(param).then(rr => {
+          alert('上传成功' + JSON.stringify(rr))
+          console.log('upload file success', rr)
+        }).catch(err => {
+          alert('上传失败' + JSON.stringify(err))
+          console.log('upload file failed', err)
+        })
+      } else {
+        alert(obj)
+      }
     })
   }
 

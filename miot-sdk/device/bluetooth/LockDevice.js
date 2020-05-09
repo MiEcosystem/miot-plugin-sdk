@@ -5,7 +5,7 @@
  * @doc_directory bluetooth
  * @module miot/device/bluetooth
  * @description 蓝牙锁操作类
- * 蓝牙锁的开发，详见：https://iot.mi.com/new/doc/05-%E7%B1%B3%E5%AE%B6%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/04-%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/03-%E6%8C%89%E8%AE%BE%E5%A4%87/02-%E8%93%9D%E7%89%99%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/02-%E8%93%9D%E7%89%99%E8%AE%BE%E5%A4%87%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97.html 中的蓝牙锁部分。
+ * 蓝牙锁的开发，详见：https://iot.mi.com/new/doc/05-%E7%B1%B3%E5%AE%B6%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/04-%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/03-%E6%8C%89%E8%AE%BE%E5%A4%87/02-%E8%93%9D%E7%89%99%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/02-%E8%93%9D%E7%89%99%E8%AE%BE%E5%A4%87%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97.html 中的蓝牙锁部分。  
  * 本文件主要提供了蓝牙锁的开关锁，蓝牙锁密钥的分享，获取一次性开锁密钥，锁相关数据加解密等功能
  * 
  * @example
@@ -28,6 +28,7 @@
  *
  */
 import native, { Properties } from '../../native';
+import {report} from "../../decorator/ReportDecorator";
 /**
  * 蓝牙锁相关
  * @interface
@@ -52,21 +53,9 @@ export default class IBluetoothLock {
      *      resolve：hex string
      *      reject：{code: xxx, message: xxx} 1：设备正在切换中 2：加密失败 3：找不到服务 4：超时
      */
+    @report
     toggle(cmd, timeout) {
-        //@native :=> promise
-        //@mark andr done
-        //@mark iOS done
-        return new Promise((resolve, reject) => {
-            const { fakemac } = Properties.of(this);
-            native.MIOTBluetooth.toggleLockXiaoMiBLE(fakemac.id, cmd, timeout, (ok, result) => {
-                if (ok) {
-                    resolve(result);
-                    return;
-                }
-                reject(result);
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     }
     /**
      * 支持小米加密芯片的蓝牙设备，在被分享的设备中，调用此方法，可判断分享的电子钥匙是否有效。**设备owner调用此方法会走reject**
@@ -82,21 +71,9 @@ export default class IBluetoothLock {
      *      resolve：null
      *      reject：null
      */
+    @report
     isShareKeyValid() {
-        //@native :=> promise
-        //@mark andr done
-        //@mark iOS done
-        return new Promise((resolve, reject) => {
-            const { fakemac } = Properties.of(this);
-            native.MIOTBluetooth.isShareSecureKeyValid(fakemac.id, (ok, result) => {
-                if (ok) {
-                    resolve(result);
-                    return;
-                }
-                reject(result);
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     }
     /**
      * 支持小米加密芯片的蓝牙设备，获取一次性密码组。 **设备owner调用此方法才有效**
@@ -118,21 +95,9 @@ export default class IBluetoothLock {
      *      resolve：int[8],意思是生成8个一次性密码，每个密码的长度等于digits。比如 [123456,234567,....]
      *      reject：{code: xxx, message:xxx} 1:设备owner才可调用  2:参数不正确  3:生成的密码长度不对  4:网络错误
      */
+    @report
     getOneTimePassword(interval, digits) {
-        //@native :=> promise
-        //@mark andr done
-        //@mark iOS  done
-        return new Promise((resolve, reject) => {
-            const { fakemac } = Properties.of(this);
-            native.MIOTBluetooth.oneTimePassword(fakemac.id, interval, digits, (ok, passwds) => {
-                if (ok) {
-                    resolve(passwds);
-                    return;
-                }
-                reject(passwds);
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     }
     /**
      * 支持小米加密芯片的蓝牙设备，使用此方法将明文加密为密文后，可发送给设备。然后小米加密芯片会解密，设备端可以直接拿到解密后的数据。
@@ -149,21 +114,9 @@ export default class IBluetoothLock {
      *      resolve: 加密后的string
      *      reject：{code: xxx, message: xxx} 1:必须是16进制字符串  2:设备未绑定  3:加密出错  
      */
+    @report
     encryptMessage(message) {
-        //@native :=> promise
-        //@mark andr done
-        //@mark iOS  done
-        return new Promise((resolve, reject) => {
-            const { fakemac } = Properties.of(this);
-            native.MIOTBluetooth.encryptMessageXiaoMiBLE(fakemac.id, message, (ok, encrypted) => {
-                if (ok) {
-                    resolve(encrypted);
-                    return;
-                }
-                reject(encrypted);
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     }
     /**
      * 支持小米加密芯片的蓝牙设备，使用此方法将密文解密为明文
@@ -180,21 +133,9 @@ export default class IBluetoothLock {
      *      resolve：解密后的string
      *      reject：{code: xxx, message: xxx}  1:必须是16进制字符串  2:设备未绑定 3:解密出错
      */
+    @report
     decryptMessage(encrypted) {
-        //@native :=> promise
-        //@mark andr done
-        //@mark iOS  done
-        return new Promise((resolve, reject) => {
-            const { fakemac } = Properties.of(this);
-            native.MIOTBluetooth.decryptMessageXiaoMiBLE(fakemac.id, encrypted, (ok, message) => {
-                if (ok) {
-                    resolve(message);
-                    return;
-                }
-                reject(message);
-            });
-        });
-        //@native end
+         return Promise.resolve(null);
     }
     /**
      * 使用设备的token加密指定数据
@@ -204,20 +145,9 @@ export default class IBluetoothLock {
      *      resolve：{"result": :"encripted string"} result字段即为加密后的string
      *      reject：{code: xxx, message: xxx} 1:必须16进制字符串  2:获取device token 失败  3:加密失败
      */
+    @report
     encryptMessageWithToken(data) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            const { fakemac } = Properties.of(this);
-            native.MIOTBluetooth.miotBleEncrypt(fakemac.id, data, (ok, res) => {
-                console.log("res", res)
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
+         return Promise.resolve(null);
     }
     /**
      * 使用设备的token解密指定数据
@@ -227,18 +157,8 @@ export default class IBluetoothLock {
      *      resolve：{"result": :"encripted string"} result字段即为解密后的string
      *      reject：{code: xxx, message: xxx} 1:必须16进制字符串  2:获取device token 失败  3:解密失败
      */
+    @report
     decryptMessageWithToken(data) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            const { fakemac } = Properties.of(this);
-            native.MIOTBluetooth.miotBleDecrypt(fakemac.id, data, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
+         return Promise.resolve(null);
     }
 }

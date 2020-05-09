@@ -32,8 +32,8 @@ export default class CardButton extends PureComponent {
     hasShadow: true
   };
   onPress = () => {
-    let {onPress} = this.props;
-    if(typeof onPress === 'function') {
+    let {disabled, onPress} = this.props;
+    if(typeof onPress === 'function' && !disabled) {
       onPress();
     }
   }
@@ -48,7 +48,7 @@ export default class CardButton extends PureComponent {
       <Wrap>
         <TouchableHighlight style={[Styles.container, containerStyle, themeBackgroundColor ? {
           backgroundColor: themeBackgroundColor
-        } : null]} underlayColor={(disabled || !onPress) ? null : underlayColor} onPress={this.onPress}>
+        } : null]} underlayColor={(disabled || !onPress) ? (themeBackgroundColor || '#fff') : underlayColor} onPress={this.onPress}>
           <Fragment>
             {icon || iconText ? (
               <View style={[Styles.iconContainer, iconContainerStyle, {

@@ -17,8 +17,6 @@
  * });
  */
 //import Device ,{_find_device} from './../Device'
-//@native
-import native from './../native'; // {Properties, buildEvents}
 const SET = "/miotspec/prop/set";
 const GET = "/miotspec/prop/get";
 const ACTION = "/miotspec/action";
@@ -711,24 +709,19 @@ export default {
      * 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
      * code 具体表示什么意思可以查看： https://iot.mi.com/new/doc/05-米家扩展程序开发指南/05-功能接口/06-MIOT-Spec.html
      * @param {Array}  params [{did: 1, siid: 1, piid: 1},{did: 1, siid:2, piid: 3},……]
+     * @param {int} datasource 从10036开始增加datasource:
+     * datasource=1  优先从缓存读取，没有读取到下发rpc
+     * datasource=2  直接下发rpc
+     * datasource=3  直接读缓存;没有缓存的 code 是 -70xxxx
+     * 后台的默认策略是datasource=3
      * @return {Promise<JSON>}
      * 成功时分两种情况：
      * 获取设备属性成功时： [{"did":"xxx","siid":x,"piid":x,"code":0，value: xxx },……]
      * 获取设备属性失败时： [{"did":"xxx","siid":x,"piid":x,"code":xxx},……]
      * 失败时：{code:xxx, message:xxx}
      */
-    getPropertiesValue(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall(GET, { 'params': params }, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
+    getPropertiesValue(params,datasource = 1) {
+         return Promise.resolve(null);
     },
     /**
      * 请求设置设备的属性值，由于是发起网络请求，数据的正确性可以通过抓包来查看；
@@ -742,17 +735,7 @@ export default {
      * 失败时：{code:xxx, message:xxx}
      */
     setPropertiesValue(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall(SET, { 'params': params }, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
+         return Promise.resolve(null);
     },
     /**
      * 请求调用设备的方法,由于是发起网络请求，数据的正确性可以通过抓包来查看；
@@ -766,17 +749,7 @@ export default {
      * 失败时：{code:xxx, message:xxx}
      */
     doAction(params) {
-        //@native :=> promise
-        return new Promise((resolve, reject) => {
-            native.MIOTRPC.standardCall(ACTION, { 'params': params }, (ok, res) => {
-                if (ok) {
-                    resolve(res);
-                } else {
-                    reject(res);
-                }
-            })
-        })
-        //@native end
+         return Promise.resolve(null);
     },
     /**
      * 获取设备的spec详情, 由于是发起网络请求，数据的正确性可以通过抓包来查看；

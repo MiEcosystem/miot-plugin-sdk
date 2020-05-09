@@ -82,6 +82,12 @@ export default class HostDemo extends React.Component {
         }
       },
       {
+        'name': '相册相关-PhotoDemo',
+        'func': () => {
+          this.props.navigation.navigate('PhotoDemo', { title: '相册相关-PhotoDemo' })
+        }
+      },
+      {
         "name": '创建独立js线程',
         'func': () => {
           this.props.navigation.navigate('JSExecutor', { title: "创建独立js线程" })
@@ -94,6 +100,11 @@ export default class HostDemo extends React.Component {
             console.log(res);
             alert(JSON.stringify(res));
           })
+        }
+      }, {
+        "name": '打开WebView',
+        'func': () => {
+          Host.ui.openWebPage("https://home.mi.com/views/article.html?articleId=684095286000000001");
         }
       }
     ];

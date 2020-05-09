@@ -93,7 +93,7 @@ export default class CircleButton extends Component {
         {title ? (
           <Text style={StyleSheet.flatten([Styles.title, selected ? {
             color: themeColor || ColorGreen
-          } : null, disabled ? Styles.titleDisabled : null, horizontal ? Styles.titleHorizontal : null])} numberOfLines={2}>{title}</Text>
+          } : null, disabled ? Styles.titleDisabled : null, horizontal ? Styles.titleHorizontal : null])} numberOfLines={horizontal ? 2 : 1}>{title}</Text>
         ) : null}
       </View>
     );

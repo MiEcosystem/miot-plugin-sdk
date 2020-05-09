@@ -8,7 +8,7 @@ export default class ProtocolManager {
   static getLegalAuthInfoProtocol() {
     return new Promise((resolve, reject) => {
       let { model } = Device;
-      let plugin_id = native.MIOTPackage.packageID;
+      let plugin_id = native.MIOTPackage.pluginID;
       let plugin_version = native.MIOTPackage.version;
       let language = native.language;
       Service.getServerName().then(({ countryCode: country }) => {

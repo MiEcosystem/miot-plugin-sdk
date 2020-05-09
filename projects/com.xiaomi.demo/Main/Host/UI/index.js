@@ -1,12 +1,14 @@
 'use strict';
 
-import { Device, Host } from "miot";
+import { Device, Host, DeviceEvent } from "miot";
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
-import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import {
+ ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View 
+} from 'react-native';
 var BUTTONS = [
     '测试对话框',
-    '确定',
+    '确定'
 ];
 
 export default class UIDemo extends React.Component {
@@ -14,19 +16,28 @@ export default class UIDemo extends React.Component {
     static navigationOptions = ({ navigation }) => {
         return {
             header: <TitleBar type='dark' title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
-                onPressLeft={() => { navigation.goBack(); }} />,
+                onPressLeft={() => {
+ navigation.goBack(); 
+}} />
         };
     };
 
     constructor(props) {
         super(props);
-        var ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
-        });
+        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this._createMenuData();
-        this.state = {
-            dataSource: ds.cloneWithRows(this._menuData.map((o) => ({ 'name': o.name, 'subtitle': o.subtitle }))),
-        };
+        this.state = {dataSource: ds.cloneWithRows(this._menuData.map(o => ({ 'name': o.name, 'subtitle': o.subtitle })))};
+    }
+
+    componentDidMount() {
+        this._multiSwitchNameChangedListener = DeviceEvent.multiSwitchNameChanged.addListener((value, did) => {
+            console.log('switch name changed: ' + JSON.stringify(value), 'did: ', did);
+            alert(JSON.stringify(value))
+        });
+    }
+
+    componentWillUnmount() {
+        this._multiSwitchNameChangedListener && this._multiSwitchNameChangedListener.remove();
     }
 
     _createMenuData() {
@@ -42,9 +53,9 @@ export default class UIDemo extends React.Component {
                 'name': '是否支持商城',
                 'subtitle': 'canOpenStorePage',
                 'func': () => {
-                    Host.ui.canOpenStorePage().then((isSupport) => {
+                    Host.ui.canOpenStorePage().then(isSupport => {
                         alert("是否支持商城: " + isSupport)
-                    }).catch((error) => {
+                    }).catch(error => {
                         console.log(error)
                     });
                 }
@@ -61,8 +72,12 @@ export default class UIDemo extends React.Component {
                 'subtitle': 'openDeleteDeviceWithCallback',
                 'func': () => {
                     Host.ui.openDeleteDeviceWithCallback()
-                        .then((res) => { console.log(res) })
-                        .catch((err) => { console.log(err) });
+                        .then(res => {
+ console.log(res) 
+})
+                        .catch(err => {
+ console.log(err) 
+});
                 }
             },
             {
@@ -141,14 +156,22 @@ export default class UIDemo extends React.Component {
                 }
             },
             {
+                'name': '打开系统分享文件页面',
+                'subtitle': 'openSystemShareWindow',
+                'func': () => {
+                    const path = Host.file.storageBasePath+'/test.wav';
+                    Host.ui.openSystemShareWindow(path);
+                }
+            },
+            {
                 'name': '获取设备列表中指定model的设备信息',
                 'subtitle': 'getDevicesWithModel',
                 'func': () => {
                     Host.ui.getDevicesWithModel(Device.model)
-                        .then((res) => {
+                        .then(res => {
                             alert("success" + JSON.stringify(res));
                         })
-                        .catch((err) => {
+                        .catch(err => {
                             alert("err " + err);
                         });
                 }
@@ -172,7 +195,7 @@ export default class UIDemo extends React.Component {
                     options.experiencePlanURL = licenseURL;
                     options.hideAgreement = false;
                     options.hideUserExperiencePlan = false;
-                    Host.ui.alertLegalInformationAuthorization(options).then((res) => {
+                    Host.ui.alertLegalInformationAuthorization(options).then(res => {
                         alert('成功');
                     }).catch(() => {
                         alert('失败，可能是设备已离线');
@@ -191,7 +214,7 @@ export default class UIDemo extends React.Component {
                     options.experiencePlanURL = licenseURL;
                     options.hideAgreement = false
                     options.hideUserExperiencePlan = false;
-                    Host.ui.previewLegalInformationAuthorization(options).then((res) => {
+                    Host.ui.previewLegalInformationAuthorization(options).then(res => {
                         alert('成功');
                     }).catch(() => {
                         alert('失败，可能是设备已离线');
@@ -245,6 +268,14 @@ export default class UIDemo extends React.Component {
                 'subtitle': 'openDeviceTimeZoneSettingPage  {"sync_device": false} ',
                 'func': () => {
                     Host.ui.openDeviceTimeZoneSettingPage({ "sync_device": false });
+                }
+            },
+            {
+                'name': '打开网关设备产品百科页面',
+                'subtitle': 'openProductBaikeWebPage 网关设备',
+                'func': () => {
+                    let url = 'https://home.mi.com/baike/index.html#/label/gateway';
+                    Host.ui.openProductBaikeWebPage(url);
                 }
             },
             {
@@ -314,7 +345,7 @@ export default class UIDemo extends React.Component {
                         bothTimerMustBeSet: false,
                         showOnTimerType: true,
                         showOffTimerType: false,
-                        showPeriodTimerType: false,
+                        showPeriodTimerType: false
                     }
                     Host.ui.openTimerSettingPageWithOptions(params);
                 }
@@ -383,11 +414,11 @@ export default class UIDemo extends React.Component {
                         action: 'issue_mifare',
                         type: '1',
                         product_id: '66666-00211',
-                        source_channel: 'mijia',
+                        source_channel: 'mijia'
                     };
-                    Host.ui.openMiPayPageForAndroid(params).then((res) => {
+                    Host.ui.openMiPayPageForAndroid(params).then(res => {
                         console.log(res)
-                    }).catch((error) => {
+                    }).catch(error => {
                         console.log(error)
                     });
                 }
@@ -398,14 +429,15 @@ export default class UIDemo extends React.Component {
                 'func': () => {
                     // TODO ios返回了带code的res，待anroid确认是不是统一
                     // recommendId 通过 Device.getRecommendScenes(Device.model, Device.deviceID).then 来获取
-                    Device.getRecommendScenes(Device.model, Device.deviceID).then((res) => {
+                    Device.getRecommendScenes(Device.model, Device.deviceID).then(res => {
                         if (res.scene_recom && res.scene_recom.length > 0 && res.scene_recom[0] && res.scene_recom[0].info) {
                             console.log("res", res.scene_recom[0].info.sr_id);
                             Host.ui.openPluginRecommendScene(Device.deviceID, parseInt(res.scene_recom[0].info.sr_id));
-                        } else {
+                        }
+ else {
                             alert('res: ' + JSON.stringify(res));
                         }
-                    }).catch((error) => {
+                    }).catch(error => {
                         alert('error: ' + error);
                     })
                 }
@@ -414,9 +446,9 @@ export default class UIDemo extends React.Component {
                 'name': '刷新设备列表',
                 'subtitle': 'refreshDeviceList',
                 'func': () => {
-                    Host.ui.refreshDeviceList().then((res) => {
+                    Host.ui.refreshDeviceList().then(res => {
                         alert(res)
-                    }).catch((error) => {
+                    }).catch(error => {
                         alert(JSON.stringify(error))
                     })
                 }
@@ -428,6 +460,20 @@ export default class UIDemo extends React.Component {
                     Host.ui.openNewMorePage();
                 }
             },
+            {
+                'name': 'openTerminalDeviceSettingPage',
+                'subtitle': '打开手机设置页中米家app配置页面',
+                'func': () => {
+                    Host.ui.openTerminalDeviceSettingPage(1);
+                }
+            },
+            {
+                'name': 'openTerminalDeviceSettingPage',
+                'subtitle': '打开手机WiFi设置页面',
+                'func': () => {
+                    Host.ui.openTerminalDeviceSettingPage(2);
+                }
+            }
         ];
     }
 
@@ -465,13 +511,14 @@ export default class UIDemo extends React.Component {
         if (Host.isIOS)
             ActionSheetIOS.showActionSheetWithOptions({
                 options: BUTTONS,
-                destructiveButtonIndex: 1,
+                destructiveButtonIndex: 1
             },
-                (buttonIndex) => {
+                buttonIndex => {
 
                 });
     }
-};
+
+}
 
 var styles = StyleSheet.create({
     container: {
@@ -483,7 +530,7 @@ var styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#ffffff',
         marginBottom: 0,
-        marginTop: 0,
+        marginTop: 0
     },
 
     rowContainer: {
@@ -493,29 +540,29 @@ var styles = StyleSheet.create({
         paddingLeft: 23,
         paddingRight: 23,
         alignItems: 'center',
-        flex: 1,
+        flex: 1
     },
     list: {
         alignSelf: 'stretch',
-        marginBottom: 20,
+        marginBottom: 20
     },
     title: {
         fontSize: 15,
         color: '#333333',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     subtitle: {
         fontSize: 12,
         color: '#666666',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     subArrow: {
         width: 7,
-        height: 14,
+        height: 14
     },
     separator: {
         height: 1 / PixelRatio.get(),
         backgroundColor: '#e5e5e5',
-        marginLeft: 20,
+        marginLeft: 20
     }
 });

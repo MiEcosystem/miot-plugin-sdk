@@ -181,30 +181,7 @@ export default class AMapView extends Component {
         ...ViewPropTypes,
     };
     render() {
-        //@native :=> null
-        let propsObject = JSON.parse(JSON.stringify(this.props));
-        console.log("AMapView reslove  begin...", propsObject);
-        if (propsObject.userLocation) {
-            propsObject.userLocation.image = AMapView.resloveUri(propsObject.userLocation.image);
-        }
-        if (propsObject.userLocationRepresentation) {
-            propsObject.userLocationRepresentation.image = AMapView.resloveUri(propsObject.userLocationRepresentation.image);
-        }
-        if (propsObject.annotations && Array.isArray(propsObject.annotations)) {
-            propsObject.annotations.forEach(item => {
-                item.image = AMapView.resloveUri(item.image)
-            });
-        }
-        if (Host.isDebug) {
-            console.log("AMapView reslove  end...", propsObject);
-        }
-        return <MapView {...this.props}
-            userLocation={propsObject.userLocation}
-            userLocationRepresentation={propsObject.userLocationRepresentation}
-            annotations={propsObject.annotations}
-            centerCoordinate={propsObject.centerCoordinate}
-        />;
-        //@native end
+         return null
     }
     static resloveUri(licenseUrl) {
         licenseUrl = resolveAssetSource(licenseUrl);

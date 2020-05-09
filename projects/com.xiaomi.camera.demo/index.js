@@ -3,6 +3,7 @@ import TitleBar from 'miot/ui/TitleBar';
 import { DeviceEventEmitter, Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import MainPage from './MainPage';
+import RTSPPage from './RTSPPage';
 import { Package } from 'miot';
 import th from 'miot/resources/strings/th';
 
@@ -48,9 +49,12 @@ export default class App extends React.Component {
 }
 
 const NaviApp = createStackNavigator({
-    MainPage: { screen: MainPage }
+  RTSPPage: { 
+        // screen: MainPage
+        screen: RTSPPage
+    }
 },{
-    initialRouteName: 'MainPage',
+    initialRouteName: 'RTSPPage',
     navigationOptions: ({ navigation }) => {
         if (navigation.state.params && navigation.state.params.show) {
             return { header: null }
@@ -62,7 +66,8 @@ const NaviApp = createStackNavigator({
                     type={navigation.state.params ? navigation.state.params.type : 'dark'}
                     style={navigation.state.params? navigation.state.params.style : {backgroundColor: 'white'}}
                     onPressLeft={() => {
-                        navigation.pop();
+                        //navigation.pop();
+                        Package.exit();
                     }} 
                     onPressRight={navigation.state.params? navigation.state.params.onPressRight : null}
                     />

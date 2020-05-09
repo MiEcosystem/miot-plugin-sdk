@@ -34,6 +34,7 @@ import SoftKeyboardAdapterTestDemo from './UIComponent/SoftKeyboardAdapterTestDe
 
 // ul
 import TitleBarDemo from "./tutorial/TitleBarDemo";  //  ui-导航栏使用
+import TabBarDemo from "./tutorial/TabBarDemo";  //  ui-导航栏使用
 import List from "./UIComponent/List";  // ui-自定义列表项
 import CardPage from "./UIComponent/CardPage"; // ui-自定义列卡片
 import IndependentCardDemo from "./UIComponent/IndependentCardDemo"; // ui - 独立卡片
@@ -84,6 +85,7 @@ import DeviceDemo from "./Device/DeviceDemo";
 import HostDemo from "./Host";
 import HostEventDemo from "./Host/HostEventDemo";
 import FileDemo from './Host/FileDemo';
+import PhotoDemo from './Host/PhotoDemo';
 import HostPropsInfoDemo from './Host/HostPropsInfoDemo';
 import FileStorage from './Host/File';
 import StorageDemo from './Host/Storage';
@@ -117,6 +119,7 @@ import MiotSpecDemo from './Service/MiotSpecDemo';
 import MHRoomDemo from "./Service/RoomDemo";
 import MHSceneDemo from "./Service/SceneDemo";
 import AccountDemo from './Service/AccountDemo';
+import KookongDemo from './Service/KookongDemo';
 import CallSmartHomeAPIDemo from './Service/smarthome';
 import CloudStorageDemo from './Service/CloudStorageDemo';
 
@@ -202,6 +205,7 @@ function createRootStack(initPage) {
     UIDemo,
     SoftKeyboardAdapterTestDemo: SoftKeyboardAdapterTestDemo,
     TitleBarDemo,
+    TabBarDemo,
     List,
     CardPage,
     IndependentCardDemo,
@@ -368,11 +372,13 @@ function createRootStack(initPage) {
     DeviceDemo: DeviceDemo,
     PackageDemo: PackageDemo,
     AccountDemo: AccountDemo,
+    KookongDemo: KookongDemo,
     CloudStorageDemo: CloudStorageDemo,
     ControlDemo: ControlDemo,
     KVStorageDemo: KVStorageDemo,
     fileStorage: FileStorage,
     FileDemo: FileDemo,
+    PhotoDemo: PhotoDemo,
     callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
     MiotSpecDemo: MiotSpecDemo,
     RPCControl: RPCControl,

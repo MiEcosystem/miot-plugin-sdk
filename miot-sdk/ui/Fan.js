@@ -1,11 +1,12 @@
 import React, {PureComponent, Component} from 'react';
 import {StyleSheet, View, Animated, Easing} from 'react-native';
-import {Svg, Defs, LinearGradient, Stop, Path, Ellipse} from 'react-native-svg';
+import {Svg, Defs, LinearGradient, Stop, Path, Ellipse, ClipPath} from 'react-native-svg';
 import PropTypes from 'prop-types';
 import {adjustSize} from '../utils/sizes';
 const Size708 = adjustSize(708);
 function getCircleCenter(type, index) {
   switch(type) {
+    case 0:
     case 1:
       return {
         x: 0,
@@ -21,6 +22,7 @@ function getCircleCenter(type, index) {
         x: ([2, -2, -1, 0])[index] || 0,
         y: 0
       };
+    case -1:
     default:
       return {
         x: 0,
@@ -41,7 +43,20 @@ function getCircleColors(type, index) {
     case 4:
       return ([['#5067F9'], ['#5067F9', '#589BFB'], ['#2240F7'], ['#F7F7F7']])[index] || '#5067F9';
     default:
-      return ([['#475154'], ['#475154', '#4A5867'], ['#2D3947'], ['#F7F7F7']])[index] || '#475154';
+      return ([['#FFFFFF'], ['#FFFFFF', '#FFFFFF'], ['#FFFFFF'], ['#F7F7F7']])[index] || '#FFFFFF';
+  }
+}
+function getCircleOpacity(type, index) {
+  switch(type) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+      return ([0.2, 1, 1, 1])[index] || 1;
+    case -1:
+    default:
+      return ([0.2, 0.6, 1, 1])[index] || 1;
   }
 }
 class Circle extends Component {
@@ -101,12 +116,21 @@ class Circle extends Component {
     this.stopRotation();
   }
   render() {
-    let {color, opacity, rx, ry, center, initRotation, counterClock} = this.props;
+    let {color, opacity, rx, ry, center: {x, y}, initRotation, counterClock, centerInner: {x: ix, y: iy}, rxInner, ryInner} = this.props;
     let {rotation} = this.state;
     let r = rotation.interpolate({
       inputRange: [0, 1],
       outputRange: !counterClock ? ['0deg', '360deg'] : ['360deg', '0deg']
     });
+    let d = `
+      M${118 + x - rx} ${118 + y}
+      A${rx} ${ry} 0 0 1 ${118 + x + rx} ${118 + y}
+      L${118 + ix + rxInner} ${118 + iy}
+      A${rxInner} ${ryInner} 0 0 0 ${118 + ix - rxInner} ${118 + iy}
+      A${rxInner} ${ryInner} 0 0 0 ${118 + ix + rxInner} ${118 + iy}
+      L${118 + x + rx} ${118 + y}
+      A${rx} ${ry} 0 0 1 ${118 + x - rx} ${118 + y}
+    `;
     return (
       <Animated.View style={[Styles.circleWrap, {
         transform: [{
@@ -120,15 +144,7 @@ class Circle extends Component {
               <Stop offset="1" stopColor={color[0]} stopOpacity={opacity} />
             </LinearGradient>
           </Defs>
-          <Ellipse
-            rotation={initRotation}
-            origin={118, 118}
-            cx={118 + center.x}
-            cy={118 + center.y}
-            rx={rx}
-            ry={ry}
-            fill="url(#circleGradient)"
-          />
+          <Path rotation={0} origin={118, 118} d={d} fill="url(#circleGradient)" />
         </Svg>
       </Animated.View>
     );
@@ -137,26 +153,31 @@ class Circle extends Component {
 export default class Fan extends Component {
   static propTypes = {
     disabled: PropTypes.bool,
+    // 默认情况下，disable时为黑色，当此值为true时，可以在暂停动画的基础上，使用type对应的颜色
+    noDisableColor: PropTypes.bool,
     speedLevel: PropTypes.number,
-    // 直吹风/自然风/睡眠风/自动
-    type: PropTypes.oneOf([1, 2, 3, 4]),
+    // 白色/关闭/直吹风/自然风/睡眠风/自动
+    type: PropTypes.oneOf([-1, 0, 1, 2, 3, 4]),
     // 中心颜色一定要填，因为根据ui动效分解图，用多个圆叠加起来实现，中心会有外层圆的颜色
-    centerColor: PropTypes.any
+    // 20/02/18优化逻辑，可以去掉此参数
+    // centerColor: PropTypes.any
   };
   static defaultProps = {
     disabled: false,
+    noDisableColor: false,
     speedLevel: 1,
-    type: 1,
-    centerColor: '#F7F7F7'
+    type: -1
   };
   render() {
-    let {disabled, type, speedLevel, centerColor} = this.props;
+    let {disabled, type, speedLevel, noDisableColor} = this.props;
+    let centerInner = getCircleCenter(type, 3);
+    let rxInner = 91;
+    let ryInner = 91;
     return (
       <View style={Styles.container}>
-        <Circle disabled={disabled} initRotation={-15} counterClock={true} opacity={0.2} color={getCircleColors(disabled ? 0 : type, 0)} duration={6000 / speedLevel} type={type} rx={113} ry={107} center={getCircleCenter(type, 0)} />
-        <Circle disabled={disabled} initRotation={0} counterClock={false} opacity={1} color={getCircleColors(disabled ? 0 : type, 1)} duration={5200 / speedLevel} type={type} rx={105} ry={105} center={getCircleCenter(type, 1)} />
-        <Circle disabled={disabled} initRotation={45} counterClock={false} opacity={1} color={getCircleColors(disabled ? 0 : type, 2)} duration={4000 / speedLevel} type={type} rx={102} ry={95} center={getCircleCenter(type, 2)} />
-        <Circle disabled={disabled} initRotation={0} counterClock={false} opacity={1} color={[centerColor]} duration={4000 / speedLevel} type={type} rx={91} ry={91} center={getCircleCenter(type, 3)} />
+        <Circle disabled={disabled} initRotation={-15} counterClock={true} opacity={getCircleOpacity(disabled ? 0 : type, 0)} color={getCircleColors(disabled && !noDisableColor ? 0 : type, 0)} duration={6000 / speedLevel} type={type} rx={113} ry={107} center={getCircleCenter(type, 0)} centerInner={centerInner} rxInner={rxInner} ryInner={ryInner} />
+        <Circle disabled={disabled} initRotation={0} counterClock={false} opacity={getCircleOpacity(disabled ? 0 : type, 1)} color={getCircleColors(disabled && !noDisableColor ? 0 : type, 1)} duration={5200 / speedLevel} type={type} rx={105} ry={105} center={getCircleCenter(type, 1)} centerInner={centerInner} rxInner={rxInner} ryInner={ryInner} />
+        <Circle disabled={disabled} initRotation={45} counterClock={false} opacity={getCircleOpacity(disabled ? 0 : type, 2)} color={getCircleColors(disabled && !noDisableColor ? 0 : type, 2)} duration={4000 / speedLevel} type={type} rx={102} ry={95} center={getCircleCenter(type, 2)} centerInner={centerInner} rxInner={rxInner} ryInner={ryInner} />
       </View>
     );
   }
