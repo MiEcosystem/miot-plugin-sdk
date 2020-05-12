@@ -517,6 +517,41 @@ export default class UIDemo extends React.Component {
                   Host.ui.openNewMorePage();
               }
           },
+          {
+              'name': 'checkAbilityOfJumpToThirdpartyApplication',
+              'subtitle': '判断是否可以跳到其他App',
+              'func': () => {
+                  Host.checkAbilityOfJumpToThirdpartyApplication("mihome://plugin")
+                      .then((res) => {
+                          alert(JSON.stringify(res))
+                      })
+                      .catch((error) => {
+                          alert(JSON.stringify(error))
+                  })
+              }
+          },
+          {
+              'name': 'jumpToThirdpartyApplication',
+              'subtitle': '跳转到其他App',
+              'func': () => {
+                  let params = {
+                        action: 'issue',
+                        type: 'MIFARE_ENTRANCE',
+                        source_channel: 'MiHome',
+                        product_id: '66666-00211',
+                        model: 'baiji'
+                  };
+                  // mihome://plugin?action=issue&type=MIFARE_ENTRANCE&source_channel=MiHome&product_id=66666-00211&model=xxxx&pass_through=B64String
+                  let passThrough = params;
+                  Host.jumpToThirdpartyApplication("http://localhost", params, passThrough)
+                      .then((res) => {
+                          alert(JSON.stringify(res))
+                      })
+                      .catch((error) => {
+                          alert(JSON.stringify(error))
+                  })
+              }
+          },
         ];
     }
 

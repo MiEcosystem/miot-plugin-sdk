@@ -55,6 +55,7 @@ import HostStorage from './host/storage';
 // import HostUI from './host/ui';
  const IOS="ios", ANDROID="android";
 import { Buffer } from "buffer";
+import merge from "merge";
 const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 export const HOST_TYPE_IOS = IOS;
 export const HOST_TYPE_ANDROID = ANDROID;
