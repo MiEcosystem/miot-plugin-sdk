@@ -12,3 +12,5 @@ export default class RTSPRenderView extends React.Component {
   }
   stopPlay() {
      return null
+  }
+}

@@ -68,6 +68,7 @@ export { default as QAList } from './QAList';
 export { default as MultiButtons } from './MultiButtons';
 export { default as Consumable } from './Consumable';
 export { default as ImageHeader } from './ImageHeader';
+export { default as RTSPRenderView } from './RTSPRenderView';
 export default {
   ImageButton,
   // MHImage,
