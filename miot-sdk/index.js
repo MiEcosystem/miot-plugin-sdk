@@ -53,7 +53,7 @@ export const PackageEvent = PackageEventNames;
  * @export
  */
 export const Device = RootDevice;
-console.log(RootDevice);
+console.log(device);
 /**
  * 当前设备
  * {@link module:miot/Device~DeviceEvent}
