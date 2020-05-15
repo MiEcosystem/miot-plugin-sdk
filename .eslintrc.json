@@ -135,6 +135,8 @@
     "block-spacing": ["warn", "always"],
     "array-bracket-spacing": ["warn", "never"],
     "no-multi-spaces": "warn",
+    "no-duplicate-imports": "warn",
+    "import/no-duplicates": "off",
     "import/no-extraneous-dependencies": ["warn", {
       "packageDir": "./"
     }],
