@@ -123,6 +123,7 @@ const API_REPO = {
   '/common/app/v2/delete/files': {},
   '/common/app/markRead': {},
   '/common/device/vip/status': {},
+  '/common/app/vip/status': {},
   '/miot/camera/app/v1/get/fileIdMetas': {},
   '/miot/camera/app/v1/get/figures': {},
   '/miot/camera/app/v1/get/figureByName': {},

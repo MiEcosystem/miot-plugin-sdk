@@ -8,7 +8,7 @@
  * 设备相关 API,主要包括当前实例设备对象，部分对象方法，以及设备事件
  * 设备对象的属性，请直接查看下面各个API/属性说明
  * 部分对象方法主要包含：获取小米WiFi设备控制类，获取蓝牙设备控制类，修改时区，修改设备名称，获取定向推荐，获取当前设备属性等。
- * 设备事件主要有：设备名称更改，设备时区更改，设备状态更改，获取到设备消息
+ * 设备事件主要有：设备名称更改，设备时区更改，设备状态更改，获取到设备消息,获取蓝牙设备固件版本信息
  * @example
  *
  * componentDidMount(){
@@ -63,12 +63,25 @@ export const DeviceEvent = {
   deviceTimeZoneChanged: {
   },
   /**
+   * 蓝牙设备的固件版本有更新
+   */
+  bleDeviceFirmwareNeedUpgrade: {
+  },
+  /**
      * 设备状态变更事件
      * @event
      * @param {IDevice} device -发生变更的设备
      * @param {Map<string, object>}  newStatus { isOnline: false }
      */
   deviceStatusChanged: {
+  },
+  /**
+   *spec 协议：property changed 或者 event occured
+   */
+  BLESpecNotifyActionEvent: {
+    forever: (emitter) => (result) => {
+      emitter.emit(result);
+    }
   },
   /**
      * 设备消息,注意订阅的消息都是通过此方法返回。
@@ -382,6 +395,15 @@ export class BasicDevice {
      *
      */
     get lastVersion() {
+    }
+    /**
+     * 获取当前固件的版本，记住，只能获取【蓝牙设备】可更新的最新固件版本，WIFI设备的暂时不支持；
+     * @return {string}
+     * @readonly
+     *
+     */
+    get latestVersion() {
+      return Properties.of(this).latestVersion;
     }
     /**
      *获取设备的 ip，蓝牙设备的ip为空

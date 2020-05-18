@@ -68,14 +68,19 @@ export default class MainPage extends React.Component {
     this.setState({ log });
   }
 
+  ////////////////////////////////
+  //  *Mesh bluetooth operation*  //
+  
+  ////////////////////////////////
+  //  *Mesh light RPC* //
   readLightProp() {
     const params = [{ did: Device.deviceID, siid: 2, piid: 1 }, { did: Device.deviceID, siid: 2, piid: 2 }];
     Service.spec.getPropertiesValue(params).then(result => {
       if (result instanceof Array && result.length >= 2) {
-        const on_prop = result[0];
-        const lightStatu = on_prop.value;
-        const bright_prop = result[1];
-        const lightBrightness = bright_prop.value;
+        const onProp = result[0];
+        const lightStatu = onProp.value;
+        const brightProp = result[1];
+        const lightBrightness = brightProp.value;
         this.setState({ lightStatu, lightBrightness });
         this.addLog('获取灯属性成功,' + JSON.stringify(result));
       }
@@ -126,6 +131,8 @@ export default class MainPage extends React.Component {
     });
   }
 
+  ////////////////////////////////
+  // * OTA version list fetch* //
   checkOTAVersion() {
     fetch('http://support.io.mi.srv/product/if_productinfo?model=' + Device.model)
       .then(response => response.json())
@@ -139,11 +146,15 @@ export default class MainPage extends React.Component {
       .then(response => response.json())
       .then(response => {
         const infos = response.result;
-        const versionMap = infos.map(info => ({ name: info.version, url: info.sign_url }));
+        const versionMap = infos.map(info => ({ name: info.version, url: info.sign_url === '' ? info.url : info.sign_url }));
         const { url, name } = versionMap[0];
         this.setState({ firmwareList: versionMap, fake_dfu_url: url, fake_dfu_name: name });
+      })
+      .catch(err => {
+        this.addLog('获取OTA版本列表失败：' + JSON.stringify(err));
       });
   }
+  ////////////////////////////////
 
   render() {
     return (

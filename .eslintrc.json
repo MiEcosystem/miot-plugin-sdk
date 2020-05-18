@@ -141,7 +141,7 @@
       "packageDir": "./"
     }],
     "import/default": "off",
-    "import/no-cycle": "error",
+    "import/no-cycle": "warn",
     "import/no-named-as-default-member": "warn",
     "react/forbid-prop-types": "off",
     "react/require-default-props": "off",

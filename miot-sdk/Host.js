@@ -220,10 +220,10 @@ export default {
      * @return {Promise<string>}
      *
      */
-  getAppName() {
-     return Promise.resolve(null);
-  },
-  /**
+    getAppName() {
+         return Promise.resolve(null);
+    },
+    /**
      * 获取Android手机屏幕相关信息(包括状态栏高度)
      * @since 10012
      * @returns {Promise<object>} 手机屏幕相关信息 {'viewWidth':xxx, 'viewHeight':xxx}

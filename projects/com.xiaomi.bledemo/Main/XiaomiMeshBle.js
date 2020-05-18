@@ -6,28 +6,20 @@
  *
  */
 
-import {
-  Bluetooth, BluetoothEvent, Device, Host
-} from 'miot';
+import { Device, Host } from 'miot';
+import TitleBar from 'miot/ui/TitleBar';
 import { StringSpinner, CardButton } from 'miot/ui';
 import React from 'react';
-import {
-  ScrollView, StyleSheet, Text, View, TextInput, NativeModules
-} from 'react-native';
-
-import CommonCell from './CommonCell';
+import { StyleSheet, View, NativeModules } from 'react-native';
 
 const bt = Device.getBluetoothLE();
-const statusEnable = false;
-
-
-//uuids for testing.
-const UUID_SERVICE = '00000100-0065-6C62-2E74-6F696D2E696D';
-const UUID_LED_READ_WRITE = '00000101-0065-6C62-2E74-6F696D2E696D';
-const UUID_BUTTON_READ_WRITE_NOTIFY = '00000102-0065-6C62-2E74-6F696D2E696D';
-const AUTH_TYPE = 4;
-
 export default class MainPage extends React.Component {
+
+  static navigationOptions = ({ navigation }) => {
+    const { titleProps } = navigation.state.params || {};
+    if (!titleProps) return { header: null };
+    return { header: <TitleBar {...titleProps} /> };
+  };
 
   constructor(props, context) {
     super(props, context);
@@ -42,22 +34,33 @@ export default class MainPage extends React.Component {
 
   componentDidMount() {
     this.checkOTAVersion();
+    this.props.navigation.setParams({
+      titleProps: {
+        leftText: 'Back',
+        rightText: 'Setting',
+        rightTextStyle: { width: 60 },
+        onPressRight: _ => this.navigateToSetting()
+      }
+    });
   }
 
   componentWillUnmount() {
   }
 
+  navigateToSetting() {
+    this.props.navigation.navigate('setting');
+  }
 
   navigateToBleControl() {
-    this.props.navigation.navigate('blecontrol', { title: '蓝牙直连控制', sc_type: 4 });
+    this.props.navigation.navigate('blecontrol', { title: '蓝牙直连控制', sc_type: 5 });
+  }
+
+  navigateToRPCControl() {
+    this.props.navigation.navigate('rpccontrol', { title: 'RPC控制', sc_type: 5 });
   }
 
   jump2BleSpec(){
-    this.props.navigation.navigate('bleSpec',{title:'Ble Spec',sc_type:4})
-  }
-
-  jump2SubSpec(){
-    this.props.navigation.navigate('subSpec',{title:'订阅 Spec',sc_type:4})
+    this.props.navigation.navigate('bleSpec',{title:'Ble Spec',sc_type:5})
   }
 
   doOTA(test = true) {
@@ -96,6 +99,14 @@ export default class MainPage extends React.Component {
     return (
       <View style={styles.mainContainer}>
         <CardButton
+          title="RPC远程灯控制"
+          subtitle="通过网关下发RPC请求控制灯的操作"
+          icon={require('../Resources/icon_rpc_light.png')}
+          onPress={() => {
+            this.navigateToRPCControl();
+          }}
+        />
+        <CardButton
           title="蓝牙直连控制"
           subtitle="用于蓝牙直连控制设备"
           icon={require('../Resources/icon_control.png')}
@@ -111,16 +122,6 @@ export default class MainPage extends React.Component {
             this.jump2BleSpec();
           }}
         />
-
-         <CardButton
-                  title="订阅Spec测试"
-                  subtitle="用户苏杭提供的开发板"
-                  icon={require('../Resources/icon_control.png')}
-                  onPress={() => {
-                    this.jump2SubSpec();
-                  }}
-                />
-
         <CardButton
           title="更新固件列表"
           subtitle="更新下方固件列表，注意只能在内网环境下获取，获取失败请多点两次"
@@ -158,7 +159,7 @@ export default class MainPage extends React.Component {
               this.addLog('请先选择需要升级的固件版本');
             }
             (Host.isAndroid ? NativeModules.MIOTHost : NativeModules.MHPluginSDK).openBleOtaDeviceUpgradePage({
-              fake_dfu_url: this.state.fake_dfu_url, md5: this.state.fake_dfu_md5, fake_dfu_name: 'debug:' + this.state.fake_dfu_name, auth_type: 4
+              fake_dfu_url: this.state.fake_dfu_url, fake_dfu_name: 'debug:' + this.state.fake_dfu_name, md5: this.state.fake_dfu_md5, auth_type: 5
             });
           }}
         />
@@ -168,7 +169,7 @@ export default class MainPage extends React.Component {
           icon={require('../Resources/icon_debug_dfu.png')}
           onPress={() => {
             (Host.isAndroid ? NativeModules.MIOTHost : NativeModules.MHPluginSDK).openBleOtaDeviceUpgradePage({
-              fake_dfu_url: "http://cdn.cnbj0.fds.api.mi-img.com/miio_fw/signed_61e78f20104ac7829a92a2fade7189e1_upd_xiaomi.bledemo.v1.bin?Expires=1662354188000&GalaxyAccessKeyId=5721718224520&Signature=ovceIMsswqer7inteBdwRaaNNAY=", md5: "61e78f20104ac7829a92a2fade7189e1", fake_dfu_name: 'JT:1.1.0_0012', auth_type: 4
+              fake_dfu_url: 'http://cdn.cnbj0.fds.api.mi-img.com/miio_fw/signed_61e78f20104ac7829a92a2fade7189e1_upd_xiaomi.bledemo.v1.bin?Expires=1662354188000&GalaxyAccessKeyId=5721718224520&Signature=ovceIMsswqer7inteBdwRaaNNAY=', md5: '61e78f20104ac7829a92a2fade7189e1', fake_dfu_name: 'debug:1.1.0_0012', auth_type: 5
             });
           }}
         />
@@ -177,7 +178,7 @@ export default class MainPage extends React.Component {
           subtitle="从服务端读取最新版本进行OTA升级，线上用户只能进入该选项"
           icon={require('../Resources/icon_normal_dfu.png')}
           onPress={() => {
-            (Host.isAndroid ? NativeModules.MIOTHost : NativeModules.MHPluginSDK).openBleOtaDeviceUpgradePage({ auth_type: 4 });
+            (Host.isAndroid ? NativeModules.MIOTHost : NativeModules.MHPluginSDK).openBleOtaDeviceUpgradePage({ auth_type: 5 });
           }}
         />
 
