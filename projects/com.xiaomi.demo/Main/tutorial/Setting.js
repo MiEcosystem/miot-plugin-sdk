@@ -3,7 +3,7 @@
 import { Entrance, Package } from "miot";
 import { strings, Styles } from 'miot/resources';
 import { CommonSetting, SETTING_KEYS } from "miot/ui/CommonSetting";
-import { firstAllOptions, secondAllOptions } from "miot/ui/CommonSetting/CommonSetting";
+import { secondAllOptions } from "miot/ui/CommonSetting/CommonSetting";
 import { ListItem, ListItemWithSlider, ListItemWithSwitch } from 'miot/ui/ListItem';
 import Separator from 'miot/ui/Separator';
 import TitleBar from 'miot/ui/TitleBar';
@@ -18,7 +18,7 @@ export default class Setting extends React.Component {
     return {
       header:
         <TitleBar
-          type='dark'
+          type="dark"
           title={strings.setting}
           style={{ backgroundColor: '#fff' }}
           onPressLeft={() => {
@@ -39,8 +39,8 @@ export default class Setting extends React.Component {
     this.state = {
       sliderValue: 25,
       switchValue: false,
-      showDot: [],
-    }
+      showDot: []
+    };
   }
 
   render() {
@@ -52,13 +52,13 @@ export default class Setting extends React.Component {
       first_options.BTGATEWAY,
       first_options.IFTTT,
       first_options.MEMBER_SET,
-      first_options.BTGATEWAY,
-    ]
+      first_options.BTGATEWAY
+    ];
     // 显示部分二级菜单项
     const secondOptions = [
       // second_options.AUTO_UPGRADE,
-      second_options.TIMEZONE,
-    ]
+      second_options.TIMEZONE
+    ];
     // 显示固件升级二级菜单
     const extraOptions = {
       showUpgrade: true,
@@ -66,7 +66,7 @@ export default class Setting extends React.Component {
       // licenseUrl: require('../resources/html/license_zh.html'),
       // policyUrl: require('../resources/html/privacy_zh.html'),
       deleteDeviceMessage: 'test',
-      excludeRequiredOptions: [firstAllOptions.LOCATION, secondAllOptions.SECURITY],
+      excludeRequiredOptions: [secondAllOptions.SECURITY],
       option: {
         privacyURL: require('../../Resources/raw/privacy_zh.html'),
         agreementURL: require('../../Resources/raw/license_zh.html'),
@@ -75,8 +75,8 @@ export default class Setting extends React.Component {
       },
       syncDevice: true,
       // networkInfoConfig: -1,
-      bleOtaAuthType: 5,
-    }
+      bleOtaAuthType: 5
+    };
     return (
       <View style={styles.container}>
         <Separator />
@@ -89,22 +89,22 @@ export default class Setting extends React.Component {
             </View>
             <Separator style={{ marginLeft: Styles.common.padding }} />
             <ListItem
-              title='这是'
+              title="这是"
               showDot={true}
-              onPress={_ => console.log(0)}
+              onPress={() => console.log(0)}
             />
             <ListItemWithSwitch
-              title='三个'
+              title="三个"
               value={this.state.switchValue}
-              onValueChange={value => this.onValueChange(value)}
+              onValueChange={(value) => this.onValueChange(value)}
             />
             <ListItemWithSlider
-              title='测试'
+              title="测试"
               showWithPercent={false}
               unit={'cal'}
               sliderProps={{ value: this.state.sliderValue }}
-              onSlidingComplete={value => this.onSlidingComplete(value)}
-              onValueChange={value => console.log(value)}
+              onSlidingComplete={(value) => this.onSlidingComplete(value)}
+              onValueChange={(value) => console.log(value)}
               showSeparator={false}
             />
           </View>
@@ -137,19 +137,19 @@ export default class Setting extends React.Component {
       sliderValue: 75,
       showDot: [
         // 固件升级显示小红点是自动的，依据 Device.needUpgrade, 开发者无需配置
-        // first_options.FIRMWARE_UPGRADE 
+        // first_options.FIRMWARE_UPGRADE
       ]
-    })
+    });
   }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     backgroundColor: Styles.common.backgroundColor,
-    flex: 1,
+    flex: 1
   },
   featureSetting: {
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   blank: {
     height: 8,
@@ -157,17 +157,17 @@ var styles = StyleSheet.create({
     borderTopColor: Styles.common.hairlineColor,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomColor: Styles.common.hairlineColor,
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: StyleSheet.hairlineWidth
   },
   titleContainer: {
     height: 32,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    paddingLeft: Styles.common.padding,
+    paddingLeft: Styles.common.padding
   },
   title: {
     fontSize: 11,
     color: 'rgba(0,0,0,0.5)',
-    lineHeight: 14,
+    lineHeight: 14
   }
 });
