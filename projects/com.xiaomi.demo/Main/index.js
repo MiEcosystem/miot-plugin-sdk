@@ -95,6 +95,7 @@ import * as Screens from "./uikit/screens";
 import MHAudioDemo from './Host/MHAudioDemo';
 import VideoDemo from './Host/VideoDemo';
 import CryptoDemo from './Host/CryptoDemo';
+// import DarkModeDemo from './Host/DarkMode';
 
 // 常用功能
 import TutorialDemo from './tutorial/TutorialDemo';
@@ -251,6 +252,7 @@ function createRootStack(initPage) {
     fileStorage: FileStorage,
     storageDemo: StorageDemo,
     LocaleServer,
+    // DarkModeDemo,
     JSExecutor,
     UIKitHome: { screen: Screens.ComponentsScreen },
     // --- 没有验证

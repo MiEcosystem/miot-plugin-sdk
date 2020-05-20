@@ -6,20 +6,28 @@
  */
 import React from 'react';
 import { Image, TouchableWithoutFeedback } from 'react-native';
+import PropTypes from 'prop-types';
 export default class ImageButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      buttonPressed: false,
-    }
+      buttonPressed: false
+    };
   }
   static initialState = {
-    buttonPressed: false,
+    buttonPressed: false
+  };
+  static propTypes = {
+    source: PropTypes.any,
+    highlightedSource: PropTypes.any,
+    onPress: PropTypes.func,
+    disabled: PropTypes.bool,
+    style: PropTypes.any
   };
   static defaultProps = {
     source: null,
     highlightedSource: null,
-    onPress: null,
+    onPress: null
   };
   _buttonPressIn() {
     this.setState({ buttonPressed: true });
@@ -50,5 +58,5 @@ export default class ImageButton extends React.Component {
       </TouchableWithoutFeedback>
     );
   }
-};
+}
 // module.exports = ImageButton;

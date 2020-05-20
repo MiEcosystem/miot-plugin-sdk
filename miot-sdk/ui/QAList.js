@@ -1,8 +1,8 @@
-import React, {Component}  from 'react';
-import {StyleSheet, View, Text, Platform} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Text, Platform } from 'react-native';
 import PropTypes from 'prop-types';
-import {adjustSize} from '../utils/sizes';
-import {FontDefault} from '../utils/fonts';
+import { adjustSize } from '../utils/sizes';
+import { FontDefault } from '../utils/fonts';
 const isAndroid = Platform.OS === 'android';
 export default class QAList extends Component {
   static propTypes = {
@@ -15,12 +15,12 @@ export default class QAList extends Component {
     list: []
   };
   getList() {
-    let {list} = this.props;
-    if(!list || !list.length) {
+    let { list } = this.props;
+    if (!list || !list.length) {
       return [];
     }
     return list.map((item, index) => {
-      let {title, text} = item;
+      let { title, text } = item;
       // android加换行符，是为了解决部分安卓手机最后一行显示不全的问题
       return (
         <View key={String(index)} style={Styles.item}>
@@ -32,7 +32,7 @@ export default class QAList extends Component {
   }
   render() {
     let list = this.getList();
-    if(!list || !list.length) {
+    if (!list || !list.length) {
       return null;
     }
     return (
@@ -42,7 +42,7 @@ export default class QAList extends Component {
     );
   }
 }
-const Styles = {
+const Styles = StyleSheet.create({
   container: {
     marginHorizontal: adjustSize(72)
   },
@@ -62,4 +62,4 @@ const Styles = {
     color: '#7F7F7F',
     marginTop: adjustSize(9)
   }
-};
+});

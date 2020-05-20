@@ -23,21 +23,22 @@ export default class Checkbox extends React.Component {
     style: PropTypes.object,
     disabled: PropTypes.bool,
     checked: PropTypes.bool,
+    onValueChange: PropTypes.func,
     checkedColor: PropTypes.string
   }
   static defaultProps = {
     style: {},
     disabled: false,
     checked: false,
-    checkedColor: Styles.common.MHGreen,
+    checkedColor: Styles.common.MHGreen
   }
   constructor(props, context) {
     super(props, context);
     this.state = {
-      checked: this.props.checked,
-    }
+      checked: this.props.checked
+    };
   }
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.checked !== this.state.checked) {
       this.setState({ checked: newProps.checked });
     }
@@ -74,7 +75,7 @@ export default class Checkbox extends React.Component {
       >
         <TouchableWithoutFeedback
           disabled={this.props.disabled}
-          onPress={_ => this._onValueChange()}
+          onPress={() => this._onValueChange()}
         >
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Checkable
@@ -94,9 +95,9 @@ export default class Checkbox extends React.Component {
     this.setState({ checked });
   }
 }
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     width: SIZE,
-    height: SIZE,
+    height: SIZE
   }
 });

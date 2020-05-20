@@ -28,7 +28,7 @@ export default class ProgressDialog extends Component {
     max: PropTypes.number,
     progress: PropTypes.number,
     onDismiss: PropTypes.func,
-    ...ViewPropTypes,
+    ...ViewPropTypes
   };
   render() {
      return null

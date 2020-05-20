@@ -1,8 +1,12 @@
-import React, {PureComponent, Fragment} from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, { PureComponent, Fragment } from 'react';
+import { StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
-import {adjustSize} from '../utils/sizes';
+// import { adjustSize } from '../utils/sizes';
 class GapWrap extends PureComponent {
+  static propTypes = {
+    gap: PropTypes.number,
+    horizontal: PropTypes.bool
+  };
   state = {
     shown: true
   };
@@ -12,9 +16,9 @@ class GapWrap extends PureComponent {
     });
   }
   render() {
-    let {gap, horizontal, children} = this.props;
-    let {shown} = this.state;
-    if(!children) {
+    let { gap, horizontal, children } = this.props;
+    let { shown } = this.state;
+    if (!children) {
       return null;
     }
     let gapSize = shown ? gap : 0;
@@ -55,8 +59,8 @@ export default class ContainerWithGap extends PureComponent {
     outerGap: 0
   };
   getContents() {
-    let {children, horizontal, gap} = this.props;
-    if(!children) {
+    let { children, horizontal, gap } = this.props;
+    if (!children) {
       return null;
     }
     let length = children.length;
@@ -71,13 +75,13 @@ export default class ContainerWithGap extends PureComponent {
   }
   render() {
     let contents = this.getContents();
-    let {containerStyle, horizontal, outerGap} = this.props;
-    if(!contents) {
+    let { containerStyle, horizontal, outerGap } = this.props;
+    if (!contents) {
       return null;
     }
     return (
       <View style={[Styles.container, {
-        [horizontal ? 'marginVertical': 'marginHorizontal']: outerGap
+        [horizontal ? 'marginVertical' : 'marginHorizontal']: outerGap
       }, horizontal ? {
         flexDirection: 'row'
       } : null, containerStyle]}>

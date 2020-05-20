@@ -130,9 +130,13 @@ const API_REPO = {
   '/miot/camera/app/v1/add/face': {},
   '/common/app/m3u8': {},
   '/common/app/v1/img': {},
-  '/miot/camera/app/v1/put/faceSwitch':{},
-  '/miot/camera/app/v1/put/babyCrySwitch':{},
+  '/miot/camera/app/v1/put/faceSwitch': {},
+  // '/miot/camera/app/v1/put/babyCrySwitch': {},
   // '/v2/device/multi_check_device_version':{},
-  '/miot/camera/app/v1/put/babyCrySwitch':{},
-}
+  '/miot/camera/app/v1/put/babyCrySwitch': {},
+  '/miot/camera/app/v2/get/alarmSwitch': {},
+  '/miot/camera/app/v2/put/motionDetectionSwitch': {},
+  
+  '/app/v2/public/get_weekday_info': {}
+};
 export default API_REPO;

@@ -49,7 +49,7 @@ export default class FileStorage extends React.Component {
       let progress = downloaded / all * 100;
       let visProgress = progress < 100;
       console.log(progress)
-      this.setState({ progress, visProgress })
+      // this.setState({ progress, visProgress })
     });
   }
 
@@ -162,6 +162,12 @@ export default class FileStorage extends React.Component {
               <Button
                 title="下载文件"
                 onPress={() => this._downLoadFile()}
+              />
+            </View>
+            <View style={{ flex: 1 }}>
+              <Button
+                title="取消下载"
+                onPress={() => this._canceldownLoadFile()}
               />
             </View>
             <View style={{ flex: 1 }}>
@@ -537,6 +543,7 @@ export default class FileStorage extends React.Component {
           files: [{
             filename: obj.fileName,
             range: { start: 2, length: 10 },
+            formdata: { name: 'custom_name', filename: 'custom_filename'},
           }]
         }
         Host.file.uploadFile(param).then(rr => {
@@ -554,14 +561,29 @@ export default class FileStorage extends React.Component {
 
   _downLoadFile() {
     console.log("downLoadFile...")
+    var taskID = '1111'
     let path = "http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_zip_23831a541b583ea55ec212f69f3afc07.zip";
     //建议将下载地址替换为自己可用的下载地址
-    Host.file.downloadFile(path, "test.zip").then((fileInfo) => {
+    Host.file.downloadFile(path, "test.zip", {taskID: taskID}).then((fileInfo) => {
       console.log("downloadFile...fileInfo", fileInfo);
     }).catch((error) => {
       console.log("downloadFile...error", error);
-      alert(JSON.stringify(error))
+      alert("downloadFile:  "+JSON.stringify(error))
     });
+  }
+
+  _canceldownLoadFile() {
+    var taskID = '1111'
+    console.log("==============setTimeout====================")
+    Host.file.cancelDownloadFile(taskID).then(res => {
+      console.log('成功' + JSON.stringify(res))
+      alert('成功' + JSON.stringify(res))
+      this.setState({  visProgress: false })
+    }).catch(err => {
+      console.log('失败' + JSON.stringify(err))
+      alert('失败' + JSON.stringify(err))
+    })
+
   }
 
   _unZipFile() {

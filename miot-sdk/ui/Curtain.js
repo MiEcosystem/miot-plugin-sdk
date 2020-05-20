@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Image, Animated, Easing, PanResponder} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Image, Animated, Easing, PanResponder } from 'react-native';
 import PropTypes from 'prop-types';
-import {adjustSize} from '../utils/sizes';
-import {log} from '../utils/fns';
+import { adjustSize } from '../utils/sizes';
+import { log } from '../utils/fns';
 const SourceCurtainPole = require('../resources/images/curtain-pole.png');
 const SourceCurtainLight = require('../resources/images/curtain-light.png');
 const SourceCurtainDark = require('../resources/images/curtain-dark.png');
@@ -35,7 +35,7 @@ export default class Curtain extends Component {
   leftX = new Animated.Value(0);
   rightX = new Animated.Value(0);
   animateToPosition(position, duration = 30) {
-    if(isNaN(position) || !isFinite(position)) {
+    if (isNaN(position) || !isFinite(position)) {
       return;
     }
     this.stopAnimation();
@@ -49,10 +49,10 @@ export default class Curtain extends Component {
   stopAnimation() {
     this.aniPosition && this.aniPosition.stop();
   }
-  initPanResponder(type) {
+  initPanResponder() {
     this.panResponderLeft = PanResponder.create({
-      onStartShouldSetPanResponder: (e, gestureState) => true,
-      onMoveShouldSetPanResponder: (e, gestureState) => true,
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
       onPanResponderGrant: log,
       onPanResponderMove: Animated.event([null, {
         dx: this.leftX
@@ -61,8 +61,8 @@ export default class Curtain extends Component {
       onPanResponderTerminate: this.touchEnd.bind(this)
     });
     this.panResponderRight = PanResponder.create({
-      onStartShouldSetPanResponder: (e, gestureState) => true,
-      onMoveShouldSetPanResponder: (e, gestureState) => true,
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
       onPanResponderGrant: log,
       onPanResponderMove: Animated.event([null, {
         dx: this.rightX
@@ -71,27 +71,27 @@ export default class Curtain extends Component {
       onPanResponderTerminate: this.touchEnd.bind(this)
     });
   }
-  touchEnd(e, gestureState) {
+  touchEnd() {
     this.lastValue = this.currValue;
     this.props.onValueChange(this.lastValue);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     let props = this.props;
     this.lastValue = nextProps.position;
-    if(nextProps.type !== props.type) {
+    if (nextProps.type !== props.type) {
       this.initPanResponder(nextProps.type);
     }
-    if(nextProps.position !== props.position) {
+    if (nextProps.position !== props.position) {
       this.animateToPosition(nextProps.position);
     }
   }
-  componentWillMount() {
-    this.leftX.addListener(e => {
+  UNSAFE_componentWillMount() {
+    this.leftX.addListener((e) => {
       let currValue = getCurrentValue(this.props.type, true, this.lastValue, e.value);
       this.animateToPosition(currValue, 0);
       this.props.onValueChanging(currValue);
     });
-    this.rightX.addListener(e => {
+    this.rightX.addListener((e) => {
       let currValue = getCurrentValue(this.props.type, false, this.lastValue, e.value);
       this.animateToPosition(currValue, 0);
       this.props.onValueChanging(currValue);
@@ -99,7 +99,7 @@ export default class Curtain extends Component {
     this.initPanResponder(this.props.type);
   }
   componentDidMount() {
-    this.value.addListener(({value}) => {
+    this.value.addListener(({ value }) => {
       this.currValue = value;
     });
   }
@@ -107,10 +107,10 @@ export default class Curtain extends Component {
     this.stopAnimation();
   }
   getCurtains() {
-    let {type} = this.props;
+    let { type } = this.props;
     let ret = [];
     let l = type === 0 ? 7 : 13;
-    for(let i = 0; i < l; i++) {
+    for (let i = 0; i < l; i++) {
       ret.push(
         <Image key={String(i)} style={Styles.curtainSingle} source={i % 2 === 0 ? SourceCurtainDark : SourceCurtainLight} />
       );
@@ -118,7 +118,7 @@ export default class Curtain extends Component {
     return ret;
   }
   render() {
-    let {type} = this.props;
+    let { type } = this.props;
     let value = this.value;
     let curtains = this.getCurtains();
     let width = value.interpolate({
@@ -159,7 +159,7 @@ export default class Curtain extends Component {
     );
   }
 }
-Styles = StyleSheet.create({
+const Styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     paddingTop: adjustSize(249),

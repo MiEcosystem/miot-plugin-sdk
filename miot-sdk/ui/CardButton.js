@@ -1,11 +1,11 @@
-import React, {PureComponent, Fragment} from 'react';
-import {StyleSheet, View, Text, Image, TouchableHighlight} from 'react-native';
+import React, { PureComponent, Fragment } from 'react';
+import { StyleSheet, View, Text, Image, TouchableHighlight } from 'react-native';
 import PropTypes from 'prop-types';
 import Switch from './Switch';
 import ContainerWithShadowAndSeparator from './ContainerWithShadowAndSeparator';
-import {adjustSize} from '../utils/sizes';
-import {FontDefault, FontKmedium} from '../utils/fonts';
-import {ColorGreen} from '../utils/colors';
+import { adjustSize } from '../utils/sizes';
+import { FontDefault, FontKmedium } from '../utils/fonts';
+import { ColorGreen } from '../utils/colors';
 const SourceArrow = require('../resources/images/right_arrow.png');
 export default class CardButton extends PureComponent {
   static propTypes = {
@@ -32,15 +32,15 @@ export default class CardButton extends PureComponent {
     hasShadow: true
   };
   onPress = () => {
-    let {disabled, onPress} = this.props;
-    if(typeof onPress === 'function' && !disabled) {
+    let { disabled, onPress } = this.props;
+    if (typeof onPress === 'function' && !disabled) {
       onPress();
     }
   }
   render() {
-    let {containerStyle, themeColor, themeBackgroundColor, underlayColor, hasShadow, iconContainerStyle, iconStyle, icon, iconText, title, subtitle, onSwitch, switchOn, disabled, onPress, rightText, rightArrow} = this.props;
+    let { containerStyle, themeColor, themeBackgroundColor, underlayColor, hasShadow, iconContainerStyle, iconStyle, icon, iconText, title, subtitle, onSwitch, switchOn, disabled, onPress, rightText, rightArrow } = this.props;
     let opacity = disabled ? 0.3 : 1;
-    if(!icon && !iconText && !title && !subtitle && !onSwitch) {
+    if (!icon && !iconText && !title && !subtitle && !onSwitch) {
       return null;
     }
     let Wrap = hasShadow ? ContainerWithShadowAndSeparator : Fragment;

@@ -52,8 +52,8 @@ class ICloudStorage {
   }
   /**
    * 写数据 /user/set_user_config， data的数据量不能超过2048字节
-   * @param {string} model 
-   * @param {number} key 
+   * @param {string} model
+   * @param {number} key
    * @param {json} data
    * @deprecated 10023开始废弃，建议使用setThirdUserConfigsForOneKey, data数据量支持分段保存
    */

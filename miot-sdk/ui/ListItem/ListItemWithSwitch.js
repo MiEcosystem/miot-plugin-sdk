@@ -48,6 +48,8 @@ export default class ListItemWithSwitch extends React.Component {
     subtitleStyle: PropTypes.object,
     valueTextStyle: PropTypes.object,
     switchStyle: PropTypes.object,
+    tintColor: PropTypes.string,
+    onTintColor: PropTypes.string
   }
   static defaultProps = {
     title: '',
@@ -61,6 +63,8 @@ export default class ListItemWithSwitch extends React.Component {
     subtitleStyle: {},
     valueTextStyle: {},
     switchStyle: {},
+    tintColor: undefined,
+    onTintColor: undefined
   }
   // constructor(props, context) {
   //   super(props, context);
@@ -70,15 +74,15 @@ export default class ListItemWithSwitch extends React.Component {
   // }
   render() {
     let extraContainerStyle = {
-      height: THIN_HEIGHT,
+      height: THIN_HEIGHT
     };
     if (this.props.subtitle) {
       extraContainerStyle = {
         paddingVertical: 8,
-        height: 60,
-      }
+        height: 60
+      };
     }
-    let extraStyle = {}
+    let extraStyle = {};
     if (this.props.valueText) {
       extraStyle.maxWidth = (width - PADDING * 2) * 0.4;
       if (this.props.containerStyle.width) {
@@ -100,7 +104,7 @@ export default class ListItemWithSwitch extends React.Component {
               <View style={[styles.up]}>
                 <Text
                   numberOfLines={1}
-                  ellipsizeMode='tail'
+                  ellipsizeMode="tail"
                   style={[Styles.common.title, extraStyle, this.props.titleStyle]}
                 >
                   {this.props.title}
@@ -110,7 +114,7 @@ export default class ListItemWithSwitch extends React.Component {
                     <View style={styles.separatorCol} />
                     <Text
                       numberOfLines={1}
-                      ellipsizeMode='tail'
+                      ellipsizeMode="tail"
                       style={[Styles.common.subtitle, this.props.valueTextStyle, { flex: 1 }]}
                     >
                       {this.props.valueText}
@@ -122,7 +126,7 @@ export default class ListItemWithSwitch extends React.Component {
               {this.props.subtitle ?
                 <Text
                   numberOfLines={2}
-                  ellipsizeMode='tail'
+                  ellipsizeMode="tail"
                   style={[Styles.common.subtitle, this.props.subtitleStyle]}
                 >
                   {this.props.subtitle}
@@ -135,7 +139,9 @@ export default class ListItemWithSwitch extends React.Component {
                 style={this.props.switchStyle}
                 value={this.props.value}
                 disabled={this.props.disabled}
-                onValueChange={value => this._onValueChange(value)}
+                tintColor={this.props.tintColor}
+                onTintColor={this.props.onTintColor}
+                onValueChange={(value) => this._onValueChange(value)}
               />
             </View>
           </View>
@@ -146,7 +152,7 @@ export default class ListItemWithSwitch extends React.Component {
   }
   renderSeparator() {
     if (!this.props.showSeparator) return null;
-    return this.props.separator || <Separator style={{ marginLeft: Styles.common.padding }} />
+    return this.props.separator || <Separator style={{ marginLeft: Styles.common.padding }} />;
   }
   // // 父组件更新数据
   // componentWillReceiveProps(nextProps) {
@@ -161,30 +167,30 @@ export default class ListItemWithSwitch extends React.Component {
     }
   }
 }
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     width: width,
     backgroundColor: '#fff',
     paddingHorizontal: PADDING,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   left: {
-    flex: 4,
+    flex: 4
   },
   right: {
     flex: 1,
-    alignItems: 'flex-end',
+    alignItems: 'flex-end'
   },
   up: {
     flexDirection: 'row',
     alignItems: 'center',
-    flex: 1,
+    flex: 1
   },
   separatorCol: {
     height: 14,
     width: 0.5,
     marginHorizontal: 5,
-    backgroundColor: 'rgba(0,0,0,0.2)',
-  },
+    backgroundColor: 'rgba(0,0,0,0.2)'
+  }
 });

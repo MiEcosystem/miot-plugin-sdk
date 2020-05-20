@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Image, Animated, Easing, PanResponder, DeviceEventEmitter} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Image, Animated, Easing, PanResponder, DeviceEventEmitter } from 'react-native';
 import PropTypes from 'prop-types';
-import {adjustSize} from '../utils/sizes';
-import {log} from '../utils/fns';
-import {getContentEventKey} from './PageWithNormalNavigator';
+import { adjustSize } from '../utils/sizes';
+import { log } from '../utils/fns';
+import { getContentEventKey } from './PageWithNormalNavigator';
 const SourceUpper = require('../resources/images/airer-upper.png');
 const SourceCenter = require('../resources/images/airer-center.png');
 const SourceLower = require('../resources/images/airer-lower.png');
@@ -35,7 +35,7 @@ export default class Airer extends Component {
   value = new Animated.Value(0);
   moveY = new Animated.Value(0);
   animateToPosition(position, duration = 30) {
-    if(isNaN(position) || !isFinite(position)) {
+    if (isNaN(position) || !isFinite(position)) {
       return;
     }
     this.stopAnimation();
@@ -51,11 +51,11 @@ export default class Airer extends Component {
   }
   initPanResponder() {
     this.panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: (e, gestureState) => true,
-      onMoveShouldSetPanResponder: (e, gestureState) => true,
-      onShouldBlockNativeResponder: (e, gestureState) => false,
-      onPanResponderTerminationRequest: (e, gestureState) => false,
-      onPanResponderGrant: (e, gestureState) => {
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
+      onShouldBlockNativeResponder: () => false,
+      onPanResponderTerminationRequest: () => false,
+      onPanResponderGrant: () => {
         DeviceEventEmitter.emit(this.contentEventKey, {
           scrollEnabled: false
         });
@@ -67,7 +67,7 @@ export default class Airer extends Component {
       onPanResponderTerminate: this.touchEnd.bind(this)
     });
   }
-  touchEnd(e, gestureState) {
+  touchEnd() {
     this.lastValue = this.currValue;
     this.props.onValueChange(this.lastValue);
     DeviceEventEmitter.emit(this.contentEventKey, {
@@ -77,13 +77,13 @@ export default class Airer extends Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     let props = this.props;
     this.lastValue = nextProps.position;
-    if(nextProps && props && nextProps.position === props.position) {
+    if (nextProps && props && nextProps.position === props.position) {
       return;
     }
     this.animateToPosition(nextProps.position);
   }
-  componentWillMount() {
-    this.moveY.addListener(e => {
+  UNSAFE_componentWillMount() {
+    this.moveY.addListener((e) => {
       let currValue = getCurrentValue(this.lastValue, e.value);
       this.animateToPosition(currValue, 0);
       this.props.onValueChanging(currValue);
@@ -91,7 +91,7 @@ export default class Airer extends Component {
     this.initPanResponder();
   }
   componentDidMount() {
-    this.value.addListener(({value}) => {
+    this.value.addListener(({ value }) => {
       this.currValue = value;
     });
   }
@@ -99,8 +99,8 @@ export default class Airer extends Component {
     this.stopAnimation();
   }
   render() {
-    let {lightOn, controlable} = this.props;
-    let {value} = this;
+    let { lightOn, controlable } = this.props;
+    let { value } = this;
     let height = value.interpolate({
       inputRange: [0, 100],
       outputRange: [CenterHeight, 0]

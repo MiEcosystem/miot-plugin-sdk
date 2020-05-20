@@ -57,49 +57,8 @@ export default class PrivacyDemo extends React.Component {
           options.hideAgreement = this.state.hideAgreement
           options.hideUserExperiencePlan = this.state.hideUserExperiencePlan;
 
-          /** 
-          Service.smarthome.batchGetDeviceDatas([{ did: Device.deviceID, props: ["prop.s_auth_config"] }]).then(res => {
-            console.log('batchGetDeviceDatas ', res);
-            let alreadyAuthed = false;
-            let result = res[Device.deviceID];
-            let config;
-            if (result && result['prop.s_auth_config']) {
-              config = result['prop.s_auth_config']
-            }
-            if (config) {
-              try {
-                let authJson = JSON.parse(config);
-                console.log('auth config ', authJson)
-                alreadyAuthed = authJson.privacyAuthed && true;
-              } catch (err) {
-                //json解析失败，不处理
-              }
-            }
-
-            if (alreadyAuthed) {
-              //已授权，不再弹窗显示
-              alert("已经授权")
-              return new Promise.resolve("已经授权")
-            } else {
-              return Host.ui.alertLegalInformationAuthorization(options).then(res => {
-                console.log('授权结果', res)
-                if (res) {
-                  return Service.smarthome.batchSetDeviceDatas([{ did: Device.deviceID, props: { "prop.s_auth_config": JSON.stringify({ 'privacyAuthed': 'true' }) } }])
-                } else {
-                  return new Promise.reject("取消授权")
-                }
-              })
-            }
-          }).catch(err => {
-            //没能授权成功
-            console.log('授权错误', err)
-            Package.exit()
-          });
-          */
-
           ProtocolManager.setLegalInfoAuthHasShowed(false); //这里作为demo需要强制显示，所以需要将该值置为false，实际生产环境中不应该这样做
-
-          //这里在正式使用时需要判断是否已经授权,建议使用上面注释的部分
+          //这是为了演示需要，使用的是强制弹出的模式 具体使用方法可以参考iot文档 或 com.xiaomi.demo/MainPage.js部分样例
           Host.ui.alertLegalInformationAuthorization(options).then((res) => {
             console.log("res", res)
             if (res) {

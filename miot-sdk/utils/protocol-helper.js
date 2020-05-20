@@ -1,6 +1,6 @@
 import Device from "../device/BasicDevice";
 import Service from "../Service";
-import native from "../native";
+import native, { isAndroid } from "../native";
 let resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 export default class ProtocolManager {
   static _legalInfoAuthHasShowed = false;
@@ -19,18 +19,18 @@ export default class ProtocolManager {
           country,
           language
         };
-        let params = [1, 2, 3].map(type_int => {
+        let params = [1, 2, 3].map((type_int) => {
           return {
             ...baseParams,
             type_int
           };
         });
-        Promise.all(params.map(p => {
+        Promise.all(params.map((p) => {
           return Service.smarthome.getProtocolUrls(p);
         })).then(([privacy, agreement, experiencePlan]) => {
-          privacyURL = privacy.html_url ? this._resolveUniUrlV2(this._UniUrl, params[0]) : '';
-          agreementURL = agreement.html_url ? this._resolveUniUrlV2(this._UniUrl, params[1]) : '';
-          experiencePlanURL = experiencePlan.html_url ? this._resolveUniUrlV2(this._UniUrl, params[2]) : '';
+          const privacyURL = privacy.html_url ? this._resolveUniUrlV2(this._UniUrl, params[0]) : '';
+          const agreementURL = agreement.html_url ? this._resolveUniUrlV2(this._UniUrl, params[1]) : '';
+          const experiencePlanURL = experiencePlan.html_url ? this._resolveUniUrlV2(this._UniUrl, params[2]) : '';
           resolve({
             privacyURL: privacyURL,
             agreementURL: agreementURL,
@@ -53,7 +53,7 @@ export default class ProtocolManager {
     let ret = [];
     for (let k in params) {
       if (params.hasOwnProperty(k)) {
-        ret.push(`${k}=${params[k]}`);
+        ret.push(`${ k }=${ params[k] }`);
       }
     }
     return ret.join('&');
@@ -69,7 +69,7 @@ export default class ProtocolManager {
     console.log('解析后的URL', newUrl);
     if (newUrl && (newUrl.uri || Array.isArray(newUrl))) {
       if (typeof newUrl.uri === 'string') {
-        if (native.isAndroid) {
+        if (isAndroid) {
           return [{ uri: newUrl.uri }];
         } else {
           return newUrl.uri;
@@ -78,8 +78,8 @@ export default class ProtocolManager {
     }
   }
   static resolveUrlWithLink(url) {
-    if (typeof url === 'string' && (/https?\:\/\//i).test(url)) {
-      return native.isAndroid ? [{ uri: url }] : url;
+    if (typeof url === 'string' && (/https?:\/\//i).test(url)) {
+      return isAndroid ? [{ uri: url }] : url;
     }
     return this.resolveUrl(url);
   }

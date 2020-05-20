@@ -16,5 +16,5 @@ export type ViewChildContext = {|
   +isInAParentText: boolean,
 |};
 export const ViewContextTypes = {
-  isInAParentText: PropTypes.bool,
+  isInAParentText: PropTypes.bool
 };

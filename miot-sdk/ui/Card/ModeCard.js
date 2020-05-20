@@ -41,86 +41,86 @@ const CARD_RADIUS_TYPE = {
    * 上方直角下方圆角
    */
   BOTTOM: 'bottom'
-}
+};
 const { width } = Dimensions.get('window');
 class ModeCard extends Component {
   constructor(props) {
     super(props);
     this.cardWrapStyle = {};
-    //设置 Card 组件的样式
+    // 设置 Card 组件的样式
     let { modes } = props;
     let { length } = modes;
     let cardWrapStyle = {
       height: 116
     };
-    let hasDescription = modes.some(mode => {
+    let hasDescription = modes.some((mode) => {
       return mode.description;
     });
     if (length === 3 && hasDescription) {
-      //3模式有描述
+      // 3模式有描述
       cardWrapStyle = {
         height: 140
       };
     } else if (length === 4 && !hasDescription) {
-      //4模式无描述
+      // 4模式无描述
       cardWrapStyle = {
         height: 106
       };
     } else if (length === 4 && hasDescription) {
-      //4模式有描述
+      // 4模式有描述
       cardWrapStyle = {
         height: 130
       };
     } else if (length === 5) {
-      //5模式
+      // 5模式
       cardWrapStyle = {
         height: 86
       };
     }
     this.cardWrapStyle = cardWrapStyle;
-    //根据 radiusType 设置卡片圆角
+    // 根据 radiusType 设置卡片圆角
     this.radius = {
       [CARD_RADIUS_TYPE.ALL]: {
-        borderRadius: radiusValue,
+        borderRadius: radiusValue
       },
       [CARD_RADIUS_TYPE.NONE]: {
-        borderRadius: 0,
+        borderRadius: 0
       },
       [CARD_RADIUS_TYPE.TOP]: {
         borderTopLeftRadius: radiusValue,
-        borderTopRightRadius: radiusValue,
+        borderTopRightRadius: radiusValue
       },
       [CARD_RADIUS_TYPE.BOTTOM]: {
         borderBottomLeftRadius: radiusValue,
-        borderBottomRightRadius: radiusValue,
-      },
+        borderBottomRightRadius: radiusValue
+      }
     }[props.radiusType];
   }
   componentDidMount() {
   }
-  //生成模式结构
+  // 生成模式结构
   createModesRN = () => {
     let { modes, descriptionStyle, activeDescriptionStyle } = this.props;
     let { length } = modes;
     let modeStyle = {};
     let iconStyle = {};
     if (length === 4) {
-      //4模式
+      // 4模式
       iconLength = 50;
       modeStyle = {
         width: iconLength,
-        marginRight: 33,
+        marginRight: 33
       };
       iconStyle = {
         width: iconLength,
         height: iconLength
       };
     } else if (length === 5) {
-      //5模式
+      // 5模式
       iconLength = 46;
       modeStyle = {
         width: iconLength,
-        marginRight: 17,
+        marginRight: 17
       };
       iconStyle = {
         width: iconLength,
@@ -136,30 +136,30 @@ class ModeCard extends Component {
       let activeDescription = {};
       let descriptionOpacity = 1;
       if (isDisabled && isActive) {
-        //高亮不可点
+        // 高亮不可点
         iconSource = icon.activeDisabled;
       } else if (isDisabled) {
-        //不可点
+        // 不可点
         iconSource = icon.normal;
         iconOpacity = .3;
       } else if (isActive) {
-        //高亮
+        // 高亮
         iconSource = icon.active;
-        activeDescription = { color: Styles.common.MHGreen, };
+        activeDescription = { color: Styles.common.MHGreen };
         Object.assign(activeDescription, activeDescriptionStyle);
       } else if (isPressing) {
-        //按下
+        // 按下
         iconSource = icon.press;
       } else {
-        //正常
+        // 正常
         iconSource = icon.normal;
       }
       if (isDisabled) {
-        //不可点
+        // 不可点
         descriptionOpacity = .3;
       }
       if (description && length < 5) {
-        //模式3、4有描述文字
+        // 模式3、4有描述文字
         descriptionRN = (
           <Text
             style={[
@@ -173,7 +173,7 @@ class ModeCard extends Component {
         );
       }
       if (index === length - 1) {
-        //最后一个
+        // 最后一个
         last = { marginRight: 0 };
       }
       return (
@@ -189,7 +189,7 @@ class ModeCard extends Component {
           <View style={[
             styles.mode,
             modeStyle,
-            last,
+            last
           ]}>
             <Image
               style={[
@@ -197,7 +197,7 @@ class ModeCard extends Component {
                 { opacity: iconOpacity },
                 iconStyle
               ]}
-              resizeMode='contain'
+              resizeMode="contain"
               source={iconSource}
             />
             {descriptionRN}
@@ -207,45 +207,45 @@ class ModeCard extends Component {
     });
     return modesRN;
   }
-  //按下图标
+  // 按下图标
   pressInIcon = (index) => {
     let { pressIn, modesKey } = this.props;
     if (pressIn && modesKey) {
-      //传入了按下函数、模式数组对应的 key
+      // 传入了按下函数、模式数组对应的 key
       pressIn(index, modesKey);
     }
   }
-  //手指抬起图标
+  // 手指抬起图标
   pressOutIcon = (index) => {
     let { pressOut, modesKey } = this.props;
     if (pressOut && modesKey) {
-      //传入了手指抬起函数、模式数组对应的 key
+      // 传入了手指抬起函数、模式数组对应的 key
       pressOut(index, modesKey);
     }
   }
-  //渲染模式卡片结构
+  // 渲染模式卡片结构
   renderModeCard = () => {
     let { modes } = this.props;
     let { length } = modes;
     let cardPadding = {};
     if (length === 4) {
-      //4模式
+      // 4模式
       cardPadding = {
         paddingTop: padding4,
-        paddingBottom: padding4,
+        paddingBottom: padding4
       };
     } else if (length === 5) {
-      //5模式
+      // 5模式
       cardPadding = {
         paddingTop: padding5,
-        paddingBottom: padding5,
+        paddingBottom: padding5
       };
     }
     return (
       <View style={[
         styles.card,
         this.radius,
-        cardPadding,
+        cardPadding
       ]}
       >
         <View style={styles.main}>
@@ -287,14 +287,14 @@ ModeCard.defaultProps = {
       isPressing: false
     }
   ],
-  pressIn: function () { },
-  pressOut: function () { },
+  pressIn: function() { },
+  pressOut: function() { },
   modesKey: '',
   descriptionStyle: {},
   activeDescriptionStyle: {},
   showShadow: true,
   modeCardStyle: {}
-}
+};
 ModeCard.propTypes = {
   radiusType: PropTypes.string,
   modesKey: PropTypes.string,
@@ -305,12 +305,12 @@ ModeCard.propTypes = {
   activeDescriptionStyle: PropTypes.object,
   showShadow: PropTypes.bool,
   modeCardStyle: PropTypes.object
-}
+};
 const styles = StyleSheet.create({
   card: {
     paddingTop: padding3,
     paddingBottom: padding3,
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   main: {
     flexDirection: 'row',
@@ -318,7 +318,7 @@ const styles = StyleSheet.create({
   },
   mode: {
     width: iconLength,
-    marginRight: 40,
+    marginRight: 40
   },
   icon: {
     width: iconLength,
@@ -329,7 +329,7 @@ const styles = StyleSheet.create({
     color: '#7F7F7F',
     marginTop: 10,
     textAlign: 'center',
-    lineHeight: 14,
+    lineHeight: 14
   }
 });
 export default ModeCard;

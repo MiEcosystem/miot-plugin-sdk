@@ -64,19 +64,18 @@ export default class Card extends React.Component {
     super(props, context);
     this.state = {
       showShadow: this.props.visible && this.props.showShadow
-    }
+    };
   }
   // android 卡片动效对于阴影的处理
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.showShadow === false) return;
     if (newProps.visible === this.props.visible) return;
-    // 隐藏
     if (newProps.visible === false) {
+      // 隐藏
       this.setState({ showShadow: false });
-    }
-    // 显示
-    else if (newProps.visible === true) {
-      setTimeout(_ => this.setState({ showShadow: true }), DURATION);
+    } else if (newProps.visible === true) {
+      // 显示
+      setTimeout(() => this.setState({ showShadow: true }), DURATION);
     }
   }
   renderCardIOS() {
@@ -105,8 +104,7 @@ export default class Card extends React.Component {
           cardStyle={cardStyle}
         />
       );
-    }
-    else {
+    } else {
       const { width, height, borderRadius } = this.props.cardStyle;
       const { shadowAndroidStyle, cardStyle } = this.getCorrectStyle();
       const shadowAndroid = {
@@ -136,11 +134,10 @@ export default class Card extends React.Component {
   getCorrectStyle() {
     const shadowAndroidStyle = Object.assign({}, DEFAULT_STYLE.MARGIN_TOP);
     const cardStyle = {};
-    Object.keys(this.props.cardStyle).forEach(key => {
+    Object.keys(this.props.cardStyle).forEach((key) => {
       if (key.toString().startsWith('margin')) {
         shadowAndroidStyle[key] = this.props.cardStyle[key];
-      }
-      else {
+      } else {
         cardStyle[key] = this.props.cardStyle[key];
       }
     });

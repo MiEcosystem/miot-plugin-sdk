@@ -22,7 +22,7 @@ export default class LoadingDialog extends React.Component {
     visible: PropTypes.bool,
     message: PropTypes.string,
     timeout: PropTypes.number,
-    onDismiss: PropTypes.func,
+    onDismiss: PropTypes.func
   }
   constructor(props, context) {
     super(props, context);
@@ -30,7 +30,7 @@ export default class LoadingDialog extends React.Component {
       visible: this.props.visible
     };
   }
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.visible !== this.state.visible) {
       this.setState({ visible: newProps.visible });
     }
@@ -42,10 +42,9 @@ export default class LoadingDialog extends React.Component {
       if (!this.state.visible) {
         this.timer = null;
         clearTimeout(this.timer);
-      }
-      else {
+      } else {
         if (!this.timer) {
-          this.timer = setTimeout(_ => {
+          this.timer = setTimeout(() => {
             this.setState({ visible: false });
             this.props.onDismiss && this.props.onDismiss();
           }, parseInt(timeout));
@@ -63,7 +62,7 @@ export default class LoadingDialog extends React.Component {
         <View style={styles.container}>
           <BallIndicator
             style={styles.indicator}
-            color='rgba(0,0,0,0.6)'
+            color="rgba(0,0,0,0.6)"
             size={20}
           />
           <Text style={styles.message}>
@@ -85,17 +84,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     paddingHorizontal: 27,
-    borderRadius: Styles.dialog.modal.borderRadius,
+    borderRadius: Styles.dialog.modal.borderRadius
   },
   indicator: {
     position: 'absolute',
     left: 27,
-    height: 20,
+    height: 20
   },
   message: {
     marginLeft: 15 + 20,
     flex: 1,
     fontSize: 15,
-    color: 'rgba(0,0,0,0.8)',
+    color: 'rgba(0,0,0,0.8)'
   }
 });

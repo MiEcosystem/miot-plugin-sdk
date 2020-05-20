@@ -34,15 +34,15 @@ import { report } from "../decorator/ReportDecorator";
  * @namespace FileEvent
  */
 export const FileEvent = {
-    /**
+  /**
      * 文件下载时的进度事件通知
      * @param filename  文件名
      * @param url       下载地址
      * @param totalBytes    下载总大小
      * @param downloadBytes 已下载文件大小
      */
-    fileDownloadProgress: {
-    },
+  fileDownloadProgress: {
+  }
 };
 /**
  * 文件管理
@@ -70,9 +70,9 @@ class IFile {
      * })
      */
     @report
-    readFileList(subFolder = '') {
-         return Promise.resolve([]);
-    }
+  readFileList(subFolder = '') {
+     return Promise.resolve([]);
+  }
     /**
      * 判断文件是否存在
      * @param {string} fileName 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
@@ -92,7 +92,7 @@ class IFile {
      */
     @report
     isFileExists(fileName) {
-         return Promise.resolve(false)
+       return Promise.resolve(false)
     }
     /**
      * 读本地文件， 读取普通字符串， 与之对应的写文件为Host.file.writeFile(fileName, content)
@@ -109,8 +109,8 @@ class IFile {
      * })
      */
     @report
-    readFile(fileName, opt = {}) {
-         return Promise.resolve(null);
+    readFile(fileName) {
+       return Promise.resolve(null);
     }
     /**
      * 读本地文件， 通常用于读取蓝牙设备需要的文件数据
@@ -126,8 +126,8 @@ class IFile {
      * })
      */
     @report
-    readFileToHexString(fileName, opt = {}) {
-         return Promise.resolve(null);
+    readFileToHexString(fileName) {
+       return Promise.resolve(null);
     }
     /**
      * 读文件，并转换为 Base64 编码
@@ -137,8 +137,8 @@ class IFile {
      * 失败时：{"code":xxx, "message":"xxx" }
      */
     @report
-    readFileToBase64(fileName, opt = {}) {
-         return Promise.resolve(null);
+    readFileToBase64(fileName) {
+       return Promise.resolve(null);
     }
     /**
      * 写文件， 与之对应的读文件为Host.file.readFile(fileName)
@@ -158,8 +158,8 @@ class IFile {
      *
      */
     @report
-    writeFile(fileName, utf8Content, opt = {}) {
-         return Promise.resolve(null);
+    writeFile(fileName, utf8Content) {
+       return Promise.resolve(null);
     }
     /**
      * 写文件，输入为 未经过base64转换的字符串， api内部会对普通字符串做Base64 编码后存放到文件中
@@ -178,8 +178,8 @@ class IFile {
      * ...
      */
     @report
-    writeFileThroughBase64(fileName, fileContent, opt = {}) {
-         return Promise.resolve(null);
+    writeFileThroughBase64(fileName, fileContent) {
+       return Promise.resolve(null);
     }
     /**
      * 向已存在的文件追加内容, 通常是通过使用writeFile接口来写的文件
@@ -198,8 +198,8 @@ class IFile {
      * ...
      */
     @report
-    appendFile(fileName, utf8Content, opt = {}) {
-         return Promise.resolve(null);
+    appendFile(fileName, utf8Content) {
+       return Promise.resolve(null);
     }
     /**
      * 向已存在的文件追加内容，输入为 未经过base64转换的字符串， api内部会对字符串做Base64 编码后存放到文件中
@@ -219,8 +219,8 @@ class IFile {
      *
      */
     @report
-    appendFileThroughBase64(fileName, fileContent, opt = {}) {
-         return Promise.resolve(null);
+    appendFileThroughBase64(fileName, fileContent) {
+       return Promise.resolve(null);
     }
     /**
      * 删除文件
@@ -237,8 +237,8 @@ class IFile {
      * ...
      */
     @report
-    deleteFile(fileName, opt = {}) {
-         return Promise.resolve(null);
+    deleteFile(fileName) {
+       return Promise.resolve(null);
     }
     /**
      * 上传普通文件，需要申请权限使用
@@ -282,7 +282,7 @@ class IFile {
      */
     @report
     generateObjNameAndUrlForFDSUpload(did, suffix) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 上传日志文件。
@@ -293,7 +293,7 @@ class IFile {
      */
     @report
     generateObjNameAndUrlForLogFileFDSUpload(did, suffix) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取FDS文件的信息，包含下载地址等信息
@@ -321,7 +321,7 @@ class IFile {
      */
     @report
     getFDSFileInfoWithObjName(obj_name) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * @ typedef UploadParams - 参数字典
@@ -349,8 +349,9 @@ class IFile {
      *  },
      *  files: [
      *      {
-     *          fileName: 'fileName.png', // 只能上传插件sandbox里的文件
-     *          range: {start: 10, lenght: 100} // since 10036 从start开始读取lengt长度的文件，可选，不配置则表示文件从头到尾
+     *          filename: 'fileName.png', // 必选， 只能上传插件sandbox里的文件
+     *          range: {start: 10, length: 100} // 可选， since 10037， 从start开始读取lengt长度的文件，可选，不配置则表示文件从头到尾
+     *          formdata: {name: 'name1.png', filename: 'customFileName.png'} // 可选， since 10038， 用于自定义formdata中的name和filename
      *      },
      *  ]
      * };
@@ -363,7 +364,7 @@ class IFile {
      */
     @report
     uploadFile(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 上传文件到小米云FDS
@@ -374,12 +375,17 @@ class IFile {
      */
     @report
     uploadFileToFDS(params) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
+    /**
+     * @ typedef DownloadParams - 参数字典
+     * @ property {string} taskID -  可选 since 10038 下载任务唯一标示, 如 MD5(url + timestamp)
+     */
     /**
      * 下载文件到插件沙盒目录, 文件下载完成后才会回调
      * @param {string} url - 文件地址
      * @param {string} fileName - 存储到本地的文件名
+     * @param {DownloadParams} params 参数字典 可选 since 10038
      * @returns {Promise}
      * 成功时：{header:{}, path:xxx, filename:xxx,status:xxx}
      * 失败时：{"code":xxx, "message":"xxx" }
@@ -394,8 +400,18 @@ class IFile {
      * ...
      */
     @report
-    downloadFile(url, fileName) {
-         return Promise.resolve(null);
+    downloadFile(url, fileName, params = null) {
+       return Promise.resolve(null);
+    }
+    /**
+     * 取消指定的下载任务
+     * @param {string} taskID - since 10038 下载任务的唯一ID， 与 downloadFile 传入的 taskID 一致
+     * @returns {Promise}
+     * 成功时：{code:0, data:{}}
+     * 失败时：{code:-1, message:'xxx'}
+     */
+    cancelDownloadFile(taskID) {
+       return Promise.resolve(null);
     }
     /**
      * 获取 base64 编码的数据长度
@@ -411,7 +427,7 @@ class IFile {
      */
     @report
     dataLengthOfBase64Data(base64Data) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 获取一个data的子data（base64编码）
@@ -422,7 +438,7 @@ class IFile {
      */
     @report
     subBase64DataOfBase64Data(base64Data, loc, len) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 解压缩一个zip文件，解压缩后的文件会直接存储在插件存储空间的根目录下
@@ -434,7 +450,7 @@ class IFile {
      */
     @report
     unzipFile(fileName, desitinationPath = '') {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 解压缩一个gz文件, 并以base64编码的形式直接返回给插件, 不做本地存储
@@ -445,7 +461,7 @@ class IFile {
      */
     @report
     ungzFile(fileName) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
     * 保存指定照片文件到系统相册
@@ -463,7 +479,7 @@ class IFile {
     */
     @report
     saveImageToPhotosAlbum(fileName) {
-         return Promise.resolve(false)
+       return Promise.resolve(false)
     }
     /**
      * 保存指定文件到系统相册
@@ -476,7 +492,7 @@ class IFile {
     */
     @report
     saveFileToPhotosAlbum(fileName) {
-         return Promise.resolve(false)
+       return Promise.resolve(false)
     }
     /**
      * 保存指定图片文件到以did命名的相册中
@@ -497,7 +513,7 @@ class IFile {
      */
     @report
     saveImageToPhotosDidAlbum(fileName) {
-         return Promise.resolve(false)
+       return Promise.resolve(false)
     }
     /**
      * 保存指定照片文件到以did命名的相册中
@@ -519,7 +535,7 @@ class IFile {
      */
     @report
     saveVideoToPhotosDidAlbum(fileName) {
-         return Promise.resolve(false)
+       return Promise.resolve(false)
     }
     /**
      * 从did命名的相册中 通过url获取视频文件的filepath
@@ -536,7 +552,7 @@ class IFile {
      */
     @report
     fetchLocalVideoFilePathFromDidAlbumByUrl(url) {
-         return Promise.resolve(false)
+       return Promise.resolve(false)
     }
     /**
      * 获取指定以did命名的相册中所有的图片和视频
@@ -544,10 +560,10 @@ class IFile {
      * @since 10037
      * @returns {Promise}
      * 成功时：{"code":0, "data":[] }
-     *      返回图片和视频信息 
+     *      返回图片和视频信息
      *          ios 返回 图片scheme协议 miotph:// 视频scheme miotvideo://
      *          android 返回图片和视频文件的fileurl
-     *      每个图片信息包含key 
+     *      每个图片信息包含key
      *      {'url':<'miotph://XXXXXX'(ios) 'file://XXXXXX' (android)>,
      *      'mediaType' : <number>, // 0 : unknowntype, 1: image, 2:video, 3: audio(10037暂不支持)
      *      'pixelWidth' :<number>, // width信息，0 代表unknown
@@ -564,7 +580,7 @@ class IFile {
      */
     @report
     getAllSourceFromPhotosDidAlbum() {
-         return Promise.resolve(false)
+       return Promise.resolve(false)
     }
     /**
      * 在相册中通过url 删除指定的assets
@@ -582,7 +598,7 @@ class IFile {
      */
     @report
     deleteAssetsFromAlbumByUrls(urls) {
-         return Promise.resolve(false)
+       return Promise.resolve(false)
     }
     /**
      * 屏幕全屏截图
@@ -596,7 +612,7 @@ class IFile {
      */
     @report
     screenShot(imageName) {
-         return Promise.resolve("...");
+       return Promise.resolve("...");
     }
     /**
      * 自定义范围的屏幕截图
@@ -609,7 +625,7 @@ class IFile {
      */
     @report
     screenShotInRect(imageName, rect) {
-         return Promise.resolve("...");
+       return Promise.resolve("...");
     }
     /**
      * 长截屏，用来截scrollView，会把超出屏幕的部分也截到
@@ -627,7 +643,7 @@ class IFile {
      */
     @report
     longScreenShot(viewRef, imageName) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 高德地图截屏
@@ -648,7 +664,7 @@ class IFile {
      */
     @report
     amapScreenShot(viewRef, imageName) {
-         return Promise.resolve("...");
+       return Promise.resolve("...");
     }
     /**
      * 获取图片指定点的色值, 传空数组将返回所有点的色值
@@ -658,7 +674,7 @@ class IFile {
      */
     @report
     getRGBAValueFromImageAtPath(imagePath, points) {
-         return Promise.resolve(null);
+       return Promise.resolve(null);
     }
     /**
      * 沙盒路径

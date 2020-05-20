@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View, Platform } from 'react-native';
 import { Styles } from '../../resources';
 import Checkbox from '../Checkbox/Checkbox';
 import Separator from '../Separator';
@@ -46,17 +46,18 @@ export default class PinCodeDialog extends React.Component {
     title: PropTypes.string,
     message: PropTypes.string,
     digit: PropTypes.oneOf([3, 4, 5, 6]),
+    color: PropTypes.any,
     checkboxData: PropTypes.object,
     buttons: PropTypes.arrayOf(PropTypes.object),
-    onDismiss: PropTypes.func,
+    onDismiss: PropTypes.func
   }
   static defaultProps = {
     digit: 6,
-    color: Styles.common.MHGreen,
+    color: Styles.common.MHGreen
   }
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     if (props.visible === true) {
-      this.state.numArr = Array.from({ length: this.digit }, v => undefined);
+      this.state.numArr = Array.from({ length: this.digit }, () => undefined);
       this.state.value = '';
     }
     this.process(props);
@@ -68,12 +69,12 @@ export default class PinCodeDialog extends React.Component {
       this.digit = 6;
       console.warn('digit should range within [3, 6]');
     }
-    const numArr = Array.from({ length: this.digit }, v => undefined);
+    const numArr = Array.from({ length: this.digit }, () => undefined);
     this.state = {
       numArr,
       value: '',
       checked: false
-    }
+    };
     this.process(props);
   }
   process(props) {
@@ -88,14 +89,14 @@ export default class PinCodeDialog extends React.Component {
             checked: this.state.checked,
             numArr: this.state.numArr
           });
-        }
+        };
       }
     }
     this.buttons = buttons;
   }
   /**
-   * 
-   * @param {string} text 
+   *
+   * @param {string} text
    */
   _onChangeText(text) {
     console.log(text);
@@ -105,8 +106,7 @@ export default class PinCodeDialog extends React.Component {
         this.setState({ numArr });
       }
       this.setState({ value: text.slice(0, this.digit) });
-    }
-    else {
+    } else {
       const value = text.match(/\d*/)[0];
       this.setState({ value });
     }
@@ -120,7 +120,7 @@ export default class PinCodeDialog extends React.Component {
       <Text style={styles.message}>
         {this.props.message || ''}
       </Text>
-    )
+    );
   }
   /**
    * 一组Text
@@ -140,7 +140,7 @@ export default class PinCodeDialog extends React.Component {
               {this.state.numArr[i] || ''}
             </Text>
           </View>
-        )
+        );
       });
   }
   /**
@@ -151,7 +151,7 @@ export default class PinCodeDialog extends React.Component {
     const { text } = this.props.checkboxData;
     return (
       <TouchableOpacity
-        onPress={_ => this.onPressCheckbox()}
+        onPress={() => this.onPressCheckbox()}
         activeOpacity={1}
       >
         <View style={styles.checkboxContainer}>
@@ -163,7 +163,7 @@ export default class PinCodeDialog extends React.Component {
               height: 20,
               borderRadius: 10
             }}
-            onValueChange={checked => this.state.checked = checked}
+            onValueChange={(checked) => this.state.checked = checked}
           />
           <Text
             style={styles.checkboxText}
@@ -173,18 +173,18 @@ export default class PinCodeDialog extends React.Component {
           </Text>
         </View>
       </TouchableOpacity>
-    )
+    );
   }
   render() {
     if (!this.props.visible) return null;
-    const absDialogStyle = Platform.OS === 'ios' ? {bottom: ~~(height * 0.38)} : {}
+    const absDialogStyle = Platform.OS === 'ios' ? { bottom: ~~(height * 0.38) } : {};
     return (
       <AbstractDialog
         animationType={this.props.animationType}
         visible={this.props.visible}
         title={this.props.title}
         buttons={this.buttons}
-        onDismiss={_ => this._onDismiss()}
+        onDismiss={() => this._onDismiss()}
         style={absDialogStyle}
       >
         <View style={[styles.container]}>
@@ -198,10 +198,10 @@ export default class PinCodeDialog extends React.Component {
               caretHidden={true}
               style={styles.textinput}
               value={this.state.value}
-              selectionColor='#ffffff'
-              underlineColorAndroid='transparent'
-              onChangeText={text => this._onChangeText(text)}
-              keyboardType='numeric'
+              selectionColor="#ffffff"
+              underlineColorAndroid="transparent"
+              onChangeText={(text) => this._onChangeText(text)}
+              keyboardType="numeric"
             />
           </View>
           {this.renderDownExtra()}
@@ -222,25 +222,25 @@ const styles = StyleSheet.create({
     paddingHorizontal,
     paddingBottom: paddingVertical,
     backgroundColor: '#fff',
-    borderRadius: Styles.dialog.modal.borderRadius,
+    borderRadius: Styles.dialog.modal.borderRadius
   },
   message: {
     fontSize: 15,
     color: '#666666',
     lineHeight: 18,
-    flex: 1,
+    flex: 1
   },
   pinCodeContainer: {
     marginVertical,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   textinput: {
     position: 'absolute',
     width: Styles.dialog.modal.width - paddingHorizontal * 2,
     height: 45 + marginVertical * 2,
     backgroundColor: 'transparent',
-    color: 'transparent',
+    color: 'transparent'
   },
   textGroup: {
     flexDirection: 'row',
@@ -259,16 +259,16 @@ const styles = StyleSheet.create({
   },
   blockText: {
     color: '#000000',
-    fontSize: 30,
+    fontSize: 30
   },
   checkboxContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   checkboxText: {
     flex: 1,
     marginLeft: 8,
     fontSize: 14,
     color: '#999'
-  },
+  }
 });

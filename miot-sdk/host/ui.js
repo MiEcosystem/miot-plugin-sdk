@@ -16,18 +16,10 @@
  *
  */
 import Device from "../device/BasicDevice";
-import native from "../native";
-import { Entrance } from "../Package";
+import native, { isIOS, isAndroid } from "../native";
+// import { Entrance } from "../Package";
 // const resolveAssetSource = require('resolveAssetSource');
-const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
-// @native begin
-function resolveUrlWithLink(url) {
-  if (typeof url === 'string' && (/https?:\/\//i).test(url)) {
-    return native.isAndroid ? [{ uri: url }] : url;
-  }
-  return resolveUrl(url);
-}
-// @native end
+// const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 import ProtocolManager from '../utils/protocol-helper';
 // import { Entrance } from "../Package";
 import { report } from "../decorator/ReportDecorator";
@@ -53,6 +45,11 @@ class IUi {
   @report
   openDeleteDevice(title = null) {
   }
+  /**
+   * 打开分享设备的页面
+   */
+  @report
+  openShareDevicePage() {
   }
   /**
    * 是否保持屏幕常亮
@@ -142,52 +139,7 @@ class IUi {
    * @param {boolean} [option.hideUserExperiencePlan=false] 是否隐藏用户体验计划，默认显示用户体验计划
    * @returns {Promise<Boolean>} 弹窗授权结果
    * @example
-   *
-   * //仅供参考
-   * //可以参考project/com.xiaomi.demo/Main/Host/UI/privacy.js部分样例
-   *
-   * //batchGetDeviceDatas 设置的属性在设备删除以及设备取消授权之后会自动清空，因此只需要在请求授权检测时，检查下flag即可。撤销授权时可以不用手动清理flag
-   * const agreementURL = require('xxxxx.html');
-   * const privacyURL = require('xxxxx.html');
-   * var options = {agreementURL, privacyURL};
-   * //options.hideAgreement = this.state.hideAgreement;
-   * Service.smarthome.batchGetDeviceDatas([{ did: Device.deviceID, props: ["prop.s_auth_config"] }]).then(res => {
-   *  console.log('batchGetDeviceDatas ', res);
-   *  let alreadyAuthed = false;
-   *  let result = res[Device.deviceID];
-   *  let config;
-   *  if (result && result['prop.s_auth_config']) {
-   *    config = result['prop.s_auth_config']
-   *  }
-   *  if (config) {
-   *    try {
-   *      let authJson = JSON.parse(config);
-   *      console.log('auth config ', authJson)
-   *      alreadyAuthed = authJson.privacyAuthed && true;
-   *    } catch (err) {
-   *      //json解析失败，不处理
-   *    }
-   *  }
-   *  if (alreadyAuthed) {
-   *    //已授权，不再弹窗显示
-   *    alert("已经授权")
-   *    return new Promise.resolve("已经授权")
-   *  } else {
-   *    return Host.ui.alertLegalInformationAuthorization(options).then(res => {
-   *      console.log('授权结果', res)
-   *      if (res) {
-   *        return Service.smarthome.batchSetDeviceDatas([{ did: Device.deviceID, props: { "prop.s_auth_config": JSON.stringify({ 'privacyAuthed': 'true' }) } }])
-   *      } else {
-   *        return new Promise.reject("取消授权")
-   *      }
-   *    })
-   *  }
-   * }).catch(err => {
-   *   //没能授权成功
-   *  alert('授权错误'+err)
-   *  Package.exit()
-   * });
-   *
+   * 可以参考iot文档 或 project/com.xiaomi.demo/MainPage.js部分样例
    */
   @report
   alertLegalInformationAuthorization(option) {
@@ -225,7 +177,6 @@ class IUi {
    * 隐私协议弹框需求：
    * a. 所有接入米家的设备，绑定成功后第一次进插件，都需要隐私弹框，后续再进不需弹框
    * b. 取消隐私授权/解绑设备后，重新绑定设备，仍需遵循规则a
- 
    * 插件端可按如下方案实现：
    * 1. 使用batchSetDeviceDatas存储一个标志位，用来记录是否“隐私弹框”过
    * 2. 进入插件时batchGetDeviceDatas获取此标志位，若为NO，弹框，同时设置标志位为YES；若为YES，不弹框
@@ -288,7 +239,7 @@ class IUi {
   @report
   openDeviceTimeZoneSettingPage(params = null) {
     if (!params) {
-      params = { "sync_device": false }
+      params = { "sync_device": false };
     }
     native.MIOTHost.openDeviceTimeZoneSettingPage(params);
   }
@@ -608,6 +559,13 @@ class IUi {
    */
   @report
   openTerminalDeviceSettingPage(type) {
+  }
+  /**
+   *  打开Android系统位置信息设置页(不同于权限配置页) only Android
+   *  @since 10038
+   */
+  @report
+  openAndroidLocationServerSettingPage() {
   }
 }
 const UiInstance = new IUi();

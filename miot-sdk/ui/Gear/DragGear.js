@@ -47,7 +47,7 @@ export default class DragGear extends React.Component {
     maxWidth: PropTypes.number,
     selectColor: PropTypes.string,
     selectIndex: PropTypes.number,
-    onSelect: PropTypes.func.isRequired,
+    onSelect: PropTypes.func.isRequired
   }
   static defaultProps = {
     options: [],
@@ -55,7 +55,7 @@ export default class DragGear extends React.Component {
     margin: DEFAULT_MARGIN,
     maxWidth: screenWidth,
     selectColor: '#f0ac3d',
-    selectIndex: 0,
+    selectIndex: 0
   }
   constructor(props, context) {
     super(props, context);
@@ -68,7 +68,7 @@ export default class DragGear extends React.Component {
     this.optionWidth = optionWidth;
     this.margin = margin;
     this.containerWidth = containerWidth;
-    console.log(`选项宽度 ${optionWidth} 间距 ${margin} 总体宽度 ${containerWidth}`);
+    console.log(`选项宽度 ${ optionWidth } 间距 ${ margin } 总体宽度 ${ containerWidth }`);
     // 也不能太拥挤吧
     if (this.optionWidth < 20) {
       this.showNothing = true;
@@ -82,7 +82,7 @@ export default class DragGear extends React.Component {
       selectIndex: this.props.selectIndex,
       currentOption: this.props.options[this.props.selectIndex],
       dragToValueMin: 0,
-      dragToValueMax: 0,
+      dragToValueMax: 0
     };
     this.offset = 0; // 手势触摸点和中心左边偏差值
     this.panResponder = PanResponder.create({
@@ -97,7 +97,7 @@ export default class DragGear extends React.Component {
       onPanResponderRelease: this._onPanResponderRelease.bind(this)
     });
   }
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (this.showNothing) return;
     const { selectIndex } = newProps;
     if (selectIndex !== this.props.selectIndex) {
@@ -106,9 +106,9 @@ export default class DragGear extends React.Component {
       // this.animated2TargetIndex(newProps.selectIndex); // 直接更新
     }
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // 拖拽变化值监听
-    this.state.pan.addListener(e => {
+    this.state.pan.addListener((e) => {
       // 拖拽的时候，如果在这里更新文字，偶尔不准，并且更新不及时
       // 但是点击应该可以
       if (this.pressToChoose && Platform.OS === 'ios') {
@@ -119,7 +119,7 @@ export default class DragGear extends React.Component {
     });
     // 拖拽手势坐标监听，为了更新中间的文字
     if (Platform.OS === 'ios') {
-      this.state.moveX.addListener(e => {
+      this.state.moveX.addListener((e) => {
         const index = this.getClosetIndex(e.value);
         this.setState({ currentOption: this.props.options[index] });
       });
@@ -131,13 +131,13 @@ export default class DragGear extends React.Component {
    */
   getClosetIndex(moveX) {
     const adjustCoord = moveX - this.offset; // 拖拽过程中Block的中心点坐标
-    const diffs = this.coords.map(coord => Math.abs(coord - adjustCoord));
+    const diffs = this.coords.map((coord) => Math.abs(coord - adjustCoord));
     return diffs.indexOf(Math.min(...diffs));
   }
   /**
    * @description 手势开始回调
    */
-  _onPanResponderGrant(e, gesture) {
+  _onPanResponderGrant(e) {
     // 放大动画
     Animated.timing(this.state.scale, dragStartAnimationConfig).start();
     // 为了准确确定释放位置，需要在起手的时候，计算出手势触摸点和中心点的偏差
@@ -145,8 +145,8 @@ export default class DragGear extends React.Component {
     this.offset = pageX - this.currentCoord;
     this.pressToChoose = false;
     console.log('⬇️⬇️⬇️⬇️⬇️⬇️⬇️拖拽开始⬇️⬇️⬇️⬇️⬇️⬇️⬇️');
-    console.log(`被选项中心坐标 ${this.currentCoord}`);
-    console.log(`触摸点坐标 ${pageX}`);
+    console.log(`被选项中心坐标 ${ this.currentCoord }`);
+    console.log(`触摸点坐标 ${ pageX }`);
   }
   /**
    * @description 手势释放回调
@@ -162,16 +162,16 @@ export default class DragGear extends React.Component {
    * @description 以动画效果移动到目标选项，不管是释放还是点击
    */
   animated2TargetIndex(index) {
-    console.log(`移动到第${index}个`);
+    console.log(`移动到第${ index }个`);
     this.offset = 0;
     // 重置 selectIndex
-    this.setState({ selectIndex: index }, _ => {
-      this.getDragRange(_ => {
+    this.setState({ selectIndex: index }, () => {
+      this.getDragRange(() => {
         // 这行十分重要！！！
         // 在计算出新的可拖拽范围之后，Block position 重新定位在新的 -min
         // 此时pan.setValue(0)，直接将 Block 吸附在了新的位置上
         this.state.pan.setValue(0);
-        Animated.timing(this.state.scale, releaseAnimationConfig).start(_ => {
+        Animated.timing(this.state.scale, releaseAnimationConfig).start(() => {
           if (Platform.OS == 'android') {
             this.setState({
               currentOption: this.props.options[index]
@@ -209,26 +209,27 @@ export default class DragGear extends React.Component {
    */
   calculateCoord() {
     this._container.measure((x, y, w, h, px, py) => {
-      console.log(`容器起始坐标 ${x}，宽度 ${w}`);
+      console.log(`容器起始坐标 ${ x }，宽度 ${ w }`);
       let startCoord = x - this.optionWidth / 2;
       this.coords = [];
       for (let i = 0; i < this.props.options.length; i++) {
         this.coords[i] = startCoord + (this.optionWidth + this.margin) * (i + 1);
       }
+      console.log('measure', x, y, w, h, px, py);
       console.log('各选项中心坐标', this.coords);
       this.getDragRange();
-    })
+    });
   }
   /**
    * @description 计算可拖拽的范围，以及当前被选项到其余选项的拖拽距离，每次释放之后都需要刷新
    */
   getDragRange(callback) {
     this.currentCoord = this.coords[this.state.selectIndex];
-    this.dragToValueArray = this.coords.map(coord => coord - this.currentCoord);
+    this.dragToValueArray = this.coords.map((coord) => coord - this.currentCoord);
     this.setState({
       dragToValueMin: this.dragToValueArray[0] || 0,
-      dragToValueMax: this.dragToValueArray[this.length - 1] || 0,
-    }, _ => {
+      dragToValueMax: this.dragToValueArray[this.length - 1] || 0
+    }, () => {
       callback && callback();
     });
     console.log('被选项中心坐标', this.currentCoord);
@@ -251,13 +252,13 @@ export default class DragGear extends React.Component {
       return (
         <Clickable
           key={option}
-          onPress={_ => this.onPress(index)}
+          onPress={() => this.onPress(index)}
           text={option}
           style={style}
           textStyle={this.props.textStyle}
         />
-      )
-    })
+      );
+    });
   }
   /**
    * @description 可拖拽元素
@@ -269,8 +270,8 @@ export default class DragGear extends React.Component {
     // 可拖拽元素初始绝对定位
     const position = {
       position: 'absolute',
-      left: -min,
-    }
+      left: -min
+    };
     // 显示区域
     const innerCircle = {
       width: this.optionWidth,
@@ -278,30 +279,30 @@ export default class DragGear extends React.Component {
       borderRadius: this.optionWidth / 2,
       backgroundColor: this.props.selectColor,
       alignItems: 'center',
-      justifyContent: 'center',
-    }
+      justifyContent: 'center'
+    };
     // 手势响应区域
     const touchArea = {
       width: this.optionWidth + this.margin * 2,
       height: this.optionWidth * BIGGER_SIZE,
       backgroundColor: 'transparent',
       alignItems: 'center',
-      justifyContent: 'center',
-    }
+      justifyContent: 'center'
+    };
     // 动效
     const panStyle = {
       transform: [
         {
           translateX: this.state.pan.interpolate({
             inputRange: [min - 1, min, max, max + 1],
-            outputRange: [min, min, max, max],
+            outputRange: [min, min, max, max]
           })
         },
         {
           scale: this.state.scale
         }
       ]
-    }
+    };
     return (
       <Block
         panHandlers={this.panResponder.panHandlers}
@@ -315,18 +316,18 @@ export default class DragGear extends React.Component {
           </View>
         </View>
       </Block>
-    )
+    );
   }
   render() {
     if (this.showNothing) return null;
     const container = {
       width: this.containerWidth,
-      height: this.optionWidth * BIGGER_SIZE,
+      height: this.optionWidth * BIGGER_SIZE
     };
     return (
       <View
-        onLayout={_ => this.calculateCoord()}
-        ref={container => this._container = container}
+        onLayout={() => this.calculateCoord()}
+        ref={(container) => this._container = container}
         style={[this.props.containerStyle, styles.container, container]}>
         {this.renderOptions()}
         {this.renderDraggable()}
@@ -345,9 +346,9 @@ export default class DragGear extends React.Component {
             duration: 200,
             useNativeDriver: true
           }
-        ),
+        )
       ]
-    ).start(_ => this.animated2TargetIndex(index));
+    ).start(() => this.animated2TargetIndex(index));
     if (this.props.onSelect) {
       this.props.onSelect(index);
     }
@@ -357,6 +358,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-evenly'
   }
 });

@@ -1,8 +1,8 @@
-import React, {Component, PureComponent} from 'react';
-import {StyleSheet, View, Text, Animated} from 'react-native';
+import React, { Component, PureComponent } from 'react';
+import { StyleSheet, View, Text, Animated } from 'react-native';
 import PropTypes from 'prop-types';
-import {adjustSize} from '../utils/sizes';
-import {FontDefault} from '../utils/fonts';
+import { adjustSize } from '../utils/sizes';
+import { FontDefault } from '../utils/fonts';
 const Source0 = require('../resources/images/heater-dot0.png');
 const Source1 = require('../resources/images/heater-dot1.png');
 const Source2 = require('../resources/images/heater-dot2.png');
@@ -14,10 +14,15 @@ function getRandomBetween(min, max) {
   return Math.random() * (max - min) + min;
 }
 export default class HeaterHeader extends PureComponent {
+  static propTypes = {
+    title: PropTypes.string,
+    disabled: PropTypes.bool,
+    themeColor: PropTypes.any
+  };
   render() {
-    let {title, disabled, themeColor} = this.props;
+    let { title, disabled, themeColor } = this.props;
     let color = disabled ? '#47525F' : (themeColor || '#FA9E19');
-    if(!title) {
+    if (!title) {
       return null;
     }
     return (
@@ -30,16 +35,21 @@ export default class HeaterHeader extends PureComponent {
   }
 }
 class Dot extends Component {
+  static propTypes = {
+    width: PropTypes.number,
+    height: PropTypes.height,
+    source: PropTypes.any
+  };
   state = {
     progress: new Animated.Value(0)
   };
-  startAnimation()  {
+  startAnimation() {
     this.ani && this.ani.stop();
     this.ani = Animated.timing(this.state.progress, {
       toValue: 1,
       duration: getRandomBetween(12000, 24000)
-    }).start(({finished}) => {
-      if(finished) {
+    }).start(({ finished }) => {
+      if (finished) {
         this.state.progress.setValue(0);
         this.startAnimation();
       }
@@ -55,8 +65,8 @@ class Dot extends Component {
     this.stopAnimation();
   }
   render() {
-    let {width, height, source} = this.props;
-    let {progress} = this.state;
+    let { width, height, source } = this.props;
+    let { progress } = this.state;
     let originLeft = getRandomBetween(20, 350);
     let opacity = progress.interpolate({
       inputRange: [0, 1],
@@ -64,7 +74,7 @@ class Dot extends Component {
     });
     let bottom = progress.interpolate({
       inputRange: [0, 1],
-      outputRange: [`${getRandomBetween(0, 20)}%`, '100%']
+      outputRange: [`${ getRandomBetween(0, 20) }%`, '100%']
     });
     let left = progress.interpolate({
       inputRange: [0, 1],
@@ -140,13 +150,13 @@ export class Background extends Component {
     themeColor: null
   };
   getDots() {
-    let {themeColor} = this.props;
+    // let { themeColor } = this.props;
     let dots = [];
     let Dots = [Dot0, Dot1, Dot2, Dot3, Dot4, Dot5, Dot6].reverse();
     let dotCount = [14, 11, 18, 10, 11, 10, 11].reverse();
     dotCount.forEach((c, index) => {
       let DotN = Dots[index];
-      for(let i = 0; i < c; i++) {
+      for (let i = 0; i < c; i++) {
         dots.push(
           <DotN key={String(index) + String(i)} />
         );
@@ -155,8 +165,8 @@ export class Background extends Component {
     return dots;
   }
   render() {
-    let {on} = this.props;
-    if(!on) {
+    let { on } = this.props;
+    if (!on) {
       return null;
     }
     let dots = this.getDots();

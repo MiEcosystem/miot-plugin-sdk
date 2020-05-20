@@ -10,7 +10,7 @@ const paddingHorizontal = 29; // 内容的左右边距
 const paddingVertical = 23; // 内容的上下边距
 const paddingTop = 13; // 输入框和下方内容的间距
 const paddingBottom = 6; // 输入框和上方内容的间距
-const { width, height } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 /**
  * @description 输入弹窗的类型
  * @enum {string}
@@ -32,8 +32,8 @@ const TYPE = {
    * 输入框上方有文字说明和下划线超链接
    * 输入框下方有勾选框和文字
    */
-  BOTH: 'both',
-}
+  BOTH: 'both'
+};
 Object.freeze(TYPE);
 /**
  * 输入框上方的数据
@@ -91,13 +91,13 @@ export default class InputDialog extends React.Component {
     inputs: PropTypes.arrayOf(PropTypes.object),
     checkboxData: PropTypes.object,
     buttons: PropTypes.arrayOf(PropTypes.object),
-    onDismiss: PropTypes.func,
+    onDismiss: PropTypes.func
   }
   static defaultProps = {
     type: TYPE.SIMPLE,
     color: Styles.common.MHGreen,
     underlineData: {},
-    checkboxData: {},
+    checkboxData: {}
   }
   /**
    * @description 输入弹窗的类型
@@ -108,13 +108,13 @@ export default class InputDialog extends React.Component {
     super(props, context);
     this.state = {
       checked: false
-    }
+    };
     RkTheme.setType('RkTextInput', 'mhtextinput', {
       input: {
         marginVertical: 0,
         color: '#000000',
         marginLeft: 16,
-        fontSize: 14,
+        fontSize: 14
       },
       underlineWidth: 0.3,
       marginVertical: 0,
@@ -123,11 +123,11 @@ export default class InputDialog extends React.Component {
       backgroundColor: '#f9f9f9',
       borderRadius: 6,
       borderWidth: 0.3,
-      borderColor: '#e5e5e5',
+      borderColor: '#e5e5e5'
     });
     this.process(props);
   }
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     this.process(props);
   }
   process(props) {
@@ -137,19 +137,19 @@ export default class InputDialog extends React.Component {
       placeholder: '自定义占位字符',
       defaultValue: '自定义默认值',
       textInputProps: { autoFocus: true }
-    }]
+    }];
     // 拦截 onChangeText，记录输入文字
     for (let i = 0; i < this.inputs.length; i++) {
       const input = this.inputs[i];
       if (input !== undefined) {
         this.textInputArray.push(input.defaultValue || '');
         const onChangeTextOrigin = input.onChangeText;
-        input.onChangeText = text => {
+        input.onChangeText = (text) => {
           this._onChangeText(text, i);
           if (onChangeTextOrigin instanceof Function) {
             onChangeTextOrigin(text);
           }
-        }
+        };
       }
     }
     this.state.checked = props.checkboxData.checked || false;
@@ -166,7 +166,7 @@ export default class InputDialog extends React.Component {
             checked: this.state.checked,
             textInputArray: this.textInputArray
           });
-        }
+        };
       }
     }
     this.buttons = buttons;
@@ -195,14 +195,13 @@ export default class InputDialog extends React.Component {
           <Text
             style={[styles.underlineText, { color: this.props.color }]}
             numberOfLines={1}
-            onPress={_ => this.onPressUnderlineText()}
+            onPress={() => this.onPressUnderlineText()}
           >
             {underlineText || ''}
           </Text>
         </View>
-      )
-    }
-    else return null;
+      );
+    } else return null;
   }
   /**
    * 一组输入框
@@ -217,11 +216,11 @@ export default class InputDialog extends React.Component {
           style={margin}
           placeholder={input.placeholder || ''}
           onChangeText={input.onChangeText}
-          rkType='mhtextinput'
+          rkType="mhtextinput"
           defaultValue={input.defaultValue || ''}
           {...(input.textInputProps || {})}
         />
-      )
+      );
     });
   }
   /**
@@ -233,7 +232,7 @@ export default class InputDialog extends React.Component {
       const { text } = this.props.checkboxData;
       return (
         <TouchableOpacity
-          onPress={_ => this.onPressCheckbox()}
+          onPress={() => this.onPressCheckbox()}
           activeOpacity={1}
           style={{ paddingTop }}
         >
@@ -246,7 +245,7 @@ export default class InputDialog extends React.Component {
                 height: 20,
                 borderRadius: 10
               }}
-              onValueChange={checked => this.state.checked = checked}
+              onValueChange={(checked) => this.state.checked = checked}
             />
             <Text
               style={styles.checkboxText}
@@ -256,20 +255,19 @@ export default class InputDialog extends React.Component {
             </Text>
           </View>
         </TouchableOpacity>
-      )
-    }
-    else return null;
+      );
+    } else return null;
   }
   render() {
     if (!this.props.visible) return null;
-    const absDialogStyle = Platform.OS === 'ios' ? {bottom: ~~(height * 0.45)} : {}
+    const absDialogStyle = Platform.OS === 'ios' ? { bottom: ~~(height * 0.45) } : {};
     return (
       <AbstractDialog
         animationType={this.props.animationType}
         visible={this.props.visible}
         title={this.props.title}
         buttons={this.buttons}
-        onDismiss={_ => this._onDismiss()}
+        onDismiss={() => this._onDismiss()}
         style={absDialogStyle}
       >
         <View style={[styles.container]}>
@@ -298,33 +296,33 @@ const styles = StyleSheet.create({
     paddingHorizontal,
     paddingBottom: paddingVertical,
     backgroundColor: '#fff',
-    borderRadius: Styles.dialog.modal.borderRadius,
+    borderRadius: Styles.dialog.modal.borderRadius
   },
   underlineContainer: {
     paddingBottom,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-around'
   },
   label: {
     fontSize: 14,
     color: 'rgba(0,0,0,0.8)',
-    flex: 1,
+    flex: 1
   },
   underlineText: {
     flex: 1,
     textAlign: 'right',
     textDecorationLine: 'underline',
-    fontSize: 14,
+    fontSize: 14
   },
   checkboxContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   checkboxText: {
     flex: 1,
     marginLeft: 8,
     fontSize: 14,
     color: '#999'
-  },
+  }
 });

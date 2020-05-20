@@ -18,7 +18,7 @@
  * })
  *
  */
-import {report} from '../decorator/ReportDecorator';
+import { report } from '../decorator/ReportDecorator';
 /**
  * @interface
  * @description

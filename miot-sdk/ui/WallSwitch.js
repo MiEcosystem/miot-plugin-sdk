@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import LinearGradient from 'react-native-linear-gradient';
-import {adjustSize} from '../utils/sizes';
-import {FontDefault} from '../utils/fonts';
-import {log} from '../utils/fns';
+import { adjustSize } from '../utils/sizes';
+// import { FontDefault } from '../utils/fonts';
+import { log } from '../utils/fns';
 const SwitchBgColorsOn = ["#fff", "#f1f1f2"];
 const SwitchBgColorsOff = ["#f1f1f2", "#fff"];
 const MarginTops = [0, adjustSize(240), adjustSize(180), adjustSize(105), adjustSize(90)];
@@ -21,8 +21,8 @@ export default class WallSwitch extends Component {
     onSwitch: log
   };
   switch = (index) => {
-    let {onSwitch} = this.props;
-    if(typeof onSwitch === 'function') {
+    let { onSwitch } = this.props;
+    if (typeof onSwitch === 'function') {
       onSwitch(index);
     }
   }
@@ -34,8 +34,8 @@ export default class WallSwitch extends Component {
       let isOn = item.isOn;
       return (
         <LinearGradient key={index} style={[Styles.item, isOn ? Styles.itemOn : Styles.itemOff, isFirst ? Styles.itemFirst : null, isLast ? Styles.itemLast : null]} colors={isOn ? SwitchBgColorsOn : SwitchBgColorsOff}>
-          <TouchableOpacity style={{width: '100%', height: '100%'}} activeOpacity={0.8} onPress={() => {
-            this.switch(index)
+          <TouchableOpacity style={{ width: '100%', height: '100%' }} activeOpacity={0.8} onPress={() => {
+            this.switch(index);
           }}>
             <View style={Styles.upper}>
               <View style={[Styles.indicator, isOn ? Styles.indicatorOn : Styles.indicatorOff]}></View>
@@ -46,8 +46,8 @@ export default class WallSwitch extends Component {
     });
   }
   render() {
-    let {items} = this.props;
-    if(!items || !items.length) {
+    let { items } = this.props;
+    if (!items || !items.length) {
       return null;
     }
     let length = items.length;

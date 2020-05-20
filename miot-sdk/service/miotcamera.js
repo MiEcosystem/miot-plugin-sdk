@@ -14,24 +14,24 @@ import { report } from "../decorator/ReportDecorator";
  * @namespace MISSCommand
  */
 export const MISSCommand = {
-  MISS_CMD_VIDEO_START: 0x102,	/**< C->S, video start */
-  MISS_CMD_VIDEO_STOP: 0x103,	/**< C->S, video stop */
-  MISS_CMD_AUDIO_START: 0x104,	/**< C->S, audio start */
-  MISS_CMD_AUDIO_STOP: 0x105,	/**< C->S, audio stop */
-  MISS_CMD_SPEAKER_START_REQ: 0x106,	/**< C->S, speaker start req */
-  MISS_CMD_SPEAKER_START_RESP: 0x107,	/**< C->S, speaker start resp */
-  MISS_CMD_SPEAKER_STOP: 0x108,	/**< C->S, speaker stop */
-  MISS_CMD_STREAM_CTRL_REQ: 0x109,	/**< C->S, video quality req */
-  MISS_CMD_STREAM_CTRL_RESP: 0x10A,	/**< S->C, video quality response */
-  MISS_CMD_GET_AUDIO_FORMAT_REQ: 0x10B,	/**< C->S, get audio format */
-  MISS_CMD_GET_AUDIO_FORMAT_RESP: 0x10C,  /**< S->C, audio format response */
-  MISS_CMD_PLAYBACK_REQ: 0x10D,	/**< C->S, playback request */
-  MISS_CMD_PLAYBACK_RESP: 0x10E,	/**< S->C, playback response */
-  MISS_CMD_PLAYBACK_SET_SPEED: 0x10F,	/**< C->S, playback speed */
-  MISS_CMD_DEVINFO_REQ: 0x110,	/**< C->S, device info request */
-  MISS_CMD_DEVINFO_RESP: 0x111,	/**< S->C, device info response */
-  MISS_CMD_MOTOR_REQ: 0x112,	/**< C->S, device motor control */
-  MISS_CMD_MOTOR_RESP: 0x113,	/**< S->C, device motor control response */
+  MISS_CMD_VIDEO_START: 0x102,	/** < C->S, video start */
+  MISS_CMD_VIDEO_STOP: 0x103,	/** < C->S, video stop */
+  MISS_CMD_AUDIO_START: 0x104,	/** < C->S, audio start */
+  MISS_CMD_AUDIO_STOP: 0x105,	/** < C->S, audio stop */
+  MISS_CMD_SPEAKER_START_REQ: 0x106,	/** < C->S, speaker start req */
+  MISS_CMD_SPEAKER_START_RESP: 0x107,	/** < C->S, speaker start resp */
+  MISS_CMD_SPEAKER_STOP: 0x108,	/** < C->S, speaker stop */
+  MISS_CMD_STREAM_CTRL_REQ: 0x109,	/** < C->S, video quality req */
+  MISS_CMD_STREAM_CTRL_RESP: 0x10A,	/** < S->C, video quality response */
+  MISS_CMD_GET_AUDIO_FORMAT_REQ: 0x10B,	/** < C->S, get audio format */
+  MISS_CMD_GET_AUDIO_FORMAT_RESP: 0x10C, /** < S->C, audio format response */
+  MISS_CMD_PLAYBACK_REQ: 0x10D,	/** < C->S, playback request */
+  MISS_CMD_PLAYBACK_RESP: 0x10E,	/** < S->C, playback response */
+  MISS_CMD_PLAYBACK_SET_SPEED: 0x10F,	/** < C->S, playback speed */
+  MISS_CMD_DEVINFO_REQ: 0x110,	/** < C->S, device info request */
+  MISS_CMD_DEVINFO_RESP: 0x111,	/** < S->C, device info response */
+  MISS_CMD_MOTOR_REQ: 0x112,	/** < C->S, device motor control */
+  MISS_CMD_MOTOR_RESP: 0x113	/** < S->C, device motor control response */
 };
 Object.freeze(MISSCommand);
 /**
@@ -44,7 +44,7 @@ export const MISSError = {
   MISS_ERR_CLOSE_BY_REMOTE: 2,
   MISS_ERR_AUTHORIZED: 3,
   MISS_ERR_CLOSE_BY_TIMEOUT: 4,
-  MISS_ERR_NOT_SUPPORT_VENDOR: 5,// 5
+  MISS_ERR_NOT_SUPPORT_VENDOR: 5, // 5
   MISS_ERR_ALREADY_INITIALIZED: 6,
   MISS_ERR_NOT_INITIALIZED: 7,
   MISS_ERR_ABORTED: 8,
@@ -73,7 +73,7 @@ export const MISSError = {
   MISS_ERR_FUNCTION_DISABLE: 31,
   MISS_ERR_SLEEPING: 32,
   MISS_ERR_OFFLINE: 33,
-  MISS_ERR_CONNECT_SERVER: 34, // 34
+  MISS_ERR_CONNECT_SERVER: 34 // 34
 };
 Object.freeze(MISSError);
 /**
@@ -84,7 +84,7 @@ export const MISSConnectState = {
   MISS_Connection_Disconnected: 0,
   MISS_Connection_Connecting: 1,
   MISS_Connection_Connected: 2,
-  MISS_Connection_ReceivedFirstFrame: 3,
+  MISS_Connection_ReceivedFirstFrame: 3
 };
 Object.freeze(MISSConnectState);
 /**
@@ -98,7 +98,7 @@ export const AlarmEventType = {
   EventType_KnownFace: 1 << 3,
   EventType_PeopleMotion: 1 << 4,
   EventType_ObjectMotion: 1 << 5,
-  EventType_BabyCry: 1 << 6,
+  EventType_BabyCry: 1 << 6
 };
 Object.freeze(AlarmEventType);
 /**
@@ -111,7 +111,7 @@ class IMiotCamera {
    */
   @report
   connectToDeviceWithStateChangeCallBack(callbackName) {
-     return 
+     return null
   }
   /**
    * 断开连接设备
@@ -119,7 +119,7 @@ class IMiotCamera {
    */
   @report
   disconnectToDevice() {
-     return 
+     return null
   }
   /**
    * 发送miss命令到设备
@@ -137,7 +137,7 @@ class IMiotCamera {
    */
   @report
   bindP2PCommandReceiveCallback(callbackName) {
-     return 
+     return null
   }
   /**
    * 发送RDT命令到设备
@@ -163,7 +163,7 @@ class IMiotCamera {
    */
   @report
   bindRDTDataReceiveCallback(callbackName) {
-     return 
+     return null
   }
   /**
    * 打开报警视频页面
@@ -176,7 +176,7 @@ class IMiotCamera {
    */
   @report
   showAlarmVideos(localRecognizeEvents) {
-     return 
+     return null
   }
   /**
    * 打开云储存页面
@@ -186,7 +186,7 @@ class IMiotCamera {
    */
   @report
   showCloudStorage(supportHevc, useV2API) {
-     return 
+     return null
   }
   /**
    * 打开云储存设置页面
@@ -194,7 +194,7 @@ class IMiotCamera {
    */
   @report
   showCloudStorageSetting() {
-     return 
+     return null
   }
   /**
    * 打开报警视频播放页面
@@ -203,7 +203,7 @@ class IMiotCamera {
    */
   @report
   openAlarmVideoPlayer(data) {
-     return 
+     return null
   }
   /**
    * 打开人脸识别页面
@@ -212,14 +212,17 @@ class IMiotCamera {
    */
   @report
   showFaceRecognize(isVip) {
-     return 
+     return null
   }
-  /* 注册收到数据速率 Bytes per second，每秒回调一次
+  /**
+   * 
+   * 注册收到数据速率 Bytes per second，每秒回调一次
    * @param {string} callbackName 回调名称 { rate: number }
+   * @since 10036
    */
   @report
   bindBPSReceiveCallback(callbackName) {
-     return 
+     return null
   }
   /*
   * 拉取当前正在播放时间戳 js端控制拉取节奏
@@ -236,21 +239,23 @@ class IMiotCamera {
   */
   @report
   ffmpegCommand(command, callbackName, complete) {
-     return 
+     return null
   }
-  /**
+/**
    * 下载m3u8视频并合成mp4
-   * @since 10037
+   * @since 10038
    * @param fileId
    * @param filePath
    * @param callbackName
+   * @param isAlarm 是否报警视频
+   * @param videoCodec 视频编码如 "H264", "H265"
    * @returns
    *    state : 1. onStart (开始下载)  2. onComplete（下载完成）  3. onError（失败）  4. onProgress（下载进度）
    *    errorInfo : 失败描述（state = onError时才有）
    *    progress : 下载进度0 - 100 (state = onProgress时才有)
    */
   @report
-  downloadM3U8ToMP4(fileId, filePath, callbackName) {
+  downloadM3U8ToMP4(fileId, filePath, callbackName, isAlarm = false, videoCodec = 'H265') {
   }
   /**
    * 获取报警视频m3u8播放地址
@@ -273,6 +278,44 @@ class IMiotCamera {
   getFileIdImage(imgStoreId) {
      return Promise.resolve(null);
   }
+  /**
+ * 通知native端现在是不是回看时间轴模式
+ * @since 10038
+ * @param {boolean} isTimelinePlayback 是不是回看时间轴模式
+ * @returns {null}
+ */
+  @report
+  setTimelinePlaybackMode(isTimelinePlayback) {
+     return null
+  }
+  /**
+    * 绑定回调，native端 在时间轴回看的模式下，如果从点播切换成直播了，就通过这个回调告诉js端
+    * @since 10038
+    * @param {string} timelinePlaybackEndListenerName native端在回看时间轴模式下，从点播切换成直播了，通过DeviceEmitter发送这个时间给js端
+    * @returns {null}
+  */
+  @report
+  bindTimelinePlaybackEndListener(timelinePlaybackEndListenerName) {
+     return null
+  }
+  /**
+   * 获取当前语音对讲过程中的音量大小
+   * @since 10038
+   * return {promise}  
+   */
+  @report
+  getCurrentSpeakerVolumn() {
+     return Promise.resolve(null);
+  }
+  /**
+   * 设置当前model是不是miss固件
+   * @param boolean isMissFirmware  是否是miss固件，true 是； false tutk固件。
+   * @since 10038
+   */
+  setCurrentDeviceIsMissFirmware(isMissFirmware) {
+     return null
+  }
+  
 }
 const MiotCameraInstance = new IMiotCamera();
 export default MiotCameraInstance;

@@ -5,7 +5,7 @@ const {
   Surface,
   Shape,
   Path,
-  Transform,
+  Transform
 } = ART;
 /**
  * @description 两端圆角的矩形
@@ -14,7 +14,7 @@ class Rectangle extends React.Component {
   static propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
-    degree: PropTypes.number.isRequired,
+    degree: PropTypes.number.isRequired
   };
   render() {
     const { width, height } = this.props;
@@ -58,7 +58,7 @@ export default class Checkable extends React.Component {
     super(props, context);
     this.state = {
       animatedWidth: new Animated.Value(0)
-    }
+    };
     // 计算各种数值
     const { size } = this.props;
     const containerHeight = size; // 容器高度
@@ -71,8 +71,8 @@ export default class Checkable extends React.Component {
     this.animationConfig = { // 动画配置参数
       toValue: rightRectangleWidth,
       speed: 9,
-      bounciness: 9,
-    }
+      bounciness: 9
+    };
     this.containerHeight = containerHeight;
     this.leftWidth = leftWidth;
     this.rightWidth = rightWidth;

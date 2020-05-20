@@ -4,7 +4,7 @@
  * @doc_index 3
  * @doc_directory host
  * @module miot/host/crypto
- * @description 
+ * @description
  * 加密模块
  * @example
  * import {Host} from 'miot'
@@ -12,12 +12,12 @@
  * const str = '123'
  * //async
  * let md5 = await Host.crypto.endoceMD5(str)
- * 
+ *
  * //normal
  * Host.crypto.encodeMD5(str).then(res => {//md5 value is res})
  * ...
  */
-import tr from "../resources/strings/tr";
+// import tr from "../resources/strings/tr";
 import { report } from "../decorator/ReportDecorator";
 /**
  * 加密
@@ -34,7 +34,7 @@ class ICrypto {
   encodeMD5(content) {
      return Promise.resolve('');
   }
-  /** 
+  /**
    * base64 编码
    * @param {string} content 需要编码的字符串
    * @returns {Promise<string>} 使用base64编码后的字符串
@@ -130,7 +130,7 @@ class ICrypto {
    * @param {int} width : 图片宽度
    * @param {int} height : 图片高度
    * @param {string} points : 点集合字符串，如 ‘1,2,3,4,5,6,7’
-   * @param {string} colorsMap : 点值与颜色之间对应关系JSON字符串 
+   * @param {string} colorsMap : 点值与颜色之间对应关系JSON字符串
    *        值得注意的是，需要传递8位深度的颜色值，其中头两位代表alpha通道，后六位代表rgb通道
    *        例如 #FFFF0000 代表红色
    *        建议值： -1 墙 #FF666666

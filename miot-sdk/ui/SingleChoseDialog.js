@@ -43,7 +43,7 @@ export default class SingleChoseDialog extends Component {
     onCancel: PropTypes.func,
     onCheck: PropTypes.func,
     onDismiss: PropTypes.func,
-    ...ViewPropTypes,
+    ...ViewPropTypes
   };
   render() {
      return null

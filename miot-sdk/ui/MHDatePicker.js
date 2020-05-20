@@ -26,7 +26,7 @@ const TYPE = {
    * 选择年月日
    */
   DATE: 'date'
-}
+};
 Object.freeze(TYPE);
 /**
  * @description 单个picker时选择器的类型，也就是显示的单位
@@ -53,11 +53,11 @@ const SINGLE_TYPE = {
    * 秒
    */
   SECOND: 'second'
-}
+};
 Object.freeze(SINGLE_TYPE);
 /**
- * 
- * @param {number} length 
+ *
+ * @param {number} length
  * @param {bool} zeroPrefix 是否前补0
  * @param {bool} fromZero 是否从0开始
  */
@@ -88,7 +88,7 @@ const pickerInnerStyle = {
   unitFontSize: 10,
   rowHeight,
   selectBgColor: "#f3f3f3"
-}
+};
 const months = constructArray(12, 1, 0);
 const days = constructArray(31, 1, 0);
 const hours24 = constructArray(24, 1, 1);
@@ -100,8 +100,8 @@ const singleDataSource = {
   [SINGLE_TYPE.DAY]: days,
   [SINGLE_TYPE.HOUR]: constructArray(24, 1, 0),
   [SINGLE_TYPE.MINUTE]: constructArray(60, 1, 0),
-  [SINGLE_TYPE.SECOND]: constructArray(60, 1, 0),
-}
+  [SINGLE_TYPE.SECOND]: constructArray(60, 1, 0)
+};
 Object.freeze(singleDataSource);
 const days31 = ['01', '03', '05', '07', '08', '10', '12'];
 const days30 = ['04', '06', '09', '11'];
@@ -115,7 +115,7 @@ const defaultYearOffset = 15;
  * @param {string} animationType - modal 显示动效, 参考 https://facebook.github.io/react-native/docs/0.54/modal#animationtype
  * @param {bool} visible -  是否显示 modal, 参考 https://facebook.github.io/react-native/docs/0.54/modal#visible
  * @param {string} title - 标题
- * @param {bool} showSubtitle - 是否显示副标题，副标题显示的内容固定，和`type`有关 
+ * @param {bool} showSubtitle - 是否显示副标题，副标题显示的内容固定，和`type`有关
  * @param {string} confirmColor - 确定按钮的颜色，默认米家绿
  * @param {TYPE} type - 时间选择器类型, enum('single', 'time24', 'time12', 'date')
  * @param {SINGLE_TYPE} singleType - 单个picker时的选择器类型, enum('month', 'day', 'hour', 'minute', 'second')
@@ -156,7 +156,7 @@ export default class MHDatePicker extends React.Component {
       PropTypes.instanceOf(Date)
     ]),
     onSelect: PropTypes.func,
-    onDismiss: PropTypes.func,
+    onDismiss: PropTypes.func
   }
   static defaultProps = {
     animationType: 'fade',
@@ -166,7 +166,7 @@ export default class MHDatePicker extends React.Component {
     confirmColor: Styles.common.MHGreen,
     type: TYPE.TIME24,
     singleType: SINGLE_TYPE.MINUTE,
-    onSelect: obj => console.log(obj),
+    onSelect: (obj) => console.log(obj)
   }
   /**
    * @description 时间选择器类型
@@ -186,29 +186,29 @@ export default class MHDatePicker extends React.Component {
       visible: this.props.visible,
       dataSourceArray, // 待显示的数据源数组
       currentArray, // 当前选中值数组
-      subtitle,
+      subtitle
     };
   }
   /**
    * 根据时间选择器类型、app 语言和初始值数组显示不同模板的副标题文案
-   * @param {*} arr 
+   * @param {*} arr
    */
   getSubtitle(arr) {
     if (this.props.type === TYPE.SINGLE) {
       const count = parseInt(arr[0]);
-      const unit = count > 1 ? strings[this.props.singleType + 's'] : strings[this.props.singleType]; // 英文单复数单位
+      const unit = count > 1 ? strings[`${ this.props.singleType }s`] : strings[this.props.singleType]; // 英文单复数单位
       return formatString(strings.singleSubTitle, count, unit);
     }
     return formatString({
       [TYPE.DATE]: strings.dateSubTitle,
       [TYPE.TIME24]: strings.time24SubTitle,
-      [TYPE.TIME12]: strings.time12SubTitle,
+      [TYPE.TIME12]: strings.time12SubTitle
     }[this.props.type], ...arr);
   }
   /**
    * 根据类型将 Date 实例或者 Array<number> 转换成 ['','','']形式
-   * @param {*} cur 
-   * @param {string} type 
+   * @param {*} cur
+   * @param {string} type
    */
   convert(cur) {
     const { type } = this.props;
@@ -225,73 +225,69 @@ export default class MHDatePicker extends React.Component {
         default:
           return ['01'];
       }
-    }
-    else if (cur instanceof Array) {
+    } else if (cur instanceof Array) {
       switch (type) {
         case TYPE.DATE:
-          return cur.slice(0, 3).map((v, i) => i === 0 ? ('' + v) : (('0' + v).slice(-2)));
+          return cur.slice(0, 3).map((v, i) => i === 0 ? (`${ v }`) : ((`0${ v }`).slice(-2)));
         case TYPE.TIME24:
-          return cur.slice(0, 2).map(v => ('0' + v).slice(-2));
+          return cur.slice(0, 2).map((v) => (`0${ v }`).slice(-2));
         case TYPE.TIME12:
           return this.convertTo12(cur);
         case TYPE.SINGLE:
-          return cur.slice(0, 1).map(v => ('0' + v).slice(-2));
+          return cur.slice(0, 1).map((v) => (`0${ v }`).slice(-2));
         default:
           return ['01'];
       }
-    }
-    // 异常处理1
-    else if (typeof cur === 'string'
+    } else if (typeof cur === 'string'
       || typeof cur === 'number') {
-      return [cur + ''];
-    }
-    // 异常处理2
-    else {
+      // 异常处理1
+      return [`${ cur }`];
+    } else {
+      // 异常处理2
       return ['01'];
     }
   }
   /**
    * 将24小时制的数组转换成12小时制的数组
-   * @param {Array} arr 
+   * @param {Array} arr
    */
   convertTo12(arr) {
     if (arr.length === 2) {
-      let newArr = arr.map(v => parseInt(v));
-      if (newArr.every(v => Number.isInteger)) {
+      let newArr = arr.map((v) => parseInt(v));
+      if (newArr.every(() => Number.isInteger)) {
         let res;
         if (newArr[0] === 0) {
           res = [strings.am, 12, newArr[1]];
-        }
-        else {
+        } else {
           const timeSystem = newArr[0] > 11 ? strings.pm : strings.am; // 下午 12:34
-          const hour = newArr[0] > 12 ? (newArr[0] - 12) + '' : newArr[0] + '';
-          const minute = newArr[1] + '';
+          const hour = newArr[0] > 12 ? `${ newArr[0] - 12 }` : `${ newArr[0] }`;
+          const minute = `${ newArr[1] }`;
           res = [timeSystem, hour, minute];
         }
-        return res.map((v, i) => i > 0 ? ('0' + v).slice(-2) : v);
+        return res.map((v, i) => i > 0 ? (`0${ v }`).slice(-2) : v);
       }
     }
     return this.convert(new Date());
   }
   /**
    * 截取部分数组
-   * @param {array} arr 
-   * @param {*} head 
-   * @param {*} tail 
+   * @param {array} arr
+   * @param {*} head
+   * @param {*} tail
    */
   slice(arr, head, tail) {
     if (head === undefined && tail === undefined) return arr;
-    const index = arr.indexOf(('0' + head).slice(-2)) || 0;
-    const lastIndex = arr.lastIndexOf(('0' + tail).slice(-2)) || arr.length - 1;
+    const index = arr.indexOf((`0${ head }`).slice(-2)) || 0;
+    const lastIndex = arr.lastIndexOf((`0${ tail }`).slice(-2)) || arr.length - 1;
     return arr.slice(index, lastIndex + 1);
   }
   /**
    * 计算出年份的范围
-   * @param {*} min 
-   * @param {*} max 
+   * @param {*} min
+   * @param {*} max
    */
   getYears(min, max) {
-    this.min = this.convert(min); //留一份滚动比较时候用
+    this.min = this.convert(min); // 留一份滚动比较时候用
     this.max = this.convert(max);
     const minY = Number.parseInt(this.min[0]);
     const maxY = Number.parseInt(this.max[0]);
@@ -299,15 +295,15 @@ export default class MHDatePicker extends React.Component {
   }
   /**
    * 根据极值生成步长为1的数组，并转换成字符串
-   * @param {number} min 
-   * @param {number} max 
+   * @param {number} min
+   * @param {number} max
    */
   generateArray(min, max) {
     if (min > max) {
       console.warn('max < min');
       return [];
     }
-    return Array.from({ length: max - min + 1 }, (v, i) => i + min).map(v => v + '');
+    return Array.from({ length: max - min + 1 }, (v, i) => i + min).map((v) => `${ v }`);
   }
   /**
    * 初始化数据，包括每个picker的范围和选中值
@@ -315,43 +311,44 @@ export default class MHDatePicker extends React.Component {
   init(props) {
     const { type, singleType, current, min, max } = props;
     const currentArray = this.convert(current || new Date());
+    let yearNow, minDefault, maxDefault, years, dataSourceArray;
     switch (type) {
       case TYPE.DATE:
-        const yearNow = new Date().getFullYear();
-        const minDefault = new Date();
+        yearNow = new Date().getFullYear();
+        minDefault = new Date();
         minDefault.setFullYear(yearNow - defaultYearOffset); // Date 模式下，如果没 min，就往回 defaultYearOffset 年
-        const maxDefault = new Date();
+        maxDefault = new Date();
         maxDefault.setFullYear(yearNow + defaultYearOffset); // 如果没 max，就往后 defaultYearOffset 年
-        const years = this.getYears(min || minDefault, max || maxDefault);
-        const dataSourceArray = [years, months, days];
+        years = this.getYears(min || minDefault, max || maxDefault);
+        dataSourceArray = [years, months, days];
         this.updateDays(currentArray, dataSourceArray);
         this.unitArray = [strings.yearUnit, strings.monthUnit, strings.dayUnit];
         return {
           currentArray,
-          dataSourceArray,
-        }
+          dataSourceArray
+        };
       case TYPE.TIME24:
         this.unitArray = [strings.hourUnit, strings.minuteUnit];
         return {
           currentArray,
-          dataSourceArray: [hours24, minutes],
-        }
+          dataSourceArray: [hours24, minutes]
+        };
       case TYPE.TIME12:
         this.unitArray = ['', strings.hourUnit, strings.minuteUnit];
         return {
           currentArray,
-          dataSourceArray: [timeSystem, hours12, minutes],
-        }
+          dataSourceArray: [timeSystem, hours12, minutes]
+        };
       case TYPE.SINGLE:
       default:
-        this.unitArray = [strings[singleType + 'Unit']];
+        this.unitArray = [strings[`${ singleType }Unit`]];
         return {
           currentArray,
-          dataSourceArray: [this.slice(singleDataSource[singleType], min, max)],
-        }
+          dataSourceArray: [this.slice(singleDataSource[singleType], min, max)]
+        };
     }
   }
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (newProps.visible !== this.state.visible) {
       this.setState({ visible: newProps.visible });
     }
@@ -370,7 +367,7 @@ export default class MHDatePicker extends React.Component {
   renderTitle() {
     const height = {
       height: this.props.showSubtitle ? titleHeightFat : titleHeightThin
-    }
+    };
     return (
       <View style={[styles.titleContainer, height]}>
         <Text
@@ -389,7 +386,7 @@ export default class MHDatePicker extends React.Component {
           : null
         }
       </View>
-    )
+    );
   }
   /**
    * picker 部分
@@ -418,17 +415,17 @@ export default class MHDatePicker extends React.Component {
                 dataSource={dataSource}
                 defaultValue={currentArray[index]}
                 pickerInnerStyle={pickerInnerStyle}
-                onValueChanged={data => this._onValueChanged(index, data)}
+                onValueChanged={(data) => this._onValueChanged(index, data)}
               />
               {index < length - 1
-                ? <Separator type='column' style={{ height: pickerContainerHeight }} />
+                ? <Separator type="column" style={{ height: pickerContainerHeight }} />
                 : null
               }
             </View>
-          )
+          );
         })}
       </View>
-    )
+    );
   }
   /**
    * 底部按钮
@@ -438,25 +435,25 @@ export default class MHDatePicker extends React.Component {
       <View style={styles.buttons}>
         <TouchableHighlight
           style={[styles.button, { borderBottomLeftRadius: borderRadius }]}
-          onPress={_ => this.dismiss()}
-          underlayColor='rgba(0,0,0,.05)'
+          onPress={() => this.dismiss()}
+          underlayColor="rgba(0,0,0,.05)"
         >
           <Text style={styles.buttonText}>
             {strings.cancel}
           </Text>
         </TouchableHighlight>
-        <Separator type='column' style={{ height: buttonHeight }} />
+        <Separator type="column" style={{ height: buttonHeight }} />
         <TouchableHighlight
           style={[styles.button, { borderBottomRightRadius: borderRadius }]}
-          onPress={_ => this.confirm()}
-          underlayColor='rgba(0,0,0,.05)'
+          onPress={() => this.confirm()}
+          underlayColor="rgba(0,0,0,.05)"
         >
           <Text style={[styles.buttonText, { color: this.props.confirmColor }]}>
             {strings.ok}
           </Text>
         </TouchableHighlight>
       </View>
-    )
+    );
   }
   render() {
     return (
@@ -464,11 +461,11 @@ export default class MHDatePicker extends React.Component {
         animationType={this.props.animationType}
         transparent={true}
         visible={this.state.visible}
-        onRequestClose={_ => this.dismiss()}
+        onRequestClose={() => this.dismiss()}
       >
         <View style={styles.background}>
           <TouchableWithoutFeedback
-            onPress={_ => this.dismiss()}
+            onPress={() => this.dismiss()}
           >
             <View style={{ width, height }} />
           </TouchableWithoutFeedback>
@@ -485,38 +482,35 @@ export default class MHDatePicker extends React.Component {
   }
   /**
    * 是否是闰年
-   * @param {number} y 
+   * @param {number} y
    */
   isLeapYear(y) {
     return ((y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0 && y % 3200 !== 0));
   }
   /**
    * 比较`Date`时间数组的时间前后 ['2017','06','01'] > ['2017','05','31']
-   * @param {array} arrA 
-   * @param {array} arrB 
+   * @param {array} arrA
+   * @param {array} arrB
    */
   compareDateArray(arrA, arrB) {
     return arrA.join('') - arrB.join('');
   }
   /**
    * 计算当前年份和月份下的天数
-   * @param {array} newCurrentArray 
-   * @param {array<array>} newDataSourceArray 
+   * @param {array} newCurrentArray
+   * @param {array<array>} newDataSourceArray
    */
   updateDays(newCurrentArray, newDataSourceArray) {
     const [year, month, day] = newCurrentArray;
     if (days31.includes(month)) {
       newDataSourceArray[2] = days;
-    }
-    else if (days30.includes(month)) {
+    } else if (days30.includes(month)) {
       newDataSourceArray[2] = days.slice(0, 30);
-    }
-    else {
+    } else {
       // 闰年2月29天, 平年28天
       if (this.isLeapYear(parseInt(year))) {
         newDataSourceArray[2] = days.slice(0, 29);
-      }
-      else {
+      } else {
         newDataSourceArray[2] = days.slice(0, 28);
       }
     }
@@ -527,8 +521,8 @@ export default class MHDatePicker extends React.Component {
   }
   /**
    * Picker 滚动回调
-   * @param {number} index 
-   * @param {object} data 
+   * @param {number} index
+   * @param {object} data
    */
   _onValueChanged(index, data) {
     let newCurrentArray = [...this.state.currentArray];
@@ -537,7 +531,7 @@ export default class MHDatePicker extends React.Component {
     this.setState({
       currentArray: newCurrentArray,
       subtitle: this.getSubtitle(newCurrentArray)
-    }, _ => {
+    }, () => {
       if (this.props.type === TYPE.DATE) {
         let needUpdate = false;
         // 判断是否越界
@@ -556,7 +550,7 @@ export default class MHDatePicker extends React.Component {
         needUpdate && this.setState({
           subtitle: this.getSubtitle(newCurrentArray),
           currentArray: newCurrentArray,
-          dataSourceArray: newDataSourceArray,
+          dataSourceArray: newDataSourceArray
         });
       }
     });
@@ -577,6 +571,7 @@ export default class MHDatePicker extends React.Component {
   array2Date() {
     const { currentArray } = this.state;
     let date = new Date();
+    let hour;
     switch (this.props.type) {
       case TYPE.DATE:
         date.setFullYear(currentArray[0]);
@@ -588,11 +583,10 @@ export default class MHDatePicker extends React.Component {
         date.setMinutes(currentArray[1]);
         break;
       case TYPE.TIME12:
-        let hour = parseInt(currentArray[1]);
+        hour = parseInt(currentArray[1]);
         if (currentArray[0] === strings.am) {
           hour = hour === 12 ? 0 : hour;
-        }
-        else {
+        } else {
           hour = hour < 12 ? hour + 12 : hour;
         }
         date.setHours(hour);
@@ -626,14 +620,14 @@ const styles = StyleSheet.create({
     width: modalWidth,
     marginHorizontal: margin,
     backgroundColor: '#fff',
-    borderRadius,
+    borderRadius
   },
   titleContainer: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   title: {
-    fontFamily: 'D-DINCondensed-Bold',
+    fontFamily: 'D-DINCondensed-Bold'
   },
   subtitle: {
     width: modalWidth,
@@ -656,7 +650,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'transparent',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   buttonText: {
     fontSize: 14,

@@ -1,3 +1,3 @@
 export default {
-    mijia:"米家"
-}
+  mijia: "米家"
+};

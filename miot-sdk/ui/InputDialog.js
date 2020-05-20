@@ -37,7 +37,7 @@ export default class InputDialog extends Component {
     onConfirm: PropTypes.func,
     onCancel: PropTypes.func,
     onDismiss: PropTypes.func,
-    ...ViewPropTypes,
+    ...ViewPropTypes
   };
   render() {
      return null

@@ -64,8 +64,11 @@ export default class CardBase extends React.Component {
     this.marginTop = marginTop || 0;
   }
   componentDidMount() {
-    this.height.addListener(e => {
-      this.refs.card.setNativeProps({
+    this.height.addListener((e) => {
+      // this.refs.card.setNativeProps({
+      //   marginTop: this.marginTop * e.value
+      // });
+      this.refCard && this.refCard.setNativeProps({
         marginTop: this.marginTop * e.value
       });
     });
@@ -116,7 +119,7 @@ export default class CardBase extends React.Component {
       <TouchableHighlight
         style={styles.closeArea}
         underlayColor="transparent"
-        onPress={_ => this.dismiss()}
+        onPress={() => this.dismiss()}
       >
         <Animated.Image
           style={[styles.close, { opacity: this.opacity }]}
@@ -131,12 +134,11 @@ export default class CardBase extends React.Component {
   getCorrectStyle(cardStyle) {
     const animatedViewStyle = {};
     const containerStyle = {};
-    Object.keys(cardStyle).forEach(key => {
+    Object.keys(cardStyle).forEach((key) => {
       if (key.toString().startsWith('margin')
         || key.toString() === 'width') {
         animatedViewStyle[key] = cardStyle[key];
-      }
-      else {
+      } else {
         containerStyle[key] = cardStyle[key];
       }
     });
@@ -144,28 +146,27 @@ export default class CardBase extends React.Component {
   }
   render() {
     const toValue = this.props.visible ? 1 : 0;
-    // 消失
     if (!this.props.visible) {
+      // 消失
       Animated.parallel(
         [
           Animated.timing(this.height, {
             toValue,
             duration: DURATION_OUT,
-            easing: Easing.ease,
+            easing: Easing.ease
           }),
           Animated.timing(this.opacity, {
             toValue,
             duration: DURATION_OUT * 0.4,
-            easing: Easing.ease,
+            easing: Easing.ease
           })
         ],
         {
           stopTogether: false
         }
       ).start();
-    }
-    // 出现
-    else {
+    } else {
+      // 出现
       Animated.parallel(
         [
           Animated.timing(this.opacity, {
@@ -177,7 +178,7 @@ export default class CardBase extends React.Component {
           Animated.timing(this.height, {
             toValue,
             duration: DURATION_IN,
-            easing: Easing.ease,
+            easing: Easing.ease
           })
         ]
       ).start();
@@ -186,7 +187,7 @@ export default class CardBase extends React.Component {
     const { animatedViewStyle, containerStyle } = this.getCorrectStyle(cardStyle);
     return (
       <Animated.View
-        ref='card'
+        ref={(ref) => { this.refCard = ref; }}
         style={[animatedViewStyle, {
           opacity: this.opacity,
           height: this.height.interpolate({
@@ -217,7 +218,7 @@ const styles = StyleSheet.create({
   container: {
     // height: DEFAULT_STYLE.HEIGHT,
     width: DEFAULT_STYLE.WIDTH,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
     // borderRadius: DEFAULT_STYLE.RADIUS
   },
   innerContainer: {
@@ -234,7 +235,7 @@ const styles = StyleSheet.create({
   innerText: {
     flex: 1,
     fontSize: 14,
-    color: '#000',
+    color: '#000'
   },
   closeArea: {
     width: DEFAULT_STYLE.CLOSE_AREA,

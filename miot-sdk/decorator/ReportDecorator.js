@@ -4,7 +4,7 @@
  * @param {*} property 
  * @param {*} descriptor 
  */
-    if(__DEV__){
-        console.log(...args);
-    }
+  if (__DEV__) {
+    console.log(...args);
+  }
 }

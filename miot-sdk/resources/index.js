@@ -11,24 +11,24 @@
  *
  * res.logo
  * ...
- * 
+ *
  * console.log(res.systemStrings.mijia)
  * console.log(res.getSystemString('mijia'))
- * 
+ *
  * res.registerStrings({
  *   zh:{t1:"测试"},
  *   en:{t1:"test"}
  * })
- * 
+ *
  * console.log(res.strings.t1)
  * console.log(res.getString('t1'))
- * 
+ *
  * res.setLanguage(Language.zh_hk)
- * 
+ *
  * console.log(res.getLanaguage())
- * 
+ *
  * function createI18n(langStrings, defaultLanguage){}
- * 
+ *
  */
 import native, { createI18n } from '../native';
 import Images from "./Images";
@@ -60,121 +60,121 @@ export { Images, Styles, strings };
  * @namespace Language
  */
 export const Language = {
-    /**
+  /**
      * 中文
      * @const
      */
-    zh: "zh",
-    /**
+  zh: "zh",
+  /**
      * 繁体中文(台湾)
      * @const
      */
-    zh_tw: "zh_tw",
-    /**
+  zh_tw: "zh_tw",
+  /**
      * 繁体中文(香港)
      * @const
      */
-    zh_hk: "zh_hk",
-    /**
+  zh_hk: "zh_hk",
+  /**
      * 藏语
      * @const
      */
-    zh_bo: "zh_bo",
-    /**
+  zh_bo: "zh_bo",
+  /**
      * 英语
      * @const
      */
-    en: "en",
-    /**
+  en: "en",
+  /**
      * 西班牙语
      * @const
      */
-    es: "es",
-    /**
+  es: "es",
+  /**
      * 朝鲜语
      * @const
      */
-    ko: "ko",
-    /**
+  ko: "ko",
+  /**
      * 俄语
      * @const
      */
-    ru: "ru",
-    /**
+  ru: "ru",
+  /**
      * 意大利
      * @const
      */
-    it: "it",
-    /**
+  it: "it",
+  /**
      * 法语
      * @const
      */
-    fr: "fr",
-    /**
+  fr: "fr",
+  /**
      * 德语
      * @const
      */
-    de: "de",
-    /**
+  de: "de",
+  /**
      * 印尼
      * @const
      */
-    id: "id",
-    /**
+  id: "id",
+  /**
      * 波兰
      * @const
      */
-    pl: "pl",
-    /**
+  pl: "pl",
+  /**
      * 越南
      * @const
      */
-    vi: "vi",
-    /**
+  vi: "vi",
+  /**
      * 日语
      * @const
      */
-    ja: "ja",
-    /**
+  ja: "ja",
+  /**
      * 傣语
      * @const
      */
-    th: "th",
-    /**
+  th: "th",
+  /**
      * 葡萄牙语
      * @const
      */
-    pt: "pt",
-    /**
+  pt: "pt",
+  /**
      * 荷兰语
      * @const
      */
-    nl: "nl",
-    /**
+  nl: "nl",
+  /**
      * 阿拉伯语
      * @const
      */
-    ar: "ar",
-    /**
+  ar: "ar",
+  /**
      * 土耳其语
      * @const
      */
-    tr: "tr"
-}
+  tr: "tr"
+};
 Object.freeze(Language);
 const i18n={system:createI18n({zh,en,zh_tw,zh_hk,zh_bo,es,ko,ru,it,fr,de,id,pl,vi,ja,th}, Language.zh), custom:{}, lang:false}
 export default {
-    /**
+  /**
      * 米家标志
      * @member
      */
-    logo,
-    /**
+  logo,
+  /**
      * 注册多语言
      * @method
-     * @param {json} langStrings 
+     * @param {json} langStrings
      * @example
-     * 
+     *
      import res from 'miot/resources'
      res.registerStrings({
         zh:{
@@ -199,14 +199,13 @@ export default {
             }
         }
      });
-    
     //style recommend
     console.log(res.strings.t1);
     console.log(res.strings.t2(123));
     console.log(res.strings.t3(0, 1));
-    console.log(res.strings.t3(1, 2)); 
+    console.log(res.strings.t3(1, 2));
     console.log(res.strings.t3(2, 200));
-    console.log(res.strings.t3(100, 3000)); 
+    console.log(res.strings.t3(100, 3000));
     console.log(res.strings.t3(101, 500));
     console.log(res.strings.t4.t5());
     console.log(res.strings.t4.t6(20));
@@ -216,71 +215,69 @@ export default {
     console.log(res.getString('t1');
     console.log(res.getString('t2',123));
     console.log(res.getString('t3', 0, 1));
-    console.log(res.getString('t3', 1, 2)); 
+    console.log(res.getString('t3', 1, 2));
     console.log(res.getString('t3', 2, 200));
-    console.log(res.getString('t3', 100, 3000)); 
+    console.log(res.getString('t3', 100, 3000));
     console.log(res.getString('t3', 101, 500));
     console.log(res.getString('t4.t5');
     console.log(res.getString('t4.t6', 20));
     console.log(res.getString('t4.t7', 5,6,7));
     console.log(res.getString('t4.t8');
-    
-    
-     * 
+     *
      */
-    registerStrings(langStrings) {
-        if (!langStrings) return;
-        if (i18n.lang) {
-            i18n.language = lang;
-        }
-    },
-    /**
+  registerStrings(langStrings) {
+    if (!langStrings) return;
+    if (i18n.lang) {
+      i18n.language = i18n.lang;
+    }
+  },
+  /**
      * 获取当前使用中的语言, 缺省为Host.locale.language
      * @method
      */
-    getLanguage() {
-        return i18n.system.language;
-    },
-    /**
+  getLanguage() {
+    return i18n.system.language;
+  },
+  /**
      * 设置当前语言, 如果 lang 为 false 或 null, 则恢复为Host.locale.language
-     * @param {Language} lang 
+     * @param {Language} lang
      */
-    setLanguage(lang) {
-        i18n.lang = lang;
-        i18n.system.language = lang;
-        (i18n.custom || {}).language = lang;
-    },
-    /**
+  setLanguage(lang) {
+    i18n.lang = lang;
+    i18n.system.language = lang;
+    (i18n.custom || {}).language = lang;
+  },
+  /**
      * 获取系统字符串
      * @member
-     * @example 
-     * 
+     * @example
+     *
      * console.log(res.systemStrings.mijia)
-     * 
+     *
      */
-    get systemStrings() {
-        return i18n.system.strings;
-    },
-    /**
+  get systemStrings() {
+    return i18n.system.strings;
+  },
+  /**
      * 根据主键名获取系统的国际化字符串
      * @param {string} key -主键名
-     * @param  {...any} params -参数 
+     * @param  {...any} params -参数
      * @returns {string}
      * @example
      *    res.getSystemString('mijia')
      */
-    getSystemString(key, ...params) {
-        return i18n.system.getString(key, ...params);
-    },
-    /**
+  getSystemString(key, ...params) {
+    return i18n.system.getString(key, ...params);
+  },
+  /**
      * 获取用户自定义字符串
      * @member
-     * 
+     *
      */
-    get strings() {
-        return i18n.custom.strings;
-    },
-    /**
+  get strings() {
+    return i18n.custom.strings;
+  },
+  /**
      * 根据主键名获取用户自定义的国际化字符串
      * @param {string} key -主键名
      * @param  {...any} params -参数
@@ -289,28 +286,28 @@ export default {
      *    res.getString('t1.tx', 1)
      *    res.getString('t2')
      */
-    getString(key, ...params) {
-        return i18n.custom.getString(key, ...params);
-    },
-    /**
+  getString(key, ...params) {
+    return i18n.custom.getString(key, ...params);
+  },
+  /**
      * 创建本地化字符串
      * @method
      * @param {json} langStrings  多语言字符串
      * @param {Language} defaultLanguage 默认语言
      * @example
-     * 
+     *
      * const i18n = res.createI18n({
      *     zh:{test:"测试"},
      *     en:{test:"test"}
      * }, Language.zh)
-     * 
+     *
      * ...
      * console.log(i18n.strings.test) //> 测试
      * i18n.language = Language.en;
      * console.log(i18n.strings.test) //> test
      * i18n.language = null;
      * console.log(i18n.strings.test) //> 测试
-     * 
+     *
      */
-    createI18n
-}
+  createI18n
+};

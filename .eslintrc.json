@@ -1,0 +1,157 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:import/recommended"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".android.js", ".ios.js"]
+      }
+    }
+  },
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly",
+    "__DEV__": "readonly",
+    "setImmediate": "readonly"
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ],
+  "parser": "babel-eslint",
+  "rules": {
+    "no-unused-vars": "warn",
+    "no-console": "off",
+    "no-undef": "error",
+    "no-unreachable": "error",
+    "no-extra-semi": "error",
+    "no-regex-spaces": "warn",
+    "no-mixed-spaces-and-tabs": "warn",
+    "no-inner-declarations": "error",
+    "no-empty": "off",
+    "no-constant-condition": "warn",
+    "no-useless-escape": "off",
+    "no-case-declarations": "error",
+    "no-extra-boolean-cast": "warn",
+    "no-prototype-builtins": "off",
+    "spaced-comment": ["warn", "always", {
+      "block": {
+        "balanced": true
+      }
+    }],
+    "no-param-reassign": "off",
+    "comma-dangle": ["warn", "never"],
+    "prefer-promise-reject-errors": "off",
+    "arrow-parens": ["warn", "always"],
+    "prefer-template": "warn",
+    "max-len": "off",
+    "no-shadow": "off",
+    "no-else-return": "off",
+    "object-curly-newline": "off",
+    "no-underscore-dangle": "off",
+    "no-use-before-define": ["error", {
+      "functions": false,
+      "classes": false,
+      "variables": false
+    }],
+    "class-methods-use-this": "off",
+    "brace-style": ["warn", "1tbs", {
+      "allowSingleLine": true
+    }],
+    "no-unused-expressions": ["warn", {
+      "allowShortCircuit": true,
+      "allowTernary": true
+    }],
+    "padded-blocks": "off",
+    "consistent-return": "off",
+    "array-callback-return": ["error", {
+      "allowImplicit": true
+    }],
+    "no-plusplus": "off",
+    "guard-for-in": "off",
+    "new-cap": ["warn", {
+      "newIsCap": true,
+      "capIsNew": false
+    }],
+    "indent": ["warn", 2, {
+      "SwitchCase": 1
+      }],
+    "jsx-quotes": ["warn", "prefer-double"],
+    "key-spacing": ["warn", {
+      "beforeColon": false,
+      "afterColon": true,
+      "mode": "strict"
+    }],
+    "new-parens": ["error"],
+    "no-whitespace-before-property": ["warn"],
+    "no-restricted-syntax": ["error", "WithStatement"],
+    "func-call-spacing": ["warn", "never"],
+    "comma-spacing": ["warn", {
+      "before": false,
+      "after": true
+    }],
+    "computed-property-spacing": ["warn", "never"],
+    "semi": ["warn", "always"],
+    "no-var": ["warn"],
+    "prefer-rest-params": ["error"],
+    "object-curly-spacing": ["warn", "always"],
+    "arrow-spacing": ["warn", {
+      "before": true,
+      "after": true
+    }],
+		"rest-spread-spacing": ["error", "never"],
+		"template-curly-spacing": ["warn", "always"],
+    "space-before-blocks": ["warn", "always"],
+    "space-before-function-paren": ["warn", "never"],
+    "space-in-parens": ["warn", "never"],
+    "space-infix-ops": ["warn"],
+    "space-unary-ops": ["warn", {
+      "words": true,
+      "nonwords": false
+    }],
+    "semi-spacing": ["warn", {
+      "before": false,
+      "after": true
+    }],
+    "keyword-spacing": ["warn", {
+      "before": true,
+      "after": true
+    }],
+    "block-spacing": ["warn", "always"],
+    "array-bracket-spacing": ["warn", "never"],
+    "no-multi-spaces": "warn",
+    "import/no-extraneous-dependencies": ["warn", {
+      "packageDir": "./"
+    }],
+    "import/default": "off",
+    "import/no-cycle": "error",
+    "import/no-named-as-default-member": "warn",
+    "react/forbid-prop-types": "off",
+    "react/require-default-props": "off",
+    "react/sort-comp": "off",
+    "react/display-name": "off",
+    "react/destructuring-assignment": "off",
+    "react/prop-types": ["warn", {
+      "ignore": ["children", "key", "ref", "navigation"]
+    }],
+    "react/jsx-filename-extension": "off",
+    "react/no-deprecated": "warn",
+    "react/no-string-refs": "error",
+    "react/no-direct-mutation-state": "error"
+  }
+}

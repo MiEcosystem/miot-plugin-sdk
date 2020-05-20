@@ -24,15 +24,15 @@ export default class Clickable extends React.Component {
     style: PropTypes.object,
     onPress: PropTypes.func.isRequired,
     text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    textStyle: PropTypes.object,
+    textStyle: PropTypes.object
   }
   static defaultProps = {
     select: false,
-    selectColor: '#f0ac3d',
+    selectColor: '#f0ac3d'
   }
   animatedValue = new Animated.Value(0);
   render() {
-    const toValue = this.props.select ? 1 : 0;
+    // const toValue = this.props.select ? 1 : 0;
     // 文本颜色不能应用 animation
     const color = this.props.select ? '#fff' : TEXT_COLOR;
     // 容器 border 变化
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   animationContainer: {
     width: SIZE,
     height: SIZE,
-    borderRadius: SIZE / 2,
+    borderRadius: SIZE / 2
   },
   container: {
     flex: 1,
@@ -78,5 +78,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 11,
+    textAlign: 'center',
   }
 });

@@ -1,9 +1,9 @@
-import React, {Component, Fragment} from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, { Component, Fragment } from 'react';
+import { StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import SelectorWithButton from './SelectorWithButton';
 import ContainerWithShadowAndSeparator from './ContainerWithShadowAndSeparator';
-import {adjustSize} from 'miot/utils/sizes';
+import { adjustSize } from 'miot/utils/sizes';
 export default class DoubleSelectors extends Component {
   static propTypes = {
     title: PropTypes.string,
@@ -11,6 +11,7 @@ export default class DoubleSelectors extends Component {
     disabled: PropTypes.bool,
     secondShow: PropTypes.bool,
     secondDisabled: PropTypes.bool,
+    themeColor: PropTypes.any,
     first: PropTypes.shape({
       ...SelectorWithButton.propTypes
     }),

@@ -20,6 +20,7 @@ PackageEvent.packageDidLoaded.addListener(() => { console.log("packageDidLoaded"
 PackageEvent.packageDidResume.addListener(() => { console.log("packageDidResume") });
 PackageEvent.packageWillPause.addListener(() => { console.log("packageWillPause") });
 PackageEvent.packageWillExit.addListener(() => { console.log("packageWillExit") });
+PackageEvent.packageViewWillDisappearIOS.addListener(() => { console.log("packageViewWillDisappearIOS") });
 
 /**
  * 是否需要自动检测wifi固件强制升级, 此属性对分享的设备、虚拟设备、离线设备无效
