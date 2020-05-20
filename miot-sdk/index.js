@@ -27,6 +27,7 @@ import { RootDeviceProperties } from "./Properties";
 import ResourcesPack from './resources';
 import ServiceInstance from './Service';
 import { SceneType as SceneTypeNames } from './service/scene';
+import DarkModeFactory from './darkmode';
 export const API_LEVEL = 10038
 /**
  * 插件包基本配置
@@ -120,6 +121,7 @@ export const ClassicBluetoothEvent = MIOTClassicBluetoothEvent;
 export const SceneType = SceneTypeNames;
 export const FileEvent = FileEventNames;
 export const AudioEvent = AudioEventNames;
+export const DarkMode = DarkModeFactory;
 import * as Utils from './utils';
 /**
  * @export
@@ -130,5 +132,5 @@ export default {
   Service, Host, HostEvent, Resources,
   SceneType,
   FileEvent, AudioEvent,
-  Utils
+  Utils, DarkMode
 };
