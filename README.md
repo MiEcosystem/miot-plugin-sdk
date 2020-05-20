@@ -1,4 +1,9 @@
-# MIOT SDK (API_LEVEL:10031) for React Native
+22# MIOT SDK (API_LEVEL:10034) for React Native
+
+**因SDK_10033并未发布，请大家不要指定min_sdk_api_level为10033以及使用SDK_10033分支，建议10034及其以上！**
+**SDK_10035分支运行前请先执行npm install**
+
+**请使用底下提供的测试包调试，不要使用线上包调试**
 
 ## 初始化
 
@@ -24,7 +29,8 @@
     运行Demo
     在/miot-workspace下，执行 
         npm install 
-    如果fsevent报错，可忽略。其他报错，请查看issues，或者提工单。然后
+    如果windows 下 fsevents报错，可忽略。mac下，可执行npm install fsevents@latest。
+    其他报错，请查看issues，或者提工单。然后
         cd projects/com.xiaomi.demo
         npm install
     然后就可以npm start，开始调试demo了
@@ -58,6 +64,8 @@
 
 插件开发请参考[《MIOT SDK API》](https://github.com/MiEcosystem/miot-plugin-sdk/wiki)
             [《CHANGELOG》](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/CHANGELOG.md)
+            
+插件从RN54版本升至61版本请参考[《升级指南》](https://github.com/MiEcosystem/miot-plugin-sdk/wiki/RN61%E5%BC%80%E5%8F%91%E8%80%85%E5%8D%87%E7%BA%A7%E6%8C%87%E5%8D%97)
 
 插件从旧框架迁移到新框架请参考[《迁移手册》](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/%E8%BF%81%E7%A7%BB%E6%89%8B%E5%86%8C.md)
 
@@ -66,9 +74,13 @@
 
 ## 调试环境
 
-[iOS IPA 包下载地址](https://fir.im/mijiadevelopment)
+[iOS IPA 包下载地址](http://d.7short.com/mijiadevelopment)
+
+[ios IPA 包下载地址(RN54,SDK_10032,供大家临时使用)](https://fir.im/mijiadevelopment?release_id=5df8b0b3f94548387f934dc0)，若打不开请使用[备用地址](http://www.jappstore.com/mijiadevelopment?release_id=5df8b0b3f94548387f934dc0)
     
-[Android APK 包下载地址](https://fir.im/MiHomeForAndroid)
+Android APK 包下载地址：http://www.jappstore.com/MiHomeForAndroid  ,若打不开请使用[备用地址](https://github.com/Mijia-Developer/Mijia-Android-RN-Dev/releases)
+
+[Android APK 包下载地址(RN54,SDK_10032,供大家临时使用)](https://fir.im/MiHomeForAndroid?release_id=5e09d91223389f7111e96a03)，若打不开请使用[备用地址](http://www.jappstore.com/MiHomeForAndroid?release_id=5e09d91223389f7111e96a03)
 
 下载密码: keliyuan 
 
