@@ -85,7 +85,7 @@ export default class MainPage extends React.Component {
                     isChecked={value.isChecked}
                     onClick={() => {
                       value.isChecked = !value.isChecked;
-                      Host.log(`check  prop item key=${ value.name },desc=${ value.desc },checked=${ value.isChecked },index=${ index }`);
+                      console.log(`check  prop item key=${ value.name },desc=${ value.desc },checked=${ value.isChecked },index=${ index }`);
                     }}
                   />
                   <Text style={styles.modalCheckboxText}> {value.desc}</Text>
@@ -102,7 +102,7 @@ export default class MainPage extends React.Component {
                     isChecked={value.isChecked}
                     onClick={() => {
                       value.isChecked = !value.isChecked;
-                      Host.log(`check  event item key=${ value.name },desc=${ value.desc },checked=${ value.isChecked },index=${ index }`);
+                      console.log(`check  event item key=${ value.name },desc=${ value.desc },checked=${ value.isChecked },index=${ index }`);
                     }}
                   />
                   <Text style={styles.modalCheckboxText}> {value.desc}</Text>
@@ -170,12 +170,12 @@ export default class MainPage extends React.Component {
         subArr.push(value.name);
       }
     })
-    Host.log('start subsribe :' + JSON.stringify(subArr));
+    console.log('start subsribe :' + JSON.stringify(subArr));
     var l = subArr.length;
     if (l > 0) {
       Device.getDeviceWifi().subscribeMessages(...subArr).then(subcription => {
 
-      }).catch(() => Host.log('subscribe exception fail'))
+      }).catch(() => console.log('subscribe exception fail'))
     }
     else {
       this.addLog('请选中属性（事件）再订阅！');
@@ -185,13 +185,13 @@ export default class MainPage extends React.Component {
   getDeviceProperty() {
     let now = parseInt(Date.now() / 1000 - 30 * 60);
     var end = parseInt(Date.now() / 1000);
-    Host.log('device id=' + Device.deviceID + ',' + Device.mac + ',' + Device.did)
+    console.log('device id=' + Device.deviceID + ',' + Device.mac + ',' + Device.did)
     Service.smarthome.getDeviceData({ did: Device.deviceID, key: this.state.piid, type: 'prop', time_start: now, time_end: end })
       .then(res => {
-        Host.log('get Property :' + JSON.stringify(res))
+        console.log('get Property :' + JSON.stringify(res))
         this.addLog('查询设备【属性】' + this.state.piid + ',resp:' + JSON.stringify(res));
       }).catch(res => {
-        Host.log('get Property fail:' + JSON.stringify(res))
+        console.log('get Property fail:' + JSON.stringify(res))
         this.addLog('查询设备【属性】' + this.state.piid + ' fail：' + JSON.stringify(res));
       });
   }
@@ -201,20 +201,20 @@ export default class MainPage extends React.Component {
     var end = parseInt(Date.now() / 1000);
     Service.smarthome.getDeviceData({ did: Device.deviceID, key: this.state.piid, type: 'event', time_start: now, time_end: end })
       .then(res => {
-        Host.log('get Property :' + JSON.stringify(res))
+        console.log('get Property :' + JSON.stringify(res))
         this.addLog('查询设备【事件】' + this.state.piid + ',resp:' + JSON.stringify(res));
       }).catch(res => {
-        Host.log('get Property fail:' + JSON.stringify(res))
+        console.log('get Property fail:' + JSON.stringify(res))
         this.addLog('查询设备【事件】' + this.state.piid + 'fail：' + JSON.stringify(res));
       });
   }
 
   startListenNotify() {
     this.addLog('start listen notify')
-    Host.log('start listen notify')
+    console.log('start listen notify')
     this._s11 = DeviceEvent.deviceRecievedMessages.addListener((device, map, res) => {
       this.addLog('receive prop(event) changed notification:' + JSON.stringify(map) + ',' + JSON.stringify(res))
-      Host.log('receive prop(event) changed notification:' + JSON.stringify(map) + ',res:' + JSON.stringify(res))
+      console.log('receive prop(event) changed notification:' + JSON.stringify(map) + ',res:' + JSON.stringify(res))
       let status = map.get("event.count_down_background")[0] || "";
       switch (status) {
         case "pause":

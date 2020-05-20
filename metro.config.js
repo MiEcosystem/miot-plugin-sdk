@@ -1,6 +1,6 @@
 const path = require('path')
-const { assetExts } = require('@react-native-community/cli/node_modules/metro-config/src/defaults/defaults')
 const { DEV, SUPPORTED_ASSET_FILE_TYPES, project_dir } = require('./bin/config/common')
+const { assetExts } = require('metro-config/src/defaults/defaults');
 
 module.exports = {
     resolver: {
