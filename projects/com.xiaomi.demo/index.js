@@ -7,20 +7,20 @@ import { PluginEntrance } from "./Main/PluginEntrance";
 
 
 PackageEvent.packageAuthorizationCancel.addListener(() => {
-    // 用户撤销授权,需要清除缓存
-    console.log("packageAuthorizationCancel");
-    let licenseKey = "license-" + Device.deviceID;
-    Host.storage.set(licenseKey, false);
-    Package.exit();
-})
+  // 用户撤销授权,需要清除缓存
+  console.log("packageAuthorizationCancel");
+  let licenseKey = `license-${ Device.deviceID }`;
+  Host.storage.set(licenseKey, false);
+  Package.exit();
+});
 
-PackageEvent.packageViewWillAppear.addListener(() => { console.log("packageViewWillAppear") });
-PackageEvent.packageWillLoad.addListener(() => { console.log("packageWillLoad") });
-PackageEvent.packageDidLoaded.addListener(() => { console.log("packageDidLoaded") });
-PackageEvent.packageDidResume.addListener(() => { console.log("packageDidResume") });
-PackageEvent.packageWillPause.addListener(() => { console.log("packageWillPause") });
-PackageEvent.packageWillExit.addListener(() => { console.log("packageWillExit") });
-PackageEvent.packageViewWillDisappearIOS.addListener(() => { console.log("packageViewWillDisappearIOS") });
+PackageEvent.packageViewWillAppear.addListener(() => { console.log("packageViewWillAppear"); });
+PackageEvent.packageWillLoad.addListener(() => { console.log("packageWillLoad"); });
+PackageEvent.packageDidLoaded.addListener(() => { console.log("packageDidLoaded"); });
+PackageEvent.packageDidResume.addListener(() => { console.log("packageDidResume"); });
+PackageEvent.packageWillPause.addListener(() => { console.log("packageWillPause"); });
+PackageEvent.packageWillExit.addListener(() => { console.log("packageWillExit"); });
+PackageEvent.packageViewWillDisappearIOS.addListener(() => { console.log("packageViewWillDisappearIOS"); });
 
 /**
  * 是否需要自动检测wifi固件强制升级, 此属性对分享的设备、虚拟设备、离线设备无效
@@ -28,30 +28,36 @@ PackageEvent.packageViewWillDisappearIOS.addListener(() => { console.log("packag
  * @type {boolean}
  */
 Package.disableAutoCheckUpgrade = false;
+/**
+ * 是否需要自动检测BLE固件升级
+ * Package.enableBLEAutoCheckUpgrade = true 表示会自动检测，发现需要升级时，会设置Device.needUpgrade为true
+ * @type {boolean}
+ */
+Package.enableBLEAutoCheckUpgrade = false;
 
 /**
  * 插件开发者可以在此判断，需要进入插件哪个页面, 同时也可以在 例如：App.js 中做判断，需要进入哪个页面
  * 通过 Host.ui.openPluginPage 打开插件某一页面，如果需要返回到插件首页，应该去首页的componentDidMount里面处理（可参考MainPage.js）。
  */
 class Apps extends React.Component {
-    render() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'powderblue' }}>
-            <TouchableOpacity>
-            <Text>hello, this is a tiny plugin project of MIOT</Text>
-            </TouchableOpacity>
-        </View>
-        )
-    }
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'powderblue' }}>
+        <TouchableOpacity>
+          <Text>hello, this is a tiny plugin project of MIOT</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 }
 switch (Package.entrance) {
-    case Entrance.Scene:
-        Package.entry(App, _ => {})
-        break;
-    case PluginEntrance.Setting:
-        Package.entry(App, _ => {});
-        break;
-    default:
-        Package.entry(App, _ => {})
-        break;
+  case Entrance.Scene:
+    Package.entry(App, (_) => {});
+    break;
+  case PluginEntrance.Setting:
+    Package.entry(App, (_) => {});
+    break;
+  default:
+    Package.entry(App, (_) => {});
+    break;
 }

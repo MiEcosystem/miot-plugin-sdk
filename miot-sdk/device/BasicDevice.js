@@ -64,6 +64,9 @@ export const DeviceEvent = {
   },
   /**
    * 蓝牙设备的固件版本有更新
+   * @event
+   * @param {IDevice} device
+   * @since 10039
    */
   bleDeviceFirmwareNeedUpgrade: {
   },
