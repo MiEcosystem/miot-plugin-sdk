@@ -54,6 +54,8 @@ import HostLocale from './host/locale';
 import HostStorage from './host/storage';
 // import HostUI from './host/ui';
  const IOS="ios", ANDROID="android";
+import { Buffer } from "buffer";
+import merge from "merge";
 const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 export const HOST_TYPE_IOS = IOS;
 export const HOST_TYPE_ANDROID = ANDROID;
@@ -350,6 +352,29 @@ export default {
      * 失败时：{"message":"xxx" }
      */
   getIOSLocationAuthorizationStatus() {
+     return Promise.resolve(null);
+  },
+  /**
+   * 跳转到其他App
+   * @since 10039
+   * @returns {Promise<Object>}
+   * @param {string} scheme 其他App的Scheme 如 mihome://plugin
+   * @param {Object} params 传给其他App的参数
+   * @param {Object} passThrough 从其他App回来时原封不动带回来的参数（部分App支持）
+   * 成功时：{"code":0, "data":{// 第三方app返回的数据}}
+   * 失败时：{"code":-1, "message":"xxx" }
+   */
+  jumpToThirdpartyApplication(scheme, params, passThrough) {
+     return Promise.resolve(null);
+  },
+  /**
+   * 判断是否可以跳到其他App
+   * @since 10039
+   * @returns {Promise<bool>}
+   * @param {string} scheme 跳转其他App时使用的scheme
+   * @result {"code":0, "data":true/false}
+   */
+  checkAbilityOfJumpToThirdpartyApplication(scheme) {
      return Promise.resolve(null);
   }
 };
