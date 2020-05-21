@@ -751,6 +751,16 @@ export class BasicDevice {
     @report
     reportLog(log) {
     }
+    /**
+     * 查询设备的房间信息
+     * @since 10039
+     * @param {string} did DeviceID，默认为当前设备
+     * @return {Promise<Object>} {roomId, homeId, roomName}
+     */
+    @report
+    getRoomInfoForCurrentHome(did = null) {
+       return Promise.resolve({});
+    }
 }
 export class PollPropMap {
     static PROP_TYPE_UNKNOWN = 0;
