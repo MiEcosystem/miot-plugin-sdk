@@ -442,6 +442,7 @@ class IMiotScene {
      * @param {string} options.onParam 配置定时开启的 参数，同上面openTimerSettingPageWithVariousTypeParams的参数onParam
      * @param {string} options.offMethod 配置定时关闭的 method 名，同上面openTimerSettingPageWithVariousTypeParams的参数offMethod
      * @param {string} options.offParam 配置定时关闭的 参数，同上面openTimerSettingPageWithVariousTypeParams的参数offParam
+     * @param {string} options.timerTitle 定时列表页自定义标题
      * @param {string} options.displayName 配置场景日志显示的名称
      * @param {string} options.identify 自定义定时Identifier
      * @param {string} options.onTimerTips 定时列表页面、设置时间页面 打开副标题（默认：开启时间）
