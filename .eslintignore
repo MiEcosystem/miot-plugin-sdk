@@ -1,13 +1,15 @@
 node_modules/
 **/node_modules/
 
-.eslintignore
-
 package.json
 package-lock.json
+
+/bin/fixbug/appendFiles/**
+/bin/config/
 
 !*.js
 !**/*.js
 
 !*.jsx
 !**/*.jsx
+!**/*.json

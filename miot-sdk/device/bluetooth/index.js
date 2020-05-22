@@ -216,7 +216,7 @@ export default {
      * 获取信号强度RSSI
      *  @since 10038
      * @returns {Promise<Object>}
-     * 成功时：{"code":0, "data":{RSSI: 0/1/2/3 信号依此减弱}}
+     * 成功时：{"code":0, "data":{RSSI: x}}
      * 失败时：{"code":-1, "message":"xxx" }
      */
   getBtGateWaySubDeviceRSSI(mac) {
