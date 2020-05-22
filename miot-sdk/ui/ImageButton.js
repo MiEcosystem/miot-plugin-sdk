@@ -51,6 +51,8 @@ export default class ImageButton extends React.Component {
         onPress={this.props.onPress}
         onPressIn={this._buttonPressIn.bind(this)}
         onPressOut={this._buttonPressOut.bind(this)}
+        accessible={true}
+        accessibilityRole="header"
       >
         <Image
           style={this.props.style}

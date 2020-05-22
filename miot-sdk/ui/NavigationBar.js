@@ -235,7 +235,11 @@ export default class NavigationBar extends Component {
       color: this.isDarkStyle ? darkSubtitleColor : lightSubtitleColor
     };
     return (
-      <View style={[styles.titleContainer]}>
+      <View
+        style={[styles.titleContainer]}
+        accessible={true}
+        accessibilityRole="header"
+      >
         {
           React.isValidElement(title) ?
             <View
