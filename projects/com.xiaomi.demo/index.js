@@ -29,13 +29,6 @@ PackageEvent.packageViewWillDisappearIOS.addListener(() => { console.log("packag
  */
 Package.disableAutoCheckUpgrade = false;
 /**
- * 是否需要自动检测BLE固件升级
- * Package.enableBLEAutoCheckUpgrade = true 表示会自动检测，发现需要升级时，会设置Device.needUpgrade为true
- * @type {boolean}
- */
-Package.enableBLEAutoCheckUpgrade = false;
-
-/**
  * 插件开发者可以在此判断，需要进入插件哪个页面, 同时也可以在 例如：App.js 中做判断，需要进入哪个页面
  * 通过 Host.ui.openPluginPage 打开插件某一页面，如果需要返回到插件首页，应该去首页的componentDidMount里面处理（可参考MainPage.js）。
  */

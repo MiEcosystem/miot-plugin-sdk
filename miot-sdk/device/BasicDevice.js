@@ -400,7 +400,7 @@ export class BasicDevice {
     get lastVersion() {
     }
     /**
-     * 获取当前固件的版本，记住，只能获取【蓝牙设备】可更新的最新固件版本，WIFI设备的暂时不支持；
+     * 获取当前最新固件的版本，蓝牙设备连接后可获取，wifi设备调用 checkFirmwareUpdateAndAlert 后可获取到
      * @return {string}
      * @readonly
      *
