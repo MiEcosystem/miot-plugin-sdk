@@ -46,7 +46,6 @@ export default class ProtocolManager {
     this._legalInfoAuthHasShowed = showed;
   }
   static getLegalInfoAuthHasShowed() {
-    console.log('legalInfoAuthHasShowed :', this._legalInfoAuthHasShowed);
     return this._legalInfoAuthHasShowed;
   }
   static _resolveUniParamsV2(params) {
@@ -66,7 +65,6 @@ export default class ProtocolManager {
   }
   static resolveUrl(rawUrl) {
     let newUrl = resolveAssetSource(rawUrl);
-    console.log('解析后的URL', newUrl);
     if (newUrl && (newUrl.uri || Array.isArray(newUrl))) {
       if (typeof newUrl.uri === 'string') {
         if (isAndroid) {
