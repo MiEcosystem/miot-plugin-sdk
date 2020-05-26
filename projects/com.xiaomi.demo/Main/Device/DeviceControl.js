@@ -46,6 +46,12 @@ export default class UIDemo extends React.Component {
           }
         },
         {
+          'name': '设备互联页面',
+          'func': () => {
+            this.props.navigation.navigate('BTInterconnection', { title: '设备互联页面', category: '', sameRoom: true, minRssi: -70 });
+          }
+        },
+        {
           'name': 'RPC指令控制',
           'func': () => {
             this.props.navigation.navigate('RPCControl', { title: 'RPC指令控制' });

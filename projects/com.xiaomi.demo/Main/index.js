@@ -16,6 +16,7 @@
 // ART的demo }
 import { Entrance, Package } from "miot";
 import { FirmwareUpgrade, MoreSetting } from "miot/ui/CommonSetting";
+import BTInterconnection from 'miot/ui/BTInterconnection';
 import Setting from "./tutorial/Setting";
 
 import TitleBar from "miot/ui/TitleBar";
@@ -196,6 +197,7 @@ function createRootStack(initPage) {
     RPCControl,
     DeviceDemo,
     InterconnectionDemo,
+    BTInterconnection,
     moreMenu: MoreMenu,
     helloDeveloper: HelloDeveloper,
     helloReactART: HelloReactART,
