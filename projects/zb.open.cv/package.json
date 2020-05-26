@@ -1,0 +1,8 @@
+{
+    "name": "project-zb-open-cv",
+    "version": "1.0.31",
+    "scripts": {
+        "start": "node ../../bin/runProject.js"
+    },
+    "dependencies": {}
+}
