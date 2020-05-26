@@ -270,7 +270,7 @@ function Empty() {
         <View style={[Styles.emptyIconSub, Styles.emptyIconSub2]}></View>
       </View>
       <View style={Styles.emptyTitleContainer}>
-        <Text style={Styles.emptyTitle}>当前无可关联设备</Text>
+        <Text style={Styles.emptyTitle}>{I18n.noSuppurtedLinkageDevice}</Text>
       </View>
       <View style={Styles.emptyIntroContainer}>
         <Text style={Styles.emptyIntro}>{I18n.noSuppurtedLinkageTip}</Text>
