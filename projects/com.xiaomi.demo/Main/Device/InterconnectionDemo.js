@@ -60,7 +60,6 @@ export default class InterconnectionDemo extends Component {
 
   addOrRemove = (mac, pdid, linked) => {
     (linked ? removeLinkage : addLinkage)(mac).then(() => {
-      console.log(222222222);
       this.setState((state) => {
         return {
           supportedDevicesWithLinkage: state.supportedDevicesWithLinkage.map((device) => {
