@@ -24,7 +24,6 @@
     
     启动调试
     npm start
-        注： Docker下需要将端口（缺省为8081）映射出去，例如 docker run -p 8081:8081 -it ...
         
     运行Demo
     在/miot-workspace下，执行 
