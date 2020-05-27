@@ -491,7 +491,7 @@ function createRootStack(initPage) {
     // AnimEffectsDemo: AnimEffectsDemo,
     // AnimEventsDemo: AnimEventsDemo,
     // LayoutAnimationDemo: LayoutAnimationDemo,
-    FadeSlideDemo
+    FadeSlideDemo,
     // AnimCustomCompDemo: AnimCustomCompDemo,
 
     // 第三方库 demo 结束
@@ -510,7 +510,7 @@ function createRootStack(initPage) {
     // SmarthomeDemo,
 
     // 官方Demo
-    OfficialDemos,
+    OfficialDemos
   },
   {
     // ThirdPartyDemo
