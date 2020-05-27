@@ -180,6 +180,9 @@ import AnimatedSVGDemo from './ThirdPartDemo/AnimatedSVGDemo';
 import CustomContainer from './uikit/components/CustomContainer';
 import MHSetting from './unuse/MHSetting';
 
+// 官方Demo
+import OfficialDemos from './OfficialDemos';
+
 function createRootStack(initPage) {
   return createStackNavigator({
     blankDemo: BlankDemo,
@@ -504,7 +507,10 @@ function createRootStack(initPage) {
     // AnimatedSVGDemo,
     // AbsoluteTouch,
     // ImageTest,
-    // SmarthomeDemo
+    // SmarthomeDemo,
+
+    // 官方Demo
+    OfficialDemos,
   },
   {
     // ThirdPartyDemo
@@ -629,6 +635,9 @@ export default class App extends React.Component {
         break;
       case PluginEntrance.Setting:
         this.initPage = PluginEntrance.Setting;
+        break;
+      case PluginEntrance.OfficialDemos:
+        this.initPage = PluginEntrance.OfficialDemos;
         break;
       default:
         this.initPage = "Home";
