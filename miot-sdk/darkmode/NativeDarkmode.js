@@ -28,4 +28,4 @@
 // }
 // export default (TurboModuleRegistry.get<Spec>('Appearance'): ?Spec);
 import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
-export default get('Appearance')
+export default get('Appearance');

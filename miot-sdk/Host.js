@@ -138,6 +138,7 @@ export default {
      */
   get applicationEdition() {
      return  true
+    return isAndroid ? (this.ui.checkStoreSupporttedOnAndroid() ? 1 : 2) : native.MIOTHost.ApplicationEdition;
   },
   /**
      * 获取 米家APP中 我的-->开发者设置-->其他设置，  AppConfig接口拉取preview版数据 是否选中的状态
@@ -222,10 +223,10 @@ export default {
      * @return {Promise<string>}
      *
      */
-    getAppName() {
-         return Promise.resolve(null);
-    },
-    /**
+  getAppName() {
+     return Promise.resolve(null);
+  },
+  /**
      * 获取Android手机屏幕相关信息(包括状态栏高度)
      * @since 10012
      * @returns {Promise<object>} 手机屏幕相关信息 {'viewWidth':xxx, 'viewHeight':xxx}

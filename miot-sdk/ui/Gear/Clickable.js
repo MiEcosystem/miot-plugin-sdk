@@ -78,6 +78,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 11,
-    textAlign: 'center',
+    textAlign: 'center'
   }
 });

@@ -609,6 +609,7 @@ export class BasicDevice {
    */
   get extra() {
      return  ""
+    return Properties.of(this).extrainfo || Properties.of(this).extra;
   }
   /**
   * 检查当前设备是否支持HomeKit，Android系统不支持HomeKit设备。需要在plato平台配置homekit_config，包含在内的设备，isHomekit才可能返回true
@@ -661,6 +662,7 @@ export class BasicDevice {
    */
   get parentModel() {
      return  ""
+    return Properties.of(this).parentModel;
   }
   /**
    * 获取设备时区,非实时加载，可能为空.如果需要自行获取最新设备时区值，请使用smarthome.getDeviceTimeZone(did)
@@ -669,6 +671,7 @@ export class BasicDevice {
    */
   get timeZone() {
      return  ""
+    return Properties.of(this).timeZone;
   }
   /**
    * 获取 prop中保存的信息。当某设备有莫人属性时，这里为莫人属性的值，否则无此字段。不同设备类型，propInfo中包含的属性可能不同，propInfo一半是个json。
@@ -679,6 +682,7 @@ export class BasicDevice {
    */
   get propInfo() {
      return  {}
+    return Properties.of(this).propInfo;
   }
   /**
    * 重置标志，本地设备才会返回该字段，为1时表示设备刚刚reset过
@@ -688,6 +692,7 @@ export class BasicDevice {
    */
   get resetFlag() {
      return  0
+    return Properties.of(this).resetFlag;
   }
   /**
    * 创建场景
@@ -702,6 +707,7 @@ export class BasicDevice {
   @report
   createScene(sceneType, opt = null) {
      return  ""
+    return Scene.createScene(this.deviceID, sceneType, opt);
   }
   /**
    * 创建定时场景
@@ -715,6 +721,7 @@ export class BasicDevice {
   @report
   createTimerScene(opt = null) {
      return  ""
+    return Scene.createTimerScene(this.deviceID, opt);
   }
   /**
   * 加载本设备相关的场景
@@ -729,6 +736,7 @@ export class BasicDevice {
   @report
   loadScenes(sceneType, opt = null) {
      return  ""
+    return Scene.loadScenes(this.deviceID, sceneType, opt);
   }
   /**
    * 加载定时场景
@@ -741,6 +749,7 @@ export class BasicDevice {
   @report
   loadTimerScenes(opt = null) {
      return  ""
+    return Scene.loadTimerScenes(this.deviceID, opt);
   }
   /**
    * 上报日志，写入文件，在用户反馈时可以查看。比如某个地方报错/出错了，打上log，用户反馈后，能在后台查看到。查看地址：https://iot.mi.com/fe-op/operationCenter/userFeedback

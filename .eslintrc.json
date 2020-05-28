@@ -31,10 +31,12 @@
     "sourceType": "module"
   },
   "plugins": [
-    "react"
+    "react",
+    "mihome-plugin"
   ],
   "parser": "babel-eslint",
   "rules": {
+    "mihome-plugin/no-deprecated-comment": "warn",
     "no-unused-vars": "warn",
     "no-console": "off",
     "no-undef": "error",

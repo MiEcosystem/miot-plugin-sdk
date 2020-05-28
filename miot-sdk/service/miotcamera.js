@@ -241,7 +241,7 @@ class IMiotCamera {
   ffmpegCommand(command, callbackName, complete) {
      return null
   }
-/**
+  /**
    * 下载m3u8视频并合成mp4
    * @since 10038
    * @param fileId

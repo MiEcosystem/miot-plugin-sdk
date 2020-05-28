@@ -44,6 +44,7 @@ function isNumber(num) {
  */
 export default class IDeviceWifi {
      return  ""
+    return Properties.of(this).deviceID;
   }
   /**
     * @typedef {Object} NetworkInfo

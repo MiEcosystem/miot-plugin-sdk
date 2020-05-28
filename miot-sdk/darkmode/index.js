@@ -23,7 +23,7 @@ if (NativeAppearance) {
 }
 class DarkModeStore {
   constructor() {
-    this.setDarkMode = false
+    this.setDarkMode = false;
   }
 }
 const darkModeStore = new DarkModeStore();
@@ -41,11 +41,11 @@ export default {
    */
   preparePluginOwnDarkMode() {
     if (isIOS) {
-      //设置为true时标识由开发者自己适配插件的深色模式（iOS）
+      // 设置为true时标识由开发者自己适配插件的深色模式（iOS）
       this.darkModeStore.setDarkMode = true;
     } else {
       if (NativeAppearance != null) {
-        //关闭插件所在页面native端的系统强制深色模式（Android）
+        // 关闭插件所在页面native端的系统强制深色模式（Android）
         NativeAppearance.disableActivityDarkMode();
       }
     }
