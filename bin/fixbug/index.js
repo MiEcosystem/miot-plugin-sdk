@@ -11,7 +11,7 @@ map.set("node_modules/react-native/Libraries/Renderer/ReactNativeRenderer-prod.j
 map.set("node_modules/react-native-sqlite-storage/lib/sqlite.core.js", "sqlite.core");//从代码目录读取数据库，参数使用方式修改
 map.set("node_modules/react-navigation-stack/dist/views/Header/HeaderBackButton.js", "HeaderBackButton"); // 
 map.set("node_modules/react-navigation/src/createNavigationContainer.js", "createNavigationContainer"); // 
-map.set("node_modules/react-native/Libraries/Text/Text.js", "Text"); //TypeError: undefined is not an object (evaluating '_reactNative.Text.prototype.render') 
+map.set("node_modules/react-native/Libraries/Text/Text.js", "Text"); //为适配深色模式，给text的color增加了后缀 TypeError: undefined is not an object (evaluating '_reactNative.Text.prototype.render') 
 map.set("node_modules/react-native/Libraries/Image/Image.ios.js", "Image.ios"); //修复TypeError: undefined is not an object (evaluating '_reactNative.Image.resizeMode.contain')
 map.set("node_modules/react-native/Libraries/Image/Image.android.js", "Image.android"); //修复TypeError: undefined is not an object (evaluating '_reactNative.Image.resizeMode.contain')
 map.set("node_modules/@react-native-community/netinfo/src/index.ts", "NetInfoIndex"); // 新版 NetInfo 修改了 NetInfo.fetch 方法的返回值，为兼容老版本，在此改回来。
@@ -22,6 +22,8 @@ map.set("node_modules/react-native-swiper/src/index.js","react-native-swiper.ind
 map.set("node_modules/react-native/Libraries/Alert/Alert.js", "Alert") // RN61: 修复 alert 被意外重写的问题
 map.set("node_modules/react-navigation/src/routers/createConfigGetter.js", "YeelightNavigation") // 61升级之后 Yeelight 收藏页面的 headerTitle 显示了出来，在此将 headerTitle 设置为 “”，  Yeelight 修复后将其删掉。
 map.set("node_modules/react-native-svg/elements/Svg.js", "react-native-svg") // 61升级之后 svg parseInt 导致宽高精度丢失，从而导致背景等不能完全填充，出现白色边框
+map.set("node_modules/react-native/Libraries/Color/normalizeColor.js", "normalizeColor");//插件深色模式取反色的位置
+map.set("node_modules/react-native/Libraries/Components/TextInput/TextInput.js", "TextInput");//插件深色模式输入框兼容
 module.exports = {
 
     findContent(mpath) {

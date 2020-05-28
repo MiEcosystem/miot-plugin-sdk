@@ -2,6 +2,7 @@
 import React from 'react';
 import { API_LEVEL, Package, Host, DarkMode } from 'miot';
 import { View, Text, Button } from 'react-native';
+import { dynamicStyleSheet, DynamicColor } from 'miot/ui/Style';
 
 export default class DarkModeDemo extends React.Component {
 
@@ -10,19 +11,19 @@ export default class DarkModeDemo extends React.Component {
   }
 
   myListener = (value) => {
-    console.log("colorScheme from listener: " + value.colorScheme);
+    console.log(`colorScheme from listener: ${ value.colorScheme }`);
     this.setState({ colorScheme: value.colorScheme });
   }
 
 
-  componentWillMount(){
-    //关闭插件所在页面native端的系统强制深色模式（Android）/miot-sdk的反色模式（iOS）,
-    //由开发者使用框架提供的接口自己适配插件的深色模式
+  componentWillMount() {
+    // 关闭插件所在页面native端的系统强制深色模式（Android）/miot-sdk的反色模式（iOS）,
+    // 由开发者使用框架提供的接口自己适配插件的深色模式
     DarkMode.preparePluginOwnDarkMode();
   }
 
   componentDidMount() {
-    //查询当前颜色模式
+    // 查询当前颜色模式
     const currentScheme = DarkMode.getColorScheme();
     this.setState({ colorScheme: currentScheme });
     this.addListener();
@@ -34,13 +35,13 @@ export default class DarkModeDemo extends React.Component {
     DarkMode.removeChangeListener(this.myListener);
   }
 
-  //添加深色模式的监听
+  // 添加深色模式的监听
   addListener = () => {
     console.log("添加深色模式监听");
     DarkMode.addChangeListener(this.myListener);
   }
 
-  //取消深色模式的监听
+  // 取消深色模式的监听
   removeListener = () => {
     console.log("取消深色模式监听");
     DarkMode.removeChangeListener(this.myListener);
@@ -49,7 +50,7 @@ export default class DarkModeDemo extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'powderblue' }}>
-        <Text>hello, this is a tiny plugin project of MIOT</Text>
+        <Text style={styles.dynamicTextColor}>浅色模式下，我是黑色。深色模式下，我是白色</Text>
         <Text>API_LEVEL:{API_LEVEL}</Text>
         <Text>NATIVE_API_LEVEL:{Host.apiLevel}</Text>
         <Text>{Package.packageName}</Text>
@@ -66,6 +67,12 @@ export default class DarkModeDemo extends React.Component {
           this.addListener();
         }} />
       </View>
-    )
+    );
   }
 }
+
+const styles = dynamicStyleSheet({
+  dynamicTextColor: {
+    color: new DynamicColor('#000', '#fff')
+  }
+});

@@ -27,6 +27,8 @@ import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import { RkButton } from "react-native-ui-kitten";
 import { SafeAreaView } from 'react-navigation';
 import ImageButton from './ImageButton';
+import native from '../native';
+import DarkMode from 'miot/darkmode';
 const { width } = Dimensions.get('window');
 const statusBarHeight = getStatusBarHeight(true);
 const titleHeight = 55;
@@ -66,6 +68,20 @@ export default class TitleBar extends Component {
   }
   render() {
     this.isDarkStyle = this.props.type === 'dark';
+    if(native.isIOS && native.MIOTService.currentDarkMode == "dark"){
+      //黑暗模式适配
+      if(this.isDarkStyle === false){
+        //原本就是light的情况下（黑底白字） 颜色不加转换
+        if(this.props.style !== undefined && this.props.style.backgroundColor !== undefined ){
+          this.props.style.backgroundColor = 'xm' + this.props.style.backgroundColor; 
+        }
+      }
+      this.isDarkStyle = false;
+    }else{
+      if(DarkMode.getColorScheme() === 'dark'){
+        this.isDarkStyle = false;
+      }
+    }
     this.isDarkStyle ? StatusBar.setBarStyle('dark-content') : StatusBar.setBarStyle('light-content');
     const containerStyle = this.isDarkStyle ? styles.blackTitleBarContainer : styles.lightTitleBarContainer;
     let leftWidth = this.props.leftTextStyle ? this.props.leftTextStyle.width : 0;
@@ -168,14 +184,14 @@ const styles = StyleSheet.create({
     width: width,
     alignItems: 'flex-end',
     height: containerHeight,
-    backgroundColor: "black"
+    backgroundColor: "xmblack"
   },
   blackTitleBarContainer: {
     flexDirection: 'row',
     width: width,
     alignItems: 'flex-end',
     height: containerHeight,
-    backgroundColor: "white"
+    backgroundColor: "xmwhite"
   },
   textContainer: {
     height: titleHeight,
@@ -184,32 +200,32 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   blackTitleText: {
-    color: '#000000cc',
+    color: 'xm#000000cc',
     fontSize: 15,
     textAlignVertical: 'center',
     textAlign: 'center'
   },
   whiteTitleText: {
-    color: "#ffffffcc",
+    color: "xm#ffffffcc",
     fontSize: 15,
     textAlignVertical: "center",
     textAlign: "center"
   },
   blackSubtitleText: {
-    color: '#00000088',
+    color: 'xm#00000088',
     fontSize: 12,
     textAlignVertical: 'center',
     textAlign: 'center'
   },
   whiteSubtitleText: {
-    color: "#ffffff88",
+    color: "xm#ffffff88",
     fontSize: 12,
     textAlignVertical: "center",
     textAlign: "center"
   },
   blackLeftRightText: {
-    backgroundColor: '#0000',
-    color: '#00000088',
+    backgroundColor: 'xm#0000',
+    color: 'xm#00000088',
     fontSize: 14,
     alignItems: 'center',
     justifyContent: 'center',
@@ -217,8 +233,8 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   whiteLeftRightText: {
-    backgroundColor: '#0000',
-    color: '#ffffff88',
+    backgroundColor: 'xm#0000',
+    color: 'xm#ffffff88',
     fontSize: 14,
     alignItems: 'center',
     justifyContent: 'center',

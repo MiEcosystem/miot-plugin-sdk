@@ -129,6 +129,63 @@ class TouchableText extends React.Component<Props, State> {
 
   render(): React.Node {
     let props = this.props;
+    if(Platform === 'ios'){
+      if (props.style) {
+        if(props.style.color !== undefined && props.style.color !== null && props.style.color !== 'undefined'){
+          if (Array.isArray(props.style)) {
+            props = {
+              ...props,
+              style:[
+                props.style,
+                {color:props.style.color+'text'}
+              ]
+            }
+          } else if (Object.prototype.toString.call(props.style) === '[object Object]'){
+            props = {
+              ...props,
+              style:{
+                ...props.style,
+                color:props.style.color+'text'
+              }
+            }
+          }
+        }else{
+          if (Array.isArray(props.style)) {
+            let tcolor = 'blacktext';
+            for(var i =0; i < props.style.length; i++){
+              let dic = props.style[i];
+              for(var j in dic){
+                if(j === 'color'){
+                  tcolor = dic[j]+'text';
+                }
+              }
+            }
+            props = {
+              ...props,
+              style:[
+                props.style,
+                {color:tcolor}
+              ]
+            }
+          } else if (Object.prototype.toString.call(props.style) === '[object Object]'){
+            props = {
+              ...props,
+              style:{
+                ...props.style,
+                color:'black'+'text'
+              }
+            }
+          }
+        }
+      }else{
+        props = {
+          ...props,
+          style:{
+            color:'black'+'text'
+          }
+        }
+      }
+    }
     if (Platform !== 'ios') {
       if (props.style) {
         if (Array.isArray(props.style)) {
