@@ -98,6 +98,7 @@ import MHAudioDemo from './Host/MHAudioDemo';
 import VideoDemo from './Host/VideoDemo';
 import CryptoDemo from './Host/CryptoDemo';
 import DarkModeDemo from './Host/DarkMode';
+import DarkModeDemoContextAPI from './Host/DarkMode/contextAPI';
 
 // 常用功能
 import TutorialDemo from './tutorial/TutorialDemo';
@@ -260,6 +261,7 @@ function createRootStack(initPage) {
     storageDemo: StorageDemo,
     LocaleServer,
     DarkModeDemo,
+    DarkModeDemoContextAPI,
     JSExecutor,
     UIKitHome: { screen: Screens.ComponentsScreen },
     // --- 没有验证
