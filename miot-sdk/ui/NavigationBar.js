@@ -59,7 +59,6 @@ import Images from '../resources/Images';
 import ImageButton from './ImageButton';
 import native from '../native';
 import DarkMode from 'miot/darkmode';
-const IS_SYSTEM_DARK_MODE = DarkMode.getColorScheme() === 'dark';
 /**
  * 导航栏类型
  */
@@ -289,7 +288,7 @@ export default class NavigationBar extends Component {
       }
       newIsDartStyle = true;
     }else{
-      newIsDartStyle = IS_SYSTEM_DARK_MODE ? true : (newProps ? newProps.type : props.type) === TYPE.DARK;
+      newIsDartStyle = DarkMode.getColorScheme() === 'dark' ? true : (newProps ? newProps.type : props.type) === TYPE.DARK;
     }
     if(newIsDartStyle !== this.isDarkStyle) {
       this.isDarkStyle = newIsDartStyle;

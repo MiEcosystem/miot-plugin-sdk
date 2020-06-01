@@ -4,6 +4,7 @@ import NativeEventEmitter from '../../node_modules/react-native/Libraries/EventE
 import NativeAppearance from './NativeDarkmode';
 import invariant from 'invariant';
 import { isIOS, isAndroid } from "miot/native";
+// @ts-nocheck
 type NativeColorScheme = null | 'light' | 'dark';
 const eventEmitter = new EventEmitter();
 const IS_DEBUG = __DEV__ && !global.nativeExtensions && !global.nativeCallSyncHook && !global.RN$Bridgeless;
