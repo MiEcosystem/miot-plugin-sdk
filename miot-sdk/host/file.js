@@ -162,7 +162,7 @@ class IFile {
        return Promise.resolve(null);
     }
     /**
-     * 写文件，输入为 未经过base64转换的字符串， api内部会对普通字符串做Base64 编码后存放到文件中
+     * 写文件，输入为 Base64 编码的字符串， api内部会对字符串做 Base64 解码后存放到文件中
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {string} fileContent - 需要写入的文件内容
      * @returns {Promise}
@@ -202,7 +202,7 @@ class IFile {
        return Promise.resolve(null);
     }
     /**
-     * 向已存在的文件追加内容，输入为 未经过base64转换的字符串， api内部会对字符串做Base64 编码后存放到文件中
+     * 向已存在的文件追加内容，输入为 Base64 编码的字符串， api内部会对字符串做 Base64 解码后存放到文件中
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {string} fileContent - 需要写入的文件内容
      * @returns {Promise}
