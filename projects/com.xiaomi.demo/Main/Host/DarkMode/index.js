@@ -2,7 +2,6 @@
 import React from 'react';
 import { API_LEVEL, Package, Host, DarkMode } from 'miot';
 import { View, Text, Button } from 'react-native';
-import { dynamicStyleSheet, DynamicColor } from 'miot/ui/Style';
 
 export default class DarkModeDemo extends React.Component {
 
@@ -50,7 +49,6 @@ export default class DarkModeDemo extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'powderblue' }}>
-        <Text style={styles.dynamicTextColor}>浅色模式下，我是黑色。深色模式下，我是白色</Text>
         <Text>API_LEVEL:{API_LEVEL}</Text>
         <Text>NATIVE_API_LEVEL:{Host.apiLevel}</Text>
         <Text>{Package.packageName}</Text>
@@ -70,9 +68,3 @@ export default class DarkModeDemo extends React.Component {
     );
   }
 }
-
-const styles = dynamicStyleSheet({
-  dynamicTextColor: {
-    color: new DynamicColor('#000', '#fff')
-  }
-});

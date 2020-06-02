@@ -59,12 +59,7 @@ export default class TutorialDemo extends React.Component {
         {
           'title': '系统深色模式',
           'key': 'DarkModeDemo'
-        },
-        {
-          'title': '系统深色模式 ContextAPI',
-          'key': 'DarkModeDemoContextAPI'
         }
-
       ]
     };
   }

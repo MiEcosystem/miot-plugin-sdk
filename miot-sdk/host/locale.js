@@ -80,15 +80,7 @@ class ILocale {
    */
   @report
   getSystemTimeZone() {
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.getSystemTimezoneNameWithCallback((ok, result) => {
-        if (ok) {
-          resolve(result);
-        } else {
-          reject(result);
-        }
-      });
-    });
+     return Promise.resolve(null);
   }
 }
 const LocaleInstance = new ILocale();
