@@ -28,6 +28,7 @@ import _SingleChoseDialog from './SingleChoseDialog';
 import _TitleBar from './TitleBar';
 import _TitleBarBlack from './TitleBarBlack';
 import _TitleBarWhite from './TitleBarWhite';
+import _BTInterconnection from './BTInterconnection';
 export const ImageButton = _ImageButton;
 export const LoadingDialog = _LoadingDialog;
 export const MessageDialog = _MessageDialog;
@@ -44,7 +45,7 @@ export const NumberSpinner = _NumberSpin;
 export const StringSpinner = _StringSpin;
 export const RobotMapView = _RobotMapView;
 export const MiotAndroidScrollView = _MiotAndroidScrollView;
-// export const MHImage = _MHImage;
+export const BTInterconnection = _BTInterconnection;
 export { default as BigNumber } from './BigNumber';
 export { default as CardButton } from './CardButton';
 export { default as CircleButton } from './CircleButton';
@@ -68,6 +69,8 @@ export { default as QAList } from './QAList';
 export { default as MultiButtons } from './MultiButtons';
 export { default as Consumable } from './Consumable';
 export { default as ImageHeader } from './ImageHeader';
+export { default as RTSPRenderView } from './RTSPRenderView';
+// export { default as BTInterconnection } from './BTInterconnection';
 export default {
   ImageButton,
   // MHImage,

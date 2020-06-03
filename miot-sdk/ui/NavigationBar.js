@@ -57,6 +57,8 @@ import { Dimensions, Image, Platform, StatusBar, StyleSheet, Text, View } from '
 import { SafeAreaView } from 'react-navigation';
 import Images from '../resources/Images';
 import ImageButton from './ImageButton';
+import native from '../native';
+import DarkMode from 'miot/darkmode';
 /**
  * 导航栏类型
  */
@@ -148,10 +150,10 @@ const navigationBarHeightThin = 52; // 导航栏高度，无副标题
 const navigationBarHeightFat = 65; // 导航栏高度，有副标题
 const paddingHorizontal = 9; // 导航栏左右内边距
 const iconSize = 40; // 图标尺寸
-const lightTitleColor = '#000000'; // 浅色背景下标题颜色
-const darkTitleColor = '#ffffff'; // 深色背景下标题颜色
-const lightSubtitleColor = '#666666'; // 浅色背景下副标题颜色
-const darkSubtitleColor = '#ffffff'; // 深色背景下副标题颜色
+const lightTitleColor = 'xm#000000'; // 浅色背景下标题颜色
+const darkTitleColor = 'xm#ffffff'; // 深色背景下标题颜色
+const lightSubtitleColor = 'xm#666666'; // 浅色背景下副标题颜色
+const darkSubtitleColor = 'xm#ffffff'; // 深色背景下副标题颜色
 export default class NavigationBar extends Component {
   static propTypes = {
     type: PropTypes.oneOf([TYPE.DARK, TYPE.LIGHT]),
@@ -235,7 +237,11 @@ export default class NavigationBar extends Component {
       color: this.isDarkStyle ? darkSubtitleColor : lightSubtitleColor
     };
     return (
-      <View style={[styles.titleContainer]}>
+      <View
+        style={[styles.titleContainer]}
+        accessible={true}
+        accessibilityRole="header"
+      >
         {
           React.isValidElement(title) ?
             <View
@@ -274,6 +280,16 @@ export default class NavigationBar extends Component {
   }
   updateStyleType(props, newProps) {
     let newIsDartStyle = (newProps ? newProps.type : props.type) === TYPE.DARK;
+    this.shouldKeepColor = false;
+    if (native.isIOS && native.MIOTService.currentDarkMode == "dark") {
+      if (newIsDartStyle) {
+        // 本来就是深色模式的情况，传入的颜色不修改
+        this.shouldKeepColor = true;
+      }
+      newIsDartStyle = true;
+    } else {
+      newIsDartStyle = DarkMode.getColorScheme() === 'dark' ? true : (newProps ? newProps.type : props.type) === TYPE.DARK;
+    }
     if (newIsDartStyle !== this.isDarkStyle) {
       this.isDarkStyle = newIsDartStyle;
       StatusBar.setBarStyle(this.isDarkStyle ? 'light-content' : 'dark-content');
@@ -297,9 +313,12 @@ export default class NavigationBar extends Component {
     leftIcons.length > rightIcons.length && rightIcons.unshift({});
     let containerHeight = StatusBar.currentHeight || 0;
     containerHeight += this.props.subtitle ? navigationBarHeightFat : navigationBarHeightThin;
-    const backgroundColor = this.props.backgroundColor
+    let backgroundColor = this.props.backgroundColor
       ? this.props.backgroundColor
-      : (this.isDarkStyle ? '#000000' : '#ffffff');
+      : (this.isDarkStyle ? 'xm#000000' : 'xm#ffffff');
+    if (this.shouldKeepColor && this.props.backgroundColor) {
+      backgroundColor = `xm${ this.props.backgroundColor }`;
+    }
     // StatusBar.setBackgroundColor(backgroundColor); // 仅对某些机型有效：华为荣耀V9
     const containerStyle = {
       backgroundColor,

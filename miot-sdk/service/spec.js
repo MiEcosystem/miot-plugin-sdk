@@ -17,6 +17,7 @@
  * });
  */
 // import Device ,{_find_device} from './../Device'
+import { report } from "../decorator/ReportDecorator";
 const SET = "/miotspec/prop/set";
 const GET = "/miotspec/prop/get";
 const ACTION = "/miotspec/action";
@@ -692,7 +693,7 @@ const ACTION = "/miotspec/action";
 //        //@native end
 //    }
 // }
-export default {
+class ISpec {
   // /**
   // * 创建Spec设备,  miot/Device.getDeviceSpec() 或者 DeviceSpec.createSpec(miot/Device.deviceID)
   // * @method
@@ -720,9 +721,10 @@ export default {
      * 获取设备属性失败时： [{"did":"xxx","siid":x,"piid":x,"code":xxx},……]
      * 失败时：{code:xxx, message:xxx}
      */
+  @report  
   getPropertiesValue(params, datasource = 1) {
      return Promise.resolve(null);
-  },
+  }
   /**
      * 请求设置设备的属性值，由于是发起网络请求，数据的正确性可以通过抓包来查看；
      * 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
@@ -734,9 +736,10 @@ export default {
      * 设置设备属性失败时：  [{"did":"xxx","siid":x,"piid":x,"code":xxx },……]
      * 失败时：{code:xxx, message:xxx}
      */
+  @report  
   setPropertiesValue(params) {
      return Promise.resolve(null);
-  },
+  }
   /**
      * 请求调用设备的方法,由于是发起网络请求，数据的正确性可以通过抓包来查看；
      * 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
@@ -748,9 +751,10 @@ export default {
      * 方法执行失败时：  {"did":"xxx","siid":x,"piid":x,"code":xxx }
      * 失败时：{code:xxx, message:xxx}
      */
+  @report  
   doAction(params) {
      return Promise.resolve(null);
-  },
+  }
   /**
      * 获取设备的spec详情, 由于是发起网络请求，数据的正确性可以通过抓包来查看；
      * 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
@@ -759,9 +763,10 @@ export default {
      * 方法执行成功时：直接返回设备具体内容，json结构字符串
      * 失败时：{code:xxx, message:xxx}
      */
+  @report  
   getSpecString(did) {
      return Promise.resolve(null);
-  },
+  }
   /**
      * 刚进入插件时，如果需要获取米家APP缓存的设备的miot-spec数据，则调用此方法获取，有可能没有数据,不建议使用
      * 注意调用方法的时候，方法要加上async
@@ -773,7 +778,10 @@ export default {
      * Android：string类型, {"code":0, "result":"[]"} or {"code":0, "result":"[{"did":"xxx","siid":x,"piid":x,"code":0 }, ...]"}
      * iOS： 返回值同上面的getPropertiesValue方法。此方法只返回code为0（get成功）的数据
      */
+  @report  
   getCurrentSpecValue(did) {
      return Promise.resolve(null);
   }
-};
+}
+const SpecInstance = new ISpec();
+export default SpecInstance;

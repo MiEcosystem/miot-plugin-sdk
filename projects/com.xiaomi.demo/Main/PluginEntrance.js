@@ -9,5 +9,10 @@ export const PluginEntrance = {
    * @const
    */
   Setting: "Setting",
+  /**
+   * 官方Demo
+   * @const
+   */
+  OfficialDemos: "OfficialDemos"
 
-}
+};

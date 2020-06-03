@@ -1,0 +1,17 @@
+node_modules/
+**/node_modules/
+
+/bin/fixbug/appendFiles/**
+/bin/config/
+
+eslint-mihome-plugin/
+
+**/*.png
+
+!*.js
+!**/*.js
+
+!*.jsx
+!**/*.jsx
+
+**/*.json

@@ -24,7 +24,7 @@ export default class HostDemo extends React.Component {
     super(props);
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this._createMenuData();
-    this.state = { dataSource: ds.cloneWithRows(this._menuData.map(o => (o.name))) };
+    this.state = { dataSource: ds.cloneWithRows(this._menuData.map((o) => (o.name))) };
   }
 
   _createMenuData() {
@@ -69,24 +69,24 @@ export default class HostDemo extends React.Component {
         name: '通用的米家后台API调用接口',
         func: () => {
           Service.callSmartHomeAPI('/home/profiles', { uids: [Service.account.ID, '894158105'] })
-            .then(res => alert(JSON.stringify(res)))
-            .catch(e => alert(e));
+            .then((res) => alert(JSON.stringify(res)))
+            .catch((e) => alert(e));
         }
       },
       {
         name: '通用的米家后台API调用接口(错误测试)',
         func: () => {
           Service.callSmartHomeAPI('/xx/xx', {})
-            .then(res => alert(JSON.stringify(res)))
-            .catch(e => alert(e));
+            .then((res) => alert(JSON.stringify(res)))
+            .catch((e) => alert(e));
         }
       },
       {
         'name': 'callSpecificAPI',
         'func': () => {
           Service.callSpecificAPI('http://api.goseek.cn/Tools/holiday', 'get', { "date": "20191102" })
-            .then(res => alert(JSON.stringify(res)))
-            .catch(e => alert(JSON.stringify(e)));
+            .then((res) => alert(JSON.stringify(res)))
+            .catch((e) => alert(JSON.stringify(e)));
         }
       },
       {
@@ -99,8 +99,14 @@ export default class HostDemo extends React.Component {
         'name': 'callSmartHomeCameraAPI',
         'func': () => {
           Service.callSmartHomeCameraAPI('/wx/app/v1/put/pushSwitch', 'connect.camera', true, {})
-          .then( res => alert(JSON.stringify(res)))
-          .catch(e => alert(JSON.stringify(e)))
+            .then((res) => alert(JSON.stringify(res)))
+            .catch((e) => alert(JSON.stringify(e)));
+        }
+      },
+      {
+        'name': 'FinderDemo 防丢器api Demo',
+        'func': () => {
+          this.props.navigation.navigate('FinderDemo', { title: '防丢器api Demo' });
         }
       }
 

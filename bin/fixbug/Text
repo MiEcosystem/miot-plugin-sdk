@@ -12,7 +12,7 @@
 
 const DeprecatedTextPropTypes = require('../DeprecatedPropTypes/DeprecatedTextPropTypes');
 const React = require('react');
-const ReactNative = require('react-native')
+const ReactNative = require('react-native');
 const ReactNativeViewAttributes = require('../Components/View/ReactNativeViewAttributes');
 const TextAncestor = require('./TextAncestor');
 const Touchable = require('../Components/Touchable/Touchable');
@@ -22,9 +22,9 @@ const createReactNativeComponentClass = require('../Renderer/shims/createReactNa
 const nullthrows = require('nullthrows');
 const processColor = require('../StyleSheet/processColor');
 
-import type {PressEvent} from '../Types/CoreEventTypes';
-import type {NativeComponent} from '../Renderer/shims/ReactNative';
-import type {PressRetentionOffset, TextProps} from './TextProps';
+import type { PressEvent } from '../Types/CoreEventTypes';
+import type { NativeComponent } from '../Renderer/shims/ReactNative';
+import type { PressRetentionOffset, TextProps } from './TextProps';
 
 type ResponseHandlers = $ReadOnly<{|
   onStartShouldSetResponder: () => boolean,
@@ -49,8 +49,8 @@ type State = {|
   createResponderHandlers: () => ResponseHandlers,
   responseHandlers: ?ResponseHandlers,
 |};
-const Platform = ReactNative.Platform.OS
-const PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
+const Platform = ReactNative.Platform.OS;
+const PRESS_RECT_OFFSET = { top: 20, left: 20, right: 20, bottom: 30 };
 
 const viewConfig = {
   validAttributes: {
@@ -68,17 +68,17 @@ const viewConfig = {
     textBreakStrategy: true,
     onTextLayout: true,
     onInlineViewLayout: true,
-    dataDetectorType: true,
+    dataDetectorType: true
   },
   directEventTypes: {
     topTextLayout: {
-      registrationName: 'onTextLayout',
+      registrationName: 'onTextLayout'
     },
     topInlineViewLayout: {
-      registrationName: 'onInlineViewLayout',
-    },
+      registrationName: 'onInlineViewLayout'
+    }
   },
-  uiViewClassName: 'RCTText',
+  uiViewClassName: 'RCTText'
 };
 
 /**
@@ -90,7 +90,7 @@ class TouchableText extends React.Component<Props, State> {
   static defaultProps = {
     accessible: true,
     allowFontScaling: true,
-    ellipsizeMode: 'tail',
+    ellipsizeMode: 'tail'
   };
 
   touchableGetPressRectOffset: ?() => PressRetentionOffset;
@@ -111,7 +111,7 @@ class TouchableText extends React.Component<Props, State> {
     ...Touchable.Mixin.touchableGetInitialState(),
     isHighlighted: false,
     createResponderHandlers: this._createResponseHandlers.bind(this),
-    responseHandlers: null,
+    responseHandlers: null
   };
 
   static getDerivedStateFromProps(
@@ -120,8 +120,8 @@ class TouchableText extends React.Component<Props, State> {
   ): $Shape<State> | null {
     return prevState.responseHandlers == null && isTouchable(nextProps)
       ? {
-          responseHandlers: prevState.createResponderHandlers(),
-        }
+        responseHandlers: prevState.createResponderHandlers()
+      }
       : null;
   }
 
@@ -129,25 +129,65 @@ class TouchableText extends React.Component<Props, State> {
 
   render(): React.Node {
     let props = this.props;
+    if (Platform === 'ios') {
+      if (props.style) {
+        if (props.style.color !== undefined && props.style.color !== null && props.style.color !== 'undefined') {
+          if (Array.isArray(props.style)) {
+            props = {
+              ...props,
+              style: [
+                props.style,
+                { color: `${ props.style.color }text` }
+              ]
+            };
+          } else if (Object.prototype.toString.call(props.style) === '[object Object]') {
+            props = {
+              ...props,
+              style: {
+                ...props.style,
+                color: `${ props.style.color }text`
+              }
+            };
+          }
+        } else {
+          let tcolor = { 'value': 'blacktext' };
+          modifyTextColorIfNeeded(props.style, tcolor);
+          props = {
+            ...props,
+            style: [
+              props.style,
+              { color: tcolor.value }
+            ]
+          };
+        }
+      } else {
+        props = {
+          ...props,
+          style: {
+            color: 'black' + 'text'
+          }
+        };
+      }
+    }
     if (Platform !== 'ios') {
       if (props.style) {
         if (Array.isArray(props.style)) {
-          const hasFont = props.style.find(item => Object.prototype.toString.call(item) === '[object Object]' && item.fontFamily )
+          const hasFont = props.style.find((item) => Object.prototype.toString.call(item) === '[object Object]' && item.fontFamily);
           if (!hasFont) {
             props = {
               ...props,
-              style: [props.style, { fontFamily: ""}],
-            }
+              style: [props.style, { fontFamily: "" }]
+            };
           }
         } else if (Object.prototype.toString.call(props.style) === '[object Object]') {
           if (!props.style.fontFamily) {
             props = {
               ...props,
               style: {
-                ...props.style, 
-                fontFamily: "",
-              },
-            }
+                ...props.style,
+                fontFamily: ""
+              }
+            };
           }
         }
       }
@@ -156,26 +196,26 @@ class TouchableText extends React.Component<Props, State> {
       props = {
         ...props,
         ...this.state.responseHandlers,
-        isHighlighted: this.state.isHighlighted,
+        isHighlighted: this.state.isHighlighted
       };
     }
     if (props.selectionColor != null) {
       props = {
         ...props,
-        selectionColor: processColor(props.selectionColor),
+        selectionColor: processColor(props.selectionColor)
       };
     }
     if (__DEV__) {
       if (Touchable.TOUCH_TARGET_DEBUG && props.onPress != null) {
         props = {
           ...props,
-          style: [props.style, {color: 'magenta'}],
+          style: [props.style, { color: 'magenta' }]
         };
       }
     }
     return (
       <TextAncestor.Consumer>
-        {hasTextAncestor =>
+        {(hasTextAncestor) =>
           hasTextAncestor ? (
             <RCTVirtualText {...props} ref={props.forwardedRef} />
           ) : (
@@ -191,7 +231,7 @@ class TouchableText extends React.Component<Props, State> {
   _createResponseHandlers(): ResponseHandlers {
     return {
       onStartShouldSetResponder: (): boolean => {
-        const {onStartShouldSetResponder} = this.props;
+        const { onStartShouldSetResponder } = this.props;
         const shouldSetResponder =
           (onStartShouldSetResponder == null
             ? false
@@ -227,7 +267,7 @@ class TouchableText extends React.Component<Props, State> {
         }
       },
       onResponderTerminationRequest: (): boolean => {
-        const {onResponderTerminationRequest} = this.props;
+        const { onResponderTerminationRequest } = this.props;
         if (!nullthrows(this.touchableHandleResponderTerminationRequest)()) {
           return false;
         }
@@ -235,7 +275,7 @@ class TouchableText extends React.Component<Props, State> {
           return true;
         }
         return onResponderTerminationRequest();
-      },
+      }
     };
   }
 
@@ -253,12 +293,12 @@ class TouchableText extends React.Component<Props, State> {
     }
     this.touchableHandleActivePressIn = (): void => {
       if (!this.props.suppressHighlighting && isTouchable(this.props)) {
-        this.setState({isHighlighted: true});
+        this.setState({ isHighlighted: true });
       }
     };
     this.touchableHandleActivePressOut = (): void => {
       if (!this.props.suppressHighlighting && isTouchable(this.props)) {
-        this.setState({isHighlighted: false});
+        this.setState({ isHighlighted: false });
       }
     };
     this.touchableHandlePress = (event: PressEvent): void => {
@@ -278,6 +318,21 @@ class TouchableText extends React.Component<Props, State> {
   }
 }
 
+function modifyTextColorIfNeeded(originStyle, tcolor) {
+  if (Array.isArray(originStyle)) {
+    for (let i = 0; i < originStyle.length; i++) {
+      let dic = originStyle[i];
+      modifyTextColorIfNeeded(dic, tcolor);
+    }
+  } else if (Object.prototype.toString.call(originStyle) === '[object Object]') {
+    for (let j in originStyle) {
+      if (j === 'color') {
+        tcolor.value = `${ originStyle[j] }text`;
+      }
+    }
+  }
+}
+
 const isTouchable = (props: Props): boolean =>
   props.onPress != null ||
   props.onLongPress != null ||
@@ -292,13 +347,13 @@ const RCTVirtualText =
   UIManager.getViewManagerConfig('RCTVirtualText') == null
     ? RCTText
     : createReactNativeComponentClass('RCTVirtualText', () => ({
-        validAttributes: {
-          ...ReactNativeViewAttributes.UIView,
-          isHighlighted: true,
-          maxFontSizeMultiplier: true,
-        },
-        uiViewClassName: 'RCTVirtualText',
-      }));
+      validAttributes: {
+        ...ReactNativeViewAttributes.UIView,
+        isHighlighted: true,
+        maxFontSizeMultiplier: true
+      },
+      uiViewClassName: 'RCTVirtualText'
+    }));
 
 const Text = (
   props: TextProps,
@@ -308,7 +363,7 @@ const Text = (
 };
 const TextToExport = React.forwardRef(Text);
 TextToExport.displayName = 'Text';
-TextToExport.prototype ={render:TextToExport.render};
+TextToExport.prototype = { render: TextToExport.render };
 // TODO: Deprecate this.
 /* $FlowFixMe(>=0.89.0 site=react_native_fb) This comment suppresses an error
  * found when Flow v0.89 was deployed. To see the error, delete this comment

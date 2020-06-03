@@ -21,18 +21,25 @@ import Guide from './Guide';
 import NormalBle from './NormalBle';
 import StandardAuthBle from './XiaomiStandardAuthBle';
 import SecurityChipBle from './XiaomiSecurityChipBle';
-import MeshBle from './MeshBle';
-import ClassicBle from './ClassicBle';
-import BluetoothApiUnitCaseDemo from './BluetoothApiUnitCaseDemo';
+import MeshBle from './XiaomiMeshBle';
+import XiaomiBle from './BleControl';
+import XiaomiRPC from './RPCControl';
+import Settings from './Setting';
+import BleSpec from './BleSpec';
+import SubSpec from './SubscribeSpec';
 
 const RootStack = createStackNavigator(
   {
     standardAuth: StandardAuthBle,
     securityChip: SecurityChipBle,
     normalble: NormalBle,
-    meshble:MeshBle,
-    classicBle:ClassicBle,
-    BluetoothApiUnitCaseDemo:BluetoothApiUnitCaseDemo,
+    meshble: MeshBle,
+    rpccontrol: XiaomiRPC,
+    blecontrol: XiaomiBle,
+    setting: Settings,
+    bleSpec: BleSpec,
+    subSpec: SubSpec,
+
     guide: {
       screen: Guide,
       navigationOptions: ({ navigation }) => ({

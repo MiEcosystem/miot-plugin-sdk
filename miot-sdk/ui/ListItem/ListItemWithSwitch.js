@@ -30,7 +30,9 @@ const PADDING = 24;
  * @property {style} titleStyle - 主标题的自定义样式
  * @property {style} subtitleStyle - 副标题的自定义样式
  * @property {style} valueTextStyle - 主标题右侧文案的自定义样式
- * @property {style} switchStyle - 主标题右侧文案的自定义样式
+ * @property {style} switchStyle - 开关样式，仅支持宽高
+ * @property {string} onTintColor - 开关按钮打开时的背景颜色
+ * @property {string} tintColor - 开关按钮关闭时的背景颜色
  */
 export default class ListItemWithSwitch extends React.Component {
   static propTypes = {

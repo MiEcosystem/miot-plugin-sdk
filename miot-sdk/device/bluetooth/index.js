@@ -184,12 +184,22 @@ export default {
      return Promise.resolve(null);
   },
   /**
-     * 打开蓝牙（Android），iOS无法直接操作蓝牙的打开，只能通过Host.ui.showBLESwitchGuide();提示用户打开蓝牙。
-     * @static
-     * @param {boolean} silence
-     * @returns void 无返回值
-     *
-     */
+   * ble 直连spec的关键方法，用于触发 set/get property, do action 这三个方法；
+   * @static
+   * @params {String} mac, 蓝牙设备的mac地址
+   * @params {int} opCode 定义为： 0：set Property; 2: get Property; 5: do action
+   * @params {String} json: 各个方法需要的需要的参数各不相同，参数类型建议文档：https://xiaomi.feishu.cn/docs/doccneoCLgQYWtfaEU8sWoKwx3E#UXkcyO
+   */
+  doSpecOperation(mac, opCode, json) {
+     return Promise.resolve(null);
+  },
+  /**
+   * 打开蓝牙（Android），iOS无法直接操作蓝牙的打开，只能通过Host.ui.showBLESwitchGuide();提示用户打开蓝牙。
+   * @static
+   * @param {boolean} silence
+   * @returns void 无返回值
+   *
+   */
   enableBluetoothForAndroid(silence = false) {
   },
   /**
@@ -206,7 +216,7 @@ export default {
      * 获取信号强度RSSI
      *  @since 10038
      * @returns {Promise<Object>}
-     * 成功时：{"code":0, "data":{RSSI: 0/1/2/3 信号依此减弱}}
+     * 成功时：{"code":0, "data":{RSSI: x}}
      * 失败时：{"code":-1, "message":"xxx" }
      */
   getBtGateWaySubDeviceRSSI(mac) {

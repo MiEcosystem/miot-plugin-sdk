@@ -110,7 +110,7 @@ class IMiotCamera {
    * @param {string} callbackName 链接状态变更回调 { state: MISSConnectState, error: MISSError }
    */
   @report
-  connectToDeviceWithStateChangeCallBack(callbackName) {
+  connectToDeviceWithStateChangeCallBack(callbackName, did = Device.deviceID) {
      return null
   }
   /**
@@ -118,7 +118,7 @@ class IMiotCamera {
    * @since 10033
    */
   @report
-  disconnectToDevice() {
+  disconnectToDevice(did = Device.deviceID) {
      return null
   }
   /**
@@ -128,7 +128,7 @@ class IMiotCamera {
    * @returns {Promise<number>} a promise with return code
    */
   @report
-  sendP2PCommandToDevice(command, params) {
+  sendP2PCommandToDevice(command, params, did = Device.deviceID) {
      return Promise.resolve(null);
   }
   /**
@@ -136,7 +136,7 @@ class IMiotCamera {
    * @param {string} callbackName 收到p2p command回调 { command: MISSCommand, data: Object/Base64String }
    */
   @report
-  bindP2PCommandReceiveCallback(callbackName) {
+  bindP2PCommandReceiveCallback(callbackName, did = Device.deviceID) {
      return null
   }
   /**
@@ -145,7 +145,7 @@ class IMiotCamera {
    * @returns {Promise<number>} a promise with return code
    */
   @report
-  sendRDTJSONCommandToDevice(params) {
+  sendRDTJSONCommandToDevice(params, did = Device.deviceID) {
      return Promise.resolve(null);
   }
   /**
@@ -154,7 +154,7 @@ class IMiotCamera {
    * @returns {Promise<number>} a promise with return code
    */
   @report
-  sendRDTCommandToDevice(params) {
+  sendRDTCommandToDevice(params, did = Device.deviceID) {
      return Promise.resolve(null);
   }
   /**
@@ -162,7 +162,7 @@ class IMiotCamera {
    * @param {string} callbackName 收到RDT回调 { data: Object/Base64String }
    */
   @report
-  bindRDTDataReceiveCallback(callbackName) {
+  bindRDTDataReceiveCallback(callbackName, did = Device.deviceID) {
      return null
   }
   /**
@@ -175,7 +175,7 @@ class IMiotCamera {
    * @param {number} AlarmEventType 取或
    */
   @report
-  showAlarmVideos(localRecognizeEvents) {
+  showAlarmVideos(localRecognizeEvents, did = Device.deviceID) {
      return null
   }
   /**
@@ -185,7 +185,7 @@ class IMiotCamera {
    * @param {useV2API} 是否使用 V2 接口
    */
   @report
-  showCloudStorage(supportHevc, useV2API) {
+  showCloudStorage(supportHevc, useV2API, did = Device.deviceID) {
      return null
   }
   /**
@@ -193,7 +193,7 @@ class IMiotCamera {
    * @since 10033
    */
   @report
-  showCloudStorageSetting() {
+  showCloudStorageSetting(did = Device.deviceID) {
      return null
   }
   /**
@@ -211,7 +211,7 @@ class IMiotCamera {
    * @param {BOOL} isVip
    */
   @report
-  showFaceRecognize(isVip) {
+  showFaceRecognize(isVip, did = Device.deviceID) {
      return null
   }
   /**
@@ -221,14 +221,14 @@ class IMiotCamera {
    * @since 10036
    */
   @report
-  bindBPSReceiveCallback(callbackName) {
+  bindBPSReceiveCallback(callbackName, did = Device.deviceID) {
      return null
   }
   /*
   * 拉取当前正在播放时间戳 js端控制拉取节奏
   */
-  @report
-  getCurrentFrameInfo() {
+  // @report
+  getCurrentFrameInfo(did = Device.deviceID) {
      return Promise.resolve(null);
   }
   /**
@@ -241,7 +241,7 @@ class IMiotCamera {
   ffmpegCommand(command, callbackName, complete) {
      return null
   }
-/**
+  /**
    * 下载m3u8视频并合成mp4
    * @since 10038
    * @param fileId
@@ -255,7 +255,7 @@ class IMiotCamera {
    *    progress : 下载进度0 - 100 (state = onProgress时才有)
    */
   @report
-  downloadM3U8ToMP4(fileId, filePath, callbackName, isAlarm = false, videoCodec = 'H265') {
+  downloadM3U8ToMP4(fileId, filePath, callbackName, isAlarm = false, videoCodec = 'H265', did = Device.deviceID) {
   }
   /**
    * 获取报警视频m3u8播放地址
@@ -265,7 +265,7 @@ class IMiotCamera {
    * @param videoCodec 视频编码如 "H264", "H265"
    */
   @report
-  getVideoFileUrl(fileId, isAlarm, videoCodec) {
+  getVideoFileUrl(fileId, isAlarm, videoCodec, did = Device.deviceID) {
      return Promise.resolve(null);
   }
   /**
@@ -275,7 +275,7 @@ class IMiotCamera {
    * @returns {Promise<String>} 文件路径
    */
   @report
-  getFileIdImage(imgStoreId) {
+  getFileIdImage(imgStoreId, did = Device.deviceID) {
      return Promise.resolve(null);
   }
   /**
@@ -285,7 +285,7 @@ class IMiotCamera {
  * @returns {null}
  */
   @report
-  setTimelinePlaybackMode(isTimelinePlayback) {
+  setTimelinePlaybackMode(isTimelinePlayback, did = Device.deviceID) {
      return null
   }
   /**
@@ -295,7 +295,7 @@ class IMiotCamera {
     * @returns {null}
   */
   @report
-  bindTimelinePlaybackEndListener(timelinePlaybackEndListenerName) {
+  bindTimelinePlaybackEndListener(timelinePlaybackEndListenerName, did = Device.deviceID) {
      return null
   }
   /**
@@ -304,7 +304,7 @@ class IMiotCamera {
    * return {promise}  
    */
   @report
-  getCurrentSpeakerVolumn() {
+  getCurrentSpeakerVolumn(did = Device.deviceID) {
      return Promise.resolve(null);
   }
   /**
@@ -312,10 +312,33 @@ class IMiotCamera {
    * @param boolean isMissFirmware  是否是miss固件，true 是； false tutk固件。
    * @since 10038
    */
-  setCurrentDeviceIsMissFirmware(isMissFirmware) {
+  setCurrentDeviceIsMissFirmware(isMissFirmware, did = Device.deviceID) {
      return null
   }
   
+  /**
+   * 打开摄像机NAS存储设置页面。
+   * 
+   * @since 10038
+   * 
+   */
+  @report
+  showNASSetting(did = Device.deviceID) {
+     return null
+  }
+  /**
+   * 开启悬浮窗模式
+   * @since 10039
+   */
+  @report
+  openFloatWindow(did = Device.deviceID) {
+    
+    if (Platform.OS == "android") {
+       return Promise.resolve(null);
+    } else {
+      return new Promise.reject("unsupported operation for ios platform");
+    }
+  }
 }
 const MiotCameraInstance = new IMiotCamera();
 export default MiotCameraInstance;

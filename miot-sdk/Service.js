@@ -50,6 +50,7 @@ import Storage from './service/storage';
 import TJInfra from './service/tjinfra';
 import MiotCamera from './service/miotcamera';
 import Kookong from './service/kookong';
+import Finder from './service/finder';
  const CurrentAccount = null;
 export default {
   /**
@@ -123,6 +124,9 @@ export default {
   get kookong() {
     return Kookong;
   },
+  get finder() {
+    return Finder;
+  },
   /**
    * @method callSmartHomeAPI
    * @since 10024
@@ -178,7 +182,7 @@ export default {
   },
   /**
    * 传入域名返回 serverToken 等信息，目前只支持小爱音箱的域名
-   * android暂时不支持此方法
+   * Android从SDK-10039开始支持该接口
    * @param {string} sid 域名，类似"xxx.xiaomi.com"
    * @returns {Promise}
    */

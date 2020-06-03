@@ -14,55 +14,54 @@ export default class TutorialDemo extends React.Component {
       dataSource: [
         {
           'title': '插件通用设置项',
-          'key': 'Setting',
+          'key': 'Setting'
         },
         {
           'title': '空白页',
-          'key': 'blankDemo',
+          'key': 'blankDemo'
         },
         {
           'title': "JSExecutor",
-          'key': 'JSExecutor',
+          'key': 'JSExecutor'
         },
         {
           'title': 'RPC与设备交互',
-          'key': 'RPCControl',
+          'key': 'RPCControl'
         },
         {
           'title': '与服务器交互 ',
-          'key': 'callSmartHomeAPIDemo',
+          'key': 'callSmartHomeAPIDemo'
         },
         {
           'title': '账户信息',
-          'key': 'accountDemo',
+          'key': 'accountDemo'
         },
         {
           'title': 'KeyValue存储',
-          'key': 'storageDemo',
+          'key': 'storageDemo'
         },
         {
           'title': '文件存储',
-          'key': 'fileStorage',
+          'key': 'fileStorage'
         },
         {
           'title': 'device 信息',
-          'key': 'DeviceDemo',
+          'key': 'DeviceDemo'
         },
         {
           'title': '插件包信息',
-          'key': 'PackageDemo',
+          'key': 'PackageDemo'
         },
         {
           'title': '定位相关',
-          'key': 'LocaleServer',
+          'key': 'LocaleServer'
         },
         {
           'title': '系统深色模式',
-          'key': 'DarkModeDemo',
+          'key': 'DarkModeDemo'
         }
-
-      ],
-    }
+      ]
+    };
   }
   _keyExtractor = (item, index) => item.id;
 
@@ -76,13 +75,13 @@ export default class TutorialDemo extends React.Component {
         renderItem={({ item }) => {
           return (
             <TouchableHighlight style={{ height: 44 }} onPress={() => {
-              this.props.navigation.navigate(item.key, { title: item.title })
+              this.props.navigation.navigate(item.key, { title: item.title });
             }} >
               <View style={[{ flexDirection: 'row', margin: 10 }]}>
                 <Text style={[styles.rowTitleText]}>{item.title}</Text>
               </View>
             </TouchableHighlight>
-          )
+          );
         }
         } />
     );
@@ -92,51 +91,51 @@ export default class TutorialDemo extends React.Component {
 
 var styles = StyleSheet.create({
   listContainer: {
-    flex: 1,
+    flex: 1
   },
   list: {
-    backgroundColor: '#eeeeee',
+    backgroundColor: '#eeeeee'
   },
   sectionHeader: {
     backgroundColor: '#eeeeee',
     padding: 5,
     fontWeight: '500',
-    fontSize: 11,
+    fontSize: 11
   },
   row: {
     backgroundColor: 'white',
     justifyContent: 'center',
     paddingHorizontal: 15,
-    paddingVertical: 8,
+    paddingVertical: 8
   },
   image: {
     width: 44,
     height: 44,
-    margin: 15,
+    margin: 15
 
   },
   separator: {
     height: StyleSheet.hairlineWidth,
     backgroundColor: '#bbbbbb',
-    marginLeft: 15,
+    marginLeft: 15
   },
   separatorHighlighted: {
     height: StyleSheet.hairlineWidth,
-    backgroundColor: 'rgb(217, 217, 217)',
+    backgroundColor: 'rgb(217, 217, 217)'
   },
   rowTitleText: {
     fontSize: 17,
     fontWeight: '500',
-    color: '#333333',
+    color: '#333333'
   },
   rowDetailText: {
     fontSize: 15,
     color: '#888888',
-    lineHeight: 20,
+    lineHeight: 20
   },
   searchRow: {
     backgroundColor: '#eeeeee',
-    padding: 10,
+    padding: 10
   },
   searchTextInput: {
     backgroundColor: 'white',
@@ -145,6 +144,6 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 8,
     paddingVertical: 0,
-    height: 35,
-  },
+    height: 35
+  }
 });

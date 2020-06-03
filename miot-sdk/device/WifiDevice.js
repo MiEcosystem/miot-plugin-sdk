@@ -44,6 +44,7 @@ function isNumber(num) {
  */
 export default class IDeviceWifi {
      return  ""
+    return Properties.of(this).deviceID;
   }
   /**
     * @typedef {Object} NetworkInfo
@@ -305,7 +306,7 @@ export default class IDeviceWifi {
      *      resolve：res={needUpgradge,force,upgrading，latestVersion} ,其中：needUpgrade:是否需要升级，force：是否需要强制升级，updrading：是否正在升级，latestVersion：最新版本版本号
      *      reject：{code: xxx, message: xxx} 401:设备所有者才可升级  其他code:网络错误/服务端错误
      */
-   @report
+    @report
     checkFirmwareUpdateAndAlert() {
        return Promise.resolve({});
     }
@@ -315,9 +316,9 @@ export default class IDeviceWifi {
     * @returns {Promise<boolean>} 是否支持  res = true or false
     */
    @report
-   checkIsHomeKitDevice() {
-      return Promise
-   }
+    checkIsHomeKitDevice() {
+       return Promise
+    }
     /**
      * 检查当前设备是否已经接入了HomeKit，Android不支持。如果没有接入，可以调用下面的bindToHomeKit方法，将设备接入
      * @since 10021
@@ -394,11 +395,5 @@ export default class IDeviceWifi {
     @report
     getRecommendScenes(model, did) {
        return Promise.resolve({});
-    }
-    /**
-     * 
-     */
-    @report
-    removeDeviceFromHomeKit() {
     }
 }

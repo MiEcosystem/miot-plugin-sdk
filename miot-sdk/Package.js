@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 插件导航模块
- * @doc_index 1
+ * @doc_index 2
  * @doc_directory sdk
  * @module miot/Package
  * @description 扩展程序包参数, 主要来自于{@link packageInfo.json} 的配置与系统本身的特性
@@ -32,13 +32,15 @@ import { MessageDialog } from 'miot/ui';
 import React from 'react';
 import { AppRegistry, DeviceEventEmitter, View } from "react-native";
 import Service from './Service';
-import Device, { PollPropMap } from "./device/BasicDevice";
+import Device, { PollPropMap, DeviceEvent } from "./device/BasicDevice";
 import Host from './Host';
 import resolveAssetResource from "./native/common/node/resolve";
 import { strings } from './resources';
 import ProtocolManager from './utils/protocol-helper';
 import rnPackageJSON from 'react-native/package.json';
 import PropTypes from 'prop-types';
+import { DarkMode } from 'miot/Device';
+import { SDKContextProvider } from 'miot/sdkContext';
 /**
  * @description JS端通知Native端的事件类型
  * @enum {number}
@@ -275,6 +277,23 @@ export default {
      *
      */
   get models() {
+     return  ""
+  },
+  /**
+    * 自动BLE/Mesh设备升级检查，即使设置了alertDialog为true，也仅仅会在直连完成后才弹窗，红点进插件就可以显示
+    * @param redPoit 红点
+    * @param alertDialog 弹窗
+    * @param authType 蓝牙连接类型(0: 普通小米蓝牙协议设备(新接入设备已废弃该类型)，1: 安全芯片小米蓝牙设备（比如锁类产品） 4: Standard Auth 标准蓝牙认证协议(通常2019.10.1之后上线的新蓝牙设备) 5: mesh 设备)
+    * @since 10039
+    * @example
+    * Package.BLEAutoCheckUpgradeOptions = {
+    *   enable: true,
+    *   redPoint: true,
+    *   alertDialog: true,
+    *   authType: 5
+    * }
+    */
+  set BLEAutoCheckUpgradeOptions(options) {
      return  ""
   },
   /**

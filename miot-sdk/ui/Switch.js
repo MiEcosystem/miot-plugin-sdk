@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Styles } from '../resources';
+import { withSDKContext } from 'miot/sdkContext';
 const OFF_COLOR = '#f0f0f0';
 const BORDER_COLOR = 'rgba(0,0,0,0.1)';
 const BACK_WIDTH = 44; // 默认宽度
@@ -25,7 +26,7 @@ const minMargin = 2.5; // 容器和滚球之间的最小间距
  * @property {bool} disabled - 是否禁用，默认值 false
  * @property {function} onValueChange - 切换开关的回调函数
  */
-export default class Switch extends React.Component {
+class Switch extends React.Component {
   static propTypes = {
     value: PropTypes.bool.isRequired,
     style: PropTypes.object,
@@ -87,9 +88,15 @@ export default class Switch extends React.Component {
           activeOpacity={0.8}
           onPress={() => this._onValueChange()}
         >
-          <Animated.View
-            style={[styles.circle, this.circleStyle, { transform: [{ translateX: this.offsetX }] }]}
-          />
+          { // Android 黑暗模式下使用 Animated.Image 实现白色圆点
+            this.props.colorScheme === 'dark' ? (
+              <Animated.Image
+                style={[styles.circle, this.circleStyle, { transform: [{ translateX: this.offsetX }] }]}
+              />
+            ) : <Animated.View
+              style={[styles.circle, this.circleStyle, { transform: [{ translateX: this.offsetX }] }]}
+            />
+          }
         </TouchableOpacity>
       </View>
     );
@@ -132,3 +139,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   }
 });
+export default withSDKContext(Switch);
