@@ -150,32 +150,15 @@ class TouchableText extends React.Component<Props, State> {
             }
           }
         }else{
-          if (Array.isArray(props.style)) {
-            let tcolor = 'blacktext';
-            for(var i =0; i < props.style.length; i++){
-              let dic = props.style[i];
-              for(var j in dic){
-                if(j === 'color'){
-                  tcolor = dic[j]+'text';
-                }
-              }
-            }
+            let tcolor = {'value':'blacktext'};
+            modifyTextColorIfNeeded(props.style, tcolor);
             props = {
               ...props,
               style:[
                 props.style,
-                {color:tcolor}
+                {color:tcolor.value}
               ]
             }
-          } else if (Object.prototype.toString.call(props.style) === '[object Object]'){
-            props = {
-              ...props,
-              style:{
-                ...props.style,
-                color:'black'+'text'
-              }
-            }
-          }
         }
       }else{
         props = {
@@ -333,6 +316,21 @@ class TouchableText extends React.Component<Props, State> {
         ? PRESS_RECT_OFFSET
         : this.props.pressRetentionOffset;
   }
+}
+
+function modifyTextColorIfNeeded(originStyle, tcolor) {
+    if (Array.isArray(originStyle)) {
+        for(let i =0; i < originStyle.length; i++){
+            let dic = originStyle[i];
+            modifyTextColorIfNeeded(dic, tcolor);
+        }
+      } else if (Object.prototype.toString.call(originStyle) === '[object Object]'){
+        for(let j in originStyle){
+            if(j === 'color'){
+                tcolor.value = originStyle[j]+'text';
+            }
+        }
+      }
 }
 
 const isTouchable = (props: Props): boolean =>
