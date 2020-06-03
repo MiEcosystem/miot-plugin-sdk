@@ -150,14 +150,17 @@ class TouchableText extends React.Component<Props, State> {
             }
           }
         }else{
-            let tcolor = {'value':'blacktext'};
+            let tcolor = {'value':''};
             modifyTextColorIfNeeded(props.style, tcolor);
-            props = {
+            if(tcolor.value.length === 0){
+              tcolor.value = 'blacktext';
+              props = {
               ...props,
               style:[
                 props.style,
                 {color:tcolor.value}
               ]
+            }
             }
         }
       }else{
@@ -327,7 +330,8 @@ function modifyTextColorIfNeeded(originStyle, tcolor) {
       } else if (Object.prototype.toString.call(originStyle) === '[object Object]'){
         for(let j in originStyle){
             if(j === 'color'){
-                tcolor.value = originStyle[j]+'text';
+                originStyle[j] += 'text';
+                tcolor.value = originStyle[j];
             }
         }
       }
