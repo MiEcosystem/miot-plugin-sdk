@@ -59,6 +59,7 @@ import Images from '../resources/Images';
 import ImageButton from './ImageButton';
 import native from '../native';
 import DarkMode from 'miot/darkmode';
+import { AccessibilityRoles, AccessibilityPropTypes, getAccessibilityConfig } from '../utils/accessibility-helper';
 /**
  * 导航栏类型
  */
@@ -158,12 +159,18 @@ export default class NavigationBar extends Component {
   static propTypes = {
     type: PropTypes.oneOf([TYPE.DARK, TYPE.LIGHT]),
     style: PropTypes.object,
-    left: PropTypes.array,
+    left: PropTypes.arrayOf(PropTypes.shape({
+      key: PropTypes.string,
+      onPress: PropTypes.func,
+      disable: PropTypes.bool,
+      ...AccessibilityPropTypes
+    })),
     right: PropTypes.array,
     title: PropTypes.string,
     subtitle: PropTypes.string,
     backgroundColor: PropTypes.any,
-    onPressTitle: PropTypes.func
+    onPressTitle: PropTypes.func,
+    accessible: AccessibilityPropTypes.accessible
   }
   static defaultProps = {
     type: TYPE.LIGHT,
@@ -220,6 +227,14 @@ export default class NavigationBar extends Component {
             style={styles.icon}
             source={icon.source}
             highlightedSource={icon.highlightedSource}
+            {...getAccessibilityConfig({
+              ...icon,
+              accessible: icon.accessible || this.props.accessible,
+              accessibilityRole: icon.accessibilityRole || AccessibilityRoles.imagebutton,
+              accessibilityState: {
+                disabled: !!icon.disable
+              }
+            })}
           />
         </View>
       );
@@ -239,8 +254,10 @@ export default class NavigationBar extends Component {
     return (
       <View
         style={[styles.titleContainer]}
-        accessible={true}
-        accessibilityRole="header"
+        {...getAccessibilityConfig({
+          accessible: this.props.accessible,
+          accessibilityRole: AccessibilityRoles.header
+        })}
       >
         {
           React.isValidElement(title) ?
@@ -248,6 +265,7 @@ export default class NavigationBar extends Component {
               numberOfLines={1}
               style={[styles.titleView, titleColor]}
               onPress={onPressTitle}
+              accessible={false}
             >
               {title || ''}
             </View> :
@@ -255,6 +273,7 @@ export default class NavigationBar extends Component {
               numberOfLines={1}
               style={[styles.title, titleColor]}
               onPress={onPressTitle}
+              accessible={false}
             >
               {title || ''}
             </Text>
@@ -264,6 +283,7 @@ export default class NavigationBar extends Component {
             numberOfLines={1}
             style={[styles.subtitle, subtitleColor]}
             onPress={onPressTitle}
+            accessible={false}
           >
             {subtitle}
           </Text>

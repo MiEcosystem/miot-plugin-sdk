@@ -5,6 +5,7 @@ import { Dimensions, Platform, StyleSheet, Text, TouchableHighlight, View } from
 import { Styles } from '../../resources';
 import Separator from '../Separator';
 import Switch from '../Switch';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 const { width } = Dimensions.get('window');
 const THIN_HEIGHT = 50;
 const PADDING = 24;
@@ -51,7 +52,8 @@ export default class ListItemWithSwitch extends React.Component {
     valueTextStyle: PropTypes.object,
     switchStyle: PropTypes.object,
     tintColor: PropTypes.string,
-    onTintColor: PropTypes.string
+    onTintColor: PropTypes.string,
+    ...AccessibilityPropTypes
   }
   static defaultProps = {
     title: '',
@@ -100,14 +102,25 @@ export default class ListItemWithSwitch extends React.Component {
           disabled={!this.props.onPress}
           underlayColor={Styles.common.underlayColor}
           onPress={this.props.onPress}
+          accessible={false}
         >
           <View style={[styles.container, this.props.containerStyle, extraContainerStyle]}>
-            <View style={styles.left}>
+            <View
+              style={styles.left}
+              {...getAccessibilityConfig({
+                accessible: this.props.accessible,
+                accessibilityRole: AccessibilityRoles.text,
+                accessibilityState: this.accessibilityState || {
+                  disabled: !!this.props.disabled
+                }
+              })}
+            >
               <View style={[styles.up]}>
                 <Text
                   numberOfLines={1}
                   ellipsizeMode="tail"
                   style={[Styles.common.title, extraStyle, this.props.titleStyle]}
+                  accessible={false}
                 >
                   {this.props.title}
                 </Text>
@@ -118,6 +131,7 @@ export default class ListItemWithSwitch extends React.Component {
                       numberOfLines={1}
                       ellipsizeMode="tail"
                       style={[Styles.common.subtitle, this.props.valueTextStyle, { flex: 1 }]}
+                      accessible={false}
                     >
                       {this.props.valueText}
                     </Text>
@@ -130,6 +144,7 @@ export default class ListItemWithSwitch extends React.Component {
                   numberOfLines={2}
                   ellipsizeMode="tail"
                   style={[Styles.common.subtitle, this.props.subtitleStyle]}
+                  accessible={false}
                 >
                   {this.props.subtitle}
                 </Text>
@@ -144,6 +159,11 @@ export default class ListItemWithSwitch extends React.Component {
                 tintColor={this.props.tintColor}
                 onTintColor={this.props.onTintColor}
                 onValueChange={(value) => this._onValueChange(value)}
+                {...getAccessibilityConfig({
+                  accessible: this.props.accessible,
+                  accessibilityLabel: this.props.accessibilityLabel || this.props.title,
+                  accessibilityHint: this.props.accessibilityHint
+                })}
               />
             </View>
           </View>

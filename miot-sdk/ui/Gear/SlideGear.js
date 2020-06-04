@@ -5,6 +5,7 @@ import Styles from '../../resources/Styles';
 import Block from "./Block";
 import LinearGradient from 'react-native-linear-gradient';
 import { transformHexToDigtal, transformDigtalToHex, colorGetterforRange } from '../../utils/colors';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 /**
  * @description 容器和滑块的圆角类型
  * @enum {string}
@@ -110,7 +111,10 @@ export default class SlideGear extends React.Component {
       optionStep: PropTypes.number,
       contentType: PropTypes.oneOf([CONTENTTYPE.NUM, CONTENTTYPE.COLOR, CONTENTTYPE.COLORTEM]),
       colorRangeObject: PropTypes.object,
-      colorTemRangeObject: PropTypes.object
+      colorTemRangeObject: PropTypes.object,
+      accessible: AccessibilityPropTypes.accessible,
+      accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+      accessibilityHint: AccessibilityPropTypes.accessibilityHint
     }
     static defaultProps = {
       type: TYPE.CIRCLE,
@@ -163,10 +167,11 @@ export default class SlideGear extends React.Component {
       this.state = {
         pan: new Animated.Value(0),
         moveX: new Animated.Value(0),
-        value: this.props.value,
+        // value: this.props.value,
         dragToValueMin: 0,
         dragToValueMax: 0
       };
+      this.value = this.props.value;
       this.translateX = 0; // 记录拖拽距离
       this.offset = 0; // 手势触摸点和中心左边偏差值
       this.constructPanResponder(props);
@@ -194,7 +199,6 @@ export default class SlideGear extends React.Component {
      * @param {object} newProps
      */
     UNSAFE_componentWillReceiveProps(newProps) {
-      console.log(11111111, newProps);
       if (this.sliding) { // 为了避免不必要的冲突，在滑动时，拒绝一切外部状态更新
         return;
       }
@@ -215,11 +219,11 @@ export default class SlideGear extends React.Component {
         this.optionStep = optionStep;
         this.length = (this.optionMax - this.optionMin) / this.optionStep + 1;
         if (value !== this.props.value) {
-          this.state.value = value;
+          this.value = value;
         }
       } else { // options为数组形式
         const { options } = newProps;
-        if ((value === this.state.value) && this.isSameArray(options, this.props.options)) return; // 没有变化
+        if ((value === this.value) && this.isSameArray(options, this.props.options)) return; // 没有变化
         if (!this.isSameArray(options, this.props.options)) { // options 变化
           if (!(options instanceof Array) || options.length === 0) { // 更新后的 options 不是数组或者是空数组
             console.warn('options 不是数组或者是空数组');
@@ -234,14 +238,15 @@ export default class SlideGear extends React.Component {
         if (value !== this.props.value) { // value 变化
           if (value < 0 || value >= this.length) { // 更新后的 value 越界
             console.warn('value 不在 options 范围内');
-            this.state.value = 0; // 如果越界，设置一个默认值
+            this.value = 0; // 如果越界，设置一个默认值
           } else {
-            this.state.value = value; // value 正确更新
+            this.value = value; // value 正确更新
           }
         }
       }
       this.calculateCoord(this.containerLayout); // 根据更新后的 options 和 value 重新计算 滑块坐标  和各个选项坐标或者间隙d
     }
+    value = 0;
     /**
      * 判断两个数组是否完全相等
      * @param {array} arr1
@@ -367,16 +372,16 @@ export default class SlideGear extends React.Component {
       }
       const index = this.getClosetIndex(gesture.moveX);
       if (this.props.contentType !== CONTENTTYPE.COLOR) {
-        this.state.value = index;
+        this.value = index;
       }
       if (this.props.onSlidingComplete) {
         if (this.props.contentType === CONTENTTYPE.COLOR) {
           const colorValue = this.getColorFromValue(index);
-          this.state.value = colorValue;
+          this.value = colorValue;
           this.props.onSlidingComplete(colorValue);
         } else {
           this.props.onSlidingComplete(index);
-          this.state.value = index;
+          this.value = index;
         }
       }
       this.offset = 0;
@@ -428,14 +433,14 @@ export default class SlideGear extends React.Component {
       if (!this.optionStep) {
         this.coords = this.options.map((v, i) => d > 0 ? (startCoord + d * i) : 0);
         console.log('各选项中心坐标', this.coords);
-        this.currentCoord = this.coords[this.state.value];
+        this.currentCoord = this.coords[this.value];
       } else {
         this.firstCoord = startCoord;
         this.endCoord = startCoord + d * this.length;
         if (this.props.contentType !== CONTENTTYPE.COLOR) {
-          this.currentCoord = startCoord + d * ((this.state.value - this.optionMin) / this.optionStep);
+          this.currentCoord = startCoord + d * ((this.value - this.optionMin) / this.optionStep);
         } else {
-          const value = this.getValueFromColor(this.state.value); // 从传入的颜色十进制值换算出滑块的位置value
+          const value = this.getValueFromColor(this.value); // 从传入的颜色十进制值换算出滑块的位置value
           this.currentCoord = startCoord + d * (Math.round((value - this.optionMin) / this.optionStep));
         }
       }
@@ -616,6 +621,54 @@ export default class SlideGear extends React.Component {
         </View>
       );
     }
+    onAccessibilityAction = ({ nativeEvent: { actionName } }) => {
+      const { firstCoord, endCoord, currentCoord, coords, optionStep, length } = this;
+      const everyCoord = (optionStep ? (endCoord - firstCoord) : (coords[length - 1] - coords[0])) / 10;
+      let moveX = 0;
+      switch (actionName) {
+        case 'increment':
+          moveX = currentCoord + everyCoord;
+          break;
+        case 'decrement':
+          moveX = currentCoord - everyCoord;
+          break;
+      }
+      this.accessbilittMockReleaseCallback({
+        moveX
+      });
+    }
+    accessbilittMockReleaseCallback = (gesture) => {
+      const coord = gesture.moveX - this.offset;
+      if (this.optionStep) {
+        if (coord >= this.firstCoord && coord <= this.endCoord) {
+          this.currentCoord = coord;
+        } else {
+          this.currentCoord = coord < this.firstCoord ? this.firstCoord : this.endCoord;
+        }
+      } else {
+        const min = this.coords[0];
+        const max = this.coords[this.length - 1];
+        if (coord >= min && coord <= max) {
+          this.currentCoord = coord;
+        } else {
+          this.currentCoord = coord < min ? min : max;
+        }
+      }
+      const index = this.getClosetIndex(gesture.moveX);
+      if (this.props.contentType !== CONTENTTYPE.COLOR) {
+        this.value = Math.max(0, Math.min(this.length - 1, index));
+      }
+      if (this.props.onSlidingComplete) {
+        if (this.props.contentType === CONTENTTYPE.COLOR) {
+          const colorValue = this.getColorFromValue(index);
+          this.value = this.props.value;
+          this.props.onSlidingComplete(colorValue);
+        } else {
+          this.props.onSlidingComplete(index);
+          this.value = this.props.value;
+        }
+      }
+    }
     render() {
       if (this.showNothing) return null;
       const containerStyle = {
@@ -633,6 +686,25 @@ export default class SlideGear extends React.Component {
             containerStyle,
             { opacity }
           ]}
+          {...getAccessibilityConfig({
+            accessible: this.props.accessible,
+            accessibilityRole: AccessibilityRoles.adjustable,
+            accessibilityLabel: this.props.accessibilityLabel,
+            accessibilityHint: this.props.accessibilityHint,
+            accessibilityState: {
+              disabled: !!this.props.disabled
+            },
+            accessibilityValue: {
+              min: this.state.dragToValueMin,
+              max: this.state.dragToValueMax,
+              now: this.value
+            }
+          })}
+          accessibilityActions={[
+            { name: 'increment' },
+            { name: 'decrement' }
+          ]}
+          onAccessibilityAction={this.onAccessibilityAction}
         >
           {
             this.props.contentType === CONTENTTYPE.NUM
@@ -653,6 +725,9 @@ export default class SlideGear extends React.Component {
                   }
                   colors={this.props.contentType === CONTENTTYPE.COLOR ? Object.values(this.props.colorRangeObject) : Object.values(this.props.colorTemRangeObject)}
                   style={{ borderRadius: this.props.type === TYPE.CIRCLE ? this.containerHeight / 2 : 0 }}
+                  {...getAccessibilityConfig({
+                    accessible: false
+                  })}
                 >
                   {this.renderRightText()}
                   {this.renderBackground()}

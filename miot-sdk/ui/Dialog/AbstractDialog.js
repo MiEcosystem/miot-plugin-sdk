@@ -4,6 +4,7 @@ import React from 'react';
 import { Dimensions, Modal, Platform, StyleSheet, Text, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
 import { strings, Styles } from '../../resources';
 import Separator from '../Separator';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 const { width, height } = Dimensions.get('window');
 const underlayColor = 'rgba(0,0,0,.05)';
 /**
@@ -41,9 +42,15 @@ export default class AbstractDialog extends React.Component {
       showTitle: PropTypes.bool,
       showSubtitle: PropTypes.bool,
       canDismiss: PropTypes.bool,
-      buttons: PropTypes.arrayOf(PropTypes.object),
+      buttons: PropTypes.arrayOf(PropTypes.shape({
+        text: PropTypes.string,
+        style: PropTypes.any,
+        callback: PropTypes.func,
+        accessibilityHint: AccessibilityPropTypes.accessibilityHint
+      })),
       showButton: PropTypes.bool,
-      onDismiss: PropTypes.func
+      onDismiss: PropTypes.func,
+      accessible: AccessibilityPropTypes.accessible
     }
     static defaultProps = {
       animationType: 'fade',
@@ -99,7 +106,13 @@ export default class AbstractDialog extends React.Component {
         fontFamily.fontFamily = '';
       }
       return (
-        <View style={[styles.titleContainer, height]}>
+        <View
+          style={[styles.titleContainer, height]}
+          {...getAccessibilityConfig({
+            accessible: this.props.accessible,
+            accessibilityRole: AccessibilityRoles.text
+          })}
+        >
           <Text
             numberOfLines={titleLines}
             style={[
@@ -134,7 +147,10 @@ export default class AbstractDialog extends React.Component {
     renderContent() {
       if (this.props.children) return this.props.children;
       return (
-        <View>
+        <View {...getAccessibilityConfig({
+          accessible: this.props.accessible,
+          accessibilityRole: AccessibilityRoles.text
+        })}>
           <Separator />
           <View style={styles.content}>
             <Text>⬆️可自定义标题和副标题⬆️</Text>
@@ -181,6 +197,11 @@ export default class AbstractDialog extends React.Component {
             ]}
             onPress={callback}
             underlayColor={underlayColor}
+            {...getAccessibilityConfig({
+              accessible: this.props.accessible,
+              accessibilityRole: AccessibilityRoles.button,
+              accessibilityHint: button0.accessibilityHint
+            })}
           >
             <Text style={[Styles.dialog.buttonText, button0.style]}>
               {button0.text || strings.ok}
@@ -216,6 +237,11 @@ export default class AbstractDialog extends React.Component {
             ]}
             onPress={callback0}
             underlayColor={underlayColor}
+            {...getAccessibilityConfig({
+              accessible: this.props.accessible,
+              accessibilityRole: AccessibilityRoles.button,
+              accessibilityHint: button0.accessibilityHint
+            })}
           >
             <Text style={[Styles.dialog.buttonText, button0.style]}>
               {button0.text || strings.cancel}
@@ -231,6 +257,11 @@ export default class AbstractDialog extends React.Component {
             ]}
             onPress={callback1}
             underlayColor={underlayColor}
+            {...getAccessibilityConfig({
+              accessible: this.props.accessible,
+              accessibilityRole: AccessibilityRoles.button,
+              accessibilityHint: button1.accessibilityHint
+            })}
           >
             <Text style={[Styles.dialog.buttonText, { color: Styles.common.MHGreen }, button1.style]}>
               {button1.text || strings.ok}

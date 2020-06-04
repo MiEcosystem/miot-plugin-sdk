@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import ChoiceItem from '../ListItem/ChoiceItem';
 import Separator from '../Separator';
 import AbstractDialog from './AbstractDialog';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 /**
  * 可点击的选项
  * @typedef {Object} Opiton
@@ -35,10 +36,23 @@ export default class ActionSheet extends React.Component {
   static propTypes = {
     animationType: PropTypes.string,
     visible: PropTypes.bool,
-    options: PropTypes.arrayOf(PropTypes.object),
-    buttons: PropTypes.arrayOf(PropTypes.object),
+    options: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string,
+      subtitle: PropTypes.string,
+      onPress: PropTypes.func,
+      accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+      accessibilityHint: AccessibilityPropTypes.accessibilityHint
+    })),
+    buttons: PropTypes.arrayOf(PropTypes.shape({
+      text: PropTypes.string,
+      style: PropTypes.any,
+      callback: PropTypes.func,
+      accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+      accessibilityHint: AccessibilityPropTypes.accessibilityHint
+    })),
     onDismiss: PropTypes.func,
-    canDismiss: PropTypes.bool
+    canDismiss: PropTypes.bool,
+    accessible: AccessibilityPropTypes.accessible
   }
   static defaultProps = {
     options: [],
@@ -64,6 +78,9 @@ export default class ActionSheet extends React.Component {
         buttons={this.props.buttons}
         onDismiss={() => this._onDismiss()}
         canDismiss={this.props.canDismiss}
+        {...getAccessibilityConfig({
+          accessible: this.props.accessible
+        })}
       >
         {this.props.options.map((option, index) => {
           return (
@@ -74,6 +91,12 @@ export default class ActionSheet extends React.Component {
                 title={option.title || ''}
                 subtitle={option.subtitle || ''}
                 onPress={() => this._onPress(option.onPress)}
+                {...getAccessibilityConfig({
+                  accessible: this.props.accessible,
+                  accessibilityRole: AccessibilityRoles.button,
+                  accessibilityLabel: option.accessibilityLabel,
+                  accessibilityHint: option.accessibilityHint
+                })}
               />
               <Separator />
             </View>

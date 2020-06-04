@@ -5,6 +5,7 @@ import { strings, Styles } from '../resources';
 import { formatString } from '../resources/Strings';
 import Separator from './Separator';
 import StringSpinner from "./StringSpinner";
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
 /**
  * @description 时间选择器类型
  * @enum {string}
@@ -156,7 +157,10 @@ export default class MHDatePicker extends React.Component {
       PropTypes.instanceOf(Date)
     ]),
     onSelect: PropTypes.func,
-    onDismiss: PropTypes.func
+    onDismiss: PropTypes.func,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
   static defaultProps = {
     animationType: 'fade',
@@ -369,7 +373,11 @@ export default class MHDatePicker extends React.Component {
       height: this.props.showSubtitle ? titleHeightFat : titleHeightThin
     };
     return (
-      <View style={[styles.titleContainer, height]}>
+      <View style={[styles.titleContainer, height]} {...getAccessibilityConfig({
+        accessible: this.props.accessible,
+        accessibilityRole: AccessibilityRoles.text,
+        accessibilityLabel: this.props.accessibilityLabel
+      })}>
         <Text
           numberOfLines={1}
           style={[Styles.common.title, styles.title]}
@@ -416,6 +424,10 @@ export default class MHDatePicker extends React.Component {
                 defaultValue={currentArray[index]}
                 pickerInnerStyle={pickerInnerStyle}
                 onValueChanged={(data) => this._onValueChanged(index, data)}
+                {...getAccessibilityConfig({
+                  accessible: this.props.accessible,
+                  accessibilityHint: this.props.accessibilityHint
+                })}
               />
               {index < length - 1
                 ? <Separator type="column" style={{ height: pickerContainerHeight }} />
@@ -437,6 +449,8 @@ export default class MHDatePicker extends React.Component {
           style={[styles.button, { borderBottomLeftRadius: borderRadius }]}
           onPress={() => this.dismiss()}
           underlayColor="rgba(0,0,0,.05)"
+          accessible={this.props.accessible}
+          accessibilityRole={AccessibilityRoles.button}
         >
           <Text style={styles.buttonText}>
             {strings.cancel}
@@ -447,6 +461,8 @@ export default class MHDatePicker extends React.Component {
           style={[styles.button, { borderBottomRightRadius: borderRadius }]}
           onPress={() => this.confirm()}
           underlayColor="rgba(0,0,0,.05)"
+          accessible={this.props.accessible}
+          accessibilityRole={AccessibilityRoles.button}
         >
           <Text style={[styles.buttonText, { color: this.props.confirmColor }]}>
             {strings.ok}

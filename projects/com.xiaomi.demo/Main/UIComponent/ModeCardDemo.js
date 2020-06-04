@@ -12,10 +12,10 @@ class ModeCardDemo extends Component {
     return {
       header:
         <TitleBar
-          type='dark'
-          title='模式卡片'
+          type="dark"
+          title="模式卡片"
           style={{ backgroundColor: '#fff' }}
-          onPressLeft={_ => navigation.goBack()}
+          onPressLeft={() => navigation.goBack()}
         />
     };
   };
@@ -31,11 +31,12 @@ class ModeCardDemo extends Component {
             normal: require('./images/auto.jpg'),
             press: require('./images/auto-press.jpg'),
             active: require('./images/auto-active.jpg'),
-            activeDisabled: require('./images/auto-activeDisabled.jpg'),
+            activeDisabled: require('./images/auto-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: true,
-          isPressing: false
+          isPressing: false,
+          accessibilityHint: '模式切换为自动'
         },
         {
           description: '睡眠',
@@ -43,11 +44,12 @@ class ModeCardDemo extends Component {
             normal: require('./images/sleep.jpg'),
             press: require('./images/sleep-press.jpg'),
             active: require('./images/sleep-active.jpg'),
-            activeDisabled: require('./images/sleep-activeDisabled.jpg'),
+            activeDisabled: require('./images/sleep-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: false,
-          isPressing: false
+          isPressing: false,
+          accessibilityHint: '模式切换为睡眠'
         },
         {
           description: '档位档位档位',
@@ -55,12 +57,13 @@ class ModeCardDemo extends Component {
             normal: require('./images/gear.jpg'),
             press: require('./images/gear-press.jpg'),
             active: require('./images/gear-active.jpg'),
-            activeDisabled: require('./images/gear-activeDisabled.jpg'),
+            activeDisabled: require('./images/gear-activeDisabled.jpg')
           },
           isDisabled: true,
           isActive: false,
-          isPressing: false
-        },
+          isPressing: false,
+          accessibilityHint: '模式切换为档位'
+        }
       ],
       modes2: [
         {
@@ -69,7 +72,7 @@ class ModeCardDemo extends Component {
             normal: require('./images/auto.jpg'),
             press: require('./images/auto-press.jpg'),
             active: require('./images/auto-active.jpg'),
-            activeDisabled: require('./images/auto-activeDisabled.jpg'),
+            activeDisabled: require('./images/auto-activeDisabled.jpg')
           },
           isDisabled: true,
           isActive: false,
@@ -81,7 +84,7 @@ class ModeCardDemo extends Component {
             normal: require('./images/sleep.jpg'),
             press: require('./images/sleep-press.jpg'),
             active: require('./images/sleep-active.jpg'),
-            activeDisabled: require('./images/sleep-activeDisabled.jpg'),
+            activeDisabled: require('./images/sleep-activeDisabled.jpg')
           },
           isDisabled: true,
           isActive: false,
@@ -93,7 +96,7 @@ class ModeCardDemo extends Component {
             normal: require('./images/gear.jpg'),
             press: require('./images/gear-press.jpg'),
             active: require('./images/gear-active.jpg'),
-            activeDisabled: require('./images/gear-activeDisabled.jpg'),
+            activeDisabled: require('./images/gear-activeDisabled.jpg')
           },
           isDisabled: true,
           isActive: false,
@@ -105,7 +108,7 @@ class ModeCardDemo extends Component {
             normal: require('./images/love.jpg'),
             press: require('./images/love-press.jpg'),
             active: require('./images/love-active.jpg'),
-            activeDisabled: require('./images/love-activeDisabled.jpg'),
+            activeDisabled: require('./images/love-activeDisabled.jpg')
           },
           isDisabled: true,
           isActive: true,
@@ -119,7 +122,7 @@ class ModeCardDemo extends Component {
             normal: require('./images/auto.jpg'),
             press: require('./images/auto-press.jpg'),
             active: require('./images/auto-active.jpg'),
-            activeDisabled: require('./images/auto-activeDisabled.jpg'),
+            activeDisabled: require('./images/auto-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: false,
@@ -131,7 +134,7 @@ class ModeCardDemo extends Component {
             normal: require('./images/sleep.jpg'),
             press: require('./images/sleep-press.jpg'),
             active: require('./images/sleep-active.jpg'),
-            activeDisabled: require('./images/sleep-activeDisabled.jpg'),
+            activeDisabled: require('./images/sleep-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: false,
@@ -143,12 +146,12 @@ class ModeCardDemo extends Component {
             normal: require('./images/gear.jpg'),
             press: require('./images/gear-press.jpg'),
             active: require('./images/gear-active.jpg'),
-            activeDisabled: require('./images/gear-activeDisabled.jpg'),
+            activeDisabled: require('./images/gear-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: true,
           isPressing: false
-        },
+        }
       ],
       modes4: [
         {
@@ -157,7 +160,7 @@ class ModeCardDemo extends Component {
             normal: require('./images/auto.jpg'),
             press: require('./images/auto-press.jpg'),
             active: require('./images/auto-active.jpg'),
-            activeDisabled: require('./images/auto-activeDisabled.jpg'),
+            activeDisabled: require('./images/auto-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: false,
@@ -169,7 +172,7 @@ class ModeCardDemo extends Component {
             normal: require('./images/sleep.jpg'),
             press: require('./images/sleep-press.jpg'),
             active: require('./images/sleep-active.jpg'),
-            activeDisabled: require('./images/sleep-activeDisabled.jpg'),
+            activeDisabled: require('./images/sleep-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: true,
@@ -181,7 +184,7 @@ class ModeCardDemo extends Component {
             normal: require('./images/gear.jpg'),
             press: require('./images/gear-press.jpg'),
             active: require('./images/gear-active.jpg'),
-            activeDisabled: require('./images/gear-activeDisabled.jpg'),
+            activeDisabled: require('./images/gear-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: false,
@@ -193,7 +196,7 @@ class ModeCardDemo extends Component {
             normal: require('./images/love.jpg'),
             press: require('./images/love-press.jpg'),
             active: require('./images/love-active.jpg'),
-            activeDisabled: require('./images/love-activeDisabled.jpg'),
+            activeDisabled: require('./images/love-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: false,
@@ -205,19 +208,19 @@ class ModeCardDemo extends Component {
             normal: require('./images/collect.jpg'),
             press: require('./images/collect-press.jpg'),
             active: require('./images/collect-active.jpg'),
-            activeDisabled: require('./images/collect-activeDisabled.jpg'),
+            activeDisabled: require('./images/collect-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: false,
           isPressing: false
         }
-      ],
+      ]
     };
   }
 
-  //按下模式
+  // 按下模式
   pressInDemo = (index, key) => {
-    console.log(`pressInDemo ${index} ${key}`)
+    console.log(`pressInDemo ${ index } ${ key }`);
     this.setState((state) => {
       let modes = state[key];
       modes[index].isPressing = true;
@@ -225,9 +228,9 @@ class ModeCardDemo extends Component {
     });
   }
 
-  //手指抬起模式
+  // 手指抬起模式
   pressOutDemo = (index, key) => {
-    console.log(`pressOutDemo ${index} ${key}`)
+    console.log(`pressOutDemo ${ index } ${ key }`);
     this.setState((state) => {
       let modes = state[key];
       let theMode = modes[index];
@@ -235,11 +238,11 @@ class ModeCardDemo extends Component {
       theMode.isPressing = false;
 
       if (theMode.isDisabled || theMode.isActive) {
-        //该模式不可点或已高亮
+        // 该模式不可点或已高亮
         return;
       } else {
-        //正常模式
-        modes.forEach(mode => {
+        // 正常模式
+        modes.forEach((mode) => {
           mode.isActive = false;
         });
 
@@ -264,32 +267,33 @@ class ModeCardDemo extends Component {
               modes={modes}
               pressIn={this.pressInDemo}
               pressOut={this.pressOutDemo}
-              modesKey='modes'
+              modesKey="modes"
             />
             <ModeCard
               modes={modes3}
               pressIn={this.pressInDemo}
               pressOut={this.pressOutDemo}
-              modesKey='modes3'
+              modesKey="modes3"
               descriptionStyle={{
-                color: 'blue',
+                color: 'blue'
               }}
               activeDescriptionStyle={{
                 color: 'red',
                 fontWeight: '700'
               }}
               modeCardStyle={{
-                marginTop: 20,
+                marginTop: 20
               }}
+              accessibilityHint="切换模式"
             />
             <ModeCard
               modes={modes4}
               pressIn={this.pressInDemo}
               pressOut={this.pressOutDemo}
-              modesKey='modes4'
+              modesKey="modes4"
               showShadow={false}
               modeCardStyle={{
-                marginTop: 20,
+                marginTop: 20
               }}
             />
             <View style={styles.cardTop}>
@@ -300,8 +304,8 @@ class ModeCardDemo extends Component {
               modes={modes2}
               pressIn={this.pressInDemo}
               pressOut={this.pressOutDemo}
-              modesKey='modes2'
-              radiusType='bottom'
+              modesKey="modes2"
+              radiusType="bottom"
               showShadow={false}
             />
           </View>
@@ -313,7 +317,7 @@ class ModeCardDemo extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
     // padding: 10,
   },
   // scrollContainer: {
@@ -334,7 +338,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     marginTop: 20,
-    width: width - 2 * 10,
+    width: width - 2 * 10
   },
   title: {
     fontSize: 14,

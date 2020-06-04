@@ -3,6 +3,7 @@ import React from 'react';
 import { Dimensions, Platform, StyleSheet } from 'react-native';
 import { BoxShadow } from 'react-native-shadow';
 import CardBase from './CardBase';
+import { AccessibilityPropTypes } from '../../utils/accessibility-helper';
 const { width } = Dimensions.get('window');
 const DURATION = 250;
 const DEFAULT_STYLE = {
@@ -49,7 +50,8 @@ export default class Card extends React.Component {
     textStyle: PropTypes.object,
     underlayColor: PropTypes.string,
     shadowColor: PropTypes.string,
-    shadowOpacity: PropTypes.number
+    shadowOpacity: PropTypes.number,
+    ...AccessibilityPropTypes
   }
   static defaultProps = {
     visible: true,

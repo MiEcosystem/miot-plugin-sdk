@@ -27,6 +27,7 @@ import { RkButton } from "react-native-ui-kitten";
 import { SafeAreaView } from "react-navigation";
 import ImageButton from "./ImageButton";
 import PropTypes from 'prop-types';
+import { AccessibilityRoles, AccessibilityPropTypes, getAccessibilityConfig } from 'miot/utils/accessibility-helper';
 const { width } = Dimensions.get("window");
 const titleHeight = 44;
 const imgHeight = 28;
@@ -44,7 +45,24 @@ export default class TitleBarWhite extends Component {
     onPressTitle: PropTypes.func,
     title: PropTypes.string,
     subTitle: PropTypes.string,
-    showDot: PropTypes.bool
+    showDot: PropTypes.bool,
+    accessible: AccessibilityPropTypes.accessible,
+    // 无障碍 - onPressLeft
+    leftAccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    leftAccessibilityHint: AccessibilityPropTypes.accessibilityHint,
+    leftAccessibilityState: AccessibilityPropTypes.accessibilityState,
+    // 无障碍 - onPressLeft2
+    left2AccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    left2AccessibilityHint: AccessibilityPropTypes.accessibilityHint,
+    left2AccessibilityState: AccessibilityPropTypes.accessibilityState,
+    // 无障碍 - onPressRight
+    rightAccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    rightAccessibilityHint: AccessibilityPropTypes.accessibilityHint,
+    rightAccessibilityState: AccessibilityPropTypes.accessibilityState,
+    // 无障碍 - onPressRight2
+    right2AccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    right2AccessibilityHint: AccessibilityPropTypes.accessibilityHint,
+    right2AccessibilityState: AccessibilityPropTypes.accessibilityState
   };
   constructor(props) {
     super(props);
@@ -58,23 +76,51 @@ export default class TitleBarWhite extends Component {
     let rightWidth = this.props.rightTextStyle ? this.props.rightTextStyle.width : 0;
     return (
       <SafeAreaView style={[styles.titleBarContainer, this.props.style]}>
-        {this.props.leftText
-          ? <RkButton onPress={this.props.onPressLeft}
+        {this.props.leftText ? (
+          <RkButton onPress={this.props.onPressLeft}
             contentStyle={[styles.leftRightText, this.props.leftTextStyle]}
-            style={[styles.leftRightText, { height: this.props.onPressLeft ? titleHeight : 0, width: leftWidth ? leftWidth : imgHeight + 14 * 2 }]}>{this.props.leftText}</RkButton>
-          : <ImageButton onPress={this.props.onPressLeft}
+            style={[styles.leftRightText, { height: this.props.onPressLeft ? titleHeight : 0, width: leftWidth ? leftWidth : imgHeight + 14 * 2 }]}
+            {...getAccessibilityConfig({
+              accessible: this.props.onPressLeft ? this.props.accessible : false,
+              accessibilityRole: AccessibilityRoles.button,
+              accessibilityLabel: this.props.leftAccessibilityLabel || this.props.leftText,
+              accessibilityHint: this.props.leftAccessibilityHint,
+              accessibilityState: this.props.leftAccessibilityState
+            })}
+          >{this.props.leftText}</RkButton>
+        ) : (
+          <ImageButton onPress={this.props.onPressLeft}
             style={[styles.img, { height: this.props.onPressLeft ? imgHeight : 0 }]}
             source={require("../resources/title/std_tittlebar_main_device_back_white_normal.png")}
-            highlightedSource={require("../resources/title/std_tittlebar_main_device_back_white_press.png")} />
-        }
+            highlightedSource={require("../resources/title/std_tittlebar_main_device_back_white_press.png")}
+            {...getAccessibilityConfig({
+              accessible: this.props.onPressLeft ? this.props.accessible : false,
+              accessibilityRole: AccessibilityRoles.imagebutton,
+              accessibilityLabel: this.props.leftAccessibilityLabel,
+              accessibilityHint: this.props.leftAccessibilityHint,
+              accessibilityState: this.props.leftAccessibilityState
+            })}
+          />
+        )}
         <ImageButton onPress={this.props.onPressLeft2}
           style={[styles.img, {
             marginLeft: 0,
             height: this.props.onPressLeft2 ? imgHeight : 0
           }]}
           source={require("../resources/title/std_titlebar_setting_back_normal.png")}
-          highlightedSource={require("../resources/title/std_titlebar__setting_back_press.png")} />
-        <View style={[styles.textContainer]}>
+          highlightedSource={require("../resources/title/std_titlebar__setting_back_press.png")}
+          {...getAccessibilityConfig({
+            accessible: this.props.onPressLeft2 ? this.props.accessible : false,
+            accessibilityRole: AccessibilityRoles.imagebutton,
+            accessibilityLabel: this.props.left2AccessibilityLabel,
+            accessibilityHint: this.props.left2AccessibilityHint,
+            accessibilityState: this.props.left2AccessibilityState
+          })}
+        />
+        <View style={[styles.textContainer]} {...getAccessibilityConfig({
+          accessible: this.props.accessible,
+          accessibilityRole: AccessibilityRoles.header
+        })}>
           <Text
             style={[styles.titleText]}
             onPress={this.props.onPressTitle}>{this.props.title}</Text>
@@ -90,16 +136,41 @@ export default class TitleBarWhite extends Component {
             height: this.props.onPressRight2 ? imgHeight : 0
           }]}
           source={require("../resources/title/std_tittlebar_main_device_share_white_normal.png")}
-          highlightedSource={require("../resources/title/std_tittlebar_main_device_share_white_press.png")} />
-        {this.props.rightText
-          ? <RkButton onPress={this.props.onPressRight}
+          highlightedSource={require("../resources/title/std_tittlebar_main_device_share_white_press.png")}
+          {...getAccessibilityConfig({
+            accessible: this.props.onPressRight2 ? this.props.accessible : false,
+            accessibilityRole: AccessibilityRoles.imagebutton,
+            accessibilityLabel: this.props.right2AccessibilityLabel,
+            accessibilityHint: this.props.right2AccessibilityHint,
+            accessibilityState: this.props.right2AccessibilityState
+          })}
+        />
+        {this.props.rightText ? (
+          <RkButton onPress={this.props.onPressRight}
             contentStyle={[styles.leftRightText, this.props.rightTextStyle]}
-            style={[styles.leftRightText, { height: this.props.onPressRight ? titleHeight : 0, width: rightWidth ? rightWidth : imgHeight + 14 * 2 }]}>{this.props.rightText}</RkButton>
-          : <ImageButton onPress={this.props.onPressRight}
+            style={[styles.leftRightText, { height: this.props.onPressRight ? titleHeight : 0, width: rightWidth ? rightWidth : imgHeight + 14 * 2 }]}
+            {...getAccessibilityConfig({
+              accessible: this.props.onPressRight ? this.props.accessible : false,
+              accessibilityRole: AccessibilityRoles.button,
+              accessibilityLabel: this.props.rightAccessibilityLabel || this.props.rightText,
+              accessibilityHint: this.props.rightAccessibilityHint,
+              accessibilityState: this.props.rightAccessibilityState
+            })}
+          >{this.props.rightText}</RkButton>
+        ) : (
+          <ImageButton onPress={this.props.onPressRight}
             style={[styles.img, { height: this.props.onPressRight ? imgHeight : 0 }]}
             source={require("../resources/title/std_tittlebar_main_device_more_white_normal.png")}
-            highlightedSource={require("../resources/title/std_tittlebar_main_device_more_white_press.png")} />
-        }
+            highlightedSource={require("../resources/title/std_tittlebar_main_device_more_white_press.png")}
+            {...getAccessibilityConfig({
+              accessible: this.props.onPressRight ? this.props.accessible : false,
+              accessibilityRole: AccessibilityRoles.imagebutton,
+              accessibilityLabel: this.props.rightAccessibilityLabel,
+              accessibilityHint: this.props.rightAccessibilityHint,
+              accessibilityState: this.props.rightAccessibilityState
+            })}
+          />
+        )}
         {
           this.props.showDot &&
           <Image style={styles.dot}

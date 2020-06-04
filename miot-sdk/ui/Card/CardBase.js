@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Animated, Dimensions, Easing, Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { Images, Styles } from '../../resources';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 const { width } = Dimensions.get('window');
 const DURATION_OUT = 250;
 const DURATION_IN = 250;
@@ -46,7 +47,10 @@ export default class CardBase extends React.Component {
     cardStyle: PropTypes.object,
     iconStyle: PropTypes.object,
     textStyle: PropTypes.object,
-    underlayColor: PropTypes.string
+    underlayColor: PropTypes.string,
+    ...AccessibilityPropTypes,
+    dismissAccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    dismissAccessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
   static defaultProps = {
     showDismiss: false,
@@ -82,20 +86,28 @@ export default class CardBase extends React.Component {
       return (
         <Animated.View
           style={[styles.innerContainer, { opacity: this.opacity }]}
+          {...getAccessibilityConfig({
+            ...this.props,
+            accessibilityRole: this.props.accessibilityRole || (this.props.onPress ? AccessibilityRoles.button : AccessibilityRoles.text),
+            accessibilityHint: this.props.accessibilityHint || (this.props.onPress ? text : ''),
+            accessibilityState: this.props.accessibilityState || {
+              disabled: !!this.props.disabled || !this.props.onPress
+            }
+          })}
         >
-          {
-            icon
-              ? <Image
-                style={[styles.innerIcon, iconStyle]}
-                source={icon}
-                resizeMode="contain"
-              />
-              : null
-          }
+          {icon ? (
+            <Image
+              style={[styles.innerIcon, iconStyle]}
+              source={icon}
+              resizeMode="contain"
+              accessible={false}
+            />
+          ) : null}
           <Text
             style={[styles.innerText, textStyle]}
             numberOfLines={1}
             ellipsizeMode="tail"
+            accessible={false}
           >
             {text || ''}
           </Text>
@@ -120,6 +132,12 @@ export default class CardBase extends React.Component {
         style={styles.closeArea}
         underlayColor="transparent"
         onPress={() => this.dismiss()}
+        {...getAccessibilityConfig({
+          accessible: this.props.accessible,
+          accessibilityRole: AccessibilityRoles.button,
+          accessibilityLabel: this.props.dismissAccessibilityLabel || 'close',
+          accessibilityHint: this.props.dismissAccessibilityHint || 'close'
+        })}
       >
         <Animated.Image
           style={[styles.close, { opacity: this.opacity }]}
@@ -195,12 +213,14 @@ export default class CardBase extends React.Component {
             outputRange: [0, this.cardHeight]
           })
         }]}
+        accessible={false}
       >
         <TouchableHighlight
           style={[containerStyle, { flex: 1 }]}
           underlayColor={this.props.underlayColor}
           disabled={this.props.disabled}
           onPress={this.props.onPress}
+          accessible={false}
         >
           <View style={{ flex: 1 }}>
             {this.renderInner()}

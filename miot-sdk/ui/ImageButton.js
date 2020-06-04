@@ -7,6 +7,7 @@
 import React from 'react';
 import { Image, TouchableWithoutFeedback } from 'react-native';
 import PropTypes from 'prop-types';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
 export default class ImageButton extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +23,10 @@ export default class ImageButton extends React.Component {
     highlightedSource: PropTypes.any,
     onPress: PropTypes.func,
     disabled: PropTypes.bool,
-    style: PropTypes.any
+    style: PropTypes.any,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint
   };
   static defaultProps = {
     source: null,
@@ -51,8 +55,15 @@ export default class ImageButton extends React.Component {
         onPress={this.props.onPress}
         onPressIn={this._buttonPressIn.bind(this)}
         onPressOut={this._buttonPressOut.bind(this)}
-        accessible={true}
-        accessibilityRole="header"
+        {...getAccessibilityConfig({
+          accessible: this.props.accessible,
+          accessibilityRole: AccessibilityRoles.imagebutton,
+          accessibilityLabel: this.props.accessibilityLabel,
+          accessibilityHint: this.props.accessibilityHint,
+          accessibilityState: {
+            disabled: !!this.props.disabled
+          }
+        })}
       >
         <Image
           style={this.props.style}

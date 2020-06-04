@@ -5,6 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { adjustSize } from '../utils/sizes';
 // import { FontDefault } from '../utils/fonts';
 import { log } from '../utils/fns';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
 const SwitchBgColorsOn = ["#fff", "#f1f1f2"];
 const SwitchBgColorsOff = ["#f1f1f2", "#fff"];
 const MarginTops = [0, adjustSize(240), adjustSize(180), adjustSize(105), adjustSize(90)];
@@ -12,9 +13,12 @@ const Heights = [0, adjustSize(990), adjustSize(852), adjustSize(720), adjustSiz
 export default class WallSwitch extends Component {
   static propTypes = {
     items: PropTypes.arrayOf(PropTypes.shape({
-      isOn: PropTypes.bool
+      isOn: PropTypes.bool,
+      accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+      accessibilityHint: AccessibilityPropTypes.accessibilityHint
     })),
-    onSwitch: PropTypes.func
+    onSwitch: PropTypes.func,
+    accessible: AccessibilityPropTypes.accessible
   };
   static defaultProps = {
     items: [],
@@ -33,10 +37,21 @@ export default class WallSwitch extends Component {
       let isLast = index === length - 1;
       let isOn = item.isOn;
       return (
-        <LinearGradient key={index} style={[Styles.item, isOn ? Styles.itemOn : Styles.itemOff, isFirst ? Styles.itemFirst : null, isLast ? Styles.itemLast : null]} colors={isOn ? SwitchBgColorsOn : SwitchBgColorsOff}>
+        <LinearGradient key={index} style={[Styles.item, isOn ? Styles.itemOn : Styles.itemOff, isFirst ? Styles.itemFirst : null, isLast ? Styles.itemLast : null]} colors={isOn ? SwitchBgColorsOn : SwitchBgColorsOff} {...getAccessibilityConfig({
+          accessible: this.props.accessible,
+          accessibilityRole: AccessibilityRoles.button,
+          accessibilityLabel: item.accessibilityLabel,
+          accessibilityHint: item.accessibilityHint,
+          accessibilityState: {
+            selected: isOn,
+            checked: isOn
+          }
+        })}>
           <TouchableOpacity style={{ width: '100%', height: '100%' }} activeOpacity={0.8} onPress={() => {
             this.switch(index);
-          }}>
+          }} {...getAccessibilityConfig({
+            accessible: false
+          })}>
             <View style={Styles.upper}>
               <View style={[Styles.indicator, isOn ? Styles.indicatorOn : Styles.indicatorOff]}></View>
             </View>

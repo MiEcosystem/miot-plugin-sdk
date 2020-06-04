@@ -41,7 +41,8 @@ export default class StringSpinner extends React.Component {
       defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
       onValueChanged: PropTypes.func,
       pickerInnerStyle: PropTypes.object,
-      ...ViewPropTypes
+      ...ViewPropTypes,
+      accessible: AccessibilityPropTypes.accessible
     };
     render() {
        return null

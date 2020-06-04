@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { BallIndicator } from 'react-native-indicators';
 import { Styles } from '../../resources';
 import AbstractDialog from "./AbstractDialog";
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 /**
  * @export
  * @author Geeook
@@ -22,7 +23,8 @@ export default class LoadingDialog extends React.Component {
     visible: PropTypes.bool,
     message: PropTypes.string,
     timeout: PropTypes.number,
-    onDismiss: PropTypes.func
+    onDismiss: PropTypes.func,
+    accessible: AccessibilityPropTypes.accessible
   }
   constructor(props, context) {
     super(props, context);
@@ -58,8 +60,15 @@ export default class LoadingDialog extends React.Component {
         showTitle={false}
         canDismiss={false}
         showButton={false}
+        accessible={this.props.accessible}
       >
-        <View style={styles.container}>
+        <View
+          style={styles.container}
+          {...getAccessibilityConfig({
+            accessible: this.props.accessible,
+            accessibilityRole: AccessibilityRoles.text
+          })}
+        >
           <BallIndicator
             style={styles.indicator}
             color="rgba(0,0,0,0.6)"

@@ -3,6 +3,7 @@ import React from 'react';
 import { Dimensions, Image, Platform, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { Images, Styles } from '../../resources';
 import Separator from "../Separator";
+import { AccessibilityRoles, AccessibilityPropTypes, getAccessibilityConfig } from '../../utils/accessibility-helper';
 const { width } = Dimensions.get('window');
 const dot = require('../../resources/title/dot.png');
 const THIN_HEIGHT = 50;
@@ -46,7 +47,8 @@ export default class ListItem extends React.Component {
     containerStyle: PropTypes.object,
     titleStyle: PropTypes.object,
     subtitleStyle: PropTypes.object,
-    valueStyle: PropTypes.object
+    valueStyle: PropTypes.object,
+    ...AccessibilityPropTypes
   }
   static defaultProps = {
     title: '',
@@ -99,13 +101,23 @@ export default class ListItem extends React.Component {
           disabled={this.props.disabled}
           underlayColor={Styles.common.underlayColor}
           onPress={this.props.onPress}
+          {...getAccessibilityConfig({
+            ...this.props,
+            accessibilityRole: AccessibilityRoles.button,
+            accessibilityState: this.props.accessibilityState || {
+              disabled: this.props.disabled
+            }
+          })}
         >
           <View style={[styles.container, this.props.containerStyle, extraContainerStyle]}>
             <View style={styles.left}>
-              <View style={{ flexDirection: 'row', paddingVertical: 2 }}>
+              <View
+                style={{ flexDirection: 'row', paddingVertical: 2 }}
+              >
                 <Text
                   numberOfLines={1}
                   style={[Styles.common.title, fontFamily, this.props.titleStyle]}
+                  accessible={false}
                 >
                   {this.props.title}
                 </Text>
@@ -122,6 +134,7 @@ export default class ListItem extends React.Component {
                 <Text
                   numberOfLines={2}
                   style={[Styles.common.subtitle, this.props.subtitleStyle]}
+                  accessible={false}
                 >
                   {this.props.subtitle}
                 </Text>
@@ -129,12 +142,15 @@ export default class ListItem extends React.Component {
               }
             </View>
             <View style={{ width: 5 }} />
-            <View style={[styles.right, extraRightStyle]}>
+            <View
+              style={[styles.right, extraRightStyle]}
+            >
               {this.props.value ?
                 <Text
                   numberOfLines={1}
                   ellipsizeMode="tail"
                   style={[Styles.common.subtitle, this.props.valueStyle, valueStyle]}
+                  accessible={false}
                 >
                   {this.props.value}
                 </Text>

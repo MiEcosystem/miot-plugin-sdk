@@ -7,6 +7,7 @@ import { strings, Styles } from '../../resources';
 import { ListItem, ListItemWithSwitch } from '../ListItem';
 import Separator from '../Separator';
 import { secondAllOptions, SETTING_KEYS } from "./CommonSetting";
+import { getAccessibilityConfig } from '../../utils/accessibility-helper';
 const { second_options } = SETTING_KEYS;
 const ListItemType = {
   LIST_ITEM: 'ListItem',
@@ -62,6 +63,9 @@ export default class FirmwareUpgrade extends React.Component {
               value={item.value}
               onPress={item.onPress}
               showSeparator={showSeparator}
+              {...getAccessibilityConfig({
+                accessible: item.accessible
+              })}
             />
           );
         case ListItemType.LIST_ITEM_WITH_SWITCH:
@@ -72,6 +76,9 @@ export default class FirmwareUpgrade extends React.Component {
               value={item.value}
               onValueChange={item.onValueChange}
               showSeparator={showSeparator}
+              {...getAccessibilityConfig({
+                accessible: item.accessible
+              })}
             />
           );
       }

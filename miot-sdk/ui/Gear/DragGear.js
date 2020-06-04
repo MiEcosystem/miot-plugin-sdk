@@ -3,6 +3,7 @@ import React from 'react';
 import { Animated, Dimensions, PanResponder, Platform, StyleSheet, Text, View } from 'react-native';
 import Block from "./Block";
 import Clickable from './Clickable';
+import { AccessibilityPropTypes, getAccessibilityConfig } from '../../utils/accessibility-helper';
 const { width: screenWidth } = Dimensions.get('window');
 const DEFAULT_SIZE = 50;
 const DEFAULT_MARGIN = 12;
@@ -47,7 +48,10 @@ export default class DragGear extends React.Component {
     maxWidth: PropTypes.number,
     selectColor: PropTypes.string,
     selectIndex: PropTypes.number,
-    onSelect: PropTypes.func.isRequired
+    onSelect: PropTypes.func.isRequired,
+    accessible: AccessibilityPropTypes.accessible,
+    clickAccessibilityLables: PropTypes.arrayOf(AccessibilityPropTypes.accessibilityLabel),
+    clickAccessibilityHints: PropTypes.arrayOf(AccessibilityPropTypes.accessibilityHint)
   }
   static defaultProps = {
     options: [],
@@ -55,7 +59,9 @@ export default class DragGear extends React.Component {
     margin: DEFAULT_MARGIN,
     maxWidth: screenWidth,
     selectColor: '#f0ac3d',
-    selectIndex: 0
+    selectIndex: 0,
+    clickAccessibilityLables: [],
+    clickAccessibilityHints: []
   }
   constructor(props, context) {
     super(props, context);
@@ -248,14 +254,21 @@ export default class DragGear extends React.Component {
         borderWidth: 0
       }
     ]);
+    const { selectIndex } = this.state;
     return this.props.options.map((option, index) => {
       return (
         <Clickable
           key={option}
           onPress={() => this.onPress(index)}
           text={option}
+          select={selectIndex === index}
           style={style}
           textStyle={this.props.textStyle}
+          {...getAccessibilityConfig({
+            accessible: this.props.accessible,
+            accessibilityLabel: this.props.clickAccessibilityLables[index] || option,
+            accessibilityHint: this.props.clickAccessibilityHints[index]
+          })}
         />
       );
     });
@@ -310,7 +323,9 @@ export default class DragGear extends React.Component {
       >
         <View style={touchArea}>
           <View style={innerCircle}>
-            <Text style={[this.props.textStyle, { color: '#fff' }]}>
+            <Text style={[this.props.textStyle, { color: '#fff' }]} {...getAccessibilityConfig({
+              accessible: false
+            })}>
               {this.state.currentOption}
             </Text>
           </View>

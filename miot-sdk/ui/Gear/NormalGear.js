@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import Clickable from './Clickable';
+import { AccessibilityPropTypes, getAccessibilityConfig } from '../../utils/accessibility-helper';
 const { width: screenWidth } = Dimensions.get('window');
 const DEFAULT_SIZE = 50;
 const DEFAULT_MARGIN = 12;
@@ -34,14 +35,19 @@ export default class NormalGear extends React.Component {
     maxWidth: PropTypes.number,
     selectColor: PropTypes.string,
     selectIndex: PropTypes.number,
-    onSelect: PropTypes.func.isRequired
+    onSelect: PropTypes.func.isRequired,
+    accessible: AccessibilityPropTypes.accessible,
+    clickAccessibilityLables: PropTypes.arrayOf(AccessibilityPropTypes.accessibilityLabel),
+    clickAccessibilityHints: PropTypes.arrayOf(AccessibilityPropTypes.accessibilityHint)
   }
   static defaultProps = {
     options: [],
     normalStyle: {},
     margin: DEFAULT_MARGIN,
     maxWidth: screenWidth,
-    selectIndex: 0
+    selectIndex: 0,
+    clickAccessibilityLables: [],
+    clickAccessibilityHints: []
   }
   constructor(props, context) {
     super(props, context);
@@ -96,6 +102,11 @@ export default class NormalGear extends React.Component {
           text={option}
           style={style}
           textStyle={this.props.textStyle}
+          {...getAccessibilityConfig({
+            accessible: this.props.accessible,
+            accessibilityLabel: this.props.clickAccessibilityLables[index] || option,
+            accessibilityHint: this.props.clickAccessibilityHints[index]
+          })}
         />
       );
     });

@@ -3,6 +3,7 @@ import React from 'react';
 import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Styles } from '../resources';
 import { withSDKContext } from 'miot/sdkContext';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
 const OFF_COLOR = '#f0f0f0';
 const BORDER_COLOR = 'rgba(0,0,0,0.1)';
 const BACK_WIDTH = 44; // 默认宽度
@@ -33,7 +34,8 @@ class Switch extends React.Component {
     onTintColor: PropTypes.string,
     tintColor: PropTypes.string,
     disabled: PropTypes.bool,
-    onValueChange: PropTypes.func.isRequired
+    onValueChange: PropTypes.func.isRequired,
+    ...AccessibilityPropTypes
   }
   static defaultProps = {
     value: false,
@@ -87,6 +89,14 @@ class Switch extends React.Component {
           disabled={this.props.disabled}
           activeOpacity={0.8}
           onPress={() => this._onValueChange()}
+          {...getAccessibilityConfig({
+            ...this.props,
+            accessibilityRole: this.props.accessibilityRole || AccessibilityRoles.switch,
+            accessibilityState: this.props.accessibilityState || {
+              disabled: this.props.disabled,
+              checked: !!this.state.value
+            }
+          })}
         >
           { // Android 黑暗模式下使用 Animated.Image 实现白色圆点
             this.props.colorScheme === 'dark' ? (

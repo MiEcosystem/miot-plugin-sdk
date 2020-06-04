@@ -3,6 +3,7 @@ import React from 'react';
 import { Dimensions, Image, Platform, StyleSheet, Text, View, ViewPropTypes } from 'react-native';
 import { RkButton } from 'react-native-ui-kitten';
 import { Styles } from '../resources';
+import { AccessibilityRoles, AccessibilityPropTypes, getAccessibilityConfig } from '../utils/accessibility-helper';
 const { width, height } = Dimensions.get('window');
 const ratio = 0.2; // 中间图片距离顶部的距离和页面高度的比例
 const imageMarginTop = height * ratio;
@@ -66,7 +67,9 @@ export default class BlankPage extends React.Component {
     iconStyle: ViewPropTypes.style,
     message: PropTypes.string.isRequired,
     desc: PropTypes.string,
-    extraInfo: PropTypes.string
+    extraInfo: PropTypes.string,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
   static defaultProps = {
     type: TYPE.BUTTON,
@@ -130,6 +133,12 @@ export default class BlankPage extends React.Component {
               },
               textStyle
             ]}
+            {...getAccessibilityConfig({
+              accessible: this.props.accessible,
+              accessibilityRole: AccessibilityRoles.link,
+              accessibilityLabel: text,
+              accessibilityHint: this.props.accessibilityHint
+            })}
           >
             {text}
           </Text>
@@ -145,6 +154,12 @@ export default class BlankPage extends React.Component {
             ? <Text
               numberOfLines={2}
               style={styles.desc}
+              {...getAccessibilityConfig({
+                accessible: this.props.accessible,
+                accessibilityRole: AccessibilityRoles.text,
+                accessibilityLabel: this.props.extraInfo,
+                accessibilityHint: this.props.accessibilityHint
+              })}
             >
               {this.props.extraInfo}
             </Text>
@@ -154,6 +169,12 @@ export default class BlankPage extends React.Component {
             style={[styles.buttonContainer, buttonStyle]}
             onPress={() => this.onPress(callback)}
             activeOpacity={0.8}
+            {...getAccessibilityConfig({
+              accessible: this.props.accessible,
+              accessibilityRole: AccessibilityRoles.button,
+              accessibilityLabel: text,
+              accessibilityHint: this.props.accessibilityHint
+            })}
           >
             <Text style={[styles.buttonText, fontFamily, textStyle]}>
               {text}

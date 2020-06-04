@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Animated, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import Checkable from './Checkable';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 const SIZE = 40;
 const UNCHECKED_BACKGROUNDCOLOR = '#f0f0f0';
 const UNCHECKED_BORDER_COLOR = 'rgba(0,0,0,0.1)';
@@ -24,7 +25,11 @@ export default class Checkbox extends React.Component {
     disabled: PropTypes.bool,
     checked: PropTypes.bool,
     onValueChange: PropTypes.func,
-    checkedColor: PropTypes.string
+    checkedColor: PropTypes.string,
+    label: PropTypes.string,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
   static defaultProps = {
     style: {},
@@ -76,6 +81,15 @@ export default class Checkbox extends React.Component {
         <TouchableWithoutFeedback
           disabled={this.props.disabled}
           onPress={() => this._onValueChange()}
+          {...getAccessibilityConfig({
+            ...this.props,
+            accessibilityRole: AccessibilityRoles.checkbox,
+            accessibilityLabel: this.props.accessibilityLabel || this.props.label,
+            accessibilityState: {
+              disabled: !!this.props.disabled,
+              checked: !!this.state.checked
+            }
+          })}
         >
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Checkable

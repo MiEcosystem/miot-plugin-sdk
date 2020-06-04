@@ -279,6 +279,16 @@ class IMiotCamera {
      return Promise.resolve(null);
   }
   /**
+   * 获取人脸图片接口
+   * @since 10040
+   * @param {string} faceId 人脸id
+   * @returns {Promise<String>} 文件路径
+   */
+  @report
+  getFaceImgWithDid(faceId, did = Device.deviceID) {
+     return Promise.resolve(null);
+  }
+  /**
  * 通知native端现在是不是回看时间轴模式
  * @since 10038
  * @param {boolean} isTimelinePlayback 是不是回看时间轴模式

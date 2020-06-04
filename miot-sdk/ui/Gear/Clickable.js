@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Animated, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 const SIZE = 40;
 const TEXT_COLOR = '#bbb';
 const BORDER_COLOR = '#ccc';
@@ -24,7 +25,10 @@ export default class Clickable extends React.Component {
     style: PropTypes.object,
     onPress: PropTypes.func.isRequired,
     text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    textStyle: PropTypes.object
+    textStyle: PropTypes.object,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
   static defaultProps = {
     select: false,
@@ -54,6 +58,15 @@ export default class Clickable extends React.Component {
       >
         <TouchableWithoutFeedback
           onPress={this.props.onPress}
+          {...getAccessibilityConfig({
+            accessible: this.props.accessible,
+            accessibilityRole: AccessibilityRoles.radio,
+            accessibilityLabel: this.props.accessibilityLabel || this.props.text,
+            accessibilityHint: this.props.accessibilityHint,
+            accessibilityState: {
+              checked: !!this.props.select
+            }
+          })}
         >
           <View style={styles.container}>
             <Text style={[styles.text, this.props.textStyle, { color }]}>

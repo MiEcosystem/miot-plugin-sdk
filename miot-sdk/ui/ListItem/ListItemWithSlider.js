@@ -6,6 +6,7 @@ import Slider from "react-native-slider";
 import { Styles } from '../../resources';
 import Separator from "../Separator";
 import { FontDefault } from '../../utils/fonts';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 const { width } = Dimensions.get('window');
 const HEIGHT = 77;
 const PADDING = 24;
@@ -60,7 +61,10 @@ export default class ListItemWithSlider extends React.Component {
     titleStyle: PropTypes.object,
     valueStyle: PropTypes.object,
     showSeparator: PropTypes.bool,
-    separator: PropTypes.element
+    separator: PropTypes.element,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
   static defaultProps = {
     title: '',
@@ -105,16 +109,30 @@ export default class ListItemWithSlider extends React.Component {
     return (
       <View style={{ backgroundColor: '#fff' }}>
         <View style={[styles.container, this.props.containerStyle]}>
-          <View style={[styles.up]}>
+          <View
+            style={[styles.up]}
+            {...getAccessibilityConfig({
+              accessible: this.props.accessible,
+              accessibilityRole: AccessibilityRoles.text,
+              accessibilityLabel: this.props.accessibilityLabel,
+              accessibilityState: {
+                disabled: !!this.props.disabled
+              }
+            })}
+          >
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
               style={[Styles.common.title, this.props.titleStyle, extraStyle]}
+              accessible={false}
             >
               {this.props.title}
             </Text>
             <View style={styles.separatorCol} />
-            <Text style={[styles.value, this.props.valueStyle]}>
+            <Text
+              style={[styles.value, this.props.valueStyle]}
+              accessible={false}
+            >
               {this.props.subtitle || this.state.valueStr}
             </Text>
           </View>
@@ -134,6 +152,25 @@ export default class ListItemWithSlider extends React.Component {
               value={this.state.value}
               onValueChange={(value) => this._onValueChange(value)}
               onSlidingComplete={(value) => this._onSlidingComplete(value)}
+              {...getAccessibilityConfig({
+                accessible: this.props.accessible,
+                accessibilityRole: AccessibilityRoles.adjustable,
+                accessibilityLabel: this.props.accessibilityLabel || this.props.title,
+                accessibilityHint: this.props.accessibilityHint,
+                accessibilityState: {
+                  disabled: !!this.props.disabled
+                },
+                accessibilityValue: {
+                  min: this.sliderProps.minimumValue,
+                  max: this.sliderProps.maximumValue,
+                  now: this.state.value
+                }
+              })}
+              accessibilityActions={[
+                { name: 'increment' },
+                { name: 'decrement' }
+              ]}
+              onAccessibilityAction={this.onAccessibilityAction}
             />
           </View>
         </View>
@@ -181,6 +218,26 @@ export default class ListItemWithSlider extends React.Component {
     if (this.props.onValueChange) {
       this.props.onValueChange(value);
     }
+  }
+  onAccessibilityAction = ({ nativeEvent: { actionName } }) => {
+    const { minimumValue, maximumValue, step } = this.sliderProps;
+    const { value } = this.state;
+    const totalSteps = (maximumValue - minimumValue) / step;
+    const everyStep = totalSteps >= 10 ? Math.floor(totalSteps / 10) : 1;
+    const currentStep = (value - minimumValue) / step;
+    let actionStep = currentStep;
+    switch (actionName) {
+      case 'increment':
+        actionStep += everyStep;
+        break;
+      case 'decrement':
+        actionStep -= everyStep;
+        break;
+    }
+    const targetValue = Math.min(maximumValue, Math.max(minimumValue, actionStep * step + minimumValue));
+    this._onValueChange(targetValue, () => {
+      this._onSlidingComplete(targetValue);
+    });
   }
   _onSlidingComplete(value) {
     if (this.props.onSlidingComplete) {

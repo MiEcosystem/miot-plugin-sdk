@@ -6,7 +6,7 @@ import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 const ICON_SIZE = 40;
 const DEFAULT_MARGIN = 10;
 
@@ -17,7 +17,7 @@ export default class CardPage extends React.Component {
       type="dark"
       title="卡片"
       style={{ backgroundColor: '#fff' }}
-      onPressLeft={_ => navigation.goBack()}
+      onPressLeft={() => navigation.goBack()}
     />
   });
 
@@ -42,7 +42,7 @@ export default class CardPage extends React.Component {
 
   getInnerView() {
     return (
-      <View style={styles.innerContainer}>
+      <View style={styles.innerContainer} accessible={true}>
         <Image
           style={styles.innerIcon}
           source={Images.common.mihome}
@@ -53,6 +53,7 @@ export default class CardPage extends React.Component {
             style={styles.innerTitle}
             numberOfLines={1}
             ellipsizeMode="tail"
+            accessible={false}
           >
             {'自定义innerView的标题'}
           </Text>
@@ -60,6 +61,7 @@ export default class CardPage extends React.Component {
             style={styles.innersubTitle}
             numberOfLines={1}
             ellipsizeMode="tail"
+            accessible={false}
           >
             {'自定义innerView的副标题'}
           </Text>
@@ -68,23 +70,23 @@ export default class CardPage extends React.Component {
     );
   }
 
-  //切换图片
+  // 切换图片
   changePic = () => {
     if (this.state.isOrangeLogo) {
-      //当前是橙色图片，变为绿色
-      this.setState(state => {
+      // 当前是橙色图片，变为绿色
+      this.setState((state) => {
         return {
           picture: Images.common.mihome,
           isOrangeLogo: !state.isOrangeLogo
-        }
+        };
       });
     } else {
-      //当前是绿色图片，变为橙色
-      this.setState(state => {
+      // 当前是绿色图片，变为橙色
+      this.setState((state) => {
         return {
           picture: require("miot/resources/images/logo.png"),
           isOrangeLogo: !state.isOrangeLogo
-        }
+        };
       });
     }
   }
@@ -103,33 +105,41 @@ export default class CardPage extends React.Component {
               icon={Images.common.mihome}
               text="默认卡片有icon/文字/蓝色阴影/，没有圆角/右上角x"
               visible={this.state.visible1}
-              dismiss={_ => this.setState({ visible1: false })}
-              cardStyle={{ marginBottom: 50, }}
-              shadowColor='#4287f5'
+              dismiss={() => this.setState({ visible1: false })}
+              cardStyle={{ marginBottom: 50 }}
+              shadowColor="#4287f5"
               shadowOpacity={0.5}
+              accessible={false}
             />
             <Card
               icon={picture}
               text="点击卡片，切换图片"
-              cardStyle={{ marginBottom: 50, }}
+              cardStyle={{ marginBottom: 50 }}
               onPress={this.changePic}
+              accessibilityRole="imagebutton"
+              accessibilityLabel="点击卡片，切换图片aaaa"
+              accessibilityHint="点击卡片，切换图片ssss"
+              accessibilityState={{
+                disabled: true
+              }}
             />
             <Card
               text="没有图标，没有阴影，只有文字，点击变成黑色背景"
               visible={this.state.visible2}
-              dismiss={_ => this.setState({ visible2: false })}
+              dismiss={() => this.setState({ visible2: false })}
               showShadow={false}
               showDismiss
-              onPress={_ => this.setState({ visible1: false })}
-              underlayColor='#000'
+              onPress={() => this.setState({ visible1: false })}
+              underlayColor="#000"
+              accessibilityHint="点击变成黑色背景"
             />
             <Card
               icon={Images.common.mihome}
               text="自定义卡片"
               visible={this.state.visible3}
-              dismiss={_ => this.setState({ visible3: false })}
+              dismiss={() => this.setState({ visible3: false })}
               showDismiss
-              onPress={_ => this.setState({ visible2: false })}
+              onPress={() => this.setState({ visible2: false })}
               cardStyle={{ width: width / 2, height: 75, borderRadius: 12, backgroundColor: 'pink' }}
               iconStyle={{ width: ICON_SIZE, height: ICON_SIZE }}
               textStyle={{ fontSize: 10, color: 'red' }}
@@ -137,26 +147,26 @@ export default class CardPage extends React.Component {
             <Card
               innerView={this.getInnerView()}
               visible={this.state.visible4}
-              dismiss={_ => this.setState({ visible4: false })}
+              dismiss={() => this.setState({ visible4: false })}
               showShadow={false}
               showDismiss
-              onPress={_ => this.setState({ visible3: false })}
+              onPress={() => this.setState({ visible3: false })}
               cardStyle={{ width: 222, height: 80 }}
             />
             <Card
               text={this.state.text}
-              onPress={_ => this.toggle()}
+              onPress={() => this.toggle()}
               cardStyle={{ width: 90, height: 50, backgroundColor: Styles.common.MHGreen, borderRadius: 10 }}
             />
             <Card
               text={this.state.text1}
-              onPress={_ => this.toggle1()}
+              onPress={() => this.toggle1()}
               cardStyle={{ width: 90, height: 50, backgroundColor: Styles.common.MHGreen, borderRadius: 10 }}
             />
             <MHCard
-              title='标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题'
+              title="标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题"
               titleStyle={{ color: '#f0ac3d', fontSize: 18 }}
-              subtitle='副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题'
+              subtitle="副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题"
               subtitleStyle={{ color: 'blue', fontSize: 15 }}
               iconContainerStyle={{
                 width: 40,
@@ -167,120 +177,126 @@ export default class CardPage extends React.Component {
               iconStyle={{
                 width: 20,
                 height: 20,
-                borderRadius: 10,
+                borderRadius: 10
               }}
-              rightText='测试测试测试测试测试测试测试测试测试'
+              rightText="测试测试测试测试测试测试测试测试测试"
               rightTextStyle={{ color: '#f43f31', fontSize: 13 }}
               cardType={MHCard.CARD_TYPE.NORMAL}
               cardRadiusType={MHCard.CARD_RADIUS_TYPE.TOP}
-              onPress={_ => console.log('onPress')}
+              onPress={() => console.log('onPress')}
               showShadow={true}
               visible={this.state.visible5}
               marginTop={15}
+              accessibilityRole="imagebutton"
+              accessibilityLabel="标题标题aaaa"
+              accessibilityHint="标题标题ssss"
+              accessibilityState={{
+                disabled: true
+              }}
             />
             <MHCard
-              title='标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题'
+              title="标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题"
               titleStyle={{ color: '#f0ac3d', fontSize: 18 }}
-              subtitle='副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题'
+              subtitle="副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题"
               subtitleStyle={{ color: 'blue', fontSize: 15 }}
               cardType={MHCard.CARD_TYPE.SWITCH}
               cardRadiusType={MHCard.CARD_RADIUS_TYPE.NONE}
-              onValueChange={value => console.log(value)}
-              onPress={_ => console.log('onPress')}
+              onValueChange={(value) => console.log(value)}
+              onPress={() => console.log('onPress')}
               switchValue={this.state.value}
-              tintColor='#666'
-              onTintColor='#67b688'
+              tintColor="#666"
+              onTintColor="#67b688"
               showShadow={true}
               marginTop={15}
             />
             <MHCard
-              title='标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题'
+              title="标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题"
               titleStyle={{ color: '#f0ac3d', fontSize: 18 }}
-              subtitle='副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题'
+              subtitle="副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题"
               subtitleStyle={{ color: 'blue', fontSize: 15 }}
               cardType={MHCard.CARD_TYPE.SWITCH}
               cardRadiusType={MHCard.CARD_RADIUS_TYPE.BOTTOM}
-              onValueChange={value => console.log(value)}
+              onValueChange={(value) => console.log(value)}
               switchValue={this.state.value}
-              tintColor='red'
-              onTintColor='#67b688'
+              tintColor="red"
+              onTintColor="#67b688"
               disabled={true}
               showShadow={true}
               marginTop={15}
             />
             <MHCard
-              title='滤芯购买'
-              subtitle='约可用27天，去商城看看'
-              rightText='20 %'
+              title="滤芯购买"
+              subtitle="约可用27天，去商城看看"
+              rightText="20 %"
               marginTop={15}
               cardType={MHCard.CARD_TYPE.NORMAL}
               cardRadiusType={MHCard.CARD_RADIUS_TYPE.TOP}
-              onPress={_ => console.log('onPress')}
+              onPress={() => console.log('onPress')}
             />
             <Separator style={{ height: 0.75 }} />
             <MHCard
-              title='滤芯购买'
-              subtitle='约可用27天，去商城看看'
-              rightText='20 %'
+              title="滤芯购买"
+              subtitle="约可用27天，去商城看看"
+              rightText="20 %"
               cardType={MHCard.CARD_TYPE.NORMAL}
               cardRadiusType={MHCard.CARD_RADIUS_TYPE.NONE}
               disabled={true}
-              onPress={_ => console.log('onPress')}
+              onPress={() => console.log('onPress')}
             />
             <Separator style={{ height: 0.75 }} />
             <MHCard
-              title='定时'
+              title="定时"
               hideArrow={true}
               cardType={MHCard.CARD_TYPE.NORMAL}
               cardRadiusType={MHCard.CARD_RADIUS_TYPE.NONE}
-              onPress={_ => console.log('onPress')}
+              onPress={() => console.log('onPress')}
             />
             <Separator style={{ height: 0.75 }} />
             <MHCard
-              title='定时'
+              title="定时"
               hideArrow={true}
               cardType={MHCard.CARD_TYPE.NORMAL}
               cardRadiusType={MHCard.CARD_RADIUS_TYPE.NONE}
               disabled={true}
-              onPress={_ => console.log('onPress')}
+              onPress={() => console.log('onPress')}
             />
             <Separator style={{ height: 0.75 }} />
             <MHCard
-              title='警报器提示音'
-              onValueChange={value => console.log(value)}
+              title="警报器提示音"
+              onValueChange={(value) => console.log(value)}
               switchValue={this.state.value}
-              onTintColor='#67b688'
+              onTintColor="#67b688"
               cardType={MHCard.CARD_TYPE.SWITCH}
               cardRadiusType={MHCard.CARD_RADIUS_TYPE.NONE}
             />
             <Separator style={{ height: 0.75 }} />
             <MHCard
-              title='警报器提示音'
+              title="警报器提示音"
               disabled={true}
-              onValueChange={value => console.log(value)}
+              onValueChange={(value) => console.log(value)}
               switchValue={this.state.value}
-              onTintColor='#67b688'
+              onTintColor="#67b688"
               cardType={MHCard.CARD_TYPE.SWITCH}
               cardRadiusType={MHCard.CARD_RADIUS_TYPE.NONE}
             />
             <Separator style={{ height: 0.75 }} />
             <MHCard
-              title='运行异常提醒'
-              subtitle='当设备运行异常时，将通知提醒您'
+              title="运行异常提醒"
+              subtitle="当设备运行异常时，将通知提醒您"
               switchValue={this.state.value}
-              onTintColor='#67b688'
-              onValueChange={value => console.log(value)}
+              onTintColor="#67b688"
+              onValueChange={(value) => console.log(value)}
               cardType={MHCard.CARD_TYPE.SWITCH}
               cardRadiusType={MHCard.CARD_RADIUS_TYPE.NONE}
             />
             <Separator style={{ height: 0.75 }} />
             <MHCard
-              title='运行异常提醒'
-              subtitle='当设备运行异常时，将通知提醒您'
+              title="运行异常提醒"
+              subtitle="当设备运行异常时，将通知提醒您"
               disabled={true}
               switchValue={this.state.value}
-              onTintColor='#67b688'
-              onValueChange={value => console.log(value)}
+              onTintColor="#67b688"
+              onValueChange={(value) => console.log(value)}
               cardType={MHCard.CARD_TYPE.SWITCH}
               showShadow={true}
               cardRadiusType={MHCard.CARD_RADIUS_TYPE.BOTTOM}
@@ -296,10 +312,10 @@ export default class CardPage extends React.Component {
     const visible = !this.state.visible;
     const text = visible ? '隐藏☝️' : '显示☝️';
     this.setState({ text, visible });
-    setTimeout(_ => this.setState({ visible1: visible }), interval * 1);
-    setTimeout(_ => this.setState({ visible2: visible }), interval * 2);
-    setTimeout(_ => this.setState({ visible3: visible }), interval * 3);
-    setTimeout(_ => this.setState({ visible4: visible }), interval * 4);
+    setTimeout(() => this.setState({ visible1: visible }), interval * 1);
+    setTimeout(() => this.setState({ visible2: visible }), interval * 2);
+    setTimeout(() => this.setState({ visible3: visible }), interval * 3);
+    setTimeout(() => this.setState({ visible4: visible }), interval * 4);
   }
 
   toggle1() {
@@ -309,7 +325,7 @@ export default class CardPage extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(_ => this.setState({ value: true }), 1000);
+    setTimeout(() => this.setState({ value: true }), 1000);
   }
 
 }

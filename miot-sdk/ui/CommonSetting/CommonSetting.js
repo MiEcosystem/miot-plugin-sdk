@@ -8,6 +8,7 @@ import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
 import Separator from '../Separator';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 let modelType = '';
 function getModelType() {
   return new Promise((resolve) => {
@@ -291,7 +292,8 @@ export default class CommonSetting extends React.Component {
     secondOptions: PropTypes.array,
     showDot: PropTypes.array,
     extraOptions: PropTypes.object,
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
+    accessible: AccessibilityPropTypes.accessible
   }
   static defaultProps = {
     firstOptions: [
@@ -583,13 +585,19 @@ export default class CommonSetting extends React.Component {
                 value={item.value}
                 onPress={item.onPress}
                 showSeparator={showSeparator}
+                {...getAccessibilityConfig({
+                  accessible: this.props.accessible
+                })}
               />
             );
           })
         }
         <Separator />
         {!Device.isFamily ?
-          (<View style={styles.bottomContainer}>
+          (<View style={styles.bottomContainer} {...getAccessibilityConfig({
+            accessible: this.props.accessible,
+            accessibilityRole: AccessibilityRoles.button
+          })}>
             <RkButton
               style={styles.buttonContainer}
               onPress={() => this.openDeleteDevice()}

@@ -8,6 +8,7 @@ import ListItem from '../ListItem/ListItem';
 import NavigationBar from '../NavigationBar';
 import Separator from '../Separator';
 import { secondAllOptions, SETTING_KEYS } from "./CommonSetting";
+import { getAccessibilityConfig } from '../../utils/accessibility-helper';
 /**
  * 分享设备的设置项
  * 0: 不显示
@@ -157,6 +158,9 @@ export default class MoreSetting extends React.Component {
                   value={item.value}
                   onPress={item.onPress}
                   showSeparator={showSeparator}
+                  {...getAccessibilityConfig({
+                    accessible: item.accessible
+                  })}
                 />
               );
             })

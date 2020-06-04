@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Animated, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
 /**
  * @export
  * @author Li Yue
@@ -64,13 +65,25 @@ class Radio extends Component {
       changeCheck(id);
     }
     render() {
-      let { smallCircleBg, isChecked, bigCircleStyle, checkedBigCircleStyle, disabled } = this.props;
+      let {
+        smallCircleBg, isChecked, bigCircleStyle, checkedBigCircleStyle, disabled,
+        accessible, accessibilityRole, label, accessibilityLabel, accessibilityHint, accessibilityState
+      } = this.props;
       let { borderColorChecked, backgroundColorChecked, borderColor, backgroundColor } = checkedBigCircleStyle;
       let { scale, opacity } = this.state;
       return (
         <TouchableWithoutFeedback
           onPress={this.changeRadioCheck}
           disabled={disabled}
+          {...getAccessibilityConfig({
+            ...this.props,
+            accessibilityRole: accessibilityRole || AccessibilityRoles.radio,
+            accessibilityLabel: accessibilityLabel || label,
+            accessibilityState: accessibilityState || {
+              disabled: !!disabled,
+              checked: !!isChecked
+            }
+          })}
         >
           <View style={[
             styles.btn,
@@ -117,7 +130,8 @@ Radio.propTypes = {
   isChecked: PropTypes.bool,
   disabled: PropTypes.bool,
   changeCheck: PropTypes.func,
-  id: PropTypes.number
+  id: PropTypes.number,
+  ...AccessibilityPropTypes
 };
 const styles = StyleSheet.create({
   btn: {

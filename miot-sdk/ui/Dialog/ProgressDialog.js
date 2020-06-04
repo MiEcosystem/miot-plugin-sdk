@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 import { Styles } from '../../resources';
 import AbstractDialog from "./AbstractDialog";
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 const padding = 37;
 /**
  * @export
@@ -31,7 +32,10 @@ export default class ProgressDialog extends React.Component {
     unfilledColor: PropTypes.string,
     textColor: PropTypes.string,
     autoDismiss: PropTypes.bool,
-    onDismiss: PropTypes.func
+    onDismiss: PropTypes.func,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityValue: AccessibilityPropTypes.accessibilityValue
   }
   static defaultProps = {
     progress: 0,
@@ -68,8 +72,18 @@ export default class ProgressDialog extends React.Component {
         showTitle={false}
         canDismiss={false}
         showButton={false}
+        {...getAccessibilityConfig({
+          accessible: false
+        })}
       >
-        <View style={styles.container}>
+        <View style={styles.container} {...getAccessibilityConfig({
+          accessible: this.props.accessible,
+          accessibilityRole: AccessibilityRoles.progressbar,
+          accessibilityLabel: this.props.accessibilityLabel,
+          accessibilityValue: this.props.accessibilityValue || {
+            text: progressText
+          }
+        })}>
           <View style={styles.messageContainer}>
             <Text
               numberOfLines={1}

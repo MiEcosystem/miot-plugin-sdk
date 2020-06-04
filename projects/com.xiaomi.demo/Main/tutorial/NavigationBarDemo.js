@@ -8,7 +8,7 @@ export default class NavigationBarDemo extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     const { titleProps } = navigation.state.params || {};
-    if (!titleProps) return { header: null }
+    if (!titleProps) return { header: null };
     return {
       header: <NavigationBar {...titleProps} />
     };
@@ -20,64 +20,64 @@ export default class NavigationBarDemo extends React.Component {
       transparent: false,
       backgroundColor: '#fff',
       showDot: true,
-      index: 0,
-    }
+      index: 0
+    };
   }
 
   testList = [
     {
       title: '常用导航栏',
-      onPress: _ => this.setNavigation(),
+      onPress: () => this.setNavigation(),
       text: '白底黑字，左返回'
     },
     {
       title: '基本导航栏',
-      onPress: _ => this.setNavigation1(),
+      onPress: () => this.setNavigation1(),
       text: '白底黑字/左返回/标题/右更多/显示小红点'
     },
     {
       title: '测试1',
-      onPress: _ => this.setNavigation2(),
+      onPress: () => this.setNavigation2(),
       text: '标题超长/副标题超长/左右按钮数量不一致'
     },
     {
       title: '测试2',
-      onPress: _ => this.setNavigation3(),
+      onPress: () => this.setNavigation3(),
       text: '标题超长/副标题超长/左右各两按钮/禁用收藏按钮'
     },
     {
       title: '测试3',
-      onPress: _ => this.setNavigation4(),
+      onPress: () => this.setNavigation4(),
       text: '自定义浅色背景'
     },
     {
       title: '测试4',
-      onPress: _ => this.setNavigation5(),
+      onPress: () => this.setNavigation5(),
       text: '黑底白字'
     },
     {
       title: '测试5',
-      onPress: _ => this.setNavigation6(),
+      onPress: () => this.setNavigation6(),
       text: '自定义深色背景'
     },
     {
       title: '测试6',
-      onPress: _ => this.setNavigation7(),
+      onPress: () => this.setNavigation7(),
       text: '全屏背景/透明导航栏'
     },
     {
       title: '边界测试',
-      onPress: _ => this.setNavigation8(),
+      onPress: () => this.setNavigation8(),
       text: '存在无效的图标key/多个图标/无其余参数'
     },
     {
       title: '隐藏/显示\n小红点',
-      onPress: _ => this.toggleDot(),
+      onPress: () => this.toggleDot(),
       text: '点击隐藏/显示小红点'
-    },
+    }
   ];
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setNavigation();
   }
 
@@ -91,16 +91,18 @@ export default class NavigationBarDemo extends React.Component {
         left: [
           {
             key: NavigationBar.ICON.BACK,
-            onPress: _ => this.props.navigation.goBack()
+            onPress: () => this.props.navigation.goBack(),
+            accessibilityLabel: '返回',
+            accessibilityHint: '返回上一页'
           }
         ],
-        title: '常用导航栏',
+        title: '常用导航栏'
       }
     });
     this.setState({
       index: 0,
       backgroundColor: '#fff',
-      transparent: false,
+      transparent: false
     });
   }
 
@@ -114,23 +116,23 @@ export default class NavigationBarDemo extends React.Component {
         left: [
           {
             key: NavigationBar.ICON.BACK,
-            onPress: _ => this.props.navigation.goBack()
+            onPress: () => this.props.navigation.goBack()
           }
         ],
         right: [
           {
             key: NavigationBar.ICON.MORE,
             showDot: this.state.showDot,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           }
         ],
-        title: '基本导航栏',
+        title: '基本导航栏'
       }
     });
     this.setState({
       index: 1,
       backgroundColor: '#fff',
-      transparent: false,
+      transparent: false
     });
   }
 
@@ -144,29 +146,29 @@ export default class NavigationBarDemo extends React.Component {
         left: [
           {
             key: NavigationBar.ICON.BACK,
-            onPress: _ => this.props.navigation.goBack()
+            onPress: () => this.props.navigation.goBack()
           }
         ],
         right: [
           {
             key: NavigationBar.ICON.COLLECT,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           },
           {
             key: NavigationBar.ICON.MORE,
             showDot: this.state.showDot,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           }
         ],
         title: '常用ABCabc123',
         subtitle: '常用ABCabc123',
-        onPressTitle: _ => console.log('onPressTitle'),
+        onPressTitle: () => console.log('onPressTitle')
       }
     });
     this.setState({
       index: 2,
       backgroundColor: '#fff',
-      transparent: false,
+      transparent: false
     });
   }
 
@@ -180,34 +182,34 @@ export default class NavigationBarDemo extends React.Component {
         left: [
           {
             key: NavigationBar.ICON.BACK,
-            onPress: _ => this.props.navigation.goBack()
+            onPress: () => this.props.navigation.goBack()
           },
           {
             key: NavigationBar.ICON.CLOSE,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           }
         ],
         right: [
           {
             key: NavigationBar.ICON.COLLECT,
             disable: true,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           },
           {
             key: NavigationBar.ICON.MORE,
             showDot: this.state.showDot,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           }
         ],
         title: '标题超长/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮',
         subtitle: '标题超长/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮',
-        onPressTitle: _ => console.log('onPressTitle'),
+        onPressTitle: () => console.log('onPressTitle')
       }
     });
     this.setState({
       index: 3,
       backgroundColor: '#fff',
-      transparent: false,
+      transparent: false
     });
   }
 
@@ -222,33 +224,33 @@ export default class NavigationBarDemo extends React.Component {
         left: [
           {
             key: NavigationBar.ICON.BACK,
-            onPress: _ => this.props.navigation.goBack()
+            onPress: () => this.props.navigation.goBack()
           },
           {
             key: NavigationBar.ICON.CLOSE,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           }
         ],
         right: [
           {
             key: NavigationBar.ICON.COLLECT,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           },
           {
             key: NavigationBar.ICON.MORE,
             showDot: this.state.showDot,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           }
         ],
         title: '标题超长/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮',
         subtitle: '标题超长/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮',
-        onPressTitle: _ => console.log('onPressTitle'),
+        onPressTitle: () => console.log('onPressTitle')
       }
     });
     this.setState({
       index: 4,
       backgroundColor: '#fff',
-      transparent: false,
+      transparent: false
     });
   }
 
@@ -263,33 +265,33 @@ export default class NavigationBarDemo extends React.Component {
         left: [
           {
             key: NavigationBar.ICON.BACK,
-            onPress: _ => this.props.navigation.goBack()
+            onPress: () => this.props.navigation.goBack()
           },
           {
             key: NavigationBar.ICON.CLOSE,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           }
         ],
         right: [
           {
             key: NavigationBar.ICON.COLLECT,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           },
           {
             key: NavigationBar.ICON.MORE,
             showDot: this.state.showDot,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           }
         ],
         title: '标题超长/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮',
         subtitle: '标题超长/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮',
-        onPressTitle: _ => console.log('onPressTitle'),
+        onPressTitle: () => console.log('onPressTitle')
       }
     });
     this.setState({
       index: 5,
       backgroundColor: '#fff',
-      transparent: false,
+      transparent: false
     });
   }
 
@@ -305,33 +307,33 @@ export default class NavigationBarDemo extends React.Component {
         left: [
           {
             key: NavigationBar.ICON.BACK,
-            onPress: _ => this.props.navigation.goBack()
+            onPress: () => this.props.navigation.goBack()
           },
           {
             key: NavigationBar.ICON.CLOSE,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           }
         ],
         right: [
           {
             key: NavigationBar.ICON.COLLECT,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           },
           {
             key: NavigationBar.ICON.MORE,
             showDot: this.state.showDot,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           }
         ],
         title: '标题超长/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮',
         subtitle: '标题超长/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮',
-        onPressTitle: _ => console.log('onPressTitle'),
+        onPressTitle: () => console.log('onPressTitle')
       }
     });
     this.setState({
       index: 6,
       backgroundColor: '#fff',
-      transparent: false,
+      transparent: false
     });
   }
 
@@ -344,7 +346,7 @@ export default class NavigationBarDemo extends React.Component {
     this.setState({
       index: 7,
       backgroundColor: '#f0ac3d',
-      transparent: true,
+      transparent: true
     });
   }
 
@@ -378,7 +380,7 @@ export default class NavigationBarDemo extends React.Component {
           },
           {
             key: NavigationBar.ICON.BACK,
-            onPress: _ => this.props.navigation.goBack()
+            onPress: () => this.props.navigation.goBack()
           }
         ],
         right: [
@@ -405,7 +407,7 @@ export default class NavigationBarDemo extends React.Component {
           {
             key: NavigationBar.ICON.MORE,
             showDot: this.state.showDot,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           }
         ]
       }
@@ -413,45 +415,51 @@ export default class NavigationBarDemo extends React.Component {
     this.setState({
       index: 8,
       backgroundColor: '#fff',
-      transparent: false,
+      transparent: false
     });
   }
 
   toggleDot() {
-    this.state.showDot = !this.state.showDot;
-    this.testList[this.state.index].onPress();
+    // this.state.showDot = !this.state.showDot;
+    this.setState((state) => {
+      return {
+        showDot: !state.showDot
+      };
+    }, () => {
+      this.testList[this.state.index].onPress();
+    });
   }
 
   renderCustomNavigation() {
     if (!this.state.transparent) return null;
     return (
       <NavigationBar
-        backgroundColor='transparent'
+        backgroundColor="transparent"
         // type={NavigationBar.TYPE.DARK}
         left={[
           {
             key: NavigationBar.ICON.BACK,
-            onPress: _ => this.props.navigation.goBack()
+            onPress: () => this.props.navigation.goBack()
           },
           {
             key: NavigationBar.ICON.CLOSE,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           }
         ]}
         right={[
           {
             key: NavigationBar.ICON.COLLECT,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           },
           {
             key: NavigationBar.ICON.MORE,
             showDot: this.state.showDot,
-            onPress: _ => console.log('onPress')
+            onPress: () => console.log('onPress')
           }
         ]}
-        title='标题超长/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮'
-        subtitle='标题超长/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮'
-        onPressTitle={_ => console.log('onPressTitle')}
+        title="标题超长/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮"
+        subtitle="标题超长/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮"
+        onPressTitle={() => console.log('onPressTitle')}
       />
     );
   }
@@ -465,7 +473,7 @@ export default class NavigationBarDemo extends React.Component {
           showsVerticalScrollIndicator={false}
         >
           {
-            this.testList.map(test => {
+            this.testList.map((test) => {
               return (
                 <View
                   key={test.title}
@@ -481,7 +489,7 @@ export default class NavigationBarDemo extends React.Component {
                     {test.text || ''}
                   </Text>
                 </View>
-              )
+              );
             })
           }
         </ScrollView>

@@ -3,6 +3,7 @@ import React from 'react';
 import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { Images, Styles } from '../../resources';
 import Checkbox from '../Checkbox/Checkbox';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 const thinHeight = 50; // 无副标题时的高度
 const fatHeight = 60; // 有副标题时的高度
 const checkboxSize = 20;
@@ -47,7 +48,10 @@ export default class ChoiceItem extends React.Component {
     selected: PropTypes.bool,
     color: PropTypes.string,
     icon: PropTypes.number,
-    onPress: PropTypes.func
+    onPress: PropTypes.func,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
   static defaultProps = {
     type: TYPE.STATELESS,
@@ -145,6 +149,16 @@ export default class ChoiceItem extends React.Component {
       <TouchableHighlight
         underlayColor="rgba(0,0,0,0.05)"
         onPress={() => this._onPress()}
+        {...getAccessibilityConfig({
+          accessible: this.props.accessible,
+          accessibilityRole: AccessibilityRoles.radio,
+          accessibilityLabel: this.props.accessibilityLabel,
+          accessibilityHint: this.props.accessibilityHint,
+          accessibilityState: {
+            selected: this.state.selected,
+            checked: this.state.selected
+          }
+        })}
       >
         <View style={[styles.container, height]}>
           {this.renderIcon()}
@@ -155,7 +169,10 @@ export default class ChoiceItem extends React.Component {
     );
   }
   _onValueChange(selected) {
-    this.state.selected = selected;
+    // this.state.selected = selected;
+    this.setState({
+      selected
+    });
     if (this.props.onPress) {
       this.props.onPress(selected);
     }

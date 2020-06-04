@@ -5,6 +5,7 @@ import { Styles } from '../../resources';
 import Checkbox from '../Checkbox/Checkbox';
 import Separator from '../Separator';
 import AbstractDialog from "./AbstractDialog";
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 const paddingHorizontal = 29; // 内容的左右边距
 const paddingVertical = 27; // 内容的上下边距
 const paddingTop = 13; // 内容和下划线文字间距
@@ -70,7 +71,11 @@ export default class MessageDialog extends React.Component {
     extraText: PropTypes.string,
     extra: PropTypes.object,
     buttons: PropTypes.arrayOf(PropTypes.object),
-    onDismiss: PropTypes.func
+    onDismiss: PropTypes.func,
+    accessible: AccessibilityPropTypes.accessible,
+    // UNDERLINE 或CHECKBOX 才有效
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
   static defaultProps = {
     type: TYPE.SIMPLE,
@@ -86,15 +91,21 @@ export default class MessageDialog extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      checked: false
+      checked: props.extra.checked || false
     };
     this.process(props);
   }
   UNSAFE_componentWillReceiveProps(props) {
+    this.setState({
+      checked: props.extra.checked || false
+    });
     this.process(props);
   }
   process(props) {
-    this.state.checked = props.extra.checked || false;
+    // this.state.checked = props.extra.checked || false;
+    // this.setState({
+    //   checked: props.extra.checked || false
+    // });
     this.hasPressUnderlineText = false;
     // 拦截确认按钮的回调函数，传入 MesaageDialog 的一些信息
     const buttons = props.buttons;
@@ -121,7 +132,12 @@ export default class MessageDialog extends React.Component {
         return null;
       case TYPE.UNDERLINE:
         return (
-          <View style={[styles.extraContainer, { paddingTop }]}>
+          <View style={[styles.extraContainer, { paddingTop }]} {...getAccessibilityConfig({
+            accessible: this.props.accessible,
+            accessibilityRole: AccessibilityRoles.link,
+            accessibilityLabel: this.props.accessibilityLabel || this.props.extraText,
+            accessibilityHint: this.props.accessibilityHint
+          })}>
             <Text
               numberOfLines={1}
               style={[styles.underlineText, { color: this.props.color }]}
@@ -137,8 +153,18 @@ export default class MessageDialog extends React.Component {
             onPress={() => this.onPressCheckbox()}
             activeOpacity={1}
             style={{ paddingTop }}
+            accessible={false}
           >
-            <View style={styles.extraContainer}>
+            <View style={styles.extraContainer} {...getAccessibilityConfig({
+              accessible: this.props.accessible,
+              accessibilityRole: AccessibilityRoles.checkbox,
+              accessibilityLabel: this.props.accessibilityLabel || this.props.extraText,
+              accessibilityHint: this.props.accessibilityHint,
+              accessibilityState: {
+                disabled: false,
+                checked: this.state.checked
+              }
+            })}>
               <Checkbox
                 checked={this.state.checked}
                 checkedColor={this.props.color}
@@ -147,7 +173,11 @@ export default class MessageDialog extends React.Component {
                   height: 20,
                   borderRadius: 10
                 }}
-                onValueChange={(checked) => this.state.checked = checked}
+                onValueChange={(checked) => {
+                  this.setState({
+                    checked
+                  });
+                }}
               />
               <Text
                 style={styles.checkboxText}
@@ -174,11 +204,18 @@ export default class MessageDialog extends React.Component {
         showTitle={showTitle}
         buttons={this.buttons}
         onDismiss={() => this._onDismiss()}
+        {...getAccessibilityConfig({
+          accessible: this.props.accessible
+        })}
       >
         <View style={[styles.container, paddingTop]}>
           <Text
             numberOfLines={15}
             style={[styles.message, this.props.messageStyle]}
+            {...getAccessibilityConfig({
+              accessible: this.props.accessible,
+              accessibilityRole: AccessibilityRoles.text
+            })}
           >
             {this.props.message || ''}
           </Text>

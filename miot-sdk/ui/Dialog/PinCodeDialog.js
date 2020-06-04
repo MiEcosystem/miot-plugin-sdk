@@ -5,6 +5,7 @@ import { Styles } from '../../resources';
 import Checkbox from '../Checkbox/Checkbox';
 import Separator from '../Separator';
 import AbstractDialog from "./AbstractDialog";
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 const paddingHorizontal = 29; // 内容的左右边距
 const paddingVertical = 26; // 内容的上下边距
 const marginVertical = 30; // 输入框和上下内容的间距
@@ -47,9 +48,21 @@ export default class PinCodeDialog extends React.Component {
     message: PropTypes.string,
     digit: PropTypes.oneOf([3, 4, 5, 6]),
     color: PropTypes.any,
-    checkboxData: PropTypes.object,
-    buttons: PropTypes.arrayOf(PropTypes.object),
-    onDismiss: PropTypes.func
+    checkboxData: PropTypes.shape({
+      checked: PropTypes.bool,
+      text: PropTypes.string,
+      accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+      accessibilityHint: AccessibilityPropTypes.accessibilityHint
+    }),
+    buttons: PropTypes.arrayOf(PropTypes.shape({
+      text: PropTypes.string,
+      style: PropTypes.any,
+      callback: PropTypes.func,
+      accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+      accessibilityHint: AccessibilityPropTypes.accessibilityHint
+    })),
+    onDismiss: PropTypes.func,
+    accessible: AccessibilityPropTypes.accessible
   }
   static defaultProps = {
     digit: 6,
@@ -57,9 +70,16 @@ export default class PinCodeDialog extends React.Component {
   }
   UNSAFE_componentWillReceiveProps(props) {
     if (props.visible === true) {
-      this.state.numArr = Array.from({ length: this.digit }, () => undefined);
-      this.state.value = '';
+      // this.state.numArr = Array.from({ length: this.digit }, () => undefined);
+      // this.state.value = '';
+      this.setState({
+        numArr: Array.from({ length: this.digit }, () => undefined),
+        value: ''
+      });
     }
+    this.setState({
+      checked: (props.checkboxData || {})['checked'] || false
+    });
     this.process(props);
   }
   constructor(props, context) {
@@ -73,12 +93,12 @@ export default class PinCodeDialog extends React.Component {
     this.state = {
       numArr,
       value: '',
-      checked: false
+      checked: (props.checkboxData || {})['checked'] || false
     };
     this.process(props);
   }
   process(props) {
-    this.state.checked = (props.checkboxData || {})['checked'] || false;
+    // this.state.checked = (props.checkboxData || {})['checked'] || false;
     const buttons = props.buttons;
     if (buttons instanceof Array) {
       const button = buttons[buttons.length - 1]; // 取最后一个按钮进行拦截
@@ -117,7 +137,10 @@ export default class PinCodeDialog extends React.Component {
   renderUpExtra() {
     if (!this.props.message) return null;
     return (
-      <Text style={styles.message}>
+      <Text style={styles.message} {...getAccessibilityConfig({
+        accessible: this.props.accessible,
+        accessibilityRole: AccessibilityRoles.text
+      })}>
         {this.props.message || ''}
       </Text>
     );
@@ -135,6 +158,9 @@ export default class PinCodeDialog extends React.Component {
           <View
             key={i}
             style={[styles.blockContainer, marginLeft, borderColor]}
+            {...getAccessibilityConfig({
+              accessible: this.props.accessible
+            })}
           >
             <Text style={styles.blockText}>
               {this.state.numArr[i] || ''}
@@ -148,11 +174,21 @@ export default class PinCodeDialog extends React.Component {
    */
   renderDownExtra() {
     if (!(this.props.checkboxData instanceof Object)) return null;
-    const { text } = this.props.checkboxData;
+    const { text, accessibilityLabel, accessibilityHint } = this.props.checkboxData;
     return (
       <TouchableOpacity
         onPress={() => this.onPressCheckbox()}
         activeOpacity={1}
+        {...getAccessibilityConfig({
+          accessible: this.props.accessible,
+          accessibilityRole: AccessibilityRoles.checkbox,
+          accessibilityLabel,
+          accessibilityHint,
+          accessibilityState: {
+            disabled: false,
+            checked: this.state.checked
+          }
+        })}
       >
         <View style={styles.checkboxContainer}>
           <Checkbox
@@ -163,7 +199,11 @@ export default class PinCodeDialog extends React.Component {
               height: 20,
               borderRadius: 10
             }}
-            onValueChange={(checked) => this.state.checked = checked}
+            onValueChange={(checked) => {
+              this.setState({
+                checked
+              });
+            }}
           />
           <Text
             style={styles.checkboxText}
@@ -186,6 +226,9 @@ export default class PinCodeDialog extends React.Component {
         buttons={this.buttons}
         onDismiss={() => this._onDismiss()}
         style={absDialogStyle}
+        {...getAccessibilityConfig({
+          accessible: this.props.accessible
+        })}
       >
         <View style={[styles.container]}>
           {this.renderUpExtra()}

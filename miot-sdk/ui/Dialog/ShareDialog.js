@@ -5,6 +5,7 @@ import Swiper from 'react-native-swiper';
 import { Images, Styles } from '../../resources';
 import Separator from '../Separator';
 import AbstractDialog from "./AbstractDialog";
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 const paddingHorizontal = 40; // 内容的左右边距
 const paddingBottomSmall = 20; // 内容的上下边距
 const paddingBottomLarge = 28; // 内容的上下边距
@@ -44,9 +45,22 @@ export default class ShareDialog extends React.Component {
     animationType: PropTypes.string,
     visible: PropTypes.bool,
     title: PropTypes.string,
-    options: PropTypes.arrayOf(PropTypes.object),
-    buttons: PropTypes.arrayOf(PropTypes.object),
-    onDismiss: PropTypes.func
+    options: PropTypes.arrayOf(PropTypes.shape({
+      icon: PropTypes.any,
+      text: PropTypes.string,
+      callback: PropTypes.func,
+      accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+      accessibilityHint: AccessibilityPropTypes.accessibilityHint
+    })),
+    buttons: PropTypes.arrayOf(PropTypes.shape({
+      text: PropTypes.string,
+      style: PropTypes.any,
+      callback: PropTypes.func,
+      accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+      accessibilityHint: AccessibilityPropTypes.accessibilityHint
+    })),
+    onDismiss: PropTypes.func,
+    accessible: AccessibilityPropTypes.accessible
   }
   static defaultProps = {
     options: Array.from({ length: 6 }, () => ({
@@ -96,6 +110,12 @@ export default class ShareDialog extends React.Component {
               onPress={option.callback}
               onPressIn={() => this.setState({ pressed: index })}
               onPressOut={() => this.setState({ pressed: -1 })}
+              {...getAccessibilityConfig({
+                accessible: this.props.accessible,
+                accessibilityRole: AccessibilityRoles.button,
+                accessibilityLabel: option.accessibilityLabel,
+                accessibilityHint: option.accessibilityHint
+              })}
             >
               <View style={[styles.optionContainer, marginLeft]}>
                 <Image
@@ -133,6 +153,9 @@ export default class ShareDialog extends React.Component {
         activeDotColor="#32bac0"
         dotStyle={styles.dot}
         activeDotStyle={styles.dot}
+        {...getAccessibilityConfig({
+          accessible: false
+        })}
       >
         {this.pages.map((options, index) => this.renderIcons(options, index))}
       </Swiper>

@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import ChoiceItem from '../ListItem/ChoiceItem';
 import Separator from '../Separator';
 import AbstractDialog from './AbstractDialog';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 /**
  * @description 选择弹窗的类型
  * @enum {string}
@@ -55,14 +56,24 @@ export default class ChoiceDialog extends React.Component {
     animationType: PropTypes.string,
     type: PropTypes.oneOf([TYPE.STATELESS, TYPE.SINGLE, TYPE.MULTIPLE]),
     visible: PropTypes.bool,
-    options: PropTypes.arrayOf(PropTypes.object),
+    options: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string,
+      subtitle: PropTypes.string,
+      accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+      accessibilityHint: AccessibilityPropTypes.accessibilityHint
+    })),
     selectedIndexArray: PropTypes.arrayOf(PropTypes.number),
     color: PropTypes.string,
     icon: PropTypes.number,
-    buttons: PropTypes.arrayOf(PropTypes.object),
+    buttons: PropTypes.arrayOf(PropTypes.shape({
+      text: PropTypes.string,
+      style: PropTypes.any,
+      callback: PropTypes.func
+    })),
     title: PropTypes.string,
     onSelect: PropTypes.func,
-    onDismiss: PropTypes.func
+    onDismiss: PropTypes.func,
+    accessible: AccessibilityPropTypes.accessible
   }
   static defaultProps = {
     type: TYPE.SINGLE,
@@ -115,6 +126,9 @@ export default class ChoiceDialog extends React.Component {
         showButton={this.props.type === TYPE.MULTIPLE}
         buttons={this.buttons}
         onDismiss={() => this._onDismiss()}
+        {...getAccessibilityConfig({
+          accessibilityLabel: this.props.accessible
+        })}
       >
         {this.props.options.map((option, index) => {
           return (
@@ -130,6 +144,11 @@ export default class ChoiceDialog extends React.Component {
                 color={this.props.color}
                 icon={this.props.icon}
                 onPress={(selected) => this._onPress(selected, index)}
+                {...getAccessibilityConfig({
+                  accessible: this.props.accessible,
+                  accessibilityLabel: option.accessibilityLabel,
+                  accessibilityHint: option.accessibilityHint
+                })}
               />
             </View>
           );

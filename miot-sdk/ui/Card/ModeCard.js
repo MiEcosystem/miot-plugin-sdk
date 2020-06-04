@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Dimensions, Image, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Styles } from '../../resources';
 import Card from './Card';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 /**
  * @export
  * @author Li Yue
@@ -100,7 +101,10 @@ class ModeCard extends Component {
   }
   // 生成模式结构
   createModesRN = () => {
-    let { modes, descriptionStyle, activeDescriptionStyle } = this.props;
+    let {
+      modes, descriptionStyle, activeDescriptionStyle,
+      accessible
+    } = this.props;
     let { length } = modes;
     let modeStyle = {};
     let iconStyle = {};
@@ -128,7 +132,10 @@ class ModeCard extends Component {
       };
     }
     let modesRN = modes.map((mode, index) => {
-      let { isDisabled, isActive, icon, description, isPressing } = mode;
+      let {
+        isDisabled, isActive, icon, description, isPressing,
+        accessibilityLabel, accessibilityHint
+      } = mode;
       let iconSource = -1;
       let iconOpacity = 1;
       let descriptionRN = null;
@@ -185,6 +192,16 @@ class ModeCard extends Component {
           onPressOut={() => {
             this.pressOutIcon(index);
           }}
+          {...getAccessibilityConfig({
+            accessible,
+            accessibilityRole: AccessibilityRoles.radio,
+            accessibilityLabel: accessibilityLabel || description,
+            accessibilityHint: accessibilityHint,
+            accessibilityState: {
+              disabled: !!isDisabled,
+              selected: !!isActive
+            }
+          })}
         >
           <View style={[
             styles.mode,
@@ -298,13 +315,27 @@ ModeCard.defaultProps = {
 ModeCard.propTypes = {
   radiusType: PropTypes.string,
   modesKey: PropTypes.string,
-  modes: PropTypes.array,
+  modes: PropTypes.arrayOf(PropTypes.shape({
+    isDisabled: PropTypes.bool,
+    isActive: PropTypes.bool,
+    icon: PropTypes.shape({
+      normal: PropTypes.any,
+      press: PropTypes.any,
+      active: PropTypes.any,
+      activeDisabled: PropTypes.any
+    }),
+    description: PropTypes.string,
+    isPressing: PropTypes.bool,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint
+  })),
   pressIn: PropTypes.func,
   pressOut: PropTypes.func,
   descriptionStyle: PropTypes.object,
   activeDescriptionStyle: PropTypes.object,
   showShadow: PropTypes.bool,
-  modeCardStyle: PropTypes.object
+  modeCardStyle: PropTypes.object,
+  accessible: AccessibilityPropTypes.accessible
 };
 const styles = StyleSheet.create({
   card: {
