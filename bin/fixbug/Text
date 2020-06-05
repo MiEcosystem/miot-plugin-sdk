@@ -81,6 +81,11 @@ const viewConfig = {
   uiViewClassName: 'RCTText',
 };
 
+function flatDeep(arr, d = 1) {
+    return d > 0 ? arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flatDeep(val, d - 1) : val), [])
+                 : arr.slice();
+   }
+
 /**
  * A React component for displaying text.
  *
@@ -125,6 +130,8 @@ class TouchableText extends React.Component<Props, State> {
       : null;
   }
 
+  
+
   static viewConfig = viewConfig;
 
   render(): React.Node {
@@ -155,12 +162,13 @@ class TouchableText extends React.Component<Props, State> {
             if(tcolor.value.length === 0){
               tcolor.value = 'blacktext';
             }
-            props = {
-              ...props,
-              style:[
+            let styleArray = flatDeep([
                 props.style,
                 {color:tcolor.value}
-              ].flat()
+              ], 100);
+            props = {
+              ...props,
+              style:styleArray
             }
         }
       }else{
