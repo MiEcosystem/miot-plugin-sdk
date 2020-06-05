@@ -1,13 +1,16 @@
 const { CLIEngine } = require('eslint');
+const Path = require('path');
 const Colors = require('colors');
 
 const Severitys = ['', 'warn', 'error'];
+
+const Exts = ['.js', '.jsx'];
 
 function formatReport(report) {
   let errorCounts = 0, warningCounts = 0, details = [], hasFix = false;
   if (report && report.results) {
     report.results.forEach(({ errorCount, warningCount, filePath, messages, output }) => {
-      const isIgnored = (messages || []).findIndex((message) => {
+      const isIgnored = Exts.indexOf(Path.extname(filePath)) === -1 || (messages || []).findIndex((message) => {
         return (message.message || '').toLowerCase().indexOf('file ignored') !== -1;
       }) !== -1;
       if (isIgnored) {

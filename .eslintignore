@@ -1,9 +1,6 @@
 node_modules/
 **/node_modules/
 
-**/*
-!**/*.js
-
 /bin/fixbug/appendFiles/**
 /bin/config/
 
