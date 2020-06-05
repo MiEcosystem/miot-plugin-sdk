@@ -1,5 +1,5 @@
 /**
- * @fileoverview no deprecated comment
+ * @fileoverview console warn only dev
  * @author anzhi
  */
 "use strict";
@@ -8,7 +8,7 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-var rule = require("../../../lib/rules/no-deprecated-comment"),
+var rule = require("../../../lib/rules/console-warn-only-dev.js"),
 
     RuleTester = require("eslint").RuleTester;
 
@@ -18,7 +18,7 @@ var rule = require("../../../lib/rules/no-deprecated-comment"),
 //------------------------------------------------------------------------------
 
 var ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 2015, sourceType: "module" }});
-ruleTester.run("no-deprecated-comment", rule, {
+ruleTester.run("console-warn-only-dev", rule, {
 
     valid: [
         `class BasicDevice {
@@ -34,7 +34,7 @@ ruleTester.run("no-deprecated-comment", rule, {
              * @deprecated since 120234
              */
             getVirtualDevices() {
-                console.warn("fail");
+                // console.warn("fail");
                 return this.hah();
             }
         }`,
@@ -62,6 +62,7 @@ ruleTester.run("no-deprecated-comment", rule, {
                     */
                   getVirtualDevices() {
                     // @native :=> promise []
+                    console.warn("asdf");
                     let a = 1;
                     let b = 2;
                     console.log(a+b);
@@ -70,7 +71,7 @@ ruleTester.run("no-deprecated-comment", rule, {
                }
             `,
             errors: [{
-                message: "deprecated no warn"
+                message: "console.warn without dev"
             }
          ],
             output: "ahhaa"

@@ -281,16 +281,16 @@ export default class NavigationBar extends Component {
   updateStyleType(props, newProps) {
     let newIsDartStyle = (newProps ? newProps.type : props.type) === TYPE.DARK;
     this.shouldKeepColor = false;
-    if(native.isIOS && native.MIOTService.currentDarkMode == "dark"){
-      if(newIsDartStyle){
-        //本来就是深色模式的情况，传入的颜色不修改
+    if (native.isIOS && native.MIOTService.currentDarkMode == "dark") {
+      if (newIsDartStyle) {
+        // 本来就是深色模式的情况，传入的颜色不修改
         this.shouldKeepColor = true;
       }
       newIsDartStyle = true;
-    }else{
+    } else {
       newIsDartStyle = DarkMode.getColorScheme() === 'dark' ? true : (newProps ? newProps.type : props.type) === TYPE.DARK;
     }
-    if(newIsDartStyle !== this.isDarkStyle) {
+    if (newIsDartStyle !== this.isDarkStyle) {
       this.isDarkStyle = newIsDartStyle;
       StatusBar.setBarStyle(this.isDarkStyle ? 'light-content' : 'dark-content');
       if (Platform.OS == 'android') {
@@ -316,8 +316,8 @@ export default class NavigationBar extends Component {
     let backgroundColor = this.props.backgroundColor
       ? this.props.backgroundColor
       : (this.isDarkStyle ? 'xm#000000' : 'xm#ffffff');
-    if(this.shouldKeepColor && this.props.backgroundColor){
-      backgroundColor = 'xm' + this.props.backgroundColor;
+    if (this.shouldKeepColor && this.props.backgroundColor) {
+      backgroundColor = `xm${ this.props.backgroundColor }`;
     }
     // StatusBar.setBackgroundColor(backgroundColor); // 仅对某些机型有效：华为荣耀V9
     const containerStyle = {

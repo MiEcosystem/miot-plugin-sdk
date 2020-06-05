@@ -37,12 +37,13 @@ module.exports = {
         return {
             FunctionExpression(node) {
                 const JSDocComment = sourceCode.getJSDocComment(node);
-                if (!JSDocComment) return;;
+                if (!JSDocComment) return;
                 let r = JSDocComment.value.match(/@deprecated(.*)\n/);
                 if (r) {
-                    const expreBodys = node.body.body.filter(({ type, expression }) => type === 'ExpressionStatement' && expression.type === 'CallExpression' && expression.callee.type === 'MemberExpression' && expression.callee.object.name === 'console' && expression.callee.property.name === 'warn');
-                    const comment = `console.warn("deprecated ${r[1]}");\n`;
-                    (expreBodys.length == 0) && context.report({
+                    const expreBodys = node.body.body.filter(({ type, expression }) => (type === 'ExpressionStatement' && expression.type === 'CallExpression' && expression.callee.type === 'MemberExpression' && expression.callee.object.name === 'console' && expression.callee.property.name === 'warn'));
+                    const expreBodys2 = node.body.body.filter(({ type, consequent }) => (type === 'IfStatement' && consequent.body && consequent.body.length > 0 && consequent.body[0].type === 'ExpressionStatement' && consequent.body[0].expression.type === 'CallExpression' && consequent.body[0].expression.callee.type === 'MemberExpression' && consequent.body[0].expression.callee.object.name === 'console' && consequent.body[0].expression.callee.property.name === 'warn'));
+                    const comment = `if (__DEV__ && console.warn)\n{console.warn("deprecated ${r[1]}");\n}\n`;
+                    (expreBodys.length == 0 && expreBodys2.length == 0) && context.report({
                         node,
                         message: "deprecated no warn",
                         fix: function(fixer) {

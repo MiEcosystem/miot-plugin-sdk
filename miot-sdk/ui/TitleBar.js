@@ -68,17 +68,17 @@ export default class TitleBar extends Component {
   }
   render() {
     this.isDarkStyle = this.props.type === 'dark';
-    if(native.isIOS && native.MIOTService.currentDarkMode == "dark"){
-      //黑暗模式适配
-      if(this.isDarkStyle === false){
-        //原本就是light的情况下（黑底白字） 颜色不加转换
-        if(this.props.style !== undefined && this.props.style.backgroundColor !== undefined ){
-          this.props.style.backgroundColor = 'xm' + this.props.style.backgroundColor; 
+    if (native.isIOS && native.MIOTService.currentDarkMode == "dark") {
+      // 黑暗模式适配
+      if (this.isDarkStyle === false) {
+        // 原本就是light的情况下（黑底白字） 颜色不加转换
+        if (this.props.style !== undefined && this.props.style.backgroundColor !== undefined) {
+          this.props.style.backgroundColor = `xm${ this.props.style.backgroundColor }`; 
         }
       }
       this.isDarkStyle = false;
-    }else{
-      if(DarkMode.getColorScheme() === 'dark'){
+    } else {
+      if (DarkMode.getColorScheme() === 'dark') {
         this.isDarkStyle = false;
       }
     }

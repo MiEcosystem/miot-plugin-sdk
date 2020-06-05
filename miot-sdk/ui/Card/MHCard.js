@@ -220,7 +220,9 @@ export default class MHCard extends React.Component {
         />
       );
     } else {
-      console.warn('cardType must be one of CARD_TYPE');
+      if (__DEV__ && console.warn) {
+        console.warn('cardType must be one of CARD_TYPE');
+      }
     }
   }
   render() {

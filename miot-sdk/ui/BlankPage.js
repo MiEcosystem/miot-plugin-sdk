@@ -167,7 +167,9 @@ export default class BlankPage extends React.Component {
     if (typeof callback === 'function') {
       callback();
     } else {
-      console.warn('请传入有效的点击回调函数');
+      if (__DEV__ && console.warn) {
+        console.warn('请传入有效的点击回调函数');
+      }
     }
   }
   render() {

@@ -300,7 +300,9 @@ export default class MHDatePicker extends React.Component {
    */
   generateArray(min, max) {
     if (min > max) {
-      console.warn('max < min');
+      if (__DEV__ && console.warn) {
+        console.warn('max < min');
+      }
       return [];
     }
     return Array.from({ length: max - min + 1 }, (v, i) => i + min).map((v) => `${ v }`);

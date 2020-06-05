@@ -141,7 +141,9 @@ export default class SlideGear extends React.Component {
       super(props, context);
       if (this.props.options.length === 0) {
         if (!this.props.optionStep) {
-          console.warn('options 为空数组 且无 optionStep');
+          if (__DEV__ && console.warn) {
+            console.warn('options 为空数组 且无 optionStep');
+          }
           this.showNothing = true;
           return;
         } else { // option为range、step形式
@@ -222,7 +224,9 @@ export default class SlideGear extends React.Component {
         if ((value === this.state.value) && this.isSameArray(options, this.props.options)) return; // 没有变化
         if (!this.isSameArray(options, this.props.options)) { // options 变化
           if (!(options instanceof Array) || options.length === 0) { // 更新后的 options 不是数组或者是空数组
-            console.warn('options 不是数组或者是空数组');
+            if (__DEV__ && console.warn) {
+              console.warn('options 不是数组或者是空数组');
+            }
             this.showNothing = true;
             return;
           } else { // options 正确更新
@@ -233,7 +237,9 @@ export default class SlideGear extends React.Component {
         }
         if (value !== this.props.value) { // value 变化
           if (value < 0 || value >= this.length) { // 更新后的 value 越界
-            console.warn('value 不在 options 范围内');
+            if (__DEV__ && console.warn) {
+              console.warn('value 不在 options 范围内');
+            }
             this.state.value = 0; // 如果越界，设置一个默认值
           } else {
             this.state.value = value; // value 正确更新
@@ -423,7 +429,9 @@ export default class SlideGear extends React.Component {
       this.d = d;
       console.log(`容器起始坐标: ${ x }\n实际宽度: ${ w }\n各选项中心坐标间距: ${ d }`);
       if (d <= 0) {
-        console.warn('容器实际宽度 < 滑块宽度，滑块无法移动，请仔细检查 containerStyle 或者增加容器的宽度');
+        if (__DEV__ && console.warn) {
+          console.warn('容器实际宽度 < 滑块宽度，滑块无法移动，请仔细检查 containerStyle 或者增加容器的宽度');
+        }
       }
       if (!this.optionStep) {
         this.coords = this.options.map((v, i) => d > 0 ? (startCoord + d * i) : 0);

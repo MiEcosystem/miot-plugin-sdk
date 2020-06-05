@@ -37,6 +37,7 @@
   "parser": "babel-eslint",
   "rules": {
     "mihome-plugin/no-deprecated-comment": "warn",
+    "mihome-plugin/console-warn-only-dev": "warn",
     "no-unused-vars": "warn",
     "no-console": "off",
     "no-undef": "error",

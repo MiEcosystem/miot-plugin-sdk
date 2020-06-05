@@ -156,7 +156,9 @@ export default class ListItemWithSlider extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.sliderProps === undefined) return;
     if (typeof nextProps.sliderProps.value !== 'number') {
-      console.warn('sliderProps.value is not a number');
+      if (__DEV__ && console.warn) {
+        console.warn('sliderProps.value is not a number');
+      }
       return;
     }
     const { value, minimumValue, maximumValue } = nextProps.sliderProps;

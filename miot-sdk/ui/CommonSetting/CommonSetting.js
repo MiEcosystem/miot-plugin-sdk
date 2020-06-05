@@ -417,16 +417,22 @@ export default class CommonSetting extends React.Component {
     if (showUpgrade === false) {
       // 蓝牙统一OTA界面
       if (upgradePageKey === undefined) {
-        console.warn('请在 extraOptions.upgradePageKey 中填写你想跳转的固件升级页面, 传给 CommonSetting 组件');
+        if (__DEV__ && console.warn) {
+          console.warn('请在 extraOptions.upgradePageKey 中填写你想跳转的固件升级页面, 传给 CommonSetting 组件');
+        }
         return;
       }
       if (typeof upgradePageKey !== 'string') {
-        console.warn('upgradePageKey 必须是字符串, 是你在 index.js 的 RootStack 中定义的页面 key');
+        if (__DEV__ && console.warn) {
+          console.warn('upgradePageKey 必须是字符串, 是你在 index.js 的 RootStack 中定义的页面 key');
+        }
         return;
       }
       this.removeKeyFromShowDot(firstAllOptions.FIRMWARE_UPGRADE);
       this.openSubPage(upgradePageKey, {}); // 跳转到开发者指定页面
-      console.warn('蓝牙统一OTA界面正在火热开发中');
+      if (__DEV__ && console.warn) {
+        console.warn('蓝牙统一OTA界面正在火热开发中');
+      }
     } else {
       // wifi设备固件升级
       // this.openSubPage('FirmwareUpgrade');
@@ -487,7 +493,9 @@ export default class CommonSetting extends React.Component {
         excludeRequiredOptions: (['lock', 'safe-box'].indexOf(this.state.modelType) !== -1 && excludeRequiredOptions.indexOf(secondAllOptions.SECURITY) === -1) ? [...excludeRequiredOptions, secondAllOptions.SECURITY] : excludeRequiredOptions
       });
     } else {
-      console.warn("props 'navigation' is required for CommonSetting");
+      if (__DEV__ && console.warn) {
+        console.warn("props 'navigation' is required for CommonSetting");
+      }
     }
   }
   /**

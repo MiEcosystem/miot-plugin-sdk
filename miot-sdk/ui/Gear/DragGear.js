@@ -72,7 +72,9 @@ export default class DragGear extends React.Component {
     // 也不能太拥挤吧
     if (this.optionWidth < 20) {
       this.showNothing = true;
-      console.warn('在目前maxWidth下显示不了这么多选项，请重新规划');
+      if (__DEV__ && console.warn) {
+        console.warn('在目前maxWidth下显示不了这么多选项，请重新规划');
+      }
       return;
     }
     this.state = {

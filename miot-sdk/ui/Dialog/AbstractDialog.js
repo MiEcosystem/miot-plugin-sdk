@@ -155,7 +155,9 @@ export default class AbstractDialog extends React.Component {
       if (buttons.length === 1) return this.renderOneButton(buttons);
       if (buttons.length === 2) return this.renderTwoButtons(buttons);
       else {
-        console.warn('只允许设置1～2个按钮');
+        if (__DEV__ && console.warn) {
+          console.warn('只允许设置1～2个按钮');
+        }
         return null;
       }
     }

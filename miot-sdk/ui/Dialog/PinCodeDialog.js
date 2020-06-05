@@ -67,7 +67,9 @@ export default class PinCodeDialog extends React.Component {
     this.digit = this.props.digit;
     if (this.digit > 6 || this.digit < 3) {
       this.digit = 6;
-      console.warn('digit should range within [3, 6]');
+      if (__DEV__ && console.warn) {
+        console.warn('digit should range within [3, 6]');
+      }
     }
     const numArr = Array.from({ length: this.digit }, () => undefined);
     this.state = {
