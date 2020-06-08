@@ -74,14 +74,12 @@
 ## 调试环境
 
 [iOS IPA 包下载地址](http://d.7short.com/mijiadevelopment)
-
-[ios IPA 包下载地址(RN54,SDK_10032,供大家临时使用)](https://fir.im/mijiadevelopment?release_id=5df8b0b3f94548387f934dc0)，若打不开请使用[备用地址](http://www.jappstore.com/mijiadevelopment?release_id=5df8b0b3f94548387f934dc0)
     
 Android APK 包下载地址：http://www.jappstore.com/MiHomeForAndroid  ,若打不开请使用[备用地址](https://github.com/Mijia-Developer/Mijia-Android-RN-Dev/releases)
 
-[Android APK 包下载地址(RN54,SDK_10032,供大家临时使用)](https://fir.im/MiHomeForAndroid?release_id=5e09d91223389f7111e96a03)，若打不开请使用[备用地址](http://www.jappstore.com/MiHomeForAndroid?release_id=5e09d91223389f7111e96a03)
-
 下载密码: keliyuan 
+
+调试包若无法下载，请邮件吕杰(mailTo:lvjie1@xiaomi.com)同学更新。
 
 ## 其他文档
 
