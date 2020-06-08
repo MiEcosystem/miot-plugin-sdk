@@ -37,6 +37,7 @@
   "parser": "babel-eslint",
   "rules": {
     "mihome-plugin/no-deprecated-comment": "warn",
+    "mihome-plugin/console-warn-only-dev": "warn",
     "no-unused-vars": "warn",
     "no-console": "off",
     "no-undef": "error",
@@ -92,7 +93,7 @@
     }],
     "indent": ["warn", 2, {
       "SwitchCase": 1
-      }],
+    }],
     "jsx-quotes": ["warn", "prefer-double"],
     "key-spacing": ["warn", {
       "beforeColon": false,
@@ -116,8 +117,8 @@
       "before": true,
       "after": true
     }],
-		"rest-spread-spacing": ["error", "never"],
-		"template-curly-spacing": ["warn", "always"],
+    "rest-spread-spacing": ["error", "never"],
+    "template-curly-spacing": ["warn", "always"],
     "space-before-blocks": ["warn", "always"],
     "space-before-function-paren": ["warn", "never"],
     "space-in-parens": ["warn", "never"],

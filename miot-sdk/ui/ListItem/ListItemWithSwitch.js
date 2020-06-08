@@ -1,8 +1,9 @@
 'use strict';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Dimensions, Platform, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Dimensions, Platform, StyleSheet, Text, View } from 'react-native';
 import { Styles } from '../../resources';
+import TouchableView from '../TouchableView';
 import Separator from '../Separator';
 import Switch from '../Switch';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
@@ -23,7 +24,7 @@ const PADDING = 24;
  * @property {string} valueText - 主标题右侧文案
  * @property {bool} value - 开关状态，默认值 false
  * @property {bool} disabled - 是否禁用开关，默认值 false
- * @property {function} onPress - 列表项点击事件，不传则不具有点击态（disabled）
+ * @property {function} onPress - note: IMPORTANT 列表项点击事件，不传则不具有点击态（disabled）
  * @property {function} onValueChange - 开关切换事件
  * @property {bool} showSeparator - 是否显示分割线，默认值 true
  * @property {component} separator - 自定义分割线，不传将显示默认样式的分割线
@@ -31,7 +32,12 @@ const PADDING = 24;
  * @property {style} titleStyle - 主标题的自定义样式
  * @property {style} subtitleStyle - 副标题的自定义样式
  * @property {style} valueTextStyle - 主标题右侧文案的自定义样式
- * @property {style} switchStyle - 开关样式，仅支持宽高
+ * @property {style} switchStyle - 主标题右侧文案的自定义样式
+ * @property {bool} allowFontScaling - 10040新增 设置字体是否随系统设置的字体大小的设置改变而改变 默认为true。
+ * @property {bool} unlimitedHeightEnable - 10040新增 设置控件高度是否自适应。 默认为false，即默认高度
+ * @property {number} titleNumberOfLines - 10040新增 设置title字体显示的最大行数 默认为1
+ * @property {number} subtitleNumberOfLines - 10040新增 设置subtitle字体显示的最大行数 默认为2
+ * @property {number} valueNumberOfLines - 10040新增 设置value字体显示的最大行数 默认为1
  * @property {string} onTintColor - 开关按钮打开时的背景颜色
  * @property {string} tintColor - 开关按钮关闭时的背景颜色
  */
@@ -53,6 +59,11 @@ export default class ListItemWithSwitch extends React.Component {
     switchStyle: PropTypes.object,
     tintColor: PropTypes.string,
     onTintColor: PropTypes.string,
+    allowFontScaling: PropTypes.bool,
+    unlimitedHeightEnable: PropTypes.bool,
+    titleNumberOfLines: PropTypes.number,
+    subtitleNumberOfLines: PropTypes.number,
+    valueNumberOfLines: PropTypes.number,
     ...AccessibilityPropTypes
   }
   static defaultProps = {
@@ -68,14 +79,10 @@ export default class ListItemWithSwitch extends React.Component {
     valueTextStyle: {},
     switchStyle: {},
     tintColor: undefined,
-    onTintColor: undefined
+    onTintColor: undefined,
+    unlimitedHeightEnable: false,
+    allowFontScaling: true
   }
-  // constructor(props, context) {
-  //   super(props, context);
-  //   this.state = {
-  //     value: this.props.value,
-  //   }
-  // }
   render() {
     let extraContainerStyle = {
       height: THIN_HEIGHT
@@ -94,82 +101,100 @@ export default class ListItemWithSwitch extends React.Component {
       }
     }
     if (Platform.OS === 'android') {
-      extraStyle.fontFamily = 'Kmedium';
+      extraStyle.fontFamily = 'KMedium';
     }
+    let adaptedFontStyle = {};
+    let adaptedContainerStyle = {};
+    if (this.props.unlimitedHeightEnable) {
+      adaptedFontStyle = { height: undefined, lineHeight: undefined };
+      adaptedContainerStyle = { height: undefined, paddingVertical: 10 };
+    }
+    let titleLine = this.props.titleNumberOfLines == undefined ? 1 : this.props.titleNumberOfLines;
+    let subtitleLine = this.props.subtitleNumberOfLines == undefined ? 2 : this.props.subtitleNumberOfLines;
+    let valueLine = this.props.valueNumberOfLines == undefined ? 1 : this.props.valueNumberOfLines;
+    if (titleLine < 0) titleLine = 0;
+    if (subtitleLine < 0) subtitleLine = 0;
+    if (valueLine < 0) valueLine = 0;
     return (
       <View style={{ backgroundColor: '#fff' }}>
-        <TouchableHighlight
+        <TouchableView
           disabled={!this.props.onPress}
           underlayColor={Styles.common.underlayColor}
           onPress={this.props.onPress}
+          viewStyle={[styles.container, this.props.containerStyle, extraContainerStyle, adaptedContainerStyle]}
           accessible={false}
         >
-          <View style={[styles.container, this.props.containerStyle, extraContainerStyle]}>
-            <View
-              style={styles.left}
-              {...getAccessibilityConfig({
-                accessible: this.props.accessible,
-                accessibilityRole: AccessibilityRoles.text,
-                accessibilityState: this.accessibilityState || {
-                  disabled: !!this.props.disabled
-                }
-              })}
-            >
-              <View style={[styles.up]}>
-                <Text
-                  numberOfLines={1}
-                  ellipsizeMode="tail"
-                  style={[Styles.common.title, extraStyle, this.props.titleStyle]}
-                  accessible={false}
-                >
-                  {this.props.title}
-                </Text>
-                {this.props.valueText ?
-                  <View style={[styles.up]}>
-                    <View style={styles.separatorCol} />
-                    <Text
-                      numberOfLines={1}
-                      ellipsizeMode="tail"
-                      style={[Styles.common.subtitle, this.props.valueTextStyle, { flex: 1 }]}
-                      accessible={false}
-                    >
-                      {this.props.valueText}
-                    </Text>
-                  </View>
-                  : null
-                }
-              </View>
-              {this.props.subtitle ?
-                <Text
-                  numberOfLines={2}
-                  ellipsizeMode="tail"
-                  style={[Styles.common.subtitle, this.props.subtitleStyle]}
-                  accessible={false}
-                >
-                  {this.props.subtitle}
-                </Text>
+          <View
+            style={styles.left}
+            {...getAccessibilityConfig({
+              accessible: this.props.accessible,
+              accessibilityRole: AccessibilityRoles.text,
+              accessibilityState: this.accessibilityState || {
+                disabled: !!this.props.disabled
+              }
+            })}
+          >
+            <View style={[styles.up]}>
+              <Text
+                numberOfLines={titleLine}
+                allowFontScaling={this.props.allowFontScaling}
+                ellipsizeMode="tail"
+                style={[Styles.common.title, extraStyle, this.props.titleStyle, adaptedFontStyle]}
+                accessible={false}
+              >
+                {this.props.title}
+              </Text>
+              {this.props.valueText ?
+                <View style={[styles.up]}>
+                  {/* <View style={[styles.separatorCol, !this.props.allowFontScaling ? {
+                      alignSelf: 'stretch', width: 0.5, height: undefined, marginVertical: 8,
+                    } : {}]} /> */}
+                  <View style={[styles.separatorCol]} />
+                  <Text
+                    numberOfLines={valueLine}
+                    ellipsizeMode="tail"
+                    allowFontScaling={this.props.allowFontScaling}
+                    style={[Styles.common.subtitle, this.props.valueTextStyle, { flex: 1 }, adaptedFontStyle]}
+                    accessible={false}
+                  >
+                    {this.props.valueText}
+                  </Text>
+                </View>
                 : null
               }
             </View>
-            <View style={styles.right}>
-              <Switch
-                style={this.props.switchStyle}
-                value={this.props.value}
-                disabled={this.props.disabled}
-                tintColor={this.props.tintColor}
-                onTintColor={this.props.onTintColor}
-                onValueChange={(value) => this._onValueChange(value)}
-                {...getAccessibilityConfig({
-                  accessible: this.props.accessible,
-                  accessibilityLabel: this.props.accessibilityLabel || this.props.title,
-                  accessibilityHint: this.props.accessibilityHint
-                })}
-              />
-            </View>
+            {this.props.subtitle ?
+              <Text
+                numberOfLines={subtitleLine}
+                ellipsizeMode="tail"
+                allowFontScaling={this.props.allowFontScaling}
+                style={[Styles.common.subtitle, this.props.subtitleStyle, adaptedFontStyle]}
+                accessible={false}
+              >
+                {this.props.subtitle}
+              </Text>
+              : null
+            }
           </View>
-        </TouchableHighlight>
+          <View style={styles.right}>
+            <Switch
+              style={this.props.switchStyle}
+              value={this.props.value}
+              disabled={this.props.disabled}
+              tintColor={this.props.tintColor}
+              onTintColor={this.props.onTintColor}
+              onValueChange={(value) => this._onValueChange(value)}
+              {...getAccessibilityConfig({
+                accessible: this.props.accessible,
+                accessibilityLabel: this.props.accessibilityLabel || this.props.title,
+                accessibilityHint: this.props.accessibilityHint
+              })}
+            />
+          </View>
+          {/* </View> */}
+        </TouchableView>
         {this.renderSeparator()}
-      </View>
+      </View >
     );
   }
   renderSeparator() {
@@ -192,7 +217,6 @@ export default class ListItemWithSwitch extends React.Component {
 const styles = StyleSheet.create({
   container: {
     width: width,
-    backgroundColor: '#fff',
     paddingHorizontal: PADDING,
     flexDirection: 'row',
     alignItems: 'center'

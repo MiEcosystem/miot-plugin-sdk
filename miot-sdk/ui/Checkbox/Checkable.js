@@ -83,7 +83,6 @@ export default class Checkable extends React.Component {
     this.rectangleHeight = rectangleHeight;
   }
   render() {
-    console.log('render checkable');
     if (!this.props.visible) {
       this.preVisible = false;
       return <View {...getAccessibilityConfig({

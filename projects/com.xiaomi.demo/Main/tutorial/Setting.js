@@ -117,9 +117,76 @@ export default class Setting extends React.Component {
             extraOptions={extraOptions}
           />
           <View style={{ height: 20 }} />
+
+          <Text
+            style={{ fontSize: 16, color: '#ab1231', marginLeft: 20, marginBottom: 10 }}
+            allowFontScaling={false}
+          >
+            CommonSetting-大字体适配测试-字体大小固定，不会随系统字体大小改变而改变
+          </Text>
+          <CommonSetting
+            navigation={this.props.navigation}
+            firstOptions={firstOptions}
+            showDot={this.state.showDot}
+            secondOptions={secondOptions}
+            extraOptions={extraOptions}
+            commonSettingStyle={{
+              allowFontScaling: false,
+              unlimitedHeightEnable: true,
+              titleStyle: {
+                fontSize: 20,
+                lineHeight: 22
+              },
+              itemStyle: this._getItemStyle(),
+              moreSettingPageStyle: {
+                itemStyle: this._getItemStyle(),
+                navigationBarStyle: this._getNavigationBarStyle()
+              }
+              ,
+              deleteTextStyle: {
+                fontSize: 26,
+                lineHeight: 28
+              }
+            }}
+          />
         </ScrollView>
       </View>
     );
+  }
+
+  _getItemStyle() {
+    return {
+      allowFontScaling: false,
+      unlimitedHeightEnable: true,
+      titleStyle: {
+        fontSize: 28,
+        lineHeight: 30,
+        marginTop: 10,
+        marginBottom: 10
+      },
+      subtitleStyle: {
+        fontSize: 24,
+        lineHeight: 36
+      },
+      valueStyle: {
+        fontSize: 22,
+        lineHeight: 34
+      },
+      dotStyle: null,
+
+      subtitleNumberOfLines: 2,
+      valueNumberOfLines: 1
+    };
+  }
+
+  _getNavigationBarStyle() {
+    return {
+      allowFontScaling: false,
+      titleNumberOfLines: 1,
+      subtitleNumberOfLines: 1,
+      titleStyle: { fontSize: 28 },
+      subtitleStyle: { fontSize: 22 }
+    };
   }
 
   onValueChange(value) {

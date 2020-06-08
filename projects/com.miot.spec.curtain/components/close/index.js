@@ -13,6 +13,6 @@ export default class extends PureComponent {
       <View>
         <Image width="95" height="95" source={source} />
       </View>
-    )
+    );
   }
 }

@@ -70,46 +70,46 @@ function getLocalizedString(language) {
 
 function getI18nKeywords(language) {
   switch (language) {
-  case Language.zh:
-    return require('./zh');
-  case Language.zh_tw:
-    return require('./zh_tw');
-  case Language.zh_hk:
-    return require('./zh_hk');
+    case Language.zh:
+      return require('./zh');
+    case Language.zh_tw:
+      return require('./zh_tw');
+    case Language.zh_hk:
+      return require('./zh_hk');
     // // case Language.zh_bo:
     // //   return require('./zh_bo');
-  case Language.en:
-    return require('./en');
-  case Language.ko:
-    return require('./ko');
-  case Language.ru:
-    return require('./ru');
-  case Language.es:
-    return require('./es');
-  case Language.fr:
-    return require('./fr');
-  case Language.it:
-    return require('./it');
-  case Language.de:
-    return require('./de');
-  case Language.id:
-    return require('./id');
-  case Language.pl:
-    return require('./pl');
-  case Language.vi:
-    return require('./vi');
-  case Language.ja:
-    return require('./ja');
-  case Language.th:
-    return require('./th');
+    case Language.en:
+      return require('./en');
+    case Language.ko:
+      return require('./ko');
+    case Language.ru:
+      return require('./ru');
+    case Language.es:
+      return require('./es');
+    case Language.fr:
+      return require('./fr');
+    case Language.it:
+      return require('./it');
+    case Language.de:
+      return require('./de');
+    case Language.id:
+      return require('./id');
+    case Language.pl:
+      return require('./pl');
+    case Language.vi:
+      return require('./vi');
+    case Language.ja:
+      return require('./ja');
+    case Language.th:
+      return require('./th');
     // case Language.pt:
     //   return require('./pt');
     // case Language.nl:
     //   return require('./nl');
     // case Language.ar:
     //   return require('./ar');
-  default:
-    return require('./zh');
+    default:
+      return require('./zh');
   }
 }
 

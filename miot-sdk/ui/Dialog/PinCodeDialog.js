@@ -16,12 +16,16 @@ const { height } = Dimensions.get('window');
  * @typedef {Object} CheckboxData
  * @property {boolean} checked - 勾选框的初始勾选状态
  * @property {string} text - 勾选框右侧的说明文字
+ * @property {number} numberOfLines - 10040新增 勾选框右侧的说明文字能够显示的行数  默认为1
+ * @property {ViewPropTypes.style} textStyle - 10040新增 控制text 文字的样式
  */
 /**
  * 按钮
  * @typedef {Object} Button
  * @property {string} text - 按钮的文字
  * @property {style} style - 按钮的样式
+ * @property {bool} allowFontScaling - 10040新增 text是否支持大字体显示，即是否随系统字体大小变化而变化, 默认`true`
+ * @property {number} numberOfLines - 10040新增 text文字的行数， 默认 undefined (兼容旧版)
  * @property {function} callback - 点击按钮的回调函数
  */
 /**
@@ -38,6 +42,14 @@ const { height } = Dimensions.get('window');
  * @param {string} color - 勾选框的勾选颜色 / 输入框focus时的边框颜色，默认米家绿
  * @param {CheckboxData} checkboxData - 输入框下方的勾选状态和描述文字，如果不传将不显示
  * @param {Button[]} buttons - 按钮数组，定义底部按钮的属性，只能显示1～2个按钮，多传将失效。默认左取消右确定，左灰右绿，点击回调都是隐藏 Modal
+ * @param {Object} dialogStyle - 10040新增 控制dialog 一些特有的样式
+ * @param {bool} dialogStyle.allowFontScaling - 10040新增 dialog中text是否支持大字体显示，即是否随系统字体大小变化而变化, 默认`true`
+ * @param {number} dialogStyle.titleNumberOfLines - 10040新增 控制title 文字的行数， 默认 1行
+ * @param {number} dialogStyle.messageNumberOfLines - 10040新增 控制message 文字的行数， 默认 15行
+ * @param {bool} dialogStyle.unlimitedHeightEnable - 10040新增 设置控件高度是否自适应。 默认为false，即默认高度
+ * @param {ViewPropTypes.style} dialogStyle.titleStyle - 10040新增 控制title 文字的样式
+ * @param {ViewPropTypes.style} dialogStyle.messageStyle - 10040新增 控制message 文字的样式
+ * @param {ViewPropTypes.style} dialogStyle.digitStyle - 10040新增 控制digit 输入框中的 文字的样式
  * @param {function} onDismiss - Modal 隐藏时的回调函数
  */
 export default class PinCodeDialog extends React.Component {
@@ -48,6 +60,7 @@ export default class PinCodeDialog extends React.Component {
     message: PropTypes.string,
     digit: PropTypes.oneOf([3, 4, 5, 6]),
     color: PropTypes.any,
+    dialogStyle: PropTypes.object,
     checkboxData: PropTypes.shape({
       checked: PropTypes.bool,
       text: PropTypes.string,
@@ -66,12 +79,20 @@ export default class PinCodeDialog extends React.Component {
   }
   static defaultProps = {
     digit: 6,
-    color: Styles.common.MHGreen
+    color: Styles.common.MHGreen,
+    checkboxData: {},
+    dialogStyle: {
+      unlimitedHeightEnable: false,
+      allowFontScaling: true,
+      titleNumberOfLines: 1,
+      messageNumberOfLines: 15,
+      titleStyle: {},
+      messageStyle: {},
+      digitStyle: {}
+    }
   }
   UNSAFE_componentWillReceiveProps(props) {
     if (props.visible === true) {
-      // this.state.numArr = Array.from({ length: this.digit }, () => undefined);
-      // this.state.value = '';
       this.setState({
         numArr: Array.from({ length: this.digit }, () => undefined),
         value: ''
@@ -87,7 +108,9 @@ export default class PinCodeDialog extends React.Component {
     this.digit = this.props.digit;
     if (this.digit > 6 || this.digit < 3) {
       this.digit = 6;
-      console.warn('digit should range within [3, 6]');
+      if (__DEV__ && console.warn) {
+        console.warn('digit should range within [3, 6]');
+      }
     }
     const numArr = Array.from({ length: this.digit }, () => undefined);
     this.state = {
@@ -98,7 +121,6 @@ export default class PinCodeDialog extends React.Component {
     this.process(props);
   }
   process(props) {
-    // this.state.checked = (props.checkboxData || {})['checked'] || false;
     const buttons = props.buttons;
     if (buttons instanceof Array) {
       const button = buttons[buttons.length - 1]; // 取最后一个按钮进行拦截
@@ -136,11 +158,20 @@ export default class PinCodeDialog extends React.Component {
    */
   renderUpExtra() {
     if (!this.props.message) return null;
+    let numberOfLines = 15;
+    if (this.props.dialogStyle && this.props.dialogStyle.hasOwnProperty('messageNumberOfLines')) {
+      numberOfLines = this.props.dialogStyle.messageNumberOfLines;
+    }
     return (
-      <Text style={styles.message} {...getAccessibilityConfig({
-        accessible: this.props.accessible,
-        accessibilityRole: AccessibilityRoles.text
-      })}>
+      <Text
+        style={[styles.message, this.props.dialogStyle.messageStyle]}
+        allowFontScaling={this.props.dialogStyle.allowFontScaling}
+        numberOfLines={numberOfLines}
+        {...getAccessibilityConfig({
+          accessible: this.props.accessible,
+          accessibilityRole: AccessibilityRoles.text
+        })}
+      >
         {this.props.message || ''}
       </Text>
     );
@@ -162,7 +193,10 @@ export default class PinCodeDialog extends React.Component {
               accessible: this.props.accessible
             })}
           >
-            <Text style={styles.blockText}>
+            <Text
+              style={[styles.blockText, this.props.dialogStyle.digitStyle]}
+              allowFontScaling={this.props.dialogStyle.allowFontScaling}
+            >
               {this.state.numArr[i] || ''}
             </Text>
           </View>
@@ -174,6 +208,10 @@ export default class PinCodeDialog extends React.Component {
    */
   renderDownExtra() {
     if (!(this.props.checkboxData instanceof Object)) return null;
+    let numberOfLines = 1;
+    if (this.props.checkboxData && this.props.checkboxData.hasOwnProperty('numberOfLines')) {
+      numberOfLines = this.props.checkboxData.numberOfLines;
+    }
     const { text, accessibilityLabel, accessibilityHint } = this.props.checkboxData;
     return (
       <TouchableOpacity
@@ -201,13 +239,14 @@ export default class PinCodeDialog extends React.Component {
             }}
             onValueChange={(checked) => {
               this.setState({
-                checked
+                checked: checked
               });
             }}
           />
           <Text
-            style={styles.checkboxText}
-            numberOfLines={1}
+            style={[styles.checkboxText, this.props.checkboxData.textStyle]}
+            numberOfLines={numberOfLines}
+            allowFontScaling={this.props.dialogStyle.allowFontScaling}
           >
             {text || ''}
           </Text>
@@ -224,6 +263,7 @@ export default class PinCodeDialog extends React.Component {
         visible={this.props.visible}
         title={this.props.title}
         buttons={this.buttons}
+        dialogStyle={this.props.dialogStyle}
         onDismiss={() => this._onDismiss()}
         style={absDialogStyle}
         {...getAccessibilityConfig({

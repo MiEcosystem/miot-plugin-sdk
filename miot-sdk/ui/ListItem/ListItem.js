@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Dimensions, Image, Platform, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Dimensions, Image, Platform, StyleSheet, Text, View } from 'react-native';
+import TouchableView from '../TouchableView';
 import { Images, Styles } from '../../resources';
 import Separator from "../Separator";
 import { AccessibilityRoles, AccessibilityPropTypes, getAccessibilityConfig } from '../../utils/accessibility-helper';
@@ -32,6 +33,12 @@ const ICON_SIZE = Platform.select({ android: 26, ios: 24 }); // 当android设置
  * @property {style} titleStyle - 标题的自定义样式
  * @property {style} subtitleStyle - 副标题的自定义样式
  * @property {style} valueStyle - 右侧文案的自定义样式
+ * @property {bool} dotStyle - 10040新增 title右上角红点的style  建议设置宽高为8，以免图片失真
+ * @property {bool} allowFontScaling - 10040新增 设置字体是否随系统设置的字体大小的设置改变而改变 默认为true。
+ * @property {bool} unlimitedHeightEnable - 10040新增 设置控件高度是否自适应。 默认为false，即默认高度
+ * @property {number} titleNumberOfLines - 10040新增 设置title字体显示的最大行数 默认为1
+ * @property {number} subtitleNumberOfLines - 10040新增 设置subtitle字体显示的最大行数 默认为2
+ * @property {number} valueNumberOfLines - 10040新增 设置value字体显示的最大行数 默认为1
  */
 export default class ListItem extends React.Component {
   static propTypes = {
@@ -48,6 +55,12 @@ export default class ListItem extends React.Component {
     titleStyle: PropTypes.object,
     subtitleStyle: PropTypes.object,
     valueStyle: PropTypes.object,
+    dotStyle: PropTypes.object,
+    allowFontScaling: PropTypes.bool,
+    unlimitedHeightEnable: PropTypes.bool,
+    titleNumberOfLines: PropTypes.number,
+    subtitleNumberOfLines: PropTypes.number,
+    valueNumberOfLines: PropTypes.number,
     ...AccessibilityPropTypes
   }
   static defaultProps = {
@@ -62,7 +75,10 @@ export default class ListItem extends React.Component {
     containerStyle: {},
     titleStyle: {},
     subtitleStyle: {},
-    valueStyle: {}
+    valueStyle: {},
+    dotStyle: {},
+    unlimitedHeightEnable: false,
+    allowFontScaling: true
   }
   constructor(props, context) {
     super(props, context);
@@ -78,17 +94,28 @@ export default class ListItem extends React.Component {
       };
     }
     let extraRightStyle = {
-      flex: 0
+      // flex: 0
+      maxWidth: '50%'
     };
-    if (this.props.value) {
-      extraRightStyle.flex = 8;
-    }
+    // if (this.props.value) {
+    //   extraRightStyle.flex = 8;
+    // }
     const valueStyle = {
       marginRight: -7,
       textAlignVertical: 'center',
-      flex: 1,
+      // flex: 1,
       textAlign: 'right'
     };
+    let adaptedFontStyle = {};
+    if (this.props.unlimitedHeightEnable) {
+      adaptedFontStyle = { height: undefined, lineHeight: undefined };
+    }
+    let titleLine = this.props.titleNumberOfLines == undefined ? 1 : this.props.titleNumberOfLines;
+    let subtitleLine = this.props.subtitleNumberOfLines == undefined ? 2 : this.props.subtitleNumberOfLines;
+    let valueLine = this.props.valueNumberOfLines == undefined ? 1 : this.props.valueNumberOfLines;
+    if (titleLine < 0) titleLine = 0;
+    if (subtitleLine < 0) subtitleLine = 0;
+    if (valueLine < 0) valueLine = 0;
     // 如果不设置英文字体，那么外文字符串将显示不全（Android）
     let fontFamily = {};
     if (Platform.OS === 'android') {
@@ -97,10 +124,11 @@ export default class ListItem extends React.Component {
     }
     return (
       <View style={{ backgroundColor: '#fff' }}>
-        <TouchableHighlight
+        <TouchableView
           disabled={this.props.disabled}
           underlayColor={Styles.common.underlayColor}
           onPress={this.props.onPress}
+          viewStyle={[styles.container, this.props.containerStyle, extraContainerStyle, adaptedFontStyle]}
           {...getAccessibilityConfig({
             ...this.props,
             accessibilityRole: AccessibilityRoles.button,
@@ -109,63 +137,60 @@ export default class ListItem extends React.Component {
             }
           })}
         >
-          <View style={[styles.container, this.props.containerStyle, extraContainerStyle]}>
-            <View style={styles.left}>
-              <View
-                style={{ flexDirection: 'row', paddingVertical: 2 }}
+          <View style={[styles.left]}>
+            <View style={{ flexDirection: 'row', paddingVertical: 2 }}>
+              <Text
+                numberOfLines={titleLine}
+                allowFontScaling={this.props.allowFontScaling}
+                style={[Styles.common.title, fontFamily, adaptedFontStyle, this.props.titleStyle]}
+                accessible={false}
               >
-                <Text
-                  numberOfLines={1}
-                  style={[Styles.common.title, fontFamily, this.props.titleStyle]}
-                  accessible={false}
-                >
-                  {this.props.title}
-                </Text>
-                {this.props.showDot
-                  ? <Image
-                    style={styles.dot}
-                    resizeMode="contain"
-                    source={dot}
-                  />
-                  : null
-                }
-              </View>
-              {this.props.subtitle ?
-                <Text
-                  numberOfLines={2}
-                  style={[Styles.common.subtitle, this.props.subtitleStyle]}
-                  accessible={false}
-                >
-                  {this.props.subtitle}
-                </Text>
-                : null
-              }
-            </View>
-            <View style={{ width: 5 }} />
-            <View
-              style={[styles.right, extraRightStyle]}
-            >
-              {this.props.value ?
-                <Text
-                  numberOfLines={1}
-                  ellipsizeMode="tail"
-                  style={[Styles.common.subtitle, this.props.valueStyle, valueStyle]}
-                  accessible={false}
-                >
-                  {this.props.value}
-                </Text>
-                : null
-              }
-              {!this.props.hideArrow
+                {this.props.title}
+              </Text>
+              {this.props.showDot
                 ? <Image
-                  style={styles.icon}
-                  source={Images.common.right_arrow}
+                  style={[styles.dot, this.props.dotStyle]}
+                  resizeMode="contain"
+                  source={dot}
                 />
                 : null
               }
             </View>
+            {this.props.subtitle ?
+              <Text
+                numberOfLines={subtitleLine}
+                allowFontScaling={this.props.allowFontScaling}
+                style={[Styles.common.subtitle, this.props.subtitleStyle, adaptedFontStyle]}
+                accessible={false}
+              >
+                {this.props.subtitle}
+              </Text>
+              : null
+            }
           </View>
-        </TouchableHighlight>
+          <View style={{ width: 5 }} />
+          <View style={[styles.right, extraRightStyle]}>
+            {this.props.value ?
+              <Text
+                numberOfLines={valueLine}
+                allowFontScaling={this.props.allowFontScaling}
+                ellipsizeMode="tail"
+                style={[Styles.common.subtitle, this.props.valueStyle, valueStyle, adaptedFontStyle]}
+                accessible={false}
+              >
+                {this.props.value}
+              </Text>
+              : null
+            }
+          </View>
+          {!this.props.hideArrow
+            ? <Image
+              style={styles.icon}
+              source={Images.common.right_arrow}
+            />
+            : null
+          }
+        </TouchableView>
         {this.renderSeparator()}
       </View>
     );
@@ -184,12 +209,12 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   left: {
-    flex: 8
+    flex: 1
   },
   right: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-start'
   },
   icon: {
     width: ICON_SIZE,

@@ -108,7 +108,9 @@ export default class MHImage extends React.Component {
       .catch(
         failure ||
         function() {
-          console.warn(`Failed to get size for image: ${ url }`);
+          if (__DEV__ && console.warn) {
+            console.warn(`Failed to get size for image: ${ url }`);
+          }
         },
       );
   }
@@ -138,12 +140,16 @@ export default class MHImage extends React.Component {
     // As opposed to the ios version, here we render `null` when there is no source, source.uri
     // or source array.
     if (source && source.uri === '') {
-      console.warn('source.uri should not be an empty string');
+      if (__DEV__ && console.warn) {
+        console.warn('source.uri should not be an empty string');
+      }
     }
     if (this.props.src) {
-      console.warn(
-        'The <Image> component requires a `source` property rather than `src`.',
-      );
+      if (__DEV__ && console.warn) {
+        console.warn(
+          'The <Image> component requires a `source` property rather than `src`.',
+        );
+      }
     }
     if (this.props.children) {
       throw new Error(

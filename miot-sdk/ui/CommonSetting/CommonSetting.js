@@ -234,6 +234,33 @@ export const SETTING_KEYS = {
 };
 export { firstAllOptions, secondAllOptions };
 /**
+ * ItemStyle - 10040新增 可参考 ListItem组件的部分样式
+ * @typedef {Object} ItemStyle
+ * @property {style} titleStyle - 标题的自定义样式
+ * @property {style} subtitleStyle - 副标题的自定义样式
+ * @property {style} valueStyle - 右侧文案的自定义样式
+ * @property {bool} dotStyle - 10040新增 title右上角红点的style  建议设置宽高为8，以免图片失真
+ * @property {number} titleNumberOfLines - 10040新增 设置title字体显示的最大行数 默认为1
+ * @property {number} subtitleNumberOfLines - 10040新增 设置subtitle字体显示的最大行数 默认为2
+ * @property {number} valueNumberOfLines - 10040新增 设置value字体显示的最大行数 默认为1
+ */
+/**
+ * MoreSettingPageStyle - 10040新增 二级页面 更多设置 页面的样式
+ * @typedef {Object} MoreSettingPageStyle
+ * @property {style} navigationBarStyle - 标题的自定义样式 -可参考 NavigationBar 样式
+ * @property {ItemStyle} itemStyle - 列表中 item样式
+ */
+/**
+ * CommonSettingStyle - 10040新增
+ * @typedef {Object} CommonSettingStyle
+ * @property {bool} allowFontScaling - 10040新增 设置字体是否随系统设置的字体大小的设置改变而改变 默认为true。
+ * @property {bool} unlimitedHeightEnable - 10040新增 设置控件高度是否自适应。 默认为false，即默认高度
+ * @property {style} titleStyle - 10040新增 CommonSetting中 "通用设置" 字体的样式
+ * @property {ItemStyle} itemStyle - 10040新增 CommonSetting中 列表item 的样式
+ * @property {object} deleteTextStyle - 10040新增 CommonSetting中 "删除设备" 字体的样式
+ * @property {object} moreSettingPageStyle - 10040新增 CommonSetting中 二级页面 更多设置 页面的样式
+ */
+/**
  * @export public
  * @doc_name 通用设置
  * @doc_index 3
@@ -245,6 +272,7 @@ export { firstAllOptions, secondAllOptions };
  * @property {array} firstOptions - 一级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项
  * @property {array} secondOptions - 二级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项
  * @property {array} showDot - 定义哪些列表项需要显示小红点。为了便于扩展每个列表项都可以显示小红点，默认全部**不显示**，需要显示传入该列表项的key即可。
+ * @property {CommonSettingStyle} commonSettingStyle - - 10040新增 CommonSetting 中有关字体样式相关设置
  * @property {object} extraOptions - 其他特殊配置项
  * ```js
  * // extraOptions
@@ -293,6 +321,7 @@ export default class CommonSetting extends React.Component {
     showDot: PropTypes.array,
     extraOptions: PropTypes.object,
     navigation: PropTypes.object.isRequired,
+    commonSettingStyle: PropTypes.object,
     accessible: AccessibilityPropTypes.accessible
   }
   static defaultProps = {
@@ -419,16 +448,22 @@ export default class CommonSetting extends React.Component {
     if (showUpgrade === false) {
       // 蓝牙统一OTA界面
       if (upgradePageKey === undefined) {
-        console.warn('请在 extraOptions.upgradePageKey 中填写你想跳转的固件升级页面, 传给 CommonSetting 组件');
+        if (__DEV__ && console.warn) {
+          console.warn('请在 extraOptions.upgradePageKey 中填写你想跳转的固件升级页面, 传给 CommonSetting 组件');
+        }
         return;
       }
       if (typeof upgradePageKey !== 'string') {
-        console.warn('upgradePageKey 必须是字符串, 是你在 index.js 的 RootStack 中定义的页面 key');
+        if (__DEV__ && console.warn) {
+          console.warn('upgradePageKey 必须是字符串, 是你在 index.js 的 RootStack 中定义的页面 key');
+        }
         return;
       }
       this.removeKeyFromShowDot(firstAllOptions.FIRMWARE_UPGRADE);
       this.openSubPage(upgradePageKey, {}); // 跳转到开发者指定页面
-      console.warn('蓝牙统一OTA界面正在火热开发中');
+      if (__DEV__ && console.warn) {
+        console.warn('蓝牙统一OTA界面正在火热开发中');
+      }
     } else {
       // wifi设备固件升级
       // this.openSubPage('FirmwareUpgrade');
@@ -485,11 +520,14 @@ export default class CommonSetting extends React.Component {
     if (this.props.navigation) {
       this.props.navigation.navigate(page, {
         ...params,
+        commonSettingStyle: this.props.commonSettingStyle,
         // 2020/4/20 锁类和保险箱类，去掉更多设置页中的安全设置
         excludeRequiredOptions: (['lock', 'safe-box'].indexOf(this.state.modelType) !== -1 && excludeRequiredOptions.indexOf(secondAllOptions.SECURITY) === -1) ? [...excludeRequiredOptions, secondAllOptions.SECURITY] : excludeRequiredOptions
       });
     } else {
-      console.warn("props 'navigation' is required for CommonSetting");
+      if (__DEV__ && console.warn) {
+        console.warn("props 'navigation' is required for CommonSetting");
+      }
     }
   }
   /**
@@ -567,10 +605,15 @@ export default class CommonSetting extends React.Component {
       }
       return item;
     }).filter((item) => item); // 防空
+    let tempCommonSettingStyle = this._getCommonSettingStyle();
     return (
       <View style={styles.container}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>{strings.commonSetting}</Text>
+          <Text
+            style={[styles.title, tempCommonSettingStyle.titleStyle]}
+            allowFontScaling={tempCommonSettingStyle.allowFontScaling}>
+            {strings.commonSetting}
+          </Text>
         </View>
         <Separator style={{ marginLeft: Styles.common.padding }} />
         {
@@ -581,6 +624,15 @@ export default class CommonSetting extends React.Component {
               <ListItem
                 key={item.title}
                 title={item.title || ''}
+                allowFontScaling={tempCommonSettingStyle.itemStyle.allowFontScaling}
+                unlimitedHeightEnable={tempCommonSettingStyle.itemStyle.unlimitedHeightEnable}
+                titleStyle={tempCommonSettingStyle.itemStyle.titleStyle}
+                subtitleStyle={tempCommonSettingStyle.itemStyle.subtitleStyle}
+                valueStyle={tempCommonSettingStyle.itemStyle.valueStyle}
+                dotStyle={tempCommonSettingStyle.itemStyle.dotStyle}
+                titleNumberOfLines={tempCommonSettingStyle.itemStyle.titleNumberOfLines}
+                subtitleNumberOfLines={tempCommonSettingStyle.itemStyle.subtitleNumberOfLines}
+                valueNumberOfLines={tempCommonSettingStyle.itemStyle.valueNumberOfLines}
                 showDot={item.showDot || false}
                 value={item.value}
                 onPress={item.onPress}
@@ -603,13 +655,55 @@ export default class CommonSetting extends React.Component {
               onPress={() => this.openDeleteDevice()}
               activeOpacity={0.8}
             >
-              <Text style={[styles.buttonText, fontFamily]}>
+              <Text
+                style={[styles.buttonText, fontFamily, tempCommonSettingStyle.deleteTextStyle]}
+                allowFontScaling={tempCommonSettingStyle.allowFontScaling}
+              >
                 {Device.type === '17' && Device.isOwner ? (strings[`delete${ (Device.model || '').split('.')[1][0].toUpperCase() }${ (Device.model || '').split('.')[1].slice(1) }Group`]) : strings.deleteDevice}
               </Text>
             </RkButton>
           </View>) : null}
       </View>
     );
+  }
+  _getCommonSettingStyle() {
+    let style = {
+      allowFontScaling: true,
+      unlimitedHeightEnable: false,
+      titleStyle: {},
+      itemStyle: {
+        allowFontScaling: true,
+        unlimitedHeightEnable: false,
+        titleStyle: null,
+        subtitleStyle: null,
+        valueStyle: null,
+        dotStyle: null,
+        titleNumberOfLines: 1,
+        subtitleNumberOfLines: 2,
+        valueNumberOfLines: 1
+      },
+      deleteTextStyle: {}
+    };
+    if (this.props.commonSettingStyle) {
+      if (this.props.commonSettingStyle.hasOwnProperty('allowFontScaling')) {
+        style.allowFontScaling = this.props.commonSettingStyle.allowFontScaling;
+      }
+      if (this.props.commonSettingStyle.hasOwnProperty('unlimitedHeightEnable')) {
+        style.unlimitedHeightEnable = this.props.commonSettingStyle.unlimitedHeightEnable;
+      }
+      if (this.props.commonSettingStyle.hasOwnProperty('titleStyle')) {
+        style.titleStyle = this.props.commonSettingStyle.titleStyle;
+      }
+      if (this.props.commonSettingStyle.hasOwnProperty('itemStyle')) {
+        style.itemStyle = this.props.commonSettingStyle.itemStyle;
+      }
+      if (this.props.commonSettingStyle.hasOwnProperty('deleteTextStyle')) {
+        style.deleteTextStyle = this.props.commonSettingStyle.deleteTextStyle;
+      }
+    }
+    style.itemStyle.allowFontScaling = style.allowFontScaling;
+    style.itemStyle.unlimitedHeightEnable = style.unlimitedHeightEnable;
+    return style;
   }
   UNSAFE_componentWillMount() {
     this._deviceNameChangedListener = DeviceEvent.deviceNameChanged.addListener((device) => {
@@ -635,7 +729,7 @@ const styles = StyleSheet.create({
     // backgroundColor: '#fff'
   },
   titleContainer: {
-    height: 32,
+    minHeight: 32,
     backgroundColor: '#fff',
     justifyContent: 'center',
     paddingLeft: Styles.common.padding
@@ -646,7 +740,7 @@ const styles = StyleSheet.create({
     lineHeight: 14
   },
   bottomContainer: {
-    height: 90,
+    minHeight: 90,
     backgroundColor: Styles.common.backgroundColor,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -654,7 +748,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
-    height: 55,
+    minHeight: 55,
     borderRadius: 5,
     borderWidth: 0.3,
     borderColor: 'rgba(0,0,0,0.2)',

@@ -10,12 +10,12 @@ const { width } = Dimensions.get('window');
 const ICON_SIZE = 40;
 const DEFAULT_MARGIN = 10;
 
-export default class CardPage extends React.Component {
+export default class CustomCardDemo extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     header: <TitleBar
       type="dark"
-      title="卡片"
+      title="自定义卡片"
       style={{ backgroundColor: '#fff' }}
       onPressLeft={() => navigation.goBack()}
     />

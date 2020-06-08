@@ -117,7 +117,19 @@ const defaultYearOffset = 15;
  * @param {bool} visible -  是否显示 modal, 参考 https://facebook.github.io/react-native/docs/0.54/modal#visible
  * @param {string} title - 标题
  * @param {bool} showSubtitle - 是否显示副标题，副标题显示的内容固定，和`type`有关
- * @param {string} confirmColor - 确定按钮的颜色，默认米家绿
+ * @param {string} confirmColor - 确定按钮的颜色，默认米家绿  10040 废弃， 建议使用datePickerStyle.rightButtonStyle 来控制
+ * @param {Object} datePickerStyle - 10040新增 控制DatePicker 一些特有的样式
+ * @param {bool} datePickerStyle.allowFontScaling - 10040新增 dialog中text是否支持大字体显示，即是否随系统字体大小变化而变化, 默认`true`
+ * @param {bool} datePickerStyle.unlimitedHeightEnable - 10040新增 设置控件高度是否自适应。 默认为false，即默认高度
+ * @param {number} datePickerStyle.titleNumberOfLines - 10040新增 控制title 文字的行数， 默认 1行
+ * @param {number} datePickerStyle.subTitleNumberOfLines - 10040新增 控制subTitle 文字的行数，默认 1行
+ * @param {ViewPropTypes.style} datePickerStyle.titleStyle - 10040新增 控制title 文字的样式
+ * @param {ViewPropTypes.style} datePickerStyle.subTitleStyle - 10040新增 控制subTitle 文字的样式
+ * @param {number} datePickerStyle.leftButtonNumberOfLines - 10040新增 控制底部左边 文字的行数， 默认 1行
+ * @param {number} datePickerStyle.rightButtonNumberOfLines - 10040新增 控制底部右边 文字的行数，默认 1行
+ * @param {ViewPropTypes.style} datePickerStyle.leftButtonStyle - 10040新增 控制底部左边文字的样式
+ * @param {ViewPropTypes.style} datePickerStyle.rightButtonStyle - 10040新增 控制底部右边 文字的样式
+ * @param {Object} datePickerStyle.pickerInnerStyle - 10040新增 控制中间滑轮等样式， 可参考 StringSpinner  pickerInnerStyle
  * @param {TYPE} type - 时间选择器类型, enum('single', 'time24', 'time12', 'date')
  * @param {SINGLE_TYPE} singleType - 单个picker时的选择器类型, enum('month', 'day', 'hour', 'minute', 'second')
  * @param {array<string>|array<number>|Date} current - 当前选中值，可传入数字数组，字符串数组，Date实例，对所有时间选择器类型有效
@@ -156,6 +168,7 @@ export default class MHDatePicker extends React.Component {
       PropTypes.arrayOf(PropTypes.number),
       PropTypes.instanceOf(Date)
     ]),
+    datePickerStyle: PropTypes.object,
     onSelect: PropTypes.func,
     onDismiss: PropTypes.func,
     accessible: AccessibilityPropTypes.accessible,
@@ -170,6 +183,19 @@ export default class MHDatePicker extends React.Component {
     confirmColor: Styles.common.MHGreen,
     type: TYPE.TIME24,
     singleType: SINGLE_TYPE.MINUTE,
+    datePickerStyle: {
+      pickerInnerStyle: pickerInnerStyle,
+      unlimitedHeightEnable: false,
+      allowFontScaling: true,
+      titleNumberOfLines: 1,
+      subTitleNumberOfLines: 1,
+      titleStyle: null,
+      subTitleStyle: null,
+      leftButtonNumberOfLines: 1,
+      rightButtonNumberOfLines: 1,
+      leftButtonStyle: null,
+      rightButtonStyle: null
+    },
     onSelect: (obj) => console.log(obj)
   }
   /**
@@ -304,7 +330,9 @@ export default class MHDatePicker extends React.Component {
    */
   generateArray(min, max) {
     if (min > max) {
-      console.warn('max < min');
+      if (__DEV__ && console.warn) {
+        console.warn('max < min');
+      }
       return [];
     }
     return Array.from({ length: max - min + 1 }, (v, i) => i + min).map((v) => `${ v }`);
@@ -366,28 +394,63 @@ export default class MHDatePicker extends React.Component {
     }
   }
   /**
+   * 判断 控件高度是否自适应，  true： 自适应，高度不固定， false： 高度固定
+   * @private
+   */
+  _checkUnlimitedHeightEnable() {
+    let result = false;
+    if (this.props.datePickerStyle && this.props.datePickerStyle.hasOwnProperty('unlimitedHeightEnable')) {
+      result = this.props.datePickerStyle.unlimitedHeightEnable;
+    }
+    return result;
+  }
+  /**
    * 标题部分
    */
   renderTitle() {
     const height = {
       height: this.props.showSubtitle ? titleHeightFat : titleHeightThin
     };
+    let heightStyle = {
+      height: height.height,
+      minHeight: height.height
+    };
+    if (this._checkUnlimitedHeightEnable()) {
+      heightStyle.height = null;
+    }
+    let numberOfLines = {
+      titleNumberOfLines: 1,
+      subTitleNumberOfLines: 1
+    };
+    if (this.props.datePickerStyle) {
+      if (this.props.datePickerStyle.hasOwnProperty('titleNumberOfLines')) {
+        numberOfLines.titleNumberOfLines = this.props.datePickerStyle.titleNumberOfLines;
+      }
+      if (this.props.datePickerStyle.hasOwnProperty('subTitleNumberOfLines')) {
+        numberOfLines.subTitleNumberOfLines = this.props.datePickerStyle.subTitleNumberOfLines;
+      }
+    }
     return (
-      <View style={[styles.titleContainer, height]} {...getAccessibilityConfig({
-        accessible: this.props.accessible,
-        accessibilityRole: AccessibilityRoles.text,
-        accessibilityLabel: this.props.accessibilityLabel
-      })}>
+      <View
+        style={[styles.titleContainer, heightStyle]}
+        {...getAccessibilityConfig({
+          accessible: this.props.accessible,
+          accessibilityRole: AccessibilityRoles.text,
+          accessibilityLabel: this.props.accessibilityLabel
+        })}
+      >
         <Text
-          numberOfLines={1}
-          style={[Styles.common.title, styles.title]}
+          numberOfLines={numberOfLines.titleNumberOfLines}
+          allowFontScaling={this.props.datePickerStyle.allowFontScaling}
+          style={[Styles.common.title, styles.title, this.props.datePickerStyle.titleStyle]}
         >
           {this.props.title || ''}
         </Text>
         {this.props.showSubtitle
           ? <Text
-            numberOfLines={1}
-            style={styles.subtitle}
+            numberOfLines={numberOfLines.subTitleNumberOfLines}
+            allowFontScaling={this.props.datePickerStyle.allowFontScaling}
+            style={[styles.subtitle, this.props.datePickerStyle.subTitleStyle]}
           >
             {this.state.subtitle}
           </Text>
@@ -406,6 +469,11 @@ export default class MHDatePicker extends React.Component {
     const normalWidth = actualWidth / length; // 均分宽度
     const yearWidth = normalWidth + 10; // 日期选择器的年份picker宽度稍微大一点
     const monthWidth = (actualWidth - yearWidth) / 2;
+    let tempPickerInnerStyle = pickerInnerStyle;
+    if (this.props.datePickerStyle && this.props.datePickerStyle.hasOwnProperty('pickerInnerStyle')) {
+      tempPickerInnerStyle = this.props.datePickerStyle.pickerInnerStyle;
+    }
+    tempPickerInnerStyle.allowFontScaling = this.props.datePickerStyle.allowFontScaling;
     return (
       <View style={styles.pickerContainer}>
         {dataSourceArray.map((dataSource, index) => {
@@ -422,7 +490,7 @@ export default class MHDatePicker extends React.Component {
                 unit={this.unitArray[index]}
                 dataSource={dataSource}
                 defaultValue={currentArray[index]}
-                pickerInnerStyle={pickerInnerStyle}
+                pickerInnerStyle={tempPickerInnerStyle}
                 onValueChanged={(data) => this._onValueChanged(index, data)}
                 {...getAccessibilityConfig({
                   accessible: this.props.accessible,
@@ -443,8 +511,27 @@ export default class MHDatePicker extends React.Component {
    * 底部按钮
    */
   renderButton() {
+    let heightStyle = {
+      height: styles.buttons.minHeight,
+      minHeight: styles.buttons.minHeight
+    };
+    if (this._checkUnlimitedHeightEnable()) {
+      heightStyle.height = null;
+    }
+    let numberOfLines = {
+      leftButtonNumberOfLines: 1,
+      rightButtonNumberOfLines: 1
+    };
+    if (this.props.datePickerStyle) {
+      if (this.props.datePickerStyle.hasOwnProperty('leftButtonNumberOfLines')) {
+        numberOfLines.leftButtonNumberOfLines = this.props.datePickerStyle.leftButtonNumberOfLines;
+      }
+      if (this.props.datePickerStyle.hasOwnProperty('rightButtonNumberOfLines')) {
+        numberOfLines.rightButtonNumberOfLines = this.props.datePickerStyle.rightButtonNumberOfLines;
+      }
+    }
     return (
-      <View style={styles.buttons}>
+      <View style={[styles.buttons, heightStyle]}>
         <TouchableHighlight
           style={[styles.button, { borderBottomLeftRadius: borderRadius }]}
           onPress={() => this.dismiss()}
@@ -452,7 +539,11 @@ export default class MHDatePicker extends React.Component {
           accessible={this.props.accessible}
           accessibilityRole={AccessibilityRoles.button}
         >
-          <Text style={styles.buttonText}>
+          <Text
+            style={[styles.buttonText, this.props.datePickerStyle.leftButtonStyle]}
+            numberOfLines={numberOfLines.leftButtonNumberOfLines}
+            allowFontScaling={this.props.datePickerStyle.allowFontScaling}
+          >
             {strings.cancel}
           </Text>
         </TouchableHighlight>
@@ -464,7 +555,11 @@ export default class MHDatePicker extends React.Component {
           accessible={this.props.accessible}
           accessibilityRole={AccessibilityRoles.button}
         >
-          <Text style={[styles.buttonText, { color: this.props.confirmColor }]}>
+          <Text
+            style={[styles.buttonText, { color: this.props.confirmColor }, this.props.datePickerStyle.rightButtonStyle]}
+            numberOfLines={numberOfLines.rightButtonNumberOfLines}
+            allowFontScaling={this.props.datePickerStyle.allowFontScaling}
+          >
             {strings.ok}
           </Text>
         </TouchableHighlight>
@@ -657,7 +752,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   buttons: {
-    height: buttonHeight,
+    minHeight: buttonHeight,
     flexDirection: 'row',
     backgroundColor: 'transparent',
     justifyContent: 'space-between'

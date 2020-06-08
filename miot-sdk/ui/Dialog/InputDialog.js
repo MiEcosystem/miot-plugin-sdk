@@ -40,7 +40,11 @@ Object.freeze(TYPE);
  * 输入框上方的数据
  * @typedef {Object} UnderlineData
  * @property {string} leftText - 左侧说明文字
+ * @property {number} leftTextNumberOfLines - 10040新增 左侧文字 默认为1
+ * @property {ViewPropTypes.style} leftTextStyle - 10040新增 左侧文字的样式
  * @property {string} underlineText - 右侧下划线文字
+ * @property {number} underlineTextNumberOfLines - 10040新增 右侧下划线文字能够显示的行数 默认为1
+ * @property {ViewPropTypes.style} underlineTextStyle - 10040新增 右侧下划线文字的样式
  * @property {function} onPress - 点击下划线文字的回调函数
  */
 /**
@@ -56,12 +60,16 @@ Object.freeze(TYPE);
  * @typedef {Object} CheckboxData
  * @property {boolean} checked - 勾选框的初始勾选状态
  * @property {string} text - 勾选框右侧的说明文字
+ * @property {number} numberOfLines - 10040新增 勾选框右侧的说明文字能够显示的行数  默认为1
+ * @property {ViewPropTypes.style} textStyle - 10040新增 勾选框右侧说明文字的样式
  */
 /**
  * 按钮
  * @typedef {Object} Button
  * @property {string} text - 按钮的文字
  * @property {style} style - 按钮的样式
+ * @property {bool} allowFontScaling - 10040新增 text是否支持大字体显示，即是否随系统字体大小变化而变化, 默认`true`
+ * @property {number} numberOfLines - 10040新增 text文字的行数， 默认 undefined (兼容旧版)
  * @property {function} callback - 点击按钮的回调函数
  */
 /**
@@ -79,6 +87,11 @@ Object.freeze(TYPE);
  * @param {Input[]} inputs - 输入框数组，定义输入框的属性，对所有的 `TYPE` 有效
  * @param {CheckboxData} checkboxData - 输入框下方的数据，包括勾选状态，描述文字，只对 `TYPE.CHECKBOX` 和 `TYPE.BOTH` 有效
  * @param {Button[]} buttons - 按钮数组，定义底部按钮的属性，只能显示1～2个按钮，多传将失效。默认左取消右确定，左灰右绿，点击回调都是隐藏 Modal
+ * @param {Object} dialogStyle - 10040新增 控制dialog 一些特有的样式
+ * @param {bool} dialogStyle.allowFontScaling - 10040新增 dialog中text是否支持大字体显示，即是否随系统字体大小变化而变化, 默认`true`
+ * @param {number} dialogStyle.titleNumberOfLines - 10040新增 控制title 文字的行数， 默认 1行
+ * @param {bool} dialogStyle.unlimitedHeightEnable - 10040新增 设置控件高度是否自适应。 默认为false，即默认高度
+ * @param {ViewPropTypes.style} dialogStyle.titleStyle - 10040新增 控制title 文字的样式
  * @param {function} onDismiss - Modal 隐藏时的回调函数
  */
 export default class InputDialog extends React.Component {
@@ -88,6 +101,7 @@ export default class InputDialog extends React.Component {
     type: PropTypes.oneOf([TYPE.SIMPLE, TYPE.UNDERLINE, TYPE.CHECKBOX, TYPE.BOTH]),
     color: PropTypes.string,
     title: PropTypes.string,
+    dialogStyle: PropTypes.object,
     extra: PropTypes.object,
     underlineData: PropTypes.shape({
       leftText: PropTypes.string,
@@ -124,7 +138,13 @@ export default class InputDialog extends React.Component {
     type: TYPE.SIMPLE,
     color: Styles.common.MHGreen,
     underlineData: {},
-    checkboxData: {}
+    checkboxData: {},
+    dialogStyle: {
+      allowFontScaling: true,
+      unlimitedHeightEnable: false,
+      titleNumberOfLines: 1,
+      titleStyle: {}
+    }
   }
   /**
    * @description 输入弹窗的类型
@@ -146,7 +166,7 @@ export default class InputDialog extends React.Component {
       underlineWidth: 0.3,
       marginVertical: 0,
       placeholderTextColor: '#999999',
-      height: 40,
+      minHeight: 40,
       backgroundColor: '#f9f9f9',
       borderRadius: 6,
       borderWidth: 0.3,
@@ -217,11 +237,20 @@ export default class InputDialog extends React.Component {
     if (this.props.type === TYPE.BOTH
       || this.props.type === TYPE.UNDERLINE) {
       const { leftText, underlineText, accessibilityLabel, accessibilityHint } = this.props.underlineData;
+      let leftTextNumberOfLines = 1;
+      let underlineTextNumberOfLines = 1;
+      if (this.props.underlineData && this.props.underlineData.hasOwnProperty('leftTextNumberOfLines')) {
+        leftTextNumberOfLines = this.props.underlineData.leftTextNumberOfLines;
+      }
+      if (this.props.underlineData && this.props.underlineData.hasOwnProperty('underlineTextNumberOfLines')) {
+        underlineTextNumberOfLines = this.props.underlineData.underlineTextNumberOfLines;
+      }
       return (
         <View style={styles.underlineContainer}>
           <Text
-            numberOfLines={1}
-            style={styles.label}
+            numberOfLines={leftTextNumberOfLines}
+            allowFontScaling={this.props.dialogStyle.allowFontScaling}
+            style={[styles.label, this.props.underlineData.leftTextStyle]}
             {...getAccessibilityConfig({
               accessible: this.props.accessible,
               accessibilityRole: AccessibilityRoles.text
@@ -230,8 +259,9 @@ export default class InputDialog extends React.Component {
             {leftText || ''}
           </Text>
           <Text
-            style={[styles.underlineText, { color: this.props.color }]}
-            numberOfLines={1}
+            style={[styles.underlineText, { color: this.props.color }, this.props.underlineData.underlineTextStyle]}
+            numberOfLines={underlineTextNumberOfLines}
+            allowFontScaling={this.props.dialogStyle.allowFontScaling}
             onPress={() => this.onPressUnderlineText()}
             {...getAccessibilityConfig({
               accessible: this.props.accessible,
@@ -278,6 +308,10 @@ export default class InputDialog extends React.Component {
     if (this.props.type === TYPE.BOTH
       || this.props.type === TYPE.CHECKBOX) {
       const { text, accessibilityLabel, accessibilityHint } = this.props.checkboxData;
+      let numberOfLines = 1;
+      if (this.props.checkboxData && this.props.checkboxData.hasOwnProperty('numberOfLines')) {
+        numberOfLines = this.props.checkboxData.numberOfLines;
+      }
       return (
         <TouchableOpacity
           onPress={() => this.onPressCheckbox()}
@@ -305,13 +339,14 @@ export default class InputDialog extends React.Component {
               }}
               onValueChange={(checked) => {
                 this.setState({
-                  checked
+                  checked: checked
                 });
               }}
             />
             <Text
-              style={styles.checkboxText}
-              numberOfLines={1}
+              style={[styles.checkboxText, this.props.checkboxData.textStyle]}
+              numberOfLines={numberOfLines}
+              allowFontScaling={this.props.dialogStyle.allowFontScaling}
             >
               {text || ''}
             </Text>
@@ -329,6 +364,7 @@ export default class InputDialog extends React.Component {
         visible={this.props.visible}
         title={this.props.title}
         buttons={this.buttons}
+        dialogStyle={this.props.dialogStyle}
         onDismiss={() => this._onDismiss()}
         style={absDialogStyle}
         {...getAccessibilityConfig({

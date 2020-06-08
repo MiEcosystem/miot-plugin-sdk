@@ -33,6 +33,9 @@ const DEFAULT_STYLE = {
  * @property {style} iconStyle - 左侧图标的自定义样式
  * @property {style} textStyle - 右侧文案的自定义样式
  * @property {string} underlayColor - 卡片点击态颜色，默认 rgba(0,0,0,0.05)
+ * @property {bool} allowFontScaling - 10040新增 设置卡片字体是否随系统设置的字体大小的设置改变而改变 默认为true。
+ * @property {bool} unlimitedHeightEnable - 10040新增 设置控件高度是否自适应。 默认为false，即默认高度
+ * @property {number} numberOfLines - 10040新增 设置卡片字体显示的最大行数 默认为1
  */
 export default class CardBase extends React.Component {
   static propTypes = {
@@ -48,6 +51,9 @@ export default class CardBase extends React.Component {
     iconStyle: PropTypes.object,
     textStyle: PropTypes.object,
     underlayColor: PropTypes.string,
+    unlimitedHeightEnable: PropTypes.bool,
+    allowFontScaling: PropTypes.bool,
+    numberOfLines: PropTypes.number,
     ...AccessibilityPropTypes,
     dismissAccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
     dismissAccessibilityHint: AccessibilityPropTypes.accessibilityHint
@@ -56,7 +62,9 @@ export default class CardBase extends React.Component {
     showDismiss: false,
     disabled: false,
     visible: true,
-    underlayColor: Styles.common.underlayColor
+    underlayColor: Styles.common.underlayColor,
+    unlimitedHeightEnable: false,
+    allowFontScaling: true
   }
   constructor(props, context) {
     super(props, context);
@@ -83,6 +91,8 @@ export default class CardBase extends React.Component {
   renderInner() {
     if (this.props.innerView === undefined) {
       const { icon, text, iconStyle, textStyle } = this.props;
+      let textLine = this.props.numberOfLines == undefined ? 1 : this.props.numberOfLines;
+      if (textLine < 0) textLine = 0;
       return (
         <Animated.View
           style={[styles.innerContainer, { opacity: this.opacity }]}
@@ -105,13 +115,14 @@ export default class CardBase extends React.Component {
           ) : null}
           <Text
             style={[styles.innerText, textStyle]}
-            numberOfLines={1}
+            numberOfLines={textLine}
             ellipsizeMode="tail"
+            allowFontScaling={this.props.allowFontScaling}
             accessible={false}
           >
             {text || ''}
           </Text>
-        </Animated.View>
+        </Animated.View >
       );
     }
     return (
@@ -208,7 +219,7 @@ export default class CardBase extends React.Component {
         ref={(ref) => { this.refCard = ref; }}
         style={[animatedViewStyle, {
           opacity: this.opacity,
-          height: this.height.interpolate({
+          height: this.props.unlimitedHeightEnable ? undefined : this.height.interpolate({
             inputRange: [0, 1],
             outputRange: [0, this.cardHeight]
           })

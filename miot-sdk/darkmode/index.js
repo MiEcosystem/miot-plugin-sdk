@@ -51,7 +51,9 @@ export default {
         // 关闭插件所在页面native端的系统强制深色模式（Android）
         if (IS_DEBUG) {
           // https://github.com/facebook/react-native/commit/4fd9c9d544d741fb2df3ad849dfa4bdf4719ccf4
-          console.warn('调试模式下无法正常调用 preparePluginOwnDarkMode');
+          if (__DEV__ && console.warn) {
+            console.warn('调试模式下无法正常调用 preparePluginOwnDarkMode');
+          }
         } else {
           NativeAppearance.disableActivityDarkMode();
         }
@@ -65,7 +67,9 @@ export default {
   getColorScheme(): NativeColorScheme {
     if (IS_DEBUG) {
       // https://github.com/facebook/react-native/commit/4fd9c9d544d741fb2df3ad849dfa4bdf4719ccf4
-      console.warn('调试模式下无法正常获取当前颜色模式');
+      if (__DEV__ && console.warn) {
+        console.warn('调试模式下无法正常获取当前颜色模式');
+      }
       return 'light';
     }
     const nativeColorScheme =

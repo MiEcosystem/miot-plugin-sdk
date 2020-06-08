@@ -48,6 +48,14 @@ Object.freeze(TYPE);
  * @param {string} color - 选中态颜色，单选时表示选中文字颜色，多选时表示勾选框勾选背景颜色，默认米家绿
  * @param {number} icon - 选项被选中时的选中图标，放在文字前面，`TYPE.SINGLE`可用，默认绿色右箭头图片
  * @param {Button[]} buttons - 按钮数组，定义底部按钮的属性，只能显示1～2个按钮，多传将失效。默认左取消右确定，左灰右绿，点击回调都是隐藏 Modal
+ * @param {Object} dialogStyle - 控制dialog 一些特有的样式
+ * @param {bool} dialogStyle.allowFontScaling - dialog中text是否支持大字体显示，即是否随系统字体大小变化而变化, 默认`true`
+ * @param {bool} dialogStyle.unlimitedHeightEnable - 设置控件高度是否自适应。 默认为false，即默认高度
+ * @param {ViewPropTypes.style} dialogStyle.titleStyle - 控制title 文字的样式
+ * @param {style} dialogStyle.itemTitleStyle - 控制item  title 样式
+ * @param {style} dialogStyle.itemSubtitleStyle - 控制item  subtitle 样式
+ * @param {bool} dialogStyle.itemTitleNumberOfLines - 控制item  title 行数 默认为1
+ * @param {bool} dialogStyle.itemSubtitleNumberOfLines - 控制item  subtitle 行数 默认为1
  * @param {function} onSelect - 选项选择后的确认回调，返回选中选项的下标数组，`TYPE.SINGLE`可用
  * @param {function} onDismiss - Modal 隐藏时的回调函数
  */
@@ -71,6 +79,7 @@ export default class ChoiceDialog extends React.Component {
       callback: PropTypes.func
     })),
     title: PropTypes.string,
+    dialogStyle: PropTypes.object,
     onSelect: PropTypes.func,
     onDismiss: PropTypes.func,
     accessible: AccessibilityPropTypes.accessible
@@ -78,7 +87,16 @@ export default class ChoiceDialog extends React.Component {
   static defaultProps = {
     type: TYPE.SINGLE,
     options: [],
-    selectedIndexArray: []
+    selectedIndexArray: [],
+    dialogStyle: {
+      allowFontScaling: true,
+      unlimitedHeightEnable: false,
+      titleStyle: {},
+      itemTitleStyle: {},
+      itemSubtitleStyle: {},
+      itemTitleNumberOfLines: 1,
+      itemSubtitleNumberOfLines: 1
+    }
   }
   /**
    * @description 选择弹窗的类型
@@ -123,6 +141,7 @@ export default class ChoiceDialog extends React.Component {
         animationType={this.props.animationType}
         visible={this.state.visible}
         title={this.props.title}
+        dialogStyle={this.props.dialogStyle}
         showButton={this.props.type === TYPE.MULTIPLE}
         buttons={this.buttons}
         onDismiss={() => this._onDismiss()}
@@ -139,6 +158,12 @@ export default class ChoiceDialog extends React.Component {
               <ChoiceItem
                 type={this.props.type}
                 title={option.title || ''}
+                titleStyle={this.props.dialogStyle.itemTitleStyle}
+                subtitleStyle={this.props.dialogStyle.itemSubtitleStyle}
+                allowFontScaling={this.props.dialogStyle.allowFontScaling}
+                unlimitedHeightEnable={this.props.dialogStyle.unlimitedHeightEnable}
+                titleNumberOfLines={this.props.dialogStyle.itemTitleNumberOfLines}
+                subtitleNumberOfLines={this.props.dialogStyle.itemSubtitleNumberOfLines}
                 subtitle={option.subtitle || ''}
                 selected={this.state.selectedArray[index]}
                 color={this.props.color}

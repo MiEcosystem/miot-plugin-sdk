@@ -29,9 +29,14 @@ export default class TitleBarDemo extends React.Component {
       text: '高度55，黑底白字，左返回，右更多'
     },
     {
-      title: '导航栏1',
-      onPress: () => this.setNavigation1(),
-      text: '白底黑字/带分享按钮/标题超长/副标题超长/显示小红点'
+      title: '导航栏1-1',
+      onPress: () => this.setNavigation1(true),
+      text: '白底黑字/带分享按钮/标题超长/副标题超长/显示小红点-字体大小随系统改变而改变'
+    },
+    {
+      title: '导航栏1-2',
+      onPress: () => this.setNavigation1(false),
+      text: '白底黑字/带分享按钮/标题超长/副标题超长/显示小红点-字体大小不随系统改变而改变'
     },
     {
       title: '导航栏2',
@@ -64,7 +69,6 @@ export default class TitleBarDemo extends React.Component {
       text: '点击隐藏/显示小红点'
     }
   ];
-
   UNSAFE_componentWillMount() {
     this.setNavigation();
   }
@@ -93,20 +97,34 @@ export default class TitleBarDemo extends React.Component {
    * test case:
    * 白底黑字/带分享按钮/标题超长/副标题超长
    */
-  setNavigation1() {
+  setNavigation1(allowFontScaling) {
+
+    let titleStyle, subtitleStyle;
+    if (!allowFontScaling) {
+      titleStyle = {
+        fontSize: 26
+      };
+      subtitleStyle = {
+        fontSize: 20,
+        lineHeight: 26
+      };
+    }
+
     this.props.navigation.setParams({
       titleProps: {
         type: 'dark',
-        onPressLeft: () => this.props.navigation.goBack(),
-        onPressRight: () => console.log('onPressRight'),
-        onPressRight2: () => console.log('onPressRight2'),
+        onPressLeft: (_) => this.props.navigation.goBack(),
+        onPressRight: (_) => console.log('onPressRight'),
+        onPressRight2: (_) => console.log('onPressRight2'),
         title: '标题标题154545abcdedasadadadsasd',
         subTitle: '副标题副标题154545abcdedasadadadsasd',
+        titleStyle: titleStyle,
+        subtitleStyle: subtitleStyle,
         onPressTitle: () => console.log('onPressTitle'),
-        showDot: this.state.showDot
+        showDot: this.state.showDot,
+        allowFontScaling: allowFontScaling
       }
     });
-    // this.state.index = 1;
     this.setState({
       index: 1
     });
@@ -179,9 +197,9 @@ export default class TitleBarDemo extends React.Component {
   }
 
   /**
-    * test case:
-    * 浅色黑字/带分享按钮/带关闭按钮/标题超长/副标题超长/显示小红点
-    */
+   * test case:
+   * 浅色黑字/带分享按钮/带关闭按钮/标题超长/副标题超长/显示小红点
+   */
   setNavigation4() {
     this.props.navigation.setParams({
       titleProps: {
@@ -204,9 +222,9 @@ export default class TitleBarDemo extends React.Component {
   }
 
   /**
-  * test case:
-  * 深色白字/带分享按钮/带关闭按钮/标题超长/副标题超长/显示小红点
-  */
+   * test case:
+   * 深色白字/带分享按钮/带关闭按钮/标题超长/副标题超长/显示小红点
+   */
   setNavigation5() {
     this.props.navigation.setParams({
       titleProps: {
@@ -229,9 +247,9 @@ export default class TitleBarDemo extends React.Component {
   }
 
   /**
-  * test case:
-  * 深色黑字/带分享按钮/带关闭按钮/标题超长/副标题超长/显示小红点
-  */
+   * test case:
+   * 深色黑字/带分享按钮/带关闭按钮/标题超长/副标题超长/显示小红点
+   */
   setNavigation6() {
     this.props.navigation.setParams({
       titleProps: {

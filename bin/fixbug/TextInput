@@ -27,11 +27,11 @@ const invariant = require('invariant');
 const requireNativeComponent = require('../../ReactNative/requireNativeComponent');
 const warning = require('fbjs/lib/warning');
 
-import type {TextStyleProp, ViewStyleProp} from '../../StyleSheet/StyleSheet';
-import type {ColorValue} from '../../StyleSheet/StyleSheetTypes';
-import type {ViewProps} from '../View/ViewPropTypes';
-import type {SyntheticEvent, ScrollEvent} from '../../Types/CoreEventTypes';
-import type {PressEvent} from '../../Types/CoreEventTypes';
+import type { TextStyleProp, ViewStyleProp } from '../../StyleSheet/StyleSheet';
+import type { ColorValue } from '../../StyleSheet/StyleSheetTypes';
+import type { ViewProps } from '../View/ViewPropTypes';
+import type { SyntheticEvent, ScrollEvent } from '../../Types/CoreEventTypes';
+import type { PressEvent } from '../../Types/CoreEventTypes';
 
 let AndroidTextInput;
 let RCTMultilineTextInputView;
@@ -50,7 +50,7 @@ if (Platform.OS === 'android') {
 
 const onlyMultiline = {
   onTextInput: true,
-  children: true,
+  children: true
 };
 
 export type ChangeEvent = SyntheticEvent<
@@ -811,15 +811,15 @@ const TextInput = createReactClass({
     State: {
       currentlyFocusedField: TextInputState.currentlyFocusedField,
       focusTextInput: TextInputState.focusTextInput,
-      blurTextInput: TextInputState.blurTextInput,
-    },
+      blurTextInput: TextInputState.blurTextInput
+    }
   },
   propTypes: DeprecatedTextInputPropTypes,
   getDefaultProps() {
     return {
       allowFontScaling: true,
       rejectResponderTermination: true,
-      underlineColorAndroid: 'transparent',
+      underlineColorAndroid: 'transparent'
     };
   },
   /**
@@ -875,7 +875,7 @@ const TextInput = createReactClass({
    * Removes all text from the `TextInput`.
    */
   clear: function() {
-    this.setNativeProps({text: ''});
+    this.setNativeProps({ text: '' });
   },
 
   render: function() {
@@ -896,8 +896,8 @@ const TextInput = createReactClass({
     return typeof this.props.value === 'string'
       ? this.props.value
       : typeof this.props.defaultValue === 'string'
-      ? this.props.defaultValue
-      : '';
+        ? this.props.defaultValue
+        : '';
   },
 
   _setNativeRef: function(ref: any) {
@@ -908,39 +908,39 @@ const TextInput = createReactClass({
     let textContainer;
     const props = Object.assign({}, this.props);
     props.style = [this.props.style];
-    //兼容一键反色 文字颜色特殊标记
-    if(props.placeholderTextColor){
+    // 兼容一键反色 文字颜色特殊标记
+    if (props.placeholderTextColor) {
       props.placeholderTextColor += 'text';
     }
-    if(props.color){
+    if (props.color) {
       props.color += 'text';
     }
-    if(Array.isArray(props.style) && props.style.length > 0){
-      if(Array.isArray(props.style[0]) && props.style[0].length > 0){
-        if(Array.isArray(props.style[0][0]) && props.style[0][0].length > 7){
-            let colorProp = props.style[0][0][7];
-            if(colorProp.color){
-              colorProp.color = colorProp.color + 'text';
-              props.style[0][7] = colorProp;
-            }
-        }
-      }else if(Object.prototype.toString.call(props.style[0]) === '[object Object]'){
-          let colorProp = props.style[0];
-          if(colorProp.color){
-            colorProp.color = colorProp.color + 'text';
-            props.style[0] = colorProp;
+    if (Array.isArray(props.style) && props.style.length > 0) {
+      if (Array.isArray(props.style[0]) && props.style[0].length > 0) {
+        if (Array.isArray(props.style[0][0]) && props.style[0][0].length > 7) {
+          let colorProp = props.style[0][0][7];
+          if (colorProp.color) {
+            colorProp.color = `${ colorProp.color }text`;
+            props.style[0][7] = colorProp;
           }
+        }
+      } else if (Object.prototype.toString.call(props.style[0]) === '[object Object]') {
+        let colorProp = props.style[0];
+        if (colorProp.color) {
+          colorProp.color = `${ colorProp.color }text`;
+          props.style[0] = colorProp;
+        }
       }
-    }else if (Object.prototype.toString.call(props.style) === '[object Object]'){
-      if(props.style.color){
-        props.style.color = props.style.color + 'text';
+    } else if (Object.prototype.toString.call(props.style) === '[object Object]') {
+      if (props.style.color) {
+        props.style.color = `${ props.style.color }text`;
       }
     }
 
     if (props.selection && props.selection.end == null) {
       props.selection = {
         start: props.selection.start,
-        end: props.selection.start,
+        end: props.selection.start
       };
     }
 
@@ -949,9 +949,9 @@ const TextInput = createReactClass({
         for (const propKey in onlyMultiline) {
           if (props[propKey]) {
             const error = new Error(
-              'TextInput prop `' +
-                propKey +
-                '` is only supported with multiline.',
+              `TextInput prop \`${ 
+                propKey 
+              }\` is only supported with multiline.`,
             );
             warning(false, '%s', error.stack);
           }
@@ -1030,39 +1030,39 @@ const TextInput = createReactClass({
   _renderIOS: function() {
     const props = Object.assign({}, this.props);
     props.style = [this.props.style];
-    //兼容一键反色 文字颜色特殊标记
-    if(props.placeholderTextColor){
+    // 兼容一键反色 文字颜色特殊标记
+    if (props.placeholderTextColor) {
       props.placeholderTextColor += 'text';
     }
-    if(props.color){
+    if (props.color) {
       props.color += 'text';
     }
-    if(Array.isArray(props.style) && props.style.length > 0){
-      if(Array.isArray(props.style[0]) && props.style[0].length > 0){
-        if(Array.isArray(props.style[0][0]) && props.style[0][0].length > 7){
-            let colorProp = props.style[0][0][7];
-            if(colorProp.color){
-              colorProp.color = colorProp.color + 'text';
-              props.style[0][7] = colorProp;
-            }
-        }
-      }else if(Object.prototype.toString.call(props.style[0]) === '[object Object]'){
-          let colorProp = props.style[0];
-          if(colorProp.color){
-            colorProp.color = colorProp.color + 'text';
-            props.style[0] = colorProp;
+    if (Array.isArray(props.style) && props.style.length > 0) {
+      if (Array.isArray(props.style[0]) && props.style[0].length > 0) {
+        if (Array.isArray(props.style[0][0]) && props.style[0][0].length > 7) {
+          let colorProp = props.style[0][0][7];
+          if (colorProp.color) {
+            colorProp.color = `${ colorProp.color }text`;
+            props.style[0][7] = colorProp;
           }
+        }
+      } else if (Object.prototype.toString.call(props.style[0]) === '[object Object]') {
+        let colorProp = props.style[0];
+        if (colorProp.color) {
+          colorProp.color = `${ colorProp.color }text`;
+          props.style[0] = colorProp;
+        }
       }
-    }else if (Object.prototype.toString.call(props.style) === '[object Object]'){
-      if(props.style.color){
-        props.style.color = props.style.color + 'text';
+    } else if (Object.prototype.toString.call(props.style) === '[object Object]') {
+      if (props.style.color) {
+        props.style.color = `${ props.style.color }text`;
       }
     }
 
     if (props.selection && props.selection.end == null) {
       props.selection = {
         start: props.selection.start,
-        end: props.selection.start,
+        end: props.selection.start
       };
     }
 
@@ -1126,7 +1126,7 @@ const TextInput = createReactClass({
     if (props.selection && props.selection.end == null) {
       props.selection = {
         start: props.selection.start,
-        end: props.selection.start,
+        end: props.selection.start
       };
     }
 
@@ -1185,7 +1185,7 @@ const TextInput = createReactClass({
     // native when the text value is set.
     if (this._inputRef && this._inputRef.setNativeProps) {
       ReactNative.setNativeProps(this._inputRef, {
-        mostRecentEventCount: event.nativeEvent.eventCount,
+        mostRecentEventCount: event.nativeEvent.eventCount
       });
     }
 
@@ -1234,7 +1234,7 @@ const TextInput = createReactClass({
 
     // Selection is also a controlled prop, if the native value doesn't match
     // JS, update to the JS value.
-    const {selection} = this.props;
+    const { selection } = this.props;
     if (
       this._lastNativeSelection &&
       selection &&
@@ -1276,7 +1276,7 @@ const TextInput = createReactClass({
 
   _onScroll: function(event: ScrollEvent) {
     this.props.onScroll && this.props.onScroll(event);
-  },
+  }
 });
 
 class InternalTextInputType extends ReactNative.NativeComponent<Props> {
@@ -1293,8 +1293,8 @@ const styles = StyleSheet.create({
     // This default top inset makes RCTMultilineTextInputView seem as close as possible
     // to single-line RCTSinglelineTextInputView defaults, using the system defaults
     // of font size 17 and a height of 31 points.
-    paddingTop: 5,
-  },
+    paddingTop: 5
+  }
 });
 
 module.exports = TypedTextInput;

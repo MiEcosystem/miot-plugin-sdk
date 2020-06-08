@@ -28,10 +28,10 @@ class ModeCardDemo extends Component {
         {
           description: '自动',
           icon: {
-            normal: require('./images/auto.jpg'),
-            press: require('./images/auto-press.jpg'),
-            active: require('./images/auto-active.jpg'),
-            activeDisabled: require('./images/auto-activeDisabled.jpg')
+            normal: require('../images/auto.jpg'),
+            press: require('../images/auto-press.jpg'),
+            active: require('../images/auto-active.jpg'),
+            activeDisabled: require('../images/auto-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: true,
@@ -41,10 +41,10 @@ class ModeCardDemo extends Component {
         {
           description: '睡眠',
           icon: {
-            normal: require('./images/sleep.jpg'),
-            press: require('./images/sleep-press.jpg'),
-            active: require('./images/sleep-active.jpg'),
-            activeDisabled: require('./images/sleep-activeDisabled.jpg')
+            normal: require('../images/sleep.jpg'),
+            press: require('../images/sleep-press.jpg'),
+            active: require('../images/sleep-active.jpg'),
+            activeDisabled: require('../images/sleep-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: false,
@@ -54,10 +54,10 @@ class ModeCardDemo extends Component {
         {
           description: '档位档位档位',
           icon: {
-            normal: require('./images/gear.jpg'),
-            press: require('./images/gear-press.jpg'),
-            active: require('./images/gear-active.jpg'),
-            activeDisabled: require('./images/gear-activeDisabled.jpg')
+            normal: require('../images/gear.jpg'),
+            press: require('../images/gear-press.jpg'),
+            active: require('../images/gear-active.jpg'),
+            activeDisabled: require('../images/gear-activeDisabled.jpg')
           },
           isDisabled: true,
           isActive: false,
@@ -69,10 +69,10 @@ class ModeCardDemo extends Component {
         {
           description: '',
           icon: {
-            normal: require('./images/auto.jpg'),
-            press: require('./images/auto-press.jpg'),
-            active: require('./images/auto-active.jpg'),
-            activeDisabled: require('./images/auto-activeDisabled.jpg')
+            normal: require('../images/auto.jpg'),
+            press: require('../images/auto-press.jpg'),
+            active: require('../images/auto-active.jpg'),
+            activeDisabled: require('../images/auto-activeDisabled.jpg')
           },
           isDisabled: true,
           isActive: false,
@@ -81,10 +81,10 @@ class ModeCardDemo extends Component {
         {
           description: '',
           icon: {
-            normal: require('./images/sleep.jpg'),
-            press: require('./images/sleep-press.jpg'),
-            active: require('./images/sleep-active.jpg'),
-            activeDisabled: require('./images/sleep-activeDisabled.jpg')
+            normal: require('../images/sleep.jpg'),
+            press: require('../images/sleep-press.jpg'),
+            active: require('../images/sleep-active.jpg'),
+            activeDisabled: require('../images/sleep-activeDisabled.jpg')
           },
           isDisabled: true,
           isActive: false,
@@ -93,10 +93,10 @@ class ModeCardDemo extends Component {
         {
           description: '',
           icon: {
-            normal: require('./images/gear.jpg'),
-            press: require('./images/gear-press.jpg'),
-            active: require('./images/gear-active.jpg'),
-            activeDisabled: require('./images/gear-activeDisabled.jpg')
+            normal: require('../images/gear.jpg'),
+            press: require('../images/gear-press.jpg'),
+            active: require('../images/gear-active.jpg'),
+            activeDisabled: require('../images/gear-activeDisabled.jpg')
           },
           isDisabled: true,
           isActive: false,
@@ -105,10 +105,10 @@ class ModeCardDemo extends Component {
         {
           description: '',
           icon: {
-            normal: require('./images/love.jpg'),
-            press: require('./images/love-press.jpg'),
-            active: require('./images/love-active.jpg'),
-            activeDisabled: require('./images/love-activeDisabled.jpg')
+            normal: require('../images/love.jpg'),
+            press: require('../images/love-press.jpg'),
+            active: require('../images/love-active.jpg'),
+            activeDisabled: require('../images/love-activeDisabled.jpg')
           },
           isDisabled: true,
           isActive: true,
@@ -119,10 +119,10 @@ class ModeCardDemo extends Component {
         {
           description: '自动',
           icon: {
-            normal: require('./images/auto.jpg'),
-            press: require('./images/auto-press.jpg'),
-            active: require('./images/auto-active.jpg'),
-            activeDisabled: require('./images/auto-activeDisabled.jpg')
+            normal: require('../images/auto.jpg'),
+            press: require('../images/auto-press.jpg'),
+            active: require('../images/auto-active.jpg'),
+            activeDisabled: require('../images/auto-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: false,
@@ -131,10 +131,10 @@ class ModeCardDemo extends Component {
         {
           description: '睡眠',
           icon: {
-            normal: require('./images/sleep.jpg'),
-            press: require('./images/sleep-press.jpg'),
-            active: require('./images/sleep-active.jpg'),
-            activeDisabled: require('./images/sleep-activeDisabled.jpg')
+            normal: require('../images/sleep.jpg'),
+            press: require('../images/sleep-press.jpg'),
+            active: require('../images/sleep-active.jpg'),
+            activeDisabled: require('../images/sleep-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: false,
@@ -143,10 +143,10 @@ class ModeCardDemo extends Component {
         {
           description: '档位档位档位',
           icon: {
-            normal: require('./images/gear.jpg'),
-            press: require('./images/gear-press.jpg'),
-            active: require('./images/gear-active.jpg'),
-            activeDisabled: require('./images/gear-activeDisabled.jpg')
+            normal: require('../images/gear.jpg'),
+            press: require('../images/gear-press.jpg'),
+            active: require('../images/gear-active.jpg'),
+            activeDisabled: require('../images/gear-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: true,
@@ -157,10 +157,10 @@ class ModeCardDemo extends Component {
         {
           description: '自动',
           icon: {
-            normal: require('./images/auto.jpg'),
-            press: require('./images/auto-press.jpg'),
-            active: require('./images/auto-active.jpg'),
-            activeDisabled: require('./images/auto-activeDisabled.jpg')
+            normal: require('../images/auto.jpg'),
+            press: require('../images/auto-press.jpg'),
+            active: require('../images/auto-active.jpg'),
+            activeDisabled: require('../images/auto-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: false,
@@ -169,10 +169,10 @@ class ModeCardDemo extends Component {
         {
           description: '',
           icon: {
-            normal: require('./images/sleep.jpg'),
-            press: require('./images/sleep-press.jpg'),
-            active: require('./images/sleep-active.jpg'),
-            activeDisabled: require('./images/sleep-activeDisabled.jpg')
+            normal: require('../images/sleep.jpg'),
+            press: require('../images/sleep-press.jpg'),
+            active: require('../images/sleep-active.jpg'),
+            activeDisabled: require('../images/sleep-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: true,
@@ -181,10 +181,10 @@ class ModeCardDemo extends Component {
         {
           description: '',
           icon: {
-            normal: require('./images/gear.jpg'),
-            press: require('./images/gear-press.jpg'),
-            active: require('./images/gear-active.jpg'),
-            activeDisabled: require('./images/gear-activeDisabled.jpg')
+            normal: require('../images/gear.jpg'),
+            press: require('../images/gear-press.jpg'),
+            active: require('../images/gear-active.jpg'),
+            activeDisabled: require('../images/gear-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: false,
@@ -193,10 +193,10 @@ class ModeCardDemo extends Component {
         {
           description: '',
           icon: {
-            normal: require('./images/love.jpg'),
-            press: require('./images/love-press.jpg'),
-            active: require('./images/love-active.jpg'),
-            activeDisabled: require('./images/love-activeDisabled.jpg')
+            normal: require('../images/love.jpg'),
+            press: require('../images/love-press.jpg'),
+            active: require('../images/love-active.jpg'),
+            activeDisabled: require('../images/love-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: false,
@@ -205,10 +205,10 @@ class ModeCardDemo extends Component {
         {
           description: '',
           icon: {
-            normal: require('./images/collect.jpg'),
-            press: require('./images/collect-press.jpg'),
-            active: require('./images/collect-active.jpg'),
-            activeDisabled: require('./images/collect-activeDisabled.jpg')
+            normal: require('../images/collect.jpg'),
+            press: require('../images/collect-press.jpg'),
+            active: require('../images/collect-active.jpg'),
+            activeDisabled: require('../images/collect-activeDisabled.jpg')
           },
           isDisabled: false,
           isActive: false,

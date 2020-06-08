@@ -3,18 +3,18 @@ import { StyleSheet, View, Image, Text, Animated, Easing } from 'react-native';
 
 function getBackSource(on, active) {
   switch (true) {
-  case (on && active): return require('./res/timing-bg-on-active.png');
-  case (!on && active): return require('./res/timing-bg-off-active.png');
-  case (on && !active): return require('./res/timing-on-normal.png');
-  default: return require('./res/timing-off-normal.png');
+    case (on && active): return require('./res/timing-bg-on-active.png');
+    case (!on && active): return require('./res/timing-bg-off-active.png');
+    case (on && !active): return require('./res/timing-on-normal.png');
+    default: return require('./res/timing-off-normal.png');
   }
 }
 
 function getForeSource(on, active) {
   switch (true) {
-  case (on && active): return require('./res/timing-indicator-on.png');
-  case (!on && active): return require('./res/timing-indicator-on.png');
-  default: return null;
+    case (on && active): return require('./res/timing-indicator-on.png');
+    case (!on && active): return require('./res/timing-indicator-on.png');
+    default: return null;
   }
 }
 

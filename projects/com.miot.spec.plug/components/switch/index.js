@@ -3,8 +3,8 @@ import { View, Image } from 'react-native';
 
 function getSource(on) {
   switch (true) {
-  case on: return require('./res/switch-on.png');
-  default: return require('./res/switch-off.png');
+    case on: return require('./res/switch-on.png');
+    default: return require('./res/switch-off.png');
   }
 }
 

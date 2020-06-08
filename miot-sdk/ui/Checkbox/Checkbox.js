@@ -50,7 +50,6 @@ export default class Checkbox extends React.Component {
   }
   backgroundColor = new Animated.Value(0);
   render() {
-    console.log('render checkbox');
     const toValue = this.state.checked ? 1 : 0;
     const backgroundColor = this.backgroundColor.interpolate({
       inputRange: [0, 1],

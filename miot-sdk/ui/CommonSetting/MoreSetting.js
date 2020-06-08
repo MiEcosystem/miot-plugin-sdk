@@ -37,6 +37,13 @@ const NETWORK_INFO = 'networkInfo'; // 「网络信息」设置项的 key
  */
 export default class MoreSetting extends React.Component {
   static navigationOptions = ({ navigation }) => {
+    let navigationBarStyle;
+    if (navigation.state.params.commonSettingStyle && navigation.state.params.commonSettingStyle.moreSettingPageStyle) {
+      navigationBarStyle = navigation.state.params.commonSettingStyle.moreSettingPageStyle.navigationBarStyle;
+    }
+    if (!navigationBarStyle) {
+      navigationBarStyle = {};
+    }
     return {
       header:
         <NavigationBar
@@ -47,6 +54,7 @@ export default class MoreSetting extends React.Component {
             onPress: () => navigation.goBack()
           }]}
           title={strings.more}
+          {...navigationBarStyle}
         />
     };
   };
@@ -142,6 +150,13 @@ export default class MoreSetting extends React.Component {
     }
     keys = keys.filter((key) => !this.excludeRequiredOptions.includes(key));
     const items = keys.map((key) => this.moreSetting[key]).filter((item) => item);
+    let itemStyle;
+    if (this.props.navigation.state.params.commonSettingStyle && this.props.navigation.state.params.commonSettingStyle.moreSettingPageStyle) {
+      itemStyle = this.props.navigation.state.params.commonSettingStyle.moreSettingPageStyle.itemStyle;
+    }
+    if (!itemStyle) {
+      itemStyle = {};
+    }
     return (
       <View style={styles.container}>
         <Separator />
@@ -158,6 +173,15 @@ export default class MoreSetting extends React.Component {
                   value={item.value}
                   onPress={item.onPress}
                   showSeparator={showSeparator}
+                  allowFontScaling={itemStyle.allowFontScaling}
+                  unlimitedHeightEnable={itemStyle.unlimitedHeightEnable}
+                  titleStyle={itemStyle.titleStyle}
+                  subtitleStyle={itemStyle.subtitleStyle}
+                  valueStyle={itemStyle.valueStyle}
+                  dotStyle={itemStyle.dotStyle}
+                  titleNumberOfLines={itemStyle.titleNumberOfLines}
+                  subtitleNumberOfLines={itemStyle.subtitleNumberOfLines}
+                  valueNumberOfLines={itemStyle.valueNumberOfLines}
                   {...getAccessibilityConfig({
                     accessible: item.accessible
                   })}

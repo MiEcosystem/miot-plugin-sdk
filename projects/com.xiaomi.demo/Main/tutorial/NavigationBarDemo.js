@@ -3,6 +3,7 @@ import Separator from 'miot/ui/Separator';
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { RkButton } from "react-native-ui-kitten";
+import tr from "miot/resources/strings/tr";
 
 export default class NavigationBarDemo extends React.Component {
 
@@ -36,9 +37,14 @@ export default class NavigationBarDemo extends React.Component {
       text: '白底黑字/左返回/标题/右更多/显示小红点'
     },
     {
-      title: '测试1',
-      onPress: () => this.setNavigation2(),
-      text: '标题超长/副标题超长/左右按钮数量不一致'
+      title: '测试1-1',
+      onPress: () => this.setNavigation2(true),
+      text: '标题超长/副标题超长/左右按钮数量不一致-字体大小随系统改变而改变'
+    },
+    {
+      title: '测试1-2',
+      onPress: () => this.setNavigation2(false),
+      text: '标题超长/副标题超长/左右按钮数量不一致-字体大小不随系统改变而改变'
     },
     {
       title: '测试2',
@@ -140,7 +146,19 @@ export default class NavigationBarDemo extends React.Component {
    * test case:
    * 标题超长/副标题超长/左右按钮数量不一致
    */
-  setNavigation2() {
+  setNavigation2(allowFontScaling) {
+
+    let titleStyle, subtitleStyle;
+    if (!allowFontScaling) {
+      titleStyle = {
+        fontSize: 26
+      };
+      subtitleStyle = {
+        fontSize: 20,
+        lineHeight: 22
+      };
+    }
+
     this.props.navigation.setParams({
       titleProps: {
         left: [
@@ -160,8 +178,11 @@ export default class NavigationBarDemo extends React.Component {
             onPress: () => console.log('onPress')
           }
         ],
-        title: '常用ABCabc123',
-        subtitle: '常用ABCabc123',
+        title: '标题标题154545abcdedasadadadsasd',
+        subtitle: '副标题副标题154545abcdedasadadadsasd',
+        titleStyle: titleStyle,
+        subtitleStyle: subtitleStyle,
+        allowFontScaling: allowFontScaling,
         onPressTitle: () => console.log('onPressTitle')
       }
     });
@@ -213,6 +234,7 @@ export default class NavigationBarDemo extends React.Component {
     });
   }
 
+
   /**
    * test case:
    * 自定义浅色背景
@@ -255,9 +277,9 @@ export default class NavigationBarDemo extends React.Component {
   }
 
   /**
-    * test case:
-    * 黑底白字
-    */
+   * test case:
+   * 黑底白字
+   */
   setNavigation5() {
     this.props.navigation.setParams({
       titleProps: {
@@ -296,9 +318,9 @@ export default class NavigationBarDemo extends React.Component {
   }
 
   /**
-  * test case:
-  * 自定义深色背景
-  */
+   * test case:
+   * 自定义深色背景
+   */
   setNavigation6() {
     this.props.navigation.setParams({
       titleProps: {
@@ -338,9 +360,9 @@ export default class NavigationBarDemo extends React.Component {
   }
 
   /**
-  * test case:
-  * 全屏背景/透明导航栏
-  */
+   * test case:
+   * 全屏背景/透明导航栏
+   */
   setNavigation7() {
     this.props.navigation.setParams({ titleProps: undefined });
     this.setState({
@@ -351,9 +373,9 @@ export default class NavigationBarDemo extends React.Component {
   }
 
   /**
-  * test case:
-  * 存在无效的图标key/多个图标/无其余参数
-  */
+   * test case:
+   * 存在无效的图标key/多个图标/无其余参数
+   */
   setNavigation8() {
     this.props.navigation.setParams({
       titleProps: {
@@ -420,15 +442,12 @@ export default class NavigationBarDemo extends React.Component {
   }
 
   toggleDot() {
-    // this.state.showDot = !this.state.showDot;
-    this.setState((state) => {
-      return {
-        showDot: !state.showDot
-      };
-    }, () => {
-      this.testList[this.state.index].onPress();
+    this.setState({
+      showDot: !this.state.showDot
     });
+    this.testList[this.state.index].onPress();
   }
+
 
   renderCustomNavigation() {
     if (!this.state.transparent) return null;

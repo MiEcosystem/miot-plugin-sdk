@@ -33,6 +33,7 @@
  * @property {number}  pickerInnerStyle.selectFontSize 文字选中大小 默认值 22
  * @property {number}  pickerInnerStyle.unitFontSize 单位字体大小 默认值 12
  * @property {number}  pickerInnerStyle.rowHeight 行高 默认值 42
+ * @property {bool}    pickerInnerStyle.allowFontScaling - 10040新增 text是否支持大字体显示，即是否随系统字体大小变化而变化, 默认`true`
  */
 export default class StringSpinner extends React.Component {
     static propTypes = {

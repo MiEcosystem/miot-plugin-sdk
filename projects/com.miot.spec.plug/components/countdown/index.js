@@ -3,18 +3,18 @@ import { StyleSheet, View, Image, Animated, Easing } from 'react-native';
 
 function getBackSource(on, active) {
   switch (true) {
-  case (on && active): return require('./res/countdown-bg-on-active.png');
-  case (!on && active): return require('./res/countdown-bg-off-active.png');
-  case (on && !active): return require('./res/countdown-on-normal.png');
-  default: return require('./res/countdown-off-normal.png');
+    case (on && active): return require('./res/countdown-bg-on-active.png');
+    case (!on && active): return require('./res/countdown-bg-off-active.png');
+    case (on && !active): return require('./res/countdown-on-normal.png');
+    default: return require('./res/countdown-off-normal.png');
   }
 }
 
 function getForeSource(on, active) {
   switch (true) {
-  case (on && active): return require('./res/countdown-indicator-on.png');
-  case (!on && active): return require('./res/countdown-indicator-on.png');
-  default: return null;
+    case (on && active): return require('./res/countdown-indicator-on.png');
+    case (!on && active): return require('./res/countdown-indicator-on.png');
+    default: return null;
   }
 }
 

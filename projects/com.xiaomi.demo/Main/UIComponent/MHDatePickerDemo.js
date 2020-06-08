@@ -4,6 +4,8 @@ import Separator from 'miot/ui/Separator';
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
+import tr from "miot/resources/strings/tr";
+import { Styles } from "miot/resources";
 
 export default class MHDatePickerDemo extends React.Component {
 
@@ -11,10 +13,10 @@ export default class MHDatePickerDemo extends React.Component {
     return {
       header:
         <TitleBar
-          type='dark'
-          title='时间选择器'
+          type="dark"
+          title="时间选择器"
           style={{ backgroundColor: '#fff' }}
-          onPressLeft={_ => navigation.goBack()}
+          onPressLeft={(_) => navigation.goBack()}
         />
     };
   };
@@ -34,14 +36,16 @@ export default class MHDatePickerDemo extends React.Component {
       value3: false,
       value4: false,
       value5: false,
+      value6: false,
       valueText: '',
       valueText1: '',
       valueText2: '',
       valueText3: '',
       valueText4: '',
       valueText5: '',
-      current: [2019, 6, 3],
-    }
+      valueText6: '',
+      current: [2019, 6, 3]
+    };
   }
 
   render() {
@@ -77,102 +81,136 @@ export default class MHDatePickerDemo extends React.Component {
         <ScrollView>
           <View style={{ alignItems: 'center' }}>
             <ListItemWithSwitch
-              title='开始日期'
+              title="开始日期"
               value={this.state.value}
               valueText={this.state.valueText}
-              onPress={_ => this.setState({ visible: true })}
-              onValueChange={value => console.log(value)}
+              onPress={(_) => this.setState({ visible: true })}
+              onValueChange={(value) => console.log(value)}
             />
             <ListItemWithSwitch
-              title='开启时间(24小时制)'
+              title="开启时间(24小时制)"
               value={this.state.value1}
               valueText={this.state.valueText1}
-              onPress={_ => this.setState({ visible1: true })}
-              onValueChange={value => console.log(value)}
+              onPress={(_) => this.setState({ visible1: true })}
+              onValueChange={(value) => console.log(value)}
             />
             <ListItemWithSwitch
-              title='开启时间(12小时制)'
+              title="开启时间(12小时制)"
               value={this.state.value2}
               valueText={this.state.valueText2}
-              onPress={_ => this.setState({ visible2: true })}
-              onValueChange={value => console.log(value)}
+              onPress={(_) => this.setState({ visible2: true })}
+              onValueChange={(value) => console.log(value)}
             />
             <ListItemWithSwitch
-              title='选择一段时间'
+              title="开启时间(12小时制)-大字体适配"
+              value={this.state.value6}
+              valueText={this.state.valueText6}
+              onPress={(_) => this.setState({ visible6: true })}
+              onValueChange={(value) => console.log(value)}
+            />
+            <ListItemWithSwitch
+              title="选择一段时间"
               value={this.state.value3}
               valueText={this.state.valueText3}
-              onPress={_ => this.setState({ visible3: true })}
-              onValueChange={value => console.log(value)}
+              onPress={(_) => this.setState({ visible3: true })}
+              onValueChange={(value) => console.log(value)}
             />
             <ListItemWithSwitch
-              title='开始日期(自定义)'
+              title="开始日期(自定义)"
               value={this.state.value4}
               valueText={this.state.valueText4}
-              onPress={_ => this.setState({ visible4: true })}
-              onValueChange={value => console.log(value)}
+              onPress={(_) => this.setState({ visible4: true })}
+              onValueChange={(value) => console.log(value)}
             />
             <ListItemWithSwitch
-              title='选择一段时间(自定义)'
+              title="选择一段时间(自定义)"
               value={this.state.value5}
               valueText={this.state.valueText5}
-              onPress={_ => this.setState({ visible5: true })}
-              onValueChange={value => console.log(value)}
+              onPress={(_) => this.setState({ visible5: true })}
+              onValueChange={(value) => console.log(value)}
             />
             <MHDatePicker
               visible={this.state.visible}
-              title='开启日期'
+              title="开启日期"
               type={MHDatePicker.TYPE.DATE}
-              onDismiss={_ => this.onDismiss('')}
-              onSelect={res => this.onSelect(res, '')}
+              onDismiss={(_) => this.onDismiss('')}
+              onSelect={(res) => this.onSelect(res, '')}
             />
             <MHDatePicker
               visible={this.state.visible1}
-              title='开始时间'
+              title="开始时间"
               type={MHDatePicker.TYPE.TIME24}
-              onDismiss={_ => this.onDismiss('1')}
-              onSelect={res => this.onSelect(res, '1')}
+              onDismiss={(_) => this.onDismiss('1')}
+              onSelect={(res) => this.onSelect(res, '1')}
             />
             <MHDatePicker
               visible={this.state.visible2}
-              title='开始时间'
+              title="开始时间"
               type={MHDatePicker.TYPE.TIME12}
-              onDismiss={_ => this.onDismiss('2')}
-              onSelect={res => this.onSelect(res, '2')}
+              onDismiss={(_) => this.onDismiss('2')}
+              onSelect={(res) => this.onSelect(res, '2')}
+            />
+            <MHDatePicker
+              visible={this.state.visible6}
+              title="开始时间-字体大小不随系统字体大小变化而变化-我设置最多显示两行"
+              datePickerStyle={{
+                unlimitedHeightEnable: true,
+                allowFontScaling: false,
+                titleNumberOfLines: 2,
+                titleStyle: { fontSize: 28, lineHeight: 30, padding: 10 },
+                subTitleStyle: { fontSize: 24, lineHeight: 26 },
+                leftButtonStyle: { fontSize: 26, lineHeight: 28 },
+                rightButtonStyle: { fontSize: 26, lineHeight: 28 },
+                pickerInnerStyle: {
+                  lineColor: Styles.common.hairlineColor,
+                  textColor: '#666666',
+                  fontSize: 25,
+                  selectTextColor: "#333333",
+                  selectFontSize: 30,
+                  unitTextColor: '#333333',
+                  unitFontSize: 20,
+                  rowHeight: 58,
+                  selectBgColor: "#f3f3f3"
+                }
+              }}
+              type={MHDatePicker.TYPE.TIME12}
+              onDismiss={(_) => this.onDismiss('6')}
+              onSelect={(res) => this.onSelect(res, '6')}
             />
             <MHDatePicker
               visible={this.state.visible3}
-              title='想要睡多久呢'
+              title="想要睡多久呢"
               type={MHDatePicker.TYPE.SINGLE}
               singleType={MHDatePicker.SINGLE_TYPE.MINUTE}
-              onDismiss={_ => this.onDismiss('3')}
-              onSelect={res => this.onSelect(res, '3')}
+              onDismiss={(_) => this.onDismiss('3')}
+              onSelect={(res) => this.onSelect(res, '3')}
             />
             <MHDatePicker
-              animationType='slide'
+              animationType="slide"
               visible={this.state.visible4}
-              title='自定义标题(自己处理多语言)'
+              title="自定义标题(自己处理多语言)"
               showSubtitle={true}
-              confirmColor='#f0ac3d'
+              confirmColor="#f0ac3d"
               type={MHDatePicker.TYPE.DATE}
               current={this.state.current}
               min={min}
               max={max}
-              onSelect={res => this.onSelect(res, '4')}
-              onDismiss={_ => this.onDismiss('4')}
+              onSelect={(res) => this.onSelect(res, '4')}
+              onDismiss={(_) => this.onDismiss('4')}
             />
             <MHDatePicker
-              animationType='slide'
+              animationType="slide"
               visible={this.state.visible5}
-              title='自定义标题(自己处理多语言)，隐藏副标题'
+              title="自定义标题(自己处理多语言)，隐藏副标题"
               showSubtitle={false}
-              confirmColor='#f0ac3d'
+              confirmColor="#f0ac3d"
               type={MHDatePicker.TYPE.SINGLE}
               singleType={MHDatePicker.SINGLE_TYPE.MINUTE}
               current={['12']}
               min={['10']}
               max={['15']}
-              onSelect={res => this.onSelect(res, '5')}
-              onDismiss={_ => this.onDismiss('5')}
+              onSelect={(res) => this.onSelect(res, '5')}
+              onDismiss={(_) => this.onDismiss('5')}
             />
           </View>
         </ScrollView>
@@ -182,19 +220,20 @@ export default class MHDatePickerDemo extends React.Component {
 
   componentDidMount() {
     setTimeout(() => {
-      this.setState({ current: [2019, 7, 10] })
+      this.setState({ current: [2019, 7, 10] });
     }, 3000);
   }
 
   // `Modal` 隐藏了，父组件必须要同步更新状态，但不必用 `setState` 触发 `render`
   onDismiss(index) {
-    console.log('onDismiss')
-    this.state['visible' + index] = false;
+    console.log('onDismiss');
+    // this.state['visible' + index] = false;
+    this.setState({ [`visible${ index }`]: false });
   }
 
   onSelect(res, index) {
     console.log(res);
-    this.setState({ ['valueText' + index]: res.rawString });
+    this.setState({ [`valueText${ index }`]: res.rawString });
   }
 
 }

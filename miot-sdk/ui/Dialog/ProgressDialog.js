@@ -20,6 +20,11 @@ const padding = 37;
  * @param {string} unfilledColor - progressBar 未填充颜色，默认`#f1f1f1`
  * @param {string} textColor - 进度百分比文字颜色，默认米家绿
  * @param {bool} autoDismiss - 是否在进度条读完之后自动隐藏 Modal, 默认`false`
+ * @param {Object} dialogStyle - 10040新增 控制dialog 一些特有的样式
+ * @param {bool} dialogStyle.allowFontScaling - 10040新增 dialog中message是否支持大字体显示，即是否随系统字体大小变化而变化, 默认`true`
+ * @param {number} dialogStyle.messageNumberOfLines - 10040新增 控制message 文字的行数， 默认 1行
+ * @param {ViewPropTypes.style} dialogStyle.messageStyle - 10040新增 控制message 文字的样式
+ * @param {ViewPropTypes.style} dialogStyle.progressTextStyle - 10040新增 进度百分比 文字的样式
  * @param {function} onDismiss - Modal 隐藏时的回调函数
  */
 export default class ProgressDialog extends React.Component {
@@ -32,6 +37,7 @@ export default class ProgressDialog extends React.Component {
     unfilledColor: PropTypes.string,
     textColor: PropTypes.string,
     autoDismiss: PropTypes.bool,
+    dialogStyle: PropTypes.object,
     onDismiss: PropTypes.func,
     accessible: AccessibilityPropTypes.accessible,
     accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
@@ -42,7 +48,13 @@ export default class ProgressDialog extends React.Component {
     color: Styles.common.MHGreen,
     unfilledColor: '#f1f1f1',
     textColor: Styles.common.MHGreen,
-    autoDismiss: false
+    autoDismiss: false,
+    dialogStyle: {
+      allowFontScaling: true,
+      messageNumberOfLines: 1,
+      messageStyle: {},
+      progressTextStyle: {}
+    }
   }
   constructor(props, context) {
     super(props, context);
@@ -65,6 +77,12 @@ export default class ProgressDialog extends React.Component {
       }, 100);
     }
     const progressText = `${ Math.round(this.props.progress * 100) }%`;
+    let messageNumberOfLines = 1;
+    if (this.props.dialogStyle) {
+      if (this.props.dialogStyle.hasOwnProperty('messageNumberOfLines') && this.props.dialogStyle.messageNumberOfLines > 1) {
+        messageNumberOfLines = this.props.dialogStyle.messageNumberOfLines;
+      }
+    }
     return (
       <AbstractDialog
         animationType={this.props.animationType}
@@ -86,22 +104,27 @@ export default class ProgressDialog extends React.Component {
         })}>
           <View style={styles.messageContainer}>
             <Text
-              numberOfLines={1}
-              style={[styles.message, { flex: 1 }]}
+              numberOfLines={messageNumberOfLines}
+              style={[styles.message, { flex: 1 }, this.props.dialogStyle.messageStyle]}
+              allowFontScaling={this.props.dialogStyle.allowFontScaling}
             >
               {this.props.message || ''}
             </Text>
             <Text
               style={[
                 styles.message,
-                { width: 45, textAlign: 'right' },
-                { color: this.props.textColor }
+                { minWidth: 45, textAlign: 'right' },
+                { color: this.props.textColor },
+                this.props.dialogStyle.progressTextStyle
               ]}
+              numberOfLines={1}
+              allowFontScaling={this.props.dialogStyle.allowFontScaling}
             >
               {progressText}
             </Text>
           </View>
           <Progress.Bar
+            style={{ marginBottom: messageNumberOfLines > 1 ? 10 : 0 }}
             progress={this.props.progress}
             color={this.props.color}
             unfilledColor={this.props.unfilledColor}
@@ -123,7 +146,7 @@ export default class ProgressDialog extends React.Component {
 }
 const styles = StyleSheet.create({
   container: {
-    height: 86,
+    minHeight: 86,
     backgroundColor: '#fff',
     paddingHorizontal: padding,
     justifyContent: 'center',
@@ -131,6 +154,8 @@ const styles = StyleSheet.create({
   },
   messageContainer: {
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 12
   },
   message: {

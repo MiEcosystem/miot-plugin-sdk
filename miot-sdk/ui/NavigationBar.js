@@ -16,7 +16,12 @@
  * @property {array} right - 右侧按钮的集合，最多显示两个，多余无效 [{ key, disable, showDot, onPress }]
  * @property {string} title - 中间的标题
  * @property {string} subtitle - 中间的副标题
- * @property {string} onPressTitle - 点击标题的事件
+ * @param {number} titleNumberOfLines - 10040新增 控制title 文字的行数， 默认 1行
+ * @param {number} subtitleNumberOfLines - 10040新增 控制subtitle 文字的行数，默认 1行
+ * @property {ViewPropTypes.style} titleStyle - 10040新增 最左侧文字颜色的样式
+ * @property {ViewPropTypes.style} subtitleStyle - 10040新增 最左侧文字颜色的样式
+ * @property {string} onPressTitle - 10040新增 点击标题的事件
+ * @property {bool} allowFontScaling - 10040新增 字体大小是否随系统大小变化而变化, 默认值为true
  * @example
  * ```js
  * <NavigationBar
@@ -53,7 +58,7 @@
  */
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Dimensions, Image, Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, Image, Platform, StatusBar, StyleSheet, Text, View, ViewPropTypes } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import Images from '../resources/Images';
 import ImageButton from './ImageButton';
@@ -168,6 +173,11 @@ export default class NavigationBar extends Component {
     right: PropTypes.array,
     title: PropTypes.string,
     subtitle: PropTypes.string,
+    titleNumberOfLines: PropTypes.number,
+    subtitleNumberOfLines: PropTypes.number,
+    titleStyle: Text.propTypes.style,
+    subtitleStyle: Text.propTypes.style,
+    allowFontScaling: PropTypes.bool,
     backgroundColor: PropTypes.any,
     onPressTitle: PropTypes.func,
     accessible: AccessibilityPropTypes.accessible
@@ -175,7 +185,12 @@ export default class NavigationBar extends Component {
   static defaultProps = {
     type: TYPE.LIGHT,
     left: [],
-    right: []
+    right: [],
+    allowFontScaling: true,
+    titleNumberOfLines: 1,
+    subtitleNumberOfLines: 1,
+    titleStyle: {},
+    subtitleStyle: {}
   }
   static TYPE = TYPE;
   static ICON = ICON;
@@ -262,7 +277,7 @@ export default class NavigationBar extends Component {
         {
           React.isValidElement(title) ?
             <View
-              numberOfLines={1}
+              numberOfLines={this.props.titleNumberOfLines}
               style={[styles.titleView, titleColor]}
               onPress={onPressTitle}
               accessible={false}
@@ -270,8 +285,9 @@ export default class NavigationBar extends Component {
               {title || ''}
             </View> :
             <Text
-              numberOfLines={1}
-              style={[styles.title, titleColor]}
+              numberOfLines={this.props.titleNumberOfLines}
+              allowFontScaling={this.props.allowFontScaling}
+              style={[styles.title, titleColor, this.props.titleStyle]}
               onPress={onPressTitle}
               accessible={false}
             >
@@ -280,8 +296,9 @@ export default class NavigationBar extends Component {
         }
         {subtitle
           ? <Text
-            numberOfLines={1}
-            style={[styles.subtitle, subtitleColor]}
+            numberOfLines={this.props.subtitleNumberOfLines}
+            allowFontScaling={this.props.allowFontScaling}
+            style={[styles.subtitle, subtitleColor, this.props.subtitleStyle]}
             onPress={onPressTitle}
             accessible={false}
           >
@@ -301,16 +318,16 @@ export default class NavigationBar extends Component {
   updateStyleType(props, newProps) {
     let newIsDartStyle = (newProps ? newProps.type : props.type) === TYPE.DARK;
     this.shouldKeepColor = false;
-    if(native.isIOS && native.MIOTService.currentDarkMode == "dark"){
-      if(newIsDartStyle){
-        //本来就是深色模式的情况，传入的颜色不修改
+    if (native.isIOS && native.MIOTService.currentDarkMode == "dark") {
+      if (newIsDartStyle) {
+        // 本来就是深色模式的情况，传入的颜色不修改
         this.shouldKeepColor = true;
       }
       newIsDartStyle = true;
-    }else{
+    } else {
       newIsDartStyle = DarkMode.getColorScheme() === 'dark' ? true : (newProps ? newProps.type : props.type) === TYPE.DARK;
     }
-    if(newIsDartStyle !== this.isDarkStyle) {
+    if (newIsDartStyle !== this.isDarkStyle) {
       this.isDarkStyle = newIsDartStyle;
       StatusBar.setBarStyle(this.isDarkStyle ? 'light-content' : 'dark-content');
       if (Platform.OS == 'android') {
@@ -336,13 +353,13 @@ export default class NavigationBar extends Component {
     let backgroundColor = this.props.backgroundColor
       ? this.props.backgroundColor
       : (this.isDarkStyle ? 'xm#000000' : 'xm#ffffff');
-    if(this.shouldKeepColor && this.props.backgroundColor){
-      backgroundColor = 'xm' + this.props.backgroundColor;
+    if (this.shouldKeepColor && this.props.backgroundColor) {
+      backgroundColor = `xm${ this.props.backgroundColor }`;
     }
     // StatusBar.setBackgroundColor(backgroundColor); // 仅对某些机型有效：华为荣耀V9
     const containerStyle = {
       backgroundColor,
-      height: containerHeight
+      minHeight: containerHeight
     };
     return (
       <SafeAreaView style={[styles.container, containerStyle, { paddingTop: StatusBar.currentHeight }]}>

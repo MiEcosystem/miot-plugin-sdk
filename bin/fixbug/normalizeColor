@@ -15,42 +15,42 @@ import native from '../../../../miot-sdk/native';
 import { rgbToHex } from '../../../../miot-sdk/native/utils';
 import DarkModeX from '../../../../miot-sdk/darkmode/index';
 
-function shouldUseAutoDarkmode(){
-  if(native.isIOS && native.MIOTService.currentDarkMode == "dark" && !DarkModeX.darkModeStore.setDarkMode){
+function shouldUseAutoDarkmode() {
+  if (native.isIOS && native.MIOTService.currentDarkMode == "dark" && !DarkModeX.darkModeStore.setDarkMode) {
     return true;
-  }else{
+  } else {
     return false;
   }
 }
 
 function changeColor(color, flag, isText) {
-  if(!shouldUseAutoDarkmode() || flag){
+  if (!shouldUseAutoDarkmode() || flag) {
     return color;
   }
   let tmp = color.toString(16);
-  if (tmp.length < 8){
-    if(tmp.length == 1){
-      tmp = '0000000' + tmp;
-    }else if(tmp.length == 2){
-      tmp = '000000' + tmp;
-    }else if(tmp.length == 3){
-      tmp = '00000' + tmp;
-    }else if(tmp.length == 4){
-      tmp = '0000' + tmp;
-    }else if(tmp.length == 5){
-      tmp = '000' + tmp;
-    }else if(tmp.length == 6){
-      tmp = '00' + tmp;
-    }else if(tmp.length == 7){
-      tmp = '0' + tmp;
-    }else{
+  if (tmp.length < 8) {
+    if (tmp.length == 1) {
+      tmp = `0000000${ tmp }`;
+    } else if (tmp.length == 2) {
+      tmp = `000000${ tmp }`;
+    } else if (tmp.length == 3) {
+      tmp = `00000${ tmp }`;
+    } else if (tmp.length == 4) {
+      tmp = `0000${ tmp }`;
+    } else if (tmp.length == 5) {
+      tmp = `000${ tmp }`;
+    } else if (tmp.length == 6) {
+      tmp = `00${ tmp }`;
+    } else if (tmp.length == 7) {
+      tmp = `0${ tmp }`;
+    } else {
       tmp = '00000000';
     }
   }
   let alpha = tmp.substr(6, 2);
-  let first = '0x' + tmp.substr(0, 6);
-  let finalColor = getAntiColor(parseInt(first,16), parseInt(alpha,16), isText);
-  let finalAlpha = getAntiAlpha(parseInt(first,16), parseInt(alpha,16));
+  let first = `0x${ tmp.substr(0, 6) }`;
+  let finalColor = getAntiColor(parseInt(first, 16), parseInt(alpha, 16), isText);
+  let finalAlpha = getAntiAlpha(parseInt(first, 16), parseInt(alpha, 16));
   let final = (
     parseInt(
       finalColor.toString(16) + alpha, 
@@ -60,122 +60,122 @@ function changeColor(color, flag, isText) {
   return final;
 }
 
-function getAntiAlpha(originColor, alpha, isText){
-  if(alpha <= 0x65 && alpha >= 0x4c && originColor === 0x000000){
+function getAntiAlpha(originColor, alpha, isText) {
+  if (alpha <= 0x65 && alpha >= 0x4c && originColor === 0x000000) {
     return 0x99;
   }
   return alpha;
 }
 
-function getAntiColor(originColor, alpha, isText){
-  //一些固定的颜色特殊处理
-  if(originColor === 0x32bac0){
+function getAntiColor(originColor, alpha, isText) {
+  // 一些固定的颜色特殊处理
+  if (originColor === 0x32bac0) {
     return 0x25A9AF;
-  }else if(originColor === 0x25A9AF){
+  } else if (originColor === 0x25A9AF) {
     return 0x158B90;
-  }else if(originColor === 0xF43F31){
+  } else if (originColor === 0xF43F31) {
     return 0xD92719;
-  }else if(originColor === 0xD53C32){
+  } else if (originColor === 0xD53C32) {
     return 0xB62920;
   }
-  if(!isText){
-    //背景特殊处理
-    if(originColor === 0xf6f7f8 || originColor === 0xe9e9ef || originColor === 0xEBEBEC || originColor === 0xefeff0){
+  if (!isText) {
+    // 背景特殊处理
+    if (originColor === 0xf6f7f8 || originColor === 0xe9e9ef || originColor === 0xEBEBEC || originColor === 0xefeff0) {
       return 0x000000;
     }
-    if(originColor === 0xE3E6E7){
-      //待确定
+    if (originColor === 0xE3E6E7) {
+      // 待确定
       return 0x1a1a1a;
     }
-    if(originColor === 0xb0b0b0){
-      //待确定
+    if (originColor === 0xb0b0b0) {
+      // 待确定
       return 0x1a1a1a;
     }
-  }else{
-    //某些文字颜色特殊处理
-    if(originColor === 0x23262a || originColor === 0x404346 || originColor === 0x454553){
+  } else {
+    // 某些文字颜色特殊处理
+    if (originColor === 0x23262a || originColor === 0x404346 || originColor === 0x454553) {
       return 0xffffff;
     }
   }
 
-  //采用hsv模型判断
+  // 采用hsv模型判断
   let rgbColor = hexToRgb(originColor.toString(16));
-  let hsvColor = rgbToHsv(rgbColor[0],rgbColor[1],rgbColor[2]);
+  let hsvColor = rgbToHsv(rgbColor[0], rgbColor[1], rgbColor[2]);
   let h = hsvColor.h;
   let s = hsvColor.s;
   let v = hsvColor.v;
   let flag = false;
-  if(isText){
-    //文字的情况
-    if(hsvColor.h === 0 && hsvColor.s === 0){
-      //黑或白的情况走这里
+  if (isText) {
+    // 文字的情况
+    if (hsvColor.h === 0 && hsvColor.s === 0) {
+      // 黑或白的情况走这里
       flag = true;
-      if(v >= 0 && v < 20){
+      if (v >= 0 && v < 20) {
         hsvColor.v = 90;
-      }else if(v >= 20 && v < 30){
+      } else if (v >= 20 && v < 30) {
         hsvColor.v = 80;
-      }else if(v >= 30 && v < 40){
+      } else if (v >= 30 && v < 40) {
         hsvColor.v = 70;
-      }else if(v >= 40 && v < 50){
+      } else if (v >= 40 && v < 50) {
         hsvColor.v = 60;
-      }else if(v >= 50 && v < 60){
+      } else if (v >= 50 && v < 60) {
         hsvColor.v = 50;
-      }else if(v >= 60 && v < 90){
+      } else if (v >= 60 && v < 90) {
         hsvColor.v = 40;
-      }else if(v >= 90 && v <= 100){
+      } else if (v >= 90 && v <= 100) {
         hsvColor.v = 90;
-      }else{
+      } else {
         flag = false;
       }
-    }else{
-      console.log('Text的其他情况看下hsv',h,'-',s,'-',v,'  originColor:',originColor.toString(16));
+    } else {
+      console.log('Text的其他情况看下hsv', h, '-', s, '-', v, '  originColor:', originColor.toString(16));
     }
-  }else{
-    //view的情况
-    if(hsvColor.h === 0 && hsvColor.s === 0){
-      //黑或白的情况走这里
+  } else {
+    // view的情况
+    if (hsvColor.h === 0 && hsvColor.s === 0) {
+      // 黑或白的情况走这里
       flag = true;
-      if(v >= 90 && v < 97){
+      if (v >= 90 && v < 97) {
         hsvColor.v = 15;
-      }else if(v >= 97 && v < 100){
+      } else if (v >= 97 && v < 100) {
         hsvColor.v = 0;
-      }else if(v === 100){
+      } else if (v === 100) {
         hsvColor.v = 10;
-      }else{
+      } else {
         flag = false;
       }
     }
   }
-  if(!flag){
-    //默认处理方法
+  if (!flag) {
+    // 默认处理方法
     hsvColor.s += 8;
     hsvColor.v -= 10; 
   }
-  //console.log('看下hsv',h,'-',s,'-',v,'  originColor:',originColor.toString(16));
-  return hsvToHex(hsvColor.h, Math.min(Math.max(hsvColor.s, 0),100), Math.min(Math.max(hsvColor.v, 0),100));
+  // console.log('看下hsv',h,'-',s,'-',v,'  originColor:',originColor.toString(16));
+  return hsvToHex(hsvColor.h, Math.min(Math.max(hsvColor.s, 0), 100), Math.min(Math.max(hsvColor.v, 0), 100));
 }
 
-function hexToRgb(color){
-  var sColorChange = [];
+function hexToRgb(color) {
+  let sColorChange = [];
   let tmp = color.toString(16);
-  if (tmp.length < 8){
-    if(tmp.length == 1){
-      tmp = '#00000' + tmp;
-    }else if(tmp.length == 2){
-      tmp = '#0000' + tmp;
-    }else if(tmp.length == 3){
-      tmp = '#000' + tmp;
-    }else if(tmp.length == 4){
-      tmp = '#00' + tmp;
-    }else if(tmp.length == 5){
-      tmp = '#0' + tmp;
-    }else if(tmp.length == 6){
-      tmp = '#' + tmp;
-    }else{
+  if (tmp.length < 8) {
+    if (tmp.length == 1) {
+      tmp = `#00000${ tmp }`;
+    } else if (tmp.length == 2) {
+      tmp = `#0000${ tmp }`;
+    } else if (tmp.length == 3) {
+      tmp = `#000${ tmp }`;
+    } else if (tmp.length == 4) {
+      tmp = `#00${ tmp }`;
+    } else if (tmp.length == 5) {
+      tmp = `#0${ tmp }`;
+    } else if (tmp.length == 6) {
+      tmp = `#${ tmp }`;
+    } else {
       tmp = '#000000';
     }
   }
-  let rgbString = `${tmp.slice(1).match(/.{2}/g).map(x => parseInt(x, 16)).join()}`;
+  let rgbString = `${ tmp.slice(1).match(/.{2}/g).map((x) => parseInt(x, 16)).join() }`;
   sColorChange = rgbString.split(",");
   return sColorChange;
 }
@@ -184,74 +184,74 @@ function rgbToHsv(r, g, b) {
   r = r / 255;
   g = g / 255;
   b = b / 255;
-  var h, s, v;
-  var min = Math.min(r, g, b);
-  var max = v = Math.max(r, g, b);
-  var l = (min + max) / 2;
-  var difference = max - min;
+  let h, s, v;
+  let min = Math.min(r, g, b);
+  let max = v = Math.max(r, g, b);
+  let l = (min + max) / 2;
+  let difference = max - min;
 
   if (max == min) {
-      h = 0;
+    h = 0;
   } else {
-      switch (max) {
+    switch (max) {
       case r:
-          h = (g - b) / difference + (g < b ? 6 : 0);
-          break;
+        h = (g - b) / difference + (g < b ? 6 : 0);
+        break;
       case g:
-          h = 2.0 + (b - r) / difference;
-          break;
+        h = 2.0 + (b - r) / difference;
+        break;
       case b:
-          h = 4.0 + (r - g) / difference;
-          break;
-      }
-      h = Math.round(h * 60);
+        h = 4.0 + (r - g) / difference;
+        break;
+    }
+    h = Math.round(h * 60);
   }
   if (max == 0) {
-      s = 0;
+    s = 0;
   } else {
-      s = 1 - min / max;
+    s = 1 - min / max;
   }
   s = Math.round(s * 100);
   v = Math.round(v * 100);
-  return {"h":h, "s":s, "v":v};
+  return { "h": h, "s": s, "v": v };
 }
 
-function hsvToHex(h, s, v){
-    s = s / 100;
-    v = v / 100;
-    var r = 0, g = 0, b = 0;
-    var i = parseInt((h / 60) % 6);
-    var f = h / 60 - i;
-    var p = v * (1 - s);
-    var q = v * (1 - f * s);
-    var t = v * (1 - (1 - f) * s);
-    switch (i) {
-        case 0:
-            r = v; g = t; b = p;
-            break;
-        case 1:
-            r = q; g = v; b = p;
-            break;
-        case 2:
-            r = p; g = v; b = t;
-            break;
-        case 3:
-            r = p; g = q; b = v;
-            break;
-        case 4:
-            r = t; g = p; b = v;
-            break;
-        case 5:
-            r = v; g = p; b = q;
-            break;
-        default:
-            break;
-    }
-    r = parseInt(r * 255.0)
-    g = parseInt(g * 255.0)
-    b = parseInt(b * 255.0)
-    let color = rgbToHex(r, g, b);
-    return color;
+function hsvToHex(h, s, v) {
+  s = s / 100;
+  v = v / 100;
+  let r = 0, g = 0, b = 0;
+  let i = parseInt((h / 60) % 6);
+  let f = h / 60 - i;
+  let p = v * (1 - s);
+  let q = v * (1 - f * s);
+  let t = v * (1 - (1 - f) * s);
+  switch (i) {
+    case 0:
+      r = v; g = t; b = p;
+      break;
+    case 1:
+      r = q; g = v; b = p;
+      break;
+    case 2:
+      r = p; g = v; b = t;
+      break;
+    case 3:
+      r = p; g = q; b = v;
+      break;
+    case 4:
+      r = t; g = p; b = v;
+      break;
+    case 5:
+      r = v; g = p; b = q;
+      break;
+    default:
+      break;
+  }
+  r = parseInt(r * 255.0);
+  g = parseInt(g * 255.0);
+  b = parseInt(b * 255.0);
+  let color = rgbToHex(r, g, b);
+  return color;
 }
 
 function normalizeColor(color: string | number): ?number {
@@ -265,21 +265,21 @@ function normalizeColor(color: string | number): ?number {
   }
 
   let isText = false;
-  if(color.indexOf('text') != -1){
+  if (color.indexOf('text') != -1) {
     isText = true;
-    color = color.replace(new RegExp("text","gm"),'');
+    color = color.replace(new RegExp("text", "gm"), '');
   }
 
   let flag = false;
-  if(color.indexOf('xm') != -1){
+  if (color.indexOf('xm') != -1) {
     flag = true;
-    color = color.replace(new RegExp("xm","gm"),'');
+    color = color.replace(new RegExp("xm", "gm"), '');
   }
 
   // Ordered based on occurrences on Facebook codebase
   if ((match = matchers.hex6.exec(color))) {
-    let tmp = parseInt(match[1] + 'ff', 16) >>> 0;
-    return  changeColor(tmp, flag, isText);
+    let tmp = parseInt(`${ match[1] }ff`, 16) >>> 0;
+    return changeColor(tmp, flag, isText);
   }
 
   if (names.hasOwnProperty(color)) {
@@ -313,13 +313,13 @@ function normalizeColor(color: string | number): ?number {
   if ((match = matchers.hex3.exec(color))) {
     let tmp = (
       parseInt(
-        match[1] +
+        `${ match[1] +
         match[1] + // r
         match[2] +
         match[2] + // g
         match[3] +
-        match[3] + // b
-          'ff', // a
+        match[3] // b
+        }ff`, // a
         16,
       ) >>> 0
     );
@@ -413,10 +413,10 @@ function hslToRgb(h: number, s: number, l: number): number {
 
 // var INTEGER = '[-+]?\\d+';
 const NUMBER = '[-+]?\\d*\\.?\\d+';
-const PERCENTAGE = NUMBER + '%';
+const PERCENTAGE = `${ NUMBER }%`;
 
 function call(...args) {
-  return '\\(\\s*(' + args.join(')\\s*,\\s*(') + ')\\s*\\)';
+  return `\\(\\s*(${ args.join(')\\s*,\\s*(') })\\s*\\)`;
 }
 
 let cachedMatchers;
@@ -424,14 +424,14 @@ let cachedMatchers;
 function getMatchers() {
   if (cachedMatchers === undefined) {
     cachedMatchers = {
-      rgb: new RegExp('rgb' + call(NUMBER, NUMBER, NUMBER)),
-      rgba: new RegExp('rgba' + call(NUMBER, NUMBER, NUMBER, NUMBER)),
-      hsl: new RegExp('hsl' + call(NUMBER, PERCENTAGE, PERCENTAGE)),
-      hsla: new RegExp('hsla' + call(NUMBER, PERCENTAGE, PERCENTAGE, NUMBER)),
+      rgb: new RegExp(`rgb${ call(NUMBER, NUMBER, NUMBER) }`),
+      rgba: new RegExp(`rgba${ call(NUMBER, NUMBER, NUMBER, NUMBER) }`),
+      hsl: new RegExp(`hsl${ call(NUMBER, PERCENTAGE, PERCENTAGE) }`),
+      hsla: new RegExp(`hsla${ call(NUMBER, PERCENTAGE, PERCENTAGE, NUMBER) }`),
       hex3: /^#([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
       hex4: /^#([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
       hex6: /^#([0-9a-fA-F]{6})$/,
-      hex8: /^#([0-9a-fA-F]{8})$/,
+      hex8: /^#([0-9a-fA-F]{8})$/
     };
   }
   return cachedMatchers;
@@ -628,7 +628,7 @@ const names = {
   white: 0xffffffff,
   whitesmoke: 0xf5f5f5ff,
   yellow: 0xffff00ff,
-  yellowgreen: 0x9acd32ff,
+  yellowgreen: 0x9acd32ff
 };
 
 module.exports = normalizeColor;

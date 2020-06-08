@@ -27,11 +27,11 @@ const TitledCountdown = TitledImageButton(ImageButton(CountdownImage));
 
 function getIconSource(type, on) {
   switch (true) {
-  case (type === 'brightness' && on): return require('./app/brightness-on.png');
-  case (type === 'brightness' && !on): return require('./app/brightness-off.png');
-  case (type === 'temperature' && on): return require('./app/temperature-on.png');
-  case (type === 'temperature' && !on): return require('./app/temperature-off.png');
-  default: return null;
+    case (type === 'brightness' && on): return require('./app/brightness-on.png');
+    case (type === 'brightness' && !on): return require('./app/brightness-off.png');
+    case (type === 'temperature' && on): return require('./app/temperature-on.png');
+    case (type === 'temperature' && !on): return require('./app/temperature-off.png');
+    default: return null;
   }
 }
 

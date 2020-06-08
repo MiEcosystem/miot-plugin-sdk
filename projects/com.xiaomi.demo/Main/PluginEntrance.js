@@ -13,6 +13,6 @@ export const PluginEntrance = {
    * 官方Demo
    * @const
    */
-  OfficialDemos: "OfficialDemos",
+  OfficialDemos: "OfficialDemos"
 
-}
+};

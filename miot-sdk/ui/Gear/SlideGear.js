@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Animated, PanResponder, StyleSheet, Text, View } from 'react-native';
+import { Animated, PanResponder, StyleSheet, Text, View, ViewPropTypes } from 'react-native';
 import Styles from '../../resources/Styles';
 import Block from "./Block";
 import LinearGradient from 'react-native-linear-gradient';
@@ -77,9 +77,11 @@ const DEFAULT_BLOCK_COLOR = '#fff'; // 滑块默认颜色
  * @property {style} containerStyle - 容器样式，设置背景颜色无效
  * @property {style} blockStyle - 滑块样式，尺寸始终比容器小
  * @property {string} minimumTrackTintColor - 滑块左侧填充颜色
- * @property {string} leftTextColor - 最左侧文字颜色，`showEndText = true`时有效
+ * @property {string} leftTextColor - 最左侧文字颜色，`showEndText = true`时有效  (10040 废弃， 建议使用 leftTextStyle)
+ * @property {ViewPropTypes.style} leftTextStyle - 10040新增 最左侧文字颜色的样式 , `showEndText = true`时有效
  * @property {string} maximumTrackTintColor - 滑块右侧填充颜色
- * @property {string} rightTextColor - 最右侧文字颜色，`showEndText = true`时有效
+ * @property {string} rightTextColor - 最右侧文字颜色，`showEndText = true`时有效  (10040 废弃， 建议使用 rightTextStyle)
+ * @property {ViewPropTypes.style} rightTextStyle - 10040新增 最右侧文字的样式 , `showEndText = true`时有效
  * @property {number} value - 被选择档位的数组下标, `0<=value<=options.length -1` 或者是位于optionMin、optionMax直接的某一个值
  * @property {boolean} disabled - 是否禁用交互，默认`false`
  * @property {function} onValueChange - 滑动时的回调函数
@@ -90,6 +92,8 @@ const DEFAULT_BLOCK_COLOR = '#fff'; // 滑块默认颜色
  * @property {number} contentType - 滑动内容的类型，数值（默认）、颜色、色温
  * @property {object} colorRangeObject - 颜色对象
  * @property {object} colorTemRangeObject - 色温对象
+ * @property {bool} allowFontScaling - 10040新增 字体大小是否随系统大小变化而变化, 默认值为true
+ * @property {number} numberOfLines - 10040新增 文字最多显示的行数
  */
 export default class SlideGear extends React.Component {
     static propTypes = {
@@ -100,8 +104,10 @@ export default class SlideGear extends React.Component {
       blockStyle: PropTypes.object,
       minimumTrackTintColor: PropTypes.string,
       leftTextColor: PropTypes.string,
+      leftTextStyle: Text.propTypes.style,
       maximumTrackTintColor: PropTypes.string,
       rightTextColor: PropTypes.string,
+      rightTextStyle: Text.propTypes.style,
       value: PropTypes.number,
       disabled: PropTypes.bool,
       onValueChange: PropTypes.func,
@@ -112,6 +118,8 @@ export default class SlideGear extends React.Component {
       contentType: PropTypes.oneOf([CONTENTTYPE.NUM, CONTENTTYPE.COLOR, CONTENTTYPE.COLORTEM]),
       colorRangeObject: PropTypes.object,
       colorTemRangeObject: PropTypes.object,
+      allowFontScaling: PropTypes.bool,
+      numberOfLines: PropTypes.number,
       accessible: AccessibilityPropTypes.accessible,
       accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
       accessibilityHint: AccessibilityPropTypes.accessibilityHint
@@ -124,8 +132,10 @@ export default class SlideGear extends React.Component {
       blockStyle: {},
       minimumTrackTintColor: Styles.common.MHGreen,
       leftTextColor: '#eee',
+      leftTextStyle: {},
       maximumTrackTintColor: '#dfe2e3',
       rightTextColor: '#999',
+      rightTextStyle: {},
       value: 0,
       disabled: false,
       optionMin: 0,
@@ -133,7 +143,8 @@ export default class SlideGear extends React.Component {
       optionStep: 0,
       contentType: CONTENTTYPE.NUM,
       colorRangeObject: COLORRANGE,
-      colorTemRangeObject: COLORTEMRANGE
+      colorTemRangeObject: COLORTEMRANGE,
+      allowFontScaling: true
     }
     /**
      * @description 容器和滑块的圆角类型
@@ -145,7 +156,9 @@ export default class SlideGear extends React.Component {
       super(props, context);
       if (this.props.options.length === 0) {
         if (!this.props.optionStep) {
-          console.warn('options 为空数组 且无 optionStep');
+          if (__DEV__ && console.warn) {
+            console.warn('options 为空数组 且无 optionStep');
+          }
           this.showNothing = true;
           return;
         } else { // option为range、step形式
@@ -163,7 +176,8 @@ export default class SlideGear extends React.Component {
       this.blockWidth = blockWidth;
       this.blockHeight = blockHeight;
       this.containerHeight = containerHeight;
-      console.log(`滑块高度: ${ blockHeight }\n滑块宽度: ${ blockWidth }\n滑块周围间距: ${ margin }\n容器高度: ${ containerHeight }`);
+      // console.log(`滑块高度: ${ blockHeight }\n滑块宽度: ${ blockWidth }\n滑块周围间距: ${ margin }\n容器高度: ${ containerHeight }`);
+      this.value = this.props.value;
       this.state = {
         pan: new Animated.Value(0),
         moveX: new Animated.Value(0),
@@ -226,7 +240,9 @@ export default class SlideGear extends React.Component {
         if ((value === this.value) && this.isSameArray(options, this.props.options)) return; // 没有变化
         if (!this.isSameArray(options, this.props.options)) { // options 变化
           if (!(options instanceof Array) || options.length === 0) { // 更新后的 options 不是数组或者是空数组
-            console.warn('options 不是数组或者是空数组');
+            if (__DEV__ && console.warn) {
+              console.warn('options 不是数组或者是空数组');
+            }
             this.showNothing = true;
             return;
           } else { // options 正确更新
@@ -237,7 +253,9 @@ export default class SlideGear extends React.Component {
         }
         if (value !== this.props.value) { // value 变化
           if (value < 0 || value >= this.length) { // 更新后的 value 越界
-            console.warn('value 不在 options 范围内');
+            if (__DEV__ && console.warn) {
+              console.warn(`value 不在 options 范围内 value=${ value }  length=${ this.length }`);
+            }
             this.value = 0; // 如果越界，设置一个默认值
           } else {
             this.value = value; // value 正确更新
@@ -294,7 +312,6 @@ export default class SlideGear extends React.Component {
      */
     getClosetIndex(moveX) {
       const adjustCoord = moveX - this.offset; // 拖拽过程中Block的中心点坐标
-      console.log("拖拽过程中Block的中心点坐标adjustCoord: ", adjustCoord);
       if (this.optionStep) { // 返回范围内的value值
         let value;
         if (adjustCoord <= this.firstCoord) {
@@ -306,7 +323,6 @@ export default class SlideGear extends React.Component {
           value = index * this.optionStep + this.optionMin;
           if (value > this.optionMax) value = this.optionMax;
         }
-        console.log("get step value: ", value);
         return value;
       } else { // 返回options数组的某个下标
         const diffs = this.coords.map((coord) => Math.abs(coord - adjustCoord));
@@ -344,22 +360,20 @@ export default class SlideGear extends React.Component {
       // 为了准确确定释放位置，需要在起手的时候，计算出手势触摸点和中心点的偏差
       const { pageX } = e.nativeEvent;
       this.offset = pageX - this.currentCoord;
-      console.log('⬇️⬇️⬇️⬇️⬇️⬇️⬇️滑动开始⬇️⬇️⬇️⬇️⬇️⬇️⬇️');
-      console.log(`滑块中心坐标: ${ this.currentCoord }\n触摸点坐标: ${ pageX }\nthis.translateX: ${ this.translateX }`);
+      // console.log('⬇️⬇️⬇️⬇️⬇️⬇️⬇️滑动开始⬇️⬇️⬇️⬇️⬇️⬇️⬇️');
+      // console.log(`滑块中心坐标: ${ this.currentCoord }\n触摸点坐标: ${ pageX }\nthis.translateX: ${ this.translateX }`);
     }
     /**
      * @description 手势释放回调
      */
     _onPanResponderRelease(e, gesture) {
       const coord = gesture.moveX - this.offset;
-      console.log("计算currentCoord时的coord：", coord);
       if (this.optionStep) {
         if (coord >= this.firstCoord && coord <= this.endCoord) {
           this.currentCoord = coord;
         } else {
           console.log("coord越界");
           this.currentCoord = coord < this.firstCoord ? this.firstCoord : this.endCoord;
-          console.log("currentCoord: ", this.currentCoord);
         }
       } else {
         const min = this.coords[0];
@@ -385,8 +399,8 @@ export default class SlideGear extends React.Component {
         }
       }
       this.offset = 0;
-      console.log(`手势结束坐标: ${ coord }\n滑块最终坐标: ${ this.currentCoord }\n离滑块最近的选项下标: ${ index }`);
-      console.log('⬆️⬆️⬆️⬆️⬆️⬆️⬆️滑动结束⬆️⬆️⬆️⬆️⬆️⬆️⬆️');
+      // console.log(`手势结束坐标: ${ coord }\n滑块最终坐标: ${ this.currentCoord }\n离滑块最近的选项下标: ${ index }`);
+      // console.log('⬆️⬆️⬆️⬆️⬆️⬆️⬆️滑动结束⬆️⬆️⬆️⬆️⬆️⬆️⬆️');
       this.sliding = false;
     }
     /**
@@ -426,13 +440,14 @@ export default class SlideGear extends React.Component {
       const startCoord = x + offset / 2;
       const d = this.optionStep ? (w - offset) / this.length : (w - offset) / (this.length - 1);
       this.d = d;
-      console.log(`容器起始坐标: ${ x }\n实际宽度: ${ w }\n各选项中心坐标间距: ${ d }`);
+      // console.log(`容器起始坐标: ${ x }\n实际宽度: ${ w }\n各选项中心坐标间距: ${ d }`);
       if (d <= 0) {
-        console.warn('容器实际宽度 < 滑块宽度，滑块无法移动，请仔细检查 containerStyle 或者增加容器的宽度');
+        if (__DEV__ && console.warn) {
+          console.warn('容器实际宽度 < 滑块宽度，滑块无法移动，请仔细检查 containerStyle 或者增加容器的宽度');
+        }
       }
       if (!this.optionStep) {
         this.coords = this.options.map((v, i) => d > 0 ? (startCoord + d * i) : 0);
-        console.log('各选项中心坐标', this.coords);
         this.currentCoord = this.coords[this.value];
       } else {
         this.firstCoord = startCoord;
@@ -456,18 +471,17 @@ export default class SlideGear extends React.Component {
           dragToValueMin: this.coords[0] - this.currentCoord || 0,
           dragToValueMax: this.coords[this.length - 1] - this.currentCoord || 0
         }, () => {
-          console.log(`滑块中心坐标: ${ this.currentCoord }\n可滑动范围: ${ this.state.dragToValueMin } ~ ${ this.state.dragToValueMax }`);
+          // console.log(`滑块中心坐标: ${ this.currentCoord }\n可滑动范围: ${ this.state.dragToValueMin } ~ ${ this.state.dragToValueMax }`);
           callback && callback();
           this.state.pan.setOffset(0);
           this.state.pan.setValue(0);
         });
       } else {
-        console.log("计算drag范围时的currentCoord： ", this.currentCoord);
         this.setState({
           dragToValueMin: this.firstCoord - this.currentCoord || 0,
           dragToValueMax: this.endCoord - this.currentCoord || 0
         }, () => {
-          console.log(`滑块中心坐标: ${ this.currentCoord }\n可滑动范围: ${ this.state.dragToValueMin } ~ ${ this.state.dragToValueMax }`);
+          // console.log(`滑块中心坐标: ${ this.currentCoord }\n可滑动范围: ${ this.state.dragToValueMin } ~ ${ this.state.dragToValueMax }`);
           callback && callback();
           this.state.pan.setOffset(0);
           this.state.pan.setValue(0);
@@ -567,17 +581,22 @@ export default class SlideGear extends React.Component {
                 {
                   margin: this.margin,
                   alignSelf: 'flex-start',
-                  width: this.blockWidth + this.margin * 2,
+                  minWidth: this.blockWidth + this.margin * 2,
                   height: this.blockHeight
                 }
               ]}
             >
-              <Text style={[
-                styles.text,
-                {
-                  color: this.props.leftTextColor
-                }
-              ]}>
+              <Text
+                style={[
+                  styles.text,
+                  {
+                    color: this.props.leftTextColor
+                  },
+                  this.props.leftTextStyle
+                ]}
+                allowFontScaling={this.props.allowFontScaling}
+                numberOfLines={this.props.numberOfLines}
+              >
                 {this.optionStep ? this.optionMin : this.options[0]}
               </Text>
             </View>
@@ -601,19 +620,24 @@ export default class SlideGear extends React.Component {
             {
               margin: this.margin,
               alignSelf: 'flex-end',
-              width: width,
+              minWidth: width,
               height: this.blockHeight
             }
           ]}
         >
           {
             this.props.showEndText
-              ? <Text style={[
-                styles.text,
-                {
-                  color: this.props.rightTextColor
-                }
-              ]}>
+              ? <Text
+                style={[
+                  styles.text,
+                  {
+                    color: this.props.rightTextColor
+                  },
+                  this.props.rightTextStyle
+                ]}
+                allowFontScaling={this.props.allowFontScaling}
+                numberOfLines={this.props.numberOfLines}
+              >
                 {this.optionStep ? this.optionMax : this.options[this.length - 1]}
               </Text>
               : null

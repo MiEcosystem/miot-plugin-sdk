@@ -8,7 +8,7 @@ import { Dimensions, ScrollView, View } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
-export default class List extends React.Component {
+export default class CustomListDemo extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
@@ -138,7 +138,7 @@ export default class List extends React.Component {
               subtitle="副标题测试副标题测试副标题测试副标题测试副标题测试副标题测试"
               onPress={() => console.log('do what u want to do')}
               onValueChange={(value) => console.log(value)}
-              containerStyle={{ width: width * 0.8, backgroundColor: 'lightblue' }}
+              containerStyle={{ width: width * 0.8, height: 90, backgroundColor: 'lightblue' }}
               titleStyle={{ fontSize: 17, color: 'red' }}
               subtitleStyle={{ fontSize: 10, color: 'green' }}
               valueTextStyle={{ fontSize: 10, color: 'yellow' }}

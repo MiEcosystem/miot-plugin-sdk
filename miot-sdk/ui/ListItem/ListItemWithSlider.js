@@ -45,6 +45,10 @@ const THUMB_TOUCH_SIZE = { width: 50, height: 50 };
  * @property {style} valueStyle - value的自定义样式
  * @property {bool} showSeparator - 是否显示分割线，默认值 true
  * @property {component} separator - 自定义分割线，不传将显示默认样式的分割线
+ * @property {bool} allowFontScaling - 10040新增 设置字体是否随系统设置的字体大小的设置改变而改变 默认为true。
+ * @property {bool} unlimitedHeightEnable - 10040新增 设置控件高度是否自适应。 默认为false，即默认高度
+ * @property {number} titleNumberOfLines - 10040新增 设置title字体显示的最大行数 默认为1
+ * @property {number} valueNumberOfLines - 10040新增 设置value字体显示的最大行数 默认为1
  */
 export default class ListItemWithSlider extends React.Component {
   static propTypes = {
@@ -62,6 +66,10 @@ export default class ListItemWithSlider extends React.Component {
     valueStyle: PropTypes.object,
     showSeparator: PropTypes.bool,
     separator: PropTypes.element,
+    allowFontScaling: PropTypes.bool,
+    unlimitedHeightEnable: PropTypes.bool,
+    titleNumberOfLines: PropTypes.number,
+    valueNumberOfLines: PropTypes.number,
     accessible: AccessibilityPropTypes.accessible,
     accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
     accessibilityHint: AccessibilityPropTypes.accessibilityHint
@@ -76,7 +84,9 @@ export default class ListItemWithSlider extends React.Component {
     titleStyle: {},
     valueStyle: {},
     showSeparator: true,
-    onSlidingComplete: () => {}
+    onSlidingComplete: () => { },
+    unlimitedHeightEnable: false,
+    allowFontScaling: true
   }
   constructor(props, context) {
     super(props, context);
@@ -106,9 +116,17 @@ export default class ListItemWithSlider extends React.Component {
         maxWidth: (this.props.containerStyle.width - PADDING * 2) * 0.7
       };
     }
+    let adaptedFontStyle = {};
+    if (this.props.unlimitedHeightEnable) {
+      adaptedFontStyle = { height: undefined, lineHeight: undefined };
+    }
+    let titleLine = this.props.titleNumberOfLines == undefined ? 1 : this.props.titleNumberOfLines;
+    let valueLine = this.props.valueNumberOfLines == undefined ? 1 : this.props.valueNumberOfLines;
+    if (titleLine < 0) titleLine = 0;
+    if (valueLine < 0) valueLine = 0;
     return (
       <View style={{ backgroundColor: '#fff' }}>
-        <View style={[styles.container, this.props.containerStyle]}>
+        <View style={[styles.container, this.props.containerStyle, adaptedFontStyle]}>
           <View
             style={[styles.up]}
             {...getAccessibilityConfig({
@@ -121,16 +139,19 @@ export default class ListItemWithSlider extends React.Component {
             })}
           >
             <Text
-              numberOfLines={1}
+              numberOfLines={titleLine}
               ellipsizeMode="tail"
-              style={[Styles.common.title, this.props.titleStyle, extraStyle]}
+              allowFontScaling={this.props.allowFontScaling}
+              style={[Styles.common.title, this.props.titleStyle, extraStyle, adaptedFontStyle]}
               accessible={false}
             >
               {this.props.title}
             </Text>
-            <View style={styles.separatorCol} />
+            <View style={[styles.separatorCol, this.props.unlimitedHeightEnable ? { height: '80%' } : {}]} />
             <Text
-              style={[styles.value, this.props.valueStyle]}
+              style={[styles.value, this.props.valueStyle, adaptedFontStyle]}
+              numberOfLines={valueLine}
+              allowFontScaling={this.props.allowFontScaling}
               accessible={false}
             >
               {this.props.subtitle || this.state.valueStr}
@@ -193,7 +214,9 @@ export default class ListItemWithSlider extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.sliderProps === undefined) return;
     if (typeof nextProps.sliderProps.value !== 'number') {
-      console.warn('sliderProps.value is not a number');
+      if (__DEV__ && console.warn) {
+        console.warn('sliderProps.value is not a number');
+      }
       return;
     }
     const { value, minimumValue, maximumValue } = nextProps.sliderProps;

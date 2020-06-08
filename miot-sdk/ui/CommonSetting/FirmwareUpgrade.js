@@ -39,7 +39,11 @@ export default class FirmwareUpgrade extends React.Component {
       type: ListItemType.LIST_ITEM_WITH_SWITCH,
       title: strings.autoUpgrade,
       value: true,
-      onValueChange: () => console.warn('固件自动升级接口暂不支持')
+      onValueChange: () => {
+        if (__DEV__ && console.warn) {
+          console.warn('固件自动升级接口暂不支持');
+        }
+      }
     },
     [secondAllOptions.CHECK_UPGRADE]: {
       type: ListItemType.LIST_ITEM,
