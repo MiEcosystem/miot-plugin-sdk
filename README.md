@@ -79,7 +79,7 @@ Android APK 包下载地址：http://www.jappstore.com/MiHomeForAndroid  ,若打
 
 下载密码: keliyuan 
 
-调试包若无法下载，请邮件[吕杰](lvjie1@xiaomi.com)同学更新。
+调试包若无法下载，请邮件吕杰(lvjie1@xiaomi.com)同学更新。
 
 ## 其他文档
 
