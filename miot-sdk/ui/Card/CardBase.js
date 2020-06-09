@@ -54,7 +54,9 @@ export default class CardBase extends React.Component {
     unlimitedHeightEnable: PropTypes.bool,
     allowFontScaling: PropTypes.bool,
     numberOfLines: PropTypes.number,
-    ...AccessibilityPropTypes,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint,
     dismissAccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
     dismissAccessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
@@ -85,6 +87,15 @@ export default class CardBase extends React.Component {
       });
     });
   }
+  onAccessibilityAction = ({ nativeEvent: { actionName } }) => {
+    const { disabled, onPress } = this.props;
+    if (disabled) {
+      return;
+    }
+    if (onPress && actionName === 'activate') {
+      onPress();
+    }
+  }
   /**
    * @description 渲染卡片内部View。默认显示 icon + text
    */
@@ -97,20 +108,26 @@ export default class CardBase extends React.Component {
         <Animated.View
           style={[styles.innerContainer, { opacity: this.opacity }]}
           {...getAccessibilityConfig({
-            ...this.props,
-            accessibilityRole: this.props.accessibilityRole || (this.props.onPress ? AccessibilityRoles.button : AccessibilityRoles.text),
+            accessible: this.props.accessible,
+            accessibilityRole: this.props.onPress ? AccessibilityRoles.button : AccessibilityRoles.text,
             accessibilityHint: this.props.accessibilityHint || (this.props.onPress ? text : ''),
-            accessibilityState: this.props.accessibilityState || {
-              disabled: !!this.props.disabled || !this.props.onPress
+            accessibilityState: {
+              disabled: !!this.props.disabled
             }
           })}
+          accessibilityActions={[
+            { name: 'activate' }
+          ]}
+          onAccessibilityAction={this.onAccessibilityAction}
         >
           {icon ? (
             <Image
               style={[styles.innerIcon, iconStyle]}
               source={icon}
               resizeMode="contain"
-              accessible={false}
+              {...getAccessibilityConfig({
+                accessible: false
+              })}
             />
           ) : null}
           <Text
@@ -118,7 +135,9 @@ export default class CardBase extends React.Component {
             numberOfLines={textLine}
             ellipsizeMode="tail"
             allowFontScaling={this.props.allowFontScaling}
-            accessible={false}
+            {...getAccessibilityConfig({
+              accessible: true
+            })}
           >
             {text || ''}
           </Text>
@@ -224,14 +243,15 @@ export default class CardBase extends React.Component {
             outputRange: [0, this.cardHeight]
           })
         }]}
-        accessible={false}
       >
         <TouchableHighlight
           style={[containerStyle, { flex: 1 }]}
           underlayColor={this.props.underlayColor}
           disabled={this.props.disabled}
           onPress={this.props.onPress}
-          accessible={false}
+          {...getAccessibilityConfig({
+            accessible: false
+          })}
         >
           <View style={{ flex: 1 }}>
             {this.renderInner()}

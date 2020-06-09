@@ -119,9 +119,6 @@ export default class CustomCardDemo extends React.Component {
               accessibilityRole="imagebutton"
               accessibilityLabel="点击卡片，切换图片aaaa"
               accessibilityHint="点击卡片，切换图片ssss"
-              accessibilityState={{
-                disabled: true
-              }}
             />
             <Card
               text="没有图标，没有阴影，只有文字，点击变成黑色背景"
@@ -187,12 +184,8 @@ export default class CustomCardDemo extends React.Component {
               showShadow={true}
               visible={this.state.visible5}
               marginTop={15}
-              accessibilityRole="imagebutton"
               accessibilityLabel="标题标题aaaa"
               accessibilityHint="标题标题ssss"
-              accessibilityState={{
-                disabled: true
-              }}
             />
             <MHCard
               title="标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题"
@@ -201,7 +194,12 @@ export default class CustomCardDemo extends React.Component {
               subtitleStyle={{ color: 'blue', fontSize: 15 }}
               cardType={MHCard.CARD_TYPE.SWITCH}
               cardRadiusType={MHCard.CARD_RADIUS_TYPE.NONE}
-              onValueChange={(value) => console.log(value)}
+              onValueChange={(value) => {
+                console.log(value);
+                this.setState({
+                  value
+                });
+              }}
               onPress={() => console.log('onPress')}
               switchValue={this.state.value}
               tintColor="#666"
@@ -216,7 +214,12 @@ export default class CustomCardDemo extends React.Component {
               subtitleStyle={{ color: 'blue', fontSize: 15 }}
               cardType={MHCard.CARD_TYPE.SWITCH}
               cardRadiusType={MHCard.CARD_RADIUS_TYPE.BOTTOM}
-              onValueChange={(value) => console.log(value)}
+              onValueChange={(value) => {
+                console.log(value);
+                this.setState({
+                  value
+                });
+              }}
               switchValue={this.state.value}
               tintColor="red"
               onTintColor="#67b688"
@@ -263,7 +266,12 @@ export default class CustomCardDemo extends React.Component {
             <Separator style={{ height: 0.75 }} />
             <MHCard
               title="警报器提示音"
-              onValueChange={(value) => console.log(value)}
+              onValueChange={(value) => {
+                console.log(value);
+                this.setState({
+                  value
+                });
+              }}
               switchValue={this.state.value}
               onTintColor="#67b688"
               cardType={MHCard.CARD_TYPE.SWITCH}
@@ -273,7 +281,12 @@ export default class CustomCardDemo extends React.Component {
             <MHCard
               title="警报器提示音"
               disabled={true}
-              onValueChange={(value) => console.log(value)}
+              onValueChange={(value) => {
+                console.log(value);
+                this.setState({
+                  value
+                });
+              }}
               switchValue={this.state.value}
               onTintColor="#67b688"
               cardType={MHCard.CARD_TYPE.SWITCH}
@@ -285,7 +298,12 @@ export default class CustomCardDemo extends React.Component {
               subtitle="当设备运行异常时，将通知提醒您"
               switchValue={this.state.value}
               onTintColor="#67b688"
-              onValueChange={(value) => console.log(value)}
+              onValueChange={(value) => {
+                console.log(value);
+                this.setState({
+                  value
+                });
+              }}
               cardType={MHCard.CARD_TYPE.SWITCH}
               cardRadiusType={MHCard.CARD_RADIUS_TYPE.NONE}
             />
@@ -296,7 +314,12 @@ export default class CustomCardDemo extends React.Component {
               disabled={true}
               switchValue={this.state.value}
               onTintColor="#67b688"
-              onValueChange={(value) => console.log(value)}
+              onValueChange={(value) => {
+                console.log(value);
+                this.setState({
+                  value
+                });
+              }}
               cardType={MHCard.CARD_TYPE.SWITCH}
               showShadow={true}
               cardRadiusType={MHCard.CARD_RADIUS_TYPE.BOTTOM}

@@ -25,12 +25,12 @@
  */
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Dimensions, Image, Platform, StatusBar, StyleSheet, Text, View, ViewPropTypes } from 'react-native';
+import { Dimensions, Image, Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import { RkButton } from "react-native-ui-kitten";
 import { SafeAreaView } from 'react-navigation';
 import ImageButton from './ImageButton';
-import native from '../native';
+import native, { isIOS } from '../native';
 import DarkMode from 'miot/darkmode';
 import { AccessibilityRoles, AccessibilityPropTypes, getAccessibilityConfig } from 'miot/utils/accessibility-helper';
 const { width } = Dimensions.get('window');
@@ -64,19 +64,15 @@ export default class TitleBar extends Component {
     // 无障碍 - onPressLeft
     leftAccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
     leftAccessibilityHint: AccessibilityPropTypes.accessibilityHint,
-    leftAccessibilityState: AccessibilityPropTypes.accessibilityState,
     // 无障碍 - onPressLeft2
     left2AccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
     left2AccessibilityHint: AccessibilityPropTypes.accessibilityHint,
-    left2AccessibilityState: AccessibilityPropTypes.accessibilityState,
     // 无障碍 - onPressRight
     rightAccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
     rightAccessibilityHint: AccessibilityPropTypes.accessibilityHint,
-    rightAccessibilityState: AccessibilityPropTypes.accessibilityState,
     // 无障碍 - onPressRight2
     right2AccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
-    right2AccessibilityHint: AccessibilityPropTypes.accessibilityHint,
-    right2AccessibilityState: AccessibilityPropTypes.accessibilityState
+    right2AccessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
   static defaultProps = {
     type: 'light',
@@ -95,7 +91,7 @@ export default class TitleBar extends Component {
   }
   render() {
     this.isDarkStyle = this.props.type === 'dark';
-    if (native.isIOS && native.MIOTService.currentDarkMode == "dark") {
+    if (isIOS && native.MIOTService.currentDarkMode == "dark") {
       // 黑暗模式适配
       if (this.isDarkStyle === false) {
         // 原本就是light的情况下（黑底白字） 颜色不加转换
@@ -146,10 +142,8 @@ export default class TitleBar extends Component {
             }]}
             {...getAccessibilityConfig({
               accessible: this.props.onPressLeft ? this.props.accessible : false,
-              accessibilityRole: AccessibilityRoles.button,
               accessibilityLabel: this.props.leftAccessibilityLabel || this.props.leftText,
-              accessibilityHint: this.props.leftAccessibilityHint,
-              accessibilityState: this.props.leftAccessibilityState
+              accessibilityHint: this.props.leftAccessibilityHint
             })}
           >{this.props.leftText}</RkButton>)
           : (
@@ -160,10 +154,8 @@ export default class TitleBar extends Component {
               highlightedSource={back_p}
               {...getAccessibilityConfig({
                 accessible: this.props.onPressLeft ? this.props.accessible : false,
-                accessibilityRole: AccessibilityRoles.imagebutton,
                 accessibilityLabel: this.props.leftAccessibilityLabel,
-                accessibilityHint: this.props.leftAccessibilityHint,
-                accessibilityState: this.props.leftAccessibilityState
+                accessibilityHint: this.props.leftAccessibilityHint
               })}
             />
           )
@@ -177,10 +169,8 @@ export default class TitleBar extends Component {
           highlightedSource={set_p}
           {...getAccessibilityConfig({
             accessible: this.props.onPressLeft2 ? this.props.accessible : false,
-            accessibilityRole: AccessibilityRoles.imagebutton,
             accessibilityLabel: this.props.left2AccessibilityLabel,
-            accessibilityHint: this.props.left2AccessibilityHint,
-            accessibilityState: this.props.left2AccessibilityState
+            accessibilityHint: this.props.left2AccessibilityHint
           })}
         />
         <View
@@ -218,10 +208,8 @@ export default class TitleBar extends Component {
           highlightedSource={share_p}
           {...getAccessibilityConfig({
             accessible: this.props.onPressRight2 ? this.props.accessible : false,
-            accessibilityRole: AccessibilityRoles.imagebutton,
             accessibilityLabel: this.props.right2AccessibilityLabel,
-            accessibilityHint: this.props.right2AccessibilityHint,
-            accessibilityState: this.props.right2AccessibilityState
+            accessibilityHint: this.props.right2AccessibilityHint
           })}
         />
         {this.props.rightText
@@ -233,10 +221,8 @@ export default class TitleBar extends Component {
             }]}
             {...getAccessibilityConfig({
               accessible: this.props.onPressRight ? this.props.accessible : false,
-              accessibilityRole: AccessibilityRoles.button,
               accessibilityLabel: this.props.rightAccessibilityLabel || this.props.rightText,
-              accessibilityHint: this.props.rightAccessibilityHint,
-              accessibilityState: this.props.rightAccessibilityState
+              accessibilityHint: this.props.rightAccessibilityHint
             })}
           >{this.props.rightText}</RkButton>
           : <ImageButton onPress={this.props.onPressRight}
@@ -245,10 +231,8 @@ export default class TitleBar extends Component {
             highlightedSource={more_p}
             {...getAccessibilityConfig({
               accessible: this.props.onPressRight ? this.props.accessible : false,
-              accessibilityRole: AccessibilityRoles.imagebutton,
               accessibilityLabel: this.props.rightAccessibilityLabel,
-              accessibilityHint: this.props.rightAccessibilityHint,
-              accessibilityState: this.props.rightAccessibilityState
+              accessibilityHint: this.props.rightAccessibilityHint
             })}
           />
         }

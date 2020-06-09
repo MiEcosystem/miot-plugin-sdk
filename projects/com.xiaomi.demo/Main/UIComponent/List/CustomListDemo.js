@@ -26,6 +26,10 @@ export default class CustomListDemo extends React.Component {
     super(props, context);
   }
 
+  state = {
+    switchOn: false
+  };
+
   render() {
     return (
       <View style={{ backgroundColor: '#f2f2f2', flex: 1 }}>
@@ -108,7 +112,12 @@ export default class CustomListDemo extends React.Component {
             />
             <ListItemWithSwitch
               title="我🍋了"
-              onValueChange={(value) => console.log(value)}
+              value={this.state.switchOn}
+              onValueChange={(value) => {
+                this.setState({
+                  switchOn: value
+                });
+              }}
             />
             <ListItemWithSwitch
               title="一直自闭"

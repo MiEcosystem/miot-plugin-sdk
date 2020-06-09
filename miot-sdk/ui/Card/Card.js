@@ -57,7 +57,11 @@ export default class Card extends React.Component {
     unlimitedHeightEnable: PropTypes.bool,
     allowFontScaling: PropTypes.bool,
     numberOfLines: PropTypes.number,
-    ...AccessibilityPropTypes
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint,
+    dismissAccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    dismissAccessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
   static defaultProps = {
     visible: true,

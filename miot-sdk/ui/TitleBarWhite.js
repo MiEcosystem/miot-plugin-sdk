@@ -50,19 +50,15 @@ export default class TitleBarWhite extends Component {
     // 无障碍 - onPressLeft
     leftAccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
     leftAccessibilityHint: AccessibilityPropTypes.accessibilityHint,
-    leftAccessibilityState: AccessibilityPropTypes.accessibilityState,
     // 无障碍 - onPressLeft2
     left2AccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
     left2AccessibilityHint: AccessibilityPropTypes.accessibilityHint,
-    left2AccessibilityState: AccessibilityPropTypes.accessibilityState,
     // 无障碍 - onPressRight
     rightAccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
     rightAccessibilityHint: AccessibilityPropTypes.accessibilityHint,
-    rightAccessibilityState: AccessibilityPropTypes.accessibilityState,
     // 无障碍 - onPressRight2
     right2AccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
-    right2AccessibilityHint: AccessibilityPropTypes.accessibilityHint,
-    right2AccessibilityState: AccessibilityPropTypes.accessibilityState
+    right2AccessibilityHint: AccessibilityPropTypes.accessibilityHint
   };
   constructor(props) {
     super(props);
@@ -82,10 +78,8 @@ export default class TitleBarWhite extends Component {
             style={[styles.leftRightText, { height: this.props.onPressLeft ? titleHeight : 0, width: leftWidth ? leftWidth : imgHeight + 14 * 2 }]}
             {...getAccessibilityConfig({
               accessible: this.props.onPressLeft ? this.props.accessible : false,
-              accessibilityRole: AccessibilityRoles.button,
               accessibilityLabel: this.props.leftAccessibilityLabel || this.props.leftText,
-              accessibilityHint: this.props.leftAccessibilityHint,
-              accessibilityState: this.props.leftAccessibilityState
+              accessibilityHint: this.props.leftAccessibilityHint
             })}
           >{this.props.leftText}</RkButton>
         ) : (
@@ -95,10 +89,8 @@ export default class TitleBarWhite extends Component {
             highlightedSource={require("../resources/title/std_tittlebar_main_device_back_white_press.png")}
             {...getAccessibilityConfig({
               accessible: this.props.onPressLeft ? this.props.accessible : false,
-              accessibilityRole: AccessibilityRoles.imagebutton,
               accessibilityLabel: this.props.leftAccessibilityLabel,
-              accessibilityHint: this.props.leftAccessibilityHint,
-              accessibilityState: this.props.leftAccessibilityState
+              accessibilityHint: this.props.leftAccessibilityHint
             })}
           />
         )}
@@ -111,10 +103,8 @@ export default class TitleBarWhite extends Component {
           highlightedSource={require("../resources/title/std_titlebar__setting_back_press.png")}
           {...getAccessibilityConfig({
             accessible: this.props.onPressLeft2 ? this.props.accessible : false,
-            accessibilityRole: AccessibilityRoles.imagebutton,
             accessibilityLabel: this.props.left2AccessibilityLabel,
-            accessibilityHint: this.props.left2AccessibilityHint,
-            accessibilityState: this.props.left2AccessibilityState
+            accessibilityHint: this.props.left2AccessibilityHint
           })}
         />
         <View style={[styles.textContainer]} {...getAccessibilityConfig({
@@ -139,10 +129,8 @@ export default class TitleBarWhite extends Component {
           highlightedSource={require("../resources/title/std_tittlebar_main_device_share_white_press.png")}
           {...getAccessibilityConfig({
             accessible: this.props.onPressRight2 ? this.props.accessible : false,
-            accessibilityRole: AccessibilityRoles.imagebutton,
             accessibilityLabel: this.props.right2AccessibilityLabel,
-            accessibilityHint: this.props.right2AccessibilityHint,
-            accessibilityState: this.props.right2AccessibilityState
+            accessibilityHint: this.props.right2AccessibilityHint
           })}
         />
         {this.props.rightText ? (
@@ -151,10 +139,8 @@ export default class TitleBarWhite extends Component {
             style={[styles.leftRightText, { height: this.props.onPressRight ? titleHeight : 0, width: rightWidth ? rightWidth : imgHeight + 14 * 2 }]}
             {...getAccessibilityConfig({
               accessible: this.props.onPressRight ? this.props.accessible : false,
-              accessibilityRole: AccessibilityRoles.button,
               accessibilityLabel: this.props.rightAccessibilityLabel || this.props.rightText,
-              accessibilityHint: this.props.rightAccessibilityHint,
-              accessibilityState: this.props.rightAccessibilityState
+              accessibilityHint: this.props.rightAccessibilityHint
             })}
           >{this.props.rightText}</RkButton>
         ) : (
@@ -164,10 +150,8 @@ export default class TitleBarWhite extends Component {
             highlightedSource={require("../resources/title/std_tittlebar_main_device_more_white_press.png")}
             {...getAccessibilityConfig({
               accessible: this.props.onPressRight ? this.props.accessible : false,
-              accessibilityRole: AccessibilityRoles.imagebutton,
               accessibilityLabel: this.props.rightAccessibilityLabel,
-              accessibilityHint: this.props.rightAccessibilityHint,
-              accessibilityState: this.props.rightAccessibilityState
+              accessibilityHint: this.props.rightAccessibilityHint
             })}
           />
         )}

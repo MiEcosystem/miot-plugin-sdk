@@ -82,9 +82,9 @@ const viewConfig = {
 };
 
 function flatDeep(arr, d = 1) {
-    return d > 0 ? arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flatDeep(val, d - 1) : val), [])
-                 : arr.slice();
-   }
+  return d > 0 ? arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flatDeep(val, d - 1) : val), [])
+    : arr.slice();
+}
 
 /**
  * A React component for displaying text.
@@ -156,20 +156,20 @@ class TouchableText extends React.Component<Props, State> {
               }
             };
           }
-        }else{
-            let tcolor = {'value':''};
-            modifyTextColorIfNeeded(props.style, tcolor);
-            if(tcolor.value.length === 0){
-              tcolor.value = 'blacktext';
-            }
-            let styleArray = flatDeep([
-                props.style,
-                {color:tcolor.value}
-              ], 100);
-            props = {
-              ...props,
-              style:styleArray
-            }
+        } else {
+          let tcolor = { 'value': '' };
+          modifyTextColorIfNeeded(props.style, tcolor);
+          if (tcolor.value.length === 0) {
+            tcolor.value = 'blacktext';
+          }
+          let styleArray = flatDeep([
+            props.style,
+            { color: tcolor.value }
+          ], 100);
+          props = {
+            ...props,
+            style: styleArray
+          };
         }
       } else {
         props = {

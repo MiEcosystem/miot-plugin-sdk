@@ -70,17 +70,28 @@ class IndependentCard extends Component {
       changeValue(value, switchKey);
     }
   }
+  onAccessibilityAction = ({ nativeEvent: { actionName } }) => {
+    const { disabled, disabledCard, changeValue, value, switchKey } = this.props;
+    if (disabled || disabledCard) {
+      return;
+    }
+    if (actionName === 'activate' && typeof changeValue === 'function') {
+      changeValue(value, switchKey);
+    }
+  }
   render() {
     // let { radius } = this.state;
     let {
       picture, title1, title2, value, onTintColor, tintColor, switchStyle, disabled, disabledCard,
-      accessible, accessibilityRole, accessibilityLabel, accessibilityHint, accessibilityState
+      accessible, accessibilityLabel, accessibilityHint
     } = this.props;
     let subTitleRN = (
       <Text
         style={styles.title2}
         numberOfLines={1}
-        false
+        {...getAccessibilityConfig({
+          accessible: false
+        })}
       >{title2}</Text>
     );
     let subTitle = title2 ? subTitleRN : null;
@@ -90,27 +101,32 @@ class IndependentCard extends Component {
         styles.card,
         // radius,
         { opacity }
-      ]}>
+      ]} {...getAccessibilityConfig({
+        accessible,
+        accessibilityRole: AccessibilityRoles.switch,
+        accessibilityLabel,
+        accessibilityHint,
+        accessibilityState: {
+          disabled,
+          checked: !!value
+        }
+      })} accessibilityActions={[
+        { name: 'activate' }
+      ]} onAccessibilityAction={this.onAccessibilityAction}>
         <Image
           source={picture}
           style={styles.picture}
-          accessible={false}
-        />
-        <View
-          style={styles.title}
           {...getAccessibilityConfig({
-            accessible,
-            accessibilityRole: accessibilityRole || AccessibilityRoles.text,
-            accessibilityLabel,
-            accessibilityState: accessibilityState || {
-              disabled
-            }
+            accessible: false
           })}
-        >
+        />
+        <View style={styles.title}>
           <Text
             numberOfLines={1}
             style={styles.title1}
-            accessible={false}
+            {...getAccessibilityConfig({
+              accessible: false
+            })}
           >{title1}</Text>
           {subTitle}
         </View>
@@ -123,13 +139,7 @@ class IndependentCard extends Component {
             style={switchStyle}
             disabled={disabled}
             {...getAccessibilityConfig({
-              accessible,
-              accessibilityRole: AccessibilityRoles.switch,
-              accessibilityLabel: accessibilityLabel || title1,
-              accessibilityHint,
-              accessibilityState: accessibilityState || {
-                disabled
-              }
+              accessible: false
             })}
           />
         </View>
@@ -164,7 +174,9 @@ IndependentCard.propTypes = {
   switchStyle: PropTypes.object,
   disabled: PropTypes.bool,
   disabledCard: PropTypes.bool,
-  ...AccessibilityPropTypes
+  accessible: AccessibilityPropTypes.accessible,
+  accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+  accessibilityHint: AccessibilityPropTypes.accessibilityHint
 };
 const styles = StyleSheet.create({
   card: {

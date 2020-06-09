@@ -179,7 +179,9 @@ export default class MessageDialog extends React.Component {
             onPress={() => this.onPressCheckbox()}
             activeOpacity={1}
             style={{ paddingTop }}
-            accessible={false}
+            {...getAccessibilityConfig({
+              accessible: false
+            })}
           >
             <View style={styles.extraContainer} {...getAccessibilityConfig({
               accessible: this.props.accessible,

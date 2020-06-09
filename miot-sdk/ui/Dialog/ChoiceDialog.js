@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import ChoiceItem from '../ListItem/ChoiceItem';
 import Separator from '../Separator';
 import AbstractDialog from './AbstractDialog';
-import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { AccessibilityPropTypes, getAccessibilityConfig } from '../../utils/accessibility-helper';
 /**
  * @description 选择弹窗的类型
  * @enum {string}

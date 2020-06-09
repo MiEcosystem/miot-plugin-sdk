@@ -61,7 +61,9 @@ export default class ListItem extends React.Component {
     titleNumberOfLines: PropTypes.number,
     subtitleNumberOfLines: PropTypes.number,
     valueNumberOfLines: PropTypes.number,
-    ...AccessibilityPropTypes
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
   static defaultProps = {
     title: '',
@@ -130,9 +132,11 @@ export default class ListItem extends React.Component {
           onPress={this.props.onPress}
           viewStyle={[styles.container, this.props.containerStyle, extraContainerStyle, adaptedFontStyle]}
           {...getAccessibilityConfig({
-            ...this.props,
+            accessible: this.props.accessible,
             accessibilityRole: AccessibilityRoles.button,
-            accessibilityState: this.props.accessibilityState || {
+            accessibilityLabel: this.props.accessibilityLabel,
+            accessibilityHint: this.props.accessibilityHint,
+            accessibilityState: {
               disabled: this.props.disabled
             }
           })}
@@ -143,7 +147,9 @@ export default class ListItem extends React.Component {
                 numberOfLines={titleLine}
                 allowFontScaling={this.props.allowFontScaling}
                 style={[Styles.common.title, fontFamily, adaptedFontStyle, this.props.titleStyle]}
-                accessible={false}
+                {...getAccessibilityConfig({
+                  accessible: false
+                })}
               >
                 {this.props.title}
               </Text>
@@ -161,7 +167,9 @@ export default class ListItem extends React.Component {
                 numberOfLines={subtitleLine}
                 allowFontScaling={this.props.allowFontScaling}
                 style={[Styles.common.subtitle, this.props.subtitleStyle, adaptedFontStyle]}
-                accessible={false}
+                {...getAccessibilityConfig({
+                  accessible: false
+                })}
               >
                 {this.props.subtitle}
               </Text>
@@ -176,7 +184,9 @@ export default class ListItem extends React.Component {
                 allowFontScaling={this.props.allowFontScaling}
                 ellipsizeMode="tail"
                 style={[Styles.common.subtitle, this.props.valueStyle, valueStyle, adaptedFontStyle]}
-                accessible={false}
+                {...getAccessibilityConfig({
+                  accessible: false
+                })}
               >
                 {this.props.value}
               </Text>

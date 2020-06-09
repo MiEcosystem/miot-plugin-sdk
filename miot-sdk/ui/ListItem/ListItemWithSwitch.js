@@ -64,7 +64,9 @@ export default class ListItemWithSwitch extends React.Component {
     titleNumberOfLines: PropTypes.number,
     subtitleNumberOfLines: PropTypes.number,
     valueNumberOfLines: PropTypes.number,
-    ...AccessibilityPropTypes
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
   static defaultProps = {
     title: '',
@@ -122,17 +124,36 @@ export default class ListItemWithSwitch extends React.Component {
           underlayColor={Styles.common.underlayColor}
           onPress={this.props.onPress}
           viewStyle={[styles.container, this.props.containerStyle, extraContainerStyle, adaptedContainerStyle]}
-          accessible={false}
+          {...(this.props.onPress ? getAccessibilityConfig({
+            accessible: false
+          }) : getAccessibilityConfig({
+            accessible: this.props.accessible,
+            accessibilityRole: AccessibilityRoles.switch,
+            accessibilityLabel: this.props.accessibilityLabel,
+            accessibilityHint: this.props.accessibilityHint,
+            accessibilityState: {
+              disabled: this.props.disabled,
+              checked: this.props.value
+            }
+          }))}
+          accessibilityActions={this.props.onPress ? [] : [
+            { name: 'activate' }
+          ]}
+          onAccessibilityAction={this.props.onPress ? null : this.onAccessibilityAction}
         >
           <View
             style={styles.left}
-            {...getAccessibilityConfig({
+            {...(!this.props.onPress ? {} : getAccessibilityConfig({
               accessible: this.props.accessible,
-              accessibilityRole: AccessibilityRoles.text,
-              accessibilityState: this.accessibilityState || {
-                disabled: !!this.props.disabled
+              accessibilityRole: AccessibilityRoles.button,
+              accessibilityLabel: this.props.accessibilityLabel,
+              accessibilityHint: this.props.accessibilityHint,
+              accessibilityState: {
+                disabled: this.props.disabled
               }
-            })}
+            }))} accessibilityActions={!this.props.onPress ? [] : [
+              { name: 'activate' }
+            ]} onAccessibilityAction={!this.props.onPress ? null : this.onAccessibilityAction}
           >
             <View style={[styles.up]}>
               <Text
@@ -140,7 +161,9 @@ export default class ListItemWithSwitch extends React.Component {
                 allowFontScaling={this.props.allowFontScaling}
                 ellipsizeMode="tail"
                 style={[Styles.common.title, extraStyle, this.props.titleStyle, adaptedFontStyle]}
-                accessible={false}
+                {...getAccessibilityConfig({
+                  accessible: false
+                })}
               >
                 {this.props.title}
               </Text>
@@ -155,7 +178,9 @@ export default class ListItemWithSwitch extends React.Component {
                     ellipsizeMode="tail"
                     allowFontScaling={this.props.allowFontScaling}
                     style={[Styles.common.subtitle, this.props.valueTextStyle, { flex: 1 }, adaptedFontStyle]}
-                    accessible={false}
+                    {...getAccessibilityConfig({
+                      accessible: false
+                    })}
                   >
                     {this.props.valueText}
                   </Text>
@@ -169,7 +194,9 @@ export default class ListItemWithSwitch extends React.Component {
                 ellipsizeMode="tail"
                 allowFontScaling={this.props.allowFontScaling}
                 style={[Styles.common.subtitle, this.props.subtitleStyle, adaptedFontStyle]}
-                accessible={false}
+                {...getAccessibilityConfig({
+                  accessible: false
+                })}
               >
                 {this.props.subtitle}
               </Text>
@@ -184,11 +211,11 @@ export default class ListItemWithSwitch extends React.Component {
               tintColor={this.props.tintColor}
               onTintColor={this.props.onTintColor}
               onValueChange={(value) => this._onValueChange(value)}
-              {...getAccessibilityConfig({
+              {...(!this.props.onPress ? {} : getAccessibilityConfig({
                 accessible: this.props.accessible,
                 accessibilityLabel: this.props.accessibilityLabel || this.props.title,
                 accessibilityHint: this.props.accessibilityHint
-              })}
+              }))}
             />
           </View>
           {/* </View> */}
@@ -211,6 +238,18 @@ export default class ListItemWithSwitch extends React.Component {
     // this.setState({ value });
     if (this.props.onValueChange) {
       this.props.onValueChange(value);
+    }
+  }
+  onAccessibilityAction = ({ nativeEvent: { actionName } }) => {
+    const { disabled, onValueChange, onPress, value } = this.props;
+    if (disabled) {
+      return;
+    }
+    if (actionName === 'activate' && typeof onValueChange === 'function') {
+      onValueChange(!value);
+    }
+    if (actionName === 'activate' && typeof onPress === 'function') {
+      onPress();
     }
   }
 }

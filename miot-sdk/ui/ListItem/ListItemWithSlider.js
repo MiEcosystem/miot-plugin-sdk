@@ -126,24 +126,32 @@ export default class ListItemWithSlider extends React.Component {
     if (valueLine < 0) valueLine = 0;
     return (
       <View style={{ backgroundColor: '#fff' }}>
-        <View style={[styles.container, this.props.containerStyle, adaptedFontStyle]}>
-          <View
-            style={[styles.up]}
-            {...getAccessibilityConfig({
-              accessible: this.props.accessible,
-              accessibilityRole: AccessibilityRoles.text,
-              accessibilityLabel: this.props.accessibilityLabel,
-              accessibilityState: {
-                disabled: !!this.props.disabled
-              }
-            })}
-          >
+        <View style={[styles.container, this.props.containerStyle, adaptedFontStyle]} {...getAccessibilityConfig({
+          accessible: this.props.accessible,
+          accessibilityRole: AccessibilityRoles.adjustable,
+          accessibilityLabel: this.props.accessibilityLabel,
+          accessibilityHint: this.props.accessibilityHint,
+          accessibilityState: {
+            disabled: !!this.props.disabled
+          },
+          accessibilityValue: {
+            min: this.sliderProps.minimumValue,
+            max: this.sliderProps.maximumValue,
+            now: this.state.value
+          }
+        })} accessibilityActions={[
+          { name: 'increment' },
+          { name: 'decrement' }
+        ]} onAccessibilityAction={this.onAccessibilityAction}>
+          <View style={[styles.up]}>
             <Text
               numberOfLines={titleLine}
               ellipsizeMode="tail"
               allowFontScaling={this.props.allowFontScaling}
               style={[Styles.common.title, this.props.titleStyle, extraStyle, adaptedFontStyle]}
-              accessible={false}
+              {...getAccessibilityConfig({
+                accessible: false
+              })}
             >
               {this.props.title}
             </Text>
@@ -152,7 +160,9 @@ export default class ListItemWithSlider extends React.Component {
               style={[styles.value, this.props.valueStyle, adaptedFontStyle]}
               numberOfLines={valueLine}
               allowFontScaling={this.props.allowFontScaling}
-              accessible={false}
+              {...getAccessibilityConfig({
+                accessible: false
+              })}
             >
               {this.props.subtitle || this.state.valueStr}
             </Text>
@@ -174,24 +184,8 @@ export default class ListItemWithSlider extends React.Component {
               onValueChange={(value) => this._onValueChange(value)}
               onSlidingComplete={(value) => this._onSlidingComplete(value)}
               {...getAccessibilityConfig({
-                accessible: this.props.accessible,
-                accessibilityRole: AccessibilityRoles.adjustable,
-                accessibilityLabel: this.props.accessibilityLabel || this.props.title,
-                accessibilityHint: this.props.accessibilityHint,
-                accessibilityState: {
-                  disabled: !!this.props.disabled
-                },
-                accessibilityValue: {
-                  min: this.sliderProps.minimumValue,
-                  max: this.sliderProps.maximumValue,
-                  now: this.state.value
-                }
+                accessible: false
               })}
-              accessibilityActions={[
-                { name: 'increment' },
-                { name: 'decrement' }
-              ]}
-              onAccessibilityAction={this.onAccessibilityAction}
             />
           </View>
         </View>
@@ -244,6 +238,10 @@ export default class ListItemWithSlider extends React.Component {
   }
   onAccessibilityAction = ({ nativeEvent: { actionName } }) => {
     const { minimumValue, maximumValue, step } = this.sliderProps;
+    const { disabled } = this.props;
+    if (disabled) {
+      return;
+    }
     const { value } = this.state;
     const totalSteps = (maximumValue - minimumValue) / step;
     const everyStep = totalSteps >= 10 ? Math.floor(totalSteps / 10) : 1;

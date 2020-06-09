@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Radio from './Radio';
 import { adjustSize } from '../utils/sizes';
 import { FontDefault } from '../utils/fonts';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
 export default class CurtainStyle extends Component {
   static propTypes = {
     icons: PropTypes.array,
@@ -11,16 +12,40 @@ export default class CurtainStyle extends Component {
     ids: PropTypes.array,
     checkedId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     disabled: PropTypes.bool,
-    onValueChange: PropTypes.func
+    onValueChange: PropTypes.func,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabels: PropTypes.arrayOf(AccessibilityPropTypes.accessibilityLabel),
+    accessibilityHints: PropTypes.arrayOf(AccessibilityPropTypes.accessibilityHint)
   };
+  onAccessibilityAction = ({ nativeEvent: { actionName } }, id) => {
+    switch (actionName) {
+      case 'activate':
+        this.onCheckChange(id);
+        break;
+    }
+  }
   getItems() {
-    let { icons = [], titles = [], ids = [], checkedId, disabled } = this.props;
+    let { icons = [], titles = [], ids = [], checkedId, disabled, accessibilityLabels = [], accessibilityHints = [] } = this.props;
     return titles.map((_, index) => {
       let title = titles[index];
       let icon = icons[index];
       let id = ids[index];
       return (title && icon ? (
-        <View key={index} style={Styles.item}>
+        <View key={index} style={Styles.item} {...getAccessibilityConfig({
+          accessible: this.props.accessible,
+          accessibilityRole: AccessibilityRoles.checkbox,
+          accessibilityLabel: accessibilityLabels[index],
+          accessibilityHint: accessibilityHints[index],
+          accessibilityState: {
+            selected: checkedId === id,
+            checked: checkedId === id,
+            disabled
+          }
+        })} accessibilityActions={[
+          { name: 'activate' }
+        ]} onAccessibilityAction={(e) => {
+          this.onAccessibilityAction(e, id);
+        }}>
           <Image style={Styles.icon} source={icon} />
           <Text style={Styles.title}>{title}</Text>
           <Radio id={Number(id)} disabled={disabled} isChecked={checkedId === id} changeCheck={this.onCheckChange} bigCircleStyle={{

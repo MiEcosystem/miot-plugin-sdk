@@ -58,11 +58,11 @@
  */
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Dimensions, Image, Platform, StatusBar, StyleSheet, Text, View, ViewPropTypes } from 'react-native';
+import { Dimensions, Image, Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import Images from '../resources/Images';
 import ImageButton from './ImageButton';
-import native from '../native';
+import native, { isIOS } from '../native';
 import DarkMode from 'miot/darkmode';
 import { AccessibilityRoles, AccessibilityPropTypes, getAccessibilityConfig } from '../utils/accessibility-helper';
 /**
@@ -168,7 +168,9 @@ export default class NavigationBar extends Component {
       key: PropTypes.string,
       onPress: PropTypes.func,
       disable: PropTypes.bool,
-      ...AccessibilityPropTypes
+      accessible: AccessibilityPropTypes.accessible,
+      accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+      accessibilityHint: AccessibilityPropTypes.accessibilityHint
     })),
     right: PropTypes.array,
     title: PropTypes.string,
@@ -245,10 +247,8 @@ export default class NavigationBar extends Component {
             {...getAccessibilityConfig({
               ...icon,
               accessible: icon.accessible || this.props.accessible,
-              accessibilityRole: icon.accessibilityRole || AccessibilityRoles.imagebutton,
-              accessibilityState: {
-                disabled: !!icon.disable
-              }
+              accessibilityLabel: icon.accessibilityLabel,
+              accessibilityHint: icon.accessibilityHint
             })}
           />
         </View>
@@ -280,7 +280,9 @@ export default class NavigationBar extends Component {
               numberOfLines={this.props.titleNumberOfLines}
               style={[styles.titleView, titleColor]}
               onPress={onPressTitle}
-              accessible={false}
+              {...getAccessibilityConfig({
+                accessible: false
+              })}
             >
               {title || ''}
             </View> :
@@ -289,7 +291,9 @@ export default class NavigationBar extends Component {
               allowFontScaling={this.props.allowFontScaling}
               style={[styles.title, titleColor, this.props.titleStyle]}
               onPress={onPressTitle}
-              accessible={false}
+              {...getAccessibilityConfig({
+                accessible: false
+              })}
             >
               {title || ''}
             </Text>
@@ -300,7 +304,9 @@ export default class NavigationBar extends Component {
             allowFontScaling={this.props.allowFontScaling}
             style={[styles.subtitle, subtitleColor, this.props.subtitleStyle]}
             onPress={onPressTitle}
-            accessible={false}
+            {...getAccessibilityConfig({
+              accessible: false
+            })}
           >
             {subtitle}
           </Text>
@@ -318,7 +324,7 @@ export default class NavigationBar extends Component {
   updateStyleType(props, newProps) {
     let newIsDartStyle = (newProps ? newProps.type : props.type) === TYPE.DARK;
     this.shouldKeepColor = false;
-    if (native.isIOS && native.MIOTService.currentDarkMode == "dark") {
+    if (isIOS && native.MIOTService.currentDarkMode == "dark") {
       if (newIsDartStyle) {
         // 本来就是深色模式的情况，传入的颜色不修改
         this.shouldKeepColor = true;

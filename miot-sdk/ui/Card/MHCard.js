@@ -119,7 +119,9 @@ export default class MHCard extends React.Component {
     titleNumberOfLines: PropTypes.number,
     subtitleNumberOfLines: PropTypes.number,
     rightTextNumberOfLines: PropTypes.number,
-    ...AccessibilityPropTypes
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
   static defaultProps = {
     cardType: CARD_TYPE.NORMAL,
@@ -173,6 +175,18 @@ export default class MHCard extends React.Component {
       marginTop: this.props.marginTop
     }]);
   }
+  onAccessibilityAction = ({ nativeEvent: { actionName } }) => {
+    const { disabled, cardType, onPress, onValueChange, switchValue } = this.props;
+    if (disabled) {
+      return;
+    }
+    if (actionName === 'activate' && cardType === CARD_TYPE.SWITCH && typeof onValueChange === 'function') {
+      onValueChange(!switchValue);
+    }
+    if (actionName === 'activate' && cardType === CARD_TYPE.NORMAL && typeof onPress === 'function') {
+      onPress();
+    }
+  }
   renderInnerView() {
     const opacityStyle = {
       opacity: this.props.disabled ? disabledOpacity : 1
@@ -184,32 +198,38 @@ export default class MHCard extends React.Component {
     let rightTextLine = this.props.rightTextNumberOfLines == undefined ? 2 : this.props.rightTextNumberOfLines;
     if (rightTextLine < 0) rightTextLine = 0;
     return (
-      <View style={[styles.container, this.radiusStyle, opacityStyle, this.props.style]}>
+      <View style={[styles.container, this.radiusStyle, opacityStyle, this.props.style]} {...getAccessibilityConfig({
+        accessible: this.props.accessible,
+        accessibilityRole: this.props.cardType === CARD_TYPE.SWITCH ? AccessibilityRoles.switch : this.props.onPress ? AccessibilityRoles.button : AccessibilityRoles.text,
+        accessibilityLabel: this.props.accessibilityLabel,
+        accessibilityHint: this.props.accessibilityHint,
+        accessibilityState: this.props.cardType === CARD_TYPE.SWITCH ? {
+          disabled: !!this.props.disabled,
+          checked: this.props.switchValue
+        } : {
+          disabled: !!this.props.disabled
+        }
+      })} accessibilityActions={[
+        { name: 'activate' }
+      ]} onAccessibilityAction={this.onAccessibilityAction}>
         <View style={[styles.iconContainer, this.props.iconContainerStyle]}>
           <Image
             style={[styles.icon, this.props.iconStyle]}
             source={this.props.icon}
             resizeMode="contain"
-            accessible={false}
+            {...getAccessibilityConfig({
+              accessible: false
+            })}
           />
         </View>
-        <View
-          style={styles.textContainer}
-          {...getAccessibilityConfig({
-            ...this.props,
-            accessibilityRole: this.props.accessibilityRole || (this.props.onPress ? AccessibilityRoles.button : AccessibilityRoles.text),
-            accessibilityLabel: this.props.accessibilityLabel,
-            accessibilityHint: this.props.accessibilityHint || (this.props.onPress ? this.props.title : ''),
-            accessibilityState: this.props.accessibilityState || {
-              disabled: !!this.props.disabled
-            }
-          })}
-        >
+        <View style={styles.textContainer}>
           <View style={styles.titleContainer}>
             <Text
               style={[Styles.common.title, this.props.unlimitedHeightEnable ? { height: undefined, lineHeight: undefined } : {}, this.props.titleStyle]}
               numberOfLines={titleLine}
-              accessible={false}
+              {...getAccessibilityConfig({
+                accessible: false
+              })}
             >
               {this.props.title || ''}
             </Text>
@@ -217,7 +237,9 @@ export default class MHCard extends React.Component {
               this.props.subtitle ? <Text
                 style={[styles.subtitle, this.props.unlimitedHeightEnable ? { height: undefined, lineHeight: undefined } : {}, this.props.subtitleStyle]}
                 numberOfLines={subtitleLine}
-                accessible={false}
+                {...getAccessibilityConfig({
+                  accessible: false
+                })}
               >
                 {this.props.subtitle}
               </Text>
@@ -230,7 +252,9 @@ export default class MHCard extends React.Component {
                 <Text
                   style={[styles.rightText, this.props.unlimitedHeightEnable ? { height: undefined, lineHeight: undefined } : {}, this.props.rightTextStyle]}
                   allowFontScaling={this.props.allowFontScaling}
-                  numberOfLines={rightTextLine}>
+                  numberOfLines={rightTextLine}{...getAccessibilityConfig({
+                    accessible: false
+                  })}>
                   {this.props.rightText || ''}
                 </Text>
               </View>
@@ -249,17 +273,19 @@ export default class MHCard extends React.Component {
           style={styles.arrow}
           source={Images.common.right_arrow}
           resizeMode="contain"
-          accessible={false}
+          {...getAccessibilityConfig({
+            accessible: false
+          })}
         />
       );
     } else if (this.props.cardType === CARD_TYPE.SWITCH) {
       return (
         <Switch
           value={this.props.switchValue}
-          {...getAccessibilityConfig({
-            accessibilityLabel: this.props.accessibilityLabel || this.props.title
-          })}
           {...this.props}
+          {...getAccessibilityConfig({
+            accessible: false
+          })}
         />
       );
     } else {
