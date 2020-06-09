@@ -7,11 +7,14 @@
 
 ## 初始化
 
-    1, 安装 node, 版本9.0+ ( **推荐mac上：npm版本6.12.1，node版本v12.13.1** )
+    1, 下载开发环境, 执行 git clone git@github.com:MiEcosystem/miot-plugin-sdk.git
+    
+    2, 命令行进入开发环境根目录, 安装 node 和 npm, 版本9.0+ ( **推荐mac上：npm版本6.12.1，node版本v12.13.1** )
+       内置一键安装开发环境脚本
+       Windows: 执行 `bin/install_mihome_dev.bat` （注意按提示关闭实时安全防护)
+       MacOS: 执行 `bin/install_mihome_dev.sh`
 
-    2, 下载开发环境, 执行 git clone git@github.com:MiEcosystem/miot-plugin-sdk.git
-
-    3, 进入开发环境, 安装ReactNative基础库, 在根目录下执行 npm install
+    3, 安装ReactNative基础库, 在根目录下执行 npm install
 
     !注意, 项目中如果需要使用第三方库(仅限于纯js实现), 请进入项目目录(如 projects/com.xiaomi.demo), 
     执行 npm install --save xxxx, 否则在打包发布时将因为找不到第三方库而失败
