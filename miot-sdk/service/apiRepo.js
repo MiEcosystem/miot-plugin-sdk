@@ -18,6 +18,7 @@ const API_REPO = {
   '/v2/irdevice/controller/key/update': {},
   '/v2/irdevice/controller/key/del': {},
   '/v2/irdevice/controller/key/click': {},
+  '/v2/irdevice/controller/functions': {},
   '/scene/edit': {},
   '/scene/get': {},
   '/scene/start': {},
