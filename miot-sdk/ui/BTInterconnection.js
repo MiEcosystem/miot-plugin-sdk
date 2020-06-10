@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import NavigationBar from './NavigationBar';
 import MessageDialog from './Dialog/MessageDialog';
@@ -237,7 +237,7 @@ export default class BTInterconnection extends Component {
     const { status, linkedIndex, devices, message, timeout } = this.state;
     const { accessible, addAccessibilityHint, removeAccessibilityHint } = this.navigationProps;
     return (
-      <View style={Styles.container}>
+      <ScrollView style={Styles.container}>
         {!status ? null : !devices.length ? (
           <Empty accessibility={{
             accessible
@@ -254,7 +254,7 @@ export default class BTInterconnection extends Component {
         }} visible={status === 2} message={message} onDismiss={this.onDismiss} buttons={this.dialogButtons} />
         <LoadingDialog visible={status === 3} message={message} onDismiss={this.onDismiss} timeout={timeout} />
         <Toast visible={status === 4} message={message} />
-      </View>
+      </ScrollView>
     );
   }
 }
