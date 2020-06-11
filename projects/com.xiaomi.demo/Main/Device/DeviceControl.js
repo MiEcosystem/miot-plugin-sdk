@@ -311,6 +311,16 @@ export default class UIDemo extends React.Component {
               alert(JSON.stringify(err));
             });
           }
+        },
+        {
+          'name': 'BLE/Mesh子设备是否连接网关',
+          'func': () => {
+            Bluetooth.isBleOrMeshGatewayConnected(Device.mac, true).then((res) => {
+              alert(JSON.stringify(res));
+            }).catch((err) => {
+              alert(JSON.stringify(err));
+            });
+          }
         }
       ];
     }

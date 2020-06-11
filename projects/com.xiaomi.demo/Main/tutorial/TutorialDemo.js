@@ -2,7 +2,6 @@ import React from 'react';
 import { FlatList, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import PropTypes from 'prop-types';
 
-
 const ItemSeparator = ({ highlighted }) => (
   <View style={highlighted ? styles.separatorHighlighted : styles.separator} />
 );
@@ -79,7 +78,11 @@ export default class TutorialDemo extends React.Component {
         renderItem={({ item }) => {
           return (
             <TouchableHighlight style={{ height: 44 }} onPress={() => {
-              this.props.navigation.navigate(item.key, { title: item.title });
+              let params = { title: item.title };
+              if (item.params) {
+                params = { params, ...item.params };
+              }
+              this.props.navigation.navigate(item.key, params);
             }} >
               <View style={[{ flexDirection: 'row', margin: 10 }]}>
                 <Text style={[styles.rowTitleText]}>{item.title}</Text>

@@ -142,6 +142,9 @@ const API_REPO = {
   '/miot/camera/app/v2/get/alarmSwitch': {},
   '/miot/camera/app/v2/put/motionDetectionSwitch': {},
   '/app/v2/public/get_weekday_info': {},
-  '/v2/device/blt_get_beaconkey': {}
+  '/v2/device/blt_get_beaconkey': {},
+  '/v2/device/set_alarm_info': {},
+  '/v2/device/get_alarm_info': {},
+  '/v2/device/del_alarm_info': {}
 };
 export default API_REPO;

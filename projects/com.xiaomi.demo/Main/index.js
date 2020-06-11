@@ -132,11 +132,11 @@ import MHRoomDemo from "./Service/RoomDemo";
 import MHSceneDemo from "./Service/SceneDemo";
 import AccountDemo from './Service/AccountDemo';
 import KookongDemo from './Service/KookongDemo';
+import AlarmPhoneDemo from './Service/AlarmPhoneDemo';
 import CallSmartHomeAPIDemo from './Service/smarthome';
 import CloudStorageDemo from './Service/CloudStorageDemo';
 
 /** ******    UI 部分   ******* */
-import AddressBookDemo from './ThirdPartDemo/AddressBookDemo';
 import WebViewBridageDemo from './ThirdPartDemo/WebViewBridageDemo';
 import NavigationBarDemo from "./tutorial/NavigationBarDemo";
 import BlankDemo from './tutorial/BlankDemo';
@@ -264,7 +264,6 @@ function createRootStack(initPage) {
     // 第三方库 demo 开始
     SQLiteDemo: SQLiteDemo,
     OrientationDemo: OrientationDemo,
-    AddressBookDemo: AddressBookDemo,
     WebViewBridageDemo: WebViewBridageDemo,
     // ReactNativeCameraDemo: ReactNativeCameraDemo, // ios包有问题
     LinearGradientDemo: LinearGradientDemo,
@@ -349,6 +348,7 @@ function createRootStack(initPage) {
     PackageDemo: PackageDemo,
     AccountDemo: AccountDemo,
     KookongDemo: KookongDemo,
+    AlarmPhoneDemo: AlarmPhoneDemo,
     CloudStorageDemo: CloudStorageDemo,
 
     KVStorageDemo: KVStorageDemo,

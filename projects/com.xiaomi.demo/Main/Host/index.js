@@ -101,7 +101,8 @@ export default class HostDemo extends React.Component {
             alert(JSON.stringify(res));
           })
         }
-      }, {
+      },
+      {
         "name": '打开WebView',
         'func': () => {
           Host.ui.openWebPage("https://home.mi.com/views/article.html?articleId=684095286000000001");

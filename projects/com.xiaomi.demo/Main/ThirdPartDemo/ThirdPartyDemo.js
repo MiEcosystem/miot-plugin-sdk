@@ -9,7 +9,6 @@ const DemoInfo = [
     { id: 'SQLiteDemo', title: "sqlite", key: "0" },
     { id: 'ParticleDemo', title: "粒子系统，模拟雪花和火焰等 (iOS 特有的)", key: "1" },
     { id: 'OrientationDemo', title: "设备方向", key: "2" },
-    { id: 'AddressBookDemo', title: "获取通信录", key: "3" },
     { id: 'WebViewBridageDemo', title: "webview 和react-native双向通信", key: "4" },
     { id: 'SVGDemo', title: "SVG:shape", key: "5" },
     { id: 'PressExample', title: "SVG:PressExample", key: "6" },

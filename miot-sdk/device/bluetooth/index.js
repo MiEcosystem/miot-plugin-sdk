@@ -36,8 +36,11 @@
  *
  */
 import native, { Properties, isIOS, isAndroid } from '../../native';
+// eslint-disable-next-line import/no-cycle
 import { IBluetooth as BluetoothDevice, getMacUuid, setMacUuid } from './BluetoothDevice';
 import LockDevice from './LockDevice';
+// eslint-disable-next-line import/no-cycle
+import RootDevice from '../BasicDevice';
 export const getBluetoothUUID128 = (id) => {
   if (!id || id == '') return null;
   id = id.toUpperCase();
@@ -211,6 +214,22 @@ export default {
      */
   isBleGatewayConnected(mac) {
      return Promise.resolve(true);
+  },
+  /**
+   * 判断当前设备是否被蓝牙/蓝牙Mesh网关扫描到
+   * @since 10040
+   * @param {string} mac 蓝牙子设备Mac
+   * @param {boolean} forceRefresh 是否强制刷新
+   * @returns {Promise<Object>} 
+   * 成功时的返回值：
+   * {code:0,data:{connected:[true/false],mac:[网关mac]}} 已连接时connected=true,反之connected=false，mac可能为空；
+   * 失败时可能返回返回值：
+   * {code:-1,message:"mac is null or empty."}
+   * {code:-2,message:"cann't find any gateway device."}
+   * {code:-3,message:"internal error xxxx"}
+   */
+  isBleOrMeshGatewayConnected(mac, forceRefresh = false) {
+     return Promise.resolve(null);
   },
   /**
      * 获取信号强度RSSI
