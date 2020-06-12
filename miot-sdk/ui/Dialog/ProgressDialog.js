@@ -5,6 +5,7 @@ import * as Progress from 'react-native-progress';
 import { Styles } from '../../resources';
 import AbstractDialog from "./AbstractDialog";
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const padding = 37;
 /**
  * @export
@@ -58,6 +59,7 @@ export default class ProgressDialog extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('Dialog/ProgressDialog');
     this.state = {
       visible: this.props.visible
     };

@@ -3,6 +3,7 @@ import React from 'react';
 import { Animated, Dimensions, Easing, Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { Images, Styles } from '../../resources';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const { width } = Dimensions.get('window');
 const DURATION_OUT = 250;
 const DURATION_IN = 250;
@@ -70,6 +71,7 @@ export default class CardBase extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('CardBase');
     const { height, marginTop } = this.props.cardStyle;
     this.cardHeight = height || DEFAULT_STYLE.HEIGHT;
     const initValue = this.props.visible ? 1 : 0;

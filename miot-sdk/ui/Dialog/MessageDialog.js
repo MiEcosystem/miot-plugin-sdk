@@ -6,6 +6,7 @@ import Checkbox from '../Checkbox/Checkbox';
 import Separator from '../Separator';
 import AbstractDialog from "./AbstractDialog";
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const paddingHorizontal = 29; // 内容的左右边距
 const paddingVertical = 27; // 内容的上下边距
 const paddingTop = 13; // 内容和下划线文字间距
@@ -111,6 +112,7 @@ export default class MessageDialog extends React.Component {
   static TYPE = TYPE
   constructor(props, context) {
     super(props, context);
+    referenceReport('Dialog/MessageDialog');
     this.state = {
       checked: props.extra.checked || false
     };

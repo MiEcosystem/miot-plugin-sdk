@@ -6,6 +6,7 @@ import Checkbox from '../Checkbox/Checkbox';
 import Separator from '../Separator';
 import AbstractDialog from "./AbstractDialog";
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const paddingHorizontal = 29; // 内容的左右边距
 const paddingVertical = 26; // 内容的上下边距
 const marginVertical = 30; // 输入框和上下内容的间距
@@ -105,6 +106,7 @@ export default class PinCodeDialog extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('Dialog/PinCodeDialog');
     this.digit = this.props.digit;
     if (this.digit > 6 || this.digit < 3) {
       this.digit = 6;

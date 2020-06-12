@@ -6,6 +6,7 @@ import Separator from '../Separator';
 import AbstractDialog from './AbstractDialog';
 import tr from "../../resources/strings/tr";
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 /**
  * 可点击的选项
  * @typedef {Object} Opiton
@@ -84,6 +85,7 @@ export default class ActionSheet extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('ActionSheet');
     this.state = {
       visible: props.visible
     };

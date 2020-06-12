@@ -9,6 +9,7 @@ import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
 import Separator from '../Separator';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 let modelType = '';
 function getModelType() {
   return new Promise((resolve) => {
@@ -414,6 +415,7 @@ export default class CommonSetting extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('CommonSetting');
     this.state = {
       name: Device.name,
       showDot: Array.isArray(props.showDot) ? props.showDot : [],

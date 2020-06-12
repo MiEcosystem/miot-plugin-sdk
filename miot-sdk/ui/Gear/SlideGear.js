@@ -6,6 +6,7 @@ import Block from "./Block";
 import LinearGradient from 'react-native-linear-gradient';
 import { transformHexToDigtal, transformDigtalToHex, colorGetterforRange } from '../../utils/colors';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 /**
  * @description 容器和滑块的圆角类型
  * @enum {string}
@@ -154,6 +155,7 @@ export default class SlideGear extends React.Component {
     static CONTENTTYPE = CONTENTTYPE
     constructor(props, context) {
       super(props, context);
+      referenceReport('SlideGear');
       if (this.props.options.length === 0) {
         if (!this.props.optionStep) {
           if (__DEV__ && console.warn) {

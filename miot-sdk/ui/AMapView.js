@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { requireNativeComponent, ViewPropTypes } from 'react-native';
 import Host from '../Host';
+import { referenceReport } from '../decorator/ReportDecorator';
 // const resolveAssetSource = require('resolveAssetSource');
 const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 const MapView = requireNativeComponent('MHMapView', null);
@@ -180,6 +181,10 @@ export default class AMapView extends Component {
       onMapDidZoomByUser: PropTypes.func,
       ...ViewPropTypes
     };
+    constructor(props,context){
+       super(props,context);
+       referenceReport('AMapView');
+    }
     render() {
        return null
     }

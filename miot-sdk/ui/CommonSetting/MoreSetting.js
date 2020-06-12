@@ -9,6 +9,7 @@ import NavigationBar from '../NavigationBar';
 import Separator from '../Separator';
 import { secondAllOptions, SETTING_KEYS } from "./CommonSetting";
 import { getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 /**
  * 分享设备的设置项
  * 0: 不显示
@@ -86,6 +87,7 @@ export default class MoreSetting extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('MoreSetting');
     this.state = {
       timeZone: Device.timeZone || '' // 从未设置过时区的话，为空字符串
     };

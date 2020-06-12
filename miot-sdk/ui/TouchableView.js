@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { View, TouchableWithoutFeedback, ViewPropTypes } from 'react-native';
 import { Styles } from '../resources';
+import { referenceReport } from '../decorator/ReportDecorator';
 /**
  * @export public
  * @doc_name 常用UI组件
@@ -42,6 +43,7 @@ export default class TouchableView extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('TouchableView');
     this.state = {
       inPress: false
     };

@@ -7,6 +7,7 @@ import { Styles } from '../../resources';
 import Separator from "../Separator";
 import { FontDefault } from '../../utils/fonts';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const { width } = Dimensions.get('window');
 const HEIGHT = 77;
 const PADDING = 24;
@@ -90,6 +91,7 @@ export default class ListItemWithSlider extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('ListItemWithSlider');
     this.sliderProps = Object.assign({
       minimumValue: 0,
       maximumValue: 100,

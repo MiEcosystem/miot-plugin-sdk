@@ -6,6 +6,7 @@ import { formatString } from '../resources/Strings';
 import Separator from './Separator';
 import StringSpinner from "./StringSpinner";
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
+import { referenceReport } from '../decorator/ReportDecorator';
 /**
  * @description 时间选择器类型
  * @enum {string}
@@ -210,6 +211,7 @@ export default class MHDatePicker extends React.Component {
   static SINGLE_TYPE = SINGLE_TYPE;
   constructor(props, context) {
     super(props, context);
+    referenceReport('MHDatePicker');
     const { currentArray, dataSourceArray } = this.init(props);
     const subtitle = this.getSubtitle(currentArray);
     this.state = {

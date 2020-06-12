@@ -4,6 +4,7 @@ import { Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Styles } from '../resources';
 import { withSDKContext } from 'miot/sdkContext';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
+import { referenceReport } from '../decorator/ReportDecorator';
 const OFF_COLOR = '#f0f0f0';
 const BORDER_COLOR = 'rgba(0,0,0,0.1)';
 const BACK_WIDTH = 44; // 默认宽度
@@ -47,6 +48,7 @@ class Switch extends React.Component {
   offsetX = new Animated.Value(0);
   constructor(props) {
     super(props);
+    referenceReport('Switch');
     this.state = {
       value: this.props.value
     };

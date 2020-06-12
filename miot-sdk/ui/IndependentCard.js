@@ -4,6 +4,7 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { Styles } from '../resources';
 import Switch from './Switch';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
+import { referenceReport } from '../decorator/ReportDecorator';
 /**
  * @export
  * @author Li Yue
@@ -29,6 +30,7 @@ const OFF_COLOR = '#f0f0f0';
 class IndependentCard extends Component {
   constructor(props) {
     super(props);
+    referenceReport('IndependentCard');
     this.state = {
       radius: {}
     };

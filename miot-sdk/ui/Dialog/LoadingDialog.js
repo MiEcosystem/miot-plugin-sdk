@@ -5,6 +5,7 @@ import { BallIndicator } from 'react-native-indicators';
 import { Styles } from '../../resources';
 import AbstractDialog from "./AbstractDialog";
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 /**
  * @export
  * @author Geeook
@@ -41,6 +42,7 @@ export default class LoadingDialog extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('Dialog/LoadingDialog');
     this.state = {
       visible: this.props.visible
     };

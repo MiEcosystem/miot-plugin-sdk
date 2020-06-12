@@ -5,6 +5,7 @@ import { Dimensions, Modal, Platform, StyleSheet, Text, TouchableHighlight, Touc
 import { strings, Styles } from '../../resources';
 import Separator from '../Separator';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const { width, height } = Dimensions.get('window');
 const underlayColor = 'rgba(0,0,0,.05)';
 /**
@@ -91,6 +92,7 @@ export default class AbstractDialog extends React.Component {
     }
     constructor(props, context) {
       super(props, context);
+      referenceReport('Dialog/AbstractDialog');
       this.state = {
         visible: this.props.visible
       };

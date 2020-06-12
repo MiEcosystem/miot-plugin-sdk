@@ -18,6 +18,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { requireNativeComponent, ViewPropTypes } from 'react-native';
+import { referenceReport } from '../decorator/ReportDecorator';
 export default class MessageDialog extends Component {
   static defaultProps = {
     title: '',
@@ -35,6 +36,10 @@ export default class MessageDialog extends Component {
     onDismiss: PropTypes.func,
     ...ViewPropTypes
   };
+  constructor(props,context){
+    super(props,context);
+    referenceReport('MessageDialog');
+  }
   render() {
      return null
   }

@@ -3,6 +3,7 @@ import React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import Clickable from './Clickable';
 import { AccessibilityPropTypes, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const { width: screenWidth } = Dimensions.get('window');
 const DEFAULT_SIZE = 50;
 const DEFAULT_MARGIN = 12;
@@ -56,6 +57,7 @@ export default class NormalGear extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('NormalGear');
     if (this.props.options.length === 0) {
       this.showNothing = true;
       return;

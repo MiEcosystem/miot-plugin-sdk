@@ -4,6 +4,7 @@ import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import { Images, Styles } from '../../resources';
 import Checkbox from '../Checkbox/Checkbox';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const thinHeight = 50; // 无副标题时的高度
 const fatHeight = 60; // 有副标题时的高度
 const checkboxSize = 20;
@@ -84,6 +85,7 @@ export default class ChoiceItem extends React.Component {
   static TYPE = TYPE
   constructor(props, context) {
     super(props, context);
+    referenceReport('ChoiceItem');
     this.state = {
       selected: props.selected
     };

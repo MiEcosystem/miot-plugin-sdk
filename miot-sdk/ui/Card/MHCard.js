@@ -5,6 +5,7 @@ import { Images, Styles } from '../../resources';
 import Card from "../Card";
 import Switch from '../Switch';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 /**
  * @description 卡片类型
  * @enum {string}
@@ -148,6 +149,7 @@ export default class MHCard extends React.Component {
   static CARD_RADIUS_TYPE = CARD_RADIUS_TYPE
   constructor(props) {
     super(props);
+    referenceReport('MHCard');
     this.radiusStyle = {
       [CARD_RADIUS_TYPE.ALL]: {
         borderRadius: 10

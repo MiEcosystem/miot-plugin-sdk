@@ -45,6 +45,10 @@ export default class StringSpinner extends React.Component {
       ...ViewPropTypes,
       accessible: AccessibilityPropTypes.accessible
     };
+    constructor(props,context){
+      super(props,context);
+      referenceReport('StringSpinner');
+    }
     render() {
        return null
     }

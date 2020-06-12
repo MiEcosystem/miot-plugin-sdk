@@ -7,6 +7,7 @@ import TouchableView from '../TouchableView';
 import Separator from '../Separator';
 import Switch from '../Switch';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const { width } = Dimensions.get('window');
 const THIN_HEIGHT = 50;
 const PADDING = 24;
@@ -84,6 +85,10 @@ export default class ListItemWithSwitch extends React.Component {
     onTintColor: undefined,
     unlimitedHeightEnable: false,
     allowFontScaling: true
+  }
+  constructor(props,context){
+    super(props,context);
+    referenceReport('ListItemWithSwitch');
   }
   render() {
     let extraContainerStyle = {

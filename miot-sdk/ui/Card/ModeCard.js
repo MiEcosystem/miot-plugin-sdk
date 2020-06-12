@@ -4,6 +4,7 @@ import { Dimensions, Image, StyleSheet, Text, TouchableWithoutFeedback, View } f
 import { Styles } from '../../resources';
 import Card from './Card';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 /**
  * @export
  * @author Li Yue
@@ -50,6 +51,7 @@ const { width } = Dimensions.get('window');
 class ModeCard extends Component {
   constructor(props) {
     super(props);
+    referenceReport('ModeCard');
     this.cardWrapStyle = {};
     // 设置 Card 组件的样式
     let { modes } = props;

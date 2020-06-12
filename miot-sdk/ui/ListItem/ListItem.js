@@ -5,6 +5,7 @@ import TouchableView from '../TouchableView';
 import { Images, Styles } from '../../resources';
 import Separator from "../Separator";
 import { AccessibilityRoles, AccessibilityPropTypes, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const { width } = Dimensions.get('window');
 const dot = require('../../resources/title/dot.png');
 const THIN_HEIGHT = 50;
@@ -84,6 +85,7 @@ export default class ListItem extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('ListItem');
   }
   render() {
     let extraContainerStyle = {

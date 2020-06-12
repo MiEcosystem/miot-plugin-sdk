@@ -65,6 +65,7 @@ import ImageButton from './ImageButton';
 import native, { isIOS } from '../native';
 import DarkMode from 'miot/darkmode';
 import { AccessibilityRoles, AccessibilityPropTypes, getAccessibilityConfig } from '../utils/accessibility-helper';
+import { referenceReport } from '../decorator/ReportDecorator';
 /**
  * 导航栏类型
  */
@@ -196,6 +197,10 @@ export default class NavigationBar extends Component {
   }
   static TYPE = TYPE;
   static ICON = ICON;
+  constructor(props,context){
+    super(props,context);
+    referenceReport('NavigationBar');
+  }
   /**
    * @description 根据 type 和 disable 确定 icon
    * @param {array} arr - 按钮集合

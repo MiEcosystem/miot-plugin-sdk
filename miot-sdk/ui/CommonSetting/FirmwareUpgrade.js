@@ -8,6 +8,7 @@ import { ListItem, ListItemWithSwitch } from '../ListItem';
 import Separator from '../Separator';
 import { secondAllOptions, SETTING_KEYS } from "./CommonSetting";
 import { getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const { second_options } = SETTING_KEYS;
 const ListItemType = {
   LIST_ITEM: 'ListItem',
@@ -53,6 +54,7 @@ export default class FirmwareUpgrade extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('FirmwareUpgrade');
     this.secondOptions = this.props.navigation.state.params.secondOptions || [secondAllOptions.AUTO_UPGRADE];
   }
   renderList(items) {

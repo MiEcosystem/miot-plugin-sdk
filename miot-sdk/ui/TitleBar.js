@@ -33,6 +33,7 @@ import ImageButton from './ImageButton';
 import native, { isIOS } from '../native';
 import DarkMode from 'miot/darkmode';
 import { AccessibilityRoles, AccessibilityPropTypes, getAccessibilityConfig } from 'miot/utils/accessibility-helper';
+import { referenceReport } from '../decorator/ReportDecorator';
 const { width } = Dimensions.get('window');
 const statusBarHeight = getStatusBarHeight(true);
 const titleHeight = 55;
@@ -82,6 +83,7 @@ export default class TitleBar extends Component {
   }
   constructor(props) {
     super(props);
+    referenceReport('TitleBar');
   }
   UNSAFE_componentWillMount() {
     this.isDarkStyle = this.props.type === 'dark';

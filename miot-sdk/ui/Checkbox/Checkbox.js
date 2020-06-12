@@ -4,6 +4,7 @@ import React from 'react';
 import { Animated, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import Checkable from './Checkable';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const SIZE = 40;
 const UNCHECKED_BACKGROUNDCOLOR = '#f0f0f0';
 const UNCHECKED_BORDER_COLOR = 'rgba(0,0,0,0.1)';
@@ -39,6 +40,7 @@ export default class Checkbox extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('Checkbox');
     this.state = {
       checked: this.props.checked
     };

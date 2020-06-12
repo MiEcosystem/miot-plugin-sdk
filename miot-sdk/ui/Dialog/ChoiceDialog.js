@@ -5,6 +5,7 @@ import ChoiceItem from '../ListItem/ChoiceItem';
 import Separator from '../Separator';
 import AbstractDialog from './AbstractDialog';
 import { AccessibilityPropTypes, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 /**
  * @description 选择弹窗的类型
  * @enum {string}
@@ -113,6 +114,7 @@ export default class ChoiceDialog extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('Dialog/ChoiceDialog');
     const buttons = props.buttons;
     if (buttons instanceof Array) {
       const button = buttons[buttons.length - 1]; // 取最后一个按钮进行拦截

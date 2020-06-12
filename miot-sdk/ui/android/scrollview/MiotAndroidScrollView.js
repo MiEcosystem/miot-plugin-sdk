@@ -48,6 +48,7 @@ import requireNativeComponent from 'react-native/Libraries/ReactNative/requireNa
 // const warning = require('fbjs/lib/warning');
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';// const resolveAssetSource = require('resolveAssetSource');
 import type { NativeMethodsMixinType } from 'ReactNativeTypes';
+import { referenceReport } from '../../../decorator/ReportDecorator';
 /**
  * Component that wraps platform ScrollView while providing
  * integration with touch locking "responder" system.
@@ -526,6 +527,7 @@ const MiotAndroidScrollView = createReactClass({
     this._scrollAnimatedValue.setOffset(this.props.contentInset ? this.props.contentInset.top : 0);
     this._stickyHeaderRefs = new Map();
     this._headerLayoutYs = new Map();
+    referenceReport('MiotAndroidScrollView','componentWillMount');
   },
   componentDidMount: function() {
     this._updateAnimatedNodeAttachment();

@@ -6,6 +6,7 @@ import { Images, Styles } from '../../resources';
 import Separator from '../Separator';
 import AbstractDialog from "./AbstractDialog";
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const paddingHorizontal = 40; // 内容的左右边距
 const paddingBottomSmall = 20; // 内容的上下边距
 const paddingBottomLarge = 28; // 内容的上下边距
@@ -97,6 +98,7 @@ export default class ShareDialog extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('Dialog/ShareDialog')
     this.state = {
       swiperVisible: false,
       pressed: -1

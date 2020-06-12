@@ -26,6 +26,7 @@ import { SafeAreaView } from 'react-navigation';
 import ImageButton from './ImageButton';
 import PropTypes from 'prop-types';
 import { AccessibilityRoles, AccessibilityPropTypes, getAccessibilityConfig } from 'miot/utils/accessibility-helper';
+import { referenceReport } from '../decorator/ReportDecorator';
 const { width } = Dimensions.get('window');
 const titleHeight = 44;
 const imgHeight = 28;
@@ -60,6 +61,7 @@ export default class TitleBarBlack extends Component {
   };
   constructor(props) {
     super(props);
+    referenceReport('TitleBarBlack');
   }
   render() {
     StatusBar.setBarStyle('dark-content');

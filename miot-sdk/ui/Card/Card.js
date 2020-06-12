@@ -4,6 +4,7 @@ import { Dimensions, Platform, StyleSheet } from 'react-native';
 import { BoxShadow } from 'react-native-shadow';
 import CardBase from './CardBase';
 import { AccessibilityPropTypes } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const { width } = Dimensions.get('window');
 const DURATION = 250;
 const DEFAULT_STYLE = {
@@ -76,6 +77,7 @@ export default class Card extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('Card');
     this.state = {
       showShadow: this.props.visible && this.props.showShadow
     };

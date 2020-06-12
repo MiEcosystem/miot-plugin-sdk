@@ -8,9 +8,11 @@ import React from 'react';
 import { Image, TouchableWithoutFeedback } from 'react-native';
 import PropTypes from 'prop-types';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
+import { referenceReport } from '../decorator/ReportDecorator';
 export default class ImageButton extends React.Component {
   constructor(props) {
     super(props);
+    referenceReport('ImageButton');
     this.state = {
       buttonPressed: false
     };

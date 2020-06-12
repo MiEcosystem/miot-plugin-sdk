@@ -4,6 +4,7 @@ import { Animated, Dimensions, PanResponder, Platform, StyleSheet, Text, View } 
 import Block from "./Block";
 import Clickable from './Clickable';
 import { AccessibilityPropTypes, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const { width: screenWidth } = Dimensions.get('window');
 const DEFAULT_SIZE = 50;
 const DEFAULT_MARGIN = 12;
@@ -70,6 +71,7 @@ export default class DragGear extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('DragGear');
     if (this.props.options.length === 0) {
       this.showNothing = true;
       return;
