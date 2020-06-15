@@ -86,8 +86,8 @@ export default class ListItemWithSwitch extends React.Component {
     unlimitedHeightEnable: false,
     allowFontScaling: true
   }
-  constructor(props,context){
-    super(props,context);
+  constructor(props, context) {
+    super(props, context);
     referenceReport('ListItemWithSwitch');
   }
   render() {

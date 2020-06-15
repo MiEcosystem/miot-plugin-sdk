@@ -38,8 +38,8 @@ export default class CardButton extends PureComponent {
       onPress();
     }
   }
-  constructor(props,context){
-    super(props,context)
+  constructor(props, context) {
+    super(props, context);
     referenceReport('CardButton');
   }
   render() {

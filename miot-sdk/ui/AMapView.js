@@ -181,9 +181,9 @@ export default class AMapView extends Component {
       onMapDidZoomByUser: PropTypes.func,
       ...ViewPropTypes
     };
-    constructor(props,context){
-       super(props,context);
-       referenceReport('AMapView');
+    constructor(props, context) {
+      super(props, context);
+      referenceReport('AMapView');
     }
     render() {
        return null

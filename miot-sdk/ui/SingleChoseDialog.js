@@ -46,8 +46,8 @@ export default class SingleChoseDialog extends Component {
     onDismiss: PropTypes.func,
     ...ViewPropTypes
   };
-  constructor(props,context){
-    super(props,context);
+  constructor(props, context) {
+    super(props, context);
     referenceReport('SingleChoiceDialog');
   }
   render() {

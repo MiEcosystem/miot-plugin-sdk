@@ -71,8 +71,8 @@ export default class CircleButton extends Component {
       isPressing: false
     });
   }
-  constructor(props,context){
-    super(props,context);
+  constructor(props, context) {
+    super(props, context);
     referenceReport('CircleButton');
   }
   render() {

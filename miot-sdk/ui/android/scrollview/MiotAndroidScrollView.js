@@ -527,7 +527,7 @@ const MiotAndroidScrollView = createReactClass({
     this._scrollAnimatedValue.setOffset(this.props.contentInset ? this.props.contentInset.top : 0);
     this._stickyHeaderRefs = new Map();
     this._headerLayoutYs = new Map();
-    referenceReport('MiotAndroidScrollView','componentWillMount');
+    referenceReport('MiotAndroidScrollView', 'componentWillMount');
   },
   componentDidMount: function() {
     this._updateAnimatedNodeAttachment();

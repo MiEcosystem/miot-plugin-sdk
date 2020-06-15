@@ -98,7 +98,7 @@ export default class ShareDialog extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
-    referenceReport('Dialog/ShareDialog')
+    referenceReport('Dialog/ShareDialog');
     this.state = {
       swiperVisible: false,
       pressed: -1

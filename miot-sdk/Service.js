@@ -50,7 +50,7 @@ import Storage from './service/storage';
 import TJInfra from './service/tjinfra';
 import MiotCamera from './service/miotcamera';
 import Kookong from './service/kookong';
-import AlarmPhone from './service/alarmPhone'
+import AlarmPhone from './service/alarmPhone';
  const CurrentAccount = null;
 export default {
   /**

@@ -27,8 +27,8 @@ export default class ProgressDialog extends Component {
     onDismiss: PropTypes.func,
     ...ViewPropTypes
   };
-  constructor(props,context){
-    super(props,context);
+  constructor(props, context) {
+    super(props, context);
     referenceReport('LoadingDialog');
   }
   render() {

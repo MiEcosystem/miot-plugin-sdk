@@ -55,8 +55,8 @@ export default class NumberSpinner extends React.Component {
       onNumberChanged: PropTypes.func,
       ...ViewPropTypes
     };
-    constructor(props,context){
-      super(props,context);
+    constructor(props, context) {
+      super(props, context);
       referenceReport('MiotNumberPicker');
     }
     render() {

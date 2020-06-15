@@ -40,8 +40,8 @@ export default class InputDialog extends Component {
     onDismiss: PropTypes.func,
     ...ViewPropTypes
   };
-  constructor(props,context){
-    super(props,context)
+  constructor(props, context) {
+    super(props, context);
     referenceReport('InputDialog');
   }
   render() {

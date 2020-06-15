@@ -197,8 +197,8 @@ export default class NavigationBar extends Component {
   }
   static TYPE = TYPE;
   static ICON = ICON;
-  constructor(props,context){
-    super(props,context);
+  constructor(props, context) {
+    super(props, context);
     referenceReport('NavigationBar');
   }
   /**

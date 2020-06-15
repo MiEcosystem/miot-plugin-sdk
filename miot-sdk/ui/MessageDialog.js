@@ -36,8 +36,8 @@ export default class MessageDialog extends Component {
     onDismiss: PropTypes.func,
     ...ViewPropTypes
   };
-  constructor(props,context){
-    super(props,context);
+  constructor(props, context) {
+    super(props, context);
     referenceReport('MessageDialog');
   }
   render() {
