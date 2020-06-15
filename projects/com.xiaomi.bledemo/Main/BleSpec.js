@@ -61,7 +61,7 @@ export default class MainPage extends React.Component {
     let entity = { "objects": props };
     let json = JSON.stringify(entity);
     this.addLog(`set Property params ${json},mac:${Device.mac}`);
-    Bluetooth.doSpecOperation(Device.mac, 0, json).then((data) => {
+    Bluetooth.spec.setPropertiesValue(Device.mac, json).then((data) => {
       this.addLog(`set property resp :${JSON.stringify(data)}`);
     }).catch((err) => {
       this.addLog('set property Fail:' + JSON.stringify(err));
@@ -78,7 +78,7 @@ export default class MainPage extends React.Component {
     let entity = { "objects": props };
     let json = JSON.stringify(entity);
     this.addLog(`get Property params ${json}`);
-    Bluetooth.doSpecOperation(Device.mac, 2, json).then((data) => {
+    Bluetooth.spec.getPropertiesValue(Device.mac, json).then((data) => {
       this.addLog(`get property resp :${JSON.stringify(data)}`);
     }).catch((err) => {
       this.addLog('get property Fail:' + JSON.stringify(err));
@@ -100,7 +100,7 @@ export default class MainPage extends React.Component {
     };
     let json = JSON.stringify(entity);
     this.addLog(`do Action params ${json}`);
-    Bluetooth.doSpecOperation(Device.mac, 5, json).then((data) => {
+    Bluetooth.spec.doAction(Device.mac, json).then((data) => {
       this.addLog(`doAction  resp :${JSON.stringify(data)}`);
     }).catch((err) => {
       this.addLog('doAction Fail ,msg:' + JSON.stringify(err));

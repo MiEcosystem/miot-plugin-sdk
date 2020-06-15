@@ -79,12 +79,48 @@ export const DeviceEvent = {
   deviceStatusChanged: {
   },
   /**
-   *spec 协议：property changed 或者 event occured
+   * ble直连spec消息通知
+   * @param {IDevice} device
+   * @param {Map<string,object>} messages -接收到的数据,value为property或者event的值
+   * @param {Map<string,object} originData -接收到的数据，value为相应property或者event推送到手机的原始内容
+   * @example
+     * let listener0= DeviceEvent.BLESpecNotifyActionEvent.addListener((device, data) => {
+        
+          if(data.has('prop.2.1')){
+            console.log(`receive prop(event) changed notification,prop.2.1:`, data.get('prop.2.1'));
+          });
+          if(data.has('event.2.1')){
+            console.log(`receive prop(event) changed notification,event.2.1:`, data.get('event.2.1'));
+          }
+        });
+        bt = Device.getBluetoothLE();
+        if(bt.isConnected){
+          bt.subscribeMessages('prop.2.1','event.2.1').then(res => {
+            console.log('subscribe exception success,res:',JSON.stringify(res));
+          }).catch(err => console.log('subscribe exception fail'))
+        } else if(bt.isConnecting){
+          let listener1 = BluetoothEvent.bluetoothConnectionStatusChanged.addListener((blut, isConnect) => {
+          console.log('bluetoothConnectionStatusChanged', blut, isConnect);
+          if (bt.mac === blut.mac) {
+            if(isConnect){
+              bt.subscribeMessages('prop.2.1','event.2.1').then(res => {
+                console.log('subscribe exception success,res:',JSON.stringify(res));
+              }).catch(err => console.log('subscribe exception fail'))
+            }else{
+              console.log('connect bledevice error');
+            }
+            listener1.remove();
+          }
+        }else{
+          bt.connect(scType,{ did: Device.deviceID }).then(res=>{
+            bt.subscribeMessages('prop.2.1','event.2.1').then(res => {
+              console.log('subscribe exception success,res:',JSON.stringify(res));
+              }).catch(err => console.log('subscribe exception fail'))
+            });
+          });
+        }
    */
   BLESpecNotifyActionEvent: {
-    forever: (emitter) => (result) => {
-      emitter.emit(result);
-    }
   },
   /**
      * 设备消息,注意订阅的消息都是通过此方法返回。

@@ -41,6 +41,7 @@ import { IBluetooth as BluetoothDevice, getMacUuid, setMacUuid } from './Bluetoo
 import LockDevice from './LockDevice';
 // eslint-disable-next-line import/no-cycle
 import RootDevice from '../BasicDevice';
+import BleSpec from './blespec';
 export const getBluetoothUUID128 = (id) => {
   if (!id || id == '') return null;
   id = id.toUpperCase();
@@ -187,14 +188,12 @@ export default {
      return Promise.resolve(null);
   },
   /**
-   * ble 直连spec的关键方法，用于触发 set/get property, do action 这三个方法；
-   * @static
-   * @params {String} mac, 蓝牙设备的mac地址
-   * @params {int} opCode 定义为： 0：set Property; 2: get Property; 5: do action
-   * @params {String} json: 各个方法需要的需要的参数各不相同，参数类型建议文档：https://xiaomi.feishu.cn/docs/doccneoCLgQYWtfaEU8sWoKwx3E#UXkcyO
+   * @member blespec
+   * @description ble直连spec相关 API
+   * @see {@link miot/device/bluetooth/blespec}
    */
-  doSpecOperation(mac, opCode, json) {
-     return Promise.resolve(null);
+  get spec(){
+    return BleSpec;
   },
   /**
    * 打开蓝牙（Android），iOS无法直接操作蓝牙的打开，只能通过Host.ui.showBLESwitchGuide();提示用户打开蓝牙。
