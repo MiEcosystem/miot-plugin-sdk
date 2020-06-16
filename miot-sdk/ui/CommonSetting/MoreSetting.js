@@ -1,5 +1,5 @@
 'use strict';
-import { Device, DeviceEvent } from 'miot';
+import { Device, DeviceEvent, Package } from 'miot';
 import Host from 'miot/Host';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -16,10 +16,11 @@ import { referenceReport } from '../../decorator/ReportDecorator';
  * 1: 显示
  */
 const secondSharedOptions = {
+  [secondAllOptions.PLUGIN_VERSION]: 1,
   [secondAllOptions.ADD_TO_DESKTOP]: 1,
   [secondAllOptions.AUTO_UPGRADE]: 1,
   [secondAllOptions.CHECK_UPGRADE]: 1,
-  [secondAllOptions.FEEDBACK]: 1,
+  // [secondAllOptions.FEEDBACK]: 1,
   [secondAllOptions.PRIVACY_POLICY]: 1,
   [secondAllOptions.SECURITY]: 0,
   [secondAllOptions.TIMEZONE]: 1,
@@ -62,6 +63,11 @@ export default class MoreSetting extends React.Component {
   getMoreSetting(state) {
     const sync_device = !!this.props.navigation.state.params.syncDevice;
     return {
+      [secondAllOptions.PLUGIN_VERSION]: {
+        title: strings.pluginVersion,
+        value: String(Package.version),
+        hideArrow: true
+      },
       [NETWORK_INFO]: {
         title: strings.networkInfo,
         onPress: () => Host.ui.openDeviceNetworkInfoPage()
@@ -70,14 +76,26 @@ export default class MoreSetting extends React.Component {
         title: strings.security,
         onPress: () => Host.ui.openSecuritySetting()
       },
-      [secondAllOptions.FEEDBACK]: {
-        title: strings.feedback,
-        onPress: () => Host.ui.openFeedbackInput()
+      // [secondAllOptions.FEEDBACK]: {
+      //   title: strings.feedback,
+      //   onPress: () => Host.ui.openFeedbackInput()
+      // },
+      [secondAllOptions.VOICE_AUTH]: {
+        title: strings.voiceAuth,
+        onPress: Host.ui.openVoiceCtrlDeviceAuthPage
+      },
+      [secondAllOptions.BTGATEWAY]: {
+        title: strings.btGateway,
+        onPress: Host.ui.openBtGatewayPage
       },
       [secondAllOptions.TIMEZONE]: {
         title: strings.timezone,
         value: state.timeZone,
         onPress: () => Host.ui.openDeviceTimeZoneSettingPage({ sync_device })
+      },
+      [secondAllOptions.LEGAL_INFO]: {
+        title: strings.legalInfo,
+        onPress: () => this.privacyAndProtocolReview()
       },
       [secondAllOptions.ADD_TO_DESKTOP]: {
         title: strings.addToDesktop,
@@ -91,9 +109,18 @@ export default class MoreSetting extends React.Component {
     this.state = {
       timeZone: Device.timeZone || '' // 从未设置过时区的话，为空字符串
     };
-    this.secondOptions = this.props.navigation.state.params.secondOptions || [secondAllOptions.TIMEZONE];
+    this.secondOptions = this.props.navigation.state.params.secondOptions || [secondAllOptions.SECURITY, secondAllOptions.VOICE_AUTH, secondAllOptions.BTGATEWAY, secondAllOptions.TIMEZONE];
     this.excludeRequiredOptions = this.props.navigation.state.params.excludeRequiredOptions || [];
+    this.extraOptions = this.props.navigation.state.params.extraOptions || {};
     this.moreSetting = this.getMoreSetting(this.state);
+  }
+  privacyAndProtocolReview() {
+    const { licenseUrl, policyUrl, option } = this.extraOptions;
+    if (option === undefined) { // 兼容旧写法
+      Host.ui.privacyAndProtocolReview('', licenseUrl, '', policyUrl);
+    } else {
+      Host.ui.previewLegalInformationAuthorization(option);
+    }
   }
   UNSAFE_componentWillMount() {
     this._deviceTimeZoneChangedListener = DeviceEvent.deviceTimeZoneChanged.addListener((device) => {
@@ -131,22 +158,23 @@ export default class MoreSetting extends React.Component {
     this._deviceTimeZoneChangedListener.remove();
   }
   render() {
-    const requireKeys1 = [secondAllOptions.SECURITY, secondAllOptions.FEEDBACK];
+    const requireKeys1 = [secondAllOptions.PLUGIN_VERSION, secondAllOptions.SECURITY];
     // 判断是否显示「网络信息」
     // 1 显示
     // 0 不显示
     // -1 默认配置: wifi 设备显示，其余不显示
     const networkInfoConfig = this.props.navigation.state.params.networkInfoConfig;
-    if (networkInfoConfig === 1) requireKeys1.unshift(NETWORK_INFO);
+    if (networkInfoConfig === 1) requireKeys1.push(NETWORK_INFO);
     else if (networkInfoConfig === -1 || networkInfoConfig === undefined) {
       if (['0', '8'].includes(Device.type)) { // 0 wifi 设备 8 双模设备
-        requireKeys1.unshift(NETWORK_INFO);
+        requireKeys1.push(NETWORK_INFO);
       }
     }
-    const requireKeys2 = [secondAllOptions.ADD_TO_DESKTOP];
+    const requireKeys2 = [secondAllOptions.LEGAL_INFO, secondAllOptions.ADD_TO_DESKTOP];
     let options = this.secondOptions.filter((key) => key && Object.values(second_options).includes(key)); // 去掉杂质
     options = [...new Set(options)]; // 去除重复
     let keys = [...requireKeys1, ...options, ...requireKeys2];
+    keys = [...new Set(keys)]; // 去重
     if (Device.isOwner === false) {
       keys = keys.filter((key) => secondSharedOptions[key]); // 如果是共享设备或者家庭设备，需要过滤一下
     }
@@ -175,6 +203,7 @@ export default class MoreSetting extends React.Component {
                   value={item.value}
                   onPress={item.onPress}
                   showSeparator={showSeparator}
+                  hideArrow={item.hideArrow}
                   allowFontScaling={itemStyle.allowFontScaling}
                   unlimitedHeightEnable={itemStyle.unlimitedHeightEnable}
                   titleStyle={itemStyle.titleStyle}

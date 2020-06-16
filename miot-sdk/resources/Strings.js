@@ -98,7 +98,9 @@ let strings = {
   removeLinkFail: '',
   linkConfirm: '',
   removeLinkConfirm: '',
-  linking: ''
+  linking: '',
+  pluginVersion: '',
+  helpAndFeedback: ''
 };
 strings = getStrings({
   zh: {
@@ -174,7 +176,9 @@ strings = getStrings({
     removeLinkFail: '解除关联失败',
     linkConfirm: '确认关联该设备？',
     removeLinkConfirm: '确认解除关联？',
-    linking: '正在关联...'
+    linking: '正在关联...',
+    pluginVersion: '插件版本号',
+    helpAndFeedback: '帮助与反馈'
   },
   zh_tw: {
     setting: '設定',
@@ -249,7 +253,9 @@ strings = getStrings({
     removeLinkFail: 'Couldn\'t remove the link',
     linkConfirm: 'Link with this device now?',
     removeLinkConfirm: 'Remove link now?',
-    linking: 'Linking…'
+    linking: 'Linking…',
+    pluginVersion: '挿件版本號',
+    helpAndFeedback: '幫助與反饋'
   },
   zh_hk: {
     setting: '設定',
@@ -324,7 +330,9 @@ strings = getStrings({
     removeLinkFail: 'Couldn\'t remove the link',
     linkConfirm: 'Link with this device now?',
     removeLinkConfirm: 'Remove link now?',
-    linking: 'Linking…'
+    linking: 'Linking…',
+    pluginVersion: '挿件版本號',
+    helpAndFeedback: '幫助與反饋'
   },
   en: {
     setting: 'Settings',
@@ -399,7 +407,9 @@ strings = getStrings({
     removeLinkFail: 'Couldn\'t remove the link',
     linkConfirm: 'Link with this device now?',
     removeLinkConfirm: 'Remove link now?',
-    linking: 'Linking…'
+    linking: 'Linking…',
+    pluginVersion: 'Plugin version number',
+    helpAndFeedback: 'Help & Feedback'
   },
   ko: {
     setting: '설정',
@@ -474,7 +484,9 @@ strings = getStrings({
     removeLinkFail: 'Couldn\'t remove the link',
     linkConfirm: 'Link with this device now?',
     removeLinkConfirm: 'Remove link now?',
-    linking: 'Linking…'
+    linking: 'Linking…',
+    pluginVersion: 'Plugin version number',
+    helpAndFeedback: '도움말 & 피드백'
   },
   ru: {
     setting: 'Настройки',
@@ -549,7 +561,9 @@ strings = getStrings({
     removeLinkFail: 'Couldn\'t remove the link',
     linkConfirm: 'Link with this device now?',
     removeLinkConfirm: 'Remove link now?',
-    linking: 'Linking…'
+    linking: 'Linking…',
+    pluginVersion: 'Plugin version number',
+    helpAndFeedback: 'Справка и обратная связь'
   },
   es: {
     setting: 'Ajustes',
@@ -624,7 +638,9 @@ strings = getStrings({
     removeLinkFail: 'Couldn\'t remove the link',
     linkConfirm: 'Link with this device now?',
     removeLinkConfirm: 'Remove link now?',
-    linking: 'Linking…'
+    linking: 'Linking…',
+    pluginVersion: 'Plugin version number',
+    helpAndFeedback: 'Ayuda y Comentarios'
   },
   fr: {
     setting: 'Paramètres',
@@ -699,7 +715,9 @@ strings = getStrings({
     removeLinkFail: 'Couldn\'t remove the link',
     linkConfirm: 'Link with this device now?',
     removeLinkConfirm: 'Remove link now?',
-    linking: 'Linking…'
+    linking: 'Linking…',
+    pluginVersion: 'Plugin version number',
+    helpAndFeedback: 'Aide et commentaires'
   },
   it: {
     setting: 'Impostazioni',
@@ -774,7 +792,9 @@ strings = getStrings({
     removeLinkFail: 'Couldn\'t remove the link',
     linkConfirm: 'Link with this device now?',
     removeLinkConfirm: 'Remove link now?',
-    linking: 'Linking…'
+    linking: 'Linking…',
+    pluginVersion: 'Plugin version number',
+    helpAndFeedback: 'Guida e feedback'
   },
   de: {
     setting: 'Einstellungen',
@@ -849,7 +869,9 @@ strings = getStrings({
     removeLinkFail: 'Couldn\'t remove the link',
     linkConfirm: 'Link with this device now?',
     removeLinkConfirm: 'Remove link now?',
-    linking: 'Linking…'
+    linking: 'Linking…',
+    pluginVersion: 'Plugin version number',
+    helpAndFeedback: 'Hilfe und Feedback'
   },
   id: {
     setting: 'Pengaturan',
@@ -924,7 +946,9 @@ strings = getStrings({
     removeLinkFail: 'Couldn\'t remove the link',
     linkConfirm: 'Link with this device now?',
     removeLinkConfirm: 'Remove link now?',
-    linking: 'Linking…'
+    linking: 'Linking…',
+    pluginVersion: 'Plugin version number',
+    helpAndFeedback: 'Bantuan & Umpan Balik'
   },
   pl: {
     setting: 'Ustawienia',
@@ -999,7 +1023,9 @@ strings = getStrings({
     removeLinkFail: 'Couldn\'t remove the link',
     linkConfirm: 'Link with this device now?',
     removeLinkConfirm: 'Remove link now?',
-    linking: 'Linking…'
+    linking: 'Linking…',
+    pluginVersion: 'Plugin version number',
+    helpAndFeedback: 'Pomoc i informacje zwrotne'
   },
   vi: {
     setting: 'Cài đặt',
@@ -1074,7 +1100,9 @@ strings = getStrings({
     removeLinkFail: 'Couldn\'t remove the link',
     linkConfirm: 'Link with this device now?',
     removeLinkConfirm: 'Remove link now?',
-    linking: 'Linking…'
+    linking: 'Linking…',
+    pluginVersion: 'Plugin version number',
+    helpAndFeedback: 'Trợ giúp và phản hồi'
   },
   ja: {
     setting: '設定',
@@ -1149,7 +1177,9 @@ strings = getStrings({
     removeLinkFail: 'Couldn\'t remove the link',
     linkConfirm: 'Link with this device now?',
     removeLinkConfirm: 'Remove link now?',
-    linking: 'Linking…'
+    linking: 'Linking…',
+    pluginVersion: 'Plugin version number',
+    helpAndFeedback: 'ヘルプおよびフィードバック'
   },
   th: {
     setting: 'การตั้งค่า',
@@ -1224,7 +1254,9 @@ strings = getStrings({
     removeLinkFail: 'Couldn\'t remove the link',
     linkConfirm: 'Link with this device now?',
     removeLinkConfirm: 'Remove link now?',
-    linking: 'Linking…'
+    linking: 'Linking…',
+    pluginVersion: 'Plugin version number',
+    helpAndFeedback: 'ความช่วยเหลือและคำติชม'
   },
   tr: {
     setting: 'Ayarlar',
@@ -1299,7 +1331,9 @@ strings = getStrings({
     removeLinkFail: 'Couldn\'t remove the link',
     linkConfirm: 'Link with this device now?',
     removeLinkConfirm: 'Remove link now?',
-    linking: 'Linking…'
+    linking: 'Linking…',
+    pluginVersion: 'Plugin version number',
+    helpAndFeedback: 'Yardım ve Geri Bildirim'
   },
   nl: {
     setting: 'Instellingen',
@@ -1374,7 +1408,9 @@ strings = getStrings({
     removeLinkFail: 'Couldn\'t remove the link',
     linkConfirm: 'Link with this device now?',
     removeLinkConfirm: 'Remove link now?',
-    linking: 'Linking…'
+    linking: 'Linking…',
+    pluginVersion: 'Plugin version number',
+    helpAndFeedback: 'Help & Feedback'
   },
   pt: {
     setting: 'Configurações',
@@ -1449,7 +1485,9 @@ strings = getStrings({
     removeLinkFail: 'Couldn\'t remove the link',
     linkConfirm: 'Link with this device now?',
     removeLinkConfirm: 'Remove link now?',
-    linking: 'Linking…'
+    linking: 'Linking…',
+    pluginVersion: 'Plugin version number',
+    helpAndFeedback: 'Ajuda e feedback'
   }
 });
 export default strings;
