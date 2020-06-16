@@ -6,6 +6,9 @@
  * @module miot/device/bluetooth/blespec
  * @description 该模块主要用于ble直连spec相关能力，相关使用demo见com.xiaomi.bledemo.
  */
+/**
+ * @interface
+ */
 class BleSpec{
   /**
    * ble直连spec：设置property，调用前确保已连接蓝牙连接。
@@ -39,7 +42,7 @@ class BleSpec{
    * let mac= 'aa:bb:cc:dd:ee:ff';
    * let data= {objects:[{siid:1,piid:2}]};
    * data = JSON.stringify(data);
-   * Bluetooth.spec.setPropertiesValue(mac,data)
+   * Bluetooth.spec.getPropertiesValue(mac,data)
    *          .then(res=>console.log(JSON.stringify(res)))
    *          .catch(err=>console.log(JSON.stringify(err))
    */
@@ -59,7 +62,7 @@ class BleSpec{
    * let mac= 'aa:bb:cc:dd:ee:ff';
    * let data= {siid:1,aiid:2,objects:[{piid:2,value:'abc',type:10}]};
    * data = JSON.stringify(data);
-   * Bluetooth.spec.setPropertiesValue(mac,data)
+   * Bluetooth.spec.doAction(mac,data)
    *          .then(res=>console.log(JSON.stringify(res)))
    *          .catch(err=>console.log(JSON.stringify(err))
    */

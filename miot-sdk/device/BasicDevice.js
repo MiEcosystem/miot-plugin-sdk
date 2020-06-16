@@ -82,7 +82,7 @@ export const DeviceEvent = {
    * ble直连spec消息通知
    * @param {IDevice} device
    * @param {Map<string,object>} messages -接收到的数据,value为property或者event的值
-   * @param {Map<string,object} originData -接收到的数据，value为相应property或者event推送到手机的原始内容
+   * @param {Map<string,object>} originData -接收到的数据，value为相应property或者event推送到手机的原始内容
    * @example
      * let listener0= DeviceEvent.BLESpecNotifyActionEvent.addListener((device, data) => {
         
