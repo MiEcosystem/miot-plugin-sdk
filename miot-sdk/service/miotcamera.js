@@ -325,7 +325,6 @@ class IMiotCamera {
   setCurrentDeviceIsMissFirmware(isMissFirmware, did = Device.deviceID) {
      return null
   }
-  
   /**
    * 打开摄像机NAS存储设置页面。
    * 
@@ -342,11 +341,34 @@ class IMiotCamera {
    */
   @report
   openFloatWindow(did = Device.deviceID) {
-    
     if (Platform.OS == "android") {
        return Promise.resolve(null);
     } else {
-      return new Promise.reject("unsupported operation for ios platform");
+      return Promise.reject("unsupported operation for ios platform");
+    }
+  }
+  /**
+   * 关闭悬浮窗
+   * @since 10040
+   */
+  @report
+  closeFloatWindow(did = Device.deviceID) {
+    if (Platform.OS == "android") {
+       return null
+    } else {
+      return Promise.reject("unsupported operation for ios platform");
+    }
+  }
+  /**
+   * 绑定摄像头的报警视频到微信米家公众号里，有报警视频推送到微信公共号
+   * @since 10040
+   */
+  @report
+  tryBindAlarmNotifyWithWechatMijia(did = Device.deviceID) {
+    if (Platform.OS == "android") {
+       return Promise.resolve(null);
+    } else {
+      return Promise.reject(" ios platform did not implement this function yet.");
     }
   }
 }
