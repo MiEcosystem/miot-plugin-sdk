@@ -18,8 +18,8 @@
  * @property {string} subtitle - 中间的副标题
  * @param {number} titleNumberOfLines - 10040新增 控制title 文字的行数， 默认 1行
  * @param {number} subtitleNumberOfLines - 10040新增 控制subtitle 文字的行数，默认 1行
- * @property {ViewPropTypes.style} titleStyle - 10040新增 最左侧文字颜色的样式
- * @property {ViewPropTypes.style} subtitleStyle - 10040新增 最左侧文字颜色的样式
+ * @property {ViewPropTypes.style} titleStyle - 10040新增 中间的标题的样式 - 目前支持 fontSize
+ * @property {ViewPropTypes.style} subtitleStyle - 10040新增 中间的副标题的样式 - 支持的属性有 fontSize, colorType 。colorType 是副标题的颜色，目前支持三种： normal '#666666', warning: '#f43f31' exception: '#f5a623'
  * @property {string} onPressTitle - 10040新增 点击标题的事件
  * @property {bool} allowFontScaling - 10040新增 字体大小是否随系统大小变化而变化, 默认值为true
  * @example
@@ -64,6 +64,7 @@ import Images from '../resources/Images';
 import ImageButton from './ImageButton';
 import native, { isIOS } from '../native';
 import DarkMode from 'miot/darkmode';
+import DynamicColor from 'miot/ui/Style/DynamicColor';
 import { AccessibilityRoles, AccessibilityPropTypes, getAccessibilityConfig } from '../utils/accessibility-helper';
 import { referenceReport } from '../decorator/ReportDecorator';
 /**
@@ -159,8 +160,15 @@ const paddingHorizontal = 9; // 导航栏左右内边距
 const iconSize = 40; // 图标尺寸
 const lightTitleColor = 'xm#000000'; // 浅色背景下标题颜色
 const darkTitleColor = 'xm#ffffff'; // 深色背景下标题颜色
-const lightSubtitleColor = 'xm#666666'; // 浅色背景下副标题颜色
-const darkSubtitleColor = 'xm#ffffff'; // 深色背景下副标题颜色
+const colorSubtitleNormal = new DynamicColor('#666666', '#ffffff');
+const colorSubtitleWarning = new DynamicColor('#f43f31', '#d92719');
+const colorSubtitleException = new DynamicColor('#f5a623', '#db8e0d');
+const COLOR_SUBTITLE = {
+  'normal': colorSubtitleNormal,
+  'warning': colorSubtitleWarning,
+  'exception': colorSubtitleException
+};
+const COLOR_SCHEME = DarkMode.getColorScheme() || 'light';
 export default class NavigationBar extends Component {
   static propTypes = {
     type: PropTypes.oneOf([TYPE.DARK, TYPE.LIGHT]),
@@ -176,10 +184,15 @@ export default class NavigationBar extends Component {
     right: PropTypes.array,
     title: PropTypes.string,
     subtitle: PropTypes.string,
+    subtitleStyle: PropTypes.shape({
+      fontSize: PropTypes.number,
+      colorType: PropTypes.oneOf(['normal', 'warning', 'exception'])
+    }),
     titleNumberOfLines: PropTypes.number,
     subtitleNumberOfLines: PropTypes.number,
-    titleStyle: Text.propTypes.style,
-    subtitleStyle: Text.propTypes.style,
+    titleStyle: PropTypes.shape({
+      fontSize: PropTypes.number
+    }),
     allowFontScaling: PropTypes.bool,
     backgroundColor: PropTypes.any,
     onPressTitle: PropTypes.func,
@@ -189,11 +202,16 @@ export default class NavigationBar extends Component {
     type: TYPE.LIGHT,
     left: [],
     right: [],
+    subtitleStyle: {
+      colorType: 'normal',
+      fontSize: 14
+    },
     allowFontScaling: true,
     titleNumberOfLines: 1,
     subtitleNumberOfLines: 1,
-    titleStyle: {},
-    subtitleStyle: {}
+    titleStyle: {
+      fontSize: 18
+    }
   }
   static TYPE = TYPE;
   static ICON = ICON;
@@ -264,12 +282,27 @@ export default class NavigationBar extends Component {
    * 中间标题部分
    */
   renderTitle() {
-    const { title, subtitle, onPressTitle } = this.props;
+    const { title, subtitle, subtitleStyle, titleStyle, onPressTitle } = this.props;
     const titleColor = {
       color: this.isDarkStyle ? darkTitleColor : lightTitleColor
     };
-    const subtitleColor = {
-      color: this.isDarkStyle ? darkSubtitleColor : lightSubtitleColor
+    const newSubtitleStyle = {
+      colorType: 'normal',
+      fontSize: 14,
+      ...subtitleStyle
+    };
+    const customSubtitleStyle = {
+      fontSize: newSubtitleStyle.fontSize,
+      lineHeight: newSubtitleStyle.fontSize * 1.3,
+      color: this.isDarkStyle ? COLOR_SUBTITLE[newSubtitleStyle.colorType].dark : COLOR_SUBTITLE[newSubtitleStyle.colorType][COLOR_SCHEME]
+    };
+    const newTitleStyle = {
+      fontSize: 18,
+      ...titleStyle
+    };
+    const customTitleStyle = {
+      fontSize: newTitleStyle.fontSize,
+      lineHeight: newTitleStyle.fontSize * 1.3
     };
     return (
       <View
@@ -294,7 +327,7 @@ export default class NavigationBar extends Component {
             <Text
               numberOfLines={this.props.titleNumberOfLines}
               allowFontScaling={this.props.allowFontScaling}
-              style={[styles.title, titleColor, this.props.titleStyle]}
+              style={[styles.title, titleColor, customTitleStyle]}
               onPress={onPressTitle}
               {...getAccessibilityConfig({
                 accessible: false
@@ -305,9 +338,9 @@ export default class NavigationBar extends Component {
         }
         {subtitle
           ? <Text
+            style={[styles.subtitle, customSubtitleStyle]}
             numberOfLines={this.props.subtitleNumberOfLines}
             allowFontScaling={this.props.allowFontScaling}
-            style={[styles.subtitle, subtitleColor, this.props.subtitleStyle]}
             onPress={onPressTitle}
             {...getAccessibilityConfig({
               accessible: false
@@ -396,8 +429,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 5
   },
   title: {
-    fontSize: 16,
-    // lineHeight: 22,
+    fontSize: 18,
+    lineHeight: 24,
     fontFamily: 'D-DINCondensed-Bold',
     textAlignVertical: 'center',
     textAlign: 'center'
@@ -410,8 +443,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   subtitle: {
-    fontSize: 12.6,
-    lineHeight: 17,
+    fontSize: 14,
+    lineHeight: 18,
     fontFamily: 'MI-LANTING--GBK1-Light',
     textAlignVertical: 'center',
     textAlign: 'center'

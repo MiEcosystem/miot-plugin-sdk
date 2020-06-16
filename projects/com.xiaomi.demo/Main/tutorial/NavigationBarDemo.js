@@ -37,19 +37,14 @@ export default class NavigationBarDemo extends React.Component {
       text: '白底黑字/左返回/标题/右更多/显示小红点'
     },
     {
-      title: '测试1-1',
-      onPress: () => this.setNavigation2(true),
-      text: '标题超长/副标题超长/左右按钮数量不一致-字体大小随系统改变而改变'
-    },
-    {
-      title: '测试1-2',
-      onPress: () => this.setNavigation2(false),
-      text: '标题超长/副标题超长/左右按钮数量不一致-字体大小不随系统改变而改变'
+      title: '测试1',
+      onPress: () => this.setNavigation2(),
+      text: '标题超长/副标题超长，副标题 warning 样式/左右按钮数量不一致'
     },
     {
       title: '测试2',
       onPress: () => this.setNavigation3(),
-      text: '标题超长/副标题超长/左右各两按钮/禁用收藏按钮'
+      text: '副标题exception样式/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮'
     },
     {
       title: '测试3',
@@ -155,7 +150,7 @@ export default class NavigationBarDemo extends React.Component {
       };
       subtitleStyle = {
         fontSize: 20,
-        lineHeight: 22
+        colorType: 'warning'
       };
     }
 
@@ -223,7 +218,10 @@ export default class NavigationBarDemo extends React.Component {
           }
         ],
         title: '标题超长/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮',
-        subtitle: '标题超长/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮',
+        subtitle: '副标题exception样式/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮',
+        subtitleStyle: {
+          colorType: 'exception'
+        },
         onPressTitle: () => console.log('onPressTitle')
       }
     });
@@ -307,6 +305,9 @@ export default class NavigationBarDemo extends React.Component {
         ],
         title: '标题超长/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮',
         subtitle: '标题超长/副标题超长/左右各两按钮标题超长/副标题超长/左右各两按钮',
+        subtitleStyle: {
+          colorType: 'normal'
+        },
         onPressTitle: () => console.log('onPressTitle')
       }
     });
