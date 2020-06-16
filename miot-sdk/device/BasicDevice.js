@@ -645,7 +645,7 @@ export class BasicDevice {
    */
   get extra() {
      return  ""
-      console.warn("deprecated  since 10032 此字段后台无人维护，也无人知道它存在的含义，故废弃。");
+      console.warn("extra deprecated since 10032 此字段后台无人维护，也无人知道它存在的含义，故废弃。");
     }
     return Properties.of(this).extrainfo || Properties.of(this).extra;
   }
@@ -700,7 +700,7 @@ export class BasicDevice {
    */
   get parentModel() {
      return  ""
-      console.warn("deprecated    10023开始废弃，10023及后续版本建议使用 Device.parentDevice.model");
+      console.warn("parentModel deprecated 10023开始废弃，10023及后续版本建议使用 Device.parentDevice.model");
     }
     return Properties.of(this).parentModel;
   }
@@ -711,7 +711,7 @@ export class BasicDevice {
    */
   get timeZone() {
      return  ""
-      console.warn("deprecated    10021开始废弃，10021及后续版本建议使用 Device.getDeviceTimeZone().then");
+      console.warn("timeZone deprecated 10021开始废弃，10021及后续版本建议使用 Device.getDeviceTimeZone().then");
     }
     return Properties.of(this).timeZone;
   }
@@ -724,7 +724,7 @@ export class BasicDevice {
    */
   get propInfo() {
      return  {}
-      console.warn("deprecated  因此属性极大造成米家设备列表页接口响应时长变长，现已废弃，一般都会返回null。若需要这里面的属性，请直接通过callMethod去读取。");
+      console.warn("propInfo deprecated 因此属性极大造成米家设备列表页接口响应时长变长，现已废弃，一般都会返回null。若需要这里面的属性，请直接通过callMethod去读取。");
     }
     return Properties.of(this).propInfo;
   }
@@ -736,7 +736,7 @@ export class BasicDevice {
    */
   get resetFlag() {
      return  0
-      console.warn("deprecated  10023开始废弃，后续不再提供此字段，此方法永远返回0");
+      console.warn("resetFlag deprecated 10023开始废弃，后续不再提供此字段，此方法永远返回0");
     }
     return Properties.of(this).resetFlag;
   }
@@ -753,7 +753,7 @@ export class BasicDevice {
   @report
   createScene(sceneType, opt = null) {
      return  ""
-      console.warn("deprecated  since 10032 请使用Service.scene.createScene(BasicDevice.deviceID,sceneType,opt)");
+      console.warn("createScene deprecated since 10032 请使用Service.scene.createScene(BasicDevice.deviceID,sceneType,opt)");
     }
     return Scene.createScene(this.deviceID, sceneType, opt);
   }
@@ -769,7 +769,7 @@ export class BasicDevice {
   @report
   createTimerScene(opt = null) {
      return  ""
-      console.warn("deprecated  since 10032 请使用Service.scene.createTimerScene(BasicDevice.deviceID,opt)");
+      console.warn("createTimerScene deprecated since 10032 请使用Service.scene.createTimerScene(BasicDevice.deviceID,opt)");
     }
     return Scene.createTimerScene(this.deviceID, opt);
   }
@@ -786,7 +786,7 @@ export class BasicDevice {
   @report
   loadScenes(sceneType, opt = null) {
      return  ""
-      console.warn("deprecated  since 10032 请使用Service.scene.loadScenes(BasicDevice.deviceID,sceneType,opt)");
+      console.warn("loadScenes deprecated since 10032 请使用Service.scene.loadScenes(BasicDevice.deviceID,sceneType,opt)");
     }
     return Scene.loadScenes(this.deviceID, sceneType, opt);
   }
@@ -801,7 +801,7 @@ export class BasicDevice {
   @report
   loadTimerScenes(opt = null) {
      return  ""
-      console.warn("deprecated  since 10032 请使用Service.scene.loadTimerScenes(BasicDevice.deviceID,opt)");
+      console.warn("loadTimerScenes deprecated since 10032 请使用Service.scene.loadTimerScenes(BasicDevice.deviceID,opt)");
     }
     return Scene.loadTimerScenes(this.deviceID, opt);
   }

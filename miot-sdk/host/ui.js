@@ -335,7 +335,7 @@ class IUi {
   openOneTimePassword(did, interval, digits) {
   }
   /**
-   * @deprecated 10004 开始废弃， 后续版本会移除该方法。
+   * @deprecated since 10004 use openTimerSettingPageWithVariousTypeParams instead
    * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串
    * @param {string} onParam   定时到时设备“开”执行的 RPC 指令参数字符串（目前仅支持单参数）
    * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串
@@ -347,7 +347,7 @@ class IUi {
   openTimerSettingPage(onMethod, onParam, offMethod, offParam) {
   }
   /**
-   * @deprecated 10004 开始废弃， 后续版本会移除该方法。
+   * @deprecated since 10004 use openTimerSettingPageWithVariousTypeParams instead
    * @param {string} customTimerIdentifier 自定义定时Identifier
    * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串
    * @param {string} onParam   定时到时设备“开”执行的 RPC 指令参数字符串（目前仅支持单参数）
@@ -470,7 +470,7 @@ class IUi {
   openPageWithClassName(className) {
   }
   /**
-   * @deprecated 10010 开始废弃， 后续版本会移除该方法。推荐使用 `miot/ui/CommonSetting`
+   * @deprecated since10010 use 'miot/ui/CommonSetting' component instead. See example https://github.com/MiEcosystem/miot-plugin-sdk/blob/SDK_10004/projects/com.xiaomi.demo/Main/tutorial/Setting.js for more details
    * ios特有页面，android 不能使用
    * 打开更多设置页面（通常包括安全设置，常见问题与用户反馈）
    */

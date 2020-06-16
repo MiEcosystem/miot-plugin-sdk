@@ -192,7 +192,7 @@ export default {
    * @description ble直连spec相关 API
    * @see {@link miot/device/bluetooth/blespec}
    */
-  get spec(){
+  get spec() {
     return BleSpec;
   },
   /**

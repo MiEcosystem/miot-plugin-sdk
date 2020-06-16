@@ -34,7 +34,7 @@ ruleTester.run("no-deprecated-comment", rule, {
              * @deprecated since 120234
              */
             getVirtualDevices() {
-                console.warn("fail");
+                console.warn("getVirtualDevices deprecated  since 120234");
                 return this.hah();
             }
         }`,
@@ -44,7 +44,7 @@ ruleTester.run("no-deprecated-comment", rule, {
           */
          getVirtualDevices() {
             if (console.warn && __DEV__) {
-             console.warn("fail");
+                console.warn("getVirtualDevices deprecated  since 120234");
             }
              return this.hah();
          }
@@ -62,6 +62,9 @@ ruleTester.run("no-deprecated-comment", rule, {
                     */
                   getVirtualDevices() {
                     // @native :=> promise []
+            if (console.warn && __DEV__) {
+                console.warn("deprecated  since 120234");
+            }
                     let a = 1;
                     let b = 2;
                     console.log(a+b);
@@ -70,7 +73,7 @@ ruleTester.run("no-deprecated-comment", rule, {
                }
             `,
             errors: [{
-                message: "deprecated no warn"
+                message: "deprecated no warn2"
             }
          ],
             output: "ahhaa"

@@ -9,7 +9,7 @@
 /**
  * @interface
  */
-class BleSpec{
+class BleSpec {
   /**
    * ble直连spec：设置property，调用前确保已连接蓝牙连接。
    * @since 10040
@@ -27,7 +27,7 @@ class BleSpec{
    *          .catch(err=>console.log(JSON.stringify(err))
    */
   @report
-  setPropertiesValue(mac,json){
+  setPropertiesValue(mac, json) {
      return Promise.resolve(null);
   }
   /**
@@ -47,7 +47,7 @@ class BleSpec{
    *          .catch(err=>console.log(JSON.stringify(err))
    */
   @report
-  getPropertiesValue(mac,json){
+  getPropertiesValue(mac, json) {
      return Promise.resolve(null);
   }
   /**
@@ -67,7 +67,7 @@ class BleSpec{
    *          .catch(err=>console.log(JSON.stringify(err))
    */
   @report
-  doAction(mac,json){
+  doAction(mac, json) {
      return Promise.resolve(null);
   }
 }

@@ -138,7 +138,7 @@ export default {
      */
   get applicationEdition() {
      return  true
-      console.warn("deprecated  10033");
+      console.warn("applicationEdition deprecated 10033");
     }
     return isAndroid ? (this.ui.checkStoreSupporttedOnAndroid() ? 1 : 2) : native.MIOTHost.ApplicationEdition;
   },
