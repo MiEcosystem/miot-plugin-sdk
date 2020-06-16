@@ -102,13 +102,13 @@ export default class HostDemo extends React.Component {
             .then((res) => alert(JSON.stringify(res)))
             .catch((e) => alert(JSON.stringify(e)));
         }
-      },
-      {
-        'name': 'AlarmPhoneDemo 报警电话设置 Demo',
-        'func': () => {
-          this.props.navigation.navigate('AlarmPhoneDemo', { title: '报警电话设置 Demo' });
-        }
       }
+      // {
+      //   'name': 'AlarmPhoneDemo 报警电话设置 Demo',
+      //   'func': () => {
+      //     this.props.navigation.navigate('AlarmPhoneDemo', { title: '报警电话设置 Demo' });
+      //   }
+      // }
     ];
   }
 

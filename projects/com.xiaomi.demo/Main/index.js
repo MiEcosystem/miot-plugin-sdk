@@ -132,7 +132,7 @@ import MHRoomDemo from "./Service/RoomDemo";
 import MHSceneDemo from "./Service/SceneDemo";
 import AccountDemo from './Service/AccountDemo';
 import KookongDemo from './Service/KookongDemo';
-import AlarmPhoneDemo from './Service/AlarmPhoneDemo';
+// import AlarmPhoneDemo from './Service/AlarmPhoneDemo';
 import CallSmartHomeAPIDemo from './Service/smarthome';
 import CloudStorageDemo from './Service/CloudStorageDemo';
 
@@ -348,7 +348,7 @@ function createRootStack(initPage) {
     PackageDemo: PackageDemo,
     AccountDemo: AccountDemo,
     KookongDemo: KookongDemo,
-    AlarmPhoneDemo: AlarmPhoneDemo,
+    // AlarmPhoneDemo: AlarmPhoneDemo,
     CloudStorageDemo: CloudStorageDemo,
 
     KVStorageDemo: KVStorageDemo,
