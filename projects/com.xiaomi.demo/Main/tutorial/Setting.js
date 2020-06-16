@@ -145,7 +145,7 @@ export default class Setting extends React.Component {
               ,
               deleteTextStyle: {
                 fontSize: 26,
-                lineHeight: 28
+                lineHeight: 30
               }
             }}
           />
@@ -160,7 +160,7 @@ export default class Setting extends React.Component {
       unlimitedHeightEnable: true,
       titleStyle: {
         fontSize: 28,
-        lineHeight: 30,
+        lineHeight: 32,
         marginTop: 10,
         marginBottom: 10
       },
@@ -170,7 +170,7 @@ export default class Setting extends React.Component {
       },
       valueStyle: {
         fontSize: 22,
-        lineHeight: 34
+        lineHeight: 26
       },
       dotStyle: null,
 

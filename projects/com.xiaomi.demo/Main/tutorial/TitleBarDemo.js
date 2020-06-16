@@ -99,15 +99,19 @@ export default class TitleBarDemo extends React.Component {
    */
   setNavigation1(allowFontScaling) {
 
-    let titleStyle, subtitleStyle;
+    let titleStyle, subtitleStyle, style;
     if (!allowFontScaling) {
       titleStyle = {
-        fontSize: 26
+        fontSize: 24,
+        lineHeight: 28
       };
       subtitleStyle = {
         fontSize: 20,
-        lineHeight: 26
+        lineHeight: 24
       };
+      style={
+        height:60,
+      }
     }
 
     this.props.navigation.setParams({
@@ -122,7 +126,8 @@ export default class TitleBarDemo extends React.Component {
         subtitleStyle: subtitleStyle,
         onPressTitle: () => console.log('onPressTitle'),
         showDot: this.state.showDot,
-        allowFontScaling: allowFontScaling
+        allowFontScaling: allowFontScaling,
+        style: style,
       }
     });
     this.setState({

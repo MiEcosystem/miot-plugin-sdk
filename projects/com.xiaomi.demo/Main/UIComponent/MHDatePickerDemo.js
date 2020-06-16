@@ -158,9 +158,9 @@ export default class MHDatePickerDemo extends React.Component {
                 allowFontScaling: false,
                 titleNumberOfLines: 2,
                 titleStyle: { fontSize: 28, lineHeight: 30, padding: 10 },
-                subTitleStyle: { fontSize: 24, lineHeight: 26 },
-                leftButtonStyle: { fontSize: 26, lineHeight: 28 },
-                rightButtonStyle: { fontSize: 26, lineHeight: 28 },
+                subTitleStyle: { fontSize: 24, lineHeight: 28 },
+                leftButtonStyle: { fontSize: 26, lineHeight: 30 },
+                rightButtonStyle: { fontSize: 26, lineHeight: 30 },
                 pickerInnerStyle: {
                   lineColor: Styles.common.hairlineColor,
                   textColor: '#666666',

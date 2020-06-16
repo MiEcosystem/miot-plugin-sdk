@@ -507,17 +507,19 @@ export default class DialogExample extends React.Component {
               visible={this.state.visible7}
               color="#f0ac3d"
               title="勾选框消息弹窗-字体大小不随系统字体大小改变而改变-自动换行"
-              messageStyle={[{ fontSize: this.data.fontBigSize2 }, this.fontFamily]}
+              messageStyle={[{ fontSize: this.data.fontBigSize2, lineHeight:this.data.fontBigSize2+4 }, this.fontFamily]}
               dialogStyle={{
                 allowFontScaling: false,
                 titleNumberOfLines: 10,
                 messageNumberOfLines: 3,
                 extraTextNumberOfLines: 4,
                 titleStyle: {
-                  fontSize: this.data.fontBigSize1
+                  fontSize: this.data.fontBigSize1,
+                  lineHeight: this.data.fontBigSize1+4,
                 },
                 extraTextStyle: {
-                  fontSize: this.data.fontBigSize3
+                  fontSize: this.data.fontBigSize3,
+                  lineHeight: this.data.fontBigSize3+4,
                 }
               }}
               message="message 部分-字体大小不随系统字体大小改变而改变-我设置显示为三行"
@@ -528,14 +530,14 @@ export default class DialogExample extends React.Component {
                   text: '取消-不随系统字体大小变化而变化-高度自适应',
                   allowFontScaling: false,
                   numberOfLines: 12,
-                  style: { color: 'lightpink', padding: 10, fontSize: this.data.fontBigSize2 },
+                  style: { color: 'lightpink', padding: 10, fontSize: this.data.fontBigSize2, lineHeight: this.data.fontBigSize2+4, },
                   callback: (_) => this.setState({ visible7: false })
                 },
                 {
                   text: '确认-不随系统字体大小变化而变化-我只显示两行',
                   allowFontScaling: false,
                   numberOfLines: 2,
-                  style: { color: 'lightblue', padding: 10, fontSize: this.data.fontBigSize2 },
+                  style: { color: 'lightblue', padding: 10, fontSize: this.data.fontBigSize2, lineHeight: this.data.fontBigSize2+4, },
                   callback: (obj) => {
                     console.log(`是否勾选: ${ obj.checked }`);
                     this.setState({ visible7: false });
