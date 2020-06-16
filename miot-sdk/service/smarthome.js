@@ -161,6 +161,7 @@ class ISmartHome {
     }
     /**
      * 调用Device.getWifiDevice()的检测固件是否有升级的api, 达到与相关行为一致的目的。
+     * @since 10037
      * @param {*} did 设备did
      */
     @report
