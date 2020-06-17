@@ -102,6 +102,23 @@ export default class HostDemo extends React.Component {
             .then((res) => alert(JSON.stringify(res)))
             .catch((e) => alert(JSON.stringify(e)));
         }
+      },
+      {
+        'name': '访问小爱服务端接口-获取聊天记录',
+        'func': () => {
+          Service.callXiaoaiNetworkAPI({ host: 'profile', path: '/device_profile/conversation', params: { limit: 5 } })
+            .then((res) => {
+              alert(JSON.stringify(res));
+            }).catch((e) => alert(JSON.stringify(e)));
+        }
+      },
+      {
+        'name': '访问小爱服务端接口-获取设备列表',
+        'func': () => {
+          Service.callXiaoaiNetworkAPI({ path: '/admin/v2/device_list', needDevice: 0 })
+            .then((res) => alert(JSON.stringify(res)))
+            .catch((e) => alert(JSON.stringify(e)));
+        }
       }
       // {
       //   'name': 'AlarmPhoneDemo 报警电话设置 Demo',
