@@ -349,7 +349,14 @@ export default class AbstractDialog extends React.Component {
               {button0.text || strings.cancel}
             </Text>
           </TouchableHighlight>
-          <Separator type="column" style={{ flex: 1 }} />
+          {
+            Platform.select({
+              android:
+                <Separator type="column" style={{ flex: 1}} />,
+              ios:
+                <Separator type="column" style={{ height: '100%'}} />
+            })
+          }
           <TouchableHighlight
             style={[
               Styles.dialog.button,
