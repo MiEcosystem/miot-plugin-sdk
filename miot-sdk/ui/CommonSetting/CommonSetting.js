@@ -338,8 +338,8 @@ export default class CommonSetting extends React.Component {
   static defaultProps = {
     firstOptions: [
       AllOptions.SHARE,
-      AllOptions.BTGATEWAY,
-      AllOptions.VOICE_AUTH,
+      // AllOptions.BTGATEWAY,
+      // AllOptions.VOICE_AUTH,
       AllOptions.IFTTT,
       AllOptions.FIRMWARE_UPGRADE,
       // AllOptions.CREATE_GROUP,
@@ -351,8 +351,8 @@ export default class CommonSetting extends React.Component {
     ],
     secondOptions: [
       AllOptions.SHARE,
-      AllOptions.BTGATEWAY,
-      AllOptions.VOICE_AUTH,
+      // AllOptions.BTGATEWAY,
+      // AllOptions.VOICE_AUTH,
       AllOptions.IFTTT,
       AllOptions.FIRMWARE_UPGRADE,
       // AllOptions.CREATE_GROUP,
