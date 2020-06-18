@@ -99,7 +99,7 @@ export default class ListItem extends React.Component {
     }
     let extraRightStyle = {
       // flex: 0
-      maxWidth: '50%'
+      maxWidth: '40%'
     };
     // if (this.props.value) {
     //   extraRightStyle.flex = 8;
@@ -116,7 +116,7 @@ export default class ListItem extends React.Component {
     }
     let titleLine = this.props.titleNumberOfLines == undefined ? 1 : this.props.titleNumberOfLines;
     let subtitleLine = this.props.subtitleNumberOfLines == undefined ? 2 : this.props.subtitleNumberOfLines;
-    let valueLine = this.props.valueNumberOfLines == undefined ? 1 : this.props.valueNumberOfLines;
+    let valueLine = this.props.valueNumberOfLines == undefined ? 2 : this.props.valueNumberOfLines;
     if (titleLine < 0) titleLine = 0;
     if (subtitleLine < 0) subtitleLine = 0;
     if (valueLine < 0) valueLine = 0;
