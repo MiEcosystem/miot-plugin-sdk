@@ -3,7 +3,7 @@
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import {
-  Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View
+  Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View, NativeModules
 } from 'react-native';
 import { Service } from 'miot';
 

@@ -3,7 +3,7 @@
 import Host from 'miot/Host';
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
-import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View, NativeModules } from 'react-native';
 
 export default class HostDemo extends React.Component {
 
@@ -106,6 +106,18 @@ export default class HostDemo extends React.Component {
         "name": '打开WebView',
         'func': () => {
           Host.ui.openWebPage("https://home.mi.com/views/article.html?articleId=684095286000000001");
+        }
+      },
+      {
+        'name': '访问小爱语音授权页面,仅小爱音箱可使用',
+        'func': () => {
+          NativeModules.MIOTWifiSpeaker.openVoiceCtrlDevListPage();
+        }
+      },
+      {
+        'name': '小爱打开设备重置页面，仅小爱音箱可用',
+        'func': () => {
+          NativeModules.MIOTWifiSpeaker.openResetAndConnectDevicePage();
         }
       }
     ];
