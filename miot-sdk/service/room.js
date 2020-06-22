@@ -49,6 +49,12 @@ export class IMHRoom {
      return  0
   }
   /**
+   * 房间支持的设备did列表，目前只有小爱音箱有权限
+   */
+  get didList() {
+     return  []
+  }
+  /**
    * 更新房间名称
    * @since 10020
    * @param newName 新的房间名称
