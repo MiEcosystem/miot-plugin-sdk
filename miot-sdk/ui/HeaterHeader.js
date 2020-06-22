@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Animated } from 'react-native';
 import PropTypes from 'prop-types';
 import { adjustSize } from '../utils/sizes';
 import { FontDefault } from '../utils/fonts';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
 const Source0 = require('../resources/images/heater-dot0.png');
 const Source1 = require('../resources/images/heater-dot1.png');
 const Source2 = require('../resources/images/heater-dot2.png');
@@ -17,7 +18,9 @@ export default class HeaterHeader extends PureComponent {
   static propTypes = {
     title: PropTypes.string,
     disabled: PropTypes.bool,
-    themeColor: PropTypes.any
+    themeColor: PropTypes.any,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel
   };
   render() {
     let { title, disabled, themeColor } = this.props;
@@ -26,7 +29,11 @@ export default class HeaterHeader extends PureComponent {
       return null;
     }
     return (
-      <View style={Styles.container}>
+      <View style={Styles.container} {...getAccessibilityConfig({
+        accessible: this.props.accessible,
+        accessibilityRole: AccessibilityRoles.text,
+        accessibilityLabel: this.props.accessibilityLabel
+      })}>
         <Text style={[Styles.title, {
           color
         }]}>{title}</Text>

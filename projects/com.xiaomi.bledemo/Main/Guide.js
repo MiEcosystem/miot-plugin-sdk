@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { CardButton } from 'miot/ui';
 import CommonCell from './CommonCell';
 
 export default class Guide extends React.Component {
@@ -8,13 +9,15 @@ export default class Guide extends React.Component {
     super(props, context);
     this.state = {
       sceens: [
-        { title: 'StandardAuth  蓝牙板 Demo', sceen: 'standardAuth' },
-        { title: 'SecurityChip  蓝牙板 Demo', sceen: 'securityChip' },
-        { title: 'Mesh蓝牙开发板 Demo', sceen: 'meshble' },
-        { title: '非小米协议蓝牙设备 Demo', sceen: 'normalble' },
-        { title: 'Android 经典蓝牙 Demo', sceen: 'classicBle' },
-        { title: 'BluetoothApiUnitCaseDemo', sceen: 'BluetoothApiUnitCaseDemo' }
-        // { title: '普通蓝牙设备Demo', sceen: 'normalble' }
+        {
+          title: 'StandardAuth蓝牙板', sceen: 'standardAuth', type: 4, icon: require('../Resources/icon_standard.png')
+        },
+        {
+          title: 'SecurityChip蓝牙板', sceen: 'securityChip', type: 1, icon: require('../Resources/icon_security.png')
+        },
+        {
+          title: 'Mesh蓝牙开发板', sceen: 'meshble', type: 5, icon: require('../Resources/icon_mesh.png')
+        }
       ]
     };
   }
@@ -24,11 +27,13 @@ export default class Guide extends React.Component {
       <View style={styles.container}>
         {
           this.state.sceens.map((v, i) => (
-            <CommonCell
+            <CardButton
               key={'idx' + i}
+              iconContainerStyle={{ backgroundColor: 'red' }}
               title={v.title}
+              icon={v.icon}
               onPress={() => {
-                this.props.navigation.navigate(v.sceen, { title: v.title });
+                this.props.navigation.navigate(v.sceen, { title: v.title, sc_type: v.type });
               }}
             />
           ))

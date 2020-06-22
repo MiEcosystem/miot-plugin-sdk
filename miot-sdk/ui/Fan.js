@@ -3,6 +3,7 @@ import { StyleSheet, View, Animated, Easing } from 'react-native';
 import { Svg, Defs, LinearGradient, Stop, Path } from 'react-native-svg';
 import PropTypes from 'prop-types';
 import { adjustSize } from '../utils/sizes';
+import { getAccessibilityConfig } from '../utils/accessibility-helper';
 const Size708 = adjustSize(708);
 function getCircleCenter(type, index) {
   switch (type) {
@@ -155,7 +156,9 @@ class Circle extends Component {
         transform: [{
           rotate: r
         }]
-      }]}>
+      }]} {...getAccessibilityConfig({
+        accessible: false
+      })}>
         <Svg width={Size708} height={Size708} viewBox="0 0 236 236">
           <Defs>
             <LinearGradient id="circleGradient" x1="0" y1="0" x2="236" y2="236">

@@ -42,6 +42,10 @@ export default class RobotMapView extends React.Component {
       mapStyle: PropTypes.object,
       ...ViewPropTypes
     };
+    constructor(props, context) {
+      super(props, context);
+      referenceReport('RobotMapView');
+    }
     render() {
        return null
     }

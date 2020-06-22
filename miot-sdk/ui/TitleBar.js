@@ -17,8 +17,11 @@
  * @property onPressRight2 右侧的第二个点击事件，设置了才显示默认的分享按钮
  * @property title 中间的标题
  * @property subTitle  中间的子标题
+ * @property {ViewPropTypes.style} titleStyle - 10040新增 最左侧文字颜色的样式
+ * @property {ViewPropTypes.style} subtitleStyle - 10040新增 最左侧文字颜色的样式
  * @property onPressTitle 点击标题的事件
  * @property showDot 是否显示右侧更多按钮的空点
+ * @property {bool} allowFontScaling - 字体大小是否随系统大小变化而变化, 默认值为true
  */
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -27,6 +30,10 @@ import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import { RkButton } from "react-native-ui-kitten";
 import { SafeAreaView } from 'react-navigation';
 import ImageButton from './ImageButton';
+import native, { isIOS } from '../native';
+import DarkMode from 'miot/darkmode';
+import { AccessibilityRoles, AccessibilityPropTypes, getAccessibilityConfig } from 'miot/utils/accessibility-helper';
+import { referenceReport } from '../decorator/ReportDecorator';
 const { width } = Dimensions.get('window');
 const statusBarHeight = getStatusBarHeight(true);
 const titleHeight = 55;
@@ -50,13 +57,33 @@ export default class TitleBar extends Component {
     onPressTitle: PropTypes.func,
     title: PropTypes.string,
     subTitle: PropTypes.string,
-    showDot: PropTypes.bool
+    titleStyle: Text.propTypes.style,
+    subtitleStyle: Text.propTypes.style,
+    allowFontScaling: PropTypes.bool,
+    showDot: PropTypes.bool,
+    accessible: AccessibilityPropTypes.accessible,
+    // 无障碍 - onPressLeft
+    leftAccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    leftAccessibilityHint: AccessibilityPropTypes.accessibilityHint,
+    // 无障碍 - onPressLeft2
+    left2AccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    left2AccessibilityHint: AccessibilityPropTypes.accessibilityHint,
+    // 无障碍 - onPressRight
+    rightAccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    rightAccessibilityHint: AccessibilityPropTypes.accessibilityHint,
+    // 无障碍 - onPressRight2
+    right2AccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    right2AccessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
   static defaultProps = {
-    type: 'light'
+    type: 'light',
+    allowFontScaling: true,
+    titleStyle: {},
+    subtitleStyle: {}
   }
   constructor(props) {
     super(props);
+    referenceReport('TitleBar');
   }
   UNSAFE_componentWillMount() {
     this.isDarkStyle = this.props.type === 'dark';
@@ -66,6 +93,20 @@ export default class TitleBar extends Component {
   }
   render() {
     this.isDarkStyle = this.props.type === 'dark';
+    if (isIOS && native.MIOTService.currentDarkMode == "dark") {
+      // 黑暗模式适配
+      if (this.isDarkStyle === false) {
+        // 原本就是light的情况下（黑底白字） 颜色不加转换
+        if (this.props.style !== undefined && this.props.style.backgroundColor !== undefined) {
+          this.props.style.backgroundColor = `xm${ this.props.style.backgroundColor }`;
+        }
+      }
+      this.isDarkStyle = false;
+    } else {
+      if (DarkMode.getColorScheme() === 'dark') {
+        this.isDarkStyle = false;
+      }
+    }
     this.isDarkStyle ? StatusBar.setBarStyle('dark-content') : StatusBar.setBarStyle('light-content');
     const containerStyle = this.isDarkStyle ? styles.blackTitleBarContainer : styles.lightTitleBarContainer;
     let leftWidth = this.props.leftTextStyle ? this.props.leftTextStyle.width : 0;
@@ -95,16 +136,31 @@ export default class TitleBar extends Component {
     return (
       <SafeAreaView style={[containerStyle, this.props.style, containerHeight]}>
         {this.props.leftText
-          ? <RkButton onPress={this.props.onPressLeft}
+          ? (<RkButton onPress={this.props.onPressLeft}
             contentStyle={[leftRightTextStyle, this.props.leftTextStyle]}
             style={[leftRightTextStyle, {
               height: this.props.onPressLeft ? titleHeight : 0,
               width: leftWidth ? leftWidth : imgHeight + marginH * 2
-            }]}>{this.props.leftText}</RkButton>
-          : <ImageButton onPress={this.props.onPressLeft}
-            style={[styles.img, { height: this.props.onPressLeft ? imgHeight : 0 }]}
-            source={back_n}
-            highlightedSource={back_p} />
+            }]}
+            {...getAccessibilityConfig({
+              accessible: this.props.onPressLeft ? this.props.accessible : false,
+              accessibilityLabel: this.props.leftAccessibilityLabel || this.props.leftText,
+              accessibilityHint: this.props.leftAccessibilityHint
+            })}
+          >{this.props.leftText}</RkButton>)
+          : (
+            <ImageButton
+              onPress={this.props.onPressLeft}
+              style={[styles.img, { height: this.props.onPressLeft ? imgHeight : 0 }]}
+              source={back_n}
+              highlightedSource={back_p}
+              {...getAccessibilityConfig({
+                accessible: this.props.onPressLeft ? this.props.accessible : false,
+                accessibilityLabel: this.props.leftAccessibilityLabel,
+                accessibilityHint: this.props.leftAccessibilityHint
+              })}
+            />
+          )
         }
         <ImageButton onPress={this.props.onPressLeft2}
           style={[styles.img, {
@@ -112,18 +168,32 @@ export default class TitleBar extends Component {
             height: this.props.onPressLeft2 ? imgHeight : 0
           }]}
           source={set_n}
-          highlightedSource={set_p} />
-        <View style={[styles.textContainer]}>
+          highlightedSource={set_p}
+          {...getAccessibilityConfig({
+            accessible: this.props.onPressLeft2 ? this.props.accessible : false,
+            accessibilityLabel: this.props.left2AccessibilityLabel,
+            accessibilityHint: this.props.left2AccessibilityHint
+          })}
+        />
+        <View
+          style={[styles.textContainer]}
+          {...getAccessibilityConfig({
+            accessible: this.props.accessible,
+            accessibilityRole: AccessibilityRoles.header
+          })}
+        >
           <Text
             numberOfLines={1}
-            style={[titleTextStyle]}
+            style={[titleTextStyle, this.props.titleStyle]}
+            allowFontScaling={this.props.allowFontScaling}
             onPress={this.props.onPressTitle}>
             {this.props.title}
           </Text>
           {this.props.subTitle
             ? <Text
               numberOfLines={1}
-              style={[subtitleTextStyle]}
+              style={[subtitleTextStyle, this.props.subtitleStyle]}
+              allowFontScaling={this.props.allowFontScaling}
               onPress={this.props.onPressTitle}
             >
               {this.props.subTitle}
@@ -137,18 +207,36 @@ export default class TitleBar extends Component {
             height: this.props.onPressRight2 ? imgHeight : 0
           }]}
           source={share_n}
-          highlightedSource={share_p} />
+          highlightedSource={share_p}
+          {...getAccessibilityConfig({
+            accessible: this.props.onPressRight2 ? this.props.accessible : false,
+            accessibilityLabel: this.props.right2AccessibilityLabel,
+            accessibilityHint: this.props.right2AccessibilityHint
+          })}
+        />
         {this.props.rightText
           ? <RkButton onPress={this.props.onPressRight}
             contentStyle={[leftRightTextStyle, this.props.rightTextStyle]}
             style={[leftRightTextStyle, {
               height: this.props.onPressRight ? titleHeight : 0,
               width: rightWidth ? rightWidth : imgHeight + marginH * 2
-            }]}>{this.props.rightText}</RkButton>
+            }]}
+            {...getAccessibilityConfig({
+              accessible: this.props.onPressRight ? this.props.accessible : false,
+              accessibilityLabel: this.props.rightAccessibilityLabel || this.props.rightText,
+              accessibilityHint: this.props.rightAccessibilityHint
+            })}
+          >{this.props.rightText}</RkButton>
           : <ImageButton onPress={this.props.onPressRight}
             style={[styles.img, { height: this.props.onPressRight ? imgHeight : 0 }]}
             source={more_n}
-            highlightedSource={more_p} />
+            highlightedSource={more_p}
+            {...getAccessibilityConfig({
+              accessible: this.props.onPressRight ? this.props.accessible : false,
+              accessibilityLabel: this.props.rightAccessibilityLabel,
+              accessibilityHint: this.props.rightAccessibilityHint
+            })}
+          />
         }
         {
           this.props.showDot &&
@@ -168,48 +256,48 @@ const styles = StyleSheet.create({
     width: width,
     alignItems: 'flex-end',
     height: containerHeight,
-    backgroundColor: "black"
+    backgroundColor: "xmblack"
   },
   blackTitleBarContainer: {
     flexDirection: 'row',
     width: width,
     alignItems: 'flex-end',
     height: containerHeight,
-    backgroundColor: "white"
+    backgroundColor: "xmwhite"
   },
   textContainer: {
-    height: titleHeight,
+    minHeight: titleHeight,
     flex: 1,
     alignItems: 'stretch',
     justifyContent: 'center'
   },
   blackTitleText: {
-    color: '#000000cc',
+    color: 'xm#000000cc',
     fontSize: 15,
     textAlignVertical: 'center',
     textAlign: 'center'
   },
   whiteTitleText: {
-    color: "#ffffffcc",
+    color: "xm#ffffffcc",
     fontSize: 15,
     textAlignVertical: "center",
     textAlign: "center"
   },
   blackSubtitleText: {
-    color: '#00000088',
+    color: 'xm#00000088',
     fontSize: 12,
     textAlignVertical: 'center',
     textAlign: 'center'
   },
   whiteSubtitleText: {
-    color: "#ffffff88",
+    color: "xm#ffffff88",
     fontSize: 12,
     textAlignVertical: "center",
     textAlign: "center"
   },
   blackLeftRightText: {
-    backgroundColor: '#0000',
-    color: '#00000088',
+    backgroundColor: 'xm#0000',
+    color: 'xm#00000088',
     fontSize: 14,
     alignItems: 'center',
     justifyContent: 'center',
@@ -217,8 +305,8 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   whiteLeftRightText: {
-    backgroundColor: '#0000',
-    color: '#ffffff88',
+    backgroundColor: 'xm#0000',
+    color: 'xm#ffffff88',
     fontSize: 14,
     alignItems: 'center',
     justifyContent: 'center',

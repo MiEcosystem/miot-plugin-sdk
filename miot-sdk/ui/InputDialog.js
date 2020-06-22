@@ -22,6 +22,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { requireNativeComponent, ViewPropTypes } from 'react-native';
+import { referenceReport } from '../decorator/ReportDecorator';
 export default class InputDialog extends Component {
   static propTypes = {
     visible: PropTypes.bool,
@@ -39,6 +40,10 @@ export default class InputDialog extends Component {
     onDismiss: PropTypes.func,
     ...ViewPropTypes
   };
+  constructor(props, context) {
+    super(props, context);
+    referenceReport('InputDialog');
+  }
   render() {
      return null
   }

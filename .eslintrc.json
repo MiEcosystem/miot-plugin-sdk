@@ -31,10 +31,13 @@
     "sourceType": "module"
   },
   "plugins": [
-    "react"
+    "react",
+    "mihome-plugin"
   ],
   "parser": "babel-eslint",
   "rules": {
+    "mihome-plugin/no-deprecated-comment": "warn",
+    "mihome-plugin/console-warn-only-dev": "warn",
     "no-unused-vars": "warn",
     "no-console": "off",
     "no-undef": "error",
@@ -90,7 +93,7 @@
     }],
     "indent": ["warn", 2, {
       "SwitchCase": 1
-      }],
+    }],
     "jsx-quotes": ["warn", "prefer-double"],
     "key-spacing": ["warn", {
       "beforeColon": false,
@@ -114,8 +117,8 @@
       "before": true,
       "after": true
     }],
-		"rest-spread-spacing": ["error", "never"],
-		"template-curly-spacing": ["warn", "always"],
+    "rest-spread-spacing": ["error", "never"],
+    "template-curly-spacing": ["warn", "always"],
     "space-before-blocks": ["warn", "always"],
     "space-before-function-paren": ["warn", "never"],
     "space-in-parens": ["warn", "never"],
@@ -135,11 +138,13 @@
     "block-spacing": ["warn", "always"],
     "array-bracket-spacing": ["warn", "never"],
     "no-multi-spaces": "warn",
+    "no-duplicate-imports": "warn",
+    "import/no-duplicates": "off",
     "import/no-extraneous-dependencies": ["warn", {
       "packageDir": "./"
     }],
     "import/default": "off",
-    "import/no-cycle": "error",
+    "import/no-cycle": "warn",
     "import/no-named-as-default-member": "warn",
     "react/forbid-prop-types": "off",
     "react/require-default-props": "off",

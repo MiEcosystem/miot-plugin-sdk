@@ -3,13 +3,15 @@ import { StyleSheet, View, Text, Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import { adjustSize } from '../utils/sizes';
 import { FontDefault } from '../utils/fonts';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
 const isAndroid = Platform.OS === 'android';
 export default class QAList extends Component {
   static propTypes = {
     list: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string,
       text: PropTypes.string
-    }))
+    })),
+    accessible: AccessibilityPropTypes.accessible
   };
   static defaultProps = {
     list: []
@@ -24,8 +26,14 @@ export default class QAList extends Component {
       // android加换行符，是为了解决部分安卓手机最后一行显示不全的问题
       return (
         <View key={String(index)} style={Styles.item}>
-          <Text style={Styles.title}>{title || ''}</Text>
-          <Text style={Styles.text}>{text || ''}{isAndroid ? '\n' : ''}</Text>
+          <Text style={Styles.title} {...getAccessibilityConfig({
+            accessible: this.props.accessible,
+            accessibilityRole: AccessibilityRoles.text
+          })}>{title || ''}</Text>
+          <Text style={Styles.text} {...getAccessibilityConfig({
+            accessible: this.props.accessible,
+            accessibilityRole: AccessibilityRoles.text
+          })}>{text || ''}{isAndroid ? '\n' : ''}</Text>
         </View>
       );
     });

@@ -3,6 +3,8 @@ import React from 'react';
 import { Dimensions, Platform, StyleSheet } from 'react-native';
 import { BoxShadow } from 'react-native-shadow';
 import CardBase from './CardBase';
+import { AccessibilityPropTypes } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const { width } = Dimensions.get('window');
 const DURATION = 250;
 const DEFAULT_STYLE = {
@@ -32,6 +34,9 @@ const DEFAULT_STYLE = {
  * @property {string} underlayColor - 卡片点击态颜色，默认 rgba(0,0,0,0.05)
  * @property {string} shadowColor - 阴影颜色，默认 '#000'，❗️android 平台只支持16进制的 shadowColor
  * @property {number} shadowOpacity - 阴影透明度，默认 0.03
+ * @property {bool} unlimitedHeightEnable - 10040新增 设置控件高度是否自适应。 默认为false，即默认高度
+ * @property {bool} allowFontScaling - 10040新增 设置卡片字体是否随系统设置的字体大小的设置改变而改变 默认为true。
+ * @property {number} numberOfLines - 10040新增 设置卡片字体显示的最大行数 默认为1
  */
 export default class Card extends React.Component {
   static propTypes = {
@@ -49,7 +54,15 @@ export default class Card extends React.Component {
     textStyle: PropTypes.object,
     underlayColor: PropTypes.string,
     shadowColor: PropTypes.string,
-    shadowOpacity: PropTypes.number
+    shadowOpacity: PropTypes.number,
+    unlimitedHeightEnable: PropTypes.bool,
+    allowFontScaling: PropTypes.bool,
+    numberOfLines: PropTypes.number,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint,
+    dismissAccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    dismissAccessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
   static defaultProps = {
     visible: true,
@@ -58,10 +71,13 @@ export default class Card extends React.Component {
     showShadow: true,
     cardStyle: {},
     shadowColor: '#000',
-    shadowOpacity: 0.03
+    shadowOpacity: 0.03,
+    unlimitedHeightEnable: false,
+    allowFontScaling: true
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('Card');
     this.state = {
       showShadow: this.props.visible && this.props.showShadow
     };

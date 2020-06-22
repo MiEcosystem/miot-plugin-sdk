@@ -161,6 +161,7 @@ class ISmartHome {
     }
     /**
      * 调用Device.getWifiDevice()的检测固件是否有升级的api, 达到与相关行为一致的目的。
+     * @since 10037
      * @param {*} did 设备did
      */
     @report
@@ -1086,6 +1087,16 @@ class ISmartHome {
     @report
     reportEvent(eventName, params) {
       native.MIOTService.reportEvent(eventName, params);
+    }
+    /**
+     * 获取多键开关名称
+     * 调用接口 /device/deviceinfo
+     * @since 10039
+     * @param {string} did 设备id
+     */
+    @report
+    getMultiSwitchName(did) {
+       return Promise.resolve({});
     }
 }
 const SmartHomeInstance = new ISmartHome();

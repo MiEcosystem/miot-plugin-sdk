@@ -139,7 +139,9 @@ export default class MHImage extends React.Component {
       success,
       failure ||
       function() {
-        console.warn(`Failed to get size for image: ${ uri }`);
+        if (__DEV__ && console.warn) {
+          console.warn(`Failed to get size for image: ${ uri }`);
+        }
       },
     );
   }
@@ -169,16 +171,20 @@ export default class MHImage extends React.Component {
         flattenStyle([{ width, height }, styles.base, this.props.style]) || {};
       sources = [source];
       if (uri === '') {
-        console.warn('source.uri should not be an empty string');
+        if (__DEV__ && console.warn) {
+          console.warn('source.uri should not be an empty string');
+        }
       }
     }
     const resizeMode =
       this.props.resizeMode || (style || {}).resizeMode || 'cover'; // Workaround for flow bug t7737108
     const tintColor = (style || {}).tintColor; // Workaround for flow bug t7737108
     if (this.props.src) {
-      console.warn(
-        'The <Image> component requires a `source` property rather than `src`.',
-      );
+      if (__DEV__ && console.warn) {
+        console.warn(
+          'The <Image> component requires a `source` property rather than `src`.',
+        );
+      }
     }
     if (this.props.children) {
       throw new Error(

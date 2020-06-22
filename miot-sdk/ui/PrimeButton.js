@@ -4,18 +4,24 @@ import PropTypes from 'prop-types';
 import { adjustSize } from '../utils/sizes';
 import { FontDefault } from '../utils/fonts';
 import { NOOP } from '../utils/fns';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
 export default class PrimeButton extends Component {
   static propTypes = {
     title: PropTypes.string,
     themeColor: PropTypes.any,
     textColor: PropTypes.any,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    disabled: PropTypes.bool,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint
   };
   static defaultProps = {
     title: '',
     themeColor: '',
     textColor: '',
-    onClick: NOOP
+    onClick: NOOP,
+    disabled: false
   };
   onPress = () => {
     let { onClick } = this.props;
@@ -24,7 +30,7 @@ export default class PrimeButton extends Component {
     }
   }
   render() {
-    let { title, themeColor, textColor } = this.props;
+    let { title, themeColor, textColor, disabled } = this.props;
     if (!title) {
       return null;
     }
@@ -33,7 +39,15 @@ export default class PrimeButton extends Component {
         <TouchableOpacity style={[Styles.btn, themeColor ? {
           backgroundColor: themeColor,
           borderColor: themeColor
-        } : null]} onPress={this.onPress}>
+        } : null]} onPress={this.onPress} disabled={disabled} {...getAccessibilityConfig({
+          accessible: this.props.accessible,
+          accessibilityRole: AccessibilityRoles.button,
+          accessibilityLabel: this.props.accessibilityLabel,
+          accessibilityHint: this.props.accessibilityHint,
+          accessibilityState: {
+            disabled
+          }
+        })}>
           <Text style={[Styles.title, textColor ? {
             color: textColor
           } : null]}>{title}</Text>

@@ -18,6 +18,7 @@ const API_REPO = {
   '/v2/irdevice/controller/key/update': {},
   '/v2/irdevice/controller/key/del': {},
   '/v2/irdevice/controller/key/click': {},
+  '/v2/irdevice/controller/functions': {},
   '/scene/edit': {},
   '/scene/get': {},
   '/scene/start': {},
@@ -43,6 +44,9 @@ const API_REPO = {
   '/v2/device/get_extra_data': {},
   '/v2/user/statistics': {},
   '/voicectrl/ai_devs': {},
+  '/voicectrl/xiaoice_skills': {},
+  '/voicectrl/get_skills': {},
+  '/v2/voicectrl/ai_flash_briefing': {},
   '/v2/api/aivs': {},
   '/device/getsetting': {},
   '/v2/device/getsettingv2': {},
@@ -123,6 +127,7 @@ const API_REPO = {
   '/common/app/v2/delete/files': {},
   '/common/app/markRead': {},
   '/common/device/vip/status': {},
+  '/common/app/vip/status': {},
   '/miot/camera/app/v1/get/fileIdMetas': {},
   '/miot/camera/app/v1/get/figures': {},
   '/miot/camera/app/v1/get/figureByName': {},
@@ -136,7 +141,13 @@ const API_REPO = {
   '/miot/camera/app/v1/put/babyCrySwitch': {},
   '/miot/camera/app/v2/get/alarmSwitch': {},
   '/miot/camera/app/v2/put/motionDetectionSwitch': {},
-  
-  '/app/v2/public/get_weekday_info': {}
+  '/v2/public/get_weekday_info': {},
+  '/v2/device/blt_get_beaconkey': {},
+  // 保险箱门锁类 报警电话和胁迫指纹的api权限
+  '/v2/device/set_break_lock_alarm_info': {},
+  '/v2/device/get_break_lock_alarm_info': {},
+  '/v2/device/set_hijack_alarm_info': {},
+  '/v2/device/get_hijack_alarm_info': {},
+  '/v2/device/del_alarm_info': {}
 };
 export default API_REPO;

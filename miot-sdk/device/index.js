@@ -59,6 +59,7 @@ import { IBluetooth as BluetoothDevice, BluetoothEvent as MIOTBluetoothEvent } f
 import { IBluetoothService as MIOTIBluetoothService, IBluetoothCharacteristic as MIOTIBluetoothCharacteristic } from './bluetooth/CoreBluetooth';
 import LockDevice from './bluetooth/LockDevice';
 import ClassicBluetoothFactory, { ClassicBluetoothEvent as MIOTClassicBluetoothEvent } from './bluetooth/ClassicDevice';
+import Interconnection from './interconnection';
 export const Device = BasicDevice;
 export const DeviceEvent = MIOTDeviceEvent;
 export const Bluetooth = MIOTBluetooth;
@@ -70,5 +71,5 @@ export const ClassicBluetoothEvent = MIOTClassicBluetoothEvent;
 export const IBluetoothService = MIOTIBluetoothService;
 export const IBluetoothCharacteristic = MIOTIBluetoothCharacteristic;
 export default {
-  Device, DeviceEvent, Bluetooth, BluetoothEvent, IBluetooth, IBluetoothLock, ClassicBluetooth, ClassicBluetoothEvent, IBluetoothService, IBluetoothCharacteristic
+  Device, DeviceEvent, Bluetooth, BluetoothEvent, IBluetooth, IBluetoothLock, ClassicBluetooth, ClassicBluetoothEvent, IBluetoothService, IBluetoothCharacteristic, Interconnection
 };

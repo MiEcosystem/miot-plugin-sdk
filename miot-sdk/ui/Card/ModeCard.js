@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { Dimensions, Image, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Styles } from '../../resources';
 import Card from './Card';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 /**
  * @export
  * @author Li Yue
@@ -10,7 +12,7 @@ import Card from './Card';
  * @module ModeCard
  * @description 档位/模式卡片
  * @property {string} radiusType - 卡片圆角类型：四个圆角、没有圆角、只有上圆角、只有下圆角。对应值：all（默认）, none, top, bottom
- * @property {array} modes - 模式数组，默认值：[]
+ * @property {array} modes - 模式数组，默认值：[] 其中的object个数决定显示在卡片中的个数,支持的所有key值：{description:'',icon: {normal: require(''),press: require(''),active: require(''),activeDisabled: require(''),},isDisabled:false,isActive:false,isPressing: false}
  * @property {function} pressIn - 按下模式时执行的函数，默认值：function(){}
  * @property {function} pressOut - 手指抬起模式时执行的函数，默认值：function(){}
  * @property {string} modesKey - 模式数组对应的 key，默认值：''
@@ -18,6 +20,9 @@ import Card from './Card';
  * @property {style} activeDescriptionStyle - 描述文字的高亮样式，默认值：{}
  * @property {bool} showShadow - 是否显示卡片阴影, 默认值 true。由于安卓的阴影显示存在问题，在和标题进行卡片拼接时，不能显示阴影，请传入 false
  * @property {style} modeCardStyle - 模式卡片样式, 默认值 {}
+ * @property {bool} unlimitedHeightEnable - 10040新增 设置控件高度是否自适应。 默认为false，即默认高度
+ * @property {bool} allowFontScaling - 10040新增 设置卡片字体是否随系统设置的字体大小的设置改变而改变 默认为true。
+ * @property {number} numberOfLines - 10040新增 设置卡片字体显示的最大行数 默认为1
  */
 const radiusValue = 10;
 let iconLength = 56;
@@ -46,6 +51,7 @@ const { width } = Dimensions.get('window');
 class ModeCard extends Component {
   constructor(props) {
     super(props);
+    referenceReport('ModeCard');
     this.cardWrapStyle = {};
     // 设置 Card 组件的样式
     let { modes } = props;
@@ -100,7 +106,10 @@ class ModeCard extends Component {
   }
   // 生成模式结构
   createModesRN = () => {
-    let { modes, descriptionStyle, activeDescriptionStyle } = this.props;
+    let {
+      modes, descriptionStyle, activeDescriptionStyle,
+      accessible
+    } = this.props;
     let { length } = modes;
     let modeStyle = {};
     let iconStyle = {};
@@ -128,7 +137,10 @@ class ModeCard extends Component {
       };
     }
     let modesRN = modes.map((mode, index) => {
-      let { isDisabled, isActive, icon, description, isPressing } = mode;
+      let {
+        isDisabled, isActive, icon, description, isPressing,
+        accessibilityLabel, accessibilityHint
+      } = mode;
       let iconSource = -1;
       let iconOpacity = 1;
       let descriptionRN = null;
@@ -160,16 +172,15 @@ class ModeCard extends Component {
       }
       if (description && length < 5) {
         // 模式3、4有描述文字
+        const style = StyleSheet.flatten([styles.description, this.props.unlimitedHeightEnable ? { fontSize: undefined, lineHeight: undefined } : {}]);
+        let textLine = this.props.numberOfLines == undefined ? 1 : this.props.numberOfLines;
+        if (textLine < 0) textLine = 0;
         descriptionRN = (
           <Text
-            style={[
-              styles.description,
-              descriptionStyle,
-              activeDescription,
-              { opacity: descriptionOpacity }
+            style={[style, descriptionStyle, activeDescription, { opacity: descriptionOpacity }
             ]}
-            numberOfLines={1}
-          >{description}</Text>
+            numberOfLines={textLine}
+          > {description}</Text >
         );
       }
       if (index === length - 1) {
@@ -185,6 +196,16 @@ class ModeCard extends Component {
           onPressOut={() => {
             this.pressOutIcon(index);
           }}
+          {...getAccessibilityConfig({
+            accessible,
+            accessibilityRole: AccessibilityRoles.radio,
+            accessibilityLabel: accessibilityLabel || description,
+            accessibilityHint: accessibilityHint,
+            accessibilityState: {
+              disabled: !!isDisabled,
+              selected: !!isActive
+            }
+          })}
         >
           <View style={[
             styles.mode,
@@ -260,13 +281,16 @@ class ModeCard extends Component {
       marginTop: 0,
       width: width - 10 * 2
     };
-    let mixCardStyle = Object.assign({}, defaultCardStyle, modeCardStyle, this.cardWrapStyle, this.radius);
+    let mixCardStyle = Object.assign({}, defaultCardStyle, modeCardStyle, this.cardWrapStyle, this.radius, !this.props.allowFontScaling ? { height: undefined } : {});
     return (
       <Card
         showShadow={showShadow}
         disabled={true}
         innerView={this.renderModeCard()}
         cardStyle={mixCardStyle}
+        allowFontScaling={this.props.allowFontScaling}
+        unlimitedHeightEnable={this.props.unlimitedHeightEnable}
+        numberOfLines={this.props.numberOfLines}
       />
     );
   }
@@ -293,18 +317,37 @@ ModeCard.defaultProps = {
   descriptionStyle: {},
   activeDescriptionStyle: {},
   showShadow: true,
-  modeCardStyle: {}
+  modeCardStyle: {},
+  unlimitedHeightEnable: false,
+  allowFontScaling: true
 };
 ModeCard.propTypes = {
   radiusType: PropTypes.string,
   modesKey: PropTypes.string,
-  modes: PropTypes.array,
+  modes: PropTypes.arrayOf(PropTypes.shape({
+    isDisabled: PropTypes.bool,
+    isActive: PropTypes.bool,
+    icon: PropTypes.shape({
+      normal: PropTypes.any,
+      press: PropTypes.any,
+      active: PropTypes.any,
+      activeDisabled: PropTypes.any
+    }),
+    description: PropTypes.string,
+    isPressing: PropTypes.bool,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint
+  })),
   pressIn: PropTypes.func,
   pressOut: PropTypes.func,
   descriptionStyle: PropTypes.object,
   activeDescriptionStyle: PropTypes.object,
   showShadow: PropTypes.bool,
-  modeCardStyle: PropTypes.object
+  modeCardStyle: PropTypes.object,
+  allowFontScaling: PropTypes.bool,
+  unlimitedHeightEnable: PropTypes.bool,
+  numberOfLines: PropTypes.number,
+  accessible: AccessibilityPropTypes.accessible
 };
 const styles = StyleSheet.create({
   card: {

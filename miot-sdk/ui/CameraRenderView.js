@@ -140,6 +140,7 @@ export default class CameraRenderView extends React.Component {
       ...ViewPropTypes
     };
     render() {
+      let did = this.props.did || Device.deviceID;
        return null
     }
     /**
@@ -188,19 +189,21 @@ export default class CameraRenderView extends React.Component {
     /**
      * 开始录像
      */
-    startRecord(filePath, timeCallBackName) {
+    @report
+    startRecord(filePath, timeCallBackName, did = Device.deviceID) {
        return Promise.resolve(null);
     }
     /**
      * 停止录像
      */
-    stopRecord() {
-       return null
+    @report
+    stopRecord(did = Device.deviceID) {
+       return Promise.resolve(null);
     }
     /**
      * 截屏
      */
-    snapShot(filePath) {
+    snapShot(filePath, did = Device.deviceID) {
        return Promise.resolve(null);
     }
 }

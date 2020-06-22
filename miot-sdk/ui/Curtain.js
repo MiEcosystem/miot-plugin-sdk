@@ -3,6 +3,7 @@ import { StyleSheet, View, Image, Animated, Easing, PanResponder } from 'react-n
 import PropTypes from 'prop-types';
 import { adjustSize } from '../utils/sizes';
 import { log } from '../utils/fns';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
 const SourceCurtainPole = require('../resources/images/curtain-pole.png');
 const SourceCurtainLight = require('../resources/images/curtain-light.png');
 const SourceCurtainDark = require('../resources/images/curtain-dark.png');
@@ -21,7 +22,9 @@ export default class Curtain extends Component {
     type: PropTypes.oneOf([0, 1, 2]),
     position: PropTypes.number,
     onValueChanging: PropTypes.func,
-    onValueChange: PropTypes.func
+    onValueChange: PropTypes.func,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint
   };
   static defaultProps = {
     type: 0,
@@ -117,6 +120,22 @@ export default class Curtain extends Component {
     }
     return ret;
   }
+  onAccessibilityAction = ({ nativeEvent: { actionName } }) => {
+    const { onValueChange } = this.props;
+    let targetValue = this.lastValue;
+    switch (actionName) {
+      case 'increment':
+        targetValue += 10;
+        break;
+      case 'decrement':
+        targetValue -= 10;
+        break;
+    }
+    targetValue = Math.min(100, Math.max(0, targetValue));
+    this.value.setValue(targetValue);
+    this.lastValue = targetValue;
+    onValueChange(targetValue);
+  }
   render() {
     let { type } = this.props;
     let value = this.value;
@@ -126,12 +145,21 @@ export default class Curtain extends Component {
       outputRange: type === 0 ? [Width429, Width108] : [Width858, Width108]
     });
     return (
-      <View style={Styles.container}>
+      <View style={Styles.container} {...getAccessibilityConfig({
+        accessible: this.props.accessible,
+        accessibilityRole: AccessibilityRoles.adjustable,
+        accessibilityHint: this.props.accessibilityHint
+      })} accessibilityActions={[
+        { name: 'increment' },
+        { name: 'decrement' }
+      ]} onAccessibilityAction={this.onAccessibilityAction}>
         <Image style={Styles.bg} source={SourceCurtainBg} />
         <Image style={Styles.pole} source={SourceCurtainPole} />
         <View style={Styles.curtains}>
           {[0, 1].indexOf(type) === -1 ? null : (
-            <View style={Styles.curtainWrap} {...this.panResponderLeft.panHandlers}>
+            <View style={Styles.curtainWrap} {...this.panResponderLeft.panHandlers} {...getAccessibilityConfig({
+              accessible: false
+            })}>
               <Animated.View style={[Styles.curtain, Styles.curtainLeft, {
                 width
               }]}>
@@ -143,7 +171,9 @@ export default class Curtain extends Component {
             </View>
           )}
           {[0, 2].indexOf(type) === -1 ? null : (
-            <View style={Styles.curtainWrap} {...this.panResponderRight.panHandlers}>
+            <View style={Styles.curtainWrap} {...this.panResponderRight.panHandlers} {...getAccessibilityConfig({
+              accessible: false
+            })}>
               <Animated.View style={[Styles.curtain, Styles.curtainRight, {
                 width
               }]}>
@@ -162,14 +192,14 @@ export default class Curtain extends Component {
 const Styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    paddingTop: adjustSize(249),
+    marginTop: adjustSize(249),
     paddingBottom: adjustSize(60)
   },
   bg: {
     position: 'absolute',
     left: '50%',
     marginLeft: adjustSize(-540),
-    top: adjustSize(249),
+    // top: adjustSize(249),
     width: adjustSize(1080),
     height: adjustSize(879),
     resizeMode: 'contain'

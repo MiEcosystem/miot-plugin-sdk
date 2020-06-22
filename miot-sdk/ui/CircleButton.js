@@ -5,6 +5,7 @@ import { ColorGreen } from '../utils/colors';
 import { adjustSize } from '../utils/sizes';
 import { FontDefault } from '../utils/fonts';
 import { NOOP } from '../utils/fns';
+import { referenceReport } from '../decorator/ReportDecorator';
 // const Size168 = adjustSize(168);
 // const Size150 = adjustSize(150);
 // const Size138 = adjustSize(138);
@@ -69,6 +70,10 @@ export default class CircleButton extends Component {
     this.setState({
       isPressing: false
     });
+  }
+  constructor(props, context) {
+    super(props, context);
+    referenceReport('CircleButton');
   }
   render() {
     let { sizeLevel, selected, title, icon, iconSelected, iconText, themeColor, disabled, horizontal } = this.props;

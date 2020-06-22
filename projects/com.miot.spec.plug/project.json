@@ -1,0 +1,7 @@
+{
+        "models": "miot-plug-plugv1",
+        "package_path": "com.miot.spec.plug",
+        "min_sdk_api_level":10000,
+        "developer_id": "",
+        "version_code":1
+    }

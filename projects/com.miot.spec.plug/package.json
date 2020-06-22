@@ -1,0 +1,10 @@
+{
+        "name": "project-com-miot-spec-plug",
+        "version": "1.0.0",
+        "scripts":{
+            "start":"node ../../bin/runProject.js"
+        },
+        "dependencies":{
+
+        }
+    }

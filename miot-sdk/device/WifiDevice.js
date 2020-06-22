@@ -44,6 +44,9 @@ function isNumber(num) {
  */
 export default class IDeviceWifi {
      return  ""
+      console.warn("deviceID deprecated since 10032,请使用Device.deviceID;");
+    }
+    return Properties.of(this).deviceID;
   }
   /**
     * @typedef {Object} NetworkInfo

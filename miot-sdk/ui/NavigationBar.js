@@ -16,7 +16,12 @@
  * @property {array} right - 右侧按钮的集合，最多显示两个，多余无效 [{ key, disable, showDot, onPress }]
  * @property {string} title - 中间的标题
  * @property {string} subtitle - 中间的副标题
- * @property {string} onPressTitle - 点击标题的事件
+ * @param {number} titleNumberOfLines - 10040新增 控制title 文字的行数， 默认 1行
+ * @param {number} subtitleNumberOfLines - 10040新增 控制subtitle 文字的行数，默认 1行
+ * @property {ViewPropTypes.style} titleStyle - 10040新增 中间的标题的样式 - 目前支持 fontSize
+ * @property {ViewPropTypes.style} subtitleStyle - 10040新增 中间的副标题的样式 - 支持的属性有 fontSize, colorType 。colorType 是副标题的颜色，目前支持三种： normal '#666666', warning: '#f43f31' exception: '#f5a623'
+ * @property {string} onPressTitle - 10040新增 点击标题的事件
+ * @property {bool} allowFontScaling - 10040新增 字体大小是否随系统大小变化而变化, 默认值为true
  * @example
  * ```js
  * <NavigationBar
@@ -57,6 +62,11 @@ import { Dimensions, Image, Platform, StatusBar, StyleSheet, Text, View } from '
 import { SafeAreaView } from 'react-navigation';
 import Images from '../resources/Images';
 import ImageButton from './ImageButton';
+import native, { isIOS } from '../native';
+import DarkMode from 'miot/darkmode';
+import DynamicColor from 'miot/ui/Style/DynamicColor';
+import { AccessibilityRoles, AccessibilityPropTypes, getAccessibilityConfig } from '../utils/accessibility-helper';
+import { referenceReport } from '../decorator/ReportDecorator';
 /**
  * 导航栏类型
  */
@@ -138,7 +148,11 @@ const ICON = {
   /**
    * 分享
    */
-  SHARE: 'share'
+  SHARE: 'share',
+  /**
+   * 编辑
+   */
+  EDIT: 'edit'
 };
 Object.freeze(ICON);
 const { light, dark, dot } = Images.navigation; // 图标集合
@@ -148,28 +162,67 @@ const navigationBarHeightThin = 52; // 导航栏高度，无副标题
 const navigationBarHeightFat = 65; // 导航栏高度，有副标题
 const paddingHorizontal = 9; // 导航栏左右内边距
 const iconSize = 40; // 图标尺寸
-const lightTitleColor = '#000000'; // 浅色背景下标题颜色
-const darkTitleColor = '#ffffff'; // 深色背景下标题颜色
-const lightSubtitleColor = '#666666'; // 浅色背景下副标题颜色
-const darkSubtitleColor = '#ffffff'; // 深色背景下副标题颜色
+const lightTitleColor = 'xm#000000'; // 浅色背景下标题颜色
+const darkTitleColor = 'xm#ffffff'; // 深色背景下标题颜色
+const colorSubtitleNormal = new DynamicColor('#666666', '#ffffff');
+const colorSubtitleWarning = new DynamicColor('#f43f31', '#d92719');
+const colorSubtitleException = new DynamicColor('#f5a623', '#db8e0d');
+const COLOR_SUBTITLE = {
+  'normal': colorSubtitleNormal,
+  'warning': colorSubtitleWarning,
+  'exception': colorSubtitleException
+};
+const COLOR_SCHEME = DarkMode.getColorScheme() || 'light';
 export default class NavigationBar extends Component {
   static propTypes = {
     type: PropTypes.oneOf([TYPE.DARK, TYPE.LIGHT]),
     style: PropTypes.object,
-    left: PropTypes.array,
+    left: PropTypes.arrayOf(PropTypes.shape({
+      key: PropTypes.string,
+      onPress: PropTypes.func,
+      disable: PropTypes.bool,
+      accessible: AccessibilityPropTypes.accessible,
+      accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+      accessibilityHint: AccessibilityPropTypes.accessibilityHint
+    })),
     right: PropTypes.array,
     title: PropTypes.string,
     subtitle: PropTypes.string,
+    subtitleStyle: PropTypes.shape({
+      fontSize: PropTypes.number,
+      colorType: PropTypes.oneOf(['normal', 'warning', 'exception'])
+    }),
+    titleNumberOfLines: PropTypes.number,
+    subtitleNumberOfLines: PropTypes.number,
+    titleStyle: PropTypes.shape({
+      fontSize: PropTypes.number
+    }),
+    allowFontScaling: PropTypes.bool,
     backgroundColor: PropTypes.any,
-    onPressTitle: PropTypes.func
+    onPressTitle: PropTypes.func,
+    accessible: AccessibilityPropTypes.accessible
   }
   static defaultProps = {
     type: TYPE.LIGHT,
     left: [],
-    right: []
+    right: [],
+    subtitleStyle: {
+      colorType: 'normal',
+      fontSize: 14
+    },
+    allowFontScaling: true,
+    titleNumberOfLines: 1,
+    subtitleNumberOfLines: 1,
+    titleStyle: {
+      fontSize: 18
+    }
   }
   static TYPE = TYPE;
   static ICON = ICON;
+  constructor(props, context) {
+    super(props, context);
+    referenceReport('NavigationBar');
+  }
   /**
    * @description 根据 type 和 disable 确定 icon
    * @param {array} arr - 按钮集合
@@ -218,6 +271,12 @@ export default class NavigationBar extends Component {
             style={styles.icon}
             source={icon.source}
             highlightedSource={icon.highlightedSource}
+            {...getAccessibilityConfig({
+              ...icon,
+              accessible: icon.accessible || this.props.accessible,
+              accessibilityLabel: icon.accessibilityLabel,
+              accessibilityHint: icon.accessibilityHint
+            })}
           />
         </View>
       );
@@ -227,37 +286,69 @@ export default class NavigationBar extends Component {
    * 中间标题部分
    */
   renderTitle() {
-    const { title, subtitle, onPressTitle } = this.props;
+    const { title, subtitle, subtitleStyle, titleStyle, onPressTitle } = this.props;
     const titleColor = {
       color: this.isDarkStyle ? darkTitleColor : lightTitleColor
     };
-    const subtitleColor = {
-      color: this.isDarkStyle ? darkSubtitleColor : lightSubtitleColor
+    const newSubtitleStyle = {
+      colorType: 'normal',
+      fontSize: 14,
+      ...subtitleStyle
+    };
+    const customSubtitleStyle = {
+      fontSize: newSubtitleStyle.fontSize,
+      lineHeight: newSubtitleStyle.fontSize * 1.3,
+      color: this.isDarkStyle ? COLOR_SUBTITLE[newSubtitleStyle.colorType].dark : COLOR_SUBTITLE[newSubtitleStyle.colorType][COLOR_SCHEME]
+    };
+    const newTitleStyle = {
+      fontSize: 18,
+      ...titleStyle
+    };
+    const customTitleStyle = {
+      fontSize: newTitleStyle.fontSize,
+      lineHeight: newTitleStyle.fontSize * 1.3
     };
     return (
-      <View style={[styles.titleContainer]}>
+      <View
+        style={[styles.titleContainer]}
+        {...getAccessibilityConfig({
+          accessible: this.props.accessible,
+          accessibilityRole: AccessibilityRoles.header
+        })}
+      >
         {
           React.isValidElement(title) ?
             <View
-              numberOfLines={1}
+              numberOfLines={this.props.titleNumberOfLines}
               style={[styles.titleView, titleColor]}
               onPress={onPressTitle}
+              {...getAccessibilityConfig({
+                accessible: false
+              })}
             >
               {title || ''}
             </View> :
             <Text
-              numberOfLines={1}
-              style={[styles.title, titleColor]}
+              numberOfLines={this.props.titleNumberOfLines}
+              allowFontScaling={this.props.allowFontScaling}
+              style={[styles.title, titleColor, customTitleStyle]}
               onPress={onPressTitle}
+              {...getAccessibilityConfig({
+                accessible: false
+              })}
             >
               {title || ''}
             </Text>
         }
         {subtitle
           ? <Text
-            numberOfLines={1}
-            style={[styles.subtitle, subtitleColor]}
+            style={[styles.subtitle, customSubtitleStyle]}
+            numberOfLines={this.props.subtitleNumberOfLines}
+            allowFontScaling={this.props.allowFontScaling}
             onPress={onPressTitle}
+            {...getAccessibilityConfig({
+              accessible: false
+            })}
           >
             {subtitle}
           </Text>
@@ -274,6 +365,16 @@ export default class NavigationBar extends Component {
   }
   updateStyleType(props, newProps) {
     let newIsDartStyle = (newProps ? newProps.type : props.type) === TYPE.DARK;
+    this.shouldKeepColor = false;
+    if (isIOS && native.MIOTService.currentDarkMode == "dark") {
+      if (newIsDartStyle) {
+        // 本来就是深色模式的情况，传入的颜色不修改
+        this.shouldKeepColor = true;
+      }
+      newIsDartStyle = true;
+    } else {
+      newIsDartStyle = DarkMode.getColorScheme() === 'dark' ? true : (newProps ? newProps.type : props.type) === TYPE.DARK;
+    }
     if (newIsDartStyle !== this.isDarkStyle) {
       this.isDarkStyle = newIsDartStyle;
       StatusBar.setBarStyle(this.isDarkStyle ? 'light-content' : 'dark-content');
@@ -297,13 +398,16 @@ export default class NavigationBar extends Component {
     leftIcons.length > rightIcons.length && rightIcons.unshift({});
     let containerHeight = StatusBar.currentHeight || 0;
     containerHeight += this.props.subtitle ? navigationBarHeightFat : navigationBarHeightThin;
-    const backgroundColor = this.props.backgroundColor
+    let backgroundColor = this.props.backgroundColor
       ? this.props.backgroundColor
-      : (this.isDarkStyle ? '#000000' : '#ffffff');
+      : (this.isDarkStyle ? 'xm#000000' : 'xm#ffffff');
+    if (this.shouldKeepColor && this.props.backgroundColor) {
+      backgroundColor = `xm${ this.props.backgroundColor }`;
+    }
     // StatusBar.setBackgroundColor(backgroundColor); // 仅对某些机型有效：华为荣耀V9
     const containerStyle = {
       backgroundColor,
-      height: containerHeight
+      minHeight: containerHeight
     };
     return (
       <SafeAreaView style={[styles.container, containerStyle, { paddingTop: StatusBar.currentHeight }]}>
@@ -329,8 +433,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 5
   },
   title: {
-    fontSize: 16,
-    // lineHeight: 22,
+    fontSize: 18,
+    lineHeight: 24,
     fontFamily: 'D-DINCondensed-Bold',
     textAlignVertical: 'center',
     textAlign: 'center'
@@ -343,8 +447,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   subtitle: {
-    fontSize: 12.6,
-    lineHeight: 17,
+    fontSize: 14,
+    lineHeight: 18,
     fontFamily: 'MI-LANTING--GBK1-Light',
     textAlignVertical: 'center',
     textAlign: 'center'

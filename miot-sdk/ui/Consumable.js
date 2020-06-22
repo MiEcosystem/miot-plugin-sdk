@@ -6,11 +6,15 @@ import { ColorGreen } from '../utils/colors';
 import { FontDefault } from '../utils/fonts';
 import { adjustSize } from '../utils/sizes';
 import { NOOP } from '../utils/fns';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
 export default function Consumable(props) {
   let { title, titleColor, subtitle, subtitleColor, reset, buy, icon, onBuy, onReset } = props;
   return (
     <View style={Styles.container}>
-      <View style={Styles.content}>
+      <View style={Styles.content} {...getAccessibilityConfig({
+        accessible: props.accessible,
+        accessibilityRole: AccessibilityRoles.text
+      })}>
         {icon ? (
           <Image style={Styles.imageWrap} source={icon} />
         ) : null}
@@ -27,19 +31,35 @@ export default function Consumable(props) {
       </View>
       {buy && reset ? (
         <View style={Styles.buttons}>
-          <TouchableOpacity style={Styles.buttonWrap} activeOpacity={0.8} onPress={onBuy}>
+          <TouchableOpacity style={Styles.buttonWrap} activeOpacity={0.8} onPress={onBuy} {...getAccessibilityConfig({
+            accessible: props.accessible,
+            accessibilityRole: AccessibilityRoles.button,
+            accessibilityHint: props.buyAccessibilityHint
+          })}>
             <Text style={Styles.button}>{buy}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[Styles.buttonWrap, {
             borderLeftWidth: StyleSheet.hairlineWidth
-          }]} activeOpacity={0.8} onPress={onReset}>
+          }]} activeOpacity={0.8} onPress={onReset} {...getAccessibilityConfig({
+            accessible: props.accessible,
+            accessibilityRole: AccessibilityRoles.button,
+            accessibilityHint: props.resetAccessibilityHint
+          })}>
             <Text style={Styles.button}>{reset}</Text>
           </TouchableOpacity>
         </View>
       ) : buy ? (
-        <PrimeButton title={buy} themeColor={ColorGreen} textColor="#fff" onClick={onBuy} />
+        <PrimeButton title={buy} themeColor={ColorGreen} textColor="#fff" onClick={onBuy} {...getAccessibilityConfig({
+          accessible: props.accessible,
+          accessibilityRole: AccessibilityRoles.button,
+          accessibilityHint: props.buyAccessibilityHint
+        })} />
       ) : reset ? (
-        <PrimeButton title={reset} themeColor={ColorGreen} textColor="#fff" onClick={onReset} />
+        <PrimeButton title={reset} themeColor={ColorGreen} textColor="#fff" onClick={onReset} {...getAccessibilityConfig({
+          accessible: props.accessible,
+          accessibilityRole: AccessibilityRoles.button,
+          accessibilityHint: props.resetAccessibilityHint
+        })} />
       ) : null}
     </View>
   );
@@ -53,7 +73,10 @@ Consumable.propTypes = {
   buy: PropTypes.string,
   icon: PropTypes.any,
   onBuy: PropTypes.func,
-  onReset: PropTypes.func
+  onReset: PropTypes.func,
+  accessible: AccessibilityPropTypes.accessible,
+  resetAccessibilityHint: AccessibilityPropTypes.accessibilityHint,
+  buyAccessibilityHint: AccessibilityPropTypes.accessibilityHint
 };
 Consumable.defaultProps = {
   title: '',
