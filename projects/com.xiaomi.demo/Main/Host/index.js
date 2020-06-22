@@ -109,15 +109,15 @@ export default class HostDemo extends React.Component {
         }
       },
       {
-        'name': '访问小爱语音授权页面,仅小爱音箱可使用',
+        'name': '访问小爱语音授权页面',
         'func': () => {
-          NativeModules.MIOTWifiSpeaker.openVoiceCtrlDevListPage();
+          Host.ui.openVoiceCtrlDevListPage();
         }
       },
       {
-        'name': '小爱打开设备重置页面，仅小爱音箱可用',
+        'name': '打开设备重置页面',
         'func': () => {
-          NativeModules.MIOTWifiSpeaker.openResetAndConnectDevicePage();
+          Host.ui.openResetAndConnectDevicePage();
         }
       }
     ];
