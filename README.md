@@ -1,12 +1,20 @@
-# MIOT SDK (API_LEVEL:10031) for React Native
+22# MIOT SDK (API_LEVEL:10038) for React Native
+
+**因SDK_10033并未发布，请大家不要指定min_sdk_api_level为10033以及使用SDK_10033分支，建议10034及其以上！**
+**SDK_10035分支运行前请先执行npm install**
+
+**请使用底下提供的测试包调试，不要使用线上包调试**
 
 ## 初始化
 
-    1, 安装 node, 版本9.0+ ( **推荐mac上：npm版本6.12.1，node版本v12.13.1** )
+    1, 下载开发环境, 执行 git clone git@github.com:MiEcosystem/miot-plugin-sdk.git
+    
+    2, 命令行进入开发环境根目录, 安装 node 和 npm, 版本9.0+ ( **推荐mac上：npm版本6.12.1，node版本v12.13.1** )
+       内置一键安装开发环境脚本
+       Windows: 执行 `bin/install_mihome_dev.bat` （注意按提示关闭实时安全防护)
+       MacOS: 执行 `bin/install_mihome_dev.sh`
 
-    2, 下载开发环境, 执行 git clone git@github.com:MiEcosystem/miot-plugin-sdk.git
-
-    3, 进入开发环境, 安装ReactNative基础库, 在根目录下执行 npm install
+    3, 安装ReactNative基础库, 在根目录下执行 npm install
 
     !注意, 项目中如果需要使用第三方库(仅限于纯js实现), 请进入项目目录(如 projects/com.xiaomi.demo), 
     执行 npm install --save xxxx, 否则在打包发布时将因为找不到第三方库而失败
@@ -19,12 +27,12 @@
     
     启动调试
     npm start
-        注： Docker下需要将端口（缺省为8081）映射出去，例如 docker run -p 8081:8081 -it ...
         
     运行Demo
     在/miot-workspace下，执行 
         npm install 
-    如果fsevent报错，可忽略。其他报错，请查看issues，或者提工单。然后
+    如果windows 下 fsevents报错，可忽略。mac下，可执行npm install fsevents@latest。
+    其他报错，请查看issues，或者提工单。然后
         cd projects/com.xiaomi.demo
         npm install
     然后就可以npm start，开始调试demo了
@@ -58,6 +66,8 @@
 
 插件开发请参考[《MIOT SDK API》](https://github.com/MiEcosystem/miot-plugin-sdk/wiki)
             [《CHANGELOG》](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/CHANGELOG.md)
+            
+插件从RN54版本升至61版本请参考[《升级指南》](https://github.com/MiEcosystem/miot-plugin-sdk/wiki/RN61%E5%BC%80%E5%8F%91%E8%80%85%E5%8D%87%E7%BA%A7%E6%8C%87%E5%8D%97)
 
 插件从旧框架迁移到新框架请参考[《迁移手册》](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/%E8%BF%81%E7%A7%BB%E6%89%8B%E5%86%8C.md)
 
@@ -66,11 +76,13 @@
 
 ## 调试环境
 
-[iOS IPA 包下载地址](https://fir.im/mijiadevelopment)
+[iOS IPA 包下载地址](http://d.7short.com/mijiadevelopment)
     
-[Android APK 包下载地址](https://fir.im/MiHomeForAndroid)
+Android APK 包下载地址：http://www.jappstore.com/MiHomeForAndroid  ,若打不开请使用[备用地址](https://github.com/Mijia-Developer/Mijia-Android-RN-Dev/releases)
 
 下载密码: keliyuan 
+
+调试包若无法下载，请邮件吕杰(lvjie1@xiaomi.com)同学更新。
 
 ## 其他文档
 

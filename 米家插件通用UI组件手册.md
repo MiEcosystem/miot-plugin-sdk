@@ -200,10 +200,10 @@
 
 ### NavigationBar.ICON 图标列表
 
-| 枚举值                            | 中文描述      | 图标                                           |
-| --------------------------------- | ------------- | ---------------------------------------------- |
+| 枚举值                            | 中文描述      | 图标                                           | 说明 |
+| --------------------------------- | ------------- | ---------------------------------------------- | -- |
 | `NavigationBar.ICON.ADD`          | 添加          | ![](./UIDocImages/navigation/add.png)          |
-| `NavigationBar.ICON.BACK`         | 返回          | ![](./UIDocImages/navigation/back.png)         |
+| `NavigationBar.ICON.BACK`         | 返回          | ![](./UIDocImages/navigation/back.png)         |❗️SDK_10040更新为新版返回图标
 | `NavigationBar.ICON.CLOSE`        | 关闭          | ![](./UIDocImages/navigation/close.png)        |
 | `NavigationBar.ICON.COLLECT`      | 收藏/喜欢     | ![](./UIDocImages/navigation/collect.png)      |
 | `NavigationBar.ICON.COMPLETE`     | 完成/确认     | ![](./UIDocImages/navigation/complete.png)     |
@@ -217,6 +217,7 @@
 | `NavigationBar.ICON.SELECT_ALL`   | 全选          | ![](./UIDocImages/navigation/select_all.png)   |
 | `NavigationBar.ICON.SELECTED_ALL` | 全部选中      | ![](./UIDocImages/navigation/selected_all.png) |
 | `NavigationBar.ICON.SHARE`        | 分享          | ![](./UIDocImages/navigation/share.png)        |
+| `NavigationBar.ICON.EDIT`         | 编辑          | ![](./UIDocImages/navigation/edit.png)        | ❗️SDK_10040新增 |
 
 ### 和`Titlebar` 对比
 
@@ -336,6 +337,9 @@
 | titleStyle | <code>style</code> | 主标题的自定义样式 |
 | subtitleStyle | <code>style</code> | 副标题的自定义样式 |
 | valueTextStyle | <code>style</code> | 主标题右侧文案的自定义样式 |
+| switchStyle | <code>style</code> | 开关样式，仅支持宽高 |
+| onTintColor |  <code>string</code> | 开关按钮打开时的背景颜色 |
+| tintColor | <code>string</code> |  开关按钮关闭时的背景颜色 |
 
 [⬆️回到目录](#目录)
 
