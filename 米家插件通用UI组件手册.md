@@ -195,7 +195,9 @@
 | left            | <code>array&lt;object&gt;</code> | 左侧按钮的集合，最多显示两个，多余无效，每个按钮用一个`object`表示<br /> {<br />key // 按钮的key，在`NavigationBar.ICON`中枚举定义<br />disable // 是否禁用按钮<br />showDot // 是否显示小红点<br />onPress // 点击按钮的回调函数<br />} |
 | right           | <code>array&lt;object&gt;</code> | 右侧按钮的集合，最多显示两个，多余无效，每个按钮用一个`object`表示 `{ key, disable, showDot, onPress }` |
 | title           | <code>string</code>              | 中间的标题                                                   |
+| titleStyle        | <code>object</code>              | 10040新增 中间的标题的样式 - 目前支持 fontSize                                                 |
 | subtitle        | <code>string</code>              | 中间的副标题                                                 |
+| subtitleStyle   | <code>object</code>              | 10040新增 中间的副标题的样式 - 支持的属性有 fontSize, colorType 。colorType 是副标题的颜色，目前支持三种： normal '#666666', warning: '#f43f31' exception: '#f5a623'  |
 | onPressTitle    | <code>string</code>              | 点击标题的事件                                               |
 
 ### NavigationBar.ICON 图标列表
