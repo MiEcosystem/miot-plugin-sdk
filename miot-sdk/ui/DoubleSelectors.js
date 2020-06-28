@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import SelectorWithButton from './SelectorWithButton';
 import ContainerWithShadowAndSeparator from './ContainerWithShadowAndSeparator';
 import { adjustSize } from 'miot/utils/sizes';
+/**
+  * @deprecated
+  */
 export default class DoubleSelectors extends Component {
   static propTypes = {
     title: PropTypes.string,

@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Animated, Dimensions, Easing, Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { Images, Styles } from '../../resources';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const { width } = Dimensions.get('window');
 const DURATION_OUT = 250;
 const DURATION_IN = 250;
@@ -32,6 +34,9 @@ const DEFAULT_STYLE = {
  * @property {style} iconStyle - 左侧图标的自定义样式
  * @property {style} textStyle - 右侧文案的自定义样式
  * @property {string} underlayColor - 卡片点击态颜色，默认 rgba(0,0,0,0.05)
+ * @property {bool} allowFontScaling - 10040新增 设置卡片字体是否随系统设置的字体大小的设置改变而改变 默认为true。
+ * @property {bool} unlimitedHeightEnable - 10040新增 设置控件高度是否自适应。 默认为false，即默认高度
+ * @property {number} numberOfLines - 10040新增 设置卡片字体显示的最大行数 默认为1
  */
 export default class CardBase extends React.Component {
   static propTypes = {
@@ -46,16 +51,27 @@ export default class CardBase extends React.Component {
     cardStyle: PropTypes.object,
     iconStyle: PropTypes.object,
     textStyle: PropTypes.object,
-    underlayColor: PropTypes.string
+    underlayColor: PropTypes.string,
+    unlimitedHeightEnable: PropTypes.bool,
+    allowFontScaling: PropTypes.bool,
+    numberOfLines: PropTypes.number,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint,
+    dismissAccessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    dismissAccessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
   static defaultProps = {
     showDismiss: false,
     disabled: false,
     visible: true,
-    underlayColor: Styles.common.underlayColor
+    underlayColor: Styles.common.underlayColor,
+    unlimitedHeightEnable: false,
+    allowFontScaling: true
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('CardBase');
     const { height, marginTop } = this.props.cardStyle;
     this.cardHeight = height || DEFAULT_STYLE.HEIGHT;
     const initValue = this.props.visible ? 1 : 0;
@@ -73,33 +89,61 @@ export default class CardBase extends React.Component {
       });
     });
   }
+  onAccessibilityAction = ({ nativeEvent: { actionName } }) => {
+    const { disabled, onPress } = this.props;
+    if (disabled) {
+      return;
+    }
+    if (onPress && actionName === 'activate') {
+      onPress();
+    }
+  }
   /**
    * @description 渲染卡片内部View。默认显示 icon + text
    */
   renderInner() {
     if (this.props.innerView === undefined) {
       const { icon, text, iconStyle, textStyle } = this.props;
+      let textLine = this.props.numberOfLines == undefined ? 1 : this.props.numberOfLines;
+      if (textLine < 0) textLine = 0;
       return (
         <Animated.View
           style={[styles.innerContainer, { opacity: this.opacity }]}
+          {...getAccessibilityConfig({
+            accessible: this.props.accessible,
+            accessibilityRole: this.props.onPress ? AccessibilityRoles.button : AccessibilityRoles.text,
+            accessibilityHint: this.props.accessibilityHint || (this.props.onPress ? text : ''),
+            accessibilityState: {
+              disabled: !!this.props.disabled
+            }
+          })}
+          accessibilityActions={[
+            { name: 'activate' }
+          ]}
+          onAccessibilityAction={this.onAccessibilityAction}
         >
-          {
-            icon
-              ? <Image
-                style={[styles.innerIcon, iconStyle]}
-                source={icon}
-                resizeMode="contain"
-              />
-              : null
-          }
+          {icon ? (
+            <Image
+              style={[styles.innerIcon, iconStyle]}
+              source={icon}
+              resizeMode="contain"
+              {...getAccessibilityConfig({
+                accessible: false
+              })}
+            />
+          ) : null}
           <Text
             style={[styles.innerText, textStyle]}
-            numberOfLines={1}
+            numberOfLines={textLine}
             ellipsizeMode="tail"
+            allowFontScaling={this.props.allowFontScaling}
+            {...getAccessibilityConfig({
+              accessible: true
+            })}
           >
             {text || ''}
           </Text>
-        </Animated.View>
+        </Animated.View >
       );
     }
     return (
@@ -120,6 +164,12 @@ export default class CardBase extends React.Component {
         style={styles.closeArea}
         underlayColor="transparent"
         onPress={() => this.dismiss()}
+        {...getAccessibilityConfig({
+          accessible: this.props.accessible,
+          accessibilityRole: AccessibilityRoles.button,
+          accessibilityLabel: this.props.dismissAccessibilityLabel || 'close',
+          accessibilityHint: this.props.dismissAccessibilityHint || 'close'
+        })}
       >
         <Animated.Image
           style={[styles.close, { opacity: this.opacity }]}
@@ -190,7 +240,7 @@ export default class CardBase extends React.Component {
         ref={(ref) => { this.refCard = ref; }}
         style={[animatedViewStyle, {
           opacity: this.opacity,
-          height: this.height.interpolate({
+          height: this.props.unlimitedHeightEnable ? undefined : this.height.interpolate({
             inputRange: [0, 1],
             outputRange: [0, this.cardHeight]
           })
@@ -201,6 +251,9 @@ export default class CardBase extends React.Component {
           underlayColor={this.props.underlayColor}
           disabled={this.props.disabled}
           onPress={this.props.onPress}
+          {...getAccessibilityConfig({
+            accessible: false
+          })}
         >
           <View style={{ flex: 1 }}>
             {this.renderInner()}

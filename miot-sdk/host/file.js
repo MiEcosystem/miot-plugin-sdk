@@ -162,7 +162,7 @@ class IFile {
        return Promise.resolve(null);
     }
     /**
-     * 写文件，输入为 未经过base64转换的字符串， api内部会对普通字符串做Base64 编码后存放到文件中
+     * 写文件，输入为 Base64 编码的字符串， api内部会对字符串做 Base64 解码后存放到文件中
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {string} fileContent - 需要写入的文件内容
      * @returns {Promise}
@@ -202,7 +202,7 @@ class IFile {
        return Promise.resolve(null);
     }
     /**
-     * 向已存在的文件追加内容，输入为 未经过base64转换的字符串， api内部会对字符串做Base64 编码后存放到文件中
+     * 向已存在的文件追加内容，输入为 Base64 编码的字符串， api内部会对字符串做 Base64 解码后存放到文件中
      * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
      * @param {string} fileContent - 需要写入的文件内容
      * @returns {Promise}
@@ -243,7 +243,7 @@ class IFile {
     /**
      * 上传普通文件，需要申请权限使用
      * 获取用于上传FDS文件的obj_name以及用于上传的url
-     * 设备需要申请配置FDS权限，参考 https://iot.mi.com/new/guide.html?file=08-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/03-%E5%AD%98%E5%82%A8/01-%E4%BD%BF%E7%94%A8FDS%E5%AD%98%E5%82%A8%E7%94%A8%E6%88%B7%E6%96%87%E4%BB%B6
+     * 设备需要申请配置FDS权限，参考 https://iot.mi.com/new/doc/cloud-development/cloud-service/storage/fds.html
      * @since 10004
      * @param {string} did 设备did
      * @param {string} suffix 文件后缀 例如 'mp3', 'txt'

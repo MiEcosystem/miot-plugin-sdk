@@ -5,6 +5,7 @@ import { fixHex } from '../utils/colors';
 import { adjustSize } from '../utils/sizes';
 import { FontDefault } from '../utils/fonts';
 // import { NOOP } from '../utils/fns';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
 const { Surface, Group, Shape, Path } = ART;
 const PI = Math.PI;
 export default class DeviceWithInfo extends PureComponent {
@@ -14,7 +15,9 @@ export default class DeviceWithInfo extends PureComponent {
     subtitle: PropTypes.string,
     holdPlace: PropTypes.bool,
     progress: PropTypes.number,
-    themeColor: PropTypes.any
+    themeColor: PropTypes.any,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel
   };
   render() {
     let { icon, title, subtitle, holdPlace, progress, themeColor } = this.props;
@@ -45,7 +48,11 @@ export default class DeviceWithInfo extends PureComponent {
       .arcTo(endX, endY + rDot, rDot, rDot, false, false)
       .arcTo(endX, endY - rDot, rDot, rDot, false, false);
     return (
-      <View style={Styles.container}>
+      <View style={Styles.container} {...getAccessibilityConfig({
+        accessible: this.props.accessible,
+        accessibilityRole: AccessibilityRoles.text,
+        accessibilityLabel: this.props.accessibilityLabel
+      })}>
         <View style={Styles.deviceContainer}>
           <Surface width={r * 2} height={r * 2} style={{
             position: 'absolute',

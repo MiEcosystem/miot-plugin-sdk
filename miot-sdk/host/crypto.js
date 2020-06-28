@@ -112,10 +112,12 @@ class ICrypto {
    * @param {int} height : 图片高度
    * @param {string} points : 点集合字符串
    * @param {string} colorsMap : 点值与颜色之间对应关系JSON字符串
-   * -1 墙 #666666
-   * 0 背景 #E6EAEE
-   * 1 发现区域 #C6D8FA
-   * >=10 房间区域
+   *        值得注意的是，需要传递8位深度的颜色值，其中头两位代表alpha通道，后六位代表rgb通道
+   *        例如 #FFFF0000 代表红色
+   *        建议值： -1 墙 #FF666666
+   *                0 背景 #FFE6EAEE
+   *                1 发现区域 #FFC6D8FA
+   *                >=10 房间区域
    */
   @report
   pointsToImageBase64(width, height, points, colorsMap) {
@@ -155,33 +157,37 @@ class ICrypto {
    * @param {int} height : 图片高度
    * @param {string} points : 点集合字符串
    * @param {string} colorsMap : 点值与颜色之间对应关系JSON字符串
+   *        值得注意的是，需要传递8位深度的颜色值，其中头两位代表alpha通道，后六位代表rgb通道
+   *        例如 #FFFF0000 代表红色 #00FFFFFF 代表透明颜色
+   *        建议值： -1 墙 #FF666666
+   *                0 背景 #FFE6EAEE
+   *                1 发现区域 #FFC6D8FA
+   *                >=10 房间区域
    * @param {int} scale : 缩放比例
-   * -1 墙 #666666
-   * 0 背景 #E6EAEE
-   * 1 发现区域 #C6D8FA
-   * >=10 房间区域
    */
   @report
   pointsScaleToImageBase64(width, height, points, colorsMap, scale) {
      return Promise.resolve('');
   }
   /**
- * ApiLevel: 10032
- * @since 10032
- * 2019.05.16  针对第三方要求新增的接口
- * 扫地机的地图转换
- * 根据点集合长宽以及每个点对应的颜色值生成bitmap并返回其base64字符串
- * @param {int} width : 图片宽度
- * @param {int} height : 图片高度
- * @param {string} points : 点集合字符串
- * @param {string} colorsMap : 点值与颜色之间对应关系JSON字符串
- * @param {int} scale : 缩放比例
- * -1 墙 #666666
- * 0 背景 #E6EAEE
- * 1 发现区域 #C6D8FA
- * >=10 房间区域
- * @returns {Promise<string>} 使用base64编码后的图片数据
- */
+   * ApiLevel: 10032
+   * @since 10032
+   * 2019.05.16  针对第三方要求新增的接口
+   * 扫地机的地图转换
+   * 根据点集合长宽以及每个点对应的颜色值生成bitmap并返回其base64字符串
+   * @param {int} width : 图片宽度
+   * @param {int} height : 图片高度
+   * @param {string} points : 点集合字符串
+   * @param {string} colorsMap : 点值与颜色之间对应关系JSON字符串
+   *        值得注意的是，需要传递8位深度的颜色值，其中头两位代表alpha通道，后六位代表rgb通道
+   *        例如 #FFFF0000 代表红色 #00FFFFFF 代表透明颜色
+   *        建议值： -1 墙 #FF666666
+   *                0 背景 #FFE6EAEE
+   *                1 发现区域 #FFC6D8FA
+   *                >=10 房间区域
+   * @param {int} scale : 缩放比例
+   * @returns {Promise<string>} 使用base64编码后的图片数据
+   */
   @report
   robotCleanerPointsScaleToImageBase64(width, height, points, colorsMap, scale) {
      return Promise.resolve('');

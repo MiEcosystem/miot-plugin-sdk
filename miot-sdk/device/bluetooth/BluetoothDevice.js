@@ -157,7 +157,7 @@ export class IBluetooth {
      *
      * | type | description |
      * | :-:  | --- |
-     * | -1   | 自动判断 |
+     * | -1   | 自动判断 Android不支持 |
      * |  0   | 普通小米蓝牙协议设备 |
      * |  1   | 安全芯片小米蓝牙设备（比如锁类产品） |
      * |  2   | 分享的安全芯片小米蓝牙设备 |
@@ -283,6 +283,66 @@ export class IBluetooth {
      */
     @report
     getVersion(isFromlocal = false, isCrypto = false) {
+       return Promise.resolve(null);
+    }
+    /**
+     * 订阅ble spec 消息推送；如果手机没有连接ble设备(可以调用Device.getBluetoothLE().connect(...)建立连接)，收不到推送
+     * @since 10040
+     * @param  {...string} propertyOrEventNames prop.2.1,event.2.1
+     * @example
+     * let listener0= DeviceEvent.BLESpecNotifyActionEvent.addListener((device, data) => {
+          console.log('receive prop(event) changed notification:' + JSON.stringify(data))
+          data.forEach((key, value) => {
+            console.log(`receive prop(event) changed notification,prop:${ key }`, JSON.stringify(value));
+          });
+        });
+        bt = Device.getBluetoothLE();
+        if(bt.isConnected){
+          bt.subscribeMessages('prop.2.1','event.2.1').then(res => {
+            console.log('subscribe exception success,res:',JSON.stringify(res));
+          }).catch(err => console.log('subscribe exception fail'))
+        } else if(bt.isConnecting){
+          let listener1 = BluetoothEvent.bluetoothConnectionStatusChanged.addListener((blut, isConnect) => {
+          console.log('bluetoothConnectionStatusChanged', blut, isConnect);
+          if (bt.mac === blut.mac) {
+            if(isConnect){
+              bt.subscribeMessages('prop.2.1','event.2.1').then(res => {
+                console.log('subscribe exception success,res:',JSON.stringify(res));
+              }).catch(err => console.log('subscribe exception fail'))
+            }else{
+              console.log('connect bledevice error');
+            }
+            listener1.remove();
+          }
+        }else{
+          bt.connect(scType,{ did: Device.deviceID }).then(res=>{
+            bt.subscribeMessages('prop.2.1','event.2.1').then(res => {
+              console.log('subscribe exception success,res:',JSON.stringify(res));
+              }).catch(err => console.log('subscribe exception fail'))
+            });
+          });
+        }
+     */
+    @report
+    subscribeMessages(...propertyOrEventNames) {
+       return Promise.resolve(null);
+    }
+    /**
+     * 取消订阅
+     * @since 10040
+     * @param  {...string} propertyOrEventNames ,propertyOrEventNames为空表示取消当前设备所有订阅
+     * @example
+     * 一次取消订阅多个属性或者事件：
+     *  Device.getBluetoothLE().unsubscribeMessages('prop.2.1','event.2.1);
+     * 分多次取消：
+     * Device.getBluetoothLE().unsubscribeMessages('prop.2.1');
+     * Device.getBluetoothLE().unsubscribeMessages('event.2.1');
+     * 一次取消所有订阅过的属性或事件：
+     * Device.getBluetoothLE().unsubscribeMessages();
+     * 
+     */
+    @report
+    unsubscribeMessages(...propertyOrEventNames) {
        return Promise.resolve(null);
     }
 }

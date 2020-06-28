@@ -177,6 +177,7 @@ class IUi {
    * 隐私协议弹框需求：
    * a. 所有接入米家的设备，绑定成功后第一次进插件，都需要隐私弹框，后续再进不需弹框
    * b. 取消隐私授权/解绑设备后，重新绑定设备，仍需遵循规则a
+  
    * 插件端可按如下方案实现：
    * 1. 使用batchSetDeviceDatas存储一个标志位，用来记录是否“隐私弹框”过
    * 2. 进入插件时batchGetDeviceDatas获取此标志位，若为NO，弹框，同时设置标志位为YES；若为YES，不弹框
@@ -221,6 +222,18 @@ class IUi {
   @report
   openBleMeshDeviceUpgradePage() {
   }
+  /**
+   * 打开通用协议的蓝牙固件OTA页面。分享的设备点击此接口无反应（理论上分享的设备不应该出现调用此接口的菜单）
+   * @since 10038
+   * @param {Object} params 请求参数
+   * @param {number} params.auth_type 指定设备的协议类型 0: 普通小米蓝牙协议设备(新接入设备已废弃该类型)，1: 安全芯片小米蓝牙设备（比如锁类产品） 4: Standard Auth 标准蓝牙认证协议(通常2019.10.1之后上线的新蓝牙设备) 5: mesh 设备
+   * @param {string} params.fake_dfu_url 指定写入DFU的下载地址，仅在测试环境下有效，指定之后可以强制更新指定DFU固件版本
+   * @example
+   * Host.ui.openBleCommonDeviceUpgradePage({auth_type: 5 })
+   * 目前ios在进行OTA前，可以先断开与设备的蓝牙连接，然后再从设备广播的信息中拿到设备auth_type的值（无需传参auth_type），但是安卓暂时不好实现所以接口增加了参数auth_type
+   */
+  @report
+  openBleCommonDeviceUpgradePage(params) {
   }
   /**
    * 打开灯组2.0固件升级页。分享的设备点击此接口无反应（理论上分享的设备不应该出现调用此接口的菜单）
@@ -322,7 +335,7 @@ class IUi {
   openOneTimePassword(did, interval, digits) {
   }
   /**
-   * @deprecated 10004 开始废弃， 后续版本会移除该方法。
+   * @deprecated since 10004 use openTimerSettingPageWithVariousTypeParams instead
    * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串
    * @param {string} onParam   定时到时设备“开”执行的 RPC 指令参数字符串（目前仅支持单参数）
    * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串
@@ -334,7 +347,7 @@ class IUi {
   openTimerSettingPage(onMethod, onParam, offMethod, offParam) {
   }
   /**
-   * @deprecated 10004 开始废弃， 后续版本会移除该方法。
+   * @deprecated since 10004 use openTimerSettingPageWithVariousTypeParams instead
    * @param {string} customTimerIdentifier 自定义定时Identifier
    * @param {string} onMethod  定时到时设备“开”执行的 RPC 指令命令字字符串
    * @param {string} onParam   定时到时设备“开”执行的 RPC 指令参数字符串（目前仅支持单参数）
@@ -440,6 +453,7 @@ class IUi {
    * @param {string} pageName  将打开插件的某一页面, 此参数将会赋值给 Package.entrance, 默认为 Entrance.Main
    * @param {object} pageParams  将打开插件的某一页面的参数，此参数将会赋值给 Package.entranceParams， 默认为空
    * @param {boolean} [pageParams.isBackToMainPage = true] 打开的插件页面按返回，是否需要返回到插件首页
+   * @param {boolean} [params.dismiss_current_plug] since 10040 。是否在推出新的插件页面时，关掉当前页面，返回app首页，默认false。iOS Only
    * @example
    * let pageParams = {did:Device.deviceID,model:Device.model}
    * Host.ui.openPluginPage(Device.deviceID, PluginEntrance.Setting, pageParams)
@@ -456,7 +470,7 @@ class IUi {
   openPageWithClassName(className) {
   }
   /**
-   * @deprecated 10010 开始废弃， 后续版本会移除该方法。推荐使用 `miot/ui/CommonSetting`
+   * @deprecated since10010 use 'miot/ui/CommonSetting' component instead. See example https://github.com/MiEcosystem/miot-plugin-sdk/blob/SDK_10004/projects/com.xiaomi.demo/Main/tutorial/Setting.js for more details
    * ios特有页面，android 不能使用
    * 打开更多设置页面（通常包括安全设置，常见问题与用户反馈）
    */

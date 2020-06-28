@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Animated, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import tr from "../../resources/strings/tr";
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 const SIZE = 40;
 const TEXT_COLOR = '#bbb';
 const BORDER_COLOR = '#ccc';
@@ -15,6 +17,8 @@ const BORDER_COLOR = '#ccc';
  * @property {string|number} text - 中间的文字内容
  * @property {style} style - 整体容器的样式
  * @property {style} textStyle - 中间的文字大小
+ * @property {bool} allowFontScaling - 10040新增 字体大小是否随系统大小变化而变化, 默认值为true
+ * @property {number} numberOfLines - 10040新增 文字最多显示的行数
  * @property {function} onPress - 点击回调函数
  */
 export default class Clickable extends React.Component {
@@ -24,11 +28,17 @@ export default class Clickable extends React.Component {
     style: PropTypes.object,
     onPress: PropTypes.func.isRequired,
     text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    textStyle: PropTypes.object
+    textStyle: PropTypes.object,
+    allowFontScaling: PropTypes.bool,
+    numberOfLines: PropTypes.number,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint
   }
   static defaultProps = {
     select: false,
-    selectColor: '#f0ac3d'
+    selectColor: '#f0ac3d',
+    allowFontScaling: true
   }
   animatedValue = new Animated.Value(0);
   render() {
@@ -54,9 +64,22 @@ export default class Clickable extends React.Component {
       >
         <TouchableWithoutFeedback
           onPress={this.props.onPress}
+          {...getAccessibilityConfig({
+            accessible: this.props.accessible,
+            accessibilityRole: AccessibilityRoles.radio,
+            accessibilityLabel: this.props.accessibilityLabel || this.props.text,
+            accessibilityHint: this.props.accessibilityHint,
+            accessibilityState: {
+              checked: !!this.props.select
+            }
+          })}
         >
           <View style={styles.container}>
-            <Text style={[styles.text, this.props.textStyle, { color }]}>
+            <Text
+              style={[styles.text, this.props.textStyle, { color }]}
+              allowFontScaling={this.props.allowFontScaling}
+              numberOfLines={this.props.numberOfLines}
+            >
               {this.props.text}
             </Text>
           </View>
@@ -78,6 +101,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 11,
-    textAlign: 'center',
+    textAlign: 'center'
   }
 });

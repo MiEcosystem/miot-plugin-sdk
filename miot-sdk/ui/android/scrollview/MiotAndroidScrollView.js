@@ -48,6 +48,7 @@ import requireNativeComponent from 'react-native/Libraries/ReactNative/requireNa
 // const warning = require('fbjs/lib/warning');
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';// const resolveAssetSource = require('resolveAssetSource');
 import type { NativeMethodsMixinType } from 'ReactNativeTypes';
+import { referenceReport } from '../../../decorator/ReportDecorator';
 /**
  * Component that wraps platform ScrollView while providing
  * integration with touch locking "responder" system.
@@ -526,6 +527,7 @@ const MiotAndroidScrollView = createReactClass({
     this._scrollAnimatedValue.setOffset(this.props.contentInset ? this.props.contentInset.top : 0);
     this._stickyHeaderRefs = new Map();
     this._headerLayoutYs = new Map();
+    referenceReport('MiotAndroidScrollView', 'componentWillMount');
   },
   componentDidMount: function() {
     this._updateAnimatedNodeAttachment();
@@ -573,8 +575,10 @@ const MiotAndroidScrollView = createReactClass({
     animated?: boolean
   ) {
     if (typeof y === 'number') {
-      console.warn('`scrollTo(y, x, animated)` is deprecated. Use `scrollTo({x: 5, y: 5, ' +
+      if (__DEV__ && console.warn) {
+        console.warn('`scrollTo(y, x, animated)` is deprecated. Use `scrollTo({x: 5, y: 5, ' +
                 'animated: true})` instead.');
+      }
     } else {
       ({ x, y, animated } = y || {});
     }
@@ -603,7 +607,9 @@ const MiotAndroidScrollView = createReactClass({
      * Deprecated, use `scrollTo` instead.
      */
   scrollWithoutAnimationTo: function(y: number = 0, x: number = 0) {
-    console.warn('`scrollWithoutAnimationTo` is deprecated. Use `scrollTo` instead');
+    if (__DEV__ && console.warn) {
+      console.warn('`scrollWithoutAnimationTo` is deprecated. Use `scrollTo` instead');
+    }
     this.scrollTo({ x, y, animated: false });
   },
   /**

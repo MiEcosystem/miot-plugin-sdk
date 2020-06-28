@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Animated, ART, View } from 'react-native';
+import { getAccessibilityConfig } from '../../utils/accessibility-helper';
 const {
   Surface,
   Shape,
@@ -82,10 +83,11 @@ export default class Checkable extends React.Component {
     this.rectangleHeight = rectangleHeight;
   }
   render() {
-    console.log('render checkable');
     if (!this.props.visible) {
       this.preVisible = false;
-      return <View />;
+      return <View {...getAccessibilityConfig({
+        accessible: false
+      })} />;
     }
     if (!this.preVisible) {
       this.state.animatedWidth.setValue(0);
@@ -93,7 +95,9 @@ export default class Checkable extends React.Component {
     }
     this.preVisible = true;
     return (
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row' }} {...getAccessibilityConfig({
+        accessible: false
+      })}>
         <Surface
           width={this.leftWidth}
           height={this.containerHeight}

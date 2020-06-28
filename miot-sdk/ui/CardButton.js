@@ -6,6 +6,7 @@ import ContainerWithShadowAndSeparator from './ContainerWithShadowAndSeparator';
 import { adjustSize } from '../utils/sizes';
 import { FontDefault, FontKmedium } from '../utils/fonts';
 import { ColorGreen } from '../utils/colors';
+import { referenceReport } from '../decorator/ReportDecorator';
 const SourceArrow = require('../resources/images/right_arrow.png');
 export default class CardButton extends PureComponent {
   static propTypes = {
@@ -36,6 +37,10 @@ export default class CardButton extends PureComponent {
     if (typeof onPress === 'function' && !disabled) {
       onPress();
     }
+  }
+  constructor(props, context) {
+    super(props, context);
+    referenceReport('CardButton');
   }
   render() {
     let { containerStyle, themeColor, themeBackgroundColor, underlayColor, hasShadow, iconContainerStyle, iconStyle, icon, iconText, title, subtitle, onSwitch, switchOn, disabled, onPress, rightText, rightArrow } = this.props;

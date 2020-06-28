@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import Clickable from './Clickable';
+import { AccessibilityPropTypes, getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const { width: screenWidth } = Dimensions.get('window');
 const DEFAULT_SIZE = 50;
 const DEFAULT_MARGIN = 12;
@@ -22,6 +24,8 @@ const DEFAULT_MARGIN = 12;
  * @property {style} textStyle - 档位文字的样式
  * @property {string} selectColor - 被选择档位的背景色
  * @property {number} selectIndex - 被选择档位的数组下标
+ * @property {bool} allowFontScaling - 10040新增 字体大小是否随系统大小变化而变化, 默认值为true
+ * @property {number} numberOfLines - 10040新增 文字最多显示的行数
  * @property {function} onSelect - 选择某档位后的回调函数
  */
 export default class NormalGear extends React.Component {
@@ -34,17 +38,26 @@ export default class NormalGear extends React.Component {
     maxWidth: PropTypes.number,
     selectColor: PropTypes.string,
     selectIndex: PropTypes.number,
-    onSelect: PropTypes.func.isRequired
+    onSelect: PropTypes.func.isRequired,
+    allowFontScaling: PropTypes.bool,
+    numberOfLines: PropTypes.number,
+    accessible: AccessibilityPropTypes.accessible,
+    clickAccessibilityLables: PropTypes.arrayOf(AccessibilityPropTypes.accessibilityLabel),
+    clickAccessibilityHints: PropTypes.arrayOf(AccessibilityPropTypes.accessibilityHint)
   }
   static defaultProps = {
     options: [],
     normalStyle: {},
     margin: DEFAULT_MARGIN,
     maxWidth: screenWidth,
-    selectIndex: 0
+    selectIndex: 0,
+    allowFontScaling: true,
+    clickAccessibilityLables: [],
+    clickAccessibilityHints: []
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('NormalGear');
     if (this.props.options.length === 0) {
       this.showNothing = true;
       return;
@@ -58,7 +71,9 @@ export default class NormalGear extends React.Component {
     // 也不能太拥挤吧
     if (this.optionWidth < 20) {
       this.showNothing = true;
-      console.warn('在目前maxWidth下显示不了这么多选项，请重新规划');
+      if (__DEV__ && console.warn) {
+        console.warn('在目前maxWidth下显示不了这么多选项，请重新规划');
+      }
       return;
     }
     // 初始状态，全部为 false
@@ -90,12 +105,19 @@ export default class NormalGear extends React.Component {
       return (
         <Clickable
           key={option}
+          allowFontScaling={this.props.allowFontScaling}
+          numberOfLines={this.props.numberOfLines}
           select={this.state.selectArray[index]}
           selectColor={this.props.selectColor}
           onPress={() => this.onPress(index)}
           text={option}
           style={style}
           textStyle={this.props.textStyle}
+          {...getAccessibilityConfig({
+            accessible: this.props.accessible,
+            accessibilityLabel: this.props.clickAccessibilityLables[index] || option,
+            accessibilityHint: this.props.clickAccessibilityHints[index]
+          })}
         />
       );
     });

@@ -10,10 +10,10 @@ export default class RadioExample extends React.Component {
     return {
       header:
         <TitleBar
-          type='dark'
-          title='单选按钮'
+          type="dark"
+          title="单选按钮"
           style={{ backgroundColor: '#fff' }}
-          onPressLeft={_ => navigation.goBack()}
+          onPressLeft={() => navigation.goBack()}
         />
     };
   };
@@ -75,27 +75,27 @@ export default class RadioExample extends React.Component {
     };
   }
 
-  //改变某个按钮的选中状态
+  // 改变某个按钮的选中状态
   changeOne = (id) => {
     let { allRadios } = this.state;
 
     for (let field in allRadios) {
-      let opt = allRadios[field].find(option => id === option.id);
+      let opt = allRadios[field].find((option) => id === option.id);
 
       if (opt) {
-        //找到了这一项
+        // 找到了这一项
         if (opt.isChecked) {
-          //该项已选中
+          // 该项已选中
           return;
         }
 
-        allRadios[field].forEach(option => {
+        allRadios[field].forEach((option) => {
           option.isChecked = false;
         });
 
         opt.isChecked = true;
 
-        this.setState(state => {
+        this.setState((state) => {
           return { allRadios: state.allRadios };
         });
       }
@@ -106,7 +106,7 @@ export default class RadioExample extends React.Component {
     let { allRadios } = this.state;
     let { sex, age, country } = allRadios;
 
-    let viewSex = sex.map(option => {
+    let viewSex = sex.map((option) => {
       return (
         <View
           style={styles.option}
@@ -116,6 +116,7 @@ export default class RadioExample extends React.Component {
             isChecked={option.isChecked}
             changeCheck={this.changeOne}
             id={option.id}
+            accessible={false}
             bigCircleStyle={{
               borderWidth: 2,
               width: 30,
@@ -129,7 +130,7 @@ export default class RadioExample extends React.Component {
       );
     });
 
-    let viewAge = age.map(option => {
+    let viewAge = age.map((option) => {
       return (
         <View
           style={styles.option}
@@ -139,6 +140,7 @@ export default class RadioExample extends React.Component {
             isChecked={option.isChecked}
             changeCheck={this.changeOne}
             id={option.id}
+            label={option.value}
             bigCircleStyle={{
               borderWidth: 4,
               width: 40,
@@ -158,7 +160,7 @@ export default class RadioExample extends React.Component {
       );
     });
 
-    let viewCountry = country.map(option => {
+    let viewCountry = country.map((option) => {
       return (
         <View
           style={styles.option}
@@ -168,6 +170,8 @@ export default class RadioExample extends React.Component {
             isChecked={option.isChecked}
             changeCheck={this.changeOne}
             id={option.id}
+            accessibilityLabel={option.value}
+            accessibilityHint="点击修改选中状态"
             bigCircleStyle={{
               borderWidth: 2,
               width: 30,
@@ -205,7 +209,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     paddingBottom: 0,
-    paddingTop: 0,
+    paddingTop: 0
   },
   option: {
     marginTop: 10,

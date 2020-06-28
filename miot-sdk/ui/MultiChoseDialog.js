@@ -45,6 +45,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { requireNativeComponent, ViewPropTypes } from 'react-native';
+import { referenceReport } from '../decorator/ReportDecorator';
 export default class MultiChoseDialog extends Component {
   static propTypes = {
     visible: PropTypes.bool,
@@ -62,6 +63,10 @@ export default class MultiChoseDialog extends Component {
     onDismiss: PropTypes.func,
     ...ViewPropTypes
   };
+  constructor(props, context) {
+    super(props, context);
+    referenceReport('MultiChoseDialog');
+  }
   render() {
      return null
   }
