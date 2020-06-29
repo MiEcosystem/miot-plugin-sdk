@@ -153,6 +153,14 @@ export default {
         normal: require('./images/navigation/dark/share_n_dark.png'),
         press: require('./images/navigation/dark/share_p_dark.png'),
         disable: require('./images/navigation/dark/share_d_dark.png')
+      },
+      /**
+       * 编辑
+       */
+      edit: {
+        normal: require('./images/navigation/dark/edit_n_dark.png'),
+        press: require('./images/navigation/dark/edit_p_dark.png'),
+        disable: require('./images/navigation/dark/edit_d_dark.png')
       }
     },
     /**
@@ -286,6 +294,14 @@ export default {
         normal: require('./images/navigation/light/share_n_light.png'),
         press: require('./images/navigation/light/share_p_light.png'),
         disable: require('./images/navigation/light/share_d_light.png')
+      },
+      /**
+       * 编辑
+       */
+      edit: {
+        normal: require('./images/navigation/light/edit_n_light.png'),
+        press: require('./images/navigation/light/edit_p_light.png'),
+        disable: require('./images/navigation/light/edit_d_light.png')
       }
     }
   }

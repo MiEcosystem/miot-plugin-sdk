@@ -119,6 +119,14 @@ export default class HostDemo extends React.Component {
             .then((res) => alert(JSON.stringify(res)))
             .catch((e) => alert(JSON.stringify(e)));
         }
+      },
+      {
+        'name': '访问小爱服务端接口-post请求',
+        'func': () => {
+          Service.callXiaoaiNetworkAPI({ host: 'normal', path: '/remote/ubus', needDevice: 1, method: 1, params: { deviceId: 'a0ffbb6b-19b4-4af5-af5d-de174d1c7cc2', method: 'enable', path: 'mibt', message: JSON.stringify({ btmode: 'classic', connect: 1, discover: 0 }) } })
+            .then((res) => alert(JSON.stringify(res)))
+            .catch((e) => alert(JSON.stringify(e)));
+        }
       }
       // {
       //   'name': 'AlarmPhoneDemo 报警电话设置 Demo',

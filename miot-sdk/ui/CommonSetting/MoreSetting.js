@@ -24,6 +24,9 @@ const secondSharedOptions = {
   [secondAllOptions.PRIVACY_POLICY]: 1,
   [secondAllOptions.SECURITY]: 0,
   [secondAllOptions.TIMEZONE]: 1,
+  [secondAllOptions.VOICE_AUTH]: 0,
+  [secondAllOptions.BTGATEWAY]: 0,
+  [secondAllOptions.LEGAL_INFO]: 0,
   [secondAllOptions.USER_AGREEMENT]: 1,
   [secondAllOptions.USER_EXPERIENCE_PROGRAM]: 1
 };
@@ -82,7 +85,8 @@ export default class MoreSetting extends React.Component {
       // },
       [secondAllOptions.VOICE_AUTH]: {
         title: strings.voiceAuth,
-        onPress: Host.ui.openVoiceCtrlDeviceAuthPage
+        onPress: Host.ui.openVoiceCtrlDeviceAuthPage,
+        hide: !Device.isVoiceDevice
       },
       [secondAllOptions.BTGATEWAY]: {
         title: strings.btGateway,
@@ -179,7 +183,9 @@ export default class MoreSetting extends React.Component {
       keys = keys.filter((key) => secondSharedOptions[key]); // 如果是共享设备或者家庭设备，需要过滤一下
     }
     keys = keys.filter((key) => !this.excludeRequiredOptions.includes(key));
-    const items = keys.map((key) => this.moreSetting[key]).filter((item) => item);
+    const items = keys.map((key) => this.moreSetting[key]).filter((item) => {
+      return item && !item.hide;
+    });
     let itemStyle;
     if (this.props.navigation.state.params.commonSettingStyle && this.props.navigation.state.params.commonSettingStyle.moreSettingPageStyle) {
       itemStyle = this.props.navigation.state.params.commonSettingStyle.moreSettingPageStyle.itemStyle;

@@ -143,8 +143,11 @@ const API_REPO = {
   '/miot/camera/app/v2/put/motionDetectionSwitch': {},
   '/v2/public/get_weekday_info': {},
   '/v2/device/blt_get_beaconkey': {},
-  '/v2/device/set_alarm_info': {},
-  '/v2/device/get_alarm_info': {},
+  // 保险箱门锁类 报警电话和胁迫指纹的api权限
+  '/v2/device/set_break_lock_alarm_info': {},
+  '/v2/device/get_break_lock_alarm_info': {},
+  '/v2/device/set_hijack_alarm_info': {},
+  '/v2/device/get_hijack_alarm_info': {},
   '/v2/device/del_alarm_info': {}
 };
 export default API_REPO;

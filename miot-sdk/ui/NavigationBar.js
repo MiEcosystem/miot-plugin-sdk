@@ -148,7 +148,11 @@ const ICON = {
   /**
    * 分享
    */
-  SHARE: 'share'
+  SHARE: 'share',
+  /**
+   * 编辑
+   */
+  EDIT: 'edit'
 };
 Object.freeze(ICON);
 const { light, dark, dot } = Images.navigation; // 图标集合

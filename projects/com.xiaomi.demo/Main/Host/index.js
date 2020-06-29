@@ -107,18 +107,6 @@ export default class HostDemo extends React.Component {
         'func': () => {
           Host.ui.openWebPage("https://home.mi.com/views/article.html?articleId=684095286000000001");
         }
-      },
-      {
-        'name': '访问小爱语音授权页面',
-        'func': () => {
-          Host.ui.openVoiceCtrlDevListPage();
-        }
-      },
-      {
-        'name': '打开设备重置页面',
-        'func': () => {
-          Host.ui.openResetAndConnectDevicePage();
-        }
       }
     ];
   }

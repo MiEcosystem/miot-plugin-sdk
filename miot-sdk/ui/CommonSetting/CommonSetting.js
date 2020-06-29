@@ -253,7 +253,7 @@ const excludeOptions = {
  * @property {bool} dotStyle - 10040新增 title右上角红点的style  建议设置宽高为8，以免图片失真
  * @property {number} titleNumberOfLines - 10040新增 设置title字体显示的最大行数 默认为1
  * @property {number} subtitleNumberOfLines - 10040新增 设置subtitle字体显示的最大行数 默认为2
- * @property {number} valueNumberOfLines - 10040新增 设置value字体显示的最大行数 默认为1
+ * @property {number} valueNumberOfLines - 10040新增 设置value字体显示的最大行数 默认为2
  */
 /**
  * MoreSettingPageStyle - 10040新增 二级页面 更多设置 页面的样式
@@ -338,8 +338,8 @@ export default class CommonSetting extends React.Component {
   static defaultProps = {
     firstOptions: [
       AllOptions.SHARE,
-      AllOptions.BTGATEWAY,
-      AllOptions.VOICE_AUTH,
+      // AllOptions.BTGATEWAY,
+      // AllOptions.VOICE_AUTH,
       AllOptions.IFTTT,
       AllOptions.FIRMWARE_UPGRADE,
       // AllOptions.CREATE_GROUP,
@@ -351,8 +351,8 @@ export default class CommonSetting extends React.Component {
     ],
     secondOptions: [
       AllOptions.SHARE,
-      AllOptions.BTGATEWAY,
-      AllOptions.VOICE_AUTH,
+      // AllOptions.BTGATEWAY,
+      // AllOptions.VOICE_AUTH,
       AllOptions.IFTTT,
       AllOptions.FIRMWARE_UPGRADE,
       // AllOptions.CREATE_GROUP,
@@ -712,7 +712,7 @@ export default class CommonSetting extends React.Component {
         dotStyle: null,
         titleNumberOfLines: 1,
         subtitleNumberOfLines: 2,
-        valueNumberOfLines: 1
+        valueNumberOfLines: 2
       },
       deleteTextStyle: {}
     };
