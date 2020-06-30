@@ -580,7 +580,7 @@ export class BasicDevice {
    */
   get isFamily() {
      return  false
-    return permitLevel == PERMISSION_FAMILY || permitLevel == PERMISSION_FAMILY_IOS;
+    return (permitLevel & PERMISSION_FAMILY) !== 0 || permitLevel == PERMISSION_FAMILY_IOS;
   }
   /**
    *是否是别人分享的设备，若是家属分享给你的设备，isShared为fasle，isFamily为true
@@ -590,7 +590,7 @@ export class BasicDevice {
    */
   get isShared() {
      return  false
-    return (permitLevel == PERMISSION_SHARE || permitLevel == PERMISSION_SHARE_READONLY) && Properties.of(this).ownerName !== null;
+    return (permitLevel & PERMISSION_SHARE) !== 0 && !this.isFamily && Properties.of(this).ownerName !== null;
   }
   /**
    *是否是已经绑定的设备，一般返回true
