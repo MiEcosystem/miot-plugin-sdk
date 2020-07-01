@@ -20,6 +20,7 @@ import ClassicBluetoothFactory, { ClassicBluetoothEvent as MIOTClassicBluetoothE
 import BluetoothFactory from './device/bluetooth';
 import { BluetoothEvent as MIOTBluetoothEvent } from './device/bluetooth/BluetoothDevice';
 import HostInstance, { HostEvent as HostEventNames } from './Host';
+import { ECCCrypto as ECCCryptoClass } from "./host/crypto";
 import { AudioEvent as AudioEventNames } from './host/audio';
 import { FileEvent as FileEventNames } from './host/file';
 import PackageInstance, { Entrance as Entrances, PackageEvent as PackageEventNames } from './Package';
@@ -114,6 +115,11 @@ export const ClassicBluetooth = ClassicBluetoothFactory;
  */
 export const ClassicBluetoothEvent = MIOTClassicBluetoothEvent;
 /**
+ * 椭圆曲线
+ * @export
+ */
+export const ECCCrypto = ECCCryptoClass;
+/**
  * 场景类型
  * {@link module:miot/service/scene~SceneType}
  * @export
@@ -129,7 +135,7 @@ import * as Utils from './utils';
 export default {
   Device, DeviceEvent, Bluetooth, BluetoothEvent, ClassicBluetooth, ClassicBluetoothEvent,
   API_LEVEL, Package, PackageEvent, Entrance, DeviceProperties,
-  Service, Host, HostEvent, Resources,
+  Service, Host, HostEvent, Resources, ECCCrypto,
   SceneType,
   FileEvent, AudioEvent,
   Utils, DarkMode
