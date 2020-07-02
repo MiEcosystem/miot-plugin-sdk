@@ -154,13 +154,14 @@ export default class MainPage extends React.Component {
         if (res === 'ok' || res === true || res === 'true') {
           Service.smarthome.batchSetDeviceDatas([{ did: Device.deviceID, props: { "prop.s_auth_config": JSON.stringify({ 'privacyAuthed': true }) } }]);
           PackageEvent.packageAuthorizationAgreed.emit();
-          console.log("同意协议，进入插件");
-        } else {
-          console.log("不同意协议，插件退出");
+          console.log("[Demo] 同意协议，进入插件");
+        }
+      }).catch((error) => {
+        if (error === false || error === 'false') {
+          console.log("[Demo] 不同意协议，插件退出", res);
           Package.exit();
           return;
         }
-      }).catch((error) => {
         console.log(error);
       });
     }).catch({});
