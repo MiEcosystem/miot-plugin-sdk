@@ -11,7 +11,7 @@
  * ...
  * const str = '123'
  * //async
- * let md5 = await Host.crypto.endoceMD5(str)
+ * let md5 = await Host.crypto.encodeMD5(str)
  *
  * //normal
  * Host.crypto.encodeMD5(str).then(res => {//md5 value is res})
