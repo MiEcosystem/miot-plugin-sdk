@@ -41,7 +41,6 @@ import rnPackageJSON from 'react-native/package.json';
 import PropTypes from 'prop-types';
 import { DarkMode } from 'miot/Device';
 import { SDKContextProvider } from 'miot/sdkContext';
-import { ConfigProvider } from 'mhui-rn';
 /**
  * @description JS端通知Native端的事件类型
  * @enum {number}
