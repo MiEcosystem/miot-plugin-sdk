@@ -139,9 +139,6 @@ class IMiotCamera {
      */
   @report
   sendP2PCommandToDeviceWithStringParam(command, paramStr, did = Device.deviceID) {
-    if (typeof (paramStr) !== "string") {
-      return Promise.reject("command's param is not valid");
-    }
     if (Platform.OS === 'android') {
        return Promise.resolve(null);
     } else {
@@ -157,9 +154,6 @@ class IMiotCamera {
      */
   @report
   sendP2PCommandToDeviceWithBase64Param(command, base64Param, did = Device.deviceID) {
-    if (typeof (paramStr) !== "string") {
-      return Promise.reject("command's param is not valid");
-    }
     if (Platform.OS === 'android') {
        return Promise.resolve(null);
     } else {
