@@ -25,9 +25,6 @@ export default class MHRoomDemo extends React.Component {
 
     return (
       <View>
-        <TouchableOpacity style={styles.btnStyle}>
-          <Text style={{ color: '#ffffff' }}>{`${ Service.room.currentHomeId }:${ Service.room.currentHomeName }`}</Text>
-        </TouchableOpacity>
         <TouchableOpacity style={styles.btnStyle} onPress={this.loadAllRoom}>
           <Text style={{ color: '#ffffff' }}>获取房间列表信息</Text>
         </TouchableOpacity>

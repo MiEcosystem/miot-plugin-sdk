@@ -829,7 +829,7 @@ export class BasicDevice {
    * 查询设备的房间信息
    * @since 10039
    * @param {string} did DeviceID，默认为当前设备
-   * @return {Promise<Object>} {code: 0, data: {roomId, homeId, roomName} }
+   * @return {Promise<Object>} {code: 0, data: {roomId, homeId, roomName, homeName} }
    */
   @report
   getRoomInfoForCurrentHome(did = null) {

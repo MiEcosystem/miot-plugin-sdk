@@ -344,19 +344,9 @@ export default class CommonSetting extends React.Component {
       AllOptions.FIRMWARE_UPGRADE,
       // AllOptions.CREATE_GROUP,
       // AllOptions.MANAGE_GROUP,
-      AllOptions.AUTO_UPGRADE,
-      AllOptions.TIMEZONE,
-      AllOptions.SECURITY,
-      AllOptions.USER_EXPERIENCE_PROGRAM
+      AllOptions.SECURITY
     ],
     secondOptions: [
-      AllOptions.SHARE,
-      // AllOptions.BTGATEWAY,
-      // AllOptions.VOICE_AUTH,
-      AllOptions.IFTTT,
-      AllOptions.FIRMWARE_UPGRADE,
-      // AllOptions.CREATE_GROUP,
-      // AllOptions.MANAGE_GROUP,
       AllOptions.AUTO_UPGRADE,
       AllOptions.TIMEZONE,
       AllOptions.SECURITY,
