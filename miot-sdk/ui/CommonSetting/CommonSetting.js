@@ -589,7 +589,8 @@ export default class CommonSetting extends React.Component {
     }
     const requireKeys2 = [
       AllOptions.MORE,
-      AllOptions.HELP
+      AllOptions.HELP,
+      AllOptions.SECURITY
     ];
     // 2. 去掉杂质
     let options = [...(this.props.firstOptions || []), ...(this.props.secondOptions || [])].filter((key) => key && Object.values(AllOptions).includes(key));

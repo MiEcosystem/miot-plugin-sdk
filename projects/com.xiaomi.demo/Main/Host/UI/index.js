@@ -588,6 +588,16 @@ export default class UIDemo extends React.Component {
               console.log(err);
             });
           }
+        }, {
+          'name': '打开地震播报选择位置页面',
+          'subtitle': 'openEarthquakeLocationSelector',
+          'func': () => {
+            Host.ui.openEarthquakeLocationSelector({ name: '武汉市汉阳医院', district: '汉阳区', city: '武汉市', latitude: 30.554658, longitude: 114.252377 }).then((res) => {
+              console.log(res);
+            }).catch((err) => {
+              console.log(err);
+            });
+          }
         }
       ];
     }
