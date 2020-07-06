@@ -30,11 +30,9 @@ export class ECCCrypto {
   /**
    * 
    * @param {number} curveType 
-   * @param {bool} compressPublicKey 是否压缩公钥，默认true
    */
-  constructor(curveType, compressPublicKey = true) {
+  constructor(curveType) {
     this.curveType = curveType;
-    this.compressPublicKey = compressPublicKey;
   }
   /**
    * 生成公私钥对
