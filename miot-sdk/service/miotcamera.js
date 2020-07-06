@@ -256,7 +256,7 @@ class IMiotCamera {
   /*
   * 拉取当前正在播放时间戳 js端控制拉取节奏
   */
-  // @report
+  @report
   getCurrentFrameInfo(did = Device.deviceID) {
      return Promise.resolve(null);
   }
@@ -363,6 +363,7 @@ class IMiotCamera {
    * @param boolean isMissFirmware  是否是miss固件，true 是； false tutk固件。
    * @since 10038
    */
+  @report
   setCurrentDeviceIsMissFirmware(isMissFirmware, did = Device.deviceID) {
      return null
   }
@@ -417,7 +418,9 @@ class IMiotCamera {
    * 仅仅允许华来部分model使用，其他model访问会得到一个错误。
    * resolve返回的值即为服务器返回的json字串。
    * @param did 设备did
+   * @since 10041
    */
+  @report
   queryDevicePassword(did = Device.deviceID) {
     if (Platform.OS == "android") {
        return Promise.resolve(null);
@@ -430,7 +433,9 @@ class IMiotCamera {
    * @param {string} fileData byte array encoded into string 待解密的文件体
    * @param {*} nonce byte array encoded into string chacha20_xor解密需要的nonce
    * @param {*} shareKey  byte array encoded into string chacha20_xor解密需要的sharekey
+   * @since 10041
    */
+  @report
   decryptBigFile(fileData, nonce, shareKey) {
     if (Platform.OS == "android") {
        return Promise.resolve(null);
@@ -443,10 +448,27 @@ class IMiotCamera {
  * @param {string} fileData byte array encoded into string 待解密的文件体
  * @param {string} nonce byte array encoded into string chacha20_xor解密需要的nonce
  * @param {string} shareKey  byte array encoded into string chacha20_xor解密需要的sharekey
+ * @since 10041
  */
+  @report
   decryptSmallFile(fileData, nonce, shareKey) {
     if (Platform.OS == "android") {
        return Promise.resolve(null);
+    } else {
+      return Promise.reject("ios platform not support yet; to be done");
+    }
+  }
+  /**
+   * 标记当前固件是否是tutk rdt的数据被加密的
+   * @param isEncrypted rdt数据是否被加密
+   * @since 10041
+   * 应该在发送rdt命令之前调用。
+   * 
+   */
+  @report
+  markCurrrentDeviceRdtDataEncrypted(isEncrypted, did = Device.deviceID) {
+    if (Platform.OS == "android") {
+       return null
     } else {
       return Promise.reject("ios platform not support yet; to be done");
     }
