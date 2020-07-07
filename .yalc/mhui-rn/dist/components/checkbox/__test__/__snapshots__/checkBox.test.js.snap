@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox render render Checkbox 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "rgba(240, 240, 240, 1)",
+      "borderColor": "rgba(0,0,0,0.1)",
+      "borderWidth": 1,
+      "height": 40,
+      "width": 40,
+    }
+  }
+>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View />
+  </View>
+</View>
+`;

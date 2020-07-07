@@ -124,12 +124,41 @@ class IMiotCamera {
   /**
    * 发送miss命令到设备
    * @param {MISSCommand} command miss 命令
-   * @param {object} params 参数
+   * @param {object} paramsJson 参数 要求是符合jsonObj形式的数据
    * @returns {Promise<number>} a promise with return code
    */
   @report
-  sendP2PCommandToDevice(command, params, did = Device.deviceID) {
+  sendP2PCommandToDevice(command, paramsJson, did = Device.deviceID) {
      return Promise.resolve(null);
+  }
+  /**
+     * 发送miss命令到设备 主要处理部分model发送命令的参数不是json格式，也不是 byte数组编码得到的str，而是普通的字串
+     * @param {MISSCommand} command miss 命令  如果是tutk，米家标准的命令号要转为用Miss的命令号，如果是自定义命令 直接发送
+     * @param {string} paramStr 参数: string参数，非json 非 base64
+     * @returns {Promise<number>} a promise with return code
+     */
+  @report
+  sendP2PCommandToDeviceWithStringParam(command, paramStr, did = Device.deviceID) {
+    if (Platform.OS === 'android') {
+       return Promise.resolve(null);
+    } else {
+      return Promise.reject("ios platform currently unsupport");
+    }
+  }
+  /**
+     * 发送miss命令到设备 主要处理部分model发送命令的参数不是json格式，而是byte数组形式的命令。 byte数组请用base64编码得到string再调用这个接口。
+     * @warn miss固件 android端不支持直接发送byte[]，此时调用该接口会直接返回错误。
+     * @param {MISSCommand} command miss 命令  如果是tutk，米家标准的命令号要转为用Miss的命令号，如果是自定义命令 直接发送
+     * @param {string} base64Param 参数:  byte[]数组base64 encode后的字串
+     * @returns {Promise<number>} a promise with return code
+     */
+  @report
+  sendP2PCommandToDeviceWithBase64Param(command, base64Param, did = Device.deviceID) {
+    if (Platform.OS === 'android') {
+       return Promise.resolve(null);
+    } else {
+      return Promise.reject("ios platform currently unsupport");
+    }
   }
   /**
    * 注册接收命令回调
@@ -227,7 +256,7 @@ class IMiotCamera {
   /*
   * 拉取当前正在播放时间戳 js端控制拉取节奏
   */
-  // @report
+  @report
   getCurrentFrameInfo(did = Device.deviceID) {
      return Promise.resolve(null);
   }
@@ -289,6 +318,18 @@ class IMiotCamera {
      return Promise.resolve(null);
   }
   /**
+   * 获取通用图片接口（如云存储视频缩略图）
+   * @since 10041
+   * @param {string} imgId 图片唯一标识ID 如imgStoreId
+   * @param {json string} hostParams 接口信息: 如获取云存储缩略图{"prefix":"business.smartcamera.", "method":"GET", "path":"/miot/camera/app/v1/img"}   注：key固定的
+   * @param {json string} pathParams 请求参数: 如获取云存储缩略图{"did":"xxxx", "fileId":"xxxx", "stoId":"xxxxxxxx"}
+   * @returns {Promise<String>} 文件路径
+   */
+  @report
+  getCommonImgWithParams(imgId, hostParams, pathParams, did = Device.deviceID) {
+     return Promise.resolve(null);
+  }
+  /**
  * 通知native端现在是不是回看时间轴模式
  * @since 10038
  * @param {boolean} isTimelinePlayback 是不是回看时间轴模式
@@ -322,6 +363,7 @@ class IMiotCamera {
    * @param boolean isMissFirmware  是否是miss固件，true 是； false tutk固件。
    * @since 10038
    */
+  @report
   setCurrentDeviceIsMissFirmware(isMissFirmware, did = Device.deviceID) {
      return null
   }
@@ -369,6 +411,66 @@ class IMiotCamera {
        return Promise.resolve(null);
     } else {
       return Promise.reject(" ios platform did not implement this function yet.");
+    }
+  }
+  /**
+   * 查询设备的pipUid和password，提供给部分model进行固件交互
+   * 仅仅允许华来部分model使用，其他model访问会得到一个错误。
+   * resolve返回的值即为服务器返回的json字串。
+   * @param did 设备did
+   * @since 10041
+   */
+  @report
+  queryDevicePassword(did = Device.deviceID) {
+    if (Platform.OS == "android") {
+       return Promise.resolve(null);
+    } else {
+      return Promise.reject(" ios platform did not implement this function yet.");
+    }
+  }
+  /**
+   * 使用chacha20_xor解密大文件
+   * @param {string} fileData byte array encoded into string 待解密的文件体
+   * @param {*} nonce byte array encoded into string chacha20_xor解密需要的nonce
+   * @param {*} shareKey  byte array encoded into string chacha20_xor解密需要的sharekey
+   * @since 10041
+   */
+  @report
+  decryptBigFile(fileData, nonce, shareKey) {
+    if (Platform.OS == "android") {
+       return Promise.resolve(null);
+    } else {
+      return Promise.reject("ios platform not support yet; to be done");
+    }
+  }
+  /**
+ * 使用chacha20_xor解密小文件
+ * @param {string} fileData byte array encoded into string 待解密的文件体
+ * @param {string} nonce byte array encoded into string chacha20_xor解密需要的nonce
+ * @param {string} shareKey  byte array encoded into string chacha20_xor解密需要的sharekey
+ * @since 10041
+ */
+  @report
+  decryptSmallFile(fileData, nonce, shareKey) {
+    if (Platform.OS == "android") {
+       return Promise.resolve(null);
+    } else {
+      return Promise.reject("ios platform not support yet; to be done");
+    }
+  }
+  /**
+   * 标记当前固件是否是tutk rdt的数据被加密的
+   * @param isEncrypted rdt数据是否被加密
+   * @since 10041
+   * 应该在发送rdt命令之前调用。
+   * 
+   */
+  @report
+  markCurrrentDeviceRdtDataEncrypted(isEncrypted, did = Device.deviceID) {
+    if (Platform.OS == "android") {
+       return null
+    } else {
+      return Promise.reject("ios platform not support yet; to be done");
     }
   }
 }

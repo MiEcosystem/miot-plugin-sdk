@@ -638,7 +638,7 @@ export default class CommonSetting extends React.Component {
             {strings.commonSetting}
           </Text>
         </View>
-        <Separator style={{ marginLeft: Styles.common.padding }} />
+        {/* <Separator style={{ marginLeft: Styles.common.padding }} /> */}
         {
           items.map((item, index) => {
             if (!item || !item.title) return null;
@@ -659,7 +659,6 @@ export default class CommonSetting extends React.Component {
                 showDot={item.showDot || false}
                 value={item.value}
                 onPress={item.onPress}
-                showSeparator={showSeparator}
                 {...getAccessibilityConfig({
                   accessible: this.props.accessible
                 })}
@@ -667,7 +666,7 @@ export default class CommonSetting extends React.Component {
             );
           })
         }
-        <Separator />
+        {/* <Separator /> */}
         {!Device.isFamily ?
           (<View style={styles.bottomContainer} {...getAccessibilityConfig({
             accessible: this.props.accessible,
@@ -764,18 +763,18 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     minHeight: 90,
-    backgroundColor: Styles.common.backgroundColor,
+    backgroundColor: '#fff', // Styles.common.backgroundColor,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
   },
   buttonContainer: {
     flex: 1,
-    minHeight: 55,
-    borderRadius: 5,
+    minHeight: 46,
+    borderRadius: 23,
     borderWidth: 0.3,
-    borderColor: 'rgba(0,0,0,0.2)',
-    backgroundColor: '#fff',
+    borderColor: 'transparent', // 'rgba(0,0,0,0.2)',
+    backgroundColor: '#f5f5f5',
     marginHorizontal: Styles.common.padding
   },
   buttonText: {
