@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImageButton render render ImageButton 1`] = `
+<Image
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  source={
+    Object {
+      "uri": "https://reactnative.dev/img/tiny_logo.png",
+    }
+  }
+  style={
+    Object {
+      "height": 30,
+      "width": 30,
+    }
+  }
+/>
+`;
