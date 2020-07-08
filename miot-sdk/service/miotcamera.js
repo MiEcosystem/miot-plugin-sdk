@@ -436,7 +436,7 @@ class IMiotCamera {
    * @since 10041
    */
   @report
-  decryptBigFile(fileData, nonce, shareKey) {
+  decryptBigFile(fileData, nonce, did = Device.deviceID) {
     if (Platform.OS == "android") {
        return Promise.resolve(null);
     } else {
@@ -445,13 +445,13 @@ class IMiotCamera {
   }
   /**
  * 使用chacha20_xor解密小文件
- * @param {string} fileData byte array encoded into string 待解密的文件体
- * @param {string} nonce byte array encoded into string chacha20_xor解密需要的nonce
- * @param {string} shareKey  byte array encoded into string chacha20_xor解密需要的sharekey
+ * @param {string} fileData byte array base64 encoded into string 待解密的文件体
+ * @param {string} nonce byte array base64 encoded into string chacha20_xor解密需要的nonce
+ * @param {string} shareKey  byte array base64 encoded into string chacha20_xor解密需要的sharekey
  * @since 10041
  */
   @report
-  decryptSmallFile(fileData, nonce, shareKey) {
+  decryptSmallFile(fileData, nonce, did = Device.deviceID) {
     if (Platform.OS == "android") {
        return Promise.resolve(null);
     } else {

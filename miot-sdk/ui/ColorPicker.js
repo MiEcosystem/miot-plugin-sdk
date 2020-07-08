@@ -5,15 +5,6 @@ import {
   findNodeHandle
 } from 'react-native';
 import PropTypes from 'prop-types';
-// export interface ColorPickerRef {
-//   setColor(color: string): void;
-// }
-// interface Props {
-//   style?: StyleProp<ViewStyle>;
-//   type?: 'color' | 'white';
-//   onInit?: () => void;
-//   onColorChange?: (color: string) => void;
-// }
 const RCTColorPickerView = requireNativeComponent('RCTColorPickerView');
 const RCTWhitePickerView = requireNativeComponent('RCTWhitePickerView');
 const ColorPickerView = (
