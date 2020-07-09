@@ -18,6 +18,9 @@ function getModelType() {
       return;
     }
     Service.spec.getSpecString(Device.deviceID).then((instance) => {
+      if (typeof instance === 'string') {
+        instance = JSON.parse(instance);
+      }
       if (instance && instance.type) {
         modelType = instance.type.split(':')[3];
         resolve(modelType);
