@@ -17,6 +17,7 @@
 import { Entrance, Package } from "miot";
 import { FirmwareUpgrade, MoreSetting } from "miot/ui/CommonSetting";
 import BTInterconnection from 'miot/ui/BTInterconnection';
+import BraceletInterconnection from 'miot/ui/BraceletInterconnection';
 import Setting from "./tutorial/Setting";
 
 import TitleBar from "miot/ui/TitleBar";
@@ -208,6 +209,7 @@ function createRootStack(initPage) {
     DeviceDemo,
     InterconnectionDemo,
     BTInterconnection,
+    BraceletInterconnection,
     moreMenu: MoreMenu,
     helloDeveloper: HelloDeveloper,
     helloReactART: HelloReactART,

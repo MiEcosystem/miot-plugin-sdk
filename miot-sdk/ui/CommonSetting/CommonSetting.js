@@ -344,19 +344,9 @@ export default class CommonSetting extends React.Component {
       AllOptions.FIRMWARE_UPGRADE,
       // AllOptions.CREATE_GROUP,
       // AllOptions.MANAGE_GROUP,
-      AllOptions.AUTO_UPGRADE,
-      AllOptions.TIMEZONE,
-      AllOptions.SECURITY,
-      AllOptions.USER_EXPERIENCE_PROGRAM
+      AllOptions.SECURITY
     ],
     secondOptions: [
-      AllOptions.SHARE,
-      // AllOptions.BTGATEWAY,
-      // AllOptions.VOICE_AUTH,
-      AllOptions.IFTTT,
-      AllOptions.FIRMWARE_UPGRADE,
-      // AllOptions.CREATE_GROUP,
-      // AllOptions.MANAGE_GROUP,
       AllOptions.AUTO_UPGRADE,
       AllOptions.TIMEZONE,
       AllOptions.SECURITY,
@@ -599,7 +589,8 @@ export default class CommonSetting extends React.Component {
     }
     const requireKeys2 = [
       AllOptions.MORE,
-      AllOptions.HELP
+      AllOptions.HELP,
+      AllOptions.SECURITY
     ];
     // 2. 去掉杂质
     let options = [...(this.props.firstOptions || []), ...(this.props.secondOptions || [])].filter((key) => key && Object.values(AllOptions).includes(key));
@@ -647,7 +638,7 @@ export default class CommonSetting extends React.Component {
             {strings.commonSetting}
           </Text>
         </View>
-        <Separator style={{ marginLeft: Styles.common.padding }} />
+        {/* <Separator style={{ marginLeft: Styles.common.padding }} /> */}
         {
           items.map((item, index) => {
             if (!item || !item.title) return null;
@@ -668,7 +659,6 @@ export default class CommonSetting extends React.Component {
                 showDot={item.showDot || false}
                 value={item.value}
                 onPress={item.onPress}
-                showSeparator={showSeparator}
                 {...getAccessibilityConfig({
                   accessible: this.props.accessible
                 })}
@@ -676,7 +666,7 @@ export default class CommonSetting extends React.Component {
             );
           })
         }
-        <Separator />
+        {/* <Separator /> */}
         {!Device.isFamily ?
           (<View style={styles.bottomContainer} {...getAccessibilityConfig({
             accessible: this.props.accessible,
@@ -773,18 +763,18 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     minHeight: 90,
-    backgroundColor: Styles.common.backgroundColor,
+    backgroundColor: '#fff', // Styles.common.backgroundColor,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
   },
   buttonContainer: {
     flex: 1,
-    minHeight: 55,
-    borderRadius: 5,
+    minHeight: 46,
+    borderRadius: 23,
     borderWidth: 0.3,
-    borderColor: 'rgba(0,0,0,0.2)',
-    backgroundColor: '#fff',
+    borderColor: 'transparent', // 'rgba(0,0,0,0.2)',
+    backgroundColor: '#f5f5f5',
     marginHorizontal: Styles.common.padding
   },
   buttonText: {

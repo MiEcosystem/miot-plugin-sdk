@@ -550,6 +550,54 @@ export default class UIDemo extends React.Component {
                 alert(JSON.stringify(error));
               });
           }
+        }, {
+          'name': '访问小爱语音授权页面',
+          'subtitle': 'openVoiceCtrlDevListPage',
+          'func': () => {
+            Host.ui.openVoiceCtrlDevListPage();
+          }
+        },
+        {
+          'name': '打开设备重置页面',
+          'subtitle': 'openResetAndConnectDevicePage',
+          'func': () => {
+            Host.ui.openResetAndConnectDevicePage();
+          }
+        },
+        {
+          'name': '打开立体声设置页面',
+          'subtitle': 'openStereoSettingPage',
+          'func': () => {
+            Host.ui.openStereoSettingPage();
+          }
+        },
+        {
+          'name': '打开播放音乐页面',
+          'subtitle': 'openXiaoaiContentPage',
+          'func': () => {
+            Host.ui.openXiaoaiContentPage();
+          }
+        },
+        {
+          'name': '打开选择闹钟铃声页面',
+          'subtitle': 'openClockMusicSelector',
+          'func': () => {
+            Host.ui.openClockMusicSelector({ ringtone_id: 'voice.white_noise', ringtone_query: '森林的声音' }).then((res) => {
+              console.log(res);
+            }).catch((err) => {
+              console.log(err);
+            });
+          }
+        }, {
+          'name': '打开地震播报选择位置页面',
+          'subtitle': 'openEarthquakeLocationSelector',
+          'func': () => {
+            Host.ui.openEarthquakeLocationSelector({ name: '武汉市汉阳医院', district: '汉阳区', city: '武汉市', latitude: 30.554658, longitude: 114.252377 }).then((res) => {
+              console.log(res);
+            }).catch((err) => {
+              console.log(err);
+            });
+          }
         }
       ];
     }
