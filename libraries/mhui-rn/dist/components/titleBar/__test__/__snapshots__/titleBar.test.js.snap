@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render render TitleBar 1`] = `
+<View
+  onLayout={[Function]}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "alignItems": "flex-end",
+      "backgroundColor": "white",
+      "flexDirection": "row",
+      "height": 117,
+      "paddingBottom": 0,
+      "paddingLeft": 0,
+      "paddingRight": 0,
+      "paddingTop": 20,
+      "width": 750,
+    }
+  }
+>
+  <Image
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    source={
+      Object {
+        "testUri": "../../../src/resources/title/std_tittlebar_main_device_back_normal.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 28,
+          "marginHorizontal": 14,
+          "marginVertical": 13.5,
+          "resizeMode": "contain",
+          "width": 28,
+        },
+        Object {
+          "height": 28,
+        },
+      ]
+    }
+  />
+  <Image
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    source={
+      Object {
+        "testUri": "../../../src/resources/title/std_tittlebar_main_device_back2_normal.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 28,
+          "marginHorizontal": 14,
+          "marginVertical": 13.5,
+          "resizeMode": "contain",
+          "width": 28,
+        },
+        Object {
+          "height": 28,
+          "marginLeft": 0,
+        },
+      ]
+    }
+  />
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "stretch",
+          "flex": 1,
+          "height": 55,
+          "justifyContent": "center",
+        },
+      ]
+    }
+  >
+    <Text
+      numberOfLines={1}
+      onPress={[Function]}
+      style={
+        Array [
+          Object {
+            "color": "#000000cc",
+            "fontSize": 15,
+            "textAlign": "center",
+            "textAlignVertical": "center",
+          },
+        ]
+      }
+    >
+      title
+    </Text>
+    <Text
+      numberOfLines={1}
+      onPress={[Function]}
+      style={
+        Array [
+          Object {
+            "color": "#00000088",
+            "fontSize": 12,
+            "textAlign": "center",
+            "textAlignVertical": "center",
+          },
+        ]
+      }
+    >
+      subTitle
+    </Text>
+  </View>
+  <Image
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    source={
+      Object {
+        "testUri": "../../../src/resources/title/std_tittlebar_main_device_share_normal.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 28,
+          "marginHorizontal": 14,
+          "marginVertical": 13.5,
+          "resizeMode": "contain",
+          "width": 28,
+        },
+        Object {
+          "height": 28,
+          "marginRight": 0,
+        },
+      ]
+    }
+  />
+  <Image
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    source={
+      Object {
+        "testUri": "../../../src/resources/title/std_tittlebar_main_device_more_normal.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 28,
+          "marginHorizontal": 14,
+          "marginVertical": 13.5,
+          "resizeMode": "contain",
+          "width": 28,
+        },
+        Object {
+          "height": 28,
+        },
+      ]
+    }
+  />
+</View>
+`;

@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Switch render render Switch 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      Object {
+        "opacity": 1,
+      },
+    ]
+  }
+>
+  <View
+    accessible={true}
+    focusable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#F0F0F0",
+        "borderColor": "rgba(0,0,0,0.1)",
+        "borderRadius": 12,
+        "borderWidth": 0.5,
+        "height": 24,
+        "justifyContent": "center",
+        "opacity": 1,
+        "width": 44,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "#fff",
+          "borderColor": "rgba(0,0,0,0.1)",
+          "borderRadius": 8,
+          "borderWidth": 0.5,
+          "height": 16,
+          "margin": 4,
+          "position": "absolute",
+          "transform": Array [
+            Object {
+              "translateX": 0,
+            },
+          ],
+          "width": 16,
+        }
+      }
+    />
+  </View>
+</View>
+`;

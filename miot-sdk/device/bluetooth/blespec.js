@@ -11,7 +11,7 @@
  */
 class BleSpec {
   /**
-   * ble直连spec：设置property，调用前确保已连接蓝牙连接。
+   * ble直连spec：设置property，调用前确保已建立蓝牙连接。
    * @since 10040
    * @param {string} mac 蓝牙设备的Mac地址，iOS设备传uuid
    * @param {string} json json格式：{objects[]{siid/piid/value/type}}，type是number类型：其值用来标识value的值类型，取值如下：
@@ -31,7 +31,7 @@ class BleSpec {
      return Promise.resolve(null);
   }
   /**
-   * ble直连spec：读property，调用前确保已连接蓝牙连接。
+   * ble直连spec：读property，调用前确保已建立蓝牙连接。
    * @since 10040
    * @param {string} mac 蓝牙设备的Mac地址，iOS设备传uuid
    * @param {string} json json格式：{objects[]{siid/piid}}
@@ -51,7 +51,7 @@ class BleSpec {
      return Promise.resolve(null);
   }
   /**
-   * ble直连spec：doAction，调用前确保已连接蓝牙连接。
+   * ble直连spec：doAction，调用前确保已建立蓝牙连接。
    * @since 10040
    * @param {string} mac 蓝牙设备的Mac地址，iOS设备传uuid
    * @param {string} json json格式：{siid,aiid,objects[]{piid/value/type} }，type是number类型：其值用来标识value的值类型，取值如下：

@@ -26,7 +26,7 @@
 <a name="module_miot/device/bluetooth/blespec..BleSpec+setPropertiesValue"></a>
 
 #### bleSpec.setPropertiesValue(mac, json)
-ble直连spec：设置property，调用前确保已连接蓝牙连接。
+ble直连spec：设置property，调用前确保已建立蓝牙连接。
 
 **Kind**: instance method of [<code>BleSpec</code>](#module_miot/device/bluetooth/blespec..BleSpec)  
 **Since**: 10040  
@@ -50,7 +50,7 @@ Bluetooth.spec.setPropertiesValue(mac,data)
 <a name="module_miot/device/bluetooth/blespec..BleSpec+getPropertiesValue"></a>
 
 #### bleSpec.getPropertiesValue(mac, json)
-ble直连spec：读property，调用前确保已连接蓝牙连接。
+ble直连spec：读property，调用前确保已建立蓝牙连接。
 
 **Kind**: instance method of [<code>BleSpec</code>](#module_miot/device/bluetooth/blespec..BleSpec)  
 **Since**: 10040  
@@ -74,7 +74,7 @@ Bluetooth.spec.getPropertiesValue(mac,data)
 <a name="module_miot/device/bluetooth/blespec..BleSpec+doAction"></a>
 
 #### bleSpec.doAction(mac, json)
-ble直连spec：doAction，调用前确保已连接蓝牙连接。
+ble直连spec：doAction，调用前确保已建立蓝牙连接。
 
 **Kind**: instance method of [<code>BleSpec</code>](#module_miot/device/bluetooth/blespec..BleSpec)  
 **Since**: 10040  

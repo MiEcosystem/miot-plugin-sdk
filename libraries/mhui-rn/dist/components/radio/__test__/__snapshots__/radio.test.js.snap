@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render render Radio 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderRadius": 40,
+        "borderStyle": "solid",
+        "borderWidth": 2,
+        "height": 80,
+        "justifyContent": "center",
+        "width": 80,
+      },
+      Object {},
+      Object {
+        "backgroundColor": "#999",
+        "borderColor": "#666",
+        "opacity": 1,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "white",
+        "borderRadius": 40,
+        "borderWidth": 0,
+        "height": 80,
+        "opacity": 0,
+        "transform": Array [
+          Object {
+            "scale": 0.4,
+          },
+        ],
+        "width": 80,
+      }
+    }
+  />
+</View>
+`;
