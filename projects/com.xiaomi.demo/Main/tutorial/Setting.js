@@ -66,7 +66,7 @@ export default class Setting extends React.Component {
       // licenseUrl: require('../resources/html/license_zh.html'),
       // policyUrl: require('../resources/html/privacy_zh.html'),
       deleteDeviceMessage: 'test',
-      excludeRequiredOptions: [secondAllOptions.SECURITY],
+      excludeRequiredOptions: [],
       option: {
         privacyURL: require('../../Resources/raw/privacy_zh.html'),
         agreementURL: require('../../Resources/raw/license_zh.html'),

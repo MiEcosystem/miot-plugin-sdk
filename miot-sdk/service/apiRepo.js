@@ -111,6 +111,7 @@ const API_REPO = {
   '/v2/aftersale/create': {},
   '/v2/aftersale/list': {},
   '/v2/aftersale/detail': {},
+  '/v2/homeroom/gethome': {},
   // 摄像机API
   '/wx/app/v1/get/pushSwitch': {},
   '/wx/app/v1/put/pushSwitch': {},
@@ -136,8 +137,6 @@ const API_REPO = {
   '/common/app/m3u8': {},
   '/common/app/v1/img': {},
   '/miot/camera/app/v1/put/faceSwitch': {},
-  // '/miot/camera/app/v1/put/babyCrySwitch': {},
-  // '/v2/device/multi_check_device_version':{},
   '/miot/camera/app/v1/put/babyCrySwitch': {},
   '/miot/camera/app/v2/get/alarmSwitch': {},
   '/miot/camera/app/v2/put/motionDetectionSwitch': {},
@@ -145,6 +144,25 @@ const API_REPO = {
   '/v2/device/blt_get_beaconkey': {},
   '/v2/device/set_alarm_info': {},
   '/v2/device/get_alarm_info': {},
-  '/v2/device/del_alarm_info': {}
+  '/v2/device/del_alarm_info': {},
+  '/miot/camera/app/v1/get/allDetectionSwitch': {},
+  '/miot/camera/app/v1/put/genericEventPushSwitch': {},
+  '/user/del_user_device_data_batch': {},
+  '/miot/camera/app/v1/tags': {},
+  '/miot/camera/app/v1/feedback': {},
+  '/miot/camera/app/v1/alarm/playlist/limit': {},
+  '/miot/camera/app/v1/alarm/delete': {},
+  '/miot/camera/app/v1/alarm/videoStoreId': {},
+  '/user/send_user_opt_notify': {},
+  '/home/genfilepresignedurl': {},
+  '/device/devicepass': {},
+  // 保险箱门锁类 报警电话和胁迫指纹的api权限
+  '/v2/device/set_break_lock_alarm_info': {},
+  '/v2/device/get_break_lock_alarm_info': {},
+  '/v2/device/set_hijack_alarm_info': {},
+  '/v2/device/get_hijack_alarm_info': {},
+  '/v2/device/del_alarm_info': {},
+  '/v2/home/get_interim_file_url_pro':{},
+  '/home/getfileurl_v3':{}
 };
 export default API_REPO;

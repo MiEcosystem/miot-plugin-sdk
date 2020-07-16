@@ -581,6 +581,20 @@ class IUi {
   @report
   openAndroidLocationServerSettingPage() {
   }
+  /**
+   *  打开设备重置页面
+   *  @since 10041
+   */
+  @report
+  openResetAndConnectDevicePage() {
+  }
+  /**
+   *  打开语音授权页面
+   *  @since 10041
+   */
+  @report
+  openVoiceCtrlDevListPage() {
+  }
 }
 const UiInstance = new IUi();
 export default UiInstance;
