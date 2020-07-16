@@ -1,0 +1,45 @@
+{
+  "name": "mhui-rn",
+  "version": "1.0.0-rc3",
+  "description": "米家扩展程序中使用的 React Native 组件库",
+  "main": "dist/index.js",
+  "scripts": {
+    "buildBabel": "rm -rf dist && tsc --emitDeclarationOnly && babel src -d dist --copy-files  --ignore 'src/**/*.d.ts' --extensions '.ts,.tsx'",
+    "buildTypescript": "rm -rf dist && tsc",
+    "dev": "babel src -d demo/miot-workspace/node_modules/mhui-rn/dist --watch --copy-files  --ignore 'src/**/*.d.ts' --extensions '.ts,.tsx'",
+    "build": "npm run buildTypescript && npm run buildBabel",
+    "test": "jest --passWithNoTests",
+    "lint": "eslint src --fix --ext .ts,.tsx,.js.,.jsx",
+    "prepublishOnly": "npm run lint && npm run build",
+    "commit": "git-cz",
+    "release-f": "standard-version -f",
+    "release-major": "standard-version -r major",
+    "release-minor": "standard-version -r minor",
+    "release-patch": "standard-version -r patch",
+    "ts": "./node_modules/.bin/ts-node"
+  },
+  "keywords": [],
+  "author": "MIoT",
+  "license": "MIT",
+  "dependencies": {
+    "@react-native-community/art": "^1.2.0",
+    "react-native-indicators": "^0.13.0",
+    "react-native-iphone-x-helper": "^1.2.0",
+    "react-native-linear-gradient": "^2.5.4",
+    "react-native-progress": "^3.5.0",
+    "react-native-shadow": "^1.2.2",
+    "react-native-slider": "^0.11.0",
+    "react-native-svg": "^9.5.3",
+    "react-native-swiper": "^1.6.0-nightly.5",
+    "react-native-ui-kitten": "^3.1.2",
+    "react-navigation": "2.16.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "files": [
+    "dist"
+  ]
+}

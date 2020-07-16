@@ -195,15 +195,17 @@
 | left            | <code>array&lt;object&gt;</code> | 左侧按钮的集合，最多显示两个，多余无效，每个按钮用一个`object`表示<br /> {<br />key // 按钮的key，在`NavigationBar.ICON`中枚举定义<br />disable // 是否禁用按钮<br />showDot // 是否显示小红点<br />onPress // 点击按钮的回调函数<br />} |
 | right           | <code>array&lt;object&gt;</code> | 右侧按钮的集合，最多显示两个，多余无效，每个按钮用一个`object`表示 `{ key, disable, showDot, onPress }` |
 | title           | <code>string</code>              | 中间的标题                                                   |
+| titleStyle        | <code>object</code>              | 10040新增 中间的标题的样式 - 目前支持 fontSize                                                 |
 | subtitle        | <code>string</code>              | 中间的副标题                                                 |
+| subtitleStyle   | <code>object</code>              | 10040新增 中间的副标题的样式 - 支持的属性有 fontSize, colorType 。colorType 是副标题的颜色，目前支持三种： normal '#666666', warning: '#f43f31' exception: '#f5a623'  |
 | onPressTitle    | <code>string</code>              | 点击标题的事件                                               |
 
 ### NavigationBar.ICON 图标列表
 
-| 枚举值                            | 中文描述      | 图标                                           |
-| --------------------------------- | ------------- | ---------------------------------------------- |
+| 枚举值                            | 中文描述      | 图标                                           | 说明 |
+| --------------------------------- | ------------- | ---------------------------------------------- | -- |
 | `NavigationBar.ICON.ADD`          | 添加          | ![](./UIDocImages/navigation/add.png)          |
-| `NavigationBar.ICON.BACK`         | 返回          | ![](./UIDocImages/navigation/back.png)         |
+| `NavigationBar.ICON.BACK`         | 返回          | ![](./UIDocImages/navigation/back.png)         |❗️SDK_10040更新为新版返回图标
 | `NavigationBar.ICON.CLOSE`        | 关闭          | ![](./UIDocImages/navigation/close.png)        |
 | `NavigationBar.ICON.COLLECT`      | 收藏/喜欢     | ![](./UIDocImages/navigation/collect.png)      |
 | `NavigationBar.ICON.COMPLETE`     | 完成/确认     | ![](./UIDocImages/navigation/complete.png)     |
@@ -217,6 +219,7 @@
 | `NavigationBar.ICON.SELECT_ALL`   | 全选          | ![](./UIDocImages/navigation/select_all.png)   |
 | `NavigationBar.ICON.SELECTED_ALL` | 全部选中      | ![](./UIDocImages/navigation/selected_all.png) |
 | `NavigationBar.ICON.SHARE`        | 分享          | ![](./UIDocImages/navigation/share.png)        |
+| `NavigationBar.ICON.EDIT`         | 编辑          | ![](./UIDocImages/navigation/edit.png)        | ❗️SDK_10040新增 |
 
 ### 和`Titlebar` 对比
 
@@ -336,6 +339,9 @@
 | titleStyle | <code>style</code> | 主标题的自定义样式 |
 | subtitleStyle | <code>style</code> | 副标题的自定义样式 |
 | valueTextStyle | <code>style</code> | 主标题右侧文案的自定义样式 |
+| switchStyle | <code>style</code> | 开关样式，仅支持宽高 |
+| onTintColor |  <code>string</code> | 开关按钮打开时的背景颜色 |
+| tintColor | <code>string</code> |  开关按钮关闭时的背景颜色 |
 
 [⬆️回到目录](#目录)
 
