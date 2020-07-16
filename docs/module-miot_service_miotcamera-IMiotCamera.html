@@ -1,0 +1,5306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> IMiotCamera</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-CommonSetting.html">CommonSetting</a></li><li><a href="module-FirmwareUpgrade.html">FirmwareUpgrade</a></li><li><a href="module-IndependentCard.html">IndependentCard</a></li><li><a href="module-miot.html">miot</a></li><li><a href="module-miot_device.html">miot/device</a></li><li><a href="module-miot_device_bluetooh.html">miot/device/bluetooh</a></li><li><a href="module-miot_device_bluetooth.html">miot/device/bluetooth</a></li><li><a href="module-miot_device_bluetooth_blespec.html">miot/device/bluetooth/blespec</a></li><li><a href="module-miot_Host.html">miot/Host</a></li><li><a href="module-miot_host_audio.html">miot/host/audio</a></li><li><a href="module-miot_host_crypto.html">miot/host/crypto</a></li><li><a href="module-miot_host_file.html">miot/host/file</a></li><li><a href="module-miot_host_locale.html">miot/host/locale</a></li><li><a href="module-miot_host_storage.html">miot/host/storage</a></li><li><a href="module-miot_host_ui.html">miot/host/ui</a></li><li><a href="module-miot_Properties.html">miot/Properties</a></li><li><a href="module-miot_resources.html">miot/resources</a></li><li><a href="module-miot_Service.html">miot/Service</a></li><li><a href="module-miot_service_Account.html">miot/service/Account</a></li><li><a href="module-miot_service_infra.html">miot/service/infra</a></li><li><a href="module-miot_service_ircontroller.html">miot/service/ircontroller</a></li><li><a href="module-miot_service_miotcamera.html">miot/service/miotcamera</a></li><li><a href="module-miot_service_Room.html">miot/service/Room</a></li><li><a href="module-miot_service_scene.html">miot/service/scene</a></li><li><a href="module-miot_service_security.html">miot/service/security</a></li><li><a href="module-miot_service_smarthome.html">miot/service/smarthome</a></li><li><a href="module-miot_service_spec.html">miot/service/spec</a></li><li><a href="module-miot_service_storage.html">miot/service/storage</a></li><li><a href="module-miot_ui.html">miot/ui</a></li><li><a href="module-miot_ui_.html">miot/ui/</a></li><li><a href="module-miot_ui_AMapView.html">miot/ui/AMapView</a></li><li><a href="module-miot_ui_CameraRender.html">miot/ui/CameraRender</a></li><li><a href="module-miot_ui_ImageButton.html">miot/ui/ImageButton</a></li><li><a href="module-miot_ui_InputDialog.html">miot/ui/InputDialog</a></li><li><a href="module-miot_ui_LoadingDialog.html">miot/ui/LoadingDialog</a></li><li><a href="module-miot_ui_LocalizedStrings.html">miot/ui/LocalizedStrings</a></li><li><a href="module-miot_ui_MessageDialog.html">miot/ui/MessageDialog</a></li><li><a href="module-miot_ui_ProgressDialog.html">miot/ui/ProgressDialog</a></li><li><a href="module-miot_ui_RobotMap.html">miot/ui/RobotMap</a></li><li><a href="module-miot_ui_SingleChoseDialog.html">miot/ui/SingleChoseDialog</a></li><li><a href="module-miot_ui_TitleBarBlack.html">miot/ui/TitleBarBlack</a></li><li><a href="module-miot_ui_TitleBarWhite.html">miot/ui/TitleBarWhite</a></li><li><a href="module-MoreSetting.html">MoreSetting</a></li><li><a href="module-Package.html">Package</a></li><li><a href="module-PackageEvent.html">PackageEvent</a></li><li><a href="module-PackageRoot.html">PackageRoot</a></li><li><a href="module-Radio.html">Radio</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-miot_device_bluetooh-BluetoothEvent.html">BluetoothEvent</a></li><li><a href="module-miot_device_bluetooth-ClassicBluetoothEvent.html">ClassicBluetoothEvent</a></li><li><a href="module-miot_device-DeviceEvent.html">DeviceEvent</a></li><li><a href="module-miot_host_audio-AudioEvent.html">AudioEvent</a></li><li><a href="module-miot_host_file-FileEvent.html">FileEvent</a></li><li><a href="module-miot_Host-HostEvent.html">HostEvent</a></li><li><a href="module-miot_resources-Language.html">Language</a></li><li><a href="module-miot_service_miotcamera-AlarmEventType.html">AlarmEventType</a></li><li><a href="module-miot_service_miotcamera-MISSCommand.html">MISSCommand</a></li><li><a href="module-miot_service_miotcamera-MISSConnectState.html">MISSConnectState</a></li><li><a href="module-miot_service_miotcamera-MISSError.html">MISSError</a></li><li><a href="module-miot_service_scene-SceneType.html">SceneType</a></li><li><a href="module-miot_service_smarthome-MemberType.html">MemberType</a></li><li><a href="module-miot_ui_CameraRender-MISSAudioChannel.html">MISSAudioChannel</a></li><li><a href="module-miot_ui_CameraRender-MISSCodec.html">MISSCodec</a></li><li><a href="module-miot_ui_CameraRender-MISSDataBits.html">MISSDataBits</a></li><li><a href="module-miot_ui_CameraRender-MISSSampleRate.html">MISSSampleRate</a></li><li><a href="module-PackageRoot-Entrance.html">Entrance</a></li></ul><h3>Classes</h3><ul><li><a href="IKookong.html">IKookong</a></li><li><a href="module-miot_host_crypto.ECCCrypto.html">ECCCrypto</a></li><li><a href="module-miot_service_infra-ITJInfra.html">ITJInfra</a></li><li><a href="module-miot_service_ircontroller-IIrcontroller.html">IIrcontroller</a></li><li><a href="module-miot_service_miotcamera-IMiotCamera.html">IMiotCamera</a></li><li><a href="module-miot_service_Room-IMiotRoom.html">IMiotRoom</a></li><li><a href="module-miot_service_scene-IMiotScene.html">IMiotScene</a></li><li><a href="module-miot_service_security-ISecurity.html">ISecurity</a></li><li><a href="module-miot_service_smarthome-ISmartHome.html">ISmartHome</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-miot_device.html">miot/device</a></li><li><a href="module-miot_device.BasicDevice.html">BasicDevice</a></li><li><a href="module-miot_device_bluetooh.IBluetooth.html">IBluetooth</a></li><li><a href="module-miot_device_bluetooth.html">miot/device/bluetooth</a></li><li><a href="module-miot_device_bluetooth.IBluetoothCharacteristic.html">IBluetoothCharacteristic</a></li><li><a href="module-miot_device_bluetooth.IBluetoothService.html">IBluetoothService</a></li><li><a href="module-miot_device_bluetooth_blespec-BleSpec.html">BleSpec</a></li><li><a href="module-miot_host_audio-IAudio.html">IAudio</a></li><li><a href="module-miot_host_crypto-ICrypto.html">ICrypto</a></li><li><a href="module-miot_host_file-IFile.html">IFile</a></li><li><a href="module-miot_host_locale-ILocale.html">ILocale</a></li><li><a href="module-miot_host_storage-IStorage.html">IStorage</a></li><li><a href="module-miot_host_ui-IUi.html">IUi</a></li><li><a href="module-miot_Properties-IProperties.html">IProperties</a></li><li><a href="module-miot_service_Account-IAccount.html">IAccount</a></li><li><a href="module-miot_service_Room.IMHRoom.html">IMHRoom</a></li><li><a href="module-miot_service_scene.IScene.html">IScene</a></li><li><a href="module-miot_service_security.ISecureKey.html">ISecureKey</a></li><li><a href="module-miot_service_storage-ICloudStorage.html">ICloudStorage</a></li></ul><h3>Events</h3><ul><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothCharacteristicDiscovered">bluetoothCharacteristicDiscovered</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothCharacteristicDiscoverFailed">bluetoothCharacteristicDiscoverFailed</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothCharacteristicValueChanged">bluetoothCharacteristicValueChanged</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothConnectionStatusChanged">bluetoothConnectionStatusChanged</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothDeviceDiscovered">bluetoothDeviceDiscovered</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothDeviceDiscoverFailed">bluetoothDeviceDiscoverFailed</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothSeviceDiscovered">bluetoothSeviceDiscovered</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothSeviceDiscoverFailed">bluetoothSeviceDiscoverFailed</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothStatusChanged">bluetoothStatusChanged</a></li><li><a href="module-miot_device-DeviceEvent.html#.event:bleDeviceFirmwareNeedUpgrade">bleDeviceFirmwareNeedUpgrade</a></li><li><a href="module-miot_device-DeviceEvent.html#.event:deviceNameChanged">deviceNameChanged</a></li><li><a href="module-miot_device-DeviceEvent.html#.event:deviceReceivedMessages">deviceReceivedMessages</a></li><li><a href="module-miot_device-DeviceEvent.html#.event:deviceStatusChanged">deviceStatusChanged</a></li><li><a href="module-miot_device-DeviceEvent.html#.event:deviceTimeZoneChanged">deviceTimeZoneChanged</a></li><li><a href="module-miot_device-DeviceEvent.html#.event:multiSwitchNameChanged">multiSwitchNameChanged</a></li><li><a href="module-miot_host_audio-AudioEvent.html#.event:audioPlayerDidFinishPlaying">audioPlayerDidFinishPlaying</a></li><li><a href="module-miot_host_audio-AudioEvent.html#.event:audioPlayerDidStartPlaying">audioPlayerDidStartPlaying</a></li><li><a href="module-miot_host_audio-AudioEvent.html#.event:updateAudioPlayerTime">updateAudioPlayerTime</a></li><li><a href="module-miot_Host-HostEvent.html#.event:cellPhoneNetworkStateChanged">cellPhoneNetworkStateChanged</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageAuthorizationAgreed">packageAuthorizationAgreed</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageAuthorizationCancel">packageAuthorizationCancel</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageDidLoaded">packageDidLoaded</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageDidResume">packageDidResume</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageReceivedInformation">packageReceivedInformation</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageViewWillAppear">packageViewWillAppear</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageViewWillDisappearIOS">packageViewWillDisappearIOS</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageWillExit">packageWillExit</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageWillLoad">packageWillLoad</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageWillPause">packageWillPause</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AbstractDialog">AbstractDialog</a></li><li><a href="global.html#accessibilityLabel">accessibilityLabel</a></li><li><a href="global.html#accessible">accessible</a></li><li><a href="global.html#addLinkage">addLinkage</a></li><li><a href="global.html#blurRadius">blurRadius</a></li><li><a href="global.html#capInsets">capInsets</a></li><li><a href="global.html#defaultSource">defaultSource</a></li><li><a href="global.html#deviceID">deviceID</a></li><li><a href="global.html#dynamicStyleSheet">dynamicStyleSheet</a></li><li><a href="global.html#excludeOptions">excludeOptions</a></li><li><a href="global.html#firstAllOptionsWeight">firstAllOptionsWeight</a></li><li><a href="global.html#firstSharedOptions">firstSharedOptions</a></li><li><a href="global.html#getLinkage">getLinkage</a></li><li><a href="global.html#getLinkedBTDevices">getLinkedBTDevices</a></li><li><a href="global.html#getSize">getSize</a></li><li><a href="global.html#getSubDevices">getSubDevices</a></li><li><a href="global.html#getSupportedDevices">getSupportedDevices</a></li><li><a href="global.html#getSupportedDevicesWithLinkage">getSupportedDevicesWithLinkage</a></li><li><a href="global.html#layerScaleFilter">layerScaleFilter</a></li><li><a href="global.html#loadingIndicatorSource">loadingIndicatorSource</a></li><li><a href="global.html#miot/ui/MultiChoseDialog">miot/ui/MultiChoseDialog</a></li><li><a href="global.html#onError">onError</a></li><li><a href="global.html#onLayout">onLayout</a></li><li><a href="global.html#onLoad">onLoad</a></li><li><a href="global.html#onLoadEnd">onLoadEnd</a></li><li><a href="global.html#onLoadStart">onLoadStart</a></li><li><a href="global.html#onPartialLoad">onPartialLoad</a></li><li><a href="global.html#onProgress">onProgress</a></li><li><a href="global.html#prefetch">prefetch</a></li><li><a href="global.html#removeLinkage">removeLinkage</a></li><li><a href="global.html#report">report</a></li><li><a href="global.html#resizeMethod">resizeMethod</a></li><li><a href="global.html#resizeMode">resizeMode</a></li><li><a href="global.html#scan">scan</a></li><li><a href="global.html#secondSharedOptions">secondSharedOptions</a></li><li><a href="global.html#setEnable">setEnable</a></li><li><a href="global.html#source">source</a></li><li><a href="global.html#src">src</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#supportModelToConnect">supportModelToConnect</a></li><li><a href="global.html#testID">testID</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Class</p>
+                    <h1>IMiotCamera</h1>
+                </header>
+                
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>
+            <span class="ancestors"><a href="module-miot_service_miotcamera.html">miot/service/miotcamera</a>~</span>IMiotCamera<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="IMiotCamera">
+        <a class="href-link" href="#IMiotCamera">#</a>
+        
+        <span class="code-name">
+            
+                new IMiotCamera<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Methods</h1>
+            <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="bindBPSReceiveCallback">
+        <a class="href-link" href="#bindBPSReceiveCallback">#</a>
+        
+        <span class="code-name">
+            
+                bindBPSReceiveCallback<span class="signature">(callbackName)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>注册收到数据速率 Bytes per second，每秒回调一次</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>callbackName</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>回调名称 { rate: number }</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10036</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="bindP2PCommandReceiveCallback">
+        <a class="href-link" href="#bindP2PCommandReceiveCallback">#</a>
+        
+        <span class="code-name">
+            
+                bindP2PCommandReceiveCallback<span class="signature">(callbackName)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>注册接收命令回调</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>callbackName</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>收到p2p command回调 { command: MISSCommand, data: Object/Base64String }</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="bindRDTDataReceiveCallback">
+        <a class="href-link" href="#bindRDTDataReceiveCallback">#</a>
+        
+        <span class="code-name">
+            
+                bindRDTDataReceiveCallback<span class="signature">(callbackName)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>注册接收RDT命令回调</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>callbackName</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>收到RDT回调 { data: Object/Base64String }</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="bindTimelinePlaybackEndListener">
+        <a class="href-link" href="#bindTimelinePlaybackEndListener">#</a>
+        
+        <span class="code-name">
+            
+                bindTimelinePlaybackEndListener<span class="signature">(timelinePlaybackEndListenerName)</span><span class="type-signature"> &rarr; {null}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>绑定回调，native端 在时间轴回看的模式下，如果从点播切换成直播了，就通过这个回调告诉js端</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>timelinePlaybackEndListenerName</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>native端在回看时间轴模式下，从点播切换成直播了，通过DeviceEmitter发送这个时间给js端</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10038</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">null</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="closeFloatWindow">
+        <a class="href-link" href="#closeFloatWindow">#</a>
+        
+        <span class="code-name">
+            
+                closeFloatWindow<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>关闭悬浮窗</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10040</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="connectToDeviceWithStateChangeCallBack">
+        <a class="href-link" href="#connectToDeviceWithStateChangeCallBack">#</a>
+        
+        <span class="code-name">
+            
+                connectToDeviceWithStateChangeCallBack<span class="signature">(callbackName)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>连接设备</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>callbackName</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>链接状态变更回调 { state: MISSConnectState, error: MISSError }</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="decryptBigFile">
+        <a class="href-link" href="#decryptBigFile">#</a>
+        
+        <span class="code-name">
+            
+                decryptBigFile<span class="signature">(fileData, nonce, shareKey)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>使用chacha20_xor解密大文件</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>fileData</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>byte array encoded into string 待解密的文件体</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>nonce</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">*</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>byte array encoded into string chacha20_xor解密需要的nonce</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>shareKey</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">*</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>byte array encoded into string chacha20_xor解密需要的sharekey</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10041</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="decryptSmallFile">
+        <a class="href-link" href="#decryptSmallFile">#</a>
+        
+        <span class="code-name">
+            
+                decryptSmallFile<span class="signature">(fileData, nonce, shareKey)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>使用chacha20_xor解密小文件</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>fileData</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>byte array base64 encoded into string 待解密的文件体</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>nonce</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>byte array base64 encoded into string chacha20_xor解密需要的nonce</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>shareKey</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>byte array base64 encoded into string chacha20_xor解密需要的sharekey</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10041</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="disconnectToDevice">
+        <a class="href-link" href="#disconnectToDevice">#</a>
+        
+        <span class="code-name">
+            
+                disconnectToDevice<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>断开连接设备</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10033</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="downloadM3U8ToMP4">
+        <a class="href-link" href="#downloadM3U8ToMP4">#</a>
+        
+        <span class="code-name">
+            
+                downloadM3U8ToMP4<span class="signature">(fileId, filePath, callbackName, isAlarm, videoCodec)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>下载m3u8视频并合成mp4</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+            <th>Default</th>
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>fileId</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+      <td class="default">
+      
+      </td>
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>filePath</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+      <td class="default">
+      
+      </td>
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>callbackName</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+      <td class="default">
+      
+      </td>
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>isAlarm</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+      <td class="default">
+      
+          false
+      
+      </td>
+  
+
+  <td class="description last"><p>是否报警视频</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>videoCodec</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+      <td class="default">
+      
+          H265
+      
+      </td>
+  
+
+  <td class="description last"><p>视频编码如 &quot;H264&quot;, &quot;H265&quot;</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10038</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>state : 1. onStart (开始下载)  2. onComplete（下载完成）  3. onError（失败）  4. onProgress（下载进度）
+errorInfo : 失败描述（state = onError时才有）
+progress : 下载进度0 - 100 (state = onProgress时才有)</p></div>
+    
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="ffmpegCommand">
+        <a class="href-link" href="#ffmpegCommand">#</a>
+        
+        <span class="code-name">
+            
+                ffmpegCommand<span class="signature">(command, callback, complete)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>执行FFmpeg命令</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>command</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>string</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>callback</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">String</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>string</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>complete</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Block</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>(eror) =&gt;</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="getCommonImgWithParams">
+        <a class="href-link" href="#getCommonImgWithParams">#</a>
+        
+        <span class="code-name">
+            
+                getCommonImgWithParams<span class="signature">(imgId, hostParams, pathParams)</span><span class="type-signature"> &rarr; {Promise.&lt;String>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>获取通用图片接口（如云存储视频缩略图）</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>imgId</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>图片唯一标识ID 如imgStoreId</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>hostParams</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>接口信息: 如获取云存储缩略图{&quot;prefix&quot;:&quot;business.smartcamera.&quot;, &quot;method&quot;:&quot;GET&quot;, &quot;path&quot;:&quot;/miot/camera/app/v1/img&quot;}   注：key固定的</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>pathParams</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>请求参数: 如获取云存储缩略图{&quot;did&quot;:&quot;xxxx&quot;, &quot;fileId&quot;:&quot;xxxx&quot;, &quot;stoId&quot;:&quot;xxxxxxxx&quot;}</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10041</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>文件路径</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Promise.&lt;String></span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="getCurrentSpeakerVolumn">
+        <a class="href-link" href="#getCurrentSpeakerVolumn">#</a>
+        
+        <span class="code-name">
+            
+                getCurrentSpeakerVolumn<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>获取当前语音对讲过程中的音量大小</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10038
+return {promise}</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="getFaceImgWithDid">
+        <a class="href-link" href="#getFaceImgWithDid">#</a>
+        
+        <span class="code-name">
+            
+                getFaceImgWithDid<span class="signature">(faceId)</span><span class="type-signature"> &rarr; {Promise.&lt;String>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>获取人脸图片接口</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>faceId</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>人脸id</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10040</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>文件路径</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Promise.&lt;String></span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="getFileIdImage">
+        <a class="href-link" href="#getFileIdImage">#</a>
+        
+        <span class="code-name">
+            
+                getFileIdImage<span class="signature">(imgStoreId)</span><span class="type-signature"> &rarr; {Promise.&lt;String>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>获取视频缩略图片接口（如报警视频列表缩略图）</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>imgStoreId</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>图片id</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10037</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>文件路径</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Promise.&lt;String></span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="getVideoFileUrl">
+        <a class="href-link" href="#getVideoFileUrl">#</a>
+        
+        <span class="code-name">
+            
+                getVideoFileUrl<span class="signature">(fileId, isAlarm, videoCodec)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>获取报警视频m3u8播放地址</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>fileId</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>视频fileId</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>isAlarm</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>是否报警视频</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>videoCodec</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>视频编码如 &quot;H264&quot;, &quot;H265&quot;</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10037</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="markCurrrentDeviceRdtDataEncrypted">
+        <a class="href-link" href="#markCurrrentDeviceRdtDataEncrypted">#</a>
+        
+        <span class="code-name">
+            
+                markCurrrentDeviceRdtDataEncrypted<span class="signature">(isEncrypted)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>标记当前固件是否是tutk rdt的数据被加密的</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>isEncrypted</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>rdt数据是否被加密</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10041
+应该在发送rdt命令之前调用。</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="openAlarmVideoPlayer">
+        <a class="href-link" href="#openAlarmVideoPlayer">#</a>
+        
+        <span class="code-name">
+            
+                openAlarmVideoPlayer<span class="signature">(data)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>打开报警视频播放页面</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>data</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>jsonobj=&gt;str 从push点击跳转进来后，如果是smartscene 就把extra字段捞出来放到这里</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10037</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="openFloatWindow">
+        <a class="href-link" href="#openFloatWindow">#</a>
+        
+        <span class="code-name">
+            
+                openFloatWindow<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>开启悬浮窗模式</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10039</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="queryDevicePassword">
+        <a class="href-link" href="#queryDevicePassword">#</a>
+        
+        <span class="code-name">
+            
+                queryDevicePassword<span class="signature">(did)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>查询设备的pipUid和password，提供给部分model进行固件交互
+仅仅允许华来部分model使用，其他model访问会得到一个错误。
+resolve返回的值即为服务器返回的json字串。</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>did</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>设备did</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10041</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="sendP2PCommandToDevice">
+        <a class="href-link" href="#sendP2PCommandToDevice">#</a>
+        
+        <span class="code-name">
+            
+                sendP2PCommandToDevice<span class="signature">(command, paramsJson)</span><span class="type-signature"> &rarr; {Promise.&lt;number>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>发送miss命令到设备</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>command</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">MISSCommand</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>miss 命令</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>paramsJson</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>参数 要求是符合jsonObj形式的数据</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>a promise with return code</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Promise.&lt;number></span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="sendP2PCommandToDeviceWithBase64Param">
+        <a class="href-link" href="#sendP2PCommandToDeviceWithBase64Param">#</a>
+        
+        <span class="code-name">
+            
+                sendP2PCommandToDeviceWithBase64Param<span class="signature">(command, base64Param)</span><span class="type-signature"> &rarr; {Promise.&lt;number>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>发送miss命令到设备 主要处理部分model发送命令的参数不是json格式，而是byte数组形式的命令。 byte数组请用base64编码得到string再调用这个接口。</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>command</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">MISSCommand</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>miss 命令  如果是tutk，米家标准的命令号要转为用Miss的命令号，如果是自定义命令 直接发送</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>base64Param</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>参数:  byte[]数组base64 encode后的字串</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>a promise with return code</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Promise.&lt;number></span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="sendP2PCommandToDeviceWithStringParam">
+        <a class="href-link" href="#sendP2PCommandToDeviceWithStringParam">#</a>
+        
+        <span class="code-name">
+            
+                sendP2PCommandToDeviceWithStringParam<span class="signature">(command, paramStr)</span><span class="type-signature"> &rarr; {Promise.&lt;number>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>发送miss命令到设备 主要处理部分model发送命令的参数不是json格式，也不是 byte数组编码得到的str，而是普通的字串</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>command</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">MISSCommand</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>miss 命令  如果是tutk，米家标准的命令号要转为用Miss的命令号，如果是自定义命令 直接发送</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>paramStr</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>参数: string参数，非json 非 base64</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>a promise with return code</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Promise.&lt;number></span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="sendRDTCommandToDevice">
+        <a class="href-link" href="#sendRDTCommandToDevice">#</a>
+        
+        <span class="code-name">
+            
+                sendRDTCommandToDevice<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;number>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>发送RDT命令到设备</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>params</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>base64 encoded data</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>a promise with return code</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Promise.&lt;number></span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="sendRDTJSONCommandToDevice">
+        <a class="href-link" href="#sendRDTJSONCommandToDevice">#</a>
+        
+        <span class="code-name">
+            
+                sendRDTJSONCommandToDevice<span class="signature">(params)</span><span class="type-signature"> &rarr; {Promise.&lt;number>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>发送RDT命令到设备</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>params</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>json data</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>a promise with return code</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Promise.&lt;number></span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="setCurrentDeviceIsMissFirmware">
+        <a class="href-link" href="#setCurrentDeviceIsMissFirmware">#</a>
+        
+        <span class="code-name">
+            
+                setCurrentDeviceIsMissFirmware<span class="signature">(boolean)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>设置当前model是不是miss固件</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>boolean</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>isMissFirmware  是否是miss固件，true 是； false tutk固件。</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10038</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="setTimelinePlaybackMode">
+        <a class="href-link" href="#setTimelinePlaybackMode">#</a>
+        
+        <span class="code-name">
+            
+                setTimelinePlaybackMode<span class="signature">(isTimelinePlayback)</span><span class="type-signature"> &rarr; {null}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>通知native端现在是不是回看时间轴模式</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>isTimelinePlayback</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">boolean</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>是不是回看时间轴模式</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10038</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">null</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="showAlarmVideos">
+        <a class="href-link" href="#showAlarmVideos">#</a>
+        
+        <span class="code-name">
+            
+                showAlarmVideos<span class="signature">(AlarmEventType)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>打开报警视频页面
+这个接口按照现有的标准报警视频交互，报警视频列表页筛选项默认有：全部、物体移动、人性移动、AI；如果是vip用户，就再加上人脸、宝宝哭声这两个筛选项；
+这里添加这个localRecognizeEvents的目的是：主要处理，部分model不是vip，也会有宝宝哭声的筛选项，这个参数的作用：用户如果不是vip，但是又有默认选项之外的筛选项时，通过这个参数来添加人脸或者宝宝哭声的选项。</p>
+<p>现在除创米021那几款摄像头，都只传0就行了</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>AlarmEventType</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>取或</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10033</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="showCloudStorage">
+        <a class="href-link" href="#showCloudStorage">#</a>
+        
+        <span class="code-name">
+            
+                showCloudStorage<span class="signature">(supportHevc, 是否使用)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>打开云储存页面</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>supportHevc</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">BOOL</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>是否支持 H265</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>是否使用</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">useV2API</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>V2 接口</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10033</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="showCloudStorageSetting">
+        <a class="href-link" href="#showCloudStorageSetting">#</a>
+        
+        <span class="code-name">
+            
+                showCloudStorageSetting<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>打开云储存设置页面</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10033</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="showFaceRecognize">
+        <a class="href-link" href="#showFaceRecognize">#</a>
+        
+        <span class="code-name">
+            
+                showFaceRecognize<span class="signature">(isVip)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>打开人脸识别页面</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>isVip</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">BOOL</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10033</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="showNASSetting">
+        <a class="href-link" href="#showNASSetting">#</a>
+        
+        <span class="code-name">
+            
+                showNASSetting<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>打开摄像机NAS存储设置页面。</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10038</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="tryBindAlarmNotifyWithWechatMijia">
+        <a class="href-link" href="#tryBindAlarmNotifyWithWechatMijia">#</a>
+        
+        <span class="code-name">
+            
+                tryBindAlarmNotifyWithWechatMijia<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>绑定摄像头的报警视频到微信米家公众号里，有报警视频推送到微信公共号</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>10040</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

@@ -1,0 +1,2393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> miot/ui/AMapView</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-CommonSetting.html">CommonSetting</a></li><li><a href="module-FirmwareUpgrade.html">FirmwareUpgrade</a></li><li><a href="module-IndependentCard.html">IndependentCard</a></li><li><a href="module-miot.html">miot</a></li><li><a href="module-miot_device.html">miot/device</a></li><li><a href="module-miot_device_bluetooh.html">miot/device/bluetooh</a></li><li><a href="module-miot_device_bluetooth.html">miot/device/bluetooth</a></li><li><a href="module-miot_device_bluetooth_blespec.html">miot/device/bluetooth/blespec</a></li><li><a href="module-miot_Host.html">miot/Host</a></li><li><a href="module-miot_host_audio.html">miot/host/audio</a></li><li><a href="module-miot_host_crypto.html">miot/host/crypto</a></li><li><a href="module-miot_host_file.html">miot/host/file</a></li><li><a href="module-miot_host_locale.html">miot/host/locale</a></li><li><a href="module-miot_host_storage.html">miot/host/storage</a></li><li><a href="module-miot_host_ui.html">miot/host/ui</a></li><li><a href="module-miot_Properties.html">miot/Properties</a></li><li><a href="module-miot_resources.html">miot/resources</a></li><li><a href="module-miot_Service.html">miot/Service</a></li><li><a href="module-miot_service_Account.html">miot/service/Account</a></li><li><a href="module-miot_service_infra.html">miot/service/infra</a></li><li><a href="module-miot_service_ircontroller.html">miot/service/ircontroller</a></li><li><a href="module-miot_service_miotcamera.html">miot/service/miotcamera</a></li><li><a href="module-miot_service_Room.html">miot/service/Room</a></li><li><a href="module-miot_service_scene.html">miot/service/scene</a></li><li><a href="module-miot_service_security.html">miot/service/security</a></li><li><a href="module-miot_service_smarthome.html">miot/service/smarthome</a></li><li><a href="module-miot_service_spec.html">miot/service/spec</a></li><li><a href="module-miot_service_storage.html">miot/service/storage</a></li><li><a href="module-miot_ui.html">miot/ui</a></li><li><a href="module-miot_ui_.html">miot/ui/</a></li><li><a href="module-miot_ui_AMapView.html">miot/ui/AMapView</a></li><li><a href="module-miot_ui_CameraRender.html">miot/ui/CameraRender</a></li><li><a href="module-miot_ui_ImageButton.html">miot/ui/ImageButton</a></li><li><a href="module-miot_ui_InputDialog.html">miot/ui/InputDialog</a></li><li><a href="module-miot_ui_LoadingDialog.html">miot/ui/LoadingDialog</a></li><li><a href="module-miot_ui_LocalizedStrings.html">miot/ui/LocalizedStrings</a></li><li><a href="module-miot_ui_MessageDialog.html">miot/ui/MessageDialog</a></li><li><a href="module-miot_ui_ProgressDialog.html">miot/ui/ProgressDialog</a></li><li><a href="module-miot_ui_RobotMap.html">miot/ui/RobotMap</a></li><li><a href="module-miot_ui_SingleChoseDialog.html">miot/ui/SingleChoseDialog</a></li><li><a href="module-miot_ui_TitleBarBlack.html">miot/ui/TitleBarBlack</a></li><li><a href="module-miot_ui_TitleBarWhite.html">miot/ui/TitleBarWhite</a></li><li><a href="module-MoreSetting.html">MoreSetting</a></li><li><a href="module-Package.html">Package</a></li><li><a href="module-PackageEvent.html">PackageEvent</a></li><li><a href="module-PackageRoot.html">PackageRoot</a></li><li><a href="module-Radio.html">Radio</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-miot_device_bluetooh-BluetoothEvent.html">BluetoothEvent</a></li><li><a href="module-miot_device_bluetooth-ClassicBluetoothEvent.html">ClassicBluetoothEvent</a></li><li><a href="module-miot_device-DeviceEvent.html">DeviceEvent</a></li><li><a href="module-miot_host_audio-AudioEvent.html">AudioEvent</a></li><li><a href="module-miot_host_file-FileEvent.html">FileEvent</a></li><li><a href="module-miot_Host-HostEvent.html">HostEvent</a></li><li><a href="module-miot_resources-Language.html">Language</a></li><li><a href="module-miot_service_miotcamera-AlarmEventType.html">AlarmEventType</a></li><li><a href="module-miot_service_miotcamera-MISSCommand.html">MISSCommand</a></li><li><a href="module-miot_service_miotcamera-MISSConnectState.html">MISSConnectState</a></li><li><a href="module-miot_service_miotcamera-MISSError.html">MISSError</a></li><li><a href="module-miot_service_scene-SceneType.html">SceneType</a></li><li><a href="module-miot_service_smarthome-MemberType.html">MemberType</a></li><li><a href="module-miot_ui_CameraRender-MISSAudioChannel.html">MISSAudioChannel</a></li><li><a href="module-miot_ui_CameraRender-MISSCodec.html">MISSCodec</a></li><li><a href="module-miot_ui_CameraRender-MISSDataBits.html">MISSDataBits</a></li><li><a href="module-miot_ui_CameraRender-MISSSampleRate.html">MISSSampleRate</a></li><li><a href="module-PackageRoot-Entrance.html">Entrance</a></li></ul><h3>Classes</h3><ul><li><a href="IKookong.html">IKookong</a></li><li><a href="module-miot_host_crypto.ECCCrypto.html">ECCCrypto</a></li><li><a href="module-miot_service_infra-ITJInfra.html">ITJInfra</a></li><li><a href="module-miot_service_ircontroller-IIrcontroller.html">IIrcontroller</a></li><li><a href="module-miot_service_miotcamera-IMiotCamera.html">IMiotCamera</a></li><li><a href="module-miot_service_Room-IMiotRoom.html">IMiotRoom</a></li><li><a href="module-miot_service_scene-IMiotScene.html">IMiotScene</a></li><li><a href="module-miot_service_security-ISecurity.html">ISecurity</a></li><li><a href="module-miot_service_smarthome-ISmartHome.html">ISmartHome</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-miot_device.html">miot/device</a></li><li><a href="module-miot_device.BasicDevice.html">BasicDevice</a></li><li><a href="module-miot_device_bluetooh.IBluetooth.html">IBluetooth</a></li><li><a href="module-miot_device_bluetooth.html">miot/device/bluetooth</a></li><li><a href="module-miot_device_bluetooth.IBluetoothCharacteristic.html">IBluetoothCharacteristic</a></li><li><a href="module-miot_device_bluetooth.IBluetoothService.html">IBluetoothService</a></li><li><a href="module-miot_device_bluetooth_blespec-BleSpec.html">BleSpec</a></li><li><a href="module-miot_host_audio-IAudio.html">IAudio</a></li><li><a href="module-miot_host_crypto-ICrypto.html">ICrypto</a></li><li><a href="module-miot_host_file-IFile.html">IFile</a></li><li><a href="module-miot_host_locale-ILocale.html">ILocale</a></li><li><a href="module-miot_host_storage-IStorage.html">IStorage</a></li><li><a href="module-miot_host_ui-IUi.html">IUi</a></li><li><a href="module-miot_Properties-IProperties.html">IProperties</a></li><li><a href="module-miot_service_Account-IAccount.html">IAccount</a></li><li><a href="module-miot_service_Room.IMHRoom.html">IMHRoom</a></li><li><a href="module-miot_service_scene.IScene.html">IScene</a></li><li><a href="module-miot_service_security.ISecureKey.html">ISecureKey</a></li><li><a href="module-miot_service_storage-ICloudStorage.html">ICloudStorage</a></li></ul><h3>Events</h3><ul><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothCharacteristicDiscovered">bluetoothCharacteristicDiscovered</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothCharacteristicDiscoverFailed">bluetoothCharacteristicDiscoverFailed</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothCharacteristicValueChanged">bluetoothCharacteristicValueChanged</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothConnectionStatusChanged">bluetoothConnectionStatusChanged</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothDeviceDiscovered">bluetoothDeviceDiscovered</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothDeviceDiscoverFailed">bluetoothDeviceDiscoverFailed</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothSeviceDiscovered">bluetoothSeviceDiscovered</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothSeviceDiscoverFailed">bluetoothSeviceDiscoverFailed</a></li><li><a href="module-miot_device_bluetooh-BluetoothEvent.html#.event:bluetoothStatusChanged">bluetoothStatusChanged</a></li><li><a href="module-miot_device-DeviceEvent.html#.event:bleDeviceFirmwareNeedUpgrade">bleDeviceFirmwareNeedUpgrade</a></li><li><a href="module-miot_device-DeviceEvent.html#.event:deviceNameChanged">deviceNameChanged</a></li><li><a href="module-miot_device-DeviceEvent.html#.event:deviceReceivedMessages">deviceReceivedMessages</a></li><li><a href="module-miot_device-DeviceEvent.html#.event:deviceStatusChanged">deviceStatusChanged</a></li><li><a href="module-miot_device-DeviceEvent.html#.event:deviceTimeZoneChanged">deviceTimeZoneChanged</a></li><li><a href="module-miot_device-DeviceEvent.html#.event:multiSwitchNameChanged">multiSwitchNameChanged</a></li><li><a href="module-miot_host_audio-AudioEvent.html#.event:audioPlayerDidFinishPlaying">audioPlayerDidFinishPlaying</a></li><li><a href="module-miot_host_audio-AudioEvent.html#.event:audioPlayerDidStartPlaying">audioPlayerDidStartPlaying</a></li><li><a href="module-miot_host_audio-AudioEvent.html#.event:updateAudioPlayerTime">updateAudioPlayerTime</a></li><li><a href="module-miot_Host-HostEvent.html#.event:cellPhoneNetworkStateChanged">cellPhoneNetworkStateChanged</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageAuthorizationAgreed">packageAuthorizationAgreed</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageAuthorizationCancel">packageAuthorizationCancel</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageDidLoaded">packageDidLoaded</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageDidResume">packageDidResume</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageReceivedInformation">packageReceivedInformation</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageViewWillAppear">packageViewWillAppear</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageViewWillDisappearIOS">packageViewWillDisappearIOS</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageWillExit">packageWillExit</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageWillLoad">packageWillLoad</a></li><li><a href="module-PackageEvent-PackageEvent.html#.event:packageWillPause">packageWillPause</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AbstractDialog">AbstractDialog</a></li><li><a href="global.html#accessibilityLabel">accessibilityLabel</a></li><li><a href="global.html#accessible">accessible</a></li><li><a href="global.html#addLinkage">addLinkage</a></li><li><a href="global.html#blurRadius">blurRadius</a></li><li><a href="global.html#capInsets">capInsets</a></li><li><a href="global.html#defaultSource">defaultSource</a></li><li><a href="global.html#deviceID">deviceID</a></li><li><a href="global.html#dynamicStyleSheet">dynamicStyleSheet</a></li><li><a href="global.html#excludeOptions">excludeOptions</a></li><li><a href="global.html#firstAllOptionsWeight">firstAllOptionsWeight</a></li><li><a href="global.html#firstSharedOptions">firstSharedOptions</a></li><li><a href="global.html#getLinkage">getLinkage</a></li><li><a href="global.html#getLinkedBTDevices">getLinkedBTDevices</a></li><li><a href="global.html#getSize">getSize</a></li><li><a href="global.html#getSubDevices">getSubDevices</a></li><li><a href="global.html#getSupportedDevices">getSupportedDevices</a></li><li><a href="global.html#getSupportedDevicesWithLinkage">getSupportedDevicesWithLinkage</a></li><li><a href="global.html#layerScaleFilter">layerScaleFilter</a></li><li><a href="global.html#loadingIndicatorSource">loadingIndicatorSource</a></li><li><a href="global.html#miot/ui/MultiChoseDialog">miot/ui/MultiChoseDialog</a></li><li><a href="global.html#onError">onError</a></li><li><a href="global.html#onLayout">onLayout</a></li><li><a href="global.html#onLoad">onLoad</a></li><li><a href="global.html#onLoadEnd">onLoadEnd</a></li><li><a href="global.html#onLoadStart">onLoadStart</a></li><li><a href="global.html#onPartialLoad">onPartialLoad</a></li><li><a href="global.html#onProgress">onProgress</a></li><li><a href="global.html#prefetch">prefetch</a></li><li><a href="global.html#removeLinkage">removeLinkage</a></li><li><a href="global.html#report">report</a></li><li><a href="global.html#resizeMethod">resizeMethod</a></li><li><a href="global.html#resizeMode">resizeMode</a></li><li><a href="global.html#scan">scan</a></li><li><a href="global.html#secondSharedOptions">secondSharedOptions</a></li><li><a href="global.html#setEnable">setEnable</a></li><li><a href="global.html#source">source</a></li><li><a href="global.html#src">src</a></li><li><a href="global.html#style">style</a></li><li><a href="global.html#supportModelToConnect">supportModelToConnect</a></li><li><a href="global.html#testID">testID</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Module</p>
+                    <h1>miot/ui/AMapView</h1>
+                </header>
+                
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>地图的 js 桥接，内部使用高德地图实现，</p></div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Members</h1>
+            <div class="members">
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">bool</span>
+
+
+    </span>
+
+<h4 class="name" id="~allowsBackgroundLocationUpdates">
+    <a class="href-link" href="#~allowsBackgroundLocationUpdates">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        allowsBackgroundLocationUpdates
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>允许后台更新位置信息</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">array</span>
+
+
+    </span>
+
+<h4 class="name" id="~annotations">
+    <a class="href-link" href="#~annotations">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        annotations
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>标记点数组<br>
+格式：[{'coordinate':{latitude: number, longitude: number}, 'title':'aaa', 'subtitle':'', 'id':'', 'image':'imagePath', 'canShowCallout': true}]
+canShowCallout 是否点击后显示title</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id="~centerCoordinate">
+    <a class="href-link" href="#~centerCoordinate">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        centerCoordinate
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>中心点坐标<br>
+格式：{latitude: number, longitude: number}</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">array</span>
+
+
+    </span>
+
+<h4 class="name" id="~circles">
+    <a class="href-link" href="#~circles">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        circles
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>绘制圆形layer数组<br>
+格式: [{'coordinate':{latitude: number, longitude: number}, 'radius':number, 'strokeColor': color, 'fillColor': color ,'id': 'string', 'lineWidth': numebr}]</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id="~compassOrigin">
+    <a class="href-link" href="#~compassOrigin">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        compassOrigin
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>罗盘原点位置<br>
+格式：{'x':number, 'y':number}</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">number</span>
+
+
+    </span>
+
+<h4 class="name" id="~desiredAccuracy">
+    <a class="href-link" href="#~desiredAccuracy">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        desiredAccuracy
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>定位精度</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">number</span>
+
+
+    </span>
+
+<h4 class="name" id="~distanceFilter">
+    <a class="href-link" href="#~distanceFilter">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        distanceFilter
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>设定定位的最小更新距离，即移动多远会提示移动</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">number</span>
+
+
+    </span>
+
+<h4 class="name" id="~headingFilter">
+    <a class="href-link" href="#~headingFilter">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        headingFilter
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>设定最小更新角度。默认为1度。</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">number</span>
+
+
+    </span>
+
+<h4 class="name" id="~language">
+    <a class="href-link" href="#~language">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        language
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>地图语言的支持, 目前仅支持中英文, 默认中文
+0: 表示中文;  1: 表示英文</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">number</span>
+
+
+    </span>
+
+<h4 class="name" id="~logoPosition">
+    <a class="href-link" href="#~logoPosition">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        logoPosition
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>地图logo的显示位置, 默认左边底部
+0: 左边底部;   1：中间底部;   2：右边底部;</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">number</span>
+
+
+    </span>
+
+<h4 class="name" id="~mapType">
+    <a class="href-link" href="#~mapType">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        mapType
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>地图类型<br>
+0&lt; 普通地图 1&lt; 卫星地图</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">array</span>
+
+
+    </span>
+
+<h4 class="name" id="~multiPolylines">
+    <a class="href-link" href="#~multiPolylines">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        multiPolylines
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>绘制自定义线条数组<br>
+drawStyleIndexes: 颜色索引数组(使用颜色数组中的指定色),成员为number,且为非负数，负数按0处理
+colors: 颜色数组，用于渲染线段
+格式: ['coordinates':[{latitude: number, longitude: number}], 'drawStyleIndexes': [], colors: [color], 'renderGradient': boolean, 'renderLineWidth': number]</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">func</span>
+
+
+    </span>
+
+<h4 class="name" id="~onMapDidZoomByUser">
+    <a class="href-link" href="#~onMapDidZoomByUser">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        onMapDidZoomByUser
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>用户缩放地图回调，已经缩放</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">func</span>
+
+
+    </span>
+
+<h4 class="name" id="~onMapWillZoomByUser">
+    <a class="href-link" href="#~onMapWillZoomByUser">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        onMapWillZoomByUser
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>用户缩放地图回调，将要缩放</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">func</span>
+
+
+    </span>
+
+<h4 class="name" id="~onSelectAnnotationView">
+    <a class="href-link" href="#~onSelectAnnotationView">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        onSelectAnnotationView
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>选中某点标记回调</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">func</span>
+
+
+    </span>
+
+<h4 class="name" id="~onSingleTappedAtCoordinate">
+    <a class="href-link" href="#~onSingleTappedAtCoordinate">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        onSingleTappedAtCoordinate
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>点击某坐标回调</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">func</span>
+
+
+    </span>
+
+<h4 class="name" id="~onUpdateUserLocation">
+    <a class="href-link" href="#~onUpdateUserLocation">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        onUpdateUserLocation
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>用户位置更新回调</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">bool</span>
+
+
+    </span>
+
+<h4 class="name" id="~pausesLocationUpdatesAutomatically">
+    <a class="href-link" href="#~pausesLocationUpdatesAutomatically">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        pausesLocationUpdatesAutomatically
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>是否自动暂停位置更新</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">array</span>
+
+
+    </span>
+
+<h4 class="name" id="~polylines">
+    <a class="href-link" href="#~polylines">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        polylines
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>绘制线条数组,默认格式<br>
+格式: ['coordinates':[{latitude: number, longitude: number}], 'id':'string']</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id="~scaleOrigin">
+    <a class="href-link" href="#~scaleOrigin">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        scaleOrigin
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>比例尺原点位置<br>
+格式：{'x':number, 'y':number}</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">bool</span>
+
+
+    </span>
+
+<h4 class="name" id="~showsCompass">
+    <a class="href-link" href="#~showsCompass">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        showsCompass
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>是否显示指南针</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">bool</span>
+
+
+    </span>
+
+<h4 class="name" id="~showsScale">
+    <a class="href-link" href="#~showsScale">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        showsScale
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>是否显示坐标尺</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">bool</span>
+
+
+    </span>
+
+<h4 class="name" id="~showsUserLocation">
+    <a class="href-link" href="#~showsUserLocation">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        showsUserLocation
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>是否显示用户位置</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">bool</span>
+
+
+    </span>
+
+<h4 class="name" id="~trafficEnabled">
+    <a class="href-link" href="#~trafficEnabled">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        trafficEnabled
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>是否显示交通状况</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id="~userLocation">
+    <a class="href-link" href="#~userLocation">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        userLocation
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>用户定位</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id="~userLocationRepresentation">
+    <a class="href-link" href="#~userLocationRepresentation">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        userLocationRepresentation
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>用户位置显示样式控制<br>
+格式：{'image':'imagePath', 'imageScale': number, 'showsAccuracyRing':boolean, 'showsHeadingIndicator': boolean, 'lineWidth':number, 'fillColor': color, 'strokeColor': color, 'lineDashPattern':[]}</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">string</span>
+
+
+    </span>
+
+<h4 class="name" id="~userTrackingMode">
+    <a class="href-link" href="#~userTrackingMode">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        userTrackingMode
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>定位用户位置的模式<br>
+none &lt; 不追踪用户的location更新<br>
+follow &lt; 追踪用户的location更新<br>
+followWithHeading &lt; 追踪用户的location与heading更新</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">bool</span>
+
+
+    </span>
+
+<h4 class="name" id="~zoomEnabled">
+    <a class="href-link" href="#~zoomEnabled">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        zoomEnabled
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>是否允许用户缩放</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">number</span>
+
+
+    </span>
+
+<h4 class="name" id="~zoomLevel">
+    <a class="href-link" href="#~zoomLevel">#</a>
+    
+        
+            <span class='tag'>inner</span>
+        
+    
+    <span class="code-name">
+        zoomLevel
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>缩放级别, [3, 20]</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>
