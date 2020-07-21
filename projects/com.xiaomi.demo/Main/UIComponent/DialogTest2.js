@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import ConfigMode from '../../../../miot-plugin-prototype/modules/fix/ConfigMode';
+import { Component } from 'react';
 
 class DialogTest2 extends Component {
   constructor(props) {
@@ -9,11 +8,7 @@ class DialogTest2 extends Component {
   render() {
     let { messageDialog } = this.props.navigation.state.params;
 
-    return (
-      <ConfigMode
-
-      />
-    );
+    return (messageDialog);
   }
 }
 

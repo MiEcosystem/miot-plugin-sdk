@@ -496,10 +496,11 @@ class IFile {
     }
     /**
      * 保存指定图片文件到以did命名的相册中
-     * 该方法会在系统相册中创建一个以did命名的相册（如果不存在），并将图片保存在其中
+     * 该方法会在系统相册中创建一个以did[-customDirName]命名的相册（如果不存在），并将图片保存在其中
      * @since 10037
-     * @param {string} fileName
-     * @returns {Promise}
+     * @param {string} fileName 图片在沙盒中的文件名
+     * @param {string} customDirName 自定义相册名称，默认为null，since 10042
+     * @returns {Promiste}
      * 成功时：返回true
      * 失败时：
      *  {"code":-401, "message":"access to photo library denied" }
@@ -512,7 +513,7 @@ class IFile {
      * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
      */
     @report
-    saveImageToPhotosDidAlbum(fileName) {
+    saveImageToPhotosDidAlbum(fileName, customDirName = null) {
        return Promise.resolve(false)
     }
     /**
@@ -520,6 +521,7 @@ class IFile {
      * 该方法会在系统相册中创建一个以did命名的相册（如果不存在），并将视频保存在其中
      * @since 10037
      * @param {string} fileName
+     * @param {string} customDirName 自定义相册名称，默认为null, since 10042
      * @returns {Promise}
      * 成功时：返回true
      * 失败时：
@@ -534,13 +536,14 @@ class IFile {
      * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
      */
     @report
-    saveVideoToPhotosDidAlbum(fileName) {
+    saveVideoToPhotosDidAlbum(fileName, customDirName = null) {
        return Promise.resolve(false)
     }
     /**
      * 从did命名的相册中 通过url获取视频文件的filepath
      * @since 10037
      * @param {string} url
+     * @param {string} customDirName 自定义相册名称，默认为null, since 10042
      * @returns {Promise}
      * 成功时：返回true
      * 失败时：
@@ -551,13 +554,14 @@ class IFile {
      * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
      */
     @report
-    fetchLocalVideoFilePathFromDidAlbumByUrl(url) {
+    fetchLocalVideoFilePathFromDidAlbumByUrl(url, customDirName = null) {
        return Promise.resolve(false)
     }
     /**
      * 获取指定以did命名的相册中所有的图片和视频
      * 如果不存在该相册，返回空数组
      * @since 10037
+     * @param {string} customDirName 自定义相册名称，默认为null, since 10042
      * @returns {Promise}
      * 成功时：{"code":0, "data":[] }
      *      返回图片和视频信息
@@ -579,7 +583,7 @@ class IFile {
      * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
      */
     @report
-    getAllSourceFromPhotosDidAlbum() {
+    getAllSourceFromPhotosDidAlbum(customDirName = null) {
        return Promise.resolve(false)
     }
     /**

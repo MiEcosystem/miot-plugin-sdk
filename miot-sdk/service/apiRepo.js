@@ -161,6 +161,8 @@ const API_REPO = {
   '/v2/device/get_break_lock_alarm_info': {},
   '/v2/device/set_hijack_alarm_info': {},
   '/v2/device/get_hijack_alarm_info': {},
-  '/app/v2/home/get_interim_file_url_pro':{}
+  '/v2/device/del_alarm_info': {},
+  '/v2/home/get_interim_file_url_pro':{},
+  '/home/getfileurl_v3':{}
 };
 export default API_REPO;

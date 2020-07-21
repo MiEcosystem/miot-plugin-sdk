@@ -18,6 +18,9 @@ function getModelType() {
       return;
     }
     Service.spec.getSpecString(Device.deviceID).then((instance) => {
+      if (typeof instance === 'string') {
+        instance = JSON.parse(instance);
+      }
       if (instance && instance.type) {
         modelType = instance.type.split(':')[3];
         resolve(modelType);
@@ -642,7 +645,7 @@ export default class CommonSetting extends React.Component {
         {
           items.map((item, index) => {
             if (!item || !item.title) return null;
-            const showSeparator = index !== items.length - 1;
+            const showSeparator = false;// index !== items.length - 1;
             return (
               <ListItem
                 key={item.title}
@@ -658,6 +661,7 @@ export default class CommonSetting extends React.Component {
                 valueNumberOfLines={tempCommonSettingStyle.itemStyle.valueNumberOfLines}
                 showDot={item.showDot || false}
                 value={item.value}
+                showSeparator={showSeparator}
                 onPress={item.onPress}
                 {...getAccessibilityConfig({
                   accessible: this.props.accessible

@@ -291,9 +291,9 @@ function Search({ icon, iconBack, title, messages, rotate, onPress }) {
       </Text>
       <View style={{ width: '100%', height: 20 }}></View>
       {
-        messages.map((message) => {
+        messages.map((message, index) => {
           return (
-            <Text style={[Styles.detail, { textAlign: 'center' }]}>
+            <Text key={String(index)} style={[Styles.detail, { textAlign: 'center' }]}>
               {message}
             </Text>
           );
@@ -325,9 +325,9 @@ function List({ items, handle, headerMessage, footerMessage }) {
         headerMessage ? <View style={{ marginTop: 16, marginBottom: 10 }}><Text style={Styles.detail}>{headerMessage}</Text></View> : null
       }
       {
-        items.map((item) => {
+        items.map((item, index) => {
           return (
-            <View style={{ width: '100%', height: 54, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <View key={String(index)} style={{ width: '100%', height: 54, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
               <Text style={Styles.title}>{item.name}</Text>
               <TouchableOpacity style={{ width: 80, height: 34, borderRadius: 17, justifyContent: 'center', alignItems: 'center', backgroundColor: '#EAF8F8' }}
                 onPress={() => {

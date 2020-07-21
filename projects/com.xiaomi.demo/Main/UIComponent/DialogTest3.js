@@ -2,7 +2,7 @@ import { Component } from 'react';
 
 import React, { useRef } from 'react';
 import { StyleSheet } from 'react-native';
-import { ColorPicker } from '../../../../miot-plugin-prototype/modules/fix/ColorPicker';
+import { ColorPicker } from 'miot/ui/ColorPicker';
 
 function DialogTest3() {
   // constructor(props) {
@@ -21,7 +21,9 @@ function DialogTest3() {
           colorPicker.current?.setColor('#f2e3b7');
       }}
       onColorChange={(color) => {
-        console.warn('color:', color);
+        if (__DEV__ && console.warn) {
+          console.warn('color:', color);
+        }
       }}
     />
   );
