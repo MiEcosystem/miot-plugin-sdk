@@ -6,23 +6,23 @@ import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import ProtocolManager from "miot/utils/protocol-helper";
-let BUTTONS = [
+var BUTTONS = [
   '测试对话框',
-  '确定'
+  '确定',
 ];
 
 export default class PrivacyDemo extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      header: <TitleBar type="dark" title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
-        onPressLeft={() => { navigation.goBack(); }} />
+      header: <TitleBar type='dark' title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
+        onPressLeft={() => { navigation.goBack(); }} />,
     };
   };
 
   constructor(props) {
     super(props);
-    let ds = new ListView.DataSource({
+    var ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
     this._createMenuData();
@@ -32,7 +32,7 @@ export default class PrivacyDemo extends React.Component {
       privacy: true,
       hideAgreement: false,
       hideUserExperiencePlan: false,
-      experience: false
+      experience: false,
     };
   }
 
@@ -43,7 +43,7 @@ export default class PrivacyDemo extends React.Component {
         'func': () => {
           const licenseURL = require('../../../Resources/raw/license_zh.html');
           const privacyURL = require('../../../Resources/raw/privacy_zh.html');
-          let options = {};
+          var options = {}
           if (this.state.agreement) {
             options.agreementURL = licenseURL;
           }
@@ -54,20 +54,20 @@ export default class PrivacyDemo extends React.Component {
           if (this.state.experience) {
             options.experiencePlanURL = licenseURL;
           }
-          options.hideAgreement = this.state.hideAgreement;
+          options.hideAgreement = this.state.hideAgreement
           options.hideUserExperiencePlan = this.state.hideUserExperiencePlan;
 
-          ProtocolManager.setLegalInfoAuthHasShowed(false); // 这里作为demo需要强制显示，所以需要将该值置为false，实际生产环境中不应该这样做
-          // 这是为了演示需要，使用的是强制弹出的模式 具体使用方法可以参考iot文档 或 com.xiaomi.demo/MainPage.js部分样例
+          ProtocolManager.setLegalInfoAuthHasShowed(false); //这里作为demo需要强制显示，所以需要将该值置为false，实际生产环境中不应该这样做
+          //这是为了演示需要，使用的是强制弹出的模式 具体使用方法可以参考iot文档 或 com.xiaomi.demo/MainPage.js部分样例
           Host.ui.alertLegalInformationAuthorization(options).then((res) => {
-            console.log("res", res);
+            console.log("res", res)
             if (res) {
               // 表示用户同意授权
               Host.storage.set(licenseKey, true).then((res) => { });
             }
           }).catch((error) => {
-            console.log(error);
-          });
+            console.log(error)
+          })
         }
       },
       {
@@ -75,7 +75,7 @@ export default class PrivacyDemo extends React.Component {
         'func': () => {
           const licenseURL = require('../../../Resources/raw/license_zh.html');
           const privacyURL = require('../../../Resources/raw/privacy_zh.html');
-          let options = {};
+          var options = {}
           if (this.state.agreement) {
             options.agreementURL = licenseURL;
           }
@@ -87,18 +87,18 @@ export default class PrivacyDemo extends React.Component {
           if (this.state.experience) {
             options.experiencePlanURL = licenseURL;
           }
-          options.hideAgreement = this.state.hideAgreement;
+          options.hideAgreement = this.state.hideAgreement
           options.hideUserExperiencePlan = this.state.hideUserExperiencePlan;
 
           Host.ui.previewLegalInformationAuthorization(options).then((res) => {
-            console.log("res", res);
+            console.log("res", res)
             if (res) {
               // 表示用户同意授权
               Host.storage.set(licenseKey, true).then((res) => { });
             }
           }).catch((error) => {
-            console.log(error);
-          });
+            console.log(error)
+          })
         }
       },
       {
@@ -106,30 +106,30 @@ export default class PrivacyDemo extends React.Component {
         'func': () => {
           const licenseURL = require('../../../Resources/raw/license_zh.html');
           const policyURL = require('../../../Resources/raw/privacy_zh.html');
-          // 这里在正式使用时需要判断是否已经授权
+          //这里在正式使用时需要判断是否已经授权
           Host.ui.openPrivacyLicense('用户协议', licenseURL, '隐私政策', policyURL).then((res) => {
             if (res) {
               // 表示用户同意授权
               Host.storage.set(licenseKey, true).then((res) => { });
             }
           }).catch((error) => {
-            console.log(error);
-          });
+            console.log(error)
+          })
         }
       },
       {
         'name': '请求隐私政策授权(废弃)',
         'func': () => {
           const policyURL = require('../../../Resources/raw/privacy_zh.html');
-          // 这里在正式使用时需要判断是否已经授权
+          //这里在正式使用时需要判断是否已经授权
           Host.ui.openPrivacyLicense('', '', '隐私政策', policyURL).then((res) => {
             if (res) {
               // 表示用户同意授权
               Host.storage.set(licenseKey, true).then((res) => { });
             }
           }).catch((error) => {
-            console.log(error);
-          });
+            console.log(error)
+          })
         }
       },
 
@@ -138,14 +138,14 @@ export default class PrivacyDemo extends React.Component {
         'func': () => {
           const licenseURL = require('../../../Resources/raw/license_zh.html');
           const policyURL = require('../../../Resources/raw/privacy_zh.html');
-          Host.ui.privacyAndProtocolReview('用户协议', licenseURL, '隐私政策', policyURL);
+          Host.ui.privacyAndProtocolReview('用户协议', licenseURL, '隐私政策', policyURL)
         }
       },
       {
         'name': '预览隐私授权(废弃)',
         'func': () => {
           const policyURL = require('../../../Resources/raw/privacy_zh.html');
-          Host.ui.privacyAndProtocolReview('', '', '隐私政策', policyURL);
+          Host.ui.privacyAndProtocolReview('', '', '隐私政策', policyURL)
         }
       }
     ];
@@ -158,38 +158,38 @@ export default class PrivacyDemo extends React.Component {
           <Text>自定义用户协议</Text>
           <Switch
             style={{ width: 50, height: 25 }}
-            onTintColor="skyblue"
-            tintColor="lightgray"
+            onTintColor='skyblue'
+            tintColor='lightgray'
             value={this.state.agreement}
             // disabled={this.props.disabled}
-            onValueChange={(value) => this.setState({ agreement: value })}
+            onValueChange={value => this.setState({ agreement: value })}
           />
           <Text>自定义隐私协议</Text>
           <Switch
             style={{ width: 50, height: 25 }}
-            onTintColor="skyblue"
-            tintColor="lightgray"
+            onTintColor='skyblue'
+            tintColor='lightgray'
             value={this.state.privacy}
             // disabled={this.props.disabled}
-            onValueChange={(value) => this.setState({ privacy: value })}
+            onValueChange={value => this.setState({ privacy: value })}
           />
           <Text>隐藏用户协议</Text>
           <Switch
             style={{ width: 50, height: 25 }}
-            onTintColor="skyblue"
-            tintColor="lightgray"
+            onTintColor='skyblue'
+            tintColor='lightgray'
             value={this.state.hideAgreement}
             // disabled={this.props.disabled}
-            onValueChange={(value) => this.setState({ hideAgreement: value })}
+            onValueChange={value => this.setState({ hideAgreement: value })}
           />
           <Text>隐藏体验计划</Text>
           <Switch
             style={{ width: 50, height: 25 }}
-            onTintColor="skyblue"
-            tintColor="lightgray"
+            onTintColor='skyblue'
+            tintColor='lightgray'
             value={this.state.experience}
             // disabled={this.props.disabled}
-            onValueChange={(value) => this.setState({ experience: value, hideUserExperiencePlan: value })}
+            onValueChange={value => this.setState({ experience: value, hideUserExperiencePlan: value })}
           />
         </View>
         <ListView style={styles.list} dataSource={this.state.dataSource} renderRow={this._renderRow.bind(this)} />
@@ -199,7 +199,7 @@ export default class PrivacyDemo extends React.Component {
 
   _renderRow(rowData, sectionID, rowID) {
     return (
-      <TouchableHighlight underlayColor="#838383" onPress={() => this._pressRow(rowID)}>
+      <TouchableHighlight underlayColor='#838383' onPress={() => this._pressRow(rowID)}>
         <View>
           <View style={styles.rowContainer}>
             <Text style={styles.title}>{rowData}</Text>
@@ -212,7 +212,7 @@ export default class PrivacyDemo extends React.Component {
   }
 
   _pressRow(rowID) {
-    console.log(`row${ rowID }clicked!`);
+    console.log("row" + rowID + "clicked!");
     this._menuData[rowID].func();
   }
 
@@ -220,13 +220,13 @@ export default class PrivacyDemo extends React.Component {
     if (Host.isIOS)
       ActionSheetIOS.showActionSheetWithOptions({
         options: BUTTONS,
-        destructiveButtonIndex: 1
+        destructiveButtonIndex: 1,
       },
-      (buttonIndex) => {
+        (buttonIndex) => {
 
-      });
+        });
   }
-}
+};
 
 var styles = StyleSheet.create({
   container: {
@@ -238,7 +238,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffffff',
     marginBottom: 0,
-    marginTop: 0
+    marginTop: 0,
   },
 
   rowContainer: {
@@ -247,26 +247,26 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     paddingLeft: 23,
     paddingRight: 23,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   list: {
     flex: 1,
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
   },
 
   title: {
     fontSize: 15,
     color: '#333333',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
   },
   subArrow: {
     width: 7,
-    height: 14
+    height: 14,
   },
   separator: {
     height: 1 / PixelRatio.get(),
     backgroundColor: '#e5e5e5',
-    marginLeft: 20
+    marginLeft: 20,
   }
 });

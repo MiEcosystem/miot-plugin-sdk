@@ -7,6 +7,8 @@ import { strings, Styles } from '../../resources';
 import { ListItem, ListItemWithSwitch } from '../ListItem';
 import Separator from '../Separator';
 import { secondAllOptions, SETTING_KEYS } from "./CommonSetting";
+import { getAccessibilityConfig } from '../../utils/accessibility-helper';
+import { referenceReport } from '../../decorator/ReportDecorator';
 const { second_options } = SETTING_KEYS;
 const ListItemType = {
   LIST_ITEM: 'ListItem',
@@ -38,7 +40,11 @@ export default class FirmwareUpgrade extends React.Component {
       type: ListItemType.LIST_ITEM_WITH_SWITCH,
       title: strings.autoUpgrade,
       value: true,
-      onValueChange: () => console.warn('固件自动升级接口暂不支持')
+      onValueChange: () => {
+        if (__DEV__ && console.warn) {
+          console.warn('固件自动升级接口暂不支持');
+        }
+      }
     },
     [secondAllOptions.CHECK_UPGRADE]: {
       type: ListItemType.LIST_ITEM,
@@ -48,6 +54,7 @@ export default class FirmwareUpgrade extends React.Component {
   }
   constructor(props, context) {
     super(props, context);
+    referenceReport('FirmwareUpgrade');
     this.secondOptions = this.props.navigation.state.params.secondOptions || [secondAllOptions.AUTO_UPGRADE];
   }
   renderList(items) {
@@ -62,6 +69,9 @@ export default class FirmwareUpgrade extends React.Component {
               value={item.value}
               onPress={item.onPress}
               showSeparator={showSeparator}
+              {...getAccessibilityConfig({
+                accessible: item.accessible
+              })}
             />
           );
         case ListItemType.LIST_ITEM_WITH_SWITCH:
@@ -72,6 +82,9 @@ export default class FirmwareUpgrade extends React.Component {
               value={item.value}
               onValueChange={item.onValueChange}
               showSeparator={showSeparator}
+              {...getAccessibilityConfig({
+                accessible: item.accessible
+              })}
             />
           );
       }

@@ -50,7 +50,7 @@ import Storage from './service/storage';
 import TJInfra from './service/tjinfra';
 import MiotCamera from './service/miotcamera';
 import Kookong from './service/kookong';
-import Finder from './service/finder';
+import { NativeModules } from 'react-native';
  const CurrentAccount = null;
 export default {
   /**
@@ -124,9 +124,6 @@ export default {
   get kookong() {
     return Kookong;
   },
-  get finder() {
-    return Finder;
-  },
   /**
    * @method callSmartHomeAPI
    * @since 10024
@@ -155,6 +152,33 @@ export default {
    * @param {object} params 传入参数
    */
   callSmartHomeCameraAPI(api, subDomain, post, params) {
+     return Promise.resolve(null);
+  },
+  /**
+   * @method callSmartHomeCameraAPI
+   * @since 10041
+   * @description 小爱音箱相关接口请求,注意此请求传的是一个对象，里面部分对象有默认值，可不传
+   * @param {string} host 请求的host，取值normal，hd,profile,lbs,skillstore,aifile,ai,aitrain,grayupgrade,homealbum。表示的host分别如下...
+   * {
+   *    "normal": "https://api2.mina.mi.com",
+   *    "hd": "https://hd.mina.mi.com",
+   *    "profile": "https://userprofile.mina.mi.com",
+   *    "lbs": "https://lbs.mina.mi.com",
+   *    "skillstore": "https://skillstore.mina.mi.com",
+   *    "aifile": "https://file.ai.xiaomi.com",
+   *    "ai": "https://api.ai.xiaomi.com",
+   *    "aitrain": "https://i.ai.mi.com/mico",
+   *    "grayupgrade": "https://api.miwifi.com/rs/grayupgrade/v2/micoiOS",
+   *    "homealbum": "https://display.api.mina.mi.com"
+   * }
+   * @param {string} path 请求的路径，比如"/device_profile/conversation"
+   * @param {number} method 默认为0（表示get方法），1表示post方法，2表示put方法
+   * @param {object} params 请求的参数，比如{limit:20}
+   * @param {bool}   needDevice cookie中是否需要带上deviceId，默认为true
+   * @return {Promise<object>} 透传接口，直接返回服务端返回的值
+ path, method = 0, params, needDevice = 1
+   */
+  callXiaoaiNetworkAPI({ host = 'normal', path, method = 0, params, needDevice = 1 } = { 'host': 'normal', 'method': 0, 'needDevice': 1 }) {
      return Promise.resolve(null);
   },
   /**

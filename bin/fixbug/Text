@@ -81,6 +81,11 @@ const viewConfig = {
   uiViewClassName: 'RCTText'
 };
 
+function flatDeep(arr, d = 1) {
+  return d > 0 ? arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flatDeep(val, d - 1) : val), [])
+    : arr.slice();
+}
+
 /**
  * A React component for displaying text.
  *
@@ -125,10 +130,13 @@ class TouchableText extends React.Component<Props, State> {
       : null;
   }
 
+  
+
   static viewConfig = viewConfig;
 
   render(): React.Node {
     let props = this.props;
+    let ancestorProps = this.props;
     if (Platform === 'ios') {
       if (props.style) {
         if (props.style.color !== undefined && props.style.color !== null && props.style.color !== 'undefined') {
@@ -149,16 +157,26 @@ class TouchableText extends React.Component<Props, State> {
               }
             };
           }
+          ancestorProps = props;
         } else {
-          let tcolor = { 'value': 'blacktext' };
+          let tcolor = { 'value': '' };
+          let anceFlag = false;
           modifyTextColorIfNeeded(props.style, tcolor);
+          if (tcolor.value.length === 0) {
+            tcolor.value = 'blacktext';
+            anceFlag = true;
+          }
+          let styleArray = flatDeep([
+            props.style,
+            { color: tcolor.value }
+          ], 100);
           props = {
             ...props,
-            style: [
-              props.style,
-              { color: tcolor.value }
-            ]
+            style: styleArray
           };
+          if(!anceFlag){
+            ancestorProps = props;
+          }
         }
       } else {
         props = {
@@ -178,13 +196,24 @@ class TouchableText extends React.Component<Props, State> {
               ...props,
               style: [props.style, { fontFamily: "" }]
             };
+            ancestorProps = {
+              ...ancestorProps,
+              style: [ancestorProps.style, { fontFamily: "" }]
+            };
           }
         } else if (Object.prototype.toString.call(props.style) === '[object Object]') {
           if (!props.style.fontFamily) {
             props = {
               ...props,
               style: {
-                ...props.style,
+                ...props.style, 
+                fontFamily: ""
+              }
+            };
+            ancestorProps = {
+              ...ancestorProps,
+              style: {
+                ...ancestorProps.style, 
                 fontFamily: ""
               }
             };
@@ -198,11 +227,20 @@ class TouchableText extends React.Component<Props, State> {
         ...this.state.responseHandlers,
         isHighlighted: this.state.isHighlighted
       };
+      ancestorProps = {
+        ...ancestorProps,
+        ...this.state.responseHandlers,
+        isHighlighted: this.state.isHighlighted
+      };
     }
     if (props.selectionColor != null) {
       props = {
         ...props,
         selectionColor: processColor(props.selectionColor)
+      };
+      ancestorProps = {
+        ...ancestorProps,
+        selectionColor: processColor(ancestorProps.selectionColor)
       };
     }
     if (__DEV__) {
@@ -211,13 +249,18 @@ class TouchableText extends React.Component<Props, State> {
           ...props,
           style: [props.style, { color: 'magenta' }]
         };
+        ancestorProps = {
+          ...ancestorProps,
+          style: [ancestorProps.style, { color: 'magenta' }]
+        };
       }
     }
+    
     return (
       <TextAncestor.Consumer>
         {(hasTextAncestor) =>
           hasTextAncestor ? (
-            <RCTVirtualText {...props} ref={props.forwardedRef} />
+            <RCTVirtualText {...ancestorProps} ref={ancestorProps.forwardedRef} />
           ) : (
             <TextAncestor.Provider value={true}>
               <RCTText {...props} ref={props.forwardedRef} />

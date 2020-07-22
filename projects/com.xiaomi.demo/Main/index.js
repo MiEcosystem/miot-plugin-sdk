@@ -17,6 +17,7 @@
 import { Entrance, Package } from "miot";
 import { FirmwareUpgrade, MoreSetting } from "miot/ui/CommonSetting";
 import BTInterconnection from 'miot/ui/BTInterconnection';
+import BraceletInterconnection from 'miot/ui/BraceletInterconnection';
 import Setting from "./tutorial/Setting";
 
 import TitleBar from "miot/ui/TitleBar";
@@ -36,10 +37,20 @@ import SoftKeyboardAdapterTestDemo from './UIComponent/SoftKeyboardAdapterTestDe
 // ul
 import TitleBarDemo from "./tutorial/TitleBarDemo"; //  ui-导航栏使用
 import TabBarDemo from "./tutorial/TabBarDemo"; //  ui-导航栏使用
-import List from "./UIComponent/List"; // ui-自定义列表项
-import CardPage from "./UIComponent/CardPage"; // ui-自定义列卡片
-import IndependentCardDemo from "./UIComponent/IndependentCardDemo"; // ui - 独立卡片
-import ModeCardDemo from './UIComponent/ModeCardDemo'; // ui-模式卡片
+
+// List
+import ListDemoEntry from "./UIComponent/List/ListDemoEntry";
+import CustomListDemo from "./UIComponent/List/CustomListDemo";
+import RefreshListViewDemo from './UIComponent/List/RefreshListViewDemo';
+import AdaptedFontListDemo from './UIComponent/List/AdaptedFontListDemo';
+
+// 卡片相关
+import CardDemoEntry from "./UIComponent/Card/CardDemoEntry"; // ui-Card-入口
+import CustomCardDemo from "./UIComponent/Card/CustomCardDemo"; // ui-Card-自定义卡片
+import IndependentCardDemo from "./UIComponent/Card/IndependentCardDemo"; // ui-Card-独立卡片
+import ModeCardDemo from './UIComponent/Card/ModeCardDemo'; // ui-Card-模式卡片
+import AdaptedFontCardDemo from './UIComponent/Card/AdaptedFontCardDemo'; // ui-Card-模式卡片
+
 import RadioExample from "./UIComponent/RadioExample"; // ui-单选框
 import CheckboxDemo from "./UIComponent/CheckboxDemo"; // ui-复选框
 import GearExample from './UIComponent/GearExample'; // ui-拖拽选择档位组件
@@ -49,7 +60,6 @@ import MHDatePickerDemo from "./UIComponent/MHDatePickerDemo"; // ui-时间选�
 import BlankPageEntry from "./UIComponent/BlankPageEntry"; // ui-空白页面示例
 import ToastExample from "./UIComponent/ToastExample"; // ui-第三方 toast 组件使用示例
 import Parallax from "./UIComponent/Parallax"; // ui-ScrollView 吸附效果 demo
-// import RefreshListView from './UIComponent/RefreshListView'; // ui-RefreshListView
 import Dynamic from './UIComponent/swiper/Dynamic/'; // ui-swiperDynamic
 import LoadMinimal from './UIComponent/swiper/LoadMinimal/'; // ui-swiperLoadMinimal
 import Phone from './UIComponent/swiper/Phone/'; // ui-swiperPhone
@@ -123,12 +133,11 @@ import MHRoomDemo from "./Service/RoomDemo";
 import MHSceneDemo from "./Service/SceneDemo";
 import AccountDemo from './Service/AccountDemo';
 import KookongDemo from './Service/KookongDemo';
+// import AlarmPhoneDemo from './Service/AlarmPhoneDemo';
 import CallSmartHomeAPIDemo from './Service/smarthome';
 import CloudStorageDemo from './Service/CloudStorageDemo';
-import FinderDemo from './Service/FinderDemo';
 
 /** ******    UI 部分   ******* */
-import AddressBookDemo from './ThirdPartDemo/AddressBookDemo';
 import WebViewBridageDemo from './ThirdPartDemo/WebViewBridageDemo';
 import NavigationBarDemo from "./tutorial/NavigationBarDemo";
 import BlankDemo from './tutorial/BlankDemo';
@@ -146,7 +155,6 @@ import ContainersView from './ThirdPartDemo/Victory-Native/views/containers-view
 import CreateContainerView from './ThirdPartDemo/Victory-Native/views/create-container-view'; // ios 问题
 import ErrorsTooltipsView from './ThirdPartDemo/Victory-Native/views/errors-tooltips-view';
 import AreaView from './ThirdPartDemo/Victory-Native/views/area-view';
-import RefreshListView from './UIComponent/RefreshListView';
 import GLSimple from './ThirdPartDemo/openGL/Simple'; // ios 包有问题
 import GLHearts from './ThirdPartDemo/openGL/Hearts'; // ios 包有问题
 import GLAnimated from './ThirdPartDemo/openGL/Animated'; // ios 包有问题
@@ -194,7 +202,6 @@ function createRootStack(initPage) {
     HostDemo,
     HostEventDemo,
     Home: MainPage,
-    tutorialDemo: TutorialDemo,
     accountDemo: AccountDemo,
     DeviceControl,
     ControlDemo,
@@ -202,6 +209,7 @@ function createRootStack(initPage) {
     DeviceDemo,
     InterconnectionDemo,
     BTInterconnection,
+    BraceletInterconnection,
     moreMenu: MoreMenu,
     helloDeveloper: HelloDeveloper,
     helloReactART: HelloReactART,
@@ -213,24 +221,16 @@ function createRootStack(initPage) {
     ServiceDemo,
     UIDemo,
     SoftKeyboardAdapterTestDemo: SoftKeyboardAdapterTestDemo,
-    TitleBarDemo,
     TabBarDemo,
-    List,
-    CardPage,
-    IndependentCardDemo,
-    ModeCardDemo,
     RadioExample,
     CheckboxDemo,
     GearExample,
     SwitchDemo,
     DialogExample,
-    MHDatePickerDemo,
     BlankPageEntry,
     ToastExample,
-    Parallax,
     NavigateUIDemo,
     PrivacyDemo,
-    // RefreshListView,
     // swiper 开始
     swiperDynamic: Dynamic,
     swiperLoadMinimal: LoadMinimal,
@@ -262,25 +262,10 @@ function createRootStack(initPage) {
     LocaleServer,
     DarkModeDemo,
     JSExecutor,
-    UIKitHome: { screen: Screens.ComponentsScreen },
-    // --- 没有验证
-    Picker: { screen: Screens.PickerScreen },
-    Button: { screen: Screens.ButtonScreen },
-    Switch: { screen: Screens.SwitchScreen },
-    Choice: { screen: Screens.ChoiceScreen },
-    Tab: { screen: Screens.TabScreen },
-    Card: { screen: Screens.CardScreen },
-    Avatar: { screen: Screens.AvatarScreen },
-    Input: { screen: Screens.InputScreen },
-    Image: { screen: Screens.ImageScreen },
-    Gallery: { screen: Screens.GalleryScreen },
-    Settings: { screen: Screens.SettingsScreen },
-    ChoiceCustomization: { screen: Screens.ChoiceCustomizationScreen },
     // ---
     // 第三方库 demo 开始
     SQLiteDemo: SQLiteDemo,
     OrientationDemo: OrientationDemo,
-    AddressBookDemo: AddressBookDemo,
     WebViewBridageDemo: WebViewBridageDemo,
     // ReactNativeCameraDemo: ReactNativeCameraDemo, // ios包有问题
     LinearGradientDemo: LinearGradientDemo,
@@ -309,9 +294,8 @@ function createRootStack(initPage) {
     GLAnimated: GLAnimated, // ios 包有问题
     GLParticles: GLParticles, // ios 包有问题
     GLOrientation: GLOrientation, // ios 包有问题
-    // videoDemo: VideoDemo,
+
     cryptoDemo: CryptoDemo,
-    // HostPropsInfoDemo: HostPropsInfoDemo,
     ParticleDemo: ParticleDemo, // iOS 特有的,粒子系统
     ImagePickerDemo: ImagePickerDemo,
 
@@ -339,177 +323,64 @@ function createRootStack(initPage) {
     // 米家iOS 自定义第三方库<
     CircularSliderDemo: CircularSliderDemo,
     // 米家iOS 自定义第三方库>
-    // dialog
-    // DialogTest: DialogTest,
-    // DialogTest2,
-    // DialogTest3,
-    // ModeCardDemo,
     AnimatedSVGDemo,
     // AbsoluteTouch,
     ImageTest,
     SmarthomeDemo,
-    // Home: MainPage,
-    // Setting,
-    // List,
-    // CardPage,
-    // IndependentCardDemo,
-    // MoreSetting,
-    // FirmwareUpgrade,
+    // List 相关
+    ListDemoEntry,
+    CustomListDemo,
+    RefreshListViewDemo,
+    AdaptedFontListDemo,
+
+    // 卡片相关
+    CardDemoEntry: CardDemoEntry,
+    CustomCardDemo,
+    IndependentCardDemo,
+    ModeCardDemo,
+    AdaptedFontCardDemo,
+
     CustomContainer,
-    // Parallax,
-    // TitleBarDemo,
-    // GearExample,
-    // RadioExample,
-    // CheckboxDemo,
-    // ToastExample,
-    // SwitchDemo,
-    // MHDatePickerDemo,
-    // DialogExample,
-    // NavigationBarDemo,
-    // HostDemo,
-    // HostEventDemo: HostEventDemo,
-    // ServiceDemo,
-    // MHRoomDemo: MHRoomDemo,
+    Parallax,
+    TitleBarDemo,
+    MHDatePickerDemo,
     MHSceneDemo: MHSceneDemo,
-    // BlankPageEntry,
     BlankPageDemo,
-    // tutorialDemo: TutorialDemo,
-    // LocaleServer: LocaleServer,
-    // blankDemo: BlankDemo,
-    // DeviceControl: DeviceControl,
-    // NavigateUIDemo: NavigateUIDemo,
-    // JSExecutor: JSExecutor,
-    // DeviceDemo: DeviceDemo,
+    tutorialDemo: TutorialDemo,
     PackageDemo: PackageDemo,
     AccountDemo: AccountDemo,
     KookongDemo: KookongDemo,
+    // AlarmPhoneDemo: AlarmPhoneDemo,
     CloudStorageDemo: CloudStorageDemo,
-    FinderDemo: FinderDemo,
-    // ControlDemo: ControlDemo,
+
     KVStorageDemo: KVStorageDemo,
-    // fileStorage: FileStorage,
     FileDemo: FileDemo,
     PhotoDemo: PhotoDemo,
-    // callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
-    // MiotSpecDemo: MiotSpecDemo,
-    // RPCControl: RPCControl,
-    // PrivacyDemo,
-    // BLEConnectionDemo: BLEConnectionDemo,
 
-    // UIDemo: UIDemo,
-    // MiotAndroidScrollViewDemo: MiotAndroidScrollViewDemo,
-    // SoftKeyboardAdapterTestDemo: SoftKeyboardAdapterTestDemo,
-    RefreshListView: RefreshListView,
-    // NumberSpinnerDemo: NumberSpinnerDemo,
-    // StringSpinnerDemo: StringSpinnerDemo,
-    // RobotMapDemo: RobotMapDemo,
-    // ThirdPartyDemo: ThirdPartyDemo,
     setting: MHSetting,
-    // moreMenu: MoreMenu,
-    // OpenLibList:OpenLibList,
-    // helloDeveloper: HelloDeveloper,
-    // helloReactART: HelloReactART,
-    // mhMapDemo: MHMapDemo,
-    // audioDemo: MHAudioDemo,
-    // imagePathDemo: ImagePathDemo,
-    // swiper 开始
-    // swiperDynamic: Dynamic,
-    // swiperLoadMinimal: LoadMinimal,
-    // swiperPhotoView:PhotoView,
-    // swiperPhone: Phone,
-    // swiperSwiper: Swiper,
-    // swiperNumber: SwiperNumber,
-    // swiper 结束
-    // ProgressDemo: ProgressDemo,
-    // ImageCapInsetDemo: ImageCapInsetDemo,
-    // ImageButtonDemo,
-    // UIKitHome: { screen: Screens.ComponentsScreen },
-    // Picker: { screen: Screens.PickerScreen },
-    // Button: { screen: Screens.ButtonScreen },
-    // Switch: { screen: Screens.SwitchScreen },
-    // Choice: { screen: Screens.ChoiceScreen },
-    // Tab: { screen: Screens.TabScreen },
-    // Card: { screen: Screens.CardScreen },
-    // Avatar: { screen: Screens.AvatarScreen },
-    // Input: { screen: Screens.InputScreen },
-    // Image: { screen: Screens.ImageScreen },
-    // Gallery: { screen: Screens.GalleryScreen },
-    // Settings: { screen: Screens.SettingsScreen },
-    // ChoiceCustomization: { screen: Screens.ChoiceCustomizationScreen },
+
+    UIKitHome: { screen: Screens.ComponentsScreen },
+    Picker: { screen: Screens.PickerScreen },
+    Button: { screen: Screens.ButtonScreen },
+    Switch: { screen: Screens.SwitchScreen },
+    Choice: { screen: Screens.ChoiceScreen },
+    Tab: { screen: Screens.TabScreen },
+    Card: { screen: Screens.CardScreen },
+    Avatar: { screen: Screens.AvatarScreen },
+    Input: { screen: Screens.InputScreen },
+    Image: { screen: Screens.ImageScreen },
+    Gallery: { screen: Screens.GalleryScreen },
+    Settings: { screen: Screens.SettingsScreen },
+    ChoiceCustomization: { screen: Screens.ChoiceCustomizationScreen },
 
     // 第三方库 demo 开始
-    // SQLiteDemo: SQLiteDemo,
-    // OrientationDemo: OrientationDemo,
-    // AddressBookDemo: AddressBookDemo,
-    // WebViewBridageDemo: WebViewBridageDemo,
     ReactNativeCameraDemo: ReactNativeCameraDemo,
-    // LinearGradientDemo: LinearGradientDemo,
-    // ReactNativeBlurDemo: ReactNativeBlurDemo,
-    // SVGDemo: SVGDemo,
-    // PressExample: PressExample,
-    // HoverExample: HoverExample,
-    // GroupExample: GroupExample,
-    // LegendsView: LegendsView,
-    // AxisView: AxisView,
-    // ContainersView: ContainersView,
-    // CreateContainerView: CreateContainerView,
-    // ErrorsTooltipsView: ErrorsTooltipsView,
-    // AreaView: AreaView,
-    // PieView: PieView,
-    // BarView: BarView,
-    // ChartView: ChartView,
-    // LineView: LineView,
-    // ScatterView: ScatterView,
-    // BoxPlotView: BoxPlotView,
-    // GLSimple: GLSimple,
-    // GLAdvancedEffects:GLAdvancedEffects, //  有bug
-    // GLHearts: GLHearts,
-    // GLTests:  GLTests, // 有bug
-    // GLAnimated: GLAnimated,
-    // GLParticles: GLParticles,
-    // GLOrientation: GLOrientation,
-    // videoDemo: VideoDemo,
-    // HostPropsInfoDemo: HostPropsInfoDemo,
-    // ParticleDemo: ParticleDemo, // iOS 特有的,粒子系统
-    // ImagePickerDemo: ImagePickerDemo,
 
-    // svg
-
-    // ARTSVGDemo: ARTSVGDemo,
-    // ARTRectDemo: ARTRectDemo,
-    // ARTCircleDemo: ARTCircleDemo,
-    // ARTEllipseDemo: ARTEllipseDemo,
-    // ARTLineDemo: ARTLineDemo,
-    // ARTTextDemo: ARTTextDemo,
-    // ARTGroupDemo: ARTGroupDemo,
-    // ARTGradientDemo: ARTGradientDemo,
-    // ARTPatternDemo: ARTPatternDemo,
-
-
-    // animation
-    // AnimFadeInOutDemo: AnimFadeInOutDemo,
-    // AnimTransformDemo: AnimTransformDemo,
-    // AnimTranslationDemo: AnimTranslationDemo,
-    // AnimEffectsDemo: AnimEffectsDemo,
-    // AnimEventsDemo: AnimEventsDemo,
-    // LayoutAnimationDemo: LayoutAnimationDemo,
     FadeSlideDemo,
-    // AnimCustomCompDemo: AnimCustomCompDemo,
 
     // 第三方库 demo 结束
 
     // 米家iOS 自定义第三方库<
-    // CircularSliderDemo: CircularSliderDemo,
-    // 米家iOS 自定义第三方库>
-    // dialog
-    // DialogTest: DialogTest,
-    // DialogTest2,
-    // DialogTest3,
-    // ModeCardDemo,
-    // AnimatedSVGDemo,
-    // AbsoluteTouch,
-    // ImageTest,
-    // SmarthomeDemo,
 
     // 官方Demo
     OfficialDemos

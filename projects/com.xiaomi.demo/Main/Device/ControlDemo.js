@@ -5,7 +5,7 @@ import MIOT from "miot";
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import {
-  Image, StyleSheet, Text, TextInput, TouchableHighlight, View 
+ Image, StyleSheet, Text, TextInput, TouchableHighlight, View 
 } from 'react-native';
 
 
@@ -14,10 +14,10 @@ export default class ControlDemo extends React.Component {
   static navigationOptions = ({ navigation }) => {
 
     return {
-      header: <TitleBar type="dark" title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
+      header: <TitleBar type='dark' title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
         onPressLeft={() => {
-          navigation.goBack(); 
-        }} />
+ navigation.goBack(); 
+}} />
     };
   };
 
@@ -69,15 +69,15 @@ export default class ControlDemo extends React.Component {
 
             <View>
               <TextInput style={styles.RGBInput}
-                placeholder="0-255"
+                placeholder='0-255'
                 value={this.state.textR}
                 onChange={this.onSetTextRChanged.bind(this)}></TextInput>
               <TextInput style={styles.RGBInput}
-                placeholder="0-255"
+                placeholder='0-255'
                 value={this.state.textG}
                 onChange={this.onSetTextGChanged.bind(this)}></TextInput>
               <TextInput style={styles.RGBInput}
-                placeholder="0-255"
+                placeholder='0-255'
                 value={this.state.textB}
                 onChange={this.onSetTextBChanged.bind(this)}></TextInput>
             </View>
@@ -90,7 +90,7 @@ export default class ControlDemo extends React.Component {
 
           </View>
 
-          <TouchableHighlight underlayColor="#ffffff" onPress={this.onSendDidButtonPress.bind(this)}>
+          <TouchableHighlight underlayColor='#ffffff' onPress={this.onSendDidButtonPress.bind(this)}>
             <Image style={styles.commandButton} source={require("../../Resources/button_command.png")} />
           </TouchableHighlight>
 
@@ -112,18 +112,19 @@ export default class ControlDemo extends React.Component {
   }
 
   getNewRGB(r, g, b) {
-    let k;
-    let resultR;
-    let resultG;
-    let resultB;
-    let stringRGB;
+    var k;
+    var resultR;
+    var resultG;
+    var resultB;
+    var stringRGB;
 
-    let middel = (Math.round(r) > Math.round(g) ? r : g);
-    let max = (Math.round(middel) > Math.round(b) ? middel : b);
+    var middel = (Math.round(r) > Math.round(g) ? r : g);
+    var max = (Math.round(middel) > Math.round(b) ? middel : b);
 
     if (Math.round(max) == 0) {
       return '000000';
-    } else {
+    }
+ else {
       k = max / 255;
       resultR = Math.round(r / k);
       resultG = Math.round(g / k);
@@ -136,22 +137,24 @@ export default class ControlDemo extends React.Component {
     console.log("stringRGB 1 : ", stringRGB);
     if (Math.round(resultR) == 0) {
       if (Math.round(resultG) == 0) {
-        stringRGB = `00${ stringRGB }`;
-      } else if (Math.round(resultG) < 16 && Math.round(resultG) > 0) {
-        stringRGB = `0${ stringRGB }`; 
+        stringRGB = '00' + stringRGB;
       }
-      stringRGB = `00${ stringRGB }`;
-    } else if (Math.round(resultR) < 16 && Math.round(resultR) > 0) {
-      stringRGB = `0${ stringRGB }`; 
+ else if (Math.round(resultG) < 16 && Math.round(resultG) > 0) {
+ stringRGB = '0' + stringRGB; 
+}
+      stringRGB = '00' + stringRGB;
     }
+ else if (Math.round(resultR) < 16 && Math.round(resultR) > 0) {
+ stringRGB = '0' + stringRGB; 
+}
     console.log("stringRGB 2 : ", stringRGB);
     return stringRGB;
   }
 
   onSendDidButtonPress() {
-    Device.getDeviceWifi().callMethod("set_rgb", [(this.state.textR << 16 | this.state.textG << 8 | this.state.textB)]).then((json) => {
-      console.log(`rpc result:${ isSuccess }${ json }`);
-      this.setState({ requestStatus: isSuccess });
+    Device.getDeviceWifi().callMethod("set_rgb", [(this.state.textR << 16 | this.state.textG << 8 | this.state.textB)]).then(json => {
+      console.log("rpc result:" + isSuccess + json);
+      this.setState({ requestStatus: isSuccess })
 
     });
   }
@@ -241,10 +244,10 @@ var styles = StyleSheet.create({
     alignSelf: 'center'
   },
 
-  navBarRightButton: { paddingRight: 10 },
+  navBarRightButton: {paddingRight: 10},
   navBarText: {
     fontSize: 16,
     marginVertical: 10
   },
-  navBarButtonText: { color: '#5890FF' }
+  navBarButtonText: {color: '#5890FF'}
 });

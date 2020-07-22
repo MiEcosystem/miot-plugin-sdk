@@ -21,7 +21,7 @@ const bt = Device.getBluetoothLE();
 let statusEnable = false;
 
 
-// uuids for testing.
+//uuids for testing.
 const UUID_SERVICE = '00000100-0065-6C62-2E74-6F696D2E696D';
 const UUID_LED_READ_WRITE = '00000101-0065-6C62-2E74-6F696D2E696D';
 const UUID_BUTTON_READ_WRITE_NOTIFY = '00000102-0065-6C62-2E74-6F696D2E696D';
@@ -39,7 +39,7 @@ export default class MainPage extends React.Component {
       btConnect: false,
       blueConnecting: false,
       testCharNotify: false,
-      log: `设备类型：${ sctype }`,
+      log: '设备类型：' + sctype,
       scType: sctype,
       testEncrptText: ''
     };
@@ -47,18 +47,19 @@ export default class MainPage extends React.Component {
 
   componentDidMount() {
     this.showing = true;
-    Bluetooth.checkBluetoothIsEnabled().then((result) => {
+    Bluetooth.checkBluetoothIsEnabled().then(result => {
       this.state.isEnable = result;
       if (result) {
         this.addLog('蓝牙已开启');
-      } else {
+      }
+      else {
         this.addLog('蓝牙未开启，请检查开启蓝牙后再试');
         Host.ui.showBLESwitchGuide();
       }
     });
-    this._s5 = BluetoothEvent.bluetoothStatusChanged.addListener((isOn) => {
+    this._s5 = BluetoothEvent.bluetoothStatusChanged.addListener(isOn => {
       console.log('bluetoothStatusChanged', isOn);
-      this.addLog(`蓝牙状态发生变化 ： ${ JSON.stringify(isOn) }`);
+      this.addLog('蓝牙状态发生变化 ： ' + JSON.stringify(isOn));
       if (!isOn) {
         this.addLog('蓝牙连接已断开');
         this.setState({
@@ -70,9 +71,9 @@ export default class MainPage extends React.Component {
         });
       }
     });
-    this._s7 = BluetoothEvent.bluetoothDeviceDiscovered.addListener((result) => {
+    this._s7 = BluetoothEvent.bluetoothDeviceDiscovered.addListener(result => {
       if (result.mac === bt.mac) {
-        this.addLog(`发现设备${ JSON.stringify(result) }`);
+        this.addLog('发现设备' + JSON.stringify(result));
         this.connect(result.mac);
       }
       // else {
@@ -87,50 +88,50 @@ export default class MainPage extends React.Component {
       if (services.length <= 0) {
         return;
       }
-      console.log('bluetoothSeviceDiscovered', blut.mac, services.map((s) => s.UUID), bt.isConnected);
-      this.addLog(`发现蓝牙服务更新：${ JSON.stringify(services.map((s) => s.UUID)) }`);
+      console.log('bluetoothSeviceDiscovered', blut.mac, services.map(s => s.UUID), bt.isConnected);
+      this.addLog('发现蓝牙服务更新：' + JSON.stringify(services.map(s => s.UUID)));
 
-      const s = services.map((s) => ({ uuid: s.UUID, char: [] }));
+      const s = services.map(s => ({ uuid: s.UUID, char: [] }));
       this.setState({ services: s });
       if (bt.isConnected) {
         this.addLog('开始扫描特征值');
-        services.forEach((s) => {
+        services.forEach(s => {
           this.state.services[s.UUID] = s;
           s.startDiscoverCharacteristics();
         });
       }
-      Device.getBluetoothLE().getVersion(true, true).then((version) => {
+      Device.getBluetoothLE().getVersion(true, true).then(version => {
         // Device.getBluetoothLE().securityLock.decryptMessageWithToken(version).then(data => {
         //   this.addLog('设备版本为：' + version + ', 解析结果：' + JSON.stringify(data));
         // });
-      }).catch((err) => {
+      }).catch(err => {
         // console.log(err, '-------');
       });
     });
     this._s2 = BluetoothEvent.bluetoothCharacteristicDiscovered.addListener((bluetooth, service, characters) => {
-      console.log('bluetoothCharacteristicDiscovered', characters.map((s) => s.UUID), bt.isConnected);
-      this.addLog(`${ service.UUID } 蓝牙特征值已扫描成功${ JSON.stringify(characters.map((s) => s.UUID)) }`);
+      console.log('bluetoothCharacteristicDiscovered', characters.map(s => s.UUID), bt.isConnected);
+      this.addLog(service.UUID + ' 蓝牙特征值已扫描成功' + JSON.stringify(characters.map(s => s.UUID)));
       const { services } = this.state;
-      services.forEach((s) => {
+      services.forEach(s => {
         if (s.uuid === service.UUID) {
-          s.char = characters.map((s) => s.UUID);
+          s.char = characters.map(s => s.UUID);
         }
       });
       this.setState({ services });
       if (bt.isConnected) {
-        characters.forEach((c) => {
+        characters.forEach(c => {
           this.state.chars[c.UUID] = c;
         });
       }
     });
     this._s3 = BluetoothEvent.bluetoothCharacteristicValueChanged.addListener((bluetooth, service, character, value) => {
       if (service.UUID.indexOf('ffd5') > 0) {
-        console.log('bluetoothCharacteristicValueChanged', character.UUID, value);// 刷新界面
+        console.log('bluetoothCharacteristicValueChanged', character.UUID, value);//刷新界面
       }
       if (character.UUID.toUpperCase() === UUID_BUTTON_READ_WRITE_NOTIFY) {
-        this.addLog(`收到原始回复：${ value }`);
-        bt.securityLock.decryptMessage(value).then((res) => {
-          this.addLog(`解密之后回复：${ res }`);
+        this.addLog('收到原始回复：' + value);
+        bt.securityLock.decryptMessage(value).then(res => {
+          this.addLog('解密之后回复：' + res);
         });
       }
       // this.addLog('bluetoothCharacteristicValueChanged:' + character.UUID + '>' + value);
@@ -147,7 +148,7 @@ export default class MainPage extends React.Component {
       console.log('bluetoothConnectionStatusChanged', blut, isConnect);
       if (bt.mac === blut.mac) {
         this.setState({ connectState: isConnect ? '已连接' : '未连接' });
-        this.addLog(`蓝牙${ JSON.stringify(blut) }状态变化${ isConnect }`);
+        this.addLog('蓝牙' + JSON.stringify(blut) + '状态变化' + isConnect);
         this.addLog('蓝牙连接已断开');
         if (!isConnect) {
           this.setState({
@@ -162,7 +163,7 @@ export default class MainPage extends React.Component {
       }
     });
     this._s8 = DeviceEvent.bleDeviceFirmwareNeedUpgrade.addListener((device) => {
-      this.addLog(`bleDeviceFirmwareNeedUpgrade ${ device.needUpgrade },${ device.latestVersion },${ device.lastVersion }`);
+      this.addLog('bleDeviceFirmwareNeedUpgrade ' + device.needUpgrade+','+device.latestVersion+','+device.lastVersion);
     });
   }
 
@@ -187,15 +188,15 @@ export default class MainPage extends React.Component {
       this.addLog('蓝牙尚未连接或者service未发现');
       return Promise.reject('蓝牙尚未连接或者service未发现');
     }
-    this.addLog(`switch${ val }`);
+    this.addLog('switch' + val);
     bt.getService(UUID_SERVICE).getCharacteristic(UUID_BUTTON_READ_WRITE_NOTIFY).setNotify(val)
-      .then((res) => {
+      .then(res => {
         this.setState({ testCharNotify: val });
-        this.addLog(`${ val ? '开启' : '关闭' }特征值通知成功`);
+        this.addLog((val ? '开启' : '关闭') + '特征值通知成功');
       })
-      .catch((err) => {
+      .catch(err => {
         this.setState({ testCharNotify: !val });
-        this.addLog(`${ val ? '开启' : '关闭' }特征值通知失败：${ JSON.stringify(err) }`);
+        this.addLog((val ? '开启' : '关闭') + '特征值通知失败：' + JSON.stringify(err));
       });
   }
 
@@ -205,7 +206,8 @@ export default class MainPage extends React.Component {
 
       if (val === '') {
         val = str.charCodeAt(i).toString(16);
-      } else {
+      }
+      else {
         val += str.charCodeAt(i).toString(16);
       }
     }
@@ -228,28 +230,29 @@ export default class MainPage extends React.Component {
     text = this.stringToHex(text);
     //  -1: 自动判断，0: 普通小米蓝牙协议设备，1: 安全芯片小米蓝牙设备（比如锁类产品），2: 分享的安全芯片小米蓝牙设备，3: 普通的BLE蓝牙设备(无 mibeacon，无小米 FE95 service)， 4: Standard Auth 标准蓝牙认证协议(通常2019.10.1之后上线的新设备，使用的都是该蓝牙协议，具体详情可以与设备端开发沟通)
     if (this.state.scType === 0) {
-      this.addLog(`使用Token加密传输，${ text }`);
-      bt.securityLock.encryptMessageWithToken(text).then((res) => {
+      this.addLog('使用Token加密传输，' + text);
+      bt.securityLock.encryptMessageWithToken(text).then(res => {
         const { result } = res;
         bt.getService(UUID_SERVICE).getCharacteristic(UUID_LED_READ_WRITE).writeWithoutResponse(result);
       })
-        .then((res) => {
-          this.addLog(`write res: ${ JSON.stringify(res) }`);
+        .then(res => {
+          this.addLog('write res: ' + JSON.stringify(res));
         })
-        .catch((err) => {
-          this.addLog(`write error: ${ JSON.stringify(err) }`);
+        .catch(err => {
+          this.addLog('write error: ' + JSON.stringify(err));
         });
-    } else {
-      this.addLog(`使用Session加密传输，${ text }`);
+    }
+    else {
+      this.addLog('使用Session加密传输，' + text);
       bt.securityLock.encryptMessage(text)
-        .then((hex) => {
+        .then(hex => {
           bt.getService(UUID_SERVICE).getCharacteristic(UUID_LED_READ_WRITE).writeWithoutResponse(hex);
         })
-        .then((res) => {
-          this.addLog(`write res: ${ JSON.stringify(res) }`);
+        .then(res => {
+          this.addLog('write res: ' + JSON.stringify(res));
         })
-        .catch((err) => {
-          this.addLog(`write error: ${ JSON.stringify(err) }`);
+        .catch(err => {
+          this.addLog('write error: ' + JSON.stringify(err));
         });
     }
   }
@@ -266,37 +269,39 @@ export default class MainPage extends React.Component {
       this.addLog('开始发先服务');
       this.setState({ blueConnecting: false, connectState: '已连接', btConnect: true });
       bt.startDiscoverServices();
-    } else if (bt.isConnecting) {
+    }
+    else if (bt.isConnecting) {
       this.addLog('蓝牙正处于连接中，请等待连接结果后再试');
-    } else {
+    }
+    else {
       const that = this;
-      this.addLog(`${ Host.isAndroid }`);
+      this.addLog('' + Host.isAndroid);
       if (Host.isAndroid && mac === undefined) {
-        this.setState({ blueConnecting: true, connectState: `扫描设备中${ bt.mac }` });
+        this.setState({ blueConnecting: true, connectState: '扫描设备中' + bt.mac });
         Bluetooth.startScan(15000);
         return;
       }
-      bt.connect(this.state.scType, { did: Device.deviceID }).then((data) => {
+      bt.connect(this.state.scType, { did: Device.deviceID }).then(data => {
         this.setState({ blueConnecting: false, connectState: '已连接', btConnect: true });
         bt.startDiscoverServices();
-      }).catch((data) => {
+      }).catch(data => {
         this.setState({ blueConnecting: false, connectState: '连接失败', btConnect: false });
-        this.addLog(`ble connect failed: ${ JSON.stringify(data) }`);
+        this.addLog('ble connect failed: ' + JSON.stringify(data));
         if (data.code === -7 && disconnectOntimeOut) {
           Bluetooth.retrievePeripheralsWithServicesForIOS('FE95')
-            .then((res) => {
-              that.addLog(`获取已连接设备：${ JSON.stringify(res) }`);
+            .then(res => {
+              that.addLog('获取已连接设备：' + JSON.stringify(res));
               return new Promise((resolve, reject) => {
                 for (const key in res) {
-                  // 判断V是自己要断连的设备
-                  that.addLog(`准备断开连接：${ key }`);
+                  //判断V是自己要断连的设备
+                  that.addLog('准备断开连接：' + key);
                   Bluetooth.createBluetoothLE(key).disconnect();
                 }
                 resolve();
               });
             })
             .then(() => {
-              // 重连设备
+              //重连设备
               that.connect(mac, false);
             });
         }
@@ -310,7 +315,7 @@ export default class MainPage extends React.Component {
   }
 
   checkBluetoothIsEnabled() {
-    Bluetooth.checkBluetoothIsEnabled().then((yes) => {
+    Bluetooth.checkBluetoothIsEnabled().then(yes => {
       statusEnable = yes;
     });
   }
@@ -321,7 +326,7 @@ export default class MainPage extends React.Component {
 
   addLog(string) {
     let { log } = this.state;
-    log = `${ string }\n${ log }`;
+    log = string + '\n' + log;
     this.setState({ log });
   }
 
@@ -345,7 +350,8 @@ export default class MainPage extends React.Component {
             onPress={() => {
               if (!this.state.btConnect) {
                 this.connect();
-              } else {
+              }
+              else {
                 this.disconnect();
               }
             }}
@@ -364,7 +370,7 @@ export default class MainPage extends React.Component {
             }}
             placeholder="此处填写测试写入数据"
             numberOfLines={1}
-            onChangeText={(text) => this.setState({ testEncrptText: text })}
+            onChangeText={text => this.setState({ testEncrptText: text })}
             value={this.state.testEncrptText}
           />
           <CardButton

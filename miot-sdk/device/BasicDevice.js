@@ -79,12 +79,59 @@ export const DeviceEvent = {
   deviceStatusChanged: {
   },
   /**
-   *spec 协议：property changed 或者 event occured
+   * 订阅ble spec 消息推送；除了订阅之外，插件需要与设备建立蓝牙连接，并主动扫描设备的特征值，设备才会给插件推送消息。
+   * @param {IDevice} device
+   * @param {Map<string,object>} messages -接收到的数据,value为property或者event的值
+   * @param {Map<string,object>} originData -接收到的数据，value为相应property或者event推送到手机的原始内容
+   * @example
+     //详细使用示例可以参考com.xiaomi.bledemo/Main/BleSpec.js
+       let listener0= DeviceEvent.BLESpecNotifyActionEvent.addListener((device, data) => {
+          console.log('receive prop(event) changed notification:' + JSON.stringify(data))
+          data.forEach((key, value) => {
+            console.log(`receive prop(event) changed notification,prop:${ key }`, JSON.stringify(value));
+          });
+        });
+        this._s1 = BluetoothEvent.bluetoothSeviceDiscovered.addListener((blut, services) => {
+          if (services.length <= 0) {
+          return;
+          }
+          console.log('bluetoothSeviceDiscovered', blut.mac, services.map(s => s.UUID), bt.isConnected);
+          const s = services.map(s => ({ uuid: s.UUID, char: [] }));
+          services.forEach(s => {
+            s.startDiscoverCharacteristics();
+          });
+        }
+        bt = Device.getBluetoothLE();
+        if(bt.isConnected){
+          bt.startDiscoverServices();
+          bt.subscribeMessages('prop.2.1','event.2.1').then(res => {
+            console.log('subscribe exception success,res:',JSON.stringify(res));
+          }).catch(err => console.log('subscribe exception fail'))
+        } else if(bt.isConnecting){
+          let listener1 = BluetoothEvent.bluetoothConnectionStatusChanged.addListener((blut, isConnect) => {
+          console.log('bluetoothConnectionStatusChanged', blut, isConnect);
+          if (bt.mac === blut.mac) {
+            if(isConnect){
+              bt.startDiscoverServices();
+              bt.subscribeMessages('prop.2.1','event.2.1').then(res => {
+                console.log('subscribe exception success,res:',JSON.stringify(res));
+              }).catch(err => console.log('subscribe exception fail'))
+            }else{
+              console.log('connect bledevice error');
+            }
+            listener1.remove();
+          }
+        }else{
+          bt.connect(scType,{ did: Device.deviceID }).then(res=>{
+            bt.startDiscoverServices();
+            bt.subscribeMessages('prop.2.1','event.2.1').then(res => {
+              console.log('subscribe exception success,res:',JSON.stringify(res));
+              }).catch(err => console.log('subscribe exception fail'))
+            });
+          });
+        }
    */
   BLESpecNotifyActionEvent: {
-    forever: (emitter) => (result) => {
-      emitter.emit(result);
-    }
   },
   /**
      * 设备消息,注意订阅的消息都是通过此方法返回。
@@ -533,7 +580,7 @@ export class BasicDevice {
    */
   get isFamily() {
      return  false
-    return permitLevel == PERMISSION_FAMILY || permitLevel == PERMISSION_FAMILY_IOS;
+    return (permitLevel & PERMISSION_FAMILY) !== 0 || permitLevel == PERMISSION_FAMILY_IOS;
   }
   /**
    *是否是别人分享的设备，若是家属分享给你的设备，isShared为fasle，isFamily为true
@@ -543,7 +590,7 @@ export class BasicDevice {
    */
   get isShared() {
      return  false
-    return (permitLevel == PERMISSION_SHARE || permitLevel == PERMISSION_SHARE_READONLY) && Properties.of(this).ownerName !== null;
+    return (permitLevel & PERMISSION_SHARE) !== 0 && !this.isFamily && Properties.of(this).ownerName !== null;
   }
   /**
    *是否是已经绑定的设备，一般返回true
@@ -609,6 +656,8 @@ export class BasicDevice {
    */
   get extra() {
      return  ""
+      console.warn("extra deprecated since 10032 此字段后台无人维护，也无人知道它存在的含义，故废弃。");
+    }
     return Properties.of(this).extrainfo || Properties.of(this).extra;
   }
   /**
@@ -662,6 +711,8 @@ export class BasicDevice {
    */
   get parentModel() {
      return  ""
+      console.warn("parentModel deprecated 10023开始废弃，10023及后续版本建议使用 Device.parentDevice.model");
+    }
     return Properties.of(this).parentModel;
   }
   /**
@@ -671,6 +722,8 @@ export class BasicDevice {
    */
   get timeZone() {
      return  ""
+      console.warn("timeZone deprecated 10021开始废弃，10021及后续版本建议使用 Device.getDeviceTimeZone().then");
+    }
     return Properties.of(this).timeZone;
   }
   /**
@@ -682,6 +735,8 @@ export class BasicDevice {
    */
   get propInfo() {
      return  {}
+      console.warn("propInfo deprecated 因此属性极大造成米家设备列表页接口响应时长变长，现已废弃，一般都会返回null。若需要这里面的属性，请直接通过callMethod去读取。");
+    }
     return Properties.of(this).propInfo;
   }
   /**
@@ -692,6 +747,8 @@ export class BasicDevice {
    */
   get resetFlag() {
      return  0
+      console.warn("resetFlag deprecated 10023开始废弃，后续不再提供此字段，此方法永远返回0");
+    }
     return Properties.of(this).resetFlag;
   }
   /**
@@ -707,6 +764,8 @@ export class BasicDevice {
   @report
   createScene(sceneType, opt = null) {
      return  ""
+      console.warn("createScene deprecated since 10032 请使用Service.scene.createScene(BasicDevice.deviceID,sceneType,opt)");
+    }
     return Scene.createScene(this.deviceID, sceneType, opt);
   }
   /**
@@ -721,6 +780,8 @@ export class BasicDevice {
   @report
   createTimerScene(opt = null) {
      return  ""
+      console.warn("createTimerScene deprecated since 10032 请使用Service.scene.createTimerScene(BasicDevice.deviceID,opt)");
+    }
     return Scene.createTimerScene(this.deviceID, opt);
   }
   /**
@@ -736,6 +797,8 @@ export class BasicDevice {
   @report
   loadScenes(sceneType, opt = null) {
      return  ""
+      console.warn("loadScenes deprecated since 10032 请使用Service.scene.loadScenes(BasicDevice.deviceID,sceneType,opt)");
+    }
     return Scene.loadScenes(this.deviceID, sceneType, opt);
   }
   /**
@@ -749,6 +812,8 @@ export class BasicDevice {
   @report
   loadTimerScenes(opt = null) {
      return  ""
+      console.warn("loadTimerScenes deprecated since 10032 请使用Service.scene.loadTimerScenes(BasicDevice.deviceID,opt)");
+    }
     return Scene.loadTimerScenes(this.deviceID, opt);
   }
   /**
@@ -764,7 +829,7 @@ export class BasicDevice {
    * 查询设备的房间信息
    * @since 10039
    * @param {string} did DeviceID，默认为当前设备
-   * @return {Promise<Object>} {code: 0, data: {roomId, homeId, roomName} }
+   * @return {Promise<Object>} {code: 0, data: {roomId, homeId, roomName, homeName} }
    */
   @report
   getRoomInfoForCurrentHome(did = null) {

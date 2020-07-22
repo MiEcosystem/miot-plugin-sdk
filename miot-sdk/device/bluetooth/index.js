@@ -36,8 +36,12 @@
  *
  */
 import native, { Properties, isIOS, isAndroid } from '../../native';
+// eslint-disable-next-line import/no-cycle
 import { IBluetooth as BluetoothDevice, getMacUuid, setMacUuid } from './BluetoothDevice';
 import LockDevice from './LockDevice';
+// eslint-disable-next-line import/no-cycle
+import RootDevice from '../BasicDevice';
+import BleSpec from './blespec';
 export const getBluetoothUUID128 = (id) => {
   if (!id || id == '') return null;
   id = id.toUpperCase();
@@ -184,14 +188,12 @@ export default {
      return Promise.resolve(null);
   },
   /**
-   * ble 直连spec的关键方法，用于触发 set/get property, do action 这三个方法；
-   * @static
-   * @params {String} mac, 蓝牙设备的mac地址
-   * @params {int} opCode 定义为： 0：set Property; 2: get Property; 5: do action
-   * @params {String} json: 各个方法需要的需要的参数各不相同，参数类型建议文档：https://xiaomi.feishu.cn/docs/doccneoCLgQYWtfaEU8sWoKwx3E#UXkcyO
+   * @member blespec
+   * @description ble直连spec相关 API
+   * @see {@link miot/device/bluetooth/blespec}
    */
-  doSpecOperation(mac, opCode, json) {
-     return Promise.resolve(null);
+  get spec() {
+    return BleSpec;
   },
   /**
    * 打开蓝牙（Android），iOS无法直接操作蓝牙的打开，只能通过Host.ui.showBLESwitchGuide();提示用户打开蓝牙。
@@ -211,6 +213,22 @@ export default {
      */
   isBleGatewayConnected(mac) {
      return Promise.resolve(true);
+  },
+  /**
+   * 判断当前设备是否被蓝牙/蓝牙Mesh网关扫描到
+   * @since 10040
+   * @param {string} mac 蓝牙子设备Mac
+   * @param {boolean} forceRefresh 是否强制刷新
+   * @returns {Promise<Object>} 
+   * 成功时的返回值：
+   * {code:0,data:{connected:[true/false],mac:[网关mac]}} 已连接时connected=true,反之connected=false，mac可能为空；
+   * 失败时可能返回返回值：
+   * {code:-1,message:"mac is null or empty."}
+   * {code:-2,message:"cann't find any gateway device."}
+   * {code:-3,message:"internal error xxxx"}
+   */
+  isBleOrMeshGatewayConnected(mac, forceRefresh = false) {
+     return Promise.resolve(null);
   },
   /**
      * 获取信号强度RSSI

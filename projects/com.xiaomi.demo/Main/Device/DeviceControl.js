@@ -52,6 +52,33 @@ export default class UIDemo extends React.Component {
           }
         },
         {
+          'name': '手环设备互联页面',
+          'func': () => {
+            /**
+             * 参数说明
+             * mac: 已绑定的手环mac地址，如果已配置则走流程: 搜索->解绑，未配置则走流程：搜索->绑定
+             * onDisconnect:(mac, callback), 点击解绑的回调，插件实现，成功callback true, 否则 false
+             * onConnect: 点击绑定的回调，插件实现，成功 callback true, 否则 false
+             */
+            this.props.navigation.navigate('BraceletInterconnection', { 
+              title: '手环设备互联页面', 
+              // mac: '11:22:33:44:55:66',  
+              onDisconnect: (mac, callback) => {
+                console.log('解除关联：', mac);
+                setTimeout(() => {
+                  callback(true);
+                }, 1 * 1000);
+              },
+              onConnect: (mac, callback) => {
+                console.log('关联：', mac);
+                setTimeout(() => {
+                  callback(true);
+                }, 5 * 1000);
+              }
+            });
+          }
+        },
+        {
           'name': 'RPC指令控制',
           'func': () => {
             this.props.navigation.navigate('RPCControl', { title: 'RPC指令控制' });
@@ -306,6 +333,16 @@ export default class UIDemo extends React.Component {
           'name': '获取设设备蓝牙信号强度(蓝牙子设备)',
           'func': () => {
             Bluetooth.getBtGateWaySubDeviceRSSI(Device.mac).then((res) => {
+              alert(JSON.stringify(res));
+            }).catch((err) => {
+              alert(JSON.stringify(err));
+            });
+          }
+        },
+        {
+          'name': 'BLE/Mesh子设备是否连接网关',
+          'func': () => {
+            Bluetooth.isBleOrMeshGatewayConnected(Device.mac, true).then((res) => {
               alert(JSON.stringify(res));
             }).catch((err) => {
               alert(JSON.stringify(err));

@@ -11,7 +11,7 @@
  * ...
  * const str = '123'
  * //async
- * let md5 = await Host.crypto.endoceMD5(str)
+ * let md5 = await Host.crypto.encodeMD5(str)
  *
  * //normal
  * Host.crypto.encodeMD5(str).then(res => {//md5 value is res})
@@ -19,6 +19,37 @@
  */
 // import tr from "../resources/strings/tr";
 import { report } from "../decorator/ReportDecorator";
+/**
+ * 椭圆曲线
+ */
+export class ECCCrypto {
+  static CurveTypeSecp256r1 = 256;
+  static CurveTypeSecp384r1 = 384;
+  /**
+   *
+   * @param {number} curveType
+   */
+  constructor(curveType) {
+    this.curveType = curveType;
+  }
+  /**
+   * 生成公私钥对
+   * @returns {Promise} 成功则返回public key，失败则返回 {code: -1, message: error}
+   */
+  @report
+  generateKeyPair() {
+     return Promise.resolve(null);
+  }
+  /**
+   * 生成shared secret
+   * @param {String} otherPublicKey 另一方的publickey, base64 encoded string
+   * @returns {Promise} 成功则返回shared secret，失败则返回 {code: -x, message: error}
+   */
+  @report
+  generateSharedSecret(otherPublicKey) {
+     return Promise.resolve(null);
+  }
+}
 /**
  * 加密
  * @interface

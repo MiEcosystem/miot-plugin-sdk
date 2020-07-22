@@ -37,8 +37,8 @@ const RootStack = createStackNavigator(
     rpccontrol: XiaomiRPC,
     blecontrol: XiaomiBle,
     setting: Settings,
-    bleSpec: BleSpec,
-    subSpec: SubSpec,
+    bleSpec:BleSpec,
+    subSpec:SubSpec,
 
     guide: {
       screen: Guide,

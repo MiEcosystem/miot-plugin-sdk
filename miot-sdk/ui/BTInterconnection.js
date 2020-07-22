@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import NavigationBar from './NavigationBar';
 import MessageDialog from './Dialog/MessageDialog';
@@ -8,6 +8,7 @@ import { getSupportedDevicesWithLinkage, scan, addLinkage, removeLinkage } from 
 import { adjustSize } from '../utils/sizes';
 import { FontDefault } from '../utils/fonts';
 import { strings as I18n } from '../resources/';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
 export default class BTInterconnection extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -30,7 +31,11 @@ export default class BTInterconnection extends Component {
     // 是否要求同一个房间
     sameRoom: true,
     // rssi 阈值
-    minRssi: -127
+    minRssi: -127,
+    // 无障碍
+    accessible: true,
+    addAccessibilityHint: '',
+    removeAccessibilityHint: ''
   };
   state = {
     // 0 - 初始化
@@ -214,8 +219,11 @@ export default class BTInterconnection extends Component {
     const category = navigation.getParam('category', '');
     const sameRoom = navigation.getParam('sameRoom', true);
     const minRssi = navigation.getParam('minRssi', -127);
+    const accessible = navigation.getParam('accessible', true);
+    const addAccessibilityHint = navigation.getParam('addAccessibilityHint', '');
+    const removeAccessibilityHint = navigation.getParam('removeAccessibilityHint', '');
     this.navigationProps = {
-      category, sameRoom, minRssi
+      category, sameRoom, minRssi, accessible, addAccessibilityHint, removeAccessibilityHint
     };
     this.getSupportedDevicesWithLinkage();
   }
@@ -226,20 +234,27 @@ export default class BTInterconnection extends Component {
     this.timerToast = null;
   }
   render() {
-    let { status, linkedIndex, devices, message, timeout } = this.state;
+    const { status, linkedIndex, devices, message, timeout } = this.state;
+    const { accessible, addAccessibilityHint, removeAccessibilityHint } = this.navigationProps;
     return (
-      <View style={Styles.container}>
+      <ScrollView style={Styles.container}>
         {!status ? null : !devices.length ? (
-          <Empty />
+          <Empty accessibility={{
+            accessible
+          }} />
         ) : (
-          <List devices={linkedIndex !== -1 ? [devices[linkedIndex]] : devices} tryToggleLinkage={this.tryToggleLinkage} title={I18n.supportedLinkageDevices} tip={linkedIndex !== -1 ? I18n.linkageRemoveTip : I18n.linkageDistanceTip} />
+          <List devices={linkedIndex !== -1 ? [devices[linkedIndex]] : devices} tryToggleLinkage={this.tryToggleLinkage} title={I18n.supportedLinkageDevices} tip={linkedIndex !== -1 ? I18n.linkageRemoveTip : I18n.linkageDistanceTip} accessibility={{
+            accessible,
+            addAccessibilityHint,
+            removeAccessibilityHint
+          }} />
         )}
         <MessageDialog messageStyle={{
           textAlign: 'center'
         }} visible={status === 2} message={message} onDismiss={this.onDismiss} buttons={this.dialogButtons} />
         <LoadingDialog visible={status === 3} message={message} onDismiss={this.onDismiss} timeout={timeout} />
         <Toast visible={status === 4} message={message} />
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -262,29 +277,41 @@ Toast.defaultProps = {
   message: ''
 };
 // 无可关联设备，且无已关联设备
-function Empty() {
+function Empty({ accessibility: { accessible } }) {
   return (
     <View style={Styles.emptyContainer}>
       <View style={Styles.emptyIconContainer}>
         <View style={[Styles.emptyIconSub, Styles.emptyIconSub1]}></View>
         <View style={[Styles.emptyIconSub, Styles.emptyIconSub2]}></View>
       </View>
-      <View style={Styles.emptyTitleContainer}>
+      <View style={Styles.emptyTitleContainer} {...getAccessibilityConfig({
+        accessible
+      })}>
         <Text style={Styles.emptyTitle}>{I18n.noSuppurtedLinkageDevice}</Text>
       </View>
-      <View style={Styles.emptyIntroContainer}>
+      <View style={Styles.emptyIntroContainer} {...getAccessibilityConfig({
+        accessible
+      })}>
         <Text style={Styles.emptyIntro}>{I18n.noSuppurtedLinkageTip}</Text>
       </View>
     </View>
   );
 }
+Empty.propTypes = {
+  accessibility: {
+    accessible: AccessibilityPropTypes.accessible
+  }
+};
 // 有可关联设备，或已关联
-function List({ title, tip, devices, tryToggleLinkage }) {
-  const listItems = getListItems(devices, tryToggleLinkage);
+function List({ title, tip, devices, tryToggleLinkage, accessibility }) {
+  const listItems = getListItems(devices, tryToggleLinkage, accessibility);
   return (
     <View style={Styles.listContainer}>
       {title ? (
-        <View style={Styles.listTitleContainer}>
+        <View style={Styles.listTitleContainer} {...getAccessibilityConfig({
+          accessible: accessibility.accessible,
+          accessibilityRole: AccessibilityRoles.text
+        })}>
           <Text style={[Styles.listTitle, Styles.listTitleColor]}>{title}</Text>
         </View>
       ) : null}
@@ -292,7 +319,10 @@ function List({ title, tip, devices, tryToggleLinkage }) {
         {listItems}
       </View>
       {tip ? (
-        <View style={Styles.listTitleContainer}>
+        <View style={Styles.listTitleContainer} {...getAccessibilityConfig({
+          accessible: accessibility.accessible,
+          accessibilityRole: AccessibilityRoles.text
+        })}>
           <Text style={Styles.listTitle}>{tip}</Text>
         </View>
       ) : null}
@@ -309,9 +339,14 @@ List.propTypes = {
     roomName: PropTypes.string,
     linked: PropTypes.bool
   })),
-  tryToggleLinkage: PropTypes.func
+  tryToggleLinkage: PropTypes.func,
+  accessibility: PropTypes.shape({
+    accessible: AccessibilityPropTypes.accessible,
+    addAccessibilityHint: AccessibilityPropTypes.accessibilityHint,
+    removeAccessibilityHint: AccessibilityPropTypes.accessibilityHint
+  })
 };
-function getListItems(devices, tryToggleLinkage) {
+function getListItems(devices, tryToggleLinkage, { accessible, addAccessibilityHint, removeAccessibilityHint }) {
   return devices.map(({ mac, roomName, linked, pdid, device: {
     iconURL, deviceIconReal, name
   } }) => {
@@ -323,13 +358,20 @@ function getListItems(devices, tryToggleLinkage) {
             uri: icon
           }} />
         ) : null}
-        <View style={Styles.itemTextContainer}>
+        <View style={Styles.itemTextContainer} {...getAccessibilityConfig({
+          accessible,
+          accessibilityRole: AccessibilityRoles.text
+        })}>
           <Text style={Styles.itemName} numberOfLines={1}>{name || mac}</Text>
           <Text style={Styles.itemRoom} numberOfLines={1}>{roomName}</Text>
         </View>
         <TouchableOpacity style={Styles.itemBtn} activeOpacity={0.8} onPress={() => {
           tryToggleLinkage(mac, pdid, linked);
-        }}>
+        }} {...getAccessibilityConfig({
+          accessible,
+          accessibilityRole: AccessibilityRoles.button,
+          accessibilityHint: linked ? removeAccessibilityHint : addAccessibilityHint
+        })}>
           <Text style={Styles.itemBtnText}>{linked ? I18n.removeLink : I18n.link}</Text>
         </TouchableOpacity>
       </View>

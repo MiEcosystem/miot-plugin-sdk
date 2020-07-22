@@ -137,8 +137,6 @@ export default {
      * @deprecated 10033
      */
   get applicationEdition() {
-     return  true
-    return isAndroid ? (this.ui.checkStoreSupporttedOnAndroid() ? 1 : 2) : native.MIOTHost.ApplicationEdition;
   },
   /**
      * 获取 米家APP中 我的-->开发者设置-->其他设置，  AppConfig接口拉取preview版数据 是否选中的状态

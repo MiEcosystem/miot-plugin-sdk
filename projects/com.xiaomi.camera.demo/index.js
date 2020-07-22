@@ -10,50 +10,50 @@ import th from 'miot/resources/strings/th';
 
 
 function createRootStack(initPage) {
-  return createStackNavigator({
-    MainPage,
-    RTSPPage,
-    Home: {
-      screen: MainPage
-    }
-  },
-  {
-    initialRouteName: initPage,
-    navigationOptions: ({ navigation }) => {
-      return {
-        header: 
+    return createStackNavigator({
+        MainPage,
+        RTSPPage,
+        Home: {
+            screen: MainPage,
+        },
+    },
+    {
+        initialRouteName: initPage,
+        navigationOptions: ({ navigation }) => {
+            return {
+                header: 
                     <TitleBar
-                      title={navigation.state.params ? navigation.state.params.title : 'Page Name'}
-                      type={navigation.state.params ? navigation.state.params.type : 'dark'}
-                      leftText={navigation.state.params ? navigation.state.params.leftText : null}
-                      rightText={navigation.state.params ? navigation.state.params.rightText : null}
-                      onPressLeft={navigation.state.params ? navigation.state.params.onPressLeft : () => { navigation.goBack(); }}
-                      onPressRight={navigation.state.params ? navigation.state.params.onPressRight : null}
-                      leftTextStyle={navigation.state.params ? navigation.state.params.leftTextStyle : null}
-                      rightTextStyle={navigation.state.params ? navigation.state.params.rightTextStyle : null}
+                        title={navigation.state.params ? navigation.state.params.title : 'Page Name'}
+                        type={navigation.state.params ? navigation.state.params.type : 'dark'}
+                        leftText={navigation.state.params ? navigation.state.params.leftText : null}
+                        rightText={navigation.state.params ? navigation.state.params.rightText : null}
+                        onPressLeft={navigation.state.params ? navigation.state.params.onPressLeft : () => { navigation.goBack() }}
+                        onPressRight={navigation.state.params ? navigation.state.params.onPressRight : null}
+                        leftTextStyle={navigation.state.params ? navigation.state.params.leftTextStyle : null}
+                        rightTextStyle={navigation.state.params ? navigation.state.params.rightTextStyle : null}
                     />
-      };
-    }
-  });
+            };
+        }
+    })
 }
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.initData();
-  }
+        this.initData();
+    }
 
-  initData() {
-    this.initPage = "MainPage";
-  }
+    initData() {
+        this.initPage = "MainPage";
+    }
 
-  render() {
-    let RootStack = createRootStack(this.initPage);
-    return <RootStack />;
-  }
+    render() {
+        let RootStack = createRootStack(this.initPage);
+        return <RootStack />
+    }
 }
 
 Package.entry(App, () => {
 
-});
+})

@@ -28,7 +28,7 @@ export default class Guide extends React.Component {
         {
           this.state.sceens.map((v, i) => (
             <CardButton
-              key={`idx${ i }`}
+              key={'idx' + i}
               iconContainerStyle={{ backgroundColor: 'red' }}
               title={v.title}
               icon={v.icon}

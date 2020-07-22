@@ -159,61 +159,62 @@ export default class MainPage extends React.Component {
   }
 
   subsrible() {
-    let subArr = [];
+    var subArr = [];
     this.state.props.map((value, index) => {
       if (value.isChecked) {
         subArr.push(value.name);
       }
-    });
+    })
     this.state.events.map((value, index) => {
       if (value.isChecked) {
         subArr.push(value.name);
       }
-    });
-    console.log(`start subsribe :${ JSON.stringify(subArr) }`);
-    let l = subArr.length;
+    })
+    console.log('start subsribe :' + JSON.stringify(subArr));
+    var l = subArr.length;
     if (l > 0) {
-      Device.getDeviceWifi().subscribeMessages(...subArr).then((subcription) => {
+      Device.getDeviceWifi().subscribeMessages(...subArr).then(subcription => {
 
-      }).catch(() => console.log('subscribe exception fail'));
-    } else {
+      }).catch(() => console.log('subscribe exception fail'))
+    }
+    else {
       this.addLog('请选中属性（事件）再订阅！');
     }
 
   }
   getDeviceProperty() {
     let now = parseInt(Date.now() / 1000 - 30 * 60);
-    let end = parseInt(Date.now() / 1000);
-    console.log(`device id=${ Device.deviceID },${ Device.mac },${ Device.did }`);
+    var end = parseInt(Date.now() / 1000);
+    console.log('device id=' + Device.deviceID + ',' + Device.mac + ',' + Device.did)
     Service.smarthome.getDeviceData({ did: Device.deviceID, key: this.state.piid, type: 'prop', time_start: now, time_end: end })
-      .then((res) => {
-        console.log(`get Property :${ JSON.stringify(res) }`);
-        this.addLog(`查询设备【属性】${ this.state.piid },resp:${ JSON.stringify(res) }`);
-      }).catch((res) => {
-        console.log(`get Property fail:${ JSON.stringify(res) }`);
-        this.addLog(`查询设备【属性】${ this.state.piid } fail：${ JSON.stringify(res) }`);
+      .then(res => {
+        console.log('get Property :' + JSON.stringify(res))
+        this.addLog('查询设备【属性】' + this.state.piid + ',resp:' + JSON.stringify(res));
+      }).catch(res => {
+        console.log('get Property fail:' + JSON.stringify(res))
+        this.addLog('查询设备【属性】' + this.state.piid + ' fail：' + JSON.stringify(res));
       });
   }
 
   getDeviceEvent() {
     let now = parseInt(Date.now() / 1000 - 30 * 60);
-    let end = parseInt(Date.now() / 1000);
+    var end = parseInt(Date.now() / 1000);
     Service.smarthome.getDeviceData({ did: Device.deviceID, key: this.state.piid, type: 'event', time_start: now, time_end: end })
-      .then((res) => {
-        console.log(`get Property :${ JSON.stringify(res) }`);
-        this.addLog(`查询设备【事件】${ this.state.piid },resp:${ JSON.stringify(res) }`);
-      }).catch((res) => {
-        console.log(`get Property fail:${ JSON.stringify(res) }`);
-        this.addLog(`查询设备【事件】${ this.state.piid }fail：${ JSON.stringify(res) }`);
+      .then(res => {
+        console.log('get Property :' + JSON.stringify(res))
+        this.addLog('查询设备【事件】' + this.state.piid + ',resp:' + JSON.stringify(res));
+      }).catch(res => {
+        console.log('get Property fail:' + JSON.stringify(res))
+        this.addLog('查询设备【事件】' + this.state.piid + 'fail：' + JSON.stringify(res));
       });
   }
 
   startListenNotify() {
-    this.addLog('start listen notify');
-    console.log('start listen notify');
+    this.addLog('start listen notify')
+    console.log('start listen notify')
     this._s11 = DeviceEvent.deviceRecievedMessages.addListener((device, map, res) => {
-      this.addLog(`receive prop(event) changed notification:${ JSON.stringify(map) },${ JSON.stringify(res) }`);
-      console.log(`receive prop(event) changed notification:${ JSON.stringify(map) },res:${ JSON.stringify(res) }`);
+      this.addLog('receive prop(event) changed notification:' + JSON.stringify(map) + ',' + JSON.stringify(res))
+      console.log('receive prop(event) changed notification:' + JSON.stringify(map) + ',res:' + JSON.stringify(res))
       let status = map.get("event.count_down_background")[0] || "";
       switch (status) {
         case "pause":
@@ -232,7 +233,7 @@ export default class MainPage extends React.Component {
 
   addLog(string) {
     let { log } = this.state;
-    log = `${ string }\n${ log }`;
+    log = string + '\n' + log;
     this.setState({ log });
   }
 
@@ -302,11 +303,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 12,
     marginBottom: 15,
-    marginLeft: 20
+    marginLeft: 20,
   },
   modalCheckboxText: {
     marginLeft: 7,
-    color: "#003a6c"
+    color: "#003a6c",
   },
   inputStyle: {
     minHeight: 30,

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { adjustSize } from '../utils/sizes';
 import { log } from '../utils/fns';
 import { getContentEventKey } from './PageWithNormalNavigator';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
 const SourceUpper = require('../resources/images/airer-upper.png');
 const SourceCenter = require('../resources/images/airer-center.png');
 const SourceLower = require('../resources/images/airer-lower.png');
@@ -20,7 +21,9 @@ export default class Airer extends Component {
     lightOn: PropTypes.bool,
     controlable: PropTypes.bool,
     onValueChanging: PropTypes.func,
-    onValueChange: PropTypes.func
+    onValueChange: PropTypes.func,
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint
   };
   static defaultProps = {
     position: 0,
@@ -74,6 +77,25 @@ export default class Airer extends Component {
       scrollEnabled: true
     });
   }
+  onAccessibilityAction = ({ nativeEvent: { actionName } }) => {
+    const { controlable, onValueChange } = this.props;
+    if (!controlable) {
+      return;
+    }
+    let targetValue = this.lastValue;
+    switch (actionName) {
+      case 'increment':
+        targetValue += 10;
+        break;
+      case 'decrement':
+        targetValue -= 10;
+        break;
+    }
+    targetValue = Math.min(100, Math.max(0, targetValue));
+    this.value.setValue(targetValue);
+    this.lastValue = targetValue;
+    onValueChange(targetValue);
+  }
   UNSAFE_componentWillReceiveProps(nextProps) {
     let props = this.props;
     this.lastValue = nextProps.position;
@@ -107,7 +129,18 @@ export default class Airer extends Component {
     });
     let panHandlers = controlable ? this.panResponder.panHandlers : {};
     return (
-      <View style={Styles.container} {...panHandlers}>
+      <View style={Styles.container} {...panHandlers}
+        {...getAccessibilityConfig({
+          accessible: controlable ? this.props.accessible : false,
+          accessibilityRole: AccessibilityRoles.adjustable,
+          accessibilityHint: this.props.accessibilityHint
+        })}
+        accessibilityActions={[
+          { name: 'increment' },
+          { name: 'decrement' }
+        ]}
+        onAccessibilityAction={this.onAccessibilityAction}
+      >
         <Image style={Styles.upper} source={SourceUpper} />
         <Animated.Image style={[Styles.center, {
           height

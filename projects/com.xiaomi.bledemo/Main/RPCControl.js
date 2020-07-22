@@ -35,28 +35,29 @@ export default class MainPage extends React.Component {
 
   addLog(string) {
     let { log } = this.state;
-    log = `${ string }\n${ log }`;
+    log = string + '\n' + log;
     this.setState({ log });
   }
 
-  // //////////////////////////////
+  ////////////////////////////////
   //  *Mesh light RPC* //
   readLightProp() {
     const params = [{ did: Device.deviceID, siid: 2, piid: 1 }, { did: Device.deviceID, siid: 2, piid: 2 }];
-    Service.spec.getPropertiesValue(params).then((result) => {
+    Service.spec.getPropertiesValue(params).then(result => {
       if (result instanceof Array && result.length >= 2) {
         const onProp = result[0];
         const isLightOn = onProp.value;
         const brightProp = result[1];
         const lightBrightness = brightProp.value;
         this.setState({ isLightOn, lightBrightness });
-        this.addLog(`获取灯属性成功,${ JSON.stringify(result) }`);
-      } else {
-        this.addLog(`获取灯属性失败,${ JSON.stringify(result) }`);
+        this.addLog('获取灯属性成功,' + JSON.stringify(result));
+      }
+      else {
+        this.addLog('获取灯属性失败,' + JSON.stringify(result));
       }
 
-    }).catch((err) => {
-      this.addLog(`read light prop failed,${ JSON.stringify(err) }`);
+    }).catch(err => {
+      this.addLog('read light prop failed,' + JSON.stringify(err));
     });
   }
 
@@ -68,41 +69,43 @@ export default class MainPage extends React.Component {
     const params = [{
       did: Device.deviceID, siid: 2, piid: 1, value: on
     }];
-    this.addLog(`open light :${ JSON.stringify(params) }`);
-    Service.spec.setPropertiesValue(params).then((result) => {
-      this.addLog(`toggle Light success,${ JSON.stringify(result) }`);
+    this.addLog('open light :' + JSON.stringify(params));
+    Service.spec.setPropertiesValue(params).then(result => {
+      this.addLog('toggle Light success,' + JSON.stringify(result));
       this.setState({ isLightOn: on, toggling: false });
-    }).catch((err) => {
+    }).catch(err => {
       this.setState({ toggling: false });
-      this.addLog(`toggle Light failed,${ JSON.stringify(err) }`);
+      this.addLog('toggle Light failed,' + JSON.stringify(err));
     });
   }
 
   changeBrightness(val) {
     const number = (val);
-    this.addLog(`修改灯色：${ number }`);
+    this.addLog('修改灯色：' + number);
     const params = [{
       did: Device.deviceID, siid: 2, piid: 2, value: number
     }];
-    Service.spec.setPropertiesValue(params).then((result) => {
+    Service.spec.setPropertiesValue(params).then(result => {
       if (result instanceof Array && result.length >= 1) {
         const res = result[0];
         if (res.code < 0) {
-          this.addLog(`修改灯色 failed,code = ${ res.code }`);
-        } else {
+          this.addLog('修改灯色 failed,code = ' + res.code);
+        }
+        else {
           const lightBrightness = number;
           this.setState({ lightBrightness });
-          this.addLog(`修改灯色 success,${ JSON.stringify(result) }`);
+          this.addLog('修改灯色 success,' + JSON.stringify(result));
         }
-      } else {
+      }
+      else {
         this.addLog('修改灯色 failed');
       }
-    }).catch((err) => {
-      this.addLog(`修改灯色 failed,${ JSON.stringify(err) }`);
+    }).catch(err => {
+      this.addLog('修改灯色 failed,' + JSON.stringify(err));
     });
   }
 
-  // //////////////////////////////
+  ////////////////////////////////
 
   render() {
     return (
@@ -129,7 +132,7 @@ export default class MainPage extends React.Component {
           minimumValue={0}
           step={1}
           value={this.state.lightBrightness}
-          onSlidingComplete={(value) => this.changeBrightness(value)}
+          onSlidingComplete={value => this.changeBrightness(value)}
         />
         <Text>日志信息：</Text>
         <Text style={styles.log}>

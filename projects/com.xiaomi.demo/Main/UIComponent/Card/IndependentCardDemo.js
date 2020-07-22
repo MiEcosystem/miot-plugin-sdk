@@ -12,10 +12,10 @@ class IndependentCardDemo extends React.Component {
     return {
       header:
         <TitleBar
-          type='dark'
-          title='独立卡片'
+          type="dark"
+          title="独立卡片"
           style={{ backgroundColor: '#fff' }}
-          onPressLeft={_ => navigation.goBack()}
+          onPressLeft={() => navigation.goBack()}
         />
     };
   };
@@ -31,7 +31,7 @@ class IndependentCardDemo extends React.Component {
     };
   }
 
-  //改变卡片开关的状态
+  // 改变卡片开关的状态
   changeValue = (value, switchKey) => {
     this.setState(() => {
       return {
@@ -40,7 +40,7 @@ class IndependentCardDemo extends React.Component {
     });
   }
 
-  //生成卡片
+  // 生成卡片
   createCard = (cardProps = {}) => {
     return (
       <IndependentCard
@@ -64,7 +64,7 @@ class IndependentCardDemo extends React.Component {
             onTintColor: 'black'
           })}
           onPress={() => { }}
-          underlayColor='rgba(0,0,0,.05)'
+          underlayColor="rgba(0,0,0,.05)"
           cardStyle={{ borderRadius: radiusValue }}
         />
         <Card
@@ -74,14 +74,14 @@ class IndependentCardDemo extends React.Component {
             title2: '副标题副标题副标题副标题副标题副标题副标题副标题副标题',
             changeValue: this.changeValue,
             value: value2,
-            switchKey: 'value2',
+            switchKey: 'value2'
             // radiusType: 'top'
           })}
           onPress={() => { }}
-          underlayColor='rgba(0,0,0,.05)'
+          underlayColor="rgba(0,0,0,.05)"
           cardStyle={{
             borderTopLeftRadius: radiusValue,
-            borderTopRightRadius: radiusValue,
+            borderTopRightRadius: radiusValue
           }}
           showShadow={false}
         />
@@ -95,7 +95,7 @@ class IndependentCardDemo extends React.Component {
             disabled: true
           })}
           showShadow={false}
-          cardStyle={{ marginTop: 0, }}
+          cardStyle={{ marginTop: 0 }}
         />
         <Card
           innerView={this.createCard({
@@ -103,15 +103,15 @@ class IndependentCardDemo extends React.Component {
             title1: '下方卡片',
             value: value4,
             changeValue: this.changeValue,
-            switchKey: 'value4',
+            switchKey: 'value4'
           })}
           cardStyle={{
             marginTop: 0,
             borderBottomLeftRadius: radiusValue,
-            borderBottomRightRadius: radiusValue,
+            borderBottomRightRadius: radiusValue
           }}
           onPress={() => { }}
-          underlayColor='rgba(0,0,0,.05)'
+          underlayColor="rgba(0,0,0,.05)"
         />
       </View>
     );
