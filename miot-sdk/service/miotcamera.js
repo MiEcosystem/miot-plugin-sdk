@@ -458,17 +458,29 @@ class IMiotCamera {
       return Promise.reject("ios platform not support yet; to be done");
     }
   }
-  /**
-   * 标记当前固件是否是tutk rdt的数据被加密的
-   * @param isEncrypted rdt数据是否被加密
-   * @since 10041
-   * 应该在发送rdt命令之前调用。
-   * 
+   /**
+   * 标记当前是否使用华来的音视频解密方案，只对tutk生效，需要在连接成功之后，收到视频流之前调用
+   * @param {bool} isEncrypted 
+   * @param {string} did 
    */
   @report
-  markCurrrentDeviceRdtDataEncrypted(isEncrypted, did = Device.deviceID) {
+  markCurrentDeviceUseHualaiEncrypted(isEncrypted, did = Device.deviceID) {
     if (Platform.OS == "android") {
-       return null
+      return null;
+    } else {
+      return Promise.reject("ios platform not support yet; to be done");
+    }
+  }
+
+  /**
+   * 在连接成功后，发送rdt命令前调用，标记当前设备是否使用固定rdtChannel方案。
+   * @param {bool} useFixedRdtChannel 
+   * @param {string} did 
+   */
+  @report
+  setCurrentDeviceUseFixedRdtChannel(useFixedRdtChannel, did = Device.deviceID) {
+    if (Platform.OS == "android") {
+      return null;
     } else {
       return Promise.reject("ios platform not support yet; to be done");
     }
