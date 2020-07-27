@@ -1,5 +1,3 @@
-
-
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import {
@@ -127,7 +125,32 @@ export default class HostDemo extends React.Component {
             .then((res) => alert(JSON.stringify(res)))
             .catch((e) => alert(JSON.stringify(e)));
         }
+      },
+      {
+        'name': '删除设备deleteDevice',
+        'func': () => {
+          Service.deleteDevice().then((res) => {
+            console.log(JSON.stringify(res));
+            alert(JSON.stringify(res));
+          }).catch((err) => {
+            console.log(JSON.stringify(err));
+            alert(JSON.stringify(err));
+          });
+        }
+      },
+      {
+        'name': '撤销隐私授权revokePrivacyLicense',
+        'func': () => {
+          Service.revokePrivacyLicense().then((res) => {
+            console.log(JSON.stringify(res));
+            alert(JSON.stringify(res));
+          }).catch((err) => {
+            console.log(JSON.stringify(err));
+            alert(JSON.stringify(err));
+          });
+        }
       }
+      
       // {
       //   'name': 'AlarmPhoneDemo 报警电话设置 Demo',
       //   'func': () => {

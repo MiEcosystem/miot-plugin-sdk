@@ -214,6 +214,61 @@ export default {
      return Promise.resolve(null);
   },
   /**
+   * since 10042
+   * 撤销隐私授权,插件调用该接口后需要主动调用退出插件
+   * @returns {Promise<Object>} 成功时返回：{code:0,data:true};
+   *                            失败时返回：{code:-1,message:'invalid device'} ,或 {code:-2,message:'xxxxx'} 
+   * @example 
+   * Service.revokePrivacyLicense()
+   *        .then(res=>{
+   *          console.log(JSON.stringify(res));
+   *          if( res.code ===0){
+   *            console.log('success');
+   *          }
+   *        }).catch(err=>{
+   *           console.log(JSON.stringify(err));
+   *        });
+   * 
+   */
+  revokePrivacyLicense() {
+    return new Promise((resolve, reject) => {
+      native.MIOTService.revokePrivacyLicense((ok, res) => {
+        if (ok) {
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      });
+    });
+  },
+  /**
+   * since 10042
+   * 删除设备,插件调用该接口后需要主动调用退出插件
+   * @returns {Promise<Object>} 成功时返回：{code:0,data:true};
+   *                            失败时返回：{code:-1,message:'invalid device'} ,或 {code:-2,message:'xxxxx'} 
+   * @example 
+   * Service.deleteDevice()
+   *        .then(res=>{
+   *          console.log(JSON.stringify(res));
+   *          if( res.code ===0){
+   *            console.log('success');
+   *          }
+   *        }).catch(err=>{
+   *           console.log(JSON.stringify(err));
+   *        });
+   */
+  deleteDevice() {
+    return new Promise((resolve, reject) => {
+      native.MIOTService.deleteDevice((ok, res) => {
+        if (ok) {
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      });
+    }); 
+  },
+  /**
    * 某设备向服务器申请did和token
    * Android暂不支持此方法
    * @param {*} model 设备的model

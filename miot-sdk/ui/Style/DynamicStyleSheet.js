@@ -1,5 +1,6 @@
 import DynamicColor from './DynamicColor';
 import DarkMode from 'miot/darkmode';
+import { StyleSheet } from 'react-native';
 class DynamicStyleSheet {
   constructor(style) {
     this.light = this._create(style, 'light');
@@ -23,7 +24,7 @@ class DynamicStyleSheet {
       }
       newStyles[stylesKey] = newStyle;
     }
-    return newStyles;
+    return StyleSheet.create(newStyles);
   }
 }
 /**

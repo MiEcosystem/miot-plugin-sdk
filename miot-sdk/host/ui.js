@@ -595,6 +595,26 @@ class IUi {
   @report
   openVoiceCtrlDevListPage() {
   }
+  /**
+   *  打开文件选择页面 only for iOS
+   *  在使用前建议判断平台
+   *  @since 10042 
+   *  @return {Promise}
+   * 
+   *  成功时返回 
+   *    { code: 0 , data: [ { path: xxx, fileName: xxx, ext: xxx, fileSize: xxx}, {...}] }
+   *      其中 path 是文件的绝对地址，ext是扩展名，fileName是文件名，byteLen 是文件 size 单位是byte
+   *      需要特别说明的是：
+   *      1：data 返回的数组类型 在 10042 中目前仅返回一个文件信息，不支持多选
+   *      2：如果用户没有选择任何文件，例如点击了左上角的取消按钮，那么 data 中会返回空数组，开发人员需要对此做处理。
+   *  失败时返回
+   *    { code: -1, message: 'file authorized failed'}  // 在ios中 获取icloud需要验证授权，此处错误代表授权失败，如果出现此错误，请联系米家开发人员或提交工单反馈。
+   *    { code: -2, message: 'file read error'}  // 出现此种错误 代表 ios 获取授权文件路径失败，如果出现此错误，请联系米家开发人员或提交工单反馈。
+   *    { code: -3, message: 'method [openIOSDocumentFileChoosePage] can only be invoked on iOS, Android is not supported.' }
+   */
+  @report
+  openIOSDocumentFileChoosePage() {
+  }
 }
 const UiInstance = new IUi();
 export default UiInstance;
