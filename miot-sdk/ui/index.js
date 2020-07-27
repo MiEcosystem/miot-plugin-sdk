@@ -29,6 +29,11 @@ import _TitleBar from './TitleBar';
 import _TitleBarBlack from './TitleBarBlack';
 import _TitleBarWhite from './TitleBarWhite';
 import _BTInterconnection from './BTInterconnection';
+import _BraceletInterconnection from './BraceletInterconnection';
+import { ColorPicker as _ColorPicker } from './ColorPicker';
+import _TouchableView from './TouchableView';
+export { default as DynamicColor, dynamicColor } from './Style/DynamicColor';
+export { default as DynamicStyleSheet, dynamicStyleSheet } from './Style/DynamicStyleSheet';
 export const ImageButton = _ImageButton;
 export const LoadingDialog = _LoadingDialog;
 export const MessageDialog = _MessageDialog;
@@ -46,6 +51,9 @@ export const StringSpinner = _StringSpin;
 export const RobotMapView = _RobotMapView;
 export const MiotAndroidScrollView = _MiotAndroidScrollView;
 export const BTInterconnection = _BTInterconnection;
+export const BraceletInterconnection = _BraceletInterconnection;
+export const ColorPicker = _ColorPicker;
+export const TouchableView = _TouchableView;
 export { default as BigNumber } from './BigNumber';
 export { default as CardButton } from './CardButton';
 export { default as CircleButton } from './CircleButton';
@@ -78,5 +86,5 @@ export default {
   ProgressDialog, SingleChoseDialog, InputDialog,
   TitleBar, TitleBarBlack, TitleBarWhite,
   NumberSpinner, StringSpinner, RobotMapView,
-  LocalizedStrings, AMapView, MiotAndroidScrollView
+  LocalizedStrings, AMapView, MiotAndroidScrollView, ColorPicker
 };

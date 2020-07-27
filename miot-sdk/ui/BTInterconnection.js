@@ -243,11 +243,11 @@ export default class BTInterconnection extends Component {
             accessible
           }} />
         ) : (
-          <List devices={linkedIndex !== -1 ? [devices[linkedIndex]] : devices} tryToggleLinkage={this.tryToggleLinkage} title={I18n.supportedLinkageDevices} tip={linkedIndex !== -1 ? I18n.linkageRemoveTip : I18n.linkageDistanceTip} accessibility={
+          <List devices={linkedIndex !== -1 ? [devices[linkedIndex]] : devices} tryToggleLinkage={this.tryToggleLinkage} title={I18n.supportedLinkageDevices} tip={linkedIndex !== -1 ? I18n.linkageRemoveTip : I18n.linkageDistanceTip} accessibility={{
             accessible,
             addAccessibilityHint,
             removeAccessibilityHint
-          } />
+          }} />
         )}
         <MessageDialog messageStyle={{
           textAlign: 'center'
