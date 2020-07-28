@@ -47,7 +47,6 @@ export default class FileStorage extends React.Component {
       let downloaded = data.downloadBytes;
       let all = data.totalBytes;
       let progress = downloaded / all * 100;
-      let visProgress = progress < 100;
       console.log(progress);
       // this.setState({ progress, visProgress })
     });
@@ -455,13 +454,11 @@ export default class FileStorage extends React.Component {
           imagePath: imagePath
         });
         this._readFileList();
-        Host.file.saveImageToPhotosAlbum(imageName).then((_) => {
+        Host.file.saveImageToPhotosAlbum(imageName).then(() => {
           alert(`${ imagePath } 已保存到系统相册`);
         }).catch((result) => {
           alert(result);
         });
-
-
       })
       .catch((result) => {
         alert(result);
@@ -474,7 +471,7 @@ export default class FileStorage extends React.Component {
     let url = 'http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_mp4_855379f77b74ca565e8ef7d68c08264c.mp4';
 
     let fileName = `file${ new Date().getTime() }.mp4`;
-    Host.file.downloadFile(url, fileName).then((res) => {
+    Host.file.downloadFile(url, fileName).then(() => {
       this._readFileList();
       Host.file.saveFileToPhotosAlbum(fileName).then(() => {
         alert(`${ fileName } 已保存到系统相册`);
@@ -487,8 +484,6 @@ export default class FileStorage extends React.Component {
   }
 
   _fetchFDSFile() {
-    let did = Device.deviceID;
-    let suffix = "mp3";
     if (this.file_obj_name) {
       console.log('param', { 'obj_name': this.file_obj_name });
       Host.file.getFDSFileInfoWithObjName(this.file_obj_name).then((res) => {
@@ -512,10 +507,9 @@ export default class FileStorage extends React.Component {
         let obj_name = obj.obj_name;
         let name = obj_name.substring(obj_name.length - 22);
         let content = "this is sample content 这是个示例内容 😄💻";
-        let time = obj.time;
         this.file_obj_name = obj_name;
         console.log("pre upload", res);
-        Host.file.writeFile(name, content).then((r) => {
+        Host.file.writeFile(name, content).then(() => {
           complete([true, { url: obj.url, method: obj.method, fileName: name }]);
         }).catch((err) => {
           alert(`存储临时文件失败${ JSON.stringify(err) }`);
@@ -619,7 +613,7 @@ export default class FileStorage extends React.Component {
   }
 
 }
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderTopColor: '#f1f1f1',
