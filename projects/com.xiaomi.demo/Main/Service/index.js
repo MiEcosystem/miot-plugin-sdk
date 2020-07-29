@@ -1,9 +1,7 @@
-
-
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import {
-  Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View
+  Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View, NativeModules
 } from 'react-native';
 import { Service } from 'miot';
 
@@ -102,7 +100,57 @@ export default class HostDemo extends React.Component {
             .then((res) => alert(JSON.stringify(res)))
             .catch((e) => alert(JSON.stringify(e)));
         }
+      },
+      {
+        'name': '访问小爱服务端接口-获取聊天记录',
+        'func': () => {
+          Service.callXiaoaiNetworkAPI({ host: 'profile', path: '/device_profile/conversation', params: { limit: 5 } })
+            .then((res) => {
+              alert(JSON.stringify(res));
+            }).catch((e) => alert(JSON.stringify(e)));
+        }
+      },
+      {
+        'name': '访问小爱服务端接口-获取设备列表',
+        'func': () => {
+          Service.callXiaoaiNetworkAPI({ path: '/admin/v2/device_list', needDevice: 0 })
+            .then((res) => alert(JSON.stringify(res)))
+            .catch((e) => alert(JSON.stringify(e)));
+        }
+      },
+      {
+        'name': '访问小爱服务端接口-post请求',
+        'func': () => {
+          Service.callXiaoaiNetworkAPI({ host: 'normal', path: '/remote/ubus', needDevice: 1, method: 1, params: { deviceId: 'a0ffbb6b-19b4-4af5-af5d-de174d1c7cc2', method: 'enable', path: 'mibt', message: JSON.stringify({ btmode: 'classic', connect: 1, discover: 0 }) } })
+            .then((res) => alert(JSON.stringify(res)))
+            .catch((e) => alert(JSON.stringify(e)));
+        }
+      },
+      {
+        'name': '删除设备deleteDevice',
+        'func': () => {
+          Service.deleteDevice().then((res) => {
+            console.log(JSON.stringify(res));
+            alert(JSON.stringify(res));
+          }).catch((err) => {
+            console.log(JSON.stringify(err));
+            alert(JSON.stringify(err));
+          });
+        }
+      },
+      {
+        'name': '撤销隐私授权revokePrivacyLicense',
+        'func': () => {
+          Service.revokePrivacyLicense().then((res) => {
+            console.log(JSON.stringify(res));
+            alert(JSON.stringify(res));
+          }).catch((err) => {
+            console.log(JSON.stringify(err));
+            alert(JSON.stringify(err));
+          });
+        }
       }
+      
       // {
       //   'name': 'AlarmPhoneDemo 报警电话设置 Demo',
       //   'func': () => {

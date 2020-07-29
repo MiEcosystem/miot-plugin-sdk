@@ -2,6 +2,8 @@
 import React from 'react';
 import { API_LEVEL, Package, Host, DarkMode } from 'miot';
 import { View, Text, Button } from 'react-native';
+import DynamicColor, { dynamicColor } from 'miot/ui/Style/DynamicColor';
+import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
 
 export default class DarkModeDemo extends React.Component {
 
@@ -48,12 +50,11 @@ export default class DarkModeDemo extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'powderblue' }}>
-        <Text>API_LEVEL:{API_LEVEL}</Text>
-        <Text>NATIVE_API_LEVEL:{Host.apiLevel}</Text>
-        <Text>{Package.packageName}</Text>
-        <Text>models:{Package.models}</Text>
-        <Text>{JSON.stringify(this.state.colorScheme)}</Text>
+      <View style={styles.container}>
+        <Text>使用 dynamicStyleSheet 函数配置 styles.container， 浅色背景下是白色，深色背景下是天蓝色</Text>
+        {/* 单独适配某个组件的可以使用 dynamicColor 函数 */}
+        <Text style={{ color: dynamicColor('#000000', '#ffffff'), marginTop: 50 }}>dynamicColor函数可以取得当前模式下的色值</Text>
+        <Text style={{ marginTop: 50 }}>{JSON.stringify(this.state.colorScheme)}</Text>
 
         <Button title={'点击取消监听浅色/深色模式'} onPress={() => {
           this.removeListener();
@@ -68,3 +69,14 @@ export default class DarkModeDemo extends React.Component {
     );
   }
 }
+
+// 适配整体的 StyleSheet 可以使用 dynamicStyleSheet 函数，其中的色值需要使用使用 DynamicColor 类定义
+const styles = dynamicStyleSheet({
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: new DynamicColor('red', 'skyblue')
+  }
+});
