@@ -106,43 +106,41 @@ export default class BraceletInterconnection extends React.Component {
     );
   }
   _searchBracelet(time = 10 * 1000) {
-    this.setState({
-      status: STATUS.SEARCHING
-    });
-    Promise.all([
-      this._scanBracelet(time),
-      this._getBrecelet(time)
-    ]).then((res) => {
-      const mac = this.props.navigation.getParam('mac', '');
-      let items = [];
-      let filteredItems = [];
-      if (res.length == 2 && res[0].code == 0 && res[1].code == 0 && res[1].result.length > 0) {
-        items = res[1].result.map((item) => {
-          item.linked = item.mac == mac;
-          item.name = item.mac;
-          return item;
-        });
-        filteredItems = items.filter((item) => item.linked);
-      }
-      if (mac.length > 0) {
-        this.setState({
-          status: filteredItems.length > 0 ? STATUS.LIST : STATUS.SEARCH_EMPTY,
-          datasources: filteredItems,
-          linked: filteredItems.length > 0
-        });
-      } else {
+    const mac = this.props.navigation.getParam('mac', '');
+    if (mac.length > 0) {
+      this.setState({
+        status: STATUS.LIST,
+        datasources: [{ name: mac, linked: true }],
+        linked: true
+      });
+    } else {
+      this.setState({
+        status: STATUS.SEARCHING
+      });
+      Promise.all([
+        this._scanBracelet(time),
+        this._getBrecelet(time)
+      ]).then((res) => {
+        let items = [];
+        if (res.length == 2 && res[0].code == 0 && res[1].code == 0 && res[1].result.length > 0) {
+          items = res[1].result.map((item) => {
+            item.linked = item.mac == mac;
+            item.name = item.mac;
+            return item;
+          });
+        }
         this.setState({
           status: items.length > 0 ? STATUS.LIST : STATUS.SEARCH_EMPTY,
           datasources: items,
           linked: false
         });
-      }
-    }).catch((err) => {
-      this.setState({
-        status: STATUS.SEARCH_EMPTY,
-        datasources: []
+      }).catch((err) => {
+        this.setState({
+          status: STATUS.SEARCH_EMPTY,
+          datasources: []
+        });
       });
-    });
+    }
   }
   _scanBracelet(time) {
     this.__rotate(time);
