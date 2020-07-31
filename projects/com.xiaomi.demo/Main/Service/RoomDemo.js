@@ -9,7 +9,7 @@ export default class MHRoomDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: '',
+      data: ''
     };
 
     this.loadAllRoom = this.loadAllRoom.bind(this);
@@ -21,7 +21,7 @@ export default class MHRoomDemo extends React.Component {
 
     // 如果不设置英文字体，那么外文字符串将显示不全（Android）
     let fontFamily = {};
-    if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' }
+    if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' };
 
     return (
       <View>
@@ -68,8 +68,8 @@ export default class MHRoomDemo extends React.Component {
   // 修改房间名称
   updateRoomName() {
     Service.room.loadAllRoom(true)
-      .then((rooms) => new Promise.resolve(rooms.filter(room => room.name === 'auto_create' || room.name === 'auto_create_1')))
-      .then(rooms => {
+      .then((rooms) => new Promise.resolve(rooms.filter((room) => room.name === 'auto_create' || room.name === 'auto_create_1')))
+      .then((rooms) => {
         if (rooms.length < 1) {
           this.setState({
             data: 'auto_create或auto_create_1房间不存在，请创建'

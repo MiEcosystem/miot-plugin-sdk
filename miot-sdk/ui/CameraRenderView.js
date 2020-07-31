@@ -36,6 +36,8 @@
  * @property {number} osdy 畸变矫正-osdy default 0.0
  * @property {bool} fullscreenState 是否是全屏状态 since 10033
  * @property {bool} forceSoftDecode 强制软解 since 10033
+ * @property {object} recordingVideoParam 限制录制视频时的分辨率，开始录制视频前，要调整分辨率到指定分辨率。 since 10041 {width:111, height:111}
+ * @property {boolean} isFull  画面是否填充满屏幕
  */
 /**
  * 音视频codec
@@ -132,6 +134,8 @@ export default class CameraRenderView extends React.Component {
       osdy: PropTypes.number,
       fullscreenState: PropTypes.bool,
       forceSoftDecode: PropTypes.bool,
+      recordingVideoParam: PropTypes.object,
+      isFull: PropTypes.bool,
       /**
          * 用户单击回调
          * @member {func}
