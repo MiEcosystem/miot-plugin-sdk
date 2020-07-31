@@ -49,6 +49,12 @@ export class IMHRoom {
      return  0
   }
   /**
+   * 房间支持的设备did列表，目前只有小爱音箱有权限
+   */
+  get didList() {
+     return  []
+  }
+  /**
    * 更新房间名称
    * @since 10020
    * @param newName 新的房间名称
@@ -65,7 +71,7 @@ export class IMHRoom {
  */
 class IMiotRoom {
   /**
-   * 获取所有房间列表
+   * 获取当前家庭所有房间列表
    * @since 10020
    * @param {boolean} [forceReload=false] 是否从强制从网络获取；  false:表示从缓存获取  true：从网络获取； 默认为false
    * @returns {Rromise<IMHRoom[]>} Promise, 带有房间列表的结果, IMHRoom的数据结构参考IMHRoom类

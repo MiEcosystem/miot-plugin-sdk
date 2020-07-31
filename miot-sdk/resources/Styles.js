@@ -46,7 +46,7 @@ export default {
     },
     modal: { // 弹窗
       position: 'absolute',
-      bottom: 20, // 距离屏幕底部的边距
+      bottom: 0, // 距离屏幕底部的边距
       marginHorizontal: MODAL_MARGIN, // 两端边距
       width: MODAL_WIDTH, // 宽度
       borderRadius: 20, // 圆角

@@ -286,18 +286,30 @@ export class IBluetooth {
        return Promise.resolve(null);
     }
     /**
-     * 订阅ble spec 消息推送；如果手机没有连接ble设备(可以调用Device.getBluetoothLE().connect(...)建立连接)，收不到推送
+     * 订阅ble spec 消息推送；除了订阅之外，插件需要与设备建立蓝牙连接，并主动扫描设备的特征值，设备才会给插件推送消息。
      * @since 10040
      * @param  {...string} propertyOrEventNames prop.2.1,event.2.1
      * @example
-     * let listener0= DeviceEvent.BLESpecNotifyActionEvent.addListener((device, data) => {
+     * //详细使用示例可以参考com.xiaomi.bledemo/Main/BleSpec.js
+       let listener0= DeviceEvent.BLESpecNotifyActionEvent.addListener((device, data) => {
           console.log('receive prop(event) changed notification:' + JSON.stringify(data))
           data.forEach((key, value) => {
             console.log(`receive prop(event) changed notification,prop:${ key }`, JSON.stringify(value));
           });
         });
+        this._s1 = BluetoothEvent.bluetoothSeviceDiscovered.addListener((blut, services) => {
+          if (services.length <= 0) {
+          return;
+          }
+          console.log('bluetoothSeviceDiscovered', blut.mac, services.map(s => s.UUID), bt.isConnected);
+          const s = services.map(s => ({ uuid: s.UUID, char: [] }));
+          services.forEach(s => {
+            s.startDiscoverCharacteristics();
+          });
+        }
         bt = Device.getBluetoothLE();
         if(bt.isConnected){
+          bt.startDiscoverServices();
           bt.subscribeMessages('prop.2.1','event.2.1').then(res => {
             console.log('subscribe exception success,res:',JSON.stringify(res));
           }).catch(err => console.log('subscribe exception fail'))
@@ -306,6 +318,7 @@ export class IBluetooth {
           console.log('bluetoothConnectionStatusChanged', blut, isConnect);
           if (bt.mac === blut.mac) {
             if(isConnect){
+              bt.startDiscoverServices();
               bt.subscribeMessages('prop.2.1','event.2.1').then(res => {
                 console.log('subscribe exception success,res:',JSON.stringify(res));
               }).catch(err => console.log('subscribe exception fail'))
@@ -316,6 +329,7 @@ export class IBluetooth {
           }
         }else{
           bt.connect(scType,{ did: Device.deviceID }).then(res=>{
+            bt.startDiscoverServices();
             bt.subscribeMessages('prop.2.1','event.2.1').then(res => {
               console.log('subscribe exception success,res:',JSON.stringify(res));
               }).catch(err => console.log('subscribe exception fail'))
