@@ -708,6 +708,64 @@ class IFile {
   @report
   mkdir(params) {
   }
+  /**
+   * 搜索文件（只在Android可使用）
+   * @param {json} params {
+   *     mimeTypes:[],//需要搜索的文件类型
+   *     pageSize: xxx,//分页大小,number类型(如100)；如果需要分页，pageSize必须大于0，不传或者传0表示不分页
+   *     pageNum: xxx,//分页编号,number类型(如0,1,2...)，pageSize大于0时有效
+   * }
+   * mimeType的可选值如下：
+   * ["application/pdf",//pdf
+    "application/msword",//word
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",//docx
+    "application/vnd.ms-excel",//xls,xlt
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",//xlsx
+    "application/vnd.ms-powerpoint",//ppt,pot,pps
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation",//pptx
+    "application/wps",//wps
+    "text/text",//text
+    "text/html",//html
+    "text/xml",//xml
+    "image/jpeg",]
+    @returns {Promise<json>} 返回值：
+    成功时：{ code:0,
+      data:[{
+        relativePath:'相对路径',
+        name:'文件名',
+        url:'文件地址'
+        size: xxx//'文件大小',
+        modifacationDate:xxxxx,//上次修改时间
+        }]
+    }
+    失败时：{
+      code:-xxx,
+      message:'xxxxx'
+    }
+    @example
+    let params = {
+      mimeTypes: ["application/pdf", // pdf
+        "application/msword", // word
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // docx
+        "application/vnd.ms-excel", // xls,xlt
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // xlsx
+        "application/vnd.ms-powerpoint", // ppt,pot,pps
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation", // pptx
+        "application/wps"// wps
+      ],
+      pageSize: 2,
+      pageNo: 0
+    };
+    Host.file.queryFile(params).then((res) => {
+      alert(JSON.stringify(res));
+    }).catch((err) => {
+      alert(JSON.stringify(err));
+    });
+   */
+  @report
+  queryFile(params) {
+     return Promise.resolve(null);
+  }
 }
 const FileInstance = new IFile();
 export default FileInstance;

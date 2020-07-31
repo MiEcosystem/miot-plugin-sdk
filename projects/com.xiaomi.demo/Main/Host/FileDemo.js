@@ -234,6 +234,12 @@ export default class FileStorage extends React.Component {
                 onPress={() => this._mkdir()}
               />
             </View>
+            <View style={{ flex: 1 }}>
+              <Button
+                title="查询文件"
+                onPress={() => this._queryFile()}
+              />
+            </View>
           </View>
 
 
@@ -282,6 +288,27 @@ export default class FileStorage extends React.Component {
       alert(JSON.stringify(err));
     });
 
+  }
+
+  _queryFile() {
+    let params = {
+      mimeTypes: ["application/pdf", // pdf
+        "application/msword", // word
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // docx
+        "application/vnd.ms-excel", // xls,xlt
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // xlsx
+        "application/vnd.ms-powerpoint", // ppt,pot,pps
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation", // pptx
+        "application/wps"// wps
+      ],
+      pageSize: 2,
+      pageNo: 0
+    };
+    Host.file.queryFile(params).then((res) => {
+      alert(JSON.stringify(res));
+    }).catch((err) => {
+      alert(JSON.stringify(err));
+    });
   }
 
   _renderFileList(item) {
