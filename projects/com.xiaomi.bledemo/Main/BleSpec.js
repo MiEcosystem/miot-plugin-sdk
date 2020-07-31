@@ -14,9 +14,11 @@ import React from 'react';
 import {
   ScrollView, StyleSheet, Text, Button, View, TextInput, NativeModules
 } from 'react-native';
+import CheckBox from "./widgets/checkbox";
 
 import CommonCell from './CommonCell';
 import { Styles } from 'miot/resources';
+import { sub } from 'prop-types/lib/ReactPropTypesSecret';
 const bt = Device.getBluetoothLE();
 
 
@@ -46,8 +48,16 @@ export default class MainPage extends React.Component {
       aiid: 0,
       valueType: 0,
       value: '',
-      VALUE_TYPE: { 'bool': 0, 'uint8': 1, 'int8': 2, 'uint16': 3, 'int16': 4, 'uint32': 5, 'int32': 6, 'uint64': 7, 'int64': 8, 'float': 9, 'string': 10 }
+      VALUE_TYPE: { 'bool': 0, 'uint8': 1, 'int8': 2, 'uint16': 3, 'int16': 4, 'uint32': 5, 'int32': 6, 'uint64': 7, 'int64': 8, 'float': 9, 'string': 10 },
+      specProps: [
+        // Ble Spec
+        { name: 'prop.1.2', desc: 'prop.1.2', isChecked: false },
+        { name: 'prop.2.4', desc: 'prop.2.4', isChecked: false },
+        { name: 'prop.3.6', desc: 'prop.3.6', isChecked: false },
+      ],
     };
+    this.subscribedProps = new Set();
+
   }
   setProperty() {
     let prop = {
@@ -105,6 +115,25 @@ export default class MainPage extends React.Component {
     }).catch((err) => {
       this.addLog('doAction Fail ,msg:' + JSON.stringify(err));
     });
+  }
+
+  subscribe(){
+    let subArray=[];
+    this.state.specProps.forEach((value,index)=>{
+      if(value.isChecked){
+        subArray.push(value.name);
+      }
+    });
+    
+    bt.unsubscribeMessages();
+    if(subArray.length >0){
+      this.addLog(`当前已订阅属性:${ JSON.stringify(subArray) }`);
+      bt.subscribeMessages(...subArray).then((subcription) => {
+
+      }).catch((err) => console.log('subscribe exception fail'));
+    }
+
+
   }
 
   render() {
@@ -184,6 +213,30 @@ export default class MainPage extends React.Component {
             title={'执行动作(参数:siid,aiid,piid,data-type,value)'}
             onPress={() => {
               this.doAction()
+            }} />
+        </View>
+        <View style={{flexDirection:"row"}}>
+          {this.state.specProps.map((value, index) => {
+              return (
+                <View style={styles.modalCheckboxContainer}>
+                  <CheckBox
+                    isChecked={value.isChecked}
+                    onClick={() => {
+                      value.isChecked = !value.isChecked;
+                      console.log(`check  prop item key=${ value.name },desc=${ value.desc },checked=${ value.isChecked },index=${ index }`);
+                    }}
+                  />
+                  <Text style={{margin:4}}> {value.desc}</Text>
+                </View>
+              );
+            })
+          }
+        </View>
+        <View style={{ margin: 5 }}>
+          <Button
+            title={'订阅选中的属性或事件'}
+            onPress={() => {
+              this.subscribe();
             }} />
         </View>
         <ScrollView style={{ flex: 1 }}>
@@ -388,8 +441,12 @@ export default class MainPage extends React.Component {
         }
       }
     });
-    this._s8 = DeviceEvent.BLESpecNotifyActionEvent.addListener((result) => {
+    this._s8 = DeviceEvent.BLESpecNotifyActionEvent.addListener((device,result) => {
       this.addLog("Spec notify:" + JSON.stringify(result))
+      result.forEach((key,value)=>{
+        this.addLog(`receive prop(event) changed notification,prop:${ key },${ JSON.stringify(value) }`);
+        console.log(`receive prop(event) changed notification,prop:${ key }`, JSON.stringify(value));
+      });
     });
   }
 
@@ -407,6 +464,7 @@ export default class MainPage extends React.Component {
     this._s6.remove();
     this._s7.remove();
     this._s8.remove();
+    bt.unsubscribeMessages();
   }
 }
 
@@ -470,5 +528,12 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginLeft: 5,
     marginRight: 5
-  }
+  },
+  modalCheckboxContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 12,
+    marginBottom: 15,
+    marginLeft: 20,
+  },
 });
