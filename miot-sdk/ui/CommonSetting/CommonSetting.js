@@ -193,21 +193,30 @@ const firstSharedOptions = {
  * 所有设置项顺序固定
  * 权重值越大，排序越靠后，为了可扩展性，权重不能依次递增+1
  */
-const firstAllOptionsWeight = {
+export const AllOptionsWeight = {
+  // firstOptions
   [AllOptions.NAME]: 0,
   [AllOptions.CREATE_GROUP]: 1,
   [AllOptions.MANAGE_GROUP]: 1,
   [AllOptions.MEMBER_SET]: 3,
   [AllOptions.LOCATION]: 6,
   [AllOptions.SHARE]: 9,
-  // [AllOptions.BTGATEWAY]: 12,
-  // [AllOptions.VOICE_AUTH]: 15,
   [AllOptions.IFTTT]: 18,
   [AllOptions.FIRMWARE_UPGRADE]: 21,
   [AllOptions.HELP]: 24,
   [AllOptions.MORE]: 27,
-  [AllOptions.SECURITY]: 28
-  // [AllOptions.LEGAL_INFO]: 30
+  [AllOptions.SECURITY]: 28,
+  // secondOptions
+  [AllOptions.AUTO_UPGRADE]: 1,
+  [AllOptions.TIMEZONE]: 3,
+  [AllOptions.USER_EXPERIENCE_PROGRAM]: 5,
+  [AllOptions.PLUGIN_VERSION]: 7,
+  [AllOptions.CHECK_UPGRADE]: 9,
+  [AllOptions.SECURITY]: 11,
+  [AllOptions.FEEDBACK]: 13,
+  [AllOptions.ADD_TO_DESKTOP]: 15,
+  [AllOptions.USER_AGREEMENT]: 17,
+  [AllOptions.PRIVACY_POLICY]: 19
 };
 /**
  * 某些特殊设备类型不显示某些设置项
@@ -336,7 +345,9 @@ export default class CommonSetting extends React.Component {
     extraOptions: PropTypes.object,
     navigation: PropTypes.object.isRequired,
     commonSettingStyle: PropTypes.object,
-    accessible: AccessibilityPropTypes.accessible
+    accessible: AccessibilityPropTypes.accessible,
+    firstCustomOptions: PropTypes.array,
+    secondCustomOptions: PropTypes.array
   }
   static defaultProps = {
     firstOptions: [
@@ -536,7 +547,8 @@ export default class CommonSetting extends React.Component {
     syncDevice: this.props.extraOptions.syncDevice,
     secondOptions: [...(this.props.firstOptions || []), ...(this.props.secondOptions || [])],
     excludeRequiredOptions: this.props.extraOptions.excludeRequiredOptions,
-    extraOptions: this.props.extraOptions
+    extraOptions: this.props.extraOptions,
+    secondCustomOptions: this.props.secondCustomOptions || []
   }) {
     let excludeRequiredOptions = params.excludeRequiredOptions || [];
     if (this.props.navigation) {
@@ -600,7 +612,7 @@ export default class CommonSetting extends React.Component {
     // 3. 去除重复
     options = [...new Set(options)];
     // 4. 拼接必选项和可选项
-    let keys = [...requireKeys1, ...options, ...requireKeys2];
+    let keys = [...requireKeys1, ...options, ...requireKeys2, ...(this.props.firstCustomOptions || [])];
     keys = [...new Set(keys)];
     // 5. 权限控制，如果是共享设备或者家庭设备，需要过滤一下
     if (Device.isOwner === false) {
@@ -615,10 +627,25 @@ export default class CommonSetting extends React.Component {
     }
     // 4.5 所有设置项顺序固定，20190708 / SDK_10023
     keys.sort((keyA, keyB) => {
-      return (firstAllOptionsWeight[keyA] || 0) - (firstAllOptionsWeight[keyB] || 0);
+      let weightA, weightB;
+      if (typeof keyA === 'string') {
+        weightA = AllOptionsWeight[keyA] || 0;
+      } else {
+        weightA = keyA.weight || 0;
+      }
+      if (typeof keyB === 'string') {
+        weightB = AllOptionsWeight[keyB] || 0;
+      } else {
+        weightB = keyB.weight || 0;
+      }
+      return weightA - weightB;
     });
     // 8. 根据最终的设置项 keys 渲染数据
     const items = keys.map((key) => {
+      if (typeof key !== 'string') {
+        const item = key;
+        return item;
+      }
       const item = this.commonSetting[key];
       if (item) {
         item.showDot = (this.state.showDot || []).includes(key);

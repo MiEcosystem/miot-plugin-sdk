@@ -1,9 +1,8 @@
 'use strict';
 
-import { Entrance, Package } from "miot";
+import { Entrance, Package, Host } from "miot";
 import { strings, Styles } from 'miot/resources';
 import { CommonSetting, SETTING_KEYS } from "miot/ui/CommonSetting";
-import { secondAllOptions } from "miot/ui/CommonSetting/CommonSetting";
 import { ListItem, ListItemWithSlider, ListItemWithSwitch } from 'miot/ui/ListItem';
 import Separator from 'miot/ui/Separator';
 import TitleBar from 'miot/ui/TitleBar';
@@ -43,6 +42,10 @@ export default class Setting extends React.Component {
     };
   }
 
+  gotoSecretPage() {
+    this.props.navigation.navigate('ServiceDemo', { title: '接口服务(Service)' });
+  }
+
   render() {
     // 显示部分一级菜单项
     const firstOptions = [
@@ -77,6 +80,26 @@ export default class Setting extends React.Component {
       // networkInfoConfig: -1,
       bleOtaAuthType: 5
     };
+
+    const firstCustomOption = [{
+      title: '设置页自定义页面 - 可以跳转自定义设置页',
+      weight: 5,
+      onPress: () => {
+        Host.ui.openIftttAutoPage();
+      },
+      showDot: true
+    }];
+
+    const secondCustomOption = [{
+      title: '更多设置页自定义页面 - 可以跳转自定义设置页',
+      hideArrow: true,
+      onPress: () => {
+        this.gotoSecretPage();
+      },
+      // 权重可自己调节，以便确定此项停留在设置页的位置，支持小数
+      weight: 13 
+    }];
+
     return (
       <View style={styles.container}>
         <Separator />
@@ -115,6 +138,8 @@ export default class Setting extends React.Component {
             showDot={this.state.showDot}
             secondOptions={secondOptions}
             extraOptions={extraOptions}
+            firstCustomOptions={firstCustomOption}
+            secondCustomOptions={secondCustomOption}
           />
           <View style={{ height: 20 }} />
 
