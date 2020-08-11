@@ -186,7 +186,6 @@ export class IBluetoothService {
      * @returns {IBluetoothCharacteristic}
      *
      */
-    @report
     getCharacteristic(characteristicUUID) {
        return null
     }

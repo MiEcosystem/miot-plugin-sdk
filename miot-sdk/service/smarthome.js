@@ -184,7 +184,6 @@ class ISmartHome {
      *     Package.isDebug&&Service.smarthome.reportLog(...)
      *
      */
-    @report
     reportLog(model, log) {
     }
     /**
