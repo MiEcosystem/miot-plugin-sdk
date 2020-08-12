@@ -145,7 +145,6 @@ export default class IBluetoothLock {
      *      resolve：{"result": :"encripted string"} result字段即为加密后的string
      *      reject：{code: xxx, message: xxx} 1:必须16进制字符串  2:获取device token 失败  3:加密失败
      */
-    @report
     encryptMessageWithToken(data) {
        return Promise.resolve(null);
     }

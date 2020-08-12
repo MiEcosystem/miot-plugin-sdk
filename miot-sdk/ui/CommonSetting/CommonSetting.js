@@ -208,15 +208,19 @@ export const AllOptionsWeight = {
   [AllOptions.SECURITY]: 28,
   // secondOptions
   [AllOptions.AUTO_UPGRADE]: 1,
-  [AllOptions.TIMEZONE]: 3,
-  [AllOptions.USER_EXPERIENCE_PROGRAM]: 5,
-  [AllOptions.PLUGIN_VERSION]: 7,
-  [AllOptions.CHECK_UPGRADE]: 9,
-  [AllOptions.SECURITY]: 11,
-  [AllOptions.FEEDBACK]: 13,
-  [AllOptions.ADD_TO_DESKTOP]: 15,
-  [AllOptions.USER_AGREEMENT]: 17,
-  [AllOptions.PRIVACY_POLICY]: 19
+  [AllOptions.PLUGIN_VERSION]: 1,
+  [AllOptions.SECURITY]: 3,
+  "networkInfo": 5,
+  [AllOptions.VOICE_AUTH]: 7,
+  [AllOptions.BTGATEWAY]: 9,
+  [AllOptions.USER_EXPERIENCE_PROGRAM]: 11,
+  [AllOptions.CHECK_UPGRADE]: 13,
+  [AllOptions.LEGAL_INFO]: 18,
+  [AllOptions.USER_AGREEMENT]: 19,
+  [AllOptions.PRIVACY_POLICY]: 19,
+  [AllOptions.TIMEZONE]: 21,
+  [AllOptions.FEEDBACK]: 23,
+  [AllOptions.ADD_TO_DESKTOP]: 25
 };
 /**
  * 某些特殊设备类型不显示某些设置项
