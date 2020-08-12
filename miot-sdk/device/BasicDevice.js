@@ -335,7 +335,6 @@ export class BasicDevice {
    *
    * })
    */
-  @report
   getBluetoothLE(peripheralID = null) {
      return null
   }
