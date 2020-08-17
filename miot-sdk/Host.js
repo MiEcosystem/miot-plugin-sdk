@@ -106,6 +106,14 @@ export default {
   },
   /**
      * @const
+     * @type {boolean}
+     * @description 判断是否 iOS 刘海屏 包括iPhoneX系列, iPhoneXS, iPhoneXS Max 系列, iPhone 11系列
+     */
+  get isIphoneXSeries() {
+     return  false
+  },
+  /**
+     * @const
      * @type string
      * @description APP 的版本, 例如"1.0.0"
      */

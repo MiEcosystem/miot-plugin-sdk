@@ -165,6 +165,9 @@ const API_REPO = {
   '/v2/home/get_interim_file_url_pro': {},
   '/home/getfileurl_v3': {},
   '/v2/recipes/query': {},
+  '/home/devupgrade': {},
+  '/v2/device/get_auto_upgrade_config': {},
+  '/v2/device/get_firmware_history': {},
   '/appgateway/miot/appdeviceinfo_service/AppDeviceInfoService/get_last_online': {},
   //往服务器塞/get 二进制数据。
   '/common/app/data/put': {},

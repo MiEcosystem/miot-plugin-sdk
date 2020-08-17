@@ -5,7 +5,7 @@ import { strings, Styles } from 'miot/resources';
 import { CommonSetting, SETTING_KEYS } from "miot/ui/CommonSetting";
 import { ListItem, ListItemWithSlider, ListItemWithSwitch } from 'miot/ui/ListItem';
 import Separator from 'miot/ui/Separator';
-import TitleBar from 'miot/ui/TitleBar';
+import NavigationBar from 'miot/ui/NavigationBar';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
@@ -16,19 +16,21 @@ export default class Setting extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       header:
-        <TitleBar
-          type="dark"
+        <NavigationBar
+          backgroundColor="#ffffff"
+          type={NavigationBar.TYPE.Light}
+          left={[{
+            key: NavigationBar.ICON.BACK,
+            onPress: (() => {
+              if (Package.entrance !== Entrance.Main && !Package.pageParams.isBackToMainPage) {
+                // 如果是通过Host.ui.openPluginPage 跳转到此页面，且不需要返回到插件首页，则直接调用退出插件api
+                Package.exit();
+              } else {
+                navigation.goBack();
+              }
+            })
+          }]}
           title={strings.setting}
-          style={{ backgroundColor: '#fff' }}
-          onPressLeft={() => {
-            if (Package.entrance !== Entrance.Main && !Package.pageParams.isBackToMainPage) {
-              // 如果是通过Host.ui.openPluginPage 跳转到此页面，且不需要返回到插件首页，则直接调用退出插件api
-              Package.exit();
-            } else {
-              navigation.goBack();
-            }
-          }
-          }
         />
     };
   };

@@ -7,7 +7,6 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
-import Separator from '../Separator';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
 let modelType = '';
@@ -496,8 +495,6 @@ export default class CommonSetting extends React.Component {
         console.warn('蓝牙统一OTA界面正在火热开发中');
       }
     } else {
-      // wifi设备固件升级
-      // this.openSubPage('FirmwareUpgrade');
       // 20190516，「固件自动升级」不能做成通用功能所以去掉，
       // 那么二级页面「FirmwareUpgrade」只剩下「检查固件升级」一项，遂藏之
       this.removeKeyFromShowDot(AllOptions.FIRMWARE_UPGRADE);
@@ -507,6 +504,9 @@ export default class CommonSetting extends React.Component {
         // 2019/11/21 新灯组2.0需求
         // 虚拟组设备，跳v2.0固件更新页
         Host.ui.openLightGroupUpgradePage();
+      } else if (Device.type === '0' && ['mijia.vacuum.v1', 'viomi.vacuum.v3', 'lumi.gateway.mgl03', 'xiaomi.dev.lx2', 'xiaomi.dev.lx0'].indexOf(Device.model) !== -1) {
+        // wifi设备固件升级 Q3实验性功能 固件自动升级
+        this.openSubPage('FirmwareUpgradeAuto');
       } else if ([0, 1, 4, 5].includes(bleOtaAuthType)) {
         Host.ui.openBleCommonDeviceUpgradePage({ auth_type: bleOtaAuthType });
       } else {
