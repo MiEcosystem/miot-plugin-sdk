@@ -20,9 +20,14 @@ import ClassicBluetoothFactory, { ClassicBluetoothEvent as MIOTClassicBluetoothE
 import BluetoothFactory from './device/bluetooth';
 import { BluetoothEvent as MIOTBluetoothEvent } from './device/bluetooth/BluetoothDevice';
 import HostInstance, { HostEvent as HostEventNames } from './Host';
+import SystemInstance from "./system/";
 import { ECCCrypto as ECCCryptoClass } from "./host/crypto";
 import { AudioEvent as AudioEventNames } from './host/audio';
 import { FileEvent as FileEventNames } from './host/file';
+import { MemoryWarningEvent as MemoryWarningEventNames } from './system/memory';
+import { AccelerometerChangeEvent as AccelerometerChangeEventNames } from './system/accelerometer';
+import { CompassChangeEvent as CompassChangeEventNames } from './system/compass';
+import { GyroscopeChangeEvent as GyroscopeChangeEventNames } from './system/gyroscope';
 import PackageInstance, { Entrance as Entrances, PackageEvent as PackageEventNames } from './Package';
 import { RootDeviceProperties } from "./Properties";
 import ResourcesPack from './resources';
@@ -85,6 +90,13 @@ export const Host = HostInstance;
 console.log(HostInstance);
 export const HostEvent = HostEventNames;
 /**
+ * 系统功能
+ * {@link module:miot/System}
+ * @export
+ */
+export const System = SystemInstance;
+console.log(SystemInstance);
+/**
  * 资源类
  * {@link module:miot/resources}
  * @export
@@ -126,6 +138,10 @@ export const ECCCrypto = ECCCryptoClass;
  */
 export const SceneType = SceneTypeNames;
 export const FileEvent = FileEventNames;
+export const MemoryWarningEvent = MemoryWarningEventNames;
+export const AccelerometerChangeEvent = AccelerometerChangeEventNames;
+export const CompassChangeEvent = CompassChangeEventNames;
+export const GyroscopeChangeEvent = GyroscopeChangeEventNames;
 export const AudioEvent = AudioEventNames;
 export const DarkMode = DarkModeFactory;
 import * as Utils from './utils';
@@ -135,8 +151,8 @@ import * as Utils from './utils';
 export default {
   Device, DeviceEvent, Bluetooth, BluetoothEvent, ClassicBluetooth, ClassicBluetoothEvent,
   API_LEVEL, Package, PackageEvent, Entrance, DeviceProperties,
-  Service, Host, HostEvent, Resources, ECCCrypto,
+  Service, Host, System, HostEvent, Resources, ECCCrypto,
   SceneType,
-  FileEvent, AudioEvent,
+  FileEvent, AudioEvent, MemoryWarningEvent,
   Utils, DarkMode
 };
