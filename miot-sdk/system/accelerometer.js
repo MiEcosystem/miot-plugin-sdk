@@ -3,12 +3,12 @@
  * @doc_name 手机加速模块
  * @doc_index 4
  * @doc_directory system
- * @module miot/System
+ * @module miot/system
  * @description
  * 手机的加速计
  *
  * @example
- * import {System} from "miot/System"
+ * import {System} from "miot"
  * import {AccelerometerChangeEvent} from "miot"
  * ...
  * System.accelerometer.startAccelerometer(//interval).then(() => {

@@ -3,7 +3,7 @@
  * @doc_name 手机性能模块
  * @doc_index 7
  * @doc_directory system
- * @module miot/System
+ * @module miot/system
  * @description
  * 手机的性能：内存不足警告
  * 

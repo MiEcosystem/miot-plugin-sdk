@@ -8,7 +8,7 @@
  * 手机的陀螺仪
  *
  * @example
- * import {System} from "miot/System"
+ * import {System} from "miot"
  * import {CompassChangeEvent} from "miot"
  * ...
  * System.gyroscope.startGyroscope(//interval).then(() => {

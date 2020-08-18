@@ -31,16 +31,15 @@ import IScanCode from "./scancode";
 import IVibrate from "./vibrate";
 import IPermission from "./permission";
 import Location from "./location";
-export const BatteryInstance = IBattery;
-export const AccelerometerInstance = IAccelerometer;
-export const CompassInstance = ICompass;
-export const GyroscopeInstance = IGyroscope;
-export const ScanCodeInstance = IScanCode;
-export const VibrateInstance = IVibrate;
-export const PermissionInstance = IPermission;
-export const LocationInstance = Location;
+export const battery = IBattery;
+export const accelerometer = IAccelerometer;
+export const compass = ICompass;
+export const gyroscope = IGyroscope;
+export const scancode = IScanCode;
+export const vibrate = IVibrate;
+export const permission = IPermission;
+export const location = Location;
 export default {
-  BatteryInstance, AccelerometerInstance, CompassInstance,
-  GyroscopeInstance, ScanCodeInstance, VibrateInstance,
-  PermissionInstance, LocationInstance
+  battery, accelerometer, compass, gyroscope, scancode, 
+  vibrate, permission, location
 };

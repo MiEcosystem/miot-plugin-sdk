@@ -3,7 +3,7 @@
  * @doc_name 手机系统定位模块
  * @doc_index 11
  * @doc_directory system
- * @module miot/System
+ * @module miot/system
  * @description
  * 扩展程序运行时手机系统提供的定位功能，主要包括定位权限的获取，获取当前定位（不同精度），位置信息更新事件等方法
  *

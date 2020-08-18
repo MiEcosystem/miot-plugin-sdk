@@ -3,12 +3,12 @@
  * @doc_name 手机罗盘模块
  * @doc_index 5
  * @doc_directory system
- * @module miot/System
+ * @module miot/system
  * @description
  * 手机的罗盘
  *
  * @example
- * import {System} from "miot/System"
+ * import {System} from "miot"
  * import {CompassChangeEvent} from "miot"
  * ...
  * System.compass.startCompass(//interval).then(() => {

@@ -18,7 +18,7 @@ export const interval = {
 
 // 电量
 function getBattery() {
-  System.BatteryInstance.getBatteryInfo().then((res) => {
+  System.battery.getBatteryInfo().then((res) => {
     alert(`getBatteryInfo:${ JSON.stringify(res) }`);
     console.log("111", res);
   }).catch((error) => {
@@ -28,10 +28,10 @@ function getBattery() {
 
 // 震动
 function getVibrateShort() {
-  System.VibrateInstance.vibrateShort();
+  System.vibrate.vibrateShort();
 }
 function getVibrateLong() {
-  System.VibrateInstance.vibrateLong();
+  System.vibrate.vibrateLong();
 }
 
 // 截屏
@@ -41,7 +41,7 @@ function onUserCaptureScreen() {
 
 // 精确位置
 function getLocation(accuracy) {
-  System.LocationInstance.getLocation(accuracy).then((location) => {
+  System.location.getLocation(accuracy).then((location) => {
     alert(JSON.stringify(location));
     
   });
@@ -49,7 +49,7 @@ function getLocation(accuracy) {
 
 // 扫码
 function getScanCode() {
-  System.ScanCodeInstance.scanCode().then((res) => {
+  System.scancode.scanCode().then((res) => {
     console.log("111", res);
   }).catch((error) => {
     console.log("233", error);
@@ -64,7 +64,7 @@ function addMemoryWarning() {
 
 // 权限
 function requestPermission(permission) {
-  System.PermissionInstance.request(permission).then((res) => {
+  System.permission.request(permission).then((res) => {
     console.log("111", (res));
   }).catch((error) => {
     console.log("233", error);
@@ -73,7 +73,7 @@ function requestPermission(permission) {
 
 // 加速计
 function getStartAccelerometer() {
-  System.AccelerometerInstance.startAccelerometer(interval.a).then((res) => {
+  System.accelerometer.startAccelerometer(interval.a).then((res) => {
     alert(`startAccelerometer: ${ JSON.stringify(res) }`);
     AccelerometerChangeEvent.onAccelerometerChange.addListener((result) => {
       console.log(result);
@@ -83,7 +83,7 @@ function getStartAccelerometer() {
   });
 }
 function getStopAccelerometer() {
-  System.AccelerometerInstance.stopAccelerometer().then((res) => {
+  System.accelerometer.stopAccelerometer().then((res) => {
     alert(`stopAccelerometer: ${ JSON.stringify(res) }`);
   }).catch((error) => {
     console.log("233", error);
@@ -92,7 +92,7 @@ function getStopAccelerometer() {
 
 // 罗盘
 function getStartCompass() {
-  System.CompassInstance.startCompass(interval.c).then((res) => {
+  System.compass.startCompass(interval.c).then((res) => {
     alert(`startCompass: ${ JSON.stringify(res) }`);
     CompassChangeEvent.onCompassChange.addListener((result) => {
       console.log(result);
@@ -102,7 +102,7 @@ function getStartCompass() {
   });
 }
 function getStopCompass() {
-  System.CompassInstance.stopCompass().then((res) => {
+  System.compass.stopCompass().then((res) => {
     alert(`stopCompass: ${ JSON.stringify(res) }`);
   }).catch((error) => {
     console.log("233", error);
@@ -111,7 +111,7 @@ function getStopCompass() {
 
 // 陀螺仪
 function getStartGyroscope() {
-  System.GyroscopeInstance.startGyroscope(interval.c).then((res) => {
+  System.gyroscope.startGyroscope(interval.c).then((res) => {
     alert(`startGyroscope: ${ JSON.stringify(res) }`);
     GyroscopeChangeEvent.onGyroscopeChange.addListener((result) => {
       console.log(result);
@@ -121,7 +121,7 @@ function getStartGyroscope() {
   });
 }
 function getStopGyroscope() {
-  System.GyroscopeInstance.stopGyroscope().then((res) => {
+  System.gyroscope.stopGyroscope().then((res) => {
     alert(`stopGyroscope: ${ JSON.stringify(res) }`);
   }).catch((error) => {
     console.log("233", error);
