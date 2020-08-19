@@ -3,7 +3,7 @@
 import Host from 'miot/Host';
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
-import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View, NativeModules } from 'react-native';
 
 export default class HostDemo extends React.Component {
 

@@ -84,6 +84,7 @@ export default class MHSceneDemo extends React.Component {
           >
             <Text style={[styles.textStyle, this.fontFamily]}>加载设备的智能日志信息</Text>
           </TouchableOpacity>
+
           <TouchableOpacity
             style={styles.btnStyle}
             onPress={(e) => {
@@ -180,55 +181,6 @@ export default class MHSceneDemo extends React.Component {
             <Text style={[styles.textStyle, this.fontFamily]}>将cron表达式转化为时和分</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.btnStyle}
-            onPress={(e) => {
-              this._createTimerScene();
-            }}
-          >
-            <Text style={[styles.textStyle, this.fontFamily]}>创建定时场景</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.btnStyle}
-            onPress={(e) => {
-              this._saveTimerScene();
-            }}
-          >
-            <Text style={[styles.textStyle, this.fontFamily]}>保存定时场景（修改后的）</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.btnStyle}
-            onPress={(e) => {
-              this._reloadTimerScene();
-            }}
-          >
-            <Text style={[styles.textStyle, this.fontFamily]}>刷新场景（修改后的）</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.btnStyle}
-            onPress={(e) => {
-              this._startTimerScene();
-            }}
-          >
-            <Text style={[styles.textStyle, this.fontFamily]}>启动场景</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.btnStyle}
-            onPress={(e) => {
-              this._removeTimerScene();
-            }}
-          >
-            <Text style={[styles.textStyle, this.fontFamily]}>删除场景</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.btnStyle}
-            onPress={(e) => {
-              this._removeErrorTimerScene();
-            }}
-          >
-            <Text style={[styles.textStyle, this.fontFamily]}>删除场景（报错）</Text>
-          </TouchableOpacity>
         </ScrollView>
 
       </View >

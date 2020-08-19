@@ -59,6 +59,7 @@ class ILocale {
    * citycode(城市编码)
    * adcode(区域编码)
    * }
+   * @deprecated Use {@System.location.getLocation} 建议使用System.location.getLocation
    * @example
    * import {Host} from 'miot'
    * ...

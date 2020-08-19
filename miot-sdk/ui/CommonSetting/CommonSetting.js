@@ -7,7 +7,6 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
-import Separator from '../Separator';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
 let modelType = '';
@@ -18,6 +17,9 @@ function getModelType() {
       return;
     }
     Service.spec.getSpecString(Device.deviceID).then((instance) => {
+      if (typeof instance === 'string') {
+        instance = JSON.parse(instance);
+      }
       if (instance && instance.type) {
         modelType = instance.type.split(':')[3];
         resolve(modelType);
@@ -190,21 +192,34 @@ const firstSharedOptions = {
  * 所有设置项顺序固定
  * 权重值越大，排序越靠后，为了可扩展性，权重不能依次递增+1
  */
-const firstAllOptionsWeight = {
+export const AllOptionsWeight = {
+  // firstOptions
   [AllOptions.NAME]: 0,
   [AllOptions.CREATE_GROUP]: 1,
   [AllOptions.MANAGE_GROUP]: 1,
   [AllOptions.MEMBER_SET]: 3,
   [AllOptions.LOCATION]: 6,
   [AllOptions.SHARE]: 9,
-  // [AllOptions.BTGATEWAY]: 12,
-  // [AllOptions.VOICE_AUTH]: 15,
   [AllOptions.IFTTT]: 18,
   [AllOptions.FIRMWARE_UPGRADE]: 21,
   [AllOptions.HELP]: 24,
   [AllOptions.MORE]: 27,
-  [AllOptions.SECURITY]: 28
-  // [AllOptions.LEGAL_INFO]: 30
+  [AllOptions.SECURITY]: 28,
+  // secondOptions
+  [AllOptions.AUTO_UPGRADE]: 1,
+  [AllOptions.PLUGIN_VERSION]: 1,
+  [AllOptions.SECURITY]: 3,
+  "networkInfo": 5,
+  [AllOptions.VOICE_AUTH]: 7,
+  [AllOptions.BTGATEWAY]: 9,
+  [AllOptions.USER_EXPERIENCE_PROGRAM]: 11,
+  [AllOptions.CHECK_UPGRADE]: 13,
+  [AllOptions.LEGAL_INFO]: 18,
+  [AllOptions.USER_AGREEMENT]: 19,
+  [AllOptions.PRIVACY_POLICY]: 19,
+  [AllOptions.TIMEZONE]: 21,
+  [AllOptions.FEEDBACK]: 23,
+  [AllOptions.ADD_TO_DESKTOP]: 25
 };
 /**
  * 某些特殊设备类型不显示某些设置项
@@ -333,7 +348,9 @@ export default class CommonSetting extends React.Component {
     extraOptions: PropTypes.object,
     navigation: PropTypes.object.isRequired,
     commonSettingStyle: PropTypes.object,
-    accessible: AccessibilityPropTypes.accessible
+    accessible: AccessibilityPropTypes.accessible,
+    firstCustomOptions: PropTypes.array,
+    secondCustomOptions: PropTypes.array
   }
   static defaultProps = {
     firstOptions: [
@@ -344,19 +361,9 @@ export default class CommonSetting extends React.Component {
       AllOptions.FIRMWARE_UPGRADE,
       // AllOptions.CREATE_GROUP,
       // AllOptions.MANAGE_GROUP,
-      AllOptions.AUTO_UPGRADE,
-      AllOptions.TIMEZONE,
-      AllOptions.SECURITY,
-      AllOptions.USER_EXPERIENCE_PROGRAM
+      AllOptions.SECURITY
     ],
     secondOptions: [
-      AllOptions.SHARE,
-      // AllOptions.BTGATEWAY,
-      // AllOptions.VOICE_AUTH,
-      AllOptions.IFTTT,
-      AllOptions.FIRMWARE_UPGRADE,
-      // AllOptions.CREATE_GROUP,
-      // AllOptions.MANAGE_GROUP,
       AllOptions.AUTO_UPGRADE,
       AllOptions.TIMEZONE,
       AllOptions.SECURITY,
@@ -488,8 +495,6 @@ export default class CommonSetting extends React.Component {
         console.warn('蓝牙统一OTA界面正在火热开发中');
       }
     } else {
-      // wifi设备固件升级
-      // this.openSubPage('FirmwareUpgrade');
       // 20190516，「固件自动升级」不能做成通用功能所以去掉，
       // 那么二级页面「FirmwareUpgrade」只剩下「检查固件升级」一项，遂藏之
       this.removeKeyFromShowDot(AllOptions.FIRMWARE_UPGRADE);
@@ -499,6 +504,9 @@ export default class CommonSetting extends React.Component {
         // 2019/11/21 新灯组2.0需求
         // 虚拟组设备，跳v2.0固件更新页
         Host.ui.openLightGroupUpgradePage();
+      } else if (Device.type === '0' && ['mijia.vacuum.v1', 'viomi.vacuum.v3', 'lumi.gateway.mgl03', 'xiaomi.dev.lx2', 'xiaomi.dev.lx0'].indexOf(Device.model) !== -1) {
+        // wifi设备固件升级 Q3实验性功能 固件自动升级
+        this.openSubPage('FirmwareUpgradeAuto');
       } else if ([0, 1, 4, 5].includes(bleOtaAuthType)) {
         Host.ui.openBleCommonDeviceUpgradePage({ auth_type: bleOtaAuthType });
       } else {
@@ -543,7 +551,8 @@ export default class CommonSetting extends React.Component {
     syncDevice: this.props.extraOptions.syncDevice,
     secondOptions: [...(this.props.firstOptions || []), ...(this.props.secondOptions || [])],
     excludeRequiredOptions: this.props.extraOptions.excludeRequiredOptions,
-    extraOptions: this.props.extraOptions
+    extraOptions: this.props.extraOptions,
+    secondCustomOptions: this.props.secondCustomOptions || []
   }) {
     let excludeRequiredOptions = params.excludeRequiredOptions || [];
     if (this.props.navigation) {
@@ -599,14 +608,15 @@ export default class CommonSetting extends React.Component {
     }
     const requireKeys2 = [
       AllOptions.MORE,
-      AllOptions.HELP
+      AllOptions.HELP,
+      AllOptions.SECURITY
     ];
     // 2. 去掉杂质
     let options = [...(this.props.firstOptions || []), ...(this.props.secondOptions || [])].filter((key) => key && Object.values(AllOptions).includes(key));
     // 3. 去除重复
     options = [...new Set(options)];
     // 4. 拼接必选项和可选项
-    let keys = [...requireKeys1, ...options, ...requireKeys2];
+    let keys = [...requireKeys1, ...options, ...requireKeys2, ...(this.props.firstCustomOptions || [])];
     keys = [...new Set(keys)];
     // 5. 权限控制，如果是共享设备或者家庭设备，需要过滤一下
     if (Device.isOwner === false) {
@@ -621,10 +631,25 @@ export default class CommonSetting extends React.Component {
     }
     // 4.5 所有设置项顺序固定，20190708 / SDK_10023
     keys.sort((keyA, keyB) => {
-      return (firstAllOptionsWeight[keyA] || 0) - (firstAllOptionsWeight[keyB] || 0);
+      let weightA, weightB;
+      if (typeof keyA === 'string') {
+        weightA = AllOptionsWeight[keyA] || 0;
+      } else {
+        weightA = keyA.weight || 0;
+      }
+      if (typeof keyB === 'string') {
+        weightB = AllOptionsWeight[keyB] || 0;
+      } else {
+        weightB = keyB.weight || 0;
+      }
+      return weightA - weightB;
     });
     // 8. 根据最终的设置项 keys 渲染数据
     const items = keys.map((key) => {
+      if (typeof key !== 'string') {
+        const item = key;
+        return item;
+      }
       const item = this.commonSetting[key];
       if (item) {
         item.showDot = (this.state.showDot || []).includes(key);
@@ -647,11 +672,11 @@ export default class CommonSetting extends React.Component {
             {strings.commonSetting}
           </Text>
         </View>
-        <Separator style={{ marginLeft: Styles.common.padding }} />
+        {/* <Separator style={{ marginLeft: Styles.common.padding }} /> */}
         {
           items.map((item, index) => {
             if (!item || !item.title) return null;
-            const showSeparator = index !== items.length - 1;
+            const showSeparator = false;// index !== items.length - 1;
             return (
               <ListItem
                 key={item.title}
@@ -667,8 +692,8 @@ export default class CommonSetting extends React.Component {
                 valueNumberOfLines={tempCommonSettingStyle.itemStyle.valueNumberOfLines}
                 showDot={item.showDot || false}
                 value={item.value}
-                onPress={item.onPress}
                 showSeparator={showSeparator}
+                onPress={item.onPress}
                 {...getAccessibilityConfig({
                   accessible: this.props.accessible
                 })}
@@ -676,7 +701,7 @@ export default class CommonSetting extends React.Component {
             );
           })
         }
-        <Separator />
+        {/* <Separator /> */}
         {!Device.isFamily ?
           (<View style={styles.bottomContainer} {...getAccessibilityConfig({
             accessible: this.props.accessible,
@@ -773,18 +798,18 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     minHeight: 90,
-    backgroundColor: Styles.common.backgroundColor,
+    backgroundColor: '#fff', // Styles.common.backgroundColor,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
   },
   buttonContainer: {
     flex: 1,
-    minHeight: 55,
-    borderRadius: 5,
+    minHeight: 46,
+    borderRadius: 23,
     borderWidth: 0.3,
-    borderColor: 'rgba(0,0,0,0.2)',
-    backgroundColor: '#fff',
+    borderColor: 'transparent', // 'rgba(0,0,0,0.2)',
+    backgroundColor: '#f5f5f5',
     marginHorizontal: Styles.common.padding
   },
   buttonText: {

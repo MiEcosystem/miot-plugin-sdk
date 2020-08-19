@@ -7,7 +7,7 @@ import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
 import NavigationBar from '../NavigationBar';
 import Separator from '../Separator';
-import { secondAllOptions, SETTING_KEYS } from "./CommonSetting";
+import { secondAllOptions, SETTING_KEYS, AllOptions, AllOptionsWeight } from "./CommonSetting";
 import { getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
 /**
@@ -29,6 +29,44 @@ const secondSharedOptions = {
   [secondAllOptions.LEGAL_INFO]: 0,
   [secondAllOptions.USER_AGREEMENT]: 1,
   [secondAllOptions.USER_EXPERIENCE_PROGRAM]: 1
+};
+/**
+ * 某些特殊设备类型不显示某些设置项
+ * key: 设置项的key
+ * value: 不显示该设置项的设备类型列表, 用 pid 表示设备类型, [] 表示支持所有设备
+ * 0:  wifi单模设备
+ * 1:  yunyi设备
+ * 2:  云接入设备
+ * 3:  zigbee设备
+ * 5:  虚拟设备
+ * 6:  蓝牙单模设备
+ * 7:  本地AP设备
+ * 8:  蓝牙wifi双模设备
+ * 9:  其他
+ * 10: 功能插件
+ * 11: SIM卡设备
+ * 12: 网线设备
+ * 13: NB-IoT
+ * 14: 第三方云接入
+ * 15: 红外遥控器
+ * 16: BLE Mesh
+ * 17: 虚拟设备（新设备组）
+ */
+const excludeOptions = {
+  [AllOptions.NAME]: [],
+  [AllOptions.MEMBER_SET]: [],
+  [AllOptions.LOCATION]: [],
+  [AllOptions.SHARE]: [],
+  [AllOptions.BTGATEWAY]: [],
+  [AllOptions.VOICE_AUTH]: [],
+  [AllOptions.IFTTT]: [],
+  [AllOptions.FIRMWARE_UPGRADE]: [],
+  [AllOptions.CREATE_GROUP]: ['17'],
+  [AllOptions.MANAGE_GROUP]: [],
+  [AllOptions.MORE]: [],
+  [AllOptions.HELP]: [],
+  [AllOptions.SECURITY]: [],
+  [AllOptions.LEGAL_INFO]: ['5', '15', '17'] // 新增策略：灯组、红外遥控器等虚拟设备不显示法律信息，20190619
 };
 const { second_options } = SETTING_KEYS;
 const NETWORK_INFO = 'networkInfo'; // 「网络信息」设置项的 key
@@ -177,13 +215,34 @@ export default class MoreSetting extends React.Component {
     const requireKeys2 = [secondAllOptions.LEGAL_INFO, secondAllOptions.ADD_TO_DESKTOP];
     let options = this.secondOptions.filter((key) => key && Object.values(second_options).includes(key)); // 去掉杂质
     options = [...new Set(options)]; // 去除重复
-    let keys = [...requireKeys1, ...options, ...requireKeys2];
+    let keys = [...requireKeys1, ...options, ...requireKeys2, ...(this.props.navigation.state.params.secondCustomOptions || [])];
     keys = [...new Set(keys)]; // 去重
     if (Device.isOwner === false) {
       keys = keys.filter((key) => secondSharedOptions[key]); // 如果是共享设备或者家庭设备，需要过滤一下
     }
     keys = keys.filter((key) => !this.excludeRequiredOptions.includes(key));
-    const items = keys.map((key) => this.moreSetting[key]).filter((item) => {
+    keys = keys.filter((key) => !(excludeOptions[key] || []).includes(Device.type));
+    keys.sort((keyA, keyB) => {
+      let weightA, weightB;
+      if (typeof keyA === 'string') {
+        weightA = AllOptionsWeight[keyA] || 0;
+      } else {
+        weightA = keyA.weight || 0;
+      }
+      if (typeof keyB === 'string') {
+        weightB = AllOptionsWeight[keyB] || 0;
+      } else {
+        weightB = keyB.weight || 0;
+      }
+      return weightA - weightB;
+    });
+    const items = keys.map((key) => {
+      if (typeof key !== 'string') {
+        const item = key;
+        return item;
+      }
+      return this.moreSetting[key];
+    }).filter((item) => {
       return item && !item.hide;
     });
     let itemStyle;

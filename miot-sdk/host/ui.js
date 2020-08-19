@@ -492,9 +492,10 @@ class IUi {
    * @param {string} aiMiotClientId 米家的客户端 ID
    * @param {string} aiClientId 水滴平台的客户端
    * @param {string} aiVersion "" 不隐藏 "thirdpart" 隐藏 “一段录音” “设备控制” 按钮 "audio" 隐藏 “一段录音” 按钮 "device" 隐藏 “设备控制” 按钮
+   * @param {object} otherParams 想怎么玩都行的参数，会覆盖之前的
   */
   @report
-  openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion) {
+  openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion, otherParams) {
   }
   /**
    * 显示提示用户打开蓝牙的动画示意图, 仅在iOS下有效，Android下无反应
@@ -580,6 +581,40 @@ class IUi {
    */
   @report
   openAndroidLocationServerSettingPage() {
+  }
+  /**
+   *  打开设备重置页面
+   *  @since 10041
+   */
+  @report
+  openResetAndConnectDevicePage() {
+  }
+  /**
+   *  打开语音授权页面
+   *  @since 10041
+   */
+  @report
+  openVoiceCtrlDevListPage() {
+  }
+  /**
+   *  打开文件选择页面 only for iOS
+   *  在使用前建议判断平台
+   *  @since 10042 
+   *  @return {Promise}
+   * 
+   *  成功时返回 
+   *    { code: 0 , data: [ { path: xxx, fileName: xxx, ext: xxx, fileSize: xxx}, {...}] }
+   *      其中 path 是文件的绝对地址，ext是扩展名，fileName是文件名，byteLen 是文件 size 单位是byte
+   *      需要特别说明的是：
+   *      1：data 返回的数组类型 在 10042 中目前仅返回一个文件信息，不支持多选
+   *      2：如果用户没有选择任何文件，例如点击了左上角的取消按钮，那么 data 中会返回空数组，开发人员需要对此做处理。
+   *  失败时返回
+   *    { code: -1, message: 'file authorized failed'}  // 在ios中 获取icloud需要验证授权，此处错误代表授权失败，如果出现此错误，请联系米家开发人员或提交工单反馈。
+   *    { code: -2, message: 'file read error'}  // 出现此种错误 代表 ios 获取授权文件路径失败，如果出现此错误，请联系米家开发人员或提交工单反馈。
+   *    { code: -3, message: 'method [openIOSDocumentFileChoosePage] can only be invoked on iOS, Android is not supported.' }
+   */
+  @report
+  openIOSDocumentFileChoosePage() {
   }
 }
 const UiInstance = new IUi();

@@ -79,22 +79,31 @@ export const DeviceEvent = {
   deviceStatusChanged: {
   },
   /**
-   * ble直连spec消息通知
+   * 订阅ble spec 消息推送；除了订阅之外，插件需要与设备建立蓝牙连接，并主动扫描设备的特征值，设备才会给插件推送消息。
    * @param {IDevice} device
    * @param {Map<string,object>} messages -接收到的数据,value为property或者event的值
    * @param {Map<string,object>} originData -接收到的数据，value为相应property或者event推送到手机的原始内容
    * @example
-     * let listener0= DeviceEvent.BLESpecNotifyActionEvent.addListener((device, data) => {
-        
-          if(data.has('prop.2.1')){
-            console.log(`receive prop(event) changed notification,prop.2.1:`, data.get('prop.2.1'));
+     //详细使用示例可以参考com.xiaomi.bledemo/Main/BleSpec.js
+       let listener0= DeviceEvent.BLESpecNotifyActionEvent.addListener((device, data) => {
+          console.log('receive prop(event) changed notification:' + JSON.stringify(data))
+          data.forEach((key, value) => {
+            console.log(`receive prop(event) changed notification,prop:${ key }`, JSON.stringify(value));
           });
-          if(data.has('event.2.1')){
-            console.log(`receive prop(event) changed notification,event.2.1:`, data.get('event.2.1'));
-          }
         });
+        this._s1 = BluetoothEvent.bluetoothSeviceDiscovered.addListener((blut, services) => {
+          if (services.length <= 0) {
+          return;
+          }
+          console.log('bluetoothSeviceDiscovered', blut.mac, services.map(s => s.UUID), bt.isConnected);
+          const s = services.map(s => ({ uuid: s.UUID, char: [] }));
+          services.forEach(s => {
+            s.startDiscoverCharacteristics();
+          });
+        }
         bt = Device.getBluetoothLE();
         if(bt.isConnected){
+          bt.startDiscoverServices();
           bt.subscribeMessages('prop.2.1','event.2.1').then(res => {
             console.log('subscribe exception success,res:',JSON.stringify(res));
           }).catch(err => console.log('subscribe exception fail'))
@@ -103,6 +112,7 @@ export const DeviceEvent = {
           console.log('bluetoothConnectionStatusChanged', blut, isConnect);
           if (bt.mac === blut.mac) {
             if(isConnect){
+              bt.startDiscoverServices();
               bt.subscribeMessages('prop.2.1','event.2.1').then(res => {
                 console.log('subscribe exception success,res:',JSON.stringify(res));
               }).catch(err => console.log('subscribe exception fail'))
@@ -113,6 +123,7 @@ export const DeviceEvent = {
           }
         }else{
           bt.connect(scType,{ did: Device.deviceID }).then(res=>{
+            bt.startDiscoverServices();
             bt.subscribeMessages('prop.2.1','event.2.1').then(res => {
               console.log('subscribe exception success,res:',JSON.stringify(res));
               }).catch(err => console.log('subscribe exception fail'))
@@ -324,7 +335,6 @@ export class BasicDevice {
    *
    * })
    */
-  @report
   getBluetoothLE(peripheralID = null) {
      return null
   }
@@ -569,7 +579,7 @@ export class BasicDevice {
    */
   get isFamily() {
      return  false
-    return permitLevel == PERMISSION_FAMILY || permitLevel == PERMISSION_FAMILY_IOS;
+    return (permitLevel & PERMISSION_FAMILY) !== 0 || permitLevel == PERMISSION_FAMILY_IOS;
   }
   /**
    *是否是别人分享的设备，若是家属分享给你的设备，isShared为fasle，isFamily为true
@@ -579,7 +589,7 @@ export class BasicDevice {
    */
   get isShared() {
      return  false
-    return (permitLevel == PERMISSION_SHARE || permitLevel == PERMISSION_SHARE_READONLY) && Properties.of(this).ownerName !== null;
+    return (permitLevel & PERMISSION_SHARE) !== 0 && !this.isFamily && Properties.of(this).ownerName !== null;
   }
   /**
    *是否是已经绑定的设备，一般返回true
@@ -818,7 +828,7 @@ export class BasicDevice {
    * 查询设备的房间信息
    * @since 10039
    * @param {string} did DeviceID，默认为当前设备
-   * @return {Promise<Object>} {code: 0, data: {roomId, homeId, roomName} }
+   * @return {Promise<Object>} {code: 0, data: {roomId, homeId, roomName, homeName} }
    */
   @report
   getRoomInfoForCurrentHome(did = null) {

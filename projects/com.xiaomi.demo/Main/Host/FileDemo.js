@@ -41,14 +41,13 @@ export default class FileStorage extends React.Component {
 
     // 如果不设置英文字体，那么外文字符串将显示不全（Android）
     this.fontFamily = {};
-    if (Platform.OS === 'android') this.fontFamily = { fontFamily: 'Kmedium' }
+    if (Platform.OS === 'android') this.fontFamily = { fontFamily: 'Kmedium' };
 
     FileEvent.fileDownloadProgress.addListener((data) => {
       let downloaded = data.downloadBytes;
       let all = data.totalBytes;
       let progress = downloaded / all * 100;
-      let visProgress = progress < 100;
-      console.log(progress)
+      console.log(progress);
       // this.setState({ progress, visProgress })
     });
   }
@@ -56,27 +55,27 @@ export default class FileStorage extends React.Component {
 
   render() {
 
-    var shotimg = null;
-    var pic = this.state.imagePath;
+    let shotimg = null;
+    let pic = this.state.imagePath;
     if (pic && pic != "") {
       if (pic.startsWith("/")) {
-        pic = "file://" + pic;
+        pic = `file://${ pic }`;
       }
       shotimg = <Image style={styles.img}
-        source={{ uri: pic, scale: PixelRatio.get() }} />
+        source={{ uri: pic, scale: PixelRatio.get() }} />;
     }
 
     return (
       <View style={styles.container}>
         <ScrollView
-          style={{backgroundColor: '#ffffff'}}
-          ref="myScrollView"
+          style={{ backgroundColor: '#ffffff' }}
+          ref={(ref) => { this.myScrollView = ref; }}
         >
           <View style={[styles.row, { marginTop: 10 }]}>
             <Text style={styles.title}>文件名: </Text>
             <TextInput
               onChangeText={(text) => {
-                this.setState({ fileName: text })
+                this.setState({ fileName: text });
               }}
               style={{ flex: 1, marginLeft: 10 }}
               placeholder="输入文件名"
@@ -85,7 +84,7 @@ export default class FileStorage extends React.Component {
           </View>
           <TextInput
             onChangeText={(text) => {
-              this.setState({ fileContent: text })
+              this.setState({ fileContent: text });
             }}
             style={{ height: 150 }}
             multiline={true}
@@ -138,7 +137,7 @@ export default class FileStorage extends React.Component {
           </View>
 
           <View style={styles.row}>
-          <View style={{ flex: 1 }}>
+            <View style={{ flex: 1 }}>
               <Button
                 title="上传文件"
                 onPress={() => this._uploadFile()}
@@ -227,6 +226,14 @@ export default class FileStorage extends React.Component {
               />
             </View>
           </View>
+          <View style={styles.row}>
+            <View style={{ flex: 1 }}>
+              <Button
+                title="创建目录"
+                onPress={() => this._mkdir()}
+              />
+            </View>
+          </View>
 
 
           <View style={{ flex: 1, flexDirection: "row", margin: 5 }}>
@@ -260,11 +267,24 @@ export default class FileStorage extends React.Component {
           }}
           visible={this.state.visProgress} />
       </View>
-    )
+    );
+  }
+
+  _mkdir() {
+    let params = {
+      dirPath: 'test12321312312/12/testdir0',
+      recursive: true
+    };
+    Host.file.mkdir(params).then((res) => {
+      alert(JSON.stringify(res));
+    }).catch((err) => {
+      alert(JSON.stringify(err));
+    });
+
   }
 
   _renderFileList(item) {
-    let info = item.name+'  \nsize:'+item.size;
+    let info = `${ item.name }  \nsize:${ item.size }`;
     return (
       <View>
         <TouchableHighlight
@@ -274,7 +294,7 @@ export default class FileStorage extends React.Component {
         </TouchableHighlight>
         <View style={{ height: 1 / PixelRatio.get(), backgroundColor: '#666' }} />
       </View>
-    )
+    );
   }
 
   // 普通字符串写文件
@@ -288,16 +308,16 @@ export default class FileStorage extends React.Component {
     Host.file.writeFile(this.state.fileName, this.state.fileContent).then((isSuccess) => {
       alert(JSON.stringify(isSuccess));
     }).catch((error) => {
-      alert(JSON.stringify(error))
+      alert(JSON.stringify(error));
     });
   }
 
   // 普通字符串 追加写内容
   _appendFile() {
     Host.file.appendFile(this.state.fileName, this.state.fileContent).then((isSuccess) => {
-      alert(JSON.stringify(isSuccess))
+      alert(JSON.stringify(isSuccess));
     }).catch((error) => {
-      alert(JSON.stringify(error))
+      alert(JSON.stringify(error));
     });
   }
 
@@ -312,7 +332,7 @@ export default class FileStorage extends React.Component {
     Host.file.writeFileThroughBase64(this.state.fileName, this.state.fileContent).then((isSuccess) => {
       alert(isSuccess);
     }).catch((error) => {
-      alert(JSON.stringify(error))
+      alert(JSON.stringify(error));
     });
   }
 
@@ -321,7 +341,7 @@ export default class FileStorage extends React.Component {
     Host.file.appendFileThroughBase64(this.state.fileName, this.state.fileContent).then((isSuccess) => {
       alert(isSuccess);
     }).catch((error) => {
-      alert(JSON.stringify(error))
+      alert(JSON.stringify(error));
     });
   }
 
@@ -362,9 +382,9 @@ export default class FileStorage extends React.Component {
       .then((isSuccess) => {
         alert(isSuccess);
       })
-      .catch(e => {
+      .catch((e) => {
         alert(e);
-      })
+      });
   }
 
   // 获取文件列表
@@ -375,7 +395,7 @@ export default class FileStorage extends React.Component {
       });
     }).catch((e, result) => {
       alert(JSON.stringify(result));
-    })
+    });
   }
 
   // 删除文件
@@ -393,7 +413,7 @@ export default class FileStorage extends React.Component {
 
   // 截屏-全屏
   _screenShot() {
-    let imageName = "screen_" + new Date().getTime() + ".png";
+    let imageName = `screen_${ new Date().getTime() }.png`;
     Host.file.screenShot(imageName)
       .then((imagePath) => {
         imagePathMap.set(imageName, imagePath);
@@ -409,8 +429,8 @@ export default class FileStorage extends React.Component {
   }
 
   _longScreenShot() {
-    let node = findNodeHandle(this.refs.myScrollView);
-    let imageName = "screen_" + new Date().getTime() + ".png";
+    let node = findNodeHandle(this.myScrollView);
+    let imageName = `screen_${ new Date().getTime() }.png`;
     Host.file.longScreenShot(node, imageName)
       .then((imagePath) => {
         imagePathMap.set(imageName, imagePath);
@@ -426,7 +446,7 @@ export default class FileStorage extends React.Component {
   }
 
   _screenShotAndSaveToPhotosAlbum() {
-    let imageName = "screen_" + new Date().getTime() + ".png";
+    let imageName = `screen_${ new Date().getTime() }.png`;
     Host.file.screenShot(imageName)
       .then((imagePath) => {
         imagePathMap.set(imageName, imagePath);
@@ -434,13 +454,11 @@ export default class FileStorage extends React.Component {
           imagePath: imagePath
         });
         this._readFileList();
-        Host.file.saveImageToPhotosAlbum(imageName).then(_ => {
-          alert(imagePath + " 已保存到系统相册");
+        Host.file.saveImageToPhotosAlbum(imageName).then(() => {
+          alert(`${ imagePath } 已保存到系统相册`);
         }).catch((result) => {
           alert(result);
-        })
-
-
+        });
       })
       .catch((result) => {
         alert(result);
@@ -452,32 +470,30 @@ export default class FileStorage extends React.Component {
 
     let url = 'http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_mp4_855379f77b74ca565e8ef7d68c08264c.mp4';
 
-    let fileName = "file" + new Date().getTime() + ".mp4";
-    Host.file.downloadFile(url, fileName).then((res)=>{
+    let fileName = `file${ new Date().getTime() }.mp4`;
+    Host.file.downloadFile(url, fileName).then(() => {
       this._readFileList();
-      Host.file.saveFileToPhotosAlbum(fileName).then(()=>{
-        alert(fileName + " 已保存到系统相册");
-      }).catch((result)=>{
+      Host.file.saveFileToPhotosAlbum(fileName).then(() => {
+        alert(`${ fileName } 已保存到系统相册`);
+      }).catch((result) => {
         alert(result);
-      })
-    }).catch((error)=>{
+      });
+    }).catch((error) => {
       alert(JSON.stringify(error));
-    })
+    });
   }
 
   _fetchFDSFile() {
-    let did = Device.deviceID;
-    let suffix = "mp3";
     if (this.file_obj_name) {
-      console.log('param', { 'obj_name': this.file_obj_name })
-      Host.file.getFDSFileInfoWithObjName(this.file_obj_name).then(res => {
-        console.log('getfileurl success', res)
-        alert('获取成功' + JSON.stringify(res))
-      }).catch(err => {
-        console.log('getfileurl failed', err)
-      })
+      console.log('param', { 'obj_name': this.file_obj_name });
+      Host.file.getFDSFileInfoWithObjName(this.file_obj_name).then((res) => {
+        console.log('getfileurl success', res);
+        alert(`获取成功${ JSON.stringify(res) }`);
+      }).catch((err) => {
+        console.log('getfileurl failed', err);
+      });
     } else {
-      alert("先上传文件")
+      alert("先上传文件");
     }
 
   }
@@ -485,30 +501,29 @@ export default class FileStorage extends React.Component {
   __generateUploadInfo(complete) {
     let did = Device.deviceID;
     let suffix = "mp3";
-    Host.file.generateObjNameAndUrlForFDSUpload(did, suffix).then(res => {
+    Host.file.generateObjNameAndUrlForFDSUpload(did, suffix).then((res) => {
       if (res.hasOwnProperty(suffix) && res[suffix]) {
         let obj = res[suffix];
         let obj_name = obj.obj_name;
-        let name = obj_name.substring(obj_name.length - 22)
+        let name = obj_name.substring(obj_name.length - 22);
         let content = "this is sample content 这是个示例内容 😄💻";
-        let time = obj.time;
         this.file_obj_name = obj_name;
-        console.log("pre upload", res)
-        Host.file.writeFile(name, content).then(r => {
-          complete([true, {url: obj.url, method: obj.method, fileName: name}])
-        }).catch(err => {
-          alert('存储临时文件失败' + JSON.stringify(err))
-          console.log("write file failed", err)
-          complete([false, err])
-        })
+        console.log("pre upload", res);
+        Host.file.writeFile(name, content).then(() => {
+          complete([true, { url: obj.url, method: obj.method, fileName: name }]);
+        }).catch((err) => {
+          alert(`存储临时文件失败${ JSON.stringify(err) }`);
+          console.log("write file failed", err);
+          complete([false, err]);
+        });
       } else {
-        complete([false, {}])
+        complete([false, {}]);
       }
     }).catch((error) => {
       console.log(error);
-      alert(JSON.stringify(error))
-      complete([false, error])
-    })
+      alert(JSON.stringify(error));
+      complete([false, error]);
+    });
   }
 
   _uploadFDSFile() {
@@ -519,18 +534,18 @@ export default class FileStorage extends React.Component {
           method: obj.method,
           headers: { "Content-Type": "" },
           files: [{ filename: obj.fileName }]
-        }
-        Host.file.uploadFileToFDS(param).then(rr => {
-          alert('上传成功' + JSON.stringify(rr))
-          console.log('upload file success', rr)
-        }).catch(err => {
-          alert('上传失败' + JSON.stringify(err))
-          console.log('upload file failed', err)
-        })
+        };
+        Host.file.uploadFileToFDS(param).then((rr) => {
+          alert(`上传成功${ JSON.stringify(rr) }`);
+          console.log('upload file success', rr);
+        }).catch((err) => {
+          alert(`上传失败${ JSON.stringify(err) }`);
+          console.log('upload file failed', err);
+        });
       } else {
-        alert(obj)
+        alert(obj);
       }
-    })
+    });
   }
 
   _uploadFile() {
@@ -543,62 +558,62 @@ export default class FileStorage extends React.Component {
           files: [{
             filename: obj.fileName,
             range: { start: 2, length: 10 },
-            formdata: { name: 'custom_name', filename: 'custom_filename'},
+            formdata: { name: 'custom_name', filename: 'custom_filename' }
           }]
-        }
-        Host.file.uploadFile(param).then(rr => {
-          alert('上传成功' + JSON.stringify(rr))
-          console.log('upload file success', rr)
-        }).catch(err => {
-          alert('上传失败' + JSON.stringify(err))
-          console.log('upload file failed', err)
-        })
+        };
+        Host.file.uploadFile(param).then((rr) => {
+          alert(`上传成功${ JSON.stringify(rr) }`);
+          console.log('upload file success', rr);
+        }).catch((err) => {
+          alert(`上传失败${ JSON.stringify(err) }`);
+          console.log('upload file failed', err);
+        });
       } else {
-        alert(obj)
+        alert(obj);
       }
-    })
+    });
   }
 
   _downLoadFile() {
-    console.log("downLoadFile...")
-    var taskID = '1111'
+    console.log("downLoadFile...");
+    let taskID = '1111';
     let path = "http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_zip_23831a541b583ea55ec212f69f3afc07.zip";
-    //建议将下载地址替换为自己可用的下载地址
-    Host.file.downloadFile(path, "test.zip", {taskID: taskID}).then((fileInfo) => {
+    // 建议将下载地址替换为自己可用的下载地址
+    Host.file.downloadFile(path, "test.zip", { taskID: taskID }).then((fileInfo) => {
       console.log("downloadFile...fileInfo", fileInfo);
     }).catch((error) => {
       console.log("downloadFile...error", error);
-      alert("downloadFile:  "+JSON.stringify(error))
+      alert(`downloadFile:  ${ JSON.stringify(error) }`);
     });
   }
 
   _canceldownLoadFile() {
-    var taskID = '1111'
-    console.log("==============setTimeout====================")
-    Host.file.cancelDownloadFile(taskID).then(res => {
-      console.log('成功' + JSON.stringify(res))
-      alert('成功' + JSON.stringify(res))
-      this.setState({  visProgress: false })
-    }).catch(err => {
-      console.log('失败' + JSON.stringify(err))
-      alert('失败' + JSON.stringify(err))
-    })
+    let taskID = '1111';
+    console.log("==============setTimeout====================");
+    Host.file.cancelDownloadFile(taskID).then((res) => {
+      console.log(`成功${ JSON.stringify(res) }`);
+      alert(`成功${ JSON.stringify(res) }`);
+      this.setState({ visProgress: false });
+    }).catch((err) => {
+      console.log(`失败${ JSON.stringify(err) }`);
+      alert(`失败${ JSON.stringify(err) }`);
+    });
 
   }
 
   _unZipFile() {
-    console.log("unZipFile...")
+    console.log("unZipFile...");
     Host.file.unzipFile("test.zip", "TEST").then((msg) => {
       console.log("unZipFile...msg", msg);
-      alert('解压成功： ' + JSON.stringify(msg))
+      alert(`解压成功： ${ JSON.stringify(msg) }`);
     }).catch((error) => {
       console.log("unZipFile...error", error);
-      alert('解压失败： ' + JSON.stringify(error))
+      alert(`解压失败： ${ JSON.stringify(error) }`);
     });
   }
 
 }
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderTopColor: '#f1f1f1',
@@ -608,21 +623,21 @@ var styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#ffffff',
     marginBottom: 0,
-    marginTop: 0,
+    marginTop: 0
   },
   title: {
     fontSize: 16,
     color: "#333",
-    marginBottom: 5,
+    marginBottom: 5
   },
   img: {
     width: screenWidth / 2,
-    height: screenHeight / 2,
+    height: screenHeight / 2
   },
   row: {
     height: 40,
     flexDirection: 'row',
     alignItems: 'center',
-    alignSelf: 'stretch',
+    alignSelf: 'stretch'
   }
-})
+});
