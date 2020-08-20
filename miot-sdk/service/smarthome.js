@@ -150,7 +150,7 @@ class ISmartHome {
        return Promise.resolve(null);
     }
     /**
-     * 获取服务器中 最新的版本信息，
+     * 获取服务器中可用的固件更新版本信息
      * 内部调用米家代理接口/v2/device/latest_ver
      * @since 10004
      * @param {string} did 设备did
@@ -184,7 +184,6 @@ class ISmartHome {
      *     Package.isDebug&&Service.smarthome.reportLog(...)
      *
      */
-    @report
     reportLog(model, log) {
     }
     /**

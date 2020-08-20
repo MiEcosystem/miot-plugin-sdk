@@ -56,6 +56,7 @@ import HostStorage from './host/storage';
  const IOS="ios", ANDROID="android";
 import { Buffer } from "buffer";
 import merge from "merge";
+import { Platform } from 'react-native';
 const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 export const HOST_TYPE_IOS = IOS;
 export const HOST_TYPE_ANDROID = ANDROID;
@@ -149,6 +150,19 @@ export default {
      */
   get appConfigEnv() {
      return  true
+  },
+  /** 
+  * 获取Android 官方提供的打孔屏api提供的打孔屏高度。 ios手机一律返回0.
+  * 
+  * @since 10042
+  * @type {int}
+  * @readonly
+  */
+  get displayCutoutTop() {
+     return  0
+      return native.MIOTHost.displayCutoutTop || 0;
+    }
+    return 0;
   },
   /**
      * @const

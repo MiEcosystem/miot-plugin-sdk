@@ -1,4 +1,4 @@
-//index.ios.js
+// index.ios.js
 
 'use strict';
 
@@ -26,7 +26,7 @@ export default class PhotoDemo extends React.Component {
   render() {
     // 如果不设置英文字体，那么外文字符串将显示不全（Android）
     let fontFamily = {};
-    if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' }
+    if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' };
 
     return (
       <ScrollView style={styles.container}>
@@ -53,7 +53,7 @@ export default class PhotoDemo extends React.Component {
         </View>
         <View style={styles.rowContainer}>
           <TouchableOpacity style={styles.touchable} onPress={() => {
-            this.downloadVideoSaveToDidAlbum()
+            this.downloadVideoSaveToDidAlbum();
           }}>
             <Text style={{ fontSize: 15 }}>下载视频保存到指定名称为did的手机相册</Text>
           </TouchableOpacity>
@@ -79,13 +79,20 @@ export default class PhotoDemo extends React.Component {
             <Text style={{ fontSize: 15 }}>删除指定did相册中的第一个视频或照片</Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.rowContainer}>
+          <TouchableOpacity style={styles.touchable} onPress={() => {
+            Host.ui.openSystemShareWindow(this.state.currentAsset.url);
+          }}>
+            <Text style={{ fontSize: 15 }}>分享当前的视频或照片</Text>
+          </TouchableOpacity>
+        </View>
         {this.renderAsset()}
       </ScrollView >
     );
   }
 
   renderAsset() {
-    console.log('photodemo_log' + JSON.stringify(this.state.currentAsset));
+    console.log(`photodemo_log${ JSON.stringify(this.state.currentAsset) }`);
     if (this.state.currentAsset == null) {
       return null;
     }
@@ -101,10 +108,10 @@ export default class PhotoDemo extends React.Component {
           source={{
             uri: url,
             width: width,
-            height: height,
+            height: height
           }}
-          style={{ width: 150, height: 150, }}
-        />
+          style={{ width: 150, height: 150 }}
+        />;
       } else if (mediaType == 2) {
         let path = this.state.currentAsset.path;
         return <View>
@@ -112,40 +119,39 @@ export default class PhotoDemo extends React.Component {
             source={{
               uri: url,
               width: width,
-              height: height,
+              height: height
             }}
-            style={{ width: 150, height: 150, }}
+            style={{ width: 150, height: 150 }}
           />
           <Video
             style={{ width: 200, height: 200 }}
             source={{
-              uri: path,
+              uri: path
             }}
             paused={true}
-            resizeMode='contain'
+            resizeMode="contain"
             onEnd={() => {
-              alert('Done!')
+              alert('Done!');
             }}
             repeat={false}
             onError={() => {
               console.log('Callback when video cannot be loaded');
             }}
           />
-        </View>
-        return
+        </View>;
       }
     }
   }
 
   snapImageSaveToPhoto() {
-    let imageName = "screen_" + new Date().getTime() + ".png";
+    let imageName = `screen_${ new Date().getTime() }.png`;
     Host.file.screenShot(imageName)
       .then((imagePath) => {
-        Host.file.saveImageToPhotosAlbum(imageName).then(_ => {
-          alert(imagePath + " 已保存到系统相册");
+        Host.file.saveImageToPhotosAlbum(imageName).then((_) => {
+          alert(`${ imagePath } 已保存到系统相册`);
         }).catch((result) => {
           alert(result);
-        })
+        });
       })
       .catch((result) => {
         alert(result);
@@ -155,27 +161,27 @@ export default class PhotoDemo extends React.Component {
   downloadVideoSaveToPhoto() {
     let url = 'http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_mp4_855379f77b74ca565e8ef7d68c08264c.mp4';
 
-    let fileName = "file" + new Date().getTime() + ".mp4";
+    let fileName = `file${ new Date().getTime() }.mp4`;
     Host.file.downloadFile(url, fileName).then((res) => {
       Host.file.saveFileToPhotosAlbum(fileName).then(() => {
-        alert(fileName + " 已保存到系统相册");
+        alert(`${ fileName } 已保存到系统相册`);
       }).catch((result) => {
         alert(result);
-      })
+      });
     }).catch((error) => {
       alert(JSON.stringify(error));
-    })
+    });
   }
 
   snapImageSaveToDidAlbum() {
-    let imageName = "screen_" + new Date().getTime() + ".png";
+    let imageName = `screen_${ new Date().getTime() }.png`;
     Host.file.screenShot(imageName)
       .then((imagePath) => {
         Host.file.saveImageToPhotosDidAlbum(imageName).then(() => {
           alert("已保存到相册");
         }).catch((result) => {
           alert(JSON.stringify(result));
-        })
+        });
       })
       .catch((result) => {
         alert(JSON.stringify(result));
@@ -185,16 +191,16 @@ export default class PhotoDemo extends React.Component {
   downloadVideoSaveToDidAlbum() {
     let url = 'http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_mp4_855379f77b74ca565e8ef7d68c08264c.mp4';
 
-    let fileName = "file" + new Date().getTime() + ".mp4";
+    let fileName = `file${ new Date().getTime() }.mp4`;
     Host.file.downloadFile(url, fileName).then((res) => {
       Host.file.saveVideoToPhotosDidAlbum(fileName).then(() => {
-        alert(fileName + " 已保存到相册");
+        alert(`${ fileName } 已保存到相册`);
       }).catch((result) => {
         alert(result);
-      })
+      });
     }).catch((error) => {
       alert(JSON.stringify(error));
-    })
+    });
   }
 
   getFirstImageFromDidAlbum() {
@@ -204,17 +210,21 @@ export default class PhotoDemo extends React.Component {
         for (let index = 0; index < sources.length; index++) {
           const element = sources[index];
           if (element.mediaType == 1) {
-            this.state.currentAsset = element;
+            this.setState({
+              currentAsset: element
+            });
             break;
           }
         }
       } else {
-        this.state.currentAsset = {};
+        this.setState({
+          currentAsset: {}
+        });
       }
       this.setState({});
     }).catch((result) => {
       alert(result);
-    })
+    });
   }
 
   getFirstVideoFromDidAlbum() {
@@ -224,29 +234,36 @@ export default class PhotoDemo extends React.Component {
         for (let index = 0; index < sources.length; index++) {
           const element = sources[index];
           if (element.mediaType == 2) {
-            this.state.currentAsset = element;
+            this.setState({
+              currentAsset: element
+            });
             break;
           }
         }
       } else {
-        this.state.currentAsset = {};
+        this.setState({
+          currentAsset: {}
+        });
       }
 
       Host.file.fetchLocalVideoFilePathFromDidAlbumByUrl(this.state.currentAsset.url).then((res) => {
-        this.state.currentAsset.path = res.data;
-        this.setState({});
+        let c = this.state.currentAsset;
+        c.path = res.data;
+        this.setState({
+          currentAsset: c
+        });
       }).catch(() => {
         this.setState({});
       });
     }).catch((result) => {
       alert(result);
-    })
+    });
   }
 
   deleteFirstAssetFromDidAlbum() {
     Host.file.getAllSourceFromPhotosDidAlbum().then((res) => {
       let sources = res.data;
-      var todeleteAsset = [];
+      let todeleteAsset = [];
       if (sources && sources.length > 0) {
         for (let index = 0; index < sources.length; index++) {
           const element = sources[index];
@@ -256,16 +273,18 @@ export default class PhotoDemo extends React.Component {
       }
       Host.file.deleteAssetsFromAlbumByUrls(todeleteAsset).then((res) => {
         alert('删除成功');
-        this.state.currentAsset = {};
-        this.setState({});
+        this.setState({
+          currentAsset: {}
+        });
       }).catch(() => {
         alert('删除失败');
-        this.state.currentAsset = {};
-        this.setState({});
+        this.setState({
+          currentAsset: {}
+        });
       });
     }).catch((result) => {
       alert(result);
-    })
+    });
   }
 }
 
@@ -274,12 +293,12 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 30,
     paddingBottom: 30,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
   rowContainer: {
     alignItems: 'center',
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 10
   },
   touchable: {
   }
