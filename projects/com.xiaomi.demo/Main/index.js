@@ -15,7 +15,7 @@
 'use strict';
 // ART的demo }
 import { Entrance, Package } from "miot";
-import { FirmwareUpgrade, MoreSetting } from "miot/ui/CommonSetting";
+import { FirmwareUpgrade, FirmwareUpgradeAuto, FirmwareUpgradeRecord, MoreSetting } from "miot/ui/CommonSetting";
 import BTInterconnection from 'miot/ui/BTInterconnection';
 import BraceletInterconnection from 'miot/ui/BraceletInterconnection';
 import Setting from "./tutorial/Setting";
@@ -141,6 +141,7 @@ import CloudStorageDemo from './Service/CloudStorageDemo';
 import WebViewBridageDemo from './ThirdPartDemo/WebViewBridageDemo';
 import NavigationBarDemo from "./tutorial/NavigationBarDemo";
 import BlankDemo from './tutorial/BlankDemo';
+import SystemDemo from './tutorial/SystemDemo';
 import BlankPageDemo from "./UIComponent/BlankPageDemo";
 import PackageDemo from "./tutorial/PackageDemo";
 // import ReactNativeCameraDemo from './ThirdPartDemo/ReactNativeCameraDemo';
@@ -195,10 +196,13 @@ import OfficialDemos from './OfficialDemos';
 function createRootStack(initPage) {
   return createStackNavigator({
     blankDemo: BlankDemo,
+    systemDemo: SystemDemo,
     NavigationBarDemo,
     Setting,
     MoreSetting,
     FirmwareUpgrade,
+    FirmwareUpgradeAuto,
+    FirmwareUpgradeRecord,
     HostDemo,
     HostEventDemo,
     Home: MainPage,
