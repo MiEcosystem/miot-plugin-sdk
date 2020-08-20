@@ -504,7 +504,7 @@ export default class CommonSetting extends React.Component {
         // 2019/11/21 新灯组2.0需求
         // 虚拟组设备，跳v2.0固件更新页
         Host.ui.openLightGroupUpgradePage();
-      } else if (Device.type === '0' && ['mijia.vacuum.v1', 'viomi.vacuum.v3', 'lumi.gateway.mgl03', 'xiaomi.dev.lx2', 'xiaomi.dev.lx0'].indexOf(Device.model) !== -1) {
+      } else if (Device.type === '0' && ['mijia.vacuum.v1', 'viomi.vacuum.v3', 'lumi.gateway.mgl03', 'xiaomi.dev.lx2', 'xiaomi.dev.lx0', 'xiaomi.switch.a2ota'].indexOf(Device.model) !== -1) {
         // wifi设备固件升级 Q3实验性功能 固件自动升级
         this.openSubPage('FirmwareUpgradeAuto');
       } else if ([0, 1, 4, 5].includes(bleOtaAuthType)) {
