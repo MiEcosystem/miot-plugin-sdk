@@ -1,4 +1,4 @@
-22# MIOT SDK (API_LEVEL:10040) for React Native
+22# MIOT SDK (API_LEVEL:10042) for React Native
 
 **因SDK_10033并未发布，请大家不要指定min_sdk_api_level为10033以及使用SDK_10033分支，建议10034及其以上！**
 **SDK_10035分支运行前请先执行npm install**
@@ -26,7 +26,7 @@
         注: xxx.yyy.zzz 为项目路径名, 创建后项目位于projects/xxx.yyy.zzz下
     
     启动调试
-    npm start
+    npm start xxx.yyy.zzz,使用米家APP扫描控制台中的二维码开启调试。
         
     运行Demo
     在/miot-workspace下，执行 
