@@ -642,7 +642,21 @@ export class BasicDevice {
   @report
   getVirtualDevices() {
      return Promise.resolve([]);
+  }
+  /**
+  * 获取设备定向推荐信息，展示推荐入口使用：用于获取插件上方偶尔弹出的提示条/广告条数据，比如：设备信号差，请调整设备位置。
+  * @deprecated since 10032 请使用Device.getDeviceWifi().getRecommendScenes()代替
+  */
+  @report
+  getRecommendScenes(model, did) {
      return Promise.resolve({});
+  }
+  /**
+   * 获取当前设备列表中的指定model的设备列表。需要在common_extra_config增加配置，暂时用于秒秒测的互联互通功能。
+   * @deprecated since 10032，请使用Device.getDeviceWifi().requestAuthorizedDeviceListData()代替
+   */
+  @report
+  requestAuthorizedDeviceListData(model) {
      return Promise
   }
   /**
