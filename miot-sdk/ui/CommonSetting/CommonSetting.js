@@ -433,7 +433,7 @@ export default class CommonSetting extends React.Component {
       // }
     };
     // 2020/4/20 锁类和保险箱类，安全设置从更多设置中移出来
-    if (['lock', 'safe-box'].indexOf(modelType) !== -1) {
+    if (['lock', 'safe-box', 'safe'].indexOf(modelType) !== -1) {
       ret[AllOptions.SECURITY] = {
         title: strings.security,
         onPress: () => Host.ui.openSecuritySetting()
@@ -560,7 +560,7 @@ export default class CommonSetting extends React.Component {
         ...params,
         commonSettingStyle: this.props.commonSettingStyle,
         // 2020/4/20 锁类和保险箱类，去掉更多设置页中的安全设置
-        excludeRequiredOptions: (['lock', 'safe-box'].indexOf(this.state.modelType) !== -1 && excludeRequiredOptions.indexOf(AllOptions.SECURITY) === -1) ? [...excludeRequiredOptions, AllOptions.SECURITY] : excludeRequiredOptions
+        excludeRequiredOptions: (['lock', 'safe-box', 'safe'].indexOf(this.state.modelType) !== -1 && excludeRequiredOptions.indexOf(AllOptions.SECURITY) === -1) ? [...excludeRequiredOptions, AllOptions.SECURITY] : excludeRequiredOptions
       });
     } else {
       if (__DEV__ && console.warn) {
