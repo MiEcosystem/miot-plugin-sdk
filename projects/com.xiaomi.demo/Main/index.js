@@ -15,7 +15,7 @@
 'use strict';
 // ART的demo }
 import { Entrance, Package } from "miot";
-import { FirmwareUpgrade, MoreSetting } from "miot/ui/CommonSetting";
+import { FirmwareUpgrade, FirmwareUpgradeAuto, FirmwareUpgradeRecord, MoreSetting } from "miot/ui/CommonSetting";
 import BTInterconnection from 'miot/ui/BTInterconnection';
 import BraceletInterconnection from 'miot/ui/BraceletInterconnection';
 import Setting from "./tutorial/Setting";
@@ -141,6 +141,7 @@ import CloudStorageDemo from './Service/CloudStorageDemo';
 import WebViewBridageDemo from './ThirdPartDemo/WebViewBridageDemo';
 import NavigationBarDemo from "./tutorial/NavigationBarDemo";
 import BlankDemo from './tutorial/BlankDemo';
+import SystemDemo from './tutorial/SystemDemo';
 import BlankPageDemo from "./UIComponent/BlankPageDemo";
 import PackageDemo from "./tutorial/PackageDemo";
 // import ReactNativeCameraDemo from './ThirdPartDemo/ReactNativeCameraDemo';
@@ -185,6 +186,7 @@ import ARTTextDemo from './ThirdPartDemo/ARTComponentDemo/ARTTextDemo'; // 文�
 // 米家iOS 自定义第三方库<
 import CircularSliderDemo from './ThirdPartDemo/CircularSliderDemo';
 import AnimatedSVGDemo from './ThirdPartDemo/AnimatedSVGDemo';
+import PdfViewerDemo from './ThirdPartDemo/PdfViewerDemo';
 
 import CustomContainer from './uikit/components/CustomContainer';
 import MHSetting from './unuse/MHSetting';
@@ -195,10 +197,13 @@ import OfficialDemos from './OfficialDemos';
 function createRootStack(initPage) {
   return createStackNavigator({
     blankDemo: BlankDemo,
+    systemDemo: SystemDemo,
     NavigationBarDemo,
     Setting,
     MoreSetting,
     FirmwareUpgrade,
+    FirmwareUpgradeAuto,
+    FirmwareUpgradeRecord,
     HostDemo,
     HostEventDemo,
     Home: MainPage,
@@ -318,6 +323,7 @@ function createRootStack(initPage) {
     AnimEventsDemo: AnimEventsDemo,
     LayoutAnimationDemo: LayoutAnimationDemo,
     AnimCustomCompDemo: AnimCustomCompDemo,
+	PdfViewerDemo:PdfViewerDemo,
     // 第三方库 demo 结束
 
     // 米家iOS 自定义第三方库<

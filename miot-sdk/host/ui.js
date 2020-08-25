@@ -492,9 +492,10 @@ class IUi {
    * @param {string} aiMiotClientId 米家的客户端 ID
    * @param {string} aiClientId 水滴平台的客户端
    * @param {string} aiVersion "" 不隐藏 "thirdpart" 隐藏 “一段录音” “设备控制” 按钮 "audio" 隐藏 “一段录音” 按钮 "device" 隐藏 “设备控制” 按钮
+   * @param {object} otherParams 想怎么玩都行的参数，会覆盖之前的
   */
   @report
-  openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion) {
+  openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion, otherParams) {
   }
   /**
    * 显示提示用户打开蓝牙的动画示意图, 仅在iOS下有效，Android下无反应
