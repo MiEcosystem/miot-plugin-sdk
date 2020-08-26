@@ -62,14 +62,15 @@ function objectWithoutProperties(obj, ...keys) {
 function exec(command, args=[], onFinish=null, ignore_out=false){
     const cmd = spawn(command, args);
     cmd.stdout.on('data', (data) => {
-      ignore_out || console.log(data.toString());
+      ignore_out || console.log(`[PID ${ cmd.pid }] ${ data.toString() }`);
     });
     cmd.stderr.on('data', (data) => {
-      ignore_out || console.log(`error：${data}`); 
+      ignore_out || console.log(`[PID ${ cmd.pid }] error：${data}`); 
     });
     cmd.on('close', (code) => { 
       onFinish&&onFinish(code); 
     });
+    return cmd;
 }
 
 function absolutePath(p){
