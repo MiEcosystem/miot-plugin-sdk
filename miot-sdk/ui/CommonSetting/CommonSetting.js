@@ -405,7 +405,7 @@ export default class CommonSetting extends React.Component {
       // },
       [AllOptions.IFTTT]: {
         title: strings.ifttt,
-        onPress: () => Host.ui.openIftttAutoPage()
+        onPress: () => Service.scene.openIftttAutoPage()
       },
       [AllOptions.HELP]: {
         title: strings.helpAndFeedback,

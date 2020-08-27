@@ -166,20 +166,15 @@ export default class MoreSetting extends React.Component {
   }
   UNSAFE_componentWillMount() {
     this._deviceTimeZoneChangedListener = DeviceEvent.deviceTimeZoneChanged.addListener((device) => {
-      // this.state.timeZone = device.timeZone;
       // this.moreSetting = this.getMoreSetting(this.state);
       // this.forceUpdate();
-      this.moreSetting = this.getMoreSetting({
-        ...this.state,
-        timeZone: device.timeZone
-      });
-      this.setState({
-        timeZone: device.timeZone
-      });
+      this.getDeviceTimeZone();
     });
   }
   componentDidMount() {
-    // android 无法直接获取常量 Device.timeZone
+    this.getDeviceTimeZone();
+  }
+  getDeviceTimeZone() {
     Device.getDeviceTimeZone()
       .then((result) => {
         console.log(result);

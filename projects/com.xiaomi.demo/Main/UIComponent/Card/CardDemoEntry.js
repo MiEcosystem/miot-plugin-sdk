@@ -1,21 +1,9 @@
 'use strict';
 
-import { MessageDialog } from 'miot/ui';
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
 export default class CardDemoEntry extends React.Component {
-
-  static navigationOptions = ({ navigation }) => {
-
-    return {
-      header: <TitleBar type="dark" title="卡片 CardDemo" style={{ backgroundColor: '#fff' }}
-        onPressLeft={() => {
-          navigation.goBack();
-        }} />
-    };
-  };
 
   constructor(props) {
     super(props);
@@ -62,7 +50,6 @@ export default class CardDemoEntry extends React.Component {
       title: rowData
     });
   }
-
 }
 
 var styles = StyleSheet.create({
@@ -73,11 +60,9 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
     marginBottom: 0,
     marginTop: 0
   },
-
   rowContainer: {
     height: 52,
     alignSelf: 'stretch',
@@ -85,12 +70,12 @@ var styles = StyleSheet.create({
     paddingLeft: 23,
     paddingRight: 23,
     alignItems: 'center',
-    flex: 1
+    flex: 1,
+    backgroundColor: '#ffffff'
   },
   list: {
     alignSelf: 'stretch'
   },
-
   title: {
     fontSize: 15,
     color: '#333333',

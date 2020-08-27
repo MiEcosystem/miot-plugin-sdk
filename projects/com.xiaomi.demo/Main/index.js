@@ -73,7 +73,6 @@ import ImageButtonDemo from './UIComponent/ImageButtonDemo';
 import ImageCapInsetDemo from './UIComponent/ImageCapInsetDemo'; // ui-ImageCapInsetDemo working but no title displayed
 import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo"; // ui-NumberSpinnerDemo
 import StringSpinnerDemo from "./UIComponent/StringSpinnerDemo"; // ui-StringSpinnerDemo
-import RobotMapDemo from "./UIComponent/RobotMapDemo";
 import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo'; // ui-MiotAndroidScrollViewDemo
 import AbsoluteTouch from './UIComponent/AbsoluteTouch'; // ui-AbsoluteTouch
 
@@ -99,8 +98,6 @@ import HostEventDemo from "./Host/HostEventDemo";
 import FileDemo from './Host/FileDemo';
 import PhotoDemo from './Host/PhotoDemo';
 import HostPropsInfoDemo from './Host/HostPropsInfoDemo';
-import FileStorage from './Host/File';
-import StorageDemo from './Host/Storage';
 import LocaleServer from './Host/Local';
 import JSExecutor from './Host/JSExecutor';
 import * as Screens from "./uikit/screens";
@@ -118,8 +115,6 @@ import OrientationDemo from './Host/OrientationDemo';
 import KVStorageDemo from './Host/KVStorageDemo';
 import NavigateUIDemo from "./Host/UI";
 import PrivacyDemo from "./Host/UI/privacy";
-import ImageTest from './issues/imageTest/imageTest';
-import SmarthomeDemo from './issues/smarthomeDemo';
 import MainPage from './MainPage';
 import MoreMenu from './MoreMenu';
 import ImagePathDemo from './NewStructureTest';
@@ -188,7 +183,6 @@ import CircularSliderDemo from './ThirdPartDemo/CircularSliderDemo';
 import AnimatedSVGDemo from './ThirdPartDemo/AnimatedSVGDemo';
 
 import CustomContainer from './uikit/components/CustomContainer';
-import MHSetting from './unuse/MHSetting';
 
 // 官方Demo
 import OfficialDemos from './OfficialDemos';
@@ -252,7 +246,6 @@ function createRootStack(initPage) {
     ImageButtonDemo,
     NumberSpinnerDemo,
     StringSpinnerDemo,
-    RobotMapDemo,
     MiotAndroidScrollViewDemo,
     AbsoluteTouch,
     // 接口服务
@@ -261,8 +254,6 @@ function createRootStack(initPage) {
     MiotSpecDemo,
     // Native 交互
     HostPropsInfoDemo,
-    fileStorage: FileStorage,
-    storageDemo: StorageDemo,
     LocaleServer,
     DarkModeDemo,
     JSExecutor,
@@ -329,8 +320,6 @@ function createRootStack(initPage) {
     // 米家iOS 自定义第三方库>
     AnimatedSVGDemo,
     // AbsoluteTouch,
-    ImageTest,
-    SmarthomeDemo,
     // List 相关
     ListDemoEntry,
     CustomListDemo,
@@ -361,8 +350,6 @@ function createRootStack(initPage) {
     FileDemo: FileDemo,
     PhotoDemo: PhotoDemo,
 
-    setting: MHSetting,
-
     UIKitHome: { screen: Screens.ComponentsScreen },
     Picker: { screen: Screens.PickerScreen },
     Button: { screen: Screens.ButtonScreen },
@@ -390,7 +377,6 @@ function createRootStack(initPage) {
     OfficialDemos
   },
   {
-    // ThirdPartyDemo
     initialRouteName: initPage,
     // initialRouteName: 'ModeCardDemo',
     navigationOptions: ({ navigation }) => {
