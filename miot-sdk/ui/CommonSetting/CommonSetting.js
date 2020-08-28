@@ -32,21 +32,49 @@ function getModelType() {
   });
 }
 getModelType().then(() => { }).catch(() => { });
-// 2020/02/04 灯组2.0需求，去掉cn的判断
-// let countryCode = '';
-// function getCountryCode() {
-//   return new Promise((resolve, reject) => {
-//     if (countryCode) {
-//       resolve(countryCode);
-//       return;
-//     }
-//     Service.getServerName().then(({ countryCode }) => {
-//       countryCode = (countryCode || '').toLowerCase();
-//       resolve(countryCode);
-//     }).catch(reject);
-//   });
-// }
-// getCountryCode().then(() => { }).catch(() => { });
+let countryCode = '';
+function getCountryCode() {
+  return new Promise((resolve, reject) => {
+    if (countryCode) {
+      resolve(countryCode);
+      return;
+    }
+    Service.getServerName().then(({ countryCode }) => {
+      countryCode = (countryCode || '').toLowerCase();
+      resolve(countryCode);
+    }).catch(reject);
+  });
+}
+let productBaikeUrl = null;
+function getProductBaikeUrl() {
+  return new Promise((resolve, reject) => {
+    if (productBaikeUrl != null) {
+      resolve(productBaikeUrl);
+      return;
+    }
+    getCountryCode().then((countryCode) => {
+      if (countryCode == 'cn') {
+        return fetch(`https://home.mi.com/newoperation/productBaike?model=${ Device.model }`);
+      } else {
+        productBaikeUrl = '';
+        return Promise.reject(null);
+      }
+    }).then((response) => response.json())
+      .then((response) => {
+        if (response.code == 0) {
+          productBaikeUrl = response.data.baikeUrl;
+          resolve(productBaikeUrl);
+          return;
+        }
+        productBaikeUrl = '';
+        reject(response);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+getProductBaikeUrl().then(() => { }).catch(() => { });
 const firstOptionsInner = {
   /**
    * 按键设置，多键开关`必选`，其余设备`必不选`
@@ -79,7 +107,11 @@ const firstOptionsInner = {
   /**
    * 管理设备组
    */
-  MANAGE_GROUP: 'manageGroup'
+  MANAGE_GROUP: 'manageGroup',
+  /**
+   * 产品百科
+   */
+  PRODUCT_BAIKE: 'productBaike'
 };
 const firstAllOptionsInner = {
   ...firstOptionsInner,
@@ -185,7 +217,8 @@ const firstSharedOptions = {
   [AllOptions.MORE]: 1,
   [AllOptions.HELP]: 1,
   [AllOptions.SECURITY]: 0,
-  [AllOptions.LEGAL_INFO]: 0 // 20190516，分享设备不显示「法律信息」
+  [AllOptions.LEGAL_INFO]: 0, // 20190516，分享设备不显示「法律信息」
+  [AllOptions.PRODUCT_BAIKE]: 1
 };
 /**
  * 20190708 / SDK_10023
@@ -201,6 +234,7 @@ export const AllOptionsWeight = {
   [AllOptions.LOCATION]: 6,
   [AllOptions.SHARE]: 9,
   [AllOptions.IFTTT]: 18,
+  [AllOptions.PRODUCT_BAIKE]: 19,
   [AllOptions.FIRMWARE_UPGRADE]: 21,
   [AllOptions.HELP]: 24,
   [AllOptions.MORE]: 27,
@@ -373,7 +407,7 @@ export default class CommonSetting extends React.Component {
     extraOptions: {}
   }
   getCommonSetting(state) {
-    let { modelType } = state || {};
+    let { modelType, productBaikeUrl } = state || {};
     if (!modelType) {
       modelType = '  ';
     }
@@ -406,6 +440,10 @@ export default class CommonSetting extends React.Component {
       [AllOptions.IFTTT]: {
         title: strings.ifttt,
         onPress: () => Service.scene.openIftttAutoPage()
+      },
+      [AllOptions.PRODUCT_BAIKE]: {
+        title: strings.productBaike,
+        onPress: () => Host.ui.openProductBaikeWebPage(productBaikeUrl)
       },
       [AllOptions.HELP]: {
         title: strings.helpAndFeedback,
@@ -447,7 +485,7 @@ export default class CommonSetting extends React.Component {
     this.state = {
       name: Device.name,
       showDot: Array.isArray(props.showDot) ? props.showDot : [],
-      // countryCode,
+      productBaikeUrl,
       modelType
     };
     console.log(`Device.type: ${ Device.type }`);
@@ -576,11 +614,15 @@ export default class CommonSetting extends React.Component {
     Host.ui.openDeleteDevice(deleteDeviceMessage);
   }
   componentDidMount() {
-    // getCountryCode().then(countryCode => {
-    //   this.setState({
-    //     countryCode
-    //   });
-    // }).catch(() => { });
+    getProductBaikeUrl().then((productBaikeUrl) => {
+      this.commonSetting = this.getCommonSetting({
+        ...this.state,
+        productBaikeUrl: productBaikeUrl
+      });
+      this.setState({
+        productBaikeUrl
+      });
+    });
     getModelType().then((modelType) => {
       this.commonSetting = this.getCommonSetting({
         ...this.state,
@@ -592,11 +634,14 @@ export default class CommonSetting extends React.Component {
     }).catch(() => { });
   }
   render() {
-    let { modelType } = this.state;
+    let { modelType, productBaikeUrl } = this.state;
     // 如果不设置英文字体，那么外文字符串将显示不全（Android）
     let fontFamily = {};
     if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' };
     let requireKeys1 = [AllOptions.NAME, AllOptions.LOCATION];
+    if (productBaikeUrl) {
+      requireKeys1.push(AllOptions.PRODUCT_BAIKE);
+    }
     // 创建组设备
     // 蓝牙单模和组设备不能创建
     if (['6', '17'].indexOf(Device.type) === -1 && ['light'].indexOf(modelType) !== -1) {
