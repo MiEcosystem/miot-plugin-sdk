@@ -160,4 +160,20 @@ export default class IBluetoothLock {
     decryptMessageWithToken(data) {
        return Promise.resolve(null);
     }
+  /**
+   *获取门锁密码状态
+   *
+  */
+  @report
+  getSecretState() {
+     return Promise.resolve(null);
+  }
+ /**
+  * 门锁密码界面
+  */
+  @report
+  validSecretPassCode() {
+    console.log("validSecretPassCode inner")
+      native.MIOTBluetooth.validSecretPasscode()
+  }
 }

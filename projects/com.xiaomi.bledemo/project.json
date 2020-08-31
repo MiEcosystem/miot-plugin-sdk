@@ -3,5 +3,6 @@
   "models":"miot.sensor_ht.s2",
   "min_sdk_api_level":10000,
   "version_code":1, 
-  "developer_id":"894158105"
+  "developer_id":"894158105",
+  "no_secret_entry":1
 }

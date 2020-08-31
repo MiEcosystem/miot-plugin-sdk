@@ -165,6 +165,10 @@ export default class MainPage extends React.Component {
     this._s8 = DeviceEvent.bleDeviceFirmwareNeedUpgrade.addListener((device) => {
       this.addLog(`bleDeviceFirmwareNeedUpgrade ${ device.needUpgrade },${ device.latestVersion },${ device.lastVersion }`);
     });
+
+    this._s9 = BluetoothEvent.SecurePasscodeValidResultNotify.addListener((result) => {
+        console.log(result)
+    });
   }
 
   componentWillUnmount() {
@@ -181,6 +185,7 @@ export default class MainPage extends React.Component {
     this._s6.remove();
     this._s7.remove();
     this._s8.remove();
+    this._s9.remove();
   }
 
   enableNotify(val) {

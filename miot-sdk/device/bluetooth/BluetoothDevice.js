@@ -459,6 +459,9 @@ export const BluetoothEvent = {
      *
      */
   bluetoothStatusChanged: {
+  },
+  SecurePasscodeValidResultNotify:{
   }
+  
 };
 buildEvents(BluetoothEvent);

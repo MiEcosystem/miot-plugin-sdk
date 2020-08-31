@@ -20,6 +20,10 @@ export default class TutorialDemo extends React.Component {
           'key': 'Setting'
         },
         {
+          'title': '系统功能',
+          'key': 'systemDemo'
+        },
+        {
           'title': '空白页',
           'key': 'blankDemo'
         },

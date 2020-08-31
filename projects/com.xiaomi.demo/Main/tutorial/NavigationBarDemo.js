@@ -75,6 +75,11 @@ export default class NavigationBarDemo extends React.Component {
       title: '隐藏/显示\n小红点',
       onPress: () => this.toggleDot(),
       text: '点击隐藏/显示小红点'
+    },
+    {
+      title: '测试副标题字体',
+      onPress: () => this.setNavigation9(),
+      text: '楷体'
     }
   ];
 
@@ -97,7 +102,9 @@ export default class NavigationBarDemo extends React.Component {
             accessibilityHint: '返回上一页'
           }
         ],
-        title: '常用导航栏'
+        title: '常用导航栏',
+        subtitle: 'amètres généraux' // Locale.of('ru').commonSetting, //'amètres généraux',
+
       }
     });
     this.setState({
@@ -437,6 +444,32 @@ export default class NavigationBarDemo extends React.Component {
     });
     this.setState({
       index: 8,
+      backgroundColor: '#fff',
+      transparent: false
+    });
+  }
+
+  /** 测试副标题字体 */
+  setNavigation9() {
+    this.props.navigation.setParams({
+      titleProps: {
+        left: [
+          {
+            key: NavigationBar.ICON.BACK,
+            onPress: () => this.props.navigation.goBack(),
+            accessibilityLabel: '返回',
+            accessibilityHint: '返回上一页'
+          }
+        ],
+        title: '测试副标题字体',
+        subtitle: 'amètres généraux', // Locale.of('ru').commonSetting, //'amètres généraux',
+        subtitleStyle: {
+          fontFamily: 'Kaiti'
+        }
+      }
+    });
+    this.setState({
+      index: 0,
       backgroundColor: '#fff',
       transparent: false
     });

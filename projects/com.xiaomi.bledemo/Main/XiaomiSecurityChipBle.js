@@ -6,11 +6,11 @@
  *
  */
 
-import { Device, Host } from 'miot';
+import {Bluetooth, BluetoothEvent, Device, Host, DeviceEvent
+} from 'miot'
 import { StringSpinner, CardButton } from 'miot/ui';
 import React from 'react';
 import { StyleSheet, View, NativeModules } from 'react-native';
-
 const bt = Device.getBluetoothLE();
 export default class MainPage extends React.Component {
 
@@ -125,6 +125,29 @@ export default class MainPage extends React.Component {
             (Host.isAndroid ? NativeModules.MIOTHost : NativeModules.MHPluginSDK).openBleOtaDeviceUpgradePage({ auth_type: 1 });
           }}
         />
+
+        <CardButton
+          title="获取门锁密码状态"
+          subtitle="test1"
+          icon={require('../Resources/icon_normal_dfu.png')}
+          onPress={() => {
+            console.log("蓝牙状态", bt.isConnected)
+            
+            bt.securityLock.getSecretState().then((res) => {
+              console.log("getSecretState :",res)
+            })
+          }}
+        />
+        <CardButton
+          title="调起来门锁密码弹窗"
+          subtitle="test"
+          icon={require('../Resources/icon_normal_dfu.png')}
+          onPress={() => {
+            console.log("boooo", Bluetooth.createBluetoothLE())
+            bt.securityLock.validSecretPassCode()
+          }}
+        />
+
 
       </View>
     );
