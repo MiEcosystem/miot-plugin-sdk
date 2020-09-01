@@ -3,6 +3,7 @@
 function installBinary {
    clear
    INSTALLED_VERSION=$($3)
+   clear
    if [[ $INSTALLED_VERSION != *"not found"* ]] ; then
        echo "当前已经安装: $INSTALLED_VERSION, 重新安装？(Y/[N])"
        read reInstall
@@ -33,8 +34,11 @@ function installBinary {
         cd ../
         sudo cp -Rf $2/* /usr/local/
         echo "结束"
-        #for cmd in $3; do $cmd; done
-        $3
+        cmdStrs=$4[@]
+        cmds=("${!cmdStrs}")
+        for i in "${cmds[@]}"; do
+            $i; 
+        done
     cd ../
     rm -rf .mi_tmp
     read
@@ -76,10 +80,12 @@ listMenu() {
     echo "3 修复node_modules资源"
     read FUNC
     if [ $FUNC == 1 ]; then
-        installBinary https://npm.taobao.org/mirrors/node/v12.16.1/node-v12.16.1-darwin-x64.tar.gz node-v12.16.1-darwin-x64 "node -v"
+        cmds=("node -v" "npm -v")
+        installBinary https://npm.taobao.org/mirrors/node/v12.16.1/node-v12.16.1-darwin-x64.tar.gz node-v12.16.1-darwin-x64 "node -v" cmds
     fi
     if [ $FUNC == 2 ]; then
-        installBinary http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_zip_dc8b2725f727339b95273f11a389dd32.zip watchman-v2020.08.17.00-macos "watchman -v"
+        cmds=("watchman -v" "sudo mkdir -p /usr/local/var/watchman")
+        installBinary http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_zip_dc8b2725f727339b95273f11a389dd32.zip watchman-v2020.08.17.00-macos "watchman -v" cmds
     fi
     if [ $FUNC == 3 ]; then
         fixEnviroument
