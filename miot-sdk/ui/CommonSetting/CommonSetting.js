@@ -471,7 +471,7 @@ export default class CommonSetting extends React.Component {
       // }
     };
     // 2020/4/20 锁类和保险箱类，安全设置从更多设置中移出来
-    if (['lock', 'safe-box'].indexOf(modelType) !== -1) {
+    if (['lock', 'safe-box', 'safe'].indexOf(modelType) !== -1) {
       ret[AllOptions.SECURITY] = {
         title: strings.security,
         onPress: () => Host.ui.openSecuritySetting()
@@ -542,10 +542,8 @@ export default class CommonSetting extends React.Component {
         // 2019/11/21 新灯组2.0需求
         // 虚拟组设备，跳v2.0固件更新页
         Host.ui.openLightGroupUpgradePage();
-      } else if (Device.type === '0' && ['mijia.vacuum.v1', 'viomi.vacuum.v3', 'lumi.gateway.mgl03', 'xiaomi.dev.lx2', 'xiaomi.dev.lx0', 'xiaomi.switch.a2ota'].indexOf(Device.model) !== -1) {
-        // wifi设备固件升级 Q3实验性功能 固件自动升级
-        this.openSubPage('FirmwareUpgradeAuto');
-      } else if ([0, 1, 4, 5].includes(bleOtaAuthType)) {
+      } 
+      else if ([0, 1, 4, 5].includes(bleOtaAuthType)) {
         Host.ui.openBleCommonDeviceUpgradePage({ auth_type: bleOtaAuthType });
       } else {
         Host.ui.openDeviceUpgradePage();
@@ -598,7 +596,7 @@ export default class CommonSetting extends React.Component {
         ...params,
         commonSettingStyle: this.props.commonSettingStyle,
         // 2020/4/20 锁类和保险箱类，去掉更多设置页中的安全设置
-        excludeRequiredOptions: (['lock', 'safe-box'].indexOf(this.state.modelType) !== -1 && excludeRequiredOptions.indexOf(AllOptions.SECURITY) === -1) ? [...excludeRequiredOptions, AllOptions.SECURITY] : excludeRequiredOptions
+        excludeRequiredOptions: (['lock', 'safe-box', 'safe'].indexOf(this.state.modelType) !== -1 && excludeRequiredOptions.indexOf(AllOptions.SECURITY) === -1) ? [...excludeRequiredOptions, AllOptions.SECURITY] : excludeRequiredOptions
       });
     } else {
       if (__DEV__ && console.warn) {
