@@ -84,7 +84,7 @@ listMenu() {
         installBinary https://npm.taobao.org/mirrors/node/v12.16.1/node-v12.16.1-darwin-x64.tar.gz node-v12.16.1-darwin-x64 "node -v" cmds
     fi
     if [ $FUNC == 2 ]; then
-        cmds=("watchman -v" "sudo mkdir -p /usr/local/var/watchman")
+        cmds=("watchman -v" "sudo mkdir -p /usr/local/var/run/watchman" "sudo chmod 042777 /usr/local/var/run/watchman")
         installBinary http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_zip_dc8b2725f727339b95273f11a389dd32.zip watchman-v2020.08.17.00-macos "watchman -v" cmds
     fi
     if [ $FUNC == 3 ]; then
