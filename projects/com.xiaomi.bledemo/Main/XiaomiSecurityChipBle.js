@@ -131,8 +131,6 @@ export default class MainPage extends React.Component {
           subtitle="test1"
           icon={require('../Resources/icon_normal_dfu.png')}
           onPress={() => {
-            console.log("蓝牙状态", bt.isConnected)
-            
             bt.securityLock.getSecretState().then((res) => {
               console.log("getSecretState :",res)
             })

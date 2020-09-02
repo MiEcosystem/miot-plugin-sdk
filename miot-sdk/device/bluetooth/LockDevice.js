@@ -165,15 +165,17 @@ export default class IBluetoothLock {
    *
   */
   @report
-  getSecretState() {
+  getSecretState(params={}) {
      return Promise.resolve(null);
   }
  /**
   * 门锁密码界面
   */
   @report
-  validSecretPassCode() {
+  validSecretPassCode(params={}) {
     console.log("validSecretPassCode inner")
-      native.MIOTBluetooth.validSecretPasscode()
+    const { fakemac } = Properties.of(this);
+    params["id"] = fakemac.id 
+    native.MIOTBluetooth.validSecretPasscode(JSON.stringify(params))
   }
 }

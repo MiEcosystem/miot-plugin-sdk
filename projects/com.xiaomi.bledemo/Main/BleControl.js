@@ -168,7 +168,8 @@ export default class MainPage extends React.Component {
 
     this._s9 = BluetoothEvent.SecurePasscodeValidResultNotify.addListener((result) => {
         console.log(result)
-    });
+        this.addLog(result)
+      });
   }
 
   componentWillUnmount() {
