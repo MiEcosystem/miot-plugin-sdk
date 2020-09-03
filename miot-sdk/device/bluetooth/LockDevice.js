@@ -29,6 +29,7 @@
  */
 import native, { Properties } from '../../native';
 import { report } from "../../decorator/ReportDecorator";
+import Device from "../BasicDevice";
 /**
  * 蓝牙锁相关
  * @interface
@@ -165,17 +166,18 @@ export default class IBluetoothLock {
    *
   */
   @report
-  getSecretState(params={}) {
+    getSecretState(params = {}) {
      return Promise.resolve(null);
-  }
- /**
+    }
+  /**
   * 门锁密码界面
   */
   @report
-  validSecretPassCode(params={}) {
-    console.log("validSecretPassCode inner")
+  validSecretPassCode(params = {}) {
+    console.log("validSecretPassCode inner");
     const { fakemac } = Properties.of(this);
-    params["id"] = fakemac.id 
-    native.MIOTBluetooth.validSecretPasscode(JSON.stringify(params))
+    params["id"] = fakemac.id;
+    params["did"] = Device.deviceID;
+    native.MIOTBluetooth.validSecretPassCode(JSON.stringify(params));
   }
 }
