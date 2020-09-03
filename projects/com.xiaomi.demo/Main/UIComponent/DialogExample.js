@@ -14,7 +14,6 @@ import Separator from 'miot/ui/Separator';
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { Dimensions, Image, Platform, ScrollView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
-import tr from "miot/resources/strings/tr";
 
 const { width } = Dimensions.get('screen');
 const testIcon = Images.common.mihome;
@@ -298,23 +297,13 @@ export default class DialogExample extends React.Component {
           <View>
             <AbstractDialog
               visible={this.state.visible0}
-              // title={testTitle}
-              // title={testText}
-              // title={titleEnglish}
               title={titleEnglish3}
-              //   subtitle={testTitle}
-              //   showSubtitle
               onDismiss={(_) => this.onDismiss('0')}
             />
             <AbstractDialog
               canDismiss={false}
               visible={this.state.visible18}
-              // title={testTitle}
-              // title={testText}
-              // title={titleEnglish}
               title={titleEnglish3}
-              //   subtitle={testTitle}
-              //   showSubtitle
               onDismiss={(_) => this.onDismiss('18')}
             />
             <AbstractDialog
@@ -507,7 +496,7 @@ export default class DialogExample extends React.Component {
               visible={this.state.visible7}
               color="#f0ac3d"
               title="勾选框消息弹窗-字体大小不随系统字体大小改变而改变-自动换行"
-              messageStyle={[{ fontSize: this.data.fontBigSize2, lineHeight:this.data.fontBigSize2+4 }, this.fontFamily]}
+              messageStyle={[{ fontSize: this.data.fontBigSize2, lineHeight: this.data.fontBigSize2 + 4 }, this.fontFamily]}
               dialogStyle={{
                 allowFontScaling: false,
                 titleNumberOfLines: 10,
@@ -515,11 +504,11 @@ export default class DialogExample extends React.Component {
                 extraTextNumberOfLines: 4,
                 titleStyle: {
                   fontSize: this.data.fontBigSize1,
-                  lineHeight: this.data.fontBigSize1+4,
+                  lineHeight: this.data.fontBigSize1 + 4
                 },
                 extraTextStyle: {
                   fontSize: this.data.fontBigSize3,
-                  lineHeight: this.data.fontBigSize3+4,
+                  lineHeight: this.data.fontBigSize3 + 4
                 }
               }}
               message="message 部分-字体大小不随系统字体大小改变而改变-我设置显示为三行"
@@ -530,14 +519,14 @@ export default class DialogExample extends React.Component {
                   text: '取消-不随系统字体大小变化而变化-高度自适应',
                   allowFontScaling: false,
                   numberOfLines: 12,
-                  style: { color: 'lightpink', padding: 10, fontSize: this.data.fontBigSize2, lineHeight: this.data.fontBigSize2+4, },
+                  style: { color: 'lightpink', padding: 10, fontSize: this.data.fontBigSize2, lineHeight: this.data.fontBigSize2 + 4 },
                   callback: (_) => this.setState({ visible7: false })
                 },
                 {
                   text: '确认-不随系统字体大小变化而变化-我只显示两行',
                   allowFontScaling: false,
                   numberOfLines: 2,
-                  style: { color: 'lightblue', padding: 10, fontSize: this.data.fontBigSize2, lineHeight: this.data.fontBigSize2+4, },
+                  style: { color: 'lightblue', padding: 10, fontSize: this.data.fontBigSize2, lineHeight: this.data.fontBigSize2 + 4 },
                   callback: (obj) => {
                     console.log(`是否勾选: ${ obj.checked }`);
                     this.setState({ visible7: false });
@@ -1048,23 +1037,20 @@ export default class DialogExample extends React.Component {
     }), 3500);
   }
 
-
   // `Modal` 隐藏了，父组件必须要同步更新状态，但不必用 `setState` 触发 `render`
   onDismiss(index) {
     if (index === '2') console.log('loadingdialog dismiss');
-    // this.state[`visible${ index }`] = false;
     this.setState({
       [`visible${ index }`]: false
     });
   }
 
-
   componentWillUnmount() {
     clearInterval(this.timer);
     this.timer = null;
   }
-
 }
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#f7f7f7',
@@ -1078,6 +1064,7 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     minHeight: 52,
+    backgroundColor: '#fff',
     alignSelf: 'stretch',
     flexDirection: 'row',
     paddingLeft: 23,

@@ -1,38 +1,35 @@
-import React from 'react'
-import
- {
-   ART,
-   Animated,
-   Easing, 
-   StatusBar, 
-   StyleSheet, 
-   Platform, 
-   View, 
-   Text
-  } from 'react-native';
+import React from 'react';
+import {
+  ART,
+  Animated,
+  Easing,
+  StatusBar,
+  StyleSheet,
+  Platform,
+  View,
+  Text
+} from 'react-native';
 
-import PropTypes from 'prop-types'
-const 
-{ 
-  Surface,
-  Shape, 
-  Path
- } = ART;
+import PropTypes from 'prop-types';
+const
+  {
+    Surface,
+    Shape,
+    Path
+  } = ART;
 
 // Shapes
 class Circle extends React.Component {
 
-
   render() {
     const { radius } = this.props;
-
     const path = Path()
       .moveTo(0, -radius)
       .arc(0, radius * 2, radius)
       .arc(0, radius * -2, radius)
       .close();
 
-    return <Shape {...this.props} d={path}/>;
+    return <Shape {...this.props} d={path} />;
   }
 }
 
@@ -44,7 +41,6 @@ class Rectangle extends React.Component {
 
   render() {
     const { width, height } = this.props;
-
     const path = Path()
       .moveTo(width / -2, height * -1.5)
       .line(0, height)
@@ -52,17 +48,15 @@ class Rectangle extends React.Component {
       .line(0, height)
       .line(-width, 0)
       .close();
-
-    return <Shape {...this.props} d={path}/>;
+    return <Shape {...this.props} d={path} />;
   }
 }
 
-//Custom Animated Components
+// Custom Animated Components
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 const AnimatedRectangle = Animated.createAnimatedComponent(Rectangle);
 
-
-//Custom Components
+// Custom Components
 class Pulse extends React.Component {
   static propTypes = {
     size: PropTypes.number
@@ -113,7 +107,6 @@ class Pulse extends React.Component {
     const { pulse } = this.state;
     const width = size * 2;
     const height = size * 2;
-
     return (<Surface
       width={width}
       height={height}>
@@ -125,7 +118,7 @@ class Pulse extends React.Component {
         x={size}
         y={size}
       />
-    </Surface>)
+    </Surface>);
   }
 }
 
@@ -137,7 +130,7 @@ class DoubleBounce extends React.Component {
         new Animated.Value(1),
         new Animated.Value(0)
       ]
-    }
+    };
   }
 
   static propTypes = {
@@ -182,7 +175,6 @@ class DoubleBounce extends React.Component {
     const { bounces: [scale1, scale2] } = this.state;
     const width = size * 2;
     const height = size * 2;
-
     return (
       <Surface width={width} height={height}>
         <AnimatedCircle
@@ -228,16 +220,15 @@ class Bars extends React.Component {
     color: '#000'
   };
 
-
   componentDidMount() {
     this.state.bars.forEach((val, index) => {
-      var timer = setTimeout(() => this.animate(index), index * 240);
+      let timer = setTimeout(() => this.animate(index), index * 240);
       this.timers.push(timer);
     });
   }
 
   componentWillUnmount() {
-    this.timers.forEach(timer => clearTimeout(timer));
+    this.timers.forEach((timer) => clearTimeout(timer));
     this.unmounted = true;
   }
 
@@ -266,7 +257,6 @@ class Bars extends React.Component {
     const { size, spaceBetween, color } = this.props;
     const width = size / 3;
     const x = width / 2 + (width + spaceBetween) * index;
-
     return (<AnimatedRectangle
       fill={color}
       width={width}
@@ -282,7 +272,6 @@ class Bars extends React.Component {
     const { size, spaceBetween } = this.props;
     const width = size / 3 * 5 + spaceBetween * 4;
     const height = size * 3;
-
     return (<Surface
       width={width}
       height={height}>
@@ -291,7 +280,7 @@ class Bars extends React.Component {
       {this.renderBar(2)}
       {this.renderBar(3)}
       {this.renderBar(4)}
-    </Surface>)
+    </Surface>);
   }
 }
 
@@ -317,7 +306,7 @@ class Bubbles extends React.Component {
 
   componentDidMount() {
     this.state.circles.forEach((val, index) => {
-      var timer = setTimeout(() => this.animate(index), index * 300);
+      let timer = setTimeout(() => this.animate(index), index * 300);
       this.timers.push(timer);
     });
   }
@@ -326,7 +315,6 @@ class Bubbles extends React.Component {
     this.timers.forEach((timer) => {
       clearTimeout(timer);
     });
-
     this.unmounted = true;
   }
 
@@ -358,7 +346,6 @@ class Bubbles extends React.Component {
       x: size + index * (size * 2 + spaceBetween),
       y: size
     };
-
     return (<AnimatedCircle
       fill={color}
       radius={size}
@@ -371,14 +358,13 @@ class Bubbles extends React.Component {
     const { size, spaceBetween } = this.props;
     const width = size * 6 + spaceBetween * 2;
     const height = size * 2;
-
     return (<Surface
       width={width}
       height={height}>
       {this.renderBubble(0)}
       {this.renderBubble(1)}
       {this.renderBubble(2)}
-    </Surface>)
+    </Surface>);
   }
 }
 
@@ -388,54 +374,37 @@ export default class AnimCustomCompDemo extends React.Component {
   }
 
   render() {
-      return (
-        <View style={styles.container} >
-          <StatusBar barStyle='default' />
-          <Text style={[styles.textView, {fontSize: 15, textAlign: 'center'}]}>动画: 电子脉冲</Text>
-          <Pulse size={40} color='#3f7af1'> </Pulse>
-          <Text style={[styles.textView, {fontSize: 15, textAlign: 'center'}]}>动画: 回形波</Text>
-          <DoubleBounce size={40} color='#ff0a01'> </DoubleBounce>
-          <Text style={[styles.textView, {fontSize: 15, textAlign: 'center'}]}>动画: 条状加载</Text>
-          <Bars spaceBetween={4} size={20} color='#3f7af1'> </Bars>
-          <Text style={[styles.textView, {fontSize: 15, textAlign: 'center'}]}>动画: 圆形加载</Text>
-          <Bubbles spaceBetween={6} size={11} color='#ff7a01'></Bubbles>
-        </View>
-      );
+    return (
+      <View style={styles.container} >
+        <StatusBar barStyle="default" />
+        <Text style={[styles.textView, { fontSize: 15, textAlign: 'center' }]}>动画: 电子脉冲</Text>
+        <Pulse size={40} color="#3f7af1"> </Pulse>
+        <Text style={[styles.textView, { fontSize: 15, textAlign: 'center' }]}>动画: 回形波</Text>
+        <DoubleBounce size={40} color="#ff0a01"> </DoubleBounce>
+        <Text style={[styles.textView, { fontSize: 15, textAlign: 'center' }]}>动画: 条状加载</Text>
+        <Bars spaceBetween={4} size={20} color="#3f7af1"> </Bars>
+        <Text style={[styles.textView, { fontSize: 15, textAlign: 'center' }]}>动画: 圆形加载</Text>
+        <Bubbles spaceBetween={6} size={11} color="#ff7a01"></Bubbles>
+      </View>
+    );
   }
-
 }
 
 var styles = StyleSheet.create({
-    container: {
-        flex:1,
-        marginTop: Platform.OS === 'ios' ? 0 : 0,
-        flexDirection:'column',
-        alignItems: 'center',
-    },
-    textView: {
-      marginTop: 30,
-      marginBottom: 30,
-      flexDirection:'column',
-      alignItems: 'center',
-    },
-    text: {
-        fontSize: 30,
-        textAlign: 'center'
-    }
+  container: {
+    flex: 1,
+    marginTop: Platform.OS === 'ios' ? 0 : 0,
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  textView: {
+    marginTop: 30,
+    marginBottom: 30,
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  text: {
+    fontSize: 30,
+    textAlign: 'center'
+  }
 });
-
-// var route = {
-//   key: 'AnimCustomCompDemo',
-//   component: AnimCustomCompDemo,
-//   title: '自定义动画组件',
-//   }
-
-// module.exports = {
-//   route: route,
-// }
-
-
-// Pulse.propTypes = {
-//   radius: PropTypes.number.isRequired,
-//   opacity: PropTypes.number
-// };

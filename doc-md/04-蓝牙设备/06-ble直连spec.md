@@ -13,6 +13,9 @@
         * [.getPropertiesValue(mac, json)](#module_miot/device/bluetooth/blespec..BleSpec+getPropertiesValue)
         * [.doAction(mac, json)](#module_miot/device/bluetooth/blespec..BleSpec+doAction)
 
+
+* * *
+
 <a name="module_miot/device/bluetooth/blespec..BleSpec"></a>
 
 ### miot/device/bluetooth/blespec~BleSpec
@@ -22,6 +25,9 @@
     * [.setPropertiesValue(mac, json)](#module_miot/device/bluetooth/blespec..BleSpec+setPropertiesValue)
     * [.getPropertiesValue(mac, json)](#module_miot/device/bluetooth/blespec..BleSpec+getPropertiesValue)
     * [.doAction(mac, json)](#module_miot/device/bluetooth/blespec..BleSpec+doAction)
+
+
+* * *
 
 <a name="module_miot/device/bluetooth/blespec..BleSpec+setPropertiesValue"></a>
 
@@ -47,6 +53,9 @@ Bluetooth.spec.setPropertiesValue(mac,data)
          .then(res=>console.log(JSON.stringify(res)))
          .catch(err=>console.log(JSON.stringify(err))
 ```
+
+* * *
+
 <a name="module_miot/device/bluetooth/blespec..BleSpec+getPropertiesValue"></a>
 
 #### bleSpec.getPropertiesValue(mac, json)
@@ -71,6 +80,9 @@ Bluetooth.spec.getPropertiesValue(mac,data)
          .then(res=>console.log(JSON.stringify(res)))
          .catch(err=>console.log(JSON.stringify(err))
 ```
+
+* * *
+
 <a name="module_miot/device/bluetooth/blespec..BleSpec+doAction"></a>
 
 #### bleSpec.doAction(mac, json)
@@ -95,3 +107,6 @@ Bluetooth.spec.doAction(mac,data)
          .then(res=>console.log(JSON.stringify(res)))
          .catch(err=>console.log(JSON.stringify(err))
 ```
+
+* * *
+

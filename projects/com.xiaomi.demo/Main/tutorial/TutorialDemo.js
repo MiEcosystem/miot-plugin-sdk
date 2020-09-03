@@ -1,13 +1,8 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
-import PropTypes from 'prop-types';
+import { View, ScrollView } from 'react-native';
 
-const ItemSeparator = ({ highlighted }) => (
-  <View style={highlighted ? styles.separatorHighlighted : styles.separator} />
-);
-ItemSeparator.propTypes = {
-  highlighted: PropTypes.bool
-};
+import { ListItem } from 'miot/ui/ListItem';
+import Separator from 'miot/ui/Separator';
 
 export default class TutorialDemo extends React.Component {
 
@@ -18,6 +13,10 @@ export default class TutorialDemo extends React.Component {
         {
           'title': '插件通用设置项',
           'key': 'Setting'
+        },
+        {
+          'title': '系统功能',
+          'key': 'systemDemo'
         },
         {
           'title': '空白页',
@@ -40,14 +39,6 @@ export default class TutorialDemo extends React.Component {
           'key': 'accountDemo'
         },
         {
-          'title': 'KeyValue存储',
-          'key': 'storageDemo'
-        },
-        {
-          'title': '文件存储',
-          'key': 'fileStorage'
-        },
-        {
           'title': 'device 信息',
           'key': 'DeviceDemo'
         },
@@ -66,90 +57,28 @@ export default class TutorialDemo extends React.Component {
       ]
     };
   }
-  _keyExtractor = (item) => item.key;
 
   render() {
     return (
-      <FlatList
-        ItemSeparatorComponent={ItemSeparator}
-        style={styles.list}
-        data={this.state.dataSource}
-        keyExtractor={this._keyExtractor}
-        renderItem={({ item }) => {
-          return (
-            <TouchableHighlight style={{ height: 44 }} onPress={() => {
-              let params = { title: item.title };
-              if (item.params) {
-                params = { params, ...item.params };
-              }
-              this.props.navigation.navigate(item.key, params);
-            }} >
-              <View style={[{ flexDirection: 'row', margin: 10 }]}>
-                <Text style={[styles.rowTitleText]}>{item.title}</Text>
-              </View>
-            </TouchableHighlight>
-          );
-        }
-        } />
+      <View style={{ flex: 1 }}>
+        <Separator />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {
+            this.state.dataSource.map((item, index) => {
+              return <ListItem
+                key={index}
+                title={item.title}
+                onPress={() => {
+                  let params = { title: item.title };
+                  if (item.params) {
+                    params = { params, ...item.params };
+                  }
+                  this.props.navigation.navigate(item.key, params);
+                }} />;
+            })
+          }
+        </ScrollView>
+      </View>
     );
   }
 }
-
-
-const styles = StyleSheet.create({
-  listContainer: {
-    flex: 1
-  },
-  list: {
-    backgroundColor: '#eeeeee'
-  },
-  sectionHeader: {
-    backgroundColor: '#eeeeee',
-    padding: 5,
-    fontWeight: '500',
-    fontSize: 11
-  },
-  row: {
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    paddingHorizontal: 15,
-    paddingVertical: 8
-  },
-  image: {
-    width: 44,
-    height: 44,
-    margin: 15
-  },
-  separator: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: '#bbbbbb',
-    marginLeft: 15
-  },
-  separatorHighlighted: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: 'rgb(217, 217, 217)'
-  },
-  rowTitleText: {
-    fontSize: 17,
-    fontWeight: '500',
-    color: '#333333'
-  },
-  rowDetailText: {
-    fontSize: 15,
-    color: '#888888',
-    lineHeight: 20
-  },
-  searchRow: {
-    backgroundColor: '#eeeeee',
-    padding: 10
-  },
-  searchTextInput: {
-    backgroundColor: 'white',
-    borderColor: '#cccccc',
-    borderRadius: 3,
-    borderWidth: 1,
-    paddingLeft: 8,
-    paddingVertical: 0,
-    height: 35
-  }
-});

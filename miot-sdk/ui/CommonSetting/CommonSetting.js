@@ -7,7 +7,6 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
-import Separator from '../Separator';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
 let modelType = '';
@@ -33,21 +32,49 @@ function getModelType() {
   });
 }
 getModelType().then(() => { }).catch(() => { });
-// 2020/02/04 灯组2.0需求，去掉cn的判断
-// let countryCode = '';
-// function getCountryCode() {
-//   return new Promise((resolve, reject) => {
-//     if (countryCode) {
-//       resolve(countryCode);
-//       return;
-//     }
-//     Service.getServerName().then(({ countryCode }) => {
-//       countryCode = (countryCode || '').toLowerCase();
-//       resolve(countryCode);
-//     }).catch(reject);
-//   });
-// }
-// getCountryCode().then(() => { }).catch(() => { });
+let countryCode = '';
+function getCountryCode() {
+  return new Promise((resolve, reject) => {
+    if (countryCode) {
+      resolve(countryCode);
+      return;
+    }
+    Service.getServerName().then(({ countryCode }) => {
+      countryCode = (countryCode || '').toLowerCase();
+      resolve(countryCode);
+    }).catch(reject);
+  });
+}
+let productBaikeUrl = null;
+function getProductBaikeUrl() {
+  return new Promise((resolve, reject) => {
+    if (productBaikeUrl != null) {
+      resolve(productBaikeUrl);
+      return;
+    }
+    getCountryCode().then((countryCode) => {
+      if (countryCode == 'cn') {
+        return fetch(`https://home.mi.com/newoperation/productBaike?model=${ Device.model }`);
+      } else {
+        productBaikeUrl = '';
+        return Promise.reject(null);
+      }
+    }).then((response) => response.json())
+      .then((response) => {
+        if (response.code == 0) {
+          productBaikeUrl = response.data.baikeUrl;
+          resolve(productBaikeUrl);
+          return;
+        }
+        productBaikeUrl = '';
+        reject(response);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+getProductBaikeUrl().then(() => { }).catch(() => { });
 const firstOptionsInner = {
   /**
    * 按键设置，多键开关`必选`，其余设备`必不选`
@@ -80,7 +107,11 @@ const firstOptionsInner = {
   /**
    * 管理设备组
    */
-  MANAGE_GROUP: 'manageGroup'
+  MANAGE_GROUP: 'manageGroup',
+  /**
+   * 产品百科
+   */
+  PRODUCT_BAIKE: 'productBaike'
 };
 const firstAllOptionsInner = {
   ...firstOptionsInner,
@@ -186,28 +217,43 @@ const firstSharedOptions = {
   [AllOptions.MORE]: 1,
   [AllOptions.HELP]: 1,
   [AllOptions.SECURITY]: 0,
-  [AllOptions.LEGAL_INFO]: 0 // 20190516，分享设备不显示「法律信息」
+  [AllOptions.LEGAL_INFO]: 0, // 20190516，分享设备不显示「法律信息」
+  [AllOptions.PRODUCT_BAIKE]: 1
 };
 /**
  * 20190708 / SDK_10023
  * 所有设置项顺序固定
  * 权重值越大，排序越靠后，为了可扩展性，权重不能依次递增+1
  */
-const firstAllOptionsWeight = {
+export const AllOptionsWeight = {
+  // firstOptions
   [AllOptions.NAME]: 0,
   [AllOptions.CREATE_GROUP]: 1,
   [AllOptions.MANAGE_GROUP]: 1,
   [AllOptions.MEMBER_SET]: 3,
   [AllOptions.LOCATION]: 6,
   [AllOptions.SHARE]: 9,
-  // [AllOptions.BTGATEWAY]: 12,
-  // [AllOptions.VOICE_AUTH]: 15,
   [AllOptions.IFTTT]: 18,
+  [AllOptions.PRODUCT_BAIKE]: 19,
   [AllOptions.FIRMWARE_UPGRADE]: 21,
   [AllOptions.HELP]: 24,
   [AllOptions.MORE]: 27,
-  [AllOptions.SECURITY]: 28
-  // [AllOptions.LEGAL_INFO]: 30
+  [AllOptions.SECURITY]: 28,
+  // secondOptions
+  [AllOptions.AUTO_UPGRADE]: 1,
+  [AllOptions.PLUGIN_VERSION]: 1,
+  [AllOptions.SECURITY]: 3,
+  "networkInfo": 5,
+  [AllOptions.VOICE_AUTH]: 7,
+  [AllOptions.BTGATEWAY]: 9,
+  [AllOptions.USER_EXPERIENCE_PROGRAM]: 11,
+  [AllOptions.CHECK_UPGRADE]: 13,
+  [AllOptions.LEGAL_INFO]: 18,
+  [AllOptions.USER_AGREEMENT]: 19,
+  [AllOptions.PRIVACY_POLICY]: 19,
+  [AllOptions.TIMEZONE]: 21,
+  [AllOptions.FEEDBACK]: 23,
+  [AllOptions.ADD_TO_DESKTOP]: 25
 };
 /**
  * 某些特殊设备类型不显示某些设置项
@@ -336,7 +382,9 @@ export default class CommonSetting extends React.Component {
     extraOptions: PropTypes.object,
     navigation: PropTypes.object.isRequired,
     commonSettingStyle: PropTypes.object,
-    accessible: AccessibilityPropTypes.accessible
+    accessible: AccessibilityPropTypes.accessible,
+    firstCustomOptions: PropTypes.array,
+    secondCustomOptions: PropTypes.array
   }
   static defaultProps = {
     firstOptions: [
@@ -359,7 +407,7 @@ export default class CommonSetting extends React.Component {
     extraOptions: {}
   }
   getCommonSetting(state) {
-    let { modelType } = state || {};
+    let { modelType, productBaikeUrl } = state || {};
     if (!modelType) {
       modelType = '  ';
     }
@@ -391,7 +439,11 @@ export default class CommonSetting extends React.Component {
       // },
       [AllOptions.IFTTT]: {
         title: strings.ifttt,
-        onPress: () => Host.ui.openIftttAutoPage()
+        onPress: () => Service.scene.openIftttAutoPage()
+      },
+      [AllOptions.PRODUCT_BAIKE]: {
+        title: strings.productBaike,
+        onPress: () => Host.ui.openProductBaikeWebPage(productBaikeUrl)
       },
       [AllOptions.HELP]: {
         title: strings.helpAndFeedback,
@@ -433,7 +485,7 @@ export default class CommonSetting extends React.Component {
     this.state = {
       name: Device.name,
       showDot: Array.isArray(props.showDot) ? props.showDot : [],
-      // countryCode,
+      productBaikeUrl,
       modelType
     };
     console.log(`Device.type: ${ Device.type }`);
@@ -481,8 +533,6 @@ export default class CommonSetting extends React.Component {
         console.warn('蓝牙统一OTA界面正在火热开发中');
       }
     } else {
-      // wifi设备固件升级
-      // this.openSubPage('FirmwareUpgrade');
       // 20190516，「固件自动升级」不能做成通用功能所以去掉，
       // 那么二级页面「FirmwareUpgrade」只剩下「检查固件升级」一项，遂藏之
       this.removeKeyFromShowDot(AllOptions.FIRMWARE_UPGRADE);
@@ -492,6 +542,9 @@ export default class CommonSetting extends React.Component {
         // 2019/11/21 新灯组2.0需求
         // 虚拟组设备，跳v2.0固件更新页
         Host.ui.openLightGroupUpgradePage();
+      } else if (Device.type === '0' && ['mijia.vacuum.v1', 'viomi.vacuum.v3', 'lumi.gateway.mgl03', 'xiaomi.dev.lx2', 'xiaomi.dev.lx0', 'xiaomi.switch.a2ota'].indexOf(Device.model) !== -1) {
+        // wifi设备固件升级 Q3实验性功能 固件自动升级
+        this.openSubPage('FirmwareUpgradeAuto');
       } else if ([0, 1, 4, 5].includes(bleOtaAuthType)) {
         Host.ui.openBleCommonDeviceUpgradePage({ auth_type: bleOtaAuthType });
       } else {
@@ -536,7 +589,8 @@ export default class CommonSetting extends React.Component {
     syncDevice: this.props.extraOptions.syncDevice,
     secondOptions: [...(this.props.firstOptions || []), ...(this.props.secondOptions || [])],
     excludeRequiredOptions: this.props.extraOptions.excludeRequiredOptions,
-    extraOptions: this.props.extraOptions
+    extraOptions: this.props.extraOptions,
+    secondCustomOptions: this.props.secondCustomOptions || []
   }) {
     let excludeRequiredOptions = params.excludeRequiredOptions || [];
     if (this.props.navigation) {
@@ -560,11 +614,15 @@ export default class CommonSetting extends React.Component {
     Host.ui.openDeleteDevice(deleteDeviceMessage);
   }
   componentDidMount() {
-    // getCountryCode().then(countryCode => {
-    //   this.setState({
-    //     countryCode
-    //   });
-    // }).catch(() => { });
+    getProductBaikeUrl().then((productBaikeUrl) => {
+      this.commonSetting = this.getCommonSetting({
+        ...this.state,
+        productBaikeUrl: productBaikeUrl
+      });
+      this.setState({
+        productBaikeUrl
+      });
+    });
     getModelType().then((modelType) => {
       this.commonSetting = this.getCommonSetting({
         ...this.state,
@@ -576,11 +634,14 @@ export default class CommonSetting extends React.Component {
     }).catch(() => { });
   }
   render() {
-    let { modelType } = this.state;
+    let { modelType, productBaikeUrl } = this.state;
     // 如果不设置英文字体，那么外文字符串将显示不全（Android）
     let fontFamily = {};
     if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' };
     let requireKeys1 = [AllOptions.NAME, AllOptions.LOCATION];
+    if (productBaikeUrl) {
+      requireKeys1.push(AllOptions.PRODUCT_BAIKE);
+    }
     // 创建组设备
     // 蓝牙单模和组设备不能创建
     if (['6', '17'].indexOf(Device.type) === -1 && ['light'].indexOf(modelType) !== -1) {
@@ -600,7 +661,7 @@ export default class CommonSetting extends React.Component {
     // 3. 去除重复
     options = [...new Set(options)];
     // 4. 拼接必选项和可选项
-    let keys = [...requireKeys1, ...options, ...requireKeys2];
+    let keys = [...requireKeys1, ...options, ...requireKeys2, ...(this.props.firstCustomOptions || [])];
     keys = [...new Set(keys)];
     // 5. 权限控制，如果是共享设备或者家庭设备，需要过滤一下
     if (Device.isOwner === false) {
@@ -615,10 +676,25 @@ export default class CommonSetting extends React.Component {
     }
     // 4.5 所有设置项顺序固定，20190708 / SDK_10023
     keys.sort((keyA, keyB) => {
-      return (firstAllOptionsWeight[keyA] || 0) - (firstAllOptionsWeight[keyB] || 0);
+      let weightA, weightB;
+      if (typeof keyA === 'string') {
+        weightA = AllOptionsWeight[keyA] || 0;
+      } else {
+        weightA = keyA.weight || 0;
+      }
+      if (typeof keyB === 'string') {
+        weightB = AllOptionsWeight[keyB] || 0;
+      } else {
+        weightB = keyB.weight || 0;
+      }
+      return weightA - weightB;
     });
     // 8. 根据最终的设置项 keys 渲染数据
     const items = keys.map((key) => {
+      if (typeof key !== 'string') {
+        const item = key;
+        return item;
+      }
       const item = this.commonSetting[key];
       if (item) {
         item.showDot = (this.state.showDot || []).includes(key);

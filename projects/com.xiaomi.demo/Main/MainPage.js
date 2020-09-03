@@ -86,25 +86,19 @@ export default class MainPage extends React.Component {
 
   componentWillUnmount() {
     this._deviceOnlineListener && this._deviceOnlineListener.remove();
+    this._packageReceivedInformation && this._packageReceivedInformation.remove();
   }
 
-  componentWillMount() {
-    // const licenseURL = require('../Resources/raw/license_zh.html');
-    // const policyURL = require('../Resources/raw/privacy_zh.html');
-    // let options = {
-    //   hideAgreement: false,
-    //   hideUserExperiencePlan: true,
-    //   agreementURL: licenseURL,
-    //   privacyURL: policyURL
-    // }
-    // Host.ui.alertLegalInformationAuthorization(options).then((res) => {
-    // }).catch((error) => {
-    //   console.log(error)
-    // })
+  UNSAFE_componentWillMount() {
     this._deviceOnlineListener = DeviceEvent.deviceStatusChanged.addListener((device, newstatus) => {
       console.log(device.isOnline);
       alert(`设备状态改变:${ JSON.stringify(newstatus) }`);
     });
+    this._packageReceivedInformation = PackageEvent.packageReceivedInformation.addListener((message) => {
+      console.log(`收到通知数据：${ JSON.stringify(message) }`);
+    });
+    console.log(`传递进来的 PageParams: ${ JSON.stringify(Package.pageParams) }`);
+    console.log(`传递进来的 entryInfo: ${ JSON.stringify(Package.entryInfo) }`);
   }
 
   render() {
@@ -184,14 +178,9 @@ export default class MainPage extends React.Component {
   _pressRow(rowID) {
     this._menuData[rowID].func();
   }
-
 }
 
-
-
-
-
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderTopColor: '#f1f1f1',
@@ -213,7 +202,6 @@ var styles = StyleSheet.create({
     flex: 1
   },
   list: { alignSelf: 'stretch' },
-
   title: {
     fontSize: 15,
     color: '#333333',

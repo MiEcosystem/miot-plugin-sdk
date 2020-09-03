@@ -6,16 +6,6 @@ import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View
 
 export default class CardDemoEntry extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
-
-    return {
-      header: <TitleBar type="dark" title="列表 ListDemo" style={{ backgroundColor: '#fff' }}
-        onPressLeft={() => {
-          navigation.goBack();
-        }} />
-    };
-  };
-
   constructor(props) {
     super(props);
     let ds = new ListView.DataSource({
@@ -71,7 +61,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
     marginBottom: 0,
     marginTop: 0
   },
@@ -83,7 +72,8 @@ const styles = StyleSheet.create({
     paddingLeft: 23,
     paddingRight: 23,
     alignItems: 'center',
-    flex: 1
+    flex: 1,
+    backgroundColor: '#FFF'
   },
   list: {
     alignSelf: 'stretch'
