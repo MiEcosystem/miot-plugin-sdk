@@ -1129,8 +1129,7 @@ getInnerView() {
 ## 单选框-Radio
 
 ### 预览
-
-![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_gif_71d7b5c65bdb086bda248bbb6e93c4eb.gif)
+![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_gif_494be34fdc07bb095196eac9c251bf84.gif)
 
 ### 基本信息
 
@@ -1568,9 +1567,9 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 
 ### 预览
 
-![](./UIDocImages/abstractdialog.png)
+![](./UIDocImages/abstractDialog2.png)
 
-![](./UIDocImages/abstractdialog1.png)
+![](./UIDocImages/abstractDialog3.png)
 
 ### 基本信息
 
@@ -2058,7 +2057,7 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 
 ### 预览
 
-![](./UIDocImages/pincodedialog.gif)
+![](./UIDocImages/pincodedialog1.gif)
 
 ### 基本信息
 
