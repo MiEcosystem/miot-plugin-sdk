@@ -220,6 +220,7 @@
 | `NavigationBar.ICON.SELECTED_ALL` | 全部选中      | ![](./UIDocImages/navigation/selected_all.png) |
 | `NavigationBar.ICON.SHARE`        | 分享          | ![](./UIDocImages/navigation/share.png)        |
 | `NavigationBar.ICON.EDIT`         | 编辑          | ![](./UIDocImages/navigation/edit.png)        | ❗️SDK_10040新增 |
+| `NavigationBar.ICON.RECORD`         | 记录          | ![](./UIDocImages/navigation/record.png)        | ❗️SDK_10043新增 |
 
 ### 和`Titlebar` 对比
 
@@ -1372,6 +1373,7 @@ getInnerView() {
 | style                            | <code>style</code>               | 开关样式，仅支持宽高          |
 | dataSource                       | <code>array&lt;string&gt;</code> | 数据源                        |
 | defaultValue                     | <code>string</code>              | 默认值                        |
+| onChangeStart                   | <code>func</code>                | 值开始改变的回调                 |
 | onValueChanged                   | <code>func</code>                | 值改变的回调                  |
 | unit                             | <code>string</code>              | 单位，默认不显示单位          |
 | pickerInnerStyle.textColor       | <code>string</code>              | 文字颜色 默认值 `#000000`     |
