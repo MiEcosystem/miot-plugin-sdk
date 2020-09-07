@@ -7,5 +7,6 @@
     "trigger_ids": [
       "1704"
     ]
-  }
+  },
+  "somecustomkey": 1
 }
