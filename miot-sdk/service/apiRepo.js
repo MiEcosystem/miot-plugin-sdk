@@ -176,6 +176,7 @@ const API_REPO = {
   '/common/app/data/remove': {},
   '/common/app/data/modify': {},
   '/common/app/data/get': {},
-  '/rpc/send': {}
+  '/rpc/send': {},
+  '/common/app/get/mergePhotoMeta': {},
 };
 export default API_REPO;

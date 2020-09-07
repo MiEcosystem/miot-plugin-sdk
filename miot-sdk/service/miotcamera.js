@@ -505,11 +505,18 @@ class IMiotCamera {
    */
   @report
   setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID) {
-    if (Platform.OS == "android") {
-       return null
-    } else {
-      return Promise.reject("ios platform not support yet; to be done");
-    }
+     return null
+  }
+  /**
+   * 打开门铃的带屏设备联动页面
+   * @param {bool} isMultiChoice 
+   * @param {number} screenCount 
+   * @param {string} did 
+   * @since 10044
+   */
+  @report 
+  showScreenLinkagePage(isMultiChoice, screenCount, did = Device.deviceID) {
+     return null
   }
 }
 const MiotCameraInstance = new IMiotCamera();
