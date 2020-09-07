@@ -10,97 +10,87 @@
 // stagger(time,animations) 静态方法，执行一组动画，有可能里边的动画是同时执行。不过会有指定时间的延迟。
 // event(argMapping,config?) 静态方法  响应事件值，如下看一下使用方法
 
-import React from 'react'
+import React from 'react';
 import {
-    Animated,
-    Easing,
-    View,
-    StyleSheet,
-    StatusBar,
-    Platform,
-    Text,
-    Dimensions,
+  Animated,
+  Easing,
+  View,
+  StyleSheet,
+  StatusBar,
+  Platform,
+  Text,
+  Dimensions,
 	  Image,
-    PanResponder
+  PanResponder
 } from 'react-native';
 
-var width = Dimensions.get('window').width;
-var height = Dimensions.get('window').height;
-
 class DraggableView extends React.Component {
-   constructor(props) {
-     super(props);
-     this.state = {
-       pan: new Animated.ValueXY(), // inits to zero
-     };
-     this.state.panResponder = PanResponder.create({
-       onStartShouldSetPanResponder: () => true,
-       onPanResponderMove: Animated.event([null, {
-         dx: this.state.pan.x, // x,y are Animated.Value
-         dy: this.state.pan.y,
-       }]),
-       onPanResponderRelease: (event, gestureState) => {
-         Animated.spring(
-           this.state.pan,         // Auto-multiplexed
-           {toValue: {x: 0, y: 0}} // Back to zero
-         ).start();
-       },
-     });
-   }
-   render() {
-     return (
-       <Animated.View
-         {...this.state.panResponder.panHandlers}
-         style={this.state.pan.getLayout()}>
-         {this.props.children}
-       </Animated.View>
-     );
-   }
- }
+  constructor(props) {
+    super(props);
+    this.state = {
+      pan: new Animated.ValueXY() // inits to zero
+    };
+    this.state.panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: Animated.event([null, {
+        dx: this.state.pan.x, // x,y are Animated.Value
+        dy: this.state.pan.y
+      }]),
+      onPanResponderRelease: (event, gestureState) => {
+        Animated.spring(
+          this.state.pan, // Auto-multiplexed
+          { toValue: { x: 0, y: 0 } } // Back to zero
+        ).start();
+      }
+    });
+  }
+  render() {
+    return (
+      <Animated.View
+        {...this.state.panResponder.panHandlers}
+        style={this.state.pan.getLayout()}>
+        {this.props.children}
+      </Animated.View>
+    );
+  }
+}
 
- export default class AnimEventsDemo extends React.Component {
+export default class AnimEventsDemo extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-    }
+    };
   }
 
   render() {
-      return (
-        <View style={styles.container} >
-          <StatusBar barStyle='default' />
-          <Text style={[styles.textView, {fontSize: 15, textAlign: 'center'}]}>Animated动画支持跟踪功能</Text>
-          <DraggableView>
-            <Image
-              source={{uri: 'http://i.imgur.com/XMKOH81.jpg'}}
-              style={{width: 100, height: 100}}
-            />
-            </DraggableView>
-        </View>
-      );
+    return (
+      <View style={styles.container} >
+        <StatusBar barStyle="default" />
+        <Text style={[styles.textView, { fontSize: 15, textAlign: 'center' }]}>Animated动画支持跟踪功能</Text>
+        <DraggableView>
+          <Image
+            source={{ uri: 'http://i.imgur.com/XMKOH81.jpg' }}
+            style={{ width: 100, height: 100 }}
+          />
+        </DraggableView>
+      </View>
+    );
   }
-
 }
 
 var styles = StyleSheet.create({
-    container: {
-        flex:1,
-        marginTop: Platform.OS === 'ios' ? 64 : 76,
-        flexDirection:'column',
-    },
-    textView: {
-      marginTop: 10,
-      flexDirection:'column',
-      alignItems: 'center',
-    },
-    text: {
-        fontSize: 30,
-        textAlign: 'center'
-    }
+  container: {
+    flex: 1,
+    marginTop: Platform.OS === 'ios' ? 64 : 76,
+    flexDirection: 'column'
+  },
+  textView: {
+    marginTop: 10,
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  text: {
+    fontSize: 30,
+    textAlign: 'center'
+  }
 });
-
-// var route = {
-//   key: 'AnimEventsDemo',
-//   component: AnimEventsDemo,
-//   title: '动画事件－绑定事件',
-// };

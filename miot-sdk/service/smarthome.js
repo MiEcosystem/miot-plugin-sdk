@@ -160,6 +160,14 @@ class ISmartHome {
        return Promise.resolve(null);
     }
     /**
+     * 调用Device.getWifiDevice()的自动升级配置信息
+     * @since 10043
+     * @param {*} did 设备did
+     * @returns Promise
+    */
+    getAutoUpgradeConfig(did) {
+    }
+    /**
      * 调用Device.getWifiDevice()的检测固件是否有升级的api, 达到与相关行为一致的目的。
      * @since 10037
      * @param {*} did 设备did

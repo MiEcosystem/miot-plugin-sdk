@@ -1,20 +1,9 @@
 'use strict';
 
 import { MessageDialog } from 'miot/ui';
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 export default class UIDemo extends React.Component {
-
-  static navigationOptions = ({ navigation }) => {
-
-    return {
-      header: <TitleBar type="dark" title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
-        onPressLeft={() => {
-          navigation.goBack();
-        }} />
-    };
-  };
 
   constructor(props) {
     super(props);
@@ -74,7 +63,6 @@ export default class UIDemo extends React.Component {
           { name: 'ImageButtonDemo', router: 'ImageButtonDemo' },
           { name: 'NumberSpinnerDemo', router: 'NumberSpinnerDemo' },
           { name: 'StringSpinnerDemo', router: 'StringSpinnerDemo' },
-          { name: 'RobotMapDemo(待废弃)', router: 'RobotMapDemo' },
           { name: 'MiotAndroidScrollViewDemo(仅Android)', router: 'MiotAndroidScrollViewDemo' },
           { name: '绝对定位点击测试', router: 'AbsoluteTouch' },
           { name: '输入法软键盘适配测试', router: 'SoftKeyboardAdapterTestDemo' }
@@ -85,7 +73,7 @@ export default class UIDemo extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ListView style={styles.list} dataSource={this.state.dataSource}
+        <ListView showsVerticalScrollIndicator={false} style={styles.list} dataSource={this.state.dataSource}
           renderRow={this._renderRow.bind(this)} />
       </View>
     );
@@ -93,7 +81,7 @@ export default class UIDemo extends React.Component {
 
   _renderRow(rowData, sectionID, rowID) {
     return (
-      <TouchableHighlight underlayColor="#838383" onPress={() => this._pressRow(rowData.router, rowData.messageDialog)}>
+      <TouchableHighlight underlayColor="#838383" onPress={() => this._pressRow(rowData.router, rowData.name, rowData.messageDialog)}>
         <View>
           <View style={styles.rowContainer}>
             <Text style={styles.title}>{rowData.name}</Text>
@@ -105,11 +93,11 @@ export default class UIDemo extends React.Component {
     );
   }
 
-  _pressRow(rowData, messageDialog = {}) {
-    console.log(`row${ rowData }clicked!`);
-    this.props.navigation.navigate(rowData, {
-      title: rowData,
-      messageDialog
+  _pressRow(router, name, messageDialog = {}) {
+    console.log(`row${ router }clicked!`);
+    this.props.navigation.navigate(router, {
+      title: name,
+      messageDialog: messageDialog
     });
   }
 

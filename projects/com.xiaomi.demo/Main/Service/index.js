@@ -1,7 +1,7 @@
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import {
-  Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View, NativeModules
+  Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View
 } from 'react-native';
 import { Service } from 'miot';
 
@@ -67,7 +67,7 @@ export default class HostDemo extends React.Component {
         name: '通用的米家后台API调用接口',
         func: () => {
           Service.callSmartHomeAPI('/home/profiles', { uids: [Service.account.ID, '894158105'] })
-            .then((res) => alert(JSON.stringify(res)))
+            .then((res) => alert(JSON.stringify(res, null, '\t')))
             .catch((e) => alert(e));
         }
       },
@@ -83,8 +83,8 @@ export default class HostDemo extends React.Component {
         'name': 'callSpecificAPI',
         'func': () => {
           Service.callSpecificAPI('http://api.goseek.cn/Tools/holiday', 'get', { "date": "20191102" })
-            .then((res) => alert(JSON.stringify(res)))
-            .catch((e) => alert(JSON.stringify(e)));
+            .then((res) => alert(JSON.stringify(res, null, '\t')))
+            .catch((e) => alert(JSON.stringify(e, null, '\t')));
         }
       },
       {
@@ -97,33 +97,32 @@ export default class HostDemo extends React.Component {
         'name': 'callSmartHomeCameraAPI',
         'func': () => {
           Service.callSmartHomeCameraAPI('/wx/app/v1/put/pushSwitch', 'connect.camera', true, {})
-            .then((res) => alert(JSON.stringify(res)))
-            .catch((e) => alert(JSON.stringify(e)));
+            .then((res) => alert(JSON.stringify(res, null, '\t')))
+            .catch((e) => alert(JSON.stringify(e, null, '\t')));
         }
       },
       {
         'name': '访问小爱服务端接口-获取聊天记录',
         'func': () => {
           Service.callXiaoaiNetworkAPI({ host: 'profile', path: '/device_profile/conversation', params: { limit: 5 } })
-            .then((res) => {
-              alert(JSON.stringify(res));
-            }).catch((e) => alert(JSON.stringify(e)));
+            .then((res) => alert(JSON.stringify(res, null, '\t')))
+            .catch((e) => alert(JSON.stringify(e, null, '\t')));
         }
       },
       {
         'name': '访问小爱服务端接口-获取设备列表',
         'func': () => {
           Service.callXiaoaiNetworkAPI({ path: '/admin/v2/device_list', needDevice: 0 })
-            .then((res) => alert(JSON.stringify(res)))
-            .catch((e) => alert(JSON.stringify(e)));
+            .then((res) => alert(JSON.stringify(res, null, '\t')))
+            .catch((e) => alert(JSON.stringify(e, null, '\t')));
         }
       },
       {
         'name': '访问小爱服务端接口-post请求',
         'func': () => {
           Service.callXiaoaiNetworkAPI({ host: 'normal', path: '/remote/ubus', needDevice: 1, method: 1, params: { deviceId: 'a0ffbb6b-19b4-4af5-af5d-de174d1c7cc2', method: 'enable', path: 'mibt', message: JSON.stringify({ btmode: 'classic', connect: 1, discover: 0 }) } })
-            .then((res) => alert(JSON.stringify(res)))
-            .catch((e) => alert(JSON.stringify(e)));
+            .then((res) => alert(JSON.stringify(res, null, '\t')))
+            .catch((e) => alert(JSON.stringify(e, null, '\t')));
         }
       },
       {
@@ -150,18 +149,7 @@ export default class HostDemo extends React.Component {
           });
         }
       }
-      
-      // {
-      //   'name': 'AlarmPhoneDemo 报警电话设置 Demo',
-      //   'func': () => {
-      //     this.props.navigation.navigate('AlarmPhoneDemo', { title: '报警电话设置 Demo' });
-      //   }
-      // }
     ];
-  }
-
-  componentWillUnmount() {
-
   }
 
   render() {
@@ -189,7 +177,6 @@ export default class HostDemo extends React.Component {
   _pressRow(rowID) {
     this._menuData[rowID].func();
   }
-
 }
 
 const styles = StyleSheet.create({
@@ -200,7 +187,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
     marginBottom: 0,
     marginTop: 0
   },
@@ -211,10 +197,12 @@ const styles = StyleSheet.create({
     paddingLeft: 23,
     paddingRight: 23,
     alignItems: 'center',
-    flex: 1
+    flex: 1,
+    backgroundColor: '#fff'
   },
-  list: { alignSelf: 'stretch' },
-
+  list: { 
+    alignSelf: 'stretch'
+  },
   title: {
     fontSize: 15,
     color: '#333333',
