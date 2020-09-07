@@ -5,11 +5,6 @@ import { StyleSheet } from 'react-native';
 import { ColorPicker } from 'miot/ui/ColorPicker';
 
 function DialogTest3() {
-  // constructor(props) {
-  //   super(props);
-  // }
-
-  // render() {
   const colorPicker = useRef(null);
   return (
     <ColorPicker
@@ -28,7 +23,6 @@ function DialogTest3() {
     />
   );
 }
-// }
 
 DialogTest3.defaultProps = {
 };

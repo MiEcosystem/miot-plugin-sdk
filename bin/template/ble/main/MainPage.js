@@ -316,7 +316,14 @@ export default class MainPage extends React.Component {
       txtShowInfo: ''
     });
     this.updateState('startScan');
-    Bluetooth.startScan(30000);
+    if (Host.isIOS) {
+      this.updateState(`iOS 无需扫描蓝牙设备，可以直接connect`);
+    } else {
+      let serviceUUIDs = [
+        // XXXX
+      ];
+      Bluetooth.startScan(30000, ...serviceUUIDs);
+    }
   }
 
   stopScan() {

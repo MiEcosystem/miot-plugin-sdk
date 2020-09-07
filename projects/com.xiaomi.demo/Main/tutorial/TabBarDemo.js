@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { createMaterialTopTabNavigator } from 'react-navigation';
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
@@ -6,10 +6,10 @@ import SecondPage from './SecondPage';
 const RootTabs = createMaterialTopTabNavigator(
   {
     topPage1: {
-      screen: FirstPage,
+      screen: FirstPage
     },
     topPage2: {
-      screen: SecondPage,
+      screen: SecondPage
     }
   },
   {
@@ -17,9 +17,9 @@ const RootTabs = createMaterialTopTabNavigator(
     animationEnabled: true,
     tabBarOptions:
     { 
-      activeTintColor: '#ffffff',  //标签栏激活字体颜色
-      inactiveTintColor: '#000000', //标签栏未激活字体颜色
-      style: { backgroundColor: '#31b3c0' }, //设置整个tabbar样式(背景颜色等)
+      activeTintColor: '#1F1F1F', // 标签栏激活字体颜色
+      inactiveTintColor: '#666', // 标签栏未激活字体颜色
+      style: { backgroundColor: '#FFF', borderTopColor: '#0003', borderTopWidth: 0.5 } // 设置整个tabbar样式(背景颜色等)
     }
   }
 );

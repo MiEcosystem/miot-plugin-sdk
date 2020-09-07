@@ -1,9 +1,8 @@
 'use strict';
 
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import ListItem from '../UIComponent/ListItem';
+import { ListItem } from 'miot/ui/ListItem';
 
 const DemoInfo = [
   { id: 'SQLiteDemo', title: "sqlite", key: "0" },
@@ -64,57 +63,44 @@ const DemoInfo = [
 ];
 
 export default class ThirdPartyDemo extends React.Component {
-    static navigationOptions = ({ navigation }) => {
 
-      return {
-        header: <TitleBar type="dark" title={"第三方库Demo"} style={{ backgroundColor: '#fff' }}
-          onPressLeft={() => { navigation.goBack(); }} />
-      };
-    };
+  state = { selected: (new Map(): Map<string, boolean>) };
 
-    state = { selected: (new Map(): Map<string, boolean>) };
+  _onPressItem = (id: string, title: string) => {
+    this.setState((state) => {
+      const selected = new Map(state.selected);
+      selected.set(id, !selected.get(id)); // toggle
+      return { selected };
+    });
+    this.props.navigation.navigate(id, { 'title': title });
+  };
 
-    _onPressItem = (id: string, title: string) => {
-      this.setState((state) => {
-        const selected = new Map(state.selected);
-        selected.set(id, !selected.get(id)); // toggle
-        return { selected };
-      });
-      this.props.navigation.navigate(id);
-    };
+  _renderItem = ({ item }) => (
+    <ListItem
+      key={item.id}
+      onPress={(_) => {
+        this._onPressItem(item.id, item.title);
+      }}
+      title={item.title}
+    />
+  );
 
-    _renderItem = ({ item }) => (
-      <ListItem
-        id={item.id}
-        onPressItem={this._onPressItem}
-        selected={!!this.state.selected.get(item.id)}
-        title={item.title}
-      />
+  render() {
+    return (
+      <View style={styles.container} >
+        <FlatList
+          data={DemoInfo}
+          renderItem={this._renderItem}
+        />
+      </View>
     );
-
-    render() {
-      return (
-        <View style={styles.container} >
-          <FlatList
-            data={DemoInfo}
-            renderItem={this._renderItem}
-          />
-        </View>
-      );
-    }
-
+  }
 }
 
 var styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    borderTopColor: '#f1f1f1',
-    borderTopWidth: 1,
+    top: 1,
     flex: 1
   }
 });
-
-
-
-
-

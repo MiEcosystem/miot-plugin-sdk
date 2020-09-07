@@ -341,7 +341,7 @@ class IUi {
    * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串
    * @param {string} offParam  定时到时设备“关”执行的 RPC 指令参数字符串（目前仅支持单参数）
    *
-   * @description 这个api 应该可以废弃了，使用下面的openTimerSettingPageWithOptions
+   * @description 这个api 应该可以废弃了，使用 Service.scene.openTimerSettingPageWithOptions()
    */
   @report
   openTimerSettingPage(onMethod, onParam, offMethod, offParam) {
@@ -354,7 +354,7 @@ class IUi {
    * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串
    * @param {string} offParam  定时到时设备“关”执行的 RPC 指令参数字符串（目前仅支持单参数）
    *
-   * @description 这个api 应该可以废弃了，使用下面的openTimerSettingPageWithOptions
+   * @description 这个api 应该可以废弃了，使用 Service.scene.openTimerSettingPageWithOptions()
    */
   @report
   openTimerSettingPageWithCustomIdentifier(customTimerIdentifier, onMethod, onParam, offMethod, offParam) {
@@ -492,9 +492,10 @@ class IUi {
    * @param {string} aiMiotClientId 米家的客户端 ID
    * @param {string} aiClientId 水滴平台的客户端
    * @param {string} aiVersion "" 不隐藏 "thirdpart" 隐藏 “一段录音” “设备控制” 按钮 "audio" 隐藏 “一段录音” 按钮 "device" 隐藏 “设备控制” 按钮
+   * @param {object} otherParams 想怎么玩都行的参数，会覆盖之前的
   */
   @report
-  openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion) {
+  openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion, otherParams) {
   }
   /**
    * 显示提示用户打开蓝牙的动画示意图, 仅在iOS下有效，Android下无反应

@@ -1,26 +1,12 @@
-import { ListItemWithSwitch } from 'miot/ui/ListItem';
+import { ListItem } from 'miot/ui/ListItem';
 import MHDatePicker from 'miot/ui/MHDatePicker';
 import Separator from 'miot/ui/Separator';
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-// import tr from "miot/resources/strings/tr";
 import { Styles } from "miot/resources";
 
 export default class MHDatePickerDemo extends React.Component {
-
-  static navigationOptions = ({ navigation }) => {
-    return {
-      header:
-        <TitleBar
-          type="dark"
-          title="时间选择器"
-          style={{ backgroundColor: '#fff' }}
-          onPressLeft={() => navigation.goBack()}
-        />
-    };
-  };
-
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -49,7 +35,6 @@ export default class MHDatePickerDemo extends React.Component {
   }
 
   render() {
-
     // Date 类型的传参有三种写法
     // 第一种
     // let current = new Date();
@@ -80,54 +65,61 @@ export default class MHDatePickerDemo extends React.Component {
         <Separator />
         <ScrollView>
           <View style={{ alignItems: 'center' }}>
-            <ListItemWithSwitch
+            <ListItem
               title="开始日期"
               value={this.state.value}
               valueText={this.state.valueText}
               onPress={() => this.setState({ visible: true })}
               onValueChange={(value) => console.log(value)}
+              hideArrow={true}
             />
-            <ListItemWithSwitch
+            <ListItem
               title="开启时间(24小时制)"
               value={this.state.value1}
               valueText={this.state.valueText1}
               onPress={() => this.setState({ visible1: true })}
               onValueChange={(value) => console.log(value)}
+              hideArrow={true}
             />
-            <ListItemWithSwitch
+            <ListItem
               title="开启时间(12小时制)"
               value={this.state.value2}
               valueText={this.state.valueText2}
               onPress={() => this.setState({ visible2: true })}
               onValueChange={(value) => console.log(value)}
+              hideArrow={true}
             />
-            <ListItemWithSwitch
+            <ListItem
               title="开启时间(12小时制)-大字体适配"
               value={this.state.value6}
               valueText={this.state.valueText6}
               onPress={() => this.setState({ visible6: true })}
               onValueChange={(value) => console.log(value)}
+              hideArrow={true}
             />
-            <ListItemWithSwitch
+            <ListItem
               title="选择一段时间"
               value={this.state.value3}
               valueText={this.state.valueText3}
               onPress={() => this.setState({ visible3: true })}
               onValueChange={(value) => console.log(value)}
+              hideArrow={true}
             />
-            <ListItemWithSwitch
+            <ListItem
               title="开始日期(自定义)"
               value={this.state.value4}
               valueText={this.state.valueText4}
               onPress={() => this.setState({ visible4: true })}
               onValueChange={(value) => console.log(value)}
+              hideArrow={true}
             />
-            <ListItemWithSwitch
+            <ListItem
               title="选择一段时间(自定义)"
               value={this.state.value5}
               valueText={this.state.valueText5}
               onPress={() => this.setState({ visible5: true })}
               onValueChange={(value) => console.log(value)}
+              hideArrow={true}
             />
             <MHDatePicker
               visible={this.state.visible}
@@ -227,7 +219,6 @@ export default class MHDatePickerDemo extends React.Component {
   // `Modal` 隐藏了，父组件必须要同步更新状态，但不必用 `setState` 触发 `render`
   onDismiss(index) {
     console.log('onDismiss');
-    // this.state['visible' + index] = false;
     this.setState({ [`visible${ index }`]: false });
   }
 

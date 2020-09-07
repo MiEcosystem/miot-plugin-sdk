@@ -6,18 +6,6 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 
 export default class CheckboxDemo extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      header:
-        <TitleBar
-          type="dark"
-          title="复选框 demo"
-          style={{ backgroundColor: '#fff' }}
-          onPressLeft={() => navigation.goBack()}
-        />
-    };
-  };
-
   constructor(props) {
     super(props);
     this.state = {

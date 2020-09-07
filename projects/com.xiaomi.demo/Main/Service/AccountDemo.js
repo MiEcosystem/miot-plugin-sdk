@@ -5,10 +5,10 @@ import {
   Text,
   StyleSheet,
   Image,
-  TouchableOpacity, Platform, ScrollView
+  TouchableOpacity, ScrollView
 } from 'react-native';
 import { Service } from 'miot';
-import id from 'miot/resources/strings/id';
+import Separator from 'miot/ui/Separator';
 
 /**
  * 账号管理模块 demo
@@ -19,15 +19,14 @@ export default class AccountDemo extends React.Component {
     super(props);
     this.state = {
       currentAccount: {},
-      data: ''
+      data: []
     };
-
     this.getAccountInfoById = this.getAccountInfoById.bind(this);
     this.getAccountInfoList = this.getAccountInfoList.bind(this);
   }
 
-  componentWillMount() {
-    Service.account.load().then(res => {
+  componentDidMount() {
+    Service.account.load().then((res) => {
       this.setState({
         currentAccount: {
           avatarURL: res.avatarURL,
@@ -44,156 +43,90 @@ export default class AccountDemo extends React.Component {
   }
 
   render() {
-
-    // 如果不设置英文字体，那么外文字符串将显示不全（Android）
-    let fontFamily = {};
-    if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' };
-
     return (
-      <View style={[styles.listContainer, styles.list]}>
-        <View style={{ flexDirection: 'row' }}>
-          <Image
-            source={{ uri: this.state.avatarURL }}
-            style={{ width: 50, height: 50, margin: 10 }}
-          />
-          <View>
-            <Text style={[{ marginTop: 10, marginLeft: 10 }, fontFamily]}>
-当前用户 ID:
-              {this.state.currentAccount.ID}
-            </Text>
-            <Text style={[{ marginTop: 10, marginLeft: 10 }, fontFamily]}>
-当前用户 nickName:
-              {this.state.currentAccount.nickName}
-            </Text>
-            <Text style={[{ marginTop: 10, marginLeft: 10 }, fontFamily]}>
-当前用户 avatarURL:
-              {this.state.currentAccount.avatarURL}
-            </Text>
-            <Text style={[{ marginTop: 10, marginLeft: 10 }, fontFamily]}>
-当前用户 birth:
-              {this.state.currentAccount.birth}
-            </Text>
-            <Text style={[{ marginTop: 10, marginLeft: 10 }, fontFamily]}>
-当前用户 email:
-              {this.state.currentAccount.email}
-            </Text>
-            <Text style={[{ marginTop: 10, marginLeft: 10 }, fontFamily]}>
-当前用户 phone:
-              {this.state.currentAccount.phone}
-            </Text>
-            <Text style={[{ margin: 10 }, fontFamily]}>
-当前用户 sex:
-              {this.state.currentAccount.sex}
-            </Text>
-            <Text style={[{ margin: 10 }, fontFamily]}>
-当前用户 shareTime:
-              {this.state.currentAccount.shareTime}
-            </Text>
-          </View>
-
+      <View style={{ flex: 1 }}>
+        <Separator />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {
+            (this.state.currentAccount ? [this.state.currentAccount] : []).concat(this.state.data).map((item, index) => {
+              return {
+                title: index == 0 ? '当前用户' : `用户${ index }`,
+                img: item.avatarURL ? (typeof item.avatarURL === 'string' ? item.avatarURL : item.avatarURL.size_orig) : null,
+                items: Object.keys(item && item).map((key) => {
+                  return [key, item[key]];
+                })
+              };
+            }).map((section, index) => {
+              return (
+                <View>
+                  <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    {
+                      section.img ?
+                        <Image source={{ uri: section.img }}
+                          style={{ width: 50, height: 50, margin: 10, borderRadius: 10, borderWidth: 1, borderColor: '#DDD' }} />
+                        : null
+                    }
+                    <Text style={{ margin: 10, textAlign: 'center' }}>{section.title}</Text>
+                  </View>
+                  {
+                    section.items.map((item, index) => {
+                      return (
+                        <View key={index} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', minHeight: 48, marginTop: 1, padding: 10, width: '100%', backgroundColor: index % 2 == 0 ? '#FFF' : '#FFFFFFE0' }}>
+                          <Text>{`${ item[0] }:    `}</Text>
+                          <Text>{typeof item[1] === 'string' ? item[1] : JSON.stringify(item[1], null, '\t')}</Text>
+                        </View>);
+                    })
+                  }
+                </View>);
+            })
+          }
+        </ScrollView>
+        <Separator />
+        <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
+          <TouchableOpacity style={styles.button} onPress={this.getAccountInfoById}><Text style={styles.buttonText}>获取指定某一账号id的信息</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={this.getAccountInfoList}><Text style={styles.buttonText}>获取批量账号id的信息</Text></TouchableOpacity>
         </View>
-        <View style={styles.searchRow} />
-        <TouchableOpacity style={styles.btnStyle} onPress={this.getAccountInfoById}>
-          <Text style={[{ color: '#ffffff' }, fontFamily]}>获取指定某一账号id的信息</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnStyle} onPress={this.getAccountInfoList}>
-          <Text style={[{ color: '#ffffff' }, fontFamily]}>获取批量账号id的信息</Text>
-        </TouchableOpacity>
-
-        <View style={{ flex: 1 }}>
-          <ScrollView style={{ flex: 1 }}>
-            <Text style={[{ color: '#333333', margin: 10, lineHeight: 16, fontSize: 14 }, fontFamily]}>
-              {this.state.data}
-            </Text>
-          </ScrollView>
-        </View>
-
       </View>
-
     );
   }
 
   getAccountInfoById() {
-    Service.account.getAccountInfoById('894158105').then(res => {
-      console.log('res', res);
-      this.setState({ data: JSON.stringify(res) });
-    }).catch(error => {
+    Service.account.getAccountInfoById('894158105').then((res) => {
+      console.log('res', JSON.stringify(res));
+      this.setState({ data: [res] });
+    }).catch((error) => {
       console.log('error', error);
-      this.setState({ data: JSON.stringify(error) });
+      this.setState({ data: [error] });
     });
   }
 
   getAccountInfoList() {
     const ids = ['894158105', '123456', '888'];
-    Service.account.getAccountInfoList(ids).then(res => {
+    Service.account.getAccountInfoList(ids).then((res) => {
       console.log('res', res);
-      this.setState({ data: JSON.stringify(res) });
-    }).catch(error => {
+      this.setState({ data: res });
+    }).catch((error) => {
       console.log('error', error);
-      this.setState({ data: JSON.stringify(error) });
+      this.setState({ data: [error] });
     });
   }
 }
 
 const styles = StyleSheet.create({
-  listContainer: { flex: 1 },
-  list: { backgroundColor: '#eeeeee' },
-  sectionHeader: {
-    backgroundColor: '#eeeeee',
-    padding: 5,
-    fontWeight: '500',
-    fontSize: 11
-  },
-  row: {
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    paddingHorizontal: 15,
-    paddingVertical: 8
-  },
-  image: {
-    width: 44,
-    height: 44,
-    margin: 15
-
-  },
-  separator: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: '#bbbbbb',
-    marginLeft: 15
-  },
-  separatorHighlighted: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: 'rgb(217, 217, 217)'
-  },
-  rowTitleText: {
-    fontSize: 17,
-    fontWeight: '500'
-  },
-  rowDetailText: {
-    fontSize: 15,
-    color: '#888888',
-    lineHeight: 20
-  },
-  searchRow: {
-    backgroundColor: '#eeeeee',
-    padding: 10
-  },
-  searchTextInput: {
-    backgroundColor: 'white',
-    borderColor: '#cccccc',
-    borderRadius: 3,
-    borderWidth: 1,
-    paddingLeft: 8,
-    paddingVertical: 0,
-    height: 35
-  },
-  btnStyle: {
-    marginTop: 10,
-    marginLeft: 10,
-    marginRight: 10,
+  button: {
+    color: '#000',
+    width: '90%',
     height: 40,
-    backgroundColor: '#2196F3',
+    borderRadius: 5,
+    borderColor: '#DDD',
+    borderWidth: 1,
+    backgroundColor: '#FFF',
+    alignItems: 'center',
     justifyContent: 'center',
-    alignItems: 'center'
+    marginBottom: 20
+  },
+  buttonText: {
+    color: '#555',
+    fontSize: 18
   }
 });
