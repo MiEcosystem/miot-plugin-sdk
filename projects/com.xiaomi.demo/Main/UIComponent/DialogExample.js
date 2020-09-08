@@ -484,7 +484,7 @@ export default class DialogExample extends React.Component {
                   text: '确认',
                   style: { color: 'lightblue' },
                   callback: (obj) => {
-                    console.log(`是否点击了下划线: ${ obj.hasPressUnderlineText }`);
+                    console.log(`是否点击了下划线: ${obj.hasPressUnderlineText}`);
                     this.setState({ visible6: false });
                   }
                 }
@@ -528,7 +528,7 @@ export default class DialogExample extends React.Component {
                   numberOfLines: 2,
                   style: { color: 'lightblue', padding: 10, fontSize: this.data.fontBigSize2, lineHeight: this.data.fontBigSize2 + 4 },
                   callback: (obj) => {
-                    console.log(`是否勾选: ${ obj.checked }`);
+                    console.log(`是否勾选: ${obj.checked}`);
                     this.setState({ visible7: false });
                   }
                 }
@@ -731,6 +731,14 @@ export default class DialogExample extends React.Component {
               color="#f0ac3d"
               checkboxData={this.data.checkboxData}
               buttons={[
+                {
+                  text: '确定-字体大小随系统字体大小改变而改变-自动换行，高度固定',
+                  style: { color: 'lightblue', padding: 10 },
+                  callback: (result) => {
+                    console.log(`结果`, result);
+                    this.setState({ visible12: false });
+                  }
+                },
                 {
                   text: '确定-字体大小随系统字体大小改变而改变-自动换行，高度固定',
                   style: { color: 'lightblue', padding: 10 },
@@ -1041,7 +1049,7 @@ export default class DialogExample extends React.Component {
   onDismiss(index) {
     if (index === '2') console.log('loadingdialog dismiss');
     this.setState({
-      [`visible${ index }`]: false
+      [`visible${index}`]: false
     });
   }
 

@@ -27,6 +27,18 @@ export default class CheckboxDemo extends React.Component {
         accessible: false
       },
       {
+        style: { width: 22, height: 22, borderRadius: 11 },
+        checked: true,
+        checkedColor: '#32BAC0',
+        label: '8:08'
+      },
+      {
+        style: { width: 22, height: 22, borderRadius: 11 },
+        checked: true,
+        checkedColor: '#32BAC0',
+        disabled: true,
+      },
+      {
         style: { width: 40, height: 40, borderRadius: 20 },
         checked: true,
         disabled: true,

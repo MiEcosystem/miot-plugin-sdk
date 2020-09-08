@@ -98,12 +98,12 @@ export default class RadioExample extends React.Component {
             id={option.id}
             accessible={false}
             bigCircleStyle={{
-              borderWidth: 2,
-              width: 30,
-              height: 30,
-              borderRadius: 15
+              // borderWidth: 1,
+              width: 32,
+              height: 32,
+              borderRadius: 16
             }}
-            smallCircleBg="#000"
+            // smallCircleBg="#000"
           />
           <Text style={styles.text}>{option.value}</Text>
         </View>
@@ -121,18 +121,18 @@ export default class RadioExample extends React.Component {
             changeCheck={this.changeOne}
             id={option.id}
             label={option.value}
-            bigCircleStyle={{
-              borderWidth: 4,
-              width: 30,
-              height: 30,
-              borderRadius: 15
-            }}
-            checkedBigCircleStyle={{
-              borderColorChecked: '#00C',
-              backgroundColorChecked: '#33F',
-              borderColor: '#666',
-              backgroundColor: '#999'
-            }}
+            // bigCircleStyle={{
+            //   borderWidth: 4,
+            //   width: 30,
+            //   height: 30,
+            //   borderRadius: 15
+            // }}
+            // checkedBigCircleStyle={{
+            //   borderColorChecked: '#00C',
+            //   backgroundColorChecked: '#33F',
+            //   borderColor: '#666',
+            //   backgroundColor: '#999'
+            // }}
             disabled={option.disabled}
           />
           <Text style={styles.text}>{option.value}</Text>
@@ -152,18 +152,18 @@ export default class RadioExample extends React.Component {
             id={option.id}
             accessibilityLabel={option.value}
             accessibilityHint="点击修改选中状态"
-            bigCircleStyle={{
-              borderWidth: 2,
-              width: 30,
-              height: 30,
-              borderRadius: 15
-            }}
-            checkedBigCircleStyle={{
-              borderColorChecked: '#00C',
-              backgroundColorChecked: '#33F',
-              borderColor: '#666',
-              backgroundColor: '#999'
-            }}
+            // bigCircleStyle={{
+            //   borderWidth: 2,
+            //   width: 30,
+            //   height: 30,
+            //   borderRadius: 15
+            // }}
+            // checkedBigCircleStyle={{
+            //   borderColorChecked: '#00C',
+            //   backgroundColorChecked: '#33F',
+            //   borderColor: '#666',
+            //   backgroundColor: '#999'
+            // }}
             disabled={option.disabled}
           />
           <Text style={styles.text}>{option.value}</Text>
