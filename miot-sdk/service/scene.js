@@ -436,7 +436,7 @@ class IMiotScene {
     }
     /**
      * 打开特定设备的智能页面
-     * @since 10044
+     * @since 10045
      */
     @report
     openIftttAutoPageWithDid(did) {
@@ -459,7 +459,7 @@ class IMiotScene {
      * @param {boolean} options.showOnTimerType 是否可以创建：定时开启？ true: 可以，false:不可以(默认：true)
      * @param {boolean} options.showOffTimerType 是否可以创建：定时关闭？ true: 可以，false:不可以(默认：true)
      * @param {boolean} options.showPeriodTimerType 是否可以创建：时间段定时？ true: 可以，false:不可以(默认：true)
-     * @param {string} options.did 设备did，可为空，@since 10044
+     * @param {string} options.did 设备did，可为空，@since 10045
      * 注意：showOnTimerType、showOffTimerType、showPeriodTimerType三个参数至少有一个为true，才有效，否则三个中任意都会被忽略掉
      * @example
      * Service.scene.openTimerSettingPageWithOptions({onMethod:"power_on", onParam: "on", offMethod: "power_off", offParam: "off", displayName:"设置xxx定时"，identify:"plug_usb_countdowm"})
