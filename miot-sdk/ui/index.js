@@ -78,6 +78,8 @@ export { default as MultiButtons } from './MultiButtons';
 export { default as Consumable } from './Consumable';
 export { default as ImageHeader } from './ImageHeader';
 export { default as RTSPRenderView } from './RTSPRenderView';
+export { default as HSVideoView } from './HSVideoView';
+export { default as HSVideoViewModule } from './HSVideoViewModule';
 // export { default as BTInterconnection } from './BTInterconnection';
 export default {
   ImageButton,
