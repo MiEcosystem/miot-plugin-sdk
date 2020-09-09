@@ -3,4 +3,5 @@ node_modules/
 com.xiaomi.test
 com.xiaomi.infrared
 com.xiaomi.cardcamera
+com.xiaomi.doorcamera
 !__testcases__/node_modules/

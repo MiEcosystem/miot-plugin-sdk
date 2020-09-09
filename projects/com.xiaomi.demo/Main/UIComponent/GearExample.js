@@ -1,25 +1,14 @@
 import { Styles } from 'miot/resources';
 import { DragGear, NormalGear, SlideGear } from "miot/ui/Gear";
 import Separator from 'miot/ui/Separator';
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Draggable from "./Draggable";
 import LongPressDraggable from "./LongPressDraggable";
-import tr from "miot/resources/strings/tr";
 
 const { width } = Dimensions.get('screen');
 
 export default class GearExample extends React.Component {
-
-  static navigationOptions = ({ navigation }) => ({
-    header: <TitleBar
-      type="dark"
-      title="档位组件 demo"
-      style={{ backgroundColor: '#fff' }}
-      onPressLeft={(_) => navigation.goBack()}
-    />
-  });
 
   constructor(props, context) {
     super(props, context);
@@ -39,7 +28,7 @@ export default class GearExample extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Separator/>
+        <Separator />
         <ScrollView>
           <View style={styles.contentStyle}>
             <Text style={styles.title}>
@@ -53,11 +42,9 @@ export default class GearExample extends React.Component {
             </Text>
             <DragGear
               options={this.options1}
-              // normalStyle={{ width: 35 }}
               margin={0}
               selectColor={Styles.common.MHGreen}
               textStyle={{ fontSize: 16, fontFamily: 'DS-Digital' }}
-              // maxWidth={width * 0.75}
               selectIndex={this.state.dragGearSelectIndex}
               onSelect={(index) => {
                 this.setState({
@@ -72,11 +59,9 @@ export default class GearExample extends React.Component {
             </Text>
             <DragGear
               options={this.options1}
-              // normalStyle={{ width: 35 }}
               margin={0}
               selectColor={Styles.common.MHGreen}
               textStyle={{ fontSize: 36, fontFamily: 'DS-Digital' }}
-              // maxWidth={width * 0.75}
               selectIndex={this.state.dragGearSelectIndex}
               allowFontScaling={false}
               numberOfLines={1}
@@ -97,7 +82,6 @@ export default class GearExample extends React.Component {
               disabled={this.state.disabled}
               containerStyle={{
                 width: width * 0.75
-                // height: 60
               }}
               leftTextColor="yellowgreen"
               rightTextColor="skyblue"
@@ -128,15 +112,10 @@ export default class GearExample extends React.Component {
               disabled={this.state.disabled}
               containerStyle={{
                 width: width * 0.75
-                // height: 60
               }}
               leftTextColor="#000000"
               rightTextColor="#000000"
               onValueChange={(index) => {
-                // this.setState({
-                //   slideGearSelectIndex1: index,
-                //   selectIndex: index
-                // });
                 this.log('onValueChange: ', index);
               }}
               onSlidingComplete={(index) => {
@@ -164,7 +143,6 @@ export default class GearExample extends React.Component {
               disabled={this.state.disabled}
               containerStyle={{
                 width: width * 0.75
-                // height: 60
               }}
               leftTextStyle={{
                 color: '#ffffff',
@@ -175,10 +153,6 @@ export default class GearExample extends React.Component {
                 fontSize: 36
               }}
               onValueChange={(index) => {
-                // this.setState({
-                //   slideGearSelectIndex1: index,
-                //   selectIndex: index
-                // });
                 this.log('onValueChange: ', index);
               }}
               onSlidingComplete={(index) => {
@@ -201,15 +175,10 @@ export default class GearExample extends React.Component {
               disabled={this.state.disabled}
               containerStyle={{
                 width: width * 0.75
-                // height: 60
               }}
               leftTextColor="yellowgreen"
               rightTextColor="skyblue"
               onValueChange={(index) => {
-                // this.setState({
-                //   slideGearSelectIndex: index,
-                //   selectIndex: index
-                // });
                 this.log('onValueChange: ', index);
               }}
               onSlidingComplete={(index) => {
@@ -235,10 +204,6 @@ export default class GearExample extends React.Component {
               maximumTrackTintColor="skyblue"
               value={this.state.slideGearSelectIndex}
               onValueChange={(index) => {
-                // this.setState({
-                //   slideGearSelectIndex: index,
-                //   selectIndex: index
-                // });
               }}
               onSlidingComplete={(index) => {
                 this.setState({
@@ -252,7 +217,6 @@ export default class GearExample extends React.Component {
             </Text>
             <NormalGear
               options={this.options1}
-              // normalStyle={{ width: 60 }}
               margin={0}
               selectColor={Styles.common.MHGreen}
               textStyle={{ fontSize: 16, fontFamily: 'DS-Digital' }}
@@ -271,7 +235,6 @@ export default class GearExample extends React.Component {
             </Text>
             <NormalGear
               options={this.options1}
-              // normalStyle={{ width: 60 }}
               allowFontScaling={false}
               numberOfLines={1}
               margin={0}
@@ -287,16 +250,13 @@ export default class GearExample extends React.Component {
               }}
               containerStyle={{ backgroundColor: '#fff' }}
             />
-            <Text style={styles.label}>
-              拖拽动画效果
-            </Text>
+            <Text style={styles.label}> 👇可以直接左右拖拽👇 </Text>
             <View style={styles.demo2}>
-              <Text>{'👇可以直接左右拖拽👇'}</Text>
-              <Draggable/>
+              <Draggable />
             </View>
+            <Text style={styles.label}> 👇长按后可以左右拖拽👇 </Text>
             <View style={styles.demo2}>
-              <Text>{'👇长按后可以左右拖拽👇'}</Text>
-              <LongPressDraggable/>
+              <LongPressDraggable />
             </View>
           </View>
         </ScrollView>
@@ -315,34 +275,30 @@ export default class GearExample extends React.Component {
   log(...args) {
     console.log(...args);
   }
-
 }
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#f7f7f7',
     flex: 1
   },
   contentStyle: {
-    alignItems: 'center'
-  },
-  demo1: {
-    paddingVertical: 5,
-    width: 200,
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-evenly'
+    paddingHorizontal: 15,
+    backgroundColor: '#FFF'
   },
   demo2: {
     position: 'relative',
-    backgroundColor: 'lightpink',
     width,
     height: 100,
     alignItems: 'center'
   },
   label: {
-    marginVertical: 5,
+    width: '100%',
+    marginVertical: 10,
     alignSelf: 'flex-start',
-    fontSize: 15
+    fontSize: 15,
+    color: '#333'
   },
   title: {
     width,
