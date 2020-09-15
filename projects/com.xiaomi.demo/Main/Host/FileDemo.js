@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Button,
   Dimensions,
   findNodeHandle,
   FlatList,
@@ -14,6 +13,7 @@ import {
   View
 } from 'react-native';
 
+import { ListItem } from 'miot/ui/ListItem';
 import { Device, FileEvent, Host } from "miot";
 import { ProgressDialog } from 'miot/ui';
 
@@ -38,17 +38,16 @@ export default class FileStorage extends React.Component {
   }
 
   componentDidMount() {
-
     // 如果不设置英文字体，那么外文字符串将显示不全（Android）
     this.fontFamily = {};
     if (Platform.OS === 'android') this.fontFamily = { fontFamily: 'Kmedium' };
-
     FileEvent.fileDownloadProgress.addListener((data) => {
       let downloaded = data.downloadBytes;
       let all = data.totalBytes;
       let progress = downloaded / all * 100;
+      let visProgress = progress < 100;
       console.log(progress);
-      // this.setState({ progress, visProgress })
+      this.setState({ progress, visProgress });
     });
   }
 
@@ -67,196 +66,98 @@ export default class FileStorage extends React.Component {
 
     return (
       <View style={styles.container}>
-        <ScrollView
-          style={{ backgroundColor: '#ffffff' }}
-          ref={(ref) => { this.myScrollView = ref; }}
-        >
-          <View style={[styles.row, { marginTop: 10 }]}>
-            <Text style={styles.title}>文件名: </Text>
+        <View style={{ padding: 10, backgroundColor: '#fff', flexDirection: 'row' }}>
+          <View style={{ width: '40%' }}>
+            <Text style={styles.title}>文件列表</Text>
+            <View style={{ height: 0.5, backgroundColor: '#666' }} />
+            <FlatList
+              data={this.state.dataSource}
+              renderItem={({ item }) => this._renderFileList(item)}
+            />
+          </View>
+          <View style={{ marginLeft: 10, flexGrow: 1 }}>
             <TextInput
+              style={styles.input}
               onChangeText={(text) => {
                 this.setState({ fileName: text });
               }}
-              style={{ flex: 1, marginLeft: 10 }}
               placeholder="输入文件名"
               value={this.state.fileName}
             />
+            <TextInput
+              style={[styles.input, { button: 10, marginTop: 10, minHeight: 100, textAlignVertical: 'top' }]}
+              onChangeText={(text) => {
+                this.setState({ fileContent: text });
+              }}
+              multiline={true}
+              numberOfLines={0}
+              placeholder="输入文件内容"
+              value={this.state.fileContent}
+            />
           </View>
-          <TextInput
-            onChangeText={(text) => {
-              this.setState({ fileContent: text });
-            }}
-            style={{ height: 150 }}
-            multiline={true}
-            numberOfLines={12}
-            placeholder="输入文件内容"
-            value={this.state.fileContent}
-          />
-
-          <View style={styles.row}>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="写文件"
-                onPress={() => this._writeFile()}
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="写文件(Base64)"
-                onPress={() => this._writeFileThroughBase64()}
-              />
-            </View>
+        </View>
+        <ScrollView style={{ marginTop: 10 }} showsHorizontalScrollIndicator={false} ref={(ref) => { this.myScrollView = ref; }}>
+          {
+            [
+              [
+                ["读文件列表", this._readFileList],
+                ["判断文件是否存在", this._isFileExist],
+                ["删除当前显示的文件", this._deleteFile]
+              ],
+              [
+                ["创建目录", this._mkdir],
+                ["写文件", this._writeFile],
+                ["写文件(Base64)", this._writeFileThroughBase64]
+              ],
+              [
+                ["向文件追加内容", this._appendFile],
+                ["向文件追加内容(Base64)", this._appendFileThroughBase64]
+              ],
+              [
+                ["读文件", this._readFile],
+                ["读文件(Base64)", this._readFileToBase64]
+              ],
+              [
+                ["上传文件", this._uploadFile],
+                ["下载文件", this._downLoadFile],
+                ["取消下载", this._canceldownLoadFile]
+              ],
+              [
+                ["上传FDS文件", this._uploadFDSFile],
+                ["获取FDS文件", this._fetchFDSFile]
+              ],
+              [
+                ["解压文件", this._unZipFile]
+              ],
+              [
+                ["截图当前页面", this._screenShot],
+                ["长截屏", this._longScreenShot]
+              ],
+              [
+                ["截图并保存到相册", this._screenShotAndSaveToPhotosAlbum],
+                ["保存文件到相册", this._saveFileToPhotosAlbum]
+              ]
+            ].map((section, index) => {
+              return (
+                <View style={{ marginTop: 10 }} key={index}>
+                  {
+                    section.map((item, index) => {
+                      return <ListItem
+                        hideArrow={true}
+                        key={index}
+                        title={item[0]}
+                        onPress={item[1].bind(this)
+                        } />;
+                    })
+                  }
+                </View>
+              );
+            })
+          }
+          <View style={{ alignItems: 'center', margin: 20 }}>
+            {shotimg}
           </View>
-          <View style={styles.row}>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="向文件追加内容"
-                onPress={() => this._appendFile()}
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="向文件追加内容(Base64)"
-                onPress={() => this._appendFileThroughBase64()}
-              />
-            </View>
-          </View>
-          <View style={styles.row}>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="读文件"
-                onPress={() => this._readFile()}
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="读文件(Base64)"
-                onPress={() => this._readFileToBase64()}
-              />
-            </View>
-          </View>
-
-          <View style={styles.row}>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="上传文件"
-                onPress={() => this._uploadFile()}
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="上传FDS文件"
-                onPress={() => this._uploadFDSFile()}
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="获取FDS文件"
-                onPress={() => this._fetchFDSFile()}
-              />
-            </View>
-          </View>
-          <View style={styles.row}>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="下载文件"
-                onPress={() => this._downLoadFile()}
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="取消下载"
-                onPress={() => this._canceldownLoadFile()}
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="解压文件"
-                onPress={() => this._unZipFile()}
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="读文件列表"
-                onPress={() => this._readFileList()}
-              />
-            </View>
-          </View>
-
-          <View style={[styles.row, { justifyContent: "center" }]}>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="删除当前显示的文件"
-                onPress={() => this._deleteFile()}
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="判断文件是否存在"
-                onPress={() => this._isFileExist()}
-              />
-            </View>
-          </View>
-
-          <View style={styles.row}>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="截图当前页面"
-                onPress={() => this._screenShot()}
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="长截屏"
-                onPress={() => this._longScreenShot()}
-              />
-            </View>
-          </View>
-          <View style={styles.row}>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="截图并保存到相册"
-                onPress={() => this._screenShotAndSaveToPhotosAlbum()}
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="保存文件到相册"
-                onPress={() => this._saveFileToPhotosAlbum()}
-              />
-            </View>
-          </View>
-          <View style={styles.row}>
-            <View style={{ flex: 1 }}>
-              <Button
-                title="创建目录"
-                onPress={() => this._mkdir()}
-              />
-            </View>
-          </View>
-
-
-          <View style={{ flex: 1, flexDirection: "row", margin: 5 }}>
-            <View style={{ flex: 1, padding: 5 }}>
-              <Text style={styles.title}>文件列表</Text>
-              <View style={{ height: 1 / PixelRatio.get(), backgroundColor: '#666' }} />
-              <FlatList
-                data={this.state.dataSource}
-                renderItem={({ item }) => this._renderFileList(item)}
-              />
-            </View>
-
-            <View style={{ flex: 1, margin: 5 }}>
-              <View style={{ flex: 1, alignItems: "center" }}>
-                <Text style={styles.title}>屏幕截图</Text>
-                {shotimg}
-              </View>
-            </View>
-
-          </View>
-
         </ScrollView>
-
         <ProgressDialog
           message={'download progress'}
           max={100}
@@ -276,15 +177,14 @@ export default class FileStorage extends React.Component {
       recursive: true
     };
     Host.file.mkdir(params).then((res) => {
-      alert(JSON.stringify(res));
+      alert(JSON.stringify(res, null, '\t'));
     }).catch((err) => {
-      alert(JSON.stringify(err));
+      alert(JSON.stringify(err, null, '\t'));
     });
-
   }
 
   _renderFileList(item) {
-    let info = `${ item.name }  \nsize:${ item.size }`;
+    let info = `${ item.name }\nsize:${ item.size }`;
     return (
       <View>
         <TouchableHighlight
@@ -299,12 +199,10 @@ export default class FileStorage extends React.Component {
 
   // 普通字符串写文件
   _writeFile() {
-
     if (this.state.fileName === '' || this.state.fileContent === '') {
       alert('请输入文件名或文件内容');
       return;
     }
-
     Host.file.writeFile(this.state.fileName, this.state.fileContent).then((isSuccess) => {
       alert(JSON.stringify(isSuccess));
     }).catch((error) => {
@@ -323,12 +221,10 @@ export default class FileStorage extends React.Component {
 
   // base64 写内容
   _writeFileThroughBase64() {
-
     if (this.state.fileName === '' || this.state.fileContent === '') {
       alert('请输入文件名或文件内容');
       return;
     }
-
     Host.file.writeFileThroughBase64(this.state.fileName, this.state.fileContent).then((isSuccess) => {
       alert(isSuccess);
     }).catch((error) => {
@@ -400,7 +296,6 @@ export default class FileStorage extends React.Component {
 
   // 删除文件
   _deleteFile() {
-
     Host.file.deleteFile(this.state.fileName)
       .then((isSuccess) => {
         this._readFileList();
@@ -459,6 +354,8 @@ export default class FileStorage extends React.Component {
         }).catch((result) => {
           alert(result);
         });
+
+
       })
       .catch((result) => {
         alert(result);
@@ -467,9 +364,7 @@ export default class FileStorage extends React.Component {
 
   // 保存文件到相册
   _saveFileToPhotosAlbum() {
-
     let url = 'http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_mp4_855379f77b74ca565e8ef7d68c08264c.mp4';
-
     let fileName = `file${ new Date().getTime() }.mp4`;
     Host.file.downloadFile(url, fileName).then(() => {
       this._readFileList();
@@ -611,19 +506,18 @@ export default class FileStorage extends React.Component {
       alert(`解压失败： ${ JSON.stringify(error) }`);
     });
   }
-
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderTopColor: '#f1f1f1',
-    borderTopWidth: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    backgroundColor: '#ffffff',
-    marginBottom: 0,
-    marginTop: 0
+    top: 1
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#DDD',
+    borderRadius: 5,
+    padding: 10
   },
   title: {
     fontSize: 16,

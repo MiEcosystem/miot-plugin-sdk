@@ -26,6 +26,7 @@
  */
 import { DeviceEventEmitter } from "react-native";
 import native, { NativeTimer, PackageExitAction, Properties, MIOTEventEmitter, isIOS, isAndroid } from '../native';
+import uuid from 'uuid';
 import { BasicDevice, _find_device, PollPropMap } from './BasicDevice';
 import { report } from '../decorator/ReportDecorator';
 import Service from "../Service";

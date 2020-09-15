@@ -1,7 +1,7 @@
 import Service from 'miot/Service';
 import React from 'react';
 import {
-  StyleSheet, Text, View, TouchableOpacity, Platform
+  StyleSheet, Text, View, ScrollView, TouchableOpacity
 } from 'react-native';
 
 export default class MHRoomDemo extends React.Component {
@@ -24,17 +24,25 @@ export default class MHRoomDemo extends React.Component {
     if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' };
 
     return (
-      <View>
-        <TouchableOpacity style={styles.btnStyle} onPress={this.loadAllRoom}>
-          <Text style={{ color: '#ffffff' }}>获取房间列表信息</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnStyle} onPress={this.createRoom}>
-          <Text style={{ color: '#ffffff' }}>创建auto_create房间</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnStyle} onPress={this.updateRoomName}>
-          <Text style={{ color: '#ffffff' }}>修改修改auto_create/auto_create_1房间名称</Text>
-        </TouchableOpacity>
-        <Text style={[{ color: '#333333', marginTop: 10 }, fontFamily]}>{this.state.data}</Text>
+      <View style={{ flex: 1, alignItems: 'center' }}>
+        <ScrollView style={{ marginTop: 1, width: '90%' }} showsVerticalScrollIndicator={false}>
+          {
+            [
+              [this.loadAllRoom, '获取房间列表信息'],
+              [this.createRoom, '创建auto_create房间'],
+              [this.updateRoomName, '修改修改auto_create/auto_create_1房间名称']
+            ].map((item, index) => {
+              return (
+                <TouchableOpacity key={index} style={styles.button} onPress={item[0].bind(this)}>
+                  <Text style={styles.buttonText}>{item[1]}</Text>
+                </TouchableOpacity>
+              );
+            })
+          }
+          <Text style={{ marginTop: 20, width: '100%', minHeight: 100, padding: 10, borderWidth: 1, borderColor: '#DDD', borderRadius: 5, backgroundColor: '#FFF', color: '#666' }}>
+            {this.state.data || '点击按钮查看输出结果'}
+          </Text>
+        </ScrollView>
       </View>
     );
   }
@@ -43,11 +51,11 @@ export default class MHRoomDemo extends React.Component {
   loadAllRoom() {
     Service.room.loadAllRoom(true).then((rooms) => {
       this.setState({
-        data: JSON.stringify(rooms)
+        data: JSON.stringify(rooms, null, '\t')
       });
     }).catch((error) => {
       this.setState({
-        data: JSON.stringify(error)
+        data: JSON.stringify(error, null, '\t')
       });
     });
   }
@@ -56,11 +64,11 @@ export default class MHRoomDemo extends React.Component {
   createRoom() {
     Service.room.createRoom('auto_create').then((room) => {
       this.setState({
-        data: JSON.stringify(room)
+        data: JSON.stringify(room, null, '\t')
       });
     }).catch((error) => {
       this.setState({
-        data: JSON.stringify(error)
+        data: JSON.stringify(error, null, '\t')
       });
     });
   }
@@ -77,34 +85,40 @@ export default class MHRoomDemo extends React.Component {
           return;
         }
         const room = rooms[0];
-
         room.updateName(room.name === 'auto_create' ? 'auto_create_1' : 'auto_create').then((msg) => {
           this.setState({
-            data: JSON.stringify(room)
+            data: JSON.stringify(room, null, '\t')
           });
         }).catch((error) => {
           this.setState({
-            data: JSON.stringify(error)
+            data: JSON.stringify(error, null, '\t')
           });
         });
-
       }).catch((error) => {
         this.setState({
-          data: JSON.stringify(error)
+          data: JSON.stringify(error, null, '\t')
         });
       });
   }
-
 }
-// eslint-disable-next-line no-var,vars-on-top
-var styles = StyleSheet.create({
-  btnStyle: {
-    marginTop: 10,
-    marginLeft: 10,
-    marginRight: 10,
+
+const styles = StyleSheet.create({
+  button: {
+    color: '#000',
+    width: '100%',
     height: 40,
-    backgroundColor: '#2196F3',
+    borderRadius: 5,
+    borderColor: '#DDD',
+    borderWidth: 1,
+    backgroundColor: '#FFF',
+    alignItems: 'center',
     justifyContent: 'center',
-    alignItems: 'center'
+    marginTop: 15
+  },
+  buttonText: {
+    alignSelf: 'center',
+    color: '#555',
+    fontSize: 14,
+    padding: 5
   }
 });

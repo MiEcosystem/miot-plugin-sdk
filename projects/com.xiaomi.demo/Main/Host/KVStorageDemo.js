@@ -1,7 +1,6 @@
-import {Device, Host, Service} from "miot";
+import { Host } from "miot";
 import React from "react";
-import {Button, StyleSheet, Text, TextInput, View, TouchableOpacity, Platform} from "react-native";
-
+import { StyleSheet, Text, TextInput, View, TouchableOpacity } from "react-native";
 
 export default class KVStorageDemo extends React.Component {
   constructor(props) {
@@ -10,163 +9,79 @@ export default class KVStorageDemo extends React.Component {
       key0: "",
       value0: "",
       key1: "",
-      value1: "",
+      value1: ""
     };
   }
-
-  componentWillMount() {
-    // 如果不设置英文字体，那么外文字符串将显示不全（Android）
-    this.fontFamily = {};
-    if (Platform.OS === 'android')  {
-      this.fontFamily = { fontFamily: 'Kmedium' }
-    };
-  }
-
 
   render() {
-
     return (
-      <View style={{flexDirection: "column"}}>
-        <View style={{margin: 10}}>
-          <TextInput
-            style={[styles.searchTextInput]}
-            placeholder='输入要存的key0'
-            onChangeText={
-              (text) => {
-                this.setState( {
-                    key0:text
-                  }
-                );
-
-              }
-            }
-          />
-        </View>
-        <View style={{margin: 10}}>
-          <TextInput
-            style={[styles.searchTextInput]}
-            placeholder='输入要存的value0'
-            onChangeText={
-              (text) => {
-                this.setState( {
-                    value0:text
-                  }
-                );
-
-              }
-            }
-          />
-        </View>
-        <View style={{margin: 10}}>
-          <TextInput
-            style={[styles.searchTextInput]}
-            placeholder='输入要存的key1'
-            onChangeText={
-              (text) => {
-                this.setState(
-                  (preState) => {
-                    return {"key1": text};
-                  }
-                );
-
-              }
-            }
-          />
-        </View>
-        <View style={{margin: 10}}>
-          <TextInput
-            style={[styles.searchTextInput]}
-            placeholder='输入要存的value1'
-            onChangeText={
-              (text) => {
-                this.setState(
-                  (preState) => {
-                    return {"value1": text};
-                  }
-                );
-
-              }
-            }
-          />
-        </View>
-
-        <TouchableOpacity style={styles.btnStyle} onPress={()=>{this._setKeyValue()}}>
-          <Text style={[{ color: '#ffffff' }, this.fontFamily]}>保存 key0 数据</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnStyle} onPress={()=>{this._setKeyValueFor6Seconds()}}>
-          <Text style={[{ color: '#ffffff' }, this.fontFamily]}>保存 key0 数据 有效期6秒</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnStyle} onPress={()=>{this._getValue()}}>
-          <Text style={[{ color: '#ffffff' }, this.fontFamily]}>读取 key0 数据</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.btnStyle} onPress={()=>{this._saveKeyValues()}}>
-          <Text style={[{ color: '#ffffff' }, this.fontFamily]}>保存 key0 key1 数据</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnStyle} onPress={()=>{this._saveKeyValuesFor6Seconds()}}>
-          <Text style={[{ color: '#ffffff' }, this.fontFamily]}>保存 key0 key1 数据 有效期6秒</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnStyle} onPress={()=>{this._loadValues()}}>
-          <Text style={[{ color: '#ffffff' }, this.fontFamily]}>读取 key0 key1 数据</Text>
-        </TouchableOpacity>
-
-
+      <View style={{ flex: 1, alignItems: 'center' }}>
+        {
+          [
+            ['key0', (text) => this.setState({ key0: text })],
+            ['value0', (text) => this.setState({ value0: text })],
+            ['key1', (text) => this.setState({ key1: text })],
+            ['value1', (text) => this.setState({ value1: text })]
+          ].map((item, index) => {
+            return <TextInput key={index}
+              style={[styles.button, { paddingLeft: 10 }]}
+              placeholder={`输入要存的${ item[0] }`}
+              onChangeText={item[1].bind(this)}
+            />;
+          })
+        }
+        {
+          [
+            ['保存 key0 数据', this._setKeyValue],
+            ['保存 key0 数据 有效期6秒', this._setKeyValueFor6Seconds],
+            ['读取 key0 数据', this._getValue],
+            ['保存 key0 key1 数据', this._saveKeyValues],
+            ['保存 key0 key1 数据 有效期6秒', this._saveKeyValuesFor6Seconds],
+            ['读取 key0 key1 数据', this._loadValues]
+          ].map((item, index) => {
+            return (
+              <TouchableOpacity key={index} style={styles.button} onPress={item[1].bind(this)}>
+                <Text style={styles.buttonText}>{item[0]}</Text>
+              </TouchableOpacity>
+            );
+          })
+        }
       </View>
-
     );
   }
 
-
-  /**
-   * 保存key value
-   * @private
-   */
-  _setKeyValue(){
-    if(this.state.key0 === ''){
+  _setKeyValue() {
+    if (this.state.key0 === '') {
       alert('请输入key0');
       return;
     }
-
-    if(this.state.value0 === ''){
+    if (this.state.value0 === '') {
       alert('请输入value0');
       return;
     }
-
     Host.storage.set(this.state.key0, this.state.value0);
     alert("set success");
   }
 
-  /**
-   * 保存key value, 有效期6秒
-   * @private
-   */
-  _setKeyValueFor6Seconds(){
-
-    if(this.state.key0 === ''){
+  _setKeyValueFor6Seconds() {
+    if (this.state.key0 === '') {
       alert('请输入key0');
       return;
     }
-
-    if(this.state.value0 === ''){
+    if (this.state.value0 === '') {
       alert('请输入value0');
       return;
     }
-
-    Host.storage.set(this.state.key0, this.state.value0, {expire: 6000});
+    Host.storage.set(this.state.key0, this.state.value0, { expire: 6000 });
     alert("set success");
   }
 
-  /**
-   * 批量保存 key-value
-   * @private
-   */
-  _saveKeyValues(){
-    if(this.state.key0 === '' || this.state.value0 === ''
-      || this.state.key1 === '' || this.state.value1 === ''){
+  _saveKeyValues() {
+    if (this.state.key0 === '' || this.state.value0 === ''
+      || this.state.key1 === '' || this.state.value1 === '') {
       alert('请输入key 或 value');
       return;
     }
-
     let info = {};
     info[this.state.key0] = this.state.value0;
     info[this.state.key1] = this.state.value1;
@@ -174,76 +89,54 @@ export default class KVStorageDemo extends React.Component {
     alert("set success");
   }
 
-  /**
-   * 批量保存 key-value 有效期6秒
-   * @private
-   */
-  _saveKeyValuesFor6Seconds(){
-
-    if(this.state.key0 === '' || this.state.value0 === ''
-      || this.state.key1 === '' || this.state.value1 === ''){
+  _saveKeyValuesFor6Seconds() {
+    if (this.state.key0 === '' || this.state.value0 === ''
+      || this.state.key1 === '' || this.state.value1 === '') {
       alert('请输入key 或 value');
       return;
     }
-
     let info = {};
     info[this.state.key0] = this.state.value0;
     info[this.state.key1] = this.state.value1;
-    Host.storage.save(info, {expire: 6000});
+    Host.storage.save(info, { expire: 6000 });
     alert("set success");
   }
 
-  /**
-   * 通过key读取value
-   * @private
-   */
-  _getValue(){
-    Host.storage.get(this.state.key0)
-      .then((value) => {
-        alert(JSON.stringify(value))
-      })
+  _getValue() {
+    Host.storage.get(this.state.key0).then((value) => {
+      alert(JSON.stringify(value));
+    })
       .catch((failure) => {
-        alert(JSON.stringify(failure))
+        alert(JSON.stringify(failure));
       });
   }
 
-  /**
-   * 批量读values
-   * @private
-   */
-  _loadValues(){
-    Host.storage.load([this.state.key0, this.state.key1])
-      .then((values) => {
-        alert(JSON.stringify(values))
-      }).catch((failure) => {
-        alert(JSON.stringify(failure))
+  _loadValues() {
+    Host.storage.load([this.state.key0, this.state.key1]).then((values) => {
+      alert(JSON.stringify(values));
+    }).catch((failure) => {
+      alert(JSON.stringify(failure));
     });
   }
-
-
 }
 
 var styles = StyleSheet.create({
-  searchTextInput: {
-    backgroundColor: "white",
-    borderColor: "#cccccc",
-    borderRadius: 3,
-    borderWidth: 1,
-    paddingLeft: 8,
-    paddingVertical: 0,
-    height: 35
-  },
-  text: {
-    textAlign: 'center'
-  },
-  btnStyle: {
-    marginTop: 10,
-    marginLeft: 10,
-    marginRight: 10,
+  button: {
+    color: '#000',
+    width: '90%',
     height: 40,
-    backgroundColor: '#2196F3',
+    borderRadius: 5,
+    borderColor: '#DDD',
+    borderWidth: 1,
+    backgroundColor: '#FFF',
+    alignItems: 'center',
     justifyContent: 'center',
-    alignItems: 'center'
+    marginTop: 20
+  },
+  buttonText: {
+    alignSelf: 'center',
+    color: '#555',
+    fontSize: 14,
+    padding: 5
   }
-
 });
