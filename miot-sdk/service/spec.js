@@ -35,7 +35,7 @@ class ISpec {
      * datasource=1  优先从服务器缓存读取，没有读取到下发rpc；不能保证取到的一定是最新值
      * datasource=2  直接下发rpc，每次都是设备返回的最新值
      * datasource=3  直接读缓存;没有缓存的 code 是 -70xxxx；可能取不到值
-     * 后台的默认策略是datasource=3；开发者可根据需求特性选择dataSource的值，如果对实时性要求不高，建议dataSource=1或者dataSource=3,已减轻后台服务的压力
+     * 后台的默认策略是datasource=3；开发者可根据需求特性选择dataSource的值，如果对实时性要求不高，建议dataSource=1或者dataSource=3,以减轻后台服务的压力
      * @return {Promise<JSON>}
      * 成功时分两种情况：
      * 获取设备属性成功时： [{"did":"xxx","siid":x,"piid":x,"code":0，value: xxx },……]
