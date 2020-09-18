@@ -1,14 +1,12 @@
 import React from 'react';
 
 import {
-  View,
-  Button
+  View, ScrollView
 } from 'react-native';
 import { System, MemoryWarningEvent, AccelerometerChangeEvent, CompassChangeEvent, GyroscopeChangeEvent } from "miot";
 import { Permissions } from "miot/system/permission";
 import { Separator } from 'mhui-rn';
-
-
+import { ListItem } from 'miot/ui/ListItem';
 
 export const interval = {
   "a": "game",
@@ -43,7 +41,7 @@ function onUserCaptureScreen() {
 function getLocation(accuracy) {
   System.location.getLocation(accuracy).then((location) => {
     alert(JSON.stringify(location));
-    
+
   });
 }
 
@@ -128,63 +126,50 @@ function getStopGyroscope() {
   });
 }
 
-
 export default class SystemDemo extends React.Component {
   render() {
     return (
       <View>
-        <View>
-          <Button title="电量" onPress={() => getBattery()} />
-        </View>
-        <Separator/>
-        <View>
-          <Button title="截屏监听" onPress={() => onUserCaptureScreen()} />
-        </View>
-        <Separator/>
-        <View>
-          <Button title="内存警告" onPress={() => addMemoryWarning()} />
-        </View>
-        <Separator/>
-        <View>
-          <Button title="开始监听加速计" onPress={() => getStartAccelerometer()} />
-          <Button title="停止监听加速计" onPress={() => getStopAccelerometer()} />
-        </View>
-        <Separator/>
-        <View>
-          <Button title="开始监听罗盘" onPress={() => getStartCompass()} />
-          <Button title="停止监听罗盘" onPress={() => getStopCompass()} />
-        </View>
-        <Separator/>
-        <View>
-          <Button title="开始监听陀螺仪" onPress={() => getStartGyroscope()} />
-          <Button title="停止监听陀螺仪" onPress={() => getStopGyroscope()} />
-        </View>
-        <Separator/>
-        <View>
-          <Button title="短震" onPress={() => getVibrateShort()} />
-          <Button title="长震" onPress={() => getVibrateLong()} />
-        </View>
-        <Separator/>
-        <View>
-          <Button title="申请录音权限" onPress={() => requestPermission(Permissions.RECORD_AUDIO)} />
-        </View>
-        <View>
-          <Button title="申请相机权限" onPress={() => requestPermission(Permissions.CAMERA)} />
-        </View>
-        <View>
-          <Button title="申请定位权限" onPress={() => requestPermission(Permissions.LOCATION)} />
-        </View>
-        <Separator/>
-        <View>
-          <Button title="获取位置信息（高精度）" onPress={() => getLocation("high")} />
-        </View>
-        <Separator/>
-        <View>
-          <Button title="扫码" onPress={() => getScanCode()} />
-        </View>
-        <Separator/>
+        <Separator />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {
+            [
+              ["电量", getBattery],
+              [],
+              ["截屏监听", onUserCaptureScreen],
+              [],
+              ["内存警告", addMemoryWarning],
+              [],
+              ["开始监听加速计", getStartAccelerometer],
+              ["停止监听加速计", getStopAccelerometer],
+              [],
+              ["开始监听罗盘", getStartCompass],
+              ["停止监听罗盘", getStopCompass],
+              [],
+              ["开始监听陀螺仪", getStartGyroscope],
+              ["停止监听陀螺仪", getStopGyroscope],
+              [],
+              ["短震", getVibrateShort],
+              ["长震", getVibrateLong],
+              [],
+              ["申请录音权限", () => { requestPermission(Permissions.RECORD_AUDIO); }],
+              ["申请相机权限", () => { requestPermission(Permissions.CAMERA); }],
+              ["申请定位权限", () => { requestPermission(Permissions.LOCATION); }],
+              [],
+              ["获取位置信息（高精度）", () => { getLocation("high"); }],
+              [],
+              ["扫码", getScanCode]
+            ].map((item, index) => {
+              return (item.length >= 2 ? <ListItem
+                key={index}
+                title={item[0]}
+                hideArrow={true}
+                onPress={item[1].bind(this)}
+              /> : <View style={{ height: 18 }} />);
+            })
+          }
+        </ScrollView>
       </View>
-
     );
   }
 
@@ -193,13 +178,4 @@ export default class SystemDemo extends React.Component {
     console.log(value.level);
     alert(`onMemoryWarning,level:${ value.level }`);
   }
-
-  componentDidMount() {
-    console.log(`SystemDemo componentDidMount`);
-  }
-
-  componentWillUnmount() {
-    console.log(`SystemDemo componentWillUnmount`);
-  }
-
 }

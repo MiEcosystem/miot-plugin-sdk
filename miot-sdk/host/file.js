@@ -723,7 +723,6 @@ class IFile {
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",//xlsx
     "application/vnd.ms-powerpoint",//ppt,pot,pps
     "application/vnd.openxmlformats-officedocument.presentationml.presentation",//pptx
-    "application/wps",//wps
     "text/text",//text
     "text/html",//html
     "text/xml",//xml
@@ -751,7 +750,6 @@ class IFile {
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // xlsx
         "application/vnd.ms-powerpoint", // ppt,pot,pps
         "application/vnd.openxmlformats-officedocument.presentationml.presentation", // pptx
-        "application/wps"// wps
       ],
       pageSize: 2,
       pageNo: 0

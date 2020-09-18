@@ -10,88 +10,80 @@
 // stagger(time,animations) 静态方法，执行一组动画，有可能里边的动画是同时执行。不过会有指定时间的延迟。
 // event(argMapping,config?) 静态方法  响应事件值，如下看一下使用方法
 
-import React from 'react'
-import  {
-    Animated,
-    Easing,
-    View,
-    StyleSheet,
-    StatusBar,
-    Platform,
-    Text
-} from 'react-native' 
+import React from 'react';
+import {
+  Animated,
+  Easing,
+  View,
+  StyleSheet,
+  StatusBar,
+  Platform,
+  Text
+} from 'react-native'; 
 
 export default class AnimTransformDemo extends React.Component {
 
   constructor(props, context) {
     super(props, context);
     this.state = {
-      rotation: new Animated.Value(0),
-    }
+      rotation: new Animated.Value(0)
+    };
   }
 
   componentDidMount() {
     this.startAnimation();
   }
 
-  startAnimation(){
+  startAnimation() {
     this.state.rotation.setValue(0);
     Animated.timing(this.state.rotation, {
-        toValue: 1, // 目标值
-        duration: 5000, // 动画时间
-        easing: Easing.linear // 缓动函数
+      toValue: 1, // 目标值
+      duration: 5000, // 动画时间
+      easing: Easing.linear // 缓动函数
     }).start(() => this.startAnimation());
   }
 
 
 
   render() {
-      return (
-        <View style={styles.container} >
-          <StatusBar barStyle='default' />
-          <View style={[styles.mainContianer, {backgroundColor:'ghostwhite'}]} >
-              <Animated.Text style={[styles.text, {transform: [{
-                        rotateZ: this.state.rotation.interpolate({
-                            inputRange: [0,1],
-                            outputRange: ['0deg', '360deg']
-                        })
-                    }]}]}>⚽️这是一串旋转的文字🏀</Animated.Text>
-          </View>
-          <Animated.View style={[styles.mainContianer, {opacity: 1, backgroundColor: 'honeydew'}, {transform: [{
-                    rotateY: this.state.rotation.interpolate({
-                        inputRange: [0,1],
-                        outputRange: ['0deg', '360deg']
-                    })
-                }]}]}>
-              <Text style={styles.text}>😭这是一个翻转的视图😊</Text>
-          </Animated.View>
+    return (
+      <View style={styles.container} >
+        <StatusBar barStyle="default" />
+        <View style={[styles.mainContianer, { backgroundColor: 'ghostwhite' }]} >
+          <Animated.Text style={[styles.text, { transform: [{
+            rotateZ: this.state.rotation.interpolate({
+              inputRange: [0, 1],
+              outputRange: ['0deg', '360deg']
+            })
+          }] }]}>⚽️这是一串旋转的文字🏀</Animated.Text>
         </View>
-      );
+        <Animated.View style={[styles.mainContianer, { opacity: 1, backgroundColor: 'honeydew' }, { transform: [{
+          rotateY: this.state.rotation.interpolate({
+            inputRange: [0, 1],
+            outputRange: ['0deg', '360deg']
+          })
+        }] }]}>
+          <Text style={styles.text}>😭这是一个翻转的视图😊</Text>
+        </Animated.View>
+      </View>
+    );
   }
 }
 
 var styles = StyleSheet.create({
-    container: {
-        marginTop: Platform.OS === 'ios' ? 64 : 76,
-        flexDirection:'column',
-        flex:1,
-    },
-    mainContianer: {
-        flex: 1,
-        flexDirection:'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white',
-    },
-    text: {
-        fontSize: 30
-    }
+  container: {
+    marginTop: Platform.OS === 'ios' ? 64 : 76,
+    flexDirection: 'column',
+    flex: 1
+  },
+  mainContianer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white'
+  },
+  text: {
+    fontSize: 30
+  }
 });
-
-// var route = {
-//   key: 'AnimTransformDemo',
-//   component: AnimTransformDemo,
-//   title: '一般动画－旋转翻转',
-// };
-
-

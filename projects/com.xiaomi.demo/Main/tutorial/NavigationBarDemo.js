@@ -1,7 +1,7 @@
 import NavigationBar from "miot/ui/NavigationBar";
 import Separator from 'miot/ui/Separator';
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { StyleSheet, ScrollView, Text, View } from 'react-native';
 import { RkButton } from "react-native-ui-kitten";
 import tr from "miot/resources/strings/tr";
 
@@ -530,15 +530,15 @@ export default class NavigationBarDemo extends React.Component {
               return (
                 <View
                   key={test.title}
-                  style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 15, paddingHorizontal: 15 }}
+                  style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingVertical: 15, paddingHorizontal: 15, borderBottomColor: '#0003', borderBottomWidth: 0.5 }}
                 >
                   <RkButton
-                    style={{ width: 110, height: 50 }}
+                    style={[styles.button, { width: 110, height: 50 }]}
                     onPress={test.onPress}
                   >
-                    {test.title || ''}
+                    <Text style={styles.buttonText}>{test.title}</Text>
                   </RkButton>
-                  <Text style={{ flex: 1, marginHorizontal: 10 }}>
+                  <Text style={[styles.buttonText, { flex: 1, marginHorizontal: 10 }]}>
                     {test.text || ''}
                   </Text>
                 </View>
@@ -550,3 +550,23 @@ export default class NavigationBarDemo extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  button: {
+    color: '#000',
+    width: '100%',
+    height: 40,
+    borderRadius: 5,
+    borderColor: '#DDD',
+    borderWidth: 1,
+    backgroundColor: '#FFF',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonText: {
+    alignSelf: 'center',
+    color: '#555',
+    fontSize: 14,
+    padding: 5
+  }
+});

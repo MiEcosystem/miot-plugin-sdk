@@ -341,7 +341,7 @@ class IUi {
    * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串
    * @param {string} offParam  定时到时设备“关”执行的 RPC 指令参数字符串（目前仅支持单参数）
    *
-   * @description 这个api 应该可以废弃了，使用下面的openTimerSettingPageWithOptions
+   * @description 这个api 应该可以废弃了，使用 Service.scene.openTimerSettingPageWithOptions()
    */
   @report
   openTimerSettingPage(onMethod, onParam, offMethod, offParam) {
@@ -354,7 +354,7 @@ class IUi {
    * @param {string} offMethod 定时到时设备“关”执行的 RPC 指令命令字字符串
    * @param {string} offParam  定时到时设备“关”执行的 RPC 指令参数字符串（目前仅支持单参数）
    *
-   * @description 这个api 应该可以废弃了，使用下面的openTimerSettingPageWithOptions
+   * @description 这个api 应该可以废弃了，使用 Service.scene.openTimerSettingPageWithOptions()
    */
   @report
   openTimerSettingPageWithCustomIdentifier(customTimerIdentifier, onMethod, onParam, offMethod, offParam) {

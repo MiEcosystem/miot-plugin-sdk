@@ -321,8 +321,8 @@ class IMiotCamera {
    * 获取通用图片接口（如云存储视频缩略图）
    * @since 10041
    * @param {string} imgId 图片唯一标识ID 如imgStoreId
-   * @param {json string} hostParams 接口信息: 如获取云存储缩略图{"prefix":"business.smartcamera.", "method":"GET", "path":"/miot/camera/app/v1/img"}   注：key固定的
-   * @param {json string} pathParams 请求参数: 如获取云存储缩略图{"did":"xxxx", "fileId":"xxxx", "stoId":"xxxxxxxx"}
+   * @param {string} hostParams json字符串，接口信息: 如获取云存储缩略图{"prefix":"business.smartcamera.", "method":"GET", "path":"/miot/camera/app/v1/img"}   注：key固定的
+   * @param {string} pathParams json字符串，请求参数: 如获取云存储缩略图{"did":"xxxx", "fileId":"xxxx", "stoId":"xxxxxxxx"}
    * @returns {Promise<String>} 文件路径
    */
   @report
@@ -505,11 +505,18 @@ class IMiotCamera {
    */
   @report
   setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID) {
-    if (Platform.OS == "android") {
-       return null
-    } else {
-      return Promise.reject("ios platform not support yet; to be done");
-    }
+     return null
+  }
+  /**
+   * 打开门铃的带屏设备联动页面
+   * @param {bool} isMultiChoice 
+   * @param {number} screenCount 
+   * @param {string} did 
+   * @since 10044
+   */
+  @report 
+  showScreenLinkagePage(isMultiChoice, screenCount, did = Device.deviceID) {
+     return null
   }
 }
 const MiotCameraInstance = new IMiotCamera();

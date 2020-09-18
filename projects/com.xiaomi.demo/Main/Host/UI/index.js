@@ -116,13 +116,6 @@ export default class UIDemo extends React.Component {
         }
       },
       {
-        'name': '打开添加智能的页面',
-        'subtitle': 'openIftttAutoPage',
-        'func': () => {
-          Host.ui.openIftttAutoPage();
-        }
-      },
-      {
         'name': '打开反馈页',
         'subtitle': 'openFeedbackInput',
         'func': () => {
@@ -196,7 +189,7 @@ export default class UIDemo extends React.Component {
           options.hideAgreement = false;
           options.hideUserExperiencePlan = false;
           // 这是为了演示需要，使用的是强制弹出的模式 具体使用方法可以参考iot文档 或 com.xiaomi.demo/MainPage.js部分样例
-          Host.ui.alertLegalInformationAuthorization(options).then((res) => {
+          Host.ui.alertLegalInformationAuthorization(options).then(() => {
             alert('成功');
           }).catch(() => {
             alert('失败，可能是设备已离线');
@@ -430,7 +423,7 @@ export default class UIDemo extends React.Component {
         'func': () => {
           // TODO ios返回了带code的res，待anroid确认是不是统一
           // recommendId 通过 Device.getRecommendScenes(Device.model, Device.deviceID).then 来获取
-          Device.getRecommendScenes(Device.model, Device.deviceID).then((res) => {
+          Device.getDeviceWifi().getRecommendScenes(Device.model, Device.deviceID).then((res) => {
             if (res.scene_recom && res.scene_recom.length > 0 && res.scene_recom[0] && res.scene_recom[0].info) {
               console.log("res", res.scene_recom[0].info.sr_id);
               Host.ui.openPluginRecommendScene(Device.deviceID, parseInt(res.scene_recom[0].info.sr_id));
@@ -451,13 +444,6 @@ export default class UIDemo extends React.Component {
           }).catch((error) => {
             alert(JSON.stringify(error));
           });
-        }
-      },
-      {
-        'name': 'openNewMorePage(仅iOS)',
-        'subtitle': '打开更多设置页面（通常包括安全设置，常见问题与用户反馈）',
-        'func': () => {
-          Host.ui.openNewMorePage();
         }
       },
       {
@@ -603,14 +589,11 @@ export default class UIDemo extends React.Component {
         options: BUTTONS,
         destructiveButtonIndex: 1
       },
-      (buttonIndex) => {
-
-      });
+      () => {});
   }
-
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderTopColor: '#f1f1f1',

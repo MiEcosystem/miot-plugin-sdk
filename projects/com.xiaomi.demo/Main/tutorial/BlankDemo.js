@@ -8,7 +8,10 @@ import {
 export default class BlankDemo extends React.Component {
   render() {
     return (
-      <View><Text>空白界面</Text></View>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>空白界面</Text>
+      </View>
     );
   }
 }
+
