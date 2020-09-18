@@ -244,8 +244,7 @@ export class BasicDevice {
      *
      */
   get isRootDevice() {
-     return  false
-    return !(parent && Object.keys(parent).length > 0);
+     return false
   }
   /**
    * 批量删除设备, 不能删除 小米路由器/本地蓝牙/局域网直连设备，不能删除与自己设备无关的设备，比如，其他生态链公司的设备。
@@ -578,8 +577,7 @@ export class BasicDevice {
    *
    */
   get isFamily() {
-     return  false
-    return (permitLevel & PERMISSION_FAMILY) !== 0 || permitLevel == PERMISSION_FAMILY_IOS;
+     return false
   }
   /**
    *是否是别人分享的设备，若是家属分享给你的设备，isShared为fasle，isFamily为true
@@ -588,8 +586,7 @@ export class BasicDevice {
    *
    */
   get isShared() {
-     return  false
-    return (permitLevel & PERMISSION_SHARE) !== 0 && !this.isFamily && Properties.of(this).ownerName !== null;
+     return false
   }
   /**
    *是否是已经绑定的设备，一般返回true
@@ -642,7 +639,21 @@ export class BasicDevice {
   @report
   getVirtualDevices() {
      return Promise.resolve([]);
+  }
+  /**
+  * 获取设备定向推荐信息，展示推荐入口使用：用于获取插件上方偶尔弹出的提示条/广告条数据，比如：设备信号差，请调整设备位置。
+  * @deprecated since 10032 请使用Device.getDeviceWifi().getRecommendScenes()代替
+  */
+  @report
+  getRecommendScenes(model, did) {
      return Promise.resolve({});
+  }
+  /**
+   * 获取当前设备列表中的指定model的设备列表。需要在common_extra_config增加配置，暂时用于秒秒测的互联互通功能。
+   * @deprecated since 10032，请使用Device.getDeviceWifi().requestAuthorizedDeviceListData()代替
+   */
+  @report
+  requestAuthorizedDeviceListData(model) {
      return Promise
   }
   /**
@@ -654,10 +665,7 @@ export class BasicDevice {
    *
    */
   get extra() {
-     return  ""
-      console.warn("extra deprecated since 10032 此字段后台无人维护，也无人知道它存在的含义，故废弃。");
-    }
-    return Properties.of(this).extrainfo || Properties.of(this).extra;
+     return ""
   }
   /**
   * 检查当前设备是否支持HomeKit，Android系统不支持HomeKit设备。需要在plato平台配置homekit_config，包含在内的设备，isHomekit才可能返回true
@@ -709,10 +717,7 @@ export class BasicDevice {
    *
    */
   get parentModel() {
-     return  ""
-      console.warn("parentModel deprecated 10023开始废弃，10023及后续版本建议使用 Device.parentDevice.model");
-    }
-    return Properties.of(this).parentModel;
+     return ""
   }
   /**
    * 获取设备时区,非实时加载，可能为空.如果需要自行获取最新设备时区值，请使用smarthome.getDeviceTimeZone(did)
@@ -720,10 +725,7 @@ export class BasicDevice {
    * @deprecated   10021开始废弃，10021及后续版本建议使用 Device.getDeviceTimeZone().then
    */
   get timeZone() {
-     return  ""
-      console.warn("timeZone deprecated 10021开始废弃，10021及后续版本建议使用 Device.getDeviceTimeZone().then");
-    }
-    return Properties.of(this).timeZone;
+     return ""
   }
   /**
    * 获取 prop中保存的信息。当某设备有莫人属性时，这里为莫人属性的值，否则无此字段。不同设备类型，propInfo中包含的属性可能不同，propInfo一半是个json。
@@ -733,10 +735,7 @@ export class BasicDevice {
    *
    */
   get propInfo() {
-     return  {}
-      console.warn("propInfo deprecated 因此属性极大造成米家设备列表页接口响应时长变长，现已废弃，一般都会返回null。若需要这里面的属性，请直接通过callMethod去读取。");
-    }
-    return Properties.of(this).propInfo;
+     return {}
   }
   /**
    * 重置标志，本地设备才会返回该字段，为1时表示设备刚刚reset过
@@ -745,10 +744,7 @@ export class BasicDevice {
    * @readonly
    */
   get resetFlag() {
-     return  0
-      console.warn("resetFlag deprecated 10023开始废弃，后续不再提供此字段，此方法永远返回0");
-    }
-    return Properties.of(this).resetFlag;
+     return 0
   }
   /**
    * 创建场景
@@ -762,10 +758,7 @@ export class BasicDevice {
    */
   @report
   createScene(sceneType, opt = null) {
-     return  ""
-      console.warn("createScene deprecated since 10032 请使用Service.scene.createScene(BasicDevice.deviceID,sceneType,opt)");
-    }
-    return Scene.createScene(this.deviceID, sceneType, opt);
+     return ""
   }
   /**
    * 创建定时场景
@@ -778,10 +771,7 @@ export class BasicDevice {
    */
   @report
   createTimerScene(opt = null) {
-     return  ""
-      console.warn("createTimerScene deprecated since 10032 请使用Service.scene.createTimerScene(BasicDevice.deviceID,opt)");
-    }
-    return Scene.createTimerScene(this.deviceID, opt);
+     return ""
   }
   /**
   * 加载本设备相关的场景
@@ -795,10 +785,7 @@ export class BasicDevice {
   */
   @report
   loadScenes(sceneType, opt = null) {
-     return  ""
-      console.warn("loadScenes deprecated since 10032 请使用Service.scene.loadScenes(BasicDevice.deviceID,sceneType,opt)");
-    }
-    return Scene.loadScenes(this.deviceID, sceneType, opt);
+     return ""
   }
   /**
    * 加载定时场景
@@ -810,10 +797,7 @@ export class BasicDevice {
    */
   @report
   loadTimerScenes(opt = null) {
-     return  ""
-      console.warn("loadTimerScenes deprecated since 10032 请使用Service.scene.loadTimerScenes(BasicDevice.deviceID,opt)");
-    }
-    return Scene.loadTimerScenes(this.deviceID, opt);
+     return ""
   }
   /**
    * 上报日志，写入文件，在用户反馈时可以查看。比如某个地方报错/出错了，打上log，用户反馈后，能在后台查看到。查看地址：https://iot.mi.com/fe-op/operationCenter/userFeedback

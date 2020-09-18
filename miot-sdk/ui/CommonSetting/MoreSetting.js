@@ -7,7 +7,7 @@ import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
 import NavigationBar from '../NavigationBar';
 import Separator from '../Separator';
-import { secondAllOptions, SETTING_KEYS, AllOptions } from "./CommonSetting";
+import { secondAllOptions, SETTING_KEYS, AllOptions, AllOptionsWeight } from "./CommonSetting";
 import { getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
 /**
@@ -215,14 +215,34 @@ export default class MoreSetting extends React.Component {
     const requireKeys2 = [secondAllOptions.LEGAL_INFO, secondAllOptions.ADD_TO_DESKTOP];
     let options = this.secondOptions.filter((key) => key && Object.values(second_options).includes(key)); // 去掉杂质
     options = [...new Set(options)]; // 去除重复
-    let keys = [...requireKeys1, ...options, ...requireKeys2];
+    let keys = [...requireKeys1, ...options, ...requireKeys2, ...(this.props.navigation.state.params.secondCustomOptions || [])];
     keys = [...new Set(keys)]; // 去重
     if (Device.isOwner === false) {
       keys = keys.filter((key) => secondSharedOptions[key]); // 如果是共享设备或者家庭设备，需要过滤一下
     }
     keys = keys.filter((key) => !this.excludeRequiredOptions.includes(key));
     keys = keys.filter((key) => !(excludeOptions[key] || []).includes(Device.type));
-    const items = keys.map((key) => this.moreSetting[key]).filter((item) => {
+    keys.sort((keyA, keyB) => {
+      let weightA, weightB;
+      if (typeof keyA === 'string') {
+        weightA = AllOptionsWeight[keyA] || 0;
+      } else {
+        weightA = keyA.weight || 0;
+      }
+      if (typeof keyB === 'string') {
+        weightB = AllOptionsWeight[keyB] || 0;
+      } else {
+        weightB = keyB.weight || 0;
+      }
+      return weightA - weightB;
+    });
+    const items = keys.map((key) => {
+      if (typeof key !== 'string') {
+        const item = key;
+        return item;
+      }
+      return this.moreSetting[key];
+    }).filter((item) => {
       return item && !item.hide;
     });
     let itemStyle;
