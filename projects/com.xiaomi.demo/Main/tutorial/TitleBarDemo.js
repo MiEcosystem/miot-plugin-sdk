@@ -1,7 +1,7 @@
 import Separator from 'miot/ui/Separator';
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { StyleSheet, ScrollView, Text, View } from 'react-native';
 import { RkButton } from "react-native-ui-kitten";
 
 export default class TitleBarDemo extends React.Component {
@@ -69,6 +69,7 @@ export default class TitleBarDemo extends React.Component {
       text: '点击隐藏/显示小红点'
     }
   ];
+
   UNSAFE_componentWillMount() {
     this.setNavigation();
   }
@@ -98,7 +99,6 @@ export default class TitleBarDemo extends React.Component {
    * 白底黑字/带分享按钮/标题超长/副标题超长
    */
   setNavigation1(allowFontScaling) {
-
     let titleStyle, subtitleStyle, style;
     if (!allowFontScaling) {
       titleStyle = {
@@ -109,9 +109,9 @@ export default class TitleBarDemo extends React.Component {
         fontSize: 20,
         lineHeight: 24
       };
-      style={
-        height:60,
-      }
+      style = {
+        height: 60
+      };
     }
 
     this.props.navigation.setParams({
@@ -127,7 +127,7 @@ export default class TitleBarDemo extends React.Component {
         onPressTitle: () => console.log('onPressTitle'),
         showDot: this.state.showDot,
         allowFontScaling: allowFontScaling,
-        style: style,
+        style: style
       }
     });
     this.setState({
@@ -270,15 +270,12 @@ export default class TitleBarDemo extends React.Component {
         showDot: this.state.showDot
       }
     });
-    // this.state.index = 6;
     this.setState({
       index: 6
     });
   }
 
   toggleDot() {
-    // this.state.showDot = !this.state.showDot;
-    // this.testList[this.state.index].onPress();
     this.setState((state) => {
       return {
         showDot: !state.showDot
@@ -298,15 +295,15 @@ export default class TitleBarDemo extends React.Component {
               return (
                 <View
                   key={test.title}
-                  style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 15, paddingHorizontal: 15 }}
+                  style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingVertical: 15, paddingHorizontal: 15, borderBottomColor: '#0003', borderBottomWidth: 0.5 }}
                 >
                   <RkButton
-                    style={{ width: 110, height: 50 }}
+                    style={[styles.button, { width: 110, height: 50 }]}
                     onPress={test.onPress}
                   >
-                    {test.title || ''}
+                    <Text style={styles.buttonText}>{test.title}</Text>
                   </RkButton>
-                  <Text style={{ flex: 1, marginHorizontal: 10 }}>
+                  <Text style={[styles.buttonText, { flex: 1, marginHorizontal: 10 }]}>
                     {test.text || ''}
                   </Text>
                 </View>
@@ -318,3 +315,23 @@ export default class TitleBarDemo extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  button: {
+    color: '#000',
+    width: '100%',
+    height: 40,
+    borderRadius: 5,
+    borderColor: '#DDD',
+    borderWidth: 1,
+    backgroundColor: '#FFF',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonText: {
+    alignSelf: 'center',
+    color: '#555',
+    fontSize: 14,
+    padding: 5
+  }
+});

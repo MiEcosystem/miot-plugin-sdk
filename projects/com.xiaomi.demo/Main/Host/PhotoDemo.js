@@ -4,7 +4,7 @@
 
 import { Host } from "miot";
 import React from 'react';
-import { PermissionsAndroid, Platform, StyleSheet, Text, TouchableOpacity, View, ScrollView, Image } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Image } from 'react-native';
 import Video from 'react-native-video';
 
 export default class PhotoDemo extends React.Component {
@@ -16,76 +16,27 @@ export default class PhotoDemo extends React.Component {
     };
   }
 
-  componentWillMount() {
-
-  }
-
-  componentWillUnmount() {
-  }
-
   render() {
-    // 如果不设置英文字体，那么外文字符串将显示不全（Android）
-    let fontFamily = {};
-    if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' };
-
     return (
       <ScrollView style={styles.container}>
-        <View style={styles.rowContainer}>
-          <TouchableOpacity style={styles.touchable} onPress={() => {
-            this.snapImageSaveToPhoto();
-          }}>
-            <Text style={{ fontSize: 15 }}>截图保存到手机相册</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.rowContainer}>
-          <TouchableOpacity style={styles.touchable} onPress={() => {
-            this.downloadVideoSaveToPhoto();
-          }}>
-            <Text style={{ fontSize: 15 }}>下载视频保存到手机相册</Text>
-          </TouchableOpacity>
-        </View >
-        <View style={styles.rowContainer}>
-          <TouchableOpacity style={styles.touchable} onPress={() => {
-            this.snapImageSaveToDidAlbum();
-          }}>
-            <Text style={{ fontSize: 15 }}>截图保存到指定名称为did的手机相册</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.rowContainer}>
-          <TouchableOpacity style={styles.touchable} onPress={() => {
-            this.downloadVideoSaveToDidAlbum();
-          }}>
-            <Text style={{ fontSize: 15 }}>下载视频保存到指定名称为did的手机相册</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.rowContainer}>
-          <TouchableOpacity style={styles.touchable} onPress={() => {
-            this.getFirstImageFromDidAlbum();
-          }}>
-            <Text style={{ fontSize: 15 }}>获取指定did的相册中的第一个图片</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.rowContainer}>
-          <TouchableOpacity style={styles.touchable} onPress={() => {
-            this.getFirstVideoFromDidAlbum();
-          }}>
-            <Text style={{ fontSize: 15 }}>获取指定did的相册中的第一个视频</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.rowContainer}>
-          <TouchableOpacity style={styles.touchable} onPress={() => {
-            this.deleteFirstAssetFromDidAlbum();
-          }}>
-            <Text style={{ fontSize: 15 }}>删除指定did相册中的第一个视频或照片</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.rowContainer}>
-          <TouchableOpacity style={styles.touchable} onPress={() => {
-            Host.ui.openSystemShareWindow(this.state.currentAsset.url);
-          }}>
-            <Text style={{ fontSize: 15 }}>分享当前的视频或照片</Text>
-          </TouchableOpacity>
-        </View>
+        {
+          [
+            ['截图保存到手机相册', this.snapImageSaveToPhoto],
+            ['下载视频保存到手机相册', this.downloadVideoSaveToPhoto],
+            ['截图保存到指定名称为did的手机相册', this.snapImageSaveToDidAlbum],
+            ['下载视频保存到指定名称为did的手机相册', this.downloadVideoSaveToDidAlbum],
+            ['获取指定did的相册中的第一个图片', this.getFirstImageFromDidAlbum],
+            ['获取指定did的相册中的第一个视频', this.getFirstVideoFromDidAlbum],
+            ['删除指定did相册中的第一个视频或照片', this.deleteFirstAssetFromDidAlbum],
+            ['分享当前的视频或照片', () => Host.ui.openSystemShareWindow(this.state.currentAsset.url)]
+          ].map((item, index) => {
+            return (
+              <TouchableOpacity key={index} style={styles.button} onPress={item[1].bind(this)}>
+                <Text style={styles.buttonText}>{item[0]}</Text>
+              </TouchableOpacity>
+            );
+          })
+        }
         {this.renderAsset()}
       </ScrollView >
     );
@@ -104,39 +55,18 @@ export default class PhotoDemo extends React.Component {
       let width = this.state.currentAsset.pixelWidth;
       let height = this.state.currentAsset.pixelHeight;
       if (mediaType == 1) {
-        return <Image
-          source={{
-            uri: url,
-            width: width,
-            height: height
-          }}
-          style={{ width: 150, height: 150 }}
-        />;
+        return <Image source={{ uri: url, width: width, height: height }} style={{ marginTop: 20, alignSelf: 'center', width: 150, height: 150 }} />;
       } else if (mediaType == 2) {
         let path = this.state.currentAsset.path;
         return <View>
-          <Image
-            source={{
-              uri: url,
-              width: width,
-              height: height
-            }}
-            style={{ width: 150, height: 150 }}
-          />
-          <Video
-            style={{ width: 200, height: 200 }}
-            source={{
-              uri: path
-            }}
-            paused={true}
+          <Image source={{ uri: url, width: width, height: height }} style={{ marginTop: 20, alignSelf: 'center', width: 150, height: 150 }} />
+          <Video style={{ marginTop: 20, marginBottom: 20, alignSelf: 'center', width: 200, height: 200 }}
+            source={{ uri: path }}
+            paused={false}
             resizeMode="contain"
-            onEnd={() => {
-              alert('Done!');
-            }}
+            onEnd={() => { alert('Done!'); }}
             repeat={false}
-            onError={() => {
-              console.log('Callback when video cannot be loaded');
-            }}
+            onError={() => { console.log('Callback when video cannot be loaded'); }}
           />
         </View>;
       }
@@ -160,7 +90,6 @@ export default class PhotoDemo extends React.Component {
 
   downloadVideoSaveToPhoto() {
     let url = 'http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_mp4_855379f77b74ca565e8ef7d68c08264c.mp4';
-
     let fileName = `file${ new Date().getTime() }.mp4`;
     Host.file.downloadFile(url, fileName).then((res) => {
       Host.file.saveFileToPhotosAlbum(fileName).then(() => {
@@ -190,7 +119,6 @@ export default class PhotoDemo extends React.Component {
 
   downloadVideoSaveToDidAlbum() {
     let url = 'http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_mp4_855379f77b74ca565e8ef7d68c08264c.mp4';
-
     let fileName = `file${ new Date().getTime() }.mp4`;
     Host.file.downloadFile(url, fileName).then((res) => {
       Host.file.saveVideoToPhotosDidAlbum(fileName).then(() => {
@@ -245,7 +173,6 @@ export default class PhotoDemo extends React.Component {
           currentAsset: {}
         });
       }
-
       Host.file.fetchLocalVideoFilePathFromDidAlbumByUrl(this.state.currentAsset.url).then((res) => {
         let c = this.state.currentAsset;
         c.path = res.data;
@@ -290,16 +217,25 @@ export default class PhotoDemo extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 30,
-    paddingBottom: 30,
-    backgroundColor: '#F5FCFF'
+    flex: 1
   },
-  rowContainer: {
+  button: {
+    color: '#000',
+    width: '90%',
+    height: 40,
+    borderRadius: 5,
+    borderColor: '#DDD',
+    borderWidth: 1,
+    backgroundColor: '#FFF',
     alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 10
+    justifyContent: 'center',
+    marginTop: 20,
+    alignSelf: 'center'
   },
-  touchable: {
+  buttonText: {
+    alignSelf: 'center',
+    color: '#555',
+    fontSize: 14,
+    padding: 5
   }
 });

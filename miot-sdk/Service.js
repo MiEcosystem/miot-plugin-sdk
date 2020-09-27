@@ -50,7 +50,8 @@ import Storage from './service/storage';
 import TJInfra from './service/tjinfra';
 import MiotCamera from './service/miotcamera';
 import Kookong from './service/kookong';
-import { NativeModules } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
+import JSONbig from 'json-bigint';
  const CurrentAccount = null;
 export default {
   /**
@@ -152,6 +153,21 @@ export default {
    * @param {object} params 传入参数
    */
   callSmartHomeCameraAPI(api, subDomain, post, params) {
+     return Promise.resolve(null);
+  },
+  /**
+   * @method callSmartHomeCameraAPI
+   * @since 10044
+   * @description 专用摄像头相关接口请求
+   * api in `miot-sdk/service/apiRepo.js`
+   * subDomain in `miot-sdk/service/cameraSubDomain.js`
+   *
+   * @param {string} api 接口地址
+   * @param {string} subDomain subDomain
+   * @param {bool}   post 是否POST方法
+   * @param {string} params BigJSON.strinify(object);
+   */
+  callSmartHomeCameraAPIWithStringParam(api, subDomain, post, params) {
      return Promise.resolve(null);
   },
   /**
@@ -266,7 +282,7 @@ export default {
           reject(res);
         }
       });
-    }); 
+    });
   },
   /**
    * 某设备向服务器申请did和token

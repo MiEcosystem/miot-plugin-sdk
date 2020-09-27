@@ -1,5 +1,3 @@
-//index.ios.js
-
 'use strict';
 
 import { AudioEvent, Host } from "miot";
@@ -8,7 +6,7 @@ import { PermissionsAndroid, Platform, StyleSheet, Text, TouchableOpacity, View 
 
 const audioPlayerUid = 'com.xiaomi.demoios';
 
-var fileName = 'test.wav';
+let fileName = 'test.wav';
 
 export default class MHAudioDemo extends React.Component {
 
@@ -19,26 +17,29 @@ export default class MHAudioDemo extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.s0 = AudioEvent.updateAudioPlayerTime.addListener((event) => {
       if (event.audioPlayerUid === audioPlayerUid) {
-        console.log(event.currentTime);//播放器播放的时间
+        console.log(event.currentTime);// 播放器播放的时间
       }
     });
     this.s1 = AudioEvent.audioPlayerDidFinishPlaying.addListener((event) => {
       console.log("播放完成,再次播放");
       if (event.audioPlayerUid === audioPlayerUid) {
-        console.warn("播放完成,再次播放");
+        if (__DEV__ && console.warn) {
+          console.warn("播放完成,再次播放");
+        }
         this._startPlayButtonClicked();
       }
-    })
+    });
     this.s2 = AudioEvent.audioPlayerDidStartPlaying.addListener((event) => {
       if (event.audioPlayerUid === audioPlayerUid) {
         alert('播放开始');
-        console.warn(JSON.stringify(event));
+        if (__DEV__ && console.warn) {
+          console.warn(JSON.stringify(event));
+        }
       }
     });
-
   }
 
   componentWillUnmount() {
@@ -49,57 +50,41 @@ export default class MHAudioDemo extends React.Component {
   }
 
   render() {
-
-    // 如果不设置英文字体，那么外文字符串将显示不全（Android）
-    let fontFamily = {};
-    if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' }
-
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={{ top: 60 }}
-          onPress={() => {
-            alert(Host.audio.isAbleToRecord());
-          }}>
-          <Text style={{ fontSize: 20 }}>isAbleToRecord</Text>
-        </TouchableOpacity >
-        <TouchableOpacity style={{ top: 100 }} onPress={this._startRecordButtonClicked.bind(this)}>
-          <Text style={{ fontSize: 20 }}>录音开始</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={{ top: 150 }} onPress={this._stopRecordButtonClicked.bind(this)}>
-          <Text style={{ fontSize: 20 }}>录音结束</Text>
-        </TouchableOpacity>
-        <View style={{ top: 200 }}>
-          <Text style={[{ fontSize: 14 }, fontFamily]}>peakPower：{this.state.audioRecorderPeakPower}</Text>
-        </View>
-        <TouchableOpacity style={{ top: 250 }} onPress={this._startPlayButtonClicked.bind(this)}>
-          <Text style={{ fontSize: 20 }}>播放开始</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={{ top: 300 }} onPress={this._stopPlayButtonClicked.bind(this)}>
-          <Text style={{ fontSize: 20 }}>播放结束</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={{ top: 350 }} onPress={this._convertButtonWavToAmrClicked.bind(this)}>
-          <Text style={[{ fontSize: 20 }, fontFamily: fontFamily]}>格式转换 wav -> Amr</Text>
-        </TouchableOpacity>
-      <TouchableOpacity style={{ top: 400 }} onPress={this._convertButtonAmrToWavClicked.bind(this)}>
-        <Text style={[{ fontSize: 20 }, fontFamily: fontFamily]}>格式转换 amr -> Wav</Text>
-        </TouchableOpacity >
+        <Text style={[styles.buttonText, { marginTop: 20 }]}>{`PeakPower: ${ this.state.audioRecorderPeakPower }`}</Text>
+        {
+          [
+            ['isAbleToRecord', () => alert(Host.audio.isAbleToRecord())],
+            ['录音开始', this._startRecordButtonClicked],
+            ['录音结束', this._stopRecordButtonClicked],
+            ['播放开始', this._startPlayButtonClicked],
+            ['播放结束', this._stopPlayButtonClicked],
+            ['格式转换 wav -> Amr', this._convertButtonWavToAmrClicked],
+            ['格式转换 amr -> Wav', this._convertButtonAmrToWavClicked]
+          ].map((item, index) => {
+            return (
+              <TouchableOpacity key={index} style={styles.button} onPress={item[1].bind(this)}>
+                <Text style={styles.buttonText}>{item[0]}</Text>
+              </TouchableOpacity>
+            );
+          })
+        }
       </View >
     );
   }
 
   _startRecordButtonClicked() {
-
-    var settings = {
+    let settings = {
       AVFormatIDKey: 'audioFormatLinearPCM',
       AVSampleRateKey: 9500,
       AVNumberOfChannelsKey: 2,
       AVEncoderAudioQualityKey: 'audioQualityHigh',
       AVLinearPCMBitDepthKey: 16,
       AVLinearPCMIsBigEndianKey: false,
-      AVLinearPCMIsFloatKey: false,
+      AVLinearPCMIsFloatKey: false
     };
     if (Platform.OS === 'android') {
-
       PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.RECORD_AUDIO, null)
         .then((granted) => {
           console.log("granted", granted);
@@ -111,16 +96,15 @@ export default class MHAudioDemo extends React.Component {
           }
         }).catch((error) => {
           console.log("error", error);
-        })
+        });
     } else {
       Host.audio.startRecord(fileName, settings).then(() => {
         console.log('startRecord');
         this._startPeakPowerLoop();
       }).catch((err) => {
-        console.log('startRecord catch error' + err);
+        console.log(`startRecord catch error${ err }`);
       });
     }
-
   }
 
   _stopRecordButtonClicked() {
@@ -131,12 +115,11 @@ export default class MHAudioDemo extends React.Component {
   }
 
   _startPlayButtonClicked() {
-    var params = {
+    let params = {
       'updateAudioPlayerTimeInterval': 1,
       'audioPlayerUid': audioPlayerUid,
       "p": require('../../Resources/Test.html')
     };
-    // Host.audio.startPlay(require('../Resources/mp3/lovewholelife.mp3'), params).then(() => { console.log('startPlay'); });
     Host.audio.startPlay(fileName, params).then(() => { console.log('startPlay'); });
   }
   _stopPlayButtonClicked() {
@@ -144,8 +127,8 @@ export default class MHAudioDemo extends React.Component {
   }
 
   _convertButtonWavToAmrClicked() {
-    var wavPath = 'test.wav';
-    var amrPath = 'test.amr';
+    let wavPath = 'test.wav';
+    let amrPath = 'test.amr';
     Host.audio.wavToAmr(wavPath, amrPath)
       .then(() => {
         console.log('wavToAmr success');
@@ -158,8 +141,8 @@ export default class MHAudioDemo extends React.Component {
   }
 
   _convertButtonAmrToWavClicked() {
-    var wavPath = 'test.wav';
-    var amrPath = 'test.amr';
+    let wavPath = 'test.wav';
+    let amrPath = 'test.amr';
     Host.audio.amrToWav(amrPath, wavPath)
       .then(() => {
         console.log('amrToWav success');
@@ -177,12 +160,12 @@ export default class MHAudioDemo extends React.Component {
         Host.audio.getRecordingPeakPower().then((res) => {
           if (res != null) {
             this.setState({ audioRecorderPeakPower: JSON.stringify(res) });
-            console.log('peakpower err : ' + JSON.stringify(res));
+            console.log(`peakpower err : ${ JSON.stringify(res) }`);
           }
         }).catch((err) => {
           this.setState({ audioRecorderPeakPower: JSON.stringify(err) });
-          console.log('peakpower err : ' + JSON.stringify(err));
-        })
+          console.log(`peakpower err : ${ JSON.stringify(err) }`);
+        });
       },
       500
     );
@@ -200,19 +183,23 @@ export default class MHAudioDemo extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    alignItems: 'center'
   },
+  button: {
+    color: '#000',
+    width: '90%',
+    height: 40,
+    borderRadius: 5,
+    borderColor: '#DDD',
+    borderWidth: 1,
+    backgroundColor: '#FFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20
+  },
+  buttonText: {
+    color: '#555',
+    fontSize: 14,
+    padding: 5
+  }
 });
-
-
-// var route = {
-//   key: 'Host.audioDemo',
-//   title: '',
-//   component: Host.audioDemo,
-// }
-//
-// module.exports = {
-//   component: Host.audioDemo,
-//   route: route,
-// }

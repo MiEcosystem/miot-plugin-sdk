@@ -25,7 +25,7 @@ import {
   TouchableHighlight,
   ToastAndroid,
   Platform,
-  UIManager,
+  UIManager
 } from 'react-native';
 
 class CustomButton extends Component {
@@ -41,60 +41,60 @@ class CustomButton extends Component {
   }
 }
 
-var CustomLayoutAnimation = {
-    duration: 800,
-    create: {
-      type: LayoutAnimation.Types.linear,
-      property: LayoutAnimation.Properties.opacity,
-    },
-    update: {
-      type: LayoutAnimation.Types.easeInEaseOut,
-    },
-  };
+let CustomLayoutAnimation = {
+  duration: 800,
+  create: {
+    type: LayoutAnimation.Types.linear,
+    property: LayoutAnimation.Properties.opacity
+  },
+  update: {
+    type: LayoutAnimation.Types.easeInEaseOut
+  }
+};
 
 export default class LayoutAnimationDemo extends Component {
-    constructor(props) {
-      super(props);
-      this.state={
-        views:[],
-        num:0,
-       }
-      // Enable LayoutAnimation under Android
-     if (Platform.OS === 'android') {
-        UIManager.setLayoutAnimationEnabledExperimental(true)
-      }
+  constructor(props) {
+    super(props);
+    this.state = {
+      views: [],
+      num: 0
+    };
+    // Enable LayoutAnimation under Android
+    if (Platform.OS === 'android') {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
     }
-    componentWillUpdate() {
-      console.log('componentWillUpdate...');
-      LayoutAnimation.easeInEaseOut();
-      //或者可以使用如下的自定义的动画效果
-      //LayoutAnimation.configureNext(CustomLayoutAnimation);
+  }
+  componentWillUpdate() {
+    console.log('componentWillUpdate...');
+    LayoutAnimation.easeInEaseOut();
+    // 或者可以使用如下的自定义的动画效果
+    // LayoutAnimation.configureNext(CustomLayoutAnimation);
+  }
+  _onPressAddView() {
+    this.setState({ num: Number.parseInt(this.state.num) + 1 });
+  }
+  _onPressRemoveView() {
+    this.setState({ num: Number.parseInt(this.state.num) - 1 });
+  }
+  _renderAddedView(i) {
+    return (
+      <View key={i} style={styles.view}>
+        <Text style={{ color: '#fff' }}>{i}</Text>
+      </View>
+    );
+  }
+  render() {
+    this.state.views.length = 0;
+    for (let i = 0; i < this.state.num; i++) {
+      this.state.views.push(this._renderAddedView(i));
     }
-    _onPressAddView() {
-      this.setState({num:Number.parseInt(this.state.num)+1});
-    }
-    _onPressRemoveView() {
-      this.setState({num:Number.parseInt(this.state.num)-1});
-    }
-    _renderAddedView(i) {
-      return (
-       <View key={i} style={styles.view}>
-          <Text style={{color:'#fff'}}>{i}</Text>
-        </View>
-     );
-    }
-    render() {
-       this.state.views.length=0;
-       for(var i=0;i<this.state.num;i++){
-          this.state.views.push(this._renderAddedView(i));
-       }
-     return (
-      <View style={{marginTop:20,margin:10}}>
+    return (
+      <View style={{ marginTop: 20, margin: 10 }}>
         <Text style={styles.welcome}>
             LayoutAnimation实例演示
         </Text>
-        <CustomButton text="添加View"  onPress={this._onPressAddView.bind(this)}/>
-        <CustomButton text="删除View"  onPress={this._onPressRemoveView.bind(this)}/>
+        <CustomButton text="添加View" onPress={this._onPressAddView.bind(this)}/>
+        <CustomButton text="删除View" onPress={this._onPressRemoveView.bind(this)}/>
         <View style={styles.viewContainer}>
           {this.state.views}
         </View>
@@ -102,23 +102,24 @@ export default class LayoutAnimationDemo extends Component {
     );
   }
 }
+
 const styles = StyleSheet.create({
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
+    margin: 10
   },
-   button: {
-    margin:5,
+  button: {
+    margin: 5,
     backgroundColor: 'white',
     padding: 15,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#cdcdcd',
+    borderBottomColor: '#cdcdcd'
   },
   viewContainer: {
     flex: 1,
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexWrap: 'wrap'
   },
   view: {
     height: 50,
@@ -126,16 +127,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     margin: 8,
     alignItems: 'center',
-    justifyContent: 'center',
-  },
+    justifyContent: 'center'
+  }
 });
-
-// var route = {
-//   key: 'LayoutAnimationDemo',
-//   component: LayoutAnimationDemo,
-//   title: '基于布局的动画',
-// };
-
-// module.exports = {
-//   route: route,
-// }

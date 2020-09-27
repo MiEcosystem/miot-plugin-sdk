@@ -38,10 +38,13 @@ class IAudio {
    * 开始录音
    * 在Android平台下 由于需要动态获取录音权限 使用方法请参考 请参考 com.xiaomi.demo 中 MHAudioDemo 的用法
    * @param {string} audioName  保存文件名，如 audio.mp3
-   * @param {json} settings 配置参数{ AVSampleRateKey 采样率 默认44100，
+   * @param {json} settings 配置参数{ 
+   *                                RecordType: 录制类型 audioRecord mediaRecord  only worked for android
+   *                                AVSampleRateKey 采样率 默认44100，
    *                                AVNumberOfChannelsKey 声道，默认2，
    *                                AVLinearPCMBitDepthKey 音频编码比特率 默认16,
-   *                                AVFormatIDKey 编码格式(AMR,AMR_WB,MPEG4AAC,MPEG4CELP,MPEG4HVXC,MPEG4TwinVQ,AC3,60958AC3),
+   *                                AVFormatIDKey 编码格式(AMR,AMR_WB,MPEG4AAC,MPEG4CELP,MPEG4HVXC,MPEG4TwinVQ,AC3,60958AC3 ; 
+   *                                              recordType为audioRecord时，可以指定录制G711格式音频，设置AVFormatIDKey即可，默认是pcm裸数据), 仅仅适用于Android端，且不支持AAC;
    *                                AVEncoderAudioQualityKey 音质(Min,Low,Medium,High,Max)
    *                              }
    *
@@ -52,6 +55,7 @@ class IAudio {
    * import { PermissionsAndroid, Platform } from 'react-native';
    *
    * var settings = {
+   *   RecordType: mediaRecord
    *   AVFormatIDKey: 'audioFormatLinearPCM',
    *   AVSampleRateKey: 9500,
    *   AVNumberOfChannelsKey: 2,
@@ -95,8 +99,17 @@ class IAudio {
   }
   /**
    * 开始播放
-   * @param {string} audioName 文件名
-   * @param {json} settings 配置参数 updateAudioPlayerTimeInterval 回调间隔, audioPlayerUid 音频的唯一标识
+   * @param {string} audioName  保存文件名，如 audio.mp3
+   * @param {json} settings 配置参数{ 
+   *                                playerType: 录制类型 mediaPlayer playerType   only worked for android
+   *                                AVSampleRateKey 采样率 默认44100，
+   *                                AVNumberOfChannelsKey 声道，默认2，
+   *                                AVLinearPCMBitDepthKey 音频编码比特率 默认16,
+   *                                AVFormatIDKey 编码格式(AMR,AMR_WB,MPEG4AAC,MPEG4CELP,MPEG4HVXC,MPEG4TwinVQ,AC3,60958AC3 ; 
+   *                                              playerType为playerType时，可以指定录制G711格式音频，设置AVFormatIDKey即可，默认是pcm裸数据), 仅仅适用于Android端，且不支持AAC;
+   *                                AVEncoderAudioQualityKey 音质(Min,Low,Medium,High,Max)
+   *                              }
+   *
    * @return {Promise}
    */
   @report
