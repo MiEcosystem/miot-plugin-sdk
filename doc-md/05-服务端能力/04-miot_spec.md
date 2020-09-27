@@ -24,6 +24,7 @@ Service.spec.getSpecString(xxx).then(res => {
         * [.getPropertiesValue(params, datasource)](#module_miot/service/spec..ISpec+getPropertiesValue) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
         * [.setPropertiesValue(params)](#module_miot/service/spec..ISpec+setPropertiesValue) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
         * [.doAction(params)](#module_miot/service/spec..ISpec+doAction) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
+        * [.reportPropChanged(params)](#module_miot/service/spec..ISpec+reportPropChanged) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
         * [.getSpecString(did)](#module_miot/service/spec..ISpec+getSpecString) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
         * [.getCurrentSpecValue(did)](#module_miot/service/spec..ISpec+getCurrentSpecValue) ⇒
 
@@ -39,6 +40,7 @@ Service.spec.getSpecString(xxx).then(res => {
     * [.getPropertiesValue(params, datasource)](#module_miot/service/spec..ISpec+getPropertiesValue) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
     * [.setPropertiesValue(params)](#module_miot/service/spec..ISpec+setPropertiesValue) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
     * [.doAction(params)](#module_miot/service/spec..ISpec+doAction) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
+    * [.reportPropChanged(params)](#module_miot/service/spec..ISpec+reportPropChanged) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
     * [.getSpecString(did)](#module_miot/service/spec..ISpec+getSpecString) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
     * [.getCurrentSpecValue(did)](#module_miot/service/spec..ISpec+getCurrentSpecValue) ⇒
 
@@ -102,6 +104,22 @@ code 具体表示什么意思可以查看： https://iot.mi.com/new/doc/05-米�
 | Param | Type | Description |
 | --- | --- | --- |
 | params | <code>JSON</code> | {did: action.did, siid: action.siid, aiid: action.iid, in: action.params},其中，action.params为数组。例如 {did: 1, siid: 1, aiid: 1, in: [17,"shanghai"]} |
+
+
+* * *
+
+<a name="module_miot/service/spec..ISpec+reportPropChanged"></a>
+
+#### iSpec.reportPropChanged(params) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
+该接口用来上报设备属性，一般供蓝牙设备使用
+
+**Kind**: instance method of [<code>ISpec</code>](#module_miot/service/spec..ISpec)  
+**Returns**: <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code> - {"results": [{"did": "xxx", "siid": 1, "piid": 1, "code": 0}]}  
+**Since**: SDK10045  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>JSON</code> | {"props": [{"did": "xxx", "siid": 1, "piid": 1, "value": "xxx(参考spec定义的类型设置)", "tid": 123(与网关接口定义一致)}], "version": ""} |
 
 
 * * *

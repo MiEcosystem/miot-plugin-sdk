@@ -21,6 +21,7 @@ import { report } from "../decorator/ReportDecorator";
 const SET = "/miotspec/prop/set";
 const GET = "/miotspec/prop/get";
 const ACTION = "/miotspec/action";
+const PROP_CHANGED = "/v2/miotspec/prop_changed";
 /**
 * spec 中的方法
 * @interface
@@ -74,6 +75,16 @@ class ISpec {
      */
   @report
   doAction(params) {
+     return Promise.resolve(null);
+  }
+  /**
+   * 该接口用来上报设备属性，一般供蓝牙设备使用
+   * @since SDK10045
+   * @param {JSON} params {"props": [{"did": "xxx", "siid": 1, "piid": 1, "value": "xxx(参考spec定义的类型设置)", "tid": 123(与网关接口定义一致)}], "version": ""}
+   * @return {Promise<JSON>} {"results": [{"did": "xxx", "siid": 1, "piid": 1, "code": 0}]}
+   */
+  @report
+  reportPropChanged(params) {
      return Promise.resolve(null);
   }
   /**
