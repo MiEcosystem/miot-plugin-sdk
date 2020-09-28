@@ -1,5 +1,5 @@
 'use strict';
-import { Device, DeviceEvent, Package } from 'miot';
+import { Device, DeviceEvent, Package, DarkMode } from 'miot';
 import Host from 'miot/Host';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -8,6 +8,8 @@ import ListItem from '../ListItem/ListItem';
 import NavigationBar from '../NavigationBar';
 import Separator from '../Separator';
 import { secondAllOptions, SETTING_KEYS, AllOptions, AllOptionsWeight } from "./CommonSetting";
+import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
+import DynamicColor, { dynamicColor } from 'miot/ui/Style/DynamicColor';
 import { getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
 /**
@@ -86,6 +88,9 @@ export default class MoreSetting extends React.Component {
     }
     if (!navigationBarStyle) {
       navigationBarStyle = {};
+      if (DarkMode.getColorScheme() === 'dark') {
+        navigationBarStyle.backgroundColor = 'xm#1a1a1a';
+      }
     }
     return {
       header:
@@ -255,7 +260,7 @@ export default class MoreSetting extends React.Component {
           <View style={[styles.blank, { borderTopWidth: 0 }]} />
           {
             items.map((item, index) => {
-              const showSeparator = index !== items.length - 1;
+              const showSeparator = false;// index !== items.length - 1;
               return (
                 <ListItem
                   key={item.title + index}
@@ -269,6 +274,7 @@ export default class MoreSetting extends React.Component {
                   titleStyle={itemStyle.titleStyle}
                   subtitleStyle={itemStyle.subtitleStyle}
                   valueStyle={itemStyle.valueStyle}
+                  containerStyle={itemStyle.containerStyle}
                   dotStyle={itemStyle.dotStyle}
                   titleNumberOfLines={itemStyle.titleNumberOfLines}
                   subtitleNumberOfLines={itemStyle.subtitleNumberOfLines}
@@ -280,20 +286,20 @@ export default class MoreSetting extends React.Component {
               );
             })
           }
-          <Separator />
+          {/* <Separator /> */}
         </ScrollView>
       </View>
     );
   }
 }
-const styles = StyleSheet.create({
+const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: Styles.common.backgroundColor,
+    backgroundColor: new DynamicColor(Styles.common.backgroundColor, '#000'),
     flex: 1
   },
   blank: {
     height: 8,
-    backgroundColor: Styles.common.backgroundColor,
+    backgroundColor: new DynamicColor(Styles.common.backgroundColor, '#000'),
     borderTopColor: Styles.common.hairlineColor,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomColor: Styles.common.hairlineColor,
