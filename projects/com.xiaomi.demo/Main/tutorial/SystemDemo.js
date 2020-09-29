@@ -249,8 +249,12 @@ export default class SystemDemo extends React.Component {
   }
 
   componentWillMount() {
+    this.sharkCount = 0;
     this.volumeListener = VolumeChangeEvent.onVolumeChange.addListener((result) => {
       console.log(`VolumeChangeEvent getResult:${ JSON.stringify(result) }`);
+      if (result && result.result) {
+        alert(`监听到音量变化:${ result.result.volume }`);
+      }
     });
     this.compassListener = CompassChangeEvent.onCompassChange.addListener((result) => {
       console.log(`CompassChangeEvent getResult:${ JSON.stringify(result) }`);
@@ -261,8 +265,9 @@ export default class SystemDemo extends React.Component {
     this.accelerometerListener = AccelerometerChangeEvent.onAccelerometerChange.addListener((result) => {
       console.log(`AccelerometerChangeEvent getResult:${ JSON.stringify(result) }`);
     });
-    this.shakeListener = ShakeEvent.onShake.addListener((result) => {
-      console.log(`ShakeEvent getResult:${ JSON.stringify(result) }`);
+    this.shakeListener = ShakeEvent.onShake.addListener(() => {
+      console.log(`ShakeEvent`);
+      alert(`摇一摇次数:${ ++this.sharkCount }`);
     });
   }
 
