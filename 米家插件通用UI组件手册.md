@@ -221,6 +221,7 @@
 | `NavigationBar.ICON.SHARE`        | 分享          | ![](./UIDocImages/navigation/share.png)        |
 | `NavigationBar.ICON.EDIT`         | 编辑          | ![](./UIDocImages/navigation/edit.png)        | ❗️SDK_10040新增 |
 | `NavigationBar.ICON.RECORD`         | 记录          | ![](./UIDocImages/navigation/record.png)        | ❗️SDK_10043新增 |
+| `NavigationBar.ICON.ORIENTATION`         | 设备方向          | ![](./UIDocImages/navigation/orientation.png)        | ❗️SDK_10045新增 |
 
 ### 和`Titlebar` 对比
 
@@ -238,7 +239,7 @@
 
 ### 预览
 
-![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_9a70b4bc22847b4a6492ec09dcb0ce3b.png)
+![](./UIDocImages/listItem1.png)
 
 ### 基本信息
 
@@ -285,6 +286,7 @@
 | titleStyle | <code>style</code> | 标题的自定义样式 |
 | subtitleStyle | <code>style</code> | 副标题的自定义样式 |
 | valueStyle | <code>style</code> | 右侧文案的自定义样式 |
+| leftIcon   | <code>ImageSourcePropType</code>  | 10045新增 左侧自定义图标 |
 
 [⬆️回到目录](#目录)
 
@@ -294,7 +296,7 @@
 
 ### 预览
 
-![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_77f18354bfb78e11440c2028f6f4766e.png)
+![](./UIDocImages/listItemWithSwitch.png)
 
 ### 基本信息
 
@@ -325,8 +327,37 @@
 
 ### 参数
 
+#### TYPE(弹窗的类型)
 | Name | Type | Description |
 | --- | --- | --- |
+| SWITCH | <code>string</code> | 开关 |
+| BUTTON | <code>string</code> | 按钮 |
+| CHOICE | <code>string</code> | 单选 |
+| SORT | <code>string</code> | 排序 |
+
+#### buttonOption(按钮选项)
+| Name | Type | Description |
+| --- | --- | --- |
+| title | <code>string</code> | 按钮标题 |
+| onPress | <code>function</code> | 点按事件 |
+
+#### choiceOption(单选选项)
+| Name | Type | Description |
+| --- | --- | --- |
+| checkedColor |  <code>string</code> | 按钮打开时的背景颜色 |
+| onValueChange | <code>function</code> | 切换事件 |
+| checked | <code>bool</code> | 是否勾选，默认 `false` |
+
+#### sortOption(排序选项)
+| Name | Type | Description |
+| --- | --- | --- |
+| onPress | <code>function</code> | 点按事件 |
+| onLongPress | <code>function</code> | 长按事件 |
+
+
+| Name | Type | Description |
+| --- | --- | --- |
+| type | <code>TYPE</code> | 10045新增 右侧的图标类型，默认为开关 |
 | title | <code>string</code> | 左侧主标题 |
 | subtitle | <code>string</code> | 左侧副标题，主标题下方 |
 | valueText | <code>string</code> | 主标题右侧文案 |
@@ -343,6 +374,10 @@
 | switchStyle | <code>style</code> | 开关样式，仅支持宽高 |
 | onTintColor |  <code>string</code> | 开关按钮打开时的背景颜色 |
 | tintColor | <code>string</code> |  开关按钮关闭时的背景颜色 |
+| leftIcon   | <code>ImageSourcePropType</code>  | 10045新增 左侧自定义图标 |
+| buttonOption | <code>object</code> | 10045新增 按钮选项 |
+| choiceOption | <code>object</code> | 10045新增 单选选项 |
+| sortOption | <code>object</code> | 10045新增 排序选项 |
 
 [⬆️回到目录](#目录)
 
@@ -352,7 +387,7 @@
 
 ### 预览
 
-![](http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_png_3b654d16a8d8e3044829a7a67d96456d.png)
+![](./UIDocImages/listItemWithSlider1.png)
 
 ### 基本信息
 
@@ -396,7 +431,7 @@
 | sliderProps | <code>object</code> | `slider` 的属性值<br />默认值<br />{<br />  minimumValue:0,<br />  maximumValue:100,<br />  step:1,<br />  value:50<br />}<br />`minimumValue`: 最小值<br />`maximumValue`: 最大值<br />`step`: 步长<br />`value`: 当前值 |
 | showWithPercent | <code>bool</code> | 是否以百分比显示当前值，默认值 `true` |
 | unit | `string` | 当前值的单位。`showWithPercent = true` 将不显示单位<br />(`❗️SDK_10020`新增) |
-| sliderStyle | <code>object</code> | `slider` 的自定义样式<br />默认值<br />{<br />minimumTrackTintColor: "#32BAC0",<br />maximumTrackTintColor: "rgba(0,0,0,0.15)",<br />thumbTintColor: "#32BAC0",<br />style: {},<br />trackStyle: { height: 2, borderRadius: 1 },<br />thumbStyle: { width: 24, height: 24, borderRadius: 12 }<br />}<br />`minimumTrackTintColor`: slider 左侧已填充颜色<br />`maximumTrackTintColor`: slider 右侧未填充颜色<br />`thumbTintColor`: 可移动圆圈的填充颜色<br />`style`: slider 容器的自定义样式<br />`trackStyle`: 轨的自定义样式<br />`thumbStyle`: 可移动圆圈的自定义样式 |
+| sliderStyle | <code>object</code> | `slider` 的自定义样式<br />默认值<br />{<br />minimumTrackTintColor: "#32BAC0",<br />maximumTrackTintColor: "rgba(0,0,0,0.15)",<br />thumbTintColor: "#32BAC0",<br />style: {},<br />trackStyle: { height: 2, borderRadius: 1 },<br />thumbStyle: { width: 24, height: 24, borderRadius: 12 }<br />}<br />`minimumTrackTintColor`: slider 左侧已填充颜色<br />`maximumTrackTintColor`: slider 右侧未填充颜色<br />`thumbTintColor`: 可移动圆圈的填充颜色<br />`style`: slider 容器的自定义样式--10045新版不可用<br />`trackStyle`: 轨的自定义样式--10045新版不可用<br />`thumbStyle`: 可移动圆圈的自定义样式--10045新版不可用 |
 | onValueChange | `function` | 滑动回调函数，返回实时的滑动值(`❗️SDK_10020`新增) |
 | onSlidingComplete | <code>function</code> | 滑动结束回调函数 |
 | disabled | <code>bool</code> | 是否禁用滑动，默认值 `false` |
@@ -405,6 +440,7 @@
 | valueStyle | <code>style</code> | `value`的自定义样式 |
 | showSeparator | <code>bool</code> | 是否显示分割线，默认值 `true` |
 | separator | <code>component</code> | 自定义分割线，不传将显示默认样式的分割线 |
+| useNewType | <code>bool</code> | 10045新增 是否使用新版滑条, 默认false, 10045后 * 必须 * 使用新版滑条 老版滑条将被废弃 |
 
 [⬆️回到目录](#目录)
 
@@ -1566,6 +1602,11 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 这些问题的解决依赖于两个平台的APP发版，十分不灵活，因此我们用纯JS实现了一组弹窗，并抽象出通用的弹窗容器，允许开发者在满足设计规范的同时自定义弹窗内容。以下所有的弹窗都是基于`AbstractDialog`实现，如果开发者在实现自定义弹窗的时候有任何问题，可以阅读源码参考。
 
 ### 预览
+旧版弹窗： 10045后 *必须* 使用新样式 旧样式将被废弃
+
+![](./UIDocImages/abstractDialog.png)
+
+新版弹窗：
 
 ![](./UIDocImages/abstractDialog2.png)
 
@@ -1633,8 +1674,15 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 | Name     | Type                  | Description        |
 | -------- | --------------------- | ------------------ |
 | text     | <code>string</code>   | 按钮的文字         |
-| style    | <code>style</code>    | 按钮的样式         |
-| callback | <code>function</code> | 点击按钮的回调函数 |
+| style    | <code>style</code>    | 按钮的样式 10045更新：此处设置文字颜色无效     |
+| callback | <code>function</code> | 点击按钮的回调函数  |
+| allowFontScaling | <code>bool</code> | 10040新增 text是否支持大字体显示，即是否随系统字体大小变化而变化, 默认`true` |
+| numberOfLines | <code>number</code> | 10040新增 text文字的行数，默认 undefined (兼容旧版)  10044更新:按钮文字最多显示一行   |
+| colorType | <code>string</code> | 10045新增 按钮的几种颜色类型 'blueLayerWhite'蓝底白字 , 'grayLayerBlack'灰底黑字, 'grayLayerBlue' 灰底蓝字 |
+| disabled | <code>bool</code> | 10045新增 设为true，禁止交互 |
+| backgroundColor | <code>{ bgColorNormal: string; bgColorPressed: string }</code> | 10045新增 自定义按钮背景颜色 |
+| titleColor | <code>string</code>   | 10045新增 文字颜色     |
+
 
 | Param         | Type                                            | Description                                                  |
 | ------------- | ----------------------------------------------- | ------------------------------------------------------------ |
@@ -1649,6 +1697,7 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 | buttons       | [<code>Array&lt;Button&gt;</code>](#button按钮) | 按钮数组，定义底部按钮的属性，只能显示1～2个按钮，多传将失效。默认左取消右确定，左灰右绿，点击回调都是隐藏 Modal |
 | showButton    | <code>bool</code>                               | 是否显示按钮，默认`true`                                     |
 | onDismiss     | <code>function</code>                           | 点击`Modal`内容外面/取消按钮/确定按钮，Modal隐藏时的回调函数 |
+| useNewTheme   | <code>bool</code>                               | 10045新增 是否使用新样式，默认false  10045后 *! 必须 !* 使用新样式 旧样式将被废弃 |
 
 [⬆️回到目录](#目录)
 
@@ -1658,7 +1707,7 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 
 ### 预览
 
-![](./UIDocImages/loadingdialog.gif)
+![](./UIDocImages/loadingDialog.png)
 
 ### 基本信息
 
@@ -1699,7 +1748,7 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 
 ### 预览
 
-![](./UIDocImages/progressdialog.gif)
+![](./UIDocImages/progressDialog.png)
 
 ### 基本信息
 
@@ -1748,13 +1797,17 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 
 ### 预览
 
-![](./UIDocImages/messagedialog.png)
+老版样式：
 
 ![](./UIDocImages/messagedialog1.png)
 
-![](./UIDocImages/messagedialog2.png)
+新版样式：
 
-![](./UIDocImages/messagedialog3.png)
+![](./UIDocImages/messageDialog4.png)
+
+![](./UIDocImages/messageDialog2.png)
+
+![](./UIDocImages/messageDialog3.png)
 
 ### 基本信息
 
@@ -1865,6 +1918,7 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 | SIMPLE    | <code>string</code> | <code>&quot;simple&quot;</code>    | 普通，只有提示文字 |
 | UNDERLINE | <code>string</code> | <code>&quot;underline&quot;</code> | 带下划线超链接     |
 | CHECKBOX  | <code>string</code> | <code>&quot;checkbox&quot;</code>  | 带勾选框           |
+| SUBTEXT  | <code>string</code> | <code>&quot;subtext&quot;</code>    | 带附加文字         |
 
 #### Extra(下划线超链接或者勾选框需要的其他数据)
 | Name    | Type                  | Description                                        |
@@ -1880,7 +1934,7 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 | color         | <code>string</code>                                          | 下划线超链接的文字颜色 / 勾选框的勾选颜色，默认米家绿        |
 | title         | <code>string</code>                                          | 标题文字，不传或者为空字符串将不显示标题栏，默认不显示       |
 | message       | <code>string</code>                                          | 提示信息文字，可显示单行或者多行，最多**15**行               |
-| extraText     | <code>string</code>                                          | 下划线超链接的文字 / 勾选框右侧的说明文字                    |
+| extraText     | <code>string</code>                                          | 下划线超链接的文字 / 勾选框右侧的说明文字 /底部附加文字                   |
 | extra         | [<code>Extra</code>](#extra下划线超链接或者勾选框需要的其他数据) | 下划线超链接或者勾选框需要的其他数据，只对`TYPE.UNDERLINE`和`TYPE.CHECKBOX`有效 |
 | buttons       | [<code>Array&lt;Button&gt;</code>](#button按钮)              | 和`AbstractDialog`的`buttons`属性相同                        |
 | onDismiss     | <code>function</code>                                        | Modal 隐藏时的回调函数                                       |
@@ -1893,9 +1947,13 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 
 ### 预览
 
-![](./UIDocImages/inputdialog.png)
+老版弹窗：
 
 ![](./UIDocImages/inputdialog1.png)
+
+新版弹窗：
+
+![](./UIDocImages/inputdialog.png)
 
 ![](./UIDocImages/inputdialog2.png)
 
@@ -2016,9 +2074,10 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 
 | Name          | Type                  | Description              |
 | ------------- | --------------------- | ------------------------ |
-| leftText      | <code>string</code>   | 左侧说明文字             |
+| leftText      | <code>string</code>   | 左侧说明文字  10045后失效     |
 | underlineText | <code>string</code>   | 右侧下划线文字           |
 | onPress       | <code>function</code> | 点击下划线文字的回调函数 |
+| useNewTheme   | <code>bool</code>     | 是否使用新样式, 10045新增-之后*必须*使用新下划线样式(更改为输入框下方，并且不能添加左侧说明文字） |
 
 #### Input(输入框)
 
@@ -2028,6 +2087,7 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 | defaultValue   | <code>string</code>   | 初始默认文字，参考 https://facebook.github.io/react-native/docs/0.54/textinput#defaultvalue |
 | onChangeText   | <code>function</code> | 文字变化回调，参考 https://facebook.github.io/react-native/docs/0.54/textinput#onchangetext |
 | textInputProps | <code>Object</code>   | 其他 TextInput 支持的属性，参考 https://facebook.github.io/react-native/docs/0.54/textinput#props |
+| isCorrect      | <code>bool</code>     | 10045新增 输入框的结果 - 输入框边框变红，下方显示红色警示文字 |
 
 #### CheckboxData(输入框下方勾选框数据)
 
@@ -2048,6 +2108,9 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 | checkboxData  | [<code>CheckboxData</code>](#CheckboxData输入框下方勾选框数据) | 输入框下方的数据，包括勾选状态，描述文字，只对 `TYPE.CHECKBOX` 和 `TYPE.BOTH` 有效 |
 | buttons       | [<code>Array&lt;Button&gt;</code>](#button按钮)              | 和`AbstractDialog`的`buttons`属性相同                        |
 | onDismiss     | <code>function</code>                                        | Modal 隐藏时的回调函数                                       |
+| isCorrect     | <code>bool</code> | 10045新增 弹窗的结果 - 副标题下会显示红色警示文字 |
+| warnText      | <code>string</code>  | 10045新增 副标题下的红色警示文字 |
+| inputWarnText | <code>string</code>  | 10045新增 输入框下的红色警示文字 |
 
 [⬆️回到目录](#目录)
 
@@ -2057,7 +2120,7 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 
 ### 预览
 
-![](./UIDocImages/pincodedialog1.gif)
+![](./UIDocImages/pincodeDialog.png)
 
 ### 基本信息
 
@@ -2124,7 +2187,7 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 
 ![](./UIDocImages/sharedialog.png)
 
-![](./UIDocImages/sharedialog.gif)
+![](./UIDocImages/sharedialog1.png)
 
 ### 基本信息
 
@@ -2176,7 +2239,9 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 | options | [<code>Array&lt;Opiton&gt;</code>](#Opiton分享选项) | 分享选项，一页最多显示**8个**，当可选项**>8个**时，允许左右滑动分页 |
 | buttons | [<code>Array&lt;Button&gt;</code>](#button按钮)    | 和`AbstractDialog`的`buttons`属性相同    |
 | onDismiss | <code>function</code> | Modal 隐藏时的回调函数 |
-
+| extraText | <code>string</code>  | 10045新增 勾选框右侧的说明文字 无说明文字则无勾选框  |
+| checkColor | <code>string</code> | 10045新增 勾选框的勾选颜色，默认米家绿  |
+| checked | <code>bool</code>  | 10045新增 勾选框的初始状态 |
 [⬆️回到目录](#目录)
 
 ***
@@ -2185,7 +2250,7 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 
 ### 预览
 
-![](./UIDocImages/actionsheet.png)
+![](./UIDocImages/actionSheet.png)
 
 ### 基本信息
 
@@ -2255,9 +2320,9 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 
 ### 预览
 
-![](./UIDocImages/choicedialog.gif)
+![](./UIDocImages/choiceDialog.png)
 
-![](./UIDocImages/choicedialog1.gif)
+![](./UIDocImages/choiceDialog1.png)
 
 ### 基本信息
 
