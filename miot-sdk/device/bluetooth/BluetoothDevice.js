@@ -100,6 +100,16 @@ export class IBluetooth {
   get isConnecting() {
      return  false
   }
+  /**
+   * 蓝牙设备是否正在OTA中
+   * @since 10044
+   * @member
+   * @type {boolean}
+   * @readonly
+   */
+  get doingOTA() {
+     return  false
+  }
     /**
      * 打开蓝牙链接. option参数peripheralID为iOS 平台的可选参数，因为iOS平台无法获取普通 BLE 蓝牙设备的 Mac
      * peripheralID 可通过 startScan（）搜索周边蓝牙设备获取（如设备OTA中，设备固件切换，无小米蓝牙协议相关服务时需建立连接），或通过retrievePeripheralsWithServicesForIOS（）搜索已连接设备获取（如可穿戴长连接设备，无法发送 mibeacon）

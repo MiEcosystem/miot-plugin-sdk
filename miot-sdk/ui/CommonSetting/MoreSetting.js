@@ -1,5 +1,5 @@
 'use strict';
-import { Device, DeviceEvent, Package } from 'miot';
+import { Device, DeviceEvent, Package, DarkMode } from 'miot';
 import Host from 'miot/Host';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -7,7 +7,9 @@ import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
 import NavigationBar from '../NavigationBar';
 import Separator from '../Separator';
-import { secondAllOptions, SETTING_KEYS, AllOptions } from "./CommonSetting";
+import { secondAllOptions, SETTING_KEYS, AllOptions, AllOptionsWeight } from "./CommonSetting";
+import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
+import DynamicColor, { dynamicColor } from 'miot/ui/Style/DynamicColor';
 import { getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
 /**
@@ -86,6 +88,9 @@ export default class MoreSetting extends React.Component {
     }
     if (!navigationBarStyle) {
       navigationBarStyle = {};
+      if (DarkMode.getColorScheme() === 'dark') {
+        navigationBarStyle.backgroundColor = 'xm#1a1a1a';
+      }
     }
     return {
       header:
@@ -166,20 +171,15 @@ export default class MoreSetting extends React.Component {
   }
   UNSAFE_componentWillMount() {
     this._deviceTimeZoneChangedListener = DeviceEvent.deviceTimeZoneChanged.addListener((device) => {
-      // this.state.timeZone = device.timeZone;
       // this.moreSetting = this.getMoreSetting(this.state);
       // this.forceUpdate();
-      this.moreSetting = this.getMoreSetting({
-        ...this.state,
-        timeZone: device.timeZone
-      });
-      this.setState({
-        timeZone: device.timeZone
-      });
+      this.getDeviceTimeZone();
     });
   }
   componentDidMount() {
-    // android 无法直接获取常量 Device.timeZone
+    this.getDeviceTimeZone();
+  }
+  getDeviceTimeZone() {
     Device.getDeviceTimeZone()
       .then((result) => {
         console.log(result);
@@ -215,14 +215,34 @@ export default class MoreSetting extends React.Component {
     const requireKeys2 = [secondAllOptions.LEGAL_INFO, secondAllOptions.ADD_TO_DESKTOP];
     let options = this.secondOptions.filter((key) => key && Object.values(second_options).includes(key)); // 去掉杂质
     options = [...new Set(options)]; // 去除重复
-    let keys = [...requireKeys1, ...options, ...requireKeys2];
+    let keys = [...requireKeys1, ...options, ...requireKeys2, ...(this.props.navigation.state.params.secondCustomOptions || [])];
     keys = [...new Set(keys)]; // 去重
     if (Device.isOwner === false) {
       keys = keys.filter((key) => secondSharedOptions[key]); // 如果是共享设备或者家庭设备，需要过滤一下
     }
     keys = keys.filter((key) => !this.excludeRequiredOptions.includes(key));
     keys = keys.filter((key) => !(excludeOptions[key] || []).includes(Device.type));
-    const items = keys.map((key) => this.moreSetting[key]).filter((item) => {
+    keys.sort((keyA, keyB) => {
+      let weightA, weightB;
+      if (typeof keyA === 'string') {
+        weightA = AllOptionsWeight[keyA] || 0;
+      } else {
+        weightA = keyA.weight || 0;
+      }
+      if (typeof keyB === 'string') {
+        weightB = AllOptionsWeight[keyB] || 0;
+      } else {
+        weightB = keyB.weight || 0;
+      }
+      return weightA - weightB;
+    });
+    const items = keys.map((key) => {
+      if (typeof key !== 'string') {
+        const item = key;
+        return item;
+      }
+      return this.moreSetting[key];
+    }).filter((item) => {
       return item && !item.hide;
     });
     let itemStyle;
@@ -240,7 +260,7 @@ export default class MoreSetting extends React.Component {
           <View style={[styles.blank, { borderTopWidth: 0 }]} />
           {
             items.map((item, index) => {
-              const showSeparator = index !== items.length - 1;
+              const showSeparator = false;// index !== items.length - 1;
               return (
                 <ListItem
                   key={item.title + index}
@@ -254,6 +274,7 @@ export default class MoreSetting extends React.Component {
                   titleStyle={itemStyle.titleStyle}
                   subtitleStyle={itemStyle.subtitleStyle}
                   valueStyle={itemStyle.valueStyle}
+                  containerStyle={itemStyle.containerStyle}
                   dotStyle={itemStyle.dotStyle}
                   titleNumberOfLines={itemStyle.titleNumberOfLines}
                   subtitleNumberOfLines={itemStyle.subtitleNumberOfLines}
@@ -265,20 +286,20 @@ export default class MoreSetting extends React.Component {
               );
             })
           }
-          <Separator />
+          {/* <Separator /> */}
         </ScrollView>
       </View>
     );
   }
 }
-const styles = StyleSheet.create({
+const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: Styles.common.backgroundColor,
+    backgroundColor: new DynamicColor(Styles.common.backgroundColor, '#000'),
     flex: 1
   },
   blank: {
     height: 8,
-    backgroundColor: Styles.common.backgroundColor,
+    backgroundColor: new DynamicColor(Styles.common.backgroundColor, '#000'),
     borderTopColor: Styles.common.hairlineColor,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomColor: Styles.common.hairlineColor,
