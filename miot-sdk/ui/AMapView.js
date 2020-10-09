@@ -105,8 +105,9 @@ export default class AMapView extends Component {
          */
       compassOrigin: PropTypes.object,
       /**
-         * 用户定位
+         * 用户定位，native未实现，待废弃
          * @member {object}
+         * @deprecated since 10046
          */
       userLocation: PropTypes.object,
       /**
