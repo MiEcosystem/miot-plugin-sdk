@@ -296,7 +296,7 @@
 
 ### 预览
 
-![](./UIDocImages/listItemWithSwitch.png)
+![](./UIDocImages/listitemwithswitch.png)
 
 ### 基本信息
 
