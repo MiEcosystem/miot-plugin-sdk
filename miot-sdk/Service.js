@@ -50,7 +50,8 @@ import Storage from './service/storage';
 import TJInfra from './service/tjinfra';
 import MiotCamera from './service/miotcamera';
 import Kookong from './service/kookong';
-import { NativeModules } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
+import JSONbig from 'json-bigint';
  const CurrentAccount = null;
 export default {
   /**
@@ -156,6 +157,21 @@ export default {
   },
   /**
    * @method callSmartHomeCameraAPI
+   * @since 10044
+   * @description 专用摄像头相关接口请求
+   * api in `miot-sdk/service/apiRepo.js`
+   * subDomain in `miot-sdk/service/cameraSubDomain.js`
+   *
+   * @param {string} api 接口地址
+   * @param {string} subDomain subDomain
+   * @param {bool}   post 是否POST方法
+   * @param {string} params BigJSON.strinify(object);
+   */
+  callSmartHomeCameraAPIWithStringParam(api, subDomain, post, params) {
+     return Promise.resolve(null);
+  },
+  /**
+   * @method callSmartHomeCameraAPI
    * @since 10041
    * @description 小爱音箱相关接口请求,注意此请求传的是一个对象，里面部分对象有默认值，可不传
    * @param {string} host 请求的host，取值normal，hd,profile,lbs,skillstore,aifile,ai,aitrain,grayupgrade,homealbum。表示的host分别如下...
@@ -178,7 +194,7 @@ export default {
    * @return {Promise<object>} 透传接口，直接返回服务端返回的值
  path, method = 0, params, needDevice = 1
    */
-  callXiaoaiNetworkAPI({ host = 'normal', path, method = 0, params, needDevice = 1 } = { 'host': 'normal', 'method': 0, 'needDevice': 1 }) {
+  callXiaoaiNetworkAPI({ host = 'normal', path, method = 0, params, needDevice = 1, cookie = {} } = { 'host': 'normal', 'method': 0, 'needDevice': 1, cookie: {} }) {
      return Promise.resolve(null);
   },
   /**
@@ -266,7 +282,7 @@ export default {
           reject(res);
         }
       });
-    }); 
+    });
   },
   /**
    * 某设备向服务器申请did和token

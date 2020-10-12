@@ -141,6 +141,22 @@ class IFile {
      return Promise.resolve(null);
   }
   /**
+   * 读取一定字节的文件，并转换为 Base64 编码
+   * @since 10045
+   * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
+   * @param {number} off - 在文件中读取数据的起始位置的偏移
+   * @param {number} len - 读取的最大字节数
+   * @returns {Promise}
+   * 成功时：{content:"xxx",totalLength:xxx},
+   * content为读取到的经过Base64编码后的文件内容，类型为string
+   * totalLength为文件总长度，类型为number
+   * 失败时：{"code":xxx, "message":"xxx" }
+   */
+  @report
+  readFileSegmentToBase64(fileName, off, len) {
+     return Promise.resolve(null);
+  }
+  /**
    * 写文件， 与之对应的读文件为Host.file.readFile(fileName)
    * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
    * @param {string} utf8Content - 文件内容字符串

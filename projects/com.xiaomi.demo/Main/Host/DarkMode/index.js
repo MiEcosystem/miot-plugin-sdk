@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { API_LEVEL, Package, Host, DarkMode } from 'miot';
-import { View, Text, Button } from 'react-native';
+import { DarkMode } from 'miot';
+import { View, Text, TouchableOpacity } from 'react-native';
 import DynamicColor, { dynamicColor } from 'miot/ui/Style/DynamicColor';
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
 
@@ -14,10 +14,10 @@ export default class DarkModeDemo extends React.Component {
   myListener = (value) => {
     console.log(`colorScheme from listener: ${ value.colorScheme }`);
     this.setState({ colorScheme: value.colorScheme });
+    
   }
 
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // 关闭插件所在页面native端的系统强制深色模式（Android）/miot-sdk的反色模式（iOS）,
     // 由开发者使用框架提供的接口自己适配插件的深色模式
     DarkMode.preparePluginOwnDarkMode();
@@ -29,6 +29,7 @@ export default class DarkModeDemo extends React.Component {
     this.setState({ colorScheme: currentScheme });
     this.addListener();
     console.log('用户是否在iOS端自己适配了深色模式：', DarkMode.darkModeStore.setDarkMode);
+    console.log('当前 mode：', DarkMode.getColorScheme()); // rn bug: debug 模式下始终 light
   }
 
   componentWillUnmount() {
@@ -51,20 +52,37 @@ export default class DarkModeDemo extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>使用 dynamicStyleSheet 函数配置 styles.container， 浅色背景下是白色，深色背景下是天蓝色</Text>
+        {
+          [
+            '使用 dynamicStyleSheet 函数配置 styles.container'
+          ].map((item, index) => {
+            return <Text style={[styles.buttonText, { color: this.state.colorScheme == 'dark' ? '#FFF' : '#333' }]} key={index}>{item}</Text>;
+          })
+        }
         {/* 单独适配某个组件的可以使用 dynamicColor 函数 */}
-        <Text style={{ color: dynamicColor('#000000', '#ffffff'), marginTop: 50 }}>dynamicColor函数可以取得当前模式下的色值</Text>
-        <Text style={{ marginTop: 50 }}>{JSON.stringify(this.state.colorScheme)}</Text>
-
-        <Button title={'点击取消监听浅色/深色模式'} onPress={() => {
-          this.removeListener();
-        }} />
-
-        <Text />
-
-        <Button title={'点击开始监听浅色/深色模式'} onPress={() => {
-          this.addListener();
-        }} />
+        {
+          [
+            'dynamicColor函数可以取得当前模式下的色值',
+            JSON.stringify(this.state.colorScheme)
+          ].map((item, index) => {
+            return <Text style={[styles.buttonText, { color: dynamicColor('#000000', '#ffffff') }]} key={index}>{item}</Text>;
+          })
+        }
+        {
+          [
+            ['点击取消监听浅色/深色模式', this.removeListener],
+            ['点击开始监听浅色/深色模式', this.addListener]
+          ].map((item, index) => {
+            return (
+              <TouchableOpacity key={index} style={[styles.button, {
+                backgroundColor: this.state.colorScheme == 'dark' ? '#333' : '#FFF',
+                borderColor: this.state.colorScheme == 'dark' ? '#444' : '#DDD'
+              }]} onPress={item[1].bind(this)}>
+                <Text style={[styles.buttonText, { color: this.state.colorScheme == 'dark' ? '#FFF' : '#333' }]}>{item[0]}</Text>
+              </TouchableOpacity>
+            );
+          })
+        }
       </View>
     );
   }
@@ -77,6 +95,22 @@ const styles = dynamicStyleSheet({
     padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: new DynamicColor('red', 'skyblue')
+    backgroundColor: new DynamicColor('#EEE', '#1A1A1A')
+  },
+  button: {
+    width: '90%',
+    height: 40,
+    borderRadius: 5,
+    borderColor: '#DDD',
+    borderWidth: 1,
+    backgroundColor: '#FFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20
+  },
+  buttonText: {
+    color: '#555',
+    fontSize: 14,
+    padding: 5
   }
 });

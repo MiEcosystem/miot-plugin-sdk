@@ -1,9 +1,9 @@
-import {Device, Host, Service} from "miot";
+import { Host, Service } from "miot";
 import React from "react";
-import { Dimensions, ScrollView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
-
-const { width, height } = Dimensions.get("window");
+import { ListItem } from 'miot/ui/ListItem';
+import Separator from 'miot/ui/Separator';
 
 export default class LocalServer extends React.Component {
   constructor(props) {
@@ -14,89 +14,91 @@ export default class LocalServer extends React.Component {
   }
 
   componentDidMount() {
-    Service.getServerName().then(server => {
+    Service.getServerName().then((server) => {
       this.setState({ server: server });
     });
-    Host.locale.getLocation().then(locale => {
+    Host.locale.getLocation().then((locale) => {
       this.setState({ location: JSON.stringify(locale) });
-    })
-  }
-
-  componentWillMount() {
-  }
-
-  componentWillUnmount() {
+    });
   }
 
   render() {
-    return (<View style={[styles.listContainer, styles.list]}>
-      <View style={{ flexDirection: "row" }}>
-        <ScrollView
-          contentContainerStyle={{ alignItems: "stretch", justifyContent: "center" }}>
-
-          <Text style={{ margin: 10, width: width }}> countryName:{this.state.server.countryName}</Text>
-          <Text style={{ margin: 10, width: width }}> countryCode: {this.state.server.countryCode}</Text>
-          <Text style={{ margin: 10, width: width }}> serverCode: {this.state.server.serverCode}</Text>
-
-          <Text style={{ margin: 10, width: width }}> local.language: {Host.locale.language}</Text>
-          <Text style={{ margin: 10, width: width }}> local.systemLanguage: {Host.locale.systemLanguage}</Text>
-          <Text style={{ margin: 10, width: width }}> local.timeZone: {Host.locale.timeZone}</Text>
-          <Text style={{ margin: 10, width: width }}> local.is24HourTime: {""+Host.locale.is24HourTime}</Text>
-          <Text style={{ margin: 10, width: width }}> local.location: {this.state.location}</Text>
-
-          <View>
-            <TouchableOpacity style={{marginTop: 10, height: 40, backgroundColor: "#2196F3", justifyContent: 'center', alignItems: 'center'}} onPress={(e)=>{
-              // Service.account.ID
-              Host.locale.getSystemTimeZone().then((res) => {
-                console.log("res", res)
-                alert(JSON.stringify(res))
-                }).catch((error) => {
-                  console.log("error", error)
-                  alert(JSON.stringify(error))
-                })
-              }}>
-              <Text style={{color: "#ffffff"}}>获取手机的时区信息</Text>
-            </TouchableOpacity>
-          </View>
+    return (
+      <View style={{ flex: 1 }}>
+        <Separator />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {
+            [
+              {
+                title: 'server 信息',
+                items: [
+                  ['countryName', this.state.server.countryName],
+                  ['countryCode', this.state.server.countryCode],
+                  ['serverCode', this.state.server.serverCode]
+                ]
+              },
+              {
+                title: 'locale 信息',
+                items: [
+                  ['language', Host.locale.language],
+                  ['systemLanguage', Host.locale.systemLanguage],
+                  ['timeZone', Host.locale.timeZone],
+                  ['is24HourTime', Host.locale.is24HourTime.toString()],
+                  ['location', this.state.location]
+                ]
+              }
+            ].map((section, index) => {
+              return (
+                <View key={index}>
+                  <Text style={{ margin: 5, paddingLeft: 15 }}>{section.title}</Text>
+                  {
+                    section.items.map((item, index) => {
+                      return <ListItem
+                        key={index}
+                        title={item[0]}
+                        value={item[1]}
+                        hideArrow={true}
+                      />;
+                    })
+                  }
+                </View>
+              );
+            })
+          }
+          <TouchableOpacity style={styles.button} onPress={() => {
+            Host.locale.getSystemTimeZone().then((res) => {
+              console.log("res", res);
+              alert(JSON.stringify(res));
+            }).catch((error) => {
+              console.log("error", error);
+              alert(JSON.stringify(error));
+            });
+          }}>
+            <Text style={styles.buttonText}>获取手机时区信息</Text>
+          </TouchableOpacity>
         </ScrollView>
       </View>
-    </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  listContainer: {
-    flex: 1
-  }, list: {
-    backgroundColor: "#eeeeee"
-  }, sectionHeader: {
-    backgroundColor: "#eeeeee", padding: 5, fontWeight: "500", fontSize: 11
-  }, row: {
-    backgroundColor: "white",
-    justifyContent: "center",
-    paddingHorizontal: 15,
-    paddingVertical: 8
-  }, image: {
-    width: 44, height: 44, margin: 15
-
-  }, separator: {
-    height: StyleSheet.hairlineWidth, backgroundColor: "#bbbbbb", marginLeft: 15
-  }, separatorHighlighted: {
-    height: StyleSheet.hairlineWidth, backgroundColor: "rgb(217, 217, 217)"
-  }, rowTitleText: {
-    fontSize: 17, fontWeight: "500"
-  }, rowDetailText: {
-    fontSize: 15, color: "#888888", lineHeight: 20
-  }, searchRow: {
-    backgroundColor: "#eeeeee", padding: 10
-  }, searchTextInput: {
-    backgroundColor: "white",
-    borderColor: "#cccccc",
-    borderRadius: 3,
+var styles = StyleSheet.create({
+  button: {
+    color: '#000',
+    width: '90%',
+    height: 40,
+    borderRadius: 5,
+    borderColor: '#DDD',
     borderWidth: 1,
-    paddingLeft: 8,
-    paddingVertical: 0,
-    height: 35
+    backgroundColor: '#FFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+    alignSelf: 'center'
+  },
+  buttonText: {
+    color: '#555',
+    fontSize: 14,
+    padding: 5
   }
 });

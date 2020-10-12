@@ -6,18 +6,6 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 
 export default class CheckboxDemo extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      header:
-        <TitleBar
-          type="dark"
-          title="复选框 demo"
-          style={{ backgroundColor: '#fff' }}
-          onPressLeft={() => navigation.goBack()}
-        />
-    };
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -37,6 +25,18 @@ export default class CheckboxDemo extends React.Component {
         checked: this.state.checked,
         onValueChange: (checked) => console.log(checked),
         accessible: false
+      },
+      {
+        style: { width: 22, height: 22, borderRadius: 11 },
+        checked: true,
+        checkedColor: '#32BAC0',
+        label: '8:08'
+      },
+      {
+        style: { width: 22, height: 22, borderRadius: 11 },
+        checked: true,
+        checkedColor: '#32BAC0',
+        disabled: true,
       },
       {
         style: { width: 40, height: 40, borderRadius: 20 },
