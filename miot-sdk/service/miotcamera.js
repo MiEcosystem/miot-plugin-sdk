@@ -521,6 +521,8 @@ class IMiotCamera {
   /**
    * 打开云存下载列表页面
    * @param {string} did
+   * 
+   * @since 10046
    */
   @report
   openCloudSettingDownloadListPage(did = Device.deviceID) {
@@ -534,7 +536,7 @@ class IMiotCamera {
    * 下载云存视频到 云存管理-》下载列表里
    * promise仅仅代表提交任务时是否成功；
    * 监听任务状态 需要通过EventEmitter监听 cloudVideoDownloadProgressCallbackName
-   * status: 0 下载错误  1 开始下载  2 停止下载  3 下载结束 4 下载取消
+   * status: 0 下载错误  1 开始下载  2 停止下载  3 下载结束 4 下载取消  (Android端目前仅有onFinish回调 status:3)
    * code:错误码  0代表无错误。
    * 
    * @param {*} did 
@@ -543,6 +545,7 @@ class IMiotCamera {
    * @param {*} startTime 视频的开始时间
    * @param {*} duration 视频的duration，通过播放器返回的时长或者其他方式获取到
    * 
+   * @since 10046
    */
   @report
   downloadCloudVideoIntoCloudSetting(did, fileId, isAlarmFile, startTime, duration) {
