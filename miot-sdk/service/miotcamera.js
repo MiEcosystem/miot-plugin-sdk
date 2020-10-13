@@ -532,11 +532,17 @@ class IMiotCamera {
   }
   /**
    * 下载云存视频到 云存管理-》下载列表里
+   * promise仅仅代表提交任务时是否成功；
+   * 监听任务状态 需要通过EventEmitter监听 cloudVideoDownloadProgressCallbackName
+   * status: 0 下载错误  1 开始下载  2 停止下载  3 下载结束 4 下载取消
+   * code:错误码  0代表无错误。
+   * 
    * @param {*} did 
    * @param {*} fileId 视频的fileId
    * @param {*} isAlarmFile 是否是报警视频(短视频 true)/云存视频(长视频 false)
    * @param {*} startTime 视频的开始时间
    * @param {*} duration 视频的duration，通过播放器返回的时长或者其他方式获取到
+   * 
    */
   @report
   downloadCloudVideoIntoCloudSetting(did, fileId, isAlarmFile, startTime, duration) {
@@ -546,7 +552,6 @@ class IMiotCamera {
       return Promise.reject("ios not support");
     }
   }
-  
 }
 const MiotCameraInstance = new IMiotCamera();
 export default MiotCameraInstance;
