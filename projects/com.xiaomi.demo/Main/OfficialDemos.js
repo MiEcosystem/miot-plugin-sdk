@@ -3,14 +3,13 @@
 import React from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
 
-import { Host, Device, Package, Entrance } from "miot";
+import { Host, Package, Entrance } from "miot";
 import { ListItem } from 'miot/ui/ListItem';
 import Separator from 'miot/ui/Separator';
-import { strings, Styles } from 'miot/resources';
+import { Styles } from 'miot/resources';
 import TitleBar from "miot/ui/TitleBar";
 
 export default class OfficialDemos extends React.Component {
-
 
   static navigationOptions = ({ navigation }) => {
     return {
@@ -73,17 +72,6 @@ export default class OfficialDemos extends React.Component {
           }
         ]
       ]
-      /*
-                { name: 'RN插件', device: { did: Device.deviceID, model: 'miot.plug.xm1' } },
-                { name: 'Native插件', device: { did: '98051631', model: 'mijia.camera.v3' } },
-                {
-                    name: 'RN插件 Demo列表', device: {
-                        did: Device.deviceID, model: 'miot.plug.xm1', page: 'OfficialDemos', params: {
-                            dismiss_current_plug: false
-                        }
-                    }
-                },
-            */
     };
   }
 

@@ -11,15 +11,15 @@
 // event(argMapping,config?) 静态方法  响应事件值，如下看一下使用方法
 
 'use strict';
-import React from 'react'
-import  {
-    Animated,
-    Easing,
-    View,
-    StyleSheet,
-    StatusBar,
-    Platform,
-    Text
+import React from 'react';
+import {
+  Animated,
+  Easing,
+  View,
+  StyleSheet,
+  StatusBar,
+  Platform,
+  Text
 } from 'react-native';
 
 export default class AnimTranslationDemo extends React.Component {
@@ -27,66 +27,66 @@ export default class AnimTranslationDemo extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      anim: [1,2,3].map(() => new Animated.Value(0)) // 初始化3个值
-    }
+      anim: [1, 2, 3].map(() => new Animated.Value(0)) // 初始化3个值
+    };
   }
 
   componentDidMount() {
     this.startAnimation();
   }
 
-  startAnimation(){
-    var timing = Animated.timing;
+  startAnimation() {
+    let timing = Animated.timing;
     Animated.sequence([
-        Animated.stagger(200, this.state.anim.map(left => {
-            return timing(left, {
-                toValue: 1,
-                duration: 400,
-              });
-            }).concat(
-                this.state.anim.map(left => {
-                    return timing(left, {
-                        toValue: 0,
-                        duration: 400,
-                    });
-                })
-            )), // 三个view滚到右边再还原，每个动作间隔400ms
-            Animated.delay(800), // 延迟800ms，配合sequence使用
-            timing(this.state.anim[0], {
-                toValue: 1,
-                duration: 400,
-            }),
-            timing(this.state.anim[1], {
-                toValue: -1,
-                duration: 400,
-            }),
-            timing(this.state.anim[2], {
-                toValue: 0.5,
-                duration: 400,
-            }),
-            Animated.delay(800),
-            Animated.parallel(this.state.anim.map((anim) => timing(anim, {
-                toValue: 0
-            }))), // 同时回到原位置
-            Animated.delay(800),
-        ]
+      Animated.stagger(200, this.state.anim.map((left) => {
+        return timing(left, {
+          toValue: 1,
+          duration: 400
+        });
+      }).concat(
+        this.state.anim.map((left) => {
+          return timing(left, {
+            toValue: 0,
+            duration: 400
+          });
+        })
+      )), // 三个view滚到右边再还原，每个动作间隔400ms
+      Animated.delay(800), // 延迟800ms，配合sequence使用
+      timing(this.state.anim[0], {
+        toValue: 1,
+        duration: 400
+      }),
+      timing(this.state.anim[1], {
+        toValue: -1,
+        duration: 400
+      }),
+      timing(this.state.anim[2], {
+        toValue: 0.5,
+        duration: 400
+      }),
+      Animated.delay(800),
+      Animated.parallel(this.state.anim.map((anim) => timing(anim, {
+        toValue: 0
+      }))), // 同时回到原位置
+      Animated.delay(800)
+    ]
     ).start(() => this.startAnimation());
   }
 
-  createViews(){
-    var views = this.state.anim.map(function(value, i) {
-        return (
-            <Animated.View
-                key={i}
-                style={[styles.mainContainer, styles['view' + i], {
-                    left: value.interpolate({
-                        inputRange: [0,1],
-                        outputRange: [0,200]
-                    })
-                }]}>
-                <Text style={[styles.text, styles.textView]}>平移的View{i + 1}😺</Text>
-            </Animated.View>
-        );
+  createViews() {
+    let views = this.state.anim.map(function(value, i) {
+      return (
+        <Animated.View
+          key={i}
+          style={[styles.mainContainer, styles[`view${ i }`], {
+            left: value.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 200]
+            })
+          }]}>
+          <Text style={[styles.text, styles.textView]}>平移的View{i + 1}😺</Text>
+        </Animated.View>
+      );
     });
 
     return views;
@@ -95,51 +95,43 @@ export default class AnimTranslationDemo extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-         <Text style={[styles.textView, styles.text]}>基于timing的流程控制sequence/delay/stagger/parallel演示</Text>
-         {this.createViews()}
-     </View>
+        <Text style={[styles.textView, styles.text]}>基于timing的流程控制sequence/delay/stagger/parallel演示</Text>
+        {this.createViews()}
+      </View>
     );
   }
 }
 
 var styles = StyleSheet.create({
-    container: {
-        marginTop: Platform.OS === 'ios' ? 64 : 76,
-        flexDirection:'column',
-        flex:1,
-        alignItems: 'center',
-    },
-    mainContainer: {
-      height: 40,
-      width: 120,
-      marginTop: 40,
-      flexDirection:'column',
-      alignItems: 'center',
-    },
-    view0: {
-        backgroundColor: 'red',
-    },
-    view1: {
-        backgroundColor: 'green',
-    },
-    view2: {
-        backgroundColor: 'yellow',
-    },
-    textView: {
-      marginTop: 10,
-      flexDirection:'column',
-      alignItems: 'center',
-    },
-    text: {
-        fontSize: 15,
-        textAlign: 'center'
-    }
+  container: {
+    marginTop: Platform.OS === 'ios' ? 64 : 76,
+    flexDirection: 'column',
+    flex: 1,
+    alignItems: 'center'
+  },
+  mainContainer: {
+    height: 40,
+    width: 120,
+    marginTop: 40,
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  view0: {
+    backgroundColor: 'red'
+  },
+  view1: {
+    backgroundColor: 'green'
+  },
+  view2: {
+    backgroundColor: 'yellow'
+  },
+  textView: {
+    marginTop: 10,
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  text: {
+    fontSize: 15,
+    textAlign: 'center'
+  }
 });
-
-// var route = {
-//   key: 'AnimTranslationDemo',
-//   component: AnimTranslationDemo,
-//   title: '组合动画－平行移动',
-// };
-
-

@@ -43,27 +43,27 @@ export default class AMapView extends Component {
          */
       zoomEnabled: PropTypes.bool,
       /**
-         * 是否自动暂停位置更新
+         * 是否自动暂停位置更新,海外服务器不支持
          * @member {bool}
          */
       pausesLocationUpdatesAutomatically: PropTypes.bool,
       /**
-         * 允许后台更新位置信息
+         * 允许后台更新位置信息,海外服务器不支持
          * @member {bool}
          */
       allowsBackgroundLocationUpdates: PropTypes.bool,
       /**
-         * 定位精度
+         * 定位精度,海外服务器不支持
          * @member {number}
          */
       desiredAccuracy: PropTypes.number,
       /**
-         * 设定定位的最小更新距离，即移动多远会提示移动
+         * 设定定位的最小更新距离，即移动多远会提示移动,海外服务器不支持
          * @member {number}
          */
       distanceFilter: PropTypes.number,
       /**
-         * 比例尺原点位置  
+         * 比例尺原点位置,海外服务器不支持  
          * 格式：{'x':number, 'y':number}
          * @member {object}
          */
@@ -75,7 +75,7 @@ export default class AMapView extends Component {
          */
       mapType: PropTypes.number,
       /**
-         * 设定最小更新角度。默认为1度。
+         * 设定最小更新角度。默认为1度。海外服务器不支持
          * @member {number}
          */
       headingFilter: PropTypes.number,
@@ -99,55 +99,56 @@ export default class AMapView extends Component {
          */
       userTrackingMode: PropTypes.string,
       /**
-         * 罗盘原点位置  
+         * 罗盘原点位置,海外服务器不支持  
          * 格式：{'x':number, 'y':number}
          * @member {object}
          */
       compassOrigin: PropTypes.object,
       /**
-         * 用户定位
+         * 用户定位，native未实现，待废弃
          * @member {object}
+         * @deprecated since 10046
          */
       userLocation: PropTypes.object,
       /**
-         * 地图语言的支持, 目前仅支持中英文, 默认中文
+         * 地图语言的支持, 目前仅支持中英文, 默认中文，,海外服务器不支持，语言会根据系统语言自动设置
          * 0: 表示中文;  1: 表示英文
          * @member {number}
          */
       language: PropTypes.number,
       /**
-         * 地图logo的显示位置, 默认左边底部
+         * 地图logo的显示位置, 默认左边底部,海外服务器不支持
          * 0: 左边底部;   1：中间底部;   2：右边底部;
          * @member {number}
          */
       logoPosition: PropTypes.number,
       /**
-         * 用户位置显示样式控制  
+         * 用户位置显示样式控制,海外服务器不支持  
          * 格式：{'image':'imagePath', 'imageScale': number, 'showsAccuracyRing':boolean, 'showsHeadingIndicator': boolean, 'lineWidth':number, 'fillColor': color, 'strokeColor': color, 'lineDashPattern':[]}
          * @member {object}
          */
       userLocationRepresentation: PropTypes.object,
       /**
-         * 标记点数组  
+         * 标记点数组,海外服务器不支持 
          * 格式：[{'coordinate':{latitude: number, longitude: number}, 'title':'aaa', 'subtitle':'', 'id':'', 'image':'imagePath', 'canShowCallout': true}]
          * canShowCallout 是否点击后显示title
          * @member {array}
          */
       annotations: PropTypes.array,
       /**
-         * 绘制圆形layer数组  
+         * 绘制圆形layer数组,海外服务器不支持  
          * 格式: [{'coordinate':{latitude: number, longitude: number}, 'radius':number, 'strokeColor': color, 'fillColor': color ,'id': 'string', 'lineWidth': numebr}]
          * @member {array}
          */
       circles: PropTypes.array,
       /**
-         * 绘制线条数组,默认格式  
+         * 绘制线条数组,默认格式,海外服务器不支持  
          * 格式: ['coordinates':[{latitude: number, longitude: number}], 'id':'string']
          * @member {array}
          */
       polylines: PropTypes.array,
       /**
-         * 绘制自定义线条数组  
+         * 绘制自定义线条数组,海外服务器不支持  
          * drawStyleIndexes: 颜色索引数组(使用颜色数组中的指定色),成员为number,且为非负数，负数按0处理
          * colors: 颜色数组，用于渲染线段
          * 格式: ['coordinates':[{latitude: number, longitude: number}], 'drawStyleIndexes': [], colors: [color], 'renderGradient': boolean, 'renderLineWidth': number]
@@ -155,27 +156,27 @@ export default class AMapView extends Component {
          */
       multiPolylines: PropTypes.array,
       /**
-         * 用户位置更新回调
+         * 用户位置更新回调,海外服务器不支持
          * @member {func}
          */
       onUpdateUserLocation: PropTypes.func,
       /**
-         * 点击某坐标回调
+         * 点击某坐标回调,海外服务器不支持
          * @member {func}
          */
       onSingleTappedAtCoordinate: PropTypes.func,
       /**
-         * 选中某点标记回调
+         * 选中某点标记回调,海外服务器不支持
          * @member {func}
          */
       onSelectAnnotationView: PropTypes.func,
       /**
-         * 用户缩放地图回调，将要缩放
+         * 用户缩放地图回调，将要缩放,海外服务器不支持
          * @member {func}
          */
       onMapWillZoomByUser: PropTypes.func,
       /**
-         * 用户缩放地图回调，已经缩放
+         * 用户缩放地图回调，已经缩放,海外服务器不支持
          * @member {func}
          */
       onMapDidZoomByUser: PropTypes.func,

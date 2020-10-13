@@ -145,6 +145,7 @@ const API_REPO = {
   '/v2/device/set_alarm_info': {},
   '/v2/device/get_alarm_info': {},
   '/v2/device/del_alarm_info': {},
+  '/miot/camera/app/v1/vip/statusBatch': {},
   '/miot/camera/app/v1/get/allDetectionSwitch': {},
   '/miot/camera/app/v1/put/genericEventPushSwitch': {},
   '/user/del_user_device_data_batch': {},
@@ -163,6 +164,22 @@ const API_REPO = {
   '/v2/device/get_hijack_alarm_info': {},
   '/v2/home/get_interim_file_url_pro': {},
   '/home/getfileurl_v3': {},
-  '/v2/recipes/query': {}
+  '/v2/recipes/query': {},
+  '/home/devupgrade': {},
+  '/v2/device/get_auto_upgrade_config': {},
+  '/v2/device/get_firmware_history': {},
+  '/appgateway/miot/appdeviceinfo_service/AppDeviceInfoService/get_last_online': {},
+  // 往服务器塞/get 二进制数据。
+  '/common/app/data/put': {},
+  '/common/app/data/scan': {},
+  '/common/app/data/v2/preDataGet': {},
+  '/common/app/data/remove': {},
+  '/common/app/data/modify': {},
+  '/common/app/data/get': {},
+  '/rpc/send': {},
+  '/common/app/get/mergePhotoMeta': {},
+  '/miot/camera/app/v1/modify/figure': {},
+  '/miot/camera/app/v1/delete/figure': {}, 
+  '/miot/camera/app/v1/delete/face': {}
 };
 export default API_REPO;

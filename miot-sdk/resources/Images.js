@@ -12,7 +12,11 @@ export default {
     right_arrow: require('./images/right_arrow.png'),
     close: require('./images/close.png'),
     mihome: require('./images/mihome.png'),
-    selectIcon: require('./images/select_icon.png')
+    selectIcon: require('./images/select_icon.png'),
+    ota_auto_light: require('./images/ota_auto_light.png'),
+    ota_auto_light_fail: require('./images/ota_auto_light_fail.png'),
+    ota_auto_light_success: require('./images/ota_auto_light_success.png'),
+    ota_auto_light_progress: require('./images/ota_auto_light_progress.png')
   },
   /**
    * 导航栏

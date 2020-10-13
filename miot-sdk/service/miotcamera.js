@@ -321,8 +321,8 @@ class IMiotCamera {
    * 获取通用图片接口（如云存储视频缩略图）
    * @since 10041
    * @param {string} imgId 图片唯一标识ID 如imgStoreId
-   * @param {json string} hostParams 接口信息: 如获取云存储缩略图{"prefix":"business.smartcamera.", "method":"GET", "path":"/miot/camera/app/v1/img"}   注：key固定的
-   * @param {json string} pathParams 请求参数: 如获取云存储缩略图{"did":"xxxx", "fileId":"xxxx", "stoId":"xxxxxxxx"}
+   * @param {string} hostParams json字符串，接口信息: 如获取云存储缩略图{"prefix":"business.smartcamera.", "method":"GET", "path":"/miot/camera/app/v1/img"}   注：key固定的
+   * @param {string} pathParams json字符串，请求参数: 如获取云存储缩略图{"did":"xxxx", "fileId":"xxxx", "stoId":"xxxxxxxx"}
    * @returns {Promise<String>} 文件路径
    */
   @report
@@ -482,6 +482,71 @@ class IMiotCamera {
       return Promise.reject("ios platform not support yet; to be done");
     }
   }
+  /**
+   * 设置开启/关闭ijk解码。
+   * @param {bool} isEnableIjk 是否开启ijk 一启用，所有的设备都会被启用。
+   * @param {string} did 
+   * @since 10043
+   */
+  @report
+  setUseIjkDecoderGlobal(isEnableIjk, did = Device.deviceID) {
+    if (Platform.OS == "android") {
+       return null
+    } else {
+      return Promise.reject("ios platform not support yet; to be done");
+    }
+  }
+  /**
+   * 设置speaker变声类型,    初次设置会触发初始化，后续simpleRate or channel发生改变 都不会触发初始化。
+   * @param {int} simpleRate  音频采样率  与CameraRenderView里定义的MISSSampleRate一致
+   * @param {int} type 变声类型，目前米家只提供 0 == 正常  1 == 小丑  2 == 大叔这三种类型
+   * @param {int} channel 单双通道 1 单声道， 2 立体声   默认为1
+   * @param {string} did 
+   */
+  @report
+  setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID) {
+     return null
+  }
+  /**
+   * 打开门铃的带屏设备联动页面
+   * @param {bool} isMultiChoice 
+   * @param {number} screenCount 
+   * @param {string} did 
+   * @since 10044
+   */
+  @report
+  showScreenLinkagePage(isMultiChoice, screenCount, did = Device.deviceID) {
+     return null
+  }
+  /**
+   * 打开云存下载列表页面
+   * @param {string} did
+   */
+  @report
+  openCloudSettingDownloadListPage(did = Device.deviceID) {
+    if (Platform.OS === "android") {
+       return null
+    } else {
+      return Promise.reject("ios platform not support");
+    }
+  }
+  /**
+   * 下载云存视频到 云存管理-》下载列表里
+   * @param {*} did 
+   * @param {*} fileId 视频的fileId
+   * @param {*} isAlarmFile 是否是报警视频(短视频 true)/云存视频(长视频 false)
+   * @param {*} startTime 视频的开始时间
+   * @param {*} duration 视频的duration，通过播放器返回的时长或者其他方式获取到
+   */
+  @report
+  downloadCloudVideoIntoCloudSetting(did, fileId, isAlarmFile, startTime, duration) {
+    if (Platform.OS == "android") {
+       return Promise.resolve(null);
+    } else {
+      return Promise.reject("ios not support");
+    }
+  }
+  
 }
 const MiotCameraInstance = new IMiotCamera();
 export default MiotCameraInstance;
