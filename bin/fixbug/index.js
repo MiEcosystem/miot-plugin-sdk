@@ -23,6 +23,7 @@ map.set("node_modules/react-native/Libraries/Alert/Alert.js", "Alert"); // RN61:
 map.set("node_modules/react-navigation/src/routers/createConfigGetter.js", "YeelightNavigation"); // 61升级之后 Yeelight 收藏页面的 headerTitle 显示了出来，在此将 headerTitle 设置为 “”，  Yeelight 修复后将其删掉。
 map.set("node_modules/react-native-svg/elements/Svg.js", "react-native-svg"); // 61升级之后 svg parseInt 导致宽高精度丢失，从而导致背景等不能完全填充，出现白色边框
 map.set("node_modules/react-native/Libraries/Color/normalizeColor.js", "normalizeColor");// 插件深色模式取反色的位置
+map.set("node_modules/react-native-opencv3/index.js", "opencv3-index");// opencv3 代码适配rn 61, child.type.name
 // map.set("node_modules/react-native/Libraries/Components/TextInput/TextInput.js", "TextInput");//插件深色模式输入框兼容
 module.exports = {
 

@@ -33,7 +33,9 @@ export default class FileStorage extends React.Component {
       length: 0,
       imagePath: "",
       visProgress: false,
-      progress: 0
+      progress: 0,
+      segOff: 0,
+      segLength: 1024
     };
   }
 
@@ -85,6 +87,20 @@ export default class FileStorage extends React.Component {
               value={this.state.fileName}
             />
             <TextInput
+              style={styles.input}
+              onChangeText={(text) => {
+                this.setState({ segOff: text.replace(/[^\d]+/, '') });
+              }}
+              placeholder="输入读取文件的起始位置的偏移"
+            />
+            <TextInput
+              style={styles.input}
+              onChangeText={(text) => {
+                this.setState({ segLength: text.replace(/[^\d]+/, '') });
+              }}
+              placeholder="输入读取的最大字节数"
+            />
+            <TextInput
               style={[styles.input, { button: 10, marginTop: 10, minHeight: 100, textAlignVertical: 'top' }]}
               onChangeText={(text) => {
                 this.setState({ fileContent: text });
@@ -107,7 +123,8 @@ export default class FileStorage extends React.Component {
               [
                 ["创建目录", this._mkdir],
                 ["写文件", this._writeFile],
-                ["写文件(Base64)", this._writeFileThroughBase64]
+                ["写文件(Base64)", this._writeFileThroughBase64],
+                ["复制文件", this._copyFile]
               ],
               [
                 ["向文件追加内容", this._appendFile],
@@ -115,7 +132,8 @@ export default class FileStorage extends React.Component {
               ],
               [
                 ["读文件", this._readFile],
-                ["读文件(Base64)", this._readFileToBase64]
+                ["读文件(Base64)", this._readFileToBase64],
+                ["读文件的一部分(Base64)", this._readFileSegmentToBase64]
               ],
               [
                 ["上传文件", this._uploadFile],
@@ -136,6 +154,11 @@ export default class FileStorage extends React.Component {
               [
                 ["截图并保存到相册", this._screenShotAndSaveToPhotosAlbum],
                 ["保存文件到相册", this._saveFileToPhotosAlbum]
+              ],
+              [
+                ["查询文件", this._queryFile],
+                ["pdf转图片", this._pdfToImage],
+                ["读PDF信息", this._readPdfMetaData]
               ]
             ].map((section, index) => {
               return (
@@ -181,6 +204,156 @@ export default class FileStorage extends React.Component {
     }).catch((err) => {
       alert(JSON.stringify(err, null, '\t'));
     });
+
+  }
+
+  _copyFile(){
+    let copy_params={
+      srcPath:'test.pdf',
+      dstPath:'test_copy.pdf',
+    }
+    Host.file.copyFile(copy_params).then((res) => {
+      alert(JSON.stringify(res));
+      Host.file.readFileList('').then(res=>{
+        alert(JSON.stringify(res))
+      })
+    }).catch((res) => {
+      alert(JSON.stringify(res));
+    });
+
+  }
+
+  _queryFile() {
+    let params = {
+      mimeTypes: ["application/pdf", // pdf
+        "application/msword", // word
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // docx
+        "application/vnd.ms-excel", // xls,xlt
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // xlsx
+        "application/vnd.ms-powerpoint", // ppt,pot,pps
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation", // pptx
+        "application/wps"// wps
+      ],
+      pageSize: 10,
+      pageNo: 0
+    };
+    Host.file.queryFile(params).then((res) => {
+      alert(JSON.stringify(res));
+    }).catch((err) => {
+      alert(JSON.stringify(err));
+    });
+  }
+
+  _pdfToImage() {
+    if (Host.isIOS) {
+      Host.ui.openIOSDocumentFileChoosePage().then((res) => {
+        console.log('----------queryFile:', JSON.stringify(res));
+        if (res.data && res.data.length > 0) {
+          let pdfDic = res.data[0];
+          console.log("----------loadFile:", JSON.stringify(pdfDic));
+          if (pdfDic && pdfDic['ext'] == 'pdf' && pdfDic['path']) {
+            let path = pdfDic['path'];
+            let sourcePath = `${ path }`;
+
+            let pdf_params = {
+              srcPath: sourcePath,
+              imageDir: 'pdf_image',
+              pageIndex: 464,
+              password: '123456',
+              highQuality: false
+            };
+            Host.file.pdfToImage(pdf_params).then((res) => {
+              alert(JSON.stringify(res));
+            }).catch((res) => {
+              alert(JSON.stringify(res));
+            });
+          } else {
+            alert('选择的文件不存在或不是pdf格式，请重新选择文件');
+          }
+        }
+      }).catch((err) => {
+        alert(JSON.stringify(err));
+      });
+    } else {
+      let params = {
+        mimeTypes: ["application/pdf" // pdf
+        ],
+        pageSize: 1,
+        pageNo: 0
+      };
+      Host.file.queryFile(params).then((res) => {
+        if (res && res.data) {
+          let pdf_params = {
+            srcPath: res.data[0].url,
+            imageDir: 'pdf_image',
+            pageIndex: 0,
+            password: '',
+            highQuality: false
+          };
+          Host.file.pdfToImage(pdf_params).then((res) => {
+            alert(JSON.stringify(res));
+          }).catch((res) => {
+            alert(JSON.stringify(res));
+          });
+
+        }
+      }).catch((err) => {
+        alert(JSON.stringify(err));
+      });
+    }
+  }
+
+  _readPdfMetaData() {
+    if (Host.isIOS) {
+      Host.ui.openIOSDocumentFileChoosePage().then((res) => {
+        console.log('----------queryFile:', JSON.stringify(res));
+        if (res.data && res.data.length > 0) {
+          let pdfDic = res.data[0];
+          console.log("----------loadFile:", JSON.stringify(pdfDic));
+          if (pdfDic && pdfDic['ext'] == 'pdf' && pdfDic['path']) {
+            let path = pdfDic['path'];
+            let sourcePath = `${ path }`;
+
+            let pdf_params = {
+              srcPath: sourcePath,
+              password: ''
+            };
+            Host.file.readPdfMetaData(pdf_params).then((res) => {
+              alert(JSON.stringify(res));
+            }).catch((res) => {
+              alert(JSON.stringify(res));
+            });
+          } else {
+            alert('选择的文件不存在或不是pdf格式，请重新选择文件');
+          }
+        }
+      }).catch((err) => {
+        alert(JSON.stringify(err));
+      });
+    } else {
+      let params = {
+        mimeTypes: ["application/pdf" // pdf
+        ],
+        pageSize: 1,
+        pageNo: 0
+      };
+      Host.file.queryFile(params).then((res) => {
+        if (res && res.data) {
+          let pdf_params = {
+            srcPath: res.data[0].url,
+            password: ''
+          };
+          Host.file.readPdfMetaData(pdf_params).then((res) => {
+            alert(JSON.stringify(res));
+          }).catch((res) => {
+            alert(JSON.stringify(res));
+          });
+
+        }
+      }).catch((err) => {
+        alert(JSON.stringify(err));
+      });
+    }
   }
 
   _renderFileList(item) {
@@ -254,6 +427,27 @@ export default class FileStorage extends React.Component {
           alert(err);
         } else {
           alert(JSON.stringify(err));
+        }
+      });
+  }
+
+  // base64 读内容
+  _readFileSegmentToBase64() {
+    let off = Number.isInteger(parseInt(this.state.segOff)) ? parseInt(this.state.segOff) : 0;
+    let len = Number.isInteger(parseInt(this.state.segLength)) ? parseInt(this.state.segLength) : 1024;
+    Host.file.readFileSegmentToBase64(this.state.fileName, off, len)
+      .then((res) => {
+        if (res) {
+          let totalLength = res.totalLength;
+          let base64Content = res.content;
+          alert(`off:${ off },len:${ len }\ntotalLength:${ totalLength }\ncontent:${ base64Content }`);
+        }
+      })
+      .catch((err) => {
+        if (typeof err === "string") {
+          alert(`_readFileSegmentToBase64 fail:${ err }`);
+        } else {
+          alert(`_readFileSegmentToBase64 fail:${ JSON.stringify(err) }`);
         }
       });
   }
