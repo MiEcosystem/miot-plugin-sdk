@@ -10,16 +10,16 @@ export default class DialogTest extends React.Component {
   static navigationOptions = ({ navigation }) => {
 
     return {
-      header: <TitleBar type='dark' title={'DialogTest'} style={{ backgroundColor: '#fff' }}
+      header: <TitleBar type="dark" title={'DialogTest'} style={{ backgroundColor: '#fff' }}
         onPressLeft={() => {
           navigation.goBack();
-        }} />,
+        }} />
     };
   };
 
   constructor() {
     super();
-    var timer1 = null;
+    let timer1 = null;
     this.state = {
       visMessage: false,
       visInput: false,
@@ -27,7 +27,7 @@ export default class DialogTest extends React.Component {
       visMulti: false,
       visLoading: false,
       visProgress: false,
-      progress: 0,
+      progress: 0
     };
   }
 
@@ -36,7 +36,7 @@ export default class DialogTest extends React.Component {
       <View style={styles.container}>
         <TouchableHighlight
           style={styles.rowContainer}
-          underlayColor='#838383'
+          underlayColor="#838383"
           onPress={() => {
             this.setState({ visMessage: true });
           }}>
@@ -67,7 +67,7 @@ export default class DialogTest extends React.Component {
           visible={this.state.visMessage} />
         <TouchableHighlight
           style={styles.rowContainer}
-          underlayColor='#838383'
+          underlayColor="#838383"
           onPress={() => {
             this.setState({ visInput: true });
           }}>
@@ -99,7 +99,7 @@ export default class DialogTest extends React.Component {
           visible={this.state.visInput} />
         <TouchableHighlight
           style={styles.rowContainer}
-          underlayColor='#838383'
+          underlayColor="#838383"
           onPress={() => {
             this.setState({ visSingle: true });
           }}>
@@ -134,7 +134,7 @@ export default class DialogTest extends React.Component {
           visible={this.state.visSingle} />
         <TouchableHighlight
           style={styles.rowContainer}
-          underlayColor='#838383'
+          underlayColor="#838383"
           onPress={() => {
             this.setState({ visMulti: true });
           }}>
@@ -150,18 +150,18 @@ export default class DialogTest extends React.Component {
           timeout={0}
           cancelable={false}
           dataSource={[{ 'name': 'message0', 'check': true },
-          { 'name': 'message1', 'check': true }, {
-            'name': 'message2',
-            'check': false,
-          },
-          { 'name': 'message3', 'check': false }, {
-            'name': 'message4',
-            'check': false,
-          },
-          { 'name': 'message5', 'check': false }, {
-            'name': 'message6',
-            'check': true,
-          }]}
+            { 'name': 'message1', 'check': true }, {
+              'name': 'message2',
+              'check': false
+            },
+            { 'name': 'message3', 'check': false }, {
+              'name': 'message4',
+              'check': false
+            },
+            { 'name': 'message5', 'check': false }, {
+              'name': 'message6',
+              'check': true
+            }]}
           dataKey={'name'}
           checkKey={'check'}
           cancel={'取消'}
@@ -182,7 +182,7 @@ export default class DialogTest extends React.Component {
           visible={this.state.visMulti} />
         <TouchableHighlight
           style={styles.rowContainer}
-          underlayColor='#838383'
+          underlayColor="#838383"
           onPress={() => {
             this.setState({ visLoading: true });
             setTimeout(() => {
@@ -206,7 +206,7 @@ export default class DialogTest extends React.Component {
           visible={this.state.visLoading} />
         <TouchableHighlight
           style={styles.rowContainer}
-          underlayColor='#838383'
+          underlayColor="#838383"
           onPress={() => {
             this.setState({ visProgress: true, progress: 0 });
             this.timer1 = setInterval(() => {
@@ -215,7 +215,7 @@ export default class DialogTest extends React.Component {
                 clearInterval(this.timer1);
                 this.setState({ visProgress: false });
               } else {
-                var nextProgress = this.state.progress + 1;
+                let nextProgress = this.state.progress + 1;
                 this.setState({ progress: nextProgress });
               }
             }, 40);
@@ -228,7 +228,7 @@ export default class DialogTest extends React.Component {
           }}>显示ProgressDialog</Text>
         </TouchableHighlight>
         <ProgressDialog message={'message'}
-          //title={'title'}
+          // title={'title'}
           max={100}
           cancelable={false}
           progress={this.state.progress}
@@ -239,19 +239,18 @@ export default class DialogTest extends React.Component {
           visible={this.state.visProgress} />
         <TouchableHighlight
           style={styles.rowContainer}
-          underlayColor='#838383'
+          underlayColor="#838383"
           onPress={() => {
             Alert.alert(
               'Alert Title',
               'My Alert Msg',
-
               [
                 { text: 'Ask me later', onPress: () => console.log('Ask me later pressed') },
                 { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                { text: 'OK', onPress: () => console.log('OK Pressed') },
+                { text: 'OK', onPress: () => console.log('OK Pressed') }
               ],
               { cancelable: false }
-            )
+            );
           }}>
           <Text style={{
             textAlign: 'center',
@@ -262,27 +261,27 @@ export default class DialogTest extends React.Component {
 
         <TouchableHighlight
           style={styles.rowContainer}
-          underlayColor='#838383'
+          underlayColor="#838383"
           onPress={() => {
             if (Platform.OS === 'ios') {
               ActionSheetIOS.showActionSheetWithOptions({
                 options: ['Cancel', 'message1', "message2", "message3"],
                 destructiveButtonIndex: 2,
-                cancelButtonIndex: 0,
+                cancelButtonIndex: 0
               },
-                (buttonIndex) => {
-                  if (buttonIndex === 1) { /* destructive action */ }
-                });
+              (buttonIndex) => {
+                if (buttonIndex === 1) { /* destructive action */ }
+              });
             } else {
               Alert.alert(
                 'ios 特有',
                 'android不支持',
 
                 [
-                  { text: 'OK', onPress: () => console.log('OK Pressed') },
+                  { text: 'OK', onPress: () => console.log('OK Pressed') }
                 ],
                 { cancelable: false }
-              )
+              );
             }
 
 
@@ -308,10 +307,10 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#ffffff',
     marginBottom: 0,
-    marginTop: 0,
+    marginTop: 0
   },
   textStyle: {
     color: '#333'
-  },
+  }
 });
 

@@ -4,30 +4,31 @@ import { Device, DeviceEvent, Host } from "miot";
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
-var BUTTONS = [
+let BUTTONS = [
   '测试对话框',
-  '确定',
+  '确定'
 ];
 
 export default class MoreMenu extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      header: <TitleBar type='dark' title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
-        // header: <TitleBar type='dark' title='www' style={{ backgroundColor: '#fff' }}
-        onPressLeft={() => { navigation.goBack(); }} />,
+      header: <TitleBar type="dark" title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
+        onPressLeft={() => { navigation.goBack(); }} />
     };
   };
 
   constructor(props) {
     super(props);
-    console.warn('强烈推荐使用「通用设置项」: `miot/ui/CommonSetting`, 你可以在「首页」-「教程」-「插件通用设置项」中查看使用示例')
-    var ds = new ListView.DataSource({
+    if (__DEV__ && console.warn) {
+      console.warn('强烈推荐使用「通用设置项」: `miot/ui/CommonSetting`, 你可以在「首页」-「教程」-「插件通用设置项」中查看使用示例');
+    }
+    let ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
     this._createMenuData();
     this.state = {
-      dataSource: ds.cloneWithRows(this._menuData.map((o) => (o.name))),
+      dataSource: ds.cloneWithRows(this._menuData.map((o) => (o.name)))
     };
   }
 
@@ -132,31 +133,17 @@ export default class MoreMenu extends React.Component {
       {
         'name': '获取设备列表数据',
         'func': () => {
-          Host.ui.getDevicesWithModel(Device.model).then(devices => {
+          Host.ui.getDevicesWithModel(Device.model).then((devices) => {
             alert(JSON.stringify(devices));
-          }).catch(err => {
+          }).catch((err) => {
             alert("未获取到设备");
-          })
-        }
-      },
-      {
-        'name': "开启倒计时",
-        'func': () => {
-          let setting = { onMethod: "power_on", offMethod: 'power_off', onParam: 'on', offParam: 'off', identify: 'aaaa' }
-          //   let setting = {}
-          Host.ui.openCountDownPage(false, setting);
+          });
         }
       },
       {
         'name': "开启定时",
         'func': () => {
-          Host.ui.openTimerSettingPageWithVariousTypeParams("power_on", ["on", "title"], 'off', "title")
-        }
-      },
-      {
-        'name': '打开自动化界面',
-        'func': () => {
-          Host.ui.openIftttAutoPage();
+          Host.ui.openTimerSettingPageWithVariousTypeParams("power_on", ["on", "title"], 'off', "title");
         }
       },
       {
@@ -188,39 +175,6 @@ export default class MoreMenu extends React.Component {
         'func': () => {
           Host.ui.openPhoneBluSettingPage();
         }
-      },
-      {
-        'name': '查看使用条款和隐私协议',
-        'func': () => {
-          const licenseURL = require('../Resources/raw/license_zh.html');
-          const policyURL = require('../Resources/raw/privacy_zh.html');
-          Host.ui.privacyAndProtocolReview('软件许可及服务协议', licenseURL, '隐私协议', policyURL);
-        }
-      },
-      {
-        'name': '授权使用条款和隐私协议',
-        'func': () => {
-          const licenseURL = require('../Resources/raw/license_zh.html');
-          const policyURL = require('../Resources/raw/privacy_zh.html');
-          let licenseKey = "license-" + Device.deviceID;
-          Host.storage.get(licenseKey).then((res) => {
-            // if (res === true) {
-            //   // 表示已经授权过
-            // } else {
-            Host.ui.openPrivacyLicense('软件许可及服务协议', licenseURL, '隐私协议', policyURL).then((res) => {
-              if (res) {
-                // 表示用户同意授权
-                Host.storage.set(licenseKey, true).then((res) => { });
-              }
-            }).catch((error) => {
-              console.log(error)
-            })
-            // }
-          }).catch((error) => {
-
-          });
-
-        }
       }
     ];
   }
@@ -228,11 +182,10 @@ export default class MoreMenu extends React.Component {
   componentDidMount() {
     this.listenter = DeviceEvent.deviceTimeZoneChanged.addListener((val) => {
       console.log("deviceTimeZoneChanged", val);
-    })
+    });
   }
 
   componentWillUnmount() {
-
   }
 
   render() {
@@ -245,7 +198,7 @@ export default class MoreMenu extends React.Component {
 
   _renderRow(rowData, sectionID, rowID) {
     return (
-      <TouchableHighlight underlayColor='#838383' onPress={() => this._pressRow(rowID)}>
+      <TouchableHighlight underlayColor="#838383" onPress={() => this._pressRow(rowID)}>
         <View>
           <View style={styles.rowContainer}>
             <Text style={styles.title}>{rowData}</Text>
@@ -258,7 +211,7 @@ export default class MoreMenu extends React.Component {
   }
 
   _pressRow(rowID) {
-    console.log("row" + rowID + "clicked!");
+    console.log(`row${ rowID }clicked!`);
     this._menuData[rowID].func();
   }
 
@@ -274,13 +227,12 @@ export default class MoreMenu extends React.Component {
     if (Host.isIOS)
       ActionSheetIOS.showActionSheetWithOptions({
         options: BUTTONS,
-        destructiveButtonIndex: 1,
+        destructiveButtonIndex: 1
       },
-        (buttonIndex) => {
-
-        });
+      (buttonIndex) => {
+      });
   }
-};
+}
 
 var styles = StyleSheet.create({
   container: {
@@ -292,9 +244,8 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffffff',
     marginBottom: 0,
-    marginTop: 0,
+    marginTop: 0
   },
-
   rowContainer: {
     height: 52,
     alignSelf: 'stretch',
@@ -302,25 +253,24 @@ var styles = StyleSheet.create({
     paddingLeft: 23,
     paddingRight: 23,
     alignItems: 'center',
-    flex: 1,
+    flex: 1
   },
   list: {
-    alignSelf: 'stretch',
+    alignSelf: 'stretch'
   },
-
   title: {
     fontSize: 15,
     color: '#333333',
     alignItems: 'center',
-    flex: 1,
+    flex: 1
   },
   subArrow: {
     width: 7,
-    height: 14,
+    height: 14
   },
   separator: {
     height: 1 / PixelRatio.get(),
     backgroundColor: '#e5e5e5',
-    marginLeft: 20,
+    marginLeft: 20
   }
 });

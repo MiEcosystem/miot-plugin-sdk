@@ -10,15 +10,15 @@
 // stagger(time,animations) 静态方法，执行一组动画，有可能里边的动画是同时执行。不过会有指定时间的延迟。
 // event(argMapping,config?) 静态方法  响应事件值，如下看一下使用方法
 
-import React from 'react'
-import  {
-    Animated,
-    Easing,
-    View,
-    StyleSheet,
-    StatusBar,
-    Platform,
-    Text
+import React from 'react';
+import {
+  Animated,
+  Easing,
+  View,
+  StyleSheet,
+  StatusBar,
+  Platform,
+  Text
 } from 'react-native';
 
 export default class AnimFadeInOutDemo extends React.Component {
@@ -28,7 +28,7 @@ export default class AnimFadeInOutDemo extends React.Component {
     this.state = {
       fadeInOpacity: new Animated.Value(0),
       fadeOutOpacity: new Animated.Value(1)
-    }
+    };
   }
 
   componentDidMount() {
@@ -36,67 +36,59 @@ export default class AnimFadeInOutDemo extends React.Component {
     this.startFadeOutAnimation();
   }
 
-  startFadeInAnimation(){
+  startFadeInAnimation() {
     Animated.timing(this.state.fadeInOpacity, {
-        toValue: 1, // 目标值
-        duration: 2500, // 动画时间
-        easing: Easing.linear // 缓动函数
+      toValue: 1, // 目标值
+      duration: 2500, // 动画时间
+      easing: Easing.linear // 缓动函数
     }).start(this.handleEndFadeInAnimEnd.bind(this));
   }
-  handleEndFadeInAnimEnd(){
+  handleEndFadeInAnimEnd() {
     this.state.fadeInOpacity.setValue(0);
     this.startFadeInAnimation();
   }
 
-  startFadeOutAnimation(){
+  startFadeOutAnimation() {
     Animated.timing(this.state.fadeOutOpacity, {
-        toValue: 0, // 目标值
-        duration: 2500, // 动画时间
-        easing: Easing.linear // 缓动函数
+      toValue: 0, // 目标值
+      duration: 2500, // 动画时间
+      easing: Easing.linear // 缓动函数
     }).start(this.handleEndFadeOutAnimEnd.bind(this));
   }
-  handleEndFadeOutAnimEnd(){
+  handleEndFadeOutAnimEnd() {
     this.state.fadeOutOpacity.setValue(1);
     this.startFadeOutAnimation();
   }
 
-
   render() {
-      return (
-        <View style={styles.container} >
-          <StatusBar barStyle='default' />
-          <Animated.View style={[styles.mainContianer, {opacity: this.state.fadeOutOpacity, backgroundColor: 'ghostwhite'},]}>
-              <Text style={styles.text}>淡出的效果</Text>
-          </Animated.View>
-          <Animated.View style={[styles.mainContianer, {opacity: this.state.fadeInOpacity, backgroundColor: 'honeydew'}]}>
-              <Text style={styles.text}>淡入的效果</Text>
-          </Animated.View>
-        </View>
-      );
+    return (
+      <View style={styles.container} >
+        <StatusBar barStyle="default" />
+        <Animated.View style={[styles.mainContianer, { opacity: this.state.fadeOutOpacity, backgroundColor: 'ghostwhite' }]}>
+          <Text style={styles.text}>淡出的效果</Text>
+        </Animated.View>
+        <Animated.View style={[styles.mainContianer, { opacity: this.state.fadeInOpacity, backgroundColor: 'honeydew' }]}>
+          <Text style={styles.text}>淡入的效果</Text>
+        </Animated.View>
+      </View>
+    );
   }
 }
 
 var styles = StyleSheet.create({
-    container: {
-        marginTop: Platform.OS === 'ios' ? 64 : 76,
-        flexDirection:'column',
-        flex:1,
-    },
-    mainContianer: {
-        flex: 1,
-        flexDirection:'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white',
-    },
-    text: {
-        fontSize: 30
-    }
+  container: {
+    marginTop: Platform.OS === 'ios' ? 64 : 76,
+    flexDirection: 'column',
+    flex: 1
+  },
+  mainContianer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white'
+  },
+  text: {
+    fontSize: 30
+  }
 });
-
-// var route = {
-//   key: 'AnimFadeInOutDemo',
-//   component: AnimFadeInOutDemo,
-//   title: '一般动画－淡入淡出',
-// };
-

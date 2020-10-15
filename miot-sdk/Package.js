@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 插件导航模块
- * @doc_index 2
+ * @doc_index 8
  * @doc_directory sdk
  * @module miot/Package
  * @description 扩展程序包参数, 主要来自于{@link packageInfo.json} 的配置与系统本身的特性
@@ -42,6 +42,7 @@ import PropTypes from 'prop-types';
 import { DarkMode } from 'miot/Device';
 import { SDKContextProvider } from 'miot/sdkContext';
 import { ConfigProvider } from 'mhui-rn';
+// import { NavigationEvents } from 'react-navigation';
 /**
  * @description JS端通知Native端的事件类型
  * @enum {number}
