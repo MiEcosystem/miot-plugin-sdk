@@ -327,7 +327,7 @@ Object.defineProperty(Event.prototype, "constructor", {
 });
 
 // Ensure `event instanceof window.Event` is `true`.
-if (typeof window !== "undefined" && typeof window.Event !== "undefined") {
+if (typeof window !== "undefined" && typeof window.Event !== "undefined" && typeof window.Event.prototype === "object") {
     Object.setPrototypeOf(Event.prototype, window.Event.prototype);
 
     // Make association for wrappers.
