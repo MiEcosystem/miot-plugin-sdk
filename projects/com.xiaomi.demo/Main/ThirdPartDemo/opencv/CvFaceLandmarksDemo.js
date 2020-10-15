@@ -110,8 +110,7 @@ export default class CvFaceLandmarksDemo extends Component {
       )
     }else{
       return (
-        <View style={styles.preview}>
-        </View>
+        <View style={styles.preview}/>
       )
     }
   }

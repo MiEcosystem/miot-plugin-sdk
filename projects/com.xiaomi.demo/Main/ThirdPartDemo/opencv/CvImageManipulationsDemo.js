@@ -313,10 +313,9 @@ export default class CvImageManipulationsDemo extends Component<Props> {
 	  overlayInt = 300
   }  
   
-  if(this.state.opencvinstalled){
+  if(!this.state.opencvinstalled){
     return (
-      <View style={styles.container}>
-      </View>
+      <View style={styles.container}/>
       )
   }
 	  

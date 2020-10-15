@@ -340,10 +340,10 @@ export default {
   },
   /**
    * since 10046
-   * 部分插件用到比较的功能不会跟着米家APP一起安装，插件用到相关接口的时候需要先判断一下该模块是否安装(对应接口isModuleInstalled)。
+   * 部分插件用到的功能不会跟着米家APP一起安装，插件用到相关接口的时候需要先判断一下该模块是否安装(对应接口isModuleInstalled)。
    * 如果安装了就可以正常使用，反之，需要先安装再使用(请求安装的接口是installModule)。
    * * 需要调用前需要安装的功能有：
-   *  react-native-opencv 从10046开始引入，对应的moduleId为RnOpencv
+   *  react-native-opencv 从10046开始引入，对应的moduleId为RnOpencv，Android平台需要先安装再使用，iOS则没这个要求
    * @param {string} moduleId 可选值：RnOpencv(对应为react-native-opencv)
    * @returns {json} 返回值：{code:0,data:{installed:[true/false]}}
    * @example

@@ -14,7 +14,7 @@ export default class HoughCircles2Demo extends Component {
     
   constructor(props) {
     super(props)
-	this.state = { destImageUri: '' }		
+	this.state = { destImageUri: '' ,opencvinstalled:false};		
     this.RNFS = require('react-native-fs')
     this.resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource')
 	this.downloadAssetSource = require('react-native-opencv3/downloadAssetSource')
@@ -63,7 +63,13 @@ export default class HoughCircles2Demo extends Component {
 	RNCv.deleteMat(interMat)	
 	RNCv.deleteMat(circlesMat)
 	
-	this.setState({ ...this.state, destImageUri: uri })
+  this.setState({ ...this.state, destImageUri: uri })
+  
+  Package.installModule('RnOpencv').then(res=>{
+    if(res && res.data && res.data.installed){
+      this.setState({opencvinstalled:true});
+    }
+    })
   }
 	  
   render() {
@@ -73,7 +79,13 @@ export default class HoughCircles2Demo extends Component {
 	if (destImageUri.length > 0) {
         const prependFilename = Platform.OS === 'ios' ? '' : 'file://'
         circlesImageUri = prependFilename + destImageUri  	
-	}
+  }
+  
+  if(!this.state.opencvinstalled){
+    return (
+      <View style={styles.container}/>
+    );
+  }
 	
     return (
       <View style={styles.container}>
