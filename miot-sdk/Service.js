@@ -194,7 +194,7 @@ export default {
    * @return {Promise<object>} 透传接口，直接返回服务端返回的值
  path, method = 0, params, needDevice = 1
    */
-  callXiaoaiNetworkAPI({ host = 'normal', path, method = 0, params, needDevice = 1, cookie = {} } = { 'host': 'normal', 'method': 0, 'needDevice': 1, cookie: {} }) {
+  callXiaoaiNetworkAPI({ host = 'normal', path, method = 0, params = {}, needDevice = 1, cookie = {} } = { 'host': 'normal', 'method': 0, 'needDevice': 1, params: {}, cookie: {} }) {
      return Promise.resolve(null);
   },
   /**
