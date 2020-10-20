@@ -56,6 +56,7 @@ const EVENT_TYPE = {
 Object.freeze(EVENT_TYPE);
 export const DEBUG = "debug";
 export const RELEASE = "release";
+const kMaxFetchNavTimes = 3;
 /**
  * 扩展程序调用的入口类型
  * @namespace Entrance
