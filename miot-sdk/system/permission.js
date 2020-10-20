@@ -32,11 +32,11 @@ class IPermission {
    * @param permission Permissions中的某项权限
    * @return {Promise<Boolean>} 申请成功或失败
    * @example
-   *  System.permission.request(permission).then((res) => {
-        console.log("111", res);
-      }).catch((error) => {
-        console.log(error);
-      });
+   *  System.permission.request(Permissions.CAMERA).then((res) => {
+    alert(`requestPermission,result:${ res }`);
+  }).catch((error) => {
+    alert(`requestPermission,error:${ JSON.parse(error) }`);
+  });
    */
   @report
   request(permission) {

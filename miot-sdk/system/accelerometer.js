@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 手机加速模块
- * @doc_index 4
+ * @doc_index 3
  * @doc_directory system
  * @module miot/system
  * @description
@@ -12,7 +12,7 @@
  * import {AccelerometerChangeEvent} from "miot"
  * ...
  * System.accelerometer.startAccelerometer(//interval).then(() => {
-    AccelerometerChangeEvent.onAccelerometerChange.addListener((//result) => {});
+    alert(`startAccelerometer: ${ JSON.stringify(res) }`);
    })
  * ...
    System.accelerometer.stopAccelerometer().then(() => {})
@@ -36,11 +36,8 @@ class IAccelerometer {
    * @example
    *  System.accelerometer.startAccelerometer(interval.a).then((res) => {
         alert(`startAccelerometer: ${ JSON.stringify(res) }`);
-        AccelerometerChangeEvent.onAccelerometerChange.addListener((result) => {
-          console.log(result);
-        });
       }).catch((error) => {
-        console.log(error);
+        alert(`startAccelerometer: ${ JSON.stringify(error) }`);
       });
    */
   @report
@@ -63,7 +60,7 @@ class IAccelerometer {
    *  System.accelerometer.stopAccelerometer().then((res) => {
           alert(`stopAccelerometer: ${ JSON.stringify(res) }`);
         }).catch((error) => {
-          console.log(error);
+          alert(`stopAccelerometer: ${ JSON.stringify(error) }`);
         });
       }
    */

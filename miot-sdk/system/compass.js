@@ -12,7 +12,7 @@
  * import {CompassChangeEvent} from "miot"
  * ...
  * System.compass.startCompass(//interval).then(() => {
-    CompassChangeEvent.onCompassChange.addListener((//result) => {});
+    alert(`startCompass: ${ JSON.stringify(res) }`);
    })
  * ...
    System.compass.stopCompass().then(() => {})
@@ -36,9 +36,6 @@ class ICompass {
    * @example
    *  System.compass.startCompass(interval.c).then((res) => {
         alert(`startCompass: ${ JSON.stringify(res) }`);
-        CompassChangeEvent.onCompassChange.addListener((result) => {
-          console.log(result);
-        });
       }).catch((error) => {
         console.log(error);
       });
@@ -52,7 +49,7 @@ class ICompass {
    * @returns {Promise<json>} 成功时：{code:0,message:'success'}
    * @example
    *  System.compass.stopCompass().then((res) => {
-          alert(`stopCompass: ${ JSON.stringify(res) }`); 
+          alert(`stopCompass: ${ JSON.stringify(res) }`);
         }).catch((error) => {
           console.log(error);
         });

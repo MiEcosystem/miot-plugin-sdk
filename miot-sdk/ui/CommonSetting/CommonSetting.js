@@ -7,8 +7,10 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
+import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
+import DynamicColor, { dynamicColor } from 'miot/ui/Style/DynamicColor';
 let modelType = '';
 function getModelType() {
   return new Promise((resolve) => {
@@ -740,6 +742,7 @@ export default class CommonSetting extends React.Component {
                 {...getAccessibilityConfig({
                   accessible: this.props.accessible
                 })}
+                containerStyle={tempCommonSettingStyle.itemStyle.containerStyle}
               />
             );
           })
@@ -756,7 +759,7 @@ export default class CommonSetting extends React.Component {
               activeOpacity={0.8}
             >
               <Text
-                style={[styles.buttonText, fontFamily, tempCommonSettingStyle.deleteTextStyle]}
+                style={ [styles.buttonText, fontFamily, tempCommonSettingStyle.deleteTextStyle]}
                 allowFontScaling={tempCommonSettingStyle.allowFontScaling}
               >
                 {Device.type === '17' && Device.isOwner ? (strings[`delete${ (Device.model || '').split('.')[1][0].toUpperCase() }${ (Device.model || '').split('.')[1].slice(1) }Group`]) : strings.deleteDevice}
@@ -823,25 +826,25 @@ export default class CommonSetting extends React.Component {
     this._deviceNameChangedListener.remove();
   }
 }
-const styles = StyleSheet.create({
+const styles = dynamicStyleSheet({
   container: {
     flex: 1
     // backgroundColor: '#fff'
   },
   titleContainer: {
     minHeight: 32,
-    backgroundColor: '#fff',
+    backgroundColor: new DynamicColor('#fff', '#1A1A1A'),
     justifyContent: 'center',
     paddingLeft: Styles.common.padding
   },
   title: {
     fontSize: 11,
-    color: 'rgba(0,0,0,0.5)',
+    color: new DynamicColor('rgba(0,0,0,0.5)', 'rgba(255,255,255,0.5)'),
     lineHeight: 14
   },
   bottomContainer: {
     minHeight: 90,
-    backgroundColor: '#fff', // Styles.common.backgroundColor,
+    backgroundColor: new DynamicColor('#fff', '#1a1a1a'), // Styles.common.backgroundColor,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
@@ -852,7 +855,7 @@ const styles = StyleSheet.create({
     borderRadius: 23,
     borderWidth: 0.3,
     borderColor: 'transparent', // 'rgba(0,0,0,0.2)',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: new DynamicColor('#f5f5f5', '#333333'),
     marginHorizontal: Styles.common.padding
   },
   buttonText: {
@@ -861,7 +864,7 @@ const styles = StyleSheet.create({
     // fontFamily: 'MI-LANTING--GBK1-Bold',
     flex: 1,
     textAlign: 'center',
-    color: '#F43F31',
+    color: new DynamicColor('#F43F31', '#D92719'),
     lineHeight: 18
   }
 });

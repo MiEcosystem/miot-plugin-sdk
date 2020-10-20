@@ -12,7 +12,7 @@
  * import {CompassChangeEvent} from "miot"
  * ...
  * System.gyroscope.startGyroscope(//interval).then(() => {
-    GyroscopeChangeEvent.onGyroscopeChange.addListener((//result) => {});
+    alert(`startGyroscope: ${ JSON.stringify(res) }`);
    })
  * ...
    System.gyroscope.stopGyroscope().then(() => {})
@@ -36,9 +36,6 @@ class IGyroscope {
    * @example
    *  System.gyroscope.startGyroscope(interval.c).then((res) => {
         alert(`startGyroscope: ${ JSON.stringify(res) }`);
-        GyroscopeChangeEvent.onGyroscopeChange.addListener((result) => {
-          console.log(result);
-        });
       }).catch((error) => {
         console.log(error);
       });

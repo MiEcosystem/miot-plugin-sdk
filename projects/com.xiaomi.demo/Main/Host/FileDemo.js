@@ -33,7 +33,9 @@ export default class FileStorage extends React.Component {
       length: 0,
       imagePath: "",
       visProgress: false,
-      progress: 0
+      progress: 0,
+      segOff: 0,
+      segLength: 1024
     };
   }
 
@@ -85,6 +87,20 @@ export default class FileStorage extends React.Component {
               value={this.state.fileName}
             />
             <TextInput
+              style={styles.input}
+              onChangeText={(text) => {
+                this.setState({ segOff: text.replace(/[^\d]+/, '') });
+              }}
+              placeholder="输入读取文件的起始位置的偏移"
+            />
+            <TextInput
+              style={styles.input}
+              onChangeText={(text) => {
+                this.setState({ segLength: text.replace(/[^\d]+/, '') });
+              }}
+              placeholder="输入读取的最大字节数"
+            />
+            <TextInput
               style={[styles.input, { button: 10, marginTop: 10, minHeight: 100, textAlignVertical: 'top' }]}
               onChangeText={(text) => {
                 this.setState({ fileContent: text });
@@ -115,7 +131,8 @@ export default class FileStorage extends React.Component {
               ],
               [
                 ["读文件", this._readFile],
-                ["读文件(Base64)", this._readFileToBase64]
+                ["读文件(Base64)", this._readFileToBase64],
+                ["读文件的一部分(Base64)", this._readFileSegmentToBase64]
               ],
               [
                 ["上传文件", this._uploadFile],
@@ -254,6 +271,27 @@ export default class FileStorage extends React.Component {
           alert(err);
         } else {
           alert(JSON.stringify(err));
+        }
+      });
+  }
+
+  // base64 读内容
+  _readFileSegmentToBase64() {
+    let off = Number.isInteger(parseInt(this.state.segOff)) ? parseInt(this.state.segOff) : 0;
+    let len = Number.isInteger(parseInt(this.state.segLength)) ? parseInt(this.state.segLength) : 1024;
+    Host.file.readFileSegmentToBase64(this.state.fileName, off, len)
+      .then((res) => {
+        if (res) {
+          let totalLength = res.totalLength;
+          let base64Content = res.content;
+          alert(`off:${ off },len:${ len }\ntotalLength:${ totalLength }\ncontent:${ base64Content }`);
+        }
+      })
+      .catch((err) => {
+        if (typeof err === "string") {
+          alert(`_readFileSegmentToBase64 fail:${ err }`);
+        } else {
+          alert(`_readFileSegmentToBase64 fail:${ JSON.stringify(err) }`);
         }
       });
   }
