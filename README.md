@@ -1,7 +1,7 @@
-22# MIOT SDK (API_LEVEL:10042) for React Native
+22# MIOT SDK (API_LEVEL:10044) for React Native
 
 **因SDK_10033并未发布，请大家不要指定min_sdk_api_level为10033以及使用SDK_10033分支，建议10034及其以上！**
-**SDK_10035分支运行前请先执行npm install**
+**运行前请先执行npm install**
 
 **请使用底下提供的测试包调试，不要使用线上包调试**
 
