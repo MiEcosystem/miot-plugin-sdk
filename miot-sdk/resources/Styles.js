@@ -8,7 +8,7 @@
  */
 import { Dimensions, StyleSheet } from 'react-native';
 const { width } = Dimensions.get('window');
-const PADDING = 24;
+const PADDING = 29;
 const SEPARATOR_HEIGHT = StyleSheet.hairlineWidth;
 const HAIRLINE_COLOR = 'rgba(0,0,0,0.15)';
 const MODAL_MARGIN = 10;

@@ -1,7 +1,7 @@
 /**
  * @export public
  * @doc_name 手机系统定位模块
- * @doc_index 11
+ * @doc_index 4
  * @doc_directory system
  * @module miot/system
  * @description

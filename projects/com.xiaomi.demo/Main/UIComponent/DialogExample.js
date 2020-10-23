@@ -14,6 +14,7 @@ import Separator from 'miot/ui/Separator';
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { Dimensions, Image, Platform, ScrollView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import tr from "miot/resources/strings/tr";
 
 const { width } = Dimensions.get('screen');
 const testIcon = Images.common.mihome;
@@ -66,7 +67,10 @@ export default class DialogExample extends React.Component {
       visible25: false,
       visible26: false,
       visible27: false,
-      visible28: false
+      visible28: false,
+      visible29: false, // messageDialog-subText
+      visible30: false, // 旧版absDialog
+      isCorrect: true
     };
 
     this.data = {
@@ -77,6 +81,7 @@ export default class DialogExample extends React.Component {
         {
           placeholder: '请输入用户名',
           defaultValue: '',
+          type: 'DELETE',
           textInputProps: {
             allowFontScaling: false,
             inputStyle: {
@@ -88,6 +93,7 @@ export default class DialogExample extends React.Component {
         {
           placeholder: '请输入密码',
           defaultValue: '',
+          type: 'SECURE',
           textInputProps: {
             allowFontScaling: false,
             inputStyle: {
@@ -101,6 +107,7 @@ export default class DialogExample extends React.Component {
         {
           placeholder: '请输入用户名',
           defaultValue: '',
+          type: 'DELETE',
           textInputProps: {
             allowFontScaling: true
           },
@@ -109,6 +116,7 @@ export default class DialogExample extends React.Component {
         {
           placeholder: '请输入密码',
           defaultValue: '',
+          type: 'SECURE',
           textInputProps: {
             allowFontScaling: true
           },
@@ -140,6 +148,11 @@ export default class DialogExample extends React.Component {
           {
             this.renderItem('通用弹窗容器显示默认内容(AbstractDialog)', () => {
               this.setState({ visible0: true });
+            })
+          }
+          {
+            this.renderItem('旧版-通用弹窗容器显示(AbstractDialog)', () => {
+              this.setState({ visible30: true });
             })
           }
           {
@@ -175,7 +188,7 @@ export default class DialogExample extends React.Component {
                   clearInterval(this.timer);
                   this.timer = null;
                 }
-              }, 1000);
+              }, 100);
             })
           }
           {
@@ -191,7 +204,7 @@ export default class DialogExample extends React.Component {
                   clearInterval(this.timer);
                   this.timer = null;
                 }
-              }, 1000);
+              }, 100);
             })
           }
           {
@@ -217,6 +230,11 @@ export default class DialogExample extends React.Component {
           {
             this.renderItem('消息弹窗(MessageDialog)-大字体适配2', () => {
               this.setState({ visible22: true });
+            })
+          }
+          {
+            this.renderItem('带附加文字消息弹窗(MessageDialog)', () => {
+              this.setState({ visible29: true });
             })
           }
           {
@@ -298,19 +316,44 @@ export default class DialogExample extends React.Component {
             <AbstractDialog
               visible={this.state.visible0}
               title={titleEnglish3}
+              canDismiss={false}
+              useNewTheme
               onDismiss={(_) => this.onDismiss('0')}
+              dialogStyle={
+                {
+                  subTitleStyle: {
+                    color: 'red'
+                  } }
+              }
             />
             <AbstractDialog
-              canDismiss={false}
-              visible={this.state.visible18}
+              visible={this.state.visible30}
               title={titleEnglish3}
-              onDismiss={(_) => this.onDismiss('18')}
+              canDismiss={false}
+              onDismiss={(_) => this.onDismiss('30')}
+              dialogStyle={
+                {
+                  subTitleStyle: {
+                    color: 'red'
+                  } }
+              }
+              buttons={[
+                {
+                  text: '是吗',
+                  style: { color: 'red' }
+                },
+                {
+                  text: '是啊',
+                  style: { color: '#f0ac3d' }
+                }
+              ]}
             />
             <AbstractDialog
               visible={this.state.visible1}
               title={testTitle}
               subtitle={testTitle}
               showSubtitle
+              useNewTheme
               onDismiss={(_) => this.onDismiss('1')}
               buttons={[
                 {
@@ -354,12 +397,13 @@ export default class DialogExample extends React.Component {
                 }
               }}
               showSubtitle
+              useNewTheme
               onDismiss={(_) => this.onDismiss('19')}
               buttons={[
                 {
                   text: '取消-不随系统字体大小变化而变化-高度自适应',
                   allowFontScaling: false,
-                  style: { color: 'lightpink', padding: 10, fontSize: this.data.fontBigSize2 },
+                  style: { color: 'red', padding: 10, fontSize: this.data.fontBigSize2 },
                   callback: (_) => console.log('是吗')
                 },
                 {
@@ -374,7 +418,7 @@ export default class DialogExample extends React.Component {
               <View
                 style={{
                   flex: 1,
-                  height: 100,
+                  height: 200,
                   backgroundColor: 'lightblue',
                   alignItems: 'center',
                   justifyContent: 'center'
@@ -407,9 +451,6 @@ export default class DialogExample extends React.Component {
               autoDismiss
               visible={this.state.visible3}
               message="下载中，请稍后..."
-              color="#f0ac3d"
-              unfilledColor="#fff"
-              textColor="blue"
               progress={this.state.progress}
               onDismiss={(_) => this.onDismiss('3')}
             />
@@ -417,9 +458,6 @@ export default class DialogExample extends React.Component {
               autoDismiss
               visible={this.state.visible21}
               message="下载中，请稍后...(一行显示不下，自动换行显示, 文字大小不随系统字体大小改变而改变)"
-              color="#f0ac3d"
-              unfilledColor="#fff"
-              textColor="blue"
               progress={this.state.progress}
               dialogStyle={{
                 allowFontScaling: false,
@@ -436,11 +474,12 @@ export default class DialogExample extends React.Component {
             <MessageDialog
               visible={this.state.visible4}
               message="测试abcABC123"
-              messageStyle={{ textAlign: 'center', backgroundColor: 'lightblue' }}
+              messageStyle={{ textAlign: 'center', backgroundColor: 'white' }}
               buttons={[
                 {
-                  text: '我了解了',
                   style: { color: 'lightpink' },
+                  // onLongPress: () => alert('aa'),
+                  // backgroundColor: { bgColorNormal: 'red', bgColorPressed: 'green',},
                   callback: (_) => this.setState({ visible4: false })
                 }
               ]}
@@ -467,7 +506,6 @@ export default class DialogExample extends React.Component {
             <MessageDialog
               type={MessageDialog.TYPE.UNDERLINE}
               visible={this.state.visible6}
-              color="#f0ac3d"
               title="下划线消息弹窗"
               message={testText}
               extraText="你点我一下试试"
@@ -477,14 +515,14 @@ export default class DialogExample extends React.Component {
               buttons={[
                 {
                   text: '取消',
-                  style: { color: 'lightpink' },
+                  style: { color: 'green' },
                   callback: (_) => this.setState({ visible6: false })
                 },
                 {
                   text: '确认',
-                  style: { color: 'lightblue' },
+                  style: { color: 'red' },
                   callback: (obj) => {
-                    console.log(`是否点击了下划线: ${obj.hasPressUnderlineText}`);
+                    console.log(`是否点击了下划线: ${ obj.hasPressUnderlineText }`);
                     this.setState({ visible6: false });
                   }
                 }
@@ -492,9 +530,32 @@ export default class DialogExample extends React.Component {
               onDismiss={(_) => this.onDismiss('6')}
             />
             <MessageDialog
+              type={MessageDialog.TYPE.SUBTEXT}
+              visible={this.state.visible29}
+              title="附加文字消息弹窗"
+              message={testText}
+              extraText="分组底部说明文字。补充说明的文案，距离上10px，距离左右27px，距离下27px。文字12号 #999999"
+              buttons={[
+                {
+                  text: '取消',
+                  style: { color: 'red' },
+                  callback: (_) => this.setState({ visible29: false })
+                },
+                {
+                  text: '确认',
+                  style: { color: 'black' },
+                  backgroundColor: { bgColorNormal: 'red',
+                    bgColorPressed: 'green' },
+                  callback: (obj) => {
+                    this.setState({ visible29: false });
+                  }
+                }
+              ]}
+              onDismiss={(_) => this.onDismiss('29')}
+            />
+            <MessageDialog
               type={MessageDialog.TYPE.CHECKBOX}
               visible={this.state.visible7}
-              color="#f0ac3d"
               title="勾选框消息弹窗-字体大小不随系统字体大小改变而改变-自动换行"
               messageStyle={[{ fontSize: this.data.fontBigSize2, lineHeight: this.data.fontBigSize2 + 4 }, this.fontFamily]}
               dialogStyle={{
@@ -519,16 +580,16 @@ export default class DialogExample extends React.Component {
                   text: '取消-不随系统字体大小变化而变化-高度自适应',
                   allowFontScaling: false,
                   numberOfLines: 12,
-                  style: { color: 'lightpink', padding: 10, fontSize: this.data.fontBigSize2, lineHeight: this.data.fontBigSize2 + 4 },
+                  style: { color: 'lightpink', fontSize: this.data.fontBigSize2 },
                   callback: (_) => this.setState({ visible7: false })
                 },
                 {
                   text: '确认-不随系统字体大小变化而变化-我只显示两行',
                   allowFontScaling: false,
                   numberOfLines: 2,
-                  style: { color: 'lightblue', padding: 10, fontSize: this.data.fontBigSize2, lineHeight: this.data.fontBigSize2 + 4 },
+                  style: { color: 'lightblue', fontSize: this.data.fontBigSize2 },
                   callback: (obj) => {
-                    console.log(`是否勾选: ${obj.checked}`);
+                    console.log(`是否勾选: ${ obj.checked }`);
                     this.setState({ visible7: false });
                   }
                 }
@@ -544,7 +605,6 @@ export default class DialogExample extends React.Component {
                 extraTextNumberOfLines: 2
               }}
               visible={this.state.visible22}
-              color="#f0ac3d"
               title="消息弹窗-字体大小随系统字体大小改变而改变-自动换行"
               message="message 部分-字体大小随系统字体大小改变而改变-我设置显示为两行"
               extraText="快点我试试-字体大小随系统字体大小改变而改变-我设置显示为两行"
@@ -574,7 +634,15 @@ export default class DialogExample extends React.Component {
             <InputDialog
               visible={this.state.visible8}
               title="最简单输入弹窗"
+              subTitle="qwe"
               onDismiss={(_) => this.onDismiss('8')}
+              inputs={[
+                {
+                  placeholder: '自定义占位字符',
+                  defaultValue: '',
+                  type: 'DELETE'
+                }
+              ]}
             />
             <InputDialog
               type={InputDialog.TYPE.UNDERLINE}
@@ -583,24 +651,41 @@ export default class DialogExample extends React.Component {
               underlineData={{
                 leftText: '请输入你的ID',
                 underlineText: '还没有ID？注册一个',
-                onPress: (_) => alert('你注册的ID是123456')
+                onPress: (_) => alert('你注册的ID是123456'),
+                useNewTheme: true
               }}
+              isCorrect={this.state.isCorrect}
               buttons={[
                 {
                   text: '取消',
-                  style: { color: 'lightpink' },
                   callback: (_) => this.setState({ visible9: false })
                 },
                 {
                   text: '保存',
-                  style: { color: 'lightblue' },
                   callback: (result) => {
                     console.log(`结果`, result);
-                    this.setState({ visible9: false });
+                    this.setState(() => ({ isCorrect: !this.state.isCorrect }));
                   }
                 }
               ]}
+              inputs={[
+                {
+                  placeholder: '自定义占位字符',
+                  defaultValue: '',
+                  textInputProps: { autoFocus: true },
+                  isCorrect: this.state.isCorrect
+                  // onChangeText: () => {console.log(this.state.isCorrect);}
+                }
+                // {
+                //   placeholder: '自定义占位字符',
+                //   defaultValue: '',
+                //   //type: 'SECURE',
+                //   //textInputProps: { autoFocus: true },
+                //   isCorrect: this.state.isCorrect,
+                // },
+              ]}
               onDismiss={(_) => this.onDismiss('9')}
+              inputWarnText={'输入错误啊嗷嗷啊'}
             />
             <InputDialog
               type={InputDialog.TYPE.CHECKBOX}
@@ -638,7 +723,7 @@ export default class DialogExample extends React.Component {
                   fontSize: this.data.fontBigSize1
                 }
               }}
-              title="多TextInput复杂输入弹窗-字体大小不随系统字体大小改变而改变-自动换行"
+              title="旧样式-多TextInput复杂输入弹窗-字体大小不随系统字体大小改变而改变-自动换行"
               underlineData={{
                 leftText: '请输入你的ID-字体大小不随系统字体大小改变而改变-自动换行',
                 leftTextNumberOfLines: 10,
@@ -691,8 +776,9 @@ export default class DialogExample extends React.Component {
                 leftText: '请输入你的ID-字体大小随系统字体大小改变而改变-自动换行',
                 leftTextNumberOfLines: 10,
                 underlineText: '还没有ID？注册一个-字体大小不随系统字体大小改变而改变-自动换行',
-                underlineTextNumberOfLines: 10,
-                onPress: (_) => alert('你注册的ID是123456')
+                underlineTextNumberOfLines: 1,
+                onPress: (_) => alert('你注册的ID是123456'),
+                useNewTheme: true
               }}
               inputs={this.data.inputs2}
               checkboxData={
@@ -732,7 +818,7 @@ export default class DialogExample extends React.Component {
               checkboxData={this.data.checkboxData}
               buttons={[
                 {
-                  text: '确定-字体大小随系统字体大小改变而改变-自动换行，高度固定',
+                  text: '取消-字体大小随系统字体大小改变而改变-自动换行，高度固定',
                   style: { color: 'lightblue', padding: 10 },
                   callback: (result) => {
                     console.log(`结果`, result);
@@ -787,6 +873,7 @@ export default class DialogExample extends React.Component {
               visible={this.state.visible13}
               title="不分页的分享弹窗-默认情况-字体大小随系统字体大小改变而改变-默认1行"
               onDismiss={(_) => this.onDismiss('13')}
+              // extraText={'点我点我啊啊啊我疯了点点点啊啊啊啊啊啊啊啊啊'}
             />
             <ShareDialog
               visible={this.state.visible25}
@@ -796,7 +883,8 @@ export default class DialogExample extends React.Component {
                 titleNumberOfLines: 1,
                 itemTextNumberOfLines: 2,
                 titleStyle: { fontSize: this.data.fontBigSize1 },
-                itemTextStyle: { fontSize: this.data.fontBigSize3 }
+                itemTextStyle: { fontSize: this.data.fontBigSize3 },
+                extraTextStyle: { fontSize: this.data.fontBigSize3 }
               }}
               options={
                 Array.from({ length: 6 }, (v, i) => ({
@@ -806,21 +894,24 @@ export default class DialogExample extends React.Component {
                 }))
               }
               onDismiss={(_) => this.onDismiss('25')}
+              extraText={'点我点我啊啊啊点点点啊'}
             />
             <ShareDialog
               visible={this.state.visible14}
               title="分页的分享弹窗"
               options={
-                Array.from({ length: 15 }, (v, i) => ({
+                Array.from({ length: 25 }, (v, i) => ({
                   icon: testIcon,
                   text: [`米家米家米家米家米家米家`, `微信`, `QQ`, `微博`, `朋友圈`, `收藏`, `即刻`][~~(Math.random() * 7)],
                   callback: () => console.log('分享成功')
                 }))
               }
               onDismiss={(_) => this.onDismiss('14')}
+              extraText={'点我点我啊啊啊点点点啊'}
             />
             <ActionSheet
               visible={this.state.visible15}
+              title={'sa米家米家米s'}
               options={[
                 {
                   title: 'title-1-默认显示',
@@ -835,12 +926,66 @@ export default class DialogExample extends React.Component {
                   title: 'title-3-默认显示',
                   subtitle: 'subtitle-3-默认显示',
                   onPress: (_) => console.log('非礼勿言')
+                },
+                {
+                  title: 'title-1-默认显示',
+                  onPress: (_) => console.log('非礼勿视')
+                },
+                {
+                  title: 'title-2-默认显示',
+                  onPress: (_) => console.log('非礼勿听')
+                },
+                {
+                  title: 'title-3-默认显示',
+                  onPress: (_) => console.log('非礼勿言')
+                },
+                {
+                  title: 'title-1-默认显示',
+                  subtitle: 'subtitle-1-默认显示',
+                  onPress: (_) => console.log('非礼勿视')
+                },
+                {
+                  title: 'title-2-默认显示',
+                  onPress: (_) => console.log('非礼勿听')
+                },
+                {
+                  title: 'title-3-默认显示',
+                  subtitle: 'subtitle-1-默认显示',
+                  onPress: (_) => console.log('非礼勿言')
+                },
+                {
+                  title: 'title-1-默认显示',
+                  onPress: (_) => console.log('非礼勿视')
+                },
+                {
+                  title: 'title-2-默认显示',
+                  onPress: (_) => console.log('非礼勿听')
+                },
+                {
+                  title: 'title-3-默认显示',
+                  onPress: (_) => console.log('非礼勿言')
+                },
+                {
+                  title: 'title-1-默认显示',
+                  onPress: (_) => console.log('非礼勿视')
+                },
+                {
+                  title: 'title-2-默认显示',
+                  onPress: (_) => console.log('非礼勿听')
+                },
+                {
+                  title: 'title-3-默认显示',
+                  onPress: (_) => console.log('非礼勿言')
                 }
               ]}
               buttons={[
                 {
                   text: '取消',
-                  style: { color: 'lightblue' },
+                  colorType: "grayLayerBlack",
+                  callback: (_) => this.setState({ visible15: false })
+                },
+                {
+                  text: '取消',
                   callback: (_) => this.setState({ visible15: false })
                 }
               ]}
@@ -913,6 +1058,21 @@ export default class DialogExample extends React.Component {
               selectedIndexArray={this.data.selectedIndexArray}
               onDismiss={(_) => this.onDismiss('16')}
               onSelect={(result) => this.data.selectedIndexArray = result}
+              buttons={[
+                {
+                  text: '取消'
+                },
+                {
+                  text: '保存',
+                  callback: (result) => {
+                    console.log(`选中的选项`, result);
+                    this.data.selectedIndexArray = result;
+                    this.setState({
+                      visible16: false
+                    });
+                  }
+                }
+              ]}
             />
             <ChoiceDialog
               visible={this.state.visible27}
@@ -980,11 +1140,15 @@ export default class DialogExample extends React.Component {
                 }
               ]}
               selectedIndexArray={this.data.selectedIndexArray1}
-              color="#f0ac3d"
+              color="#32BAC0"
               buttons={[
                 {
+                  text: '取消'
+                  // style: { color: 'lightblue' },
+                },
+                {
                   text: '保存',
-                  style: { color: 'lightblue' },
+                  // style: { color: 'lightblue' },
                   callback: (result) => {
                     console.log(`选中的选项`, result);
                     this.data.selectedIndexArray1 = result;
@@ -1045,20 +1209,23 @@ export default class DialogExample extends React.Component {
     }), 3500);
   }
 
+
   // `Modal` 隐藏了，父组件必须要同步更新状态，但不必用 `setState` 触发 `render`
   onDismiss(index) {
     if (index === '2') console.log('loadingdialog dismiss');
+    // this.state[`visible${ index }`] = false;
     this.setState({
-      [`visible${index}`]: false
+      [`visible${ index }`]: false
     });
   }
+
 
   componentWillUnmount() {
     clearInterval(this.timer);
     this.timer = null;
   }
-}
 
+}
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#f7f7f7',
@@ -1072,7 +1239,6 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     minHeight: 52,
-    backgroundColor: '#fff',
     alignSelf: 'stretch',
     flexDirection: 'row',
     paddingLeft: 23,
