@@ -56,7 +56,7 @@ const ColorPickerView = (
         }}
         onColorChange={(event) => {
           if (onColorChange) {
-            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType);
+            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType, event.nativeEvent.position);
           }
         }}
       />
@@ -75,7 +75,7 @@ const ColorPickerView = (
         }}
         onColorChange={(event) => {
           if (onColorChange) {
-            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType);
+            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType, event.nativeEvent.position);
           }
         }}
       />
