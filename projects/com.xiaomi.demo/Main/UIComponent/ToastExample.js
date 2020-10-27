@@ -1,8 +1,9 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Button, Text, View } from 'react-native';
+import { Button, Text, View, Animated } from 'react-native';
 import Toast from 'react-native-root-toast';
+import { ToastView } from 'mhui-rn/dist/components/toast';
 
 /**
  * @exports
@@ -30,60 +31,31 @@ class ToastExample extends Component {
     super(props);
     this.state = {
       visible: false,
+      visible1: false,
       isShow: false,
       isShown: false,
       isHide: false,
-      isHidden: false
+      isHidden: false,
+      rotate: new Animated.Value(0)
     };
   }
 
   componentDidMount() {
     setTimeout(() => {
       this.setState(() => {
-        return { visible: true };
+        return { visible1: true };
       });
-    }, 2000);
+    }, 1000);
 
     setTimeout(() => {
       this.setState(() => {
-        return { visible: false };
+        return { visible1: false };
       });
     }, 5000);
   }
 
-  //显示 toast
-  onShowToast = () => {
-    Toast.show('点我消失', {
-      duration: Toast.durations.LONG,
-      position: Toast.positions.CENTER,
-      shadow: false,
-      backgroundColor: 'yellow',
-      textColor: 'black',
-      onShow: () => {
-        this.setState(() => {
-          return { isShow: true };
-        });
-      },
-      onShown: () => {
-        this.setState(() => {
-          return { isShown: true };
-        });
-      },
-      onHide: () => {
-        this.setState(() => {
-          return { isHide: true };
-        });
-      },
-      onHidden: () => {
-        this.setState(() => {
-          return { isHidden: true };
-        });
-      }
-    });
-  }
-
   render() {
-    let { visible, isShow, isShown, isHide, isHidden } = this.state;
+    let { visible, visible1, isShow, isShown, isHide, isHidden } = this.state;
     let appearStart = isShow ? 'flex' : 'none';
     let appearEnd = isShown ? 'flex' : 'none';
     let disappearStart = isHide ? 'flex' : 'none';
@@ -91,12 +63,52 @@ class ToastExample extends Component {
 
     return (
       <View>
-        <Toast
+        <ToastView
           visible={visible}
-          hideOnPress={false}
-        >载入成功</Toast>
+          hideOnPress={true}
+          animation={true}
+          position={-86}
+          containerStyle={{ display: 'flex', flexDirection: 'row' }}
+          text={'点我消失'}
+        >
+        </ToastView>
+        <ToastView
+          visible={visible}
+          hideOnPress={true}
+          animation={true}
+          position={306}
+          containerStyle={{ display: 'flex', flexDirection: 'row' }}
+          text={'asd点我消失asd点我消失'}
+        >
+        </ToastView>
+        <ToastView
+          visible={visible}
+          hideOnPress={true}
+          animation={true}
+          position={366}
+          containerStyle={{ flexDirection: 'row' }}
+          text={'最短'}
+        >
+        </ToastView>
+        <ToastView
+          visible={true}
+          hideOnPress={true}
+          position={-200}
+          containerStyle={{ display: 'flex', flexDirection: 'row' }}
+          text={'一直存在载入成功载入成功载入成功载入成功功载入成功载入成功载入成功载入成功载入成功载入成功载入成功载入成功载入成功载入成功载入成功'}
+        ></ToastView>
+        <ToastView
+          visible={visible1}
+          hideOnPress={true}
+          animation={true}
+          position={0}
+          containerStyle={{ display: 'flex', flexDirection: 'row' }}
+          text={'载入成功5000消失'}
+        ></ToastView>
         <Button
-          onPress={this.onShowToast}
+          onPress={() => this.setState(() => {
+            return { visible: true };
+          })}
           title="显示toast"
           color="#841584"
           accessibilityLabel="显示toast"

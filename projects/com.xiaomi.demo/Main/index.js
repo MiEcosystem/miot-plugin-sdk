@@ -19,6 +19,7 @@ import { FirmwareUpgrade, FirmwareUpgradeAuto, FirmwareUpgradeRecord, MoreSettin
 import BTInterconnection from 'miot/ui/BTInterconnection';
 import BraceletInterconnection from 'miot/ui/BraceletInterconnection';
 import Setting from "./tutorial/Setting";
+import SettingPage from "./tutorial/SettingPage";
 
 import TitleBar from "miot/ui/TitleBar";
 import React from 'react';
@@ -193,6 +194,7 @@ function createRootStack(initPage) {
     systemDemo: SystemDemo,
     NavigationBarDemo,
     Setting,
+    SettingPage,
     MoreSetting,
     FirmwareUpgrade,
     FirmwareUpgradeAuto,

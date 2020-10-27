@@ -27,6 +27,7 @@ import { FileEvent as FileEventNames } from './host/file';
 import { MemoryWarningEvent as MemoryWarningEventNames } from './system/memory';
 import { AccelerometerChangeEvent as AccelerometerChangeEventNames } from './system/accelerometer';
 import { CompassChangeEvent as CompassChangeEventNames } from './system/compass';
+import { VolumeChangeEvent as VolumeChangeEventNames } from './system/volume';
 import { GyroscopeChangeEvent as GyroscopeChangeEventNames } from './system/gyroscope';
 import PackageInstance, { Entrance as Entrances, PackageEvent as PackageEventNames } from './Package';
 import { RootDeviceProperties } from "./Properties";
@@ -34,7 +35,7 @@ import ResourcesPack from './resources';
 import ServiceInstance from './Service';
 import { SceneType as SceneTypeNames } from './service/scene';
 import DarkModeFactory from './darkmode';
-export const API_LEVEL = 10044
+export const API_LEVEL = 10045
 /**
  * 插件包基本配置
  * {@link module:miot/Package}
@@ -141,6 +142,7 @@ export const FileEvent = FileEventNames;
 export const MemoryWarningEvent = MemoryWarningEventNames;
 export const AccelerometerChangeEvent = AccelerometerChangeEventNames;
 export const CompassChangeEvent = CompassChangeEventNames;
+export const VolumeChangeEvent = VolumeChangeEventNames;
 export const GyroscopeChangeEvent = GyroscopeChangeEventNames;
 export const AudioEvent = AudioEventNames;
 export const DarkMode = DarkModeFactory;
