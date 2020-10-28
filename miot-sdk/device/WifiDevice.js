@@ -374,7 +374,9 @@ export default class IDeviceWifi {
     }
     /**
      * 获取虚拟设备的子设备列表，暂时已上线的虚拟设备有：yeelink和philips灯组。其他的暂不支持。注意：mesh灯组，和灯组2.0，无法通过此接口获取子设备（暂未开放）
-     * @since  10003
+     * @since  10003。  10046扩展窗帘组
+     * 通过传入的type判断返回哪种设备的子设备  yeelink和philips灯组的组设备是N->1，子设备不会出现在设备列表中，但是窗帘设备是N->N+1,所以请求的接口不同,，为兼容旧版，默认type=1
+     * @param type   ===1时表示yeelink和philips灯组的组设备   ===2时表示窗帘组设备
      * 涉及接口：/home/virtualdevicectr。可抓包此接口查看，返回的为此接口的数据
      * 使用场景：展示灯组设备的子设备列表，可通过此接口获取数据
      * @returns {Promise<BasicDevice[]>}
@@ -382,7 +384,7 @@ export default class IDeviceWifi {
      *      reject：{code: xxx, message: xxx}网络错误
      */
     @report
-    getVirtualDevices() {
+    getVirtualDevices(type = 1) {
        return Promise.resolve([]);
     }
     /**

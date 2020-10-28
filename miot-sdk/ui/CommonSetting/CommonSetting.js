@@ -11,6 +11,8 @@ import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
 import DynamicColor, { dynamicColor } from 'miot/ui/Style/DynamicColor';
+// 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
+let firmwareUpgradeDotClicked = false;
 let modelType = '';
 function getModelType() {
   return new Promise((resolve) => {
@@ -544,7 +546,7 @@ export default class CommonSetting extends React.Component {
         // 2019/11/21 新灯组2.0需求
         // 虚拟组设备，跳v2.0固件更新页
         Host.ui.openLightGroupUpgradePage();
-      } 
+      }
       else if ([0, 1, 4, 5].includes(bleOtaAuthType)) {
         Host.ui.openBleCommonDeviceUpgradePage({ auth_type: bleOtaAuthType });
       } else {
@@ -569,6 +571,9 @@ export default class CommonSetting extends React.Component {
    * @param {string} key
    */
   removeKeyFromShowDot(key) {
+    if (key === AllOptions.FIRMWARE_UPGRADE) {
+      firmwareUpgradeDotClicked = true;
+    }
     const showDotTmp = [...this.state.showDot];
     const index = showDotTmp.indexOf(key);
     if (index !== -1) {
@@ -700,7 +705,7 @@ export default class CommonSetting extends React.Component {
         item.showDot = (this.state.showDot || []).includes(key);
         // 如果是固件升级设置项，且开发者没有传入是否显示
         if (key === AllOptions.FIRMWARE_UPGRADE && !item.showDot) {
-          item.showDot = Device.needUpgrade;
+          item.showDot = Device.needUpgrade && !firmwareUpgradeDotClicked;
         }
       }
       return item;
