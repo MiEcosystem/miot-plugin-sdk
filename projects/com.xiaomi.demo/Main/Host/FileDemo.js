@@ -123,7 +123,8 @@ export default class FileStorage extends React.Component {
               [
                 ["创建目录", this._mkdir],
                 ["写文件", this._writeFile],
-                ["写文件(Base64)", this._writeFileThroughBase64]
+                ["写文件(Base64)", this._writeFileThroughBase64],
+                ["复制文件", this._copyFile]
               ],
               [
                 ["向文件追加内容", this._appendFile],
@@ -153,6 +154,11 @@ export default class FileStorage extends React.Component {
               [
                 ["截图并保存到相册", this._screenShotAndSaveToPhotosAlbum],
                 ["保存文件到相册", this._saveFileToPhotosAlbum]
+              ],
+              [
+                ["查询文件", this._queryFile],
+                ["pdf转图片", this._pdfToImage],
+                ["读PDF信息", this._readPdfMetaData]
               ]
             ].map((section, index) => {
               return (
@@ -198,6 +204,156 @@ export default class FileStorage extends React.Component {
     }).catch((err) => {
       alert(JSON.stringify(err, null, '\t'));
     });
+
+  }
+
+  _copyFile(){
+    let copy_params={
+      srcPath:'test.pdf',
+      dstPath:'test_copy.pdf',
+    }
+    Host.file.copyFile(copy_params).then((res) => {
+      alert(JSON.stringify(res));
+      Host.file.readFileList('').then(res=>{
+        alert(JSON.stringify(res))
+      })
+    }).catch((res) => {
+      alert(JSON.stringify(res));
+    });
+
+  }
+
+  _queryFile() {
+    let params = {
+      mimeTypes: ["application/pdf", // pdf
+        "application/msword", // word
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // docx
+        "application/vnd.ms-excel", // xls,xlt
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // xlsx
+        "application/vnd.ms-powerpoint", // ppt,pot,pps
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation", // pptx
+        "application/wps"// wps
+      ],
+      pageSize: 10,
+      pageNo: 0
+    };
+    Host.file.queryFile(params).then((res) => {
+      alert(JSON.stringify(res));
+    }).catch((err) => {
+      alert(JSON.stringify(err));
+    });
+  }
+
+  _pdfToImage() {
+    if (Host.isIOS) {
+      Host.ui.openIOSDocumentFileChoosePage().then((res) => {
+        console.log('----------queryFile:', JSON.stringify(res));
+        if (res.data && res.data.length > 0) {
+          let pdfDic = res.data[0];
+          console.log("----------loadFile:", JSON.stringify(pdfDic));
+          if (pdfDic && pdfDic['ext'] == 'pdf' && pdfDic['path']) {
+            let path = pdfDic['path'];
+            let sourcePath = `${ path }`;
+
+            let pdf_params = {
+              srcPath: sourcePath,
+              imageDir: 'pdf_image',
+              pageIndex: 464,
+              password: '123456',
+              highQuality: false
+            };
+            Host.file.pdfToImage(pdf_params).then((res) => {
+              alert(JSON.stringify(res));
+            }).catch((res) => {
+              alert(JSON.stringify(res));
+            });
+          } else {
+            alert('选择的文件不存在或不是pdf格式，请重新选择文件');
+          }
+        }
+      }).catch((err) => {
+        alert(JSON.stringify(err));
+      });
+    } else {
+      let params = {
+        mimeTypes: ["application/pdf" // pdf
+        ],
+        pageSize: 1,
+        pageNo: 0
+      };
+      Host.file.queryFile(params).then((res) => {
+        if (res && res.data) {
+          let pdf_params = {
+            srcPath: res.data[0].url,
+            imageDir: 'pdf_image',
+            pageIndex: 0,
+            password: '',
+            highQuality: false
+          };
+          Host.file.pdfToImage(pdf_params).then((res) => {
+            alert(JSON.stringify(res));
+          }).catch((res) => {
+            alert(JSON.stringify(res));
+          });
+
+        }
+      }).catch((err) => {
+        alert(JSON.stringify(err));
+      });
+    }
+  }
+
+  _readPdfMetaData() {
+    if (Host.isIOS) {
+      Host.ui.openIOSDocumentFileChoosePage().then((res) => {
+        console.log('----------queryFile:', JSON.stringify(res));
+        if (res.data && res.data.length > 0) {
+          let pdfDic = res.data[0];
+          console.log("----------loadFile:", JSON.stringify(pdfDic));
+          if (pdfDic && pdfDic['ext'] == 'pdf' && pdfDic['path']) {
+            let path = pdfDic['path'];
+            let sourcePath = `${ path }`;
+
+            let pdf_params = {
+              srcPath: sourcePath,
+              password: ''
+            };
+            Host.file.readPdfMetaData(pdf_params).then((res) => {
+              alert(JSON.stringify(res));
+            }).catch((res) => {
+              alert(JSON.stringify(res));
+            });
+          } else {
+            alert('选择的文件不存在或不是pdf格式，请重新选择文件');
+          }
+        }
+      }).catch((err) => {
+        alert(JSON.stringify(err));
+      });
+    } else {
+      let params = {
+        mimeTypes: ["application/pdf" // pdf
+        ],
+        pageSize: 1,
+        pageNo: 0
+      };
+      Host.file.queryFile(params).then((res) => {
+        if (res && res.data) {
+          let pdf_params = {
+            srcPath: res.data[0].url,
+            password: ''
+          };
+          Host.file.readPdfMetaData(pdf_params).then((res) => {
+            alert(JSON.stringify(res));
+          }).catch((res) => {
+            alert(JSON.stringify(res));
+          });
+
+        }
+      }).catch((err) => {
+        alert(JSON.stringify(err));
+      });
+    }
   }
 
   _renderFileList(item) {
