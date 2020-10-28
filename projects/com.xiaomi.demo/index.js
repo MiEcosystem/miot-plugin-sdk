@@ -43,6 +43,7 @@ class Apps extends React.Component {
     );
   }
 }
+
 switch (Package.entrance) {
   case Entrance.Scene:
     Package.entry(App, (_) => {});

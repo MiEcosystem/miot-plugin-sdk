@@ -300,27 +300,27 @@ export default {
      return  ""
   },
   /**
-     * 系统入口
-     * @method
-     * @param {React.Component} RootComponent 入口的React Component模块
-     * @param {function} afterPackageEntry 进入后, RootComponent 加载之前执行, 缺省为空
-     * @example
-     *
-     * import SceneMain from '...';
-     * import App from '...';
-     *
-     * import {Package, Entrance} from 'miot';
-     *
-     * switch(Package.entrance){
-     *   case Entrance.Scene:
-     *      Package.entry(SceneMain, ()=>{...});
-     *      break;
-     *   default:
-     *      Package.entry(App, ()=>{...});
-     *      break;
-     * }
-     *
-     */
+   * 系统入口
+   * @method
+   * @param {React.Component} RootComponent 入口的React Component模块
+   * @param {function} afterPackageEntry 进入后, RootComponent 加载之前执行, 缺省为空
+   * @example
+   *
+   * import SceneMain from '...';
+   * import App from '...';
+   *
+   * import {Package, Entrance} from 'miot';
+   *
+   * switch(Package.entrance){
+   *   case Entrance.Scene:
+   *      Package.entry(SceneMain, ()=>{...});
+   *      break;
+   *   default:
+   *      Package.entry(App, ()=>{...});
+   *      break;
+   * }
+   *
+   */
   entry(RootComponent, afterPackageEntry = null) {
   },
   /**
