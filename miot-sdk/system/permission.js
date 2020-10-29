@@ -27,6 +27,32 @@ export const Permissions = {
 };
 class IPermission {
   /**
+   * @typedef {Object} PermissionInfo
+   * @property {number} type iOS 中，为 PHOTOS 时， 0表示未选择， 1，2表示无权限，3表示有权限，4表示部分照片有权限
+   */
+  /**
+    * @typedef {Object} PermissionRes
+    * @property {number} code 0表示成功，其他表示失败
+    * @property {string} message 信息描述
+    * @property {Object<PermissionInfo>} info 可选
+    */
+  /**
+    * 弹出提示框向用户请求某项权限。返回一个 Promise,表示处理完成
+    * @since 10046
+    * @param permission Permissions中的某项权限
+    * @return {Promise<PermissionRes>} 申请成功或失败
+    * @example
+    *  System.permission.request(Permissions.CAMERA).then((res) => {
+          alert(`requestPermission,result:${ res }`);
+        }).catch((error) => {
+          alert(`requestPermission,error:${ JSON.parse(error) }`);
+        });
+    */
+  @report
+  requestInfo(permission) {
+    return this._request(permission, true);
+  }
+  /**
    * 弹出提示框向用户请求某项权限。返回一个 Promise,表示处理完成
    * @since 10043
    * @param permission Permissions中的某项权限
@@ -40,6 +66,9 @@ class IPermission {
    */
   @report
   request(permission) {
+    return this._request(permission);
+  }
+  _request(permission, returnInfo = false) {
   }
 }
 function getPermissionString(permission) {
