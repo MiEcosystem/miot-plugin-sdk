@@ -337,5 +337,5 @@ export default {
      *
      */
   exit(info = null) {
-  }
+  },
 };

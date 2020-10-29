@@ -1,4 +1,4 @@
-import { Device, Host, DeviceEvent, Service } from 'miot';
+import { Package, Device, Host, DeviceEvent, Service } from 'miot';
 // import {Device,DeviceEvent} from 'miot'
 // import {Host} from 'miot';
 import PropTypes from 'prop-types';
