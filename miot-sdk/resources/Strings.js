@@ -130,7 +130,8 @@ let strings = {
   releaseVersionHistory: '',
   firmwareAutoUpdate: '',
   autoUpdateDescriptionNote: '',
-  updateNow: ''
+  updateNow: '',
+  requireBelMesh: ''
 };
 strings = getStrings({
   zh: {
@@ -238,7 +239,8 @@ strings = getStrings({
     releaseVersionHistory: '固件版本记录',
     firmwareAutoUpdate: '固件自动更新',
     autoUpdateDescriptionNote: '检测到新固件后，设备将在{0}尝试自动更新。设备必须处于空闲状态以完成更新。更新过程无声音提示和灯光打扰。',
-    updateNow: '立即更新'
+    updateNow: '立即更新',
+    requireBelMesh: '该功能需要搭配蓝牙Mesh网关使用'
   },
   zh_tw: {
     setting: '設定',
@@ -345,7 +347,8 @@ strings = getStrings({
     releaseVersionHistory: '韌體版本記錄',
     firmwareAutoUpdate: '韌體自動更新',
     autoUpdateDescriptionNote: '偵測到新韌體後，裝置將會在{0}嘗試自動更新。裝置必須處於閒置狀態以完成更新。更新過程無聲音提示和燈光打擾。',
-    updateNow: '立即更新'
+    updateNow: '立即更新',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   zh_hk: {
     setting: '設定',
@@ -452,7 +455,8 @@ strings = getStrings({
     releaseVersionHistory: '韌體版本記錄',
     firmwareAutoUpdate: '韌體自動更新',
     autoUpdateDescriptionNote: '偵測到新韌體後，裝置將在上午{0}嘗試自動更新。裝置必須處於空閒狀態以完成更新。更新過程將無聲音提示和燈光打擾。',
-    updateNow: '立即更新'
+    updateNow: '立即更新',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   en: {
     setting: 'Settings',
@@ -559,7 +563,8 @@ strings = getStrings({
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
-    updateNow: 'Upgrade Now'
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   ko: {
     setting: '설정',
@@ -666,7 +671,8 @@ strings = getStrings({
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
-    updateNow: 'Upgrade Now'
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   ru: {
     setting: 'Настройки',
@@ -773,7 +779,8 @@ strings = getStrings({
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
-    updateNow: 'Upgrade Now'
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   es: {
     setting: 'Ajustes',
@@ -880,7 +887,8 @@ strings = getStrings({
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
-    updateNow: 'Upgrade Now'
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   fr: {
     setting: "Paramètres",
@@ -987,7 +995,8 @@ strings = getStrings({
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
-    updateNow: 'Upgrade Now'
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   it: {
     setting: 'Impostazioni',
@@ -1094,7 +1103,8 @@ strings = getStrings({
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
-    updateNow: 'Upgrade Now'
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   de: {
     setting: "Einstellungen",
@@ -1201,7 +1211,8 @@ strings = getStrings({
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
-    updateNow: 'Upgrade Now'
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   id: {
     setting: 'Pengaturan',
@@ -1308,7 +1319,8 @@ strings = getStrings({
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
-    updateNow: 'Upgrade Now'
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   pl: {
     setting: 'Ustawienia',
@@ -1415,7 +1427,8 @@ strings = getStrings({
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
-    updateNow: 'Upgrade Now'
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   vi: {
     setting: 'Cài đặt',
@@ -1522,7 +1535,8 @@ strings = getStrings({
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
-    updateNow: 'Upgrade Now'
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   ja: {
     setting: '設定',
@@ -1629,7 +1643,8 @@ strings = getStrings({
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
-    updateNow: 'Upgrade Now'
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   th: {
     setting: 'การตั้งค่า',
@@ -1736,7 +1751,8 @@ strings = getStrings({
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
-    updateNow: 'Upgrade Now'
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   tr: {
     setting: 'Ayarlar',
@@ -1843,7 +1859,8 @@ strings = getStrings({
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
-    updateNow: 'Upgrade Now'
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   nl: {
     setting: 'Instellingen',
@@ -1950,7 +1967,8 @@ strings = getStrings({
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
-    updateNow: 'Upgrade Now'
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   pt: {
     setting: 'Configurações',
@@ -2057,7 +2075,8 @@ strings = getStrings({
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
-    updateNow: 'Upgrade Now'
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   }
 });
 export default strings;
