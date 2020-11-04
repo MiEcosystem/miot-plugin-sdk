@@ -63,7 +63,13 @@ export const MISSCodec = {
      * AAC
      * @const
      */
-  MISS_CODEC_AUDIO_AAC: 0x406
+  MISS_CODEC_AUDIO_AAC: 0x406,
+  /**
+     * PCM
+     * @const
+     * @since 10047
+     */
+  MISS_CODEC_AUDIO_PCM: 0x400
 };
 Object.freeze(MISSCodec);
 /**
@@ -120,10 +126,11 @@ Object.freeze(MISSAudioChannel);
 export default class CameraRenderView extends React.Component {
     static propTypes = {
       videoCodec: PropTypes.oneOf([MISSCodec.MISS_CODEC_VIDEO_H264, MISSCodec.MISS_CODEC_VIDEO_H265]),
-      audioCodec: PropTypes.oneOf([MISSCodec.MISS_CODEC_AUDIO_G711A, MISSCodec.MISS_CODEC_AUDIO_AAC]),
+      audioCodec: PropTypes.oneOf([MISSCodec.MISS_CODEC_AUDIO_G711A, MISSCodec.MISS_CODEC_AUDIO_AAC, MISSCodec.MISS_CODEC_AUDIO_PCM]),
       audioRecordSampleRate: PropTypes.oneOf([MISSSampleRate.FLAG_AUDIO_SAMPLE_8K, MISSSampleRate.FLAG_AUDIO_SAMPLE_16K]),
       audioRecordChannel: PropTypes.oneOf([MISSAudioChannel.FLAG_AUDIO_CHANNEL_MONO, MISSAudioChannel.FLAG_AUDIO_CHANNEL_STERO]),
       audioRecordDataBits: PropTypes.oneOf([MISSDataBits.FLAG_AUDIO_DATABITS_8, MISSDataBits.FLAG_AUDIO_DATABITS_16]),
+      audioRecordCodec: PropTypes.oneOf([MISSCodec.MISS_CODEC_AUDIO_G711A, MISSCodec.MISS_CODEC_AUDIO_AAC, MISSCodec.MISS_CODEC_AUDIO_PCM]), //如果没有配置该类型，则默认为对讲时录音的音频格式与播放声音的音频格式一致。 主要处理部分厂商（华来）的特异性问题，对讲录音音频格式与播放音频格式不一致的问题。
       videoRate: PropTypes.number,
       maximumZoomScale: PropTypes.number,
       minimumZoomScale: PropTypes.number,
@@ -192,6 +199,9 @@ export default class CameraRenderView extends React.Component {
     }
     /**
      * 开始录像
+     * @param {string} 存储位置filePath filePath必须是带 Host.file.storageBasePath前缀的path，native端会校验这个路径合法性。  
+     * @param {string} timeCallBackName 录制时长回调 
+     * @param {*} did 
      */
     @report
     startRecord(filePath, timeCallBackName, did = Device.deviceID) {
@@ -206,6 +216,8 @@ export default class CameraRenderView extends React.Component {
     }
     /**
      * 截屏
+     * @param {string} 存储位置filePath filePath必须是带 Host.file.storageBasePath前缀的path，native端会校验这个路径合法性。  
+     * @param {*} did 
      */
     snapShot(filePath, did = Device.deviceID) {
        return Promise.resolve(null);

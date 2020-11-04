@@ -244,7 +244,7 @@ class IMiotCamera {
      return null
   }
   /**
-   * 
+   *
    * 注册收到数据速率 Bytes per second，每秒回调一次
    * @param {string} callbackName 回调名称 { rate: number }
    * @since 10036
@@ -352,7 +352,7 @@ class IMiotCamera {
   /**
    * 获取当前语音对讲过程中的音量大小
    * @since 10038
-   * return {promise}  
+   * return {promise}
    */
   @report
   getCurrentSpeakerVolumn(did = Device.deviceID) {
@@ -369,9 +369,9 @@ class IMiotCamera {
   }
   /**
    * 打开摄像机NAS存储设置页面。
-   * 
+   *
    * @since 10038
-   * 
+   *
    */
   @report
   showNASSetting(did = Device.deviceID) {
@@ -456,8 +456,8 @@ class IMiotCamera {
   }
   /**
    * 标记当前是否使用华来的音视频解密方案，只对tutk生效，需要在连接成功之后，收到视频流之前调用
-   * @param {bool} isEncrypted 
-   * @param {string} did 
+   * @param {bool} isEncrypted
+   * @param {string} did
    * @since 10042
    */
   @report
@@ -470,8 +470,8 @@ class IMiotCamera {
   }
   /**
    * 在连接成功后，发送rdt命令前调用，标记当前设备是否使用固定rdtChannel方案。
-   * @param {bool} useFixedRdtChannel 
-   * @param {string} did 
+   * @param {bool} useFixedRdtChannel
+   * @param {string} did
    * @since 10042
    */
   @report
@@ -485,10 +485,10 @@ class IMiotCamera {
   /**
    * 设置开启/关闭ijk解码。
    * @param {bool} isEnableIjk 是否开启ijk 一启用，所有的设备都会被启用。
-   * @param {string} did 
+   * @param {string} did
    * @since 10043
    */
-  @report 
+  @report
   setUseIjkDecoderGlobal(isEnableIjk, did = Device.deviceID) {
     if (Platform.OS == "android") {
        return null
@@ -501,7 +501,7 @@ class IMiotCamera {
    * @param {int} simpleRate  音频采样率  与CameraRenderView里定义的MISSSampleRate一致
    * @param {int} type 变声类型，目前米家只提供 0 == 正常  1 == 小丑  2 == 大叔这三种类型
    * @param {int} channel 单双通道 1 单声道， 2 立体声   默认为1
-   * @param {string} did 
+   * @param {string} did
    */
   @report
   setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID) {
@@ -509,14 +509,71 @@ class IMiotCamera {
   }
   /**
    * 打开门铃的带屏设备联动页面
-   * @param {bool} isMultiChoice 
-   * @param {number} screenCount 
-   * @param {string} did 
+   * @param {bool} isMultiChoice
+   * @param {number} screenCount
+   * @param {string} did
    * @since 10044
    */
-  @report 
+  @report
   showScreenLinkagePage(isMultiChoice, screenCount, did = Device.deviceID) {
      return null
+  }
+  /**
+   * 打开云存下载列表页面
+   * @param {string} did
+   *
+   * @since 10046
+   */
+  @report
+  openCloudSettingDownloadListPage(did = Device.deviceID) {
+     return null
+  }
+  /**
+   * 下载云存视频到 云存管理-》下载列表里
+   * promise仅仅代表提交任务时是否成功；
+   * 监听任务状态 需要通过EventEmitter监听 cloudVideoDownloadProgressCallbackName
+   *
+   * EventEmitter里返回的数据解释:
+   * status: 0 下载错误  1 开始下载  2 停止下载  3 下载结束 4 下载取消  (Android端目前仅有onFinish回调 status:3)
+   * errorCode:错误码  0代表无错误。
+   * fileId:当前哪个fileId 对应的视频下载状态
+   *
+   * @param {*} did
+   * @param {*} fileId 视频的fileId
+   * @param {*} isAlarmFile 是否是报警视频(短视频 true)/云存视频(长视频 false)
+   * @param {*} startTime 视频的开始时间
+   * @param {*} duration 视频的duration，通过播放器返回的时长或者其他方式获取到
+   * @param {*} register true时 native 层会监听下载状态并发送cloudVideoDownloadProgressCallbackName, false时取消监听并停止发送
+   * @param {*} thumbId 视频缩略图id
+   *
+   * @since 10047
+   */
+  @report
+  downloadCloudVideoIntoCloudSetting(did, fileId, isAlarmFile, startTime, duration, register = true, thumbId = null) {
+    return new Promise((resolve, reject) => {
+      NativeModules.MHCameraSDK.downloadCloudVideoIntoCloudSetting(did, fileId, isAlarmFile, startTime, duration, register, thumbId, (result, data) => {
+        if (result) {
+          resolve(data);
+        } else {
+          reject(data);
+        }
+      });
+    });
+  }
+  /**
+   * 下载mp4类型的云存视频
+   * @param {string} did 设备did
+   * @param {string} fileId 从服务端拿到的fileId
+   * @param {string} stoId 从服务器端拿到的stoId
+   * @since 10047
+   */
+  @report
+  downloadCloudVideoMp4(fileId, stoId, did = Device.deviceID) {
+    if (Platform.OS == "android") {
+       return Promise.resolve(null);
+    } else {
+      return Promise.reject("ios platform not support yet");
+    }
   }
 }
 const MiotCameraInstance = new IMiotCamera();
