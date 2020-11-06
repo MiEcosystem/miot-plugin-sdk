@@ -425,6 +425,18 @@ class IMiotCamera {
     }
   }
   /**
+   * 设置当前设备为直连模式，使用固定的uid 和 password连接设备，目前只有华来的小方设备使用到了该功能。
+   * 切换直连为非直连模式，需要断开原有连接，设置该接口为false，重新连接设备。
+   * 先设置是否是miss固件，在调用连接前设置该接口。
+   * @param isUseFixedUid 是否使用直连模式， 默认false
+   * @param did 设备did
+   * @since 10047
+   */
+  @report
+  setCurrentDeviceUseFixedUid(isUseFixedUid, did = Device.deviceID) {
+     return null
+  }
+  /**
    * 使用chacha20_xor解密大文件
    * @param {string} fileData byte array encoded into string 待解密的文件体
    * @param {*} nonce byte array encoded into string chacha20_xor解密需要的nonce
