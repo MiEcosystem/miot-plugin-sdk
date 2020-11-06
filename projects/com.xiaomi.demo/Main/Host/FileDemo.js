@@ -201,13 +201,13 @@ export default class FileStorage extends React.Component {
   }
 
   _renderFileList(item) {
-    let info = `${ item.name }\nsize:${ item.size }`;
+    let info = `${ item.name }\nsize:${ item.size }\nmodifyTime:${ item.modifyTime }`;
     return (
       <View>
         <TouchableHighlight
-          style={[styles.row, { height: 40 }]}
+          style={[styles.row, { height: 60 }]}
         >
-          <Text style={[{ color: '#333333' }, this.fontFamily]}>{info}</Text>
+          <Text style={[{ color: '#333333', fontSize: 12 }, this.fontFamily]}>{info}</Text>
         </TouchableHighlight>
         <View style={{ height: 1 / PixelRatio.get(), backgroundColor: '#666' }} />
       </View>

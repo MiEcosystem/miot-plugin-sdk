@@ -307,6 +307,7 @@ const excludeOptions = {
  * @property {number} titleNumberOfLines - 10040新增 设置title字体显示的最大行数 默认为1
  * @property {number} subtitleNumberOfLines - 10040新增 设置subtitle字体显示的最大行数 默认为2
  * @property {number} valueNumberOfLines - 10040新增 设置value字体显示的最大行数 默认为2
+ * @property {bool} useNewType - 10045新增 是否使用新样式 10045以后*!必须!*使用新样式
  */
 /**
  * MoreSettingPageStyle - 10040新增 二级页面 更多设置 页面的样式
@@ -740,6 +741,7 @@ export default class CommonSetting extends React.Component {
                 titleNumberOfLines={tempCommonSettingStyle.itemStyle.titleNumberOfLines}
                 subtitleNumberOfLines={tempCommonSettingStyle.itemStyle.subtitleNumberOfLines}
                 valueNumberOfLines={tempCommonSettingStyle.itemStyle.valueNumberOfLines}
+                useNewType={tempCommonSettingStyle.itemStyle.useNewType}
                 showDot={item.showDot || false}
                 value={item.value}
                 showSeparator={showSeparator}
@@ -788,7 +790,8 @@ export default class CommonSetting extends React.Component {
         dotStyle: null,
         titleNumberOfLines: 1,
         subtitleNumberOfLines: 2,
-        valueNumberOfLines: 2
+        valueNumberOfLines: 2,
+        useNewType: false
       },
       deleteTextStyle: {}
     };
