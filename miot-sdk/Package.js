@@ -145,7 +145,13 @@ export const PackageEvent = {
    * @since 10038
    * @event
    */
-  packageViewWillDisappearIOS: { always: true, sameas: isIOS ? 'packageViewWillDisappearIOS' : undefined }
+  packageViewWillDisappearIOS: { always: true, sameas: isIOS ? 'packageViewWillDisappearIOS' : undefined },
+  /**
+   * 插件密码校验通过（Android only）
+   * @since 10047
+   * @event
+   */
+  pinCodeVerifyPassed: { always: true }
 };
 /**
  * @export
