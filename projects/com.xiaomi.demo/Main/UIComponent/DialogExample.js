@@ -11,10 +11,9 @@ import {
   ShareDialog
 } from 'miot/ui/Dialog';
 import Separator from 'miot/ui/Separator';
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { Dimensions, Image, Platform, ScrollView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
-import tr from "miot/resources/strings/tr";
+import Logger from '../Logger';
 
 const { width } = Dimensions.get('screen');
 const testIcon = Images.common.mihome;
@@ -25,17 +24,13 @@ let titleEnglish3 = 'maxHeight is the maximum height for this component, in logi
 
 export default class DialogExample extends React.Component {
 
-  static navigationOptions = ({ navigation }) => ({
-    header: <TitleBar
-      type="dark"
-      title="米家弹窗 demo"
-      style={{ backgroundColor: '#fff' }}
-      onPressLeft={(_) => navigation.goBack()}
-    />
-  });
-
   constructor(props, context) {
     super(props, context);
+    Logger.trace(this);
+    this.props.navigation.setParams({
+      title: '米家弹窗 demo'
+    });
+
     this.state = {
       // 测试一下是否可以动态更改
       progress: 0, // 动态更改 ProgressDialog 进度
@@ -323,7 +318,8 @@ export default class DialogExample extends React.Component {
                 {
                   subTitleStyle: {
                     color: 'red'
-                  } }
+                  }
+                }
               }
             />
             <AbstractDialog
@@ -335,7 +331,8 @@ export default class DialogExample extends React.Component {
                 {
                   subTitleStyle: {
                     color: 'red'
-                  } }
+                  }
+                }
               }
               buttons={[
                 {
@@ -544,8 +541,10 @@ export default class DialogExample extends React.Component {
                 {
                   text: '确认',
                   style: { color: 'black' },
-                  backgroundColor: { bgColorNormal: 'red',
-                    bgColorPressed: 'green' },
+                  backgroundColor: {
+                    bgColorNormal: 'red',
+                    bgColorPressed: 'green'
+                  },
                   callback: (obj) => {
                     this.setState({ visible29: false });
                   }
@@ -873,7 +872,7 @@ export default class DialogExample extends React.Component {
               visible={this.state.visible13}
               title="不分页的分享弹窗-默认情况-字体大小随系统字体大小改变而改变-默认1行"
               onDismiss={(_) => this.onDismiss('13')}
-              // extraText={'点我点我啊啊啊我疯了点点点啊啊啊啊啊啊啊啊啊'}
+            // extraText={'点我点我啊啊啊我疯了点点点啊啊啊啊啊啊啊啊啊'}
             />
             <ShareDialog
               visible={this.state.visible25}
@@ -1244,6 +1243,7 @@ const styles = StyleSheet.create({
     paddingLeft: 23,
     paddingRight: 23,
     alignItems: 'center',
+    backgroundColor: 'white',
     flex: 1
   },
   itemText: {

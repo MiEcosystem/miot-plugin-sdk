@@ -6,13 +6,14 @@ import {
 } from 'react-native';
 
 import { StringSpinner } from 'miot/ui';
-import { Host } from 'miot';
+import Logger from '../Logger';
 
 const SpinnerStatus = new Map([
   [0, '未开始'],
   [1, '开始滚动'],
   [2, '结束滚动']
 ]);
+
 export default class StringSpinnerDemo extends React.Component {
 
   constructor(props) {
@@ -21,20 +22,15 @@ export default class StringSpinnerDemo extends React.Component {
       oneValue: "",
       selectBgColor: "#ff0000",
       spinnerStatus: 0
-      // mutiValue: "",
     };
+    Logger.trace(this);
   }
+
   render() {
     return (
-      <View style={{ flex: 1, marginTop: 40, marginLeft: 15, backgroundColor: "#f8f8f8" }}>
-
-        <ScrollView
-          ref={'myScrollView'}
-          bounces={true}
-        >
-
-          <View style={{ flexDirection: 'row' }}>
-
+      <View style={{ flex: 1 }}>
+        <ScrollView ref={'myScrollView'} bounces={true}>
+          <View style={{ marginTop: 10, flexDirection: 'row' }}>
             <StringSpinner
               visible={false}
               style={{ width: 120, height: 200, backgroundColor: '#ffffff' }}
@@ -67,17 +63,15 @@ export default class StringSpinnerDemo extends React.Component {
           <Text style={{ marginTop: 20, color: "#666", fontSize: 14 }}>当前状态： {SpinnerStatus.get(this.state.spinnerStatus)}</Text>
           <Text style={{ marginTop: 20, color: "#666", fontSize: 14 }}>{`选中的值为：${ this.state.oneValue }`}</Text>
 
-          <View style={{ height: 200, backgroundColor: '#999' }}/>
-          <View style={{ height: 200, backgroundColor: '#a12' }}/>
-          <View style={{ height: 200, backgroundColor: '#cda' }}/>
-          <View style={{ height: 200, backgroundColor: '#999' }}/>
-          <View style={{ height: 200, backgroundColor: '#1ac' }}/>
-          <View style={{ height: 200, backgroundColor: '#5aa' }}/>
-          <View style={{ height: 200, backgroundColor: '#8b2' }}/>
-          <View style={{ height: 200, backgroundColor: '#cb2' }}/>
-          <View style={{ height: 200, backgroundColor: '#1b2' }}/>
-
-
+          <View style={{ height: 200, backgroundColor: '#999' }} />
+          <View style={{ height: 200, backgroundColor: '#a12' }} />
+          <View style={{ height: 200, backgroundColor: '#cda' }} />
+          <View style={{ height: 200, backgroundColor: '#999' }} />
+          <View style={{ height: 200, backgroundColor: '#1ac' }} />
+          <View style={{ height: 200, backgroundColor: '#5aa' }} />
+          <View style={{ height: 200, backgroundColor: '#8b2' }} />
+          <View style={{ height: 200, backgroundColor: '#cb2' }} />
+          <View style={{ height: 200, backgroundColor: '#1b2' }} />
         </ScrollView>
       </View >
     );

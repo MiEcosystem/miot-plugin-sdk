@@ -1,47 +1,29 @@
 'use strict';
 
-import { Entrance, Package, Host } from "miot";
+import { Service } from "miot";
 import { strings, Styles } from 'miot/resources';
 import { CommonSetting, SETTING_KEYS } from "miot/ui/CommonSetting";
 import { ListItem, ListItemWithSlider, ListItemWithSwitch } from 'miot/ui/ListItem';
 import Separator from 'miot/ui/Separator';
-import NavigationBar from 'miot/ui/NavigationBar';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import Logger from '../Logger';
 
 const { first_options, second_options } = SETTING_KEYS;
 
 export default class Setting extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      header:
-        <NavigationBar
-          backgroundColor="#ffffff"
-          type={NavigationBar.TYPE.Light}
-          left={[{
-            key: NavigationBar.ICON.BACK,
-            onPress: (() => {
-              if (Package.entrance !== Entrance.Main && !Package.pageParams.isBackToMainPage) {
-                // 如果是通过Host.ui.openPluginPage 跳转到此页面，且不需要返回到插件首页，则直接调用退出插件api
-                Package.exit();
-              } else {
-                navigation.goBack();
-              }
-            })
-          }]}
-          title={strings.setting}
-        />
-    };
-  };
-
   constructor(props, context) {
     super(props, context);
+    this.props.navigation.setParams({
+      title: strings.setting
+    });
     this.state = {
       sliderValue: 25,
       switchValue: false,
       showDot: []
     };
+    Logger.trace(this);
   }
 
   gotoSecretPage() {
@@ -87,7 +69,7 @@ export default class Setting extends React.Component {
       title: '设置页自定义页面 - 可以跳转自定义设置页',
       weight: 5,
       onPress: () => {
-        Host.ui.openIftttAutoPage();
+        Service.scene.openIftttAutoPage();
       },
       showDot: true
     }];
@@ -99,7 +81,7 @@ export default class Setting extends React.Component {
         this.gotoSecretPage();
       },
       // 权重可自己调节，以便确定此项停留在设置页的位置，支持小数
-      weight: 13 
+      weight: 13
     }];
 
     return (

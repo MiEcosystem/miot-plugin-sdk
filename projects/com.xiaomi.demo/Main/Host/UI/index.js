@@ -1,11 +1,12 @@
 'use strict';
 
 import { Device, Host, DeviceEvent, PackageEvent } from "miot";
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import {
   ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View
 } from 'react-native';
+import Logger from '../../Logger';
+
 let BUTTONS = [
   '测试对话框',
   '确定'
@@ -13,20 +14,12 @@ let BUTTONS = [
 
 export default class UIDemo extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      header: <TitleBar type="dark" title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
-        onPressLeft={() => {
-          navigation.goBack();
-        }} />
-    };
-  };
-
   constructor(props) {
     super(props);
     let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this._createMenuData();
     this.state = { dataSource: ds.cloneWithRows(this._menuData.map((o) => ({ 'name': o.name, 'subtitle': o.subtitle }))) };
+    Logger.trace(this);
   }
 
   componentDidMount() {
@@ -581,6 +574,7 @@ export default class UIDemo extends React.Component {
   _pressRow(rowID) {
     console.log(`row${ rowID }clicked!`);
     this._menuData[rowID].func();
+    Logger.trace(this, this._pressRow, this._menuData[rowID]);
   }
 
   showActionSheet() {
@@ -589,7 +583,7 @@ export default class UIDemo extends React.Component {
         options: BUTTONS,
         destructiveButtonIndex: 1
       },
-      () => {});
+      () => { });
   }
 }
 

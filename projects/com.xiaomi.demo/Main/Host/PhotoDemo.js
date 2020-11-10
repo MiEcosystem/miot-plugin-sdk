@@ -6,6 +6,7 @@ import { Host } from "miot";
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Image } from 'react-native';
 import Video from 'react-native-video';
+import Logger from '../Logger';
 
 export default class PhotoDemo extends React.Component {
 
@@ -14,6 +15,7 @@ export default class PhotoDemo extends React.Component {
     this.state = {
       currentAsset: {}
     };
+    Logger.trace(this);
   }
 
   render() {
@@ -31,7 +33,10 @@ export default class PhotoDemo extends React.Component {
             ['分享当前的视频或照片', () => Host.ui.openSystemShareWindow(this.state.currentAsset.url)]
           ].map((item, index) => {
             return (
-              <TouchableOpacity key={index} style={styles.button} onPress={item[1].bind(this)}>
+              <TouchableOpacity key={index} style={styles.button} onPress={() => {
+                item[1].bind(this)();
+                Logger.trace(this, item[1], { action: item[0] });
+              }}>
                 <Text style={styles.buttonText}>{item[0]}</Text>
               </TouchableOpacity>
             );

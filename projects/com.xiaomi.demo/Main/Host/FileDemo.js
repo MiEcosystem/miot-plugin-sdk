@@ -16,6 +16,7 @@ import {
 import { ListItem } from 'miot/ui/ListItem';
 import { Device, FileEvent, Host } from "miot";
 import { ProgressDialog } from 'miot/ui';
+import Logger from '../Logger';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
 
@@ -24,7 +25,7 @@ const imagePathMap = new Map();
 export default class FileStorage extends React.Component {
   constructor(props) {
     super(props);
-
+    Logger.trace(this);
     this.state = {
       dataSource: [],
       fileName: "",
@@ -163,8 +164,10 @@ export default class FileStorage extends React.Component {
                         hideArrow={true}
                         key={index}
                         title={item[0]}
-                        onPress={item[1].bind(this)
-                        } />;
+                        onPress={() => {
+                          Logger.trace(this, item[1], { name: item[0] });
+                          item[1].bind(this)();
+                        }} />;
                     })
                   }
                 </View>

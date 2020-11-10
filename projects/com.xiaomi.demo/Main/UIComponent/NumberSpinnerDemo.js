@@ -2,11 +2,12 @@ import React from 'react';
 
 import {
   View,
-  Text, ToastAndroid, Button
+  Text, ToastAndroid
 } from 'react-native';
 
-import { NumberSpinner, StringSpinner } from 'miot/ui';
+import { NumberSpinner } from 'miot/ui';
 import { Host } from 'miot';
+import Logger from '../Logger';
 
 const SpinnerStatus = new Map([
   [0, '未开始'],
@@ -25,12 +26,12 @@ export default class NumberSpinnerDemo extends React.Component {
       visible: true,
       spinnerStatus: 0
     };
+    Logger.trace(this);
   }
 
   render() {
-
     return (
-      <View>
+      <View style={{ alignItems: 'center' }}>
         <Text style={{ marginTop: 20, color: "#666", fontSize: 14 }}>当前状态： {SpinnerStatus.get(this.state.spinnerStatus)}</Text>
         <View style={{ flexDirection: 'row' }}>
           <NumberSpinner
@@ -50,7 +51,7 @@ export default class NumberSpinnerDemo extends React.Component {
             }}
           />
           <NumberSpinner
-            style={{ width: 120, height: 200 }}
+            style={{ width: 100, height: 200 }}
             maxValue={this.state.maxMonth}
             minValue={1}
             interval={1}
@@ -67,7 +68,7 @@ export default class NumberSpinnerDemo extends React.Component {
             }}
           />
           <NumberSpinner
-            style={{ width: 80, height: 200 }}
+            style={{ width: 100, height: 200 }}
             maxValue={30}
             minValue={1}
             interval={1}
@@ -113,4 +114,3 @@ export default class NumberSpinnerDemo extends React.Component {
     }
   }
 }
-

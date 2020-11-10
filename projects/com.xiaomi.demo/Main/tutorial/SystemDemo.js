@@ -8,6 +8,7 @@ import { Permissions } from "miot/system/permission";
 import { Separator } from 'mhui-rn';
 import { ListItem } from 'miot/ui/ListItem';
 import { ShakeEvent } from "miot/system/shake";
+import Logger from '../Logger';
 
 export const interval = {
   "a": "game",
@@ -188,6 +189,10 @@ function stopShakeListener() {
 }
 
 export default class SystemDemo extends React.Component {
+  componentDidMount() {
+    Logger.trace(this);
+  }
+
   render() {
     return (
       <View>
@@ -233,7 +238,10 @@ export default class SystemDemo extends React.Component {
                 key={index}
                 title={item[0]}
                 hideArrow={true}
-                onPress={item[1].bind(this)}
+                onPress={() => {
+                  Logger.trace(this, item[1], { action: item[0] });
+                  item[1].bind(this)();
+                }}
               /> : <View style={{ height: 18 }} key={index} />);
             })
           }

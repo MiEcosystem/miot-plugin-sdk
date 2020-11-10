@@ -1,11 +1,10 @@
 import React from 'react';
 import {
   Text,
-  TouchableHighlight,
-  View,
-  Platform
+  View
 } from 'react-native';
 import { HostEvent } from "miot/Host";
+import Logger from '../Logger';
 
 export default class HostEventDemo extends React.Component {
 
@@ -16,6 +15,7 @@ export default class HostEventDemo extends React.Component {
       networkStatePrefix: '当前网络状态为：',
       networkState: ''
     };
+    Logger.trace(this);
   }
 
   componentWillMount() {
