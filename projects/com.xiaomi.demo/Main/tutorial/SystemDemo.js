@@ -42,6 +42,15 @@ function getGatewayIpAddress() {
   });
 }
 
+// 获取当前wifi的广播地址
+function getWifiBroadcastAddress() {
+  System.network.getWifiBroadcastAddress().then((res) => {
+    alert(`getWifiBroadcastAddress success,res:${ JSON.stringify(res) }`);
+  }).catch((error) => {
+    alert(`getWifiBroadcastAddress fail,error: ${ JSON.stringify(error) }`);
+  });
+}
+
 // 震动
 function getVibrateShort() {
   System.vibrate.vibrateShort();
@@ -232,7 +241,8 @@ export default class SystemDemo extends React.Component {
               [],
               ["扫码", getScanCode],
               [],
-              ["获取手机当前连接的路由器的ip地址", getGatewayIpAddress]
+              ["获取手机当前连接的路由器的ip地址", getGatewayIpAddress],
+              ["获取当前wifi的广播地址", getWifiBroadcastAddress]
             ].map((item, index) => {
               return (item.length >= 2 ? <ListItem
                 key={index}

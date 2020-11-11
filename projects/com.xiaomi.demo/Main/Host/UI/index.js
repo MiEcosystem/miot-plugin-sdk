@@ -542,6 +542,20 @@ export default class UIDemo extends React.Component {
             });
           }
         }
+      },
+      {
+        'name': 'openConnectSucceedPage',
+        'subtitle': '跳转到房间设置的页面',
+        'func': () => {
+          Host.ui.openConnectSucceedPage(Device.model, Device.deviceID);
+        }
+      },
+      {
+        'name': 'openTerminalDeviceSettingPage',
+        'subtitle': '跳转到WiFi选择页面 ',
+        'func': () => {
+          Host.ui.openTerminalDeviceSettingPage(3);
+        }
       }
     ];
   }

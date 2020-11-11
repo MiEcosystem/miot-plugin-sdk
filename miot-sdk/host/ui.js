@@ -571,6 +571,7 @@ class IUi {
    * @param {number} type
    *      type = 1 打开手机设置页中米家app配置页面      10036及以上 有效
    *      type = 2 WiFi设置页面                      10036及以上 有效
+   *      type = 3 WiFi选择页面                      10047及以上 有效(仅Android)，iOS上无任何效果
    */
   @report
   openTerminalDeviceSettingPage(type) {
