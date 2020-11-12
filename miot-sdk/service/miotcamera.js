@@ -590,7 +590,7 @@ class IMiotCamera {
      return Promise.resolve(null);
   }
   /**
-   * 将携带g711音频的mp4视频 转换成 aac音频的mp4视频
+   * 将携带g711音频的mp4视频 转换成 aac音频的mp4视频，返回resolve的情况下，filepath对应的文件被替换成aac mp4文件了。
    * @param {string} filePath 必须是以Host.file.storageBasePath 作为前缀开始传入。
    * @param {object} audioParam {sampleRate:MISSSampleRate.FLAG_AUDIO_SAMPLE_8K, channel:MISSAudioChannel.FLAG_AUDIO_CHANNEL_MONO, bitRate:MISSAudioBitRate.FLAG_AUDIO_BIT_RATE_16K}
    * @since 10047
