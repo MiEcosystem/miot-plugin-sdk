@@ -2,9 +2,9 @@ import { Images, Styles } from 'miot/resources';
 import Card from 'miot/ui/Card';
 import MHCard from 'miot/ui/Card/MHCard';
 import Separator from 'miot/ui/Separator';
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import Logger from '../../Logger';
 
 const { width } = Dimensions.get('window');
 const ICON_SIZE = 40;
@@ -12,17 +12,12 @@ const DEFAULT_MARGIN = 10;
 
 export default class CustomCardDemo extends React.Component {
 
-  static navigationOptions = ({ navigation }) => ({
-    header: <TitleBar
-      type="dark"
-      title="自定义卡片"
-      style={{ backgroundColor: '#fff' }}
-      onPressLeft={() => navigation.goBack()}
-    />
-  });
-
   constructor(props, context) {
     super(props, context);
+    this.props.navigation.setParams({
+      title: "自定义卡片"
+    });
+
     const visible = Math.random() > 0.5 ? true : false;
     const visible5 = Math.random() > 0.5 ? true : false;
     this.state = {
@@ -38,6 +33,7 @@ export default class CustomCardDemo extends React.Component {
       isOrangeLogo: false,
       picture: Images.common.mihome
     };
+    Logger.trace(this);
   }
 
   getInnerView() {

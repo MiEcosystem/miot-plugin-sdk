@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Service } from 'miot';
 import Separator from 'miot/ui/Separator';
+import Logger from '../Logger';
 
 /**
  * 账号管理模块 demo
@@ -23,6 +24,7 @@ export default class AccountDemo extends React.Component {
     };
     this.getAccountInfoById = this.getAccountInfoById.bind(this);
     this.getAccountInfoList = this.getAccountInfoList.bind(this);
+    Logger.trace(this);
   }
 
   componentDidMount() {

@@ -21,7 +21,8 @@ import BraceletInterconnection from 'miot/ui/BraceletInterconnection';
 import Setting from "./tutorial/Setting";
 import SettingPage from "./tutorial/SettingPage";
 
-import TitleBar from "miot/ui/TitleBar";
+import NavigationBar from "miot/ui/NavigationBar";
+
 import React from 'react';
 
 // 设备控制
@@ -187,6 +188,8 @@ import CustomContainer from './uikit/components/CustomContainer';
 
 // 官方Demo
 import OfficialDemos from './OfficialDemos';
+
+import Logger from './Logger';
 
 function createRootStack(initPage) {
   return createStackNavigator({
@@ -382,14 +385,21 @@ function createRootStack(initPage) {
     initialRouteName: initPage,
     // initialRouteName: 'ModeCardDemo',
     navigationOptions: ({ navigation }) => {
+      let params = navigation.state.params || {};
       return {
-        header: <TitleBar
-          title={navigation.state.params ? navigation.state.params.title : ''}
-          // style={{ backgroundColor: '#fff' }}
-          type="dark"
-          onPressLeft={() => {
-            navigation.goBack();
-          }} />
+        header: <NavigationBar
+          type={params.type || NavigationBar.TYPE.LIGHT}
+          title={params.title || params.name || ''}
+          titleStyle={params.titleStyle || { fontSize: 15 }}
+          subtitle={params.subtitle || ''}
+          left={params.left || [{
+            key: NavigationBar.ICON.BACK,
+            onPress: () => navigation.goBack(),
+            accessibilityLabel: '返回',
+            accessibilityHint: '返回上一页'
+          }]}
+          right={params.right || []}
+        />
       };
     },
     transitionConfig: () => ({
@@ -512,6 +522,7 @@ export default class App extends React.Component {
       // 需要返回到首页，则首先进入到插件首页，然后插件首页中跳转到真正需要跳转到的page页面
       this.initPage = "Home";
     }
+    Logger.trace(this, this.initData, { initPage: this.initPage });
   }
 
   render() {

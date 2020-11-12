@@ -4,6 +4,7 @@ import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from "react-nati
 
 import { ListItem } from 'miot/ui/ListItem';
 import Separator from 'miot/ui/Separator';
+import Logger from '../../Logger';
 
 export default class LocalServer extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export default class LocalServer extends React.Component {
     this.state = {
       locale: {}, server: {}, location: 'loading'
     };
+    Logger.trace(this);
   }
 
   componentDidMount() {
@@ -66,6 +68,7 @@ export default class LocalServer extends React.Component {
             })
           }
           <TouchableOpacity style={styles.button} onPress={() => {
+            Logger.trace(this, this.render, { action: 'request' });
             Host.locale.getSystemTimeZone().then((res) => {
               console.log("res", res);
               alert(JSON.stringify(res));

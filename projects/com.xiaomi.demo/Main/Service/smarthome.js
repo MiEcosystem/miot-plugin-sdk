@@ -5,6 +5,7 @@ import Host from "miot/Host";
 import { MemberType } from "miot/service/smarthome";
 import React from 'react';
 import { Text, View, ScrollView } from 'react-native';
+import Logger from '../Logger';
 
 export default class CallSmartHomeAPIDemo extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ export default class CallSmartHomeAPIDemo extends React.Component {
       dataSource: [],
       apiList: []
     };
+    Logger.trace(this);
   }
 
   componentDidMount() {
@@ -150,7 +152,7 @@ export default class CallSmartHomeAPIDemo extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <Separator/>
+        <Separator />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={{ padding: 10, marginVertical: 2, textAlign: 'center', backgroundColor: '#FFF' }}>{this.state.dataSource.length > 0 ? '结果输出' : '点击功能列表项目展示输出结果'}</Text>
           {
@@ -176,11 +178,11 @@ export default class CallSmartHomeAPIDemo extends React.Component {
                         item.action && item.action().then((result) => {
                           console.log("api res", result);
                           item.handle && item.handle(result);
-                        })
-                          .catch((err) => {
-                            console.log("err", err);
-                            alert("error:", err);
-                          });
+                        }).catch((err) => {
+                          console.log("err", err);
+                          alert("error:", err);
+                        });
+                        Logger.trace(this, item.action, item);
                       }
                       } />;
                   })

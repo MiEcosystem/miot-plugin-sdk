@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { Host } from "miot";
+import Logger from '../Logger';
 
 export default class HostPropsInfoDemo extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ export default class HostPropsInfoDemo extends Component {
       phoneHasNfcForAndroid: '',
       pageShouldAdapterSoftKeyboard: false
     };
+    Logger.trace(this);
   }
 
   componentDidMount() {

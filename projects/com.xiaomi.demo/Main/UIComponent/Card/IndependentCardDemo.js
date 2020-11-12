@@ -1,34 +1,25 @@
 import Card from 'miot/ui/Card';
 import IndependentCard from 'miot/ui/IndependentCard';
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import Logger from '../../Logger';
 
 const radiusValue = 10;
 
 class IndependentCardDemo extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      header:
-        <TitleBar
-          type="dark"
-          title="独立卡片"
-          style={{ backgroundColor: '#fff' }}
-          onPressLeft={() => navigation.goBack()}
-        />
-    };
-  };
-
   constructor(props) {
     super(props);
-
+    this.props.navigation.setParams({
+      title: "独立卡片"
+    });
     this.state = {
       value1: false,
       value2: true,
       value3: true,
       value4: true
     };
+    Logger.trace(this);
   }
 
   // 改变卡片开关的状态

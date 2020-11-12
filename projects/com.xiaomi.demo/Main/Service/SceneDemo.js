@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import Service from 'miot/Service';
 import { Device, SceneType } from "miot";
+import Logger from '../Logger';
 
 export default class MHSceneDemo extends React.Component {
 
@@ -13,6 +14,7 @@ export default class MHSceneDemo extends React.Component {
     this.state = {
       data: ''
     };
+    Logger.trace(this);
   }
 
   render() {
@@ -91,7 +93,10 @@ export default class MHSceneDemo extends React.Component {
                   {
                     section.items.map((item, index) => {
                       return (
-                        <TouchableOpacity key={index} style={styles.button} onPress={item[0].bind(this)}>
+                        <TouchableOpacity key={index} style={styles.button} onPress={() => {
+                          item[0].bind(this)();
+                          Logger.trace(this, item[0], { action: item[1] });
+                        }}>
                           <Text style={styles.buttonText}>{item[1]}</Text>
                         </TouchableOpacity>
                       );

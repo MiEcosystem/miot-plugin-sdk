@@ -5,6 +5,7 @@ import React from 'react';
 import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Draggable from "./Draggable";
 import LongPressDraggable from "./LongPressDraggable";
+import Logger from '../Logger';
 
 const { width } = Dimensions.get('screen');
 
@@ -23,6 +24,7 @@ export default class GearExample extends React.Component {
       slideGearSelectIndex1: 0,
       normalGearSelectIndex: 0
     };
+    Logger.trace(this);
   }
 
   render() {
@@ -279,7 +281,6 @@ export default class GearExample extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f7f7f7',
     flex: 1
   },
   contentStyle: {

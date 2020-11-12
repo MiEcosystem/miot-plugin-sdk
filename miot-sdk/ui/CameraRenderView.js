@@ -38,6 +38,7 @@
  * @property {bool} forceSoftDecode 强制软解 since 10033
  * @property {object} recordingVideoParam 限制录制视频时的分辨率，开始录制视频前，要调整分辨率到指定分辨率。 since 10041 {width:111, height:111}
  * @property {boolean} isFull  画面是否填充满屏幕
+ * @property {boolean} whiteBackground  是否使用白色背景
  */
 /**
  * 音视频codec
@@ -136,11 +137,14 @@ export default class CameraRenderView extends React.Component {
       forceSoftDecode: PropTypes.bool,
       recordingVideoParam: PropTypes.object,
       isFull: PropTypes.bool,
+      whiteBackground: PropTypes.bool,
       /**
          * 用户单击回调
          * @member {func}
          */
       onVideoClick: PropTypes.func,
+      onScaleChanged: PropTypes.func,
+      onPTZDirectionCtr: PropTypes.func,
       ...ViewPropTypes
     };
     render() {

@@ -5,10 +5,11 @@ import {
   findNodeHandle
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { AccessibilityPropTypes, getAccessibilityConfig } from '../utils/accessibility-helper';
 const RCTColorPickerView = requireNativeComponent('RCTColorPickerView');
 const RCTWhitePickerView = requireNativeComponent('RCTWhitePickerView');
 const ColorPickerView = (
-  { style, type = 'color', onInit, onColorChange },
+  { style, type = 'color', onInit, onColorChange, accessible, accessibilityLabel, accessibilityHint },
   ref
 ) => {
   const view = useRef(null);
@@ -56,9 +57,14 @@ const ColorPickerView = (
         }}
         onColorChange={(event) => {
           if (onColorChange) {
-            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType);
+            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType, event.nativeEvent.position);
           }
         }}
+        {...getAccessibilityConfig({
+          accessible,
+          accessibilityLabel,
+          accessibilityHint
+        })}
       />
     );
   } else {
@@ -75,9 +81,14 @@ const ColorPickerView = (
         }}
         onColorChange={(event) => {
           if (onColorChange) {
-            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType);
+            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType, event.nativeEvent.position);
           }
         }}
+        {...getAccessibilityConfig({
+          accessible,
+          accessibilityLabel,
+          accessibilityHint
+        })}
       />
     );
   }
@@ -87,5 +98,8 @@ ColorPicker.propTypes = {
   style: PropTypes.any,
   type: PropTypes.oneOf(['color', 'white']),
   onInit: PropTypes.func,
-  onColorChange: PropTypes.func
+  onColorChange: PropTypes.func,
+  accessible: AccessibilityPropTypes.accessible,
+  accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
+  accessibilityHint: AccessibilityPropTypes.accessibilityHint
 };

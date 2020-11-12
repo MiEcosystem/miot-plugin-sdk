@@ -1,6 +1,7 @@
 import { Host } from "miot";
 import React from "react";
 import { StyleSheet, Text, TextInput, View, TouchableOpacity } from "react-native";
+import Logger from '../Logger';
 
 export default class KVStorageDemo extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export default class KVStorageDemo extends React.Component {
       key1: "",
       value1: ""
     };
+    Logger.trace(this);
   }
 
   render() {
@@ -40,7 +42,10 @@ export default class KVStorageDemo extends React.Component {
             ['读取 key0 key1 数据', this._loadValues]
           ].map((item, index) => {
             return (
-              <TouchableOpacity key={index} style={styles.button} onPress={item[1].bind(this)}>
+              <TouchableOpacity key={index} style={styles.button} onPress={() => {
+                item[1].bind(this)();
+                Logger.trace(this, item[1], { name: item[0] });
+              }}>
                 <Text style={styles.buttonText}>{item[0]}</Text>
               </TouchableOpacity>
             );
