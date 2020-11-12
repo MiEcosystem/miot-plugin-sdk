@@ -209,7 +209,7 @@ class IMiotCamera {
    * @updated 10047
    */
   @report
-  showAlarmVideos(localRecognizeEvents, did = Device.deviceID, isNewPlugin = false) {// 为了防止model已经手动传入过did，只能把newPlugin变量放到最后
+  showAlarmVideos(localRecognizeEvents, did = Device.deviceID, isNewPlugin = false) { // 为了防止model已经手动传入过did，只能把newPlugin变量放到最后
      return null
   }
   /**
@@ -567,6 +567,7 @@ class IMiotCamera {
    */
   @report
   downloadCloudVideoIntoCloudSetting(did, fileId, isAlarmFile, startTime, duration, register = true, thumbId = null) {
+    //@ native :=> promise
     return new Promise((resolve, reject) => {
       NativeModules.MHCameraSDK.downloadCloudVideoIntoCloudSetting(did, fileId, isAlarmFile, startTime, duration, register, thumbId, (result, data) => {
         if (result) {
@@ -586,6 +587,15 @@ class IMiotCamera {
    */
   @report
   downloadCloudVideoMp4(fileId, stoId, did = Device.deviceID) {
+     return Promise.resolve(null);
+  }
+  /**
+   * 将携带g711音频的mp4视频 转换成 aac音频的mp4视频
+   * @param {string} filePath 
+   * @param {object} audioParam {sampleRate:MISSSampleRate.FLAG_AUDIO_SAMPLE_8K, channel:MISSAudioChannel.FLAG_AUDIO_CHANNEL_MONO, bitRate:MISSAudioBitRate.FLAG_AUDIO_BIT_RATE_16K}
+   */
+  @report
+  convertG711VideoIntoAACVideo(filePath, audioParam) {
     if (Platform.OS == "android") {
        return Promise.resolve(null);
     } else {

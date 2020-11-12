@@ -180,6 +180,7 @@ const API_REPO = {
   '/common/app/get/mergePhotoMeta': {},
   '/miot/camera/app/v1/modify/figure': {},
   '/miot/camera/app/v1/delete/figure': {}, 
-  '/miot/camera/app/v1/delete/face': {}
+  '/miot/camera/app/v1/delete/face': {},
+  '/miot/camera/app/v1/mp4': {}
 };
 export default API_REPO;

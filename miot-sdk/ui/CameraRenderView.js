@@ -123,103 +123,121 @@ export const MISSAudioChannel = {
   FLAG_AUDIO_CHANNEL_STERO: 1
 };
 Object.freeze(MISSAudioChannel);
+export const MISSAudioBitRate = {
+  /**
+     * 8000
+     * @const
+     */
+  FLAG_AUDIO_BIT_RATE_8K: 0,
+  /**
+     * 16000
+     * @const
+     */
+  FLAG_AUDIO_BIT_RATE_16K: 1,
+  /**
+   * 32000
+   * @const
+   */
+  FLAG_AUDIO_BIT_RATE_32K: 2
+}
+Object.freeze(MISSAudioBitRate);
 export default class CameraRenderView extends React.Component {
-    static propTypes = {
-      videoCodec: PropTypes.oneOf([MISSCodec.MISS_CODEC_VIDEO_H264, MISSCodec.MISS_CODEC_VIDEO_H265]),
-      audioCodec: PropTypes.oneOf([MISSCodec.MISS_CODEC_AUDIO_G711A, MISSCodec.MISS_CODEC_AUDIO_AAC, MISSCodec.MISS_CODEC_AUDIO_PCM]),
-      audioRecordSampleRate: PropTypes.oneOf([MISSSampleRate.FLAG_AUDIO_SAMPLE_8K, MISSSampleRate.FLAG_AUDIO_SAMPLE_16K]),
-      audioRecordChannel: PropTypes.oneOf([MISSAudioChannel.FLAG_AUDIO_CHANNEL_MONO, MISSAudioChannel.FLAG_AUDIO_CHANNEL_STERO]),
-      audioRecordDataBits: PropTypes.oneOf([MISSDataBits.FLAG_AUDIO_DATABITS_8, MISSDataBits.FLAG_AUDIO_DATABITS_16]),
-      audioRecordCodec: PropTypes.oneOf([MISSCodec.MISS_CODEC_AUDIO_G711A, MISSCodec.MISS_CODEC_AUDIO_AAC, MISSCodec.MISS_CODEC_AUDIO_PCM]), //如果没有配置该类型，则默认为对讲时录音的音频格式与播放声音的音频格式一致。 主要处理部分厂商（华来）的特异性问题，对讲录音音频格式与播放音频格式不一致的问题。
-      videoRate: PropTypes.number,
-      maximumZoomScale: PropTypes.number,
-      minimumZoomScale: PropTypes.number,
-      scale: PropTypes.number,
-      useLenCorrent: PropTypes.bool,
-      correctRadius: PropTypes.number,
-      osdx: PropTypes.number,
-      osdy: PropTypes.number,
-      fullscreenState: PropTypes.bool,
-      forceSoftDecode: PropTypes.bool,
-      recordingVideoParam: PropTypes.object,
-      isFull: PropTypes.bool,
-      /**
-         * 用户单击回调
-         * @member {func}
-         */
-      onVideoClick: PropTypes.func,
-      ...ViewPropTypes
-    };
-    render() {
-      let did = this.props.did || Device.deviceID;
-       return null
-    }
+  static propTypes = {
+    videoCodec: PropTypes.oneOf([MISSCodec.MISS_CODEC_VIDEO_H264, MISSCodec.MISS_CODEC_VIDEO_H265]),
+    audioCodec: PropTypes.oneOf([MISSCodec.MISS_CODEC_AUDIO_G711A, MISSCodec.MISS_CODEC_AUDIO_AAC, MISSCodec.MISS_CODEC_AUDIO_PCM]),
+    audioRecordSampleRate: PropTypes.oneOf([MISSSampleRate.FLAG_AUDIO_SAMPLE_8K, MISSSampleRate.FLAG_AUDIO_SAMPLE_16K]),
+    audioRecordChannel: PropTypes.oneOf([MISSAudioChannel.FLAG_AUDIO_CHANNEL_MONO, MISSAudioChannel.FLAG_AUDIO_CHANNEL_STERO]),
+    audioRecordDataBits: PropTypes.oneOf([MISSDataBits.FLAG_AUDIO_DATABITS_8, MISSDataBits.FLAG_AUDIO_DATABITS_16]),
+    audioRecordCodec: PropTypes.oneOf([MISSCodec.MISS_CODEC_AUDIO_G711A, MISSCodec.MISS_CODEC_AUDIO_AAC, MISSCodec.MISS_CODEC_AUDIO_PCM]), //如果没有配置该类型，则默认为对讲时录音的音频格式与播放声音的音频格式一致。 主要处理部分厂商（华来）的特异性问题，对讲录音音频格式与播放音频格式不一致的问题。
+    videoRate: PropTypes.number,
+    maximumZoomScale: PropTypes.number,
+    minimumZoomScale: PropTypes.number,
+    scale: PropTypes.number,
+    useLenCorrent: PropTypes.bool,
+    correctRadius: PropTypes.number,
+    osdx: PropTypes.number,
+    osdy: PropTypes.number,
+    fullscreenState: PropTypes.bool,
+    forceSoftDecode: PropTypes.bool,
+    recordingVideoParam: PropTypes.object,
+    isFull: PropTypes.bool,
     /**
-     * 开始渲染视频
-     */
-    startRender() {
-       return null
-    }
-    /**
-     * 停止渲染视频
-     */
-    stopRender() {
-       return null
-    }
-    /**
-     * 开始播放声音
-     */
-    startAudioPlay() {
-       return null
-    }
-    /**
-     * 停止播放声音
-     */
-    stopAudioPlay() {
-       return null
-    }
-    /**
-     * 开始录制声音
-     */
-    startAudioRecord() {
-       return null
-    }
-    /**
-     * 停止录制声音
-     */
-    stopAudioRecord() {
-       return null
-    }
-    /**
-     * 隐藏SurfaceView only for Android
-     * @since 10033
-     */
-    hidesSurfaceView() {
-       return null
-    }
-    /**
-     * 开始录像
-     * @param {string} 存储位置filePath filePath必须是带 Host.file.storageBasePath前缀的path，native端会校验这个路径合法性。  
-     * @param {string} timeCallBackName 录制时长回调 
-     * @param {*} did 
-     */
-    @report
-    startRecord(filePath, timeCallBackName, did = Device.deviceID) {
-       return Promise.resolve(null);
-    }
-    /**
-     * 停止录像
-     */
-    @report
-    stopRecord(did = Device.deviceID) {
-       return Promise.resolve(null);
-    }
-    /**
-     * 截屏
-     * @param {string} 存储位置filePath filePath必须是带 Host.file.storageBasePath前缀的path，native端会校验这个路径合法性。  
-     * @param {*} did 
-     */
-    snapShot(filePath, did = Device.deviceID) {
-       return Promise.resolve(null);
-    }
+       * 用户单击回调
+       * @member {func}
+       */
+    onVideoClick: PropTypes.func,
+    ...ViewPropTypes
+  };
+  render() {
+    let did = this.props.did || Device.deviceID;
+     return null
+  }
+  /**
+   * 开始渲染视频
+   */
+  startRender() {
+     return null
+  }
+  /**
+   * 停止渲染视频
+   */
+  stopRender() {
+     return null
+  }
+  /**
+   * 开始播放声音
+   */
+  startAudioPlay() {
+     return null
+  }
+  /**
+   * 停止播放声音
+   */
+  stopAudioPlay() {
+     return null
+  }
+  /**
+   * 开始录制声音
+   */
+  startAudioRecord() {
+     return null
+  }
+  /**
+   * 停止录制声音
+   */
+  stopAudioRecord() {
+     return null
+  }
+  /**
+   * 隐藏SurfaceView only for Android
+   * @since 10033
+   */
+  hidesSurfaceView() {
+     return null
+  }
+  /**
+   * 开始录像
+   * @param {string} 存储位置filePath filePath必须是带 Host.file.storageBasePath前缀的path，native端会校验这个路径合法性。  
+   * @param {string} timeCallBackName 录制时长回调 
+   * @param {*} did 
+   */
+  @report
+  startRecord(filePath, timeCallBackName, did = Device.deviceID) {
+     return Promise.resolve(null);
+  }
+  /**
+   * 停止录像
+   */
+  @report
+  stopRecord(did = Device.deviceID) {
+     return Promise.resolve(null);
+  }
+  /**
+   * 截屏
+   * @param {string} 存储位置filePath filePath必须是带 Host.file.storageBasePath前缀的path，native端会校验这个路径合法性。  
+   * @param {*} did 
+   */
+  snapShot(filePath, did = Device.deviceID) {
+     return Promise.resolve(null);
+  }
 }
