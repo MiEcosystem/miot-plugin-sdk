@@ -235,14 +235,24 @@ class IMiotCamera {
      return null
   }
   /**
+  * @param model
+  * @param did
+  * @returns true, 最新报警视频的时间和事件描述字符串；false，错误描述
+  * @since 10047
+  */
+ @report
+  loadMonitoringDetail(model = Device.model, did = Device.deviceID) {
+     return Promise.resolve(null);
+  }
+  /**
    * 打开人脸识别页面
    * @since 10033
    * @param {BOOL} isVip
    */
   @report
-  showFaceRecognize(isVip, did = Device.deviceID) {
-     return null
-  }
+ showFaceRecognize(isVip, did = Device.deviceID) {
+    return null
+ }
   /**
    *
    * 注册收到数据速率 Bytes per second，每秒回调一次
