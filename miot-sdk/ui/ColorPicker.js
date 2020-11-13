@@ -57,7 +57,7 @@ const ColorPickerView = (
         }}
         onColorChange={(event) => {
           if (onColorChange) {
-            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType, event.nativeEvent.position);
+            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType);
           }
         }}
         {...getAccessibilityConfig({
@@ -81,7 +81,7 @@ const ColorPickerView = (
         }}
         onColorChange={(event) => {
           if (onColorChange) {
-            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType, event.nativeEvent.position);
+            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType);
           }
         }}
         {...getAccessibilityConfig({
