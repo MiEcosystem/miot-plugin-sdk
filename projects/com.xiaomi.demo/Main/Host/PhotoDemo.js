@@ -25,6 +25,7 @@ export default class PhotoDemo extends React.Component {
           [
             ['截图保存到手机相册', this.snapImageSaveToPhoto],
             ['下载视频保存到手机相册', this.downloadVideoSaveToPhoto],
+            ['下载文件保存到手机公共目录', this.downloadFileSaveToPhoto],
             ['截图保存到指定名称为did的手机相册', this.snapImageSaveToDidAlbum],
             ['下载视频保存到指定名称为did的手机相册', this.downloadVideoSaveToDidAlbum],
             ['获取指定did的相册中的第一个图片', this.getFirstImageFromDidAlbum],
@@ -135,6 +136,24 @@ export default class PhotoDemo extends React.Component {
       alert(JSON.stringify(error));
     });
   }
+
+  downloadFileSaveToPhoto() {
+    console.log("downloadFileSaveToPhoto...");
+    let path = "http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_zip_23831a541b583ea55ec212f69f3afc07.zip";
+    let fileName = `file${ new Date().getTime() }.zip`;
+    Host.file.downloadFile(path, fileName).then((fileInfo) => {
+      console.log("downloadFile...fileInfo", fileInfo);
+      Host.file.saveFileToPhotosAlbum(fileName).then(() => {
+        alert(`${ fileName } 已保存到系统公共目录`);
+      }).catch((result) => {
+        alert(`saveFileToPhotosAlbum error:  ${ JSON.stringify(result) }`);
+      });
+    }).catch((error) => {
+      console.log("downloadFile...error", error);
+      alert(`downloadFile error:  ${ JSON.stringify(error) }`);
+    });
+  }
+
 
   getFirstImageFromDidAlbum() {
     Host.file.getAllSourceFromPhotosDidAlbum().then((res) => {
