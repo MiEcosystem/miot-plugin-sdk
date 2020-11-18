@@ -613,23 +613,6 @@ class IMiotCamera {
       return Promise.reject("ios platform not support yet");
     }
   }
-  /**
-  * @param model
-  * @param did
-  * @returns true, 最新报警视频的时间和事件描述字符串；false，错误描述
-  * @since 10047
-  */
- @report
-  loadMonitoringDetail(model = Device.model, did = Device.deviceID) {
-      NativeModules.MHCameraSDK.loadMonitoringDetail(model, did, (success, result) => {
-        if (success) {
-          resolve(result);
-        } else {
-          reject(result);
-        }
-      });
-    });
-  }
 }
 const MiotCameraInstance = new IMiotCamera();
 export default MiotCameraInstance;
