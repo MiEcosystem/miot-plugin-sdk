@@ -1,27 +1,18 @@
 import ModeCard from 'miot/ui/Card/ModeCard';
-import TitleBar from 'miot/ui/TitleBar';
 import React, { Component } from 'react';
 import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native';
+import Logger from '../../Logger';
 
 const radiusValue = 10;
 const { width, height } = Dimensions.get('window');
 
 class ModeCardDemo extends Component {
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      header:
-        <TitleBar
-          type="dark"
-          title="模式卡片"
-          style={{ backgroundColor: '#fff' }}
-          onPressLeft={() => navigation.goBack()}
-        />
-    };
-  };
-
   constructor(props) {
     super(props);
+    this.props.navigation.setParams({
+      title: "模式卡片"
+    });
 
     this.state = {
       modes: [
@@ -216,6 +207,7 @@ class ModeCardDemo extends Component {
         }
       ]
     };
+    Logger.trace(this);
   }
 
   // 按下模式

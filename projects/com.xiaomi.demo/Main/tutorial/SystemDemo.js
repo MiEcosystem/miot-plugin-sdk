@@ -8,6 +8,7 @@ import { Permissions } from "miot/system/permission";
 import { Separator } from 'mhui-rn';
 import { ListItem } from 'miot/ui/ListItem';
 import { ShakeEvent } from "miot/system/shake";
+import Logger from '../Logger';
 
 export const interval = {
   "a": "game",
@@ -38,6 +39,15 @@ function getGatewayIpAddress() {
     }
   }).catch((error) => {
     alert(`getGatewayIpAddress fail,${ JSON.stringify(error) }`);
+  });
+}
+
+// 获取当前wifi的广播地址
+function getWifiBroadcastAddress() {
+  System.network.getWifiBroadcastAddress().then((res) => {
+    alert(`getWifiBroadcastAddress success,res:${ JSON.stringify(res) }`);
+  }).catch((error) => {
+    alert(`getWifiBroadcastAddress fail,error: ${ JSON.stringify(error) }`);
   });
 }
 
@@ -188,6 +198,10 @@ function stopShakeListener() {
 }
 
 export default class SystemDemo extends React.Component {
+  componentDidMount() {
+    Logger.trace(this);
+  }
+
   render() {
     return (
       <View>
@@ -227,13 +241,17 @@ export default class SystemDemo extends React.Component {
               [],
               ["扫码", getScanCode],
               [],
-              ["获取手机当前连接的路由器的ip地址", getGatewayIpAddress]
+              ["获取手机当前连接的路由器的ip地址", getGatewayIpAddress],
+              ["获取当前wifi的广播地址", getWifiBroadcastAddress]
             ].map((item, index) => {
               return (item.length >= 2 ? <ListItem
                 key={index}
                 title={item[0]}
                 hideArrow={true}
-                onPress={item[1].bind(this)}
+                onPress={() => {
+                  Logger.trace(this, item[1], { action: item[0] });
+                  item[1].bind(this)();
+                }}
               /> : <View style={{ height: 18 }} key={index} />);
             })
           }

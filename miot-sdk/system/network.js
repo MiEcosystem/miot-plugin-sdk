@@ -40,6 +40,17 @@ class INetwork {
   @report
   getGatewayIpAddress() {
   }
+  /**
+   * 获取当前wifi的广播地址
+   * @since 10047
+   * @returns {Promise<object>} result:
+   * 成功时：{"code":0, "data":{"address":xxx.xxx.xxx}}
+   * 失败时：{"code":-1, "message":"xxx" }
+   * @example
+   */
+  @report
+  getWifiBroadcastAddress() {
+  }
 }
 const NetworkInstance = new INetwork();
 export default NetworkInstance;

@@ -8,6 +8,7 @@ import {
 import { Package } from "miot";
 import { ListItem } from 'miot/ui/ListItem';
 import Separator from 'miot/ui/Separator';
+import Logger from '../Logger';
 
 export default class PackageDemo extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ export default class PackageDemo extends React.Component {
     this.state = {
       package: Package
     };
+    Logger.trace(this);
   }
 
   render() {

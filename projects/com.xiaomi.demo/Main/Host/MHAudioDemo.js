@@ -3,7 +3,7 @@
 import { AudioEvent, Host } from "miot";
 import React from 'react';
 import { PermissionsAndroid, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
+import Logger from '../Logger';
 const audioPlayerUid = 'com.xiaomi.demoios';
 
 let fileName = 'test.wav';
@@ -15,6 +15,7 @@ export default class MHAudioDemo extends React.Component {
     this.state = {
       audioRecorderPeakPower: ''
     };
+    Logger.trace(this);
   }
 
   componentDidMount() {
@@ -64,7 +65,10 @@ export default class MHAudioDemo extends React.Component {
             ['格式转换 amr -> Wav', this._convertButtonAmrToWavClicked]
           ].map((item, index) => {
             return (
-              <TouchableOpacity key={index} style={styles.button} onPress={item[1].bind(this)}>
+              <TouchableOpacity key={index} style={styles.button} onPress={() => {
+                item[1].bind(this)();
+                Logger.trace(this, item[1], { action: item[0] });
+              }}>
                 <Text style={styles.buttonText}>{item[0]}</Text>
               </TouchableOpacity>
             );

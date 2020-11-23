@@ -4,6 +4,7 @@ import { DarkMode } from 'miot';
 import { View, Text, TouchableOpacity } from 'react-native';
 import DynamicColor, { dynamicColor } from 'miot/ui/Style/DynamicColor';
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
+import Logger from '../../Logger';
 
 export default class DarkModeDemo extends React.Component {
 
@@ -14,7 +15,7 @@ export default class DarkModeDemo extends React.Component {
   myListener = (value) => {
     console.log(`colorScheme from listener: ${ value.colorScheme }`);
     this.setState({ colorScheme: value.colorScheme });
-    
+
   }
 
   UNSAFE_componentWillMount() {
@@ -24,6 +25,7 @@ export default class DarkModeDemo extends React.Component {
   }
 
   componentDidMount() {
+    Logger.trace(this);
     // 查询当前颜色模式
     const currentScheme = DarkMode.getColorScheme();
     this.setState({ colorScheme: currentScheme });
@@ -39,12 +41,14 @@ export default class DarkModeDemo extends React.Component {
 
   // 添加深色模式的监听
   addListener = () => {
+    Logger.trace(this, this.addListener, { action: 'addListener' });
     console.log("添加深色模式监听");
     DarkMode.addChangeListener(this.myListener);
   }
 
   // 取消深色模式的监听
   removeListener = () => {
+    Logger.trace(this, this.removeListener, { action: 'removeListener' });
     console.log("取消深色模式监听");
     DarkMode.removeChangeListener(this.myListener);
   }

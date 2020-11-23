@@ -4,17 +4,22 @@ import {
   Text,
   View
 } from 'react-native';
+import Logger from '../Logger';
 
 export default class FirstPage extends Component {
   static navigationOptions = {
     tabBarLabel: '智能页1'
   };
 
+  componentDidMount() {
+    Logger.trace(this);
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-            This is First Page!
+          This is First Page!
         </Text>
       </View>
     );

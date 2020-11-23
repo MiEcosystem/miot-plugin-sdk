@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react';
 import { Button, Text, View, Animated } from 'react-native';
-import Toast from 'react-native-root-toast';
 import { ToastView } from 'mhui-rn/dist/components/toast';
+import Logger from '../Logger';
 
 /**
  * @exports
@@ -38,6 +38,7 @@ class ToastExample extends Component {
       isHidden: false,
       rotate: new Animated.Value(0)
     };
+    Logger.trace(this);
   }
 
   componentDidMount() {
