@@ -2,22 +2,13 @@
 
 import { Device, DeviceEvent } from "miot";
 import MIOT from "miot";
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
+import Logger from '../Logger';
 import {
   Image, StyleSheet, Text, TextInput, TouchableOpacity, View
 } from 'react-native';
 
 export default class ControlDemo extends React.Component {
-
-  static navigationOptions = ({ navigation }) => {
-    return {
-      header: <TitleBar type="dark" title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
-        onPressLeft={() => {
-          navigation.goBack();
-        }} />
-    };
-  };
 
   constructor(props, context) {
     super(props, context);
@@ -28,6 +19,7 @@ export default class ControlDemo extends React.Component {
       textB: '',
       resultViewColor: '#000000'
     };
+    Logger.trace(this);
   }
 
   componentDidMount() {
@@ -137,6 +129,7 @@ export default class ControlDemo extends React.Component {
   }
 
   onSendDidButtonPress() {
+    Logger.trace(this, this.onSendDidButtonPress);
     Device.getDeviceWifi().callMethod("set_rgb", [(this.state.textR << 16 | this.state.textG << 8 | this.state.textB)]).then((json) => {
       console.log(`rpc result:${ isSuccess }${ json }`);
       this.setState({ requestStatus: isSuccess });

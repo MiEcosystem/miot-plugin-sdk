@@ -1,9 +1,8 @@
-import { Styles } from 'miot/resources';
 import Separator from 'miot/ui/Separator';
 import Switch from 'miot/ui/Switch';
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import Logger from '../Logger';
 
 export default class SwitchDemo extends React.Component {
 
@@ -13,6 +12,7 @@ export default class SwitchDemo extends React.Component {
       value: true,
       disabled: true
     };
+    Logger.trace(this);
   }
 
   render() {
@@ -62,7 +62,6 @@ export default class SwitchDemo extends React.Component {
 
 var styles = StyleSheet.create({
   container: {
-    backgroundColor: Styles.common.backgroundColor,
     flex: 1
   }
 });

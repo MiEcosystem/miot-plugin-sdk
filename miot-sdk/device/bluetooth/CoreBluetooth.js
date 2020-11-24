@@ -94,7 +94,7 @@ export class IBluetoothCharacteristic {
      * 写数据
      * 对应 writeWithResponse
      * @method
-     * @param {*} value hexstring
+     * @param {hexstring} value hexstring 16进制字符串
      * @returns {Promise<IBluetoothCharacteristic>}
      *      resolve： 返回当前对象，value为成功写入的value
      *      reject：100:设备正在连接中  102:服务或者特征值未发现
@@ -107,7 +107,7 @@ export class IBluetoothCharacteristic {
      * 直接写数据
      * 对应 writeWithoutResponse
      * @method
-     * @param {*} value
+     * @param {hexstring} value 16进制字符串
      * @returns {Promise<IBluetoothCharacteristic>}
      *      resolve： 返回当前对象，value为成功写入的value
      *      reject：{code: xxx, message: xxx} 100:设备正在连接中  102:服务或者特征值未发现

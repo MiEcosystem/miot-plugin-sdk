@@ -7,10 +7,12 @@ import {
   StyleSheet
 } from 'react-native';
 import Host from 'miot/Host';
+import Logger from '../Logger';
 
 export default class JSExecutor extends React.Component {
 
   componentDidMount() {
+    Logger.trace(this);
     const jspath = require("../../Resources/test_executor.jx");
     Host.createBackgroundExecutor(jspath, { 'init1': "1", 'init2': [1, 2] }).then((executor) => {
       console.log("createBackgroundExecutor res:", executor);
@@ -25,6 +27,7 @@ export default class JSExecutor extends React.Component {
   }
 
   ObjectMethodCall() {
+    Logger.trace(this, this.ObjectMethodCall);
     if (this.executor) {
       // 支持使用Obj对象中的method
       this.executor.execute("TestObj.callWithArg1ReturnNumber", "hello world").then((res) => {
@@ -38,6 +41,7 @@ export default class JSExecutor extends React.Component {
   }
 
   callWithObject() {
+    Logger.trace(this, this.callWithObject);
     if (this.executor) {
       // execute参数支持任意可以json序列化的对象
       this.executor.execute("callWithObj", "initialProps.init1", ['array1', 'array2'], { 'map1': 'map1' }).then((res) => {
@@ -51,6 +55,7 @@ export default class JSExecutor extends React.Component {
   }
 
   call3Params() {
+    Logger.trace(this, this.call3Params);
     if (this.executor) {
       this.executor.execute("callWithArg3ReturnOBJ", "1", "2", "3").then((res) => {
         console.log("call 3 result :", res);
@@ -94,5 +99,5 @@ var styles = StyleSheet.create({
     padding: 5
   }
 });
-  
+
 

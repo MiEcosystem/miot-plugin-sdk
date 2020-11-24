@@ -42,7 +42,7 @@ import PropTypes from 'prop-types';
 import { DarkMode } from 'miot/Device';
 import { SDKContextProvider } from 'miot/sdkContext';
 import { ConfigProvider } from 'mhui-rn';
-// import { NavigationEvents } from 'react-navigation';
+import { navigationContainerManager } from 'react-navigation';
 /**
  * @description JS端通知Native端的事件类型
  * @enum {number}
@@ -300,27 +300,27 @@ export default {
      return  ""
   },
   /**
-     * 系统入口
-     * @method
-     * @param {React.Component} RootComponent 入口的React Component模块
-     * @param {function} afterPackageEntry 进入后, RootComponent 加载之前执行, 缺省为空
-     * @example
-     *
-     * import SceneMain from '...';
-     * import App from '...';
-     *
-     * import {Package, Entrance} from 'miot';
-     *
-     * switch(Package.entrance){
-     *   case Entrance.Scene:
-     *      Package.entry(SceneMain, ()=>{...});
-     *      break;
-     *   default:
-     *      Package.entry(App, ()=>{...});
-     *      break;
-     * }
-     *
-     */
+   * 系统入口
+   * @method
+   * @param {React.Component} RootComponent 入口的React Component模块
+   * @param {function} afterPackageEntry 进入后, RootComponent 加载之前执行, 缺省为空
+   * @example
+   *
+   * import SceneMain from '...';
+   * import App from '...';
+   *
+   * import {Package, Entrance} from 'miot';
+   *
+   * switch(Package.entrance){
+   *   case Entrance.Scene:
+   *      Package.entry(SceneMain, ()=>{...});
+   *      break;
+   *   default:
+   *      Package.entry(App, ()=>{...});
+   *      break;
+   * }
+   *
+   */
   entry(RootComponent, afterPackageEntry = null) {
   },
   /**
@@ -337,5 +337,5 @@ export default {
      *
      */
   exit(info = null) {
-  }
+  },
 };

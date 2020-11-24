@@ -5,6 +5,7 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Service, Host } from "miot";
 import Package from 'miot/Package';
 import { ListItem } from 'miot/ui/ListItem';
+import Logger from '../Logger';
 
 let KKookongApiKey_Ios_Debug = '60095E329B----51B70CCD9';// 开发时请换成实际可用key
 let KKookongApiKey_Ios_Release = '87250803BEA2D0D1CCB7055DFAB036A3';// '87250803----55DFAB036A3';//开发时请换成实际可用key
@@ -146,7 +147,10 @@ export default class KooKongDemo extends React.Component {
                   title={item.name}
                   value={item[1]}
                   hideArrow={true}
-                  onPress={item.action.bind(this)}
+                  onPress={() => {
+                    item.action.bind(this)();
+                    Logger.trace(this, item.action, item);
+                  }}
                 />
               </View>
             );

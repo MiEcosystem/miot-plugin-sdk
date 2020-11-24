@@ -5,6 +5,7 @@
 import { Host, ECCCrypto } from "miot";
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Image, Platform, TextInput } from 'react-native';
+import Logger from '../Logger';
 
 let ZhuiMiRobot = require('../../Resources/zhuimi_robot');
 
@@ -22,6 +23,7 @@ export default class CryptoDemo extends React.Component {
     };
     this.cryptoObject = new ECCCrypto(ECCCrypto.CurveTypeSecp256r1);
     this.cryptoObject2 = new ECCCrypto(ECCCrypto.CurveTypeSecp256r1);
+    Logger.trace(this);
   }
 
   render() {
@@ -87,6 +89,7 @@ export default class CryptoDemo extends React.Component {
                 source={{ uri: this.state.zhuimiRobotTracesToImageBase64 }} />
           }
           <TouchableOpacity style={styles.button} onPress={() => {
+            Logger.trace(this, this.render, { action: 'zhuimiRobotTracesToImageBase64' });
             Host.crypto.zhuimiRobotTracesToImageBase64(ZhuiMiRobot.width, ZhuiMiRobot.height, JSON.stringify(ZhuiMiRobot.traces)).then((res) => {
               console.log('success', res);
               this.setState({
@@ -98,15 +101,17 @@ export default class CryptoDemo extends React.Component {
           }}>
             <Text style={styles.buttonText}>zhuimiRobotTracesToImageBase64</Text>
           </TouchableOpacity>
-          
+
           <Text style={styles.buttonText}> {'eccPublicKey：'} </Text>
           <Text style={styles.buttonText} selectable={true}>{this.state.eccPublicKey0 || '第一步，点击下面按钮产生KP'}</Text>
           <TouchableOpacity style={styles.button} onPress={() => {
+            Logger.trace(this, this.render, { action: 'eccPublicKey' });
             Promise.all([this.cryptoObject.generateKeyPair(), this.cryptoObject2.generateKeyPair()]).then((publicKeys) => {
               console.log(`public keys: ${ publicKeys }`);
               this.setState({
                 eccPublicKey0: publicKeys[0],
-                eccPublicKey1: publicKeys[1]
+                eccPublicKey1: publicKeys[1],
+                otherP: publicKeys[0]
               });
             }).catch((err) => {
               alert(JSON.stringify(err));
@@ -118,11 +123,13 @@ export default class CryptoDemo extends React.Component {
           <Text style={styles.buttonText}> {'otherPublicKey：'}</Text>
           <TextInput style={[styles.buttonText, { marginBottom: 5, borderBottomColor: '#AAA', borderBottomWidth: 1 }]}
             placeholder="第二步，在这里输入 otherPublicKey 后再点下面的按钮"
+            value={this.state.eccPublicKey0}
             onChangeText={(text) => {
               this.setState({ otherP: text });
             }}
           />
           <TouchableOpacity style={[styles.button, { marginBottom: 40 }]} onPress={() => {
+            Logger.trace(this, this.render, { action: 'generateSharedSecret' });
             this.cryptoObject.generateSharedSecret(this.state.eccPublicKey1).then((sharedSecret) => {
               this.cryptoECCSharedSecret = sharedSecret;
               console.log(`shared secret:${ sharedSecret }`);

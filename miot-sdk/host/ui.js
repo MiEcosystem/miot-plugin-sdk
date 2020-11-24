@@ -114,12 +114,13 @@ class IUi {
   }
   /**
    * 获取设备列表中指定model的设备信息
-   * @param {string} model - 设备model
-   * @returns {Promise<devices[]>}
+   * @param model 指定的model
+   * @param {boolean} includeGroupedDevice - since 10046 是否包含被组成了一个组的设备（如组成灯组，窗帘组的设备），默认不包含
+   * @returns {Promise<devices[]>} 对象中有字段 isGrouped 表示是被分组的设备，includeGroupedDevice=true时有效
    *
    */
   @report
-  getDevicesWithModel(model) {
+  getDevicesWithModel(model, includeGroupedDevice = false) {
      return Promise.resolve([]);
   }
   /**
@@ -177,7 +178,6 @@ class IUi {
    * 隐私协议弹框需求：
    * a. 所有接入米家的设备，绑定成功后第一次进插件，都需要隐私弹框，后续再进不需弹框
    * b. 取消隐私授权/解绑设备后，重新绑定设备，仍需遵循规则a
-  
    * 插件端可按如下方案实现：
    * 1. 使用batchSetDeviceDatas存储一个标志位，用来记录是否“隐私弹框”过
    * 2. 进入插件时batchGetDeviceDatas获取此标志位，若为NO，弹框，同时设置标志位为YES；若为YES，不弹框
@@ -571,6 +571,7 @@ class IUi {
    * @param {number} type
    *      type = 1 打开手机设置页中米家app配置页面      10036及以上 有效
    *      type = 2 WiFi设置页面                      10036及以上 有效
+   *      type = 3 WiFi选择页面                      10047及以上 有效(仅Android)，iOS上无任何效果
    */
   @report
   openTerminalDeviceSettingPage(type) {
@@ -599,10 +600,10 @@ class IUi {
   /**
    *  打开文件选择页面 only for iOS
    *  在使用前建议判断平台
-   *  @since 10042 
+   *  @since 10042
    *  @return {Promise}
-   * 
-   *  成功时返回 
+   *
+   *  成功时返回
    *    { code: 0 , data: [ { path: xxx, fileName: xxx, ext: xxx, fileSize: xxx}, {...}] }
    *      其中 path 是文件的绝对地址，ext是扩展名，fileName是文件名，byteLen 是文件 size 单位是byte
    *      需要特别说明的是：
@@ -615,6 +616,42 @@ class IUi {
    */
   @report
   openIOSDocumentFileChoosePage() {
+  }
+  /**
+   * 打开系统的文件选择(Android only)
+   * @since 10048
+   * @ignore 特定插件可用
+   * @param {string} mimeType 文件类型，不可为空；这里会根据mimeType的值来展示符合条件的文件，比如图片类型:image/*.
+   * @returns {json} 用户选择的文件，成功时： { code:0, data: { path: 'xxx(文件路径)', name:'xxx(文件名)', mimeType:'xxxx(文件类型)'}}
+   *                 失败时：{code:-1, message: 'mimeType cann't be empty'}
+   *                       {code:-2, message: 'cann't find target page,permission denied'}
+   *                       {code:-3, message: 'cann't find target page,please check if your mimeType is correct'}
+   * @example
+   * Host.ui.openFileSelectPage("text/*").then(res=>{
+   *  alert(JSON.stringify(res));
+   * }).catch(err=>{
+   *  alert(JSON.stringify(err));
+   * })
+   */
+  @report
+  openFileSelectPage(mimeType) {
+  }
+  /**
+   * 打开系统的文件目录选择，Android 21及以上才支持(Android only)
+   * @since 10048
+   * @ignore 特定插件可用
+   * @returns {json} 用户选择的目录,成功时：{ code:0, data: 'xxxxx(目录)'}
+   *                            失败时：{code:-1, message:'minimum support Android API is 21'}
+   *                                   {code:-2, message:'cann't find target page,permission denied'}
+   * @example
+   * Host.ui.openDirectorySelectPage().then(res=>{
+   *  alert(JSON.stringify(res));
+   * }).catch(err=>{
+   *  alert(JSON.stringify(err));
+   * })
+   */
+  @report
+  openDirectorySelectPage() {
   }
 }
 const UiInstance = new IUi();

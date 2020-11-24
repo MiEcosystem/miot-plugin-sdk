@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import Logger from '../../Logger';
 
 export default class CardDemoEntry extends React.Component {
 
@@ -19,6 +20,7 @@ export default class CardDemoEntry extends React.Component {
           { name: '大字体模式 AdaptedFontCardDemo', router: 'AdaptedFontCardDemo' }
         ])
     };
+    Logger.trace(this);
   }
 
   render() {
@@ -49,6 +51,7 @@ export default class CardDemoEntry extends React.Component {
     this.props.navigation.navigate(rowData, {
       title: rowData
     });
+    Logger.trace(this, this._pressRow, { page: rowData });
   }
 }
 

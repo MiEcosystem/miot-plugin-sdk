@@ -56,6 +56,11 @@ let _reactNavigationIsHydratingState = false;
  * This allows to use e.g. the StackNavigator and TabNavigator as root-level
  * components.
  */
+
+export let navigationContainerManager = {
+  containers: []
+};
+
 export default function createNavigationContainer(Component) {
   class NavigationContainer extends React.Component {
     subs = null;
@@ -96,6 +101,8 @@ export default function createNavigationContainer(Component) {
             ? Component.router.getStateForAction(this._initialAction)
             : null,
       };
+
+      navigationContainerManager.containers.push(this);
     }
 
     _renderLoading() {
