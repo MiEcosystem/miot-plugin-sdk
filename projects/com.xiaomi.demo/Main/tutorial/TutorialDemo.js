@@ -3,6 +3,7 @@ import { View, ScrollView } from 'react-native';
 
 import { ListItem } from 'miot/ui/ListItem';
 import Separator from 'miot/ui/Separator';
+import Logger from '../Logger';
 
 export default class TutorialDemo extends React.Component {
 
@@ -60,6 +61,7 @@ export default class TutorialDemo extends React.Component {
         }
       ]
     };
+    Logger.trace(this);
   }
 
   render() {
@@ -78,6 +80,7 @@ export default class TutorialDemo extends React.Component {
                     params = { params, ...item.params };
                   }
                   this.props.navigation.navigate(item.key, params);
+                  Logger.trace(this, this.render, item);
                 }} />;
             })
           }

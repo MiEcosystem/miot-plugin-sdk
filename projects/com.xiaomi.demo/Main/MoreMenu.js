@@ -1,22 +1,15 @@
 'use strict';
 
 import { Device, DeviceEvent, Host } from "miot";
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import Logger from './Logger';
 let BUTTONS = [
   '测试对话框',
   '确定'
 ];
 
 export default class MoreMenu extends React.Component {
-
-  static navigationOptions = ({ navigation }) => {
-    return {
-      header: <TitleBar type="dark" title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
-        onPressLeft={() => { navigation.goBack(); }} />
-    };
-  };
 
   constructor(props) {
     super(props);
@@ -30,6 +23,7 @@ export default class MoreMenu extends React.Component {
     this.state = {
       dataSource: ds.cloneWithRows(this._menuData.map((o) => (o.name)))
     };
+    Logger.trace(this);
   }
 
   _createMenuData() {
@@ -198,7 +192,10 @@ export default class MoreMenu extends React.Component {
 
   _renderRow(rowData, sectionID, rowID) {
     return (
-      <TouchableHighlight underlayColor="#838383" onPress={() => this._pressRow(rowID)}>
+      <TouchableHighlight underlayColor="#838383" onPress={() => {
+        this._pressRow(rowID);
+        Logger.trace(this, this._renderRow, { name: rowData });
+      }}>
         <View>
           <View style={styles.rowContainer}>
             <Text style={styles.title}>{rowData}</Text>

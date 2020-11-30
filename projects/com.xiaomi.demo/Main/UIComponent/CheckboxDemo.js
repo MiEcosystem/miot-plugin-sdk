@@ -3,6 +3,7 @@ import Separator from 'miot/ui/Separator';
 import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import Logger from '../Logger';
 
 export default class CheckboxDemo extends React.Component {
 
@@ -11,6 +12,7 @@ export default class CheckboxDemo extends React.Component {
     this.state = {
       checked: false
     };
+    Logger.trace(this);
   }
 
   componentDidMount() {
@@ -36,7 +38,7 @@ export default class CheckboxDemo extends React.Component {
         style: { width: 22, height: 22, borderRadius: 11 },
         checked: true,
         checkedColor: '#32BAC0',
-        disabled: true,
+        disabled: true
       },
       {
         style: { width: 40, height: 40, borderRadius: 20 },

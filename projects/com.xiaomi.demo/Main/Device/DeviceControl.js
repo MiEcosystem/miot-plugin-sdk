@@ -1,23 +1,17 @@
 'use strict';
 
 import { Bluetooth, Device, Host, Service } from "miot";
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { PluginEntrance } from "../PluginEntrance";
+import Logger from '../Logger';
+
 let BUTTONS = [
   '测试对话框',
   '确定'
 ];
 
 export default class UIDemo extends React.Component {
-
-  static navigationOptions = ({ navigation }) => {
-    return {
-      header: <TitleBar type="dark" title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
-        onPressLeft={() => { navigation.goBack(); }} />
-    };
-  };
 
   constructor(props) {
     super(props);
@@ -28,6 +22,7 @@ export default class UIDemo extends React.Component {
     this.state = {
       dataSource: ds.cloneWithRows(this._menuData.map((o) => (o.name)))
     };
+    Logger.trace(this);
   }
 
   _createMenuData() {
@@ -373,6 +368,7 @@ export default class UIDemo extends React.Component {
   _pressRow(rowID) {
     console.log(`row${ rowID }clicked!`);
     this._menuData[rowID].func();
+    Logger.trace(this, this._pressRow, this._menuData[rowID]);
   }
 
   onShowDidButtonPress() {

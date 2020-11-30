@@ -2,28 +2,20 @@
 
 import { ListItem, ListItemWithSlider, ListItemWithSwitch } from 'miot/ui/ListItem';
 import Separator from 'miot/ui/Separator';
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { Dimensions, ScrollView, View } from 'react-native';
+import Logger from '../../Logger';
 
 const { width } = Dimensions.get('window');
 
 export default class CustomListDemo extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      header:
-        <TitleBar
-          type="dark"
-          title="列表项"
-          style={{ backgroundColor: '#fff' }}
-          onPressLeft={() => navigation.goBack()}
-        />
-    };
-  };
-
   constructor(props, context) {
     super(props, context);
+    this.props.navigation.setParams({
+      title: "列表项"
+    });
+    Logger.trace(this);
   }
 
   state = {
@@ -172,7 +164,7 @@ export default class CustomListDemo extends React.Component {
               sortOption={{
                 onPress: () => alert('点按'),
                 onLongPress: () => alert('长按')
-                
+
               }}
             />
             <ListItemWithSwitch

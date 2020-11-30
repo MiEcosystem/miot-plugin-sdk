@@ -1,17 +1,19 @@
 import Block from "miot/ui/Gear/Block";
 import React, { Component } from "react";
 import { Animated, PanResponder, StyleSheet, Text, View } from "react-native";
+import Logger from '../Logger';
 
 export default class Draggable extends Component {
   constructor() {
     super();
+    Logger.trace(this);
     this.state = {
       pan: new Animated.Value(0),
-      scale: new Animated.Value(1),
+      scale: new Animated.Value(1)
     };
     this.currentLocation = 0; // 记录当前拖拽组件的相对位置
     this._onMoveShouldSetPanResponder = true;
-    this.state.pan.addListener(e => {
+    this.state.pan.addListener((e) => {
       if (e.value < 0) {
         this.currentLocation = 0;
         console.log('e.value, this.currentLocation', e.value, this.currentLocation);
@@ -42,14 +44,14 @@ export default class Draggable extends Component {
         // this.recoverTimer = null;
         Animated.timing(this.state.scale, {
           toValue: 1.3,
-          duration: 100,
+          duration: 100
         }).start();
       },
       onPanResponderMove: Animated.event([null,
         { dx: this.state.pan }
       ]),
       onPanResponderRelease: this._onPanResponderRelease.bind(this)
-    })
+    });
   }
 
   _onPanResponderRelease(e, gesture) {
@@ -59,7 +61,7 @@ export default class Draggable extends Component {
     // this._onMoveShouldSetPanResponder = false;
     Animated.timing(this.state.scale, {
       toValue: 1,
-      duration: 100,
+      duration: 100
     }).start();
     console.log({ moveX, moveY, x0, y0, dx, dy });
   }
@@ -80,14 +82,14 @@ export default class Draggable extends Component {
         {
           translateX: this.state.pan.interpolate({
             inputRange: [-1, 0, 250, 251],
-            outputRange: [0, 0, 250, 250],
+            outputRange: [0, 0, 250, 250]
           })
         },
         {
           scale: this.state.scale
         }
       ]
-    }
+    };
 
     return (
       <Block
@@ -109,14 +111,14 @@ const styles = StyleSheet.create({
   circle: {
     position: 'absolute',
     top: 20,
-    left: 50,
+    left: 50
   },
   touchArea: {
     backgroundColor: 'transparent',
     width: CIRCLE_RADIUS * 3,
     height: CIRCLE_RADIUS * 3,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   innerCircle: {
     backgroundColor: 'lightblue',
@@ -124,6 +126,6 @@ const styles = StyleSheet.create({
     height: CIRCLE_RADIUS * 2,
     borderRadius: CIRCLE_RADIUS,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   }
 });

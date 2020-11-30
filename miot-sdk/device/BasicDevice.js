@@ -184,7 +184,6 @@ export const DeviceEvent = {
      * @since 10037
      */
   multiSwitchNameChanged: {
-  }
 };
 buildEvents(DeviceEvent);
 /**

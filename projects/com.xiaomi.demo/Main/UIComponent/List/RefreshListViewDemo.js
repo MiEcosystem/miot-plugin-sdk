@@ -13,6 +13,7 @@ import {
   SwRefreshScrollView,
   SwRefreshListView
 } from '../../../CommonModules/swrefresh';
+import Logger from '../../Logger';
 
 const { width, height } = Dimensions.get('window');
 const SIZE = 20;
@@ -20,9 +21,7 @@ export default class RefreshListView extends Component {
   _page = 0;
   _dataSource = new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 });
 
-  // 构造
   constructor(props) {
-
     super(props);
 
     let data = [];
@@ -33,12 +32,12 @@ export default class RefreshListView extends Component {
     this.state = {
       dataSource: this._dataSource.cloneWithRows(data)
     };
+    Logger.trace(this);
   }
 
   render() {
     return this._renderListView(); // ListView Demo
   }
-
 
   /**
    * scrollVewDemo
@@ -190,5 +189,4 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1
 
   }
-
 });

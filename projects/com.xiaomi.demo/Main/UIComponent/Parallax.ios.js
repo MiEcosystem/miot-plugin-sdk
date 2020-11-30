@@ -3,6 +3,7 @@ import TitleBar from "miot/ui/TitleBar";
 import React from 'react';
 import { Dimensions, ScrollView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import Logger from '../Logger';
 
 /**
  * iOS: windowHeight === screenHeight
@@ -28,32 +29,19 @@ const adjustOffset = 34; // 微调的高度
  */
 export default class ParallaxIOS extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      header:
-        <TitleBar
-          type='dark'
-          title='ScrollView 吸附效果demo'
-          style={{ backgroundColor: '#fff' }}
-          onPressLeft={_ => navigation.goBack()}
-        />
-    };
-  };
-
   constructor(props) {
     super(props);
+    this.props.navigation.setParams({
+      title: 'ScrollView 吸附效果demo'
+    });
     this.state = {
       scrollMode: false,
-      contentInsetY: contentInsetBottom,
-    }
+      contentInsetY: contentInsetBottom
+    };
+    Logger.trace(this);
   }
 
   render() {
-    // console.warn('windowHeight', windowHeight);
-    // console.warn('screenHeight', screenHeight);
-    // console.warn('statusBarHeight', statusBarHeight);
-    // console.warn('titleBarHeight', titleBarHeight);
-    // console.warn('scrollViewHeight', scrollViewHeight);
     return (
       <View style={{ width: windowWidth, height: windowHeight, backgroundColor: '#fff' }}>
         {this.state.scrollMode && this._renderBackground()}
@@ -66,7 +54,7 @@ export default class ParallaxIOS extends React.Component {
           contentInset={{ top: this.state.contentInsetY }}
           contentOffset={{ y: -contentInsetBottom }}
           scrollEventThrottle={1}
-          onScroll={e => this._onScroll(e)}
+          onScroll={(e) => this._onScroll(e)}
           onScrollEndDrag={() => this._onScrollEndDrag()}
           onScrollBeginDrag={() => this._onScrollBeginDrag()}
         >
@@ -74,22 +62,22 @@ export default class ParallaxIOS extends React.Component {
         </ScrollView>
         {!this.state.scrollMode && this._renderBackground({ position: 'absolute', top: 0 })}
       </View>
-    )
+    );
   }
 
   _renderBackground(props) {
     return (
       <View style={[styles.backgroundContainer, props]}>
         <TouchableHighlight
-          underlayColor='#f2f2f2'
-          onPress={_ => alert('press background')}
+          underlayColor="#f2f2f2"
+          onPress={(_) => alert('press background')}
         >
           <View style={styles.backgroundContent}>
             <Text>{props ? '浮在上面' : '沉到下面'}</Text>
           </View>
         </TouchableHighlight>
       </View >
-    )
+    );
   }
 
   _renderForegroundContent() {
@@ -98,30 +86,30 @@ export default class ParallaxIOS extends React.Component {
     return (
       <View>
         <View style={styles.foregroundContent}>
-          {Array.from({ length: 6 }, (item, index) => index).map(item => {
+          {Array.from({ length: 6 }, (item, index) => index).map((item) => {
             return (
               <TouchableHighlight
                 key={item}
                 underlayColor="#fff"
-                onPress={_ => this._onPress(item)}
+                onPress={(_) => this._onPress(item)}
                 style={{ marginBottom: 15 }}
               >
                 <View style={styles.foregroundContentCard}>
                   <Text>{item}</Text>
                 </View>
               </TouchableHighlight>
-            )
+            );
           })}
         </View>
         <View style={[styles.bottomBlank, { height: bottomBlankHeight }]} >
           <Text>底部白色背景占位</Text>
         </View>
       </View>
-    )
+    );
   }
 
   _onPress(item) {
-    alert('press ' + item);
+    alert(`press ${ item }`);
   }
 
   _onScrollBeginDrag() {
@@ -136,7 +124,7 @@ export default class ParallaxIOS extends React.Component {
     // 列表在底部
     if (this.state.contentInsetY === contentInsetBottom) {
       // 往上滑动25%，就吸顶
-      if (this.contentOffsetY > - (contentInsetBottom * 0.75)) {
+      if (this.contentOffsetY > -(contentInsetBottom * 0.75)) {
         console.log("release to top");
         this.setState({ contentInsetY: 0 });
         this.refs.scrollView && this.refs.scrollView.scrollTo({ x: 0, y: 0, animated: true });
@@ -151,14 +139,14 @@ export default class ParallaxIOS extends React.Component {
     // 列表在顶部
     else {
       // 往下滑动25%，就坠底
-      if (this.contentOffsetY < - (contentInsetBottom * 0.25)) {
+      if (this.contentOffsetY < -(contentInsetBottom * 0.25)) {
         console.log("release to bottom");
         this.setState({ contentInsetY: contentInsetBottom });
         this.refs.scrollView && this.refs.scrollView.scrollTo({ x: 0, y: -contentInsetBottom, animated: true });
         setTimeout(() => this.setState({ scrollMode: false }), 500);
       }
       // 不到25%，复原
-      else if (this.contentOffsetY >= - (contentInsetBottom * 0.25) && this.contentOffsetY < 0) {
+      else if (this.contentOffsetY >= -(contentInsetBottom * 0.25) && this.contentOffsetY < 0) {
         console.log("back to top");
         this.refs.scrollView && this.refs.scrollView.scrollTo({ x: 0, y: 0, animated: true });
       }
@@ -172,25 +160,25 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightpink',
     height: backgroundContentHeight,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   backgroundContent: {
     backgroundColor: 'lightblue',
     height: backgroundContentHeight / 2,
     width: windowWidth / 2,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   foregroundContainer: {
     position: "absolute",
     backgroundColor: "transparent",
     // backgroundColor: "green",
-    height: scrollViewHeight,
+    height: scrollViewHeight
   },
   foregroundContent: {
     width: windowWidth,
     backgroundColor: 'lightblue',
-    padding: 15,
+    padding: 15
   },
   bottomBlank: {
     backgroundColor: '#fff',
@@ -202,6 +190,6 @@ const styles = StyleSheet.create({
     height: 60,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   }
-})
+});

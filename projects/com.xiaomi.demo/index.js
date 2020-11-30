@@ -1,5 +1,5 @@
 import React from 'react';
-import { Entrance, API_LEVEL, PackageEvent, Package, Device, Service, Host } from 'miot';
+import { Entrance, API_LEVEL, PackageEvent, Package, Device, Service, Host, DeviceEvent } from 'miot';
 import { View, Text, TouchableOpacity } from 'react-native';
 import App from "./Main";
 // import Scene from './Main/SceneMain';
@@ -21,6 +21,7 @@ PackageEvent.packageDidResume.addListener(() => { console.log("packageDidResume"
 PackageEvent.packageWillPause.addListener(() => { console.log("packageWillPause"); });
 PackageEvent.packageWillExit.addListener(() => { console.log("packageWillExit"); });
 PackageEvent.packageViewWillDisappearIOS.addListener(() => { console.log("packageViewWillDisappearIOS"); });
+DeviceEvent.pinCodeVerifyPassed.addListener(() => { console.log('android pinCodeVerifyPassed'); });
 
 /**
  * 是否需要自动检测wifi固件强制升级, 此属性对分享的设备、虚拟设备、离线设备无效
@@ -43,6 +44,7 @@ class Apps extends React.Component {
     );
   }
 }
+
 switch (Package.entrance) {
   case Entrance.Scene:
     Package.entry(App, (_) => {});
