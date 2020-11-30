@@ -513,6 +513,7 @@
 | showDot       | `array`             | 定义哪些列表项需要显示小红点。为了便于扩展，每个列表项都可以显示小红点，默认全部**不显示**，某列表项需要小红点，传入该列表项的`key`即可。详见[使用方法](#使用方法-6)⬇️。(`❗️SDK_10021`新增) |
 | extraOptions  | <code>object</code> | 其他特殊配置项<br />{<br />showUpgrade // 是否跳转到原生的固件升级页面<br />upgradePageKey // 如果showUpgrade = false，传入想跳转页面的key<br />licenseUrl // 用户协议的资源，将用于「法律信息」二级页面，(`❗️SDK_10023`废弃)<br />policyUrl // 隐私政策的资源，将用于「法律信息」二级页面，(`❗️SDK_10023`废弃)<br />option // 查看隐私政策和用户协议的接口传参，具体见[Host.ui.previewLegalInformationAuthorization](https://github.com/MiEcosystem/miot-plugin-sdk/blob/SDK_10023/miot-sdk/host/ui.js#L189) 的传参说明，之后将废弃掉`licenseUrl`和`policyUrl`，(`❗️SDK_10023`新增)<br />deleteDeviceMessage // 删除设备的提示语，选填<br />}<br />详见[使用方法](#使用方法-6)⬇️。 |
 | navigation    | <code>object</code> | 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面 |
+| commonSettingStyle | <code>CommonSettingStyle</code> | 有关字体样式相关设置  { <br/> allowFontScaling 设置字体是否随系统设置的字体大小的设置改变而改变<br/> unlimitedHeightEnable 控件高度是否自适应<br/> titleStyle - "通用设置" 字体的样式<br/> itemStyle - 列表item 的样式<br/> deleteTextStyle - "删除设备" 字体的样式<br/> moreSettingPageStyle - 二级页面 更多设置 页面的样式<br/> }|
 
 #### 详细说明
 
@@ -593,6 +594,8 @@
 - 虽然此组件从`SDK_10005`开始可用，但是由于产品定义的迭代，所以上述说明以`SDK_10011`最新代码为准，之前的版本可能稍微有些出入，但出入很小，不必惊讶。
 
 - 对于某些十分特殊的设备（比如：灯组），可能需要屏蔽必选的设置项（比如：安全设置），请提issue或者联系相关开发同事。
+
+- 若ListItem要使用SDK_10047新样式（字体粗体）设置CommonSettingStyle.itemStyle.useNewType为true。
 
 ### 使用方法
 
