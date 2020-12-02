@@ -2,6 +2,7 @@ import { Device, Service, DeviceEvent } from "miot";
 import React from 'react';
 import { Host } from 'miot';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import Logger from '../Logger';
 
 export default class CallSmartHomeAPIDemo extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export default class CallSmartHomeAPIDemo extends React.Component {
       dataArray: ['124660227.2.1.true', '124660227.2.1', '124660227.2.1.[10]', '2.1', '124660227'],
       result: "结果展示区\n\n设置属性请在上面文本框输入:did.siid.piid.value，然后点击执行\n获取属性请在上面文本框输入did.siid.piid，然后点击执行\n调用方法请输入did.aiid.piid后点击执行\n订阅请输入siid.piid后点击执行\n获取spec请直接输入did后点击执行"
     };
+    Logger.trace(this);
   }
 
   componentDidMount() {
@@ -49,8 +51,11 @@ export default class CallSmartHomeAPIDemo extends React.Component {
               ['设置属性', '获取属性', '调用方法', '订阅', '获取Spec'].map((item, index) => {
                 let adjustIndex = index + 1;
                 return (
-                  <TouchableOpacity key={index} onPress={() => { this.setState({ selectBtn: adjustIndex }); }}
-                    style={[styles.button, this.state.selectBtn == adjustIndex && styles.buttonSelected]}>
+                  <TouchableOpacity key={index} onPress={() => {
+                    Logger.trace(this, this.render, { name: item });
+                    this.setState({ selectBtn: adjustIndex });
+                  }}
+                  style={[styles.button, this.state.selectBtn == adjustIndex && styles.buttonSelected]}>
                     <Text style={[styles.buttonText, this.state.selectBtn == adjustIndex && styles.buttonTextSelected]}>{item}</Text>
                   </TouchableOpacity>
                 );
@@ -69,7 +74,10 @@ export default class CallSmartHomeAPIDemo extends React.Component {
                 ['添加一条', () => { this.state.dataArray.push(''); this.setState({}); }]
               ].map((item, index) => {
                 return (
-                  <TouchableOpacity key={index} onPress={item[1].bind(this)} style={styles.button}>
+                  <TouchableOpacity key={index} onPress={() => {
+                    item[1].bind(this)();
+                    Logger.trace(this, item[1], { action: item[0] });
+                  }} style={styles.button}>
                     <Text style={styles.buttonText}>{item[0]}</Text>
                   </TouchableOpacity>
                 );
@@ -97,14 +105,22 @@ export default class CallSmartHomeAPIDemo extends React.Component {
           placeholder="请输入参数,格式为did.siid.piid.value,比如：12345.2.1.on"
           value={title}
         />
-        <TouchableOpacity onPress={() => { this._onOpenSubPage(curIndex); }}
-          style={{ width: 50, height: 30, marginLeft: 5, justifyContent: 'center', alignSelf: 'center' }}>
-          <Text>执行</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => { this._deleteRow(curIndex); }}
-          style={{ width: 50, height: 30, marginLeft: 5, justifyContent: 'center', alignSelf: 'center' }}>
-          <Text>删除</Text>
-        </TouchableOpacity>
+        {
+          [
+            ['执行', this._onOpenSubPage],
+            ['删除', this._deleteRow]
+          ].map((item, index) => {
+            return (
+              <TouchableOpacity onPress={() => {
+                item[1].bind(this)(curIndex);
+                Logger.trace(this, item[1], { action: item[0] });
+              }}
+              style={{ width: 50, height: 30, marginLeft: 5, justifyContent: 'center', alignSelf: 'center' }}>
+                <Text>{item[0]}</Text>
+              </TouchableOpacity>
+            );
+          })
+        }
       </View>
     );
   }

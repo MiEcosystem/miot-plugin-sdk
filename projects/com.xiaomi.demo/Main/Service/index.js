@@ -1,28 +1,18 @@
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import {
   Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View
 } from 'react-native';
 import { Service } from 'miot';
+import Logger from '../Logger';
 
 export default class HostDemo extends React.Component {
-
-  static navigationOptions = ({ navigation }) => ({
-    header: <TitleBar
-      type="dark"
-      title={navigation.state.params.title}
-      style={{ backgroundColor: '#fff' }}
-      onPressLeft={() => {
-        navigation.goBack();
-      }}
-    />
-  });
 
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this._createMenuData();
     this.state = { dataSource: ds.cloneWithRows(this._menuData.map((o) => (o.name))) };
+    Logger.trace(this);
   }
 
   _createMenuData() {
@@ -176,6 +166,7 @@ export default class HostDemo extends React.Component {
 
   _pressRow(rowID) {
     this._menuData[rowID].func();
+    Logger.trace(this, this._pressRow, this._menuData[rowID]);
   }
 }
 
@@ -200,7 +191,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff'
   },
-  list: { 
+  list: {
     alignSelf: 'stretch'
   },
   title: {

@@ -130,7 +130,8 @@ let strings = {
   releaseVersionHistory: '',
   firmwareAutoUpdate: '',
   autoUpdateDescriptionNote: '',
-  updateNow: ''
+  updateNow: '',
+  requireBelMesh: ''
 };
 strings = getStrings({
   zh: {
@@ -237,8 +238,9 @@ strings = getStrings({
     releaseNote: '更新日志',
     releaseVersionHistory: '固件版本记录',
     firmwareAutoUpdate: '固件自动更新',
-    autoUpdateDescriptionNote: '检测到新固件后，设备将在{0}尝试自动更新。设备必须处于空闲状态以完成更新。更新过程无声音提示和灯光打扰。' + '\n（该功能目前处于内测状态，请通过“插件设置项-帮助与反馈”反馈意见和建议，便于后续优化。）',
-    updateNow: '立即更新'
+    autoUpdateDescriptionNote: '检测到新固件后，设备将在{0}尝试自动更新。设备必须处于空闲状态以完成更新。更新过程无声音提示和灯光打扰。',
+    updateNow: '立即更新',
+    requireBelMesh: '该功能需要搭配蓝牙Mesh网关使用'
   },
   zh_tw: {
     setting: '設定',
@@ -334,18 +336,19 @@ strings = getStrings({
     upgradeSuccess: '更新成功',
     upgradeFailed: '更新失敗，請稍後再試',
     upgradeTimeout: '更新超時',
-    autoUpgradeInfo: '將在{0}嘗試自動更新',
+    autoUpgradeInfo: '將於{0}嘗試自動更新',
     today: '今天',
     tomorrow: '明天',
-    currentIsLatestVersion: '當前已是最新版本',
+    currentIsLatestVersion: '目前已是最新版本',
     lastestVersion: '最新版本：',
     currentVersion: '當前版本：',
     fetchFailed: '獲取失敗，請稍後',
     releaseNote: '更新日誌',
-    releaseVersionHistory: '固件版本記錄',
-    firmwareAutoUpdate: '固件自動更新',
-    autoUpdateDescriptionNote: '檢測到新固件後，設備將在{0}嘗試自動更新。設備必須處於空閒狀態以完成更新。更新過程無聲音提示和燈光打擾。' + '\n（該功能目前處於內測狀態，請通過“挿件設定項-幫助與迴響”回饋意見和建議，便於後續優化。）',
-    updateNow: '立即更新'
+    releaseVersionHistory: '韌體版本記錄',
+    firmwareAutoUpdate: '韌體自動更新',
+    autoUpdateDescriptionNote: '偵測到新韌體後，裝置將會在{0}嘗試自動更新。裝置必須處於閒置狀態以完成更新。更新過程無聲音提示和燈光打擾。',
+    updateNow: '立即更新',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   zh_hk: {
     setting: '設定',
@@ -441,18 +444,19 @@ strings = getStrings({
     upgradeSuccess: '更新成功',
     upgradeFailed: '更新失敗，請稍後再試',
     upgradeTimeout: '更新超時',
-    autoUpgradeInfo: '將在{0}嘗試自動更新',
+    autoUpgradeInfo: '將在{0}嘗試自動更新 將在{0}嘗試自動更新',
     today: '今天',
     tomorrow: '明天',
-    currentIsLatestVersion: '當前已是最新版本',
+    currentIsLatestVersion: '目前已是最新版本',
     lastestVersion: '最新版本：',
     currentVersion: '當前版本：',
     fetchFailed: '獲取失敗，請稍後',
-    releaseNote: '更新日誌',
-    releaseVersionHistory: '固件版本記錄',
-    firmwareAutoUpdate: '固件自動更新',
-    autoUpdateDescriptionNote: '檢測到新固件後，設備將在{0}嘗試自動更新。設備必須處於空閒狀態以完成更新。更新過程無聲音提示和燈光打擾。' + '\n（該功能目前處於內測狀態，請通過“挿件設定項-幫助與迴響”回饋意見和建議，便於後續優化。）',
-    updateNow: '立即更新'
+    releaseNote: '更新記錄',
+    releaseVersionHistory: '韌體版本記錄',
+    firmwareAutoUpdate: '韌體自動更新',
+    autoUpdateDescriptionNote: '偵測到新韌體後，裝置將在上午{0}嘗試自動更新。裝置必須處於空閒狀態以完成更新。更新過程將無聲音提示和燈光打擾。',
+    updateNow: '立即更新',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   en: {
     setting: 'Settings',
@@ -549,8 +553,8 @@ strings = getStrings({
     upgradeFailed: 'Upgrade failed, please retry later',
     upgradeTimeout: 'Upgrade timeout',
     autoUpgradeInfo: 'Automated updates will be attempted between {0}.',
-    today: 'today ',
-    tomorrow: 'tomorrow ',
+    today: 'today between ',
+    tomorrow: 'tomorrow between ',
     currentIsLatestVersion: 'The current version is the latest.',
     lastestVersion: 'Latest version：',
     currentVersion: 'Current version：',
@@ -558,8 +562,9 @@ strings = getStrings({
     releaseNote: 'Upgrade Log',
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
-    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to upgrade automatically between {0}. The device must be inactive to perform the upgrade. There are no audio or light notifications during the upgrade process. \n(This function is currently in the beta stage, please provide feedback and suggestions via "Setting - Help & Feedback"  for further optimization.)',
-    updateNow: 'Upgrade Now'
+    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   ko: {
     setting: '설정',
@@ -656,8 +661,8 @@ strings = getStrings({
     upgradeFailed: 'Upgrade failed, please retry later',
     upgradeTimeout: 'Upgrade timeout',
     autoUpgradeInfo: 'Automated updates will be attempted between {0}.',
-    today: 'today ',
-    tomorrow: 'tomorrow ',
+    today: 'today between ',
+    tomorrow: 'tomorrow between ',
     currentIsLatestVersion: 'The current version is the latest.',
     lastestVersion: 'Latest version：',
     currentVersion: 'Current version：',
@@ -665,8 +670,9 @@ strings = getStrings({
     releaseNote: 'Upgrade Log',
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
-    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to upgrade automatically between {0}. The device must be inactive to perform the upgrade. There are no audio or light notifications during the upgrade process. \n(This function is currently in the beta stage, please provide feedback and suggestions via "Setting - Help & Feedback"  for further optimization.)',
-    updateNow: 'Upgrade Now'
+    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   ru: {
     setting: 'Настройки',
@@ -763,8 +769,8 @@ strings = getStrings({
     upgradeFailed: 'Upgrade failed, please retry later',
     upgradeTimeout: 'Upgrade timeout',
     autoUpgradeInfo: 'Automated updates will be attempted between {0}.',
-    today: 'today ',
-    tomorrow: 'tomorrow ',
+    today: 'today between ',
+    tomorrow: 'tomorrow between ',
     currentIsLatestVersion: 'The current version is the latest.',
     lastestVersion: 'Latest version：',
     currentVersion: 'Current version：',
@@ -772,8 +778,9 @@ strings = getStrings({
     releaseNote: 'Upgrade Log',
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
-    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to upgrade automatically between {0}. The device must be inactive to perform the upgrade. There are no audio or light notifications during the upgrade process. \n(This function is currently in the beta stage, please provide feedback and suggestions via "Setting - Help & Feedback"  for further optimization.)',
-    updateNow: 'Upgrade Now'
+    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   es: {
     setting: 'Ajustes',
@@ -870,8 +877,8 @@ strings = getStrings({
     upgradeFailed: 'Upgrade failed, please retry later',
     upgradeTimeout: 'Upgrade timeout',
     autoUpgradeInfo: 'Automated updates will be attempted between {0}.',
-    today: 'today ',
-    tomorrow: 'tomorrow ',
+    today: 'today between ',
+    tomorrow: 'tomorrow between ',
     currentIsLatestVersion: 'The current version is the latest.',
     lastestVersion: 'Latest version：',
     currentVersion: 'Current version：',
@@ -879,8 +886,9 @@ strings = getStrings({
     releaseNote: 'Upgrade Log',
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
-    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to upgrade automatically between {0}. The device must be inactive to perform the upgrade. There are no audio or light notifications during the upgrade process. \n(This function is currently in the beta stage, please provide feedback and suggestions via "Setting - Help & Feedback"  for further optimization.)',
-    updateNow: 'Upgrade Now'
+    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   fr: {
     setting: "Paramètres",
@@ -977,8 +985,8 @@ strings = getStrings({
     upgradeFailed: 'Upgrade failed, please retry later',
     upgradeTimeout: 'Upgrade timeout',
     autoUpgradeInfo: 'Automated updates will be attempted between {0}.',
-    today: 'today ',
-    tomorrow: 'tomorrow ',
+    today: 'today between ',
+    tomorrow: 'tomorrow between ',
     currentIsLatestVersion: 'The current version is the latest.',
     lastestVersion: 'Latest version：',
     currentVersion: 'Current version：',
@@ -986,8 +994,9 @@ strings = getStrings({
     releaseNote: 'Upgrade Log',
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
-    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to upgrade automatically between {0}. The device must be inactive to perform the upgrade. There are no audio or light notifications during the upgrade process. \n(This function is currently in the beta stage, please provide feedback and suggestions via "Setting - Help & Feedback"  for further optimization.)',
-    updateNow: 'Upgrade Now'
+    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   it: {
     setting: 'Impostazioni',
@@ -1084,8 +1093,8 @@ strings = getStrings({
     upgradeFailed: 'Upgrade failed, please retry later',
     upgradeTimeout: 'Upgrade timeout',
     autoUpgradeInfo: 'Automated updates will be attempted between {0}.',
-    today: 'today ',
-    tomorrow: 'tomorrow ',
+    today: 'today between ',
+    tomorrow: 'tomorrow between ',
     currentIsLatestVersion: 'The current version is the latest.',
     lastestVersion: 'Latest version：',
     currentVersion: 'Current version：',
@@ -1093,8 +1102,9 @@ strings = getStrings({
     releaseNote: 'Upgrade Log',
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
-    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to upgrade automatically between {0}. The device must be inactive to perform the upgrade. There are no audio or light notifications during the upgrade process. \n(This function is currently in the beta stage, please provide feedback and suggestions via "Setting - Help & Feedback"  for further optimization.)',
-    updateNow: 'Upgrade Now'
+    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   de: {
     setting: "Einstellungen",
@@ -1191,8 +1201,8 @@ strings = getStrings({
     upgradeFailed: 'Upgrade failed, please retry later',
     upgradeTimeout: 'Upgrade timeout',
     autoUpgradeInfo: 'Automated updates will be attempted between {0}.',
-    today: 'today ',
-    tomorrow: 'tomorrow ',
+    today: 'today between ',
+    tomorrow: 'tomorrow between ',
     currentIsLatestVersion: 'The current version is the latest.',
     lastestVersion: 'Latest version：',
     currentVersion: 'Current version：',
@@ -1200,8 +1210,9 @@ strings = getStrings({
     releaseNote: 'Upgrade Log',
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
-    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to upgrade automatically between {0}. The device must be inactive to perform the upgrade. There are no audio or light notifications during the upgrade process. \n(This function is currently in the beta stage, please provide feedback and suggestions via "Setting - Help & Feedback"  for further optimization.)',
-    updateNow: 'Upgrade Now'
+    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   id: {
     setting: 'Pengaturan',
@@ -1298,8 +1309,8 @@ strings = getStrings({
     upgradeFailed: 'Upgrade failed, please retry later',
     upgradeTimeout: 'Upgrade timeout',
     autoUpgradeInfo: 'Automated updates will be attempted between {0}.',
-    today: 'today ',
-    tomorrow: 'tomorrow ',
+    today: 'today between ',
+    tomorrow: 'tomorrow between ',
     currentIsLatestVersion: 'The current version is the latest.',
     lastestVersion: 'Latest version：',
     currentVersion: 'Current version：',
@@ -1307,8 +1318,9 @@ strings = getStrings({
     releaseNote: 'Upgrade Log',
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
-    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to upgrade automatically between {0}. The device must be inactive to perform the upgrade. There are no audio or light notifications during the upgrade process. \n(This function is currently in the beta stage, please provide feedback and suggestions via "Setting - Help & Feedback"  for further optimization.)',
-    updateNow: 'Upgrade Now'
+    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   pl: {
     setting: 'Ustawienia',
@@ -1405,8 +1417,8 @@ strings = getStrings({
     upgradeFailed: 'Upgrade failed, please retry later',
     upgradeTimeout: 'Upgrade timeout',
     autoUpgradeInfo: 'Automated updates will be attempted between {0}.',
-    today: 'today ',
-    tomorrow: 'tomorrow ',
+    today: 'today between ',
+    tomorrow: 'tomorrow between ',
     currentIsLatestVersion: 'The current version is the latest.',
     lastestVersion: 'Latest version：',
     currentVersion: 'Current version：',
@@ -1414,8 +1426,9 @@ strings = getStrings({
     releaseNote: 'Upgrade Log',
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
-    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to upgrade automatically between {0}. The device must be inactive to perform the upgrade. There are no audio or light notifications during the upgrade process. \n(This function is currently in the beta stage, please provide feedback and suggestions via "Setting - Help & Feedback"  for further optimization.)',
-    updateNow: 'Upgrade Now'
+    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   vi: {
     setting: 'Cài đặt',
@@ -1512,8 +1525,8 @@ strings = getStrings({
     upgradeFailed: 'Upgrade failed, please retry later',
     upgradeTimeout: 'Upgrade timeout',
     autoUpgradeInfo: 'Automated updates will be attempted between {0}.',
-    today: 'today ',
-    tomorrow: 'tomorrow ',
+    today: 'today between ',
+    tomorrow: 'tomorrow between ',
     currentIsLatestVersion: 'The current version is the latest.',
     lastestVersion: 'Latest version：',
     currentVersion: 'Current version：',
@@ -1521,8 +1534,9 @@ strings = getStrings({
     releaseNote: 'Upgrade Log',
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
-    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to upgrade automatically between {0}. The device must be inactive to perform the upgrade. There are no audio or light notifications during the upgrade process. \n(This function is currently in the beta stage, please provide feedback and suggestions via "Setting - Help & Feedback"  for further optimization.)',
-    updateNow: 'Upgrade Now'
+    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   ja: {
     setting: '設定',
@@ -1619,8 +1633,8 @@ strings = getStrings({
     upgradeFailed: 'Upgrade failed, please retry later',
     upgradeTimeout: 'Upgrade timeout',
     autoUpgradeInfo: 'Automated updates will be attempted between {0}.',
-    today: 'today ',
-    tomorrow: 'tomorrow ',
+    today: 'today between ',
+    tomorrow: 'tomorrow between ',
     currentIsLatestVersion: 'The current version is the latest.',
     lastestVersion: 'Latest version：',
     currentVersion: 'Current version：',
@@ -1628,8 +1642,9 @@ strings = getStrings({
     releaseNote: 'Upgrade Log',
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
-    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to upgrade automatically between {0}. The device must be inactive to perform the upgrade. There are no audio or light notifications during the upgrade process. \n(This function is currently in the beta stage, please provide feedback and suggestions via "Setting - Help & Feedback"  for further optimization.)',
-    updateNow: 'Upgrade Now'
+    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   th: {
     setting: 'การตั้งค่า',
@@ -1726,8 +1741,8 @@ strings = getStrings({
     upgradeFailed: 'Upgrade failed, please retry later',
     upgradeTimeout: 'Upgrade timeout',
     autoUpgradeInfo: 'Automated updates will be attempted between {0}.',
-    today: 'today ',
-    tomorrow: 'tomorrow ',
+    today: 'today between ',
+    tomorrow: 'tomorrow between ',
     currentIsLatestVersion: 'The current version is the latest.',
     lastestVersion: 'Latest version：',
     currentVersion: 'Current version：',
@@ -1735,8 +1750,9 @@ strings = getStrings({
     releaseNote: 'Upgrade Log',
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
-    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to upgrade automatically between {0}. The device must be inactive to perform the upgrade. There are no audio or light notifications during the upgrade process. \n(This function is currently in the beta stage, please provide feedback and suggestions via "Setting - Help & Feedback"  for further optimization.)',
-    updateNow: 'Upgrade Now'
+    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   tr: {
     setting: 'Ayarlar',
@@ -1833,8 +1849,8 @@ strings = getStrings({
     upgradeFailed: 'Upgrade failed, please retry later',
     upgradeTimeout: 'Upgrade timeout',
     autoUpgradeInfo: 'Automated updates will be attempted between {0}.',
-    today: 'today ',
-    tomorrow: 'tomorrow ',
+    today: 'today between ',
+    tomorrow: 'tomorrow between ',
     currentIsLatestVersion: 'The current version is the latest.',
     lastestVersion: 'Latest version：',
     currentVersion: 'Current version：',
@@ -1842,8 +1858,9 @@ strings = getStrings({
     releaseNote: 'Upgrade Log',
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
-    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to upgrade automatically between {0}. The device must be inactive to perform the upgrade. There are no audio or light notifications during the upgrade process. \n(This function is currently in the beta stage, please provide feedback and suggestions via "Setting - Help & Feedback"  for further optimization.)',
-    updateNow: 'Upgrade Now'
+    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   nl: {
     setting: 'Instellingen',
@@ -1940,8 +1957,8 @@ strings = getStrings({
     upgradeFailed: 'Upgrade failed, please retry later',
     upgradeTimeout: 'Upgrade timeout',
     autoUpgradeInfo: 'Automated updates will be attempted between {0}.',
-    today: 'today ',
-    tomorrow: 'tomorrow ',
+    today: 'today between ',
+    tomorrow: 'tomorrow between ',
     currentIsLatestVersion: 'The current version is the latest.',
     lastestVersion: 'Latest version：',
     currentVersion: 'Current version：',
@@ -1949,8 +1966,9 @@ strings = getStrings({
     releaseNote: 'Upgrade Log',
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
-    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to upgrade automatically between {0}. The device must be inactive to perform the upgrade. There are no audio or light notifications during the upgrade process. \n(This function is currently in the beta stage, please provide feedback and suggestions via "Setting - Help & Feedback"  for further optimization.)',
-    updateNow: 'Upgrade Now'
+    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   },
   pt: {
     setting: 'Configurações',
@@ -2047,8 +2065,8 @@ strings = getStrings({
     upgradeFailed: 'Upgrade failed, please retry later',
     upgradeTimeout: 'Upgrade timeout',
     autoUpgradeInfo: 'Automated updates will be attempted between {0}.',
-    today: 'today ',
-    tomorrow: 'tomorrow ',
+    today: 'today between ',
+    tomorrow: 'tomorrow between ',
     currentIsLatestVersion: 'The current version is the latest.',
     lastestVersion: 'Latest version：',
     currentVersion: 'Current version：',
@@ -2056,8 +2074,9 @@ strings = getStrings({
     releaseNote: 'Upgrade Log',
     releaseVersionHistory: 'Firmware version history',
     firmwareAutoUpdate: 'Automatic firmware upgrade',
-    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to upgrade automatically between {0}. The device must be inactive to perform the upgrade. There are no audio or light notifications during the upgrade process. \n(This function is currently in the beta stage, please provide feedback and suggestions via "Setting - Help & Feedback"  for further optimization.)',
-    updateNow: 'Upgrade Now'
+    autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
+    updateNow: 'Upgrade Now',
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
   }
 });
 export default strings;

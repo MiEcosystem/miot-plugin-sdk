@@ -1,21 +1,14 @@
 import BlankPage from 'miot/ui/BlankPage';
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { View } from 'react-native';
+import Logger from '../Logger';
 
 export default class BlankPageDemo extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      header:
-        <TitleBar
-          type='dark'
-          title={navigation.state.params ? navigation.state.params.title : ''}
-          style={{ backgroundColor: '#fff' }}
-          onPressLeft={_ => navigation.goBack()}
-        />
-    };
-  };
+  constructor(props) {
+    super(props);
+    Logger.trace(this);
+  }
 
   render() {
     const params = this.props.navigation.state.params.props;

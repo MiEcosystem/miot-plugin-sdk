@@ -107,10 +107,14 @@ export default {
   /**
      * @const
      * @type {boolean}
-     * @description 判断是否 iOS 刘海屏 包括iPhoneX系列, iPhoneXS, iPhoneXS Max 系列, iPhone 11系列
+     * @since  10044  在10047 添加对iPhone 12系列的支持
+     * @description 判断是否 iOS 刘海屏 包括iPhoneX系列, iPhoneXS, iPhoneXS Max 系列, iPhone 11系列  Android返回false
      */
   get isIphoneXSeries() {
      return  false
+      return native.MIOTHost.isIphoneXSeries;
+    }
+    return false;
   },
   /**
      * @const

@@ -14,4 +14,3 @@ export default class BlankDemo extends React.Component {
     );
   }
 }
-

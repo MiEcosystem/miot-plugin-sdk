@@ -3,7 +3,7 @@ import Separator from 'miot/ui/Separator';
 import React from 'react';
 import { StyleSheet, ScrollView, Text, View } from 'react-native';
 import { RkButton } from "react-native-ui-kitten";
-import tr from "miot/resources/strings/tr";
+import Logger from '../Logger';
 
 export default class NavigationBarDemo extends React.Component {
 
@@ -23,6 +23,7 @@ export default class NavigationBarDemo extends React.Component {
       showDot: true,
       index: 0
     };
+    Logger.trace(this);
   }
 
   testList = [
@@ -534,7 +535,10 @@ export default class NavigationBarDemo extends React.Component {
                 >
                   <RkButton
                     style={[styles.button, { width: 110, height: 50 }]}
-                    onPress={test.onPress}
+                    onPress={() => {
+                      Logger.trace(this, test.onPress, test);
+                      test.onPress();
+                    }}
                   >
                     <Text style={styles.buttonText}>{test.title}</Text>
                   </RkButton>

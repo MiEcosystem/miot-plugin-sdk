@@ -3,38 +3,38 @@
 import {
   Device, Package, Host, Entrance, Service, DeviceEvent, PackageEvent
 } from "miot";
-import TitleBar from "miot/ui/TitleBar";
+import NavigationBar from "miot/ui/NavigationBar";
 import React from 'react';
 import {
   Image, PixelRatio, StyleSheet, Text, TouchableHighlight, View, ListView
 } from 'react-native';
 import { getString } from './MHLocalizableString';
+import Logger from './Logger';
 
 export default class MainPage extends React.Component {
-
-  static navigationOptions = ({ navigation }) => {
-    return {
-      header:
-        <View>
-          <TitleBar
-            type="dark"
-            title={navigation.state["params"] ? navigation.state.params.name : Device.name}
-            subTitle={getString('NUM_PHOTOS', { 'numPhotos': 1 })}
-            onPressLeft={() => {
-              Package.exit();
-            }}
-            onPressRight={() => {
-              navigation.navigate('Setting', { 'title': '设置' });
-            }} />
-        </View>
-    };
-  };
 
   constructor(props) {
     super(props);
     let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this._createMenuData();
     this.state = { dataSource: ds.cloneWithRows(this._menuData.map((o) => (o.name))) };
+    Logger.trace(this);
+    this.props.navigation.setParams({
+      title: Device.name,
+      subtitle: getString('NUM_PHOTOS', { 'numPhotos': 1 }),
+      left: [{
+        key: NavigationBar.ICON.CLOSE,
+        onPress: () => Package.exit(),
+        accessibilityLabel: '返回',
+        accessibilityHint: '返回上一页'
+      }],
+      right: [{
+        key: NavigationBar.ICON.MORE,
+        onPress: () => this.props.navigation.navigate('Setting', { 'title': '设置' }),
+        accessibilityLabel: '设置',
+        accessibilityHint: '进入设置'
+      }]
+    });
   }
 
   _createMenuData() {
@@ -177,6 +177,7 @@ export default class MainPage extends React.Component {
 
   _pressRow(rowID) {
     this._menuData[rowID].func();
+    Logger.trace(this, this._pressRow, this._menuData[rowID]);
   }
 }
 

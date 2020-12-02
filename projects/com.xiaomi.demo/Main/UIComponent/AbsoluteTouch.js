@@ -1,22 +1,17 @@
 'use strict';
 
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import Logger from '../Logger';
+
 export default class AbsoluteTouch extends React.Component {
-
-  static navigationOptions = ({ navigation }) => {
-
-    return {
-      header: <TitleBar type='dark' title='绝对定位点击测试' style={{ backgroundColor: '#fff' }}
-        onPressLeft={() => {
-          navigation.goBack();
-        }} />,
-    };
-  };
 
   constructor(props) {
     super(props);
+    this.props.navigation.setParams({
+      title: '绝对定位点击测试'
+    });
+    Logger.trace(this);
   }
 
   render() {
@@ -46,7 +41,6 @@ export default class AbsoluteTouch extends React.Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
     marginBottom: 0,
     marginTop: 0,
     position: 'relative',
@@ -74,6 +68,6 @@ var styles = StyleSheet.create({
     bottom: 20,
     zIndex: 50
   },
-  txt: { color: 'white', }
+  txt: { color: 'white' }
 });
 

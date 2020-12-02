@@ -3,6 +3,7 @@ import {
   StyleSheet, Text, View, TouchableOpacity, Platform, ScrollView
 } from 'react-native';
 import { Device, Service } from "miot";
+import Logger from '../Logger';
 
 export default class CloudStorageDemo extends React.Component {
 
@@ -11,6 +12,7 @@ export default class CloudStorageDemo extends React.Component {
     this.state = {
       data: ''
     };
+    Logger.trace(this);
   }
 
   render() {
@@ -136,7 +138,10 @@ export default class CloudStorageDemo extends React.Component {
               }]
             ].map((item, index) => {
               return (
-                <TouchableOpacity key={index} style={styles.button} onPress={item[1].bind(this)}>
+                <TouchableOpacity key={index} style={styles.button} onPress={() => {
+                  item[1].bind(this)();
+                  Logger.trace(this, item[1], { action: item[0] });
+                }}>
                   <Text style={styles.buttonText}>{item[0]}</Text>
                 </TouchableOpacity>
               );

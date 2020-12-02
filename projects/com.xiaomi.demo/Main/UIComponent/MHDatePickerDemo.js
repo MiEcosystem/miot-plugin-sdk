@@ -1,14 +1,15 @@
 import { ListItem } from 'miot/ui/ListItem';
 import MHDatePicker from 'miot/ui/MHDatePicker';
 import Separator from 'miot/ui/Separator';
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { Styles } from "miot/resources";
+import Logger from '../Logger';
 
 export default class MHDatePickerDemo extends React.Component {
   constructor(props, context) {
     super(props, context);
+    Logger.trace(this);
     this.state = {
       visible: false,
       visible1: false,
@@ -61,7 +62,7 @@ export default class MHDatePickerDemo extends React.Component {
     let max = [2029, 4, 16];
 
     return (
-      <View style={{ backgroundColor: '#f2f2f2', flex: 1 }}>
+      <View style={{ flex: 1 }}>
         <Separator />
         <ScrollView>
           <View style={{ alignItems: 'center' }}>

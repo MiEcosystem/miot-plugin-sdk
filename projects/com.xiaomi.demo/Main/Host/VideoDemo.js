@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Alert, AlertIOS, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Video from 'react-native-video';
-
+import Logger from '../Logger';
 
 let isLoading = true;
 export default class VideoDemo extends Component {
@@ -12,6 +12,7 @@ export default class VideoDemo extends Component {
     this.onProgress = this.onProgress.bind(this);
     this.onBuffer = this.onBuffer.bind(this);
     isLoading = true;
+    Logger.trace(this);
   }
   state = {
     rate: 1,
@@ -29,8 +30,8 @@ export default class VideoDemo extends Component {
       uri: 'http://cookbook.supor.com/Swast2SpEjewRAnE.mp4',
       type: 'mp4',
       isAsset: true,
-      isNetwork: true,
-    },
+      isNetwork: true
+    }
   };
 
   onLoad(data) {
@@ -69,7 +70,7 @@ export default class VideoDemo extends Component {
         this.setState({
           controls: selectControls,
           skin: skin
-        })
+        });
       }}>
         <Text style={[styles.controlOption, { fontWeight: isSelected ? "bold" : "normal" }]}>
           {skin}
@@ -87,13 +88,13 @@ export default class VideoDemo extends Component {
           Alert.alert("wait the video loaded");
           return;
         }
-        this.setState({ rate: rate })
+        this.setState({ rate: rate });
       }}>
         <Text style={[styles.controlOption, { fontWeight: isSelected ? "bold" : "normal" }]}>
           {rate}x
         </Text>
       </TouchableOpacity>
-    )
+    );
   }
 
   renderResizeModeControl(resizeMode) {
@@ -105,13 +106,13 @@ export default class VideoDemo extends Component {
           Alert.alert("wait the video loaded");
           return;
         }
-        this.setState({ resizeMode: resizeMode })
+        this.setState({ resizeMode: resizeMode });
       }}>
         <Text style={[styles.controlOption, { fontWeight: isSelected ? "bold" : "normal" }]}>
           {resizeMode}
         </Text>
       </TouchableOpacity>
-    )
+    );
   }
 
   renderVolumeControl(volume) {
@@ -123,13 +124,13 @@ export default class VideoDemo extends Component {
           Alert.alert("wait the video loaded");
           return;
         }
-        this.setState({ volume: volume })
+        this.setState({ volume: volume });
       }}>
         <Text style={[styles.controlOption, { fontWeight: isSelected ? "bold" : "normal" }]}>
           {volume * 100}%
         </Text>
       </TouchableOpacity>
-    )
+    );
   }
 
   renderIgnoreSilentSwitchControl(ignoreSilentSwitch) {
@@ -141,13 +142,13 @@ export default class VideoDemo extends Component {
           Alert.alert("wait the video loaded");
           return;
         }
-        this.setState({ ignoreSilentSwitch: ignoreSilentSwitch })
+        this.setState({ ignoreSilentSwitch: ignoreSilentSwitch });
       }}>
         <Text style={[styles.controlOption, { fontWeight: isSelected ? "bold" : "normal" }]}>
           {ignoreSilentSwitch}
         </Text>
       </TouchableOpacity>
-    )
+    );
   }
 
   renderCustomSkin() {
@@ -155,7 +156,7 @@ export default class VideoDemo extends Component {
     const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.fullScreen} onPress={() => { this.setState({ paused: !this.state.paused }) }}>
+        <TouchableOpacity style={styles.fullScreen} onPress={() => { this.setState({ paused: !this.state.paused }); }}>
           <Video
             source={this.state.videoSource}
             // source={require('../../Resources/mp4/broadchurch.mp4')}
@@ -169,15 +170,15 @@ export default class VideoDemo extends Component {
             onLoad={this.onLoad}
             onBuffer={this.onBuffer}
             onProgress={this.onProgress}
-            onEnd={() => { alert('Done!') }}
+            onEnd={() => { alert('Done!'); }}
             repeat={true}
             ref={(ref) => {
-              this.player = ref
+              this.player = ref;
             }}
             onError={() => {
               console.log('Callback when video cannot be loaded');
             }}
-            onSeek={payload => {
+            onSeek={(payload) => {
               console.log(payload);
             }}
           />
@@ -255,7 +256,7 @@ export default class VideoDemo extends Component {
             onLoad={this.onLoad}
             onBuffer={this.onBuffer}
             onProgress={this.onProgress}
-            onEnd={() => { alert('Done!') }}
+            onEnd={() => { alert('Done!'); }}
             repeat={true}
             controls={this.state.controls}
           />
@@ -312,14 +313,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: 'black'
   },
   fullScreen: {
     position: 'absolute',
     top: 0,
     left: 0,
     bottom: 0,
-    right: 0,
+    right: 0
   },
   controls: {
     backgroundColor: "transparent",
@@ -327,42 +328,42 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 44,
     left: 4,
-    right: 4,
+    right: 4
   },
   progress: {
     flex: 1,
     flexDirection: 'row',
     borderRadius: 3,
-    overflow: 'hidden',
+    overflow: 'hidden'
   },
   innerProgressCompleted: {
     height: 20,
-    backgroundColor: '#cccccc',
+    backgroundColor: '#cccccc'
   },
   innerProgressRemaining: {
     height: 20,
-    backgroundColor: '#2C2C2C',
+    backgroundColor: '#2C2C2C'
   },
   generalControls: {
     flex: 1,
     flexDirection: 'row',
     overflow: 'hidden',
-    paddingBottom: 10,
+    paddingBottom: 10
   },
   skinControl: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   rateControl: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   volumeControl: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   resizeModeControl: {
     flex: 1,
@@ -382,7 +383,7 @@ const styles = StyleSheet.create({
     color: "white",
     paddingLeft: 2,
     paddingRight: 2,
-    lineHeight: 12,
+    lineHeight: 12
   },
   nativeVideoControls: {
     top: 184,

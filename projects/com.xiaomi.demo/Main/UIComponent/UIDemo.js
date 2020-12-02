@@ -3,10 +3,13 @@
 import { MessageDialog } from 'miot/ui';
 import React from 'react';
 import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import Logger from '../Logger';
+
 export default class UIDemo extends React.Component {
 
   constructor(props) {
     super(props);
+    Logger.trace(this);
     let ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
@@ -48,7 +51,7 @@ export default class UIDemo extends React.Component {
             />
           },
           {
-            name: 'DialogTest3',
+            name: '样式选择器',
             router: 'DialogTest3',
             messageDialog: <MessageDialog
               message={'再次复用消息对话框'}
@@ -99,6 +102,7 @@ export default class UIDemo extends React.Component {
       title: name,
       messageDialog: messageDialog
     });
+    Logger.trace(this, this._pressRow, { page: router, name: name });
   }
 
 }

@@ -5,6 +5,8 @@ import Switch from 'miot/ui/Switch';
 import React from 'react';
 import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import ProtocolManager from "miot/utils/protocol-helper";
+import Logger from '../../Logger';
+
 let BUTTONS = [
   '测试对话框',
   '确定'
@@ -26,6 +28,7 @@ export default class PrivacyDemo extends React.Component {
       hideUserExperiencePlan: false,
       experience: false
     };
+    Logger.trace(this);
   }
 
   _createMenuData() {
@@ -155,6 +158,7 @@ export default class PrivacyDemo extends React.Component {
   _pressRow(rowID) {
     console.log(`row${ rowID }clicked!`);
     this._menuData[rowID].func();
+    Logger.trace(this, this._pressRow, this._menuData[rowID]);
   }
 
   showActionSheet() {
@@ -163,7 +167,7 @@ export default class PrivacyDemo extends React.Component {
         options: BUTTONS,
         destructiveButtonIndex: 1
       },
-      () => {});
+      () => { });
   }
 }
 

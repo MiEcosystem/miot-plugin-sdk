@@ -11,6 +11,7 @@ map.set("node_modules/react-native/Libraries/Renderer/ReactNativeRenderer-prod.j
 map.set("node_modules/react-native-sqlite-storage/lib/sqlite.core.js", "sqlite.core");// 从代码目录读取数据库，参数使用方式修改
 map.set("node_modules/react-navigation-stack/dist/views/Header/HeaderBackButton.js", "HeaderBackButton"); //
 map.set("node_modules/react-navigation/src/createNavigationContainer.js", "createNavigationContainer"); //
+map.set("node_modules/react-navigation/src/react-navigation.js", "react-navigation"); //
 map.set("node_modules/react-native/Libraries/Text/Text.js", "Text"); // 为适配深色模式，给text的color增加了后缀 TypeError: undefined is not an object (evaluating '_reactNative.Text.prototype.render')
 map.set("node_modules/react-native/Libraries/Image/Image.ios.js", "Image.ios"); // 修复TypeError: undefined is not an object (evaluating '_reactNative.Image.resizeMode.contain')
 map.set("node_modules/react-native/Libraries/Image/Image.android.js", "Image.android"); // 修复TypeError: undefined is not an object (evaluating '_reactNative.Image.resizeMode.contain')
@@ -24,6 +25,14 @@ map.set("node_modules/react-navigation/src/routers/createConfigGetter.js", "Yeel
 map.set("node_modules/react-native-svg/elements/Svg.js", "react-native-svg"); // 61升级之后 svg parseInt 导致宽高精度丢失，从而导致背景等不能完全填充，出现白色边框
 map.set("node_modules/react-native/Libraries/Color/normalizeColor.js", "normalizeColor");// 插件深色模式取反色的位置
 // map.set("node_modules/react-native/Libraries/Components/TextInput/TextInput.js", "TextInput");//插件深色模式输入框兼容
+
+/**
+ * 修复react-navigation2.16.0中TouchableItem对其他View的影响（目前发现会造成其他路由下opacity属性不正常）
+ */
+map.set("node_modules/react-navigation-tabs/node_modules/react-native-tab-view/src/TouchableItem.js", "ReactNavigationTabViewTouchableItem");
+map.set("node_modules/react-navigation/src/views/TouchableItem.js", "ReactNavigationTouchableItem");
+map.set("node_modules/react-navigation-stack/dist/views/TouchableItem.js", "ReactNavigationTouchableItem");
+
 module.exports = {
 
   findContent(mpath) {
