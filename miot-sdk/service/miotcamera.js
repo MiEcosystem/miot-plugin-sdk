@@ -577,7 +577,7 @@ class IMiotCamera {
    */
   @report
   downloadCloudVideoIntoCloudSetting(did, fileId, isAlarmFile, startTime, duration, register = true, thumbId = null) {
-    //@ native :=> promise
+    // @ native :=> promise
     return new Promise((resolve, reject) => {
       NativeModules.MHCameraSDK.downloadCloudVideoIntoCloudSetting(did, fileId, isAlarmFile, startTime, duration, register, thumbId, (result, data) => {
         if (result) {
