@@ -21,6 +21,7 @@ PackageEvent.packageDidResume.addListener(() => { console.log("packageDidResume"
 PackageEvent.packageWillPause.addListener(() => { console.log("packageWillPause"); });
 PackageEvent.packageWillExit.addListener(() => { console.log("packageWillExit"); });
 PackageEvent.packageViewWillDisappearIOS.addListener(() => { console.log("packageViewWillDisappearIOS"); });
+PackageEvent.packageWillStopAndroid.addListener(() => { console.log('android packageWillStopAndroid'); });
 DeviceEvent.pinCodeVerifyPassed.addListener(() => { console.log('android pinCodeVerifyPassed'); });
 
 /**

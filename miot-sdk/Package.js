@@ -145,7 +145,14 @@ export const PackageEvent = {
    * @since 10038
    * @event
    */
-  packageViewWillDisappearIOS: { always: true, sameas: isIOS ? 'packageViewWillDisappearIOS' : undefined }
+  packageViewWillDisappearIOS: { always: true, sameas: isIOS ? 'packageViewWillDisappearIOS' : undefined },
+  /**
+   * 插件进入后台(Android only)
+   * 在插件内，用户按下home键，米家进入后台会发送该通知
+   * @since 10048
+   * @event
+   */
+  packageWillStopAndroid: { always: true, sameas: isIOS ? undefined : 'packageWillStop' }
 };
 /**
  * @export
