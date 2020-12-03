@@ -243,6 +243,14 @@ class IUi {
   openLightGroupUpgradePage() {
   }
   /**
+   * 打开Ble 组设备升级页面
+   * @param {Number} type 蓝牙类型，与蓝牙connect 参数中的type 一致
+   * @since 10048
+   */
+  @report
+  openBleGroupUpgradePage(type) {
+  }
+  /**
    * 打开设备时区设置页
    * apiLevel在10025，增加参数的支持，APP修改时区是否需要同步到设备端，前提是设备需要支持miIO.set_timezone 方法
    * 如果sync_device为true，服务端会给设备发送rpc,例如： {'method':'miIO.set_timezone','params':["Asia/Chongqing"]}

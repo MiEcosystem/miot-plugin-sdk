@@ -556,6 +556,13 @@ export default class UIDemo extends React.Component {
         'func': () => {
           Host.ui.openTerminalDeviceSettingPage(3);
         }
+      },
+      {
+        'name': 'openBleGroupUpgradePage',
+        'subtitle': '跳转到蓝牙组设备批量升级页面 ',
+        'func': () => {
+          Host.ui.openBleGroupUpgradePage(1);
+        }
       }
     ];
   }
