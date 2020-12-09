@@ -567,7 +567,7 @@ class ISmartHome {
     /**
      * 获取设备所在网络的IP地址所属国家
      * /home/getcountry
-     * @param {json} params {"dids": ["xx"]}
+     * @param {json} params {"did": "xx"}
      * @return {Promise}
      */
     @report
