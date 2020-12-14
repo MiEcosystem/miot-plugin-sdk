@@ -59,7 +59,7 @@ class ICrypto {
   /**
    * MD5 编码
    * @param {string} content 需要编码的字符串
-   * @returns {Promise<string>} 使用md5编码后的字符串
+   * @returns {Promise<string>} 使用md5编码后的字符串（Android返回的md5是小写字母，iOS是大写字母，插件可以做一下转换统一大小写）
    */
   @report
   encodeMD5(content) {

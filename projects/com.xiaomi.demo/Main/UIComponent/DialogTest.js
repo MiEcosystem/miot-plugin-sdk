@@ -1,24 +1,17 @@
 'use strict';
 
 import { InputDialog, LoadingDialog, MessageDialog, MultiChoseDialog, ProgressDialog, SingleChoseDialog } from 'miot/ui';
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { ActionSheetIOS, Alert, Platform, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import Logger from '../Logger';
 
 export default class DialogTest extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
-
-    return {
-      header: <TitleBar type="dark" title={'DialogTest'} style={{ backgroundColor: '#fff' }}
-        onPressLeft={() => {
-          navigation.goBack();
-        }} />
-    };
-  };
-
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.props.navigation.setParams({
+      title: 'DialogTest'
+    });
     let timer1 = null;
     this.state = {
       visMessage: false,
@@ -29,24 +22,25 @@ export default class DialogTest extends React.Component {
       visProgress: false,
       progress: 0
     };
+    Logger.trace(this);
   }
 
   render() {
     return (
       <View style={styles.container}>
         <TouchableHighlight
-          style={styles.rowContainer}
+          style={styles.button}
           underlayColor="#838383"
           onPress={() => {
             this.setState({ visMessage: true });
           }}>
-          <Text style={{
+          <Text style={[styles.buttonText, {
             textAlign: 'center',
             textAlignVertical: 'center',
             fontFamily: 'MI-LANTING--GBK1-Light',
             height: 45,
             color: '#333333'
-          }}>显示MessageDialog</Text>
+          }]}>显示MessageDialog</Text>
         </TouchableHighlight>
         <MessageDialog title={'title'}
           message={'message'}
@@ -66,16 +60,16 @@ export default class DialogTest extends React.Component {
           }}
           visible={this.state.visMessage} />
         <TouchableHighlight
-          style={styles.rowContainer}
+          style={styles.button}
           underlayColor="#838383"
           onPress={() => {
             this.setState({ visInput: true });
           }}>
-          <Text style={{
+          <Text style={[styles.buttonText, {
             textAlign: 'center',
             fontFamily: 'D-DIN',
             textAlignVertical: 'center', height: 45, color: '#333333'
-          }}>显示InputDialog</Text>
+          }]}>显示InputDialog</Text>
         </TouchableHighlight>
         <InputDialog title={'title'}
           message={'message'}
@@ -98,18 +92,18 @@ export default class DialogTest extends React.Component {
           }}
           visible={this.state.visInput} />
         <TouchableHighlight
-          style={styles.rowContainer}
+          style={styles.button}
           underlayColor="#838383"
           onPress={() => {
             this.setState({ visSingle: true });
           }}>
-          <Text style={{
+          <Text style={[styles.buttonText, {
             textAlign: 'center',
             textAlignVertical: 'center',
             fontFamily: 'D-DINCondensed-Bold',
             height: 45,
             color: '#333333'
-          }}>显示SingleChoseDialog</Text>
+          }]}>显示SingleChoseDialog</Text>
         </TouchableHighlight>
         <SingleChoseDialog title={'title'}
           dataSource={['message0', 'message1', 'message2', 'message3', 'message4', 'message5', 'message6']}
@@ -133,18 +127,18 @@ export default class DialogTest extends React.Component {
           }}
           visible={this.state.visSingle} />
         <TouchableHighlight
-          style={styles.rowContainer}
+          style={styles.button}
           underlayColor="#838383"
           onPress={() => {
             this.setState({ visMulti: true });
           }}>
-          <Text style={{
+          <Text style={[styles.buttonText, {
             textAlign: 'center',
             textAlignVertical: 'center',
             fontFamily: 'D-DINCondensed',
             height: 45,
             color: '#333333'
-          }}>显示MultiChoseDialog</Text>
+          }]}>显示MultiChoseDialog</Text>
         </TouchableHighlight>
         <MultiChoseDialog title={'title'}
           timeout={0}
@@ -181,7 +175,7 @@ export default class DialogTest extends React.Component {
           }}
           visible={this.state.visMulti} />
         <TouchableHighlight
-          style={styles.rowContainer}
+          style={styles.button}
           underlayColor="#838383"
           onPress={() => {
             this.setState({ visLoading: true });
@@ -189,12 +183,12 @@ export default class DialogTest extends React.Component {
               this.setState({ visLoading: false });
             }, 3000);
           }}>
-          <Text style={{
+          <Text style={[styles.buttonText, {
             textAlign: 'center',
             textAlignVertical: 'center',
             fontFamily: 'D-DINExp-Bold',
             height: 45, color: '#333333'
-          }}>显示LoadingDialog</Text>
+          }]}>显示LoadingDialog</Text>
         </TouchableHighlight>
         <LoadingDialog message={'message'}
           cancelable={false}
@@ -205,7 +199,7 @@ export default class DialogTest extends React.Component {
           }}
           visible={this.state.visLoading} />
         <TouchableHighlight
-          style={styles.rowContainer}
+          style={styles.button}
           underlayColor="#838383"
           onPress={() => {
             this.setState({ visProgress: true, progress: 0 });
@@ -220,12 +214,12 @@ export default class DialogTest extends React.Component {
               }
             }, 40);
           }}>
-          <Text style={{
+          <Text style={[styles.buttonText, {
             textAlign: 'center',
             textAlignVertical: 'center',
             fontFamily: 'DS-Digital',
             height: 45, color: '#333333'
-          }}>显示ProgressDialog</Text>
+          }]}>显示ProgressDialog</Text>
         </TouchableHighlight>
         <ProgressDialog message={'message'}
           // title={'title'}
@@ -238,7 +232,7 @@ export default class DialogTest extends React.Component {
           }}
           visible={this.state.visProgress} />
         <TouchableHighlight
-          style={styles.rowContainer}
+          style={styles.button}
           underlayColor="#838383"
           onPress={() => {
             Alert.alert(
@@ -252,15 +246,14 @@ export default class DialogTest extends React.Component {
               { cancelable: false }
             );
           }}>
-          <Text style={{
+          <Text style={[styles.buttonText, {
             textAlign: 'center',
             textAlignVertical: 'center',
             height: 45, color: '#333333'
-          }}>Alert(RN自带的) </Text>
+          }]}>Alert(RN自带的) </Text>
         </TouchableHighlight>
-
         <TouchableHighlight
-          style={styles.rowContainer}
+          style={styles.button}
           underlayColor="#838383"
           onPress={() => {
             if (Platform.OS === 'ios') {
@@ -283,14 +276,12 @@ export default class DialogTest extends React.Component {
                 { cancelable: false }
               );
             }
-
-
           }}>
-          <Text style={{
+          <Text style={[styles.buttonText, {
             textAlign: 'center',
             textAlignVertical: 'center',
             height: 45, color: '#333333'
-          }}>ActionSheet(RN自带的,iOS 特有的) </Text>
+          }]}>ActionSheet(RN自带的,iOS 特有的) </Text>
         </TouchableHighlight>
       </View>
     );
@@ -300,17 +291,24 @@ export default class DialogTest extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderTopColor: '#f1f1f1',
-    borderTopWidth: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    backgroundColor: '#ffffff',
-    marginBottom: 0,
-    marginTop: 0
+    alignItems: 'center'
   },
-  textStyle: {
-    color: '#333'
+  button: {
+    color: '#000',
+    width: '90%',
+    height: 40,
+    borderRadius: 5,
+    borderColor: '#DDD',
+    borderWidth: 1,
+    backgroundColor: '#FFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20
+  },
+  buttonText: {
+    color: '#555',
+    fontSize: 18,
+    padding: 5
   }
 });
 

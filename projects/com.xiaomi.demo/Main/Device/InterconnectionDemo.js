@@ -1,27 +1,16 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView, TouchableOpacity, View, Text } from 'react-native';
-
-import TitleBar from 'miot/ui/TitleBar';
-
 import { getSupportedDevicesWithLinkage, getSupportedDevices, scan, getLinkage, addLinkage, removeLinkage, setEnable } from 'miot/device/interconnection';
+import Logger from '../Logger';
 
 const Category = 'sensor_ht';
 
 export default class InterconnectionDemo extends Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      header: (
-        <TitleBar
-          title="设备互联"
-          type="dark"
-          style={{ backgroundColor: '#fff' }}
-          onPressLeft={() => {
-            navigation.goBack();
-          }}
-        />
-      )
-    };
-  };
+
+  constructor(props, context) {
+    super(props, context);
+    Logger.trace(this);
+  }
 
   state = {
     supportedDevicesWithLinkage: [],
@@ -94,11 +83,13 @@ export default class InterconnectionDemo extends Component {
           <Text style={Styles.text}>{pdid}</Text>
           <Text style={Styles.text}>{did}</Text>
           <Text style={Styles.text}>{model}</Text>
-          <TouchableOpacity style={Styles.text} onPress={() => {
+          <TouchableOpacity style={Styles.btn} onPress={() => {
             this.setEnable(mac, enabled, linked);
+            Logger.trace(this, this.getSupportedDevicesWithLinkageList, { setEnable: enabled });
           }}><Text>{enabled ? 'Y/Disable' : linked ? 'N/Enable' : 'N'}</Text></TouchableOpacity>
-          <TouchableOpacity style={Styles.text} onPress={() => {
+          <TouchableOpacity style={Styles.btn} onPress={() => {
             this.addOrRemove(mac, pdid, linked);
+            Logger.trace(this, this.addOrRemove, { addOrRemove: linked });
           }}><Text>{linked ? 'Y/Remove' : 'N/Add'}</Text></TouchableOpacity>
         </View>
       );
@@ -106,6 +97,7 @@ export default class InterconnectionDemo extends Component {
   }
 
   getSupportedDevicesWithLinkage = () => {
+    Logger.trace(this, this.getSupportedDevicesWithLinkage);
     getSupportedDevicesWithLinkage(Category).then((supportedDevicesWithLinkage) => {
       this.setState({
         supportedDevicesWithLinkage
@@ -151,6 +143,7 @@ export default class InterconnectionDemo extends Component {
   }
 
   scan = () => {
+    Logger.trace(this, this.scan);
     this.listenerScan = scan({
       category: Category
     }, (scanDevices) => {
@@ -176,6 +169,7 @@ export default class InterconnectionDemo extends Component {
   }
 
   getLinkage = () => {
+    Logger.trace(this, this.getLinkage);
     getLinkage().then((linkageDevices) => {
       console.log('scanDevices success', linkageDevices);
       this.setState({
@@ -266,7 +260,8 @@ const Styles = StyleSheet.create({
   btn: {
     alignSelf: 'stretch',
     backgroundColor: '#f1f1f1',
-    padding: 10,
+    padding: 8,
+    margin: 2,
     borderRadius: 10
   },
   btnText: {
@@ -277,7 +272,8 @@ const Styles = StyleSheet.create({
   },
   item: {
     flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    marginTop: 2
   },
   text: {
     flex: 1,

@@ -201,10 +201,15 @@ class IMiotCamera {
    *
    * 现在除创米021那几款摄像头，都只传0就行了
    * @since 10033
-   * @param {number} AlarmEventType 取或
+   * @param {bool} isNewPlugin 是否是新固件 
+   * @param {number} localRecognizeEvents   AlarmEventType 里 几个筛选项的或值。 
+   *    isNewPlugin = false的情况下，兼容以前的逻辑，非vip会读localRecognizeEvents变量里是否有宝宝哭声和人脸识别选项,有就展示   vip则包含所有的筛选项
+   *    isNewPlugin = true时，localRecognizeEvents的含义：js端由该变量控制显示哪些筛选项，例如v3设备: 非vip  localRecognizeEvents= EventType_All| EventType_PeopleMotion| EventType_ObjectMotion  vip： localRecognizeEvents = EventType_All| EventType_PeopleMotion| EventType_ObjectMotion| EventType_Face| EventType_BabyCry  
+   *    AI选项不受该值控制，用户设置了该did的智能选项后，筛选项目里就会有，否则无。
+   * @updated 10047
    */
   @report
-  showAlarmVideos(localRecognizeEvents, did = Device.deviceID) {
+  showAlarmVideos(localRecognizeEvents, did = Device.deviceID, isNewPlugin = false) { // 为了防止model已经手动传入过did，只能把newPlugin变量放到最后
      return null
   }
   /**
@@ -235,16 +240,26 @@ class IMiotCamera {
      return null
   }
   /**
+  * @param model
+  * @param did
+  * @returns true, 最新报警视频的时间和事件描述字符串；false，错误描述
+  * @since 10047
+  */
+ @report
+  loadMonitoringDetail(model = Device.model, did = Device.deviceID) {
+     return Promise.resolve(null);
+  }
+  /**
    * 打开人脸识别页面
    * @since 10033
    * @param {BOOL} isVip
    */
   @report
-  showFaceRecognize(isVip, did = Device.deviceID) {
-     return null
-  }
+ showFaceRecognize(isVip, did = Device.deviceID) {
+    return null
+ }
   /**
-   * 
+   *
    * 注册收到数据速率 Bytes per second，每秒回调一次
    * @param {string} callbackName 回调名称 { rate: number }
    * @since 10036
@@ -352,7 +367,7 @@ class IMiotCamera {
   /**
    * 获取当前语音对讲过程中的音量大小
    * @since 10038
-   * return {promise}  
+   * return {promise}
    */
   @report
   getCurrentSpeakerVolumn(did = Device.deviceID) {
@@ -369,9 +384,9 @@ class IMiotCamera {
   }
   /**
    * 打开摄像机NAS存储设置页面。
-   * 
+   *
    * @since 10038
-   * 
+   *
    */
   @report
   showNASSetting(did = Device.deviceID) {
@@ -425,6 +440,18 @@ class IMiotCamera {
     }
   }
   /**
+   * 设置当前设备为直连模式，使用固定的uid 和 password连接设备，目前只有华来的小方设备使用到了该功能。
+   * 切换直连为非直连模式，需要断开原有连接，设置该接口为false，重新连接设备。
+   * 先设置是否是miss固件，在调用连接前设置该接口。
+   * @param isUseFixedUid 是否使用直连模式， 默认false
+   * @param did 设备did
+   * @since 10047
+   */
+  @report
+  setCurrentDeviceUseFixedUid(isUseFixedUid, did = Device.deviceID) {
+     return null
+  }
+  /**
    * 使用chacha20_xor解密大文件
    * @param {string} fileData byte array encoded into string 待解密的文件体
    * @param {*} nonce byte array encoded into string chacha20_xor解密需要的nonce
@@ -456,8 +483,8 @@ class IMiotCamera {
   }
   /**
    * 标记当前是否使用华来的音视频解密方案，只对tutk生效，需要在连接成功之后，收到视频流之前调用
-   * @param {bool} isEncrypted 
-   * @param {string} did 
+   * @param {bool} isEncrypted
+   * @param {string} did
    * @since 10042
    */
   @report
@@ -470,8 +497,8 @@ class IMiotCamera {
   }
   /**
    * 在连接成功后，发送rdt命令前调用，标记当前设备是否使用固定rdtChannel方案。
-   * @param {bool} useFixedRdtChannel 
-   * @param {string} did 
+   * @param {bool} useFixedRdtChannel
+   * @param {string} did
    * @since 10042
    */
   @report
@@ -485,10 +512,10 @@ class IMiotCamera {
   /**
    * 设置开启/关闭ijk解码。
    * @param {bool} isEnableIjk 是否开启ijk 一启用，所有的设备都会被启用。
-   * @param {string} did 
+   * @param {string} did
    * @since 10043
    */
-  @report 
+  @report
   setUseIjkDecoderGlobal(isEnableIjk, did = Device.deviceID) {
     if (Platform.OS == "android") {
        return null
@@ -501,7 +528,7 @@ class IMiotCamera {
    * @param {int} simpleRate  音频采样率  与CameraRenderView里定义的MISSSampleRate一致
    * @param {int} type 变声类型，目前米家只提供 0 == 正常  1 == 小丑  2 == 大叔这三种类型
    * @param {int} channel 单双通道 1 单声道， 2 立体声   默认为1
-   * @param {string} did 
+   * @param {string} did
    */
   @report
   setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID) {
@@ -509,14 +536,82 @@ class IMiotCamera {
   }
   /**
    * 打开门铃的带屏设备联动页面
-   * @param {bool} isMultiChoice 
-   * @param {number} screenCount 
-   * @param {string} did 
+   * @param {bool} isMultiChoice
+   * @param {number} screenCount
+   * @param {string} did
    * @since 10044
    */
-  @report 
+  @report
   showScreenLinkagePage(isMultiChoice, screenCount, did = Device.deviceID) {
      return null
+  }
+  /**
+   * 打开云存下载列表页面
+   * @param {string} did
+   *
+   * @since 10046
+   */
+  @report
+  openCloudSettingDownloadListPage(did = Device.deviceID) {
+     return null
+  }
+  /**
+   * 下载云存视频到 云存管理-》下载列表里
+   * promise仅仅代表提交任务时是否成功；
+   * 监听任务状态 需要通过EventEmitter监听 cloudVideoDownloadProgressCallbackName
+   *
+   * EventEmitter里返回的数据解释:
+   * status: 0 下载错误  1 开始下载  2 停止下载  3 下载结束 4 下载取消  (Android端目前仅有onFinish回调 status:3)
+   * errorCode:错误码  0代表无错误。
+   * fileId:当前哪个fileId 对应的视频下载状态
+   *
+   * @param {*} did
+   * @param {*} fileId 视频的fileId
+   * @param {*} isAlarmFile 是否是报警视频(短视频 true)/云存视频(长视频 false)
+   * @param {*} startTime 视频的开始时间
+   * @param {*} duration 视频的duration，通过播放器返回的时长或者其他方式获取到
+   * @param {*} register true时 native 层会监听下载状态并发送cloudVideoDownloadProgressCallbackName, false时取消监听并停止发送
+   * @param {*} thumbId 视频缩略图id
+   *
+   * @since 10047
+   */
+  @report
+  downloadCloudVideoIntoCloudSetting(did, fileId, isAlarmFile, startTime, duration, register = true, thumbId = null) {
+    // @ native :=> promise
+    return new Promise((resolve, reject) => {
+      NativeModules.MHCameraSDK.downloadCloudVideoIntoCloudSetting(did, fileId, isAlarmFile, startTime, duration, register, thumbId, (result, data) => {
+        if (result) {
+          resolve(data);
+        } else {
+          reject(data);
+        }
+      });
+    });
+  }
+  /**
+   * 下载mp4类型的云存视频
+   * @param {string} did 设备did
+   * @param {string} fileId 从服务端拿到的fileId
+   * @param {string} stoId 从服务器端拿到的stoId
+   * @since 10047
+   */
+  @report
+  downloadCloudVideoMp4(fileId, stoId, did = Device.deviceID) {
+     return Promise.resolve(null);
+  }
+  /**
+   * 将携带g711音频的mp4视频 转换成 aac音频的mp4视频，返回resolve的情况下，filepath对应的文件被替换成aac mp4文件了。
+   * @param {string} filePath 必须是以Host.file.storageBasePath 作为前缀开始传入。
+   * @param {object} audioParam {sampleRate:MISSSampleRate.FLAG_AUDIO_SAMPLE_8K, channel:MISSAudioChannel.FLAG_AUDIO_CHANNEL_MONO, bitRate:MISSAudioBitRate.FLAG_AUDIO_BIT_RATE_16K}
+   * @since 10047
+   */
+  @report
+  convertG711VideoIntoAACVideo(filePath, audioParam) {
+    if (Platform.OS == "android") {
+       return Promise.resolve(null);
+    } else {
+      return Promise.reject("ios platform not support yet");
+    }
   }
 }
 const MiotCameraInstance = new IMiotCamera();

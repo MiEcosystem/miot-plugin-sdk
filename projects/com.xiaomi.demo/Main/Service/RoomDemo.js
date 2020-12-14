@@ -3,6 +3,7 @@ import React from 'react';
 import {
   StyleSheet, Text, View, ScrollView, TouchableOpacity
 } from 'react-native';
+import Logger from '../Logger';
 
 export default class MHRoomDemo extends React.Component {
 
@@ -15,14 +16,13 @@ export default class MHRoomDemo extends React.Component {
     this.loadAllRoom = this.loadAllRoom.bind(this);
     this.createRoom = this.createRoom.bind(this);
     this.updateRoomName = this.updateRoomName.bind(this);
+    Logger.trace(this);
   }
 
   render() {
-
     // 如果不设置英文字体，那么外文字符串将显示不全（Android）
     let fontFamily = {};
     if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' };
-
     return (
       <View style={{ flex: 1, alignItems: 'center' }}>
         <ScrollView style={{ marginTop: 1, width: '90%' }} showsVerticalScrollIndicator={false}>
@@ -33,7 +33,10 @@ export default class MHRoomDemo extends React.Component {
               [this.updateRoomName, '修改修改auto_create/auto_create_1房间名称']
             ].map((item, index) => {
               return (
-                <TouchableOpacity key={index} style={styles.button} onPress={item[0].bind(this)}>
+                <TouchableOpacity key={index} style={styles.button} onPress={() => {
+                  Logger.trace(this, item[0], { action: item[1] });
+                  item[0].bind(this)();
+                }}>
                   <Text style={styles.buttonText}>{item[1]}</Text>
                 </TouchableOpacity>
               );

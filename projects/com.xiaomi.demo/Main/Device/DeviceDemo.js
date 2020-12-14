@@ -9,6 +9,7 @@ import {
 const { width, height } = Dimensions.get("window");
 import { Device, DeviceProperties } from "miot";
 import MIOT from "miot";
+import Logger from '../Logger';
 
 export default class DeviceDemo extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ export default class DeviceDemo extends React.Component {
       callMethodFromCloudResult: "请求中",
       roomInfo: ""
     };
+    Logger.trace(this);
   }
 
   componentWillMount() {

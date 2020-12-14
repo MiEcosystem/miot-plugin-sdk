@@ -3,8 +3,15 @@ import { ListItem } from 'miot/ui/ListItem';
 import Separator from 'miot/ui/Separator';
 import React from 'react';
 import { View } from 'react-native';
+import Logger from '../Logger';
 
 export default class BlankPageEntry extends React.Component {
+
+  constructor(props) {
+    super(props);
+    Logger.trace(this);
+  }
+
   render() {
     const baseProps = {
       message: '你还没创建一条数据...',

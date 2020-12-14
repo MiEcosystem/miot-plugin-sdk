@@ -7,32 +7,29 @@ import { Host, Package, Entrance } from "miot";
 import { ListItem } from 'miot/ui/ListItem';
 import Separator from 'miot/ui/Separator';
 import { Styles } from 'miot/resources';
-import TitleBar from "miot/ui/TitleBar";
+import NavigationBar from "miot/ui/NavigationBar";
+import Logger from './Logger';
 
 export default class OfficialDemos extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      header:
-        <TitleBar
-          type="dark"
-          title="插件示例"
-          style={{ backgroundColor: '#fff' }}
-          onPressLeft={() => {
-            if (Package.entrance !== Entrance.Main && !Package.pageParams.isBackToMainPage) {
-              // 如果是通过Host.ui.openPluginPage 跳转到此页面，且不需要返回到插件首页，则直接调用退出插件api
-              Package.exit();
-            } else {
-              navigation.goBack();
-            }
-          }
-          }
-        />
-    };
-  };
-
   constructor(props, context) {
     super(props, context);
+    Logger.trace(this);
+    this.props.navigation.setParams({
+      title: "插件示例",
+      left: [Package.entrance !== Entrance.Main && !Package.pageParams.isBackToMainPage ? {
+        key: NavigationBar.ICON.CLOSE,
+        onPress: () => Package.exit(),
+        accessibilityLabel: '退出',
+        accessibilityHint: '退出插件'
+      } : {
+        key: NavigationBar.ICON.BACK,
+        onPress: () => navigation.goBack(),
+        accessibilityLabel: '返回',
+        accessibilityHint: '返回上一页'
+      }
+      ]
+    });
 
     this.state = {
       groups: [
@@ -91,9 +88,10 @@ export default class OfficialDemos extends React.Component {
                         <ListItem
                           key={item.name}
                           title={item.name}
-                          onPress={(_) =>
-                            this._openDemo(item.device)
-                          }
+                          onPress={(_) => {
+                            this._openDemo(item.device);
+                            Logger.trace(this, this._openDemo, { name: rowData });
+                          }}
                         />
                       );
                     })

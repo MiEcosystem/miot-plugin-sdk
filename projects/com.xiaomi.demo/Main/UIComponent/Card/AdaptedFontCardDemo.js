@@ -3,9 +3,9 @@ import Card from 'miot/ui/Card';
 import MHCard from 'miot/ui/Card/MHCard';
 import ModeCard from 'miot/ui/Card/ModeCard';
 import Separator from 'miot/ui/Separator';
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import Logger from '../../Logger';
 
 const { width } = Dimensions.get('window');
 const ICON_SIZE = 40;
@@ -13,17 +13,13 @@ const DEFAULT_MARGIN = 10;
 
 export default class AdaptedFontCardDemo extends React.Component {
 
-  static navigationOptions = ({ navigation }) => ({
-    header: <TitleBar
-      type="dark"
-      title="卡片 大字体模式"
-      style={{ backgroundColor: '#fff', fontSize: 40 }}
-      onPressLeft={() => navigation.goBack()}
-    />
-  });
-
   constructor(props, context) {
     super(props, context);
+    this.props.navigation.setParams({
+      title: "卡片 大字体模式",
+      titleStyle: { fontSize: 30 }
+    });
+
     this.modelCardSource = [
       {
         description: '自动',
@@ -64,6 +60,7 @@ export default class AdaptedFontCardDemo extends React.Component {
     ];
     this.state = {
     };
+    Logger.trace(this);
   }
 
   getInnerView() {

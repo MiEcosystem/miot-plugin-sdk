@@ -51,10 +51,11 @@ export const FileEvent = {
  */
 class IFile {
   /**
-   * 读取沙盒内文件列表, 返回文件的名称和文件的大小， 注意文件夹大小为：-1, 大小单位为B（字节）
+   * 读取沙盒内文件列表, 返回文件的名称和文件的大小， 注意文件夹大小为：-1, 大小单位为B（字节）;
+   * 从10047起，新增 modifyTime 字段：文件保存时的时间戳，单位秒
    * * @param {string} subFolder 读取沙盒文件夹下某子文件夹中文件内容，用于解压缩文件中带有文件夹，或者读取指定文件夹解压后的文件,标准path结构，不以'/'开头
    * @returns {Promise}
-   * 成功时：[{name:'xxx', size: 'xxx'}, {name:'xxx', size: 'xxx'}, ...]  数组的形式返回数组
+   * 成功时：[{name:'xxx', size: 'xxx' , 'modifyTime': xxx(文件保存时的时间戳，单位秒)}, {name:'xxx', size: 'xxx', 'modifyTime': xxx(文件保存时的时间戳，单位秒)}, ...]  数组的形式返回数组
    * 失败时：result: {"code":xxx, "message":"xxx" }
    * @example
    * import {Host} from 'miot'

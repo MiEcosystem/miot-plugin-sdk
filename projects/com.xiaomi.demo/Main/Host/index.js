@@ -1,18 +1,11 @@
 'use strict';
 
 import Host from 'miot/Host';
-import TitleBar from 'miot/ui/TitleBar';
 import React from 'react';
 import { Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View, NativeModules } from 'react-native';
+import Logger from '../Logger';
 
 export default class HostDemo extends React.Component {
-
-  static navigationOptions = ({ navigation }) => {
-    return {
-      header: <TitleBar type="dark" title={navigation.state.params.title} style={{ backgroundColor: '#fff' }}
-        onPressLeft={() => { navigation.goBack(); }} />
-    };
-  };
 
   constructor(props) {
     super(props);
@@ -23,6 +16,7 @@ export default class HostDemo extends React.Component {
     this.state = {
       dataSource: ds.cloneWithRows(this._menuData.map((o) => (o.name)))
     };
+    Logger.trace(this);
   }
 
   _createMenuData() {
@@ -111,10 +105,6 @@ export default class HostDemo extends React.Component {
     ];
   }
 
-  componentWillUnmount() {
-
-  }
-
   render() {
     return (
       <View style={styles.container}>
@@ -139,6 +129,7 @@ export default class HostDemo extends React.Component {
 
   _pressRow(rowID) {
     this._menuData[rowID].func();
+    Logger.trace(this, this._pressRow, this._menuData[rowID]);
   }
 
 }

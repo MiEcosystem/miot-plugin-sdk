@@ -279,6 +279,7 @@ export default class MoreSetting extends React.Component {
                   titleNumberOfLines={itemStyle.titleNumberOfLines}
                   subtitleNumberOfLines={itemStyle.subtitleNumberOfLines}
                   valueNumberOfLines={itemStyle.valueNumberOfLines}
+                  useNewType={itemStyle.useNewType}
                   {...getAccessibilityConfig({
                     accessible: item.accessible
                   })}
