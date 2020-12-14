@@ -162,7 +162,8 @@ export default class extends Component {
     showsVerticalScrollIndicator: false,
     bounces: false,
     scrollsToTop: false,
-    removeClippedSubviews: true,
+    /** 该实验特性会造成ios下滚动卡顿。 */
+    removeClippedSubviews: false,
     automaticallyAdjustContentInsets: false,
     showsPagination: true,
     showsButtons: false,
@@ -799,7 +800,7 @@ export default class extends Component {
       >
         {pages}
       </ScrollView>
-      
+
     )
   }
   return (
