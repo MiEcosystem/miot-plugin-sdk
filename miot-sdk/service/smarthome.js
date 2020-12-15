@@ -1122,18 +1122,7 @@ class ISmartHome {
    */
     @report
     createGroupDevice(name, member_dids) {
-      return new Promise((resolve, reject) => {
-        native.MIOTRPC.standardCall("/v2/groupv2/create", {
-          name: name,
-          member_dids: member_dids
-        }, (ok, res) => {
-          if (ok) {
-            resolve(res);
-          } else {
-            reject(res);
-          }
-        });
-      });
+       return Promise.resolve({});
     }
     /**
      * 获取组成组设备的子设备们的did(窗帘组)
@@ -1157,17 +1146,7 @@ class ISmartHome {
      */
     @report
     getVirtualGroupSubDevices(group_did) {
-      return new Promise((resolve, reject) => {
-        native.MIOTRPC.standardCall("/v2/groupv2/query_status", {
-          group_did: [group_did]
-        }, (ok, res) => {
-          if (ok) {
-            resolve(res);
-          } else {
-            reject(res);
-          }
-        });
-      });
+       return Promise.resolve({});
     }
 }
 const SmartHomeInstance = new ISmartHome();
