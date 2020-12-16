@@ -32,8 +32,6 @@ map.set("node_modules/react-native/Libraries/Color/normalizeColor.js", "normaliz
 map.set("node_modules/react-navigation-tabs/node_modules/react-native-tab-view/src/TouchableItem.js", "ReactNavigationTabViewTouchableItem");
 map.set("node_modules/react-navigation/src/views/TouchableItem.js", "ReactNavigationTouchableItem");
 map.set("node_modules/react-navigation-stack/dist/views/TouchableItem.js", "ReactNavigationTouchableItem");
-/** 修复了Transitioner在用户进入某页面又快速执行后退操作，出现remount页面情况 */
-map.set("node_modules/react-navigation-stack/dist/views/Transitioner.js", "ReactNavigationTransitioner");
 
 module.exports = {
 
