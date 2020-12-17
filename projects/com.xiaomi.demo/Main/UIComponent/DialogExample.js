@@ -519,7 +519,7 @@ export default class DialogExample extends React.Component {
                   text: '确认',
                   style: { color: 'red' },
                   callback: (obj) => {
-                    console.log(`是否点击了下划线: ${obj.hasPressUnderlineText}`);
+                    console.log(`是否点击了下划线: ${ obj.hasPressUnderlineText }`);
                     this.setState({ visible6: false });
                   }
                 }
@@ -588,7 +588,7 @@ export default class DialogExample extends React.Component {
                   numberOfLines: 2,
                   style: { color: 'lightblue', fontSize: this.data.fontBigSize2 },
                   callback: (obj) => {
-                    console.log(`是否勾选: ${obj.checked}`);
+                    console.log(`是否勾选: ${ obj.checked }`);
                     this.setState({ visible7: false });
                   }
                 }
@@ -1102,7 +1102,7 @@ export default class DialogExample extends React.Component {
               }}
               buttons={[
                 {
-                  text: '取消',
+                  text: '取消'
                 },
                 {
                   text: '保存',
@@ -1229,7 +1229,7 @@ export default class DialogExample extends React.Component {
     if (index === '2') console.log('loadingdialog dismiss');
     // this.state[`visible${ index }`] = false;
     this.setState({
-      [`visible${index}`]: false
+      [`visible${ index }`]: false
     });
   }
 

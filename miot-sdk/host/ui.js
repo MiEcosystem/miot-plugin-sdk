@@ -245,7 +245,7 @@ class IUi {
   // /**
   //  * 打开Ble 组设备升级页面
   //  * @param {Number} type 蓝牙类型，与蓝牙connect 参数中的type 一致
-  //  * @since 10048
+  //  * @since 10049
   //  */
   // @report
   // openBleGroupUpgradePage(type) {
@@ -530,6 +530,16 @@ class IUi {
    */
   @report
   openConnectSucceedPage(model, did) {
+  }
+  /**
+   * 打开窗帘组选房间设置名称的页面
+   * @since 10049
+   * @param {string} groupDid 组设备did
+   * @param {string} leftDid 左侧窗帘did
+   * @param {string} rightDid 右侧窗帘did
+   */
+  @report
+  openCurtainGroupNamePage(groupDid, leftDid, rightDid) {
   }
   /**
    * 打开Zigbee 网关插件开启子设备快连
