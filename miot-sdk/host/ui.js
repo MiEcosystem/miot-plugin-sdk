@@ -242,17 +242,14 @@ class IUi {
   @report
   openLightGroupUpgradePage() {
   }
-  // /**
-  //  * 打开Ble 组设备升级页面
-  //  * @param {Number} type 蓝牙类型，与蓝牙connect 参数中的type 一致
-  //  * @since 10049
-  //  */
-  // @report
-  // openBleGroupUpgradePage(type) {
-  //   // @native begin
-  //   native.MIOTHost.openBleGroupUpgradePage(type);
-  //   // @native end
-  // }
+  /**
+   * 打开Ble 组设备升级页面
+   * @param {Number} type 蓝牙类型，与蓝牙connect 参数中的type 一致
+   * @since 10049
+   */
+  @report
+  openBleGroupUpgradePage(type) {
+  }
   /**
    * 打开设备时区设置页
    * apiLevel在10025，增加参数的支持，APP修改时区是否需要同步到设备端，前提是设备需要支持miIO.set_timezone 方法
