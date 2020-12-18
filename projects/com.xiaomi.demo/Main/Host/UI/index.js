@@ -598,6 +598,13 @@ export default class UIDemo extends React.Component {
         'func': () => {
           Host.ui.openBleGroupUpgradePage(5);
         }
+      },
+      {
+        'name': 'openNFCWriteDeviceInfoPage',
+        'subtitle': '打开NFC写设备信息页面',
+        'func': () => {
+          Host.ui.openNFCWriteDeviceInfoPage();
+        }
       }
     ];
   }

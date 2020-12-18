@@ -671,6 +671,15 @@ class IUi {
   @report
   openDirectorySelectPage() {
   }
+  /**
+   * @since 10049
+   * 打开NFC写设备数据的页面，默认会写入设备的基本信息(如did，model等)，如果插件还需要写入其他数据，可以通过参数extra传给App
+   * @param {string} extra 需要写入到nfc设备的额外数据
+   */
+  @report
+  openNFCWriteDeviceInfoPage(extra = '') {
+  }
+  
 }
 const UiInstance = new IUi();
 export default UiInstance;
