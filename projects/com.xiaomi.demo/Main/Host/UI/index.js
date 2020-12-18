@@ -201,7 +201,7 @@ export default class UIDemo extends React.Component {
           options.experiencePlanURL = licenseURL;
           options.hideAgreement = false;
           options.hideUserExperiencePlan = false;
-          Host.ui.previewLegalInformationAuthorization(options).then((res) => {
+          Host.ui.previewLegalInformationAuthorization(options).then(() => {
             alert('成功');
           }).catch(() => {
             alert('失败，可能是设备已离线');
@@ -555,6 +555,48 @@ export default class UIDemo extends React.Component {
         'subtitle': '跳转到WiFi选择页面 ',
         'func': () => {
           Host.ui.openTerminalDeviceSettingPage(3);
+        }
+      },
+      {
+        'name': 'openBleGroupUpgradePage',
+        'subtitle': '跳转到蓝牙组设备批量升级页面-type 为0-普通小米蓝牙协议设备',
+        'func': () => {
+          Host.ui.openBleGroupUpgradePage(0);
+        }
+      },
+      {
+        'name': 'openBleGroupUpgradePage',
+        'subtitle': '跳转到蓝牙组设备批量升级页面-type 为1-安全芯片小米蓝牙设备',
+        'func': () => {
+          Host.ui.openBleGroupUpgradePage(1);
+        }
+      },
+      {
+        'name': 'openBleGroupUpgradePage',
+        'subtitle': '跳转到蓝牙组设备批量升级页面-type 为2-分享的安全芯片小米蓝牙设备',
+        'func': () => {
+          Host.ui.openBleGroupUpgradePage(2);
+        }
+      },
+      {
+        'name': 'openBleGroupUpgradePage',
+        'subtitle': '跳转到蓝牙组设备批量升级页面-type 为3-普通的BLE蓝牙设备',
+        'func': () => {
+          Host.ui.openBleGroupUpgradePage(3);
+        }
+      },
+      {
+        'name': 'openBleGroupUpgradePage',
+        'subtitle': '跳转到蓝牙组设备批量升级页面-type 为4-标准蓝牙认证协议',
+        'func': () => {
+          Host.ui.openBleGroupUpgradePage(4);
+        }
+      },
+      {
+        'name': 'openBleGroupUpgradePage',
+        'subtitle': '跳转到蓝牙组设备批量升级页面-type 为5-mesh',
+        'func': () => {
+          Host.ui.openBleGroupUpgradePage(5);
         }
       }
     ];

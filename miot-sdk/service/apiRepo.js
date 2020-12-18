@@ -173,13 +173,15 @@ const API_REPO = {
   '/common/app/data/put': {},
   '/common/app/data/scan': {},
   '/common/app/data/v2/preDataGet': {},
+  // 海外版获取回复语音
+  '/common/app/data/v2/preDataGetOverseas': {},
   '/common/app/data/remove': {},
   '/common/app/data/modify': {},
   '/common/app/data/get': {},
   '/rpc/send': {},
   '/common/app/get/mergePhotoMeta': {},
   '/miot/camera/app/v1/modify/figure': {},
-  '/miot/camera/app/v1/delete/figure': {}, 
+  '/miot/camera/app/v1/delete/figure': {},
   '/miot/camera/app/v1/delete/face': {},
   '/miot/camera/app/v1/mp4': {},
   // 窗帘组API

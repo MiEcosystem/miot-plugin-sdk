@@ -8,6 +8,7 @@ import LoadingDialog from './Dialog/LoadingDialog';
 import { FontDefault } from '../utils/fonts';
 import { strings as I18n } from '../resources/';
 import { Styles as styles } from 'miot/resources';
+import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../utils/accessibility-helper';
 const STATUS = {
   SEARCHING: 0,
   SEARCH_EMPTY: 1,
@@ -29,6 +30,28 @@ export default class BraceletInterconnection extends React.Component {
         />
       )
     };
+  };
+  navigationProps = {
+    title: '手环设备互联页面',
+    // 解除关联的回调
+    onDisconnect: (mac, callback) => {
+      console.log('解除关联：', mac);
+      setTimeout(() => {
+        callback(true);
+      }, 1 * 1000);
+    },
+    // 关联的回调
+    onConnect: (mac, callback) => {
+      console.log('关联：', mac);
+      setTimeout(() => {
+        callback(true);
+      }, 5 * 1000);
+    },
+    // 无障碍
+    accessible: true,
+    searchAccessibilityHint: '',
+    connectAccessibilityHint: '',
+    disconnectAccessibilityHint: ''
   };
   constructor(props) {
     super(props);
@@ -52,8 +75,19 @@ export default class BraceletInterconnection extends React.Component {
   }
   componentDidMount() {
     this._searchBracelet();
+    const navigation = this.props.navigation;
+    const accessible = navigation.getParam('accessible', true);
+    const searchAccessibilityHint = navigation.getParam('searchAccessibilityHint', true);
+    const connectAccessibilityHint = navigation.getParam('connectAccessibilityHint', true);
+    const disconnectAccessibilityHint = navigation.getParam('disconnectAccessibilityHint', true);
+    this.navigationProps = {
+      accessible, searchAccessibilityHint, connectAccessibilityHint, disconnectAccessibilityHint
+    };
   }
   render() {
+    const {
+      accessible, searchAccessibilityHint, connectAccessibilityHint, disconnectAccessibilityHint
+    } = this.navigationProps;
     const { status } = this.state;
     return (
       <View style={Styles.container}>
@@ -66,6 +100,10 @@ export default class BraceletInterconnection extends React.Component {
               messages={[I18n.scanDeviceBraceletTip]}
               rotate={this.rotateData}
             // onPress={null}
+            // accessibility={{
+            //   accessible,
+            //   searchAccessibilityHint
+            // }}
             /> :
             (
               status === STATUS.SEARCH_EMPTY ?
@@ -76,6 +114,10 @@ export default class BraceletInterconnection extends React.Component {
                   messages={[I18n.scanDeviceBraceletEmptyTip1, I18n.scanDeviceBraceletEmptyTip2]}
                   // rotate={this.rotateData}
                   onPress={() => { this._searchBracelet(); }}
+                  accessibility={{
+                    accessible,
+                    searchAccessibilityHint
+                  }}
                 /> :
                 (
                   status === STATUS.LIST ?
@@ -84,6 +126,11 @@ export default class BraceletInterconnection extends React.Component {
                     }}
                     headerMessage={this.state.linked ? I18n.linkedDeviceBraceletHeaderTip : I18n.availableLinkDeviceBraceletHeaderTip}
                     footerMessage={this.state.linked ? I18n.linkedDeviceBraceletFooterTip : I18n.availableLinkDeviceBraceletFooterTip}
+                    accessibility={{
+                      accessible,
+                      connectAccessibilityHint,
+                      disconnectAccessibilityHint
+                    }}
                     /> : null
                 )
             )
@@ -96,6 +143,7 @@ export default class BraceletInterconnection extends React.Component {
             { text: I18n.cancel, callback: () => { this.setState({ dialogVisiable: false }); } },
             { text: I18n.ok, callback: this.state.dialogConfirm }
           ]}
+          accessible={{ accessible }}
         />
         <LoadingDialog
           visible={this.state.loadingVisiable}
@@ -198,7 +246,7 @@ export default class BraceletInterconnection extends React.Component {
       }
     }) : console.log(
       `
-      请配置 navigation.props.onDisconnect, 例如 
+      请配置 navigation.props.onDisconnect, 例如
       onDisconnect:{mac, callback}=>{
         // do something
         callback(true)
@@ -229,7 +277,7 @@ export default class BraceletInterconnection extends React.Component {
       }
     }) : console.log(
       `
-      请配置 navigation.props.onConnect, 例如 
+      请配置 navigation.props.onConnect, 例如
       onConnect:{mac, callback}=>{
         // do something
         callback(true)
@@ -276,9 +324,14 @@ const Styles = StyleSheet.create({
     color: '#999'
   }
 });
-function Search({ icon, iconBack, title, messages, rotate, onPress }) {
+function Search({ icon, iconBack, title, messages, rotate, onPress, accessibility }) {
   return (
     <TouchableOpacity style={{ width: '100%', height: '100%', paddingHorizontal: 27, alignItems: 'center', backgroundColor: '#fff' }}
+      {...getAccessibilityConfig({
+        accessible: accessibility.accessible,
+        accessibilityRole: AccessibilityRoles.button,
+        accessibilityHint: accessibility.searchAccessibilityHint
+      })}
       onPress={onPress}>
       <View style={{ width: 96, height: 96, marginTop: 80, alignItems: 'center', justifyContent: 'center' }}>
         <Animated.Image source={iconBack} style={{ transform: [{ rotate: rotate }], width: '100%', height: '100%' }}></Animated.Image>
@@ -306,7 +359,11 @@ Search.propTypes = {
   title: PropTypes.string,
   message: PropTypes.arrayOf(PropTypes.string),
   rotate: PropTypes.any,
-  onPress: PropTypes.func
+  onPress: PropTypes.func,
+  accessibility: PropTypes.shape({
+    accessible: AccessibilityPropTypes.accessible,
+    searchAccessibilityHint: AccessibilityPropTypes.accessibilityHint
+  })
 };
 Search.defaultProps = {
   icon: null,
@@ -314,9 +371,10 @@ Search.defaultProps = {
   title: '',
   message: [],
   rotate: '0deg',
-  onPress: null
+  onPress: null,
+  accessibility: { accessible: true, searchAccessibilityHint: '' }
 };
-function List({ items, handle, headerMessage, footerMessage }) {
+function List({ items, handle, headerMessage, footerMessage, accessibility }) {
   return (
     <ScrollView style={{ paddingHorizontal: 27, width: '100%' }}>
       {
@@ -328,6 +386,11 @@ function List({ items, handle, headerMessage, footerMessage }) {
             <View key={String(index)} style={{ width: '100%', height: 54, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
               <Text style={Styles.title}>{item.name}</Text>
               <TouchableOpacity style={{ width: 80, height: 34, borderRadius: 17, justifyContent: 'center', alignItems: 'center', backgroundColor: '#EAF8F8' }}
+                {...getAccessibilityConfig({
+                  accessible: accessibility.accessible,
+                  accessibilityRole: AccessibilityRoles.button,
+                  accessibilityHint: item.linked ? accessibility.disconnectAccessibilityHint : accessibility.connectAccessibilityHint
+                })}
                 onPress={() => {
                   handle && handle(item.mac, item.linked);
                 }}>
@@ -347,13 +410,19 @@ List.propTypes = {
   items: PropTypes.array,
   handle: PropTypes.func,
   headerMessage: PropTypes.string,
-  footerMessage: PropTypes.string
+  footerMessage: PropTypes.string,
+  accessibility: PropTypes.shape({
+    accessible: AccessibilityPropTypes.accessible,
+    connectAccessibilityHint: AccessibilityPropTypes.accessibilityHint,
+    disconnectAccessibilityHint: AccessibilityPropTypes.accessibilityHint
+  })
 };
 List.defaultProps = {
   items: [],
   handle: null,
   headerMessage: null,
-  footerMessage: null
+  footerMessage: null,
+  accessibility: { accessible: true, connectAccessibilityHint: '', disconnectAccessibilityHint: '' }
 };
 function Toast({ visible, message }) {
   if (!visible || !message) {

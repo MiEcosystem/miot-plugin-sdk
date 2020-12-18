@@ -115,8 +115,8 @@ class IUi {
   /**
    * 获取设备列表中指定model的设备信息
    * @param model 指定的model
-   * @param {boolean} includeGroupedDevice - since 10046 是否包含被组成了一个组的设备（如组成灯组，窗帘组的设备），默认不包含
-   * @returns {Promise<devices[]>} 对象中有字段 isGrouped 表示是被分组的设备，includeGroupedDevice=true时有效
+   * @param {boolean} includeGroupedDevice - since 10046 是否包含被组成了一个组的设备（目前仅窗帘设备可用，灯设备不可用），默认不包含
+   * @returns {Promise<devices[]>} 对象中有字段 isGrouped 表示是被分组的设备，includeGroupedDevice = true时才有效
    *
    */
   @report
@@ -241,6 +241,14 @@ class IUi {
    */
   @report
   openLightGroupUpgradePage() {
+  }
+  /**
+   * 打开Ble 组设备升级页面
+   * @param {Number} type 蓝牙类型，与蓝牙connect 参数中的type 一致
+   * @since 10049
+   */
+  @report
+  openBleGroupUpgradePage(type) {
   }
   /**
    * 打开设备时区设置页
@@ -521,6 +529,16 @@ class IUi {
   openConnectSucceedPage(model, did) {
   }
   /**
+   * 打开窗帘组选房间设置名称的页面
+   * @since 10049
+   * @param {string} groupDid 组设备did
+   * @param {string} leftDid 左侧窗帘did
+   * @param {string} rightDid 右侧窗帘did
+   */
+  @report
+  openCurtainGroupNamePage(groupDid, leftDid, rightDid) {
+  }
+  /**
    * 打开Zigbee 网关插件开启子设备快连
    * @since 10020
    * @param {string} did 网关设备did
@@ -616,6 +634,42 @@ class IUi {
    */
   @report
   openIOSDocumentFileChoosePage() {
+  }
+  /**
+   * 打开系统的文件选择(Android only)
+   * @since 10048
+   * @ignore 特定插件可用
+   * @param {string} mimeType 文件类型，不可为空；这里会根据mimeType的值来展示符合条件的文件，比如图片类型:image/*.
+   * @returns {json} 用户选择的文件，成功时： { code:0, data: { path: 'xxx(文件路径)', name:'xxx(文件名)', mimeType:'xxxx(文件类型)'}}
+   *                 失败时：{code:-1, message: 'mimeType cann't be empty'}
+   *                       {code:-2, message: 'cann't find target page,permission denied'}
+   *                       {code:-3, message: 'cann't find target page,please check if your mimeType is correct'}
+   * @example
+   * Host.ui.openFileSelectPage("text/*").then(res=>{
+   *  alert(JSON.stringify(res));
+   * }).catch(err=>{
+   *  alert(JSON.stringify(err));
+   * })
+   */
+  @report
+  openFileSelectPage(mimeType) {
+  }
+  /**
+   * 打开系统的文件目录选择，Android 21及以上才支持(Android only)
+   * @since 10048
+   * @ignore 特定插件可用
+   * @returns {json} 用户选择的目录,成功时：{ code:0, data: 'xxxxx(目录)'}
+   *                            失败时：{code:-1, message:'minimum support Android API is 21'}
+   *                                   {code:-2, message:'cann't find target page,permission denied'}
+   * @example
+   * Host.ui.openDirectorySelectPage().then(res=>{
+   *  alert(JSON.stringify(res));
+   * }).catch(err=>{
+   *  alert(JSON.stringify(err));
+   * })
+   */
+  @report
+  openDirectorySelectPage() {
   }
 }
 const UiInstance = new IUi();

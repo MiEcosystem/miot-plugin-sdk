@@ -68,7 +68,11 @@ export default class UIDemo extends React.Component {
               setTimeout(() => {
                 callback(true);
               }, 5 * 1000);
-            }
+            },
+            accessible: true,
+            searchAccessibilityHint: '搜索hint',
+            connectAccessibilityHint: '链接hint',
+            disconnectAccessibilityHint: '断连hint'
           });
         }
       },
