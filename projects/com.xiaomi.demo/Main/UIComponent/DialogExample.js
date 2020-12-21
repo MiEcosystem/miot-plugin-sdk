@@ -1076,6 +1076,7 @@ export default class DialogExample extends React.Component {
             <ChoiceDialog
               visible={this.state.visible27}
               title={'单选弹窗-大字体适配'}
+              useNewType
               dialogStyle={{
                 allowFontScaling: false,
                 unlimitedHeightEnable: true,
@@ -1099,6 +1100,20 @@ export default class DialogExample extends React.Component {
                 itemTitleNumberOfLines: 2,
                 itemSubtitleNumberOfLines: 4
               }}
+              buttons={[
+                {
+                  text: '取消'
+                },
+                {
+                  text: '保存',
+                  callback: (result) => {
+                    console.log(`选中的选项`, result);
+                    this.setState({
+                      visible27: false
+                    });
+                  }
+                }
+              ]}
               options={[
                 {
                   title: 'title-1-字体大小不随系统变化而变化-我最多显示两行',
@@ -1118,7 +1133,7 @@ export default class DialogExample extends React.Component {
               ]}
               selectedIndexArray={this.data.selectedIndexArray}
               onDismiss={(_) => this.onDismiss('27')}
-              onSelect={(result) => this.data.selectedIndexArray = result}
+              onSelect={(result) => this.data.selectedIndexArray = result }
             />
             <ChoiceDialog
               type={ChoiceDialog.TYPE.MULTIPLE}

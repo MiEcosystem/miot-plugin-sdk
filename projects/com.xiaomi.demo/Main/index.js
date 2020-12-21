@@ -15,7 +15,7 @@
 'use strict';
 // ART的demo }
 import { Entrance, Package } from "miot";
-import { FirmwareUpgrade, FirmwareUpgradeAuto, FirmwareUpgradeRecord, MoreSetting } from "miot/ui/CommonSetting";
+import { FirmwareUpgrade, FirmwareUpgradeAuto, FirmwareUpgradeRecord, MoreSetting, CurtainGroupPage } from "miot/ui/CommonSetting";
 import BTInterconnection from 'miot/ui/BTInterconnection';
 import BraceletInterconnection from 'miot/ui/BraceletInterconnection';
 import Setting from "./tutorial/Setting";
@@ -52,6 +52,8 @@ import CustomCardDemo from "./UIComponent/Card/CustomCardDemo"; // ui-Card-自�
 import IndependentCardDemo from "./UIComponent/Card/IndependentCardDemo"; // ui-Card-独立卡片
 import ModeCardDemo from './UIComponent/Card/ModeCardDemo'; // ui-Card-模式卡片
 import AdaptedFontCardDemo from './UIComponent/Card/AdaptedFontCardDemo'; // ui-Card-模式卡片
+import GearCardDemo from './UIComponent/Card/GearCardDemo';// ui-Card-滑动档位卡片
+import ListCardDemo from './UIComponent/Card/ListCardDemo';// ui-Card-list档位卡片
 
 import RadioExample from "./UIComponent/RadioExample"; // ui-单选框
 import CheckboxDemo from "./UIComponent/CheckboxDemo"; // ui-复选框
@@ -179,10 +181,17 @@ import ARTGroupDemo from './ThirdPartDemo/ARTComponentDemo/ARTGroupDemo'; // 分
 import ARTGradientDemo from './ThirdPartDemo/ARTComponentDemo/ARTGradientDemo'; // LinearGradient：线性渐变,RadialGradient：径向渐变
 import ARTPatternDemo from './ThirdPartDemo/ARTComponentDemo/ARTPatternDemo'; // Pattern 图案
 import ARTTextDemo from './ThirdPartDemo/ARTComponentDemo/ARTTextDemo'; // 文字：Text
+import HoughCirclesDemo from './ThirdPartDemo/opencv/HoughCirclesDemo';
+import HoughCircles2Demo from './ThirdPartDemo/opencv/HoughCircles2Demo';
+import CvImageManipulationsDemo from './ThirdPartDemo/opencv/CvImageManipulationsDemo';
+import CvCameraPreviewDemo from './ThirdPartDemo/opencv/CvCameraPreviewDemo';
+import CvFaceDetectionDemo from './ThirdPartDemo/opencv/CvFaceDetectionDemo';
+import CvFaceLandmarksDemo from './ThirdPartDemo/opencv/CvFaceLandmarksDemo';
 
 // 米家iOS 自定义第三方库<
 import CircularSliderDemo from './ThirdPartDemo/CircularSliderDemo';
 import AnimatedSVGDemo from './ThirdPartDemo/AnimatedSVGDemo';
+import PdfViewerDemo from './ThirdPartDemo/PdfViewerDemo';
 
 import CustomContainer from './uikit/components/CustomContainer';
 
@@ -199,6 +208,7 @@ function createRootStack(initPage) {
     Setting,
     SettingPage,
     MoreSetting,
+    CurtainGroupPage,
     FirmwareUpgrade,
     FirmwareUpgradeAuto,
     FirmwareUpgradeRecord,
@@ -310,6 +320,14 @@ function createRootStack(initPage) {
     ARTGradientDemo: ARTGradientDemo,
     ARTPatternDemo: ARTPatternDemo,
 
+    //opencv
+    HoughCirclesDemo: HoughCirclesDemo,
+    HoughCircles2Demo: HoughCircles2Demo,
+    CvImageManipulationsDemo: CvImageManipulationsDemo,
+    CvCameraPreviewDemo: CvCameraPreviewDemo,
+    CvFaceDetectionDemo: CvFaceDetectionDemo,
+    CvFaceLandmarksDemo: CvFaceLandmarksDemo,
+
     // animation
     AnimFadeInOutDemo: AnimFadeInOutDemo,
     AnimTransformDemo: AnimTransformDemo,
@@ -318,6 +336,7 @@ function createRootStack(initPage) {
     AnimEventsDemo: AnimEventsDemo,
     LayoutAnimationDemo: LayoutAnimationDemo,
     AnimCustomCompDemo: AnimCustomCompDemo,
+	PdfViewerDemo:PdfViewerDemo,
     // 第三方库 demo 结束
 
     // 米家iOS 自定义第三方库<
@@ -337,6 +356,8 @@ function createRootStack(initPage) {
     IndependentCardDemo,
     ModeCardDemo,
     AdaptedFontCardDemo,
+    GearCardDemo,
+    ListCardDemo,
 
     CustomContainer,
     Parallax,

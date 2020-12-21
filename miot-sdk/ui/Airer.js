@@ -23,6 +23,7 @@ export default class Airer extends Component {
     onValueChanging: PropTypes.func,
     onValueChange: PropTypes.func,
     accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
     accessibilityHint: AccessibilityPropTypes.accessibilityHint
   };
   static defaultProps = {
@@ -133,6 +134,7 @@ export default class Airer extends Component {
         {...getAccessibilityConfig({
           accessible: controlable ? this.props.accessible : false,
           accessibilityRole: AccessibilityRoles.adjustable,
+          accessibilityLabel: this.props.accessibilityLabel || `${ this.props.position }%`,
           accessibilityHint: this.props.accessibilityHint
         })}
         accessibilityActions={[

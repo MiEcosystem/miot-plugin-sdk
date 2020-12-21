@@ -42,6 +42,14 @@ export const FileEvent = {
      * @param downloadBytes 已下载文件大小
      */
   fileDownloadProgress: {
+  },
+  /**
+   * 文件上传时的进度事件通知， 支持Host.file.uploadFile 和 Host.file.uploadFileToFDS 文件上传接口进度回调
+   * @param uploadUrl       上传地址
+   * @param totalBytes    上传总大小
+   * @param uploadBytes 已上传文件大小
+   */
+  fileUploadProgress: {
   }
 };
 /**
@@ -724,6 +732,220 @@ class IFile {
    */
   @report
   mkdir(params) {
+  }
+  /**
+   * 搜索文件（只在Android可使用）
+   * @param {json} params {
+   *     mimeTypes:[],//需要搜索的文件类型
+   *     pageSize: xxx,//分页大小,number类型(如100)；如果需要分页，pageSize必须大于0，不传或者传0表示不分页
+   *     pageNum: xxx,//分页编号,number类型(如0,1,2...)，pageSize大于0时有效
+   * }
+   * mimeType的可选值如下：
+   * ["application/pdf",//pdf
+    "application/msword",//word
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",//docx
+    "application/vnd.ms-excel",//xls,xlt
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",//xlsx
+    "application/vnd.ms-powerpoint",//ppt,pot,pps
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation",//pptx
+    "text/text",//text
+    "text/html",//html
+    "text/xml",//xml
+    "image/jpeg",]
+    @returns {Promise<json>} 返回值：
+    成功时：{ code:0,
+      data:[{
+        relativePath:'相对路径',
+        name:'文件名',
+        url:'文件地址'
+        size: xxx//'文件大小',
+        modifacationDate:xxxxx,//上次修改时间
+        }]
+    }
+    失败时：{
+      code:-xxx,
+      message:'xxxxx'
+    }
+    @example
+    let params = {
+      mimeTypes: ["application/pdf", // pdf
+        "application/msword", // word
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // docx
+        "application/vnd.ms-excel", // xls,xlt
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // xlsx
+        "application/vnd.ms-powerpoint", // ppt,pot,pps
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation", // pptx
+      ],
+      pageSize: 2,
+      pageNo: 0
+    };
+    Host.file.queryFile(params).then((res) => {
+      alert(JSON.stringify(res));
+    }).catch((err) => {
+      alert(JSON.stringify(err));
+    });
+   */
+  @report
+  queryFile(params) {
+     return Promise.resolve(null);
+  }
+  /**
+   * 将PDF指定页转换为图片
+   * @param {json} params {
+   *   srcPath:'xxxxx',//pdf文件路径
+   *   imageDir:'xxxx',//转换后的图片保存目录（目录名，不含文件名）
+   *   pageIndex: xx(如：1),//需要将PDF的那一页转换为图片，从0开始
+   *   password:'xxxxx',//PDF密码，如果没有加密传空即可
+   *   highQuality: true/false,//是否需要高质量图片:如果为true图片格式为ARGB_8888,反之为RGB565;高质量图片会占用更多的内存和磁盘
+   * }
+   * @returns {Promise<json>} 成功时返回如下：
+   * {
+   *   code:0,
+   *   data:{
+   *           imageName: 'xxxxx',//图片名称，imageDir +'/' + imageName即为图片的路径
+   *        }
+   * }
+   * 失败是返回如下：
+   * {code:-1,message:'invalid srcPath or imageDir'}
+   * {code:-2,message:'no permission to access source file'}
+   * {code:-3,message:'password required or incorrect password'}
+   * {code:-4,message:'out of memory,set highQuality=false can reduce memory cost'}
+   * {code:-5,message:'genarate image failed'}
+   * {code:-6,message:'write image failed'}
+   * {code:-7,message:'invalid input params pageIndex'}
+   *
+   * @example
+   * let params = {
+      mimeTypes: ["application/pdf", // pdf
+      ],
+      pageSize: 1,
+      pageNo: 0
+    };
+    Host.file.queryFile(params).then((res) => {
+      if(res && res.data){
+        let pdf_params ={
+          srcPath:res.data[0].url,
+          imageDir: 'pdf_image',
+          pageIndex: 0,
+          password:'',
+          highQuality:false,
+        }
+        Host.file.pdfToImage(pdf_params).then(res=>{
+          alert(JSON.stringify(res));
+        }).catch(res=>{
+          alert(JSON.stringify(res));
+        })
+      }
+    }).catch((err) => {
+      alert(JSON.stringify(err));
+    });
+   */
+  @report
+  pdfToImage(params) {
+     return Promise.resolve(null);
+  }
+  /**
+    * 读PDF文件信息
+    * @param {json} params {
+    *   srcPath:'xxxxx',//pdf文件路径
+    *   password:'xxxxx',//PDF密码，如果没有加密传空即可
+    * }
+    * @returns {Promise<json>} 成功时返回如下：
+    * {
+    *   code:0,
+    *   data:{
+    *           pageCount: xxx(如：30),//PDF的总页数
+    *        }
+    * }
+    * 失败是返回如下：
+    * {code:-1,message:'invalid srcPath or imageDir'}
+    * {code:-2,message:'no permission to access source file'}
+    * {code:-3,message:'password required or incorrect password'}
+    *
+    * @example
+    * Host.file.queryFile(params).then((res) => {
+      if(res && res.data){
+        let pdf_params ={
+          srcPath:res.data[0].url,
+          password:'',
+        }
+        Host.file.readPdfMetaData(pdf_params).then(res=>{
+          alert(JSON.stringify(res));
+        }).catch(res=>{
+          alert(JSON.stringify(res));
+        })
+      }
+    }).catch((err) => {
+      alert(JSON.stringify(err));
+    });
+    */
+  @report
+  readPdfMetaData(params) {
+     return Promise.resolve(null);
+  }
+  /**
+   * 复制文件
+   * since 10048
+   * @param {json} params {
+   *  srcPath:'xxxxx',//源文件文件路径
+   *  dstPath:'xxxx', //目标文件路径：dstDir不为空时，可以传相对路径；dstDir不为空时，这里传文件名
+   *  dstDir:'xxx',//目标文件保存路径父目录，沙盒内复制文件时传空即可；如果是往沙盒外复制，dstDiir传目标文件的父目录(不能为空)
+   * }
+   * @returns 成功时：{code:0,message:success}
+   *          失败时：{code:-1,message:'invalid srcPath or dstPath'}
+   *                {code:-2,message:'file ${dstPath} already exist'}
+   *                {code:-3,message:'file not found,xxx'}
+   *                {code:-4,message:'copy file error,xxx'}
+   *                {code:-5,message:'copy file error,detail: create file error'}
+   * @example
+   * 沙盒内复制
+   * let copy_params={
+      srcPath:'test.pdf',
+      dstPath:'test_copy.pdf',
+    }
+    Host.file.copyFile(copy_params).then((res) => {
+      alert(JSON.stringify(res));
+      Host.file.readFileList('').then(res=>{
+        alert(JSON.stringify(res))
+      })
+    }).catch((res) => {
+      alert(JSON.stringify(res));
+    });
+    * 沙盒外复制
+    * let copy_params={
+      srcPath:'test.pdf',
+      dstPath:'test_copy.pdf',
+      dstDir:'content://xxxxxxx'
+    }
+    Host.file.copyFile(copy_params).then((res) => {
+      alert(JSON.stringify(res));
+      Host.file.readFileList('').then(res=>{
+        alert(JSON.stringify(res))
+      })
+    }).catch((res) => {
+      alert(JSON.stringify(res));
+    });
+   */
+  @report
+  copyFile(params) {
+     return Promise.resolve(null);
+  }
+  /**
+   * 获取当前磁盘的可用空间和总存储空间
+   * since 10048
+   * @returns {code: 0 ,data: { totalSpace: 123456, freeSpace: 23456} }，
+   * 其中totalSpace：总存储空间；freeSpace：剩余可用空间；单位都字节(byte)
+   *
+   * @example
+   * Host.file.getStorageInfo().then(res=>{
+   *  alert(JSON.stringify(res))
+   * }).catch(err=>{
+   *  alert(JSON.stringify(err));
+   * });
+   */
+  @report
+  getStorageInfo() {
+     return Promise.resolve(null);
   }
 }
 const FileInstance = new IFile();
