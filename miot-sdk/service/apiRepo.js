@@ -186,6 +186,7 @@ const API_REPO = {
   '/miot/camera/app/v1/mp4': {},
   // 窗帘组API
   '/v2/groupv2/create': {},
-  '/v2/groupv2/query_status': {}
+  '/v2/groupv2/query_status': {},
+  '/v2/groupv2/query_tags': {}
 };
 export default API_REPO;

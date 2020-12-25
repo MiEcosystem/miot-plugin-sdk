@@ -101,19 +101,24 @@ export default class CurtainGroupPage extends Component {
   }
   create = () => {
     const { leftDid, rightDid } = this.state;
-    Service.smarthome.createGroupDevice(I18n.curtain, [leftDid, rightDid]).then((res) => {
-      if (res && res.group_did) {
+    const tags = {
+      [leftDid]: "left",
+      [rightDid]: "right"
+    };
+    Service.smarthome.createGroupDevice(I18n.curtain, [leftDid, rightDid], tags)
+      .then((res) => {
+        if (res && res.group_did) {
         // todo: 待与native 联调
-        console.log('createGroupDevice:success', res);
-        Host.ui.openCurtainGroupNamePage(res.group_did, leftDid, rightDid);
-        return;
-      }
-      this.showError();
-      console.log('createGroupDevice:fail', res);
-    }).catch((e) => {
-      this.showError();
-      console.log('createGroupDevice:fail', e);
-    });
+          console.log('createGroupDevice:success', res);
+          Host.ui.openCurtainGroupNamePage(res.group_did, leftDid, rightDid);
+          return;
+        }
+        this.showError();
+        console.log('createGroupDevice:fail', res);
+      }).catch((e) => {
+        this.showError();
+        console.log('createGroupDevice:fail', e);
+      });
   }
   cancel = () => {
     this.setState({
