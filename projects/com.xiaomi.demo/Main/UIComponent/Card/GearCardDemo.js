@@ -96,6 +96,33 @@ class GearCardDemo extends React.Component {
             gearTextStyle={styles.cardSubTitleStyle}
             style={{ marginBottom: 10 }}
           />
+
+          <GearCard
+            title="我是可滑动的Tab类型选项"
+            subtitle="as输输入输输入dqwe"
+            showSwitch={true}
+            currentIndex={0}
+            unlimitedHeightEnable
+            onValueChange={(v) => console.log('vvv:', v)}
+            cardType={GearCard.CARD_TYPE.TAB}
+            titleNumberOfLines={2}
+            allowFontScaling={false}
+
+            options={Array.from({ length: 10 }, (v, i) => `${ i + 1 }挡`)}
+            cardStyle={{ marginBottom: 10 }}
+          />
+          <GearCard
+            title="我是可滑动的DOT类型选项"
+            subtitle="as输输入输输入dqwe"
+            showSwitch={true}
+            currentIndex={0}
+            unlimitedHeightEnable
+            cardType={GearCard.CARD_TYPE.DOT}
+            titleNumberOfLines={2}
+            allowFontScaling={false}
+            options={Array.from({ length: 10 }, (v, i) => `${ i + 1 }挡`)}
+            cardStyle={{ marginBottom: 10 }}
+          />
         </ScrollView>
       </View>
     );

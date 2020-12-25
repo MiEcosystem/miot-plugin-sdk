@@ -17,6 +17,7 @@
  */
 import Device from "../device/BasicDevice";
 import native, { isIOS, isAndroid } from "../native";
+import AutoOTAABTestHelper from 'miot/utils/autoota_abtest_helper';
 // import { Entrance } from "../Package";
 // const resolveAssetSource = require('resolveAssetSource');
 // const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
@@ -210,9 +211,11 @@ class IUi {
   /**
    * 打开设备检查固件升级页（先检查，后可升级）
    * 针对wifi、AP、第三方云等可以联网的设备的统一OTA方案
+   * @param type 默认 0 ，进入最新固件升级页面          type字段 自10049支持
+   *              1， 进入旧版（native）固件升级页面    type字段 自10049支持
    */
   @report
-  openDeviceUpgradePage() {
+  openDeviceUpgradePage(type = 0) {
   }
   /**
    * 打开Mesh设备固件升级页。分享的设备点击此接口无反应（理论上分享的设备不应该出现调用此接口的菜单）

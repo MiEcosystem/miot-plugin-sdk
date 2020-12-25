@@ -223,10 +223,17 @@ export default class UIDemo extends React.Component {
         }
       },
       {
-        'name': '打开设备检查固件升级页',
-        'subtitle': 'openDeviceUpgradePage',
+        'name': '打开设备检查固件升级页(新版页面)',
+        'subtitle': 'openDeviceUpgradePage(0)',
         'func': () => {
-          Host.ui.openDeviceUpgradePage();
+          Host.ui.openDeviceUpgradePage(0);
+        }
+      },
+      {
+        'name': '打开设备检查固件升级页(旧版页面)',
+        'subtitle': 'openDeviceUpgradePage(1)',
+        'func': () => {
+          Host.ui.openDeviceUpgradePage(1);
         }
       },
       {

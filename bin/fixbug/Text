@@ -130,97 +130,63 @@ class TouchableText extends React.Component<Props, State> {
       : null;
   }
 
-  
+
 
   static viewConfig = viewConfig;
 
   render(): React.Node {
     let props = this.props;
     let ancestorProps = this.props;
-    if (Platform === 'ios') {
-      if (props.style) {
-        if (props.style.color !== undefined && props.style.color !== null && props.style.color !== 'undefined') {
-          if (Array.isArray(props.style)) {
-            props = {
-              ...props,
-              style: [
-                props.style,
-                { color: `${ props.style.color }text` }
-              ]
-            };
-          } else if (Object.prototype.toString.call(props.style) === '[object Object]') {
-            props = {
-              ...props,
-              style: {
-                ...props.style,
-                color: `${ props.style.color }text`
-              }
-            };
-          }
-          ancestorProps = props;
-        } else {
-          let tcolor = { 'value': '' };
-          let anceFlag = false;
-          modifyTextColorIfNeeded(props.style, tcolor);
-          if (tcolor.value.length === 0) {
-            tcolor.value = 'blacktext';
-            anceFlag = true;
-          }
-          let styleArray = flatDeep([
-            props.style,
-            { color: tcolor.value }
-          ], 100);
+
+    if (props.style) {
+      if (props.style.color !== undefined && props.style.color !== null && props.style.color !== 'undefined') {
+        if (Array.isArray(props.style)) {
           props = {
             ...props,
-            style: styleArray
+            style: [
+              props.style,
+              { color: `${ props.style.color }text` }
+            ]
           };
-          if(!anceFlag){
-            ancestorProps = props;
-          }
+        } else if (Object.prototype.toString.call(props.style) === '[object Object]') {
+          props = {
+            ...props,
+            style: {
+              ...props.style,
+              color: `${ props.style.color }text`
+            }
+          };
         }
+        ancestorProps = props;
       } else {
+        let tcolor = { 'value': '' };
+        let anceFlag = false;
+        modifyTextColorIfNeeded(props.style, tcolor);
+        if (tcolor.value.length === 0) {
+          tcolor.value = 'blacktext';
+          anceFlag = true;
+        }
+        let styleArray = flatDeep([
+          props.style,
+          { color: tcolor.value }
+        ], 100);
         props = {
           ...props,
-          style: {
-            color: 'black' + 'text'
-          }
+          style: styleArray
         };
-      }
-    }
-    if (Platform !== 'ios') {
-      if (props.style) {
-        if (Array.isArray(props.style)) {
-          const hasFont = props.style.find((item) => Object.prototype.toString.call(item) === '[object Object]' && item.fontFamily);
-          if (!hasFont) {
-            props = {
-              ...props,
-              style: [props.style, { fontFamily: "" }]
-            };
-            ancestorProps = {
-              ...ancestorProps,
-              style: [ancestorProps.style, { fontFamily: "" }]
-            };
-          }
-        } else if (Object.prototype.toString.call(props.style) === '[object Object]') {
-          if (!props.style.fontFamily) {
-            props = {
-              ...props,
-              style: {
-                ...props.style, 
-                fontFamily: ""
-              }
-            };
-            ancestorProps = {
-              ...ancestorProps,
-              style: {
-                ...ancestorProps.style, 
-                fontFamily: ""
-              }
-            };
-          }
+        if (!anceFlag) {
+          ancestorProps = props;
         }
       }
+    } else {
+      props = {
+        ...props,
+        style: {
+          color: 'black' + 'text'
+        }
+      };
     }
+
     if (isTouchable(props)) {
       props = {
         ...props,
@@ -255,7 +221,7 @@ class TouchableText extends React.Component<Props, State> {
         };
       }
     }
-    
+
     return (
       <TextAncestor.Consumer>
         {(hasTextAncestor) =>

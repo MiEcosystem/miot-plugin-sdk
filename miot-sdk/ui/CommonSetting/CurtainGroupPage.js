@@ -10,6 +10,7 @@ import MessageDialog from '../Dialog/MessageDialog';
 import I18n from '../../resources/Strings';
 import { adjustSize } from '../../utils/sizes';
 const SourceCurtainLeft = require('../../resources/images/curtain-left.png');
+const SourceCurtainRight = require('../../resources/images/curtain-right.png');
 const SourceAdd = require('../../resources/images/add.png');
 const SourceSwap = require('../../resources/images/refresh.png');
 export default class CurtainGroupPage extends Component {
@@ -272,7 +273,7 @@ export default class CurtainGroupPage extends Component {
             <TouchableOpacity style={[Styles.curtainIcon, selectedSide === 'right' ? Styles.curtainIconSelected : null]} activeOpacity={0.8} onPress={this.selectRight}>
               <View style={Styles.curtainIconInner}>
                 {rightDid ? (
-                  <Image style={[Styles.curtainImg, Styles.curtainImgRight]} source={SourceCurtainLeft} />
+                  <Image style={[Styles.curtainImg, Styles.curtainImgRight]} source={SourceCurtainRight} />
                 ) : (
                   <Image style={Styles.add} source={SourceAdd} />
                 )}

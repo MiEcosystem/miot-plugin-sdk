@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableWithoutFeedback } from 'react-native';
 import PropTypes from 'prop-types';
 import Radio from '../Radio';
 import { AccessibilityPropTypes, getAccessibilityConfig } from '../../utils/accessibility-helper';
@@ -58,30 +58,36 @@ export default class ChoiceItemWithIcon extends Component {
     const { icon, title, subtitle, extraSubtitle, extraSubtitleStyle, disabled } = this.props;
     const { checked } = this.state;
     return (
-      <View
-        style={Styles.container}
-        {...getAccessibilityConfig({
-          accessible: this.props.accessible,
-          accessibilityLabel: this.props.accessibilityLabel,
-          accessibilityHint: this.props.accessibilityHint
-        })}
-        accessibilityActions={[
-          { name: 'activace' }
-        ]}
-        onAccessibilityAction={this.onAccessibilityAction}
-      >
-        <Image style={[Styles.icon, disabled ? Styles.disabled : null]} source={icon} />
-        <View style={[Styles.text, disabled ? Styles.disabled : null]}>
-          <Text style={Styles.title}>{title}</Text>
-          {subtitle || extraSubtitle ? (
-            <Text style={Styles.subtitles}>
-              <Text style={Styles.subtitle}>{subtitle}{extraSubtitle ? ' | ' : ''}</Text>
-              <Text style={[Styles.extraSubtitle, extraSubtitleStyle]}>{extraSubtitle}</Text>
-            </Text>
-          ) : null}
+      <TouchableWithoutFeedback onPress={() => {
+        if (!disabled) {
+          this.changeCheck();
+        }
+      }}>
+        <View
+          style={Styles.container}
+          {...getAccessibilityConfig({
+            accessible: this.props.accessible,
+            accessibilityLabel: this.props.accessibilityLabel,
+            accessibilityHint: this.props.accessibilityHint
+          })}
+          accessibilityActions={[
+            { name: 'activace' }
+          ]}
+          onAccessibilityAction={this.onAccessibilityAction}
+        >
+          <Image style={[Styles.icon, disabled ? Styles.disabled : null]} source={icon} />
+          <View style={[Styles.text, disabled ? Styles.disabled : null]}>
+            <Text style={Styles.title}>{title}</Text>
+            {subtitle || extraSubtitle ? (
+              <Text style={Styles.subtitles}>
+                <Text style={Styles.subtitle}>{subtitle}{extraSubtitle ? ' | ' : ''}</Text>
+                <Text style={[Styles.extraSubtitle, extraSubtitleStyle]}>{extraSubtitle}</Text>
+              </Text>
+            ) : null}
+          </View>
+          <Radio isChecked={checked} disabled={disabled} changeCheck={this.changeCheck} />
         </View>
-        <Radio isChecked={checked} disabled={disabled} changeCheck={this.changeCheck} />
-      </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
