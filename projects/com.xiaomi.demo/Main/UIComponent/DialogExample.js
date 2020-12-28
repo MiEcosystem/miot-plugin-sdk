@@ -65,7 +65,8 @@ export default class DialogExample extends React.Component {
       visible28: false,
       visible29: false, // messageDialog-subText
       visible30: false, // 旧版absDialog
-      isCorrect: true
+      isCorrect: true,
+      visible31: false // 无遮罩层的AbstractDialog
     };
 
     this.data = {
@@ -143,6 +144,11 @@ export default class DialogExample extends React.Component {
           {
             this.renderItem('通用弹窗容器显示默认内容(AbstractDialog)', () => {
               this.setState({ visible0: true });
+            })
+          }
+          {
+            this.renderItem('通用弹窗容器显示默认内容(AbstractDialog:无遮罩层)', () => {
+              this.setState({ visible31: true });
             })
           }
           {
@@ -313,6 +319,21 @@ export default class DialogExample extends React.Component {
               title={titleEnglish3}
               canDismiss={false}
               useNewTheme
+              onDismiss={(_) => this.onDismiss('0')}
+              dialogStyle={
+                {
+                  subTitleStyle: {
+                    color: 'red'
+                  }
+                }
+              }
+            />
+            <AbstractDialog
+              visible={this.state.visible31}
+              title={titleEnglish3}
+              canDismiss={false}
+              useNewTheme
+              hasShade={false}
               onDismiss={(_) => this.onDismiss('0')}
               dialogStyle={
                 {

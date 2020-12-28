@@ -187,6 +187,9 @@ const API_REPO = {
   // 窗帘组API
   '/v2/groupv2/create': {},
   '/v2/groupv2/query_status': {},
-  '/v2/groupv2/query_tags': {}
+  '/v2/groupv2/query_tags': {},
+  // 摄像头云存相关
+  '/common/app/v1/cloud/file/exist': {},
+  '/common/app/get/cloudlist': {}
 };
 export default API_REPO;
