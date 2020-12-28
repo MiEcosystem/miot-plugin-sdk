@@ -519,7 +519,7 @@ export default class DialogExample extends React.Component {
                   text: '确认',
                   style: { color: 'red' },
                   callback: (obj) => {
-                    console.log(`是否点击了下划线: ${ obj.hasPressUnderlineText }`);
+                    console.log(`是否点击了下划线: ${obj.hasPressUnderlineText}`);
                     this.setState({ visible6: false });
                   }
                 }
@@ -588,7 +588,7 @@ export default class DialogExample extends React.Component {
                   numberOfLines: 2,
                   style: { color: 'lightblue', fontSize: this.data.fontBigSize2 },
                   callback: (obj) => {
-                    console.log(`是否勾选: ${ obj.checked }`);
+                    console.log(`是否勾选: ${obj.checked}`);
                     this.setState({ visible7: false });
                   }
                 }
@@ -1076,6 +1076,7 @@ export default class DialogExample extends React.Component {
             <ChoiceDialog
               visible={this.state.visible27}
               title={'单选弹窗-大字体适配'}
+              useNewType
               dialogStyle={{
                 allowFontScaling: false,
                 unlimitedHeightEnable: true,
@@ -1099,6 +1100,20 @@ export default class DialogExample extends React.Component {
                 itemTitleNumberOfLines: 2,
                 itemSubtitleNumberOfLines: 4
               }}
+              buttons={[
+                {
+                  text: '取消',
+                },
+                {
+                  text: '保存',
+                  callback: (result) => {
+                    console.log(`选中的选项`, result);
+                    this.setState({
+                      visible27: false
+                    });
+                  }
+                }
+              ]}
               options={[
                 {
                   title: 'title-1-字体大小不随系统变化而变化-我最多显示两行',
@@ -1118,7 +1133,7 @@ export default class DialogExample extends React.Component {
               ]}
               selectedIndexArray={this.data.selectedIndexArray}
               onDismiss={(_) => this.onDismiss('27')}
-              onSelect={(result) => this.data.selectedIndexArray = result}
+              onSelect={(result) => this.data.selectedIndexArray = result }
             />
             <ChoiceDialog
               type={ChoiceDialog.TYPE.MULTIPLE}
@@ -1214,7 +1229,7 @@ export default class DialogExample extends React.Component {
     if (index === '2') console.log('loadingdialog dismiss');
     // this.state[`visible${ index }`] = false;
     this.setState({
-      [`visible${ index }`]: false
+      [`visible${index}`]: false
     });
   }
 

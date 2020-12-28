@@ -171,6 +171,9 @@ export default {
   * @readonly
   */
   get displayCutoutTop() {
+     return  0
+      return native.MIOTHost.displayCutoutTop || 0;
+    }
     return 0;
   },
   /**

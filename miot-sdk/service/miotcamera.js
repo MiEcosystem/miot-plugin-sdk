@@ -157,7 +157,7 @@ class IMiotCamera {
     if (Platform.OS === 'android') {
        return Promise.resolve(null);
     } else {
-      return Promise.reject("ios platform currently unsupport");
+       return Promise.resolve(null);
     }
   }
   /**
@@ -210,6 +210,18 @@ class IMiotCamera {
    */
   @report
   showAlarmVideos(localRecognizeEvents, did = Device.deviceID, isNewPlugin = false) { // 为了防止model已经手动传入过did，只能把newPlugin变量放到最后
+     return null
+  }
+  /**
+   * 打开回看页面
+   * @since 10048
+   * @param {data} jsonobj=>str，包含打开回看需要的sdcardStatus, isVip等信息
+   * @example 
+   *         data = {sdcardGetSuccess: true, sdcardStatus: 0, isVip: false}
+   *         Service.miotcamera.showPlaybackVideos(JSON.stringify(data));
+   */
+  @report
+  showPlaybackVideos(data, did = Device.deviceID) {
      return null
   }
   /**
@@ -433,11 +445,7 @@ class IMiotCamera {
    */
   @report
   queryDevicePassword(did = Device.deviceID) {
-    if (Platform.OS == "android") {
-       return Promise.resolve(null);
-    } else {
-      return Promise.reject(" ios platform did not implement this function yet.");
-    }
+     return Promise.resolve(null);
   }
   /**
    * 设置当前设备为直连模式，使用固定的uid 和 password连接设备，目前只有华来的小方设备使用到了该功能。
@@ -489,11 +497,7 @@ class IMiotCamera {
    */
   @report
   markCurrentDeviceUseHualaiEncrypted(isEncrypted, did = Device.deviceID) {
-    if (Platform.OS == "android") {
-       return null
-    } else {
-      return Promise.reject("ios platform not support yet; to be done");
-    }
+     return null
   }
   /**
    * 在连接成功后，发送rdt命令前调用，标记当前设备是否使用固定rdtChannel方案。
@@ -503,11 +507,7 @@ class IMiotCamera {
    */
   @report
   setCurrentDeviceUseFixedRdtChannel(useFixedRdtChannel, did = Device.deviceID) {
-    if (Platform.OS == "android") {
-       return null
-    } else {
-      return Promise.reject("ios platform not support yet; to be done");
-    }
+     return null
   }
   /**
    * 设置开启/关闭ijk解码。
