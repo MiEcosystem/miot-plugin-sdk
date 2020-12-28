@@ -1,6 +1,6 @@
 'use strict';
 
-import { Bluetooth, Device, Host, Service } from "miot";
+import { Bluetooth, Device, DeviceEvent, Host, Service } from "miot";
 import React from 'react';
 import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { PluginEntrance } from "../PluginEntrance";
@@ -56,7 +56,7 @@ export default class UIDemo extends React.Component {
            */
           this.props.navigation.navigate('BraceletInterconnection', {
             title: '手环设备互联页面',
-            // mac: '11:22:33:44:55:66',  
+            // mac: '11:22:33:44:55:66',
             onDisconnect: (mac, callback) => {
               console.log('解除关联：', mac);
               setTimeout(() => {
@@ -68,7 +68,11 @@ export default class UIDemo extends React.Component {
               setTimeout(() => {
                 callback(true);
               }, 5 * 1000);
-            }
+            },
+            accessible: true,
+            searchAccessibilityHint: '搜索hint',
+            connectAccessibilityHint: '链接hint',
+            disconnectAccessibilityHint: '断连hint'
           });
         }
       },
@@ -339,6 +343,12 @@ export default class UIDemo extends React.Component {
             alert(JSON.stringify(err, null, '\t'));
           });
         }
+      },
+      {
+        'name': '连接WiFi(通常路由器插件才用到)',
+        'func': () => {
+          Device.getDeviceWifi().connectWifi('123', '1233123');
+        }
       }
     ];
   }
@@ -349,6 +359,16 @@ export default class UIDemo extends React.Component {
         <ListView style={styles.list} dataSource={this.state.dataSource} renderRow={this._renderRow.bind(this)} />
       </View>
     );
+  }
+
+  componentDidMount() {
+    this.wifiConnectionChanged = DeviceEvent.wifiConnectionChanged.addListener((ssid, connected) => {
+      alert(`ssid=${ ssid }  connected=${ connected }`);
+    });
+  }
+
+  componentWillUnmount() {
+    this.wifiConnectionChanged && this.wifiConnectionChanged.remove();
   }
 
   _renderRow(rowData, sectionID, rowID) {

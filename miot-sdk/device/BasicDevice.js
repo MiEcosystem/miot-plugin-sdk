@@ -177,6 +177,13 @@ export const DeviceEvent = {
   deviceReceivedMessages: {
   },
   /**
+   * wifi 连接状态改变事件
+   * 当调用 Device.getDeviceWifi().connectWifi(xxx,xxx)  方法时，需要知道是否连接成功，需要添加此监听事件
+   * @since 10049
+   */
+  wifiConnectionChanged: {
+  },
+  /**
      * 多键开关名称变更事件
      * @event
      * @param {Map<string, object>} value {"1":{"ai_desc":"","home_id":1,"id":1,"name":"","icon":"","room_id":1},"2":{"ai_desc":"","home_id":1,"id":2,"name":"","icon":"","room_id":1}}

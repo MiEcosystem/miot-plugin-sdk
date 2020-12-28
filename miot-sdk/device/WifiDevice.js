@@ -402,4 +402,14 @@ export default class IDeviceWifi {
     getRecommendScenes(model, did) {
        return Promise.resolve({});
     }
+  /**
+   * 连接路由器WiFi
+   * 是否连接成功 通过监听 DeviceEvent.wifiConnectionChanged.addListener  获取信息
+   * @since 10049
+   * @param {String} ssid 要连接的WIFI名称
+   * @param {String} pwd  要连接的WIFI密码
+   */
+  @report
+    connectWifi(ssid, pwd) {
+    }
 }

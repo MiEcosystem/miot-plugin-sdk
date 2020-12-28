@@ -8,7 +8,9 @@ class CustomSetting extends Component {
       component: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
       // 该组件所需属性，比如如果是ListItemWithSwitch，则为ListItemWithSwitch 所需的title, value 等属性
       props: PropTypes.object
-    }))
+    })),
+    accessible: AccessibilityPropTypes.accessible,
+    accessibilityLabel: AccessibilityPropTypes.accessibilityLabel
   };
 }
 export default class CommonSettingPage extends Component {

@@ -15,7 +15,7 @@
 'use strict';
 // ART的demo }
 import { Entrance, Package } from "miot";
-import { FirmwareUpgrade, FirmwareUpgradeAuto, FirmwareUpgradeRecord, MoreSetting } from "miot/ui/CommonSetting";
+import { FirmwareUpgrade, FirmwareUpgradeAuto, FirmwareUpgradeRecord, MoreSetting, CurtainGroupPage } from "miot/ui/CommonSetting";
 import BTInterconnection from 'miot/ui/BTInterconnection';
 import BraceletInterconnection from 'miot/ui/BraceletInterconnection';
 import Setting from "./tutorial/Setting";
@@ -52,6 +52,8 @@ import CustomCardDemo from "./UIComponent/Card/CustomCardDemo"; // ui-Card-自�
 import IndependentCardDemo from "./UIComponent/Card/IndependentCardDemo"; // ui-Card-独立卡片
 import ModeCardDemo from './UIComponent/Card/ModeCardDemo'; // ui-Card-模式卡片
 import AdaptedFontCardDemo from './UIComponent/Card/AdaptedFontCardDemo'; // ui-Card-模式卡片
+import GearCardDemo from './UIComponent/Card/GearCardDemo';// ui-Card-滑动档位卡片
+import ListCardDemo from './UIComponent/Card/ListCardDemo';// ui-Card-list档位卡片
 
 import RadioExample from "./UIComponent/RadioExample"; // ui-单选框
 import CheckboxDemo from "./UIComponent/CheckboxDemo"; // ui-复选框
@@ -199,6 +201,7 @@ function createRootStack(initPage) {
     Setting,
     SettingPage,
     MoreSetting,
+    CurtainGroupPage,
     FirmwareUpgrade,
     FirmwareUpgradeAuto,
     FirmwareUpgradeRecord,
@@ -337,6 +340,8 @@ function createRootStack(initPage) {
     IndependentCardDemo,
     ModeCardDemo,
     AdaptedFontCardDemo,
+    GearCardDemo,
+    ListCardDemo,
 
     CustomContainer,
     Parallax,
