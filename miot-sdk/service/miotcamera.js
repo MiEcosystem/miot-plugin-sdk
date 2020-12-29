@@ -139,11 +139,7 @@ class IMiotCamera {
      */
   @report
   sendP2PCommandToDeviceWithStringParam(command, paramStr, did = Device.deviceID) {
-    if (Platform.OS === 'android') {
-       return Promise.resolve(null);
-    } else {
-      return Promise.reject("ios platform currently unsupport");
-    }
+     return Promise.resolve(null);
   }
   /**
      * 发送miss命令到设备 主要处理部分model发送命令的参数不是json格式，而是byte数组形式的命令。 byte数组请用base64编码得到string再调用这个接口。

@@ -17,6 +17,7 @@
  */
 import Device from "../device/BasicDevice";
 import native, { isIOS, isAndroid } from "../native";
+import AutoOTAABTestHelper from 'miot/utils/autoota_abtest_helper';
 // import { Entrance } from "../Package";
 // const resolveAssetSource = require('resolveAssetSource');
 // const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
@@ -210,9 +211,11 @@ class IUi {
   /**
    * 打开设备检查固件升级页（先检查，后可升级）
    * 针对wifi、AP、第三方云等可以联网的设备的统一OTA方案
+   * @param type 默认 0 ，进入最新固件升级页面          type字段 自10049支持
+   *              1， 进入旧版（native）固件升级页面    type字段 自10049支持
    */
   @report
-  openDeviceUpgradePage() {
+  openDeviceUpgradePage(type = 0) {
   }
   /**
    * 打开Mesh设备固件升级页。分享的设备点击此接口无反应（理论上分享的设备不应该出现调用此接口的菜单）
@@ -242,17 +245,14 @@ class IUi {
   @report
   openLightGroupUpgradePage() {
   }
-  // /**
-  //  * 打开Ble 组设备升级页面
-  //  * @param {Number} type 蓝牙类型，与蓝牙connect 参数中的type 一致
-  //  * @since 10048
-  //  */
-  // @report
-  // openBleGroupUpgradePage(type) {
-  //   // @native begin
-  //   native.MIOTHost.openBleGroupUpgradePage(type);
-  //   // @native end
-  // }
+  /**
+   * 打开Ble 组设备升级页面
+   * @param {Number} type 蓝牙类型，与蓝牙connect 参数中的type 一致
+   * @since 10049
+   */
+  @report
+  openBleGroupUpgradePage(type) {
+  }
   /**
    * 打开设备时区设置页
    * apiLevel在10025，增加参数的支持，APP修改时区是否需要同步到设备端，前提是设备需要支持miIO.set_timezone 方法
@@ -532,6 +532,16 @@ class IUi {
   openConnectSucceedPage(model, did) {
   }
   /**
+   * 打开窗帘组选房间设置名称的页面
+   * @since 10049
+   * @param {string} groupDid 组设备did
+   * @param {string} leftDid 左侧窗帘did
+   * @param {string} rightDid 右侧窗帘did
+   */
+  @report
+  openCurtainGroupNamePage(groupDid, leftDid, rightDid) {
+  }
+  /**
    * 打开Zigbee 网关插件开启子设备快连
    * @since 10020
    * @param {string} did 网关设备did
@@ -664,6 +674,18 @@ class IUi {
   @report
   openDirectorySelectPage() {
   }
+  /**
+   * @since 10049
+   * 打开NFC写设备数据的页面，默认会写入设备的基本信息(如did，model等)，如果插件还需要写入其他数据，可以通过参数extra传给App
+   * @param {string} extra 需要写入到nfc设备的额外数据
+   * @example
+   * let extra = 'test_data';
+   * Host.ui.openNFCWriteDeviceInfoPage(extra);
+   */
+  @report
+  openNFCWriteDeviceInfoPage(extra = '') {
+  }
+  
 }
 const UiInstance = new IUi();
 export default UiInstance;

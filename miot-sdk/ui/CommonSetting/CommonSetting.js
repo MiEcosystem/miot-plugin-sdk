@@ -551,7 +551,7 @@ export default class CommonSetting extends React.Component {
       else if ([0, 1, 4, 5].includes(bleOtaAuthType)) {
         Host.ui.openBleCommonDeviceUpgradePage({ auth_type: bleOtaAuthType });
       } else {
-        Host.ui.openDeviceUpgradePage();
+        Host.ui.openDeviceUpgradePage(1);
       }
     }
   }
