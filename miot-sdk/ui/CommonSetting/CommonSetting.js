@@ -7,6 +7,7 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
+import ListItemWithSwitch from '../ListItem/ListItemWithSwitch';
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
@@ -115,7 +116,11 @@ const firstOptionsInner = {
   /**
    * 产品百科
    */
-  PRODUCT_BAIKE: 'productBaike'
+  PRODUCT_BAIKE: 'productBaike',
+  /**
+   * 标准插件
+   */
+  STAND_PLUGIN: 'standPlugin'
 };
 const firstAllOptionsInner = {
   ...firstOptionsInner,
@@ -222,7 +227,8 @@ const firstSharedOptions = {
   [AllOptions.HELP]: 1,
   [AllOptions.SECURITY]: 0,
   [AllOptions.LEGAL_INFO]: 0, // 20190516，分享设备不显示「法律信息」
-  [AllOptions.PRODUCT_BAIKE]: 1
+  [AllOptions.PRODUCT_BAIKE]: 1,
+  [AllOptions.STAND_PLUGIN]: 1
 };
 /**
  * 20190708 / SDK_10023
@@ -243,6 +249,7 @@ export const AllOptionsWeight = {
   [AllOptions.HELP]: 24,
   [AllOptions.MORE]: 27,
   [AllOptions.SECURITY]: 28,
+  [AllOptions.STAND_PLUGIN]: 22,
   // secondOptions
   [AllOptions.AUTO_UPGRADE]: 1,
   [AllOptions.PLUGIN_VERSION]: 1,
@@ -469,11 +476,30 @@ export default class CommonSetting extends React.Component {
       [AllOptions.MORE]: {
         title: strings.more,
         onPress: () => this.openSubPage('MoreSetting')
-      }
+      },
       // [AllOptions.LEGAL_INFO]: {
       //   title: strings.legalInfo,
       //   onPress: () => this.privacyAndProtocolReview()
       // }
+      [AllOptions.STAND_PLUGIN]: {
+        _itemType: 'switch',
+        title: '标准插件',
+        value: state.standPlugin === '1' ? false : true,
+        onValueChange: (value) => {
+          Service.smarthome.batchSetDeviceDatas([
+            {
+              did: Device.deviceID,
+              props: {
+                "prop.s_commonsetting_stand_plugin": JSON.stringify({ 'useStandPlugin': value ? '2' : '1' })
+              } }
+          ]).then((res) => {
+          });
+          let eventName = 'plugin_light_abtest_final';
+          let params = { 'uid': Service.account.ID, 'did': Device.deviceID, 'model': Device.model, 'abtestswitch': value ? '1' : '0' };
+          Service.smarthome.reportEvent(eventName, params);
+          DeviceEventEmitter.emit('MIOT_SDK_COMMONSETTING_STANDPLUGIN_CLICK', value ? '2' : '1');
+        }
+      }
     };
     // 2020/4/20 锁类和保险箱类，安全设置从更多设置中移出来
     if (['lock', 'safe-box', 'safe'].indexOf(modelType) !== -1) {
@@ -491,7 +517,8 @@ export default class CommonSetting extends React.Component {
       name: Device.name,
       showDot: Array.isArray(props.showDot) ? props.showDot : [],
       productBaikeUrl,
-      modelType
+      modelType,
+      standPlugin: false // 标准插件设置项的值
     };
     console.log(`Device.type: ${ Device.type }`);
     this.commonSetting = this.getCommonSetting(this.state);
@@ -638,6 +665,33 @@ export default class CommonSetting extends React.Component {
         modelType
       });
     }).catch(() => { });
+    Service.smarthome.batchGetDeviceDatas([{
+      did: Device.deviceID,
+      props: ['prop.s_commonsetting_stand_plugin']
+    }]).then((res) => {
+      let result = res[Device.deviceID];
+      let config;
+      if (result && result['prop.s_commonsetting_stand_plugin']) {
+        config = result['prop.s_commonsetting_stand_plugin'];
+      }
+      if (config) {
+        const useStandPlugin = JSON.parse(config)?.useStandPlugin;
+        this.commonSetting = this.getCommonSetting({
+          ...this.state,
+          standPlugin: useStandPlugin
+        });
+        this.setState({
+          standPlugin: useStandPlugin
+        });
+      }
+    });
+    // setTimeout(() => {
+    //   this.commonSetting = this.getCommonSetting({
+    //     ...this.state,
+    //     standPlugin: true
+    //   });
+    //   this.setState({ standPlugin: true });
+    // }, 1000 * 3);
   }
   render() {
     let { modelType, productBaikeUrl } = this.state;
@@ -728,30 +782,57 @@ export default class CommonSetting extends React.Component {
           items.map((item, index) => {
             if (!item || !item.title) return null;
             const showSeparator = false;// index !== items.length - 1;
-            return (
-              <ListItem
-                key={item.title}
-                title={item.title || ''}
-                allowFontScaling={tempCommonSettingStyle.itemStyle.allowFontScaling}
-                unlimitedHeightEnable={tempCommonSettingStyle.itemStyle.unlimitedHeightEnable}
-                titleStyle={tempCommonSettingStyle.itemStyle.titleStyle}
-                subtitleStyle={tempCommonSettingStyle.itemStyle.subtitleStyle}
-                valueStyle={tempCommonSettingStyle.itemStyle.valueStyle}
-                dotStyle={tempCommonSettingStyle.itemStyle.dotStyle}
-                titleNumberOfLines={tempCommonSettingStyle.itemStyle.titleNumberOfLines}
-                subtitleNumberOfLines={tempCommonSettingStyle.itemStyle.subtitleNumberOfLines}
-                valueNumberOfLines={tempCommonSettingStyle.itemStyle.valueNumberOfLines}
-                useNewType={tempCommonSettingStyle.itemStyle.useNewType}
-                showDot={item.showDot || false}
-                value={item.value}
-                showSeparator={showSeparator}
-                onPress={item.onPress}
-                {...getAccessibilityConfig({
-                  accessible: this.props.accessible
-                })}
-                containerStyle={tempCommonSettingStyle.itemStyle.containerStyle}
-              />
-            );
+            if (item._itemType === 'switch') {
+              return (
+                <ListItemWithSwitch
+                  key={item.title}
+                  title={item.title || ''}
+                  allowFontScaling={tempCommonSettingStyle.itemStyle.allowFontScaling}
+                  unlimitedHeightEnable={tempCommonSettingStyle.itemStyle.unlimitedHeightEnable}
+                  titleStyle={tempCommonSettingStyle.itemStyle.titleStyle}
+                  subtitleStyle={tempCommonSettingStyle.itemStyle.subtitleStyle}
+                  valueStyle={tempCommonSettingStyle.itemStyle.valueStyle}
+                  dotStyle={tempCommonSettingStyle.itemStyle.dotStyle}
+                  titleNumberOfLines={tempCommonSettingStyle.itemStyle.titleNumberOfLines}
+                  subtitleNumberOfLines={tempCommonSettingStyle.itemStyle.subtitleNumberOfLines}
+                  valueNumberOfLines={tempCommonSettingStyle.itemStyle.valueNumberOfLines}
+                  useNewType={tempCommonSettingStyle.itemStyle.useNewType}
+                  showDot={item.showDot || false}
+                  value={item.value}
+                  showSeparator={showSeparator}
+                  onValueChange={item.onValueChange}
+                  {...getAccessibilityConfig({
+                    accessible: this.props.accessible
+                  })}
+                  containerStyle={tempCommonSettingStyle.itemStyle.containerStyle}
+                />
+              );
+            } else {
+              return (
+                <ListItem
+                  key={item.title}
+                  title={item.title || ''}
+                  allowFontScaling={tempCommonSettingStyle.itemStyle.allowFontScaling}
+                  unlimitedHeightEnable={tempCommonSettingStyle.itemStyle.unlimitedHeightEnable}
+                  titleStyle={tempCommonSettingStyle.itemStyle.titleStyle}
+                  subtitleStyle={tempCommonSettingStyle.itemStyle.subtitleStyle}
+                  valueStyle={tempCommonSettingStyle.itemStyle.valueStyle}
+                  dotStyle={tempCommonSettingStyle.itemStyle.dotStyle}
+                  titleNumberOfLines={tempCommonSettingStyle.itemStyle.titleNumberOfLines}
+                  subtitleNumberOfLines={tempCommonSettingStyle.itemStyle.subtitleNumberOfLines}
+                  valueNumberOfLines={tempCommonSettingStyle.itemStyle.valueNumberOfLines}
+                  useNewType={tempCommonSettingStyle.itemStyle.useNewType}
+                  showDot={item.showDot || false}
+                  value={item.value}
+                  showSeparator={showSeparator}
+                  onPress={item.onPress}
+                  {...getAccessibilityConfig({
+                    accessible: this.props.accessible
+                  })}
+                  containerStyle={tempCommonSettingStyle.itemStyle.containerStyle}
+                />
+              );
+            }
           })
         }
         {/* <Separator /> */}
