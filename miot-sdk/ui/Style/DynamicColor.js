@@ -8,13 +8,8 @@ class DynamicColor {
    */
   // @ts-nocheck
   constructor(light: string, dark: string) {
-    if (Platform.OS === 'ios') {
-      this.light = `xm${ light }`;
-      this.dark = `xm${ dark }`;
-    } else {
-      this.light = light;
-      this.dark = dark;
-    }
+    this.light = `xm${ light }`;
+    this.dark = `xm${ dark }`;
   }
 }
 /**

@@ -676,7 +676,9 @@ class IUi {
   }
   /**
    * @since 10049
-   * 打开NFC写设备数据的页面，默认会写入设备的基本信息(如did，model等)，如果插件还需要写入其他数据，可以通过参数extra传给App
+   * 打开NFC写设备数据的页面，默认会写入设备的基本信息(如did，model等)，如果插件还需要写入其他数据，可以通过参数extra传给App；
+   * 在米家首页，手机接触到NFC设备时会读取写入的设备信息，读取成功后会自动打开相应的插件，插件可以通过Package.entryIfno.nfcdata获取
+   * 写入NFC设备的extra字段的值
    * @param {string} extra 需要写入到nfc设备的额外数据
    * @example
    * let extra = 'test_data';
