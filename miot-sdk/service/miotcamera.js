@@ -201,10 +201,10 @@ class IMiotCamera {
    *
    * 现在除创米021那几款摄像头，都只传0就行了
    * @since 10033
-   * @param {bool} isNewPlugin 是否是新固件 
-   * @param {number} localRecognizeEvents   AlarmEventType 里 几个筛选项的或值。 
+   * @param {bool} isNewPlugin 是否是新固件
+   * @param {number} localRecognizeEvents   AlarmEventType 里 几个筛选项的或值。
    *    isNewPlugin = false的情况下，兼容以前的逻辑，非vip会读localRecognizeEvents变量里是否有宝宝哭声和人脸识别选项,有就展示   vip则包含所有的筛选项
-   *    isNewPlugin = true时，localRecognizeEvents的含义：js端由该变量控制显示哪些筛选项，例如v3设备: 非vip  localRecognizeEvents= EventType_All| EventType_PeopleMotion| EventType_ObjectMotion  vip： localRecognizeEvents = EventType_All| EventType_PeopleMotion| EventType_ObjectMotion| EventType_Face| EventType_BabyCry  
+   *    isNewPlugin = true时，localRecognizeEvents的含义：js端由该变量控制显示哪些筛选项，例如v3设备: 非vip  localRecognizeEvents= EventType_All| EventType_PeopleMotion| EventType_ObjectMotion  vip： localRecognizeEvents = EventType_All| EventType_PeopleMotion| EventType_ObjectMotion| EventType_Face| EventType_BabyCry
    *    AI选项不受该值控制，用户设置了该did的智能选项后，筛选项目里就会有，否则无。
    * @updated 10047
    */
@@ -216,7 +216,7 @@ class IMiotCamera {
    * 打开回看页面
    * @since 10048
    * @param {data} jsonobj=>str，包含打开回看需要的sdcardStatus, isVip等信息
-   * @example 
+   * @example
    *         data = {sdcardGetSuccess: true, sdcardStatus: 0, isVip: false}
    *         Service.miotcamera.showPlaybackVideos(JSON.stringify(data));
    */
@@ -612,6 +612,16 @@ class IMiotCamera {
     } else {
       return Promise.reject("ios platform not support yet");
     }
+  }
+  /*
+  云丁
+  * @param {object} aFilter filter的条件 10049支持 timestamp_s e:x{timestamp_s:666666}
+  * @param {string} aCbName 符合条件的frame被捕获到时通知的名称 数据{ts:FRAMETS, data:FRAMEDATA IN BASE64}
+  * @since 10049
+  */
+  @report
+  setFrameFilter(aFilter, aCbName, aDid = Device.deviceID) {
+    NativeModules.MHCameraSDK.setFrameFilter(aFilter, aCbName, aDid);
   }
 }
 const MiotCameraInstance = new IMiotCamera();
