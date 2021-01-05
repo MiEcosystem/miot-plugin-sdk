@@ -323,7 +323,8 @@ const excludeOptions = {
  * @property {ItemStyle} itemStyle - 列表中 item样式
  */
 /**
- * CommonSettingStyle - 10040新增
+ *
+ * - 10040新增
  * @typedef {Object} CommonSettingStyle
  * @property {bool} allowFontScaling - 10040新增 设置字体是否随系统设置的字体大小的设置改变而改变 默认为true。
  * @property {bool} unlimitedHeightEnable - 10040新增 设置控件高度是否自适应。 默认为false，即默认高度
@@ -927,8 +928,8 @@ const styles = dynamicStyleSheet({
     paddingLeft: Styles.common.padding
   },
   title: {
-    fontSize: 11,
-    color: new DynamicColor('rgba(0,0,0,0.5)', 'rgba(255,255,255,0.5)'),
+    fontSize: 12,
+    color: new DynamicColor('#8C93B0', 'rgba(255,255,255,0.5)'),
     lineHeight: 14
   },
   bottomContainer: {
