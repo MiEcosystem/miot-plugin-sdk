@@ -3,6 +3,7 @@ import EventEmitter from '../../node_modules/react-native/Libraries/vendor/emitt
 import NativeEventEmitter from '../../node_modules/react-native/Libraries/EventEmitter/NativeEventEmitter';
 import NativeAppearance from './NativeDarkmode';
 import invariant from 'invariant';
+import { isIOS, isAndroid } from "miot/native";
 // @ts-nocheck
 type NativeColorScheme = null | 'light' | 'dark';
 const eventEmitter = new EventEmitter();
