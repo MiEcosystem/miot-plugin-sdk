@@ -32,6 +32,8 @@ map.set("node_modules/react-native/Libraries/Color/normalizeColor.js", "normaliz
 map.set("node_modules/react-navigation-tabs/node_modules/react-native-tab-view/src/TouchableItem.js", "ReactNavigationTabViewTouchableItem");
 map.set("node_modules/react-navigation/src/views/TouchableItem.js", "ReactNavigationTouchableItem");
 map.set("node_modules/react-navigation-stack/dist/views/TouchableItem.js", "ReactNavigationTouchableItem");
+/** 修复了react-native-svg无法正常显示DynamicColor的BUG */
+map.set("node_modules/react-native-svg/lib/extract/extractBrush.js", "svgExtractBrush");
 
 module.exports = {
 
