@@ -42,6 +42,14 @@ export const FileEvent = {
      * @param downloadBytes 已下载文件大小
      */
   fileDownloadProgress: {
+  },
+  /**
+   * 文件上传时的进度事件通知， 支持Host.file.uploadFile 和 Host.file.uploadFileToFDS 文件上传接口进度回调
+   * @param uploadUrl       上传地址
+   * @param totalBytes    上传总大小
+   * @param uploadBytes 已上传文件大小
+   */
+  fileUploadProgress: {
   }
 };
 /**
@@ -604,6 +612,44 @@ class IFile {
      return Promise.resolve(false)
   }
   /**
+   * 获取所有相册列表, 仅支持部分设备，使用前需申请权限
+   * @since 10050
+   * @returns {Promise}
+   * 成功时：{"code":0, "data":[] }
+   *      所有相册信息
+   *      每个相册信息包含key
+   *      {
+   *        'albumID': <string>, // 相册唯一 ID，用于获取区别唯一相册
+   *        'thumb' : <object>, // 与 getAllSourceFromPhotosDidAlbum 中成功返回 data 数组元素一致
+   *        'name' : <string>, // 相册名
+   *        'size' :<number>, // 相册中元素个数
+   *      }
+   * 失败时：
+   *  {"code":-401, "message":"access to photo library denied" }
+   *  {"code":-2, "message":"model has no permission to access photo library" }
+   * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
+   */
+  @report
+  getAlbums() {
+     return Promise.resolve(false)
+  }
+  /**
+   * 获取指定相册中所有的图片和视频
+   * @since 10050
+   * @param {string} albumID 相册唯一 ID
+   * @returns {Promise}
+   * 成功时：数据接口与 getAllSourceFromPhotosDidAlbum 的一致
+   * 失败时：
+   *  {"code":-401, "message":"access to photo library denied" }
+   *  {"code":-1, "message":"albumID is not valid" }
+   *  {"code":-2, "message":"model has no permission to access photo library" }
+   * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
+   */
+  @report
+  getAssets(albumID) {
+     return Promise.resolve(false)
+  }
+  /**
    * 在相册中通过url 删除指定的assets
    * @since 10037
    * @param {array} urls
@@ -777,7 +823,7 @@ class IFile {
    * since 10048
    * @returns {code: 0 ,data: { totalSpace: 123456, freeSpace: 23456} }，
    * 其中totalSpace：总存储空间；freeSpace：剩余可用空间；单位都字节(byte)
-   * 
+   *
    * @example
    * Host.file.getStorageInfo().then(res=>{
    *  alert(JSON.stringify(res))

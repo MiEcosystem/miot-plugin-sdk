@@ -1108,46 +1108,71 @@ class ISmartHome {
     /**
      *创建组设备，(窗帘组设备)
      * @since 10046
-     * @param name 设备的名称,可选
-     * @param member_dids 子设备的们id
-     * @returns {Promise<R>}
-     * {
-     *  "code":0,
-     *  "message":"",
-     *  "result":{
-     *    "group_did":"group.123456",
-     *    "need_alter_device":false //与mesh组相关，窗帘组可以忽略
-     *   }
+     * @param {string} name 设备的名称,可选
+     * @param {array} member_dids 子设备的们id
+     * @param {json} member_tags since 10049，可选，tags内容客户端自定义，服务器只做存储不理解tags含义，一般用于记录子设备之间的关系
+     * 已知使用场景：保存窗帘组下的子设备的左右信息,例:
+     * tags={
+     *   "did1":"left",
+     *   "did2":"right"
      * }
-   */
+     * @returns {Promise<object>}
+     * 成功时：返回
+     * {
+     *    "group_did":"group.123456xxx",
+     *    "need_alter_device":false  //与mesh组相关，窗帘组可以忽略
+     * }
+     * 失败时：返回
+     * { "code":xxx,"message":"xxx" }
+     */
     @report
-    createGroupDevice(name, member_dids) {
+    createGroupDevice(name, member_dids, member_tags = null) {
        return Promise.resolve({});
     }
     /**
      * 获取组成组设备的子设备们的did(窗帘组)
      * @since 10046
-     * @param group_did
-     * @returns {Promise<R>}
-     * {
-     *  "code":0,
-     *  "message":"",
-     *  "result":[
+     * @param {string} group_did
+     * @returns {Promise<array>}
+     * 成功时：返回
+     * [
      *    {
-     *      "did":"group.111123123123",
+     *      "did":"group.123456xxx",
      *      "status":"1",
      *      "membership":{  //key为子设备did
      *          "1041565620":"1",
      *          "1041565621":"1"
      *       }
      *    }
-     *  ]
-     * }
+     * ]
+     *  失败时：返回
+     * { "code":xxx, "message":"xxx" }
      */
     @report
     getVirtualGroupSubDevices(group_did) {
        return Promise.resolve({});
     }
-}
-const SmartHomeInstance = new ISmartHome();
-export default SmartHomeInstance;
+    /**
+     * 获取组设备下与子设备相关的tags
+     * 返回的是{@link createGroupDevice} 方法的第三个参数member_tags
+     * @since 10049
+     * 成功时（以窗帘组的左右窗帘信息为例）: 返回
+     * [
+     *   {
+     *      "did":"group.123456xxx",
+     *       "member_tags":{            //key为子设备did
+     *           "did1":"left",
+     *           "did2":"right"
+     *       }
+     *   }
+     * ]
+     *
+     *失败时：返回
+     * { "code":xxx, "message":"xxx"}
+     * @param {string} group_did
+     * @returns {Promise<array>}
+     */
+    @report
+    getVirtualGroupSubDevicesTags(group_did) {
+       return Promise.resolve({});
+       return end
