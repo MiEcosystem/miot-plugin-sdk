@@ -68,7 +68,8 @@ export default class UIDemo extends React.Component {
           { name: 'StringSpinnerDemo', router: 'StringSpinnerDemo' },
           { name: 'MiotAndroidScrollViewDemo(仅Android)', router: 'MiotAndroidScrollViewDemo' },
           { name: '绝对定位点击测试', router: 'AbsoluteTouch' },
-          { name: '输入法软键盘适配测试', router: 'SoftKeyboardAdapterTestDemo' }
+          { name: '输入法软键盘适配测试', router: 'SoftKeyboardAdapterTestDemo' },
+          { name: '创建窗帘组', router: 'CurtainGroupPage' }
         ])
     };
   }
@@ -82,7 +83,7 @@ export default class UIDemo extends React.Component {
     );
   }
 
-  _renderRow(rowData, sectionID, rowID) {
+  _renderRow(rowData) {
     return (
       <TouchableHighlight underlayColor="#838383" onPress={() => this._pressRow(rowData.router, rowData.name, rowData.messageDialog)}>
         <View>
@@ -107,7 +108,7 @@ export default class UIDemo extends React.Component {
 
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderTopColor: '#f1f1f1',
