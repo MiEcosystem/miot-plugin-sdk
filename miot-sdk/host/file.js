@@ -42,6 +42,14 @@ export const FileEvent = {
      * @param downloadBytes 已下载文件大小
      */
   fileDownloadProgress: {
+  },
+  /**
+   * 文件上传时的进度事件通知， 支持Host.file.uploadFile 和 Host.file.uploadFileToFDS 文件上传接口进度回调
+   * @param uploadUrl       上传地址
+   * @param totalBytes    上传总大小
+   * @param uploadBytes 已上传文件大小
+   */
+  fileUploadProgress: {
   }
 };
 /**
@@ -777,7 +785,7 @@ class IFile {
    * since 10048
    * @returns {code: 0 ,data: { totalSpace: 123456, freeSpace: 23456} }，
    * 其中totalSpace：总存储空间；freeSpace：剩余可用空间；单位都字节(byte)
-   * 
+   *
    * @example
    * Host.file.getStorageInfo().then(res=>{
    *  alert(JSON.stringify(res))
