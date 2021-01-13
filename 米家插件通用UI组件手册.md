@@ -1794,7 +1794,20 @@ let max = [2029, 4, 16];
 | visible       | <code>bool</code>                                            | 是否显示 modal, 参考 https://facebook.github.io/react-native/docs/0.54/modal#visible |
 | title         | <code>string</code>                                          | 标题                                                         |
 | showSubtitle  | <code>bool</code>                                            | 是否显示副标题，副标题显示的内容固定，和`type`有关           |
-| confirmColor  | <code>string</code>                                          | 确定按钮的颜色，默认米家绿                                   |
+| confirmColor  | <code>string</code>                                          | 确定按钮的颜色，默认米家绿  10040 废弃， 建议使用datePickerStyle.rightButtonStyle 来控制 |
+| datePickerStyle | <code>Object</code> | 10040新增 控制DatePicker 一些特有的样式 |
+| datePickerStyle.allowFontScaling | <code>bool</code> | 10040新增 dialog中text是否支持大字体显示，即是否随系统字体大小变化而变化, 默认`true` |
+| datePickerStyle.unlimitedHeightEnable | <code>bool</code> | 10040新增 设置控件高度是否自适应。 默认为false，即默认高度 |
+| datePickerStyle.titleNumberOfLines | <code>number</code> | 10040新增 控制title 文字的行数， 默认 1行 |
+| datePickerStyle.titleStyle | <code>Object</code> | 10040新增 控制title 文字的样式 |
+| datePickerStyle.subTitleStyle | <code>Object</code> | 10040新增 控制subTitle 文字的样式 |
+| datePickerStyle.leftButtonNumberOfLines | <code>number</code> | 10040新增 控制底部左边 文字的行数， 默认 1行  10045废弃 |
+| datePickerStyle.rightButtonNumberOfLines | <code>number</code> | 10040新增 控制底部右边 文字的行数，默认 1行  10045废弃 |
+| datePickerStyle.leftButtonStyle | <code>Object</code> | 10040新增 控制底部左边文字的样式 |
+| datePickerStyle.rightButtonStyle | <code>Object</code> | 10040新增 控制底部右边 文字的样式 |
+| datePickerStyle.leftButtonBgStyle | <code>Object</code> | 10047新增 控制底部左边按钮背景颜色{ bgColorNormal: string; bgColorPressed: string };详情请参阅组件PopButton |
+| datePickerStyle.rightButtonBgStyle | <code>Object</code> | 10047新增 控制底部右边按钮背景颜色 |
+| datePickerStyle.pickerInnerStyle | <code>Object</code> | 10040新增 控制中间滑轮等样式， 可参考 StringSpinner  pickerInnerStyle |
 | type          | [<code>TYPE</code>](#type时间选择器类型)                                   | 时间选择器类型                                               |
 | singleType    | [<code>SINGLE\_TYPE</code>](#single_type单个picker时选择器的类型也就是显示的单位)                    | 单个picker时的选择器类型                                     |
 | current       | <code>array&lt;string&gt;</code> \| <code>arraynumber&gt;</code> \| <code>Date</code> | 当前选中值，可传入数字数组，字符串数组，Date实例，对所有时间选择器类型有效 |
