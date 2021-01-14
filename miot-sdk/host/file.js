@@ -29,6 +29,7 @@
  */
 import Device from "../device/BasicDevice";
 import { report } from "../decorator/ReportDecorator";
+import {PermissionsAndroid} from "react-native";
 /**
  * 文件事件名集合
  * @namespace FileEvent
