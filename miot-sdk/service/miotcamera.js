@@ -9,6 +9,7 @@
  */
 import { NativeModules, Platform } from 'react-native';
 import { report } from "../decorator/ReportDecorator";
+import CameraRenderView, { MISSCodec } from "../ui/CameraRenderView";
 /**
  * MISS 命令
  * @namespace MISSCommand
@@ -253,7 +254,7 @@ class IMiotCamera {
   * @returns true, 最新报警视频的时间和事件描述字符串；false，错误描述
   * @since 10047
   */
- @report
+  @report
   loadMonitoringDetail(model = Device.model, did = Device.deviceID) {
      return Promise.resolve(null);
   }
@@ -263,9 +264,9 @@ class IMiotCamera {
    * @param {BOOL} isVip
    */
   @report
- showFaceRecognize(isVip, did = Device.deviceID) {
-    return null
- }
+  showFaceRecognize(isVip, did = Device.deviceID) {
+     return null
+  }
   /**
    *
    * 注册收到数据速率 Bytes per second，每秒回调一次
@@ -628,6 +629,23 @@ class IMiotCamera {
   @report
   reactNativeVideoScreenShot(viewRef, imagePath) {
      return Promise.resolve(null);
+  }
+  /**
+   * 
+   * @param {string} videoPath h264 或者h265的源文件绝对路径  必须以Host.file.storageBasePath开始
+   * @param {CameraRenderView.MISSCodec} videoType 视频源文件的路径 MISSCodec里定义的h264 或者h265
+   * @param {string} aacAudioPath aac 的源文件路径  没有就填写 ""   有值时必须以Host.file.storageBasePath开始, 音频文件只支持aac格式
+   * @param {string} targetPath 最终的输出文件目录 同上，必须以Host.file.storageBasePath开始
+   * 
+   * @since 10050
+   */
+  @report
+  convertH26xVideoIntoMp4(videoPath, videoType, aacAudioPath, targetPath) {
+    if (Platform.OS != "android") {
+      return Promise.reject("ios platform unsupport");
+    } else {
+       return Promise.resolve(null);
+    }
   }
 }
 const MiotCameraInstance = new IMiotCamera();

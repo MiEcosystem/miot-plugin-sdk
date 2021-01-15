@@ -317,20 +317,20 @@ export default class CurtainGroupPage extends Component {
           }]}
           onDismiss={this.cancel}
         />
-        <MessageDialog
-          visible={options.length < 2 && !!selectedSide}
+        {(options.length < 2 && selectedSide) ? (<MessageDialog
+          visible={true}
           message={I18n.noCurtainGroupTip}
           buttons={[{
             text: I18n.ok,
             callback: this.cancel
           }]}
-        />
-        <LoadingDialog
-          visible={layerType === 2}
+        />) : null}
+        {layerType === 2 ? (<LoadingDialog
+          visible={true}
           message={I18n.error}
           timeout={3000}
           onDismiss={this.cancel}
-        />
+        />) : null}
       </ScrollView>
     );
   }
