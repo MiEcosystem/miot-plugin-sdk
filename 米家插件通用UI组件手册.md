@@ -226,6 +226,7 @@
 | `NavigationBar.ICON.EDIT`         | 编辑          | ![](./UIDocImages/navigation/edit.png)        | ❗️SDK_10040新增 |
 | `NavigationBar.ICON.RECORD`         | 记录          | ![](./UIDocImages/navigation/record.png)        | ❗️SDK_10043新增 |
 | `NavigationBar.ICON.ORIENTATION`         | 设备方向          | ![](./UIDocImages/navigation/orientation.png)        | ❗️SDK_10045新增 |
+| `NavigationBar.ICON.SAVE`         | 保存          | ![](./UIDocImages/navigation/save.png)        | ❗️SDK_10049新增 |
 
 ### 和`Titlebar` 对比
 
