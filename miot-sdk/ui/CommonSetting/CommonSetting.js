@@ -484,7 +484,7 @@ export default class CommonSetting extends React.Component {
       // }
       [AllOptions.STAND_PLUGIN]: {
         _itemType: 'switch',
-        title: '标准插件',
+        title: strings.switchPlugin,
         value: state.standPlugin === '1' ? false : true,
         onValueChange: (value) => {
           Service.smarthome.batchSetDeviceDatas([

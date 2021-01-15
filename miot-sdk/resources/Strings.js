@@ -139,7 +139,8 @@ let strings = {
   chooseCurtainGroupTitle: '',
   currentDevice: '',
   curtain: '',
-  noCurtainGroupTip: ''
+  noCurtainGroupTip: '',
+  switchPlugin: ''
 };
 strings = getStrings({
   zh: {
@@ -257,7 +258,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: '请选择窗帘伴侣',
     currentDevice: '本设备',
     curtain: '窗帘',
-    noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试'
+    noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试',
+    switchPlugin: '标准插件'
   },
   zh_tw: {
     setting: '設定',
@@ -374,7 +376,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: '请选择窗帘伴侣',
     currentDevice: '本设备',
     curtain: '窗帘',
-    noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试'
+    noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试',
+    switchPlugin: '標準外掛程式'
   },
   zh_hk: {
     setting: '設定',
@@ -491,7 +494,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: '请选择窗帘伴侣',
     currentDevice: '本设备',
     curtain: '窗帘',
-    noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试'
+    noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试',
+    switchPlugin: '標準外掛程式'
   },
   en: {
     setting: 'Settings',
@@ -608,7 +612,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: 'Please select a curtain mate',
     currentDevice: 'this device',
     curtain: 'curtain',
-    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.'
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Standard plugin'
   },
   ko: {
     setting: '설정',
@@ -725,7 +730,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: 'Please select a curtain mate',
     currentDevice: 'this device',
     curtain: 'curtain',
-    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.'
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: '표준 플러그인'
   },
   ru: {
     setting: 'Настройки',
@@ -842,7 +848,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: 'Please select a curtain mate',
     currentDevice: 'this device',
     curtain: 'curtain',
-    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.'
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Стандартный плагин'
   },
   es: {
     setting: 'Ajustes',
@@ -959,7 +966,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: 'Please select a curtain mate',
     currentDevice: 'this device',
     curtain: 'curtain',
-    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.'
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Plugin estándar'
   },
   fr: {
     setting: "Paramètres",
@@ -1076,7 +1084,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: 'Please select a curtain mate',
     currentDevice: 'this device',
     curtain: 'curtain',
-    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.'
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Plug-in standard'
   },
   it: {
     setting: 'Impostazioni',
@@ -1193,7 +1202,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: 'Please select a curtain mate',
     currentDevice: 'this device',
     curtain: 'curtain',
-    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.'
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Plugin standard'
   },
   de: {
     setting: "Einstellungen",
@@ -1310,7 +1320,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: 'Please select a curtain mate',
     currentDevice: 'this device',
     curtain: 'curtain',
-    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.'
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Standard-Plug-in'
   },
   id: {
     setting: 'Pengaturan',
@@ -1427,7 +1438,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: 'Please select a curtain mate',
     currentDevice: 'this device',
     curtain: 'curtain',
-    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.'
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Plugin standar'
   },
   pl: {
     setting: 'Ustawienia',
@@ -1544,7 +1556,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: 'Please select a curtain mate',
     currentDevice: 'this device',
     curtain: 'curtain',
-    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.'
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Standardowa wtyczka'
   },
   vi: {
     setting: 'Cài đặt',
@@ -1661,7 +1674,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: 'Please select a curtain mate',
     currentDevice: 'this device',
     curtain: 'curtain',
-    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.'
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Plugin tiêu chuẩn'
   },
   ja: {
     setting: '設定',
@@ -1778,7 +1792,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: 'Please select a curtain mate',
     currentDevice: 'this device',
     curtain: 'curtain',
-    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.'
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: '標準プラグイン'
   },
   th: {
     setting: 'การตั้งค่า',
@@ -1895,7 +1910,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: 'Please select a curtain mate',
     currentDevice: 'this device',
     curtain: 'curtain',
-    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.'
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'ปลั๊กอินมาตรฐาน'
   },
   tr: {
     setting: 'Ayarlar',
@@ -2012,7 +2028,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: 'Please select a curtain mate',
     currentDevice: 'this device',
     curtain: 'curtain',
-    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.'
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Standart eklenti'
   },
   nl: {
     setting: 'Instellingen',
@@ -2129,7 +2146,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: 'Please select a curtain mate',
     currentDevice: 'this device',
     curtain: 'curtain',
-    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.'
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Standaard plug-in'
   },
   pt: {
     setting: 'Configurações',
@@ -2246,7 +2264,8 @@ strings = getStrings({
     chooseCurtainGroupTitle: 'Please select a curtain mate',
     currentDevice: 'this device',
     curtain: 'curtain',
-    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.'
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Plugin padrão'
   }
 });
 export default strings;
