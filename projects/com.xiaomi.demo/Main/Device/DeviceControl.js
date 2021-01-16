@@ -101,6 +101,20 @@ export default class UIDemo extends React.Component {
         }
       },
       {
+        'name': '获取所有隐藏子设备',
+        'func': () => {
+          Device.getHideSubDevices().then((res) => {
+            res.map((stat) => {
+              console.log('HideSubDevices:', stat.deviceID);
+            });
+            alert(`获取所有隐藏子设备 success,隐藏子设备共有${ res.length }个`);
+          }).catch((err) => {
+            console.log('error:', err);
+            alert(`获取所有隐藏子设备 error:${ err }`);
+          });
+        }
+      },
+      {
         'name': '打开第一个子设备',
         'func': () => {
           Device.getSubDevices().then((res) => {
