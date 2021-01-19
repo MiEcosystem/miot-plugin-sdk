@@ -631,21 +631,36 @@ class IMiotCamera {
      return Promise.resolve(null);
   }
   /**
-   * 
+   * @param paramsJson 包含如下参数：
    * @param {string} videoPath h264 或者h265的源文件绝对路径  必须以Host.file.storageBasePath开始
    * @param {CameraRenderView.MISSCodec} videoType 视频源文件的路径 MISSCodec里定义的h264 或者h265
    * @param {string} aacAudioPath aac 的源文件路径  没有就填写 ""   有值时必须以Host.file.storageBasePath开始, 音频文件只支持aac格式
    * @param {string} targetPath 最终的输出文件目录 同上，必须以Host.file.storageBasePath开始
+   * 以下参数只用于ios
+   * @param {int} fps
+   * @param {int} videoWidth
+   * @param {int} videoHeight
+   *
+   * Android json demo：
+      {"videoPath":vPath,
+      "videoType": vType,
+      "aacAudioPath": aacAPath,
+      "targetPath": tPath}
+   *
+   * IOS json demo：
+      {"videoPath":vPath,
+      "videoType": vType,
+      "aacAudioPath": aacAPath,
+      "targetPath": tPath,
+      "fps": fps,
+      "videoWidth": vWidth,
+      "videoHeight": vHeight}
    * 
    * @since 10050
    */
   @report
-  convertH26xVideoIntoMp4(videoPath, videoType, aacAudioPath, targetPath) {
-    if (Platform.OS != "android") {
-      return Promise.reject("ios platform unsupport");
-    } else {
-       return Promise.resolve(null);
-    }
+  convertH26xVideoIntoMp4(paramsJson) {
+     return Promise.resolve(null);
   }
 }
 const MiotCameraInstance = new IMiotCamera();
