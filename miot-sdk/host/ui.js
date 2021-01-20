@@ -114,6 +114,13 @@ class IUi {
   openSystemShareWindow(pathOrUrl) {
   }
   /**
+  * 打开系统文件打开页面 since 10050
+  * @param {string} pathOrUrl 文件的全路径或者链接url。
+  */
+  @report
+  openSystemFileWindow(pathOrUrl) {
+  }
+  /**
    * 获取设备列表中指定model的设备信息
    * @param model 指定的model
    * @param {boolean} includeGroupedDevice - since 10046 是否包含被组成了一个组的设备（目前仅窗帘设备可用，灯设备不可用），默认不包含
