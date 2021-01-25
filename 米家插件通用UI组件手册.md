@@ -2328,6 +2328,8 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 | onChangeText   | <code>function</code> | 文字变化回调，参考 https://facebook.github.io/react-native/docs/0.54/textinput#onchangetext |
 | textInputProps | <code>Object</code>   | 其他 TextInput 支持的属性，参考 https://facebook.github.io/react-native/docs/0.54/textinput#props |
 | isCorrect      | <code>bool</code>     | 10045新增 输入框的结果 - 输入框边框变红，下方显示红色警示文字 |
+| type           | <code>string</code>   | 输入框右侧的图案类型，默认'NONE'-无, 'DELETE'-删除键, 'SECURE'-眼睛状密码遮挡 |
+
 
 #### CheckboxData(输入框下方勾选框数据)
 
@@ -2351,6 +2353,7 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 | isCorrect     | <code>bool</code> | 10045新增 弹窗的结果 - 副标题下会显示红色警示文字 |
 | warnText      | <code>string</code>  | 10045新增 副标题下的红色警示文字 |
 | inputWarnText | <code>string</code>  | 10045新增 输入框下的红色警示文字 |
+| noInputDisButton | <code>bool</code> | 10048新增 是否有[无输入内容时无法点击确认按钮]的逻辑，默认无(false), 设置[defaultValue初始默认文字]也算作有输入内容 |
 
 [⬆️回到目录](#目录)
 
