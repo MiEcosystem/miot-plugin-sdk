@@ -743,7 +743,7 @@ class IFile {
    *  dstPath:'xxxx', //目标文件路径：dstDir不为空时，可以传相对路径；dstDir不为空时，这里传文件名
    *  dstDir:'xxx',//目标文件保存路径父目录，沙盒内复制文件时传空即可；如果是往沙盒外复制，dstDiir传目标文件的父目录(不能为空)
    * }
-   * @returns 成功时：{code:0,message:success}
+   * @returns {Promise<json>} 成功时：{code:0,message:success}
    *          失败时：{code:-1,message:'invalid srcPath or dstPath'}
    *                {code:-2,message:'file ${dstPath} already exist'}
    *                {code:-3,message:'file not found,xxx'}
@@ -785,7 +785,7 @@ class IFile {
   /**
    * 获取当前磁盘的可用空间和总存储空间
    * since 10048
-   * @returns {code: 0 ,data: { totalSpace: 123456, freeSpace: 23456} }，
+   * @returns {Promise<json>} 返回当前磁盘的可用空间和总存储空间：{code: 0 ,data: { totalSpace: 123456, freeSpace: 23456} }，
    * 其中totalSpace：总存储空间；freeSpace：剩余可用空间；单位都字节(byte)
    *
    * @example
