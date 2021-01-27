@@ -13,8 +13,8 @@ import { dynamicStyleSheet } from '../Style/DynamicStyleSheet';
 import DynamicColor from '../Style/DynamicColor';
 import { DarkMode } from "../../index";
 const SourceCurtainLeft = require('../../resources/images/curtain-left.png');
-const SourceCurtainRight = require('../../resources/images/curtain-right.png');
 const SourceCurtainLeftDark = require('../../resources/images/curtain-left-dark.png');
+const SourceCurtainRight = require('../../resources/images/curtain-right.png');
 const SourceCurtainRightDark = require('../../resources/images/curtain-right-dark.png');
 const SourceAdd = require('../../resources/images/add.png');
 const SourceAddDark = require('../../resources/images/add-dark.png');
@@ -286,7 +286,7 @@ export default class CurtainGroupPage extends Component {
             <TouchableOpacity style={[Styles.curtainIcon, selectedSide === 'right' ? Styles.curtainIconSelected : null]} activeOpacity={0.8} onPress={this.selectRight}>
               <View style={Styles.curtainIconInner}>
                 {rightDid ? (
-                  <Image style={[Styles.curtainImg, Styles.curtainImgRight]} source={this.colorScheme === 'light' ? SourceCurtainRight : SourceCurtainRightDark} />
+                  <Image style={Styles.curtainImg} source={this.colorScheme === 'light' ? SourceCurtainRight : SourceCurtainRightDark} />
                 ) : (
                   <Image style={Styles.add} source={this.colorScheme === 'light' ? SourceAdd : SourceAddDark} />
                 )}
@@ -395,6 +395,11 @@ const Styles = dynamicStyleSheet({
     width: adjustSize(378),
     height: adjustSize(312),
     resizeMode: 'contain'
+  },
+  curtainImgRight: {
+    transform: [
+      { scaleX: -1 }
+    ]
   },
   curtainName: {
     marginTop: adjustSize(36),
