@@ -34,6 +34,8 @@ import { ColorPicker as _ColorPicker } from './ColorPicker';
 import _TouchableView from './TouchableView';
 export { default as DynamicColor, dynamicColor } from './Style/DynamicColor';
 export { default as DynamicStyleSheet, dynamicStyleSheet } from './Style/DynamicStyleSheet';
+import * as _Style from './Style/index';
+export const Style = _Style;
 export const ImageButton = _ImageButton;
 export const LoadingDialog = _LoadingDialog;
 export const MessageDialog = _MessageDialog;

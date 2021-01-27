@@ -1,7 +1,7 @@
 import Separator from 'miot/ui/Separator';
 import Switch from 'miot/ui/Switch';
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View, Text } from 'react-native';
 import Logger from '../Logger';
 
 export default class SwitchDemo extends React.Component {
@@ -21,7 +21,18 @@ export default class SwitchDemo extends React.Component {
         <Separator />
         <ScrollView
           showsVerticalScrollIndicator={false}>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', height: 200 }}>
+
+          <View style={{ flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center', height: 200 }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+              <Switch value={this.state.value} onValueChange={(newValue) => {
+                if (newValue === true) {
+                  this.setState({
+                    value: false
+                  });
+                }
+              }} />
+              <Text>我可以被关，但我是不会开的。。。</Text>
+            </View>
             <Switch
               style={{ width: 50, height: 25 }}
               onTintColor="skyblue"

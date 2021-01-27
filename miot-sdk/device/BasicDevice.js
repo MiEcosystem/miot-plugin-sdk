@@ -271,6 +271,24 @@ export class BasicDevice {
      return Promise.resolve([]);
   }
   /**
+   * 获取隐藏子设备列表
+   * android特有接口，ios不能使用
+   * @since 10051
+   * @param {boolean} 是否使用缓存,默认为false
+   * @method
+   * @example
+   * import 'Device' from 'miot'
+   * Device.getHideSubDevices()
+   * .then(devices => {//get device list})
+   * @returns {Promise<BasicDevice[]>}
+   *    resolve：array<BasicDevice> 设备列表
+   *    reject：{code: xxx, message: xxx}
+   */
+  @report
+  getHideSubDevices(useCache = false) {
+     return Promise.resolve([]);
+  }
+  /**
    * 获取蓝牙网关关联的普通蓝牙和蓝牙mesh设备列表。
    * @since 10020
    * @param {string} [did=Device.deviceID] 蓝牙网关的did，可以为空，为空时默认取当前Device.deviceID

@@ -56,7 +56,7 @@ export default class UIDemo extends React.Component {
            */
           this.props.navigation.navigate('BraceletInterconnection', {
             title: '手环设备互联页面',
-            // mac: '11:22:33:44:55:66',  
+            // mac: '11:22:33:44:55:66',
             onDisconnect: (mac, callback) => {
               console.log('解除关联：', mac);
               setTimeout(() => {
@@ -97,6 +97,20 @@ export default class UIDemo extends React.Component {
           }).catch((err) => {
             console.log('error:', err);
             alert(`error:${ err }`);
+          });
+        }
+      },
+      {
+        'name': '获取所有隐藏子设备(仅支持Android)',
+        'func': () => {
+          Device.getHideSubDevices().then((res) => {
+            res.map((stat) => {
+              console.log('HideSubDevices:', stat.deviceID);
+            });
+            alert(`获取所有隐藏子设备 success,隐藏子设备共有${ res.length }个`);
+          }).catch((err) => {
+            console.log('error:', err);
+            alert(`获取所有隐藏子设备 error:${ err }`);
           });
         }
       },
