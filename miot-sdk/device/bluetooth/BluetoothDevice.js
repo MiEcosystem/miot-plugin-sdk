@@ -39,6 +39,7 @@ import { IBluetoothService } from './CoreBluetooth';
 import Bluetooth, { getBluetoothUUID128 } from './index';
 import RootDevice from '../BasicDevice';
 import { report } from "../../decorator/ReportDecorator";
+import PluginAppConfigHelper from '../../utils/plugin-app-config-helper';
 // import Host from '../../Host';
 /**
  *

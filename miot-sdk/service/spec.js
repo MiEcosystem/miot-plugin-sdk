@@ -114,6 +114,13 @@ class ISpec {
   getCurrentSpecValue(did) {
      return Promise.resolve(null);
   }
+  cachedParsedInstance = {};
+  getInstanceWithCache(did) {
+     return Promise.resolve(null);
+  }
+  getSpecByKey(did, { mkey, skey, pkey, akey, ekey } = {}) {
+     return Promise.resolve(null);
+  }
 }
 const SpecInstance = new ISpec();
 export default SpecInstance;

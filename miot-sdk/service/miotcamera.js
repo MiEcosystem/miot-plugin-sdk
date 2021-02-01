@@ -139,11 +139,7 @@ class IMiotCamera {
      */
   @report
   sendP2PCommandToDeviceWithStringParam(command, paramStr, did = Device.deviceID) {
-    if (Platform.OS === 'android') {
-       return Promise.resolve(null);
-    } else {
-      return Promise.reject("ios platform currently unsupport");
-    }
+     return Promise.resolve(null);
   }
   /**
      * 发送miss命令到设备 主要处理部分model发送命令的参数不是json格式，而是byte数组形式的命令。 byte数组请用base64编码得到string再调用这个接口。
@@ -612,6 +608,26 @@ class IMiotCamera {
     } else {
       return Promise.reject("ios platform not support yet");
     }
+  }
+  /**
+   * react-native-video 截屏，用来截video标签里video控件的内容
+   * @param {number} viewRef - scrollView的引用
+   * @param {string} imagePath - 存储图片的位置，必须以Host.file.baseStoragePath开始，再加上文件存储名
+   * @returns {Promise<string>}
+   * 成功时：{"code":xxxx}
+   * 失败时：{"code":xxx, "message":"xxx" }
+   * @example
+   *  let findNodeHandle = require('findNodeHandle');
+   *  let reactNativeVideo = findNodeHandle(this.refs.reactNativeVideo);
+   *  Service.miotcamera.reactNativeVideoScreenShot(reactNativeVideo, Host.file.storageBasePath + '/test2.png').then(result=>{
+   *      console.log(result);
+   *  });
+   * 
+   *  @since 10049
+   */
+  @report
+  reactNativeVideoScreenShot(viewRef, imagePath) {
+     return Promise.resolve(null);
   }
 }
 const MiotCameraInstance = new IMiotCamera();
