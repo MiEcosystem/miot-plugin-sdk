@@ -7,6 +7,8 @@ import { strings, Styles } from '../../resources';
 import { ListItem, ListItemWithSwitch } from '../ListItem';
 import Separator from '../Separator';
 import { secondAllOptions, SETTING_KEYS } from "./CommonSetting";
+import { dynamicStyleSheet } from '../Style/DynamicStyleSheet';
+import DynamicColor from '../Style/DynamicColor';
 import { getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
 const { second_options } = SETTING_KEYS;
@@ -110,14 +112,14 @@ export default class FirmwareUpgrade extends React.Component {
     );
   }
 }
-const styles = StyleSheet.create({
+const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: Styles.common.backgroundColor,
+    backgroundColor: new DynamicColor(Styles.common.backgroundColor, '#1A1A1A'),
     flex: 1
   },
   blank: {
     height: 8,
-    backgroundColor: Styles.common.backgroundColor,
+    backgroundColor: new DynamicColor(Styles.common.backgroundColor, '#1A1A1A'),
     borderTopColor: Styles.common.hairlineColor,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomColor: Styles.common.hairlineColor,

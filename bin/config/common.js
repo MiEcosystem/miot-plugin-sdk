@@ -152,6 +152,30 @@ function copyFolder(srcDir, tarDir, cb = null) {
     })
 }
 
+function copyFolderSync(srcDir, tarDir, cb = null, exceptList) {
+  let files = fs.readdirSync(srcDir);
+  files = files.filter(item => !(/(^|\/)\.[^\/\.]/g).test(item));
+  var count = 0
+  var checkEnd = function () {
+    ++count == files.length && cb && cb()
+  }
+    
+  files.forEach(function (file) {
+    if(!exceptList || exceptList.indexOf(file) === -1){
+      var srcPath = path.join(srcDir, file)
+      var tarPath = path.join(tarDir, file)
+      let stats = fs.statSync(srcPath);
+      if (stats.isDirectory()) {
+        fs.mkdirSync(tarPath);
+        copyFolderSync(srcPath, tarPath, checkEnd)
+      } else {
+        copyFileSync(srcPath, tarPath, checkEnd)
+      }
+    }
+  })
+  files.length === 0 && cb && cb()
+}
+
 function loadFiles(srcDir, onFile=null, rootDir=null) {
   (fs.readdirSync(srcDir)||[]).forEach(f=>{
       const _path = path.join(srcDir, f)
@@ -225,6 +249,7 @@ module.exports = {
     copyFile,
     copyFileSync,
     copyFolder,
+    copyFolderSync,
     makeDirs,
     makeDirsSync,
     absolutePath,

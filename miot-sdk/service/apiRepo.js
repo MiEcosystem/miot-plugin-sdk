@@ -184,8 +184,13 @@ const API_REPO = {
   '/miot/camera/app/v1/delete/figure': {},
   '/miot/camera/app/v1/delete/face': {},
   '/miot/camera/app/v1/mp4': {},
+  '/miot/camera/app/v1/cloud/file/exist': {},
   // 窗帘组API
   '/v2/groupv2/create': {},
-  '/v2/groupv2/query_status': {}
+  '/v2/groupv2/query_status': {},
+  '/v2/groupv2/query_tags': {},
+  // 摄像头云存相关
+  '/common/app/v1/cloud/file/exist': {},
+  '/common/app/get/cloudlist': {}
 };
 export default API_REPO;
