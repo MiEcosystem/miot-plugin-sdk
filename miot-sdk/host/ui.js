@@ -694,7 +694,6 @@ class IUi {
   @report
   openNFCWriteDeviceInfoPage(extra = '') {
   }
-  
 }
 const UiInstance = new IUi();
 export default UiInstance;

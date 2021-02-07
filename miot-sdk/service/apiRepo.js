@@ -164,6 +164,7 @@ const API_REPO = {
   '/v2/device/get_hijack_alarm_info': {},
   '/v2/home/get_interim_file_url_pro': {},
   '/home/getfileurl_v3': {},
+  '/v2/home/getfileurl_v3': {},
   '/v2/recipes/query': {},
   '/home/devupgrade': {},
   '/v2/device/get_auto_upgrade_config': {},

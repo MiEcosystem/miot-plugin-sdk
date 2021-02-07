@@ -140,7 +140,8 @@ export default class FileStorage extends React.Component {
               ],
               [
                 ["向文件追加内容", this._appendFile],
-                ["向文件追加内容(Base64)", this._appendFileThroughBase64]
+                ["向文件追加内容(Base64)", this._appendFileThroughBase64],
+                ["保存文件到小米手机的小米便签(只支持MIUI和特定model)", this.saveFileToNotesAppOnMIUI],
               ],
               [
                 ["读文件", this._readFile],
@@ -248,6 +249,16 @@ export default class FileStorage extends React.Component {
       alert(JSON.stringify(isSuccess));
     }).catch((error) => {
       alert(JSON.stringify(error));
+    });
+  }
+
+  // 普通字符串 追加写内容
+  saveFileToNotesAppOnMIUI() {
+    Host.file.saveFileToNotesAppOnMIUI(this.state.fileName).then((isSuccess) => {
+      alert(`saveFileToNotesAppOnMIUI success,${JSON.stringify(isSuccess)}`);
+    }).catch((error) => {
+      console.log(`saveFileToNotesAppOnMIUI fail,${JSON.stringify(error)}`)
+      alert(`saveFileToNotesAppOnMIUI fail,${JSON.stringify(error)}`);
     });
   }
 

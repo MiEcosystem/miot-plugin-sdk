@@ -7,6 +7,7 @@
  * @flow
  * @format
  */
+
 'use strict';
 
 const DeprecatedTextInputPropTypes = require('../../DeprecatedPropTypes/DeprecatedTextInputPropTypes');
@@ -55,39 +56,39 @@ const onlyMultiline = {
 
 export type ChangeEvent = SyntheticEvent<
   $ReadOnly<{|
-    eventCount: number,
-    target: number,
-    text: string,
-  |}>,
+  eventCount: number,
+  target: number,
+  text: string,
+|}>,
 >;
 
 export type TextInputEvent = SyntheticEvent<
   $ReadOnly<{|
-    eventCount: number,
-    previousText: string,
-    range: $ReadOnly<{|
-      start: number,
-      end: number,
-    |}>,
-    target: number,
-    text: string,
-  |}>,
+  eventCount: number,
+  previousText: string,
+  range: $ReadOnly<{|
+start: number,
+  end: number,
+|}>,
+target: number,
+  text: string,
+|}>,
 >;
 
 export type ContentSizeChangeEvent = SyntheticEvent<
   $ReadOnly<{|
-    target: number,
-    contentSize: $ReadOnly<{|
-      width: number,
-      height: number,
-    |}>,
-  |}>,
+  target: number,
+  contentSize: $ReadOnly<{|
+width: number,
+  height: number,
+|}>,
+|}>,
 >;
 
 type TargetEvent = SyntheticEvent<
   $ReadOnly<{|
-    target: number,
-  |}>,
+  target: number,
+|}>,
 >;
 
 export type BlurEvent = TargetEvent;
@@ -100,112 +101,112 @@ type Selection = $ReadOnly<{|
 
 export type SelectionChangeEvent = SyntheticEvent<
   $ReadOnly<{|
-    selection: Selection,
-    target: number,
-  |}>,
+  selection: Selection,
+  target: number,
+|}>,
 >;
 
 export type KeyPressEvent = SyntheticEvent<
   $ReadOnly<{|
-    key: string,
-    target?: ?number,
-    eventCount?: ?number,
-  |}>,
+  key: string,
+  target?: ?number,
+  eventCount?: ?number,
+|}>,
 >;
 
 export type EditingEvent = SyntheticEvent<
   $ReadOnly<{|
-    eventCount: number,
-    text: string,
-    target: number,
-  |}>,
+  eventCount: number,
+  text: string,
+  target: number,
+|}>,
 >;
 
 type DataDetectorTypesType =
-  | 'phoneNumber'
-  | 'link'
-  | 'address'
-  | 'calendarEvent'
-  | 'none'
-  | 'all';
+| 'phoneNumber'
+| 'link'
+| 'address'
+| 'calendarEvent'
+| 'none'
+| 'all';
 
 export type KeyboardType =
-  // Cross Platform
-  | 'default'
-  | 'email-address'
-  | 'numeric'
-  | 'phone-pad'
-  | 'number-pad'
-  | 'decimal-pad'
-  // iOS-only
-  | 'ascii-capable'
-  | 'numbers-and-punctuation'
-  | 'url'
-  | 'name-phone-pad'
-  | 'twitter'
-  | 'web-search'
-  // Android-only
-  | 'visible-password';
+// Cross Platform
+| 'default'
+| 'email-address'
+| 'numeric'
+| 'phone-pad'
+| 'number-pad'
+| 'decimal-pad'
+// iOS-only
+| 'ascii-capable'
+| 'numbers-and-punctuation'
+| 'url'
+| 'name-phone-pad'
+| 'twitter'
+| 'web-search'
+// Android-only
+| 'visible-password';
 
 export type ReturnKeyType =
-  // Cross Platform
-  | 'done'
-  | 'go'
-  | 'next'
-  | 'search'
-  | 'send'
-  // Android-only
-  | 'none'
-  | 'previous'
-  // iOS-only
-  | 'default'
-  | 'emergency-call'
-  | 'google'
-  | 'join'
-  | 'route'
-  | 'yahoo';
+// Cross Platform
+| 'done'
+| 'go'
+| 'next'
+| 'search'
+| 'send'
+// Android-only
+| 'none'
+| 'previous'
+// iOS-only
+| 'default'
+| 'emergency-call'
+| 'google'
+| 'join'
+| 'route'
+| 'yahoo';
 
 export type AutoCapitalize = 'none' | 'sentences' | 'words' | 'characters';
 
 export type TextContentType =
-  | 'none'
-  | 'URL'
-  | 'addressCity'
-  | 'addressCityAndState'
-  | 'addressState'
-  | 'countryName'
-  | 'creditCardNumber'
-  | 'emailAddress'
-  | 'familyName'
-  | 'fullStreetAddress'
-  | 'givenName'
-  | 'jobTitle'
-  | 'location'
-  | 'middleName'
-  | 'name'
-  | 'namePrefix'
-  | 'nameSuffix'
-  | 'nickname'
-  | 'organizationName'
-  | 'postalCode'
-  | 'streetAddressLine1'
-  | 'streetAddressLine2'
-  | 'sublocality'
-  | 'telephoneNumber'
-  | 'username'
-  | 'password'
-  | 'newPassword'
-  | 'oneTimeCode';
+| 'none'
+| 'URL'
+| 'addressCity'
+| 'addressCityAndState'
+| 'addressState'
+| 'countryName'
+| 'creditCardNumber'
+| 'emailAddress'
+| 'familyName'
+| 'fullStreetAddress'
+| 'givenName'
+| 'jobTitle'
+| 'location'
+| 'middleName'
+| 'name'
+| 'namePrefix'
+| 'nameSuffix'
+| 'nickname'
+| 'organizationName'
+| 'postalCode'
+| 'streetAddressLine1'
+| 'streetAddressLine2'
+| 'sublocality'
+| 'telephoneNumber'
+| 'username'
+| 'password'
+| 'newPassword'
+| 'oneTimeCode';
 
 type PasswordRules = string;
 
 type IOSProps = $ReadOnly<{|
-  /**
-   * If `false`, disables spell-check style (i.e. red underlines).
-   * The default value is inherited from `autoCorrect`.
-   * @platform ios
-   */
-  spellCheck?: ?boolean,
+/**
+ * If `false`, disables spell-check style (i.e. red underlines).
+ * The default value is inherited from `autoCorrect`.
+ * @platform ios
+ */
+spellCheck?: ?boolean,
 
   /**
    * Determines the color of the keyboard.
@@ -269,8 +270,8 @@ type IOSProps = $ReadOnly<{|
    * @platform ios
    */
   dataDetectorTypes?:
-    | ?DataDetectorTypesType
-    | $ReadOnlyArray<DataDetectorTypesType>,
+| ?DataDetectorTypesType
+  | $ReadOnlyArray<DataDetectorTypesType>,
 
   /**
    * An optional identifier which links a custom InputAccessoryView to
@@ -298,51 +299,51 @@ type IOSProps = $ReadOnly<{|
 |}>;
 
 type AndroidProps = $ReadOnly<{|
-  /**
-   * Determines which content to suggest on auto complete, e.g.`username`.
-   * To disable auto complete, use `off`.
-   *
-   * *Android Only*
-   *
-   * The following values work on Android only:
-   *
-   * - `username`
-   * - `password`
-   * - `email`
-   * - `name`
-   * - `tel`
-   * - `street-address`
-   * - `postal-code`
-   * - `cc-number`
-   * - `cc-csc`
-   * - `cc-exp`
-   * - `cc-exp-month`
-   * - `cc-exp-year`
-   * - `off`
-   *
-   * @platform android
-   */
-  autoCompleteType?: ?(
-    | 'cc-csc'
-    | 'cc-exp'
-    | 'cc-exp-month'
-    | 'cc-exp-year'
-    | 'cc-number'
-    | 'email'
-    | 'name'
-    | 'password'
-    | 'postal-code'
-    | 'street-address'
-    | 'tel'
-    | 'username'
-    | 'off'
-  ),
+/**
+ * Determines which content to suggest on auto complete, e.g.`username`.
+ * To disable auto complete, use `off`.
+ *
+ * *Android Only*
+ *
+ * The following values work on Android only:
+ *
+ * - `username`
+ * - `password`
+ * - `email`
+ * - `name`
+ * - `tel`
+ * - `street-address`
+ * - `postal-code`
+ * - `cc-number`
+ * - `cc-csc`
+ * - `cc-exp`
+ * - `cc-exp-month`
+ * - `cc-exp-year`
+ * - `off`
+ *
+ * @platform android
+ */
+autoCompleteType?: ?(
+  | 'cc-csc'
+  | 'cc-exp'
+  | 'cc-exp-month'
+  | 'cc-exp-year'
+  | 'cc-number'
+  | 'email'
+  | 'name'
+  | 'password'
+  | 'postal-code'
+  | 'street-address'
+  | 'tel'
+  | 'username'
+  | 'off'
+),
 
-  /**
-   * Sets the return key to the label. Use it instead of `returnKeyType`.
-   * @platform android
-   */
-  returnKeyLabel?: ?string,
+/**
+ * Sets the return key to the label. Use it instead of `returnKeyType`.
+ * @platform android
+ */
+returnKeyLabel?: ?string,
 
   /**
    * Sets the number of lines for a `TextInput`. Use it with multiline set to
@@ -399,20 +400,20 @@ type AndroidProps = $ReadOnly<{|
     | 'noExcludeDescendants'
     | 'yes'
     | 'yesExcludeDescendants'
-  ),
+),
 
-  /**
-   * When `false`, it will prevent the soft keyboard from showing when the field is focused.
-   * Defaults to `true`.
-   * @platform android
-   */
-  showSoftInputOnFocus?: ?boolean,
+/**
+ * When `false`, it will prevent the soft keyboard from showing when the field is focused.
+ * Defaults to `true`.
+ * @platform android
+ */
+showSoftInputOnFocus?: ?boolean,
 |}>;
 
 type Props = $ReadOnly<{|
-  ...$Diff<ViewProps, $ReadOnly<{|style: ?ViewStyleProp|}>>,
-  ...IOSProps,
-  ...AndroidProps,
+...$Diff<ViewProps, $ReadOnly<{|style: ?ViewStyleProp|}>>,
+...IOSProps,
+...AndroidProps,
 
   /**
    * Can tell `TextInput` to automatically capitalize certain characters.
@@ -625,19 +626,19 @@ type Props = $ReadOnly<{|
    */
   selection?: ?$ReadOnly<{|
     start: number,
-    end?: ?number,
-  |}>,
+  end?: ?number,
+|}>,
 
-  /**
-   * The value to show for the text input. `TextInput` is a controlled
-   * component, which means the native value will be forced to match this
-   * value prop if provided. For most uses, this works great, but in some
-   * cases this may cause flickering - one common cause is preventing edits
-   * by keeping value the same. In addition to simply setting the same value,
-   * either set `editable={false}`, or set/update `maxLength` to prevent
-   * unwanted edits without flicker.
-   */
-  value?: ?Stringish,
+/**
+ * The value to show for the text input. `TextInput` is a controlled
+ * component, which means the native value will be forced to match this
+ * value prop if provided. For most uses, this works great, but in some
+ * cases this may cause flickering - one common cause is preventing edits
+ * by keeping value the same. In addition to simply setting the same value,
+ * either set `editable={false}`, or set/update `maxLength` to prevent
+ * unwanted edits without flicker.
+ */
+value?: ?Stringish,
 
   /**
    * Provides an initial value that will change when the user starts typing.
@@ -906,36 +907,9 @@ const TextInput = createReactClass({
 
   _renderIOSLegacy: function() {
     let textContainer;
+
     const props = Object.assign({}, this.props);
     props.style = [this.props.style];
-    // 兼容一键反色 文字颜色特殊标记
-    if (props.placeholderTextColor) {
-      props.placeholderTextColor += 'text';
-    }
-    if (props.color) {
-      props.color += 'text';
-    }
-    if (Array.isArray(props.style) && props.style.length > 0) {
-      if (Array.isArray(props.style[0]) && props.style[0].length > 0) {
-        if (Array.isArray(props.style[0][0]) && props.style[0][0].length > 7) {
-          let colorProp = props.style[0][0][7];
-          if (colorProp.color) {
-            colorProp.color = `${ colorProp.color }text`;
-            props.style[0][7] = colorProp;
-          }
-        }
-      } else if (Object.prototype.toString.call(props.style[0]) === '[object Object]') {
-        let colorProp = props.style[0];
-        if (colorProp.color) {
-          colorProp.color = `${ colorProp.color }text`;
-          props.style[0] = colorProp;
-        }
-      }
-    } else if (Object.prototype.toString.call(props.style) === '[object Object]') {
-      if (props.style.color) {
-        props.style.color = `${ props.style.color }text`;
-      }
-    }
 
     if (props.selection && props.selection.end == null) {
       props.selection = {
@@ -949,8 +923,8 @@ const TextInput = createReactClass({
         for (const propKey in onlyMultiline) {
           if (props[propKey]) {
             const error = new Error(
-              `TextInput prop \`${ 
-                propKey 
+              `TextInput prop \`${
+                propKey
               }\` is only supported with multiline.`,
             );
             warning(false, '%s', error.stack);
@@ -1030,34 +1004,6 @@ const TextInput = createReactClass({
   _renderIOS: function() {
     const props = Object.assign({}, this.props);
     props.style = [this.props.style];
-    // 兼容一键反色 文字颜色特殊标记
-    if (props.placeholderTextColor) {
-      props.placeholderTextColor += 'text';
-    }
-    if (props.color) {
-      props.color += 'text';
-    }
-    if (Array.isArray(props.style) && props.style.length > 0) {
-      if (Array.isArray(props.style[0]) && props.style[0].length > 0) {
-        if (Array.isArray(props.style[0][0]) && props.style[0][0].length > 7) {
-          let colorProp = props.style[0][0][7];
-          if (colorProp.color) {
-            colorProp.color = `${ colorProp.color }text`;
-            props.style[0][7] = colorProp;
-          }
-        }
-      } else if (Object.prototype.toString.call(props.style[0]) === '[object Object]') {
-        let colorProp = props.style[0];
-        if (colorProp.color) {
-          colorProp.color = `${ colorProp.color }text`;
-          props.style[0] = colorProp;
-        }
-      }
-    } else if (Object.prototype.toString.call(props.style) === '[object Object]') {
-      if (props.style.color) {
-        props.style.color = `${ props.style.color }text`;
-      }
-    }
 
     if (props.selection && props.selection.end == null) {
       props.selection = {
@@ -1108,6 +1054,20 @@ const TextInput = createReactClass({
     );
   },
 
+  _filterNullColor: function(styleArray: any) {
+    if (styleArray.length > 0) {
+      styleArray.forEach((obj) => {
+        if (Object.prototype.toString.call(obj) === '[object Object]') {
+          if (obj.color === null) {
+            obj.color = undefined;
+          }
+        } else if (Object.prototype.toString.call(obj) === '[object Array]') {
+          this._filterNullColor(obj);
+        }
+      });
+    }
+  },
+
   _renderAndroid: function() {
     const props = Object.assign({}, this.props);
     props.style = [this.props.style];
@@ -1129,6 +1089,10 @@ const TextInput = createReactClass({
         end: props.selection.start
       };
     }
+
+    // Fixme: 如果TextInput组件的style存在color:null，会导致米家Android客户端空指针异常。
+    //  对应bug（IOT工单:14592,14593,14594），此处将style中color:null替换成color:undefined，防止异常。
+    this._filterNullColor(props.style);
 
     const textContainer = (
       <AndroidTextInput

@@ -126,7 +126,7 @@ function getStartVolume() {
 
 // 开始监听音量(隐藏系统音量条)
 function getStartVolumeHideSystemSlider() {
-  System.volume.startVolume({ hideSystemSlider : true }).then((res) => {
+  System.volume.startVolume({ hideSystemSlider: true }).then((res) => {
     alert(`getStartVolumeHideSystemSlider: ${ JSON.stringify(res) }`);
   }).catch((error) => {
     alert(`getStartVolumeHideSystemSlider: ${ JSON.stringify(error) }`);
@@ -206,6 +206,14 @@ function stopShakeListener() {
   });
 }
 
+function getNfcInfo() {
+  System.nfc.getNfcInfo().then((res) => {
+    alert(JSON.stringify(res));
+  }).catch((err) => {
+    alert(JSON.stringify(err));
+  });
+}
+
 export default class SystemDemo extends React.Component {
   componentDidMount() {
     Logger.trace(this);
@@ -219,6 +227,7 @@ export default class SystemDemo extends React.Component {
           {
             [
               ["获取电量", getBattery],
+              ["获取NFC状态", getNfcInfo],
               [],
               ["内存警告", addMemoryWarning],
               [],
