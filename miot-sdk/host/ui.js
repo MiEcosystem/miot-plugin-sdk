@@ -225,12 +225,6 @@ class IUi {
   openDeviceUpgradePage(type = 0) {
   }
   /**
-   * 打开设备检查固件历史版本信息页面
-   */
-  @report
-  openDeviceUpgradeHistoryPage() {
-  }
-  /**
    * 打开Mesh设备固件升级页。分享的设备点击此接口无反应（理论上分享的设备不应该出现调用此接口的菜单）
    * @since 10025
    * 后续蓝牙统一OTA接口openBleCommonDeviceUpgradePage接口传参数param.auth_type = 5时也可以实现此功能（两种方式的原生实现一致），但为了向前兼容厂商已调用的此接口，所以此接口不能下掉
