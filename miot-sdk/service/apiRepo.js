@@ -192,6 +192,7 @@ const API_REPO = {
   '/v2/groupv2/query_tags': {},
   // 摄像头云存相关
   '/common/app/v1/cloud/file/exist': {},
-  '/common/app/get/cloudlist': {}
+  '/common/app/get/cloudlist': {},
+  '/common/app/v1/capacity': {}
 };
 export default API_REPO;
