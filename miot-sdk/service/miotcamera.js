@@ -222,6 +222,38 @@ class IMiotCamera {
      return null
   }
   /**
+   * 打开相册
+   * @since 10051
+   * @param {data} jsonobj=>str，预留
+   * @example 
+   *         data = {};
+   *         Service.miotcamera.showPlaybackVideos(JSON.stringify(data));
+   */
+  @report
+  showAlbum(data, did = Device.deviceID) {
+     return null
+  }
+  /**
+   * 打开设备相册中最新的图片或视频
+   * @since 10051
+   * @param {data} jsonobj=>str，包含albumName等信息
+   * @example 
+   *         data = { albumName: albumName};
+   *         Service.miotcamera.showLastAlbumMediaFile(JSON.stringify(data));
+   */
+  @report
+  showLastAlbumMediaFile(data, did = Device.deviceID) {
+     return null
+  }
+  /**
+   * 获取设备对应的相册名字
+   * @since 10051
+   */
+  @report
+  getAlbumName(did = Device.deviceID) {
+     return Promise.resolve(null);
+  }
+  /**
    * 打开云储存页面
    * @since 10033
    * @param {BOOL} supportHevc 是否支持 H265
