@@ -364,7 +364,7 @@ export class IBluetooth {
      * Device.getBluetoothLE().unsubscribeMessages('event.2.1');
      * 一次取消所有订阅过的属性或事件：
      * Device.getBluetoothLE().unsubscribeMessages();
-     * 
+     *
      */
     @report
     unsubscribeMessages(...propertyOrEventNames) {
