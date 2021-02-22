@@ -124,6 +124,15 @@ function getStartVolume() {
   });
 }
 
+// 开始监听音量(隐藏系统音量条)
+function getStartVolumeHideSystemSlider() {
+  System.volume.startVolume({ hideSystemSlider : true }).then((res) => {
+    alert(`getStartVolumeHideSystemSlider: ${ JSON.stringify(res) }`);
+  }).catch((error) => {
+    alert(`getStartVolumeHideSystemSlider: ${ JSON.stringify(error) }`);
+  });
+}
+
 // 取消监听音量
 function getStopVolume() {
   System.volume.stopVolume().then((res) => {
@@ -215,7 +224,8 @@ export default class SystemDemo extends React.Component {
               [],
               ["获取音量", getVolumeInfo],
               [],
-              ["开始监听音量变化", getStartVolume],
+              ["开始监听音量变化(默认显示系统音量条)", getStartVolume],
+              ["开始监听音量变化(隐藏系统音量条)", getStartVolumeHideSystemSlider],
               ["停止监听音量变化", getStopVolume],
               [],
               ["开始监听加速计", getStartAccelerometer],

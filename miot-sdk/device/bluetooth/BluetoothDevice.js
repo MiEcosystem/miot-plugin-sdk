@@ -39,6 +39,7 @@ import { IBluetoothService } from './CoreBluetooth';
 import Bluetooth, { getBluetoothUUID128 } from './index';
 import RootDevice from '../BasicDevice';
 import { report } from "../../decorator/ReportDecorator";
+import PluginAppConfigHelper from '../../utils/plugin-app-config-helper';
 // import Host from '../../Host';
 /**
  *
@@ -210,10 +211,10 @@ export class IBluetooth {
      * 关闭链接 **注意小米协议的蓝牙设备，退出插件的时候，一定要调用此方法，关闭蓝牙连接，否则下次打开插件的时候，会提示蓝牙无法连接**
      * @method
      * @param {int} delay -延迟时长(毫秒)
-     *
+     * @param {boolean} forceDisconnect - 强制断开蓝牙连接，默认值为false；从10050开始新增，仅针对Android生效
      */
     @report
-    disconnect(delay = 0) {
+    disconnect(delay = 0, forceDisconnect = false) {
     }
     /**
      * 获取当前连接设备写操作每包最大长度
@@ -363,7 +364,7 @@ export class IBluetooth {
      * Device.getBluetoothLE().unsubscribeMessages('event.2.1');
      * 一次取消所有订阅过的属性或事件：
      * Device.getBluetoothLE().unsubscribeMessages();
-     * 
+     *
      */
     @report
     unsubscribeMessages(...propertyOrEventNames) {
