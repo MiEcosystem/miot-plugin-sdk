@@ -31,7 +31,9 @@ export default class PhotoDemo extends React.Component {
             ['获取指定did的相册中的第一个图片', this.getFirstImageFromDidAlbum],
             ['获取指定did的相册中的第一个视频', this.getFirstVideoFromDidAlbum],
             ['删除指定did相册中的第一个视频或照片', this.deleteFirstAssetFromDidAlbum],
-            ['分享当前的视频或照片', () => Host.ui.openSystemShareWindow(this.state.currentAsset.url)]
+            ['分享当前的视频或照片', () => Host.ui.openSystemShareWindow(this.state.currentAsset.url)],
+            ['获取相册列表', this.getAlbums],
+            ['获取相册中的内容', this.getAsserts]
           ].map((item, index) => {
             return (
               <TouchableOpacity key={index} style={styles.button} onPress={() => {
@@ -158,6 +160,7 @@ export default class PhotoDemo extends React.Component {
   getFirstImageFromDidAlbum() {
     Host.file.getAllSourceFromPhotosDidAlbum().then((res) => {
       let sources = res.data;
+      alert(JSON.stringify(sources));
       if (sources && sources.length > 0) {
         for (let index = 0; index < sources.length; index++) {
           const element = sources[index];
@@ -182,6 +185,7 @@ export default class PhotoDemo extends React.Component {
   getFirstVideoFromDidAlbum() {
     Host.file.getAllSourceFromPhotosDidAlbum().then((res) => {
       let sources = res.data;
+      alert(JSON.stringify(sources));
       if (sources && sources.length > 0) {
         for (let index = 0; index < sources.length; index++) {
           const element = sources[index];
@@ -206,6 +210,7 @@ export default class PhotoDemo extends React.Component {
       }).catch(() => {
         this.setState({});
       });
+
     }).catch((result) => {
       alert(result);
     });
@@ -235,6 +240,37 @@ export default class PhotoDemo extends React.Component {
       });
     }).catch((result) => {
       alert(result);
+    });
+  }
+
+  getAlbums() {
+    Host.file.getAlbums().then((res) => {
+      alert(JSON.stringify(res, null, '\t'));
+      if (res.data && res.data.length > 0) {
+        this.albumID = res.data[res.data.length - 1].albumID;
+        this.setState({
+          currentAsset: res.data[res.data.length - 1].thumb
+        });
+      }
+    }).catch((err) => {
+      alert(JSON.stringify(err, null, '\t'));
+    });
+  }
+
+  getAsserts() {
+    if (!this.albumID) {
+      alert('请先获取相册列表，确保有有效相册');
+      return;
+    }
+    Host.file.getAssets(this.albumID).then((res) => {
+      alert(JSON.stringify(res, null, '\t'));
+      if (res.data && res.data.length > 0) {
+        this.setState({
+          currentAsset: res.data[res.data.length - 1]
+        });
+      }
+    }).catch((err) => {
+      alert(JSON.stringify(err, null, '\t'));
     });
   }
 }
