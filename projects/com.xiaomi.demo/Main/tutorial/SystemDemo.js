@@ -3,7 +3,15 @@ import React from 'react';
 import {
   View, ScrollView
 } from 'react-native';
-import { System, MemoryWarningEvent, AccelerometerChangeEvent, CompassChangeEvent, GyroscopeChangeEvent, VolumeChangeEvent } from "miot";
+import {
+  System,
+  MemoryWarningEvent,
+  AccelerometerChangeEvent,
+  CompassChangeEvent,
+  GyroscopeChangeEvent,
+  VolumeChangeEvent,
+  Host
+} from "miot";
 import { Permissions } from "miot/system/permission";
 import { Separator } from 'mhui-rn';
 import { ListItem } from 'miot/ui/ListItem';
@@ -49,6 +57,11 @@ function getWifiBroadcastAddress() {
   }).catch((error) => {
     alert(`getWifiBroadcastAddress fail,error: ${ JSON.stringify(error) }`);
   });
+}
+
+// 是否是Pad设备
+function isPad() {
+  alert(Host.isPad);
 }
 
 // 震动
@@ -261,7 +274,9 @@ export default class SystemDemo extends React.Component {
               ["扫码", getScanCode],
               [],
               ["获取手机当前连接的路由器的ip地址", getGatewayIpAddress],
-              ["获取当前wifi的广播地址", getWifiBroadcastAddress]
+              ["获取当前wifi的广播地址", getWifiBroadcastAddress],
+              [],
+              ["设备是否为Pad", isPad]
             ].map((item, index) => {
               return (item.length >= 2 ? <ListItem
                 key={index}

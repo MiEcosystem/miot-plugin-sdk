@@ -105,6 +105,14 @@ export default {
      return  false
   },
   /**
+   * @const
+   * @type {boolean}
+   * @description 判断是否 Pad大屏设备
+   */
+  get isPad() {
+     return  false
+  },
+  /**
      * @const
      * @type {boolean}
      * @since  10044  在10047 添加对iPhone 12系列的支持
