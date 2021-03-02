@@ -258,9 +258,11 @@ class IMiotCamera {
    * @since 10033
    * @param {BOOL} supportHevc 是否支持 H265
    * @param {useV2API} 是否使用 V2 接口
+   * @param {did} 默認參數 did
+   * @param {cloudStoragePurchaseUrl} @since 10051 默認爲空，兼容以前的邏輯，不是vip就打開攝像頭的雲存購買連接；如果是低功耗設備，需要自己填入雲存購買連接。
    */
   @report
-  showCloudStorage(supportHevc, useV2API, did = Device.deviceID) {
+  showCloudStorage(supportHevc, useV2API, did = Device.deviceID, cloudStoragePurchaseUrl = "") {
      return null
   }
   /**
