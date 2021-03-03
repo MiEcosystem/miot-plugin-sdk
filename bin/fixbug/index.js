@@ -24,7 +24,7 @@ map.set("node_modules/react-native/Libraries/Alert/Alert.js", "Alert"); // RN61:
 map.set("node_modules/react-navigation/src/routers/createConfigGetter.js", "YeelightNavigation"); // 61升级之后 Yeelight 收藏页面的 headerTitle 显示了出来，在此将 headerTitle 设置为 “”，  Yeelight 修复后将其删掉。
 map.set("node_modules/react-native-svg/elements/Svg.js", "react-native-svg"); // 61升级之后 svg parseInt 导致宽高精度丢失，从而导致背景等不能完全填充，出现白色边框
 map.set("node_modules/react-native/Libraries/Color/normalizeColor.js", "normalizeColor");// 插件深色模式取反色的位置
-// map.set("node_modules/react-native/Libraries/Components/TextInput/TextInput.js", "TextInput");//插件深色模式输入框兼容
+map.set("node_modules/react-native/Libraries/Components/TextInput/TextInput.js", "TextInput");// 修复TextInput组件的style存在color:null导致的米家Android客户端空指针异常，对应bug（IOT工单:14592,14593,14594）
 
 /**
  * 修复react-navigation2.16.0中TouchableItem对其他View的影响（目前发现会造成其他路由下opacity属性不正常）
@@ -32,6 +32,9 @@ map.set("node_modules/react-native/Libraries/Color/normalizeColor.js", "normaliz
 map.set("node_modules/react-navigation-tabs/node_modules/react-native-tab-view/src/TouchableItem.js", "ReactNavigationTabViewTouchableItem");
 map.set("node_modules/react-navigation/src/views/TouchableItem.js", "ReactNavigationTouchableItem");
 map.set("node_modules/react-navigation-stack/dist/views/TouchableItem.js", "ReactNavigationTouchableItem");
+/** 修复了react-native-svg无法正常显示DynamicColor的BUG */
+map.set("node_modules/react-native-svg/lib/extract/extractBrush.js", "svgExtractBrush");
+map.set("node_modules/react-native-safe-area-view/index.js", "react-safeAreaView");// 修复navigationBar中使用的safeAreaView不支持iphone12系列的bug
 
 module.exports = {
 
