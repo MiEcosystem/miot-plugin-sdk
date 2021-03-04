@@ -124,6 +124,11 @@ export default class Setting extends React.Component {
             extraOptions={extraOptions}
             firstCustomOptions={firstCustomOption}
             secondCustomOptions={secondCustomOption}
+            commonSettingStyle={{
+              itemStyle: {
+                valueMaxWidth: '50%'
+              }
+            }}
           />
           <View style={{ height: 20 }} />
 

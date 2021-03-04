@@ -52,6 +52,15 @@ export default class FileStorage extends React.Component {
       console.log(progress);
       this.setState({ progress, visProgress });
     });
+
+    FileEvent.fileUploadProgress.addListener((data) => {
+      let uploadBytes = data.uploadBytes;
+      let totalBytes = data.totalBytes;
+      let progress = uploadBytes / totalBytes * 100;
+      let visProgress = progress < 100;
+      console.log('fileUploadProgress', data);
+      this.setState({ progress, visProgress });
+    });
   }
 
 
@@ -131,7 +140,8 @@ export default class FileStorage extends React.Component {
               ],
               [
                 ["向文件追加内容", this._appendFile],
-                ["向文件追加内容(Base64)", this._appendFileThroughBase64]
+                ["向文件追加内容(Base64)", this._appendFileThroughBase64],
+                ["保存文件到小米手机的小米便签(只支持MIUI和特定model)", this.saveFileToNotesAppOnMIUI],
               ],
               [
                 ["读文件", this._readFile],
@@ -182,7 +192,7 @@ export default class FileStorage extends React.Component {
           </View>
         </ScrollView>
         <ProgressDialog
-          message={'download progress'}
+          message={'progress'}
           max={100}
           progress={this.state.progress}
           onDismiss={() => {
@@ -239,6 +249,16 @@ export default class FileStorage extends React.Component {
       alert(JSON.stringify(isSuccess));
     }).catch((error) => {
       alert(JSON.stringify(error));
+    });
+  }
+
+  // 普通字符串 追加写内容
+  saveFileToNotesAppOnMIUI() {
+    Host.file.saveFileToNotesAppOnMIUI(this.state.fileName).then((isSuccess) => {
+      alert(`saveFileToNotesAppOnMIUI success,${JSON.stringify(isSuccess)}`);
+    }).catch((error) => {
+      console.log(`saveFileToNotesAppOnMIUI fail,${JSON.stringify(error)}`)
+      alert(`saveFileToNotesAppOnMIUI fail,${JSON.stringify(error)}`);
     });
   }
 
@@ -445,7 +465,7 @@ export default class FileStorage extends React.Component {
 
   }
 
-  __generateUploadInfo(complete) {
+  __generateUploadInfo(size, complete) {
     let did = Device.deviceID;
     let suffix = "mp3";
     Host.file.generateObjNameAndUrlForFDSUpload(did, suffix).then((res) => {
@@ -453,7 +473,10 @@ export default class FileStorage extends React.Component {
         let obj = res[suffix];
         let obj_name = obj.obj_name;
         let name = obj_name.substring(obj_name.length - 22);
-        let content = "this is sample content 这是个示例内容 😄💻";
+        let content = '';
+        while (content.length < size) {
+          content = content.concat(`${ content.length }this is sample content 这是个示例内容 😄💻\n`);
+        }
         this.file_obj_name = obj_name;
         console.log("pre upload", res);
         Host.file.writeFile(name, content).then(() => {
@@ -474,7 +497,7 @@ export default class FileStorage extends React.Component {
   }
 
   _uploadFDSFile() {
-    this.__generateUploadInfo(([isSuccess, obj]) => {
+    this.__generateUploadInfo(5 * 1024 * 1024, ([isSuccess, obj]) => {
       if (isSuccess) {
         let param = {
           uploadUrl: obj.url,
@@ -496,15 +519,16 @@ export default class FileStorage extends React.Component {
   }
 
   _uploadFile() {
-    this.__generateUploadInfo(([isSuccess, obj]) => {
+    this.__generateUploadInfo(10 * 1024 * 1024, ([isSuccess, obj]) => {
       if (isSuccess) {
+        this.uploadFileUrl = obj.url;
         let param = {
           uploadUrl: obj.url,
           method: obj.method,
           headers: { "Content-Type": "" },
           files: [{
             filename: obj.fileName,
-            range: { start: 2, length: 10 },
+            range: { start: 2, length: 5 * 1024 * 1024 },
             formdata: { name: 'custom_name', filename: 'custom_filename' }
           }]
         };

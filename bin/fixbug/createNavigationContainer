@@ -24,9 +24,9 @@ function validateProps(props) {
   if (keys.length !== 0) {
     throw new Error(
       'This navigator has both navigation and container props, so it is ' +
-        `unclear if it should own its own state. Remove props: "${keys.join(
+        `unclear if it should own its own state. Remove props: "${ keys.join(
           ', '
-        )}" ` +
+        ) }" ` +
         'if the navigator should get its state from the navigation prop. If the ' +
         'navigator should maintain its own state, do not pass a navigation prop.'
     );
@@ -99,7 +99,7 @@ export default function createNavigationContainer(Component) {
         nav:
           this._isStateful() && !props.persistenceKey
             ? Component.router.getStateForAction(this._initialAction)
-            : null,
+            : null
       };
 
       navigationContainerManager.containers.push(this);
@@ -127,9 +127,9 @@ export default function createNavigationContainer(Component) {
       if (keys.length !== 0) {
         throw new Error(
           'This navigator has both navigation and container props, so it is ' +
-            `unclear if it should own its own state. Remove props: "${keys.join(
+            `unclear if it should own its own state. Remove props: "${ keys.join(
               ', '
-            )}" ` +
+            ) }" ` +
             'if the navigator should get its state from the navigation prop. If the ' +
             'navigator should maintain its own state, do not pass a navigation prop.'
         );
@@ -168,7 +168,7 @@ export default function createNavigationContainer(Component) {
           console.log('Navigation Dispatch: ', {
             action,
             newState: nav,
-            lastState: prevNav,
+            lastState: prevNav
           });
         }
         /* eslint-enable no-console */
@@ -201,11 +201,13 @@ export default function createNavigationContainer(Component) {
           // Temporarily only show this on iOS due to this issue:
           // https://github.com/react-navigation/react-navigation/issues/4196#issuecomment-390827829
           if (Platform.OS === 'ios') {
-            console.warn(
-              `You should only render one navigator explicitly in your app, and other navigators should by rendered by including them in that navigator. Full details at: ${docsUrl(
-                'common-mistakes.html#explicitly-rendering-more-than-one-navigator'
-              )}`
-            );
+            if (__DEV__ && console.warn) {
+              console.warn(
+                `You should only render one navigator explicitly in your app, and other navigators should by rendered by including them in that navigator. Full details at: ${ docsUrl(
+                  'common-mistakes.html#explicitly-rendering-more-than-one-navigator'
+                ) }`
+              );
+            }
           }
         }
       }
@@ -261,12 +263,12 @@ export default function createNavigationContainer(Component) {
       }
 
       const dispatchActions = () =>
-        this._actionEventSubscribers.forEach(subscriber =>
+        this._actionEventSubscribers.forEach((subscriber) =>
           subscriber({
             type: 'action',
             action,
             state: this.state.nav,
-            lastState: null,
+            lastState: null
           })
         );
 
@@ -284,16 +286,18 @@ export default function createNavigationContainer(Component) {
     componentDidCatch(e, errorInfo) {
       if (_reactNavigationIsHydratingState) {
         _reactNavigationIsHydratingState = false;
-        console.warn(
-          'Uncaught exception while starting app from persisted navigation state! Trying to render again with a fresh navigation state..'
-        );
+        if (__DEV__ && console.warn) {
+          console.warn(
+            'Uncaught exception while starting app from persisted navigation state! Trying to render again with a fresh navigation state..'
+          );
+        }
         this.dispatch(NavigationActions.init());
       } else {
         throw e;
       }
     }
 
-    _persistNavigationState = async nav => {
+    _persistNavigationState = async(nav) => {
       const { persistenceKey } = this.props;
       if (!persistenceKey) {
         return;
@@ -313,7 +317,7 @@ export default function createNavigationContainer(Component) {
 
     // Per-tick temporary storage for state.nav
 
-    dispatch = action => {
+    dispatch = (action) => {
       if (this.props.navigation) {
         return this.props.navigation.dispatch(action);
       }
@@ -329,12 +333,12 @@ export default function createNavigationContainer(Component) {
       const navState = reducedState === null ? lastNavState : reducedState;
 
       const dispatchActionEvents = () => {
-        this._actionEventSubscribers.forEach(subscriber =>
+        this._actionEventSubscribers.forEach((subscriber) =>
           subscriber({
             type: 'action',
             action,
             state: navState,
-            lastState: lastNavState,
+            lastState: lastNavState
           })
         );
       };

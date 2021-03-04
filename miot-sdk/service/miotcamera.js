@@ -9,6 +9,7 @@
  */
 import { NativeModules, Platform } from 'react-native';
 import { report } from "../decorator/ReportDecorator";
+import CameraRenderView, { MISSCodec } from "../ui/CameraRenderView";
 /**
  * MISS 命令
  * @namespace MISSCommand
@@ -139,11 +140,7 @@ class IMiotCamera {
      */
   @report
   sendP2PCommandToDeviceWithStringParam(command, paramStr, did = Device.deviceID) {
-    if (Platform.OS === 'android') {
-       return Promise.resolve(null);
-    } else {
-      return Promise.reject("ios platform currently unsupport");
-    }
+     return Promise.resolve(null);
   }
   /**
      * 发送miss命令到设备 主要处理部分model发送命令的参数不是json格式，而是byte数组形式的命令。 byte数组请用base64编码得到string再调用这个接口。
@@ -225,13 +222,47 @@ class IMiotCamera {
      return null
   }
   /**
+   * 打开相册
+   * @since 10051
+   * @param {data} jsonobj=>str，预留
+   * @example 
+   *         data = {};
+   *         Service.miotcamera.showPlaybackVideos(JSON.stringify(data));
+   */
+  @report
+  showAlbum(data, did = Device.deviceID) {
+     return null
+  }
+  /**
+   * 打开设备相册中最新的图片或视频
+   * @since 10051
+   * @param {data} jsonobj=>str，包含albumName等信息
+   * @example 
+   *         data = { albumName: albumName};
+   *         Service.miotcamera.showLastAlbumMediaFile(JSON.stringify(data));
+   */
+  @report
+  showLastAlbumMediaFile(data, did = Device.deviceID) {
+     return null
+  }
+  /**
+   * 获取设备对应的相册名字
+   * @since 10051
+   */
+  @report
+  getAlbumName(did = Device.deviceID) {
+     return Promise.resolve(null);
+  }
+  /**
    * 打开云储存页面
    * @since 10033
    * @param {BOOL} supportHevc 是否支持 H265
    * @param {useV2API} 是否使用 V2 接口
+   * @param {did} 默認參數 did
+   * @param {cloudStoragePurchaseUrl} @since 10051 默認爲空，兼容以前的邏輯，不是vip就打開攝像頭的雲存購買連接；如果是低功耗設備，需要自己填入雲存購買連接。
    */
   @report
-  showCloudStorage(supportHevc, useV2API, did = Device.deviceID) {
+  showCloudStorage(supportHevc, useV2API, did = Device.deviceID, cloudStoragePurchaseUrl = "") {
      return null
   }
   /**
@@ -257,7 +288,7 @@ class IMiotCamera {
   * @returns true, 最新报警视频的时间和事件描述字符串；false，错误描述
   * @since 10047
   */
- @report
+  @report
   loadMonitoringDetail(model = Device.model, did = Device.deviceID) {
      return Promise.resolve(null);
   }
@@ -267,9 +298,9 @@ class IMiotCamera {
    * @param {BOOL} isVip
    */
   @report
- showFaceRecognize(isVip, did = Device.deviceID) {
-    return null
- }
+  showFaceRecognize(isVip, did = Device.deviceID) {
+     return null
+  }
   /**
    *
    * 注册收到数据速率 Bytes per second，每秒回调一次
@@ -612,6 +643,58 @@ class IMiotCamera {
     } else {
       return Promise.reject("ios platform not support yet");
     }
+  }
+  /**
+   * react-native-video 截屏，用来截video标签里video控件的内容
+   * @param {number} viewRef - scrollView的引用
+   * @param {string} imagePath - 存储图片的位置，必须以Host.file.baseStoragePath开始，再加上文件存储名
+   * @returns {Promise<string>}
+   * 成功时：{"code":xxxx}
+   * 失败时：{"code":xxx, "message":"xxx" }
+   * @example
+   *  let findNodeHandle = require('findNodeHandle');
+   *  let reactNativeVideo = findNodeHandle(this.refs.reactNativeVideo);
+   *  Service.miotcamera.reactNativeVideoScreenShot(reactNativeVideo, Host.file.storageBasePath + '/test2.png').then(result=>{
+   *      console.log(result);
+   *  });
+   * 
+   *  @since 10049
+   */
+  @report
+  reactNativeVideoScreenShot(viewRef, imagePath) {
+     return Promise.resolve(null);
+  }
+  /**
+   * @param paramsJson 包含如下参数：
+   * @param {string} videoPath h264 或者h265的源文件绝对路径  必须以Host.file.storageBasePath开始
+   * @param {CameraRenderView.MISSCodec} videoType 视频源文件的路径 MISSCodec里定义的h264 或者h265
+   * @param {string} aacAudioPath aac 的源文件路径  没有就填写 ""   有值时必须以Host.file.storageBasePath开始, 音频文件只支持aac格式
+   * @param {string} targetPath 最终的输出文件目录 同上，必须以Host.file.storageBasePath开始
+   * 以下参数只用于ios
+   * @param {int} fps
+   * @param {int} videoWidth
+   * @param {int} videoHeight
+   *
+   * Android json demo：
+      {"videoPath":vPath,
+      "videoType": vType,
+      "aacAudioPath": aacAPath,
+      "targetPath": tPath}
+   *
+   * IOS json demo：
+      {"videoPath":vPath,
+      "videoType": vType,
+      "aacAudioPath": aacAPath,
+      "targetPath": tPath,
+      "fps": fps,
+      "videoWidth": vWidth,
+      "videoHeight": vHeight}
+   * 
+   * @since 10050
+   */
+  @report
+  convertH26xVideoIntoMp4(paramsJson) {
+     return Promise.resolve(null);
   }
 }
 const MiotCameraInstance = new IMiotCamera();
