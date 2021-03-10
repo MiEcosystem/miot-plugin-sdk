@@ -16,7 +16,7 @@ import { rgbToHex } from '../../../../miot-sdk/native/utils';
 import DarkModeX from '../../../../miot-sdk/darkmode/index';
 
 function shouldUseAutoDarkmode() {
-  if (native.isIOS && native.MIOTService.currentDarkMode == "dark" && !DarkModeX.darkModeStore.setDarkMode) {
+  if (native.MIOTService.currentDarkMode == "dark" && !DarkModeX.darkModeStore.setDarkMode) {
     return true;
   } else {
     return false;
@@ -53,7 +53,7 @@ function changeColor(color, flag, isText) {
   let finalAlpha = getAntiAlpha(parseInt(first, 16), parseInt(alpha, 16));
   let final = (
     parseInt(
-      finalColor.toString(16) + alpha, 
+      finalColor.toString(16) + alpha,
       16,
     ) >>> 0
   );
@@ -149,7 +149,7 @@ function getAntiColor(originColor, alpha, isText) {
   if (!flag) {
     // 默认处理方法
     hsvColor.s += 8;
-    hsvColor.v -= 10; 
+    hsvColor.v -= 10;
   }
   // console.log('看下hsv',h,'-',s,'-',v,'  originColor:',originColor.toString(16));
   return hsvToHex(hsvColor.h, Math.min(Math.max(hsvColor.s, 0), 100), Math.min(Math.max(hsvColor.v, 0), 100));
