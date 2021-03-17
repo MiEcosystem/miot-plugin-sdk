@@ -619,6 +619,13 @@ export default class UIDemo extends React.Component {
         'func': () => {
           Host.ui.openNFCWriteDeviceInfoPage();
         }
+      },
+      {
+        'name': 'openCommonDeviceSettingPage',
+        'subtitle': '打开常用设备/常用摄像机设置页面',
+        'func': () => {
+          Host.ui.openCommonDeviceSettingPage(1);
+        }
       }
     ];
   }
