@@ -6,8 +6,10 @@ import { Host, ECCCrypto } from "miot";
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Image, Platform, TextInput } from 'react-native';
 import Logger from '../Logger';
+import Video from 'react-native-video';
 
 let ZhuiMiRobot = require('../../Resources/zhuimi_robot');
+let BoardJSON = require('../../Resources/board');
 
 export default class CryptoDemo extends React.Component {
 
@@ -18,7 +20,8 @@ export default class CryptoDemo extends React.Component {
       base64Text: '',
       SHA1Text: '',
       SHA2Text: '',
-      zhuimiRobotTracesToImageBase64: '',
+      image: '',
+      video: '',
       otherP: ''
     };
     this.cryptoObject = new ECCCrypto(ECCCrypto.CurveTypeSecp256r1);
@@ -27,6 +30,34 @@ export default class CryptoDemo extends React.Component {
   }
 
   render() {
+    let array = [['小黑板路径转图片', 'image', '.jpg'], ['小黑板路径转视频', 'video', '.mov']].map(item => {
+      return [item[0], () => {
+        Host.crypto.createMediaWithPoints(BoardJSON, item[1], new Date().getTime().toString() + item[2], {
+          backgroundColor: '#FFF',
+          lineColor: 'red',
+          lineWidth: 5.0,
+          scale: 375 / 27398,
+          size: { width: 27398, height: 20500 },
+          maxPressure: 2047,
+          pointsPerFrame: 2
+        }).then((res) => {
+          console.log('success', res);
+          if (item[1] == 'video') {
+            this.setState({
+              video: res.data
+            });
+          }
+          if (item[1] == 'image') {
+            this.setState({
+              image: res.data
+            });
+          }
+        }).catch((err) => {
+          alert(JSON.stringify(err));
+        });
+      }]
+    })
+
     return (
       <View style={styles.container}>
         <ScrollView style={{ flex: 1, padding: 10 }}>
@@ -84,24 +115,43 @@ export default class CryptoDemo extends React.Component {
             })
           }
           {
-            this.state.zhuimiRobotTracesToImageBase64 === '' ? <Text style={styles.buttonText}>点击下方按钮生成图片</Text> :
-              <Image style={{ width: '100%', aspectRatio: ZhuiMiRobot.width / ZhuiMiRobot.height }}
-                source={{ uri: this.state.zhuimiRobotTracesToImageBase64 }} />
+            [
+              ['追觅机器人路径转图片', () => {
+                Host.crypto.zhuimiRobotTracesToImageBase64(ZhuiMiRobot.width, ZhuiMiRobot.height, JSON.stringify(ZhuiMiRobot.traces)).then((res) => {
+                  console.log('success', res);
+                  this.setState({
+                    image: `data:image/png;base64,${res.data}`
+                  });
+                }).catch((err) => {
+                  alert(JSON.stringify(err));
+                });
+              }]
+            ].concat(array).map(item => {
+              return (
+                <TouchableOpacity style={styles.button} onPress={() => {
+                  Logger.trace(this, this.render, { action: '追觅机器人路径转图片' });
+                  item[1]()
+                }}>
+                  <Text style={styles.buttonText}>{item}</Text>
+                </TouchableOpacity>
+              )
+            })
           }
-          <TouchableOpacity style={styles.button} onPress={() => {
-            Logger.trace(this, this.render, { action: 'zhuimiRobotTracesToImageBase64' });
-            Host.crypto.zhuimiRobotTracesToImageBase64(ZhuiMiRobot.width, ZhuiMiRobot.height, JSON.stringify(ZhuiMiRobot.traces)).then((res) => {
-              console.log('success', res);
-              this.setState({
-                zhuimiRobotTracesToImageBase64: `data:image/png;base64,${ res.data }`
-              });
-            }).catch((err) => {
-              alert(JSON.stringify(err));
-            });
-          }}>
-            <Text style={styles.buttonText}>zhuimiRobotTracesToImageBase64</Text>
-          </TouchableOpacity>
-
+          {
+            this.state.image === '' ? <Text style={styles.buttonText}>点击下方按钮生成图片</Text> :
+              <Image style={{ width: '100%', aspectRatio: ZhuiMiRobot.width / ZhuiMiRobot.height }}
+                source={{ uri: this.state.image }} />
+          }
+          {
+            this.state.video === '' ? null : <Video style={{width: '100%', height: 200 }}
+              source={{ uri: this.state.video }}
+              paused={false}
+              resizeMode="contain"
+              onEnd={() => { }}
+              repeat={false}
+              onError={() => { console.log('Callback when video cannot be loaded'); }}
+            />
+          }
           <Text style={styles.buttonText}> {'eccPublicKey：'} </Text>
           <Text style={styles.buttonText} selectable={true}>{this.state.eccPublicKey0 || '第一步，点击下面按钮产生KP'}</Text>
           <TouchableOpacity style={styles.button} onPress={() => {

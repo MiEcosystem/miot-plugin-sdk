@@ -15,7 +15,7 @@
 'use strict';
 // ART的demo }
 import { Entrance, Package } from "miot";
-import { FirmwareUpgrade, FirmwareUpgradeAuto, FirmwareUpgradeRecord, MoreSetting } from "miot/ui/CommonSetting";
+import { FirmwareUpgrade, FirmwareUpgradeAuto, FirmwareUpgradeRecord, MoreSetting, CurtainGroupPage } from "miot/ui/CommonSetting";
 import BTInterconnection from 'miot/ui/BTInterconnection';
 import BraceletInterconnection from 'miot/ui/BraceletInterconnection';
 import Setting from "./tutorial/Setting";
@@ -201,6 +201,7 @@ function createRootStack(initPage) {
     Setting,
     SettingPage,
     MoreSetting,
+    CurtainGroupPage,
     FirmwareUpgrade,
     FirmwareUpgradeAuto,
     FirmwareUpgradeRecord,
