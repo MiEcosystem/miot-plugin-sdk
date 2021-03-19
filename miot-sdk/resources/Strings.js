@@ -53,6 +53,12 @@ let strings = {
   feedback: '',
   timezone: '',
   addToDesktop: '',
+  open: "",
+  close: "",
+  // 常用设备
+  favoriteDevices: "",
+  favoriteCamera: "",
+  favoriteAddDevices: "",
   // MHDatePicker
   cancel: '',
   ok: '',
@@ -131,7 +137,16 @@ let strings = {
   firmwareAutoUpdate: '',
   autoUpdateDescriptionNote: '',
   updateNow: '',
-  requireBelMesh: ''
+  requireBelMesh: '',
+  createCurtainGroup: '',
+  createCurtainGroupTip: '',
+  act: '',
+  create: '',
+  chooseCurtainGroupTitle: '',
+  currentDevice: '',
+  curtain: '',
+  noCurtainGroupTip: '',
+  switchPlugin: ''
 };
 strings = getStrings({
   zh: {
@@ -159,6 +174,12 @@ strings = getStrings({
     feedback: '反馈问题',
     timezone: '设备时区',
     addToDesktop: '添加桌面快捷方式',
+    open: "开",
+    close: "关",
+    // 常用设备
+    favoriteDevices: "常用设备",
+    favoriteCamera: "快捷摄像机",
+    favoriteAddDevices: "设为首页常用设备",
     // MHDatePicker
     cancel: '取消',
     ok: '确定',
@@ -241,7 +262,16 @@ strings = getStrings({
     firmwareAutoUpdate: '固件自动更新',
     autoUpdateDescriptionNote: '检测到新固件后，设备将在{0}尝试自动更新。设备必须处于空闲状态以完成更新。更新过程无声音提示和灯光打扰。',
     updateNow: '立即更新',
-    requireBelMesh: '该功能需要搭配蓝牙Mesh网关使用'
+    requireBelMesh: '该功能需要搭配蓝牙Mesh网关使用',
+    createCurtainGroup: '创建窗帘伴侣组',
+    createCurtainGroupTip: '将两个窗帘伴侣组成一个窗帘伴侣组使用，组合后可以作为双开帘呈现和控制。',
+    act: '动一下',
+    create: '创建',
+    chooseCurtainGroupTitle: '请选择窗帘伴侣',
+    currentDevice: '本设备',
+    curtain: '窗帘',
+    noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试',
+    switchPlugin: '标准插件'
   },
   zh_tw: {
     setting: '設定',
@@ -268,6 +298,12 @@ strings = getStrings({
     feedback: '反饋問題',
     timezone: '裝置時區',
     addToDesktop: '新増捷徑至桌面',
+    open: "開",
+    close: "關",
+    // 常用设备
+    favoriteDevices: "常用裝置",
+    favoriteCamera: "",
+    favoriteAddDevices: "設為首頁常用裝置",
     // MHDatePicker
     cancel: "取消",
     ok: "確認",
@@ -350,7 +386,16 @@ strings = getStrings({
     firmwareAutoUpdate: '韌體自動更新',
     autoUpdateDescriptionNote: '偵測到新韌體後，裝置將會在{0}嘗試自動更新。裝置必須處於閒置狀態以完成更新。更新過程無聲音提示和燈光打擾。',
     updateNow: '立即更新',
-    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.',
+    createCurtainGroup: '创建窗帘伴侣组',
+    createCurtainGroupTip: '将两个窗帘伴侣组成一个窗帘伴侣组使用，组合后可以作为双开帘呈现和控制。',
+    act: '动一下',
+    create: '创建',
+    chooseCurtainGroupTitle: '请选择窗帘伴侣',
+    currentDevice: '本设备',
+    curtain: '窗帘',
+    noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试',
+    switchPlugin: '標準外掛程式'
   },
   zh_hk: {
     setting: '設定',
@@ -377,6 +422,12 @@ strings = getStrings({
     feedback: '反饋問題',
     timezone: '裝置時區',
     addToDesktop: '新增捷徑到桌面',
+    open: "開",
+    close: "關",
+    // 常用设备
+    favoriteDevices: "常用裝置",
+    favoriteCamera: "",
+    favoriteAddDevices: "設為首頁常用裝置",
     // MHDatePicker
     cancel: "取消",
     ok: "確認",
@@ -459,7 +510,16 @@ strings = getStrings({
     firmwareAutoUpdate: '韌體自動更新',
     autoUpdateDescriptionNote: '偵測到新韌體後，裝置將在上午{0}嘗試自動更新。裝置必須處於空閒狀態以完成更新。更新過程將無聲音提示和燈光打擾。',
     updateNow: '立即更新',
-    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.',
+    createCurtainGroup: '创建窗帘伴侣组',
+    createCurtainGroupTip: '将两个窗帘伴侣组成一个窗帘伴侣组使用，组合后可以作为双开帘呈现和控制。',
+    act: '动一下',
+    create: '创建',
+    chooseCurtainGroupTitle: '请选择窗帘伴侣',
+    currentDevice: '本设备',
+    curtain: '窗帘',
+    noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试',
+    switchPlugin: '標準外掛程式'
   },
   en: {
     setting: 'Settings',
@@ -486,6 +546,12 @@ strings = getStrings({
     feedback: 'Feedback',
     timezone: 'Device time zone',
     addToDesktop: 'Add to Home screen',
+    open: "On",
+    close: "Off",
+    // 常用设备
+    favoriteDevices: "Favorites",
+    favoriteCamera: "",
+    favoriteAddDevices: "Add to favorites",
     // MHDatePicker
     cancel: 'Cancel',
     ok: 'Confirm',
@@ -568,7 +634,16 @@ strings = getStrings({
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
     updateNow: 'Upgrade Now',
-    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.',
+    createCurtainGroup: 'Create a curtain group',
+    createCurtainGroupTip: 'Two curtain mates can be combined as a curtain mate group, which can be controlled as a double-sided curtain.',
+    act: 'Move',
+    create: 'Create',
+    chooseCurtainGroupTitle: 'Please select a curtain mate',
+    currentDevice: 'this device',
+    curtain: 'curtain',
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Standard plugin'
   },
   ko: {
     setting: '설정',
@@ -595,6 +670,12 @@ strings = getStrings({
     feedback: '피드백',
     timezone: '디바이스 시간대',
     addToDesktop: '홈 화면에 추가',
+    open: "켜기",
+    close: "끄기",
+    // 常用设备
+    favoriteDevices: "자주 사용하는 기기",
+    favoriteCamera: "",
+    favoriteAddDevices: "초기 화면 자주 사용하는 기기로 설정",
     // MHDatePicker
     cancel: "취소",
     ok: "정보 확인",
@@ -677,7 +758,16 @@ strings = getStrings({
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
     updateNow: 'Upgrade Now',
-    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.',
+    createCurtainGroup: 'Create a curtain group',
+    createCurtainGroupTip: 'Two curtain mates can be combined as a curtain mate group, which can be controlled as a double-sided curtain.',
+    act: 'Move',
+    create: 'Create',
+    chooseCurtainGroupTitle: 'Please select a curtain mate',
+    currentDevice: 'this device',
+    curtain: 'curtain',
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: '표준 플러그인'
   },
   ru: {
     setting: 'Настройки',
@@ -704,6 +794,12 @@ strings = getStrings({
     feedback: 'Отзыв',
     timezone: 'Часовой пояс устройства',
     addToDesktop: 'Добавить на главный экран',
+    open: "Вкл",
+    close: "Выкл",
+    // 常用设备
+    favoriteDevices: "Избранное",
+    favoriteCamera: "",
+    favoriteAddDevices: "Добавить в избранное",
     // MHDatePicker
     cancel: "Отменить",
     ok: "Подтвердить",
@@ -786,7 +882,16 @@ strings = getStrings({
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
     updateNow: 'Upgrade Now',
-    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.',
+    createCurtainGroup: 'Create a curtain group',
+    createCurtainGroupTip: 'Two curtain mates can be combined as a curtain mate group, which can be controlled as a double-sided curtain.',
+    act: 'Move',
+    create: 'Create',
+    chooseCurtainGroupTitle: 'Please select a curtain mate',
+    currentDevice: 'this device',
+    curtain: 'curtain',
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Стандартный плагин'
   },
   es: {
     setting: 'Ajustes',
@@ -813,6 +918,12 @@ strings = getStrings({
     feedback: 'Comentario',
     timezone: 'Zona horaria del dispositivo',
     addToDesktop: 'Añadir a la pantalla de Inicio',
+    open: "Activado",
+    close: "Desactivado",
+    // 常用设备
+    favoriteDevices: "Favoritos",
+    favoriteCamera: "",
+    favoriteAddDevices: "Añadir a favoritos",
     // MHDatePicker
     cancel: "Cancelar",
     ok: "Confirmar",
@@ -895,7 +1006,16 @@ strings = getStrings({
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
     updateNow: 'Upgrade Now',
-    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.',
+    createCurtainGroup: 'Create a curtain group',
+    createCurtainGroupTip: 'Two curtain mates can be combined as a curtain mate group, which can be controlled as a double-sided curtain.',
+    act: 'Move',
+    create: 'Create',
+    chooseCurtainGroupTitle: 'Please select a curtain mate',
+    currentDevice: 'this device',
+    curtain: 'curtain',
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Plugin estándar'
   },
   fr: {
     setting: "Paramètres",
@@ -922,6 +1042,12 @@ strings = getStrings({
     feedback: "Commentaire",
     timezone: "Fuseau horaire de l’appareil",
     addToDesktop: "Ajouter à l'écran d'accueil",
+    open: "Allumé",
+    close: "Éteint",
+    // 常用设备
+    favoriteDevices: "Favoris",
+    favoriteCamera: "",
+    favoriteAddDevices: "Ajouter aux Favoris",
     // MHDatePicker
     cancel: "Annuler",
     ok: "Confirmer",
@@ -1004,7 +1130,16 @@ strings = getStrings({
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
     updateNow: 'Upgrade Now',
-    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.',
+    createCurtainGroup: 'Create a curtain group',
+    createCurtainGroupTip: 'Two curtain mates can be combined as a curtain mate group, which can be controlled as a double-sided curtain.',
+    act: 'Move',
+    create: 'Create',
+    chooseCurtainGroupTitle: 'Please select a curtain mate',
+    currentDevice: 'this device',
+    curtain: 'curtain',
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Plug-in standard'
   },
   it: {
     setting: 'Impostazioni',
@@ -1031,6 +1166,12 @@ strings = getStrings({
     feedback: 'Feedback',
     timezone: 'Fuso orario del dispositivo',
     addToDesktop: 'Aggiungi a schermata iniziale',
+    open: "Attivato",
+    close: "Disattivato",
+    // 常用设备
+    favoriteDevices: "Preferiti",
+    favoriteCamera: "",
+    favoriteAddDevices: "Aggiungi ai Preferiti",
     // MHDatePicker
     cancel: "Annulla",
     ok: "Conferma",
@@ -1113,7 +1254,16 @@ strings = getStrings({
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
     updateNow: 'Upgrade Now',
-    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.',
+    createCurtainGroup: 'Create a curtain group',
+    createCurtainGroupTip: 'Two curtain mates can be combined as a curtain mate group, which can be controlled as a double-sided curtain.',
+    act: 'Move',
+    create: 'Create',
+    chooseCurtainGroupTitle: 'Please select a curtain mate',
+    currentDevice: 'this device',
+    curtain: 'curtain',
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Plugin standard'
   },
   de: {
     setting: "Einstellungen",
@@ -1140,6 +1290,12 @@ strings = getStrings({
     feedback: 'Feedback',
     timezone: 'Gerätezeitzone',
     addToDesktop: 'Zum Startbildschirm hinzufügen',
+    open: "Ein",
+    close: "Aus",
+    // 常用设备
+    favoriteDevices: "Favoriten",
+    favoriteCamera: "",
+    favoriteAddDevices: "Zu Favoriten hinzufügen",
     // MHDatePicker
     cancel: "Abbrechen",
     ok: "Bestätigen",
@@ -1222,7 +1378,16 @@ strings = getStrings({
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
     updateNow: 'Upgrade Now',
-    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.',
+    createCurtainGroup: 'Create a curtain group',
+    createCurtainGroupTip: 'Two curtain mates can be combined as a curtain mate group, which can be controlled as a double-sided curtain.',
+    act: 'Move',
+    create: 'Create',
+    chooseCurtainGroupTitle: 'Please select a curtain mate',
+    currentDevice: 'this device',
+    curtain: 'curtain',
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Standard-Plug-in'
   },
   id: {
     setting: 'Pengaturan',
@@ -1249,6 +1414,12 @@ strings = getStrings({
     feedback: 'Umpan balik',
     timezone: 'Zona waktu perangkat',
     addToDesktop: 'Tambahkan ke layar Beranda',
+    open: "Aktif",
+    close: "Nonaktif",
+    // 常用设备
+    favoriteDevices: "Favorit",
+    favoriteCamera: "",
+    favoriteAddDevices: "Tambahkan ke favorit",
     // MHDatePicker
     cancel: "Batal",
     ok: "Konfirmasi",
@@ -1331,7 +1502,16 @@ strings = getStrings({
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
     updateNow: 'Upgrade Now',
-    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.',
+    createCurtainGroup: 'Create a curtain group',
+    createCurtainGroupTip: 'Two curtain mates can be combined as a curtain mate group, which can be controlled as a double-sided curtain.',
+    act: 'Move',
+    create: 'Create',
+    chooseCurtainGroupTitle: 'Please select a curtain mate',
+    currentDevice: 'this device',
+    curtain: 'curtain',
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Plugin standar'
   },
   pl: {
     setting: 'Ustawienia',
@@ -1358,6 +1538,12 @@ strings = getStrings({
     feedback: 'Informacje zwrotne',
     timezone: 'Strefa czasowa urządzenia',
     addToDesktop: 'Dodaj do ekranu głównego',
+    open: "Włączone",
+    close: "Wyłączone",
+    // 常用设备
+    favoriteDevices: "Ulubione",
+    favoriteCamera: "",
+    favoriteAddDevices: "Dodaj do ulubionych",
     // MHDatePicker
     cancel: "Anuluj",
     ok: "Potwierdź",
@@ -1440,7 +1626,16 @@ strings = getStrings({
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
     updateNow: 'Upgrade Now',
-    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.',
+    createCurtainGroup: 'Create a curtain group',
+    createCurtainGroupTip: 'Two curtain mates can be combined as a curtain mate group, which can be controlled as a double-sided curtain.',
+    act: 'Move',
+    create: 'Create',
+    chooseCurtainGroupTitle: 'Please select a curtain mate',
+    currentDevice: 'this device',
+    curtain: 'curtain',
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Standardowa wtyczka'
   },
   vi: {
     setting: 'Cài đặt',
@@ -1467,6 +1662,12 @@ strings = getStrings({
     feedback: 'Phản hồi',
     timezone: 'Múi giờ thiết bị',
     addToDesktop: 'Thêm vào Màn hình chính',
+    open: "Bật",
+    close: "Tắt",
+    // 常用设备
+    favoriteDevices: "Mục yêu thích",
+    favoriteCamera: "",
+    favoriteAddDevices: "Thêm vào mục yêu thích",
     // MHDatePicker
     cancel: "Huỷ bỏ",
     ok: "Xác nhận",
@@ -1549,7 +1750,16 @@ strings = getStrings({
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
     updateNow: 'Upgrade Now',
-    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.',
+    createCurtainGroup: 'Create a curtain group',
+    createCurtainGroupTip: 'Two curtain mates can be combined as a curtain mate group, which can be controlled as a double-sided curtain.',
+    act: 'Move',
+    create: 'Create',
+    chooseCurtainGroupTitle: 'Please select a curtain mate',
+    currentDevice: 'this device',
+    curtain: 'curtain',
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Plugin tiêu chuẩn'
   },
   ja: {
     setting: '設定',
@@ -1576,6 +1786,12 @@ strings = getStrings({
     feedback: 'フィードバック',
     timezone: 'デバイスタイムゾーン',
     addToDesktop: 'ホーム画面に追加する',
+    open: "オン",
+    close: "オフ",
+    // 常用设备
+    favoriteDevices: "よく使うデバイス",
+    favoriteCamera: "",
+    favoriteAddDevices: "ホームページによく使うデバイスを設定",
     // MHDatePicker
     cancel: "キャンセル",
     ok: "確定",
@@ -1658,7 +1874,16 @@ strings = getStrings({
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
     updateNow: 'Upgrade Now',
-    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.',
+    createCurtainGroup: 'Create a curtain group',
+    createCurtainGroupTip: 'Two curtain mates can be combined as a curtain mate group, which can be controlled as a double-sided curtain.',
+    act: 'Move',
+    create: 'Create',
+    chooseCurtainGroupTitle: 'Please select a curtain mate',
+    currentDevice: 'this device',
+    curtain: 'curtain',
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: '標準プラグイン'
   },
   th: {
     setting: 'การตั้งค่า',
@@ -1685,6 +1910,12 @@ strings = getStrings({
     feedback: 'คำติชม',
     timezone: 'โซนเวลาของอุปกรณ์',
     addToDesktop: 'เพิ่มไปยังหน้าโฮม',
+    open: "เปิด",
+    close: "ปิด",
+    // 常用设备
+    favoriteDevices: "รายการโปรด",
+    favoriteCamera: "",
+    favoriteAddDevices: "เพิ่มไปยังรายการโปรด",
     // MHDatePicker
     cancel: "ยกเลิก",
     ok: "ตกลง",
@@ -1767,7 +1998,16 @@ strings = getStrings({
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
     updateNow: 'Upgrade Now',
-    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.',
+    createCurtainGroup: 'Create a curtain group',
+    createCurtainGroupTip: 'Two curtain mates can be combined as a curtain mate group, which can be controlled as a double-sided curtain.',
+    act: 'Move',
+    create: 'Create',
+    chooseCurtainGroupTitle: 'Please select a curtain mate',
+    currentDevice: 'this device',
+    curtain: 'curtain',
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'ปลั๊กอินมาตรฐาน'
   },
   tr: {
     setting: 'Ayarlar',
@@ -1794,6 +2034,12 @@ strings = getStrings({
     feedback: 'Geri bildirimlerim',
     timezone: 'Cihazın saat dilimi',
     addToDesktop: 'Ana ekrana ekleyin',
+    open: "Açık",
+    close: "Kapalı",
+    // 常用设备
+    favoriteDevices: "Favoriler",
+    favoriteCamera: "",
+    favoriteAddDevices: "Favorilere ekle",
     // MHDatePicker
     cancel: "İptal ",
     ok: "Onayla",
@@ -1876,7 +2122,16 @@ strings = getStrings({
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
     updateNow: 'Upgrade Now',
-    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.',
+    createCurtainGroup: 'Create a curtain group',
+    createCurtainGroupTip: 'Two curtain mates can be combined as a curtain mate group, which can be controlled as a double-sided curtain.',
+    act: 'Move',
+    create: 'Create',
+    chooseCurtainGroupTitle: 'Please select a curtain mate',
+    currentDevice: 'this device',
+    curtain: 'curtain',
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Standart eklenti'
   },
   nl: {
     setting: 'Instellingen',
@@ -1903,6 +2158,12 @@ strings = getStrings({
     feedback: 'Mijn feedback',
     timezone: 'Tijdzone van het apparaat',
     addToDesktop: 'Toevoegen aan het startscherm',
+    open: "Aan",
+    close: "Uit",
+    // 常用设备
+    favoriteDevices: "Favorieten",
+    favoriteCamera: "",
+    favoriteAddDevices: "Aan favorieten toevoegen",
     // MHDatePicker
     cancel: "Annuleren",
     ok: "Bevestigen",
@@ -1985,7 +2246,16 @@ strings = getStrings({
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
     updateNow: 'Upgrade Now',
-    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.',
+    createCurtainGroup: 'Create a curtain group',
+    createCurtainGroupTip: 'Two curtain mates can be combined as a curtain mate group, which can be controlled as a double-sided curtain.',
+    act: 'Move',
+    create: 'Create',
+    chooseCurtainGroupTitle: 'Please select a curtain mate',
+    currentDevice: 'this device',
+    curtain: 'curtain',
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Standaard plug-in'
   },
   pt: {
     setting: 'Configurações',
@@ -2012,6 +2282,12 @@ strings = getStrings({
     feedback: 'Meu feedback',
     timezone: 'Fuso horário do dispositivo',
     addToDesktop: 'Adicionar à tela de início',
+    open: "Ligar",
+    close: "Desligar",
+    // 常用设备
+    favoriteDevices: "Favoritos",
+    favoriteCamera: "",
+    favoriteAddDevices: "Adicionar aos favoritos",
     // MHDatePicker
     cancel: "Cancelar",
     ok: "Confirmar",
@@ -2094,7 +2370,16 @@ strings = getStrings({
     firmwareAutoUpdate: 'Automatic firmware upgrade',
     autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will attempt to update automatically {0}. The device must be inactive to perform the update. There are no audio or light notifications during the update process.',
     updateNow: 'Upgrade Now',
-    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.'
+    requireBelMesh: 'This function requires a Bluetooth mesh gateway to be used.',
+    createCurtainGroup: 'Create a curtain group',
+    createCurtainGroupTip: 'Two curtain mates can be combined as a curtain mate group, which can be controlled as a double-sided curtain.',
+    act: 'Move',
+    create: 'Create',
+    chooseCurtainGroupTitle: 'Please select a curtain mate',
+    currentDevice: 'this device',
+    curtain: 'curtain',
+    noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
+    switchPlugin: 'Plugin padrão'
   }
 });
 export default strings;

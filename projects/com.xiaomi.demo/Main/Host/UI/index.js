@@ -150,6 +150,13 @@ export default class UIDemo extends React.Component {
         }
       },
       {
+        'name': '打开系统文件打开页面',
+        'subtitle': 'openSystemFileWindow',
+        'func': () => {
+          Host.ui.openSystemFileWindow('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433650723&di=44f673bd1ccbde2af32e1f7565de4484&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn%2Fw640h759%2F20180111%2F9ee0-fyqnick6733536.jpg');
+        }
+      },
+      {
         'name': '获取设备列表中指定model的设备信息',
         'subtitle': 'getDevicesWithModel',
         'func': () => {
@@ -223,10 +230,17 @@ export default class UIDemo extends React.Component {
         }
       },
       {
-        'name': '打开设备检查固件升级页',
-        'subtitle': 'openDeviceUpgradePage',
+        'name': '打开设备检查固件升级页(新版页面)',
+        'subtitle': 'openDeviceUpgradePage(0)',
         'func': () => {
-          Host.ui.openDeviceUpgradePage();
+          Host.ui.openDeviceUpgradePage(0);
+        }
+      },
+      {
+        'name': '打开设备检查固件升级页(旧版页面)',
+        'subtitle': 'openDeviceUpgradePage(1)',
+        'func': () => {
+          Host.ui.openDeviceUpgradePage(1);
         }
       },
       {
@@ -556,49 +570,63 @@ export default class UIDemo extends React.Component {
         'func': () => {
           Host.ui.openTerminalDeviceSettingPage(3);
         }
+      },
+      {
+        'name': 'openBleGroupUpgradePage',
+        'subtitle': '跳转到蓝牙组设备批量升级页面-type 为0-普通小米蓝牙协议设备',
+        'func': () => {
+          Host.ui.openBleGroupUpgradePage(0);
+        }
+      },
+      {
+        'name': 'openBleGroupUpgradePage',
+        'subtitle': '跳转到蓝牙组设备批量升级页面-type 为1-安全芯片小米蓝牙设备',
+        'func': () => {
+          Host.ui.openBleGroupUpgradePage(1);
+        }
+      },
+      {
+        'name': 'openBleGroupUpgradePage',
+        'subtitle': '跳转到蓝牙组设备批量升级页面-type 为2-分享的安全芯片小米蓝牙设备',
+        'func': () => {
+          Host.ui.openBleGroupUpgradePage(2);
+        }
+      },
+      {
+        'name': 'openBleGroupUpgradePage',
+        'subtitle': '跳转到蓝牙组设备批量升级页面-type 为3-普通的BLE蓝牙设备',
+        'func': () => {
+          Host.ui.openBleGroupUpgradePage(3);
+        }
+      },
+      {
+        'name': 'openBleGroupUpgradePage',
+        'subtitle': '跳转到蓝牙组设备批量升级页面-type 为4-标准蓝牙认证协议',
+        'func': () => {
+          Host.ui.openBleGroupUpgradePage(4);
+        }
+      },
+      {
+        'name': 'openBleGroupUpgradePage',
+        'subtitle': '跳转到蓝牙组设备批量升级页面-type 为5-mesh',
+        'func': () => {
+          Host.ui.openBleGroupUpgradePage(5);
+        }
+      },
+      {
+        'name': 'openNFCWriteDeviceInfoPage',
+        'subtitle': '打开NFC写设备信息页面',
+        'func': () => {
+          Host.ui.openNFCWriteDeviceInfoPage();
+        }
+      },
+      {
+        'name': 'openCommonDeviceSettingPage',
+        'subtitle': '打开常用设备/常用摄像机设置页面',
+        'func': () => {
+          Host.ui.openCommonDeviceSettingPage(1);
+        }
       }
-      // {
-      //   'name': 'openBleGroupUpgradePage',
-      //   'subtitle': '跳转到蓝牙组设备批量升级页面-type 为0-普通小米蓝牙协议设备',
-      //   'func': () => {
-      //     Host.ui.openBleGroupUpgradePage(0);
-      //   }
-      // },
-      // {
-      //   'name': 'openBleGroupUpgradePage',
-      //   'subtitle': '跳转到蓝牙组设备批量升级页面-type 为1-安全芯片小米蓝牙设备',
-      //   'func': () => {
-      //     Host.ui.openBleGroupUpgradePage(1);
-      //   }
-      // },
-      // {
-      //   'name': 'openBleGroupUpgradePage',
-      //   'subtitle': '跳转到蓝牙组设备批量升级页面-type 为2-分享的安全芯片小米蓝牙设备',
-      //   'func': () => {
-      //     Host.ui.openBleGroupUpgradePage(2);
-      //   }
-      // },
-      // {
-      //   'name': 'openBleGroupUpgradePage',
-      //   'subtitle': '跳转到蓝牙组设备批量升级页面-type 为3-普通的BLE蓝牙设备',
-      //   'func': () => {
-      //     Host.ui.openBleGroupUpgradePage(3);
-      //   }
-      // },
-      // {
-      //   'name': 'openBleGroupUpgradePage',
-      //   'subtitle': '跳转到蓝牙组设备批量升级页面-type 为4-标准蓝牙认证协议',
-      //   'func': () => {
-      //     Host.ui.openBleGroupUpgradePage(4);
-      //   }
-      // },
-      // {
-      //   'name': 'openBleGroupUpgradePage',
-      //   'subtitle': '跳转到蓝牙组设备批量升级页面-type 为5-mesh',
-      //   'func': () => {
-      //     Host.ui.openBleGroupUpgradePage(5);
-      //   }
-      // }
     ];
   }
 

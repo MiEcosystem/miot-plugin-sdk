@@ -39,6 +39,7 @@ import { IBluetoothService } from './CoreBluetooth';
 import Bluetooth, { getBluetoothUUID128 } from './index';
 import RootDevice from '../BasicDevice';
 import { report } from "../../decorator/ReportDecorator";
+import PluginAppConfigHelper from '../../utils/plugin-app-config-helper';
 // import Host from '../../Host';
 /**
  *
@@ -162,7 +163,16 @@ export class IBluetooth {
      * |-43|蓝牙Mesh绑定过程中，设备校验服务端公钥失败|
      * |-44|蓝牙Mesh绑定过程中，获取Mesh配置信息失败|
      * |-45|蓝牙Mesh绑定过程中，给服务端发送Mesh配置结果时失败|
-     *
+     * |-46|蓝牙安全协议绑定过程中，获取bindkey失败|
+     * |-47|标准认证中，获取设备信息失败|
+     * |-48|标准认证：绑定失败，需要App Confirm|
+     * |-49|标准认证：OOB验证失败|
+     * |-50|标准认证：注册时需要二维码OOB|
+     * |-51|标准认证：注册认证失败|
+     * |-52|标准认证：登录认证失败|
+     * |-53|标准认证：登录认证失败，重复登录|
+     * |-54|标准认证：登录的时候token为空|
+     * |-55|普通蓝牙设备：绑定时将notify超时从request分离出来|
      * 蓝牙设备类型（parameter type)
      *
      * | type | description |
@@ -210,10 +220,10 @@ export class IBluetooth {
      * 关闭链接 **注意小米协议的蓝牙设备，退出插件的时候，一定要调用此方法，关闭蓝牙连接，否则下次打开插件的时候，会提示蓝牙无法连接**
      * @method
      * @param {int} delay -延迟时长(毫秒)
-     *
+     * @param {boolean} forceDisconnect - 强制断开蓝牙连接，默认值为false；从10050开始新增，仅针对Android生效
      */
     @report
-    disconnect(delay = 0) {
+    disconnect(delay = 0, forceDisconnect = false) {
     }
     /**
      * 获取当前连接设备写操作每包最大长度
@@ -363,7 +373,7 @@ export class IBluetooth {
      * Device.getBluetoothLE().unsubscribeMessages('event.2.1');
      * 一次取消所有订阅过的属性或事件：
      * Device.getBluetoothLE().unsubscribeMessages();
-     * 
+     *
      */
     @report
     unsubscribeMessages(...propertyOrEventNames) {

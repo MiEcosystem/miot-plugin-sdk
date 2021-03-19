@@ -817,6 +817,23 @@ export class BasicDevice {
   getRoomInfoForCurrentHome(did = null) {
      return Promise.resolve({});
   }
+  /**
+   * 获取与当前设备相同企业组的所有设备(包括当前设备)
+   * @since 10052
+   * @returns {Promise<Object>} 成功时{code:0,data:[{...device},{...device},...]}
+   * 失败时：{code:-1,message:"cannot get current device info"}
+   * {code:-2,message:"get company identifier error"}
+   * @example
+   * Device.getAllDevicesOfBelongedCompanies().then(res=>{
+   *  alert(JSON.stringify(res));
+   * }).catch(err =>{
+   *  alert(JSON.stringify(err));
+   * });
+   */
+  @report
+  getAllDevicesOfBelongedCompanies() {
+     return Promise.resolve({});
+  }
 }
 export class PollPropMap {
   static PROP_TYPE_UNKNOWN = 0;

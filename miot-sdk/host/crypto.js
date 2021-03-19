@@ -17,6 +17,7 @@
  * Host.crypto.encodeMD5(str).then(res => {//md5 value is res})
  * ...
  */
+import native, { isIOS } from "../native";
 // import tr from "../resources/strings/tr";
 import { report } from "../decorator/ReportDecorator";
 /**
@@ -221,6 +222,32 @@ class ICrypto {
    */
   @report
   robotCleanerPointsScaleToImageBase64(width, height, points, colorsMap, scale) {
+     return Promise.resolve('');
+  }
+  /**
+   * @since 10053
+   * 小黑板的路径数据转图片
+   * @typedef {Object} PointObject
+   * @param {<PointObject[]>} points : 路径所包含的点的数组{x:1,y:2,pressure:, state:{Int}}
+   * @param {string} filename : 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
+   * @param {string} type : 类型, image 或 video
+   * @param {Object} params : 配置参数
+   * @param {string} params.backgroundColor : 背景色 如 '#FFF'
+   * @param {string} params.lineColor : 线条颜色 如 'blue'
+   * @param {float} params.lineWidth : 线条宽度
+   * @param {float} params.scale : 缩放参数
+   * @param {Object} params.size : 画布大小 如 {width: 200, height:100}
+   * @param {Object} params.maxPressure : 最大压感
+   * @param {Object} params.pointsPerFrame : 帧数
+   * @returns {Promise<Object>}
+   *   成功时: {code:0, data: filepath} 绝对路径，可直接用于展示
+   *   失败时: {
+   *          code:100xx,     // 错误码，非0数字
+   *          message:""      // 错误信息
+   *        }
+   */
+  @report
+  createMediaWithPoints(points, type, filename, params) {
      return Promise.resolve('');
   }
 }
