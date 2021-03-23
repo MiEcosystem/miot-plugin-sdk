@@ -12,6 +12,8 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, View, DeviceEventEmitter, TouchableOpacity, Image} from 'react-native';
 import {CvCamera, CvInvoke} from 'react-native-opencv3';
 
+import { Package } from 'miot';
+
 export default class CvFaceLandmarksDemo extends Component {
   constructor(props) {
     super(props)
