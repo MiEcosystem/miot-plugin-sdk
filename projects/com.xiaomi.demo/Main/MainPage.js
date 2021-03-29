@@ -87,7 +87,6 @@ export default class MainPage extends React.Component {
   componentWillUnmount() {
     this._deviceOnlineListener && this._deviceOnlineListener.remove();
     this._packageReceivedInformation && this._packageReceivedInformation.remove();
-    this._packageReceivedOutAppInformation && this._packageReceivedOutAppInformation.remove();
   }
 
   UNSAFE_componentWillMount() {
@@ -98,9 +97,6 @@ export default class MainPage extends React.Component {
     this._packageReceivedInformation = PackageEvent.packageReceivedInformation.addListener((message) => {
       console.log(`收到通知数据：${ JSON.stringify(message) }`);
     });
-    this._packageReceivedOutAppInformation = PackageEvent.packageReceivedOutAppInformation.addListener((message) => {
-      console.log('收到外部APP传过来的参数', JSON.stringify(message, null, '\t'));
-    })
     console.log(`传递进来的 PageParams: ${ JSON.stringify(Package.pageParams) }`);
     console.log(`传递进来的 entryInfo: ${ JSON.stringify(Package.entryInfo) }`);
   }
