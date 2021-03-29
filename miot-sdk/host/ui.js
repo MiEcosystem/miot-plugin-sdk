@@ -115,8 +115,13 @@ class IUi {
   /**
    * 获取设备列表中指定model的设备信息
    * @param model 指定的model
+<<<<<<< HEAD
    * @param {boolean} includeGroupedDevice - since 10046 是否包含被组成了一个组的设备（目前仅窗帘设备可用，灯设备不可用），默认不包含
    * @returns {Promise<devices[]>} 对象中有字段 isGrouped 表示是被分组的设备，includeGroupedDevice = true时才有效
+=======
+   * @param {boolean} includeGroupedDevice - since 10046 是否包含被组成了一个组的设备（如组成灯组，窗帘组的设备），默认不包含
+   * @returns {Promise<devices[]>} 对象中有字段 isGrouped 表示是被分组的设备，includeGroupedDevice=true时有效
+>>>>>>> 68718d62c7f31c5d1a4b46eae25a482cb4db4efc
    *
    */
   @report

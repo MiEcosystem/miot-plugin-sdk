@@ -181,7 +181,11 @@ const API_REPO = {
   '/rpc/send': {},
   '/common/app/get/mergePhotoMeta': {},
   '/miot/camera/app/v1/modify/figure': {},
+<<<<<<< HEAD
   '/miot/camera/app/v1/delete/figure': {},
+=======
+  '/miot/camera/app/v1/delete/figure': {}, 
+>>>>>>> 68718d62c7f31c5d1a4b46eae25a482cb4db4efc
   '/miot/camera/app/v1/delete/face': {},
   '/miot/camera/app/v1/mp4': {},
   // 窗帘组API

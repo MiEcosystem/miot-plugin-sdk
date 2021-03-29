@@ -731,16 +731,24 @@ class IFile {
    * @param {json} params {
    *  srcPath:'xxxxx',//源文件文件路径
    *  dstPath:'xxxx', //目标文件路径：dstDir不为空时，可以传相对路径；dstDir不为空时，这里传文件名
+<<<<<<< HEAD
    *  dstDir:'xxx',//目标文件保存路径父目录，沙盒内复制文件时传空即可；如果是往沙盒外复制，dstDiir传目标文件的父目录(不能为空)
+=======
+   *  dstDir:'xxx',//目标文件保存路径父目录，默认传空即可。
+>>>>>>> 68718d62c7f31c5d1a4b46eae25a482cb4db4efc
    * }
    * @returns 成功时：{code:0,message:success}
    *          失败时：{code:-1,message:'invalid srcPath or dstPath'}
    *                {code:-2,message:'file ${dstPath} already exist'}
    *                {code:-3,message:'file not found,xxx'}
    *                {code:-4,message:'copy file error,xxx'}
+<<<<<<< HEAD
    *                {code:-5,message:'copy file error,detail: create file error'}
    * @example
    * 沙盒内复制
+=======
+   * @example
+>>>>>>> 68718d62c7f31c5d1a4b46eae25a482cb4db4efc
    * let copy_params={
       srcPath:'test.pdf',
       dstPath:'test_copy.pdf',
@@ -753,6 +761,7 @@ class IFile {
     }).catch((res) => {
       alert(JSON.stringify(res));
     });
+<<<<<<< HEAD
     * 沙盒外复制
     * let copy_params={
       srcPath:'test.pdf',
@@ -767,11 +776,14 @@ class IFile {
     }).catch((res) => {
       alert(JSON.stringify(res));
     });
+=======
+>>>>>>> 68718d62c7f31c5d1a4b46eae25a482cb4db4efc
    */
   @report
   copyFile(params) {
      return Promise.resolve(null);
   }
+<<<<<<< HEAD
   /**
    * 获取当前磁盘的可用空间和总存储空间
    * since 10048
@@ -789,6 +801,8 @@ class IFile {
   getStorageInfo() {
      return Promise.resolve(null);
   }
+=======
+>>>>>>> 68718d62c7f31c5d1a4b46eae25a482cb4db4efc
 }
 const FileInstance = new IFile();
 export default FileInstance;

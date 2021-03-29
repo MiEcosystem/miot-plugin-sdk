@@ -1108,6 +1108,7 @@ class ISmartHome {
     /**
      *创建组设备，(窗帘组设备)
      * @since 10046
+<<<<<<< HEAD
      * @param name 设备的名称,可选
      * @param member_dids 子设备的们id
      * @returns {Promise<R>}
@@ -1123,6 +1124,34 @@ class ISmartHome {
     @report
     createGroupDevice(name, member_dids) {
        return Promise.resolve({});
+=======
+     * @param name 设备的名称
+     * @param member_dids 子设备的们id
+     * @returns {Promise<R>}
+     * {
+    "code":0,
+    "message":"",
+    "result":{
+        "group_did":"group.123456",
+        "need_alter_device":false //与mesh组相关，窗帘组可以忽略
+      }
+    }
+   */
+    @report
+    createGroupDevice(name, member_dids) {
+      return new Promise((resolve, reject) => {
+        native.MIOTRPC.standardCall("/v2/groupv2/create", {
+          name: name,
+          member_dids: member_dids
+        }, (ok, res) => {
+          if (ok) {
+            resolve(res);
+          } else {
+            reject(res);
+          }
+        });
+      });
+>>>>>>> 68718d62c7f31c5d1a4b46eae25a482cb4db4efc
     }
     /**
      * 获取组成组设备的子设备们的did(窗帘组)
@@ -1130,6 +1159,7 @@ class ISmartHome {
      * @param group_did
      * @returns {Promise<R>}
      * {
+<<<<<<< HEAD
      *  "code":0,
      *  "message":"",
      *  "result":[
@@ -1147,6 +1177,35 @@ class ISmartHome {
     @report
     getVirtualGroupSubDevices(group_did) {
        return Promise.resolve({});
+=======
+    "code":0,
+    "message":"",
+    "result":[
+        {
+            "did":"group.111123123123",
+            "status":"1",
+            "membership":{//key为子设备did
+                "1041565620":"1",
+                "1041565621":"1"
+            }
+        }
+      ]
+    }
+     */
+    @report
+    getVirtualGroupSubDevices(group_did) {
+      return new Promise((resolve, reject) => {
+        native.MIOTRPC.standardCall("/v2/groupv2/query_status", {
+          group_did: [group_did]
+        }, (ok, res) => {
+          if (ok) {
+            resolve(res);
+          } else {
+            reject(res);
+          }
+        });
+      });
+>>>>>>> 68718d62c7f31c5d1a4b46eae25a482cb4db4efc
     }
 }
 const SmartHomeInstance = new ISmartHome();

@@ -1,4 +1,9 @@
 {
 "name":"miot",
+<<<<<<< HEAD
 "version":"1.0.48",
 "api_level":10048}
+=======
+"version":"1.0.47",
+"api_level":10047}
+>>>>>>> 68718d62c7f31c5d1a4b46eae25a482cb4db4efc

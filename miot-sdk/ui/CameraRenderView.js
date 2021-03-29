@@ -26,11 +26,19 @@
  * @property {MISSSampleRate} audioRecordSampleRate 对讲音频的 sample rate 默认：FLAG_AUDIO_SAMPLE_8K
  * @property {MISSAudioChannel} audioRecordChannel 对讲音频的 channel 默认：FLAG_AUDIO_CHANNEL_MONO
  * @property {MISSDataBits} audioRecordDataBits 对讲音频的 data bits 默认：FLAG_AUDIO_DATABITS_16
+<<<<<<< HEAD
  * @property {MISSCodec} audioRecordCodec 对讲音频的codecId，默认与audioCodec一样。
  * @property {number} videoRate ios端录制视频时的帧率。
  * @property {number} maximumZoomScale 最大缩放比例 默认2.0 ;only ios
  * @property {number} minimumZoomScale 最小缩放比例 默认1.0 ;only ios
  * @property {number} scale 缩放比例 默认1.0 ;only ios
+=======
+ * @property {MISSCodec} audioRecordCodec 对讲音频的
+ * @property {number} videoRate 视频fps
+ * @property {number} maximumZoomScale 最大缩放比例 默认2.0
+ * @property {number} minimumZoomScale 最小缩放比例 默认1.0
+ * @property {number} scale 缩放比例 默认1.0
+>>>>>>> 68718d62c7f31c5d1a4b46eae25a482cb4db4efc
  * @property {bool} useLenCorrent 是否开启畸变矫正 default true
  * @property {number} correctRadius 畸变矫正-radius default 1.1
  * @property {number} osdx 畸变矫正-osdx default 0.0
@@ -39,8 +47,12 @@
  * @property {bool} forceSoftDecode 强制软解 since 10033
  * @property {object} recordingVideoParam  only for android;限制录制视频时的分辨率，开始录制视频前，要调整分辨率到指定分辨率。 since 10041 {width:111, height:111，fps： 20}  fps指定录制视频时，对应的视频帧帧率，默认是20，不是20的需要手动指定；如果调整到固定帧率，依旧不work，则指定成-1，app端会按照收到视频帧的时间插入视频文件里。
  * @property {boolean} isFull  画面是否填充满屏幕
+<<<<<<< HEAD
  * @property {boolean} whiteBackground  是否使用白色背景 @since 10047
  * @property {number} playRate android端播放直播/回看时的帧率，默认是20   since 10048 
+=======
+ * @property {boolean} whiteBackground  是否使用白色背景
+>>>>>>> 68718d62c7f31c5d1a4b46eae25a482cb4db4efc
  */
 /**
  * 音视频codec
@@ -165,8 +177,11 @@ export default class CameraRenderView extends React.Component {
     recordingVideoParam: PropTypes.object,
     isFull: PropTypes.bool,
     whiteBackground: PropTypes.bool,
+<<<<<<< HEAD
     playRate: PropTypes.number,
     
+=======
+>>>>>>> 68718d62c7f31c5d1a4b46eae25a482cb4db4efc
     /**
        * 用户单击回调
        * @member {func}
