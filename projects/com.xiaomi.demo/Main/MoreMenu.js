@@ -77,9 +77,14 @@ export default class MoreMenu extends React.Component {
         }
       },
       {
-        'name': '检查固件升级',
+        'name': '检查固件升级（新版固件升级页面）',
         'func': () => {
-          Host.ui.openDeviceUpgradePage();
+          Host.ui.openDeviceUpgradePage(0);
+        }
+      }, {
+        'name': '检查固件升级（旧版固件升级页面）',
+        'func': () => {
+          Host.ui.openDeviceUpgradePage(1);
         }
       },
       {
