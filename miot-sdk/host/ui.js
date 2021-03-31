@@ -700,6 +700,16 @@ class IUi {
   @report
   openNFCWriteDeviceInfoPage(extra = '') {
   }
+  /**
+   * @since 10052
+   * 打开常用设备/常用摄像机设置页面
+   * @param {string} type type=0代表常用设备，type=1代表常用摄像机
+   * @example
+   * Host.ui.openCommonDeviceSettingPage(1);
+  */
+  @report
+  openCommonDeviceSettingPage(type) {
+  }
 }
 const UiInstance = new IUi();
 export default UiInstance;

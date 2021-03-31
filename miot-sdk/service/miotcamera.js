@@ -696,6 +696,25 @@ class IMiotCamera {
   convertH26xVideoIntoMp4(paramsJson) {
      return Promise.resolve(null);
   }
+  /**
+   * 启动设备设备联动页面
+   * @param {string} srid from getRecommend
+   * @param {string} did
+   * @param {string} model
+   * @since 10052
+   */
+  @report
+  launchRecommend(srid, did = Device.deviceID, model = Device.model) {
+    return new Promise((resolve, reject) => {
+      NativeModules.MHCameraSDK.launchRecommend(srid, did, model, (result, data) => {
+        if (result) {
+          resolve(data);
+        } else {
+          reject(data);
+        }
+      });
+    });
+  }
 }
 const MiotCameraInstance = new IMiotCamera();
 export default MiotCameraInstance;

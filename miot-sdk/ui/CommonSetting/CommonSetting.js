@@ -1,4 +1,4 @@
-import { Package, Device, Host, DeviceEvent, Service } from 'miot';
+import { Package, PackageEvent, Device, Host, DeviceEvent, Service } from 'miot';
 // import {Device,DeviceEvent} from 'miot'
 // import {Host} from 'miot';
 import PropTypes from 'prop-types';
@@ -125,6 +125,10 @@ const firstOptionsInner = {
 const firstAllOptionsInner = {
   ...firstOptionsInner,
   /**
+   * 常用摄像机
+   */
+  FREQ_CAMERA: 'freqCamera',
+  /**
    * 设备名称，`必选`
    */
   NAME: 'name',
@@ -192,7 +196,11 @@ const secondAllOptionsInner = {
   /**
    * 法律信息——隐私政策，`必选`
    */
-  PRIVACY_POLICY: 'privacyPolicy'
+  PRIVACY_POLICY: 'privacyPolicy',
+  /**
+   * 常用设备/设备首页常用设备
+   */
+  FREQ_DEVICE: 'freqDevice'
 };
 export const AllOptions = {
   ...firstAllOptionsInner,
@@ -228,7 +236,9 @@ const firstSharedOptions = {
   [AllOptions.SECURITY]: 0,
   [AllOptions.LEGAL_INFO]: 0, // 20190516，分享设备不显示「法律信息」
   [AllOptions.PRODUCT_BAIKE]: 1,
-  [AllOptions.STAND_PLUGIN]: 1
+  [AllOptions.STAND_PLUGIN]: 1,
+  [AllOptions.FREQ_CAMERA]: 1,
+  [AllOptions.FREQ_DEVICE]: 1
 };
 /**
  * 20190708 / SDK_10023
@@ -250,6 +260,8 @@ export const AllOptionsWeight = {
   [AllOptions.MORE]: 27,
   [AllOptions.SECURITY]: 28,
   [AllOptions.STAND_PLUGIN]: 22,
+  [AllOptions.FREQ_DEVICE]: 29,
+  [AllOptions.FREQ_CAMERA]: 30,
   // secondOptions
   [AllOptions.AUTO_UPGRADE]: 1,
   [AllOptions.PLUGIN_VERSION]: 1,
@@ -421,7 +433,7 @@ export default class CommonSetting extends React.Component {
     extraOptions: {}
   }
   getCommonSetting(state) {
-    let { modelType, productBaikeUrl } = state || {};
+    let { modelType, productBaikeUrl, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint } = state || {};
     if (!modelType) {
       modelType = '  ';
     }
@@ -503,6 +515,24 @@ export default class CommonSetting extends React.Component {
         }
       }
     };
+    
+    // 常用摄像机(初摩象), 不是摄像机不添加, 避免后面多次判断
+    let isCamera = ['camera'].indexOf(modelType) !== -1 && ['mxiang.'].indexOf(Device.model) == -1;
+    ret[AllOptions.FREQ_CAMERA] = isCamera ? {
+      title: strings.favoriteCamera,
+      value: freqCameraNeedShowRedPoint ? "" : freqCameraFlag ? strings.open : strings.close,
+      onPress: () => {
+        Host.ui.openCommonDeviceSettingPage(1);
+        Host.ui.clearFreqCameraNeedShowRedPoint();
+        this.removeKeyFromShowDot(AllOptions.FREQ_CAMERA);
+      }
+    } : null;
+    // 常用设备
+    ret[AllOptions.FREQ_DEVICE] = {
+      title: strings.favoriteDevices,
+      value: freqFlag ? strings.open : strings.close,
+      onPress: () => Host.ui.openCommonDeviceSettingPage(0)
+    };
     // 2020/4/20 锁类和保险箱类，安全设置从更多设置中移出来
     if (['lock', 'safe-box', 'safe'].indexOf(modelType) !== -1) {
       ret[AllOptions.SECURITY] = {
@@ -520,6 +550,9 @@ export default class CommonSetting extends React.Component {
       showDot: Array.isArray(props.showDot) ? props.showDot : [],
       productBaikeUrl,
       modelType,
+      freqFlag: false,
+      freqCameraFlag: false,
+      freqCameraNeedShowRedPoint: false,
       standPlugin: false // 标准插件设置项的值
     };
     console.log(`Device.type: ${ Device.type }`);
@@ -694,13 +727,45 @@ export default class CommonSetting extends React.Component {
     //   });
     //   this.setState({ standPlugin: true });
     // }, 1000 * 3);
+    this._updateFreqFlag();
+  }
+  _updateFreqFlag() {
+    Device.getFreqFlag().then((freqFlagRes) => {
+      let freqFlag = freqFlagRes.data;
+      this.commonSetting = this.getCommonSetting({
+        ...this.state,
+        freqFlag
+      });
+      this.setState({ freqFlag });
+    });
+    Device.getFreqCameraFlag().then((freqCameraFlagRes) => {
+      let freqCameraFlag = freqCameraFlagRes.data;
+      this.commonSetting = this.getCommonSetting({
+        ...this.state,
+        freqCameraFlag
+      });
+      this.setState({ freqCameraFlag });
+    });
+    Host.ui.getFreqCameraNeedShowRedPoint().then((freqCameraNeedShowRedPointRes) => {
+      let freqCameraNeedShowRedPoint = freqCameraNeedShowRedPointRes.data;
+      this.commonSetting = this.getCommonSetting({
+        ...this.state,
+        freqCameraNeedShowRedPoint
+      });
+      this.setState({ freqCameraNeedShowRedPoint });
+    });
   }
   render() {
-    let { modelType, productBaikeUrl } = this.state;
+    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint } = this.state;
     // 如果不设置英文字体，那么外文字符串将显示不全（Android）
     let fontFamily = {};
     if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' };
-    let requireKeys1 = [AllOptions.NAME, AllOptions.LOCATION];
+    let requireKeys1 = [
+      AllOptions.FREQ_CAMERA,
+      AllOptions.FREQ_DEVICE,
+      AllOptions.NAME,
+      AllOptions.LOCATION
+    ];
     if (productBaikeUrl) {
       requireKeys1.push(AllOptions.PRODUCT_BAIKE);
     }
@@ -763,6 +828,8 @@ export default class CommonSetting extends React.Component {
         // 如果是固件升级设置项，且开发者没有传入是否显示
         if (key === AllOptions.FIRMWARE_UPGRADE && !item.showDot) {
           item.showDot = Device.needUpgrade && !firmwareUpgradeDotClicked;
+        } else if (key === AllOptions.FREQ_CAMERA && !item.showDot) {
+          item.showDot = freqCameraNeedShowRedPoint;
         }
       }
       return item;
@@ -915,9 +982,13 @@ export default class CommonSetting extends React.Component {
         name: device.name
       });
     });
+    this._packageGobackFromNativeListerner = PackageEvent.packageViewWillAppear.addListener(() => {
+      this._updateFreqFlag();
+    });
   }
   componentWillUnmount() {
     this._deviceNameChangedListener.remove();
+    this._packageGobackFromNativeListerner && this._packageGobackFromNativeListerner.remove();
   }
 }
 const styles = dynamicStyleSheet({
@@ -927,7 +998,7 @@ const styles = dynamicStyleSheet({
   },
   titleContainer: {
     minHeight: 32,
-    backgroundColor: new DynamicColor('#fff', '#1A1A1A'),
+    backgroundColor: new DynamicColor('#fff', '#000000'),
     justifyContent: 'center',
     paddingLeft: Styles.common.padding
   },
@@ -938,7 +1009,7 @@ const styles = dynamicStyleSheet({
   },
   bottomContainer: {
     minHeight: 90,
-    backgroundColor: new DynamicColor('#fff', '#1a1a1a'), // Styles.common.backgroundColor,
+    backgroundColor: new DynamicColor('#fff', '#000000'), // Styles.common.backgroundColor,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
