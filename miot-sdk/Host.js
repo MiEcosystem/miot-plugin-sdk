@@ -236,7 +236,8 @@ export default {
     return HostCrypto;
   },
   /**
-     * 获取手机wifi信息
+     * 获取手机wifi信息;
+     * 在Android上，从Android 9开始，获取WiFi信息需要申请定位权限，因此插件在调用该接口需要先判断是否有定位权限，没有就提示用户授权；否则就拿不到WiFi信息
      * @return {Promise<object>}
      * 成功时：{BSSID:xxx, SSID:xxx}
      * 失败时：返回的是错误信息，字符串格式
