@@ -11,10 +11,22 @@ import I18n from '../../resources/Strings';
 import { adjustSize } from '../../utils/sizes';
 import { dynamicStyleSheet } from '../Style/DynamicStyleSheet';
 import DynamicColor from '../Style/DynamicColor';
+<<<<<<< HEAD
 const SourceCurtainLeft = require('../../resources/images/curtain-left.png');
 const SourceCurtainRight = require('../../resources/images/curtain-right.png');
 const SourceAdd = require('../../resources/images/add.png');
 const SourceSwap = require('../../resources/images/refresh.png');
+=======
+import { DarkMode } from "../../index";
+const SourceCurtainLeft = require('../../resources/images/curtain-left.png');
+const SourceCurtainLeftDark = require('../../resources/images/curtain-left-dark.png');
+const SourceCurtainRight = require('../../resources/images/curtain-right.png');
+const SourceCurtainRightDark = require('../../resources/images/curtain-right-dark.png');
+const SourceAdd = require('../../resources/images/add.png');
+const SourceAddDark = require('../../resources/images/add-dark.png');
+const SourceSwap = require('../../resources/images/refresh.png');
+const SourceSwapDark = require('../../resources/images/refresh-dark.png');
+>>>>>>> eafb3a43b6b456a5be3f80f6aa39fb8f95411869
 export default class CurtainGroupPage extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -42,6 +54,10 @@ export default class CurtainGroupPage extends Component {
     // 0:不显示, 1:loading, 2: error
     layerType: 0
   };
+<<<<<<< HEAD
+=======
+  colorScheme = DarkMode.getColorScheme() || 'light';
+>>>>>>> eafb3a43b6b456a5be3f80f6aa39fb8f95411869
   selectLeft = () => {
     this.setState({
       selectedSide: 'left'
@@ -258,9 +274,15 @@ export default class CurtainGroupPage extends Component {
             <TouchableOpacity style={[Styles.curtainIcon, selectedSide === 'left' ? Styles.curtainIconSelected : null]} activeOpacity={0.8} onPress={this.selectLeft}>
               <View style={Styles.curtainIconInner}>
                 {leftDid ? (
+<<<<<<< HEAD
                   <Image style={Styles.curtainImg} source={SourceCurtainLeft} />
                 ) : (
                   <Image style={Styles.add} source={SourceAdd} />
+=======
+                  <Image style={Styles.curtainImg} source={this.colorScheme === 'light' ? SourceCurtainLeft : SourceCurtainLeftDark} />
+                ) : (
+                  <Image style={Styles.add} source={this.colorScheme === 'light' ? SourceAdd : SourceAddDark} />
+>>>>>>> eafb3a43b6b456a5be3f80f6aa39fb8f95411869
                 )}
               </View>
             </TouchableOpacity>
@@ -274,15 +296,25 @@ export default class CurtainGroupPage extends Component {
             ) : null}
           </View>
           <TouchableOpacity style={Styles.swapWrap} activeOpacity={0.8} onPress={this.swap}>
+<<<<<<< HEAD
             <Image style={Styles.swap} source={SourceSwap} />
+=======
+            <Image style={Styles.swap} source={this.colorScheme === 'light' ? SourceSwap : SourceSwapDark} />
+>>>>>>> eafb3a43b6b456a5be3f80f6aa39fb8f95411869
           </TouchableOpacity>
           <View style={Styles.curtain}>
             <TouchableOpacity style={[Styles.curtainIcon, selectedSide === 'right' ? Styles.curtainIconSelected : null]} activeOpacity={0.8} onPress={this.selectRight}>
               <View style={Styles.curtainIconInner}>
                 {rightDid ? (
+<<<<<<< HEAD
                   <Image style={[Styles.curtainImg, Styles.curtainImgRight]} source={SourceCurtainRight} />
                 ) : (
                   <Image style={Styles.add} source={SourceAdd} />
+=======
+                  <Image style={Styles.curtainImg} source={this.colorScheme === 'light' ? SourceCurtainRight : SourceCurtainRightDark} />
+                ) : (
+                  <Image style={Styles.add} source={this.colorScheme === 'light' ? SourceAdd : SourceAddDark} />
+>>>>>>> eafb3a43b6b456a5be3f80f6aa39fb8f95411869
                 )}
               </View>
             </TouchableOpacity>
@@ -317,13 +349,19 @@ export default class CurtainGroupPage extends Component {
           }]}
           onDismiss={this.cancel}
         />
+<<<<<<< HEAD
         <MessageDialog
           visible={options.length < 2 && !!selectedSide}
+=======
+        {(options.length < 2 && selectedSide) ? (<MessageDialog
+          visible={true}
+>>>>>>> eafb3a43b6b456a5be3f80f6aa39fb8f95411869
           message={I18n.noCurtainGroupTip}
           buttons={[{
             text: I18n.ok,
             callback: this.cancel
           }]}
+<<<<<<< HEAD
         />
         <LoadingDialog
           visible={layerType === 2}
@@ -331,6 +369,15 @@ export default class CurtainGroupPage extends Component {
           timeout={3000}
           onDismiss={this.cancel}
         />
+=======
+        />) : null}
+        {layerType === 2 ? (<LoadingDialog
+          visible={true}
+          message={I18n.error}
+          timeout={3000}
+          onDismiss={this.cancel}
+        />) : null}
+>>>>>>> eafb3a43b6b456a5be3f80f6aa39fb8f95411869
       </ScrollView>
     );
   }
@@ -375,7 +422,11 @@ const Styles = dynamicStyleSheet({
     alignItems: 'center'
   },
   curtainIconSelected: {
+<<<<<<< HEAD
     borderColor: '#32BAC0'
+=======
+    borderColor: new DynamicColor('#32BAC0', '#25A9AF')
+>>>>>>> eafb3a43b6b456a5be3f80f6aa39fb8f95411869
   },
   curtainIconInner: {
     width: adjustSize(426),
@@ -390,6 +441,14 @@ const Styles = dynamicStyleSheet({
     height: adjustSize(312),
     resizeMode: 'contain'
   },
+<<<<<<< HEAD
+=======
+  curtainImgRight: {
+    transform: [
+      { scaleX: -1 }
+    ]
+  },
+>>>>>>> eafb3a43b6b456a5be3f80f6aa39fb8f95411869
   curtainName: {
     marginTop: adjustSize(36),
     fontFamily: 'MILanPro--GB1-4',
@@ -403,7 +462,11 @@ const Styles = dynamicStyleSheet({
     paddingHorizontal: adjustSize(30),
     borderRadius: adjustSize(51),
     marginTop: adjustSize(30),
+<<<<<<< HEAD
     backgroundColor: 'rgba(50,186,192,0.10)',
+=======
+    backgroundColor: new DynamicColor('rgba(50,186,192,0.10)', 'rgba(37,169,175,0.30)'),
+>>>>>>> eafb3a43b6b456a5be3f80f6aa39fb8f95411869
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -411,7 +474,11 @@ const Styles = dynamicStyleSheet({
     fontFamily: 'MILanPro_MEDIUM--GB1-4',
     fontSize: adjustSize(39),
     lineHeight: adjustSize(54),
+<<<<<<< HEAD
     color: '#32BAC0'
+=======
+    color: new DynamicColor('#32BAC0', '#25A9AF')
+>>>>>>> eafb3a43b6b456a5be3f80f6aa39fb8f95411869
   },
   add: {
     width: adjustSize(48),
@@ -441,7 +508,11 @@ const Styles = dynamicStyleSheet({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: adjustSize(69),
+<<<<<<< HEAD
     backgroundColor: '#32BAC0'
+=======
+    backgroundColor: new DynamicColor('#32BAC0', '#25A9AF')
+>>>>>>> eafb3a43b6b456a5be3f80f6aa39fb8f95411869
   },
   btnDisabled: {
     opacity: 0.3
@@ -450,10 +521,18 @@ const Styles = dynamicStyleSheet({
     fontFamily: 'MILanPro_MEDIUM--GB1-4',
     fontSize: adjustSize(48),
     lineHeight: adjustSize(66),
+<<<<<<< HEAD
     color: new DynamicColor('#fff', '#000'),
     textAlign: 'center'
   },
   extraSubtitle: {
     color: '#32BAC0'
+=======
+    color: '#fff',
+    textAlign: 'center'
+  },
+  extraSubtitle: {
+    color: new DynamicColor('#32BAC0', '#25A9AF')
+>>>>>>> eafb3a43b6b456a5be3f80f6aa39fb8f95411869
   }
 });

@@ -47,6 +47,11 @@ class INetwork {
    * 成功时：{"code":0, "data":{"address":xxx.xxx.xxx}}
    * 失败时：{"code":-1, "message":"xxx" }
    * @example
+   * System.network.getGatewayIpAddress().then( res =>{
+   *  alert(JSON.stringify(res));
+   * }).catch(err =>{
+   *  alert(JSON.stringify(err));
+   * })
    */
   @report
   getWifiBroadcastAddress() {

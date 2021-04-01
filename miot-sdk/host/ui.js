@@ -114,6 +114,13 @@ class IUi {
   openSystemShareWindow(pathOrUrl) {
   }
   /**
+  * 打开系统文件打开页面 since 10050
+  * @param {string} pathOrUrl 文件的全路径或者链接url。
+  */
+  @report
+  openSystemFileWindow(pathOrUrl) {
+  }
+  /**
    * 获取设备列表中指定model的设备信息
    * @param model 指定的model
    * @param {boolean} includeGroupedDevice - since 10046 是否包含被组成了一个组的设备（目前仅窗帘设备可用，灯设备不可用），默认不包含
@@ -216,6 +223,15 @@ class IUi {
    */
   @report
   openDeviceUpgradePage(type = 0) {
+<<<<<<< HEAD
+=======
+  }
+  /**
+   * 打开设备检查固件历史版本信息页面
+   */
+  @report
+  openDeviceUpgradeHistoryPage() {
+>>>>>>> eafb3a43b6b456a5be3f80f6aa39fb8f95411869
   }
   /**
    * 打开Mesh设备固件升级页。分享的设备点击此接口无反应（理论上分享的设备不应该出现调用此接口的菜单）
@@ -687,7 +703,20 @@ class IUi {
   @report
   openNFCWriteDeviceInfoPage(extra = '') {
   }
+<<<<<<< HEAD
   
+=======
+  /**
+   * @since 10052
+   * 打开常用设备/常用摄像机设置页面
+   * @param {string} type type=0代表常用设备，type=1代表常用摄像机
+   * @example
+   * Host.ui.openCommonDeviceSettingPage(1);
+  */
+  @report
+  openCommonDeviceSettingPage(type) {
+  }
+>>>>>>> eafb3a43b6b456a5be3f80f6aa39fb8f95411869
 }
 const UiInstance = new IUi();
 export default UiInstance;
