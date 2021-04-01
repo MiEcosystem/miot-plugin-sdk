@@ -2,6 +2,8 @@
 
 import { Service } from "miot";
 import { strings, Styles } from 'miot/resources';
+import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
+import DynamicColor from 'miot/ui/Style/DynamicColor';
 import { CommonSetting, SETTING_KEYS } from "miot/ui/CommonSetting";
 import { ListItem, ListItemWithSlider, ListItemWithSwitch } from 'miot/ui/ListItem';
 import Separator from 'miot/ui/Separator';
@@ -124,6 +126,11 @@ export default class Setting extends React.Component {
             extraOptions={extraOptions}
             firstCustomOptions={firstCustomOption}
             secondCustomOptions={secondCustomOption}
+            commonSettingStyle={{
+              itemStyle: {
+                valueMaxWidth: '50%'
+              }
+            }}
           />
           <View style={{ height: 20 }} />
 
@@ -219,13 +226,13 @@ export default class Setting extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = dynamicStyleSheet({
   container: {
     backgroundColor: Styles.common.backgroundColor,
     flex: 1
   },
   featureSetting: {
-    backgroundColor: '#fff'
+    backgroundColor: new DynamicColor('#fff', '#000')
   },
   blank: {
     height: 8,
@@ -237,7 +244,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     height: 32,
-    backgroundColor: '#fff',
+    backgroundColor: new DynamicColor('#fff', '#000'),
     justifyContent: 'center',
     paddingLeft: Styles.common.padding
   },
