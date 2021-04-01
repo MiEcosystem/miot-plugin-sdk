@@ -1,6 +1,6 @@
 'use strict';
 
-import { Service } from "miot";
+import { DeviceEvent, Service } from "miot";
 import { strings, Styles } from 'miot/resources';
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
 import DynamicColor from 'miot/ui/Style/DynamicColor';
@@ -10,6 +10,7 @@ import Separator from 'miot/ui/Separator';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Logger from '../Logger';
+import { ToastView } from "mhui-rn/dist/components/toast";
 
 const { first_options, second_options } = SETTING_KEYS;
 
@@ -23,9 +24,38 @@ export default class Setting extends React.Component {
     this.state = {
       sliderValue: 25,
       switchValue: false,
-      showDot: []
+      showDot: [],
+      toastVisible: false,
+      toastText: ""
     };
     Logger.trace(this);
+    this.didFocusListener = this.props.navigation.addListener(
+      'didFocus',
+      () => {
+        this.showToast('didFocus', 1000);
+      }
+    );
+    this.didBlurListener = this.props.navigation.addListener(
+      'didBlur',
+      () => {
+        this.showToast('didBlur', 1000);
+      }
+    );
+    this.pinstateChangeListener = DeviceEvent.pinCodeSwitchChanged.addListener((device, switchStatus) => {
+      this.showToast(`pinCodeSwitch: ${ switchStatus.isSetPinCode }`, 4000);
+    });
+  }
+
+  showToast=(text, time) => {
+    this.setState({
+      toastVisible: true,
+      toastText: text
+    });
+    setTimeout(() => {
+      this.setState(() => {
+        return { toastVisible: false };
+      });
+    }, time);
   }
 
   gotoSecretPage() {
@@ -97,6 +127,14 @@ export default class Setting extends React.Component {
               <Text style={styles.title}>{strings.featureSetting}</Text>
             </View>
             <Separator style={{ marginLeft: Styles.common.padding }} />
+            <ToastView
+              visible={this.state.toastVisible}
+              hideOnPress={true}
+              animation={false}
+              position={-86}
+              containerStyle={{ display: 'flex', flexDirection: 'row' }}
+              text={this.state.toastText}
+            />
             <ListItem
               title="这是"
               showDot={true}
@@ -223,6 +261,12 @@ export default class Setting extends React.Component {
         // first_options.FIRMWARE_UPGRADE
       ]
     });
+  }
+
+  componentWillUnmount(): void {
+    this.didBlurListener && this.didBlurListener.remove();
+    this.didFocusListener && this.didFocusListener.remove();
+    this.pinstateChangeListener && this.pinstateChangeListener.remove();
   }
 }
 
