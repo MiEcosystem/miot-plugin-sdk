@@ -4,10 +4,8 @@
 
 import { Host, ECCCrypto } from "miot";
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Image, Platform, TextInput } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView, TextInput } from 'react-native';
 import Logger from '../Logger';
-
-let ZhuiMiRobot = require('../../Resources/zhuimi_robot');
 
 export default class CryptoDemo extends React.Component {
 
@@ -18,7 +16,6 @@ export default class CryptoDemo extends React.Component {
       base64Text: '',
       SHA1Text: '',
       SHA2Text: '',
-      zhuimiRobotTracesToImageBase64: '',
       otherP: ''
     };
     this.cryptoObject = new ECCCrypto(ECCCrypto.CurveTypeSecp256r1);
@@ -83,25 +80,7 @@ export default class CryptoDemo extends React.Component {
               );
             })
           }
-          {
-            this.state.zhuimiRobotTracesToImageBase64 === '' ? <Text style={styles.buttonText}>点击下方按钮生成图片</Text> :
-              <Image style={{ width: '100%', aspectRatio: ZhuiMiRobot.width / ZhuiMiRobot.height }}
-                source={{ uri: this.state.zhuimiRobotTracesToImageBase64 }} />
-          }
-          <TouchableOpacity style={styles.button} onPress={() => {
-            Logger.trace(this, this.render, { action: 'zhuimiRobotTracesToImageBase64' });
-            Host.crypto.zhuimiRobotTracesToImageBase64(ZhuiMiRobot.width, ZhuiMiRobot.height, JSON.stringify(ZhuiMiRobot.traces)).then((res) => {
-              console.log('success', res);
-              this.setState({
-                zhuimiRobotTracesToImageBase64: `data:image/png;base64,${ res.data }`
-              });
-            }).catch((err) => {
-              alert(JSON.stringify(err));
-            });
-          }}>
-            <Text style={styles.buttonText}>zhuimiRobotTracesToImageBase64</Text>
-          </TouchableOpacity>
-
+          <View style={{height: 20}}/>
           <Text style={styles.buttonText}> {'eccPublicKey：'} </Text>
           <Text style={styles.buttonText} selectable={true}>{this.state.eccPublicKey0 || '第一步，点击下面按钮产生KP'}</Text>
           <TouchableOpacity style={styles.button} onPress={() => {
