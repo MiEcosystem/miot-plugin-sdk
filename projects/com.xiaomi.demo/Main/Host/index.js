@@ -52,12 +52,6 @@ export default class HostDemo extends React.Component {
         }
       },
       {
-        'name': '路径绘制',
-        'func': () => {
-          this.props.navigation.navigate('traceDemo', { 'title': '路径绘制Demo' });
-        }
-      },
-      {
         'name': 'Route 到 Native 页面 - Host.ui',
         'func': () => {
           this.props.navigation.navigate('NavigateUIDemo', { title: 'Route 到 Native 页面 - Host.ui' });

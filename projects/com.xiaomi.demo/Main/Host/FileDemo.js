@@ -171,7 +171,6 @@ export default class FileStorage extends React.Component {
               ],
               [
                 ["查询文件", this._queryFile],
-                ["写入 PDF 文件", this._saveTextToPdf],
                 ["pdf转图片", this._pdfToImage],
                 ["读PDF信息", this._readPdfMetaData]
               ]
@@ -255,25 +254,6 @@ export default class FileStorage extends React.Component {
       pageNo: 0
     };
     Host.file.queryFile(params).then((res) => {
-      alert(JSON.stringify(res));
-    }).catch((err) => {
-      alert(JSON.stringify(err));
-    });
-  }
-
-  // text 写入成 pdf
-  _saveTextToPdf() {
-    if (this.state.fileName === '' || this.state.fileContent === '') {
-      alert('请输入文件名或文件内容');
-      return;
-    }
-    Host.file.writePdfFile(this.state.fileContent, this.state.fileName, {
-      color: 'red',
-      fontSize: 13,
-      pageSize: { width: 375, height: 812 },
-      marginHorizontal: 0,
-      marginVertical: 0,
-    }).then((res) => {
       alert(JSON.stringify(res));
     }).catch((err) => {
       alert(JSON.stringify(err));

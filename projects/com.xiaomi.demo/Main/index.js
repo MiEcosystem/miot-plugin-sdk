@@ -108,7 +108,6 @@ import * as Screens from "./uikit/screens";
 import MHAudioDemo from './Host/MHAudioDemo';
 import VideoDemo from './Host/VideoDemo';
 import CryptoDemo from './Host/CryptoDemo';
-import TraceDemo from './Host/TraceDemo';
 import DarkModeDemo from './Host/DarkMode';
 
 // 常用功能
@@ -307,7 +306,6 @@ function createRootStack(initPage) {
     GLOrientation: GLOrientation, // ios 包有问题
 
     cryptoDemo: CryptoDemo,
-    traceDemo: TraceDemo,
     ParticleDemo: ParticleDemo, // iOS 特有的,粒子系统
     ImagePickerDemo: ImagePickerDemo,
 
