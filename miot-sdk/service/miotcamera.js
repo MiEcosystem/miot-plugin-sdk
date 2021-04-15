@@ -9,6 +9,7 @@
  */
 import { NativeModules, Platform } from 'react-native';
 import { report } from "../decorator/ReportDecorator";
+import CameraRenderView, { MISSCodec } from "../ui/CameraRenderView";
 /**
  * MISS 命令
  * @namespace MISSCommand
@@ -221,21 +222,58 @@ class IMiotCamera {
      return null
   }
   /**
+   * 打开相册
+   * @since 10051
+   * @param {data} jsonobj=>str，预留
+   * @example 
+   *         data = {};
+   *         Service.miotcamera.showPlaybackVideos(JSON.stringify(data));
+   */
+  @report
+  showAlbum(data, did = Device.deviceID) {
+     return null
+  }
+  /**
+   * 打开设备相册中最新的图片或视频
+   * @since 10051
+   * @param {data} jsonobj=>str，包含albumName等信息
+   * @example 
+   *         data = { albumName: albumName};
+   *         Service.miotcamera.showLastAlbumMediaFile(JSON.stringify(data));
+   */
+  @report
+  showLastAlbumMediaFile(data, did = Device.deviceID) {
+     return null
+  }
+  /**
+   * 获取设备对应的相册名字
+   * @since 10051
+   */
+  @report
+  getAlbumName(did = Device.deviceID) {
+     return Promise.resolve(null);
+  }
+  /**
    * 打开云储存页面
    * @since 10033
    * @param {BOOL} supportHevc 是否支持 H265
    * @param {useV2API} 是否使用 V2 接口
+   * @param {did} 默認參數 did
+   * @param {cloudStoragePurchaseUrl} @since 10051 默認爲空，兼容以前的邏輯，不是vip就打開攝像頭的雲存購買連接；如果是低功耗設備，需要自己填入雲存購買連接。
    */
   @report
-  showCloudStorage(supportHevc, useV2API, did = Device.deviceID) {
+  showCloudStorage(supportHevc, useV2API, did = Device.deviceID, cloudStoragePurchaseUrl = "") {
      return null
   }
+  
   /**
    * 打开云储存设置页面
    * @since 10033
+   * @param {did} 默认参数 did
+   * @param {aSettingUrl} @since 10053  自定义设置地址。默认为空，兼容以前的逻辑。
    */
   @report
-  showCloudStorageSetting(did = Device.deviceID) {
+  showCloudStorageSetting(did = Device.deviceID, aSettingUrl = null) {
      return null
   }
   /**
@@ -253,7 +291,7 @@ class IMiotCamera {
   * @returns true, 最新报警视频的时间和事件描述字符串；false，错误描述
   * @since 10047
   */
- @report
+  @report
   loadMonitoringDetail(model = Device.model, did = Device.deviceID) {
      return Promise.resolve(null);
   }
@@ -263,9 +301,9 @@ class IMiotCamera {
    * @param {BOOL} isVip
    */
   @report
- showFaceRecognize(isVip, did = Device.deviceID) {
-    return null
- }
+  showFaceRecognize(isVip, did = Device.deviceID) {
+     return null
+  }
   /**
    *
    * 注册收到数据速率 Bytes per second，每秒回调一次
@@ -629,6 +667,71 @@ class IMiotCamera {
   reactNativeVideoScreenShot(viewRef, imagePath) {
      return Promise.resolve(null);
   }
+  /**
+   * @param paramsJson 包含如下参数：
+   * @param {string} videoPath h264 或者h265的源文件绝对路径  必须以Host.file.storageBasePath开始
+   * @param {CameraRenderView.MISSCodec} videoType 视频源文件的路径 MISSCodec里定义的h264 或者h265
+   * @param {string} aacAudioPath aac 的源文件路径  没有就填写 ""   有值时必须以Host.file.storageBasePath开始, 音频文件只支持aac格式
+   * @param {string} targetPath 最终的输出文件目录 同上，必须以Host.file.storageBasePath开始
+   * 以下参数只用于ios
+   * @param {int} fps
+   * @param {int} videoWidth
+   * @param {int} videoHeight
+   *
+   * Android json demo：
+      {"videoPath":vPath,
+      "videoType": vType,
+      "aacAudioPath": aacAPath,
+      "targetPath": tPath}
+   *
+   * IOS json demo：
+      {"videoPath":vPath,
+      "videoType": vType,
+      "aacAudioPath": aacAPath,
+      "targetPath": tPath,
+      "fps": fps,
+      "videoWidth": vWidth,
+      "videoHeight": vHeight}
+   * 
+   * @since 10050
+   */
+  @report
+  convertH26xVideoIntoMp4(paramsJson) {
+     return Promise.resolve(null);
+  }
+  /**
+   * 启动设备设备联动页面
+   * @param {string} srid from getRecommend
+   * @param {string} did
+   * @param {string} model
+   * @since 10052
+   */
+  @report
+  launchRecommend(srid, did = Device.deviceID, model = Device.model) {
+    return new Promise((resolve, reject) => {
+      NativeModules.MHCameraSDK.launchRecommend(srid, did, model, (result, data) => {
+        if (result) {
+          resolve(data);
+        } else {
+          reject(data);
+        }
+      });
+    });
+  }
+  /**
+   * 打开推荐运营位页面
+   * @param data  jsonobj=>str 推荐运营位链接，sd卡状态等信息
+   * @param {string} did
+   * @since 10053
+   * @example 
+   *     let data = { h5Url: this.bannerItem.h5Url, sdcardGetSuccess: true, sdcardStatus: this.sdcardCode };
+   *     Service.miotcamera.showOperationBannerPage(data);
+   */
+     @report
+  showOperationBannerPage(data, did = Device.deviceID) {
+     return null
+  }
+  
 }
 const MiotCameraInstance = new IMiotCamera();
 export default MiotCameraInstance;

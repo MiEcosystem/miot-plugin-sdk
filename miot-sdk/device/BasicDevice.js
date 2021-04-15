@@ -184,6 +184,14 @@ export const DeviceEvent = {
      * @since 10037
      */
   multiSwitchNameChanged: {
+  /**
+   * 插件密码设置改变事件
+   * @event
+   * @param {IDevice} device -发生变更的设备
+   * @param {Map<string, object>}  switchStatus { isSetPinCode: false/true }
+   */
+  pinCodeSwitchChanged: {
+  }
 };
 buildEvents(DeviceEvent);
 /**
@@ -815,6 +823,23 @@ export class BasicDevice {
    */
   @report
   getRoomInfoForCurrentHome(did = null) {
+     return Promise.resolve({});
+  }
+  /**
+   * 获取与当前设备相同企业组的所有设备(包括当前设备)
+   * @since 10052
+   * @returns {Promise<Object>} 成功时{code:0,data:[{...device},{...device},...]}
+   * 失败时：{code:-1,message:"cannot get current device info"}
+   * {code:-2,message:"get company identifier error"}
+   * @example
+   * Device.getAllDevicesOfBelongedCompanies().then(res=>{
+   *  alert(JSON.stringify(res));
+   * }).catch(err =>{
+   *  alert(JSON.stringify(err));
+   * });
+   */
+  @report
+  getAllDevicesOfBelongedCompanies() {
      return Promise.resolve({});
   }
 }
