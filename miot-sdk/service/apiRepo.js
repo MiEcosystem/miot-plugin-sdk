@@ -162,7 +162,11 @@ const API_REPO = {
   '/v2/device/get_break_lock_alarm_info': {},
   '/v2/device/set_hijack_alarm_info': {},
   '/v2/device/get_hijack_alarm_info': {},
+  // FDS KS3 相关
   '/v2/home/get_interim_file_url_pro': {},
+  '/v2/home/genfileurl_v3': {},
+  '/v2/home/genpresignedurl': {},
+  '/v2/home/genpresignedurl_v3': {},
   '/home/getfileurl_v3': {},
   '/v2/home/getfileurl_v3': {},
   '/v2/recipes/query': {},
@@ -192,12 +196,8 @@ const API_REPO = {
   '/v2/groupv2/query_tags': {},
   // 摄像头云存相关
   '/common/app/v1/cloud/file/exist': {},
-<<<<<<< HEAD
-  '/common/app/get/cloudlist': {}
-=======
   '/common/app/get/cloudlist': {},
   '/common/app/v1/capacity': {},
   '/v2/scene/get_rec_in_plugin': {}
->>>>>>> a20830a62760a2b841ce9ce3ebe7b9abcde2142d
 };
 export default API_REPO;

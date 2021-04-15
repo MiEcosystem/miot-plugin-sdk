@@ -265,12 +265,15 @@ class IMiotCamera {
   showCloudStorage(supportHevc, useV2API, did = Device.deviceID, cloudStoragePurchaseUrl = "") {
      return null
   }
+  
   /**
    * 打开云储存设置页面
    * @since 10033
+   * @param {did} 默认参数 did
+   * @param {aSettingUrl} @since 10053  自定义设置地址。默认为空，兼容以前的逻辑。
    */
   @report
-  showCloudStorageSetting(did = Device.deviceID) {
+  showCloudStorageSetting(did = Device.deviceID, aSettingUrl = null) {
      return null
   }
   /**
@@ -344,6 +347,50 @@ class IMiotCamera {
   @report
   downloadM3U8ToMP4(fileId, filePath, callbackName, isAlarm = false, videoCodec = 'H265', did = Device.deviceID) {
   }
+  /**
+   * 取消downloadM3U8ToMP4任务, 只有ios需要这个接口
+   * @since 10053
+   * @param {*} fileId
+   * @param {*} callbackName
+   * @param {*} isAlarm
+   * @param {*} videoCodec
+   * @param {*} did
+   */
+  @report
+  cancelDownloadM3U8ToMP4(fileId, callbackName, isAlarm = false, did = Device.deviceID) {
+      NativeModules.MHCameraSDK.cancelDownloadM3U8ToMP4(Device.model, did, fileId, isAlarm, callbackName);
+    } else {
+      console.log('android use downloadM3U8ToMP4V2 and cancelDownloadM3U8ToMP4V2 from 10053');
+    }
+  }
+  /**
+   * 下载m3u8视频并合成mp4，支持合成mp4时统一分辨率，避免视频花屏
+   * @since 10053
+   * @param fileId
+   * @param filePath
+   * @param callbackName
+   * @param isAlarm 是否报警视频
+   * @param videoCodec 视频编码如 "H264", "H265"
+   * @param transcode 是否需要把每个子视频转码成相同分辨率后再合成，默认需要转
+   * @returns
+   *    state : 1. onStart (开始下载)  2. onComplete（下载完成）  3. onError（失败）  4. onProgress（下载进度）
+   *    errorInfo : 失败描述（state = onError时才有）
+   *    progress : 下载进度0 - 100 (state = onProgress时才有)
+   */
+     @report
+  downloadM3U8ToMP4V2(fileId, filePath, callbackName, isAlarm = false, videoCodec = 'H265', did = Device.deviceID, transcode = true) {
+  }
+  /**
+  * 取消downloadM3U8ToMP4V2任务
+  * @since 10053
+  * @param {*} fileId
+  * @param {*} callbackName
+  * @param {*} isAlarm
+  * @param {*} did
+  */
+  @report
+     cancelDownloadM3U8ToMP4V2(fileId, callbackName, isAlarm = false, did = Device.deviceID) {
+     }
   /**
    * 获取报警视频m3u8播放地址
    * @since 10037
@@ -664,8 +711,6 @@ class IMiotCamera {
   reactNativeVideoScreenShot(viewRef, imagePath) {
      return Promise.resolve(null);
   }
-<<<<<<< HEAD
-=======
   /**
    * @param paramsJson 包含如下参数：
    * @param {string} videoPath h264 或者h265的源文件绝对路径  必须以Host.file.storageBasePath开始
@@ -717,7 +762,20 @@ class IMiotCamera {
       });
     });
   }
->>>>>>> a20830a62760a2b841ce9ce3ebe7b9abcde2142d
+  /**
+   * 打开推荐运营位页面
+   * @param data  jsonobj=>str 推荐运营位链接，sd卡状态等信息
+   * @param {string} did
+   * @since 10053
+   * @example 
+   *     let data = { h5Url: this.bannerItem.h5Url, sdcardGetSuccess: true, sdcardStatus: this.sdcardCode };
+   *     Service.miotcamera.showOperationBannerPage(data);
+   */
+     @report
+  showOperationBannerPage(data, did = Device.deviceID) {
+     return null
+  }
+  
 }
 const MiotCameraInstance = new IMiotCamera();
 export default MiotCameraInstance;

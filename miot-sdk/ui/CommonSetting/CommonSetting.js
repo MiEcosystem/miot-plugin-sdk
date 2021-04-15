@@ -12,6 +12,7 @@ import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
 import DynamicColor from 'miot/ui/Style/DynamicColor';
+import { FontPrimary } from 'miot/utils/fonts';
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
 let firmwareUpgradeDotClicked = false;
 let modelType = '';
@@ -236,13 +237,9 @@ const firstSharedOptions = {
   [AllOptions.SECURITY]: 0,
   [AllOptions.LEGAL_INFO]: 0, // 20190516，分享设备不显示「法律信息」
   [AllOptions.PRODUCT_BAIKE]: 1,
-<<<<<<< HEAD
-  [AllOptions.STAND_PLUGIN]: 1
-=======
   [AllOptions.STAND_PLUGIN]: 1,
   [AllOptions.FREQ_CAMERA]: 1,
   [AllOptions.FREQ_DEVICE]: 1
->>>>>>> a20830a62760a2b841ce9ce3ebe7b9abcde2142d
 };
 /**
  * 20190708 / SDK_10023
@@ -264,11 +261,8 @@ export const AllOptionsWeight = {
   [AllOptions.MORE]: 27,
   [AllOptions.SECURITY]: 28,
   [AllOptions.STAND_PLUGIN]: 22,
-<<<<<<< HEAD
-=======
   [AllOptions.FREQ_DEVICE]: 29,
   [AllOptions.FREQ_CAMERA]: 30,
->>>>>>> a20830a62760a2b841ce9ce3ebe7b9abcde2142d
   // secondOptions
   [AllOptions.AUTO_UPGRADE]: 1,
   [AllOptions.PLUGIN_VERSION]: 1,
@@ -504,11 +498,7 @@ export default class CommonSetting extends React.Component {
       // }
       [AllOptions.STAND_PLUGIN]: {
         _itemType: 'switch',
-<<<<<<< HEAD
-        title: '标准插件',
-=======
         title: strings.switchPlugin,
->>>>>>> a20830a62760a2b841ce9ce3ebe7b9abcde2142d
         value: state.standPlugin === '1' ? false : true,
         onValueChange: (value) => {
           Service.smarthome.batchSetDeviceDatas([
@@ -517,11 +507,7 @@ export default class CommonSetting extends React.Component {
               props: {
                 "prop.s_commonsetting_stand_plugin": JSON.stringify({ 'useStandPlugin': value ? '2' : '1' })
               } }
-<<<<<<< HEAD
-          ]).then((res) => {
-=======
           ]).then(() => {
->>>>>>> a20830a62760a2b841ce9ce3ebe7b9abcde2142d
           });
           let eventName = 'plugin_light_abtest_final';
           let params = { 'uid': Service.account.ID, 'did': Device.deviceID, 'model': Device.model, 'abtestswitch': value ? '1' : '0' };
@@ -529,10 +515,7 @@ export default class CommonSetting extends React.Component {
           DeviceEventEmitter.emit('MIOT_SDK_COMMONSETTING_STANDPLUGIN_CLICK', value ? '2' : '1');
         }
       }
-<<<<<<< HEAD
-=======
     };
-    
     // 常用摄像机(初摩象), 不是摄像机不添加, 避免后面多次判断
     let isCamera = ['camera'].indexOf(modelType) !== -1 && ['mxiang.'].indexOf(Device.model) == -1;
     ret[AllOptions.FREQ_CAMERA] = isCamera ? {
@@ -549,7 +532,6 @@ export default class CommonSetting extends React.Component {
       title: strings.favoriteDevices,
       value: freqFlag ? strings.open : strings.close,
       onPress: () => Host.ui.openCommonDeviceSettingPage(0)
->>>>>>> a20830a62760a2b841ce9ce3ebe7b9abcde2142d
     };
     // 2020/4/20 锁类和保险箱类，安全设置从更多设置中移出来
     if (['lock', 'safe-box', 'safe'].indexOf(modelType) !== -1) {
@@ -568,12 +550,9 @@ export default class CommonSetting extends React.Component {
       showDot: Array.isArray(props.showDot) ? props.showDot : [],
       productBaikeUrl,
       modelType,
-<<<<<<< HEAD
-=======
       freqFlag: false,
       freqCameraFlag: false,
       freqCameraNeedShowRedPoint: false,
->>>>>>> a20830a62760a2b841ce9ce3ebe7b9abcde2142d
       standPlugin: false // 标准插件设置项的值
     };
     console.log(`Device.type: ${ Device.type }`);
@@ -748,8 +727,6 @@ export default class CommonSetting extends React.Component {
     //   });
     //   this.setState({ standPlugin: true });
     // }, 1000 * 3);
-<<<<<<< HEAD
-=======
     this._updateFreqFlag();
   }
   _updateFreqFlag() {
@@ -777,13 +754,9 @@ export default class CommonSetting extends React.Component {
       });
       this.setState({ freqCameraNeedShowRedPoint });
     });
->>>>>>> a20830a62760a2b841ce9ce3ebe7b9abcde2142d
   }
   render() {
     let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint } = this.state;
-    // 如果不设置英文字体，那么外文字符串将显示不全（Android）
-    let fontFamily = {};
-    if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' };
     let requireKeys1 = [
       AllOptions.FREQ_CAMERA,
       AllOptions.FREQ_DEVICE,
@@ -914,10 +887,7 @@ export default class CommonSetting extends React.Component {
                   titleNumberOfLines={tempCommonSettingStyle.itemStyle.titleNumberOfLines}
                   subtitleNumberOfLines={tempCommonSettingStyle.itemStyle.subtitleNumberOfLines}
                   valueNumberOfLines={tempCommonSettingStyle.itemStyle.valueNumberOfLines}
-<<<<<<< HEAD
-=======
                   valueMaxWidth={tempCommonSettingStyle.itemStyle.valueMaxWidth}
->>>>>>> a20830a62760a2b841ce9ce3ebe7b9abcde2142d
                   useNewType={tempCommonSettingStyle.itemStyle.useNewType}
                   showDot={item.showDot || false}
                   value={item.value}
@@ -944,7 +914,7 @@ export default class CommonSetting extends React.Component {
               activeOpacity={0.8}
             >
               <Text
-                style={ [styles.buttonText, fontFamily, tempCommonSettingStyle.deleteTextStyle]}
+                style={ [styles.buttonText, FontPrimary, { fontWeight: 'bold' }, tempCommonSettingStyle.deleteTextStyle]}
                 allowFontScaling={tempCommonSettingStyle.allowFontScaling}
               >
                 {Device.type === '17' && Device.isOwner ? (strings[`delete${ (Device.model || '').split('.')[1][0].toUpperCase() }${ (Device.model || '').split('.')[1].slice(1) }Group`]) : strings.deleteDevice}
@@ -1051,9 +1021,7 @@ const styles = dynamicStyleSheet({
     marginHorizontal: Styles.common.padding
   },
   buttonText: {
-    fontSize: 13,
-    fontWeight: 'bold',
-    // fontFamily: 'MI-LANTING--GBK1-Bold',
+    fontSize: 16,
     flex: 1,
     textAlign: 'center',
     color: new DynamicColor('#F43F31', '#D92719'),
