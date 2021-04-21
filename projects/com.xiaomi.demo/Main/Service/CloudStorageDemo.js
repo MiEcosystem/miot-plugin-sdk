@@ -1,16 +1,19 @@
 import React from 'react';
 import {
-  StyleSheet, Text, View, TouchableOpacity, Platform, ScrollView
+  StyleSheet, Text, View, TouchableOpacity, Platform, ScrollView, TextInput
 } from 'react-native';
-import { Device, Service } from "miot";
+import { Device, Host, Service } from "miot";
 import Logger from '../Logger';
+import data from 'gl-react/lib/data';
 
 export default class CloudStorageDemo extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      data: ''
+      data: '',
+      id: '0',
+      name: '',
     };
     Logger.trace(this);
   }
@@ -135,7 +138,7 @@ export default class CloudStorageDemo extends React.Component {
                 }).catch((error) => {
                   this.setState({ data: JSON.stringify(error, null, '\t') });
                 });
-              }]
+              }],
             ].map((item, index) => {
               return (
                 <TouchableOpacity key={index} style={styles.button} onPress={() => {
@@ -147,7 +150,110 @@ export default class CloudStorageDemo extends React.Component {
               );
             })
           }
-          <Text style={{ marginTop: 20, width: '100%', minHeight: 100, padding: 10, borderWidth: 1, borderColor: '#DDD', borderRadius: 5, backgroundColor: '#FFF', color: '#666' }}>
+          <TextInput
+            style={styles.textContainer}
+            onChangeText={(text) => {
+              this.setState({ id: text });
+            }}
+            placeholder="请输入文件或文件夹 id"
+            value={this.state.id}
+          />
+          <TextInput
+            style={styles.textContainer}
+            onChangeText={(text) => {
+              this.setState({ name: text });
+            }}
+            placeholder="请输入名称或目标文件夹 id"
+            value={this.state.name}
+          />
+          {
+            [
+              [
+                '在指定目录下创建子文件夹', () => {
+                  if (!this.state.id || !this.state.name) {
+                    alert('请先在输入文件夹 id 和文件夹名称')
+                    return;
+                  }
+                  Service.storage.createMiCloudFolder(this.state.id, this.state.name).then(res => {
+                    this.setState({
+                      data: JSON.stringify(res, null, '\t'),
+                      id: `${res.id}`
+                    });
+                  }).catch(err => {
+                    this.setState({ data: JSON.stringify(err, null, '\t') });
+                  })
+                }
+              ],
+              [
+                '列出指定文件夹 id 下的内容', () => {
+                  if (!this.state.id) {
+                    alert('请先在输入文件夹 id')
+                    return;
+                  }
+                  Service.storage.listMiCloudItem(this.state.id).then(res => {
+                    this.setState({ data: JSON.stringify(res, null, '\t') });
+                    if (res.records && res.records.length > 0) {
+                      this.setState({
+                        id: `${res.records[0].id}`,
+                      });
+                    }
+                  }).catch(err => {
+                    this.setState({ data: JSON.stringify(err, null, '\t') });
+                  })
+                }
+              ],
+              [
+                '上传文件到云盘', () => {
+                  Service.storage.uploadMiCloudFile(this.state.id, this.state.name).then(res => {
+                    this.setState({ data: JSON.stringify(res, null, '\t') });
+                  }).catch(err => {
+                    this.setState({ data: JSON.stringify(err, null, '\t') });
+                  })
+                }
+              ],
+              [
+                '重命名项目', () => {
+                  if (!this.state.id || !this.state.name) {
+                    alert('请先在输入 id 和名称')
+                    return;
+                  }
+                  Service.storage.renameMiCloudItem(this.state.id, this.state.name).then(res => {
+                    this.setState({ 
+                      data: JSON.stringify(res, null, '\t'),
+                      name: ''
+                  });
+                  }).catch(err => {
+                    this.setState({ data: JSON.stringify(err, null, '\t') });
+                  })
+                }
+              ],
+              [
+                '复制指定文件到指定目录下', () => {
+                  if (!this.state.id || !this.state.name) {
+                    alert('请先在输入项目 id 和目标 id')
+                    return;
+                  }
+                  Service.storage.manageMiCloudFile('NEWCOPY', [{ id: this.state.id, parentId:this.state.name }]).then(res => {
+                    this.setState({ 
+                      data: JSON.stringify(res, null, '\t')
+                    });
+                  }).catch(err => {
+                    this.setState({ data: JSON.stringify(err, null, '\t') });
+                  })
+                }
+              ]
+            ].map((item, index) => {
+              return (
+                <TouchableOpacity key={index} style={styles.button} onPress={() => {
+                  item[1].bind(this)();
+                  Logger.trace(this, item[1], { action: item[0] });
+                }}>
+                  <Text style={styles.buttonText}>{item[0]}</Text>
+                </TouchableOpacity>
+              );
+            })
+          }
+          <Text style={styles.textContainer} selectable>
             {this.state.data || '点击按钮查看输出结果'}
           </Text>
         </ScrollView>
@@ -174,5 +280,15 @@ var styles = StyleSheet.create({
     color: '#555',
     fontSize: 14,
     padding: 5
+  },
+  textContainer: {
+    marginTop: 20,
+    width: '100%',
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#DDD',
+    borderRadius: 5,
+    backgroundColor: '#FFF',
+    color: '#666'
   }
 });
