@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Radio from '../Radio';
 import { AccessibilityPropTypes, getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
+import { dynamicColor } from "../Style";
 export default class ChoiceItemWithIcon extends Component {
   static propTypes = {
     icon: PropTypes.any,
@@ -113,13 +114,13 @@ const Styles = StyleSheet.create({
   title: {
     fontFamily: 'MILanPro_MEDIUM--GB1-4',
     fontSize: 16,
-    color: '#000',
+    color: dynamicColor('#000', '#FFF'),
     lineHeight: 22
   },
   subtitles: {
     fontFamily: 'MILanPro--GB1-4',
     fontSize: 13,
-    color: '#999',
+    color: dynamicColor('#999', '#666'),
     lineHeight: 18
   },
   checkbox: {
