@@ -29,7 +29,8 @@
  */
 import Device from "../device/BasicDevice";
 import { report } from "../decorator/ReportDecorator";
-import { PermissionsAndroid, processColor } from "react-native";
+import { PermissionsAndroid } from "react-native";
+import { processColor } from "react-native";
 /**
  * 文件事件名集合
  * @namespace FileEvent

@@ -17,7 +17,7 @@
  * Host.crypto.encodeMD5(str).then(res => {//md5 value is res})
  * ...
  */
-import native, { isIOS } from "../native";
+import { processColor } from 'react-native';
 // import tr from "../resources/strings/tr";
 import { report } from "../decorator/ReportDecorator";
 /**
