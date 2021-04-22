@@ -11,10 +11,15 @@ import I18n from '../../resources/Strings';
 import { adjustSize } from '../../utils/sizes';
 import { dynamicStyleSheet } from '../Style/DynamicStyleSheet';
 import DynamicColor from '../Style/DynamicColor';
+import { DarkMode } from "../../index";
 const SourceCurtainLeft = require('../../resources/images/curtain-left.png');
+const SourceCurtainLeftDark = require('../../resources/images/curtain-left-dark.png');
 const SourceCurtainRight = require('../../resources/images/curtain-right.png');
+const SourceCurtainRightDark = require('../../resources/images/curtain-right-dark.png');
 const SourceAdd = require('../../resources/images/add.png');
+const SourceAddDark = require('../../resources/images/add-dark.png');
 const SourceSwap = require('../../resources/images/refresh.png');
+const SourceSwapDark = require('../../resources/images/refresh-dark.png');
 export default class CurtainGroupPage extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -42,6 +47,7 @@ export default class CurtainGroupPage extends Component {
     // 0:不显示, 1:loading, 2: error
     layerType: 0
   };
+  colorScheme = DarkMode.getColorScheme() || 'light';
   selectLeft = () => {
     this.setState({
       selectedSide: 'left'
@@ -258,9 +264,9 @@ export default class CurtainGroupPage extends Component {
             <TouchableOpacity style={[Styles.curtainIcon, selectedSide === 'left' ? Styles.curtainIconSelected : null]} activeOpacity={0.8} onPress={this.selectLeft}>
               <View style={Styles.curtainIconInner}>
                 {leftDid ? (
-                  <Image style={Styles.curtainImg} source={SourceCurtainLeft} />
+                  <Image style={Styles.curtainImg} source={this.colorScheme === 'light' ? SourceCurtainLeft : SourceCurtainLeftDark} />
                 ) : (
-                  <Image style={Styles.add} source={SourceAdd} />
+                  <Image style={Styles.add} source={this.colorScheme === 'light' ? SourceAdd : SourceAddDark} />
                 )}
               </View>
             </TouchableOpacity>
@@ -274,15 +280,15 @@ export default class CurtainGroupPage extends Component {
             ) : null}
           </View>
           <TouchableOpacity style={Styles.swapWrap} activeOpacity={0.8} onPress={this.swap}>
-            <Image style={Styles.swap} source={SourceSwap} />
+            <Image style={Styles.swap} source={this.colorScheme === 'light' ? SourceSwap : SourceSwapDark} />
           </TouchableOpacity>
           <View style={Styles.curtain}>
             <TouchableOpacity style={[Styles.curtainIcon, selectedSide === 'right' ? Styles.curtainIconSelected : null]} activeOpacity={0.8} onPress={this.selectRight}>
               <View style={Styles.curtainIconInner}>
                 {rightDid ? (
-                  <Image style={[Styles.curtainImg, Styles.curtainImgRight]} source={SourceCurtainRight} />
+                  <Image style={Styles.curtainImg} source={this.colorScheme === 'light' ? SourceCurtainRight : SourceCurtainRightDark} />
                 ) : (
-                  <Image style={Styles.add} source={SourceAdd} />
+                  <Image style={Styles.add} source={this.colorScheme === 'light' ? SourceAdd : SourceAddDark} />
                 )}
               </View>
             </TouchableOpacity>
@@ -375,7 +381,7 @@ const Styles = dynamicStyleSheet({
     alignItems: 'center'
   },
   curtainIconSelected: {
-    borderColor: '#32BAC0'
+    borderColor: new DynamicColor('#32BAC0', '#25A9AF')
   },
   curtainIconInner: {
     width: adjustSize(426),
@@ -390,6 +396,11 @@ const Styles = dynamicStyleSheet({
     height: adjustSize(312),
     resizeMode: 'contain'
   },
+  curtainImgRight: {
+    transform: [
+      { scaleX: -1 }
+    ]
+  },
   curtainName: {
     marginTop: adjustSize(36),
     fontFamily: 'MILanPro--GB1-4',
@@ -403,7 +414,7 @@ const Styles = dynamicStyleSheet({
     paddingHorizontal: adjustSize(30),
     borderRadius: adjustSize(51),
     marginTop: adjustSize(30),
-    backgroundColor: 'rgba(50,186,192,0.10)',
+    backgroundColor: new DynamicColor('rgba(50,186,192,0.10)', 'rgba(37,169,175,0.30)'),
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -411,7 +422,7 @@ const Styles = dynamicStyleSheet({
     fontFamily: 'MILanPro_MEDIUM--GB1-4',
     fontSize: adjustSize(39),
     lineHeight: adjustSize(54),
-    color: '#32BAC0'
+    color: new DynamicColor('#32BAC0', '#25A9AF')
   },
   add: {
     width: adjustSize(48),
@@ -441,7 +452,7 @@ const Styles = dynamicStyleSheet({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: adjustSize(69),
-    backgroundColor: '#32BAC0'
+    backgroundColor: new DynamicColor('#32BAC0', '#25A9AF')
   },
   btnDisabled: {
     opacity: 0.3
@@ -450,10 +461,10 @@ const Styles = dynamicStyleSheet({
     fontFamily: 'MILanPro_MEDIUM--GB1-4',
     fontSize: adjustSize(48),
     lineHeight: adjustSize(66),
-    color: new DynamicColor('#fff', '#000'),
+    color: '#fff',
     textAlign: 'center'
   },
   extraSubtitle: {
-    color: '#32BAC0'
+    color: new DynamicColor('#32BAC0', '#25A9AF')
   }
 });
