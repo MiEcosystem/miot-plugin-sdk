@@ -114,12 +114,12 @@ export default class FirmwareUpgrade extends React.Component {
 }
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: new DynamicColor(Styles.common.backgroundColor, '#1A1A1A'),
+    backgroundColor: new DynamicColor(Styles.common.backgroundColor, '#000000'),
     flex: 1
   },
   blank: {
     height: 8,
-    backgroundColor: new DynamicColor(Styles.common.backgroundColor, '#1A1A1A'),
+    backgroundColor: new DynamicColor(Styles.common.backgroundColor, '#000000'),
     borderTopColor: Styles.common.hairlineColor,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomColor: Styles.common.hairlineColor,
