@@ -217,10 +217,50 @@ class IMiotCamera {
    *         data = {sdcardGetSuccess: true, sdcardStatus: 0, isVip: false}
    *         Service.miotcamera.showPlaybackVideos(JSON.stringify(data));
    */
-  @report
+   @report
   showPlaybackVideos(data, did = Device.deviceID) {
      return null
   }
+  /**
+   * 打开长时间无人出现页面
+   * @since 10054
+   * @param {data} jsonobj
+   * @example 
+   */
+  @report
+   openLongTimeNobody(data, did = Device.deviceID) {
+      return null
+   }
+  /**
+   * 打开每日故事设置
+   * @since 10054
+   * @param {data} jsonobj
+   * @example 
+   */
+  @report
+  openDailyStorySetting(data, did = Device.deviceID) {
+     return null
+  }
+  /**
+   * 打开宝宝睡眠设置
+   * @since 10054
+   * @param {data} jsonobj
+   * @example 
+   */
+   @report
+  openBabySleepSetting(data, did = Device.deviceID) {
+     return null
+  }
+   /**
+   * 打开IDM设置
+   * @since 10054
+   * @param {data} jsonobj
+   * @example 
+   */
+   @report
+   openIDMSetting(data, did = Device.deviceID) {
+      return null
+   }
   /**
    * 打开相册
    * @since 10051
@@ -230,9 +270,9 @@ class IMiotCamera {
    *         Service.miotcamera.showPlaybackVideos(JSON.stringify(data));
    */
   @report
-  showAlbum(data, did = Device.deviceID) {
-     return null
-  }
+   showAlbum(data, did = Device.deviceID) {
+      return null
+   }
   /**
    * 打开设备相册中最新的图片或视频
    * @since 10051
@@ -347,6 +387,50 @@ class IMiotCamera {
   @report
   downloadM3U8ToMP4(fileId, filePath, callbackName, isAlarm = false, videoCodec = 'H265', did = Device.deviceID) {
   }
+  /**
+   * 取消downloadM3U8ToMP4任务, 只有ios需要这个接口
+   * @since 10053
+   * @param {*} fileId
+   * @param {*} callbackName
+   * @param {*} isAlarm
+   * @param {*} videoCodec
+   * @param {*} did
+   */
+  @report
+  cancelDownloadM3U8ToMP4(fileId, callbackName, isAlarm = false, did = Device.deviceID) {
+      NativeModules.MHCameraSDK.cancelDownloadM3U8ToMP4(Device.model, did, fileId, isAlarm, callbackName);
+    } else {
+      console.log('android use downloadM3U8ToMP4V2 and cancelDownloadM3U8ToMP4V2 from 10053');
+    }
+  }
+  /**
+   * 下载m3u8视频并合成mp4，支持合成mp4时统一分辨率，避免视频花屏
+   * @since 10053
+   * @param fileId
+   * @param filePath
+   * @param callbackName
+   * @param isAlarm 是否报警视频
+   * @param videoCodec 视频编码如 "H264", "H265"
+   * @param transcode 是否需要把每个子视频转码成相同分辨率后再合成，默认需要转
+   * @returns
+   *    state : 1. onStart (开始下载)  2. onComplete（下载完成）  3. onError（失败）  4. onProgress（下载进度）
+   *    errorInfo : 失败描述（state = onError时才有）
+   *    progress : 下载进度0 - 100 (state = onProgress时才有)
+   */
+     @report
+  downloadM3U8ToMP4V2(fileId, filePath, callbackName, isAlarm = false, videoCodec = 'H265', did = Device.deviceID, transcode = true) {
+  }
+  /**
+  * 取消downloadM3U8ToMP4V2任务
+  * @since 10053
+  * @param {*} fileId
+  * @param {*} callbackName
+  * @param {*} isAlarm
+  * @param {*} did
+  */
+  @report
+     cancelDownloadM3U8ToMP4V2(fileId, callbackName, isAlarm = false, did = Device.deviceID) {
+     }
   /**
    * 获取报警视频m3u8播放地址
    * @since 10037

@@ -162,7 +162,11 @@ const API_REPO = {
   '/v2/device/get_break_lock_alarm_info': {},
   '/v2/device/set_hijack_alarm_info': {},
   '/v2/device/get_hijack_alarm_info': {},
+  // FDS KS3 相关
   '/v2/home/get_interim_file_url_pro': {},
+  '/v2/home/genfileurl_v3': {},
+  '/v2/home/genpresignedurl': {},
+  '/v2/home/genpresignedurl_v3': {},
   '/home/getfileurl_v3': {},
   '/v2/home/getfileurl_v3': {},
   '/v2/recipes/query': {},
@@ -194,6 +198,12 @@ const API_REPO = {
   '/common/app/v1/cloud/file/exist': {},
   '/common/app/get/cloudlist': {},
   '/common/app/v1/capacity': {},
-  '/v2/scene/get_rec_in_plugin': {}
+  '/v2/scene/get_rec_in_plugin': {},
+  // 每日故事开关接口
+  '/miot/camera/app/v1/put/dailyStorySwitch': {},
+  
+  // 免费人脸
+  '/miot/camera/app/v1/vip/freeface/addFreeface': {},
+  '/miot/camera/app/v1/vip/freeface/status': {}
 };
 export default API_REPO;

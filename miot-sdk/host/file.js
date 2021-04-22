@@ -479,12 +479,13 @@ class IFile {
      return Promise.resolve(null);
   }
   /**
-   * 解压缩一个zip文件为指定格式的字符串；文件首先被解压为一个字节数组，然后将字节数组转换为string(string可以是utf-8、base-64、16进制)
+   * 解压缩一个gzip文件为指定格式的字符串；文件首先被解压为一个字节数组，然后将字节数组转换为string(string可以是utf-8、base-64、16进制)
    * @since 10054
    * @param {json} params {
    *  fileName: 'cache/test.zip', //沙盒内的相对路径,必填
-   *  charsetName:'[utf-8|base-64|hex-string]',//指定解压后的字符串的格式: utf-8表示将文件解压为utf-8格式的字符串；
-   * base-64表示解压为base-64格式的字符串；hex-string表示解压为16进制字符串；charsetName可不传，不传默认为base-64
+   *  charsetName:'[utf-8|base-64|hex-string|int-array]',//指定解压后的字符串的格式: utf-8表示将文件解压为utf-8格式的字符串；
+   * base-64表示解压为base-64格式的字符串；hex-string表示解压为16进制字符串；int-array表示将解压后的数据以JSONArray(数组元素为int类型)的格式的字符串返回
+   * charsetName可不传，不传默认为base-64
    * }
    * @returns {Promise<json>} 成功时返回：{code:0,data:'xxxxxxxxxxx'}
    * 失败时返回：
@@ -497,14 +498,14 @@ class IFile {
    *  fileName: 'cache/test.zip',
    *  charsetName: 'base-64',
    * }
-   * Host.file.unzipFileToString(params).then(res=>{
+   * Host.file.ungzipFileToString(params).then(res=>{
    *  console.log("file content:",res);
    * }).catch(err=>{
-   *  console.log("unzipFileToString error:",err);
+   *  console.log("ungzipFileToString error:",err);
    * })
    */
    @report
-  unzipFileToString(params) {
+  ungzipFileToString(params) {
      return Promise.resolve(null);
   }
   /**

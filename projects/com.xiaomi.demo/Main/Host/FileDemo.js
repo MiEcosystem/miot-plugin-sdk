@@ -162,7 +162,7 @@ export default class FileStorage extends React.Component {
               ],
               [
                 ["解压文件", this._unZipFile],
-                ["解压文件为指定格式的字符串", this._unzipFileToString]
+                ["解压文件为指定格式的字符串", this._ungzipFileToString]
               ],
               [
                 ["截图当前页面", this._screenShot],
@@ -263,16 +263,16 @@ export default class FileStorage extends React.Component {
     });
   }
 
-  _unzipFileToString() {
+  _ungzipFileToString() {
     let params = {
-      fileName: `${ Host.file.storageBasePath }Resources/unzipfiletostring.txt.zip`,
-      charsetName: "hex-string"
+      fileName: `${ Host.file.storageBasePath }Resources/ungzipFileToString.txt.zip`,
+      charsetName: "int-array"
     };
 
-    Host.file.unzipFileToString(params).then((res) => {
-      console.log(`unzipFileToString,res: ${ res }`);
+    Host.file.ungzipFileToString(params).then((res) => {
+      console.log(`ungzipFileToString,res: ${ res }`);
     }).catch((err) => {
-      console.log(`unzipFileToString,err: ${ JSON.stringify(err) }`);
+      console.log(`ungzipFileToString,err: ${ JSON.stringify(err) }`);
     });
   }
 

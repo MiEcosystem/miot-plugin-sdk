@@ -12,6 +12,7 @@ import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
 import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
 import DynamicColor from 'miot/ui/Style/DynamicColor';
+import { FontPrimary } from 'miot/utils/fonts';
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
 let firmwareUpgradeDotClicked = false;
 let modelType = '';
@@ -330,10 +331,11 @@ const excludeOptions = {
  * @property {bool} useNewType - 10045新增 是否使用新样式 10045以后*!必须!*使用新样式
  */
 /**
- * MoreSettingPageStyle - 10040新增 二级页面 更多设置 页面的样式
- * @typedef {Object} MoreSettingPageStyle
+ * moreSettingPageStyle - 10040新增 二级页面 更多设置 页面的样式
+ * @typedef {Object} moreSettingPageStyle
  * @property {style} navigationBarStyle - 标题的自定义样式 -可参考 NavigationBar 样式
- * @property {ItemStyle} itemStyle - 列表中 item样式
+ * @property {style} itemStyle - 列表中 item样式
+ * @property {style} - 10053新增 containerStyle - 标题栏下方内容的样式
  */
 /**
  *
@@ -345,6 +347,8 @@ const excludeOptions = {
  * @property {ItemStyle} itemStyle - 10040新增 CommonSetting中 列表item 的样式
  * @property {object} deleteTextStyle - 10040新增 CommonSetting中 "删除设备" 字体的样式
  * @property {object} moreSettingPageStyle - 10040新增 CommonSetting中 二级页面 更多设置 页面的样式
+ * @property {object} titleContainer - 10053新增 CommonSetting中 "通用设置" 所在item的样式
+ * @property {object} bottomContainer - 10053新增 CommonSetting中 "删除设备" 所在item的样式
  */
 /**
  * @export public
@@ -515,7 +519,6 @@ export default class CommonSetting extends React.Component {
         }
       }
     };
-    
     // 常用摄像机(初摩象), 不是摄像机不添加, 避免后面多次判断
     let isCamera = ['camera'].indexOf(modelType) !== -1 && ['mxiang.'].indexOf(Device.model) == -1;
     ret[AllOptions.FREQ_CAMERA] = isCamera ? {
@@ -757,9 +760,6 @@ export default class CommonSetting extends React.Component {
   }
   render() {
     let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint } = this.state;
-    // 如果不设置英文字体，那么外文字符串将显示不全（Android）
-    let fontFamily = {};
-    if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' };
     let requireKeys1 = [
       AllOptions.FREQ_CAMERA,
       AllOptions.FREQ_DEVICE,
@@ -839,7 +839,7 @@ export default class CommonSetting extends React.Component {
     let tempCommonSettingStyle = this._getCommonSettingStyle();
     return (
       <View style={styles.container}>
-        <View style={styles.titleContainer}>
+        <View style={[styles.titleContainer, tempCommonSettingStyle.titleContainer]}>
           <Text
             style={[styles.title, tempCommonSettingStyle.titleStyle]}
             allowFontScaling={tempCommonSettingStyle.allowFontScaling}>
@@ -907,7 +907,7 @@ export default class CommonSetting extends React.Component {
         }
         {/* <Separator /> */}
         {!Device.isFamily ?
-          (<View style={styles.bottomContainer} {...getAccessibilityConfig({
+          (<View style={[styles.bottomContainer, tempCommonSettingStyle.bottomContainer]} {...getAccessibilityConfig({
             accessible: this.props.accessible,
             accessibilityRole: AccessibilityRoles.button
           })}>
@@ -917,7 +917,7 @@ export default class CommonSetting extends React.Component {
               activeOpacity={0.8}
             >
               <Text
-                style={ [styles.buttonText, fontFamily, tempCommonSettingStyle.deleteTextStyle]}
+                style={ [styles.buttonText, FontPrimary, { fontWeight: 'bold' }, tempCommonSettingStyle.deleteTextStyle]}
                 allowFontScaling={tempCommonSettingStyle.allowFontScaling}
               >
                 {Device.type === '17' && Device.isOwner ? (strings[`delete${ (Device.model || '').split('.')[1][0].toUpperCase() }${ (Device.model || '').split('.')[1].slice(1) }Group`]) : strings.deleteDevice}
@@ -931,6 +931,7 @@ export default class CommonSetting extends React.Component {
     let style = {
       allowFontScaling: true,
       unlimitedHeightEnable: false,
+      titleContainer: {},
       titleStyle: {},
       itemStyle: {
         allowFontScaling: true,
@@ -946,6 +947,7 @@ export default class CommonSetting extends React.Component {
         // valueMaxWidth: '30%',
         useNewType: false
       },
+      bottomContainer: {},
       deleteTextStyle: {}
     };
     if (this.props.commonSettingStyle) {
@@ -955,11 +957,17 @@ export default class CommonSetting extends React.Component {
       if (this.props.commonSettingStyle.hasOwnProperty('unlimitedHeightEnable')) {
         style.unlimitedHeightEnable = this.props.commonSettingStyle.unlimitedHeightEnable;
       }
+      if (this.props.commonSettingStyle.hasOwnProperty('titleContainer')) {
+        style.titleContainer = this.props.commonSettingStyle.titleContainer;
+      }
       if (this.props.commonSettingStyle.hasOwnProperty('titleStyle')) {
         style.titleStyle = this.props.commonSettingStyle.titleStyle;
       }
       if (this.props.commonSettingStyle.hasOwnProperty('itemStyle')) {
         style.itemStyle = this.props.commonSettingStyle.itemStyle;
+      }
+      if (this.props.commonSettingStyle.hasOwnProperty('bottomContainer')) {
+        style.bottomContainer = this.props.commonSettingStyle.bottomContainer;
       }
       if (this.props.commonSettingStyle.hasOwnProperty('deleteTextStyle')) {
         style.deleteTextStyle = this.props.commonSettingStyle.deleteTextStyle;
@@ -998,7 +1006,7 @@ const styles = dynamicStyleSheet({
   },
   titleContainer: {
     minHeight: 32,
-    backgroundColor: new DynamicColor('#fff', '#000000'),
+    backgroundColor: Styles.darkMode.backgroundColor,
     justifyContent: 'center',
     paddingLeft: Styles.common.padding
   },
@@ -1024,9 +1032,7 @@ const styles = dynamicStyleSheet({
     marginHorizontal: Styles.common.padding
   },
   buttonText: {
-    fontSize: 13,
-    fontWeight: 'bold',
-    // fontFamily: 'MI-LANTING--GBK1-Bold',
+    fontSize: 16,
     flex: 1,
     textAlign: 'center',
     color: new DynamicColor('#F43F31', '#D92719'),

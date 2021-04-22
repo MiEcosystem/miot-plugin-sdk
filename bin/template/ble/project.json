@@ -1,0 +1,10 @@
+{ 
+        "package_path": "xiaomi.template.ble",
+        "min_sdk_api_level":10041,
+        "developer_id": "",
+        "version_code":1,
+        "entrance_scene":{
+            "action_ids":[],
+            "trigger_ids":[]
+        }
+    }

@@ -7,6 +7,7 @@
  * <Text style={{ backgroundColor: Styles.common.MHGreen }}>
  */
 import { Dimensions, StyleSheet } from 'react-native';
+import DynamicColor from "../ui/Style/DynamicColor";
 const { width } = Dimensions.get('window');
 const PADDING = 29;
 const SEPARATOR_HEIGHT = StyleSheet.hairlineWidth;
@@ -80,5 +81,8 @@ export default {
       color: '#666',
       fontFamily: 'D-DINCondensed-Bold' // TODO: 英文字体，中文加粗效果
     }
+  },
+  darkMode: {
+    backgroundColor: new DynamicColor('#FFFFFF', '#000000')
   }
 };

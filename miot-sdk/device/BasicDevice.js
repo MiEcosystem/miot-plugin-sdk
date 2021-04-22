@@ -186,6 +186,7 @@ export const DeviceEvent = {
   multiSwitchNameChanged: {
   /**
    * 插件密码设置改变事件
+   * @since 10053
    * @event
    * @param {IDevice} device -发生变更的设备
    * @param {Map<string, object>}  switchStatus { isSetPinCode: false/true }
