@@ -8,8 +8,6 @@
  *
  */
 import { report } from "../decorator/ReportDecorator";
-import { Device } from "miot";
-import commandStub from '../../bin/local-cli/link/commandStub';
 /**
  * 云端配置管理
  * @interface
@@ -163,7 +161,7 @@ class ICloudStorage {
   uploadMiCloudFile(parentId, name) {
      return Promise.resolve(null);
   }
-  /**
+   /**
    * 下载小米云盘文件
    * @since 10054
    * @param id 要下载到的文件的 id
@@ -176,9 +174,9 @@ class ICloudStorage {
    * }
   */
    @report
-  downloadMiCloudFile(id, name = '') {
-     return Promise.resolve(null);
-  }
+   downloadMiCloudFile(id, name = '') {
+      return Promise.resolve(null);
+   }
   /**
    * 批量管理文件。 操作是异步的，如果耗时长
    * @since 10054
