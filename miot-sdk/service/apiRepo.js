@@ -199,6 +199,7 @@ const API_REPO = {
   '/common/app/get/cloudlist': {},
   '/common/app/v1/capacity': {},
   '/v2/scene/get_rec_in_plugin': {},
+  '/common/app/get/fileIdEvents': {},
   // 每日故事开关接口
   '/miot/camera/app/v1/put/dailyStorySwitch': {},
   
