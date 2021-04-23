@@ -104,10 +104,10 @@ export default class CryptoDemo extends React.Component {
             ].concat(array).map((item, index) => {
               return (
                 <TouchableOpacity style={styles.button} onPress={() => {
-                  Logger.trace(this, this.render, { action: '追觅机器人路径转图片' });
+                  Logger.trace(this, this.render, { action: item[0] });
                   item[1]();
                 }} key={index}>
-                  <Text style={styles.buttonText}>{item}</Text>
+                  <Text style={styles.buttonText}>{item[0]}</Text>
                 </TouchableOpacity>
               );
             })
@@ -115,7 +115,7 @@ export default class CryptoDemo extends React.Component {
           <View style={{ height: 20 }} />
           {
             this.state.image === '' ? null :
-              <Image style={{ width: '100%', aspectRatio: ZhuiMiRobot.width / ZhuiMiRobot.height }}
+              <Image style={{ backgroundColor: 'red', width: '100%', aspectRatio: ZhuiMiRobot.width / ZhuiMiRobot.height }}
                 source={{ uri: this.state.image }} />
           }
           <View style={{ height: 20 }} />

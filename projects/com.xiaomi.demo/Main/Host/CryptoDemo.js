@@ -16,7 +16,6 @@ export default class TraceDemo extends React.Component {
       base64Text: '',
       SHA1Text: '',
       SHA2Text: '',
-      zhuimiRobotTracesToImageBase64: '',
       otherP: ''
     };
     this.cryptoObject = new ECCCrypto(ECCCrypto.CurveTypeSecp256r1);
@@ -81,7 +80,7 @@ export default class TraceDemo extends React.Component {
               );
             })
           }
-          <View style={{height: 20}}/>
+          <View style={{ height: 20 }}/>
           <Text style={styles.buttonText}> {'eccPublicKey：'} </Text>
           <Text style={styles.buttonText} selectable={true}>{this.state.eccPublicKey0 || '第一步，点击下面按钮产生KP'}</Text>
           <TouchableOpacity style={styles.button} onPress={() => {
