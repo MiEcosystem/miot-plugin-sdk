@@ -479,6 +479,36 @@ class IFile {
      return Promise.resolve(null);
   }
   /**
+   * 解压缩一个gzip文件为指定格式的字符串；文件首先被解压为一个字节数组，然后将字节数组转换为string(string可以是utf-8、base-64、16进制)
+   * @since 10054
+   * @param {json} params {
+   *  fileName: 'cache/test.zip', //沙盒内的相对路径,必填
+   *  charsetName:'[utf-8|base-64|hex-string|int-array]',//指定解压后的字符串的格式: utf-8表示将文件解压为utf-8格式的字符串；
+   * base-64表示解压为base-64格式的字符串；hex-string表示解压为16进制字符串；int-array表示将解压后的数据以JSONArray(数组元素为int类型)的格式的字符串返回
+   * charsetName可不传，不传默认为base-64
+   * }
+   * @returns {Promise<json>} 成功时返回：{code:0,data:'xxxxxxxxxxx'}
+   * 失败时返回：
+   * {code:-1,message:’${fileName} is not valid’}
+   * {code:-2,message:’${fileName} is not exist‘}
+   * {code:-3,message:’${fileName} is not a file}
+   * {code:-4,message: 'unzipToString failed:internal error'}
+   * @example
+   * let params = {
+   *  fileName: 'cache/test.zip',
+   *  charsetName: 'base-64',
+   * }
+   * Host.file.ungzipFileToString(params).then(res=>{
+   *  console.log("file content:",res);
+   * }).catch(err=>{
+   *  console.log("ungzipFileToString error:",err);
+   * })
+   */
+   @report
+  ungzipFileToString(params) {
+     return Promise.resolve(null);
+  }
+  /**
    * 解压缩一个gz文件, 并以base64编码的形式直接返回给插件, 不做本地存储
    * @param {string} fileName - 文件名（插件存储空间内的文件）
    * @return {Promise}
@@ -486,9 +516,9 @@ class IFile {
    * 失败时：{"code":xxx, "message":"xxx" }
    */
   @report
-  ungzFile(fileName) {
-     return Promise.resolve(null);
-  }
+   ungzFile(fileName) {
+      return Promise.resolve(null);
+   }
   /**
   * 保存指定照片文件到系统相册
   * @param {string} fileName 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
