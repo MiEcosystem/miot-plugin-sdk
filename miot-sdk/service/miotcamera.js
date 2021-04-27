@@ -337,11 +337,14 @@ class IMiotCamera {
   }
   /**
    * 打开人脸识别页面
-   * @since 10033
+   * @since 10054
    * @param {BOOL} isVip
+   * @param did
+   * @param {string} aFreeFaceSt 免费人脸状态 OutOfDate Acquired unAcquired
+   * @param {string} aBuyVipUrl vip购买链接
    */
   @report
-  showFaceRecognize(isVip, did = Device.deviceID) {
+  showFaceRecognize(isVip, did = Device.deviceID, aFreeFaceSt = null, aBuyVipUrl = null) {
      return null
   }
   /**
