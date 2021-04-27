@@ -205,6 +205,19 @@ export default class CloudStorageDemo extends React.Component {
               [
                 '上传文件到云盘', () => {
                   Service.storage.uploadMiCloudFile(this.state.id, this.state.name).then(res => {
+                    this.setState({ 
+                      data: JSON.stringify(res, null, '\t'),
+                      id: res.data.id,
+                      name: ''
+                    });
+                  }).catch(err => {
+                    this.setState({ data: JSON.stringify(err, null, '\t') });
+                  })
+                }
+              ],
+              [
+                '下载云云盘文件到本地', () => {
+                  Service.storage.downloadMiCloudFile(this.state.id, this.state.name).then(res => {
                     this.setState({ data: JSON.stringify(res, null, '\t') });
                   }).catch(err => {
                     this.setState({ data: JSON.stringify(err, null, '\t') });
