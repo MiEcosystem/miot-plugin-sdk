@@ -818,6 +818,14 @@ class IMiotCamera {
   showOperationBannerPage(data, did = Device.deviceID) {
      return null
   }
+  /**
+   * @param isPadFullScreen 是否希望进入pad下的全屏， 设置为true，会把画面铺满屏幕，设置为false，会恢复画面
+   */
+  @report
+     enterFullscreenForPad(isPadFullScreen) {
+       // native :=> null
+       NativeModules.MHCameraSDK.enterFullscreenForPad(isPadFullScreen);
+     }
   
 }
 const MiotCameraInstance = new IMiotCamera();
