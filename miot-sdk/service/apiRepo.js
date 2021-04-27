@@ -170,6 +170,7 @@ const API_REPO = {
   '/home/getfileurl_v3': {},
   '/v2/home/getfileurl_v3': {},
   '/v2/recipes/query': {},
+  '/v2/recipes/getById': {},
   '/home/devupgrade': {},
   '/v2/device/get_auto_upgrade_config': {},
   '/v2/device/get_firmware_history': {},
