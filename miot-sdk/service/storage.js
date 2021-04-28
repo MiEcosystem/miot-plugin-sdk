@@ -161,29 +161,29 @@ class ICloudStorage {
   uploadMiCloudFile(parentId, name) {
      return Promise.resolve(null);
   }
-   /**
+  /**
    * 下载小米云盘文件
    * @since 10054
    * @param id 要下载到的文件的 id
    * @param name 可选, 要下载保存的文件名, 与 Host.file 中的 filename 含义一致, 不填则使用原始文件名，下载到缓存根目录
-   * @returns Promise 
-   * { 
+   * @returns Promise
+   * {
    *    code:0,       // 成功时为 0，失败为其它
-   *    message: ''   // 失败信息, 
+   *    message: ''   // 失败信息,
    *    data: filepath
    * }
   */
    @report
    downloadMiCloudFile(id, name = '') {
       return Promise.resolve(null);
-   }
+  }
   /**
    * 批量管理文件。 操作是异步的，如果耗时长
    * @since 10054
-   * @param operateType {string} 
+   * @param operateType {string}
    *    MOVE:     移动
-   *    COPY:     复制 
-   *    DELETE:   删除 
+   *    COPY:     复制
+   *    DELETE:   删除
    *    OVERWRITE:覆盖
    *    NEWCOPY:  重命名拷贝
    *    PPT_TO_PDF_CREATE:  图片转pdf生成
@@ -194,9 +194,9 @@ class ICloudStorage {
    *    code: 0,      // 成功时为 0, 失败时非 0
    *    message: abc  // 描述信息
    *    data: {
-   *      status: SUCCESS, 
-   *      taskId: xxxx, 
-   *      operateType: xxx 
+   *      status: SUCCESS,
+   *      taskId: xxxx,
+   *      operateType: xxx
    *    }
    * }
    * 失败时: 与 listMiCloudItem 相同, 新增可选字段 failedRecords 表示操作失败的 id 列表

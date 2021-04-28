@@ -142,7 +142,7 @@ export default class FileStorage extends React.Component {
               [
                 ["向文件追加内容", this._appendFile],
                 ["向文件追加内容(Base64)", this._appendFileThroughBase64],
-                ["保存文件到小米手机的小米便签(只支持MIUI和特定model)", this.saveFileToNotesAppOnMIUI],
+                ["保存文件到小米手机的小米便签(只支持MIUI和特定model)", this.saveFileToNotesAppOnMIUI]
               ],
               [
                 ["读文件", this._readFile],
@@ -163,6 +163,7 @@ export default class FileStorage extends React.Component {
               ],
               [
                 ["截图当前页面", this._screenShot],
+                ["裁剪截图文件", this._cropImage],
                 ["长截屏", this._longScreenShot]
               ],
               [
@@ -224,16 +225,16 @@ export default class FileStorage extends React.Component {
 
   }
 
-  _copyFile(){
-    let copy_params={
-      srcPath:'test.pdf',
-      dstPath:'test_copy.pdf',
-    }
+  _copyFile() {
+    let copy_params = {
+      srcPath: 'test.pdf',
+      dstPath: 'test_copy.pdf'
+    };
     Host.file.copyFile(copy_params).then((res) => {
       alert(JSON.stringify(res));
-      Host.file.readFileList('').then(res=>{
-        alert(JSON.stringify(res))
-      })
+      Host.file.readFileList('').then((res) => {
+        alert(JSON.stringify(res));
+      });
     }).catch((res) => {
       alert(JSON.stringify(res));
     });
@@ -272,7 +273,7 @@ export default class FileStorage extends React.Component {
       fontSize: 13,
       pageSize: { width: 375, height: 812 },
       marginHorizontal: 0,
-      marginVertical: 0,
+      marginVertical: 0
     }).then((res) => {
       alert(JSON.stringify(res));
     }).catch((err) => {
@@ -431,10 +432,10 @@ export default class FileStorage extends React.Component {
   // 普通字符串 追加写内容
   saveFileToNotesAppOnMIUI() {
     Host.file.saveFileToNotesAppOnMIUI(this.state.fileName).then((isSuccess) => {
-      alert(`saveFileToNotesAppOnMIUI success,${JSON.stringify(isSuccess)}`);
+      alert(`saveFileToNotesAppOnMIUI success,${ JSON.stringify(isSuccess) }`);
     }).catch((error) => {
-      console.log(`saveFileToNotesAppOnMIUI fail,${JSON.stringify(error)}`)
-      alert(`saveFileToNotesAppOnMIUI fail,${JSON.stringify(error)}`);
+      console.log(`saveFileToNotesAppOnMIUI fail,${ JSON.stringify(error) }`);
+      alert(`saveFileToNotesAppOnMIUI fail,${ JSON.stringify(error) }`);
     });
   }
 
@@ -568,6 +569,38 @@ export default class FileStorage extends React.Component {
       })
       .catch((result) => {
         alert(result);
+      });
+  }
+
+  _cropImage() {
+    if (!this.state.imagePath) {
+      alert('please shot screen first');
+      return;
+    }
+    let fileName = `crop/croppp/crop_${ new Date().getTime() }.png`;
+    let params = {
+      offset: {
+        x: 0,
+        y: 0
+      },
+      size: {
+        width: 600,
+        height: 800
+      },
+      displaySize: {
+        width: 300,
+        height: 400
+      }
+    };
+    Host.file.cropImage(fileName, this.state.imagePath, params)
+      .then((path) => {
+        this.setState({
+          imagePath: path
+        });
+        alert(path);
+      })
+      .catch((error) => {
+        alert(error);
       });
   }
 
@@ -778,7 +811,8 @@ const styles = StyleSheet.create({
   },
   img: {
     width: screenWidth / 2,
-    height: screenHeight / 2
+    height: screenHeight / 2,
+    resizeMode: 'contain'
   },
   row: {
     height: 40,

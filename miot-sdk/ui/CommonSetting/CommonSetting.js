@@ -331,10 +331,12 @@ const excludeOptions = {
  * @property {bool} useNewType - 10045新增 是否使用新样式 10045以后*!必须!*使用新样式
  */
 /**
- * MoreSettingPageStyle - 10040新增 二级页面 更多设置 页面的样式
- * @typedef {Object} MoreSettingPageStyle
+ * moreSettingPageStyle - 10040新增 二级页面 更多设置 页面的样式
+ * @typedef {Object} moreSettingPageStyle
  * @property {style} navigationBarStyle - 标题的自定义样式 -可参考 NavigationBar 样式
- * @property {ItemStyle} itemStyle - 列表中 item样式
+ * @property {style} itemStyle - 列表中 item样式
+ * @property {style} - 10053新增 blankStyle - 标题栏与列表间分隔部分的样式
+ * @property {style} - 10053新增 containerStyle - 标题栏下方内容的样式
  */
 /**
  *
@@ -346,6 +348,8 @@ const excludeOptions = {
  * @property {ItemStyle} itemStyle - 10040新增 CommonSetting中 列表item 的样式
  * @property {object} deleteTextStyle - 10040新增 CommonSetting中 "删除设备" 字体的样式
  * @property {object} moreSettingPageStyle - 10040新增 CommonSetting中 二级页面 更多设置 页面的样式
+ * @property {object} titleContainer - 10053新增 CommonSetting中 "通用设置" 所在item的样式
+ * @property {object} bottomContainer - 10053新增 CommonSetting中 "删除设备" 所在item的样式
  */
 /**
  * @export public
@@ -836,7 +840,7 @@ export default class CommonSetting extends React.Component {
     let tempCommonSettingStyle = this._getCommonSettingStyle();
     return (
       <View style={styles.container}>
-        <View style={styles.titleContainer}>
+        <View style={[styles.titleContainer, tempCommonSettingStyle.titleContainer]}>
           <Text
             style={[styles.title, tempCommonSettingStyle.titleStyle]}
             allowFontScaling={tempCommonSettingStyle.allowFontScaling}>
@@ -904,7 +908,7 @@ export default class CommonSetting extends React.Component {
         }
         {/* <Separator /> */}
         {!Device.isFamily ?
-          (<View style={styles.bottomContainer} {...getAccessibilityConfig({
+          (<View style={[styles.bottomContainer, tempCommonSettingStyle.bottomContainer]} {...getAccessibilityConfig({
             accessible: this.props.accessible,
             accessibilityRole: AccessibilityRoles.button
           })}>
@@ -928,6 +932,7 @@ export default class CommonSetting extends React.Component {
     let style = {
       allowFontScaling: true,
       unlimitedHeightEnable: false,
+      titleContainer: {},
       titleStyle: {},
       itemStyle: {
         allowFontScaling: true,
@@ -943,6 +948,7 @@ export default class CommonSetting extends React.Component {
         // valueMaxWidth: '30%',
         useNewType: false
       },
+      bottomContainer: {},
       deleteTextStyle: {}
     };
     if (this.props.commonSettingStyle) {
@@ -952,11 +958,17 @@ export default class CommonSetting extends React.Component {
       if (this.props.commonSettingStyle.hasOwnProperty('unlimitedHeightEnable')) {
         style.unlimitedHeightEnable = this.props.commonSettingStyle.unlimitedHeightEnable;
       }
+      if (this.props.commonSettingStyle.hasOwnProperty('titleContainer')) {
+        style.titleContainer = this.props.commonSettingStyle.titleContainer;
+      }
       if (this.props.commonSettingStyle.hasOwnProperty('titleStyle')) {
         style.titleStyle = this.props.commonSettingStyle.titleStyle;
       }
       if (this.props.commonSettingStyle.hasOwnProperty('itemStyle')) {
         style.itemStyle = this.props.commonSettingStyle.itemStyle;
+      }
+      if (this.props.commonSettingStyle.hasOwnProperty('bottomContainer')) {
+        style.bottomContainer = this.props.commonSettingStyle.bottomContainer;
       }
       if (this.props.commonSettingStyle.hasOwnProperty('deleteTextStyle')) {
         style.deleteTextStyle = this.props.commonSettingStyle.deleteTextStyle;
@@ -995,7 +1007,7 @@ const styles = dynamicStyleSheet({
   },
   titleContainer: {
     minHeight: 32,
-    backgroundColor: new DynamicColor('#fff', '#000000'),
+    backgroundColor: Styles.darkMode.backgroundColor,
     justifyContent: 'center',
     paddingLeft: Styles.common.padding
   },

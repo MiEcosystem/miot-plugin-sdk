@@ -798,7 +798,7 @@ class IFile {
     * @since 10054
     * @param {string} utf8Content  需要被转换的文本内容
     * @param {string} filename  存储为的文件名，与 isFileExists 相同
-    * @param {json} params 样式参数 
+    * @param {json} params 样式参数
     * @param {string} params.color 文本颜色 如 '#FFF', 'red'
     * @param {number} params.fontSize 字体大小
     * @param {object} params.pageSize 页面大小 如 {width: 200, height:100}
@@ -973,6 +973,25 @@ class IFile {
    */
   @report
   getStorageInfo() {
+     return Promise.resolve(null);
+  }
+  /**
+   * 裁剪图片
+   * since 10055
+   * @returns{Promise<string>} 成功时返回裁剪后的图片路径，失败返回
+   * {code:-1,message:'file is already exist'}
+   * {code:-2,message:'please specify a URI'}
+   * {code:-3,message:'please specify offset and size'}
+   * {code:-99,message:'unknown error'}
+   * @param {string} fileName 裁剪后生成的文件的文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.jpg'
+   * @param {string} uri 要裁剪的图片的uri e.g 'file://xxx/xxx/xx/xxx/aimFileName.jpg';
+   * @param {Object} params: 裁剪参数
+   * @param {Object} params.offset: 裁剪图像的左上角坐标，在原始图像的坐标空间中指定. e.g :{x:0,y:0} type int
+   * @param {Object} params.size: 裁切后的图像的尺寸，在原始图像的坐标空间中指定. e.g :{width:400,height:400} type int
+   * @param {Object} params.displaySize: 将裁切后的图像缩放到指定大小(Optional).  e.g :{width:200,height:200} type int
+   */
+  @report
+  cropImage(fileName, uri, params) {
      return Promise.resolve(null);
   }
 }
