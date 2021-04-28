@@ -128,6 +128,7 @@ import { PluginEntrance } from "./PluginEntrance";
 /** ******    Service 部分   ******* */
 import ServiceDemo from './Service';
 import MiotSpecDemo from './Service/MiotSpecDemo';
+import MiotSpecV3Demo from './Service/MiotSpecV3Demo/';
 import MHRoomDemo from "./Service/RoomDemo";
 import MHSceneDemo from "./Service/SceneDemo";
 import AccountDemo from './Service/AccountDemo';
@@ -267,6 +268,7 @@ function createRootStack(initPage) {
     callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
     MHRoomDemo,
     MiotSpecDemo,
+    MiotSpecV3Demo,
     // Native 交互
     HostPropsInfoDemo,
     LocaleServer,

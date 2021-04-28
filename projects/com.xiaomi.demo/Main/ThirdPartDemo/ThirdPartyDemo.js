@@ -61,12 +61,12 @@ const DemoInfo = [
   { id: 'ReactNativeBlurDemo', title: "ReactNativeBlurDemo测试", key: "46" },
   { id: 'FadeSlideDemo', title: "FadeSlideDemo", key: "47" },
   { id: 'PdfViewerDemo', title: "PdfDemo", key: "48" },
-  { id: 'HoughCirclesDemo', title: "HoughCircles", key: "49"},
-  { id: 'HoughCircles2Demo', title: "HoughCircles2Demo", key: "50"},
-  { id: 'CvImageManipulationsDemo', title: "CvImageManipulationsDemo", key: "51"},
-  { id: 'CvCameraPreviewDemo', title: "CvCameraPreviewDemo", key: "52"},
-  { id: 'CvFaceDetectionDemo', title: "CvFaceDetectionDemo", key: "53"},
-  { id: 'CvFaceLandmarksDemo', title: "CvFaceLandmarksDemo", key: "54"},
+  { id: 'HoughCirclesDemo', title: "HoughCircles", key: "49" },
+  { id: 'HoughCircles2Demo', title: "HoughCircles2Demo", key: "50" },
+  { id: 'CvImageManipulationsDemo', title: "CvImageManipulationsDemo", key: "51" },
+  { id: 'CvCameraPreviewDemo', title: "CvCameraPreviewDemo", key: "52" },
+  { id: 'CvFaceDetectionDemo', title: "CvFaceDetectionDemo", key: "53" },
+  { id: 'CvFaceLandmarksDemo', title: "CvFaceLandmarksDemo", key: "54" }
 ];
 
 export default class ThirdPartyDemo extends React.Component {
