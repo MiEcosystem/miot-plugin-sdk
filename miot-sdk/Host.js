@@ -105,6 +105,14 @@ export default {
      return  false
   },
   /**
+   * @const
+   * @type {boolean}
+   * @description 判断是否 Pad大屏设备
+   */
+  get isPad() {
+     return  false
+  },
+  /**
      * @const
      * @type {boolean}
      * @since  10044  在10047 添加对iPhone 12系列的支持
@@ -228,7 +236,8 @@ export default {
     return HostCrypto;
   },
   /**
-     * 获取手机wifi信息
+     * 获取手机wifi信息;
+     * 在Android上，从Android 9开始，获取WiFi信息需要申请定位权限，因此插件在调用该接口需要先判断是否有定位权限，没有就提示用户授权；否则就拿不到WiFi信息
      * @return {Promise<object>}
      * 成功时：{BSSID:xxx, SSID:xxx}
      * 失败时：返回的是错误信息，字符串格式
@@ -319,6 +328,7 @@ export default {
   },
   /**
      * android 手机是否有NFC功能
+     * @deprecated 从10051开始废弃，可以使用System.nfc.getNfcInfo代替
      * @since 10021
      * @return {Promise<json>}  {hasNfc:true/false}
      * @example
@@ -352,8 +362,10 @@ export default {
   },
   /**
      * 页面有输入框，需要打开软键盘，页面适配软键盘
-     * @since 10027
-     * @param {boolean} shouldAdapter  true: 表示进行适配,建议UI用ScrollView包裹起来，当输入框在屏幕的下半部分时，只会触发ScrollView滚动; false： 整个页面滚动, demo可参考SoftKeyboardAdapterTestDemo.js
+     * @since 10027  (10050 后开始支持iOS)
+     * @param {boolean} shouldAdapter
+     *      Android: true: 表示进行适配,建议UI用ScrollView包裹起来，当输入框在屏幕的下半部分时，只会触发ScrollView滚动; false： 整个页面滚动, demo可参考SoftKeyboardAdapterTestDemo.js
+     *      iOS :  true 表示进行适配，整个页面会跟随滑动，false: 表示不进行适配，整个页面不会跟随键盘滑动，默认true   (10050 后开始支持iOS)
      * @returns {Promise<boolean>} 设置成功返回true(iOS没有实现这个接口,直接返回true)
      */
   pageShouldAdapterSoftKeyboard(shouldAdapter) {
