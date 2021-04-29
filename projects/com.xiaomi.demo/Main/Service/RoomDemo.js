@@ -1,4 +1,5 @@
 import Service from 'miot/Service';
+import Host from 'miot/Host';
 import React from 'react';
 import {
   StyleSheet, Text, View, ScrollView, TouchableOpacity
@@ -22,7 +23,7 @@ export default class MHRoomDemo extends React.Component {
   render() {
     // 如果不设置英文字体，那么外文字符串将显示不全（Android）
     let fontFamily = {};
-    if (Platform.OS === 'android') fontFamily = { fontFamily: 'Kmedium' };
+    if (Host.isAndroid) fontFamily = { fontFamily: 'Kmedium' };
     return (
       <View style={{ flex: 1, alignItems: 'center' }}>
         <ScrollView style={{ marginTop: 1, width: '90%' }} showsVerticalScrollIndicator={false}>
@@ -53,8 +54,13 @@ export default class MHRoomDemo extends React.Component {
   // 获取房间列表
   loadAllRoom() {
     Service.room.loadAllRoom(true).then((rooms) => {
+      let res = "";
+      for (let item of rooms) {
+        let cur = `homeID:${ item.homeID },roomID:${ item.roomID },name:${ item.name }\n`;
+        res = res.concat(cur);
+      }
       this.setState({
-        data: JSON.stringify(rooms, null, '\t')
+        data: res
       });
     }).catch((error) => {
       this.setState({
