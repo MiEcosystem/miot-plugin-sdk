@@ -89,7 +89,7 @@ export default class MoreSetting extends React.Component {
     if (!navigationBarStyle) {
       navigationBarStyle = {};
       if (DarkMode.getColorScheme() === 'dark') {
-        navigationBarStyle.backgroundColor = 'xm#1a1a1a';
+        navigationBarStyle.backgroundColor = 'xm#000000';
       }
     }
     return {
@@ -246,18 +246,28 @@ export default class MoreSetting extends React.Component {
       return item && !item.hide;
     });
     let itemStyle;
+    let blankStyle;
+    let containerStyle;
     if (this.props.navigation.state.params.commonSettingStyle && this.props.navigation.state.params.commonSettingStyle.moreSettingPageStyle) {
       itemStyle = this.props.navigation.state.params.commonSettingStyle.moreSettingPageStyle.itemStyle;
+      blankStyle = this.props.navigation.state.params.commonSettingStyle.moreSettingPageStyle.blankStyle;
+      containerStyle = this.props.navigation.state.params.commonSettingStyle.moreSettingPageStyle.containerStyle;
     }
     if (!itemStyle) {
       itemStyle = {};
     }
+    if (!blankStyle) {
+      blankStyle = {};
+    }
+    if (!containerStyle) {
+      containerStyle = {};
+    }
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, containerStyle]}>
         <Separator />
         <ScrollView
           showsVerticalScrollIndicator={false}>
-          <View style={[styles.blank, { borderTopWidth: 0 }]} />
+          <View style={[styles.blank, { borderTopWidth: 0 }, blankStyle]} />
           {
             items.map((item, index) => {
               const showSeparator = false;// index !== items.length - 1;
