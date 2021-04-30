@@ -978,20 +978,16 @@ class IFile {
   /**
    * 裁剪图片
    * since 10055
-   * @returns{Promise<string>} 成功时返回裁剪后的图片路径，失败返回
-   * {code:-1,message:'file is already exist'}
-   * {code:-2,message:'please specify a URI'}
-   * {code:-3,message:'please specify offset and size'}
-   * {code:-99,message:'unknown error'}
-   * @param {string} fileName 裁剪后生成的文件的文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.jpg'
-   * @param {string} uri 要裁剪的图片的uri e.g 'file://xxx/xxx/xx/xxx/aimFileName.jpg';
+   * @returns{Promise<string>} 成功时返回裁剪后的图片路径，失败返回 {code:-1,message:'xxx'}
+   * @param {string} targetFileName 裁剪后生成的文件的文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.jpg'
+   * @param {string} sourceFilename 要裁剪的源图片名
    * @param {Object} params: 裁剪参数
    * @param {Object} params.offset: 裁剪图像的左上角坐标，在原始图像的坐标空间中指定. e.g :{x:0,y:0} type int
    * @param {Object} params.size: 裁切后的图像的尺寸，在原始图像的坐标空间中指定. e.g :{width:400,height:400} type int
    * @param {Object} params.displaySize: 将裁切后的图像缩放到指定大小(Optional).  e.g :{width:200,height:200} type int
    */
   @report
-  cropImage(fileName, uri, params) {
+  cropImage(targetFileName, sourceFilename, params) {
      return Promise.resolve(null);
   }
 }

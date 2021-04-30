@@ -573,11 +573,16 @@ export default class FileStorage extends React.Component {
   }
 
   _cropImage() {
-    if (!this.state.imagePath) {
+    if (imagePathMap.size <= 0) {
       alert('please shot screen first');
       return;
     }
-    let fileName = `crop/croppp/crop_${ new Date().getTime() }.png`;
+    let sourceFileName = imagePathMap.keys().next().value;
+    if (!sourceFileName) {
+      alert('not found image name');
+      return;
+    }
+    let targetFileName = `crop_${ new Date().getTime() }.png`;
     let params = {
       offset: {
         x: 0,
@@ -592,12 +597,13 @@ export default class FileStorage extends React.Component {
         height: 400
       }
     };
-    Host.file.cropImage(fileName, this.state.imagePath, params)
-      .then((path) => {
+    Host.file.cropImage(targetFileName, sourceFileName, params)
+      .then((imagePath) => {
+        imagePathMap.set(targetFileName, imagePath);
         this.setState({
-          imagePath: path
+          imagePath
         });
-        alert(path);
+        alert(imagePath);
       })
       .catch((error) => {
         alert(error);
