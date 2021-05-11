@@ -36,6 +36,7 @@ import Location from "./location";
 import Volume from "./volume";
 import Network from "./network";
 import IShake from "./shake";
+import INfc from './nfc';
 export const battery = IBattery;
 export const accelerometer = IAccelerometer;
 export const compass = ICompass;
@@ -47,7 +48,8 @@ export const location = Location;
 export const volume = Volume;
 export const network = Network;
 export const shake = IShake;
+export const nfc = INfc;
 export default {
   battery, accelerometer, compass, gyroscope, scancode,
-  vibrate, permission, location, volume, network, shake
+  vibrate, permission, location, volume, network, shake, nfc
 };

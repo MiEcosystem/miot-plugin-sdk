@@ -387,7 +387,7 @@ class IMiotScene {
     /**
      * 加载定时场景 /scene/list
      * @param {*} deviceID 设备id
-     * @param {json} opt {identify,name}
+     * @param {json} opt {identify}
      * @returns {Promise<IScene[]>}
      */
     @report
