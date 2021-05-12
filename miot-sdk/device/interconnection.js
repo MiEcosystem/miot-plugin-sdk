@@ -33,7 +33,7 @@ export function getLinkage(mac) {
  * 获取支持的设备列表及对应关联信息
  * @since 10039
  * @param {string} category 关联能力标识，在appConfig 文件中配置，比如sensor_ht，默认为全部
- * @param {bool} sameRoom 是否过滤为与该设备同一个房间，默认为false
+ * @param {bool} sameRoom 是否过滤为与该设备同一个房间，默认为false  （SDK_10050 change：如果设备已关联，则不判断此参数）
  * @return {Promise<Array>} [{model, mac, did, pdid, category, device, homeId, roomId, roomName, enabled, linked}]
  */
 export function getSupportedDevicesWithLinkage(category, sameRoom) {
