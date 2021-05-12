@@ -30,6 +30,7 @@
 import Device from "../device/BasicDevice";
 import { report } from "../decorator/ReportDecorator";
 import { PermissionsAndroid } from "react-native";
+import { processColor } from "react-native";
 /**
  * 文件事件名集合
  * @namespace FileEvent
@@ -823,6 +824,28 @@ class IFile {
      return Promise.resolve(null);
   }
   /**
+    * 将 utf8Content 转成 PDF 文件
+    * @since 10054
+    * @param {string} utf8Content  需要被转换的文本内容
+    * @param {string} filename  存储为的文件名，与 isFileExists 相同
+    * @param {json} params 样式参数
+    * @param {string} params.color 文本颜色 如 '#FFF', 'red'
+    * @param {number} params.fontSize 字体大小
+    * @param {object} params.pageSize 页面大小 如 {width: 200, height:100}
+    * @param {string} params.marginHorizontal 水平边距
+    * @param {string} params.marginVertical 竖直边距
+    * @returns {Promise<Object>}
+    *   成功时: {code:0, data: filepath} 绝对路径，可直接用于展示
+    *   失败时: {
+    *          code:100xx,     // 错误码，非0数字
+    *          message:""      // 错误信息
+    *        }
+    */
+  @report
+  writePdfFile(utf8Content, filename, params) {
+     return Promise.resolve(null);
+  }
+  /**
    * 将PDF指定页转换为图片
    * @since 10052
    * @param {json} params {
@@ -980,6 +1003,21 @@ class IFile {
    */
   @report
   getStorageInfo() {
+     return Promise.resolve(null);
+  }
+  /**
+   * 裁剪图片
+   * since 10054
+   * @returns{Promise<string>} 成功时返回裁剪后的图片路径，失败返回 {code:-1,message:'xxx'}
+   * @param {string} targetFileName 裁剪后生成的文件的文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.jpg'
+   * @param {string} sourceFilename 要裁剪的源图片名
+   * @param {Object} params: 裁剪参数
+   * @param {Object} params.offset: 裁剪图像的左上角坐标，在原始图像的坐标空间中指定. e.g :{x:0,y:0} type int
+   * @param {Object} params.size: 裁切后的图像的尺寸，在原始图像的坐标空间中指定. e.g :{width:400,height:400} type int
+   * @param {Object} params.displaySize: 将裁切后的图像缩放到指定大小(Optional).  e.g :{width:200,height:200} type int
+   */
+  @report
+  cropImage(targetFileName, sourceFilename, params) {
      return Promise.resolve(null);
   }
 }
