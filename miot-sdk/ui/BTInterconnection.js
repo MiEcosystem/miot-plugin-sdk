@@ -211,7 +211,7 @@ export default class BTInterconnection extends Component {
         };
       });
     }).catch(() => {
-      this.showToast(I18n.linkFain);
+      this.showToast(I18n.linkFail);
     });
   }
   componentDidMount() {
