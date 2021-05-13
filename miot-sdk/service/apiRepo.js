@@ -162,9 +162,15 @@ const API_REPO = {
   '/v2/device/get_break_lock_alarm_info': {},
   '/v2/device/set_hijack_alarm_info': {},
   '/v2/device/get_hijack_alarm_info': {},
+  // FDS KS3 相关
   '/v2/home/get_interim_file_url_pro': {},
+  '/v2/home/genfileurl_v3': {},
+  '/v2/home/genpresignedurl': {},
+  '/v2/home/genpresignedurl_v3': {},
   '/home/getfileurl_v3': {},
+  '/v2/home/getfileurl_v3': {},
   '/v2/recipes/query': {},
+  '/v2/recipes/getById': {},
   '/home/devupgrade': {},
   '/v2/device/get_auto_upgrade_config': {},
   '/v2/device/get_firmware_history': {},
@@ -184,12 +190,22 @@ const API_REPO = {
   '/miot/camera/app/v1/delete/figure': {},
   '/miot/camera/app/v1/delete/face': {},
   '/miot/camera/app/v1/mp4': {},
+  '/miot/camera/app/v1/cloud/file/exist': {},
   // 窗帘组API
   '/v2/groupv2/create': {},
   '/v2/groupv2/query_status': {},
   '/v2/groupv2/query_tags': {},
   // 摄像头云存相关
   '/common/app/v1/cloud/file/exist': {},
-  '/common/app/get/cloudlist': {}
+  '/common/app/get/cloudlist': {},
+  '/common/app/v1/capacity': {},
+  '/v2/scene/get_rec_in_plugin': {},
+  '/common/app/get/fileIdEvents': {},
+  // 每日故事开关接口
+  '/miot/camera/app/v1/put/dailyStorySwitch': {},
+  
+  // 免费人脸
+  '/miot/camera/app/v1/vip/freeface/addFreeface': {},
+  '/miot/camera/app/v1/vip/freeface/status': {}
 };
 export default API_REPO;
