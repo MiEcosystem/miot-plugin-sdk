@@ -166,6 +166,7 @@ export default class FileStorage extends React.Component {
               ],
               [
                 ["截图当前页面", this._screenShot],
+                ["裁剪截图文件", this._cropImage],
                 ["长截屏", this._longScreenShot]
               ],
               [
@@ -174,6 +175,7 @@ export default class FileStorage extends React.Component {
               ],
               [
                 ["查询文件", this._queryFile],
+                ["写入 PDF 文件", this._saveTextToPdf],
                 ["pdf转图片", this._pdfToImage],
                 ["读PDF信息", this._readPdfMetaData]
               ]
@@ -273,6 +275,25 @@ export default class FileStorage extends React.Component {
       console.log(`ungzipFileToString,res: ${ res }`);
     }).catch((err) => {
       console.log(`ungzipFileToString,err: ${ JSON.stringify(err) }`);
+    });
+  }
+
+  // text 写入成 pdf
+  _saveTextToPdf() {
+    if (this.state.fileName === '' || this.state.fileContent === '') {
+      alert('请输入文件名或文件内容');
+      return;
+    }
+    Host.file.writePdfFile(this.state.fileContent, this.state.fileName, {
+      color: 'red',
+      fontSize: 13,
+      pageSize: { width: 375, height: 812 },
+      marginHorizontal: 0,
+      marginVertical: 0
+    }).then((res) => {
+      alert(JSON.stringify(res));
+    }).catch((err) => {
+      alert(JSON.stringify(err));
     });
   }
 
@@ -567,6 +588,44 @@ export default class FileStorage extends React.Component {
       });
   }
 
+  _cropImage() {
+    if (imagePathMap.size <= 0) {
+      alert('please shot screen first');
+      return;
+    }
+    let sourceFileName = imagePathMap.keys().next().value;
+    if (!sourceFileName) {
+      alert('not found image name');
+      return;
+    }
+    let targetFileName = `crop_${ new Date().getTime() }.png`;
+    let params = {
+      offset: {
+        x: 0,
+        y: 0
+      },
+      size: {
+        width: 600,
+        height: 800
+      },
+      displaySize: {
+        width: 300,
+        height: 400
+      }
+    };
+    Host.file.cropImage(targetFileName, sourceFileName, params)
+      .then((imagePath) => {
+        imagePathMap.set(targetFileName, imagePath);
+        this.setState({
+          imagePath
+        });
+        alert(imagePath);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }
+
   _longScreenShot() {
     let node = findNodeHandle(this.myScrollView);
     let imageName = `screen_${ new Date().getTime() }.png`;
@@ -774,7 +833,8 @@ const styles = StyleSheet.create({
   },
   img: {
     width: screenWidth / 2,
-    height: screenHeight / 2
+    height: screenHeight / 2,
+    resizeMode: 'contain'
   },
   row: {
     height: 40,

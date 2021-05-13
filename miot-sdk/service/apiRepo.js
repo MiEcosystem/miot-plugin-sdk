@@ -203,9 +203,11 @@ const API_REPO = {
   '/common/app/get/fileIdEvents': {},
   // 每日故事开关接口
   '/miot/camera/app/v1/put/dailyStorySwitch': {},
-  
   // 免费人脸
   '/miot/camera/app/v1/vip/freeface/addFreeface': {},
-  '/miot/camera/app/v1/vip/freeface/status': {}
+  '/miot/camera/app/v1/vip/freeface/status': {},
+  //摄氏度/华氏度一键切换接口
+  'v2/user/set_common_config': {},
+  'v2/user/get_common_config': {}
 };
 export default API_REPO;
