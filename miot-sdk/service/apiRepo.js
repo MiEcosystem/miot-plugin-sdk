@@ -206,8 +206,11 @@ const API_REPO = {
   // 免费人脸
   '/miot/camera/app/v1/vip/freeface/addFreeface': {},
   '/miot/camera/app/v1/vip/freeface/status': {},
-  //摄氏度/华氏度一键切换接口
+  // 摄氏度/华氏度一键切换接口
   'v2/user/set_common_config': {},
-  'v2/user/get_common_config': {}
+  'v2/user/get_common_config': {},
+  // 门锁需要使用的接口
+  '/device/setLockPushSwitch': {},
+  '/device/getLockPushSwitch': {}
 };
 export default API_REPO;
