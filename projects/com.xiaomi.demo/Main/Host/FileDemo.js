@@ -17,6 +17,8 @@ import { ListItem } from 'miot/ui/ListItem';
 import { Device, FileEvent, Host } from "miot";
 import { ProgressDialog } from 'miot/ui';
 import Logger from '../Logger';
+import ProtocolManager from 'miot/utils/protocol-helper';
+
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
 
@@ -136,11 +138,13 @@ export default class FileStorage extends React.Component {
               [
                 ["创建目录", this._mkdir],
                 ["写文件", this._writeFile],
-                ["写文件(Base64)", this._writeFileThroughBase64]
+                ["写文件(Base64)", this._writeFileThroughBase64],
+                ["复制文件", this._copyFile]
               ],
               [
                 ["向文件追加内容", this._appendFile],
-                ["向文件追加内容(Base64)", this._appendFileThroughBase64]
+                ["向文件追加内容(Base64)", this._appendFileThroughBase64],
+                ["保存文件到小米手机的小米便签(只支持MIUI和特定model)", this.saveFileToNotesAppOnMIUI]
               ],
               [
                 ["读文件", this._readFile],
@@ -157,15 +161,23 @@ export default class FileStorage extends React.Component {
                 ["获取FDS文件", this._fetchFDSFile]
               ],
               [
-                ["解压文件", this._unZipFile]
+                ["解压文件", this._unZipFile],
+                ["解压文件为指定格式的字符串", this._ungzipFileToString]
               ],
               [
                 ["截图当前页面", this._screenShot],
+                ["裁剪截图文件", this._cropImage],
                 ["长截屏", this._longScreenShot]
               ],
               [
                 ["截图并保存到相册", this._screenShotAndSaveToPhotosAlbum],
                 ["保存文件到相册", this._saveFileToPhotosAlbum]
+              ],
+              [
+                ["查询文件", this._queryFile],
+                ["写入 PDF 文件", this._saveTextToPdf],
+                ["pdf转图片", this._pdfToImage],
+                ["读PDF信息", this._readPdfMetaData]
               ]
             ].map((section, index) => {
               return (
@@ -213,6 +225,188 @@ export default class FileStorage extends React.Component {
     }).catch((err) => {
       alert(JSON.stringify(err, null, '\t'));
     });
+
+  }
+
+  _copyFile() {
+    let copy_params = {
+      srcPath: 'test.pdf',
+      dstPath: 'test_copy.pdf'
+    };
+    Host.file.copyFile(copy_params).then((res) => {
+      alert(JSON.stringify(res));
+      Host.file.readFileList('').then((res) => {
+        alert(JSON.stringify(res));
+      });
+    }).catch((res) => {
+      alert(JSON.stringify(res));
+    });
+
+  }
+
+  _queryFile() {
+    let params = {
+      mimeTypes: ["application/pdf", // pdf
+        "application/msword", // word
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // docx
+        "application/vnd.ms-excel", // xls,xlt
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // xlsx
+        "application/vnd.ms-powerpoint", // ppt,pot,pps
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation", // pptx
+        "application/wps"// wps
+      ],
+      pageSize: 10,
+      pageNo: 0
+    };
+    Host.file.queryFile(params).then((res) => {
+      alert(JSON.stringify(res));
+    }).catch((err) => {
+      alert(JSON.stringify(err));
+    });
+  }
+
+  _ungzipFileToString() {
+    let params = {
+      fileName: `${ Host.file.storageBasePath }Resources/ungzipFileToString.txt.zip`,
+      charsetName: "int-array"
+    };
+
+    Host.file.ungzipFileToString(params).then((res) => {
+      console.log(`ungzipFileToString,res: ${ res }`);
+    }).catch((err) => {
+      console.log(`ungzipFileToString,err: ${ JSON.stringify(err) }`);
+    });
+  }
+
+  // text 写入成 pdf
+  _saveTextToPdf() {
+    if (this.state.fileName === '' || this.state.fileContent === '') {
+      alert('请输入文件名或文件内容');
+      return;
+    }
+    Host.file.writePdfFile(this.state.fileContent, this.state.fileName, {
+      color: 'red',
+      fontSize: 13,
+      pageSize: { width: 375, height: 812 },
+      marginHorizontal: 0,
+      marginVertical: 0
+    }).then((res) => {
+      alert(JSON.stringify(res));
+    }).catch((err) => {
+      alert(JSON.stringify(err));
+    });
+  }
+
+  _pdfToImage() {
+    if (Host.isIOS) {
+      Host.ui.openIOSDocumentFileChoosePage().then((res) => {
+        console.log('----------queryFile:', JSON.stringify(res));
+        if (res.data && res.data.length > 0) {
+          let pdfDic = res.data[0];
+          console.log("----------loadFile:", JSON.stringify(pdfDic));
+          if (pdfDic && pdfDic['ext'] == 'pdf' && pdfDic['path']) {
+            let path = pdfDic['path'];
+            let sourcePath = `${ path }`;
+
+            let pdf_params = {
+              srcPath: sourcePath,
+              imageDir: 'pdf_image',
+              pageIndex: 464,
+              password: '123456',
+              highQuality: false
+            };
+            Host.file.pdfToImage(pdf_params).then((res) => {
+              alert(JSON.stringify(res));
+            }).catch((res) => {
+              alert(JSON.stringify(res));
+            });
+          } else {
+            alert('选择的文件不存在或不是pdf格式，请重新选择文件');
+          }
+        }
+      }).catch((err) => {
+        alert(JSON.stringify(err));
+      });
+    } else {
+      let params = {
+        mimeTypes: ["application/pdf" // pdf
+        ],
+        pageSize: 1,
+        pageNo: 0
+      };
+      Host.file.queryFile(params).then((res) => {
+        if (res && res.data) {
+          let pdf_params = {
+            srcPath: res.data[0].url,
+            imageDir: 'pdf_image',
+            pageIndex: 0,
+            password: '',
+            highQuality: false
+          };
+          Host.file.pdfToImage(pdf_params).then((res) => {
+            alert(JSON.stringify(res));
+          }).catch((res) => {
+            alert(JSON.stringify(res));
+          });
+
+        }
+      }).catch((err) => {
+        alert(JSON.stringify(err));
+      });
+    }
+  }
+
+  _readPdfMetaData() {
+    if (Host.isIOS) {
+      Host.ui.openIOSDocumentFileChoosePage().then((res) => {
+        console.log('----------queryFile:', JSON.stringify(res));
+        if (res.data && res.data.length > 0) {
+          let pdfDic = res.data[0];
+          console.log("----------loadFile:", JSON.stringify(pdfDic));
+          if (pdfDic && pdfDic['ext'] == 'pdf' && pdfDic['path']) {
+            let path = pdfDic['path'];
+            let sourcePath = `${ path }`;
+
+            let pdf_params = {
+              srcPath: sourcePath,
+              password: ''
+            };
+            Host.file.readPdfMetaData(pdf_params).then((res) => {
+              alert(JSON.stringify(res));
+            }).catch((res) => {
+              alert(JSON.stringify(res));
+            });
+          } else {
+            alert('选择的文件不存在或不是pdf格式，请重新选择文件');
+          }
+        }
+      }).catch((err) => {
+        alert(JSON.stringify(err));
+      });
+    } else {
+      let params = {
+        mimeTypes: ["application/pdf" // pdf
+        ],
+        pageSize: 1,
+        pageNo: 0
+      };
+      Host.file.queryFile(params).then((res) => {
+        if (res && res.data) {
+          let pdf_params = {
+            srcPath: res.data[0].url,
+            password: ''
+          };
+          Host.file.readPdfMetaData(pdf_params).then((res) => {
+            alert(JSON.stringify(res));
+          }).catch((res) => {
+            alert(JSON.stringify(res));
+          });
+
+        }
+      }).catch((err) => {
+        alert(JSON.stringify(err));
+      });
+    }
   }
 
   _renderFileList(item) {
@@ -248,6 +442,16 @@ export default class FileStorage extends React.Component {
       alert(JSON.stringify(isSuccess));
     }).catch((error) => {
       alert(JSON.stringify(error));
+    });
+  }
+
+  // 普通字符串 追加写内容
+  saveFileToNotesAppOnMIUI() {
+    Host.file.saveFileToNotesAppOnMIUI(this.state.fileName).then((isSuccess) => {
+      alert(`saveFileToNotesAppOnMIUI success,${ JSON.stringify(isSuccess) }`);
+    }).catch((error) => {
+      console.log(`saveFileToNotesAppOnMIUI fail,${ JSON.stringify(error) }`);
+      alert(`saveFileToNotesAppOnMIUI fail,${ JSON.stringify(error) }`);
     });
   }
 
@@ -381,6 +585,44 @@ export default class FileStorage extends React.Component {
       })
       .catch((result) => {
         alert(result);
+      });
+  }
+
+  _cropImage() {
+    if (imagePathMap.size <= 0) {
+      alert('please shot screen first');
+      return;
+    }
+    let sourceFileName = imagePathMap.keys().next().value;
+    if (!sourceFileName) {
+      alert('not found image name');
+      return;
+    }
+    let targetFileName = `crop_${ new Date().getTime() }.png`;
+    let params = {
+      offset: {
+        x: 0,
+        y: 0
+      },
+      size: {
+        width: 600,
+        height: 800
+      },
+      displaySize: {
+        width: 300,
+        height: 400
+      }
+    };
+    Host.file.cropImage(targetFileName, sourceFileName, params)
+      .then((imagePath) => {
+        imagePathMap.set(targetFileName, imagePath);
+        this.setState({
+          imagePath
+        });
+        alert(imagePath);
+      })
+      .catch((error) => {
+        alert(error);
       });
   }
 
@@ -591,7 +833,8 @@ const styles = StyleSheet.create({
   },
   img: {
     width: screenWidth / 2,
-    height: screenHeight / 2
+    height: screenHeight / 2,
+    resizeMode: 'contain'
   },
   row: {
     height: 40,

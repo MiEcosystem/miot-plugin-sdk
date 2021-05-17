@@ -247,15 +247,7 @@ export default {
    * 
    */
   revokePrivacyLicense() {
-    return new Promise((resolve, reject) => {
-      native.MIOTService.revokePrivacyLicense((ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      });
-    });
+     return Promise.resolve(null);
   },
   /**
    * since 10042
@@ -274,15 +266,7 @@ export default {
    *        });
    */
   deleteDevice() {
-    return new Promise((resolve, reject) => {
-      native.MIOTService.deleteDevice((ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      });
-    });
+     return Promise.resolve(null);
   },
   /**
    * 某设备向服务器申请did和token
