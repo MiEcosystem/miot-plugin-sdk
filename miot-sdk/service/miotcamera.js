@@ -827,6 +827,24 @@ class IMiotCamera {
        NativeModules.MHCameraSDK.enterFullscreenForPad(isPadFullScreen);
      }
   
+  
+  /**
+   * 过滤视频帧
+   * @param aFilter  过滤器信息 当前支持timestamp_s EX:{timestamp_s: 666666}过滤时间戳为666666的视频帧; null取消filter
+   * @param aCbName  过滤到相应帧后通过aCbName 返回base64格式数据
+   * @param {string} aDid 设备id
+   * @since 10055
+   * @example 
+   *     ThumbFilter = “timestampfilter”;
+   *     DeviceEventEmitter.addListener(ThumbFilter, (aBase64Frame)=>{xxx});
+   *     Service.miotcamera.setFrameFilter({ timestamp_s: 666666 }, ThumbFilter);
+   */
+    @report
+  setFrameFilter(aFilter, aCbName, aDid = Device.deviceID) {
+    // native :=> null
+    NativeModules.MHCameraSDK.setFrameFilter(aFilter, aCbName, aDid);
+  }
+  
 }
 const MiotCameraInstance = new IMiotCamera();
 export default MiotCameraInstance;
