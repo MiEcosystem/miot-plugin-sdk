@@ -838,12 +838,27 @@ class IMiotCamera {
    *     ThumbFilter = “timestampfilter”;
    *     DeviceEventEmitter.addListener(ThumbFilter, (aBase64Frame)=>{xxx});
    *     Service.miotcamera.setFrameFilter({ timestamp_s: 666666 }, ThumbFilter);
+   *     Service.miotcamera.setFrameFilter({ timestamp_s: [555555, 666666] }, ThumbFilter); 过滤多个timestamp
    */
     @report
   setFrameFilter(aFilter, aCbName, aDid = Device.deviceID) {
     // native :=> null
     NativeModules.MHCameraSDK.setFrameFilter(aFilter, aCbName, aDid);
   }
+  
+  
+    /**
+   * 发送tutk 函数类型命令
+   * @param args  {name:"IOTC_WakeUp_WakeDevice"}
+   * @param {string} aDid 设备id
+   * @since 10055
+   * @example 
+   *     Service.miotcamera.callTutkSpecial({name:"IOTC_WakeUp_WakeDevice"});
+   */
+    @report
+    callTutkSpecial(args, aDid = Device.deviceID) {
+     return Promise.resolve(null);
+    }
   
 }
 const MiotCameraInstance = new IMiotCamera();
