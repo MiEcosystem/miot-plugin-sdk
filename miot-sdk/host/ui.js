@@ -18,6 +18,7 @@
 import Device from "../device/BasicDevice";
 import native, { isIOS, isAndroid } from "../native";
 import AutoOTAABTestHelper from 'miot/utils/autoota_abtest_helper';
+import Permission from '../service/permission';
 // import { Entrance } from "../Package";
 // const resolveAssetSource = require('resolveAssetSource');
 // const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
@@ -121,11 +122,10 @@ class IUi {
   openSystemFileWindow(pathOrUrl) {
   }
   /**
-   * 获取设备列表中指定model的设备信息
+   * 获取设备列表中指定model的设备信息(仅白名单设备才允许调用此方法，如需使用，请联系插件框架)
    * @param model 指定的model
    * @param {boolean} includeGroupedDevice - since 10046 是否包含被组成了一个组的设备（目前仅窗帘设备可用，灯设备不可用），默认不包含
    * @returns {Promise<devices[]>} 对象中有字段 isGrouped 表示是被分组的设备，includeGroupedDevice = true时才有效
-   *
    */
   @report
   getDevicesWithModel(model, includeGroupedDevice = false) {

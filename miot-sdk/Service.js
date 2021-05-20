@@ -52,6 +52,7 @@ import MiotCamera from './service/miotcamera';
 import Kookong from './service/kookong';
 import { NativeModules, Platform } from 'react-native';
 import JSONbig from 'json-bigint';
+import Permission from './service/permission';
  const CurrentAccount = null;
 export default {
   /**
@@ -124,6 +125,9 @@ export default {
   },
   get kookong() {
     return Kookong;
+  },
+  get permission() {
+    return Permission;
   },
   /**
    * @method callSmartHomeAPI

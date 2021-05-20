@@ -8,6 +8,8 @@
  *
  */
 import { report } from "../decorator/ReportDecorator";
+import Permission from '../service/permission';
+import Device from "../device/BasicDevice";
 /**
  * 成员类型
  * @namespace MemberType
@@ -523,7 +525,7 @@ class ISmartHome {
        return Promise.resolve(null);
     }
     /**
-     * 添加设备属性和事件历史记录，/home/device_list
+     * 添加设备属性和事件历史记录，/home/device_list (仅白名单设备才允许调用此方法，如需使用，请联系插件框架)
      * 当ssid和bssid均不为空时，表示同时搜索这个局域网内所有未被绑定过的设备
      * @param {json} params {pid:string ,ssid:string ,bssid:string ,localDidList:array<string>,checkMoreWifi:bool,dids:array<string>}
      * @param {string} params.pid               Device.type
