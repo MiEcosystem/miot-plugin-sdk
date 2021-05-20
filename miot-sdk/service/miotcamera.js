@@ -647,7 +647,7 @@ class IMiotCamera {
   /**
    * 设置speaker变声类型,    初次设置会触发初始化，后续simpleRate or channel发生改变 都不会触发初始化。
    * @param {int} simpleRate  音频采样率  与CameraRenderView里定义的MISSSampleRate一致
-   * @param {int} type 变声类型，目前米家只提供 0 == 正常  1 == 小丑  2 == 大叔这三种类型
+   * @param {int} type 变声类型，目前米家只提供 0 == 正常  1 == 小丑  2 == 大叔这三种类型 10055 增加 3 == 青年
    * @param {int} channel 单双通道 1 单声道， 2 立体声   默认为1
    * @param {string} did
    */
@@ -853,10 +853,25 @@ class IMiotCamera {
    * @param {string} aDid 设备id
    * @since 10055
    * @example 
-   *     Service.miotcamera.callTutkSpecial({name:"IOTC_WakeUp_WakeDevice"});
+   *     Service.miotcamera.callTutkSpecial({name:"IOTC_WakeUp_WakeDevice"}).then(xxx).catch(yyy);
    */
     @report
     callTutkSpecial(args, aDid = Device.deviceID) {
+     return Promise.resolve(null);
+    }
+    
+    /**
+   * 发送audio 数据
+   * @param aDatInBase64  audio数据 base64编码
+   * @param aHeaderInBase64  audio数据头 base64编码
+   * @param aCodeId audio codecid默认MISSCodec.MISS_CODEC_AUDIO_G711A
+   * @param {string} aDid 设备id
+   * @since 10055
+   * @example 
+   *     Service.miotcamera.sendAudioData(data, header).then(xxx).catch(yyy);
+   */
+    @report
+    sendAudioData(aDatInBase64, aHeaderInBase64, aCodeId = MISSCodec.MISS_CODEC_AUDIO_G711A, aDid = Device.deviceID) {
      return Promise.resolve(null);
     }
   
