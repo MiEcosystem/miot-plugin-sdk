@@ -1177,3 +1177,30 @@ class ISmartHome {
     getVirtualGroupSubDevicesTags(group_did) {
        return Promise.resolve({});
        return end
+       return Promise.resolve(null);
+    }
+    /**
+     * 获取用户米家温度单位信息
+     * @since 10055
+     * 请求参数：
+     * {
+     *    "keys":["xxx"],     //要查询的属性key数组，1、温度单位切换：miot_temperature_style
+     * }
+     * @returns {Promise<array>}
+     * 成功返回参数：
+     *  "configInfos":[
+     *   {
+     *     "key":"xxx",     //属性key
+     *     "value":"f"      //属性value： 1、当key=miot_temperature_style时，value值：摄氏度：c，华氏度：f，未设置：空字符串
+     *    }
+     * ]
+     * 失败时：返回
+     * { "code":xxx, "message":"xxx"}
+     */
+    @report
+    getTempUnit(params) {
+       return Promise.resolve(null);
+    }
+}
+const SmartHomeInstance = new ISmartHome();
+export default SmartHomeInstance;
