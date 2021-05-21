@@ -1,10 +1,8 @@
 'use strict';
 
-import { Device, Host, DeviceEvent, PackageEvent } from "miot";
+import { Device, DeviceEvent, Host, PackageEvent } from "miot";
 import React from 'react';
-import {
-  ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View
-} from 'react-native';
+import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Logger from '../../Logger';
 
 let BUTTONS = [
@@ -625,6 +623,16 @@ export default class UIDemo extends React.Component {
         'subtitle': '打开常用设备/常用摄像机设置页面',
         'func': () => {
           Host.ui.openCommonDeviceSettingPage(1);
+        }
+      },
+      {
+        'name': 'openGenerateCrontabStringPage',
+        'subtitle': '打开场景设置中的定时界面',
+        'func': () => {
+          Host.ui.openGenerateCrontabStringPage({})
+            .then((crontab) => {
+              alert(crontab.data.crontab);
+            });
         }
       }
     ];
