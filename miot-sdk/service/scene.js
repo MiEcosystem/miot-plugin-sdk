@@ -1,5 +1,5 @@
 /**
- * @export public 
+ * @export public
  * @doc_name 场景模块
  * @doc_index 2
  * @doc_directory service
@@ -12,7 +12,7 @@
  * 自动场景：主要是指设备之间相互关联的能够自动促发的智能自动化；
  * 例如米家app中 “智能”->“+”-> 选择某一设备 创建的智能自动化, 通常有 if...then... 的执行过程。
  *
- * 更多详细介绍可以参考：https://iot.mi.com/new/doc/05-米家扩展程序开发指南/03-智能自动化/01-概述.html
+ * 更多详细介绍可以参考：https://iot.mi.com/new/doc/extension-development/topics/automation-develop
  *
  * @example
  *
@@ -30,7 +30,7 @@
  *      }
  *  });
  * @example
- *    //加载此设备名称为name，类别为identify的所有人工场景 
+ *    //加载此设备名称为name，类别为identify的所有人工场景
  *    ** 注意：name字段慎用，后台有如此判断逻辑：if(req.name != "") req.did=req.identify... 。这个会导致请求接口提示have no device permit。**
  *    Service.scene.loadArtificialScenes(Device.deviceID, {name:'...', identify:'...'})
  *    .then(arr=>{...}).catch(err=>{...})
@@ -199,14 +199,14 @@ export class IScene {
      * 保存场景 /scene/edit
      * @param {json} opt {authed:[...], name, identify, setting} 同上面的authed，name，identify，setting
      * @returns {Promise<IScene>}
-     * 
-     * @example 
+     *
+     * @example
      * scene.save({setting:{...}}).then(scene=>{...})
-     * 
+     *
      * @example
      * scene.save().then(scene=>{...}).catch(err=>{...})
-     *  
-     * 
+     *
+     *
      */
     @report
   save(opt = null) {
@@ -227,7 +227,7 @@ export class IScene {
      return Promise.resolve(null);
   }
     /**
-     * 重新加载场景数据 /scene/get 
+     * 重新加载场景数据 /scene/get
      * 用法：scene.reload();
      * @returns {Promise<IScene>}
      */
@@ -255,7 +255,7 @@ export class IScene {
     }
 }
 /**
- * 创建场景 
+ * 创建场景
  * @param {string} deviceID 设备id
  * @param {SceneType} sceneType 场景类型
  * @param {object} opt {identify, us_id, name, setting }
@@ -270,7 +270,7 @@ function createScene(deviceID, sceneType, opt = null) {
    return Promise.resolve(null);
 }
 /**
- * 加载场景 
+ * 加载场景
  * @param {string} deviceID 设备id
  * @param {SceneType} sceneType 场景类型
  * @param {*} opt {identify,name} 同上面的identify，name
@@ -294,26 +294,26 @@ class IMiotScene {
      * @param {object} opt.setting  可参考createTimerScene
      * @returns {IScene}
      * @example
-     * 
+     *
      * import {Service, Device, SceneType} from 'miot'
      * const scene = Service.scene.createScene(Device.deviceID, SceneType.Timer, {
      *      identify:'identify',
      *      name:'myTimer',
      *      setting:{...}
      * });
-     * 
+     *
      * scene.save().then(scene=>{
      *   ...
      * })
-     * 
-     * 
+     *
+     *
      */
     @report
   createScene(deviceID, sceneType, opt) {
      return Promise.resolve(null);
   }
     /**
-     * 创建定时场景  
+     * 创建定时场景
      * 用法同上面的 createScene(deviceID, SceneType.Timer, opt);
      * 定时中的 crontab string 详见 [Linux crontab命令](http://www.runoob.com/linux/linux-comm-crontab.html)
      * @param {string} deviceID
@@ -334,15 +334,15 @@ class IMiotScene {
      * timer_type: "0",//用来区分普通定时和倒计时，为空（或者为"0"）表示普通定时，为"1"表示倒计时
      * on_filter: "cn_workday" // 后台用来过滤日期,目前只在大陆地区生效：cn_workday 表示工作日，cn_freeday 表示节假日
      * off_filter:"cn_freeday" // 后台用来过滤日期,目前只在大陆地区生效：cn_workday 表示工作日，cn_freeday 表示节假日
-     // 
+     //
      * }
-     * 
+     *
      * const scene = Service.scene.createTimerScene(Device.deviceID, {
      *      identify:'identify',//同上面的identify
      *      name:'myTimer',//同上面的名称
      *      setting:settinig
      * });
-     * 
+     *
      * scene.save().then(scene=>{
      *   ...
      * })

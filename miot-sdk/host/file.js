@@ -270,7 +270,6 @@ class IFile {
   /**
    * 上传普通文件，需要申请权限使用
    * 获取用于上传FDS文件的obj_name以及用于上传的url
-   * 设备需要申请配置FDS权限，参考 https://iot.mi.com/new/doc/cloud-development/cloud-service/storage/fds.html
    * @since 10004
    * @param {string} did 设备did
    * @param {string} suffix 文件后缀 例如 'mp3', 'txt'
@@ -324,7 +323,6 @@ class IFile {
   }
   /**
    * 获取FDS文件的信息，包含下载地址等信息
-   * 设备需要申请配置FDS权限，参考 https://iot.mi.com/new/guide.html?file=08-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/03-%E5%AD%98%E5%82%A8/01-%E4%BD%BF%E7%94%A8FDS%E5%AD%98%E5%82%A8%E7%94%A8%E6%88%B7%E6%96%87%E4%BB%B6
    *
    * 对于手动上传到fds的文件(没有genObjName ,在平台端直接上传的)，可直接设置成public，生成url。插件端需要用这个文件时，用通用下载接口下载此url即可。
    * getFDSFileInfoWithObjName,这个接口只是用来下载通过插件接口(Host.file.uploadFileToFDS)上传到FDS的文件
@@ -409,7 +407,7 @@ class IFile {
    * @ property {string} taskID -  可选 since 10038 下载任务唯一标示, 如 MD5(url + timestamp)
    */
   /**
-   * 下载文件到插件沙盒目录, 文件下载完成后才会回调
+   * 下载文件到插件沙盒目录, 文件下载完成后才会回调，只支持下载单个文件
    * @param {string} url - 文件地址
    * @param {string} fileName - 存储到本地的文件名
    * @param {DownloadParams} params 参数字典 可选 since 10038

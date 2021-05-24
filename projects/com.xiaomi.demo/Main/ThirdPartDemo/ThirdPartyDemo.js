@@ -11,7 +11,7 @@ const DemoInfo = [
   { id: 'WebViewBridageDemo', title: "webview 和react-native双向通信", key: "4" },
   { id: 'SVGDemo', title: "SVG:shape", key: "5" },
   { id: 'PressExample', title: "SVG:PressExample", key: "6" },
-  { id: 'AnimatedSVGDemo', title: "SVG 动画", key: "44" },
+  { id: 'AnimatedSVGDemo', title: "SVG 动画", key: "3" },
   { id: 'HoverExample', title: "SVG:HoverExample", key: "7" },
   { id: 'GroupExample', title: "SVG:group", key: "8" },
   { id: 'LegendsView', title: "绘图表LegendsView", key: "9" },

@@ -56,7 +56,7 @@ Service.spec.getSpecString(xxx).then(res => {
 #### iSpec.getPropertiesValue(params, datasource) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
 请求获取设备的属性值； 由于是发起网络请求，数据的正确性可以通过抓包来查看；
 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
-code 具体表示什么意思可以查看：https://iot.mi.com/new/doc/cloud-development/other-platform-access/control-api
+code 具体表示什么意思可以查看：https://iot.mi.com/new/doc/extension-development/basic-functions/communication#%E9%94%99%E8%AF%AF%E7%A0%81
 参数中miid 表示spec-v3 中的module id, 请根据spec 版本自行添加此参数
 
 **Kind**: instance method of [<code>ISpec</code>](#module_miot/service/spec..ISpec)  
@@ -78,7 +78,7 @@ code 具体表示什么意思可以查看：https://iot.mi.com/new/doc/cloud-dev
 #### iSpec.setPropertiesValue(params) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
 请求设置设备的属性值，由于是发起网络请求，数据的正确性可以通过抓包来查看；
 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
-code 具体表示什么意思可以查看：https://iot.mi.com/new/doc/cloud-development/other-platform-access/control-api
+code 具体表示什么意思可以查看：https://iot.mi.com/new/doc/extension-development/basic-functions/communication#%E9%94%99%E8%AF%AF%E7%A0%81
 参数中miid 表示spec-v3 中的module id, 请根据spec 版本自行添加此参数
 
 **Kind**: instance method of [<code>ISpec</code>](#module_miot/service/spec..ISpec)  
@@ -99,7 +99,7 @@ code 具体表示什么意思可以查看：https://iot.mi.com/new/doc/cloud-dev
 #### iSpec.doAction(params) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
 请求调用设备的方法,由于是发起网络请求，数据的正确性可以通过抓包来查看；
 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
-code 具体表示什么意思可以查看：https://iot.mi.com/new/doc/cloud-development/other-platform-access/control-api
+code 具体表示什么意思可以查看：https://iot.mi.com/new/doc/extension-development/basic-functions/communication#%E9%94%99%E8%AF%AF%E7%A0%81
 参数中miid 表示spec-v3 中的module id, 请根据spec 版本自行添加此参数
 
 **Kind**: instance method of [<code>ISpec</code>](#module_miot/service/spec..ISpec)  
