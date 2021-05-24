@@ -194,6 +194,7 @@ import CvFaceLandmarksDemo from './ThirdPartDemo/opencv/CvFaceLandmarksDemo';
 import CircularSliderDemo from './ThirdPartDemo/CircularSliderDemo';
 import AnimatedSVGDemo from './ThirdPartDemo/AnimatedSVGDemo';
 import PdfViewerDemo from './ThirdPartDemo/PdfViewerDemo';
+import ImageFilterDemo from './ThirdPartDemo/ImageFilterDemo';
 
 import CustomContainer from './uikit/components/CustomContainer';
 
@@ -341,6 +342,7 @@ function createRootStack(initPage) {
     LayoutAnimationDemo: LayoutAnimationDemo,
     AnimCustomCompDemo: AnimCustomCompDemo,
     PdfViewerDemo: PdfViewerDemo,
+    ImageFilterDemo: ImageFilterDemo,
     // 第三方库 demo 结束
 
     // 米家iOS 自定义第三方库<
