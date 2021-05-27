@@ -21,7 +21,7 @@ import { report } from "../decorator/ReportDecorator";
 const SET = "/miotspec/prop/set";
 const GET = "/miotspec/prop/get";
 const ACTION = "/miotspec/action";
-const PROP_CHANGED = "/miotspec/prop_changed";
+const PROP_CHANGED = "/v2/miotspec/prop_changed";
 const SET_PROPERTY_REPORT_CONFIG = '/v2/miotspec-v3/set_property_report_config';
 const GET_PROPERTY_REPORT_CONFIG = '/v2/miotspec-v3/get_property_report_config';
 /**
