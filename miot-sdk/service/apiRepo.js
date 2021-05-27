@@ -211,6 +211,7 @@ const API_REPO = {
   '/v2/user/get_common_config': {},
   // 门锁需要使用的接口
   '/v2/device/setLockPushSwitch': {},
-  '/v2/device/getLockPushSwitch': {}
+  '/v2/device/getLockPushSwitch': {},
+  '/v2/device/delLockPushSwitch': {}
 };
 export default API_REPO;
