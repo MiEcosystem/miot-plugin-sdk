@@ -3,7 +3,15 @@ import React from 'react';
 import {
   View, ScrollView
 } from 'react-native';
-import { System, MemoryWarningEvent, AccelerometerChangeEvent, CompassChangeEvent, GyroscopeChangeEvent, VolumeChangeEvent } from "miot";
+import {
+  System,
+  MemoryWarningEvent,
+  AccelerometerChangeEvent,
+  CompassChangeEvent,
+  GyroscopeChangeEvent,
+  VolumeChangeEvent,
+  Host, Service, Device
+} from "miot";
 import { Permissions } from "miot/system/permission";
 import { Separator } from 'mhui-rn';
 import { ListItem } from 'miot/ui/ListItem';
@@ -49,6 +57,11 @@ function getWifiBroadcastAddress() {
   }).catch((error) => {
     alert(`getWifiBroadcastAddress fail,error: ${ JSON.stringify(error) }`);
   });
+}
+
+// 是否是Pad设备
+function isPad() {
+  alert(Host.isPad);
 }
 
 // 震动
@@ -121,6 +134,15 @@ function getStartVolume() {
     alert(`getStartVolume: ${ JSON.stringify(res) }`);
   }).catch((error) => {
     alert(`getStartVolume: ${ JSON.stringify(error) }`);
+  });
+}
+
+// 开始监听音量(隐藏系统音量条)
+function getStartVolumeHideSystemSlider() {
+  System.volume.startVolume({ hideSystemSlider: true }).then((res) => {
+    alert(`getStartVolumeHideSystemSlider: ${ JSON.stringify(res) }`);
+  }).catch((error) => {
+    alert(`getStartVolumeHideSystemSlider: ${ JSON.stringify(error) }`);
   });
 }
 
@@ -197,6 +219,14 @@ function stopShakeListener() {
   });
 }
 
+function getNfcInfo() {
+  System.nfc.getNfcInfo().then((res) => {
+    alert(JSON.stringify(res));
+  }).catch((err) => {
+    alert(JSON.stringify(err));
+  });
+}
+
 export default class SystemDemo extends React.Component {
   componentDidMount() {
     Logger.trace(this);
@@ -210,12 +240,14 @@ export default class SystemDemo extends React.Component {
           {
             [
               ["获取电量", getBattery],
+              ["获取NFC状态", getNfcInfo],
               [],
               ["内存警告", addMemoryWarning],
               [],
               ["获取音量", getVolumeInfo],
               [],
-              ["开始监听音量变化", getStartVolume],
+              ["开始监听音量变化(默认显示系统音量条)", getStartVolume],
+              ["开始监听音量变化(隐藏系统音量条)", getStartVolumeHideSystemSlider],
               ["停止监听音量变化", getStopVolume],
               [],
               ["开始监听加速计", getStartAccelerometer],
@@ -242,7 +274,9 @@ export default class SystemDemo extends React.Component {
               ["扫码", getScanCode],
               [],
               ["获取手机当前连接的路由器的ip地址", getGatewayIpAddress],
-              ["获取当前wifi的广播地址", getWifiBroadcastAddress]
+              ["获取当前wifi的广播地址", getWifiBroadcastAddress],
+              [],
+              ["设备是否为Pad", isPad]
             ].map((item, index) => {
               return (item.length >= 2 ? <ListItem
                 key={index}
@@ -268,31 +302,34 @@ export default class SystemDemo extends React.Component {
 
   componentWillMount() {
     this.sharkCount = 0;
-    this.volumeListener = VolumeChangeEvent.onVolumeChange.addListener((result) => {
-      console.log(`VolumeChangeEvent getResult:${ JSON.stringify(result) }`);
-      if (result && result.result) {
-        alert(`监听到音量变化:${ result.result.volume }`);
-      }
-    });
-    this.compassListener = CompassChangeEvent.onCompassChange.addListener((result) => {
-      console.log(`CompassChangeEvent getResult:${ JSON.stringify(result) }`);
-    });
-    this.gyroscopeListener = GyroscopeChangeEvent.onGyroscopeChange.addListener((result) => {
-      console.log(`GyroscopeChangeEvent getResult:${ JSON.stringify(result) }`);
-    });
+    // this.volumeListener = VolumeChangeEvent.onVolumeChange.addListener((result) => {
+    //   console.log(`VolumeChangeEvent getResult:${ JSON.stringify(result) }`);
+    //   if (result && result.result) {
+    //     alert(`监听到音量变化:${ result.result.volume }`);
+    //   }
+    // });
+    // this.compassListener = CompassChangeEvent.onCompassChange.addListener((result) => {
+    //   console.log(`CompassChangeEvent getResult:${ JSON.stringify(result) }`);
+    // });
+    // this.gyroscopeListener = GyroscopeChangeEvent.onGyroscopeChange.addListener((result) => {
+    //   console.log(`GyroscopeChangeEvent getResult:${ JSON.stringify(result) }`);
+    // });
+    Service.smarthome.reportLog(Device.model, ` onAccelerometerChange addListener`);
     this.accelerometerListener = AccelerometerChangeEvent.onAccelerometerChange.addListener((result) => {
-      console.log(`AccelerometerChangeEvent getResult:${ JSON.stringify(result) }`);
+      Service.smarthome.reportLog(Device.model, `tolu AccelerometerChangeEvent addListener get`);
+      // console.log(`AccelerometerChangeEvent getResult:${ JSON.stringify(result) }`);
     });
-    this.shakeListener = ShakeEvent.onShake.addListener(() => {
-      console.log(`ShakeEvent`);
-      alert(`摇一摇次数:${ ++this.sharkCount }`);
-    });
+    // this.shakeListener = ShakeEvent.onShake.addListener(() => {
+    //   console.log(`ShakeEvent`);
+    //   alert(`摇一摇次数:${ ++this.sharkCount }`);
+    // });
   }
 
   componentWillUnmount() {
     this.volumeListener && this.volumeListener.remove();
     this.compassListener && this.compassListener.remove();
     this.gyroscopeListener && this.gyroscopeListener.remove();
+    Service.smarthome.reportLog(Device.model, ` accelerometerListener remove`);
     this.accelerometerListener && this.accelerometerListener.remove();
     this.memoryListener && this.memoryListener.remove();
     this.shakeListener && this.shakeListener.remove();

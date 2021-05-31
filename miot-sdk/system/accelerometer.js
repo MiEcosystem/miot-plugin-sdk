@@ -19,6 +19,7 @@
  * ...
  */
 import native, { buildEvents } from "../native";
+import { Device, Service } from "../index";
 /**
  * 加速计
  * @interface

@@ -184,6 +184,15 @@ export const DeviceEvent = {
      * @since 10037
      */
   multiSwitchNameChanged: {
+  /**
+   * 插件密码设置改变事件
+   * @since 10053
+   * @event
+   * @param {IDevice} device -发生变更的设备
+   * @param {Map<string, object>}  switchStatus { isSetPinCode: false/true }
+   */
+  pinCodeSwitchChanged: {
+  }
 };
 buildEvents(DeviceEvent);
 /**
@@ -608,7 +617,7 @@ export class BasicDevice {
      return  false
   }
   /**
-   * 获取当前设备的时区信息（国际标准时区）。**注意：国际标准时区中，没有Asia/Beijing。**
+   * 获取当前设备的时区信息（国际标准时区），这里的设置不是指手机，而是指iot设备。**注意：国际标准时区中，没有Asia/Beijing。**
    * @since 10021
    * @returns {Promise} 成功进入then，失败进入catch。then：res="Asia/Shanghai";
    * resolve：timezone string
@@ -815,6 +824,23 @@ export class BasicDevice {
    */
   @report
   getRoomInfoForCurrentHome(did = null) {
+     return Promise.resolve({});
+  }
+  /**
+   * 获取与当前设备相同企业组的所有设备(包括当前设备)
+   * @since 10052
+   * @returns {Promise<Object>} 成功时{code:0,data:[{...device},{...device},...]}
+   * 失败时：{code:-1,message:"cannot get current device info"}
+   * {code:-2,message:"get company identifier error"}
+   * @example
+   * Device.getAllDevicesOfBelongedCompanies().then(res=>{
+   *  alert(JSON.stringify(res));
+   * }).catch(err =>{
+   *  alert(JSON.stringify(err));
+   * });
+   */
+  @report
+  getAllDevicesOfBelongedCompanies() {
      return Promise.resolve({});
   }
 }
