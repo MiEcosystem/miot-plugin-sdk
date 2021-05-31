@@ -79,6 +79,7 @@ import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo"; // ui-NumberSpi
 import StringSpinnerDemo from "./UIComponent/StringSpinnerDemo"; // ui-StringSpinnerDemo
 import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo'; // ui-MiotAndroidScrollViewDemo
 import AbsoluteTouch from './UIComponent/AbsoluteTouch'; // ui-AbsoluteTouch
+import RobotMapDemo from './UIComponent/RobotMapDemo'; //扫地机地图
 
 // Native 交互
 import { createStackNavigator } from 'react-navigation'; //
@@ -311,6 +312,7 @@ function createRootStack(initPage) {
 
     cryptoDemo: CryptoDemo,
     traceDemo: TraceDemo,
+    RobotMapDemo: RobotMapDemo,
     ParticleDemo: ParticleDemo, // iOS 特有的,粒子系统
     ImagePickerDemo: ImagePickerDemo,
 
