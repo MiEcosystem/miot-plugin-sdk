@@ -9,6 +9,7 @@
  */
 import { NativeModules, Platform } from 'react-native';
 import { report } from "../decorator/ReportDecorator";
+import CameraRenderView, { MISSCodec } from "../ui/CameraRenderView";
 /**
  * MISS 命令
  * @namespace MISSCommand
@@ -216,26 +217,103 @@ class IMiotCamera {
    *         data = {sdcardGetSuccess: true, sdcardStatus: 0, isVip: false}
    *         Service.miotcamera.showPlaybackVideos(JSON.stringify(data));
    */
-  @report
+   @report
   showPlaybackVideos(data, did = Device.deviceID) {
      return null
+  }
+  /**
+   * 打开长时间无人出现页面
+   * @since 10054
+   * @param {data} jsonobj
+   * @example 
+   */
+  @report
+   openLongTimeNobody(data, did = Device.deviceID) {
+      return null
+   }
+  /**
+   * 打开每日故事设置
+   * @since 10054
+   * @param {data} jsonobj
+   * @example 
+   */
+  @report
+  openDailyStorySetting(data, did = Device.deviceID) {
+     return null
+  }
+  /**
+   * 打开宝宝睡眠设置
+   * @since 10054
+   * @param {data} jsonobj
+   * @example 
+   */
+   @report
+  openBabySleepSetting(data, did = Device.deviceID) {
+     return null
+  }
+   /**
+   * 打开IDM设置
+   * @since 10054
+   * @param {data} jsonobj
+   * @example 
+   */
+   @report
+   openIDMSetting(data, did = Device.deviceID) {
+      return null
+   }
+  /**
+   * 打开相册
+   * @since 10051
+   * @param {data} jsonobj=>str，预留
+   * @example 
+   *         data = {};
+   *         Service.miotcamera.showPlaybackVideos(JSON.stringify(data));
+   */
+  @report
+   showAlbum(data, did = Device.deviceID) {
+      return null
+   }
+  /**
+   * 打开设备相册中最新的图片或视频
+   * @since 10051
+   * @param {data} jsonobj=>str，包含albumName等信息
+   * @example 
+   *         data = { albumName: albumName};
+   *         Service.miotcamera.showLastAlbumMediaFile(JSON.stringify(data));
+   */
+  @report
+  showLastAlbumMediaFile(data, did = Device.deviceID) {
+     return null
+  }
+  /**
+   * 获取设备对应的相册名字
+   * @since 10051
+   */
+  @report
+  getAlbumName(did = Device.deviceID) {
+     return Promise.resolve(null);
   }
   /**
    * 打开云储存页面
    * @since 10033
    * @param {BOOL} supportHevc 是否支持 H265
    * @param {useV2API} 是否使用 V2 接口
+   * @param {did} 默認參數 did
+   * @param {cloudStoragePurchaseUrl} @since 10051 默認爲空，兼容以前的邏輯，不是vip就打開攝像頭的雲存購買連接；如果是低功耗設備，需要自己填入雲存購買連接。
    */
   @report
-  showCloudStorage(supportHevc, useV2API, did = Device.deviceID) {
+  showCloudStorage(supportHevc, useV2API, did = Device.deviceID, cloudStoragePurchaseUrl = "") {
      return null
   }
+  
   /**
    * 打开云储存设置页面
    * @since 10033
+   * @param {did} 默认参数 did
+   * @param {aSettingUrl} @since 10053  自定义设置地址。默认为空，兼容以前的逻辑。
    */
   @report
-  showCloudStorageSetting(did = Device.deviceID) {
+  showCloudStorageSetting(did = Device.deviceID, aSettingUrl = null) {
      return null
   }
   /**
@@ -253,19 +331,22 @@ class IMiotCamera {
   * @returns true, 最新报警视频的时间和事件描述字符串；false，错误描述
   * @since 10047
   */
- @report
+  @report
   loadMonitoringDetail(model = Device.model, did = Device.deviceID) {
      return Promise.resolve(null);
   }
   /**
    * 打开人脸识别页面
-   * @since 10033
+   * @since 10054
    * @param {BOOL} isVip
+   * @param did
+   * @param {string} aFreeFaceSt 免费人脸状态 OutOfDate Acquired unAcquired
+   * @param {string} aBuyVipUrl vip购买链接
    */
   @report
- showFaceRecognize(isVip, did = Device.deviceID) {
-    return null
- }
+  showFaceRecognize(isVip, did = Device.deviceID, aFreeFaceSt = null, aBuyVipUrl = null) {
+     return null
+  }
   /**
    *
    * 注册收到数据速率 Bytes per second，每秒回调一次
@@ -309,6 +390,50 @@ class IMiotCamera {
   @report
   downloadM3U8ToMP4(fileId, filePath, callbackName, isAlarm = false, videoCodec = 'H265', did = Device.deviceID) {
   }
+  /**
+   * 取消downloadM3U8ToMP4任务, 只有ios需要这个接口
+   * @since 10053
+   * @param {*} fileId
+   * @param {*} callbackName
+   * @param {*} isAlarm
+   * @param {*} videoCodec
+   * @param {*} did
+   */
+  @report
+  cancelDownloadM3U8ToMP4(fileId, callbackName, isAlarm = false, did = Device.deviceID) {
+      NativeModules.MHCameraSDK.cancelDownloadM3U8ToMP4(Device.model, did, fileId, isAlarm, callbackName);
+    } else {
+      console.log('android use downloadM3U8ToMP4V2 and cancelDownloadM3U8ToMP4V2 from 10053');
+    }
+  }
+  /**
+   * 下载m3u8视频并合成mp4，支持合成mp4时统一分辨率，避免视频花屏
+   * @since 10053
+   * @param fileId
+   * @param filePath
+   * @param callbackName
+   * @param isAlarm 是否报警视频
+   * @param videoCodec 视频编码如 "H264", "H265"
+   * @param transcode 是否需要把每个子视频转码成相同分辨率后再合成，默认需要转
+   * @returns
+   *    state : 1. onStart (开始下载)  2. onComplete（下载完成）  3. onError（失败）  4. onProgress（下载进度）
+   *    errorInfo : 失败描述（state = onError时才有）
+   *    progress : 下载进度0 - 100 (state = onProgress时才有)
+   */
+     @report
+  downloadM3U8ToMP4V2(fileId, filePath, callbackName, isAlarm = false, videoCodec = 'H265', did = Device.deviceID, transcode = true) {
+  }
+  /**
+  * 取消downloadM3U8ToMP4V2任务
+  * @since 10053
+  * @param {*} fileId
+  * @param {*} callbackName
+  * @param {*} isAlarm
+  * @param {*} did
+  */
+  @report
+     cancelDownloadM3U8ToMP4V2(fileId, callbackName, isAlarm = false, did = Device.deviceID) {
+     }
   /**
    * 获取报警视频m3u8播放地址
    * @since 10037
@@ -522,7 +647,7 @@ class IMiotCamera {
   /**
    * 设置speaker变声类型,    初次设置会触发初始化，后续simpleRate or channel发生改变 都不会触发初始化。
    * @param {int} simpleRate  音频采样率  与CameraRenderView里定义的MISSSampleRate一致
-   * @param {int} type 变声类型，目前米家只提供 0 == 正常  1 == 小丑  2 == 大叔这三种类型
+   * @param {int} type 变声类型，目前米家只提供 0 == 正常  1 == 小丑  2 == 大叔这三种类型 10055 增加 3 == 青年
    * @param {int} channel 单双通道 1 单声道， 2 立体声   默认为1
    * @param {string} did
    */
@@ -629,6 +754,127 @@ class IMiotCamera {
   reactNativeVideoScreenShot(viewRef, imagePath) {
      return Promise.resolve(null);
   }
+  /**
+   * @param paramsJson 包含如下参数：
+   * @param {string} videoPath h264 或者h265的源文件绝对路径  必须以Host.file.storageBasePath开始
+   * @param {CameraRenderView.MISSCodec} videoType 视频源文件的路径 MISSCodec里定义的h264 或者h265
+   * @param {string} aacAudioPath aac 的源文件路径  没有就填写 ""   有值时必须以Host.file.storageBasePath开始, 音频文件只支持aac格式
+   * @param {string} targetPath 最终的输出文件目录 同上，必须以Host.file.storageBasePath开始
+   * 以下参数只用于ios
+   * @param {int} fps
+   * @param {int} videoWidth
+   * @param {int} videoHeight
+   *
+   * Android json demo：
+      {"videoPath":vPath,
+      "videoType": vType,
+      "aacAudioPath": aacAPath,
+      "targetPath": tPath}
+   *
+   * IOS json demo：
+      {"videoPath":vPath,
+      "videoType": vType,
+      "aacAudioPath": aacAPath,
+      "targetPath": tPath,
+      "fps": fps,
+      "videoWidth": vWidth,
+      "videoHeight": vHeight}
+   * 
+   * @since 10050
+   */
+  @report
+  convertH26xVideoIntoMp4(paramsJson) {
+     return Promise.resolve(null);
+  }
+  /**
+   * 启动设备设备联动页面
+   * @param {string} srid from getRecommend
+   * @param {string} did
+   * @param {string} model
+   * @since 10052
+   */
+  @report
+  launchRecommend(srid, did = Device.deviceID, model = Device.model) {
+    return new Promise((resolve, reject) => {
+      NativeModules.MHCameraSDK.launchRecommend(srid, did, model, (result, data) => {
+        if (result) {
+          resolve(data);
+        } else {
+          reject(data);
+        }
+      });
+    });
+  }
+  /**
+   * 打开推荐运营位页面
+   * @param data  jsonobj=>str 推荐运营位链接，sd卡状态等信息
+   * @param {string} did
+   * @since 10053
+   * @example 
+   *     let data = { h5Url: this.bannerItem.h5Url, sdcardGetSuccess: true, sdcardStatus: this.sdcardCode };
+   *     Service.miotcamera.showOperationBannerPage(data);
+   */
+     @report
+  showOperationBannerPage(data, did = Device.deviceID) {
+     return null
+  }
+  /**
+   * @param isPadFullScreen 是否希望进入pad下的全屏， 设置为true，会把画面铺满屏幕，设置为false，会恢复画面
+   */
+  @report
+     enterFullscreenForPad(isPadFullScreen) {
+       // native :=> null
+       NativeModules.MHCameraSDK.enterFullscreenForPad(isPadFullScreen);
+     }
+  
+  
+  /**
+   * 过滤视频帧
+   * @param aFilter  过滤器信息 当前支持timestamp_s EX:{timestamp_s: 666666}过滤时间戳为666666的视频帧; null取消filter
+   * @param aCbName  过滤到相应帧后通过aCbName 返回base64格式数据
+   * @param {string} aDid 设备id
+   * @since 10055
+   * @example 
+   *     ThumbFilter = “timestampfilter”;
+   *     DeviceEventEmitter.addListener(ThumbFilter, (aBase64Frame)=>{xxx});
+   *     Service.miotcamera.setFrameFilter({ timestamp_s: 666666 }, ThumbFilter);
+   *     Service.miotcamera.setFrameFilter({ timestamp_s: [555555, 666666] }, ThumbFilter); 过滤多个timestamp
+   */
+    @report
+  setFrameFilter(aFilter, aCbName, aDid = Device.deviceID) {
+    // native :=> null
+    NativeModules.MHCameraSDK.setFrameFilter(aFilter, aCbName, aDid);
+  }
+  
+  
+    /**
+   * 发送tutk 函数类型命令
+   * @param args  {name:"IOTC_WakeUp_WakeDevice"}
+   * @param {string} aDid 设备id
+   * @since 10055
+   * @example 
+   *     Service.miotcamera.callTutkSpecial({name:"IOTC_WakeUp_WakeDevice"}).then(xxx).catch(yyy);
+   */
+    @report
+    callTutkSpecial(args, aDid = Device.deviceID) {
+     return Promise.resolve(null);
+    }
+    
+    /**
+   * 发送audio 数据
+   * @param aDatInBase64  audio数据 base64编码
+   * @param aHeaderInBase64  audio数据头 base64编码
+   * @param aCodeId audio codecid默认MISSCodec.MISS_CODEC_AUDIO_G711A
+   * @param {string} aDid 设备id
+   * @since 10055
+   * @example 
+   *     Service.miotcamera.sendAudioData(data, header).then(xxx).catch(yyy);
+   */
+    @report
+    sendAudioData(aDatInBase64, aHeaderInBase64, aCodeId = MISSCodec.MISS_CODEC_AUDIO_G711A, aDid = Device.deviceID) {
+     return Promise.resolve(null);
+    }
+  
 }
 const MiotCameraInstance = new IMiotCamera();
 export default MiotCameraInstance;

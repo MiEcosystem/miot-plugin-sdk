@@ -27,6 +27,8 @@ Service.spec.getSpecString(xxx).then(res => {
         * [.reportPropChanged(params)](#module_miot/service/spec..ISpec+reportPropChanged) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
         * [.getSpecString(did)](#module_miot/service/spec..ISpec+getSpecString) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
         * [.getCurrentSpecValue(did)](#module_miot/service/spec..ISpec+getCurrentSpecValue) ⇒
+        * [.getPropertyReportConfig(params, version)](#module_miot/service/spec..ISpec+getPropertyReportConfig) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
+        * [.setPropertyReportConfig(params, version)](#module_miot/service/spec..ISpec+setPropertyReportConfig) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
 
 
 * * *
@@ -43,6 +45,8 @@ Service.spec.getSpecString(xxx).then(res => {
     * [.reportPropChanged(params)](#module_miot/service/spec..ISpec+reportPropChanged) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
     * [.getSpecString(did)](#module_miot/service/spec..ISpec+getSpecString) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
     * [.getCurrentSpecValue(did)](#module_miot/service/spec..ISpec+getCurrentSpecValue) ⇒
+    * [.getPropertyReportConfig(params, version)](#module_miot/service/spec..ISpec+getPropertyReportConfig) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
+    * [.setPropertyReportConfig(params, version)](#module_miot/service/spec..ISpec+setPropertyReportConfig) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
 
 
 * * *
@@ -52,17 +56,18 @@ Service.spec.getSpecString(xxx).then(res => {
 #### iSpec.getPropertiesValue(params, datasource) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
 请求获取设备的属性值； 由于是发起网络请求，数据的正确性可以通过抓包来查看；
 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
-code 具体表示什么意思可以查看： https://iot.mi.com/new/doc/05-米家扩展程序开发指南/05-功能接口/06-MIOT-Spec.html
+code 具体表示什么意思可以查看：https://iot.mi.com/new/doc/extension-development/basic-functions/communication#%E9%94%99%E8%AF%AF%E7%A0%81
+参数中miid 表示spec-v3 中的module id, 请根据spec 版本自行添加此参数
 
 **Kind**: instance method of [<code>ISpec</code>](#module_miot/service/spec..ISpec)  
 **Returns**: <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code> - 成功时分两种情况：
-获取设备属性成功时： [{"did":"xxx","siid":x,"piid":x,"code":0，value: xxx },……]
-获取设备属性失败时： [{"did":"xxx","siid":x,"piid":x,"code":xxx},……]
+获取设备属性成功时： [{"did":"xxx","miid":x,"siid":x,"piid":x,"code":0，value: xxx },……]
+获取设备属性失败时： [{"did":"xxx","miid":x,"siid":x,"piid":x,"code":xxx},……]
 失败时：{code:xxx, message:xxx}  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| params | <code>Array</code> |  | [{did: 1, siid: 1, piid: 1},{did: 1, siid:2, piid: 3},……] |
+| params | <code>Array</code> |  | [{did: 1, miid: 1, siid: 1, piid: 1},{did: 1, miid: 1, siid:2, piid: 3},……] |
 | datasource | <code>int</code> | <code>1</code> | 从10036开始增加datasource，可不传（不传的默认dataSource=1）,dataSource可选值如下: datasource=1  优先从服务器缓存读取，没有读取到下发rpc；不能保证取到的一定是最新值 datasource=2  直接下发rpc，每次都是设备返回的最新值 datasource=3  直接读缓存;没有缓存的 code 是 -70xxxx；可能取不到值 后台的默认策略是datasource=3；开发者可根据需求特性选择dataSource的值，如果对实时性要求不高，建议dataSource=1或者dataSource=3,以减轻后台服务的压力 |
 
 
@@ -73,17 +78,18 @@ code 具体表示什么意思可以查看： https://iot.mi.com/new/doc/05-米�
 #### iSpec.setPropertiesValue(params) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
 请求设置设备的属性值，由于是发起网络请求，数据的正确性可以通过抓包来查看；
 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
-code 具体表示什么意思可以查看： https://iot.mi.com/new/doc/05-米家扩展程序开发指南/05-功能接口/06-MIOT-Spec.html
+code 具体表示什么意思可以查看：https://iot.mi.com/new/doc/extension-development/basic-functions/communication#%E9%94%99%E8%AF%AF%E7%A0%81
+参数中miid 表示spec-v3 中的module id, 请根据spec 版本自行添加此参数
 
 **Kind**: instance method of [<code>ISpec</code>](#module_miot/service/spec..ISpec)  
 **Returns**: <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code> - 成功时分两种情况：
-设置设备属性成功时：  [{"did":"xxx","siid":x,"piid":x,"code":0 },……]
-设置设备属性失败时：  [{"did":"xxx","siid":x,"piid":x,"code":xxx },……]
+设置设备属性成功时：  [{"did":"xxx","miid":x,"siid":x,"piid":x,"code":0 },……]
+设置设备属性失败时：  [{"did":"xxx","miid":x,"siid":x,"piid":x,"code":xxx },……]
 失败时：{code:xxx, message:xxx}  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| params | <code>Array</code> | [{did: 1, siid: 1, piid: 1, value:'any'},{did: 1, siid:2, piid: 3, value: 'any'},……] |
+| params | <code>Array</code> | [{did: 1, miid: 1, siid: 1, piid: 1, value:'any'},{did: 1, miid: 1, siid:2, piid: 3, value: 'any'},……] |
 
 
 * * *
@@ -93,17 +99,18 @@ code 具体表示什么意思可以查看： https://iot.mi.com/new/doc/05-米�
 #### iSpec.doAction(params) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
 请求调用设备的方法,由于是发起网络请求，数据的正确性可以通过抓包来查看；
 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
-code 具体表示什么意思可以查看： https://iot.mi.com/new/doc/05-米家扩展程序开发指南/05-功能接口/06-MIOT-Spec.html
+code 具体表示什么意思可以查看：https://iot.mi.com/new/doc/extension-development/basic-functions/communication#%E9%94%99%E8%AF%AF%E7%A0%81
+参数中miid 表示spec-v3 中的module id, 请根据spec 版本自行添加此参数
 
 **Kind**: instance method of [<code>ISpec</code>](#module_miot/service/spec..ISpec)  
 **Returns**: <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code> - 成功时分两种情况：
-方法执行成功时：  {"did":"xxx","siid":x,"piid":x,"code":0 }
-方法执行失败时：  {"did":"xxx","siid":x,"piid":x,"code":xxx }
+方法执行成功时：  {"did":"xxx","miid":x,"siid":x,"piid":x,"code":0 }
+方法执行失败时：  {"did":"xxx","miid":x,"siid":x,"piid":x,"code":xxx }
 失败时：{code:xxx, message:xxx}  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| params | <code>JSON</code> | {did: action.did, siid: action.siid, aiid: action.iid, in: action.params},其中，action.params为数组。例如 {did: 1, siid: 1, aiid: 1, in: [17,"shanghai"]} |
+| params | <code>JSON</code> | {did: action.did, miid: action.miid, siid: action.siid, aiid: action.iid, in: action.params},其中，action.params为数组。例如 {did: 1, siid: 1, aiid: 1, in: [17,"shanghai"]} |
 
 
 * * *
@@ -112,14 +119,15 @@ code 具体表示什么意思可以查看： https://iot.mi.com/new/doc/05-米�
 
 #### iSpec.reportPropChanged(params) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
 该接口用来上报设备属性，一般供蓝牙设备使用
+参数中miid 表示spec-v3 中的module id, 请根据spec 版本自行添加此参数
 
 **Kind**: instance method of [<code>ISpec</code>](#module_miot/service/spec..ISpec)  
-**Returns**: <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code> - {"results": [{"did": "xxx", "siid": 1, "piid": 1, "code": 0}]}  
+**Returns**: <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code> - {"results": [{"did": "xxx", "miid":x, "siid": 1, "piid": 1, "code": 0}]}  
 **Since**: SDK10045  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| params | <code>JSON</code> | {"props": [{"did": "xxx", "siid": 1, "piid": 1, "value": "xxx(参考spec定义的类型设置)", "tid": 123(与网关接口定义一致)}], "version": ""} |
+| params | <code>JSON</code> | {"props": [{"did": "xxx", "miid":x, "siid": 1, "piid": 1, "value": "xxx(参考spec定义的类型设置)", "tid": 123(与网关接口定义一致)}], "version": ""} |
 
 
 * * *
@@ -159,6 +167,44 @@ iOS： 返回值同上面的getPropertiesValue方法。此方法只返回code为
 | Param | Description |
 | --- | --- |
 | did | 设备的did，必传 |
+
+
+* * *
+
+<a name="module_miot/service/spec..ISpec+getPropertyReportConfig"></a>
+
+#### iSpec.getPropertyReportConfig(params, version) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
+查询属性上报规则
+spec-v3 引入
+参数中miid 表示spec-v3 中的module id, 请根据spec 版本自行添加此参数
+
+**Kind**: instance method of [<code>ISpec</code>](#module_miot/service/spec..ISpec)  
+**Returns**: <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code> - {"results": {"did": "xxx", "miid":x, "siid": 1, "piid": 1,  "minimum_report_interval": 1, "maximum_report_interval": 100, "reportable_change": 5}} minimum_report_interval:最小上报间隔，单位（s）,maximum_report_interval:最大上报间隔，单位（s），为0指无穷大，即不需要周期上报,reportable_change:可上报的变化阈值，同属性数据类型  
+**Since**: SDK10048  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>JSON</code> | {"did": "xxx", "miid":x, "siid": 1, "piid": 1} |
+| version | <code>String</code> | 和设备端设计同步字段，默认为空字符串，一般情况下建议不传该参数 |
+
+
+* * *
+
+<a name="module_miot/service/spec..ISpec+setPropertyReportConfig"></a>
+
+#### iSpec.setPropertyReportConfig(params, version) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code>
+设置属性上报规则
+spec-v3 引入
+参数中miid 表示spec-v3 中的module id, 请根据spec 版本自行添加此参数
+
+**Kind**: instance method of [<code>ISpec</code>](#module_miot/service/spec..ISpec)  
+**Returns**: <code>[ &#x27;Promise&#x27; ].&lt;JSON&gt;</code> - {"results": {"did": "xxx", "miid":x, "siid": 1, "piid": 1, "code": 0}}  
+**Since**: SDK10048  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>JSON</code> | {"did": "xxx", "miid":x, "siid": 1, "piid": 1, minimum_report_interval: 1, maximum_report_interval: 100, reportable_change: 5} minimum_report_interval:最小上报间隔，单位（s）,maximum_report_interval:最大上报间隔，单位（s），为0指无穷大，即不需要周期上报,reportable_change:可上报的变化阈值，同属性数据类型 |
+| version | <code>String</code> | 和设备端设计同步字段，默认为空字符串，一般情况下建议不传该参数 |
 
 
 * * *
