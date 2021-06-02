@@ -550,7 +550,7 @@ strings = getStrings({
     close: "Off",
     // 常用设备
     favoriteDevices: "Favorites",
-    favoriteCamera: "",
+    favoriteCamera: "Camera shortcut",
     favoriteAddDevices: "Add to favorites",
     // MHDatePicker
     cancel: 'Cancel',
