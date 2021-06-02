@@ -714,7 +714,10 @@ class IUi {
    * @since 10055
    * 打开设置定时的页面。
    * 这个页面不同于Service.scene.openTimerSettingPageWithOptions，这个页面只负责选择日期然后返回对应的crontab字符串
-   * @param{Object}param(optional)。param.crontab表示描述定时任务的字符串，当传入的值有效时进入页面会展示对应的定时状态
+   * @param{Object}param(optional)。
+   * param.crontab(string)表示描述定时任务的字符串，当传入的值有效时进入页面会展示对应的定时状态
+   * param.title(string)，要显示的标题
+   * param.hideLegalTime(boolean)，是否隐藏法定节假日,(当服务器为外服时无法显示法定节假日)
    * @return{Promise} 成功时返回{code:0,data:{crontab:'xxxxxxx'}}
    * 这个方法不会走reject，原生界面崩溃了代表传入的param.crontab不合法，native端解析失败。
    */
