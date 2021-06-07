@@ -16,14 +16,15 @@
  *
  */
 import Device from "../device/BasicDevice";
-import native, { isIOS, isAndroid } from "../native";
+import native, { isAndroid, isIOS } from "../native";
 import AutoOTAABTestHelper from 'miot/utils/autoota_abtest_helper';
-// import { Entrance } from "../Package";
-// const resolveAssetSource = require('resolveAssetSource');
-// const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
+import Permission from '../service/permission';
 import ProtocolManager from '../utils/protocol-helper';
 // import { Entrance } from "../Package";
 import { report } from "../decorator/ReportDecorator";
+// import { Entrance } from "../Package";
+// const resolveAssetSource = require('resolveAssetSource');
+// const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 /**
  * 原生UI管理
  * @interface
@@ -114,11 +115,17 @@ class IUi {
   openSystemShareWindow(pathOrUrl) {
   }
   /**
-   * 获取设备列表中指定model的设备信息
+  * 打开系统文件打开页面 since 10050
+  * @param {string} pathOrUrl 文件的全路径或者链接url。
+  */
+  @report
+  openSystemFileWindow(pathOrUrl) {
+  }
+  /**
+   * 获取设备列表中指定model的设备信息(仅白名单设备才允许调用此方法，如需使用，请联系插件框架)
    * @param model 指定的model
    * @param {boolean} includeGroupedDevice - since 10046 是否包含被组成了一个组的设备（目前仅窗帘设备可用，灯设备不可用），默认不包含
    * @returns {Promise<devices[]>} 对象中有字段 isGrouped 表示是被分组的设备，includeGroupedDevice = true时才有效
-   *
    */
   @report
   getDevicesWithModel(model, includeGroupedDevice = false) {
@@ -139,6 +146,8 @@ class IUi {
    * @param {string} [option.experiencePlanURL] 用户体验计划本地资源，为空时如果hideUserExperiencePlan=false，则显示米家默认用户体验计划
    * @param {boolean} [option.hideAgreement=false] 是否隐藏用户协议，默认显示用户协议
    * @param {boolean} [option.hideUserExperiencePlan=false] 是否隐藏用户体验计划，默认显示用户体验计划
+   * @param {boolean} option.force 强制弹出隐私弹框，默认为false。对于共享设备，不建议进行弹窗请求隐私授权，如果一定要弹框，需要设置option.force=true，
+   * option.force=false会直接返回失败(相当于拒绝授权)。对于非共享设备，option.force可以不传
    * @returns {Promise<Boolean>} 弹窗授权结果
    * @example
    * 可以参考iot文档 或 project/com.xiaomi.demo/MainPage.js部分样例
@@ -216,6 +225,12 @@ class IUi {
    */
   @report
   openDeviceUpgradePage(type = 0) {
+  }
+  /**
+   * 打开设备检查固件历史版本信息页面
+   */
+  @report
+  openDeviceUpgradeHistoryPage() {
   }
   /**
    * 打开Mesh设备固件升级页。分享的设备点击此接口无反应（理论上分享的设备不应该出现调用此接口的菜单）
@@ -687,7 +702,61 @@ class IUi {
   @report
   openNFCWriteDeviceInfoPage(extra = '') {
   }
-  
+  /**
+   * @since 10056
+   * 打开NFC写设备数据的调试页面。
+   * 注意：该接口仅限于调试使用，只在DB包可用，线上版本不可用。仅特定插件可用。
+   * 在米家首页，手机接触到NFC设备时会读取写入的设备信息，读取成功后会自动打开相应的插件，插件可以通过Package.entryIfno.nfcdata获取
+   * @param {jsonobject} params 需要写入到nfc设备数据;
+   * params的格式如下：
+   * { 
+   *    did: string类型，设备的did,必填,且不能为空
+   *    model: stringl类型, 对应插件的model,必填,切不能为空
+   *    extra: json格式的string类型，需要写入到设备的额外参数，选填
+   * }
+   * @example
+   * let params={
+   *  did: Device.did,
+   *  model: Device.model,
+   *  extra: JSON.stringify({key:'value'})
+   * }
+   * Host.ui.openNFCWriteDeviceInfoDebugPage(params);
+   */
+     @report
+  openNFCWriteDeviceInfoDebugPage(params) {
+  }
+  /**
+   * @since 10052
+   * 打开常用设备/常用摄像机设置页面
+   * @param {string} type type=0代表常用设备，type=1代表常用摄像机
+   * @example
+   * Host.ui.openCommonDeviceSettingPage(1);
+  */
+  @report
+     openCommonDeviceSettingPage(type) {
+     }
+  /**
+   * @since 10055
+   * 打开设置定时的页面。
+   * 这个页面不同于Service.scene.openTimerSettingPageWithOptions，这个页面只负责选择日期然后返回对应的crontab字符串
+   * @param{Object}param(optional)。param.crontab表示描述定时任务的字符串，当传入的值有效时进入页面会展示对应的定时状态
+   * @return{Promise} 成功时返回{code:0,data:{crontab:'xxxxxxx'}}
+   * 这个方法不会走reject，原生界面崩溃了代表传入的param.crontab不合法，native端解析失败。
+   */
+  @report
+  openGenerateCrontabStringPage(param = {}) {
+    // native begin
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.openGenerateCrontabStringPage(param, (ok, res) => {
+        if (ok) {
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      });
+    });
+    // native end
+  }
 }
 const UiInstance = new IUi();
 export default UiInstance;

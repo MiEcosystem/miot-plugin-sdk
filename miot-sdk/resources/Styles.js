@@ -7,6 +7,7 @@
  * <Text style={{ backgroundColor: Styles.common.MHGreen }}>
  */
 import { Dimensions, StyleSheet } from 'react-native';
+import DynamicColor from "../ui/Style/DynamicColor";
 const { width } = Dimensions.get('window');
 const PADDING = 29;
 const SEPARATOR_HEIGHT = StyleSheet.hairlineWidth;
@@ -17,7 +18,7 @@ export default {
   common: {
     padding: PADDING, // 列表项或者分割线距离屏幕左边的距离
     MHGreen: '#32BAC0', // 米家绿
-    underlayColor: 'rgba(0,0,0,0.25)', // 点击态蒙层颜色
+    underlayColor: 'rgba(0,0,0,0.05)', // 点击态蒙层颜色
     hairlineColor: HAIRLINE_COLOR, // 分割线颜色
     backgroundColor: '#f7f7f7', // 通常是插件页面背景颜色
     separatorHeight: SEPARATOR_HEIGHT, // 分割线粗细
@@ -80,5 +81,8 @@ export default {
       color: '#666',
       fontFamily: 'D-DINCondensed-Bold' // TODO: 英文字体，中文加粗效果
     }
+  },
+  darkMode: {
+    backgroundColor: new DynamicColor('#FFFFFF', '#000000')
   }
 };
