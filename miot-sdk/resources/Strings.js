@@ -302,7 +302,7 @@ strings = getStrings({
     close: "關",
     // 常用设备
     favoriteDevices: "常用裝置",
-    favoriteCamera: "",
+    favoriteCamera: "快捷攝影機",
     favoriteAddDevices: "設為首頁常用裝置",
     // MHDatePicker
     cancel: "取消",
@@ -426,7 +426,7 @@ strings = getStrings({
     close: "關",
     // 常用设备
     favoriteDevices: "常用裝置",
-    favoriteCamera: "",
+    favoriteCamera: "快捷攝影機",
     favoriteAddDevices: "設為首頁常用裝置",
     // MHDatePicker
     cancel: "取消",
@@ -674,7 +674,7 @@ strings = getStrings({
     close: "끄기",
     // 常用设备
     favoriteDevices: "자주 사용하는 기기",
-    favoriteCamera: "",
+    favoriteCamera: "카메라 바로가기",
     favoriteAddDevices: "초기 화면 자주 사용하는 기기로 설정",
     // MHDatePicker
     cancel: "취소",
@@ -798,7 +798,7 @@ strings = getStrings({
     close: "Выкл",
     // 常用设备
     favoriteDevices: "Избранное",
-    favoriteCamera: "",
+    favoriteCamera: "Ярлык камеры",
     favoriteAddDevices: "Добавить в избранное",
     // MHDatePicker
     cancel: "Отменить",
@@ -922,7 +922,7 @@ strings = getStrings({
     close: "Desactivado",
     // 常用设备
     favoriteDevices: "Favoritos",
-    favoriteCamera: "",
+    favoriteCamera: "Acceso directo a la cámara",
     favoriteAddDevices: "Añadir a favoritos",
     // MHDatePicker
     cancel: "Cancelar",
@@ -1046,7 +1046,7 @@ strings = getStrings({
     close: "Éteint",
     // 常用设备
     favoriteDevices: "Favoris",
-    favoriteCamera: "",
+    favoriteCamera: "Raccourci caméra",
     favoriteAddDevices: "Ajouter aux Favoris",
     // MHDatePicker
     cancel: "Annuler",
@@ -1170,7 +1170,7 @@ strings = getStrings({
     close: "Disattivato",
     // 常用设备
     favoriteDevices: "Preferiti",
-    favoriteCamera: "",
+    favoriteCamera: "Collegamento telecamera",
     favoriteAddDevices: "Aggiungi ai Preferiti",
     // MHDatePicker
     cancel: "Annulla",
@@ -1294,7 +1294,7 @@ strings = getStrings({
     close: "Aus",
     // 常用设备
     favoriteDevices: "Favoriten",
-    favoriteCamera: "",
+    favoriteCamera: "Kameraverknüpfung",
     favoriteAddDevices: "Zu Favoriten hinzufügen",
     // MHDatePicker
     cancel: "Abbrechen",
@@ -1418,7 +1418,7 @@ strings = getStrings({
     close: "Nonaktif",
     // 常用设备
     favoriteDevices: "Favorit",
-    favoriteCamera: "",
+    favoriteCamera: "Pintasan kamera",
     favoriteAddDevices: "Tambahkan ke favorit",
     // MHDatePicker
     cancel: "Batal",
@@ -1542,7 +1542,7 @@ strings = getStrings({
     close: "Wyłączone",
     // 常用设备
     favoriteDevices: "Ulubione",
-    favoriteCamera: "",
+    favoriteCamera: "Skrót do kamery",
     favoriteAddDevices: "Dodaj do ulubionych",
     // MHDatePicker
     cancel: "Anuluj",
@@ -1666,7 +1666,7 @@ strings = getStrings({
     close: "Tắt",
     // 常用设备
     favoriteDevices: "Mục yêu thích",
-    favoriteCamera: "",
+    favoriteCamera: "Lối tắt camera",
     favoriteAddDevices: "Thêm vào mục yêu thích",
     // MHDatePicker
     cancel: "Huỷ bỏ",
@@ -1790,7 +1790,7 @@ strings = getStrings({
     close: "オフ",
     // 常用设备
     favoriteDevices: "よく使うデバイス",
-    favoriteCamera: "",
+    favoriteCamera: "カメラのショートカット",
     favoriteAddDevices: "ホームページによく使うデバイスを設定",
     // MHDatePicker
     cancel: "キャンセル",
@@ -1914,7 +1914,7 @@ strings = getStrings({
     close: "ปิด",
     // 常用设备
     favoriteDevices: "รายการโปรด",
-    favoriteCamera: "",
+    favoriteCamera: "คีย์ทางลัดกล้อง",
     favoriteAddDevices: "เพิ่มไปยังรายการโปรด",
     // MHDatePicker
     cancel: "ยกเลิก",
@@ -2038,7 +2038,7 @@ strings = getStrings({
     close: "Kapalı",
     // 常用设备
     favoriteDevices: "Favoriler",
-    favoriteCamera: "",
+    favoriteCamera: "Kamera kısayolu",
     favoriteAddDevices: "Favorilere ekle",
     // MHDatePicker
     cancel: "İptal ",
@@ -2162,7 +2162,7 @@ strings = getStrings({
     close: "Uit",
     // 常用设备
     favoriteDevices: "Favorieten",
-    favoriteCamera: "",
+    favoriteCamera: "Snelkoppeling voor de camera",
     favoriteAddDevices: "Aan favorieten toevoegen",
     // MHDatePicker
     cancel: "Annuleren",
@@ -2286,7 +2286,7 @@ strings = getStrings({
     close: "Desligar",
     // 常用设备
     favoriteDevices: "Favoritos",
-    favoriteCamera: "",
+    favoriteCamera: "Atalho para a câmera",
     favoriteAddDevices: "Adicionar aos favoritos",
     // MHDatePicker
     cancel: "Cancelar",
