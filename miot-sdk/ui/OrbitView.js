@@ -3,7 +3,7 @@
  * @doc_name 常用UI组件
  * @doc_index 1
  * @doc_directory ui
- * @since 10053
+ * @since 10054
  * @module miot/ui/
  * @description 轨迹图组件
  */
