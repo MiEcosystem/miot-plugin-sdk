@@ -6,7 +6,7 @@ import { Styles as SdkStyles } from "miot/resources";
 /**
  * 自定义智能自动化开发-开发自定义自动化页面
  * 该功能并非插件开发的必须功能，具体详情可参考文档：
- * https://iot.mi.com/new/doc/app-development/extension-development/automation-develop.html
+ * https://iot.mi.com/new/doc/extension-development/topics/automation-develop
  */
 export default class ScenePage extends React.Component {
 

@@ -49,16 +49,17 @@ class IVolume {
   /**
    * 开始监听音量变化
    * @since 10045
+   * @param {Object} hideSystemSlider 是否隐藏系统的音量进度条，默认不隐藏
    * @returns {Promise<json>} 成功时：{code:0,message:'success'}
    * @example
-   *  System.volume.startVolume().then((res) => {
+   *  System.volume.startVolume({hideSystemSlider:true}).then((res) => {
     alert(`getStartVolume: ${ JSON.stringify(res) }`);
   }).catch((error) => {
     alert(`getStartVolume: ${ JSON.stringify(error) }`);
   });
    */
   @report
-  startVolume() {
+  startVolume({ hideSystemSlider = false } = {}) {
   }
   /**
    * 停止监听量变化

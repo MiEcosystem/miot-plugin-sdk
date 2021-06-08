@@ -1,10 +1,8 @@
 'use strict';
 
-import { Device, Host, DeviceEvent, PackageEvent } from "miot";
+import { Device, DeviceEvent, Host, PackageEvent } from "miot";
 import React from 'react';
-import {
-  ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View
-} from 'react-native';
+import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Logger from '../../Logger';
 
 let BUTTONS = [
@@ -147,6 +145,13 @@ export default class UIDemo extends React.Component {
         'func': () => {
           // const path = Host.file.storageBasePath+'/test.wav';
           Host.ui.openSystemShareWindow('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433650723&di=44f673bd1ccbde2af32e1f7565de4484&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn%2Fw640h759%2F20180111%2F9ee0-fyqnick6733536.jpg');
+        }
+      },
+      {
+        'name': '打开系统文件打开页面',
+        'subtitle': 'openSystemFileWindow',
+        'func': () => {
+          Host.ui.openSystemFileWindow('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433650723&di=44f673bd1ccbde2af32e1f7565de4484&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn%2Fw640h759%2F20180111%2F9ee0-fyqnick6733536.jpg');
         }
       },
       {
@@ -611,6 +616,23 @@ export default class UIDemo extends React.Component {
         'subtitle': '打开NFC写设备信息页面',
         'func': () => {
           Host.ui.openNFCWriteDeviceInfoPage();
+        }
+      },
+      {
+        'name': 'openCommonDeviceSettingPage',
+        'subtitle': '打开常用设备/常用摄像机设置页面',
+        'func': () => {
+          Host.ui.openCommonDeviceSettingPage(1);
+        }
+      },
+      {
+        'name': 'openGenerateCrontabStringPage',
+        'subtitle': '打开场景设置中的定时界面',
+        'func': () => {
+          Host.ui.openGenerateCrontabStringPage({ title: 'demo标题', hideLegalTime: false })
+            .then((crontab) => {
+              alert(crontab.data.crontab);
+            });
         }
       }
     ];
