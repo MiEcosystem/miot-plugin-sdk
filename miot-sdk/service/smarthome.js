@@ -1093,7 +1093,6 @@ class ISmartHome {
      */
     @report
     reportEvent(eventName, params) {
-      native.MIOTService.reportEvent(eventName, params);
     }
     /**
      * 获取多键开关名称
@@ -1102,9 +1101,9 @@ class ISmartHome {
      * @param {string} did 设备id
      */
     @report
-    getMultiSwitchName(did) {
-       return Promise.resolve({});
-    }
+     getMultiSwitchName(did) {
+        return Promise.resolve({});
+     }
     /**
      *创建组设备，(窗帘组设备)
      * @since 10046
