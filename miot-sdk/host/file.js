@@ -29,6 +29,8 @@
  */
 import Device from "../device/BasicDevice";
 import { report } from "../decorator/ReportDecorator";
+import { PermissionsAndroid } from "react-native";
+import { processColor } from "react-native";
 /**
  * 文件事件名集合
  * @namespace FileEvent
@@ -268,7 +270,7 @@ class IFile {
   /**
    * 上传普通文件，需要申请权限使用
    * 获取用于上传FDS文件的obj_name以及用于上传的url
-   * 设备需要申请配置FDS权限，参考 https://iot.mi.com/new/doc/cloud-development/cloud-service/storage/fds.html
+   * 访问接口：/home/genpresignedurl
    * @since 10004
    * @param {string} did 设备did
    * @param {string} suffix 文件后缀 例如 'mp3', 'txt'
@@ -310,6 +312,51 @@ class IFile {
      return Promise.resolve(null);
   }
   /**
+   * 上传普通文件，需要申请权限使用,V3版本
+   * 获取用于上传FDS文件的obj_name以及用于上传的url
+   * 访问接口：/v2/home/genpresignedurl_v3
+   * @since 10056
+   * @param {string} did 设备did
+   * @param {string} suffix 文件后缀 例如 'mp3', 'txt'
+   * @example
+   * let did = Device.deviceID;
+   * let suffix = "mp3";
+   * *** Host.file.uploadFileToFDS(param) param = {headers: { "Content-Type": "application/octet-stream" }},上传FDS需要配置Content-Type
+   Host.file.generateObjNameAndUrlForFDSUploadV3(did, suffix).then(res => {
+      if (res.hasOwnProperty(suffix) && res[suffix]) {
+          let obj = res[suffix];
+          let obj_name = obj.obj_name;
+          let name = obj_name.substring(obj_name.length - 22)
+          let content = "AC";
+          let time = obj.time;
+          this.file_obj_name = obj_name;
+          console.log("pre upload", res)
+          Host.file.writeFile(name, content).then(r => {
+              let param = {
+                  uploadUrl: obj.url,
+                  method: obj.method,
+                  headers: { "Content-Type": "application/octet-stream" },
+                  files: [{ filename: name }]
+              }
+              Host.file.uploadFileToFDS(param).then(rr => {
+                  alert('上传成功' + JSON.stringify(rr))
+                  console.log('upload file success', rr)
+              }).catch(err => {
+                  alert('上传失败' + JSON.stringify(err))
+                  console.log('upload file failed', err)
+              })
+          }).catch(err => {
+              alert('存储临时文件失败' + JSON.stringify(err))
+              console.log("write file failed", err)
+          })
+      }
+      })
+   * */
+  @report
+  generateObjNameAndUrlForFDSUploadV3(did, suffix) {
+     return Promise.resolve(null);
+  }
+  /**
    * 上传日志文件。
    * 具体使用参考generateObjNameAndUrlForFDSUpload
    * @since 10011
@@ -322,11 +369,10 @@ class IFile {
   }
   /**
    * 获取FDS文件的信息，包含下载地址等信息
-   * 设备需要申请配置FDS权限，参考 https://iot.mi.com/new/guide.html?file=08-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/03-%E5%AD%98%E5%82%A8/01-%E4%BD%BF%E7%94%A8FDS%E5%AD%98%E5%82%A8%E7%94%A8%E6%88%B7%E6%96%87%E4%BB%B6
    *
    * 对于手动上传到fds的文件(没有genObjName ,在平台端直接上传的)，可直接设置成public，生成url。插件端需要用这个文件时，用通用下载接口下载此url即可。
    * getFDSFileInfoWithObjName,这个接口只是用来下载通过插件接口(Host.file.uploadFileToFDS)上传到FDS的文件
-   *
+   *访问接口:/home/getfileurl
    * @since 10004
    * @param {string} obj_name generateObjNameAndUrlForFDSUpload 生成的 obj_name
    * @example
@@ -346,6 +392,33 @@ class IFile {
    */
   @report
   getFDSFileInfoWithObjName(obj_name) {
+     return Promise.resolve(null);
+  }
+  /**
+   * 获取FDS文件的信息，包含下载地址等信息 V3版本
+   *
+   * 对于手动上传到fds的文件(没有genObjName ,在平台端直接上传的)，可直接设置成public，生成url。插件端需要用这个文件时，用通用下载接口下载此url即可。
+   * getFDSFileInfoWithObjNameV3,这个接口只是用来下载通过插件接口(Host.file.uploadFileToFDS)上传到FDS的文件
+   * 访问接口:/v2/home/getfileurl_v3
+   * @since 10056
+   * @param {string} obj_name generateObjNameAndUrlForFDSUploadV3 生成的 obj_name
+   * @example
+   *  let did = Device.deviceID;
+   let suffix = "mp3";
+   let file_obj_name = this.file_obj_name //从服务端获取或者本地获取,generateObjNameAndUrlForFDSUploadV3 生成
+   if (file_obj_name) {
+      Host.file.getFDSFileInfoWithObjNameV3(file_obj_name).then(res => {
+          console.log('getfileurl success', res)
+          alert('获取成功' + JSON.stringify(res))
+      }).catch(err => {
+          console.log('getfileurl failed', err)
+      })
+      } else {
+      alert("先上传文件")
+      }
+   */
+  @report
+  getFDSFileInfoWithObjNameV3(obj_name) {
      return Promise.resolve(null);
   }
   /**
@@ -407,7 +480,7 @@ class IFile {
    * @ property {string} taskID -  可选 since 10038 下载任务唯一标示, 如 MD5(url + timestamp)
    */
   /**
-   * 下载文件到插件沙盒目录, 文件下载完成后才会回调
+   * 下载文件到插件沙盒目录, 文件下载完成后才会回调，只支持下载单个文件
    * @param {string} url - 文件地址
    * @param {string} fileName - 存储到本地的文件名
    * @param {DownloadParams} params 参数字典 可选 since 10038
@@ -478,6 +551,36 @@ class IFile {
      return Promise.resolve(null);
   }
   /**
+   * 解压缩一个gzip文件为指定格式的字符串；文件首先被解压为一个字节数组，然后将字节数组转换为string(string可以是utf-8、base-64、16进制)
+   * @since 10054
+   * @param {json} params {
+   *  fileName: 'cache/test.zip', //沙盒内的相对路径,必填
+   *  charsetName:'[utf-8|base-64|hex-string|int-array]',//指定解压后的字符串的格式: utf-8表示将文件解压为utf-8格式的字符串；
+   * base-64表示解压为base-64格式的字符串；hex-string表示解压为16进制字符串；int-array表示将解压后的数据以JSONArray(数组元素为int类型)的格式的字符串返回
+   * charsetName可不传，不传默认为base-64
+   * }
+   * @returns {Promise<json>} 成功时返回：{code:0,data:'xxxxxxxxxxx'}
+   * 失败时返回：
+   * {code:-1,message:’${fileName} is not valid’}
+   * {code:-2,message:’${fileName} is not exist‘}
+   * {code:-3,message:’${fileName} is not a file}
+   * {code:-4,message: 'unzipToString failed:internal error'}
+   * @example
+   * let params = {
+   *  fileName: 'cache/test.zip',
+   *  charsetName: 'base-64',
+   * }
+   * Host.file.ungzipFileToString(params).then(res=>{
+   *  console.log("file content:",res);
+   * }).catch(err=>{
+   *  console.log("ungzipFileToString error:",err);
+   * })
+   */
+   @report
+  ungzipFileToString(params) {
+     return Promise.resolve(null);
+  }
+  /**
    * 解压缩一个gz文件, 并以base64编码的形式直接返回给插件, 不做本地存储
    * @param {string} fileName - 文件名（插件存储空间内的文件）
    * @return {Promise}
@@ -485,9 +588,9 @@ class IFile {
    * 失败时：{"code":xxx, "message":"xxx" }
    */
   @report
-  ungzFile(fileName) {
-     return Promise.resolve(null);
-  }
+   ungzFile(fileName) {
+      return Promise.resolve(null);
+   }
   /**
   * 保存指定照片文件到系统相册
   * @param {string} fileName 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
@@ -600,6 +703,7 @@ class IFile {
    *      'creationDate' :<number>, // 创建时间信息，unix时间戳
    *      'modificationDate' : <number>, // 修改时间信息， unix时间戳
    *      'duration' : <number>, // 持续时间 信息 图片文件返回0  单位ms 10042之前ios返回的是秒，安卓返回的是ms 在10042 之后ios修正为ms
+   *      'uti' : <string>, // 资源类型 since 10050 参考 https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E7%B1%BB%E5%9E%8B%E6%A0%87%E8%AF%86
    *      }
    * 失败时：
    *  {"code":-401, "message":"access to photo library denied" }
@@ -734,6 +838,181 @@ class IFile {
   mkdir(params) {
   }
   /**
+   * 搜索文件（只在Android可使用）
+   * @since 10052
+   * @param {json} params {
+   *     mimeTypes:[],//需要搜索的文件类型
+   *     pageSize: xxx,//分页大小,number类型(如100)；如果需要分页，pageSize必须大于0，不传或者传0表示不分页
+   *     pageNum: xxx,//分页编号,number类型(如0,1,2...)，pageSize大于0时有效
+   * }
+   * mimeType的可选值如下：
+   * ["application/pdf",//pdf
+    "application/msword",//word
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",//docx
+    "application/vnd.ms-excel",//xls,xlt
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",//xlsx
+    "application/vnd.ms-powerpoint",//ppt,pot,pps
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation",//pptx
+    "text/text",//text
+    "text/html",//html
+    "text/xml",//xml
+    "image/jpeg",]
+    @returns {Promise<json>} 返回值：
+    成功时：{ code:0,
+      data:[{
+        relativePath:'相对路径',
+        name:'文件名',
+        url:'文件地址'
+        size: xxx//'文件大小',
+        modifacationDate:xxxxx,//上次修改时间
+        }]
+    }
+    失败时：{
+      code:-xxx,
+      message:'xxxxx'
+    }
+    @example
+    let params = {
+      mimeTypes: ["application/pdf", // pdf
+        "application/msword", // word
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // docx
+        "application/vnd.ms-excel", // xls,xlt
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // xlsx
+        "application/vnd.ms-powerpoint", // ppt,pot,pps
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation", // pptx
+      ],
+      pageSize: 2,
+      pageNo: 0
+    };
+    Host.file.queryFile(params).then((res) => {
+      alert(JSON.stringify(res));
+    }).catch((err) => {
+      alert(JSON.stringify(err));
+    });
+   */
+  @report
+  queryFile(params) {
+     return Promise.resolve(null);
+  }
+  /**
+    * 将 utf8Content 转成 PDF 文件
+    * @since 10054
+    * @param {string} utf8Content  需要被转换的文本内容
+    * @param {string} filename  存储为的文件名，与 isFileExists 相同
+    * @param {json} params 样式参数
+    * @param {string} params.color 文本颜色 如 '#FFF', 'red'
+    * @param {number} params.fontSize 字体大小
+    * @param {object} params.pageSize 页面大小 如 {width: 200, height:100}
+    * @param {string} params.marginHorizontal 水平边距
+    * @param {string} params.marginVertical 竖直边距
+    * @returns {Promise<Object>}
+    *   成功时: {code:0, data: filepath} 绝对路径，可直接用于展示
+    *   失败时: {
+    *          code:100xx,     // 错误码，非0数字
+    *          message:""      // 错误信息
+    *        }
+    */
+  @report
+  writePdfFile(utf8Content, filename, params) {
+     return Promise.resolve(null);
+  }
+  /**
+   * 将PDF指定页转换为图片
+   * @since 10052
+   * @param {json} params {
+   *   srcPath:'xxxxx',//pdf文件路径
+   *   imageDir:'xxxx',//转换后的图片保存目录（目录名，不含文件名）
+   *   pageIndex: xx(如：1),//需要将PDF的那一页转换为图片，从0开始
+   *   password:'xxxxx',//PDF密码，如果没有加密传空即可
+   *   highQuality: true/false,//是否需要高质量图片:如果为true图片格式为ARGB_8888,反之为RGB565;高质量图片会占用更多的内存和磁盘
+   * }
+   * @returns {Promise<json>} 成功时返回如下：
+   * {
+   *   code:0,
+   *   data:{
+   *           imageName: 'xxxxx',//图片名称，imageDir +'/' + imageName即为图片的路径
+   *        }
+   * }
+   * 失败是返回如下：
+   * {code:-1,message:'invalid srcPath or imageDir'}
+   * {code:-2,message:'no permission to access source file'}
+   * {code:-3,message:'password required or incorrect password'}
+   * {code:-4,message:'out of memory,set highQuality=false can reduce memory cost'}
+   * {code:-5,message:'genarate image failed'}
+   * {code:-6,message:'write image failed'}
+   * {code:-7,message:'invalid input params pageIndex'}
+   *
+   * @example
+   * let params = {
+      mimeTypes: ["application/pdf", // pdf
+      ],
+      pageSize: 1,
+      pageNo: 0
+    };
+    Host.file.queryFile(params).then((res) => {
+      if(res && res.data){
+        let pdf_params ={
+          srcPath:res.data[0].url,
+          imageDir: 'pdf_image',
+          pageIndex: 0,
+          password:'',
+          highQuality:false,
+        }
+        Host.file.pdfToImage(pdf_params).then(res=>{
+          alert(JSON.stringify(res));
+        }).catch(res=>{
+          alert(JSON.stringify(res));
+        })
+      }
+    }).catch((err) => {
+      alert(JSON.stringify(err));
+    });
+   */
+  @report
+  pdfToImage(params) {
+     return Promise.resolve(null);
+  }
+  /**
+    * 读PDF文件信息
+    * @since 10052
+    * @param {json} params {
+    *   srcPath:'xxxxx',//pdf文件路径
+    *   password:'xxxxx',//PDF密码，如果没有加密传空即可
+    * }
+    * @returns {Promise<json>} 成功时返回如下：
+    * {
+    *   code:0,
+    *   data:{
+    *           pageCount: xxx(如：30),//PDF的总页数
+    *        }
+    * }
+    * 失败是返回如下：
+    * {code:-1,message:'invalid srcPath or imageDir'}
+    * {code:-2,message:'no permission to access source file'}
+    * {code:-3,message:'password required or incorrect password'}
+    *
+    * @example
+    * Host.file.queryFile(params).then((res) => {
+      if(res && res.data){
+        let pdf_params ={
+          srcPath:res.data[0].url,
+          password:'',
+        }
+        Host.file.readPdfMetaData(pdf_params).then(res=>{
+          alert(JSON.stringify(res));
+        }).catch(res=>{
+          alert(JSON.stringify(res));
+        })
+      }
+    }).catch((err) => {
+      alert(JSON.stringify(err));
+    });
+    */
+  @report
+  readPdfMetaData(params) {
+     return Promise.resolve(null);
+  }
+  /**
    * 复制文件
    * since 10048
    * @param {json} params {
@@ -741,7 +1020,7 @@ class IFile {
    *  dstPath:'xxxx', //目标文件路径：dstDir不为空时，可以传相对路径；dstDir不为空时，这里传文件名
    *  dstDir:'xxx',//目标文件保存路径父目录，沙盒内复制文件时传空即可；如果是往沙盒外复制，dstDiir传目标文件的父目录(不能为空)
    * }
-   * @returns 成功时：{code:0,message:success}
+   * @returns {Promise<json>} 成功时：{code:0,message:success}
    *          失败时：{code:-1,message:'invalid srcPath or dstPath'}
    *                {code:-2,message:'file ${dstPath} already exist'}
    *                {code:-3,message:'file not found,xxx'}
@@ -783,7 +1062,7 @@ class IFile {
   /**
    * 获取当前磁盘的可用空间和总存储空间
    * since 10048
-   * @returns {code: 0 ,data: { totalSpace: 123456, freeSpace: 23456} }，
+   * @returns {Promise<json>} 返回当前磁盘的可用空间和总存储空间：{code: 0 ,data: { totalSpace: 123456, freeSpace: 23456} }，
    * 其中totalSpace：总存储空间；freeSpace：剩余可用空间；单位都字节(byte)
    *
    * @example
@@ -795,6 +1074,21 @@ class IFile {
    */
   @report
   getStorageInfo() {
+     return Promise.resolve(null);
+  }
+  /**
+   * 裁剪图片
+   * since 10054
+   * @returns{Promise<string>} 成功时返回裁剪后的图片路径，失败返回 {code:-1,message:'xxx'}
+   * @param {string} targetFileName 裁剪后生成的文件的文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.jpg'
+   * @param {string} sourceFilename 要裁剪的源图片名
+   * @param {Object} params: 裁剪参数
+   * @param {Object} params.offset: 裁剪图像的左上角坐标，在原始图像的坐标空间中指定. e.g :{x:0,y:0} type int
+   * @param {Object} params.size: 裁切后的图像的尺寸，在原始图像的坐标空间中指定. e.g :{width:400,height:400} type int
+   * @param {Object} params.displaySize: 将裁切后的图像缩放到指定大小(Optional).  e.g :{width:200,height:200} type int
+   */
+  @report
+  cropImage(targetFileName, sourceFilename, params) {
      return Promise.resolve(null);
   }
 }

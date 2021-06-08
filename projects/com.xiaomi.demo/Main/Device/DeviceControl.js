@@ -195,6 +195,8 @@ export default class UIDemo extends React.Component {
         'func': () => {
           Host.ui.getDevicesWithModel(Device.model).then((res) => {
             alert(JSON.stringify(res, null, '\t'));
+          }).catch((err) => {
+            alert(JSON.stringify(err, null, '\t'));
           });
         }
       },
@@ -322,6 +324,16 @@ export default class UIDemo extends React.Component {
         'func': async() => {
           let data = await Service.spec.getCurrentSpecValue(Device.deviceID);
           alert(JSON.stringify(data, null, '\t'));
+        }
+      },
+      {
+        'name': '获取同企业组所有设备',
+        'func': () => {
+          Device.getAllDevicesOfBelongedCompanies().then((res) => {
+            alert(JSON.stringify(res));
+          }).catch((error) => {
+            alert(JSON.stringify(error));
+          });
         }
       },
       {
