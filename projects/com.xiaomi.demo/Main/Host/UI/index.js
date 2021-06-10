@@ -641,10 +641,17 @@ export default class UIDemo extends React.Component {
         'name': 'openGenerateCrontabStringPage',
         'subtitle': '打开场景设置中的定时界面',
         'func': () => {
-          Host.ui.openGenerateCrontabStringPage({})
+          Host.ui.openGenerateCrontabStringPage({ title: 'demo标题', hideLegalTime: false })
             .then((crontab) => {
               alert(crontab.data.crontab);
             });
+        }
+      },
+      {
+        'name': 'openFirmWareAutoOTAPage',
+        'subtitle': '打开设置-检查更新中的固件自动更新',
+        'func': () => {
+          Host.ui.openFirmWareAutoOTAPage()
         }
       }
     ];
