@@ -764,7 +764,7 @@ class IUi {
     * @since 10056
     * 打开固件自动更新页面（原生页面位置：设置-》检查更新-》固件自动更新）
     * @example
-    * * Host.ui.openFirmWareAutoOTAPage();
+    * Host.ui.openFirmWareAutoOTAPage();
   */
    @report
    openFirmWareAutoOTAPage() {
