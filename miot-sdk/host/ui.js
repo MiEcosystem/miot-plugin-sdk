@@ -716,7 +716,7 @@ class IUi {
    * }
    * @example
    * let params={
-   *  did: Device.did,
+   *  did: Device.deviceID,
    *  model: Device.model,
    *  extra: JSON.stringify({key:'value'})
    * }

@@ -623,7 +623,7 @@ export default class UIDemo extends React.Component {
         'subtitle': '打开NFC写设备信息Debug页面',
         'func': () => {
           let params = {
-            did: Device.did,
+            did: Device.deviceID,
             model: Device.model,
             extra: JSON.stringify({ key: 'test123' })
           };
