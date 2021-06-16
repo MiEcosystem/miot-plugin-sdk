@@ -36,6 +36,7 @@ map.set("node_modules/react-navigation-stack/dist/views/TouchableItem.js", "Reac
 /** 修复了react-native-svg无法正常显示DynamicColor的BUG */
 map.set("node_modules/react-native-svg/lib/extract/extractBrush.js", "svgExtractBrush");
 map.set("node_modules/react-native-safe-area-view/index.js", "react-safeAreaView");// 修复navigationBar中使用的safeAreaView不支持iphone12系列的bug
+map.set("node_modules/react-navigation/src/routers/StackRouter.js", "StackRouter");
 
 module.exports = {
 

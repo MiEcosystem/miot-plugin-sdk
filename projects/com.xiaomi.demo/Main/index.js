@@ -210,7 +210,7 @@ function createRootStack(initPage) {
     MoreSetting,
     CurtainGroupPage,
     FirmwareUpgrade,
-    FirmwareUpgradeAuto,
+    // FirmwareUpgradeAuto,
     FirmwareUpgradeRecord,
     HostDemo,
     HostEventDemo,
@@ -320,7 +320,7 @@ function createRootStack(initPage) {
     ARTGradientDemo: ARTGradientDemo,
     ARTPatternDemo: ARTPatternDemo,
 
-    //opencv
+    // opencv
     HoughCirclesDemo: HoughCirclesDemo,
     HoughCircles2Demo: HoughCircles2Demo,
     CvImageManipulationsDemo: CvImageManipulationsDemo,
@@ -336,7 +336,7 @@ function createRootStack(initPage) {
     AnimEventsDemo: AnimEventsDemo,
     LayoutAnimationDemo: LayoutAnimationDemo,
     AnimCustomCompDemo: AnimCustomCompDemo,
-	PdfViewerDemo:PdfViewerDemo,
+    PdfViewerDemo: PdfViewerDemo,
     // 第三方库 demo 结束
 
     // 米家iOS 自定义第三方库<

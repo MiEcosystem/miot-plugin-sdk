@@ -162,7 +162,11 @@ const API_REPO = {
   '/v2/device/get_break_lock_alarm_info': {},
   '/v2/device/set_hijack_alarm_info': {},
   '/v2/device/get_hijack_alarm_info': {},
+  // FDS KS3 相关
   '/v2/home/get_interim_file_url_pro': {},
+  '/v2/home/genfileurl_v3': {},
+  '/v2/home/genpresignedurl': {},
+  '/v2/home/genpresignedurl_v3': {},
   '/home/getfileurl_v3': {},
   '/v2/home/getfileurl_v3': {},
   '/v2/recipes/query': {},
