@@ -79,6 +79,7 @@ import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo"; // ui-NumberSpi
 import StringSpinnerDemo from "./UIComponent/StringSpinnerDemo"; // ui-StringSpinnerDemo
 import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo'; // ui-MiotAndroidScrollViewDemo
 import AbsoluteTouch from './UIComponent/AbsoluteTouch'; // ui-AbsoluteTouch
+import RobotMapDemo from './UIComponent/RobotMapDemo'; //扫地机地图
 
 // Native 交互
 import { createStackNavigator } from 'react-navigation'; //
@@ -108,6 +109,7 @@ import * as Screens from "./uikit/screens";
 import MHAudioDemo from './Host/MHAudioDemo';
 import VideoDemo from './Host/VideoDemo';
 import CryptoDemo from './Host/CryptoDemo';
+import TraceDemo from './Host/TraceDemo';
 import DarkModeDemo from './Host/DarkMode';
 
 // 常用功能
@@ -128,6 +130,7 @@ import { PluginEntrance } from "./PluginEntrance";
 /** ******    Service 部分   ******* */
 import ServiceDemo from './Service';
 import MiotSpecDemo from './Service/MiotSpecDemo';
+import MiotSpecV3Demo from './Service/MiotSpecV3Demo/';
 import MHRoomDemo from "./Service/RoomDemo";
 import MHSceneDemo from "./Service/SceneDemo";
 import AccountDemo from './Service/AccountDemo';
@@ -192,6 +195,7 @@ import CvFaceLandmarksDemo from './ThirdPartDemo/opencv/CvFaceLandmarksDemo';
 import CircularSliderDemo from './ThirdPartDemo/CircularSliderDemo';
 import AnimatedSVGDemo from './ThirdPartDemo/AnimatedSVGDemo';
 import PdfViewerDemo from './ThirdPartDemo/PdfViewerDemo';
+import ImageFilterDemo from './ThirdPartDemo/ImageFilterDemo';
 
 import CustomContainer from './uikit/components/CustomContainer';
 
@@ -267,6 +271,7 @@ function createRootStack(initPage) {
     callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
     MHRoomDemo,
     MiotSpecDemo,
+    MiotSpecV3Demo,
     // Native 交互
     HostPropsInfoDemo,
     LocaleServer,
@@ -306,6 +311,8 @@ function createRootStack(initPage) {
     GLOrientation: GLOrientation, // ios 包有问题
 
     cryptoDemo: CryptoDemo,
+    traceDemo: TraceDemo,
+    RobotMapDemo: RobotMapDemo,
     ParticleDemo: ParticleDemo, // iOS 特有的,粒子系统
     ImagePickerDemo: ImagePickerDemo,
 
@@ -337,6 +344,7 @@ function createRootStack(initPage) {
     LayoutAnimationDemo: LayoutAnimationDemo,
     AnimCustomCompDemo: AnimCustomCompDemo,
     PdfViewerDemo: PdfViewerDemo,
+    ImageFilterDemo: ImageFilterDemo,
     // 第三方库 demo 结束
 
     // 米家iOS 自定义第三方库<

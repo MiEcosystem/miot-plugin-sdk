@@ -5,7 +5,7 @@
  * @doc_directory bluetooth
  * @module miot/device/bluetooh
  * @description 蓝牙设备操作类
- * 蓝牙设备的开发，详见[小米协议BLE设备开发指南](https://iot.mi.com/new/doc/app-development/extension-development/device-management/device.html#%E5%B0%8F%E7%B1%B3%E5%8D%8F%E8%AE%AEBLE%E8%AE%BE%E5%A4%87%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97)
+ * 蓝牙设备的开发，详见[小米协议BLE设备开发指南](https://iot.mi.com/new/doc/extension-development/basic-functions/device-connection/BLE)
  * 此文件包含了蓝牙设备的基本操作，比如获取蓝牙设备基本属性，蓝牙设备版本，发现，连接，取消连接蓝牙设备，蓝牙事件等模块。
  *
  * @example

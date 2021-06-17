@@ -16,6 +16,7 @@ class BleSpec {
    * @param {string} mac 蓝牙设备的Mac地址，iOS设备传uuid
    * @param {string} json json格式：{objects[]{siid/piid/value/type}}，type是number类型：其值用来标识value的值类型，取值如下：
    * bool：0，uint8：1，int8：2，uint16：3，int16：4，uint32：5，int32：6，uint64：7，int64：8，float：9，string：10 ；
+   * @return {Promise<>} string 或者 Object, 建议判断类型解析，如: res = typeof (res) === 'string' ? JSON.phrase(res) : res
    * @example
    * import {Bluetooth} from 'miot';
    * 
@@ -35,6 +36,7 @@ class BleSpec {
    * @since 10040
    * @param {string} mac 蓝牙设备的Mac地址，iOS设备传uuid
    * @param {string} json json格式：{objects[]{siid/piid}}
+   * @return {Promise<>} 与 setPropertiesValue 相同
    * @example
    * 
    * import {Bluetooth} from 'miot';
@@ -56,6 +58,7 @@ class BleSpec {
    * @param {string} mac 蓝牙设备的Mac地址，iOS设备传uuid
    * @param {string} json json格式：{siid,aiid,objects[]{piid/value/type} }，type是number类型：其值用来标识value的值类型，取值如下：
    * bool：0，uint8：1，int8：2，uint16：3，int16：4，uint32：5，int32：6，uint64：7，int64：8，float：9，string：10 ；
+   * @return {Promise<>} 与 setPropertiesValue 相同
    * @example
    * import {Bluetooth} from 'miot';
    * 

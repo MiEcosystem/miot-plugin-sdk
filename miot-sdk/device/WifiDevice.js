@@ -15,7 +15,7 @@
  *  .then(res => {//here is the success result})
  *  .catch(err => {//error happened})
  * ...
- * 其余具体使用请参考具体API文档，出现问题请查看：[按功能-概述](https://iot.mi.com/new/doc/05-%E7%B1%B3%E5%AE%B6%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/04-%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/02-%E6%8C%89%E5%8A%9F%E8%83%BD/01-%E6%A6%82%E8%BF%B0.html)
+ * 其余具体使用请参考具体API文档
  *
  * 名词解释：
  * 云端：特指小米iot云平台，接入小米的设备，都是指接入小米iot云平台的设备，设备一般都可以直接或者间接和iot云平台通讯
@@ -119,7 +119,7 @@ export default class IDeviceWifi {
      * 调用设备方法
      * Android里面，若与设备通信处于同一个 wifi 下会使用局域网直接传输数据，如果不在同一个 wifi 下由云端转发请求。iOS里面，因获取不到wifi信息，一般默认走云端
      * @param {string} method  方法名
-     * @param {json} args  参数
+     * @param {json} args  参数，传输的数据大小由固件决定，一般最大为1K
      * @param {json} extraPayload  额外参数，根据设备需求设定。在payload数据中设置额外参数，暂时只提供给绿米网关使用，如有需求，请联系米家。
      * @return {Promise<json>} {code:0,result:{},id:""} 透传
      * @example
@@ -181,7 +181,7 @@ export default class IDeviceWifi {
     /**
      * 订阅设备消息。指插件端监听设备属性变化或者事件执行的消息。比如：洗衣机洗完衣服了，需要手机发出“嘀嘀”的声音通知用户，我们就可以监听衣服洗完了这个事件。
      * 订阅设备消息的前提是：设备属性变化/设备事件 正确上报。你需要在：https://iot.mi.com/productDetail_new.html#/pushMessage?model=yourmodel 里面正确的配置消息推送，然后固件端实现消息推送协议。最后在客户端使用此方法订阅。
-     * 具体使用办法，错误排查和注意点可参考iot平台的设备订阅文档：https://iot.mi.com/new/doc/05-%e7%b1%b3%e5%ae%b6%e6%89%a9%e5%b1%95%e7%a8%8b%e5%ba%8f%e5%bc%80%e5%8f%91%e6%8c%87%e5%8d%97/04-%e8%ae%be%e5%a4%87%e7%ae%a1%e7%90%86/02-%e6%8c%89%e5%8a%9f%e8%83%bd/07-%e8%ae%be%e5%a4%87%e8%ae%a2%e9%98%85.html
+     * 具体使用办法，错误排查和注意点可参考iot平台的设备订阅文档：https://iot.mi.com/new/doc/extension-development/basic-functions/device-subscribe/Wi-Fi
      * @method
      * @param {...string} propertyOrEventNames -在开发平台上声明的 prop 与 event 名，注意消息格式为：prop.xxxxx 或者 event.xxxxx ，表示订阅的是设备的属性变化，还是设备的事件响应.如果是miot-spec设备。则为prop.siid.piid，event.siid.eiid
      * @example

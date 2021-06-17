@@ -217,10 +217,50 @@ class IMiotCamera {
    *         data = {sdcardGetSuccess: true, sdcardStatus: 0, isVip: false}
    *         Service.miotcamera.showPlaybackVideos(JSON.stringify(data));
    */
-  @report
+   @report
   showPlaybackVideos(data, did = Device.deviceID) {
      return null
   }
+  /**
+   * 打开长时间无人出现页面
+   * @since 10054
+   * @param {data} jsonobj
+   * @example 
+   */
+  @report
+   openLongTimeNobody(data, did = Device.deviceID) {
+      return null
+   }
+  /**
+   * 打开每日故事设置
+   * @since 10054
+   * @param {data} jsonobj
+   * @example 
+   */
+  @report
+  openDailyStorySetting(data, did = Device.deviceID) {
+     return null
+  }
+  /**
+   * 打开宝宝睡眠设置
+   * @since 10054
+   * @param {data} jsonobj
+   * @example 
+   */
+   @report
+  openBabySleepSetting(data, did = Device.deviceID) {
+     return null
+  }
+   /**
+   * 打开IDM设置
+   * @since 10054
+   * @param {data} jsonobj
+   * @example 
+   */
+   @report
+   openIDMSetting(data, did = Device.deviceID) {
+      return null
+   }
   /**
    * 打开相册
    * @since 10051
@@ -230,9 +270,9 @@ class IMiotCamera {
    *         Service.miotcamera.showPlaybackVideos(JSON.stringify(data));
    */
   @report
-  showAlbum(data, did = Device.deviceID) {
-     return null
-  }
+   showAlbum(data, did = Device.deviceID) {
+      return null
+   }
   /**
    * 打开设备相册中最新的图片或视频
    * @since 10051
@@ -297,11 +337,14 @@ class IMiotCamera {
   }
   /**
    * 打开人脸识别页面
-   * @since 10033
+   * @since 10054
    * @param {BOOL} isVip
+   * @param did
+   * @param {string} aFreeFaceSt 免费人脸状态 OutOfDate Acquired unAcquired
+   * @param {string} aBuyVipUrl vip购买链接
    */
   @report
-  showFaceRecognize(isVip, did = Device.deviceID) {
+  showFaceRecognize(isVip, did = Device.deviceID, aFreeFaceSt = null, aBuyVipUrl = null) {
      return null
   }
   /**
@@ -604,7 +647,7 @@ class IMiotCamera {
   /**
    * 设置speaker变声类型,    初次设置会触发初始化，后续simpleRate or channel发生改变 都不会触发初始化。
    * @param {int} simpleRate  音频采样率  与CameraRenderView里定义的MISSSampleRate一致
-   * @param {int} type 变声类型，目前米家只提供 0 == 正常  1 == 小丑  2 == 大叔这三种类型
+   * @param {int} type 变声类型，目前米家只提供 0 == 正常  1 == 小丑  2 == 大叔这三种类型 10055 增加 3 == 青年
    * @param {int} channel 单双通道 1 单声道， 2 立体声   默认为1
    * @param {string} did
    */
@@ -775,6 +818,62 @@ class IMiotCamera {
   showOperationBannerPage(data, did = Device.deviceID) {
      return null
   }
+  /**
+   * @param isPadFullScreen 是否希望进入pad下的全屏， 设置为true，会把画面铺满屏幕，设置为false，会恢复画面
+   */
+  @report
+     enterFullscreenForPad(isPadFullScreen) {
+       // native :=> null
+       NativeModules.MHCameraSDK.enterFullscreenForPad(isPadFullScreen);
+     }
+  
+  
+  /**
+   * 过滤视频帧
+   * @param aFilter  过滤器信息 当前支持timestamp_s EX:{timestamp_s: 666666}过滤时间戳为666666的视频帧; null取消filter
+   * @param aCbName  过滤到相应帧后通过aCbName 返回base64格式数据
+   * @param {string} aDid 设备id
+   * @since 10055
+   * @example 
+   *     ThumbFilter = “timestampfilter”;
+   *     DeviceEventEmitter.addListener(ThumbFilter, (aBase64Frame)=>{xxx});
+   *     Service.miotcamera.setFrameFilter({ timestamp_s: 666666 }, ThumbFilter);
+   *     Service.miotcamera.setFrameFilter({ timestamp_s: [555555, 666666] }, ThumbFilter); 过滤多个timestamp
+   */
+    @report
+  setFrameFilter(aFilter, aCbName, aDid = Device.deviceID) {
+    // native :=> null
+    NativeModules.MHCameraSDK.setFrameFilter(aFilter, aCbName, aDid);
+  }
+  
+  
+    /**
+   * 发送tutk 函数类型命令
+   * @param args  {name:"IOTC_WakeUp_WakeDevice"}
+   * @param {string} aDid 设备id
+   * @since 10055
+   * @example 
+   *     Service.miotcamera.callTutkSpecial({name:"IOTC_WakeUp_WakeDevice"}).then(xxx).catch(yyy);
+   */
+    @report
+    callTutkSpecial(args, aDid = Device.deviceID) {
+     return Promise.resolve(null);
+    }
+    
+    /**
+   * 发送audio 数据
+   * @param aDatInBase64  audio数据 base64编码
+   * @param aHeaderInBase64  audio数据头 base64编码
+   * @param aCodeId audio codecid默认MISSCodec.MISS_CODEC_AUDIO_G711A
+   * @param {string} aDid 设备id
+   * @since 10055
+   * @example 
+   *     Service.miotcamera.sendAudioData(data, header).then(xxx).catch(yyy);
+   */
+    @report
+    sendAudioData(aDatInBase64, aHeaderInBase64, aCodeId = MISSCodec.MISS_CODEC_AUDIO_G711A, aDid = Device.deviceID) {
+     return Promise.resolve(null);
+    }
   
 }
 const MiotCameraInstance = new IMiotCamera();

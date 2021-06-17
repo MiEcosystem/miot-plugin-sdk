@@ -99,6 +99,7 @@ export default class CallSmartHomeAPIDemo extends React.Component {
               return Service.smarthome.getAppConfig(params);
             }
           },
+          { name: "获取首页设备列表", handle: this.handleObjRes.bind(this), action: () => { return Service.smarthome.getHomeDevice({}); } },
           {
             name: "插件事件上报reportEvent", handle: this.handleObjRes.bind(this), action: () => {
               let eventName = 'testEvent';
@@ -122,7 +123,7 @@ export default class CallSmartHomeAPIDemo extends React.Component {
     for (let key in result) {
       item.push({ 'key': key, 'value': JSON.stringify(result[key]) });
     }
-    alert(JSON.stringify(item));
+    alert(JSON.stringify(result, null, '\t'));
     this.setState((preState) => {
       return { dataSource: item };
     });
@@ -180,7 +181,7 @@ export default class CallSmartHomeAPIDemo extends React.Component {
                           item.handle && item.handle(result);
                         }).catch((err) => {
                           console.log("err", err);
-                          alert("error:", err);
+                          alert(JSON.stringify(err, null, '\t'));
                         });
                         Logger.trace(this, item.action, item);
                       }
