@@ -170,6 +170,7 @@ const API_REPO = {
   '/home/getfileurl_v3': {},
   '/v2/home/getfileurl_v3': {},
   '/v2/recipes/query': {},
+  '/v2/recipes/getById': {},
   '/home/devupgrade': {},
   '/v2/device/get_auto_upgrade_config': {},
   '/v2/device/get_firmware_history': {},
@@ -198,6 +199,19 @@ const API_REPO = {
   '/common/app/v1/cloud/file/exist': {},
   '/common/app/get/cloudlist': {},
   '/common/app/v1/capacity': {},
-  '/v2/scene/get_rec_in_plugin': {}
+  '/v2/scene/get_rec_in_plugin': {},
+  '/common/app/get/fileIdEvents': {},
+  // 每日故事开关接口
+  '/miot/camera/app/v1/put/dailyStorySwitch': {},
+  // 免费人脸
+  '/miot/camera/app/v1/vip/freeface/addFreeface': {},
+  '/miot/camera/app/v1/vip/freeface/status': {},
+  // 摄氏度/华氏度一键切换接口
+  '/v2/user/set_common_config': {},
+  '/v2/user/get_common_config': {},
+  // 门锁需要使用的接口
+  '/v2/device/setLockPushSwitch': {},
+  '/v2/device/getLockPushSwitch': {},
+  '/v2/device/delLockPushSwitch': {}
 };
 export default API_REPO;

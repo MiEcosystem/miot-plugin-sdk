@@ -21,7 +21,13 @@ import { report } from "../decorator/ReportDecorator";
 export class Location {
   /**
    * 获取手机地理位置信息
+   * 建议调用之前先通过System.permission.request(Permissions.LOCATION)或
+   * System.permission.requestInfo(Permissions.LOCATION)进行权限检查,两者主要区别在于返回值类型不同
    * @param {string} accuracy 获取定位的精度，可选high, middle, low, since 10043
+   * 在Android系统下，默认为high,设置为middle可能会导致在室内获取结果为0。其中，high为高精度定位模式：会同时使用网络定位和GPS定位，优先返回最高精度的定位结果。
+   * middle为仅用设备定位模式：不需要连接网络，只使用GPS进行定位，这种模式下不支持室内环境的定位，需要在室外环境下才可以成功定位。
+   * low为低功耗定位模式：不会使用GPS和其他传感器，只会使用网络定位（Wi-Fi和基站定位）。
+   * 在iOS系统下，默认为middle,设置为high时可能会耗时较长。其中，high为导航精度，middle为十米精度，low为千米精度。
    * @returns {Promise<object>}{
    * country
    * province
@@ -42,7 +48,7 @@ export class Location {
    * })
    */
   @report
-  getLocation(accuracy = 'middle') {
+  getLocation(accuracy = isAndroid ? 'high' : 'middle') {
     console.log("getLocation");
      return Promise.resolve(null);
   }

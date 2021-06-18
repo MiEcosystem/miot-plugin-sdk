@@ -52,6 +52,7 @@ import MiotCamera from './service/miotcamera';
 import Kookong from './service/kookong';
 import { NativeModules, Platform } from 'react-native';
 import JSONbig from 'json-bigint';
+import Permission from './service/permission';
  const CurrentAccount = null;
 export default {
   /**
@@ -124,6 +125,9 @@ export default {
   },
   get kookong() {
     return Kookong;
+  },
+  get permission() {
+    return Permission;
   },
   /**
    * @method callSmartHomeAPI
@@ -200,6 +204,7 @@ export default {
   /**
    * @method getServerName
    * @description 获取 米家 App 设置的地区和服务器信息
+   * Android上返回的countryCode为大写，iOS上为小写，建议使用时在拿到countryCode后调用一下toLowerCase方法，都统一成小写
    * @return {Promise<{countryName:"",countryCode:"",serverCode:""}>}
    */
   getServerName() {
@@ -233,8 +238,8 @@ export default {
    * since 10042
    * 撤销隐私授权,插件调用该接口后需要主动调用退出插件
    * @returns {Promise<Object>} 成功时返回：{code:0,data:true};
-   *                            失败时返回：{code:-1,message:'invalid device'} ,或 {code:-2,message:'xxxxx'} 
-   * @example 
+   *                            失败时返回：{code:-1,message:'invalid device'} ,或 {code:-2,message:'xxxxx'}
+   * @example
    * Service.revokePrivacyLicense()
    *        .then(res=>{
    *          console.log(JSON.stringify(res));
@@ -244,25 +249,17 @@ export default {
    *        }).catch(err=>{
    *           console.log(JSON.stringify(err));
    *        });
-   * 
+   *
    */
   revokePrivacyLicense() {
-    return new Promise((resolve, reject) => {
-      native.MIOTService.revokePrivacyLicense((ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      });
-    });
+     return Promise.resolve(null);
   },
   /**
    * since 10042
    * 删除设备,插件调用该接口后需要主动调用退出插件
    * @returns {Promise<Object>} 成功时返回：{code:0,data:true};
-   *                            失败时返回：{code:-1,message:'invalid device'} ,或 {code:-2,message:'xxxxx'} 
-   * @example 
+   *                            失败时返回：{code:-1,message:'invalid device'} ,或 {code:-2,message:'xxxxx'}
+   * @example
    * Service.deleteDevice()
    *        .then(res=>{
    *          console.log(JSON.stringify(res));
@@ -274,15 +271,7 @@ export default {
    *        });
    */
   deleteDevice() {
-    return new Promise((resolve, reject) => {
-      native.MIOTService.deleteDevice((ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      });
-    });
+     return Promise.resolve(null);
   },
   /**
    * 某设备向服务器申请did和token
