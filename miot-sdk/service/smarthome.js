@@ -350,7 +350,7 @@ class ISmartHome {
      * 设置服务器中 device 对应的数据，内部调用米家代理接口/device/setsetting
      * @param {object} params 请求参数 {did:string,settings:map<key,value>}
      * @param {string} params.did did
-     * @param {object} params.settings 指定设置的key数组
+     * @param {object} params.settings 指定设置的key数组，保存的内容不能超过1000个字符
      * @return {Promise}
      */
     @report
