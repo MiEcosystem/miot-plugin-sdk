@@ -83,25 +83,7 @@ export default class MHSceneDemo extends React.Component {
                           alert(JSON.stringify(error));
                         });
                     },
-                    '将cron表达式转化为时和分'],
-                  [
-                    (e) => {
-                      let params = {
-                        'cron': '57 30 12 5 2 * 2020',
-                        'on_filter': '', // 中国大陆法定工作日填cn_workday  中国大陆法定节假日填 cn_freeday 其他type不填
-                        'off_filter': ''
-                      };
-                      Service.scene.convertCronToDateV2(params)
-                        .then((res) => {
-                          console.log(JSON.stringify(res));
-                          alert(JSON.stringify(res));
-                        })
-                        .catch((error) => {
-                          console.log(JSON.stringify(error));
-                          alert(JSON.stringify(error));
-                        });
-                    },
-                    '将cron表达式转化为时和分（双端统一）']
+                    '将cron表达式转化为时和分']
                 ]
               }
             ].map((section, index) => {

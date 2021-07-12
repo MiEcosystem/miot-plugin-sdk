@@ -529,15 +529,6 @@ class IMiotScene {
     convertCronToDate(params) {
        return Promise.resolve('');
     }
-    /**
-   * 功能与convertCronToDate相同，不过convertCronToDate方法在Android和iOS上的返回值不一样，此方法的返回值会和iOS统一
-   * @param params 参考convertCronToDate
-   * @return {Promise<Object>} 参考convertCronToDate
-   */
-    @report
-    convertCronToDateV2(params) {
-       return Promise.resolve('');
-    }
 }
 const MiotSceneInstance = new IMiotScene();
 /**
