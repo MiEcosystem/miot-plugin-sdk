@@ -628,6 +628,25 @@ export class BasicDevice {
      return Promise
   }
   /**
+   * 获取当前设备ble mac
+   * @since 10057
+   * @returns {Promise} 成功进入then，失败进入catch。res： {"code": 0, "message": "ok", "result": {"data": {"ble_mac": "B0:41:1D:E9:2E:CE"}}};
+   * reject：{code: xxx, message: xxx}
+   * 使用场景: 设备同时存在wifi mac与 ble mac,且绑定插件时上报的是wifi mac，既Device.mac获取的是wifi mac
+   * 使用条件: 设备ble mac上报给了后台，该接口方可获取到数据
+   *
+   * @example
+   * Device.getDeviceBleMac().then((res)=>{
+   *   let mac = res['result']['data']['ble_mac'];
+   * }).catch((err)=>{
+   *   console.log('get ble mac failed  : ', err);
+   * });
+   */
+  @report
+  getDeviceBleMac() {
+     return Promise
+  }
+  /**
    * 修改设备/子设备的名字，注意不支持蓝牙网关对子设备名称的修改
    * @since 10022
    * @param {String} newName 设备的新的名称
