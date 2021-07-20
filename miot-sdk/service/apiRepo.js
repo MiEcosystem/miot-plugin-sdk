@@ -212,6 +212,24 @@ const API_REPO = {
   // 门锁需要使用的接口
   '/v2/device/setLockPushSwitch': {},
   '/v2/device/getLockPushSwitch': {},
-  '/v2/device/delLockPushSwitch': {}
+  '/v2/device/delLockPushSwitch': {},
+  
+  // 疯景1代门铃迁移rn接口
+  '/common/app/delete/files': {},
+  '/common/app/get/playlist': {},
+  '/common/app/get/fileIdinfo': {},
+  '/miot/camera/app/v1/vip/freevip/status': {},
+  '/common/app/add/face': {},
+  '/common/app/delete/face': {},
+  '/common/app/delete/figure': {},
+  '/common/app/faces/search': {},
+  '/common/app/get/faceIds': {},
+  '/common/app/get/face/img': {},
+  '/common/app/get/faces': {},
+  '/common/app/get/figures': {},
+  '/v2/device/get_filter_device': {},
+  '/v2/device/auth_partner_device': {},
+  '/v2/device/cancel_partner_device': {},
+  '/v2/device/get_partner_device': {}
 };
 export default API_REPO;
