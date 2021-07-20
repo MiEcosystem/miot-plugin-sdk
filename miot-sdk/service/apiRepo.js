@@ -230,6 +230,7 @@ const API_REPO = {
   '/v2/device/get_filter_device': {},
   '/v2/device/auth_partner_device': {},
   '/v2/device/cancel_partner_device': {},
-  '/v2/device/get_partner_device': {}
+  '/v2/device/get_partner_device': {},
+  '/miot/camera/app/v1/get/figureFaces': {}
 };
 export default API_REPO;
