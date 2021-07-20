@@ -255,6 +255,15 @@ export class BasicDevice {
      return false
   }
   /**
+     * 设备绑定到当前账号（当前家庭）下的时间戳（北京时间）
+     * @since 10057
+     * @member
+     * @return {Number} 单位秒 
+     * @readonly
+     */
+  get orderTime() {
+  }
+  /**
    * 批量删除设备, 不能删除 小米路由器/本地蓝牙/局域网直连设备，不能删除与自己设备无关的设备，比如，其他生态链公司的设备。
    * @since 10011
    * @param {object[]} didAndPids did 与 pid（Device.type） 列表 [{did:xx,pid:xx}, {did:xx,pid:xx}]
