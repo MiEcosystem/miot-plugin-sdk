@@ -206,6 +206,18 @@ const API_REPO = {
   // 免费人脸
   '/miot/camera/app/v1/vip/freeface/addFreeface': {},
   '/miot/camera/app/v1/vip/freeface/status': {},
+  "/miot/camera/app/v1/delete/figures": {}, // 删除人物S
+  "/miot/camera/app/v1/get/faces": {}, // 获取用户标注的所有人脸
+  "/miot/camera/app/v1/get/figureFaces": {}, // 获取某个人物的所有人脸
+  "/miot/camera/app/v1/get/unmarkFaces": {}, // 获取用户未标注的所有人脸
+  "/miot/camera/app/v1/get/figureByMarkedFace": {}, // 根据标记的人脸获取人物
+  "/miot/camera/app/v1/add/cluster/face": {}, // 添加人脸到人物2
+  "/miot/camera/app/v1/delete/faces": {}, // 从人物中删除人脸S
+  "/miot/camera/app/v1/faces/search": {}, // 搜索人脸
+  "/miot/camera/app/v1/get/face/img": {}, // 获取人脸照片
+  "/miot/camera/app/v1/get/facesCluster": {}, // 获取3天内人脸聚类的结果
+  "/common/miot/camera/app/get/faceCluster/eventlist": {}, // 获取事件列表（返回3天内faceIds里面的人脸事件）
+  "/miot/camera/app/v1/mark/faceClustering/mistake": {}, // 聚类报错接口
   // 摄氏度/华氏度一键切换接口
   '/v2/user/set_common_config': {},
   '/v2/user/get_common_config': {},
@@ -230,7 +242,6 @@ const API_REPO = {
   '/v2/device/get_filter_device': {},
   '/v2/device/auth_partner_device': {},
   '/v2/device/cancel_partner_device': {},
-  '/v2/device/get_partner_device': {},
-  '/miot/camera/app/v1/get/figureFaces': {}
+  '/v2/device/get_partner_device': {}
 };
 export default API_REPO;
