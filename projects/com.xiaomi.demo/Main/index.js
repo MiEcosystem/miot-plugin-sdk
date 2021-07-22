@@ -79,7 +79,7 @@ import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo"; // ui-NumberSpi
 import StringSpinnerDemo from "./UIComponent/StringSpinnerDemo"; // ui-StringSpinnerDemo
 import MiotAndroidScrollViewDemo from './UIComponent/MiotAndroidScrollViewDemo'; // ui-MiotAndroidScrollViewDemo
 import AbsoluteTouch from './UIComponent/AbsoluteTouch'; // ui-AbsoluteTouch
-import RobotMapDemo from './UIComponent/RobotMapDemo'; //扫地机地图
+import RobotMapDemo from './UIComponent/RobotMapDemo'; // 扫地机地图
 
 // Native 交互
 import { createStackNavigator } from 'react-navigation'; //
@@ -195,7 +195,7 @@ import CvFaceLandmarksDemo from './ThirdPartDemo/opencv/CvFaceLandmarksDemo';
 import CircularSliderDemo from './ThirdPartDemo/CircularSliderDemo';
 import AnimatedSVGDemo from './ThirdPartDemo/AnimatedSVGDemo';
 import PdfViewerDemo from './ThirdPartDemo/PdfViewerDemo';
-import ImageFilterDemo from './ThirdPartDemo/ImageFilterDemo';
+// import ImageFilterDemo from './ThirdPartDemo/ImageFilterDemo';
 
 import CustomContainer from './uikit/components/CustomContainer';
 
@@ -344,7 +344,7 @@ function createRootStack(initPage) {
     LayoutAnimationDemo: LayoutAnimationDemo,
     AnimCustomCompDemo: AnimCustomCompDemo,
     PdfViewerDemo: PdfViewerDemo,
-    ImageFilterDemo: ImageFilterDemo,
+    // ImageFilterDemo: ImageFilterDemo,
     // 第三方库 demo 结束
 
     // 米家iOS 自定义第三方库<
