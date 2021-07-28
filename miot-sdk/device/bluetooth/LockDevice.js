@@ -5,9 +5,9 @@
  * @doc_directory bluetooth
  * @module miot/device/bluetooth
  * @description 蓝牙锁操作类
- * 蓝牙锁的开发，详见：https://iot.mi.com/new/doc/05-%E7%B1%B3%E5%AE%B6%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/04-%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/03-%E6%8C%89%E8%AE%BE%E5%A4%87/02-%E8%93%9D%E7%89%99%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/02-%E8%93%9D%E7%89%99%E8%AE%BE%E5%A4%87%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97.html 中的蓝牙锁部分。  
+ * 蓝牙锁的开发，详见：https://iot.mi.com/new/doc/extension-development/topics/bluetooth-lock
  * 本文件主要提供了蓝牙锁的开关锁，蓝牙锁密钥的分享，获取一次性开锁密钥，锁相关数据加解密等功能
- * 
+ *
  * @example
  *
  *  import {Bluetooth} from 'miot/device/bluetooth'
@@ -112,7 +112,7 @@ export default class IBluetoothLock {
      * ...
      * @returns {Promise<string>}
      *      resolve: 加密后的string
-     *      reject：{code: xxx, message: xxx} 1:必须是16进制字符串  2:设备未绑定  3:加密出错  
+     *      reject：{code: xxx, message: xxx} 1:必须是16进制字符串  2:设备未绑定  3:加密出错
      */
     @report
     encryptMessage(message) {
