@@ -887,6 +887,12 @@ class IMiotCamera {
        return null
     }
   
-}
-const MiotCameraInstance = new IMiotCamera();
-export default MiotCameraInstance;
+  /**
+   * @since 10058
+   * @param {拍照或者相册得到的图片路径} imagePath 
+   * @param {did} did 
+   */
+  @report
+  uploadImageToCameraServer(imagePath, did = Device.deviceID) {
+     return Promise.resolve(null);
+     return end
