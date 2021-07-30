@@ -9,9 +9,9 @@
 
 * [miot/device/bluetooth/blespec](#module_miot/device/bluetooth/blespec)
     * [~BleSpec](#module_miot/device/bluetooth/blespec..BleSpec)
-        * [.setPropertiesValue(mac, json)](#module_miot/device/bluetooth/blespec..BleSpec+setPropertiesValue)
-        * [.getPropertiesValue(mac, json)](#module_miot/device/bluetooth/blespec..BleSpec+getPropertiesValue)
-        * [.doAction(mac, json)](#module_miot/device/bluetooth/blespec..BleSpec+doAction)
+        * [.setPropertiesValue(mac, json)](#module_miot/device/bluetooth/blespec..BleSpec+setPropertiesValue) ⇒ <code>Promise</code>
+        * [.getPropertiesValue(mac, json)](#module_miot/device/bluetooth/blespec..BleSpec+getPropertiesValue) ⇒ <code>Promise</code>
+        * [.doAction(mac, json)](#module_miot/device/bluetooth/blespec..BleSpec+doAction) ⇒ <code>Promise</code>
 
 
 * * *
@@ -22,19 +22,20 @@
 **Kind**: inner interface of [<code>miot/device/bluetooth/blespec</code>](#module_miot/device/bluetooth/blespec)  
 
 * [~BleSpec](#module_miot/device/bluetooth/blespec..BleSpec)
-    * [.setPropertiesValue(mac, json)](#module_miot/device/bluetooth/blespec..BleSpec+setPropertiesValue)
-    * [.getPropertiesValue(mac, json)](#module_miot/device/bluetooth/blespec..BleSpec+getPropertiesValue)
-    * [.doAction(mac, json)](#module_miot/device/bluetooth/blespec..BleSpec+doAction)
+    * [.setPropertiesValue(mac, json)](#module_miot/device/bluetooth/blespec..BleSpec+setPropertiesValue) ⇒ <code>Promise</code>
+    * [.getPropertiesValue(mac, json)](#module_miot/device/bluetooth/blespec..BleSpec+getPropertiesValue) ⇒ <code>Promise</code>
+    * [.doAction(mac, json)](#module_miot/device/bluetooth/blespec..BleSpec+doAction) ⇒ <code>Promise</code>
 
 
 * * *
 
 <a name="module_miot/device/bluetooth/blespec..BleSpec+setPropertiesValue"></a>
 
-#### bleSpec.setPropertiesValue(mac, json)
+#### bleSpec.setPropertiesValue(mac, json) ⇒ <code>Promise</code>
 ble直连spec：设置property，调用前确保已建立蓝牙连接。
 
 **Kind**: instance method of [<code>BleSpec</code>](#module_miot/device/bluetooth/blespec..BleSpec)  
+**Returns**: <code>Promise</code> - string 或者 Object, 建议判断类型解析，如: res = typeof (res) === 'string' ? JSON.phrase(res) : res  
 **Since**: 10040  
 
 | Param | Type | Description |
@@ -58,10 +59,11 @@ Bluetooth.spec.setPropertiesValue(mac,data)
 
 <a name="module_miot/device/bluetooth/blespec..BleSpec+getPropertiesValue"></a>
 
-#### bleSpec.getPropertiesValue(mac, json)
+#### bleSpec.getPropertiesValue(mac, json) ⇒ <code>Promise</code>
 ble直连spec：读property，调用前确保已建立蓝牙连接。
 
 **Kind**: instance method of [<code>BleSpec</code>](#module_miot/device/bluetooth/blespec..BleSpec)  
+**Returns**: <code>Promise</code> - 与 setPropertiesValue 相同  
 **Since**: 10040  
 
 | Param | Type | Description |
@@ -85,10 +87,11 @@ Bluetooth.spec.getPropertiesValue(mac,data)
 
 <a name="module_miot/device/bluetooth/blespec..BleSpec+doAction"></a>
 
-#### bleSpec.doAction(mac, json)
+#### bleSpec.doAction(mac, json) ⇒ <code>Promise</code>
 ble直连spec：doAction，调用前确保已建立蓝牙连接。
 
 **Kind**: instance method of [<code>BleSpec</code>](#module_miot/device/bluetooth/blespec..BleSpec)  
+**Returns**: <code>Promise</code> - 与 setPropertiesValue 相同  
 **Since**: 10040  
 
 | Param | Type | Description |
