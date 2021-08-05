@@ -42,6 +42,12 @@ export default class HostDemo extends React.Component {
         }
       },
       {
+        name: 'miot-spec-v3模块',
+        func: () => {
+          this.props.navigation.navigate('MiotSpecV3Demo', { title: 'miot-spec-v3模块' });
+        }
+      },
+      {
         name: '云存储模块',
         func: () => {
           this.props.navigation.navigate('CloudStorageDemo', { title: '云存储模块模块' });

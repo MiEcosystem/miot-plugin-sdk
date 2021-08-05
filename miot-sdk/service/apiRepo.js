@@ -170,9 +170,13 @@ const API_REPO = {
   '/home/getfileurl_v3': {},
   '/v2/home/getfileurl_v3': {},
   '/v2/recipes/query': {},
+  '/v2/recipes/getById': {},
   '/home/devupgrade': {},
   '/v2/device/get_auto_upgrade_config': {},
   '/v2/device/get_firmware_history': {},
+  // 多键开关相关
+  '/v2/home/device_support_split': {},
+  '/v2/home/device_split_merge': {},
   '/appgateway/miot/appdeviceinfo_service/AppDeviceInfoService/get_last_online': {},
   // 往服务器塞/get 二进制数据。
   '/common/app/data/put': {},
@@ -198,6 +202,38 @@ const API_REPO = {
   '/common/app/v1/cloud/file/exist': {},
   '/common/app/get/cloudlist': {},
   '/common/app/v1/capacity': {},
-  '/v2/scene/get_rec_in_plugin': {}
+  '/v2/scene/get_rec_in_plugin': {},
+  '/common/app/get/fileIdEvents': {},
+  // 每日故事开关接口
+  '/miot/camera/app/v1/put/dailyStorySwitch': {},
+  // 免费人脸
+  '/miot/camera/app/v1/vip/freeface/addFreeface': {},
+  '/miot/camera/app/v1/vip/freeface/status': {},
+  // 摄氏度/华氏度一键切换接口
+  '/v2/user/set_common_config': {},
+  '/v2/user/get_common_config': {},
+  // 门锁需要使用的接口
+  '/v2/device/setLockPushSwitch': {},
+  '/v2/device/getLockPushSwitch': {},
+  '/v2/device/delLockPushSwitch': {},
+  
+  // 疯景1代门铃迁移rn接口
+  '/common/app/delete/files': {},
+  '/common/app/get/playlist': {},
+  '/common/app/get/fileIdinfo': {},
+  '/miot/camera/app/v1/vip/freevip/status': {},
+  '/common/app/add/face': {},
+  '/common/app/delete/face': {},
+  '/common/app/delete/figure': {},
+  '/common/app/faces/search': {},
+  '/common/app/get/faceIds': {},
+  '/common/app/get/face/img': {},
+  '/common/app/get/faces': {},
+  '/common/app/get/figures': {},
+  '/v2/device/get_filter_device': {},
+  '/v2/device/auth_partner_device': {},
+  '/v2/device/cancel_partner_device': {},
+  '/v2/device/get_partner_device': {},
+  '/miot/camera/app/v1/get/figureFaces': {}
 };
 export default API_REPO;

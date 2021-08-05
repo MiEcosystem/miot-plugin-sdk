@@ -9,15 +9,15 @@
 const invariant = require('fbjs/lib/invariant');
 const PdfManagerNative = require('react-native').NativeModules.PdfManager;
 export default class PdfManager {
-    static loadFile(path: string,
-                    password?: string,): Promise<string> {
-        invariant(
-            typeof path === 'string',
-            'path must be a valid string.',
-        );
-        if (password === undefined) {
-            password = "";
-        }
-        return PdfManagerNative.loadFile(path, password);
+  static loadFile(path: string,
+    password?: string,): Promise<string> {
+    invariant(
+      typeof path === 'string',
+      'path must be a valid string.',
+    );
+    if (password === undefined) {
+      password = "";
     }
+    return PdfManagerNative.loadFile(path, password);
+  }
 }
