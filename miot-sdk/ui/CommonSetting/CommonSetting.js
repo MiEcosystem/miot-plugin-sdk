@@ -565,7 +565,7 @@ export default class CommonSetting extends React.Component {
               return;
             }
             // 开关状态和上次请求到的multipleKeyisOn不同时直接退出插件
-            let param = { 'did': Device.deviceID, 'splitFlag': value ? '1' : '0' };
+            let param = { 'did': Device.deviceID, 'splitFlag': value ? 1 : 0 };
             Host.notifyMultikeyStateChanged(param);
             Package.exit();
           }).catch((error) => {
@@ -787,14 +787,13 @@ export default class CommonSetting extends React.Component {
       this.commonSetting = this.getCommonSetting({
         ...this.state,
         showMultipleKey,
-        multipleKeyisOn 
+        multipleKeyisOn
       });
       this.setState({
         showMultipleKey,
         multipleKeyisOn
       });
     }).catch(() => {});
-   
     Service.smarthome.batchGetDeviceDatas([{
       did: Device.deviceID,
       props: ['prop.s_commonsetting_stand_plugin']
@@ -951,7 +950,7 @@ export default class CommonSetting extends React.Component {
               return (
                 <ListItemWithSwitch
                   key={item.title}
-                  title= {item.title} 
+                  title= {item.title}
                   value= {item.value}
                   onValueChange={item.onValueChange}
                 />
