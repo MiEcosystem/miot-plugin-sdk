@@ -11,7 +11,7 @@ const DemoInfo = [
   { id: 'WebViewBridageDemo', title: "webview 和react-native双向通信", key: "4" },
   { id: 'SVGDemo', title: "SVG:shape", key: "5" },
   { id: 'PressExample', title: "SVG:PressExample", key: "6" },
-  { id: 'AnimatedSVGDemo', title: "SVG 动画", key: "44" },
+  { id: 'AnimatedSVGDemo', title: "SVG 动画", key: "3" },
   { id: 'HoverExample', title: "SVG:HoverExample", key: "7" },
   { id: 'GroupExample', title: "SVG:group", key: "8" },
   { id: 'LegendsView', title: "绘图表LegendsView", key: "9" },
@@ -61,12 +61,13 @@ const DemoInfo = [
   { id: 'ReactNativeBlurDemo', title: "ReactNativeBlurDemo测试", key: "46" },
   { id: 'FadeSlideDemo', title: "FadeSlideDemo", key: "47" },
   { id: 'PdfViewerDemo', title: "PdfDemo", key: "48" },
-  { id: 'HoughCirclesDemo', title: "HoughCircles", key: "49"},
-  { id: 'HoughCircles2Demo', title: "HoughCircles2Demo", key: "50"},
-  { id: 'CvImageManipulationsDemo', title: "CvImageManipulationsDemo", key: "51"},
-  { id: 'CvCameraPreviewDemo', title: "CvCameraPreviewDemo", key: "52"},
-  { id: 'CvFaceDetectionDemo', title: "CvFaceDetectionDemo", key: "53"},
-  { id: 'CvFaceLandmarksDemo', title: "CvFaceLandmarksDemo", key: "54"},
+  { id: 'HoughCirclesDemo', title: "HoughCircles", key: "49" },
+  { id: 'HoughCircles2Demo', title: "HoughCircles2Demo", key: "50" },
+  { id: 'CvImageManipulationsDemo', title: "CvImageManipulationsDemo", key: "51" },
+  { id: 'CvCameraPreviewDemo', title: "CvCameraPreviewDemo", key: "52" },
+  { id: 'CvFaceDetectionDemo', title: "CvFaceDetectionDemo", key: "53" },
+  { id: 'CvFaceLandmarksDemo', title: "CvFaceLandmarksDemo", key: "54" }
+  // { id: 'ImageFilterDemo', title: "ImageFilterDemo", key: "55" }
 ];
 
 export default class ThirdPartyDemo extends React.Component {
