@@ -6,6 +6,7 @@ import React from 'react';
 import { Platform, Text, View, DeviceEventEmitter } from 'react-native';
 import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
+import { formatString } from '../../resources/Strings';
 import ListItem from '../ListItem/ListItem';
 import ListItemWithSwitch from '../ListItem/ListItemWithSwitch';
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
@@ -53,7 +54,6 @@ function getCountryCode() {
 }
 let productBaikeUrl = null;
 function getProductBaikeUrl() {
-  console.log("yy=========================");
   return new Promise((resolve, reject) => {
     if (productBaikeUrl != null) {
       resolve(productBaikeUrl);
@@ -91,8 +91,8 @@ function getMultipleKey() {
       }
       resolve(res.supports);
     }).catch((error) => {
-      reject();
-      Service.smarthome.reportLog(Device.model, `Service.smarthome.batchGetDeviceDatas error: ${ JSON.stringify(error) }`);
+      Service.smarthome.reportLog(Device.model, `Service.smarthome.device_support_split error: ${ JSON.stringify(error) }`);
+      reject(error);
     });
   });
 }
@@ -554,7 +554,7 @@ export default class CommonSetting extends React.Component {
       },
       [AllOptions.MULTIPLEKEY_SWITCH]: {
         _itemType: 'greenSwitch',
-        title: '在首页展示为两个按键',
+        title: formatString(strings.multipleKeyShowOnHome, this.state.keyNum),
         value: multipleKeyisOn,
         onValueChange: (value) => {
           let splitFlag = value ? 'split' : 'merge';
@@ -564,8 +564,8 @@ export default class CommonSetting extends React.Component {
               Service.smarthome.reportLog(Device.model, `Service.smarthome.device_split_merge error: ${ splitStr }`);
               return;
             }
-            // 开关状态和上次请求到的multipleKeyisOn不同时直接退出插件
-            let param = { 'did': Device.deviceID, 'splitFlag': value ? 1 : 0 };
+            let did = Device.extra.split.parentId ? Device.extra.split.parentId : Device.did;
+            let param = { 'did': did, 'splitFlag': value ? '1' : '0' };
             Host.notifyMultikeyStateChanged(param);
             Package.exit();
           }).catch((error) => {
@@ -615,7 +615,8 @@ export default class CommonSetting extends React.Component {
       freqCameraNeedShowRedPoint: false,
       standPlugin: false, // 标准插件设置项的值
       showMultipleKey: false, // 是否展示多键开关
-      multipleKeyisOn: false // 多键开关状态
+      multipleKeyisOn: false, // 多键开关状态
+      keyNum: 2 // 多键开关数量
     };
     console.log(`Device.type: ${ Device.type }`);
     this.commonSetting = this.getCommonSetting(this.state);
@@ -774,12 +775,15 @@ export default class CommonSetting extends React.Component {
     getMultipleKey().then((supportInfo) => {
       let multipleKeyisOn = false;
       let showMultipleKey = false;
+      let keyNum = 2;
       if (supportInfo[Device.deviceID]) {
-        if (supportInfo[Device.deviceID]['splitFlag'] === 1) {
+        let splitInfo = supportInfo[Device.deviceID];
+        if (splitInfo['splitFlag'] === 1) {
           multipleKeyisOn = true;
         } else {
           multipleKeyisOn = false;
         }
+        if (splitInfo['keyNum']) keyNum = splitInfo['keyNum'];
         showMultipleKey = true;
       } else {
         showMultipleKey = false;
@@ -791,9 +795,12 @@ export default class CommonSetting extends React.Component {
       });
       this.setState({
         showMultipleKey,
-        multipleKeyisOn
+        multipleKeyisOn,
+        keyNum
       });
-    }).catch(() => {});
+    }).catch((err) => {
+      Service.smarthome.reportLog(Device.model, `Service.smarthome.device_split_merge error: ${ err }`);
+    });
     Service.smarthome.batchGetDeviceDatas([{
       did: Device.deviceID,
       props: ['prop.s_commonsetting_stand_plugin']
