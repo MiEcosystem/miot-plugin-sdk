@@ -561,7 +561,7 @@ export default class CommonSetting extends React.Component {
           let splitFlag = value ? 'split' : 'merge';
           let splitStr = value ? 'split failed' : 'merge failed';
           let did = Device.did;
-          if (splitFlag == 'merge' && Device.extra.split.parentId) {
+          if (splitFlag === 'merge' && Device.extra.split.parentId) {
             // 拆分时使用did
             // 合并时使用parentid, 若不存在则使用did
             did = Device.extra.split.parentId;
@@ -694,7 +694,6 @@ export default class CommonSetting extends React.Component {
    * Toast提示
    */
   showToast(text, time) {
-    console.log("============================jjjjj");
     this.setState({
       toastVisible: true,
       toastText: text
@@ -808,7 +807,9 @@ export default class CommonSetting extends React.Component {
         } else {
           multipleKeyisOn = false;
         }
-        if (splitInfo['keyNum']) keyNum = splitInfo['keyNum'];
+        if (splitInfo['keyNum']) {
+          keyNum = splitInfo['keyNum'];
+        }
         showMultipleKey = true;
       } else {
         showMultipleKey = false;
