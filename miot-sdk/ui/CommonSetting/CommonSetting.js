@@ -572,7 +572,7 @@ export default class CommonSetting extends React.Component {
               this.showToast(splitStr, 1000);
               return;
             }
-            let param = { 'did': did, 'splitFlag': value ? '1' : '0' };
+            let param = { 'did': did, 'splitFlag': value ? 1 : 0 };
             Host.notifyMultikeyStateChanged(param);
             Package.exit();
           }).catch((error) => {
