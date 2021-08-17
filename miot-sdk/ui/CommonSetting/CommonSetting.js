@@ -472,7 +472,7 @@ export default class CommonSetting extends React.Component {
     extraOptions: {}
   }
   getCommonSetting(state) {
-    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, multipleKeyisOn } = state || {};
+    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, multipleKeyisOn, keyNum } = state || {};
     if (!modelType) {
       modelType = '  ';
     }
@@ -555,12 +555,12 @@ export default class CommonSetting extends React.Component {
       },
       [AllOptions.MULTIPLEKEY_SWITCH]: {
         _itemType: 'greenSwitch',
-        title: formatString(strings.multipleKeyShowOnHome, this.state.keyNum),
+        title: formatString(strings.multipleKeyShowOnHome, keyNum),
         value: multipleKeyisOn,
         onValueChange: (value) => {
           let splitFlag = value ? 'split' : 'merge';
           let splitStr = value ? 'split failed' : 'merge failed';
-          let did = Device.did;
+          let did = Device.deviceID;
           if (splitFlag === 'merge' && Device.extra.split.parentId) {
             // 拆分时使用did
             // 合并时使用parentid, 若不存在则使用did
@@ -817,7 +817,8 @@ export default class CommonSetting extends React.Component {
       this.commonSetting = this.getCommonSetting({
         ...this.state,
         showMultipleKey,
-        multipleKeyisOn
+        multipleKeyisOn,
+        keyNum
       });
       this.setState({
         showMultipleKey,
