@@ -50,7 +50,7 @@ function fixEnviroument {
     echo "提示：部分资源可能下载很慢，手动下载资源可提高成功率速度和，是否手动下载?(Y/[N])"
     read needDownload
     if [ "$needDownload" == Y ] || [ "$needDownload" == y ]; then
-        open "https://pan.mioffice.cn:443/link/78B865E2AFE0B2BE2A49E1A086FA79F0"
+        open "https://kpan.mioffice.cn/webfolder/ext/En2oHYEhI6c%40"
         echo "请在打开的网页手动下载zip包，并解压覆盖到SDK根目录"
         read c
     fi

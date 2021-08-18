@@ -28,7 +28,7 @@
  *
  *
  */
-import { MessageDialog } from 'miot/ui';
+import { MessageDialog } from 'miot/ui/Dialog';
 import React from 'react';
 import { AppRegistry, DeviceEventEmitter, View } from "react-native";
 import Service from './Service';
@@ -139,6 +139,12 @@ export const PackageEvent = {
      * @event
      */
   packageViewWillAppear: { always: true, sameas: isIOS ? 'viewWillAppear' : undefined },
+  /**
+   * 插件收到外部APP跳转带过来的信息
+   * @event
+   * @since 10053
+   */
+  packageReceivedOutAppInformation: { always: true },
   /**
     * 从插件页面离开到 Native 界面, iOS Only
     * @since 10038

@@ -10,14 +10,18 @@ export default class ProtocolManager {
       let { model } = Device;
       let plugin_id = native.MIOTPackage.pluginID;
       let plugin_version = native.MIOTPackage.version;
-      let language = native.language;
-      Service.getServerName().then(({ countryCode: country }) => {
+      let native_language = native.MIOTHost.language;
+      let language = ProtocolManager.mapServerAccpetedLanguage(native_language);
+      Service.getServerName().then((server) => {
+        let country = server.countryCode;
+        let serverCode = (server.serverCode || country).toLowerCase();
         let baseParams = {
           model,
           plugin_id,
           plugin_version,
           country,
-          language
+          language,
+          native_language
         };
         let params = [1, 2, 3].map((type_int) => {
           return {
@@ -28,9 +32,9 @@ export default class ProtocolManager {
         Promise.all(params.map((p) => {
           return Service.smarthome.getProtocolUrls(p);
         })).then(([privacy, agreement, experiencePlan]) => {
-          const privacyURL = privacy.html_url ? this._resolveUniUrlV2(this._UniUrl, params[0]) : '';
-          const agreementURL = agreement.html_url ? this._resolveUniUrlV2(this._UniUrl, params[1]) : '';
-          const experiencePlanURL = experiencePlan.html_url ? this._resolveUniUrlV2(this._UniUrl, params[2]) : '';
+          const privacyURL = privacy.html_url ? this._resolveUniUrlV2(this._UniUrl, params[0], serverCode) : '';
+          const agreementURL = agreement.html_url ? this._resolveUniUrlV2(this._UniUrl, params[1], serverCode) : '';
+          const experiencePlanURL = experiencePlan.html_url ? this._resolveUniUrlV2(this._UniUrl, params[2], serverCode) : '';
           resolve({
             privacyURL: privacyURL,
             agreementURL: agreementURL,
@@ -49,7 +53,7 @@ export default class ProtocolManager {
     return this._legalInfoAuthHasShowed;
   }
   static _resolveUniParamsV2(params) {
-    let ret = [];
+    let ret = ['auth=1'];
     for (let k in params) {
       if (params.hasOwnProperty(k)) {
         ret.push(`${ k }=${ params[k] }`);
@@ -57,9 +61,12 @@ export default class ProtocolManager {
     }
     return ret.join('&');
   }
-  static _resolveUniUrlV2(url, params) {
+  static _resolveUniUrlV2(url, params, serverCode) {
     if (!url) {
       return '';
+    }
+    if (serverCode && serverCode !== 'cn') {
+      url = url.replace('//', `//${ serverCode }.`);
     }
     return url + (url.indexOf('?') > -1 ? '&' : '?') + this._resolveUniParamsV2(params);
   }
@@ -80,5 +87,21 @@ export default class ProtocolManager {
       return isAndroid ? [{ uri: url }] : url;
     }
     return this.resolveUrl(url);
+  }
+  static mapServerAccpetedLanguage(nativeLan) {
+    const accpetedLanMap = {
+      'zh-Hans': 'zh_cn',
+      'zh-Hant': 'zh_tw',
+      'zh-Hant-HK': 'zh_hk',
+      'pt-BR': 'pt_br'
+    };
+    if (!nativeLan) {
+      return '';
+    }
+    let accLan = accpetedLanMap[nativeLan];
+    if (accLan) {
+      return accLan;
+    }
+    return nativeLan;
   }
 }
