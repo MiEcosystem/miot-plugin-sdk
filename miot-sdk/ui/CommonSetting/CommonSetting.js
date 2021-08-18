@@ -799,20 +799,19 @@ export default class CommonSetting extends React.Component {
     getMultipleKey().then((supportInfo) => {
       let multipleKeyisOn = false;
       let showMultipleKey = false;
-      let keyNum = 2;
-      if (supportInfo[Device.deviceID]) {
-        let splitInfo = supportInfo[Device.deviceID];
-        if (splitInfo['splitFlag'] === 1) {
-          multipleKeyisOn = true;
-        } else {
-          multipleKeyisOn = false;
-        }
-        if (splitInfo['keyNum']) {
-          keyNum = splitInfo['keyNum'];
-        }
+      let keyNum = 0;
+      if (Device.extra.split.parentId) {
+        // 子设备展示多键开关且只能合并
         showMultipleKey = true;
-      } else {
-        showMultipleKey = false;
+        multipleKeyisOn = true;
+        keyNum = Device.parentDevice.extra.split.subDids.length;
+      } else if (supportInfo[Device.deviceID]) {
+        let splitInfo = supportInfo[Device.deviceID];
+        if (splitInfo.keyNum > 0) {
+          showMultipleKey = true;
+          multipleKeyisOn = splitInfo.splitFlag === 1 ? true : false;
+          keyNum = splitInfo.keyNum;
+        }
       }
       this.commonSetting = this.getCommonSetting({
         ...this.state,
