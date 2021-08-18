@@ -81,6 +81,20 @@ function getProductBaikeUrl() {
   });
 }
 getProductBaikeUrl().then(() => { }).catch(() => { });
+let roomInfo = null;
+function getRoomeInfo() {
+  return new Promise((resolve, reject) => {
+    if (roomInfo) {
+      resolve(roomInfo);
+      return;
+    }
+    Device.getRoomInfoForCurrentHome().then((res) => {
+      roomInfo = res;
+      resolve(roomInfo);
+    }).catch(reject);
+  });
+}
+getRoomeInfo().then(() => { }).catch(() => { });
 const firstOptionsInner = {
   /**
    * 按键设置，多键开关`必选`，其余设备`必不选`
@@ -335,7 +349,6 @@ const excludeOptions = {
  * @typedef {Object} moreSettingPageStyle
  * @property {style} navigationBarStyle - 标题的自定义样式 -可参考 NavigationBar 样式
  * @property {style} itemStyle - 列表中 item样式
- * @property {style} - 10053新增 blankStyle - 标题栏与列表间分隔部分的样式
  * @property {style} - 10053新增 containerStyle - 标题栏下方内容的样式
  */
 /**
@@ -360,7 +373,7 @@ const excludeOptions = {
  * @since 10004
  * @module CommonSetting
  * @description 米家通用设置项
- * @property {array} firstOptions - 一级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项
+ * @property {array} firstOptions - 一级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项，其中产品百科的配置请参考:https://iot.mi.com/new/doc/guidelines-for-access/direct-access/publish-product
  * @property {array} secondOptions - 二级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项
  * @property {array} showDot - 定义哪些列表项需要显示小红点。为了便于扩展每个列表项都可以显示小红点，默认全部**不显示**，需要显示传入该列表项的key即可。
  * @property {CommonSettingStyle} commonSettingStyle - - 10040新增 CommonSetting 中有关字体样式相关设置
@@ -438,7 +451,7 @@ export default class CommonSetting extends React.Component {
     extraOptions: {}
   }
   getCommonSetting(state) {
-    let { modelType, productBaikeUrl, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint } = state || {};
+    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint } = state || {};
     if (!modelType) {
       modelType = '  ';
     }
@@ -532,11 +545,11 @@ export default class CommonSetting extends React.Component {
       }
     } : null;
     // 常用设备
-    ret[AllOptions.FREQ_DEVICE] = {
+    ret[AllOptions.FREQ_DEVICE] = roomInfo && roomInfo.data && roomInfo.data.roomId ? {
       title: strings.favoriteDevices,
       value: freqFlag ? strings.open : strings.close,
       onPress: () => Host.ui.openCommonDeviceSettingPage(0)
-    };
+    } : null;
     // 2020/4/20 锁类和保险箱类，安全设置从更多设置中移出来
     if (['lock', 'safe-box', 'safe'].indexOf(modelType) !== -1) {
       ret[AllOptions.SECURITY] = {
@@ -554,6 +567,7 @@ export default class CommonSetting extends React.Component {
       showDot: Array.isArray(props.showDot) ? props.showDot : [],
       productBaikeUrl,
       modelType,
+      roomInfo,
       freqFlag: false,
       freqCameraFlag: false,
       freqCameraNeedShowRedPoint: false,
@@ -704,6 +718,15 @@ export default class CommonSetting extends React.Component {
         modelType
       });
     }).catch(() => { });
+    getRoomeInfo().then((roomInfo) => {
+      this.commonSetting = this.getCommonSetting({
+        ...this.state,
+        roomInfo
+      });
+      this.setState({
+        roomInfo
+      });
+    });
     Service.smarthome.batchGetDeviceDatas([{
       did: Device.deviceID,
       props: ['prop.s_commonsetting_stand_plugin']

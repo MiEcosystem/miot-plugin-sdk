@@ -15,7 +15,7 @@ import { CvCamera, CvScalar, Mat, CvInvoke, CvInvokeGroup } from 'react-native-o
 import Video from 'react-native-video';
 let RNFS = require('react-native-fs');
 
-import {Package} from 'miot'
+import { Package } from 'miot';
 
 
 export default class CvCameraPreviewDemo extends React.Component {
@@ -25,7 +25,7 @@ export default class CvCameraPreviewDemo extends React.Component {
 
     const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
     const transUri = resolveAssetSource(require('./images/transparent.gif')).uri;
-    this.state = { picuri: transUri, videouri: '', showImg: false, recording: false, showRec: true, switchValue: true ,opencvinstalled: false};
+    this.state = { picuri: transUri, videouri: '', showImg: false, recording: false, showRec: true, switchValue: true, opencvinstalled: false };
     this.imgIndex = 0;
     this.videoIndex = 0;
     // Change the state every second or the time given by User.
@@ -36,10 +36,10 @@ export default class CvCameraPreviewDemo extends React.Component {
     }, 500);
 
     const opencvModuleId = "RnOpencv";
-    Package.installModule(opencvModuleId).then(res=>{
-      console.log('--------installModule:',JSON.stringify(res));
-      this.setState({opencvinstalled: res.data && res.data.installed});
-    })
+    Package.installModule(opencvModuleId).then((res) => {
+      console.log('--------installModule:', JSON.stringify(res));
+      this.setState({ opencvinstalled: res.data && res.data.installed });
+    });
   }
 
   componentDidMount = async() => {
@@ -202,7 +202,7 @@ export default class CvCameraPreviewDemo extends React.Component {
 
 
   render() {
-    if(this.state.opencvinstalled){
+    if (this.state.opencvinstalled) {
       return (
         <View style={styles.preview}>
           {this.renderCameraView()}
@@ -217,7 +217,7 @@ export default class CvCameraPreviewDemo extends React.Component {
           </TouchableOpacity>
         </View>
       );
-    }else{
+    } else {
       return (
         <View style={styles.preview}>
           {/* {this.renderCameraView()}
