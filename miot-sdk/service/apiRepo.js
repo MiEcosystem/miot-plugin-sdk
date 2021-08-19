@@ -112,6 +112,7 @@ const API_REPO = {
   '/v2/aftersale/list': {},
   '/v2/aftersale/detail': {},
   '/v2/homeroom/gethome': {},
+  '/v2/plugin/fetch_plugin': {},
   // 摄像机API
   '/wx/app/v1/get/pushSwitch': {},
   '/wx/app/v1/put/pushSwitch': {},
