@@ -271,7 +271,13 @@ strings = getStrings({
     currentDevice: '本设备',
     curtain: '窗帘',
     noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试',
-    switchPlugin: '标准插件'
+    switchPlugin: '标准插件',
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   zh_tw: {
     setting: '設定',
