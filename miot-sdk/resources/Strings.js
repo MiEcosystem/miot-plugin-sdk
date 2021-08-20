@@ -402,12 +402,12 @@ strings = getStrings({
     curtain: '窗帘',
     noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试',
     switchPlugin: '標準外掛程式',
-    defaultPlugin: '',
-    selectDefaultHP: '',
-    stdPluginTitle: '',
-    thirdPluginTitle: '',
-    stdPluginSubTitle: '',
-    thirdPluginSubTitle: ''
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   zh_hk: {
     setting: '設定',
@@ -532,12 +532,12 @@ strings = getStrings({
     curtain: '窗帘',
     noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试',
     switchPlugin: '標準外掛程式',
-    defaultPlugin: '',
-    selectDefaultHP: '',
-    stdPluginTitle: '',
-    thirdPluginTitle: '',
-    stdPluginSubTitle: '',
-    thirdPluginSubTitle: ''
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   en: {
     setting: 'Settings',
@@ -662,12 +662,12 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Standard plugin',
-    defaultPlugin: '',
-    selectDefaultHP: '',
-    stdPluginTitle: '',
-    thirdPluginTitle: '',
-    stdPluginSubTitle: '',
-    thirdPluginSubTitle: ''
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   ko: {
     setting: '설정',
@@ -792,12 +792,12 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: '표준 플러그인',
-    defaultPlugin: '',
-    selectDefaultHP: '',
-    stdPluginTitle: '',
-    thirdPluginTitle: '',
-    stdPluginSubTitle: '',
-    thirdPluginSubTitle: ''
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   ru: {
     setting: 'Настройки',
@@ -922,12 +922,12 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Стандартный плагин',
-    defaultPlugin: '',
-    selectDefaultHP: '',
-    stdPluginTitle: '',
-    thirdPluginTitle: '',
-    stdPluginSubTitle: '',
-    thirdPluginSubTitle: ''
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   es: {
     setting: 'Ajustes',
@@ -1052,12 +1052,12 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Plugin estándar',
-    defaultPlugin: '',
-    selectDefaultHP: '',
-    stdPluginTitle: '',
-    thirdPluginTitle: '',
-    stdPluginSubTitle: '',
-    thirdPluginSubTitle: ''
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   fr: {
     setting: "Paramètres",
@@ -1182,12 +1182,12 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Plug-in standard',
-    defaultPlugin: '',
-    selectDefaultHP: '',
-    stdPluginTitle: '',
-    thirdPluginTitle: '',
-    stdPluginSubTitle: '',
-    thirdPluginSubTitle: ''
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   it: {
     setting: 'Impostazioni',
@@ -1312,12 +1312,12 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Plugin standard',
-    defaultPlugin: '',
-    selectDefaultHP: '',
-    stdPluginTitle: '',
-    thirdPluginTitle: '',
-    stdPluginSubTitle: '',
-    thirdPluginSubTitle: ''
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   de: {
     setting: "Einstellungen",
@@ -1442,12 +1442,12 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Standard-Plug-in',
-    defaultPlugin: '',
-    selectDefaultHP: '',
-    stdPluginTitle: '',
-    thirdPluginTitle: '',
-    stdPluginSubTitle: '',
-    thirdPluginSubTitle: ''
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   id: {
     setting: 'Pengaturan',
@@ -1572,12 +1572,12 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Plugin standar',
-    defaultPlugin: '',
-    selectDefaultHP: '',
-    stdPluginTitle: '',
-    thirdPluginTitle: '',
-    stdPluginSubTitle: '',
-    thirdPluginSubTitle: ''
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   pl: {
     setting: 'Ustawienia',
@@ -1702,12 +1702,12 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Standardowa wtyczka',
-    defaultPlugin: '',
-    selectDefaultHP: '',
-    stdPluginTitle: '',
-    thirdPluginTitle: '',
-    stdPluginSubTitle: '',
-    thirdPluginSubTitle: ''
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   vi: {
     setting: 'Cài đặt',
@@ -1832,12 +1832,12 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Plugin tiêu chuẩn',
-    defaultPlugin: '',
-    selectDefaultHP: '',
-    stdPluginTitle: '',
-    thirdPluginTitle: '',
-    stdPluginSubTitle: '',
-    thirdPluginSubTitle: ''
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   ja: {
     setting: '設定',
@@ -1962,12 +1962,12 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: '標準プラグイン',
-    defaultPlugin: '',
-    selectDefaultHP: '',
-    stdPluginTitle: '',
-    thirdPluginTitle: '',
-    stdPluginSubTitle: '',
-    thirdPluginSubTitle: ''
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   th: {
     setting: 'การตั้งค่า',
@@ -2092,12 +2092,12 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'ปลั๊กอินมาตรฐาน',
-    defaultPlugin: '',
-    selectDefaultHP: '',
-    stdPluginTitle: '',
-    thirdPluginTitle: '',
-    stdPluginSubTitle: '',
-    thirdPluginSubTitle: ''
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   tr: {
     setting: 'Ayarlar',
@@ -2222,12 +2222,12 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Standart eklenti',
-    defaultPlugin: '',
-    selectDefaultHP: '',
-    stdPluginTitle: '',
-    thirdPluginTitle: '',
-    stdPluginSubTitle: '',
-    thirdPluginSubTitle: ''
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   nl: {
     setting: 'Instellingen',
@@ -2352,12 +2352,12 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Standaard plug-in',
-    defaultPlugin: '',
-    selectDefaultHP: '',
-    stdPluginTitle: '',
-    thirdPluginTitle: '',
-    stdPluginSubTitle: '',
-    thirdPluginSubTitle: ''
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   pt: {
     setting: 'Configurações',
@@ -2482,12 +2482,12 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Plugin padrão',
-    defaultPlugin: '',
-    selectDefaultHP: '',
-    stdPluginTitle: '',
-    thirdPluginTitle: '',
-    stdPluginSubTitle: '',
-    thirdPluginSubTitle: ''
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   }
 });
 export default strings;
