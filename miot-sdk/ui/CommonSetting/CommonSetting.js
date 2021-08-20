@@ -566,8 +566,8 @@ export default class CommonSetting extends React.Component {
             // 合并时使用parentid, 若不存在则使用did
             did = Device.extra.split.parentId;
           }
-          let logPara = { 'multiple_switch_ck': value ? 1 : 0 };
-          Service.smarthome.reportMJFStatLog('zdj_jg8_ni3_msc819', logPara);
+          let logPara = { 'type': value ? 1 : 0 };
+          Service.smarthome.reportMJFStatLog('multiple_switch_ck', logPara);
           Service.callSmartHomeAPI("/v2/home/device_split_merge", { did: did, pattern: splitFlag }).then((res) => {
             if (!res) {
               Service.smarthome.reportLog(Device.model, `Service.smarthome.device_split_merge error: ${ splitStr }`);
