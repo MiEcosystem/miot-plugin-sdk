@@ -219,6 +219,15 @@ export class BasicDevice {
      return  ""
   }
   /**
+   * 获取设备的 是否是新绑定的设备
+   * @return {boolean}
+   * @readonly
+   *
+   */
+  get isNew() {
+     return  ""
+  }
+  /**
     * 获取小米WiFi设备控制类
     * Device.getDeviceWifi().callMethod(xxx)
     */
