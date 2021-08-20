@@ -271,7 +271,13 @@ strings = getStrings({
     currentDevice: '本设备',
     curtain: '窗帘',
     noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试',
-    switchPlugin: '标准插件'
+    switchPlugin: '标准插件',
+    defaultPlugin: '默认首页',
+    selectDefaultHP: '选择默认首页',
+    stdPluginTitle: '标准功能插件',
+    thirdPluginTitle: '更多功能插件',
+    stdPluginSubTitle: '米家提供的标准样式',
+    thirdPluginSubTitle: '设置为默认首页后，米家标准功能页面会自动隐藏'
   },
   zh_tw: {
     setting: '設定',
@@ -395,7 +401,13 @@ strings = getStrings({
     currentDevice: '本设备',
     curtain: '窗帘',
     noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试',
-    switchPlugin: '標準外掛程式'
+    switchPlugin: '標準外掛程式',
+    defaultPlugin: '',
+    selectDefaultHP: '',
+    stdPluginTitle: '',
+    thirdPluginTitle: '',
+    stdPluginSubTitle: '',
+    thirdPluginSubTitle: ''
   },
   zh_hk: {
     setting: '設定',
@@ -519,7 +531,13 @@ strings = getStrings({
     currentDevice: '本设备',
     curtain: '窗帘',
     noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试',
-    switchPlugin: '標準外掛程式'
+    switchPlugin: '標準外掛程式',
+    defaultPlugin: '',
+    selectDefaultHP: '',
+    stdPluginTitle: '',
+    thirdPluginTitle: '',
+    stdPluginSubTitle: '',
+    thirdPluginSubTitle: ''
   },
   en: {
     setting: 'Settings',
@@ -643,7 +661,13 @@ strings = getStrings({
     currentDevice: 'this device',
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
-    switchPlugin: 'Standard plugin'
+    switchPlugin: 'Standard plugin',
+    defaultPlugin: '',
+    selectDefaultHP: '',
+    stdPluginTitle: '',
+    thirdPluginTitle: '',
+    stdPluginSubTitle: '',
+    thirdPluginSubTitle: ''
   },
   ko: {
     setting: '설정',
@@ -767,7 +791,13 @@ strings = getStrings({
     currentDevice: 'this device',
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
-    switchPlugin: '표준 플러그인'
+    switchPlugin: '표준 플러그인',
+    defaultPlugin: '',
+    selectDefaultHP: '',
+    stdPluginTitle: '',
+    thirdPluginTitle: '',
+    stdPluginSubTitle: '',
+    thirdPluginSubTitle: ''
   },
   ru: {
     setting: 'Настройки',
@@ -891,7 +921,13 @@ strings = getStrings({
     currentDevice: 'this device',
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
-    switchPlugin: 'Стандартный плагин'
+    switchPlugin: 'Стандартный плагин',
+    defaultPlugin: '',
+    selectDefaultHP: '',
+    stdPluginTitle: '',
+    thirdPluginTitle: '',
+    stdPluginSubTitle: '',
+    thirdPluginSubTitle: ''
   },
   es: {
     setting: 'Ajustes',
@@ -1015,7 +1051,13 @@ strings = getStrings({
     currentDevice: 'this device',
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
-    switchPlugin: 'Plugin estándar'
+    switchPlugin: 'Plugin estándar',
+    defaultPlugin: '',
+    selectDefaultHP: '',
+    stdPluginTitle: '',
+    thirdPluginTitle: '',
+    stdPluginSubTitle: '',
+    thirdPluginSubTitle: ''
   },
   fr: {
     setting: "Paramètres",
@@ -1139,7 +1181,13 @@ strings = getStrings({
     currentDevice: 'this device',
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
-    switchPlugin: 'Plug-in standard'
+    switchPlugin: 'Plug-in standard',
+    defaultPlugin: '',
+    selectDefaultHP: '',
+    stdPluginTitle: '',
+    thirdPluginTitle: '',
+    stdPluginSubTitle: '',
+    thirdPluginSubTitle: ''
   },
   it: {
     setting: 'Impostazioni',
@@ -1263,7 +1311,13 @@ strings = getStrings({
     currentDevice: 'this device',
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
-    switchPlugin: 'Plugin standard'
+    switchPlugin: 'Plugin standard',
+    defaultPlugin: '',
+    selectDefaultHP: '',
+    stdPluginTitle: '',
+    thirdPluginTitle: '',
+    stdPluginSubTitle: '',
+    thirdPluginSubTitle: ''
   },
   de: {
     setting: "Einstellungen",
@@ -1387,7 +1441,13 @@ strings = getStrings({
     currentDevice: 'this device',
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
-    switchPlugin: 'Standard-Plug-in'
+    switchPlugin: 'Standard-Plug-in',
+    defaultPlugin: '',
+    selectDefaultHP: '',
+    stdPluginTitle: '',
+    thirdPluginTitle: '',
+    stdPluginSubTitle: '',
+    thirdPluginSubTitle: ''
   },
   id: {
     setting: 'Pengaturan',
@@ -1511,7 +1571,13 @@ strings = getStrings({
     currentDevice: 'this device',
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
-    switchPlugin: 'Plugin standar'
+    switchPlugin: 'Plugin standar',
+    defaultPlugin: '',
+    selectDefaultHP: '',
+    stdPluginTitle: '',
+    thirdPluginTitle: '',
+    stdPluginSubTitle: '',
+    thirdPluginSubTitle: ''
   },
   pl: {
     setting: 'Ustawienia',
@@ -1635,7 +1701,13 @@ strings = getStrings({
     currentDevice: 'this device',
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
-    switchPlugin: 'Standardowa wtyczka'
+    switchPlugin: 'Standardowa wtyczka',
+    defaultPlugin: '',
+    selectDefaultHP: '',
+    stdPluginTitle: '',
+    thirdPluginTitle: '',
+    stdPluginSubTitle: '',
+    thirdPluginSubTitle: ''
   },
   vi: {
     setting: 'Cài đặt',
@@ -1759,7 +1831,13 @@ strings = getStrings({
     currentDevice: 'this device',
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
-    switchPlugin: 'Plugin tiêu chuẩn'
+    switchPlugin: 'Plugin tiêu chuẩn',
+    defaultPlugin: '',
+    selectDefaultHP: '',
+    stdPluginTitle: '',
+    thirdPluginTitle: '',
+    stdPluginSubTitle: '',
+    thirdPluginSubTitle: ''
   },
   ja: {
     setting: '設定',
@@ -1883,7 +1961,13 @@ strings = getStrings({
     currentDevice: 'this device',
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
-    switchPlugin: '標準プラグイン'
+    switchPlugin: '標準プラグイン',
+    defaultPlugin: '',
+    selectDefaultHP: '',
+    stdPluginTitle: '',
+    thirdPluginTitle: '',
+    stdPluginSubTitle: '',
+    thirdPluginSubTitle: ''
   },
   th: {
     setting: 'การตั้งค่า',
@@ -2007,7 +2091,13 @@ strings = getStrings({
     currentDevice: 'this device',
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
-    switchPlugin: 'ปลั๊กอินมาตรฐาน'
+    switchPlugin: 'ปลั๊กอินมาตรฐาน',
+    defaultPlugin: '',
+    selectDefaultHP: '',
+    stdPluginTitle: '',
+    thirdPluginTitle: '',
+    stdPluginSubTitle: '',
+    thirdPluginSubTitle: ''
   },
   tr: {
     setting: 'Ayarlar',
@@ -2131,7 +2221,13 @@ strings = getStrings({
     currentDevice: 'this device',
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
-    switchPlugin: 'Standart eklenti'
+    switchPlugin: 'Standart eklenti',
+    defaultPlugin: '',
+    selectDefaultHP: '',
+    stdPluginTitle: '',
+    thirdPluginTitle: '',
+    stdPluginSubTitle: '',
+    thirdPluginSubTitle: ''
   },
   nl: {
     setting: 'Instellingen',
@@ -2255,7 +2351,13 @@ strings = getStrings({
     currentDevice: 'this device',
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
-    switchPlugin: 'Standaard plug-in'
+    switchPlugin: 'Standaard plug-in',
+    defaultPlugin: '',
+    selectDefaultHP: '',
+    stdPluginTitle: '',
+    thirdPluginTitle: '',
+    stdPluginSubTitle: '',
+    thirdPluginSubTitle: ''
   },
   pt: {
     setting: 'Configurações',
@@ -2379,7 +2481,13 @@ strings = getStrings({
     currentDevice: 'this device',
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
-    switchPlugin: 'Plugin padrão'
+    switchPlugin: 'Plugin padrão',
+    defaultPlugin: '',
+    selectDefaultHP: '',
+    stdPluginTitle: '',
+    thirdPluginTitle: '',
+    stdPluginSubTitle: '',
+    thirdPluginSubTitle: ''
   }
 });
 export default strings;

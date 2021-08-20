@@ -1,4 +1,4 @@
-import { Package, PackageEvent, Device, Host, DeviceEvent, Service } from 'miot';
+import { Package, Entrance, PackageEvent, Device, Host, DeviceEvent, Service } from 'miot';
 // import {Device,DeviceEvent} from 'miot'
 // import {Host} from 'miot';
 import PropTypes from 'prop-types';
@@ -95,6 +95,35 @@ function getRoomeInfo() {
   });
 }
 getRoomeInfo().then(() => { }).catch(() => { });
+let hasStdPlugin = false;
+let selectedIndex = 0;
+const choiceIndexArray = [
+  {
+    title: strings.stdPluginTitle,
+    subtitle: strings.stdPluginSubTitle
+  },
+  {
+    title: strings.thirdPluginTitle,
+    subtitle: strings.thirdPluginSubTitle
+  }
+];
+function getPluginCategory() {
+  return new Promise((resolve, reject) => {
+    Service.smarthome.getHomepageSettings()
+      .then((res) => {
+        if (res && res.data) {
+          resolve(res.data);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+getPluginCategory().then((res) => {
+  hasStdPlugin = res.standardized;
+  selectedIndex = res.homepage_type;
+}).catch(() => {});
 const firstOptionsInner = {
   /**
    * 按键设置，多键开关`必选`，其余设备`必不选`
@@ -215,7 +244,11 @@ const secondAllOptionsInner = {
   /**
    * 常用设备/设备首页常用设备
    */
-  FREQ_DEVICE: 'freqDevice'
+  FREQ_DEVICE: 'freqDevice',
+  /**
+   * 默认首页--标识标准插件还是厂商插件
+   */
+  DEFAULT_PLUGIN: 'default_plugin'
 };
 export const AllOptions = {
   ...firstAllOptionsInner,
@@ -253,7 +286,8 @@ const firstSharedOptions = {
   [AllOptions.PRODUCT_BAIKE]: 1,
   [AllOptions.STAND_PLUGIN]: 1,
   [AllOptions.FREQ_CAMERA]: 1,
-  [AllOptions.FREQ_DEVICE]: 1
+  [AllOptions.FREQ_DEVICE]: 1,
+  [AllOptions.DEFAULT_PLUGIN]: 1
 };
 /**
  * 20190708 / SDK_10023
@@ -273,8 +307,8 @@ export const AllOptionsWeight = {
   [AllOptions.FIRMWARE_UPGRADE]: 21,
   [AllOptions.HELP]: 24,
   [AllOptions.MORE]: 27,
-  [AllOptions.SECURITY]: 28,
   [AllOptions.STAND_PLUGIN]: 22,
+  [AllOptions.DEFAULT_PLUGIN]: 28,
   [AllOptions.FREQ_DEVICE]: 29,
   [AllOptions.FREQ_CAMERA]: 30,
   // secondOptions
@@ -451,7 +485,7 @@ export default class CommonSetting extends React.Component {
     extraOptions: {}
   }
   getCommonSetting(state) {
-    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint } = state || {};
+    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory } = state || {};
     if (!modelType) {
       modelType = '  ';
     }
@@ -544,6 +578,15 @@ export default class CommonSetting extends React.Component {
         this.removeKeyFromShowDot(AllOptions.FREQ_CAMERA);
       }
     } : null;
+    ret[AllOptions.DEFAULT_PLUGIN] = hasStdPlugin ? {
+      title: strings.defaultPlugin,
+      value: choiceIndexArray[pluginCategory].title,
+      onPress: () => {
+        this.setState({
+          dialogVisible: true
+        });
+      }
+    } : null;
     // 常用设备
     ret[AllOptions.FREQ_DEVICE] = roomInfo && roomInfo.data && roomInfo.data.roomId ? {
       title: strings.favoriteDevices,
@@ -571,7 +614,9 @@ export default class CommonSetting extends React.Component {
       freqFlag: false,
       freqCameraFlag: false,
       freqCameraNeedShowRedPoint: false,
-      standPlugin: false // 标准插件设置项的值
+      standPlugin: false, // 标准插件设置项的值
+      pluginCategory: selectedIndex,
+      dialogVisible: false
     };
     console.log(`Device.type: ${ Device.type }`);
     this.commonSetting = this.getCommonSetting(this.state);
@@ -788,7 +833,8 @@ export default class CommonSetting extends React.Component {
       AllOptions.FREQ_CAMERA,
       AllOptions.FREQ_DEVICE,
       AllOptions.NAME,
-      AllOptions.LOCATION
+      AllOptions.LOCATION,
+      AllOptions.DEFAULT_PLUGIN
     ];
     if (productBaikeUrl) {
       requireKeys1.push(AllOptions.PRODUCT_BAIKE);
@@ -929,6 +975,46 @@ export default class CommonSetting extends React.Component {
             }
           })
         }
+        {hasStdPlugin ?
+          <ChoiceDialog
+            visible={this.state.dialogVisible}
+            title = {strings.selectDefaultHP}
+            useNewType
+            dialogStyle={{
+              allowFontScaling: true,
+              unlimitedHeightEnable: true,
+              titleStyle: {
+                fontSize: 18
+              }
+            }}
+            buttons={[
+              {
+                text: strings.cancel
+              },
+              {
+                text: strings.ok,
+                callback: (result) => {
+                  this.setState({
+                    dialogVisible: false
+                  });
+                  const index = result && result[0];
+                  if (selectedIndex === index) {
+                    return;
+                  }
+                  selectedIndex = index;
+                  let params = { homepage_type: index };
+                  Service.smarthome.setHomepageSettings(params);
+                  this.commonSetting = this.getCommonSetting({
+                    ...this.state,
+                    pluginCategory: index
+                  });
+                  Host.ui.openPluginPage(Device.deviceID, Entrance.Main, { dismiss_current_plug: true });
+                }
+              }
+            ]}
+            options={choiceIndexArray}
+            selectedIndexArray={[selectedIndex]}
+          /> : null}
         {/* <Separator /> */}
         {!Device.isFamily ?
           (<View style={[styles.bottomContainer, tempCommonSettingStyle.bottomContainer]} {...getAccessibilityConfig({
