@@ -30,22 +30,22 @@ export default class DarkModeDemo extends React.Component {
     // 退后台时停止监听，回前台继续监听。
     // 退后台后，RN停止工作，将收不到通知。受 iOS 系统影响
     PackageEvent.packageDidResume.addListener(() => { 
-      this.addListener()
+      this.addListener();
       // 如果退后台期间改变了  需要刷新
-      this.refreshColorScheme()
+      this.refreshColorScheme();
     });
     PackageEvent.packageWillPause.addListener(() => { 
-      this.removeListener()
+      this.removeListener();
     });
 
     // 查询当前颜色模式
-    this.refreshColorScheme()
+    this.refreshColorScheme();
     // 监听
     this.addListener();
   }
 
   componentWillUnmount() {
-    this.removeListener()
+    this.removeListener();
   }
 
   refreshColorScheme() {
@@ -88,7 +88,7 @@ export default class DarkModeDemo extends React.Component {
         }
         {
           [
-            '监听到的当前 colorScheme:' + JSON.stringify(this.state.colorScheme)
+            `监听到的当前 colorScheme:${ JSON.stringify(this.state.colorScheme) }`
           ].map((item, index) => {
             return <Text style={[styles.text]} key={index}>{item}</Text>;
           })
@@ -122,7 +122,7 @@ const styles = dynamicStyleSheet({
   text: {
     color: new DynamicColor('#1A1A1A', '#EEE'),
     fontSize: 14,
-    padding: 5,
+    padding: 5
   },
   button: {
     width: '90%',
@@ -138,6 +138,6 @@ const styles = dynamicStyleSheet({
   buttonText: {
     color: new DynamicColor('#EEE', '#1A1A1A'),
     fontSize: 14,
-    padding: 5,
+    padding: 5
   }
 });

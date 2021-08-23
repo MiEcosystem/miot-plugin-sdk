@@ -5,7 +5,7 @@
  * @doc_directory bluetooth
  * @module miot/device/bluetooth
  * @description 蓝牙设备操作类
- * 蓝牙设备的开发，详见：[蓝牙设备](https://iot.mi.com/new/doc/app-development/extension-development/device-management/device.html#%E8%93%9D%E7%89%99%E8%AE%BE%E5%A4%87)，此处不再赘述蓝牙开发的流程以及蓝牙的工作原理。
+ * 蓝牙设备的开发，详见：[BLE设备](https://iot.mi.com/new/doc/extension-development/basic-functions/device-connection/BLE)，此处不再赘述蓝牙开发的流程以及蓝牙的工作原理。
  * **默认大家对iOS中的CoreBluetooth和Android中的android.bluetooth有一定了解，了解了这些内容再来读此文档，事半功倍。**
  * 蓝牙设备由1个js文件拆分为5个js文件，主要为：
  * index.js 蓝牙设备相关入口文件
@@ -219,7 +219,7 @@ export default {
    * @since 10040
    * @param {string} mac 蓝牙子设备Mac
    * @param {boolean} forceRefresh 是否强制刷新
-   * @returns {Promise<Object>} 
+   * @returns {Promise<Object>}
    * 成功时的返回值：
    * {code:0,data:{connected:[true/false],mac:[网关mac]}} 已连接时connected=true,反之connected=false，mac可能为空；
    * 失败时可能返回返回值：

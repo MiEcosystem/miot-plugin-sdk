@@ -38,12 +38,12 @@ class IAudio {
    * 开始录音
    * 在Android平台下 由于需要动态获取录音权限 使用方法请参考 请参考 com.xiaomi.demo 中 MHAudioDemo 的用法
    * @param {string} audioName  保存文件名，如 audio.mp3
-   * @param {json} settings 配置参数{ 
-   *                                RecordType: 录制类型 audioRecord mediaRecord  only worked for android
+   * @param {json} settings 配置参数{
+   *                                RecordType: 录制类型，可选值有 audioRecord,mediaRecord；  only worked for android
    *                                AVSampleRateKey 采样率 默认44100，
    *                                AVNumberOfChannelsKey 声道，默认2，
    *                                AVLinearPCMBitDepthKey 音频编码比特率 默认16,
-   *                                AVFormatIDKey 编码格式(AMR,AMR_WB,MPEG4AAC,MPEG4CELP,MPEG4HVXC,MPEG4TwinVQ,AC3,60958AC3 ; 
+   *                                AVFormatIDKey 编码格式(AMR,AMR_WB,MPEG4AAC,MPEG4CELP,MPEG4HVXC,MPEG4TwinVQ,AC3,60958AC3 ;
    *                                              recordType为audioRecord时，可以指定录制G711格式音频，设置AVFormatIDKey即可，默认是pcm裸数据), 仅仅适用于Android端，且不支持AAC;
    *                                AVEncoderAudioQualityKey 音质(Min,Low,Medium,High,Max)
    *                              }
@@ -55,7 +55,7 @@ class IAudio {
    * import { PermissionsAndroid, Platform } from 'react-native';
    *
    * var settings = {
-   *   RecordType: mediaRecord
+   *   RecordType: 'mediaRecord'
    *   AVFormatIDKey: 'audioFormatLinearPCM',
    *   AVSampleRateKey: 9500,
    *   AVNumberOfChannelsKey: 2,
@@ -100,15 +100,24 @@ class IAudio {
   /**
    * 开始播放
    * @param {string} audioName  保存文件名，如 audio.mp3
-   * @param {json} settings 配置参数{ 
-   *                                playerType: 录制类型 mediaPlayer playerType   only worked for android
+   * @param {json} settings 配置参数{
+   *                                playerType: 播放器类型,可选值有 audioTrack,mediaPlayer；   only worked for android
    *                                AVSampleRateKey 采样率 默认44100，
    *                                AVNumberOfChannelsKey 声道，默认2，
    *                                AVLinearPCMBitDepthKey 音频编码比特率 默认16,
-   *                                AVFormatIDKey 编码格式(AMR,AMR_WB,MPEG4AAC,MPEG4CELP,MPEG4HVXC,MPEG4TwinVQ,AC3,60958AC3 ; 
-   *                                              playerType为playerType时，可以指定录制G711格式音频，设置AVFormatIDKey即可，默认是pcm裸数据), 仅仅适用于Android端，且不支持AAC;
+   *                                AVFormatIDKey 编码格式(AMR,AMR_WB,MPEG4AAC,MPEG4CELP,MPEG4HVXC,MPEG4TwinVQ,AC3,60958AC3 ;
+   *                                              playerType为audioTrack时，可以指定播放G711格式音频，设置AVFormatIDKey即可，默认是pcm裸数据), 仅仅适用于Android端，且不支持AAC;
    *                                AVEncoderAudioQualityKey 音质(Min,Low,Medium,High,Max)
+   *                                audioPlayerUid  播放器ID，监听播放进度的时候会用到
    *                              }
+   * @example
+   * let params = {
+   *   'playerType':'audioTrack',
+   *   AVFormatIDKey:'G711',
+   *   'updateAudioPlayerTimeInterval': 1,
+   *   'audioPlayerUid': 'audioPlayerUid'
+   * };
+   * Host.audio.startPlay(fileName, params).then(() => { console.log('startPlay'); })
    *
    * @return {Promise}
    */
@@ -132,7 +141,7 @@ class IAudio {
    * 取值范围是 -160 - 0， -160 意味着接近silence（静音），0 表示 最大的可测强度
    * 但是实际在测试过程中发现会大于0的输出情况，该值在测试极限情况出现过 10.5 的情况
    *
-   * for android： 取值范围是0-2^15，对应的原生api 为 MediaRecorder.getMaxAmplitude()
+   * for android： 取值范围是0-2^15，对应的原生api 为 MediaRecorder.getMaxAmplitude()，仅RecordType为mediaRecord时可用
    *
    * @since 10030
    * @return {Promise}

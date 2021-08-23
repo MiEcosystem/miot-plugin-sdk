@@ -1,4 +1,4 @@
-import { Package, PackageEvent, Device, Host, DeviceEvent, Service } from 'miot';
+import { Package, Entrance, PackageEvent, Device, Host, DeviceEvent, Service } from 'miot';
 // import {Device,DeviceEvent} from 'miot'
 // import {Host} from 'miot';
 import PropTypes from 'prop-types';
@@ -81,6 +81,48 @@ function getProductBaikeUrl() {
   });
 }
 getProductBaikeUrl().then(() => { }).catch(() => { });
+let roomInfo = null;
+function getRoomeInfo() {
+  return new Promise((resolve, reject) => {
+    if (roomInfo) {
+      resolve(roomInfo);
+      return;
+    }
+    Device.getRoomInfoForCurrentHome().then((res) => {
+      roomInfo = res;
+      resolve(roomInfo);
+    }).catch(reject);
+  });
+}
+getRoomeInfo().then(() => { }).catch(() => { });
+let hasStdPlugin = false;
+let selectedIndex = 0;
+const choiceIndexArray = [
+  {
+    title: strings.stdPluginTitle,
+    subtitle: strings.stdPluginSubTitle
+  },
+  {
+    title: strings.thirdPluginTitle
+  }
+];
+function getPluginCategory() {
+  return new Promise((resolve, reject) => {
+    Service.smarthome.getHomepageSettings()
+      .then((res) => {
+        if (res && res.data) {
+          resolve(res.data);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+getPluginCategory().then((res) => {
+  hasStdPlugin = res.standardized;
+  selectedIndex = res.homepage_type;
+}).catch(() => {});
 const firstOptionsInner = {
   /**
    * 按键设置，多键开关`必选`，其余设备`必不选`
@@ -201,7 +243,11 @@ const secondAllOptionsInner = {
   /**
    * 常用设备/设备首页常用设备
    */
-  FREQ_DEVICE: 'freqDevice'
+  FREQ_DEVICE: 'freqDevice',
+  /**
+   * 默认首页--标识标准插件还是厂商插件
+   */
+  DEFAULT_PLUGIN: 'default_plugin'
 };
 export const AllOptions = {
   ...firstAllOptionsInner,
@@ -239,7 +285,8 @@ const firstSharedOptions = {
   [AllOptions.PRODUCT_BAIKE]: 1,
   [AllOptions.STAND_PLUGIN]: 1,
   [AllOptions.FREQ_CAMERA]: 1,
-  [AllOptions.FREQ_DEVICE]: 1
+  [AllOptions.FREQ_DEVICE]: 1,
+  [AllOptions.DEFAULT_PLUGIN]: 1
 };
 /**
  * 20190708 / SDK_10023
@@ -259,8 +306,8 @@ export const AllOptionsWeight = {
   [AllOptions.FIRMWARE_UPGRADE]: 21,
   [AllOptions.HELP]: 24,
   [AllOptions.MORE]: 27,
-  [AllOptions.SECURITY]: 28,
   [AllOptions.STAND_PLUGIN]: 22,
+  [AllOptions.DEFAULT_PLUGIN]: 28,
   [AllOptions.FREQ_DEVICE]: 29,
   [AllOptions.FREQ_CAMERA]: 30,
   // secondOptions
@@ -335,7 +382,6 @@ const excludeOptions = {
  * @typedef {Object} moreSettingPageStyle
  * @property {style} navigationBarStyle - 标题的自定义样式 -可参考 NavigationBar 样式
  * @property {style} itemStyle - 列表中 item样式
- * @property {style} - 10053新增 blankStyle - 标题栏与列表间分隔部分的样式
  * @property {style} - 10053新增 containerStyle - 标题栏下方内容的样式
  */
 /**
@@ -360,7 +406,7 @@ const excludeOptions = {
  * @since 10004
  * @module CommonSetting
  * @description 米家通用设置项
- * @property {array} firstOptions - 一级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项
+ * @property {array} firstOptions - 一级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项，其中产品百科的配置请参考:https://iot.mi.com/new/doc/guidelines-for-access/direct-access/publish-product
  * @property {array} secondOptions - 二级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项
  * @property {array} showDot - 定义哪些列表项需要显示小红点。为了便于扩展每个列表项都可以显示小红点，默认全部**不显示**，需要显示传入该列表项的key即可。
  * @property {CommonSettingStyle} commonSettingStyle - - 10040新增 CommonSetting 中有关字体样式相关设置
@@ -438,7 +484,7 @@ export default class CommonSetting extends React.Component {
     extraOptions: {}
   }
   getCommonSetting(state) {
-    let { modelType, productBaikeUrl, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint } = state || {};
+    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory } = state || {};
     if (!modelType) {
       modelType = '  ';
     }
@@ -531,12 +577,21 @@ export default class CommonSetting extends React.Component {
         this.removeKeyFromShowDot(AllOptions.FREQ_CAMERA);
       }
     } : null;
+    ret[AllOptions.DEFAULT_PLUGIN] = hasStdPlugin ? {
+      title: strings.defaultPlugin,
+      value: choiceIndexArray[pluginCategory].title,
+      onPress: () => {
+        this.setState({
+          dialogVisible: true
+        });
+      }
+    } : null;
     // 常用设备
-    ret[AllOptions.FREQ_DEVICE] = {
+    ret[AllOptions.FREQ_DEVICE] = roomInfo && roomInfo.data && roomInfo.data.roomId ? {
       title: strings.favoriteDevices,
       value: freqFlag ? strings.open : strings.close,
       onPress: () => Host.ui.openCommonDeviceSettingPage(0)
-    };
+    } : null;
     // 2020/4/20 锁类和保险箱类，安全设置从更多设置中移出来
     if (['lock', 'safe-box', 'safe'].indexOf(modelType) !== -1) {
       ret[AllOptions.SECURITY] = {
@@ -554,10 +609,14 @@ export default class CommonSetting extends React.Component {
       showDot: Array.isArray(props.showDot) ? props.showDot : [],
       productBaikeUrl,
       modelType,
+      roomInfo,
       freqFlag: false,
       freqCameraFlag: false,
       freqCameraNeedShowRedPoint: false,
-      standPlugin: false // 标准插件设置项的值
+      standPlugin: false, // 标准插件设置项的值
+      pluginCategory: selectedIndex,
+      dialogVisible: false,
+      needShowUpgradeRedDot: false
     };
     console.log(`Device.type: ${ Device.type }`);
     this.commonSetting = this.getCommonSetting(this.state);
@@ -584,6 +643,7 @@ export default class CommonSetting extends React.Component {
     const { showUpgrade, upgradePageKey, bleOtaAuthType } = this.props.extraOptions;
     let { modelType } = this.state;
     Device.needUpgrade = false;
+    this.setState({ needShowUpgradeRedDot: false });
     if (showUpgrade === false) {
       // 蓝牙统一OTA界面
       if (upgradePageKey === undefined) {
@@ -704,6 +764,15 @@ export default class CommonSetting extends React.Component {
         modelType
       });
     }).catch(() => { });
+    getRoomeInfo().then((roomInfo) => {
+      this.commonSetting = this.getCommonSetting({
+        ...this.state,
+        roomInfo
+      });
+      this.setState({
+        roomInfo
+      });
+    });
     Service.smarthome.batchGetDeviceDatas([{
       did: Device.deviceID,
       props: ['prop.s_commonsetting_stand_plugin']
@@ -732,6 +801,11 @@ export default class CommonSetting extends React.Component {
     //   this.setState({ standPlugin: true });
     // }, 1000 * 3);
     this._updateFreqFlag();
+    this.needUpgradeListener = DeviceEventEmitter.addListener('MH_FirmwareNeedUpdateAlert', (params) => {
+      if (params && params.needUpgrade) {
+        this.setState({ needShowUpgradeRedDot: true });
+      }
+    });
   }
   _updateFreqFlag() {
     Device.getFreqFlag().then((freqFlagRes) => {
@@ -759,13 +833,19 @@ export default class CommonSetting extends React.Component {
       this.setState({ freqCameraNeedShowRedPoint });
     });
   }
+  _onDialogDismiss() {
+    this.setState({
+      dialogVisible: false
+    });
+  }
   render() {
     let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint } = this.state;
     let requireKeys1 = [
       AllOptions.FREQ_CAMERA,
       AllOptions.FREQ_DEVICE,
       AllOptions.NAME,
-      AllOptions.LOCATION
+      AllOptions.LOCATION,
+      AllOptions.DEFAULT_PLUGIN
     ];
     if (productBaikeUrl) {
       requireKeys1.push(AllOptions.PRODUCT_BAIKE);
@@ -828,7 +908,7 @@ export default class CommonSetting extends React.Component {
         item.showDot = (this.state.showDot || []).includes(key);
         // 如果是固件升级设置项，且开发者没有传入是否显示
         if (key === AllOptions.FIRMWARE_UPGRADE && !item.showDot) {
-          item.showDot = Device.needUpgrade && !firmwareUpgradeDotClicked;
+          item.showDot = (Device.needUpgrade || this.state.needShowUpgradeRedDot) && !firmwareUpgradeDotClicked;
         } else if (key === AllOptions.FREQ_CAMERA && !item.showDot) {
           item.showDot = freqCameraNeedShowRedPoint;
         }
@@ -906,6 +986,49 @@ export default class CommonSetting extends React.Component {
             }
           })
         }
+        {hasStdPlugin ?
+          <ChoiceDialog
+            visible={this.state.dialogVisible}
+            title={strings.selectDefaultHP}
+            useNewType={true}
+            dialogStyle={{
+              allowFontScaling: true,
+              unlimitedHeightEnable: false,
+              titleStyle: {
+                fontSize: 18
+              }
+            }}
+            buttons={[
+              {
+                text: strings.cancel
+              },
+              {
+                text: strings.ok,
+                callback: (result) => {
+                  this.setState({
+                    dialogVisible: false
+                  });
+                  const index = result && result[0];
+                  if (selectedIndex === index) {
+                    return;
+                  }
+                  selectedIndex = index;
+                  let params = { homepage_type: index };
+                  Service.smarthome.setHomepageSettings(params);
+                  this.commonSetting = this.getCommonSetting({
+                    ...this.state,
+                    pluginCategory: index
+                  });
+                  Host.ui.openPluginPage(Device.deviceID, Entrance.Main, { dismiss_current_plug: true });
+                }
+              }
+            ]}
+            options={choiceIndexArray}
+            selectedIndexArray={[selectedIndex]}
+            onDismiss={() => {
+              this._onDialogDismiss();
+            }}
+          /> : null}
         {/* <Separator /> */}
         {!Device.isFamily ?
           (<View style={[styles.bottomContainer, tempCommonSettingStyle.bottomContainer]} {...getAccessibilityConfig({
@@ -998,6 +1121,7 @@ export default class CommonSetting extends React.Component {
   componentWillUnmount() {
     this._deviceNameChangedListener.remove();
     this._packageGobackFromNativeListerner && this._packageGobackFromNativeListerner.remove();
+    this.needUpgradeListener && this.needUpgradeListener.remove();
   }
 }
 const styles = dynamicStyleSheet({

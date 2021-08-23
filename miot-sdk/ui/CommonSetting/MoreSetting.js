@@ -246,66 +246,61 @@ export default class MoreSetting extends React.Component {
       return item && !item.hide;
     });
     let itemStyle;
-    let blankStyle;
     let containerStyle;
     if (this.props.navigation.state.params.commonSettingStyle && this.props.navigation.state.params.commonSettingStyle.moreSettingPageStyle) {
       itemStyle = this.props.navigation.state.params.commonSettingStyle.moreSettingPageStyle.itemStyle;
-      blankStyle = this.props.navigation.state.params.commonSettingStyle.moreSettingPageStyle.blankStyle;
       containerStyle = this.props.navigation.state.params.commonSettingStyle.moreSettingPageStyle.containerStyle;
     }
     if (!itemStyle) {
       itemStyle = {};
-    }
-    if (!blankStyle) {
-      blankStyle = {};
     }
     if (!containerStyle) {
       containerStyle = {};
     }
     return (
       <View style={[styles.container, containerStyle]}>
-        <Separator />
+        {/* <Separator />
         <ScrollView
           showsVerticalScrollIndicator={false}>
-          <View style={[styles.blank, { borderTopWidth: 0 }, blankStyle]} />
-          {
-            items.map((item, index) => {
-              const showSeparator = false;// index !== items.length - 1;
-              return (
-                <ListItem
-                  key={item.title + index}
-                  title={item.title || ''}
-                  value={item.value}
-                  onPress={item.onPress}
-                  showSeparator={showSeparator}
-                  hideArrow={item.hideArrow}
-                  allowFontScaling={itemStyle.allowFontScaling}
-                  unlimitedHeightEnable={itemStyle.unlimitedHeightEnable}
-                  titleStyle={itemStyle.titleStyle}
-                  subtitleStyle={itemStyle.subtitleStyle}
-                  valueStyle={itemStyle.valueStyle}
-                  containerStyle={itemStyle.containerStyle}
-                  dotStyle={itemStyle.dotStyle}
-                  titleNumberOfLines={itemStyle.titleNumberOfLines}
-                  subtitleNumberOfLines={itemStyle.subtitleNumberOfLines}
-                  valueNumberOfLines={itemStyle.valueNumberOfLines}
-                  useNewType={itemStyle.useNewType}
-                  {...getAccessibilityConfig({
-                    accessible: item.accessible
-                  })}
-                />
-              );
-            })
-          }
-          {/* <Separator /> */}
-        </ScrollView>
+          <View style={[styles.blank, { borderTopWidth: 0 }]} /> */}
+        {
+          items.map((item, index) => {
+            const showSeparator = false;// index !== items.length - 1;
+            return (
+              <ListItem
+                key={item.title + index}
+                title={item.title || ''}
+                value={item.value}
+                onPress={item.onPress}
+                showSeparator={showSeparator}
+                hideArrow={item.hideArrow}
+                allowFontScaling={itemStyle.allowFontScaling}
+                unlimitedHeightEnable={itemStyle.unlimitedHeightEnable}
+                titleStyle={itemStyle.titleStyle}
+                subtitleStyle={itemStyle.subtitleStyle}
+                valueStyle={itemStyle.valueStyle}
+                containerStyle={itemStyle.containerStyle}
+                dotStyle={itemStyle.dotStyle}
+                titleNumberOfLines={itemStyle.titleNumberOfLines}
+                subtitleNumberOfLines={itemStyle.subtitleNumberOfLines}
+                valueNumberOfLines={itemStyle.valueNumberOfLines}
+                useNewType={itemStyle.useNewType}
+                {...getAccessibilityConfig({
+                  accessible: item.accessible
+                })}
+              />
+            );
+          })
+        }
+        {/* <Separator /> */}
+        {/* </ScrollView> */}
       </View>
     );
   }
 }
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: new DynamicColor(Styles.common.backgroundColor, '#000'),
+    backgroundColor: new DynamicColor('white', '#000'),
     flex: 1
   },
   blank: {
