@@ -103,8 +103,7 @@ const choiceIndexArray = [
     subtitle: strings.stdPluginSubTitle
   },
   {
-    title: strings.thirdPluginTitle,
-    subtitle: strings.thirdPluginSubTitle
+    title: strings.thirdPluginTitle
   }
 ];
 function getPluginCategory() {
@@ -827,6 +826,11 @@ export default class CommonSetting extends React.Component {
       this.setState({ freqCameraNeedShowRedPoint });
     });
   }
+  _onDialogDismiss() {
+    this.setState({
+      dialogVisible: false
+    });
+  }
   render() {
     let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint } = this.state;
     let requireKeys1 = [
@@ -978,11 +982,11 @@ export default class CommonSetting extends React.Component {
         {hasStdPlugin ?
           <ChoiceDialog
             visible={this.state.dialogVisible}
-            title = {strings.selectDefaultHP}
-            useNewType
+            title={strings.selectDefaultHP}
+            useNewType={true}
             dialogStyle={{
               allowFontScaling: true,
-              unlimitedHeightEnable: true,
+              unlimitedHeightEnable: false,
               titleStyle: {
                 fontSize: 18
               }
@@ -1014,6 +1018,9 @@ export default class CommonSetting extends React.Component {
             ]}
             options={choiceIndexArray}
             selectedIndexArray={[selectedIndex]}
+            onDismiss={() => {
+              this._onDialogDismiss();
+            }}
           /> : null}
         {/* <Separator /> */}
         {!Device.isFamily ?
