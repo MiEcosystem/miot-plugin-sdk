@@ -1201,6 +1201,36 @@ class ISmartHome {
     getTempUnit(params) {
        return Promise.resolve(null);
     }
+    
+    /**
+    * 获取是否开启自动升级
+    * @since 10059
+    * @param {string} aDevId
+    * @returns {Promise<{code:xx, data:xx}>}
+    * 成功
+    * code == 0 
+    * 失败
+    * code != 0 data 失败详情
+    */
+    
+    checkFirmwareAutoUpgradeOpen(aDevId = Device.deviceID) {
+       return Promise.resolve(null);
+    }
+    
+    /**
+    * 开启自动升级
+    * @since 10059
+    * @param {bool} aOpen
+    * @param {string} aDevId
+    * @returns {Promise<{code:xx, data:xx}>} 
+    *  成功
+    *  code == 0 
+    *  失败
+    *  code != 0 data 失败详情
+    */
+    setFirmwareAutoUpgradeSwitch(aOpen, aDevId = Device.deviceID) {
+       return Promise.resolve(null);
+    }
 }
 const SmartHomeInstance = new ISmartHome();
 export default SmartHomeInstance;
