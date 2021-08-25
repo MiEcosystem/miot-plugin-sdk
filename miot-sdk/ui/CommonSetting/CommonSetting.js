@@ -424,6 +424,8 @@ const excludeOptions = {
  *   syncDevice: bool // 插件端设置时区后是否需要后台同步到设备端, 见 miot/Host.ui.openDeviceTimeZoneSettingPage 的传参说明
  *   networkInfoConfig: number // 「更多设置」页面是否显示「网络信息」设置项。0：不显示；1：显示；-1：米家默认配置（蓝牙设备不显示，Wi-Fi设备显示）
  *   bleOtaAuthType: number // 打开通用的蓝牙固件OTA的原生页面。指定设备的协议类型 0: 普通小米蓝牙协议设备(新接入设备已废弃该类型)，1: 安全芯片小米蓝牙设备（比如锁类产品） 4: Standard Auth 标准蓝牙认证协议(通常2019.10.1之后上线的新蓝牙设备) 5: mesh 设备
+ *   10059新增
+ *   preOperations: object { AllOptions.SHARE: function, AllOptions.FIRMWARE_UPGRADE: function, AllOptions.CREATE_GROUP: function, AllOptions.MANAGE_GROUP: function  } // 打开分享、ota、创建组、编辑组页面的前置操作，只会在resolve中执行打开页面
  * }
  * ```
  * @property {object} navigation - 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面
@@ -485,6 +487,7 @@ export default class CommonSetting extends React.Component {
   }
   getCommonSetting(state) {
     let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory } = state || {};
+    const { preOperations } = this.props.extraOptions;
     if (!modelType) {
       modelType = '  ';
     }
@@ -504,7 +507,15 @@ export default class CommonSetting extends React.Component {
       },
       [AllOptions.SHARE]: {
         title: strings.share,
-        onPress: () => Host.ui.openShareDevicePage()
+        onPress: () => {
+          if (preOperations && preOperations[AllOptions.SHARE] instanceof Function) {
+            preOperations[AllOptions.SHARE]().then(() => {
+              Host.ui.openShareDevicePage();
+            });
+          } else {
+            Host.ui.openShareDevicePage();
+          }
+        }
       },
       // [AllOptions.BTGATEWAY]: {
       //   title: strings.btGateway,
@@ -528,15 +539,39 @@ export default class CommonSetting extends React.Component {
       },
       [AllOptions.FIRMWARE_UPGRADE]: {
         title: strings.firmwareUpgrade,
-        onPress: () => this.chooseFirmwareUpgrade()
+        onPress: () => {
+          if (preOperations && preOperations[AllOptions.FIRMWARE_UPGRADE] instanceof Function) {
+            preOperations[AllOptions.FIRMWARE_UPGRADE]().then(() => {
+              this.chooseFirmwareUpgrade();
+            });
+          } else {
+            this.chooseFirmwareUpgrade();
+          }
+        }
       },
       [AllOptions.CREATE_GROUP]: {
         title: strings[`create${ modelType[0].toUpperCase() }${ modelType.slice(1) }Group`],
-        onPress: () => this.createGroup()
+        onPress: () => {
+          if (preOperations && preOperations[AllOptions.CREATE_GROUP] instanceof Function) {
+            preOperations[AllOptions.CREATE_GROUP]().then(() => {
+              this.createGroup();
+            });
+          } else {
+            this.createGroup();
+          }
+        } 
       },
       [AllOptions.MANAGE_GROUP]: {
         title: strings[`manage${ modelType[0].toUpperCase() }${ modelType.slice(1) }Group`],
-        onPress: () => this.manageGroup()
+        onPress: () => {
+          if (preOperations && preOperations[AllOptions.MANAGE_GROUP] instanceof Function) {
+            preOperations[AllOptions.MANAGE_GROUP]().then(() => {
+              this.manageGroup();
+            });
+          } else {
+            this.manageGroup();
+          }
+        } 
       },
       [AllOptions.MORE]: {
         title: strings.more,
