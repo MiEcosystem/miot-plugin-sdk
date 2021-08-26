@@ -802,6 +802,9 @@ export default class CommonSetting extends React.Component {
     // }, 1000 * 3);
     this._updateFreqFlag();
     this.needUpgradeListener = DeviceEventEmitter.addListener('MH_FirmwareNeedUpdateAlert', (params) => {
+      if (Device.type === 6 || Device.type === 16) {
+        return;
+      }
       if (params && params.needUpgrade) {
         this.setState({ needShowUpgradeRedDot: true });
       }
