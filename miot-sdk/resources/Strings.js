@@ -327,7 +327,7 @@ strings = getStrings({
     yearUnit: "年",
     monthUnit: "月",
     dayUnit: "日",
-    hourUnit: "时",
+    hourUnit: "時",
     minuteUnit: "分",
     secondUnit: "秒",
     dateSubTitle: '{0}年{1}月{2}日', // 2019年06月03日
@@ -456,7 +456,7 @@ strings = getStrings({
     yearUnit: "年",
     monthUnit: "月",
     dayUnit: "日",
-    hourUnit: "时",
+    hourUnit: "時",
     minuteUnit: "分",
     secondUnit: "秒",
     dateSubTitle: '{0}年{1}月{2}日', // 2019年06月03日
