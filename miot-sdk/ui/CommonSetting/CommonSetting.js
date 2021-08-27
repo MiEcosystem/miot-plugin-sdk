@@ -1076,6 +1076,7 @@ export default class CommonSetting extends React.Component {
                 <ListItemWithSwitch
                   key={item.title}
                   title= {item.title}
+                  titleNumberOfLines={0}
                   value= {item.value}
                   onValueChange={item.onValueChange}
                 />
