@@ -245,6 +245,7 @@ const API_REPO = {
   '/v2/device/get_filter_device': {},
   '/v2/device/auth_partner_device': {},
   '/v2/device/cancel_partner_device': {},
-  '/v2/device/get_partner_device': {}
+  '/v2/device/get_partner_device': {},
+  'v2/public/get_product_config': {}
 };
 export default API_REPO;

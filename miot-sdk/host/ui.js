@@ -709,7 +709,7 @@ class IUi {
    * 在米家首页，手机接触到NFC设备时会读取写入的设备信息，读取成功后会自动打开相应的插件，插件可以通过Package.entryIfno.nfcdata获取
    * @param {jsonobject} params 需要写入到nfc设备数据;
    * params的格式如下：
-   * { 
+   * {
    *    did: string类型，设备的did,必填,且不能为空
    *    model: stringl类型, 对应插件的model,必填,切不能为空
    *    extra: json格式的string类型，需要写入到设备的额外参数，选填

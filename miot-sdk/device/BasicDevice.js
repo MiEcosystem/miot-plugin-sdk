@@ -219,6 +219,15 @@ export class BasicDevice {
      return  ""
   }
   /**
+   * 获取设备的 是否是新绑定的设备
+   * @return {boolean}
+   * @readonly
+   *
+   */
+  get isNew() {
+     return  ""
+  }
+  /**
     * 获取小米WiFi设备控制类
     * Device.getDeviceWifi().callMethod(xxx)
     */
@@ -695,7 +704,7 @@ export class BasicDevice {
   /**
    * 除了基本信息的其他部分额外信息都在这个字段返回，如：{"fw_version":"1.4.0","mcu_version":"0001","isSetPincode":0}
    * 可以解析为 json
-   * @deprecated since 10032 此字段后台无人维护，也无人知道它存在的含义，故废弃。
+   * 目前CommonSetting中的是否在首页展示多个设备，从该字段的split中取数据判断，如 {"showGroupMember": false, "split": {"moduleId": 2, "parentId": "1042550162"}}
    * @return {string}
    * @readonly
    *

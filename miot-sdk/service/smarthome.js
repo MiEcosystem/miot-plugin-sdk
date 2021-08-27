@@ -142,7 +142,7 @@ class ISmartHome {
        return Promise.resolve(null);
     }
     /**
-     * 获取服务器中 最新的版本信息，内部调用米家代理接口/home/latest_version
+     * 获取服务器中最新的版本信息，内部调用米家代理接口/home/latest_version
      * @deprecated 请使用下面的getLatestVersionV2
      * @param {string} model 设备的 model
      * @return {Promise}
@@ -152,7 +152,7 @@ class ISmartHome {
        return Promise.resolve(null);
     }
     /**
-     * 获取服务器中可用的固件更新版本信息
+     * 获取服务器中蓝牙设备可用的固件更新版本信息
      * 内部调用米家代理接口/v2/device/latest_ver
      * @since 10004
      * @param {string} did 设备did
@@ -1199,6 +1199,36 @@ class ISmartHome {
      */
     @report
     getTempUnit(params) {
+       return Promise.resolve(null);
+    }
+    
+    /**
+    * 获取是否开启自动升级
+    * @since 10059
+    * @param {string} aDevId
+    * @returns {Promise<{code:xx, data:xx}>}
+    * 成功
+    * code == 0 
+    * 失败
+    * code != 0 data 失败详情
+    */
+    
+    checkFirmwareAutoUpgradeOpen(aDevId = Device.deviceID) {
+       return Promise.resolve(null);
+    }
+    
+    /**
+    * 开启自动升级
+    * @since 10059
+    * @param {bool} aOpen
+    * @param {string} aDevId
+    * @returns {Promise<{code:xx, data:xx}>} 
+    *  成功
+    *  code == 0 
+    *  失败
+    *  code != 0 data 失败详情
+    */
+    setFirmwareAutoUpgradeSwitch(aOpen, aDevId = Device.deviceID) {
        return Promise.resolve(null);
     }
 }

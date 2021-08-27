@@ -1,4 +1,4 @@
-import { Package, PackageEvent, Device, Host, DeviceEvent, Service } from 'miot';
+import { Package, Entrance, PackageEvent, Device, Host, DeviceEvent, Service } from 'miot';
 // import {Device,DeviceEvent} from 'miot'
 // import {Host} from 'miot';
 import PropTypes from 'prop-types';
@@ -111,6 +111,34 @@ function getRoomeInfo() {
   });
 }
 getRoomeInfo().then(() => { }).catch(() => { });
+let hasStdPlugin = false;
+let selectedIndex = 0;
+const choiceIndexArray = [
+  {
+    title: strings.stdPluginTitle,
+    subtitle: strings.stdPluginSubTitle
+  },
+  {
+    title: strings.thirdPluginTitle
+  }
+];
+function getPluginCategory() {
+  return new Promise((resolve, reject) => {
+    Service.smarthome.getHomepageSettings()
+      .then((res) => {
+        if (res && res.data) {
+          resolve(res.data);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+getPluginCategory().then((res) => {
+  hasStdPlugin = res.standardized;
+  selectedIndex = res.homepage_type;
+}).catch(() => {});
 const firstOptionsInner = {
   /**
    * 按键设置，多键开关`必选`，其余设备`必不选`
@@ -235,7 +263,11 @@ const secondAllOptionsInner = {
   /**
    * 常用设备/设备首页常用设备
    */
-  FREQ_DEVICE: 'freqDevice'
+  FREQ_DEVICE: 'freqDevice',
+  /**
+   * 默认首页--标识标准插件还是厂商插件
+   */
+  DEFAULT_PLUGIN: 'default_plugin'
 };
 export const AllOptions = {
   ...firstAllOptionsInner,
@@ -273,7 +305,8 @@ const firstSharedOptions = {
   [AllOptions.PRODUCT_BAIKE]: 1,
   [AllOptions.STAND_PLUGIN]: 1,
   [AllOptions.FREQ_CAMERA]: 1,
-  [AllOptions.FREQ_DEVICE]: 1
+  [AllOptions.FREQ_DEVICE]: 1,
+  [AllOptions.DEFAULT_PLUGIN]: 1
 };
 /**
  * 20190708 / SDK_10023
@@ -293,8 +326,8 @@ export const AllOptionsWeight = {
   [AllOptions.FIRMWARE_UPGRADE]: 21,
   [AllOptions.HELP]: 24,
   [AllOptions.MORE]: 27,
-  [AllOptions.SECURITY]: 28,
   [AllOptions.STAND_PLUGIN]: 22,
+  [AllOptions.DEFAULT_PLUGIN]: 28,
   [AllOptions.FREQ_DEVICE]: 29,
   [AllOptions.FREQ_CAMERA]: 30,
   [AllOptions.MULTIPLEKEY_SWITCH]: 35,
@@ -412,6 +445,8 @@ const excludeOptions = {
  *   syncDevice: bool // 插件端设置时区后是否需要后台同步到设备端, 见 miot/Host.ui.openDeviceTimeZoneSettingPage 的传参说明
  *   networkInfoConfig: number // 「更多设置」页面是否显示「网络信息」设置项。0：不显示；1：显示；-1：米家默认配置（蓝牙设备不显示，Wi-Fi设备显示）
  *   bleOtaAuthType: number // 打开通用的蓝牙固件OTA的原生页面。指定设备的协议类型 0: 普通小米蓝牙协议设备(新接入设备已废弃该类型)，1: 安全芯片小米蓝牙设备（比如锁类产品） 4: Standard Auth 标准蓝牙认证协议(通常2019.10.1之后上线的新蓝牙设备) 5: mesh 设备
+ *   10059新增
+ *   preOperations: object { AllOptions.SHARE: function, AllOptions.FIRMWARE_UPGRADE: function, AllOptions.CREATE_GROUP: function, AllOptions.MANAGE_GROUP: function  } // 打开分享、ota、创建组、编辑组页面的前置操作，只会在resolve中执行打开页面
  * }
  * ```
  * @property {object} navigation - 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面
@@ -472,7 +507,8 @@ export default class CommonSetting extends React.Component {
     extraOptions: {}
   }
   getCommonSetting(state) {
-    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, multipleKeyisOn, keyNum } = state || {};
+    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory, multipleKeyisOn, keyNum } = state || {};
+    const { preOperations } = this.props.extraOptions;
     if (!modelType) {
       modelType = '  ';
     }
@@ -492,7 +528,15 @@ export default class CommonSetting extends React.Component {
       },
       [AllOptions.SHARE]: {
         title: strings.share,
-        onPress: () => Host.ui.openShareDevicePage()
+        onPress: () => {
+          if (preOperations && preOperations[AllOptions.SHARE] instanceof Function) {
+            preOperations[AllOptions.SHARE]().then(() => {
+              Host.ui.openShareDevicePage();
+            });
+          } else {
+            Host.ui.openShareDevicePage();
+          }
+        }
       },
       // [AllOptions.BTGATEWAY]: {
       //   title: strings.btGateway,
@@ -516,15 +560,39 @@ export default class CommonSetting extends React.Component {
       },
       [AllOptions.FIRMWARE_UPGRADE]: {
         title: strings.firmwareUpgrade,
-        onPress: () => this.chooseFirmwareUpgrade()
+        onPress: () => {
+          if (preOperations && preOperations[AllOptions.FIRMWARE_UPGRADE] instanceof Function) {
+            preOperations[AllOptions.FIRMWARE_UPGRADE]().then(() => {
+              this.chooseFirmwareUpgrade();
+            });
+          } else {
+            this.chooseFirmwareUpgrade();
+          }
+        }
       },
       [AllOptions.CREATE_GROUP]: {
         title: strings[`create${ modelType[0].toUpperCase() }${ modelType.slice(1) }Group`],
-        onPress: () => this.createGroup()
+        onPress: () => {
+          if (preOperations && preOperations[AllOptions.CREATE_GROUP] instanceof Function) {
+            preOperations[AllOptions.CREATE_GROUP]().then(() => {
+              this.createGroup();
+            });
+          } else {
+            this.createGroup();
+          }
+        } 
       },
       [AllOptions.MANAGE_GROUP]: {
         title: strings[`manage${ modelType[0].toUpperCase() }${ modelType.slice(1) }Group`],
-        onPress: () => this.manageGroup()
+        onPress: () => {
+          if (preOperations && preOperations[AllOptions.MANAGE_GROUP] instanceof Function) {
+            preOperations[AllOptions.MANAGE_GROUP]().then(() => {
+              this.manageGroup();
+            });
+          } else {
+            this.manageGroup();
+          }
+        } 
       },
       [AllOptions.MORE]: {
         title: strings.more,
@@ -568,12 +636,7 @@ export default class CommonSetting extends React.Component {
           }
           let logPara = { 'type': value ? 1 : 0 };
           Service.smarthome.reportMJFStatLog('multiple_switch_ck', logPara);
-          Service.callSmartHomeAPI("/v2/home/device_split_merge", { did: did, pattern: splitFlag }).then((res) => {
-            if (!res) {
-              Service.smarthome.reportLog(Device.model, `Service.smarthome.device_split_merge error: ${ splitStr }`);
-              this.showToast(splitStr, 1000);
-              return;
-            }
+          Service.callSmartHomeAPI("/v2/home/device_split_merge", { did: did, pattern: splitFlag }).then(() => {
             let param = { 'did': did, 'splitFlag': value ? 1 : 0 };
             Host.notifyMultikeyStateChanged(param);
             Package.exit();
@@ -594,6 +657,15 @@ export default class CommonSetting extends React.Component {
         Host.ui.openCommonDeviceSettingPage(1);
         Host.ui.clearFreqCameraNeedShowRedPoint();
         this.removeKeyFromShowDot(AllOptions.FREQ_CAMERA);
+      }
+    } : null;
+    ret[AllOptions.DEFAULT_PLUGIN] = hasStdPlugin ? {
+      title: strings.defaultPlugin,
+      value: choiceIndexArray[pluginCategory].title,
+      onPress: () => {
+        this.setState({
+          dialogVisible: true
+        });
       }
     } : null;
     // 常用设备
@@ -626,9 +698,11 @@ export default class CommonSetting extends React.Component {
       standPlugin: false, // 标准插件设置项的值
       showMultipleKey: false, // 是否展示多键开关
       multipleKeyisOn: false, // 多键开关状态
-      keyNum: 2, // 多键开关数量
+      keyNum: 0, // 多键开关数量
       toastVisible: false,
-      toastText: ''
+      toastText: '',
+      pluginCategory: selectedIndex,
+      dialogVisible: false
     };
     console.log(`Device.type: ${ Device.type }`);
     this.commonSetting = this.getCommonSetting(this.state);
@@ -802,17 +876,19 @@ export default class CommonSetting extends React.Component {
       let multipleKeyisOn = false;
       let showMultipleKey = false;
       let keyNum = 0;
-      if (Device.extra.split.parentId) {
-        // 子设备展示多键开关且只能合并
-        showMultipleKey = true;
-        multipleKeyisOn = true;
-        keyNum = Device.parentDevice.extra.split.subDids.length;
-      } else if (supportInfo[Device.deviceID]) {
+      if (supportInfo[Device.deviceID]) {
         let splitInfo = supportInfo[Device.deviceID];
-        if (splitInfo.keyNum > 0) {
-          showMultipleKey = true;
-          multipleKeyisOn = splitInfo.splitFlag === 1 ? true : false;
+        if (splitInfo.keyNum && splitInfo.keyNum > 0) {
           keyNum = splitInfo.keyNum;
+        } else {
+          return;
+        }
+        showMultipleKey = true;
+        // 父设备的开关状态从splitFlag取
+        multipleKeyisOn = splitInfo.splitFlag === 1 ? true : false;
+        if (Device.extra.split.parentId) {
+          // 子设备的只能合并，所以只能为开
+          multipleKeyisOn = true;
         }
       }
       this.commonSetting = this.getCommonSetting({
@@ -827,7 +903,7 @@ export default class CommonSetting extends React.Component {
         keyNum
       });
     }).catch((err) => {
-      Service.smarthome.reportLog(Device.model, `Service.smarthome.device_split_merge error: ${ err }`);
+      Service.smarthome.reportLog(Device.model, `Service.smarthome.device_support_split error: ${ err }`);
     });
     Service.smarthome.batchGetDeviceDatas([{
       did: Device.deviceID,
@@ -884,13 +960,19 @@ export default class CommonSetting extends React.Component {
       this.setState({ freqCameraNeedShowRedPoint });
     });
   }
+  _onDialogDismiss() {
+    this.setState({
+      dialogVisible: false
+    });
+  }
   render() {
     let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey } = this.state;
     let requireKeys1 = [
       AllOptions.FREQ_CAMERA,
       AllOptions.FREQ_DEVICE,
       AllOptions.NAME,
-      AllOptions.LOCATION
+      AllOptions.LOCATION,
+      AllOptions.DEFAULT_PLUGIN
     ];
     if (productBaikeUrl) {
       requireKeys1.push(AllOptions.PRODUCT_BAIKE);
@@ -1052,6 +1134,49 @@ export default class CommonSetting extends React.Component {
             }
           })
         }
+        {hasStdPlugin ?
+          <ChoiceDialog
+            visible={this.state.dialogVisible}
+            title={strings.selectDefaultHP}
+            useNewType={true}
+            dialogStyle={{
+              allowFontScaling: true,
+              unlimitedHeightEnable: false,
+              titleStyle: {
+                fontSize: 18
+              }
+            }}
+            buttons={[
+              {
+                text: strings.cancel
+              },
+              {
+                text: strings.ok,
+                callback: (result) => {
+                  this.setState({
+                    dialogVisible: false
+                  });
+                  const index = result && result[0];
+                  if (selectedIndex === index) {
+                    return;
+                  }
+                  selectedIndex = index;
+                  let params = { homepage_type: index };
+                  Service.smarthome.setHomepageSettings(params);
+                  this.commonSetting = this.getCommonSetting({
+                    ...this.state,
+                    pluginCategory: index
+                  });
+                  Host.ui.openPluginPage(Device.deviceID, Entrance.Main, { dismiss_current_plug: true });
+                }
+              }
+            ]}
+            options={choiceIndexArray}
+            selectedIndexArray={[selectedIndex]}
+            onDismiss={() => {
+              this._onDialogDismiss();
+            }}
+          /> : null}
         {/* <Separator /> */}
         {!Device.isFamily ?
           (<View style={[styles.bottomContainer, tempCommonSettingStyle.bottomContainer]} {...getAccessibilityConfig({
