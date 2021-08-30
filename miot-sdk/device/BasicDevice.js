@@ -267,7 +267,7 @@ export class BasicDevice {
      * 设备绑定到当前账号（当前家庭）下的时间戳（北京时间）
      * @since 10057
      * @member
-     * @return {Number} 单位秒 
+     * @return {Number} 单位秒
      * @readonly
      */
   get orderTime() {
