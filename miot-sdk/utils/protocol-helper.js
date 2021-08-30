@@ -90,7 +90,7 @@ export default class ProtocolManager {
   }
   static mapServerAccpetedLanguage(nativeLan) {
     const accpetedLanMap = {
-      'zh-Hans': 'zh_cn',
+      'zh-Hans': 'zh',
       'zh-Hant': 'zh_tw',
       'zh-Hant-HK': 'zh_hk',
       'pt-BR': 'pt_br'
