@@ -69,7 +69,8 @@ export default class UIDemo extends React.Component {
           { name: 'MiotAndroidScrollViewDemo(仅Android)', router: 'MiotAndroidScrollViewDemo' },
           { name: '绝对定位点击测试', router: 'AbsoluteTouch' },
           { name: '输入法软键盘适配测试', router: 'SoftKeyboardAdapterTestDemo' },
-          { name: '创建窗帘组', router: 'CurtainGroupPage' }
+          { name: '创建窗帘组', router: 'CurtainGroupPage' },
+          { name: 'RobotMapDemo', router: 'RobotMapDemo' }
         ])
     };
   }

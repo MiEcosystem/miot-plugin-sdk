@@ -1,10 +1,8 @@
 'use strict';
 
-import { Device, Host, DeviceEvent, PackageEvent } from "miot";
+import { Device, DeviceEvent, Host, PackageEvent } from "miot";
 import React from 'react';
-import {
-  ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View
-} from 'react-native';
+import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Logger from '../../Logger';
 
 let BUTTONS = [
@@ -621,10 +619,39 @@ export default class UIDemo extends React.Component {
         }
       },
       {
+        'name': 'openNFCWriteDeviceInfoDebugPage',
+        'subtitle': '打开NFC写设备信息Debug页面',
+        'func': () => {
+          let params = {
+            did: Device.deviceID,
+            model: Device.model,
+            extra: JSON.stringify({ key: 'test123' })
+          };
+          Host.ui.openNFCWriteDeviceInfoDebugPage(params);
+        }
+      },
+      {
         'name': 'openCommonDeviceSettingPage',
         'subtitle': '打开常用设备/常用摄像机设置页面',
         'func': () => {
           Host.ui.openCommonDeviceSettingPage(1);
+        }
+      },
+      {
+        'name': 'openGenerateCrontabStringPage',
+        'subtitle': '打开场景设置中的定时界面',
+        'func': () => {
+          Host.ui.openGenerateCrontabStringPage({ title: 'demo标题', hideLegalTime: false })
+            .then((crontab) => {
+              alert(crontab.data.crontab);
+            });
+        }
+      },
+      {
+        'name': 'openFirmWareAutoOTAPage',
+        'subtitle': '打开设置-检查更新中的固件自动更新',
+        'func': () => {
+          Host.ui.openFirmWareAutoOTAPage()
         }
       }
     ];
