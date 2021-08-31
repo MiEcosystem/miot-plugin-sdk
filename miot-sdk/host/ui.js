@@ -480,7 +480,7 @@ class IUi {
    * @param {object} pageParams  将打开插件的某一页面的参数，此参数将会赋值给 Package.entranceParams， 默认为空
    * @param {boolean} [pageParams.isBackToMainPage = true] 打开的插件页面按返回，是否需要返回到插件首页
    * @param {boolean} [params.dismiss_current_plug] since 10040 。是否在推出新的插件页面时，关掉当前页面，返回app首页，默认false。iOS Only
-   * @param {int}     [pageParams.from] since 10059, 可选参数，标识从哪里打开插件(不传默认为0)。可能的取值有：
+   * @param {int}     [pageParams.open_plugin_source] since 10059, 可选参数，标识从哪里打开插件(不传默认为0)。可能的取值有：
    * 0--默认值，如米家首页/其他；1-- 标准插件的更多功能；2--设置页的首页样式
    * @example
    * let pageParams = {did:Device.deviceID,model:Device.model}
