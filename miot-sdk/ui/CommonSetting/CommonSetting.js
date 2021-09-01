@@ -704,7 +704,8 @@ export default class CommonSetting extends React.Component {
       toastVisible: false,
       toastText: '',
       pluginCategory: selectedIndex,
-      dialogVisible: false
+      dialogVisible: false,
+      needShowUpgradeRedDot: false
     };
     console.log(`Device.type: ${ Device.type }`);
     this.commonSetting = this.getCommonSetting(this.state);
@@ -731,6 +732,7 @@ export default class CommonSetting extends React.Component {
     const { showUpgrade, upgradePageKey, bleOtaAuthType } = this.props.extraOptions;
     let { modelType } = this.state;
     Device.needUpgrade = false;
+    this.setState({ needShowUpgradeRedDot: false });
     if (showUpgrade === false) {
       // 蓝牙统一OTA界面
       if (upgradePageKey === undefined) {
@@ -935,6 +937,14 @@ export default class CommonSetting extends React.Component {
     //   this.setState({ standPlugin: true });
     // }, 1000 * 3);
     this._updateFreqFlag();
+    this.needUpgradeListener = DeviceEventEmitter.addListener('MH_FirmwareNeedUpdateAlert', (params) => {
+      if (Device.type === Device.DEVICE_TYPE.BLUETOOTH_SINGLE_MODEL_DEVICE || Device.type === Device.DEVICE_TYPE.BLE_MESH_DEVICE) {
+        return;
+      }
+      if (params && params.needUpgrade) {
+        this.setState({ needShowUpgradeRedDot: true });
+      }
+    });
   }
   _updateFreqFlag() {
     Device.getFreqFlag().then((freqFlagRes) => {
@@ -1041,7 +1051,7 @@ export default class CommonSetting extends React.Component {
         item.showDot = (this.state.showDot || []).includes(key);
         // 如果是固件升级设置项，且开发者没有传入是否显示
         if (key === AllOptions.FIRMWARE_UPGRADE && !item.showDot) {
-          item.showDot = Device.needUpgrade && !firmwareUpgradeDotClicked;
+          item.showDot = (Device.needUpgrade || this.state.needShowUpgradeRedDot) && !firmwareUpgradeDotClicked;
         } else if (key === AllOptions.FREQ_CAMERA && !item.showDot) {
           item.showDot = freqCameraNeedShowRedPoint;
         }
@@ -1273,6 +1283,7 @@ export default class CommonSetting extends React.Component {
   componentWillUnmount() {
     this._deviceNameChangedListener.remove();
     this._packageGobackFromNativeListerner && this._packageGobackFromNativeListerner.remove();
+    this.needUpgradeListener && this.needUpgradeListener.remove();
   }
 }
 const styles = dynamicStyleSheet({

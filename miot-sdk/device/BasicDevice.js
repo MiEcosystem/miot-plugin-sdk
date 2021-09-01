@@ -516,8 +516,30 @@ export class BasicDevice {
      return  ""
   }
   /**
+   * 设备类型常量
+   * */
+  DEVICE_TYPE = {
+    WIFI_SINGLE_MODEL_DEVICE: '0',
+    YUN_YI_DEVICE: '1',
+    CLOUD_DEVICE: '2',
+    ZIGBEE_DEVICE: '3',
+    VIRTUAL_DEVICE: '5',
+    BLUETOOTH_SINGLE_MODEL_DEVICE: '6',
+    LOCAL_AP_DEVICE: '7',
+    DUAL_MODEL_DEVICE: '8',
+    OTHER_DEVICE: '9',
+    FUNCTION_PLUGIN: '10',
+    SIM_CARD_DEVICE: '11',
+    NETWORK_CABLE_DEVICE: '12',
+    NB_IoT_DEVICE: '13',
+    THIRD_CLOUD_DEVICE: '14',
+    INFRARED_REMOTE_CONTROLLER_DEVICE: '15',
+    BLE_MESH_DEVICE: '16',
+    NEW_GROUP_VIRTUAL_DEVICE: '17'
+  }
+  /**
    * 获取设备类型，0：wifi单模设备，1：yunyi设备，2：云接入设备，3：zigbee设备，5：虚拟设备，6：蓝牙单模设备，7：本地AP设备，8：蓝牙wifi双模设备，9：其他，10：功能插件，11：SIM卡设备，12：网线设备，13：NB-IoT，14：第三方云接入，15：红外遥控器，16：BLE Mesh，17：虚拟设备（新设备组）
-   * @return {int}
+   * @return {string}
    * @readonly
    *
    */
