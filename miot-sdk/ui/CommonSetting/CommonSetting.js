@@ -581,7 +581,7 @@ export default class CommonSetting extends React.Component {
           } else {
             this.createGroup();
           }
-        } 
+        }
       },
       [AllOptions.MANAGE_GROUP]: {
         title: strings[`manage${ modelType[0].toUpperCase() }${ modelType.slice(1) }Group`],
@@ -593,7 +593,7 @@ export default class CommonSetting extends React.Component {
           } else {
             this.manageGroup();
           }
-        } 
+        }
       },
       [AllOptions.MORE]: {
         title: strings.more,
@@ -667,6 +667,7 @@ export default class CommonSetting extends React.Component {
         this.setState({
           dialogVisible: true
         });
+        Service.smarthome.reportEvent('home_option_dialog', {});
       }
     } : null;
     // 常用设备
@@ -1163,6 +1164,7 @@ export default class CommonSetting extends React.Component {
                     return;
                   }
                   selectedIndex = index;
+                  Service.smarthome.reportEvent('home_option_confirm', { plugin_form: index });
                   let params = { homepage_type: index };
                   Service.smarthome.setHomepageSettings(params);
                   this.commonSetting = this.getCommonSetting({
