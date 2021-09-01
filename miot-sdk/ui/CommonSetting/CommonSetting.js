@@ -6,6 +6,7 @@ import React from 'react';
 import { Platform, Text, View, DeviceEventEmitter } from 'react-native';
 import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
+import { formatString } from '../../resources/Strings';
 import ListItem from '../ListItem/ListItem';
 import ListItemWithSwitch from '../ListItem/ListItemWithSwitch';
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
@@ -13,6 +14,7 @@ import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } fr
 import { referenceReport } from '../../decorator/ReportDecorator';
 import DynamicColor from 'miot/ui/Style/DynamicColor';
 import { FontPrimary } from 'miot/utils/fonts';
+import { ToastView } from "mhui-rn/dist/components/toast";
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
 let firmwareUpgradeDotClicked = false;
 let modelType = '';
@@ -81,6 +83,21 @@ function getProductBaikeUrl() {
   });
 }
 getProductBaikeUrl().then(() => { }).catch(() => { });
+// 请求是否展示多键开关和开关的状态
+function getMultipleKey() {
+  return new Promise((resolve, reject) => {
+    Service.callSmartHomeAPI("/v2/home/device_support_split", { dids: [Device.deviceID] }).then((res) => {
+      if (!res || !res.supports) {
+        reject();
+      } else {
+        resolve(res.supports);
+      }
+    }).catch((error) => {
+      Service.smarthome.reportLog(Device.model, `Service.smarthome.device_support_split error: ${ JSON.stringify(error) }`);
+      reject(error);
+    });
+  });
+}
 let roomInfo = null;
 function getRoomeInfo() {
   return new Promise((resolve, reject) => {
@@ -163,7 +180,11 @@ const firstOptionsInner = {
   /**
    * 标准插件
    */
-  STAND_PLUGIN: 'standPlugin'
+  STAND_PLUGIN: 'standPlugin',
+  /**
+   * 多键开关
+   */
+  MULTIPLEKEY_SWITCH: 'MultipleKeySwitch'
 };
 const firstAllOptionsInner = {
   ...firstOptionsInner,
@@ -310,6 +331,7 @@ export const AllOptionsWeight = {
   [AllOptions.DEFAULT_PLUGIN]: 28,
   [AllOptions.FREQ_DEVICE]: 29,
   [AllOptions.FREQ_CAMERA]: 30,
+  [AllOptions.MULTIPLEKEY_SWITCH]: 35,
   // secondOptions
   [AllOptions.AUTO_UPGRADE]: 1,
   [AllOptions.PLUGIN_VERSION]: 1,
@@ -486,7 +508,7 @@ export default class CommonSetting extends React.Component {
     extraOptions: {}
   }
   getCommonSetting(state) {
-    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory } = state || {};
+    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory, multipleKeyisOn, keyNum } = state || {};
     const { preOperations } = this.props.extraOptions;
     if (!modelType) {
       modelType = '  ';
@@ -599,6 +621,32 @@ export default class CommonSetting extends React.Component {
           Service.smarthome.reportEvent(eventName, params);
           DeviceEventEmitter.emit('MIOT_SDK_COMMONSETTING_STANDPLUGIN_CLICK', value ? '2' : '1');
         }
+      },
+      [AllOptions.MULTIPLEKEY_SWITCH]: {
+        _itemType: 'greenSwitch',
+        title: formatString(strings.multipleKeyShowOnHome, keyNum),
+        value: multipleKeyisOn,
+        onValueChange: (value) => {
+          let splitFlag = value ? 'split' : 'merge';
+          let splitStr = value ? 'split failed' : 'merge failed';
+          let did = Device.deviceID;
+          if (splitFlag === 'merge' && Device.extraObj.split.parentId) {
+            // 拆分时使用did
+            // 合并时使用parentid, 若不存在则使用did
+            did = Device.extraObj.split.parentId;
+          }
+          let logPara = { 'type': value ? 1 : 0 };
+          Service.smarthome.reportMJFStatLog('multiple_switch_ck', logPara);
+          Service.callSmartHomeAPI("/v2/home/device_split_merge", { did: did, pattern: splitFlag }).then(() => {
+            let param = { 'did': did, 'splitFlag': value ? 1 : 0 };
+            Host.notifyMultikeyStateChanged(param);
+            Package.exit();
+          }).catch((error) => {
+            this.showToast(splitStr, 1000);
+            Service.smarthome.reportLog(Device.model, `Service.smarthome.device_split_merge error: ${ splitStr }`);
+            Service.smarthome.reportLog(Device.model, `Service.smarthome.device_split_merge error: ${ JSON.stringify(error) }`);
+          });
+        }
       }
     };
     // 常用摄像机(初摩象), 不是摄像机不添加, 避免后面多次判断
@@ -649,6 +697,11 @@ export default class CommonSetting extends React.Component {
       freqCameraFlag: false,
       freqCameraNeedShowRedPoint: false,
       standPlugin: false, // 标准插件设置项的值
+      showMultipleKey: false, // 是否展示多键开关
+      multipleKeyisOn: false, // 多键开关状态
+      keyNum: 0, // 多键开关数量
+      toastVisible: false,
+      toastText: '',
       pluginCategory: selectedIndex,
       dialogVisible: false
     };
@@ -713,6 +766,20 @@ export default class CommonSetting extends React.Component {
         Host.ui.openDeviceUpgradePage(1);
       }
     }
+  }
+  /**
+   * Toast提示
+   */
+  showToast(text, time) {
+    this.setState({
+      toastVisible: true,
+      toastText: text
+    });
+    setTimeout(() => {
+      this.setState(() => {
+        return { toastVisible: false, toastText: '' };
+      });
+    }, time);
   }
   /**
    * 创建组设备
@@ -806,6 +873,39 @@ export default class CommonSetting extends React.Component {
         roomInfo
       });
     });
+    getMultipleKey().then((supportInfo) => {
+      let multipleKeyisOn = false;
+      let showMultipleKey = false;
+      let keyNum = 0;
+      if (supportInfo[Device.deviceID]) {
+        let splitInfo = supportInfo[Device.deviceID];
+        if (splitInfo.keyNum && splitInfo.keyNum > 0) {
+          keyNum = splitInfo.keyNum;
+        } else {
+          return;
+        }
+        showMultipleKey = true;
+        // 父设备的开关状态从splitFlag取
+        multipleKeyisOn = splitInfo.splitFlag === 1 ? true : false;
+        if (Device.extraObj.split.parentId) {
+          // 子设备的只能合并，所以只能为开
+          multipleKeyisOn = true;
+        }
+      }
+      this.commonSetting = this.getCommonSetting({
+        ...this.state,
+        showMultipleKey,
+        multipleKeyisOn,
+        keyNum
+      });
+      this.setState({
+        showMultipleKey,
+        multipleKeyisOn,
+        keyNum
+      });
+    }).catch((err) => {
+      Service.smarthome.reportLog(Device.model, `Service.smarthome.device_support_split error: ${ err }`);
+    });
     Service.smarthome.batchGetDeviceDatas([{
       did: Device.deviceID,
       props: ['prop.s_commonsetting_stand_plugin']
@@ -867,7 +967,7 @@ export default class CommonSetting extends React.Component {
     });
   }
   render() {
-    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint } = this.state;
+    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey } = this.state;
     let requireKeys1 = [
       AllOptions.FREQ_CAMERA,
       AllOptions.FREQ_DEVICE,
@@ -877,6 +977,10 @@ export default class CommonSetting extends React.Component {
     ];
     if (productBaikeUrl) {
       requireKeys1.push(AllOptions.PRODUCT_BAIKE);
+    }
+    if (showMultipleKey) {
+      // 展示多键开关
+      requireKeys1.push(AllOptions.MULTIPLEKEY_SWITCH);
     }
     // 创建组设备
     // 蓝牙单模和组设备不能创建
@@ -955,12 +1059,30 @@ export default class CommonSetting extends React.Component {
             {strings.commonSetting}
           </Text>
         </View>
+        <ToastView
+          visible={this.state.toastVisible}
+          hideOnPress={true}
+          animation={false}
+          position={-86}
+          containerStyle={{ display: 'flex', flexDirection: 'row' }}
+          text={this.state.toastText}
+        />
         {/* <Separator style={{ marginLeft: Styles.common.padding }} /> */}
         {
           items.map((item) => {
             if (!item || !item.title) return null;
             const showSeparator = false;// index !== items.length - 1;
-            if (item._itemType === 'switch') {
+            if (item._itemType === 'greenSwitch') {
+              return (
+                <ListItemWithSwitch
+                  key={item.title}
+                  title= {item.title}
+                  titleNumberOfLines={0}
+                  value= {item.value}
+                  onValueChange={item.onValueChange}
+                />
+              );
+            } else if (item._itemType === 'switch') {
               return (
                 <ListItemWithSwitch
                   key={item.title}

@@ -267,7 +267,7 @@ export class BasicDevice {
      * 设备绑定到当前账号（当前家庭）下的时间戳（北京时间）
      * @since 10057
      * @member
-     * @return {Number} 单位秒 
+     * @return {Number} 单位秒
      * @readonly
      */
   get orderTime() {
@@ -710,6 +710,19 @@ export class BasicDevice {
    *
    */
   get extra() {
+     return ""
+  }
+  
+  /**
+   * 除了基本信息的其他部分额外信息都在这个字段返回, 如：{"fw_version":"1.4.0","mcu_version":"0001","isSetPincode":0}
+   * 返回json对象
+   * 目前CommonSetting中的是否在首页展示多个设备，从该字段的split中取数据判断，如 {"showGroupMember": false, "split": {"moduleId": 2, "parentId": "1042550162"}}
+   * @since 10059
+   * @return {json}
+   * @readonly
+   *
+   */
+  get extraObj() {
      return ""
   }
   /**

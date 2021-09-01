@@ -55,6 +55,7 @@ let strings = {
   addToDesktop: '',
   open: "",
   close: "",
+  multipleKeyShowOnHome: "",
   // 常用设备
   favoriteDevices: "",
   favoriteCamera: "",
@@ -176,6 +177,7 @@ strings = getStrings({
     addToDesktop: '添加桌面快捷方式',
     open: "开",
     close: "关",
+    multipleKeyShowOnHome: "在首页展示为{0}个按键",
     // 常用设备
     favoriteDevices: "常用设备",
     favoriteCamera: "快捷摄像机",
@@ -305,6 +307,7 @@ strings = getStrings({
     addToDesktop: '新増捷徑至桌面',
     open: "開",
     close: "關",
+    multipleKeyShowOnHome: "在首頁展示為 {0} 個按鍵",
     // 常用设备
     favoriteDevices: "常用裝置",
     favoriteCamera: "快捷攝影機",
@@ -434,6 +437,7 @@ strings = getStrings({
     addToDesktop: '新增捷徑到桌面',
     open: "開",
     close: "關",
+    multipleKeyShowOnHome: "在首頁顯示為{0}個按鍵",
     // 常用设备
     favoriteDevices: "常用裝置",
     favoriteCamera: "快捷攝影機",
@@ -563,6 +567,7 @@ strings = getStrings({
     addToDesktop: 'Add to Home screen',
     open: "On",
     close: "Off",
+    multipleKeyShowOnHome: "The number of buttons shown on the home page: {0}",
     // 常用设备
     favoriteDevices: "Favorites",
     favoriteCamera: "Camera shortcut",
@@ -692,6 +697,7 @@ strings = getStrings({
     addToDesktop: '홈 화면에 추가',
     open: "켜기",
     close: "끄기",
+    multipleKeyShowOnHome: "홈페이지에 표시할 버튼 수: {0}",
     // 常用设备
     favoriteDevices: "자주 사용하는 기기",
     favoriteCamera: "카메라 바로가기",
@@ -821,6 +827,7 @@ strings = getStrings({
     addToDesktop: 'Добавить на главный экран',
     open: "Вкл",
     close: "Выкл",
+    multipleKeyShowOnHome: "Количество кнопок, отображаемых на домашней странице: {0}",
     // 常用设备
     favoriteDevices: "Избранное",
     favoriteCamera: "Ярлык камеры",
@@ -950,6 +957,7 @@ strings = getStrings({
     addToDesktop: 'Añadir a la pantalla de Inicio',
     open: "Activado",
     close: "Desactivado",
+    multipleKeyShowOnHome: "El número de botones mostrados en la página de inicio: {0}",
     // 常用设备
     favoriteDevices: "Favoritos",
     favoriteCamera: "Acceso directo a la cámara",
@@ -1079,6 +1087,7 @@ strings = getStrings({
     addToDesktop: "Ajouter à l'écran d'accueil",
     open: "Allumé",
     close: "Éteint",
+    multipleKeyShowOnHome: "Nombre de boutons affichés sur la page d’accueil : {0}",
     // 常用设备
     favoriteDevices: "Favoris",
     favoriteCamera: "Raccourci caméra",
@@ -1208,6 +1217,7 @@ strings = getStrings({
     addToDesktop: 'Aggiungi a schermata iniziale',
     open: "Attivato",
     close: "Disattivato",
+    multipleKeyShowOnHome: "Numero di pulsanti visualizzati nella pagina iniziale: {0}",
     // 常用设备
     favoriteDevices: "Preferiti",
     favoriteCamera: "Collegamento telecamera",
@@ -1337,6 +1347,7 @@ strings = getStrings({
     addToDesktop: 'Zum Startbildschirm hinzufügen',
     open: "Ein",
     close: "Aus",
+    multipleKeyShowOnHome: "Die Anzahl der Schaltflächen auf der Startseite: {0}",
     // 常用设备
     favoriteDevices: "Favoriten",
     favoriteCamera: "Kameraverknüpfung",
@@ -1466,6 +1477,7 @@ strings = getStrings({
     addToDesktop: 'Tambahkan ke layar Beranda',
     open: "Aktif",
     close: "Nonaktif",
+    multipleKeyShowOnHome: "Jumlah tombol yang ditunjukkan di halaman beranda: {0}",
     // 常用设备
     favoriteDevices: "Favorit",
     favoriteCamera: "Pintasan kamera",
@@ -1595,6 +1607,7 @@ strings = getStrings({
     addToDesktop: 'Dodaj do ekranu głównego',
     open: "Włączone",
     close: "Wyłączone",
+    multipleKeyShowOnHome: "Liczba przycisków pokazana na stronie głównej: {0}",
     // 常用设备
     favoriteDevices: "Ulubione",
     favoriteCamera: "Skrót do kamery",
@@ -1724,6 +1737,7 @@ strings = getStrings({
     addToDesktop: 'Thêm vào Màn hình chính',
     open: "Bật",
     close: "Tắt",
+    multipleKeyShowOnHome: "Số nút hiển thị trên trang chủ: {0}",
     // 常用设备
     favoriteDevices: "Mục yêu thích",
     favoriteCamera: "Lối tắt camera",
@@ -1853,6 +1867,7 @@ strings = getStrings({
     addToDesktop: 'ホーム画面に追加する',
     open: "オン",
     close: "オフ",
+    multipleKeyShowOnHome: "ホームページに表示されるボタンの数：{0}",
     // 常用设备
     favoriteDevices: "よく使うデバイス",
     favoriteCamera: "カメラのショートカット",
@@ -1982,6 +1997,7 @@ strings = getStrings({
     addToDesktop: 'เพิ่มไปยังหน้าโฮม',
     open: "เปิด",
     close: "ปิด",
+    multipleKeyShowOnHome: "จำนวนปุ่มที่แสดงบนหน้าหลัก: {0}",
     // 常用设备
     favoriteDevices: "รายการโปรด",
     favoriteCamera: "คีย์ทางลัดกล้อง",
@@ -2111,6 +2127,7 @@ strings = getStrings({
     addToDesktop: 'Ana ekrana ekleyin',
     open: "Açık",
     close: "Kapalı",
+    multipleKeyShowOnHome: "Ana sayfada gösterilen düğme sayısı: {0}",
     // 常用设备
     favoriteDevices: "Favoriler",
     favoriteCamera: "Kamera kısayolu",
@@ -2240,6 +2257,7 @@ strings = getStrings({
     addToDesktop: 'Toevoegen aan het startscherm',
     open: "Aan",
     close: "Uit",
+    multipleKeyShowOnHome: "Het aantal knoppen dat op de startpagina wordt getoond: {0}",
     // 常用设备
     favoriteDevices: "Favorieten",
     favoriteCamera: "Snelkoppeling voor de camera",
@@ -2369,6 +2387,7 @@ strings = getStrings({
     addToDesktop: 'Adicionar à tela de início',
     open: "Ligar",
     close: "Desligar",
+    multipleKeyShowOnHome: "Número de botões exibidos na tela inicial: {0}",
     // 常用设备
     favoriteDevices: "Favoritos",
     favoriteCamera: "Atalho para a câmera",
