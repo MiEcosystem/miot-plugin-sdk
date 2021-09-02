@@ -237,7 +237,7 @@ export default {
    * @type {string}
    * @readonly
    * 
-   * /
+   */
   get packageName() {
      return  ""
   },
@@ -246,7 +246,6 @@ export default {
    * @const
    * @type {int}
    * @readonly
-   *
    */
   get minApiLevel() {
      return  0
