@@ -667,7 +667,7 @@ export default class CommonSetting extends React.Component {
         this.setState({
           dialogVisible: true
         });
-        Service.smarthome.reportEvent('home_option_dialog', {});
+        Service.smarthome.reportEvent('expose', {});
       }
     } : null;
     // 常用设备
@@ -1174,7 +1174,7 @@ export default class CommonSetting extends React.Component {
                     return;
                   }
                   selectedIndex = index;
-                  Service.smarthome.reportEvent('home_option_confirm', { plugin_form: index });
+                  Service.smarthome.reportEvent('click', { plugin_form: index });
                   let params = { homepage_type: index };
                   Service.smarthome.setHomepageSettings(params);
                   this.commonSetting = this.getCommonSetting({
