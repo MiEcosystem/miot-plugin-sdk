@@ -8,6 +8,8 @@
  *
  */
 import { report } from "../decorator/ReportDecorator";
+import Permission from '../service/permission';
+import Device from "../device/BasicDevice";
 /**
  * 成员类型
  * @namespace MemberType
@@ -140,7 +142,7 @@ class ISmartHome {
        return Promise.resolve(null);
     }
     /**
-     * 获取服务器中 最新的版本信息，内部调用米家代理接口/home/latest_version
+     * 获取服务器中最新的版本信息，内部调用米家代理接口/home/latest_version
      * @deprecated 请使用下面的getLatestVersionV2
      * @param {string} model 设备的 model
      * @return {Promise}
@@ -150,7 +152,7 @@ class ISmartHome {
        return Promise.resolve(null);
     }
     /**
-     * 获取服务器中可用的固件更新版本信息
+     * 获取服务器中蓝牙设备可用的固件更新版本信息
      * 内部调用米家代理接口/v2/device/latest_ver
      * @since 10004
      * @param {string} did 设备did
@@ -348,7 +350,7 @@ class ISmartHome {
      * 设置服务器中 device 对应的数据，内部调用米家代理接口/device/setsetting
      * @param {object} params 请求参数 {did:string,settings:map<key,value>}
      * @param {string} params.did did
-     * @param {object} params.settings 指定设置的key数组
+     * @param {object} params.settings 指定设置的key数组，保存的内容不能超过1000个字符
      * @return {Promise}
      */
     @report
@@ -368,7 +370,7 @@ class ISmartHome {
     }
     /**
      * 添加设备属性和事件历史记录，/user/set_user_device_data
-     * 对于蓝牙设备，params.key 可参考文档  https://iot.mi.com/new/guide.html?file=04-嵌入式开发指南/06-BLE产品接入/06-米家BLE%20Object定义#/
+     * 对于蓝牙设备，params.key 可参考文档  https://iot.mi.com/new/doc/embedded-development/ble/object-definition
      * @param {object} params  参数
      * @param {string} params.did 设备did，
      * @param {string} params.uid 添加到哪个用户下,一般为 Device.ownerId，
@@ -420,7 +422,7 @@ class ISmartHome {
      * @since 10004
      * @param {object} params {did:'', type: '', key:'',time:number} did:设备ID ;type: 要删除的类型 ;key: 事件名称. motion/alarm ;time:时间戳，单位秒
      * @param {string} params.did 设备id。 必选参数
-     * @param {string} params.type type 定义与SDS表中type一致。必选参数。可参考SDS文档中的示例：https://iot.mi.com/new/doc/08-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/03-%E5%AD%98%E5%82%A8/02-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8-SDS.html?h=del_user_device_data
+     * @param {string} params.type type 定义与SDS表中type一致。必选参数。可参考SDS文档中的示例：https://iot.mi.com/new/doc/cloud-service/storage/sds#del_user_device_data
      * @param {string} params.key key 事件名，可自定义,定义与SDS表中key一致。必选参数
      * @param {string} params.time 指定时间戳
      * @param {string} params.value 指定值
@@ -523,7 +525,7 @@ class ISmartHome {
        return Promise.resolve(null);
     }
     /**
-     * 添加设备属性和事件历史记录，/home/device_list
+     * 添加设备属性和事件历史记录，/home/device_list (仅白名单设备才允许调用此方法，如需使用，请联系插件框架)
      * 当ssid和bssid均不为空时，表示同时搜索这个局域网内所有未被绑定过的设备
      * @param {json} params {pid:string ,ssid:string ,bssid:string ,localDidList:array<string>,checkMoreWifi:bool,dids:array<string>}
      * @param {string} params.pid               Device.type
@@ -731,7 +733,7 @@ class ISmartHome {
        return Promise.resolve(null);
     }
     /**
-     * 获取InterimFileUrl 获取临时文件。文档请参考：https://iot.mi.com/new/doc/08-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/03-%E5%AD%98%E5%82%A8/01-%E4%BD%BF%E7%94%A8FDS%E5%AD%98%E5%82%A8%E7%94%A8%E6%88%B7%E6%96%87%E4%BB%B6.html#%E5%9B%9B%EF%BC%8Efds%E5%AD%98%E5%82%A8%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD%E6%B5%81%E7%A8%8B
+     * 获取InterimFileUrl 获取临时文件。
      * @param {json} params  -参数 {obj_name : '{ownerId}/{deviceId}/{index}'}
      * @returns {Promise}
      */
@@ -766,7 +768,7 @@ class ISmartHome {
     }
     /**
      * /v2/home/range_get_open_config
-     * 通过appid、category、configid获获取对应的配置，请参考文档文档：https://iot.mi.com/new/doc/08-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/03-%E5%AD%98%E5%82%A8/03-KV-OpenConfig.html
+     * 通过appid、category、configid获取对应的配置，请参考文档文档：https://iot.mi.com/new/doc/cloud-service/storage/kv-openconfig
      * @since 10002
      * @param {json} params  -参数 {did,category,configids,offset,limit}
      * @return {Promise}
@@ -1085,7 +1087,7 @@ class ISmartHome {
     /**
      * since 10036
      * @param {string} eventName 事件名
-     * @param {map} params kv键值对，key和value都必须是string类型
+     * @param {map} params kv键值对，key必须是string类型，value是基础类型（int,strig,float,boolean）
      * @example
      * let eventName = 'testEvent';
      * let params = {'key1':'value1','key2':'value2','tip':'tips'};
@@ -1175,3 +1177,60 @@ class ISmartHome {
     getVirtualGroupSubDevicesTags(group_did) {
        return Promise.resolve({});
        return end
+       return Promise.resolve(null);
+    }
+    /**
+     * 获取用户米家温度单位信息
+     * @since 10055
+     * 请求参数：
+     * {
+     *    "keys":["xxx"],     //要查询的属性key数组，1、温度单位切换：miot_temperature_style
+     * }
+     * @returns {Promise<array>}
+     * 成功返回参数：
+     *  "configInfos":[
+     *   {
+     *     "key":"xxx",     //属性key
+     *     "value":"f"      //属性value： 1、当key=miot_temperature_style时，value值：摄氏度：c，华氏度：f，未设置：空字符串
+     *    }
+     * ]
+     * 失败时：返回
+     * { "code":xxx, "message":"xxx"}
+     */
+    @report
+    getTempUnit(params) {
+       return Promise.resolve(null);
+    }
+    
+    /**
+    * 获取是否开启自动升级
+    * @since 10059
+    * @param {string} aDevId
+    * @returns {Promise<{code:xx, data:xx}>}
+    * 成功
+    * code == 0 
+    * 失败
+    * code != 0 data 失败详情
+    */
+    
+    checkFirmwareAutoUpgradeOpen(aDevId = Device.deviceID) {
+       return Promise.resolve(null);
+    }
+    
+    /**
+    * 开启自动升级
+    * @since 10059
+    * @param {bool} aOpen
+    * @param {string} aDevId
+    * @returns {Promise<{code:xx, data:xx}>} 
+    *  成功
+    *  code == 0 
+    *  失败
+    *  code != 0 data 失败详情
+    */
+    setFirmwareAutoUpgradeSwitch(aOpen, aDevId = Device.deviceID) {
+       return Promise.resolve(null);
+    }
+}
+const SmartHomeInstance = new ISmartHome();
+export default SmartHomeInstance;
