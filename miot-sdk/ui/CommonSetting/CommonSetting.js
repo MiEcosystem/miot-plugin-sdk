@@ -1,9 +1,9 @@
-import { Package, Entrance, PackageEvent, Device, Host, DeviceEvent, Service } from 'miot';
+import { Device, DeviceEvent, Entrance, Host, Package, PackageEvent, Service } from 'miot';
 // import {Device,DeviceEvent} from 'miot'
 // import {Host} from 'miot';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Platform, Text, View, DeviceEventEmitter } from 'react-native';
+import { DeviceEventEmitter, Text, View } from 'react-native';
 import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
 import { formatString } from '../../resources/Strings';
@@ -667,7 +667,7 @@ export default class CommonSetting extends React.Component {
         this.setState({
           dialogVisible: true
         });
-        Service.smarthome.reportEvent('expose', {});
+        Service.smarthome.reportEvent('expose', { tip: '6.18.1.1.15487' });
       }
     } : null;
     // 常用设备
@@ -1174,7 +1174,7 @@ export default class CommonSetting extends React.Component {
                     return;
                   }
                   selectedIndex = index;
-                  Service.smarthome.reportEvent('click', { plugin_form: index });
+                  Service.smarthome.reportEvent('click', { plugin_form: index, tip: '6.18.1.1.15488' });
                   let params = { homepage_type: index };
                   Service.smarthome.setHomepageSettings(params);
                   this.commonSetting = this.getCommonSetting({
