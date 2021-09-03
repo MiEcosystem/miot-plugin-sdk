@@ -94,12 +94,12 @@ export default class ProtocolManager {
       'zh-Hans': 'zh',
       'zh-Hant': 'zh_tw',
       'zh-Hant-HK': 'zh_hk',
+      'pt-BR': 'pt_br',
       // android
-      'zh-CN': 'zh',
-      'zh-TW': 'zh_tw',
-      'zh-HK': 'zh_hk',
-      // both
-      'pt-BR': 'pt_br'
+      'zh_CN': 'zh',
+      'zh_TW': 'zh_tw',
+      'zh_HK': 'zh_hk',
+      'pt_BR': 'pt_br'
     };
     if (!nativeLan) {
       return '';
