@@ -246,6 +246,10 @@ const API_REPO = {
   '/v2/device/auth_partner_device': {},
   '/v2/device/cancel_partner_device': {},
   '/v2/device/get_partner_device': {},
-  'v2/public/get_product_config': {}
+  '/v2/public/get_product_config': {},
+  
+  // 设备访问记录相关接口
+  '/v2/device/setRecord': {},
+  '/v2/device/batchSetRecord': {}
 };
 export default API_REPO;
