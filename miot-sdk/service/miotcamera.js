@@ -868,6 +868,8 @@ class IMiotCamera {
    * @param {string} aDid 设备id
    * @since 10055
    * @example 
+   *     Service.miotcamera.sendP2PCommandToDevice(MISSCommand.MISS_CMD_SPEAKER_START_REQ, {})
+   *     收到回复 MISSCommand.MISS_CMD_SPEAKER_START_RESP 之后可以发送
    *     Service.miotcamera.sendAudioData(data, header).then(xxx).catch(yyy);
    */
     @report
