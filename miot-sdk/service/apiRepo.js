@@ -206,6 +206,8 @@ const API_REPO = {
   '/common/app/get/fileIdEvents': {},
   // 每日故事开关接口
   '/miot/camera/app/v1/put/dailyStorySwitch': {},
+  // 新的获取设备属性接口，结果中带有上报的时间戳
+  '/v2/device/batchgetdatas': {},
   // 免费人脸
   '/miot/camera/app/v1/vip/freeface/addFreeface': {},
   '/miot/camera/app/v1/vip/freeface/status': {},
