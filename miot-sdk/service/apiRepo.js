@@ -250,6 +250,8 @@ const API_REPO = {
   
   // 设备访问记录相关接口
   '/v2/device/setRecord': {},
-  '/v2/device/batchSetRecord': {}
+  '/v2/device/batchSetRecord': {},
+  '/v2/device/getRecordByUid': {},
+  '/v2/device/batchGetRecord': {}
 };
 export default API_REPO;
