@@ -90,10 +90,16 @@ export default class ProtocolManager {
   }
   static mapServerAccpetedLanguage(nativeLan) {
     const accpetedLanMap = {
+      // ios
       'zh-Hans': 'zh',
       'zh-Hant': 'zh_tw',
       'zh-Hant-HK': 'zh_hk',
-      'pt-BR': 'pt_br'
+      'pt-BR': 'pt_br',
+      // android
+      'zh_CN': 'zh',
+      'zh_TW': 'zh_tw',
+      'zh_HK': 'zh_hk',
+      'pt_BR': 'pt_br'
     };
     if (!nativeLan) {
       return '';
