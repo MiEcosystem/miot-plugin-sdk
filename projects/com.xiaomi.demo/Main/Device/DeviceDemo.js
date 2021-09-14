@@ -68,6 +68,11 @@ export default class DeviceDemo extends React.Component {
     this.eventSubscription.remove();
   }
 
+  formatOrderTime() {
+    const date = new Date(this.state.device.orderTime * 1000);
+    return `${ this.state.device.orderTime.toString() }-${ date.getUTCFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() }`;
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -120,7 +125,8 @@ export default class DeviceDemo extends React.Component {
                     ['isShared', this.state.device.isShared.toString()],
                     ['isBinded2', this.state.device.isBinded2.toString()],
                     ['isReadOnlyShared', this.state.device.isReadonlyShared.toString()],
-                    ['是否是根设备', this.state.device.isRootDevice.toString()]
+                    ['是否是根设备', this.state.device.isRootDevice.toString()],
+                    ['设备绑定时间orderTime', this.formatOrderTime()]
                   ]
                 },
                 {
