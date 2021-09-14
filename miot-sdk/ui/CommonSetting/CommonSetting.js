@@ -17,11 +17,11 @@ import { FontPrimary } from 'miot/utils/fonts';
 let firmwareUpgradeDotClicked = false;
 let modelType = '';
 function getModelType() {
+  
   return new Promise((resolve) => {
     if (modelType) {
       resolve(modelType);
       return;
-      
     }
     Service.spec.getSpecString(Device.deviceID).then((instance) => {
       if (typeof instance === 'string') {
@@ -566,7 +566,7 @@ export default class CommonSetting extends React.Component {
               return;
             }
             // 开关状态和上次请求到的multipleKeyisOn不同时直接退出插件
-            let param = { 'did': Device.deviceID, 'splitFlag': value ? '1' : '0' };
+            let param = { 'did': Device.deviceID, 'splitFlag': value ? 1 : 0 };
             Host.notifyMultikeyStateChanged(param);
             Package.exit();
           }).catch((error) => {
