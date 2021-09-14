@@ -40,7 +40,7 @@ export default class App extends React.Component {
      * 检测是否需要弹出隐私弹窗
      * 如果您的插件决定使用开发者平台上进行配置隐私协议，则无需调用此API，删除如下一行代码即可
      * 具体文档可以查看：
-     * https://iot.mi.com/new/doc/app-development/extension-development/law-info.html
+     * https://iot.mi.com/new/doc/extension-development/basic-functions/law-info
      */
     this.checkToAlertLegalInformationAuthorization();
   }

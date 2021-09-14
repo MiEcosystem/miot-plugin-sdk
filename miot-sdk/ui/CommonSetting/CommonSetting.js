@@ -19,6 +19,7 @@ let modelType = '';
 function getModelType() {
   return new Promise((resolve) => {
     if (modelType) {
+      
       resolve(modelType);
       return;
     }
@@ -335,7 +336,6 @@ const excludeOptions = {
  * @typedef {Object} moreSettingPageStyle
  * @property {style} navigationBarStyle - 标题的自定义样式 -可参考 NavigationBar 样式
  * @property {style} itemStyle - 列表中 item样式
- * @property {style} - 10053新增 blankStyle - 标题栏与列表间分隔部分的样式
  * @property {style} - 10053新增 containerStyle - 标题栏下方内容的样式
  */
 /**
@@ -360,7 +360,7 @@ const excludeOptions = {
  * @since 10004
  * @module CommonSetting
  * @description 米家通用设置项
- * @property {array} firstOptions - 一级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项
+ * @property {array} firstOptions - 一级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项，其中产品百科的配置请参考:https://iot.mi.com/new/doc/guidelines-for-access/direct-access/publish-product
  * @property {array} secondOptions - 二级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项
  * @property {array} showDot - 定义哪些列表项需要显示小红点。为了便于扩展每个列表项都可以显示小红点，默认全部**不显示**，需要显示传入该列表项的key即可。
  * @property {CommonSettingStyle} commonSettingStyle - - 10040新增 CommonSetting 中有关字体样式相关设置
