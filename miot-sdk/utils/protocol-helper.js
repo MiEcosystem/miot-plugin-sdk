@@ -10,8 +10,7 @@ export default class ProtocolManager {
       let { model } = Device;
       let plugin_id = native.MIOTPackage.pluginID;
       let plugin_version = native.MIOTPackage.version;
-      let native_language = native.MIOTHost.language;
-      let language = ProtocolManager.mapServerAccpetedLanguage(native_language);
+      let language = native.language;
       Service.getServerName().then((server) => {
         let country = server.countryCode;
         let serverCode = (server.serverCode || country).toLowerCase();
@@ -20,8 +19,7 @@ export default class ProtocolManager {
           plugin_id,
           plugin_version,
           country,
-          language,
-          native_language
+          language
         };
         let params = [1, 2, 3].map((type_int) => {
           return {
@@ -87,27 +85,5 @@ export default class ProtocolManager {
       return isAndroid ? [{ uri: url }] : url;
     }
     return this.resolveUrl(url);
-  }
-  static mapServerAccpetedLanguage(nativeLan) {
-    const accpetedLanMap = {
-      // ios
-      'zh-Hans': 'zh',
-      'zh-Hant': 'zh_tw',
-      'zh-Hant-HK': 'zh_hk',
-      'pt-BR': 'pt_br',
-      // android
-      'zh_CN': 'zh',
-      'zh_TW': 'zh_tw',
-      'zh_HK': 'zh_hk',
-      'pt_BR': 'pt_br'
-    };
-    if (!nativeLan) {
-      return '';
-    }
-    let accLan = accpetedLanMap[nativeLan];
-    if (accLan) {
-      return accLan;
-    }
-    return nativeLan;
   }
 }
