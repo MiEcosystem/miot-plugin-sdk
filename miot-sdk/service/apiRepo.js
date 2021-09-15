@@ -170,9 +170,13 @@ const API_REPO = {
   '/home/getfileurl_v3': {},
   '/v2/home/getfileurl_v3': {},
   '/v2/recipes/query': {},
+  '/v2/recipes/getById': {},
   '/home/devupgrade': {},
   '/v2/device/get_auto_upgrade_config': {},
   '/v2/device/get_firmware_history': {},
+  // 多键开关相关
+  '/v2/home/device_support_split': {},
+  '/v2/home/device_split_merge': {},
   '/appgateway/miot/appdeviceinfo_service/AppDeviceInfoService/get_last_online': {},
   // 往服务器塞/get 二进制数据。
   '/common/app/data/put': {},
@@ -198,6 +202,58 @@ const API_REPO = {
   '/common/app/v1/cloud/file/exist': {},
   '/common/app/get/cloudlist': {},
   '/common/app/v1/capacity': {},
-  '/v2/scene/get_rec_in_plugin': {}
+  '/v2/scene/get_rec_in_plugin': {},
+  '/common/app/get/fileIdEvents': {},
+  // 每日故事开关接口
+  '/miot/camera/app/v1/put/dailyStorySwitch': {},
+  // 新的获取设备属性接口，结果中带有上报的时间戳
+  '/v2/device/batchgetdatas': {},
+  // 免费人脸
+  '/miot/camera/app/v1/vip/freeface/addFreeface': {},
+  '/miot/camera/app/v1/vip/freeface/status': {},
+  "/miot/camera/app/v1/delete/figures": {}, // 删除人物S
+  "/miot/camera/app/v1/get/faces": {}, // 获取用户标注的所有人脸
+  "/miot/camera/app/v1/get/figureFaces": {}, // 获取某个人物的所有人脸
+  "/miot/camera/app/v1/get/unmarkFaces": {}, // 获取用户未标注的所有人脸
+  "/miot/camera/app/v1/get/figureByMarkedFace": {}, // 根据标记的人脸获取人物
+  "/miot/camera/app/v1/add/cluster/face": {}, // 添加人脸到人物2
+  "/miot/camera/app/v1/delete/faces": {}, // 从人物中删除人脸S
+  "/miot/camera/app/v1/faces/search": {}, // 搜索人脸
+  "/miot/camera/app/v1/get/face/img": {}, // 获取人脸照片
+  "/miot/camera/app/v1/get/facesCluster": {}, // 获取3天内人脸聚类的结果
+  "/common/miot/camera/app/get/faceCluster/eventlist": {}, // 获取事件列表（返回3天内faceIds里面的人脸事件）
+  "/miot/camera/app/v1/mark/faceClustering/mistake": {}, // 聚类报错接口
+  // 摄氏度/华氏度一键切换接口
+  '/v2/user/set_common_config': {},
+  '/v2/user/get_common_config': {},
+  // 门锁需要使用的接口
+  '/v2/device/setLockPushSwitch': {},
+  '/v2/device/getLockPushSwitch': {},
+  '/v2/device/delLockPushSwitch': {},
+  '/v2/device/insurance': {},
+  // 疯景1代门铃迁移rn接口
+  '/common/app/delete/files': {},
+  '/common/app/get/playlist': {},
+  '/common/app/get/fileIdinfo': {},
+  '/miot/camera/app/v1/vip/freevip/status': {},
+  '/common/app/add/face': {},
+  '/common/app/delete/face': {},
+  '/common/app/delete/figure': {},
+  '/common/app/faces/search': {},
+  '/common/app/get/faceIds': {},
+  '/common/app/get/face/img': {},
+  '/common/app/get/faces': {},
+  '/common/app/get/figures': {},
+  '/v2/device/get_filter_device': {},
+  '/v2/device/auth_partner_device': {},
+  '/v2/device/cancel_partner_device': {},
+  '/v2/device/get_partner_device': {},
+  'v2/public/get_product_config': {},
+  '/common/app/add/figure': {},
+  // 设备访问记录相关接口
+  '/v2/device/setRecord': {},
+  '/v2/device/batchSetRecord': {},
+  '/v2/device/getRecordByUid': {},
+  '/v2/device/batchGetRecord': {}
 };
 export default API_REPO;

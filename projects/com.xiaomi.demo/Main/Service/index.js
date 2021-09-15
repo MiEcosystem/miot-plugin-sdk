@@ -42,6 +42,12 @@ export default class HostDemo extends React.Component {
         }
       },
       {
+        name: 'miot-spec-v3模块',
+        func: () => {
+          this.props.navigation.navigate('MiotSpecV3Demo', { title: 'miot-spec-v3模块' });
+        }
+      },
+      {
         name: '云存储模块',
         func: () => {
           this.props.navigation.navigate('CloudStorageDemo', { title: '云存储模块模块' });
@@ -67,6 +73,16 @@ export default class HostDemo extends React.Component {
           Service.callSmartHomeAPI('/xx/xx', {})
             .then((res) => alert(JSON.stringify(res)))
             .catch((e) => alert(e));
+        }
+      },
+      {
+        name: '获取当前家庭的电视列表',
+        func: () => {
+          Service.smarthome.getTvList()
+            .then((res) => {
+              console.log('getTvList,size:', res.data.length);
+              alert(JSON.stringify(res));
+            }).catch((e) => alert(e));
         }
       },
       {
