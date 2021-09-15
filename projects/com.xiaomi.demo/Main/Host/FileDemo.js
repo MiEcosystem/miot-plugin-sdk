@@ -17,6 +17,8 @@ import { ListItem } from 'miot/ui/ListItem';
 import { Device, FileEvent, Host } from "miot";
 import { ProgressDialog } from 'miot/ui';
 import Logger from '../Logger';
+import ProtocolManager from 'miot/utils/protocol-helper';
+
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
 
@@ -142,7 +144,7 @@ export default class FileStorage extends React.Component {
               [
                 ["向文件追加内容", this._appendFile],
                 ["向文件追加内容(Base64)", this._appendFileThroughBase64],
-                ["保存文件到小米手机的小米便签(只支持MIUI和特定model)", this.saveFileToNotesAppOnMIUI],
+                ["保存文件到小米手机的小米便签(只支持MIUI和特定model)", this.saveFileToNotesAppOnMIUI]
               ],
               [
                 ["读文件", this._readFile],
@@ -159,10 +161,12 @@ export default class FileStorage extends React.Component {
                 ["获取FDS文件", this._fetchFDSFile]
               ],
               [
-                ["解压文件", this._unZipFile]
+                ["解压文件", this._unZipFile],
+                ["解压文件为指定格式的字符串", this._ungzipFileToString]
               ],
               [
                 ["截图当前页面", this._screenShot],
+                ["裁剪截图文件", this._cropImage],
                 ["长截屏", this._longScreenShot]
               ],
               [
@@ -171,6 +175,7 @@ export default class FileStorage extends React.Component {
               ],
               [
                 ["查询文件", this._queryFile],
+                ["写入 PDF 文件", this._saveTextToPdf],
                 ["pdf转图片", this._pdfToImage],
                 ["读PDF信息", this._readPdfMetaData]
               ]
@@ -223,16 +228,16 @@ export default class FileStorage extends React.Component {
 
   }
 
-  _copyFile(){
-    let copy_params={
-      srcPath:'test.pdf',
-      dstPath:'test_copy.pdf',
-    }
+  _copyFile() {
+    let copy_params = {
+      srcPath: 'test.pdf',
+      dstPath: 'test_copy.pdf'
+    };
     Host.file.copyFile(copy_params).then((res) => {
       alert(JSON.stringify(res));
-      Host.file.readFileList('').then(res=>{
-        alert(JSON.stringify(res))
-      })
+      Host.file.readFileList('').then((res) => {
+        alert(JSON.stringify(res));
+      });
     }).catch((res) => {
       alert(JSON.stringify(res));
     });
@@ -254,6 +259,38 @@ export default class FileStorage extends React.Component {
       pageNo: 0
     };
     Host.file.queryFile(params).then((res) => {
+      alert(JSON.stringify(res));
+    }).catch((err) => {
+      alert(JSON.stringify(err));
+    });
+  }
+
+  _ungzipFileToString() {
+    let params = {
+      fileName: `${ Host.file.storageBasePath }Resources/ungzipFileToString.txt.zip`,
+      charsetName: "int-array"
+    };
+
+    Host.file.ungzipFileToString(params).then((res) => {
+      console.log(`ungzipFileToString,res: ${ res }`);
+    }).catch((err) => {
+      console.log(`ungzipFileToString,err: ${ JSON.stringify(err) }`);
+    });
+  }
+
+  // text 写入成 pdf
+  _saveTextToPdf() {
+    if (this.state.fileName === '' || this.state.fileContent === '') {
+      alert('请输入文件名或文件内容');
+      return;
+    }
+    Host.file.writePdfFile(this.state.fileContent, this.state.fileName, {
+      color: 'red',
+      fontSize: 13,
+      pageSize: { width: 375, height: 812 },
+      marginHorizontal: 0,
+      marginVertical: 0
+    }).then((res) => {
       alert(JSON.stringify(res));
     }).catch((err) => {
       alert(JSON.stringify(err));
@@ -411,10 +448,10 @@ export default class FileStorage extends React.Component {
   // 普通字符串 追加写内容
   saveFileToNotesAppOnMIUI() {
     Host.file.saveFileToNotesAppOnMIUI(this.state.fileName).then((isSuccess) => {
-      alert(`saveFileToNotesAppOnMIUI success,${JSON.stringify(isSuccess)}`);
+      alert(`saveFileToNotesAppOnMIUI success,${ JSON.stringify(isSuccess) }`);
     }).catch((error) => {
-      console.log(`saveFileToNotesAppOnMIUI fail,${JSON.stringify(error)}`)
-      alert(`saveFileToNotesAppOnMIUI fail,${JSON.stringify(error)}`);
+      console.log(`saveFileToNotesAppOnMIUI fail,${ JSON.stringify(error) }`);
+      alert(`saveFileToNotesAppOnMIUI fail,${ JSON.stringify(error) }`);
     });
   }
 
@@ -548,6 +585,44 @@ export default class FileStorage extends React.Component {
       })
       .catch((result) => {
         alert(result);
+      });
+  }
+
+  _cropImage() {
+    if (imagePathMap.size <= 0) {
+      alert('please shot screen first');
+      return;
+    }
+    let sourceFileName = imagePathMap.keys().next().value;
+    if (!sourceFileName) {
+      alert('not found image name');
+      return;
+    }
+    let targetFileName = `crop_${ new Date().getTime() }.png`;
+    let params = {
+      offset: {
+        x: 0,
+        y: 0
+      },
+      size: {
+        width: 600,
+        height: 800
+      },
+      displaySize: {
+        width: 300,
+        height: 400
+      }
+    };
+    Host.file.cropImage(targetFileName, sourceFileName, params)
+      .then((imagePath) => {
+        imagePathMap.set(targetFileName, imagePath);
+        this.setState({
+          imagePath
+        });
+        alert(imagePath);
+      })
+      .catch((error) => {
+        alert(error);
       });
   }
 
@@ -758,7 +833,8 @@ const styles = StyleSheet.create({
   },
   img: {
     width: screenWidth / 2,
-    height: screenHeight / 2
+    height: screenHeight / 2,
+    resizeMode: 'contain'
   },
   row: {
     height: 40,

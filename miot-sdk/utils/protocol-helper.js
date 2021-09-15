@@ -11,7 +11,9 @@ export default class ProtocolManager {
       let plugin_id = native.MIOTPackage.pluginID;
       let plugin_version = native.MIOTPackage.version;
       let language = native.language;
-      Service.getServerName().then(({ countryCode: country }) => {
+      Service.getServerName().then((server) => {
+        let country = server.countryCode;
+        let serverCode = (server.serverCode || country).toLowerCase();
         let baseParams = {
           model,
           plugin_id,
@@ -28,9 +30,9 @@ export default class ProtocolManager {
         Promise.all(params.map((p) => {
           return Service.smarthome.getProtocolUrls(p);
         })).then(([privacy, agreement, experiencePlan]) => {
-          const privacyURL = privacy.html_url ? this._resolveUniUrlV2(this._UniUrl, params[0]) : '';
-          const agreementURL = agreement.html_url ? this._resolveUniUrlV2(this._UniUrl, params[1]) : '';
-          const experiencePlanURL = experiencePlan.html_url ? this._resolveUniUrlV2(this._UniUrl, params[2]) : '';
+          const privacyURL = privacy.html_url ? this._resolveUniUrlV2(this._UniUrl, params[0], serverCode) : '';
+          const agreementURL = agreement.html_url ? this._resolveUniUrlV2(this._UniUrl, params[1], serverCode) : '';
+          const experiencePlanURL = experiencePlan.html_url ? this._resolveUniUrlV2(this._UniUrl, params[2], serverCode) : '';
           resolve({
             privacyURL: privacyURL,
             agreementURL: agreementURL,
@@ -49,7 +51,7 @@ export default class ProtocolManager {
     return this._legalInfoAuthHasShowed;
   }
   static _resolveUniParamsV2(params) {
-    let ret = [];
+    let ret = ['auth=1'];
     for (let k in params) {
       if (params.hasOwnProperty(k)) {
         ret.push(`${ k }=${ params[k] }`);
@@ -57,9 +59,12 @@ export default class ProtocolManager {
     }
     return ret.join('&');
   }
-  static _resolveUniUrlV2(url, params) {
+  static _resolveUniUrlV2(url, params, serverCode) {
     if (!url) {
       return '';
+    }
+    if (serverCode && serverCode !== 'cn') {
+      url = url.replace('//', `//${ serverCode }.`);
     }
     return url + (url.indexOf('?') > -1 ? '&' : '?') + this._resolveUniParamsV2(params);
   }
