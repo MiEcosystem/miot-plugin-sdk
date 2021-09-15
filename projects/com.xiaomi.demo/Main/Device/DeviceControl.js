@@ -195,6 +195,8 @@ export default class UIDemo extends React.Component {
         'func': () => {
           Host.ui.getDevicesWithModel(Device.model).then((res) => {
             alert(JSON.stringify(res, null, '\t'));
+          }).catch((err) => {
+            alert(JSON.stringify(err, null, '\t'));
           });
         }
       },

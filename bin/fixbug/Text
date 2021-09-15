@@ -174,7 +174,7 @@ class TouchableText extends React.Component<Props, State> {
             ...props,
             style: styleArray
           };
-          if(!anceFlag){
+          if (!anceFlag) {
             ancestorProps = props;
           }
         }
@@ -204,12 +204,12 @@ class TouchableText extends React.Component<Props, State> {
               ...props,
               style: [
                 props.style,
-                {color: `${props.style.color}text`}
+                { color: `${ props.style.color }text` }
               ]
             };
             ancestorProps = props;
           } else {
-            let tcolor = {'value': ''};
+            let tcolor = { 'value': '' };
             let anceFlag = false;
             modifyTextColorIfNeeded(props.style, tcolor);
             if (tcolor.value.length === 0) {
@@ -218,7 +218,7 @@ class TouchableText extends React.Component<Props, State> {
             }
             let styleArray = flatDeep([
               props.style,
-              {color: tcolor.value}
+              { color: tcolor.value }
             ], 100);
             props = {
               ...props,
@@ -244,12 +244,12 @@ class TouchableText extends React.Component<Props, State> {
               ...props,
               style: {
                 ...props.style,
-                color: `${props.style.color}text`
+                color: `${ props.style.color }text`
               }
             };
             ancestorProps = props;
           } else {
-            let tcolor = {'value': ''};
+            let tcolor = { 'value': '' };
             let anceFlag = false;
             modifyTextColorIfNeeded(props.style, tcolor);
             if (tcolor.value.length === 0) {
@@ -258,7 +258,7 @@ class TouchableText extends React.Component<Props, State> {
             }
             let styleArray = flatDeep([
               props.style,
-              {color: tcolor.value}
+              { color: tcolor.value }
             ], 100);
             props = {
               ...props,

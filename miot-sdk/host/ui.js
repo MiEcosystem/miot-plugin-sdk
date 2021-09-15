@@ -16,14 +16,15 @@
  *
  */
 import Device from "../device/BasicDevice";
-import native, { isIOS, isAndroid } from "../native";
+import native, { isAndroid, isIOS } from "../native";
 import AutoOTAABTestHelper from 'miot/utils/autoota_abtest_helper';
-// import { Entrance } from "../Package";
-// const resolveAssetSource = require('resolveAssetSource');
-// const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
+import Permission from '../service/permission';
 import ProtocolManager from '../utils/protocol-helper';
 // import { Entrance } from "../Package";
 import { report } from "../decorator/ReportDecorator";
+// import { Entrance } from "../Package";
+// const resolveAssetSource = require('resolveAssetSource');
+// const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 /**
  * 原生UI管理
  * @interface
@@ -121,11 +122,10 @@ class IUi {
   openSystemFileWindow(pathOrUrl) {
   }
   /**
-   * 获取设备列表中指定model的设备信息
+   * 获取设备列表中指定model的设备信息(仅白名单设备才允许调用此方法，如需使用，请联系插件框架)
    * @param model 指定的model
    * @param {boolean} includeGroupedDevice - since 10046 是否包含被组成了一个组的设备（目前仅窗帘设备可用，灯设备不可用），默认不包含
    * @returns {Promise<devices[]>} 对象中有字段 isGrouped 表示是被分组的设备，includeGroupedDevice = true时才有效
-   *
    */
   @report
   getDevicesWithModel(model, includeGroupedDevice = false) {
@@ -709,6 +709,31 @@ class IUi {
   */
   @report
   openCommonDeviceSettingPage(type) {
+  }
+  /**
+   * @since 10055
+   * 打开设置定时的页面。
+   * 这个页面不同于Service.scene.openTimerSettingPageWithOptions，这个页面只负责选择日期然后返回对应的crontab字符串
+   * @param{Object}param(optional)。
+   * param.crontab(string)表示描述定时任务的字符串，当传入的值有效时进入页面会展示对应的定时状态
+   * param.title(string)，要显示的标题
+   * param.hideLegalTime(boolean)，是否隐藏法定节假日,(当服务器为外服时无法显示法定节假日)
+   * @return{Promise} 成功时返回{code:0,data:{crontab:'xxxxxxx'}}
+   * 这个方法不会走reject，原生界面崩溃了代表传入的param.crontab不合法，native端解析失败。
+   */
+  @report
+  openGenerateCrontabStringPage(param = {}) {
+    // native begin
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.openGenerateCrontabStringPage(param, (ok, res) => {
+        if (ok) {
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      });
+    });
+    // native end
   }
 }
 const UiInstance = new IUi();

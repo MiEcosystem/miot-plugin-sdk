@@ -617,7 +617,7 @@ export class BasicDevice {
      return  false
   }
   /**
-   * 获取当前设备的时区信息（国际标准时区）。**注意：国际标准时区中，没有Asia/Beijing。**
+   * 获取当前设备的时区信息（国际标准时区），这里的设置不是指手机，而是指iot设备。**注意：国际标准时区中，没有Asia/Beijing。**
    * @since 10021
    * @returns {Promise} 成功进入then，失败进入catch。then：res="Asia/Shanghai";
    * resolve：timezone string
