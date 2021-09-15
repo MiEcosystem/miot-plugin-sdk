@@ -120,9 +120,6 @@ export default {
      */
   get isIphoneXSeries() {
      return  false
-      return native.MIOTHost.isIphoneXSeries;
-    }
-    return false;
   },
   /**
      * @const
@@ -180,9 +177,6 @@ export default {
   */
   get displayCutoutTop() {
      return  0
-      return native.MIOTHost.displayCutoutTop || 0;
-    }
-    return 0;
   },
   /**
      * @const
