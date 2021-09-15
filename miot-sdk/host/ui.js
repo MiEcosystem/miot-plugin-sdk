@@ -480,6 +480,8 @@ class IUi {
    * @param {object} pageParams  将打开插件的某一页面的参数，此参数将会赋值给 Package.entranceParams， 默认为空
    * @param {boolean} [pageParams.isBackToMainPage = true] 打开的插件页面按返回，是否需要返回到插件首页
    * @param {boolean} [params.dismiss_current_plug] since 10040 。是否在推出新的插件页面时，关掉当前页面，返回app首页，默认false。iOS Only
+   * @param {int}     [pageParams.open_plugin_source] since 10059, 可选参数，标识从哪里打开插件(不传默认为0)。可能的取值有：
+   * 0--默认值，如米家首页/其他；1-- 标准插件的更多功能；2--设置页的首页样式
    * @example
    * let pageParams = {did:Device.deviceID,model:Device.model}
    * Host.ui.openPluginPage(Device.deviceID, PluginEntrance.Setting, pageParams)
@@ -709,7 +711,7 @@ class IUi {
    * 在米家首页，手机接触到NFC设备时会读取写入的设备信息，读取成功后会自动打开相应的插件，插件可以通过Package.entryIfno.nfcdata获取
    * @param {jsonobject} params 需要写入到nfc设备数据;
    * params的格式如下：
-   * { 
+   * {
    *    did: string类型，设备的did,必填,且不能为空
    *    model: stringl类型, 对应插件的model,必填,切不能为空
    *    extra: json格式的string类型，需要写入到设备的额外参数，选填
