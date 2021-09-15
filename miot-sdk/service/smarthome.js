@@ -142,7 +142,7 @@ class ISmartHome {
        return Promise.resolve(null);
     }
     /**
-     * 获取服务器中最新的版本信息，内部调用米家代理接口/home/latest_version
+     * 获取服务器中 最新的版本信息，内部调用米家代理接口/home/latest_version
      * @deprecated 请使用下面的getLatestVersionV2
      * @param {string} model 设备的 model
      * @return {Promise}
@@ -152,7 +152,7 @@ class ISmartHome {
        return Promise.resolve(null);
     }
     /**
-     * 获取服务器中蓝牙设备可用的固件更新版本信息
+     * 获取服务器中可用的固件更新版本信息
      * 内部调用米家代理接口/v2/device/latest_ver
      * @since 10004
      * @param {string} did 设备did
