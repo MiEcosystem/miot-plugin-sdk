@@ -24,6 +24,10 @@ export default class TutorialDemo extends React.Component {
           'key': 'systemDemo'
         },
         {
+          'title': '空白页',
+          'key': 'blankDemo'
+        },
+        {
           'title': "JSExecutor",
           'key': 'JSExecutor'
         },
@@ -54,13 +58,6 @@ export default class TutorialDemo extends React.Component {
         {
           'title': '系统深色模式',
           'key': 'DarkModeDemo'
-        },
-        {
-          'title': '空白页',
-          'key': 'blankDemo'
-        },
-        {
-          'title': '崩溃测试'
         }
       ]
     };

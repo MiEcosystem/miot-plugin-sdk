@@ -418,7 +418,7 @@ export default {
      return Promise.resolve(null);
   },
   /**
-    * @since 10059
+    * @since 10058
     * 多键开关状态发生变化--设备被拆分或者合并
     * @param{object}  接收到的数据 {did: xxx, splitFlag: xxx}
      *              splitFlag可取值如下：

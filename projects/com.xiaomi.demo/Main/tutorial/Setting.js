@@ -11,11 +11,6 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Logger from '../Logger';
 import { ToastView } from "mhui-rn/dist/components/toast";
-import { AbstractDialog } from 'miot/ui/Dialog';
-import ImageHeader from 'miot/ui/ImageHeader';
-import { adjustSize } from 'miot/utils/sizes';
-import { dynamicColor } from 'miot/ui/Style/DynamicColor';
-import miotI18n from 'miot/resources/Strings';
 
 const { first_options, second_options } = SETTING_KEYS;
 
@@ -31,8 +26,7 @@ export default class Setting extends React.Component {
       switchValue: false,
       showDot: [],
       toastVisible: false,
-      toastText: "",
-      otaAbstractDialogVisible: false
+      toastText: ""
     };
     Logger.trace(this);
     this.didFocusListener = this.props.navigation.addListener(
@@ -67,29 +61,6 @@ export default class Setting extends React.Component {
   gotoSecretPage() {
     this.props.navigation.navigate('ServiceDemo', { title: '接口服务(Service)' });
   }
-  showOtaAbstractDialog(params) {
-    const { otaAbstractDialogVisible, ...rest } = params;
-    this.setState({ otaAbstractDialogVisible, abstractDialogParams: rest });
-  }
-
-  preOperationFunc = () => {
-    return new Promise((resolve) => {
-      const params = {
-        otaAbstractDialogVisible: true,
-        onDismiss: () => {
-          this.setState({ otaAbstractDialogVisible: false });
-        },
-        buttons: [{
-          text: miotI18n.ok,
-          callback: () => {
-            this.setState({ otaAbstractDialogVisible: false });
-            resolve();
-          }
-        }]
-      };
-      this.showOtaAbstractDialog(params);
-    });
-  }
 
   render() {
     // 显示部分一级菜单项
@@ -109,28 +80,6 @@ export default class Setting extends React.Component {
     ];
     // 显示固件升级二级菜单
     const extraOptions = {
-      showUpgrade: true,
-      // upgradePageKey: 'FirmwareUpgrade',
-      // licenseUrl: require('../resources/html/license_zh.html'),
-      // policyUrl: require('../resources/html/privacy_zh.html'),
-      deleteDeviceMessage: 'test',
-      excludeRequiredOptions: [],
-      option: {
-        privacyURL: require('../../Resources/raw/privacy_zh.html'),
-        agreementURL: require('../../Resources/raw/license_zh.html'),
-        experiencePlanURL: '',
-        hideAgreement: true
-      },
-      syncDevice: true,
-      // networkInfoConfig: -1,
-      bleOtaAuthType: 5,
-      preOperations: {
-        [`${ first_options.FIRMWARE_UPGRADE }`]: this.preOperationFunc,
-        [`${ first_options.SHARE }`]: this.preOperationFunc
-      } 
-    };
-    // 字体适配测试的extraOptions
-    const fontExtraOptions = {
       showUpgrade: true,
       // upgradePageKey: 'FirmwareUpgrade',
       // licenseUrl: require('../resources/html/license_zh.html'),
@@ -166,7 +115,6 @@ export default class Setting extends React.Component {
       // 权重可自己调节，以便确定此项停留在设置页的位置，支持小数
       weight: 13
     }];
-    const { otaAbstractDialogVisible, abstractDialogParams = {} } = this.state;
 
     return (
       <View style={styles.container}>
@@ -235,7 +183,7 @@ export default class Setting extends React.Component {
             firstOptions={firstOptions}
             showDot={this.state.showDot}
             secondOptions={secondOptions}
-            extraOptions={fontExtraOptions}
+            extraOptions={extraOptions}
             commonSettingStyle={{
               allowFontScaling: false,
               unlimitedHeightEnable: true,
@@ -256,42 +204,6 @@ export default class Setting extends React.Component {
             }}
           />
         </ScrollView>
-        <AbstractDialog 
-          useNewTheme={true} 
-          title={'前置自定义操作dialog'}
-          subtitle={'前置自定义操作dialog详细说明'}
-          visible={otaAbstractDialogVisible}
-          showSubtitle={true}
-          canDismiss={true}
-          dialogStyle={{
-            titleStyle: {
-              marginTop: adjustSize(27 * 3),
-              fontSize: adjustSize(48),
-              lineHeight: adjustSize(66),
-              letterSpacing: 0,
-              textAlign: 'center',
-              fontWeight: 'bold',
-              color: dynamicColor('#000', '#fff')
-            },
-            subTitleStyle: {
-              marginTop: adjustSize(19 * 3),
-              marginHorizontal: adjustSize(27 * 3),
-              fontSize: adjustSize(16 * 3),
-              lineHeight: adjustSize(21 * 3),
-              color: dynamicColor('rgba(0, 0, 0, 0.8)', 'rgba(255, 255, 255, 0.8)')
-            }
-          }}
-          {...abstractDialogParams}>
-          <ImageHeader 
-            containerStyle={{
-              flex: 1, 
-              justifyContent: 'center', 
-              alignItems: 'center'
-            }}
-            icon={require('../../Resources/hello_raise.jpg')}
-            iconStyle={{ height: adjustSize(165 * 3), width: adjustSize(152 * 3) }}
-          />
-        </AbstractDialog>
       </View>
     );
   }

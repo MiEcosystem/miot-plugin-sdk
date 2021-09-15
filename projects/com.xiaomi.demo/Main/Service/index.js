@@ -76,16 +76,6 @@ export default class HostDemo extends React.Component {
         }
       },
       {
-        name: '获取当前家庭的电视列表',
-        func: () => {
-          Service.smarthome.getTvList()
-            .then((res) => {
-              console.log('getTvList,size:', res.data.length);
-              alert(JSON.stringify(res));
-            }).catch((e) => alert(e));
-        }
-      },
-      {
         'name': 'callSpecificAPI',
         'func': () => {
           Service.callSpecificAPI('http://api.goseek.cn/Tools/holiday', 'get', { "date": "20191102" })

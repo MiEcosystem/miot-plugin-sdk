@@ -219,15 +219,6 @@ export class BasicDevice {
      return  ""
   }
   /**
-   * 获取设备的 是否是新绑定的设备
-   * @return {boolean}
-   * @readonly
-   *
-   */
-  get isNew() {
-     return  ""
-  }
-  /**
     * 获取小米WiFi设备控制类
     * Device.getDeviceWifi().callMethod(xxx)
     */
@@ -267,7 +258,7 @@ export class BasicDevice {
      * 设备绑定到当前账号（当前家庭）下的时间戳（北京时间）
      * @since 10057
      * @member
-     * @return {Number} 单位秒
+     * @return {Number} 单位秒 
      * @readonly
      */
   get orderTime() {
@@ -516,30 +507,8 @@ export class BasicDevice {
      return  ""
   }
   /**
-   * 设备类型常量
-   * */
-  DEVICE_TYPE = {
-    WIFI_SINGLE_MODEL_DEVICE: '0',
-    YUN_YI_DEVICE: '1',
-    CLOUD_DEVICE: '2',
-    ZIGBEE_DEVICE: '3',
-    VIRTUAL_DEVICE: '5',
-    BLUETOOTH_SINGLE_MODEL_DEVICE: '6',
-    LOCAL_AP_DEVICE: '7',
-    DUAL_MODEL_DEVICE: '8',
-    OTHER_DEVICE: '9',
-    FUNCTION_PLUGIN: '10',
-    SIM_CARD_DEVICE: '11',
-    NETWORK_CABLE_DEVICE: '12',
-    NB_IoT_DEVICE: '13',
-    THIRD_CLOUD_DEVICE: '14',
-    INFRARED_REMOTE_CONTROLLER_DEVICE: '15',
-    BLE_MESH_DEVICE: '16',
-    NEW_GROUP_VIRTUAL_DEVICE: '17'
-  }
-  /**
    * 获取设备类型，0：wifi单模设备，1：yunyi设备，2：云接入设备，3：zigbee设备，5：虚拟设备，6：蓝牙单模设备，7：本地AP设备，8：蓝牙wifi双模设备，9：其他，10：功能插件，11：SIM卡设备，12：网线设备，13：NB-IoT，14：第三方云接入，15：红外遥控器，16：BLE Mesh，17：虚拟设备（新设备组）
-   * @return {string}
+   * @return {int}
    * @readonly
    *
    */
@@ -732,19 +701,6 @@ export class BasicDevice {
    *
    */
   get extra() {
-     return ""
-  }
-  
-  /**
-   * 除了基本信息的其他部分额外信息都在这个字段返回, 如：{"fw_version":"1.4.0","mcu_version":"0001","isSetPincode":0}
-   * 返回json对象
-   * 目前CommonSetting中的是否在首页展示多个设备，从该字段的split中取数据判断，如 {"showGroupMember": false, "split": {"moduleId": 2, "parentId": "1042550162"}}
-   * @since 10059
-   * @return {json}
-   * @readonly
-   *
-   */
-  get extraObj() {
      return ""
   }
   /**

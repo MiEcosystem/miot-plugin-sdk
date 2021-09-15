@@ -1,9 +1,9 @@
-import { Device, DeviceEvent, Entrance, Host, Package, PackageEvent, Service } from 'miot';
+import { Package, PackageEvent, Device, Host, DeviceEvent, Service } from 'miot';
 // import {Device,DeviceEvent} from 'miot'
 // import {Host} from 'miot';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { DeviceEventEmitter, Text, View } from 'react-native';
+import { Platform, Text, View, DeviceEventEmitter } from 'react-native';
 import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
 import { formatString } from '../../resources/Strings';
@@ -14,6 +14,7 @@ import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } fr
 import { referenceReport } from '../../decorator/ReportDecorator';
 import DynamicColor from 'miot/ui/Style/DynamicColor';
 import { FontPrimary } from 'miot/utils/fonts';
+import ToastView from "react-native-root-toast";
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
 let firmwareUpgradeDotClicked = false;
 let modelType = '';
@@ -88,9 +89,8 @@ function getMultipleKey() {
     Service.callSmartHomeAPI("/v2/home/device_support_split", { dids: [Device.deviceID] }).then((res) => {
       if (!res || !res.supports) {
         reject();
-      } else {
-        resolve(res.supports);
       }
+      resolve(res.supports);
     }).catch((error) => {
       Service.smarthome.reportLog(Device.model, `Service.smarthome.device_support_split error: ${ JSON.stringify(error) }`);
       reject(error);
@@ -111,34 +111,6 @@ function getRoomeInfo() {
   });
 }
 getRoomeInfo().then(() => { }).catch(() => { });
-let hasStdPlugin = false;
-let selectedIndex = 0;
-const choiceIndexArray = [
-  {
-    title: strings.stdPluginTitle,
-    subtitle: strings.stdPluginSubTitle
-  },
-  {
-    title: strings.thirdPluginTitle
-  }
-];
-function getPluginCategory() {
-  return new Promise((resolve, reject) => {
-    Service.smarthome.getHomepageSettings()
-      .then((res) => {
-        if (res && res.data) {
-          resolve(res.data);
-        }
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-}
-getPluginCategory().then((res) => {
-  hasStdPlugin = res.standardized;
-  selectedIndex = res.homepage_type;
-}).catch(() => {});
 const firstOptionsInner = {
   /**
    * 按键设置，多键开关`必选`，其余设备`必不选`
@@ -263,11 +235,7 @@ const secondAllOptionsInner = {
   /**
    * 常用设备/设备首页常用设备
    */
-  FREQ_DEVICE: 'freqDevice',
-  /**
-   * 默认首页--标识标准插件还是厂商插件
-   */
-  DEFAULT_PLUGIN: 'default_plugin'
+  FREQ_DEVICE: 'freqDevice'
 };
 export const AllOptions = {
   ...firstAllOptionsInner,
@@ -305,8 +273,7 @@ const firstSharedOptions = {
   [AllOptions.PRODUCT_BAIKE]: 1,
   [AllOptions.STAND_PLUGIN]: 1,
   [AllOptions.FREQ_CAMERA]: 1,
-  [AllOptions.FREQ_DEVICE]: 1,
-  [AllOptions.DEFAULT_PLUGIN]: 1
+  [AllOptions.FREQ_DEVICE]: 1
 };
 /**
  * 20190708 / SDK_10023
@@ -326,8 +293,8 @@ export const AllOptionsWeight = {
   [AllOptions.FIRMWARE_UPGRADE]: 21,
   [AllOptions.HELP]: 24,
   [AllOptions.MORE]: 27,
+  [AllOptions.SECURITY]: 28,
   [AllOptions.STAND_PLUGIN]: 22,
-  [AllOptions.DEFAULT_PLUGIN]: 28,
   [AllOptions.FREQ_DEVICE]: 29,
   [AllOptions.FREQ_CAMERA]: 30,
   [AllOptions.MULTIPLEKEY_SWITCH]: 35,
@@ -445,8 +412,6 @@ const excludeOptions = {
  *   syncDevice: bool // 插件端设置时区后是否需要后台同步到设备端, 见 miot/Host.ui.openDeviceTimeZoneSettingPage 的传参说明
  *   networkInfoConfig: number // 「更多设置」页面是否显示「网络信息」设置项。0：不显示；1：显示；-1：米家默认配置（蓝牙设备不显示，Wi-Fi设备显示）
  *   bleOtaAuthType: number // 打开通用的蓝牙固件OTA的原生页面。指定设备的协议类型 0: 普通小米蓝牙协议设备(新接入设备已废弃该类型)，1: 安全芯片小米蓝牙设备（比如锁类产品） 4: Standard Auth 标准蓝牙认证协议(通常2019.10.1之后上线的新蓝牙设备) 5: mesh 设备
- *   10059新增
- *   preOperations: object { AllOptions.SHARE: function, AllOptions.FIRMWARE_UPGRADE: function, AllOptions.CREATE_GROUP: function, AllOptions.MANAGE_GROUP: function  } // 打开分享、ota、创建组、编辑组页面的前置操作，只会在resolve中执行打开页面
  * }
  * ```
  * @property {object} navigation - 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面
@@ -507,8 +472,7 @@ export default class CommonSetting extends React.Component {
     extraOptions: {}
   }
   getCommonSetting(state) {
-    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory, multipleKeyisOn, keyNum } = state || {};
-    const { preOperations } = this.props.extraOptions;
+    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, multipleKeyisOn } = state || {};
     if (!modelType) {
       modelType = '  ';
     }
@@ -528,15 +492,7 @@ export default class CommonSetting extends React.Component {
       },
       [AllOptions.SHARE]: {
         title: strings.share,
-        onPress: () => {
-          if (preOperations && preOperations[AllOptions.SHARE] instanceof Function) {
-            preOperations[AllOptions.SHARE]().then(() => {
-              Host.ui.openShareDevicePage();
-            });
-          } else {
-            Host.ui.openShareDevicePage();
-          }
-        }
+        onPress: () => Host.ui.openShareDevicePage()
       },
       // [AllOptions.BTGATEWAY]: {
       //   title: strings.btGateway,
@@ -560,39 +516,15 @@ export default class CommonSetting extends React.Component {
       },
       [AllOptions.FIRMWARE_UPGRADE]: {
         title: strings.firmwareUpgrade,
-        onPress: () => {
-          if (preOperations && preOperations[AllOptions.FIRMWARE_UPGRADE] instanceof Function) {
-            preOperations[AllOptions.FIRMWARE_UPGRADE]().then(() => {
-              this.chooseFirmwareUpgrade();
-            });
-          } else {
-            this.chooseFirmwareUpgrade();
-          }
-        }
+        onPress: () => this.chooseFirmwareUpgrade()
       },
       [AllOptions.CREATE_GROUP]: {
         title: strings[`create${ modelType[0].toUpperCase() }${ modelType.slice(1) }Group`],
-        onPress: () => {
-          if (preOperations && preOperations[AllOptions.CREATE_GROUP] instanceof Function) {
-            preOperations[AllOptions.CREATE_GROUP]().then(() => {
-              this.createGroup();
-            });
-          } else {
-            this.createGroup();
-          }
-        }
+        onPress: () => this.createGroup()
       },
       [AllOptions.MANAGE_GROUP]: {
         title: strings[`manage${ modelType[0].toUpperCase() }${ modelType.slice(1) }Group`],
-        onPress: () => {
-          if (preOperations && preOperations[AllOptions.MANAGE_GROUP] instanceof Function) {
-            preOperations[AllOptions.MANAGE_GROUP]().then(() => {
-              this.manageGroup();
-            });
-          } else {
-            this.manageGroup();
-          }
-        }
+        onPress: () => this.manageGroup()
       },
       [AllOptions.MORE]: {
         title: strings.more,
@@ -623,24 +555,28 @@ export default class CommonSetting extends React.Component {
       },
       [AllOptions.MULTIPLEKEY_SWITCH]: {
         _itemType: 'greenSwitch',
-        title: formatString(strings.multipleKeyShowOnHome, keyNum),
+        title: formatString(strings.multipleKeyShowOnHome, this.state.keyNum),
         value: multipleKeyisOn,
         onValueChange: (value) => {
           let splitFlag = value ? 'split' : 'merge';
           let splitStr = value ? 'split failed' : 'merge failed';
-          let did = Device.deviceID;
-          if (splitFlag === 'merge' && Device.extraObj.split.parentId) {
+          let did = Device.did;
+          if (splitFlag === 'merge' && Device.extra.split.parentId) {
             // 拆分时使用did
             // 合并时使用parentid, 若不存在则使用did
-            did = Device.extraObj.split.parentId;
+            did = Device.extra.split.parentId;
           }
-          let logPara = { 'type': value ? 1 : 0 };
-          Service.smarthome.reportMJFStatLog('multiple_switch_ck', logPara);
-          Service.callSmartHomeAPI("/v2/home/device_split_merge", { did: did, pattern: splitFlag }).then(() => {
+          Service.callSmartHomeAPI("/v2/home/device_split_merge", { did: did, pattern: splitFlag }).then((res) => {
+            if (!res) {
+              Service.smarthome.reportLog(Device.model, `Service.smarthome.device_split_merge error: ${ splitStr }`);
+              this.showToast(splitStr, 1000);
+              return;
+            }
             let param = { 'did': did, 'splitFlag': value ? 1 : 0 };
             Host.notifyMultikeyStateChanged(param);
             Package.exit();
           }).catch((error) => {
+            this.showToast(splitStr, 1000);
             Service.smarthome.reportLog(Device.model, `Service.smarthome.device_split_merge error: ${ splitStr }`);
             Service.smarthome.reportLog(Device.model, `Service.smarthome.device_split_merge error: ${ JSON.stringify(error) }`);
           });
@@ -656,16 +592,6 @@ export default class CommonSetting extends React.Component {
         Host.ui.openCommonDeviceSettingPage(1);
         Host.ui.clearFreqCameraNeedShowRedPoint();
         this.removeKeyFromShowDot(AllOptions.FREQ_CAMERA);
-      }
-    } : null;
-    ret[AllOptions.DEFAULT_PLUGIN] = hasStdPlugin ? {
-      title: strings.defaultPlugin,
-      value: choiceIndexArray[pluginCategory].title,
-      onPress: () => {
-        this.setState({
-          dialogVisible: true
-        });
-        Service.smarthome.reportEvent('expose', { tip: '6.18.1.1.15487' });
       }
     } : null;
     // 常用设备
@@ -698,10 +624,9 @@ export default class CommonSetting extends React.Component {
       standPlugin: false, // 标准插件设置项的值
       showMultipleKey: false, // 是否展示多键开关
       multipleKeyisOn: false, // 多键开关状态
-      keyNum: 0, // 多键开关数量
-      pluginCategory: selectedIndex,
-      dialogVisible: false,
-      needShowUpgradeRedDot: false
+      keyNum: 2, // 多键开关数量
+      toastVisible: false,
+      toastText: ''
     };
     console.log(`Device.type: ${ Device.type }`);
     this.commonSetting = this.getCommonSetting(this.state);
@@ -728,7 +653,6 @@ export default class CommonSetting extends React.Component {
     const { showUpgrade, upgradePageKey, bleOtaAuthType } = this.props.extraOptions;
     let { modelType } = this.state;
     Device.needUpgrade = false;
-    this.setState({ needShowUpgradeRedDot: false });
     if (showUpgrade === false) {
       // 蓝牙统一OTA界面
       if (upgradePageKey === undefined) {
@@ -765,6 +689,20 @@ export default class CommonSetting extends React.Component {
         Host.ui.openDeviceUpgradePage(1);
       }
     }
+  }
+  /**
+   * Toast提示
+   */
+  showToast(text, time) {
+    this.setState({
+      toastVisible: true,
+      toastText: text
+    });
+    setTimeout(() => {
+      this.setState(() => {
+        return { toastVisible: false, toastText: '' };
+      });
+    }, time);
   }
   /**
    * 创建组设备
@@ -861,27 +799,25 @@ export default class CommonSetting extends React.Component {
     getMultipleKey().then((supportInfo) => {
       let multipleKeyisOn = false;
       let showMultipleKey = false;
-      let keyNum = 0;
+      let keyNum = 2;
       if (supportInfo[Device.deviceID]) {
         let splitInfo = supportInfo[Device.deviceID];
-        if (splitInfo.keyNum && splitInfo.keyNum > 0) {
-          keyNum = splitInfo.keyNum;
+        if (splitInfo['splitFlag'] === 1) {
+          multipleKeyisOn = true;
         } else {
-          return;
+          multipleKeyisOn = false;
+        }
+        if (splitInfo['keyNum']) {
+          keyNum = splitInfo['keyNum'];
         }
         showMultipleKey = true;
-        // 父设备的开关状态从splitFlag取
-        multipleKeyisOn = splitInfo.splitFlag === 1 ? true : false;
-        if (Device.extraObj.split.parentId) {
-          // 子设备的只能合并，所以只能为开
-          multipleKeyisOn = true;
-        }
+      } else {
+        showMultipleKey = false;
       }
       this.commonSetting = this.getCommonSetting({
         ...this.state,
         showMultipleKey,
-        multipleKeyisOn,
-        keyNum
+        multipleKeyisOn
       });
       this.setState({
         showMultipleKey,
@@ -889,7 +825,7 @@ export default class CommonSetting extends React.Component {
         keyNum
       });
     }).catch((err) => {
-      Service.smarthome.reportLog(Device.model, `Service.smarthome.device_support_split error: ${ err }`);
+      Service.smarthome.reportLog(Device.model, `Service.smarthome.device_split_merge error: ${ err }`);
     });
     Service.smarthome.batchGetDeviceDatas([{
       did: Device.deviceID,
@@ -919,14 +855,6 @@ export default class CommonSetting extends React.Component {
     //   this.setState({ standPlugin: true });
     // }, 1000 * 3);
     this._updateFreqFlag();
-    this.needUpgradeListener = DeviceEventEmitter.addListener('MH_FirmwareNeedUpdateAlert', (params) => {
-      if (Device.type === Device.DEVICE_TYPE.BLUETOOTH_SINGLE_MODEL_DEVICE || Device.type === Device.DEVICE_TYPE.BLE_MESH_DEVICE) {
-        return;
-      }
-      if (params && params.needUpgrade) {
-        this.setState({ needShowUpgradeRedDot: true });
-      }
-    });
   }
   _updateFreqFlag() {
     Device.getFreqFlag().then((freqFlagRes) => {
@@ -954,19 +882,13 @@ export default class CommonSetting extends React.Component {
       this.setState({ freqCameraNeedShowRedPoint });
     });
   }
-  _onDialogDismiss() {
-    this.setState({
-      dialogVisible: false
-    });
-  }
   render() {
     let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey } = this.state;
     let requireKeys1 = [
       AllOptions.FREQ_CAMERA,
       AllOptions.FREQ_DEVICE,
       AllOptions.NAME,
-      AllOptions.LOCATION,
-      AllOptions.DEFAULT_PLUGIN
+      AllOptions.LOCATION
     ];
     if (productBaikeUrl) {
       requireKeys1.push(AllOptions.PRODUCT_BAIKE);
@@ -1033,7 +955,7 @@ export default class CommonSetting extends React.Component {
         item.showDot = (this.state.showDot || []).includes(key);
         // 如果是固件升级设置项，且开发者没有传入是否显示
         if (key === AllOptions.FIRMWARE_UPGRADE && !item.showDot) {
-          item.showDot = (Device.needUpgrade || this.state.needShowUpgradeRedDot) && !firmwareUpgradeDotClicked;
+          item.showDot = Device.needUpgrade && !firmwareUpgradeDotClicked;
         } else if (key === AllOptions.FREQ_CAMERA && !item.showDot) {
           item.showDot = freqCameraNeedShowRedPoint;
         }
@@ -1052,6 +974,14 @@ export default class CommonSetting extends React.Component {
             {strings.commonSetting}
           </Text>
         </View>
+        <ToastView
+          visible={this.state.toastVisible}
+          hideOnPress={true}
+          animation={false}
+          position={-86}
+          containerStyle={{ display: 'flex', flexDirection: 'row' }}
+          text={this.state.toastText}
+        />
         {/* <Separator style={{ marginLeft: Styles.common.padding }} /> */}
         {
           items.map((item) => {
@@ -1062,7 +992,6 @@ export default class CommonSetting extends React.Component {
                 <ListItemWithSwitch
                   key={item.title}
                   title= {item.title}
-                  titleNumberOfLines={0}
                   value= {item.value}
                   onValueChange={item.onValueChange}
                 />
@@ -1121,50 +1050,6 @@ export default class CommonSetting extends React.Component {
             }
           })
         }
-        {hasStdPlugin ?
-          <ChoiceDialog
-            visible={this.state.dialogVisible}
-            title={strings.selectDefaultHP}
-            useNewType={true}
-            dialogStyle={{
-              allowFontScaling: true,
-              unlimitedHeightEnable: false,
-              titleStyle: {
-                fontSize: 18
-              }
-            }}
-            buttons={[
-              {
-                text: strings.cancel
-              },
-              {
-                text: strings.ok,
-                callback: (result) => {
-                  this.setState({
-                    dialogVisible: false
-                  });
-                  const index = result && result[0];
-                  if (selectedIndex === index) {
-                    return;
-                  }
-                  selectedIndex = index;
-                  Service.smarthome.reportEvent('click', { plugin_form: index, tip: '6.18.1.1.15488' });
-                  let params = { homepage_type: index };
-                  Service.smarthome.setHomepageSettings(params);
-                  this.commonSetting = this.getCommonSetting({
-                    ...this.state,
-                    pluginCategory: index
-                  });
-                  Host.ui.openPluginPage(Device.deviceID, Entrance.Main, { dismiss_current_plug: true });
-                }
-              }
-            ]}
-            options={choiceIndexArray}
-            selectedIndexArray={[selectedIndex]}
-            onDismiss={() => {
-              this._onDialogDismiss();
-            }}
-          /> : null}
         {/* <Separator /> */}
         {!Device.isFamily ?
           (<View style={[styles.bottomContainer, tempCommonSettingStyle.bottomContainer]} {...getAccessibilityConfig({
@@ -1257,7 +1142,6 @@ export default class CommonSetting extends React.Component {
   componentWillUnmount() {
     this._deviceNameChangedListener.remove();
     this._packageGobackFromNativeListerner && this._packageGobackFromNativeListerner.remove();
-    this.needUpgradeListener && this.needUpgradeListener.remove();
   }
 }
 const styles = dynamicStyleSheet({
