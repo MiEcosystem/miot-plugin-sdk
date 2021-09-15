@@ -14,7 +14,6 @@ import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } fr
 import { referenceReport } from '../../decorator/ReportDecorator';
 import DynamicColor from 'miot/ui/Style/DynamicColor';
 import { FontPrimary } from 'miot/utils/fonts';
-import { ToastView } from "mhui-rn/dist/components/toast";
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
 let firmwareUpgradeDotClicked = false;
 let modelType = '';
@@ -642,7 +641,6 @@ export default class CommonSetting extends React.Component {
             Host.notifyMultikeyStateChanged(param);
             Package.exit();
           }).catch((error) => {
-            // this.showToast(splitStr, 1000);
             Service.smarthome.reportLog(Device.model, `Service.smarthome.device_split_merge error: ${ splitStr }`);
             Service.smarthome.reportLog(Device.model, `Service.smarthome.device_split_merge error: ${ JSON.stringify(error) }`);
           });
@@ -701,8 +699,6 @@ export default class CommonSetting extends React.Component {
       showMultipleKey: false, // 是否展示多键开关
       multipleKeyisOn: false, // 多键开关状态
       keyNum: 0, // 多键开关数量
-      toastVisible: false,
-      toastText: '',
       pluginCategory: selectedIndex,
       dialogVisible: false,
       needShowUpgradeRedDot: false
@@ -770,20 +766,6 @@ export default class CommonSetting extends React.Component {
       }
     }
   }
-  /**
-   * Toast提示
-   */
-  /*  showToast(text, time) {
-    this.setState({
-      toastVisible: true,
-      toastText: text
-    });
-    setTimeout(() => {
-      this.setState(() => {
-        return { toastVisible: false, toastText: '' };
-      });
-    }, time);
-  } */
   /**
    * 创建组设备
    */
@@ -1070,14 +1052,6 @@ export default class CommonSetting extends React.Component {
             {strings.commonSetting}
           </Text>
         </View>
-        {/* <ToastView
-          visible={this.state.toastVisible}
-          hideOnPress={true}
-          animation={false}
-          position={-86}
-          containerStyle={{ display: 'flex', flexDirection: 'row' }}
-          text={this.state.toastText}
-        /> */}
         {/* <Separator style={{ marginLeft: Styles.common.padding }} /> */}
         {
           items.map((item) => {
