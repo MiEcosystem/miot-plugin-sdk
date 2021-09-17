@@ -220,7 +220,7 @@ export class IBluetooth {
      * 关闭链接 **注意小米协议的蓝牙设备，退出插件的时候，一定要调用此方法，关闭蓝牙连接，否则下次打开插件的时候，会提示蓝牙无法连接**
      * @method
      * @param {int} delay -延迟时长(毫秒)
-     * @param {boolean} forceDisconnect - 强制断开蓝牙连接，默认值为false；从10050开始新增，仅针对Android生效
+     * @param {boolean} forceDisconnect - 强制断开蓝牙连接，默认值为false。为false时，如果当前状态为连接中则不会断开连接；如果为true,不管当前是什么状态，都会请求APP断开连接。从10050开始新增，仅针对Android生效
      */
     @report
     disconnect(delay = 0, forceDisconnect = false) {
