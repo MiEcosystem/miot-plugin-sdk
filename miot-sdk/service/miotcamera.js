@@ -728,11 +728,7 @@ class IMiotCamera {
    */
   @report
   convertG711VideoIntoAACVideo(filePath, audioParam) {
-    if (Platform.OS == "android") {
        return Promise.resolve(null);
-    } else {
-      return Promise.reject("ios platform not support yet");
-    }
   }
   /**
    * react-native-video 截屏，用来截video标签里video控件的内容
