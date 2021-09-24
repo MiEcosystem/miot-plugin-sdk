@@ -219,6 +219,25 @@ export class BasicDevice {
      return  ""
   }
   /**
+   * device的 pd_id，和model是一一对应的关系，可以理解为唯一对应一个设备
+   * （注：与pid是两种概念）
+   * @return {number}
+   * @readonly
+   *
+   */
+  get pd_id() {
+     return  0
+  }
+  /**
+   * 获取设备的 是否是新绑定的设备
+   * @return {boolean}
+   * @readonly
+   *
+   */
+  get isNew() {
+     return  ""
+  }
+  /**
     * 获取小米WiFi设备控制类
     * Device.getDeviceWifi().callMethod(xxx)
     */
@@ -253,6 +272,15 @@ export class BasicDevice {
      */
   get isRootDevice() {
      return false
+  }
+  /**
+     * 设备绑定到当前账号（当前家庭）下的时间戳（北京时间）
+     * @since 10057
+     * @member
+     * @return {Number} 单位秒
+     * @readonly
+     */
+  get orderTime() {
   }
   /**
    * 批量删除设备, 不能删除 小米路由器/本地蓝牙/局域网直连设备，不能删除与自己设备无关的设备，比如，其他生态链公司的设备。
@@ -498,8 +526,30 @@ export class BasicDevice {
      return  ""
   }
   /**
+   * 设备类型常量
+   * */
+  DEVICE_TYPE = {
+    WIFI_SINGLE_MODEL_DEVICE: '0',
+    YUN_YI_DEVICE: '1',
+    CLOUD_DEVICE: '2',
+    ZIGBEE_DEVICE: '3',
+    VIRTUAL_DEVICE: '5',
+    BLUETOOTH_SINGLE_MODEL_DEVICE: '6',
+    LOCAL_AP_DEVICE: '7',
+    DUAL_MODEL_DEVICE: '8',
+    OTHER_DEVICE: '9',
+    FUNCTION_PLUGIN: '10',
+    SIM_CARD_DEVICE: '11',
+    NETWORK_CABLE_DEVICE: '12',
+    NB_IoT_DEVICE: '13',
+    THIRD_CLOUD_DEVICE: '14',
+    INFRARED_REMOTE_CONTROLLER_DEVICE: '15',
+    BLE_MESH_DEVICE: '16',
+    NEW_GROUP_VIRTUAL_DEVICE: '17'
+  }
+  /**
    * 获取设备类型，0：wifi单模设备，1：yunyi设备，2：云接入设备，3：zigbee设备，5：虚拟设备，6：蓝牙单模设备，7：本地AP设备，8：蓝牙wifi双模设备，9：其他，10：功能插件，11：SIM卡设备，12：网线设备，13：NB-IoT，14：第三方云接入，15：红外遥控器，16：BLE Mesh，17：虚拟设备（新设备组）
-   * @return {int}
+   * @return {string}
    * @readonly
    *
    */
@@ -628,6 +678,25 @@ export class BasicDevice {
      return Promise
   }
   /**
+   * 获取当前设备ble mac
+   * @since 10057
+   * @returns {Promise} 成功进入then，失败进入catch。res： {"code": 0, "message": "ok", "result": {"data": {"ble_mac": "B0:41:1D:E9:2E:CE"}}};
+   * reject：{code: xxx, message: xxx}
+   * 使用场景: 设备同时存在wifi mac与 ble mac,且绑定插件时上报的是wifi mac，既Device.mac获取的是wifi mac
+   * 使用条件: 设备ble mac上报给了后台，该接口方可获取到数据
+   *
+   * @example
+   * Device.getDeviceBleMac().then((res)=>{
+   *   let mac = res['result']['data']['ble_mac'];
+   * }).catch((err)=>{
+   *   console.log('get ble mac failed  : ', err);
+   * });
+   */
+  @report
+  getDeviceBleMac() {
+     return Promise
+  }
+  /**
    * 修改设备/子设备的名字，注意不支持蓝牙网关对子设备名称的修改
    * @since 10022
    * @param {String} newName 设备的新的名称
@@ -673,6 +742,19 @@ export class BasicDevice {
    *
    */
   get extra() {
+     return ""
+  }
+  
+  /**
+   * 除了基本信息的其他部分额外信息都在这个字段返回, 如：{"fw_version":"1.4.0","mcu_version":"0001","isSetPincode":0}
+   * 返回json对象
+   * 目前CommonSetting中的是否在首页展示多个设备，从该字段的split中取数据判断，如 {"showGroupMember": false, "split": {"moduleId": 2, "parentId": "1042550162"}}
+   * @since 10059
+   * @return {json}
+   * @readonly
+   *
+   */
+  get extraObj() {
      return ""
   }
   /**

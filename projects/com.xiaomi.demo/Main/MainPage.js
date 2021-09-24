@@ -100,7 +100,7 @@ export default class MainPage extends React.Component {
     });
     this._packageReceivedOutAppInformation = PackageEvent.packageReceivedOutAppInformation.addListener((message) => {
       console.log('收到外部APP传过来的参数', JSON.stringify(message, null, '\t'));
-    })
+    });
     console.log(`传递进来的 PageParams: ${ JSON.stringify(Package.pageParams) }`);
     console.log(`传递进来的 entryInfo: ${ JSON.stringify(Package.entryInfo) }`);
   }
@@ -118,51 +118,52 @@ export default class MainPage extends React.Component {
     if (Package.pageParams.isBackToMainPage && Package.entrance !== Entrance.Main) {
       this.props.navigation.navigate(Package.entrance);
     }
-    Service.smarthome.batchGetDeviceDatas([{ did: Device.deviceID, props: ["prop.s_auth_config"] }]).then((res) => {
-      let alreadyAuthed = true;
-      let result = res[Device.deviceID];
-      let config;
-      if (result && result['prop.s_auth_config']) {
-        config = result['prop.s_auth_config'];
-      }
-      if (config) {
-        try {
-          let authJson = JSON.parse(config);
-          console.log('auth config ', authJson);
-          alreadyAuthed = authJson.privacyAuthed && true;
-        } catch (err) {
-          // json解析失败，不处理
-        }
-      } else {
-        alreadyAuthed = false;
-      }
-      if (alreadyAuthed) {
-        console.log("已经授权");
-        return;
-      }
-      const licenseURL = require('../Resources/raw/license_zh.html');
-      const privacyURL = require('../Resources/raw/privacy_zh.html');
-      let options = {};
-      options.agreementURL = licenseURL;
-      options.privacyURL = privacyURL;
-      options.experiencePlanURL = licenseURL;
-      options.hideAgreement = false;
-      options.hideUserExperiencePlan = false;
-      Host.ui.alertLegalInformationAuthorization(options).then((res) => {
-        if (res === 'ok' || res === true || res === 'true') {
-          Service.smarthome.batchSetDeviceDatas([{ did: Device.deviceID, props: { "prop.s_auth_config": JSON.stringify({ 'privacyAuthed': true }) } }]);
-          PackageEvent.packageAuthorizationAgreed.emit();
-          console.log("[Demo] 同意协议，进入插件");
-        }
-      }).catch((error) => {
-        if (error === false || error === 'false') {
-          console.log("[Demo] 不同意协议，插件退出", res);
-          Package.exit();
-          return;
-        }
-        console.log(error);
-      });
-    }).catch({});
+    return;
+    // Service.smarthome.batchGetDeviceDatas([{ did: Device.deviceID, props: ["prop.s_auth_config"] }]).then((res) => {
+    //   let alreadyAuthed = true;
+    //   let result = res[Device.deviceID];
+    //   let config;
+    //   if (result && result['prop.s_auth_config']) {
+    //     config = result['prop.s_auth_config'];
+    //   }
+    //   if (config) {
+    //     try {
+    //       let authJson = JSON.parse(config);
+    //       console.log('auth config ', authJson);
+    //       alreadyAuthed = authJson.privacyAuthed && true;
+    //     } catch (err) {
+    //       // json解析失败，不处理
+    //     }
+    //   } else {
+    //     alreadyAuthed = false;
+    //   }
+    //   if (alreadyAuthed) {
+    //     console.log("已经授权");
+    //     return;
+    //   }
+    //   const licenseURL = require('../Resources/raw/license_zh.html');
+    //   const privacyURL = require('../Resources/raw/privacy_zh.html');
+    //   let options = {};
+    //   options.agreementURL = licenseURL;
+    //   options.privacyURL = privacyURL;
+    //   options.experiencePlanURL = licenseURL;
+    //   options.hideAgreement = false;
+    //   options.hideUserExperiencePlan = false;
+    //   Host.ui.alertLegalInformationAuthorization(options).then((res) => {
+    //     if (res === 'ok' || res === true || res === 'true') {
+    //       Service.smarthome.batchSetDeviceDatas([{ did: Device.deviceID, props: { "prop.s_auth_config": JSON.stringify({ 'privacyAuthed': true }) } }]);
+    //       PackageEvent.packageAuthorizationAgreed.emit();
+    //       console.log("[Demo] 同意协议，进入插件");
+    //     }
+    //   }).catch((error) => {
+    //     if (error === false || error === 'false') {
+    //       console.log("[Demo] 不同意协议，插件退出", res);
+    //       Package.exit();
+    //       return;
+    //     }
+    //     console.log(error);
+    //   });
+    // }).catch({});
   }
 
   _renderRow(rowData, sectionID, rowID) {

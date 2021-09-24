@@ -53,6 +53,8 @@ import Kookong from './service/kookong';
 import { NativeModules, Platform } from 'react-native';
 import JSONbig from 'json-bigint';
 import Permission from './service/permission';
+import { report } from "./decorator/ReportDecorator";
+import Device from "./device/BasicDevice";
  const CurrentAccount = null;
 export default {
   /**
@@ -255,6 +257,38 @@ export default {
      return Promise.resolve(null);
   },
   /**
+   * 隐私同意上报
+   * @since 10060
+   * @param {String} privacyVersion: 隐私政策版本,没有隐私版本的情况，传空字符串""，例如本地隐私,默认为""
+   * @param {Number} privacyType: 上报类型，隐私协议上报（1），系统权限同意上报（2），敏感数据上报（3），默认为1
+   * @param {Object} extra: 自定义数据
+   * @returns {Promise<String>}
+   * 成功时：返回
+   * "ok"
+   *  失败时：返回
+   * { "code":xxx, "message":"xxx" }
+   */
+  setPrivacyConfirmation(privacyVersion = "", privacyType = 1, extra) {
+     return Promise.resolve(null);
+  },
+  /**
+   * 获取隐私变更的版本，更改信息以及弹窗信息
+   * @since 10060
+   * @param {String} version: 隐私政策版本,没有隐私版本的情况，传空字符串""，默认为""
+   * @returns {Promise<Object>}
+   * 成功时：返回
+   *    {
+   *      "ver":"0002",
+   *      "change_log":"xxx",
+   *      "pop_type":1
+   *    }
+   *  失败时：返回
+   * { "code":xxx, "message":"xxx" }
+   */
+  getPrivacyChanges(version = "") {
+     return Promise.resolve(null);
+  },
+  /**
    * since 10042
    * 删除设备,插件调用该接口后需要主动调用退出插件
    * @returns {Promise<Object>} 成功时返回：{code:0,data:true};
@@ -291,7 +325,7 @@ export default {
    *
    * @param {string} url - url
    * @param {string} method - 如 'get', 'post'等 不区分大小写 暂时只支持 get 和 post
-   * @param {object} params 传入参数，比如{ did: 'xxxx', pid: 'xxxx' }
+   * @param {object} params 传入参数，比如{ did: 'xxxx', pid: 'xxxx','allow_private_certificates':true/false };allow_private_certificates是10056新增加的参数(10055及以前的版本该参数不生效)，传true表明该请求使用小米路由器私有证书，默认为false;
    * @returns {Promise}
    * 成功时：返回网络请求的结果对应字符串， 相当于：response.body().string()
    * 失败时：{"code":xxx, "message":"xxx" }

@@ -76,6 +76,16 @@ export default class HostDemo extends React.Component {
         }
       },
       {
+        name: '获取当前家庭的电视列表',
+        func: () => {
+          Service.smarthome.getTvList()
+            .then((res) => {
+              console.log('getTvList,size:', res.data.length);
+              alert(JSON.stringify(res));
+            }).catch((e) => alert(e));
+        }
+      },
+      {
         'name': 'callSpecificAPI',
         'func': () => {
           Service.callSpecificAPI('http://api.goseek.cn/Tools/holiday', 'get', { "date": "20191102" })
@@ -137,6 +147,30 @@ export default class HostDemo extends React.Component {
         'name': '撤销隐私授权revokePrivacyLicense',
         'func': () => {
           Service.revokePrivacyLicense().then((res) => {
+            console.log(JSON.stringify(res));
+            alert(JSON.stringify(res));
+          }).catch((err) => {
+            console.log(JSON.stringify(err));
+            alert(JSON.stringify(err));
+          });
+        }
+      },
+      {
+        'name': '上报同意隐私授权',
+        'func': () => {
+          Service.setPrivacyConfirmation().then((res) => {
+            console.log(JSON.stringify(res));
+            alert(JSON.stringify(res));
+          }).catch((err) => {
+            console.log(JSON.stringify(err));
+            alert(JSON.stringify(err));
+          });
+        }
+      },
+      {
+        'name': '获取隐私变更内容以及是否弹窗',
+        'func': () => {
+          Service.getPrivacyChanges().then((res) => {
             console.log(JSON.stringify(res));
             alert(JSON.stringify(res));
           }).catch((err) => {

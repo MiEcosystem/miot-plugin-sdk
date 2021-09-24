@@ -142,7 +142,7 @@ class ISmartHome {
        return Promise.resolve(null);
     }
     /**
-     * 获取服务器中 最新的版本信息，内部调用米家代理接口/home/latest_version
+     * 获取服务器中最新的版本信息，内部调用米家代理接口/home/latest_version
      * @deprecated 请使用下面的getLatestVersionV2
      * @param {string} model 设备的 model
      * @return {Promise}
@@ -152,7 +152,7 @@ class ISmartHome {
        return Promise.resolve(null);
     }
     /**
-     * 获取服务器中可用的固件更新版本信息
+     * 获取服务器中蓝牙设备可用的固件更新版本信息
      * 内部调用米家代理接口/v2/device/latest_ver
      * @since 10004
      * @param {string} did 设备did
@@ -199,6 +199,7 @@ class ISmartHome {
     /**
      * 上报设备数据 /device/event
      * 会更新状态+存到历史(相当于调用setDeviceData 接口)+触发自动化
+     * 仅支持WiFi设备
      * @param {string} deviceID 设备ID
      * @param {array<map>} records [{type,key,value}] 其中：type为'prop'或'event'，key，value均为自定义string
      *
@@ -386,7 +387,7 @@ class ISmartHome {
     }
     /**
      * 查询用户名下设备上报的属性和事件
-     * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加.
+     * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加，最多查询185天前的记录。
      * 通下面的set_user_device_data的参数一一对应， /user/get_user_device_data
      * 对于蓝牙设备，params.key 可参考文档 [米家BLE Object定义](https://iot.mi.com/new/doc/embedded-development/ble/object-definition.html)
      *
@@ -434,6 +435,7 @@ class ISmartHome {
     /**
      * 用于按照时间顺序拉取指定uid,did的发生的属性事件
      * /v2/user/get_user_device_log
+     * 仅限lumi.xxx.xxx的model设备可以使用
      * @since 10004
      * @param {object} params 参数
      * @param {string} params.did
@@ -753,6 +755,8 @@ class ISmartHome {
     }
     /**
      * 日志分页拉取
+     * 仅限lumi.xxx.xxx的model设备可以使用
+     * 最多可以查询185天前的数据
      * @since 10001
      * @param {object} params 参数
      * @param {string} params.did
@@ -1199,6 +1203,33 @@ class ISmartHome {
      */
     @report
     getTempUnit(params) {
+       return Promise.resolve(null);
+    }
+    /**
+    * 获取是否开启自动升级
+    * @since 10059
+    * @param {string} aDevId
+    * @returns {Promise<{code:xx, data:xx}>}
+    * 成功
+    * code == 0
+    * 失败
+    * code != 0 data 失败详情
+    */
+    checkFirmwareAutoUpgradeOpen(aDevId = Device.deviceID) {
+       return Promise.resolve(null);
+    }
+    /**
+    * 开启自动升级
+    * @since 10059
+    * @param {bool} aOpen
+    * @param {string} aDevId
+    * @returns {Promise<{code:xx, data:xx}>}
+    *  成功
+    *  code == 0
+    *  失败
+    *  code != 0 data 失败详情
+    */
+    setFirmwareAutoUpgradeSwitch(aOpen, aDevId = Device.deviceID) {
        return Promise.resolve(null);
     }
 }

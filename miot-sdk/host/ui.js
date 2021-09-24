@@ -146,12 +146,15 @@ class IUi {
    * @param {string} [option.experiencePlanURL] 用户体验计划本地资源，为空时如果hideUserExperiencePlan=false，则显示米家默认用户体验计划
    * @param {boolean} [option.hideAgreement=false] 是否隐藏用户协议，默认显示用户协议
    * @param {boolean} [option.hideUserExperiencePlan=false] 是否隐藏用户体验计划，默认显示用户体验计划
+   * @param {boolean} option.force 强制弹出隐私弹框，默认为false。对于共享设备，不建议进行弹窗请求隐私授权，如果一定要弹框，需要设置option.force=true，
+   * option.force=false会直接返回失败(相当于拒绝授权)。对于非共享设备，option.force可以不传
    * @returns {Promise<Boolean>} 弹窗授权结果
    * @example
    * 可以参考iot文档 或 project/com.xiaomi.demo/MainPage.js部分样例
    */
   @report
   alertLegalInformationAuthorization(option) {
+    console.log('host.ui.alertLegalInformationAuthorization');
      return Promise.resolve(null);
   }
   /**
@@ -478,6 +481,8 @@ class IUi {
    * @param {object} pageParams  将打开插件的某一页面的参数，此参数将会赋值给 Package.entranceParams， 默认为空
    * @param {boolean} [pageParams.isBackToMainPage = true] 打开的插件页面按返回，是否需要返回到插件首页
    * @param {boolean} [params.dismiss_current_plug] since 10040 。是否在推出新的插件页面时，关掉当前页面，返回app首页，默认false。iOS Only
+   * @param {int}     [pageParams.open_plugin_source] since 10059, 可选参数，标识从哪里打开插件(不传默认为0)。可能的取值有：
+   * 0--默认值，如米家首页/其他；1-- 标准插件的更多功能；2--设置页的首页样式
    * @example
    * let pageParams = {did:Device.deviceID,model:Device.model}
    * Host.ui.openPluginPage(Device.deviceID, PluginEntrance.Setting, pageParams)
@@ -701,6 +706,29 @@ class IUi {
   openNFCWriteDeviceInfoPage(extra = '') {
   }
   /**
+   * @since 10056
+   * 打开NFC写设备数据的调试页面。
+   * 注意：该接口仅限于调试使用，只在DB包可用，线上版本不可用。仅特定插件可用。
+   * 在米家首页，手机接触到NFC设备时会读取写入的设备信息，读取成功后会自动打开相应的插件，插件可以通过Package.entryIfno.nfcdata获取
+   * @param {jsonobject} params 需要写入到nfc设备数据;
+   * params的格式如下：
+   * {
+   *    did: string类型，设备的did,必填,且不能为空
+   *    model: stringl类型, 对应插件的model,必填,切不能为空
+   *    extra: json格式的string类型，需要写入到设备的额外参数，选填
+   * }
+   * @example
+   * let params={
+   *  did: Device.deviceID,
+   *  model: Device.model,
+   *  extra: JSON.stringify({key:'value'})
+   * }
+   * Host.ui.openNFCWriteDeviceInfoDebugPage(params);
+   */
+     @report
+  openNFCWriteDeviceInfoDebugPage(params) {
+  }
+  /**
    * @since 10052
    * 打开常用设备/常用摄像机设置页面
    * @param {string} type type=0代表常用设备，type=1代表常用摄像机
@@ -708,8 +736,8 @@ class IUi {
    * Host.ui.openCommonDeviceSettingPage(1);
   */
   @report
-  openCommonDeviceSettingPage(type) {
-  }
+     openCommonDeviceSettingPage(type) {
+     }
   /**
    * @since 10055
    * 打开设置定时的页面。
@@ -735,6 +763,11 @@ class IUi {
     });
     // native end
   }
-}
-const UiInstance = new IUi();
-export default UiInstance;
+  /**
+    * @since 10056
+    * 打开固件自动更新页面（原生页面位置：设置-》检查更新-》固件自动更新）
+    * @example
+    * Host.ui.openFirmWareAutoOTAPage();
+  */
+   @report
+  openFirmWareAutoOTAPage() {
