@@ -146,8 +146,6 @@ class IUi {
    * @param {string} [option.experiencePlanURL] 用户体验计划本地资源，为空时如果hideUserExperiencePlan=false，则显示米家默认用户体验计划
    * @param {boolean} [option.hideAgreement=false] 是否隐藏用户协议，默认显示用户协议
    * @param {boolean} [option.hideUserExperiencePlan=false] 是否隐藏用户体验计划，默认显示用户体验计划
-   * @param {boolean} option.force 强制弹出隐私弹框，默认为false。对于共享设备，不建议进行弹窗请求隐私授权，如果一定要弹框，需要设置option.force=true，
-   * option.force=false会直接返回失败(相当于拒绝授权)。对于非共享设备，option.force可以不传
    * @param {string} [option.privacyURLForChildren] since 10060 用于展示儿童隐私政策。
    * @param {string} [option.privacyChanges] since 10060 当隐私有变更时将变更的内容传入以便告知用户
    * @returns {Promise<Boolean>} 弹窗授权结果
