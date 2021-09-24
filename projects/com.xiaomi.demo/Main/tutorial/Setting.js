@@ -118,6 +118,7 @@ export default class Setting extends React.Component {
       option: {
         privacyURL: require('../../Resources/raw/privacy_zh.html'),
         agreementURL: require('../../Resources/raw/license_zh.html'),
+        // privacyURLForChildren: require('../../Resources/raw/privacy_zh.html'),   //如果有儿童隐私协议的话需要传入此参数
         experiencePlanURL: '',
         hideAgreement: true
       },
@@ -127,7 +128,7 @@ export default class Setting extends React.Component {
       preOperations: {
         [`${ first_options.FIRMWARE_UPGRADE }`]: this.preOperationFunc,
         [`${ first_options.SHARE }`]: this.preOperationFunc
-      } 
+      }
     };
     // 字体适配测试的extraOptions
     const fontExtraOptions = {
@@ -256,8 +257,8 @@ export default class Setting extends React.Component {
             }}
           />
         </ScrollView>
-        <AbstractDialog 
-          useNewTheme={true} 
+        <AbstractDialog
+          useNewTheme={true}
           title={'前置自定义操作dialog'}
           subtitle={'前置自定义操作dialog详细说明'}
           visible={otaAbstractDialogVisible}
@@ -282,10 +283,10 @@ export default class Setting extends React.Component {
             }
           }}
           {...abstractDialogParams}>
-          <ImageHeader 
+          <ImageHeader
             containerStyle={{
-              flex: 1, 
-              justifyContent: 'center', 
+              flex: 1,
+              justifyContent: 'center',
               alignItems: 'center'
             }}
             icon={require('../../Resources/hello_raise.jpg')}
