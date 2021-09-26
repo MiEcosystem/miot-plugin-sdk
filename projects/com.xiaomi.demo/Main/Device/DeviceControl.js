@@ -56,7 +56,7 @@ export default class UIDemo extends React.Component {
            */
           this.props.navigation.navigate('BraceletInterconnection', {
             title: '手环设备互联页面',
-            // mac: '11:22:33:44:55:66',  
+            // mac: '11:22:33:44:55:66',
             onDisconnect: (mac, callback) => {
               console.log('解除关联：', mac);
               setTimeout(() => {
@@ -350,6 +350,25 @@ export default class UIDemo extends React.Component {
         'name': 'BLE/Mesh子设备是否连接网关',
         'func': () => {
           Bluetooth.isBleOrMeshGatewayConnected(Device.mac, true).then((res) => {
+            alert(JSON.stringify(res, null, '\t'));
+          }).catch((err) => {
+            alert(JSON.stringify(err, null, '\t'));
+          });
+        }
+      },
+      {
+        'name': '设备隐私上报',
+        'func': () => {
+          let param = {
+            privacyVersion: "",
+            type: "accept",
+            privacyType: 3,
+            pluginPrivacyId: 100,
+            sysPermissionInfo:
+              [{ permission_id: 101, status: 1 },
+                { permission_id: 102, status: 0 }]
+          };
+          Device.setPrivacyConfirmation(param).then((res) => {
             alert(JSON.stringify(res, null, '\t'));
           }).catch((err) => {
             alert(JSON.stringify(err, null, '\t'));

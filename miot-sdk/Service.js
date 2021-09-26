@@ -257,21 +257,6 @@ export default {
      return Promise.resolve(null);
   },
   /**
-   * 隐私同意上报
-   * @since 10060
-   * @param {String} privacyVersion: 隐私政策版本,没有隐私版本的情况，传空字符串""，例如本地隐私,默认为""
-   * @param {Number} privacyType: 上报类型，隐私协议上报（1），系统权限同意上报（2），敏感数据上报（3），默认为1
-   * @param {Object} extra: 自定义数据
-   * @returns {Promise<String>}
-   * 成功时：返回
-   * "ok"
-   *  失败时：返回
-   * { "code":xxx, "message":"xxx" }
-   */
-  setPrivacyConfirmation(privacyVersion = "", privacyType = 1, extra) {
-     return Promise.resolve(null);
-  },
-  /**
    * 获取隐私变更的版本，更改信息以及弹窗信息
    * @since 10060
    * @param {String} version: 隐私政策版本,没有隐私版本的情况，传空字符串""，默认为""

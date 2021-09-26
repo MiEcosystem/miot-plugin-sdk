@@ -744,7 +744,6 @@ export class BasicDevice {
   get extra() {
      return ""
   }
-  
   /**
    * 除了基本信息的其他部分额外信息都在这个字段返回, 如：{"fw_version":"1.4.0","mcu_version":"0001","isSetPincode":0}
    * 返回json对象
