@@ -427,7 +427,7 @@ const excludeOptions = {
  * @since 10004
  * @module CommonSetting
  * @description 米家通用设置项
- * @property {array} firstOptions - 一级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项，其中产品百科的配置请参考:https://iot.mi.com/new/doc/guidelines-for-access/direct-access/publish-product
+ * @property {array} firstOptions - 一级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项，其中产品百科的配置请参考: https://iot.mi.com/new/doc/direct-access/productcenter/advance-configure#%E9%85%8D%E7%BD%AE%E2%80%9C%E4%BA%A7%E5%93%81%E7%99%BE%E7%A7%91%E2%80%9D
  * @property {array} secondOptions - 二级菜单列表项的keys，keys的顺序代表显示的顺序，不传将显示全部，传空数组将显示必选项
  * @property {array} showDot - 定义哪些列表项需要显示小红点。为了便于扩展每个列表项都可以显示小红点，默认全部**不显示**，需要显示传入该列表项的key即可。
  * @property {CommonSettingStyle} commonSettingStyle - - 10040新增 CommonSetting 中有关字体样式相关设置
