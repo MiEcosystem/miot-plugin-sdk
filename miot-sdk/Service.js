@@ -53,6 +53,8 @@ import Kookong from './service/kookong';
 import { NativeModules, Platform } from 'react-native';
 import JSONbig from 'json-bigint';
 import Permission from './service/permission';
+import { report } from "./decorator/ReportDecorator";
+import Device from "./device/BasicDevice";
  const CurrentAccount = null;
 export default {
   /**

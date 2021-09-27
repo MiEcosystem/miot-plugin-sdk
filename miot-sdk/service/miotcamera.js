@@ -728,7 +728,7 @@ class IMiotCamera {
    */
   @report
   convertG711VideoIntoAACVideo(filePath, audioParam) {
-       return Promise.resolve(null);
+     return Promise.resolve(null);
   }
   /**
    * react-native-video 截屏，用来截video标签里video控件的内容

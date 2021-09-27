@@ -1233,6 +1233,7 @@ class ISmartHome {
     setFirmwareAutoUpgradeSwitch(aOpen, aDevId = Device.deviceID) {
        return Promise.resolve(null);
     }
+     return Promise.resolve(null);
 }
 const SmartHomeInstance = new ISmartHome();
 export default SmartHomeInstance;

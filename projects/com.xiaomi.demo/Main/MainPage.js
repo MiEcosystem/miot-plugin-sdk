@@ -100,7 +100,7 @@ export default class MainPage extends React.Component {
     });
     this._packageReceivedOutAppInformation = PackageEvent.packageReceivedOutAppInformation.addListener((message) => {
       console.log('收到外部APP传过来的参数', JSON.stringify(message, null, '\t'));
-    })
+    });
     console.log(`传递进来的 PageParams: ${ JSON.stringify(Package.pageParams) }`);
     console.log(`传递进来的 entryInfo: ${ JSON.stringify(Package.entryInfo) }`);
   }
@@ -148,6 +148,7 @@ export default class MainPage extends React.Component {
       options.experiencePlanURL = licenseURL;
       options.hideAgreement = false;
       options.hideUserExperiencePlan = false;
+      // options.privacyURLForChildren = privacyURL;   // 如果有儿童隐私协议需要展示请传入此参数
       Host.ui.alertLegalInformationAuthorization(options).then((res) => {
         if (res === 'ok' || res === true || res === 'true') {
           Service.smarthome.batchSetDeviceDatas([{ did: Device.deviceID, props: { "prop.s_auth_config": JSON.stringify({ 'privacyAuthed': true }) } }]);

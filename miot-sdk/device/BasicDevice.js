@@ -219,6 +219,16 @@ export class BasicDevice {
      return  ""
   }
   /**
+   * device的 pd_id，和model是一一对应的关系，可以理解为唯一对应一个设备
+   * （注：与pid是两种概念）
+   * @return {number}
+   * @readonly
+   *
+   */
+  get pd_id() {
+     return  0
+  }
+  /**
    * 获取设备的 是否是新绑定的设备
    * @return {boolean}
    * @readonly
@@ -734,7 +744,6 @@ export class BasicDevice {
   get extra() {
      return ""
   }
-  
   /**
    * 除了基本信息的其他部分额外信息都在这个字段返回, 如：{"fw_version":"1.4.0","mcu_version":"0001","isSetPincode":0}
    * 返回json对象

@@ -16,8 +16,10 @@
  *  })
  *
  */
-import native, { isAndroid, buildEvents } from '../native';
+import native, { buildEvents, isAndroid } from '../native';
 import { report } from "../decorator/ReportDecorator";
+import Permission from '../service/permission';
+import Device from "../device/BasicDevice";
 export class Location {
   /**
    * 获取手机地理位置信息
