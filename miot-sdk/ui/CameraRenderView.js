@@ -58,6 +58,12 @@ export const MISSCodec = {
      */
   MISS_CODEC_VIDEO_H265: 0x5,
   /**
+     * G711u
+     * @const
+     * @since 10060
+     */
+  MISS_CODEC_AUDIO_G711U: 0x402,
+  /**
      * G711
      * @const
      */
