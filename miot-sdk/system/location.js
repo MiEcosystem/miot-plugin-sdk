@@ -52,6 +52,27 @@ export class Location {
     console.log("getLocation");
      return Promise.resolve(null);
   }
+  /**
+   * 获取手机系统设置位置服务开启状态，仅Android设备需要该方法，因为iOS设备置服务关闭，应用的位置权限也同步关闭，
+   * 即米家中Permissions.LOCATION也同样关闭状态，而Android设备位置服务开关与米家位置权限关闭状态不是同步的 。
+   * iOS可使用System.permission.request(Permissions.LOCATION)检测位置权限。
+   * @since 10057
+   * @returns {Promise} 成功进入then，失败进入catch,res:{"code": 0, "data": {"state": 1}};
+   * code : 0代表接口调用成功, state = 0表示系统设置位置服务关闭，state = 1表示系统设置位置服务打开
+   * iOS调用该接口返回{ "code": -1, "message": 'iOS not support' }
+    @example
+   * import {System} from 'miot'
+   * ...
+   * System.location.getLocationServerState().then((res) => {
+   *   let state = res['data']['state'];
+   *   console.log('location server state : ' , state);
+   * }).catch((error) => {
+   *   console.log('system location server: ', error);
+   * });
+   */
+  @report
+  getLocationServerState() {
+  }
 }
 /**
  * Host事件集合

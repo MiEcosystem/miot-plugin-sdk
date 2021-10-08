@@ -262,7 +262,10 @@ export default {
   /**
      * 获取Android手机屏幕相关信息(包括状态栏高度)
      * @since 10012
-     * @returns {Promise<object>} 手机屏幕相关信息 {'viewWidth':xxx, 'viewHeight':xxx}
+     * @returns {Promise<object>} 手机屏幕相关信息 {'viewWidth':xxx, 'viewHeight':xxx, 'viewWidthPixel':xxx, 'viewHeightPixel':xxx}
+     * viewWidth和viewHeight返回的都是dp值，若想使用px值还得使用PixelRatio.getPixelSizeForLayoutSize方法转化为px值
+     * 但是在Pad小窗上时由于修改了scale值，所以转换出来的px值会偏小
+     * 所以10056新增两个返回值viewWidthPixel和viewHeightPixel表示当前ReactView的宽高像素值，若想使用px值建议直接使用这两个值，不必再转换dp值
      */
   getPhoneScreenInfo() {
      return Promise.resolve(null);
@@ -413,40 +416,18 @@ export default {
    */
   checkAbilityOfJumpToThirdpartyApplication(scheme) {
      return Promise.resolve(null);
-  }
-};
-/**
- * Host事件集合
- * @namespace HostEvent
- * @example
- *    import { HostEvent } from 'miot/host';
- *    const subscription = HostEvent.cellPhoneNetworkStateChanged.addListener(
- *       (event)=>{
- *          ...
- *       }
- *     )
- *    ...
- *    subscription.remove()
- *    ...
- *
- */
-export const HostEvent = {
+  },
   /**
-     * 手机网络状态变更事件
-     * @since 10031
-     * @event
-     * @param{object}  接收到的数据 {networkState: xxx}
-     *              networkState可取值如下：
-     *             -1 ：DefaultState
-     *              0 ：网络不可用
-     *              1 ：蜂窝网络 2G 3G 4G
-     *              2 ：WiFi网络
-     *
-     * @example
-     * 可查看HostEventDemo.js
-     *
-     */
-  cellPhoneNetworkStateChanged: {
+    * @since 10059
+    * 多键开关状态发生变化--设备被拆分或者合并
+    * @param{object}  接收到的数据 {did: xxx, splitFlag: xxx}
+     *              splitFlag可取值如下：
+     *              1 ：设备已拆分
+     *              0 ：设备已合并
+    * @example
+    * Host.notifyMultikeyStateChanged(param);
+  */
+  notifyMultikeyStateChanged(param = {}) {
   }
 };
 buildEvents(HostEvent);
