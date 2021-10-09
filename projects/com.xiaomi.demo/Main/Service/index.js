@@ -154,30 +154,6 @@ export default class HostDemo extends React.Component {
             alert(JSON.stringify(err));
           });
         }
-      },
-      {
-        'name': '上报同意隐私授权',
-        'func': () => {
-          Service.setPrivacyConfirmation().then((res) => {
-            console.log(JSON.stringify(res));
-            alert(JSON.stringify(res));
-          }).catch((err) => {
-            console.log(JSON.stringify(err));
-            alert(JSON.stringify(err));
-          });
-        }
-      },
-      {
-        'name': '获取隐私变更内容以及是否弹窗',
-        'func': () => {
-          Service.getPrivacyChanges().then((res) => {
-            console.log(JSON.stringify(res));
-            alert(JSON.stringify(res));
-          }).catch((err) => {
-            console.log(JSON.stringify(err));
-            alert(JSON.stringify(err));
-          });
-        }
       }
     ];
   }

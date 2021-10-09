@@ -145,11 +145,12 @@ export default class MainPage extends React.Component {
       let options = {};
       options.agreementURL = licenseURL;
       options.privacyURL = privacyURL;
+      // options.privacyURLForChildren = privacyURL;
+      // options.privacyURLForWatch = privacyURL;
       options.experiencePlanURL = licenseURL;
       options.hideAgreement = false;
       options.hideUserExperiencePlan = false;
       // options.privacyURLForChildren = privacyURL;   // 如果有儿童隐私协议需要展示请传入此参数
-      // options.privacyChanges = '这里传入隐私协议的变更内容，内容大小不能超过1M';
       Host.ui.alertLegalInformationAuthorization(options).then((res) => {
         if (res === 'ok' || res === true || res === 'true') {
           Service.smarthome.batchSetDeviceDatas([{ did: Device.deviceID, props: { "prop.s_auth_config": JSON.stringify({ 'privacyAuthed': true }) } }]);

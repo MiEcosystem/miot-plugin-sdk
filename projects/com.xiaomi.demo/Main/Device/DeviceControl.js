@@ -363,7 +363,7 @@ export default class UIDemo extends React.Component {
             privacyVersion: "",
             type: "accept",
             privacyType: 3,
-            pluginPrivacyId: 100,
+            pluginPrivacyId: 1300,
             sysPermissionInfo:
               [{ permission_id: 101, status: 1 },
                 { permission_id: 102, status: 0 }]

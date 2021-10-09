@@ -257,23 +257,6 @@ export default {
      return Promise.resolve(null);
   },
   /**
-   * 获取隐私变更的版本，更改信息以及弹窗信息
-   * @since 10060
-   * @param {String} version: 隐私政策版本,没有隐私版本的情况，传空字符串""，默认为""
-   * @returns {Promise<Object>}
-   * 成功时：返回
-   *    {
-   *      "ver":"0002",
-   *      "change_log":"xxx",
-   *      "pop_type":1
-   *    }
-   *  失败时：返回
-   * { "code":xxx, "message":"xxx" }
-   */
-  getPrivacyChanges(version = "") {
-     return Promise.resolve(null);
-  },
-  /**
    * since 10042
    * 删除设备,插件调用该接口后需要主动调用退出插件
    * @returns {Promise<Object>} 成功时返回：{code:0,data:true};
