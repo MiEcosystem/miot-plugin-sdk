@@ -322,6 +322,7 @@ class IFile {
    * let did = Device.deviceID;
    * let suffix = "mp3";
    * *** Host.file.uploadFileToFDS(param) param = {headers: { "Content-Type": "application/octet-stream" }},上传FDS需要配置Content-Type
+   * *** 如果是KS3 headers: { "Content-Type": "application/octet-stream", "X-Amz-Acl" : "private"}
    Host.file.generateObjNameAndUrlForFDSUploadV3(did, suffix).then(res => {
       if (res.hasOwnProperty(suffix) && res[suffix]) {
           let obj = res[suffix];
