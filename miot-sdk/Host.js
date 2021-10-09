@@ -179,6 +179,15 @@ export default {
      return  0
   },
   /**
+  * 获取设备物理尺寸信息，即物理设备的长宽信息，包含长宽属性 返回值中包含 width 和 height 在设备旋转后需要重新读取
+  *
+  * @since 10061
+  * @type {object}
+  */
+  getPhysicsDimension() {
+     return Promise.resolve(null);
+  },
+  /**
      * @const
      * @see {@link module:miot/host/ui}
      * @description 可调起的host业务页面

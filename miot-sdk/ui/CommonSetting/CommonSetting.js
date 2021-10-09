@@ -629,7 +629,7 @@ export default class CommonSetting extends React.Component {
           let splitFlag = value ? 'split' : 'merge';
           let splitStr = value ? 'split failed' : 'merge failed';
           let did = Device.deviceID;
-          if (splitFlag === 'merge' && Device.extraObj.split.parentId) {
+          if (splitFlag === 'merge' && Device.extraObj?.split?.parentId) {
             // 拆分时使用did
             // 合并时使用parentid, 若不存在则使用did
             did = Device.extraObj.split.parentId;
@@ -872,7 +872,7 @@ export default class CommonSetting extends React.Component {
         showMultipleKey = true;
         // 父设备的开关状态从splitFlag取
         multipleKeyisOn = splitInfo.splitFlag === 1 ? true : false;
-        if (Device.extraObj.split.parentId) {
+        if (Device.extraObj?.split?.parentId) {
           // 子设备的只能合并，所以只能为开
           multipleKeyisOn = true;
         }
