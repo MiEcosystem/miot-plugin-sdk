@@ -1008,7 +1008,7 @@ export default class CommonSetting extends React.Component {
       keys = keys.filter((key) => !(excludeRequiredOptions || []).includes(key));
     }
     // 8. 被拆分的子设备不允许修改名称和管理位置
-    if (Device.extraObj.split.parentId) {
+    if (Device.extraObj?.split?.parentId) {
       keys = keys.filter((key) => ![AllOptions.NAME, AllOptions.LOCATION].includes(key));
     }
     // 4.5 所有设置项顺序固定，20190708 / SDK_10023
