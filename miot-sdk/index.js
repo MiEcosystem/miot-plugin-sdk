@@ -29,13 +29,14 @@ import { AccelerometerChangeEvent as AccelerometerChangeEventNames } from './sys
 import { CompassChangeEvent as CompassChangeEventNames } from './system/compass';
 import { VolumeChangeEvent as VolumeChangeEventNames } from './system/volume';
 import { GyroscopeChangeEvent as GyroscopeChangeEventNames } from './system/gyroscope';
+import { ConnectionChangedEvent as ConnectionChangedEventNames } from './system/network';
 import PackageInstance, { Entrance as Entrances, PackageEvent as PackageEventNames } from './Package';
 import { RootDeviceProperties } from "./Properties";
 import ResourcesPack from './resources';
 import ServiceInstance from './Service';
 import { SceneType as SceneTypeNames } from './service/scene';
 import DarkModeFactory from './darkmode';
-export const API_LEVEL = 10055
+export const API_LEVEL = 10061
 /**
  * 插件包基本配置
  * {@link module:miot/Package}
@@ -144,6 +145,7 @@ export const AccelerometerChangeEvent = AccelerometerChangeEventNames;
 export const CompassChangeEvent = CompassChangeEventNames;
 export const VolumeChangeEvent = VolumeChangeEventNames;
 export const GyroscopeChangeEvent = GyroscopeChangeEventNames;
+export const ConnectionChangedEvent = ConnectionChangedEventNames;
 export const AudioEvent = AudioEventNames;
 export const DarkMode = DarkModeFactory;
 import * as Utils from './utils';
