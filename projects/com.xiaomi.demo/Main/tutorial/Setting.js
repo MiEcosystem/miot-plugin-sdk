@@ -118,7 +118,8 @@ export default class Setting extends React.Component {
       option: {
         privacyURL: require('../../Resources/raw/privacy_zh.html'),
         agreementURL: require('../../Resources/raw/license_zh.html'),
-        // privacyURLForChildren: require('../../Resources/raw/privacy_zh.html'),   //如果有儿童隐私协议的话需要传入此参数
+        // privacyURLForChildren: require('../../Resources/raw/privacy_zh.html'),   //如果有儿童信息保护规则的话需要传入此参数
+        // privacyURLForWatch: require('../../Resources/raw/privacy_zh.html'),       //如果有手表隐私政策的话需要传入此参数
         experiencePlanURL: '',
         hideAgreement: true
       },

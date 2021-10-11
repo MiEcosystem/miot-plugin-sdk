@@ -145,6 +145,8 @@ export default class MainPage extends React.Component {
       let options = {};
       options.agreementURL = licenseURL;
       options.privacyURL = privacyURL;
+      // options.privacyURLForChildren = privacyURL;
+      // options.privacyURLForWatch = privacyURL;
       options.experiencePlanURL = licenseURL;
       options.hideAgreement = false;
       options.hideUserExperiencePlan = false;
