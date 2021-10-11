@@ -2,6 +2,10 @@ import Device from "../device/BasicDevice";
 import Service from "../Service";
 import native, { isAndroid } from "../native";
 let resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
+const LanguageMap = {
+  'pt_BR': 'pt_br',
+  'pt-BR': 'pt_br'
+};
 export default class ProtocolManager {
   static _legalInfoAuthHasShowed = false;
   static _UniUrl = 'https://home.mi.com/miot/activity/privacy/index.html';
@@ -10,7 +14,8 @@ export default class ProtocolManager {
       let { model } = Device;
       let plugin_id = native.MIOTPackage.pluginID;
       let plugin_version = native.MIOTPackage.version;
-      let language = native.language;
+      // let language = native.language;
+      let language = LanguageMap[native.MIOTHost.language] || native.language;
       Service.getServerName().then((server) => {
         let country = server.countryCode;
         let serverCode = (server.serverCode || country).toLowerCase();
