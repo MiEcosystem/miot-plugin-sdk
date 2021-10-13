@@ -279,7 +279,7 @@
 | Name | Type | Description |
 | --- | --- | --- |
 | title | <code>string</code> | 左侧主标题 |
-| subtitle | <code>string</code> | 右侧副标题 |
+| subtitle | <code>string</code> | 左侧副标题 |
 | value | <code>string</code> | 右侧文案 |
 | onPress | <code>function</code> | 点击事件 |
 | disabled | <code>bool</code> | 是否禁用点击，默认值 `false` |
