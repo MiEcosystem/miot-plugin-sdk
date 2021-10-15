@@ -767,4 +767,4 @@ class IUi {
     * Host.ui.openFirmWareAutoOTAPage();
   */
    @report
-  openFirmWareAutoOTAPage() {
+   openFirmWareAutoOTAPage() {
