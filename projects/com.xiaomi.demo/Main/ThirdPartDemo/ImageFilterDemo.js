@@ -7,9 +7,9 @@
 //   Invert,
 //   RadialGradient
 // } from 'react-native-image-filter-kit';
-//
+
 // export default class ImageFilterDemo extends React.Component {
-//
+
 //   render() {
 //     return (<Earlybird
 //       image={

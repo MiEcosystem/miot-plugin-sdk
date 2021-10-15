@@ -255,6 +255,15 @@ export class BasicDevice {
      return false
   }
   /**
+     * 设备绑定到当前账号（当前家庭）下的时间戳（北京时间）
+     * @since 10057
+     * @member
+     * @return {Number} 单位秒 
+     * @readonly
+     */
+  get orderTime() {
+  }
+  /**
    * 批量删除设备, 不能删除 小米路由器/本地蓝牙/局域网直连设备，不能删除与自己设备无关的设备，比如，其他生态链公司的设备。
    * @since 10011
    * @param {object[]} didAndPids did 与 pid（Device.type） 列表 [{did:xx,pid:xx}, {did:xx,pid:xx}]
@@ -625,6 +634,25 @@ export class BasicDevice {
    */
   @report
   getDeviceTimeZone() {
+     return Promise
+  }
+  /**
+   * 获取当前设备ble mac
+   * @since 10057
+   * @returns {Promise} 成功进入then，失败进入catch。res： {"code": 0, "message": "ok", "result": {"data": {"ble_mac": "B0:41:1D:E9:2E:CE"}}};
+   * reject：{code: xxx, message: xxx}
+   * 使用场景: 设备同时存在wifi mac与 ble mac,且绑定插件时上报的是wifi mac，既Device.mac获取的是wifi mac
+   * 使用条件: 设备ble mac上报给了后台，该接口方可获取到数据
+   *
+   * @example
+   * Device.getDeviceBleMac().then((res)=>{
+   *   let mac = res['result']['data']['ble_mac'];
+   * }).catch((err)=>{
+   *   console.log('get ble mac failed  : ', err);
+   * });
+   */
+  @report
+  getDeviceBleMac() {
      return Promise
   }
   /**

@@ -28,7 +28,7 @@
  *
  *
  */
-import { MessageDialog } from 'miot/ui';
+import { MessageDialog } from 'miot/ui/Dialog';
 import React from 'react';
 import { AppRegistry, DeviceEventEmitter, View } from "react-native";
 import Service from './Service';

@@ -17,7 +17,7 @@
  * });
  */
 // import Device ,{_find_device} from './../Device'
-import { report } from "../decorator/ReportDecorator";
+import { report, resultReport } from "../decorator/ReportDecorator";
 const SET = "/miotspec/prop/set";
 const GET = "/miotspec/prop/get";
 const ACTION = "/miotspec/action";
@@ -47,6 +47,7 @@ class ISpec {
    * 失败时：{code:xxx, message:xxx}
    */
   @report
+  @resultReport
   getPropertiesValue(params, datasource = 1) {
      return Promise.resolve(null);
   }
@@ -63,6 +64,7 @@ class ISpec {
    * 失败时：{code:xxx, message:xxx}
    */
   @report
+  @resultReport
   setPropertiesValue(params) {
      return Promise.resolve(null);
   }
@@ -79,6 +81,7 @@ class ISpec {
    * 失败时：{code:xxx, message:xxx}
    */
   @report
+  @resultReport
   doAction(params) {
      return Promise.resolve(null);
   }
