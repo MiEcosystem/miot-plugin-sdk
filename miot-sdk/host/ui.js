@@ -155,6 +155,7 @@ class IUi {
    */
   @report
   alertLegalInformationAuthorization(option) {
+    ProtocolManager.protocolMangerReportLog('[Privacy Debug] Host.ui.alertLegalInfo.. enter');
      return Promise.resolve(null);
   }
   /**
