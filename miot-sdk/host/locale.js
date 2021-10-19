@@ -15,6 +15,9 @@
  *
  */
 import { report } from "../decorator/ReportDecorator";
+import Permission from '../service/permission';
+import Device from "../device/BasicDevice";
+import { System } from "../index";
 /**
  * 本地化
  * @interface

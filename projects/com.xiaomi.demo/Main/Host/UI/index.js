@@ -619,6 +619,18 @@ export default class UIDemo extends React.Component {
         }
       },
       {
+        'name': 'openNFCWriteDeviceInfoDebugPage',
+        'subtitle': '打开NFC写设备信息Debug页面',
+        'func': () => {
+          let params = {
+            did: Device.deviceID,
+            model: Device.model,
+            extra: JSON.stringify({ key: 'test123' })
+          };
+          Host.ui.openNFCWriteDeviceInfoDebugPage(params);
+        }
+      },
+      {
         'name': 'openCommonDeviceSettingPage',
         'subtitle': '打开常用设备/常用摄像机设置页面',
         'func': () => {
@@ -633,6 +645,13 @@ export default class UIDemo extends React.Component {
             .then((crontab) => {
               alert(crontab.data.crontab);
             });
+        }
+      },
+      {
+        'name': 'openFirmWareAutoOTAPage',
+        'subtitle': '打开设置-检查更新中的固件自动更新',
+        'func': () => {
+          Host.ui.openFirmWareAutoOTAPage()
         }
       }
     ];

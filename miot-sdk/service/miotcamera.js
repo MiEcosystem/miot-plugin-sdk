@@ -728,11 +728,7 @@ class IMiotCamera {
    */
   @report
   convertG711VideoIntoAACVideo(filePath, audioParam) {
-    if (Platform.OS == "android") {
-       return Promise.resolve(null);
-    } else {
-      return Promise.reject("ios platform not support yet");
-    }
+     return Promise.resolve(null);
   }
   /**
    * react-native-video 截屏，用来截video标签里video控件的内容
@@ -868,13 +864,33 @@ class IMiotCamera {
    * @param {string} aDid 设备id
    * @since 10055
    * @example 
+   *     Service.miotcamera.sendP2PCommandToDevice(MISSCommand.MISS_CMD_SPEAKER_START_REQ, {})
+   *     收到回复 MISSCommand.MISS_CMD_SPEAKER_START_RESP 之后可以发送
    *     Service.miotcamera.sendAudioData(data, header).then(xxx).catch(yyy);
    */
     @report
     sendAudioData(aDatInBase64, aHeaderInBase64, aCodeId = MISSCodec.MISS_CODEC_AUDIO_G711A, aDid = Device.deviceID) {
      return Promise.resolve(null);
     }
+  /**
+   * 设置 moveType change时回调回来的callbackName，js端使用DeviceEventEmitter监听，  返回数据{currentMoveType: xxx}
+   * 仅仅适合华来摄像头特定业务场景。
+   * @param {string} did 
+   * @param {string} callbackName 
+   * 
+   * @since 10056
+   */
+  @report
+    bindMoveTypeChangeCallback(callbackName, did = Device.deviceID) {
+       return null
+    }
   
-}
-const MiotCameraInstance = new IMiotCamera();
-export default MiotCameraInstance;
+  /**
+   * @since 10058
+   * @param {拍照或者相册得到的图片路径} imagePath 
+   * @param {did} did 
+   */
+  @report
+  uploadImageToCameraServer(imagePath, did = Device.deviceID) {
+     return Promise.resolve(null);
+     return end
