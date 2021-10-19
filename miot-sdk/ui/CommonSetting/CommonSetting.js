@@ -46,8 +46,8 @@ function getCountryCode() {
       resolve(countryCode);
       return;
     }
-    Service.getServerName().then(({ countryCode }) => {
-      countryCode = (countryCode || '').toLowerCase();
+    Service.getServerName().then(({ countryCode: mCountryCode }) => {
+      countryCode = (mCountryCode || '').toLowerCase();
       resolve(countryCode);
     }).catch(reject);
   });
@@ -658,7 +658,7 @@ export default class CommonSetting extends React.Component {
         this.removeKeyFromShowDot(AllOptions.FREQ_CAMERA);
       }
     } : null;
-    ret[AllOptions.DEFAULT_PLUGIN] = hasStdPlugin ? {
+    ret[AllOptions.DEFAULT_PLUGIN] = hasStdPlugin && countryCode === 'cn' ? {
       title: strings.defaultPlugin,
       value: choiceIndexArray[pluginCategory].title,
       onPress: () => {
@@ -1125,7 +1125,7 @@ export default class CommonSetting extends React.Component {
             }
           })
         }
-        {hasStdPlugin ?
+        {hasStdPlugin && countryCode === 'cn' ?
           <ChoiceDialog
             visible={this.state.dialogVisible}
             title={strings.selectDefaultHP}
