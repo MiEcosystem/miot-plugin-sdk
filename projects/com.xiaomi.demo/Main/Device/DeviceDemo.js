@@ -68,6 +68,11 @@ export default class DeviceDemo extends React.Component {
     this.eventSubscription.remove();
   }
 
+  formatOrderTime() {
+    const date = new Date(this.state.device.orderTime * 1000);
+    return `${ this.state.device.orderTime.toString() }-${ date.getUTCFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() }`;
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -120,7 +125,8 @@ export default class DeviceDemo extends React.Component {
                     ['isShared', this.state.device.isShared.toString()],
                     ['isBinded2', this.state.device.isBinded2.toString()],
                     ['isReadOnlyShared', this.state.device.isReadonlyShared.toString()],
-                    ['是否是根设备', this.state.device.isRootDevice.toString()]
+                    ['是否是根设备', this.state.device.isRootDevice.toString()],
+                    ['设备绑定时间orderTime', this.formatOrderTime()]
                   ]
                 },
                 {
@@ -158,7 +164,7 @@ export default class DeviceDemo extends React.Component {
                         return (
                           <View key={index} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', minHeight: 48, marginTop: 1, padding: 10, width: '100%', backgroundColor: index % 2 == 0 ? '#FFF' : '#FFFFFFE0' }}>
                             <Text>{`${ item[0] }:    `}</Text>
-                            <Text>{item[1]}</Text>
+                            <Text>{`${item[1]}`}</Text>
                           </View>);
                       })
                     }
