@@ -255,6 +255,10 @@ const API_REPO = {
   '/v2/device/setRecord': {},
   '/v2/device/batchSetRecord': {},
   '/v2/device/getRecordByUid': {},
-  '/v2/device/batchGetRecord': {}
+  '/v2/device/batchGetRecord': {},
+  // lvmi需求
+  '/home/batchgetfileurl': {},
+  '/v2/user/setuserdevicedatatab': {},
+  '/home/genpresignedurl': {}
 };
 export default API_REPO;
