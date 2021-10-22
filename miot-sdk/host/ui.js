@@ -15,13 +15,12 @@
  *
  *
  */
-import Device from "../device/BasicDevice";
 import native, { isAndroid, isIOS } from "../native";
 import AutoOTAABTestHelper from 'miot/utils/autoota_abtest_helper';
-import Permission from '../service/permission';
 import ProtocolManager from '../utils/protocol-helper';
 // import { Entrance } from "../Package";
 import { report } from "../decorator/ReportDecorator";
+import { Package, Device, Service } from 'miot';
 // import { Entrance } from "../Package";
 // const resolveAssetSource = require('resolveAssetSource');
 // const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
@@ -431,11 +430,12 @@ class IUi {
    * @since 10010 ,SDKLevel 10010 开始提供使用
    * @param {string} did  设备did 指定设备ID
    * @param {string} mac  设备mac option, 在不传递时。默认使用当前设备
+   * @patam {Object} params { useNewSetting: false } 是否使用新设置
    * @example
    * Host.ui.openPowerMultikeyPage(did, mac);
   */
   @report
-  openPowerMultikeyPage(did, mac = null) {
+  openPowerMultikeyPage(did, mac = null, params = null) {
   }
   /**
   * 添加或者复制一个红外遥控器

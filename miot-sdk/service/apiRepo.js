@@ -105,6 +105,7 @@ const API_REPO = {
   '/user/set_user_config': {},
   '/user/set_third_user_config': {},
   '/v2/device/multi_button_template': {},
+  '/v2/device/init_membership': {},
   '/device/deviceinfo': {},
   '/v2/device/ble_event': {},
   '/share/get_share_user': {},
@@ -112,6 +113,8 @@ const API_REPO = {
   '/v2/aftersale/create': {},
   '/v2/aftersale/list': {},
   '/v2/aftersale/detail': {},
+  // 房间
+  '/homeroom/addroom': {},
   '/v2/homeroom/gethome': {},
   // 摄像机API
   '/wx/app/v1/get/pushSwitch': {},
@@ -178,6 +181,9 @@ const API_REPO = {
   // 多键开关相关
   '/v2/home/device_support_split': {},
   '/v2/home/device_split_merge': {},
+  '/v2/device/update_membership': {},
+  '/v2/device/switch_subclass': {},
+  '/device/rename': {},
   '/appgateway/miot/appdeviceinfo_service/AppDeviceInfoService/get_last_online': {},
   // 往服务器塞/get 二进制数据。
   '/common/app/data/put': {},

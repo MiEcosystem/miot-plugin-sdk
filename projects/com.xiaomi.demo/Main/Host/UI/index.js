@@ -34,6 +34,15 @@ export default class UIDemo extends React.Component {
   _createMenuData() {
     this._menuData = [
       {
+        'name': '多键开关设置',
+        'subtitle': 'openPowerMultikeyPage',
+        'func': () => {
+          // Host.ui.openWebPage('http://s.miwifi.com/dist/userhosts/index.html');
+          
+          Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac, { useNewSetting: true });
+        }
+      },
+      {
         'name': '用户协议与隐私政策',
         'subtitle': 'navigate 到 PrivacyDemo',
         'func': () => {
@@ -350,13 +359,6 @@ export default class UIDemo extends React.Component {
         }
       },
       {
-        'name': '多键开关设置',
-        'subtitle': 'openPowerMultikeyPage',
-        'func': () => {
-          Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac);
-        }
-      },
-      {
         'name': '打开一个原生类 className（只支持iOS）',
         'subtitle': 'openPageWithClassName',
         'func': () => {
@@ -651,7 +653,7 @@ export default class UIDemo extends React.Component {
         'name': 'openFirmWareAutoOTAPage',
         'subtitle': '打开设置-检查更新中的固件自动更新',
         'func': () => {
-          Host.ui.openFirmWareAutoOTAPage()
+          Host.ui.openFirmWareAutoOTAPage();
         }
       }
     ];
