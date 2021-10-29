@@ -32,7 +32,9 @@ class IPermission {
     let map = this.remoteConfig ?? this.localConfig;
     let methodAllow = map.methodAllow ?? {};
     let models = methodAllow[method] ?? [];
-    return models.length == 0 || models.includes(model);
+    return models.length == 0
+    || models.includes(model)
+    || models.find((m) => { return model.startsWith(m); });
   }
 }
 const instance = new IPermission();
