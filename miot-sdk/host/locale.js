@@ -15,6 +15,9 @@
  *
  */
 import { report } from "../decorator/ReportDecorator";
+import Permission from '../service/permission';
+import Device from "../device/BasicDevice";
+import { System } from "../index";
 /**
  * 本地化
  * @interface
@@ -82,6 +85,25 @@ class ILocale {
   @report
   getSystemTimeZone() {
      return Promise.resolve(null);
+  }
+  /**
+   * 获取手机系统设置时区差，仅Android设备需要该方法，iOS设备建议使用new Date().getTimezoneOffset()
+   *
+   * @since 10062
+   * @returns {Promise} 成功进入then，失败进入catch
+   * code : 0代表接口调用成功
+   * iOS调用该接口返回{ "code": -1, "message": 'iOS not support' }
+   @example
+   *
+   * ...
+   * Host.locale.getSystemTimeZoneOffset().then((res) => {
+   *   console.log("res", res);
+   * }).catch((error) => {
+   *    console.log("error", error);
+   * });
+   */
+  @report
+  getSystemTimeZoneOffset() {
   }
 }
 const LocaleInstance = new ILocale();
