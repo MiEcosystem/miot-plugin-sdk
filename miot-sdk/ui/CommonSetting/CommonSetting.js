@@ -533,7 +533,13 @@ export default class CommonSetting extends React.Component {
       },
       [AllOptions.MEMBER_SET]: {
         title: strings.memberSet,
-        onPress: () => Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac)
+        onPress: () => {
+          if (Package.packageName === 'miot.plugin.spec') {
+            Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac, { useNewSetting: true, done: [] });
+          } else {
+            Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac);
+          }          
+        }
       },
       [AllOptions.SHARE]: {
         title: strings.share,
