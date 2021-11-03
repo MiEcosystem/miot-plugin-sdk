@@ -86,6 +86,26 @@ class ILocale {
   getSystemTimeZone() {
      return Promise.resolve(null);
   }
+  /**
+   * 获取手机系统设置时区差，仅Android设备需要该方法，iOS设备建议使用new Date().getTimezoneOffset()
+   *
+   * @since 10062
+   * @returns {Promise} 成功进入then，失败进入catch
+   * code : 0代表接口调用成功 res {"code": 0, "data": {"timeZoneOffset": 28800000}}
+   * iOS调用该接口返回{ "code": -1, "message": 'iOS not support' }
+   @example
+   *
+   * ...
+   * Host.locale.getSystemTimeZoneOffset().then((res) => {
+   *   let offset = res['data']['timeZoneOffset'];
+   *   console.log("offset", offset);
+   * }).catch((error) => {
+   *    console.log("error", error);
+   * });
+   */
+  @report
+  getSystemTimeZoneOffset() {
+  }
 }
 const LocaleInstance = new ILocale();
 export default LocaleInstance;
