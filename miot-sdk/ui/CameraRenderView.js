@@ -78,7 +78,14 @@ export const MISSCodec = {
      * @const
      * @since 10047
      */
-  MISS_CODEC_AUDIO_PCM: 0x400
+  MISS_CODEC_AUDIO_PCM: 0x400,
+  /**
+   * OPUS
+   * @const
+   * @since 10062
+   * 
+   */
+  MISS_CODEC_AUDIO_OPUS: 0x408
 };
 Object.freeze(MISSCodec);
 /**
