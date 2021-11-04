@@ -106,6 +106,32 @@ class ILocale {
   @report
   getSystemTimeZoneOffset() {
   }
+  /**
+   * 通过经纬度坐标获取地理位置信息，返回详细地址以及POIS信息
+   *
+   * @since 10062
+   * @returns {Promise} 成功进入then，失败进入catch
+   * code : 0代表接口调用成功 res {"code": 0, "data": {"address": "湖北省武汉市洪山区九峰街道东湖国家自主创新示范区公共服务中心3号楼中国光谷", "pois": "东湖国家自主创新示范区公共服务中心3号楼"}}
+   * 失败返回{ "code": -1, "message": 'get address failed' }
+   * 参数 latitude ，longitude分别为经纬度坐标值
+   @example
+   *
+   * ...
+   * let params = {
+   *    latitude: 30.491,
+   *    longitude: 114.50,
+   * }
+   * Host.locale.getAddressByCoordinate(params).then((res) => {
+   *   let address = res['data']['address'];
+   *   let pois = res['data']['pois'];
+   *   console.log("address: ", address , “ , pois:" , pois );
+   * }).catch((error) => {
+   *    console.log("error", error);
+   * });
+   */
+  @report
+  getAddressByCoordinate(params) {
+  }
 }
 const LocaleInstance = new ILocale();
 export default LocaleInstance;
