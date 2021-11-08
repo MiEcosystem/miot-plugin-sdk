@@ -120,7 +120,20 @@ class ILocale {
    * let params = {
    *    latitude: 30.491,
    *    longitude: 114.50,
+   *    coordType : 6,
    * }
+   * 参数说明
+   *    @param latitude纬度坐标
+   *    @param longitude 经度坐标
+   *    @param coordType 坐标系类型，不传默认是高德坐标系
+   *           坐标系对应关系:
+   *           0-BAIDU
+   *           1-MAPBAR
+   *           2-MAPABC
+   *           3-SOSOMAP
+   *           4-ALIYUN
+   *           5-GOOGLE
+   *           6-GPS
    * Host.locale.getAddressByCoordinate(params).then((res) => {
    *   let address = res['data']['address'];
    *   let pois = res['data']['pois'];
