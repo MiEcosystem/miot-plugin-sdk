@@ -238,6 +238,7 @@ const API_REPO = {
   '/v2/device/getLockPushSwitch': {},
   '/v2/device/delLockPushSwitch': {},
   '/v2/device/insurance': {},
+  '/device/engineer': {},
   // 疯景1代门铃迁移rn接口
   '/common/app/delete/files': {},
   '/common/app/get/playlist': {},
