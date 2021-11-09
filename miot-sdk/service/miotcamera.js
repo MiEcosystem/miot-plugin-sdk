@@ -585,30 +585,22 @@ class IMiotCamera {
    * @param {string} fileData byte array encoded into string 待解密的文件体
    * @param {*} nonce byte array encoded into string chacha20_xor解密需要的nonce
    * @param {*} shareKey  byte array encoded into string chacha20_xor解密需要的sharekey
-   * @since 10041
+* @since 10041, for ios from 10062
    */
   @report
   decryptBigFile(fileData, nonce, did = Device.deviceID) {
-    if (Platform.OS == "android") {
-       return Promise.resolve(null);
-    } else {
-      return Promise.reject("ios platform not support yet; to be done");
-    }
+     return Promise.resolve(null);
   }
   /**
  * 使用chacha20_xor解密小文件
  * @param {string} fileData byte array base64 encoded into string 待解密的文件体
  * @param {string} nonce byte array base64 encoded into string chacha20_xor解密需要的nonce
  * @param {string} shareKey  byte array base64 encoded into string chacha20_xor解密需要的sharekey
- * @since 10041
+ * @since 10041, for ios from 10062
  */
   @report
   decryptSmallFile(fileData, nonce, did = Device.deviceID) {
-    if (Platform.OS == "android") {
-       return Promise.resolve(null);
-    } else {
-      return Promise.reject("ios platform not support yet; to be done");
-    }
+     return Promise.resolve(null);
   }
   /**
    * 标记当前是否使用华来的音视频解密方案，只对tutk生效，需要在连接成功之后，收到视频流之前调用
