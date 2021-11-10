@@ -44,8 +44,6 @@ export function resetClassVariables() {
   countryCode = '';
   productBaikeUrl = null;
   roomInfo = null;
-  hasStdPlugin = false;
-  selectedIndex = 0;
 }
 getModelType().then(() => { }).catch(() => { });
 let countryCode = '';
@@ -120,8 +118,6 @@ function getRoomeInfo() {
   });
 }
 getRoomeInfo().then(() => { }).catch(() => { });
-let hasStdPlugin = false;
-let selectedIndex = 0;
 const choiceIndexArray = [
   {
     title: strings.stdPluginTitle,
@@ -144,10 +140,6 @@ function getPluginCategory() {
       });
   });
 }
-getPluginCategory().then((res) => {
-  hasStdPlugin = res.standardized;
-  selectedIndex = res.homepage_type;
-}).catch(() => {});
 const firstOptionsInner = {
   /**
    * 按键设置，多键开关`必选`，其余设备`必不选`
@@ -538,7 +530,7 @@ export default class CommonSetting extends React.Component {
             Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac, { useNewSetting: true, done: [] });
           } else {
             Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac);
-          }          
+          }
         }
       },
       [AllOptions.SHARE]: {
@@ -660,6 +652,16 @@ export default class CommonSetting extends React.Component {
             Service.smarthome.reportLog(Device.model, `Service.smarthome.device_split_merge error: ${ JSON.stringify(error) }`);
           });
         }
+      },
+      [AllOptions.DEFAULT_PLUGIN]: {
+        title: strings.defaultPlugin,
+        value: choiceIndexArray[pluginCategory].title,
+        onPress: () => {
+          this.setState({
+            dialogVisible: true
+          });
+          Service.smarthome.reportEvent('expose', { tip: '6.18.1.1.15487' });
+        }
       }
     };
     // 常用摄像机(初摩象), 不是摄像机不添加, 避免后面多次判断
@@ -671,16 +673,6 @@ export default class CommonSetting extends React.Component {
         Host.ui.openCommonDeviceSettingPage(1);
         Host.ui.clearFreqCameraNeedShowRedPoint();
         this.removeKeyFromShowDot(AllOptions.FREQ_CAMERA);
-      }
-    } : null;
-    ret[AllOptions.DEFAULT_PLUGIN] = hasStdPlugin && countryCode === 'cn' ? {
-      title: strings.defaultPlugin,
-      value: choiceIndexArray[pluginCategory].title,
-      onPress: () => {
-        this.setState({
-          dialogVisible: true
-        });
-        Service.smarthome.reportEvent('expose', { tip: '6.18.1.1.15487' });
       }
     } : null;
     // 常用设备
@@ -714,7 +706,8 @@ export default class CommonSetting extends React.Component {
       showMultipleKey: false, // 是否展示多键开关
       multipleKeyisOn: false, // 多键开关状态
       keyNum: 0, // 多键开关数量
-      pluginCategory: selectedIndex,
+      pluginCategory: 0,
+      hasStdPlugin: false,
       dialogVisible: false,
       needShowUpgradeRedDot: false
     };
@@ -906,6 +899,20 @@ export default class CommonSetting extends React.Component {
     }).catch((err) => {
       Service.smarthome.reportLog(Device.model, `Service.smarthome.device_support_split error: ${ err }`);
     });
+    getPluginCategory()
+      .then((res) => {
+        this.commonSetting = this.getCommonSetting({
+          ...this.state,
+          hasStdPlugin: res.standardized,
+          pluginCategory: res.homepage_type
+        });
+        this.setState({
+          hasStdPlugin: res.standardized,
+          pluginCategory: res.homepage_type
+        });
+      }).catch((err) => {
+        console.log(err);
+      });
     Service.smarthome.batchGetDeviceDatas([{
       did: Device.deviceID,
       props: ['prop.s_commonsetting_stand_plugin']
@@ -975,13 +982,12 @@ export default class CommonSetting extends React.Component {
     });
   }
   render() {
-    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey } = this.state;
+    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory } = this.state;
     let requireKeys1 = [
       AllOptions.FREQ_CAMERA,
       AllOptions.FREQ_DEVICE,
       AllOptions.NAME,
-      AllOptions.LOCATION,
-      AllOptions.DEFAULT_PLUGIN
+      AllOptions.LOCATION
     ];
     if (productBaikeUrl) {
       requireKeys1.push(AllOptions.PRODUCT_BAIKE);
@@ -989,6 +995,9 @@ export default class CommonSetting extends React.Component {
     if (showMultipleKey) {
       // 展示多键开关
       requireKeys1.push(AllOptions.MULTIPLEKEY_SWITCH);
+    }
+    if (hasStdPlugin && countryCode === 'cn') {
+      requireKeys1.push(AllOptions.DEFAULT_PLUGIN);
     }
     // 创建组设备
     // 蓝牙单模和组设备不能创建
@@ -1163,10 +1172,10 @@ export default class CommonSetting extends React.Component {
                     dialogVisible: false
                   });
                   const index = result && result[0];
-                  if (selectedIndex === index) {
+                  if (pluginCategory === index) {
                     return;
                   }
-                  selectedIndex = index;
+                  pluginCategory = index;
                   Service.smarthome.reportEvent('click', { plugin_form: index, tip: '6.18.1.1.15488' });
                   let params = { homepage_type: index };
                   Service.smarthome.setHomepageSettings(params);
@@ -1179,7 +1188,7 @@ export default class CommonSetting extends React.Component {
               }
             ]}
             options={choiceIndexArray}
-            selectedIndexArray={[selectedIndex]}
+            selectedIndexArray={[pluginCategory]}
             onDismiss={() => {
               this._onDialogDismiss();
             }}
