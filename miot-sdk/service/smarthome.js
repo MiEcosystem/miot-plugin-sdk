@@ -403,7 +403,6 @@ class ISmartHome {
      * @param {json} params -参数\{did,type,key,time_start,time_end,limit}含义如下：
      * @param {string} params.did 设备id。 必选参数
      * @param {string} params.key 属性或事件名，可选参数。(注意：如果设备是蓝牙设备，传入的是object id， 且为十进制数据；如果是wifi设备，才传入自定义属性或事件名，可以在开发者平台-产品-功能定义中查看)，如果是miot-spec设备，请传入（siid.piid或者siid.eiid）
-     * @param {Array<string>} params.batch_key since 10060,可选参数，属性或事件名的数组，即key的数组，key的说明如上（注意：最多10个，只能同时请求prop或者event不能混合）,key和batch_key二者则一使用
      * @param {string} params.type 必选参数[prop/event], 如果是查询上报的属性则type为prop，查询上报的事件则type为event,
      * @param {number} params.time_start 数据起点，单位是秒。必选参数
      * @param {number} params.time_end 数据终点，单位是秒。必选参数，time_end必须大于time_start,
