@@ -132,7 +132,11 @@ function getPluginCategory() {
     Service.smarthome.getHomepageSettings()
       .then((res) => {
         if (res && res.data) {
-          resolve(res.data);
+          const ret = {
+            hasStdPlugin: res.data.standardized,
+            pluginCategory: res.data.homepage_type
+          };
+          resolve(ret);
         }
       })
       .catch((err) => {
@@ -903,12 +907,12 @@ export default class CommonSetting extends React.Component {
       .then((res) => {
         this.commonSetting = this.getCommonSetting({
           ...this.state,
-          hasStdPlugin: res.standardized,
-          pluginCategory: res.homepage_type
+          hasStdPlugin: res.hasStdPlugin,
+          pluginCategory: res.pluginCategory
         });
         this.setState({
-          hasStdPlugin: res.standardized,
-          pluginCategory: res.homepage_type
+          hasStdPlugin: res.hasStdPlugin,
+          pluginCategory: res.pluginCategory
         });
       }).catch((err) => {
         console.log(err);
