@@ -137,6 +137,11 @@ function getPluginCategory() {
             pluginCategory: res.data.homepage_type
           };
           resolve(ret);
+        } else {
+          reject({
+            code: -1,
+            message: '\'getHomepageSettings\' method returns null object'
+          });
         }
       })
       .catch((err) => {
