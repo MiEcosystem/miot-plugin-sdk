@@ -1078,6 +1078,26 @@ class IFile {
      return Promise.resolve(null);
   }
   /**
+     * 获取指定目录的占用空间 目录必须在插件沙盒或者是插件沙盒子目录
+     * 参数 folderName 为 '' 时获取插件沙盒目录 
+     * 获取子目录需要传递相对路径，sdk会自动对目录做拼接
+     * since 10062
+     * @returns {Promise<json>} 返回目录必须在插件沙盒或者是插件沙盒子目录占用的存储空间：{code: 0 ,data: { size: 123456} }，
+     * 单位都字节(byte) 
+     *
+     * @example
+     * // 参数 folderName 为 '' 时获取插件沙盒目录
+     * Host.file.readFolderSize('folder').then(res=>{
+     *  alert(JSON.stringify(res))
+     * }).catch(err=>{
+     *  alert(JSON.stringify(err));
+     * });
+     */
+     @report
+  readFolderSize(folderName) {
+     return Promise.resolve(null);
+  }
+  /**
    * 裁剪图片
    * since 10054
    * @returns{Promise<string>} 成功时返回裁剪后的图片路径，失败返回 {code:-1,message:'xxx'}
@@ -1089,9 +1109,9 @@ class IFile {
    * @param {Object} params.displaySize: 将裁切后的图像缩放到指定大小(Optional).  e.g :{width:200,height:200} type int
    */
   @report
-  cropImage(targetFileName, sourceFilename, params) {
-     return Promise.resolve(null);
-  }
+     cropImage(targetFileName, sourceFilename, params) {
+        return Promise.resolve(null);
+     }
 }
 const FileInstance = new IFile();
 export default FileInstance;
