@@ -13,7 +13,8 @@
  * System.network.getGatewayIpAddress().then()
  * ...
  */
-import native, { isIOS } from "../native";
+import native, { buildEvents, isIOS } from "../native";
+import { CompassChangeEvent } from "./compass";
 /**
  * 网络
  * @interface
@@ -56,6 +57,33 @@ class INetwork {
   @report
   getWifiBroadcastAddress() {
   }
+  /**
+   * 发起连接wifi指令
+   * @since 10061
+   * @param ssid 要连接的WIFI名称
+   * @param pwd 要连接的WIFI密码
+   * @returns {Promise<object>} result:
+   * 成功时：{code : 0, message : "send connect wifi command success"}
+   * 连接是否成功需要监听ConnectionChangedEvent.networkConnectionChanged
+   * @example
+   * let params = {
+   *    ssid: "xxx",
+   *    pwd: "xxx"
+   * }
+   * System.network.connectWifi(params).then(res =>{
+   *  alert(JSON.stringify(res));
+   * }).catch(err =>{
+   *  alert(JSON.stringify(err));
+   * })
+   * */
+  @report
+  connectWifi(params) {
+  }
 }
+export const ConnectionChangedEvent = {
+  networkConnectionChanged: {
+  }
+};
+buildEvents(ConnectionChangedEvent);
 const NetworkInstance = new INetwork();
 export default NetworkInstance;
