@@ -266,6 +266,8 @@ const API_REPO = {
   // lvmi需求
   '/home/batchgetfileurl': {},
   '/v2/user/setuserdevicedatatab': {},
-  '/home/genpresignedurl': {}
+  '/home/genpresignedurl': {},
+  // 设备云端消息订阅
+  '/v2/user/get_subscribe_device': {}
 };
 export default API_REPO;
