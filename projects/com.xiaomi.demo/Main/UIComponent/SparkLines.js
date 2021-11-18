@@ -8,6 +8,7 @@ export default class StringSpinnerDemo extends React.Component {
     super(props);
 
     this.state = {
+      result: 2,
       lines: [
         {
           value: [
@@ -361,28 +362,36 @@ export default class StringSpinnerDemo extends React.Component {
           status: "normal",
           fixed: 1,
           itemWidth: 20, // 配置柱状图宽度，默认14，
-          viewslot: (
-            <View>
-              <View style={styles.row}>
-                <Text style={styles.number}>2</Text>
-                <Text style={styles.unit}>小时</Text>
-                <Text style={styles.number}>0</Text>
-                <Text style={styles.unit}>分钟</Text>
-              </View>
-              <Text style={styles.label}>使用时长</Text>
-            </View>
-          )
+          onSelect: () => {
+            this.setState({ result: this.state.result + 1 });
+          },
+          yAxisShow: false
         }
       ]
     };
   }
 
   render() {
-    const { lines } = this.state;
+    const { lines, result } = this.state;
+    const viewslot = (
+      <View>
+        <View style={styles.row}>
+          <Text style={styles.number}>{result}</Text>
+          <Text style={styles.unit}>小时</Text>
+          <Text style={styles.number}>0</Text>
+          <Text style={styles.unit}>分钟</Text>
+        </View>
+        <Text style={styles.label}>使用时长</Text>
+      </View>
+    );
     return (
       <ScrollView style={{ flex: 1 }}>
-        {lines.map((v) => (
-          <SparkLines key={v.title} {...v} />
+        {lines.map((v, i, a) => (
+          <SparkLines
+            viewslot={i === a.length - 1 && viewslot}
+            key={v.title}
+            {...v}
+          />
         ))}
       </ScrollView>
     );

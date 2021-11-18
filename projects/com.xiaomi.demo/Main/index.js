@@ -86,7 +86,8 @@ import StringSpinnerDemo from "./UIComponent/StringSpinnerDemo"; // ui-StringSpi
 import MiotAndroidScrollViewDemo from "./UIComponent/MiotAndroidScrollViewDemo"; // ui-MiotAndroidScrollViewDemo
 import AbsoluteTouch from "./UIComponent/AbsoluteTouch"; // ui-AbsoluteTouch
 import RobotMapDemo from "./UIComponent/RobotMapDemo"; // 扫地机地图
-import SparkLines from "./UIComponent/SparkLines"; // 扫地机地图
+// import SparkLines from "./UIComponent/SparkLines";
+// import YMDDatePicker from "./UIComponent/YMDDatePicker";
 
 // Native 交互
 import { createStackNavigator } from "react-navigation"; //
@@ -325,7 +326,8 @@ function createRootStack(initPage) {
       cryptoDemo: CryptoDemo,
       traceDemo: TraceDemo,
       RobotMapDemo: RobotMapDemo,
-      SparkLines: SparkLines,
+      // SparkLines,
+      // YMDDatePicker,
       ParticleDemo: ParticleDemo, // iOS 特有的,粒子系统
       ImagePickerDemo: ImagePickerDemo,
 
