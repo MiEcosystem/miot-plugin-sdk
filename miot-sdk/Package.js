@@ -28,8 +28,8 @@
 import { MessageDialog } from 'miot/ui/Dialog';
 import React from 'react';
 import { AppRegistry, DeviceEventEmitter, View } from "react-native";
-import Service from './Service';
 import Device, { DeviceEvent, PollPropMap } from "./device/BasicDevice";
+import Service, { CurrentAccount } from './Service';
 import Host from './Host';
 import resolveAssetResource from "./native/common/node/resolve";
 import { strings } from './resources';
