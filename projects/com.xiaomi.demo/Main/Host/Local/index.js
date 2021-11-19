@@ -1,4 +1,4 @@
-import { Host, Service } from "miot";
+import { Host, Service, Device } from "miot";
 import React from "react";
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
@@ -78,6 +78,30 @@ export default class LocalServer extends React.Component {
             });
           }}>
             <Text style={styles.buttonText}>获取手机时区信息</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.button} onPress={() => {
+            Logger.trace(this, this.render, { action: 'request' });
+            let params = {
+              latitude: 31.166535,
+              longitude: 121.403838,
+              coordType: 6
+            };
+            /* Host.locale.getAddressByCoordinate(params).then((res) => {
+              console.log("res", res);
+              alert(JSON.stringify(res));
+            }).catch((error) => {
+              console.log("error", error);
+              alert(JSON.stringify(error));
+            }); */
+            Service.smarthome.getHomepageSettings().then((res) => {
+              console.log('----model:', Device.model);
+              console.log('----res:', JSON.stringify(res));
+            }).catch((err) => {
+              console.log('----err:', JSON.stringify(err));
+            });
+          }}>
+            <Text style={styles.buttonText}>通过经纬度获取地理信息</Text>
           </TouchableOpacity>
         </ScrollView>
       </View>
