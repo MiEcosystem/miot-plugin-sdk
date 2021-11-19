@@ -382,13 +382,18 @@ class IMiotCamera {
    * @param callbackName
    * @param isAlarm 是否报警视频
    * @param videoCodec 视频编码如 "H264", "H265"
+   * @param extra 额外配置参数 iOS {extraPath:xxx 会拼接到获取资源的后面 since 10063 }
    * @returns
    *    state : 1. onStart (开始下载)  2. onComplete（下载完成）  3. onError（失败）  4. onProgress（下载进度）
    *    errorInfo : 失败描述（state = onError时才有）
    *    progress : 下载进度0 - 100 (state = onProgress时才有)
    */
   @report
-  downloadM3U8ToMP4(fileId, filePath, callbackName, isAlarm = false, videoCodec = 'H265', did = Device.deviceID) {
+  downloadM3U8ToMP4(fileId, filePath, callbackName, isAlarm = false, videoCodec = 'H265', did = Device.deviceID, extra = {}) {
+      NativeModules.MHCameraSDK.downloadM3U8ToMP4(Device.model, did, fileId, isAlarm, videoCodec, filePath, extra, callbackName);
+      return;
+    }
+    NativeModules.MHCameraSDK.downloadM3U8ToMP4(Device.model, did, fileId, isAlarm, videoCodec, filePath, callbackName);
   }
   /**
    * 取消downloadM3U8ToMP4任务, 只有ios需要这个接口
