@@ -5,4 +5,15 @@ import FirmwareUpgradeAuto from "./FirmwareUpgradeAuto";
 import FirmwareUpgradeRecord from "./FirmwareUpgradeRecord";
 import MoreSetting from './MoreSetting';
 import CurtainGroupPage from './CurtainGroupPage';
-export { MoreSetting, FirmwareUpgrade, FirmwareUpgradeAuto, FirmwareUpgradeRecord, CommonSetting, SETTING_KEYS, CommonSettingPage, CurtainGroupPage };
+import MultiSwitchSetting from './MultiSwitchSetting';
+export {
+  MoreSetting,
+  FirmwareUpgrade,
+  FirmwareUpgradeAuto,
+  FirmwareUpgradeRecord,
+  CommonSetting,
+  SETTING_KEYS,
+  CommonSettingPage,
+  CurtainGroupPage,
+  MultiSwitchSetting
+};
