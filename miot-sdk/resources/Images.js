@@ -17,7 +17,15 @@ export default {
     ota_auto_light: require('./images/ota_auto_light.png'),
     ota_auto_light_fail: require('./images/ota_auto_light_fail.png'),
     ota_auto_light_success: require('./images/ota_auto_light_success.png'),
-    ota_auto_light_progress: require('./images/ota_auto_light_progress.png')
+    ota_auto_light_progress: require('./images/ota_auto_light_progress.png'),
+    light: {
+      std_dialog_guide_common_zh: require('./images/std_dialog_guide/common/std_dialog_guide_white_zh.png'),
+      std_dialog_guide_common_en: require('./images/std_dialog_guide/common/std_dialog_guide_white_en.png')
+    },
+    dark: {
+      std_dialog_guide_common_zh: require('./images/std_dialog_guide/common/std_dialog_guide_black_zh.png'),
+      std_dialog_guide_common_en: require('./images/std_dialog_guide/common/std_dialog_guide_black_en.png')
+    }
   },
   /**
    * 导航栏
