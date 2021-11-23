@@ -1188,7 +1188,10 @@ export default class CommonSetting extends React.Component {
                     ...this.state,
                     pluginCategory: index
                   });
-                  Host.ui.openPluginPage(Device.deviceID, Entrance.Main, { dismiss_current_plug: true });
+                  Host.ui.openPluginPage(Device.deviceID, Entrance.Main, {
+                    dismiss_current_plug: true,
+                    open_plugin_source: 2
+                  });
                 }
               }
             ]}
