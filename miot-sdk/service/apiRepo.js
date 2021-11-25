@@ -127,6 +127,7 @@ const API_REPO = {
   '/miot/camera/app/v1/put/pedestrianDetectionPushSwitch': {},
   '/miot/camera/app/v1/put/babyCryPushSwitch': {},
   '/miot/camera/app/v1/put/aiPushSwitch': {},
+  '/miot/camera/app/v1/put/petPushSwitch': {},
   '/miot/camera/app/v1/vip/status': {},
   '/common/app/get/eventlist': {},
   '/common/app/v2/delete/files': {},
