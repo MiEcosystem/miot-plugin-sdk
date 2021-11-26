@@ -10,6 +10,7 @@ import Logger from '../Logger';
 import Video from 'react-native-video';
 
 let ZhuiMiRobot = require('../../Resources/zhuimi_robot');
+let ZhuiMiRobotV2 = require('../../Resources/zhuimi_robot_v2.json');
 let BoardJSON = require('../../Resources/board');
 
 export default class CryptoDemo extends React.Component {
@@ -93,6 +94,16 @@ export default class CryptoDemo extends React.Component {
             [
               ['追觅机器人路径转图片', () => {
                 Host.crypto.zhuimiRobotTracesToImageBase64(ZhuiMiRobot.width, ZhuiMiRobot.height, JSON.stringify(ZhuiMiRobot.traces)).then((res) => {
+                  console.log('success', res);
+                  this.setState({
+                    image: `data:image/png;base64,${ res.data }`
+                  });
+                }).catch((err) => {
+                  alert(JSON.stringify(err));
+                });
+              }],
+              ['追觅机器人路径转图片V2', () => {
+                Host.crypto.zhuimiRobotTracesToImageBase64V2(ZhuiMiRobotV2.width, ZhuiMiRobotV2.height, JSON.stringify(ZhuiMiRobotV2.traces)).then((res) => {
                   console.log('success', res);
                   this.setState({
                     image: `data:image/png;base64,${ res.data }`
