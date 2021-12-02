@@ -216,6 +216,7 @@ export default {
   },
   /**
    * 判断当前设备是否被蓝牙/蓝牙Mesh网关扫描到
+   * @deprecated 从10063开始废弃，可以使用Device.isOnline替代
    * @since 10040
    * @param {string} mac 蓝牙子设备Mac
    * @param {boolean} forceRefresh 是否强制刷新

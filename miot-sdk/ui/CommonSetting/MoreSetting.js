@@ -162,12 +162,16 @@ export default class MoreSetting extends React.Component {
     this.moreSetting = this.getMoreSetting(this.state);
   }
   privacyAndProtocolReview() {
-    const { licenseUrl, policyUrl, option } = this.extraOptions;
-    if (option === undefined) { // 兼容旧写法
-      Host.ui.privacyAndProtocolReview('', licenseUrl, '', policyUrl);
-    } else {
-      Host.ui.previewLegalInformationAuthorization(option);
-    }
+    let { licenseUrl, policyUrl, option } = this.extraOptions;
+    // if (option === undefined) { // 兼容旧写法
+    //   Host.ui.privacyAndProtocolReview('', licenseUrl, '', policyUrl);
+    // } else {
+    //   Host.ui.previewLegalInformationAuthorization(option);
+    // }
+    if (option === undefined) { 
+      option = { 'privacyURL': policyUrl || '', 'agreementURL': licenseUrl || '' };
+    } 
+    Host.ui.previewLegalInformationAuthorization(option);
   }
   UNSAFE_componentWillMount() {
     this._deviceTimeZoneChangedListener = DeviceEvent.deviceTimeZoneChanged.addListener((device) => {

@@ -88,6 +88,7 @@ export default class MainPage extends React.Component {
     this._deviceOnlineListener && this._deviceOnlineListener.remove();
     this._packageReceivedInformation && this._packageReceivedInformation.remove();
     this._packageReceivedOutAppInformation && this._packageReceivedOutAppInformation.remove();
+    this._packageCloudPrivacyEvent && this._packageCloudPrivacyEvent.remove();
   }
 
   UNSAFE_componentWillMount() {
@@ -100,7 +101,10 @@ export default class MainPage extends React.Component {
     });
     this._packageReceivedOutAppInformation = PackageEvent.packageReceivedOutAppInformation.addListener((message) => {
       console.log('收到外部APP传过来的参数', JSON.stringify(message, null, '\t'));
-    })
+    });
+    this._packageCloudPrivacyEvent = PackageEvent.packageCloudPrivacyEvent.addListener((message) => {
+      console.log(`收到云端隐私通知数据：${ JSON.stringify(message) }`);
+    });
     console.log(`传递进来的 PageParams: ${ JSON.stringify(Package.pageParams) }`);
     console.log(`传递进来的 entryInfo: ${ JSON.stringify(Package.entryInfo) }`);
   }
@@ -145,9 +149,12 @@ export default class MainPage extends React.Component {
       let options = {};
       options.agreementURL = licenseURL;
       options.privacyURL = privacyURL;
+      // options.privacyURLForChildren = privacyURL;
+      // options.privacyURLForWatch = privacyURL;
       options.experiencePlanURL = licenseURL;
       options.hideAgreement = false;
       options.hideUserExperiencePlan = false;
+      // options.privacyURLForChildren = privacyURL;   // 如果有儿童隐私协议需要展示请传入此参数
       Host.ui.alertLegalInformationAuthorization(options).then((res) => {
         if (res === 'ok' || res === true || res === 'true') {
           Service.smarthome.batchSetDeviceDatas([{ did: Device.deviceID, props: { "prop.s_auth_config": JSON.stringify({ 'privacyAuthed': true }) } }]);
