@@ -269,6 +269,9 @@ const API_REPO = {
   '/v2/user/setuserdevicedatatab': {},
   '/home/genpresignedurl': {},
   // 设备云端消息订阅
-  '/v2/user/get_subscribe_device': {}
+  '/v2/user/get_subscribe_device': {},
+  '/ot/pubsub/subscribe': {}, // 订阅接口
+  '/ot/pubsub/unsubscribe': {}, // 取消订阅接口
+  '/ot/pubsub/query': {} // 查询订阅者订阅的topic接口
 };
 export default API_REPO;
