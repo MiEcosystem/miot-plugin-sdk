@@ -109,8 +109,11 @@ export default class MainPage extends React.Component {
         return;
       }
       switch (message.eventType) {
-        case CLOUD_PRIVACY_EVENT_TYPES.HAVE_AGREED:
-        case CLOUD_PRIVACY_EVENT_TYPES.CLICK_AGREE:
+        case CLOUD_PRIVACY_EVENT_TYPES.AGREED:
+          break;
+        case CLOUD_PRIVACY_EVENT_TYPES.POP_DIALOG_SUCCESS:
+          break;
+        case CLOUD_PRIVACY_EVENT_TYPES.FAILED:
           break;
         default:
           break;
