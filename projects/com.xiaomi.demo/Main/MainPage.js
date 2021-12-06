@@ -1,7 +1,7 @@
 'use strict';
 
 import {
-  Device, Package, Host, Entrance, Service, DeviceEvent, PackageEvent
+  Device, Package, Host, Entrance, Service, DeviceEvent, PackageEvent, CLOUD_PRIVACY_EVENT_TYPES
 } from "miot";
 import NavigationBar from "miot/ui/NavigationBar";
 import React from 'react';
@@ -104,6 +104,17 @@ export default class MainPage extends React.Component {
     });
     this._packageCloudPrivacyEvent = PackageEvent.packageCloudPrivacyEvent.addListener((message) => {
       console.log(`收到云端隐私通知数据：${ JSON.stringify(message) }`);
+      if (!message) {
+        console.log(`收到云端隐私通知数据为空`);
+        return;
+      }
+      switch (message.eventType) {
+        case CLOUD_PRIVACY_EVENT_TYPES.HAVE_AGREED:
+        case CLOUD_PRIVACY_EVENT_TYPES.CLICK_AGREE:
+          break;
+        default:
+          break;
+      }
     });
     console.log(`传递进来的 PageParams: ${ JSON.stringify(Package.pageParams) }`);
     console.log(`传递进来的 entryInfo: ${ JSON.stringify(Package.entryInfo) }`);

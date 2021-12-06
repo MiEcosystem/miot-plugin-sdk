@@ -80,14 +80,16 @@ export const CLOUD_PRIVACY_EVENT_TYPE = {
   HAVE_AGREED: 1,
   // 获取同意状态失败
   GET_AGREE_STATE_FAILED: 2,
-  // 没有同意过,需要弹窗
+  // 没有同意过,准备弹窗
   NOT_AGREED_PREPARE_TO_POP_DIALOG: 3,
-  // 没有同意过,需要弹窗,但弹窗没有成功
-  NOT_AGREED_POP_DIALOG_FAILED: 4,
+  // 没有同意过,需要弹窗,但弹窗失败
+  NOT_AGREED_POP_DIALOG_FAIL: 4,
+  // 没有同意过,需要弹窗,且弹窗成功
+  NOT_AGREED_POP_DIALOG_SUCCESS: 5,
   // 点击同意
-  CLICK_AGREED: 5,
+  CLICK_AGREE: 6,
   // 点击拒绝,只有iOS有该通知,android会直接退出插件,不发通知
-  CLICK_REJECT: 6
+  CLICK_REJECT: 7
 };
 Object.freeze(CLOUD_PRIVACY_EVENT_TYPE);
 /**
