@@ -83,7 +83,7 @@ export default {
   /**
      * @const
      * @type {object}
-     * @description 系统信息 包含sysVersion 系统版本名称 mobileModel 手机型号
+     * @description 系统信息。包含sysVersion，mobileModel，hostApiLevel，isXiaomiPhone(红米手机不算)，以及miuiVersion（非MIUI系统不会有这个值）
      */
   get systemInfo() {
      return  {}

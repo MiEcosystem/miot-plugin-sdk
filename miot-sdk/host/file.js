@@ -1079,11 +1079,11 @@ class IFile {
   }
   /**
      * 获取指定目录的占用空间 目录必须在插件沙盒或者是插件沙盒子目录
-     * 参数 folderName 为 '' 时获取插件沙盒目录 
+     * 参数 folderName 为 '' 时获取插件沙盒目录
      * 获取子目录需要传递相对路径，sdk会自动对目录做拼接
      * since 10062
      * @returns {Promise<json>} 返回目录必须在插件沙盒或者是插件沙盒子目录占用的存储空间：{code: 0 ,data: { size: 123456} }，
-     * 单位都字节(byte) 
+     * 单位都字节(byte)
      *
      * @example
      * // 参数 folderName 为 '' 时获取插件沙盒目录
