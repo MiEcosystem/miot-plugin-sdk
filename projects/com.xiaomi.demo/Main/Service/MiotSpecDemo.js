@@ -7,9 +7,10 @@ import Logger from '../Logger';
 export default class CallSmartHomeAPIDemo extends React.Component {
   constructor(props) {
     super(props);
+    let did = Device.deviceID;
     this.state = {
       selectBtn: 1,
-      dataArray: ['124660227.2.1.true', '124660227.2.1', '124660227.2.1.[10]', '2.1', '124660227'],
+      dataArray: [`${ did }.2.1.true`, `${ did }.2.1`, `${ did }.2.1.[10]`, '2.1', did],
       result: "结果展示区\n\n设置属性请在上面文本框输入:did.siid.piid.value，然后点击执行\n获取属性请在上面文本框输入did.siid.piid，然后点击执行\n调用方法请输入did.aiid.piid后点击执行\n订阅请输入siid.piid后点击执行\n获取spec请直接输入did后点击执行"
     };
     Logger.trace(this);
@@ -20,7 +21,7 @@ export default class CallSmartHomeAPIDemo extends React.Component {
       if (res) {
         this.setState({ dataArray: JSON.parse(res) });
       }
-    }).catch((err) => {
+    }).catch(() => {
     });
     this._deviceStatusListener = DeviceEvent.deviceReceivedMessages.addListener(
       (device, map, res) => {
@@ -172,11 +173,15 @@ export default class CallSmartHomeAPIDemo extends React.Component {
           siid: parseInt(array[1]),
           piid: parseInt(array[2]),
           value: array.length > 3 ? this._parseValue(array[3]) : null
+        },
+        {
+          did: array[0],
+          siid: 11,
+          piid: 22,
+          value: 33
         }]).then((res) => {
-          console.log('resolve');
           this.setState({ result: JSON.stringify(res, null, '\t') });
         }).catch((res) => {
-          console.log('catch');
           this.setState({ result: res.message });
         });
         break;
@@ -189,6 +194,11 @@ export default class CallSmartHomeAPIDemo extends React.Component {
           did: array[0],
           siid: parseInt(array[1]),
           piid: parseInt(array[2])
+        },
+        {
+          did: array[0],
+          siid: 11,
+          piid: 22
         }]).then((res) => {
           this.setState({ result: JSON.stringify(res, null, '\t') });
         }).catch((res) => {
