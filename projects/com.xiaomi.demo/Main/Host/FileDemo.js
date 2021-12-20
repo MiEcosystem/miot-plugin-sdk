@@ -131,6 +131,9 @@ export default class FileStorage extends React.Component {
                 ["读存储空间", this._readStorage]
               ],
               [
+                ["读沙盒空间", this._readSandbox]
+              ],
+              [
                 ["读文件列表", this._readFileList],
                 ["判断文件是否存在", this._isFileExist],
                 ["删除当前显示的文件", this._deleteFile]
@@ -542,6 +545,14 @@ export default class FileStorage extends React.Component {
 
   _readStorage() {
     Host.file.getStorageInfo().then((result) => {
+      alert(JSON.stringify(result));
+    }).catch((e, result) => {
+      alert(JSON.stringify(result));
+    });
+  }
+
+  _readSandbox() {
+    Host.file.readFolderSize('').then((result) => {
       alert(JSON.stringify(result));
     }).catch((e, result) => {
       alert(JSON.stringify(result));

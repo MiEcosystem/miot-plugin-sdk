@@ -1,15 +1,11 @@
 import React, { useImperativeHandle, useRef } from 'react';
-import {
-  requireNativeComponent,
-  UIManager,
-  findNodeHandle
-} from 'react-native';
+import { findNodeHandle, requireNativeComponent, UIManager } from 'react-native';
 import PropTypes from 'prop-types';
 import { AccessibilityPropTypes, getAccessibilityConfig } from '../utils/accessibility-helper';
 const RCTColorPickerView = requireNativeComponent('RCTColorPickerView');
 const RCTWhitePickerView = requireNativeComponent('RCTWhitePickerView');
 const ColorPickerView = (
-  { style, type = 'color', onInit, onColorChange, accessible, accessibilityLabel, accessibilityHint },
+  { style, type = 'color', onInit, onColorChange, onColorChangeStart, accessible, accessibilityLabel, accessibilityHint },
   ref
 ) => {
   const view = useRef(null);
@@ -55,9 +51,14 @@ const ColorPickerView = (
             colorPickerConfig();
           }
         }}
-        onColorChange={(event) => {
+        onColorChange={(data) => {
           if (onColorChange) {
-            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType, event.nativeEvent.position);
+            onColorChange(data.nativeEvent.color, data.nativeEvent.trackType, data.nativeEvent.position);
+          }
+        }}
+        onChangeStart={(data) => {
+          if (onColorChangeStart) {
+            onColorChangeStart(data.nativeEvent.color);
           }
         }}
         {...getAccessibilityConfig({
@@ -79,9 +80,14 @@ const ColorPickerView = (
             colorPickerConfig();
           }
         }}
-        onColorChange={(event) => {
+        onColorChange={(data) => {
           if (onColorChange) {
-            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType, event.nativeEvent.position);
+            onColorChange(data.nativeEvent.color, data.nativeEvent.trackType, data.nativeEvent.position);
+          }
+        }}
+        onChangeStart={ (data) => {
+          if (onColorChangeStart) {
+            onColorChangeStart(data.nativeEvent.color);
           }
         }}
         {...getAccessibilityConfig({
