@@ -21,6 +21,7 @@ import ProtocolManager from '../utils/protocol-helper';
 // import { Entrance } from "../Package";
 import { report } from "../decorator/ReportDecorator";
 import { Package, Device, Service } from 'miot';
+import Toast from 'react-native-root-toast';
 // import { Entrance } from "../Package";
 // const resolveAssetSource = require('resolveAssetSource');
 // const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
