@@ -29,7 +29,8 @@ import { AccelerometerChangeEvent as AccelerometerChangeEventNames } from './sys
 import { CompassChangeEvent as CompassChangeEventNames } from './system/compass';
 import { VolumeChangeEvent as VolumeChangeEventNames } from './system/volume';
 import { GyroscopeChangeEvent as GyroscopeChangeEventNames } from './system/gyroscope';
-import PackageInstance, { Entrance as Entrances, PackageEvent as PackageEventNames, CLOUD_PRIVACY_EVENT_TYPE } from './Package';
+import PackageInstance, { Entrance as Entrances, PackageEvent as PackageEventNames } from './Package';
+import { PrivacyEvent as PrivacyEventNames, CLOUD_PRIVACY_EVENT_TYPE } from './utils/protocol-helper';
 import { RootDeviceProperties } from "./Properties";
 import ResourcesPack from './resources';
 import ServiceInstance from './Service';
@@ -55,8 +56,14 @@ export const Entrance = Entrances;
  */
 export const PackageEvent = PackageEventNames;
 /**
+ * 隐私事件
+ * {@link module:miot/utils/protocol-helper}
+ * @export
+ */
+export const PrivacyEvent = PrivacyEventNames;
+/**
  * 云端隐私通知类型
- * {@link module:miot/Package~CLOUD_PRIVACY_EVENT_TYPE}
+ * {@link module:miot/utils/protocol-helper~CLOUD_PRIVACY_EVENT_TYPE}
  * @export
  */
 export const CLOUD_PRIVACY_EVENT_TYPES = CLOUD_PRIVACY_EVENT_TYPE;
