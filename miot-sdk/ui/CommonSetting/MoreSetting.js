@@ -12,6 +12,7 @@ import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
 import DynamicColor, { dynamicColor } from 'miot/ui/Style/DynamicColor';
 import { getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
+import {MessageDialog} from "../Dialog";
 /**
  * 分享设备的设置项
  * 0: 不显示
@@ -154,6 +155,7 @@ export default class MoreSetting extends React.Component {
     super(props, context);
     referenceReport('MoreSetting');
     this.state = {
+      showPrivacyDialogState: false,
       timeZone: Device.timeZone || '' // 从未设置过时区的话，为空字符串
     };
     this.secondOptions = this.props.navigation.state.params.secondOptions || [secondAllOptions.SECURITY, secondAllOptions.VOICE_AUTH, secondAllOptions.BTGATEWAY, secondAllOptions.TIMEZONE];
@@ -168,10 +170,16 @@ export default class MoreSetting extends React.Component {
     // } else {
     //   Host.ui.previewLegalInformationAuthorization(option);
     // }
-    if (option === undefined) { 
+    if (option === undefined) {
       option = { 'privacyURL': policyUrl || '', 'agreementURL': licenseUrl || '' };
-    } 
-    Host.ui.previewLegalInformationAuthorization(option);
+    }
+    Host.ui.previewLegalInformationAuthorization(option).then((ok) => {
+      if(!ok) {
+        this.setState({showPrivacyDialogState: true});
+      }
+    }).catch((err) => {
+      this.setState({showPrivacyDialogState: true});
+    });
   }
   UNSAFE_componentWillMount() {
     this._deviceTimeZoneChangedListener = DeviceEvent.deviceTimeZoneChanged.addListener((device) => {
@@ -298,8 +306,32 @@ export default class MoreSetting extends React.Component {
         }
         {/* <Separator /> */}
         {/* </ScrollView> */}
+        {this.renderPrivacyDialog()}
       </View>
     );
+  }
+  renderPrivacyDialog(){
+    return(
+      <View>
+        <MessageDialog
+          visible={this.state.showPrivacyDialogState}
+          message="手机网络异常，请检查手机网络连接后重试."
+          messageStyle={{ textAlign: 'center', backgroundColor: 'white' }}
+          buttons={[
+            {
+              style: { color: 'lightpink' },
+              callback: (_) => this.setState({ showPrivacyDialogState: false })
+            }
+          ]}
+          onDismiss={(_) => this.onDismiss()}
+        />
+      </View>
+    );
+  }
+  onDismiss() {
+    this.setState({
+      showPrivacyDialogState: false
+    });
   }
 }
 const styles = dynamicStyleSheet({
