@@ -174,6 +174,7 @@ export default class MoreSetting extends React.Component {
       option = { 'privacyURL': policyUrl || '', 'agreementURL': licenseUrl || '' };
     }
     Host.ui.previewLegalInformationAuthorization(option).then((ok)=> {
+      console.log("============previewLegalInformationAuthorization ok ===== " ,ok);
       if(!ok) {
         this.setState({showPrivacyDialogState: true});
       }
@@ -306,11 +307,12 @@ export default class MoreSetting extends React.Component {
         }
         {/* <Separator /> */}
         {/* </ScrollView> */}
-        {this.renderPrivacyDialog}
+        {this.renderPrivacyDialog()}
       </View>
     );
   }
   renderPrivacyDialog(){
+    console.log("render ====================");
     return(
       <View>
         <MessageDialog
