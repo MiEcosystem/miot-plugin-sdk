@@ -415,7 +415,7 @@ class IMiotScene {
       return loadScenes(deviceID, SceneType.Automatic, opt);
     }
     /**
-     * since 10064
+     * since 10063
      * 加载所有智能场景，/appgateway/miot/appsceneservice/AppSceneService/GetSceneList
      * 智能场景2.0的接口，加载对应did设备下的所有智能场景，包括手动场景和自动化场景
      * @param {*} deviceID 设备id
