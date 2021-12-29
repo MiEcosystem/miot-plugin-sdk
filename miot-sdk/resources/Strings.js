@@ -185,7 +185,8 @@ let strings = {
   room_studio: '',
   room_bathroom: '',
   room_backyard: '',
-  room_unassigned: ''
+  room_unassigned: '',
+  no_privacy_tip_content:'',
 };
 strings = getStrings({
   zh: {
@@ -354,7 +355,8 @@ strings = getStrings({
     room_studio: '工作室',
     room_bathroom: '浴室',
     room_backyard: '后院',
-    room_unassigned: '未分配房间'
+    room_unassigned: '未分配房间',
+    no_privacy_tip_content: '获取不到隐私，请检查手机网络或联系米家反馈问题。',
   },
   zh_tw: {
     setting: '設定',
@@ -518,7 +520,8 @@ strings = getStrings({
     room_studio: '工作室',
     room_bathroom: '浴室',
     room_backyard: '后院',
-    room_unassigned: '未分配房间'
+    room_unassigned: '未分配房间',
+    no_privacy_tip_content: '获取不到隐私，请检查手机网络或联系米家反馈问题。'
   },
   zh_hk: {
     setting: '設定',
@@ -682,7 +685,8 @@ strings = getStrings({
     room_studio: '工作室',
     room_bathroom: '浴室',
     room_backyard: '后院',
-    room_unassigned: '未分配房间'
+    room_unassigned: '未分配房间',
+    no_privacy_tip_content: '获取不到隐私，请检查手机网络或联系米家反馈问题。'
   },
   en: {
     setting: 'Settings',
@@ -850,7 +854,8 @@ strings = getStrings({
     room_studio: 'Studio',
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
-    room_unassigned: 'Unassigned'
+    room_unassigned: 'Unassigned',
+    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
   },
   ko: {
     setting: '설정',
@@ -1014,7 +1019,8 @@ strings = getStrings({
     room_studio: 'Studio',
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
-    room_unassigned: 'Unassigned'
+    room_unassigned: 'Unassigned',
+    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
   },
   ru: {
     setting: 'Настройки',
@@ -1178,7 +1184,8 @@ strings = getStrings({
     room_studio: 'Studio',
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
-    room_unassigned: 'Unassigned'
+    room_unassigned: 'Unassigned',
+    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
   },
   es: {
     setting: 'Ajustes',
@@ -1342,7 +1349,8 @@ strings = getStrings({
     room_studio: 'Studio',
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
-    room_unassigned: 'Unassigned'
+    room_unassigned: 'Unassigned',
+    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
   },
   fr: {
     setting: "Paramètres",
@@ -1506,7 +1514,8 @@ strings = getStrings({
     room_studio: 'Studio',
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
-    room_unassigned: 'Unassigned'
+    room_unassigned: 'Unassigned',
+    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
   },
   it: {
     setting: 'Impostazioni',
@@ -1670,7 +1679,8 @@ strings = getStrings({
     room_studio: 'Studio',
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
-    room_unassigned: 'Unassigned'
+    room_unassigned: 'Unassigned',
+    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
   },
   de: {
     setting: "Einstellungen",
@@ -1834,7 +1844,8 @@ strings = getStrings({
     room_studio: 'Studio',
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
-    room_unassigned: 'Unassigned'
+    room_unassigned: 'Unassigned',
+    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
   },
   id: {
     setting: 'Pengaturan',
@@ -1998,7 +2009,8 @@ strings = getStrings({
     room_studio: 'Studio',
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
-    room_unassigned: 'Unassigned'
+    room_unassigned: 'Unassigned',
+    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
   },
   pl: {
     setting: 'Ustawienia',
@@ -2162,7 +2174,8 @@ strings = getStrings({
     room_studio: 'Studio',
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
-    room_unassigned: 'Unassigned'
+    room_unassigned: 'Unassigned',
+    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
   },
   vi: {
     setting: 'Cài đặt',
@@ -2326,7 +2339,8 @@ strings = getStrings({
     room_studio: 'Studio',
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
-    room_unassigned: 'Unassigned'
+    room_unassigned: 'Unassigned',
+    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
   },
   ja: {
     setting: '設定',
@@ -2490,7 +2504,8 @@ strings = getStrings({
     room_studio: 'Studio',
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
-    room_unassigned: 'Unassigned'
+    room_unassigned: 'Unassigned',
+    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
   },
   th: {
     setting: 'การตั้งค่า',
@@ -2654,7 +2669,8 @@ strings = getStrings({
     room_studio: 'Studio',
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
-    room_unassigned: 'Unassigned'
+    room_unassigned: 'Unassigned',
+    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
   },
   tr: {
     setting: 'Ayarlar',
@@ -2818,7 +2834,8 @@ strings = getStrings({
     room_studio: 'Studio',
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
-    room_unassigned: 'Unassigned'
+    room_unassigned: 'Unassigned',
+    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
   },
   nl: {
     setting: 'Instellingen',
@@ -2982,7 +2999,8 @@ strings = getStrings({
     room_studio: 'Studio',
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
-    room_unassigned: 'Unassigned'
+    room_unassigned: 'Unassigned',
+    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
   },
   pt: {
     setting: 'Configurações',
@@ -3146,7 +3164,8 @@ strings = getStrings({
     room_studio: 'Studio',
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
-    room_unassigned: 'Unassigned'
+    room_unassigned: 'Unassigned',
+    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
   }
 });
 export default strings;
