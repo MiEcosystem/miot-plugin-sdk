@@ -13,6 +13,7 @@ import DynamicColor, { dynamicColor } from 'miot/ui/Style/DynamicColor';
 import { getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
 import {MessageDialog} from "../Dialog";
+import I18n from '../../resources/Strings';
 /**
  * 分享设备的设置项
  * 0: 不显示
@@ -314,8 +315,8 @@ export default class MoreSetting extends React.Component {
     return(
       <View>
         <MessageDialog
-          visible={this.state.showPrivacyDialogState}
-          message="手机网络异常，请检查手机网络连接后重试."
+          visible = {this.state.showPrivacyDialogState}
+          message = {I18n.no_privacy_tip_content}
           messageStyle={{ textAlign: 'center', backgroundColor: 'white' }}
           buttons={[
             {
