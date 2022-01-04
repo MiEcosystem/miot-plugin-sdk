@@ -76,6 +76,7 @@ export default class UIDemo extends React.Component {
         { name: "ImageButtonDemo", router: "ImageButtonDemo" },
         { name: "NumberSpinnerDemo", router: "NumberSpinnerDemo" },
         { name: "StringSpinnerDemo", router: "StringSpinnerDemo" },
+        { name: "ColorPickerDemo", router: "ColorPickerDemo" },
         {
           name: "MiotAndroidScrollViewDemo(仅Android)",
           router: "MiotAndroidScrollViewDemo"

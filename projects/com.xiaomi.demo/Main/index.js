@@ -83,6 +83,7 @@ import ImageButtonDemo from "./UIComponent/ImageButtonDemo";
 import ImageCapInsetDemo from "./UIComponent/ImageCapInsetDemo"; // ui-ImageCapInsetDemo working but no title displayed
 import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo"; // ui-NumberSpinnerDemo
 import StringSpinnerDemo from "./UIComponent/StringSpinnerDemo"; // ui-StringSpinnerDemo
+import ColorPickerDemo from "./UIComponent/ColorPickerDemo";
 import MiotAndroidScrollViewDemo from "./UIComponent/MiotAndroidScrollViewDemo"; // ui-MiotAndroidScrollViewDemo
 import AbsoluteTouch from "./UIComponent/AbsoluteTouch"; // ui-AbsoluteTouch
 import RobotMapDemo from "./UIComponent/RobotMapDemo"; // 扫地机地图
@@ -279,6 +280,7 @@ function createRootStack(initPage) {
       ImageButtonDemo,
       NumberSpinnerDemo,
       StringSpinnerDemo,
+      ColorPickerDemo,
       MiotAndroidScrollViewDemo,
       AbsoluteTouch,
       // 接口服务
