@@ -5,7 +5,7 @@ import { AccessibilityPropTypes, getAccessibilityConfig } from '../utils/accessi
 const RCTColorPickerView = requireNativeComponent('RCTColorPickerView');
 const RCTWhitePickerView = requireNativeComponent('RCTWhitePickerView');
 const ColorPickerView = (
-  { style, type = 'color', onInit, onColorChange, onColorChangeStart, accessible, accessibilityLabel, accessibilityHint },
+  { style, type = 'color', onInit, onColorChange, onColorChangeStart, accessible, accessibilityLabel, accessibilityHint, disable },
   ref
 ) => {
   const view = useRef(null);
@@ -44,6 +44,7 @@ const ColorPickerView = (
       <RCTColorPickerView
         ref={view}
         style={style}
+        disable={disable}
         onInit={() => {
           if (onInit) {
             onInit();
@@ -73,6 +74,7 @@ const ColorPickerView = (
       <RCTWhitePickerView
         ref={view}
         style={style}
+        disable={disable}
         onInit={() => {
           if (onInit) {
             onInit();
@@ -103,6 +105,7 @@ export const ColorPicker = React.forwardRef(ColorPickerView);
 ColorPicker.propTypes = {
   style: PropTypes.any,
   type: PropTypes.oneOf(['color', 'white']),
+  disable: PropTypes.bool,
   onInit: PropTypes.func,
   onColorChange: PropTypes.func,
   accessible: AccessibilityPropTypes.accessible,
