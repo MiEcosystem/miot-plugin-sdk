@@ -81,10 +81,15 @@
 
 ## 调试环境
 
-注：SDK自10065起，由于米家安装体积限制，需要进入蒲公英平台下载：
-[iOS IPA 包下载地址](https://www.pgyer.com/Z4hs) 
+iOS:
 
-Android APK 包下载地址：http://www.jappstore.com/MiHomeForAndroid  ,若打不开请使用[备用地址](https://github.com/Mijia-Developer/Mijia-Android-RN-Dev/releases)
+SDK自10065起，由于安装体积限制，需要进入蒲公英平台下载 [iOS IPA 包下载地址](https://www.pgyer.com/Z4hs) 
+
+如果需要调试 特定的低版本的app 可以提交工单。
+
+Android:
+
+APK 包下载地址：http://www.jappstore.com/MiHomeForAndroid  ,若打不开请使用[备用地址](https://github.com/Mijia-Developer/Mijia-Android-RN-Dev/releases)
 
 下载密码: keliyuan
 
