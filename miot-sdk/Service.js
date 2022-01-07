@@ -53,6 +53,8 @@ import Kookong from './service/kookong';
 import { NativeModules, Platform } from 'react-native';
 import JSONbig from 'json-bigint';
 import Permission from './service/permission';
+import { report } from "./decorator/ReportDecorator";
+import Device from "./device/BasicDevice";
  const CurrentAccount = null;
 export default {
   /**
@@ -291,7 +293,7 @@ export default {
    *
    * @param {string} url - url
    * @param {string} method - 如 'get', 'post'等 不区分大小写 暂时只支持 get 和 post
-   * @param {object} params 传入参数，比如{ did: 'xxxx', pid: 'xxxx' }
+   * @param {object} params 传入参数，比如{ did: 'xxxx', pid: 'xxxx','allow_private_certificates':true/false };allow_private_certificates是10056新增加的参数(10055及以前的版本该参数不生效)，传true表明该请求使用小米路由器私有证书，默认为false;
    * @returns {Promise}
    * 成功时：返回网络请求的结果对应字符串， 相当于：response.body().string()
    * 失败时：{"code":xxx, "message":"xxx" }

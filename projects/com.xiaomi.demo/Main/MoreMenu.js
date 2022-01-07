@@ -135,7 +135,7 @@ export default class MoreMenu extends React.Component {
           Host.ui.getDevicesWithModel(Device.model).then((devices) => {
             alert(JSON.stringify(devices));
           }).catch((err) => {
-            alert("未获取到设备");
+            alert(`未获取到设备${ err.message }`);
           });
         }
       },

@@ -415,6 +415,33 @@ class IMiotScene {
       return loadScenes(deviceID, SceneType.Automatic, opt);
     }
     /**
+     * since 10063
+     * 加载所有智能场景，/appgateway/miot/appsceneservice/AppSceneService/GetSceneList
+     * 智能场景2.0的接口，加载对应did设备下的所有智能场景，包括手动场景和自动化场景
+     * @param {*} deviceID 设备id
+     * @param {*} homeID 家庭id
+     * @returns {Promise<[]>}
+     */
+    @report
+    loadAllScenesV2(homeID, deviceID) {
+      if (!deviceID) {
+        return Promise.reject("deviceID can not be null");
+      }
+      const params = {
+        home_id: homeID,
+        did: deviceID
+      };
+      return new Promise((resolve, reject) => {
+        native.MIOTRPC.standardCall("/appgateway/miot/appsceneservice/AppSceneService/GetSceneList", params, (ok, res) => {
+          if (ok && res?.scene_info_list) {
+            resolve(res.scene_info_list);
+          } else {
+            reject(res);
+          }
+        });
+      });
+    }
+    /**
      * 获取指定设备的智能日志信息
      * @since 10010
      * @param {string} did 拉取设备的did
