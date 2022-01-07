@@ -1,7 +1,7 @@
 'use strict';
 
 import {
-  Device, Package, Host, Entrance, Service, DeviceEvent, PackageEvent
+  Device, Package, Host, Entrance, Service, DeviceEvent, PackageEvent, PrivacyEvent, CLOUD_PRIVACY_EVENT_TYPES
 } from "miot";
 import NavigationBar from "miot/ui/NavigationBar";
 import React from 'react';
@@ -88,6 +88,7 @@ export default class MainPage extends React.Component {
     this._deviceOnlineListener && this._deviceOnlineListener.remove();
     this._packageReceivedInformation && this._packageReceivedInformation.remove();
     this._packageReceivedOutAppInformation && this._packageReceivedOutAppInformation.remove();
+    this._cloudPrivacyEvent && this._cloudPrivacyEvent.remove();
   }
 
   UNSAFE_componentWillMount() {
@@ -100,7 +101,24 @@ export default class MainPage extends React.Component {
     });
     this._packageReceivedOutAppInformation = PackageEvent.packageReceivedOutAppInformation.addListener((message) => {
       console.log('收到外部APP传过来的参数', JSON.stringify(message, null, '\t'));
-    })
+    });
+    this._cloudPrivacyEvent = PrivacyEvent.cloudPrivacyEvent.addListener((message) => {
+      console.log(`收到云端隐私通知数据：${ JSON.stringify(message) }`);
+      if (!message) {
+        console.log(`收到云端隐私通知数据为空`);
+        return;
+      }
+      switch (message.eventType) {
+        case CLOUD_PRIVACY_EVENT_TYPES.AGREED:
+          break;
+        case CLOUD_PRIVACY_EVENT_TYPES.POP_DIALOG_SUCCESS:
+          break;
+        case CLOUD_PRIVACY_EVENT_TYPES.FAILED:
+          break;
+        default:
+          break;
+      }
+    });
     console.log(`传递进来的 PageParams: ${ JSON.stringify(Package.pageParams) }`);
     console.log(`传递进来的 entryInfo: ${ JSON.stringify(Package.entryInfo) }`);
   }
@@ -145,9 +163,12 @@ export default class MainPage extends React.Component {
       let options = {};
       options.agreementURL = licenseURL;
       options.privacyURL = privacyURL;
+      // options.privacyURLForChildren = privacyURL;
+      // options.privacyURLForWatch = privacyURL;
       options.experiencePlanURL = licenseURL;
       options.hideAgreement = false;
       options.hideUserExperiencePlan = false;
+      // options.privacyURLForChildren = privacyURL;   // 如果有儿童隐私协议需要展示请传入此参数
       Host.ui.alertLegalInformationAuthorization(options).then((res) => {
         if (res === 'ok' || res === true || res === 'true') {
           Service.smarthome.batchSetDeviceDatas([{ did: Device.deviceID, props: { "prop.s_auth_config": JSON.stringify({ 'privacyAuthed': true }) } }]);
