@@ -6,7 +6,8 @@ export default class ColorPickerDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      disable: false
+      disable: false,
+      showIndicator: true
     };
   }
 
@@ -15,6 +16,7 @@ export default class ColorPickerDemo extends React.Component {
     return (<View style={ { flex: 1 } }>
       <ColorPicker
         disable={ this.state.disable }
+        showIndicator={this.state.showIndicator}
         type="color"
         style={ Styles.colorPicker }
         onInit={ () => {
@@ -29,6 +31,7 @@ export default class ColorPickerDemo extends React.Component {
       />
       <ColorPicker
         disable={ this.state.disable }
+        showIndicator={this.state.showIndicator}
         type="white"
         style={ [Styles.colorPicker, { marginTop: 20 }] }
         onInit={ () => {
@@ -47,6 +50,13 @@ export default class ColorPickerDemo extends React.Component {
         });
       } }>
         <Text style={ Styles.buttonText }>{ 'disable' }</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={ Styles.button } onPress={ () => {
+        this.setState({
+          showIndicator: !this.state.showIndicator
+        });
+      } }>
+        <Text style={ Styles.buttonText }>{ 'showIndicator' }</Text>
       </TouchableOpacity>
     </View>);
   }
