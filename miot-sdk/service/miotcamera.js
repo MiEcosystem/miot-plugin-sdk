@@ -905,3 +905,7 @@ class IMiotCamera {
        return end
        return Promise.resolve(null);
        return end
+       return Promise.resolve(null);
+       return end
+       return Promise.resolve(null);
+       return end
