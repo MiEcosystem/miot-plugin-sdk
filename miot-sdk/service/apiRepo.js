@@ -34,7 +34,8 @@ const API_REPO = {
   '/location/weather': {},
   '/home/checkversion': {},
   '/location/area_prop_info': {},
-  '/home/multi_checkversion': {},
+  '/v2/device/check_device_version': {}, // 对外接口, 供插件使用
+  '/home/multi_checkversion': {}, // 对内 APP 接口, 会过滤门铃
   '/home/latest_version': {},
   '/v2/device/latest_ver': {},
   '/device/event': {},
@@ -104,6 +105,7 @@ const API_REPO = {
   '/user/set_user_config': {},
   '/user/set_third_user_config': {},
   '/v2/device/multi_button_template': {},
+  '/v2/device/init_membership': {},
   '/device/deviceinfo': {},
   '/v2/device/ble_event': {},
   '/share/get_share_user': {},
@@ -111,6 +113,8 @@ const API_REPO = {
   '/v2/aftersale/create': {},
   '/v2/aftersale/list': {},
   '/v2/aftersale/detail': {},
+  // 房间
+  '/homeroom/addroom': {},
   '/v2/homeroom/gethome': {},
   // 摄像机API
   '/wx/app/v1/get/pushSwitch': {},
@@ -123,6 +127,7 @@ const API_REPO = {
   '/miot/camera/app/v1/put/pedestrianDetectionPushSwitch': {},
   '/miot/camera/app/v1/put/babyCryPushSwitch': {},
   '/miot/camera/app/v1/put/aiPushSwitch': {},
+  '/miot/camera/app/v1/put/petPushSwitch': {},
   '/miot/camera/app/v1/vip/status': {},
   '/common/app/get/eventlist': {},
   '/common/app/v2/delete/files': {},
@@ -140,6 +145,7 @@ const API_REPO = {
   '/miot/camera/app/v1/put/babyCrySwitch': {},
   '/miot/camera/app/v2/get/alarmSwitch': {},
   '/miot/camera/app/v2/put/motionDetectionSwitch': {},
+  '/common/app/file/delete/status': {},
   '/v2/public/get_weekday_info': {},
   '/v2/device/blt_get_beaconkey': {},
   '/v2/device/set_alarm_info': {},
@@ -174,6 +180,12 @@ const API_REPO = {
   '/home/devupgrade': {},
   '/v2/device/get_auto_upgrade_config': {},
   '/v2/device/get_firmware_history': {},
+  // 多键开关相关
+  '/v2/home/device_support_split': {},
+  '/v2/home/device_split_merge': {},
+  '/v2/device/update_membership': {},
+  '/v2/device/switch_subclass': {},
+  '/device/rename': {},
   '/appgateway/miot/appdeviceinfo_service/AppDeviceInfoService/get_last_online': {},
   // 往服务器塞/get 二进制数据。
   '/common/app/data/put': {},
@@ -203,15 +215,64 @@ const API_REPO = {
   '/common/app/get/fileIdEvents': {},
   // 每日故事开关接口
   '/miot/camera/app/v1/put/dailyStorySwitch': {},
+  // 新的获取设备属性接口，结果中带有上报的时间戳
+  '/v2/device/batchgetdatas': {},
   // 免费人脸
   '/miot/camera/app/v1/vip/freeface/addFreeface': {},
   '/miot/camera/app/v1/vip/freeface/status': {},
+  "/miot/camera/app/v1/delete/figures": {}, // 删除人物S
+  "/miot/camera/app/v1/get/faces": {}, // 获取用户标注的所有人脸
+  "/miot/camera/app/v1/get/figureFaces": {}, // 获取某个人物的所有人脸
+  "/miot/camera/app/v1/get/unmarkFaces": {}, // 获取用户未标注的所有人脸
+  "/miot/camera/app/v1/get/figureByMarkedFace": {}, // 根据标记的人脸获取人物
+  "/miot/camera/app/v1/add/cluster/face": {}, // 添加人脸到人物2
+  "/miot/camera/app/v1/delete/faces": {}, // 从人物中删除人脸S
+  "/miot/camera/app/v1/faces/search": {}, // 搜索人脸
+  "/miot/camera/app/v1/get/face/img": {}, // 获取人脸照片
+  "/miot/camera/app/v1/get/facesCluster": {}, // 获取3天内人脸聚类的结果
+  "/common/miot/camera/app/get/faceCluster/eventlist": {}, // 获取事件列表（返回3天内faceIds里面的人脸事件）
+  "/miot/camera/app/v1/mark/faceClustering/mistake": {}, // 聚类报错接口
   // 摄氏度/华氏度一键切换接口
   '/v2/user/set_common_config': {},
   '/v2/user/get_common_config': {},
   // 门锁需要使用的接口
   '/v2/device/setLockPushSwitch': {},
   '/v2/device/getLockPushSwitch': {},
-  '/v2/device/delLockPushSwitch': {}
+  '/v2/device/delLockPushSwitch': {},
+  '/v2/device/insurance': {},
+  '/v2/device/engineer': {},
+  // 疯景1代门铃迁移rn接口
+  '/common/app/delete/files': {},
+  '/common/app/get/playlist': {},
+  '/common/app/get/fileIdinfo': {},
+  '/miot/camera/app/v1/vip/freevip/status': {},
+  '/common/app/add/face': {},
+  '/common/app/delete/face': {},
+  '/common/app/delete/figure': {},
+  '/common/app/faces/search': {},
+  '/common/app/get/faceIds': {},
+  '/common/app/get/face/img': {},
+  '/common/app/get/faces': {},
+  '/common/app/get/figures': {},
+  '/v2/device/get_filter_device': {},
+  '/v2/device/auth_partner_device': {},
+  '/v2/device/cancel_partner_device': {},
+  '/v2/device/get_partner_device': {},
+  'v2/public/get_product_config': {},
+  '/common/app/add/figure': {},
+  // 设备访问记录相关接口
+  '/v2/device/setRecord': {},
+  '/v2/device/batchSetRecord': {},
+  '/v2/device/getRecordByUid': {},
+  '/v2/device/batchGetRecord': {},
+  // lvmi需求
+  '/home/batchgetfileurl': {},
+  '/v2/user/setuserdevicedatatab': {},
+  '/home/genpresignedurl': {},
+  // 设备云端消息订阅
+  '/v2/user/get_subscribe_device': {},
+  '/ot/pubsub/subscribe': {}, // 订阅接口
+  '/ot/pubsub/unsubscribe': {}, // 取消订阅接口
+  '/ot/pubsub/query': {} // 查询订阅者订阅的topic接口
 };
 export default API_REPO;
