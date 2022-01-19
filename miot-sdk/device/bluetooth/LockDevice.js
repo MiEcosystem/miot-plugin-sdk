@@ -39,7 +39,7 @@ export default class IBluetoothLock {
      * 支持小米加密芯片的蓝牙设备，开关蓝牙锁
      * @method
      * @param {int} cmd 操作命令可传入 0 ，1 ，2三个 int 值，分别代表 开锁，上锁，反锁
-     * @param {int} timeout 毫秒 蓝牙未响应的超时时间
+     * @param {int} timeout 毫秒（iOS 是秒） 蓝牙未响应的超时时间
      * @example
      * import {Bluetooth} from 'miot'
      * ...
