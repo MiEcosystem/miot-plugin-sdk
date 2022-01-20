@@ -48,7 +48,7 @@ export default class MainPage extends React.Component {
   componentDidMount() {
     this.showing = true;
     Bluetooth.checkBluetoothIsEnabled().then((result) => {
-      this.setState({isEnable:result})
+      this.setState({ isEnable: result });
       // this.state.isEnable = result;
       if (result) {
         this.addLog('蓝牙已开启');
