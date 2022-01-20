@@ -1312,7 +1312,8 @@ const styles = dynamicStyleSheet({
   title: {
     fontSize: 12,
     color: new DynamicColor('#8C93B0', 'rgba(255,255,255,0.5)'),
-    lineHeight: 14
+    lineHeight: 14,
+    textAlign: 'left'
   },
   bottomContainer: {
     minHeight: 90,
