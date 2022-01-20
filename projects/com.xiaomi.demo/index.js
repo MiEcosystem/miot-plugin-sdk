@@ -5,6 +5,10 @@ import App from "./Main";
 // import Scene from './Main/SceneMain';
 import { PluginEntrance } from "./Main/PluginEntrance";
 
+if (__DEV__) {
+  // only for 本地调式
+  global.variables = { 'miot_debug': { 'miot_debug_plugin_id': 1004378, 'miot_debug_plugin_version': 201 } };
+}
 
 PackageEvent.packageAuthorizationCancel.addListener(() => {
   // 用户撤销授权,需要清除缓存

@@ -270,6 +270,7 @@ class IFile {
   /**
    * 上传普通文件，需要申请权限使用
    * 获取用于上传FDS文件的obj_name以及用于上传的url
+   * 访问接口：/home/genpresignedurl
    * @since 10004
    * @param {string} did 设备did
    * @param {string} suffix 文件后缀 例如 'mp3', 'txt'
@@ -311,6 +312,52 @@ class IFile {
      return Promise.resolve(null);
   }
   /**
+   * 上传普通文件，需要申请权限使用,V3版本
+   * 获取用于上传FDS文件的obj_name以及用于上传的url
+   * 访问接口：/v2/home/genpresignedurl_v3
+   * @since 10056
+   * @param {string} did 设备did
+   * @param {string} suffix 文件后缀 例如 'mp3', 'txt'
+   * @example
+   * let did = Device.deviceID;
+   * let suffix = "mp3";
+   * *** Host.file.uploadFileToFDS(param) param = {headers: { "Content-Type": "application/octet-stream" }},上传FDS需要配置Content-Type
+   * *** 如果是KS3 headers: { "Content-Type": "application/octet-stream", "X-Amz-Acl" : "private"}
+   Host.file.generateObjNameAndUrlForFDSUploadV3(did, suffix).then(res => {
+      if (res.hasOwnProperty(suffix) && res[suffix]) {
+          let obj = res[suffix];
+          let obj_name = obj.obj_name;
+          let name = obj_name.substring(obj_name.length - 22)
+          let content = "AC";
+          let time = obj.time;
+          this.file_obj_name = obj_name;
+          console.log("pre upload", res)
+          Host.file.writeFile(name, content).then(r => {
+              let param = {
+                  uploadUrl: obj.url,
+                  method: obj.method,
+                  headers: { "Content-Type": "application/octet-stream" },
+                  files: [{ filename: name }]
+              }
+              Host.file.uploadFileToFDS(param).then(rr => {
+                  alert('上传成功' + JSON.stringify(rr))
+                  console.log('upload file success', rr)
+              }).catch(err => {
+                  alert('上传失败' + JSON.stringify(err))
+                  console.log('upload file failed', err)
+              })
+          }).catch(err => {
+              alert('存储临时文件失败' + JSON.stringify(err))
+              console.log("write file failed", err)
+          })
+      }
+      })
+   * */
+  @report
+  generateObjNameAndUrlForFDSUploadV3(did, suffix) {
+     return Promise.resolve(null);
+  }
+  /**
    * 上传日志文件。
    * 具体使用参考generateObjNameAndUrlForFDSUpload
    * @since 10011
@@ -326,7 +373,7 @@ class IFile {
    *
    * 对于手动上传到fds的文件(没有genObjName ,在平台端直接上传的)，可直接设置成public，生成url。插件端需要用这个文件时，用通用下载接口下载此url即可。
    * getFDSFileInfoWithObjName,这个接口只是用来下载通过插件接口(Host.file.uploadFileToFDS)上传到FDS的文件
-   *
+   *访问接口:/home/getfileurl
    * @since 10004
    * @param {string} obj_name generateObjNameAndUrlForFDSUpload 生成的 obj_name
    * @example
@@ -346,6 +393,33 @@ class IFile {
    */
   @report
   getFDSFileInfoWithObjName(obj_name) {
+     return Promise.resolve(null);
+  }
+  /**
+   * 获取FDS文件的信息，包含下载地址等信息 V3版本
+   *
+   * 对于手动上传到fds的文件(没有genObjName ,在平台端直接上传的)，可直接设置成public，生成url。插件端需要用这个文件时，用通用下载接口下载此url即可。
+   * getFDSFileInfoWithObjNameV3,这个接口只是用来下载通过插件接口(Host.file.uploadFileToFDS)上传到FDS的文件
+   * 访问接口:/v2/home/getfileurl_v3
+   * @since 10056
+   * @param {string} obj_name generateObjNameAndUrlForFDSUploadV3 生成的 obj_name
+   * @example
+   *  let did = Device.deviceID;
+   let suffix = "mp3";
+   let file_obj_name = this.file_obj_name //从服务端获取或者本地获取,generateObjNameAndUrlForFDSUploadV3 生成
+   if (file_obj_name) {
+      Host.file.getFDSFileInfoWithObjNameV3(file_obj_name).then(res => {
+          console.log('getfileurl success', res)
+          alert('获取成功' + JSON.stringify(res))
+      }).catch(err => {
+          console.log('getfileurl failed', err)
+      })
+      } else {
+      alert("先上传文件")
+      }
+   */
+  @report
+  getFDSFileInfoWithObjNameV3(obj_name) {
      return Promise.resolve(null);
   }
   /**
@@ -1004,6 +1078,26 @@ class IFile {
      return Promise.resolve(null);
   }
   /**
+     * 获取指定目录的占用空间 目录必须在插件沙盒或者是插件沙盒子目录
+     * 参数 folderName 为 '' 时获取插件沙盒目录
+     * 获取子目录需要传递相对路径，sdk会自动对目录做拼接
+     * since 10062
+     * @returns {Promise<json>} 返回目录必须在插件沙盒或者是插件沙盒子目录占用的存储空间：{code: 0 ,data: { size: 123456} }，
+     * 单位都字节(byte)
+     *
+     * @example
+     * // 参数 folderName 为 '' 时获取插件沙盒目录
+     * Host.file.readFolderSize('folder').then(res=>{
+     *  alert(JSON.stringify(res))
+     * }).catch(err=>{
+     *  alert(JSON.stringify(err));
+     * });
+     */
+     @report
+  readFolderSize(folderName) {
+     return Promise.resolve(null);
+  }
+  /**
    * 裁剪图片
    * since 10054
    * @returns{Promise<string>} 成功时返回裁剪后的图片路径，失败返回 {code:-1,message:'xxx'}
@@ -1015,9 +1109,9 @@ class IFile {
    * @param {Object} params.displaySize: 将裁切后的图像缩放到指定大小(Optional).  e.g :{width:200,height:200} type int
    */
   @report
-  cropImage(targetFileName, sourceFilename, params) {
-     return Promise.resolve(null);
-  }
+     cropImage(targetFileName, sourceFilename, params) {
+        return Promise.resolve(null);
+     }
 }
 const FileInstance = new IFile();
 export default FileInstance;

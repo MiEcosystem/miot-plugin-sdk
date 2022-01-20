@@ -12,6 +12,7 @@
  */
 import { report } from "../decorator/ReportDecorator";
 import native from "../native";
+import permissionLocal from "./permissionLocal.json";
 class IPermission {
   /**
    * 拉取最新远程配置，默认会调用一次，优先使用远程配置
@@ -32,7 +33,9 @@ class IPermission {
     let map = this.remoteConfig ?? this.localConfig;
     let methodAllow = map.methodAllow ?? {};
     let models = methodAllow[method] ?? [];
-    return models.length == 0 || models.includes(model);
+    return models.length == 0
+    || models.includes(model)
+    || models.find((m) => { return model.startsWith(m); });
   }
 }
 const instance = new IPermission();
