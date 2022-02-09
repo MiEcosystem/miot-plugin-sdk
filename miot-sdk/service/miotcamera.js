@@ -909,3 +909,24 @@ class IMiotCamera {
        return end
        return Promise.resolve(null);
        return end
+       return Promise.resolve(null);
+    }
+    /**
+   * 下载m3u8视频并合成mp4，支持合成mp4时统一分辨率，避免视频花屏
+   * @since 10066
+   * @param fileId 视频文件的fileId
+   * @param url 视频文件交给播放器播放的url （使用getVideoFileUrlV2换过来的视频地址）
+   * @param filePath 下载视频完成后 视频的存储路径，要求必须以Host.storageBasePath开始
+   * @param callbackName 下载进度回调
+   * @param did did
+   * @returns
+   *    state : 1. onStart (开始下载)  2. onComplete（下载完成）  3. onError（失败）  4. onProgress（下载进度）
+   *    errorInfo : 失败描述（state = onError时才有）
+   *    progress : 下载进度0 - 100 (state = onProgress时才有)
+   */
+     @report
+    downloadM3U8ToMP4ByUrl(fileId, url, filePath, callbackName, did = Device.deviceID) {
+    }
+}
+const MiotCameraInstance = new IMiotCamera();
+export default MiotCameraInstance;

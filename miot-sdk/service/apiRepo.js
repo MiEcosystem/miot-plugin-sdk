@@ -273,6 +273,14 @@ const API_REPO = {
   '/v2/user/get_subscribe_device': {},
   '/ot/pubsub/subscribe': {}, // 订阅接口
   '/ot/pubsub/unsubscribe': {}, // 取消订阅接口
-  '/ot/pubsub/query': {} // 查询订阅者订阅的topic接口
+  '/ot/pubsub/query': {}, // 查询订阅者订阅的topic接口
+  // 每日故事列表接口
+  '/miot/camera/app/v1/dailyStory/playlist': {},
+  // 每日故事m3u8
+  '/miot/camera/app/v1/dailyStory/m3u8': {},
+  // 每日故事删除
+  '/miot/camera/app/v1/dailyStory/delete': {},
+  // 人脸聚类相关接口
+  '/common/app/get/faceCluster/eventlist': {}
 };
 export default API_REPO;
