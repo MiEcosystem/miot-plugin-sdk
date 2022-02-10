@@ -19,7 +19,7 @@ export default class Setting extends React.Component {
     type="dark"
     title={strings.setting}
     style={{ backgroundColor: '#fff' }}
-    onPressLeft={_ => navigation.goBack()}
+    onPressLeft={(_) => navigation.goBack()}
   />
   });
 
@@ -71,17 +71,17 @@ export default class Setting extends React.Component {
             <Separator style={{ marginLeft: Styles.common.padding }} />
             <ListItem
               title="创建/编辑灯组"
-              onPress={_ => this.editOrCreateLightGroup()}
+              onPress={(_) => this.editOrCreateLightGroup()}
             />
             <ListItemWithSwitch
               title="三个"
               value={this.state.switchValue}
-              onValueChange={value => this.onValueChange(value)}
+              onValueChange={(value) => this.onValueChange(value)}
             />
             <ListItemWithSlider
               title="测试"
               sliderProps={{ value: this.state.sliderValue }}
-              onSlidingComplete={value => this.onSlidingComplete(value)}
+              onSlidingComplete={(value) => this.onSlidingComplete(value)}
               showSeparator={false}
             />
           </View>
@@ -108,7 +108,7 @@ export default class Setting extends React.Component {
 
   componentDidMount() {
     // TODO: 拉取功能设置项里面的初始值，比如开关状态，slider的value
-    setTimeout(_ => this.setState({ switchValue: true, sliderValue: 75 }), 1000);
+    setTimeout((_) => this.setState({ switchValue: true, sliderValue: 75 }), 1000);
   }
 
 }

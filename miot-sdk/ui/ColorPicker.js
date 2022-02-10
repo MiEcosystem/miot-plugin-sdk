@@ -1,15 +1,12 @@
 import React, { useImperativeHandle, useRef } from 'react';
-import {
-  requireNativeComponent,
-  UIManager,
-  findNodeHandle
-} from 'react-native';
+import { findNodeHandle, requireNativeComponent, UIManager } from 'react-native';
 import PropTypes from 'prop-types';
 import { AccessibilityPropTypes, getAccessibilityConfig } from '../utils/accessibility-helper';
+import { isIOS } from "../native";
 const RCTColorPickerView = requireNativeComponent('RCTColorPickerView');
 const RCTWhitePickerView = requireNativeComponent('RCTWhitePickerView');
 const ColorPickerView = (
-  { style, type = 'color', onInit, onColorChange, accessible, accessibilityLabel, accessibilityHint },
+  { style, type = 'color', onInit, onColorChange, onColorChangeStart, accessible, accessibilityLabel, accessibilityHint, disable, showIndicator = true },
   ref
 ) => {
   const view = useRef(null);
@@ -48,16 +45,28 @@ const ColorPickerView = (
       <RCTColorPickerView
         ref={view}
         style={style}
+        disable={disable}
+        showIndicator={showIndicator}
         onInit={() => {
           if (onInit) {
             onInit();
-            // 设置颜色值，渐变范围，高斯模糊半径
-            colorPickerConfig();
+          }
+          // 设置颜色值，渐变范围，高斯模糊半径
+          colorPickerConfig();
+        }}
+        onColorChange={(data) => {
+          if (onColorChange) {
+            onColorChange(data.nativeEvent.color, data.nativeEvent.trackType, data.nativeEvent.position);
           }
         }}
-        onColorChange={(event) => {
-          if (onColorChange) {
-            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType, event.nativeEvent.position);
+        onChangeStart={(data) => {
+          if (onColorChangeStart) {
+            onColorChangeStart(data.nativeEvent.color);
+          }
+        }}
+        onLayout={() => {
+          if (isIOS) {
+            colorPickerConfig();
           }
         }}
         {...getAccessibilityConfig({
@@ -72,16 +81,23 @@ const ColorPickerView = (
       <RCTWhitePickerView
         ref={view}
         style={style}
+        disable={disable}
+        showIndicator={showIndicator}
         onInit={() => {
           if (onInit) {
             onInit();
-            // 设置颜色值，渐变范围，高斯模糊半径
-            colorPickerConfig();
+          }
+          // 设置颜色值，渐变范围，高斯模糊半径
+          colorPickerConfig();
+        }}
+        onColorChange={(data) => {
+          if (onColorChange) {
+            onColorChange(data.nativeEvent.color, data.nativeEvent.trackType, data.nativeEvent.position);
           }
         }}
-        onColorChange={(event) => {
-          if (onColorChange) {
-            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType, event.nativeEvent.position);
+        onChangeStart={ (data) => {
+          if (onColorChangeStart) {
+            onColorChangeStart(data.nativeEvent.color);
           }
         }}
         {...getAccessibilityConfig({
@@ -97,8 +113,11 @@ export const ColorPicker = React.forwardRef(ColorPickerView);
 ColorPicker.propTypes = {
   style: PropTypes.any,
   type: PropTypes.oneOf(['color', 'white']),
+  disable: PropTypes.bool,
+  showIndicator: PropTypes.bool,
   onInit: PropTypes.func,
   onColorChange: PropTypes.func,
+  onChangeStart: PropTypes.func,
   accessible: AccessibilityPropTypes.accessible,
   accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
   accessibilityHint: AccessibilityPropTypes.accessibilityHint
