@@ -17,7 +17,7 @@ import React from 'react';
 import {
   StyleSheet, Text, View, TouchableOpacity, Platform, ScrollView
 } from 'react-native';
-import {ClassicBluetooth, ClassicBluetoothEvent} from "miot";
+import { ClassicBluetooth, ClassicBluetoothEvent } from "miot";
 
 export default class ClassicBle extends React.Component {
 
@@ -31,24 +31,24 @@ export default class ClassicBle extends React.Component {
     this.fontFamily = {};
     if (Platform.OS === 'android') {
       // 如果不设置英文字体，那么外文字符串将显示不全（Android）
-      this.fontFamily = {fontFamily: 'Kmedium'}
+      this.fontFamily = { fontFamily: 'Kmedium' };
     }
 
     console.log('ClassicBluetooth', ClassicBluetooth);
     console.log('ClassicBluetoothEvent', ClassicBluetoothEvent);
 
     this.classicBlueBondStateChanged = ClassicBluetoothEvent.classicBlueBondStateChanged.addListener((data) => {
-        console.log('classicBlueBondStateChanged', data)
+      console.log('classicBlueBondStateChanged', data);
     });
 
     console.log('this.classicBlueBondStateChanged', this.classicBlueBondStateChanged);
 
     this.classicBlueConnectionStateChanged = ClassicBluetoothEvent.classicBlueConnectionStateChanged.addListener((data) => {
-        console.log('classicBlueConnectionStateChanged', data)
+      console.log('classicBlueConnectionStateChanged', data);
     });
 
     this.classicBlueReceivedData = ClassicBluetoothEvent.classicBlueReceivedData.addListener((data) => {
-        console.log('classicBlueReceivedData', data)
+      console.log('classicBlueReceivedData', data);
     });
   }
 
@@ -60,12 +60,12 @@ export default class ClassicBle extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <ScrollView>
           <TouchableOpacity
             style={styles.btnStyle}
             onPress={(e) => {
-                this._create();
+              this._create();
             }}
           >
             <Text style={[styles.textStyle, this.fontFamily]}>第一步-初始化经典蓝牙-create</Text>
@@ -74,7 +74,7 @@ export default class ClassicBle extends React.Component {
           <TouchableOpacity
             style={styles.btnStyle}
             onPress={(e) => {
-                this._prepareBluetoothProfile();
+              this._prepareBluetoothProfile();
             }}
           >
             <Text
@@ -84,7 +84,7 @@ export default class ClassicBle extends React.Component {
           <TouchableOpacity
             style={styles.btnStyle}
             onPress={(e) => {
-                this._connectBluetoothProfile();
+              this._connectBluetoothProfile();
             }}
           >
             <Text style={[styles.textStyle, this.fontFamily]}>第三步-Profile连接-connectBluetoothProfile</Text>
@@ -93,7 +93,7 @@ export default class ClassicBle extends React.Component {
           <TouchableOpacity
             style={styles.btnStyle}
             onPress={(e) => {
-                this._connectSocket();
+              this._connectSocket();
             }}
           >
             <Text style={[styles.textStyle, this.fontFamily]}>第四步-根据device 的mac 地址，与中心设备建立socket 链接-connectSocket</Text>
@@ -102,7 +102,7 @@ export default class ClassicBle extends React.Component {
           <TouchableOpacity
             style={styles.btnStyle}
             onPress={(e) => {
-                this._write();
+              this._write();
             }}
           >
             <Text style={[styles.textStyle, this.fontFamily]}>第五步-向蓝牙设备写入数据-write</Text>
@@ -111,7 +111,7 @@ export default class ClassicBle extends React.Component {
           <TouchableOpacity
             style={styles.btnStyle}
             onPress={(e) => {
-                this._disconnectSocket();
+              this._disconnectSocket();
             }}
           >
             <Text style={[styles.textStyle, this.fontFamily]}>第六步-断开与中心设备的socket连接-disconnectSocket</Text>
@@ -120,7 +120,7 @@ export default class ClassicBle extends React.Component {
           <TouchableOpacity
             style={styles.btnStyle}
             onPress={(e) => {
-                this._disconnectBluetoothProfile();
+              this._disconnectBluetoothProfile();
             }}
           >
             <Text style={[styles.textStyle, this.fontFamily]}>第七步-断开profile-disconnectBluetoothProfile</Text>
@@ -129,7 +129,7 @@ export default class ClassicBle extends React.Component {
           <TouchableOpacity
             style={styles.btnStyle}
             onPress={(e) => {
-                this._destroy();
+              this._destroy();
             }}
           >
             <Text style={[styles.textStyle, this.fontFamily]}>第八步-销毁-destroy</Text>
@@ -143,73 +143,73 @@ export default class ClassicBle extends React.Component {
 
   _create() {
     ClassicBluetooth.create().then((res) => {
-      console.log('create', res)
+      console.log('create', res);
     }).catch((error) => {
-      console.log('create', error)
+      console.log('create', error);
     });
   }
 
   _prepareBluetoothProfile() {
     let profile = 1;
     ClassicBluetooth.prepareBluetoothProfile(profile).then((profile) => {
-        console.log('prepareBluetoothProfile', profile)
+      console.log('prepareBluetoothProfile', profile);
     }).catch((error) => {
-      console.log('prepareBluetoothProfile', error)
+      console.log('prepareBluetoothProfile', error);
     });
   }
 
   _connectBluetoothProfile() {
-    let macAddress = 'AA:BB:CC:DD:EE:FF'
+    let macAddress = 'AA:BB:CC:DD:EE:FF';
     let profile = 1;
     ClassicBluetooth.connectBluetoothProfile(macAddress, profile).then((res) => {
-        console.log('connectBluetoothProfile', res)
+      console.log('connectBluetoothProfile', res);
     }).catch((error) => {
-      console.log('connectBluetoothProfile', error)
+      console.log('connectBluetoothProfile', error);
     });
   }
 
   _connectSocket() {
-    let macAddress = 'AA:BB:CC:DD:EE:FF'
+    let macAddress = 'AA:BB:CC:DD:EE:FF';
     let transportUUID = '1000000-0000-0000-0000-00000000001';
     ClassicBluetooth.connectSocket(macAddress, transportUUID).then((res) => {
-        console.log('connectSocket', res)
+      console.log('connectSocket', res);
     }).catch((error) => {
-      console.log('connectSocket', error)
+      console.log('connectSocket', error);
     });
   }
 
   _write() {
     let data = 'aaa';
     ClassicBluetooth.write(data).then((res) => {
-        console.log('write', res)
+      console.log('write', res);
     }).catch((error) => {
-      console.log('write', error)
+      console.log('write', error);
     });
   }
 
   _disconnectSocket() {
     ClassicBluetooth.disconnectSocket().then((res) => {
-        console.log('disconnectSocket', res)
+      console.log('disconnectSocket', res);
     }).catch((error) => {
-      console.log('disconnectSocket', error)
+      console.log('disconnectSocket', error);
     });
   }
 
   _disconnectBluetoothProfile() {
-    let macAddress = 'AA:BB:CC:DD:EE:FF'
+    let macAddress = 'AA:BB:CC:DD:EE:FF';
     let profile = 1;
     ClassicBluetooth.disconnectBluetoothProfile(macAddress, profile).then((res) => {
-        console.log('disconnectBluetoothProfile', res)
+      console.log('disconnectBluetoothProfile', res);
     }).catch((error) => {
-      console.log('disconnectBluetoothProfile', error)
+      console.log('disconnectBluetoothProfile', error);
     });
   }
 
   _destroy() {
     ClassicBluetooth.destroy().then((res) => {
-        console.log('destroy', res)
+      console.log('destroy', res);
     }).catch((error) => {
-      console.log('destroy', error)
+      console.log('destroy', error);
     });
   }
 
@@ -228,6 +228,6 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     color: '#ffffff',
-    fontSize: 14,
+    fontSize: 14
   }
 });

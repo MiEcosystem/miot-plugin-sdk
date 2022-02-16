@@ -27,6 +27,7 @@ import XiaomiRPC from './RPCControl';
 import Settings from './Setting';
 import BleSpec from './BleSpec';
 import SubSpec from './SubscribeSpec';
+import TestCasePage from './SecurityChipTestCase';
 
 const RootStack = createStackNavigator(
   {
@@ -39,6 +40,7 @@ const RootStack = createStackNavigator(
     setting: Settings,
     bleSpec: BleSpec,
     subSpec: SubSpec,
+    testCase: TestCasePage,
 
     guide: {
       screen: Guide,

@@ -1,15 +1,11 @@
 import React, { useImperativeHandle, useRef } from 'react';
-import {
-  requireNativeComponent,
-  UIManager,
-  findNodeHandle
-} from 'react-native';
+import { findNodeHandle, requireNativeComponent, UIManager } from 'react-native';
 import PropTypes from 'prop-types';
 import { AccessibilityPropTypes, getAccessibilityConfig } from '../utils/accessibility-helper';
 const RCTColorPickerView = requireNativeComponent('RCTColorPickerView');
 const RCTWhitePickerView = requireNativeComponent('RCTWhitePickerView');
 const ColorPickerView = (
-  { style, type = 'color', onInit, onColorChange, accessible, accessibilityLabel, accessibilityHint },
+  { style, type = 'color', onInit, onColorChange, onColorChangeStart, accessible, accessibilityLabel, accessibilityHint, disable, showIndicator = true },
   ref
 ) => {
   const view = useRef(null);
@@ -48,6 +44,8 @@ const ColorPickerView = (
       <RCTColorPickerView
         ref={view}
         style={style}
+        disable={disable}
+        showIndicator={showIndicator}
         onInit={() => {
           if (onInit) {
             onInit();
@@ -55,9 +53,14 @@ const ColorPickerView = (
             colorPickerConfig();
           }
         }}
-        onColorChange={(event) => {
+        onColorChange={(data) => {
           if (onColorChange) {
-            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType, event.nativeEvent.position);
+            onColorChange(data.nativeEvent.color, data.nativeEvent.trackType, data.nativeEvent.position);
+          }
+        }}
+        onChangeStart={(data) => {
+          if (onColorChangeStart) {
+            onColorChangeStart(data.nativeEvent.color);
           }
         }}
         {...getAccessibilityConfig({
@@ -72,6 +75,8 @@ const ColorPickerView = (
       <RCTWhitePickerView
         ref={view}
         style={style}
+        disable={disable}
+        showIndicator={showIndicator}
         onInit={() => {
           if (onInit) {
             onInit();
@@ -79,9 +84,14 @@ const ColorPickerView = (
             colorPickerConfig();
           }
         }}
-        onColorChange={(event) => {
+        onColorChange={(data) => {
           if (onColorChange) {
-            onColorChange(event.nativeEvent.color, event.nativeEvent.trackType, event.nativeEvent.position);
+            onColorChange(data.nativeEvent.color, data.nativeEvent.trackType, data.nativeEvent.position);
+          }
+        }}
+        onChangeStart={ (data) => {
+          if (onColorChangeStart) {
+            onColorChangeStart(data.nativeEvent.color);
           }
         }}
         {...getAccessibilityConfig({
@@ -97,6 +107,8 @@ export const ColorPicker = React.forwardRef(ColorPickerView);
 ColorPicker.propTypes = {
   style: PropTypes.any,
   type: PropTypes.oneOf(['color', 'white']),
+  disable: PropTypes.bool,
+  showIndicator: PropTypes.bool,
   onInit: PropTypes.func,
   onColorChange: PropTypes.func,
   accessible: AccessibilityPropTypes.accessible,
