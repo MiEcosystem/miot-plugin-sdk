@@ -51,7 +51,8 @@ export const MISSCommand = {
   /** < C->S, device motor control */
   MISS_CMD_MOTOR_RESP: 0x113, /** < S->C, device motor control response */
   MISS_CMD_CRUISE_STATE_REQ: 0x200,
-  MISS_CMD_CRUISE_STATE_RESP: 0x201
+  MISS_CMD_CRUISE_STATE_RESP: 0x201,
+  MISS_CMD_CALL_STATUS_RESP: 0x301
 };
 Object.freeze(MISSCommand);
 /**
