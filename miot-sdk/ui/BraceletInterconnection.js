@@ -385,7 +385,7 @@ function List({ items, handle, headerMessage, footerMessage, accessibility }) {
           return (
             <View key={String(index)} style={{ width: '100%', height: 54, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
               <Text style={Styles.title}>{item.name}</Text>
-              <TouchableOpacity style={{ width: 80, height: 34, borderRadius: 17, justifyContent: 'center', alignItems: 'center', backgroundColor: '#EAF8F8' }}
+              <TouchableOpacity style={{ maxWidth: 100, padding: 10, borderRadius: 17, justifyContent: 'center', alignItems: 'center', backgroundColor: '#EAF8F8' }}
                 {...getAccessibilityConfig({
                   accessible: accessibility.accessible,
                   accessibilityRole: AccessibilityRoles.button,
@@ -394,7 +394,7 @@ function List({ items, handle, headerMessage, footerMessage, accessibility }) {
                 onPress={() => {
                   handle && handle(item.mac, item.linked);
                 }}>
-                <Text style={[Styles.title, { color: '#48C2C7' }]}>{item.linked ? I18n.removeLink : I18n.link}</Text>
+                <Text numberOfLines={1} ellipsizeMode={'tail'} style={[Styles.title, { color: '#48C2C7' }]}>{item.linked ? I18n.removeLink : I18n.link}</Text>
               </TouchableOpacity>
             </View>
           );
