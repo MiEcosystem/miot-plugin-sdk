@@ -356,7 +356,7 @@ strings = getStrings({
     room_bathroom: '浴室',
     room_backyard: '后院',
     room_unassigned: '未分配房间',
-    no_privacy_tip_content: '获取不到隐私，请检查手机网络或联系米家反馈问题。',
+    no_privacy_tip_content: '无法获取隐私，请检查手机网络或在米家APP中反馈问题。',
   },
   zh_tw: {
     setting: '設定',
@@ -521,7 +521,7 @@ strings = getStrings({
     room_bathroom: '浴室',
     room_backyard: '后院',
     room_unassigned: '未分配房间',
-    no_privacy_tip_content: '获取不到隐私，请检查手机网络或联系米家反馈问题。'
+    no_privacy_tip_content: '無法取得隱私權，請檢查手機網路或在米家APP中回報問題。'
   },
   zh_hk: {
     setting: '設定',
@@ -686,7 +686,7 @@ strings = getStrings({
     room_bathroom: '浴室',
     room_backyard: '后院',
     room_unassigned: '未分配房间',
-    no_privacy_tip_content: '获取不到隐私，请检查手机网络或联系米家反馈问题。'
+    no_privacy_tip_content: '無法取得私隱政策，請檢查手機網絡或在米家應用程式中反映問題。'
   },
   en: {
     setting: 'Settings',
@@ -855,7 +855,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Couldn\'t acquire the Privacy Policy, please check the mobile network or provide feedback in the Mi Home/Xiaomi Home app.'
   },
   ko: {
     setting: '설정',
@@ -1020,7 +1020,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: '개인정보 취급방침을 가져올 수 없습니다. 모바일 네트워크를 확인하고 Mi Home/Xiaomi Home 앱에서 피드백을 제공하세요.'
   },
   ru: {
     setting: 'Настройки',
@@ -1185,7 +1185,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Не удалось получить доступ к Политике конфиденциальности, проверьте мобильную сеть или оставьте отзыв в приложении Mi Home/Xiaomi Home.'
   },
   es: {
     setting: 'Ajustes',
@@ -1350,7 +1350,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'No se pudo ver la Política de privacidad, compruebe la red móvil o deje un comentario en la aplicación Mi Home/Xiaomi Home.'
   },
   fr: {
     setting: "Paramètres",
@@ -1515,7 +1515,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Impossible de récupérer la Politique de confidentialité. Veuillez vérifier l’état de votre réseau mobile ou envoyer des commentaires dans l’application Mi Home/Xiaomi Home.'
   },
   it: {
     setting: 'Impostazioni',
@@ -1680,7 +1680,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Impossibile acquisire l’Informativa sulla Privacy, controllare la rete mobile o fornire un feedback nell’app Mi Home/Xiaomi Home.'
   },
   de: {
     setting: "Einstellungen",
@@ -1845,7 +1845,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Die Datenschutzerklärung konnte nicht aufgerufen werden, bitte prüfen Sie das mobile Netzwerk oder hinterlassen Sie Feedback über die Mi Home-App/Xiaomi Home-App.'
   },
   id: {
     setting: 'Pengaturan',
@@ -2010,7 +2010,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Tidak dapat memperoleh Kebijakan Privasi, silakan periksa jaringan seluler atau berikan umpan balik di aplikasi Mi Home/Xiaomi Home.'
   },
   pl: {
     setting: 'Ustawienia',
@@ -2175,7 +2175,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Nie można pobrać Polityki prywatności, sprawdź sieć mobilną albo przekaż informację zwrotną w aplikacji Mi Home/Xiaomi Home.'
   },
   vi: {
     setting: 'Cài đặt',
@@ -2340,7 +2340,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Không tải được Chính sách quyền riêng tư, vui lòng kiểm tra mạng di động hoặc đưa ra phản hồi trong ứng dụng Mi Home/Xiaomi Home.'
   },
   ja: {
     setting: '設定',
@@ -2505,7 +2505,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'プライバシーポリシーを取得できませんでした。モバイルネットワークをご確認いただくか、Mi Home/Xiaomi Homeアプリでフィードバックをお寄せください。'
   },
   th: {
     setting: 'การตั้งค่า',
@@ -2670,7 +2670,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'ไม่สามารถดึงข้อมูลนโยบายความเป็นส่วนตัวได้ โปรดตรวจสอบเครือข่ายมือถือหรือมอบคำติชมในแอป Mi Home/Xiaomi Home'
   },
   tr: {
     setting: 'Ayarlar',
@@ -2835,7 +2835,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Gizlilik İlkesi alınamadı, lütfen mobil ağı kontrol edin veya Mi Home/Xiaomi Home uygulamasından geri bildirimde bulunun.'
   },
   nl: {
     setting: 'Instellingen',
@@ -3000,7 +3000,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Kan het privacybeleid niet ophalen, controleer het mobiele netwerk of geef feedback in de Mi Home/Xiaomi Home-app.'
   },
   pt: {
     setting: 'Configurações',
@@ -3165,7 +3165,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Não foi possível adquirir a Política de Privacidade. Verifique a rede móvel ou forneça comentários no aplicativo Mi Home/Xiaomi Home.'
   },
   ar: {
     setting: 'الإعدادات',
@@ -3335,7 +3335,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.',
+    no_privacy_tip_content: 'تعذر الحصول على سياسة الخصوصية، يُرجى التحقق من شبكة الهاتف المحمول أو ترك ملاحظات في تطبيق Mi Home/Xiaomi Home.',
   },
   he:
     {
@@ -3506,7 +3506,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'לא ניתן להוריד את מדיניות הפרטיות, בדוק את הרשת הניידת או רשום משוב באפליקציית Mi Home/Xiaomi Home.'
   }
 });
 export default strings;
