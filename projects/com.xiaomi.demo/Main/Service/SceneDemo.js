@@ -1,8 +1,5 @@
-
 import React from 'react';
-import {
-  StyleSheet, Text, View, TouchableOpacity, Platform, ScrollView
-} from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Service from 'miot/Service';
 import { Device, SceneType } from "miot";
 import Logger from '../Logger';
@@ -35,6 +32,8 @@ export default class MHSceneDemo extends React.Component {
                 title: '以下为非UI的API，存网络请求',
                 items: [
                   [this._loadAutomaticScenes, '加载此设备所有的自动场景'],
+                  [this._loadAutomaticScenesV2, '加载此设备所有的自动场景V2'],
+                  [this._loadTplScenesV2, '加载此设备相关的模板场景v2'],
                   [this._loadTimerScenes, '加载此设备所有的定时场景'],
                   [this._loadScenesHistoryForDevice, '加载设备的智能日志信息'],
                   [this._createTimerScene, '创建定时场景'],
@@ -168,6 +167,36 @@ export default class MHSceneDemo extends React.Component {
       }
     }).catch((error) => {
       console.log('error', error);
+    });
+  }
+
+  _loadAutomaticScenesV2() {
+    Device.getRoomInfoForCurrentHome().then((info) => {
+      console.log("Info", info);
+      const homeID = info.data.homeId;
+      Service.sceneV2.loadSceneList(homeID, Device.deviceID).then((res) => {
+        console.log(res);
+        alert(JSON.stringify(res));
+      }).catch((err) => {
+        console.log(err);
+      });
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
+  _loadTplScenesV2() {
+    Device.getRoomInfoForCurrentHome().then((info) => {
+      console.log("Info", info);
+      const homeID = info.data.homeId;
+      Service.sceneV2.loadTplSceneList(homeID, Device.deviceID).then((res) => {
+        console.log(res);
+        alert(JSON.stringify(res));
+      }).catch((err) => {
+        console.log(err);
+      });
+    }).catch((err) => {
+      console.log(err);
     });
   }
 

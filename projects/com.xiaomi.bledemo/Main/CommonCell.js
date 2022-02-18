@@ -14,9 +14,9 @@ export default class CommonCell extends React.Component {
     return (
       <TouchableOpacity onPress={this.props.onPress}>
         <View style={styles.container}>
-          { /*左边*/}
+          { /* 左边 */}
           <Text style={{ marginLeft: 8 }}>{this.props.title}</Text>
-          { /*右边*/}
+          { /* 右边 */}
           {this.renderRightView()}
         </View>
       </TouchableOpacity>
@@ -30,14 +30,13 @@ export default class CommonCell extends React.Component {
       return (
         <Switch
           value={this.props.isOn === true}
-          onValueChange={val => {
+          onValueChange={(val) => {
             this.props.onValueChange(val);
           }}
           style={{ marginRight: 8 }}
         />
       );
-    }
-    else {
+    } else {
       return (
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           {/* {this.rightTitle()} */}
@@ -64,9 +63,9 @@ const styles = StyleSheet.create({
     borderBottomColor: '#dddddd',
     borderBottomWidth: 0.5,
     flexDirection: 'row',
-    //设置主轴的对其方式
+    // 设置主轴的对其方式
     justifyContent: 'space-between',
-    //垂直居中
+    // 垂直居中
     alignItems: 'center'
   }
 });

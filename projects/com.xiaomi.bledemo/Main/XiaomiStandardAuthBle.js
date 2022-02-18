@@ -21,7 +21,7 @@ const bt = Device.getBluetoothLE();
 const statusEnable = false;
 
 
-//uuids for testing.
+// uuids for testing.
 const UUID_SERVICE = '00000100-0065-6C62-2E74-6F696D2E696D';
 const UUID_LED_READ_WRITE = '00000101-0065-6C62-2E74-6F696D2E696D';
 const UUID_BUTTON_READ_WRITE_NOTIFY = '00000102-0065-6C62-2E74-6F696D2E696D';
@@ -52,12 +52,12 @@ export default class MainPage extends React.Component {
     this.props.navigation.navigate('blecontrol', { title: '蓝牙直连控制', sc_type: 4 });
   }
 
-  jump2BleSpec(){
-    this.props.navigation.navigate('bleSpec',{title:'Ble Spec',sc_type:4})
+  jump2BleSpec() {
+    this.props.navigation.navigate('bleSpec', { title: 'Ble Spec', sc_type: 4 });
   }
 
-  jump2SubSpec(){
-    this.props.navigation.navigate('subSpec',{title:'订阅 Spec',sc_type:4})
+  jump2SubSpec() {
+    this.props.navigation.navigate('subSpec', { title: '订阅 Spec', sc_type: 4 });
   }
 
   doOTA(test = true) {
@@ -67,24 +67,24 @@ export default class MainPage extends React.Component {
 
   addLog(string) {
     let { log } = this.state;
-    log = string + '\n' + log;
+    log = `${ string }\n${ log }`;
     this.setState({ log });
   }
 
   checkOTAVersion() {
-    fetch('http://support.io.mi.srv/product/if_productinfo?model=' + Device.model)
-      .then(response => response.json())
-      .then(response => {
+    fetch(`http://support.io.mi.srv/product/if_productinfo?model=${ Device.model }`)
+      .then((response) => response.json())
+      .then((response) => {
         const fileName = response.result.update_file;
         if (fileName === undefined) {
           return new Promise.reject('fetch version failed');
         }
-        return fetch('http://support.io.mi.srv/product/if_firmware_versionlist?name=' + fileName);
+        return fetch(`http://support.io.mi.srv/product/if_firmware_versionlist?name=${ fileName }`);
       })
-      .then(response => response.json())
-      .then(response => {
+      .then((response) => response.json())
+      .then((response) => {
         const infos = response.result;
-        const versionMap = infos.map(info => ({ name: info.version, url: info.sign_url === '' ? info.url : info.sign_url, md5: info.sign_url === '' ? info.fileMd5 : info.sign_fileMd5 }));
+        const versionMap = infos.map((info) => ({ name: info.version, url: info.sign_url === '' ? info.url : info.sign_url, md5: info.sign_url === '' ? info.fileMd5 : info.sign_fileMd5 }));
         const { url, name, md5 } = versionMap[0];
         this.setState({
           firmwareList: versionMap, fake_dfu_url: url, fake_dfu_name: name, fake_dfu_md5: md5
@@ -112,14 +112,14 @@ export default class MainPage extends React.Component {
           }}
         />
 
-         <CardButton
-                  title="订阅Spec测试"
-                  subtitle="用户苏杭提供的开发板"
-                  icon={require('../Resources/icon_control.png')}
-                  onPress={() => {
-                    this.jump2SubSpec();
-                  }}
-                />
+        <CardButton
+          title="订阅Spec测试"
+          subtitle="用户苏杭提供的开发板"
+          icon={require('../Resources/icon_control.png')}
+          onPress={() => {
+            this.jump2SubSpec();
+          }}
+        />
 
         <CardButton
           title="更新固件列表"
@@ -131,20 +131,19 @@ export default class MainPage extends React.Component {
         />
         <StringSpinner
           style={{ height: 150, backgroundColor: '#ffffff' }}
-          dataSource={this.state.firmwareList.map(e => e.name)}
+          dataSource={this.state.firmwareList.map((e) => e.name)}
           defaultValue="1.4.0_0001"
           pickerInnerStyle={{
             lineColor: '#cc0000', textColor: '#ff0000', selectTextColor: '#0000FF', fontSize: 12, selectFontSize: 16, rowHeight: 30, selectBgColor: '#f5f5f5'
           }}
-          onValueChanged={data => {
-            const { url, name, md5 } = this.state.firmwareList.filter(e => e.name === data.newValue)[0];
-            const a = this.state.firmwareList.filter(e => e.name === data.newValue);
+          onValueChanged={(data) => {
+            const { url, name, md5 } = this.state.firmwareList.filter((e) => e.name === data.newValue)[0];
+            const a = this.state.firmwareList.filter((e) => e.name === data.newValue);
             if (url !== undefined) {
-              this.addLog('选择测试版本：' + data.newValue + ', 测试下载链接：' + JSON.stringify(url));
+              this.addLog(`选择测试版本：${ data.newValue }, 测试下载链接：${ JSON.stringify(url) }`);
               this.setState({ fake_dfu_url: url, fake_dfu_name: name, fake_dfu_md5: md5 });
-            }
-            else {
-              this.addLog('选择测试版本异常：' + JSON.stringify(data) + JSON.stringify(a));
+            } else {
+              this.addLog(`选择测试版本异常：${ JSON.stringify(data) }${ JSON.stringify(a) }`);
             }
 
           }}
@@ -158,7 +157,7 @@ export default class MainPage extends React.Component {
               this.addLog('请先选择需要升级的固件版本');
             }
             (Host.isAndroid ? NativeModules.MIOTHost : NativeModules.MHPluginSDK).openBleOtaDeviceUpgradePage({
-              fake_dfu_url: this.state.fake_dfu_url, md5: this.state.fake_dfu_md5, fake_dfu_name: 'debug:' + this.state.fake_dfu_name, auth_type: 4
+              fake_dfu_url: this.state.fake_dfu_url, md5: this.state.fake_dfu_md5, fake_dfu_name: `debug:${ this.state.fake_dfu_name }`, auth_type: 4
             });
           }}
         />
