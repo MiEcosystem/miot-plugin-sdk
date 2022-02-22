@@ -20,7 +20,11 @@
             "loock.lock.t1",
             "loock.lock.pfvl10",
             "loock.lock.fvl111",
-            "loock.lock.t2v1"
+            "loock.lock.t2v1",
+            "lumi.gateway.v2",
+            "lumi.camera.aq1",
+            "lumi.camera.gwagl01",
+            "lumi.gateway.aqhm02"
         ],
         "getDevicesWithModel": [
             "chuangmi.plug.m3",
