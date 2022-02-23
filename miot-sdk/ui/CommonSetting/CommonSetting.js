@@ -1005,7 +1005,7 @@ export default class CommonSetting extends React.Component {
       // 展示多键开关
       requireKeys1.push(AllOptions.MULTIPLEKEY_SWITCH);
     }
-    if (hasStdPlugin && countryCode === 'cn') {
+    if (hasStdPlugin) {
       requireKeys1.push(AllOptions.DEFAULT_PLUGIN);
     }
     // 创建组设备
@@ -1154,7 +1154,7 @@ export default class CommonSetting extends React.Component {
             }
           })
         }
-        {hasStdPlugin && countryCode === 'cn' ?
+        {hasStdPlugin ?
           <ChoiceDialog
             visible={this.state.dialogVisible}
             title={strings.selectDefaultHP}
@@ -1312,7 +1312,8 @@ const styles = dynamicStyleSheet({
   title: {
     fontSize: 12,
     color: new DynamicColor('#8C93B0', 'rgba(255,255,255,0.5)'),
-    lineHeight: 14
+    lineHeight: 14,
+    textAlign: 'left'
   },
   bottomContainer: {
     minHeight: 90,

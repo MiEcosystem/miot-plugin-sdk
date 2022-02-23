@@ -1244,6 +1244,7 @@ class ISmartHome {
     * 失败
     * code != 0 data 失败详情
     */
+    @report
     checkFirmwareAutoUpgradeOpen(aDevId = Device.deviceID) {
        return Promise.resolve(null);
     }
@@ -1258,6 +1259,7 @@ class ISmartHome {
     *  失败
     *  code != 0 data 失败详情
     */
+    @report
     setFirmwareAutoUpgradeSwitch(aOpen, aDevId = Device.deviceID) {
        return Promise.resolve(null);
     }
