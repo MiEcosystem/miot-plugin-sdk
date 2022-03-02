@@ -68,7 +68,7 @@ export default class ProtocolManager {
     let model = Device.model;
     if (model) {
       let gategroy = model.split('.')[1] || '';
-      if (['camera'].indexOf(gategroy) !== -1) {
+      if (['camera', 'cateye'].indexOf(gategroy) !== -1) {
         ProtocolManager.protocolMangerReportLog('[Privacy Debug] ProtocolManager 隐私前置判断-99，gategroy', gategroy);
         Device.getNativePrivacyConfirmationVersion().then((res) => {
           let localVer = res?.data?.version;
