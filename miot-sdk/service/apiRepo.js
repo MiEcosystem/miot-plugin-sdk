@@ -215,9 +215,9 @@ const API_REPO = {
   '/common/app/get/fileIdEvents': {},
   // 每日故事开关接口
   '/miot/camera/app/v1/put/dailyStorySwitch': {},
-  '/app/device/set_camera_phoneservice_switch': {}, // 设置电话服务开关
-  '/app/device/set_camera_third_alarm_info': {}, // 设置电话服务联系电话
-  '/app/device/get_camera_third_alarm_info': {}, // 获取电话服务联系电话以及开关
+  '/v2/device/set_camera_phoneservice_switch': {}, // 设置电话服务开关
+  '/v2/device/set_camera_third_alarm_info': {}, // 设置电话服务联系电话
+  '/v2/device/get_camera_third_alarm_info': {}, // 获取电话服务联系电话以及开关
   // 新的获取设备属性接口，结果中带有上报的时间戳
   '/v2/device/batchgetdatas': {},
   // 免费人脸
@@ -276,6 +276,14 @@ const API_REPO = {
   '/v2/user/get_subscribe_device': {},
   '/ot/pubsub/subscribe': {}, // 订阅接口
   '/ot/pubsub/unsubscribe': {}, // 取消订阅接口
-  '/ot/pubsub/query': {} // 查询订阅者订阅的topic接口
+  '/ot/pubsub/query': {}, // 查询订阅者订阅的topic接口
+  // 每日故事列表接口
+  '/miot/camera/app/v1/dailyStory/playlist': {},
+  // 每日故事m3u8
+  '/miot/camera/app/v1/dailyStory/m3u8': {},
+  // 每日故事删除
+  '/miot/camera/app/v1/dailyStory/delete': {},
+  // 人脸聚类相关接口
+  '/common/app/get/faceCluster/eventlist': {}
 };
 export default API_REPO;
