@@ -29,17 +29,19 @@ class ILocale {
    * @type {string}
    */
   get language() {
-    let language = native.language;
-    if (language === 'ar' || language === 'he') {
-      language = 'en';
-    }
-    return language;
+    return native.language;
   }
   /**
    * 获取系统语言
    * @type {string}
    */
   get systemLanguage() {
+    let systemLanguage = native.MIOTHost.systemLanguage;
+    const rtlLanguageReg = /(ar|he)/ig;
+    if (rtlLanguageReg.test(systemLanguage)) {
+      systemLanguage = 'en';
+    }
+    return systemLanguage;
   }
   /**
    * 获取时区
