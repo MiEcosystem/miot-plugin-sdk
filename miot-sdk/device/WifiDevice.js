@@ -385,7 +385,7 @@ export default class IDeviceWifi {
      *      reject：{code: xxx, message: xxx}网络错误
      */
     @report
-    getVirtualDevices(type = 1) {
+    getVirtualDevices(type = 1, group_did) {
        return Promise.resolve([]);
     }
     /**

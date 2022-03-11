@@ -1112,6 +1112,19 @@ class IFile {
      cropImage(targetFileName, sourceFilename, params) {
         return Promise.resolve(null);
      }
+  /**
+   * 获取文件的信息
+   * @since 10067
+   * @param {string} fileName - 文件名, 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
+   * @param {string} type - 文件类型,区分micloud_file_create或其它
+   * @returns {Promise}
+   * 成功时：返回文件信息
+   * 失败时：{"code":xxx, "message":"xxx" }
+   */
+  @report
+  readFileInfo(fileName, type) {
+     return Promise.resolve(null);
+  }
 }
 const FileInstance = new IFile();
 export default FileInstance;

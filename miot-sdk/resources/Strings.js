@@ -186,7 +186,7 @@ let strings = {
   room_bathroom: '',
   room_backyard: '',
   room_unassigned: '',
-  no_privacy_tip_content:'',
+  no_privacy_tip_content: ''
 };
 strings = getStrings({
   zh: {
@@ -356,7 +356,7 @@ strings = getStrings({
     room_bathroom: '浴室',
     room_backyard: '后院',
     room_unassigned: '未分配房间',
-    no_privacy_tip_content: '获取不到隐私，请检查手机网络或联系米家反馈问题。',
+    no_privacy_tip_content: '无法获取隐私，请检查手机网络或在米家APP中反馈问题。'
   },
   zh_tw: {
     setting: '設定',
@@ -521,7 +521,7 @@ strings = getStrings({
     room_bathroom: '浴室',
     room_backyard: '后院',
     room_unassigned: '未分配房间',
-    no_privacy_tip_content: '获取不到隐私，请检查手机网络或联系米家反馈问题。'
+    no_privacy_tip_content: '無法取得隱私權，請檢查手機網路或在米家APP中回報問題。'
   },
   zh_hk: {
     setting: '設定',
@@ -686,7 +686,7 @@ strings = getStrings({
     room_bathroom: '浴室',
     room_backyard: '后院',
     room_unassigned: '未分配房间',
-    no_privacy_tip_content: '获取不到隐私，请检查手机网络或联系米家反馈问题。'
+    no_privacy_tip_content: '無法取得私隱政策，請檢查手機網絡或在米家應用程式中反映問題。'
   },
   en: {
     setting: 'Settings',
@@ -855,7 +855,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Couldn\'t acquire the Privacy Policy, please check the mobile network or provide feedback in the Mi Home/Xiaomi Home app.'
   },
   ko: {
     setting: '설정',
@@ -1020,7 +1020,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: '개인정보 취급방침을 가져올 수 없습니다. 모바일 네트워크를 확인하고 Mi Home/Xiaomi Home 앱에서 피드백을 제공하세요.'
   },
   ru: {
     setting: 'Настройки',
@@ -1185,7 +1185,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Не удалось получить доступ к Политике конфиденциальности, проверьте мобильную сеть или оставьте отзыв в приложении Mi Home/Xiaomi Home.'
   },
   es: {
     setting: 'Ajustes',
@@ -1350,7 +1350,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'No se pudo ver la Política de privacidad, compruebe la red móvil o deje un comentario en la aplicación Mi Home/Xiaomi Home.'
   },
   fr: {
     setting: "Paramètres",
@@ -1515,7 +1515,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Impossible de récupérer la Politique de confidentialité. Veuillez vérifier l’état de votre réseau mobile ou envoyer des commentaires dans l’application Mi Home/Xiaomi Home.'
   },
   it: {
     setting: 'Impostazioni',
@@ -1680,7 +1680,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Impossibile acquisire l’Informativa sulla Privacy, controllare la rete mobile o fornire un feedback nell’app Mi Home/Xiaomi Home.'
   },
   de: {
     setting: "Einstellungen",
@@ -1845,7 +1845,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Die Datenschutzerklärung konnte nicht aufgerufen werden, bitte prüfen Sie das mobile Netzwerk oder hinterlassen Sie Feedback über die Mi Home-App/Xiaomi Home-App.'
   },
   id: {
     setting: 'Pengaturan',
@@ -2010,7 +2010,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Tidak dapat memperoleh Kebijakan Privasi, silakan periksa jaringan seluler atau berikan umpan balik di aplikasi Mi Home/Xiaomi Home.'
   },
   pl: {
     setting: 'Ustawienia',
@@ -2175,7 +2175,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Nie można pobrać Polityki prywatności, sprawdź sieć mobilną albo przekaż informację zwrotną w aplikacji Mi Home/Xiaomi Home.'
   },
   vi: {
     setting: 'Cài đặt',
@@ -2340,7 +2340,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Không tải được Chính sách quyền riêng tư, vui lòng kiểm tra mạng di động hoặc đưa ra phản hồi trong ứng dụng Mi Home/Xiaomi Home.'
   },
   ja: {
     setting: '設定',
@@ -2505,7 +2505,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'プライバシーポリシーを取得できませんでした。モバイルネットワークをご確認いただくか、Mi Home/Xiaomi Homeアプリでフィードバックをお寄せください。'
   },
   th: {
     setting: 'การตั้งค่า',
@@ -2670,7 +2670,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'ไม่สามารถดึงข้อมูลนโยบายความเป็นส่วนตัวได้ โปรดตรวจสอบเครือข่ายมือถือหรือมอบคำติชมในแอป Mi Home/Xiaomi Home'
   },
   tr: {
     setting: 'Ayarlar',
@@ -2835,7 +2835,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Gizlilik İlkesi alınamadı, lütfen mobil ağı kontrol edin veya Mi Home/Xiaomi Home uygulamasından geri bildirimde bulunun.'
   },
   nl: {
     setting: 'Instellingen',
@@ -3000,7 +3000,7 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
+    no_privacy_tip_content: 'Kan het privacybeleid niet ophalen, controleer het mobiele netwerk of geef feedback in de Mi Home/Xiaomi Home-app.'
   },
   pt: {
     setting: 'Configurações',
@@ -3165,8 +3165,349 @@ strings = getStrings({
     room_bathroom: 'Bathroom',
     room_backyard: 'Backyard',
     room_unassigned: 'Unassigned',
-    no_privacy_tip_content: 'Privacy is unavailable, please check the network or contact Mijia to report the problem.'
-  }
+    no_privacy_tip_content: 'Não foi possível adquirir a Política de Privacidade. Verifique a rede móvel ou forneça comentários no aplicativo Mi Home/Xiaomi Home.'
+  },
+  ar: {
+    setting: 'الإعدادات',
+    featureSetting: 'إعدادات الجهاز',
+    commonSetting: 'إعدادات عامة',
+    name: 'اسم الجهاز',
+    location: 'إدارة الموقع',
+    memberSet: 'إعدادات المفاتيح',
+    share: 'مشاركة الجهاز',
+    btGateway: 'بوابة البلوتوث منخفض الطاقة (BLE)',
+    voiceAuth: 'إذن صوتي',
+    ifttt: 'المشاهد الذكية',
+    productBaike: 'مقدمة المنتج',
+    firmwareUpgrade: 'تحديث البرنامج الثابت',
+    firmwareUpdate: 'تحديث البرنامج الثابت',
+    more: 'الإعدادات الإضافية',
+    help: 'التعليمات',
+    legalInfo: 'المعلومات القانونية',
+    deleteDevice: 'حذف الجهاز',
+    autoUpgrade: 'تحديث البرنامج الثابت تلقائيًا',
+    checkUpgrade: 'للتحقق من وجود تحديث للبرنامج الثابت',
+    security: 'إعدادات الأمان',
+    networkInfo: 'معلومات الشبكة',
+    feedback: 'ملاحظات',
+    timezone: 'المنطقة الزمنية للجهاز',
+    addToDesktop: 'العودة إلى الشاشة الرئيسية',
+    open: "قيد التشغيل",
+    close: "متوقف",
+    other: 'Other',
+    multipleKeyShowOnHome: "عدد الأزرار التي تظهر في الصفحة الرئيسية: {0}",
+    // 常用设备
+    favoriteDevices: "المفضلة",
+    favoriteCamera: "اختصار الكاميرا",
+    favoriteAddDevices: "إضافة إلى المفضلة",
+    // MHDatePicker
+    cancel: 'إلغاء',
+    ok: 'موافق',
+    am: 'صباحاً',
+    pm: 'مساءً',
+    months: 'شهر',
+    days: 'ي',
+    hours: 'س',
+    minutes: 'د',
+    seconds: 'ث',
+    month: 'شهر',
+    day: 'يوم',
+    hour: 'ساعة',
+    minute: 'دقيقة',
+    second: 'ثانية',
+    yearUnit: '',
+    monthUnit: '',
+    dayUnit: '',
+    hourUnit: '',
+    minuteUnit: '',
+    secondUnit: '',
+    dateSubTitle: '{0}-{1}-{2}', // 2019年06月03日
+    time24SubTitle: '{0}:{1}', // 11:43
+    time12SubTitle: '{1}:{2} {0}', // 上午 11:43
+    singleSubTitle: '{0} {1}', // 5 小时
+    // 升级相关
+    firmwareUpgradeExit: 'الخروج/ تسجيل الخروج',
+    firmwareUpgradeUpdate: 'الترقية',
+    firmwareUpgradeLook: 'ألقِ نظرة',
+    firmwareUpgradeForceUpdate: 'قد يكون البرنامج الثابت الحالي قديمًا جدًا لتشغيل بعض الميزات. قم بالتحديث إلى أحدث إصدار للحصول على تجربة أفضل.',
+    firmwareUpgradeForceUpdating: 'جهازك قيد التحديث، أعد المحاولة لاحقًا',
+    firmwareUpgradeNew_pre: 'تحديث البرنامج الثابت ',
+    firmwareUpgradeNew_sub: ' متوفر. التحديث الآن؟',
+    handling: 'جارٍ التشغيل...',
+    error: 'تعذر التشغيل، يرجى إعادة المحاولة لاحقًا',
+    createLightGroup: 'إنشاء مجموعة إضاءة (جديدة)',
+    manageLightGroup: 'إدارة أجهزة (جديدة)',
+    deleteLightGroup: 'حل مجموعة الإضاءة',
+    deleteCurtainGroup: 'حل مجموعة',
+    linkDevice: 'ربط أجهزة',
+    noSuppurtedLinkageDevice: 'لا توجد أجهزة متاحة للربط الآن',
+    noSuppurtedLinkageTip: '"1.يُرجى التأكد من إضافة الجهاز المراد ربطه إلى التطبيق، وتخصيصه للغرفة المفضلة.' +
+      ' 2.يُرجى إبقاء جهاز البلوتوث لربطه ضمن مسافة معينة من هذا الجهاز، وإلا فسيتعذر ربطه."',
+    supportedLinkageDevices: 'يمكن ربطه بالأجهزة التالية',
+    linkageDistanceTip: 'يُرجى إبقاء جهاز البلوتوث لربطه ضمن مسافة معينة من هذا الجهاز، وإلا فسيتعذر ربطه.',
+    linkageRemoveTip: 'إذا تعيّن تغيير جهاز البلوتوث المرتبط، فيُرجى إزالة الرابط أولاً.',
+    link: 'رابط',
+    removeLink: 'إزالة الرابط',
+    linkFail: 'تعذّر الربط',
+    removeLinkFail: 'تعذر إزالة الرابط',
+    linkConfirm: 'ربط بهذا الجهاز الآن؟',
+    removeLinkConfirm: 'إزالة الرابط الآن؟',
+    linking: 'جارِ الربط...',
+    linkDeviceBracelet: 'ربط سوار',
+    scanDeviceBracelet: 'جارٍ البحث عن سوار...',
+    scanDeviceBraceletTip: 'يُرجى إبقاء سوار Mi ضمن مسافة معينة من هذا الجهاز، وتأكد من تمكين بلوتوث السوار.',
+    scanDeviceBraceletEmptyTitle: 'لا يوجد سوار Mi قريب لربطه',
+    scanDeviceBraceletEmptyTip1: '1.يُرجى التأكد من تمكين بث البلوتوث من سوار Mi.',
+    scanDeviceBraceletEmptyTip2: '2.يُرجى التأكد من قرب سوار Mi من هذا الجهاز.',
+    linkedDeviceBraceletHeaderTip: 'مرتبط بالأسورة التالية',
+    availableLinkDeviceBraceletHeaderTip: 'يمكن ربطه بالأسورة التالية',
+    linkedDeviceBraceletFooterTip: 'إذا تعيّن تغيير السوار، فيُرجى إزالة الرابط أولاً.',
+    availableLinkDeviceBraceletFooterTip: 'يُرجى إبقاء سوار Mi ضمن مسافة معينة من هذا الجهاز، وتأكد من تمكين بلوتوث السوار.',
+    pluginVersion: 'إصدار المكوّن الإضافي',
+    helpAndFeedback: 'التعليمات والملاحظات',
+    offline: 'غير متصل بالإنترنت',
+    downloading: 'التنزيل',
+    installing: 'جارِ التثبيت',
+    upgradeSuccess: 'نجاح الترقية',
+    upgradeFailed: 'فشل الترقية، يُرجى إعادة المحاولة لاحقًا',
+    upgradeTimeout: 'انتهاء مهلة الترقية',
+    autoUpgradeInfo: 'ستتم محاولة القيام بالتحديثات التلقائية بين {0}.',
+    today: 'اليوم بين',
+    tomorrow: 'غدًا بين',
+    currentIsLatestVersion: 'الإصدار الحالي هو أحدث إصدار.',
+    lastestVersion: 'أحدث إصدار:',
+    currentVersion: 'الإصدار الحالي:',
+    fetchFailed: 'فشل الحصول عليه',
+    releaseNote: 'سجل الترقية',
+    releaseVersionHistory: 'سجل إصدار البرنامج الثابت',
+    firmwareAutoUpdate: 'ترقية تلقائية للبرنامج الثابت',
+    autoUpdateDescriptionNote: 'فور اكتشاف برنامج ثابت جديد، سيحاول الجهاز التحديث {0} تلقائيًا. يجب أن يكون الجهاز غير نشط لإجراء التحديث. لا توجد إشعارات صوتية أو ضوئية أثناء عملية التحديث.',
+    updateNow: 'الترقية الآن',
+    requireBelMesh: 'تتطلب هذه الوظيفة استخدام بوابة شبكة البلوتوث.',
+    createCurtainGroup: 'إنشاء مجموعة للستارة',
+    createCurtainGroupTip: 'يُمكن الجمع بين زوج من الستائر كمجموعة ستائر، والتي يُمكن التحكم بها كستارة مزدوجة الجانب.',
+    act: 'نقل',
+    create: 'إنشاء',
+    chooseCurtainGroupTitle: 'يُرجى تحديد زوج من الستائر',
+    currentDevice: 'هذا الجهاز',
+    curtain: 'الستارة',
+    noCurtainGroupTip: 'لا يُمكن تجميع الجهاز في الوقت الحالي، يُرجى إضافة زوج آخر من الستائر وإعادة المحاولة.',
+    switchPlugin: 'مكون إضافي قياسي',
+    defaultPlugin: 'الصفحة الرئيسية الافتراضية',
+    selectDefaultHP: 'حدد الصفحة الرئيسية الافتراضية',
+    stdPluginTitle: 'قياسية',
+    thirdPluginTitle: 'تقليدية',
+    stdPluginSubTitle: 'انقر فوق الميزات الإضافية للدخول إلى الصفحة الرئيسية التقليدية',
+    stdGuideDialogTitle: 'تحديث جديد',
+    stdGuideDialogSubTitle: 'قم بتحديث الواجهة لتكون أول من يتمتع بتجربة أبسط وأسرع.',
+    stdGuideDialogNote: 'للعثور على الواجهة قبل التحديث، انقر فوق "مزيد من الوظائف" بالأسفل.',
+    stdGuideDialogButtonOK: 'موافق',
+    // 多键开关设置
+    key: 'المفتاح',
+    keyLeft: 'المفتاح الأيسر',
+    keyMiddle: 'المفتاح الأوسط',
+    keyRight: 'المفتاح الأيمن',
+    keyType: 'نوع المفتاح',
+    keyName: 'الاسم',
+    light: 'الضوء',
+    updateIcon: 'أيقونة التحديث',
+    done: 'تم',
+    modifyName: 'تعديل الاسم',
+    keyUpdateIconTips: 'بعد تعيين أيقونة المفتاح على "{0}"، يمكن الاتصال بـ Xiao Ai Tong Xue باستخدام "Da Kai{0}"”',
+    nameHasChars: 'لا يمكن أن يحتوي الاسم على أحرف خاصة',
+    nameTooLong: 'يمكن أن يحتوي الاسم على ما يصل إلى 20 حرفًا',
+    // 房间
+    room: 'غرفة',
+    room_nameInputTips: 'يُرجى إدخال اسم الغرفة',
+    room_nameSuggest: 'الاسم الموصى به',
+    room_createNew: 'إنشاء غرفة جديدة',
+    room_bedroom: 'غرفة النوم',
+    room_masterBedroom: 'غرفة النوم الرئيسية',
+    room_secondBedroom: 'غرفة النوم الثانية',
+    room_kitchen: 'المطبخ',
+    room_diningRoom: 'غرفة الطعام',
+    room_washroom: 'غرفة الحمام',
+    room_childrensRoom: 'غرفة الأطفال',
+    room_office: 'المكتب',
+    room_study: 'غرفة الدراسة',
+    room_balcony: 'الشرفة',
+    room_studio: 'الاستوديو',
+    room_bathroom: 'الحمام',
+    room_backyard: 'الفناء الخلفي',
+    room_unassigned: 'غير مخصص',
+    no_privacy_tip_content: 'الخصوصية غير متوفرة، يُرجى التحقق من الشبكة أو الاتصال بـ Mijia للإبلاغ عن المشكلة.'
+  },
+  he:
+    {
+      setting: 'הגדרות',
+      featureSetting: 'הגדרות מכשיר',
+      commonSetting: 'הגדרות כלליות',
+      name: 'שם המכשיר',
+      location: 'נהל מיקום',
+      memberSet: 'הגדרות מפתח',
+      share: 'שתף מכשיר',
+      btGateway: 'שער BLE',
+      voiceAuth: 'אישור קולי',
+      ifttt: 'אוטומציה',
+      productBaike: 'מבוא המוצר',
+      firmwareUpgrade: 'עדכון קושחה',
+      firmwareUpdate: 'עדכון קושחה',
+      more: 'הגדרות נוספות',
+      help: 'עזרה',
+      legalInfo: 'מידע משפטי',
+      deleteDevice: 'מחק מכשיר',
+      autoUpgrade: 'עדכן אוטומטית את הקושחה',
+      checkUpgrade: 'בדוק אם יש עדכון קושחה',
+      security: 'הגדרות אבטחה',
+      networkInfo: 'מידע על הרשת',
+      feedback: 'משוב',
+      timezone: 'אזור הזמן של המכשיר',
+      addToDesktop: 'הוסף למסך הבית=',
+      open: "דולק",
+      close: "כבוי",
+      other: 'אחר',
+      multipleKeyShowOnHome: "מספר הלחצנים המוצגים בדף הבית: {0}",
+      // 常用设备
+      favoriteDevices: "מועדפים",
+      favoriteCamera: "קיצור דרך למצלמה",
+      favoriteAddDevices: "הוסף למועדפים",
+      // MHDatePicker
+      cancel: 'ביטול',
+      ok: 'אישור',
+      am: 'AM',
+      pm: 'PM',
+      months: 'חודשים',
+      days: 'ימים',
+      hours: 'שעות',
+      minutes: 'דקות',
+      seconds: 'שניות',
+      month: 'חודש',
+      day: 'יום',
+      hour: 'שעה',
+      minute: 'דקה',
+      second: 'שנייה',
+      yearUnit: '',
+      monthUnit: '',
+      dayUnit: '',
+      hourUnit: '',
+      minuteUnit: '',
+      secondUnit: '',
+      dateSubTitle: '{0}-{1}-{2}', // 2019年06月03日
+      time24SubTitle: '{0}:{1}', // 11:43
+      time12SubTitle: '{1}:{2} {0', // 上午 11:43
+      singleSubTitle: '{0} {1}', // 5 小时
+      // 升级相关
+      firmwareUpgradeExit: 'צא',
+      firmwareUpgradeUpdate: 'עדכן',
+      firmwareUpgradeLook: 'הסתכל',
+      firmwareUpgradeForceUpdate: 'הקושחה הנוכחית עשויה להיות ישנה מדי להפעלת תכונות מסוימות. עדכן לגרסה העדכנית ביותר לחוויה טובה יותר.',
+      firmwareUpgradeForceUpdating: 'המכשיר שלך מעודכן, נסה שוב מאוחר יותר',
+      firmwareUpgradeNew_pre: 'עדכון קושחה ',
+      firmwareUpgradeNew_sub: ' זמין. לעדכן עכשיו?',
+      handling: 'פועל...',
+      error: 'לא ניתן היה לפעול. נסה שוב מאוחר יותר',
+      createLightGroup: 'צור קבוצת אור (חדש)',
+      manageLightGroup: 'נהל מכשירים (חדשים)',
+      deleteLightGroup: 'פרק קבוצת אור',
+      deleteCurtainGroup: 'המס קבוצה',
+      linkDevice: 'קישור מכשירים',
+      noSuppurtedLinkageDevice: 'אין מכשירים זמינים לקישור כעת',
+      noSuppurtedLinkageTip: '"1. ודא שהמכשיר שאליו יש לקשר נוסף לאפליקציה, והוקצה לחדר המועדף.' +
+      ' 2. שמור את מכשיר ה- Bluetooth לקשר איתו במרחק מסוים ממכשיר זה, אחרת הוא לא יוכל לקשר."',
+      supportedLinkageDevices: 'ניתן לקשר עם המכשירים הבאים',
+      linkageDistanceTip: 'שמור את מכשיר ה- Bluetooth שאליו יש לקשר במרחק מסוים ממכשיר זה, אחרת הוא לא יוכל לקשר.',
+      linkageRemoveTip: 'אם יש צורך לשנות את מכשיר ה- Bluetooth המקושר, הסר תחילה את הקישור.',
+      link: 'קישור',
+      removeLink: 'הסר את הקישור',
+      linkFail: 'לא ניתן היה לקשר',
+      removeLinkFail: 'לא ניתן להסיר את הקישור',
+      linkConfirm: 'לקשר למכשיר זה עכשיו?',
+      removeLinkConfirm: 'להסיר את הקישור עכשיו?',
+      linking: 'מקשר…',
+      linkDeviceBracelet: 'קישור צמיד',
+      scanDeviceBracelet: 'סורק עבור צמיד…',
+      scanDeviceBraceletTip: 'שמור את ה Mi Band במרחק מסוים ממכשיר זה וודא ש- Bluetooth הלהקה מופעל.',
+      scanDeviceBraceletEmptyTitle: 'אין Mi Band לקשר איתה בקרבת מקום',
+      scanDeviceBraceletEmptyTip1: '1. אנא ודא כי שידור Bluetooth של צמיד Mi מופעל.',
+      scanDeviceBraceletEmptyTip2: '2. אנא ודא שצמיד ה- Mi קרוב למכשיר זה.',
+      linkedDeviceBraceletHeaderTip: 'מקושר לצמידים הבאים',
+      availableLinkDeviceBraceletHeaderTip: 'ניתן לקשר עם הצמידים הבאים',
+      linkedDeviceBraceletFooterTip: 'אם צריך לשנות את הצמיד המקושר, הסר תחילה את הקישור.',
+      availableLinkDeviceBraceletFooterTip: 'שמור את ה Mi Band במרחק מסוים ממכשיר זה וודא ש- Bluetooth הלהקה מופעל.',
+      pluginVersion: 'גרסת תוסף',
+      helpAndFeedback: 'עזרה ומשוב',
+      offline: 'לא מקוון',
+      downloading: 'מוריד',
+      installing: 'מתקין',
+      upgradeSuccess: 'הצלחת שדרוג',
+      upgradeFailed: 'השדרוג נכשל. נסה שוב מאוחר יותר',
+      upgradeTimeout: 'הפסקת שדרוג',
+      autoUpgradeInfo: 'יתקיים ניסיון לבצע עדכונים אוטומטיים בין {0}.',
+      today: 'היום בין השעות',
+      tomorrow: 'מחר בין השעות',
+      currentIsLatestVersion: 'הגרסה הנוכחית היא העדכנית ביותר.',
+      lastestVersion: 'הגרסה העדכנית ביותר:',
+      currentVersion: 'גרסה נוכחית:',
+      fetchFailed: 'נכשל להשיג',
+      releaseNote: 'יומן שדרוג',
+      releaseVersionHistory: 'היסטוריית גירסאות הקושחה',
+      firmwareAutoUpdate: 'שדרוג קושחה אוטומטי',
+      autoUpdateDescriptionNote: 'לאחר שזוהתה קושחה חדשה, המכשיר ינסה לעדכן אוטומטית {0}. המכשיר חייב להיות לא פעיל כדי לבצע את העדכון. אין התראות שמע או אור במהלך תהליך העדכון.',
+      updateNow: 'שדרג עכשיו',
+      requireBelMesh: 'פונקציה זו דורשת שימוש בשער רשת Bluetooth.',
+      createCurtainGroup: 'צור קבוצת וילון',
+      createCurtainGroupTip: 'ניתן לשלב שני בני זוג לווילון כקבוצת חבר לווילון, הניתנת לשליטה כווילון דו צדדי.',
+      act: 'הזזה',
+      create: 'צור',
+      chooseCurtainGroupTitle: 'אנא בחר חבר לווילון',
+      currentDevice: 'המכשיר הזה',
+      curtain: 'וִילוֹן',
+      noCurtainGroupTip: 'לא ניתן לקבץ את המכשיר כרגע, אנא הוסף עוד חבר לווילון ונסה שוב.',
+      switchPlugin: 'תוסף רגיל',
+      defaultPlugin: 'ברית המחדל עבור דף הבית',
+      selectDefaultHP: 'בחר את ברירת המחדל עבור דף הבית',
+      stdPluginTitle: 'סטנדרטי',
+      thirdPluginTitle: 'מסורתי',
+      stdPluginSubTitle: 'הקש על תכונות נוספות כדי להיכנס לדף הבית המסורתי',
+      stdGuideDialogTitle: 'עדכון חדש',
+      stdGuideDialogSubTitle: 'עדכן את הממשק כדי להיות הראשון שנהנה מחוויה פשוטה ומהירה יותר.',
+      stdGuideDialogNote: 'כדי למצוא את הממשק לפני העדכון, הקש על \'עוד פונקציות\' למטה.',
+      stdGuideDialogButtonOK: 'אישור',
+      // 多键开关设置
+      key: 'מתג',
+      keyLeft: 'מתג שמאלי',
+      keyMiddle: 'מתג מרכזי',
+      keyRight: 'מתג ימני',
+      keyType: 'סוג המתג',
+      keyName: 'שם',
+      light: 'תאורה',
+      updateIcon: 'עדכן סמל',
+      done: 'בוצע',
+      modifyName: 'שנה שם',
+      keyUpdateIconTips: 'לאחר הגדרת סמל המתג עם "{0}"，ניתן להתקשר ל-Xiao Ai Tong Xue עם "Da Kai{0}"',
+      nameHasChars: 'שם לא יכול להכיל תווים מיוחדים',
+      nameTooLong: 'שם יכול להכיל עד 20 תווים',
+      // 房间
+      room: 'חדר',
+      room_nameInputTips: 'הזן שם חדר',
+      room_nameSuggest: 'שם מומלץ',
+      room_createNew: 'צור חדר חדש',
+      room_bedroom: 'חדר שינה',
+      room_masterBedroom: 'חדר שינה ראשי',
+      room_secondBedroom: 'חדר שינה שני',
+      room_kitchen: 'מטבח',
+      room_diningRoom: 'חדר אוכל',
+      room_washroom: 'חדר רחצה',
+      room_childrensRoom: 'חדר ילדים',
+      room_office: 'משרד',
+      room_study: 'חדר עבודה',
+      room_balcony: 'מרפסת',
+      room_studio: 'סטודיו',
+      room_bathroom: 'חדר אמבטיה',
+      room_backyard: 'חצר אחורית',
+      room_unassigned: 'לא משויך',
+      no_privacy_tip_content: '\'פרטיות\' אינה זמינה, בדוק את הרשת או צור קשר עם Mijia כדי לדווח על הבעיה.'
+    }
 });
 export default strings;
 export { formatString };

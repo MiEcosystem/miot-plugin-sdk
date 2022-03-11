@@ -12,6 +12,7 @@ import { adjustSize } from '../../utils/sizes';
 import { dynamicStyleSheet } from '../Style/DynamicStyleSheet';
 import DynamicColor from '../Style/DynamicColor';
 import { DarkMode } from "../../index";
+import BasicDevice from "../../device/BasicDevice";
 const SourceCurtainLeft = require('../../resources/images/curtain-left.png');
 const SourceCurtainLeftDark = require('../../resources/images/curtain-left-dark.png');
 const SourceCurtainRight = require('../../resources/images/curtain-right.png');
@@ -116,9 +117,20 @@ export default class CurtainGroupPage extends Component {
     Service.smarthome.createGroupDevice(I18n.curtain, [leftDid, rightDid], tags)
       .then((res) => {
         if (res && res.group_did) {
-        // todo: 待与native 联调
+          // todo: 待与native 联调
           console.log('createGroupDevice:success', res);
-          Host.ui.openCurtainGroupNamePage(res.group_did, leftDid, rightDid);
+          let checkLoop = setInterval(() => {
+            BasicDevice.getDeviceWifi().getVirtualDevices(2, res.group_did).then(() => {
+              Host.ui.openCurtainGroupNamePage(res.group_did, leftDid, rightDid);
+              clearInterval(checkLoop);
+            }).catch((err) => {
+              console.log('err', err);
+            });
+          }, 200);
+          setTimeout(() => {
+            checkLoop && clearInterval(checkLoop);
+            this.showError();
+          }, 200 * 5);
           return;
         }
         this.showError();
@@ -237,7 +249,7 @@ export default class CurtainGroupPage extends Component {
       return {
         icon: { uri: deviceIconReal },
         title: name,
-        subtitle: `${ roomName }${ !isOnline ? ` | ${ I18n.offline }` : '' }`,
+        subtitle: `${roomName}${!isOnline ? ` | ${I18n.offline}` : ''}`,
         extraSubtitle: did === Device.deviceID ? I18n.currentDevice : '',
         disabled: !isOnline || isGrouped || (selectedSide === 'left' && did === rightDid) || (selectedSide === 'right' && did === leftDid)
       };

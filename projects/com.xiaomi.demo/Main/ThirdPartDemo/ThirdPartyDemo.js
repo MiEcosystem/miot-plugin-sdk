@@ -66,7 +66,8 @@ const DemoInfo = [
   { id: 'CvImageManipulationsDemo', title: "CvImageManipulationsDemo", key: "51" },
   { id: 'CvCameraPreviewDemo', title: "CvCameraPreviewDemo", key: "52" },
   { id: 'CvFaceDetectionDemo', title: "CvFaceDetectionDemo", key: "53" },
-  { id: 'CvFaceLandmarksDemo', title: "CvFaceLandmarksDemo", key: "54" }
+  { id: 'CvFaceLandmarksDemo', title: "CvFaceLandmarksDemo", key: "54" },
+  { id: 'videoThumbnailDemo', title: "videoThumbnailDemo", key: "55" }
   // { id: 'ImageFilterDemo', title: "ImageFilterDemo", key: "55" }
 ];
 
