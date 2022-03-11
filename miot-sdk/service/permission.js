@@ -30,12 +30,11 @@ class IPermission {
    */
   @report
   isMethodAllowed(method, model) {
-    let map = this.remoteConfig ?? this.localConfig;
-    let methodAllow = map.methodAllow ?? {};
+    let methodAllow = this.config.methodAllow ?? {};
     let models = methodAllow[method] ?? [];
     return models.length == 0
-    || models.includes(model)
-    || models.find((m) => { return model.startsWith(m); });
+      || models.includes(model)
+      || models.find((m) => { return model.startsWith(m); });
   }
 }
 const instance = new IPermission();

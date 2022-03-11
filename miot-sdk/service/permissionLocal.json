@@ -18,7 +18,9 @@
             "loock.lock.v5",
             "loock.lock.t1pro",
             "loock.lock.t1",
-            "loock.lock.pfvl10"
+            "loock.lock.pfvl10",
+            "loock.lock.fvl111",
+            "loock.lock.t2v1"
         ],
         "getDevicesWithModel": [
             "chuangmi.plug.m3",
@@ -100,7 +102,19 @@
         ],
         "Host.local.getLocation": [
             "zhimi.airpurifier.ma2"
+        ],
+        "callSpecificAPI": [
+            "xiaomi.router",
+            "xiaomi.wifispeaker"
+        ],
+        "getServiceTokenWithSid": [
+            "xiaomi.router",
+            "xiaomi.wifispeaker"
+            
         ]
     },
-    "methodBlock": {}
+    "methodBlock": {},
+    "hostTokenCfgMap": {
+        "api2.mina.mi.com": { "sid": "i.ai.mi.com", "cookieName": "serviceToken" }
+    }
 }

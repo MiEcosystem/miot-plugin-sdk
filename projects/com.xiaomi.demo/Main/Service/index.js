@@ -18,6 +18,12 @@ export default class HostDemo extends React.Component {
   _createMenuData() {
     this._menuData = [
       {
+        name: '通用网络请求测试', 
+        func: () => {
+          this.props.navigation.navigate('RequestDemo', { title: '通用网络请求测试 仅iOS' });
+        }
+      },
+      {
         name: '智能家庭接口模块-smarthome',
         func: () => {
           this.props.navigation.navigate('callSmartHomeAPIDemo', { title: '智能家庭接口模块-smarthome' });
