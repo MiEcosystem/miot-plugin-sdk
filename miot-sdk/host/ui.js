@@ -230,6 +230,13 @@ class IUi {
   openDeviceUpgradePage(type = 0) {
   }
   /**
+   *
+   */
+  @report
+  openDeviceInfoPage(params) {
+    Package.navigate('DeviceInfoPage', params);
+  }
+  /**
    * 打开设备检查固件历史版本信息页面
    */
   @report
