@@ -14,7 +14,7 @@ export default function DeleteButton({ deleteDeviceMessage }) {
   }
   const modelKey = (model || '').split('.')[1];
   const i18nKey = `${ modelKey[0].toUpperCase() }${ modelKey.slice(1) }`;
-  const title = type === 17 && isOwner ? I18n[`delete${ i18nKey }Group`] : I18n.deleteDevice;
+  const title = type === '17' && isOwner ? I18n[`delete${ i18nKey }Group`] : I18n.deleteDevice;
   return (
     <View style={Styles.container}>
       <TouchableOpacity
