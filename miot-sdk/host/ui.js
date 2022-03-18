@@ -20,7 +20,7 @@ import AutoOTAABTestHelper from 'miot/utils/autoota_abtest_helper';
 import ProtocolManager from '../utils/protocol-helper';
 // import { Entrance } from "../Package";
 import { report } from "../decorator/ReportDecorator";
-import { Package, Device, Service } from 'miot';
+import { Device, Package, Service } from 'miot';
 // import { Entrance } from "../Package";
 // const resolveAssetSource = require('resolveAssetSource');
 // const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
