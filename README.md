@@ -1,6 +1,5 @@
-# MIOT SDK (API_LEVEL:10048) for React Native
+# MIOT SDK for React Native
 
-**因SDK_10033并未发布，请大家不要指定min_sdk_api_level为10033以及使用SDK_10033分支，建议10034及其以上！**
 **运行前请先执行npm install**
 
 **请使用底下提供的测试包调试，不要使用线上包调试**
@@ -82,6 +81,7 @@
 ## 调试环境
 
 [iOS IPA 包下载地址](itms-services://?action=download-manifest&amp;url=https://cdn.cnbj1.fds.api.mi-img.com/mihomepluginbeta/download.plist)
+
 ![](https://cdn.cnbj1.fds.api.mi-img.com/mihomepluginbeta/mihome.png)
 
 Android APK 包下载地址：http://www.jappstore.com/MiHomeForAndroid  ,若打不开请使用[备用地址](https://github.com/Mijia-Developer/Mijia-Android-RN-Dev/releases)
