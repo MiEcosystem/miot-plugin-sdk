@@ -80,9 +80,9 @@
 
 ## 调试环境
 
-[iOS IPA 包下载地址](itms-services://?action=download-manifest&amp;url=https://cdn.cnbj1.fds.api.mi-img.com/mihomepluginbeta/download.plist)
+iOS IPA 包下载二维码
+![mihome](https://user-images.githubusercontent.com/6511522/159238473-fbf07ace-ef8d-442e-b299-7ffe6ea50f47.png)
 
-![](https://cdn.cnbj1.fds.api.mi-img.com/mihomepluginbeta/mihome.png)
 
 Android APK 包下载地址：http://www.jappstore.com/MiHomeForAndroid  ,若打不开请使用[备用地址](https://github.com/Mijia-Developer/Mijia-Android-RN-Dev/releases)
 
