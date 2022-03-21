@@ -81,7 +81,7 @@
 
 ## 调试环境
 
-[iOS IPA 包下载地址](http://d.7short.com/mijiadevelopment)
+[iOS IPA 包下载地址](https://www.pgyer.com/Z4hs)
 
 Android APK 包下载地址：http://www.jappstore.com/MiHomeForAndroid  ,若打不开请使用[备用地址](https://github.com/Mijia-Developer/Mijia-Android-RN-Dev/releases)
 
