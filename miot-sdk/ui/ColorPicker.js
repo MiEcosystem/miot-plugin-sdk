@@ -2,6 +2,7 @@ import React, { useImperativeHandle, useRef } from 'react';
 import { findNodeHandle, requireNativeComponent, UIManager } from 'react-native';
 import PropTypes from 'prop-types';
 import { AccessibilityPropTypes, getAccessibilityConfig } from '../utils/accessibility-helper';
+import { isIOS } from "../native";
 const RCTColorPickerView = requireNativeComponent('RCTColorPickerView');
 const RCTWhitePickerView = requireNativeComponent('RCTWhitePickerView');
 const ColorPickerView = (
@@ -49,9 +50,9 @@ const ColorPickerView = (
         onInit={() => {
           if (onInit) {
             onInit();
-            // 设置颜色值，渐变范围，高斯模糊半径
-            colorPickerConfig();
           }
+          // 设置颜色值，渐变范围，高斯模糊半径
+          colorPickerConfig();
         }}
         onColorChange={(data) => {
           if (onColorChange) {
@@ -61,6 +62,11 @@ const ColorPickerView = (
         onChangeStart={(data) => {
           if (onColorChangeStart) {
             onColorChangeStart(data.nativeEvent.color);
+          }
+        }}
+        onLayout={() => {
+          if (isIOS) {
+            colorPickerConfig();
           }
         }}
         {...getAccessibilityConfig({
@@ -80,9 +86,9 @@ const ColorPickerView = (
         onInit={() => {
           if (onInit) {
             onInit();
-            // 设置颜色值，渐变范围，高斯模糊半径
-            colorPickerConfig();
           }
+          // 设置颜色值，渐变范围，高斯模糊半径
+          colorPickerConfig();
         }}
         onColorChange={(data) => {
           if (onColorChange) {
@@ -111,6 +117,7 @@ ColorPicker.propTypes = {
   showIndicator: PropTypes.bool,
   onInit: PropTypes.func,
   onColorChange: PropTypes.func,
+  onChangeStart: PropTypes.func,
   accessible: AccessibilityPropTypes.accessible,
   accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
   accessibilityHint: AccessibilityPropTypes.accessibilityHint

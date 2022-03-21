@@ -20,7 +20,7 @@ import AutoOTAABTestHelper from 'miot/utils/autoota_abtest_helper';
 import ProtocolManager from '../utils/protocol-helper';
 // import { Entrance } from "../Package";
 import { report } from "../decorator/ReportDecorator";
-import { Package, Device, Service } from 'miot';
+import { Device, Package, Service } from 'miot';
 // import { Entrance } from "../Package";
 // const resolveAssetSource = require('resolveAssetSource');
 // const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
@@ -154,7 +154,7 @@ class IUi {
    */
   @report
   alertLegalInformationAuthorization(option) {
-    ProtocolManager.protocolMangerReportLog('[Privacy Debug] Host.ui.alertLegalInfo.. enter, local privacy option : ' , option);
+    ProtocolManager.protocolMangerReportLog('[Privacy Debug] Host.ui.alertLegalInfo.. enter, local privacy option : ', option);
      return Promise.resolve(null);
   }
   /**
@@ -228,6 +228,13 @@ class IUi {
    */
   @report
   openDeviceUpgradePage(type = 0) {
+  }
+  /**
+   *
+   */
+  @report
+  openDeviceInfoPage(params) {
+    Package.navigate('DeviceInfoPage', params);
   }
   /**
    * 打开设备检查固件历史版本信息页面

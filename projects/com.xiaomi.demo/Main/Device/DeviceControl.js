@@ -337,6 +337,16 @@ export default class UIDemo extends React.Component {
         }
       },
       {
+        'name': '获取当前账号的当前家庭的DeviceList',
+        'func': () => {
+          Device.getHomeDeviceList().then((res) => {
+            alert(JSON.stringify(res));
+          }).catch((error) => {
+            alert(JSON.stringify(error));
+          });
+        }
+      },
+      {
         'name': '获取设设备蓝牙信号强度(蓝牙子设备)',
         'func': () => {
           Bluetooth.getBtGateWaySubDeviceRSSI(Device.mac).then((res) => {

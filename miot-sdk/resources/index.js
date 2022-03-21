@@ -53,6 +53,7 @@ import zh_tw from "./strings/zh_tw";
 import tr from "./strings/tr";
 import nl from "./strings/nl";
 import pt from "./strings/pt";
+import he from "./strings/he";
 import Styles from './Styles';
 export { Images, Styles, strings };
 /**
@@ -159,7 +160,12 @@ export const Language = {
      * 土耳其语
      * @const
      */
-  tr: "tr"
+  tr: "tr",
+  /**
+   * 希伯来语
+   * @const
+   */
+  he: "he"
 };
 Object.freeze(Language);
  const i18n={system:createI18n({zh,en,zh_tw,zh_hk,zh_bo,es,ko,ru,it,fr,de,id,pl,vi,ja,th}, Language.zh), custom:{}, lang:false}
