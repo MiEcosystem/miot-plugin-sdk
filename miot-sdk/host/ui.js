@@ -640,6 +640,12 @@ class IUi {
   openResetAndConnectDevicePage() {
   }
   /**
+   *  打开配网页面，（仅限猫眼门锁使用）
+   *  @since 10068
+   */
+  openWifiConfigStepPage() {
+  }
+  /**
    *  打开语音授权页面
    *  @since 10041
    */
