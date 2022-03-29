@@ -116,6 +116,7 @@ export default class CurtainGroupPage extends Component {
       [leftDid]: "left",
       [rightDid]: "right"
     };
+    this.showHand();
     Service.smarthome.createGroupDevice(I18n.curtain, [leftDid, rightDid], tags)
       .then((res) => {
         if (res && res.group_did) {
@@ -159,6 +160,11 @@ export default class CurtainGroupPage extends Component {
   showError = () => {
     this.setState({
       layerType: 2
+    });
+  }
+  showHand = () => {
+    this.setState({
+      layerType: 3
     });
   }
   select = (selectedIndexs) => {
@@ -359,6 +365,13 @@ export default class CurtainGroupPage extends Component {
           timeout={3000}
           onDismiss={this.cancel}
         />) : null}
+        {
+          layerType === 3 ? (<LoadingDialog
+            visible={true}
+            message={I18n.handling}
+            timeout={3000}
+            onDismiss={this.cancel}
+          />) : null }
       </ScrollView>
     );
   }
