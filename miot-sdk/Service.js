@@ -289,17 +289,18 @@ export default {
    * @method callSpecificAPI
    * @since 10031
    * @description 调用当前手机设备的网关http服务, 只封装透传网络请求，无法对接口调用结果解释，有问题请直接联系项目对接后台人员或 PM。
-   * @param {string} url - 请求的 url 或 path(默认host为业务host), 会自动根据 host 加载cookie
+   * @param {string} url - 请求的 url, 会自动根据 host 加载cookie
    * @param {string} method - 如 'get', 'post'等 不区分大小写 暂时只支持 get 和 post
    * @param {object} params 传入参数，比如 { a: 'b', c: {d: 'e'} }; post 时转为 JSON Data 作为请求 body，get 时作为 url query 放到请求 url 后 since 10068
    * @param {object}      params.params 预设参数，可选，设置后，会代替上一集 params 转为 JSON data 放到 post 请求的 body 中，或转为 query 放到 get 请求的 url 后 since 10068
    * @param {object}      params.header 预设参数，可选，自定义请求 header， 包括自定义 cookie 如 {a:b, cookie:'token=xxx;id=yyy' }, cookie与host的cookie合并，冲突时优先保留自定义cookie since 10068
    * @param {boolean}     params.allow_private_certificates 传 true 表明该请求允许私有证书，默认为 false. since 10056 
+   * @param {string}      params.mi_http2_0_encrypt_sub_url 用于小米http2.0加密的 sub url 字段, 一般是服务端的 api, 如 "/v2/device/latest_ver", 大部分小米服务都开启
    * @returns {Promise}
    * 成功时：返回网络请求的结果对应字符串， 相当于：response.body().string()
    * 失败时：{"code":xxx, "message":"xxx" }
    */
   callSpecificAPI(url, method, params) {
      return Promise.resolve(null);
-  }
+  },
 };

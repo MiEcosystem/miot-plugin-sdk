@@ -26,25 +26,28 @@ export default class MHRoomDemo extends React.Component {
           {
             [
               [
-                '常规：兼容 callsmartHome 小米服务端域名', [
-                  ['post, path形式, 自动cookie)', ["/v2/device/latest_ver", 'post', { did: Device.deviceID }]],
-                  ['不在 apiRepo 白名单内，报错', ["/v2/device/latest_ver11", 'post', {}]]
+                '常规：兼容 callsmartHome', [
+                  ['正常请求', ["/v2/device/getsettingv2", { did: Device.deviceID }]],
+                  ['api不在白名单报错', ["/v2/device/getsettingv2_1", { did: Device.deviceID }]],
+                  ['默认配置(切换APP地区测试其它服务)', ["/v2/device/getsettingv2", { did: Device.deviceID, switch_to_call_specific_api: {} }]],
+                  ['pv 环境', ["/v2/device/getsettingv2", { did: Device.deviceID, switch_to_call_specific_api: { prefix: 'pv' } }]],
+                  ['自定义 host', ["/v2/device/getsettingv2", { did: Device.deviceID, switch_to_call_specific_api: { host: 'us.api.io.mi.com/app' } }]]
                 ]
               ],
               [
-                '常规：其他host(model不在requestSpecific白名单报错)',
+                '常规: get post param cookie 等(model不在callSpec...白名单报错)',
                 [
                   ['get+params(在url中)', ["http://api.baidu.com/", 'get', { a: 'b', header: { Accept: 'text/html' } }]],
                   ['post+params(在body中)', ["http://api.baidu.com/", 'post', { a: 'b' }]],
                   ['post+params在下一级(不会被上一级的字段污染)', ["http://api.baidu.com/", 'post', { params: { a: 'b' }, c: 'd' }]],
                   ['post+自定义header(header 字段不会作为 param)', ["http://api.baidu.com/", 'post', { header: { a: 'b' }, c: 'd' }]],
                   ['post+自定义header cookie', ["http://api.baidu.com/", 'post', { a: 'b', header: { cookie: 'e=f;g=h;' }, c: 'd' }]],
-                  ['post+自定义header cookie(覆盖合并本地cookie)', ["/v2/device/latest_ver", 'post', { did: Device.deviceID, header: { cookie: 'locale=xxxxxx; g=h;' }, c: 'd' }]],
+                  ['post+自定义header cookie(覆盖合并本地cookie)', ["https://api.io.mi.com/app/v2/device/getsettingv2", 'post', { mi_http2_0_encrypt_sub_url: '/v2/device/getsettingv2', did: Device.deviceID, header: { cookie: 'locale=xxxxxx; g=h;' }, c: 'd' }]],
                   ['get+IP请求 允许私有证书 allow_private_certificates', ["http://192.168.28.1/", 'get', { a: 'b', allow_private_certificates: true, header: { Accept: '*/*' } }]]
                 ]
               ],
               [
-                '常规：host需要serviceToken在cookie和params中(model不在getSid...白名单报错)',
+                '常规：host需要serviceToken在cookie和params中(model不在getSid...白名单会报错)',
                 [
                   ['get请求, 合并到cookie 和 query', ["https://api2.mina.mi.com/admin/v2/device_list", 'get', { master: 0, requestId: 'app_ios_GvJxKNa6oyUkcOiCW4BPSCeie5Kcl8', header: { Accept: '*/*' } }]],
                   ['get请求+自定义cookie, 合并到cookie 和 query', ["https://api2.mina.mi.com/admin/v2/device_list", 'get', { master: 0, requestId: 'app_ios_GvJxKNa6oyUkcOiCW4BPSCeie5Kcl8', header: { Accept: '*/*', cookie: 'userId=894158105;serviceToken=sXEJM' } }]],
@@ -54,19 +57,23 @@ export default class MHRoomDemo extends React.Component {
               ],
               [
                 '网络失败', [
-                  ['cookie 无效', ["/v2/device/latest_ver", 'post', { did: 'ssss', header: { cookie: 'serviceToken=1;userId=2;yetAnotherServiceToken=3;' }, c: 'd' }]],
-                  ['服务找不到', ["http://xxx.baidu.com/", 'post', { a: 'b' }]]
+                  ['cookie 无效', ["https://api.io.mi.com/app/v2/device/latest_ver", 'post', { did: 'ssss', header: { cookie: 'serviceToken=1;userId=2;yetAnotherServiceToken=3;' }, c: 'd' }]],
+                  ['host 服务找不到 code', ["https://xxx.baidu.com/", 'post', { a: 'b' }]],
+                  ['非白名单host被全局拦截', ["https://a.b.com/", 'post', { a: 'b' }]]
                 ]
               ]
-            ].map((item, index) => {
+            ].map((item, section) => {
               return (
-                <View key={index} style={{ marginBottom: 20 }}>
+                <View key={section} style={{ marginBottom: 20 }}>
                   <Text style={{ width: '100%', textAlign: 'center', padding: 5, fontSize: 18 }}> {item[0]} </Text>
                   {
                     item[1].map((item, index) => {
                       return <TouchableOpacity key={index} style={styles.button} onPress={() => {
                         Logger.trace(this, item[0], { action: item[1] });
-                        Service.callSpecificAPI(item[1][0], item[1][1], item[1][2]).then((res) => {
+                        let request = section == 0
+                          ? Service.callSmartHomeAPI(...item[1])
+                          : Service.callSpecificAPI(...item[1]);
+                        request.then((res) => {
                           this.setState({ data: JSON.stringify(res, null, '\t') });
                           console.log(JSON.stringify(res, null, '\t'));
                         }).catch((err) => {

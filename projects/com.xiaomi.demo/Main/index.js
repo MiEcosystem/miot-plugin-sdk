@@ -46,6 +46,8 @@ import SoftKeyboardAdapterTestDemo from "./UIComponent/SoftKeyboardAdapterTestDe
 import TitleBarDemo from "./tutorial/TitleBarDemo"; //  ui-导航栏使用
 import TabBarDemo from "./tutorial/TabBarDemo"; //  ui-导航栏使用
 
+import Settings2022 from './UIComponent/Settings2022';
+
 // List
 import ListDemoEntry from "./UIComponent/List/ListDemoEntry";
 import CustomListDemo from "./UIComponent/List/CustomListDemo";
@@ -118,6 +120,7 @@ import JSExecutor from "./Host/JSExecutor";
 import * as Screens from "./uikit/screens";
 import MHAudioDemo from "./Host/MHAudioDemo";
 import VideoDemo from "./Host/VideoDemo";
+import VideoThumbnailDemo from "./Host/VideoThumbnailDemo";
 import CryptoDemo from "./Host/CryptoDemo";
 import TraceDemo from "./Host/TraceDemo";
 import DarkModeDemo from "./Host/DarkMode";
@@ -230,6 +233,7 @@ function createRootStack(initPage) {
       Setting,
       SettingPage,
       MoreSetting,
+      Settings2022,
       CurtainGroupPage,
       FirmwareUpgrade,
       // FirmwareUpgradeAuto,
@@ -251,6 +255,7 @@ function createRootStack(initPage) {
       mhMapDemo: MHMapDemo,
       audioDemo: MHAudioDemo,
       videoDemo: VideoDemo,
+      videoThumbnailDemo: VideoThumbnailDemo,
       imagePathDemo: ImagePathDemo,
       ThirdPartyDemo: ThirdPartyDemo,
       ServiceDemo,

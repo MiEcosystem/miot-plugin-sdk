@@ -1,7 +1,7 @@
 'use strict';
 
 import {
-  Device, Package, Host, Entrance, Service, DeviceEvent, PackageEvent, PrivacyEvent, CLOUD_PRIVACY_EVENT_TYPES
+  Device, Package, Host, Entrance, Service, DeviceEvent, PackageEvent, PrivacyEvent, CLOUD_PRIVACY_EVENT_TYPES, UserExpPlanEvent, USER_EXP_PLAN_EVENT_TYPES
 } from "miot";
 import NavigationBar from "miot/ui/NavigationBar";
 import React from 'react';
@@ -89,6 +89,7 @@ export default class MainPage extends React.Component {
     this._packageReceivedInformation && this._packageReceivedInformation.remove();
     this._packageReceivedOutAppInformation && this._packageReceivedOutAppInformation.remove();
     this._cloudPrivacyEvent && this._cloudPrivacyEvent.remove();
+    this._userExpPlanEvent && this._userExpPlanEvent.remove();
   }
 
   UNSAFE_componentWillMount() {
@@ -114,6 +115,25 @@ export default class MainPage extends React.Component {
         case CLOUD_PRIVACY_EVENT_TYPES.POP_DIALOG_SUCCESS:
           break;
         case CLOUD_PRIVACY_EVENT_TYPES.FAILED:
+          break;
+        default:
+          break;
+      }
+    });
+    this._userExpPlanEvent = UserExpPlanEvent.userExpPlanEvent.addListener((message) => {
+      console.log(`收到用户体验计划通知数据：${ JSON.stringify(message) }`);
+      if (!message) {
+        console.log(`收到用户体验计划通知数据为空`);
+        return;
+      }
+      switch (message.userExpPlanEventType) {
+        case USER_EXP_PLAN_EVENT_TYPES.AGREED:
+          break;
+        case USER_EXP_PLAN_EVENT_TYPES.POP_DIALOG_SUCCESS:
+          break;
+        case USER_EXP_PLAN_EVENT_TYPES.CANCELED:
+          break;
+        case USER_EXP_PLAN_EVENT_TYPES.DISABLED:
           break;
         default:
           break;

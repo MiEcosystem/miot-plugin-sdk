@@ -29,6 +29,11 @@ class ILocale {
    * @type {string}
    */
   get language() {
+    let language = native.language;
+    if (language === 'ar' || language === 'he') {
+      language = 'en';
+    }
+    return language;
   }
   /**
    * 获取系统语言
