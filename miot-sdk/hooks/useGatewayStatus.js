@@ -9,7 +9,7 @@ export default function useGatewayStatus() {
   const [status, setStatus] = useState(State.IDLE);
   useEffect(() => {
     const listener = DeviceEvent.deviceStatusChanged.addListener(() => {
-      isConnected.then((connected) => {
+      isConnected().then((connected) => {
         setStatus(getStatus(connected));
       }).catch(() => {});
     });
