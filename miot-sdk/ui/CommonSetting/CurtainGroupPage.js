@@ -46,7 +46,8 @@ export default class CurtainGroupPage extends Component {
     selectedSide: '',
     choices: [],
     // 0:不显示, 1:loading, 2: error
-    layerType: 0
+    layerType: 0,
+    onLoading: false
   };
   checkLoop;
   devicestatus;
@@ -131,6 +132,7 @@ export default class CurtainGroupPage extends Component {
                 }
               }
               if (res[0].status == '1' && this.devicestatus) {
+                this.setState({ onLoading: false });
                 Host.ui.openCurtainGroupNamePage(res[0].group_did, leftDid, rightDid);
                 clearInterval(this.checkLoop);
               }
@@ -164,7 +166,8 @@ export default class CurtainGroupPage extends Component {
   }
   showHand = () => {
     this.setState({
-      layerType: 3
+      layerType: 3,
+      onLoading: true
     });
   }
   select = (selectedIndexs) => {
@@ -367,11 +370,11 @@ export default class CurtainGroupPage extends Component {
         />) : null}
         {
           layerType === 3 ? (<LoadingDialog
-            visible={true}
+            visible={this.state.onLoading}
             message={I18n.handling}
-            timeout={3000}
+            timeout={12000}
             onDismiss={this.cancel}
-          />) : null }
+          />) : null}
       </ScrollView>
     );
   }
