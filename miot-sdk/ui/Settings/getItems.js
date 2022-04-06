@@ -1,9 +1,19 @@
-import React, { isValidElement } from 'react';
+import React, { isValidElement, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Device } from 'miot';
 import ListItem from '../ListItem/ListItem';
 import useModelType from '../../hooks/useModelType';
 export const clickedItems = [];
+export function useClicked(key) {
+  const [clicked, setClicked] = useState(clickedItems.includes(key));
+  function click() {
+    if (!clickedItems.includes(key)) {
+      clickedItems.push(key);
+    }
+    setClicked(true);
+  }
+  return [clicked, click];
+}
 export default function getItems(innerOptions, keys, values, params, defaultOptions) {
   const {
     options,
@@ -65,7 +75,10 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
       return null;
     }
     if (Component instanceof Function) {
-      return Component(params);
+      // return Component(params);
+      return (
+        <Component key={String(key)} {...params} />
+      );
     }
     if (!title) {
       return null;
@@ -85,10 +98,13 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
     );
   });
 }
-export function delegatePress(cb, params, key) {
+export function delegatePress(cb, params, key, click) {
   return () => {
     if (key && !clickedItems.includes(key)) {
       clickedItems.push(key);
+      if (click instanceof Function) {
+        click(key);
+      }
     }
     if (cb instanceof Function) {
       cb(params || {});

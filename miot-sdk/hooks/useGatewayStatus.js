@@ -23,9 +23,9 @@ export default function useGatewayStatus() {
   }, []);
   return status;
 }
-function getStatus() {
+function getStatus(connected) {
   const type = Device.type;
-  if (!isConnected) {
+  if (!connected) {
     return State.IDLE;
   }
   if (['16'].includes(type)) {
