@@ -13,7 +13,7 @@ const innerOptions = {
   // 按键设置
   memberSet: {
     exportKey: 'MEMBER_SET',
-    isDefault: true,
+    isDefault: false,
     ownerOnly: true,
     modelTypes: ['switch'],
     title: I18n.memberSet,
@@ -39,7 +39,7 @@ const innerOptions = {
     Component: () => {
       const [info, setSplit] = useMultiKeySplitInfo();
       const { count, split } = info || {};
-      if (!count) {
+      if (!count || count <= 1) {
         return null;
       }
       return (
@@ -87,7 +87,7 @@ const innerOptions = {
   btGateway: {
     exportKey: 'BTGATEWAY',
     ownerOnly: true,
-    types: ['6', '8'],
+    modelTypes: ['gateway'],
     title: I18n.btGateway,
     onPress: () => {
       Host.ui.openBtGatewayPage();

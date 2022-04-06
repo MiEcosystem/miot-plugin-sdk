@@ -198,7 +198,8 @@ let strings = {
   mcuVersion: '',
   sdkVersion: '',
   connected: '',
-  notConnected: ''
+  notConnected: '',
+  bleConnected: ''
 };
 strings = getStrings({
   zh: {
@@ -380,7 +381,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   zh_tw: {
     setting: '設定',
@@ -557,7 +559,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   zh_hk: {
     setting: '設定',
@@ -734,7 +737,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   en: {
     setting: 'Settings',
@@ -915,7 +919,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   ko: {
     setting: '설정',
@@ -1092,7 +1097,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   ru: {
     setting: 'Настройки',
@@ -1269,7 +1275,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   es: {
     setting: 'Ajustes',
@@ -1446,7 +1453,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   fr: {
     setting: "Paramètres",
@@ -1623,7 +1631,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   it: {
     setting: 'Impostazioni',
@@ -1800,7 +1809,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   de: {
     setting: "Einstellungen",
@@ -1977,7 +1987,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   id: {
     setting: 'Pengaturan',
@@ -2154,7 +2165,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   pl: {
     setting: 'Ustawienia',
@@ -2331,7 +2343,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   vi: {
     setting: 'Cài đặt',
@@ -2508,7 +2521,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   ja: {
     setting: '設定',
@@ -2685,7 +2699,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   th: {
     setting: 'การตั้งค่า',
@@ -2862,7 +2877,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   tr: {
     setting: 'Ayarlar',
@@ -3039,7 +3055,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   nl: {
     setting: 'Instellingen',
@@ -3216,7 +3233,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   pt: {
     setting: 'Configurações',
@@ -3393,7 +3411,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   ar: {
     setting: 'الإعدادات',
@@ -3575,7 +3594,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   },
   he: {
     setting: 'הגדרות',
@@ -3757,7 +3777,8 @@ strings = getStrings({
     mcuVersion: 'MCU固件版本',
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
-    notConnected: '未连接'
+    notConnected: '未连接',
+    bleConnected: '蓝牙直连'
   }
 });
 export default strings;
