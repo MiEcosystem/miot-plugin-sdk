@@ -49,17 +49,24 @@ export default class MHRoomDemo extends React.Component {
               [
                 '常规：host需要serviceToken在cookie和params中(model不在getSid...白名单会报错)',
                 [
-                  ['get请求, 合并到cookie 和 query', ["https://api2.mina.mi.com/admin/v2/device_list", 'get', { master: 0, requestId: 'app_ios_GvJxKNa6oyUkcOiCW4BPSCeie5Kcl8', header: { Accept: '*/*' } }]],
-                  ['get请求+自定义cookie, 合并到cookie 和 query', ["https://api2.mina.mi.com/admin/v2/device_list", 'get', { master: 0, requestId: 'app_ios_GvJxKNa6oyUkcOiCW4BPSCeie5Kcl8', header: { Accept: '*/*', cookie: 'userId=894158105;serviceToken=sXEJM' } }]],
+                  ['get请求, 合并到cookie 和 query', ["https://api.miwifi.com/r/api/misystem/get_usb_u2", 'get', { mi_http2_0_encrypt_sub_url: '/r/api/misystem/get_usb_u2', deviceId: Device.deviceID.replace("miwifi.", ""), header: { Accept: '*/*' } }]],
+                  ['get请求+自定义cookie, 合并到cookie 和 query', ["https://api.miwifi.com/r/api/misystem/get_usb_u2", 'get', { mi_http2_0_encrypt_sub_url: '/r/api/misystem/get_usb_u2', deviceId: Device.deviceID.replace("miwifi.", ""), header: { Accept: '*/*', cookie: 'userId=894158105;serviceToken=sXEJM' } }]],
                   ['post请求，合并到cookie 和 body', ["https://api2.mina.mi.com/remote/ubus", 'post', { a: 'b', header: { 'Content-Type': 'application/x-www-form-urlencoded' } }]],
                   ['post请求+子params，合并到cookie 和 body', ["https://api2.mina.mi.com/remote/ubus", 'post', { a: 'b', header: { 'Content-Type': 'application/x-www-form-urlencoded' }, params: { c: 'd' } }]]
                 ]
               ],
               [
-                '网络失败', [
-                  ['cookie 无效', ["https://api.io.mi.com/app/v2/device/latest_ver", 'post', { did: 'ssss', header: { cookie: 'serviceToken=1;userId=2;yetAnotherServiceToken=3;' }, c: 'd' }]],
-                  ['host 服务找不到 code', ["https://xxx.baidu.com/", 'post', { a: 'b' }]],
+                '常规错误', [
+                  ['method不支持', ["http://api.baidu.com/", 'put', {}]],
+                  ['url 错误(缺少host)', ["http://v2/device/getsettingv2", 'put', {}]],
+                  ['url 错误(格式错误)', ["http:// api.baidu.com/", 'put', {}]],
                   ['非白名单host被全局拦截', ["https://a.b.com/", 'post', { a: 'b' }]]
+                ]
+              ],
+              [
+                '网络服务失败', [
+                  ['cookie 无效', ["https://api.io.mi.com/app/v2/device/latest_ver", 'post', { did: 'ssss', header: { cookie: 'serviceToken=1;userId=2;yetAnotherServiceToken=3;' }, c: 'd' }]],
+                  ['host 服务找不到 code', ["https://xxx.baidu.com/", 'post', { a: 'b' }]]
                 ]
               ]
             ].map((item, section) => {
