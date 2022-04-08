@@ -120,7 +120,7 @@ export default class CurtainGroupPage extends Component {
     this.showHand();
     Service.smarthome.createGroupDevice(I18n.curtain, [leftDid, rightDid], tags)
       .then((res) => {
-        Host.ui.openCurtainGroupNamePage(res[0].group_did, leftDid, rightDid);
+        Host.ui.openCurtainGroupNamePage(res.group_did, leftDid, rightDid);
         this.setState({ onLoading: false });
       }).catch((e) => {
         this.showError();
