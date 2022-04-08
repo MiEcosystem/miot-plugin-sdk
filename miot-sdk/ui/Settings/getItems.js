@@ -19,7 +19,7 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
     options,
     showDots = [],
     extraOptions: {
-      excludeOptions = []
+      excludeRequiredOptions = []
     }
   } = params;
   const { type, isOwner } = Device;
@@ -58,7 +58,7 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
       // 未配置
       (!mergedOptions.includes(key)) ||
       // 指定排除
-      excludeOptions.includes(key) ||
+      excludeRequiredOptions.includes(key) ||
       // 设备类型匹配
       (types && !types.includes(type)) ||
       // 设备类型排除
