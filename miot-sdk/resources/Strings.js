@@ -199,7 +199,8 @@ let strings = {
   sdkVersion: '',
   connected: '',
   notConnected: '',
-  bleConnected: ''
+  bleConnected: '',
+  deviceOffline: ''
 };
 strings = getStrings({
   zh: {
@@ -382,7 +383,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: '设备离线'
   },
   zh_tw: {
     setting: '設定',
@@ -560,7 +562,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: '裝置離線'
   },
   zh_hk: {
     setting: '設定',
@@ -738,7 +741,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: '裝置離線'
   },
   en: {
     setting: 'Settings',
@@ -920,7 +924,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: 'Device is offline'
   },
   ko: {
     setting: '설정',
@@ -1098,7 +1103,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: '기기가 오프라인 상태입니다.'
   },
   ru: {
     setting: 'Настройки',
@@ -1276,7 +1282,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: 'Устройство находится в автономном режиме'
   },
   es: {
     setting: 'Ajustes',
@@ -1454,7 +1461,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: 'El dispositivo está desconectado'
   },
   fr: {
     setting: "Paramètres",
@@ -1632,7 +1640,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: 'Appareil hors ligne'
   },
   it: {
     setting: 'Impostazioni',
@@ -1810,7 +1819,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: 'Dispositivo offline'
   },
   de: {
     setting: "Einstellungen",
@@ -1988,7 +1998,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: 'Gerät ist offline'
   },
   id: {
     setting: 'Pengaturan',
@@ -2166,7 +2177,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: 'Perangkat offline'
   },
   pl: {
     setting: 'Ustawienia',
@@ -2344,7 +2356,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: 'Urządzenie jest w trybie offline'
   },
   vi: {
     setting: 'Cài đặt',
@@ -2522,7 +2535,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: 'Thiết bị đang ngoại tuyến'
   },
   ja: {
     setting: '設定',
@@ -2700,7 +2714,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: 'デバイスがオフライン状態です'
   },
   th: {
     setting: 'การตั้งค่า',
@@ -2878,7 +2893,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: 'อุปกรณ์ออฟไลน์'
   },
   tr: {
     setting: 'Ayarlar',
@@ -3056,7 +3072,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: 'Cihaz çevrimdışı'
   },
   nl: {
     setting: 'Instellingen',
@@ -3234,7 +3251,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: 'Apparaat offline'
   },
   pt: {
     setting: 'Configurações',
@@ -3412,7 +3430,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: 'Dispositivo offline'
   },
   ar: {
     setting: 'الإعدادات',
@@ -3595,7 +3614,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: '设备离线'
   },
   he: {
     setting: 'הגדרות',
@@ -3778,7 +3798,8 @@ strings = getStrings({
     sdkVersion: 'SDK固件版本',
     connected: '已连接',
     notConnected: '未连接',
-    bleConnected: '蓝牙直连'
+    bleConnected: '蓝牙直连',
+    deviceOffline: '设备离线'
   }
 });
 export default strings;

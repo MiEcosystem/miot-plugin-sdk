@@ -42,7 +42,7 @@ const innerOptions = {
           showDot={canUpgrade && !clicked}
           onPress={delegatePress(({ navigation, extraOptions = {} }) => {
             const { type, model } = Device;
-            const { showUpgrade, upgradePageKey, bleOtaAuthType } = extraOptions;
+            const { showUpgrade, upgradePageKey, bleOtaAuthType } = extraOptions || {};
             // showUpgrade 未设置，则当做true，可以简化配置
             // showUpgrade 为false, 则明确使用自定义页面
             // 有navigation, 使用自定义页面，且配置了自定义页面，才能跳过去
