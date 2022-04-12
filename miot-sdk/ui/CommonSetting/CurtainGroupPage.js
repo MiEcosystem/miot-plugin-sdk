@@ -115,39 +115,13 @@ export default class CurtainGroupPage extends Component {
     const { leftDid, rightDid } = this.state;
     const tags = {
       [leftDid]: "left",
-      [rightDid]: "right"
+      [rightDid]: "right" 
     };
     this.showHand();
     Service.smarthome.createGroupDevice(I18n.curtain, [leftDid, rightDid], tags)
       .then((res) => {
-        if (res && res.group_did) {
-          console.log('createGroupDevice:success', res);
-          this.checkLoop && clearInterval(this.checkLoop);
-          this.checkLoop = setInterval(() => {
-            SmartHomeInstance.getVirtualGroupSubDevices(res.group_did).then((res) => {
-              this.devicestatus = true;
-              for (let key of Object.keys(res[0].member_ship)) {
-                if (res[0].member_ship[key] != '1') {
-                  this.devicestatus = false;
-                }
-              }
-              if (res[0].status == '1' && this.devicestatus) {
-                this.setState({ onLoading: false });
-                Host.ui.openCurtainGroupNamePage(res[0].group_did, leftDid, rightDid);
-                clearInterval(this.checkLoop);
-              }
-            }).catch((err) => {
-              console.log('err', err);
-            });
-          }, 500);
-          setTimeout(() => {
-            this.checkLoop && clearInterval(this.checkLoop);
-            this.showError();
-          }, 500 * 20);
-          return;
-        }
-        this.showError();
-        console.log('createGroupDevice:fail', res);
+        Host.ui.openCurtainGroupNamePage(res.group_did, leftDid, rightDid);
+        this.setState({ onLoading: false });
       }).catch((e) => {
         this.showError();
         console.log('createGroupDevice:fail', e);

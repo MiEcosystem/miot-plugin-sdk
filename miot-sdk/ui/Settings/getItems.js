@@ -18,11 +18,10 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
   const {
     options,
     showDots = [],
-    extraOptions: {
-      excludeOptions = []
-    }
+    extraOptions
   } = params;
   const { type, isOwner } = Device;
+  const { excludeRequiredOptions = [] } = extraOptions || {};
   const modelType = useModelType();
   // 最终配置的项，包括调用方传入的项，和默认项
   const mergedOptions = [...(new Set([...(options || []), ...(defaultOptions || [])]))];
@@ -58,7 +57,7 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
       // 未配置
       (!mergedOptions.includes(key)) ||
       // 指定排除
-      excludeOptions.includes(key) ||
+      excludeRequiredOptions.includes(key) ||
       // 设备类型匹配
       (types && !types.includes(type)) ||
       // 设备类型排除
