@@ -118,7 +118,6 @@ import JSExecutor from "./Host/JSExecutor";
 import * as Screens from "./uikit/screens";
 import MHAudioDemo from "./Host/MHAudioDemo";
 import VideoDemo from "./Host/VideoDemo";
-import VideoThumbnailDemo from "./Host/VideoThumbnailDemo";
 import CryptoDemo from "./Host/CryptoDemo";
 import TraceDemo from "./Host/TraceDemo";
 import DarkModeDemo from "./Host/DarkMode";
@@ -250,7 +249,6 @@ function createRootStack(initPage) {
       mhMapDemo: MHMapDemo,
       audioDemo: MHAudioDemo,
       videoDemo: VideoDemo,
-      videoThumbnailDemo: VideoThumbnailDemo,
       imagePathDemo: ImagePathDemo,
       ThirdPartyDemo: ThirdPartyDemo,
       ServiceDemo,

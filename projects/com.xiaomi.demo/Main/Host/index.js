@@ -46,12 +46,6 @@ export default class HostDemo extends React.Component {
         }
       },
       {
-        'name': '视频缩略图',
-        'func': () => {
-          this.props.navigation.navigate('videoThumbnailDemo', { 'title': '视频缩略图Demo' });
-        }
-      },
-      {
         'name': '加密',
         'func': () => {
           this.props.navigation.navigate('cryptoDemo', { 'title': '加密Demo' });

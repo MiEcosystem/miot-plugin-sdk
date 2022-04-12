@@ -1,6 +1,6 @@
 'use strict';
 
-const { spawn,execSync } = require('child_process');
+const { spawn,execSync } = require('child_process'); 
 const path = require('path');
 const fs = require("fs");
 
@@ -8,7 +8,7 @@ const fs = require("fs");
 const project_dir = path.join(__dirname, "..", "..");
 const process_dir = process.cwd();
 //will be changed to false when export to github
-const DEV = fs.existsSync(path.join(project_dir, "bin", "config", "common_dev.js"));
+const DEV=fs.existsSync(path.join(project_dir, "bin", "config", "common_dev.js"));
 
 process.chdir(project_dir)
 process.on('uncaughtException', e=>{
@@ -28,7 +28,7 @@ if(!DEV){
 
 const sdkconf = JSON.parse(fs.readFileSync(path.join(project_dir, "miot-sdk", "package.json")).toString());
 const API_LEVEL = sdkconf.api_level;
-const SDK_VERSION = Math.floor(API_LEVEL / 10000) + "."
+const SDK_VERSION = Math.floor(API_LEVEL / 10000) + "." 
                   + Math.floor((API_LEVEL % 10000)/100) + "."
                   + (API_LEVEL % 100);
 sdkconf.version = SDK_VERSION;
@@ -36,14 +36,12 @@ sdkconf.version = SDK_VERSION;
 const ANDROID = "android"
 const IOS = "ios"
 
-// 描述的是module文件中的索引表示的含义
 const IDX_ANDROID = 0
 const IDX_IOS = 1
 const IDX_MOD = 2
 const IDX_PATH = 3
 const IDX_TYPE = 4
-// module文件每个item的path文件的类型
-// module(1)|asset(2)|unknown(0)
+
 const TYPE_MODULE = 1
 const TYPE_ASSET = 2
 
@@ -67,10 +65,10 @@ function exec(command, args=[], onFinish=null, ignore_out=false){
       ignore_out || console.log(data.toString());
     });
     cmd.stderr.on('data', (data) => {
-      ignore_out || console.log(`error：${data}`);
+      ignore_out || console.log(`error：${data}`); 
     });
-    cmd.on('close', (code) => {
-      onFinish&&onFinish(code);
+    cmd.on('close', (code) => { 
+      onFinish&&onFinish(code); 
     });
 }
 
@@ -84,8 +82,8 @@ function makeDirsSync(srcPath){
     return;
   }
   console.log(srcPath)
-  makeDirsSync(path.dirname(srcPath));
-  fs.mkdirSync(srcPath);
+  makeDirsSync(path.dirname(srcPath)); 
+  fs.mkdirSync(srcPath); 
 }
 
 function copyFileSync(srcPath, tarPath){
@@ -93,7 +91,7 @@ function copyFileSync(srcPath, tarPath){
 }
 
 function copyFile(srcPath, tarPath, cb) {
-
+   
   // console.log("copy_file", srcPath, tarPath)
     var rs = fs.createReadStream(srcPath)
     rs.on('error', function (err) {
@@ -102,7 +100,7 @@ function copyFile(srcPath, tarPath, cb) {
       }
       cb && cb(err)
     })
-
+  
     var ws = fs.createWriteStream(tarPath)
     ws.on('error', function (err) {
       if (err) {
@@ -113,27 +111,27 @@ function copyFile(srcPath, tarPath, cb) {
     ws.on('close', function (ex) {
       cb && cb(ex)
     })
-
+  
     rs.pipe(ws)
-
+    
   }
-
+  
 function copyFolder(srcDir, tarDir, cb = null) {
     fs.readdir(srcDir, function (err, files) {
       var count = 0
       var checkEnd = function () {
         ++count == files.length && cb && cb()
       }
-
+  
       if (err) {
         checkEnd()
         return
       }
-
+  
       files.forEach(function (file) {
         var srcPath = path.join(srcDir, file)
         var tarPath = path.join(tarDir, file)
-
+  
         fs.stat(srcPath, function (err, stats) {
           if (stats.isDirectory()) {
             // console.log('mkdir', tarPath)
@@ -149,7 +147,7 @@ function copyFolder(srcDir, tarDir, cb = null) {
           }
         })
       })
-
+  
       files.length === 0 && cb && cb()
     })
 }
@@ -161,7 +159,7 @@ function copyFolderSync(srcDir, tarDir, cb = null, exceptList) {
   var checkEnd = function () {
     ++count == files.length && cb && cb()
   }
-
+    
   files.forEach(function (file) {
     if(!exceptList || exceptList.indexOf(file) === -1){
       var srcPath = path.join(srcDir, file)
@@ -190,7 +188,7 @@ function loadFiles(srcDir, onFile=null, rootDir=null) {
         }
       }else if(stat.isFile()){
         (onFile.onFile||onFile)(path.relative(rootDir||srcDir,_path));
-      }
+      } 
   })
 }
 
@@ -226,7 +224,7 @@ function removeDir(srcPath){
 
 module.exports = {
     DEV,
-    project_dir,
+    project_dir, 
     process_dir,
 
     sdkconf,
@@ -240,14 +238,14 @@ module.exports = {
     IDX_MOD,
     IDX_PATH,
     IDX_TYPE,
-
+    
     TYPE_MODULE,
     TYPE_ASSET,
     SUPPORTED_ASSET_FILE_TYPES,
 
     exec,
     execSync,
-
+    
     copyFile,
     copyFileSync,
     copyFolder,
@@ -255,11 +253,11 @@ module.exports = {
     makeDirs,
     makeDirsSync,
     absolutePath,
-
+ 
     loadAllFiles,
     loadFiles,
 
-    removeDir,
+    removeDir, 
 
-    objectWithoutProperties
+    objectWithoutProperties 
 }

@@ -284,8 +284,6 @@ const API_REPO = {
   // 每日故事删除
   '/miot/camera/app/v1/dailyStory/delete': {},
   // 人脸聚类相关接口
-  '/common/app/get/faceCluster/eventlist': {},
-  // 耗材标准配置服务端接口
-  '/v2/home/standard_consumable_items': {}
+  '/common/app/get/faceCluster/eventlist': {}
 };
 export default API_REPO;

@@ -143,9 +143,6 @@ class ISpec {
   getSpecByKey(did, { mkey, skey, pkey, akey, ekey } = {}) {
      return Promise.resolve(null);
   }
-  getSpecByIid(did, { miid, siid, piid, aiid, eiid }) {
-     return Promise.resolve(null);
-  }
   /**
    * 设置属性上报规则
    * spec-v3 引入

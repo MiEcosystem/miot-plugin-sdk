@@ -27,7 +27,7 @@
  */
 import { MessageDialog } from 'miot/ui/Dialog';
 import React from 'react';
-import { AppRegistry, DeviceEventEmitter, View, I18nManager } from "react-native";
+import { AppRegistry, DeviceEventEmitter, View } from "react-native";
 import Device, { DeviceEvent, PollPropMap } from "./device/BasicDevice";
 import Service, { CurrentAccount } from './Service';
 import Host from './Host';

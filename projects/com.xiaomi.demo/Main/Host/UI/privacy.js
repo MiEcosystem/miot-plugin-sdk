@@ -26,7 +26,7 @@ export default class PrivacyDemo extends React.Component {
       privacy: true,
       hideAgreement: false,
       hideUserExperiencePlan: false,
-      experience: true
+      experience: false
     };
     Logger.trace(this);
   }
@@ -58,7 +58,7 @@ export default class PrivacyDemo extends React.Component {
             console.log("res", res);
             if (res) {
               // 表示用户同意授权
-              // Host.storage.set('licenseKey', true).then(() => { });
+              Host.storage.set(licenseKey, true).then(() => { });
             }
           }).catch((error) => {
             console.log(error);
@@ -89,7 +89,7 @@ export default class PrivacyDemo extends React.Component {
             console.log("res", res);
             if (res) {
               // 表示用户同意授权
-              // Host.storage.set('licenseKey', true).then(() => { });
+              Host.storage.set(licenseKey, true).then(() => { });
             }
           }).catch((error) => {
             console.log(error);
@@ -132,8 +132,8 @@ export default class PrivacyDemo extends React.Component {
             style={{ width: 50, height: 25 }}
             onTintColor="skyblue"
             tintColor="lightgray"
-            value={this.state.hideUserExperiencePlan}
-            onValueChange={(value) => this.setState({ experience: !value, hideUserExperiencePlan: value })}
+            value={this.state.experience}
+            onValueChange={(value) => this.setState({ experience: value, hideUserExperiencePlan: value })}
           />
         </View>
         <ListView style={styles.list} dataSource={this.state.dataSource} renderRow={this._renderRow.bind(this)} />
