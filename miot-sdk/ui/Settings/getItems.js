@@ -102,6 +102,7 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
 }
 export function delegatePress(cb, params, key, click) {
   return () => {
+    const preOperation = params?.extraOptions?.preOperations?.[key];
     if (key && !clickedItems.includes(key)) {
       clickedItems.push(key);
       if (click instanceof Function) {
@@ -109,6 +110,12 @@ export function delegatePress(cb, params, key, click) {
       }
     }
     if (cb instanceof Function) {
+      if (preOperation instanceof Function) {
+        preOperation().then(() => {
+          cb(params || {});
+        }).catch(() => {});
+        return;
+      }
       cb(params || {});
     }
   };
