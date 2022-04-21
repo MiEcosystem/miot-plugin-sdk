@@ -43,6 +43,7 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
     }
     const {
       Component,
+      needValue,
       types,
       notTypes,
       ownerOnly,
@@ -68,6 +69,8 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
       (notModelTypes && notModelTypes.includes(modelType)) ||
       // 不可共享
       (!isOwner && ownerOnly) ||
+      // 无值
+      (needValue && [undefined, null, ''].includes(value)) ||
       // 自定义判断
       (validator instanceof Function && !validator({ modelType }))
     ) {

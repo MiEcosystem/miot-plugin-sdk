@@ -786,17 +786,6 @@ class IUi {
    */
   @report
   openGenerateCrontabStringPage(param = {}) {
-    // native begin
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.openGenerateCrontabStringPage(param, (ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      });
-    });
-    // native end
   }
   /**
     * @since 10056
@@ -804,5 +793,9 @@ class IUi {
     * @example
     * Host.ui.openFirmWareAutoOTAPage();
   */
-   @report
+  @report
   openFirmWareAutoOTAPage() {
+  }
+}
+const UiInstance = new IUi();
+export default UiInstance;
