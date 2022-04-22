@@ -5,7 +5,7 @@ import { strings as I18n } from '../../resources';
 import Section from './Section';
 import ListItem from '../ListItem/ListItem';
 import ChoiceDialog from '../Dialog/ChoiceDialog';
-import getItems, { getAllAndDefaultOptions, delegatePress, clickedItems } from './getItems';
+import getItems, { getAllAndDefaultOptions, delegatePress, useClicked } from './getItems';
 import { getModelType } from '../../hooks/useModelType';
 import useSpecPluginInfo from '../../hooks/useSpecPluginInfo';
 import useCanUpgrade from '../../hooks/useCanUpgrade';
@@ -34,14 +34,15 @@ const innerOptions = {
     ownerOnly: true,
     Component: (params) => {
       const canUpgrade = useCanUpgrade();
+      const [clicked, click] = useClicked('firmwareUpgrade');
       return (
         <ListItem
           key={'firmwareUpgrade'}
           title={I18n.firmwareUpgrade}
-          showDot={canUpgrade && !clickedItems.includes('firmwareUpgrade')}
+          showDot={canUpgrade && !clicked}
           onPress={delegatePress(({ navigation, extraOptions = {} }) => {
             const { type, model } = Device;
-            const { showUpgrade, upgradePageKey, bleOtaAuthType } = extraOptions;
+            const { showUpgrade, upgradePageKey, bleOtaAuthType } = extraOptions || {};
             // showUpgrade 未设置，则当做true，可以简化配置
             // showUpgrade 为false, 则明确使用自定义页面
             // 有navigation, 使用自定义页面，且配置了自定义页面，才能跳过去
@@ -77,7 +78,7 @@ const innerOptions = {
               // 缺省情况
               Host.ui.openDeviceUpgradePage(1);
             }).catch(() => {});
-          }, params, 'firmwareUpgrade')}
+          }, params, 'firmwareUpgrade', click)}
           useNewType={true}
           hideArrow={false}
         />
@@ -127,6 +128,7 @@ const innerOptions = {
     },
     Component: (params) => {
       const [info, clear] = useFreqCameraInfo();
+      const [clicked, click] = useClicked('freqCamera');
       const { isFreqDevice, canUpgrade } = info || {};
       if (!isFreqDevice) {
         return null;
@@ -136,11 +138,11 @@ const innerOptions = {
           key={'freqCamera'}
           title={I18n.favoriteCamera}
           value={canUpgrade ? I18n.open : I18n.close}
-          showDot={canUpgrade && !clickedItems.includes('firmwareUpgrade')}
+          showDot={canUpgrade && !clicked}
           onPress={delegatePress(() => {
             clear();
             Host.ui.openCommonDeviceSettingPage(1);
-          }, params, 'freqCamera')}
+          }, params, 'freqCamera', click)}
           useNewType={true}
           hideArrow={false}
         />
