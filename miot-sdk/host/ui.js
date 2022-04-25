@@ -140,7 +140,7 @@ class IUi {
    * 使用参数 params 打开蓝牙网关页
    * 会和当前model的企业组进行匹配，只能打开同一企业组下的蓝牙网关页面
    * 标准插件例外，标准插件可以打开任意企业组的蓝牙网关页面
-   * 
+   *
    * @returns {Promise}
    * eg:
    * Host.ui.openBtGatewayPageWithParams({did:xxxx}).then(()=>{}).catch((err)=>{console.log(err)});
@@ -795,6 +795,18 @@ class IUi {
   */
   @report
   openFirmWareAutoOTAPage() {
+  }
+  /**
+   * 返回Android手机底部导航栏高度
+   * @since 10069
+   * 仅限Android使用
+  * @example
+   * Host.ui.getNavigationBarHeight()
+   *
+   * res : {"data":{"navigationBarHeight":130},"code":0}
+   */
+  @report
+  getNavigationBarHeight() {
   }
 }
 const UiInstance = new IUi();
