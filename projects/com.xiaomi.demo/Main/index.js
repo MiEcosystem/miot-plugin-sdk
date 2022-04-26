@@ -46,6 +46,8 @@ import SoftKeyboardAdapterTestDemo from "./UIComponent/SoftKeyboardAdapterTestDe
 import TitleBarDemo from "./tutorial/TitleBarDemo"; //  ui-导航栏使用
 import TabBarDemo from "./tutorial/TabBarDemo"; //  ui-导航栏使用
 
+import Settings2022 from './UIComponent/Settings2022';
+
 // List
 import ListDemoEntry from "./UIComponent/List/ListDemoEntry";
 import CustomListDemo from "./UIComponent/List/CustomListDemo";
@@ -138,6 +140,7 @@ import ImagePathDemo from "./NewStructureTest";
 import { PluginEntrance } from "./PluginEntrance";
 // import GLTests from './ThirdPartDemo/openGL/Tests';
 // import OpenLibList from './OpenLibList';
+
 /** ******    Service 部分   ******* */
 import ServiceDemo from "./Service";
 import MiotSpecDemo from "./Service/MiotSpecDemo";
@@ -149,6 +152,7 @@ import KookongDemo from "./Service/KookongDemo";
 // import AlarmPhoneDemo from './Service/AlarmPhoneDemo';
 import CallSmartHomeAPIDemo from "./Service/smarthome";
 import CloudStorageDemo from "./Service/CloudStorageDemo";
+import RequestDemo from './Service/RequestDemo';
 
 /** ******    UI 部分   ******* */
 import WebViewBridageDemo from "./ThirdPartDemo/WebViewBridageDemo";
@@ -229,6 +233,7 @@ function createRootStack(initPage) {
       Setting,
       SettingPage,
       MoreSetting,
+      Settings2022,
       CurtainGroupPage,
       FirmwareUpgrade,
       // FirmwareUpgradeAuto,
@@ -291,6 +296,7 @@ function createRootStack(initPage) {
       MHRoomDemo,
       MiotSpecDemo,
       MiotSpecV3Demo,
+      RequestDemo,
       // Native 交互
       HostPropsInfoDemo,
       LocaleServer,

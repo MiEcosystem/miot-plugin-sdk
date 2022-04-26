@@ -141,8 +141,8 @@ export default class PhotoDemo extends React.Component {
 
   downloadFileSaveToPhoto() {
     console.log("downloadFileSaveToPhoto...");
-    let path = "http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_zip_23831a541b583ea55ec212f69f3afc07.zip";
-    let fileName = `file${ new Date().getTime() }.zip`;
+    let path = "http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_mp4_855379f77b74ca565e8ef7d68c08264c.mp4";
+    let fileName = `file${ new Date().getTime() }.mp4`;
     Host.file.downloadFile(path, fileName).then((fileInfo) => {
       console.log("downloadFile...fileInfo", fileInfo);
       Host.file.saveFileToPhotosAlbum(fileName).then(() => {
@@ -155,7 +155,6 @@ export default class PhotoDemo extends React.Component {
       alert(`downloadFile error:  ${ JSON.stringify(error) }`);
     });
   }
-
 
   getFirstImageFromDidAlbum() {
     Host.file.getAllSourceFromPhotosDidAlbum().then((res) => {
@@ -247,9 +246,10 @@ export default class PhotoDemo extends React.Component {
     Host.file.getAlbums().then((res) => {
       alert(JSON.stringify(res, null, '\t'));
       if (res.data && res.data.length > 0) {
-        this.albumID = res.data[res.data.length - 1].albumID;
+        let data = res.data.find((item) => item.size > 0);
+        this.albumID = data.albumID;
         this.setState({
-          currentAsset: res.data[res.data.length - 1].thumb
+          currentAsset: data.thumb
         });
       }
     }).catch((err) => {

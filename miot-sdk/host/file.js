@@ -28,36 +28,14 @@
  * ...
  */
 import Device from "../device/BasicDevice";
-import { report } from "../decorator/ReportDecorator";
-import { PermissionsAndroid } from "react-native";
-import { processColor } from "react-native";
-/**
- * 文件事件名集合
- * @namespace FileEvent
- */
-export const FileEvent = {
-  /**
-     * 文件下载时的进度事件通知
-     * @param filename  文件名
-     * @param url       下载地址
-     * @param totalBytes    下载总大小
-     * @param downloadBytes 已下载文件大小
-     */
-  fileDownloadProgress: {
-  },
-  /**
-   * 文件上传时的进度事件通知， 支持Host.file.uploadFile 和 Host.file.uploadFileToFDS 文件上传接口进度回调
-   * @param uploadUrl       上传地址
-   * @param totalBytes    上传总大小
-   * @param uploadBytes 已上传文件大小
-   */
-  fileUploadProgress: {
-  }
-};
+import { native as nativeFile } from 'mhrn/file';
+import { report } from 'mhrn/mediator/decorator';
+import { isIOS } from 'mhrn/mediator/platform';
+import { local, network, media } from 'mhrn/file';
+export { FileNetworkEvent as FileEvent } from 'mhrn/file';
 /**
  * 文件管理
  * @interface
- *
  */
 class IFile {
   /**
@@ -82,7 +60,7 @@ class IFile {
    */
   @report
   readFileList(subFolder = '') {
-     return Promise.resolve([]);
+    return local.readFileList(subFolder);
   }
   /**
    * 判断文件是否存在
@@ -103,7 +81,7 @@ class IFile {
    */
   @report
   isFileExists(fileName) {
-     return Promise.resolve(false)
+    return local.isFileExists(fileName);
   }
   /**
    * 读本地文件， 读取普通字符串， 与之对应的写文件为Host.file.writeFile(fileName, content)
@@ -121,7 +99,7 @@ class IFile {
    */
   @report
   readFile(fileName) {
-     return Promise.resolve(null);
+    return local.readFile(fileName);
   }
   /**
    * 读本地文件， 通常用于读取蓝牙设备需要的文件数据
@@ -138,7 +116,7 @@ class IFile {
    */
   @report
   readFileToHexString(fileName) {
-     return Promise.resolve(null);
+    return local.readFileToHexString(fileName);
   }
   /**
    * 读文件，并转换为 Base64 编码
@@ -149,7 +127,7 @@ class IFile {
    */
   @report
   readFileToBase64(fileName) {
-     return Promise.resolve(null);
+    return local.readFileToBase64(fileName);
   }
   /**
    * 读取一定字节的文件，并转换为 Base64 编码
@@ -165,7 +143,7 @@ class IFile {
    */
   @report
   readFileSegmentToBase64(fileName, off, len) {
-     return Promise.resolve(null);
+    return local.readFileSegmentToBase64(fileName, off, len);
   }
   /**
    * 写文件， 与之对应的读文件为Host.file.readFile(fileName)
@@ -182,11 +160,10 @@ class IFile {
    *  console.log('write success')
    * })
    * ...
-   *
    */
   @report
   writeFile(fileName, utf8Content) {
-     return Promise.resolve(null);
+    return local.writeFile(fileName, utf8Content);
   }
   /**
    * 写文件，输入为 Base64 编码的字符串， api内部会对字符串做 Base64 解码后存放到文件中
@@ -206,7 +183,7 @@ class IFile {
    */
   @report
   writeFileThroughBase64(fileName, fileContent) {
-     return Promise.resolve(null);
+    return local.writeFileThroughBase64(fileName, fileContent);
   }
   /**
    * 向已存在的文件追加内容, 通常是通过使用writeFile接口来写的文件
@@ -226,7 +203,7 @@ class IFile {
    */
   @report
   appendFile(fileName, utf8Content) {
-     return Promise.resolve(null);
+    return local.appendFile(fileName, utf8Content);
   }
   /**
    * 向已存在的文件追加内容，输入为 Base64 编码的字符串， api内部会对字符串做 Base64 解码后存放到文件中
@@ -247,7 +224,7 @@ class IFile {
    */
   @report
   appendFileThroughBase64(fileName, fileContent) {
-     return Promise.resolve(null);
+    return local.appendFileThroughBase64(fileName, fileContent);
   }
   /**
    * 删除文件
@@ -265,7 +242,7 @@ class IFile {
    */
   @report
   deleteFile(fileName) {
-     return Promise.resolve(null);
+    return local.deleteFile(fileName);
   }
   /**
    * 上传普通文件，需要申请权限使用
@@ -463,7 +440,7 @@ class IFile {
    */
   @report
   uploadFile(params) {
-     return Promise.resolve(null);
+    return network.uploadFile(params);
   }
   /**
    * 上传文件到小米云FDS
@@ -500,7 +477,7 @@ class IFile {
    */
   @report
   downloadFile(url, fileName, params = null) {
-     return Promise.resolve(null);
+    return network.downloadFile(url, fileName, params);
   }
   /**
    * 取消指定的下载任务
@@ -510,7 +487,7 @@ class IFile {
    * 失败时：{code:-1, message:'xxx'}
    */
   cancelDownloadFile(taskID) {
-     return Promise.resolve(null);
+    return network.cancelDownloadFile(taskID);
   }
   /**
    * 获取 base64 编码的数据长度
@@ -526,7 +503,7 @@ class IFile {
    */
   @report
   dataLengthOfBase64Data(base64Data) {
-     return Promise.resolve(null);
+    return local.dataLengthOfBase64Data(base64Data);
   }
   /**
    * 获取一个data的子data（base64编码）
@@ -537,7 +514,7 @@ class IFile {
    */
   @report
   subBase64DataOfBase64Data(base64Data, loc, len) {
-     return Promise.resolve(null);
+    return local.subBase64DataOfBase64Data(base64Data, loc, len);
   }
   /**
    * 解压缩一个zip文件，解压缩后的文件会直接存储在插件存储空间的根目录下
@@ -577,9 +554,9 @@ class IFile {
    *  console.log("ungzipFileToString error:",err);
    * })
    */
-   @report
+  @report
   ungzipFileToString(params) {
-     return Promise.resolve(null);
+    return local.ungzipFileToString(params);
   }
   /**
    * 解压缩一个gz文件, 并以base64编码的形式直接返回给插件, 不做本地存储
@@ -589,23 +566,23 @@ class IFile {
    * 失败时：{"code":xxx, "message":"xxx" }
    */
   @report
-   ungzFile(fileName) {
-      return Promise.resolve(null);
-   }
+  ungzFile(fileName) {
+    return local.ungzFile(fileName);
+  }
   /**
-  * 保存指定照片文件到系统相册
-  * @param {string} fileName 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
-  * @returns {Promise}
+   * 保存指定照片文件到系统相册
+   * @param {string} fileName 可以是多重文件夹嵌套文件， e.g 'path/path2/filename.txt'
+   * @returns {Promise}
    * 成功时：返回true
    * 失败时：{"code":xxx, "message":"xxx" }
-  * @example  参考com.xiaomi.demo Host-->PhotoDemo.js
-  * import {Host} from 'miot'
-  * ...
-  * Host.file.saveImageToPhotosAlbum('name').then(_ =>{
-  *  console.log('successful save to PhotosAlbum')
-  * })
-  * ...
-  */
+   * @example  参考com.xiaomi.demo Host-->PhotoDemo.js
+   * import {Host} from 'miot'
+   * ...
+   * Host.file.saveImageToPhotosAlbum('name').then(_ =>{
+   *  console.log('successful save to PhotosAlbum')
+   * })
+   * ...
+   */
   @report
   saveImageToPhotosAlbum(fileName) {
      return Promise.resolve(false)
@@ -732,7 +709,7 @@ class IFile {
    */
   @report
   deleteAssetsFromAlbumByUrls(urls) {
-     return Promise.resolve(false)
+    return media.deleteAssetsFromAlbum(urls);
   }
   /**
    * 屏幕全屏截图
@@ -746,7 +723,7 @@ class IFile {
    */
   @report
   screenShot(imageName) {
-     return Promise.resolve("...");
+    return media.screenShot(imageName);
   }
   /**
    * 自定义范围的屏幕截图
@@ -759,7 +736,7 @@ class IFile {
    */
   @report
   screenShotInRect(imageName, rect) {
-     return Promise.resolve("...");
+    return media.screenShotInRect(imageName, rect);
   }
   /**
    * 长截屏，用来截scrollView，会把超出屏幕的部分也截到
@@ -777,7 +754,7 @@ class IFile {
    */
   @report
   longScreenShot(viewRef, imageName) {
-     return Promise.resolve(null);
+    return media.longScreenShot(viewRef, imageName);
   }
   /**
    * 高德地图截屏
@@ -818,14 +795,19 @@ class IFile {
   /**
    * 创建目录
    * @since 10042
-   * @param {json} params {dirPath:‘xxx’,//本地路径如：dir0,/dir0/dir1
-   *                       recursive: [true/false],//是否递归创建目录。如果为 true，则创建该目录和该目录下的所有子目录
-   *                      }
-   * @returns {Promise<json>} 成功时：{code:0,message:'success'},
-   *              失败时可能的返回值有：{code:-1,message:'directory name is not valid'},
-   *                                {code:-2,message:'file ${dirPath} already exist'},
-   *                                {code:-3,message:'parent directory is not exist:${dirPath}'},
-   *                                {code:-4,message:'permission denied,cannot access dir:${dirPath}'},
+   * @param {json} params 
+   *   {
+   *      dirPath:‘xxx’,  //本地路径如：dir0,/dir0/dir1
+   *      recursive: [true/false],  //是否递归创建目录。如果为 true，则创建该目录和该目录下的所有子目录
+   *   }
+   * @returns {Promise<json>} 
+   *  成功时：
+   *    {code:0,message:'success'},
+   *  失败时：
+   *  {code:-1,message:'directory name is not valid'},
+   *  {code:-2,message:'file ${dirPath} already exist'},
+   *  {code:-3,message:'parent directory is not exist:${dirPath}'},
+   *  {code:-4,message:'permission denied,cannot access dir:${dirPath}'},
    * @example
    * let params ={
    *  dirPath: 'dir0/dir1',
@@ -837,6 +819,7 @@ class IFile {
    */
   @report
   mkdir(params) {
+    return local.mkdir(params);
   }
   /**
    * 搜索文件（只在Android可使用）
@@ -907,15 +890,12 @@ class IFile {
     * @param {string} params.marginHorizontal 水平边距
     * @param {string} params.marginVertical 竖直边距
     * @returns {Promise<Object>}
-    *   成功时: {code:0, data: filepath} 绝对路径，可直接用于展示
-    *   失败时: {
-    *          code:100xx,     // 错误码，非0数字
-    *          message:""      // 错误信息
-    *        }
+    *   成功时:  {code:0, data: filepath} 绝对路径，可直接用于展示
+    *   失败时:  { code:100xx, message:"" }
     */
   @report
   writePdfFile(utf8Content, filename, params) {
-     return Promise.resolve(null);
+    return media.writePdfFile(utf8Content, filename, params);
   }
   /**
    * 将PDF指定页转换为图片
@@ -971,7 +951,7 @@ class IFile {
    */
   @report
   pdfToImage(params) {
-     return Promise.resolve(null);
+    return media.pdfToImage(params);
   }
   /**
     * 读PDF文件信息
@@ -1011,7 +991,7 @@ class IFile {
     */
   @report
   readPdfMetaData(params) {
-     return Promise.resolve(null);
+    return media.readPdfMetaData(params);
   }
   /**
    * 复制文件
@@ -1019,14 +999,16 @@ class IFile {
    * @param {json} params {
    *  srcPath:'xxxxx',//源文件文件路径
    *  dstPath:'xxxx', //目标文件路径：dstDir不为空时，可以传相对路径；dstDir不为空时，这里传文件名
-   *  dstDir:'xxx',//目标文件保存路径父目录，沙盒内复制文件时传空即可；如果是往沙盒外复制，dstDiir传目标文件的父目录(不能为空)
+   *  dstDir:'xxx',   //目标文件保存路径父目录，沙盒内复制文件时传空即可；如果是往沙盒外复制，dstDiir传目标文件的父目录(不能为空)
    * }
-   * @returns {Promise<json>} 成功时：{code:0,message:success}
-   *          失败时：{code:-1,message:'invalid srcPath or dstPath'}
-   *                {code:-2,message:'file ${dstPath} already exist'}
-   *                {code:-3,message:'file not found,xxx'}
-   *                {code:-4,message:'copy file error,xxx'}
-   *                {code:-5,message:'copy file error,detail: create file error'}
+   * @returns {Promise<json>} 
+   * 成功时：{code:0,message:success}
+   * 失败时：
+   *  {code:-1,message:'invalid srcPath or dstPath'}
+   *  {code:-2,message:'file ${dstPath} already exist'}
+   *  {code:-3,message:'file not found,xxx'}
+   *  {code:-4,message:'copy file error,xxx'}
+   *  {code:-5,message:'copy file error,detail: create file error'}
    * @example
    * 沙盒内复制
    * let copy_params={
@@ -1041,8 +1023,8 @@ class IFile {
     }).catch((res) => {
       alert(JSON.stringify(res));
     });
-    * 沙盒外复制
-    * let copy_params={
+   * 沙盒外复制
+   * let copy_params={
       srcPath:'test.pdf',
       dstPath:'test_copy.pdf',
       dstDir:'content://xxxxxxx'
@@ -1058,14 +1040,13 @@ class IFile {
    */
   @report
   copyFile(params) {
-     return Promise.resolve(null);
+    return local.copyFile(params);
   }
   /**
    * 获取当前磁盘的可用空间和总存储空间
    * since 10048
    * @returns {Promise<json>} 返回当前磁盘的可用空间和总存储空间：{code: 0 ,data: { totalSpace: 123456, freeSpace: 23456} }，
    * 其中totalSpace：总存储空间；freeSpace：剩余可用空间；单位都字节(byte)
-   *
    * @example
    * Host.file.getStorageInfo().then(res=>{
    *  alert(JSON.stringify(res))
@@ -1075,27 +1056,27 @@ class IFile {
    */
   @report
   getStorageInfo() {
-     return Promise.resolve(null);
+    return local.getStorageInfo();
   }
   /**
-     * 获取指定目录的占用空间 目录必须在插件沙盒或者是插件沙盒子目录
-     * 参数 folderName 为 '' 时获取插件沙盒目录
-     * 获取子目录需要传递相对路径，sdk会自动对目录做拼接
-     * since 10062
-     * @returns {Promise<json>} 返回目录必须在插件沙盒或者是插件沙盒子目录占用的存储空间：{code: 0 ,data: { size: 123456} }，
-     * 单位都字节(byte)
-     *
-     * @example
-     * // 参数 folderName 为 '' 时获取插件沙盒目录
-     * Host.file.readFolderSize('folder').then(res=>{
-     *  alert(JSON.stringify(res))
-     * }).catch(err=>{
-     *  alert(JSON.stringify(err));
-     * });
-     */
-     @report
+   * 获取指定目录的占用空间 目录必须在插件沙盒或者是插件沙盒子目录
+   * 参数 folderName 为 '' 时获取插件沙盒目录
+   * 获取子目录需要传递相对路径，sdk会自动对目录做拼接
+   * since 10062
+   * @returns {Promise<json>} 返回目录必须在插件沙盒或者是插件沙盒子目录占用的存储空间：{code: 0 ,data: { size: 123456} }，
+   *  单位都字节(byte)
+   *
+   * @example
+   * // 参数 folderName 为 '' 时获取插件沙盒目录
+   * Host.file.readFolderSize('folder').then(res=>{
+   *  alert(JSON.stringify(res))
+   * }).catch(err=>{
+   *  alert(JSON.stringify(err));
+   * });
+   */
+  @report
   readFolderSize(folderName) {
-     return Promise.resolve(null);
+    return local.readFolderSize(folderName);
   }
   /**
    * 裁剪图片
@@ -1109,9 +1090,9 @@ class IFile {
    * @param {Object} params.displaySize: 将裁切后的图像缩放到指定大小(Optional).  e.g :{width:200,height:200} type int
    */
   @report
-     cropImage(targetFileName, sourceFilename, params) {
-        return Promise.resolve(null);
-     }
+  cropImage(targetFileName, sourceFilename, params) {
+    return media.cropImage(targetFileName, sourceFilename, params);
+  }
   /**
    * 获取文件的信息
    * @since 10067
@@ -1123,7 +1104,7 @@ class IFile {
    */
   @report
   readFileInfo(fileName, type) {
-     return Promise.resolve(null);
+    return local.readFileInfo(fileName, type);
   }
 }
 const FileInstance = new IFile();

@@ -554,8 +554,8 @@ export default class FileStorage extends React.Component {
   _readSandbox() {
     Host.file.readFolderSize('').then((result) => {
       alert(JSON.stringify(result));
-    }).catch((e, result) => {
-      alert(JSON.stringify(result));
+    }).catch((err) => {
+      alert(JSON.stringify(err));
     });
   }
 
@@ -732,8 +732,7 @@ export default class FileStorage extends React.Component {
         complete([false, {}]);
       }
     }).catch((error) => {
-      console.log(error);
-      alert(JSON.stringify(error));
+      console.log('generate fail:', JSON.stringify(error));
       complete([false, error]);
     });
   }
@@ -793,10 +792,9 @@ export default class FileStorage extends React.Component {
     let path = "http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_zip_23831a541b583ea55ec212f69f3afc07.zip";
     // 建议将下载地址替换为自己可用的下载地址
     Host.file.downloadFile(path, "test.zip", { taskID: taskID }).then((fileInfo) => {
-      console.log("downloadFile...fileInfo", fileInfo);
+      alert(`downloadFile fileInfo:\r\n ${ JSON.stringify(fileInfo) }`);
     }).catch((error) => {
-      console.log("downloadFile...error", error);
-      alert(`downloadFile:  ${ JSON.stringify(error) }`);
+      alert(`downloadFile error: ${ JSON.stringify(error) }`);
     });
   }
 

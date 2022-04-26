@@ -23,6 +23,11 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
     if (isValidElement(key)) {
       return key;
     }
+    if (key instanceof Object && key.title) {
+      return (
+        <ListItem key={key.title} {...key } useNewType={true} />
+      );
+    }
     const option = innerOptions[key];
     if (!option) {
       return null;

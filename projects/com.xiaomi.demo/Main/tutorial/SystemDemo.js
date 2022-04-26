@@ -72,7 +72,6 @@ function getVibrateLong() {
   System.vibrate.vibrateLong();
 }
 
-
 // 截屏
 function onUserCaptureScreen() {
   alert(`onUserCaptureScreen,待实现`);
@@ -82,7 +81,8 @@ function onUserCaptureScreen() {
 function getLocation(accuracy) {
   System.location.getLocation(accuracy).then((location) => {
     alert(JSON.stringify(location));
-
+  }).catch((err) => {
+    alert(err);
   });
 }
 

@@ -12,8 +12,19 @@
 'use strict';
 
 import native from '../../../../miot-sdk/native';
-import { rgbToHex } from '../../../../miot-sdk/native/utils';
 import DarkModeX from '../../../../miot-sdk/darkmode/index';
+
+/**
+ * copy from base/utils 解耦合
+ * @param {*} r
+ * @param {*} g
+ * @param {*} b
+ * @example
+ * rgbToHex(255, 165, 1) -> 'ffa501'
+ */
+function rgbToHex(r, g, b) {
+  return ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
+}
 
 function shouldUseAutoDarkmode() {
   if (native.MIOTService.currentDarkMode == "dark" && !DarkModeX.darkModeStore.setDarkMode) {

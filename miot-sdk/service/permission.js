@@ -10,7 +10,6 @@
  * import {Service} from "miot"
  * Service.permission.isMethodAllowed(xxx,xxx)
  */
-import { report } from "../decorator/ReportDecorator";
 import native from "../native";
 import permissionLocal from "./permissionLocal.json";
 class IPermission {
@@ -18,7 +17,6 @@ class IPermission {
    * 拉取最新远程配置，默认会调用一次，优先使用远程配置
    * @returns {Promise<Object>}
    */
-  @report
   fetchRemoteConfig() {
     });
   }
@@ -28,14 +26,12 @@ class IPermission {
    * @param {string} model 需要判断的 model
    * @returns {boolean>} 允许或者不允许
    */
-  @report
   isMethodAllowed(method, model) {
-    let map = this.remoteConfig ?? this.localConfig;
-    let methodAllow = map.methodAllow ?? {};
+    let methodAllow = this.config.methodAllow ?? {};
     let models = methodAllow[method] ?? [];
     return models.length == 0
-    || models.includes(model)
-    || models.find((m) => { return model.startsWith(m); });
+      || models.includes(model)
+      || models.find((m) => { return model.startsWith(m); });
   }
 }
 const instance = new IPermission();

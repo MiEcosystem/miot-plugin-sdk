@@ -113,7 +113,31 @@
     ],
     "Host.local.getLocation": [
       "zhimi.airpurifier.ma2"
+    ],
+    "callSpecificAPI": [
+      "xiaomi.router",
+      "xiaomi.wifispeaker"
+    ],
+    "getServiceTokenWithSid": [
+      "xiaomi.router",
+      "xiaomi.wifispeaker"
+    ],
+    "getAlbums": [
+        "xiaomi.router",
+        "xiaomi.controller.v1",
+        "lumi.camera.gwagl01",
+        "lumi.camera.aq1"
     ]
   },
-  "methodBlock": {}
+  "methodBlock": {},
+  "hostTokenCfgMap": {
+    "api2.mina.mi.com": {
+      "sid": "i.ai.mi.com",
+      "cookieName": "serviceToken"
+    },
+    "api.miwifi.com": {
+      "sid": "xiaoqiang",
+      "cookieName": "serviceToken"
+    }
+  }
 }

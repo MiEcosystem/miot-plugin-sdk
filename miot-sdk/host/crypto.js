@@ -20,6 +20,7 @@
 import { processColor } from 'react-native';
 // import tr from "../resources/strings/tr";
 import { report } from "../decorator/ReportDecorator";
+import { native as nativeFile } from 'mhrn/file';
 /**
  * 椭圆曲线
  */

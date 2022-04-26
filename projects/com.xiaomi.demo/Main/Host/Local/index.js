@@ -10,7 +10,9 @@ export default class LocalServer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      locale: {}, server: {}, location: 'loading'
+      locale: {},
+      server: {},
+      location: 'loading'
     };
     Logger.trace(this);
   }
@@ -19,8 +21,11 @@ export default class LocalServer extends React.Component {
     Service.getServerName().then((server) => {
       this.setState({ server: server });
     });
+
     Host.locale.getLocation().then((locale) => {
       this.setState({ location: JSON.stringify(locale) });
+    }).catch((err) => {
+      this.setState({ location: JSON.stringify(err) });
     });
   }
 

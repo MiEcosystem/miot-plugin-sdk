@@ -8,6 +8,7 @@
  *
  */
 import { report } from "../decorator/ReportDecorator";
+import { local, network, native as nativeFile } from 'mhrn/file';
 /**
  * 云端配置管理
  * @interface
