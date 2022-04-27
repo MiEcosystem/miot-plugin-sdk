@@ -253,7 +253,7 @@ class IUi {
    */
   @report
   openDeviceInfoPage(params) {
-    Package.navigate('DeviceInfoPage', params);
+    Package.navigate('MiotDeviceInfoPage', params);
   }
   /**
    * 打开设备检查固件历史版本信息页面
