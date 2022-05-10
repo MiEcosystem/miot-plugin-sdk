@@ -1292,7 +1292,7 @@ class ISmartHome {
    @report
   requestAuthForAlexaVoiceService(params) {
     return new Promise((resolve, reject) => {
-      native.MIOTHost.requestAuthForAlexaVoiceService(params, (ok, result) => {
+      native.MIOTService.requestAuthForAlexaVoiceService(params, (ok, result) => {
         if (ok) {
           resolve(result);
         } else {
