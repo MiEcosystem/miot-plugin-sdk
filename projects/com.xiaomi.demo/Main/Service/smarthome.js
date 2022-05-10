@@ -112,6 +112,12 @@ export default class CallSmartHomeAPIDemo extends React.Component {
             name: "获取多键开关名称", handle: this.handleObjRes.bind(this), action: () => {
               return Service.smarthome.getMultiSwitchName(Device.deviceID);
             }
+          },
+          {
+            name: "设备授权alexa语音服务", handle: this.handleObjRes.bind(this), action: () => {
+              let params = { 'productId': 'L07G', 'productDsn': 'FFE31170B2C95E719CF6CF30' };
+              return Service.smarthome.requestAuthForAlexaVoiceService(params);
+            }
           }
         ]
       ]
