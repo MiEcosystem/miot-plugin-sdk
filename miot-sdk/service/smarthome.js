@@ -1266,6 +1266,33 @@ class ISmartHome {
        return Promise.resolve(null);
     }
      return Promise.resolve(null);
+  /**
+   * @since 10070
+   * 设备授权Alexa语音服务 对应文档：https://developer.amazon.com/en-US/docs/alexa/alexa-voice-service/authorize-companion-app.html
+   * @param {jsonObject} params 传递的jsonObject对象参数
+   * @example
+   * let params={
+   *  productId: xx
+   *  productDsn：xx
+   * }
+   * service.smarthome.requestAuthForAlexaVoiceService(params);
+   *  * @returns {object} 成功时，返回：
+   * { code: 0,
+   *    data: {
+   *     authCode: xx,
+   *     clientId: xx,
+   *     redirectUri: xx
+   *    }
+   * }
+   * 失败时，返回：
+   * { code: -1, message: 'User authorization failed due to an error: xx' }
+   * 取消时，返回：
+   * { code: -2, message: 'Authorization was cancelled prior to completion. To continue, you will need to try logging in again.' }
+   */
+   @report
+  requestAuthForAlexaVoiceService(params) {
+     return Promise.resolve(null);
+  }
 }
 const SmartHomeInstance = new ISmartHome();
 export default SmartHomeInstance;
