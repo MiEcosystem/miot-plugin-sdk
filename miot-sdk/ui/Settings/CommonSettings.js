@@ -190,9 +190,13 @@ const innerOptions = {
               useNewType={true}
               dialogStyle={{
                 allowFontScaling: true,
-                unlimitedHeightEnable: false,
+                unlimitedHeightEnable: true,
                 titleStyle: {
                   fontSize: 18
+                },
+                itemSubtitleNumberOfLines: 0,
+                itemSubtitleStyle: {
+                  marginRight: 10
                 }
               }}
               buttons={[{
