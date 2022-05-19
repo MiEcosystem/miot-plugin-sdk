@@ -667,10 +667,15 @@ class IMiotCamera {
      * @param {int} type 变声类型，目前米家只提供 0 == 正常  1 == 小丑  2 == 大叔这三种类型 10055 增加 3 == 青年
      * @param {int} channel 单双通道 1 单声道， 2 立体声   默认为1
      * @param {string} did
+     * @param {object} extra since 10069 创米猫眼参数设置 
      */
     @report
-    setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID) {
+    setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID, extra = {}) {
        return null
+        NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did,extra);
+        return;
+      }
+      NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did);
     }
     /**
      * 打开门铃的带屏设备联动页面
