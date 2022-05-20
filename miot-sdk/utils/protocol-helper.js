@@ -386,7 +386,7 @@ export default class ProtocolManager {
         }
       }
       let packageName = native.MIOTPackage.packageName;
-      (SpecPackageNames.includes(packageName) ? fetchPluginInfo() : Promise.resolve({
+      (specPluginNames.includes(packageName) ? fetchPluginInfo() : Promise.resolve({
         plugin_id,
         plugin_version
       })).then(({
