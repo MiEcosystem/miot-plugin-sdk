@@ -18,12 +18,10 @@
 import native, { isAndroid, isIOS } from "../native";
 import AutoOTAABTestHelper from 'miot/utils/autoota_abtest_helper';
 import ProtocolManager from '../utils/protocol-helper';
-// import { Entrance } from "../Package";
 import { report } from "../decorator/ReportDecorator";
 import { Device, Package, Service } from 'miot';
-// import { Entrance } from "../Package";
-// const resolveAssetSource = require('resolveAssetSource');
-// const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
+import { specPluginNames } from '../utils/special-plugins';
+import PrivacyUploadFdsHelper from '../utils/privacy_uploadfds_helper';
 /**
  * 原生UI管理
  * @interface
@@ -137,6 +135,25 @@ class IUi {
   openBtGatewayPage() {
   }
   /**
+   * 使用参数 params 打开蓝牙网关页
+   * 会和当前model的企业组进行匹配，只能打开同一企业组下的蓝牙网关页面
+   * 标准插件例外，标准插件可以打开任意企业组的蓝牙网关页面
+   *
+   * @returns {Promise}
+   * eg:
+   * Host.ui.openBtGatewayPageWithParams({did:xxxx}).then(()=>{}).catch((err)=>{console.log(err)});
+   * 可能的返回的信息
+   *  {"code":0, "message": "success"}}
+   *  {"code":-101, "message": "method unallowed on shared device"}}
+   *  {"code":-102, "message": "error input params: check did"}}
+   *  {"code":-201, "message": "account find no specific device with input parmas did"}}
+   *  {"code":-204, "message": "could only open ble gateway page belongs same company, compared with opened plugin model"}}
+   *  {"code":-301, "message": "account find no specific ble gateway device data with input params did"}}
+   */
+  @report
+  openBtGatewayPageWithParams(params) {
+  }
+  /**
    * 弹窗请求隐私政策和用户协议授权， 支持显示用户体验计划
    * @since 10023
    * @param {object} option 配置数据
@@ -234,7 +251,7 @@ class IUi {
    */
   @report
   openDeviceInfoPage(params) {
-    Package.navigate('DeviceInfoPage', params);
+    Package.navigate('MiotDeviceInfoPage', params);
   }
   /**
    * 打开设备检查固件历史版本信息页面
@@ -488,7 +505,7 @@ class IUi {
    * @since 10026
    * @param {string} did  设备的did
    * @param {string} pageName  将打开插件的某一页面, 此参数将会赋值给 Package.entrance, 默认为 Entrance.Main
-   * @param {object} pageParams  将打开插件的某一页面的参数，此参数将会赋值给 Package.entranceParams， 默认为空
+   * @param {object} pageParams  将打开插件的某一页面的参数，此参数将会赋值给 Package.pageParams
    * @param {boolean} [pageParams.isBackToMainPage = true] 打开的插件页面按返回，是否需要返回到插件首页
    * @param {boolean} [params.dismiss_current_plug] since 10040 。是否在推出新的插件页面时，关掉当前页面，返回app首页，默认false。iOS Only
    * @param {int}     [pageParams.open_plugin_source] since 10059, 可选参数，标识从哪里打开插件(不传默认为0)。可能的取值有：
@@ -640,6 +657,12 @@ class IUi {
   openResetAndConnectDevicePage() {
   }
   /**
+   *  打开配网页面，（仅限猫眼门锁使用）
+   *  @since 10068
+   */
+  openWifiConfigStepPage() {
+  }
+  /**
    *  打开语音授权页面
    *  @since 10041
    */
@@ -761,17 +784,6 @@ class IUi {
    */
   @report
   openGenerateCrontabStringPage(param = {}) {
-    // native begin
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.openGenerateCrontabStringPage(param, (ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      });
-    });
-    // native end
   }
   /**
     * @since 10056
@@ -779,5 +791,21 @@ class IUi {
     * @example
     * Host.ui.openFirmWareAutoOTAPage();
   */
-   @report
+  @report
   openFirmWareAutoOTAPage() {
+  }
+  /**
+   * 返回Android手机底部导航栏高度
+   * @since 10069
+   * 仅限Android使用
+  * @example
+   * Host.ui.getNavigationBarHeight()
+   *
+   * res : {"data":{"navigationBarHeight":130},"code":0}
+   */
+  @report
+  getNavigationBarHeight() {
+  }
+}
+const UiInstance = new IUi();
+export default UiInstance;

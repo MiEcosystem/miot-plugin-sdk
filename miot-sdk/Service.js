@@ -50,6 +50,7 @@ import Storage from './service/storage';
 import TJInfra from './service/tjinfra';
 import MiotCamera from './service/miotcamera';
 import Kookong from './service/kookong';
+import XiaoAi from './service/xiaoai';
 import { NativeModules, Platform } from 'react-native';
 import JSONbig from 'json-bigint';
 import Permission from './service/permission';
@@ -130,6 +131,9 @@ export default {
   },
   get permission() {
     return Permission;
+  },
+  get xiaoai() {
+    return XiaoAi;
   },
   /**
    * @method callSmartHomeAPI
