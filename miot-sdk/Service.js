@@ -36,7 +36,7 @@
  *
  */
 import Account from './service/Account';
-import native, { Properties, isAndroid } from './native';
+import native, { isAndroid, Properties } from './native';
 import apiRepo from './service/apiRepo';
 import omitApi from './service/omitApi';
 import cameraSubDomains from './service/cameraSubDomain';
@@ -51,11 +51,9 @@ import TJInfra from './service/tjinfra';
 import MiotCamera from './service/miotcamera';
 import Kookong from './service/kookong';
 import XiaoAi from './service/xiaoai';
-import { NativeModules, Platform } from 'react-native';
+import { NativeModules } from 'react-native';
 import JSONbig from 'json-bigint';
 import Permission from './service/permission';
-import { report } from "./decorator/ReportDecorator";
-import Device from "./device/BasicDevice";
  const CurrentAccount = null;
 export default {
   /**
@@ -195,16 +193,20 @@ export default {
    *    "ai": "https://api.ai.xiaomi.com",
    *    "aitrain": "https://i.ai.mi.com/mico",
    *    "grayupgrade": "https://api.miwifi.com/rs/grayupgrade/v2/micoiOS",
-   *    "homealbum": "https://display.api.mina.mi.com"
+   *    "homealbum": "https://display.api.mina.mi.com",
+   *    "pusher": "https://pusherapi-iotdcm.ai.xiaomi.com"
    * }
    * @param {string} path 请求的路径，比如"/device_profile/conversation"
    * @param {number} method 默认为0（表示get方法），1表示post方法，2表示put方法
    * @param {object} params 请求的参数，比如{limit:20}
    * @param {bool}   needDevice cookie中是否需要带上deviceId，默认为true
+   * @param {object} cookie 支持带上自定义的cookie
+   * @param {string} contentType put和post方法默认是以表单方式提交参数，即Content-Type为application/x-www-form-urlencoded，如果想以application/json的方式，请传入'json'
    * @return {Promise<object>} 透传接口，直接返回服务端返回的值
- path, method = 0, params, needDevice = 1
    */
-  callXiaoaiNetworkAPI({ host = 'normal', path, method = 0, params = {}, needDevice = 1, cookie = {} } = { 'host': 'normal', 'method': 0, 'needDevice': 1, params: {}, cookie: {} }) {
+  callXiaoaiNetworkAPI({ host = 'normal', path, method = 0, params = {}, needDevice = 1, cookie = {}, contentType = undefined } = {
+    host: 'normal', method: 0, needDevice: 1, params: {}, cookie: {}, contentType: undefined
+  }) {
      return Promise.resolve(null);
   },
   /**
