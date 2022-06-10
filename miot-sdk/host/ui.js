@@ -806,6 +806,15 @@ class IUi {
   @report
   getNavigationBarHeight() {
   }
+  /**
+   * 打开虚拟组设备的初始化页面，多用在getVirtualDeviceCombineStatus判断成组失败的情况下
+   * @param {Object}param
+   * param.groupDid{string},组设备的did
+   */
+  @report
+  openVirtualGroupInitPage(param) {
+    native.MIOTHost.openVirtualGroupInitPage(param);
+  }
 }
 const UiInstance = new IUi();
 export default UiInstance;

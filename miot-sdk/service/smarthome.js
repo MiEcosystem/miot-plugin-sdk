@@ -1212,6 +1212,8 @@ class ISmartHome {
     getVirtualGroupSubDevicesTags(group_did) {
        return Promise.resolve({});
        return end
+       return Promise.resolve({});
+       return end
        return Promise.resolve(null);
     }
     /**

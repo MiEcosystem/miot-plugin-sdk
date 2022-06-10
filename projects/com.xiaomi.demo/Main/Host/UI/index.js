@@ -662,6 +662,13 @@ export default class UIDemo extends React.Component {
         'func': () => {
           Host.ui.openFirmWareAutoOTAPage();
         }
+      },
+      {
+        'name': 'openVirtualGroupInitPage',
+        'subtitle': '打开组设备初始化页面',
+        'func': () => {
+          Host.ui.openVirtualGroupInitPage({ groupDid: Device.deviceID });
+        }
       }
     ];
   }
