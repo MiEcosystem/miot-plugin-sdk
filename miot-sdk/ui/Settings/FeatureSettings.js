@@ -9,42 +9,25 @@ import getItems, { getAllAndDefaultOptions, itemPropTypes } from './getItems';
 import useGatewayStatus, { State as GatewayStatus } from '../../hooks/useGatewayStatus';
 import useMultiKeySplitInfo from '../../hooks/useMultiKeySplitInfo';
 import { specPluginNames } from '../../utils/special-plugins';
-import useMemberSetInfo from '../../hooks/useMemberSetInfo';
-import ListItem from '../ListItem/ListItem';
 const innerOptions = {
   // 按键设置
   memberSet: {
     exportKey: 'MEMBER_SET',
-    isDefault: true,
+    isDefault: false,
     ownerOnly: true,
-    modelTypes: ['switch', 'control-panel', 'relay', 'controller'],
-    Component: () => {
-      const showMemberSet = useMemberSetInfo(); // bool值，决定是否显示 按键设置
-      const onPress = () => {
-        const { packageName } = Package;
-        const { deviceID, mac } = Device;
-        if (specPluginNames.includes(packageName)) {
-          Host.ui.openPowerMultikeyPage(deviceID, mac, {
-            useNewSetting: true,
-            done: []
-          });
-        } else {
-          Host.ui.openPowerMultikeyPage(deviceID, mac);
-        }
-      };
-      if (!showMemberSet) {
-        return null;
+    modelTypes: ['switch'],
+    title: I18n.memberSet,
+    onPress: () => {
+      const { packageName } = Package;
+      const { deviceID, mac } = Device;
+      if (specPluginNames.includes(packageName)) {
+        Host.ui.openPowerMultikeyPage(deviceID, mac, {
+          useNewSetting: true,
+          done: []
+        });
+      } else {
+        Host.ui.openPowerMultikeyPage(deviceID, mac);
       }
-      return (
-        <ListItem
-          key={'memberSet'}
-          title={I18n.memberSet}
-          value=""
-          onPress={onPress}
-          useNewType={true}
-          hideArrow={!onPress}
-        />
-      );
     }
   },
   // 多键拆分
