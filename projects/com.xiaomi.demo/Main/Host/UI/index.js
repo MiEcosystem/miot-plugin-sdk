@@ -34,11 +34,18 @@ export default class UIDemo extends React.Component {
   _createMenuData() {
     this._menuData = [
       {
+        'name': '打开配网步骤页面(仅限猫眼门锁使用)',
+        'subtitle': 'openWifiConfigStepPage',
+        'func': () => {
+          Host.ui.openWifiConfigStepPage();
+        }
+      },
+      {
         'name': '多键开关设置',
         'subtitle': 'openPowerMultikeyPage',
         'func': () => {
           // Host.ui.openWebPage('http://s.miwifi.com/dist/userhosts/index.html');
-          
+
           Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac, { useNewSetting: true });
         }
       },

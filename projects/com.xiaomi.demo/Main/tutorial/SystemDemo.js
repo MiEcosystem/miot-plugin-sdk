@@ -1,18 +1,16 @@
 import React from 'react';
 
+import { ScrollView, View } from 'react-native';
 import {
-  View, ScrollView
-} from 'react-native';
-import {
-  System,
-  MemoryWarningEvent,
   AccelerometerChangeEvent,
   CompassChangeEvent,
   GyroscopeChangeEvent,
-  VolumeChangeEvent,
-  Host
+  Host,
+  MemoryWarningEvent,
+  System,
+  VolumeChangeEvent
 } from "miot";
-import { Permissions } from "miot/system/permission";
+import { Permissions, SystemConfig } from "miot/system/permission";
 import { Separator } from 'mhui-rn';
 import { ListItem } from 'miot/ui/ListItem';
 import { ShakeEvent } from "miot/system/shake";
@@ -227,6 +225,18 @@ function getNfcInfo() {
   });
 }
 
+function checkNotificationConfigEnable() {
+  System.permission.checkAPPSystemConfigEnable(SystemConfig.NOTIFICATION)
+    .then((res) => {
+      alert(JSON.stringify(res));
+    }).catch((res) => {
+      alert(JSON.stringify(res));
+    });
+}
+
+function openNotificationSettingPage() {
+  System.permission.openAPPSystemConfigPage(SystemConfig.NOTIFICATION);
+}
 export default class SystemDemo extends React.Component {
   componentDidMount() {
     Logger.trace(this);
@@ -276,7 +286,10 @@ export default class SystemDemo extends React.Component {
               ["获取手机当前连接的路由器的ip地址", getGatewayIpAddress],
               ["获取当前wifi的广播地址", getWifiBroadcastAddress],
               [],
-              ["设备是否为Pad", isPad]
+              ["设备是否为Pad", isPad],
+              [],
+              ["检查是否为APP开启推送通知权限", checkNotificationConfigEnable],
+              ["打开开启推送通知权限设置页", openNotificationSettingPage]
             ].map((item, index) => {
               return (item.length >= 2 ? <ListItem
                 key={index}

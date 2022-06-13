@@ -6,6 +6,7 @@ import { MemberType } from "miot/service/smarthome";
 import React from 'react';
 import { Text, View, ScrollView } from 'react-native';
 import Logger from '../Logger';
+import { err } from "../../../../bin/local-cli/util/log";
 
 export default class CallSmartHomeAPIDemo extends React.Component {
   constructor(props) {
@@ -113,6 +114,54 @@ export default class CallSmartHomeAPIDemo extends React.Component {
               return Service.smarthome.getMultiSwitchName(Device.deviceID);
             }
           }
+          // {
+          //   name: "获取QQ音乐绑定信息", handle: this.handleObjRes.bind(this), action: () => {
+          //     let params = { 'clientId': '2882303761520157254', 'aiAppId': '813095776178667520', 'deviceId': '1wqfefdfqd45' };
+          //     return Service.xiaoai.fetchQQMusicBindInfo(params).then((res) => {
+          //       console.log(JSON.stringify(res));
+          //       alert(JSON.stringify(res));
+          //     }).catch((err) => {
+          //       console.log(JSON.stringify(err));
+          //       alert(JSON.stringify(err));
+          //     });
+          //   }
+          // },
+          // {
+          //   name: "登录QQ音乐", handle: this.handleObjRes.bind(this), action: () => {
+          //     let params = { 'clientId': '2882303761520157254', 'aiAppId': '813095776178667520', 'deviceId': '1wqfefdfqd45', 'packageName': 'com.xiaomi.fridge', 'title': '冰洗' };
+          //     return Service.xiaoai.loginQQMusic(params).then((res) => {
+          //       console.log(JSON.stringify(res));
+          //       alert(JSON.stringify(res));
+          //     }).catch((err) => {
+          //       console.log(JSON.stringify(err));
+          //       alert(JSON.stringify(err));
+          //     });
+          //   }
+          // },
+          // {
+          //   name: "QQ音乐解除绑定", handle: this.handleObjRes.bind(this), action: () => {
+          //     let params = { 'clientId': '2882303761520157254', 'aiAppId': '813095776178667520', 'deviceId': '1wqfefdfqd45' };
+          //     return Service.xiaoai.unbindQQMusicAccount(params).then((res) => {
+          //       console.log(JSON.stringify(res));
+          //       alert(JSON.stringify(res));
+          //     }).catch((err) => {
+          //       console.log(JSON.stringify(err));
+          //       alert(JSON.stringify(err));
+          //     });
+          //   }
+          // },
+          // {
+          //   name: "获取QQ音乐账号信息", handle: this.handleObjRes.bind(this), action: () => {
+          //     let params = { 'clientId': '2882303761520157254', 'aiAppId': '813095776178667520', 'deviceId': '1wqfefdfqd45' };
+          //     return Service.xiaoai.fetchQQMusicAccountInfo(params).then((res) => {
+          //       console.log(JSON.stringify(res));
+          //       alert(JSON.stringify(res));
+          //     }).catch((err) => {
+          //       console.log(JSON.stringify(err));
+          //       alert(JSON.stringify(err));
+          //     });
+          //   }
+          // }
         ]
       ]
     });

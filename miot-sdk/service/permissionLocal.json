@@ -4,6 +4,7 @@
       "lumi.sensor_motion.v2",
       "lumi.sensor_magnet.v2",
       "lumi.lock.aq1",
+      "lumi.lock.mcn002",
       "lumi.gateway.v3",
       "lumi.gateway.mitw01",
       "lumi.gateway.mihk01",
@@ -113,7 +114,20 @@
     ],
     "Host.local.getLocation": [
       "zhimi.airpurifier.ma2"
+    ],
+    "callSpecificAPI": [
+      "xiaomi.router",
+      "xiaomi.wifispeaker"
+    ],
+    "getServiceTokenWithSid": [
+      "xiaomi.router",
+      "xiaomi.wifispeaker"
+
     ]
   },
-  "methodBlock": {}
+  "methodBlock": {},
+  "hostTokenCfgMap": {
+    "api2.mina.mi.com": { "sid": "i.ai.mi.com", "cookieName": "serviceToken" },
+    "api.miwifi.com": { "sid": "xiaoqiang", "cookieName": "serviceToken" }
+  }
 }

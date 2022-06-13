@@ -12,7 +12,7 @@ import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
 import DynamicColor, { dynamicColor } from 'miot/ui/Style/DynamicColor';
 import { getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
-import {MessageDialog} from "../Dialog";
+import { MessageDialog } from "../Dialog";
 import I18n from '../../resources/Strings';
 /**
  * 分享设备的设置项
@@ -74,6 +74,7 @@ const excludeOptions = {
 };
 const { second_options } = SETTING_KEYS;
 const NETWORK_INFO = 'networkInfo'; // 「网络信息」设置项的 key
+let leaglInfoClicked = false; // 用于标记「法律信息」是否被重复点击过，防止进入「法律信息」页面之前被重复点击导致点击事件多次执行
 /**
  * @export
  * @author Geeook
@@ -165,6 +166,10 @@ export default class MoreSetting extends React.Component {
     this.moreSetting = this.getMoreSetting(this.state);
   }
   privacyAndProtocolReview() {
+    if (leaglInfoClicked) {
+      return;
+    }
+    leaglInfoClicked = true;
     let { licenseUrl, policyUrl, option } = this.extraOptions;
     // if (option === undefined) { // 兼容旧写法
     //   Host.ui.privacyAndProtocolReview('', licenseUrl, '', policyUrl);
@@ -175,11 +180,17 @@ export default class MoreSetting extends React.Component {
       option = { 'privacyURL': policyUrl || '', 'agreementURL': licenseUrl || '' };
     }
     Host.ui.previewLegalInformationAuthorization(option).then((ok) => {
-      if(!ok) {
-        this.setState({showPrivacyDialogState: true});
+      if (!ok) {
+        this.setState({ showPrivacyDialogState: true });
       }
+      setTimeout(() => { // setTimeout()会在“从「法律信息」页面返回”这个动作发生之后执行，防止重复点击导致连续进入「法律信息」页面的情况出现
+        leaglInfoClicked = false;
+      }, 50);
     }).catch((err) => {
-      this.setState({showPrivacyDialogState: true});
+      this.setState({ showPrivacyDialogState: true });
+      setTimeout(() => {
+        leaglInfoClicked = false;
+      }, 50);
     });
   }
   UNSAFE_componentWillMount() {
@@ -311,8 +322,8 @@ export default class MoreSetting extends React.Component {
       </View>
     );
   }
-  renderPrivacyDialog(){
-    return(
+  renderPrivacyDialog() {
+    return (
       <View>
         <MessageDialog
           visible = {this.state.showPrivacyDialogState}
