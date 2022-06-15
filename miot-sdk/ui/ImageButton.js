@@ -58,7 +58,7 @@ export default class ImageButton extends React.Component {
         onPressOut={ this._buttonPressOut.bind(this) }
         { ...getAccessibilityConfig({
           accessible: accessible,
-          accessibilityRole: accessibilityRole || AccessibilityRoles.imagebutton,
+          accessibilityRole: accessibilityRole || AccessibilityRoles.button,
           accessibilityLabel: accessibilityLabel,
           accessibilityHint: accessibilityHint,
           accessibilityState: {
