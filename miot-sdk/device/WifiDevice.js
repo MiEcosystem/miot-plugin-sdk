@@ -25,19 +25,27 @@
  *  **注意：callMethod，loadProperties等几个直接和设备打交道的方法，排查错误的流程一般为：抓包查看请求参数是否没问题，插件和固件端联调看看固件端是否有收到正确的参数并返回正确的值！**
  */
 import { DeviceEventEmitter } from "react-native";
-import native, { NativeTimer, PackageExitAction, Properties, MIOTEventEmitter, isIOS, isAndroid } from '../native';
+import native, { isAndroid, isIOS, MIOTEventEmitter, NativeTimer, PackageExitAction, Properties } from '../native';
 import uuid from 'uuid';
-import { BasicDevice, _find_device, PollPropMap } from './BasicDevice';
+import { _find_device, BasicDevice, PollPropMap } from './BasicDevice';
 import { report } from '../decorator/ReportDecorator';
 import Service from "../Service";
 // import { Device } from "..";
 const INTERVAL_SUBSCRIBE_MSG_SECONDS = (9 * 60 + 50);// 9'50"
 const INTERVAL_SUBSCRIBLE_MSG_ERROR = (5 * 1000); // 5秒
 const INTERVAL_POLL_MSG = 5 * 1000;// 5秒
+const SUBSCRIBE_MESSAGES_RETRY_TIMES_LIMIT = 2;
 const DEVICE_MESSAGE = 'deviceRecievedMessages';// 设备属性变化消息事件名与DeviceEvent.deviceReceivedMessages保持一致
 function isNumber(num) {
   let numReg = new RegExp("^[0-9]*$");
   return numReg.test(num);
+}
+let subscribeMessagesRetryTimes = 0;
+/**
+ * 退出插件时清空类变量
+ */
+export function resetClassVariables() {
+  subscribeMessagesRetryTimes = 0;
 }
 /**
  * 设备网络访问控制类
