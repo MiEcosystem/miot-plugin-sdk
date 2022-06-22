@@ -40,13 +40,6 @@ function isNumber(num) {
   let numReg = new RegExp("^[0-9]*$");
   return numReg.test(num);
 }
-let subscribeMessagesRetryTimes = 0;
-/**
- * 退出插件时清空类变量
- */
-export function resetClassVariables() {
-  subscribeMessagesRetryTimes = 0;
-}
 /**
  * 设备网络访问控制类
  * @interface
