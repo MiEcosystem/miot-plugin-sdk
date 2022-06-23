@@ -34,6 +34,7 @@ import Service from "../Service";
 const INTERVAL_SUBSCRIBE_MSG_SECONDS = (9 * 60 + 50);// 9'50"
 const INTERVAL_SUBSCRIBLE_MSG_ERROR = (5 * 1000); // 5秒
 const INTERVAL_POLL_MSG = 5 * 1000;// 5秒
+const SUBSCRIBE_MESSAGES_RETRY_TIMES_LIMIT = 2;
 const DEVICE_MESSAGE = 'deviceRecievedMessages';// 设备属性变化消息事件名与DeviceEvent.deviceReceivedMessages保持一致
 function isNumber(num) {
   let numReg = new RegExp("^[0-9]*$");
