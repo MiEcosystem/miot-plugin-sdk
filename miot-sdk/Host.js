@@ -433,4 +433,38 @@ export default {
   notifyMultikeyStateChanged(param = {}) {
   }
 };
+/**
+ * Host事件集合
+ * @namespace HostEvent
+ * @example
+ *    import { HostEvent } from 'miot/host';
+ *    const subscription = HostEvent.cellPhoneNetworkStateChanged.addListener(
+ *       (event)=>{
+ *          ...
+ *       }
+ *     )
+ *    ...
+ *    subscription.remove()
+ *    ...
+ *
+ */
+export const HostEvent = {
+  /**
+     * 手机网络状态变更事件
+     * @since 10031
+     * @event
+     * @param{object}  接收到的数据 {networkState: xxx}
+     *              networkState可取值如下：
+     *             -1 ：DefaultState
+     *              0 ：网络不可用
+     *              1 ：蜂窝网络 2G 3G 4G
+     *              2 ：WiFi网络
+     *
+     * @example
+     * 可查看HostEventDemo.js
+     *
+     */
+  cellPhoneNetworkStateChanged: {
+  }
+};
 buildEvents(HostEvent);

@@ -25,9 +25,9 @@
  *  **注意：callMethod，loadProperties等几个直接和设备打交道的方法，排查错误的流程一般为：抓包查看请求参数是否没问题，插件和固件端联调看看固件端是否有收到正确的参数并返回正确的值！**
  */
 import { DeviceEventEmitter } from "react-native";
-import native, { NativeTimer, PackageExitAction, Properties, MIOTEventEmitter, isIOS, isAndroid } from '../native';
+import native, { isAndroid, isIOS, MIOTEventEmitter, NativeTimer, PackageExitAction, Properties } from '../native';
 import uuid from 'uuid';
-import { BasicDevice, _find_device, PollPropMap } from './BasicDevice';
+import { _find_device, BasicDevice, PollPropMap } from './BasicDevice';
 import { report } from '../decorator/ReportDecorator';
 import Service from "../Service";
 // import { Device } from "..";

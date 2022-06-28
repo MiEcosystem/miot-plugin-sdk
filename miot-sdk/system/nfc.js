@@ -41,6 +41,25 @@ class INfc {
   getNfcInfo() {
      return Promise.resolve([]);
   }
+  /**
+   * 写入NFC数据
+   * @since 10071
+   * @param {jsonObject} params 传递的jsonObject对象参数
+   * @example
+   * let params={
+   *  extraString: xx   //写入的字符串内容
+   * }
+   * System.nfc.writeNFCData(params)
+   *  * @returns {object} 
+   * 成功时，返回：
+   * { code: 0, data: true }
+   * 失败时，返回：(根据两端的nfc接口透传错误信息)
+   * { code: xx, message: 'xx' }
+   */
+     @report
+  writeNFCData(params) {
+     return Promise.resolve(null);
+  }
 }
 const NfcInstance = new INfc();
 export default NfcInstance;
