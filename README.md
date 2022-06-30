@@ -84,7 +84,7 @@ iOS IPA 包下载二维码
 ![mihome](https://user-images.githubusercontent.com/6511522/159238473-fbf07ace-ef8d-442e-b299-7ffe6ea50f47.png)
 
 
-Android APK 包下载地址：http://d.firim.top/MiHomeForAndroid  
+Android APK 包下载地址：http://d.maps9.com/MiHomeForAndroid
 
 下载密码: keliyuan
 
