@@ -225,6 +225,17 @@ function getNfcInfo() {
   });
 }
 
+function writeNFCData() {
+  let params = {
+    extraString: 'nfc测试数据'
+  };
+  System.nfc.writeNFCData(params).then((res) => {
+    alert(JSON.stringify(res));
+  }).catch((err) => {
+    alert(JSON.stringify(err));
+  });
+}
+
 function checkNotificationConfigEnable() {
   System.permission.checkAPPSystemConfigEnable(SystemConfig.NOTIFICATION)
     .then((res) => {
@@ -250,7 +261,9 @@ export default class SystemDemo extends React.Component {
           {
             [
               ["获取电量", getBattery],
+              [],
               ["获取NFC状态", getNfcInfo],
+              ["写入NFC数据", writeNFCData],
               [],
               ["内存警告", addMemoryWarning],
               [],
