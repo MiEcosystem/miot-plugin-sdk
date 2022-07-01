@@ -14,6 +14,7 @@ import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } fr
 import { referenceReport } from '../../decorator/ReportDecorator';
 import DynamicColor from 'miot/ui/Style/DynamicColor';
 import { FontPrimary } from 'miot/utils/fonts';
+import { showMemberSet } from '../../hooks/useMemberSetInfo';
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
 let firmwareUpgradeDotClicked = false;
 let modelType = '';
@@ -535,7 +536,7 @@ export default class CommonSetting extends React.Component {
       [AllOptions.MEMBER_SET]: {
         title: strings.memberSet,
         onPress: () => {
-          if (Package.packageName === 'miot.plugin.spec') {
+          if (Package.packageName === pluginSpecPackagesName) {
             Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac, { useNewSetting: true, done: [] });
           } else {
             Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac);
@@ -718,7 +719,8 @@ export default class CommonSetting extends React.Component {
       pluginCategory: 0,
       hasStdPlugin: false,
       dialogVisible: false,
-      needShowUpgradeRedDot: false
+      needShowUpgradeRedDot: false,
+      showMemberSetKey: false // 是否展示「按键设置」
     };
     console.log(`Device.type: ${ Device.type }`);
     this.commonSetting = this.getCommonSetting(this.state);
@@ -908,6 +910,21 @@ export default class CommonSetting extends React.Component {
     }).catch((err) => {
       Service.smarthome.reportLog(Device.model, `Service.smarthome.device_support_split error: ${ err }`);
     });
+    showMemberSet().then((memberInfo) => {
+      let showMemberSetKey = false;
+      if (memberInfo) {
+        showMemberSetKey = true;
+      }
+      this.commonSetting = this.getCommonSetting({
+        ...this.state,
+        showMemberSetKey
+      });
+      this.setState({
+        showMemberSetKey
+      });
+    }).catch((err) => {
+      Service.smarthome.reportLog(Device.model, `Service.smarthome.multi_button_template error: ${ err }`);
+    });
     getPluginCategory()
       .then((res) => {
         this.commonSetting = this.getCommonSetting({
@@ -991,7 +1008,7 @@ export default class CommonSetting extends React.Component {
     });
   }
   render() {
-    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory } = this.state;
+    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory, showMemberSetKey } = this.state;
     let requireKeys1 = [
       AllOptions.FREQ_CAMERA,
       AllOptions.FREQ_DEVICE,
@@ -1024,6 +1041,11 @@ export default class CommonSetting extends React.Component {
     ];
     // 2. 去掉杂质
     let options = [...(this.props.firstOptions || []), ...(this.props.secondOptions || [])].filter((key) => key && Object.values(AllOptions).includes(key));
+    // 2.1 如果开发者传了 membeSet 字段，就使用开发者的，否则由sdk判断是否需要 memberSet 字段以及决定 memberSet的权重
+    if (!options.includes(AllOptions.MEMBER_SET) && showMemberSetKey) {
+      options.push(AllOptions.MEMBER_SET);
+      AllOptionsWeight[AllOptions.MEMBER_SET] = 7;
+    }
     // 3. 去除重复
     options = [...new Set(options)];
     // 4. 拼接必选项和可选项

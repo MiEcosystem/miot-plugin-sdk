@@ -260,6 +260,9 @@ class ISmartHome {
      * @param {string} params.did did
      * @param {string} params.data_type 数据类型 包括： 采样统计 日统计:stat_day_v3 / 周统计:stat_week_v3 / 月统计:stat_month_v3;
      * @param {string} params.key 需要统计的字段，即统计上报对应的key
+     * eg:
+     * 如果是profile协议设备，如电量:key = powerCost....
+     * 如果是spec设备，key = siid.piid
      * @param {number} params.time_start 开始时间
      * @param {number} params.time_end 结束时间
      * @param {number} params.limit 限制次数，0为默认条数
@@ -406,7 +409,6 @@ class ISmartHome {
      * @param {string} params.type 必选参数[prop/event], 如果是查询上报的属性则type为prop，查询上报的事件则type为event,
      * @param {number} params.time_start 数据起点，单位是秒。必选参数
      * @param {number} params.time_end 数据终点，单位是秒。必选参数，time_end必须大于time_start,
-     * @param {string} params.group 返回数据的方式，默认raw,可选值为hour、day、week、month。可选参数.
      * @param {string} params.limit 返回数据的条数，默认20，最大1000。可选参数.
      * @param {number} params.uid 要查询的用户id 。可选参数
      * @returns {Promise}
@@ -1210,6 +1212,8 @@ class ISmartHome {
     getVirtualGroupSubDevicesTags(group_did) {
        return Promise.resolve({});
        return end
+       return Promise.resolve({});
+       return end
        return Promise.resolve(null);
     }
     /**
@@ -1264,6 +1268,33 @@ class ISmartHome {
        return Promise.resolve(null);
     }
      return Promise.resolve(null);
+  /**
+   * @since 10070
+   * 设备授权Alexa语音服务 对应文档：https://developer.amazon.com/en-US/docs/alexa/alexa-voice-service/authorize-companion-app.html
+   * @param {jsonObject} params 传递的jsonObject对象参数
+   * @example
+   * let params={
+   *  productId: xx
+   *  productDsn：xx
+   * }
+   * service.smarthome.requestAuthForAlexaVoiceService(params);
+   *  * @returns {object} 成功时，返回：
+   * { code: 0,
+   *    data: {
+   *     authCode: xx,
+   *     clientId: xx,
+   *     redirectUri: xx
+   *    }
+   * }
+   * 失败时，返回：
+   * { code: -1, message: 'User authorization failed due to an error: xx' }
+   * 取消时，返回：
+   * { code: -2, message: 'Authorization was cancelled prior to completion. To continue, you will need to try logging in again.' }
+   */
+   @report
+  requestAuthForAlexaVoiceService(params) {
+     return Promise.resolve(null);
+  }
 }
 const SmartHomeInstance = new ISmartHome();
 export default SmartHomeInstance;
