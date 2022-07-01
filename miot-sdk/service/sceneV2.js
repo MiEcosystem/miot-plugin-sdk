@@ -7,6 +7,7 @@
  * @description 场景2.0相关服务
  */
 import { report } from "../decorator/ReportDecorator";
+import { Device, Service } from 'miot';
 /**
  * @export
  */
@@ -38,6 +39,30 @@ class IMiotSceneV2 {
       });
     });
   }
+  @report
+  loadSceneListByTags(tags = [], mode = 0, homeId, deviceId = Device.deviceID) {
+    return new Promise((resolve, reject) => {
+      (homeId ? Promise.resolve(homeId) : Device.getRoomInfoForCurrentHome().then((res) => {
+        if (res?.data?.homeId) {
+          return Promise.resolve(res.data.homeId);
+        }
+        return Promise.reject();
+      })).then((homeId) => {
+        native.MIOTRPC.standardCall('/appgateway/miot/appsceneservice/AppSceneService/GetSceneListByTags', {
+          home_id: homeId,
+          did: deviceId,
+          tags,
+          mode
+        }, (ok, res) => {
+          if (ok && res?.scene_info_list) {
+            resolve(res.scene_info_list);
+            return;
+          }
+          reject(res);
+        });
+      }).catch(reject);
+    });
+  }
   /**
    * since 10064
    * 获取场景2.0模板创建的场景列表，/app/appgateway/miot/appsceneservice/AppSceneService/GetTplSceneList
@@ -45,7 +70,7 @@ class IMiotSceneV2 {
    * @param {string} homeId 家庭id
    * @param {string} deviceId 设备id
    * @returns {Promise<array[object]>}
-   * @example 
+   * @example
    *  [{
         "template_id": "1343905190336802816",
       "scene_id": "1462743313128103936",
@@ -183,3 +208,109 @@ const MiotSceneInstanceV2 = new IMiotSceneV2();
  * @export
  */
 export default MiotSceneInstanceV2;
+export function createAction(payload, config) {
+  return {
+    group_id: 0,
+    id: 0,
+    type: 0,
+    name: '',
+    protocol_type: 2,
+    from: 5,
+    payload_json: {
+      command: 'set_properties',
+      delay_time: 0,
+      device_name: Device.name,
+      did: Device.deviceID,
+      model: Device.model,
+      value: '',
+      ...(payload || {})
+    },
+    ...(config || {})
+  };
+}
+export function createActions(actions = [], mode = 0) {
+  return {
+    mode,
+    actions: actions.filter((action) => !!action).map((action, index) => {
+      return {
+        order: index + 1,
+        ...action
+      };
+    })
+  };
+}
+export function createTrigger(trigger) {
+  return {
+    id: 0,
+    src: 'user',
+    key: 'user.click',
+    extra: '',
+    name: '',
+    value_type: 5,
+    extra_json: null,
+    value_json: null,
+    protocol_type: 2,
+    ...(trigger || {})
+  };
+}
+export function createTriggers(triggers = [], express = 0) {
+  return {
+    express,
+    triggers: triggers.filter((trigger) => !!trigger).map((trigger, index) => {
+      return {
+        order: index + 1,
+        ...trigger
+      };
+    })
+  };
+}
+export function createCondition(condition) {
+  return createTrigger(condition);
+}
+export function createConditions(conditions, express) {
+  return createTriggers(conditions, express);
+}
+export function createTimewindow(config) {
+  return {
+    from: '0 0 0 * * * *',
+    to: '0 0 0 * * * *',
+    filter: '',
+    extra: '',
+    ...(config || {})
+  };
+}
+export function saveScene(config, timewindow, condition, trigger, action) {
+  return Device.getRoomInfoForCurrentHome().then((res) => {
+    const { homeId } = res?.data || {};
+    if (!homeId) {
+      return Promise.reject({
+        msg: 'get homeId fail'
+      });
+    }
+    const scene = {
+      // scene_id 有，则为修改，否则为新建
+      // scene_id: undefined,
+      uid: Service.account.ID,
+      home_id: homeId,
+      scene_name: '',
+      template_id: '0',
+      edit_from: 1,
+      common_use: false,
+      enable: true,
+      enable_push: false,
+      // value_json: 1,
+      value_format: 1,
+      timewindow: timewindow || createTimewindow(),
+      scene_condition: condition || createConditions(),
+      scene_trigger: trigger || createTriggers([createTrigger()]),
+      scene_action: action || createActions(),
+      ...(config || {})
+    };
+    return MiotSceneInstanceV2.editScene(scene).then((res) => {
+      return {
+        ...scene,
+        ...(res || {})
+      };
+    });
+  });
+}
