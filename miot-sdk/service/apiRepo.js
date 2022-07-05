@@ -292,6 +292,6 @@ const API_REPO = {
   // 获取自动更新列表
   '/v2/device/auto_upgrade_list': {},
   // 获取预置音频
-  '/app/data/v2/preDataGetCommon': {}
+  '/common/app/data/v2/preDataGetCommon': {}
 };
 export default API_REPO;
