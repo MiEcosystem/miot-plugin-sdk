@@ -431,7 +431,30 @@ export default {
     * Host.notifyMultikeyStateChanged(param);
   */
   notifyMultikeyStateChanged(param = {}) {
+  },
+  /**
+   * @since 10072
+   * 设置Pad上的滑动策略（only Android）
+   * 这个api是为了解决某些插件使用的组件总是选择消耗滑动事件但是却又不做任何事，导致出现滑动无响应的问题
+   * @param params
+   * params.strategy {@link PAD_SCROLL_STRATEGY}
+   * AUTO：表示默认策略，SDK会根据用户滑动位置做出相应的响应。
+   * 当用户滑动的位置不会消耗滑动事件时，该事件会被SDK消耗掉。
+   * ALWAYS_SDK_DEAL：滑动事件总是交给SDK处理，插件将无法接受到任何滑动事件。
+   * ALWAYS_PLUGIN_DEAL：滑动事件全部交给插件处理。（Scroll组件剩余的滑动距离依旧可以被SDK消费掉，因为SDK支持滑动嵌套）
+   * 这个方法一经调用所有插件页面都会应用设置的策略，所以如果只是某个页面需要适配滑动策略的话，请记得在退出该页面时将滑动策略设置回进入页面时的样子
+   * @example
+   *  componentWillUnmount() {
+   *      Host.setPadScrollDealStrategy({ strategy: PAD_SCROLL_STRATEGY.AUTO });
+   *    }
+   *
+   * 效果可参考com.xiaomi.demo中的PadScrollDemo
+   */
+  setPadScrollDealStrategy(params) {
   }
+};
+export const PAD_SCROLL_STRATEGY = {
+  AUTO: 0, ALWAYS_SDK_DEAL: 1, ALWAYS_PLUGIN_DEAL: 2
 };
 /**
  * Host事件集合

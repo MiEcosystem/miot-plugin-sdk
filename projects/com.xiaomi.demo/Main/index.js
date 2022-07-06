@@ -114,6 +114,7 @@ import HostDemo from "./Host";
 import HostEventDemo from "./Host/HostEventDemo";
 import FileDemo from "./Host/FileDemo";
 import PhotoDemo from "./Host/PhotoDemo";
+import PadScrollDemo from "./Host/PadScrollDemo";
 import HostPropsInfoDemo from "./Host/HostPropsInfoDemo";
 import LocaleServer from "./Host/Local";
 import JSExecutor from "./Host/JSExecutor";
@@ -238,6 +239,7 @@ function createRootStack(initPage) {
       FirmwareUpgradeRecord,
       HostDemo,
       HostEventDemo,
+      PadScrollDemo,
       Home: MainPage,
       accountDemo: AccountDemo,
       DeviceControl,
