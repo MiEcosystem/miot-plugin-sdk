@@ -74,6 +74,7 @@
    */
   fetchQQMusicAccountInfo(params = {}) {
      return Promise.resolve(null);
+  }
 }
 const IXiaoaiInstance = new IXiaoai();
 export default IXiaoaiInstance;
