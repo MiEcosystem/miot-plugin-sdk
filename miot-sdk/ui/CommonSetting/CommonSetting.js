@@ -535,7 +535,7 @@ export default class CommonSetting extends React.Component {
       [AllOptions.MEMBER_SET]: {
         title: strings.memberSet,
         onPress: () => {
-          if (Package.packageName === 'miot.plugin.spec') {
+          if (Package.packageName === pluginSpecPackagesName) {
             Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac, { useNewSetting: true, done: [] });
           } else {
             Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac);
