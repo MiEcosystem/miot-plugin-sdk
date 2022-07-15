@@ -470,6 +470,7 @@ class IUi {
   * @param {object} extra 额外配置，会传入打开的插件页，也有部分特殊功能定义字段如下：
   * @param {boolean} [extra.create_device = true] 米家首页列表是否展示虚拟遥控器设备。默认true。暂时只有android支持
   * @param {boolean} [extra.dismiss_current_plug = true] since 10020 。在推出新的插件页面时，关掉当前页面，返回app首页。iOS Only
+  * @param {boolean} [extra.open_room_select] 红外遥控添加完成是否跳转到选择房间页面，默认值 false
   */
   @report
   addOrCopyIR(did, type = 0, models = [], extra = { create_device: true }) {
