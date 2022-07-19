@@ -104,6 +104,20 @@ function getMultipleKey() {
     });
   });
 }
+function getSwitchMembers() {
+  return new Promise((resolve, reject) => {
+    Service.callSmartHomeAPI('/v2/device/multi_button_template', { model: Device.model }).then((res) => {
+      if (!res || !res.members) {
+        reject();
+      } else {
+        resolve(res.members);
+      }
+    }).catch((err) => {
+      Service.smarthome.reportLog(Device.model, `Service.smarthome.multi_button_template error: ${ JSON.stringify(err) }`);
+      reject(err);
+    });
+  });
+}
 let roomInfo = null;
 function getRoomeInfo() {
   return new Promise((resolve, reject) => {
@@ -715,6 +729,7 @@ export default class CommonSetting extends React.Component {
       showMultipleKey: false, // 是否展示多键开关
       multipleKeyisOn: false, // 多键开关状态
       keyNum: 0, // 多键开关数量
+      members: [],
       pluginCategory: 0,
       hasStdPlugin: false,
       dialogVisible: false,
@@ -908,6 +923,13 @@ export default class CommonSetting extends React.Component {
     }).catch((err) => {
       Service.smarthome.reportLog(Device.model, `Service.smarthome.device_support_split error: ${ err }`);
     });
+    getSwitchMembers().then((members) => {
+      this.setState({
+        members: members
+      });
+    }).catch((err) => {
+      Service.smarthome.reportLog(Device.model, `Service.smarthome.multi_button_template error: ${ err }`);
+    });
     getPluginCategory()
       .then((res) => {
         this.commonSetting = this.getCommonSetting({
@@ -998,8 +1020,9 @@ export default class CommonSetting extends React.Component {
       AllOptions.NAME,
       AllOptions.LOCATION
     ];
-    // 单键开关(非多键开关即为单键开关) 去掉设备名称,位置管理设置项 添加按键设置 add by lipeng (MIIO-60790)
-    if (['switch'].indexOf(modelType) !== -1 && !showMultipleKey) {
+    // 单键开关去掉设备名称,位置管理设置项 添加按键设置 add by lipeng (MIIO-60790)
+    const isSingleSwitch = this.state.members && this.state.members.length <= 1;
+    if (isSingleSwitch) {
       requireKeys1.pop(AllOptions.NAME);
       requireKeys1.pop(AllOptions.LOCATION);
       requireKeys1.push(AllOptions.MEMBER_SET);
