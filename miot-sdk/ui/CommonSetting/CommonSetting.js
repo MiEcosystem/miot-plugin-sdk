@@ -998,16 +998,11 @@ export default class CommonSetting extends React.Component {
       AllOptions.NAME,
       AllOptions.LOCATION
     ];
-    
-    if (Device.model != "" && Device.model != null && Device.model != undefined) {
-      let switchType = Device.model.charAt(Device.model.length - 1);
-      // 单键开关 去掉设备名称,位置管理设置项 添加按键设置 add bylipeng (MIIO-60790)
-      let isSingleKeySwitch = switchType == 1 && Device.isOwner;
-      if (['switch'].indexOf(modelType) !== -1 && isSingleKeySwitch) {
-        requireKeys1.pop(AllOptions.NAME);
-        requireKeys1.pop(AllOptions.LOCATION);
-        requireKeys1.push(AllOptions.MEMBER_SET);
-      }
+    // 单键开关(非多键开关即为单键开关) 去掉设备名称,位置管理设置项 添加按键设置 add by lipeng (MIIO-60790)
+    if (['switch'].indexOf(modelType) !== -1 && !showMultipleKey) {
+      requireKeys1.pop(AllOptions.NAME);
+      requireKeys1.pop(AllOptions.LOCATION);
+      requireKeys1.push(AllOptions.MEMBER_SET);
     }
     if (productBaikeUrl) {
       requireKeys1.push(AllOptions.PRODUCT_BAIKE);
