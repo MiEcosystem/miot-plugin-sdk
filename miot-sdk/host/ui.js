@@ -811,6 +811,7 @@ class IUi {
    * 打开虚拟组设备的初始化页面，多用在getVirtualDeviceCombineStatus判断成组失败的情况下
    * @param {Object}param
    * param.groupDid{string},组设备的did
+   * param.includeCurtainDevice{boolean}，Android only，页面默认是为灯组设计的，需要兼容窗帘组的时候请传入这个参数
    */
   @report
   openVirtualGroupInitPage(param) {

@@ -1164,7 +1164,8 @@ export default class CommonSetting extends React.Component {
               unlimitedHeightEnable: false,
               titleStyle: {
                 fontSize: 18
-              }
+              },
+              itemSubtitleNumberOfLines: 5
             }}
             buttons={[
               {
