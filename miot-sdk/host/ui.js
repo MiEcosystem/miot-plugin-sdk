@@ -815,7 +815,6 @@ class IUi {
    */
   @report
   openVirtualGroupInitPage(param) {
-    native.MIOTHost.openVirtualGroupInitPage(param);
   }
 }
 const UiInstance = new IUi();
