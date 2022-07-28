@@ -414,10 +414,18 @@ export default {
    * 判断是否可以跳到其他App
    * @since 10039
    * @returns {Promise<bool>}
-   * @param {string} scheme 跳转其他App时使用的scheme
+   * @param {string/Object} param
+   * 10074扩展了此API，参数param接受两种类型，string或Object
+   * 若为string，那么param就是scheme，用法和原来不变
+   * 若为object，其格式为:{
+   *   android:'xxxxxxx', //packageName
+   *   ios:'xxxxxx' //scheme
+   * }
+   * 这是为了解决在Android上某些APP的scheme与其他app支持的scheme格式相同的从而导致这个方法返回了true，而实际上目标APP却不存在的问题
+   * 所以在Android上改为使用应用包名的方式判断APP是否存在，Object中android Key传的是packageName，而iOS依旧传scheme即可
    * @result {"code":0, "data":true/false}
    */
-  checkAbilityOfJumpToThirdpartyApplication(scheme) {
+  checkAbilityOfJumpToThirdpartyApplication(param) {
      return Promise.resolve(null);
   },
   /**
