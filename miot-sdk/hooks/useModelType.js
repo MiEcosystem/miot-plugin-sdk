@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Device, Service } from 'miot';
 const modelTypes = {};
 export function getModelType(did, model) {
+  did = did || Device.deviceID;
+  model = model || Device.model;
   if (modelTypes[model]) {
     return Promise.resolve(modelTypes[model]);
   }
