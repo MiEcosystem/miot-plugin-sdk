@@ -100,6 +100,12 @@ export default class HostDemo extends React.Component {
         }
       },
       {
+        "name": 'RockerView',
+        'func': () => {
+          this.props.navigation.navigate('RockerViewDemo', { title: 'RockerViewDemo' });
+        }
+      },
+      {
         "name": '创建独立js线程',
         'func': () => {
           this.props.navigation.navigate('JSExecutor', { title: "创建独立js线程" });

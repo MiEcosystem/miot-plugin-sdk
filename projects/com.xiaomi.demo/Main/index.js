@@ -115,6 +115,7 @@ import HostEventDemo from "./Host/HostEventDemo";
 import FileDemo from "./Host/FileDemo";
 import PhotoDemo from "./Host/PhotoDemo";
 import PadScrollDemo from "./Host/PadScrollDemo";
+import RockerViewDemo from "./Host/RockerViewDemo";
 import HostPropsInfoDemo from "./Host/HostPropsInfoDemo";
 import LocaleServer from "./Host/Local";
 import JSExecutor from "./Host/JSExecutor";
@@ -240,6 +241,7 @@ function createRootStack(initPage) {
       HostDemo,
       HostEventDemo,
       PadScrollDemo,
+      RockerViewDemo: RockerViewDemo,
       Home: MainPage,
       accountDemo: AccountDemo,
       DeviceControl,
