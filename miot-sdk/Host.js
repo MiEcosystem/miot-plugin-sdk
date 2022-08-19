@@ -52,11 +52,13 @@ import HostCrypto from './host/crypto';
 import HostFile from './host/file';
 import HostLocale from './host/locale';
 import HostStorage from './host/storage';
+import HostMiTvInstance from './host/mitv';
 // import HostUI from './host/ui';
  const IOS="ios", ANDROID="android";
 import { Buffer } from "buffer";
 import merge from "merge";
 import { Platform } from 'react-native';
+import Storage from "./service/storage";
 const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 export const HOST_TYPE_IOS = IOS;
 export const HOST_TYPE_ANDROID = ANDROID;
@@ -237,6 +239,12 @@ export default {
      */
   get crypto() {
     return HostCrypto;
+  },
+  /**
+   * 获取小米电视模块
+   * */
+  get MiTv() {
+    return HostMiTvInstance;
   },
   /**
      * 获取手机wifi信息;
