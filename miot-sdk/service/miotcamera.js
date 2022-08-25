@@ -320,9 +320,10 @@ class IMiotCamera {
      * @param {useV2API} 是否使用 V2 接口
      * @param {did} 默認參數 did
      * @param {cloudStoragePurchaseUrl} @since 10051 默認爲空，兼容以前的邏輯，不是vip就打開攝像頭的雲存購買連接；如果是低功耗設備，需要自己填入雲存購買連接。
+     * @param {directGoPurchasePage} @since 10069, 默认为false，兼容以前的逻辑，由原生判断vip状态，显示云存列表或者购买页面。如果设置为 true，则直接显示购买页面。
      */
-    @report
-    showCloudStorage(supportHevc, useV2API, did = Device.deviceID, cloudStoragePurchaseUrl = "") {
+     @report
+    showCloudStorage(supportHevc, useV2API, did = Device.deviceID, cloudStoragePurchaseUrl = "", directGoPurchasePage = false) {
        return null
     }
     /**
@@ -332,9 +333,9 @@ class IMiotCamera {
      * @param {aSettingUrl} @since 10053  自定义设置地址。默认为空，兼容以前的逻辑。
      */
     @report
-    showCloudStorageSetting(did = Device.deviceID, aSettingUrl = null) {
-       return null
-    }
+     showCloudStorageSetting(did = Device.deviceID, aSettingUrl = null) {
+        return null
+     }
     /**
      * 打开报警视频播放页面
      * @since 10037
@@ -666,10 +667,15 @@ class IMiotCamera {
      * @param {int} type 变声类型，目前米家只提供 0 == 正常  1 == 小丑  2 == 大叔这三种类型 10055 增加 3 == 青年
      * @param {int} channel 单双通道 1 单声道， 2 立体声   默认为1
      * @param {string} did
+     * @param {object} extra since 10069 创米猫眼参数设置 
      */
     @report
-    setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID) {
+    setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID, extra = {}) {
        return null
+        NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did,extra);
+        return;
+      }
+      NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did);
     }
     /**
      * 打开门铃的带屏设备联动页面
