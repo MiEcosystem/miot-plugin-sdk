@@ -909,14 +909,52 @@ class IMiotCamera {
     @report
     uploadImageToCameraServer(imagePath, did = Device.deviceID) {
        return Promise.resolve(null);
-       return end
+    }
+    /**
+     * @since 10063
+     * @param  params {输入音频文件地址:inputFilePath}, {输入音频文件格式 inputFormat}, 
+     * {输出音频文件地址 outputFilePath}, {输出音频文件格式 outputFormat}
+     * 
+     * notice: 10063只实现了pcm到g711a的转换， 所以inputFormat传pcm, outputFormat传g711a
+     */
+    @report
+    audioCodec(params) {
        return Promise.resolve(null);
-       return end
+    }
+     /**
+     * @since 10065
+     * params{filePath, transformation(AES/ECB/PKCS5Padding), password}
+    */
+     @report
+    decryptFile(params) {
+       return Promise.resolve(null);
+    }
+    /**
+     * @since 10065
+     * params{filePath, transformation(AES/ECB/PKCS5Padding), password}
+     */
+    @report
+     encryptFile(params) {
         return Promise.resolve(null);
-        return end
-        return Promise.resolve(null);
-        return end
+     }
+    /**
+     * 
+     * @param {Device.deviceID} did 
+     * @returns result是tutkSessionRead base64编码后的结构体
+     */
+    @report
+    tutkSessionRead(did = Device.deviceID) {
        return Promise.resolve(null);
-       return end
+    }
+    /**
+     * 客户端手动发送，只有创米的一款设备如此，需要循环发送保持心跳才能让对讲成功
+     * @param {String} ioCtrlBuff 插件拼接的数据 base64后的
+     * @param {Device.deviceID} did 
+     * @returns result是tutkSessionWrite的返回值
+     */
+    tutkSessionWrite(ioCtrlBuffInBase64, did = Device.deviceID) {
        return Promise.resolve(null);
-       return Promise.resolve(null);
+    }
+}
+const MiotCameraInstance = new IMiotCamera();
+export default MiotCameraInstance;
