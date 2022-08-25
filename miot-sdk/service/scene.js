@@ -510,8 +510,8 @@ class IMiotScene {
      *
      */
     @report
-    openCountDownPage(isCountDownOn, setting) {
-    }
+     openCountDownPage(isCountDownOn, setting) {
+     }
        return Promise.resolve('');
     }
     /**
