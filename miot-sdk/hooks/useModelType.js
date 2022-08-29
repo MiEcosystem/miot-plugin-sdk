@@ -12,7 +12,7 @@ export function getModelType(did, model) {
     if (!parsedInstance || !parsedInstance.type) {
       return Promise.reject();
     }
-    const modelType = instance.type.split(':')[3];
+    const modelType = parsedInstance.type.split(':')[3];
     modelTypes[model] = modelType;
     return modelType || '';
   }).catch(() => {
