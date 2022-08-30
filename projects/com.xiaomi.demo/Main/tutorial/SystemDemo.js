@@ -4,6 +4,7 @@ import { ScrollView, View } from 'react-native';
 import {
   AccelerometerChangeEvent,
   CompassChangeEvent,
+  Device,
   GyroscopeChangeEvent,
   Host,
   MemoryWarningEvent,
@@ -21,6 +22,59 @@ export const interval = {
   "b": "ui",
   "c": "normal"
 };
+
+// 蓝牙
+
+function _bluetoothStartstartAdvertising(mac) {
+  let macs = mac.split(':');
+  if (macs.length != 6) {
+    return;
+  }
+
+  let u1 = ['00', ...macs, '01', '00', 'ff', '03', '05', '01', '02', '01', '00'];
+  let u2 = ['00', ...(macs.reverse()), '01', '00', 'ff', '03', '05', '01', '02', '01', '00'];
+  let u3 = [...u1].reverse();
+  let u4 = [...u2].reverse();
+
+  [u2, u1, u3, u4].forEach((u) => {
+    [4, 7, 10, 13].forEach((index) => {
+      u.splice(index, 0, '-');
+    });
+  });
+
+  let uuids = [u1, u2, u3, u4].map((u) => u.join(''));
+  uuids.push("11111111-2222-3333-4444-123456789abc");
+
+  console.log(mac, JSON.stringify(uuids, null, '\t'));
+  System.bluetooth.startAdvertising(
+    {
+      serviceUUIDs: uuids,
+      localName: "hhhhhhhh",
+      timeout: 10, // 时间长度，到时自动关闭
+      services: uuids.map((uuid, index) => {
+        return {
+          uuid,
+          primary: index == 0,
+          characteristics: uuids.map((uuid) => {
+            return { uuid };
+          })
+        };
+      })
+    });
+}
+
+function bluetoothStartstartAdvertising() {
+  Device.getDeviceBleMac().then((res) => {
+    console.log(res);
+    let mac = res?.result?.data?.ble_mac;
+    if (!mac) {
+      console.log('无法获取有效蓝牙mac');
+      return;
+    }
+    _bluetoothStartstartAdvertising(mac);
+  }).catch((err) => { console.log('广播失败', err); });
+}
+
 
 // 电量
 function getBattery() {
@@ -248,6 +302,7 @@ function checkNotificationConfigEnable() {
 function openNotificationSettingPage() {
   System.permission.openAPPSystemConfigPage(SystemConfig.NOTIFICATION);
 }
+
 export default class SystemDemo extends React.Component {
   componentDidMount() {
     Logger.trace(this);
@@ -260,6 +315,8 @@ export default class SystemDemo extends React.Component {
         <ScrollView showsVerticalScrollIndicator={false}>
           {
             [
+              ["开启蓝牙广播", bluetoothStartstartAdvertising],
+              [],
               ["获取电量", getBattery],
               [],
               ["获取NFC状态", getNfcInfo],
