@@ -672,7 +672,7 @@ class IMiotCamera {
     @report
     setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID, extra = {}) {
        return null
-        NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did,extra);
+        NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did, extra);
         return;
       }
       NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did);
@@ -909,30 +909,51 @@ class IMiotCamera {
     @report
     uploadImageToCameraServer(imagePath, did = Device.deviceID) {
        return Promise.resolve(null);
-       return end
+    }
+    /**
+     * @since 10063
+     * @param  params {输入音频文件地址:inputFilePath}, {输入音频文件格式 inputFormat}, 
+     * {输出音频文件地址 outputFilePath}, {输出音频文件格式 outputFormat}
+     * 
+     * notice: 10063只实现了pcm到g711a的转换， 所以inputFormat传pcm, outputFormat传g711a
+     */
+    @report
+    audioCodec(params) {
        return Promise.resolve(null);
-       return end
-       return Promise.resolve(null);
-       return end
-       return Promise.resolve(null);
-       return end
+    }
+     /**
+     * @since 10065
+     * params{filePath, transformation(AES/ECB/PKCS5Padding), password}
+    */
+     @report
+    decryptFile(params) {
        return Promise.resolve(null);
     }
     /**
-   * 下载m3u8视频并合成mp4，支持合成mp4时统一分辨率，避免视频花屏
-   * @since 10066
-   * @param fileId 视频文件的fileId
-   * @param url 视频文件交给播放器播放的url （使用getVideoFileUrlV2换过来的视频地址）
-   * @param filePath 下载视频完成后 视频的存储路径，要求必须以Host.storageBasePath开始
-   * @param callbackName 下载进度回调
-   * @param did did
-   * @returns
-   *    state : 1. onStart (开始下载)  2. onComplete（下载完成）  3. onError（失败）  4. onProgress（下载进度）
-   *    errorInfo : 失败描述（state = onError时才有）
-   *    progress : 下载进度0 - 100 (state = onProgress时才有)
-   */
-     @report
-    downloadM3U8ToMP4ByUrl(fileId, url, filePath, callbackName, did = Device.deviceID) {
+     * @since 10065
+     * params{filePath, transformation(AES/ECB/PKCS5Padding), password}
+     */
+    @report
+     encryptFile(params) {
+        return Promise.resolve(null);
+     }
+    /**
+     * 
+     * @param {Device.deviceID} did 
+     * @returns result是tutkSessionRead base64编码后的结构体
+     */
+    @report
+    tutkSessionRead(did = Device.deviceID) {
+       return Promise.resolve(null);
+    }
+    /**
+     * 客户端手动发送，只有创米的一款设备如此，需要循环发送保持心跳才能让对讲成功
+     * @param {String} ioCtrlBuff 插件拼接的数据 base64后的
+     * @param {Device.deviceID} did 
+     * @returns result是tutkSessionWrite的返回值
+     */
+    tutkSessionWrite(ioCtrlBuffInBase64, did = Device.deviceID) {
+       return Promise.resolve(null);
     }
 }
 const MiotCameraInstance = new IMiotCamera();
