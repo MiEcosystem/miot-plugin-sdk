@@ -8,7 +8,6 @@ import ConfiguredItems from './ConfiguredItems';
 import getItems, { getAllAndDefaultOptions, itemPropTypes } from './getItems';
 import useGatewayStatus, { State as GatewayStatus } from '../../hooks/useGatewayStatus';
 import useMultiKeySplitInfo from '../../hooks/useMultiKeySplitInfo';
-import { specPluginNames } from '../../utils/special-plugins';
 import useMemberSetInfo from '../../hooks/useMemberSetInfo';
 import ListItem from '../ListItem/ListItem';
 const innerOptions = {
@@ -19,20 +18,13 @@ const innerOptions = {
     ownerOnly: true,
     modelTypes: ['switch', 'control-panel', 'relay', 'controller'],
     Component: () => {
-      const showMemberSet = useMemberSetInfo().showMemberSetKey; // bool值，决定是否显示 按键设置
+      // bool值，决定是否显示 按键设置, 10074单键开关也需要展示按键设置
+      const { showMemberSetKey, isSingleSwitch } = useMemberSetInfo(); 
       const onPress = () => {
-        const { packageName } = Package;
         const { deviceID, mac } = Device;
-        Host.ui.openPowerMultikeyPage(deviceID, mac, specPluginNames.includes(packageName) ?
-          {
-            useNewSetting: true,
-            done: []
-          } : undefined);
+        Host.ui.openPowerMultikeyPage(deviceID, mac);
       };
-      if (!showMemberSet) {
-        return null;
-      }
-      return (
+      return (showMemberSetKey || isSingleSwitch) ? (
         <ListItem
           key={'memberSet'}
           title={I18n.memberSet}
@@ -41,7 +33,7 @@ const innerOptions = {
           useNewType={true}
           hideArrow={false}
         />
-      );
+      ) : null;
     }
   },
   // 多键拆分
