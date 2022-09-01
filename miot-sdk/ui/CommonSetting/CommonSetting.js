@@ -14,6 +14,8 @@ import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } fr
 import { referenceReport } from '../../decorator/ReportDecorator';
 import DynamicColor from 'miot/ui/Style/DynamicColor';
 import { FontPrimary } from 'miot/utils/fonts';
+import { showMemberSet } from '../../hooks/useMemberSetInfo';
+import { showDeviceService } from '../../hooks/useDeviceService';
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
 let firmwareUpgradeDotClicked = false;
 let modelType = '';
@@ -151,7 +153,7 @@ function getPluginCategory() {
 }
 const firstOptionsInner = {
   /**
-   * 按键设置，多键开关`必选`，其余设备`必不选`
+   * 按键设置，多键开关`必选`，其余设备`必不选`，10074以后此设置的显示与否由SDK控制，开发者不必关心
    */
   MEMBER_SET: 'memberSet',
   /**
@@ -191,9 +193,13 @@ const firstOptionsInner = {
    */
   STAND_PLUGIN: 'standPlugin',
   /**
-   * 多键开关
+   * 多键开关拆分
    */
-  MULTIPLEKEY_SWITCH: 'MultipleKeySwitch'
+  MULTIPLEKEY_SWITCH: 'MultipleKeySwitch',
+  /**
+   * 设备服务
+   */
+  DEVICE_SERVICE: 'deviceService'
 };
 const firstAllOptionsInner = {
   ...firstOptionsInner,
@@ -316,7 +322,9 @@ const firstSharedOptions = {
   [AllOptions.STAND_PLUGIN]: 1,
   [AllOptions.FREQ_CAMERA]: 1,
   [AllOptions.FREQ_DEVICE]: 1,
-  [AllOptions.DEFAULT_PLUGIN]: 1
+  [AllOptions.DEFAULT_PLUGIN]: 1,
+  [AllOptions.MULTIPLEKEY_SWITCH]: 0,
+  [AllOptions.DEVICE_SERVICE]: 0
 };
 /**
  * 20190708 / SDK_10023
@@ -328,6 +336,7 @@ export const AllOptionsWeight = {
   [AllOptions.NAME]: 0,
   [AllOptions.CREATE_GROUP]: 1,
   [AllOptions.MANAGE_GROUP]: 1,
+  [AllOptions.DEVICE_SERVICE]: 2,
   [AllOptions.MEMBER_SET]: 3,
   [AllOptions.LOCATION]: 6,
   [AllOptions.SHARE]: 9,
@@ -528,6 +537,12 @@ export default class CommonSetting extends React.Component {
         value: state.name,
         onPress: () => Host.ui.openChangeDeviceName()
       },
+      [AllOptions.DEVICE_SERVICE]: {
+        title: strings.deviceService,
+        onPress: () => {
+          Host.ui.openDeviceServicePage({ url: `https://pre.m.mi.com/mihome/device/service?did=${ Device.deviceID }` });
+        }
+      },
       [AllOptions.LOCATION]: {
         title: strings.location,
         onPress: () => Host.ui.openRoomManagementPage()
@@ -535,11 +550,7 @@ export default class CommonSetting extends React.Component {
       [AllOptions.MEMBER_SET]: {
         title: strings.memberSet,
         onPress: () => {
-          if (Package.packageName === 'miot.plugin.spec') {
-            Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac, { useNewSetting: true, done: [] });
-          } else {
-            Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac);
-          }
+          Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac);
         }
       },
       [AllOptions.SHARE]: {
@@ -712,13 +723,16 @@ export default class CommonSetting extends React.Component {
       freqCameraFlag: false,
       freqCameraNeedShowRedPoint: false,
       standPlugin: false, // 标准插件设置项的值
-      showMultipleKey: false, // 是否展示多键开关
-      multipleKeyisOn: false, // 多键开关状态
+      showMultipleKey: false, // 是否展示多键开关拆分的选项
+      multipleKeyisOn: false, // 多键开关拆分状态
       keyNum: 0, // 多键开关数量
       pluginCategory: 0,
       hasStdPlugin: false,
       dialogVisible: false,
-      needShowUpgradeRedDot: false
+      needShowUpgradeRedDot: false,
+      showMemberSetKey: false, // 是否展示「按键设置」,适用于多键开关和继电器设备
+      isSingleSwitch: false, // 是否是单键开关，单键开关也要显示「按键设置」。showMemberSetKey || isSingleSwitch === false
+      showDeviceService: false // 是否暂展示「设备服务」选项
     };
     console.log(`Device.type: ${ Device.type }`);
     this.commonSetting = this.getCommonSetting(this.state);
@@ -908,6 +922,30 @@ export default class CommonSetting extends React.Component {
     }).catch((err) => {
       Service.smarthome.reportLog(Device.model, `Service.smarthome.device_support_split error: ${ err }`);
     });
+    showMemberSet().then((memberInfo) => {
+      let showMemberSetKey = false;
+      let isSingleSwitch = false;
+      if (memberInfo) {
+        showMemberSetKey = memberInfo.showMemberSetKey;
+        isSingleSwitch = memberInfo.isSingleSwitch;
+      }
+      this.setState({
+        showMemberSetKey,
+        isSingleSwitch
+      });
+    }).catch((err) => {
+      Service.smarthome.reportLog(Device.model, `Service.smarthome.multi_button_template error: ${ err }`);
+    });
+    getCountryCode()
+      .then((countryCode) => {
+        if (countryCode === 'cn') {
+          showDeviceService().then((show) => {
+            this.setState({ showDeviceService: show });
+          }).catch((err) => {
+            Service.smarthome.reportLog(Device.model, `showDeviceService error: ${ err }`);
+          });
+        }
+      });
     getPluginCategory()
       .then((res) => {
         this.commonSetting = this.getCommonSetting({
@@ -991,7 +1029,7 @@ export default class CommonSetting extends React.Component {
     });
   }
   render() {
-    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory } = this.state;
+    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory, showMemberSetKey, isSingleSwitch, showDeviceService } = this.state;
     let requireKeys1 = [
       AllOptions.FREQ_CAMERA,
       AllOptions.FREQ_DEVICE,
@@ -1007,6 +1045,9 @@ export default class CommonSetting extends React.Component {
     }
     if (hasStdPlugin) {
       requireKeys1.push(AllOptions.DEFAULT_PLUGIN);
+    }
+    if (showDeviceService) {
+      requireKeys1.push(AllOptions.DEVICE_SERVICE);
     }
     // 创建组设备
     // 蓝牙单模和组设备不能创建
@@ -1024,6 +1065,17 @@ export default class CommonSetting extends React.Component {
     ];
     // 2. 去掉杂质
     let options = [...(this.props.firstOptions || []), ...(this.props.secondOptions || [])].filter((key) => key && Object.values(AllOptions).includes(key));
+    // 2.1 如果开发者传了 membeSet 字段，就使用开发者的，否则由sdk判断是否需要 memberSet 字段
+    if (!options.includes(AllOptions.MEMBER_SET) && showMemberSetKey) {
+      options.push(AllOptions.MEMBER_SET);
+    }
+    // 单键开关去掉设备名称,位置管理设置项 添加按键设置 add by lipeng (MIIO-60790)
+    if (isSingleSwitch) {
+      requireKeys1.push(AllOptions.MEMBER_SET);
+      requireKeys1 = requireKeys1.filter((key) => {
+        return key !== AllOptions.LOCATION && key !== AllOptions.NAME;
+      });
+    }
     // 3. 去除重复
     options = [...new Set(options)];
     // 4. 拼接必选项和可选项
@@ -1164,7 +1216,8 @@ export default class CommonSetting extends React.Component {
               unlimitedHeightEnable: false,
               titleStyle: {
                 fontSize: 18
-              }
+              },
+              itemSubtitleNumberOfLines: 5
             }}
             buttons={[
               {

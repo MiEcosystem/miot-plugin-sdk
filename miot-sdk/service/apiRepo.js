@@ -286,6 +286,14 @@ const API_REPO = {
   // 人脸聚类相关接口
   '/common/app/get/faceCluster/eventlist': {},
   // 耗材标准配置服务端接口
-  '/v2/home/standard_consumable_items': {}
+  '/v2/home/standard_consumable_items': {},
+  // 获取中枢的列表
+  '/v2/device/get_lan_hub': {},
+  // 获取自动更新列表
+  '/v2/device/auto_upgrade_list': {},
+  // 获取预置音频
+  '/common/app/data/v2/preDataGetCommon': {},
+  // 设备服务时对比米系品牌
+  '/v2/product/get_product_brands': {}
 };
 export default API_REPO;
