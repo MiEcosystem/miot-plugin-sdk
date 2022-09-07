@@ -12,7 +12,27 @@ import useCanUpgrade from '../../hooks/useCanUpgrade';
 import useFreqCameraInfo from '../../hooks/useFreqCameraInfo';
 import useFreqDeviceInfo from '../../hooks/useFreqDeviceInfo';
 import AutoOTAABTestHelper from '../../utils/autoota_abtest_helper';
+import useDeviceService from "../../hooks/useDeviceService";
 const innerOptions = {
+  deviceService: {
+    exportKey: 'DEVICE_SERVICE',
+    ownerOnly: true,
+    isDefault: true,
+    Component: () => {
+      const show = useDeviceService();
+      return show ? (
+        <ListItem
+          key={ 'deviceService' }
+          title={ I18n.deviceService }
+          onPress={ () => {
+            Host.ui.openDeviceServicePage({ url: `https://pre.m.mi.com/mihome/device/service?did=${ Device.deviceID }` });
+          } }
+          useNewType={ true }
+          hideArrow={ false }
+        />
+      ) : null;
+    }
+  },
   share: {
     exportKey: 'SHARE',
     ownerOnly: true,
@@ -232,12 +252,12 @@ const innerOptions = {
 const AllAndDefaultOptions = getAllAndDefaultOptions(innerOptions);
 export const options = AllAndDefaultOptions.options;
 const defaultOptions = AllAndDefaultOptions.defaultOptions;
-const commonOptions = ['share', 'ifttt', 'firmwareUpgrade', 'help', 'security', 'addToDesktop', 'freqDevice', 'freqCamera', 'default_plugin'];
+const commonOptions = ['deviceService', 'share', 'ifttt', 'firmwareUpgrade', 'help', 'security', 'addToDesktop', 'freqDevice', 'freqCamera', 'default_plugin'];
 export default function CommonSettings(params) {
   const { customOptions } = params;
   return (
     <Section title={I18n.commonSetting}>
-      {getItems(innerOptions, commonOptions, ['', '', '', '', '', '', useFreqDeviceInfo() ? I18n.open : I18n.close], params, defaultOptions)}
+      {getItems(innerOptions, commonOptions, ['', '', '', '', '', '', '', useFreqDeviceInfo() ? I18n.open : I18n.close], params, defaultOptions)}
       {getItems(innerOptions, customOptions || [], [], params, defaultOptions)}
     </Section>
   );

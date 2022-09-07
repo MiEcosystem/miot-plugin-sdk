@@ -31,11 +31,11 @@ export function showDeviceService(brandId = Device.deviceConfigInfo?.brand_id, m
 }
 export default function useDeviceService(brandId = Device.deviceConfigInfo?.brand_id, model = Device.model) {
   const defaultInfo = false;
-  const [deviceServiceInfo, setDeviceService] = useState(cacheShowDeviceService[model] || defaultInfo);
+  const [show, setDeviceService] = useState(cacheShowDeviceService[model] || defaultInfo);
   useEffect(() => {
     showDeviceService(brandId, model).then((show) => {
       setDeviceService(show);
     }).catch(() => { });
   }, [model]);
-  return deviceServiceInfo;
+  return show;
 }
