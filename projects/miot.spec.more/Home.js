@@ -3,12 +3,12 @@
  * 更加复杂的功能实现可以参考com.xiaomi.demo
  */
 import {
-  Package, Host, Entrance, DeviceEvent
+  Package, Host, DeviceEvent
 } from "miot";
 import { CardButton, ContainerWithGap } from "miot/ui";
 import React from 'react';
 import {
-  View
+  View, Text
 } from 'react-native';
 import { adjustSize } from 'miot/utils/sizes';
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
@@ -30,12 +30,12 @@ export default class Home extends React.Component {
         key: NavigationBar.ICON.BACK,
         onPress: () => Package.exit(),
         accessibilityLabel: "返回",
-        accessibilityHint: "返回上一页" 
+        accessibilityHint: "返回上一页"
       }]
     });
   }
 
-  
+
   componentDidMount() {
     console.log("Home  componentDidMount...");
     this._deviceOnlineListener = DeviceEvent.deviceStatusChanged.addListener((device, newstatus) => {
@@ -44,7 +44,7 @@ export default class Home extends React.Component {
     });
 
   }
- 
+
   componentWillUnmount() {
     this._deviceOnlineListener && this._deviceOnlineListener.remove();
   }
@@ -54,7 +54,7 @@ export default class Home extends React.Component {
     return (
       <View style={Styles.container}>
         <ContainerWithGap outerGap={adjustSize(36)} gap={adjustSize(36)} >
-          <CardButton 
+          <CardButton
             icon={CardIcon}
             themeColor={dynamicColor('#2874FE', '#125DE5')}
             containerStyle={Styles.cardContainer}
@@ -69,7 +69,7 @@ export default class Home extends React.Component {
             }}
           >
           </CardButton>
-          <CardButton 
+          <CardButton
             icon={CardIcon}
             themeColor={dynamicColor('#2874FE', '#125DE5')}
             rightArrow={true}
@@ -83,7 +83,7 @@ export default class Home extends React.Component {
             }}
           >
           </CardButton>
-          <CardButton 
+          <CardButton
             icon={CardIcon}
             themeColor={dynamicColor('#A7E8EB', '#005E62')}
             rightArrow={true}
@@ -99,6 +99,12 @@ export default class Home extends React.Component {
           >
           </CardButton>
         </ContainerWithGap>
+
+        <View style={Styles.entryInfo}>
+          <Text>pageName: Package.entrance { JSON.stringify(Package.entrance || '') }</Text>
+          <Text>pageParams: Package.entryInfo.pageParams { JSON.stringify(Package.entryInfo?.pageParams || '') }</Text>
+          <Text>typeof pageParams: { typeof Package.entryInfo?.pageParams }</Text>
+        </View>
       </View>
     );
   }
@@ -183,5 +189,9 @@ const Styles = dynamicStyleSheet({
   rightArrow: {
     width: adjustSize(72),
     height: adjustSize(72)
+  },
+  entryInfo: {
+    marginHorizontal: adjustSize(72),
+    marginTop: adjustSize(72)
   }
 });
