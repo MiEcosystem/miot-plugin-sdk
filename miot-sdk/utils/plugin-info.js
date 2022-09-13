@@ -4,9 +4,10 @@ import native, { isAndroid } from "../native";
  *
  * @export fetchPluginInfos
  * @param {array<string>} [models=[]] 需要获取的插件model
+ * @param {array<object>} [specifiedModelVersions=[]] 需要获取的指定版本插件model和版本
  * @return {Promise<array>} 
  */
-export function fetchPluginInfos(models = []) {
+export function fetchPluginInfos(models = [], specifiedModelVersions = []) {
   return new Promise((resolve, reject) => {
     native.MIOTRPC.standardCall('/v2/plugin/fetch_plugin', {
       latest_req: {
@@ -17,19 +18,16 @@ export function fetchPluginInfos(models = []) {
         api_version: isAndroid ? native.MIOTHost.systemInfo.hostApiLevel : native.MIOTHost.apiLevel,
         packageType: '',
         region: isAndroid ? 'CN' : 'zh'
-      }
+      },
+      stand_plugins: {
+        stand_plugins: specifiedModelVersions,
+        app_platform: isAndroid ? 'Android' : 'IOS',
+        api_version: isAndroid ? native.MIOTHost.systemInfo.hostApiLevel : native.MIOTHost.apiLevel
+      } 
     }, (ok, res) => {
-      const latestPlugins = res?.latest_info;     
-      if (latestPlugins?.length > 0) {
-        resolve(latestPlugins.map((latestPlugin) => {
-          const { plugin_id, version: plugin_version, status, dev_mode } = latestPlugin;
-          return {
-            plugin_id,
-            plugin_version,
-            status,
-            dev_mode
-          };
-        }));
+      const { latest_info = [], stand_plugin_info = [] } = res || {};
+      if (ok) {
+        resolve([...stand_plugin_info, ...latest_info]);
         return;
       }
       reject();

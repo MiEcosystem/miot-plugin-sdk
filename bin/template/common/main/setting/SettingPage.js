@@ -93,10 +93,10 @@ export default class SettingPage extends React.Component {
    */
   openTimerSettingPageWithOptions() {
     let params = {
-      onMethod: "power_on",
-      onParam: "on",
-      offMethod: "power_off",
-      offParam: "off",
+      onMethod: "power_on", // set_properties
+      onParam: "on", // [{did:Device.deviceID, siid:3, piid:2, value:true}]
+      offMethod: "power_off", // // set_properties
+      offParam: "off", // [{did:Device.deviceID, siid:3, piid:2, value:false}]
       timerTitle: "这是一个自定义标题",
       displayName: "自定义场景名称",
       identify: "identify_1",
