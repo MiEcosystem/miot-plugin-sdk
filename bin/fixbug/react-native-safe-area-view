@@ -19,10 +19,6 @@ const XSMAX_HEIGHT = 896;
 const PAD_WIDTH = 768;
 const PAD_HEIGHT = 1024;
 
-const IPHONE12_H = 844;
-const IPHONE12_Max = 926;
-const IPHONE12_Mini = 780;
-
 const { height: D_HEIGHT, width: D_WIDTH } = Dimensions.get('window');
 
 const { PlatformConstants = {} } = NativeModules;
@@ -75,11 +71,9 @@ const statusBarHeight = (isLandscape) => {
     }
   }
 
-
   if (isIPhoneX) {
     return isLandscape ? 0 : 44;
   }
-  // return 44;
 
   if (isIPad) {
     return 20;
@@ -262,7 +256,7 @@ class SafeView extends Component {
     if (style.width && typeof style.width === 'number') {
       style.width += style.paddingLeft + style.paddingRight;
     }
-   
+
     style.paddingTop = Math.max(style.paddingTop, paddingTop);
     style.paddingBottom = Math.max(style.paddingBottom, paddingBottom);
     style.paddingLeft = Math.max(style.paddingLeft, paddingLeft);
