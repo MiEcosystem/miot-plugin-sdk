@@ -66,7 +66,7 @@ class IMiotSceneV2 {
 * @returns {Promise<object>}
 */
   @report
-  editPeriodTimer(timer) {
+  editPeriodTimer = (timer) => {
   }
   /**
 * since 10074
@@ -100,7 +100,7 @@ class IMiotSceneV2 {
 * @returns {Promise<object>}
 */
   @report
-  editPointTimer(timer) {
+  editPointTimer = (timer) => {
   }
   /**
 * since 10074
@@ -110,7 +110,7 @@ class IMiotSceneV2 {
 * @returns {Promise<object>}
 */
   @report
-  deletePeriodTimer(sceneId) {
+  deletePeriodTimer = (sceneId) => {
   }
   /**
 * since 10074
@@ -120,7 +120,7 @@ class IMiotSceneV2 {
 * @returns {Promise<object>}
 */
   @report
-  deletePointTimer(sceneId) {
+  deletePointTimer = (sceneId) => {
   }
   /**
 * since 10074
@@ -129,7 +129,7 @@ class IMiotSceneV2 {
 * @returns {Promise<object>}
 */
   @report
-  batchDeleteTimers(sceneIds) {
+  batchDeleteTimers = (sceneIds) => {
   }
   /**
 * since 10074
@@ -140,7 +140,7 @@ class IMiotSceneV2 {
 * @returns {Promise<object>}
 */
   @report
-  enablePeriodTimer(sceneId, enable) {
+  enablePeriodTimer = (sceneId, enable) => {
   }
   /**
 * since 10074
@@ -151,7 +151,7 @@ class IMiotSceneV2 {
 * @returns {Promise<object>}
 */
   @report
-  enablePointTimer(sceneId, enable) {
+  enablePointTimer = (sceneId, enable) => {
   }
   /**
 * since 10074
@@ -164,7 +164,7 @@ class IMiotSceneV2 {
 * @param {object} scene_trigger 定时的触发条件，包含执行时间等
 */
   @report
-  getTimerList(deviceId = Device.deviceID) {
+  getTimerList = (deviceId = Device.deviceID) => {
   }
 }
 const MiotSceneInstanceV2 = new IMiotSceneV2();
