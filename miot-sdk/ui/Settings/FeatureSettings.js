@@ -8,26 +8,32 @@ import ConfiguredItems from './ConfiguredItems';
 import getItems, { getAllAndDefaultOptions, itemPropTypes } from './getItems';
 import useGatewayStatus, { State as GatewayStatus } from '../../hooks/useGatewayStatus';
 import useMultiKeySplitInfo from '../../hooks/useMultiKeySplitInfo';
-import { specPluginNames } from '../../utils/special-plugins';
+import useMemberSetInfo from '../../hooks/useMemberSetInfo';
+import ListItem from '../ListItem/ListItem';
 const innerOptions = {
   // 按键设置
   memberSet: {
     exportKey: 'MEMBER_SET',
     isDefault: true,
     ownerOnly: true,
-    modelTypes: ['switch'],
-    title: I18n.memberSet,
-    onPress: () => {
-      const { packageName } = Package;
-      const { deviceID, mac } = Device;
-      if (specPluginNames.includes(packageName)) {
-        Host.ui.openPowerMultikeyPage(deviceID, mac, {
-          useNewSetting: true,
-          done: []
-        });
-      } else {
+    modelTypes: ['switch', 'control-panel', 'relay', 'controller'],
+    Component: () => {
+      // bool值，决定是否显示 按键设置, 10074单键开关也需要展示按键设置
+      const { showMemberSetKey, isSingleSwitch } = useMemberSetInfo(); 
+      const onPress = () => {
+        const { deviceID, mac } = Device;
         Host.ui.openPowerMultikeyPage(deviceID, mac);
-      }
+      };
+      return (showMemberSetKey || isSingleSwitch) ? (
+        <ListItem
+          key={'memberSet'}
+          title={I18n.memberSet}
+          value=""
+          onPress={onPress}
+          useNewType={true}
+          hideArrow={false}
+        />
+      ) : null;
     }
   },
   // 多键拆分
@@ -39,7 +45,7 @@ const innerOptions = {
     Component: () => {
       const [info, setSplit] = useMultiKeySplitInfo();
       const { count, split } = info || {};
-      if (!count) {
+      if (!count || count <= 1) {
         return null;
       }
       return (
@@ -87,7 +93,7 @@ const innerOptions = {
   btGateway: {
     exportKey: 'BTGATEWAY',
     ownerOnly: true,
-    types: ['6', '8'],
+    modelTypes: ['gateway'],
     title: I18n.btGateway,
     onPress: () => {
       Host.ui.openBtGatewayPage();
