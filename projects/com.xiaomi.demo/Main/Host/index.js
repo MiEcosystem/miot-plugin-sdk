@@ -94,6 +94,18 @@ export default class HostDemo extends React.Component {
         }
       },
       {
+        "name": 'Pad滑动相关',
+        'func': () => {
+          this.props.navigation.navigate('PadScrollDemo', { title: 'Pad滑动相关(only Android Pad Device)' });
+        }
+      },
+      {
+        "name": 'RockerView',
+        'func': () => {
+          this.props.navigation.navigate('RockerViewDemo', { title: 'RockerViewDemo' });
+        }
+      },
+      {
         "name": '创建独立js线程',
         'func': () => {
           this.props.navigation.navigate('JSExecutor', { title: "创建独立js线程" });
