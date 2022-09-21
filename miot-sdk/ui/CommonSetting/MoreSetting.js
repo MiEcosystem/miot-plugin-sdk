@@ -73,7 +73,6 @@ const excludeOptions = {
   [AllOptions.LEGAL_INFO]: ['5', '15', '17'] // 新增策略：灯组、红外遥控器等虚拟设备不显示法律信息，20190619
 };
 const { second_options } = SETTING_KEYS;
-const NETWORK_INFO = 'networkInfo'; // 「网络信息」设置项的 key
 let leaglInfoClicked = false; // 用于标记「法律信息」是否被重复点击过，防止进入「法律信息」页面之前被重复点击导致点击事件多次执行
 /**
  * @export
@@ -117,7 +116,7 @@ export default class MoreSetting extends React.Component {
         value: String(Package.version),
         hideArrow: true
       },
-      [NETWORK_INFO]: {
+      [secondAllOptions.NETWORK_INFO]: {
         title: strings.networkInfo,
         onPress: () => Host.ui.openDeviceNetworkInfoPage()
       },
@@ -230,10 +229,10 @@ export default class MoreSetting extends React.Component {
     // 0 不显示
     // -1 默认配置: wifi 设备显示，其余不显示
     const networkInfoConfig = this.props.navigation.state.params.networkInfoConfig;
-    if (networkInfoConfig === 1) requireKeys1.push(NETWORK_INFO);
+    if (networkInfoConfig === 1) requireKeys1.push(secondAllOptions.NETWORK_INFO);
     else if (networkInfoConfig === -1 || networkInfoConfig === undefined) {
       if (['0', '8'].includes(Device.type)) { // 0 wifi 设备 8 双模设备
-        requireKeys1.push(NETWORK_INFO);
+        requireKeys1.push(secondAllOptions.NETWORK_INFO);
       }
     }
     const requireKeys2 = [secondAllOptions.LEGAL_INFO, secondAllOptions.ADD_TO_DESKTOP];

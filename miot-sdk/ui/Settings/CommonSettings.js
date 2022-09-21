@@ -12,7 +12,27 @@ import useCanUpgrade from '../../hooks/useCanUpgrade';
 import useFreqCameraInfo from '../../hooks/useFreqCameraInfo';
 import useFreqDeviceInfo from '../../hooks/useFreqDeviceInfo';
 import AutoOTAABTestHelper from '../../utils/autoota_abtest_helper';
+import useDeviceService from "../../hooks/useDeviceService";
 const innerOptions = {
+  deviceService: {
+    exportKey: 'DEVICE_SERVICE',
+    ownerOnly: true,
+    isDefault: true,
+    Component: () => {
+      const show = useDeviceService();
+      return show ? (
+        <ListItem
+          key={ 'deviceService' }
+          title={ I18n.deviceService }
+          onPress={ () => {
+            Host.ui.openDeviceServicePage({ did: Device.deviceID });
+          } }
+          useNewType={ true }
+          hideArrow={ false }
+        />
+      ) : null;
+    }
+  },
   share: {
     exportKey: 'SHARE',
     ownerOnly: true,
@@ -149,7 +169,7 @@ const innerOptions = {
       );
     }
   },
-  default_plugin: {
+  defaultPlugin: {
     exportKey: 'DEFAULT_PLUGIN',
     isDefault: true,
     ownerOnly: true,
@@ -173,13 +193,13 @@ const innerOptions = {
         return null;
       }
       return (
-        <Fragment key={'default_plugin'}>
+        <Fragment key={'defaultPlugin'}>
           <ListItem
             title={I18n.defaultPlugin}
             value={choices[defaultPluginType]?.title}
             onPress={delegatePress(() => {
               setTipVisible(true);
-            }, params, 'default_plugin')}
+            }, params, 'defaultPlugin')}
             useNewType={true}
             hideArrow={false}
           />
@@ -232,12 +252,12 @@ const innerOptions = {
 const AllAndDefaultOptions = getAllAndDefaultOptions(innerOptions);
 export const options = AllAndDefaultOptions.options;
 const defaultOptions = AllAndDefaultOptions.defaultOptions;
-const commonOptions = ['share', 'ifttt', 'firmwareUpgrade', 'help', 'security', 'addToDesktop', 'freqDevice', 'freqCamera', 'default_plugin'];
+const commonOptions = ['deviceService', 'share', 'ifttt', 'firmwareUpgrade', 'help', 'security', 'addToDesktop', 'freqDevice', 'freqCamera', 'defaultPlugin'];
 export default function CommonSettings(params) {
   const { customOptions } = params;
   return (
     <Section title={I18n.commonSetting}>
-      {getItems(innerOptions, commonOptions, ['', '', '', '', '', '', useFreqDeviceInfo() ? I18n.open : I18n.close], params, defaultOptions)}
+      {getItems(innerOptions, commonOptions, ['', '', '', '', '', '', '', useFreqDeviceInfo() ? I18n.open : I18n.close], params, defaultOptions)}
       {getItems(innerOptions, customOptions || [], [], params, defaultOptions)}
     </Section>
   );

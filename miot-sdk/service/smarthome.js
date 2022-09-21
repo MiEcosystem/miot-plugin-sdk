@@ -1122,7 +1122,7 @@ class ISmartHome {
     /**
      * since 10036
      * @param {string} eventName 事件名
-     * @param {map} params kv键值对，key必须是string类型，value是基础类型（int,strig,float,boolean）
+     * @param {Object} params kv键值对，key必须是string类型，value是基础类型（int,strig,float,boolean）
      * @example
      * let eventName = 'testEvent';
      * let params = {'key1':'value1','key2':'value2','tip':'tips'};

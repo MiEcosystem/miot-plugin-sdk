@@ -19,7 +19,7 @@ const innerOptions = {
     modelTypes: ['switch', 'control-panel', 'relay', 'controller'],
     Component: () => {
       // bool值，决定是否显示 按键设置, 10074单键开关也需要展示按键设置
-      const { showMemberSetKey, isSingleSwitch } = useMemberSetInfo(); 
+      const { showMemberSetKey, isSingleSwitch } = useMemberSetInfo();
       const onPress = () => {
         const { deviceID, mac } = Device;
         Host.ui.openPowerMultikeyPage(deviceID, mac);
@@ -37,8 +37,8 @@ const innerOptions = {
     }
   },
   // 多键拆分
-  MultipleKeySwitch: {
-    exportKey: 'MULTIPLEKEY_SWITCH',
+  multipleKeySplit: {
+    exportKey: 'MULTIPLEKEY_SPLIT',
     isDefault: true,
     ownerOnly: true,
     modelTypes: ['switch'],
@@ -50,7 +50,7 @@ const innerOptions = {
       }
       return (
         <ListItemWithSwitch
-          key={'MultipleKeySwitch'}
+          key={'multipleKeySplit'}
           title={formatString(I18n.multipleKeyShowOnHome, count)}
           value={split}
           onValueChange={(v) => {
@@ -112,7 +112,7 @@ const innerOptions = {
 const AllAndDefaultOptions = getAllAndDefaultOptions(innerOptions);
 export const options = AllAndDefaultOptions.options;
 const defaultOptions = AllAndDefaultOptions.defaultOptions;
-const deviceTypeOptions = ['memberSet', 'createGroup', 'manageGroup', 'btGateway', 'voiceAuth', 'MultipleKeySwitch'];
+const deviceTypeOptions = ['memberSet', 'createGroup', 'manageGroup', 'btGateway', 'voiceAuth', 'multipleKeySplit'];
 // 品类固定功能
 function DeviceTypeItems({ params }) {
   return getItems(innerOptions, deviceTypeOptions, ['', '', '', ({

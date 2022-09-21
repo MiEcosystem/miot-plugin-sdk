@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Device } from 'miot';
 import ListItem from '../ListItem/ListItem';
 import useModelType from '../../hooks/useModelType';
+import tryTrackCommonSetting from "../../utils/track-sdk";
 export const clickedItems = [];
 export function useClicked(key) {
   const [clicked, setClicked] = useState(clickedItems.includes(key));
@@ -78,6 +79,7 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
     }
     if (Component instanceof Function) {
       // return Component(params);
+      tryTrackCommonSetting(String(key), 'expose');
       return (
         <Component key={String(key)} {...params} />
       );
@@ -85,6 +87,7 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
     if (!title) {
       return null;
     }
+    tryTrackCommonSetting(String(key), 'expose');
     return (
       <ListItem
         key={String(key)}
@@ -102,6 +105,7 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
 }
 export function delegatePress(cb, params, key, click) {
   return () => {
+    tryTrackCommonSetting(String(key), 'click');
     const preOperation = params?.extraOptions?.preOperations?.[key];
     if (key && !clickedItems.includes(key)) {
       clickedItems.push(key);

@@ -15,6 +15,8 @@ import { referenceReport } from '../../decorator/ReportDecorator';
 import DynamicColor from 'miot/ui/Style/DynamicColor';
 import { FontPrimary } from 'miot/utils/fonts';
 import { showMemberSet } from '../../hooks/useMemberSetInfo';
+import { showDeviceService } from '../../hooks/useDeviceService';
+import tryTrackCommonSetting from "../../utils/track-sdk";
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
 let firmwareUpgradeDotClicked = false;
 let modelType = '';
@@ -192,9 +194,13 @@ const firstOptionsInner = {
    */
   STAND_PLUGIN: 'standPlugin',
   /**
-   * 多键开关
+   * 多键开关拆分
    */
-  MULTIPLEKEY_SWITCH: 'MultipleKeySwitch'
+  MULTIPLEKEY_SPLIT: 'multipleKeySplit',
+  /**
+   * 设备服务
+   */
+  DEVICE_SERVICE: 'deviceService'
 };
 const firstAllOptionsInner = {
   ...firstOptionsInner,
@@ -264,6 +270,10 @@ const secondAllOptionsInner = {
    */
   ADD_TO_DESKTOP: 'addToDesktop',
   /**
+   * 更多设置——网络信息，'可选'
+   */
+  NETWORK_INFO: 'networkInfo',
+  /**
    * 法律信息——用户协议，`必选`
    */
   USER_AGREEMENT: 'userAgreement',
@@ -278,7 +288,7 @@ const secondAllOptionsInner = {
   /**
    * 默认首页--标识标准插件还是厂商插件
    */
-  DEFAULT_PLUGIN: 'default_plugin'
+  DEFAULT_PLUGIN: 'defaultPlugin'
 };
 export const AllOptions = {
   ...firstAllOptionsInner,
@@ -317,7 +327,9 @@ const firstSharedOptions = {
   [AllOptions.STAND_PLUGIN]: 1,
   [AllOptions.FREQ_CAMERA]: 1,
   [AllOptions.FREQ_DEVICE]: 1,
-  [AllOptions.DEFAULT_PLUGIN]: 1
+  [AllOptions.DEFAULT_PLUGIN]: 1,
+  [AllOptions.MULTIPLEKEY_SPLIT]: 0,
+  [AllOptions.DEVICE_SERVICE]: 0
 };
 /**
  * 20190708 / SDK_10023
@@ -329,6 +341,7 @@ export const AllOptionsWeight = {
   [AllOptions.NAME]: 0,
   [AllOptions.CREATE_GROUP]: 1,
   [AllOptions.MANAGE_GROUP]: 1,
+  [AllOptions.DEVICE_SERVICE]: 2,
   [AllOptions.MEMBER_SET]: 3,
   [AllOptions.LOCATION]: 6,
   [AllOptions.SHARE]: 9,
@@ -341,12 +354,12 @@ export const AllOptionsWeight = {
   [AllOptions.DEFAULT_PLUGIN]: 28,
   [AllOptions.FREQ_DEVICE]: 29,
   [AllOptions.FREQ_CAMERA]: 30,
-  [AllOptions.MULTIPLEKEY_SWITCH]: 35,
+  [AllOptions.MULTIPLEKEY_SPLIT]: 35,
   // secondOptions
   [AllOptions.AUTO_UPGRADE]: 1,
   [AllOptions.PLUGIN_VERSION]: 1,
   [AllOptions.SECURITY]: 3,
-  "networkInfo": 5,
+  [AllOptions.NETWORK_INFO]: 5,
   [AllOptions.VOICE_AUTH]: 7,
   [AllOptions.BTGATEWAY]: 9,
   [AllOptions.USER_EXPERIENCE_PROGRAM]: 11,
@@ -529,6 +542,12 @@ export default class CommonSetting extends React.Component {
         value: state.name,
         onPress: () => Host.ui.openChangeDeviceName()
       },
+      [AllOptions.DEVICE_SERVICE]: {
+        title: strings.deviceService,
+        onPress: () => {
+          Host.ui.openDeviceServicePage({ did: Device.deviceID });
+        }
+      },
       [AllOptions.LOCATION]: {
         title: strings.location,
         onPress: () => Host.ui.openRoomManagementPage()
@@ -634,7 +653,7 @@ export default class CommonSetting extends React.Component {
           DeviceEventEmitter.emit('MIOT_SDK_COMMONSETTING_STANDPLUGIN_CLICK', value ? '2' : '1');
         }
       },
-      [AllOptions.MULTIPLEKEY_SWITCH]: {
+      [AllOptions.MULTIPLEKEY_SPLIT]: {
         _itemType: 'greenSwitch',
         title: formatString(strings.multipleKeyShowOnHome, keyNum),
         value: multipleKeyisOn,
@@ -717,7 +736,8 @@ export default class CommonSetting extends React.Component {
       dialogVisible: false,
       needShowUpgradeRedDot: false,
       showMemberSetKey: false, // 是否展示「按键设置」,适用于多键开关和继电器设备
-      isSingleSwitch: false // 是否是单键开关，单键开关也要显示「按键设置」。showMemberSetKey || isSingleSwitch === false
+      isSingleSwitch: false, // 是否是单键开关，单键开关也要显示「按键设置」。showMemberSetKey || isSingleSwitch === false
+      showDeviceService: false // 是否暂展示「设备服务」选项
     };
     console.log(`Device.type: ${ Device.type }`);
     this.commonSetting = this.getCommonSetting(this.state);
@@ -921,6 +941,16 @@ export default class CommonSetting extends React.Component {
     }).catch((err) => {
       Service.smarthome.reportLog(Device.model, `Service.smarthome.multi_button_template error: ${ err }`);
     });
+    getCountryCode()
+      .then((countryCode) => {
+        if (countryCode === 'cn') {
+          showDeviceService().then((show) => {
+            this.setState({ showDeviceService: show });
+          }).catch((err) => {
+            Service.smarthome.reportLog(Device.model, `showDeviceService error: ${ err }`);
+          });
+        }
+      });
     getPluginCategory()
       .then((res) => {
         this.commonSetting = this.getCommonSetting({
@@ -1004,7 +1034,7 @@ export default class CommonSetting extends React.Component {
     });
   }
   render() {
-    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory, showMemberSetKey, isSingleSwitch } = this.state;
+    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory, showMemberSetKey, isSingleSwitch, showDeviceService } = this.state;
     let requireKeys1 = [
       AllOptions.FREQ_CAMERA,
       AllOptions.FREQ_DEVICE,
@@ -1015,11 +1045,14 @@ export default class CommonSetting extends React.Component {
       requireKeys1.push(AllOptions.PRODUCT_BAIKE);
     }
     if (showMultipleKey) {
-      // 展示多键开关
-      requireKeys1.push(AllOptions.MULTIPLEKEY_SWITCH);
+      // 展示多键开关拆分
+      requireKeys1.push(AllOptions.MULTIPLEKEY_SPLIT);
     }
     if (hasStdPlugin) {
       requireKeys1.push(AllOptions.DEFAULT_PLUGIN);
+    }
+    if (showDeviceService) {
+      requireKeys1.push(AllOptions.DEVICE_SERVICE);
     }
     // 创建组设备
     // 蓝牙单模和组设备不能创建
@@ -1085,7 +1118,7 @@ export default class CommonSetting extends React.Component {
         const item = key;
         return item;
       }
-      const item = this.commonSetting[key];
+      const item = { ...this.commonSetting[key], key: key };
       if (item) {
         item.showDot = (this.state.showDot || []).includes(key);
         // 如果是固件升级设置项，且开发者没有传入是否显示
@@ -1114,20 +1147,24 @@ export default class CommonSetting extends React.Component {
           items.map((item) => {
             if (!item || !item.title) return null;
             const showSeparator = false;// index !== items.length - 1;
+            tryTrackCommonSetting(item.key, 'expose');
             if (item._itemType === 'greenSwitch') {
               return (
                 <ListItemWithSwitch
-                  key={item.title}
+                  key={item.key || item.title}
                   title= {item.title}
                   titleNumberOfLines={0}
                   value= {item.value}
-                  onValueChange={item.onValueChange}
+                  onValueChange={ (value) => {
+                    tryTrackCommonSetting(item.key, 'click', value ? 'open' : 'close');
+                    item.onValueChange(value);
+                  } }
                 />
               );
             } else if (item._itemType === 'switch') {
               return (
                 <ListItemWithSwitch
-                  key={item.title}
+                  key={item.key || item.title}
                   title={item.title || ''}
                   allowFontScaling={tempCommonSettingStyle.itemStyle.allowFontScaling}
                   unlimitedHeightEnable={tempCommonSettingStyle.itemStyle.unlimitedHeightEnable}
@@ -1142,7 +1179,10 @@ export default class CommonSetting extends React.Component {
                   showDot={item.showDot || false}
                   value={item.value}
                   showSeparator={showSeparator}
-                  onValueChange={item.onValueChange}
+                  onValueChange={ (value) => {
+                    tryTrackCommonSetting(item.key, 'click', value ? 'open' : 'close');
+                    item.onValueChange(value);
+                  } }
                   {...getAccessibilityConfig({
                     accessible: this.props.accessible
                   })}
@@ -1152,7 +1192,7 @@ export default class CommonSetting extends React.Component {
             } else {
               return (
                 <ListItem
-                  key={item.title}
+                  key={item.key || item.title}
                   title={item.title || ''}
                   allowFontScaling={tempCommonSettingStyle.itemStyle.allowFontScaling}
                   unlimitedHeightEnable={tempCommonSettingStyle.itemStyle.unlimitedHeightEnable}
@@ -1168,7 +1208,10 @@ export default class CommonSetting extends React.Component {
                   showDot={item.showDot || false}
                   value={item.value}
                   showSeparator={showSeparator}
-                  onPress={item.onPress}
+                  onPress={ () => {
+                    tryTrackCommonSetting(item.key, 'click');
+                    item.onPress();
+                  } }
                   {...getAccessibilityConfig({
                     accessible: this.props.accessible
                   })}
