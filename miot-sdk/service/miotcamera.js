@@ -321,9 +321,10 @@ class IMiotCamera {
      * @param {did} 默認參數 did
      * @param {cloudStoragePurchaseUrl} @since 10051 默認爲空，兼容以前的邏輯，不是vip就打開攝像頭的雲存購買連接；如果是低功耗設備，需要自己填入雲存購買連接。
      * @param {directGoPurchasePage} @since 10069, 默认为false，兼容以前的逻辑，由原生判断vip状态，显示云存列表或者购买页面。如果设置为 true，则直接显示购买页面。
+     * @param {params} @since 10075 额外参数，应付未知的需求  暂时在这里放跳购买渠道号，方便PM进行数据分析。
      */
      @report
-    showCloudStorage(supportHevc, useV2API, did = Device.deviceID, cloudStoragePurchaseUrl = "", directGoPurchasePage = false) {
+    showCloudStorage(supportHevc, useV2API, did = Device.deviceID, cloudStoragePurchaseUrl = "", directGoPurchasePage = false, params = {}) {
        return null
     }
     /**
