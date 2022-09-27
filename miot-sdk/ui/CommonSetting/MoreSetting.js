@@ -1,19 +1,19 @@
 'use strict';
-import { Device, DeviceEvent, Package, DarkMode } from 'miot';
+import { DarkMode, Device, DeviceEvent, Package } from 'miot';
 import Host from 'miot/Host';
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
 import NavigationBar from '../NavigationBar';
-import Separator from '../Separator';
-import { secondAllOptions, SETTING_KEYS, AllOptions, AllOptionsWeight } from "./CommonSetting";
+import { AllOptions, AllOptionsWeight, secondAllOptions, SETTING_KEYS } from "./CommonSetting";
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
-import DynamicColor, { dynamicColor } from 'miot/ui/Style/DynamicColor';
+import DynamicColor from 'miot/ui/Style/DynamicColor';
 import { getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
 import { MessageDialog } from "../Dialog";
 import I18n from '../../resources/Strings';
+import tryTrackCommonSetting from "../../utils/track-sdk";
 /**
  * 分享设备的设置项
  * 0: 不显示
@@ -261,10 +261,13 @@ export default class MoreSetting extends React.Component {
     });
     const items = keys.map((key) => {
       if (typeof key !== 'string') {
-        const item = key;
-        return item;
+        return key;
       }
-      return this.moreSetting[key];
+      const item = this.moreSetting[key];
+      if (item) {
+        return { ...item, key };
+      }
+      return null;
     }).filter((item) => {
       return item && !item.hide;
     });
@@ -288,13 +291,17 @@ export default class MoreSetting extends React.Component {
           <View style={[styles.blank, { borderTopWidth: 0 }]} /> */}
         {
           items.map((item, index) => {
+            tryTrackCommonSetting(item.key, 'expose');
             const showSeparator = false;// index !== items.length - 1;
             return (
               <ListItem
-                key={item.title + index}
+                key={item.key || (item.title + index)}
                 title={item.title || ''}
                 value={item.value}
-                onPress={item.onPress}
+                onPress={() => {
+                  tryTrackCommonSetting(item.key, 'click');
+                  item.onPress();
+                }}
                 showSeparator={showSeparator}
                 hideArrow={item.hideArrow}
                 allowFontScaling={itemStyle.allowFontScaling}
