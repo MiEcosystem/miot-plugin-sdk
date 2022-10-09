@@ -240,6 +240,8 @@ const API_REPO = {
   '/miot/camera/app/v1/get/groups': {}, // 获取所有分组
   '/miot/camera/app/v1/get/groupFigures': {}, // 获取某个分组下的所有人物
   '/miot/camera/app/v1/add/group': {},
+  '/miot/camera/app/v1/modify/group': {}, // 修改分组
+  '/miot/camera/app/v1/delete/group': {}, // 删除分组
   // 摄氏度/华氏度一键切换接口
   '/v2/user/set_common_config': {},
   '/v2/user/get_common_config': {},
