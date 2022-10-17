@@ -1208,10 +1208,12 @@ export default class CommonSetting extends React.Component {
                   showDot={item.showDot || false}
                   value={item.value}
                   showSeparator={showSeparator}
-                  onPress={ () => {
-                    tryTrackCommonSetting(item.key, 'click');
-                    item.onPress();
-                  } }
+                  onPress={() => {
+                    if (item.onPress) {
+                      tryTrackCommonSetting(item.key, 'click');
+                      item.onPress();
+                    }
+                  }}
                   {...getAccessibilityConfig({
                     accessible: this.props.accessible
                   })}

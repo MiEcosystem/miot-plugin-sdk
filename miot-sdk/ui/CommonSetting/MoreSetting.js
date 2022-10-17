@@ -299,8 +299,10 @@ export default class MoreSetting extends React.Component {
                 title={item.title || ''}
                 value={item.value}
                 onPress={() => {
-                  tryTrackCommonSetting(item.key, 'click');
-                  item.onPress();
+                  if (item.onPress) {
+                    tryTrackCommonSetting(item.key, 'click');
+                    item.onPress();
+                  }
                 }}
                 showSeparator={showSeparator}
                 hideArrow={item.hideArrow}
