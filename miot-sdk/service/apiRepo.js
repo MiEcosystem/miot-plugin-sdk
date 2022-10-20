@@ -303,6 +303,12 @@ const API_REPO = {
   // 获取预置音频
   '/common/app/data/v2/preDataGetCommon': {},
   // 设备服务时对比米系品牌
-  '/v2/product/get_product_brands': {}
+  '/v2/product/get_product_brands': {},
+  '/smarthome/product/panel/plugin/quickDeviceList': {},
+  '/smarthome/product/panel/plugin/devices': {},
+  '/smarthome/product/panel/plugin/quickSceneList': {},
+  '/smarthome/product/panel/plugin/scenes': {},
+  '/smarthome/product/panel/plugin/resetSetting': {},
+  '/smarthome/product/panel/plugin/wifispeakerDid': {}
 };
 export default API_REPO;
