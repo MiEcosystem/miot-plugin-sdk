@@ -139,6 +139,7 @@ const API_REPO = {
   '/miot/camera/app/v1/get/fileIdMetas': {},
   '/miot/camera/app/v1/get/figures': {},
   '/miot/camera/app/v1/get/figureByName': {},
+  '/miot/camera/app/v1/get/figureByFigureId': {},
   '/miot/camera/app/v1/add/figure': {},
   '/miot/camera/app/v1/add/face': {},
   '/common/app/m3u8': {},
