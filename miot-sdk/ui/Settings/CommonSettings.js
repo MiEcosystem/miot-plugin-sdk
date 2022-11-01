@@ -13,7 +13,7 @@ import useFreqCameraInfo from '../../hooks/useFreqCameraInfo';
 import useFreqDeviceInfo from '../../hooks/useFreqDeviceInfo';
 import AutoOTAABTestHelper from '../../utils/autoota_abtest_helper';
 import useDeviceService from "../../hooks/useDeviceService";
-import ListItemWithSwitch from '../../../bin/ABTest/commonPlugin/modules/components/ListItemWithSwitch';
+import { ListItemWithSwitch } from 'mhui-rn';
 const innerOptions = {
   deviceService: {
     exportKey: 'DEVICE_SERVICE',
@@ -136,7 +136,6 @@ const innerOptions = {
     title: I18n.favoriteDevices,
     isDefault: true,
     ownerOnly: true,
-    modelTypes: ['switch'],
     Component: () => {
       const [info, setInfo] = useFreqDeviceInfo();
       return (
