@@ -704,7 +704,7 @@ export default class CommonSetting extends React.Component {
     ret[AllOptions.FREQ_DEVICE] = roomInfo && roomInfo.data && roomInfo.data.roomId ? {
       _itemType: 'switch',
       title: strings.favoriteDevices,
-      value: freqFlag ? strings.open : strings.close,
+      value: freqFlag,
       onValueChange: (value) => {
         Device.setCommonUseDeviceSwitch(
           {
@@ -712,7 +712,7 @@ export default class CommonSetting extends React.Component {
             switchStatus: value ? "1" : "0"
           }
         ).then(() => {
-          freqFlag = true;
+          freqFlag = value;
         });
       }
     } : null;
