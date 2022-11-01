@@ -13,6 +13,7 @@ import useFreqCameraInfo from '../../hooks/useFreqCameraInfo';
 import useFreqDeviceInfo from '../../hooks/useFreqDeviceInfo';
 import AutoOTAABTestHelper from '../../utils/autoota_abtest_helper';
 import useDeviceService from "../../hooks/useDeviceService";
+import ListItemWithSwitch from '../../../bin/ABTest/commonPlugin/modules/components/ListItemWithSwitch';
 const innerOptions = {
   deviceService: {
     exportKey: 'DEVICE_SERVICE',
@@ -135,8 +136,27 @@ const innerOptions = {
     title: I18n.favoriteDevices,
     isDefault: true,
     ownerOnly: true,
-    onPress: () => {
-      Host.ui.openCommonDeviceSettingPage(0);
+    modelTypes: ['switch'],
+    Component: () => {
+      const [info, setInfo] = useFreqDeviceInfo();
+      return (
+        <ListItemWithSwitch
+          key={'FREQ_DEVICE'}
+          title={I18n.favoriteDevices}
+          value={!!info}
+          onValueChange={(vaule) => {
+            Device.setCommonUseDeviceSwitch(
+              {
+                did: Device.deviceID,
+                switchStatus: vaule ? "1" : "0"
+              }
+            ).then(() => {
+              setInfo(vaule);
+            });
+          }}
+          useNewType={true}
+        />
+      );
     }
   },
   freqCamera: {
