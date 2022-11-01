@@ -17,8 +17,6 @@ import { FontPrimary } from 'miot/utils/fonts';
 import { showMemberSet } from '../../hooks/useMemberSetInfo';
 import { showDeviceService } from '../../hooks/useDeviceService';
 import tryTrackCommonSetting from "../../utils/track-sdk";
-import native from '../../native';
-import th from '../../resources/strings/th';
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
 let firmwareUpgradeDotClicked = false;
 let modelType = '';
@@ -705,7 +703,7 @@ export default class CommonSetting extends React.Component {
     // 常用设备
     ret[AllOptions.FREQ_DEVICE] = roomInfo && roomInfo.data && roomInfo.data.roomId ? {
       _itemType: 'switch',
-      title: String.favoriteDevices,
+      title: strings.favoriteDevices,
       value: freqFlag ? strings.open : strings.close,
       onValueChange: (value) => {
         Device.setCommonUseDeviceSwitch(
@@ -713,9 +711,8 @@ export default class CommonSetting extends React.Component {
             did: Device.deviceID,
             switchStatus: value ? "1" : "0"
           }
-        ).then((result) => {
+        ).then(() => {
           freqFlag = true;
-        }).catch((e) => {
         });
       }
     } : null;
