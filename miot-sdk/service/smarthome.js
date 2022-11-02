@@ -374,7 +374,7 @@ class ISmartHome {
     }
     /**
      * 添加设备属性和事件历史记录，/user/set_user_device_data
-     * 对于蓝牙设备，params.key 可参考文档  https://iot.mi.com/new/doc/embedded-development/ble/object-definition
+     * 对于蓝牙设备，params.key 可参考文档  https://iot.mi.com/new/doc/accesses/direct-access/embedded-development/ble/object-definition
      * @param {object} params  参数
      * @param {string} params.did 设备did，
      * @param {string} params.uid 添加到哪个用户下,一般为 Device.ownerId，
@@ -392,7 +392,7 @@ class ISmartHome {
      * 查询用户名下设备上报的属性和事件
      * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加，最多查询90天前的记录。
      * 通下面的set_user_device_data的参数一一对应， /user/get_user_device_data
-     * 对于蓝牙设备，params.key 可参考文档 [米家BLE Object定义](https://iot.mi.com/new/doc/embedded-development/ble/object-definition.html)
+     * 对于蓝牙设备，params.key 可参考文档 [米家BLE Object定义](https://iot.mi.com/new/doc/accesses/direct-access/embedded-development/ble/object-definition)
      *
      * error code:
      *
@@ -454,7 +454,7 @@ class ISmartHome {
      * @since 10004
      * @param {object} params {did:'', type: '', key:'',time:number} did:设备ID ;type: 要删除的类型 ;key: 事件名称. motion/alarm ;time:时间戳，单位秒
      * @param {string} params.did 设备id。 必选参数
-     * @param {string} params.type type 定义与SDS表中type一致。必选参数。可参考SDS文档中的示例：https://iot.mi.com/new/doc/cloud-service/storage/sds#del_user_device_data
+     * @param {string} params.type type 定义与SDS表中type一致。必选参数。可参考SDS文档中的示例：https://iot.mi.com/new/doc/accesses/direct-access/cloud-service/storage/sds
      * @param {string} params.key key 事件名，可自定义,定义与SDS表中key一致。必选参数
      * @param {string} params.time 指定时间戳
      * @param {string} params.value 指定值
@@ -803,7 +803,7 @@ class ISmartHome {
     }
     /**
      * /v2/home/range_get_open_config
-     * 通过appid、category、configid获取对应的配置，请参考文档文档：https://iot.mi.com/new/doc/cloud-service/storage/kv-openconfig
+     * 通过appid、category、configid获取对应的配置，请参考文档文档：https://iot.mi.com/new/doc/accesses/direct-access/cloud-service/storage/kv-openconfig
      * @since 10002
      * @param {json} params  -参数 {did,category,configids,offset,limit}
      * @return {Promise}
