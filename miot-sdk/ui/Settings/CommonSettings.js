@@ -146,14 +146,14 @@ const innerOptions = {
           onValueChange={(vaule) => {
             Device.setCommonUseDeviceSwitch(
               {
-                did: Device.deviceID,
                 switchStatus: vaule ? "1" : "0"
               }
             ).then(() => {
               setInfo(vaule);
+            }).catch(() => {
+              setInfo(!vaule);
             });
           }}
-          useNewType={true}
         />
       );
     }
