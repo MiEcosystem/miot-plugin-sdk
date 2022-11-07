@@ -711,11 +711,7 @@ export default class CommonSetting extends React.Component {
           {
             switchStatus: value ? "1" : "0"
           }
-        ).then(() => {
-          this.setState({
-            freqFlag: value
-          });
-        }).catch(() => {
+        ).catch(() => {
           this.setState({
             freqFlag: !value
           });
