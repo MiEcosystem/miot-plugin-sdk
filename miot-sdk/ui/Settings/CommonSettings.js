@@ -151,6 +151,7 @@ const innerOptions = {
             ).then(() => {
               setInfo(vaule);
             }).catch(() => {
+              setInfo(vaule);// 不调用这行代码的话，info值未变，下面的setInfo不会触发render
               setInfo(!vaule);
             });
           }}
