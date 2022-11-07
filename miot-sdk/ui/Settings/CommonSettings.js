@@ -13,6 +13,7 @@ import useFreqCameraInfo from '../../hooks/useFreqCameraInfo';
 import useFreqDeviceInfo from '../../hooks/useFreqDeviceInfo';
 import AutoOTAABTestHelper from '../../utils/autoota_abtest_helper';
 import useDeviceService from "../../hooks/useDeviceService";
+import { ListItemWithSwitch } from 'mhui-rn';
 const innerOptions = {
   deviceService: {
     exportKey: 'DEVICE_SERVICE',
@@ -135,8 +136,27 @@ const innerOptions = {
     title: I18n.favoriteDevices,
     isDefault: true,
     ownerOnly: true,
-    onPress: () => {
-      Host.ui.openCommonDeviceSettingPage(0);
+    Component: () => {
+      const [info, setInfo] = useFreqDeviceInfo();
+      return (
+        <ListItemWithSwitch
+          key={'FREQ_DEVICE'}
+          title={I18n.favoriteDevices}
+          value={!!info}
+          onValueChange={(vaule) => {
+            Device.setCommonUseDeviceSwitch(
+              {
+                switchStatus: vaule ? "1" : "0"
+              }
+            ).then(() => {
+              setInfo(vaule);
+            }).catch(() => {
+              setInfo(vaule);// 不调用这行代码的话，info值未变，下面的setInfo不会触发render
+              setInfo(!vaule);
+            });
+          }}
+        />
+      );
     }
   },
   freqCamera: {

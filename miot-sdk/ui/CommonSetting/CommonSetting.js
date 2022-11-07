@@ -17,6 +17,7 @@ import { FontPrimary } from 'miot/utils/fonts';
 import { showMemberSet } from '../../hooks/useMemberSetInfo';
 import { showDeviceService } from '../../hooks/useDeviceService';
 import tryTrackCommonSetting from "../../utils/track-sdk";
+import th from '../../resources/strings/th';
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
 let firmwareUpgradeDotClicked = false;
 let modelType = '';
@@ -702,9 +703,20 @@ export default class CommonSetting extends React.Component {
     } : null;
     // 常用设备
     ret[AllOptions.FREQ_DEVICE] = roomInfo && roomInfo.data && roomInfo.data.roomId ? {
+      _itemType: 'switch',
       title: strings.favoriteDevices,
-      value: freqFlag ? strings.open : strings.close,
-      onPress: () => Host.ui.openCommonDeviceSettingPage(0)
+      value: freqFlag,
+      onValueChange: (value) => {
+        Device.setCommonUseDeviceSwitch(
+          {
+            switchStatus: value ? "1" : "0"
+          }
+        ).catch(() => {
+          this.setState({
+            freqFlag: !value
+          });
+        });
+      }
     } : null;
     // 2020/4/20 锁类和保险箱类，安全设置从更多设置中移出来
     if (['lock', 'safe-box', 'safe'].indexOf(modelType) !== -1) {

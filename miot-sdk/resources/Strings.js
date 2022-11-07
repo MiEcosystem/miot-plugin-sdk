@@ -236,7 +236,7 @@ strings = getStrings({
     other: '其他',
     multipleKeyShowOnHome: "在首页展示为{0}个按键",
     // 常用设备
-    favoriteDevices: "常用设备",
+    favoriteDevices: "米家首页显示",
     favoriteCamera: "快捷摄像机",
     favoriteAddDevices: "设为首页常用设备",
     // MHDatePicker
@@ -331,8 +331,8 @@ strings = getStrings({
     curtain: '窗帘',
     noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试',
     switchPlugin: '标准插件',
-    defaultPlugin: '默认首页',
-    selectDefaultHP: '选择默认首页',
+    defaultPlugin: '默认样式',
+    selectDefaultHP: '选择默认样式',
     stdPluginTitle: '标准样式',
     thirdPluginTitle: '传统样式',
     stdPluginSubTitle: '点击更多功能，支持打开传统样式页面',
