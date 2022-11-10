@@ -332,7 +332,7 @@ strings = getStrings({
     noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试',
     switchPlugin: '标准插件',
     defaultPlugin: '默认样式',
-    selectDefaultHP: '选择默认样式',
+    selectDefaultHP: '默认样式',
     stdPluginTitle: '标准样式',
     thirdPluginTitle: '传统样式',
     stdPluginSubTitle: '点击更多功能，支持打开传统样式页面',
@@ -422,7 +422,7 @@ strings = getStrings({
     other: '其他',
     multipleKeyShowOnHome: "在首頁展示為 {0} 個按鍵",
     // 常用设备
-    favoriteDevices: "常用裝置",
+    favoriteDevices: "於米家首頁顯示",
     favoriteCamera: "放大卡片",
     favoriteAddDevices: "設為首頁常用裝置",
     // MHDatePicker
@@ -517,8 +517,8 @@ strings = getStrings({
     curtain: '窗帘',
     noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试',
     switchPlugin: '標準外掛程式',
-    defaultPlugin: 'Default home page',
-    selectDefaultHP: 'Select default home page',
+    defaultPlugin: '預設樣式',
+    selectDefaultHP: '預設樣式',
     stdPluginTitle: 'Standard',
     thirdPluginTitle: 'Traditional',
     stdPluginSubTitle: 'Tap additional features to enter the traditional home page',
@@ -604,7 +604,7 @@ strings = getStrings({
     other: '其他',
     multipleKeyShowOnHome: "在首頁顯示為{0}個按鍵",
     // 常用设备
-    favoriteDevices: "常用裝置",
+    favoriteDevices: "在米家 App 首頁顯示",
     favoriteCamera: "放大卡片",
     favoriteAddDevices: "設為首頁常用裝置",
     // MHDatePicker
@@ -699,8 +699,8 @@ strings = getStrings({
     curtain: '窗帘',
     noCurtainGroupTip: '暂无可成组的设备，请再添加一个窗帘伴侣后再试',
     switchPlugin: '標準外掛程式',
-    defaultPlugin: 'Default home page',
-    selectDefaultHP: 'Select default home page',
+    defaultPlugin: '預設風格',
+    selectDefaultHP: '預設風格',
     stdPluginTitle: 'Standard',
     thirdPluginTitle: 'Traditional',
     stdPluginSubTitle: 'Tap additional features to enter the traditional home page',
@@ -786,7 +786,7 @@ strings = getStrings({
     other: 'Other',
     multipleKeyShowOnHome: "The number of buttons shown on the home page: {0}",
     // 常用设备
-    favoriteDevices: "Favorites",
+    favoriteDevices: "Display on Mi Home/Xiaomi Home homepage",
     favoriteCamera: "Camera shortcut",
     favoriteAddDevices: "Add to favorites",
     // MHDatePicker
@@ -881,8 +881,8 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Standard plugin',
-    defaultPlugin: 'Default home page',
-    selectDefaultHP: 'Select default home page',
+    defaultPlugin: 'Default style',
+    selectDefaultHP: 'Default style',
     stdPluginTitle: 'Standard',
     thirdPluginTitle: 'Traditional',
     stdPluginSubTitle: 'Tap additional features to enter the traditional home page',
@@ -972,7 +972,7 @@ strings = getStrings({
     other: 'Other',
     multipleKeyShowOnHome: "홈페이지에 표시할 버튼 수: {0}",
     // 常用设备
-    favoriteDevices: "자주 사용하는 기기",
+    favoriteDevices: "Mi Home/Xiaomi Home 홈페이지에 표시",
     favoriteCamera: "카메라 바로가기",
     favoriteAddDevices: "초기 화면 자주 사용하는 기기로 설정",
     // MHDatePicker
@@ -1067,8 +1067,8 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: '표준 플러그인',
-    defaultPlugin: 'Default home page',
-    selectDefaultHP: 'Select default home page',
+    defaultPlugin: '기본 스타일',
+    selectDefaultHP: '기본 스타일',
     stdPluginTitle: 'Standard',
     thirdPluginTitle: 'Traditional',
     stdPluginSubTitle: 'Tap additional features to enter the traditional home page',
@@ -1154,7 +1154,7 @@ strings = getStrings({
     other: 'Прочее',
     multipleKeyShowOnHome: "Количество кнопок, отображаемых на домашней странице: {0}",
     // 常用设备
-    favoriteDevices: "Избранное",
+    favoriteDevices: "Отобразить на главной странице Mi Home/Xiaomi Home",
     favoriteCamera: "Ярлык камеры",
     favoriteAddDevices: "Добавить в избранное",
     // MHDatePicker
@@ -1249,8 +1249,8 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Стандартный плагин',
-    defaultPlugin: 'Default home page',
-    selectDefaultHP: 'Select default home page',
+    defaultPlugin: 'Стиль по умолчанию',
+    selectDefaultHP: 'Стиль по умолчанию',
     stdPluginTitle: 'Standard',
     thirdPluginTitle: 'Traditional',
     stdPluginSubTitle: 'Tap additional features to enter the traditional home page',
@@ -1336,7 +1336,7 @@ strings = getStrings({
     other: 'Otros',
     multipleKeyShowOnHome: "El número de botones mostrados en la página de inicio: {0}",
     // 常用设备
-    favoriteDevices: "Favoritos",
+    favoriteDevices: "Mostrar en la página de inicio de Mi Home/Xiaomi Home",
     favoriteCamera: "Acceso directo a la cámara",
     favoriteAddDevices: "Añadir a favoritos",
     // MHDatePicker
@@ -1431,8 +1431,8 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Plugin estándar',
-    defaultPlugin: 'Default home page',
-    selectDefaultHP: 'Select default home page',
+    defaultPlugin: 'Estilo predeterminado',
+    selectDefaultHP: 'Estilo predeterminado',
     stdPluginTitle: 'Standard',
     thirdPluginTitle: 'Traditional',
     stdPluginSubTitle: 'Tap additional features to enter the traditional home page',
@@ -1518,7 +1518,7 @@ strings = getStrings({
     other: 'Autre',
     multipleKeyShowOnHome: "Nombre de boutons affichés sur la page d’accueil : {0}",
     // 常用设备
-    favoriteDevices: "Favoris",
+    favoriteDevices: "Afficher sur la page d\'accueil Mi Home/Xiaomi Home",
     favoriteCamera: "Raccourci caméra",
     favoriteAddDevices: "Ajouter aux Favoris",
     // MHDatePicker
@@ -1613,8 +1613,8 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Plug-in standard',
-    defaultPlugin: 'Default home page',
-    selectDefaultHP: 'Select default home page',
+    defaultPlugin: 'Style par défaut',
+    selectDefaultHP: 'Style par défaut',
     stdPluginTitle: 'Standard',
     thirdPluginTitle: 'Traditional',
     stdPluginSubTitle: 'Tap additional features to enter the traditional home page',
@@ -1700,7 +1700,7 @@ strings = getStrings({
     other: 'Altro',
     multipleKeyShowOnHome: "Numero di pulsanti visualizzati nella pagina iniziale: {0}",
     // 常用设备
-    favoriteDevices: "Preferiti",
+    favoriteDevices: "Visualizza sulla pagina iniziale di Mi Home/Xiaomi Home",
     favoriteCamera: "Collegamento telecamera",
     favoriteAddDevices: "Aggiungi ai Preferiti",
     // MHDatePicker
@@ -1795,8 +1795,8 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Plugin standard',
-    defaultPlugin: 'Default home page',
-    selectDefaultHP: 'Select default home page',
+    defaultPlugin: 'Stile predefinito',
+    selectDefaultHP: 'Stile predefinito',
     stdPluginTitle: 'Standard',
     thirdPluginTitle: 'Traditional',
     stdPluginSubTitle: 'Tap additional features to enter the traditional home page',
@@ -1882,7 +1882,7 @@ strings = getStrings({
     other: 'Sonstiges',
     multipleKeyShowOnHome: "Die Anzahl der Schaltflächen auf der Startseite: {0}",
     // 常用设备
-    favoriteDevices: "Favoriten",
+    favoriteDevices: "Auf der Mi Home-/Xiaomi Home-Startseite anzeigen",
     favoriteCamera: "Kameraverknüpfung",
     favoriteAddDevices: "Zu Favoriten hinzufügen",
     // MHDatePicker
@@ -1977,8 +1977,8 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Standard-Plug-in',
-    defaultPlugin: 'Default home page',
-    selectDefaultHP: 'Select default home page',
+    defaultPlugin: 'Standardstil',
+    selectDefaultHP: 'Standardstil',
     stdPluginTitle: 'Standard',
     thirdPluginTitle: 'Traditional',
     stdPluginSubTitle: 'Tap additional features to enter the traditional home page',
@@ -2064,7 +2064,7 @@ strings = getStrings({
     other: 'Lainnya',
     multipleKeyShowOnHome: "Jumlah tombol yang ditunjukkan di halaman beranda: {0}",
     // 常用设备
-    favoriteDevices: "Favorit",
+    favoriteDevices: "Tampilan di beranda Mi Home/Xiaomi Home",
     favoriteCamera: "Pintasan kamera",
     favoriteAddDevices: "Tambahkan ke favorit",
     // MHDatePicker
@@ -2159,8 +2159,8 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Plugin standar',
-    defaultPlugin: 'Default home page',
-    selectDefaultHP: 'Select default home page',
+    defaultPlugin: 'Gaya default',
+    selectDefaultHP: 'Gaya default',
     stdPluginTitle: 'Standard',
     thirdPluginTitle: 'Traditional',
     stdPluginSubTitle: 'Tap additional features to enter the traditional home page',
@@ -2246,7 +2246,7 @@ strings = getStrings({
     other: 'Inny',
     multipleKeyShowOnHome: "Liczba przycisków pokazana na stronie głównej: {0}",
     // 常用设备
-    favoriteDevices: "Ulubione",
+    favoriteDevices: "Wyświetlaj na stronie głównej Mi Home / Xiaomi Home",
     favoriteCamera: "Skrót do kamery",
     favoriteAddDevices: "Dodaj do ulubionych",
     // MHDatePicker
@@ -2341,8 +2341,8 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Standardowa wtyczka',
-    defaultPlugin: 'Default home page',
-    selectDefaultHP: 'Select default home page',
+    defaultPlugin: 'Styl domyślny',
+    selectDefaultHP: 'Styl domyślny',
     stdPluginTitle: 'Standard',
     thirdPluginTitle: 'Traditional',
     stdPluginSubTitle: 'Tap additional features to enter the traditional home page',
@@ -2428,7 +2428,7 @@ strings = getStrings({
     other: 'Khác',
     multipleKeyShowOnHome: "Số nút hiển thị trên trang chủ: {0}",
     // 常用设备
-    favoriteDevices: "Mục yêu thích",
+    favoriteDevices: "Hiển thị trên trang chủ Mi Home/Xiaomi Home",
     favoriteCamera: "Lối tắt camera",
     favoriteAddDevices: "Thêm vào mục yêu thích",
     // MHDatePicker
@@ -2523,8 +2523,8 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Plugin tiêu chuẩn',
-    defaultPlugin: 'Default home page',
-    selectDefaultHP: 'Select default home page',
+    defaultPlugin: 'Kiểu mặc định',
+    selectDefaultHP: 'Kiểu mặc định',
     stdPluginTitle: 'Standard',
     thirdPluginTitle: 'Traditional',
     stdPluginSubTitle: 'Tap additional features to enter the traditional home page',
@@ -2610,7 +2610,7 @@ strings = getStrings({
     other: 'その他',
     multipleKeyShowOnHome: "ホームページに表示されるボタンの数：{0}",
     // 常用设备
-    favoriteDevices: "よく使うデバイス",
+    favoriteDevices: "Mi Home/Xiaomi ホームページに表示する",
     favoriteCamera: "カメラのショートカット",
     favoriteAddDevices: "ホームページによく使うデバイスを設定",
     // MHDatePicker
@@ -2705,8 +2705,8 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: '標準プラグイン',
-    defaultPlugin: 'Default home page',
-    selectDefaultHP: 'Select default home page',
+    defaultPlugin: 'デフォルトのスタイル',
+    selectDefaultHP: 'デフォルトのスタイル',
     stdPluginTitle: 'Standard',
     thirdPluginTitle: 'Traditional',
     stdPluginSubTitle: 'Tap additional features to enter the traditional home page',
@@ -2792,7 +2792,7 @@ strings = getStrings({
     other: 'อื่นๆ',
     multipleKeyShowOnHome: "จำนวนปุ่มที่แสดงบนหน้าหลัก: {0}",
     // 常用设备
-    favoriteDevices: "รายการโปรด",
+    favoriteDevices: "แสดงบนหน้าแรกของ Mi Home/Xiaomi Home",
     favoriteCamera: "คีย์ทางลัดกล้อง",
     favoriteAddDevices: "เพิ่มไปยังรายการโปรด",
     // MHDatePicker
@@ -2887,8 +2887,8 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'ปลั๊กอินมาตรฐาน',
-    defaultPlugin: 'Default home page',
-    selectDefaultHP: 'Select default home page',
+    defaultPlugin: 'สไตล์เริ่มต้น',
+    selectDefaultHP: 'สไตล์เริ่มต้น',
     stdPluginTitle: 'Standard',
     thirdPluginTitle: 'Traditional',
     stdPluginSubTitle: 'Tap additional features to enter the traditional home page',
@@ -2974,7 +2974,7 @@ strings = getStrings({
     other: 'Diğer',
     multipleKeyShowOnHome: "Ana sayfada gösterilen düğme sayısı: {0}",
     // 常用设备
-    favoriteDevices: "Favoriler",
+    favoriteDevices: "Mi Home/Xiaomi Home ana sayfasında göster",
     favoriteCamera: "Kamera kısayolu",
     favoriteAddDevices: "Favorilere ekle",
     // MHDatePicker
@@ -3069,8 +3069,8 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Standart eklenti',
-    defaultPlugin: 'Default home page',
-    selectDefaultHP: 'Select default home page',
+    defaultPlugin: 'Varsayılan stil',
+    selectDefaultHP: 'Varsayılan stil',
     stdPluginTitle: 'Standard',
     thirdPluginTitle: 'Traditional',
     stdPluginSubTitle: 'Tap additional features to enter the traditional home page',
@@ -3156,7 +3156,7 @@ strings = getStrings({
     other: 'Overig',
     multipleKeyShowOnHome: "Het aantal knoppen dat op de startpagina wordt getoond: {0}",
     // 常用设备
-    favoriteDevices: "Favorieten",
+    favoriteDevices: "Weergeven op Mi Home/Xiaomi Home-startpagina",
     favoriteCamera: "Snelkoppeling voor de camera",
     favoriteAddDevices: "Aan favorieten toevoegen",
     // MHDatePicker
@@ -3251,8 +3251,8 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Standaard plug-in',
-    defaultPlugin: 'Default home page',
-    selectDefaultHP: 'Select default home page',
+    defaultPlugin: 'Standaardstijl',
+    selectDefaultHP: 'Standaardstijl',
     stdPluginTitle: 'Standard',
     thirdPluginTitle: 'Traditional',
     stdPluginSubTitle: 'Tap additional features to enter the traditional home page',
@@ -3338,7 +3338,7 @@ strings = getStrings({
     other: 'Outro',
     multipleKeyShowOnHome: "Número de botões exibidos na tela inicial: {0}",
     // 常用设备
-    favoriteDevices: "Favoritos",
+    favoriteDevices: "Exibir na página inicial do Mi Home/Xiaomi Home",
     favoriteCamera: "Atalho para a câmera",
     favoriteAddDevices: "Adicionar aos favoritos",
     // MHDatePicker
@@ -3433,8 +3433,8 @@ strings = getStrings({
     curtain: 'curtain',
     noCurtainGroupTip: 'The device cannot be grouped at the moment, please add another curtain mate and try again.',
     switchPlugin: 'Plugin padrão',
-    defaultPlugin: 'Default home page',
-    selectDefaultHP: 'Select default home page',
+    defaultPlugin: 'Estilo padrão',
+    selectDefaultHP: 'Estilo padrão',
     stdPluginTitle: 'Standard',
     thirdPluginTitle: 'Traditional',
     stdPluginSubTitle: 'Tap additional features to enter the traditional home page',
@@ -3520,7 +3520,7 @@ strings = getStrings({
     other: 'Other',
     multipleKeyShowOnHome: "عدد الأزرار التي تظهر في الصفحة الرئيسية: {0}",
     // 常用设备
-    favoriteDevices: "المفضلة",
+    favoriteDevices: "العرض على الصفحة الرئيسية في Mi Home/Xiaomi Home",
     favoriteCamera: "اختصار الكاميرا",
     favoriteAddDevices: "إضافة إلى المفضلة",
     // MHDatePicker
@@ -3616,8 +3616,8 @@ strings = getStrings({
     curtain: 'الستارة',
     noCurtainGroupTip: 'لا يُمكن تجميع الجهاز في الوقت الحالي، يُرجى إضافة زوج آخر من الستائر وإعادة المحاولة.',
     switchPlugin: 'مكون إضافي قياسي',
-    defaultPlugin: 'الصفحة الرئيسية الافتراضية',
-    selectDefaultHP: 'حدد الصفحة الرئيسية الافتراضية',
+    defaultPlugin: 'الأسلوب الافتراضي',
+    selectDefaultHP: 'الأسلوب الافتراضي',
     stdPluginTitle: 'قياسية',
     thirdPluginTitle: 'تقليدية',
     stdPluginSubTitle: 'انقر فوق الميزات الإضافية للدخول إلى الصفحة الرئيسية التقليدية',
@@ -3707,7 +3707,7 @@ strings = getStrings({
     other: 'אחר',
     multipleKeyShowOnHome: "מספר הלחצנים המוצגים בדף הבית: {0}",
     // 常用设备
-    favoriteDevices: "מועדפים",
+    favoriteDevices: "הצגה בדף הבית Mi Home/Xiaomi Home",
     favoriteCamera: "קיצור דרך למצלמה",
     favoriteAddDevices: "הוסף למועדפים",
     // MHDatePicker
@@ -3803,8 +3803,8 @@ strings = getStrings({
     curtain: 'וִילוֹן',
     noCurtainGroupTip: 'לא ניתן לקבץ את המכשיר כרגע, אנא הוסף עוד חבר לווילון ונסה שוב.',
     switchPlugin: 'תוסף רגיל',
-    defaultPlugin: 'ברית המחדל עבור דף הבית',
-    selectDefaultHP: 'בחר את ברירת המחדל עבור דף הבית',
+    defaultPlugin: 'סגנון ברירת המחדל',
+    selectDefaultHP: 'סגנון ברירת המחדל',
     stdPluginTitle: 'סטנדרטי',
     thirdPluginTitle: 'מסורתי',
     stdPluginSubTitle: 'הקש על תכונות נוספות כדי להיכנס לדף הבית המסורתי',
