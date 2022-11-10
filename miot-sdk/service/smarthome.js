@@ -1136,6 +1136,9 @@ class ISmartHome {
      * 调用接口 /device/deviceinfo
      * @since 10039
      * @param {string} did 设备id
+     * @return {Promise<object>}
+     * 成功时：{"1":{"id":X,"name":"XX","room_id":XXXXXX,"home_id":XXXX,"ai_desc":"XX","icon":"X","subclass_id":X,"ai_ctrl":X}, "2":{...}, "3":{...}, ...}
+     * 失败时：{"code": XX, "msg": "XXX"}
      */
     @report
      getMultiSwitchName(did) {
