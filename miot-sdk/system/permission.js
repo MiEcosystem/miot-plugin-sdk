@@ -68,7 +68,7 @@ class IPermission {
   });
    */
   @report
-  request(permission) {
+  request = (permission) => {
     return this._request(permission);
   }
   _request(permission, returnInfo = false) {
