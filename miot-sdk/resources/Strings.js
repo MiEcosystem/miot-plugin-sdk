@@ -237,7 +237,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "在首页展示为{0}个按键",
     // 常用设备
     favoriteDevices: "米家首页显示",
-    favoriteCamera: "放大卡片",
+    favoriteCamera: "快捷摄像机",
     favoriteAddDevices: "设为首页常用设备",
     // MHDatePicker
     cancel: '取消',
@@ -423,7 +423,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "在首頁展示為 {0} 個按鍵",
     // 常用设备
     favoriteDevices: "於米家首頁顯示",
-    favoriteCamera: "放大卡片",
+    favoriteCamera: "快捷攝影機",
     favoriteAddDevices: "設為首頁常用裝置",
     // MHDatePicker
     cancel: "取消",
@@ -605,7 +605,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "在首頁顯示為{0}個按鍵",
     // 常用设备
     favoriteDevices: "在米家 App 首頁顯示",
-    favoriteCamera: "放大卡片",
+    favoriteCamera: "快捷攝影機",
     favoriteAddDevices: "設為首頁常用裝置",
     // MHDatePicker
     cancel: "取消",
