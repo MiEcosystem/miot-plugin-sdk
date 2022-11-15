@@ -4,6 +4,7 @@
       "lumi.sensor_motion.v2",
       "lumi.sensor_magnet.v2",
       "lumi.lock.aq1",
+      "lumi.lock.mcn002",
       "lumi.gateway.v3",
       "lumi.gateway.mitw01",
       "lumi.gateway.mihk01",
@@ -21,10 +22,21 @@
       "loock.lock.pfvl10",
       "loock.lock.fvl111",
       "loock.lock.t2v1",
+      "loock.lock.t2pv1",
+      "loock.lock.fcl201",
+      "lumi.lock.mcn01",
+      "lumi.lock.bmcn02",
+      "lumi.lock.bmcn03",
+      "lumi.lock.bmcn04",
+      "lumi.lock.bmcn05",
+      "lumi.lock.wbmcn1",
       "lumi.gateway.v2",
       "lumi.camera.aq1",
       "lumi.camera.gwagl01",
-      "lumi.gateway.aqhm02"
+      "lumi.gateway.aqhm02",
+      "yunlu.door.sd2105",
+      "yunlu.door.sd2106",
+      "oms.lock.dl01"
     ],
     "getDevicesWithModel": [
       "chuangmi.plug.m3",
@@ -106,14 +118,31 @@
       "xiaomi.wifispeaker.l09a",
       "yeelink.wifispeaker.v1",
       "yunmi.waterpuri.lx6",
-      "xiaomi.dev.lx2"
+      "xiaomi.dev.lx2",
+      "zhimi.heater.ma6"
+    ],
+    "getHomeList": [
+      "micar.",
+      "xiaomi."
     ],
     "System.location.getLocation": [
       "chunmi.cooker.eh1"
     ],
     "Host.local.getLocation": [
       "zhimi.airpurifier.ma2"
+    ],
+    "callSpecificAPI": [
+      "xiaomi.router",
+      "xiaomi.wifispeaker"
+    ],
+    "getServiceTokenWithSid": [
+      "xiaomi.router",
+      "xiaomi.wifispeaker"
     ]
   },
-  "methodBlock": {}
+  "methodBlock": {},
+  "hostTokenCfgMap": {
+    "api2.mina.mi.com": { "sid": "i.ai.mi.com", "cookieName": "serviceToken" },
+    "api.miwifi.com": { "sid": "xiaoqiang", "cookieName": "serviceToken" }
+  }
 }
