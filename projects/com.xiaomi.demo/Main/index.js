@@ -62,6 +62,10 @@ import ModeCardDemo from "./UIComponent/Card/ModeCardDemo"; // ui-Card-模式卡
 import AdaptedFontCardDemo from "./UIComponent/Card/AdaptedFontCardDemo"; // ui-Card-模式卡片
 import GearCardDemo from "./UIComponent/Card/GearCardDemo"; // ui-Card-滑动档位卡片
 import ListCardDemo from "./UIComponent/Card/ListCardDemo"; // ui-Card-list档位卡片
+import CardButtonDemo from "./UIComponent/Card/CardButtonDemo"; // CardButton卡片
+import SelectWithButtonDemo from "./UIComponent/Card/SelectWithButtonDemo"; // SelectWithButton卡片
+import SliderWithHeaderDemo from "./UIComponent/Card/SliderWithHeaderDemo"; // SliderWithHeader卡片
+import SliderWithoutBlockDemo from "./UIComponent/Card/SliderWithoutBlockDemo"; // SliderWithoutBlock卡片
 
 import RadioExample from "./UIComponent/RadioExample"; // ui-单选框
 import CheckboxDemo from "./UIComponent/CheckboxDemo"; // ui-复选框
@@ -90,7 +94,7 @@ import MiotAndroidScrollViewDemo from "./UIComponent/MiotAndroidScrollViewDemo";
 import AbsoluteTouch from "./UIComponent/AbsoluteTouch"; // ui-AbsoluteTouch
 import RobotMapDemo from "./UIComponent/RobotMapDemo"; // 扫地机地图
 // import SparkLines from "./UIComponent/SparkLines";
-// import YMDDatePicker from "./UIComponent/YMDDatePicker";
+import YMDDatePickerDemo from "./UIComponent/YMDDatePicker";
 // import Tabs from "./UIComponent/Tabs";
 
 // Native 交互
@@ -341,7 +345,7 @@ function createRootStack(initPage) {
       RobotMapDemo: RobotMapDemo,
       // SparkLines,
       // Tabs,
-      // YMDDatePicker,
+      YMDDatePickerDemo,
       ParticleDemo: ParticleDemo, // iOS 特有的,粒子系统
       ImagePickerDemo: ImagePickerDemo,
 
@@ -395,6 +399,10 @@ function createRootStack(initPage) {
       AdaptedFontCardDemo,
       GearCardDemo,
       ListCardDemo,
+      CardButtonDemo,
+      SelectWithButtonDemo,
+      SliderWithHeaderDemo,
+      SliderWithoutBlockDemo,
 
       CustomContainer,
       Parallax,

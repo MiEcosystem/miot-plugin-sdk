@@ -86,10 +86,10 @@ export default class UIDemo extends React.Component {
         { name: "绝对定位点击测试", router: "AbsoluteTouch" },
         { name: "输入法软键盘适配测试", router: "SoftKeyboardAdapterTestDemo" },
         { name: "创建窗帘组", router: "CurtainGroupPage" },
-        { name: "RobotMapDemo", router: "RobotMapDemo" }
+        { name: "RobotMapDemo", router: "RobotMapDemo" },
         // { name: "SparkLines", router: "SparkLines" },
         // { name: "Tabs", router: "Tabs" },
-        // { name: "YMDDatePicker", router: "YMDDatePicker" }
+        { name: "YMDDatePickerDemo", router: "YMDDatePickerDemo" }
       ])
     };
   }
