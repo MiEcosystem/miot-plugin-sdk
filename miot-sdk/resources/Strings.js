@@ -423,7 +423,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "在首頁展示為 {0} 個按鍵",
     // 常用设备
     favoriteDevices: "於米家首頁顯示",
-    favoriteCamera: "放大卡片",
+    favoriteCamera: "切換至大卡片",
     favoriteAddDevices: "設為首頁常用裝置",
     // MHDatePicker
     cancel: "取消",
@@ -605,7 +605,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "在首頁顯示為{0}個按鍵",
     // 常用设备
     favoriteDevices: "在米家 App 首頁顯示",
-    favoriteCamera: "放大卡片",
+    favoriteCamera: "切換至大卡片",
     favoriteAddDevices: "設為首頁常用裝置",
     // MHDatePicker
     cancel: "取消",
@@ -787,7 +787,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "The number of buttons shown on the home page: {0}",
     // 常用设备
     favoriteDevices: "Display on Mi Home/Xiaomi Home homepage",
-    favoriteCamera: "Camera shortcut",
+    favoriteCamera: "Switch to the large card",
     favoriteAddDevices: "Add to favorites",
     // MHDatePicker
     cancel: 'Cancel',
@@ -973,7 +973,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "홈페이지에 표시할 버튼 수: {0}",
     // 常用设备
     favoriteDevices: "Mi Home/Xiaomi Home 홈페이지에 표시",
-    favoriteCamera: "카메라 바로가기",
+    favoriteCamera: "대형 카드로 전환",
     favoriteAddDevices: "초기 화면 자주 사용하는 기기로 설정",
     // MHDatePicker
     cancel: "취소",
@@ -1155,7 +1155,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "Количество кнопок, отображаемых на домашней странице: {0}",
     // 常用设备
     favoriteDevices: "Отобразить на главной странице Mi Home/Xiaomi Home",
-    favoriteCamera: "Ярлык камеры",
+    favoriteCamera: "Переключиться на крупные карточки",
     favoriteAddDevices: "Добавить в избранное",
     // MHDatePicker
     cancel: "Отменить",
@@ -1337,7 +1337,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "El número de botones mostrados en la página de inicio: {0}",
     // 常用设备
     favoriteDevices: "Mostrar en la página de inicio de Mi Home/Xiaomi Home",
-    favoriteCamera: "Acceso directo a la cámara",
+    favoriteCamera: "Cambiar a la tarjeta grande",
     favoriteAddDevices: "Añadir a favoritos",
     // MHDatePicker
     cancel: "Cancelar",
@@ -1519,7 +1519,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "Nombre de boutons affichés sur la page d’accueil : {0}",
     // 常用设备
     favoriteDevices: "Afficher sur la page d\'accueil Mi Home/Xiaomi Home",
-    favoriteCamera: "Raccourci caméra",
+    favoriteCamera: "Passer à la carte grand format",
     favoriteAddDevices: "Ajouter aux Favoris",
     // MHDatePicker
     cancel: "Annuler",
@@ -1701,7 +1701,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "Numero di pulsanti visualizzati nella pagina iniziale: {0}",
     // 常用设备
     favoriteDevices: "Visualizza sulla pagina iniziale di Mi Home/Xiaomi Home",
-    favoriteCamera: "Collegamento telecamera",
+    favoriteCamera: "Passare alla scheda grande",
     favoriteAddDevices: "Aggiungi ai Preferiti",
     // MHDatePicker
     cancel: "Annulla",
@@ -1883,7 +1883,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "Die Anzahl der Schaltflächen auf der Startseite: {0}",
     // 常用设备
     favoriteDevices: "Auf der Mi Home-/Xiaomi Home-Startseite anzeigen",
-    favoriteCamera: "Kameraverknüpfung",
+    favoriteCamera: "Zu großer Karte wechseln",
     favoriteAddDevices: "Zu Favoriten hinzufügen",
     // MHDatePicker
     cancel: "Abbrechen",
@@ -2065,7 +2065,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "Jumlah tombol yang ditunjukkan di halaman beranda: {0}",
     // 常用设备
     favoriteDevices: "Tampilan di beranda Mi Home/Xiaomi Home",
-    favoriteCamera: "Pintasan kamera",
+    favoriteCamera: "Ganti ke kartu besar",
     favoriteAddDevices: "Tambahkan ke favorit",
     // MHDatePicker
     cancel: "Batal",
@@ -2247,7 +2247,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "Liczba przycisków pokazana na stronie głównej: {0}",
     // 常用设备
     favoriteDevices: "Wyświetlaj na stronie głównej Mi Home / Xiaomi Home",
-    favoriteCamera: "Skrót do kamery",
+    favoriteCamera: "Przełącz na dużą kartę",
     favoriteAddDevices: "Dodaj do ulubionych",
     // MHDatePicker
     cancel: "Anuluj",
@@ -2429,7 +2429,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "Số nút hiển thị trên trang chủ: {0}",
     // 常用设备
     favoriteDevices: "Hiển thị trên trang chủ Mi Home/Xiaomi Home",
-    favoriteCamera: "Lối tắt camera",
+    favoriteCamera: "Chuyển sang thẻ lớn",
     favoriteAddDevices: "Thêm vào mục yêu thích",
     // MHDatePicker
     cancel: "Huỷ bỏ",
@@ -2611,7 +2611,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "ホームページに表示されるボタンの数：{0}",
     // 常用设备
     favoriteDevices: "Mi Home/Xiaomi ホームページに表示する",
-    favoriteCamera: "カメラのショートカット",
+    favoriteCamera: "大きなカードに切り替える",
     favoriteAddDevices: "ホームページによく使うデバイスを設定",
     // MHDatePicker
     cancel: "キャンセル",
@@ -2793,7 +2793,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "จำนวนปุ่มที่แสดงบนหน้าหลัก: {0}",
     // 常用设备
     favoriteDevices: "แสดงบนหน้าแรกของ Mi Home/Xiaomi Home",
-    favoriteCamera: "คีย์ทางลัดกล้อง",
+    favoriteCamera: "เปลี่ยนเป็นการ์ดใหญ่",
     favoriteAddDevices: "เพิ่มไปยังรายการโปรด",
     // MHDatePicker
     cancel: "ยกเลิก",
@@ -2975,7 +2975,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "Ana sayfada gösterilen düğme sayısı: {0}",
     // 常用设备
     favoriteDevices: "Mi Home/Xiaomi Home ana sayfasında göster",
-    favoriteCamera: "Kamera kısayolu",
+    favoriteCamera: "Büyük karta geç",
     favoriteAddDevices: "Favorilere ekle",
     // MHDatePicker
     cancel: "İptal ",
@@ -3157,7 +3157,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "Het aantal knoppen dat op de startpagina wordt getoond: {0}",
     // 常用设备
     favoriteDevices: "Weergeven op Mi Home/Xiaomi Home-startpagina",
-    favoriteCamera: "Snelkoppeling voor de camera",
+    favoriteCamera: "Overschakelen naar de grote kaart",
     favoriteAddDevices: "Aan favorieten toevoegen",
     // MHDatePicker
     cancel: "Annuleren",
@@ -3339,7 +3339,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "Número de botões exibidos na tela inicial: {0}",
     // 常用设备
     favoriteDevices: "Exibir na página inicial do Mi Home/Xiaomi Home",
-    favoriteCamera: "Atalho para a câmera",
+    favoriteCamera: "Mudar para o cartão grande",
     favoriteAddDevices: "Adicionar aos favoritos",
     // MHDatePicker
     cancel: "Cancelar",
@@ -3521,7 +3521,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "عدد الأزرار التي تظهر في الصفحة الرئيسية: {0}",
     // 常用设备
     favoriteDevices: "العرض على الصفحة الرئيسية في Mi Home/Xiaomi Home",
-    favoriteCamera: "اختصار الكاميرا",
+    favoriteCamera: "تبديل إلى البطاقة الكبيرة",
     favoriteAddDevices: "إضافة إلى المفضلة",
     // MHDatePicker
     cancel: 'إلغاء',
@@ -3708,7 +3708,7 @@ strings = getStrings({
     multipleKeyShowOnHome: "מספר הלחצנים המוצגים בדף הבית: {0}",
     // 常用设备
     favoriteDevices: "הצגה בדף הבית Mi Home/Xiaomi Home",
-    favoriteCamera: "קיצור דרך למצלמה",
+    favoriteCamera: "החלף לכרטיס הגדול",
     favoriteAddDevices: "הוסף למועדפים",
     // MHDatePicker
     cancel: 'ביטול',
