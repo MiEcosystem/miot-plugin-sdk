@@ -36,6 +36,7 @@ export default class UIDemo extends React.Component {
         { name: "时间选择器", router: "MHDatePickerDemo" },
         { name: "空白页面示例", router: "BlankPageEntry" },
         { name: "颜色选择", router: "ColorPicker" },
+        { name: "拦截返回事件(Android Only)", router: "BackHandlerDemo" },
         { name: "第三方 toast 组件使用示例", router: "ToastExample" },
         { name: "ScrollView 吸附效果 demo", router: "Parallax" },
         { name: "Host.ui 原生导航", router: "NavigateUIDemo" },

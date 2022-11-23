@@ -165,6 +165,7 @@ import BlankDemo from "./tutorial/BlankDemo";
 import SystemDemo from "./tutorial/SystemDemo";
 import BlankPageDemo from "./UIComponent/BlankPageDemo";
 import ColorPicker from "./UIComponent/ColorPicker";
+import BackHandlerDemo from "./UIComponent/BackHandlerDemo";
 import PackageDemo from "./tutorial/PackageDemo";
 // import ReactNativeCameraDemo from './ThirdPartDemo/ReactNativeCameraDemo';
 import LinearGradientDemo from "./ThirdPartDemo/LinearGradientDemo";
@@ -411,6 +412,7 @@ function createRootStack(initPage) {
       MHSceneDemo: MHSceneDemo,
       BlankPageDemo,
       ColorPicker,
+      BackHandlerDemo,
       tutorialDemo: TutorialDemo,
       PackageDemo: PackageDemo,
       AccountDemo: AccountDemo,
