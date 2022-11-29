@@ -1320,7 +1320,7 @@ export default class CommonSetting extends React.Component {
         subtitleStyle: null,
         valueStyle: null,
         dotStyle: null,
-        titleNumberOfLines: 1,
+        titleNumberOfLines: 2,
         subtitleNumberOfLines: 2,
         valueNumberOfLines: 2,
         // valueMaxWidth 这里不设置默认值，直接用ListItem 里的
