@@ -1,6 +1,6 @@
 'use strict';
 
-import { Device, DeviceEvent, Host, PackageEvent } from "miot";
+import { Device, DeviceEvent, Host, Service, PackageEvent } from "miot";
 import React from 'react';
 import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Logger from '../../Logger';
@@ -668,6 +668,17 @@ export default class UIDemo extends React.Component {
         'subtitle': '打开组设备初始化页面',
         'func': () => {
           Host.ui.openVirtualGroupInitPage({ groupDid: Device.deviceID });
+        }
+      },
+      {
+        'name': 'openConsumesDetailPage',
+        'subtitle': '打开耗材详情页面',
+        'func': () => {
+          Service.smarthome.getConsumableDetails().then((res) => {
+            const consumesData = res.items[0].consumes_data[0];
+            const consumableList = consumesData.details;
+            Host.ui.openConsumesDetailPage(consumableList[0]);
+          });
         }
       }
     ];
