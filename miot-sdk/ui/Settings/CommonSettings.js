@@ -142,7 +142,7 @@ const innerOptions = {
         <ListItemWithSwitch
           key={'FREQ_DEVICE'}
           title={I18n.favoriteDevices}
-          titleNumberOfLines={2}
+          titleNumberOfLines={3}
           value={!!info}
           onValueChange={(vaule) => {
             Device.setCommonUseDeviceSwitch(

@@ -1298,6 +1298,61 @@ class ISmartHome {
   requestAuthForAlexaVoiceService(params) {
      return Promise.resolve(null);
   }
+   /**
+     * 当前账号下的所有家庭列表
+     * @since 10077
+     * @param {object} params 预留参数
+     * @returns {object} 返回格式：
+     * { code: 0,
+     *   data: [
+     *     {homeId:xx, homeName:xx, isOwner:true/false},
+     *      ...
+     *   ]
+     * }
+     * @example
+     * Service.smarthome.getHomeList().then(res=>{
+     *  console.log("res:",JSON.stringify(res))
+     * }).catch(err=>{
+     *  console.log("err:",JSON.stringify(err))
+     * })
+     */
+   @report
+   getHomeList(params = null) {
+      return Promise.resolve(null);
+   }
+   /**
+     * @since 10077
+     * 获取车家批量控制场景数据，/business/car_scene/get_manual_scenes
+     * @param {object} params 预留，接口参数透传
+     * @return {Promise}
+     */
+   @report
+   getCarManualSceneData(params = null) {
+      return Promise.resolve(null);
+   }
+   /**
+     * @since 10077
+     * 更新车家批量控制场景数据，/business/car_scene/update_manual_scenes
+     * @param {object} params 接口参数透传
+     * @example
+     * const params = {
+     *     "manualScenes": [
+     *         {
+     *             "homeId": xxxx,
+     *             "sceneId": xxxx
+     *         },
+     *         {
+     *             "homeId": xxxx,
+     *             "sceneId": xxxxxx
+     *         }
+     *     ]
+     * }
+     * @return {Promise}
+     */
+   @report
+   updateCarManualSceneData(params) {
+      return Promise.resolve(null);
+   }
 }
 const SmartHomeInstance = new ISmartHome();
 export default SmartHomeInstance;

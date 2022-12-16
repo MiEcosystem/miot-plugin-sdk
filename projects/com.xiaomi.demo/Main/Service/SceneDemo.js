@@ -25,7 +25,8 @@ export default class MHSceneDemo extends React.Component {
                 items: [
                   [() => { Service.scene.openIftttAutoPage(); }, '打开添加智能的页面(米家APP实现)'],
                   [this._openTimerSettingPageWithOptions, '打开定时页面'],
-                  [this._openCountDownPage, '打开倒计时页面']
+                  [this._openCountDownPage, '打开倒计时页面'],
+                  [() => { Service.sceneV2.openBatchConvertScenePage(); }, '打开1.0场景转2.0场景页面']
                 ]
               },
               {
@@ -44,8 +45,8 @@ export default class MHSceneDemo extends React.Component {
                   [this._removeErrorTimerScene, '删除场景（报错）'],
                   [this._editPeriodTimerV2, '创建定时2.0时间段定时'],
                   [this._editPointTimerV2, '创建定时2.0时间点定时'],
-                  [this._getTimerListV2, '获取定时2.0定时列表']
-
+                  [this._getTimerListV2, '获取定时2.0定时列表'],
+                  [this._hasConvertibleScene, '判断是否有可转2.0场景的1.0场景']
                 ]
               },
               {
@@ -341,6 +342,14 @@ export default class MHSceneDemo extends React.Component {
       alert(JSON.stringify(res));
     }).catch((err) => {
       alert(`error${ JSON.stringify(err) }`);
+    });
+  }
+
+  _hasConvertibleScene() {
+    Service.sceneV2.hasConvertibleScene().then((has) => {
+      alert(has);
+    }).catch((err) => {
+      alert(err);
     });
   }
 }

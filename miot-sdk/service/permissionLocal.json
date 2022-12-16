@@ -125,6 +125,10 @@
       "micar.",
       "xiaomi."
     ],
+    "getHomeList": [
+      "micar.",
+      "xiaomi."
+    ],
     "System.location.getLocation": [
       "chunmi.cooker.eh1"
     ],

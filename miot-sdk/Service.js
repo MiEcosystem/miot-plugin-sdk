@@ -91,10 +91,14 @@ export default {
   },
   /**
    * @member scene
-   * @description 场景 API 的调用
+   * @deprecated 1.0下所有定时相关的接口已不再维护，请使用sceneV2。部分工具类依旧可用
+   * @description 场景1.0 API 的调用
    * @see {@link module:miot/service/scene}
    */
   get scene() {
+    if (__DEV__ && console.warn) {
+      console.warn("scene deprecated 1.0下所有定时相关的接口已不再维护，请使用sceneV2。部分工具类依旧可用");
+    }
     return Scene;
   },
   /**
