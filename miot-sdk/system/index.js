@@ -39,6 +39,7 @@ import Volume from "./volume";
 import Network from "./network";
 import IShake from "./shake";
 import INfc from './nfc';
+import IHealth from "./health";
 export const battery = IBattery;
 export const bluetooth = IBluetooth;
 export const accelerometer = IAccelerometer;
@@ -52,7 +53,8 @@ export const volume = Volume;
 export const network = Network;
 export const shake = IShake;
 export const nfc = INfc;
+export const health = IHealth;
 export default {
   battery, bluetooth, accelerometer, compass, gyroscope, scancode,
-  vibrate, permission, location, volume, network, shake, nfc
+  vibrate, permission, location, volume, network, shake, nfc, health
 };
