@@ -20,7 +20,6 @@ import AutoOTAABTestHelper from 'miot/utils/autoota_abtest_helper';
 import ProtocolManager from '../utils/protocol-helper';
 import { report } from "../decorator/ReportDecorator";
 import { Device, Package, Service } from 'miot';
-import { specPluginNames } from '../utils/special-plugins';
 import PrivacyUploadFdsHelper from '../utils/privacy_uploadfds_helper';
 /**
  * 原生UI管理
