@@ -747,7 +747,7 @@ export default class CommonSetting extends React.Component {
       dialogVisible: false,
       needShowUpgradeRedDot: false,
       showMemberSetKey: false, // 是否展示「按键设置」,适用于多键开关和继电器设备
-      isSingleSwitch: false, // 是否是单键开关，单键开关也要显示「按键设置」。showMemberSetKey || isSingleSwitch === false
+      isSingleSwitch: false, // 是否是单键开关，单键开关也要显示「按键设置」。showMemberSetKey和isSingleSwitch要么都为false，说明这不是一个开关设备，要么只会有一个为true，说明这是单键或者多键开关
       showDeviceService: false // 是否暂展示「设备服务」选项
     };
     console.log(`Device.type: ${ Device.type }`);
@@ -1106,7 +1106,12 @@ export default class CommonSetting extends React.Component {
     // 7. 根据开发者特殊需要，隐藏某些必选项
     const { excludeRequiredOptions } = this.props.extraOptions;
     if (excludeRequiredOptions instanceof Array) {
-      keys = keys.filter((key) => !(excludeRequiredOptions || []).includes(key));
+      keys = keys.filter((key) => {
+        if ((isSingleSwitch ^ showMemberSetKey) && key === AllOptions.MEMBER_SET) { // 如果SDK决定要展示「按键设置」，那么这个选项不允许开发者隐藏
+          return true;
+        }
+        return !(excludeRequiredOptions || []).includes(key);
+      });
     }
     // 4.5 所有设置项顺序固定，20190708 / SDK_10023
     keys.sort((keyA, keyB) => {
