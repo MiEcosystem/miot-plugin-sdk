@@ -822,7 +822,7 @@ class IUi {
    * Host.ui.openAssociatePage(param);
    */
   @report
-  openAssociatePage(param) {
+  openAssociatePage(param = {}) {
   }
 }
 const UiInstance = new IUi();
