@@ -183,7 +183,7 @@ class ISmartHome {
      * 当用户反馈问题时，勾选 “同时上传日志”，则该 Model 的日志会跟随用户反馈上传，
      * 开发者可在 IoT 平台查看用户反馈及下载对应日志文件。用户反馈查看入口：数据中心—用户反馈，如果看不到数据中心入口，联系自己所属企业管理员修改账号权限。
      * 查看地址：https://iot.mi.com/fe-op/operationCenter/userFeedback
-     * @param {string} model 要打 log 到哪个 model 下
+     * @param {string} model 要打 log 到哪个 model 下, 格式必须形如aaa.bbb.ccc, 否者无效
      * @param {string} log 具体的 log 数据
      * @returns {void}
      *
