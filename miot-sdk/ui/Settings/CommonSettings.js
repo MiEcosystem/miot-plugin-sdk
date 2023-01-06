@@ -40,7 +40,9 @@ const innerOptions = {
     title: I18n.share,
     onPress: () => {
       Host.ui.openShareDevicePage();
-    }
+    },
+    // zigbee/plc 设备不显示设备共享, 下一期支持动态读取平台配置
+    notTypes: ['3', '22']
   },
   ifttt: {
     exportKey: 'IFTTT',
