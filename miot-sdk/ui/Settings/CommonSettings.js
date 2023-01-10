@@ -136,7 +136,7 @@ const innerOptions = {
     title: I18n.favoriteDevices,
     isDefault: true,
     ownerOnly: true,
-    Component: () => {
+    Component: (params) => {
       const [info, setInfo] = useFreqDeviceInfo();
       return (
         <ListItemWithSwitch
@@ -144,6 +144,7 @@ const innerOptions = {
           title={I18n.favoriteDevices}
           titleNumberOfLines={3}
           value={!!info}
+          onTintColor={params.extraOptions?.themeColor || undefined}
           onValueChange={(vaule) => {
             Device.setCommonUseDeviceSwitch(
               {
