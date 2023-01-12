@@ -9,7 +9,6 @@
  */
 import { report } from "../decorator/ReportDecorator";
 import Permission from '../service/permission';
-import Device from "../device/BasicDevice";
 /**
  * 成员类型
  * @namespace MemberType
@@ -184,7 +183,7 @@ class ISmartHome {
      * 当用户反馈问题时，勾选 “同时上传日志”，则该 Model 的日志会跟随用户反馈上传，
      * 开发者可在 IoT 平台查看用户反馈及下载对应日志文件。用户反馈查看入口：数据中心—用户反馈，如果看不到数据中心入口，联系自己所属企业管理员修改账号权限。
      * 查看地址：https://iot.mi.com/fe-op/operationCenter/userFeedback
-     * @param {string} model 要打 log 到哪个 model 下
+     * @param {string} model 要打 log 到哪个 model 下, 格式必须形如aaa.bbb.ccc, 否者无效
      * @param {string} log 具体的 log 数据
      * @returns {void}
      *
@@ -1136,6 +1135,9 @@ class ISmartHome {
      * 调用接口 /device/deviceinfo
      * @since 10039
      * @param {string} did 设备id
+     * @return {Promise<object>}
+     * 成功时：{"1":{"id":X,"name":"XX","room_id":XXXXXX,"home_id":XXXX,"ai_desc":"XX","icon":"X","subclass_id":X,"ai_ctrl":X}, "2":{...}, "3":{...}, ...}
+     * 失败时：{"code": XX, "msg": "XXX"}
      */
     @report
      getMultiSwitchName(did) {
@@ -1249,7 +1251,7 @@ class ISmartHome {
     * code != 0 data 失败详情
     */
     @report
-    checkFirmwareAutoUpgradeOpen(aDevId = Device.deviceID) {
+    checkFirmwareAutoUpgradeOpen(aDevId = native.MIOTDevice.currentDevice.did) {
        return Promise.resolve(null);
     }
     /**
@@ -1264,7 +1266,7 @@ class ISmartHome {
     *  code != 0 data 失败详情
     */
     @report
-    setFirmwareAutoUpgradeSwitch(aOpen, aDevId = Device.deviceID) {
+    setFirmwareAutoUpgradeSwitch(aOpen, aDevId = native.MIOTDevice.currentDevice.did) {
        return Promise.resolve(null);
     }
      return Promise.resolve(null);
@@ -1295,6 +1297,129 @@ class ISmartHome {
   requestAuthForAlexaVoiceService(params) {
      return Promise.resolve(null);
   }
+   /**
+     * 当前账号下的所有家庭列表
+     * @since 10078
+     * @param {object} params 预留参数
+     * @returns {object} 返回格式：
+     * { code: 0,
+     *   data: [
+     *     {homeId:xx, homeName:xx, isOwner:true/false},
+     *      ...
+     *   ]
+     * }
+     * @example
+     * Service.smarthome.getHomeList().then(res=>{
+     *  console.log("res:",JSON.stringify(res))
+     * }).catch(err=>{
+     *  console.log("err:",JSON.stringify(err))
+     * })
+     */
+   @report
+   getHomeList(params = null) {
+      return Promise.resolve(null);
+   }
+   /**
+     * @since 10078
+     * 获取车家批量控制场景数据，/business/car_scene/get_manual_scenes
+     * @param {object} params 预留，接口参数透传
+     * @return {Promise}
+     */
+   @report
+   getCarManualSceneData(params = null) {
+      return Promise.resolve(null);
+   }
+   /**
+     * @since 10078
+     * 更新车家批量控制场景数据，/business/car_scene/update_manual_scenes
+     * @param {object} params 接口参数透传
+     * @example
+     * const params = {
+     *     "manualScenes": [
+     *         {
+     *             "homeId": xxxx,
+     *             "sceneId": xxxx
+     *         },
+     *         {
+     *             "homeId": xxxx,
+     *             "sceneId": xxxxxx
+     *         }
+     *     ]
+     * }
+     * @return {Promise}
+     */
+   @report
+   updateCarManualSceneData(params) {
+      return Promise.resolve(null);
+   }
+   /**
+   * 获取当前设备的耗材详情信息，如果有插件想用一些信息的可以自己获取
+    * 如果插件不用这个信息，可以直接把获取到的数据传给Host.ui.openConsumesPageWithParams方法
+    * @param param 预留
+    * @returns {Promise<Object>}
+    * 返回值结构:
+    * {
+    *   "items": [
+    *     {
+    *       "state": 1,     // 设备所在家庭下耗材的整体状态，1.充足： 2：未知  3：不足
+    *       "count": 1,     // 该状态耗材的设备数量
+    *       "ignore_count":0,  // 被忽略的did数量，插件无需关心
+    *       "consumes_data": [  // 这下面才是与这个设备耗材相关的数据,length == 1，因为查询的是当前设备的耗材情况
+    *         {
+    *           "details": [    // 数组，长度为设备耗材类型的数量。比如一个洗衣机，又有洗衣液，又有柔顺剂，那么这个数组的长度就是2，调用Host.ui.openConsumesDetailPage时传入的参数就是这里面的元素
+    *             {
+    *               "id": 45 ，              //耗材id
+    *               "description": "滤芯",  //耗材名称
+    *               "value": "45",         //剩余百分比，比如这里就是耗材还剩余45%可用
+    *               "update_time": 1644991964,   //数据更新时间，秒
+    *               "state": 1,             //耗材状态  1.充足： 2：未知  3：不足 4：耗尽
+    *               "inadeq": "{"val":"5","unit":"percentage","type":"value"}",   //不足 type：value(值)，range(范围)，list(列表)，boolean(布尔值)
+    *               "exhaust": "{"val":"0","unit":"percentage","type":"value"}",   //耗材耗尽的标志位
+    *               "extra_url": "https://m.xiaomiyoupin.com/detail?gid=102955/u0026source=mijia_pc102955",//耗材链接
+    *               "left_time": "1100",//耗材剩余寿命，小时
+    *               "total_life": "11500",   //耗材的平均寿命，小时
+    *               "prop": "prop.filter1_life",   //耗材对应属性
+    *               "consumable_type": "***",   //耗材型号
+    *               "intro":"*****",  //功能介绍
+    *               "type_name": "battery",   //增加耗材类型字段，目前只有battery
+    *               "pic_urls": [          //耗材图片链接
+    *                 "***",
+    *                 "***"
+    *               ],
+    *               "reset_method": "action.11.1",  //新的重置方法action
+    *               "change_instruction": [    //更换教学
+    *                 {
+    *                   "pic_url":"***",
+    *                   "desc":"***"
+    *                 }
+    *               ],
+    *               "reset_state": 0  // 是否支持重置：0：不支持，1：旧的重置方法，2：新的重置方法
+    *             }
+    *           ],
+    *           "did": "172362445",
+    *           "model":"****", // 设备的model
+    *           "is_ignore":true,    // 该did的状态是否被忽略，true是被忽略，false没有被忽略
+    *           "is_online":false,   // 判断是否在线
+    *           "name":"***", // 设备名称
+    *           "room_id": "979234672",
+    *           "skip_rpc": true,    //看下面说明
+    *           "ble_gateway": false, // 看下面说明
+    *           "time_stamp":77777, //同一个did下相同状态的耗材的value最新的时间戳
+    *         }
+    *       ]
+    *     }
+    *   ]
+    * }
+    *
+    *
+    * skip_rpc说明
+    * skip_rpc = true 表示rpc失败，或调用方指定不进行rpc，但缺少上报数据需要rpc获取，且设备在线
+    * ble_gateway说明
+    * 当设备model为需要蓝牙网关的model时，返回true
+   */
+   @report
+   getConsumableDetails(param = {}) {
+      return Promise.resolve(null);
 }
 const SmartHomeInstance = new ISmartHome();
 export default SmartHomeInstance;

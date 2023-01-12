@@ -13,6 +13,7 @@ import useFreqCameraInfo from '../../hooks/useFreqCameraInfo';
 import useFreqDeviceInfo from '../../hooks/useFreqDeviceInfo';
 import AutoOTAABTestHelper from '../../utils/autoota_abtest_helper';
 import useDeviceService from "../../hooks/useDeviceService";
+import { ListItemWithSwitch } from 'mhui-rn';
 const innerOptions = {
   deviceService: {
     exportKey: 'DEVICE_SERVICE',
@@ -39,7 +40,9 @@ const innerOptions = {
     title: I18n.share,
     onPress: () => {
       Host.ui.openShareDevicePage();
-    }
+    },
+    // zigbee/plc 设备不显示设备共享, 下一期支持动态读取平台配置
+    notTypes: ['3', '22']
   },
   ifttt: {
     exportKey: 'IFTTT',
@@ -135,8 +138,28 @@ const innerOptions = {
     title: I18n.favoriteDevices,
     isDefault: true,
     ownerOnly: true,
-    onPress: () => {
-      Host.ui.openCommonDeviceSettingPage(0);
+    Component: () => {
+      const [info, setInfo] = useFreqDeviceInfo();
+      return (
+        <ListItemWithSwitch
+          key={'FREQ_DEVICE'}
+          title={I18n.favoriteDevices}
+          titleNumberOfLines={3}
+          value={!!info}
+          onValueChange={(vaule) => {
+            Device.setCommonUseDeviceSwitch(
+              {
+                switchStatus: vaule ? "1" : "0"
+              }
+            ).then(() => {
+              setInfo(vaule);
+            }).catch(() => {
+              setInfo(vaule);// 不调用这行代码的话，info值未变，下面的setInfo不会触发render
+              setInfo(!vaule);
+            });
+          }}
+        />
+      );
     }
   },
   freqCamera: {

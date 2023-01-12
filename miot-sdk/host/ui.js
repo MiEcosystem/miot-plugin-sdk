@@ -20,7 +20,6 @@ import AutoOTAABTestHelper from 'miot/utils/autoota_abtest_helper';
 import ProtocolManager from '../utils/protocol-helper';
 import { report } from "../decorator/ReportDecorator";
 import { Device, Package, Service } from 'miot';
-import { specPluginNames } from '../utils/special-plugins';
 import PrivacyUploadFdsHelper from '../utils/privacy_uploadfds_helper';
 /**
  * 原生UI管理
@@ -119,15 +118,26 @@ class IUi {
   openSystemFileWindow(pathOrUrl) {
   }
   /**
+   * @since 10078
+   * 打开耗材详情页面(自研插件)
+   * @param {object} params 耗材传递的参数
+   *   params
+   *   对应的 getConsumableDetails 接口数据的details数组的元素
+   */
+   @report
+  openConsumesDetailPage(params) {
+  }
+  
+  /**
    * 获取设备列表中指定model的设备信息(仅白名单设备才允许调用此方法，如需使用，请联系插件框架)
    * @param model 指定的model
    * @param {boolean} includeGroupedDevice - since 10046 是否包含被组成了一个组的设备（目前仅窗帘设备可用，灯设备不可用），默认不包含
    * @returns {Promise<devices[]>} 对象中有字段 isGrouped 表示是被分组的设备，includeGroupedDevice = true时才有效
    */
   @report
-  getDevicesWithModel(model, includeGroupedDevice = false) {
-     return Promise.resolve([]);
-  }
+   getDevicesWithModel(model, includeGroupedDevice = false) {
+      return Promise.resolve([]);
+   }
   /**
    * 打开蓝牙网关页
    */

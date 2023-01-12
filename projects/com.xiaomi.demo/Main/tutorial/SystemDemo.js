@@ -303,6 +303,43 @@ function openNotificationSettingPage() {
   System.permission.openAPPSystemConfigPage(SystemConfig.NOTIFICATION);
 }
 
+function requestHealthAuthorization() {
+  let params = {
+    writeObjTypes: ['BodyMass', 'BodyFatPercentage'],
+    readObjTypes: ['BodyMass', 'BodyFatPercentage']
+  };
+  System.health.requestHealthAuthorization(params).then((res) => {
+    alert(JSON.stringify(res));
+  }).catch((res) => {
+    alert(JSON.stringify(res));
+  });
+}
+
+function getHealthAuthorizationStatus() {
+  let params = {
+    authObjType: 'BodyFatPercentage'
+  };
+  System.health.getHealthAuthorizationStatus(params).then((res) => {
+    alert(JSON.stringify(res));
+  }).catch((res) => {
+    alert(JSON.stringify(res));
+  });
+}
+
+function writeDataToHealthApp() {
+  let params = {
+    authObjType: 'BodyMassIndex',
+    objValue: 1.2,
+    startTime: 1667291265,
+    endTime: 1667291270
+  };
+  System.health.writeDataToHealthApp(params).then((res) => {
+    alert(JSON.stringify(res));
+  }).catch((res) => {
+    alert(JSON.stringify(res));
+  });
+}
+
 export default class SystemDemo extends React.Component {
   componentDidMount() {
     Logger.trace(this);
@@ -359,7 +396,11 @@ export default class SystemDemo extends React.Component {
               ["设备是否为Pad", isPad],
               [],
               ["检查是否为APP开启推送通知权限", checkNotificationConfigEnable],
-              ["打开开启推送通知权限设置页", openNotificationSettingPage]
+              ["打开开启推送通知权限设置页", openNotificationSettingPage],
+              [],
+              ["请求健康App权限(只有iOS)", requestHealthAuthorization],
+              ["获取健康权限状态(只有iOS)", getHealthAuthorizationStatus],
+              ["写入数据到健康App(只有iOS)", writeDataToHealthApp]
             ].map((item, index) => {
               return (item.length >= 2 ? <ListItem
                 key={index}

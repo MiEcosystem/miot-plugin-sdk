@@ -14,6 +14,11 @@ export function showDeviceService() {
         resolve(false);
         return;
       }
+      if (modelType === 'air-conditioner' && Device.model?.split('.')[1] === 'acpartner') { // 空调伴侣这个设备，是个插座，但是它用了air-conditioner，得把它排除在外
+        cacheShowDeviceService = false;
+        resolve(false);
+        return;
+      }
       Service.callSmartHomeAPI('/v2/product/get_product_brands', {})
         .then((res) => {
           const deviceBrandInfo = res?.brand_list?.find((item) => {

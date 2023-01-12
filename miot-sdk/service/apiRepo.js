@@ -310,6 +310,8 @@ const API_REPO = {
   '/smarthome/product/panel/plugin/quickSceneList': {},
   '/smarthome/product/panel/plugin/scenes': {},
   '/smarthome/product/panel/plugin/resetSetting': {},
-  '/smarthome/product/panel/plugin/wifispeakerDid': {}
+  '/smarthome/product/panel/plugin/wifispeakerDid': {},
+  '/appgateway/miot/appsceneservice/AppSceneService/GetManualSceneList': {},
+  '/smarthome/product/panel/plugin/quickHomeAddress': {},
 };
 export default API_REPO;
