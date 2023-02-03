@@ -121,7 +121,13 @@ export default class HostDemo extends React.Component {
         }
       },
       {
-        "name": '打开WebView',
+        "name": '打开WebView 传入的是有品url',
+        'func': () => {
+          Host.ui.openWebPage("https://m.xiaomiyoupin.com/w/universal?_rt=weex&pageid=11093&pdl=youpin&sign=ce2850df4bca5048af7f3672c4467a3b");
+        }
+      },
+      {
+        "name": '打开WebView 传入的是普通url',
         'func': () => {
           Host.ui.openWebPage("https://home.mi.com/views/article.html?articleId=684095286000000001");
         }
@@ -133,6 +139,7 @@ export default class HostDemo extends React.Component {
     return (
       <View style={styles.container}>
         <ListView style={styles.list} dataSource={this.state.dataSource} renderRow={this._renderRow.bind(this)} />
+        <View style={{ height: Host.isIphoneXSeries ? 40 : 0 }}></View>
       </View>
     );
   }
@@ -163,7 +170,6 @@ var styles = StyleSheet.create({
     flex: 1,
     borderTopColor: '#f1f1f1',
     borderTopWidth: 1,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff',

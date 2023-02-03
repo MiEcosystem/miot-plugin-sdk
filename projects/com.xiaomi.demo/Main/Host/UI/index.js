@@ -640,8 +640,11 @@ export default class UIDemo extends React.Component {
         }
       },
       {
+        // 注意: 自SDK10077 (含) 开始, 该接口更改为打开放大卡片设置页面, 且*不建议*开发者使用
+        // 仅接受参数type=1
         'name': 'openCommonDeviceSettingPage',
-        'subtitle': '打开常用设备/常用摄像机设置页面',
+        // 'subtitle': '打开常用设备/常用摄像机设置页面',
+        'subtitle': '打开放大卡片设置页面',
         'func': () => {
           Host.ui.openCommonDeviceSettingPage(1);
         }

@@ -54,8 +54,11 @@ class SupportedFont extends Component {
       }
     ];
 
+    let index = 0;
     let components = fontsArray.reduce((pre, { name, fontFamily }) => {
+      index++;
       pre.push(<Text
+        key={`${ index }-1`}
         style={{
           height: 44,
           paddingTop: 20,
@@ -65,6 +68,7 @@ class SupportedFont extends Component {
         }}
       >{name}</Text>);
       pre.push(<Text
+        key={`${ index }-2`}
         style={{
           fontFamily: fontFamily,
           fontSize: 25,
@@ -73,6 +77,7 @@ class SupportedFont extends Component {
         }}
       >{name}</Text>);
       pre.push(<View
+        key={`${ index }-3`}
         style={{
           marginTop: 5,
           backgroundColor: 'rgba(0, 0, 0, 0.12)',

@@ -772,16 +772,6 @@ class IUi {
   openNFCWriteDeviceInfoDebugPage(params) {
   }
   /**
-   * @since 10052
-   * 打开常用设备/常用摄像机设置页面
-   * @param {string} type type=0代表常用设备，type=1代表常用摄像机
-   * @example
-   * Host.ui.openCommonDeviceSettingPage(1);
-  */
-  @report
-     openCommonDeviceSettingPage(type) {
-     }
-  /**
    * @since 10055
    * 打开设置定时的页面。
    * 这个页面不同于Service.scene.openTimerSettingPageWithOptions，这个页面只负责选择日期然后返回对应的crontab字符串

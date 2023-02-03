@@ -40,6 +40,10 @@ const innerOptions = {
     title: I18n.share,
     onPress: () => {
       Host.ui.openShareDevicePage();
+    },
+    validator: () => {
+      // 0：用户可选共享权限 1：用户不可选共享权限 2：白名单 3：不支持共享
+      return Device.deviceConfigInfo?.permission_control !== 3;
     }
   },
   ifttt: {
