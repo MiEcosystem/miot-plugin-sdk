@@ -683,6 +683,13 @@ export default class UIDemo extends React.Component {
             Host.ui.openConsumesDetailPage(consumableList[0]);
           });
         }
+      },
+      {
+        'name': 'openDeviceOfflineAlertPage',
+        'subtitle': '打开设备离线弹框页面',
+        'func': () => {
+          Host.ui.openDeviceOfflineAlert();
+        }
       }
     ];
   }

@@ -15,14 +15,14 @@ class IMiotSceneV2 {
   /**
    * @since 10077
    * 获取家庭的手动场景列表, /app/appgateway/miot/appsceneservice/AppSceneService/GetManualSceneList
-   * @param {Object} params 
+   * @param {Object} params
    * @example
-   * { 
+   * {
       "home_id":12345678, //必填
       "room_id":12345,//非必填
-      "owner_uid": 1111,//必填 
+      "owner_uid": 1111,//必填
       "source": "tv" ,//必填 请求来源 （tv:电视  zkp：中控屏 car:汽车）
-      "get_type" : 0, //必填 场景类型 0:自定义手动场景 1：模板手动场景 2：全部手动场景 
+      "get_type" : 0, //必填 场景类型 0:自定义手动场景 1：模板手动场景 2：全部手动场景
       "filter_closed"：true, //是否过滤掉已关闭的场景， true 过滤， false 不过滤
       "scene_ids": [11111, 22222, 33333] // 非必填，获取指定场景信息 // 中控屏需求
     }
@@ -31,24 +31,23 @@ class IMiotSceneV2 {
    * {
       "code":0,
       "message":"ok",
-      "result":{[ 
+      "result":{[
         {
           "scene_id":12345678,//场景id
           "home_id":123123, //家庭id
           "room_id":12345, //房间id
           "scene_name":"xxxxxx",//名称
-          "icon"："xxx",   // 模板的场景会使用这个icon 
+          "icon"："xxx",   // 模板的场景会使用这个icon
           "template_id":11111111, //模板id
           "update_time":1111111,
           "enable": true // 场景开关状态
-        }, ...  
+        }, ...
       ]}
     }
    */
   @report
   getManualSceneList(params) {
   }
-  
   // 定时2.0相关接口
   /**
 * since 10074
@@ -206,6 +205,8 @@ class IMiotSceneV2 {
   /**
    * @since 10077
    * 是否有可以转成2.0版本场景的1.0场景，一般搭配openBatchConvertScenePage()使用
+   * @param param{Object}
+   * @param param.hasUserClick{boolean} hasUserClick为true时，表示只要有1.0的手动执行场景，就返回true
    * @example
    * Service.sceneV2.hasConvertibleScene()
    * .then((has)=>{
@@ -216,14 +217,24 @@ class IMiotSceneV2 {
    * @returns {Promise<boolean>}，true有，false没有
    */
   @report
-  hasConvertibleScene = () => {
-      native.MIOTHost.isBatchConvertSceneVisisble((ok, has) => {
-        if (ok) {
-          resolve(has);
-        } else {
-          reject(has);
-        }
-      });
+  hasConvertibleScene = (param = undefined) => {
+      if (param) {
+        native.MIOTHost.isBatchConvertSceneVisisbleWith(param, (ok, has) => {
+          if (ok) {
+            resolve(has);
+          } else {
+            reject(has);
+          }
+        });
+      } else {
+        native.MIOTHost.isBatchConvertSceneVisisble((ok, has) => {
+          if (ok) {
+            resolve(has);
+          } else {
+            reject(has);
+          }
+        });
+      }
     });
   }
   /**

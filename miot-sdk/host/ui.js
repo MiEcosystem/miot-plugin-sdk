@@ -815,6 +815,15 @@ class IUi {
   @report
   openVirtualGroupInitPage(param) {
   }
+  /**
+   * 打开离线弹框页面，用于标准插件页面打开离线弹框
+   * @since 10078
+  * @example
+   * Host.ui.openDeviceOfflineAlert()
+    */
+    @report
+  openDeviceOfflineAlert() {
+  }
 }
 const UiInstance = new IUi();
 export default UiInstance;

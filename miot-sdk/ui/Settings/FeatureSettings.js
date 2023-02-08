@@ -15,7 +15,12 @@ const innerOptions = {
     exportKey: 'MEMBER_SET',
     isDefault: true,
     ownerOnly: true,
-    modelTypes: ['switch', 'control-panel', 'relay', 'controller'],
+    modelTypes: [
+      'switch', 
+      'relay', 
+      'control-panel',
+      'controller'
+    ],
     Component: () => {
       // bool值，决定是否显示 按键设置, 10074单键开关也需要展示按键设置
       const { showMemberSetKey, isSingleSwitch } = useMemberSetInfo();
@@ -40,7 +45,12 @@ const innerOptions = {
     exportKey: 'MULTIPLEKEY_SPLIT',
     isDefault: true,
     ownerOnly: true,
-    modelTypes: ['switch'],
+    modelTypes: [
+      'switch', 
+      'relay', 
+      'control-panel',
+      'controller'
+    ],
     Component: () => {
       const [info, setSplit] = useMultiKeySplitInfo();
       const { count, split } = info || {};
