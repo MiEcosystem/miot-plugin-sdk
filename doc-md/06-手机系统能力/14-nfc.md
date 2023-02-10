@@ -18,6 +18,7 @@ System.nfc.getNfcStatus().then(res => {//return result})
 * [miot/system](#module_miot/system)
     * [~INfc](#module_miot/system..INfc)
         * [.getNfcInfo()](#module_miot/system..INfc+getNfcInfo) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;json&gt;</code>
+        * [.writeNFCData(params)](#module_miot/system..INfc+writeNFCData)
 
 
 * * *
@@ -26,6 +27,11 @@ System.nfc.getNfcStatus().then(res => {//return result})
 
 ### miot/system~INfc
 **Kind**: inner interface of [<code>miot/system</code>](#module_miot/system)  
+
+* [~INfc](#module_miot/system..INfc)
+    * [.getNfcInfo()](#module_miot/system..INfc+getNfcInfo) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;json&gt;</code>
+    * [.writeNFCData(params)](#module_miot/system..INfc+writeNFCData)
+
 
 * * *
 
@@ -50,6 +56,33 @@ status可能得取值:
 **Example**  
 ```js
 System.nfc.getNfcInfo()
+```
+
+* * *
+
+<a name="module_miot/system..INfc+writeNFCData"></a>
+
+#### iNfc.writeNFCData(params)
+写入NFC数据 注意：调用该接口之前最好先调用getNfcInfo接口判断下NFC是否可用
+
+**Kind**: instance method of [<code>INfc</code>](#module_miot/system..INfc)  
+**Since**: 10072  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>jsonObject</code> | 传递的jsonObject对象参数 |
+
+**Example**  
+```js
+let params={
+ extraString: xx   //写入的字符串内容
+}
+System.nfc.writeNFCData(params)
+ * @returns {object} 
+成功时，返回：
+{ code: 0, data: true }
+失败时，返回：(根据两端的nfc接口透传错误信息)
+{ code: xx, message: 'xx' }
 ```
 
 * * *
