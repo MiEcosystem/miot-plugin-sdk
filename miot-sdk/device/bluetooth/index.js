@@ -266,5 +266,18 @@ export default {
      *  @param {string} mac
      */
   setAlertConfigsOnMIUI(mac, alert, enable) {
+  },
+  /**
+   * Since SDK_10079
+   * 仅支持Android设备 iOS设备不支持该方法
+   * @returns boolean 判断蓝牙是否是半开模式
+   *  Bluetooth.isBluetoothHalfOpenForAndroid().then((enable) => {
+   *       console.log("enable : " + enable)
+   *     }).catch((error) => {
+   *       this.logInfo('checkBluetoothIsEnabled error ', error);
+   *     });
+   *
+   */
+  isBluetoothHalfOpenForAndroid() {
   }
 };

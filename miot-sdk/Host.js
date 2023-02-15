@@ -117,8 +117,8 @@ export default {
   /**
      * @const
      * @type {boolean}
-     * @since  10044  在10047 添加对iPhone 12系列的支持
-     * @description 判断是否 iOS 刘海屏 包括iPhoneX系列, iPhoneXS, iPhoneXS Max 系列, iPhone 11系列  Android返回false
+     * @since  10044  目前已支持iPhone全系列
+     * @description 判断是否 iOS 刘海屏  Android返回false
      */
   get isIphoneXSeries() {
      return  false

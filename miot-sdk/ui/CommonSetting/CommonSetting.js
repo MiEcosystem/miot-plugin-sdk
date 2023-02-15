@@ -1246,7 +1246,7 @@ export default class CommonSetting extends React.Component {
             title={strings.selectDefaultHP}
             useNewType={true}
             dialogStyle={{
-              allowFontScaling: false,
+              allowFontScaling: true,
               unlimitedHeightEnable: false,
               titleStyle: {
                 fontSize: 18
@@ -1314,12 +1314,12 @@ export default class CommonSetting extends React.Component {
   }
   _getCommonSettingStyle() {
     let style = {
-      allowFontScaling: false,
+      allowFontScaling: true,
       unlimitedHeightEnable: false,
       titleContainer: {},
       titleStyle: {},
       itemStyle: {
-        allowFontScaling: false,
+        allowFontScaling: true,
         unlimitedHeightEnable: false,
         titleStyle: null,
         subtitleStyle: null,

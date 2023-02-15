@@ -817,12 +817,21 @@ class IUi {
   }
   /**
    * 打开离线弹框页面，用于标准插件页面打开离线弹框
-   * @since 10078
+   * @since 10079
   * @example
    * Host.ui.openDeviceOfflineAlert()
     */
-    @report
+  @report
   openDeviceOfflineAlert() {
+  }
+  /**
+   * 打开本地直连控制关联页面
+   * @param {Object} param 预留
+   * @example 
+   * Host.ui.openAssociatePage(param);
+   */
+  @report
+  openAssociatePage(param = {}) {
   }
 }
 const UiInstance = new IUi();

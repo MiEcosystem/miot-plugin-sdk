@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {PermissionsAndroid, ScrollView, View} from 'react-native';
+import { PermissionsAndroid, ScrollView, View } from 'react-native';
 import {
   AccelerometerChangeEvent,
   CompassChangeEvent,
@@ -16,7 +16,7 @@ import { Separator } from 'mhui-rn';
 import { ListItem } from 'miot/ui/ListItem';
 import { ShakeEvent } from "miot/system/shake";
 import Logger from '../Logger';
-import {isAndroid} from "../../../../bin/ABTest/commonPlugin/modules/consts";
+import { isAndroid } from "../../../../bin/ABTest/commonPlugin/modules/consts";
 
 export const interval = {
   "a": "game",
@@ -177,7 +177,7 @@ function requestMultiplePermissions() {
       PermissionsAndroid.PERMISSIONS.GET_ACCOUNTS,
       PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
-    ]).then((granted) => { //PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.RECORD_AUDIO, null)
+    ]).then((granted) => { // PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.RECORD_AUDIO, null)
       console.log("granted", granted);
     }).catch((error) => {
       console.log("error", error);
