@@ -133,6 +133,8 @@ const API_REPO = {
   '/miot/camera/app/v1/modify/figureOfVideo': {},
   '/common/app/get/eventlist': {},
   '/common/app/v2/delete/files': {},
+  '/miot/camera/app/get/spec/property': {},
+  '/miot/camera/app/put/spec/property': {},
   '/common/app/markRead': {},
   '/common/device/vip/status': {},
   '/common/app/vip/status': {},
@@ -173,6 +175,7 @@ const API_REPO = {
   '/v2/device/get_hijack_alarm_info': {},
   // FDS KS3 相关
   '/v2/home/get_interim_file_url_pro': {},
+  '/v2/home/get_carhome': {},
   '/v2/home/genfileurl_v3': {},
   '/v2/home/genpresignedurl': {},
   '/v2/home/genpresignedurl_v3': {},
@@ -312,6 +315,6 @@ const API_REPO = {
   '/smarthome/product/panel/plugin/resetSetting': {},
   '/smarthome/product/panel/plugin/wifispeakerDid': {},
   '/appgateway/miot/appsceneservice/AppSceneService/GetManualSceneList': {},
-  '/smarthome/product/panel/plugin/quickHomeAddress': {},
+  '/smarthome/product/panel/plugin/quickHomeAddress': {}
 };
 export default API_REPO;
