@@ -47,6 +47,7 @@ import TitleBarDemo from "./tutorial/TitleBarDemo"; //  ui-导航栏使用
 import TabBarDemo from "./tutorial/TabBarDemo"; //  ui-导航栏使用
 
 import Settings2022 from './UIComponent/Settings2022';
+import SupportedFont from './UIComponent/SupportedFont';
 
 // List
 import ListDemoEntry from "./UIComponent/List/ListDemoEntry";
@@ -239,6 +240,7 @@ function createRootStack(initPage) {
       SettingPage,
       MoreSetting,
       Settings2022,
+      SupportedFont,
       CurtainGroupPage,
       FirmwareUpgrade,
       // FirmwareUpgradeAuto,

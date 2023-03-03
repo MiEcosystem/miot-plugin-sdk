@@ -1195,6 +1195,7 @@ export default class CommonSetting extends React.Component {
                   showDot={item.showDot || false}
                   value={item.value}
                   showSeparator={showSeparator}
+                  onTintColor={this.props.extraOptions?.themeColor || undefined}
                   onValueChange={ (value) => {
                     tryTrackCommonSetting(item.key, 'click', value ? 'open' : 'close');
                     item.onValueChange(value);

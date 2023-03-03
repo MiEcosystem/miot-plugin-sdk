@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ScrollView, View } from 'react-native';
+import { PermissionsAndroid, ScrollView, View } from 'react-native';
 import {
   AccelerometerChangeEvent,
   CompassChangeEvent,
@@ -16,6 +16,7 @@ import { Separator } from 'mhui-rn';
 import { ListItem } from 'miot/ui/ListItem';
 import { ShakeEvent } from "miot/system/shake";
 import Logger from '../Logger';
+import { isAndroid } from "../../../../bin/ABTest/commonPlugin/modules/consts";
 
 export const interval = {
   "a": "game",
@@ -159,11 +160,30 @@ function addMemoryWarning() {
 
 // 权限
 function requestPermission(permission) {
-  System.permission.request(Permissions.CAMERA).then((res) => {
+  System.permission.request(permission).then((res) => {
     alert(`requestPermission,result:${ res }`);
   }).catch((error) => {
     alert(`requestPermission,error:${ JSON.parse(error) }`);
   });
+}
+
+// 权限
+function requestMultiplePermissions() {
+  if (isAndroid) {
+    PermissionsAndroid.requestMultiple([
+      PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+      PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE,
+      PermissionsAndroid.PERMISSIONS.GET_ACCOUNTS,
+      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
+    ]).then((granted) => { // PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.RECORD_AUDIO, null)
+      console.log("granted", granted);
+    }).catch((error) => {
+      console.log("error", error);
+    });
+  }
+
 }
 
 
@@ -385,6 +405,7 @@ export default class SystemDemo extends React.Component {
               ["申请录音权限", () => { requestPermission(Permissions.RECORD_AUDIO); }],
               ["申请相机权限", () => { requestPermission(Permissions.CAMERA); }],
               ["申请定位权限", () => { requestPermission(Permissions.LOCATION); }],
+              ["申请多个权限(Android)", () => { requestMultiplePermissions(); }],
               [],
               ["获取位置信息（高精度）", () => { getLocation("high"); }],
               [],

@@ -772,16 +772,6 @@ class IUi {
   openNFCWriteDeviceInfoDebugPage(params) {
   }
   /**
-   * @since 10052
-   * 打开常用设备/常用摄像机设置页面
-   * @param {string} type type=0代表常用设备，type=1代表常用摄像机
-   * @example
-   * Host.ui.openCommonDeviceSettingPage(1);
-  */
-  @report
-     openCommonDeviceSettingPage(type) {
-     }
-  /**
    * @since 10055
    * 打开设置定时的页面。
    * 这个页面不同于Service.scene.openTimerSettingPageWithOptions，这个页面只负责选择日期然后返回对应的crontab字符串
@@ -824,6 +814,24 @@ class IUi {
    */
   @report
   openVirtualGroupInitPage(param) {
+  }
+  /**
+   * 打开离线弹框页面，用于标准插件页面打开离线弹框
+   * @since 10079
+  * @example
+   * Host.ui.openDeviceOfflineAlert()
+    */
+  @report
+  openDeviceOfflineAlert() {
+  }
+  /**
+   * 打开本地直连控制关联页面
+   * @param {Object} param 预留
+   * @example 
+   * Host.ui.openAssociatePage(param);
+   */
+  @report
+  openAssociatePage(param = {}) {
   }
 }
 const UiInstance = new IUi();
