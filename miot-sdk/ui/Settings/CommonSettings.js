@@ -5,20 +5,45 @@ import { strings as I18n } from '../../resources';
 import Section from './Section';
 import ListItem from '../ListItem/ListItem';
 import ChoiceDialog from '../Dialog/ChoiceDialog';
-import getItems, { getAllAndDefaultOptions, delegatePress, clickedItems } from './getItems';
+import getItems, { getAllAndDefaultOptions, delegatePress, useClicked } from './getItems';
 import { getModelType } from '../../hooks/useModelType';
 import useSpecPluginInfo from '../../hooks/useSpecPluginInfo';
 import useCanUpgrade from '../../hooks/useCanUpgrade';
 import useFreqCameraInfo from '../../hooks/useFreqCameraInfo';
 import useFreqDeviceInfo from '../../hooks/useFreqDeviceInfo';
 import AutoOTAABTestHelper from '../../utils/autoota_abtest_helper';
+import useDeviceService from "../../hooks/useDeviceService";
+import { ListItemWithSwitch } from 'mhui-rn';
 const innerOptions = {
+  deviceService: {
+    exportKey: 'DEVICE_SERVICE',
+    ownerOnly: true,
+    isDefault: true,
+    Component: () => {
+      const show = useDeviceService();
+      return show ? (
+        <ListItem
+          key={ 'deviceService' }
+          title={ I18n.deviceService }
+          onPress={ () => {
+            Host.ui.openDeviceServicePage({ did: Device.deviceID });
+          } }
+          useNewType={ true }
+          hideArrow={ false }
+        />
+      ) : null;
+    }
+  },
   share: {
     exportKey: 'SHARE',
     ownerOnly: true,
     title: I18n.share,
     onPress: () => {
       Host.ui.openShareDevicePage();
+    },
+    validator: () => {
+      // 0：用户可选共享权限 1：用户不可选共享权限 2：白名单 3：不支持共享
+      return Device.deviceConfigInfo?.permission_control !== 3;
     }
   },
   ifttt: {
@@ -34,14 +59,15 @@ const innerOptions = {
     ownerOnly: true,
     Component: (params) => {
       const canUpgrade = useCanUpgrade();
+      const [clicked, click] = useClicked('firmwareUpgrade');
       return (
         <ListItem
           key={'firmwareUpgrade'}
           title={I18n.firmwareUpgrade}
-          showDot={canUpgrade && !clickedItems.includes('firmwareUpgrade')}
+          showDot={canUpgrade && !clicked}
           onPress={delegatePress(({ navigation, extraOptions = {} }) => {
             const { type, model } = Device;
-            const { showUpgrade, upgradePageKey, bleOtaAuthType } = extraOptions;
+            const { showUpgrade, upgradePageKey, bleOtaAuthType } = extraOptions || {};
             // showUpgrade 未设置，则当做true，可以简化配置
             // showUpgrade 为false, 则明确使用自定义页面
             // 有navigation, 使用自定义页面，且配置了自定义页面，才能跳过去
@@ -77,7 +103,7 @@ const innerOptions = {
               // 缺省情况
               Host.ui.openDeviceUpgradePage(1);
             }).catch(() => {});
-          }, params, 'firmwareUpgrade')}
+          }, params, 'firmwareUpgrade', click)}
           useNewType={true}
           hideArrow={false}
         />
@@ -114,8 +140,29 @@ const innerOptions = {
     title: I18n.favoriteDevices,
     isDefault: true,
     ownerOnly: true,
-    onPress: () => {
-      Host.ui.openCommonDeviceSettingPage(0);
+    Component: (params) => {
+      const [info, setInfo] = useFreqDeviceInfo();
+      return (
+        <ListItemWithSwitch
+          key={'FREQ_DEVICE'}
+          title={I18n.favoriteDevices}
+          titleNumberOfLines={3}
+          value={!!info}
+          onTintColor={params.extraOptions?.themeColor || undefined}
+          onValueChange={(vaule) => {
+            Device.setCommonUseDeviceSwitch(
+              {
+                switchStatus: vaule ? "1" : "0"
+              }
+            ).then(() => {
+              setInfo(vaule);
+            }).catch(() => {
+              setInfo(vaule);// 不调用这行代码的话，info值未变，下面的setInfo不会触发render
+              setInfo(!vaule);
+            });
+          }}
+        />
+      );
     }
   },
   freqCamera: {
@@ -127,6 +174,7 @@ const innerOptions = {
     },
     Component: (params) => {
       const [info, clear] = useFreqCameraInfo();
+      const [clicked, click] = useClicked('freqCamera');
       const { isFreqDevice, canUpgrade } = info || {};
       if (!isFreqDevice) {
         return null;
@@ -136,18 +184,18 @@ const innerOptions = {
           key={'freqCamera'}
           title={I18n.favoriteCamera}
           value={canUpgrade ? I18n.open : I18n.close}
-          showDot={canUpgrade && !clickedItems.includes('firmwareUpgrade')}
+          showDot={canUpgrade && !clicked}
           onPress={delegatePress(() => {
             clear();
             Host.ui.openCommonDeviceSettingPage(1);
-          }, params, 'freqCamera')}
+          }, params, 'freqCamera', click)}
           useNewType={true}
           hideArrow={false}
         />
       );
     }
   },
-  default_plugin: {
+  defaultPlugin: {
     exportKey: 'DEFAULT_PLUGIN',
     isDefault: true,
     ownerOnly: true,
@@ -171,13 +219,13 @@ const innerOptions = {
         return null;
       }
       return (
-        <Fragment key={'default_plugin'}>
+        <Fragment key={'defaultPlugin'}>
           <ListItem
             title={I18n.defaultPlugin}
             value={choices[defaultPluginType]?.title}
             onPress={delegatePress(() => {
               setTipVisible(true);
-            }, params, 'default_plugin')}
+            }, params, 'defaultPlugin')}
             useNewType={true}
             hideArrow={false}
           />
@@ -188,9 +236,13 @@ const innerOptions = {
               useNewType={true}
               dialogStyle={{
                 allowFontScaling: true,
-                unlimitedHeightEnable: false,
+                unlimitedHeightEnable: true,
                 titleStyle: {
                   fontSize: 18
+                },
+                itemSubtitleNumberOfLines: 0,
+                itemSubtitleStyle: {
+                  marginRight: 10
                 }
               }}
               buttons={[{
@@ -226,12 +278,12 @@ const innerOptions = {
 const AllAndDefaultOptions = getAllAndDefaultOptions(innerOptions);
 export const options = AllAndDefaultOptions.options;
 const defaultOptions = AllAndDefaultOptions.defaultOptions;
-const commonOptions = ['share', 'ifttt', 'firmwareUpgrade', 'help', 'security', 'addToDesktop', 'freqDevice', 'freqCamera', 'default_plugin'];
+const commonOptions = ['deviceService', 'share', 'ifttt', 'firmwareUpgrade', 'help', 'security', 'addToDesktop', 'freqDevice', 'freqCamera', 'defaultPlugin'];
 export default function CommonSettings(params) {
   const { customOptions } = params;
   return (
     <Section title={I18n.commonSetting}>
-      {getItems(innerOptions, commonOptions, ['', '', '', '', '', '', useFreqDeviceInfo() ? I18n.open : I18n.close], params, defaultOptions)}
+      {getItems(innerOptions, commonOptions, ['', '', '', '', '', '', '', useFreqDeviceInfo() ? I18n.open : I18n.close], params, defaultOptions)}
       {getItems(innerOptions, customOptions || [], [], params, defaultOptions)}
     </Section>
   );
