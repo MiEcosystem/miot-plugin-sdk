@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 40,
     flexDirection: "row",
-    flexWrap: "wrap",
+    flexWrap: "wrap"
   }
 });
 
@@ -22,7 +22,7 @@ export default class Orientation extends Component {
     return (
       <ScrollView>
         <View style={styles.container}>
-          {samples.map(i =>
+          {samples.map((i) =>
             <Surface key={`landscape_1`} width={120} height={90}>
               <Heart color={color} />
               {/* <Blur factor={0.2} passes={2}>
@@ -32,8 +32,8 @@ export default class Orientation extends Component {
           }
         </View>
         <View style={styles.container}>
-          {samples.map(i =>
-            <Surface key={`portrait_${i}`} width={120} height={160}>
+          {samples.map((i) =>
+            <Surface key={`portrait_${ i }`} width={120} height={160}>
               <Heart color={color} />
               {/* <Blur factor={0.2} passes={2}>
          {`https://raw.githubusercontent.com/recurser/exif-orientation-examples/master/Portrait_${i}.jpg`}
