@@ -14,7 +14,7 @@ export default class ColorSelectorDemo extends React.Component {
   }
 
   render() {
-    let { disable, showIndicator, showIndicatorText, indicatorTexts } = this.state;
+    let { disable, showIndicator, indicatorRadius, allowIndicatorOverlap, showIndicatorText, indicatorTexts } = this.state;
     return (<View style={ { flex: 1 } }>
       <ColorSelector
         ref={(ref) => { this.colorSelector = ref; }}
@@ -22,6 +22,8 @@ export default class ColorSelectorDemo extends React.Component {
         type={'rgb'}
         disable={disable}
         showIndicator={showIndicator}
+        indicatorRadius={indicatorRadius}
+        allowIndicatorOverlap={allowIndicatorOverlap}
         showIndicatorText={showIndicatorText}
         indicatorTexts={indicatorTexts}
         onColorChange={ (data) => {
@@ -82,6 +84,28 @@ export default class ColorSelectorDemo extends React.Component {
         }
       } }>
         <Text style={ Styles.buttonText }>{ 'setColorWithIndex' }</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={ Styles.button } onPress={ () => {
+        let radius = 10;
+        if (Math.random() > 0.3) {
+          radius = 20;
+        } else if (Math.random() > 0.6) {
+          radius = 30;
+        } else {
+          radius = 40;
+        }
+        this.setState({
+          indicatorRadius: radius
+        });
+      } }>
+        <Text style={ Styles.buttonText }>{ 'setIndicatorRadius random 10 / 20 / 30 / 40' }</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={ Styles.button } onPress={ () => {
+        this.setState({
+          allowIndicatorOverlap: !allowIndicatorOverlap
+        });
+      } }>
+        <Text style={ Styles.buttonText }>{ `是否允许指示器滑动重叠：${ allowIndicatorOverlap ? '允许重叠' : '不允许重叠' }`}</Text>
       </TouchableOpacity>
     </View>);
   }

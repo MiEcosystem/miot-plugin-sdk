@@ -6,6 +6,7 @@
  * Note：回调发出： 当颜色更改时  会发出 onColorChange 回调 （滑块颜色改变时回调（若不指定初始化颜色，滑块初始化会按照随机颜色进行初始化，这时也会发生回调））
  *                当拖动开始时  会发出 onTrackStart  回调 （空白区域滑动和滑块滑动都会发出该回调）
  *                当拖动结束时  会发出 onTrackEnd    回调 （空白区域滑动和滑块滑动都会发出该回调）
+ * Note: 该组件暂不支持无障碍
  * @since 10080
  * @param {<object>} style
  * @param {<string>} type 预留字段，10080 只支持rgb
@@ -14,6 +15,8 @@
  * @param {<array>} positions 可选参数，传入的渐变颜色的位置返回，是一个[0, 1]的增量数组。
  *                            若传入positions，其长度必须和colors length一致 eg: [0.0, 0.3, 1.0]
  *                            若不传，将默认为等差数列排列colors
+ * @param {<number>} indicatorRadius 指定颜色选择器的圆形指示器的半径大小，默认为23
+ * @param {<bool>} allowIndicatorOverlap 是否允许多个指示器之间可以重叠。默认无法重叠，这个属性通常在多个指示器共存的时候有效果
  * @param {<bool>} showIndicator 是否显示选择滑块，默认不显示
  * @param {<bool>} showIndicatorText 滑块上是否显示文字，默认不显示，若 showIndicatorView 为false，则文字一定不显示
  * @param {<array>} indicatorTexts 滑块上文字的集合，若传入的数量和滑块的数量不一致，则不足的地方显示为空
@@ -32,6 +35,8 @@ export default class ColorSelector extends React.Component {
     disable: PropTypes.bool,
     colors: PropTypes.array,
     positions: PropTypes.array,
+    indicatorRadius: PropTypes.number,
+    allowIndicatorOverlap: PropTypes.bool,
     showIndicator: PropTypes.bool,
     showIndicatorText: PropTypes.bool,
     indicatorTexts: PropTypes.array,
@@ -49,8 +54,10 @@ export default class ColorSelector extends React.Component {
       disable,
       colors, 
       positions, 
+      indicatorRadius,
+      allowIndicatorOverlap, 
+      showIndicatorText,
       showIndicator, 
-      showIndicatorText, 
       indicatorTexts, 
       onColorChange, 
       onTrackStart, 
