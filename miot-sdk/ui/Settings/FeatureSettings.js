@@ -6,7 +6,6 @@ import Section from './Section';
 import ListItemWithSwitch from '../ListItem/ListItemWithSwitch';
 import ConfiguredItems from './ConfiguredItems';
 import getItems, { getAllAndDefaultOptions, itemPropTypes } from './getItems';
-import useGatewayStatus, { State as GatewayStatus } from '../../hooks/useGatewayStatus';
 import useMultiKeySplitInfo from '../../hooks/useMultiKeySplitInfo';
 import useMemberSetInfo from '../../hooks/useMemberSetInfo';
 import ListItem from '../ListItem/ListItem';
@@ -92,9 +91,25 @@ const innerOptions = {
   },
   btGateway: {
     exportKey: 'BTGATEWAY',
+    isDefault: true,
     ownerOnly: true,
-    modelTypes: ['gateway'],
+    validator: () => {
+      // 0：不支持，1：支持 2：白名单
+      return Device.deviceConfigInfo?.bt_gateway !== 0 && Device.deviceConfigInfo?.mesh_gateway !== 1;
+    },    
     title: I18n.btGateway,
+    onPress: () => {
+      Host.ui.openBtGatewayPage();
+    }
+  },
+  bleMeshGateway: {
+    exportKey: 'BTMESHGATEWAY',
+    isDefault: true,
+    ownerOnly: true,
+    validator: () => {
+      return Device.deviceConfigInfo?.mesh_gateway === 1;
+    },    
+    title: I18n.bleMeshGateway,
     onPress: () => {
       Host.ui.openBtGatewayPage();
     }
@@ -112,13 +127,10 @@ const innerOptions = {
 const AllAndDefaultOptions = getAllAndDefaultOptions(innerOptions);
 export const options = AllAndDefaultOptions.options;
 const defaultOptions = AllAndDefaultOptions.defaultOptions;
-const deviceTypeOptions = ['memberSet', 'createGroup', 'manageGroup', 'btGateway', 'voiceAuth', 'multipleKeySplit'];
+const deviceTypeOptions = ['memberSet', 'createGroup', 'manageGroup', 'btGateway', 'bleMeshGateway', 'voiceAuth', 'multipleKeySplit'];
 // 品类固定功能
 function DeviceTypeItems({ params }) {
-  return getItems(innerOptions, deviceTypeOptions, ['', '', '', ({
-    [GatewayStatus.IDLE]: I18n.notConnected,
-    [GatewayStatus.MESH]: I18n.connected
-  })[useGatewayStatus()]], params, defaultOptions);
+  return getItems(innerOptions, deviceTypeOptions, ['', '', '', '', ''], params, defaultOptions);
 }
 DeviceTypeItems.propTypes = itemPropTypes;
 export default function FeatureSettings({ children, ...params }) {

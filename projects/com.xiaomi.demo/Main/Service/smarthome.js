@@ -117,6 +117,11 @@ export default class CallSmartHomeAPIDemo extends React.Component {
             name: "获取设备成组信息", handle: this.handleObjRes.bind(this), action: () => {
               return Service.smarthome.getVirtualDeviceCombineStatus({ groupDid: Device.deviceID });
             }
+          },
+          {
+            name: "获取设备耗材信息", handle: this.handleObjRes.bind(this), action: () => {
+              return Service.smarthome.getConsumableDetails();
+            }
           }
         ]
       ]

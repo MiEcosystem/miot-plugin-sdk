@@ -12,13 +12,50 @@ import { Device, Service } from 'miot';
  * @export
  */
 class IMiotSceneV2 {
+  /**
+   * @since 10077
+   * 获取家庭的手动场景列表, /app/appgateway/miot/appsceneservice/AppSceneService/GetManualSceneList
+   * @param {Object} params 
+   * @example
+   * { 
+      "home_id":12345678, //必填
+      "room_id":12345,//非必填
+      "owner_uid": 1111,//必填 
+      "source": "tv" ,//必填 请求来源 （tv:电视  zkp：中控屏 car:汽车）
+      "get_type" : 0, //必填 场景类型 0:自定义手动场景 1：模板手动场景 2：全部手动场景 
+      "filter_closed"：true, //是否过滤掉已关闭的场景， true 过滤， false 不过滤
+      "scene_ids": [11111, 22222, 33333] // 非必填，获取指定场景信息 // 中控屏需求
+    }
+   * @returns {Promise<Object>}
+   * @example
+   * {
+      "code":0,
+      "message":"ok",
+      "result":{[ 
+        {
+          "scene_id":12345678,//场景id
+          "home_id":123123, //家庭id
+          "room_id":12345, //房间id
+          "scene_name":"xxxxxx",//名称
+          "icon"："xxx",   // 模板的场景会使用这个icon 
+          "template_id":11111111, //模板id
+          "update_time":1111111,
+          "enable": true // 场景开关状态
+        }, ...  
+      ]}
+    }
+   */
+  @report
+  getManualSceneList(params) {
+  }
+  
   // 定时2.0相关接口
   /**
 * since 10074
 * 编辑/新建时间段定时，时间段定时由一对父子场景组合而成，开始动作对应父场景，结束动作对应子场景，需要根据父子关系组合显示定时数据
 * 父场景：scene_id 为场景ID， sub_usIds 为其关联的子场景，对应下文的onSceneId
 * 子场景：scene_id 为场景ID， parent_usId 为其关联的父场景 ， 对应下文的offSceneId
-* @param {object} timer 定时 
+* @param {object} timer 定时
 * @param {string} timer.onSceneName 定时开始动作的场景名称，会显示在智能日志中
 * @param {string} timer.onSceneId 定时开始动作的sceneID，新建可以不传，编辑传需要编辑的定时ID，对应定时列表中sub_usIds有值的场景的scene_id
 * @param {object} timer.onPayload 定时开始的执行动作参数
@@ -31,13 +68,13 @@ class IMiotSceneV2 {
 * @param {object} action 当 command 为 action 时,  value格式 {"did":"xx", "siid":xx, "aiid":xxx, "in":[{"did":"xx", "siid":xx, "piid":xx, "value":xx}]}
 * @param {object} timer.onPayloadName 定时执行动作的名称
 * @param {string} timer.onActionId 定时执行动作的自动化id, IoT开发平台-高阶配置-自动化配置-id那一栏查看
-* @param {string} timer.onTime 执行时间，crontab字符串 0 22 8 * * 1,2,3,4,5 * 
+* @param {string} timer.onTime 执行时间，crontab字符串 0 22 8 * * 1,2,3,4,5 *
 * @param {string} timer.second 秒：0-59
-* @param {string} timer.minute 分：0-59 
-* @param {string} timer.hour 时：0-23 
-* @param {string} timer.day 日：1-31 或者 * 
-* @param {string} timer.month 月：1-12 或者 *  
-* @param {string} timer.week 星期：0,1,2,3,4,5,6 或者 *  
+* @param {string} timer.minute 分：0-59
+* @param {string} timer.hour 时：0-23
+* @param {string} timer.day 日：1-31 或者 *
+* @param {string} timer.month 月：1-12 或者 *
+* @param {string} timer.week 星期：0,1,2,3,4,5,6 或者 *
 * @param {string} timer.year 年：* 或者 具体年份 如2022
 * @example {string} time 执行一次，crontab字符串 0 2 12 27 8 * 2022
 * @example {string} time 每天，crontab字符串 0 2 12 * * * *
@@ -54,13 +91,13 @@ class IMiotSceneV2 {
 * @param {object} action 当 command 为 action 时,  value格式 {"did":"xx", "siid":xx, "aiid":xxx, "in":[{"did":"xx", "siid":xx, "piid":xx, "value":xx}]}
 * @param {object} timer.offPayloadName 定时执行动作的名称
 * @param {string} timer.offActionId 定时执行动作的自动化id, IoT开发平台-高阶配置-自动化配置-id那一栏查看
-* @param {string} timer.offTime 执行时间，crontab字符串 0 22 8 * * 1,2,3,4,5 * 
+* @param {string} timer.offTime 执行时间，crontab字符串 0 22 8 * * 1,2,3,4,5 *
 * @param {string} timer.second 秒：0-59
-* @param {string} timer.minute 分：0-59 
-* @param {string} timer.hour 时：0-23 
-* @param {string} timer.day 日：1-31 或者 * 
-* @param {string} timer.month 月：1-12 或者 *  
-* @param {string} timer.week 星期：0,1,2,3,4,5,6 或者 *  
+* @param {string} timer.minute 分：0-59
+* @param {string} timer.hour 时：0-23
+* @param {string} timer.day 日：1-31 或者 *
+* @param {string} timer.month 月：1-12 或者 *
+* @param {string} timer.week 星期：0,1,2,3,4,5,6 或者 *
 * @param {string} timer.year 年：* 或者 具体年份 如2022
 * @param {string} timer.filter 节假日, cn_workday: 法定工作日， cn_freeday: 法定节假日
 * @returns {Promise<object>}
@@ -71,7 +108,7 @@ class IMiotSceneV2 {
   /**
 * since 10074
 * 编辑时间点定时: sub_usIds为空且parent_usId为'0'场景才是独立的时间点定时
-* @param {object} timer 定时 
+* @param {object} timer 定时
 * @param {string} timer.sceneName 定时的名称
 * @param {string} timer.sceneId 定时的ID，新建可以不传，编辑传需要编辑的定时ID
 * @param {object} timer.payload 定时执行的动作参数
@@ -84,13 +121,13 @@ class IMiotSceneV2 {
 * @param {object} action 当 command 为 action 时,  value格式 {"did":"xx", "siid":xx, "aiid":xxx, "in":[{"did":"xx", "siid":xx, "piid":xx, "value":xx}]}
 * @param {object} timer.payloadName 定时执行动作的名称
 * @param {string} timer.actionId 定时执行动作的自动化id, IoT开发平台-高阶配置-自动化配置-id那一栏查看
-* @param {string} timer.time 执行时间，crontab字符串 0 22 8 * * 1,2,3,4,5 * 
+* @param {string} timer.time 执行时间，crontab字符串 0 22 8 * * 1,2,3,4,5 *
 * @param {string} timer.second 秒：0-59
-* @param {string} timer.minute 分：0-59 
-* @param {string} timer.hour 时：0-23 
-* @param {string} timer.day 日：1-31 或者 * 
-* @param {string} timer.month 月：1-12 或者 *  
-* @param {string} timer.week 星期：0,1,2,3,4,5,6 或者 *  
+* @param {string} timer.minute 分：0-59
+* @param {string} timer.hour 时：0-23
+* @param {string} timer.day 日：1-31 或者 *
+* @param {string} timer.month 月：1-12 或者 *
+* @param {string} timer.week 星期：0,1,2,3,4,5,6 或者 *
 * @param {string} timer.year 年：* 或者 具体年份 如2022
 * @example {string} time 执行一次，crontab字符串 0 2 12 27 8 * 2022
 * @example {string} time 每天，crontab字符串 0 2 12 * * * *
@@ -165,6 +202,36 @@ class IMiotSceneV2 {
 */
   @report
   getTimerList = (deviceId = Device.deviceID) => {
+  }
+  /**
+   * @since 10077
+   * 是否有可以转成2.0版本场景的1.0场景，一般搭配openBatchConvertScenePage()使用
+   * @example
+   * Service.sceneV2.hasConvertibleScene()
+   * .then((has)=>{
+   *   if(has) {
+   *     Host.ui.openBatchConvertScenePage()
+   *   }
+   * })
+   * @returns {Promise<boolean>}，true有，false没有
+   */
+  @report
+  hasConvertibleScene = () => {
+      native.MIOTHost.isBatchConvertSceneVisisble((ok, has) => {
+        if (ok) {
+          resolve(has);
+        } else {
+          reject(has);
+        }
+      });
+    });
+  }
+  /**
+   * @since 10077
+   * 打开1.0场景转2.0场景的页面
+   */
+  @report
+  openBatchConvertScenePage() {
   }
 }
 const MiotSceneInstanceV2 = new IMiotSceneV2();
