@@ -128,7 +128,12 @@ export default class IBluetoothLock {
      *  })
    * ...
    * @returns {Promise<Object>}
-   *      resolve：{},初始化成功不会返回数据
+   *      resolve：{
+     *      code:0,
+     *      data:{
+     *        passwordCount: x
+     *      }
+     *   },初始化成功会返回生成的密码的数量
    *      reject：{code: xxx, message:xxx} 失败原因
    */
     @report
@@ -209,9 +214,9 @@ export default class IBluetoothLock {
        return Promise.resolve(null);
     }
   @report
-  queryLockSharedRecords(params) {
+    queryLockSharedRecords(params) {
      return Promise.resolve(null);
-  }
+    }
   /**
    * 删除门锁分享记录
    * @since 10080
