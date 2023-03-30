@@ -111,6 +111,15 @@ class IUi {
   openSystemShareWindow(pathOrUrl) {
   }
   /**
+   * 导入批量控制界面
+   * @param {object} params
+   * @param {string} params.did 设备did
+   * @param {string} params.home_id 设备所属home_id
+   */
+  @report
+  openCarImportControlPage(params) {
+  }
+  /**
   * 打开系统文件打开页面 since 10050
   * @param {string} pathOrUrl 文件的全路径或者链接url。
   */
