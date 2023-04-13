@@ -127,7 +127,7 @@ export default {
      *                正确的导航栏高度需要 在该api的值的基础上偏移指定距离（通常是44）
      */
   get iPhoneXSeriesTopAreaInsets() {
-     return  false
+     return  0
   },
   /**
      * @const
