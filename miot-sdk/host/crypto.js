@@ -246,7 +246,7 @@ class ICrypto {
   @report
   robotCleanerPointsScaleToImageBase64V2(width, height, points, colorsMap, scale) {
     if (!isIOS) {
-      return Promise.reject();
+      return Promise.resolve('');
     }
      return Promise.resolve('');
   }
