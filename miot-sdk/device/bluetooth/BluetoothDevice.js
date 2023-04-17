@@ -89,6 +89,10 @@ export class IBluetooth {
      */
   get isConnected() {
      return  false
+    const isConnected = Properties.of(this).isConnected;
+    const connecting = Properties.of(this)._connecting;
+    IBluetoothStateTurbo.reportSDKFileLog(`plugin invoke isConnected function. macOrUUID = ${ macOrUUID }, isConnected = ${ isConnected }, connecting = ${ connecting }`);
+    return IBLEStateObj.bleState(macOrUUID, isConnected, connecting) === ITurboBLEStates.MHBLEDeviceLoginStateAlreadyLogin;
   }
   /**
      * 蓝牙是否处于连接中
@@ -100,6 +104,10 @@ export class IBluetooth {
      */
   get isConnecting() {
      return  false
+    const isConnected = Properties.of(this).isConnected;
+    const connecting = Properties.of(this)._connecting;
+    IBluetoothStateTurbo.reportSDKFileLog(`plugin invoke isConnecting function. macOrUUID = ${ macOrUUID }, isConnected = ${ isConnected }, connecting = ${ connecting }`);
+    return IBLEStateObj.bleState(macOrUUID, isConnected, connecting) === ITurboBLEStates.MHBLEDeviceLoginStateLogging;
   }
   /**
    * 蓝牙设备是否正在OTA中
@@ -203,12 +211,12 @@ export class IBluetooth {
      *
      */
     @report
-    connect(type = -1, option = 0) {
-    }
+  connect(type = -1, option = 0) {
+  }
     @report
     _connect(type = -1, option = 0) {
      return Promise.resolve(this);
-  }
+    }
     /**
      * 读取 RSSI
      * @method
