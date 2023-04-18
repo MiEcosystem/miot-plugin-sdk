@@ -1,6 +1,7 @@
 'use strict';
 
 import { Device, DeviceEvent, Host, Service, PackageEvent } from "miot";
+import { isAndroid } from "miot/native";
 import React from 'react';
 import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Logger from '../../Logger';
@@ -678,9 +679,20 @@ export default class UIDemo extends React.Component {
         'subtitle': '打开耗材详情页面',
         'func': () => {
           Service.smarthome.getConsumableDetails().then((res) => {
-            const consumesData = res.items[0].consumes_data[0];
-            const consumableList = consumesData.details;
-            Host.ui.openConsumesDetailPage(consumableList[0]);
+            if (isAndroid) {
+              const consumesData = res.items[0].consumes_data[0];
+              const consumableList = consumesData.details;
+              Host.ui.openConsumesDetailPage(consumableList[0]);
+            } else {
+              // 由于iOS和Android原生端实现的差异 iOS需要多传递consumesData数据
+              const consumesData = res.items[0].consumes_data[0];
+              const consumableList = consumesData.details;
+              const params = {
+                "consumesData": consumesData,
+                "consumesDetail": consumableList[0]
+              };
+              Host.ui.openConsumesDetailPage(params);
+            }
           });
         }
       },

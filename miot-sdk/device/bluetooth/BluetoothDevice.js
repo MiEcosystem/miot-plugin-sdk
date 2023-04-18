@@ -91,7 +91,7 @@ export class IBluetooth {
      return  false
     const isConnected = Properties.of(this).isConnected;
     const connecting = Properties.of(this)._connecting;
-    IBluetoothStateTurbo.reportSDKFileLog(`plugin invoke isConnected function. macOrUUID = ${ macOrUUID }, isConnected = ${ isConnected }, connecting = ${ connecting }`);
+    IBLEStateObj.reportSDKFileLog(`plugin invoke isConnected function. macOrUUID = ${ macOrUUID }, isConnected = ${ isConnected }, connecting = ${ connecting }`);
     return IBLEStateObj.bleState(macOrUUID, isConnected, connecting) === ITurboBLEStates.MHBLEDeviceLoginStateAlreadyLogin;
   }
   /**
@@ -106,7 +106,7 @@ export class IBluetooth {
      return  false
     const isConnected = Properties.of(this).isConnected;
     const connecting = Properties.of(this)._connecting;
-    IBluetoothStateTurbo.reportSDKFileLog(`plugin invoke isConnecting function. macOrUUID = ${ macOrUUID }, isConnected = ${ isConnected }, connecting = ${ connecting }`);
+    IBLEStateObj.reportSDKFileLog(`plugin invoke isConnecting function. macOrUUID = ${ macOrUUID }, isConnected = ${ isConnected }, connecting = ${ connecting }`);
     return IBLEStateObj.bleState(macOrUUID, isConnected, connecting) === ITurboBLEStates.MHBLEDeviceLoginStateLogging;
   }
   /**
