@@ -225,6 +225,32 @@ class ICrypto {
      return Promise.resolve('');
   }
   /**
+   * ApiLevel: 10081
+   * @since 10081
+   * 针对robotCleanerPointsScaleToImageBase64接口做了性能优化 参数和之前接口相同(该方法目前只支持iOS)
+   * 扫地机的地图转换
+   * 根据点集合长宽以及每个点对应的颜色值生成bitmap并返回其base64字符串
+   * @param {int} width : 图片宽度
+   * @param {int} height : 图片高度
+   * @param {string} points : 点集合字符串
+   * @param {string} colorsMap : 点值与颜色之间对应关系JSON字符串
+   *        值得注意的是，需要传递8位深度的颜色值，其中头两位代表alpha通道，后六位代表rgb通道
+   *        例如 #FFFF0000 代表红色 #00FFFFFF 代表透明颜色
+   *        建议值： -1 墙 #FF666666
+   *                0 背景 #FFE6EAEE
+   *                1 发现区域 #FFC6D8FA
+   *                >=10 房间区域
+   * @param {int} scale : 缩放比例
+   * @returns {Promise<string>} 使用base64编码后的图片数据
+   */
+  @report
+  robotCleanerPointsScaleToImageBase64V2(width, height, points, colorsMap, scale) {
+    if (!isIOS) {
+      return Promise.resolve('');
+    }
+     return Promise.resolve('');
+  }
+  /**
    * @since 10054
    * 小黑板的路径数据转图片
    * @typedef {Object} PointObject
