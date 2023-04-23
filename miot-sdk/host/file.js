@@ -691,6 +691,7 @@ class IFile {
    * 如果不存在该相册，返回空数组
    * @since 10037
    * @param {string} customDirName 自定义相册名称，默认为null, since 10042
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id， since 10081
    * @returns {Promise}
    * 成功时：{"code":0, "data":[] }
    *      返回图片和视频信息
@@ -713,7 +714,7 @@ class IFile {
    * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
    */
   @report
-  getAllSourceFromPhotosDidAlbum(customDirName = null) {
+  getAllSourceFromPhotosDidAlbum(customDirName = null, deviceID = undefined) {
      return Promise.resolve(false)
   }
   /**
