@@ -468,7 +468,7 @@ const excludeOptions = {
  *   option: object // 见 miot/Host.ui.previewLegalInformationAuthorization 的传参说明
  *   syncDevice: bool // 插件端设置时区后是否需要后台同步到设备端, 见 miot/Host.ui.openDeviceTimeZoneSettingPage 的传参说明
  *   networkInfoConfig: number // 「更多设置」页面是否显示「网络信息」设置项。0：不显示；1：显示；-1：米家默认配置（蓝牙设备不显示，Wi-Fi设备显示）
- *   bleOtaAuthType: number // 打开通用的蓝牙固件OTA的原生页面。指定设备的协议类型 0: 普通小米蓝牙协议设备(新接入设备已废弃该类型)，1: 安全芯片小米蓝牙设备（比如锁类产品） 4: Standard Auth 标准蓝牙认证协议(通常2019.10.1之后上线的新蓝牙设备) 5: mesh 设备
+ *   bleOtaAuthType: number // 打开通用的蓝牙固件OTA的原生页面。指定设备的协议类型 0: 普通小米蓝牙协议设备(新接入设备已废弃该类型)，1: 安全芯片小米蓝牙设备（比如锁类产品） 4: Standard Auth 标准蓝牙认证协议(通常2019.10.1之后上线的新蓝牙设备) 5: Mesh 设备
  *   10059新增
  *   preOperations: object { AllOptions.SHARE: function, AllOptions.FIRMWARE_UPGRADE: function, AllOptions.CREATE_GROUP: function, AllOptions.MANAGE_GROUP: function  } // 打开分享、ota、创建组、编辑组页面的前置操作，只会在resolve中执行打开页面
  * }
@@ -805,7 +805,7 @@ export default class CommonSetting extends React.Component {
       // 20190516，「固件自动升级」不能做成通用功能所以去掉，
       // 那么二级页面「FirmwareUpgrade」只剩下「检查固件升级」一项，遂藏之
       this.removeKeyFromShowDot(AllOptions.FIRMWARE_UPGRADE);
-      if (Device.type === '16') { // mesh device
+      if (Device.type === '16') { // Mesh device
         Host.ui.openBleMeshDeviceUpgradePage();
       } else if (Device.type === '17' && ['light'].indexOf(modelType) !== -1) {
         // 2019/11/21 新灯组2.0需求

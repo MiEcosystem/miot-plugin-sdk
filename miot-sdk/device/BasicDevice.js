@@ -340,7 +340,7 @@ export class BasicDevice {
   }
   /**
   * 是否虚拟设备，虚拟设备主要指老的设备组（Yeelight灯组，飞利浦灯组）。
-  * **注意：mesh设备组，灯组2.0均不是虚拟设备**
+  * **注意：Mesh设备组，灯组2.0均不是虚拟设备**
   * @since 10003
   * @return {boolean}
   * @readonly

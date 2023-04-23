@@ -80,7 +80,7 @@ const innerOptions = {
               return;
             }
             getModelType().then((modelType) => {
-              // mesh
+              // Mesh
               if (['16'].includes(type)) {
                 Host.ui.openBleMeshDeviceUpgradePage();
                 return;
