@@ -1158,7 +1158,7 @@ class ISmartHome {
      * 成功时：返回
      * {
      *    "group_did":"group.123456xxx",
-     *    "need_alter_device":false  //与Mesh组相关，窗帘组可以忽略
+     *    "need_alter_device":false  //与mesh组相关，窗帘组可以忽略
      * }
      * 失败时：返回
      * { "code":xxx,"message":"xxx" }
