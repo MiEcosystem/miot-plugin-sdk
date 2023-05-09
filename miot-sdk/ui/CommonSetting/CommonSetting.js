@@ -2,7 +2,7 @@ import { Device, DeviceEvent, Entrance, Host, Package, PackageEvent, Service } f
 // import {Device,DeviceEvent} from 'miot'
 // import {Host} from 'miot';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { React, useEffect } from 'react';
 import { DeviceEventEmitter, Text, View } from 'react-native';
 import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
@@ -702,6 +702,12 @@ export default class CommonSetting extends React.Component {
     } : null;
     // 常用设备
     ret[AllOptions.FREQ_DEVICE] = roomInfo && roomInfo.data && roomInfo.data.roomId ? {
+      useEffect: (() => {
+        // 首页显示开关曝光,目前只有摄像机打点
+        if (isCamera) {
+          Service.smarthome.reportEvent('click', { tip: '6.109.1.1.28406', switch_toggle: (freqFlag ? "1" : "0") });
+        }
+      }, []),
       _itemType: 'switch',
       title: strings.favoriteDevices,
       value: freqFlag,
@@ -721,6 +727,9 @@ export default class CommonSetting extends React.Component {
             freqFlag: !value
           });
         });
+        if (isCamera) {
+          Service.smarthome.reportEvent('click', { tip: '6.109.1.1.28407', switch_toggle: (value ? "1" : "0") });
+        }
       }
     } : null;
     // 2020/4/20 锁类和保险箱类，安全设置从更多设置中移出来
@@ -1206,6 +1215,7 @@ export default class CommonSetting extends React.Component {
                     tryTrackCommonSetting(item.key, 'click', value ? 'open' : 'close');
                     item.onValueChange(value);
                   } }
+                  
                   {...getAccessibilityConfig({
                     accessible: this.props.accessible
                   })}

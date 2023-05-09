@@ -142,6 +142,15 @@ const innerOptions = {
     ownerOnly: true,
     Component: (params) => {
       const [info, setInfo] = useFreqDeviceInfo();
+      useEffect(() => {
+        getModelType().then((modelType) => {
+          //  摄像机首页显示开关曝光打点
+          let isCamera = ['camera'].indexOf(modelType) !== -1 && ['mxiang.'].indexOf(Device.model) == -1;
+          if (isCamera) {
+            Service.smarthome.reportEvent('expose', { tip: '6.109.1.1.28406', switch_toggle: info ? '1' : '0' });
+          }
+        }).catch(() => {});
+      }, []);
       return (
         <ListItemWithSwitch
           key={'FREQ_DEVICE'}
@@ -160,6 +169,13 @@ const innerOptions = {
               setInfo(vaule);// 不调用这行代码的话，info值未变，下面的setInfo不会触发render
               setInfo(!vaule);
             });
+            getModelType().then((modelType) => {
+              // 摄像机首页显示开关点击打点
+              let isCamera = ['camera'].indexOf(modelType) !== -1 && ['mxiang.'].indexOf(Device.model) == -1;
+              if (isCamera) {
+                Service.smarthome.reportEvent('click', { tip: '6.109.1.1.28407', switch_toggle: (vaule ? '1' : '0') });
+              }
+            }).catch(() => {});
           }}
         />
       );
