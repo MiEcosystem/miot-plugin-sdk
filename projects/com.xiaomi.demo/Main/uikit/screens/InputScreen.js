@@ -31,12 +31,12 @@ export class InputScreen extends Component {
         style={UtilStyles.container}>
 
         <View style={UtilStyles.section}>
-          <Text rkType='header'>Default input</Text>
+          <Text rkType="header">Default input</Text>
           <View style={UtilStyles.rowContainer}>
             <View style={{ flex: 1 }}>
               <TextInput autoCorrect={false}
-                         autoCapitalize={"none"} placeholder='Login' clearButtonMode='always'/>
-              <TextInput secureTextEntry={true} placeholder='Password' clearButtonMode='always'/>
+                autoCapitalize={"none"} placeholder="Login" clearButtonMode="always"/>
+              <TextInput secureTextEntry={true} placeholder="Password" clearButtonMode="always"/>
             </View>
           </View>
         </View>
