@@ -2,7 +2,7 @@ import { Device, DeviceEvent, Entrance, Host, Package, PackageEvent, Service } f
 // import {Device,DeviceEvent} from 'miot'
 // import {Host} from 'miot';
 import PropTypes from 'prop-types';
-import { React, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { DeviceEventEmitter, Text, View } from 'react-native';
 import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
@@ -705,7 +705,7 @@ export default class CommonSetting extends React.Component {
       useEffect: (() => {
         // 首页显示开关曝光,目前只有摄像机打点
         if (isCamera) {
-          Service.smarthome.reportEvent('click', { tip: '6.109.1.1.28406', switch_toggle: (freqFlag ? "1" : "0") });
+          Service.smarthome.reportEvent('click', { tip: '6.109.1.1.28404', switch_toggle: (freqFlag ? "1" : "0") });
         }
       }, []),
       _itemType: 'switch',
@@ -728,7 +728,7 @@ export default class CommonSetting extends React.Component {
           });
         });
         if (isCamera) {
-          Service.smarthome.reportEvent('click', { tip: '6.109.1.1.28407', switch_toggle: (value ? "1" : "0") });
+          Service.smarthome.reportEvent('click', { tip: '6.109.1.1.28405', switch_toggle: (value ? "1" : "0") });
         }
       }
     } : null;
