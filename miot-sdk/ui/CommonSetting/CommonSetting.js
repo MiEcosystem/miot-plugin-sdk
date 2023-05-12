@@ -19,6 +19,8 @@ import { showDeviceService } from '../../hooks/useDeviceService';
 import tryTrackCommonSetting from "../../utils/track-sdk";
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
 let firmwareUpgradeDotClicked = false;
+let freqDeviceSwitchExposed = false; // 米家首页显示item打点用
+let freqFlagValue = undefined;// 米家首页显示item打点用
 let modelType = '';
 function getModelType() {
   return new Promise((resolve) => {
@@ -702,12 +704,6 @@ export default class CommonSetting extends React.Component {
     } : null;
     // 常用设备
     ret[AllOptions.FREQ_DEVICE] = roomInfo && roomInfo.data && roomInfo.data.roomId ? {
-      useEffect: (() => {
-        // 首页显示开关曝光,目前只有摄像机打点
-        if (isCamera) {
-          Service.smarthome.reportEvent('click', { tip: '6.109.1.1.28404', switch_toggle: (freqFlag ? "1" : "0") });
-        }
-      }, []),
       _itemType: 'switch',
       title: strings.favoriteDevices,
       value: freqFlag,
@@ -728,7 +724,7 @@ export default class CommonSetting extends React.Component {
           });
         });
         if (isCamera) {
-          Service.smarthome.reportEvent('click', { tip: '6.109.1.1.28405', switch_toggle: (value ? "1" : "0") });
+          Service.smarthome.reportEvent('click', { tip: '6.109.1.1.28405', switch_toggle: value });
         }
       }
     } : null;
@@ -1031,6 +1027,7 @@ export default class CommonSetting extends React.Component {
   _updateFreqFlag() {
     Device.getFreqFlag().then((freqFlagRes) => {
       let freqFlag = freqFlagRes.data;
+      freqFlagValue = freqFlag ? '1' : '0';
       this.commonSetting = this.getCommonSetting({
         ...this.state,
         freqFlag
@@ -1193,6 +1190,14 @@ export default class CommonSetting extends React.Component {
                 />
               );
             } else if (item._itemType === 'switch') {
+              let isCamera = ['camera'].indexOf(modelType) !== -1 && ['mxiang.'].indexOf(Device.model) == -1;
+              if (item.key === AllOptions.FREQ_DEVICE && isCamera) {
+                // 摄像机设置页米家首页显示曝光
+                if (freqFlagValue != undefined && !freqDeviceSwitchExposed) {
+                  Service.smarthome.reportEvent('expose', { tip: '6.109.1.1.28404', switch_toggle: freqFlagValue });
+                  freqDeviceSwitchExposed = true;
+                }
+              }
               return (
                 <ListItemWithSwitch
                   key={item.key || item.title}
