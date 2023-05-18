@@ -724,7 +724,7 @@ export default class CommonSetting extends React.Component {
           });
         });
         if (isCamera) {
-          Service.smarthome.reportEvent('click', { tip: '6.109.1.1.28405', switch_toggle: value });
+          Service.smarthome.reportEvent('click', { tip: '6.109.1.1.28405', switch_toggle_string: value ? "1" : "0" });
         }
       }
     } : null;
@@ -1194,7 +1194,7 @@ export default class CommonSetting extends React.Component {
               if (item.key === AllOptions.FREQ_DEVICE && isCamera) {
                 // 摄像机设置页米家首页显示曝光
                 if (freqFlagValue != undefined && !freqDeviceSwitchExposed) {
-                  Service.smarthome.reportEvent('expose', { tip: '6.109.1.1.28404', switch_toggle: freqFlagValue });
+                  Service.smarthome.reportEvent('expose', { tip: '6.109.1.1.28404', switch_toggle_string: freqFlagValue });
                   freqDeviceSwitchExposed = true;
                 }
               }

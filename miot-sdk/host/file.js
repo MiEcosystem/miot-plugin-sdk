@@ -629,7 +629,8 @@ class IFile {
    * @since 10037
    * @param {string} fileName 图片在沙盒中的文件名
    * @param {string} customDirName 自定义相册名称，默认为null，since 10042
-   * @returns {Promiste}
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id， since 10082
+   * @returns {Promise}
    * 成功时：返回true
    * 失败时：
    *  {"code":-401, "message":"access to photo library denied" }
@@ -642,7 +643,7 @@ class IFile {
    * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
    */
   @report
-  saveImageToPhotosDidAlbum(fileName, customDirName = null) {
+  saveImageToPhotosDidAlbum(fileName, customDirName = null, deviceID = undefined) {
      return Promise.resolve(false)
   }
   /**
@@ -651,6 +652,7 @@ class IFile {
    * @since 10037
    * @param {string} fileName
    * @param {string} customDirName 自定义相册名称，默认为null, since 10042
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id， since 10082
    * @returns {Promise}
    * 成功时：返回true
    * 失败时：
@@ -665,7 +667,7 @@ class IFile {
    * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
    */
   @report
-  saveVideoToPhotosDidAlbum(fileName, customDirName = null) {
+  saveVideoToPhotosDidAlbum(fileName, customDirName = null, deviceID = undefined) {
      return Promise.resolve(false)
   }
   /**
@@ -673,6 +675,7 @@ class IFile {
    * @since 10037
    * @param {string} url
    * @param {string} customDirName 自定义相册名称，默认为null, since 10042
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id， since 10082
    * @returns {Promise}
    * 成功时：返回true
    * 失败时：
@@ -683,7 +686,7 @@ class IFile {
    * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
    */
   @report
-  fetchLocalVideoFilePathFromDidAlbumByUrl(url, customDirName = null) {
+  fetchLocalVideoFilePathFromDidAlbumByUrl(url, customDirName = null, deviceID = undefined) {
      return Promise.resolve(false)
   }
   /**

@@ -123,6 +123,21 @@ export default class CallSmartHomeAPIDemo extends React.Component {
               return Service.smarthome.getConsumableDetails();
             }
           }
+        ],
+        [
+          { group: 'ABTest' },
+          { name: "激活实验", handle: this.handleObjRes.bind(this), action: () => {
+            return new Promise((resolve, reject) => {
+              Service.smarthome.activeABTestByPath({ expPath: 'testPath' });
+              resolve('调用完成');
+            });
+          }
+          },
+          {
+            name: "通过实验路径获取实验对象", handle: this.handleObjRes.bind(this), action: () => {
+              return Service.smarthome.getABTestConfigByPath({ expPath: 'testPath' });
+            }
+          }
         ]
       ]
     });
