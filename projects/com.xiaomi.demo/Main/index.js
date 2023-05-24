@@ -91,6 +91,8 @@ import ImageCapInsetDemo from "./UIComponent/ImageCapInsetDemo"; // ui-ImageCapI
 import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo"; // ui-NumberSpinnerDemo
 import StringSpinnerDemo from "./UIComponent/StringSpinnerDemo"; // ui-StringSpinnerDemo
 import ColorPickerDemo from "./UIComponent/ColorPickerDemo";
+import ColorSelectorDemo from "./UIComponent/ColorSelectorDemo";
+
 import MiotAndroidScrollViewDemo from "./UIComponent/MiotAndroidScrollViewDemo"; // ui-MiotAndroidScrollViewDemo
 import AbsoluteTouch from "./UIComponent/AbsoluteTouch"; // ui-AbsoluteTouch
 import RobotMapDemo from "./UIComponent/RobotMapDemo"; // 扫地机地图
@@ -298,6 +300,7 @@ function createRootStack(initPage) {
       NumberSpinnerDemo,
       StringSpinnerDemo,
       ColorPickerDemo,
+      ColorSelectorDemo,
       MiotAndroidScrollViewDemo,
       AbsoluteTouch,
       // 接口服务

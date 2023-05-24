@@ -131,7 +131,9 @@ class IUi {
    * 打开耗材详情页面(自研插件)
    * @param {object} params 耗材传递的参数
    *   params
-   *   对应的 getConsumableDetails 接口数据的details数组的元素
+   *   android平台 对应的 getConsumableDetails 接口数据的details数组的元素
+   *   iOS平台  接口数据的details数组的元素 + details数据上层consumesData数据
+   *   具体用法可参考xiaomi.demo
    */
    @report
   openConsumesDetailPage(params) {

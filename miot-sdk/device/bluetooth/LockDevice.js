@@ -128,7 +128,12 @@ export default class IBluetoothLock {
      *  })
    * ...
    * @returns {Promise<Object>}
-   *      resolve：{},初始化成功不会返回数据
+   *      resolve：{
+     *      code:0,
+     *      data:{
+     *        passwordCount: x
+     *      }
+     *   },初始化成功会返回生成的密码的数量
    *      reject：{code: xxx, message:xxx} 失败原因
    */
     @report
@@ -208,4 +213,20 @@ export default class IBluetoothLock {
     decryptMessageWithToken(data) {
        return Promise.resolve(null);
     }
+  @report
+    queryLockSharedRecords(params) {
+     return Promise.resolve(null);
+    }
+  /**
+   * 删除门锁分享记录
+   * @since 10080
+   * @param {strng} data Hex Data String
+   * @return {Promise<json>}
+   *      resolve：{"result": :"encripted string"} result字段即为解密后的string
+   *      reject：{code: xxx, message: xxx} 1:必须16进制字符串  2:获取device token 失败  3:解密失败
+   */
+  @report
+  deleteLockSharedRecords(params) {
+     return Promise.resolve(null);
+  }
 }

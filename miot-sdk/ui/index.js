@@ -31,6 +31,7 @@ import _TitleBarWhite from './TitleBarWhite';
 import _BTInterconnection from './BTInterconnection';
 import _BraceletInterconnection from './BraceletInterconnection';
 import { ColorPicker as _ColorPicker } from './ColorPicker';
+import _ColorSelector from './ColorSelector';
 import _Pdf from './pdfviewer';
 import _TouchableView from './TouchableView';
 export { default as DynamicColor, dynamicColor } from './Style/DynamicColor';
@@ -56,6 +57,7 @@ export const MiotAndroidScrollView = _MiotAndroidScrollView;
 export const BTInterconnection = _BTInterconnection;
 export const BraceletInterconnection = _BraceletInterconnection;
 export const ColorPicker = _ColorPicker;
+export const ColorSelector = _ColorSelector;
 export const PdfViewer = _Pdf;
 export const TouchableView = _TouchableView;
 export { default as BigNumber } from './BigNumber';
@@ -93,6 +95,6 @@ export default {
   ProgressDialog, SingleChoseDialog, InputDialog,
   TitleBar, TitleBarBlack, TitleBarWhite,
   NumberSpinner, StringSpinner, RobotMapView,
-  LocalizedStrings, AMapView, MiotAndroidScrollView, ColorPicker,
+  LocalizedStrings, AMapView, MiotAndroidScrollView, ColorPicker, ColorSelector,
   PdfViewer
 };

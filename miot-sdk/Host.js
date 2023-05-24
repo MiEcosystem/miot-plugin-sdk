@@ -114,6 +114,21 @@ export default {
   get isPad() {
      return  false
   },
+  
+  /**
+     * @const
+     * @type {number}
+     * @since  10081  获取iphone手机顶部状态栏距离
+     * @description 判断是否 iOS 手机状态栏的高度  
+     *                Android 请使用 RN 官方api import {StatusBar} from 'react-native';  StatusBar.currentHeight;
+     *                iPad上，无论是否是刘海屏或者灵动岛屏幕，都返回20
+     *                iPhone上，非刘海屏返回20，刘海屏返回44，灵动岛屏幕返回59
+     *                需要注意的是，该方法仅能获取状态栏高度，需要和导航栏高度概念区别开
+     *                正确的导航栏高度需要 在该api的值的基础上偏移指定距离（通常是44）
+     */
+  get iPhoneXSeriesTopAreaInsets() {
+     return  0
+  },
   /**
      * @const
      * @type {boolean}
