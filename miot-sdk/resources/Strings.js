@@ -3,6 +3,7 @@ import { Utils } from "../native";
 const placeholderRegex = /(\{[\d|\w]+\})/;
 const getStrings = (strings) => {
   const language = locale.language;
+  console.log('language ========', language);
   return strings[language] || strings['en'];
 };
 const formatString = (str, ...valuesForPlaceholders) => {
@@ -55,15 +56,16 @@ export const i18ns = {
   get fr() { return require('./translation/fr_FR').default; },
   get it() { return require('./translation/it_IT').default; },
   get de() { return require('./translation/de_DE').default; },
-  get in() { return require('./translation/in_ID').default; },
+  get id() { return require('./translation/in_ID').default; },
   get pl() { return require('./translation/pl_PL').default; },
   get vi() { return require('./translation/vi_VN').default; },
   get ja() { return require('./translation/ja_JP').default; },
   get th() { return require('./translation/th_TH').default; },
   get tr() { return require('./translation/tr_TR').default; },
+  get pt() { return require('./translation/pt_BR').default; },
   get nl() { return require('./translation/nl_NL').default; },
   get ar() { return require('./translation/ar_EG').default; },
-  get iw() { return require('./translation/iw_IL').default; },
+  get he() { return require('./translation/iw_IL').default; },
   get el() { return require('./translation/el_GR').default; },
   get cs() { return require('./translation/cs_CZ').default; },
   get uk() { return require('./translation/uk_UA').default; },
@@ -89,15 +91,16 @@ strings = getStrings({
   fr: i18ns.fr,
   it: i18ns.it,
   de: i18ns.de,
-  in: i18ns.in,
+  id: i18ns.id,
   pl: i18ns.pl,
   vi: i18ns.vi,
   ja: i18ns.ja,
   th: i18ns.th,
   tr: i18ns.tr,
+  pt: i18ns.pt,
   nl: i18ns.nl,
   ar: i18ns.ar,
-  iw: i18ns.iw,
+  he: i18ns.he,
   el: i18ns.el,
   cs: i18ns.cs,
   uk: i18ns.uk,
