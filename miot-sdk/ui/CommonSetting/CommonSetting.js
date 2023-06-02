@@ -697,7 +697,7 @@ export default class CommonSetting extends React.Component {
         }
       },
       [AllOptions.CHANGE_ICON]: {
-        title: '更改图标',
+        title: '更换图标',
         onPress: () => {
           const lightGroup = Device.model.startsWith('mijia.light.group') ? 1 : undefined;
           const outlet = ['plug', 'ctrl_86plug', 'powerstrip'].includes(Device.model.split('.')[1]) ? 2 : undefined;
