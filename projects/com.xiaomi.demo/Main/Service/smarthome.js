@@ -125,7 +125,7 @@ export default class CallSmartHomeAPIDemo extends React.Component {
           },
           {
             name: "通过subclass_id获取iconURL", handle: this.handleObjRes.bind(this), action: () => {
-              return Service.smarthome.getLightDeviceIcon({ subclass_id: 26 });
+              return Service.smarthome.getDeviceIcon({ subclass_id: 26 });
             }
           }
         ],

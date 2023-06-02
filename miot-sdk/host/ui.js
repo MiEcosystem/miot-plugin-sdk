@@ -854,7 +854,7 @@ class IUi {
    * }
    */
   @report
-  openChangeLightDeviceIcon(param) {
+  openChangeDeviceIconDialog(param) {
   }
 }
 const UiInstance = new IUi();

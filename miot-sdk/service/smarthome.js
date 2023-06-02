@@ -1472,7 +1472,7 @@ class ISmartHome {
    *   message:xxxxxx
    * }
    */
-  getLightDeviceIcon(param) {
+  getDeviceIcon(param) {
      return Promise.resolve([]);
   }
 }

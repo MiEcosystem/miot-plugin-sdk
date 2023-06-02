@@ -701,7 +701,7 @@ export default class CommonSetting extends React.Component {
         onPress: () => {
           const lightGroup = Device.model.startsWith('mijia.light.group') ? 1 : undefined;
           const outlet = ['plug', 'ctrl_86plug', 'powerstrip'].includes(Device.model.split('.')[1]) ? 2 : undefined;
-          Host.ui.openChangeLightDeviceIcon({ plugin_type: outlet || lightGroup })
+          Host.ui.openChangeDeviceIconDialog({ plugin_type: outlet || lightGroup })
             .then((res) => {
               if (res && res.data) {
                 const { subclass_id, proxy_category_icon } = res.data;
