@@ -58,6 +58,7 @@ let strings = {
   other: '',
   multipleKeyShowOnHome: "",
   // 常用设备
+  favoriteDevices: "",
   favoriteCamera: "",
   favoriteAddDevices: "",
   // MHDatePicker
@@ -218,6 +219,7 @@ strings = getStrings({
     ifttt: '智能场景',
     productBaike: '产品百科',
     firmwareUpgrade: '固件升级',
+    firmwareUpdate: '固件更新',
     more: '更多设置',
     help: '使用帮助',
     legalInfo: '法律信息',
@@ -234,6 +236,7 @@ strings = getStrings({
     other: '其他',
     multipleKeyShowOnHome: "在首页展示为{0}个按键",
     // 常用设备
+    favoriteDevices: "米家首页显示",
     favoriteCamera: "放大卡片",
     favoriteAddDevices: "设为首页常用设备",
     // MHDatePicker
