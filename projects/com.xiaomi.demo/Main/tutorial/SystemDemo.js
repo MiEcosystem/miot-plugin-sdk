@@ -310,6 +310,12 @@ function writeNFCData() {
   });
 }
 
+function isMiConnectSupportNFC() {
+  System.nfc.isMiConnectSupportNFC({ did: Device.deviceID }).then((res) => {
+    alert(res);
+  });
+}
+
 function checkNotificationConfigEnable() {
   System.permission.checkAPPSystemConfigEnable(SystemConfig.NOTIFICATION)
     .then((res) => {
@@ -378,6 +384,7 @@ export default class SystemDemo extends React.Component {
               [],
               ["获取NFC状态", getNfcInfo],
               ["写入NFC数据", writeNFCData],
+              ["miui是否支持投屏", isMiConnectSupportNFC],
               [],
               ["内存警告", addMemoryWarning],
               [],
