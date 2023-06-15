@@ -30,6 +30,7 @@
 import Device from "../device/BasicDevice";
 import { report } from "../decorator/ReportDecorator";
 import { PermissionsAndroid } from "react-native";
+import Permission from "../service/permission";
 import { processColor } from "react-native";
 /**
  * 文件事件名集合
@@ -503,6 +504,93 @@ class IFile {
      return Promise.resolve(null);
   }
   /**
+   * @since 10083
+   * 注册字体
+   * Android:
+   * 注意！！！对于Android而言，必须保证fontFamily在还未被使用之前注册进来，否者即使注册了也会无效
+   * 建议一进插件就注册，如果非要延时注册的话，请确保触发这个方法逻辑之前，插件从未尝试使用该fontFamily渲染过任何文字
+   * 说明：
+   * 在Android的RN中，字体是有缓存机制的，当一个插件需要使用的某个fontFamily首次被加载时，它会被存在一个Map中
+   * key为fontFamily，value为它的字体对象
+   * 这样在下次还要用到此字体时可以避免重复去磁盘中读取字体文件
+   * 但是如果第一次使用这个字体时RN找不到这个字体，它就会使用系统默认的字体，同时也会把这个kv存入缓存，并且不会更新。
+   * 而这个方法就是要在RN第一次去加载这个字体之前给它权限允许它去加载，否者当RN无权限加载时，它会使用系统默认字体，后续因为缓存已经生效，导致再调用这个方法也不会有任何效果了
+   * (注意这个方法只是给予权限去加载，到了真正要渲染字体的时候第一步会判断有没有权限，第二步就会去字体文件夹下读字体文件，而如果字体文件不存在的话，也会加载失败，那么也会使用默认字体，
+   * 所以这个方法必须保证fontFamily在还未被使用之前注册进来)
+   *
+   * iOS:
+   * iOS是可以做到使用时注册的，而且iOS要求字体文件必须存在才能注册成功（Android没这要求，因为对于Android而言它只是给予权限的一个操作），所以在使用此方法时要判断系统类型。
+   * @example
+   * 请查看com.xiaomi.demo里的DownloadFontDemo.js文件
+   * @param param
+   * @param {string}param.fontFamily <Text>组件用到的fontFamily
+   * 注册成功时
+   * iOS返回
+   * {code:0, data:{fontFamily:xxxx}} // iOS上应该在<Text>组件中传入这里面的fontFamily
+   * 失败时：{"code":xxx, "message":"xxx" }
+   * Android没有返回值
+   */
+  registerFontEnable(param) {
+  }
+  /**
+   * @since 10083
+   * 下载字体文件，下载过来的字体可以通过{@link Host.file.registerFontEnable}注册
+   * 然后插件可以使用该字体，下载进度可以通过监听FileEvent.fileDownloadProgress事件实现
+   * @param param
+   * @param {string}param.url 下载链接，文件下载完成后才会回调，只支持下载单个文件
+   * @param {string}param.fileName 字体文件名称，名字必须规范!!!
+   * 1：必须以fontFamily命名
+   * 2：后缀必须为.otf或者.ttf
+   * 如：MiSansW-Light.otf
+   * @param {string}param.taskID 任务ID，可选项，可用于cancelDownloadFile取消下载任务
+   * @returns {Promise<Object>}
+   * 返回的数据和downloadFile方法的返回值一致
+   */
+  @report
+  downloadFontFile(param) {
+     return Promise.resolve(null);
+  }
+  /**
+   * @since 10083
+   * 读取已下载了的字体列表
+   * @param param 预留参数
+   * @returns {Promise<Object>}
+   * 成功返回
+   *     [
+   *       {
+   *         name:xxx,
+   *         size:xxx,
+   *         modifyTime:xxxx
+   *       }
+   *     ]
+   * 失败时返回
+   * {
+   *   code:-1,
+   *   message:xxxx
+   * }
+   */
+  @report
+  readFontFileList(param = undefined) {
+     return Promise.resolve(null);
+  }
+  /**
+   * @since 10083
+   * 删除下载了的字体文件
+   * @param param
+   * @param {string} param.fileName 字体文件名，跟下载时传入的名字一样
+   * @returns {Promise<Object>}
+   * 成功时返回:
+   * "delete complete"
+   * 失败时返回：{
+   *   code:-1,
+   *   message:xxxx
+   * }
+   */
+  @report
+  deleteFontFile(param) {
+     return Promise.resolve(null);
+  }
+  /**
    * 取消指定的下载任务
    * @param {string} taskID - since 10038 下载任务的唯一ID， 与 downloadFile 传入的 taskID 一致
    * @returns {Promise}
@@ -629,7 +717,8 @@ class IFile {
    * @since 10037
    * @param {string} fileName 图片在沙盒中的文件名
    * @param {string} customDirName 自定义相册名称，默认为null，since 10042
-   * @returns {Promiste}
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id， since 10082
+   * @returns {Promise}
    * 成功时：返回true
    * 失败时：
    *  {"code":-401, "message":"access to photo library denied" }
@@ -642,7 +731,7 @@ class IFile {
    * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
    */
   @report
-  saveImageToPhotosDidAlbum(fileName, customDirName = null) {
+  saveImageToPhotosDidAlbum(fileName, customDirName = null, deviceID = undefined) {
      return Promise.resolve(false)
   }
   /**
@@ -651,6 +740,7 @@ class IFile {
    * @since 10037
    * @param {string} fileName
    * @param {string} customDirName 自定义相册名称，默认为null, since 10042
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id， since 10082
    * @returns {Promise}
    * 成功时：返回true
    * 失败时：
@@ -665,7 +755,7 @@ class IFile {
    * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
    */
   @report
-  saveVideoToPhotosDidAlbum(fileName, customDirName = null) {
+  saveVideoToPhotosDidAlbum(fileName, customDirName = null, deviceID = undefined) {
      return Promise.resolve(false)
   }
   /**
@@ -673,6 +763,7 @@ class IFile {
    * @since 10037
    * @param {string} url
    * @param {string} customDirName 自定义相册名称，默认为null, since 10042
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id， since 10082
    * @returns {Promise}
    * 成功时：返回true
    * 失败时：
@@ -683,7 +774,7 @@ class IFile {
    * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
    */
   @report
-  fetchLocalVideoFilePathFromDidAlbumByUrl(url, customDirName = null) {
+  fetchLocalVideoFilePathFromDidAlbumByUrl(url, customDirName = null, deviceID = undefined) {
      return Promise.resolve(false)
   }
   /**

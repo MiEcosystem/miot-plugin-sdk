@@ -114,12 +114,24 @@ export default {
   get isPad() {
      return  false
   },
-  
+  /**
+   * @const
+   * @type {String}
+   * @description 设备类型，用在车机插件上，米家app的插件开发者无需关心
+   * 在米家app上返回值为 'phone'，车机框架上返回值为 'car'
+   * @return { ('phone'|'car') }
+   */
+  get mobileType() {
+     return  "..."
+      return 'phone';
+    }
+    return native.MIOTHost.mobileType;
+  },
   /**
      * @const
      * @type {number}
      * @since  10081  获取iphone手机顶部状态栏距离
-     * @description 判断是否 iOS 手机状态栏的高度  
+     * @description 判断是否 iOS 手机状态栏的高度
      *                Android 请使用 RN 官方api import {StatusBar} from 'react-native';  StatusBar.currentHeight;
      *                iPad上，无论是否是刘海屏或者灵动岛屏幕，都返回20
      *                iPhone上，非刘海屏返回20，刘海屏返回44，灵动岛屏幕返回59
@@ -137,6 +149,9 @@ export default {
      */
   get isIphoneXSeries() {
      return  false
+      return native.MIOTHost.isIphoneXSeries;
+    }
+    return false;
   },
   /**
      * @const

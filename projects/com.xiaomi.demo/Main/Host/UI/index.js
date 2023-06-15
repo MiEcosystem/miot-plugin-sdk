@@ -629,6 +629,13 @@ export default class UIDemo extends React.Component {
         }
       },
       {
+        'name': 'openNFCWritePageForConnectTV',
+        'subtitle': '打开电视遥控器NFC写入流程的页面',
+        'func': () => {
+          Host.ui.openNFCWritePageForConnectTV({ did: Device.deviceID });
+        }
+      },
+      {
         'name': 'openNFCWriteDeviceInfoDebugPage',
         'subtitle': '打开NFC写设备信息Debug页面',
         'func': () => {

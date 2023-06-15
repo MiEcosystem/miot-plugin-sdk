@@ -1420,6 +1420,41 @@ class ISmartHome {
    @report
    getConsumableDetails(param = {}) {
       return Promise.resolve(null);
+  /** ABTest
+   * 激活实验：用户在业务上进入了实验，需要调用该方法。
+   * 激活之后，onetrack埋点的公共参数会带上该实验的ID。
+   * @param param {Object}
+   * param.expPath {string} 实验路径
+   */
+  @report
+   activeABTestByPath(param) {
+   }
+  /** ABTest
+   * 通过实验路径获取实验对象。
+   * @param param{Object}
+   * param.expPath {string} 实验路径
+   * @returns {Promise<Object>}
+   * 成功返回:
+   * {
+   *   code:0,
+   *   data:{
+   *     expId: Long,
+   *     expPath: String,
+   *     name: String,
+   *     type: String,
+   *     params: {}
+   *   }
+   * }
+   * 失败返回:
+   * {
+   *   code:-1,
+   *   message:xxxxxxx
+   * }
+   */
+  @report
+  getABTestConfigByPath(param) {
+     return Promise.resolve([]);
+  }
 }
 const SmartHomeInstance = new ISmartHome();
 export default SmartHomeInstance;
