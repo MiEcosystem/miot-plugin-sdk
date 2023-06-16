@@ -129,7 +129,6 @@ class IUi {
    @report
   openConsumesDetailPage(params) {
   }
-  
   /**
    * 获取设备列表中指定model的设备信息(仅白名单设备才允许调用此方法，如需使用，请联系插件框架)
    * @param model 指定的model
@@ -829,11 +828,18 @@ class IUi {
   /**
    * 打开本地直连控制关联页面
    * @param {Object} param 预留
-   * @example 
+   * @example
    * Host.ui.openAssociatePage(param);
    */
   @report
   openAssociatePage(param = {}) {
+  }
+  /**
+   * 打开电视遥控器NFC写入流程的页面,only for Android
+   * @param param {Object} 预留
+   */
+  @report
+  openNFCWritePageForConnectTV(param = undefined) {
   }
 }
 const UiInstance = new IUi();

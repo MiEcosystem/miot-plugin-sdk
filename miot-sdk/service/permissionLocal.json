@@ -19,11 +19,13 @@
       "loock.lock.v5",
       "loock.lock.t1pro",
       "loock.lock.t1",
+      "loock.lock.fvl202",
       "loock.lock.pfvl10",
       "loock.lock.fvl111",
       "loock.lock.t2v1",
       "loock.lock.t2pv1",
       "loock.lock.fcl201",
+      "loock.lock.r2",
       "lumi.lock.mcn01",
       "lumi.lock.bmcn02",
       "lumi.lock.bmcn03",
@@ -36,7 +38,11 @@
       "lumi.gateway.aqhm02",
       "yunlu.door.sd2105",
       "yunlu.door.sd2106",
-      "oms.lock.dl01"
+      "oms.lock.dl01",
+      "sjj.lock.m1",
+      "lumi.lock.",
+      "lumi.safe.",
+      "xiaomi.lock.m30"
     ],
     "getDevicesWithModel": [
       "chuangmi.plug.m3",
@@ -65,6 +71,9 @@
       "lumi.lock.eicn02",
       "lumi.lock.mcn01",
       "lumi.lock.wbmcn1",
+      "lumi.lock.mcn008",
+      "lumi.lock.mcn009",
+      "xiaomi.lock.m30",
       "lumi.sensor_magnet.aq2",
       "miaomiaoce.sensor_ht.t1",
       "miot.heater.dnqty1",
@@ -125,10 +134,6 @@
       "micar.",
       "xiaomi."
     ],
-    "getHomeList": [
-      "micar.",
-      "xiaomi."
-    ],
     "System.location.getLocation": [
       "chunmi.cooker.eh1"
     ],
@@ -142,6 +147,9 @@
     "getServiceTokenWithSid": [
       "xiaomi.router",
       "xiaomi.wifispeaker"
+    ],
+    "dynamicFont": [
+      "xiaomi.printer.label"
     ]
   },
   "methodBlock": {},
