@@ -248,5 +248,6 @@ export default {
     'few': '{0} dias restantes',
     'many': '{0} dias restantes',
     'other': '{0} dias restantes'
-  }
+  },
+  changeIcon: 'Alterar ícone'
 };

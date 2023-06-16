@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'أحدث إصدار: ',
   currentVersion: 'الإصدار الحالي: ',
   fetchFailed: 'تعذر الوصول. حاول مرة أخري.',
-  releaseNote: 'تحديث السجلات',
+  releaseNote: 'سجلات التحديث',
   releaseVersionHistory: 'سجل تحديث البرنامج الثابت',
   firmwareAutoUpdate: 'تحديثات تلقائية للبرنامج الثابت',
   autoUpdateDescriptionNote: 'بمجرد اكتشاف برنامج ثابت جديد، سيحاول الجهاز التحديث تلقائيًا بين {0}. سيتم تثبيت التحديث في حالة عدم استخدامك للجهاز ولن يكون هناك إشعارات صوتية أو ضوئية أثناء عملية التحديث.',
@@ -174,7 +174,7 @@ export default {
   thirdPluginTitle: 'تقليدي',
   stdPluginSubTitle: 'يمكنك الانتقال إلى الإصدار القديم للصفحة من الميزات الإضافية',
   stdGuideDialogTitle: 'هناك إصدار جديد متوفر',
-  stdGuideDialogSubTitle: 'حدّث التطبيق للحصول على تجرِبة جديدة أكثر انسيابية.',
+  stdGuideDialogSubTitle: 'تم تحديث التطبيق إلى تجربة جديدة أكثر انسيابية.',
   stdGuideDialogNote: 'إذا لم تتمكن من العثور على مِيزة بعد التحديث، فربما تم نقلها إلى "ميزات إضافية".',
   stdGuideDialogButtonOK: 'موافق',
   // 多键开关设置
@@ -248,5 +248,6 @@ export default {
     'few': '{0} أيام متبقية',
     'many': '{0} أيام متبقية',
     'other': '{0} أيام متبقية'
-  }
+  },
+  changeIcon: 'تغيير الأيقونة'
 };

@@ -212,7 +212,7 @@ export default {
   room_bathroom: '浴室',
   room_backyard: '後院',
   room_unassigned: '未分配房間',
-  no_privacy_tip_content: '無法取得隱私，請檢查手機網路或在米家APP中回饋問題。',
+  no_privacy_tip_content: '無法取得私隱，請檢查手機網路或在米家APP中回饋問題。',
   moreDeviceInfo: '更多裝置資訊',
   deviceNet: '裝置網路',
   customizeName: '自訂名稱',
@@ -248,5 +248,6 @@ export default {
     'few': '預計還可以使用{0}天',
     'many': '預計還可以使用{0}天',
     'other': '預計還可以使用{0}天'
-  }
+  },
+  changeIcon: '更换图标'
 };

@@ -112,7 +112,7 @@ export default {
   handling: 'Um momento…',
   error: 'Ocorreu um erro. Tente novamente mais tarde.',
   createLightGroup: 'Criar grupo de luzes (novo)',
-  manageLightGroup: 'Gerenciar grupo de luzes (novo)',
+  manageLightGroup: 'Gerir grupo de luzes (novo)',
   deleteLightGroup: 'Desagrupar luzes',
   deleteCurtainGroup: 'Desagrupar dispositivos',
   linkDevice: 'Associar dispositivos',
@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Última versão: ',
   currentVersion: 'Versão atual: ',
   fetchFailed: 'Não foi possível aceder. Tente novamente.',
-  releaseNote: 'Atualizar registos',
+  releaseNote: 'Registo de atualizações',
   releaseVersionHistory: 'Histórico de atualização do \'firmware\'',
   firmwareAutoUpdate: 'Atualizações automáticas do \'firmware\'',
   autoUpdateDescriptionNote: 'Assim que um novo \'firmware\' for detetado, o dispositivo tentará atualizar automaticamente entre {0}. A atualização será instalada quando não estiver a usar o dispositivo e não haverá notificações de áudio ou luz durante o processo de atualização.',
@@ -248,5 +248,6 @@ export default {
     'few': '{0} dias restantes',
     'many': '{0} dias restantes',
     'other': '{0} dias restantes'
-  }
+  },
+  changeIcon: 'Alterar ícone'
 };

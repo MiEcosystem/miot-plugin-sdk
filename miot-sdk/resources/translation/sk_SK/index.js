@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Najnovšia verzia: ',
   currentVersion: 'Súčasná verzia: ',
   fetchFailed: 'Nepodarilo sa získať prístup. Skúste to znova.',
-  releaseNote: 'Aktualizovať denníky',
+  releaseNote: 'Logy aktualizácie',
   releaseVersionHistory: 'História aktualizácií firmvéru',
   firmwareAutoUpdate: 'Automatické aktualizácie firmvéru',
   autoUpdateDescriptionNote: 'Keď bude zachytený nový firmvér, zariadenie sa pokúsi o automatickú aktualizáciu medzi {0}. Aktualizácia sa nainštaluje, keď nebudete používať zariadenie a počas procesu aktualizácie sa nebude prehrávať žiadny zvuk ani žiadne upozornenia na svetlá.',
@@ -174,7 +174,7 @@ export default {
   thirdPluginTitle: 'Tradičné',
   stdPluginSubTitle: 'V ďalších funkciách môžete prepnúť na starú verziu stránky',
   stdGuideDialogTitle: 'K dispozícii je nová verzia',
-  stdGuideDialogSubTitle: 'Ak chcete získať nové zjednodušené prostredie, aktualizujte aplikáciu.',
+  stdGuideDialogSubTitle: 'Aktualizujte aplikáciu a zažite novú, ešte efektívnejšiu skúsenosť.',
   stdGuideDialogNote: 'Ak po aktualizácii neviete nájsť funkciu, možno bolo presunutá do sekcie Ďalšie funkcie.',
   stdGuideDialogButtonOK: 'OK',
   // 多键开关设置
@@ -248,5 +248,6 @@ export default {
     'few': 'Zostávajú {0} dni',
     'many': 'Zostáva {0} dňa',
     'other': 'Zostáva {0} dní'
-  }
+  },
+  changeIcon: 'Zmeniť ikonu'
 };
