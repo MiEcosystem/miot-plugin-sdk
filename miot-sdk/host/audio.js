@@ -86,7 +86,7 @@ class IAudio {
    *
    */
   @report
-  startRecord(audioName, settings) {
+  startRecord = (audioName, settings) => {
      return Promise.resolve(null);
   }
   /**

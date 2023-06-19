@@ -340,7 +340,7 @@ export class BasicDevice {
   }
   /**
   * 是否虚拟设备，虚拟设备主要指老的设备组（Yeelight灯组，飞利浦灯组）。
-  * **注意：mesh设备组，灯组2.0均不是虚拟设备**
+  * **注意：Mesh设备组，灯组2.0均不是虚拟设备**
   * @since 10003
   * @return {boolean}
   * @readonly
@@ -527,6 +527,7 @@ export class BasicDevice {
   }
   /**
    * 设备类型常量
+   * 来源： https://wiki.n.miui.com/pages/viewpage.action?pageId=325395852
    * */
   DEVICE_TYPE = {
     WIFI_SINGLE_MODEL_DEVICE: '0',
@@ -545,10 +546,31 @@ export class BasicDevice {
     THIRD_CLOUD_DEVICE: '14',
     INFRARED_REMOTE_CONTROLLER_DEVICE: '15',
     BLE_MESH_DEVICE: '16',
-    NEW_GROUP_VIRTUAL_DEVICE: '17'
+    NEW_GROUP_VIRTUAL_DEVICE: '17',
+    ONLY_CABLE_DEVICE: '21',
+    PLC_DEVICE: '22'
   }
   /**
-   * 获取设备类型，0：wifi单模设备，1：yunyi设备，2：云接入设备，3：zigbee设备，5：虚拟设备，6：蓝牙单模设备，7：本地AP设备，8：蓝牙wifi双模设备，9：其他，10：功能插件，11：SIM卡设备，12：网线设备，13：NB-IoT，14：第三方云接入，15：红外遥控器，16：BLE Mesh，17：虚拟设备（新设备组）
+   * 获取设备类型，
+   * 0：wifi单模设备，
+   * 1：yunyi设备，
+   * 2：云接入设备，
+   * 3：zigbee设备，
+   * 5：虚拟设备，
+   * 6：蓝牙单模设备，
+   * 7：本地AP设备，
+   * 8：蓝牙wifi双模设备，
+   * 9：其他，
+   * 10：功能插件，
+   * 11：SIM卡设备，
+   * 12：网线设备，
+   * 13：NB-IoT，
+   * 14：第三方云接入，
+   * 15：红外遥控器，
+   * 16：BLE Mesh，
+   * 17：虚拟设备（新设备组）
+   * 21：仅网线设备，局域网绑定
+   * 22：plc设备，plc配网
    * @return {string}
    * @readonly
    *
