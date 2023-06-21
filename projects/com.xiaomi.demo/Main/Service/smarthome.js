@@ -4,7 +4,7 @@ import Separator from 'miot/ui/Separator';
 import Host from "miot/Host";
 import { MemberType } from "miot/service/smarthome";
 import React from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import Logger from '../Logger';
 
 export default class CallSmartHomeAPIDemo extends React.Component {
@@ -111,6 +111,31 @@ export default class CallSmartHomeAPIDemo extends React.Component {
           {
             name: "获取多键开关名称", handle: this.handleObjRes.bind(this), action: () => {
               return Service.smarthome.getMultiSwitchName(Device.deviceID);
+            }
+          },
+          {
+            name: "获取设备成组信息", handle: this.handleObjRes.bind(this), action: () => {
+              return Service.smarthome.getVirtualDeviceCombineStatus({ groupDid: Device.deviceID });
+            }
+          },
+          {
+            name: "获取设备耗材信息", handle: this.handleObjRes.bind(this), action: () => {
+              return Service.smarthome.getConsumableDetails();
+            }
+          }
+        ],
+        [
+          { group: 'ABTest' },
+          { name: "激活实验", handle: this.handleObjRes.bind(this), action: () => {
+            return new Promise((resolve, reject) => {
+              Service.smarthome.activeABTestByPath({ expPath: 'testPath' });
+              resolve('调用完成');
+            });
+          }
+          },
+          {
+            name: "通过实验路径获取实验对象", handle: this.handleObjRes.bind(this), action: () => {
+              return Service.smarthome.getABTestConfigByPath({ expPath: 'testPath' });
             }
           }
         ]
