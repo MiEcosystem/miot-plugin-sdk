@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Viimeisin versio: ',
   currentVersion: 'Nykyinen versio: ',
   fetchFailed: 'Ei pääsyä. Yritä uudelleen.',
-  releaseNote: 'Päivitä lokit',
+  releaseNote: 'Uutta',
   releaseVersionHistory: 'Laiteohjelmiston päivityshistoria',
   firmwareAutoUpdate: 'Automaattiset laiteohjelmistopäivitykset',
   autoUpdateDescriptionNote: 'Kun uusi laiteohjelmisto havaitaan, laite yrittää päivittää automaattisesti välillä {0}. Päivitys asennetaan, kun et käytä laitetta, eikä päivitysprosessin aikana tule ääni- tai valoilmoituksia.',
@@ -248,5 +248,6 @@ export default {
     'few': '{0} päivää jäljellä',
     'many': '{0} päivää jäljellä',
     'other': '{0} päivää jäljellä'
-  }
+  },
+  changeIcon: 'Muokkaa kuvaketta'
 };

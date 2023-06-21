@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'أحدث إصدار: ',
   currentVersion: 'الإصدار الحالي: ',
   fetchFailed: 'تعذر الوصول. حاول مرة أخري.',
-  releaseNote: 'سجلات التحديث',
+  releaseNote: 'ما الجديد',
   releaseVersionHistory: 'سجل تحديث البرنامج الثابت',
   firmwareAutoUpdate: 'تحديثات تلقائية للبرنامج الثابت',
   autoUpdateDescriptionNote: 'بمجرد اكتشاف برنامج ثابت جديد، سيحاول الجهاز التحديث تلقائيًا بين {0}. سيتم تثبيت التحديث في حالة عدم استخدامك للجهاز ولن يكون هناك إشعارات صوتية أو ضوئية أثناء عملية التحديث.',

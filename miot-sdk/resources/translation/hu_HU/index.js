@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Legújabb verzió: ',
   currentVersion: 'Jelenlegi verzió: ',
   fetchFailed: 'Nem sikerült hozzáférni. Próbálja újra.',
-  releaseNote: 'Naplók frissítése',
+  releaseNote: 'Újdonságok',
   releaseVersionHistory: 'Firmware-frissítés előzmények',
   firmwareAutoUpdate: 'Automatikus firmware-frissítések',
   autoUpdateDescriptionNote: 'Ha új firmware-t észlel, a készülék megpróbálja automatikusan frissíteni {0} között. A frissítés akkor lesz telepítve, amikor Ön nem használja a készüléket, és a frissítési folyamat alatt nem lesznek hang- vagy fény értesítések.',
@@ -248,5 +248,6 @@ export default {
     'few': '{0} nap van hátra',
     'many': '{0} nap van hátra',
     'other': '{0} nap van hátra'
-  }
+  },
+  changeIcon: 'Ikon cseréje'
 };

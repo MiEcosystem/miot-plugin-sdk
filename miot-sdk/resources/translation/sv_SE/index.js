@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Senaste versionen: ',
   currentVersion: 'Aktuell version: ',
   fetchFailed: 'Kunde inte få åtkomst. Försök igen.',
-  releaseNote: 'Uppdatera loggar',
+  releaseNote: 'Vad är nytt',
   releaseVersionHistory: 'Uppdateringshistorik för firmware',
   firmwareAutoUpdate: 'Automatiska uppdateringar av firmware',
   autoUpdateDescriptionNote: 'När en ny firmware upptäcks kommer enheten att försöka att uppdatera automatiskt mellan {0}. Uppdateringen kommer att installeras när du inte använder enheten och det kommer inte att finnas några ljud- eller ljusnotifikationer under uppdateringsprocessen.',
@@ -248,5 +248,6 @@ export default {
     'few': '{0} dagar återstår',
     'many': '{0} dagar återstår',
     'other': '{0} dagar återstår'
-  }
+  },
+  changeIcon: 'Ändra ikon'
 };

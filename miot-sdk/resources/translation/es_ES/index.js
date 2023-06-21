@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Versión más reciente:',
   currentVersion: 'Versión actual:',
   fetchFailed: 'No se ha podido acceder. Vuelve a intentarlo.',
-  releaseNote: 'Actualizar registros',
+  releaseNote: 'Novedades',
   releaseVersionHistory: 'Historial de actualizaciones del firmware',
   firmwareAutoUpdate: 'Actualizaciones automáticas del firmware',
   autoUpdateDescriptionNote: 'Una vez detectado un nuevo firmware, el dispositivo intentará actualizarse automáticamente entre las {0}. La actualización se instalará cuando no estés utilizando el dispositivo y no habrá notificaciones sonoras ni luminosas durante el proceso de actualización.',
@@ -174,7 +174,7 @@ export default {
   thirdPluginTitle: 'Tradicional',
   stdPluginSubTitle: 'Puedes cambiar a la versión antigua en la página de funciones adicionales',
   stdGuideDialogTitle: 'Nueva versión disponible',
-  stdGuideDialogSubTitle: 'Actualizar la aplicación para tener una experiencia nueva y más fluida.',
+  stdGuideDialogSubTitle: 'Actualiza la aplicación para tener una experiencia nueva y más fluida.',
   stdGuideDialogNote: 'Si no encuentras una función después de actualizar, puede haberse movido a "Funciones adicionales".',
   stdGuideDialogButtonOK: 'OK',
   // 多键开关设置
@@ -248,5 +248,6 @@ export default {
     'few': '{0} días restantes',
     'many': '{0} días restantes',
     'other': '{0} días restantes'
-  }
+  },
+  changeIcon: 'Cambiar icono'
 };

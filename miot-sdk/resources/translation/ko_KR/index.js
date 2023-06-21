@@ -153,7 +153,7 @@ export default {
   lastestVersion: '최신 버전: ',
   currentVersion: '현재 버전: ',
   fetchFailed: '액세스 실패, 다시 시도하세요.',
-  releaseNote: '로그 업데이트',
+  releaseNote: '새 소식',
   releaseVersionHistory: '펌웨어 업데이트 기록',
   firmwareAutoUpdate: '자동 펌웨어 업데이트',
   autoUpdateDescriptionNote: '새 펌웨어가 감지되면 기기는 {0} 사이에 자동 업데이트를 시도합니다. 업데이트는 기기를 사용하지 않을 때 설치되며 업데이트 중에는 오디오 또는 표시등 알림을 하지 않습니다.',
@@ -248,5 +248,6 @@ export default {
     'few': '{0}일 남음',
     'many': '{0}일 남음',
     'other': '{0}일 남음'
-  }
+  },
+  changeIcon: '아이콘 변경'
 };

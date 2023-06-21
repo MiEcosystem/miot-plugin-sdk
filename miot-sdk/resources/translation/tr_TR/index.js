@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'En son sürüm: ',
   currentVersion: 'Mevcut sürüm: ',
   fetchFailed: 'Erişim sağlanamadı. Tekrar deneyin.',
-  releaseNote: 'Günlükleri güncelle',
+  releaseNote: 'Yenilikler',
   releaseVersionHistory: 'Üretici yazılımı güncelleme geçmişi',
   firmwareAutoUpdate: 'Otomatik üretici yazılımı güncelleştirmeleri',
   autoUpdateDescriptionNote: 'Yeni bir üretici yazılımı algılandığında, cihaz {0} arasında otomatik güncellemeye çalışacaktır. Güncelleme siz cihazı kullanmazken yüklenecek ve güncelleme sürecinde hiçbir sesli bildirim ya da ışık bildirimi olmayacaktır.',
@@ -248,5 +248,6 @@ export default {
     'few': '{0} gün kaldı',
     'many': '{0} gün kaldı',
     'other': '{0} gün kaldı'
-  }
+  },
+  changeIcon: 'Simgeyi değiştir'
 };

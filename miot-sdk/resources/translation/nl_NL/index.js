@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Recentste versie: ',
   currentVersion: 'Huidige versie: ',
   fetchFailed: 'Geen toegang. Probeer opnieuw.',
-  releaseNote: 'Updatelogboek',
+  releaseNote: 'Wat is er nieuw',
   releaseVersionHistory: 'Updategeschiedenis firmware',
   firmwareAutoUpdate: 'Automatische firmware-updates',
   autoUpdateDescriptionNote: 'Zodra nieuwe firmware is gedetecteerd, zal het apparaat proberen automatisch een update uit te voeren tussen {0}. De update wordt geïnstalleerd wanneer u het apparaat niet gebruikt en u krijgt geen audio- of lichtmeldingen tijdens het updateproces.',
@@ -248,5 +248,6 @@ export default {
     'few': '{0} dagen resterend',
     'many': '{0} dagen resterend',
     'other': '{0} dagen resterend'
-  }
+  },
+  changeIcon: 'Icoon wijzigen'
 };

@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Dernière version : ',
   currentVersion: 'Version actuelle : ',
   fetchFailed: 'Accès impossible. Réessayer.',
-  releaseNote: 'Mise à jour des registres',
+  releaseNote: 'Les nouveautés',
   releaseVersionHistory: 'Historique de mise à jour du micrologiciel',
   firmwareAutoUpdate: 'Mises à jour automatiques du micrologiciel',
   autoUpdateDescriptionNote: 'Dès qu\'un nouveau micrologiciel est détecté, l\'appareil tente de se mettre à jour automatiquement entre {0}. La mise à jour sera installée lorsque vous n\'utiliserez pas l\'appareil et il n\'y aura pas de notification sonore ou lumineuse pendant le processus de mise à jour.',
@@ -248,5 +248,6 @@ export default {
     'few': '{0} jours restants',
     'many': '{0} jours restants',
     'other': '{0} jours restants'
-  }
+  },
+  changeIcon: 'Modifier l\'icône'
 };

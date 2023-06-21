@@ -153,7 +153,7 @@ export default {
   lastestVersion: '最新バージョン: ',
   currentVersion: '現在のバージョン: ',
   fetchFailed: 'アクセスできませんでした。もう一度お試しください。',
-  releaseNote: 'ログを更新',
+  releaseNote: 'アップデート内容',
   releaseVersionHistory: 'ファームウェアのアップデート履歴',
   firmwareAutoUpdate: 'ファームウェアの自動アップデート',
   autoUpdateDescriptionNote: '新しいファームウェアが検出されると、デバイスは{0}の間で自動アップデートを試みます。アップデートはデバイスを使用していない時にインストールされ、アップデート処理中に音声や光による通知はありません。',
@@ -248,5 +248,6 @@ export default {
     'few': '残り{0}日',
     'many': '残り{0}日',
     'other': '残り{0}日'
-  }
+  },
+  changeIcon: 'アイコンを変更'
 };

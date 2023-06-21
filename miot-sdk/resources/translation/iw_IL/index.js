@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'הגרסה האחרונה: ',
   currentVersion: 'הגרסה הנוכחית: ',
   fetchFailed: 'לא ניתן לקבל גישה. נא לנסות שוב.',
-  releaseNote: 'יומני עדכון',
+  releaseNote: 'מה חדש',
   releaseVersionHistory: 'היסטוריית עדכוני קושחה',
   firmwareAutoUpdate: 'עדכוני קושחה אוטומטיים',
   autoUpdateDescriptionNote: 'לאחר זיהוי קושחה חדשה, המכשיר ינסה לבצע עדכון באופן אוטומטי בין השעות {0}. העדכון יותקן בזמן שלא משתמשים במכשיר, ולא יהיו התראות שמע או התראות תאורה במהלך העדכון.',
@@ -248,5 +248,6 @@ export default {
     'few': 'נותרו {0} ימים',
     'many': 'נותרו {0} ימים',
     'other': 'נותרו {0} ימים'
-  }
+  },
+  changeIcon: 'שנה סמל'
 };

@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Najnovšia verzia: ',
   currentVersion: 'Súčasná verzia: ',
   fetchFailed: 'Nepodarilo sa získať prístup. Skúste to znova.',
-  releaseNote: 'Logy aktualizácie',
+  releaseNote: 'Čo je nové',
   releaseVersionHistory: 'História aktualizácií firmvéru',
   firmwareAutoUpdate: 'Automatické aktualizácie firmvéru',
   autoUpdateDescriptionNote: 'Keď bude zachytený nový firmvér, zariadenie sa pokúsi o automatickú aktualizáciu medzi {0}. Aktualizácia sa nainštaluje, keď nebudete používať zariadenie a počas procesu aktualizácie sa nebude prehrávať žiadny zvuk ani žiadne upozornenia na svetlá.',

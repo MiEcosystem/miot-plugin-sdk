@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Phiên bản mới nhất: ',
   currentVersion: 'Phiên bản hiện tại: ',
   fetchFailed: 'Không thể truy cập. Hãy thử lại.',
-  releaseNote: 'Nhật ký cập nhật',
+  releaseNote: 'Tóm tắt cập nhật',
   releaseVersionHistory: 'Lịch sử cập nhật chương trình cơ sở',
   firmwareAutoUpdate: 'Tự động cập nhật chương trình cơ sở',
   autoUpdateDescriptionNote: 'Sau khi phát hiện thấy chương trình cơ sở mới, thiết bị sẽ cố gắng cập nhật tự động trong khoảng thời gian từ {0}. Thiết bị sẽ cài đặt bản cập nhật khi bạn không sử dụng thiết bị và sẽ không có thông báo bằng âm thanh hoặc ánh sáng trong quá trình cập nhật.',
@@ -174,7 +174,7 @@ export default {
   thirdPluginTitle: 'Truyền thống',
   stdPluginSubTitle: 'Bạn có thể chuyển sang phiên bản cũ của trang này trong mục các tính năng bổ sung',
   stdGuideDialogTitle: 'Có phiên bản mới',
-  stdGuideDialogSubTitle: 'Hãy cập nhật ứng dụng để có trải nghiệm mới mẻ, hợp lý hơn.',
+  stdGuideDialogSubTitle: 'Cập nhật ứng dụng để có trải nghiệm mới mẻ, nâng cấp hơn.',
   stdGuideDialogNote: 'Nếu bạn không tìm được tính năng sau khi cập nhật thì tính năng đó có thể đã được chuyển sang mục "Các tính năng bổ sung".',
   stdGuideDialogButtonOK: 'OK',
   // 多键开关设置
@@ -248,5 +248,6 @@ export default {
     'few': 'Còn lại {0} ngày',
     'many': 'Còn lại {0} ngày',
     'other': 'Còn lại {0} ngày'
-  }
+  },
+  changeIcon: 'Thay đổi biểu tượng'
 };

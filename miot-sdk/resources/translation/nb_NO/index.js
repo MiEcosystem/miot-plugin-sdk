@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Nyeste versjon: ',
   currentVersion: 'Gjeldende versjon: ',
   fetchFailed: 'Fikk ikke tilgang. Prøv igjen.',
-  releaseNote: 'Oppdateringslogger',
+  releaseNote: 'Dette er nytt',
   releaseVersionHistory: 'Fastvareoppdateringshistorikk',
   firmwareAutoUpdate: 'Automatiske fastvareoppdateringer',
   autoUpdateDescriptionNote: 'Når en ny fastvare er oppdaget, vil enheten prøve å oppdatere automatisk mellom {0}. Oppdateringen installeres når du ikke bruker enheten, og det vises ikke lyd- eller lysvarsler under oppdateringsprosessen.',
@@ -248,5 +248,6 @@ export default {
     'few': '{0} dager gjenstår',
     'many': '{0} dager gjenstår',
     'other': '{0} dager gjenstår'
-  }
+  },
+  changeIcon: 'Endre ikon'
 };

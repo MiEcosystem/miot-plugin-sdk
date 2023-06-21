@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Neueste Version: ',
   currentVersion: 'Aktuelle Version: ',
   fetchFailed: 'Zugriff fehlgeschlagen. Erneut versuchen.',
-  releaseNote: 'Protokolle updaten',
+  releaseNote: 'Was ist neu',
   releaseVersionHistory: 'Updateverlauf der Firmware',
   firmwareAutoUpdate: 'Automatische Firmware-Updates',
   autoUpdateDescriptionNote: 'Sobald eine neue Firmware erkannt wird, versucht das Gerät, innerhalb {0} automatisch zu aktualisieren. Das Update wird installiert, wenn Sie das Gerät nicht verwenden. Während des Aktualisierungsvorgangs gibt es keine Audio- oder Lichtbenachrichtigungen.',
@@ -248,5 +248,6 @@ export default {
     'few': '{0} Tage verbleibend',
     'many': '{0} Tage verbleibend',
     'other': '{0} Tage verbleibend'
-  }
+  },
+  changeIcon: 'Symbol ändern'
 };

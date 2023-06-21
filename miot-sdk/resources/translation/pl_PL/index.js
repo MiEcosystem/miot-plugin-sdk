@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Najnowsza wersja: ',
   currentVersion: 'Bieżąca wersja: ',
   fetchFailed: 'Nie udało się uzyskać dostępu. Spróbuj ponownie.',
-  releaseNote: 'Dzienniki aktualizacji',
+  releaseNote: 'Co nowego',
   releaseVersionHistory: 'Historia aktualizacji oprogramowania układowego',
   firmwareAutoUpdate: 'Automatyczne aktualizacje oprogramowania układowego',
   autoUpdateDescriptionNote: 'Po wykryciu nowego oprogramowania sprzętowego urządzenie podejmie próbę automatycznej aktualizacji między {0}. Aktualizacja zostanie zainstalowana, gdy urządzenie nie będzie używane, a podczas procesu aktualizacji nie będą pokazywane żadne powiadomienia dźwiękowe ani świetlne.',
@@ -248,5 +248,6 @@ export default {
     'few': 'Pozostały {0} dni',
     'many': 'Pozostało {0} dni',
     'other': 'Pozostało {0} dnia'
-  }
+  },
+  changeIcon: 'Zmień ikonę'
 };

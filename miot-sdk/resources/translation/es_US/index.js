@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Versión más reciente: ',
   currentVersion: 'Versión actual: ',
   fetchFailed: 'No se pudo acceder. Vuelva a intentarlo.',
-  releaseNote: 'Actualizar logs',
+  releaseNote: 'Qué hay de nuevo',
   releaseVersionHistory: 'Historial de actualizaciones del firmware',
   firmwareAutoUpdate: 'Actualizaciones automáticas de firmware',
   autoUpdateDescriptionNote: 'Una vez detectado un nuevo firmware, el dispositivo intentará actualizarse automáticamente entre las {0}. La actualización se instalará cuando no esté utilizando el dispositivo y no habrá notificaciones sonoras ni luminosas durante el proceso de actualización.',
@@ -248,5 +248,6 @@ export default {
     'few': '{0} días restantes',
     'many': '{0} días restantes',
     'other': '{0} días restantes'
-  }
+  },
+  changeIcon: 'Cambiar ícono'
 };

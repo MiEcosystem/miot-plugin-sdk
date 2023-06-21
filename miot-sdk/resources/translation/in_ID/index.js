@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Versi terbaru: ',
   currentVersion: 'Versi saat ini: ',
   fetchFailed: 'Tak dapat diakses. Coba lagi.',
-  releaseNote: 'Log pembaruan',
+  releaseNote: 'Apa yang baru',
   releaseVersionHistory: 'Riwayat pembaruan firmware',
   firmwareAutoUpdate: 'Pembaruan firmware otomatis',
   autoUpdateDescriptionNote: 'Saat firmware baru dideteksi, perangkat akan mencoba memperbarui secara otomatis di antara {0}. Pembaruan akan dipasang saat perangkat tidak sedang digunakan dan takkan ada pemberitahuan suara maupun lampu selama proses pembaruan.',
@@ -174,7 +174,7 @@ export default {
   thirdPluginTitle: 'Tradisional',
   stdPluginSubTitle: 'Anda dapat beralih ke versi layar yang lama pada fitur tambahan',
   stdGuideDialogTitle: 'Versi baru tersedia',
-  stdGuideDialogSubTitle: 'Perbarui aplikasi untuk pengalaman yang baru dan lebih disempurnakan.',
+  stdGuideDialogSubTitle: 'Perbarui aplikasi untuk pengalaman baru dan lebih disempurnakan.',
   stdGuideDialogNote: 'Jika Anda tak dapat menemukan sebuah fitur setelah pembaruan, fitur tersebut mungkin telah dipindahkan ke "Fitur Tambahan".',
   stdGuideDialogButtonOK: 'Oke',
   // 多键开关设置
@@ -248,5 +248,6 @@ export default {
     'few': '{0} hari tersisa',
     'many': '{0} hari tersisa',
     'other': '{0} hari tersisa'
-  }
+  },
+  changeIcon: 'Ganti ikon'
 };

@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Última versão: ',
   currentVersion: 'Versão atual: ',
   fetchFailed: 'Não foi possível aceder. Tente novamente.',
-  releaseNote: 'Registo de atualizações',
+  releaseNote: 'O que há de novo',
   releaseVersionHistory: 'Histórico de atualização do \'firmware\'',
   firmwareAutoUpdate: 'Atualizações automáticas do \'firmware\'',
   autoUpdateDescriptionNote: 'Assim que um novo \'firmware\' for detetado, o dispositivo tentará atualizar automaticamente entre {0}. A atualização será instalada quando não estiver a usar o dispositivo e não haverá notificações de áudio ou luz durante o processo de atualização.',

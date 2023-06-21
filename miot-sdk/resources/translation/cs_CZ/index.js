@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Nejnovější verze: ',
   currentVersion: 'Současná verze: ',
   fetchFailed: 'Přístup se nezdařil. Zkuste to znovu.',
-  releaseNote: 'Protokoly aktualizace',
+  releaseNote: 'Co je nového',
   releaseVersionHistory: 'Historie aktualizací firmwaru',
   firmwareAutoUpdate: 'Automatické aktualizace firmwaru',
   autoUpdateDescriptionNote: 'Když je zjištěn nový firmware, zařízení se pokusí provést automatickou aktualizaci mezi {0}. Aktualizace bude nainstalována, když zařízení nebudete používat. V průběhu aktualizace nebudou fungovat žádná zvuková ani vizuální upozornění.',
@@ -248,5 +248,6 @@ export default {
     'few': 'Zbývají {0} dny',
     'many': 'Zbývá {0} dne',
     'other': 'Zbývá {0} dní'
-  }
+  },
+  changeIcon: 'Změnit ikonu'
 };

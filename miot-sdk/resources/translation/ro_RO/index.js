@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Cea mai recentă versiune: ',
   currentVersion: 'Versiunea actuală: ',
   fetchFailed: 'Nu s-a putut accesa. Încearcă din nou.',
-  releaseNote: 'Jurnale de actualizare',
+  releaseNote: 'Ce este nou',
   releaseVersionHistory: 'Istoricul actualizărilor de firmware',
   firmwareAutoUpdate: 'Actualizări automate de firmware',
   autoUpdateDescriptionNote: 'După ce se detectează un firmware nou, dispozitivul va încerca să se actualizeze automat între {0}. Actualizarea va fi instalată când nu folosiți dispozitivul și nu vor exista notificări audio sau luminoase în timpul procesului de actualizare.',
@@ -248,5 +248,6 @@ export default {
     'few': '{0} zile rămase',
     'many': '{0} zile rămase',
     'other': '{0} zile rămase'
-  }
+  },
+  changeIcon: 'Schimbă pictograma'
 };

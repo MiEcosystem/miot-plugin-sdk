@@ -153,7 +153,7 @@ export default {
   lastestVersion: 'Latest version: ',
   currentVersion: 'Current version: ',
   fetchFailed: 'Couldn\'t access. Try again.',
-  releaseNote: 'Update logs',
+  releaseNote: 'What\'s new',
   releaseVersionHistory: 'Firmware update history',
   firmwareAutoUpdate: 'Automatic firmware updates',
   autoUpdateDescriptionNote: 'Once a new firmware is detected, the device will try to update automatically between {0}. The update will be installed when you aren\'t using the device and there will be no audio or light notifications during the update process.',
@@ -248,5 +248,6 @@ export default {
     'few': '{0} days remaining',
     'many': '{0} days remaining',
     'other': '{0} days remaining'
-  }
+  },
+  changeIcon: 'Change icon'
 };
