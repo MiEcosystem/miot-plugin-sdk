@@ -108,7 +108,7 @@ strings = getStrings({
   ro: i18ns.ro,
   sv: i18ns.sv,
   es_us: i18ns.es_us,
-  pt_pt: i18ns.pt,
+  pt_pt: i18ns.pt_pt,
   sk: i18ns.sk,
   nb: i18ns.nb,
   fi: i18ns.fi
