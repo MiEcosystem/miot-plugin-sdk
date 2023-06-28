@@ -1,8 +1,11 @@
 import locale from "miot/host/locale";
-import { Utils } from "../native";
+import native, { Utils } from "../native";
 const placeholderRegex = /(\{[\d|\w]+\})/;
 const getStrings = (strings) => {
   const language = locale.language;
+  if (native.MIOTService.addLog) {
+    native.MIOTService.addLog("miot.sdk.filelog", `app_plugin_language js getSystemLanguage finalLanguage=${ language }`);
+  }
   return strings[language] || strings['en'];
 };
 const formatString = (str, ...valuesForPlaceholders) => {
