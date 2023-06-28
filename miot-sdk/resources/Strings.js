@@ -82,38 +82,41 @@ export const i18ns = {
 };
 // 为了 autoComplete
 let strings = i18ns.zh;
-strings = getStrings({
-  zh: i18ns.zh,
-  zh_tw: i18ns.zh_tw,
-  zh_hk: i18ns.zh_hk,
-  en: i18ns.en,
-  es: i18ns.es,
-  ru: i18ns.ru,
-  ko: i18ns.ko,
-  fr: i18ns.fr,
-  it: i18ns.it,
-  de: i18ns.de,
-  id: i18ns.id,
-  pl: i18ns.pl,
-  vi: i18ns.vi,
-  ja: i18ns.ja,
-  th: i18ns.th,
-  tr: i18ns.tr,
-  pt: i18ns.pt,
-  nl: i18ns.nl,
-  ar: i18ns.ar,
-  he: i18ns.he,
-  el: i18ns.el,
-  cs: i18ns.cs,
-  uk: i18ns.uk,
-  hu: i18ns.hu,
-  ro: i18ns.ro,
-  sv: i18ns.sv,
-  es_us: i18ns.es_us,
-  pt_pt: i18ns.pt_pt,
-  sk: i18ns.sk,
-  nb: i18ns.nb,
-  fi: i18ns.fi
-});
+export const getI18nsStrings = () => {
+  return getStrings({
+    zh: i18ns.zh,
+    zh_tw: i18ns.zh_tw,
+    zh_hk: i18ns.zh_hk,
+    en: i18ns.en,
+    es: i18ns.es,
+    ru: i18ns.ru,
+    ko: i18ns.ko,
+    fr: i18ns.fr,
+    it: i18ns.it,
+    de: i18ns.de,
+    id: i18ns.id,
+    pl: i18ns.pl,
+    vi: i18ns.vi,
+    ja: i18ns.ja,
+    th: i18ns.th,
+    tr: i18ns.tr,
+    pt: i18ns.pt,
+    nl: i18ns.nl,
+    ar: i18ns.ar,
+    he: i18ns.he,
+    el: i18ns.el,
+    cs: i18ns.cs,
+    uk: i18ns.uk,
+    hu: i18ns.hu,
+    ro: i18ns.ro,
+    sv: i18ns.sv,
+    es_us: i18ns.es_us,
+    pt_pt: i18ns.pt_pt,
+    sk: i18ns.sk,
+    nb: i18ns.nb,
+    fi: i18ns.fi
+  });
+};
+strings = getI18nsStrings();
 export default strings;
 export { formatString, pluralString };

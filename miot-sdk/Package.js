@@ -31,6 +31,7 @@ import { SDKContextProvider } from 'miot/sdkContext';
 import Service, { CurrentAccount } from './Service';
 import Device, { DeviceEvent, PollPropMap } from "./device/BasicDevice";
 import { strings } from './resources';
+import { getI18nsStrings } from './resources/Strings';
 import { ConfigProvider } from 'mhui-rn';
 import { DarkMode } from 'miot/Device';
 import { MessageDialog } from 'miot/ui/Dialog';
