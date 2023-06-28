@@ -1,24 +1,24 @@
 import React from "react";
-import {View, Text, StyleSheet} from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import GL from "gl-react";
-import {Surface} from "gl-react-native";
+import { Surface } from "gl-react-native";
 import TransitionGenerator from "./TransitionGenerator";
 import Transition from "./Transition";
 
 const shaders = GL.Shaders.create(TransitionGenerator.shaders);
 
 class Slideshow extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this._currentTransition = -1;
   }
-  render () {
+  render() {
     const { transitionDuration, pauseDuration, width, height, time, images } = this.props;
     const duration = transitionDuration + pauseDuration;
     const slide = time / duration;
-    let transitionProgress = Math.min(1, (duration/transitionDuration) * (slide % 1));
+    let transitionProgress = Math.min(1, (duration / transitionDuration) * (slide % 1));
     let transitionFrom = images[Math.floor(slide) % images.length];
-    let transitionTo = images[Math.floor(slide+1) % images.length];
+    let transitionTo = images[Math.floor(slide + 1) % images.length];
 
     const currentTransition = Math.floor(slide);
     if (currentTransition !== this._currentTransition) {
@@ -36,7 +36,7 @@ class Slideshow extends React.Component {
     return <View style={styles.root}>
       <Surface width={width} height={height}
         onLoad={() => console.log("Slideshow onLoad")}
-        onProgress={e => console.log("Slideshow onProgress", e.nativeEvent)}>
+        onProgress={(e) => console.log("Slideshow onProgress", e.nativeEvent)}>
         <Transition
           progress={transitionProgress}
           from={transitionFrom}
@@ -47,7 +47,7 @@ class Slideshow extends React.Component {
           height={height}
         />
       </Surface>
-    <View style={styles.legend}>
+      <View style={styles.legend}>
         <Text style={styles.textName}>{transitionName}</Text>
         <Text style={styles.textInfo}>(GLSL.io)</Text>
       </View>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   textName: {
     color: "#fff",
-    fontWeight: "bold",
+    fontWeight: "bold"
   },
   textInfo: {
     color: "#fff",
