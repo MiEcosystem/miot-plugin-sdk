@@ -856,6 +856,14 @@ class IUi {
   @report
   openChangeDeviceIconDialog(param) {
   }
+  /**
+   * @since 10082
+   * 打开电视遥控器NFC写入流程的页面,only for Android
+   * @param param {Object} 预留
+   */
+  @report
+  openNFCWritePageForConnectTV(param = undefined) {
+  }
 }
 const UiInstance = new IUi();
 export default UiInstance;

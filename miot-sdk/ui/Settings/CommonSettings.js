@@ -38,6 +38,7 @@ const innerOptions = {
     exportKey: 'SHARE',
     ownerOnly: true,
     title: I18n.share,
+    notTypes: ['3', '22'],
     onPress: () => {
       Host.ui.openShareDevicePage();
     },

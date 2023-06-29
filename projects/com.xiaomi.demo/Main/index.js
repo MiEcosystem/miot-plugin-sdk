@@ -133,6 +133,7 @@ import VideoThumbnailDemo from "./Host/VideoThumbnailDemo";
 import CryptoDemo from "./Host/CryptoDemo";
 import TraceDemo from "./Host/TraceDemo";
 import DarkModeDemo from "./Host/DarkMode";
+import DownloadFontDemo from "./Host/DownloadFontDemo"; //  字体下载测试
 
 // 常用功能
 import TutorialDemo from "./tutorial/TutorialDemo";
@@ -428,6 +429,7 @@ function createRootStack(initPage) {
       KVStorageDemo: KVStorageDemo,
       FileDemo: FileDemo,
       PhotoDemo: PhotoDemo,
+      DownloadFontDemo,
 
       UIKitHome: { screen: Screens.ComponentsScreen },
       Picker: { screen: Screens.PickerScreen },
