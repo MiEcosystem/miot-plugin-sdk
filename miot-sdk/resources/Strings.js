@@ -3,9 +3,6 @@ import native, { Utils } from "../native";
 const placeholderRegex = /(\{[\d|\w]+\})/;
 const getStrings = (strings) => {
   const language = locale.language;
-  if (native.MIOTService.addLog) {
-    native.MIOTService.addLog("miot.sdk.filelog", `app_plugin_language js getSystemLanguage finalLanguage=${ language }`);
-  }
   return strings[language] || strings['en'];
 };
 const formatString = (str, ...valuesForPlaceholders) => {
@@ -47,7 +44,7 @@ const pluralString = (pluralMap, replaces = []) => {
   });
   return ret;
 };
-export const i18ns = {
+const i18ns = {
   get zh() { return require('./translation/zh_CN').default; },
   get zh_tw() { return require('./translation/zh_TW').default; },
   get zh_hk() { return require('./translation/zh_HK').default; },
@@ -116,9 +113,6 @@ const getI18nsStrings = () => {
     nb: i18ns.nb,
     fi: i18ns.fi
   });
-};
-export const initI18nsStings = () => {
-  strings = getI18nsStrings();
 };
 strings = getI18nsStrings();
 export default strings;
