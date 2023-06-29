@@ -82,7 +82,7 @@ export const i18ns = {
 };
 // 为了 autoComplete
 let strings = i18ns.zh;
-export const getI18nsStrings = () => {
+const getI18nsStrings = () => {
   return getStrings({
     zh: i18ns.zh,
     zh_tw: i18ns.zh_tw,
@@ -116,6 +116,9 @@ export const getI18nsStrings = () => {
     nb: i18ns.nb,
     fi: i18ns.fi
   });
+};
+export const initI18nsStings = () => {
+  strings = getI18nsStrings();
 };
 strings = getI18nsStrings();
 export default strings;
