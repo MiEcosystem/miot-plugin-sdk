@@ -3,6 +3,9 @@ import native, { Utils } from "../native";
 const placeholderRegex = /(\{[\d|\w]+\})/;
 const getStrings = (strings) => {
   const language = locale.language;
+  if (native.MIOTService.addLog) {
+    native.MIOTService.addLog("miot.sdk.filelog", `app_plugin_language js getSystemLanguage finalLanguage=${ language }`);
+  }
   return strings[language] || strings['en'];
 };
 const formatString = (str, ...valuesForPlaceholders) => {
@@ -113,6 +116,10 @@ const getI18nsStrings = () => {
     nb: i18ns.nb,
     fi: i18ns.fi
   });
+};
+export const initI18nsStings = () => {
+  let i18nsStrings = getI18nsStrings();
+  Object.assign(strings, i18nsStrings);
 };
 strings = getI18nsStrings();
 export default strings;
