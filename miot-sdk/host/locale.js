@@ -18,6 +18,9 @@ import { report } from "../decorator/ReportDecorator";
 import Permission from '../service/permission';
 import Device from "../device/BasicDevice";
 import { System } from "../index";
+import AndroidModules from "../native/android";
+import IosModules from "../native/ios";
+const modules = isAndroid ? AndroidModules : IosModules;
 /**
  * 本地化
  * @interface
@@ -29,6 +32,10 @@ class ILocale {
    * @type {string}
    */
   get language() {
+    if (modules.MIOTService.addLog) {
+      modules.MIOTService.addLog("miot.sdk.filelog", `app_plugin_language js getSystemLanguage ILocale.native.language=${ language }`);
+    }
+    return language;
   }
   /**
    * 获取系统语言
