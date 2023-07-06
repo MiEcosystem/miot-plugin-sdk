@@ -308,6 +308,14 @@ const API_REPO = {
   '/common/app/data/v2/preDataGetCommon': {},
   // 设备服务时对比米系品牌
   '/v2/product/get_product_brands': {},
+  // 事件统计
+  '/common/app/get/event/statistics': {},
+  // 事件顺序相关
+  '/common/app/get/event/sort': {},
+  '/common/app/set/event/sort': {},
+  // 云存相关
+  '/miot/camera/app/v1/get/cloudSwitch': {},
+  '/miot/camera/app/v1/put/cloudSwitch': {},
   '/smarthome/product/panel/plugin/quickDeviceList': {},
   '/smarthome/product/panel/plugin/devices': {},
   '/smarthome/product/panel/plugin/quickSceneList': {},
