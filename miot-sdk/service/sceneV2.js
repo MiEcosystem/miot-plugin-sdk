@@ -250,6 +250,7 @@ class IMiotSceneV2 {
    * API:/app/appgateway/miot/appsceneservice/AppSceneService/Edit
    * 定时推送 具体参数详情可参考文档 https://xiaomi.f.mioffice.cn/docx/doxk4cdNLDvx52o6vAfNCSKU3qb 
    * @param {object} timer 定时
+   * @param {string} timer.sceneId 场景ID，新建可以不传，编辑传
    * @param {string} timer.sceneName 场景名称
    * @param {string} timer.triggerId 自动化配置Id
    * @param {string} timer.triggerName  定时执行的名称
