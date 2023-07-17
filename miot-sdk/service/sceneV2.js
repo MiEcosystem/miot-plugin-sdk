@@ -246,14 +246,26 @@ class IMiotSceneV2 {
   openBatchConvertScenePage() {
   }
   /**
-   * since 10084
+   * since 10085
+   * 获取场景2.0的智能场景，/appgateway/miot/appsceneservice/AppSceneService/GetSceneList
+   * 获取场景2.0did设备下的智能场景，包括手动场景和自动化场景 （不包含模板创建的场景列表）与loadSceneList接口的区别是没有强制校验deviceId为空
+   * @param {string} homeId 家庭id
+   * @param {string} deviceId 设备id
+   * @returns {Promise<array>}
+   */
+  @report
+  loadSceneListV2(homeId, deviceId) {
+  }
+  /**
+   * since 10085
    * API:/app/appgateway/miot/appsceneservice/AppSceneService/Edit
    * 定时推送 具体参数详情可参考文档 https://xiaomi.f.mioffice.cn/docx/doxk4cdNLDvx52o6vAfNCSKU3qb 
    * @param {object} timer 定时
-   * @param {string} timer.sceneId 场景ID，新建可以不传，编辑传
-   * @param {string} timer.sceneName 场景名称
-   * @param {string} timer.triggerId 自动化配置Id
-   * @param {string} timer.triggerName  定时执行的名称
+   * @param {string} timer.sceneId     场景ID，新建可以不传，编辑传
+   * @param {string} timer.sceneName   场景名称
+   * @param {string} timer.triggerId   自动化配置Id
+   * @param {string} timer.triggerName 定时执行的名称
+   * @param {string} timer.extraJson   定时执行的扩展信息 例:"extra_json":{"did":xxxx}
    * @param {string} timer.actionTitle 动作标题
    * @param {string} timer.actionDesc  动作详情
    * @param {object} timer.payloadName 定时执行动作的名称
