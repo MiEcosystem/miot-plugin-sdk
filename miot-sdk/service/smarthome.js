@@ -1455,27 +1455,6 @@ class ISmartHome {
   getABTestConfigByPath(param) {
      return Promise.resolve([]);
   }
-  /**
-   * @since 10085
-   * 设置插件页面的ref和subRef
-   * @param {Object} params kv键值对，key必须是string类型,需同时设置key为ref、subRef的值
-   */
-  @report
-  updatePluginPageRef(params) {
-  }
-  /**
-   * since 10085
-   * 上报插件ref
-   * @param {string} eventName 事件名
-   * @param {Object} params kv键值对，key必须是string类型，value是基础类型（int,strig,float,boolean）
-   * @example
-   * let eventName = 'testEvent';
-   * let params = {'key1':'value1','key2':'value2','tip':'tips'};
-   * Service.smarthome.reportEventRefChannel(eventName,params);
-   */
-  @report
-  reportEventRefChannel(eventName, params) {
-  }
 }
 const SmartHomeInstance = new ISmartHome();
 export default SmartHomeInstance;
