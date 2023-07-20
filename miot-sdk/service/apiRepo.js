@@ -325,6 +325,8 @@ const API_REPO = {
   '/appgateway/miot/appsceneservice/AppSceneService/GetManualSceneList': {},
   '/smarthome/product/panel/plugin/quickHomeAddress': {},
   '/smarthome/product/panel/client/quickSceneList': {},
-  '/smarthome/product/panel/plugin/privacyLog': {}
+  '/smarthome/product/panel/plugin/privacyLog': {},
+  '/scenesrv/apppushservice/GetWechatPushSwitch': {}, // 小程序
+  '/scenesrv/apppushservice/SetWechatPushSwitch': {}
 };
 export default API_REPO;
