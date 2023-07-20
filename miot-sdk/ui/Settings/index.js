@@ -61,7 +61,7 @@ Settings.propTypes = {
     // 即便没有配置到options 里，有些项也会显示
     // 可以通过此配置，过滤掉部分项，使其不显示
     // example: [AllOptions.help]
-    excludeRequiredOptions: CommonSettings.propTypes.excludeOptions,
+    excludeRequiredOptions: CommonSettings.propTypes.excludeRequiredOptions,
     // 某项的交互的前置操作，可选
     // 该前置操作须为promise，resolve 后才会执行正常操作
     // example: { ifttt: () => { if (somehow) { return Promise.resolve(); } return Promise.reject(); } }
