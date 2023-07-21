@@ -683,10 +683,11 @@ class IMiotCamera {
      * @param {bool} isMultiChoice
      * @param {number} screenCount
      * @param {string} did
+     * @param {list} events 设备联动页支持动态设置是否联动到带屏设备的事件列表。  目前限制为push_enable_visit_linkage   push_enable_visit_staying 二者的组合，如果不传events，默认值为[]，app端不会展示事件推送设置的入口
      * @since 10044
      */
     @report
-    showScreenLinkagePage(isMultiChoice, screenCount, did = Device.deviceID) {
+    showScreenLinkagePage(isMultiChoice, screenCount, did = Device.deviceID, events = []) {
        return null
     }
     /**

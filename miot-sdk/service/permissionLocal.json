@@ -42,7 +42,8 @@
       "sjj.lock.m1",
       "lumi.lock.",
       "lumi.safe.",
-      "xiaomi.lock.m30"
+      "xiaomi.lock.m30",
+      "xiaomi.lock.dl02v1"
     ],
     "getDevicesWithModel": [
       "chuangmi.plug.m3",
