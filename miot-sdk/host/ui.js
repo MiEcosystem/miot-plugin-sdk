@@ -834,13 +834,36 @@ class IUi {
   @report
   openAssociatePage(param = {}) {
   }
-  /**
+   /**
    * 打开电视遥控器NFC写入流程的页面,only for Android
    * @param param {Object} 预留
    */
-  @report
+   @report
   openNFCWritePageForConnectTV(param = undefined) {
   }
+   
+   /**
+    * 基站（室内机）插件使用，调用该接口跳转到WiFi选择页面，选择后将ssid和passwd返回给插件
+    * @returns {Promise<Object>}
+    * {
+    *   code:0,
+    *   data:{
+    *     ssid:xxxx,
+    *     passwd:xxxx
+    *   }
+    * }
+    */
+   @report
+   openWifiChoosePage() {
+   }
+   
+   /**
+    * 基站（室内机）插件使用，调用该接口跳转到子设备配网页面，给子设备配网
+   */
+   @report
+   openConfigRouterSubPage() {
+   }
+ 
 }
 const UiInstance = new IUi();
 export default UiInstance;
