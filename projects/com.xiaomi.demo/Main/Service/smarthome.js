@@ -122,6 +122,11 @@ export default class CallSmartHomeAPIDemo extends React.Component {
             name: "获取设备耗材信息", handle: this.handleObjRes.bind(this), action: () => {
               return Service.smarthome.getConsumableDetails();
             }
+          },
+          {
+            name: "通过subclass_id获取iconURL", handle: this.handleObjRes.bind(this), action: () => {
+              return Service.smarthome.getDeviceIcon({ subclass_id: 26 });
+            }
           }
         ],
         [

@@ -1455,6 +1455,26 @@ class ISmartHome {
   getABTestConfigByPath(param) {
      return Promise.resolve([]);
   }
+  /**
+   * 根据subclass_id获取图标url
+   * @param {Object} param
+   * @param {number} param.subclass_id
+   * @return {Promise<{code:number,data:{proxy_category_icon:String}},{code:number,message:String}>}
+   * 成功时返回 {
+   *   code:xxx,
+   *   data:{
+   *     proxy_category_icon:xxxx  //图标的url
+   *   }
+   * }
+   *
+   * 失败时返回 {
+   *   code:-1,
+   *   message:xxxxxx
+   * }
+   */
+  getDeviceIcon(param) {
+     return Promise.resolve([]);
+  }
 }
 const SmartHomeInstance = new ISmartHome();
 export default SmartHomeInstance;

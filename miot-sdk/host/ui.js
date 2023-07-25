@@ -834,6 +834,30 @@ class IUi {
   @report
   openAssociatePage(param = {}) {
   }
+  /**
+   * @since 10084
+   * 打开设备更换图标弹窗，目前支持灯，插座和开关设备
+   * @param {Object} param
+   * @param {number} param.plugin_type
+   * 0：开关品类；1：灯组品类；2：插座品类
+   * @return {Promise<{code:number,data:{subclass_id:number,proxy_category_icon:String}},{code:number,message:String}>}
+   * 成功返回{
+   *   code:0,
+   *   data:{
+   *     subclass_id:xxx,
+   *     proxy_category_icon:xxxx //可能为空字符串
+   *   }
+   * }
+   * 失败返回 {
+   *   code:-1,
+   *   message:xxxx
+   * }
+   */
+  @report
+  openChangeDeviceIconDialog(param) {
+  }
+  /**
+   * @since 10082
    /**
    * 打开电视遥控器NFC写入流程的页面,only for Android
    * @param param {Object} 预留
