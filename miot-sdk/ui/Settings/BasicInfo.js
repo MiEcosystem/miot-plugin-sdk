@@ -10,8 +10,9 @@ import { FontDefault } from '../../utils/fonts';
 import ListItem from '../ListItem/ListItem';
 import useDeviceName from '../../hooks/useDeviceName';
 import useDeviceRoomInfo from '../../hooks/useDeviceRoomInfo';
+import useDeviceIcon from "../../hooks/useDeviceIcon";
 export default function BasicInfo({ options, customOptions, showDots, extraOptions } = {}) {
-  const { iconURL } = Device;
+  const iconURL = useDeviceIcon();
   const roomInfo = useDeviceRoomInfo();
   const name = useDeviceName();
   return (

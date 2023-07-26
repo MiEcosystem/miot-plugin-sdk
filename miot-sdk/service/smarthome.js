@@ -1455,6 +1455,48 @@ class ISmartHome {
   getABTestConfigByPath(param) {
      return Promise.resolve([]);
   }
+  /**
+   * 根据subclass_id获取图标url
+   * @param {Object} param
+   * @param {number} param.subclass_id
+   * @return {Promise<{code:number,data:{proxy_category_icon:String}},{code:number,message:String}>}
+   * 成功时返回 {
+   *   code:xxx,
+   *   data:{
+   *     proxy_category_icon:xxxx  //图标的url
+   *   }
+   * }
+   *
+   * 失败时返回 {
+   *   code:-1,
+   *   message:xxxxxx
+   * }
+   */
+  getDeviceIcon(param) {
+     return Promise.resolve([]);
+  }
+    /**
+   * @since 10085
+   * 设置插件页面的ref和subRef
+   * @param {Object} params kv键值对，key必须是string类型,需同时设置key为ref、subRef的值
+   */
+    @report
+  updatePluginPageRef(params) {
+  }
+  
+    /**
+     * since 10085
+     * 上报插件ref
+     * @param {string} eventName 事件名
+     * @param {Object} params kv键值对，key必须是string类型，value是基础类型（int,strig,float,boolean）
+     * @example
+     * let eventName = 'testEvent';
+     * let params = {'key1':'value1','key2':'value2','tip':'tips'};
+     * Service.smarthome.reportEventRefChannel(eventName,params);
+     */
+    @report
+    reportEventRefChannel(eventName, params) {
+    }
 }
 const SmartHomeInstance = new ISmartHome();
 export default SmartHomeInstance;

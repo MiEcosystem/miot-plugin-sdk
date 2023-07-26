@@ -709,6 +709,20 @@ export default class UIDemo extends React.Component {
         'func': () => {
           Host.ui.openDeviceOfflineAlert();
         }
+      },
+      {
+        'name': 'openWifiChoosePage',
+        'subtitle': '跳转到WiFi选择页面',
+        'func': () => {
+          Host.ui.openWifiChoosePage();
+        }
+      },
+      {
+        'name': 'openConfigRouterSubPage',
+        'subtitle': '跳转到子设备配网页面，给子设备配网',
+        'func': () => {
+          Host.ui.openConfigRouterSubPage();
+        }
       }
     ];
   }
