@@ -38,12 +38,14 @@
       "lumi.gateway.aqhm02",
       "yunlu.door.sd2105",
       "yunlu.door.sd2106",
+      "yunlu.door.sd2107",
       "oms.lock.dl01",
       "sjj.lock.m1",
       "lumi.lock.",
       "lumi.safe.",
       "xiaomi.lock.m30",
-      "xiaomi.lock.dl02v1"
+      "xiaomi.lock.dl02v1",
+      "yunlu.door."
     ],
     "getDevicesWithModel": [
       "chuangmi.plug.m3",

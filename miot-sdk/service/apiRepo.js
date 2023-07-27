@@ -219,6 +219,9 @@ const API_REPO = {
   '/common/app/v1/capacity': {},
   '/v2/scene/get_rec_in_plugin': {},
   '/common/app/get/fileIdEvents': {},
+  '/business/camera/video_vip_tips': {},
+  '/business/camera/video_banner': {},
+  '/business/camera/video_home_vip_tips': {},
   // 每日故事开关接口
   '/miot/camera/app/v1/put/dailyStorySwitch': {},
   '/v2/device/set_camera_phoneservice_switch': {}, // 设置电话服务开关
