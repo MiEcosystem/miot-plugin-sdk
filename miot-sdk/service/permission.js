@@ -30,7 +30,7 @@ class IPermission {
    */
   @report
   isMethodAllowed(method, model) {
-    let map = this.remoteConfig ?? this.localConfig;
+    let map = this.localConfig;
     let methodAllow = map.methodAllow ?? {};
     let models = methodAllow[method] ?? [];
     return models.length == 0
