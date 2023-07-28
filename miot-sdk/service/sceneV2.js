@@ -265,6 +265,8 @@ class IMiotSceneV2 {
    * @param {string} timer.sceneName   场景名称
    * @param {string} timer.triggerId   自动化配置Id
    * @param {string} timer.triggerName 定时执行的名称
+   * @param {string} timer.tagsSource xx设备插件创建的场景 例:"tags":{"source":"plugin-label-printer"}
+   * @param {string} timer.extraIdentify 插件设备的did
    * @param {string} timer.extraJson   定时执行的扩展信息 例:"extra_json":{"did":xxxx}
    * @param {string} timer.actionTitle 动作标题
    * @param {string} timer.actionDesc  动作详情
