@@ -160,6 +160,10 @@ const firstOptionsInner = {
    */
   MEMBER_SET: 'memberSet',
   /**
+   * 更换图标，只有插座和灯组会有这个入口
+   */
+  CHANGE_ICON: 'changeIcon',
+  /**
    * 设备共享, `可选`
    */
   SHARE: 'share',
@@ -313,6 +317,7 @@ export { firstAllOptions, secondAllOptions };
 const firstSharedOptions = {
   [AllOptions.NAME]: 0,
   [AllOptions.MEMBER_SET]: 0,
+  [AllOptions.CHANGE_ICON]: 0,
   [AllOptions.LOCATION]: 0,
   [AllOptions.SHARE]: 0,
   [AllOptions.BTGATEWAY]: 0,
@@ -341,6 +346,7 @@ const firstSharedOptions = {
 export const AllOptionsWeight = {
   // firstOptions
   [AllOptions.NAME]: 0,
+  [AllOptions.CHANGE_ICON]: 1,
   [AllOptions.CREATE_GROUP]: 1,
   [AllOptions.MANAGE_GROUP]: 1,
   [AllOptions.DEVICE_SERVICE]: 2,
@@ -688,6 +694,24 @@ export default class CommonSetting extends React.Component {
             dialogVisible: true
           });
           Service.smarthome.reportEvent('expose', { tip: '6.18.1.1.15487' });
+        }
+      },
+      [AllOptions.CHANGE_ICON]: {
+        title: strings.changeIcon,
+        onPress: () => {
+          const lightGroup = Device.model.startsWith('mijia.light.group') ? 1 : undefined;
+          const outlet = ['plug', 'ctrl_86plug', 'powerstrip'].includes(Device.model.split('.')[1]) ? 2 : undefined;
+          Host.ui.openChangeDeviceIconDialog({ plugin_type: outlet || lightGroup })
+            .then((res) => {
+              if (res && res.data) {
+                const { subclass_id, proxy_category_icon } = res.data;
+                MIOTEventEmitter.emit("deviceIconChanged", {
+                  did: Device.deviceID,
+                  subclass_id,
+                  proxy_category_icon
+                });
+              }
+            });
         }
       }
     };
@@ -1104,6 +1128,12 @@ export default class CommonSetting extends React.Component {
         return key !== AllOptions.LOCATION && key !== AllOptions.NAME;
       });
     }
+    // 2.2 更改图标选项
+    const lightGroup = Device.model.startsWith('mijia.light.group') ? 1 : undefined;
+    const outlet = ['plug', 'ctrl_86plug', 'powerstrip'].includes(Device.model.split('.')[1]) ? 2 : undefined;
+    if (outlet || lightGroup) {
+      requireKeys1.push(AllOptions.CHANGE_ICON);
+    }
     // 3. 去除重复
     options = [...new Set(options)];
     // 4. 拼接必选项和可选项
@@ -1220,7 +1250,6 @@ export default class CommonSetting extends React.Component {
                     tryTrackCommonSetting(item.key, 'click', value ? 'open' : 'close');
                     item.onValueChange(value);
                   } }
-                  
                   {...getAccessibilityConfig({
                     accessible: this.props.accessible
                   })}

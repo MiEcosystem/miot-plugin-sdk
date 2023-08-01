@@ -711,10 +711,17 @@ export default class UIDemo extends React.Component {
         }
       },
       {
-        'name': 'openDeviceHubGatewayPage',
-        'subtitle': '打开设备中枢功能页面',
+        'name': 'openWifiChoosePage',
+        'subtitle': '跳转到WiFi选择页面',
         'func': () => {
-          Host.ui.openDeviceHubGatewayPage();
+          Host.ui.openWifiChoosePage();
+        }
+      },
+      {
+        'name': 'openConfigRouterSubPage',
+        'subtitle': '跳转到子设备配网页面，给子设备配网',
+        'func': () => {
+          Host.ui.openConfigRouterSubPage();
         }
       }
     ];

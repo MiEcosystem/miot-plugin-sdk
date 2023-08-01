@@ -55,6 +55,14 @@ export const DeviceEvent = {
   deviceNameChanged: {
   },
   /**
+   * 设备图标变更事件
+   * @since 10084
+   * @param {subclass_id:number,proxy_category_icon:String}
+   * 触发此事件后device中的iconURL会被自动替换成proxy_category_icon的值
+   */
+  deviceIconChanged: {
+  },
+  /**
      * 设备时区变更事件
      * @event
      * @param {IDevice} device -发生变更的设备

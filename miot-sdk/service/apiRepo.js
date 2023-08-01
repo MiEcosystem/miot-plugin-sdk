@@ -219,6 +219,9 @@ const API_REPO = {
   '/common/app/v1/capacity': {},
   '/v2/scene/get_rec_in_plugin': {},
   '/common/app/get/fileIdEvents': {},
+  '/business/camera/video_vip_tips': {},
+  '/business/camera/video_banner': {},
+  '/business/camera/video_home_vip_tips': {},
   // 每日故事开关接口
   '/miot/camera/app/v1/put/dailyStorySwitch': {},
   '/v2/device/set_camera_phoneservice_switch': {}, // 设置电话服务开关
@@ -308,6 +311,14 @@ const API_REPO = {
   '/common/app/data/v2/preDataGetCommon': {},
   // 设备服务时对比米系品牌
   '/v2/product/get_product_brands': {},
+  // 事件统计
+  '/common/app/get/event/statistics': {},
+  // 事件顺序相关
+  '/common/app/get/event/sort': {},
+  '/common/app/set/event/sort': {},
+  // 云存相关
+  '/miot/camera/app/v1/get/cloudSwitch': {},
+  '/miot/camera/app/v1/put/cloudSwitch': {},
   '/smarthome/product/panel/plugin/quickDeviceList': {},
   '/smarthome/product/panel/plugin/devices': {},
   '/smarthome/product/panel/plugin/quickSceneList': {},
@@ -317,6 +328,8 @@ const API_REPO = {
   '/appgateway/miot/appsceneservice/AppSceneService/GetManualSceneList': {},
   '/smarthome/product/panel/plugin/quickHomeAddress': {},
   '/smarthome/product/panel/client/quickSceneList': {},
-  '/smarthome/product/panel/plugin/privacyLog': {}
+  '/smarthome/product/panel/plugin/privacyLog': {},
+  '/scenesrv/apppushservice/GetWechatPushSwitch': {}, // 小程序
+  '/scenesrv/apppushservice/SetWechatPushSwitch': {}
 };
 export default API_REPO;
