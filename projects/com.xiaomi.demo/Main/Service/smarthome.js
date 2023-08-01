@@ -122,6 +122,34 @@ export default class CallSmartHomeAPIDemo extends React.Component {
             name: "获取设备耗材信息", handle: this.handleObjRes.bind(this), action: () => {
               return Service.smarthome.getConsumableDetails();
             }
+          },
+          {
+            name: "设置插件页面的ref和subRef", handle: this.handleObjRes.bind(this), action: () => {
+              let params = { 'ref': 'value1', 'subRef': 'value2' };
+              Service.smarthome.updatePluginPageRef(params);
+              return Promise.resolve("reported");
+            }
+          },
+          {
+            name: "通过subclass_id获取iconURL", handle: this.handleObjRes.bind(this), action: () => {
+              return Service.smarthome.getDeviceIcon({ subclass_id: 26 });
+            }
+          },
+          {
+            name: "上报插件ref", handle: this.handleObjRes.bind(this), action: () => {
+              let eventName = 'testEvent';
+              let params = { 'key1': 'value1', 'key2': 'value2', 'tip': 'tips' };
+              Service.smarthome.reportEventRefChannel(eventName, params);
+              return Promise.resolve("reported");
+            }
+          },
+          {
+            name: "上报插件ref", handle: this.handleObjRes.bind(this), action: () => {
+              let eventName = 'testEvent';
+              let params = { 'key1': 'value1', 'key2': 'value2', 'tip': 'tips' };
+              Service.smarthome.reportEventRefChannel(eventName, params);
+              return Promise.resolve("reported");
+            }
           }
         ],
         [
