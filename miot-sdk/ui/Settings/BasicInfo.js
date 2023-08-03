@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, Text } from 'react-native';
 import PropTypes from 'prop-types';
-import { Device, Host } from 'miot';
+import { Device, Host, Service } from 'miot';
 import { dynamicStyleSheet } from '../Style/DynamicStyleSheet';
 import DynamicColor from '../Style/DynamicColor';
 import { strings as I18n, Styles as CommonStyle } from '../../resources';
@@ -10,8 +10,14 @@ import { FontDefault } from '../../utils/fonts';
 import ListItem from '../ListItem/ListItem';
 import useDeviceName from '../../hooks/useDeviceName';
 import useDeviceRoomInfo from '../../hooks/useDeviceRoomInfo';
+import useDeviceIcon from "../../hooks/useDeviceIcon";
+import { useEffect, useState } from 'react';
 export default function BasicInfo({ options, customOptions, showDots, extraOptions } = {}) {
-  const { iconURL } = Device;
+  // const iconURL = useDeviceIcon();
+  const [iconURL, setIconURL] = useState(Device.iconURL);
+  useEffect(() => {
+    Service.smarthome.getDeviceIcon({ "subclass_id": 0 }).then(({ data: { proxy_category_icon } }) => setIconURL(proxy_category_icon));
+  }, []);
   const roomInfo = useDeviceRoomInfo();
   const name = useDeviceName();
   return (
@@ -21,7 +27,7 @@ export default function BasicInfo({ options, customOptions, showDots, extraOptio
           uri: iconURL
         }} />
         <View style={Styles.text}>
-          <Text style={Styles.title}>{name}</Text>
+          <Text style={Styles.title} numberOfLines={2}>{name}</Text>
           <Text style={Styles.subtitle}>{roomInfo?.roomName}</Text>
         </View>
       </View>
@@ -55,6 +61,9 @@ const Styles = dynamicStyleSheet({
     height: adjustSize(240),
     resizeMode: 'contain',
     marginRight: adjustSize(30)
+  },
+  text: {
+    flex: 1
   },
   title: {
     fontFamily: FontDefault,
