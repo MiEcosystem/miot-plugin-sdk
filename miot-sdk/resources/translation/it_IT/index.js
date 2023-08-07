@@ -186,7 +186,7 @@ export default {
   keyName: 'Nome',
   light: 'Lampada',
   updateIcon: 'Cambia l\'icona',
-  done: 'Fine',
+  done: 'Fatto',
   modifyName: 'Modifica il nome',
   keyUpdateIconTips: 'Quando l\'icona è impostata su "{0}", puoi chiedere a Mi AI di attivare "{0}".',
   nameHasChars: 'Il nome non può contenere caratteri speciali',
