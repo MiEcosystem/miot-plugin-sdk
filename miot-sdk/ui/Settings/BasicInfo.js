@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, Text } from 'react-native';
 import PropTypes from 'prop-types';
-import { Device, Host } from 'miot';
+import { Device, Host, Service } from 'miot';
 import { dynamicStyleSheet } from '../Style/DynamicStyleSheet';
 import DynamicColor from '../Style/DynamicColor';
 import { strings as I18n, Styles as CommonStyle } from '../../resources';
@@ -11,8 +11,9 @@ import ListItem from '../ListItem/ListItem';
 import useDeviceName from '../../hooks/useDeviceName';
 import useDeviceRoomInfo from '../../hooks/useDeviceRoomInfo';
 import useDeviceIcon from "../../hooks/useDeviceIcon";
+import { useEffect, useState } from 'react';
 export default function BasicInfo({ options, customOptions, showDots, extraOptions } = {}) {
-  const iconURL = useDeviceIcon();
+  const iconURL = useDeviceIcon()
   const roomInfo = useDeviceRoomInfo();
   const name = useDeviceName();
   return (
