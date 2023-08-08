@@ -29,7 +29,7 @@ export default {
   other: '기타',
   multipleKeyShowOnHome: '홈 페이지에 표시할 버튼 수: {0}',
   // 常用设备
-  favoriteDevices: 'Mi 홈/샤오미 홈페이지에 표시',
+  favoriteDevices: 'Mi Home 홈페이지에 표시',
   favoriteCamera: '대형 카드로 전환',
   favoriteAddDevices: '즐겨 찾기에 추가',
   // MHDatePicker
@@ -117,7 +117,7 @@ export default {
   deleteCurtainGroup: '기기 그룹 해제',
   linkDevice: '기기 링크',
   noSuppurtedLinkageDevice: '사용 가능한 기기 없음',
-  noSuppurtedLinkageTip: '1. 기기를 반드시 Mi 홈 앱에 추가하고 방을 배정하세요. \\n2. 블루투스 기기를 이 기기에 근접하게 놓고 성공적으로 연결하세요.',
+  noSuppurtedLinkageTip: '1. 기기를 반드시 Mi Home 앱에 추가하고 방을 지정하십시오.\\n2. 블루투스 기기를 해당 기기와 근접하게 유지하시고 연결하십시오.',
   supportedLinkageDevices: '다음 기기에 연결 가능:',
   linkageDistanceTip: '기기를 근접 거리에 놓고 링크되었는지 확인하세요.',
   linkageRemoveTip: '링그된 블루투스 기기를 변경하려면 먼저 해당 기기를 제거해야 합니다.',

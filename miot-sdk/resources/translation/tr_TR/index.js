@@ -29,7 +29,7 @@ export default {
   other: 'Diğer',
   multipleKeyShowOnHome: 'Ana sayfada gösterilen düğme sayısı: {0}',
   // 常用设备
-  favoriteDevices: 'Mi Ev ana sayfasında göster',
+  favoriteDevices: 'Mi Home ana sayfasında göster',
   favoriteCamera: 'Büyük karta geç',
   favoriteAddDevices: 'Favorilere ekle',
   // MHDatePicker
@@ -117,7 +117,7 @@ export default {
   deleteCurtainGroup: 'Cihaz grubunu dağıt',
   linkDevice: 'Cihazları bağla',
   noSuppurtedLinkageDevice: 'Kullanılabilir cihaz yok',
-  noSuppurtedLinkageTip: '1. Cihazları Mi Ev uygulamasına eklediğinizden ve onları odalara atadığınızdan emin olun.\\n2. Bluetooth cihazlarını başarılı bir şekilde bağlamak için bu cihaza yakın tutun.',
+  noSuppurtedLinkageTip: '1. Cihazları Mi Home uygulamasına eklediğinizden ve onları odalara atadığınızdan emin olun.\\n2. Bluetooth cihazlarını başarılı bir şekilde bağlamak için bu cihaza yakın tutun.',
   supportedLinkageDevices: 'Şu cihazlara bağlanabilir:',
   linkageDistanceTip: 'Cihazların bağlanabilmesini sağlamak için çok yakın tutun.',
   linkageRemoveTip: 'Bağlı Bluetooth cihazını değiştirmek için önce cihazı kaldırın.',

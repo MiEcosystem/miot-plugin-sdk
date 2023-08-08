@@ -249,5 +249,9 @@ export default {
     'many': '預計還可以使用{0}天',
     'other': '預計還可以使用{0}天'
   },
-  changeIcon: '更换图标'
+  changeIcon: '更換圖示',
+  deviceCall: '緊急事件電話呼叫',
+  cloudStorage: '云存储服务提醒',
+  cloudStorageVip: '云存储会员状态提醒',
+  largeCardEvent: '大卡展示最新看家事件'
 };

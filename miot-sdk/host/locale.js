@@ -32,6 +32,10 @@ class ILocale {
    * @type {string}
    */
   get language() {
+    // 10084暂时关闭
+    if (language === 'ar' || language === 'he') {
+      language = 'en';
+    }
     if (modules.MIOTService.addLog) {
       modules.MIOTService.addLog("miot.sdk.filelog", `app_plugin_language js getSystemLanguage ILocale.native.language=${ language }`);
     }
