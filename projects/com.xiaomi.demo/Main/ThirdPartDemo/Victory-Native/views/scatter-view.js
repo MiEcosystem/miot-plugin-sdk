@@ -1,4 +1,4 @@
-/*global setInterval*/
+/* global setInterval */
 import React from "react";
 import { ScrollView } from "react-native";
 import { VictoryScatter } from "victory-native";
@@ -32,7 +32,7 @@ export default class extends React.Component {
       <ScrollView style={viewStyles.container}>
         <VictoryScatter />
 
-        <VictoryScatter y={data => Math.sin(2 * Math.PI * data.x)} />
+        <VictoryScatter y={(data) => Math.sin(2 * Math.PI * data.x)} />
 
         <VictoryScatter
           data={[
@@ -56,11 +56,11 @@ export default class extends React.Component {
         <VictoryScatter
           style={{
             data: {
-              fill: data => (data.y > 0 ? "red" : "blue")
+              fill: (data) => (data.y > 0 ? "red" : "blue")
             }
           }}
-          symbol={data => (data.y > 0 ? "triangleUp" : "triangleDown")}
-          y={d => Math.sin(2 * Math.PI * d.x)}
+          symbol={(data) => (data.y > 0 ? "triangleUp" : "triangleDown")}
+          y={(d) => Math.sin(2 * Math.PI * d.x)}
           samples={25}
         />
       </ScrollView>
