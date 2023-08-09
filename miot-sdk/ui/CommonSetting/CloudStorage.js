@@ -7,26 +7,27 @@ import ListItemWithSwitch from "../ListItem/ListItemWithSwitch";
 import { Device, Service } from "miot";
 import { useState } from "react";
 import native from "miot/native";
-const SetCloudStorage = async (did, value) => {
+import { dynamicColor as Dynamic } from "miot/ui/Style/DynamicColor";
+const SetCloudStorage = async(did, value) => {
   try {
     const result = await Service.callSmartHomeAPI(
       "/camera_cloud/card_cloud_switch/set",
       {
         did: did,
         switchType: 1,
-        switchValue: value,
+        switchValue: value
       }
     );
     native.MIOTHost.notifyCameraStorageChangeStateChanged({
       did,
-      cameraStorageNoticeFlag: value,
+      cameraStorageNoticeFlag: value
     });
-    Service.smarthome.reportLog(Device.model, `GetCloudStorage ${result}`);
+    Service.smarthome.reportLog(Device.model, `GetCloudStorage ${ result }`);
     return true;
   } catch (error) {
     Service.smarthome.reportLog(
       Device.model,
-      `GetCloudStorage ${error.message}`
+      `GetCloudStorage ${ error.message }`
     );
     return false;
   }
@@ -34,7 +35,7 @@ const SetCloudStorage = async (did, value) => {
 const CloudStorage = (props) => {
   const { navigation } = props;
   const [value, ChangeValue] = useState(navigation.state.params.value);
-  const onValueChange = async (value) => {
+  const onValueChange = async(value) => {
     const result = await SetCloudStorage(Device.deviceID, value);
     result && ChangeValue(value);
   };
@@ -43,7 +44,7 @@ const CloudStorage = (props) => {
       <NavigationBar
         containerStyle={{ minHeight: 58 }}
         left={[
-          { key: NavigationBar.ICON.BACK, onPress: () => navigation.goBack() },
+          { key: NavigationBar.ICON.BACK, onPress: () => navigation.goBack() }
         ]}
       />
       <View style={styles.title}>
@@ -58,6 +59,7 @@ const CloudStorage = (props) => {
           showSeparator={false}
           onValueChange={onValueChange}
           value={value}
+          titleNumberOfLines={3}
           title={strings.cloudStorageVip}
         />
       </View>
@@ -67,26 +69,26 @@ const CloudStorage = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: Dynamic("#fff", "#000")
   },
   title: {
-    height: 58,
+    minHeight: 58,
     paddingHorizontal: 28,
     paddingTop: 4,
-    marginBottom: 26,
+    marginBottom: 26
   },
   text: {
     fontSize: 32,
     lineHeight: 44,
-    fontFamily: FontMiSansWLight,
+    fontFamily: FontMiSansWLight
   },
   image: {
     paddingHorizontal: 26,
     justifyContent: "center",
     alignItems: "center",
     maxHeight: 190,
-    marginBottom: 12,
-  },
+    marginBottom: 12
+  }
 });
 CloudStorage.navigationOptions = () => ({ header: null });
 export default CloudStorage;
