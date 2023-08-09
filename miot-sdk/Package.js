@@ -25,21 +25,17 @@
  *     Package.entry(App, ()=>{...});
  *     Package.exit({...});
  */
-import { MessageDialog } from 'miot/ui/Dialog';
 import React from 'react';
 import { AppRegistry, DeviceEventEmitter, View, I18nManager } from "react-native";
-import Device, { DeviceEvent, PollPropMap } from "./device/BasicDevice";
-import Service, { CurrentAccount } from './Service';
-import Host from './Host';
-import resolveAssetResource from "./native/common/node/resolve";
-import { strings } from './resources';
-import ProtocolManager from './utils/protocol-helper';
-import ReuseHelper from './utils/reuse-helper';
-import rnPackageJSON from 'react-native/package.json';
-import PropTypes from 'prop-types';
-import { DarkMode } from 'miot/Device';
 import { SDKContextProvider } from 'miot/sdkContext';
+import Service, { CurrentAccount } from './Service';
+import Device, { DeviceEvent, PollPropMap } from "./device/BasicDevice";
+import { strings } from './resources';
+import { initI18nsStings } from './resources/Strings';
 import { ConfigProvider } from 'mhui-rn';
+import { DarkMode } from 'miot/Device';
+import { MessageDialog } from 'miot/ui/Dialog';
+import Host from './Host';
 /**
   * @description JS端通知Native端的事件类型
   * @enum {number}
@@ -294,6 +290,9 @@ export default {
     */
   set BLEAutoCheckUpgradeOptions(options) {
      return  ""
+  },
+  set dynamicInjectNavigation(enable) {
+    this._dynamicInjectNavigation = !!enable;
   },
   /**
     * 系统入口
