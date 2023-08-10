@@ -20,13 +20,14 @@ export default {
     ota_auto_light_progress: require('./images/ota_auto_light_progress.png'),
     light: {
       std_dialog_guide_common_zh: require('./images/std_dialog_guide/common/std_dialog_guide_white_zh.png'),
-      std_dialog_guide_common_en: require('./images/std_dialog_guide/common/std_dialog_guide_white_en.png')
+      std_dialog_guide_common_en: require('./images/std_dialog_guide/common/std_dialog_guide_white_en.png'),
+      cloudstorage: require("./images/cloudstorage-light.png")
     },
     dark: {
       std_dialog_guide_common_zh: require('./images/std_dialog_guide/common/std_dialog_guide_black_zh.png'),
-      std_dialog_guide_common_en: require('./images/std_dialog_guide/common/std_dialog_guide_black_en.png')
-    },
-    cloudstorage: require("./images/cloudstorage.png")
+      std_dialog_guide_common_en: require('./images/std_dialog_guide/common/std_dialog_guide_black_en.png'),
+      cloudstorage: require("./images/cloudstorage-dark.png")
+    }
   },
   /**
    * 导航栏

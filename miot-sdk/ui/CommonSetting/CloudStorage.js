@@ -1,13 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import { strings, Images } from "../../resources";
 import NavigationBar from "../NavigationBar";
 import { FontMiSansWLight } from "../../utils/fonts";
 import ListItemWithSwitch from "../ListItem/ListItemWithSwitch";
-import { Device, Service } from "miot";
+import { DarkMode, Device, Service } from "miot";
 import { useState } from "react";
 import native from "miot/native";
 import { dynamicColor as Dynamic } from "miot/ui/Style/DynamicColor";
+const { width: W, height: H } = Dimensions.get("screen");
 const SetCloudStorage = async(did, value) => {
   try {
     const result = await Service.callSmartHomeAPI(
@@ -42,7 +43,7 @@ const CloudStorage = (props) => {
   return (
     <View style={styles.container}>
       <NavigationBar
-        containerStyle={{ minHeight: 58 }}
+        containerStyle={{ minHeight: 56 }}
         left={[
           { key: NavigationBar.ICON.BACK, onPress: () => navigation.goBack() }
         ]}
@@ -52,13 +53,19 @@ const CloudStorage = (props) => {
       </View>
       <View style={styles.image}>
         <Image
-          style={{ maxHeight: 190, resizeMode: "contain" }}
-          source={Images.common.cloudstorage}
+          resizeMode="contain"
+          style={{
+            width: W - 26 * 2,
+            height: (190 / 340) * (W - 26 * 2),
+            resizeMode: "center"
+          }}
+          source={Images.common[DarkMode.getColorScheme()].cloudstorage}
         />
         <ListItemWithSwitch
           showSeparator={false}
           onValueChange={onValueChange}
           value={value}
+          containerStyle={{ minHeight: 60 }}
           titleNumberOfLines={3}
           title={strings.cloudStorageVip}
         />
@@ -73,21 +80,22 @@ const styles = StyleSheet.create({
   },
   title: {
     minHeight: 58,
-    paddingHorizontal: 28,
+    paddingHorizontal: 26,
     paddingTop: 4,
-    marginBottom: 26
+    marginBottom: 12,
+    paddingBottom: 12
   },
   text: {
     fontSize: 32,
-    lineHeight: 44,
+    lineHeight: 42,
     fontFamily: FontMiSansWLight
   },
   image: {
     paddingHorizontal: 26,
     justifyContent: "center",
     alignItems: "center",
-    maxHeight: 190,
-    marginBottom: 12
+    marginBottom: 12,
+    minHeight: 190
   }
 });
 CloudStorage.navigationOptions = () => ({ header: null });
