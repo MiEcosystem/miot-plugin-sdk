@@ -330,6 +330,8 @@ const API_REPO = {
   '/smarthome/product/panel/client/quickSceneList': {},
   '/smarthome/product/panel/plugin/privacyLog': {},
   '/scenesrv/apppushservice/GetWechatPushSwitch': {}, // 小程序
-  '/scenesrv/apppushservice/SetWechatPushSwitch': {}
+  '/scenesrv/apppushservice/SetWechatPushSwitch': {},
+  '/business/camera/vip_tips_switch': {},
+  '/camera_cloud/card_cloud_switch/set': {}
 };
 export default API_REPO;
