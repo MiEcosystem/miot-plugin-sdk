@@ -295,6 +295,22 @@ export default {
     this._dynamicInjectNavigation = !!enable;
   },
   /**
+    * wifi设备升级参数 目前sdk要求所有wifi设备都需要开启固件升级检查，但是开发者可以自行实现检查的页面的逻辑
+    * @param navigation 传入包含upgradePageKey的navigation，否则可能会出现无法跳转的情况
+    * @param upgradePageKey 要跳转的page key 通常是在index中定义的
+    * @param upgradePageParams 要跳转的page params
+    * @since 10080
+    * @example
+    * Package.wifiDeviceUpgradeOptions = {
+    *   navigation: xxx,
+    *   upgradePageKey: 'xxxUpgradePage',
+    *   upgradePageParams: { xxx: xxx },
+    * }
+    */
+  set wifiDeviceUpgradeOptions(options) {
+     return  ""
+  },
+  /**
     * 系统入口
     * @method
     * @param {React.Component} RootComponent 入口的React Component模块
