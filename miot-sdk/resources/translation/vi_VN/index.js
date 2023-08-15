@@ -249,5 +249,9 @@ export default {
     'many': 'Còn lại {0} ngày',
     'other': 'Còn lại {0} ngày'
   },
-  changeIcon: 'Thay đổi biểu tượng'
+  changeIcon: 'Thay đổi biểu tượng',
+  deviceCall: 'Cảnh báo khẩn cấp',
+  cloudStorage: 'Thông báo dịch vụ lưu trữ đám mây',
+  cloudStorageVip: 'Nhận thông báo về trạng thái thành viên dịch vụ đám mây',
+  largeCardEvent: 'Hiển thị các sự kiện mới nhất đã được ghi lại trên thẻ.'
 };

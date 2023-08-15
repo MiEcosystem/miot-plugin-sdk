@@ -249,5 +249,9 @@ export default {
     'many': '{0} dagen resterend',
     'other': '{0} dagen resterend'
   },
-  changeIcon: 'Icoon wijzigen'
+  changeIcon: 'Icoon wijzigen',
+  deviceCall: 'Noodwaarschuwingen',
+  cloudStorage: 'Cloud-opslag meldingen',
+  cloudStorageVip: 'Ontvang meldingen over de status van het cloud-lidmaatschap',
+  largeCardEvent: 'Laat de laatst vastgelegde gebeurtenissen op de kaart zien'
 };

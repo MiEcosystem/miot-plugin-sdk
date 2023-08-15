@@ -251,7 +251,7 @@ export default {
   },
   changeIcon: '更換圖示',
   deviceCall: '緊急事件電話呼叫',
-  cloudStorage: '云存储服务提醒',
-  cloudStorageVip: '云存储会员状态提醒',
-  largeCardEvent: '大卡展示最新看家事件'
+  cloudStorage: '雲端儲存服務提醒',
+  cloudStorageVip: '雲端儲存會員狀態提醒',
+  largeCardEvent: '大卡顯示最新看家事件'
 };

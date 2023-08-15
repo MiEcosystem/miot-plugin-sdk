@@ -249,5 +249,9 @@ export default {
     'many': 'Pozostało {0} dni',
     'other': 'Pozostało {0} dnia'
   },
-  changeIcon: 'Zmień ikonę'
+  changeIcon: 'Zmień ikonę',
+  deviceCall: 'Komunikaty alarmowe',
+  cloudStorage: 'Powiadomienia dot. pamięci w chmurze',
+  cloudStorageVip: 'Otrzymuj powiadomienia na temat statusu członkostwa w chmurze',
+  largeCardEvent: 'Pokaż na karcie ostatnio przechwycone wydarzenia'
 };

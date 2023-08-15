@@ -249,5 +249,9 @@ export default {
     'many': '{0} أيام متبقية',
     'other': '{0} أيام متبقية'
   },
-  changeIcon: 'تغيير الأيقونة'
+  changeIcon: 'تغيير الأيقونة',
+  deviceCall: 'تنبيهات الطوارئ',
+  cloudStorage: 'إشعارات التخزين السحابية',
+  cloudStorageVip: 'تلقي إشعارات حول حالة عضوية السحابة',
+  largeCardEvent: 'عرض آخر الأحداث المسجلة على البطاقة'
 };

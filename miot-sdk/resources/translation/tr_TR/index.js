@@ -249,5 +249,9 @@ export default {
     'many': '{0} gün kaldı',
     'other': '{0} gün kaldı'
   },
-  changeIcon: 'Simgeyi değiştir'
+  changeIcon: 'Simgeyi değiştir',
+  deviceCall: 'Acil durum uyarıları',
+  cloudStorage: 'Bulut depolama bildirimleri',
+  cloudStorageVip: 'Bulut üyelik durumu hakkında bildirimleri al',
+  largeCardEvent: 'Kartta en son yakalanan olayları göster'
 };

@@ -62,6 +62,9 @@ class IUi {
   @report
   openRoomManagementPage() {
   }
+  @report
+  openRoomManagementPageByDid(did) {
+  }
   /**
    * 打开语音设备管理的页面
    */

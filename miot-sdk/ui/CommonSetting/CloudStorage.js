@@ -61,15 +61,16 @@ const CloudStorage = (props) => {
           }}
           source={Images.common[DarkMode.getColorScheme()].cloudstorage}
         />
-        <ListItemWithSwitch
-          showSeparator={false}
-          onValueChange={onValueChange}
-          value={value}
-          containerStyle={{ minHeight: 60 }}
-          titleNumberOfLines={3}
-          title={strings.cloudStorageVip}
-        />
       </View>
+      <ListItemWithSwitch
+        showSeparator={false}
+        onValueChange={onValueChange}
+        value={value}
+        containerStyle={{ minHeight: 60 }}
+        titleNumberOfLines={3}
+        title={strings.cloudStorageVip}
+        switchStyle={{ width: 52, height: 28 }}
+      />
     </View>
   );
 };
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 26,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 12,
+    paddingBottom: 12,
     minHeight: 190
   }
 });

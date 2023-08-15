@@ -249,5 +249,9 @@ export default {
     'many': '{0} jours restants',
     'other': '{0} jours restants'
   },
-  changeIcon: 'Modifier l\'icône'
+  changeIcon: 'Modifier l\'icône',
+  deviceCall: 'Alertes d\'urgence',
+  cloudStorage: 'Notifications de stockage dans le cloud',
+  cloudStorageVip: 'Recevoir des notifications sur le statut de l\'abonnement au cloud',
+  largeCardEvent: 'Afficher les derniers événements capturés sur la carte'
 };

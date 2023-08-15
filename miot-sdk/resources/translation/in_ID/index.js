@@ -249,5 +249,9 @@ export default {
     'many': '{0} hari tersisa',
     'other': '{0} hari tersisa'
   },
-  changeIcon: 'Ganti ikon'
+  changeIcon: 'Ganti ikon',
+  deviceCall: 'Peringatan darurat',
+  cloudStorage: 'Notifikasi penyimpanan cloud',
+  cloudStorageVip: 'Dapatkan notifikasi seputar status keanggotaan cloud',
+  largeCardEvent: 'Tampilkan peristiwa terbaru yang direkam pada kartu'
 };
