@@ -249,5 +249,9 @@ export default {
     'many': 'Zbývá {0} dne',
     'other': 'Zbývá {0} dní'
   },
-  changeIcon: 'Změnit ikonu'
+  changeIcon: 'Změnit ikonu',
+  deviceCall: 'Nouzové výstrahy',
+  cloudStorage: 'Oznámení cloudového úložiště',
+  cloudStorageVip: 'Dostávejte oznámení o stavu členství v cloudu',
+  largeCardEvent: 'Ukázat poslední zaznamenané události na kartě'
 };

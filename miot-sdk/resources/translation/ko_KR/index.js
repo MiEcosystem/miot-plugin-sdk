@@ -249,5 +249,9 @@ export default {
     'many': '{0}일 남음',
     'other': '{0}일 남음'
   },
-  changeIcon: '아이콘 변경'
+  changeIcon: '아이콘 변경',
+  deviceCall: '긴급 경보',
+  cloudStorage: '클라우드 스토리지 알림',
+  cloudStorageVip: '클라우드 멤버십 상태에 대한 알림 받기',
+  largeCardEvent: '카드에서 캡처한 최신 이벤트 표시'
 };

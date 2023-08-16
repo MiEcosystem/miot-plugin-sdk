@@ -249,5 +249,9 @@ export default {
     'many': '残り{0}日',
     'other': '残り{0}日'
   },
-  changeIcon: 'アイコンを変更'
+  changeIcon: 'アイコンを変更',
+  deviceCall: '緊急アラート',
+  cloudStorage: 'クラウドストレージの通知',
+  cloudStorageVip: 'クラウドメンバーシップの状況に関する通知を受け取る',
+  largeCardEvent: 'キャプチャされた最新のイベントをカードに表示する'
 };

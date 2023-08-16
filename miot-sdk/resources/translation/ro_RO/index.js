@@ -249,5 +249,9 @@ export default {
     'many': '{0} zile rămase',
     'other': '{0} zile rămase'
   },
-  changeIcon: 'Schimbă pictograma'
+  changeIcon: 'Schimbă pictograma',
+  deviceCall: 'Alerte de urgență',
+  cloudStorage: 'Notificări de stocare în cloud',
+  cloudStorageVip: 'Primiți notificări despre starea abonamentului cloud',
+  largeCardEvent: 'Afișați cele mai recente evenimente capturate pe card'
 };

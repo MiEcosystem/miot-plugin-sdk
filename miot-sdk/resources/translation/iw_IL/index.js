@@ -249,5 +249,9 @@ export default {
     'many': 'נותרו {0} ימים',
     'other': 'נותרו {0} ימים'
   },
-  changeIcon: 'שנה סמל'
+  changeIcon: 'שנה סמל',
+  deviceCall: 'התראות חירום',
+  cloudStorage: 'התראות אחסון בענן',
+  cloudStorageVip: 'קבלת התראות על מצב המינוי לשירות הענן',
+  largeCardEvent: 'להציג את האירועים האחרונים שתועדו בכרטיס'
 };
