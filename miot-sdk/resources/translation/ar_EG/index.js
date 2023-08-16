@@ -117,7 +117,7 @@ export default {
   deleteCurtainGroup: 'إلغاء تجميع الأجهزة',
   linkDevice: 'ربط الأجهزة',
   noSuppurtedLinkageDevice: 'لا توجد أجهزة متاحة',
-  noSuppurtedLinkageTip: '1. تأكّد من إضافة الأجهزة في تطبيق منزل Mi وتخصيصها للغرف.\\n2. احتفظ بأجهزة البلوتوث بالقرب من هذا الجهاز لتوصيلها بنجاح.',
+  noSuppurtedLinkageTip: '1. تأكّد من إضافة الأجهزة في تطبيق Mi Home وتخصيصها للغرف.\\n2. احتفظ بأجهزة البلوتوث بالقرب من هذا الجهاز لتوصيلها بنجاح.',
   supportedLinkageDevices: 'يمكن ربطه بالأجهزة التالية:',
   linkageDistanceTip: 'احتفظ بالأجهزة بالقرب منك للتأكد من قدرتها على الربط.',
   linkageRemoveTip: 'لتغيير جهاز البلوتوث المرتبط، قم بحذف الجهاز أولًا.',

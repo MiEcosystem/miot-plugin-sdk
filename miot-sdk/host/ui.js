@@ -62,6 +62,9 @@ class IUi {
   @report
   openRoomManagementPage() {
   }
+  @report
+  openRoomManagementPageByDid(did) {
+  }
   /**
    * 打开语音设备管理的页面
    */
@@ -888,15 +891,23 @@ class IUi {
    openConfigRouterSubPage() {
    }
  
+    /**
+   * 打开设备中枢功能页
+   * @param  暂传空
+   */
+    @report
+   openDeviceHubGatewayPage(param = {}) {
+   }
+  
   
   /**
    * 打开紧急事件电话呼叫页面
    * @param {string} did 设备 ID
    */
   @report
-  openDeviceCallSettingPage(did) {
-    native.MIOTHost.openDeviceCallSettingPage(did);
-  }
+    openDeviceCallSettingPage(did) {
+      native.MIOTHost.openDeviceCallSettingPage(did);
+    }
 }
 const UiInstance = new IUi();
 export default UiInstance;

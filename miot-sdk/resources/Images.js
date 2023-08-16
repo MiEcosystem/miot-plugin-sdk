@@ -25,8 +25,7 @@ export default {
     dark: {
       std_dialog_guide_common_zh: require('./images/std_dialog_guide/common/std_dialog_guide_black_zh.png'),
       std_dialog_guide_common_en: require('./images/std_dialog_guide/common/std_dialog_guide_black_en.png')
-    },
-    cloudstorage: require("./images/cloudstorage.png")
+    }
   },
   /**
    * 导航栏

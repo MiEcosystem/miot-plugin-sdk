@@ -3,7 +3,7 @@ import { Device, DeviceEvent, Entrance, Host, Package, PackageEvent, Service } f
 // import {Host} from 'miot';
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
-import { DeviceEventEmitter, Platform, Text, View } from 'react-native';
+import { DeviceEventEmitter, Text, View } from 'react-native';
 import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
 import { formatString } from '../../resources/Strings';
@@ -154,30 +154,6 @@ function getPluginCategory() {
       });
   });
 }
-/* 
--1: 不显示云存提醒
-0：显示 状态关闭
-1：显示 状态开启
- */
-const GetCloudStorage = async(did) => {
-  const platform = { android: 2, ios: 1 };
-  try {
-    const result = await Service.callSmartHomeAPI("/business/camera/vip_tips_switch", {
-      dids: [did],
-      appVersion: Host.version,
-      platform: platform[Platform.OS] || Platform.OS
-    });
-    const {
-      [did]: { vipStatusSwitch, vipStatusSwitchShow }
-    } = result;
-    Service.smarthome.reportLog(Device.model, `GetCloudStorage ${ result }`);
-    if (!vipStatusSwitchShow) return -1;
-    return vipStatusSwitch ? 1 : 0;
-  } catch (error) {
-    Service.smarthome.reportLog(Device.model, `GetCloudStorage ${ error.message }`);
-    return -1;
-  }
-};
 const firstOptionsInner = {
   /**
    * 按键设置，多键开关`必选`，其余设备`必不选`，10074以后此设置的显示与否由SDK控制，开发者不必关心
@@ -318,15 +294,7 @@ const secondAllOptionsInner = {
   /**
    * 默认首页--标识标准插件还是厂商插件
    */
-  DEFAULT_PLUGIN: 'defaultPlugin',
-  /**
-   * 默认首页--紧急联系人呼叫
-   */
-  DEVICE_CALL: 'deviceCall',
-  /**
-   * 默认首页--云储存服务体系
-   */
-  CLOUD_STORAGE: 'cloudStorage'
+  DEFAULT_PLUGIN: 'defaultPlugin'
 };
 export const AllOptions = {
   ...firstAllOptionsInner,
@@ -409,8 +377,7 @@ export const AllOptionsWeight = {
   [AllOptions.PRIVACY_POLICY]: 19,
   [AllOptions.TIMEZONE]: 21,
   [AllOptions.FEEDBACK]: 23,
-  [AllOptions.ADD_TO_DESKTOP]: 25,
-  [AllOptions.CLOUD_STORAGE]: 30
+  [AllOptions.ADD_TO_DESKTOP]: 25
 };
 /**
  * 某些特殊设备类型不显示某些设置项
@@ -572,7 +539,7 @@ export default class CommonSetting extends React.Component {
     extraOptions: {}
   }
   getCommonSetting(state) {
-    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory, multipleKeyisOn, keyNum, cloudStorageOn } = state || {};
+    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory, multipleKeyisOn, keyNum } = state || {};
     const { preOperations } = this.props.extraOptions;
     if (!modelType) {
       modelType = '  ';
@@ -754,11 +721,6 @@ export default class CommonSetting extends React.Component {
         }
       }
     };
-    ret[AllOptions.CLOUD_STORAGE] = cloudStorageOn !== -1 && {
-      title: strings.cloudStorage,
-      value: cloudStorageOn ? strings.open : strings.close,
-      onPress: () => this.openSubPage("CloudStorage", { value: cloudStorageOn })
-    };
     // 常用摄像机(初摩象), 不是摄像机不添加, 避免后面多次判断
     let isCamera = ['camera'].indexOf(modelType) !== -1 && ['mxiang.'].indexOf(Device.model) == -1;
     ret[AllOptions.FREQ_CAMERA] = isCamera ? {
@@ -827,8 +789,7 @@ export default class CommonSetting extends React.Component {
       needShowUpgradeRedDot: false,
       showMemberSetKey: false, // 是否展示「按键设置」,适用于多键开关和继电器设备
       isSingleSwitch: false, // 是否是单键开关，单键开关也要显示「按键设置」。showMemberSetKey和isSingleSwitch要么都为false，说明这不是一个开关设备，要么只会有一个为true，说明这是单键或者多键开关
-      showDeviceService: false, // 是否暂展示「设备服务」选项，
-      cloudStorageOn: false
+      showDeviceService: false // 是否暂展示「设备服务」选项
     };
     console.log(`Device.type: ${ Device.type }`);
     this.commonSetting = this.getCommonSetting(this.state);
@@ -1076,7 +1037,6 @@ export default class CommonSetting extends React.Component {
         });
       }
     });
-    this.getCloudStorage();
     // setTimeout(() => {
     //   this.commonSetting = this.getCommonSetting({
     //     ...this.state,
@@ -1092,12 +1052,6 @@ export default class CommonSetting extends React.Component {
       if (params && params.needUpgrade) {
         this.setState({ needShowUpgradeRedDot: true });
       }
-    });
-  }
-  getCloudStorage() {
-    GetCloudStorage(Device.deviceID).then((result) => {
-      this.commonSetting = this.getCommonSetting({ ...this.state, cloudStorageOn: result });
-      this.setState({ cloudStorageOn: result });
     });
   }
   _updateFreqFlag() {
@@ -1152,6 +1106,9 @@ export default class CommonSetting extends React.Component {
     }
     if (showDeviceService) {
       requireKeys1.push(AllOptions.DEVICE_SERVICE);
+    }
+    if (["light"].includes(modelType) && ["philips.light.flat"].includes(Device.model)) {
+      requireKeys1.push(AllOptions.DEVICE_CALL);
     }
     // 创建组设备
     // 蓝牙单模和组设备不能创建
@@ -1465,7 +1422,6 @@ export default class CommonSetting extends React.Component {
     return style;
   }
   UNSAFE_componentWillMount() {
-    const { navigation } = this.props;
     this._deviceNameChangedListener = DeviceEvent.deviceNameChanged.addListener((device) => {
       // this.state.name = device.name;
       // this.commonSetting = this.getCommonSetting(this.state);
@@ -1481,13 +1437,11 @@ export default class CommonSetting extends React.Component {
     this._packageGobackFromNativeListerner = PackageEvent.packageViewWillAppear.addListener(() => {
       this._updateFreqFlag();
     });
-    this.listenerFocus = navigation.addListener('didFocus', this.getCloudStorage.bind(this));
   }
   componentWillUnmount() {
     this._deviceNameChangedListener.remove();
     this._packageGobackFromNativeListerner && this._packageGobackFromNativeListerner.remove();
     this.needUpgradeListener && this.needUpgradeListener.remove();
-    this.listenerFocus && this.listenerFocus.remove();
   }
 }
 const styles = dynamicStyleSheet({

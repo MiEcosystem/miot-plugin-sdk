@@ -13,11 +13,7 @@ import useDeviceRoomInfo from '../../hooks/useDeviceRoomInfo';
 import useDeviceIcon from "../../hooks/useDeviceIcon";
 import { useEffect, useState } from 'react';
 export default function BasicInfo({ options, customOptions, showDots, extraOptions } = {}) {
-  // const iconURL = useDeviceIcon();
-  const [iconURL, setIconURL] = useState(Device.iconURL);
-  useEffect(() => {
-    Service.smarthome.getDeviceIcon({ "subclass_id": 0 }).then(({ data: { proxy_category_icon } }) => setIconURL(proxy_category_icon));
-  }, []);
+  const iconURL = useDeviceIcon()
   const roomInfo = useDeviceRoomInfo();
   const name = useDeviceName();
   return (
