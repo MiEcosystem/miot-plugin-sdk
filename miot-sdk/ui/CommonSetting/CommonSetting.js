@@ -294,7 +294,8 @@ const secondAllOptionsInner = {
   /**
    * 默认首页--标识标准插件还是厂商插件
    */
-  DEFAULT_PLUGIN: 'defaultPlugin'
+  DEFAULT_PLUGIN: 'defaultPlugin',
+  DEVICE_CALL: "deviceCall"
 };
 export const AllOptions = {
   ...firstAllOptionsInner,
@@ -336,7 +337,8 @@ const firstSharedOptions = {
   [AllOptions.FREQ_DEVICE]: 1,
   [AllOptions.DEFAULT_PLUGIN]: 1,
   [AllOptions.MULTIPLEKEY_SPLIT]: 0,
-  [AllOptions.DEVICE_SERVICE]: 0
+  [AllOptions.DEVICE_SERVICE]: 0,
+  [AllOptions.DEVICE_CALL]: 1
 };
 /**
  * 20190708 / SDK_10023
