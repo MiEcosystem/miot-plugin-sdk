@@ -249,5 +249,9 @@ export default {
     'many': '{0} nap van hátra',
     'other': '{0} nap van hátra'
   },
-  changeIcon: 'Ikon cseréje'
+  changeIcon: 'Ikon cseréje',
+  deviceCall: 'Vészjelzések',
+  cloudStorage: 'Felhőtárhely értesítések',
+  cloudStorageVip: 'Értesítéseket kap a felhőtagsága állapotáról',
+  largeCardEvent: 'A legfrissebb rögzített események megjelenítése a kártyán'
 };

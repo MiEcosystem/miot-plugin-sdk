@@ -896,9 +896,8 @@ class IUi {
    * @param  暂传空
    */
     @report
-  openDeviceHubGatewayPage(param = {}) {
-  }
-  
+   openDeviceHubGatewayPage(param = {}) {
+   }
 }
 const UiInstance = new IUi();
 export default UiInstance;

@@ -249,5 +249,9 @@ export default {
     'many': '{0} dagar återstår',
     'other': '{0} dagar återstår'
   },
-  changeIcon: 'Ändra ikon'
+  changeIcon: 'Ändra ikon',
+  deviceCall: 'Varningar vid nödsituationer',
+  cloudStorage: 'Notifikationer om molnlagring',
+  cloudStorageVip: 'Ta emot notifikationer om medlemsstatus för molnet',
+  largeCardEvent: 'Visa senaste inspelade händelser på kortet'
 };

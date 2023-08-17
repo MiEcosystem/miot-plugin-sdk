@@ -249,5 +249,9 @@ export default {
     'many': '{0} dager gjenstår',
     'other': '{0} dager gjenstår'
   },
-  changeIcon: 'Endre ikon'
+  changeIcon: 'Endre ikon',
+  deviceCall: 'Nødvarsler',
+  cloudStorage: 'Nettskylagringsvarsler',
+  cloudStorageVip: 'Motta varsler om nettskymedlemskapets status',
+  largeCardEvent: 'Vis nyeste hendelsesopptak på kortet'
 };

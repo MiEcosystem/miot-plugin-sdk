@@ -249,5 +249,9 @@ export default {
     'many': '{0} päivää jäljellä',
     'other': '{0} päivää jäljellä'
   },
-  changeIcon: 'Muokkaa kuvaketta'
+  changeIcon: 'Muokkaa kuvaketta',
+  deviceCall: 'Hätätiedotteet',
+  cloudStorage: 'Cloud-tallennustilan ilmoitukset',
+  cloudStorageVip: 'Saa ilmoituksia pilven jäsenyyden tilasta',
+  largeCardEvent: 'Näytä viimeisimmät kortille tallennetut tapahtumat'
 };
