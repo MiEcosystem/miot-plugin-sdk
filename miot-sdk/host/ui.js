@@ -891,6 +891,13 @@ class IUi {
    openConfigRouterSubPage() {
    }
  
+    /**
+   * 打开设备中枢功能页
+   * @param  暂传空
+   */
+    @report
+   openDeviceHubGatewayPage(param = {}) {
+   }
 }
 const UiInstance = new IUi();
 export default UiInstance;

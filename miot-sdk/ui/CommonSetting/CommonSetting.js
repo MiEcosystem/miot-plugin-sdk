@@ -823,7 +823,7 @@ export default class CommonSetting extends React.Component {
       showMemberSetKey: false, // 是否展示「按键设置」,适用于多键开关和继电器设备
       isSingleSwitch: false, // 是否是单键开关，单键开关也要显示「按键设置」。showMemberSetKey和isSingleSwitch要么都为false，说明这不是一个开关设备，要么只会有一个为true，说明这是单键或者多键开关
       showDeviceService: false, // 是否暂展示「设备服务」选项，
-      cloudStorageOn: false
+      cloudStorageOn: -1
     };
     console.log(`Device.type: ${ Device.type }`);
     this.commonSetting = this.getCommonSetting(this.state);
@@ -1134,7 +1134,7 @@ export default class CommonSetting extends React.Component {
       AllOptions.FREQ_DEVICE,
       AllOptions.NAME,
       AllOptions.LOCATION,
-      AllOptions.CLOUD_STORAGE,
+      AllOptions.CLOUD_STORAGE
     ];
     if (productBaikeUrl) {
       requireKeys1.push(AllOptions.PRODUCT_BAIKE);
