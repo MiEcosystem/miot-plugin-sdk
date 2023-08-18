@@ -295,6 +295,7 @@ let getInnerOptions = () => {
     deviceCall: {
       exportKey: "DEVICE_CALL",
       isDefault: true,
+      ownerOnly: true,
       modelTypes: ["light"],
       validator: () => (["philips.light.flat"].includes(Device.model)),
       Component: (params) => {

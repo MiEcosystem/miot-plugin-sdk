@@ -338,7 +338,7 @@ const firstSharedOptions = {
   [AllOptions.DEFAULT_PLUGIN]: 1,
   [AllOptions.MULTIPLEKEY_SPLIT]: 0,
   [AllOptions.DEVICE_SERVICE]: 0,
-  [AllOptions.DEVICE_CALL]: 1
+  [AllOptions.DEVICE_CALL]: 0
 };
 /**
  * 20190708 / SDK_10023
