@@ -19,7 +19,7 @@ export default function useDeviceIcon() {
             Device.model,
             `IconHook ${ proxy_category_icon }`
           );
-          setIconURL(proxy_category_icon);
+          setIconURL(`${ proxy_category_icon }?${ Date.now() }`);
         });
     }
     const listener = DeviceEvent.deviceIconChanged.addListener(() => {
