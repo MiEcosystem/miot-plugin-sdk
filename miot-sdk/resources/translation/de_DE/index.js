@@ -252,6 +252,6 @@ export default {
   changeIcon: 'Symbol ändern',
   deviceCall: 'Notfallmeldungen',
   cloudStorage: 'Cloudspeicher-Benachrichtigungen',
-  cloudStorageVip: 'Benachrichtigungen über Cloud-Mitgliedschaftsstatus zu erhalten',
+  cloudStorageVip: 'Benachrichtigungen über den Cloud-Mitgliedschaftsstatus erhalten',
   largeCardEvent: 'Anzeigen der zuletzt erfassten Ereignisse auf der Karte'
 };
