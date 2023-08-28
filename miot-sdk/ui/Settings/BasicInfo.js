@@ -13,14 +13,13 @@ import useDeviceRoomInfo from '../../hooks/useDeviceRoomInfo';
 import useDeviceIcon from "../../hooks/useDeviceIcon";
 import { useEffect, useState } from 'react';
 export default function BasicInfo({ options, customOptions, showDots, extraOptions } = {}) {
-  const iconURL = useDeviceIcon();
+  const iconURL = useDeviceIcon()
   const roomInfo = useDeviceRoomInfo();
   const name = useDeviceName();
-  Service.smarthome.reportLog(Device.model, `BasicInfo ${ iconURL }`);
   return (
     <View style={Styles.container}>
       <View style={Styles.content}>
-        <Image style={Styles.icon} onError={(error) => Service.smarthome.reportLog(Device.model, `BasicInfo ImageError ${ iconURL }`)} source={{
+        <Image style={Styles.icon} source={{
           uri: iconURL
         }} />
         <View style={Styles.text}>
