@@ -1002,7 +1002,6 @@ export default class CommonSetting extends React.Component {
     Host.ui.openDeleteDevice(deleteDeviceMessage);
   }
   componentDidMount() {
-    Device.ID = '528779435';
     if (Device.type === Device.DEVICE_TYPE.DUAL_MODEL_DEVICE || Device.type === Device.DEVICE_TYPE.WIFI_SINGLE_MODEL_DEVICE) {
       // WiFi模组SRRC认证合规方案仅针对双模设备，单模设备为旧品
       fetchPowerMode().then((powermode) => {
@@ -1437,8 +1436,9 @@ export default class CommonSetting extends React.Component {
                   let params = { 'powermode': powerCategory, 'country_code': "CN" };
                   Device.getDeviceWifi().callMethod('miIO.set_powermode', params).then((res) => {
                     console.log(`setPowerMode() miIO.set_powermode res=${ JSON.stringify(res) }`);
-                  }).catch(() => {
+                  }).catch((err) => {
                     // 更新功率模式失败，是否需要弹窗提示？
+                    console.log(`setPowerMode() miIO.set_powermode err=${ JSON.stringify(err) }`);
                   });
                   this.setState({
                     powerCategory: index
