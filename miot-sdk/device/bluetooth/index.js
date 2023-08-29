@@ -129,6 +129,9 @@ export default {
      return Promise.resolve(true);
   },
   /**
+   * 扫描前先检查蓝牙权限
+   * */
+  /**
      * 开始扫描蓝牙设备，此方法没有回调，扫描得到的结果，通过BluetoothEvent.bluetoothDeviceDiscovered.addListener()来获取扫描的结果，获取到正确的蓝牙设备对象后，记得调用下面的Bluetooth.stopScan()来停止蓝牙扫描。
      * @param {int} durationInMillis - 扫描时长
      * @param {...string} serviceUUIDs - 指定扫描包含了此service的蓝牙设备, 为空时扫描全部
@@ -263,5 +266,18 @@ export default {
      *  @param {string} mac
      */
   setAlertConfigsOnMIUI(mac, alert, enable) {
+  },
+  /**
+   * Since SDK_10079
+   * 仅支持Android设备 iOS设备不支持该方法
+   * @returns boolean 判断蓝牙是否是半开模式
+   *  Bluetooth.isBluetoothHalfOpenForAndroid().then((enable) => {
+   *       console.log("enable : " + enable)
+   *     }).catch((error) => {
+   *       this.logInfo('checkBluetoothIsEnabled error ', error);
+   *     });
+   *
+   */
+  isBluetoothHalfOpenForAndroid() {
   }
 };
