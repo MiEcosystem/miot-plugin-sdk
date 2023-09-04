@@ -25,21 +25,17 @@
  *     Package.entry(App, ()=>{...});
  *     Package.exit({...});
  */
-import { MessageDialog } from 'miot/ui/Dialog';
 import React from 'react';
 import { AppRegistry, DeviceEventEmitter, View, I18nManager } from "react-native";
-import Device, { DeviceEvent, PollPropMap } from "./device/BasicDevice";
-import Service, { CurrentAccount } from './Service';
-import Host from './Host';
-import resolveAssetResource from "./native/common/node/resolve";
-import { strings } from './resources';
-import ProtocolManager from './utils/protocol-helper';
-import ReuseHelper from './utils/reuse-helper';
-import rnPackageJSON from 'react-native/package.json';
-import PropTypes from 'prop-types';
-import { DarkMode } from 'miot/Device';
 import { SDKContextProvider } from 'miot/sdkContext';
+import Service, { CurrentAccount } from './Service';
+import Device, { DeviceEvent, PollPropMap } from "./device/BasicDevice";
+import { strings } from './resources';
+import { initI18nsStings } from './resources/Strings';
 import { ConfigProvider } from 'mhui-rn';
+import { DarkMode } from 'miot/Device';
+import { MessageDialog } from 'miot/ui/Dialog';
+import Host from './Host';
 /**
   * @description JS端通知Native端的事件类型
   * @enum {number}
@@ -293,6 +289,25 @@ export default {
     * }
     */
   set BLEAutoCheckUpgradeOptions(options) {
+     return  ""
+  },
+  set dynamicInjectNavigation(enable) {
+    this._dynamicInjectNavigation = !!enable;
+  },
+  /**
+    * wifi设备升级参数 目前sdk要求所有wifi设备都需要开启固件升级检查，但是开发者可以自行实现检查的页面的逻辑
+    * @param navigation 传入包含upgradePageKey的navigation，否则可能会出现无法跳转的情况
+    * @param upgradePageKey 要跳转的page key 通常是在index中定义的
+    * @param upgradePageParams 要跳转的page params
+    * @since 10080
+    * @example
+    * Package.wifiDeviceUpgradeOptions = {
+    *   navigation: xxx,
+    *   upgradePageKey: 'xxxUpgradePage',
+    *   upgradePageParams: { xxx: xxx },
+    * }
+    */
+  set wifiDeviceUpgradeOptions(options) {
      return  ""
   },
   /**
