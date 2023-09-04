@@ -563,6 +563,7 @@ class IUi {
    * @param {string} aiClientId 水滴平台的客户端
    * @param {string} aiVersion "" 不隐藏 "thirdpart" 隐藏 “一段录音” “设备控制” 按钮 "audio" 隐藏 “一段录音” 按钮 "device" 隐藏 “设备控制” 按钮
    * @param {object} otherParams 想怎么玩都行的参数，会覆盖之前的
+   * @param {boolean} otherParams.newVerAiTrain 当传入其他参数中newVerAiTrain为true情况 会进入新版本的训练计划 否则默认进入旧版
   */
   @report
   openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion, otherParams) {
@@ -898,6 +899,16 @@ class IUi {
     @report
    openDeviceHubGatewayPage(param = {}) {
    }
+  
+  
+  /**
+   * 打开紧急事件电话呼叫页面
+   * @param {string} did 设备 ID
+   */
+  @report
+    openDeviceCallSettingPage(did) {
+      native.MIOTHost.openDeviceCallSettingPage(did);
+    }
 }
 const UiInstance = new IUi();
 export default UiInstance;

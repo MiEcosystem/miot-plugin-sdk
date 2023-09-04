@@ -556,7 +556,8 @@ export class BasicDevice {
     BLE_MESH_DEVICE: '16',
     NEW_GROUP_VIRTUAL_DEVICE: '17',
     ONLY_CABLE_DEVICE: '21',
-    PLC_DEVICE: '22'
+    PLC_DEVICE: '22',
+    MATTER_DEVICE: '24'
   }
   /**
    * 获取设备类型，
@@ -953,6 +954,19 @@ export class BasicDevice {
   @report
   getAllDevicesOfBelongedCompanies() {
      return Promise.resolve({});
+  }
+  /**
+   * 紧急联系人设置判断
+   * @since 10085
+   * @returns {Promise<Object>}
+   * success: { code:0, data }
+   * fail: {coce: -1, message }
+   */
+  @report
+  hasSetDeviceCall() {
+    return new Promise((resolve, reject) => {
+      native.MIOTDevice.hasSetDeviceCall((ok, result) => ok ? resolve(result) : reject(result));
+    });
   }
 }
 export class PollPropMap {
