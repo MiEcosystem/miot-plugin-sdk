@@ -955,6 +955,19 @@ export class BasicDevice {
   getAllDevicesOfBelongedCompanies() {
      return Promise.resolve({});
   }
+  /**
+   * 紧急联系人设置判断
+   * @since 10085
+   * @returns {Promise<Object>}
+   * success: { code:0, data }
+   * fail: {coce: -1, message }
+   */
+  @report
+  hasSetDeviceCall() {
+    return new Promise((resolve, reject) => {
+      native.MIOTDevice.hasSetDeviceCall((ok, result) => ok ? resolve(result) : reject(result));
+    });
+  }
 }
 export class PollPropMap {
   static PROP_TYPE_UNKNOWN = 0;

@@ -368,7 +368,8 @@ const firstSharedOptions = {
   [AllOptions.FREQ_DEVICE]: 1,
   [AllOptions.DEFAULT_PLUGIN]: 1,
   [AllOptions.MULTIPLEKEY_SPLIT]: 0,
-  [AllOptions.DEVICE_SERVICE]: 0
+  [AllOptions.DEVICE_SERVICE]: 0,
+  [AllOptions.DEVICE_CALL]: 0
 };
 /**
  * 20190708 / SDK_10023
@@ -745,6 +746,12 @@ export default class CommonSetting extends React.Component {
                 });
               }
             });
+        }
+      },
+      [AllOptions.DEVICE_CALL]: {
+        title: strings.deviceCall,
+        onPress: () => {
+          Host.ui.openDeviceCallSettingPage(Device.deviceID);
         }
       }
     };
@@ -1148,6 +1155,9 @@ export default class CommonSetting extends React.Component {
     }
     if (showDeviceService) {
       requireKeys1.push(AllOptions.DEVICE_SERVICE);
+    }
+    if (["light"].includes(modelType) && ["philips.light.flat"].includes(Device.model)) {
+      requireKeys1.push(AllOptions.DEVICE_CALL);
     }
     // 创建组设备
     // 蓝牙单模和组设备不能创建

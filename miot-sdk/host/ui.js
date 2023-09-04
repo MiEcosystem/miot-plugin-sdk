@@ -899,6 +899,16 @@ class IUi {
     @report
    openDeviceHubGatewayPage(param = {}) {
    }
+  
+  
+  /**
+   * 打开紧急事件电话呼叫页面
+   * @param {string} did 设备 ID
+   */
+  @report
+    openDeviceCallSettingPage(did) {
+      native.MIOTHost.openDeviceCallSettingPage(did);
+    }
 }
 const UiInstance = new IUi();
 export default UiInstance;

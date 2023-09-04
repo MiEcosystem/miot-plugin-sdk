@@ -291,6 +291,26 @@ let getInnerOptions = () => {
           </Fragment>
         );
       }
+    },
+    deviceCall: {
+      exportKey: "DEVICE_CALL",
+      isDefault: true,
+      ownerOnly: true,
+      modelTypes: ["light"],
+      validator: () => (["philips.light.flat"].includes(Device.model)),
+      Component: (params) => {
+        return (
+          <ListItem
+            key={"deviceCall"}
+            title={I18n.deviceCall}
+            onPress={() => {
+              Host.ui.openDeviceCallSettingPage(Device.deviceID);
+            }}
+            useNewType={true}
+            hideArrow={false}
+          />
+        );
+      }
     }
   };
 };
@@ -301,7 +321,7 @@ export const initCommonSettingsInnerOptions = () => {
 const AllAndDefaultOptions = getAllAndDefaultOptions(innerOptions);
 export const options = AllAndDefaultOptions.options;
 const defaultOptions = AllAndDefaultOptions.defaultOptions;
-const commonOptions = ['deviceService', 'share', 'ifttt', 'firmwareUpgrade', 'help', 'security', 'addToDesktop', 'freqDevice', 'freqCamera', 'defaultPlugin'];
+const commonOptions = ['deviceCall', 'deviceService', 'share', 'ifttt', 'firmwareUpgrade', 'help', 'security', 'addToDesktop', 'freqDevice', 'freqCamera', 'defaultPlugin'];
 export default function CommonSettings(params) {
   const { customOptions } = params;
   return (
