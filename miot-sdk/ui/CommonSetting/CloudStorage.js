@@ -57,7 +57,7 @@ const CloudStorage = (props) => {
           style={{
             width: W - 26 * 2,
             height: (190 / 340) * (W - 26 * 2),
-            resizeMode: "center"
+            resizeMode: "contain"
           }}
           source={Images.common[DarkMode.getColorScheme()].cloudstorage}
         />

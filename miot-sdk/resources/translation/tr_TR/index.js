@@ -251,7 +251,7 @@ export default {
   },
   changeIcon: 'Simgeyi değiştir',
   deviceCall: 'Acil durum uyarıları',
-  cloudStorage: 'Bulut depolama bildirimler',
+  cloudStorage: 'Bulut depolama bildirimleri',
   cloudStorageVip: 'Bulut üyelik durumu hakkında bildirimler al',
   largeCardEvent: 'Kartta en son yakalanan olayları göster'
 };
