@@ -468,12 +468,23 @@ class IUi {
    * @since 10010 ,SDKLevel 10010 开始提供使用
    * @param {string} did  设备did 指定设备ID
    * @param {string} mac  设备mac option, 在不传递时。默认使用当前设备
-   * @param {Object} params { expandMemberId: 0 } 可不传，默认展开第一个按键
    * @example
    * Host.ui.openPowerMultikeyPage(did, mac);
   */
   @report
-  openPowerMultikeyPage(did, mac = null, params = null) {
+  openPowerMultikeyPage(did, mac = null) {
+  }
+  /**
+   * 标插-多键开关设置页面(支持更多参数传递)
+   * @since 10087 ,SDKLevel 10087 开始提供使用
+   * @param {string} did  设备did 指定设备ID
+   * @param {string} mac  设备mac option, 在不传递时。默认使用当前设备
+   * @param {Object} params { expandMemberId: 0 } 可不传，默认展开第一个按键
+   * @example
+   * Host.ui.openPowerMultikeyPageV2(did, mac, params);
+  */
+  @report
+  openPowerMultikeyPageV2(did, mac = null, params = null) {
   }
   /**
   * 添加或者复制一个红外遥控器
