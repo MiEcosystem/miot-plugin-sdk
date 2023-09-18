@@ -132,6 +132,7 @@ class IUi {
    @report
   openConsumesDetailPage(params) {
   }
+ 
   /**
    * 获取设备列表中指定model的设备信息(仅白名单设备才允许调用此方法，如需使用，请联系插件框架)
    * @param model 指定的model

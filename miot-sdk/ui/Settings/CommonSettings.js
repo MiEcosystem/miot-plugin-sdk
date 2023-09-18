@@ -326,7 +326,7 @@ export default function CommonSettings(params) {
   const { customOptions } = params;
   return (
     <Section title={I18n.commonSetting}>
-      {getItems(innerOptions, commonOptions, ['', '', '', '', '', '', '', useFreqDeviceInfo() ? I18n.open : I18n.close], params, defaultOptions)}
+      {getItems(innerOptions, commonOptions, ['', '', '', '', '', '', '', '', useFreqDeviceInfo() ? I18n.open : I18n.close], params, defaultOptions)}
       {getItems(innerOptions, customOptions || [], [], params, defaultOptions)}
     </Section>
   );
