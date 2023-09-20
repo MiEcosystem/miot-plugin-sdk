@@ -10,4 +10,4 @@ export const IBluetoothService = MIOTIBluetoothService;
 export const IBluetoothCharacteristic = MIOTIBluetoothCharacteristic;
 export const IBluetoothLock = LockDevice;
 export const getBluetoothUUID128 = MIOTGetBluetoothUUID;
-export const takeBluetooth = MIOTTakeBluetooth;
+export const takeBluetooth =  MIOTTakeBluetooth;
