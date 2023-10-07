@@ -76,7 +76,7 @@ export default class ChoiceItemWithIcon extends Component {
           ]}
           onAccessibilityAction={this.onAccessibilityAction}
         >
-          <Image style={[Styles.icon, disabled ? Styles.disabled : null]} source={icon} />
+          {icon ? <Image style={[Styles.icon, disabled ? Styles.disabled : null]} source={icon} /> : null}
           <View style={[Styles.text, disabled ? Styles.disabled : null]}>
             <Text style={Styles.title}>{title}</Text>
             {subtitle || extraSubtitle ? (
@@ -94,10 +94,12 @@ export default class ChoiceItemWithIcon extends Component {
 }
 const Styles = StyleSheet.create({
   container: {
+    height: 60,
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 14
+    paddingVertical: 14,
+    paddingHorizontal: 28
   },
   disabled: {
     opacity: 0.3
@@ -124,7 +126,6 @@ const Styles = StyleSheet.create({
     lineHeight: 18
   },
   checkbox: {
-    marginRight: 10,
     width: 22,
     height: 22,
     borderRadius: 11
