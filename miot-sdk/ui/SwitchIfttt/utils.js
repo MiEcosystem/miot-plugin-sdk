@@ -310,7 +310,7 @@ export function createSwitchTrigger(spec, value = '', value_type = 5) {
       src: 'device',
       key: encodeProp(spec),
       extra: '',
-      name: `单击${ spec?.i18n }`,
+      name: `${ spec?.i18n }`,
       value,
       value_type,
       extra_json: {
@@ -463,7 +463,7 @@ export function getTargetDeviceList(homeDeviceList, deviceType) {
   for (let index = 0; index < homeDeviceList.length; index++) {
     const device = homeDeviceList[index];
     // 去掉分享设备
-    if (device.roomId === 'mijia.roomid.share') {
+    if (device.roomId === 'mijia.roomid.share' || !device.specUrn) {
       continue;
     }
     const regex = /device:([^:]*):/;

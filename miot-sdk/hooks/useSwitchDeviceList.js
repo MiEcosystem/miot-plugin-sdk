@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Device, Service, PackageEvent } from 'miot';
+import { Service, PackageEvent } from 'miot';
 import useDeepCompareEffect from './useDeepCompareEffect';
 export default function useSwitchLightDeviceList(devices = []) {
   const [toggleLightList, setToggleLightList] = useState([]);
@@ -26,7 +26,7 @@ export default function useSwitchLightDeviceList(devices = []) {
               payload_json: {
                 command: 'action',
                 delay_time: 0,
-                device_name: filterDevice.deviceName,
+                device_name: memberInfo?.name || filterDevice?.name,
                 did: filterDevice.did,
                 model: filterDevice.model,
                 value: {
@@ -63,9 +63,9 @@ export default function useSwitchLightDeviceList(devices = []) {
         Service.callSmartHomeAPI('/device/deviceinfo', { get_sub_relation: true, dids: devices.map((device) => {
           return device.did;
         }) }).then((deviceInfo) => {
-          console.log('getSwitchInfo--res', JSON.stringify(deviceInfo));
+          // console.log('getSwitchInfo--res', JSON.stringify(deviceInfo));
           const supportToggleDevices = generateSwitchDevice(devices, specs, deviceInfo?.list || []);
-          console.log('获取按键设备组合---', JSON.stringify(supportToggleDevices));
+          // console.log('获取按键设备组合---', JSON.stringify(supportToggleDevices));
           setToggleLightList(supportToggleDevices);
         }).catch((error) => {
           console.log('获取按键信息报错---/device/deviceinfo---error', error);

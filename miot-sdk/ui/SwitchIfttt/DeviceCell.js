@@ -39,7 +39,7 @@ export default class DeviceCell extends Component {
   }
   constructor(props, ...rest) {
     super(props, ...rest);
-    referenceReport('ChoiceItemWithIcon');
+    referenceReport('DeviceCell');
     this.state = {
       checked: props.checked
     };

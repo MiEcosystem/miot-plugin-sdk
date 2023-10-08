@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Device, DeviceEvent, Service } from "miot";
+import useDeepCompareEffect from './useDeepCompareEffect';
 export default function useSwitchInfo(did = Device.deviceID) {
   const [switchInfo, setSwitchInfo] = useState({});
   const getAppSwitchIcons = (subclassIds) => {
@@ -12,7 +13,8 @@ export default function useSwitchInfo(did = Device.deviceID) {
     });
     return Promise.all(promises);
   };
-  useEffect(() => {
+  // console.log('useSwitchInfo----did', did);
+  useDeepCompareEffect(() => {
     Service.callSmartHomeAPI('/device/deviceinfo', { get_sub_relation: true, dids: [did] }).then((res) => {
       console.log('getSwitchInfo--res', JSON.stringify(res));
       // "member_ship": {
@@ -69,6 +71,6 @@ export default function useSwitchInfo(did = Device.deviceID) {
     return () => {
       listener && listener.remove && listener.remove();
     };
-  }, []);
+  }, [did]);
   return switchInfo;
 }

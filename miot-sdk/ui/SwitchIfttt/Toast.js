@@ -43,7 +43,7 @@ export default function Toast({
     };
   }, [visible]);
   return visible ? (
-    <View style={[styles.container, { bottom: position }]}>
+    <View style={[styles.container, position !== undefined ? { bottom: position } : {}]}>
       <Animated.View
         style={[
           styles.textContainer,
