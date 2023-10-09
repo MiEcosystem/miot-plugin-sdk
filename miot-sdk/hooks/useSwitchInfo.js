@@ -1,17 +1,30 @@
 import { useState } from "react";
+import { DeviceEventEmitter } from 'react-native';
 import { Device, DeviceEvent, Service } from "miot";
 import useDeepCompareEffect from './useDeepCompareEffect';
 export default function useSwitchInfo(did = Device.deviceID) {
   const [switchInfo, setSwitchInfo] = useState({});
-  const getAppSwitchIcons = (subclassIds) => {
-    const promises = subclassIds.map((subclass_id) => {
-      return Service.smarthome.getDeviceIcon({ subclass_id }).then((res) => {
-        return res?.data?.proxy_category_icon || Device.iconUrl;
-      }).catch(() => {
-        return Device.iconUrl;
+  const editSwitchInfo = (memberId, member) => {
+    return new Promise((resolve, reject) => {
+      const editInfo = { 
+        ...switchInfo,
+        [`${ memberId + 1 }`]: member
+      };
+      Service.callSmartHomeAPI('/v2/device/update_membership', {
+        did,
+        update_fields: [{ 
+          id: memberId + 1,
+          field: member 
+        }]
+      }).then((res) => {
+        DeviceEventEmitter.emit('EditSwitchInfo_DeviceEventEmitter', editInfo);
+        resolve(res);
+      }).catch((err) => {
+        reject(err);
+        console.log('switch-update_membership-key---error', err);
       });
     });
-    return Promise.all(promises);
+    
   };
   // console.log('useSwitchInfo----did', did);
   useDeepCompareEffect(() => {
@@ -52,6 +65,13 @@ export default function useSwitchInfo(did = Device.deviceID) {
     }).catch((error) => {
       console.log('获取按键信息报错---/device/deviceinfo---error', error);
     });
+    const editListener = DeviceEventEmitter.addListener('EditSwitchInfo_DeviceEventEmitter', (value) => {
+      if (did !== Device.deviceID) {
+        return;
+      }
+      console.log('EditSwitchInfo_DeviceEventEmitter----value', JSON.stringify(value));
+      setSwitchInfo(value);
+    });
     const listener = DeviceEvent.multiSwitchNameChanged.addListener((value) => {
       if (did !== Device.deviceID) {
         return;
@@ -70,7 +90,11 @@ export default function useSwitchInfo(did = Device.deviceID) {
     });
     return () => {
       listener && listener.remove && listener.remove();
+      editListener && editListener.remove && editListener.remove();
     };
   }, [did]);
-  return switchInfo;
+  return {
+    switchInfo,
+    editSwitchInfo
+  };
 }

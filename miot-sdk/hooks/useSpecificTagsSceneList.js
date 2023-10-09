@@ -17,7 +17,7 @@ export default function useSpecificTagsSceneList({
           ...tagsSceneList,
           {
             ...scene,
-            scene_id: res?.result?.scene_id
+            scene_id: res?.scene_id
           }
         ];
         DeviceEventEmitter.emit('EditTagsScene_DeviceEventEmitter', editResult);
@@ -54,7 +54,7 @@ export default function useSpecificTagsSceneList({
   useDeepCompareEffect(() => {
     fetchTagsSceneList();
     let editListener = DeviceEventEmitter.addListener('EditTagsScene_DeviceEventEmitter', (value) => {
-      // console.log('DeviceEventEmitter--loadSceneListByTags-value', JSON.stringify(value));
+      console.log('DeviceEventEmitter--loadSceneListByTags-value', JSON.stringify(value));
       setTagsSceneList(value);
     });
     return () => {

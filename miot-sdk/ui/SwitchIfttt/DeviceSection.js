@@ -62,7 +62,7 @@ export default class DeviceSection extends Component {
                 return <DeviceCell
                   key={`${ item.did }${ itemIndex }`}
                   title={item.deviceName}
-                  icon={{ url: item.iconUrl }}
+                  icon={{ uri: item.iconUrl }}
                   checked={item.did === selectedItem?.did && item.memberId === selectedItem?.memberId}
                   onValueChange={(selected) => {
                     this.changeCheck(selected, item);
@@ -109,7 +109,7 @@ const Styles = dynamicStyleSheet({
     paddingBottom: adjustSize(36),
     borderRadius: adjustSize(36),
     marginHorizontal: adjustSize(30),
-    backgroundColor: new DynamicColor('#F7F7F7', 'rgba(255, 255, 255, 0.8)')
+    backgroundColor: new DynamicColor('#F7F7F7', '#000')
   },
   sectionContainer: {
     marginTop: adjustSize(30),
