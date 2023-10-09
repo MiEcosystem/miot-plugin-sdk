@@ -13,7 +13,10 @@ export default function useThirdUserConfigs(key, model = Device.model, eventEmit
     let listener = DeviceEventEmitter.addListener(eventEmitter, (value) => {
       console.log('DeviceEventEmitter--useThirdUserConfigs--value---通知-', value);
       console.log('DeviceEventEmitter--userConfigs--userConfigs---通知-', userConfigs);
-      setUserConfigs(value);
+      setUserConfigs({
+        ...userConfigs,
+        ...value
+      });
       // {"1":{"ai_desc":"","home_id":1,"id":1,"name":"","icon":"","room_id":1},"2":{"ai_desc":"","home_id":1,"id":2,"name":"","icon":"","room_id":1}}
       // setSwitchInfo(value);
     });
