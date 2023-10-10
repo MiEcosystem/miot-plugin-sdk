@@ -12,7 +12,9 @@
  */
 import { report } from "../decorator/ReportDecorator";
 import native from "../native";
+import { pluginSpecPackagesName } from "../utils/special-plugins";
 import permissionLocal from "./permissionLocal.json";
+import Package from "../Package";
 class IPermission {
   /**
    * 拉取最新远程配置，默认会调用一次，优先使用远程配置
@@ -35,7 +37,9 @@ class IPermission {
     let models = methodAllow[method] ?? [];
     return models.length == 0
     || models.includes(model)
-    || models.find((m) => { return model.startsWith(m); });
+    || models.find((m) => { return model.startsWith(m); })
+    // 标准插件所有权限get
+    || Package.packageName === pluginSpecPackagesName;
   }
 }
 const instance = new IPermission();

@@ -269,6 +269,18 @@ class IUi {
     Package.navigate('MiotDeviceInfoPage', params);
   }
   /**
+   *
+   */
+  @report
+  openSwitchButtonSelectPage(params) {
+  }
+  /**
+   *
+   */
+  @report
+  openSwitchButtonSettingPage(params) {
+  }
+  /**
    * 打开设备检查固件历史版本信息页面
    */
   @report
@@ -474,6 +486,8 @@ class IUi {
   */
   @report
   openPowerMultikeyPage(did, mac = null) {
+  }
+  openPowerMultikeyPageV2(did, mac = null, params) {
   }
   /**
   * 添加或者复制一个红外遥控器

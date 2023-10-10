@@ -14,6 +14,7 @@ export default {
     mihome: require('./images/mihome.png'),
     selectIcon: require('./images/select_icon.png'),
     right: require('./images/right.png'),
+    manualScene: require('./images/manual_scene.png'),
     ota_auto_light: require('./images/ota_auto_light.png'),
     ota_auto_light_fail: require('./images/ota_auto_light_fail.png'),
     ota_auto_light_success: require('./images/ota_auto_light_success.png'),

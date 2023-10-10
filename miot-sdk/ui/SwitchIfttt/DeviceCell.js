@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
 import PropTypes from 'prop-types';
 import Radio from '../Radio';
 import { AccessibilityPropTypes, getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
-import { dynamicColor } from "../Style";
-export default class ChoiceItemWithIcon extends Component {
+import DynamicColor, { dynamicColor } from '../Style/DynamicColor';
+import { FontMiSansWRegular } from '../../utils/fonts';
+import { adjustSize } from '../../utils/sizes';
+import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
+export default class DeviceCell extends Component {
   static propTypes = {
     icon: PropTypes.any,
     title: PropTypes.string,
@@ -36,7 +39,7 @@ export default class ChoiceItemWithIcon extends Component {
   }
   constructor(props, ...rest) {
     super(props, ...rest);
-    referenceReport('ChoiceItemWithIcon');
+    referenceReport('DeviceCell');
     this.state = {
       checked: props.checked
     };
@@ -56,7 +59,7 @@ export default class ChoiceItemWithIcon extends Component {
     }
   }
   render() {
-    const { icon, title, subtitle, extraSubtitle, extraSubtitleStyle, disabled } = this.props;
+    const { icon, title, disabled } = this.props;
     const { checked } = this.state;
     return (
       <TouchableWithoutFeedback onPress={() => {
@@ -76,58 +79,62 @@ export default class ChoiceItemWithIcon extends Component {
           ]}
           onAccessibilityAction={this.onAccessibilityAction}
         >
-          {icon ? <Image style={[Styles.icon, disabled ? Styles.disabled : null]} source={icon} /> : null}
+          <View style={Styles.iconContainer}>
+            {icon ? <Image style={[Styles.icon, disabled ? Styles.disabled : null]} source={icon} /> : null}
+            <View style={Styles.radioContainer}>
+              <Radio isChecked={checked} disabled={disabled} changeCheck={this.changeCheck} />
+            </View>
+          </View>
           <View style={[Styles.text, disabled ? Styles.disabled : null]}>
             <Text style={Styles.title}>{title}</Text>
-            {subtitle || extraSubtitle ? (
-              <Text style={Styles.subtitles}>
-                <Text style={Styles.subtitle}>{subtitle}{extraSubtitle ? ' | ' : ''}</Text>
-                <Text style={[Styles.extraSubtitle, extraSubtitleStyle]}>{extraSubtitle}</Text>
-              </Text>
-            ) : null}
           </View>
-          <Radio isChecked={checked} disabled={disabled} changeCheck={this.changeCheck} />
         </View>
       </TouchableWithoutFeedback>
     );
   }
 }
-const Styles = StyleSheet.create({
+const Styles = dynamicStyleSheet({
   container: {
-    height: 60,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 14,
-    paddingHorizontal: 28
+    width: adjustSize(495),
+    flexDirection: 'column',
+    paddingBottom: adjustSize(36),
+    borderRadius: adjustSize(48),
+    backgroundColor: new DynamicColor('#FFF', '#1A1A1A')
   },
   disabled: {
     opacity: 0.3
   },
+  iconContainer: {
+    height: adjustSize(204),
+    width: '100%',
+    flexDirection: 'row'
+  },
+  radioContainer: {
+    flex: 1,
+    alignItems: 'flex-end',
+    marginTop: adjustSize(36),
+    marginRight: adjustSize(36)
+  },
   icon: {
-    width: 44,
-    height: 44,
-    resizeMode: 'contain',
-    marginRight: 8
+    marginLeft: adjustSize(24),
+    marginTop: adjustSize(12),
+    width: adjustSize(204),
+    height: adjustSize(204),
+    resizeMode: 'contain'
   },
   text: {
     flex: 1
   },
   title: {
-    fontFamily: 'MILanPro_MEDIUM--GB1-4',
-    fontSize: 16,
-    color: dynamicColor('#000', '#FFF'),
-    lineHeight: 22
-  },
-  subtitles: {
-    fontFamily: 'MILanPro--GB1-4',
+    marginHorizontal: adjustSize(48),
+    fontFamily: FontMiSansWRegular,
     fontSize: 13,
-    color: dynamicColor('#999', '#666'),
-    lineHeight: 18
+    color: dynamicColor('rgba(0, 0, 0, 0.8)', 'rgba(255, 255, 255, 0.8)'),
+    lineHeight: 23
   },
   checkbox: {
-    width: 22,
-    height: 22,
-    borderRadius: 11
+    width: adjustSize(66),
+    height: adjustSize(66),
+    borderRadius: adjustSize(33)
   }
 });
