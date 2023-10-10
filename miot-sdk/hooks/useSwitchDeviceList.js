@@ -21,12 +21,12 @@ export default function useSwitchLightDeviceList(devices = []) {
               order: 1,
               id: 36019,
               type: 0,
-              name: `开/关 ${ memberInfo?.name || filterDevice?.name }`,
+              name: memberInfo?.name || filterDevice?.deviceName,
               // payload: '',
               payload_json: {
                 command: 'action',
                 delay_time: 0,
-                device_name: memberInfo?.name || filterDevice?.name,
+                device_name: filterDevice?.deviceName,
                 did: filterDevice.did,
                 model: filterDevice.model,
                 value: {

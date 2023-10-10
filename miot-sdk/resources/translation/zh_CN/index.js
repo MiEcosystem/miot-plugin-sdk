@@ -263,7 +263,6 @@ export default {
   switch_listItem_value_voiceControlLoopOn: "开启",
   switch_listItem_value_voiceControlLoopOff: "关闭",
   switch_listItem_subtile_xiaoAiVoiceControlLoopDescription: "开启后，小爱同学可以控制相应回路的通断， 若回路上连接智能灯，可能造成智能灯断电离线",
-  switch_wirelessSwitchTurnOffMessage: "关闭后，若回路上连接了智能灯，会造成智能灯断电离线",
   switch_listItem_title_operationMode: "操作模式",
   switch_listItem_title_speedMode: "疾速模式",
   switch_listItem_title_standardMode: "标准模式",
@@ -272,6 +271,7 @@ export default {
   switch_dia_msg_speedModeMessage: "当前设备设置了“双击”或“长按”的自动化，疾速模式下，相关智能场景将无法响应，是否确认切换为疾速模式？",
   switch_title_selectDeviceType: "选择设备类型",
   switch_subtitle_selectDeviceType: "请选择${}控制的设备类型",
+  switch_subtitle_liveWire_selectDeviceType: "请选择${}控制的设备类型。为保障单火开关正常工作，建议保留一个按键连接普通设备",
   switch_title_deviceType_normalDevice: "普通设备（普通灯等非智能设备）",
   switch_title_deviceType_smartLight: "智能灯",
   switch_title_deviceType_smartSwitch: "其它智能开关（开关互控）",
@@ -305,5 +305,9 @@ export default {
   common_saving: '保存中，请稍后...',
   switch_listItem_title_executionType: "执行方式",
   switch_listItem_value_executionTypeCloud: "云端",
-  switch_listItem_value_executionTypeLocale: "本地"
+  switch_listItem_value_executionTypeLocale: "本地",
+  switch_dia_msg_deleteScene: "删除自动化？",
+  switch_scene_name_toggleSwitchDevice: "${} 单击${}——开/关 ${}- ${}",
+  switch_scene_name_toggleLightDevice: "${} 单击${}——开/关 ${}",
+  switch_scene_name_executeManualScene: "${} 单击${}——执行 ${}"
 };

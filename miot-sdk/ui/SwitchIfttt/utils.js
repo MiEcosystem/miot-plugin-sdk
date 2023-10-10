@@ -1,22 +1,23 @@
 import { Device, Service } from 'miot';
 import { SWITCH_DEVICE_TYPE } from "./Const";
+import { strings as I18n } from '../../resources';
 export function getSwitchTypeTitle(type = '') {
-  let switchTypeDescription = '未设置';
+  let switchTypeDescription = I18n.common_listItem_value_unset;
   switch (type) {
     case SWITCH_DEVICE_TYPE.COMMON_DEVICE:
-      switchTypeDescription = '普通设备（普通灯等非智能设备）';
+      switchTypeDescription = I18n.switch_title_deviceType_normalDevice;
       break;
     case SWITCH_DEVICE_TYPE.SMART_LIGHT:
-      switchTypeDescription = '智能灯';
+      switchTypeDescription = I18n.switch_title_deviceType_smartLight;
       break;
     case SWITCH_DEVICE_TYPE.SMART_SWITCH:
-      switchTypeDescription = '其他智能开关（开关双控）';
+      switchTypeDescription = I18n.switch_title_deviceType_smartSwitch;
       break;
     case SWITCH_DEVICE_TYPE.MANUAL_SCENE:
-      switchTypeDescription = '执行批量控制';
+      switchTypeDescription = I18n.switch_title_deviceType_manualScene;
       break;
     case SWITCH_DEVICE_TYPE.OTHER_SMART_DEVICE:
-      switchTypeDescription = '其它智能设备';
+      switchTypeDescription = I18n.switch_title_deviceType_otherSmartDevice;
       break;
     default:
       break;
@@ -24,22 +25,22 @@ export function getSwitchTypeTitle(type = '') {
   return switchTypeDescription;
 }
 export function getSwitchTypeDescription(type = '') {
-  let switchTypeDescription = '未设置';
+  let switchTypeDescription = I18n.common_listItem_value_unset;
   switch (type) {
     case SWITCH_DEVICE_TYPE.COMMON_DEVICE:
-      switchTypeDescription = '普通设备';
+      switchTypeDescription = I18n.switch_value_deviceType_normalDevice;
       break;
     case SWITCH_DEVICE_TYPE.SMART_LIGHT:
-      switchTypeDescription = '智能灯';
+      switchTypeDescription = I18n.switch_value_deviceType_smartLight;
       break;
     case SWITCH_DEVICE_TYPE.SMART_SWITCH:
-      switchTypeDescription = '开关双控';
+      switchTypeDescription = I18n.switch_value_deviceType_smartSwitch;
       break;
     case SWITCH_DEVICE_TYPE.MANUAL_SCENE:
-      switchTypeDescription = '批量控制';
+      switchTypeDescription = I18n.switch_value_deviceType_manualScene;
       break;
     case SWITCH_DEVICE_TYPE.OTHER_SMART_DEVICE:
-      switchTypeDescription = '其它智能设备';
+      switchTypeDescription = I18n.switch_value_deviceType_otherSmartDevice;
       break;
     default:
       break;
@@ -490,7 +491,7 @@ export function getTargetSectionDeviceList(homeDeviceList, deviceType) {
       });
       if (sectionIndex === -1) {
         targetDeviceList.push({
-          title: device?.roomName || '未分配房间',
+          title: device?.roomName || I18n.room_unassigned,
           roomId: device?.roomId,
           data: [device]
         });
@@ -503,4 +504,15 @@ export function getTargetSectionDeviceList(homeDeviceList, deviceType) {
 }
 export function getCustomSceneName(sceneName) {
   return sceneName.substring(0, 30);
+}
+export function getLocalI18n(key, replaces) {
+  if (replaces?.length) {
+    let v = I18n[key];
+    replaces.forEach((r, i) => {
+      v = v.replace('${}', r);
+      v = v.replace(`{${ i + 1 }}`, r);
+    });
+    return v;
+  }
+  return I18n[key];
 }

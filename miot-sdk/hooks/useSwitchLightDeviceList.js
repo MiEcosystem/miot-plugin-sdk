@@ -39,7 +39,7 @@ export default function useSwitchLightDeviceList(devices = []) {
                 id: 15172,
                 order: 1,
                 type: 0,
-                name: '开/关',
+                name: filterDevice.deviceName,
                 payload: '',
                 payload_json: {
                   command: 'action',

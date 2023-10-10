@@ -9,6 +9,7 @@ export default class ChoiceItemWithIcon extends Component {
   static propTypes = {
     icon: PropTypes.any,
     title: PropTypes.string,
+    titleStyle: PropTypes.object,
     subtitle: PropTypes.string,
     extraSubtitle: PropTypes.string,
     extraSubtitleStyle: PropTypes.object,
@@ -56,7 +57,7 @@ export default class ChoiceItemWithIcon extends Component {
     }
   }
   render() {
-    const { icon, title, subtitle, extraSubtitle, extraSubtitleStyle, disabled } = this.props;
+    const { icon, title, titleStyle, subtitle, extraSubtitle, extraSubtitleStyle, disabled } = this.props;
     const { checked } = this.state;
     return (
       <TouchableWithoutFeedback onPress={() => {
@@ -78,7 +79,7 @@ export default class ChoiceItemWithIcon extends Component {
         >
           {icon ? <Image style={[Styles.icon, disabled ? Styles.disabled : null]} source={icon} /> : null}
           <View style={[Styles.text, disabled ? Styles.disabled : null]}>
-            <Text style={Styles.title}>{title}</Text>
+            <Text style={[Styles.title, titleStyle]}>{title}</Text>
             {subtitle || extraSubtitle ? (
               <Text style={Styles.subtitles}>
                 <Text style={Styles.subtitle}>{subtitle}{extraSubtitle ? ' | ' : ''}</Text>
