@@ -1102,6 +1102,7 @@ export default class CommonSetting extends React.Component {
       this.setState({ cloudStorageOn: result });
     });
   }
+ 
   _updateFreqFlag() {
     Device.getFreqFlag().then((freqFlagRes) => {
       let freqFlag = freqFlagRes.data;
