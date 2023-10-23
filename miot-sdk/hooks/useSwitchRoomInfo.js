@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Device, Service, PackageEvent } from 'miot';
 import useDeepCompareEffect from './useDeepCompareEffect';
 export default function useSwitchRoomInfo(roomIds = [], did = Device.deviceID) {
-  console.log('useSwitchRoomInfo----roomIds', roomIds);
+  // console.log('useSwitchRoomInfo----roomIds', roomIds);
   const [roomInfo, setRoomInfo] = useState({});
   const updateRoomInfo = () => {
     if (roomIds?.length > 1) {

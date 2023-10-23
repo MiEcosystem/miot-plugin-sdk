@@ -28,12 +28,12 @@ export default function useSpecificTagsSceneList({
       });
     });
   };
-  const deleteTagsScene = (scene) => {
+  const deleteTagsScene = (scene_id) => {
     return new Promise((resolve, reject) => {
-      Service.sceneV2.deleteScene(scene.scene_id).then((res) => {
+      Service.sceneV2.deleteScene(scene_id).then((res) => {
         // console.log('创建关联场景--editScene-res', res);
         const editResult = tagsSceneList.filter((s) => {
-          return s.scene_id !== scene.scene_id;
+          return s.scene_id !== scene_id;
         });
         DeviceEventEmitter.emit('EditTagsScene_DeviceEventEmitter', editResult);
         resolve(res);
