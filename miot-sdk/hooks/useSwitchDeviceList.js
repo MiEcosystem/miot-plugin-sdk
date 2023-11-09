@@ -41,7 +41,7 @@ export default function useSwitchLightDeviceList(devices = []) {
             },
             ...(memberInfo?.room_id ? { 
               roomId: memberInfo?.room_id,
-              deviceName: memberInfo?.name,
+              deviceName: specs.length > 1 ? `${ memberInfo?.name }-${ filterDevice?.deviceName }` : memberInfo?.name,
               memberId: specIndex
             } : {})
           };
