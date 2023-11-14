@@ -81,7 +81,7 @@ const styles = dynamicStyleSheet({
     paddingVertical: adjustSize(36),
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: new DynamicColor('rgba(242, 242, 242, 1)', 'rgba(242, 242, 242, 0.8)'),
+    backgroundColor: new DynamicColor('rgba(242, 242, 242, 1)', '#1A1A1A'),
     borderWidth: 0.5,
     borderColor: 'rgba(0, 0, 0, 0.05)',
     borderRadius: adjustSize(36),

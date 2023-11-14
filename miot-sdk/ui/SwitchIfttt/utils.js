@@ -378,7 +378,7 @@ export function getClickTriggerConfig(spec, propSpec, propKey) {
   }
   return triggerConfig;
 }
-export function getTargetDeviceList(homeDeviceList, deviceType) {
+export function getTargetDeviceList(homeDeviceList, deviceType, filterMain) {
   const targetDeviceList = [];
   for (let index = 0; index < homeDeviceList.length; index++) {
     const device = homeDeviceList[index];
@@ -389,7 +389,13 @@ export function getTargetDeviceList(homeDeviceList, deviceType) {
     const regex = /device:([^:]*):/;
     const type = device.specUrn.match(regex);
     if (type && type[1] === deviceType) {
-      targetDeviceList.push(device);
+      if (filterMain) {
+        if (!device.did.includes('.s')) {
+          targetDeviceList.push(device);
+        }
+      } else {
+        targetDeviceList.push(device);
+      }
     }
   }
   return targetDeviceList;
