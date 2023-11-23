@@ -924,13 +924,13 @@ class IUi {
     openDeviceCallSettingPage(did) {
       native.MIOTHost.openDeviceCallSettingPage(did);
     }
-  /**
-   * 打开配对模式界面，仅Matter设备具备该项
-   */
-  @report
-  openMatterConnectPage(did) {
-    native.MIOTHost.openMatterConnectPage(did);
-  }
+  // /**
+  //  * 打开配对模式界面，仅Matter设备具备该项
+  //  */
+  // @report
+  // openMatterConnectPage(did) {
+  //   native.MIOTHost.openMatterConnectPage(did);
+  // }
 }
 const UiInstance = new IUi();
 export default UiInstance;
