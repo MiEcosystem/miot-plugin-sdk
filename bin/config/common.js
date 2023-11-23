@@ -224,6 +224,31 @@ function removeDir(srcPath){
   })
 }
 
+function execNode(command, ...params) {
+  return new Promise((resolve, reject) => {
+      console.log("================================")
+      console.log(command, ...params)
+      exec("node", [command, ...params], code => {
+          if (code != 0) {
+              reject(code);
+          } else {
+              resolve();
+          }
+      })
+  })
+}
+
+function parsePackageNameArg(argv) {
+  const arg = (argv || "").trim();
+  const is_abs = path.isAbsolute(arg)
+  const ps = arg.split(path.sep).filter(p => p && p.length);
+  const packageName = ps[ps.length - 1];
+  const package_path = is_abs ? path.join(arg)
+      : (packageName == arg ? path.join(project_dir, "projects", packageName) : path.join(process_dir, ...ps));
+  // console.log(arg, ps, is_abs)
+  return [packageName, package_path]
+}
+
 module.exports = {
     DEV,
     project_dir,
@@ -246,6 +271,7 @@ module.exports = {
     SUPPORTED_ASSET_FILE_TYPES,
 
     exec,
+    execNode,
     execSync,
 
     copyFile,
@@ -261,5 +287,6 @@ module.exports = {
 
     removeDir,
 
-    objectWithoutProperties
+    objectWithoutProperties,
+    parsePackageNameArg
 }
