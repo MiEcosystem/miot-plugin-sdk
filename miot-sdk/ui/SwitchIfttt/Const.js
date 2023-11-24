@@ -1,4 +1,4 @@
-export const MIOT_SWITCH_DEVICE_TYPE_KEY = 100006;
+export const MIOT_SWITCH_DEVICE_TYPE_KEY = 30006;
 export const MIOT_SWITCH_SCENE_TAGS = 'plugin-intelligent-switch';
 export const SWITCH_DEVICE_TYPE = {
   /** 普通设备 */
