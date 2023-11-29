@@ -356,7 +356,7 @@ export function createDeviceSceneAction(action) {
 export function getClickTriggerConfig(spec, propSpec, propKey) {
   let triggerConfig = [];
   const DeviceModel = Device.model;
-  if (propSpec) {
+  if (propSpec && spec) {
     triggerConfig.push({
       key: spec.miid ? `event.${ spec.miid }.${ spec.siid }.${ spec.eiid }` : `event.${ spec.siid }.${ spec.eiid }`,
       valueKey: propSpec.miid ? `prop.${ DeviceModel }.${ propSpec.miid }.${ propSpec.siid }.${ propSpec.piid }` : `prop.${ DeviceModel }.${ propSpec.siid }.${ propSpec.piid }`,
