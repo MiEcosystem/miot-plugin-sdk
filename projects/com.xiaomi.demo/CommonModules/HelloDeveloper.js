@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Text,
   Image,
-  View,
+  View
 } from 'react-native';
 
 // export default class MoreMenu extends React.Component
@@ -32,21 +32,21 @@ export default class HelloDeveloper extends React.Component {
       </View>
     );
   }
-};
+}
 
 var styles = StyleSheet.create({
   containerAll: {
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#838383',
-    marginTop: 0,
+    marginTop: 0
   },
   containerIcon: {
     flex: 1.3,
     flexDirection: 'column',
     justifyContent: 'center',
     backgroundColor: '#ffffff',
-    alignSelf: 'stretch',
+    alignSelf: 'stretch'
   },
   containerText: {
     flex: 1,
@@ -54,18 +54,18 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#ffffff',
     alignSelf: 'stretch',
-    padding: 20,
+    padding: 20
   },
 
   icon: {
     alignSelf: 'center',
     width: 152,
-    height: 165,
+    height: 165
   },
 
   title: {
     fontSize: 16,
-    alignSelf: 'center',
-  },
+    alignSelf: 'center'
+  }
 
 });
