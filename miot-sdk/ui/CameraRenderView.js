@@ -226,7 +226,7 @@ export default class CameraRenderView extends React.Component {
   /**
    * 开始录制声音
    */
-  startAudioRecord() {
+  startAudioRecord(enableAEC = true) {
      return null
   }
   /**
