@@ -388,13 +388,19 @@ export function getTargetDeviceList(homeDeviceList, deviceType, filterMain) {
     }
     const regex = /device:([^:]*):/;
     const type = device.specUrn.match(regex);
+    
     if (type && type[1] === deviceType) {
-      if (filterMain) {
-        if (!device.did.includes('.s')) {
+      const deviceIndex = targetDeviceList.findIndex((s) => {
+        return s.did === device?.did;
+      });
+      if (deviceIndex === -1) {
+        if (filterMain) {
+          if (!device.did.includes('.s') && device.did !== Device.deviceID) {
+            targetDeviceList.push(device);
+          }
+        } else {
           targetDeviceList.push(device);
-        }
-      } else {
-        targetDeviceList.push(device);
+        } 
       }
     }
   }
@@ -440,4 +446,8 @@ export function getLocalI18n(key, replaces) {
     return v;
   }
   return I18n[key];
+}
+export function getSwitchTypeKey(spec) {
+  const { miid, siid, piid } = spec || {};
+  return miid ? `${ Device.deviceID }.${ miid }.${ siid }.${ piid }` : `${ Device.deviceID }.${ siid }.${ piid }`;
 }
