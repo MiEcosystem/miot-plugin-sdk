@@ -313,5 +313,8 @@ export default {
   switch_dia_msg_deleteScene: 'Delete this automation?',
   switch_scene_name_toggleSwitchDevice: '${} | Single press | ${} | On/Off | ${}-${}',
   switch_scene_name_toggleLightDevice: '${} | Single press | ${} | On/Off | ${}',
-  switch_scene_name_executeManualScene: '${} | Single press | ${} | Run | ${}-${}'
+  switch_scene_name_executeManualScene: '${} | Single press | ${} | Run | ${}-${}',
+  switch_list_device_unavailable: "未显示的设备暂不支持此功能",
+  switch_button_subtitle_notCurrentHome: "不在当前家庭",
+  common_list_empty: "暂无"
 };
