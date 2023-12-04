@@ -15,7 +15,7 @@ export default function useFreqCameraInfo() {
     setInfo(freqCameraInfo);
   }
   function update() {
-    Promise.all(Device.getFreqCameraFlag(), Host.ui.getFreqCameraNeedShowRedPoint()).then(([flag, need]) => {
+    Promise.all([Device.getFreqCameraFlag(), Host.ui.getFreqCameraNeedShowRedPoint()]).then(([flag, need]) => {
       const isFreqDevice = flag?.data;
       const canUpgrade = need?.freqCameraNeedShowRedPoint;
       freqCameraInfo = {
