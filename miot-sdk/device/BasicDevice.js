@@ -956,6 +956,33 @@ export class BasicDevice {
      return Promise.resolve({});
   }
   /**
+   * 获取家庭成员的列表
+   * @since 10090
+   * @returns {Promise<Object>} 成功时
+   * {
+   *  "code": 0,
+   *  "data": [
+        {
+   *      "icon": "xxx.jpg",
+          "nick_name": "小米账号",
+          "uid": 894158105,
+   *    }]
+   * }
+   * 失败时：{code:-1,message:"xxx}
+   * @example
+   * let options = {}
+   * Device.getHomeMemberList(options).then((res) => {
+   *        alert(JSON.stringify(res, null, '\t'));
+   *     }).catch((err) => {
+   *        alert(JSON.stringify(err, null, '\t'));
+   *     });
+   */
+  @report
+  getHomeMemberList(options = {})
+  {
+     return Promise
+  }
+  /**
    * 紧急联系人设置判断
    * @since 10085
    * @returns {Promise<Object>}
