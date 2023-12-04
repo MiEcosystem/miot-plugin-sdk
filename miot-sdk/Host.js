@@ -128,6 +128,16 @@ export default {
     return native.MIOTHost.mobileType;
   },
   /**
+   * @const
+   * @type {String}
+   * @description 业务类型
+   * 在米家业务返回'Mijia',穿戴业务返回值为 'Wear'
+   * @return { ('Mijia'|'Wear') }
+   */
+  get businessType() {
+     return  "..."
+  },
+  /**
      * @const
      * @type {number}
      * @since  10081  获取iphone手机顶部状态栏距离
