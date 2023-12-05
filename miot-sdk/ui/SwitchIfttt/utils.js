@@ -329,7 +329,7 @@ export function createSwitchScene(extra) {
   };
   return scene;
 }
-export function createSwitchTrigger(spec, value = '', value_type = 5) {
+export function createSwitchTrigger(spec, propSpec, propValue, value_type = 5) {
   const sceneTrigger = {
     express: 0,
     triggers: [{
@@ -339,14 +339,23 @@ export function createSwitchTrigger(spec, value = '', value_type = 5) {
       key: encodeProp(spec),
       extra: '',
       name: `${ spec?.i18n }`,
-      value,
-      value_type,
+      value: '',
+      value_type: propValue === undefined ? value_type : 6,
       extra_json: {
         device_name: Device.name,
         did: Device.deviceID,
         model: Device.model
       },
-      value_json: '',
+      value_json: propValue === undefined ? '' : {
+        sub_props: {
+          express: 0,
+          attr: [{
+            key: propSpec?.miid ? `prop.${ Device.model }.${ propSpec?.miid }.${ propSpec?.siid }.${ propSpec?.piid }` : `prop.${ Device.model }.${ propSpec?.siid }.${ propSpec?.piid }`,
+            value: propValue,
+            value_type: 1
+          }]
+        }
+      },
       // protocol_type: 2,
       sc_id: 9321,
       from: 1

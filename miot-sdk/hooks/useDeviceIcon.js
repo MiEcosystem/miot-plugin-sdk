@@ -12,7 +12,7 @@ export default function useDeviceIcon() {
       Service.smarthome
         .getDeviceIcon({ subclass_id: 0 })
         .then(({ data: { proxy_category_icon } }) => {
-          setIconURL(`${ proxy_category_icon }?${ Date.now() }`);
+          setIconURL(`${ proxy_category_icon }`);
         });
     }
     const listener = DeviceEvent.deviceIconChanged.addListener(() => {
