@@ -45,7 +45,9 @@
       "lumi.safe.",
       "xiaomi.lock.m30",
       "xiaomi.lock.dl02v1",
-      "yunlu.door."
+      "yunlu.door.",
+      "loock.lock.t3pmax",
+      "loock.lock.t3pro"
     ],
     "getDevicesWithModel": [
       "chuangmi.plug.m3",
