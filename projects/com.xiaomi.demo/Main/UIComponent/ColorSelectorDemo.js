@@ -9,14 +9,14 @@ export default class ColorSelectorDemo extends React.Component {
       disable: false,
       showIndicator: true,
       showIndicatorText: true,
-      showBoarder: true,
+      showBorder: true,
       showWhite: true,
       indicatorTexts: []
     };
   }
 
   render() {
-    let { disable, showIndicator, indicatorRadius, allowIndicatorOverlap, showIndicatorText, indicatorTexts, showBoarder, showWhite } = this.state;
+    let { disable, showIndicator, indicatorRadius, allowIndicatorOverlap, showIndicatorText, indicatorTexts, showBorder: showBorder, showWhite } = this.state;
     return (<View style={ { flex: 1 } }>
       <ColorSelector
         ref={(ref) => { this.colorSelector = ref; }}
@@ -27,7 +27,7 @@ export default class ColorSelectorDemo extends React.Component {
         indicatorRadius={indicatorRadius}
         allowIndicatorOverlap={allowIndicatorOverlap}
         showIndicatorText={showIndicatorText}
-        showBoarder={showBoarder}
+        showBorder={showBorder}
         showWhite={showWhite}
         indicatorTexts={indicatorTexts}
         onColorChange={ (data) => {
@@ -63,10 +63,10 @@ export default class ColorSelectorDemo extends React.Component {
       </TouchableOpacity>
       <TouchableOpacity style={ Styles.button } onPress={ () => {
         this.setState({
-          showBoarder: !this.state.showBoarder
+          showBorder: !this.state.showBorder
         });
       } }>
-        <Text style={ Styles.buttonText }>{ 'showBoarder' }</Text>
+        <Text style={ Styles.buttonText }>{ 'showBorder' }</Text>
       </TouchableOpacity>
       <TouchableOpacity style={ Styles.button } onPress={ () => {
         this.setState({
