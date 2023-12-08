@@ -268,7 +268,7 @@ export default {
   switch_listItem_title_standardMode: "标准模式",
   switch_listItem_subtile_speedModeDescription: "若该设备只需设置「单击」的自动化，推荐选择此项，设备将快速响应单击操作，提升自动化响应速度",
   switch_listItem_subtile_standardModeDescription: "若该设备需要设置「双击」或「长按」的自动化，请选择此项",
-  switch_dia_msg_speedModeMessage: "当前设备设置了「双击」或「长按」的自动化，疾速模式下，相关智能场景将无法响应，是否确认切换为疾速模式？",
+  switch_dia_msg_speedModeMessage: "当前设备设置了「双击」或「长按」的自动化，疾速模式下，相关智能场景将无法响应",
   switch_title_selectDeviceType: "选择设备类型",
   switch_subtitle_selectDeviceType: "请选择${}控制的设备类型",
   switch_subtitle_liveWire_selectDeviceType: "请选择${}控制的设备类型。为保障单火开关正常工作，建议保留一个按键连接普通设备",
@@ -312,5 +312,7 @@ export default {
   switch_scene_name_executeManualScene: "${} 单击${}——执行 ${}",
   switch_list_device_unavailable: "未显示的设备暂不支持此功能",
   switch_button_subtitle_notCurrentHome: "不在当前家庭",
-  common_list_empty: "暂无"
+  common_list_empty: "暂无",
+  switch_dia_msg_repeatScene: "当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？",
+  common_loading: '加载中，请稍后...'
 };

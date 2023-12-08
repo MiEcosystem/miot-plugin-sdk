@@ -223,7 +223,7 @@ const API_REPO = {
   '/business/camera/video_vip_tips': {},
   '/business/camera/video_banner': {},
   '/business/camera/video_home_vip_tips': {},
-  '/app/business/camera/video_patch_tips': {},
+  '/business/camera/video_patch_tips': {},
   // 每日故事开关接口
   '/miot/camera/app/v1/put/dailyStorySwitch': {},
   '/v2/device/set_camera_phoneservice_switch': {}, // 设置电话服务开关
