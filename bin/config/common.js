@@ -37,7 +37,7 @@ if(!DEV){
   fs.chmodSync(path.join(project_dir, "package.json"), 0o444);
 }
 
-const sdkconf = JSON.parse(fs.readFileSync(path.join(project_dir, command.wear ? "wear-sdk" : "miot-sdk", "package.json")).toString());
+const sdkconf = JSON.parse(fs.readFileSync(path.join(project_dir, command.wear ? "miwear-sdk" : "miot-sdk", "package.json")).toString());
 const API_LEVEL = sdkconf.api_level;
 const SDK_VERSION = Math.floor(API_LEVEL / 10000) + "."
                   + Math.floor((API_LEVEL % 10000)/100) + "."

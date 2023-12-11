@@ -233,6 +233,12 @@ import OfficialDemos from "./OfficialDemos";
 
 import Logger from "./Logger";
 
+// 穿戴API测试
+import WearMainPage from "./WearPages/WearMainPage";
+import AccountPage from "./WearPages/AccountPage";
+import CommonAPI from "./WearPages/CommonAPI";
+import AboutPage from "./WearPages/AboutPage";
+
 function createRootStack(initPage) {
   return createStackNavigator(
     {
@@ -455,7 +461,13 @@ function createRootStack(initPage) {
       // 米家iOS 自定义第三方库<
 
       // 官方Demo
-      OfficialDemos
+      OfficialDemos,
+
+      // 穿戴API测试Demo
+      WearMainPage,
+      AccountPage,
+      CommonAPI,
+      AboutPage
     },
     {
       initialRouteName: initPage,
