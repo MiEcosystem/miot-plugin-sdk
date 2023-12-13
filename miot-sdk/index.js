@@ -30,13 +30,13 @@ import { CompassChangeEvent as CompassChangeEventNames } from './system/compass'
 import { VolumeChangeEvent as VolumeChangeEventNames } from './system/volume';
 import { GyroscopeChangeEvent as GyroscopeChangeEventNames } from './system/gyroscope';
 import PackageInstance, { Entrance as Entrances, PackageEvent as PackageEventNames } from './Package';
-import { PrivacyEvent as PrivacyEventNames, CLOUD_PRIVACY_EVENT_TYPE , UserExpPlanEvent as UserExpPlanEventNames, USER_EXP_PLAN_EVENT_TYPE} from './utils/protocol-helper';
+import { PrivacyEvent as PrivacyEventNames, CLOUD_PRIVACY_EVENT_TYPE, UserExpPlanEvent as UserExpPlanEventNames, USER_EXP_PLAN_EVENT_TYPE } from './utils/protocol-helper';
 import { RootDeviceProperties } from "./Properties";
 import ResourcesPack from './resources';
 import ServiceInstance from './Service';
 import { SceneType as SceneTypeNames } from './service/scene';
 import DarkModeFactory from './darkmode';
-export const API_LEVEL = 10068
+export const API_LEVEL = 10087
 /**
  * 插件包基本配置
  * {@link module:miot/Package}
