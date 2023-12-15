@@ -79,7 +79,18 @@ export default class LocalServer extends React.Component {
           }}>
             <Text style={styles.buttonText}>获取手机时区信息</Text>
           </TouchableOpacity>
-
+          <TouchableOpacity style={styles.button} onPress={() => {
+            Logger.trace(this, this.render, { action: 'request' });
+            Host.locale.getSystemTimeZoneOffset().then((res) => {
+              console.log("res", res);
+              alert(JSON.stringify(res));
+            }).catch((error) => {
+              console.log("error", error);
+              alert(JSON.stringify(error));
+            });
+          }}>
+            <Text style={styles.buttonText}>获取手机时区差信息</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => {
             Logger.trace(this, this.render, { action: 'request' });
             let params = {

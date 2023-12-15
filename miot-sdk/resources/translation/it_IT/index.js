@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'La versione firmware in uso è obsoleta. Alcune funzioni potrebbero non funzionare correttamente. Aggiorna all\'ultima versione per una migliore esperienza.',
   firmwareUpgradeForceUpdating: 'Il dispositivo è in fase di aggiornamento. Riprova più tardi.',
   firmwareUpgradeNew_pre: 'Aggiornamento disponibile. ',
-  firmwareUpgradeNew_sub: 'Aggiornare?',
+  firmwareUpgradeNew_sub: ' Aggiornare?',
   handling: 'Solo un secondo…',
   error: 'Si è verificato un errore. Riprova più tardi.',
   createLightGroup: 'Crea un gruppo di luci (nuovo)',

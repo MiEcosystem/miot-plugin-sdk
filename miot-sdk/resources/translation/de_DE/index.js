@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'Die aktuelle Firmware ist möglicherweise zu alt, um einige Funktionen auszuführen. Aktualisieren Sie auf die neueste Version, um eine verbesserte Funktionsausführung zu erzielen.',
   firmwareUpgradeForceUpdating: 'Gerät wird aktualisiert. Bitte später erneut versuchen.',
   firmwareUpgradeNew_pre: 'Ein Update ist verfügbar. ',
-  firmwareUpgradeNew_sub: 'Jetzt aktualisieren?',
+  firmwareUpgradeNew_sub: ' Jetzt aktualisieren?',
   handling: 'Einen Moment, bitte …',
   error: 'Ein Fehler ist aufgetreten. Bitte später erneut versuchen.',
   createLightGroup: 'Lichtgruppe erstellen (neu)',

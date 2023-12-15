@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'A jelenlegi firmware túl régi, ezért bizonyos funkciók nem működnek rajta. A jobb élmény érdekében frissítse a verziót.',
   firmwareUpgradeForceUpdating: 'A készülék frissít. Próbálja meg később.',
   firmwareUpgradeNew_pre: 'Egy frissítés elérhető. ',
-  firmwareUpgradeNew_sub: 'Frissítés most?',
+  firmwareUpgradeNew_sub: ' Frissítés most?',
   handling: 'Egy pillanat…',
   error: 'Hiba történt. Próbálja újra később.',
   createLightGroup: 'Lámpacsoport létrehozása (új)',

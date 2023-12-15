@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: '現在ご使用のファームウェアは旧バージョンのため、一部の機能が正しく作動しない場合があります。より良いエクスペリエンスのために、最新バージョンに更新してください。',
   firmwareUpgradeForceUpdating: 'デバイス更新中です。後でもう一度お試しください。',
   firmwareUpgradeNew_pre: 'アップデートが利用可能です。 ',
-  firmwareUpgradeNew_sub: '今すぐアップデート？',
+  firmwareUpgradeNew_sub: ' 今すぐアップデート？',
   handling: 'お待ちください…',
   error: 'エラーが発生しました。後でもう一度お試しください。',
   createLightGroup: 'ライトグループを作成（新規）',

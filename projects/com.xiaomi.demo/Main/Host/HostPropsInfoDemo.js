@@ -13,7 +13,9 @@ export default class HostPropsInfoDemo extends Component {
       phoneScreenInfo: '',
       operatorsInfo: '',
       phoneHasNfcForAndroid: '',
-      pageShouldAdapterSoftKeyboard: false
+      pageShouldAdapterSoftKeyboard: false,
+      dimension: '',
+      navigationBarHeight: ''
     };
     Logger.trace(this);
   }
@@ -44,10 +46,20 @@ export default class HostPropsInfoDemo extends Component {
     }).catch((err) => {
       this.setState({ phoneHasNfcForAndroid: err });
     });
-    Host.pageShouldAdapterSoftKeyboard().then((res) => {
+    Host.pageShouldAdapterSoftKeyboard(false).then((res) => {
       this.setState({ pageShouldAdapterSoftKeyboard: res });
     }).catch((err) => {
       this.setState({ pageShouldAdapterSoftKeyboard: err });
+    });
+    Host.getPhysicsDimension().then((res) => {
+      this.setState({ dimension: res });
+    }).catch((err) => {
+      this.setState({ dimension: err });
+    });
+    Host.ui.getNavigationBarHeight().then((res) => {
+      this.setState({ navigationBarHeight: res });
+    }).catch((err) => {
+      this.setState({ navigationBarHeight: err });
     });
   }
 
@@ -71,7 +83,9 @@ export default class HostPropsInfoDemo extends Component {
               ['getPhoneScreenInfo', this.state.phoneScreenInfo],
               ['getOperatorsInfo', this.state.operatorsInfo],
               ['phoneHasNfcForAndroid', this.state.phoneHasNfcForAndroid],
-              ['pageShouldAdapterSoftKeyboard', this.state.pageShouldAdapterSoftKeyboard]
+              ['pageShouldAdapterSoftKeyboard', this.state.pageShouldAdapterSoftKeyboard],
+              ['dimension', this.state.dimension],
+              ['navigationBarHeight', this.state.navigationBarHeight]
             ].map((item, index) => {
               console.log(JSON.stringify(item));
               return (

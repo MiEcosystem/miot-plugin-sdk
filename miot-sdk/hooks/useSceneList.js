@@ -9,6 +9,7 @@ export default function useSceneList(triggers = [], homeId, did = Device.deviceI
   const [sceneListV1, setSceneV1List] = useState(cachedSceneListV1[did] || []);
   const [existTriggerScene, setExistTriggerScene] = useState(existSpecificTriggerSceneV2(sceneList, triggers) || 
   existSpecificTriggerScene(sceneListV1, triggers));
+  const [sceneLoading, setSceneLoading] = useState(true);
   const fetchSceneList = () => {
     if (!homeId) {
       console.log('获取智能列表报错---loadSceneList---homeId不存在');
@@ -40,6 +41,7 @@ export default function useSceneList(triggers = [], homeId, did = Device.deviceI
         setExistTriggerScene(existSpecificTriggerSceneV2(listV2, triggers) || 
         existSpecificTriggerScene(listV1, triggers));
       }
+      setSceneLoading(false);
     });
   };
   useDeepCompareEffect(() => {
@@ -54,6 +56,7 @@ export default function useSceneList(triggers = [], homeId, did = Device.deviceI
   return {
     sceneListV1,
     sceneList,
-    existTriggerScene
+    existTriggerScene,
+    sceneLoading
   };
 }

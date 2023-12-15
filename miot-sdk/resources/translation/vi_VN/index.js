@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'Phiên bản chương trình cơ sở hiện tại quá cũ, một số tính năng có thể không hoạt động bình thường. Cập nhật lên phiên bản mới nhất để có trải nghiệm tốt hơn.',
   firmwareUpgradeForceUpdating: 'Thiết bị đang cập nhật. Hãy thử lại sau.',
   firmwareUpgradeNew_pre: 'Tìm thấy cập nhật mới. ',
-  firmwareUpgradeNew_sub: 'Cập nhật ngay?',
+  firmwareUpgradeNew_sub: ' Cập nhật ngay?',
   handling: 'Đợi một chút…',
   error: 'Đã xảy ra lỗi. Hãy thử lại sau.',
   createLightGroup: 'Tạo nhóm đèn (mới)',

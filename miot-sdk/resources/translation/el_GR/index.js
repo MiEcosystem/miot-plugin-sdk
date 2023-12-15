@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'Το τρέχον υλικολογισμικό μπορεί να είναι πολύ παλαιό για να εκτελεί ορισμένες λειτουργίες. Κάντε ενημέρωση στην τελευταία έκδοση για καλύτερη εμπειρία.',
   firmwareUpgradeForceUpdating: 'Η συσκευή ενημερώνεται. Προσπαθήστε ξανά αργότερα.',
   firmwareUpgradeNew_pre: 'Υπάρχει διαθέσιμη ενημέρωση. ',
-  firmwareUpgradeNew_sub: 'Ενημέρωση τώρα;',
+  firmwareUpgradeNew_sub: ' Ενημέρωση τώρα;',
   handling: 'Μια στιγμή…',
   error: 'Παρουσιάστηκε σφάλμα. Προσπαθήστε ξανά αργότερα.',
   createLightGroup: 'Δημιουργία ομάδας φώτων (νέα)',

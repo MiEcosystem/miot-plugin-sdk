@@ -7,10 +7,7 @@ export default class ColorPickerDemo extends React.Component {
     super(props);
     this.state = {
       disable: false,
-      showIndicator: true,
-      showBoarder: true,
-      showWhite: false,
-      indicatorRadius: 23
+      showIndicator: true
     };
   }
 
@@ -20,9 +17,6 @@ export default class ColorPickerDemo extends React.Component {
       <ColorPicker
         disable={ this.state.disable }
         showIndicator={this.state.showIndicator}
-        showBoarder={this.state.showBoarder}
-        showWhite={this.state.showWhite}
-        indicatorRadius={this.state.indicatorRadius}
         type="color"
         style={ Styles.colorPicker }
         onInit={ () => {
@@ -38,9 +32,6 @@ export default class ColorPickerDemo extends React.Component {
       <ColorPicker
         disable={ this.state.disable }
         showIndicator={this.state.showIndicator}
-        showBoarder={this.state.showBoarder}
-        showWhite={this.state.showWhite}
-        indicatorRadius={this.state.indicatorRadius}
         type="white"
         style={ [Styles.colorPicker, { marginTop: 20 }] }
         onInit={ () => {
@@ -59,20 +50,6 @@ export default class ColorPickerDemo extends React.Component {
         });
       } }>
         <Text style={ Styles.buttonText }>{ 'disable' }</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={ Styles.button } onPress={ () => {
-        this.setState({
-          showBoarder: !this.state.showBoarder
-        });
-      } }>
-        <Text style={ Styles.buttonText }>{ 'showBoarder' }</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={ Styles.button } onPress={ () => {
-        this.setState({
-          showWhite: !this.state.showWhite
-        });
-      } }>
-        <Text style={ Styles.buttonText }>{ 'showWhite' }</Text>
       </TouchableOpacity>
       <TouchableOpacity style={ Styles.button } onPress={ () => {
         this.setState({

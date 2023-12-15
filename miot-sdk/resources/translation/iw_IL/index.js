@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'גרסת הקושחה הנוכחית עשויה להיות ישנה מדי להפעלת תכונות מסוימות. עדכן לגרסה העדכנית ביותר לחוויה טובה יותר.',
   firmwareUpgradeForceUpdating: 'המכשיר מתעדכן. נא לנסות שוב מאוחר יותר.',
   firmwareUpgradeNew_pre: 'קיים עדכון זמין. ',
-  firmwareUpgradeNew_sub: 'שדרג עכשיו?',
+  firmwareUpgradeNew_sub: ' שדרג עכשיו?',
   handling: 'רק רגע…',
   error: 'אירעה שגיאה. נא לנסות שוב מאוחר יותר.',
   createLightGroup: 'צור קבוצת נורות (חדשה)',

@@ -6,7 +6,7 @@ import { isIOS } from "../native";
 const RCTColorPickerView = requireNativeComponent('RCTColorPickerView');
 const RCTWhitePickerView = requireNativeComponent('RCTWhitePickerView');
 const ColorPickerView = (
-  { style, type = 'color', onInit, onColorChange, onColorChangeStart, accessible, accessibilityLabel, accessibilityHint, disable, showIndicator = true, showBoarder, showWhite = false, indicatorRadius = -1 },
+  { style, type = 'color', onInit, onColorChange, onColorChangeStart, accessible, accessibilityLabel, accessibilityHint, disable, showIndicator = true },
   ref
 ) => {
   const view = useRef(null);
@@ -16,6 +16,7 @@ const ColorPickerView = (
       [0.0, 0.166, 0.332, 0.5, 0.666, 0.832, 1.0],
       10.0
     ];
+    
     const colorConfigParams = isIOS ? [
       ['#E6312E', '#E6842E', '#E6D72E', '#80ff00', '#00ff00', '#00ff80', '#00ffff', '#0080ff', '#0000ff', '#8000ff', '#E62EE3', '#E62EB5', '#E6312E'], [],
       0.0
@@ -49,9 +50,6 @@ const ColorPickerView = (
         style={style}
         disable={disable}
         showIndicator={showIndicator}
-        showBoarder={showBoarder}
-        showWhite={showWhite}
-        indicatorRadius={indicatorRadius}
         onInit={() => {
           if (onInit) {
             onInit();
@@ -88,8 +86,6 @@ const ColorPickerView = (
         style={style}
         disable={disable}
         showIndicator={showIndicator}
-        showBoarder={showBoarder}
-        indicatorRadius={indicatorRadius}
         onInit={() => {
           if (onInit) {
             onInit();
@@ -122,9 +118,6 @@ ColorPicker.propTypes = {
   type: PropTypes.oneOf(['color', 'white']),
   disable: PropTypes.bool,
   showIndicator: PropTypes.bool,
-  showBoarder: PropTypes.bool,
-  showWhite: PropTypes.bool,
-  indicatorRadius: PropTypes.number,
   onInit: PropTypes.func,
   onColorChange: PropTypes.func,
   onChangeStart: PropTypes.func,

@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'Stávající firmware může být příliš zastaralý ke spuštění některých funkcí. Aktualizujte na nejnovější verzi s lepším prostředím.',
   firmwareUpgradeForceUpdating: 'Zařízení se aktualizuje. Zkuste to znovu později.',
   firmwareUpgradeNew_pre: 'K dispozici je aktualizace. ',
-  firmwareUpgradeNew_sub: 'Aktualizovat?',
+  firmwareUpgradeNew_sub: ' Aktualizovat?',
   handling: 'Ještě chvilku…',
   error: 'Došlo k chybě, zkuste to znovu později.',
   createLightGroup: 'Vytvořit skupinu světel (nová)',

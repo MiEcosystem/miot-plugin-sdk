@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'Nykyinen laiteohjelmisto saattaa olla liian vanha joidenkin ominaisuuksien käyttämiseen. Päivitä uusimpaan versioon paremman käyttökokemuksen saamiseksi.',
   firmwareUpgradeForceUpdating: 'Laitetta päivitetään. Yritä myöhemmin uudelleen.',
   firmwareUpgradeNew_pre: 'Päivitys on saatavilla. ',
-  firmwareUpgradeNew_sub: 'Päivitä nyt?',
+  firmwareUpgradeNew_sub: ' Päivitä nyt?',
   handling: 'Hetki vain…',
   error: 'Tapahtui virhe. Yritä myöhemmin uudelleen.',
   createLightGroup: 'Luo valoryhmä (uusi)',

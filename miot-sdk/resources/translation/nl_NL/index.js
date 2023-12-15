@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'De huidige firmware is mogelijk te oud om bepaalde functies uit te voeren. Update naar de nieuwste versie voor een betere ervaring.',
   firmwareUpgradeForceUpdating: 'Uw apparaat wordt bijgewerkt, probeer het later nog eens.',
   firmwareUpgradeNew_pre: 'Er is een update beschikbaar. ',
-  firmwareUpgradeNew_sub: 'Nu updaten?',
+  firmwareUpgradeNew_sub: ' Nu updaten?',
   handling: 'Een ogenblik geduld…',
   error: 'Er is een fout opgetreden, probeer het later opnieuw.',
   createLightGroup: 'Lichtgroep aanmaken (nieuw)',

@@ -566,6 +566,19 @@ export default class UIDemo extends React.Component {
         }
       },
       {
+        'name': 'openFileSelectPage',
+        'subtitle': '打开文件选择页面 only for Android',
+        'func': () => {
+          if (Host.isAndroid) {
+            Host.ui.openFileSelectPage("*/*").then((res) => {
+              alert(JSON.stringify(res));
+            }).catch((err) => {
+              alert(JSON.stringify(err));
+            });
+          }
+        }
+      },
+      {
         'name': 'openConnectSucceedPage',
         'subtitle': '跳转到房间设置的页面',
         'func': () => {
@@ -714,7 +727,9 @@ export default class UIDemo extends React.Component {
         'name': 'openWifiChoosePage',
         'subtitle': '跳转到WiFi选择页面',
         'func': () => {
-          Host.ui.openWifiChoosePage();
+          Host.ui.openWifiChoosePage().then((res) => {
+            console.log("选择wifi ", res);
+          });
         }
       },
       {

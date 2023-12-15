@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'Aktualna wersja oprogramowania sprzętowego jest zbyt stara, aby niektóre funkcje działały poprawnie. Zaktualizuj do najnowszej wersji, aby działo sprawniej.',
   firmwareUpgradeForceUpdating: 'Urządzenie jest aktualizowane. Spróbuj ponownie później.',
   firmwareUpgradeNew_pre: 'Dostępna jest akutalizacja. ',
-  firmwareUpgradeNew_sub: 'Zaktualizować teraz?',
+  firmwareUpgradeNew_sub: ' Zaktualizować teraz?',
   handling: 'Chwileczkę…',
   error: 'Wystąpił błąd. Spróbuj ponownie później.',
   createLightGroup: 'Utwórz grupę oświetlenia (nową)',
