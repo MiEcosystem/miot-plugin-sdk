@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'Current firmware may be too old to run some features. Update to the latest version for better experience.',
   firmwareUpgradeForceUpdating: 'Device is updating. Try again later.',
   firmwareUpgradeNew_pre: 'An update is available. ',
-  firmwareUpgradeNew_sub: ' Update now?',
+  firmwareUpgradeNew_sub: 'Update now?',
   handling: 'Just a sec…',
   error: 'An error occurred. Try again later.',
   createLightGroup: 'Create light group (new)',
@@ -272,7 +272,7 @@ export default {
   switch_listItem_title_standardMode: 'Standard mode',
   switch_listItem_subtile_speedModeDescription: 'If automation is only required for the action of "press", it is recommended to select this option. Once selected, the switch will respond quickly to the action of pressing, improving the response speed of the automation.',
   switch_listItem_subtile_standardModeDescription: 'If automation is required for "double press" and "press and hold", select this option.',
-  switch_dia_msg_speedModeMessage: 'The automation configured on the current device includes "double press" or "press and hold". Smart scene won\'t respond when Super speed mode is on. Turn on anyway?',
+  switch_dia_msg_speedModeMessage: 'The automation configured on the current device includes "double press" or "press and hold". Smart scene won\'t respond when Super speed mode is on.',
   switch_title_selectDeviceType: 'Select device type',
   switch_subtitle_selectDeviceType: 'Select device type controlled by ${}',
   switch_subtitle_liveWire_selectDeviceType: 'Select device type controlled by ${}. Leave one button connected to regular devices to make sure the switch works normally.',
@@ -316,5 +316,7 @@ export default {
   switch_scene_name_executeManualScene: '${} | Single press | ${} | Run | ${}-${}',
   switch_list_device_unavailable: "未显示的设备暂不支持此功能",
   switch_button_subtitle_notCurrentHome: "不在当前家庭",
-  common_list_empty: "暂无"
+  common_list_empty: "暂无",
+  switch_dia_msg_repeatScene: "当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？",
+  common_loading: '加载中，请稍后...'
 };
