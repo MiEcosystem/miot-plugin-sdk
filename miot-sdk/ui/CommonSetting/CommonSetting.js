@@ -64,6 +64,13 @@ function getCountryCode() {
     }).catch(reject);
   });
 }
+function getIsBelongToCarRoom() {
+  return new Promise((resolve, reject) => {
+    Device.isBelongToCarRoom().then((res) => {
+      resolve(res);
+    }).catch(reject);
+  });
+}
 let productBaikeUrl = null;
 function getProductBaikeUrl() {
   return new Promise((resolve, reject) => {
@@ -830,7 +837,8 @@ export default class CommonSetting extends React.Component {
       showMemberSetKey: false, // 是否展示「按键设置」,适用于多键开关和继电器设备
       isSingleSwitch: false, // 是否是单键开关，单键开关也要显示「按键设置」。showMemberSetKey和isSingleSwitch要么都为false，说明这不是一个开关设备，要么只会有一个为true，说明这是单键或者多键开关
       showDeviceService: false, // 是否暂展示「设备服务」选项，
-      cloudStorageOn: -1
+      cloudStorageOn: -1,
+      isBelongCarRoom: false // 是否属于车房间
     };
     console.log(`Device.type: ${ Device.type }`);
     this.commonSetting = this.getCommonSetting(this.state);
@@ -960,6 +968,13 @@ export default class CommonSetting extends React.Component {
     Host.ui.openDeleteDevice(deleteDeviceMessage);
   }
   componentDidMount() {
+    getIsBelongToCarRoom().then((res) => {
+      if (res.code == 0) {
+        this.setState({ isBelongCarRoom: res.data });
+      } else { 
+        return;
+      }
+    }).catch(() => { });
     getProductBaikeUrl().then((productBaikeUrl) => {
       this.commonSetting = this.getCommonSetting({
         ...this.state,
@@ -1201,6 +1216,13 @@ export default class CommonSetting extends React.Component {
     // 5. 权限控制，如果是共享设备或者家庭设备，需要过滤一下
     if (Device.isOwner === false) {
       keys = keys.filter((key) => firstSharedOptions[key]);
+    }
+    // 如果是车房间，隐藏位置管理、设备共享、米家首页展示
+    let whitList = ['share', 'location', 'freqDevice'];
+    if (this.state.isBelongCarRoom) {
+      keys = keys.filter((key) => {
+        return whitList.indexOf(key) === -1;
+      });
     }
     // 6. 根据设备类型进一步过滤
     keys = keys.filter((key) => !(excludeOptions[key] || []).includes(Device.type));

@@ -14,6 +14,7 @@ import useFreqDeviceInfo from '../../hooks/useFreqDeviceInfo';
 import AutoOTAABTestHelper from '../../utils/autoota_abtest_helper';
 import useDeviceService from "../../hooks/useDeviceService";
 import { ListItemWithSwitch } from 'mhui-rn';
+import useIsBelongCarRoom from '../../hooks/useIsBelongCarRoom';
 let getInnerOptions = () => {
   return {
     deviceService: {
@@ -38,14 +39,22 @@ let getInnerOptions = () => {
     share: {
       exportKey: 'SHARE',
       ownerOnly: true,
-      title: I18n.share,
       notTypes: ['3', '22'],
-      onPress: () => {
-        Host.ui.openShareDevicePage();
-      },
       validator: () => {
         // 0：用户可选共享权限 1：用户不可选共享权限 2：白名单 3：不支持共享
         return Device.deviceConfigInfo?.permission_control !== 3;
+      },
+      Component: () => {
+        const isCarRoom = useIsBelongCarRoom();
+        return isCarRoom ? null : (
+          <ListItem
+            key = {'share'}
+            title = {I18n.share}
+            onPress={ () => {
+              Host.ui.openShareDevicePage();
+            } }
+          ></ListItem>
+        );
       }
     },
     ifttt: {
@@ -153,7 +162,8 @@ let getInnerOptions = () => {
             }
           }).catch(() => {});
         }, []);
-        return (
+        const isisCarRoom = useIsBelongCarRoom();
+        return isisCarRoom ? null : (
           <ListItemWithSwitch
             key={'FREQ_DEVICE'}
             title={I18n.favoriteDevices}

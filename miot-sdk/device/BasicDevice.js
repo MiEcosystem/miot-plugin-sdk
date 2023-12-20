@@ -939,6 +939,17 @@ export class BasicDevice {
      return Promise.resolve({});
   }
   /**
+   * 是否属于车房间
+   * @since 10081
+   * @param {object} 
+   * @return {Promise<Object>}
+   */
+  @report
+  isBelongToCarRoom(params = undefined) {
+    let obj = params ? params : { did: this.deviceID };
+     return Promise.resolve({});
+  }
+  /**
    * 获取与当前设备相同企业组的所有设备(包括当前设备)
    * @since 10052
    * @returns {Promise<Object>} 成功时{code:0,data:[{...device},{...device},...]}
