@@ -303,6 +303,8 @@ const API_REPO = {
   '/miot/camera/app/v1/dailyStory/delete': {},
   // 人脸聚类相关接口
   '/common/app/get/faceCluster/eventlist': {},
+  // 根据用户的uid换取微信小程序的openid
+  '/wx_call/get_openid_by_uid': {},
   // 耗材标准配置服务端接口
   '/v2/home/standard_consumable_items': {},
   // 获取中枢的列表
