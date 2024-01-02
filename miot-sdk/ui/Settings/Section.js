@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React, { Children, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
@@ -11,17 +11,23 @@ export default function Section({ title, showSeparator = true, children }) {
   if (!filteredChildren.length) {
     return null;
   }
+  const [visible, setVisible] = useState(false);
+  function onLayout({ nativeEvent: { layout } }) {
+    setVisible(layout.height > 0);
+  }
   return (
     <View style={Styles.container}>
-      {showSeparator ? (
+      {showSeparator && visible ? (
         <View style={Styles.separator}></View>
       ) : null}
-      {title ? (
+      {title && visible ? (
         <View style={Styles.titleContainer}>
           <Text style={Styles.title}>{title}</Text>
         </View>
       ) : null}
-      {filteredChildren}
+      <View onLayout={onLayout}>
+        {filteredChildren}
+      </View>
     </View>
   );
 }
