@@ -19,7 +19,8 @@ import native, { isAndroid, isIOS } from "../native";
 import AutoOTAABTestHelper from 'miot/utils/autoota_abtest_helper';
 import ProtocolManager from '../utils/protocol-helper';
 import { report } from "../decorator/ReportDecorator";
-import { Device, Package, Service } from 'miot';
+import Device from '../device/BasicDevice';
+import Service from '../Service';
 import PrivacyUploadFdsHelper from '../utils/privacy_uploadfds_helper';
 /**
  * 原生UI管理
@@ -265,7 +266,7 @@ class IUi {
    */
   @report
   openDeviceInfoPage(params) {
-    Package.navigate('MiotDeviceInfoPage', params);
+    this.packageNavigate('MiotDeviceInfoPage', params);
   }
   /**
    *
@@ -918,13 +919,13 @@ class IUi {
     openDeviceCallSettingPage(did) {
       native.MIOTHost.openDeviceCallSettingPage(did);
     }
-  // /**
-  //  * 打开配对模式界面，仅Matter设备具备该项
-  //  */
-  // @report
-  // openMatterConnectPage(did) {
-  //   native.MIOTHost.openMatterConnectPage(did);
-  // }
+  
+  /**
+   * 打开配对模式界面，仅Matter设备具备该项
+   */
+  @report
+  openMatterConnectPage(did) {
+  }
 }
 const UiInstance = new IUi();
 export default UiInstance;

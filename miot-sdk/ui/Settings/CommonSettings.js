@@ -1,6 +1,9 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Host, Service, Device, Entrance } from 'miot';
+import { Entrance } from 'miot/Entrance';
+import Host from 'miot/Host';
+import Service from 'miot/Service';
+import Device from 'miot/device/BasicDevice';
 import { strings as I18n } from '../../resources';
 import Section from './Section';
 import ListItem from '../ListItem/ListItem';
@@ -311,27 +314,27 @@ let getInnerOptions = () => {
           />
         );
       }
+    },
+    pairMode: { // 配对模式，只有Matter子设备才会显示这一项
+      exportKey: 'PAIR_MODE',
+      isDefault: true,
+      ownerOnly: true,
+      validator: () => {
+        let isMatter = Device.deviceID.indexOf('M.') === 0 ? true : false; // 所有Matter子设备的id格式均为 "M." + "device_id"，id不为此格式的则不是。
+        return isMatter;
+      },
+      Component: (params) => {
+        return (
+          <ListItem
+            key={"pairMode"}
+            title={"配对模式"}
+            onPress={ () => Host.ui.openMatterConnectPage(Device.deviceID) } 
+            useNewType={true}
+            hideArrow={false}
+          />
+        );
+      }
     }
-    // pairMode: { // 配对模式，只有Matter子设备才会显示这一项
-    //   exportKey: 'PAIR_MODE',
-    //   isDefault: true,
-    //   ownerOnly: true,
-    //   validator: () => {
-    //     let isMatter = Device.deviceID.indexOf('M.') === 0 ? true : false; // 所有Matter子设备的id格式均为 "M." + "device_id"，id不为此格式的则不是。
-    //     return isMatter;
-    //   },
-    //   Component: (params) => {
-    //     return (
-    //       <ListItem
-    //         key={"pairMode"}
-    //         title={"配对模式"}
-    //         onPress={ () => Host.ui.openMatterConnectPage(Device.deviceID) } 
-    //         useNewType={true}
-    //         hideArrow={false}
-    //       />
-    //     );
-    //   }
-    // }
   };
 };
 let innerOptions = getInnerOptions();
@@ -341,7 +344,7 @@ export const initCommonSettingsInnerOptions = () => {
 const AllAndDefaultOptions = getAllAndDefaultOptions(innerOptions);
 export const options = AllAndDefaultOptions.options;
 const defaultOptions = AllAndDefaultOptions.defaultOptions;
-const commonOptions = ['deviceCall', 'deviceService', 'share', 'ifttt', 'firmwareUpgrade', 'help', 'security', 'addToDesktop', 'freqDevice', 'freqCamera', 'defaultPlugin'];
+const commonOptions = ['deviceCall', 'deviceService', 'share', 'ifttt', 'firmwareUpgrade', 'help', 'security', 'addToDesktop', 'freqDevice', 'freqCamera', 'defaultPlugin', 'pairMode'];
 export default function CommonSettings(params) {
   const { customOptions } = params;
   return (

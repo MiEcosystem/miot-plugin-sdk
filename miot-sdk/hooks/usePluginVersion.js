@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Package, Device } from 'miot';
+import Device from 'miot/device/BasicDevice';
+import native from 'miot/native';
 import { fetchPluginInfos } from '../utils/plugin-info';
 export default function usePluginVersion(models = [Device.model], specifiedModel = '') {
-  const { version } = Package;
+  const { version } = native.MIOTPackage.version;
   const [pluginVersion, setPluginVersion] = useState(version);
   useEffect(() => {
     fetchPluginInfos(models, specifiedModel ? [{ model: specifiedModel, version }] : []).then((plugins) => {

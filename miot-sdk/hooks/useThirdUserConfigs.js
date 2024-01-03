@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Device, Service } from "miot";
+import Service from 'miot/Service';
+import Device from 'miot/device/BasicDevice';
 import { DeviceEventEmitter } from 'react-native';
 const cachedThirdUserConfigs = {};
 export default function useThirdUserConfigs(key, model = Device.model, eventEmitter) {

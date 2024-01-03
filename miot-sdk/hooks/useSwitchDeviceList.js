@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Service, PackageEvent } from 'miot';
+import { PackageEvent } from 'miot/event/PackageEvent';
+import Service from 'miot/Service';
 import useDeepCompareEffect from './useDeepCompareEffect';
 export default function useSwitchLightDeviceList(devices = []) {
   const [toggleLightList, setToggleLightList] = useState([]);

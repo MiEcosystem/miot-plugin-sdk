@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Device, PackageEvent } from 'miot';
+import { PackageEvent } from 'miot/event/PackageEvent';
+import Device from 'miot/device/BasicDevice';
 export default function useFreqDeviceInfo() {
   const [isFreqDevice, setIsFreqDevice] = useState(false);
   function update() {

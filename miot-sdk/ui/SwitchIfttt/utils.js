@@ -1,4 +1,5 @@
-import { Device, Service } from 'miot';
+import Service from 'miot/Service';
+import Device from 'miot/device/BasicDevice';
 import { SWITCH_DEVICE_TYPE } from "./Const";
 import { strings as I18n } from '../../resources';
 export function getSwitchTypeTitle(type = '') {

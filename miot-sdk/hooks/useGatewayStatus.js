@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Device, DeviceEvent, Bluetooth } from 'miot';
+import Device, { DeviceEvent } from 'miot/device/BasicDevice';
+import Bluetooth from 'miot/device/bluetooth';
 export const State = {
   IDLE: 0,
   BT: 1,

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Device, Service } from 'miot';
+import Service from 'miot/Service';
+import Device from 'miot/device/BasicDevice';
 import { getModelType } from './useModelType';
 const cacheShowMemberSet = {};
 // 请求是否展示「按键设置」的状态

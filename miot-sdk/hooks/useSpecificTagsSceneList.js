@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { DeviceEventEmitter } from 'react-native';
-import { Service, Device } from 'miot';
+import Service from 'miot/Service';
+import Device from 'miot/device/BasicDevice';
 import useDeepCompareEffect from './useDeepCompareEffect';
 const cachedSpecificTagsSceneList = {};
 function getCacheKey(tags = []) {
