@@ -3,6 +3,17 @@
 const { spawn,execSync } = require('child_process');
 const path = require('path');
 const fs = require("fs");
+const commander = require('commander');
+
+const command = commander
+  .option("-a, --android", "android版本")
+  .option("-i, --ios", "ios版本")
+  .option("-s, --sdk", "是否输出modules_sdk")
+  .option("-w, --wear", "")
+// .option("-d, --debug", "debug版本")
+  .option("-r, --reset-cache", "清除缓存")
+  .option("-t, --target [dir]", "输出的目标文件夹")
+  .parse(process.argv);
 
 //get current path
 const project_dir = path.join(__dirname, "..", "..");
@@ -26,7 +37,7 @@ if(!DEV){
   fs.chmodSync(path.join(project_dir, "package.json"), 0o444);
 }
 
-const sdkconf = JSON.parse(fs.readFileSync(path.join(project_dir, "miot-sdk", "package.json")).toString());
+const sdkconf = JSON.parse(fs.readFileSync(path.join(project_dir, command.wear ? "miwear-sdk" : "miot-sdk", "package.json")).toString());
 const API_LEVEL = sdkconf.api_level;
 const SDK_VERSION = Math.floor(API_LEVEL / 10000) + "."
                   + Math.floor((API_LEVEL % 10000)/100) + "."
