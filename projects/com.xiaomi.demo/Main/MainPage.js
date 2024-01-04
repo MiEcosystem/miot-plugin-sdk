@@ -40,47 +40,67 @@ export default class MainPage extends React.Component {
   _createMenuData() {
     this._menuData = [
       {
-        'name': '常用功能',
-        'func': () => {
-          this.props.navigation.navigate('tutorialDemo', { title: '常用功能' });
-        }
+        name: "常用功能",
+        func: () => {
+          this.props.navigation.navigate("tutorialDemo", { title: "常用功能" });
+        },
       },
       {
-        'name': '设备控制(Device)',
-        'func': () => {
-          this.props.navigation.navigate('DeviceControl', { title: '设备控制(Device)' });
-        }
+        name: "设备控制(Device)",
+        func: () => {
+          this.props.navigation.navigate("DeviceControl", {
+            title: "设备控制(Device)",
+          });
+        },
       },
       {
-        'name': 'Native交互(Host)',
-        'func': () => {
-          this.props.navigation.navigate('HostDemo', { title: 'Native交互(Host)' });
-        }
+        name: "Native交互(Host)",
+        func: () => {
+          this.props.navigation.navigate("HostDemo", {
+            title: "Native交互(Host)",
+          });
+        },
       },
       {
-        'name': '接口服务(Service)',
-        'func': () => {
-          this.props.navigation.navigate('ServiceDemo', { title: '接口服务(Service)' });
-        }
+        name: "接口服务(Service)",
+        func: () => {
+          this.props.navigation.navigate("ServiceDemo", {
+            title: "接口服务(Service)",
+          });
+        },
       },
       {
-        'name': 'UI能力(miot/ui)',
-        'func': () => {
-          this.props.navigation.navigate('UIDemo', { title: 'UI能力(miot/ui)' });
-        }
+        name: "UI能力(miot/ui)",
+        func: () => {
+          this.props.navigation.navigate("UIDemo", {
+            title: "UI能力(miot/ui)",
+          });
+        },
       },
       {
-        'name': '第三方库能力',
-        'func': () => {
-          this.props.navigation.navigate('ThirdPartyDemo', { title: '第三方库能力' });
-        }
+        name: "第三方库能力",
+        func: () => {
+          this.props.navigation.navigate("ThirdPartyDemo", {
+            title: "第三方库能力",
+          });
+        },
       },
       {
-        'name': '旧-设置页面(不推荐使用)',
-        'func': () => {
-          this.props.navigation.navigate('moreMenu', { title: '设置页面(不推荐使用)' });
-        }
-      }
+        name: "旧-设置页面(不推荐使用)",
+        func: () => {
+          this.props.navigation.navigate("moreMenu", {
+            title: "设置页面(不推荐使用)",
+          });
+        },
+      },
+      {
+        name: "穿戴API测试",
+        func: () => {
+          this.props.navigation.navigate("WearMainPage", {
+            title: "WearMainPage",
+          });
+        },
+      },
     ];
   }
 
@@ -88,6 +108,7 @@ export default class MainPage extends React.Component {
     this._deviceOnlineListener && this._deviceOnlineListener.remove();
     this._packageReceivedInformation && this._packageReceivedInformation.remove();
     this._packageReceivedOutAppInformation && this._packageReceivedOutAppInformation.remove();
+    this._deviceIconChangeListener && this._deviceIconChangeListener.remove();
     this._cloudPrivacyEvent && this._cloudPrivacyEvent.remove();
     this._userExpPlanEvent && this._userExpPlanEvent.remove();
   }
@@ -102,6 +123,9 @@ export default class MainPage extends React.Component {
     });
     this._packageReceivedOutAppInformation = PackageEvent.packageReceivedOutAppInformation.addListener((message) => {
       console.log('收到外部APP传过来的参数', JSON.stringify(message, null, '\t'));
+    });
+    this._deviceIconChangeListener = DeviceEvent.deviceIconChanged.addListener((res) => {
+      console.log('收到图标改变事件数据', res);
     });
     this._cloudPrivacyEvent = PrivacyEvent.cloudPrivacyEvent.addListener((message) => {
       console.log(`收到云端隐私通知数据：${ JSON.stringify(message) }`);
