@@ -3,7 +3,7 @@ import { Device, DeviceEvent, Service } from "miot";
 export default function useDeviceIcon() {
   let url = Device.iconURL;
   const index = url.indexOf("?");
-  if (index > -1) {
+  if (index > -1 && Device.extraObj?.split?.parentId) {
     url = url.slice(0, index);
   }
   const [iconURL, setIconURL] = useState(url);
@@ -12,7 +12,7 @@ export default function useDeviceIcon() {
       Service.smarthome
         .getDeviceIcon({ subclass_id: 0 })
         .then(({ data: { proxy_category_icon } }) => {
-          setIconURL(`${ proxy_category_icon }?${ Date.now() }`);
+          setIconURL(`${ proxy_category_icon }`);
         });
     }
     const listener = DeviceEvent.deviceIconChanged.addListener(() => {

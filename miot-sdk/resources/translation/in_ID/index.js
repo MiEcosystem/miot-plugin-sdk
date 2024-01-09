@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'Versi firmware saat ini sudah terlalu lama. Beberapa fitur mungkin tidak berfungsi dengan benar. Perbarui ke versi terbaru untuk menikmati pengalaman yang lebih baik.',
   firmwareUpgradeForceUpdating: 'Perangkat sedang diperbarui. Coba lagi nanti.',
   firmwareUpgradeNew_pre: 'Pembaruan tersedia. ',
-  firmwareUpgradeNew_sub: 'Perbarui sekarang?',
+  firmwareUpgradeNew_sub: ' Perbarui sekarang?',
   handling: 'Tunggu sebentar…',
   error: 'Terjadi kesalahan. Coba lagi nanti.',
   createLightGroup: 'Buat grup lampu (baru)',

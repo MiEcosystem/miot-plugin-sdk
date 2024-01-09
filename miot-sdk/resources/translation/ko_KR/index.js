@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: '현재 펌웨어 버전이 너무 오래되었습니다. 몇몇 기능이 정상적으로 작동하지 않을 수 있습니다. 더 나은 사용을 위해 최신 버전으로 업데이트 하십시오.',
   firmwareUpgradeForceUpdating: '기기를 업데이트 중입니다. 나중에 다시 시도하세요.',
   firmwareUpgradeNew_pre: '업데이트 사용 가능. ',
-  firmwareUpgradeNew_sub: '지금 업데이트할까요?',
+  firmwareUpgradeNew_sub: ' 지금 업데이트할까요?',
   handling: '잠시 기다려주십시오…',
   error: '오류가 발생했습니다. 나중에 다시 시도하세요.',
   createLightGroup: '조명 그룹 생성 (신규)',

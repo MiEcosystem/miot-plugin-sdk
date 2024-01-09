@@ -268,6 +268,18 @@ class IUi {
     Package.navigate('MiotDeviceInfoPage', params);
   }
   /**
+   *
+   */
+  @report
+  openSwitchButtonSelectPage(params) {
+  }
+  /**
+   *
+   */
+  @report
+  openSwitchButtonSettingPage(params) {
+  }
+  /**
    * 打开设备检查固件历史版本信息页面
    */
   @report
@@ -473,6 +485,8 @@ class IUi {
   */
   @report
   openPowerMultikeyPage(did, mac = null) {
+  }
+  openPowerMultikeyPageV2(did, mac = null, params) {
   }
   /**
   * 添加或者复制一个红外遥控器
@@ -869,7 +883,6 @@ class IUi {
    @report
   openNFCWritePageForConnectTV(param = undefined) {
   }
-   
    /**
     * 基站（室内机）插件使用，调用该接口跳转到WiFi选择页面，选择后将ssid和passwd返回给插件
     * @returns {Promise<Object>}
@@ -884,14 +897,12 @@ class IUi {
    @report
    openWifiChoosePage() {
    }
-   
    /**
     * 基站（室内机）插件使用，调用该接口跳转到子设备配网页面，给子设备配网
    */
    @report
    openConfigRouterSubPage() {
    }
- 
     /**
    * 打开设备中枢功能页
    * @param  暂传空
@@ -899,8 +910,6 @@ class IUi {
     @report
    openDeviceHubGatewayPage(param = {}) {
    }
-  
-  
   /**
    * 打开紧急事件电话呼叫页面
    * @param {string} did 设备 ID
@@ -909,6 +918,13 @@ class IUi {
     openDeviceCallSettingPage(did) {
       native.MIOTHost.openDeviceCallSettingPage(did);
     }
+  // /**
+  //  * 打开配对模式界面，仅Matter设备具备该项
+  //  */
+  // @report
+  // openMatterConnectPage(did) {
+  //   native.MIOTHost.openMatterConnectPage(did);
+  // }
 }
 const UiInstance = new IUi();
 export default UiInstance;

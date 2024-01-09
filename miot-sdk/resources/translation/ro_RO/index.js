@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'Firmware-ul actual poate fi prea vechi pentru a rula unele funcții. Actualizează la cea mai recentă versiune pentru o experiență mai bună.',
   firmwareUpgradeForceUpdating: 'Dispozitivul se actualizează. Încearcă din nou mai târziu.',
   firmwareUpgradeNew_pre: 'Este disponibilă o actualizare. ',
-  firmwareUpgradeNew_sub: 'Actualizează acum?',
+  firmwareUpgradeNew_sub: ' Actualizează acum?',
   handling: 'Doar o secundă…',
   error: 'A apărut o eroare. Încearcă din nou mai târziu.',
   createLightGroup: 'Creează un grup de lumină (nou)',

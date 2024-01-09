@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'Den aktuelle fastvaren er kanskje for gammel til å kjøre enkelte funksjoner. Oppdater til den nyeste versjonen for en bedre opplevelse.',
   firmwareUpgradeForceUpdating: 'Enheten oppdateres. Prøv igjen senere.',
   firmwareUpgradeNew_pre: 'En oppdatering er tilgjengelig. ',
-  firmwareUpgradeNew_sub: 'Oppdater nå?',
+  firmwareUpgradeNew_sub: ' Oppdater nå?',
   handling: 'Et øyeblikk …',
   error: 'Det oppsto en feil. Prøv igjen senere.',
   createLightGroup: 'Opprett lysgruppe (ny)',

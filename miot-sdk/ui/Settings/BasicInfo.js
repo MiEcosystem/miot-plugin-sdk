@@ -13,7 +13,7 @@ import useDeviceRoomInfo from '../../hooks/useDeviceRoomInfo';
 import useDeviceIcon from "../../hooks/useDeviceIcon";
 import { useEffect, useState } from 'react';
 export default function BasicInfo({ options, customOptions, showDots, extraOptions } = {}) {
-  const iconURL = useDeviceIcon()
+  const iconURL = useDeviceIcon();
   const roomInfo = useDeviceRoomInfo();
   const name = useDeviceName();
   return (

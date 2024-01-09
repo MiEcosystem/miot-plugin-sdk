@@ -291,9 +291,6 @@ export default {
   set BLEAutoCheckUpgradeOptions(options) {
      return  ""
   },
-  set dynamicInjectNavigation(enable) {
-    this._dynamicInjectNavigation = !!enable;
-  },
   /**
     * wifi设备升级参数 目前sdk要求所有wifi设备都需要开启固件升级检查，但是开发者可以自行实现检查的页面的逻辑
     * @param navigation 传入包含upgradePageKey的navigation，否则可能会出现无法跳转的情况

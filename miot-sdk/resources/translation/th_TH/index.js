@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'เวอร์ชั่นเฟิร์มแวร์ปัจจุบันเก่าไป ฟีเจอร์บางอย่างอาจทำงานไม่ถูกต้อง อัปเดตเป็นเวอร์ชั่นล่าสุดเพื่อประสบการณ์การใช้งานที่ดีขึ้น',
   firmwareUpgradeForceUpdating: 'กำลังอัปเดตอุปกรณ์ ลองอีกครั้งในภายหลัง',
   firmwareUpgradeNew_pre: 'มีการอัปเดต ',
-  firmwareUpgradeNew_sub: 'อัปเดตตอนนี้หรือไม่?',
+  firmwareUpgradeNew_sub: ' อัปเดตตอนนี้หรือไม่?',
   handling: 'รอสักครู่…',
   error: 'เกิดข้อผิดพลาด ลองอีกครั้งในภายหลัง',
   createLightGroup: 'สร้างกลุ่มไฟ (ใหม่)',

@@ -1102,6 +1102,7 @@ export default class CommonSetting extends React.Component {
       this.setState({ cloudStorageOn: result });
     });
   }
+ 
   _updateFreqFlag() {
     Device.getFreqFlag().then((freqFlagRes) => {
       let freqFlag = freqFlagRes.data;
@@ -1487,7 +1488,9 @@ export default class CommonSetting extends React.Component {
     this._packageGobackFromNativeListerner = PackageEvent.packageViewWillAppear.addListener(() => {
       this._updateFreqFlag();
     });
-    this.listenerFocus = navigation.addListener('didFocus', this.getCloudStorage.bind(this));
+    if (Device.model && Device.model.includes('camera') && navigation) {
+      this.listenerFocus = navigation.addListener('didFocus', this.getCloudStorage.bind(this));
+    }
   }
   componentWillUnmount() {
     this._deviceNameChangedListener.remove();

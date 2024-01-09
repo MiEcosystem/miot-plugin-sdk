@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'Mevcut ürün yazılımı bazı özellikleri çalıştırmak için çok eski olabilir. Daha iyi bir deneyim için en son sürüme güncelleyin.',
   firmwareUpgradeForceUpdating: 'Cihaz güncelleniyor. Daha sonra tekrar deneyin.',
   firmwareUpgradeNew_pre: 'Bir güncelleme mevcut. ',
-  firmwareUpgradeNew_sub: 'Şimdi güncellensin mi?',
+  firmwareUpgradeNew_sub: ' Şimdi güncellensin mi?',
   handling: 'Yalnızca bir saniye…',
   error: 'Bir hata oluştu. Daha sonra tekrar deneyin.',
   createLightGroup: 'Işık grubu oluştur (yeni)',

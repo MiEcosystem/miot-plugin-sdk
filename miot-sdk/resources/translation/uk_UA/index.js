@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'Поточна прошивка може бути застарою для запуску деяких функцій. Щоб покращити роботу, оновіть до останньої версії.',
   firmwareUpgradeForceUpdating: 'Пристрій оновлюється. Повторіть спробу пізніше.',
   firmwareUpgradeNew_pre: 'Доступне оновлення. ',
-  firmwareUpgradeNew_sub: 'Оновити зараз?',
+  firmwareUpgradeNew_sub: ' Оновити зараз?',
   handling: 'Секунду…',
   error: 'Сталася помилка. Повторіть спробу пізніше.',
   createLightGroup: 'Створити групу освітлення (нова)',
