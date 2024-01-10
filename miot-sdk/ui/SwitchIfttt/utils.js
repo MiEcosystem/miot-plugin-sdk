@@ -152,7 +152,7 @@ export function findSpecificTriggerScene(scene, specificTriggers) {
   for (let indexTrigger = 0; indexTrigger < triggers.length; indexTrigger++) {
     const trigger = triggers[indexTrigger];
     const { key, extra_json, value_json } = trigger || {};
-    if (extra_json?.model === Device.model) {
+    if (extra_json?.model === Device.model && extra_json?.did === Device.deviceID) {
       hasTargetScene = triggerMatch(specificTriggers, key, value_json);
     }
     if (hasTargetScene) {
@@ -167,7 +167,7 @@ export function findSpecificTriggerScene(scene, specificTriggers) {
     const condition = conditions[indexCondition];
     const { key, extra_json, value_json } = condition || {};
     // console.log('existSpecificTriggerSceneV2--trigger---', condition);
-    if (extra_json?.model === Device.model) {
+    if (extra_json?.model === Device.model && extra_json?.did === Device.deviceID) {
       hasTargetScene = triggerMatch(specificTriggers, key, value_json);
     }
     if (hasTargetScene) {
@@ -405,8 +405,7 @@ export function getClickTriggerConfig(spec, propSpec, value) {
       valueKey: propSpec.miid ? `prop.${ DeviceModel }.${ propSpec.miid }.${ propSpec.siid }.${ propSpec.piid }` : `prop.${ DeviceModel }.${ propSpec.siid }.${ propSpec.piid }`,
       value: value
     });
-  }
-  if (spec) {
+  } else if (spec) {
     triggerConfig.push({
       key: spec.miid ? `event.${ spec.miid }.${ spec.siid }.${ spec.eiid }` : `event.${ spec.siid }.${ spec.eiid }`
     });
@@ -478,6 +477,7 @@ export function getCustomSceneName(sceneName) {
 export function getLocalI18n(key, replaces) {
   if (replaces?.length) {
     let v = I18n[key];
+    if (!v) { return ''; }
     replaces.forEach((r, i) => {
       v = v.replace('${}', r);
       v = v.replace(`{${ i + 1 }}`, r);
