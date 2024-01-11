@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'Aktuell firmware kanske är för gammal för att köra vissa funktioner. Uppdatera till senaste versionen för bättre upplevelse.',
   firmwareUpgradeForceUpdating: 'Enheten uppdaterar. Försök igen senare.',
   firmwareUpgradeNew_pre: 'En uppdatering finns tillgänglig. ',
-  firmwareUpgradeNew_sub: 'Uppdatera nu?',
+  firmwareUpgradeNew_sub: ' Uppdatera nu?',
   handling: 'Vänta en stund…',
   error: 'Ett fel uppstod. Försök igen senare.',
   createLightGroup: 'Skapa belysningsgrupp (ny)',

@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'La version actuelle du micrologiciel est trop ancienne. Certaines fonctionnalités peuvent ne pas fonctionner correctement. Mettez à jour la dernière version pour une meilleure expérience',
   firmwareUpgradeForceUpdating: 'Votre appareil est en cours de mise à jour. Réessayez plus tard.',
   firmwareUpgradeNew_pre: 'Une mise à jour est disponible. ',
-  firmwareUpgradeNew_sub: 'Mettre à jour maintenant ?',
+  firmwareUpgradeNew_sub: ' Mettre à jour maintenant ?',
   handling: 'Patientez un instant…',
   error: 'Une erreur s\'est produite. Réessayez plus tard.',
   createLightGroup: 'Créer un groupe de lumière (nouveau)',

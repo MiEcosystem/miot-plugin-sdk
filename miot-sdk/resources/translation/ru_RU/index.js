@@ -108,7 +108,7 @@ export default {
   firmwareUpgradeForceUpdate: 'Текущая версия ПО устарела, некоторые возможности могут быть недоступны. Обновите до последней версии ПО.',
   firmwareUpgradeForceUpdating: 'Устройство обновляется. Повторите попытку позже.',
   firmwareUpgradeNew_pre: 'Доступно обновление. ',
-  firmwareUpgradeNew_sub: 'Обновить сейчас?',
+  firmwareUpgradeNew_sub: ' Обновить сейчас?',
   handling: 'Секунду…',
   error: 'Произошла ошибка. Повторите попытку позже.',
   createLightGroup: 'Создать группу светильников (новое)',
