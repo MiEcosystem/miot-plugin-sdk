@@ -96,7 +96,6 @@ function getProductBaikeUrl() {
       });
   });
 }
-getProductBaikeUrl().then(() => { }).catch(() => { });
 // 请求是否展示多键开关和开关的状态
 function getMultipleKey() {
   return new Promise((resolve, reject) => {
