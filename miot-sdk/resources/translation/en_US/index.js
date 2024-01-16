@@ -318,5 +318,6 @@ export default {
   switch_button_subtitle_notCurrentHome: 'Not in the current home',
   common_list_empty: 'Nothing here yet',
   switch_dia_msg_repeatScene: '当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？',
-  common_loading: '加载中，请稍后...'
+  common_loading: '加载中，请稍后...',
+  pairMode: 'Pairing mode'
 };

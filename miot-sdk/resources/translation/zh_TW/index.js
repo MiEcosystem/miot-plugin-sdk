@@ -317,6 +317,7 @@ export default {
   switch_list_device_unavailable: '未顯示的裝置暫不支援此功能',
   switch_button_subtitle_notCurrentHome: '不在目前家庭',
   common_list_empty: '暫無',
-  switch_dia_msg_repeatScene: "当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？",
-  common_loading: '加载中，请稍后...'
+  switch_dia_msg_repeatScene: '目前按鍵已建立了點選自動化，綁定控制裝置後，自動化可能會重複執行，是否需刪除控制裝置的綁定？',
+  common_loading: '載入中，請稍候...',
+  pairMode: '配對模式'
 };

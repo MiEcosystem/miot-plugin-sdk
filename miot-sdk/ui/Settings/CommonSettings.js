@@ -327,7 +327,7 @@ let getInnerOptions = () => {
         return (
           <ListItem
             key={"pairMode"}
-            title={"配对模式"}
+            title={I18n.pairMode}
             onPress={ () => Host.ui.openMatterConnectPage(Device.deviceID) } 
             useNewType={true}
             hideArrow={false}
