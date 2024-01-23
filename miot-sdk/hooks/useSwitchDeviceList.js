@@ -1,6 +1,17 @@
 import { useState } from 'react';
-import { Service, PackageEvent } from 'miot';
+import { PackageEvent } from 'miot/event/PackageEvent';
+import Service from 'miot/Service';
 import useDeepCompareEffect from './useDeepCompareEffect';
+function arrayGroup(array, size) {
+  if (array?.length > size) {
+    const group = [];
+    for (let index = 0; index < array.length; index = index + size) {
+      group.push(array.slice(index, index + size));
+    }
+    return group;
+  }
+  return [array];
+}
 export default function useSwitchLightDeviceList(devices = []) {
   const [toggleLightList, setToggleLightList] = useState([]);
   const generateSwitchDevice = (devices, devicesSpecs, devicesInfo) => {
@@ -41,9 +52,11 @@ export default function useSwitchLightDeviceList(devices = []) {
             },
             ...(memberInfo?.room_id ? { 
               roomId: memberInfo?.room_id,
-              deviceName: memberInfo?.name,
+              deviceName: specs.length > 1 ? `${ memberInfo?.name }-${ filterDevice?.deviceName }` : memberInfo?.name,
               memberId: specIndex
-            } : {})
+            } : {
+              memberId: specIndex
+            })
           };
         });
         supportToggleDevices.push(...spiltButtons);
@@ -60,18 +73,27 @@ export default function useSwitchLightDeviceList(devices = []) {
         });
       })).then((specs) => {
         // console.log('fetchToggleLightList----res', JSON.stringify(specs));
-        Service.callSmartHomeAPI('/device/deviceinfo', { get_sub_relation: true, dids: devices.map((device) => {
-          return device.did;
-        }) }).then((deviceInfo) => {
+        
+        Promise.all(arrayGroup(devices, 50).map((group) => {
+          return Service.callSmartHomeAPI('/device/deviceinfo', { get_sub_relation: true, dids: group.map((device) => {
+            return device.did;
+          }) }).then((deviceInfo) => {
+            // console.log('getSwitchInfo--res', JSON.stringify(deviceInfo));
+            return deviceInfo;
+          }).catch((error) => {
+            console.log('获取按键信息报错---/device/deviceinfo---error', error);
+            return [];
+          });
+        })).then((deviceInfos) => {
+          const deviceInfo = deviceInfos.reduce((p, c) => {
+            return p.concat(c?.list || []);
+          }, []);
           // console.log('getSwitchInfo--res', JSON.stringify(deviceInfo));
-          const supportToggleDevices = generateSwitchDevice(devices, specs, deviceInfo?.list || []);
+          // console.log('getSwitchInfo--length', deviceInfo?.length, 'devices----', devices.length);
+          const supportToggleDevices = generateSwitchDevice(devices, specs, deviceInfo || []);
           // console.log('获取按键设备组合---', JSON.stringify(supportToggleDevices));
           setToggleLightList(supportToggleDevices);
-        }).catch((error) => {
-          console.log('获取按键信息报错---/device/deviceinfo---error', error);
         });
-        
-        // 
       }); 
     }
   };

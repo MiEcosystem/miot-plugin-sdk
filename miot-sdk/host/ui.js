@@ -19,7 +19,8 @@ import native, { isAndroid, isIOS } from "../native";
 import AutoOTAABTestHelper from 'miot/utils/autoota_abtest_helper';
 import ProtocolManager from '../utils/protocol-helper';
 import { report } from "../decorator/ReportDecorator";
-import { Device, Package, Service } from 'miot';
+import Device from '../device/BasicDevice';
+import Service from '../Service';
 import PrivacyUploadFdsHelper from '../utils/privacy_uploadfds_helper';
 /**
  * 原生UI管理
@@ -132,7 +133,6 @@ class IUi {
    @report
   openConsumesDetailPage(params) {
   }
- 
   /**
    * 获取设备列表中指定model的设备信息(仅白名单设备才允许调用此方法，如需使用，请联系插件框架)
    * @param model 指定的model
@@ -266,7 +266,7 @@ class IUi {
    */
   @report
   openDeviceInfoPage(params) {
-    Package.navigate('MiotDeviceInfoPage', params);
+    this.packageNavigate('MiotDeviceInfoPage', params);
   }
   /**
    *
@@ -884,7 +884,6 @@ class IUi {
    @report
   openNFCWritePageForConnectTV(param = undefined) {
   }
-   
    /**
     * 基站（室内机）插件使用，调用该接口跳转到WiFi选择页面，选择后将ssid和passwd返回给插件
     * @returns {Promise<Object>}
@@ -899,14 +898,12 @@ class IUi {
    @report
    openWifiChoosePage() {
    }
-   
    /**
     * 基站（室内机）插件使用，调用该接口跳转到子设备配网页面，给子设备配网
    */
    @report
    openConfigRouterSubPage() {
    }
- 
     /**
    * 打开设备中枢功能页
    * @param  暂传空
@@ -914,8 +911,6 @@ class IUi {
     @report
    openDeviceHubGatewayPage(param = {}) {
    }
-  
-  
   /**
    * 打开紧急事件电话呼叫页面
    * @param {string} did 设备 ID
@@ -938,6 +933,13 @@ class IUi {
   openTemplateScenePage(param = {}) {
   }
     
+  
+  /**
+   * 打开配对模式界面，仅Matter设备具备该项
+   */
+  @report
+  openMatterConnectPage(did) {
+  }
 }
 const UiInstance = new IUi();
 export default UiInstance;

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Device, DeviceEvent, Service } from "miot";
+import Service from 'miot/Service';
+import Device, { DeviceEvent } from 'miot/device/BasicDevice';
 export default function useDeviceIcon() {
   let url = Device.iconURL;
   const index = url.indexOf("?");
@@ -12,7 +13,7 @@ export default function useDeviceIcon() {
       Service.smarthome
         .getDeviceIcon({ subclass_id: 0 })
         .then(({ data: { proxy_category_icon } }) => {
-          setIconURL(`${ proxy_category_icon }?${ Date.now() }`);
+          setIconURL(`${ proxy_category_icon }`);
         });
     }
     const listener = DeviceEvent.deviceIconChanged.addListener(() => {

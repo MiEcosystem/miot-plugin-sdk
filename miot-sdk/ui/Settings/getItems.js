@@ -1,6 +1,6 @@
 import React, { isValidElement, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Device } from 'miot';
+import Device from '../../device/BasicDevice';
 import ListItem from '../ListItem/ListItem';
 import useModelType from '../../hooks/useModelType';
 import tryTrackCommonSetting from "../../utils/track-sdk";

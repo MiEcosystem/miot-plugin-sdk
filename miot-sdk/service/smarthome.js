@@ -1497,6 +1497,15 @@ class ISmartHome {
     @report
     reportEventRefChannel(eventName, params) {
     }
+  /**
+   * since 10089
+   * 获取品牌信息
+   * @param {Array} params 元素为品牌ID 
+   * @example
+   * let params = [23];
+   */
+  @report
+    getBrandInfos(params) {
 }
 const SmartHomeInstance = new ISmartHome();
 export default SmartHomeInstance;

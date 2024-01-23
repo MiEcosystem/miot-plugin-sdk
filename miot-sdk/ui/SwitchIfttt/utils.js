@@ -1,4 +1,5 @@
-import { Device, Service } from 'miot';
+import Service from 'miot/Service';
+import Device from 'miot/device/BasicDevice';
 import { SWITCH_DEVICE_TYPE } from "./Const";
 import { strings as I18n } from '../../resources';
 export function getSwitchTypeTitle(type = '') {
@@ -151,7 +152,7 @@ export function findSpecificTriggerScene(scene, specificTriggers) {
   for (let indexTrigger = 0; indexTrigger < triggers.length; indexTrigger++) {
     const trigger = triggers[indexTrigger];
     const { key, extra_json, value_json } = trigger || {};
-    if (extra_json?.model === Device.model) {
+    if (extra_json?.model === Device.model && extra_json?.did === Device.deviceID) {
       hasTargetScene = triggerMatch(specificTriggers, key, value_json);
     }
     if (hasTargetScene) {
@@ -166,7 +167,7 @@ export function findSpecificTriggerScene(scene, specificTriggers) {
     const condition = conditions[indexCondition];
     const { key, extra_json, value_json } = condition || {};
     // console.log('existSpecificTriggerSceneV2--trigger---', condition);
-    if (extra_json?.model === Device.model) {
+    if (extra_json?.model === Device.model && extra_json?.did === Device.deviceID) {
       hasTargetScene = triggerMatch(specificTriggers, key, value_json);
     }
     if (hasTargetScene) {
@@ -177,6 +178,33 @@ export function findSpecificTriggerScene(scene, specificTriggers) {
     return scene;
   }
   return null;
+}
+export function existSpecificTriggerScene(scenes, specificTriggers) {
+  // 没有指定trigger
+  if (!specificTriggers || specificTriggers.length <= 0) {
+    return false;
+  }
+  // 场景不存在
+  if (!scenes) {
+    return false;
+  }
+  let hasTargetScene = false;
+  for (let index = 0; index < scenes.length; index++) {
+    const scene = scenes[index];
+    const triggers = scene?.setting?.launch?.attr || [];
+    for (let indexTrigger = 0; indexTrigger < triggers.length; indexTrigger++) {
+      const trigger = triggers[indexTrigger];
+      const { key, value } = trigger || {};
+      hasTargetScene = triggerMatch(specificTriggers, key, value);
+      if (hasTargetScene) {
+        break;
+      }
+    }
+    if (hasTargetScene) {
+      break;
+    }
+  }
+  return hasTargetScene;
 }
 function triggerMatch(specificTriggers, key, value) {
   let matchTrigger = false;
@@ -302,7 +330,7 @@ export function createSwitchScene(extra) {
   };
   return scene;
 }
-export function createSwitchTrigger(spec, value = '', value_type = 5) {
+export function createSwitchTrigger(spec, propSpec, propValue, value_type = 5) {
   const sceneTrigger = {
     express: 0,
     triggers: [{
@@ -312,14 +340,23 @@ export function createSwitchTrigger(spec, value = '', value_type = 5) {
       key: encodeProp(spec),
       extra: '',
       name: `${ spec?.i18n }`,
-      value,
-      value_type,
+      value: '',
+      value_type: propValue === undefined ? value_type : 6,
       extra_json: {
         device_name: Device.name,
         did: Device.deviceID,
         model: Device.model
       },
-      value_json: '',
+      value_json: propValue === undefined ? '' : {
+        sub_props: {
+          express: 0,
+          attr: [{
+            key: propSpec?.miid ? `prop.${ Device.model }.${ propSpec?.miid }.${ propSpec?.siid }.${ propSpec?.piid }` : `prop.${ Device.model }.${ propSpec?.siid }.${ propSpec?.piid }`,
+            value: propValue,
+            value_type: 1
+          }]
+        }
+      },
       // protocol_type: 2,
       sc_id: 9321,
       from: 1
@@ -353,32 +390,33 @@ export function createDeviceSceneAction(action) {
   };
   return sceneAction;
 }
-export function getClickTriggerConfig(spec, propSpec, propKey) {
+export function getClickTriggerConfig(spec, propSpec, value) {
   let triggerConfig = [];
   const DeviceModel = Device.model;
-  if (propSpec) {
+  if (propSpec && spec) {
     triggerConfig.push({
       key: spec.miid ? `event.${ spec.miid }.${ spec.siid }.${ spec.eiid }` : `event.${ spec.siid }.${ spec.eiid }`,
       valueKey: propSpec.miid ? `prop.${ DeviceModel }.${ propSpec.miid }.${ propSpec.siid }.${ propSpec.piid }` : `prop.${ DeviceModel }.${ propSpec.siid }.${ propSpec.piid }`,
-      value: propSpec[`${ propKey }`]
+      value: value
     });
+    // 1.0格式
     triggerConfig.push({
       key: spec.miid ? `event.${ DeviceModel }.${ spec.miid }.${ spec.siid }.${ spec.eiid }` : `event.${ DeviceModel }.${ spec.siid }.${ spec.eiid }`,
       valueKey: propSpec.miid ? `prop.${ DeviceModel }.${ propSpec.miid }.${ propSpec.siid }.${ propSpec.piid }` : `prop.${ DeviceModel }.${ propSpec.siid }.${ propSpec.piid }`,
-      value: propSpec[`${ propKey }`]
+      value: value
     });
-  }
-  if (spec) {
+  } else if (spec) {
     triggerConfig.push({
       key: spec.miid ? `event.${ spec.miid }.${ spec.siid }.${ spec.eiid }` : `event.${ spec.siid }.${ spec.eiid }`
     });
+    // 1.0格式
     triggerConfig.push({
       key: spec.miid ? `event.${ DeviceModel }.${ spec.miid }.${ spec.siid }.${ spec.eiid }` : `event.${ DeviceModel }.${ spec.siid }.${ spec.eiid }`
     });
   }
   return triggerConfig;
 }
-export function getTargetDeviceList(homeDeviceList, deviceType) {
+export function getTargetDeviceList(homeDeviceList, deviceType, filterMain) {
   const targetDeviceList = [];
   for (let index = 0; index < homeDeviceList.length; index++) {
     const device = homeDeviceList[index];
@@ -388,8 +426,20 @@ export function getTargetDeviceList(homeDeviceList, deviceType) {
     }
     const regex = /device:([^:]*):/;
     const type = device.specUrn.match(regex);
+    
     if (type && type[1] === deviceType) {
-      targetDeviceList.push(device);
+      const deviceIndex = targetDeviceList.findIndex((s) => {
+        return s.did === device?.did;
+      });
+      if (deviceIndex === -1) {
+        if (filterMain) {
+          if (!device.did.includes('.s') && device.did !== Device.deviceID) {
+            targetDeviceList.push(device);
+          }
+        } else {
+          targetDeviceList.push(device);
+        } 
+      }
     }
   }
   return targetDeviceList;
@@ -427,6 +477,7 @@ export function getCustomSceneName(sceneName) {
 export function getLocalI18n(key, replaces) {
   if (replaces?.length) {
     let v = I18n[key];
+    if (!v) { return ''; }
     replaces.forEach((r, i) => {
       v = v.replace('${}', r);
       v = v.replace(`{${ i + 1 }}`, r);
@@ -434,4 +485,8 @@ export function getLocalI18n(key, replaces) {
     return v;
   }
   return I18n[key];
+}
+export function getSwitchTypeKey(spec) {
+  const { miid, siid, piid } = spec || {};
+  return miid ? `${ Device.deviceID }.${ miid }.${ siid }.${ piid }` : `${ Device.deviceID }.${ siid }.${ piid }`;
 }

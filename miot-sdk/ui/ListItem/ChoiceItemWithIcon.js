@@ -95,7 +95,7 @@ export default class ChoiceItemWithIcon extends Component {
 }
 const Styles = StyleSheet.create({
   container: {
-    height: 60,
+    minHeight: 60,
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
@@ -112,6 +112,7 @@ const Styles = StyleSheet.create({
     marginRight: 8
   },
   text: {
+    marginRight: 5,
     flex: 1
   },
   title: {

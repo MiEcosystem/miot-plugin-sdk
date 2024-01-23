@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { DeviceEventEmitter } from 'react-native';
-import { Device, DeviceEvent, Service } from "miot";
+import Service from 'miot/Service';
+import Device, { DeviceEvent } from 'miot/device/BasicDevice';
 import useDeepCompareEffect from './useDeepCompareEffect';
+const cachedSwitchInfo = {};
 export default function useSwitchInfo(did = Device.deviceID) {
-  const [switchInfo, setSwitchInfo] = useState({});
+  const [switchInfo, setSwitchInfo] = useState(cachedSwitchInfo[did] || {});
   const editSwitchInfo = (memberId, member) => {
     return new Promise((resolve, reject) => {
       const editInfo = { 
@@ -62,6 +64,7 @@ export default function useSwitchInfo(did = Device.deviceID) {
       // getAppSwitchIcons(subclassIds).then((res) => {
       // });
       setSwitchInfo(members);
+      cachedSwitchInfo[did] = members;
     }).catch((error) => {
       console.log('获取按键信息报错---/device/deviceinfo---error', error);
     });
@@ -87,6 +90,7 @@ export default function useSwitchInfo(did = Device.deviceID) {
         };
       }
       setSwitchInfo(tempSwitchInfo);
+      cachedSwitchInfo[did] = tempSwitchInfo;
     });
     return () => {
       listener && listener.remove && listener.remove();
