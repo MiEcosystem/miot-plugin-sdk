@@ -17,7 +17,10 @@
 import { report } from "../decorator/ReportDecorator";
 import Permission from '../service/permission';
 import Device from "../device/BasicDevice";
-import { System } from "../index";
+import Location from "../system/location";
+import AndroidModules from "../native/android";
+import IosModules from "../native/ios";
+const modules = isAndroid ? AndroidModules : IosModules;
 /**
  * 本地化
  * @interface
@@ -29,7 +32,7 @@ class ILocale {
    * @type {string}
    */
   get language() {
-    let language = native.language;
+    // 10084暂时关闭
     if (language === 'ar' || language === 'he') {
       language = 'en';
     }
