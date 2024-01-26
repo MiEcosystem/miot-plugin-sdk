@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { DeviceEventEmitter } from 'react-native';
-import { Device, DeviceEvent, Service } from "miot";
+import Service from 'miot/Service';
+import Device, { DeviceEvent } from 'miot/device/BasicDevice';
 import useDeepCompareEffect from './useDeepCompareEffect';
 const cachedSwitchInfo = {};
 export default function useSwitchInfo(did = Device.deviceID) {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Device, PackageEvent } from 'miot';
+import Device from 'miot/device/BasicDevice';
+import { PackageEvent } from 'miot/event/PackageEvent';
 export default function useDeviceRoomInfo(did = Device.deviceID) {
   const [roomInfo, setRoomInfo] = useState({});
   function updateRoomInfo() {

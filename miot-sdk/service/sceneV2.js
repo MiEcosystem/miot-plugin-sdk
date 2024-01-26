@@ -7,8 +7,8 @@
  * @description 场景2.0相关服务
  */
 import { report } from "../decorator/ReportDecorator";
-import { Device, Service } from 'miot';
-import Host from "../Host";
+import Device from '../device/BasicDevice';
+import { CurrentAccount } from './Account';
 /**
  * @export
  */

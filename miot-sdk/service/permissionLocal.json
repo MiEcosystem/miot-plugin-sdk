@@ -47,7 +47,15 @@
       "xiaomi.lock.dl02v1",
       "yunlu.door.",
       "loock.lock.t3pmax",
-      "loock.lock.t3pro"
+      "loock.lock.t3pro",
+      "loock.lock.h01myk",
+      "xiaomi.lock.b03",
+      "xiaomi.lock.b04",
+      "xiaomi.lock.b04sv",
+      "xiaomi.lock.b04s",
+      "xiaomi.lock.m30fc",
+      "xiaomi.lock.s20pro",
+      "xiaomi.lock.s20"
     ],
     "getDevicesWithModel": [
       "chuangmi.plug.m3",

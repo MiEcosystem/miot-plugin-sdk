@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Host, Device, PackageEvent } from 'miot';
+import { PackageEvent } from 'miot/event/PackageEvent';
+import Host from 'miot/Host';
+import Device from 'miot/device/BasicDevice';
 let freqCameraInfo = {
   isFreqDevice: false,
   canUpgrade: false
