@@ -319,9 +319,9 @@ const API_REPO = {
   '/common/app/get/event/statistics': {},
   
   // 趣拍回忆相关
-  '/app/nine/seconds/m3u8': {},
-  '/app/v1/dailyStory/generateMemory': {},
-  '/app/get/emotion/status': {},
+  '/common/app/nineSeconds/m3u8': {},
+  '/common/app/v1/dailyStory/generateMemory': {},
+  '/common/app/get/emotion/status': {},
   '/common/app/get/event/emostatiscs': {},
   // 事件顺序相关
   '/common/app/get/event/sort': {},
