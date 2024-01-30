@@ -320,7 +320,7 @@ const API_REPO = {
   
   // 趣拍回忆相关
   '/common/app/nineSeconds/m3u8': {},
-  '/common/app/v1/dailyStory/generateMemory': {},
+  '/miot/camera/app/v1/dailyStory/generateMemory': {},
   '/common/app/get/emotion/status': {},
   '/common/app/get/event/emostatiscs': {},
   // 事件顺序相关
