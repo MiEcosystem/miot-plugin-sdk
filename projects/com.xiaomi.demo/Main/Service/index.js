@@ -86,6 +86,16 @@ export default class HostDemo extends React.Component {
         }
       },
       {
+        name: '获取当前账号下的家庭列表',
+        func: () => {
+          Service.smarthome.getHomeList()
+            .then((res) => {
+              console.log('getHomeList,size:', res.data.length);
+              alert(JSON.stringify(res));
+            }).catch((e) => alert(e));
+        }
+      },
+      {
         'name': 'callSpecificAPI',
         'func': () => {
           Service.callSpecificAPI('http://api.goseek.cn/Tools/holiday', 'get', { "date": "20191102" })
