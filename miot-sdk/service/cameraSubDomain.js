@@ -3,6 +3,7 @@ const CameraSubDomains = {
   '': {},
   'connect.camera': {},
   'business.smartcamera': {},
-  'processor.smartcamera': {}
+  'processor.smartcamera': {},
+  'app.business.smartcamera': {}
 };
 export default CameraSubDomains;
