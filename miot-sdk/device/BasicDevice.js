@@ -55,6 +55,14 @@ export const DeviceEvent = {
   deviceNameChanged: {
   },
   /**
+   * 设备图标变更事件
+   * @since 10084
+   * @param {subclass_id:number,proxy_category_icon:String}
+   * 触发此事件后device中的iconURL会被自动替换成proxy_category_icon的值
+   */
+  deviceIconChanged: {
+  },
+  /**
      * 设备时区变更事件
      * @event
      * @param {IDevice} device -发生变更的设备
@@ -244,6 +252,10 @@ export class BasicDevice {
   getDeviceWifi() {
      return null
   }
+  // 用于创建wifiDevice实例，避免cycle
+  createWiFiDeviceInstance() {
+    return {};
+  }
   /**
      *设备是否已经可用,没有did的设备的插件，可能调用此方法判断接口是否可用。此方法没什么其他存在的意义，一般也不需要使用此方法
      * @return {boolean}
@@ -340,7 +352,7 @@ export class BasicDevice {
   }
   /**
   * 是否虚拟设备，虚拟设备主要指老的设备组（Yeelight灯组，飞利浦灯组）。
-  * **注意：mesh设备组，灯组2.0均不是虚拟设备**
+  * **注意：Mesh设备组，灯组2.0均不是虚拟设备**
   * @since 10003
   * @return {boolean}
   * @readonly
@@ -527,6 +539,7 @@ export class BasicDevice {
   }
   /**
    * 设备类型常量
+   * 来源： https://wiki.n.miui.com/pages/viewpage.action?pageId=325395852
    * */
   DEVICE_TYPE = {
     WIFI_SINGLE_MODEL_DEVICE: '0',
@@ -545,10 +558,32 @@ export class BasicDevice {
     THIRD_CLOUD_DEVICE: '14',
     INFRARED_REMOTE_CONTROLLER_DEVICE: '15',
     BLE_MESH_DEVICE: '16',
-    NEW_GROUP_VIRTUAL_DEVICE: '17'
+    NEW_GROUP_VIRTUAL_DEVICE: '17',
+    ONLY_CABLE_DEVICE: '21',
+    PLC_DEVICE: '22',
+    MATTER_DEVICE: '24'
   }
   /**
-   * 获取设备类型，0：wifi单模设备，1：yunyi设备，2：云接入设备，3：zigbee设备，5：虚拟设备，6：蓝牙单模设备，7：本地AP设备，8：蓝牙wifi双模设备，9：其他，10：功能插件，11：SIM卡设备，12：网线设备，13：NB-IoT，14：第三方云接入，15：红外遥控器，16：BLE Mesh，17：虚拟设备（新设备组）
+   * 获取设备类型，
+   * 0：wifi单模设备，
+   * 1：yunyi设备，
+   * 2：云接入设备，
+   * 3：zigbee设备，
+   * 5：虚拟设备，
+   * 6：蓝牙单模设备，
+   * 7：本地AP设备，
+   * 8：蓝牙wifi双模设备，
+   * 9：其他，
+   * 10：功能插件，
+   * 11：SIM卡设备，
+   * 12：网线设备，
+   * 13：NB-IoT，
+   * 14：第三方云接入，
+   * 15：红外遥控器，
+   * 16：BLE Mesh，
+   * 17：虚拟设备（新设备组）
+   * 21：仅网线设备，局域网绑定
+   * 22：plc设备，plc配网
    * @return {string}
    * @readonly
    *
@@ -923,6 +958,19 @@ export class BasicDevice {
   @report
   getAllDevicesOfBelongedCompanies() {
      return Promise.resolve({});
+  }
+  /**
+   * 紧急联系人设置判断
+   * @since 10085
+   * @returns {Promise<Object>}
+   * success: { code:0, data }
+   * fail: {coce: -1, message }
+   */
+  @report
+  hasSetDeviceCall() {
+    return new Promise((resolve, reject) => {
+      native.MIOTDevice.hasSetDeviceCall((ok, result) => ok ? resolve(result) : reject(result));
+    });
   }
 }
 export class PollPropMap {
