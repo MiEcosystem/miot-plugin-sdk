@@ -1237,6 +1237,12 @@ class IUi {
   @report
        openMatterConnectPage(did) {
        }
+  /**
+   * 跳转到插件之外页面后，如Host.ui.openWebPage(targetUrl)打开的H5页面，调用后回到插件页
+   * @param info
+   */
+  backToPluginPage(info = null) {
+  }
 }
 const UiInstance = new IUi();
 export default UiInstance;
