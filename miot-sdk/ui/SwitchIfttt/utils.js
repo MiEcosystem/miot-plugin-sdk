@@ -416,8 +416,9 @@ export function getClickTriggerConfig(spec, propSpec, value) {
   }
   return triggerConfig;
 }
-export function getTargetDeviceList(homeDeviceList, deviceType, filterMain) {
+export function getTargetDeviceList(homeDeviceList, deviceTypes, filterMain) {
   const targetDeviceList = [];
+  const filterDevice = {};
   for (let index = 0; index < homeDeviceList.length; index++) {
     const device = homeDeviceList[index];
     // 去掉分享设备
@@ -427,46 +428,35 @@ export function getTargetDeviceList(homeDeviceList, deviceType, filterMain) {
     const regex = /device:([^:]*):/;
     const type = device.specUrn.match(regex);
     
-    if (type && type[1] === deviceType) {
-      const deviceIndex = targetDeviceList.findIndex((s) => {
-        return s.did === device?.did;
-      });
-      if (deviceIndex === -1) {
-        if (filterMain) {
-          if (!device.did.includes('.s') && device.did !== Device.deviceID) {
-            targetDeviceList.push(device);
-          }
-        } else {
+    if (type && deviceTypes.includes(type[1]) && !filterDevice[device.did]) {
+      if (filterMain) {
+        if (!device.did.includes('.s') && device.did !== Device.deviceID) {
+          filterDevice[device.did] = true;
           targetDeviceList.push(device);
-        } 
-      }
+        }
+      } else {
+        filterDevice[device.did] = true;
+        targetDeviceList.push(device);
+      } 
     }
   }
   return targetDeviceList;
 }
-export function getTargetSectionDeviceList(homeDeviceList, deviceType) {
+export function getTargetSectionDeviceList(deviceList) {
   const targetDeviceList = [];
-  for (let index = 0; index < homeDeviceList.length; index++) {
-    const device = homeDeviceList[index];
-    // 去掉分享设备
-    if (device.roomId === 'mijia.roomid.share') {
-      continue;
-    }
-    const regex = /device:([^:]*):/;
-    const type = device.specUrn.match(regex);
-    if (type && type[1] === deviceType) {
-      const sectionIndex = targetDeviceList.findIndex((s) => {
-        return s.roomId === device?.roomId;
+  for (let index = 0; index < deviceList.length; index++) {
+    const device = deviceList[index];
+    const sectionIndex = targetDeviceList.findIndex((s) => {
+      return s.roomId === device?.roomId;
+    });
+    if (sectionIndex === -1) {
+      targetDeviceList.push({
+        title: device?.roomName || I18n.room_unassigned,
+        roomId: device?.roomId,
+        data: [device]
       });
-      if (sectionIndex === -1) {
-        targetDeviceList.push({
-          title: device?.roomName || I18n.room_unassigned,
-          roomId: device?.roomId,
-          data: [device]
-        });
-      } else {
-        targetDeviceList[sectionIndex].data.push(device);
-      }
+    } else {
+      targetDeviceList[sectionIndex].data.push(device);
     }
   }
   return targetDeviceList;
