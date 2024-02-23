@@ -16,6 +16,7 @@ import useFreqCameraInfo from '../../hooks/useFreqCameraInfo';
 import useFreqDeviceInfo from '../../hooks/useFreqDeviceInfo';
 import AutoOTAABTestHelper from '../../utils/autoota_abtest_helper';
 import useDeviceService from "../../hooks/useDeviceService";
+import useCariotDevice from "../../hooks/useCariotDevice";
 import { ListItemWithSwitch } from 'mhui-rn';
 let getInnerOptions = () => {
   return {
@@ -43,8 +44,19 @@ let getInnerOptions = () => {
       ownerOnly: true,
       title: I18n.share,
       notTypes: ['3', '22'],
-      onPress: () => {
-        Host.ui.openShareDevicePage();
+      Component: () => {
+        const isCariotDevice = useCariotDevice();
+        return isCariotDevice ? null : (
+          <ListItem
+            key={ 'share' }
+            title={ I18n.share }
+            onPress={ () => {
+              Host.ui.openShareDevicePage();
+            } }
+            useNewType={ true }
+            hideArrow={ false }
+          />
+        );
       },
       validator: () => {
         // 0：用户可选共享权限 1：用户不可选共享权限 2：白名单 3：不支持共享
@@ -147,6 +159,7 @@ let getInnerOptions = () => {
       ownerOnly: true,
       Component: (params) => {
         const [info, setInfo] = useFreqDeviceInfo();
+        const isCariotDevice = useCariotDevice();
         useEffect(() => {
           getModelType().then((modelType) => {
             //  摄像机首页显示开关曝光打点
@@ -157,32 +170,33 @@ let getInnerOptions = () => {
           }).catch(() => {});
         }, []);
         return (
-          <ListItemWithSwitch
-            key={'FREQ_DEVICE'}
-            title={I18n.favoriteDevices}
-            titleNumberOfLines={3}
-            value={!!info}
-            onTintColor={params.extraOptions?.themeColor || undefined}
-            onValueChange={(vaule) => {
-              Device.setCommonUseDeviceSwitch(
-                {
-                  switchStatus: vaule ? "1" : "0"
-                }
-              ).then(() => {
-                setInfo(vaule);
-              }).catch(() => {
-                setInfo(vaule);// 不调用这行代码的话，info值未变，下面的setInfo不会触发render
-                setInfo(!vaule);
-              });
-              getModelType().then((modelType) => {
+          isCariotDevice ? null :
+            <ListItemWithSwitch
+              key={'FREQ_DEVICE'}
+              title={I18n.favoriteDevices}
+              titleNumberOfLines={3}
+              value={!!info}
+              onTintColor={params.extraOptions?.themeColor || undefined}
+              onValueChange={(vaule) => {
+                Device.setCommonUseDeviceSwitch(
+                  {
+                    switchStatus: vaule ? "1" : "0"
+                  }
+                ).then(() => {
+                  setInfo(vaule);
+                }).catch(() => {
+                  setInfo(vaule);// 不调用这行代码的话，info值未变，下面的setInfo不会触发render
+                  setInfo(!vaule);
+                });
+                getModelType().then((modelType) => {
                 // 摄像机首页显示开关点击打点
-                let isCamera = ['camera'].indexOf(modelType) !== -1 && ['mxiang.'].indexOf(Device.model) == -1;
-                if (isCamera) {
-                  Service.smarthome.reportEvent('click', { tip: '6.109.1.1.28405', switch_toggle_string: vaule ? "1" : "0" });
-                }
-              }).catch(() => {});
-            }}
-          />
+                  let isCamera = ['camera'].indexOf(modelType) !== -1 && ['mxiang.'].indexOf(Device.model) == -1;
+                  if (isCamera) {
+                    Service.smarthome.reportEvent('click', { tip: '6.109.1.1.28405', switch_toggle_string: vaule ? "1" : "0" });
+                  }
+                }).catch(() => {});
+              }}
+            />
         );
       }
     },
@@ -335,6 +349,26 @@ let getInnerOptions = () => {
         );
       }
     }
+    // pairMode: { // 配对模式，只有Matter子设备才会显示这一项
+    //   exportKey: 'PAIR_MODE',
+    //   isDefault: true,
+    //   ownerOnly: true,
+    //   validator: () => {
+    //     let isMatter = Device.deviceID.indexOf('M.') === 0 ? true : false; // 所有Matter子设备的id格式均为 "M." + "device_id"，id不为此格式的则不是。
+    //     return isMatter;
+    //   },
+    //   Component: (params) => {
+    //     return (
+    //       <ListItem
+    //         key={"pairMode"}
+    //         title={"配对模式"}
+    //         onPress={ () => Host.ui.openMatterConnectPage(Device.deviceID) } 
+    //         useNewType={true}
+    //         hideArrow={false}
+    //       />
+    //     );
+    //   }
+    // }
   };
 };
 let innerOptions = getInnerOptions();

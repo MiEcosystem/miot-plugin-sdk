@@ -972,6 +972,19 @@ export class BasicDevice {
       native.MIOTDevice.hasSetDeviceCall((ok, result) => ok ? resolve(result) : reject(result));
     });
   }
+  /**
+   * 设备是否属于车房间
+   * @since 10087
+   * @returns {Promise<Object>}
+   * success: { code:0, data }
+   * fail: {coce: -1, message }
+   */
+    @report
+  isBelongToCarRoom(did) {
+    return new Promise((resolve, reject) => {
+      native.MIOTDevice.isBelongToCarRoom({ did }, (ok, result) => ok ? resolve(result) : reject(result));
+    });
+  }
 }
 export class PollPropMap {
   static PROP_TYPE_UNKNOWN = 0;

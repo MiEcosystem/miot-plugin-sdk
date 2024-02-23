@@ -832,9 +832,10 @@ export default class CommonSetting extends React.Component {
       showMemberSetKey: false, // 是否展示「按键设置」,适用于多键开关和继电器设备
       isSingleSwitch: false, // 是否是单键开关，单键开关也要显示「按键设置」。showMemberSetKey和isSingleSwitch要么都为false，说明这不是一个开关设备，要么只会有一个为true，说明这是单键或者多键开关
       showDeviceService: false, // 是否暂展示「设备服务」选项，
-      cloudStorageOn: -1
+      cloudStorageOn: -1,
+      isCariotDevice: false
     };
-    console.log(`Device.type: ${ Device.type }`);
+    console.log(`Device.type: ${ Device.type + Device.deviceID }`);
     this.commonSetting = this.getCommonSetting(this.state);
   }
   UNSAFE_componentWillReceiveProps(props) {
@@ -962,6 +963,7 @@ export default class CommonSetting extends React.Component {
     Host.ui.openDeleteDevice(deleteDeviceMessage);
   }
   componentDidMount() {
+  
     getProductBaikeUrl().then((productBaikeUrl) => {
       this.commonSetting = this.getCommonSetting({
         ...this.state,
@@ -1060,6 +1062,7 @@ export default class CommonSetting extends React.Component {
       }).catch((err) => {
         console.log(err);
       });
+     
     Service.smarthome.batchGetDeviceDatas([{
       did: Device.deviceID,
       props: ['prop.s_commonsetting_stand_plugin']
@@ -1097,6 +1100,7 @@ export default class CommonSetting extends React.Component {
         this.setState({ needShowUpgradeRedDot: true });
       }
     });
+    this._isBelongToCarRoom();
   }
   getCloudStorage() {
     GetCloudStorage(Device.deviceID).then((result) => {
@@ -1137,8 +1141,22 @@ export default class CommonSetting extends React.Component {
       dialogVisible: false
     });
   }
+  _isBelongToCarRoom() {
+    Device.isBelongToCarRoom(Device.deviceID).then((value) => {
+      console.log(value, "isCariotDevice");
+    
+      let isCariotDevice = value.data;
+      this.commonSetting = this.getCommonSetting({
+        ...this.state,
+        isCariotDevice
+      });
+      this.setState({ isCariotDevice });
+    }).catch((err) => {
+      console.log("err", err);
+    });
+  }
   render() {
-    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory, showMemberSetKey, isSingleSwitch, showDeviceService } = this.state;
+    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory, showMemberSetKey, isSingleSwitch, showDeviceService, isCariotDevice } = this.state;
     let requireKeys1 = [
       AllOptions.FREQ_CAMERA,
       AllOptions.FREQ_DEVICE,
@@ -1197,6 +1215,7 @@ export default class CommonSetting extends React.Component {
     }
     // 3. 去除重复
     options = [...new Set(options)];
+  
     // 4. 拼接必选项和可选项
     let keys = [...requireKeys1, ...options, ...requireKeys2, ...(this.props.firstCustomOptions || [])];
     keys = [...new Set(keys)];
@@ -1214,6 +1233,11 @@ export default class CommonSetting extends React.Component {
           return true;
         }
         return !(excludeRequiredOptions || []).includes(key);
+      });
+    }
+    if (isCariotDevice) {
+      keys = keys.filter((key) => {
+        return key !== AllOptions.LOCATION && key !== AllOptions.SHARE && key !== AllOptions.FREQ_DEVICE;
       });
     }
     // 4.5 所有设置项顺序固定，20190708 / SDK_10023
@@ -1263,6 +1287,7 @@ export default class CommonSetting extends React.Component {
         </View>
         {/* <Separator style={{ marginLeft: Styles.common.padding }} /> */}
         {
+          
           items.map((item) => {
             if (!item || !item.title) return null;
             const showSeparator = false;// index !== items.length - 1;
@@ -1290,6 +1315,7 @@ export default class CommonSetting extends React.Component {
                 }
               }
               return (
+             
                 <ListItemWithSwitch
                   key={item.key || item.title}
                   title={item.title || ''}
