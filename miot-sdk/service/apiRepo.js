@@ -316,6 +316,12 @@ const API_REPO = {
   '/v2/product/get_product_brands': {},
   // 事件统计
   '/common/app/get/event/statistics': {},
+    // 趣拍回忆相关
+    '/miot/camera/app/v1/nineSeconds/m3u8': {},
+    '/common/app/v1/dailyStory/generateMemory': {},
+    '/common/app/get/emotion/status': {},
+    '/common/app/get/event/emostatiscs': {},
+    
   // 事件顺序相关
   '/common/app/get/event/sort': {},
   '/common/app/set/event/sort': {},
