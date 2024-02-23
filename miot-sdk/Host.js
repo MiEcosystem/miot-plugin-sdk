@@ -115,6 +115,7 @@ export default {
      return  false
   },
   /**
+   * @deprecated  此接口sdk 10090版本废弃，从10090(包括10090)开始请使用Package.entryInfo.mobileType进行判断，默认为'phone',车机端确保有值且为'car',手机端不一定有值
    * @const
    * @type {String}
    * @description 设备类型，用在车机插件上，米家app的插件开发者无需关心
@@ -123,6 +124,9 @@ export default {
    */
   get mobileType() {
      return  "..."
+      console.warn("mobileType deprecated 此接口sdk 10090版本废弃，从10090(包括10090)开始请使用Package.entryInfo.mobileType进行判断，默认为'phone',车机端确保有值且为'car',手机端不一定有值");
+    }
+    if (isIOS) {
       return 'phone';
     }
     return native.MIOTHost.mobileType;

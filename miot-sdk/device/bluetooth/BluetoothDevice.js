@@ -36,11 +36,11 @@
  */
 import native, { buildEvents, Properties, isIOS, MIOTEventEmitter, isAndroid } from '../../native';
 import { IBluetoothService } from './CoreBluetooth';
-import Bluetooth, { getBluetoothUUID128 } from './index';
-import RootDevice from '../BasicDevice';
 import { report } from "../../decorator/ReportDecorator";
 import PluginAppConfigHelper from '../../utils/plugin-app-config-helper';
 // import Host from '../../Host';
+// fix miot-sdk/device/bluetooth/index.js -> miot-sdk/device/bluetooth/BluetoothDevice.js cycle
+import { getBluetoothUUID128, setMacUuid, getMacUuid } from './utils/uuid';
 /**
  *
  * 蓝牙组件基本接口,主要提供了蓝牙设备的基本属性，蓝牙设备的基本操作，和蓝牙设备事件等功能。

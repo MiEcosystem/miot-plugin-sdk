@@ -7,8 +7,8 @@
  * @description 场景2.0相关服务
  */
 import { report } from "../decorator/ReportDecorator";
-import { Device, Service } from 'miot';
-import Host from "../Host";
+import Device from '../device/BasicDevice';
+import { CurrentAccount } from './Account';
 /**
  * @export
  */
@@ -281,18 +281,6 @@ class IMiotSceneV2 {
   
   @report
   createPointTimerPush = (timer) => {
-  }
-  
-  /**
-   * since 10089
-   * 获取场景升级模板，/appgateway/miot/appsceneservice/AppSceneService/PluginRecommendTemplateList
-   * 获取场景升级模板
-   * @param {string} type 家庭id
-   * @param {string} deviceId 设备id
-   * @returns {Promise<array>}
-   */
-  @report
-  loadScenePluginRecommendTemplateList(type, deviceId) {
   }
 }
 const MiotSceneInstanceV2 = new IMiotSceneV2();

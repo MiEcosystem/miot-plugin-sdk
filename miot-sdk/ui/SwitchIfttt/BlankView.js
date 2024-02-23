@@ -12,6 +12,7 @@ import ConfirmButton from './ConfirmButton';
 import { ViewPropTypes } from 'react-native';
 import { FontMILanProNormal } from 'miot/utils/fonts';
 import { Images } from '../../resources';
+import DarkMode from 'miot/darkmode';
 /**
  * 卡片的按钮配置 cardButton
  * @typedef {object} cardButton
@@ -153,7 +154,7 @@ export default function BlankView({
     <View
       style={[styles.containerStyle, blankStyle]}>
       <Image
-        source={icon ? icon : dynamicColor(Images.common.list_empty, Images.common.list_empty_dark)}
+        source={icon ? icon : DarkMode.getColorScheme() === 'light' ? Images.common.list_empty : Images.common.list_empty_dark}
         style={[styles.imageStyle, iconStyle]}
         resizeMode="cover"
       />

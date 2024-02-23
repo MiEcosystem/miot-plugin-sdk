@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Device, Service, PackageEvent } from 'miot';
+import { PackageEvent } from 'miot/event/PackageEvent';
+import Service from 'miot/Service';
+import Device from 'miot/device/BasicDevice';
 import useDeepCompareEffect from './useDeepCompareEffect';
 import { existSpecificTriggerSceneV2, existSpecificTriggerScene } from '../ui/SwitchIfttt/utils';
 const cachedSceneList = {};
@@ -9,6 +11,7 @@ export default function useSceneList(triggers = [], homeId, did = Device.deviceI
   const [sceneListV1, setSceneV1List] = useState(cachedSceneListV1[did] || []);
   const [existTriggerScene, setExistTriggerScene] = useState(existSpecificTriggerSceneV2(sceneList, triggers) || 
   existSpecificTriggerScene(sceneListV1, triggers));
+  const [sceneLoading, setSceneLoading] = useState(true);
   const fetchSceneList = () => {
     if (!homeId) {
       console.log('获取智能列表报错---loadSceneList---homeId不存在');
@@ -18,6 +21,7 @@ export default function useSceneList(triggers = [], homeId, did = Device.deviceI
       // console.log('获取获取智能列表--loadSceneList-res', JSON.stringify(res));
       const list = res || [];
       cachedSceneList[did] = list;
+      return list;
     }).catch((error) => {
       console.log('获取智能列表报错---loadSceneList---error', error);
       return cachedSceneList[did] || [];
@@ -37,9 +41,11 @@ export default function useSceneList(triggers = [], homeId, did = Device.deviceI
       setSceneList(listV2 || []);
       setSceneV1List(listV1 || []);
       if (triggers.length && (listV2.length || listV1.length)) {
-        setExistTriggerScene(existSpecificTriggerSceneV2(listV2, triggers) || 
-        existSpecificTriggerScene(listV1, triggers));
+        const exist = existSpecificTriggerSceneV2(listV2, triggers) || 
+        existSpecificTriggerScene(listV1, triggers);
+        setExistTriggerScene(exist);
       }
+      setSceneLoading(false);
     });
   };
   useDeepCompareEffect(() => {
@@ -54,6 +60,7 @@ export default function useSceneList(triggers = [], homeId, did = Device.deviceI
   return {
     sceneListV1,
     sceneList,
-    existTriggerScene
+    existTriggerScene,
+    sceneLoading
   };
 }

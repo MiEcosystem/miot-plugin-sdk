@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Device, Service } from "miot";
+import Service from 'miot/Service';
+import Device from 'miot/device/BasicDevice';
 import { getModelType } from './useModelType';
 let cacheShowDeviceService = false;
 export function showDeviceService() {

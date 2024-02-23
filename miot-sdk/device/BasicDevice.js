@@ -252,6 +252,10 @@ export class BasicDevice {
   getDeviceWifi() {
      return null
   }
+  // 用于创建wifiDevice实例，避免cycle
+  createWiFiDeviceInstance() {
+    return {};
+  }
   /**
      *设备是否已经可用,没有did的设备的插件，可能调用此方法判断接口是否可用。此方法没什么其他存在的意义，一般也不需要使用此方法
      * @return {boolean}

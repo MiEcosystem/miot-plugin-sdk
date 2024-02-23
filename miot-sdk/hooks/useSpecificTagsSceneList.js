@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { DeviceEventEmitter } from 'react-native';
-import { Service, Device } from 'miot';
+import Service from 'miot/Service';
+import Device from 'miot/device/BasicDevice';
 import useDeepCompareEffect from './useDeepCompareEffect';
 const cachedSpecificTagsSceneList = {};
 function getCacheKey(tags = []) {
@@ -11,6 +12,7 @@ export default function useSpecificTagsSceneList({
   mode
 }) {
   const [tagsSceneList, setTagsSceneList] = useState(cachedSpecificTagsSceneList[getCacheKey(tags)] || []);
+  const [tagsSceneListLoading, setTagsSceneListLoading] = useState(true);
   const editTagsScene = (scene) => {
     return new Promise((resolve, reject) => {
       Service.sceneV2.editScene(scene).then((res) => {
@@ -52,7 +54,9 @@ export default function useSpecificTagsSceneList({
       // console.log('获取批量控制成功--loadSceneListByTags-res', res);
       setTagsSceneList(res || []);
       cachedSpecificTagsSceneList[getCacheKey(tags)] = res || [];
+      setTagsSceneListLoading(false);
     }).catch((error) => {
+      setTagsSceneListLoading(false);
       console.log('获取tags场景报错---loadSceneListByTags---error', error);
     });
   };
@@ -70,6 +74,7 @@ export default function useSpecificTagsSceneList({
   return {
     tagsSceneList,
     editTagsScene,
-    deleteTagsScene
+    deleteTagsScene,
+    tagsSceneListLoading
   };
 }

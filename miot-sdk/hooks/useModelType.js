@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Device, Service } from 'miot';
+import Service from 'miot/Service';
+import Device from 'miot/device/BasicDevice';
 const modelTypes = {};
 export function getModelType(did, model) {
   did = did || Device.deviceID;

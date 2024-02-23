@@ -223,6 +223,7 @@ const API_REPO = {
   '/business/camera/video_vip_tips': {},
   '/business/camera/video_banner': {},
   '/business/camera/video_home_vip_tips': {},
+  '/business/camera/video_patch_tips': {},
   // 每日故事开关接口
   '/miot/camera/app/v1/put/dailyStorySwitch': {},
   '/v2/device/set_camera_phoneservice_switch': {}, // 设置电话服务开关
@@ -252,6 +253,7 @@ const API_REPO = {
   '/miot/camera/app/v1/add/group': {},
   '/miot/camera/app/v1/modify/group': {}, // 修改分组
   '/miot/camera/app/v1/delete/group': {}, // 删除分组
+  '/miot/camera/app/v1/put/detectionAlgorithmSwitch': {},
   // 摄氏度/华氏度一键切换接口
   '/v2/user/set_common_config': {},
   '/v2/user/get_common_config': {},
@@ -333,6 +335,8 @@ const API_REPO = {
   '/scenesrv/apppushservice/GetWechatPushSwitch': {}, // 小程序
   '/scenesrv/apppushservice/SetWechatPushSwitch': {},
   '/business/camera/vip_tips_switch': {},
-  '/camera_cloud/card_cloud_switch/set': {}
+  '/camera_cloud/card_cloud_switch/set': {},
+  // 摄像机人形检测开关
+  '/miot/camera/app/v1/put/serverPeopleMotionCheckSwitch': {}
 };
 export default API_REPO;

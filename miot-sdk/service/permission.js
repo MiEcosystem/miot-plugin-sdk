@@ -14,7 +14,6 @@ import { report } from "../decorator/ReportDecorator";
 import native from "../native";
 import { pluginSpecPackagesName } from "../utils/special-plugins";
 import permissionLocal from "./permissionLocal.json";
-import { Package } from "miot";
 class IPermission {
   /**
    * 拉取最新远程配置，默认会调用一次，优先使用远程配置
@@ -39,7 +38,7 @@ class IPermission {
     || models.includes(model)
     || models.find((m) => { return model.startsWith(m); })
     // 标准插件所有权限get
-    || Package.packageName === pluginSpecPackagesName;
+    || native.MIOTPackage.packageName === pluginSpecPackagesName;
   }
 }
 const instance = new IPermission();

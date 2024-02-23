@@ -1,4 +1,5 @@
-import { Device, Service } from 'miot';
+import Service from 'miot/Service';
+import Device from 'miot/device/BasicDevice';
 import { SWITCH_DEVICE_TYPE } from "./Const";
 import { strings as I18n } from '../../resources';
 export function getSwitchTypeTitle(type = '') {
@@ -151,7 +152,7 @@ export function findSpecificTriggerScene(scene, specificTriggers) {
   for (let indexTrigger = 0; indexTrigger < triggers.length; indexTrigger++) {
     const trigger = triggers[indexTrigger];
     const { key, extra_json, value_json } = trigger || {};
-    if (extra_json?.model === Device.model) {
+    if (extra_json?.model === Device.model && extra_json?.did === Device.deviceID) {
       hasTargetScene = triggerMatch(specificTriggers, key, value_json);
     }
     if (hasTargetScene) {
@@ -166,7 +167,7 @@ export function findSpecificTriggerScene(scene, specificTriggers) {
     const condition = conditions[indexCondition];
     const { key, extra_json, value_json } = condition || {};
     // console.log('existSpecificTriggerSceneV2--trigger---', condition);
-    if (extra_json?.model === Device.model) {
+    if (extra_json?.model === Device.model && extra_json?.did === Device.deviceID) {
       hasTargetScene = triggerMatch(specificTriggers, key, value_json);
     }
     if (hasTargetScene) {
@@ -329,7 +330,7 @@ export function createSwitchScene(extra) {
   };
   return scene;
 }
-export function createSwitchTrigger(spec, value = '', value_type = 5) {
+export function createSwitchTrigger(spec, propSpec, propValue, value_type = 5) {
   const sceneTrigger = {
     express: 0,
     triggers: [{
@@ -339,14 +340,23 @@ export function createSwitchTrigger(spec, value = '', value_type = 5) {
       key: encodeProp(spec),
       extra: '',
       name: `${ spec?.i18n }`,
-      value,
-      value_type,
+      value: '',
+      value_type: propValue === undefined ? value_type : 6,
       extra_json: {
         device_name: Device.name,
         did: Device.deviceID,
         model: Device.model
       },
-      value_json: '',
+      value_json: propValue === undefined ? '' : {
+        sub_props: {
+          express: 0,
+          attr: [{
+            key: propSpec?.miid ? `prop.${ Device.model }.${ propSpec?.miid }.${ propSpec?.siid }.${ propSpec?.piid }` : `prop.${ Device.model }.${ propSpec?.siid }.${ propSpec?.piid }`,
+            value: propValue,
+            value_type: 1
+          }]
+        }
+      },
       // protocol_type: 2,
       sc_id: 9321,
       from: 1
@@ -395,8 +405,7 @@ export function getClickTriggerConfig(spec, propSpec, value) {
       valueKey: propSpec.miid ? `prop.${ DeviceModel }.${ propSpec.miid }.${ propSpec.siid }.${ propSpec.piid }` : `prop.${ DeviceModel }.${ propSpec.siid }.${ propSpec.piid }`,
       value: value
     });
-  }
-  if (spec) {
+  } else if (spec) {
     triggerConfig.push({
       key: spec.miid ? `event.${ spec.miid }.${ spec.siid }.${ spec.eiid }` : `event.${ spec.siid }.${ spec.eiid }`
     });
@@ -407,8 +416,9 @@ export function getClickTriggerConfig(spec, propSpec, value) {
   }
   return triggerConfig;
 }
-export function getTargetDeviceList(homeDeviceList, deviceType, filterMain) {
+export function getTargetDeviceList(homeDeviceList, deviceTypes, filterMain) {
   const targetDeviceList = [];
+  const filterDevice = {};
   for (let index = 0; index < homeDeviceList.length; index++) {
     const device = homeDeviceList[index];
     // 去掉分享设备
@@ -418,46 +428,35 @@ export function getTargetDeviceList(homeDeviceList, deviceType, filterMain) {
     const regex = /device:([^:]*):/;
     const type = device.specUrn.match(regex);
     
-    if (type && type[1] === deviceType) {
-      const deviceIndex = targetDeviceList.findIndex((s) => {
-        return s.did === device?.did;
-      });
-      if (deviceIndex === -1) {
-        if (filterMain) {
-          if (!device.did.includes('.s') && device.did !== Device.deviceID) {
-            targetDeviceList.push(device);
-          }
-        } else {
+    if (type && deviceTypes.includes(type[1]) && !filterDevice[device.did]) {
+      if (filterMain) {
+        if (!device.did.includes('.s') && device.did !== Device.deviceID) {
+          filterDevice[device.did] = true;
           targetDeviceList.push(device);
-        } 
-      }
+        }
+      } else {
+        filterDevice[device.did] = true;
+        targetDeviceList.push(device);
+      } 
     }
   }
   return targetDeviceList;
 }
-export function getTargetSectionDeviceList(homeDeviceList, deviceType) {
+export function getTargetSectionDeviceList(deviceList) {
   const targetDeviceList = [];
-  for (let index = 0; index < homeDeviceList.length; index++) {
-    const device = homeDeviceList[index];
-    // 去掉分享设备
-    if (device.roomId === 'mijia.roomid.share') {
-      continue;
-    }
-    const regex = /device:([^:]*):/;
-    const type = device.specUrn.match(regex);
-    if (type && type[1] === deviceType) {
-      const sectionIndex = targetDeviceList.findIndex((s) => {
-        return s.roomId === device?.roomId;
+  for (let index = 0; index < deviceList.length; index++) {
+    const device = deviceList[index];
+    const sectionIndex = targetDeviceList.findIndex((s) => {
+      return s.roomId === device?.roomId;
+    });
+    if (sectionIndex === -1) {
+      targetDeviceList.push({
+        title: device?.roomName || I18n.room_unassigned,
+        roomId: device?.roomId,
+        data: [device]
       });
-      if (sectionIndex === -1) {
-        targetDeviceList.push({
-          title: device?.roomName || I18n.room_unassigned,
-          roomId: device?.roomId,
-          data: [device]
-        });
-      } else {
-        targetDeviceList[sectionIndex].data.push(device);
-      }
+    } else {
+      targetDeviceList[sectionIndex].data.push(device);
     }
   }
   return targetDeviceList;
@@ -468,6 +467,7 @@ export function getCustomSceneName(sceneName) {
 export function getLocalI18n(key, replaces) {
   if (replaces?.length) {
     let v = I18n[key];
+    if (!v) { return ''; }
     replaces.forEach((r, i) => {
       v = v.replace('${}', r);
       v = v.replace(`{${ i + 1 }}`, r);
