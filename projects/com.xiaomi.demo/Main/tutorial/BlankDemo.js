@@ -5,7 +5,7 @@ import {
   Text
 } from 'react-native';
 import ListItem from 'miot/ui/ListItem/ListItem';
-import InputDialog from 'miot/ui/InputDialog';
+
 export default class BlankDemo extends React.Component {
   render() {
     return (
