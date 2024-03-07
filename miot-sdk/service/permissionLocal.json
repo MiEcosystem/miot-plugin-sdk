@@ -55,7 +55,8 @@
       "xiaomi.lock.b04s",
       "xiaomi.lock.m30fc",
       "xiaomi.lock.s20pro",
-      "xiaomi.lock.s20"
+      "xiaomi.lock.s20",
+      "oms.lock.g10"
     ],
     "getDevicesWithModel": [
       "chuangmi.plug.m3",
