@@ -128,15 +128,21 @@ const API_REPO = {
   '/miot/camera/app/v1/put/babyCryPushSwitch': {},
   '/miot/camera/app/v1/put/aiPushSwitch': {},
   '/miot/camera/app/v1/put/petPushSwitch': {},
+  '/miot/camera/app/v1/put/facePushSwitch': {},
   '/miot/camera/app/v1/vip/status': {},
+  '/miot/camera/app/v1/getVideoListByFigure': {},
+  '/miot/camera/app/v1/modify/figureOfVideo': {},
   '/common/app/get/eventlist': {},
   '/common/app/v2/delete/files': {},
+  '/miot/camera/app/v2/get/spec/property': {},
+  '/miot/camera/app/v2/put/spec/property': {},
   '/common/app/markRead': {},
   '/common/device/vip/status': {},
   '/common/app/vip/status': {},
   '/miot/camera/app/v1/get/fileIdMetas': {},
   '/miot/camera/app/v1/get/figures': {},
   '/miot/camera/app/v1/get/figureByName': {},
+  '/miot/camera/app/v1/get/figureByFigureId': {},
   '/miot/camera/app/v1/add/figure': {},
   '/miot/camera/app/v1/add/face': {},
   '/common/app/m3u8': {},
@@ -170,6 +176,7 @@ const API_REPO = {
   '/v2/device/get_hijack_alarm_info': {},
   // FDS KS3 相关
   '/v2/home/get_interim_file_url_pro': {},
+  '/v2/home/get_carhome': {},
   '/v2/home/genfileurl_v3': {},
   '/v2/home/genpresignedurl': {},
   '/v2/home/genpresignedurl_v3': {},
@@ -213,6 +220,10 @@ const API_REPO = {
   '/common/app/v1/capacity': {},
   '/v2/scene/get_rec_in_plugin': {},
   '/common/app/get/fileIdEvents': {},
+  '/business/camera/video_vip_tips': {},
+  '/business/camera/video_banner': {},
+  '/business/camera/video_home_vip_tips': {},
+  '/business/camera/video_patch_tips': {},
   // 每日故事开关接口
   '/miot/camera/app/v1/put/dailyStorySwitch': {},
   '/v2/device/set_camera_phoneservice_switch': {}, // 设置电话服务开关
@@ -235,6 +246,14 @@ const API_REPO = {
   "/miot/camera/app/v1/get/facesCluster": {}, // 获取3天内人脸聚类的结果
   "/common/miot/camera/app/get/faceCluster/eventlist": {}, // 获取事件列表（返回3天内faceIds里面的人脸事件）
   "/miot/camera/app/v1/mark/faceClustering/mistake": {}, // 聚类报错接口
+  '/miot/camera/app/v1/addFigureToGroup': {}, // 添加人物到分组
+  '/miot/camera/app/v1/get/common/figures': {}, // 获取所有人物(小米智能门)
+  '/miot/camera/app/v1/get/groups': {}, // 获取所有分组
+  '/miot/camera/app/v1/get/groupFigures': {}, // 获取某个分组下的所有人物
+  '/miot/camera/app/v1/add/group': {},
+  '/miot/camera/app/v1/modify/group': {}, // 修改分组
+  '/miot/camera/app/v1/delete/group': {}, // 删除分组
+  '/miot/camera/app/v1/put/detectionAlgorithmSwitch': {},
   // 摄氏度/华氏度一键切换接口
   '/v2/user/set_common_config': {},
   '/v2/user/get_common_config': {},
@@ -286,6 +305,44 @@ const API_REPO = {
   // 人脸聚类相关接口
   '/common/app/get/faceCluster/eventlist': {},
   // 耗材标准配置服务端接口
-  '/v2/home/standard_consumable_items': {}
+  '/v2/home/standard_consumable_items': {},
+  // 获取中枢的列表
+  '/v2/device/get_lan_hub': {},
+  // 获取自动更新列表
+  '/v2/device/auto_upgrade_list': {},
+  // 获取预置音频
+  '/common/app/data/v2/preDataGetCommon': {},
+  // 设备服务时对比米系品牌
+  '/v2/product/get_product_brands': {},
+  // 事件统计
+  '/common/app/get/event/statistics': {},
+    // 趣拍回忆相关
+    '/miot/camera/app/v1/nineSeconds/m3u8': {},
+    '/common/app/v1/dailyStory/generateMemory': {},
+    '/common/app/get/emotion/status': {},
+    '/common/app/get/event/emostatiscs': {},
+    
+  // 事件顺序相关
+  '/common/app/get/event/sort': {},
+  '/common/app/set/event/sort': {},
+  // 云存相关
+  '/miot/camera/app/v1/get/cloudSwitch': {},
+  '/miot/camera/app/v1/put/cloudSwitch': {},
+  '/smarthome/product/panel/plugin/quickDeviceList': {},
+  '/smarthome/product/panel/plugin/devices': {},
+  '/smarthome/product/panel/plugin/quickSceneList': {},
+  '/smarthome/product/panel/plugin/scenes': {},
+  '/smarthome/product/panel/plugin/resetSetting': {},
+  '/smarthome/product/panel/plugin/wifispeakerDid': {},
+  '/appgateway/miot/appsceneservice/AppSceneService/GetManualSceneList': {},
+  '/smarthome/product/panel/plugin/quickHomeAddress': {},
+  '/smarthome/product/panel/client/quickSceneList': {},
+  '/smarthome/product/panel/plugin/privacyLog': {},
+  '/scenesrv/apppushservice/GetWechatPushSwitch': {}, // 小程序
+  '/scenesrv/apppushservice/SetWechatPushSwitch': {},
+  '/business/camera/vip_tips_switch': {},
+  '/camera_cloud/card_cloud_switch/set': {},
+  // 摄像机人形检测开关
+  '/miot/camera/app/v1/put/serverPeopleMotionCheckSwitch': {}
 };
 export default API_REPO;
