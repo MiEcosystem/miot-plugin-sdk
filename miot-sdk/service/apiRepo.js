@@ -229,6 +229,7 @@ const API_REPO = {
   '/v2/device/set_camera_phoneservice_switch': {}, // 设置电话服务开关
   '/v2/device/set_camera_third_alarm_info': {}, // 设置电话服务联系电话
   '/v2/device/get_camera_third_alarm_info': {}, // 获取电话服务联系电话以及开关
+  '/v2/device/get_wx_license_expire': {}, // IPC微信视频通话获取激活码到期时间
   // 新的获取设备属性接口，结果中带有上报的时间戳
   '/v2/device/batchgetdatas': {},
   // 免费人脸
