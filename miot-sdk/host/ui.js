@@ -269,13 +269,310 @@ class IUi {
     this.packageNavigate('MiotDeviceInfoPage', params);
   }
   /**
-   *
+   * since 10091
+   * 多键设备，控制设备入口
+   * @param {object} params 参数
+   * @param {object} params.params 参数 
+   * 
+   * @param {bool} params.supportAiCtrl 转无线模式下是否支持小爱语控设置
+   * 
+   * @param {array} params.switchSpecs 按键specs
+   * @param {number} switchSpec.siid 按键的siid
+   * @param {number} switchSpec.piid 按键的piid
+   * @param {string} switchSpec.description 按键的spec描述
+   * @param {string} switchSpec.i18n 按键的默认名称
+   * 
+   * @param {array} params.switchClickSpecs 按键单击specs
+   * @param {number} switchClickSpec.siid 按键的siid
+   * @param {number} switchClickSpec.eiid 按键的eiid
+   * @param {string} switchClickSpec.description 按键单击的spec描述
+   * @param {string} switchClickSpec.i18n 按键单击的默认名称
+   * 
+   * @param {array} params.switchDoubleClickSpecs 按键双击specs，没有传[]
+   * @param {number} switchDoubleClickSpec.siid 按键的siid
+   * @param {number} switchDoubleClickSpec.eiid 按键的eiid
+   * @param {string} switchDoubleClickSpec.description 按键双击的spec描述
+   * @param {string} switchDoubleClickSpec.i18n 按键双击的默认名称
+   * 
+   * @param {array} params.switchLongPressesSpecs 按键长按specs，没有传[]
+   * @param {number} switchLongPressesSpec.siid 按键的siid
+   * @param {number} switchLongPressesSpec.eiid 按键的eiid
+   * @param {string} switchLongPressesSpec.description 按键长按的spec描述
+   * @param {string} switchLongPressesSpec.i18n 按键长按的默认名称
+   * 
+   * @param {array} params.switchModeSpecs 按键转无线模式specs
+   * @param {number} switchModeSpec.siid 按键的siid
+   * @param {number} switchModeSpec.piid 按键的piid
+   * @param {string} switchModeSpec.description 按键转无线模式的spec描述
+   * @param {object} switchModeSpec.prop 按键转无线模式的value值
+   * @param {number} prop.Wireless 按键转无线模式的value值
+   * @param {number} prop.Wired And Wireless 按键正常模式的value值
+   * 
+   * @param {array} params.switchSensorModeSpecs 按键模式specs，没有传[]
+   * @param {number} switchSensorModeSpec.siid 按键的siid
+   * @param {number} switchSensorModeSpec.piid 按键的piid
+   * @param {string} switchSensorModeSpec.speedModeSelectMsg 选择疾速模式时的智能提示文案
+   * @param {string} switchSensorModeSpec.multipleClickSubtitle 标准模式的卡片副标题
+   * @param {object} switchSensorModeSpec.prop 按键转无线模式的value值
+   * @param {number} prop.Quick Single Click 按键疾速模式的value值
+   * @param {number} prop.Multiple Click 按键标准模式的value值
+   * 
+   * @param {object} params.specButtonType 按键类型，没有传空
+   * @param {number} specButtonType.siid 按键类型的siid
+   * @param {number} specButtonType.piid 按键类型的piid
+   * @param {string} specButtonType.description 按键类型的spec描述
+   * @param {array<object>} switchSensorModeSpec.valueList[value] 按键转无线模式的value值
+   * @param {number} value.value 按键类型的value值
+   * @param {string} value.description 按键类型的value值的spec描述
+   * @param {object} specButtonType.prop 按键转无线模式的value值
+   * @param {number} prop.description key为 value的description，value 为 value的 value
+   * @example {json} params 
+   * { "params": {
+		"switchClickSpecs": [{
+			"siid": 5,
+			"eiid": 1,
+			"description": "Left Switch Sensor",
+			"i18n": "单击左键"
+		}, {
+			"siid": 6,
+			"eiid": 1,
+			"description": "Middle Switch Sensor",
+			"i18n": "单击中键"
+		}, {
+			"siid": 7,
+			"eiid": 1,
+			"description": "Right Switch Sensor",
+			"i18n": "单击右键"
+		}],
+		"switchDoubleClickSpecs": [{
+			"siid": 5,
+			"eiid": 2,
+			"description": "Left Switch Sensor",
+			"i18n": "双击左键"
+		}, {
+			"siid": 6,
+			"eiid": 2,
+			"description": "Middle Switch Sensor",
+			"i18n": "双击中键"
+		}, {
+			"siid": 7,
+			"eiid": 2,
+			"description": "Right Switch Sensor",
+			"i18n": "双击右键"
+		}],
+		"switchLongPressesSpecs": [{
+			"siid": 5,
+			"eiid": 3,
+			"description": "Left Switch Sensor",
+			"i18n": "长按左键"
+		}, {
+			"siid": 6,
+			"eiid": 3,
+			"description": "Middle Switch Sensor",
+			"i18n": "长按中键"
+		}, {
+			"siid": 7,
+			"eiid": 3,
+			"description": "Right Switch Sensor",
+			"i18n": "长按右键"
+		}],
+		"specButtonType": null,
+		"switchSpecs": [{
+			"siid": 2,
+			"piid": 1,
+			"description": "Left Switch Service",
+			"i18n": "左键"
+		}, {
+			"siid": 3,
+			"piid": 1,
+			"description": "Middle Switch Service",
+			"i18n": "中键"
+		}, {
+			"siid": 4,
+			"piid": 1,
+			"description": "Right Switch Service",
+			"i18n": "右键"
+		}],
+		"switchModeSpecs": [{
+			"siid": 2,
+			"piid": 2,
+			"description": "Left Switch Service",
+			"prop": {
+				"Wireless": 1,
+				"Wired And Wireless": 0
+			}
+		}, {
+			"siid": 3,
+			"piid": 2,
+			"description": "Middle Switch Service",
+			"prop": {
+				"Wireless": 1,
+				"Wired And Wireless": 0
+			}
+		}, {
+			"siid": 4,
+			"piid": 2,
+			"description": "Right Switch Service",
+			"prop": {
+				"Wireless": 1,
+				"Wired And Wireless": 0
+			}
+		}],
+		"supportAiCtrl": true,
+		"switchSensorModeSpecs": [{
+			"siid": 5,
+			"piid": 1,
+			"description": "Left Switch Sensor",
+			"prop": {
+				"Quick Single Click": 0,
+				"Multiple Click": 1
+			},
+			"speedModeSelectMsg": "当前设备设置了「双击」或「长按」的自动化。疾速模式下，相关自动化将无法响应",
+			"multipleClickSubtitle": "若该设备需要设置「双击」或「长按」的自动化，请选择此项"
+		}, {
+			"siid": 6,
+			"piid": 1,
+			"description": "Middle Switch Sensor",
+			"prop": {
+				"Quick Single Click": 0,
+				"Multiple Click": 1
+			},
+			"speedModeSelectMsg": "当前设备设置了「双击」或「长按」的自动化。疾速模式下，相关自动化将无法响应",
+			"multipleClickSubtitle": "若该设备需要设置「双击」或「长按」的自动化，请选择此项"
+		}, {
+			"siid": 7,
+			"piid": 1,
+			"description": "Right Switch Sensor",
+			"prop": {
+				"Quick Single Click": 0,
+				"Multiple Click": 1
+			},
+			"speedModeSelectMsg": "当前设备设置了「双击」或「长按」的自动化。疾速模式下，相关自动化将无法响应",
+			"multipleClickSubtitle": "若该设备需要设置「双击」或「长按」的自动化，请选择此项"
+		}]
+	}
+}
    */
   @report
   openSwitchButtonSelectPage(params) {
   }
   /**
-   *
+   * since 10091
+   * 单键设备、从智能日志打开指定按键的控制设备入口
+   * @param {object} params 参数
+   * @param {object} params.params 参数 
+   * 
+   * @param {bool} params.supportAiCtrl 转无线模式下是否支持小爱语控设置
+   * @param {number} params.memberId switchSpecs对应的按键index，从0开始
+   * @param {bool} params.fromSceneLog 是否通过智能日志进入
+   * 
+   * @param {array} params.switchSpecs 按键specs
+   * @param {number} switchSpec.siid 按键的siid
+   * @param {number} switchSpec.piid 按键的piid
+   * @param {string} switchSpec.description 按键的spec描述
+   * @param {string} switchSpec.i18n 按键的默认名称
+   * 
+   * @param {object} params.switchClickSpec 按键单击specs
+   * @param {number} switchClickSpec.siid 按键的siid
+   * @param {number} switchClickSpec.eiid 按键的eiid
+   * @param {string} switchClickSpec.description 按键单击的spec描述
+   * @param {string} switchClickSpec.i18n 按键单击的默认名称
+   * 
+   * @param {object} params.switchDoubleClickSpec 按键双击spec，没有传[]
+   * @param {number} switchDoubleClickSpec.siid 按键的siid
+   * @param {number} switchDoubleClickSpec.eiid 按键的eiid
+   * @param {string} switchDoubleClickSpec.description 按键双击的spec描述
+   * @param {string} switchDoubleClickSpec.i18n 按键双击的默认名称
+   * 
+   * @param {object} params.switchLongPressesSpec 按键长按spec，没有传[]
+   * @param {number} switchLongPressesSpec.siid 按键的siid
+   * @param {number} switchLongPressesSpec.eiid 按键的eiid
+   * @param {string} switchLongPressesSpec.description 按键长按的spec描述
+   * @param {string} switchLongPressesSpec.i18n 按键长按的默认名称
+   * 
+   * @param {object} params.switchModeSpec 按键转无线模式spec
+   * @param {number} switchModeSpec.siid 按键的siid
+   * @param {number} switchModeSpec.piid 按键的piid
+   * @param {string} switchModeSpec.description 按键转无线模式的spec描述
+   * @param {object} switchModeSpec.prop 按键转无线模式的value值
+   * @param {number} prop.Wireless 按键转无线模式的value值
+   * @param {number} prop.Wired And Wireless 按键正常模式的value值
+   * 
+   * @param {object} params.switchSensorModeSpec 按键模式spec，没有传[]
+   * @param {number} switchSensorModeSpec.siid 按键的siid
+   * @param {number} switchSensorModeSpec.piid 按键的piid
+   * @param {string} switchSensorModeSpec.speedModeSelectMsg 选择疾速模式时的智能提示文案
+   * @param {string} switchSensorModeSpec.multipleClickSubtitle 标准模式的卡片副标题
+   * @param {object} switchSensorModeSpec.prop 按键转无线模式的value值
+   * @param {number} prop.Quick Single Click 按键疾速模式的value值
+   * @param {number} prop.Multiple Click 按键标准模式的value值
+   * 
+   * @param {object} params.specButtonType 按键类型，没有传空
+   * @param {number} specButtonType.siid 按键类型的siid
+   * @param {number} specButtonType.piid 按键类型的piid
+   * @param {string} specButtonType.description 按键类型的spec描述
+   * @param {array<object>} switchSensorModeSpec.valueList[value] 按键转无线模式的value值
+   * @param {number} value.value 按键类型的value值
+   * @param {string} value.description 按键类型的value值的spec描述
+   * @param {object} specButtonType.prop 按键转无线模式的value值
+   * @param {number} prop.description key为 value的description，value 为 value的 value
+   * @example {json} params 
+  {
+	"params": {
+		"switchSpecs": [{
+			"siid": 2,
+			"piid": 1,
+			"description": "Switch",
+			"i18n": "按键"
+		}],
+		"switchSpec": {
+			"siid": 2,
+			"piid": 1,
+			"description": "Switch",
+			"i18n": "按键"
+		},
+		"switchModeSpec": {
+			"siid": 2,
+			"piid": 2,
+			"description": "Switch",
+			"prop": {
+				"Wireless": 1,
+				"Wired And Wireless": 0
+			}
+		},
+		"switchSensorModeSpec": {
+			"siid": 3,
+			"piid": 1,
+			"description": "Switch Sensor",
+			"prop": {
+				"Quick Single Click": 0,
+				"Multiple Click": 1
+			},
+			"speedModeSelectMsg": "当前设备设置了「双击」或「长按」的自动化。疾速模式下，相关自动化将无法响应",
+			"multipleClickSubtitle": "若该设备需要设置「双击」或「长按」的自动化，请选择此项"
+		},
+		"switchClickSpec": {
+			"siid": 3,
+			"eiid": 1,
+			"description": "Switch Sensor",
+			"i18n": "单击"
+		},
+		"switchDoubleClickSpec": {
+			"siid": 3,
+			"eiid": 2,
+			"description": "Switch Sensor",
+			"i18n": "双击"
+		},
+		"switchLongPressesSpec": {
+			"siid": 3,
+			"eiid": 3,
+			"description": "Switch Sensor",
+			"i18n": "长按"
+		},
+		"specButtonType": null,
+		"supportAiCtrl": true,
+		"memberId": 0
+	}
    */
   @report
   openSwitchButtonSettingPage(params) {
@@ -938,8 +1235,8 @@ class IUi {
    * 打开配对模式界面，仅Matter设备具备该项
    */
   @report
-  openMatterConnectPage(did) {
-  }
+       openMatterConnectPage(did) {
+       }
 }
 const UiInstance = new IUi();
 export default UiInstance;
