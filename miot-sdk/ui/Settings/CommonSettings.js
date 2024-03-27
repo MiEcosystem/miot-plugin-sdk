@@ -35,6 +35,7 @@ let getInnerOptions = () => {
             } }
             useNewType={ true }
             hideArrow={ false }
+            showSeparator={ false }
           />
         ) : null;
       }
@@ -56,6 +57,7 @@ let getInnerOptions = () => {
             } }
             useNewType={ true }
             hideArrow={ false }
+            showSeparator={ false }
           />
         );
       },
@@ -125,6 +127,7 @@ let getInnerOptions = () => {
             }, params, 'firmwareUpgrade', click)}
             useNewType={true}
             hideArrow={false}
+            showSeparator={ false }
           />
         );
       }
@@ -179,6 +182,7 @@ let getInnerOptions = () => {
               title={I18n.favoriteDevices}
               titleNumberOfLines={3}
               value={!!info}
+              showSeparator={ false }
               onTintColor={params.extraOptions?.themeColor || undefined}
               onValueChange={(vaule) => {
                 Device.setCommonUseDeviceSwitch(
@@ -226,6 +230,7 @@ let getInnerOptions = () => {
             }, params, 'freqCamera', click)}
             useNewType={true}
             hideArrow={false}
+            showSeparator={ false }
           />
         );
       }
@@ -263,6 +268,7 @@ let getInnerOptions = () => {
               }, params, 'defaultPlugin')}
               useNewType={true}
               hideArrow={false}
+              showSeparator={ false }
             />
             {tipVisible ? (
               <ChoiceDialog
@@ -325,6 +331,7 @@ let getInnerOptions = () => {
             }}
             useNewType={true}
             hideArrow={false}
+            showSeparator={ false }
           />
         );
       }
@@ -345,6 +352,7 @@ let getInnerOptions = () => {
             onPress={ () => Host.ui.openMatterConnectPage(Device.deviceID) } 
             useNewType={true}
             hideArrow={false}
+            showSeparator={ false }
           />
         );
       }
