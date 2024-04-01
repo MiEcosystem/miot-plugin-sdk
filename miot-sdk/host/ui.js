@@ -1299,6 +1299,31 @@ class IUi {
   @report
   shareWxDeviceVoIP(params) {
   }
+  /**
+   * 打开米家小程序，跳到对应的设备卡片（不发起通话）
+   * @since 10091
+   * @param params 参数必须包含：
+   * {
+   *  paramType : 固定："locateWxDevice"
+      userId: 用户登陆的账号id
+      did ：设备did
+      deviceName: 设备在插件中的名称
+      model ：设备model
+      deviceIconURL: 设备icon图片
+    * }
+      @example
+    *  Host.ui.locateWxDevice({  
+        paramType : "locateWxDevice",
+        userId: "894158105",
+        did ："102344554",
+        deviceName: "device_name",
+        model ："device_model",
+        deviceIconURL: ""
+      })
+    */
+      @report
+      locateWxDevice(params) {
+      }
 }
 const UiInstance = new IUi();
 export default UiInstance;
