@@ -17,7 +17,11 @@
 import { report } from "../decorator/ReportDecorator";
 import Permission from '../service/permission';
 import Device from "../device/BasicDevice";
-import { System } from "../index";
+import Location from "../system/location";
+import AndroidModules from "../native/android";
+import IosModules from "../native/ios";
+const modules = isAndroid ? AndroidModules : IosModules;
+const SUPPORT_RTL_API_LEVEL = 10093;
 /**
  * 本地化
  * @interface
@@ -29,9 +33,12 @@ class ILocale {
    * @type {string}
    */
   get language() {
-    let language = native.language;
-    if (language === 'ar' || language === 'he') {
+    let sdkLevel = native.MIOTHost.sdkApiLevel ? native.MIOTHost.sdkApiLevel : 0;
+    if ((sdkLevel < SUPPORT_RTL_API_LEVEL) && (language === 'ar' || language === 'he')) {
       language = 'en';
+    }
+    if (modules.MIOTService.addLog) {
+      modules.MIOTService.addLog("miot.sdk.filelog", `app_plugin_language locale.language=${ language }`);
     }
     return language;
   }
