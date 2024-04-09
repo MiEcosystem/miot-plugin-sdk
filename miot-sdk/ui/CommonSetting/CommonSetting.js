@@ -349,11 +349,11 @@ export { firstAllOptions, secondAllOptions };
  * 1: 显示
  */
 const firstSharedOptions = {
-  [AllOptions.NAME]: 0,
+  [AllOptions.NAME]: 1,
   [AllOptions.MEMBER_SET]: 1,
   [AllOptions.CHANGE_ICON]: 0,
   [AllOptions.LOCATION]: 0,
-  [AllOptions.SHARE]: 0,
+  [AllOptions.SHARE]: 1,
   [AllOptions.BTGATEWAY]: 0,
   [AllOptions.VOICE_AUTH]: 0,
   [AllOptions.IFTTT]: 1,
@@ -374,9 +374,10 @@ const firstSharedOptions = {
   [AllOptions.DEVICE_CALL]: 0
 };
 /**
- * 家庭管理员可以看到的设置项
+ * 家庭成员不能看到，管理员可以看到的设置项
  */
 const excludeManagerShowedOptions = [
+  AllOptions.NAME,
   AllOptions.SHARE,
   AllOptions.IFTTT, 
   AllOptions.MEMBER_SET,
@@ -1238,9 +1239,10 @@ export default class CommonSetting extends React.Component {
     // 5. 权限控制，如果是共享设备或者家庭设备，需要过滤一下
     if (Device.isOwner === false) {
       keys = keys.filter((key) => firstSharedOptions[key]);
-    }
-    if (isHomeManager === false) {
-      keys = keys.filter((key) => !excludeManagerShowedOptions.includes(key));
+      
+      if (isHomeManager === false) {
+        keys = keys.filter((key) => !excludeManagerShowedOptions.includes(key));
+      }
     }
     
     // 6. 根据设备类型进一步过滤
