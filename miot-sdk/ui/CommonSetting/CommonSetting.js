@@ -352,7 +352,7 @@ const firstSharedOptions = {
   [AllOptions.NAME]: 1,
   [AllOptions.MEMBER_SET]: 1,
   [AllOptions.CHANGE_ICON]: 0,
-  [AllOptions.LOCATION]: 0,
+  [AllOptions.LOCATION]: 1,
   [AllOptions.SHARE]: 1,
   [AllOptions.BTGATEWAY]: 0,
   [AllOptions.VOICE_AUTH]: 0,
@@ -379,6 +379,7 @@ const firstSharedOptions = {
 const excludeManagerShowedOptions = [
   AllOptions.NAME,
   AllOptions.SHARE,
+  AllOptions.LOCATION,
   AllOptions.IFTTT, 
   AllOptions.MEMBER_SET,
   AllOptions.MULTIPLEKEY_SPLIT
