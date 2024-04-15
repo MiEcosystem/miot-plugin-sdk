@@ -1,4 +1,4 @@
-import { Device } from 'miot';
+import Device from 'miot/device/BasicDevice';
 export default function useHardwareVersion(device = Device) {
   const { lastVersion } = device || {};
   if (!lastVersion) {
