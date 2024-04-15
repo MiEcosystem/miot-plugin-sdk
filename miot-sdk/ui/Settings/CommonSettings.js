@@ -15,7 +15,7 @@ import useCanUpgrade from '../../hooks/useCanUpgrade';
 import useFreqCameraInfo from '../../hooks/useFreqCameraInfo';
 import useFreqDeviceInfo from '../../hooks/useFreqDeviceInfo';
 import AutoOTAABTestHelper from '../../utils/autoota_abtest_helper';
-import useDeviceService from "../../hooks/useDeviceService";
+import { showDeviceService } from "../../hooks/useDeviceService";
 import useCariotDevice from "../../hooks/useCariotDevice";
 import { ListItemWithSwitch } from 'mhui-rn';
 let getInnerOptions = () => {
@@ -25,7 +25,31 @@ let getInnerOptions = () => {
       ownerOnly: true,
       isDefault: true,
       Component: () => {
-        const show = useDeviceService();
+        const [show, setDeviceService] = useState(false);
+        let countryCode = '';
+        function getCountryCode() {
+          return new Promise((resolve, reject) => {
+            if (countryCode) {
+              resolve(countryCode);
+              return;
+            }
+            Service.getServerName().then(({ countryCode: mCountryCode }) => {
+              countryCode = (mCountryCode || '').toLowerCase();
+              resolve(countryCode);
+            }).catch(reject);
+          });
+        }
+        useEffect(() => {
+          getCountryCode().then((countryCode) => {
+            if (countryCode === 'cn') {
+              showDeviceService().then((show) => {
+                setDeviceService(show);
+              }).catch((err) => {
+                Service.smarthome.reportLog(Device.model, `showDeviceService error: ${ err }`);
+              });
+            }
+          });
+        }, []);
         return show ? (
           <ListItem
             key={ 'deviceService' }
@@ -43,6 +67,7 @@ let getInnerOptions = () => {
     share: {
       exportKey: 'SHARE',
       ownerOnly: true,
+      homeManagerAllowed: true,
       title: I18n.share,
       notTypes: ['3', '22'],
       Component: () => {
@@ -68,6 +93,7 @@ let getInnerOptions = () => {
     ifttt: {
       exportKey: 'IFTTT',
       ownerOnly: true,
+      homeManagerAllowed: true,
       title: I18n.ifttt,
       onPress: () => {
         Service.scene.openIftttAutoPage();
@@ -160,6 +186,7 @@ let getInnerOptions = () => {
       title: I18n.favoriteDevices,
       isDefault: true,
       ownerOnly: true,
+      homeManagerAllowed: true,
       Component: (params) => {
         const [info, setInfo] = useFreqDeviceInfo();
         const isCariotDevice = useCariotDevice();

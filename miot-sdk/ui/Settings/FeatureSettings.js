@@ -15,6 +15,7 @@ const innerOptions = {
     exportKey: 'MEMBER_SET',
     isDefault: true,
     ownerOnly: true,
+    homeManagerAllowed: true,
     modelTypes: [
       'switch', 
       'relay', 
@@ -45,6 +46,7 @@ const innerOptions = {
     exportKey: 'MULTIPLEKEY_SPLIT',
     isDefault: true,
     ownerOnly: true,
+    homeManagerAllowed: true,
     modelTypes: [
       'switch', 
       'relay', 

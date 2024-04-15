@@ -325,12 +325,14 @@ const API_REPO = {
   '/common/app/v1/dailyStory/generateMemory': {},
   '/common/app/get/emotion/status': {},
   '/common/app/get/event/emostatiscs': {},
-    // 趣拍回忆相关
-    '/miot/camera/app/v1/nineSeconds/m3u8': {},
-    '/common/app/v1/dailyStory/generateMemory': {},
-    '/common/app/get/emotion/status': {},
-    '/common/app/get/event/emostatiscs': {},
+  // 趣拍回忆相关
+  '/miot/camera/app/v1/nineSeconds/m3u8': {},
+  '/common/app/v1/dailyStory/generateMemory': {},
+  '/common/app/get/emotion/status': {},
+  '/common/app/get/event/emostatiscs': {},
     
+  // M30门锁相关
+  '/scenesrv/apppushservice/GetDeviceEmergencyTelephoneNotificationInfo': {},
   // 事件顺序相关
   '/common/app/get/event/sort': {},
   '/common/app/set/event/sort': {},

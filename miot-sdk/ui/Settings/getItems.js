@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Device from '../../device/BasicDevice';
 import ListItem from '../ListItem/ListItem';
 import useModelType from '../../hooks/useModelType';
+import useDeviceRoomInfo from '../../hooks/useDeviceRoomInfo';
 import tryTrackCommonSetting from "../../utils/track-sdk";
 export const clickedItems = [];
 export function useClicked(key) {
@@ -22,6 +23,8 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
     extraOptions
   } = params;
   const { type, isOwner } = Device;
+  const { permitLevel } = useDeviceRoomInfo()
+  const isHomeManager = permitLevel === 9;
   const { excludeRequiredOptions = [] } = extraOptions || {};
   const modelType = useModelType();
   // 最终配置的项，包括调用方传入的项，和默认项
@@ -48,6 +51,7 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
       types,
       notTypes,
       ownerOnly,
+      homeManagerAllowed,
       modelTypes,
       notModelTypes,
       validator,
@@ -69,7 +73,7 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
       // model 类型排除
       (notModelTypes && notModelTypes.includes(modelType)) ||
       // 不可共享
-      (!isOwner && ownerOnly) ||
+      (ownerOnly && !(isOwner || isHomeManager && homeManagerAllowed)) ||
       // 无值
       (needValue && [undefined, null, ''].includes(value)) ||
       // 自定义判断

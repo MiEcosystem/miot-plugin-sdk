@@ -32,10 +32,6 @@ class ILocale {
    * @type {string}
    */
   get language() {
-    // 10084暂时关闭
-    if (language === 'ar' || language === 'he') {
-      language = 'en';
-    }
     return language;
   }
   /**

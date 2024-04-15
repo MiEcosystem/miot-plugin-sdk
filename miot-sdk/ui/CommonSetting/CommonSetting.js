@@ -349,14 +349,14 @@ export { firstAllOptions, secondAllOptions };
  * 1: 显示
  */
 const firstSharedOptions = {
-  [AllOptions.NAME]: 0,
-  [AllOptions.MEMBER_SET]: 0,
+  [AllOptions.NAME]: 1,
+  [AllOptions.MEMBER_SET]: 1,
   [AllOptions.CHANGE_ICON]: 0,
-  [AllOptions.LOCATION]: 0,
-  [AllOptions.SHARE]: 0,
+  [AllOptions.LOCATION]: 1,
+  [AllOptions.SHARE]: 1,
   [AllOptions.BTGATEWAY]: 0,
   [AllOptions.VOICE_AUTH]: 0,
-  [AllOptions.IFTTT]: 0,
+  [AllOptions.IFTTT]: 1,
   [AllOptions.FIRMWARE_UPGRADE]: 0,
   [AllOptions.CREATE_GROUP]: 0,
   [AllOptions.MANAGE_GROUP]: 0,
@@ -369,10 +369,21 @@ const firstSharedOptions = {
   [AllOptions.FREQ_CAMERA]: 1,
   [AllOptions.FREQ_DEVICE]: 1,
   [AllOptions.DEFAULT_PLUGIN]: 1,
-  [AllOptions.MULTIPLEKEY_SPLIT]: 0,
+  [AllOptions.MULTIPLEKEY_SPLIT]: 1,
   [AllOptions.DEVICE_SERVICE]: 0,
   [AllOptions.DEVICE_CALL]: 0
 };
+/**
+ * 家庭成员不能看到，管理员可以看到的设置项
+ */
+const excludeManagerShowedOptions = [
+  AllOptions.NAME,
+  AllOptions.SHARE,
+  AllOptions.LOCATION,
+  AllOptions.IFTTT, 
+  AllOptions.MEMBER_SET,
+  AllOptions.MULTIPLEKEY_SPLIT
+];
 /**
  * 20190708 / SDK_10023
  * 所有设置项顺序固定
@@ -833,7 +844,8 @@ export default class CommonSetting extends React.Component {
       isSingleSwitch: false, // 是否是单键开关，单键开关也要显示「按键设置」。showMemberSetKey和isSingleSwitch要么都为false，说明这不是一个开关设备，要么只会有一个为true，说明这是单键或者多键开关
       showDeviceService: false, // 是否暂展示「设备服务」选项，
       cloudStorageOn: -1,
-      isCariotDevice: false
+      isCariotDevice: false,
+      isHomeManager: false
     };
     console.log(`Device.type: ${ Device.type + Device.deviceID }`);
     this.commonSetting = this.getCommonSetting(this.state);
@@ -1101,6 +1113,12 @@ export default class CommonSetting extends React.Component {
       }
     });
     this._isBelongToCarRoom();
+    
+    Device.getRoomInfoForCurrentHome().then((roomInfo) => {
+        this.setState({ isHomeManager: roomInfo?.data.permitLevel === 9});
+    }).catch((err) => {
+      console.log("err", err);
+    });
   }
   getCloudStorage() {
     GetCloudStorage(Device.deviceID).then((result) => {
@@ -1156,7 +1174,7 @@ export default class CommonSetting extends React.Component {
     });
   }
   render() {
-    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory, showMemberSetKey, isSingleSwitch, showDeviceService, isCariotDevice } = this.state;
+    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory, showMemberSetKey, isSingleSwitch, showDeviceService, isCariotDevice, isHomeManager } = this.state;
     let requireKeys1 = [
       AllOptions.FREQ_CAMERA,
       AllOptions.FREQ_DEVICE,
@@ -1222,7 +1240,12 @@ export default class CommonSetting extends React.Component {
     // 5. 权限控制，如果是共享设备或者家庭设备，需要过滤一下
     if (Device.isOwner === false) {
       keys = keys.filter((key) => firstSharedOptions[key]);
+      
+      if (isHomeManager === false) {
+        keys = keys.filter((key) => !excludeManagerShowedOptions.includes(key));
+      }
     }
+    
     // 6. 根据设备类型进一步过滤
     keys = keys.filter((key) => !(excludeOptions[key] || []).includes(Device.type));
     // 7. 根据开发者特殊需要，隐藏某些必选项
