@@ -34,13 +34,13 @@
  * ble.disconnect()
  *
  */
-import native, { buildEvents, Properties, isIOS, MIOTEventEmitter } from '../../native';
+import native, { buildEvents, Properties, isIOS, MIOTEventEmitter, isAndroid } from '../../native';
 import { IBluetoothService } from './CoreBluetooth';
-import Bluetooth, { getBluetoothUUID128 } from './index';
-import RootDevice from '../BasicDevice';
 import { report } from "../../decorator/ReportDecorator";
 import PluginAppConfigHelper from '../../utils/plugin-app-config-helper';
 // import Host from '../../Host';
+// fix miot-sdk/device/bluetooth/index.js -> miot-sdk/device/bluetooth/BluetoothDevice.js cycle
+import { getBluetoothUUID128, setMacUuid, getMacUuid } from './utils/uuid';
 /**
  *
  * 蓝牙组件基本接口,主要提供了蓝牙设备的基本属性，蓝牙设备的基本操作，和蓝牙设备事件等功能。
@@ -89,6 +89,10 @@ export class IBluetooth {
      */
   get isConnected() {
      return  false
+    const isConnected = Properties.of(this).isConnected;
+    const connecting = Properties.of(this)._connecting;
+    IBLEStateObj.reportSDKFileLog(`plugin invoke isConnected function. macOrUUID = ${ macOrUUID }, isConnected = ${ isConnected }, connecting = ${ connecting }`);
+    return IBLEStateObj.bleState(macOrUUID, isConnected, connecting) === ITurboBLEStates.MHBLEDeviceLoginStateAlreadyLogin;
   }
   /**
      * 蓝牙是否处于连接中
@@ -100,6 +104,10 @@ export class IBluetooth {
      */
   get isConnecting() {
      return  false
+    const isConnected = Properties.of(this).isConnected;
+    const connecting = Properties.of(this)._connecting;
+    IBLEStateObj.reportSDKFileLog(`plugin invoke isConnecting function. macOrUUID = ${ macOrUUID }, isConnected = ${ isConnected }, connecting = ${ connecting }`);
+    return IBLEStateObj.bleState(macOrUUID, isConnected, connecting) === ITurboBLEStates.MHBLEDeviceLoginStateLogging;
   }
   /**
    * 蓝牙设备是否正在OTA中
@@ -204,8 +212,11 @@ export class IBluetooth {
      */
     @report
   connect(type = -1, option = 0) {
-     return Promise.resolve(this);
   }
+    @report
+    _connect(type = -1, option = 0) {
+     return Promise.resolve(this);
+    }
     /**
      * 读取 RSSI
      * @method
