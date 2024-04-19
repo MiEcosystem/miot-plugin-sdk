@@ -23,7 +23,7 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
     extraOptions
   } = params;
   const { type, isOwner } = Device;
-  const { permitLevel } = useDeviceRoomInfo()
+  const { permitLevel } = useDeviceRoomInfo();
   const isHomeManager = permitLevel === 9;
   const { excludeRequiredOptions = [] } = extraOptions || {};
   const modelType = useModelType();

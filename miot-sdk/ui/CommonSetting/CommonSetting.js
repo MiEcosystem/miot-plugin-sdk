@@ -1000,7 +1000,8 @@ export default class CommonSetting extends React.Component {
         roomInfo
       });
       this.setState({
-        roomInfo
+        roomInfo,
+        isHomeManager: roomInfo?.data.permitLevel === 9
       });
     });
     getMultipleKey().then((supportInfo) => {
@@ -1113,12 +1114,6 @@ export default class CommonSetting extends React.Component {
       }
     });
     this._isBelongToCarRoom();
-    
-    Device.getRoomInfoForCurrentHome().then((roomInfo) => {
-        this.setState({ isHomeManager: roomInfo?.data.permitLevel === 9});
-    }).catch((err) => {
-      console.log("err", err);
-    });
   }
   getCloudStorage() {
     GetCloudStorage(Device.deviceID).then((result) => {
