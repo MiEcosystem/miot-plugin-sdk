@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 import {
   Text,
   View
-} from 'react-native'
-import Swiper from 'react-native-swiper'
+} from 'react-native';
+import Swiper from 'react-native-swiper';
 
-var styles = {
+let styles = {
   wrapper: {
   },
   slide1: {
@@ -31,7 +31,7 @@ var styles = {
     fontSize: 30,
     fontWeight: 'bold'
   }
-}
+};
 
 export default () => <Swiper style={styles.wrapper} showsButtons>
   <View style={styles.slide1}>
@@ -43,4 +43,4 @@ export default () => <Swiper style={styles.wrapper} showsButtons>
   <View style={styles.slide3}>
     <Text style={styles.text}>And simple</Text>
   </View>
-</Swiper>
+</Swiper>;
