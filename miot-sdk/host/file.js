@@ -758,6 +758,23 @@ class IFile {
   saveVideoToPhotosDidAlbum(fileName, customDirName = null, deviceID = undefined) {
      return Promise.resolve(false)
   }
+    /**
+   * 拼接视频文件
+   * @since 10095
+   * @param {string} firstVideoPath
+   * @param {string} secondVideoPath 
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id
+   * @returns {Promise}
+   * 成功时：
+   *   {"code": 0, "message":"merge success", "fileName": "mergeVideo-11111.mp4" }
+   * 失败时：code < 0
+   *  {"code":xx, "message":"merge failure" }
+   * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
+   */
+    @report
+    mergeVideos(firstVideoPath, secondVideoPath, deviceID = undefined) {
+       return Promise.resolve(false)
+    }
   /**
    * 从did命名的相册中 通过url获取视频文件的filepath
    * @since 10037

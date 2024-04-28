@@ -114,14 +114,6 @@ class IUi {
   @report
   openSystemShareWindow(pathOrUrl) {
   }
-    /**
-   * 打开系统分享文件页面，分享拼接的视频
-   * @param {string} firstPathOrUrl 分享文件的全路径或者链接url。
-   * @param {string} secondPathOrUrl 分享文件的全路径或者链接url。
-   */
-    @report
-    openSystemShareWindowWithMergeVideos(firstPathOrUrl, secondPathOrUrl) {
-    }
   /**
   * 打开系统文件打开页面 since 10050
   * @param {string} pathOrUrl 文件的全路径或者链接url。
