@@ -2,6 +2,7 @@ import ModeCard from 'miot/ui/Card/ModeCard';
 import React, { Component } from 'react';
 import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Logger from '../../Logger';
+import { adjustSize } from 'miot/utils/sizes';
 
 const radiusValue = 10;
 const { width, height } = Dimensions.get('window');
@@ -330,7 +331,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     marginTop: 20,
-    width: width - 2 * 10
+    width: width - adjustSize(2 * 36)
   },
   title: {
     fontSize: 14,
@@ -340,12 +341,12 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderRightWidth: 1,
     borderRightColor: '#999',
-    lineHeight: 14
+    lineHeight: 16
   },
   subtitle: {
     fontSize: 12,
     color: '#666',
-    lineHeight: 12
+    lineHeight: 14
   }
 });
 
