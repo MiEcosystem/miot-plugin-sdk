@@ -58,6 +58,7 @@ export default class MHMapDemo extends React.Component {
         // fillColor: [0.1, 0.9, 0.1, 0.4],
       },
       annotations: [],
+      allowedShowAnnotations: false,
       circles: [],
       polylines: [],
       mapHeight: window.height - headerHeight
@@ -92,12 +93,15 @@ export default class MHMapDemo extends React.Component {
           zoomLevel={this.state.zoomLevel}
           onMapWillZoomByUser={this._onMapWillZoomByUser.bind(this)}
           onMapDidZoomByUser={this._onMapDidZoomByUser.bind(this)}
+          onMapWillMoveByUser={this._onMapWillMoveByUser.bind(this)}
+          onMapDidMoveByUser={this._onMapDidMoveByUser.bind(this)}
           showsUserLocation={true}
           centerCoordinate={centerCoordinate}
           userTrackingMode="follow"
           showsCompass={true}
           showsScale={false}
           zoomEnabled={true}
+          allowedShowAnnotations={this.state.allowedShowAnnotations}
           userLocationRepresentation={this.state.userLocationRepresentation}
           annotations={this.state.annotations}
           onSingleTappedAtCoordinate={this._onSingleTappedAtCoordinate.bind(this)}
@@ -124,6 +128,14 @@ export default class MHMapDemo extends React.Component {
     console.log(e.nativeEvent);
   }
 
+  _onMapWillMoveByUser(e) {
+    console.log(e.nativeEvent);
+  }
+
+  _onMapDidMoveByUser(e) {
+    console.log(e.nativeEvent);
+  }
+
   _onUpdateUserLocation(e) {
     this.currentLatitude = e.nativeEvent.latitude;
     this.currentLongitude = e.nativeEvent.longitude;
@@ -142,7 +154,9 @@ export default class MHMapDemo extends React.Component {
       lineWidth: 2
     };
     this.setState({
-      circles: new Array(circle)
+      circles: new Array(circle),
+      allowedShowAnnotations: !this.state.allowedShowAnnotations,
+      annotations: this.state.annotations      
     });
   }
 
@@ -150,7 +164,7 @@ export default class MHMapDemo extends React.Component {
     let annotation = {
       id: `annotation${ e.nativeEvent.latitude }${ e.nativeEvent.longitude }`,
       title: '目标位置',
-      image: require('../../Resources/map/003.png'),
+      image: require('../../Resources/map/005.png'),
       size: {
         width: 64,
         height: 64
@@ -162,8 +176,68 @@ export default class MHMapDemo extends React.Component {
         longitude: e.nativeEvent.longitude
       }
     };
+    let annotation1 = {
+      id: 'annotation1',
+      title: '目标位置',
+      image: require('../../Resources/map/001.png'),
+      size: {
+        width: 64,
+        height: 64
+      },
+      canShowCallout: true,
+      lockedScreenPoint: { x: 0.5, y: 1 },
+      coordinate: {
+        latitude: e.nativeEvent.latitude + 0.01,
+        longitude: e.nativeEvent.longitude + 0.01
+      }
+    };
+    let annotation2 = {
+        id: 'annotation2',
+        title: '目标位置',
+        image: require('../../Resources/map/002.png'),
+        size: {
+          width: 64,
+          height: 64
+        },
+        canShowCallout: true,
+        lockedScreenPoint: { x: 0.5, y: 1 },
+        coordinate: {
+          latitude: e.nativeEvent.latitude - 0.01,
+          longitude: e.nativeEvent.longitude - 0.01
+        }
+    };
+    let annotation3 = {
+      id: 'annotation3',
+      title: '目标位置',
+      image: require('../../Resources/map/003.png'),
+      size: {
+        width: 64,
+        height: 64
+      },
+      canShowCallout: true,
+      lockedScreenPoint: { x: 0.5, y: 1 },
+      coordinate: {
+        latitude: e.nativeEvent.latitude - 0.01,
+        longitude: e.nativeEvent.longitude + 0.01
+      }
+    };
+    let annotation4 = {
+      id: 'annotation4',
+      title: '目标位置',
+      image: require('../../Resources/map/004.png'),
+      size: {
+        width: 64,
+        height: 64
+      },
+      canShowCallout: true,
+      lockedScreenPoint: { x: 0.5, y: 1 },
+      coordinate: {
+        latitude: e.nativeEvent.latitude + 0.01,
+        longitude: e.nativeEvent.longitude - 0.01
+      }
+    };
     this.setState({
-      annotations: new Array(annotation)
+      annotations: [annotation, annotation1, annotation2, annotation3, annotation4]
     });
     this.destinationLatitude = e.nativeEvent.latitude;
     this.destinationLongitude = e.nativeEvent.longitude;
