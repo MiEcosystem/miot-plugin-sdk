@@ -762,7 +762,7 @@ class IFile {
    * 拼接视频文件
    * @since 10095
    * @param {string} firstVideoPath
-   * @param {string} secondVideoPath 
+   * @param {string} secondVideoPath
    * @param {string} deviceID 指定的deviceID，不传默认使用本设备id
    * @returns {Promise}
    * 成功时：
@@ -772,9 +772,9 @@ class IFile {
    * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
    */
     @report
-    mergeVideos(firstVideoPath, secondVideoPath, deviceID = undefined) {
-       return Promise.resolve(false)
-    }
+  mergeVideos(firstVideoPath, secondVideoPath, deviceID = undefined) {
+     return Promise.resolve(false)
+  }
   /**
    * 从did命名的相册中 通过url获取视频文件的filepath
    * @since 10037
@@ -791,9 +791,9 @@ class IFile {
    * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
    */
   @report
-  fetchLocalVideoFilePathFromDidAlbumByUrl(url, customDirName = null, deviceID = undefined) {
+    fetchLocalVideoFilePathFromDidAlbumByUrl(url, customDirName = null, deviceID = undefined) {
      return Promise.resolve(false)
-  }
+    }
   /**
    * 获取指定以did命名的相册中所有的图片和视频
    * 如果不存在该相册，返回空数组
