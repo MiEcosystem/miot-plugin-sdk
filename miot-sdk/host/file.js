@@ -776,6 +776,23 @@ class IFile {
      return Promise.resolve(false)
   }
   /**
+   * 拼接图片文件
+   * @since 10095
+   * @param {string} firstImagePath
+   * @param {string} secondImagePath
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id
+   * @returns {Promise}
+   * 成功时：
+   *   {"code": 0, "message":"merge success", "fileName": "mergeImage-11111.png" }
+   * 失败时：code < 0
+   *  {"code":xx, "message":"merge failure" }
+   * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
+   */
+      @report
+      mergeImages(firstImagePath, secondImagePath, deviceID = undefined) {
+         return Promise.resolve(false)
+      }
+  /**
    * 从did命名的相册中 通过url获取视频文件的filepath
    * @since 10037
    * @param {string} url
