@@ -403,8 +403,35 @@ export default class IDeviceWifi {
     getRecommendScenes(model, did) {
        return Promise.resolve({});
     }
+    /**
+     * 支持WiFi+Ble双绑定的猫眼和门锁设备获取当前isOnLine的具体在线状态;
+     * 其他品类的Wifi设备isOnline仅有在离线0，1两个明确的值，不再细分;
+     * 在线状态： -1：获取在线状态失败， 0：离线， 1：ble在线， 2：wifi 在线， 3：ble&&wifi 在线
+     * @param did
+     * @returns {Promise<unknown>}
+     * {
+     *     "code": 0,
+     *     "message":"ok",
+     *     "result":{
+     *         "list":[
+     *             {
+     *                  "did": "xxxxx",
+     *                  "name": "xxxxx",
+     *                  "pd_id": 12345,
+     *                  "model": "xxxxx",
+     *                  "update_time": 1706684760444930,
+     *                  "is_online": 1,
+     *                  "is_share": false,
+     *                  "ssid":"xxxxx",
+     *                  "first_bind_time":1706684760444930,
+     *                  "multi_device_online_status":1,
+     *             },
+     *         ]
+     *     }
+     * }
+     */
     @report
-    readWifiDetail(did) {
+    readOnlineDetail(did) {
        return Promise.resolve([]);
     }
 }
