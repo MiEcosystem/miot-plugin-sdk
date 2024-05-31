@@ -13,7 +13,9 @@ export default class PhotoDemo extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      currentAsset: {}
+      currentAsset: {},
+      currentVideoName: "",
+      currentImageName: ""
     };
     Logger.trace(this);
   }
@@ -32,6 +34,12 @@ export default class PhotoDemo extends React.Component {
             ['获取指定did的相册中的第一个视频', this.getFirstVideoFromDidAlbum],
             ['删除指定did相册中的第一个视频或照片', this.deleteFirstAssetFromDidAlbum],
             ['分享当前的视频或照片', () => Host.ui.openSystemShareWindow(this.state.currentAsset.url)],
+            ['拼接视频', () => Host.file.mergeVideos(this.state.currentAsset.url, this.state.currentAsset.url).then((result) => {
+                Host.file.saveVideoToPhotosDidAlbum(result.fileName);
+            })],
+            ['拼接图片', () => Host.file.mergeImages(this.state.currentImageName, this.state.currentImageName).then((result) => {
+              Host.file.saveImageToPhotosDidAlbum(result.fileName);
+          })],
             ['获取相册列表', this.getAlbums],
             ['获取相册中的内容', this.getAsserts]
           ].map((item, index) => {
@@ -83,6 +91,9 @@ export default class PhotoDemo extends React.Component {
 
   snapImageSaveToPhoto() {
     let imageName = `screen_${ new Date().getTime() }.png`;
+    this.setState({
+      currentImageName: imageName
+    })
     Host.file.screenShot(imageName)
       .then((imagePath) => {
         Host.file.saveImageToPhotosAlbum(imageName).then((_) => {
@@ -99,6 +110,9 @@ export default class PhotoDemo extends React.Component {
   downloadVideoSaveToPhoto() {
     let url = 'http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_mp4_855379f77b74ca565e8ef7d68c08264c.mp4';
     let fileName = `file${ new Date().getTime() }.mp4`;
+    this.setState({
+      currentVideoName: fileName
+    });
     Host.file.downloadFile(url, fileName).then((res) => {
       Host.file.saveFileToPhotosAlbum(fileName).then(() => {
         alert(`${ fileName } 已保存到系统相册`);
