@@ -339,6 +339,7 @@ export default class MoreSetting extends React.Component {
           messageStyle={{ textAlign: 'center', backgroundColor: 'white' }}
           buttons={[
             {
+              text: I18n.cancel,
               style: { color: 'lightpink' },
               callback: (_) => this.setState({ showPrivacyDialogState: false })
             }

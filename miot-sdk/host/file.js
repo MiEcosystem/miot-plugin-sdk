@@ -735,6 +735,29 @@ class IFile {
      return Promise.resolve(false)
   }
   /**
+   * 保存指定图片文件到以did命名的相册中，返回系统相册中的路径
+   * 该方法会在系统相册中创建一个以did[-customDirName]命名的相册（如果不存在），并将图片保存在其中
+   * @since 10096
+   * @param {string} fileName 图片在沙盒中的文件名
+   * @param {string} customDirName 自定义相册名称，默认为null，since 10042
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id， since 10082
+   * @returns {Promise}
+   * 成功时：返回true
+   * 失败时：
+   *  {"code":-401, "message":"access to photo library denied" }
+   *  {"code":-1, "message":"did cannot be empty" }
+   *  {"code":-2, "message":"did cannot be empty" }
+   *  {"code":-3, "message":"path is ilegal or file not exist" }
+   *  {"code":-5, "message":"filepath cannot convert to a image, please check" }
+   *  {"code":-100, "message":"failed to save image" }
+   *  {"code":-101, "message":"failed to create album" }
+   * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
+   */
+  @report
+  saveImageToPhotosDidAlbumV2(fileName, customDirName = null, deviceID = undefined) {
+     return Promise.resolve(false)
+  }
+  /**
    * 保存指定照片文件到以did命名的相册中
    * 该方法会在系统相册中创建一个以did命名的相册（如果不存在），并将视频保存在其中
    * @since 10037
@@ -759,6 +782,64 @@ class IFile {
      return Promise.resolve(false)
   }
   /**
+   * 保存指定照片文件到以did命名的相册中，返回系统相册中的路径
+   * 该方法会在系统相册中创建一个以did命名的相册（如果不存在），并将视频保存在其中
+   * @since 10096
+   * @param {string} fileName
+   * @param {string} customDirName 自定义相册名称，默认为null, since 10042
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id， since 10082
+   * @returns {Promise}
+   * 成功时：返回true
+   * 失败时：
+   *  {"code":-401, "message":"access to photo library denied" }
+   *  {"code":-1, "message":"did cannot be empty" }
+   *  {"code":-2, "message":"did cannot be empty" }
+   *  {"code":-3, "message":"path is ilegal or file not exist" }
+   *  {"code":-4, "message":"filepath cannot seek to be video file" }
+   *  {"code":-6, "message":"file cannot save to album as a video" }
+   *  {"code":-100, "message":"failed to save video" }
+   *  {"code":-101, "message":"failed to create album" }
+   * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
+   */
+  @report
+  saveVideoToPhotosDidAlbumV2(fileName, customDirName = null, deviceID = undefined) {
+     return Promise.resolve(false)
+  }
+    /**
+   * 拼接视频文件
+   * @since 10095
+   * @param {string} firstVideoPath
+   * @param {string} secondVideoPath
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id
+   * @returns {Promise}
+   * 成功时：
+   *   {"code": 0, "message":"merge success", "fileName": "mergeVideo-11111.mp4" }
+   * 失败时：code < 0
+   *  {"code":xx, "message":"merge failure" }
+   * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
+   */
+    @report
+  mergeVideos(firstVideoPath, secondVideoPath, deviceID = undefined) {
+     return Promise.resolve(false)
+  }
+    /**
+   * 拼接图片文件
+   * @since 10095
+   * @param {string} firstImagePath
+   * @param {string} secondImagePath
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id
+   * @returns {Promise}
+   * 成功时：
+   *   {"code": 0, "message":"merge success", "fileName": "mergeImage-11111.png" }
+   * 失败时：code < 0
+   *  {"code":xx, "message":"merge failure" }
+   * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
+   */
+      @report
+    mergeImages(firstImagePath, secondImagePath, deviceID = undefined) {
+       return Promise.resolve(false)
+    }
+  /**
    * 从did命名的相册中 通过url获取视频文件的filepath
    * @since 10037
    * @param {string} url
@@ -774,9 +855,9 @@ class IFile {
    * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
    */
   @report
-  fetchLocalVideoFilePathFromDidAlbumByUrl(url, customDirName = null, deviceID = undefined) {
-     return Promise.resolve(false)
-  }
+      fetchLocalVideoFilePathFromDidAlbumByUrl(url, customDirName = null, deviceID = undefined) {
+         return Promise.resolve(false)
+      }
   /**
    * 获取指定以did命名的相册中所有的图片和视频
    * 如果不存在该相册，返回空数组
