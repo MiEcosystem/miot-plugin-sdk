@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     height: titleHeight,
-    flex: 1,
+    width: width,
     alignItems: 'stretch',
     justifyContent: 'center'
   },
