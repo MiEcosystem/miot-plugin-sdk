@@ -24,10 +24,14 @@ import tryTrackCommonSetting from "../../utils/track-sdk";
 let firmwareUpgradeDotClicked = false;
 let freqDeviceSwitchExposed = false; // 米家首页显示item打点用
 let freqFlagValue = undefined;// 米家首页显示item打点用
+// 记录当前did，避免组件复用时因did错乱而导致modelType异常
+// 在组件执行componentWillUnmount之后，会重新走一遍getModelType
+// modelType将被赋值，若赋的值与接下来进来的did不一致，则导致展示异常
+let did = '';
 let modelType = '';
 function getModelType() {
   return new Promise((resolve) => {
-    if (modelType) {
+    if (modelType && did === Device.deviceID) {
       resolve(modelType);
       return;
     }
@@ -37,6 +41,7 @@ function getModelType() {
       }
       if (instance && instance.type) {
         modelType = instance.type.split(':')[3];
+        did = Device.deviceID;
         resolve(modelType);
         return;
       }
