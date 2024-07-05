@@ -1,28 +1,81 @@
 import React from 'react';
 
+import { PermissionsAndroid, ScrollView, View } from 'react-native';
 import {
-  View, ScrollView
-} from 'react-native';
-import {
-  System,
-  MemoryWarningEvent,
   AccelerometerChangeEvent,
   CompassChangeEvent,
+  Device,
   GyroscopeChangeEvent,
-  VolumeChangeEvent,
-  Host
+  Host,
+  MemoryWarningEvent,
+  System,
+  VolumeChangeEvent
 } from "miot";
-import { Permissions } from "miot/system/permission";
+import { Permissions, SystemConfig } from "miot/system/permission";
 import { Separator } from 'mhui-rn';
 import { ListItem } from 'miot/ui/ListItem';
 import { ShakeEvent } from "miot/system/shake";
 import Logger from '../Logger';
+import { isAndroid } from "../../../../bin/ABTest/commonPlugin/modules/consts";
 
 export const interval = {
   "a": "game",
   "b": "ui",
   "c": "normal"
 };
+
+// 蓝牙
+
+function _bluetoothStartstartAdvertising(mac) {
+  let macs = mac.split(':');
+  if (macs.length != 6) {
+    return;
+  }
+
+  let u1 = ['00', ...macs, '01', '00', 'ff', '03', '05', '01', '02', '01', '00'];
+  let u2 = ['00', ...(macs.reverse()), '01', '00', 'ff', '03', '05', '01', '02', '01', '00'];
+  let u3 = [...u1].reverse();
+  let u4 = [...u2].reverse();
+
+  [u2, u1, u3, u4].forEach((u) => {
+    [4, 7, 10, 13].forEach((index) => {
+      u.splice(index, 0, '-');
+    });
+  });
+
+  let uuids = [u1, u2, u3, u4].map((u) => u.join(''));
+  uuids.push("11111111-2222-3333-4444-123456789abc");
+
+  console.log(mac, JSON.stringify(uuids, null, '\t'));
+  System.bluetooth.startAdvertising(
+    {
+      serviceUUIDs: uuids,
+      localName: "hhhhhhhh",
+      timeout: 10, // 时间长度，到时自动关闭
+      services: uuids.map((uuid, index) => {
+        return {
+          uuid,
+          primary: index == 0,
+          characteristics: uuids.map((uuid) => {
+            return { uuid };
+          })
+        };
+      })
+    });
+}
+
+function bluetoothStartstartAdvertising() {
+  Device.getDeviceBleMac().then((res) => {
+    console.log(res);
+    let mac = res?.result?.data?.ble_mac;
+    if (!mac) {
+      console.log('无法获取有效蓝牙mac');
+      return;
+    }
+    _bluetoothStartstartAdvertising(mac);
+  }).catch((err) => { console.log('广播失败', err); });
+}
+
 
 // 电量
 function getBattery() {
@@ -107,11 +160,30 @@ function addMemoryWarning() {
 
 // 权限
 function requestPermission(permission) {
-  System.permission.request(Permissions.CAMERA).then((res) => {
+  System.permission.request(permission).then((res) => {
     alert(`requestPermission,result:${ res }`);
   }).catch((error) => {
     alert(`requestPermission,error:${ JSON.parse(error) }`);
   });
+}
+
+// 权限
+function requestMultiplePermissions() {
+  if (isAndroid) {
+    PermissionsAndroid.requestMultiple([
+      PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+      PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE,
+      PermissionsAndroid.PERMISSIONS.GET_ACCOUNTS,
+      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
+    ]).then((granted) => { // PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.RECORD_AUDIO, null)
+      console.log("granted", granted);
+    }).catch((error) => {
+      console.log("error", error);
+    });
+  }
+
 }
 
 
@@ -227,6 +299,73 @@ function getNfcInfo() {
   });
 }
 
+function writeNFCData() {
+  let params = {
+    extraString: 'nfc测试数据'
+  };
+  System.nfc.writeNFCData(params).then((res) => {
+    alert(JSON.stringify(res));
+  }).catch((err) => {
+    alert(JSON.stringify(err));
+  });
+}
+
+function isMiConnectSupportNFC() {
+  System.nfc.isMiConnectSupportNFC({ did: Device.deviceID }).then((res) => {
+    alert(res);
+  });
+}
+
+function checkNotificationConfigEnable() {
+  System.permission.checkAPPSystemConfigEnable(SystemConfig.NOTIFICATION)
+    .then((res) => {
+      alert(JSON.stringify(res));
+    }).catch((res) => {
+      alert(JSON.stringify(res));
+    });
+}
+
+function openNotificationSettingPage() {
+  System.permission.openAPPSystemConfigPage(SystemConfig.NOTIFICATION);
+}
+
+function requestHealthAuthorization() {
+  let params = {
+    writeObjTypes: ['BodyMass', 'BodyFatPercentage'],
+    readObjTypes: ['BodyMass', 'BodyFatPercentage']
+  };
+  System.health.requestHealthAuthorization(params).then((res) => {
+    alert(JSON.stringify(res));
+  }).catch((res) => {
+    alert(JSON.stringify(res));
+  });
+}
+
+function getHealthAuthorizationStatus() {
+  let params = {
+    authObjType: 'BodyFatPercentage'
+  };
+  System.health.getHealthAuthorizationStatus(params).then((res) => {
+    alert(JSON.stringify(res));
+  }).catch((res) => {
+    alert(JSON.stringify(res));
+  });
+}
+
+function writeDataToHealthApp() {
+  let params = {
+    authObjType: 'BodyMassIndex',
+    objValue: 1.2,
+    startTime: 1667291265,
+    endTime: 1667291270
+  };
+  System.health.writeDataToHealthApp(params).then((res) => {
+    alert(JSON.stringify(res));
+  }).catch((res) => {
+    alert(JSON.stringify(res));
+  });
+}
+
 export default class SystemDemo extends React.Component {
   componentDidMount() {
     Logger.trace(this);
@@ -239,8 +378,13 @@ export default class SystemDemo extends React.Component {
         <ScrollView showsVerticalScrollIndicator={false}>
           {
             [
+              ["开启蓝牙广播", bluetoothStartstartAdvertising],
+              [],
               ["获取电量", getBattery],
+              [],
               ["获取NFC状态", getNfcInfo],
+              ["写入NFC数据", writeNFCData],
+              ["miui是否支持投屏", isMiConnectSupportNFC],
               [],
               ["内存警告", addMemoryWarning],
               [],
@@ -268,6 +412,7 @@ export default class SystemDemo extends React.Component {
               ["申请录音权限", () => { requestPermission(Permissions.RECORD_AUDIO); }],
               ["申请相机权限", () => { requestPermission(Permissions.CAMERA); }],
               ["申请定位权限", () => { requestPermission(Permissions.LOCATION); }],
+              ["申请多个权限(Android)", () => { requestMultiplePermissions(); }],
               [],
               ["获取位置信息（高精度）", () => { getLocation("high"); }],
               [],
@@ -276,7 +421,14 @@ export default class SystemDemo extends React.Component {
               ["获取手机当前连接的路由器的ip地址", getGatewayIpAddress],
               ["获取当前wifi的广播地址", getWifiBroadcastAddress],
               [],
-              ["设备是否为Pad", isPad]
+              ["设备是否为Pad", isPad],
+              [],
+              ["检查是否为APP开启推送通知权限", checkNotificationConfigEnable],
+              ["打开开启推送通知权限设置页", openNotificationSettingPage],
+              [],
+              ["请求健康App权限(只有iOS)", requestHealthAuthorization],
+              ["获取健康权限状态(只有iOS)", getHealthAuthorizationStatus],
+              ["写入数据到健康App(只有iOS)", writeDataToHealthApp]
             ].map((item, index) => {
               return (item.length >= 2 ? <ListItem
                 key={index}
