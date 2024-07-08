@@ -226,9 +226,6 @@ export class BasicDevice {
   get model() {
      return  ""
   }
-  get specUrn() {
-    return Properties.of(this).specUrn;
-  }
   /**
    * device的 pd_id，和model是一一对应的关系，可以理解为唯一对应一个设备
    * （注：与pid是两种概念）

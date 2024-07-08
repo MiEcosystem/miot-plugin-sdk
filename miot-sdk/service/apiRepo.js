@@ -355,6 +355,14 @@ const API_REPO = {
   '/business/camera/vip_tips_switch': {},
   '/camera_cloud/card_cloud_switch/set': {},
   // 摄像机人形检测开关
-  '/miot/camera/app/v1/put/serverPeopleMotionCheckSwitch': {}
+  '/miot/camera/app/v1/put/serverPeopleMotionCheckSwitch': {},
+  // 大家电——空调
+  '/smarthome/product/acpanel/plugin/device/list': {},
+  '/smarthome/product/acpanel/plugin/device/save': {},
+  '/smarthome/product/acpanel/plugin/scene/list': {},
+  '/smarthome/product/acpanel/plugin/scene/save': {},
+  '/smarthome/product/acpanel/client/v1/device/list': {},
+  '/smarthome/product/acpanel/client/v1/device/list': {},
+  '/smarthome/product/acpanel/client/v1/sub': {}
 };
 export default API_REPO;
