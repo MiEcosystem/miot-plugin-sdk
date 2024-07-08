@@ -65,7 +65,7 @@ class Vignette extends React.Component {
         onStartShouldSetResponder={() => true}
         onMoveShouldSetResponder={() => true}
         onLoad={() => console.log("Vignette onLoad")}
-        onProgress={e => console.log("Vignette onProgress", e.nativeEvent)}
+        onProgress={(e) => console.log("Vignette onProgress", e.nativeEvent)}
         onResponderMove={this.onResponderMove}
       >
         <GL.Node

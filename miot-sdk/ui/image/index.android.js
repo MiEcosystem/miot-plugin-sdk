@@ -168,7 +168,7 @@ export default class MHImage extends React.Component {
         sources = source;
       }
       const { onLoadStart, onLoad, onLoadEnd, onError } = this.props;
-      const nativeProps = merge(this.props, {
+      const nativeProps = merge(true, this.props, {
         style,
         shouldNotifyLoadEvents: !!(
           onLoadStart ||
