@@ -84,9 +84,10 @@ iOS IPA 包下载二维码
 ![mihome](https://user-images.githubusercontent.com/6511522/159238473-fbf07ace-ef8d-442e-b299-7ffe6ea50f47.png)
 
 
-Android APK 包下载地址：http://d.maps9.com/MiHomeForAndroid
+Android APK 包下载地址：
+![image](https://github.com/MiEcosystem/miot-plugin-sdk/assets/4401045/37df36f8-ee28-499e-a7b6-1ac39e838be5)
 
-下载密码: keliyuan
+下载密码: 5GCV
 
 
 调试包若无法下载，请提交工单。
