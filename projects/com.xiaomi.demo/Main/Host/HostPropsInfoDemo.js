@@ -64,6 +64,7 @@ export default class HostPropsInfoDemo extends Component {
               ['apiLevel', Host.apiLevel],
               ['isDebug', Host.isDebug],
               ['systemInfo', Host.systemInfo],
+              ['mobileType', Host.mobileType],
               ['appConfigEnv', `${ Host.appConfigEnv }\n(\n1:表示选中,preview； \n0:表示未选中, release\n)`],
               ['getWifiInfo', this.state.wifiInfo],
               ['getAppName', this.state.appName],
