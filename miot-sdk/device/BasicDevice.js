@@ -870,6 +870,28 @@ export class BasicDevice {
   get resetFlag() {
      return 0
   }
+/**
+ * 通用标志，每一位表示一个含义，>0才返回该字段：
+ * comFlag&1=1表示是常用设备，
+ * comFlag&2=2表示是常用摄像机，
+ * comFlag&4=4表示是uwb-tag设备
+ * comFlag&8=8表示是uwb-buildin设备
+ * comFlag&16=16表示按键拆分子设备是全屋智能模式下，自动默认拆分的设备，不需要在设备列表展示
+ * comFlag&32=32表示灯组中的单灯可释放（新灯组中的单灯可释放，旧灯组中的单灯不可释放）
+ * comFlag&64=64表示首页的卡片放大展示（8.0摄像机大卡片）
+ * comFlag&128=128表示设备在终端显示
+ * comFlag&256=256米家8.0设备超级常用标志（包括超级常用摄像机）
+ * 1. comFlag字段新增含义：comFlag&512=512 ，能够上车的设备标识，具体根据设备的instance的device后字段进行过滤，例如：urn:miot-spec-v2:device:light:0000A001:qzgd-wy0a01:1:0000C802，会提取light的type进行筛选，需要上车的品类见文档：车-卡片 （目前支持一期品类上车）（bit：第10位,1 << 9）
+ * 2. comFlag字段新增含义：comFlag&1024=1024 ，已经被选中需要在车机cariot中心展示及扫码选择界面展示成已选的设备。（bit：第11位,1 << 10）
+ * @return {int}
+ * @readonly
+ */
+  get comFlag() {
+    return Properties.of(this).comFlag;
+  }
+  get isWearableDevice() {
+    return this.comFlag & (1 << 12) !== 0;
+  }
   /**
    * 创建场景
    * @deprecated since 10032 请使用Service.scene.createScene(BasicDevice.deviceID,sceneType,opt)
