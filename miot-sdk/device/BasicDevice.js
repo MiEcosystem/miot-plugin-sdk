@@ -226,6 +226,9 @@ export class BasicDevice {
   get model() {
      return  ""
   }
+  get specUrn() {
+    return Properties.of(this).specUrn;
+  }
   /**
    * device的 pd_id，和model是一一对应的关系，可以理解为唯一对应一个设备
    * （注：与pid是两种概念）
@@ -965,6 +968,32 @@ export class BasicDevice {
      return Promise.resolve({});
   }
   /**
+   * 查询设备的房间经纬度信息
+   * @since 10098
+   * @param {string} did DeviceID，默认为当前设备
+   * @param {String} pluginPrivacyId 插件侧的用户同意相关隐私的ID（插件侧自行生成）
+   * @return {Promise<Object>} {code: 0, data: {latitude,longitude} }
+   */
+  @report
+  getRoomLocation(did, pluginPrivacyId) {
+    let supportModelArray = ["chuangmi.camera.086ac1"];
+    let isSupportModel = supportModelArray.includes(this.model);
+    if (isSupportModel) {
+      did = did || this.deviceID;
+      return new Promise((resolve, reject) => {
+        native.MIOTDevice.getRoomLocation(did, pluginPrivacyId, (ok, res) => {
+          if (ok) {
+            resolve(res);
+          } else {
+            reject(res);
+          }
+        });
+      });
+    } else {
+      return new Promise.reject({ code: -1, message: "unsupported model" });
+    }
+  }
+  /**
    * 获取与当前设备相同企业组的所有设备(包括当前设备)
    * @since 10052
    * @returns {Promise<Object>} 成功时{code:0,data:[{...device},{...device},...]}
@@ -1045,6 +1074,7 @@ export class PollPropMap {
     // this.profilePropSet = new Set();
     this.propInfoMap = new Map();// map<prop,{prop,subscription,updateTime,value,propType,siid,piid>
     this.subscribeInfoMap = new Map();// map<subscribId,set<prop>>
+    this.listenMessagesTimeOutSet = new Set();
     // this.miotDeviceType = PollPropMap.DEVICE_TYPE_UNKNOWN;
   }
 }
