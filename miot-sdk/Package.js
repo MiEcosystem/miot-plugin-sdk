@@ -71,10 +71,6 @@ export { Entrance };
   */
 export { PackageEvent };
    pluginPrivacyPlatformCheck() {
-    if (Device.isWearableDevice) {
-      PackageEvent.packageAuthorizationAgreed.emit();
-      return;
-    }
      ProtocolManager.pluginLegalInformationCheck().then((res) => {
        console.log('Package check pluginLegalInformationCheck resolve result: ', res);
        ProtocolManager.protocolMangerReportLog('[Privacy Debug] Package: Package check pluginLegalInformationCheck resolve result: ', res);
