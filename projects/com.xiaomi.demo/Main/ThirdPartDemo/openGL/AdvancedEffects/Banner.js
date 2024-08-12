@@ -34,7 +34,7 @@ class Banner extends React.Component {
         backgroundColor="transparent"
         setZOrderOnTop
         onLoad={() => console.log("Banner onLoad")}
-        onProgress={e => console.log("Banner onProgress", e.nativeEvent)}
+        onProgress={(e) => console.log("Banner onProgress", e.nativeEvent)}
       >
         <GL.Node shader={shaders.banner} uniforms={{ time }} />
       </Surface>
