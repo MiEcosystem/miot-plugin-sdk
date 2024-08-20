@@ -178,7 +178,7 @@ export default class MoreSetting extends React.Component {
     if (option === undefined) {
       option = { 'privacyURL': policyUrl || '', 'agreementURL': licenseUrl || '' };
     }
-    Host.ui.previewLegalInformationAuthorization(option).then((ok) => {
+    Host.ui.previewLegalInformationAuthorizationV2(option).then((ok) => {
       if (!ok) {
         this.setState({ showPrivacyDialogState: true });
       }

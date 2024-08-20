@@ -27,7 +27,8 @@
 import { DeviceEventEmitter } from "react-native";
 import native, { isAndroid, isIOS, MIOTEventEmitter, NativeTimer, PackageExitAction, Properties } from '../native';
 import uuid from 'uuid';
-import { _find_device, BasicDevice, PollPropMap } from './BasicDevice';
+import strings from 'miot/resources/';
+import Device, { _find_device, BasicDevice, PollPropMap } from './BasicDevice';
 import { report } from '../decorator/ReportDecorator';
 import Service from "../Service";
 // import { Device } from "..";
