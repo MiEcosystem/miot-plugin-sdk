@@ -1505,6 +1505,7 @@ class ISmartHome {
    */
   @report
     getBrandInfos(params) {
+  privacyCheckPopup(model) {
 }
 const SmartHomeInstance = new ISmartHome();
 export default SmartHomeInstance;
