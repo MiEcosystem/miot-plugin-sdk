@@ -1,19 +1,19 @@
 'use strict';
-import { Device, DeviceEvent, Package, DarkMode } from 'miot';
+import { DarkMode, Device, DeviceEvent, Package } from 'miot';
 import Host from 'miot/Host';
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
 import NavigationBar from '../NavigationBar';
-import Separator from '../Separator';
-import { secondAllOptions, SETTING_KEYS, AllOptions, AllOptionsWeight } from "./CommonSetting";
+import { AllOptions, AllOptionsWeight, secondAllOptions, SETTING_KEYS } from "./CommonSetting";
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
-import DynamicColor, { dynamicColor } from 'miot/ui/Style/DynamicColor';
+import DynamicColor from 'miot/ui/Style/DynamicColor';
 import { getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
-import {MessageDialog} from "../Dialog";
+import { MessageDialog } from "../Dialog";
 import I18n from '../../resources/Strings';
+import tryTrackCommonSetting from "../../utils/track-sdk";
 /**
  * 分享设备的设置项
  * 0: 不显示
@@ -73,7 +73,7 @@ const excludeOptions = {
   [AllOptions.LEGAL_INFO]: ['5', '15', '17'] // 新增策略：灯组、红外遥控器等虚拟设备不显示法律信息，20190619
 };
 const { second_options } = SETTING_KEYS;
-const NETWORK_INFO = 'networkInfo'; // 「网络信息」设置项的 key
+let leaglInfoClicked = false; // 用于标记「法律信息」是否被重复点击过，防止进入「法律信息」页面之前被重复点击导致点击事件多次执行
 /**
  * @export
  * @author Geeook
@@ -116,7 +116,7 @@ export default class MoreSetting extends React.Component {
         value: String(Package.version),
         hideArrow: true
       },
-      [NETWORK_INFO]: {
+      [secondAllOptions.NETWORK_INFO]: {
         title: strings.networkInfo,
         onPress: () => Host.ui.openDeviceNetworkInfoPage()
       },
@@ -165,6 +165,10 @@ export default class MoreSetting extends React.Component {
     this.moreSetting = this.getMoreSetting(this.state);
   }
   privacyAndProtocolReview() {
+    if (leaglInfoClicked) {
+      return;
+    }
+    leaglInfoClicked = true;
     let { licenseUrl, policyUrl, option } = this.extraOptions;
     // if (option === undefined) { // 兼容旧写法
     //   Host.ui.privacyAndProtocolReview('', licenseUrl, '', policyUrl);
@@ -174,12 +178,18 @@ export default class MoreSetting extends React.Component {
     if (option === undefined) {
       option = { 'privacyURL': policyUrl || '', 'agreementURL': licenseUrl || '' };
     }
-    Host.ui.previewLegalInformationAuthorization(option).then((ok) => {
-      if(!ok) {
-        this.setState({showPrivacyDialogState: true});
+    Host.ui.previewLegalInformationAuthorizationV2(option).then((ok) => {
+      if (!ok) {
+        this.setState({ showPrivacyDialogState: true });
       }
+      setTimeout(() => { // setTimeout()会在“从「法律信息」页面返回”这个动作发生之后执行，防止重复点击导致连续进入「法律信息」页面的情况出现
+        leaglInfoClicked = false;
+      }, 50);
     }).catch((err) => {
-      this.setState({showPrivacyDialogState: true});
+      this.setState({ showPrivacyDialogState: true });
+      setTimeout(() => {
+        leaglInfoClicked = false;
+      }, 50);
     });
   }
   UNSAFE_componentWillMount() {
@@ -219,10 +229,10 @@ export default class MoreSetting extends React.Component {
     // 0 不显示
     // -1 默认配置: wifi 设备显示，其余不显示
     const networkInfoConfig = this.props.navigation.state.params.networkInfoConfig;
-    if (networkInfoConfig === 1) requireKeys1.push(NETWORK_INFO);
+    if (networkInfoConfig === 1) requireKeys1.push(secondAllOptions.NETWORK_INFO);
     else if (networkInfoConfig === -1 || networkInfoConfig === undefined) {
       if (['0', '8'].includes(Device.type)) { // 0 wifi 设备 8 双模设备
-        requireKeys1.push(NETWORK_INFO);
+        requireKeys1.push(secondAllOptions.NETWORK_INFO);
       }
     }
     const requireKeys2 = [secondAllOptions.LEGAL_INFO, secondAllOptions.ADD_TO_DESKTOP];
@@ -251,10 +261,13 @@ export default class MoreSetting extends React.Component {
     });
     const items = keys.map((key) => {
       if (typeof key !== 'string') {
-        const item = key;
-        return item;
+        return key;
       }
-      return this.moreSetting[key];
+      const item = this.moreSetting[key];
+      if (item) {
+        return { ...item, key };
+      }
+      return null;
     }).filter((item) => {
       return item && !item.hide;
     });
@@ -278,13 +291,19 @@ export default class MoreSetting extends React.Component {
           <View style={[styles.blank, { borderTopWidth: 0 }]} /> */}
         {
           items.map((item, index) => {
+            tryTrackCommonSetting(item.key, 'expose');
             const showSeparator = false;// index !== items.length - 1;
             return (
               <ListItem
-                key={item.title + index}
+                key={item.key || (item.title + index)}
                 title={item.title || ''}
                 value={item.value}
-                onPress={item.onPress}
+                onPress={() => {
+                  if (item.onPress) {
+                    tryTrackCommonSetting(item.key, 'click');
+                    item.onPress();
+                  }
+                }}
                 showSeparator={showSeparator}
                 hideArrow={item.hideArrow}
                 allowFontScaling={itemStyle.allowFontScaling}
@@ -311,8 +330,8 @@ export default class MoreSetting extends React.Component {
       </View>
     );
   }
-  renderPrivacyDialog(){
-    return(
+  renderPrivacyDialog() {
+    return (
       <View>
         <MessageDialog
           visible = {this.state.showPrivacyDialogState}
@@ -320,6 +339,7 @@ export default class MoreSetting extends React.Component {
           messageStyle={{ textAlign: 'center', backgroundColor: 'white' }}
           buttons={[
             {
+              text: I18n.cancel,
               style: { color: 'lightpink' },
               callback: (_) => this.setState({ showPrivacyDialogState: false })
             }
