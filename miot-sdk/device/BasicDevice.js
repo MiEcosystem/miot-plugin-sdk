@@ -890,12 +890,10 @@ export class BasicDevice {
  * @readonly
  */
   get comFlag() {
-    console.log('>>>>>>  Device.comFlag:', Properties.of(this).comFlag);
     return Properties.of(this).comFlag;
   }
   get isWearableDevice() {
-    let isWearable = this.comFlag & (1 << 12) !== 0;
-    console.log('>>>>>>  Device.isWearableDevice:', isWearable)
+    let isWearable = (this.comFlag & (1 << 12)) !== 0;
     return isWearable;
   }
   /**
