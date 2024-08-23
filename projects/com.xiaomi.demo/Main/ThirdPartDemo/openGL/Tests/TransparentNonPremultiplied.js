@@ -18,10 +18,10 @@ void main () {
 
 module.exports = GL.createComponent(
   ({ children: t, ...rest }) =>
-  <GL.Node
-    {...rest}
-    backgroundColor="transparent"
-    shader={shaders.TransparentNonPremultiplied}
-    uniforms={{ t }}
-  />,
-{ displayName: "TransparentNonPremultiplied" });
+    <GL.Node
+      {...rest}
+      backgroundColor="transparent"
+      shader={shaders.TransparentNonPremultiplied}
+      uniforms={{ t }}
+    />,
+  { displayName: "TransparentNonPremultiplied" });
