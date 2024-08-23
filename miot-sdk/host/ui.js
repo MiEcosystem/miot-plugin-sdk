@@ -207,6 +207,10 @@ class IUi {
   previewLegalInformationAuthorization(option) {
      return Promise.resolve(null);
   }
+  // 10098开始判断是否检查隐私
+  previewLegalInformationAuthorizationV2(option) {
+     return Promise.resolve(null);
+  }
   /**
    * 查看软件政策和隐私协议
    * @deprecated 10023废弃， 请使用 previewLegalInformationAuthorization

@@ -1483,7 +1483,6 @@ class ISmartHome {
     @report
   updatePluginPageRef(params) {
   }
-  
     /**
      * since 10085
      * 上报插件ref
@@ -1500,12 +1499,13 @@ class ISmartHome {
   /**
    * since 10089
    * 获取品牌信息
-   * @param {Array} params 元素为品牌ID 
+   * @param {Array} params 元素为品牌ID
    * @example
    * let params = [23];
    */
   @report
     getBrandInfos(params) {
+  privacyCheckPopup(model) {
 }
 const SmartHomeInstance = new ISmartHome();
 export default SmartHomeInstance;
