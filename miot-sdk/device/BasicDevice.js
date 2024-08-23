@@ -890,10 +890,13 @@ export class BasicDevice {
  * @readonly
  */
   get comFlag() {
+    console.log('>>>>>>  Device.comFlag:', Properties.of(this).comFlag);
     return Properties.of(this).comFlag;
   }
   get isWearableDevice() {
-    return this.comFlag & (1 << 12) !== 0;
+    let isWearable = this.comFlag & (1 << 12) !== 0;
+    console.log('>>>>>>  Device.isWearableDevice:', isWearable)
+    return isWearable;
   }
   /**
    * 创建场景
