@@ -157,6 +157,12 @@ export default {
     }
     return false;
   },
+  get isWearSceneSupported() {
+    if (isAndroid) {
+      return native.MIOTHost.isWearSceneSupported;
+    }
+    return false;
+  },
   /**
      * @const
      * @type string
