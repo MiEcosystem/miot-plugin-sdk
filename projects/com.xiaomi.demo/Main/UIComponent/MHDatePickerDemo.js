@@ -17,6 +17,7 @@ export default class MHDatePickerDemo extends React.Component {
       visible3: false,
       visible4: false,
       visible5: false,
+      visible7: false,
       value: false,
       value1: false,
       value2: false,
@@ -24,6 +25,7 @@ export default class MHDatePickerDemo extends React.Component {
       value4: false,
       value5: false,
       value6: false,
+
       valueText: '',
       valueText1: '',
       valueText2: '',
@@ -31,6 +33,7 @@ export default class MHDatePickerDemo extends React.Component {
       valueText4: '',
       valueText5: '',
       valueText6: '',
+      valueText7: '7',
       current: [2019, 6, 3]
     };
   }
@@ -68,57 +71,57 @@ export default class MHDatePickerDemo extends React.Component {
           <View style={{ alignItems: 'center' }}>
             <ListItem
               title="开始日期"
-              value={this.state.value}
-              valueText={this.state.valueText}
+              value={this.state.valueText}
               onPress={() => this.setState({ visible: true })}
               onValueChange={(value) => console.log(value)}
               hideArrow={true}
             />
             <ListItem
               title="开启时间(24小时制)"
-              value={this.state.value1}
-              valueText={this.state.valueText1}
+              value={this.state.valueText1}
               onPress={() => this.setState({ visible1: true })}
               onValueChange={(value) => console.log(value)}
               hideArrow={true}
             />
             <ListItem
               title="开启时间(12小时制)"
-              value={this.state.value2}
-              valueText={this.state.valueText2}
+              value={this.state.valueText2}
               onPress={() => this.setState({ visible2: true })}
               onValueChange={(value) => console.log(value)}
               hideArrow={true}
             />
             <ListItem
               title="开启时间(12小时制)-大字体适配"
-              value={this.state.value6}
-              valueText={this.state.valueText6}
+              value={this.state.valueText6}
               onPress={() => this.setState({ visible6: true })}
               onValueChange={(value) => console.log(value)}
               hideArrow={true}
             />
             <ListItem
               title="选择一段时间"
-              value={this.state.value3}
-              valueText={this.state.valueText3}
+              value={this.state.valueText3}
               onPress={() => this.setState({ visible3: true })}
               onValueChange={(value) => console.log(value)}
               hideArrow={true}
             />
             <ListItem
               title="开始日期(自定义)"
-              value={this.state.value4}
-              valueText={this.state.valueText4}
+              value={this.state.valueText4}
               onPress={() => this.setState({ visible4: true })}
               onValueChange={(value) => console.log(value)}
               hideArrow={true}
             />
             <ListItem
               title="选择一段时间(自定义)"
-              value={this.state.value5}
-              valueText={this.state.valueText5}
+              value={this.state.valueText5}
               onPress={() => this.setState({ visible5: true })}
+              onValueChange={(value) => console.log(value)}
+              hideArrow={true}
+            />
+            <ListItem
+              title="单位动态计算(分钟)"
+              value={`${ this.state.valueText7 }`}
+              onPress={() => this.setState({ visible7: true })}
               onValueChange={(value) => console.log(value)}
               hideArrow={true}
             />
@@ -204,6 +207,20 @@ export default class MHDatePickerDemo extends React.Component {
               max={['15']}
               onSelect={(res) => this.onSelect(res, '5')}
               onDismiss={() => this.onDismiss('5')}
+            />
+            <MHDatePicker
+              animationType="slide"
+              visible={this.state.visible7}
+              title="单位动态计算(分钟)"
+              showSubtitle={true}
+              confirmColor="#f0ac3d"
+              type={MHDatePicker.TYPE.SINGLEAUTO}
+              singleType={MHDatePicker.SINGLE_TYPE.MINUTE}
+              current={['12']}
+              singleAutoMin={1}
+              singleAutoMax={120}
+              onSelect={(res) => this.onSelect(res, '7')}
+              onDismiss={() => this.onDismiss('7')}
             />
           </View>
         </ScrollView>
