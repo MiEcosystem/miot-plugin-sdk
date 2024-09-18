@@ -311,17 +311,5 @@ export default {
    */
   callSpecificAPI(url, method, params) {
      return Promise.resolve(null);
-  },
-    /**
-   * @method connectWifi
-   * @since 10099
-   * @description 连接wifi
-   *
-   * @param {string} ssid - ssid
-   * @param {string} passwd - wifi密码
-   * @returns {Promise}
-   */
-  connectWifi(ssid, passwd = '') {
-     return Promise.resolve(null);
   }
 };

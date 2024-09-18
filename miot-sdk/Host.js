@@ -507,6 +507,28 @@ export default {
    * 效果可参考com.xiaomi.demo中的PadScrollDemo
    */
   setPadScrollDealStrategy(params) {
+  },
+  /**
+   * @method connectWifi
+   * @since 10100
+   * @description 连接wifi
+   *
+   * @param {string} ssid - ssid
+   * @param {string} passwd - wifi密码
+   * @returns {Promise}
+   */
+  connectWifi(ssid, passwd = '') {
+     return Promise.resolve(null);
+  },
+  /**
+   * @method getScanWifiList
+   * @since 10100
+   * @description 连接wifi
+   *
+   * @returns {Promise}
+   */
+  getScanWifiList() {
+     return Promise.resolve(null);
   }
 };
 export const PAD_SCROLL_STRATEGY = {
