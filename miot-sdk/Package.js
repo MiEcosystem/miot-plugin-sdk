@@ -25,21 +25,19 @@
  *     Package.entry(App, ()=>{...});
  *     Package.exit({...});
  */
-import { MessageDialog } from 'miot/ui/Dialog';
 import React from 'react';
 import { AppRegistry, DeviceEventEmitter, View, I18nManager } from "react-native";
-import Device, { DeviceEvent, PollPropMap } from "./device/BasicDevice";
-import Service, { CurrentAccount } from './Service';
-import Host from './Host';
-import resolveAssetResource from "./native/common/node/resolve";
-import { strings } from './resources';
-import ProtocolManager from './utils/protocol-helper';
-import ReuseHelper from './utils/reuse-helper';
-import rnPackageJSON from 'react-native/package.json';
-import PropTypes from 'prop-types';
-import { DarkMode } from 'miot/Device';
 import { SDKContextProvider } from 'miot/sdkContext';
+import Service, { CurrentAccount } from './Service';
+import Device, { DeviceEvent, PollPropMap } from "./device/BasicDevice";
+import { strings } from './resources';
+import { initI18nsStings } from './resources/Strings';
 import { ConfigProvider } from 'mhui-rn';
+import { DarkMode } from 'miot/Device';
+import { MessageDialog } from 'miot/ui/Dialog';
+import Host from './Host';
+import { PackageEvent } from './event/PackageEvent';
+import { Entrance } from './Entrance';
 /**
   * @description JS端通知Native端的事件类型
   * @enum {number}
@@ -58,19 +56,7 @@ const kMaxFetchNavTimes = 3;
   * 扩展程序调用的入口类型
   * @namespace Entrance
   */
-export const Entrance = {
-  /**
-    * 主入口
-    * @const
-    */
-  Main: "main",
-  /**
-    * 场景入口
-    * @const
-    */
-  Scene: "scene"
-};
-Object.freeze(Entrance);
+export { Entrance };
 /**
   * Package事件名集合
   * @namespace PackageEvent
@@ -83,75 +69,97 @@ Object.freeze(Entrance);
   *    subscription.remove()
   *    ...
   */
-export const PackageEvent = {
-  /**
-    * 插件将要加载
-    * @event
-    */
-  packageWillLoad: { local: true },
-  /**
-    * 插件加载完成事件
-    * @event
-    */
-  packageDidLoaded: { local: true },
-  /**
-    * 插件将暂时退出前台事件
-    * @event
-    */
-  packageWillPause: { always: true },
-  /**
-    * 插件将重回前台事件
-    * @event
-    */
-  packageDidResume: { always: true },
-  /**
-    * SDK弹出的隐私同意时的回调
-    * @event
-    * @since 10037
-    */
-  packageAuthorizationAgreed: { always: true },
-  /**
-    * 用户撤销隐私授权时的回调
-    * @event
-    * @param autoExit
-    */
-  packageAuthorizationCancel: {
-  },
-  /**
-    * 插件接收到场景等通知消息
-    * @event
-    */
-  packageReceivedInformation: { always: true, sameas: isIOS ? 'kMHPluginReceivingForegroundPushEvent' : undefined },
-  /**
-    * 插件将退出事件
-    * @event
-    */
-  packageWillExit: { always: true },
-  /**
-    * 从 Native 界面返回到插件,可以通过监听此事件更新已加载过的视图，或进行相应的事件处理。
-    * @event
-    */
-  packageViewWillAppear: { always: true, sameas: isIOS ? 'viewWillAppear' : undefined },
-  /**
-    * 插件收到外部APP跳转带过来的信息
-    * @event
-    * @since 10053
-    */
-  packageReceivedOutAppInformation: { always: true },
-  /**
-    * 从插件页面离开到 Native 界面, iOS Only
-    * @since 10038
-    * @event
-    */
-  packageViewWillDisappearIOS: { always: true, sameas: isIOS ? 'packageViewWillDisappearIOS' : undefined },
-  /**
-    * 插件进入后台(Android only)
-    * 在插件内，用户按下home键，米家进入后台会发送该通知
-    * @since 10048
-    * @event
-    */
-  packageWillStopAndroid: { always: true, sameas: isIOS ? undefined : 'packageWillStop' }
-};
+export { PackageEvent };
+   pluginPrivacyPlatformCheck() {
+    if (Device.isWearableDevice) {
+      PackageEvent.packageAuthorizationAgreed.emit();
+      return;
+    }
+     ProtocolManager.pluginLegalInformationCheck().then((res) => {
+       console.log('Package check pluginLegalInformationCheck resolve result: ', res);
+       ProtocolManager.protocolMangerReportLog('[Privacy Debug] Package: Package check pluginLegalInformationCheck resolve result: ', res);
+       if (res?.code == 0) {
+         let mes = res?.data?.result;
+         if (mes === ProtocolManager.ProtocolManager_PrivacyAgree || mes === ProtocolManager.ProtocolManager_PrivacyAgreeChanges) {
+           PackageEvent.packageAuthorizationAgreed.emit();
+           return;
+         }
+       }
+     }).catch((err) => {
+       console.log('Package check pluginLegalInformationCheck catch error: ', err);
+       ProtocolManager.protocolMangerReportLog('[Privacy Debug] Package: Package check pluginLegalInformationCheck catch error: ', err);
+       let mess = err?.message;
+       if (mess === ProtocolManager.ProtocolManager_PrivacyRejected) {
+         native.MIOTHost.closeCurrentPage({ 'animated': true });
+       }
+     });
+   }
+   render() {
+     const currentColorScheme = native.MIOTService.currentDarkMode ? native.MIOTService.currentDarkMode : "light";
+     const media = { screenType: 'phone' };
+     if (Host.isPad) { media.screenType = 'tablet'; }
+     return (
+       <View style={{ flex: 1 }}>
+         <SDKContextProvider value={{ colorScheme: currentColorScheme }}>
+           <ConfigProvider media={media} language={Host.locale.language} colorScheme={currentColorScheme}>
+             <AppContainter did={this.state.did} ref={(ref) => { AppContainterRef = ref; }} />
+           </ConfigProvider>
+         </SDKContextProvider>
+         <MessageDialog
+           type={MessageDialog.TYPE.SIMPLE}
+           title=""
+           visible={this.state.showFirmwareUpdateAlert}
+           message={this.state.firmwareUpdateTitle}
+           canDismiss={this.state.firmwareUpdateDialogCanDismiss}
+           buttons={[
+             {
+               text: this.state.firmwareUpdateCancel,
+               callback: () => {
+                 DeviceEventEmitter.emit('MH_Event_FirmwareUpdateDialog', { isSure: false });
+                 if (this.state.packageExitOnFirmwareUpdateCancel) {
+                   native.MIOTHost.closeCurrentPage({ 'animated': true });
+                 }
+                 this.onDismiss();
+               }
+             },
+             {
+               text: this.state.firmwareUpdateSure,
+               callback: () => {
+                 DeviceEventEmitter.emit('MH_Event_FirmwareUpdateDialog', { isSure: true });
+                 this.onDismiss();
+                 let { navigation, upgradePageKey, upgradePageParams } = extra?.package?._wifiDeviceUpgradeOptions || {};
+                 if (Device.type === Device.DEVICE_TYPE.WIFI_SINGLE_MODEL_DEVICE && navigation && upgradePageKey) {
+                   navigation.navigate(upgradePageKey, upgradePageParams || {});
+                   return;
+                 } 
+                 if (AutoOTAABTestHelper.autootaSupported(Device.type, Device.model)) {
+                   // wifi设备固件升级 Q3实验性功能 固件自动升级
+                   this.props.navigation.navigate('FirmwareUpgradeAuto', { needRenderHeader: true });
+                   return;
+                 }
+                 Device.needUpgrade = false;
+                 if ((Device.type == 6 || Device.type == 16) && extra.package && extra.package._bleAutoCheckUpgradeOptions && extra.package._bleAutoCheckUpgradeOptions.enable) {
+                   let authType = extra.package._bleAutoCheckUpgradeOptions.authType;
+                   Host.ui.openBleCommonDeviceUpgradePage({ auth_type: authType });
+                 } else {
+                   Host.ui.openDeviceUpgradePage(1);
+                 }
+               }
+             }
+           ]}
+           onDismiss={() => { this.onDismiss(); }
+           }
+         />
+       </View>
+     );
+   }
+   onDismiss() {
+     this.setState({ showFirmwareUpdateAlert: false });
+     let now = new Date().getTime();
+     Host.storage.set(`mh_firmware_last_op_time${ Device.deviceID }`, now);
+   }
+}
+export { PackageRoot };
 /**
   * @export
   */
@@ -293,6 +301,22 @@ export default {
     * }
     */
   set BLEAutoCheckUpgradeOptions(options) {
+     return  ""
+  },
+  /**
+    * wifi设备升级参数 目前sdk要求所有wifi设备都需要开启固件升级检查，但是开发者可以自行实现检查的页面的逻辑
+    * @param navigation 传入包含upgradePageKey的navigation，否则可能会出现无法跳转的情况
+    * @param upgradePageKey 要跳转的page key 通常是在index中定义的
+    * @param upgradePageParams 要跳转的page params
+    * @since 10080
+    * @example
+    * Package.wifiDeviceUpgradeOptions = {
+    *   navigation: xxx,
+    *   upgradePageKey: 'xxxUpgradePage',
+    *   upgradePageParams: { xxx: xxx },
+    * }
+    */
+  set wifiDeviceUpgradeOptions(options) {
      return  ""
   },
   /**
