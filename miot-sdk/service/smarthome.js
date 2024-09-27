@@ -1505,6 +1505,13 @@ class ISmartHome {
    */
   @report
     getBrandInfos(params) {
+  /**
+   * 查询云服务接口，插件是否撤销了隐私协议
+   */
+  @report
+  queryCloudStatus() {
+     return Promise.resolve([]);
+  }
   privacyCheckPopup(model) {
 }
 const SmartHomeInstance = new ISmartHome();

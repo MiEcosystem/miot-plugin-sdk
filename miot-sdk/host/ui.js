@@ -1269,6 +1269,16 @@ class IUi {
     native.MIOTHost.openFamilyManagerPage(did);
   }
   /**
+   * since SDK_10100
+   * 打开家庭相册页
+   *
+   * @param did
+   */
+  @report
+    openFamilyAlbumPage(did) {
+      native.MIOTHost.openFamilyAlbumPage(did);
+    }
+  /**
    * 打开米家微信小程序，在微信小程序中订阅音视频通话
    * @since 10091
    * @param params 参数必须包含：
@@ -1289,8 +1299,8 @@ class IUi {
    * })
    */
   @report
-    requestWxDeviceVoIP(params) {
-    }
+  requestWxDeviceVoIP(params) {
+  }
   /**
    * 分享，邀请其他成员订阅音视频通话
    * @since 10091
@@ -1315,6 +1325,31 @@ class IUi {
     */
   @report
   shareWxDeviceVoIP(params) {
+  }
+  /**
+   * 分享，邀请 家庭成员/家庭管理员/仅通话/家庭成员且通话/家庭管理员且通话
+   * @since 10099
+   * @param params 参数必须包含：
+   * {
+   *  inviteType : 固定："homeMember" "homeAdmin" "call" "homeMemberAndCall" "homeAdminAndCall" 分别对应上面五种类型
+      userId: 用户登陆的账号id
+      did ：设备did
+      deviceName: 设备在插件中的名称
+      model ：设备model
+      wxMessageTitle：微信消息的标题
+    * }
+      @example
+    *  Host.ui.shareWxForInviteFriends({
+        inviteType : "homeMember",
+        userId: "894158105",
+        did ："102344554",
+        deviceName: "device_name",
+        model ："device_model",
+        wxMessageTitle：'xx'
+      })
+    */
+  @report
+  shareWxForInviteFriends(params) {
   }
   /**
    * 打开米家小程序，跳到对应的设备卡片（不发起通话）
