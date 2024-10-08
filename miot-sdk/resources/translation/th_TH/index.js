@@ -29,8 +29,8 @@ export default {
   other: 'อื่นๆ',
   multipleKeyShowOnHome: 'จำนวนปุ่มที่แสดงในหน้าหลัก: {0}',
   // 常用设备
-  favoriteDevices: 'แสดงบนหน้าหลักของ Mi Home',
-  favoriteCamera: 'เปลี่ยนเป็นการ์ดใหญ่',
+  favoriteDevices: 'แสดงบนหน้าหลักของ Xiaomi Home',
+  favoriteCamera: 'ขนาดการ์ดแดชบอร์ด',
   favoriteAddDevices: 'เพิ่มในรายการโปรด',
   // MHDatePicker
   cancel: 'ยกเลิก ',
@@ -78,21 +78,37 @@ export default {
     'other': '{0} วิ.'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{1}-{2}-{0}',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',
@@ -117,7 +133,7 @@ export default {
   deleteCurtainGroup: 'ยกเลิกการจับกลุ่มอุปกรณ์',
   linkDevice: 'เชื่อมต่ออุปกรณ์',
   noSuppurtedLinkageDevice: 'ไม่มีอุปกรณ์ที่พร้อมใช้งาน',
-  noSuppurtedLinkageTip: '1. ตรวจสอบให้แน่ใจว่าคุณได้เพิ่มอุปกรณ์ในแอป Mi Home และกำหนดให้กับห้อง \\n2. วางอุปกรณ์บลูทูธไว้ใกล้กับอุปกรณ์นี้เพื่อให้เชื่อมต่อได้สำเร็จ',
+  noSuppurtedLinkageTip: '1. ตรวจสอบให้แน่ใจว่าคุณได้เพิ่มอุปกรณ์ในแอป Xiaomi Home และกำหนดไปยังห้องต่าง ๆ แล้ว\\n2. วางอุปกรณ์บลูทูธไว้ใกล้กับอุปกรณ์นี้เพื่อให้เชื่อมต่อได้สำเร็จ',
   supportedLinkageDevices: 'สามารถเชื่อมต่อกับอุปกรณ์ดังต่อไปนี้:',
   linkageDistanceTip: 'วางอุปกรณ์ไว้ใกล้กันเพื่อให้แน่ใจว่าสามารถเชื่อมต่อได้',
   linkageRemoveTip: 'หากต้องการเปลี่ยนอุปกรณ์บลูทูธที่เชื่อมต่อ ให้ถอดอุปกรณ์ออกก่อน',

@@ -29,8 +29,8 @@ export default {
   other: 'Otro',
   multipleKeyShowOnHome: 'El número de botones que se mostrarán en la página principal: {0}',
   // 常用设备
-  favoriteDevices: 'Mostrar en la página principal de Mi Home',
-  favoriteCamera: 'Cambiar a tarjeta grande',
+  favoriteDevices: 'Mostrar en la página principal de Xiaomi Home',
+  favoriteCamera: 'Tamaño de tarjetas en el panel',
   favoriteAddDevices: 'Agregar a favoritos',
   // MHDatePicker
   cancel: 'Cancelar',
@@ -78,21 +78,37 @@ export default {
     'other': '{0} segs'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{1}-{2}-{0}',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',
@@ -117,7 +133,7 @@ export default {
   deleteCurtainGroup: 'Desagrupar dispositivos',
   linkDevice: 'Vincular dispositivos',
   noSuppurtedLinkageDevice: 'No hay dispositivos disponibles',
-  noSuppurtedLinkageTip: '1. Verifique haber agregado dispositivos en la aplicación Mi Home y asignarlos a habitaciones.\\n2. Mantenga los dispositivos bluetooth cerca de este dispositivo para conectarlos correctamente.',
+  noSuppurtedLinkageTip: '1. Verifique haber agregado dispositivos en la aplicación Xiaomi Home y asignarlos a habitaciones.\\n2. Mantenga los dispositivos bluetooth cerca de este dispositivo para conectarlos correctamente.',
   supportedLinkageDevices: 'Puede vincularse con los siguientes dispositivos:',
   linkageDistanceTip: 'Mantenga los dispositivos cerca para que se puedan vincular.',
   linkageRemoveTip: 'para cambiar el dispositivo bluetooth vinculado, elimínelo primero.',

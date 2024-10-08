@@ -29,8 +29,8 @@ export default {
   other: 'Diğer',
   multipleKeyShowOnHome: 'Ana sayfada gösterilen düğme sayısı: {0}',
   // 常用设备
-  favoriteDevices: 'Mi Home ana sayfasında göster',
-  favoriteCamera: 'Büyük karta geç',
+  favoriteDevices: 'Xiaomi Home ana sayfasında göster',
+  favoriteCamera: 'Gösterge paneli kart boyutu',
   favoriteAddDevices: 'Favorilere ekle',
   // MHDatePicker
   cancel: 'İptal et',
@@ -78,21 +78,37 @@ export default {
     'other': '{0} sn.'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{1}-{2}-{0}',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',
@@ -117,7 +133,7 @@ export default {
   deleteCurtainGroup: 'Cihaz grubunu dağıt',
   linkDevice: 'Cihazları bağla',
   noSuppurtedLinkageDevice: 'Kullanılabilir cihaz yok',
-  noSuppurtedLinkageTip: '1. Cihazları Mi Home uygulamasına eklediğinizden ve onları odalara atadığınızdan emin olun.\\n2. Bluetooth cihazlarını başarılı bir şekilde bağlamak için bu cihaza yakın tutun.',
+  noSuppurtedLinkageTip: '1. Cihazları Xiaomi Home uygulamasına eklediğinizden ve onları odalara atadığınızdan emin olun.\\n2. Bluetooth cihazlarını başarılı bir şekilde bağlamak için bu cihaza yakın tutun.',
   supportedLinkageDevices: 'Şu cihazlara bağlanabilir:',
   linkageDistanceTip: 'Cihazların bağlanabilmesini sağlamak için çok yakın tutun.',
   linkageRemoveTip: 'Bağlı Bluetooth cihazını değiştirmek için önce cihazı kaldırın.',
@@ -251,8 +267,8 @@ export default {
   },
   changeIcon: 'Simgeyi değiştir',
   deviceCall: 'Acil durum uyarıları',
-  cloudStorage: 'Bulut depolama bildirimleri',
-  cloudStorageVip: 'Bulut üyelik durumu hakkında bildirimler al',
+  cloudStorage: 'Cloud depolama bildirimleri',
+  cloudStorageVip: 'Cloud üyelik durumu hakkında bildirimler alın',
   largeCardEvent: 'Kartta en son yakalanan olayları göster',
   // 开关智能
   switch_title_controlDevice: 'Cihazları denetle',
@@ -307,8 +323,8 @@ export default {
   common_delete_failed: 'Silinemedi. Ağ ayarlarınızı kontrol edin ve tekrar deneyin',
   common_setting_failed: 'Ayarlanamadı. Cihazın ağa bağlı olup olmadığını kontrol edin ve tekrar deneyin.',
   common_saving: 'Kaydediliyor…',
-  switch_listItem_title_executionType: 'Çalışma modu',
-  switch_listItem_value_executionTypeCloud: 'Bulut',
+  switch_listItem_title_executionType: 'Çalıştırma modu',
+  switch_listItem_value_executionTypeCloud: 'Cloud',
   switch_listItem_value_executionTypeLocale: 'Yerel',
   switch_dia_msg_deleteScene: 'Bu otomasyon silinsin mi?',
   switch_scene_name_toggleSwitchDevice: '${} | Tek bas | ${} | Açık/Kapalı | ${}-${}',

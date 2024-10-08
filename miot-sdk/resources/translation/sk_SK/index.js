@@ -30,7 +30,7 @@ export default {
   multipleKeyShowOnHome: 'Počet tlačidiel zobrazených na domovskej stránke: {0}',
   // 常用设备
   favoriteDevices: 'Zobraziť na domovskej stránke Xiaomi Home',
-  favoriteCamera: 'Prepnúť na veľkú kartu',
+  favoriteCamera: 'Veľkosť karty panela',
   favoriteAddDevices: 'Pridať do obľúbených',
   // MHDatePicker
   cancel: 'Zrušiť',
@@ -78,21 +78,37 @@ export default {
     'other': '{0} sek.'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{1} – {2} – {0}',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',
@@ -313,7 +329,7 @@ export default {
   switch_dia_msg_deleteScene: 'Vymazať túto automatizáciu?',
   switch_scene_name_toggleSwitchDevice: '${} | Jedno stlačenie | ${} | On/Off | ${}-${}',
   switch_scene_name_toggleLightDevice: '${} | Jedno stlačenie | ${} | On/Off | ${}',
-  switch_scene_name_executeManualScene: '${} | Jedno stlačenie | ${} | Run | ${}-${}',
+  switch_scene_name_executeManualScene: '${} | Jedno stlačenie | ${} | Spustené | ${}-${}',
   switch_list_device_unavailable: 'Nezobrazené zariadenia túto funkciu nepodporujú',
   switch_button_subtitle_notCurrentHome: 'Nie je v tejto domácnosti',
   common_list_empty: 'Zatiaľ tu nič nie je',

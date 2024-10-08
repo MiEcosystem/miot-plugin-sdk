@@ -30,7 +30,7 @@ export default {
   multipleKeyShowOnHome: 'Die Anzahl der auf der Startseite angezeigten Tasten: {0}',
   // 常用设备
   favoriteDevices: 'Auf der Xiaomi-Home-Startseite anzeigen',
-  favoriteCamera: 'Zu großer Karte wechseln',
+  favoriteCamera: 'Dashboard-Kartengröße',
   favoriteAddDevices: 'Zu Favoriten hinzufügen',
   // MHDatePicker
   cancel: 'Abbrechen',
@@ -78,21 +78,37 @@ export default {
     'other': '{0} Sek.'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{2}.{1}.{0}',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',
@@ -117,7 +133,7 @@ export default {
   deleteCurtainGroup: 'Gerätegruppierung aufheben',
   linkDevice: 'Geräte verlinken',
   noSuppurtedLinkageDevice: 'Keine Geräte verfügbar',
-  noSuppurtedLinkageTip: '1. Vergewissern Sie sich, dass Sie die Geräte in der Xiaomi-Home-App hinzugefügt und sie Räumen zugewiesen haben.\\n2. Sorgen Sie dafür, dass sich die Bluetooth-Geräte in der Nähe dieses Geräts befinden, damit eine Verbindung hergestellt werden kann.',
+  noSuppurtedLinkageTip: '1. Vergewissere dich, dass du die Geräte in der Xiaomi-Home-App hinzugefügt und sie Räumen zugewiesen hast.\\n2. Sorge dafür, dass sich die Bluetooth-Geräte in der Nähe dieses Geräts befinden, damit eine Verbindung hergestellt werden kann.',
   supportedLinkageDevices: 'Lässt sich mit den folgenden Geräten verlinken:',
   linkageDistanceTip: 'Sorgen Sie dafür, dass sich die Bluetooth-Geräte in der Nähe dieses Geräts befinden, damit sie miteinander verlinkt werden können.',
   linkageRemoveTip: 'Zur Änderung des verlinkten Bluetooth-Geräts muss es zunächst entfernt werden.',
@@ -316,7 +332,7 @@ export default {
   switch_scene_name_executeManualScene: '${} | Einmal Drücken | ${} | Ausführen | ${}-${}',
   switch_list_device_unavailable: 'Nicht angezeigte Geräte unterstützen diese Funktion nicht',
   switch_button_subtitle_notCurrentHome: 'Nicht im derzeitigen Zuhause',
-  common_list_empty: 'Noch nichts da',
+  common_list_empty: 'Hier ist noch nichts',
   switch_dia_msg_repeatScene: '当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？',
   common_loading: '加载中，请稍后...',
   pairMode: 'Kopplungsmodus'

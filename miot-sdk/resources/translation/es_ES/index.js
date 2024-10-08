@@ -1,5 +1,5 @@
 export default {
-  setting: 'Configuración',
+  setting: 'Ajustes',
   featureSetting: 'Ajustes del dispositivo',
   commonSetting: 'Ajustes generales',
   name: 'Nombre del dispositivo',
@@ -30,7 +30,7 @@ export default {
   multipleKeyShowOnHome: 'El número de botones que se muestran en la página de inicio: {0}',
   // 常用设备
   favoriteDevices: 'Mostrar en la página de inicio de Xiaomi Home',
-  favoriteCamera: 'Cambiar a tarjeta grande',
+  favoriteCamera: 'Tamaño de tarjetas en el panel',
   favoriteAddDevices: 'Añadir a favoritos',
   // MHDatePicker
   cancel: 'Cancelar',
@@ -78,21 +78,37 @@ export default {
     'other': '{0} s'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{1}-{2}-{0}',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',

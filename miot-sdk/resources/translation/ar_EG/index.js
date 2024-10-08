@@ -29,8 +29,8 @@ export default {
   other: 'أخرى',
   multipleKeyShowOnHome: 'عدد الأزرار التي تظهر على الصفحة الرئيسية: {0}',
   // 常用设备
-  favoriteDevices: 'العرض على الصفحة الرئيسية في منزل Mi/Xiaomi Home',
-  favoriteCamera: 'تبديل إلى بطاقة كبيرة',
+  favoriteDevices: 'العرض على الصفحة الرئيسية في Xiaomi Home',
+  favoriteCamera: 'حجم بطاقة لوحة المعلومات',
   favoriteAddDevices: 'إضافة إلى المفضلة',
   // MHDatePicker
   cancel: 'إلغاء',
@@ -78,21 +78,37 @@ export default {
     'other': '{0} ثواني'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{1}-{2}-{0}',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',
@@ -117,7 +133,7 @@ export default {
   deleteCurtainGroup: 'إلغاء تجميع الأجهزة',
   linkDevice: 'ربط الأجهزة',
   noSuppurtedLinkageDevice: 'لا توجد أجهزة متاحة',
-  noSuppurtedLinkageTip: '1. تأكّد من إضافة الأجهزة في تطبيق Mi Home وتخصيصها للغرف.\\n2. احتفظ بأجهزة البلوتوث بالقرب من هذا الجهاز لتوصيلها بنجاح.',
+  noSuppurtedLinkageTip: '1. تأكد من إضافة الأجهزة في Xiaomi Home وتخصيصها للغرف .\\n2. حافظ على قرب مسافة أجهزة البلوتوث من هذا الجهاز لتوصيلها بنجاح.',
   supportedLinkageDevices: 'يمكن ربطه بالأجهزة التالية:',
   linkageDistanceTip: 'احتفظ بالأجهزة بالقرب منك للتأكد من قدرتها على الربط.',
   linkageRemoveTip: 'لتغيير جهاز البلوتوث المرتبط، قم بحذف الجهاز أولًا.',

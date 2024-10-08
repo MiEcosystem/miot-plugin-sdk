@@ -29,8 +29,8 @@ export default {
   other: 'Altele',
   multipleKeyShowOnHome: 'Numărul de butoane afișate pe pagina de pornire: {0}',
   // 常用设备
-  favoriteDevices: 'Afișează pe pagina de pornire Xiaomi Home',
-  favoriteCamera: 'Treci la cardul mare',
+  favoriteDevices: 'Afișați pe pagina de pornire Xiaomi Home',
+  favoriteCamera: 'Dimensiunea cardului panoului de bord',
   favoriteAddDevices: 'Adaugă la favorite',
   // MHDatePicker
   cancel: 'Anulează',
@@ -78,21 +78,37 @@ export default {
     'other': '{0} sec'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{2}.{1}.{0}',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',
@@ -117,7 +133,7 @@ export default {
   deleteCurtainGroup: 'Degrupează dispozitivele',
   linkDevice: 'Asociază dispozitivele',
   noSuppurtedLinkageDevice: 'Niciun dispozitiv disponibil',
-  noSuppurtedLinkageTip: '1. Asigură-te că ai adăugat dispozitivele în aplicația Xiaomi Home și le-ai alocat camerelor.\\n2. Păstrează dispozitivele Bluetooth aproape de acest dispozitiv pentru a reuși să le conectezi.',
+  noSuppurtedLinkageTip: '1. Asigurați-vă de faptul că ați adăugat dispozitivele în aplicația Xiaomi Home și le-ați atribuit camerelor.\\n2. Țineți dispozitivele Bluetooth aproape de acest dispozitiv pentru a reuși să le conectați.',
   supportedLinkageDevices: 'Poate fi asociat cu următoarele dispozitive:',
   linkageDistanceTip: 'Păstrează dispozitivele în imediata apropiere pentru a te asigura că se pot asocia.',
   linkageRemoveTip: 'Pentru a schimba dispozitivul Bluetooth asociat, mai întâi elimină primul dispozitiv.',
@@ -307,7 +323,7 @@ export default {
   common_delete_failed: 'Nu s-a putut șterge. Verificați setările rețelei și încercați din nou.',
   common_setting_failed: 'Nu s-a putut seta. Verificați dacă dispozitivul este conectat la rețea și încercați din nou.',
   common_saving: 'Se salvează…',
-  switch_listItem_title_executionType: 'Modul rulare',
+  switch_listItem_title_executionType: 'Modul de rulare',
   switch_listItem_value_executionTypeCloud: 'Cloud',
   switch_listItem_value_executionTypeLocale: 'Local',
   switch_dia_msg_deleteScene: 'Ștergeți această automatizare?',

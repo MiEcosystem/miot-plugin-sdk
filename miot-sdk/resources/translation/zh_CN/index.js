@@ -77,22 +77,22 @@ export default {
     'many': '{0}秒钟',
     'other': '{0}秒钟'
   },
-  months: '个月',
-  days: '天',
-  hours: '小时',
-  minutes: '分钟',
-  seconds: '秒钟',
-  month: '个月',
-  day: '天',
-  hour: '小时',
-  minute: '分钟',
-  second: '秒钟',
-  yearUnit: '年',
-  monthUnit: '月',
-  dayUnit: '日',
-  hourUnit: '时',
-  minuteUnit: '分',
-  secondUnit: '秒',
+  months: '个月', // 复数
+  days: '天', // 复数
+  hours: '小时', // 复数
+  minutes: '分钟', // 复数
+  seconds: '秒钟', // 复数
+  month: '个月', // 单数
+  day: '天', // 单数
+  hour: '小时', // 单数
+  minute: '分钟', // 单数
+  second: '秒钟', // 单数
+  yearUnit: '年', // 单数
+  monthUnit: '月', // 单数
+  dayUnit: '日', // 单数
+  hourUnit: '时', // 单数
+  minuteUnit: '分', // 单数
+  secondUnit: '秒', // 单数
   dateSubTitle: '{0}年{1}月{2}日', // 2019年06月03日
   time24SubTitle: '{0}:{1}', // 11:43
   time12SubTitle: '{0} {1}:{2}', // 上午 11:43

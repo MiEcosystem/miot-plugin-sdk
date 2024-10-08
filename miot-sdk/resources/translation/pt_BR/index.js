@@ -29,8 +29,8 @@ export default {
   other: 'Outros',
   multipleKeyShowOnHome: 'Número de botões mostrados na página inicial: {0}',
   // 常用设备
-  favoriteDevices: 'Exibir na página inicial do Mi Home',
-  favoriteCamera: 'Mudar para cartão grande',
+  favoriteDevices: 'Exibir na página inicial do Xiaomi Home',
+  favoriteCamera: 'Tamanho dos cartões do painel',
   favoriteAddDevices: 'Adicionar aos favoritos',
   // MHDatePicker
   cancel: 'Cancelar',
@@ -78,21 +78,37 @@ export default {
     'other': '{0} s'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{2}/{1}/{0}',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',
@@ -117,7 +133,7 @@ export default {
   deleteCurtainGroup: 'Desagrupar dispositivos',
   linkDevice: 'Conectar dispositivos',
   noSuppurtedLinkageDevice: 'Não há dispositivos disponíveis',
-  noSuppurtedLinkageTip: '1. Certifique-se de ter adicionado os dispositivos no app Mi Home e de tê-los atribuído a cômodos.\\n2. Mantenha os dispositivos Bluetooth próximos deste dispositivo para conectá-los com sucesso.',
+  noSuppurtedLinkageTip: '1. Certifique-se de ter adicionado os dispositivos no app Xiaomi Home e de tê-los atribuído a cômodos.\\n2. Mantenha os dispositivos Bluetooth próximos deste dispositivo para conectá-los com sucesso.',
   supportedLinkageDevices: 'Pode ser conectado aos seguintes dispositivos:',
   linkageDistanceTip: 'Mantenha os dispositivos nas proximidades para garantir que possam ser conectados.',
   linkageRemoveTip: 'Para mudar o dispositivo Bluetooth conectado, remova o dispositivo antes.',
@@ -307,7 +323,7 @@ export default {
   common_delete_failed: 'Não foi possível excluir. Verifique suas configurações de rede e tente novamente.',
   common_setting_failed: 'Não foi possível definir. Verifique se o dispositivo está conectado à rede e tente novamente.',
   common_saving: 'Salvando…',
-  switch_listItem_title_executionType: 'Modo em execução',
+  switch_listItem_title_executionType: 'Modo de execução',
   switch_listItem_value_executionTypeCloud: 'Nuvem',
   switch_listItem_value_executionTypeLocale: 'Local',
   switch_dia_msg_deleteScene: 'Excluir esta automação?',

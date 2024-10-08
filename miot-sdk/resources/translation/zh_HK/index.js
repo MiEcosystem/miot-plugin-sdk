@@ -30,7 +30,7 @@ export default {
   multipleKeyShowOnHome: '在首頁顯示為{0}個按鍵',
   // 常用设备
   favoriteDevices: '米家首頁顯示',
-  favoriteCamera: '切換至大卡片',
+  favoriteCamera: '首頁卡片大小',
   favoriteAddDevices: '設為首頁常用裝置',
   // MHDatePicker
   cancel: '取消',
@@ -78,21 +78,37 @@ export default {
     'other': '{0}秒鐘'
   },
   months: '個月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小時',
+  // 复数
   minutes: '分鐘',
+  // 复数
   seconds: '秒鐘',
+  // 复数
   month: '個月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小時',
+  // 单数
   minute: '分鐘',
+  // 单数
   second: '秒鐘',
+  // 单数
   yearUnit: '年',
+  // 单数
   monthUnit: '月',
+  // 单数
   dayUnit: '日',
+  // 单数
   hourUnit: '時',
+  // 单数
   minuteUnit: '分',
+  // 单数
   secondUnit: '秒',
+  // 单数
   dateSubTitle: '{0}年{1}月{2}日',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',

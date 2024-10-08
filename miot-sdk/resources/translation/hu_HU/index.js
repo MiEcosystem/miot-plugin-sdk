@@ -29,8 +29,8 @@ export default {
   other: 'Egyéb',
   multipleKeyShowOnHome: 'A kezdőoldalon megjelenített gombok száma: {0}',
   // 常用设备
-  favoriteDevices: 'Megjelenítés a Xiaomi Home Kezdőoldalon',
-  favoriteCamera: 'Váltás nagy kártyára',
+  favoriteDevices: 'Megjelenítés a Xiaomi Home kezdőlapon',
+  favoriteCamera: 'Műszerfali kártya mérete',
   favoriteAddDevices: 'Hozzáadás a Kedvencekhez',
   // MHDatePicker
   cancel: 'Mégse',
@@ -78,21 +78,37 @@ export default {
     'other': '{0} mp'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{1}-{2}-{0}',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',
@@ -117,7 +133,7 @@ export default {
   deleteCurtainGroup: 'Készülékcsoport bontása',
   linkDevice: 'Készülékek összekapcsolása',
   noSuppurtedLinkageDevice: 'Nincs elérhető készülék',
-  noSuppurtedLinkageTip: '1. Győződjön meg róla, hogy hozzáadta az eszközöket a Xiaomi Home alkalmazásban, és hozzárendelte őket a szobákhoz.\\n2. A sikeres csatlakoztatás érdekében tartsa a Bluetooth-eszközöket a készülék közelében.',
+  noSuppurtedLinkageTip: '1. Ellenőrizze, hogy hozzáadta az eszközöket a Xiaomi Home alkalmazásban, és hozzárendelte őket a helyiségekhez.\\n2. Tartsa a Bluetooth-eszközöket az eszköz közelében a sikeres csatlakozáshoz.',
   supportedLinkageDevices: 'A következő készülékekkel kapcsolható össze:',
   linkageDistanceTip: 'Ahhoz, hogy a készülékek össze tudjanak kapcsolódni, tartsa őket egymás közelében.',
   linkageRemoveTip: 'A csatlakoztatott Bluetooth-eszköz módosításához először távolítsa el az eszközt.',

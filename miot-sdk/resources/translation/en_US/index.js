@@ -29,8 +29,8 @@ export default {
   other: 'Other',
   multipleKeyShowOnHome: 'The number of buttons shown on the home page: {0}',
   // 常用设备
-  favoriteDevices: 'Display on Mi Home/Xiaomi Home home page',
-  favoriteCamera: 'Switch to large card',
+  favoriteDevices: 'Display on Xiaomi Home home page',
+  favoriteCamera: 'Dashboard card size',
   favoriteAddDevices: 'Add to favorites',
   // MHDatePicker
   cancel: 'Cancel',
@@ -78,21 +78,37 @@ export default {
     'other': '{0} secs'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{1}-{2}-{0}',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',
@@ -108,7 +124,7 @@ export default {
   firmwareUpgradeForceUpdate: 'Current firmware may be too old to run some features. Update to the latest version for better experience.',
   firmwareUpgradeForceUpdating: 'Device is updating. Try again later.',
   firmwareUpgradeNew_pre: 'An update is available. ',
-  firmwareUpgradeNew_sub: ' Update now?',
+  firmwareUpgradeNew_sub: 'Update now?',
   handling: 'Just a sec…',
   error: 'An error occurred. Try again later.',
   createLightGroup: 'Create light group (new)',
@@ -117,7 +133,7 @@ export default {
   deleteCurtainGroup: 'Ungroup devices',
   linkDevice: 'Link devices',
   noSuppurtedLinkageDevice: 'No devices available',
-  noSuppurtedLinkageTip: '1. Make sure you\'ve added the devices in the Mi Home app and assigned them to rooms.\\n2. Keep Bluetooth devices close to this device to connect them successfully.',
+  noSuppurtedLinkageTip: '1. Make sure you\'ve added the devices in the Xiaomi Home app and assigned them to rooms.\\n2. Keep Bluetooth devices close to this device to connect them successfully.',
   supportedLinkageDevices: 'Can be linked with the following devices:',
   linkageDistanceTip: 'Keep the devices in close proximity to make sure they\'re able to link.',
   linkageRemoveTip: 'To change the linked Bluetooth device, remove the device first.',
