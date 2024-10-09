@@ -29,8 +29,8 @@ export default {
   other: 'Khác',
   multipleKeyShowOnHome: 'Số lượng nút hiển thị trên trang chủ: {0}',
   // 常用设备
-  favoriteDevices: 'Hiển thị trên trang chủ Mi Home',
-  favoriteCamera: 'Chuyển sang thẻ lớn',
+  favoriteDevices: 'Hiển thị trên trang chủ Xiaomi Home',
+  favoriteCamera: 'Kích thước thẻ bảng điều khiển',
   favoriteAddDevices: 'Thêm vào mục yêu thích',
   // MHDatePicker
   cancel: 'Hủy',
@@ -78,21 +78,37 @@ export default {
     'other': '{0} giây'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{2}-{1}-{0}',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',
@@ -117,7 +133,7 @@ export default {
   deleteCurtainGroup: 'Bỏ nhóm thiết bị',
   linkDevice: 'Liên kết thiết bị',
   noSuppurtedLinkageDevice: 'Không có thiết bị nào',
-  noSuppurtedLinkageTip: '1. Đảm bảo bạn đã thêm các thiết bị vào ứng dụng Mi Home và chỉ định chúng cho các phòng.\\n2. Giữ các thiết bị Bluetooth gần thiết bị này để kết nối chúng thành công.',
+  noSuppurtedLinkageTip: '1. Đảm bảo bạn đã thêm các thiết bị vào ứng dụng Xiaomi Home và chỉ định chúng cho các phòng.\\n2. Giữ các thiết bị Bluetooth gần thiết bị này để kết nối chúng thành công.',
   supportedLinkageDevices: 'Có thể liên kết với các thiết bị sau:',
   linkageDistanceTip: 'Giữ các thiết bị ở gần nhau để đảm bảo chúng có thể liên kết.',
   linkageRemoveTip: 'Để thay đổi thiết bị Bluetooth được liên kết, trước tiên hãy xóa thiết bị.',
@@ -316,7 +332,7 @@ export default {
   switch_scene_name_executeManualScene: '${} | Bấm một lần | ${} | Chạy | ${}-${}',
   switch_list_device_unavailable: 'Các thiết bị không được hiển thị đều không hỗ trợ tính năng này',
   switch_button_subtitle_notCurrentHome: 'Không có trong nhà hiện tại',
-  common_list_empty: 'Chưa có gì ở đây',
+  common_list_empty: 'Không có gì ở đây',
   switch_dia_msg_repeatScene: '当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？',
   common_loading: '加载中，请稍后...',
   pairMode: 'Chế độ Ghép nối'

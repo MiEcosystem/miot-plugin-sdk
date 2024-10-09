@@ -30,7 +30,7 @@ export default {
   multipleKeyShowOnHome: 'Кількість кнопок на робочому столі: {0}',
   // 常用设备
   favoriteDevices: 'Відображати на головній сторінці Xiaomi Home',
-  favoriteCamera: 'Перейти на велику картку',
+  favoriteCamera: 'Розмір картки панелі управління',
   favoriteAddDevices: 'Додати до обраних',
   // MHDatePicker
   cancel: 'Скасувати',
@@ -78,21 +78,37 @@ export default {
     'other': '{0} секунд'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{1}-{2}-{0}',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',
@@ -279,12 +295,12 @@ export default {
   switch_title_deviceType_normalDevice: 'Звичайні пристрої (світильники та лампочки без смарт-функцій)',
   switch_title_deviceType_smartLight: 'Смарт-лампи',
   switch_title_deviceType_smartSwitch: 'Інші смарт-перемикачі',
-  switch_title_deviceType_manualScene: 'Пакетний контроль',
+  switch_title_deviceType_manualScene: 'Групове керування',
   switch_title_deviceType_otherSmartDevice: 'Інші смарт-пристрої',
   switch_value_deviceType_normalDevice: 'Звичайні пристрої',
   switch_value_deviceType_smartLight: 'Смарт-лампи',
   switch_value_deviceType_smartSwitch: 'Інші смарт-перемикачі',
-  switch_value_deviceType_manualScene: 'Пакетний контроль',
+  switch_value_deviceType_manualScene: 'Групове керування',
   switch_value_deviceType_otherSmartDevice: 'Інші смарт-пристрої',
   switch_button_title_seeCreatedScene: 'Показати автоматизацію',
   switch_button_title_linkSmartLight: 'Підключити смарт-лампу',
@@ -297,9 +313,9 @@ export default {
   switch_nav_title_buttonControlSwitch: 'Керовані смарт-перемикачі (${})',
   switch_nav_subtitle_buttonControlSwitch: 'Підключіть перемикачі, щоб додати ще один інтерфейс увімкнення/ вимкнення. Натискання кнопки призведе до увімкнення та вимкнення вибраних перемикачів.',
   switch_header_title_selectSwitch: 'Виберіть смарт-перемикачі',
-  switch_nav_title_buttonControlManualScene: 'Назначений пакетний контроль (${})',
-  switch_nav_subtitle_buttonControlManualScene: 'Назначте пакетний контроль, щоб керувати ними натисканням кнопки',
-  switch_header_title_selectManualScene: 'Виберіть пакетний контроль',
+  switch_nav_title_buttonControlManualScene: 'Призначені елементи групового керування (${})',
+  switch_nav_subtitle_buttonControlManualScene: 'Призначте елементи групового керування для їх запуску за допомогою натискання кнопки',
+  switch_header_title_selectManualScene: 'Виберіть елементи групового керування',
   common_edit: 'Змінити',
   common_reselect: 'Вибрати ще раз',
   common_deleted: 'Видалено',
@@ -307,13 +323,13 @@ export default {
   common_delete_failed: 'Не вдалося видалити. Перевірте налаштування мережі та повторіть спробу.',
   common_setting_failed: 'Не вдалося встановити. Перевірте чи підключено пристрій до мережі та повторіть спробу.',
   common_saving: 'Збереження...',
-  switch_listItem_title_executionType: 'Режим бігу',
+  switch_listItem_title_executionType: 'Режим запуску',
   switch_listItem_value_executionTypeCloud: 'Хмара',
   switch_listItem_value_executionTypeLocale: 'На пристрої',
   switch_dia_msg_deleteScene: 'Видалити цю автоматизацію?',
   switch_scene_name_toggleSwitchDevice: '${} | Одне натиснення | ${} | Увімк./Вимк. | ${}-${}',
   switch_scene_name_toggleLightDevice: '${} | Одне натиснення | ${} | Увімк./Вимк. | ${}',
-  switch_scene_name_executeManualScene: '${} | Одне натиснення | ${} | Біг | ${}-${}',
+  switch_scene_name_executeManualScene: '${} | Одне натиснення | ${} | Запуск | ${}-${}',
   switch_list_device_unavailable: 'Не показані пристрої не підтримують цю функцію',
   switch_button_subtitle_notCurrentHome: 'Не в поточному домі',
   common_list_empty: 'Тут ще нічого немає',

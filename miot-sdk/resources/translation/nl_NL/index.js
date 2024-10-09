@@ -30,7 +30,7 @@ export default {
   multipleKeyShowOnHome: 'Het aantal knoppen weergegeven op de startpagina: {0}',
   // 常用设备
   favoriteDevices: 'Weergeven op Xiaomi Home-startpagina',
-  favoriteCamera: 'Overschakelen naar grote kaart',
+  favoriteCamera: 'Dashboardkaartformaat',
   favoriteAddDevices: 'Toevoegen aan favorieten',
   // MHDatePicker
   cancel: 'Annuleren',
@@ -78,21 +78,37 @@ export default {
     'other': '{0} sec'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{2}-{1}-{0}',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',
@@ -117,7 +133,7 @@ export default {
   deleteCurtainGroup: 'Groeperen apparaten ongedaan maken',
   linkDevice: 'Apparaten koppelen',
   noSuppurtedLinkageDevice: 'Geen apparaten beschikbaar',
-  noSuppurtedLinkageTip: '1. Zorg ervoor dat u de apparaten hebt toegevoegd in de Xiaomi Woning-app en ze hebt toegewezen aan kamers. \\n2. Om ze te verbinden moet u de Bluetooth-apparaten in de buurt van dit apparaat houden.',
+  noSuppurtedLinkageTip: '1. Zorg ervoor dat u de apparaten hebt toegevoegd in de Xiaomi Home-app en ze hebt toegewezen aan kamers. \\n2. Om ze te verbinden moet u de Bluetooth-apparaten in de buurt van dit apparaat houden.',
   supportedLinkageDevices: 'Kan worden gekoppeld aan de volgende apparaten:',
   linkageDistanceTip: 'Houd de apparaten vlakbij om ervoor te zorgen dat ze kunnen koppelen.',
   linkageRemoveTip: 'Om het gekoppelde Bluetooth-apparaat te wijzigen, dient u het apparaat eerst te verwijderen.',

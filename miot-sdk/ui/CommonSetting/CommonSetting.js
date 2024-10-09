@@ -784,7 +784,7 @@ export default class CommonSetting extends React.Component {
     // 常用摄像机(初摩象), 不是摄像机不添加, 避免后面多次判断
     ret[AllOptions.FREQ_CAMERA] = isCamera ? {
       title: strings.favoriteCamera,
-      value: freqCameraNeedShowRedPoint ? "" : freqCameraFlag ? strings.open : strings.close,
+      value: "",
       onPress: () => {
         Host.ui.openCommonDeviceSettingPage(1);
         Host.ui.clearFreqCameraNeedShowRedPoint();
@@ -1138,14 +1138,14 @@ export default class CommonSetting extends React.Component {
       });
       this.setState({ freqFlag });
     });
-    Device.getFreqCameraFlag().then((freqCameraFlagRes) => {
-      let freqCameraFlag = freqCameraFlagRes.data;
-      this.commonSetting = this.getCommonSetting({
-        ...this.state,
-        freqCameraFlag
-      });
-      this.setState({ freqCameraFlag });
-    });
+    // Device.getFreqCameraFlag().then((freqCameraFlagRes) => {
+    //   let freqCameraFlag = freqCameraFlagRes.data;
+    //   this.commonSetting = this.getCommonSetting({
+    //     ...this.state,
+    //     freqCameraFlag
+    //   });
+    //   this.setState({ freqCameraFlag });
+    // });
     Host.ui.getFreqCameraNeedShowRedPoint().then((freqCameraNeedShowRedPointRes) => {
       let freqCameraNeedShowRedPoint = freqCameraNeedShowRedPointRes.data;
       this.commonSetting = this.getCommonSetting({
@@ -1292,7 +1292,7 @@ export default class CommonSetting extends React.Component {
         if (key === AllOptions.FIRMWARE_UPGRADE && !item.showDot) {
           item.showDot = (Device.needUpgrade || this.state.needShowUpgradeRedDot) && !firmwareUpgradeDotClicked;
         } else if (key === AllOptions.FREQ_CAMERA && !item.showDot) {
-          item.showDot = freqCameraNeedShowRedPoint;
+          // item.showDot = freqCameraNeedShowRedPoint;
         }
       }
       return item;

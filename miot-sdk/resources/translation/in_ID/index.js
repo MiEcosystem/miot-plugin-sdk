@@ -29,8 +29,8 @@ export default {
   other: 'Lainnya',
   multipleKeyShowOnHome: 'Jumlah tombol yang ditampilkan di layar beranda: {0}',
   // 常用设备
-  favoriteDevices: 'Tampilkan di layar beranda Mi Home',
-  favoriteCamera: 'Ganti ke kartu besar',
+  favoriteDevices: 'Tampilan di halaman beranda Xiaomi Home',
+  favoriteCamera: 'Ukuran kartu dasbor',
   favoriteAddDevices: 'Tambahkan ke favorit',
   // MHDatePicker
   cancel: 'Batalkan',
@@ -78,21 +78,37 @@ export default {
     'other': '{0} dtk'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{1}-{2}-{0}',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',
@@ -108,7 +124,7 @@ export default {
   firmwareUpgradeForceUpdate: 'Versi firmware saat ini sudah terlalu lama. Beberapa fitur mungkin tidak berfungsi dengan benar. Perbarui ke versi terbaru untuk menikmati pengalaman yang lebih baik.',
   firmwareUpgradeForceUpdating: 'Perangkat sedang diperbarui. Coba lagi nanti.',
   firmwareUpgradeNew_pre: 'Pembaruan tersedia. ',
-  firmwareUpgradeNew_sub: 'Perbarui sekarang?',
+  firmwareUpgradeNew_sub: 'Perbarui?',
   handling: 'Tunggu sebentar…',
   error: 'Terjadi kesalahan. Coba lagi nanti.',
   createLightGroup: 'Buat grup lampu (baru)',
@@ -117,7 +133,7 @@ export default {
   deleteCurtainGroup: 'Bubarkan perangkat',
   linkDevice: 'Hubungkan perangkat',
   noSuppurtedLinkageDevice: 'Tidak ada perangkat tersedia',
-  noSuppurtedLinkageTip: '1. Pastikan Anda sudah menambahkan perangkat pada aplikasi Mi Home dan menetapkan perangkat ke ruangan.\\n2. Dekatkan perangkat Bluetooth dengan perangkat ini untuk menghubungkannya.',
+  noSuppurtedLinkageTip: '1. Pastikan Anda telah menambahkan perangkat di aplikasi Xiaomi Home dan menetapkannya ke ruangan.\\n2. Dekatkan perangkat Bluetooth dengan perangkat ini untuk menghubungkannya.',
   supportedLinkageDevices: 'Dapat dihubungkan dengan perangkat berikut ini:',
   linkageDistanceTip: 'Pastikan perangkat berada dalam jarak dekat agar penautan berhasil.',
   linkageRemoveTip: 'Untuk mengubah perangkat Bluetooth yang terhubung, copot perangkat terlebih dahulu.',
@@ -143,10 +159,10 @@ export default {
   offline: 'Offline',
   downloading: 'Mengunduh...',
   installing: 'Memasang...',
-  upgradeSuccess: 'Berhasil diperbarui',
-  upgradeFailed: 'Tidak dapat diperbarui. Coba lagi nanti.',
+  upgradeSuccess: 'Berhasil memperbarui',
+  upgradeFailed: 'Tidak dapat memperbarui. Coba lagi nanti.',
   upgradeTimeout: 'Waktu pembaruan habis',
-  autoUpgradeInfo: 'Akan mencoba memperbarui otomatis di antara {0}',
+  autoUpgradeInfo: 'Akan coba memperbarui secara otomatis antara {0}',
   today: 'Hari ini',
   tomorrow: 'Besok',
   currentIsLatestVersion: 'Versi saat ini sudah yang terbaru',
@@ -307,13 +323,13 @@ export default {
   common_delete_failed: 'Tidak dapat menghapus. Periksa setelan jaringan dan coba lagi',
   common_setting_failed: 'Tidak dapat menyetel. Periksa apakah perangkat terhubung ke jaringan dan coba lagi.',
   common_saving: 'Menyimpan…',
-  switch_listItem_title_executionType: 'Mode pengoperasian',
+  switch_listItem_title_executionType: 'Mode Menjalankan',
   switch_listItem_value_executionTypeCloud: 'Cloud',
   switch_listItem_value_executionTypeLocale: 'Lokal',
   switch_dia_msg_deleteScene: 'Hapus otomatisasi ini?',
   switch_scene_name_toggleSwitchDevice: '${} | Tekan 1x | ${} | Hidup/Mati | ${}-${}',
   switch_scene_name_toggleLightDevice: '${} | Tekan 1x | ${} | Hidup/Mati | ${}',
-  switch_scene_name_executeManualScene: '${} | Tekan 1x | ${} | Operasikan | ${}-${}',
+  switch_scene_name_executeManualScene: '${} | Tekan 1x | ${} | Jalankan | ${}-${}',
   switch_list_device_unavailable: 'Perangkat yang tidak ditampilkan berarti tidak mendukung fitur ini',
   switch_button_subtitle_notCurrentHome: 'Tidak berada di rumah ini',
   common_list_empty: 'Kosong',

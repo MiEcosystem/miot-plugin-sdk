@@ -29,8 +29,8 @@ export default {
   other: 'Övrigt',
   multipleKeyShowOnHome: 'Antalet knappar som visas på hemsidan: {0}',
   // 常用设备
-  favoriteDevices: 'Visa på hemsidan för Xiaomi Home',
-  favoriteCamera: 'Byt till stort kort',
+  favoriteDevices: 'Visa på Xiaomi Homes hemsida',
+  favoriteCamera: 'Instrumentbrädans kortstorlek',
   favoriteAddDevices: 'Lägg till i favoriter',
   // MHDatePicker
   cancel: 'Avbryt',
@@ -78,21 +78,37 @@ export default {
     'other': '{0} sek.'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{1}-{2}-{0}',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',
@@ -117,7 +133,7 @@ export default {
   deleteCurtainGroup: 'Avgruppera enheter',
   linkDevice: 'Länka enheter',
   noSuppurtedLinkageDevice: 'Inga enheter tillgängliga',
-  noSuppurtedLinkageTip: '1. Kontrollera att du har lagt till enheterna i Xiaomi Home-appen och tilldelat dem till rum.\\n2. Håll Bluetooth-enheten nära den här enheten för att kunna ansluta dem.',
+  noSuppurtedLinkageTip: '1. Säkerställ att du har lagt till enheterna i Xiaomi Home-appen och tilldelat dem till rum.\\n2. Håll Bluetooth-enheter nära den här enheten för att ansluta dem.',
   supportedLinkageDevices: 'Kan länkas med följande enheter:',
   linkageDistanceTip: 'Håll enheterna nära varadra för att säkerställa att de kan länkas.',
   linkageRemoveTip: 'Ta bort enheten först, för att byta länkad Bluetooth-enhet.',

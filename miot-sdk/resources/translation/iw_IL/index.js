@@ -29,8 +29,8 @@ export default {
   other: 'אחר',
   multipleKeyShowOnHome: 'מספר המקשים המוצגים במסך הבית: {0}',
   // 常用设备
-  favoriteDevices: 'להציג בדף הבית של Mi Home',
-  favoriteCamera: 'לעבור לכרטיס גדול',
+  favoriteDevices: 'להציג בדף הבית Xiaomi Home',
+  favoriteCamera: 'הגודל של כרטיס לוח המחוונים',
   favoriteAddDevices: 'להוסיף למועדפים',
   // MHDatePicker
   cancel: 'ביטול',
@@ -78,21 +78,37 @@ export default {
     'other': '{0} שניות'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{0}-{1}-{2}',
   // 2019年06月03日
   time24SubTitle: '{1}:{0}',
@@ -117,7 +133,7 @@ export default {
   deleteCurtainGroup: 'ביטול של קיבוץ מכשירים',
   linkDevice: 'קישור מכשירים',
   noSuppurtedLinkageDevice: 'אין מכשירים זמינים',
-  noSuppurtedLinkageTip: '1. יש לוודא שהוספת את המכשירים ביישום Mi Home והקצית אותם לחדרים.\\n2. יש להחזיק את מכשירי ה-Bluetooth בסביבה הקרובה למכשיר זה כדי שהם יתחברו בהצלחה.',
+  noSuppurtedLinkageTip: '1. יש לוודא שהוספתם את המכשירים ביישום Xiaomi Home והקציתם אותם לחדרים.\\n2. יש להחזיק את מכשירי ה-Bluetooth קרוב למכשיר זה כדי שהמכשירים יתחברו בהצלחה.',
   supportedLinkageDevices: 'ניתן לקשר למכשירים הבאים:',
   linkageDistanceTip: 'יש להחזיק את המכשירים בסביבה הקרובה כדי לוודא שניתן יהיה לקשר אותם.',
   linkageRemoveTip: 'לשינוי מכשיר ה-Bluetooth המקושר צריך קודם להסיר את המכשיר הקיים.',
@@ -307,13 +323,13 @@ export default {
   common_delete_failed: 'לא ניתן היה למחוק. בדוק את הגדרות הרשת ונסה שוב.',
   common_setting_failed: 'לא ניתן היה להגדיר. בדוק אם המכשיר מחובר לרשת ונסה שוב.',
   common_saving: 'שומר...',
-  switch_listItem_title_executionType: 'מצב מופעל',
+  switch_listItem_title_executionType: 'מצב הפעלה',
   switch_listItem_value_executionTypeCloud: 'ענן',
   switch_listItem_value_executionTypeLocale: 'מקומי',
   switch_dia_msg_deleteScene: 'האם למחוק את האוטומציה?',
   switch_scene_name_toggleSwitchDevice: '${} | לחיצה אחת | ${} | הפעלה/כיבוי | ${}-${}',
   switch_scene_name_toggleLightDevice: '${} | לחיצה אחת | ${} | הפעלה/כיבוי | ${}',
-  switch_scene_name_executeManualScene: '${} | לחיצה אחת | ${} | פועלת | ${}-${}',
+  switch_scene_name_executeManualScene: '${} | לחיצה אחת | ${} | פועל | ${}-${}',
   switch_list_device_unavailable: 'המכשירים שאינם מוצגים לא תומכים במאפיין זה',
   switch_button_subtitle_notCurrentHome: 'לא בבית הנוכחי',
   common_list_empty: 'עדיין אין כאן כלום',

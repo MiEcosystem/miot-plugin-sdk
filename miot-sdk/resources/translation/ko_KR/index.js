@@ -29,8 +29,8 @@ export default {
   other: '기타',
   multipleKeyShowOnHome: '홈 페이지에 표시할 버튼 수: {0}',
   // 常用设备
-  favoriteDevices: 'Mi Home 홈페이지에 표시',
-  favoriteCamera: '대형 카드로 전환',
+  favoriteDevices: 'Xiaomi Home 홈페이지에 표시',
+  favoriteCamera: '대시보드 카드 크기',
   favoriteAddDevices: '즐겨 찾기에 추가',
   // MHDatePicker
   cancel: '취소',
@@ -78,21 +78,37 @@ export default {
     'other': '{0}초'
   },
   months: '个月',
+  // 复数
   days: '天',
+  // 复数
   hours: '小时',
+  // 复数
   minutes: '分钟',
+  // 复数
   seconds: '秒钟',
+  // 复数
   month: '个月',
+  // 单数
   day: '天',
+  // 单数
   hour: '小时',
+  // 单数
   minute: '分钟',
+  // 单数
   second: '秒钟',
+  // 单数
   yearUnit: ' ',
+  // 单数
   monthUnit: ' ',
+  // 单数
   dayUnit: ' ',
+  // 单数
   hourUnit: ' ',
+  // 单数
   minuteUnit: ' ',
+  // 单数
   secondUnit: ' ',
+  // 单数
   dateSubTitle: '{1}-{2}-{0}',
   // 2019年06月03日
   time24SubTitle: '{0}:{1}',
@@ -117,7 +133,7 @@ export default {
   deleteCurtainGroup: '기기 그룹 해제',
   linkDevice: '기기 링크',
   noSuppurtedLinkageDevice: '사용 가능한 기기 없음',
-  noSuppurtedLinkageTip: '1. 기기를 반드시 Mi Home 앱에 추가하고 방을 지정하십시오.\\n2. 블루투스 기기를 해당 기기와 근접하게 유지하시고 연결하십시오.',
+  noSuppurtedLinkageTip: '1. 기기를 Xiaomi Home 앱에 추가하고 방을 지정하십시오.\\n2. 블루투스 기기를 해당 기기와 가까운 곳에 두고 연결하십시오.',
   supportedLinkageDevices: '다음 기기에 연결 가능:',
   linkageDistanceTip: '기기를 근접 거리에 놓고 링크되었는지 확인하세요.',
   linkageRemoveTip: '링그된 블루투스 기기를 변경하려면 먼저 해당 기기를 제거해야 합니다.',
@@ -313,7 +329,7 @@ export default {
   switch_dia_msg_deleteScene: '이 자동화를 삭제하시겠습니까?',
   switch_scene_name_toggleSwitchDevice: '${} | 한 번 누르기 | ${} | 켜기/끄기 | ${}-${}',
   switch_scene_name_toggleLightDevice: '${} | 한 번 누르기 | ${} | 켜기/끄기 | ${}',
-  switch_scene_name_executeManualScene: '${} | 한 번 누르기 | ${} | 운행 | ${}-${}',
+  switch_scene_name_executeManualScene: '${} | 한 번 누르기 | ${} | 실행 | ${}-${}',
   switch_list_device_unavailable: '표시되지 않은 기기는 이 기능을 지원하지 않습니다',
   switch_button_subtitle_notCurrentHome: '현재 홈에 없음',
   common_list_empty: '아직 아무것도 없습니다',
