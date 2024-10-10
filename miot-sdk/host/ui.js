@@ -1376,6 +1376,51 @@ class IUi {
       @report
   locateWxDevice(params) {
   }
+  /**
+   * 5. 跳转全部遥控器管理页面
+   * since 10099
+   * Android only support
+   */
+  @report
+  openIrDeviceManagerPage() {
+    if (isAndroid) {
+      native.MIOTHost.openIrDeviceManagerPage();
+    } else {
+      if (__DEV__ && console.warn) {
+        console.warn('method [openIrDeviceManagerPage] can only be invoked on Android, iOS is not implemented. ');
+      }
+    }
+  }
+  /**
+   * 1. 添加红外遥控器
+   * since 10099
+   * Android only support
+   */
+  @report
+  openAddIrDevicePage() {
+    if (isAndroid) {
+      native.MIOTHost.openAddIrDevicePage();
+    } else {
+      if (__DEV__ && console.warn) {
+        console.warn('method [openAddIrDevicePage] can only be invoked on Android, iOS is not implemented. ');
+      }
+    }
+  }
+  /**
+   * 2. 打开特定遥控器插件
+   * since 10099
+   * Android only support
+   */
+  @report
+  openIrDevicePage(deviceTypeId) {
+    if (isAndroid) {
+      native.MIOTHost.openIrDevicePage(deviceTypeId);
+    } else {
+      if (__DEV__ && console.warn) {
+        console.warn('method [openIrDevicePage] can only be invoked on Android, iOS is not implemented. ');
+      }
+    }
+  }
 }
 const UiInstance = new IUi();
 export default UiInstance;
