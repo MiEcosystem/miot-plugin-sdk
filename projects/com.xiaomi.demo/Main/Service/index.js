@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View
 } from 'react-native';
-import { Service } from 'miot';
+import { Host, Service } from 'miot';
 import Logger from '../Logger';
 
 export default class HostDemo extends React.Component {
@@ -86,6 +86,16 @@ export default class HostDemo extends React.Component {
         }
       },
       {
+        name: '获取当前账号下的家庭列表',
+        func: () => {
+          Service.smarthome.getHomeList()
+            .then((res) => {
+              console.log('getHomeList,size:', res.data.length);
+              alert(JSON.stringify(res));
+            }).catch((e) => alert(e));
+        }
+      },
+      {
         'name': 'callSpecificAPI',
         'func': () => {
           Service.callSpecificAPI('http://api.goseek.cn/Tools/holiday', 'get', { "date": "20191102" })
@@ -152,6 +162,30 @@ export default class HostDemo extends React.Component {
           }).catch((err) => {
             console.log(JSON.stringify(err));
             alert(JSON.stringify(err));
+          });
+        }
+      },
+      {
+        'name': 'XiaoaiTTS',
+        'func': () => {
+          Service.xiaoai.callXiaoaiTTS({ "text": "永远相信美好的事情即将发生", "role": "male" }).then((res) => {
+            console.log(JSON.stringify(res));
+            let { data } = res;
+            let fileName = `file${ new Date().getTime() }.mp3`;
+            Host.file.downloadFile(data, fileName).then((res) => {
+              console.log(JSON.stringify(res));
+              Host.audio.getMediaDuration(fileName).then((res) => {
+                console.log(JSON.stringify(res));
+                let { data } = res;
+                alert(JSON.stringify(data));
+              }).catch((err) => {
+                console.log(JSON.stringify(err));
+              });
+            }).catch((err) => {
+              console.log(JSON.stringify(err));
+            });
+          }).catch((err) => {
+            console.log(JSON.stringify(err));
           });
         }
       }
