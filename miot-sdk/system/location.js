@@ -30,6 +30,7 @@ export class Location {
    * middle为仅用设备定位模式：不需要连接网络，只使用GPS进行定位，这种模式下不支持室内环境的定位，需要在室外环境下才可以成功定位。
    * low为低功耗定位模式：不会使用GPS和其他传感器，只会使用网络定位（Wi-Fi和基站定位）。
    * 在iOS系统下，默认为middle,设置为high时可能会耗时较长。其中，high为导航精度，middle为十米精度，low为千米精度。
+   * (Attention：从10076开始，Android米家将使用系统自带的API来获取手机位置信息，在此之前使用的是高德地图API来获取的位置信息，可以通过accuracy来控制位置精度，而替换API后此参数将失效，所以这个参数在Android米家上已经被废弃了，iOS依旧可用)
    * @returns {Promise<object>}{
    * country
    * province
