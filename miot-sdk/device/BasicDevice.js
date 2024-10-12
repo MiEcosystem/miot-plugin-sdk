@@ -1087,9 +1087,9 @@ export class BasicDevice {
    */
   @report
     getAllDeviceList() {
-      let supportModelArray = ["mijia.watch.o62", "mijia.watch.o62lte"];
+      let supportModelArray = [];
       let isSupportModel = supportModelArray.includes(this.model);
-      if (isSupportModel) {
+      if (isSupportModel || native.MIOTPackage.packageName === pluginSpecPackagesName) {
         return new Promise((resolve, reject) => {
           native.MIOTDevice.getAllDeviceList((ok, result) => ok ? resolve(result) : reject(result));
         });
