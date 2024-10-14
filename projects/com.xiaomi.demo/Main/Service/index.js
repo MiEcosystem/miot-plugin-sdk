@@ -170,14 +170,15 @@ export default class HostDemo extends React.Component {
         'func': () => {
           Service.xiaoai.callXiaoaiTTS({ "text": "永远相信美好的事情即将发生", "role": "male" }).then((res) => {
             console.log(JSON.stringify(res));
-            let { data } = res;
+            let { data: { url } } = res;
+            console.log(JSON.stringify(url));
             let fileName = `file${ new Date().getTime() }.mp3`;
-            Host.file.downloadFile(data, fileName).then((res) => {
+            Host.file.downloadFile(url, fileName).then((res) => {
               console.log(JSON.stringify(res));
               Host.audio.getMediaDuration(fileName).then((res) => {
                 console.log(JSON.stringify(res));
-                let { data } = res;
-                alert(JSON.stringify(data));
+                let { data: { duration } } = res;
+                alert(JSON.stringify(duration));
               }).catch((err) => {
                 console.log(JSON.stringify(err));
               });
