@@ -873,7 +873,7 @@ export class BasicDevice {
   get resetFlag() {
      return 0
   }
-/**
+  /**
  * 通用标志，每一位表示一个含义，>0才返回该字段：
  * comFlag&1=1表示是常用设备，
  * comFlag&2=2表示是常用摄像机，
@@ -1063,6 +1063,40 @@ export class BasicDevice {
       native.MIOTDevice.isBelongToCarRoom({ did }, (ok, result) => ok ? resolve(result) : reject(result));
     });
   }
+    /**
+   * 获取账号下的所有设备列表
+   * @since 10100
+   * @returns {Promise<Object>} 成功时
+   * {
+   *  "code": 0,
+   *  "data": [
+        {
+   *      "did": "xxx",
+          "model": "xxx",
+          "isOnline": "xx",
+          "isMeshGatewayDevice": "xx",
+   *    }]
+   * }
+   * @example
+   * let options = {}
+   * Device.getAllDeviceList(options).then((res) => {
+   *        alert(JSON.stringify(res, null, '\t'));
+   *     }).catch((err) => {
+   *        alert(JSON.stringify(err, null, '\t'));
+   *     });
+   */
+  @report
+    getAllDeviceList() {
+      let supportModelArray = [];
+      let isSupportModel = supportModelArray.includes(this.model);
+      if (isSupportModel || native.MIOTPackage.packageName === pluginSpecPackagesName) {
+        return new Promise((resolve, reject) => {
+          native.MIOTDevice.getAllDeviceList((ok, result) => ok ? resolve(result) : reject(result));
+        });
+      } else {
+        return new Promise.reject({ code: -1, message: "unsupported model" });
+      }
+    }
 }
 export class PollPropMap {
   static PROP_TYPE_UNKNOWN = 0;
