@@ -274,7 +274,7 @@ export default {
   switch_title_controlDevice: 'Control devices',
   switch_subtitle_controlDeviceType: 'Set device types for each button',
   common_listItem_value_unset: 'Not set',
-  switch_title_buttonControlDevice: 'Controlled devices ${}',
+  switch_title_buttonControlDevice: 'Controlled devices (${})',
   switch_listItem_title_toWirelessSwitch: 'Change to wireless switch',
   switch_listItem_subtile_wirelessSwitchSetting: 'Physical buttons won\'t be able to control switches when this feature is on. You\'ll still be able to use them for automations.',
   switch_dia_msg_wirelessSwitchSetting: 'This button is associated with another item (${}). Change to wireless switch to use it.',
