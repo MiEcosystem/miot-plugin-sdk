@@ -55,6 +55,14 @@ export const DeviceEvent = {
   deviceNameChanged: {
   },
   /**
+   * 设备图标变更事件
+   * @since 10084
+   * @param {subclass_id:number,proxy_category_icon:String}
+   * 触发此事件后device中的iconURL会被自动替换成proxy_category_icon的值
+   */
+  deviceIconChanged: {
+  },
+  /**
      * 设备时区变更事件
      * @event
      * @param {IDevice} device -发生变更的设备
@@ -218,6 +226,9 @@ export class BasicDevice {
   get model() {
      return  ""
   }
+  get specUrn() {
+    return Properties.of(this).specUrn;
+  }
   /**
    * device的 pd_id，和model是一一对应的关系，可以理解为唯一对应一个设备
    * （注：与pid是两种概念）
@@ -243,6 +254,10 @@ export class BasicDevice {
     */
   getDeviceWifi() {
      return null
+  }
+  // 用于创建wifiDevice实例，避免cycle
+  createWiFiDeviceInstance() {
+    return {};
   }
   /**
      *设备是否已经可用,没有did的设备的插件，可能调用此方法判断接口是否可用。此方法没什么其他存在的意义，一般也不需要使用此方法
@@ -340,7 +355,7 @@ export class BasicDevice {
   }
   /**
   * 是否虚拟设备，虚拟设备主要指老的设备组（Yeelight灯组，飞利浦灯组）。
-  * **注意：mesh设备组，灯组2.0均不是虚拟设备**
+  * **注意：Mesh设备组，灯组2.0均不是虚拟设备**
   * @since 10003
   * @return {boolean}
   * @readonly
@@ -527,6 +542,7 @@ export class BasicDevice {
   }
   /**
    * 设备类型常量
+   * 来源： https://wiki.n.miui.com/pages/viewpage.action?pageId=325395852
    * */
   DEVICE_TYPE = {
     WIFI_SINGLE_MODEL_DEVICE: '0',
@@ -545,10 +561,32 @@ export class BasicDevice {
     THIRD_CLOUD_DEVICE: '14',
     INFRARED_REMOTE_CONTROLLER_DEVICE: '15',
     BLE_MESH_DEVICE: '16',
-    NEW_GROUP_VIRTUAL_DEVICE: '17'
+    NEW_GROUP_VIRTUAL_DEVICE: '17',
+    ONLY_CABLE_DEVICE: '21',
+    PLC_DEVICE: '22',
+    MATTER_DEVICE: '24'
   }
   /**
-   * 获取设备类型，0：wifi单模设备，1：yunyi设备，2：云接入设备，3：zigbee设备，5：虚拟设备，6：蓝牙单模设备，7：本地AP设备，8：蓝牙wifi双模设备，9：其他，10：功能插件，11：SIM卡设备，12：网线设备，13：NB-IoT，14：第三方云接入，15：红外遥控器，16：BLE Mesh，17：虚拟设备（新设备组）
+   * 获取设备类型，
+   * 0：wifi单模设备，
+   * 1：yunyi设备，
+   * 2：云接入设备，
+   * 3：zigbee设备，
+   * 5：虚拟设备，
+   * 6：蓝牙单模设备，
+   * 7：本地AP设备，
+   * 8：蓝牙wifi双模设备，
+   * 9：其他，
+   * 10：功能插件，
+   * 11：SIM卡设备，
+   * 12：网线设备，
+   * 13：NB-IoT，
+   * 14：第三方云接入，
+   * 15：红外遥控器，
+   * 16：BLE Mesh，
+   * 17：虚拟设备（新设备组）
+   * 21：仅网线设备，局域网绑定
+   * 22：plc设备，plc配网
    * @return {string}
    * @readonly
    *
@@ -836,6 +874,29 @@ export class BasicDevice {
      return 0
   }
   /**
+ * 通用标志，每一位表示一个含义，>0才返回该字段：
+ * comFlag&1=1表示是常用设备，
+ * comFlag&2=2表示是常用摄像机，
+ * comFlag&4=4表示是uwb-tag设备
+ * comFlag&8=8表示是uwb-buildin设备
+ * comFlag&16=16表示按键拆分子设备是全屋智能模式下，自动默认拆分的设备，不需要在设备列表展示
+ * comFlag&32=32表示灯组中的单灯可释放（新灯组中的单灯可释放，旧灯组中的单灯不可释放）
+ * comFlag&64=64表示首页的卡片放大展示（8.0摄像机大卡片）
+ * comFlag&128=128表示设备在终端显示
+ * comFlag&256=256米家8.0设备超级常用标志（包括超级常用摄像机）
+ * 1. comFlag字段新增含义：comFlag&512=512 ，能够上车的设备标识，具体根据设备的instance的device后字段进行过滤，例如：urn:miot-spec-v2:device:light:0000A001:qzgd-wy0a01:1:0000C802，会提取light的type进行筛选，需要上车的品类见文档：车-卡片 （目前支持一期品类上车）（bit：第10位,1 << 9）
+ * 2. comFlag字段新增含义：comFlag&1024=1024 ，已经被选中需要在车机cariot中心展示及扫码选择界面展示成已选的设备。（bit：第11位,1 << 10）
+ * @return {int}
+ * @readonly
+ */
+  get comFlag() {
+    return Properties.of(this).comFlag;
+  }
+  get isWearableDevice() {
+    let isWearable = (this.comFlag & (1 << 12)) !== 0;
+    return isWearable;
+  }
+  /**
    * 创建场景
    * @deprecated since 10032 请使用Service.scene.createScene(BasicDevice.deviceID,sceneType,opt)
    * @method
@@ -908,6 +969,32 @@ export class BasicDevice {
      return Promise.resolve({});
   }
   /**
+   * 查询设备的房间经纬度信息
+   * @since 10098
+   * @param {string} did DeviceID，默认为当前设备
+   * @param {String} pluginPrivacyId 插件侧的用户同意相关隐私的ID（插件侧自行生成）
+   * @return {Promise<Object>} {code: 0, data: {latitude,longitude} }
+   */
+  @report
+  getRoomLocation(did, pluginPrivacyId) {
+    let supportModelArray = ["chuangmi.camera.086ac1"];
+    let isSupportModel = supportModelArray.includes(this.model);
+    if (isSupportModel) {
+      did = did || this.deviceID;
+      return new Promise((resolve, reject) => {
+        native.MIOTDevice.getRoomLocation(did, pluginPrivacyId, (ok, res) => {
+          if (ok) {
+            resolve(res);
+          } else {
+            reject(res);
+          }
+        });
+      });
+    } else {
+      return new Promise.reject({ code: -1, message: "unsupported model" });
+    }
+  }
+  /**
    * 获取与当前设备相同企业组的所有设备(包括当前设备)
    * @since 10052
    * @returns {Promise<Object>} 成功时{code:0,data:[{...device},{...device},...]}
@@ -924,6 +1011,92 @@ export class BasicDevice {
   getAllDevicesOfBelongedCompanies() {
      return Promise.resolve({});
   }
+  /**
+   * 获取家庭成员的列表
+   * @since 10090
+   * @returns {Promise<Object>} 成功时
+   * {
+   *  "code": 0,
+   *  "data": [
+        {
+   *      "icon": "xxx.jpg",
+          "nick_name": "小米账号",
+          "uid": 894158105,
+   *    }]
+   * }
+   * 失败时：{code:-1,message:"xxx}
+   * @example
+   * let options = {}
+   * Device.getHomeMemberList(options).then((res) => {
+   *        alert(JSON.stringify(res, null, '\t'));
+   *     }).catch((err) => {
+   *        alert(JSON.stringify(err, null, '\t'));
+   *     });
+   */
+  @report
+  getHomeMemberList(options = {}) {
+     return Promise
+  }
+  /**
+   * 紧急联系人设置判断
+   * @since 10085
+   * @returns {Promise<Object>}
+   * success: { code:0, data }
+   * fail: {coce: -1, message }
+   */
+  @report
+  hasSetDeviceCall() {
+    return new Promise((resolve, reject) => {
+      native.MIOTDevice.hasSetDeviceCall((ok, result) => ok ? resolve(result) : reject(result));
+    });
+  }
+  /**
+   * 设备是否属于车房间
+   * @since 10087
+   * @returns {Promise<Object>}
+   * success: { code:0, data }
+   * fail: {coce: -1, message }
+   */
+    @report
+  isBelongToCarRoom(did) {
+    return new Promise((resolve, reject) => {
+      native.MIOTDevice.isBelongToCarRoom({ did }, (ok, result) => ok ? resolve(result) : reject(result));
+    });
+  }
+    /**
+   * 获取账号下的所有设备列表
+   * @since 10100
+   * @returns {Promise<Object>} 成功时
+   * {
+   *  "code": 0,
+   *  "data": [
+        {
+   *      "did": "xxx",
+          "model": "xxx",
+          "isOnline": "xx",
+          "isMeshGatewayDevice": "xx",
+   *    }]
+   * }
+   * @example
+   * let options = {}
+   * Device.getAllDeviceList(options).then((res) => {
+   *        alert(JSON.stringify(res, null, '\t'));
+   *     }).catch((err) => {
+   *        alert(JSON.stringify(err, null, '\t'));
+   *     });
+   */
+  @report
+    getAllDeviceList() {
+      let supportModelArray = [];
+      let isSupportModel = supportModelArray.includes(this.model);
+      if (isSupportModel || native.MIOTPackage.packageName === pluginSpecPackagesName) {
+        return new Promise((resolve, reject) => {
+          native.MIOTDevice.getAllDeviceList((ok, result) => ok ? resolve(result) : reject(result));
+        });
+      } else {
+        return new Promise.reject({ code: -1, message: "unsupported model" });
+      }
+    }
 }
 export class PollPropMap {
   static PROP_TYPE_UNKNOWN = 0;
@@ -936,6 +1109,7 @@ export class PollPropMap {
     // this.profilePropSet = new Set();
     this.propInfoMap = new Map();// map<prop,{prop,subscription,updateTime,value,propType,siid,piid>
     this.subscribeInfoMap = new Map();// map<subscribId,set<prop>>
+    this.listenMessagesTimeOutSet = new Set();
     // this.miotDeviceType = PollPropMap.DEVICE_TYPE_UNKNOWN;
   }
 }

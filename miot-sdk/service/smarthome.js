@@ -9,7 +9,6 @@
  */
 import { report } from "../decorator/ReportDecorator";
 import Permission from '../service/permission';
-import Device from "../device/BasicDevice";
 /**
  * 成员类型
  * @namespace MemberType
@@ -184,7 +183,7 @@ class ISmartHome {
      * 当用户反馈问题时，勾选 “同时上传日志”，则该 Model 的日志会跟随用户反馈上传，
      * 开发者可在 IoT 平台查看用户反馈及下载对应日志文件。用户反馈查看入口：数据中心—用户反馈，如果看不到数据中心入口，联系自己所属企业管理员修改账号权限。
      * 查看地址：https://iot.mi.com/fe-op/operationCenter/userFeedback
-     * @param {string} model 要打 log 到哪个 model 下
+     * @param {string} model 要打 log 到哪个 model 下, 格式必须形如aaa.bbb.ccc, 否者无效
      * @param {string} log 具体的 log 数据
      * @returns {void}
      *
@@ -260,6 +259,9 @@ class ISmartHome {
      * @param {string} params.did did
      * @param {string} params.data_type 数据类型 包括： 采样统计 日统计:stat_day_v3 / 周统计:stat_week_v3 / 月统计:stat_month_v3;
      * @param {string} params.key 需要统计的字段，即统计上报对应的key
+     * eg:
+     * 如果是profile协议设备，如电量:key = powerCost....
+     * 如果是spec设备，key = siid.piid
      * @param {number} params.time_start 开始时间
      * @param {number} params.time_end 结束时间
      * @param {number} params.limit 限制次数，0为默认条数
@@ -371,7 +373,7 @@ class ISmartHome {
     }
     /**
      * 添加设备属性和事件历史记录，/user/set_user_device_data
-     * 对于蓝牙设备，params.key 可参考文档  https://iot.mi.com/new/doc/embedded-development/ble/object-definition
+     * 对于蓝牙设备，params.key 可参考文档  https://iot.mi.com/new/doc/accesses/direct-access/embedded-development/ble/object-definition
      * @param {object} params  参数
      * @param {string} params.did 设备did，
      * @param {string} params.uid 添加到哪个用户下,一般为 Device.ownerId，
@@ -389,7 +391,7 @@ class ISmartHome {
      * 查询用户名下设备上报的属性和事件
      * 获取设备属性和事件历史记录，订阅消息直接写入到服务器，不需要插件添加，最多查询90天前的记录。
      * 通下面的set_user_device_data的参数一一对应， /user/get_user_device_data
-     * 对于蓝牙设备，params.key 可参考文档 [米家BLE Object定义](https://iot.mi.com/new/doc/embedded-development/ble/object-definition.html)
+     * 对于蓝牙设备，params.key 可参考文档 [米家BLE Object定义](https://iot.mi.com/new/doc/accesses/direct-access/embedded-development/ble/object-definition)
      *
      * error code:
      *
@@ -406,7 +408,6 @@ class ISmartHome {
      * @param {string} params.type 必选参数[prop/event], 如果是查询上报的属性则type为prop，查询上报的事件则type为event,
      * @param {number} params.time_start 数据起点，单位是秒。必选参数
      * @param {number} params.time_end 数据终点，单位是秒。必选参数，time_end必须大于time_start,
-     * @param {string} params.group 返回数据的方式，默认raw,可选值为hour、day、week、month。可选参数.
      * @param {string} params.limit 返回数据的条数，默认20，最大1000。可选参数.
      * @param {number} params.uid 要查询的用户id 。可选参数
      * @returns {Promise}
@@ -452,7 +453,7 @@ class ISmartHome {
      * @since 10004
      * @param {object} params {did:'', type: '', key:'',time:number} did:设备ID ;type: 要删除的类型 ;key: 事件名称. motion/alarm ;time:时间戳，单位秒
      * @param {string} params.did 设备id。 必选参数
-     * @param {string} params.type type 定义与SDS表中type一致。必选参数。可参考SDS文档中的示例：https://iot.mi.com/new/doc/cloud-service/storage/sds#del_user_device_data
+     * @param {string} params.type type 定义与SDS表中type一致。必选参数。可参考SDS文档中的示例：https://iot.mi.com/new/doc/accesses/direct-access/cloud-service/storage/sds
      * @param {string} params.key key 事件名，可自定义,定义与SDS表中key一致。必选参数
      * @param {string} params.time 指定时间戳
      * @param {string} params.value 指定值
@@ -801,7 +802,7 @@ class ISmartHome {
     }
     /**
      * /v2/home/range_get_open_config
-     * 通过appid、category、configid获取对应的配置，请参考文档文档：https://iot.mi.com/new/doc/cloud-service/storage/kv-openconfig
+     * 通过appid、category、configid获取对应的配置，请参考文档文档：https://iot.mi.com/new/doc/accesses/direct-access/cloud-service/storage/kv-openconfig
      * @since 10002
      * @param {json} params  -参数 {did,category,configids,offset,limit}
      * @return {Promise}
@@ -1120,7 +1121,7 @@ class ISmartHome {
     /**
      * since 10036
      * @param {string} eventName 事件名
-     * @param {map} params kv键值对，key必须是string类型，value是基础类型（int,strig,float,boolean）
+     * @param {Object} params kv键值对，key必须是string类型，value是基础类型（int,strig,float,boolean）
      * @example
      * let eventName = 'testEvent';
      * let params = {'key1':'value1','key2':'value2','tip':'tips'};
@@ -1134,6 +1135,9 @@ class ISmartHome {
      * 调用接口 /device/deviceinfo
      * @since 10039
      * @param {string} did 设备id
+     * @return {Promise<object>}
+     * 成功时：{"1":{"id":X,"name":"XX","room_id":XXXXXX,"home_id":XXXX,"ai_desc":"XX","icon":"X","subclass_id":X,"ai_ctrl":X}, "2":{...}, "3":{...}, ...}
+     * 失败时：{"code": XX, "msg": "XXX"}
      */
     @report
      getMultiSwitchName(did) {
@@ -1210,6 +1214,8 @@ class ISmartHome {
     getVirtualGroupSubDevicesTags(group_did) {
        return Promise.resolve({});
        return end
+       return Promise.resolve({});
+       return end
        return Promise.resolve(null);
     }
     /**
@@ -1245,7 +1251,7 @@ class ISmartHome {
     * code != 0 data 失败详情
     */
     @report
-    checkFirmwareAutoUpgradeOpen(aDevId = Device.deviceID) {
+    checkFirmwareAutoUpgradeOpen(aDevId = native.MIOTDevice.currentDevice.did) {
        return Promise.resolve(null);
     }
     /**
@@ -1260,10 +1266,253 @@ class ISmartHome {
     *  code != 0 data 失败详情
     */
     @report
-    setFirmwareAutoUpgradeSwitch(aOpen, aDevId = Device.deviceID) {
+    setFirmwareAutoUpgradeSwitch(aOpen, aDevId = native.MIOTDevice.currentDevice.did) {
        return Promise.resolve(null);
     }
      return Promise.resolve(null);
+  /**
+   * @since 10070
+   * 设备授权Alexa语音服务 对应文档：https://developer.amazon.com/en-US/docs/alexa/alexa-voice-service/authorize-companion-app.html
+   * @param {jsonObject} params 传递的jsonObject对象参数
+   * @example
+   * let params={
+   *  productId: xx
+   *  productDsn：xx
+   * }
+   * service.smarthome.requestAuthForAlexaVoiceService(params);
+   *  * @returns {object} 成功时，返回：
+   * { code: 0,
+   *    data: {
+   *     authCode: xx,
+   *     clientId: xx,
+   *     redirectUri: xx
+   *    }
+   * }
+   * 失败时，返回：
+   * { code: -1, message: 'User authorization failed due to an error: xx' }
+   * 取消时，返回：
+   * { code: -2, message: 'Authorization was cancelled prior to completion. To continue, you will need to try logging in again.' }
+   */
+   @report
+  requestAuthForAlexaVoiceService(params) {
+     return Promise.resolve(null);
+  }
+   /**
+     * 当前账号下的所有家庭列表
+     * @since 10078
+     * @param {object} params 预留参数
+     * @returns {object} 返回格式：
+     * { code: 0,
+     *   data: [
+     *     {homeId:xx, homeName:xx, isOwner:true/false},
+     *      ...
+     *   ]
+     * }
+     * @example
+     * Service.smarthome.getHomeList().then(res=>{
+     *  console.log("res:",JSON.stringify(res))
+     * }).catch(err=>{
+     *  console.log("err:",JSON.stringify(err))
+     * })
+     */
+   @report
+   getHomeList(params = null) {
+      return Promise.resolve(null);
+   }
+   /**
+     * @since 10078
+     * 获取车家批量控制场景数据，/business/car_scene/get_manual_scenes
+     * @param {object} params 预留，接口参数透传
+     * @return {Promise}
+     */
+   @report
+   getCarManualSceneData(params = null) {
+      return Promise.resolve(null);
+   }
+   /**
+     * @since 10078
+     * 更新车家批量控制场景数据，/business/car_scene/update_manual_scenes
+     * @param {object} params 接口参数透传
+     * @example
+     * const params = {
+     *     "manualScenes": [
+     *         {
+     *             "homeId": xxxx,
+     *             "sceneId": xxxx
+     *         },
+     *         {
+     *             "homeId": xxxx,
+     *             "sceneId": xxxxxx
+     *         }
+     *     ]
+     * }
+     * @return {Promise}
+     */
+   @report
+   updateCarManualSceneData(params) {
+      return Promise.resolve(null);
+   }
+   /**
+   * 获取当前设备的耗材详情信息，如果有插件想用一些信息的可以自己获取
+    * 如果插件不用这个信息，可以直接把获取到的数据传给Host.ui.openConsumesPageWithParams方法
+    * @param param 预留
+    * @returns {Promise<Object>}
+    * 返回值结构:
+    * {
+    *   "items": [
+    *     {
+    *       "state": 1,     // 设备所在家庭下耗材的整体状态，1.充足： 2：未知  3：不足
+    *       "count": 1,     // 该状态耗材的设备数量
+    *       "ignore_count":0,  // 被忽略的did数量，插件无需关心
+    *       "consumes_data": [  // 这下面才是与这个设备耗材相关的数据,length == 1，因为查询的是当前设备的耗材情况
+    *         {
+    *           "details": [    // 数组，长度为设备耗材类型的数量。比如一个洗衣机，又有洗衣液，又有柔顺剂，那么这个数组的长度就是2，调用Host.ui.openConsumesDetailPage时传入的参数就是这里面的元素
+    *             {
+    *               "id": 45 ，              //耗材id
+    *               "description": "滤芯",  //耗材名称
+    *               "value": "45",         //剩余百分比，比如这里就是耗材还剩余45%可用
+    *               "update_time": 1644991964,   //数据更新时间，秒
+    *               "state": 1,             //耗材状态  1.充足： 2：未知  3：不足 4：耗尽
+    *               "inadeq": "{"val":"5","unit":"percentage","type":"value"}",   //不足 type：value(值)，range(范围)，list(列表)，boolean(布尔值)
+    *               "exhaust": "{"val":"0","unit":"percentage","type":"value"}",   //耗材耗尽的标志位
+    *               "extra_url": "https://m.xiaomiyoupin.com/detail?gid=102955/u0026source=mijia_pc102955",//耗材链接
+    *               "left_time": "1100",//耗材剩余寿命，小时
+    *               "total_life": "11500",   //耗材的平均寿命，小时
+    *               "prop": "prop.filter1_life",   //耗材对应属性
+    *               "consumable_type": "***",   //耗材型号
+    *               "intro":"*****",  //功能介绍
+    *               "type_name": "battery",   //增加耗材类型字段，目前只有battery
+    *               "pic_urls": [          //耗材图片链接
+    *                 "***",
+    *                 "***"
+    *               ],
+    *               "reset_method": "action.11.1",  //新的重置方法action
+    *               "change_instruction": [    //更换教学
+    *                 {
+    *                   "pic_url":"***",
+    *                   "desc":"***"
+    *                 }
+    *               ],
+    *               "reset_state": 0  // 是否支持重置：0：不支持，1：旧的重置方法，2：新的重置方法
+    *             }
+    *           ],
+    *           "did": "172362445",
+    *           "model":"****", // 设备的model
+    *           "is_ignore":true,    // 该did的状态是否被忽略，true是被忽略，false没有被忽略
+    *           "is_online":false,   // 判断是否在线
+    *           "name":"***", // 设备名称
+    *           "room_id": "979234672",
+    *           "skip_rpc": true,    //看下面说明
+    *           "ble_gateway": false, // 看下面说明
+    *           "time_stamp":77777, //同一个did下相同状态的耗材的value最新的时间戳
+    *         }
+    *       ]
+    *     }
+    *   ]
+    * }
+    *
+    *
+    * skip_rpc说明
+    * skip_rpc = true 表示rpc失败，或调用方指定不进行rpc，但缺少上报数据需要rpc获取，且设备在线
+    * ble_gateway说明
+    * 当设备model为需要蓝牙网关的model时，返回true
+   */
+   @report
+   getConsumableDetails(param = {}) {
+      return Promise.resolve(null);
+  /** ABTest
+   * 激活实验：用户在业务上进入了实验，需要调用该方法。
+   * 激活之后，onetrack埋点的公共参数会带上该实验的ID。
+   * @param param {Object}
+   * param.expPath {string} 实验路径
+   */
+  @report
+   activeABTestByPath(param) {
+   }
+  /** ABTest
+   * 通过实验路径获取实验对象。
+   * @param param{Object}
+   * param.expPath {string} 实验路径
+   * @returns {Promise<Object>}
+   * 成功返回:
+   * {
+   *   code:0,
+   *   data:{
+   *     expId: Long,
+   *     expPath: String,
+   *     name: String,
+   *     type: String,
+   *     params: {}
+   *   }
+   * }
+   * 失败返回:
+   * {
+   *   code:-1,
+   *   message:xxxxxxx
+   * }
+   */
+  @report
+  getABTestConfigByPath(param) {
+     return Promise.resolve([]);
+  }
+  /**
+   * 根据subclass_id获取图标url
+   * @param {Object} param
+   * @param {number} param.subclass_id
+   * @return {Promise<{code:number,data:{proxy_category_icon:String}},{code:number,message:String}>}
+   * 成功时返回 {
+   *   code:xxx,
+   *   data:{
+   *     proxy_category_icon:xxxx  //图标的url
+   *   }
+   * }
+   *
+   * 失败时返回 {
+   *   code:-1,
+   *   message:xxxxxx
+   * }
+   */
+  getDeviceIcon(param) {
+     return Promise.resolve([]);
+  }
+    /**
+   * @since 10085
+   * 设置插件页面的ref和subRef
+   * @param {Object} params kv键值对，key必须是string类型,需同时设置key为ref、subRef的值
+   */
+    @report
+  updatePluginPageRef(params) {
+  }
+    /**
+     * since 10085
+     * 上报插件ref
+     * @param {string} eventName 事件名
+     * @param {Object} params kv键值对，key必须是string类型，value是基础类型（int,strig,float,boolean）
+     * @example
+     * let eventName = 'testEvent';
+     * let params = {'key1':'value1','key2':'value2','tip':'tips'};
+     * Service.smarthome.reportEventRefChannel(eventName,params);
+     */
+    @report
+    reportEventRefChannel(eventName, params) {
+    }
+  /**
+   * since 10089
+   * 获取品牌信息
+   * @param {Array} params 元素为品牌ID
+   * @example
+   * let params = [23];
+   */
+  @report
+    getBrandInfos(params) {
+  /**
+   * 查询云服务接口，插件是否撤销了隐私协议
+   */
+  @report
+  queryCloudStatus() {
+     return Promise.resolve([]);
+  }
+  privacyCheckPopup(model) {
 }
 const SmartHomeInstance = new ISmartHome();
 export default SmartHomeInstance;
