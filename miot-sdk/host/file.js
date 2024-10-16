@@ -840,11 +840,11 @@ class IFile {
        return Promise.resolve(false)
     }
   /**
-   * 拼接视频文件(支持拼接格式：0：上下，1：左右)
+   * 拼接视频文件(支持拼接格式：1:上下，2:左右)
    * @since 10101
    * @param {string} firstVideoPath
    * @param {string} secondVideoPath
-   * @param {int} type 0:上下，1:左右
+   * @param {int} directtion 1:上下，2:左右
    * @param {string} deviceID 指定的deviceID，不传默认使用本设备id
    * @returns {Promise}
    * 成功时：
@@ -854,15 +854,15 @@ class IFile {
    * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
    */
   @report
-      mergeVideosV2(firstVideoPath, secondVideoPath, type, deviceID = undefined) {
+      mergeVideosV2(firstVideoPath, secondVideoPath, directtion, deviceID = undefined) {
          return Promise.resolve(false)
       }
   /**
-   * 拼接图片文件(支持拼接格式：0：上下，1：左右)
+   * 拼接图片文件(支持拼接格式：1:上下，2:左右)
    * @since 10101
    * @param {string} firstImagePath
    * @param {string} secondImagePath
-   * @param {int} type 0:上下，1:左右
+   * @param {int} directtion 1:上下，2:左右
    * @param {string} deviceID 指定的deviceID，不传默认使用本设备id
    * @returns {Promise}
    * 成功时：
@@ -872,7 +872,7 @@ class IFile {
    * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
    */
   @report
-  mergeImagesV2(firstImagePath, secondImagePath, type, deviceID = undefined) {
+  mergeImagesV2(firstImagePath, secondImagePath, directtion, deviceID = undefined) {
      return Promise.resolve(false)
   }
   /**
