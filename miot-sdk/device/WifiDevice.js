@@ -25,15 +25,17 @@
  *  **注意：callMethod，loadProperties等几个直接和设备打交道的方法，排查错误的流程一般为：抓包查看请求参数是否没问题，插件和固件端联调看看固件端是否有收到正确的参数并返回正确的值！**
  */
 import { DeviceEventEmitter } from "react-native";
-import native, { NativeTimer, PackageExitAction, Properties, MIOTEventEmitter, isIOS, isAndroid } from '../native';
+import native, { isAndroid, isIOS, MIOTEventEmitter, NativeTimer, PackageExitAction, Properties } from '../native';
 import uuid from 'uuid';
-import { BasicDevice, _find_device, PollPropMap } from './BasicDevice';
+import strings from 'miot/resources/';
+import Device, { _find_device, BasicDevice, PollPropMap } from './BasicDevice';
 import { report } from '../decorator/ReportDecorator';
 import Service from "../Service";
 // import { Device } from "..";
 const INTERVAL_SUBSCRIBE_MSG_SECONDS = (9 * 60 + 50);// 9'50"
 const INTERVAL_SUBSCRIBLE_MSG_ERROR = (5 * 1000); // 5秒
 const INTERVAL_POLL_MSG = 5 * 1000;// 5秒
+const SUBSCRIBE_MESSAGES_RETRY_TIMES_LIMIT = 2;
 const DEVICE_MESSAGE = 'deviceRecievedMessages';// 设备属性变化消息事件名与DeviceEvent.deviceReceivedMessages保持一致
 function isNumber(num) {
   let numReg = new RegExp("^[0-9]*$");
@@ -373,7 +375,7 @@ export default class IDeviceWifi {
        return Promise
     }
     /**
-     * 获取虚拟设备的子设备列表，暂时已上线的虚拟设备有：yeelink和philips灯组和窗帘组。其他的暂不支持。注意：mesh灯组，和灯组2.0，无法通过此接口获取子设备（暂未开放）
+     * 获取虚拟设备的子设备列表，暂时已上线的虚拟设备有：yeelink和philips灯组和窗帘组。其他的暂不支持。注意：Mesh灯组，和灯组2.0，无法通过此接口获取子设备（暂未开放）
      * @since  10003。
      * change on 10046 获取虚拟窗帘组设备的子设备列表
      * 通过传入的type判断返回哪种设备的子设备  yeelink和philips灯组的组设备是N->1，子设备不会出现在设备列表中，但是窗帘设备是N->N+1,所以请求的接口不同,，为兼容旧版，默认type=1
@@ -401,5 +403,36 @@ export default class IDeviceWifi {
     @report
     getRecommendScenes(model, did) {
        return Promise.resolve({});
+    }
+    /**
+     * 支持WiFi+Ble双绑定的猫眼和门锁设备获取当前isOnLine的具体在线状态;
+     * 其他品类的Wifi设备isOnline仅有在离线0，1两个明确的值，不再细分;
+     * 在线状态： -1：获取在线状态失败， 0：离线， 1：ble在线， 2：wifi 在线， 3：ble&&wifi 在线
+     * @param did
+     * @returns {Promise<unknown>}
+     * {
+     *     "code": 0,
+     *     "message":"ok",
+     *     "result":{
+     *         "list":[
+     *             {
+     *                  "did": "xxxxx",
+     *                  "name": "xxxxx",
+     *                  "pd_id": 12345,
+     *                  "model": "xxxxx",
+     *                  "update_time": 1706684760444930,
+     *                  "is_online": 1,
+     *                  "is_share": false,
+     *                  "ssid":"xxxxx",
+     *                  "first_bind_time":1706684760444930,
+     *                  "multi_device_online_status":1,
+     *             },
+     *         ]
+     *     }
+     * }
+     */
+    @report
+    readOnlineDetail(did) {
+       return Promise.resolve([]);
     }
 }
