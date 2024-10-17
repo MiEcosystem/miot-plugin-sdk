@@ -230,6 +230,15 @@ class IIrcontroller {
     getIrCodeBrand(params) {
        return Promise.resolve(null);
     }
+    /**
+     * 4. 判断是否安装遥控器APP
+     */
+    @report
+    canOpenIrController() {
+    }
+    @report
+    getIrDeviceList() {
+    }
 }
 const IrcontrollerInstance = new IIrcontroller();
 export default IrcontrollerInstance;

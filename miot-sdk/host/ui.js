@@ -18,12 +18,10 @@
 import native, { isAndroid, isIOS } from "../native";
 import AutoOTAABTestHelper from 'miot/utils/autoota_abtest_helper';
 import ProtocolManager from '../utils/protocol-helper';
-// import { Entrance } from "../Package";
 import { report } from "../decorator/ReportDecorator";
-import { Device, Package, Service } from 'miot';
-// import { Entrance } from "../Package";
-// const resolveAssetSource = require('resolveAssetSource');
-// const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
+import Device from '../device/BasicDevice';
+import Service from '../Service';
+import PrivacyUploadFdsHelper from '../utils/privacy_uploadfds_helper';
 /**
  * 原生UI管理
  * @interface
@@ -64,6 +62,9 @@ class IUi {
    */
   @report
   openRoomManagementPage() {
+  }
+  @report
+  openRoomManagementPageByDid(did) {
   }
   /**
    * 打开语音设备管理的页面
@@ -121,20 +122,51 @@ class IUi {
   openSystemFileWindow(pathOrUrl) {
   }
   /**
+   * @since 10078
+   * 打开耗材详情页面(自研插件)
+   * @param {object} params 耗材传递的参数
+   *   params
+   *   android平台 对应的 getConsumableDetails 接口数据的details数组的元素
+   *   iOS平台  接口数据的details数组的元素 + details数据上层consumesData数据
+   *   具体用法可参考xiaomi.demo
+   */
+   @report
+  openConsumesDetailPage(params) {
+  }
+  /**
    * 获取设备列表中指定model的设备信息(仅白名单设备才允许调用此方法，如需使用，请联系插件框架)
    * @param model 指定的model
    * @param {boolean} includeGroupedDevice - since 10046 是否包含被组成了一个组的设备（目前仅窗帘设备可用，灯设备不可用），默认不包含
    * @returns {Promise<devices[]>} 对象中有字段 isGrouped 表示是被分组的设备，includeGroupedDevice = true时才有效
    */
   @report
-  getDevicesWithModel(model, includeGroupedDevice = false) {
-     return Promise.resolve([]);
-  }
+   getDevicesWithModel(model, includeGroupedDevice = false) {
+      return Promise.resolve([]);
+   }
   /**
    * 打开蓝牙网关页
    */
   @report
   openBtGatewayPage() {
+  }
+  /**
+   * 使用参数 params 打开蓝牙网关页
+   * 会和当前model的企业组进行匹配，只能打开同一企业组下的蓝牙网关页面
+   * 标准插件例外，标准插件可以打开任意企业组的蓝牙网关页面
+   *
+   * @returns {Promise}
+   * eg:
+   * Host.ui.openBtGatewayPageWithParams({did:xxxx}).then(()=>{}).catch((err)=>{console.log(err)});
+   * 可能的返回的信息
+   *  {"code":0, "message": "success"}}
+   *  {"code":-101, "message": "method unallowed on shared device"}}
+   *  {"code":-102, "message": "error input params: check did"}}
+   *  {"code":-201, "message": "account find no specific device with input parmas did"}}
+   *  {"code":-204, "message": "could only open ble gateway page belongs same company, compared with opened plugin model"}}
+   *  {"code":-301, "message": "account find no specific ble gateway device data with input params did"}}
+   */
+  @report
+  openBtGatewayPageWithParams(params) {
   }
   /**
    * 弹窗请求隐私政策和用户协议授权， 支持显示用户体验计划
@@ -173,6 +205,10 @@ class IUi {
    */
   @report
   previewLegalInformationAuthorization(option) {
+     return Promise.resolve(null);
+  }
+  // 10098开始判断是否检查隐私
+  previewLegalInformationAuthorizationV2(option) {
      return Promise.resolve(null);
   }
   /**
@@ -234,7 +270,316 @@ class IUi {
    */
   @report
   openDeviceInfoPage(params) {
-    Package.navigate('DeviceInfoPage', params);
+    this.packageNavigate('MiotDeviceInfoPage', params);
+  }
+  /**
+   * since 10091
+   * 多键设备，控制设备入口
+   * @param {object} params 参数
+   * @param {object} params.params 参数
+   *
+   * @param {bool} params.supportAiCtrl 转无线模式下是否支持小爱语控设置
+   *
+   * @param {array} params.switchSpecs 按键specs
+   * @param {number} switchSpec.siid 按键的siid
+   * @param {number} switchSpec.piid 按键的piid
+   * @param {string} switchSpec.description 按键的spec描述
+   * @param {string} switchSpec.i18n 按键的默认名称
+   *
+   * @param {array} params.switchClickSpecs 按键单击specs
+   * @param {number} switchClickSpec.siid 按键的siid
+   * @param {number} switchClickSpec.eiid 按键的eiid
+   * @param {string} switchClickSpec.description 按键单击的spec描述
+   * @param {string} switchClickSpec.i18n 按键单击的默认名称
+   *
+   * @param {array} params.switchDoubleClickSpecs 按键双击specs，没有传[]
+   * @param {number} switchDoubleClickSpec.siid 按键的siid
+   * @param {number} switchDoubleClickSpec.eiid 按键的eiid
+   * @param {string} switchDoubleClickSpec.description 按键双击的spec描述
+   * @param {string} switchDoubleClickSpec.i18n 按键双击的默认名称
+   *
+   * @param {array} params.switchLongPressesSpecs 按键长按specs，没有传[]
+   * @param {number} switchLongPressesSpec.siid 按键的siid
+   * @param {number} switchLongPressesSpec.eiid 按键的eiid
+   * @param {string} switchLongPressesSpec.description 按键长按的spec描述
+   * @param {string} switchLongPressesSpec.i18n 按键长按的默认名称
+   *
+   * @param {array} params.switchModeSpecs 按键转无线模式specs
+   * @param {number} switchModeSpec.siid 按键的siid
+   * @param {number} switchModeSpec.piid 按键的piid
+   * @param {string} switchModeSpec.description 按键转无线模式的spec描述
+   * @param {object} switchModeSpec.prop 按键转无线模式的value值
+   * @param {number} prop.Wireless 按键转无线模式的value值
+   * @param {number} prop.Wired And Wireless 按键正常模式的value值
+   *
+   * @param {array} params.switchSensorModeSpecs 按键模式specs，没有传[]
+   * @param {number} switchSensorModeSpec.siid 按键的siid
+   * @param {number} switchSensorModeSpec.piid 按键的piid
+   * @param {string} switchSensorModeSpec.speedModeSelectMsg 选择疾速模式时的智能提示文案
+   * @param {string} switchSensorModeSpec.multipleClickSubtitle 标准模式的卡片副标题
+   * @param {object} switchSensorModeSpec.prop 按键转无线模式的value值
+   * @param {number} prop.Quick Single Click 按键疾速模式的value值
+   * @param {number} prop.Multiple Click 按键标准模式的value值
+   *
+   * @param {object} params.specButtonType 按键类型，没有传空
+   * @param {number} specButtonType.siid 按键类型的siid
+   * @param {number} specButtonType.piid 按键类型的piid
+   * @param {string} specButtonType.description 按键类型的spec描述
+   * @param {array<object>} switchSensorModeSpec.valueList[value] 按键转无线模式的value值
+   * @param {number} value.value 按键类型的value值
+   * @param {string} value.description 按键类型的value值的spec描述
+   * @param {object} specButtonType.prop 按键转无线模式的value值
+   * @param {number} prop.description key为 value的description，value 为 value的 value
+   * @example {json} params
+   * { "params": {
+		"switchClickSpecs": [{
+			"siid": 5,
+			"eiid": 1,
+			"description": "Left Switch Sensor",
+			"i18n": "单击左键"
+		}, {
+			"siid": 6,
+			"eiid": 1,
+			"description": "Middle Switch Sensor",
+			"i18n": "单击中键"
+		}, {
+			"siid": 7,
+			"eiid": 1,
+			"description": "Right Switch Sensor",
+			"i18n": "单击右键"
+		}],
+		"switchDoubleClickSpecs": [{
+			"siid": 5,
+			"eiid": 2,
+			"description": "Left Switch Sensor",
+			"i18n": "双击左键"
+		}, {
+			"siid": 6,
+			"eiid": 2,
+			"description": "Middle Switch Sensor",
+			"i18n": "双击中键"
+		}, {
+			"siid": 7,
+			"eiid": 2,
+			"description": "Right Switch Sensor",
+			"i18n": "双击右键"
+		}],
+		"switchLongPressesSpecs": [{
+			"siid": 5,
+			"eiid": 3,
+			"description": "Left Switch Sensor",
+			"i18n": "长按左键"
+		}, {
+			"siid": 6,
+			"eiid": 3,
+			"description": "Middle Switch Sensor",
+			"i18n": "长按中键"
+		}, {
+			"siid": 7,
+			"eiid": 3,
+			"description": "Right Switch Sensor",
+			"i18n": "长按右键"
+		}],
+		"specButtonType": null,
+		"switchSpecs": [{
+			"siid": 2,
+			"piid": 1,
+			"description": "Left Switch Service",
+			"i18n": "左键"
+		}, {
+			"siid": 3,
+			"piid": 1,
+			"description": "Middle Switch Service",
+			"i18n": "中键"
+		}, {
+			"siid": 4,
+			"piid": 1,
+			"description": "Right Switch Service",
+			"i18n": "右键"
+		}],
+		"switchModeSpecs": [{
+			"siid": 2,
+			"piid": 2,
+			"description": "Left Switch Service",
+			"prop": {
+				"Wireless": 1,
+				"Wired And Wireless": 0
+			}
+		}, {
+			"siid": 3,
+			"piid": 2,
+			"description": "Middle Switch Service",
+			"prop": {
+				"Wireless": 1,
+				"Wired And Wireless": 0
+			}
+		}, {
+			"siid": 4,
+			"piid": 2,
+			"description": "Right Switch Service",
+			"prop": {
+				"Wireless": 1,
+				"Wired And Wireless": 0
+			}
+		}],
+		"supportAiCtrl": true,
+		"switchSensorModeSpecs": [{
+			"siid": 5,
+			"piid": 1,
+			"description": "Left Switch Sensor",
+			"prop": {
+				"Quick Single Click": 0,
+				"Multiple Click": 1
+			},
+			"speedModeSelectMsg": "当前设备设置了「双击」或「长按」的自动化。疾速模式下，相关自动化将无法响应",
+			"multipleClickSubtitle": "若该设备需要设置「双击」或「长按」的自动化，请选择此项"
+		}, {
+			"siid": 6,
+			"piid": 1,
+			"description": "Middle Switch Sensor",
+			"prop": {
+				"Quick Single Click": 0,
+				"Multiple Click": 1
+			},
+			"speedModeSelectMsg": "当前设备设置了「双击」或「长按」的自动化。疾速模式下，相关自动化将无法响应",
+			"multipleClickSubtitle": "若该设备需要设置「双击」或「长按」的自动化，请选择此项"
+		}, {
+			"siid": 7,
+			"piid": 1,
+			"description": "Right Switch Sensor",
+			"prop": {
+				"Quick Single Click": 0,
+				"Multiple Click": 1
+			},
+			"speedModeSelectMsg": "当前设备设置了「双击」或「长按」的自动化。疾速模式下，相关自动化将无法响应",
+			"multipleClickSubtitle": "若该设备需要设置「双击」或「长按」的自动化，请选择此项"
+		}]
+	}
+}
+   */
+  @report
+  openSwitchButtonSelectPage(params) {
+  }
+  /**
+   * since 10091
+   * 单键设备、从智能日志打开指定按键的控制设备入口
+   * @param {object} params 参数
+   * @param {object} params.params 参数
+   *
+   * @param {bool} params.supportAiCtrl 转无线模式下是否支持小爱语控设置
+   * @param {number} params.memberId switchSpecs对应的按键index，从0开始
+   * @param {bool} params.fromSceneLog 是否通过智能日志进入
+   *
+   * @param {array} params.switchSpecs 按键specs
+   * @param {number} switchSpec.siid 按键的siid
+   * @param {number} switchSpec.piid 按键的piid
+   * @param {string} switchSpec.description 按键的spec描述
+   * @param {string} switchSpec.i18n 按键的默认名称
+   *
+   * @param {object} params.switchClickSpec 按键单击specs
+   * @param {number} switchClickSpec.siid 按键的siid
+   * @param {number} switchClickSpec.eiid 按键的eiid
+   * @param {string} switchClickSpec.description 按键单击的spec描述
+   * @param {string} switchClickSpec.i18n 按键单击的默认名称
+   *
+   * @param {object} params.switchDoubleClickSpec 按键双击spec，没有传[]
+   * @param {number} switchDoubleClickSpec.siid 按键的siid
+   * @param {number} switchDoubleClickSpec.eiid 按键的eiid
+   * @param {string} switchDoubleClickSpec.description 按键双击的spec描述
+   * @param {string} switchDoubleClickSpec.i18n 按键双击的默认名称
+   *
+   * @param {object} params.switchLongPressesSpec 按键长按spec，没有传[]
+   * @param {number} switchLongPressesSpec.siid 按键的siid
+   * @param {number} switchLongPressesSpec.eiid 按键的eiid
+   * @param {string} switchLongPressesSpec.description 按键长按的spec描述
+   * @param {string} switchLongPressesSpec.i18n 按键长按的默认名称
+   *
+   * @param {object} params.switchModeSpec 按键转无线模式spec
+   * @param {number} switchModeSpec.siid 按键的siid
+   * @param {number} switchModeSpec.piid 按键的piid
+   * @param {string} switchModeSpec.description 按键转无线模式的spec描述
+   * @param {object} switchModeSpec.prop 按键转无线模式的value值
+   * @param {number} prop.Wireless 按键转无线模式的value值
+   * @param {number} prop.Wired And Wireless 按键正常模式的value值
+   *
+   * @param {object} params.switchSensorModeSpec 按键模式spec，没有传[]
+   * @param {number} switchSensorModeSpec.siid 按键的siid
+   * @param {number} switchSensorModeSpec.piid 按键的piid
+   * @param {string} switchSensorModeSpec.speedModeSelectMsg 选择疾速模式时的智能提示文案
+   * @param {string} switchSensorModeSpec.multipleClickSubtitle 标准模式的卡片副标题
+   * @param {object} switchSensorModeSpec.prop 按键转无线模式的value值
+   * @param {number} prop.Quick Single Click 按键疾速模式的value值
+   * @param {number} prop.Multiple Click 按键标准模式的value值
+   *
+   * @param {object} params.specButtonType 按键类型，没有传空
+   * @param {number} specButtonType.siid 按键类型的siid
+   * @param {number} specButtonType.piid 按键类型的piid
+   * @param {string} specButtonType.description 按键类型的spec描述
+   * @param {array<object>} switchSensorModeSpec.valueList[value] 按键转无线模式的value值
+   * @param {number} value.value 按键类型的value值
+   * @param {string} value.description 按键类型的value值的spec描述
+   * @param {object} specButtonType.prop 按键转无线模式的value值
+   * @param {number} prop.description key为 value的description，value 为 value的 value
+   * @example {json} params
+  {
+	"params": {
+		"switchSpecs": [{
+			"siid": 2,
+			"piid": 1,
+			"description": "Switch",
+			"i18n": "按键"
+		}],
+		"switchSpec": {
+			"siid": 2,
+			"piid": 1,
+			"description": "Switch",
+			"i18n": "按键"
+		},
+		"switchModeSpec": {
+			"siid": 2,
+			"piid": 2,
+			"description": "Switch",
+			"prop": {
+				"Wireless": 1,
+				"Wired And Wireless": 0
+			}
+		},
+		"switchSensorModeSpec": {
+			"siid": 3,
+			"piid": 1,
+			"description": "Switch Sensor",
+			"prop": {
+				"Quick Single Click": 0,
+				"Multiple Click": 1
+			},
+			"speedModeSelectMsg": "当前设备设置了「双击」或「长按」的自动化。疾速模式下，相关自动化将无法响应",
+			"multipleClickSubtitle": "若该设备需要设置「双击」或「长按」的自动化，请选择此项"
+		},
+		"switchClickSpec": {
+			"siid": 3,
+			"eiid": 1,
+			"description": "Switch Sensor",
+			"i18n": "单击"
+		},
+		"switchDoubleClickSpec": {
+			"siid": 3,
+			"eiid": 2,
+			"description": "Switch Sensor",
+			"i18n": "双击"
+		},
+		"switchLongPressesSpec": {
+			"siid": 3,
+			"eiid": 3,
+			"description": "Switch Sensor",
+			"i18n": "长按"
+		},
+		"specButtonType": null,
+		"supportAiCtrl": true,
+		"memberId": 0
+	}
+   */
+  @report
+  openSwitchButtonSettingPage(params) {
   }
   /**
    * 打开设备检查固件历史版本信息页面
@@ -427,7 +772,7 @@ class IUi {
    * @param {boolean} options.showPeriodTimerType 是否可以创建：时间段定时？ true: 可以，false:不可以(默认：true)
    * 注意：showOnTimerType、showOffTimerType、showPeriodTimerType三个参数至少有一个为true，才有效，否则三个中任意都会被忽略掉
    * @example
-   * Host.ui.openTimerSettingPageWithOptions({onMethod:"power_on", onParam: "on", offMethod: "power_off", offParam: "off", displayName:"设置xxx定时"，identify:"plug_usb_countdowm"})
+   * Host.ui.openTimerSettingPageWithOptions({onMethod:"set_properties", onParam: [{did:Device.deviceID, siid:3, piid:2, value:true}], offMethod: "set_properties", offParam: [{did:Device.deviceID, siid:3, piid:2, value:false}], displayName:"设置xxx定时"，identify:"plug_usb_countdowm"})
    */
   @report
   openTimerSettingPageWithOptions(options) {
@@ -437,12 +782,13 @@ class IUi {
    * @since 10010 ,SDKLevel 10010 开始提供使用
    * @param {string} did  设备did 指定设备ID
    * @param {string} mac  设备mac option, 在不传递时。默认使用当前设备
-   * @patam {Object} params { useNewSetting: false } 是否使用新设置
    * @example
    * Host.ui.openPowerMultikeyPage(did, mac);
   */
   @report
-  openPowerMultikeyPage(did, mac = null, params = null) {
+  openPowerMultikeyPage(did, mac = null) {
+  }
+  openPowerMultikeyPageV2(did, mac = null, params) {
   }
   /**
   * 添加或者复制一个红外遥控器
@@ -453,6 +799,7 @@ class IUi {
   * @param {object} extra 额外配置，会传入打开的插件页，也有部分特殊功能定义字段如下：
   * @param {boolean} [extra.create_device = true] 米家首页列表是否展示虚拟遥控器设备。默认true。暂时只有android支持
   * @param {boolean} [extra.dismiss_current_plug = true] since 10020 。在推出新的插件页面时，关掉当前页面，返回app首页。iOS Only
+  * @param {boolean} [extra.open_room_select] 红外遥控添加完成是否跳转到选择房间页面，默认值 false
   */
   @report
   addOrCopyIR(did, type = 0, models = [], extra = { create_device: true }) {
@@ -488,7 +835,7 @@ class IUi {
    * @since 10026
    * @param {string} did  设备的did
    * @param {string} pageName  将打开插件的某一页面, 此参数将会赋值给 Package.entrance, 默认为 Entrance.Main
-   * @param {object} pageParams  将打开插件的某一页面的参数，此参数将会赋值给 Package.entranceParams， 默认为空
+   * @param {object} pageParams  将打开插件的某一页面的参数，此参数将会赋值给 Package.pageParams
    * @param {boolean} [pageParams.isBackToMainPage = true] 打开的插件页面按返回，是否需要返回到插件首页
    * @param {boolean} [params.dismiss_current_plug] since 10040 。是否在推出新的插件页面时，关掉当前页面，返回app首页，默认false。iOS Only
    * @param {int}     [pageParams.open_plugin_source] since 10059, 可选参数，标识从哪里打开插件(不传默认为0)。可能的取值有：
@@ -532,6 +879,7 @@ class IUi {
    * @param {string} aiClientId 水滴平台的客户端
    * @param {string} aiVersion "" 不隐藏 "thirdpart" 隐藏 “一段录音” “设备控制” 按钮 "audio" 隐藏 “一段录音” 按钮 "device" 隐藏 “设备控制” 按钮
    * @param {object} otherParams 想怎么玩都行的参数，会覆盖之前的
+   * @param {boolean} otherParams.newVerAiTrain 当传入其他参数中newVerAiTrain为true情况 会进入新版本的训练计划 否则默认进入旧版
   */
   @report
   openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion, otherParams) {
@@ -640,6 +988,12 @@ class IUi {
   openResetAndConnectDevicePage() {
   }
   /**
+   *  打开配网页面，（仅限猫眼门锁使用）
+   *  @since 10068
+   */
+  openWifiConfigStepPage() {
+  }
+  /**
    *  打开语音授权页面
    *  @since 10041
    */
@@ -739,16 +1093,6 @@ class IUi {
   openNFCWriteDeviceInfoDebugPage(params) {
   }
   /**
-   * @since 10052
-   * 打开常用设备/常用摄像机设置页面
-   * @param {string} type type=0代表常用设备，type=1代表常用摄像机
-   * @example
-   * Host.ui.openCommonDeviceSettingPage(1);
-  */
-  @report
-     openCommonDeviceSettingPage(type) {
-     }
-  /**
    * @since 10055
    * 打开设置定时的页面。
    * 这个页面不同于Service.scene.openTimerSettingPageWithOptions，这个页面只负责选择日期然后返回对应的crontab字符串
@@ -761,17 +1105,6 @@ class IUi {
    */
   @report
   openGenerateCrontabStringPage(param = {}) {
-    // native begin
-    return new Promise((resolve, reject) => {
-      native.MIOTHost.openGenerateCrontabStringPage(param, (ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      });
-    });
-    // native end
   }
   /**
     * @since 10056
@@ -779,5 +1112,315 @@ class IUi {
     * @example
     * Host.ui.openFirmWareAutoOTAPage();
   */
-   @report
+  @report
   openFirmWareAutoOTAPage() {
+  }
+  /**
+   * 返回Android手机底部导航栏高度
+   * @since 10069
+   * 仅限Android使用
+  * @example
+   * Host.ui.getNavigationBarHeight()
+   *
+   * res : {"data":{"navigationBarHeight":130},"code":0}
+   */
+  @report
+  getNavigationBarHeight() {
+  }
+  /**
+   * 打开虚拟组设备的初始化页面，多用在getVirtualDeviceCombineStatus判断成组失败的情况下
+   * @param {Object}param
+   * param.groupDid{string},组设备的did
+   * param.includeCurtainDevice{boolean}，Android only，页面默认是为灯组设计的，需要兼容窗帘组的时候请传入这个参数
+   */
+  @report
+  openVirtualGroupInitPage(param) {
+  }
+  /**
+   * 打开离线弹框页面，用于标准插件页面打开离线弹框
+   * @since 10079
+  * @example
+   * Host.ui.openDeviceOfflineAlert()
+    */
+  @report
+  openDeviceOfflineAlert() {
+  }
+  /**
+   * 打开本地直连控制关联页面
+   * @param {Object} param 预留
+   * @example
+   * Host.ui.openAssociatePage(param);
+   */
+  @report
+  openAssociatePage(param = {}) {
+  }
+  /**
+   * @since 10084
+   * 打开设备更换图标弹窗，目前支持灯，插座和开关设备
+   * @param {Object} param
+   * @param {number} param.plugin_type
+   * 0：开关品类；1：灯组品类；2：插座品类
+   * @return {Promise<{code:number,data:{subclass_id:number,proxy_category_icon:String}},{code:number,message:String}>}
+   * 成功返回{
+   *   code:0,
+   *   data:{
+   *     subclass_id:xxx,
+   *     proxy_category_icon:xxxx //可能为空字符串
+   *   }
+   * }
+   * 失败返回 {
+   *   code:-1,
+   *   message:xxxx
+   * }
+   */
+  @report
+  openChangeDeviceIconDialog(param) {
+  }
+  /**
+   * @since 10082
+   /**
+   * 打开电视遥控器NFC写入流程的页面,only for Android
+   * @param param {Object} 预留
+   */
+   @report
+  openNFCWritePageForConnectTV(param = undefined) {
+  }
+   /**
+    * 基站（室内机）插件使用，调用该接口跳转到WiFi选择页面，选择后将ssid和passwd返回给插件
+    * @returns {Promise<Object>}
+    * {
+    *   code:0,
+    *   data:{
+    *     ssid:xxxx,
+    *     passwd:xxxx
+    *   }
+    * }
+    */
+   @report
+   openWifiChoosePage() {
+   }
+   /**
+    * 基站（室内机）插件使用，调用该接口跳转到子设备配网页面，给子设备配网
+   */
+   @report
+   openConfigRouterSubPage() {
+   }
+    /**
+   * 打开设备中枢功能页
+   * @param  暂传空
+   */
+    @report
+   openDeviceHubGatewayPage(param = {}) {
+   }
+  /**
+   * 打开紧急事件电话呼叫页面
+   * @param {string} did 设备 ID
+   */
+  @report
+    openDeviceCallSettingPage(did) {
+      native.MIOTHost.openDeviceCallSettingPage(did);
+    }
+  /**
+   * 打开紧急事件电话呼叫页面
+   * @param {string} did 设备 ID
+   * @param {string} extra 个保合规参数
+   * {
+   *    privacyVersion:'',
+   *    type:'accept',
+   *    privacyType: 3,
+   *    pluginPrivacyId: 1234
+   * }
+   */
+  @report
+  openDeviceCallSettingPageWithExtra(did, extra) {
+    native.MIOTHost.openDeviceCallSettingPageWithExtra(did, extra);
+  }
+  /**
+   * 打开推荐场景详情页
+   * @params {object} params
+   * params.tempID {string}  场景模版ID
+   * params.sceneID {string} 场景ID
+   * params.edit_from {int}  来源 0-未知入口 1-智能tab 2-配网 3-插件内 4-发现页跳转
+   * params.did {string} 设备id
+   * @example
+   * Host.ui.openTemplateScenePage(param);
+   */
+       @report
+  openTemplateScenePage(param = {}) {
+  }
+  /**
+   * 打开配对模式界面，仅Matter设备具备该项
+   */
+  @report
+       openMatterConnectPage(did) {
+       }
+  /**
+   * 跳转到插件之外页面后，如Host.ui.openWebPage(targetUrl)打开的H5页面，调用后回到插件页
+   * @param info
+   */
+  backToPluginPage(info = null) {
+  }
+    /**
+   * 打开家庭管理页面
+   * @param {string} did 设备 ID
+   */
+    @report
+  openFamilyManagerPage(did) {
+    native.MIOTHost.openFamilyManagerPage(did);
+  }
+  /**
+   * since SDK_10100
+   * 打开家庭相册页
+   *
+   * @param did
+   */
+  @report
+    openFamilyAlbumPage(did) {
+      native.MIOTHost.openFamilyAlbumPage(did);
+    }
+  /**
+   * 打开米家微信小程序，在微信小程序中订阅音视频通话
+   * @since 10091
+   * @param params 参数必须包含：
+   * {
+   *    paramType : 固定："requestWxDeviceVoIP"
+        userId: 用户登陆的账号id
+        did ：设备did
+        deviceName: 设备在插件中的名称
+        model ：设备model
+   * }
+      @example
+   *  Host.ui.requestWxDeviceVoIP({
+   *    paramType : "requestWxDeviceVoIP",
+        userId: "894158105",
+        did ："102344554",
+        deviceName: "device_name",
+        model ："device_model"
+   * })
+   */
+  @report
+  requestWxDeviceVoIP(params) {
+  }
+  /**
+   * 分享，邀请其他成员订阅音视频通话
+   * @since 10091
+   * @param params 参数必须包含：
+   * {
+   *  paramType : 固定："shareWxDeviceVoIP"
+      userId: 用户登陆的账号id
+      did ：设备did
+      deviceName: 设备在插件中的名称
+      model ：设备model
+      deviceIconURL: 设备icon图片
+    * }
+      @example
+    *  Host.ui.shareWxDeviceVoIP({
+        paramType : "shareWxDeviceVoIP",
+        userId: "894158105",
+        did ："102344554",
+        deviceName: "device_name",
+        model ："device_model",
+        deviceIconURL: ""
+      })
+    */
+  @report
+  shareWxDeviceVoIP(params) {
+  }
+  /**
+   * 分享，邀请 家庭成员/家庭管理员/仅通话/家庭成员且通话/家庭管理员且通话
+   * @since 10099
+   * @param params 参数必须包含：
+   * {
+   *  inviteType : 固定："homeMember" "homeAdmin" "call" "homeMemberAndCall" "homeAdminAndCall" 分别对应上面五种类型
+      userId: 用户登陆的账号id
+      did ：设备did
+      deviceName: 设备在插件中的名称
+      model ：设备model
+      wxMessageTitle：微信消息的标题
+    * }
+      @example
+    *  Host.ui.shareWxForInviteFriends({
+        inviteType : "homeMember",
+        userId: "894158105",
+        did ："102344554",
+        deviceName: "device_name",
+        model ："device_model",
+        wxMessageTitle：'xx'
+      })
+    */
+  @report
+  shareWxForInviteFriends(params) {
+  }
+  /**
+   * 打开米家小程序，跳到对应的设备卡片（不发起通话）
+   * @since 10091
+   * @param params 参数必须包含：
+   * {
+   *  paramType : 固定："locateWxDevice"
+      userId: 用户登陆的账号id
+      did ：设备did
+      deviceName: 设备在插件中的名称
+      model ：设备model
+      deviceIconURL: 设备icon图片
+    * }
+      @example
+    *  Host.ui.locateWxDevice({
+        paramType : "locateWxDevice",
+        userId: "894158105",
+        did ："102344554",
+        deviceName: "device_name",
+        model ："device_model",
+        deviceIconURL: ""
+      })
+    */
+      @report
+  locateWxDevice(params) {
+  }
+  /**
+   * 5. 跳转全部遥控器管理页面
+   * since 10099
+   * Android only support
+   */
+  @report
+  openIrDeviceManagerPage() {
+    if (isAndroid) {
+      native.MIOTHost.openIrDeviceManagerPage();
+    } else {
+      if (__DEV__ && console.warn) {
+        console.warn('method [openIrDeviceManagerPage] can only be invoked on Android, iOS is not implemented. ');
+      }
+    }
+  }
+  /**
+   * 1. 添加红外遥控器
+   * since 10099
+   * Android only support
+   */
+  @report
+  openAddIrDevicePage() {
+    if (isAndroid) {
+      native.MIOTHost.openAddIrDevicePage();
+    } else {
+      if (__DEV__ && console.warn) {
+        console.warn('method [openAddIrDevicePage] can only be invoked on Android, iOS is not implemented. ');
+      }
+    }
+  }
+  /**
+   * 2. 打开特定遥控器插件
+   * since 10099
+   * Android only support
+   */
+  @report
+  openIrDevicePage(deviceTypeId) {
+    if (isAndroid) {
+      native.MIOTHost.openIrDevicePage(deviceTypeId);
+    } else {
+      if (__DEV__ && console.warn) {
+        console.warn('method [openIrDevicePage] can only be invoked on Android, iOS is not implemented. ');
+      }
+    }
+  }
+}
+const UiInstance = new IUi();
+export default UiInstance;
