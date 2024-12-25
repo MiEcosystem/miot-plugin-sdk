@@ -52,11 +52,13 @@ import HostCrypto from './host/crypto';
 import HostFile from './host/file';
 import HostLocale from './host/locale';
 import HostStorage from './host/storage';
+import HostMiTvInstance from './host/mitv';
 // import HostUI from './host/ui';
  const IOS="ios", ANDROID="android";
 import { Buffer } from "buffer";
 import merge from "merge";
 import { Platform } from 'react-native';
+import Storage from "./service/storage";
 const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 export const HOST_TYPE_IOS = IOS;
 export const HOST_TYPE_ANDROID = ANDROID;
@@ -113,13 +115,53 @@ export default {
      return  false
   },
   /**
+   * @deprecated  此接口sdk 10090版本废弃，从10090(包括10090)开始请使用Package.entryInfo.mobileType进行判断，默认为'phone',车机端确保有值且为'car',手机端不一定有值
+   * @const
+   * @type {String}
+   * @description 设备类型，用在车机插件上，米家app的插件开发者无需关心
+   * 在米家app上返回值为 'phone'，车机框架上返回值为 'car'
+   * @return { ('phone'|'car') }
+   */
+  get mobileType() {
+     return  "..."
+      console.warn("mobileType deprecated 此接口sdk 10090版本废弃，从10090(包括10090)开始请使用Package.entryInfo.mobileType进行判断，默认为'phone',车机端确保有值且为'car',手机端不一定有值");
+    }
+    if (isIOS) {
+      return 'phone';
+    }
+    return native.MIOTHost.mobileType;
+  },
+  /**
+     * @const
+     * @type {number}
+     * @since  10081  获取iphone手机顶部状态栏距离
+     * @description 判断是否 iOS 手机状态栏的高度
+     *                Android 请使用 RN 官方api import {StatusBar} from 'react-native';  StatusBar.currentHeight;
+     *                iPad上，无论是否是刘海屏或者灵动岛屏幕，都返回20
+     *                iPhone上，非刘海屏返回20，刘海屏返回44，灵动岛屏幕返回59
+     *                需要注意的是，该方法仅能获取状态栏高度，需要和导航栏高度概念区别开
+     *                正确的导航栏高度需要 在该api的值的基础上偏移指定距离（通常是44）
+     */
+  get iPhoneXSeriesTopAreaInsets() {
+     return  0
+  },
+  /**
      * @const
      * @type {boolean}
-     * @since  10044  在10047 添加对iPhone 12系列的支持
-     * @description 判断是否 iOS 刘海屏 包括iPhoneX系列, iPhoneXS, iPhoneXS Max 系列, iPhone 11系列  Android返回false
+     * @since  10044  目前已支持iPhone全系列
+     * @description 判断是否 iOS 刘海屏  Android返回false
      */
   get isIphoneXSeries() {
      return  false
+      return native.MIOTHost.isIphoneXSeries;
+    }
+    return false;
+  },
+  get isWearSceneSupported() {
+    if (isAndroid) {
+      return native.MIOTHost.isWearSceneSupported;
+    }
+    return false;
   },
   /**
      * @const
@@ -237,6 +279,12 @@ export default {
      */
   get crypto() {
     return HostCrypto;
+  },
+  /**
+   * 获取小米电视模块
+   * */
+  get MiTv() {
+    return HostMiTvInstance;
   },
   /**
      * 获取手机wifi信息;
@@ -414,10 +462,18 @@ export default {
    * 判断是否可以跳到其他App
    * @since 10039
    * @returns {Promise<bool>}
-   * @param {string} scheme 跳转其他App时使用的scheme
+   * @param {string/Object} param
+   * 10074扩展了此API，参数param接受两种类型，string或Object
+   * 若为string，那么param就是scheme，用法和原来不变
+   * 若为object，其格式为:{
+   *   android:'xxxxxxx', //packageName
+   *   ios:'xxxxxx' //scheme
+   * }
+   * 这是为了解决在Android上某些APP的scheme与其他app支持的scheme格式相同的从而导致这个方法返回了true，而实际上目标APP却不存在的问题
+   * 所以在Android上改为使用应用包名的方式判断APP是否存在，Object中android Key传的是packageName，而iOS依旧传scheme即可
    * @result {"code":0, "data":true/false}
    */
-  checkAbilityOfJumpToThirdpartyApplication(scheme) {
+  checkAbilityOfJumpToThirdpartyApplication(param) {
      return Promise.resolve(null);
   },
   /**
@@ -431,6 +487,63 @@ export default {
     * Host.notifyMultikeyStateChanged(param);
   */
   notifyMultikeyStateChanged(param = {}) {
+  },
+  /**
+   * @since 10072
+   * 设置Pad上的滑动策略（only Android）
+   * 这个api是为了解决某些插件使用的组件总是选择消耗滑动事件但是却又不做任何事，导致出现滑动无响应的问题
+   * @param params
+   * params.strategy {@link PAD_SCROLL_STRATEGY}
+   * AUTO：表示默认策略，SDK会根据用户滑动位置做出相应的响应。
+   * 当用户滑动的位置不会消耗滑动事件时，该事件会被SDK消耗掉。
+   * ALWAYS_SDK_DEAL：滑动事件总是交给SDK处理，插件将无法接受到任何滑动事件。
+   * ALWAYS_PLUGIN_DEAL：滑动事件全部交给插件处理。（Scroll组件剩余的滑动距离依旧可以被SDK消费掉，因为SDK支持滑动嵌套）
+   * 这个方法一经调用所有插件页面都会应用设置的策略，所以如果只是某个页面需要适配滑动策略的话，请记得在退出该页面时将滑动策略设置回进入页面时的样子
+   * @example
+   *  componentWillUnmount() {
+   *      Host.setPadScrollDealStrategy({ strategy: PAD_SCROLL_STRATEGY.AUTO });
+   *    }
+   *
+   * 效果可参考com.xiaomi.demo中的PadScrollDemo
+   */
+  setPadScrollDealStrategy(params) {
+  }
+};
+export const PAD_SCROLL_STRATEGY = {
+  AUTO: 0, ALWAYS_SDK_DEAL: 1, ALWAYS_PLUGIN_DEAL: 2
+};
+/**
+ * Host事件集合
+ * @namespace HostEvent
+ * @example
+ *    import { HostEvent } from 'miot/host';
+ *    const subscription = HostEvent.cellPhoneNetworkStateChanged.addListener(
+ *       (event)=>{
+ *          ...
+ *       }
+ *     )
+ *    ...
+ *    subscription.remove()
+ *    ...
+ *
+ */
+export const HostEvent = {
+  /**
+     * 手机网络状态变更事件
+     * @since 10031
+     * @event
+     * @param{object}  接收到的数据 {networkState: xxx}
+     *              networkState可取值如下：
+     *             -1 ：DefaultState
+     *              0 ：网络不可用
+     *              1 ：蜂窝网络 2G 3G 4G
+     *              2 ：WiFi网络
+     *
+     * @example
+     * 可查看HostEventDemo.js
+     *
+     */
+  cellPhoneNetworkStateChanged: {
   }
 };
 buildEvents(HostEvent);
