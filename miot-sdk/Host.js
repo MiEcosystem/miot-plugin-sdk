@@ -164,6 +164,14 @@ export default {
     return false;
   },
   /**
+   * 双端为支持小米口袋打印机Pro 设备分享需求添加
+   * since 10103
+   * @returns {*}
+   */
+  get isMiuiChannel() {
+    return native.MIOTHost.isMiuiChannel;
+  },
+  /**
      * @const
      * @type string
      * @description APP 的版本, 例如"1.0.0"
