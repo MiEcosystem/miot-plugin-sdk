@@ -239,6 +239,12 @@ export default {
   deviceSN: '裝置SN',
   mcuVersion: 'MCU硬件版本',
   sdkVersion: 'SDK硬件版本',
+  deviceModel: '裝置型號',
+  deviceQR: '裝置QR 碼',
+  download: '下載',
+  saveSuccess: '儲存成功',
+  saveFailed: '儲存失敗',
+  clipboardy: '已複製到剪貼簿',
   connected: '已連接',
   notConnected: '未連接',
   bleConnected: '藍牙直連',
@@ -335,5 +341,6 @@ export default {
   common_list_empty: '暫無',
   switch_dia_msg_repeatScene: '目前按鍵已建立了點選自動化，綁定控制裝置後，自動化可能會重複執行，是否需刪除控制裝置的綁定？',
   common_loading: '載入中，請稍候...',
-  pairMode: '配對模式'
+  pairMode: '配對模式',
+  switch_title_buttonControlDevice_oneGang: '裝置控制'
 };

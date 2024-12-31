@@ -239,6 +239,12 @@ export default {
   deviceSN: 'Nomor Seri Perangkat',
   mcuVersion: 'Versi firmware MCU',
   sdkVersion: 'Versi firmware SDK',
+  deviceModel: 'Model perangkat',
+  deviceQR: 'Kode QR perangkat',
+  download: 'Unduh',
+  saveSuccess: 'Berhasil disimpan',
+  saveFailed: 'Tidak dapat disimpan',
+  clipboardy: 'Berhasil disalin',
   connected: 'Terhubung',
   notConnected: 'Tidak terhubung',
   bleConnected: 'Koneksi langsung Bluetooth',
@@ -335,5 +341,6 @@ export default {
   common_list_empty: 'Kosong',
   switch_dia_msg_repeatScene: '当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？',
   common_loading: '加载中，请稍后...',
-  pairMode: 'Mode pemasangan'
+  pairMode: 'Mode pemasangan',
+  switch_title_buttonControlDevice_oneGang: 'Kontrol perangkat'
 };

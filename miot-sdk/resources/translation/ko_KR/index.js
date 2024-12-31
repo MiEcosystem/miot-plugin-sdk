@@ -239,6 +239,12 @@ export default {
   deviceSN: '기기 SN',
   mcuVersion: 'MCU 펌웨어 버전',
   sdkVersion: 'SDK 펌웨어 버전',
+  deviceModel: '기기 모델',
+  deviceQR: '기기 QR 코드',
+  download: '다운로드',
+  saveSuccess: '저장 성공',
+  saveFailed: '저장하지 못했습니다',
+  clipboardy: '복사 성공',
   connected: '연결됨',
   notConnected: '연결되지 않음',
   bleConnected: '블루투스 직접 연결',
@@ -335,5 +341,6 @@ export default {
   common_list_empty: '아직 아무것도 없습니다',
   switch_dia_msg_repeatScene: '当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？',
   common_loading: '加载中，请稍后...',
-  pairMode: '페어링 모드'
+  pairMode: '페어링 모드',
+  switch_title_buttonControlDevice_oneGang: '기기 제어'
 };

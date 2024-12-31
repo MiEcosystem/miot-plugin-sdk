@@ -239,6 +239,12 @@ export default {
   deviceSN: 'الرقم التسلسلي للجهاز',
   mcuVersion: 'إصدار البرنامج الثابت MCU',
   sdkVersion: 'إصدار البرنامج الثابت SDK',
+  deviceModel: 'طراز الجهاز',
+  deviceQR: 'رمز QR الخاص بالجهاز',
+  download: 'تنزيل',
+  saveSuccess: 'تم الحفظ بنجاح',
+  saveFailed: 'تعذَّر الحفظ',
+  clipboardy: 'تم النسخ بنجاح',
   connected: 'متصل',
   notConnected: 'غير متصل',
   bleConnected: 'اتصال مباشر بالبلوتوث',
@@ -335,5 +341,6 @@ export default {
   common_list_empty: 'لا شيء هنا حتى الآن',
   switch_dia_msg_repeatScene: '当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？',
   common_loading: '加载中，请稍后...',
-  pairMode: 'وضع الاقتران'
+  pairMode: 'وضع الاقتران',
+  switch_title_buttonControlDevice_oneGang: 'عناصر التحكم بالجهاز'
 };

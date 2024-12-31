@@ -239,6 +239,12 @@ export default {
   deviceSN: 'Numéro de série de l\'appareil ',
   mcuVersion: 'Version du micrologicel MCU',
   sdkVersion: 'Version du micrologicel SDK',
+  deviceModel: 'Modèle de l\'appareil',
+  deviceQR: 'Code QR de l\'appareil',
+  download: 'Télécharger',
+  saveSuccess: 'Sauvegardé avec succès',
+  saveFailed: 'Impossible de sauvegarder',
+  clipboardy: 'Copié avec succès',
   connected: 'Connecté',
   notConnected: 'Non connecté',
   bleConnected: 'Connexion Bluetooth directe',
@@ -335,5 +341,6 @@ export default {
   common_list_empty: 'Rien pour l\'instant',
   switch_dia_msg_repeatScene: '当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？',
   common_loading: '加载中，请稍后...',
-  pairMode: 'Mode d\'appariement'
+  pairMode: 'Mode d\'appariement',
+  switch_title_buttonControlDevice_oneGang: 'Contrôles de l\'appareil'
 };

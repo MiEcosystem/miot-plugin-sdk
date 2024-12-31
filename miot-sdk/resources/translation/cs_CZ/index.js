@@ -239,6 +239,12 @@ export default {
   deviceSN: 'Výrobní číslo zařízení',
   mcuVersion: 'Verze firmwaru MCU',
   sdkVersion: 'Verze firmwaru SDK',
+  deviceModel: 'Model zařízení',
+  deviceQR: 'QR kód zařízení',
+  download: 'Stáhnout',
+  saveSuccess: 'Úspěšně uloženo',
+  saveFailed: 'Uložení se nezdařilo',
+  clipboardy: 'Úspěšně zkopírováno',
   connected: 'Připojeno',
   notConnected: 'Nepřipojeno',
   bleConnected: 'Přímé Bluetooth připojení',
@@ -335,5 +341,6 @@ export default {
   common_list_empty: 'Zatím tady nic není',
   switch_dia_msg_repeatScene: '当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？',
   common_loading: '加载中，请稍后...',
-  pairMode: 'Režim párování'
+  pairMode: 'Režim párování',
+  switch_title_buttonControlDevice_oneGang: 'Ovládací prvky zařízení'
 };

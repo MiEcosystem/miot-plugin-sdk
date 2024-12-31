@@ -239,6 +239,12 @@ export default {
   deviceSN: 'Số sê-ri thiết bị',
   mcuVersion: 'Phiên bản chương trình cơ sở MCU',
   sdkVersion: 'Phiên bản chương trình cơ sở SDK',
+  deviceModel: 'Mẫu thiết bị',
+  deviceQR: 'Mã QR của thiết bị',
+  download: 'Tải xuống',
+  saveSuccess: 'Đã lưu thành công',
+  saveFailed: 'Không thể lưu',
+  clipboardy: 'Đã sao chép thành công',
   connected: 'Đã kết nối',
   notConnected: 'Chưa kết nối',
   bleConnected: 'Kết nối Bluetooth trực tiếp',
@@ -335,5 +341,6 @@ export default {
   common_list_empty: 'Không có gì ở đây',
   switch_dia_msg_repeatScene: '当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？',
   common_loading: '加载中，请稍后...',
-  pairMode: 'Chế độ Ghép nối'
+  pairMode: 'Chế độ Ghép nối',
+  switch_title_buttonControlDevice_oneGang: 'Điều khiển thiết bị'
 };

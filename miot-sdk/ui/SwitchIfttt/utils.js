@@ -152,7 +152,8 @@ export function findSpecificTriggerScene(scene, specificTriggers) {
   for (let indexTrigger = 0; indexTrigger < triggers.length; indexTrigger++) {
     const trigger = triggers[indexTrigger];
     const { key, extra_json, value_json } = trigger || {};
-    if (extra_json?.model === Device.model && extra_json?.did === Device.deviceID) {
+    // xiaomi.airc.ar03r1 这个设备支持动态model，会导致一个did出现多个不同model
+    if (extra_json?.did === Device.deviceID) {
       hasTargetScene = triggerMatch(specificTriggers, key, value_json);
     }
     if (hasTargetScene) {
@@ -167,7 +168,7 @@ export function findSpecificTriggerScene(scene, specificTriggers) {
     const condition = conditions[indexCondition];
     const { key, extra_json, value_json } = condition || {};
     // console.log('existSpecificTriggerSceneV2--trigger---', condition);
-    if (extra_json?.model === Device.model && extra_json?.did === Device.deviceID) {
+    if (extra_json?.did === Device.deviceID) {
       hasTargetScene = triggerMatch(specificTriggers, key, value_json);
     }
     if (hasTargetScene) {

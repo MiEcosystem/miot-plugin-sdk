@@ -239,6 +239,12 @@ export default {
   deviceSN: 'SN อุปกรณ์',
   mcuVersion: 'เวอร์ชั่นเฟิร์มแวร์ MCU',
   sdkVersion: 'เวอร์ชั่นเฟิร์มแวร์ SDK',
+  deviceModel: 'รุ่นอุปกรณ์',
+  deviceQR: 'รหัส QR ของอุปกรณ์',
+  download: 'ดาวน์โหลด',
+  saveSuccess: 'บันทึกเรียบร้อยแล้ว',
+  saveFailed: 'ไม่สามารถบันทึกได้',
+  clipboardy: 'คัดลอกเรียบร้อยแล้ว',
   connected: 'เชื่อมต่อแล้ว',
   notConnected: 'ยังไม่ได้เชื่อมต่อ',
   bleConnected: 'การเชื่อมต่อบลูทูธโดยตรง',
@@ -335,5 +341,6 @@ export default {
   common_list_empty: 'ยังไม่มีอะไรในนี้',
   switch_dia_msg_repeatScene: '当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？',
   common_loading: '加载中，请稍后...',
-  pairMode: 'โหมดการจับคู่'
+  pairMode: 'โหมดการจับคู่',
+  switch_title_buttonControlDevice_oneGang: 'การควบคุมอุปกรณ์'
 };

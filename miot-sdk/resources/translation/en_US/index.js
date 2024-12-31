@@ -239,6 +239,12 @@ export default {
   deviceSN: 'Device SN',
   mcuVersion: 'MCU firmware version',
   sdkVersion: 'SDK firmware version',
+  deviceModel: 'Device model',
+  deviceQR: 'Device QR code',
+  download: 'Download',
+  saveSuccess: 'Saved successfully',
+  saveFailed: 'Couldn\'t save',
+  clipboardy: 'Copied successfully',
   connected: 'Connected',
   notConnected: 'Not connected',
   bleConnected: 'Direct Bluetooth connection',
@@ -335,5 +341,6 @@ export default {
   common_list_empty: 'Nothing here yet',
   switch_dia_msg_repeatScene: '当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？',
   common_loading: '加载中，请稍后...',
-  pairMode: 'Pairing mode'
+  pairMode: 'Pairing mode',
+  switch_title_buttonControlDevice_oneGang: 'Device controls'
 };

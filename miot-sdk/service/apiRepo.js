@@ -110,6 +110,7 @@ const API_REPO = {
   '/device/deviceinfo': {},
   '/v2/device/ble_event': {},
   '/share/get_share_user': {},
+  '/share/share_request': {},
   '/v2/aftersale/validate': {},
   '/v2/aftersale/create': {},
   '/v2/aftersale/list': {},

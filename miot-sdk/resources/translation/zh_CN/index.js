@@ -219,6 +219,12 @@ export default {
   deviceSN: '设备SN',
   mcuVersion: 'MCU固件版本',
   sdkVersion: 'SDK固件版本',
+  deviceModel: '设备型号',
+  deviceQR: '设备二维码',
+  download: '下载',
+  saveSuccess: '保存成功',
+  saveFailed: '保存失败',
+  clipboardy: '已复制到剪贴板',
   connected: '已连接',
   notConnected: '未连接',
   bleConnected: '蓝牙直连',
@@ -315,5 +321,6 @@ export default {
   common_list_empty: "暂无",
   switch_dia_msg_repeatScene: "当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？",
   common_loading: '加载中，请稍后...',
-  pairMode: "配对模式"
+  pairMode: "配对模式",
+  switch_title_buttonControlDevice_oneGang: "设备控制"
 };

@@ -239,6 +239,12 @@ export default {
   deviceSN: 'Apparaat-SN',
   mcuVersion: 'Firmwareversie MCU',
   sdkVersion: 'Firmwareversie SDK',
+  deviceModel: 'Apparaatmodel',
+  deviceQR: 'QR-code van apparaat',
+  download: 'Downloaden',
+  saveSuccess: 'Succesvol opgeslagen',
+  saveFailed: 'Opslaan niet gelukt',
+  clipboardy: 'Succesvol gekopieerd',
   connected: 'Verbonden',
   notConnected: 'Niet verbonden',
   bleConnected: 'Directe Bluetooth-verbinding',
@@ -335,5 +341,6 @@ export default {
   common_list_empty: 'Nog niets om weer te geven',
   switch_dia_msg_repeatScene: '当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？',
   common_loading: '加载中，请稍后...',
-  pairMode: 'Koppelingsmodus'
+  pairMode: 'Koppelingsmodus',
+  switch_title_buttonControlDevice_oneGang: 'Apparaatbediening'
 };
