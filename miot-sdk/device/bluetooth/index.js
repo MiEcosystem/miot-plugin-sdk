@@ -281,6 +281,10 @@ export default {
    * @param mac
    */
   removeBond(mac) {
-    native.MIOTBluetooth.removeBond(mac);
+    if (isAndroid) {
+      native.MIOTBluetooth.removeBond(mac);
+    } else {
+      native.MIOTBluetooth.disconnectDeviceWithDelay(mac, 0);
+    }
   }
 };
