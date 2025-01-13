@@ -36,7 +36,7 @@
  *
  */
 import Account from './service/Account';
-import native, { Properties, isAndroid } from './native';
+import native, { isAndroid, Properties } from './native';
 import apiRepo from './service/apiRepo';
 import omitApi from './service/omitApi';
 import cameraSubDomains from './service/cameraSubDomain';
@@ -50,11 +50,10 @@ import Storage from './service/storage';
 import TJInfra from './service/tjinfra';
 import MiotCamera from './service/miotcamera';
 import Kookong from './service/kookong';
-import { NativeModules, Platform } from 'react-native';
+import XiaoAi from './service/xiaoai';
+import { NativeModules } from 'react-native';
 import JSONbig from 'json-bigint';
 import Permission from './service/permission';
-import { report } from "./decorator/ReportDecorator";
-import Device from "./device/BasicDevice";
  const CurrentAccount = null;
 export default {
   /**
@@ -92,10 +91,14 @@ export default {
   },
   /**
    * @member scene
-   * @description 场景 API 的调用
+   * @deprecated 1.0下所有定时相关的接口已不再维护，请使用sceneV2。部分工具类依旧可用
+   * @description 场景1.0 API 的调用
    * @see {@link module:miot/service/scene}
    */
   get scene() {
+    if (__DEV__ && console.warn) {
+      console.warn("scene deprecated 1.0下所有定时相关的接口已不再维护，请使用sceneV2。部分工具类依旧可用");
+    }
     return Scene;
   },
   /**
@@ -131,6 +134,9 @@ export default {
   get permission() {
     return Permission;
   },
+  get xiaoai() {
+    return XiaoAi;
+  },
   /**
    * @method callSmartHomeAPI
    * @since 10024
@@ -138,7 +144,8 @@ export default {
    * 不同设备开放的接口请参照与米家后台对接时提供的文档或说明，以后台给出的信息为准。
    * 米家客户端只封装透传网络请求，无法对接口调用结果解释，有问题请直接联系项目对接后台人员或 PM。
    *
-   * 想使用某个接口之前，先检查 SDK 是否已经收录，可在 `miot-sdk/service/apiRepo.js` 文件中查阅。
+   * 想使用某个接口之前，先检查 SDK 是否已经收录，可在 `miot-sdk/service/apiRepo.js`和`miot-sdk/service/omitApi.js` 文件中查阅。
+   * 注:这里的接口路径前缀为https://api.io.mi.com/app，所以请传入的接口中不要带入/app的前缀
    * 如果 SDK 暂时没有收录，可通过 issue 提出申请，提供接口的相关信息。
    * @param {string} api - 接口地址，比如'/location/set'
    * @param {object} params 传入参数，根据和米家后台商议的数据格式来传入，比如{ did: 'xxxx', pid: 'xxxx' }
@@ -191,16 +198,20 @@ export default {
    *    "ai": "https://api.ai.xiaomi.com",
    *    "aitrain": "https://i.ai.mi.com/mico",
    *    "grayupgrade": "https://api.miwifi.com/rs/grayupgrade/v2/micoiOS",
-   *    "homealbum": "https://display.api.mina.mi.com"
+   *    "homealbum": "https://display.api.mina.mi.com",
+   *    "pusher": "https://pusherapi-iotdcm.ai.xiaomi.com"
    * }
    * @param {string} path 请求的路径，比如"/device_profile/conversation"
    * @param {number} method 默认为0（表示get方法），1表示post方法，2表示put方法
    * @param {object} params 请求的参数，比如{limit:20}
    * @param {bool}   needDevice cookie中是否需要带上deviceId，默认为true
+   * @param {object} cookie 支持带上自定义的cookie
+   * @param {string} contentType put和post方法默认是以表单方式提交参数，即Content-Type为application/x-www-form-urlencoded，如果想以application/json的方式，请传入'json'
    * @return {Promise<object>} 透传接口，直接返回服务端返回的值
- path, method = 0, params, needDevice = 1
    */
-  callXiaoaiNetworkAPI({ host = 'normal', path, method = 0, params = {}, needDevice = 1, cookie = {} } = { 'host': 'normal', 'method': 0, 'needDevice': 1, params: {}, cookie: {} }) {
+  callXiaoaiNetworkAPI({ host = 'normal', path, method = 0, params = {}, needDevice = 1, cookie = {}, contentType = undefined } = {
+    host: 'normal', method: 0, needDevice: 1, params: {}, cookie: {}, contentType: undefined
+  }) {
      return Promise.resolve(null);
   },
   /**
