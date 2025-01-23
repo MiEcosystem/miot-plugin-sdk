@@ -69,7 +69,9 @@
       "loock.lock.418",
       "loock.lock.419a",
       "xiaomi.lock.s2",
-      "xiaomi.lock.m40"
+      "xiaomi.lock.m40",
+      "xiaomi.lock.g310",
+      "xiaomi.lock.g300"
     ],
     "getDevicesWithModel": [
       "chuangmi.plug.m3",
