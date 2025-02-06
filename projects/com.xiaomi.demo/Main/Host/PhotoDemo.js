@@ -6,6 +6,7 @@ import { Host } from "miot";
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Image } from 'react-native';
 import Video from 'react-native-video';
+import ImageCropPicker from 'react-native-image-crop-picker';
 import Logger from '../Logger';
 
 export default class PhotoDemo extends React.Component {
@@ -13,7 +14,10 @@ export default class PhotoDemo extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      currentAsset: {}
+      currentAsset: {},
+      selectedImages:[],
+      currentVideoName: "",
+      currentImageName: ""
     };
     Logger.trace(this);
   }
@@ -27,12 +31,29 @@ export default class PhotoDemo extends React.Component {
             ['下载视频保存到手机相册', this.downloadVideoSaveToPhoto],
             ['下载文件保存到手机公共目录', this.downloadFileSaveToPhoto],
             ['截图保存到指定名称为did的手机相册', this.snapImageSaveToDidAlbum],
+            ['截图保存到指定名称为did的手机相册V2', this.snapImageSaveToDidAlbumV2],
             ['下载视频保存到指定名称为did的手机相册', this.downloadVideoSaveToDidAlbum],
+            ['下载视频保存到指定名称为did的手机相册V2', this.downloadVideoSaveToDidAlbumV2],
             ['获取指定did的相册中的第一个图片', this.getFirstImageFromDidAlbum],
             ['获取指定did的相册中的第一个视频', this.getFirstVideoFromDidAlbum],
             ['删除指定did相册中的第一个视频或照片', this.deleteFirstAssetFromDidAlbum],
             ['分享当前的视频或照片', () => Host.ui.openSystemShareWindow(this.state.currentAsset.url)],
+            ['拼接视频', () => Host.file.mergeVideos(this.state.currentAsset.url, this.state.currentAsset.url).then((result) => {
+              Host.file.saveVideoToPhotosDidAlbum(result.fileName).then((result) => {
+                alert(`已保存到相册 ${ result }`);
+              }).catch((result) => {
+                alert(JSON.stringify(result));
+              });
+            })],
+            ['拼接图片', () => Host.file.mergeImages(this.state.currentImageName, this.state.currentImageName).then((result) => {
+              Host.file.saveImageToPhotosDidAlbum(result.fileName).then((result) => {
+                alert(`已保存到相册 ${ result }`);
+              }).catch((result) => {
+                alert(JSON.stringify(result));
+              });
+            })],
             ['获取相册列表', this.getAlbums],
+            ['获取可编辑相册图片', this.getCropAlbums],
             ['获取相册中的内容', this.getAsserts]
           ].map((item, index) => {
             return (
@@ -46,6 +67,7 @@ export default class PhotoDemo extends React.Component {
           })
         }
         {this.renderAsset()}
+        {this.renderPikcerSelected()}
       </ScrollView >
     );
   }
@@ -81,12 +103,29 @@ export default class PhotoDemo extends React.Component {
     }
   }
 
+  renderPikcerSelected() {
+    if (this.state.selectedImages.length == 0) {
+      return null;
+    } else {
+        return this.state.selectedImages.map((asset, index) =>  {
+          return <TouchableOpacity key={index} style={styles.container} onPress={ () => {
+            this.openCropper(asset.path)
+            } }>
+              <Image source={{ uri: asset.path, width: asset.width, height: asset.height }} style={{ marginTop: 20, alignSelf: 'center', width: 150, height: 150 }}></Image>
+          </TouchableOpacity>
+        })
+    }
+  }
+
   snapImageSaveToPhoto() {
     let imageName = `screen_${ new Date().getTime() }.png`;
+    this.setState({
+      currentImageName: imageName
+    });
     Host.file.screenShot(imageName)
       .then((imagePath) => {
-        Host.file.saveImageToPhotosAlbum(imageName).then((_) => {
-          alert(`${ imagePath } 已保存到系统相册`);
+        Host.file.saveImageToPhotosAlbum(imageName).then((result) => {
+          alert(`已保存到系统相册 ${ result }`);
         }).catch((result) => {
           alert(result);
         });
@@ -99,9 +138,12 @@ export default class PhotoDemo extends React.Component {
   downloadVideoSaveToPhoto() {
     let url = 'http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_mp4_855379f77b74ca565e8ef7d68c08264c.mp4';
     let fileName = `file${ new Date().getTime() }.mp4`;
+    this.setState({
+      currentVideoName: fileName
+    });
     Host.file.downloadFile(url, fileName).then((res) => {
-      Host.file.saveFileToPhotosAlbum(fileName).then(() => {
-        alert(`${ fileName } 已保存到系统相册`);
+      Host.file.saveFileToPhotosAlbum(fileName).then((result) => {
+        alert(`${ fileName } 已保存到系统相册 ${ result }`);
       }).catch((result) => {
         alert(result);
       });
@@ -114,8 +156,23 @@ export default class PhotoDemo extends React.Component {
     let imageName = `screen_${ new Date().getTime() }.png`;
     Host.file.screenShot(imageName)
       .then((imagePath) => {
-        Host.file.saveImageToPhotosDidAlbum(imageName).then(() => {
-          alert("已保存到相册");
+        Host.file.saveImageToPhotosDidAlbum(imageName).then((result) => {
+          alert(`已保存到相册 ${ result }`);
+        }).catch((result) => {
+          alert(JSON.stringify(result));
+        });
+      })
+      .catch((result) => {
+        alert(JSON.stringify(result));
+      });
+  }
+
+  snapImageSaveToDidAlbumV2() {
+    let imageName = `screen_${ new Date().getTime() }.png`;
+    Host.file.screenShot(imageName)
+      .then((imagePath) => {
+        Host.file.saveImageToPhotosDidAlbumV2(imageName).then((result) => {
+          alert(`已保存到相册 ${ result }`);
         }).catch((result) => {
           alert(JSON.stringify(result));
         });
@@ -129,8 +186,22 @@ export default class PhotoDemo extends React.Component {
     let url = 'http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_mp4_855379f77b74ca565e8ef7d68c08264c.mp4';
     let fileName = `file${ new Date().getTime() }.mp4`;
     Host.file.downloadFile(url, fileName).then((res) => {
-      Host.file.saveVideoToPhotosDidAlbum(fileName).then(() => {
-        alert(`${ fileName } 已保存到相册`);
+      Host.file.saveVideoToPhotosDidAlbum(fileName).then((result) => {
+        alert(`${ fileName } 已保存到相册 ${ result }`);
+      }).catch((result) => {
+        alert(result);
+      });
+    }).catch((error) => {
+      alert(JSON.stringify(error));
+    });
+  }
+
+  downloadVideoSaveToDidAlbumV2() {
+    let url = 'http://cdn.cnbj0.fds.api.mi-img.com/miio.files/commonfile_mp4_855379f77b74ca565e8ef7d68c08264c.mp4';
+    let fileName = `file${ new Date().getTime() }.mp4`;
+    Host.file.downloadFile(url, fileName).then((res) => {
+      Host.file.saveVideoToPhotosDidAlbumV2(fileName).then((result) => {
+        alert(`${ fileName } 已保存到相册 ${ result }`);
       }).catch((result) => {
         alert(result);
       });
@@ -254,6 +325,28 @@ export default class PhotoDemo extends React.Component {
       }
     }).catch((err) => {
       alert(JSON.stringify(err, null, '\t'));
+    });
+  }
+
+  getCropAlbums() {
+    ImageCropPicker.openPicker({
+      multiple: true
+    }).then((images) => {
+      console.log(images);
+      this.setState({
+        selectedImages: images
+      });
+    });
+  }
+
+  openCropper(imagePath) {
+    console.log("openCropper ======>", imagePath);
+    ImageCropPicker.openCropper({
+      path: imagePath,
+      width: 300,
+      height: 400
+    }).then(image => {
+      console.log(image);
     });
   }
 
