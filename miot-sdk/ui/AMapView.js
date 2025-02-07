@@ -85,7 +85,7 @@ export default class AMapView extends Component {
          */
       headingFilter: PropTypes.number,
       /**
-         * 缩放级别, [3, 20]
+         * 缩放级别, android[3, 20] ios isInChinaNow [3, 19] else [0, 20]。应用时可统一为[3, 19]
          * @member {number}
          */
       zoomLevel: PropTypes.number,
