@@ -268,5 +268,23 @@ export default {
    *
    */
   isBluetoothHalfOpenForAndroid() {
+  },
+  /**
+   * since SDK_10104
+   * @param mac
+   */
+  createBond(mac) {
+    native.MIOTBluetooth.createBond(mac);
+  },
+  /**
+   * since SDK_10104
+   * @param mac
+   */
+  removeBond(mac) {
+    if (isAndroid) {
+      native.MIOTBluetooth.removeBond(mac);
+    } else {
+      native.MIOTBluetooth.disconnectDeviceWithDelay(mac, 0);
+    }
   }
 };

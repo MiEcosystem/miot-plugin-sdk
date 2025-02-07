@@ -191,6 +191,14 @@ export default {
      return  0
   },
   /**
+   * @const
+   * @type string
+   * @description 手机唯一id
+   */
+  get phoneId() {
+    return native.MIOTHost.systemInfo.phoneId;
+  },
+  /**
      * 判断是否是调试版本
      * @const
      * @type {boolean}
@@ -518,6 +526,14 @@ export default {
    * 效果可参考com.xiaomi.demo中的PadScrollDemo
    */
   setPadScrollDealStrategy(params) {
+  },
+  /**
+   * @since 10104
+   * 调用系统剪贴板
+   * @param text
+   */
+  copyToClipboard(text) {
+    native.MIOTHost.copyToClipboard(text);
   }
 };
 export const PAD_SCROLL_STRATEGY = {
