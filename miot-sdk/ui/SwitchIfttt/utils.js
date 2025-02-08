@@ -467,7 +467,7 @@ export function getCustomSceneName(sceneName) {
 }
 export function getLocalI18n(key, replaces) {
   if (replaces?.length) {
-    let v = I18n[key];
+    let v = I18n?.[key];
     if (!v) { return ''; }
     replaces.forEach((r, i) => {
       v = v.replace('${}', r);
@@ -501,4 +501,22 @@ export function getSwitchTypeBySceneAction(sceneAction) {
     }
   }
   return '';
+}
+export function getSceneTriggerListParam(spec, propSpec, value) {
+  return {
+    did: Device.deviceID,
+    key: spec.miid ? `event.${ spec.miid }.${ spec.siid }.${ spec.eiid }` : `event.${ spec.siid }.${ spec.eiid }`,
+    valueType: value === undefined ? 5 : 6,
+    value_json: value === undefined ? '' : {
+      sub_props: {
+        express: 0,
+        attr: [{
+          key: propSpec?.miid ? `prop.${ Device.model }.${ propSpec?.miid }.${ propSpec?.siid }.${ propSpec?.piid }` : `prop.${ Device.model }.${ propSpec?.siid }.${ propSpec?.piid }`,
+          value: value,
+          value_type: 1
+        }]
+      }
+    },
+    triggerKey: spec.miid ? `event.${ spec.miid }.${ spec.siid }.${ spec.eiid }.${ value || '' }` : `event.${ spec.siid }.${ spec.eiid }.${ value || '' }`
+  };
 }
