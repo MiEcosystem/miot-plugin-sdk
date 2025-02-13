@@ -34,7 +34,6 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
   useEffect(() => {
     const fetchCreateGroupData = async() => {
       try {
-        console.log('12138data.begin');
         const result = await Device.isBelongToCarRoom(Device.deviceID);
         setCreateGroupResult(result);
       } catch (error) {
@@ -110,8 +109,6 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
     if (key === 'createGroup') {
       // 车机隐藏创建灯组：code:0 表示成功，data:true表示车机，data:false表示非车机
       if (createGroupResult && createGroupResult.code === 0 && createGroupResult.data === true) {
-        console.log('12138data', createGroupResult);
-        console.log('12138data=null');
         return null;
       } else {
         return (

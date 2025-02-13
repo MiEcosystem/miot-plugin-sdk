@@ -1213,7 +1213,7 @@ export default class CommonSetting extends React.Component {
     }
     // 创建组设备
     // 蓝牙单模和组设备不能创建
-    if (['6', '17'].indexOf(Device.type) === -1 && ['light'].indexOf(modelType) !== -1) {
+    if (['6', '17'].indexOf(Device.type) === -1 && ['light'].indexOf(modelType) !== -1 && !isCariotDevice) {
       requireKeys1.push(AllOptions.CREATE_GROUP);
     }
     // 管理组设备
