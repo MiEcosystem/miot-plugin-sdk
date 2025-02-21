@@ -1,5 +1,5 @@
 'use strict';
-import { DarkMode, Device, DeviceEvent, Package } from 'miot';
+import { DarkMode, Device, DeviceEvent, Package, Service } from 'miot';
 import Host from 'miot/Host';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -292,6 +292,13 @@ export default class MoreSetting extends React.Component {
         {
           items.map((item, index) => {
             tryTrackCommonSetting(item.key, 'expose');
+            // 设置页固件升级曝光埋点
+            if (item.key === AllOptions.FIRMWARE_UPGRADE) {
+              Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
+              const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
+                'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
+              Service.smarthome.reportEventRefChannel("expose", params);
+            }
             const showSeparator = false;// index !== items.length - 1;
             return (
               <ListItem
@@ -301,6 +308,13 @@ export default class MoreSetting extends React.Component {
                 onPress={() => {
                   if (item.onPress) {
                     tryTrackCommonSetting(item.key, 'click');
+                    // 设置页固件升级点击埋点
+                    if (item.key === AllOptions.FIRMWARE_UPGRADE) {
+                      Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
+                      const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
+                        'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
+                      Service.smarthome.reportEventRefChannel("click", params);
+                    }
                     item.onPress();
                   }
                 }}

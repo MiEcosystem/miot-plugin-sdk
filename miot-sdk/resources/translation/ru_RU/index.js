@@ -239,6 +239,12 @@ export default {
   deviceSN: 'Серийный номер устройства',
   mcuVersion: 'Версия прошивки MCU',
   sdkVersion: 'Версия прошивки SDK',
+  deviceModel: 'Модель устройства',
+  deviceQR: 'QR-код устройства',
+  download: 'Скачать',
+  saveSuccess: 'Сохранено',
+  saveFailed: 'Не удалось сохранить',
+  clipboardy: 'Скопировано',
   connected: 'Подключено',
   notConnected: 'Не подключено',
   bleConnected: 'Прямое Bluetooth-соединение',
@@ -335,5 +341,6 @@ export default {
   common_list_empty: 'Здесь ничего нет',
   switch_dia_msg_repeatScene: '当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？',
   common_loading: '加载中，请稍后...',
-  pairMode: 'Режим сопряжения'
+  pairMode: 'Режим сопряжения',
+  switch_title_buttonControlDevice_oneGang: 'Управление устройством'
 };

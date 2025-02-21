@@ -1335,6 +1335,20 @@ class IFile {
   readFileInfo(fileName, type) {
      return Promise.resolve(null);
   }
+  /**
+   * 生成二维码并保存到插件路径
+   * @since 10103
+   * @param {object} params 
+   * @param {string} params.qrStr: 二维码数据
+   * @param {int} params.size: 二维码宽度 int 只穿宽度就行 二维码默认正方形
+   * @returns {Promise}
+   * 成功时: {code:0, data: "xxxxx"} 绝对路径filePath
+   * 失败时：{"code":xxx, "message":"xxx" }
+   */
+  @report
+  generateQRCodeAndSave(params) {
+     return Promise.resolve(null);
+  }
 }
 const FileInstance = new IFile();
 export default FileInstance;

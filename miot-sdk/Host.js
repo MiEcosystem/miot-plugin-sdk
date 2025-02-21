@@ -164,6 +164,17 @@ export default {
     return false;
   },
   /**
+   * 双端为支持小米口袋打印机Pro 设备分享需求添加
+   * since 10103
+   * @returns {*}
+   */
+  get isMiuiChannel() {
+    if (isAndroid) {
+      return native.MIOTHost.isMiuiChannel;
+    }
+    return false;
+  },
+  /**
      * @const
      * @type string
      * @description APP 的版本, 例如"1.0.0"
@@ -178,6 +189,14 @@ export default {
      */
   get apiLevel() {
      return  0
+  },
+  /**
+   * @const
+   * @type string
+   * @description 手机唯一id
+   */
+  get phoneId() {
+    return native.MIOTHost.systemInfo.phoneId;
   },
   /**
      * 判断是否是调试版本
@@ -507,6 +526,14 @@ export default {
    * 效果可参考com.xiaomi.demo中的PadScrollDemo
    */
   setPadScrollDealStrategy(params) {
+  },
+  /**
+   * @since 10104
+   * 调用系统剪贴板
+   * @param text
+   */
+  copyToClipboard(text) {
+    native.MIOTHost.copyToClipboard(text);
   }
 };
 export const PAD_SCROLL_STRATEGY = {

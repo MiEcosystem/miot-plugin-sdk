@@ -110,6 +110,7 @@ const API_REPO = {
   '/device/deviceinfo': {},
   '/v2/device/ble_event': {},
   '/share/get_share_user': {},
+  '/share/share_request': {},
   '/v2/aftersale/validate': {},
   '/v2/aftersale/create': {},
   '/v2/aftersale/list': {},
@@ -134,6 +135,8 @@ const API_REPO = {
   '/miot/camera/app/v1/getVideoListByFigure': {},
   '/miot/camera/app/v1/modify/figureOfVideo': {},
   '/common/app/get/eventlist': {},
+  '/common/app/get/standard/plugin/event/statistics': {},
+  '/common/app/get/standard/plugin/hour/event/statistics': {},
   '/common/app/v2/delete/files': {},
   '/miot/camera/app/v2/get/spec/property': {},
   '/miot/camera/app/v2/put/spec/property': {},
@@ -153,7 +156,7 @@ const API_REPO = {
   '/miot/camera/app/v2/get/alarmSwitch': {},
   '/miot/camera/app/v2/put/motionDetectionSwitch': {},
   '/common/app/file/delete/status': {},
-  '/miot/camera/app/v1/set/pushStyle':{},
+  '/miot/camera/app/v1/set/pushStyle': {},
   '/v2/public/get_weekday_info': {},
   '/v2/device/blt_get_beaconkey': {},
   '/v2/device/set_alarm_info': {},
@@ -266,6 +269,8 @@ const API_REPO = {
   '/v2/device/delLockPushSwitch': {},
   '/v2/device/insurance': {},
   '/v2/device/engineer': {},
+  '/v2/device/devicerssi': {},
+  
   // 疯景1代门铃迁移rn接口
   '/common/app/delete/files': {},
   '/common/app/get/playlist': {},
@@ -327,11 +332,6 @@ const API_REPO = {
   '/common/app/v1/dailyStory/generateMemory': {},
   '/common/app/get/emotion/status': {},
   '/common/app/get/event/emostatiscs': {},
-  // 趣拍回忆相关
-  '/miot/camera/app/v1/nineSeconds/m3u8': {},
-  '/common/app/v1/dailyStory/generateMemory': {},
-  '/common/app/get/emotion/status': {},
-  '/common/app/get/event/emostatiscs': {},
   // M30门锁相关
   '/scenesrv/apppushservice/GetDeviceEmergencyTelephoneNotificationInfo': {},
   // 事件顺序相关
@@ -353,6 +353,8 @@ const API_REPO = {
   '/scenesrv/apppushservice/GetWechatPushSwitch': {}, // 小程序
   '/scenesrv/apppushservice/SetWechatPushSwitch': {},
   '/business/camera/vip_tips_switch': {},
+  '/business/camera/cateye_vip_tips': {},
+  '/business/camera/lock_vip_tips': {},
   '/camera_cloud/card_cloud_switch/set': {},
   // 摄像机人形检测开关
   '/miot/camera/app/v1/put/serverPeopleMotionCheckSwitch': {},
@@ -361,7 +363,6 @@ const API_REPO = {
   '/smarthome/product/acpanel/plugin/device/save': {},
   '/smarthome/product/acpanel/plugin/scene/list': {},
   '/smarthome/product/acpanel/plugin/scene/save': {},
-  '/smarthome/product/acpanel/client/v1/device/list': {},
   '/smarthome/product/acpanel/client/v1/device/list': {},
   '/smarthome/product/acpanel/client/v1/sub': {}
 };

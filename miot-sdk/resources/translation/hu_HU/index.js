@@ -239,6 +239,12 @@ export default {
   deviceSN: 'Készülék SN-száma',
   mcuVersion: 'MCU firmware-verzió',
   sdkVersion: 'SDK firmware-verzió',
+  deviceModel: 'Eszközmodell',
+  deviceQR: 'Eszköz QR-kódja',
+  download: 'Letöltés',
+  saveSuccess: 'Sikeresen elmentve',
+  saveFailed: 'Sikertelen mentés',
+  clipboardy: 'Sikeresen másolva',
   connected: 'Csatlakoztatva',
   notConnected: 'Nincs csatlakoztatva',
   bleConnected: 'Közvetlen Bluetooth-kapcsolat',
@@ -335,5 +341,6 @@ export default {
   common_list_empty: 'Itt még nincs semmi',
   switch_dia_msg_repeatScene: '当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？',
   common_loading: '加载中，请稍后...',
-  pairMode: 'Párosítási mód'
+  pairMode: 'Párosítási mód',
+  switch_title_buttonControlDevice_oneGang: 'Eszközvezérlők'
 };

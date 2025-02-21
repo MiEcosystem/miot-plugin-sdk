@@ -239,6 +239,12 @@ export default {
   deviceSN: 'Σειριακός αριθμός συσκευής',
   mcuVersion: 'Έκδοση του MCU υλικολογισμικού',
   sdkVersion: 'Έκδοση του SDK υλικολογισμικού',
+  deviceModel: 'Μοντέλο συσκευής',
+  deviceQR: 'Κωδικός QR της συσκευής',
+  download: 'Λήψη',
+  saveSuccess: 'Αποθηκεύτηκε με επιτυχία',
+  saveFailed: 'Δεν ήταν δυνατή η αποθήκευση',
+  clipboardy: 'Αντιγράφηκε με επιτυχία',
   connected: 'Σε σύνδεση',
   notConnected: 'Δεν συνδέθηκε',
   bleConnected: 'Άμεση σύνδεση Bluetooth',
@@ -335,5 +341,6 @@ export default {
   common_list_empty: 'Δεν υπάρχει τίποτα εδώ ακόμα',
   switch_dia_msg_repeatScene: '当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？',
   common_loading: '加载中，请稍后...',
-  pairMode: 'Λειτουργία ζεύξης'
+  pairMode: 'Λειτουργία ζεύξης',
+  switch_title_buttonControlDevice_oneGang: 'Έλεγχος Συσκευής'
 };

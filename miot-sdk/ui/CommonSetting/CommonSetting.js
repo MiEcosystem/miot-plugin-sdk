@@ -824,6 +824,18 @@ export default class CommonSetting extends React.Component {
         onPress: () => Host.ui.openSecuritySetting()
       };
     }
+    
+    // 2024/11/22 C501标插需求：安全设置和桌面快捷方式进一级页面
+    if (Device.model == "chuangmi.camera.079ac1" || Device.model == "chuangmi.camera.079ae2") {
+      ret[AllOptions.SECURITY] = {
+        title: strings.security,
+        onPress: () => Host.ui.openSecuritySetting()
+      };
+      ret[AllOptions.ADD_TO_DESKTOP] = {
+        title: strings.addToDesktop,
+        onPress: () => Host.ui.openAddToDesktopPage()
+      };
+    }
     return ret;
   }
   constructor(props, context) {
@@ -1264,6 +1276,10 @@ export default class CommonSetting extends React.Component {
         return key !== AllOptions.LOCATION && key !== AllOptions.SHARE && key !== AllOptions.FREQ_DEVICE;
       });
     }
+    // 配合C501标插安全设置权重需求
+    if (Device.model == "chuangmi.camera.079ac1" || Device.model == "chuangmi.camera.079ae2") {
+      AllOptionsWeight[AllOptions.SECURITY] = 24;
+    }
     // 4.5 所有设置项顺序固定，20190708 / SDK_10023
     keys.sort((keyA, keyB) => {
       let weightA, weightB;
@@ -1316,6 +1332,13 @@ export default class CommonSetting extends React.Component {
             if (!item || !item.title) return null;
             const showSeparator = false;// index !== items.length - 1;
             tryTrackCommonSetting(item.key, 'expose');
+            // 设置页固件升级曝光埋点
+            if (item.key === AllOptions.FIRMWARE_UPGRADE) {
+              Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
+              const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
+                'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
+              Service.smarthome.reportEventRefChannel("expose", params);
+            }
             if (item._itemType === 'greenSwitch') {
               return (
                 <ListItemWithSwitch
@@ -1389,6 +1412,13 @@ export default class CommonSetting extends React.Component {
                   onPress={() => {
                     if (item.onPress) {
                       tryTrackCommonSetting(item.key, 'click');
+                      // 设置页固件升级点击埋点
+                      if (item.key === AllOptions.FIRMWARE_UPGRADE) {
+                        Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
+                        const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
+                          'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
+                        Service.smarthome.reportEventRefChannel("click", params);
+                      }
                       item.onPress();
                     }
                   }}

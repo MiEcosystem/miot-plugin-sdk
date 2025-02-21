@@ -147,7 +147,7 @@ class IXiaoai {
    return Promise.resolve(null);
   }
   /**
-   * @since 10101
+   * @since 10104
    * 调用小爱SDK，将文本转为语音MP3文件。
    * @param params 传递的jsonObject对象参数
    * @example

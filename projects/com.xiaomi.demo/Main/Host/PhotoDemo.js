@@ -6,6 +6,7 @@ import { Host } from "miot";
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Image } from 'react-native';
 import Video from 'react-native-video';
+import ImageCropPicker from 'react-native-image-crop-picker';
 import Logger from '../Logger';
 
 export default class PhotoDemo extends React.Component {
@@ -14,6 +15,7 @@ export default class PhotoDemo extends React.Component {
     super(props, context);
     this.state = {
       currentAsset: {},
+      selectedImages:[],
       currentVideoName: "",
       currentImageName: ""
     };
@@ -51,6 +53,7 @@ export default class PhotoDemo extends React.Component {
               });
             })],
             ['获取相册列表', this.getAlbums],
+            ['获取可编辑相册图片', this.getCropAlbums],
             ['获取相册中的内容', this.getAsserts]
           ].map((item, index) => {
             return (
@@ -64,6 +67,7 @@ export default class PhotoDemo extends React.Component {
           })
         }
         {this.renderAsset()}
+        {this.renderPikcerSelected()}
       </ScrollView >
     );
   }
@@ -96,6 +100,20 @@ export default class PhotoDemo extends React.Component {
           />
         </View>;
       }
+    }
+  }
+
+  renderPikcerSelected() {
+    if (this.state.selectedImages.length == 0) {
+      return null;
+    } else {
+        return this.state.selectedImages.map((asset, index) =>  {
+          return <TouchableOpacity key={index} style={styles.container} onPress={ () => {
+            this.openCropper(asset.path)
+            } }>
+              <Image source={{ uri: asset.path, width: asset.width, height: asset.height }} style={{ marginTop: 20, alignSelf: 'center', width: 150, height: 150 }}></Image>
+          </TouchableOpacity>
+        })
     }
   }
 
@@ -307,6 +325,28 @@ export default class PhotoDemo extends React.Component {
       }
     }).catch((err) => {
       alert(JSON.stringify(err, null, '\t'));
+    });
+  }
+
+  getCropAlbums() {
+    ImageCropPicker.openPicker({
+      multiple: true
+    }).then((images) => {
+      console.log(images);
+      this.setState({
+        selectedImages: images
+      });
+    });
+  }
+
+  openCropper(imagePath) {
+    console.log("openCropper ======>", imagePath);
+    ImageCropPicker.openCropper({
+      path: imagePath,
+      width: 300,
+      height: 400
+    }).then(image => {
+      console.log(image);
     });
   }
 

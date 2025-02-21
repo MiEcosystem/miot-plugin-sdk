@@ -239,6 +239,12 @@ export default {
   deviceSN: 'Nr seryjny urządzenia',
   mcuVersion: 'Wersja oprogramowania sprzętowego MCU',
   sdkVersion: 'Wersja oprogramowania sprzętowego SDK',
+  deviceModel: 'Model urządzenia',
+  deviceQR: 'Kod QR urządzenia',
+  download: 'Pobierz',
+  saveSuccess: 'Zapisano pomyślnie',
+  saveFailed: 'Nie udało się zapisać',
+  clipboardy: 'Skopiowano pomyślnie',
   connected: 'Połączono',
   notConnected: 'Nie połączono',
   bleConnected: 'Bezpośrednie połączenie Bluetooth',
@@ -335,5 +341,6 @@ export default {
   common_list_empty: 'Pusto',
   switch_dia_msg_repeatScene: '当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？',
   common_loading: '加载中，请稍后...',
-  pairMode: 'Tryb parowania'
+  pairMode: 'Tryb parowania',
+  switch_title_buttonControlDevice_oneGang: 'Sterowanie urządzeniem'
 };

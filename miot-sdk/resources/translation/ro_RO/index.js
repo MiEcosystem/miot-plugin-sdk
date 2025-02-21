@@ -239,6 +239,12 @@ export default {
   deviceSN: 'Număr serie dispozitiv',
   mcuVersion: 'Vesiune firmware MCU',
   sdkVersion: 'Vesiune firmware SDK',
+  deviceModel: 'Modelul dispozitivului',
+  deviceQR: 'Codul QR al dispozitivului',
+  download: 'Descărcați',
+  saveSuccess: 'Salvat cu succes',
+  saveFailed: 'Nu s-a putut salva',
+  clipboardy: 'Copiat cu succes',
   connected: 'Conectat',
   notConnected: 'Neconectat',
   bleConnected: 'Conexiune Bluetooth directă',
@@ -335,5 +341,6 @@ export default {
   common_list_empty: 'Deocamdată nu există nimic aici',
   switch_dia_msg_repeatScene: '当前按键已创建了单击自动化，关联控制设备后，自动化可能会重复执行，是否需删除控制设备的关联？',
   common_loading: '加载中，请稍后...',
-  pairMode: 'Mod de asociere'
+  pairMode: 'Mod de asociere',
+  switch_title_buttonControlDevice_oneGang: 'Comenzile dispozitivului'
 };
