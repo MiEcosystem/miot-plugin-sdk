@@ -1,12 +1,12 @@
 /**
  * Created by sww on 2016/10/2.
  */
-import{
+import {
   SwRefreshScrollView,
   SwRefreshListView,
   RefreshStatus,
   LoadMoreStatus
-} from './SwRefresh'
+} from './SwRefresh';
 
 export {
   SwRefreshScrollView,
@@ -14,4 +14,4 @@ export {
   RefreshStatus,
   LoadMoreStatus
 
-}
+};
