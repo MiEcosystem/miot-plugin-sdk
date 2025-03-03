@@ -148,12 +148,37 @@ class IXiaoai {
   }
   /**
    * @since 10104
+   * 设置小爱认证信息（预留方法，10104暂不需要）
+   * @see {@link callXiaoaiTTS }
+   * @param params 传递的jsonObject对象参数
+   * @example
+   * let params={
+   *  clientId: xx,
+   *  signSecret: xx,
+   *  ApiKeyName: xx,
+   *  ApiKey: xx,
+   *  CertMD5: xx,
+   *  CertSHA256: xx,
+   * }
+   * @returns
+   *    成功时：
+   *    { code: 0}
+   *    失败时：
+   *    { code: xx, message: 'xx' }
+   */
+  setXiaoaiTTSAuth(params = {}) {
+     return Promise.resolve(null);
+  }
+  /**
+   * @since 10104
    * 调用小爱SDK，将文本转为语音MP3文件。
    * @param params 传递的jsonObject对象参数
    * @example
    * let params={
    *  text: xx,           || 需要转成MP3的文字 必填
    *  role: xx,           || male，female 选填
+   *  clientId: xx,       || 小爱鉴权（预留字段，10104暂不需要） @see {@link setXiaoaiTTSAuth }
+   * }
    * @returns
    *    成功时：
    *    { code: 0, data: {
