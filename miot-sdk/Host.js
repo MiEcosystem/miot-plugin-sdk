@@ -550,6 +550,18 @@ export default {
   setPadScrollDealStrategy(params) {
   },
   /**
+   * @method connectWifi
+   * @since 10105
+   * @description 连接wifi
+   *
+   * @param {string} ssid - ssid
+   * @param {string} passwd - wifi密码
+   * @returns {Promise}
+   */
+  connectWifi(ssid, passwd = '') {
+     return Promise.resolve(null);
+  },
+  /**
    * Q版本之后的接口：插件直接调用，然后弹出系统半窗，这个半窗会自动扫描，然后用户选择后，给插件回调
    * @since 10105
    * @param ssid
