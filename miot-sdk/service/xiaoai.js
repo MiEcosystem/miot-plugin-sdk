@@ -1,3 +1,47 @@
+/**
+ * @since 10070
+ * @doc_name 小爱
+ * @description 提供给小爱使用的相关API
+ */
+import native from '../native/index';
+/**
+ * @export
+ */
+class IXiaoai {
+  /**
+   * @param params 透传
+   * @since 10070
+   * @returns Promise
+   */
+  showQQMusicAuthAlert(params = {}) {
+     return Promise.resolve(null);
+  }
+  
+  /**
+   * @since 10072
+   * 获取QQ音乐绑定信息 
+   * @param {jsonObject} params 传递的jsonObject对象参数
+   * @example
+   * let params={
+   *  clientId: xx, ||设备在小米账号平台注册的id 
+   *  aiAppId: xx,  ||小爱开放平台 appId
+   *  deviceId: xx  ||对应的设备id
+   * }
+   * service.xiaoai.fetchQQMusicBindInfo(params);
+   *  * @returns {object} 成功时，返回：
+   * { code: 0,
+   *    data: {
+   *     state: xx, 
+   *     qqMusicOpenId: xx,
+   *     authStr: xx
+   *    }
+   * }
+   * 当 state = binded, qqMusicOpenId 会有值, authStr 无值
+   * 当 state = unbinded 时， qqMusicOpenId 无值, authStr 有值，可用于唤醒QQ音乐客户端
+   * 失败时，返回：透传
+   * { code: xx, message: 'xx' }
+   */
+  fetchQQMusicBindInfo(params = {}) {
      return Promise.resolve(null);
   }
   /**
@@ -93,7 +137,7 @@
    *  * @returns {object} 成功时，返回：
    * { code: 0,
    *    data: {
-   *      //接口返回的透传数据
+   *      url: "https://... " //接口返回的透传数据
    *    }
    * }
    * 失败时，返回：透传
@@ -101,6 +145,50 @@
    */
   callXiaoaiServiceAPI(params = {}) {
    return Promise.resolve(null);
+  }
+  /**
+   * @since 10105
+   * 设置小爱认证信息（预留方法，10105暂不需要）
+   * @see {@link callXiaoaiTTS }
+   * @param params 传递的jsonObject对象参数
+   * @example
+   * let params={
+   *  clientId: xx,
+   *  signSecret: xx,
+   *  ApiKeyName: xx,
+   *  ApiKey: xx,
+   *  CertMD5: xx,
+   *  CertSHA256: xx,
+   * }
+   * @returns
+   *    成功时：
+   *    { code: 0}
+   *    失败时：
+   *    { code: xx, message: 'xx' }
+   */
+  setXiaoaiTTSAuth(params = {}) {
+     return Promise.resolve(null);
+  }
+  /**
+   * @since 10105
+   * 调用小爱SDK，将文本转为语音MP3文件。
+   * @param params 传递的jsonObject对象参数
+   * @example
+   * let params={
+   *  text: xx,           || 需要转成MP3的文字 必填
+   *  role: xx,           || male，female 选填
+   *  clientId: xx,       || 小爱鉴权（预留字段，10105暂不需要） @see {@link setXiaoaiTTSAuth }
+   * }
+   * @returns
+   *    成功时：
+   *    { code: 0, data: {
+   *      // 返回的mp3文件下载地址 https:// ...
+   *    }}
+   *    失败时：
+   *    { code: xx, message: 'xx' }
+   */
+  callXiaoaiTTS(params = {}) {
+     return Promise.resolve(null);
   }
 }
 const IXiaoaiInstance = new IXiaoai();

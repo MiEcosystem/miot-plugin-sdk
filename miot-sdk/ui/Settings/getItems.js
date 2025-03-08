@@ -5,6 +5,7 @@ import ListItem from '../ListItem/ListItem';
 import useModelType from '../../hooks/useModelType';
 import useDeviceRoomInfo from '../../hooks/useDeviceRoomInfo';
 import tryTrackCommonSetting from "../../utils/track-sdk";
+import { useEffect } from 'react';
 export const clickedItems = [];
 export function useClicked(key) {
   const [clicked, setClicked] = useState(clickedItems.includes(key));
@@ -29,6 +30,19 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
   const modelType = useModelType();
   // 最终配置的项，包括调用方传入的项，和默认项
   const mergedOptions = [...(new Set([...(options || []), ...(defaultOptions || [])]))];
+  const [createGroupResult, setCreateGroupResult] = useState(null);
+  useEffect(() => {
+    const fetchCreateGroupData = async() => {
+      try {
+        const result = await Device.isBelongToCarRoom(Device.deviceID);
+        setCreateGroupResult(result);
+      } catch (error) {
+        console.error('获取 createGroup 数据时出错:', error);
+      }
+    };
+    // 只在组件第一次挂载时执行一次
+    fetchCreateGroupData();
+  }, []);
   return keys.map((key, index) => {
     if (key instanceof Function) {
       return key(params);
@@ -92,19 +106,40 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
       return null;
     }
     tryTrackCommonSetting(String(key), 'expose');
-    return (
-      <ListItem
-        key={String(key)}
-        title={title instanceof Function ? title({
-          modelType
-        }) : title}
-        value={String([undefined, null].includes(value) ? '' : value)}
-        onPress={delegatePress(onPress, params, key)}
-        showDot={showDots.includes(key) && !clickedItems.includes(key)}
-        useNewType={true}
-        hideArrow={!onPress}
-      />
-    );
+    if (key === 'createGroup') {
+      // 车机隐藏创建灯组：code:0 表示成功，data:true表示车机，data:false表示非车机
+      if (createGroupResult && createGroupResult.code === 0 && createGroupResult.data === true) {
+        return null;
+      } else {
+        return (
+          <ListItem
+            key={String(key)}
+            title={title instanceof Function ? title({
+              modelType
+            }) : title}
+            value={String([undefined, null].includes(value) ? '' : value)}
+            onPress={delegatePress(onPress, params, key)}
+            showDot={showDots.includes(key) && !clickedItems.includes(key)}
+            useNewType={true}
+            hideArrow={!onPress}
+          />
+        );
+      }
+    } else {
+      return (
+        <ListItem
+          key={String(key)}
+          title={title instanceof Function ? title({
+            modelType
+          }) : title}
+          value={String([undefined, null].includes(value) ? '' : value)}
+          onPress={delegatePress(onPress, params, key)}
+          showDot={showDots.includes(key) && !clickedItems.includes(key)}
+          useNewType={true}
+          hideArrow={!onPress}
+        />
+      );
+    }
   });
 }
 export function delegatePress(cb, params, key, click) {

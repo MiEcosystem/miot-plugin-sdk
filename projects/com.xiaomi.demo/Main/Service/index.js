@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View
 } from 'react-native';
-import { Service } from 'miot';
+import { Host, Service } from 'miot';
 import Logger from '../Logger';
 
 export default class HostDemo extends React.Component {
@@ -162,6 +162,31 @@ export default class HostDemo extends React.Component {
           }).catch((err) => {
             console.log(JSON.stringify(err));
             alert(JSON.stringify(err));
+          });
+        }
+      },
+      {
+        'name': 'XiaoaiTTS',
+        'func': () => {
+          Service.xiaoai.callXiaoaiTTS({ "text": "永远相信美好的事情即将发生", "role": "male" }).then((res) => {
+            console.log(JSON.stringify(res));
+            let { data: { url } } = res;
+            console.log(JSON.stringify(url));
+            let fileName = `file${ new Date().getTime() }.mp3`;
+            Host.file.downloadFile(url, fileName).then((res) => {
+              console.log(JSON.stringify(res));
+              Host.audio.getMediaDuration(fileName).then((res) => {
+                console.log(JSON.stringify(res));
+                let { data: { duration } } = res;
+                alert(JSON.stringify(duration));
+              }).catch((err) => {
+                console.log(JSON.stringify(err));
+              });
+            }).catch((err) => {
+              console.log(JSON.stringify(err));
+            });
+          }).catch((err) => {
+            console.log(JSON.stringify(err));
           });
         }
       }
