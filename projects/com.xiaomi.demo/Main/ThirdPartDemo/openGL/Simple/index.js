@@ -6,7 +6,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  Slider,
+  Slider
 } from "react-native";
 
 import { Surface } from "gl-react-native";
@@ -52,7 +52,7 @@ class Demos extends Component {
               }}
               onPress={() => onChange(i)}
             >
-              {"" + (i + 1)}
+              {`${ i + 1 }`}
             </Text>
           )}
         </View>
@@ -91,7 +91,7 @@ class Simple extends Component {
     // }
     this.refs.helloGL
       .captureFrame(captureConfig)
-      .then(captured => this.setState({ captured, captureConfig }));
+      .then((captured) => this.setState({ captured, captureConfig }));
   };
 
   render() {
@@ -111,7 +111,7 @@ class Simple extends Component {
 
     return (
       <View style={styles.container}>
-        <Demos onChange={current => this.setState({ current })} value={current}>
+        <Demos onChange={(current) => this.setState({ current })} value={current}>
           <Demo id={1} title="1. Hello GL">
             <Surface width={256} height={171} ref="helloGL">
               <HelloGL />
@@ -140,7 +140,7 @@ class Simple extends Component {
                   type={captureConfig.type}
                 </Text>
                 <Text style={{ fontSize: 10 }}>
-                  quality={captureConfig.quality + ""}
+                  quality={`${ captureConfig.quality }`}
                 </Text>
               </View>}
             {captured &&
@@ -161,7 +161,7 @@ class Simple extends Component {
             </Surface>
             <Slider
               maximumValue={8}
-              onValueChange={saturationFactor =>
+              onValueChange={(saturationFactor) =>
                 this.setState({ saturationFactor })}
             />
           </Demo>
@@ -183,11 +183,11 @@ class Simple extends Component {
             </Surface>
             <Slider
               maximumValue={2 * Math.PI}
-              onValueChange={hue => this.setState({ hue })}
+              onValueChange={(hue) => this.setState({ hue })}
             />
             <TextInput
               style={{ height: 40, borderColor: "#aaa", borderWidth: 1 }}
-              onChangeText={text => this.setState({ text })}
+              onChangeText={(text) => this.setState({ text })}
               value={text}
             />
           </Demo>
@@ -228,7 +228,7 @@ class Simple extends Component {
             </View>
             <Slider
               maximumValue={1}
-              onValueChange={progress => this.setState({ progress })}
+              onValueChange={(progress) => this.setState({ progress })}
             />
           </Demo>
 
