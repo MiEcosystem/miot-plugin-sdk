@@ -29,6 +29,7 @@ let freqFlagValue = undefined;// 米家首页显示item打点用
 // modelType将被赋值，若赋的值与接下来进来的did不一致，则导致展示异常
 let did = '';
 let modelType = '';
+const DeviceModelList = ["chuangmi.camera.079ac1", "chuangmi.camera.079ae2", "xiaomi.camera.083ac1", "xiaomi.camera.082ac1", "xiaomi.camera.c302", "xiaomi.camera.c302o"];
 function getModelType() {
   return new Promise((resolve) => {
     if (modelType && did === Device.deviceID) {
@@ -826,7 +827,7 @@ export default class CommonSetting extends React.Component {
     }
     
     // 2024/11/22 C501标插需求：安全设置和桌面快捷方式进一级页面
-    if (Device.model == "chuangmi.camera.079ac1" || Device.model == "chuangmi.camera.079ae2") {
+    if (DeviceModelList.includes(Device.model)) {
       ret[AllOptions.SECURITY] = {
         title: strings.security,
         onPress: () => Host.ui.openSecuritySetting()
