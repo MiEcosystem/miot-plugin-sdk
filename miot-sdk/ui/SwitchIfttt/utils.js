@@ -505,7 +505,7 @@ export function getSwitchTypeBySceneAction(sceneAction) {
 export function getSceneTriggerListParam(spec, propSpec, value) {
   return {
     did: Device.deviceID,
-    key: spec.miid ? `event.${ spec.miid }.${ spec.siid }.${ spec.eiid }` : `event.${ spec.siid }.${ spec.eiid }`,
+    key: encodeProp(spec),
     valueType: value === undefined ? 5 : 6,
     value_json: value === undefined ? '' : {
       sub_props: {
@@ -517,6 +517,6 @@ export function getSceneTriggerListParam(spec, propSpec, value) {
         }]
       }
     },
-    triggerKey: spec.miid ? `event.${ spec.miid }.${ spec.siid }.${ spec.eiid }.${ value || '' }` : `event.${ spec.siid }.${ spec.eiid }.${ value || '' }`
+    triggerKey: spec?.miid ? `event.${ spec?.miid }.${ spec?.siid }.${ spec?.eiid }.${ value || '' }` : `event.${ spec?.siid }.${ spec?.eiid }.${ value || '' }`
   };
 }
