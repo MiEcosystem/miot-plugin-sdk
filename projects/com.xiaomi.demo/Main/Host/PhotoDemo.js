@@ -4,7 +4,7 @@
 
 import { Host } from "miot";
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Image } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Image, DeviceEventEmitter } from 'react-native';
 import Video from 'react-native-video';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import Logger from '../Logger';
@@ -236,9 +236,12 @@ export default class PhotoDemo extends React.Component {
   openLivePhotoPickPage() {
     const param = { sandBoxFolder: "/data/data/tmp", callbackEvent: "callbackResult" };
     Host.ui.openPickLivePhotoPage(param).then((result) => {
-      alert(JSON.stringify(result));
+      // alert(JSON.stringify(result));
     }).catch((error) => {
       alert(error);
+    });
+    DeviceEventEmitter.addListener("callbackResult", (res) => {
+      alert(JSON.stringify(res));
     });
   }
 
