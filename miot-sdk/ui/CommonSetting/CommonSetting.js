@@ -828,12 +828,12 @@ export default class CommonSetting extends React.Component {
     }
     
     // 2025/03/13 安全设置配置
-    ret[AllOptions.SECURITY] = state.specificSetting.allowSecurity ? {
+    ret[AllOptions.SECURITY] = (state.specificSetting && state.specificSetting.allowSecurity) ? {
       title: strings.security,
       onPress: () => Host.ui.openSecuritySetting()
     } : null;
     // 2025/03/13 添加快捷方式到桌面
-    ret[AllOptions.ADD_TO_DESKTOP] = state.specificSetting.allowAddToDesktop ? {
+    ret[AllOptions.ADD_TO_DESKTOP] = (state.specificSetting && state.specificSetting.allowAddToDesktop) ? {
       title: strings.addToDesktop,
       onPress: () => Host.ui.openAddToDesktopPage()
     } : null;
