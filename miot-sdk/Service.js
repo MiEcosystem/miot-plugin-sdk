@@ -224,6 +224,14 @@ export default {
      return Promise.resolve(null);
   },
   /**
+   * @method getDevSerEnv
+   * @description 获取米家APP切换的当前服务器环境
+   * @returns (string) st、at、release、pv ，p1 其中st 对应米家iOS app的Dev 
+   */
+  getDevSerEnv() {
+     return Promise.resolve(null);
+  },
+  /**
    * @method getTimeZoneOfServer
    * @description 获取服务器所在时区
    */

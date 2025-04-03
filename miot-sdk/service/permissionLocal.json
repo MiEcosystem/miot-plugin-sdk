@@ -71,7 +71,8 @@
       "xiaomi.lock.s2",
       "xiaomi.lock.m40",
       "xiaomi.lock.g310",
-      "xiaomi.lock.g300"
+      "xiaomi.lock.g300",
+      "xiaomi.lock.m30max"
     ],
     "getDevicesWithModel": [
       "chuangmi.plug.m3",
