@@ -1205,16 +1205,16 @@ class IUi {
    @report
    openConfigRouterSubPage() {
    }
-  /**
+   /**
    * @since 10102
    * 打开选择位置地图弹框
    * @param
    * param.title(string) 标题
-   * param.message(string) 副标题 
+   * param.message(string) 副标题
    * param.homeId(string)  家庭Id 不传默认当前家庭Id
    * param.titleType(string) title类型(sunrise/sunset) 当title和message都不传时 会根据这个类型展示不同的默认title以及messge
-   * param.callbackEvent(string) 回调事件类型 会通过这个发送自定义事件 
-   * @return{Promise} 弹框点确定成功通过callbackEvent 自定义事件返回 
+   * param.callbackEvent(string) 回调事件类型 会通过这个发送自定义事件
+   * @return{Promise} 弹框点确定成功通过callbackEvent 自定义事件返回
    * {
         "city_id" = 101010100;
         "home_addr" = "xx";
@@ -1225,14 +1225,37 @@ class IUi {
    @report
    openSelectLocationMapDialog(param) {
    }
-  
+  /**
+   * 为汉图照片打印机打开LivePhone选择一张动态照片
+   * since 10106
+   * @param
+   *  param.sandBoxFolder(string) 选中的live photo存储的沙盒路径
+   */
+  @report
+   openPickLivePhotoPage(param) {
+     if (isAndroid) {
+       return new Promise((resolve, reject) => {
+         native.MIOTHost.openPickLivePhotoPage(param, (isSuccess, result) => {
+           if (isSuccess) {
+             resolve(result);
+           } else {
+             reject(result);
+           }
+         });
+       });
+     } else {
+       if (__DEV__ && console.warn) {
+         console.warn('method [openPickLivePhotoPage] can only be invoked on Android, iOS is not implemented. ');
+       }
+     }
+   }
     /**
    * 打开设备中枢功能页
    * @param  暂传空
    */
     @report
-   openDeviceHubGatewayPage(param = {}) {
-   }
+  openDeviceHubGatewayPage(param = {}) {
+  }
   /**
    * 打开紧急事件电话呼叫页面
    * @param {string} did 设备 ID
@@ -1403,15 +1426,15 @@ class IUi {
    * Android only support
    */
   @report
-  openIrDeviceManagerPage() {
-    if (isAndroid) {
-      native.MIOTHost.openIrDeviceManagerPage();
-    } else {
-      if (__DEV__ && console.warn) {
-        console.warn('method [openIrDeviceManagerPage] can only be invoked on Android, iOS is not implemented. ');
+      openIrDeviceManagerPage() {
+        if (isAndroid) {
+          native.MIOTHost.openIrDeviceManagerPage();
+        } else {
+          if (__DEV__ && console.warn) {
+            console.warn('method [openIrDeviceManagerPage] can only be invoked on Android, iOS is not implemented. ');
+          }
+        }
       }
-    }
-  }
   /**
    * 1. 添加红外遥控器
    * since 10099

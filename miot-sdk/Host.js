@@ -163,6 +163,14 @@ export default {
     }
     return false;
   },
+  get getDeviceSupportLivePhoto() {
+    if (isAndroid) {
+      return native.MIOTHost.deviceSupportLivePhoto;
+    } else {
+      // TODO iOS fix this，暂时返回false
+    }
+    return false;
+  },
   /**
    * 双端为支持小米口袋打印机Pro 设备分享需求添加
    * since 10103

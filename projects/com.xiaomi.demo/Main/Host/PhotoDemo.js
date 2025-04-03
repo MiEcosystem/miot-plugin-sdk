@@ -4,7 +4,7 @@
 
 import { Host } from "miot";
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Image } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Image, DeviceEventEmitter } from 'react-native';
 import Video from 'react-native-video';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import Logger from '../Logger';
@@ -15,7 +15,7 @@ export default class PhotoDemo extends React.Component {
     super(props, context);
     this.state = {
       currentAsset: {},
-      selectedImages:[],
+      selectedImages: [],
       currentVideoName: "",
       currentImageName: ""
     };
@@ -35,6 +35,8 @@ export default class PhotoDemo extends React.Component {
             ['下载视频保存到指定名称为did的手机相册', this.downloadVideoSaveToDidAlbum],
             ['下载视频保存到指定名称为did的手机相册V2', this.downloadVideoSaveToDidAlbumV2],
             ['获取指定did的相册中的第一个图片', this.getFirstImageFromDidAlbum],
+            ['获取当前手机是否支持LivePhoto', this.getDeviceLivePhotoSupport],
+            ['打开LivePhoto选择页', this.openLivePhotoPickPage],
             ['获取指定did的相册中的第一个视频', this.getFirstVideoFromDidAlbum],
             ['删除指定did相册中的第一个视频或照片', this.deleteFirstAssetFromDidAlbum],
             ['分享当前的视频或照片', () => Host.ui.openSystemShareWindow(this.state.currentAsset.url)],
@@ -107,13 +109,13 @@ export default class PhotoDemo extends React.Component {
     if (this.state.selectedImages.length == 0) {
       return null;
     } else {
-        return this.state.selectedImages.map((asset, index) =>  {
-          return <TouchableOpacity key={index} style={styles.container} onPress={ () => {
-            this.openCropper(asset.path)
-            } }>
-              <Image source={{ uri: asset.path, width: asset.width, height: asset.height }} style={{ marginTop: 20, alignSelf: 'center', width: 150, height: 150 }}></Image>
-          </TouchableOpacity>
-        })
+      return this.state.selectedImages.map((asset, index) => {
+        return <TouchableOpacity key={index} style={styles.container} onPress={ () => {
+          this.openCropper(asset.path);
+        } }>
+          <Image source={{ uri: asset.path, width: asset.width, height: asset.height }} style={{ marginTop: 20, alignSelf: 'center', width: 150, height: 150 }}></Image>
+        </TouchableOpacity>;
+      });
     }
   }
 
@@ -227,6 +229,21 @@ export default class PhotoDemo extends React.Component {
     });
   }
 
+  getDeviceLivePhotoSupport() {
+    alert(`getDeviceLivePhotoSupport: ${ Host.getDeviceSupportLivePhoto }`);
+  }
+
+  openLivePhotoPickPage() {
+    const param = { sandBoxFolder: "/data/data/tmp", callbackEvent: "callbackResult" };
+    Host.ui.openPickLivePhotoPage(param).then((result) => {
+      // alert(JSON.stringify(result));
+    }).catch((error) => {
+      alert(error);
+    });
+    DeviceEventEmitter.addListener("callbackResult", (res) => {
+      alert(JSON.stringify(res));
+    });
+  }
 
   getFirstImageFromDidAlbum() {
     Host.file.getAllSourceFromPhotosDidAlbum().then((res) => {
@@ -345,7 +362,7 @@ export default class PhotoDemo extends React.Component {
       path: imagePath,
       width: 300,
       height: 400
-    }).then(image => {
+    }).then((image) => {
       console.log(image);
     });
   }
