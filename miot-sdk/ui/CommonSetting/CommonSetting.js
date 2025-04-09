@@ -570,7 +570,8 @@ export default class CommonSetting extends React.Component {
     commonSettingStyle: PropTypes.object,
     accessible: AccessibilityPropTypes.accessible,
     firstCustomOptions: PropTypes.array,
-    secondCustomOptions: PropTypes.array
+    secondCustomOptions: PropTypes.array,
+    specificSetting: PropTypes.object
   }
   static defaultProps = {
     firstOptions: [
@@ -826,17 +827,16 @@ export default class CommonSetting extends React.Component {
       };
     }
     
-    // 2024/11/22 C501标插需求：安全设置和桌面快捷方式进一级页面
-    if (DeviceModelList.includes(Device.model)) {
-      ret[AllOptions.SECURITY] = {
-        title: strings.security,
-        onPress: () => Host.ui.openSecuritySetting()
-      };
-      ret[AllOptions.ADD_TO_DESKTOP] = {
-        title: strings.addToDesktop,
-        onPress: () => Host.ui.openAddToDesktopPage()
-      };
-    }
+    // 2025/03/13 安全设置配置
+    ret[AllOptions.SECURITY] = (state.specificSetting && state.specificSetting.allowSecurity) ? {
+      title: strings.security,
+      onPress: () => Host.ui.openSecuritySetting()
+    } : null;
+    // 2025/03/13 添加快捷方式到桌面
+    ret[AllOptions.ADD_TO_DESKTOP] = (state.specificSetting && state.specificSetting.allowAddToDesktop) ? {
+      title: strings.addToDesktop,
+      onPress: () => Host.ui.openAddToDesktopPage()
+    } : null;
     return ret;
   }
   constructor(props, context) {
@@ -864,7 +864,8 @@ export default class CommonSetting extends React.Component {
       showDeviceService: false, // 是否暂展示「设备服务」选项，
       cloudStorageOn: -1,
       isCariotDevice: false,
-      isHomeManager: false
+      isHomeManager: false,
+      specificSetting: props.specificSetting // 是否支持设备的特定设置
     };
     console.log(`Device.type: ${ Device.type + Device.deviceID }`);
     this.commonSetting = this.getCommonSetting(this.state);
