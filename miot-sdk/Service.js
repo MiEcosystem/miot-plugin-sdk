@@ -51,7 +51,7 @@ import TJInfra from './service/tjinfra';
 import MiotCamera from './service/miotcamera';
 import Kookong from './service/kookong';
 import XiaoAi from './service/xiaoai';
-import { NativeModules } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
 import JSONbig from 'json-bigint';
 import Permission from './service/permission';
  const CurrentAccount = null;
@@ -333,13 +333,24 @@ export default {
    */
   callSmartChatAPI(params) {
     return new Promise((resolve, reject) => {
-      native.MIOTService.callSmartChatAPI(params, (ok, res) => {
-        if (ok) {
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      });
+      if (Platform.OS === 'android') {
+        native.MIOTService.callSmartChatAPI(params, (ok, res) => {
+          if (ok) {
+            resolve(res);
+          } else {
+            reject(res);
+          }
+        });
+      } else {
+        console.log('222=', native.SSEBridge);
+        native.SSEBridge.callSmartChatAPI(params, (ok, res) => {
+          if (ok) {
+            resolve(res);
+          } else {
+            reject(res);
+          }
+        });
+      }
     });
   }
 };
