@@ -342,5 +342,6 @@ export default {
   switch_dia_msg_repeatScene: '目前按鍵已建立了點選自動化，綁定控制裝置後，自動化可能會重複執行，是否需刪除控制裝置的綁定？',
   common_loading: '載入中，請稍候...',
   pairMode: '配對模式',
-  switch_title_buttonControlDevice_oneGang: '裝置控制'
+  switch_title_buttonControlDevice_oneGang: '裝置控制',
+  retry: '重試'
 };
