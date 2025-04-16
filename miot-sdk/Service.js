@@ -333,24 +333,13 @@ export default {
    */
   callSmartChatAPI(params) {
     return new Promise((resolve, reject) => {
-      if (Platform.OS === 'android') {
-        native.MIOTService.callSmartChatAPI(params, (ok, res) => {
-          if (ok) {
-            resolve(res);
-          } else {
-            reject(res);
-          }
-        });
-      } else {
-        console.log('222=', native.SSEBridge);
-        native.SSEBridge.callSmartChatAPI(params, (ok, res) => {
-          if (ok) {
-            resolve(res);
-          } else {
-            reject(res);
-          }
-        });
-      }
+      native.MIOTService.callSmartChatAPI(params, (ok, res) => {
+        if (ok) {
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      });
     });
   }
 };
