@@ -1229,25 +1229,20 @@ class IUi {
    * 为汉图照片打印机打开LivePhone选择一张动态照片
    * since 10106
    * @param
-   *  param.sandBoxFolder(string) 选中的live photo存储的沙盒路径
+   *  param.callbackEvent(string) 回调事件类型 会通过这个发送自定义事件  android参数 iOS可以不用传
+   *  param.sandBoxFolder(stgring) 选中的live photo存储的沙盒路径 android参数 iOS可以不用传
    */
   @report
    openPickLivePhotoPage(param) {
-     if (isAndroid) {
-       return new Promise((resolve, reject) => {
-         native.MIOTHost.openPickLivePhotoPage(param, (isSuccess, result) => {
-           if (isSuccess) {
-             resolve(result);
-           } else {
-             reject(result);
-           }
-         });
+     return new Promise((resolve, reject) => {
+       native.MIOTHost.openPickLivePhotoPage(param, (isSuccess, result) => {
+         if (isSuccess) {
+           resolve(result);
+         } else {
+           reject(result);
+         }
        });
-     } else {
-       if (__DEV__ && console.warn) {
-         console.warn('method [openPickLivePhotoPage] can only be invoked on Android, iOS is not implemented. ');
-       }
-     }
+     });
    }
     /**
    * 打开设备中枢功能页
