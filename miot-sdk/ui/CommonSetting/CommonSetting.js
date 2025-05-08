@@ -1349,6 +1349,8 @@ export default class CommonSetting extends React.Component {
                   title= {item.title}
                   titleNumberOfLines={0}
                   value= {item.value}
+                  tintColor={this.props.extraOptions?.tintColor || undefined}
+                  onTintColor={this.props.extraOptions?.themeColor || undefined}
                   onValueChange={ (value) => {
                     tryTrackCommonSetting(item.key, 'click', value ? 'open' : 'close');
                     item.onValueChange(value);
@@ -1382,6 +1384,7 @@ export default class CommonSetting extends React.Component {
                   showDot={item.showDot || false}
                   value={item.value}
                   showSeparator={showSeparator}
+                  tintColor={this.props.extraOptions?.tintColor || undefined}
                   onTintColor={this.props.extraOptions?.themeColor || undefined}
                   onValueChange={ (value) => {
                     tryTrackCommonSetting(item.key, 'click', value ? 'open' : 'close');
