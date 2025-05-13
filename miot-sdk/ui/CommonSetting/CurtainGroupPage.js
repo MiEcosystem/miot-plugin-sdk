@@ -46,7 +46,8 @@ export default class CurtainGroupPage extends Component {
     selectedSide: '',
     choices: [],
     // 0:不显示, 1:loading, 2: error
-    layerType: 0
+    layerType: 0,
+    onLoading: false
   };
   checkLoop;
   devicestatus;
@@ -114,37 +115,13 @@ export default class CurtainGroupPage extends Component {
     const { leftDid, rightDid } = this.state;
     const tags = {
       [leftDid]: "left",
-      [rightDid]: "right"
+      [rightDid]: "right" 
     };
+    this.showHand();
     Service.smarthome.createGroupDevice(I18n.curtain, [leftDid, rightDid], tags)
       .then((res) => {
-        if (res && res.group_did) {
-          console.log('createGroupDevice:success', res);
-          this.checkLoop && clearInterval(this.checkLoop);
-          this.checkLoop = setInterval(() => {
-            SmartHomeInstance.getVirtualGroupSubDevices(res.group_did).then((res) => {
-              this.devicestatus = true;
-              for (let key of Object.keys(res[0].member_ship)) {
-                if (res[0].member_ship[key] != '1') {
-                  this.devicestatus = false;
-                }
-              }
-              if (res[0].status == '1' && this.devicestatus) {
-                Host.ui.openCurtainGroupNamePage(res[0].group_did, leftDid, rightDid);
-                clearInterval(this.checkLoop);
-              }
-            }).catch((err) => {
-              console.log('err', err);
-            });
-          }, 500);
-          setTimeout(() => {
-            this.checkLoop && clearInterval(this.checkLoop);
-            this.showError();
-          }, 500 * 20);
-          return;
-        }
-        this.showError();
-        console.log('createGroupDevice:fail', res);
+        Host.ui.openCurtainGroupNamePage(res.group_did, leftDid, rightDid);
+        this.setState({ onLoading: false });
       }).catch((e) => {
         this.showError();
         console.log('createGroupDevice:fail', e);
@@ -159,6 +136,12 @@ export default class CurtainGroupPage extends Component {
   showError = () => {
     this.setState({
       layerType: 2
+    });
+  }
+  showHand = () => {
+    this.setState({
+      layerType: 3,
+      onLoading: true
     });
   }
   select = (selectedIndexs) => {
@@ -359,6 +342,13 @@ export default class CurtainGroupPage extends Component {
           timeout={3000}
           onDismiss={this.cancel}
         />) : null}
+        {
+          layerType === 3 ? (<LoadingDialog
+            visible={this.state.onLoading}
+            message={I18n.handling}
+            timeout={12000}
+            onDismiss={this.cancel}
+          />) : null}
       </ScrollView>
     );
   }
