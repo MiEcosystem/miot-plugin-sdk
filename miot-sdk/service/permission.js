@@ -12,7 +12,7 @@
  */
 import { report } from "../decorator/ReportDecorator";
 import native from "../native";
-import { pluginSpecPackagesName } from "../utils/special-plugins";
+import { pluginSpecPackagesName, specPluginNames } from "../utils/special-plugins";
 import permissionLocal from "./permissionLocal.json";
 class IPermission {
   /**
@@ -38,7 +38,7 @@ class IPermission {
     || models.includes(model)
     || models.find((m) => { return model.startsWith(m); })
     // 标准插件所有权限get
-    || native.MIOTPackage.packageName === pluginSpecPackagesName;
+    || specPluginNames.includes(native.MIOTPackage.packageName);
   }
 }
 const instance = new IPermission();
