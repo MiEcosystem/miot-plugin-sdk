@@ -22,7 +22,7 @@ export default function Section({ title, showSeparator = true, accessibilityRole
       ) : null}
       {title && visible ? (
         <View style={Styles.titleContainer}>
-          <Text style={Styles.title} accessibilityRole={accessibilityRole}>{title}</Text>
+          <Text style={Styles.title} accessibilityRole={accessibilityRole} accessibilityLabel={title}>{title}</Text>
         </View>
       ) : null}
       <View onLayout={onLayout}>
