@@ -164,7 +164,7 @@ export default class DeviceDemo extends React.Component {
                         return (
                           <View key={index} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', minHeight: 48, marginTop: 1, padding: 10, width: '100%', backgroundColor: index % 2 == 0 ? '#FFF' : '#FFFFFFE0' }}>
                             <Text>{`${ item[0] }:    `}</Text>
-                            <Text>{`${item[1]}`}</Text>
+                            <Text>{`${ item[1] }`}</Text>
                           </View>);
                       })
                     }
