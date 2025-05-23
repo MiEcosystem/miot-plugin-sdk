@@ -162,7 +162,7 @@ function getPluginCategory() {
       });
   });
 }
-/* 
+/*
 -1: 不显示云存提醒
 0：显示 状态关闭
 1：显示 状态开启
@@ -386,7 +386,7 @@ const excludeManagerShowedOptions = [
   AllOptions.NAME,
   AllOptions.SHARE,
   AllOptions.LOCATION,
-  AllOptions.IFTTT, 
+  AllOptions.IFTTT,
   AllOptions.MEMBER_SET,
   AllOptions.MULTIPLEKEY_SPLIT,
   AllOptions.FIRMWARE_UPGRADE
@@ -777,7 +777,6 @@ export default class CommonSetting extends React.Component {
       }
     };
     let isCamera = ['camera'].indexOf(modelType) !== -1 && ['mxiang.'].indexOf(Device.model) == -1;
-    
     ret[AllOptions.CLOUD_STORAGE] = isCamera && cloudStorageOn !== -1 && {
       title: strings.cloudStorage,
       value: cloudStorageOn ? strings.open : strings.close,
@@ -825,13 +824,13 @@ export default class CommonSetting extends React.Component {
         title: strings.security,
         onPress: () => Host.ui.openSecuritySetting()
       };
+    } else if (state.specificSetting && state.specificSetting.allowSecurity) {
+      // 2025/05/23 更新安全设置配置，支持插件传参动态配置更新
+      ret[AllOptions.SECURITY] = {
+        title: strings.security,
+        onPress: () => Host.ui.openSecuritySetting()
+      };
     }
-    
-    // 2025/03/13 安全设置配置
-    ret[AllOptions.SECURITY] = (state.specificSetting && state.specificSetting.allowSecurity) ? {
-      title: strings.security,
-      onPress: () => Host.ui.openSecuritySetting()
-    } : null;
     // 2025/03/13 添加快捷方式到桌面
     ret[AllOptions.ADD_TO_DESKTOP] = (state.specificSetting && state.specificSetting.allowAddToDesktop) ? {
       title: strings.addToDesktop,
@@ -979,7 +978,11 @@ export default class CommonSetting extends React.Component {
         ...params,
         commonSettingStyle: this.props.commonSettingStyle,
         // 2020/4/20 锁类和保险箱类，去掉更多设置页中的安全设置
-        excludeRequiredOptions: (['lock', 'safe-box', 'safe'].indexOf(this.state.modelType) !== -1 && excludeRequiredOptions.indexOf(AllOptions.SECURITY) === -1) ? [...excludeRequiredOptions, AllOptions.SECURITY] : excludeRequiredOptions
+        // 2025/5/23 支持摄像机通过属性控制安全设置&添加快捷方式到一级通用设置菜单，需要从二级菜单中移除
+        excludeRequiredOptions: ((['lock', 'safe-box', 'safe'].indexOf(this.state.modelType) !== -1
+          || (this.state.specificSetting && this.state.specificSetting.allowSecurity))
+          && excludeRequiredOptions.indexOf(AllOptions.SECURITY) === -1)
+          ? [...excludeRequiredOptions, AllOptions.SECURITY] : excludeRequiredOptions
       });
     } else {
       if (__DEV__ && console.warn) {
@@ -995,7 +998,6 @@ export default class CommonSetting extends React.Component {
     Host.ui.openDeleteDevice(deleteDeviceMessage);
   }
   componentDidMount() {
-  
     getProductBaikeUrl().then((productBaikeUrl) => {
       this.commonSetting = this.getCommonSetting({
         ...this.state,
@@ -1095,7 +1097,6 @@ export default class CommonSetting extends React.Component {
       }).catch((err) => {
         console.log(err);
       });
-     
     Service.smarthome.batchGetDeviceDatas([{
       did: Device.deviceID,
       props: ['prop.s_commonsetting_stand_plugin']
@@ -1141,7 +1142,6 @@ export default class CommonSetting extends React.Component {
       this.setState({ cloudStorageOn: result });
     });
   }
- 
   _updateFreqFlag() {
     Device.getFreqFlag().then((freqFlagRes) => {
       let freqFlag = freqFlagRes.data;
@@ -1177,7 +1177,6 @@ export default class CommonSetting extends React.Component {
   _isBelongToCarRoom() {
     Device.isBelongToCarRoom(Device.deviceID).then((value) => {
       console.log(value, "isCariotDevice");
-    
       let isCariotDevice = value.data;
       this.commonSetting = this.getCommonSetting({
         ...this.state,
@@ -1248,19 +1247,16 @@ export default class CommonSetting extends React.Component {
     }
     // 3. 去除重复
     options = [...new Set(options)];
-  
     // 4. 拼接必选项和可选项
     let keys = [...requireKeys1, ...options, ...requireKeys2, ...(this.props.firstCustomOptions || [])];
     keys = [...new Set(keys)];
     // 5. 权限控制，如果是共享设备或者家庭设备，需要过滤一下
     if (Device.isOwner === false) {
       keys = keys.filter((key) => firstSharedOptions[key]);
-      
       if (isHomeManager === false) {
         keys = keys.filter((key) => !excludeManagerShowedOptions.includes(key));
       }
     }
-    
     // 6. 根据设备类型进一步过滤
     keys = keys.filter((key) => !(excludeOptions[key] || []).includes(Device.type));
     // 7. 根据开发者特殊需要，隐藏某些必选项
@@ -1329,7 +1325,6 @@ export default class CommonSetting extends React.Component {
         </View>
         {/* <Separator style={{ marginLeft: Styles.common.padding }} /> */}
         {
-          
           items.map((item) => {
             if (!item || !item.title) return null;
             const showSeparator = false;// index !== items.length - 1;
@@ -1364,7 +1359,6 @@ export default class CommonSetting extends React.Component {
                 }
               }
               return (
-             
                 <ListItemWithSwitch
                   key={item.key || item.title}
                   title={item.title || ''}
