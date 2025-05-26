@@ -49,6 +49,6 @@ const Styles = dynamicStyleSheet({
     fontFamily: FontDefault,
     fontSize: 16,
     lineHeight: 21,
-    color: new DynamicColor('#F43F31', '#D92719')
+    color: new DynamicColor('#D62B1E', '#D92719')
   }
 });

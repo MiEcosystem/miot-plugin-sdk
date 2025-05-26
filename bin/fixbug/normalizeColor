@@ -556,6 +556,7 @@ const names = {
   lightgreen: 0x90ee90ff,
   lightgrey: 0xd3d3d3ff,
   lightpink: 0xffb6c1ff,
+  lightpinkacc: 0xff007D81,
   lightsalmon: 0xffa07aff,
   lightseagreen: 0x20b2aaff,
   lightskyblue: 0x87cefaff,
