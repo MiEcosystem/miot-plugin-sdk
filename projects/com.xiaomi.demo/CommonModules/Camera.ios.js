@@ -1,16 +1,16 @@
-var React = require('React');
-var DeviceEventEmitter = require('RCTDeviceEventEmitter');
-var NativeModules = require('NativeModules');
-var ReactNativeViewAttributes = require('ReactNativeViewAttributes');
-var StyleSheet = require('StyleSheet');
-var createReactNativeComponentClass = require('createReactNativeComponentClass');
-var PropTypes = require('ReactPropTypes');
-var StyleSheetPropType = require('StyleSheetPropType');
-var NativeMethodsMixin = require('NativeMethodsMixin');
-var flattenStyle = require('flattenStyle');
-var merge = require('merge');
+let React = require('React');
+let DeviceEventEmitter = require('RCTDeviceEventEmitter');
+let NativeModules = require('NativeModules');
+let ReactNativeViewAttributes = require('ReactNativeViewAttributes');
+let StyleSheet = require('StyleSheet');
+let createReactNativeComponentClass = require('createReactNativeComponentClass');
+let PropTypes = require('ReactPropTypes');
+let StyleSheetPropType = require('StyleSheetPropType');
+let NativeMethodsMixin = require('NativeMethodsMixin');
+let flattenStyle = require('flattenStyle');
+let merge = require('merge');
 
-var constants = {
+let constants = {
   Aspect: NativeModules.CameraManager.Aspect,
   BarCodeType: NativeModules.CameraManager.BarCodeType,
   Type: NativeModules.CameraManager.Type,
@@ -18,10 +18,10 @@ var constants = {
   CaptureTarget: NativeModules.CameraManager.CaptureTarget,
   Orientation: NativeModules.CameraManager.Orientation,
   FlashMode: NativeModules.CameraManager.FlashMode,
-  TorchMode: NativeModules.CameraManager.TorchMode,
+  TorchMode: NativeModules.CameraManager.TorchMode
 };
 
-var Camera = React.createClass({
+let Camera = React.createClass({
   propTypes: {
     aspect: PropTypes.oneOfType([
       PropTypes.string,
@@ -98,15 +98,15 @@ var Camera = React.createClass({
   },
 
   render() {
-    var style = flattenStyle([styles.base, this.props.style]);
+    let style = flattenStyle([styles.base, this.props.style]);
 
-    var aspect = this.props.aspect,
-        type = this.props.type,
-        orientation = this.props.orientation,
-        flashMode = this.props.flashMode,
-        torchMode = this.props.torchMode;
+    let aspect = this.props.aspect,
+      type = this.props.type,
+      orientation = this.props.orientation,
+      flashMode = this.props.flashMode,
+      torchMode = this.props.torchMode;
 
-    var legacyProps = {
+    let legacyProps = {
       aspect: {
         Fill: 'fill',
         Fit: 'fit',
@@ -144,7 +144,7 @@ var Camera = React.createClass({
       type = constants.Type[type];
     }
 
-    var nativeProps = merge(this.props, {
+    let nativeProps = merge(this.props, {
       style,
       aspect: aspect,
       type: type,
@@ -153,7 +153,7 @@ var Camera = React.createClass({
       torchMode: torchMode
     });
 
-    return <RCTCamera {... nativeProps} />
+    return <RCTCamera {... nativeProps} />;
   },
 
   _onBarCodeRead(e) {
@@ -199,7 +199,7 @@ var Camera = React.createClass({
 
 });
 
-var RCTCamera = createReactNativeComponentClass({
+let RCTCamera = createReactNativeComponentClass({
   validAttributes: merge(ReactNativeViewAttributes.UIView, {
     aspect: true,
     type: true,
@@ -207,11 +207,11 @@ var RCTCamera = createReactNativeComponentClass({
     flashMode: true,
     torchMode: true
   }),
-  uiViewClassName: 'RCTCamera',
+  uiViewClassName: 'RCTCamera'
 });
 
 var styles = StyleSheet.create({
-  base: { },
+  base: { }
 });
 
 Camera.constants = constants;

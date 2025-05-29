@@ -46,6 +46,9 @@ import SoftKeyboardAdapterTestDemo from "./UIComponent/SoftKeyboardAdapterTestDe
 import TitleBarDemo from "./tutorial/TitleBarDemo"; //  ui-导航栏使用
 import TabBarDemo from "./tutorial/TabBarDemo"; //  ui-导航栏使用
 
+import Settings2022 from './UIComponent/Settings2022';
+import SupportedFont from './UIComponent/SupportedFont';
+
 // List
 import ListDemoEntry from "./UIComponent/List/ListDemoEntry";
 import CustomListDemo from "./UIComponent/List/CustomListDemo";
@@ -60,6 +63,10 @@ import ModeCardDemo from "./UIComponent/Card/ModeCardDemo"; // ui-Card-模式卡
 import AdaptedFontCardDemo from "./UIComponent/Card/AdaptedFontCardDemo"; // ui-Card-模式卡片
 import GearCardDemo from "./UIComponent/Card/GearCardDemo"; // ui-Card-滑动档位卡片
 import ListCardDemo from "./UIComponent/Card/ListCardDemo"; // ui-Card-list档位卡片
+import CardButtonDemo from "./UIComponent/Card/CardButtonDemo"; // CardButton卡片
+import SelectWithButtonDemo from "./UIComponent/Card/SelectWithButtonDemo"; // SelectWithButton卡片
+import SliderWithHeaderDemo from "./UIComponent/Card/SliderWithHeaderDemo"; // SliderWithHeader卡片
+import SliderWithoutBlockDemo from "./UIComponent/Card/SliderWithoutBlockDemo"; // SliderWithoutBlock卡片
 
 import RadioExample from "./UIComponent/RadioExample"; // ui-单选框
 import CheckboxDemo from "./UIComponent/CheckboxDemo"; // ui-复选框
@@ -84,11 +91,13 @@ import ImageCapInsetDemo from "./UIComponent/ImageCapInsetDemo"; // ui-ImageCapI
 import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo"; // ui-NumberSpinnerDemo
 import StringSpinnerDemo from "./UIComponent/StringSpinnerDemo"; // ui-StringSpinnerDemo
 import ColorPickerDemo from "./UIComponent/ColorPickerDemo";
+import ColorSelectorDemo from "./UIComponent/ColorSelectorDemo";
+
 import MiotAndroidScrollViewDemo from "./UIComponent/MiotAndroidScrollViewDemo"; // ui-MiotAndroidScrollViewDemo
 import AbsoluteTouch from "./UIComponent/AbsoluteTouch"; // ui-AbsoluteTouch
 import RobotMapDemo from "./UIComponent/RobotMapDemo"; // 扫地机地图
 // import SparkLines from "./UIComponent/SparkLines";
-// import YMDDatePicker from "./UIComponent/YMDDatePicker";
+import YMDDatePickerDemo from "./UIComponent/YMDDatePicker";
 // import Tabs from "./UIComponent/Tabs";
 
 // Native 交互
@@ -112,6 +121,8 @@ import HostDemo from "./Host";
 import HostEventDemo from "./Host/HostEventDemo";
 import FileDemo from "./Host/FileDemo";
 import PhotoDemo from "./Host/PhotoDemo";
+import PadScrollDemo from "./Host/PadScrollDemo";
+import RockerViewDemo from "./Host/RockerViewDemo";
 import HostPropsInfoDemo from "./Host/HostPropsInfoDemo";
 import LocaleServer from "./Host/Local";
 import JSExecutor from "./Host/JSExecutor";
@@ -122,6 +133,7 @@ import VideoThumbnailDemo from "./Host/VideoThumbnailDemo";
 import CryptoDemo from "./Host/CryptoDemo";
 import TraceDemo from "./Host/TraceDemo";
 import DarkModeDemo from "./Host/DarkMode";
+import DownloadFontDemo from "./Host/DownloadFontDemo"; //  字体下载测试
 
 // 常用功能
 import TutorialDemo from "./tutorial/TutorialDemo";
@@ -157,6 +169,7 @@ import BlankDemo from "./tutorial/BlankDemo";
 import SystemDemo from "./tutorial/SystemDemo";
 import BlankPageDemo from "./UIComponent/BlankPageDemo";
 import ColorPicker from "./UIComponent/ColorPicker";
+import BackHandlerDemo from "./UIComponent/BackHandlerDemo";
 import PackageDemo from "./tutorial/PackageDemo";
 // import ReactNativeCameraDemo from './ThirdPartDemo/ReactNativeCameraDemo';
 import LinearGradientDemo from "./ThirdPartDemo/LinearGradientDemo";
@@ -229,12 +242,16 @@ function createRootStack(initPage) {
       Setting,
       SettingPage,
       MoreSetting,
+      Settings2022,
+      SupportedFont,
       CurtainGroupPage,
       FirmwareUpgrade,
       // FirmwareUpgradeAuto,
       FirmwareUpgradeRecord,
       HostDemo,
       HostEventDemo,
+      PadScrollDemo,
+      RockerViewDemo: RockerViewDemo,
       Home: MainPage,
       accountDemo: AccountDemo,
       DeviceControl,
@@ -284,6 +301,7 @@ function createRootStack(initPage) {
       NumberSpinnerDemo,
       StringSpinnerDemo,
       ColorPickerDemo,
+      ColorSelectorDemo,
       MiotAndroidScrollViewDemo,
       AbsoluteTouch,
       // 接口服务
@@ -334,7 +352,7 @@ function createRootStack(initPage) {
       RobotMapDemo: RobotMapDemo,
       // SparkLines,
       // Tabs,
-      // YMDDatePicker,
+      YMDDatePickerDemo,
       ParticleDemo: ParticleDemo, // iOS 特有的,粒子系统
       ImagePickerDemo: ImagePickerDemo,
 
@@ -388,6 +406,10 @@ function createRootStack(initPage) {
       AdaptedFontCardDemo,
       GearCardDemo,
       ListCardDemo,
+      CardButtonDemo,
+      SelectWithButtonDemo,
+      SliderWithHeaderDemo,
+      SliderWithoutBlockDemo,
 
       CustomContainer,
       Parallax,
@@ -396,6 +418,7 @@ function createRootStack(initPage) {
       MHSceneDemo: MHSceneDemo,
       BlankPageDemo,
       ColorPicker,
+      BackHandlerDemo,
       tutorialDemo: TutorialDemo,
       PackageDemo: PackageDemo,
       AccountDemo: AccountDemo,
@@ -406,6 +429,7 @@ function createRootStack(initPage) {
       KVStorageDemo: KVStorageDemo,
       FileDemo: FileDemo,
       PhotoDemo: PhotoDemo,
+      DownloadFontDemo,
 
       UIKitHome: { screen: Screens.ComponentsScreen },
       Picker: { screen: Screens.PickerScreen },
