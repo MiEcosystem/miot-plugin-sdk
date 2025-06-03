@@ -167,6 +167,28 @@ export default {
     return native.MIOTHost.deviceSupportLivePhoto;
   },
   /**
+   * 双端为支持初始化路由器插件优化增加androidQ支持
+   * since 10105
+   * @returns {*}
+   */
+  get isSupportQ() {
+    if (isAndroid) {
+      return native.MIOTHost.isSupportQ;
+    }
+    return false;
+  },
+  /**
+   * 双端为支持初始化路由器插件优化增加android手机品牌
+   * since 10105
+   * @returns {*}
+   */
+  get phoneBrand() {
+    if (isAndroid) {
+      return native.MIOTHost.phoneBrand;
+    }
+    return "ios";
+  },
+  /**
    * 双端为支持小米口袋打印机Pro 设备分享需求添加
    * since 10103
    * @returns {*}
@@ -529,6 +551,28 @@ export default {
    * 效果可参考com.xiaomi.demo中的PadScrollDemo
    */
   setPadScrollDealStrategy(params) {
+  },
+  /**
+   * @method connectWifi
+   * @since 10105
+   * @description 连接wifi
+   *
+   * @param {string} ssid - ssid
+   * @param {string} passwd - wifi密码
+   * @returns {Promise}
+   */
+  connectWifi(ssid, passwd = '') {
+     return Promise.resolve(null);
+  },
+  /**
+   * Q版本之后的接口：插件直接调用，然后弹出系统半窗，这个半窗会自动扫描，然后用户选择后，给插件回调
+   * @since 10105
+   * @param ssid
+   * @param passwd
+   * @returns {Promise<unknown> | Promise.Promise}
+   */
+  connectWifiAfterQ(ssid, passwd = '') {
+     return Promise.resolve(null);
   },
   /**
    * @since 10104
