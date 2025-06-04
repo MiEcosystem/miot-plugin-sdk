@@ -272,7 +272,6 @@ const API_REPO = {
   '/v2/device/insurance': {},
   '/v2/device/engineer': {},
   '/v2/device/devicerssi': {},
-  
   // 疯景1代门铃迁移rn接口
   '/common/app/delete/files': {},
   '/common/app/get/playlist': {},
@@ -352,6 +351,11 @@ const API_REPO = {
   '/smarthome/product/panel/plugin/quickHomeAddress': {},
   '/smarthome/product/panel/client/quickSceneList': {},
   '/smarthome/product/panel/plugin/privacyLog': {},
+  // added for lvmi-oh4w
+  '/smarthome/controller/set_user_device_setting': {},
+  '/smarthome/controller/del_user_device_setting': {},
+  '/smarthome/controller/get_user_device_setting': {},
+  '/smarthome/controller/range_get_user_device_setting': {},
   '/scenesrv/apppushservice/GetWechatPushSwitch': {}, // 小程序
   '/scenesrv/apppushservice/SetWechatPushSwitch': {},
   '/business/camera/vip_tips_switch': {},

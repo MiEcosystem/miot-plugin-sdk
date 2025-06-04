@@ -104,6 +104,10 @@ let getInnerOptions = () => {
       ownerOnly: true,
       homeManagerAllowed: true,
       Component: (params) => {
+        if (Device.sc_type === 28) {
+          // matter 设备移除固件升级选项 10108
+          return null;
+        }
         const canUpgrade = useCanUpgrade();
         const [clicked, click] = useClicked('firmwareUpgrade');
         useEffect(() => {
