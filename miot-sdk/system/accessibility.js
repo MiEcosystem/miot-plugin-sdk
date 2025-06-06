@@ -1,7 +1,7 @@
 import native, { buildEvents } from "../native";
 class IAccessibility {
     /**
-     * 获取无障碍高对比度文字开关状态：仅用于android平台
+     * 获取无障碍高对比度文字开关状态
      * 
      * @returns {Promise<boolean>} result: 开：true，关：false
      * @example
