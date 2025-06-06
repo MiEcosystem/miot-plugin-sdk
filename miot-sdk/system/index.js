@@ -41,6 +41,7 @@ import IShake from "./shake";
 import INfc from './nfc';
 import IHealth from "./health";
 import IScreen from "./screen";
+import IAccessibility from "./accessibility";
 export const battery = IBattery;
 export const bluetooth = IBluetooth;
 export const accelerometer = IAccelerometer;
@@ -56,7 +57,8 @@ export const shake = IShake;
 export const nfc = INfc;
 export const health = IHealth;
 export const screen = IScreen;
+export const accessibility = IAccessibility;
 export default {
   battery, bluetooth, accelerometer, compass, gyroscope, scancode,
-  vibrate, permission, location, volume, network, shake, nfc, health, screen
+  vibrate, permission, location, volume, network, shake, nfc, health, screen, accessibility
 };
