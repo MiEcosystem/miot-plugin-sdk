@@ -288,66 +288,49 @@ export default {
     }
   },
   /**
-   * since SDK_10108
+   * since SDK_10109
    * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
    * @returns {Promise<unknown> | Promise.Promise}
    */
   checkLockSecureRisk() {
-    return new Promise((resolve) => {
-      native.MIOTBluetooth.checkLockSecureRisk((result) => {
-        resolve(result);
-      });
-    });
   },
   /**
-   * since SDK_10108
+   * since SDK_10109
    * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
    * @param password
    * @returns {Promise<unknown> | Promise.Promise}
    */
   verifyLockPassword(password) {
-    return new Promise((resolve) => {
-      native.MIOTBluetooth.verifyLockPassword(password, (result) => {
-        resolve(result);
-      });
-    });
   },
   /**
-   * since SDK_10108
+   * since SDK_10109
    * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
    * @param oob
    * @returns {Promise<unknown> | Promise.Promise}
    */
   verifyLockOOB(oob) {
-    return new Promise((resolve) => {
-      native.MIOTBluetooth.verifyLockOOB(oob, (result) => {
-        resolve(result);
-      });
-    });
   },
   /**
-   * since SDK_10108
+   * since SDK_10109
    * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
    * @param password
    * @returns {Promise<unknown> | Promise.Promise}
    */
   changeLockPassword(password) {
-    return new Promise((resolve) => {
-      native.MIOTBluetooth.changeLockPassword(password, (result) => {
-        resolve(result);
-      });
-    });
   },
   /**
-   * since SDK_10108
+   * since SDK_10109
    * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
    * @returns {Promise<unknown> | Promise.Promise}
    */
   rollbackLockPassword() {
-    return new Promise((resolve) => {
-      native.MIOTBluetooth.rollbackLockPassword((result) => {
-        resolve(result);
-      });
-    });
+  },
+  /**
+   * since SDK_10109
+   * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
+   * @param data
+   * @returns {Promise<unknown> | Promise.Promise}
+   */
+  encryptLockMessage(data) {
   }
 };
