@@ -1,9 +1,12 @@
-import { Device, DeviceEvent, Entrance, Host, Package, PackageEvent, Service } from 'miot';
+import Package, { Entrance, PackageEvent } from 'miot/Package';
+import Host from 'miot/Host';
+import Service from 'miot/Service';
+import Device, { DeviceEvent } from 'miot/device/BasicDevice';
 // import {Device,DeviceEvent} from 'miot'
 // import {Host} from 'miot';
 import PropTypes from 'prop-types';
-import React from 'react';
-import { DeviceEventEmitter, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { DeviceEventEmitter, Platform, Text, View } from 'react-native';
 import { RkButton } from 'react-native-ui-kitten';
 import { strings, Styles } from '../../resources';
 import { formatString } from '../../resources/Strings';
@@ -14,12 +17,22 @@ import { AccessibilityPropTypes, AccessibilityRoles, getAccessibilityConfig } fr
 import { referenceReport } from '../../decorator/ReportDecorator';
 import DynamicColor from 'miot/ui/Style/DynamicColor';
 import { FontPrimary } from 'miot/utils/fonts';
+import { showMemberSet } from '../../hooks/useMemberSetInfo';
+import { showDeviceService } from '../../hooks/useDeviceService';
+import tryTrackCommonSetting from "../../utils/track-sdk";
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
 let firmwareUpgradeDotClicked = false;
+let freqDeviceSwitchExposed = false; // 米家首页显示item打点用
+let freqFlagValue = undefined;// 米家首页显示item打点用
+// 记录当前did，避免组件复用时因did错乱而导致modelType异常
+// 在组件执行componentWillUnmount之后，会重新走一遍getModelType
+// modelType将被赋值，若赋的值与接下来进来的did不一致，则导致展示异常
+let did = '';
 let modelType = '';
+const DeviceModelList = ["chuangmi.camera.079ac1", "chuangmi.camera.079ae2", "xiaomi.camera.083ac1", "xiaomi.camera.082ac1", "xiaomi.camera.c302", "xiaomi.camera.c302o"];
 function getModelType() {
   return new Promise((resolve) => {
-    if (modelType) {
+    if (modelType && did === Device.deviceID) {
       resolve(modelType);
       return;
     }
@@ -29,6 +42,7 @@ function getModelType() {
       }
       if (instance && instance.type) {
         modelType = instance.type.split(':')[3];
+        did = Device.deviceID;
         resolve(modelType);
         return;
       }
@@ -88,7 +102,6 @@ function getProductBaikeUrl() {
       });
   });
 }
-getProductBaikeUrl().then(() => { }).catch(() => { });
 // 请求是否展示多键开关和开关的状态
 function getMultipleKey() {
   return new Promise((resolve, reject) => {
@@ -149,11 +162,39 @@ function getPluginCategory() {
       });
   });
 }
+/*
+-1: 不显示云存提醒
+0：显示 状态关闭
+1：显示 状态开启
+ */
+const GetCloudStorage = async(did) => {
+  const platform = { android: 2, ios: 1 };
+  try {
+    const result = await Service.callSmartHomeAPI("/business/camera/vip_tips_switch", {
+      dids: [did],
+      appVersion: Host.version,
+      platform: platform[Platform.OS] || Platform.OS
+    });
+    const {
+      [did]: { vipStatusSwitch, vipStatusSwitchShow }
+    } = result;
+    Service.smarthome.reportLog(Device.model, `GetCloudStorage ${ result }`);
+    if (!vipStatusSwitchShow) return -1;
+    return vipStatusSwitch ? 1 : 0;
+  } catch (error) {
+    Service.smarthome.reportLog(Device.model, `GetCloudStorage ${ error.message }`);
+    return -1;
+  }
+};
 const firstOptionsInner = {
   /**
-   * 按键设置，多键开关`必选`，其余设备`必不选`
+   * 按键设置，多键开关`必选`，其余设备`必不选`，10074以后此设置的显示与否由SDK控制，开发者不必关心
    */
   MEMBER_SET: 'memberSet',
+  /**
+   * 更换图标，只有插座和灯组会有这个入口
+   */
+  CHANGE_ICON: 'changeIcon',
   /**
    * 设备共享, `可选`
    */
@@ -191,9 +232,13 @@ const firstOptionsInner = {
    */
   STAND_PLUGIN: 'standPlugin',
   /**
-   * 多键开关
+   * 多键开关拆分
    */
-  MULTIPLEKEY_SWITCH: 'MultipleKeySwitch'
+  MULTIPLEKEY_SPLIT: 'multipleKeySplit',
+  /**
+   * 设备服务
+   */
+  DEVICE_SERVICE: 'deviceService'
 };
 const firstAllOptionsInner = {
   ...firstOptionsInner,
@@ -263,6 +308,10 @@ const secondAllOptionsInner = {
    */
   ADD_TO_DESKTOP: 'addToDesktop',
   /**
+   * 更多设置——网络信息，'可选'
+   */
+  NETWORK_INFO: 'networkInfo',
+  /**
    * 法律信息——用户协议，`必选`
    */
   USER_AGREEMENT: 'userAgreement',
@@ -277,7 +326,15 @@ const secondAllOptionsInner = {
   /**
    * 默认首页--标识标准插件还是厂商插件
    */
-  DEFAULT_PLUGIN: 'default_plugin'
+  DEFAULT_PLUGIN: 'defaultPlugin',
+  /**
+   * 默认首页--紧急联系人呼叫
+   */
+  DEVICE_CALL: 'deviceCall',
+  /**
+   * 默认首页--云储存服务体系
+   */
+  CLOUD_STORAGE: 'cloudStorage'
 };
 export const AllOptions = {
   ...firstAllOptionsInner,
@@ -298,26 +355,61 @@ export { firstAllOptions, secondAllOptions };
  * 1: 显示
  */
 const firstSharedOptions = {
-  [AllOptions.NAME]: 0,
-  [AllOptions.MEMBER_SET]: 0,
-  [AllOptions.LOCATION]: 0,
-  [AllOptions.SHARE]: 0,
+  [AllOptions.NAME]: 1,
+  [AllOptions.MEMBER_SET]: 1,
+  [AllOptions.CHANGE_ICON]: 0,
+  [AllOptions.LOCATION]: 1,
+  [AllOptions.SHARE]: 1,
   [AllOptions.BTGATEWAY]: 0,
   [AllOptions.VOICE_AUTH]: 0,
-  [AllOptions.IFTTT]: 0,
-  [AllOptions.FIRMWARE_UPGRADE]: 0,
+  [AllOptions.IFTTT]: 1,
+  [AllOptions.FIRMWARE_UPGRADE]: 1,
   [AllOptions.CREATE_GROUP]: 0,
   [AllOptions.MANAGE_GROUP]: 0,
   [AllOptions.MORE]: 1,
   [AllOptions.HELP]: 1,
   [AllOptions.SECURITY]: 0,
+  [AllOptions.ADD_TO_DESKTOP]: 1,
   [AllOptions.LEGAL_INFO]: 0, // 20190516，分享设备不显示「法律信息」
   [AllOptions.PRODUCT_BAIKE]: 1,
   [AllOptions.STAND_PLUGIN]: 1,
   [AllOptions.FREQ_CAMERA]: 1,
   [AllOptions.FREQ_DEVICE]: 1,
-  [AllOptions.DEFAULT_PLUGIN]: 1
+  [AllOptions.DEFAULT_PLUGIN]: 1,
+  [AllOptions.MULTIPLEKEY_SPLIT]: 1,
+  [AllOptions.DEVICE_SERVICE]: 0,
+  [AllOptions.DEVICE_CALL]: 0
 };
+/**
+ * 车房间上层设置项
+*/
+const carRoomTopOptions = [
+  AllOptions.NAME,
+  AllOptions.PRODUCT_BAIKE,
+  AllOptions.HELP,
+  AllOptions.MORE
+];
+/**
+ * 车房间下层设置项
+*/
+const carRoomBottomOptions = [
+  AllOptions.NAME,
+  AllOptions.PRODUCT_BAIKE,
+  AllOptions.HELP,
+  AllOptions.MORE
+];
+/**
+ * 家庭成员不能看到，管理员可以看到的设置项
+ */
+const excludeManagerShowedOptions = [
+  AllOptions.NAME,
+  AllOptions.SHARE,
+  AllOptions.LOCATION,
+  AllOptions.IFTTT,
+  AllOptions.MEMBER_SET,
+  AllOptions.MULTIPLEKEY_SPLIT,
+  AllOptions.FIRMWARE_UPGRADE
+];
 /**
  * 20190708 / SDK_10023
  * 所有设置项顺序固定
@@ -326,8 +418,10 @@ const firstSharedOptions = {
 export const AllOptionsWeight = {
   // firstOptions
   [AllOptions.NAME]: 0,
+  [AllOptions.CHANGE_ICON]: 1,
   [AllOptions.CREATE_GROUP]: 1,
   [AllOptions.MANAGE_GROUP]: 1,
+  [AllOptions.DEVICE_SERVICE]: 2,
   [AllOptions.MEMBER_SET]: 3,
   [AllOptions.LOCATION]: 6,
   [AllOptions.SHARE]: 9,
@@ -340,12 +434,12 @@ export const AllOptionsWeight = {
   [AllOptions.DEFAULT_PLUGIN]: 28,
   [AllOptions.FREQ_DEVICE]: 29,
   [AllOptions.FREQ_CAMERA]: 30,
-  [AllOptions.MULTIPLEKEY_SWITCH]: 35,
+  [AllOptions.MULTIPLEKEY_SPLIT]: 35,
   // secondOptions
   [AllOptions.AUTO_UPGRADE]: 1,
   [AllOptions.PLUGIN_VERSION]: 1,
   [AllOptions.SECURITY]: 3,
-  "networkInfo": 5,
+  [AllOptions.NETWORK_INFO]: 5,
   [AllOptions.VOICE_AUTH]: 7,
   [AllOptions.BTGATEWAY]: 9,
   [AllOptions.USER_EXPERIENCE_PROGRAM]: 11,
@@ -355,7 +449,8 @@ export const AllOptionsWeight = {
   [AllOptions.PRIVACY_POLICY]: 19,
   [AllOptions.TIMEZONE]: 21,
   [AllOptions.FEEDBACK]: 23,
-  [AllOptions.ADD_TO_DESKTOP]: 25
+  [AllOptions.ADD_TO_DESKTOP]: 25,
+  [AllOptions.CLOUD_STORAGE]: 30
 };
 /**
  * 某些特殊设备类型不显示某些设置项
@@ -454,7 +549,7 @@ const excludeOptions = {
  *   option: object // 见 miot/Host.ui.previewLegalInformationAuthorization 的传参说明
  *   syncDevice: bool // 插件端设置时区后是否需要后台同步到设备端, 见 miot/Host.ui.openDeviceTimeZoneSettingPage 的传参说明
  *   networkInfoConfig: number // 「更多设置」页面是否显示「网络信息」设置项。0：不显示；1：显示；-1：米家默认配置（蓝牙设备不显示，Wi-Fi设备显示）
- *   bleOtaAuthType: number // 打开通用的蓝牙固件OTA的原生页面。指定设备的协议类型 0: 普通小米蓝牙协议设备(新接入设备已废弃该类型)，1: 安全芯片小米蓝牙设备（比如锁类产品） 4: Standard Auth 标准蓝牙认证协议(通常2019.10.1之后上线的新蓝牙设备) 5: mesh 设备
+ *   bleOtaAuthType: number // 打开通用的蓝牙固件OTA的原生页面。指定设备的协议类型 0: 普通小米蓝牙协议设备(新接入设备已废弃该类型)，1: 安全芯片小米蓝牙设备（比如锁类产品） 4: Standard Auth 标准蓝牙认证协议(通常2019.10.1之后上线的新蓝牙设备) 5: Mesh 设备
  *   10059新增
  *   preOperations: object { AllOptions.SHARE: function, AllOptions.FIRMWARE_UPGRADE: function, AllOptions.CREATE_GROUP: function, AllOptions.MANAGE_GROUP: function  } // 打开分享、ota、创建组、编辑组页面的前置操作，只会在resolve中执行打开页面
  * }
@@ -494,7 +589,8 @@ export default class CommonSetting extends React.Component {
     commonSettingStyle: PropTypes.object,
     accessible: AccessibilityPropTypes.accessible,
     firstCustomOptions: PropTypes.array,
-    secondCustomOptions: PropTypes.array
+    secondCustomOptions: PropTypes.array,
+    specificSetting: PropTypes.object
   }
   static defaultProps = {
     firstOptions: [
@@ -517,7 +613,7 @@ export default class CommonSetting extends React.Component {
     extraOptions: {}
   }
   getCommonSetting(state) {
-    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory, multipleKeyisOn, keyNum } = state || {};
+    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory, multipleKeyisOn, keyNum, cloudStorageOn } = state || {};
     const { preOperations } = this.props.extraOptions;
     if (!modelType) {
       modelType = '  ';
@@ -528,6 +624,12 @@ export default class CommonSetting extends React.Component {
         value: state.name,
         onPress: () => Host.ui.openChangeDeviceName()
       },
+      [AllOptions.DEVICE_SERVICE]: {
+        title: strings.deviceService,
+        onPress: () => {
+          Host.ui.openDeviceServicePage({ did: Device.deviceID });
+        }
+      },
       [AllOptions.LOCATION]: {
         title: strings.location,
         onPress: () => Host.ui.openRoomManagementPage()
@@ -535,11 +637,7 @@ export default class CommonSetting extends React.Component {
       [AllOptions.MEMBER_SET]: {
         title: strings.memberSet,
         onPress: () => {
-          if (Package.packageName === 'miot.plugin.spec') {
-            Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac, { useNewSetting: true, done: [] });
-          } else {
-            Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac);
-          }
+          Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac);
         }
       },
       [AllOptions.SHARE]: {
@@ -637,7 +735,7 @@ export default class CommonSetting extends React.Component {
           DeviceEventEmitter.emit('MIOT_SDK_COMMONSETTING_STANDPLUGIN_CLICK', value ? '2' : '1');
         }
       },
-      [AllOptions.MULTIPLEKEY_SWITCH]: {
+      [AllOptions.MULTIPLEKEY_SPLIT]: {
         _itemType: 'greenSwitch',
         title: formatString(strings.multipleKeyShowOnHome, keyNum),
         value: multipleKeyisOn,
@@ -671,13 +769,42 @@ export default class CommonSetting extends React.Component {
           });
           Service.smarthome.reportEvent('expose', { tip: '6.18.1.1.15487' });
         }
+      },
+      [AllOptions.CHANGE_ICON]: {
+        title: strings.changeIcon,
+        onPress: () => {
+          const lightGroup = Device.model.startsWith('mijia.light.group') ? 1 : undefined;
+          const outlet = ['plug', 'ctrl_86plug', 'powerstrip'].includes(Device.model.split('.')[1]) ? 2 : undefined;
+          Host.ui.openChangeDeviceIconDialog({ plugin_type: outlet || lightGroup })
+            .then((res) => {
+              if (res && res.data) {
+                const { subclass_id, proxy_category_icon } = res.data;
+                MIOTEventEmitter.emit("deviceIconChanged", {
+                  did: Device.deviceID,
+                  subclass_id,
+                  proxy_category_icon
+                });
+              }
+            });
+        }
+      },
+      [AllOptions.DEVICE_CALL]: {
+        title: strings.deviceCall,
+        onPress: () => {
+          Host.ui.openDeviceCallSettingPage(Device.deviceID);
+        }
       }
     };
-    // 常用摄像机(初摩象), 不是摄像机不添加, 避免后面多次判断
     let isCamera = ['camera'].indexOf(modelType) !== -1 && ['mxiang.'].indexOf(Device.model) == -1;
+    ret[AllOptions.CLOUD_STORAGE] = isCamera && cloudStorageOn !== -1 && {
+      title: strings.cloudStorage,
+      value: cloudStorageOn ? strings.open : strings.close,
+      onPress: () => Package.navigate("CloudStorage", { value: cloudStorageOn })
+    };
+    // 常用摄像机(初摩象), 不是摄像机不添加, 避免后面多次判断
     ret[AllOptions.FREQ_CAMERA] = isCamera ? {
       title: strings.favoriteCamera,
-      value: freqCameraNeedShowRedPoint ? "" : freqCameraFlag ? strings.open : strings.close,
+      value: "",
       onPress: () => {
         Host.ui.openCommonDeviceSettingPage(1);
         Host.ui.clearFreqCameraNeedShowRedPoint();
@@ -686,9 +813,29 @@ export default class CommonSetting extends React.Component {
     } : null;
     // 常用设备
     ret[AllOptions.FREQ_DEVICE] = roomInfo && roomInfo.data && roomInfo.data.roomId ? {
+      _itemType: 'switch',
       title: strings.favoriteDevices,
-      value: freqFlag ? strings.open : strings.close,
-      onPress: () => Host.ui.openCommonDeviceSettingPage(0)
+      value: freqFlag,
+      onValueChange: (value) => {
+        Device.setCommonUseDeviceSwitch(
+          {
+            switchStatus: value ? "1" : "0"
+          }
+        ).then(() => {
+          this.commonSetting = this.getCommonSetting({
+            ...this.state,
+            freqFlag: value
+          });
+          this.setState({ freqFlag: value });
+        }).catch(() => {
+          this.setState({
+            freqFlag: !value
+          });
+        });
+        if (isCamera) {
+          Service.smarthome.reportEvent('click', { tip: '6.109.1.1.28405', switch_toggle_string: value ? "1" : "0" });
+        }
+      }
     } : null;
     // 2020/4/20 锁类和保险箱类，安全设置从更多设置中移出来
     if (['lock', 'safe-box', 'safe'].indexOf(modelType) !== -1) {
@@ -696,7 +843,18 @@ export default class CommonSetting extends React.Component {
         title: strings.security,
         onPress: () => Host.ui.openSecuritySetting()
       };
+    } else if (state.specificSetting && state.specificSetting.allowSecurity) {
+      // 2025/05/23 更新安全设置配置，支持插件传参动态配置更新
+      ret[AllOptions.SECURITY] = {
+        title: strings.security,
+        onPress: () => Host.ui.openSecuritySetting()
+      };
     }
+    // 2025/03/13 添加快捷方式到桌面
+    ret[AllOptions.ADD_TO_DESKTOP] = (state.specificSetting && state.specificSetting.allowAddToDesktop) ? {
+      title: strings.addToDesktop,
+      onPress: () => Host.ui.openAddToDesktopPage()
+    } : null;
     return ret;
   }
   constructor(props, context) {
@@ -712,15 +870,22 @@ export default class CommonSetting extends React.Component {
       freqCameraFlag: false,
       freqCameraNeedShowRedPoint: false,
       standPlugin: false, // 标准插件设置项的值
-      showMultipleKey: false, // 是否展示多键开关
-      multipleKeyisOn: false, // 多键开关状态
+      showMultipleKey: false, // 是否展示多键开关拆分的选项
+      multipleKeyisOn: false, // 多键开关拆分状态
       keyNum: 0, // 多键开关数量
       pluginCategory: 0,
       hasStdPlugin: false,
       dialogVisible: false,
-      needShowUpgradeRedDot: false
+      needShowUpgradeRedDot: false,
+      showMemberSetKey: false, // 是否展示「按键设置」,适用于多键开关和继电器设备
+      isSingleSwitch: false, // 是否是单键开关，单键开关也要显示「按键设置」。showMemberSetKey和isSingleSwitch要么都为false，说明这不是一个开关设备，要么只会有一个为true，说明这是单键或者多键开关
+      showDeviceService: false, // 是否暂展示「设备服务」选项，
+      cloudStorageOn: -1,
+      isCariotDevice: false,
+      isHomeManager: false,
+      specificSetting: props.specificSetting // 是否支持设备的特定设置
     };
-    console.log(`Device.type: ${ Device.type }`);
+    console.log(`Device.type: ${ Device.type + Device.deviceID }`);
     this.commonSetting = this.getCommonSetting(this.state);
   }
   UNSAFE_componentWillReceiveProps(props) {
@@ -769,7 +934,7 @@ export default class CommonSetting extends React.Component {
       // 20190516，「固件自动升级」不能做成通用功能所以去掉，
       // 那么二级页面「FirmwareUpgrade」只剩下「检查固件升级」一项，遂藏之
       this.removeKeyFromShowDot(AllOptions.FIRMWARE_UPGRADE);
-      if (Device.type === '16') { // mesh device
+      if (Device.type === '16') { // Mesh device
         Host.ui.openBleMeshDeviceUpgradePage();
       } else if (Device.type === '17' && ['light'].indexOf(modelType) !== -1) {
         // 2019/11/21 新灯组2.0需求
@@ -832,7 +997,11 @@ export default class CommonSetting extends React.Component {
         ...params,
         commonSettingStyle: this.props.commonSettingStyle,
         // 2020/4/20 锁类和保险箱类，去掉更多设置页中的安全设置
-        excludeRequiredOptions: (['lock', 'safe-box', 'safe'].indexOf(this.state.modelType) !== -1 && excludeRequiredOptions.indexOf(AllOptions.SECURITY) === -1) ? [...excludeRequiredOptions, AllOptions.SECURITY] : excludeRequiredOptions
+        // 2025/5/23 支持摄像机通过属性控制安全设置&添加快捷方式到一级通用设置菜单，需要从二级菜单中移除
+        excludeRequiredOptions: ((['lock', 'safe-box', 'safe'].indexOf(this.state.modelType) !== -1
+          || (this.state.specificSetting && this.state.specificSetting.allowSecurity))
+          && excludeRequiredOptions.indexOf(AllOptions.SECURITY) === -1)
+          ? [...excludeRequiredOptions, AllOptions.SECURITY] : excludeRequiredOptions
       });
     } else {
       if (__DEV__ && console.warn) {
@@ -872,7 +1041,8 @@ export default class CommonSetting extends React.Component {
         roomInfo
       });
       this.setState({
-        roomInfo
+        roomInfo,
+        isHomeManager: roomInfo?.data.permitLevel === 9
       });
     });
     getMultipleKey().then((supportInfo) => {
@@ -908,6 +1078,30 @@ export default class CommonSetting extends React.Component {
     }).catch((err) => {
       Service.smarthome.reportLog(Device.model, `Service.smarthome.device_support_split error: ${ err }`);
     });
+    showMemberSet().then((memberInfo) => {
+      let showMemberSetKey = false;
+      let isSingleSwitch = false;
+      if (memberInfo) {
+        showMemberSetKey = memberInfo.showMemberSetKey;
+        isSingleSwitch = memberInfo.isSingleSwitch;
+      }
+      this.setState({
+        showMemberSetKey,
+        isSingleSwitch
+      });
+    }).catch((err) => {
+      Service.smarthome.reportLog(Device.model, `Service.smarthome.multi_button_template error: ${ err }`);
+    });
+    getCountryCode()
+      .then((countryCode) => {
+        if (countryCode === 'cn') {
+          showDeviceService().then((show) => {
+            this.setState({ showDeviceService: show });
+          }).catch((err) => {
+            Service.smarthome.reportLog(Device.model, `showDeviceService error: ${ err }`);
+          });
+        }
+      });
     getPluginCategory()
       .then((res) => {
         this.commonSetting = this.getCommonSetting({
@@ -942,6 +1136,7 @@ export default class CommonSetting extends React.Component {
         });
       }
     });
+    this.getCloudStorage();
     // setTimeout(() => {
     //   this.commonSetting = this.getCommonSetting({
     //     ...this.state,
@@ -958,24 +1153,32 @@ export default class CommonSetting extends React.Component {
         this.setState({ needShowUpgradeRedDot: true });
       }
     });
+    this._isBelongToCarRoom();
+  }
+  getCloudStorage() {
+    GetCloudStorage(Device.deviceID).then((result) => {
+      this.commonSetting = this.getCommonSetting({ ...this.state, cloudStorageOn: result });
+      this.setState({ cloudStorageOn: result });
+    });
   }
   _updateFreqFlag() {
     Device.getFreqFlag().then((freqFlagRes) => {
       let freqFlag = freqFlagRes.data;
+      freqFlagValue = freqFlag ? '1' : '0';
       this.commonSetting = this.getCommonSetting({
         ...this.state,
         freqFlag
       });
       this.setState({ freqFlag });
     });
-    Device.getFreqCameraFlag().then((freqCameraFlagRes) => {
-      let freqCameraFlag = freqCameraFlagRes.data;
-      this.commonSetting = this.getCommonSetting({
-        ...this.state,
-        freqCameraFlag
-      });
-      this.setState({ freqCameraFlag });
-    });
+    // Device.getFreqCameraFlag().then((freqCameraFlagRes) => {
+    //   let freqCameraFlag = freqCameraFlagRes.data;
+    //   this.commonSetting = this.getCommonSetting({
+    //     ...this.state,
+    //     freqCameraFlag
+    //   });
+    //   this.setState({ freqCameraFlag });
+    // });
     Host.ui.getFreqCameraNeedShowRedPoint().then((freqCameraNeedShowRedPointRes) => {
       let freqCameraNeedShowRedPoint = freqCameraNeedShowRedPointRes.data;
       this.commonSetting = this.getCommonSetting({
@@ -990,27 +1193,47 @@ export default class CommonSetting extends React.Component {
       dialogVisible: false
     });
   }
+  _isBelongToCarRoom() {
+    Device.isBelongToCarRoom(Device.deviceID).then((value) => {
+      console.log(value, "isCariotDevice");
+      let isCariotDevice = value.data;
+      this.commonSetting = this.getCommonSetting({
+        ...this.state,
+        isCariotDevice
+      });
+      this.setState({ isCariotDevice });
+    }).catch((err) => {
+      console.log("err", err);
+    });
+  }
   render() {
-    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory } = this.state;
+    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory, showMemberSetKey, isSingleSwitch, showDeviceService, isCariotDevice, isHomeManager } = this.state;
     let requireKeys1 = [
       AllOptions.FREQ_CAMERA,
       AllOptions.FREQ_DEVICE,
       AllOptions.NAME,
-      AllOptions.LOCATION
+      AllOptions.LOCATION,
+      AllOptions.CLOUD_STORAGE
     ];
     if (productBaikeUrl) {
       requireKeys1.push(AllOptions.PRODUCT_BAIKE);
     }
     if (showMultipleKey) {
-      // 展示多键开关
-      requireKeys1.push(AllOptions.MULTIPLEKEY_SWITCH);
+      // 展示多键开关拆分
+      requireKeys1.push(AllOptions.MULTIPLEKEY_SPLIT);
     }
     if (hasStdPlugin) {
       requireKeys1.push(AllOptions.DEFAULT_PLUGIN);
     }
+    if (showDeviceService) {
+      requireKeys1.push(AllOptions.DEVICE_SERVICE);
+    }
+    if (["light"].includes(modelType) && ["philips.light.flat"].includes(Device.model)) {
+      requireKeys1.push(AllOptions.DEVICE_CALL);
+    }
     // 创建组设备
     // 蓝牙单模和组设备不能创建
-    if (['6', '17'].indexOf(Device.type) === -1 && ['light'].indexOf(modelType) !== -1) {
+    if (['6', '17'].indexOf(Device.type) === -1 && ['light'].indexOf(modelType) !== -1 && !isCariotDevice) {
       requireKeys1.push(AllOptions.CREATE_GROUP);
     }
     // 管理组设备
@@ -1024,6 +1247,23 @@ export default class CommonSetting extends React.Component {
     ];
     // 2. 去掉杂质
     let options = [...(this.props.firstOptions || []), ...(this.props.secondOptions || [])].filter((key) => key && Object.values(AllOptions).includes(key));
+    // 2.1 如果开发者传了 membeSet 字段，就使用开发者的，否则由sdk判断是否需要 memberSet 字段
+    if (!options.includes(AllOptions.MEMBER_SET) && showMemberSetKey) {
+      options.push(AllOptions.MEMBER_SET);
+    }
+    // 单键开关去掉设备名称,位置管理设置项 添加按键设置 add by lipeng (MIIO-60790)
+    if (isSingleSwitch) {
+      requireKeys1.push(AllOptions.MEMBER_SET);
+      requireKeys1 = requireKeys1.filter((key) => {
+        return key !== AllOptions.LOCATION && key !== AllOptions.NAME;
+      });
+    }
+    // 2.2 更改图标选项
+    const lightGroup = Device.model.startsWith('mijia.light.group') ? 1 : undefined;
+    const outlet = ['plug', 'ctrl_86plug', 'powerstrip'].includes(Device.model.split('.')[1]) ? 2 : undefined;
+    if (outlet || lightGroup) {
+      requireKeys1.push(AllOptions.CHANGE_ICON);
+    }
     // 3. 去除重复
     options = [...new Set(options)];
     // 4. 拼接必选项和可选项
@@ -1032,13 +1272,30 @@ export default class CommonSetting extends React.Component {
     // 5. 权限控制，如果是共享设备或者家庭设备，需要过滤一下
     if (Device.isOwner === false) {
       keys = keys.filter((key) => firstSharedOptions[key]);
+      if (isHomeManager === false) {
+        keys = keys.filter((key) => !excludeManagerShowedOptions.includes(key));
+      }
     }
     // 6. 根据设备类型进一步过滤
     keys = keys.filter((key) => !(excludeOptions[key] || []).includes(Device.type));
     // 7. 根据开发者特殊需要，隐藏某些必选项
     const { excludeRequiredOptions } = this.props.extraOptions;
     if (excludeRequiredOptions instanceof Array) {
-      keys = keys.filter((key) => !(excludeRequiredOptions || []).includes(key));
+      keys = keys.filter((key) => {
+        if ((isSingleSwitch ^ showMemberSetKey) && key === AllOptions.MEMBER_SET) { // 如果SDK决定要展示「按键设置」，那么这个选项不允许开发者隐藏
+          return true;
+        }
+        return !(excludeRequiredOptions || []).includes(key);
+      });
+    }
+    if (isCariotDevice) {
+      keys = keys.filter((key) => {
+        return key !== AllOptions.LOCATION && key !== AllOptions.SHARE && key !== AllOptions.FREQ_DEVICE;
+      });
+    }
+    // 配合C501标插安全设置权重需求
+    if (Device.model == "chuangmi.camera.079ac1" || Device.model == "chuangmi.camera.079ae2") {
+      AllOptionsWeight[AllOptions.SECURITY] = 24;
     }
     // 4.5 所有设置项顺序固定，20190708 / SDK_10023
     keys.sort((keyA, keyB) => {
@@ -1055,20 +1312,28 @@ export default class CommonSetting extends React.Component {
       }
       return weightA - weightB;
     });
+    // 7.1 判断设备是否来至车房间, 过滤车房间显示项
+    if (1 === Device.fromRoomIndex) {
+      // 上层(上游)
+      keys = keys.filter((key) => carRoomTopOptions.includes(key));
+    } else if (2 === Device.fromRoomIndex) { 
+      // 下层(下游)
+      keys = keys.filter((key) => carRoomBottomOptions.includes(key));
+    }
     // 8. 根据最终的设置项 keys 渲染数据
     const items = keys.map((key) => {
       if (typeof key !== 'string') {
         const item = key;
         return item;
       }
-      const item = this.commonSetting[key];
+      const item = { ...this.commonSetting[key], key: key };
       if (item) {
         item.showDot = (this.state.showDot || []).includes(key);
         // 如果是固件升级设置项，且开发者没有传入是否显示
         if (key === AllOptions.FIRMWARE_UPGRADE && !item.showDot) {
           item.showDot = (Device.needUpgrade || this.state.needShowUpgradeRedDot) && !firmwareUpgradeDotClicked;
         } else if (key === AllOptions.FREQ_CAMERA && !item.showDot) {
-          item.showDot = freqCameraNeedShowRedPoint;
+          // item.showDot = freqCameraNeedShowRedPoint;
         }
       }
       return item;
@@ -1090,20 +1355,41 @@ export default class CommonSetting extends React.Component {
           items.map((item) => {
             if (!item || !item.title) return null;
             const showSeparator = false;// index !== items.length - 1;
+            tryTrackCommonSetting(item.key, 'expose');
+            // 设置页固件升级曝光埋点
+            if (item.key === AllOptions.FIRMWARE_UPGRADE) {
+              Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
+              const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
+                'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
+              Service.smarthome.reportEventRefChannel("expose", params);
+            }
             if (item._itemType === 'greenSwitch') {
               return (
                 <ListItemWithSwitch
-                  key={item.title}
+                  key={item.key || item.title}
                   title= {item.title}
                   titleNumberOfLines={0}
                   value= {item.value}
-                  onValueChange={item.onValueChange}
+                  tintColor={this.props.extraOptions?.tintColor || undefined}
+                  onTintColor={this.props.extraOptions?.themeColor || undefined}
+                  onValueChange={ (value) => {
+                    tryTrackCommonSetting(item.key, 'click', value ? 'open' : 'close');
+                    item.onValueChange(value);
+                  } }
                 />
               );
             } else if (item._itemType === 'switch') {
+              let isCamera = ['camera'].indexOf(modelType) !== -1 && ['mxiang.'].indexOf(Device.model) == -1;
+              if (item.key === AllOptions.FREQ_DEVICE && isCamera) {
+                // 摄像机设置页米家首页显示曝光
+                if (freqFlagValue != undefined && !freqDeviceSwitchExposed) {
+                  Service.smarthome.reportEvent('expose', { tip: '6.109.1.1.28404', switch_toggle_string: freqFlagValue });
+                  freqDeviceSwitchExposed = true;
+                }
+              }
               return (
                 <ListItemWithSwitch
-                  key={item.title}
+                  key={item.key || item.title}
                   title={item.title || ''}
                   allowFontScaling={tempCommonSettingStyle.itemStyle.allowFontScaling}
                   unlimitedHeightEnable={tempCommonSettingStyle.itemStyle.unlimitedHeightEnable}
@@ -1118,7 +1404,12 @@ export default class CommonSetting extends React.Component {
                   showDot={item.showDot || false}
                   value={item.value}
                   showSeparator={showSeparator}
-                  onValueChange={item.onValueChange}
+                  tintColor={this.props.extraOptions?.tintColor || undefined}
+                  onTintColor={this.props.extraOptions?.themeColor || undefined}
+                  onValueChange={ (value) => {
+                    tryTrackCommonSetting(item.key, 'click', value ? 'open' : 'close');
+                    item.onValueChange(value);
+                  } }
                   {...getAccessibilityConfig({
                     accessible: this.props.accessible
                   })}
@@ -1128,7 +1419,7 @@ export default class CommonSetting extends React.Component {
             } else {
               return (
                 <ListItem
-                  key={item.title}
+                  key={item.key || item.title}
                   title={item.title || ''}
                   allowFontScaling={tempCommonSettingStyle.itemStyle.allowFontScaling}
                   unlimitedHeightEnable={tempCommonSettingStyle.itemStyle.unlimitedHeightEnable}
@@ -1144,7 +1435,19 @@ export default class CommonSetting extends React.Component {
                   showDot={item.showDot || false}
                   value={item.value}
                   showSeparator={showSeparator}
-                  onPress={item.onPress}
+                  onPress={() => {
+                    if (item.onPress) {
+                      tryTrackCommonSetting(item.key, 'click');
+                      // 设置页固件升级点击埋点
+                      if (item.key === AllOptions.FIRMWARE_UPGRADE) {
+                        Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
+                        const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
+                          'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
+                        Service.smarthome.reportEventRefChannel("click", params);
+                      }
+                      item.onPress();
+                    }
+                  }}
                   {...getAccessibilityConfig({
                     accessible: this.props.accessible
                   })}
@@ -1164,7 +1467,8 @@ export default class CommonSetting extends React.Component {
               unlimitedHeightEnable: false,
               titleStyle: {
                 fontSize: 18
-              }
+              },
+              itemSubtitleNumberOfLines: 5
             }}
             buttons={[
               {
@@ -1204,7 +1508,9 @@ export default class CommonSetting extends React.Component {
             }}
           /> : null}
         {/* <Separator /> */}
-        {!Device.isFamily ?
+        {/* !Device.isFamily: 旧逻辑 */}
+        {/* Device.isOKspace: 10107 新增逻辑 */}
+        {!Device.isFamily || Device.isOKspace ?
           (<View style={[styles.bottomContainer, tempCommonSettingStyle.bottomContainer]} {...getAccessibilityConfig({
             accessible: this.props.accessible,
             accessibilityRole: AccessibilityRoles.button
@@ -1238,7 +1544,7 @@ export default class CommonSetting extends React.Component {
         subtitleStyle: null,
         valueStyle: null,
         dotStyle: null,
-        titleNumberOfLines: 1,
+        titleNumberOfLines: 3,
         subtitleNumberOfLines: 2,
         valueNumberOfLines: 2,
         // valueMaxWidth 这里不设置默认值，直接用ListItem 里的
@@ -1276,6 +1582,7 @@ export default class CommonSetting extends React.Component {
     return style;
   }
   UNSAFE_componentWillMount() {
+    const { navigation } = this.props;
     this._deviceNameChangedListener = DeviceEvent.deviceNameChanged.addListener((device) => {
       // this.state.name = device.name;
       // this.commonSetting = this.getCommonSetting(this.state);
@@ -1291,11 +1598,15 @@ export default class CommonSetting extends React.Component {
     this._packageGobackFromNativeListerner = PackageEvent.packageViewWillAppear.addListener(() => {
       this._updateFreqFlag();
     });
+    if (Device.model && Device.model.includes('camera') && navigation) {
+      this.listenerFocus = navigation.addListener('didFocus', this.getCloudStorage.bind(this));
+    }
   }
   componentWillUnmount() {
     this._deviceNameChangedListener.remove();
     this._packageGobackFromNativeListerner && this._packageGobackFromNativeListerner.remove();
     this.needUpgradeListener && this.needUpgradeListener.remove();
+    this.listenerFocus && this.listenerFocus.remove();
   }
 }
 const styles = dynamicStyleSheet({
