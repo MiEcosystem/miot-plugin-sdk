@@ -30,6 +30,7 @@
 import Device from "../device/BasicDevice";
 import { report } from "../decorator/ReportDecorator";
 import { PermissionsAndroid } from "react-native";
+import Permission from "../service/permission";
 import { processColor } from "react-native";
 /**
  * 文件事件名集合
@@ -503,6 +504,93 @@ class IFile {
      return Promise.resolve(null);
   }
   /**
+   * @since 10083
+   * 注册字体
+   * Android:
+   * 注意！！！对于Android而言，必须保证fontFamily在还未被使用之前注册进来，否者即使注册了也会无效
+   * 建议一进插件就注册，如果非要延时注册的话，请确保触发这个方法逻辑之前，插件从未尝试使用该fontFamily渲染过任何文字
+   * 说明：
+   * 在Android的RN中，字体是有缓存机制的，当一个插件需要使用的某个fontFamily首次被加载时，它会被存在一个Map中
+   * key为fontFamily，value为它的字体对象
+   * 这样在下次还要用到此字体时可以避免重复去磁盘中读取字体文件
+   * 但是如果第一次使用这个字体时RN找不到这个字体，它就会使用系统默认的字体，同时也会把这个kv存入缓存，并且不会更新。
+   * 而这个方法就是要在RN第一次去加载这个字体之前给它权限允许它去加载，否者当RN无权限加载时，它会使用系统默认字体，后续因为缓存已经生效，导致再调用这个方法也不会有任何效果了
+   * (注意这个方法只是给予权限去加载，到了真正要渲染字体的时候第一步会判断有没有权限，第二步就会去字体文件夹下读字体文件，而如果字体文件不存在的话，也会加载失败，那么也会使用默认字体，
+   * 所以这个方法必须保证fontFamily在还未被使用之前注册进来)
+   *
+   * iOS:
+   * iOS是可以做到使用时注册的，而且iOS要求字体文件必须存在才能注册成功（Android没这要求，因为对于Android而言它只是给予权限的一个操作），所以在使用此方法时要判断系统类型。
+   * @example
+   * 请查看com.xiaomi.demo里的DownloadFontDemo.js文件
+   * @param param
+   * @param {string}param.fontFamily <Text>组件用到的fontFamily
+   * 注册成功时
+   * iOS返回
+   * {code:0, data:{fontFamily:xxxx}} // iOS上应该在<Text>组件中传入这里面的fontFamily
+   * 失败时：{"code":xxx, "message":"xxx" }
+   * Android没有返回值
+   */
+  registerFontEnable(param) {
+  }
+  /**
+   * @since 10083
+   * 下载字体文件，下载过来的字体可以通过{@link Host.file.registerFontEnable}注册
+   * 然后插件可以使用该字体，下载进度可以通过监听FileEvent.fileDownloadProgress事件实现
+   * @param param
+   * @param {string}param.url 下载链接，文件下载完成后才会回调，只支持下载单个文件
+   * @param {string}param.fileName 字体文件名称，名字必须规范!!!
+   * 1：必须以fontFamily命名
+   * 2：后缀必须为.otf或者.ttf
+   * 如：MiSansW-Light.otf
+   * @param {string}param.taskID 任务ID，可选项，可用于cancelDownloadFile取消下载任务
+   * @returns {Promise<Object>}
+   * 返回的数据和downloadFile方法的返回值一致
+   */
+  @report
+  downloadFontFile(param) {
+     return Promise.resolve(null);
+  }
+  /**
+   * @since 10083
+   * 读取已下载了的字体列表
+   * @param param 预留参数
+   * @returns {Promise<Object>}
+   * 成功返回
+   *     [
+   *       {
+   *         name:xxx,
+   *         size:xxx,
+   *         modifyTime:xxxx
+   *       }
+   *     ]
+   * 失败时返回
+   * {
+   *   code:-1,
+   *   message:xxxx
+   * }
+   */
+  @report
+  readFontFileList(param = undefined) {
+     return Promise.resolve(null);
+  }
+  /**
+   * @since 10083
+   * 删除下载了的字体文件
+   * @param param
+   * @param {string} param.fileName 字体文件名，跟下载时传入的名字一样
+   * @returns {Promise<Object>}
+   * 成功时返回:
+   * "delete complete"
+   * 失败时返回：{
+   *   code:-1,
+   *   message:xxxx
+   * }
+   */
+  @report
+  deleteFontFile(param) {
+     return Promise.resolve(null);
+  }
+  /**
    * 取消指定的下载任务
    * @param {string} taskID - since 10038 下载任务的唯一ID， 与 downloadFile 传入的 taskID 一致
    * @returns {Promise}
@@ -629,7 +717,8 @@ class IFile {
    * @since 10037
    * @param {string} fileName 图片在沙盒中的文件名
    * @param {string} customDirName 自定义相册名称，默认为null，since 10042
-   * @returns {Promiste}
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id， since 10082
+   * @returns {Promise}
    * 成功时：返回true
    * 失败时：
    *  {"code":-401, "message":"access to photo library denied" }
@@ -642,7 +731,30 @@ class IFile {
    * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
    */
   @report
-  saveImageToPhotosDidAlbum(fileName, customDirName = null) {
+  saveImageToPhotosDidAlbum(fileName, customDirName = null, deviceID = undefined) {
+     return Promise.resolve(false)
+  }
+  /**
+   * 保存指定图片文件到以did命名的相册中，返回系统相册中的路径
+   * 该方法会在系统相册中创建一个以did[-customDirName]命名的相册（如果不存在），并将图片保存在其中
+   * @since 10096
+   * @param {string} fileName 图片在沙盒中的文件名
+   * @param {string} customDirName 自定义相册名称，默认为null，since 10042
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id， since 10082
+   * @returns {Promise}
+   * 成功时：返回true
+   * 失败时：
+   *  {"code":-401, "message":"access to photo library denied" }
+   *  {"code":-1, "message":"did cannot be empty" }
+   *  {"code":-2, "message":"did cannot be empty" }
+   *  {"code":-3, "message":"path is ilegal or file not exist" }
+   *  {"code":-5, "message":"filepath cannot convert to a image, please check" }
+   *  {"code":-100, "message":"failed to save image" }
+   *  {"code":-101, "message":"failed to create album" }
+   * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
+   */
+  @report
+  saveImageToPhotosDidAlbumV2(fileName, customDirName = null, deviceID = undefined) {
      return Promise.resolve(false)
   }
   /**
@@ -651,6 +763,7 @@ class IFile {
    * @since 10037
    * @param {string} fileName
    * @param {string} customDirName 自定义相册名称，默认为null, since 10042
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id， since 10082
    * @returns {Promise}
    * 成功时：返回true
    * 失败时：
@@ -665,7 +778,102 @@ class IFile {
    * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
    */
   @report
-  saveVideoToPhotosDidAlbum(fileName, customDirName = null) {
+  saveVideoToPhotosDidAlbum(fileName, customDirName = null, deviceID = undefined) {
+     return Promise.resolve(false)
+  }
+  /**
+   * 保存指定照片文件到以did命名的相册中，返回系统相册中的路径
+   * 该方法会在系统相册中创建一个以did命名的相册（如果不存在），并将视频保存在其中
+   * @since 10096
+   * @param {string} fileName
+   * @param {string} customDirName 自定义相册名称，默认为null, since 10042
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id， since 10082
+   * @returns {Promise}
+   * 成功时：返回true
+   * 失败时：
+   *  {"code":-401, "message":"access to photo library denied" }
+   *  {"code":-1, "message":"did cannot be empty" }
+   *  {"code":-2, "message":"did cannot be empty" }
+   *  {"code":-3, "message":"path is ilegal or file not exist" }
+   *  {"code":-4, "message":"filepath cannot seek to be video file" }
+   *  {"code":-6, "message":"file cannot save to album as a video" }
+   *  {"code":-100, "message":"failed to save video" }
+   *  {"code":-101, "message":"failed to create album" }
+   * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
+   */
+  @report
+  saveVideoToPhotosDidAlbumV2(fileName, customDirName = null, deviceID = undefined) {
+     return Promise.resolve(false)
+  }
+    /**
+   * 拼接视频文件
+   * @since 10095
+   * @param {string} firstVideoPath
+   * @param {string} secondVideoPath
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id
+   * @returns {Promise}
+   * 成功时：
+   *   {"code": 0, "message":"merge success", "fileName": "mergeVideo-11111.mp4" }
+   * 失败时：code < 0
+   *  {"code":xx, "message":"merge failure" }
+   * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
+   */
+    @report
+  mergeVideos(firstVideoPath, secondVideoPath, deviceID = undefined) {
+     return Promise.resolve(false)
+  }
+    /**
+   * 拼接图片文件
+   * @since 10095
+   * @param {string} firstImagePath
+   * @param {string} secondImagePath
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id
+   * @returns {Promise}
+   * 成功时：
+   *   {"code": 0, "message":"merge success", "fileName": "mergeImage-11111.png" }
+   * 失败时：code < 0
+   *  {"code":xx, "message":"merge failure" }
+   * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
+   */
+      @report
+    mergeImages(firstImagePath, secondImagePath, deviceID = undefined) {
+       return Promise.resolve(false)
+    }
+  /**
+   * 拼接视频文件(支持拼接格式dir：1:上下，2:左右、黑边space)
+   * @since 10102
+   * @param {string} firstVideoPath
+   * @param {string} secondVideoPath
+   * @param {object} params direction: {1:上下，2:左右}
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id
+   * @param {string} callbackEvent 拼接进度回调事件名
+   * @returns {Promise}
+   * 成功时：
+   *   {"code": 0, "message":"merge success", "fileName": "mergeVideo-11111.mp4" }
+   * 失败时：code < 0
+   *  {"code":xx, "message":"merge failure" }
+   * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
+   */
+  @report
+      mergeVideosV2(firstVideoPath, secondVideoPath, params = {}, deviceID = undefined, callbackEvent) {
+         return Promise.resolve(false)
+      }
+  /**
+   * 拼接图片文件(支持拼接格式dir：1:上下，2:左右、黑边space)
+   * @since 10102
+   * @param {string} firstImagePath
+   * @param {string} secondImagePath
+   * @param {object} params directtion 1:上下，2:左右 {dir=1, space=2}
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id
+   * @returns {Promise}
+   * 成功时：
+   *   {"code": 0, "message":"merge success", "fileName": "mergeImage-11111.png" }
+   * 失败时：code < 0
+   *  {"code":xx, "message":"merge failure" }
+   * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
+   */
+  @report
+  mergeImagesV2(firstImagePath, secondImagePath, params = {}, deviceID = undefined) {
      return Promise.resolve(false)
   }
   /**
@@ -673,6 +881,7 @@ class IFile {
    * @since 10037
    * @param {string} url
    * @param {string} customDirName 自定义相册名称，默认为null, since 10042
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id， since 10082
    * @returns {Promise}
    * 成功时：返回true
    * 失败时：
@@ -683,7 +892,7 @@ class IFile {
    * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
    */
   @report
-  fetchLocalVideoFilePathFromDidAlbumByUrl(url, customDirName = null) {
+  fetchLocalVideoFilePathFromDidAlbumByUrl(url, customDirName = null, deviceID = undefined) {
      return Promise.resolve(false)
   }
   /**
@@ -691,6 +900,7 @@ class IFile {
    * 如果不存在该相册，返回空数组
    * @since 10037
    * @param {string} customDirName 自定义相册名称，默认为null, since 10042
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id， since 10081
    * @returns {Promise}
    * 成功时：{"code":0, "data":[] }
    *      返回图片和视频信息
@@ -713,7 +923,7 @@ class IFile {
    * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
    */
   @report
-  getAllSourceFromPhotosDidAlbum(customDirName = null) {
+  getAllSourceFromPhotosDidAlbum(customDirName = null, deviceID = undefined) {
      return Promise.resolve(false)
   }
   /**
@@ -1123,6 +1333,20 @@ class IFile {
    */
   @report
   readFileInfo(fileName, type) {
+     return Promise.resolve(null);
+  }
+  /**
+   * 生成二维码并保存到插件路径
+   * @since 10103
+   * @param {object} params 
+   * @param {string} params.qrStr: 二维码数据
+   * @param {int} params.size: 二维码宽度 int 只穿宽度就行 二维码默认正方形
+   * @returns {Promise}
+   * 成功时: {code:0, data: "xxxxx"} 绝对路径filePath
+   * 失败时：{"code":xxx, "message":"xxx" }
+   */
+  @report
+  generateQRCodeAndSave(params) {
      return Promise.resolve(null);
   }
 }
