@@ -1,10 +1,10 @@
 import React from "react";
 import {
   View,
-  Text,
+  Text
 } from "react-native";
 import GL from "gl-react";
-import {Surface} from "gl-react-native";
+import { Surface } from "gl-react-native";
 
 const shaders = GL.Shaders.create({
   drunkEffect: {
@@ -38,13 +38,13 @@ void main() {
 });
 
 class Intro extends React.Component {
-  render () {
+  render() {
     const { time, fps, width, height } = this.props;
     return <Surface
       width={width}
       height={height}
       onLoad={() => console.log("Intro onLoad")}
-      onProgress={e => console.log("Intro onProgress", e.nativeEvent)}>
+      onProgress={(e) => console.log("Intro onProgress", e.nativeEvent)}>
       <GL.Node
         shader={shaders.drunkEffect}
         uniforms={{
@@ -60,7 +60,7 @@ class Intro extends React.Component {
               GL REACT NATIVE
             </Text>
             <View style={{ flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-              <View style={{ backgroundColor: "#00FF66", marginRight: 8, width: 14, height: 14, borderRadius: 7, opacity: time%1 < 0.6 ? 1 : 0 }} />
+              <View style={{ backgroundColor: "#00FF66", marginRight: 8, width: 14, height: 14, borderRadius: 7, opacity: time % 1 < 0.6 ? 1 : 0 }} />
               <Text style={{ flex: 1, color: "#00FF66", fontSize: 14 }}>
                 {time.toFixed(2)}s
               </Text>
