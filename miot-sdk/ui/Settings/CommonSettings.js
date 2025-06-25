@@ -18,6 +18,7 @@ import AutoOTAABTestHelper from '../../utils/autoota_abtest_helper';
 import { showDeviceService } from "../../hooks/useDeviceService";
 import useCariotDevice from "../../hooks/useCariotDevice";
 import { ListItemWithSwitch } from 'mhui-rn';
+import { Platform } from 'react-native';
 let getInnerOptions = () => {
   return {
     deviceService: {
@@ -112,7 +113,9 @@ let getInnerOptions = () => {
         const [clicked, click] = useClicked('firmwareUpgrade');
         useEffect(() => {
           // 固件升级曝光埋点
-          Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
+          if (Platform.OS === 'ios') {
+            Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
+          }
           const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
             'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
           Service.smarthome.reportEventRefChannel("expose", params);
@@ -124,7 +127,9 @@ let getInnerOptions = () => {
             showDot={canUpgrade && !clicked}
             onPress={delegatePress(({ navigation, extraOptions = {} }) => {
               // 固件升级点击埋点
-              Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
+              if (Platform.OS === 'ios') {
+                Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
+              }
               const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
                 'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
               Service.smarthome.reportEventRefChannel("click", params);
