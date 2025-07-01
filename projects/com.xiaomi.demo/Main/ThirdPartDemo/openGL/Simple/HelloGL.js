@@ -16,5 +16,5 @@ void main () { // This function is called FOR EACH PIXEL
 
 module.exports = GL.createComponent(() =>
   <GL.Node shader={shaders.helloGL} />,
-  { displayName: "HelloGL" }
+{ displayName: "HelloGL" }
 );

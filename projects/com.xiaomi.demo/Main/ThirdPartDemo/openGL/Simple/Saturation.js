@@ -21,9 +21,9 @@ void main () {
 
 module.exports = GL.createComponent(
   ({ factor, image, ...rest }) =>
-  <GL.Node
-    {...rest}
-    shader={shaders.saturation}
-    uniforms={{ factor, image }}
-  />,
-{ displayName: "Saturation" });
+    <GL.Node
+      {...rest}
+      shader={shaders.saturation}
+      uniforms={{ factor, image }}
+    />,
+  { displayName: "Saturation" });
