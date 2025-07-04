@@ -37,7 +37,7 @@ import ServiceInstance from './Service';
 import { SceneType as SceneTypeNames } from './service/scene';
 import DarkModeFactory from './darkmode';
 import ReuseHelper from './utils/reuse-helper';
-export const API_LEVEL = 10108
+export const API_LEVEL = 10109
 /**
  * 插件包基本配置
  * {@link module:miot/Package}
