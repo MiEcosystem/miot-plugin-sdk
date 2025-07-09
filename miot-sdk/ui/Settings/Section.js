@@ -22,7 +22,7 @@ export default function Section({ title, showSeparator = true, children }) {
       ) : null}
       {title && visible ? (
         <View style={Styles.titleContainer}>
-          <Text style={Styles.title}>{title}</Text>
+          <Text style={[Styles.title, { textAlign: 'left' }]}>{title}</Text>
         </View>
       ) : null}
       <View onLayout={onLayout}>
