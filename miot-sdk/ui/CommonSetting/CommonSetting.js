@@ -20,6 +20,7 @@ import { FontPrimary } from 'miot/utils/fonts';
 import { showMemberSet } from '../../hooks/useMemberSetInfo';
 import { showDeviceService } from '../../hooks/useDeviceService';
 import tryTrackCommonSetting from "../../utils/track-sdk";
+import { System } from '../..';
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
 let firmwareUpgradeDotClicked = false;
 let freqDeviceSwitchExposed = false; // 米家首页显示item打点用
@@ -865,8 +866,12 @@ export default class CommonSetting extends React.Component {
       cloudStorageOn: -1,
       isCariotDevice: false,
       isHomeManager: false,
+      isHighTextContrastEnabled: false, // 无障碍高对比度文字开关
       specificSetting: props.specificSetting // 是否支持设备的特定设置
     };
+    PackageEvent.packageDidResume.addListener(() => {
+      this.fetchHighTextContrastState();
+    });
     console.log(`Device.type: ${ Device.type + Device.deviceID }`);
     this.commonSetting = this.getCommonSetting(this.state);
   }
@@ -1136,6 +1141,14 @@ export default class CommonSetting extends React.Component {
       }
     });
     this._isBelongToCarRoom();
+    this.fetchHighTextContrastState();
+  }
+  fetchHighTextContrastState() {
+    System.accessibility.getHighTextContrastState().then((res) => {
+      this.setState({
+        isHighTextContrastEnabled: res
+      });
+    });
   }
   getCloudStorage() {
     GetCloudStorage(Device.deviceID).then((result) => {
@@ -1189,7 +1202,7 @@ export default class CommonSetting extends React.Component {
     });
   }
   render() {
-    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory, showMemberSetKey, isSingleSwitch, showDeviceService, isCariotDevice, isHomeManager } = this.state;
+    let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory, showMemberSetKey, isSingleSwitch, showDeviceService, isCariotDevice, isHomeManager, isHighTextContrastEnabled } = this.state;
     let requireKeys1 = [
       AllOptions.FREQ_CAMERA,
       AllOptions.FREQ_DEVICE,
@@ -1315,6 +1328,7 @@ export default class CommonSetting extends React.Component {
       return !!item;
     }); // 防空
     let tempCommonSettingStyle = this._getCommonSettingStyle();
+    const btnStyle = isHighTextContrastEnabled ? styles.buttonTextAcc : styles.buttonText;
     return (
       <View style={styles.container}>
         <View style={[styles.titleContainer, tempCommonSettingStyle.titleContainer]}>
@@ -1493,7 +1507,7 @@ export default class CommonSetting extends React.Component {
               activeOpacity={0.8}
             >
               <Text
-                style={ [styles.buttonText, FontPrimary, { fontWeight: 'bold' }, tempCommonSettingStyle.deleteTextStyle]}
+                style={ [btnStyle, FontPrimary, { fontWeight: 'bold' }, tempCommonSettingStyle.deleteTextStyle]}
                 allowFontScaling={tempCommonSettingStyle.allowFontScaling}
               >
                 {Device.type === '17' && Device.isOwner ? (strings[`delete${ (Device.model || '').split('.')[1][0].toUpperCase() }${ (Device.model || '').split('.')[1].slice(1) }Group`]) : strings.deleteDevice}
@@ -1619,6 +1633,13 @@ const styles = dynamicStyleSheet({
     flex: 1,
     textAlign: 'center',
     color: new DynamicColor('#F43F31', '#D92719'),
+    lineHeight: 18
+  },
+  buttonTextAcc: {
+    fontSize: 16,
+    flex: 1,
+    textAlign: 'center',
+    color: new DynamicColor('#D62B1E', '#D92719'),
     lineHeight: 18
   }
 });

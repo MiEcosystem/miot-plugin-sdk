@@ -1,5 +1,5 @@
 'use strict';
-import { DarkMode, Device, DeviceEvent, Package, Service } from 'miot';
+import { DarkMode, Device, DeviceEvent, Package, PackageEvent, Service, System } from 'miot';
 import Host from 'miot/Host';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -157,8 +157,12 @@ export default class MoreSetting extends React.Component {
     referenceReport('MoreSetting');
     this.state = {
       showPrivacyDialogState: false,
+      isHighTextContrastEnabled: false, // 无障碍高对比度文字开关
       timeZone: Device.timeZone || '' // 从未设置过时区的话，为空字符串
     };
+    PackageEvent.packageDidResume.addListener(() => {
+      this.fetchHighTextContrastState();
+    });
     this.secondOptions = this.props.navigation.state.params.secondOptions || [secondAllOptions.SECURITY, secondAllOptions.VOICE_AUTH, secondAllOptions.BTGATEWAY, secondAllOptions.TIMEZONE];
     this.excludeRequiredOptions = this.props.navigation.state.params.excludeRequiredOptions || [];
     this.extraOptions = this.props.navigation.state.params.extraOptions || {};
@@ -201,6 +205,7 @@ export default class MoreSetting extends React.Component {
   }
   componentDidMount() {
     this.getDeviceTimeZone();
+    this.fetchHighTextContrastState();
   }
   getDeviceTimeZone() {
     Device.getDeviceTimeZone()
@@ -222,7 +227,15 @@ export default class MoreSetting extends React.Component {
   componentWillUnmount() {
     this._deviceTimeZoneChangedListener.remove();
   }
+  fetchHighTextContrastState() {
+    System.accessibility.getHighTextContrastState().then((res) => {
+      this.setState({
+        isHighTextContrastEnabled: res
+      });
+    });
+  }
   render() {
+    const { isHighTextContrastEnabled } = this.state;
     const requireKeys1 = [secondAllOptions.PLUGIN_VERSION, secondAllOptions.SECURITY];
     // 判断是否显示「网络信息」
     // 1 显示
@@ -340,11 +353,12 @@ export default class MoreSetting extends React.Component {
         }
         {/* <Separator /> */}
         {/* </ScrollView> */}
-        {this.renderPrivacyDialog()}
+        {this.renderPrivacyDialog({ isHighTextContrastEnabled })}
       </View>
     );
   }
-  renderPrivacyDialog() {
+  renderPrivacyDialog({ isHighTextContrastEnabled }) {
+    const backgroundColor = isHighTextContrastEnabled ? { bgColorNormal: '#007D81' } : undefined;
     return (
       <View>
         <MessageDialog
@@ -355,6 +369,7 @@ export default class MoreSetting extends React.Component {
             {
               text: I18n.cancel,
               style: { color: 'lightpink' },
+              backgroundColor: backgroundColor,
               callback: (_) => this.setState({ showPrivacyDialogState: false })
             }
           ]}
