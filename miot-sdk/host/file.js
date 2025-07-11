@@ -817,11 +817,68 @@ class IFile {
    * 失败时：code < 0
    *  {"code":xx, "message":"merge failure" }
    * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
+   * ios 端建议使用 mergeVideosUseHarewareAccelerate。兼容不同尺寸视频合并
    */
     @report
   mergeVideos(firstVideoPath, secondVideoPath, deviceID = undefined) {
      return Promise.resolve(false)
   }
+  /**
+   * 拼接视频文件，iOS only
+   * @since 10108
+   * @param {string} firstVideoPath
+   * @param {string} secondVideoPath
+   * @param {string} deviceID 指定的deviceID，不传默认使用本设备id
+   * @returns {Promise}
+   * 成功时：
+   *   {"code": 0, "message":"merge success", "fileName": "mergeVideo-11111.mp4" }
+   * 失败时：code < 0
+   *  {"code":xx, "message":"merge failure" }
+   * @remarks
+   * 使用硬件合并视频 逐步替代mergeVideos:videoFilePath:did:callback:在视频宽高比不一致时
+   * 竖直合并：合并视频宽度取决于较宽的视频，较窄的原视频等比拉伸
+   * 水平合并：合并视频高度取决于较高的视频，较短的原视频等比拉伸
+   */
+    @report
+    mergeVideosUseHarewareAccelerate(firstPath, secondPath, deviceID = undefined) {
+      if (!isIOS) {
+        return Promise.reject({ "code": -1, "message": "mergeVideosUseHarewareAccelerate is only support ios" });
+      }
+       return Promise.resolve(false)
+    }
+    /**
+     * 拼接视频文件：iOS only
+     * @since 10108 【原生待验证】
+     * 使用硬件合并视频 逐步替代mergeVideos:videoFilePath:did:callback:
+     * 
+     * @param {string} firstVideoPath
+     * @param {string} secondVideoPath
+     * @param {string} deviceID 指定的deviceID，不传默认使用本设备id
+     * @returns {Promise}
+     * 成功时：
+     *   {"code": 0, "message":"merge success", "fileName": "mergeVideo-11111.mp4" }
+     * 失败时：code < 0
+     *  {"code":xx, "message":"merge failure" }
+     * @remarks
+     * 使用ffmpeg合并视频
+     * 在视频宽高比不一致时
+     * 竖直合并：合并视频宽度取决于较宽的视频，较窄的原视频等比拉伸
+     * 水平合并：合并视频高度取决于较高的视频，较短的原视频等比拉伸
+    */
+    @report
+    mergeVideosWithFFmpeg(firstPath, secondPath, deviceID = undefined) {
+      if (!isIOS) {
+        return Promise.reject({ "code": -1, "message": "mergeVideosWithFFmpeg is only support ios" });
+      }
+      return new Promise((resolve, reject) => {
+        let did = deviceID || Device.deviceID;
+        if (did == null || did == '') {
+          reject({ "code": -1, "message": "did cannot be empty" });
+          return;
+        }
+         return Promise.resolve(false)
+   }
+   
     /**
    * 拼接图片文件
    * @since 10095
