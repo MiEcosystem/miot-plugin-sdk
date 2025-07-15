@@ -638,6 +638,15 @@ class IUi {
     native.MIOTHost.openDeviceTimeZoneSettingPage(params);
   }
   /**
+   * 跳转微信小程序
+   * 
+   * @param {string} appOriginalId 例如：gh_1dac5028a5dd
+   * @param {string} path 例如：pages/auth/auth
+   * @param {boolean} needDialogRemind 默认有弹窗提醒
+   */
+  openWeChatMinProgram(appOriginalId, path, needDialogRemind = true) {
+  }
+  /**
    * 打开商城某商品详情页面
    * @param {string} gid - 商品ID
    */
