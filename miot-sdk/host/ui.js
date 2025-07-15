@@ -22,6 +22,7 @@ import { report } from "../decorator/ReportDecorator";
 import Device from '../device/BasicDevice';
 import Service from '../Service';
 import PrivacyUploadFdsHelper from '../utils/privacy_uploadfds_helper';
+import { Toast } from 'mhui-rn/dist/components/toast/Toast';
 /**
  * 原生UI管理
  * @interface
@@ -261,9 +262,54 @@ class IUi {
    * 针对wifi、AP、第三方云等可以联网的设备的统一OTA方案
    * @param type 默认 0 ，进入最新固件升级页面          type字段 自10049支持
    *              1， 进入旧版（native）固件升级页面    type字段 自10049支持
+   * @params params 可选参数，传入 block, 自 10106 支持
    */
   @report
-  openDeviceUpgradePage(type = 0) {
+  openDeviceUpgradePage(type = 0, params = {}) {
+  }
+  /** 
+   * @method openDoubleGraftingAuth
+   * @since 10109
+   * @time 2025-3-25
+   * @description 打开运动健康设备双接授权页
+   * @param null
+   * @return null
+  */
+  @report
+  openDoubleGraftingAuth() {
+    native.MIOTHost.openDoubleGraftingAuth();
+  }
+  /**
+   * 固件升级页面，蓝牙连接 10107新增
+  */
+  @report
+  bluetoothConnection(type, params) {
+    // 发送事件通知
+    let emitParams = {
+      title: '手机蓝牙蓝牙连接中...',
+      subTitle: '此功能需手机蓝牙连接可用',
+      type: 'show'
+    };
+    DeviceEventEmitter.emit('FirmwareUpgradeAutoBottomSheet', emitParams);
+    return new Promise((resolve, reject) => {
+      emitParams.type = 'hide';
+      Device.getBluetoothLE().connect(type,
+        {
+          did: Device.deviceID,
+          timeout: 10000,
+          connectRetry: 0,
+          ...params
+        }).then((res) => {
+        console.log(`蓝牙连接成功::${ Math.ceil(Date.now() / 1000) }: ${ JSON.stringify(res) }`);
+        resolve(res);
+        emitParams.title = '连接成功'
+        DeviceEventEmitter.emit('FirmwareUpgradeAutoBottomSheet', emitParams);
+      }).catch((err) => {
+        reject(err);
+        emitParams.title = '连接失败'
+        DeviceEventEmitter.emit('FirmwareUpgradeAutoBottomSheet', emitParams);
+      });
+    });
   }
   /**
    *
