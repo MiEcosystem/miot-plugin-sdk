@@ -271,7 +271,6 @@ const API_REPO = {
   '/v2/device/insurance': {},
   '/v2/device/engineer': {},
   '/v2/device/devicerssi': {},
-  
   // 疯景1代门铃迁移rn接口
   '/common/app/delete/files': {},
   '/common/app/get/playlist': {},
@@ -365,6 +364,8 @@ const API_REPO = {
   '/smarthome/product/acpanel/plugin/scene/list': {},
   '/smarthome/product/acpanel/plugin/scene/save': {},
   '/smarthome/product/acpanel/client/v1/device/list': {},
-  '/smarthome/product/acpanel/client/v1/sub': {}
+  '/smarthome/product/acpanel/client/v1/sub': {},
+  // 门锁数字钥匙管理（删除/冻结/恢复）
+  '/iccoa/manageKey': {}
 };
 export default API_REPO;
