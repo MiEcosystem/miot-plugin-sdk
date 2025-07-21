@@ -303,11 +303,11 @@ class IUi {
         console.log(`蓝牙连接成功::${ Math.ceil(Date.now() / 1000) }: ${ JSON.stringify(res) }`);
         resolve(res);
         DeviceEventEmitter.emit('FirmwareUpgradeAutoBottomSheet', emitParams);
-        this.toastBoothConnectResult(I18n.connection_successful);
+        this.showToast(I18n.connection_successful);
       }).catch((err) => {
         reject(err);
         DeviceEventEmitter.emit('FirmwareUpgradeAutoBottomSheet', emitParams);
-        this.toastBoothConnectResult(I18n.connection_failed);
+        this.showToast(I18n.connection_failed);
       });
     });
   }
