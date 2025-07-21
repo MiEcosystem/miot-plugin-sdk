@@ -987,6 +987,30 @@ class IFile {
      return Promise.resolve(false)
   }
   /**
+   * 通过图片相册URL获取图片是否有水印
+   * 如果不存在该相册，返回空数组
+   * @since 10109
+   * @param {string} url 相册url, 通过getAllSourceFromPhotosDidAlbum这类相册资源方法获取
+   * @returns {Promise}
+   * 成功则返回水印信息，有水印信息如下，可能为空
+   * {
+   *  "deviceID": "1170922735", //设备id
+   *  "hasWatermark": false, //图片是否有水印
+   *  "watermarkInfo": "23mm f/1.6 1/100s ISO 64", //水印文案
+   *  "watermarkTemplate": 1, //水印模板，默认为1,1带icon的模块，2为不带Icon的模块
+   *  "extraInfo": { //水印额外信息，json，内部参数可自定义
+   *     "fnum": 18,
+   *     "iso": 500, 
+   *     "shutter": 4,
+   *  }
+   * }
+   * @example
+   */
+  @report
+  getWatermarkInfoFromAssetWithUrl(url) {
+     return Promise.resolve(false)
+  }
+  /**
    * 获取指定以did命名的相册中所有的图片和视频
    * 如果不存在该相册，返回空数组
    * @since 10037
