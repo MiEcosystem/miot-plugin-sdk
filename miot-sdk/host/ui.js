@@ -312,12 +312,12 @@ class IUi {
     });
   }
   /**
-   * toast 蓝牙连接结果
+   * native toast
    * since 10109
    */
   @report
-  toastBoothConnectResult(text = '') {
-    native.MIOTHost.toastBoothConnectResult(text);
+  showToast(text = '') {
+    native.MIOTHost.showToast(text);
   }
   /**
    *
