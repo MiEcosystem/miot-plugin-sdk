@@ -343,5 +343,9 @@ export default {
   common_loading: '加载中，请稍后...',
   pairMode: 'Párosítási mód',
   switch_title_buttonControlDevice_oneGang: 'Eszközvezérlők',
-  retry: 'Újrapróbálkozás'
+  retry: 'Újrapróbálkozás',
+  bluetooth_connecting: 'Kapcsolódás Bluetooth-on keresztül…',
+  bluetooth_connection_phone: 'Ehhez a funkcióhoz a telefon Bluetooth-kapcsolatra van szükség',
+  connection_successful: 'Sikeres kapcsolódás',
+  connection_failed: 'Kapcsolódás sikertelen'
 };

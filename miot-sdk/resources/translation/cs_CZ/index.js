@@ -343,5 +343,9 @@ export default {
   common_loading: '加载中，请稍后...',
   pairMode: 'Režim párování',
   switch_title_buttonControlDevice_oneGang: 'Ovládací prvky zařízení',
-  retry: 'Zkusit znovu'
+  retry: 'Zkusit znovu',
+  bluetooth_connecting: 'Připojování přes Bluetooth…',
+  bluetooth_connection_phone: 'Tato funkce vyžaduje připojení Bluetooth ve vašem telefonu',
+  connection_successful: 'Úspěšně připojeno',
+  connection_failed: 'Nepodařilo se připojit'
 };

@@ -343,5 +343,9 @@ export default {
   common_loading: '加载中，请稍后...',
   pairMode: '페어링 모드',
   switch_title_buttonControlDevice_oneGang: '기기 제어',
-  retry: '재시도'
+  retry: '재시도',
+  bluetooth_connecting: '블루투스를 통해 연결하는 중…',
+  bluetooth_connection_phone: '이 기능을 사용하려면 휴대전화의 블루투스 연결이 필요합니다.',
+  connection_successful: '연결 성공',
+  connection_failed: '연결 실패'
 };

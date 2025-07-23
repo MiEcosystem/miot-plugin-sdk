@@ -343,5 +343,9 @@ export default {
   common_loading: '加载中，请稍后...',
   pairMode: 'Mode pemasangan',
   switch_title_buttonControlDevice_oneGang: 'Kontrol perangkat',
-  retry: 'Coba lagi'
+  retry: 'Coba lagi',
+  bluetooth_connecting: 'Menghubungkan melalui Bluetooth…',
+  bluetooth_connection_phone: 'Fitur ini memerlukan koneksi Bluetooth ponsel Anda',
+  connection_successful: 'Berhasil terhubung',
+  connection_failed: 'Tidak dapat terhubung'
 };

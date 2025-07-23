@@ -343,5 +343,9 @@ export default {
   common_loading: '加载中，请稍后...',
   pairMode: 'Mod de asociere',
   switch_title_buttonControlDevice_oneGang: 'Comenzile dispozitivului',
-  retry: 'Încearcă din nou'
+  retry: 'Încearcă din nou',
+  bluetooth_connecting: 'Conectare prin Bluetooth…',
+  bluetooth_connection_phone: 'Această funcție necesită conexiunea Bluetooth a telefonului dvs.',
+  connection_successful: 'Conectarea a reușit',
+  connection_failed: 'Nu s-a putut conecta'
 };

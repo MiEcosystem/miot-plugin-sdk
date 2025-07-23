@@ -343,5 +343,9 @@ export default {
   common_loading: '加载中，请稍后...',
   pairMode: 'Режим сопряжения',
   switch_title_buttonControlDevice_oneGang: 'Управление устройством',
-  retry: 'Повторить'
+  retry: 'Повторить',
+  bluetooth_connecting: 'Подключение через Bluetooth…',
+  bluetooth_connection_phone: 'Для работы этой функции требуется подключение по Bluetooth на вашем телефоне',
+  connection_successful: 'Успешно подключено',
+  connection_failed: 'Не удалось подключиться'
 };

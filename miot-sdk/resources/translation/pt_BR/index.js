@@ -343,5 +343,9 @@ export default {
   common_loading: '加载中，请稍后...',
   pairMode: 'Modo de emparelhamento',
   switch_title_buttonControlDevice_oneGang: 'Controles do dispositivo',
-  retry: 'Tente novamente'
+  retry: 'Tente novamente',
+  bluetooth_connecting: 'Conectando via Bluetooth…',
+  bluetooth_connection_phone: 'Este recurso requer a conexão Bluetooth do seu telefone.',
+  connection_successful: 'Conectado com sucesso.',
+  connection_failed: 'Não foi possível conectar.'
 };

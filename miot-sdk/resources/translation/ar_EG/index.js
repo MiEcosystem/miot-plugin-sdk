@@ -343,5 +343,9 @@ export default {
   common_loading: '加载中，请稍后...',
   pairMode: 'وضع الاقتران',
   switch_title_buttonControlDevice_oneGang: 'عناصر التحكم بالجهاز',
-  retry: 'حاول مجددًا'
+  retry: 'حاول مجددًا',
+  bluetooth_connecting: 'جارٍ الاتصال عبر البلوتوث ...',
+  bluetooth_connection_phone: 'تتطلب هذه الميزة اتصال البلوتوث بهاتفك',
+  connection_successful: 'تم الاتصال بنجاح',
+  connection_failed: 'تعذّر الاتصال'
 };

@@ -343,5 +343,9 @@ export default {
   common_loading: '載入中，請稍候...',
   pairMode: '配對模式',
   switch_title_buttonControlDevice_oneGang: '裝置控制',
-  retry: '重試'
+  retry: '重試',
+  bluetooth_connecting: '手機藍牙連線中...',
+  bluetooth_connection_phone: '此功能需手機藍牙連接可用',
+  connection_successful: '連接成功',
+  connection_failed: '連接失敗'
 };

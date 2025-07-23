@@ -22,7 +22,7 @@ import { report } from "../decorator/ReportDecorator";
 import Device from '../device/BasicDevice';
 import Service from '../Service';
 import PrivacyUploadFdsHelper from '../utils/privacy_uploadfds_helper';
-import { Toast } from 'mhui-rn/dist/components/toast/Toast';
+import { strings as I18n } from '../resources';
 /**
  * 原生UI管理
  * @interface
@@ -286,8 +286,8 @@ class IUi {
   bluetoothConnection(type, params) {
     // 发送事件通知
     let emitParams = {
-      title: '手机蓝牙蓝牙连接中...',
-      subTitle: '此功能需手机蓝牙连接可用',
+      title: I18n.bluetooth_connecting,
+      subTitle: I18n.bluetooth_connection_phone,
       type: 'show'
     };
     DeviceEventEmitter.emit('FirmwareUpgradeAutoBottomSheet', emitParams);
@@ -302,14 +302,22 @@ class IUi {
         }).then((res) => {
         console.log(`蓝牙连接成功::${ Math.ceil(Date.now() / 1000) }: ${ JSON.stringify(res) }`);
         resolve(res);
-        emitParams.title = '连接成功'
         DeviceEventEmitter.emit('FirmwareUpgradeAutoBottomSheet', emitParams);
+        this.showToast(I18n.connection_successful);
       }).catch((err) => {
         reject(err);
-        emitParams.title = '连接失败'
         DeviceEventEmitter.emit('FirmwareUpgradeAutoBottomSheet', emitParams);
+        this.showToast(I18n.connection_failed);
       });
     });
+  }
+  /**
+   * native toast
+   * since 10109
+   */
+  @report
+  showToast(text = '') {
+    native.MIOTHost.showToast(text);
   }
   /**
    *

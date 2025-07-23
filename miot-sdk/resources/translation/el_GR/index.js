@@ -343,5 +343,9 @@ export default {
   common_loading: '加载中，请稍后...',
   pairMode: 'Λειτουργία ζεύξης',
   switch_title_buttonControlDevice_oneGang: 'Έλεγχος Συσκευής',
-  retry: 'Προσπαθήστε ξανά'
+  retry: 'Προσπαθήστε ξανά',
+  bluetooth_connecting: 'Σύνδεση μέσω Bluetooth...',
+  bluetooth_connection_phone: 'Αυτή η λειτουργία απαιτεί σύνδεση Bluetooth του τηλεφώνου σας',
+  connection_successful: 'Συνδέθηκε επιτυχώς',
+  connection_failed: 'Αδυναμία σύνδεσης'
 };
