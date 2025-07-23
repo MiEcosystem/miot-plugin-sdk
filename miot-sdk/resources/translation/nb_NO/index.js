@@ -343,5 +343,9 @@ export default {
   common_loading: '加载中，请稍后...',
   pairMode: 'Sammenkoblingsmodus',
   switch_title_buttonControlDevice_oneGang: 'Enhetskontroller',
-  retry: 'Prøv igjen'
+  retry: 'Prøv igjen',
+  bluetooth_connecting: 'Kobler til via Bluetooth …',
+  bluetooth_connection_phone: 'Denne funksjonen krever tilgang til telefonens Bluetooth-forbindelse',
+  connection_successful: 'Tilkoblet',
+  connection_failed: 'Kunne ikke koble til'
 };

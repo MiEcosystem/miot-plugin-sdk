@@ -343,5 +343,9 @@ export default {
   common_loading: '加载中，请稍后...',
   pairMode: 'Koppelingsmodus',
   switch_title_buttonControlDevice_oneGang: 'Apparaatbediening',
-  retry: 'Opnieuw proberen'
+  retry: 'Opnieuw proberen',
+  bluetooth_connecting: 'Verbinden via Bluetooth…',
+  bluetooth_connection_phone: 'Deze functie vereist de Bluetooth-verbinding van uw telefoon',
+  connection_successful: 'Succesvol verbonden',
+  connection_failed: 'Kon niet verbinden'
 };

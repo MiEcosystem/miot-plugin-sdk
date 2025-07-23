@@ -343,5 +343,9 @@ export default {
   common_loading: '加载中，请稍后...',
   pairMode: 'Tryb parowania',
   switch_title_buttonControlDevice_oneGang: 'Sterowanie urządzeniem',
-  retry: 'Spróbuj ponownie'
+  retry: 'Spróbuj ponownie',
+  bluetooth_connecting: 'Łączenie przez Bluetooth…',
+  bluetooth_connection_phone: 'Do prawidłowego działania funkcja musi korzystać z połączenia Bluetooth w telefonie',
+  connection_successful: 'Połączono pomyślnie',
+  connection_failed: 'Nie udało się połączyć'
 };

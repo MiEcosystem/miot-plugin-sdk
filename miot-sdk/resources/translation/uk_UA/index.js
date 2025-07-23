@@ -343,5 +343,9 @@ export default {
   common_loading: '加载中，请稍后...',
   pairMode: 'Режим сполучення',
   switch_title_buttonControlDevice_oneGang: 'Управління пристроєм',
-  retry: 'Повтор'
+  retry: 'Повтор',
+  bluetooth_connecting: 'Підключення через Bluetooth…',
+  bluetooth_connection_phone: 'Ця функція потребує Bluetooth-з’єднання телефону',
+  connection_successful: 'Успішно під\'єднано',
+  connection_failed: 'Не вдалося під\'єднатися'
 };

@@ -343,5 +343,9 @@ export default {
   common_loading: '加载中，请稍后...',
   pairMode: 'Parkopplingsläge',
   switch_title_buttonControlDevice_oneGang: 'Enhetskontroller',
-  retry: 'Försök igen'
+  retry: 'Försök igen',
+  bluetooth_connecting: 'Ansluter via Bluetooth...',
+  bluetooth_connection_phone: 'Den här funktionen kräver din telefons Bluetooth-anslutning',
+  connection_successful: 'Ansluten',
+  connection_failed: 'Kunde inte ansluta'
 };

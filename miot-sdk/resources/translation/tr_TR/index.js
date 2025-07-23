@@ -343,5 +343,9 @@ export default {
   common_loading: '加载中，请稍后...',
   pairMode: 'Eşleştirme modu',
   switch_title_buttonControlDevice_oneGang: 'Cihaz kontrolleri',
-  retry: 'Yeniden dene'
+  retry: 'Yeniden dene',
+  bluetooth_connecting: 'Bluetooth ile bağlanılıyor…',
+  bluetooth_connection_phone: 'Bu özellik telefonunuzun Bluetooth bağlantısını gerektirir',
+  connection_successful: 'Başarıyla bağlandı',
+  connection_failed: 'Bağlanılamadı'
 };

@@ -343,5 +343,9 @@ export default {
   common_loading: '加载中，请稍后...',
   pairMode: 'Pariliitostila',
   switch_title_buttonControlDevice_oneGang: 'Laiteohjaimet',
-  retry: 'Yritä uudelleen'
+  retry: 'Yritä uudelleen',
+  bluetooth_connecting: 'Yhdistetään Bluetoothin kautta…',
+  bluetooth_connection_phone: 'Tämä ominaisuus vaatii puhelimesi Bluetooth-yhteyden',
+  connection_successful: 'Yhdistetty onnistuneesti',
+  connection_failed: 'Ei voitu yhdistää'
 };

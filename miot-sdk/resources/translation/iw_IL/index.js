@@ -343,5 +343,9 @@ export default {
   common_loading: '加载中，请稍后...',
   pairMode: 'מצב צימוד',
   switch_title_buttonControlDevice_oneGang: 'בקרות המכשיר',
-  retry: 'ניסיון חוזר'
+  retry: 'ניסיון חוזר',
+  bluetooth_connecting: 'מתחבר באמצעות Bluetooth…',
+  bluetooth_connection_phone: 'מאפיין זה זקוק לחיבור ה-Bluetooth של הטלפון שלך',
+  connection_successful: 'התחבר בהצלחה',
+  connection_failed: 'לא ניתן להתחבר'
 };
