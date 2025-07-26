@@ -727,6 +727,16 @@ class IFile {
    *     "shutter": 4,
    *  }
    * }
+   * 成功时：返回true
+   * 失败时：
+   *  {"code":-401, "message":"access to photo library denied" }
+   *  {"code":-1, "message":"did cannot be empty" }
+   *  {"code":-2, "message":"did cannot be empty" }
+   *  {"code":-3, "message":"path is ilegal or file not exist" }
+   *  {"code":-5, "message":"filepath cannot convert to a image, please check" }
+   *  {"code":-100, "message":"failed to save image" }
+   *  {"code":-101, "message":"failed to create album" }
+   *  {"code":-102, "message":"Invalid URL format" }
    * @returns {Promise}
    */
   @report
