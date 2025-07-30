@@ -8,6 +8,7 @@
  * 扩展程序运行时手机系统提供的功能
  * 系统的能力主要包括：
  * 电量(battery.js)
+ * 蓝牙(bluetooth.js)
  * 屏幕(screen.js)
  * 音量(volume.js)
  * 加速计(accelerometer.js)
@@ -26,6 +27,7 @@
  *
  */
 import IBattery from "./battery";
+import IBluetooth from "./bluetooth";
 import IAccelerometer from "./accelerometer";
 import ICompass from "./compass";
 import IGyroscope from "./gyroscope";
@@ -37,7 +39,9 @@ import Volume from "./volume";
 import Network from "./network";
 import IShake from "./shake";
 import INfc from './nfc';
+import IHealth from "./health";
 export const battery = IBattery;
+export const bluetooth = IBluetooth;
 export const accelerometer = IAccelerometer;
 export const compass = ICompass;
 export const gyroscope = IGyroscope;
@@ -49,7 +53,8 @@ export const volume = Volume;
 export const network = Network;
 export const shake = IShake;
 export const nfc = INfc;
+export const health = IHealth;
 export default {
-  battery, accelerometer, compass, gyroscope, scancode,
-  vibrate, permission, location, volume, network, shake, nfc
+  battery, bluetooth, accelerometer, compass, gyroscope, scancode,
+  vibrate, permission, location, volume, network, shake, nfc, health
 };
