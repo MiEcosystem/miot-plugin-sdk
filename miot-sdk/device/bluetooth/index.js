@@ -306,9 +306,10 @@ export default {
    * since SDK_10109
    * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
    * @param oob
+   * @param isConnect
    * @returns {Promise<unknown> | Promise.Promise}
    */
-  verifyLockOOB(oob) {
+  verifyLockOOB(oob, isConnect) {
   },
   /**
    * since SDK_10109
