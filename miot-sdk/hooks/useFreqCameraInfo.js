@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Host, Device, PackageEvent } from 'miot';
+import { PackageEvent } from 'miot/event/PackageEvent';
+import Host from 'miot/Host';
+import Device from 'miot/device/BasicDevice';
 let freqCameraInfo = {
   isFreqDevice: false,
   canUpgrade: false
@@ -15,7 +17,7 @@ export default function useFreqCameraInfo() {
     setInfo(freqCameraInfo);
   }
   function update() {
-    Promise.all(Device.getFreqCameraFlag(), Host.ui.getFreqCameraNeedShowRedPoint()).then(([flag, need]) => {
+    Promise.all([Device.getFreqCameraFlag(), Host.ui.getFreqCameraNeedShowRedPoint()]).then(([flag, need]) => {
       const isFreqDevice = flag?.data;
       const canUpgrade = need?.freqCameraNeedShowRedPoint;
       freqCameraInfo = {
