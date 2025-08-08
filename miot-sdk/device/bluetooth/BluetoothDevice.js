@@ -490,6 +490,8 @@ export const BluetoothEvent = {
      *
      */
   bluetoothStatusChanged: {
+  },
+  iccoacreateDigitalKey: {
   }
 };
 buildEvents(BluetoothEvent);
