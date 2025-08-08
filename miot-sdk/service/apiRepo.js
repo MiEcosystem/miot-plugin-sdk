@@ -371,6 +371,8 @@ const API_REPO = {
   '/smarthome/product/acpanel/plugin/scene/save': {},
   '/smarthome/product/acpanel/client/v1/device/list': {},
   '/smarthome/product/acpanel/client/v1/sub': {},
+  // （开通钥匙/管理钥匙）时先生成SESSIONID
+  "iccoa/genSession": {},
   // 门锁数字钥匙管理（删除/冻结/恢复）
   '/iccoa/manageKey': {}
 };
