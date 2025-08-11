@@ -52,7 +52,16 @@ export const MISSCommand = {
   MISS_CMD_MOTOR_RESP: 0x113, /** < S->C, device motor control response */
   MISS_CMD_CRUISE_STATE_REQ: 0x200,
   MISS_CMD_CRUISE_STATE_RESP: 0x201,
-  MISS_CMD_CALL_STATUS_RESP: 0x301
+  MISS_CMD_CALL_STATUS_RESP: 0x301,
+  MISS_CMD_VIDEOCALL_START_REQ: 0x115,
+  MISS_CMD_VIDEOCALL_START_RESP: 0x116,
+  MISS_CMD_VIDEOCALL_STOP: 0x117,
+  // 枪球机联动查看
+  P2P_PROTOCOL_POINT_WHERE_HIT_WHERE_REQ: 0x130,
+  // 切换插件显示模式C-->S, 10109
+  MISS_CMD_CAMERA_MODE_CHANGE_REQ: 0X401,
+  // 是否可以切换 S-->C, 10109
+  MISS_CMD_CAMERA_MODE_CHANGE_RESP: 0X402
 };
 Object.freeze(MISSCommand);
 /**
@@ -320,9 +329,11 @@ class IMiotCamera {
      * @param {useV2API} 是否使用 V2 接口
      * @param {did} 默認參數 did
      * @param {cloudStoragePurchaseUrl} @since 10051 默認爲空，兼容以前的邏輯，不是vip就打開攝像頭的雲存購買連接；如果是低功耗設備，需要自己填入雲存購買連接。
+     * @param {directGoPurchasePage} @since 10069, 默认为false，兼容以前的逻辑，由原生判断vip状态，显示云存列表或者购买页面。如果设置为 true，则直接显示购买页面。
+     * @param {params} @since 10075 额外参数，应付未知的需求  暂时在这里放跳购买渠道号，方便PM进行数据分析。
      */
-    @report
-    showCloudStorage(supportHevc, useV2API, did = Device.deviceID, cloudStoragePurchaseUrl = "") {
+     @report
+    showCloudStorage(supportHevc, useV2API, did = Device.deviceID, cloudStoragePurchaseUrl = "", directGoPurchasePage = false, params = {}) {
        return null
     }
     /**
@@ -332,9 +343,9 @@ class IMiotCamera {
      * @param {aSettingUrl} @since 10053  自定义设置地址。默认为空，兼容以前的逻辑。
      */
     @report
-    showCloudStorageSetting(did = Device.deviceID, aSettingUrl = null) {
-       return null
-    }
+     showCloudStorageSetting(did = Device.deviceID, aSettingUrl = null) {
+        return null
+     }
     /**
      * 打开报警视频播放页面
      * @since 10037
@@ -555,11 +566,7 @@ class IMiotCamera {
      */
     @report
     openFloatWindow(did = Device.deviceID) {
-      if (Platform.OS == "android") {
-         return Promise.resolve(null);
-      } else {
-        return Promise.reject("unsupported operation for ios platform");
-      }
+       return Promise.resolve(null);
     }
     /**
      * 关闭悬浮窗
@@ -664,11 +671,53 @@ class IMiotCamera {
      * 设置speaker变声类型,    初次设置会触发初始化，后续simpleRate or channel发生改变 都不会触发初始化。
      * @param {int} simpleRate  音频采样率  与CameraRenderView里定义的MISSSampleRate一致
      * @param {int} type 变声类型，目前米家只提供 0 == 正常  1 == 小丑  2 == 大叔这三种类型 10055 增加 3 == 青年
+     *                                        20 == 变声算法，since 10111新增
      * @param {int} channel 单双通道 1 单声道， 2 立体声   默认为1
      * @param {string} did
+     * @param {object} extra since 10069 创米猫眼参数设置 
      */
     @report
-    setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID) {
+    setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID, extra = {}) {
+       return null
+        NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did, extra);
+        return;
+      }
+      NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did);
+    }
+    /**
+     * 判断文件是否已存在、是否需要更新
+     * @since 10111
+     * @param {string} fileName 文件地址，使用 _ 拼接版本
+     * @return state: 0未下载、1已下载、2可更新 
+    */
+    @report
+    checkVoiceChangerFile(fileName) {
+       return null
+    }
+    /**
+     * 下载变声文件到插件沙盒目录, 文件下载完成后才会回调，只支持下载单个文件
+     * since 10111
+     * @param {string} url - 文件地址
+     * @param {string} fileName - 存储到本地的文件名
+     * @param {string} callbackName 回调名称【回调下载进度】 @{@"state": @"onComplete", @"errorInfo": @"", @"progress": @"100"}
+     * 成功时: @{@"state": @"onComplete", @"errorInfo": @"", @"progress": @"100"}
+     * 失败时: 
+     *  callback(@[@(NO),@{@"error": @"参数有空值"}]);
+     *  callback(@[@(NO),@{@"error": @"网络异常"}]);
+    */
+    @report
+    downloadVoiceChangerFile(url, fileName, callbackName) {
+       return null
+    }
+    /**
+     * 验证变声结果
+     * @since 10111
+     * @param {string} fileName - 变声算法文件名
+     * 成功时: callback(@[@(YES),@{@"result": @"验证成功"}]);
+     * 失败时: callback(@[@(NO),@{@"result": @"验证失败"}]);
+     */
+    @report
+    verificationVoiceEffect(fileName) {
        return null
     }
     /**
@@ -680,6 +729,19 @@ class IMiotCamera {
      */
     @report
     showScreenLinkagePage(isMultiChoice, screenCount, did = Device.deviceID) {
+       return null
+    }
+   
+    /**
+     * 打开门铃的带屏设备联动页面
+     * @param {bool} isMultiChoice
+     * @param {number} screenCount
+     * @param {string} did
+     * @param {list} events 设备联动页支持动态设置是否联动到带屏设备的事件列表。  目前限制为push_enable_visit_linkage   push_enable_visit_staying 二者的组合，如果不传events，默认值为[]，app端不会展示事件推送设置的入口
+     * @since 10044
+     */
+    @report
+    showScreenLinkagePage(isMultiChoice, screenCount, did = Device.deviceID, events = []) {
        return null
     }
     /**
@@ -903,30 +965,89 @@ class IMiotCamera {
     @report
     uploadImageToCameraServer(imagePath, did = Device.deviceID) {
        return Promise.resolve(null);
-       return end
+    }
+    /**
+     * @since 10063
+     * @param  params {输入音频文件地址:inputFilePath}, {输入音频文件格式 inputFormat}, 
+     * {输出音频文件地址 outputFilePath}, {输出音频文件格式 outputFormat}
+     * 
+     * notice: 10063只实现了pcm到g711a的转换， 所以inputFormat传pcm, outputFormat传g711a
+     */
+    @report
+    audioCodec(params) {
        return Promise.resolve(null);
-       return end
-       return Promise.resolve(null);
-       return end
-       return Promise.resolve(null);
-       return end
+    }
+     /**
+     * @since 10065
+     * params{filePath, transformation(AES/ECB/PKCS5Padding), password}
+    */
+     @report
+    decryptFile(params) {
        return Promise.resolve(null);
     }
     /**
-   * 下载m3u8视频并合成mp4，支持合成mp4时统一分辨率，避免视频花屏
-   * @since 10066
-   * @param fileId 视频文件的fileId
-   * @param url 视频文件交给播放器播放的url （使用getVideoFileUrlV2换过来的视频地址）
-   * @param filePath 下载视频完成后 视频的存储路径，要求必须以Host.storageBasePath开始
-   * @param callbackName 下载进度回调
-   * @param did did
-   * @returns
-   *    state : 1. onStart (开始下载)  2. onComplete（下载完成）  3. onError（失败）  4. onProgress（下载进度）
-   *    errorInfo : 失败描述（state = onError时才有）
-   *    progress : 下载进度0 - 100 (state = onProgress时才有)
-   */
-     @report
-    downloadM3U8ToMP4ByUrl(fileId, url, filePath, callbackName, did = Device.deviceID) {
+     * @since 10065
+     * params{filePath, transformation(AES/ECB/PKCS5Padding), password}
+     */
+    @report
+     encryptFile(params) {
+        return Promise.resolve(null);
+     }
+    
+    /**
+     * 获取通用视频播放接口地址（如云存视频，看家视频 地址）
+     * @since 10066
+     * @param {string} hostPrefix host前缀 
+     * @param {string} path 换播放地址的接口
+     * @param {object} param readableMap，根据fileId换播放地址接口需要的参数
+     * @returns {Promise<String>} 文件路径
+     */
+  @report
+    getVideoFileUrlV2(hostPrefix, path, param) {
+       return Promise.resolve(null);
+    }
+  /**
+  * 下载m3u8视频并合成mp4，支持合成mp4时统一分辨率，避免视频花屏
+  * @since 10066
+  * @param fileId 视频文件的fileId
+  * @param url 视频文件交给播放器播放的url （使用getVideoFileUrlV2换过来的视频地址）
+  * @param filePath 下载视频完成后 视频的存储路径，要求必须以Host.storageBasePath开始
+  * @param callbackName 下载进度回调
+  * @param did did
+  * @returns
+  *    state : 1. onStart (开始下载)  2. onComplete（下载完成）  3. onError（失败）  4. onProgress（下载进度）
+  *    errorInfo : 失败描述（state = onError时才有）
+  *    progress : 下载进度0 - 100 (state = onProgress时才有)
+  */
+  @report
+  downloadM3U8ToMP4ByUrl(fileId, url, filePath, callbackName, did = Device.deviceID) {
+     return null
+  }
+    /**
+     * 
+     * @param {Device.deviceID} did 
+     * @returns result是tutkSessionRead base64编码后的结构体
+     */
+    @report
+  tutkSessionRead(did = Device.deviceID) {
+     return Promise.resolve(null);
+  }
+    /**
+     * 客户端手动发送，只有创米的一款设备如此，需要循环发送保持心跳才能让对讲成功
+     * @param {String} ioCtrlBuff 插件拼接的数据 base64后的
+     * @param {Device.deviceID} did 
+     * @returns result是tutkSessionWrite的返回值
+     */
+    tutkSessionWrite(ioCtrlBuffInBase64, did = Device.deviceID) {
+       return Promise.resolve(null);
+    }
+    /**
+     * 门锁远程开锁
+     * @since 10102
+     * @param {Device.deviceID} did
+     */
+    startUnlockDevice(did = Device.deviceID) {
+       return Promise.resolve(null);
     }
 }
 const MiotCameraInstance = new IMiotCamera();
