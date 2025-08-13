@@ -339,8 +339,9 @@ export default {
    * @param friendlyName
    * @param sessionId
    * @param brandID
+   * @param vehicleBrandId
    * @returns {Promise<unknown> | Promise.Promise}
    */
-  createDigitalKey(friendlyName, sessionId, brandID) {
+  createDigitalKey(friendlyName, sessionId, brandID, vehicleBrandId) {
   }
 };
