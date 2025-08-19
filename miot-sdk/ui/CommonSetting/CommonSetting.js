@@ -709,8 +709,7 @@ export default class CommonSetting extends React.Component {
               did: Device.deviceID,
               props: {
                 "prop.s_commonsetting_stand_plugin": JSON.stringify({ 'useStandPlugin': value ? '2' : '1' })
-              }
-            }
+              } }
           ]).then(() => {
           });
           let eventName = 'plugin_light_abtest_final';
@@ -1348,26 +1347,24 @@ export default class CommonSetting extends React.Component {
             // 设置页固件升级曝光埋点
             if (item.key === AllOptions.FIRMWARE_UPGRADE) {
               Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
-              const params = {
-                'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
-                'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button'
-              };
+              const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
+                'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
               Service.smarthome.reportEventRefChannel("expose", params);
             }
             if (item._itemType === 'greenSwitch') {
               return (
                 <ListItemWithSwitch
                   key={item.key || item.title}
-                  title={item.title}
+                  title= {item.title}
                   titleNumberOfLines={0}
-                  value={item.value}
+                  value= {item.value}
                   highTextContrast={isHighTextContrastEnabled}
                   tintColor={this.props.extraOptions?.tintColor || undefined}
                   onTintColor={this.props.extraOptions?.themeColor || undefined}
-                  onValueChange={(value) => {
+                  onValueChange={ (value) => {
                     tryTrackCommonSetting(item.key, 'click', value ? 'open' : 'close');
                     item.onValueChange(value);
-                  }}
+                  } }
                 />
               );
             } else if (item._itemType === 'switch') {
@@ -1379,7 +1376,6 @@ export default class CommonSetting extends React.Component {
                   freqDeviceSwitchExposed = true;
                 }
               }
-              console.log(`ykjTest --> tintColor : ${ this.props.extraOptions?.tintColor } onTintColor : ${ this.props.extraOptions?.themeColor }`);
               return (
                 <ListItemWithSwitch
                   key={item.key || item.title}
@@ -1400,10 +1396,10 @@ export default class CommonSetting extends React.Component {
                   highTextContrast={isHighTextContrastEnabled}
                   tintColor={this.props.extraOptions?.tintColor || undefined}
                   onTintColor={this.props.extraOptions?.themeColor || undefined}
-                  onValueChange={(value) => {
+                  onValueChange={ (value) => {
                     tryTrackCommonSetting(item.key, 'click', value ? 'open' : 'close');
                     item.onValueChange(value);
-                  }}
+                  } }
                   {...getAccessibilityConfig({
                     accessible: this.props.accessible
                   })}
@@ -1435,10 +1431,8 @@ export default class CommonSetting extends React.Component {
                       // 设置页固件升级点击埋点
                       if (item.key === AllOptions.FIRMWARE_UPGRADE) {
                         Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
-                        const params = {
-                          'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
-                          'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button'
-                        };
+                        const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
+                          'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
                         Service.smarthome.reportEventRefChannel("click", params);
                       }
                       item.onPress();
@@ -1515,7 +1509,7 @@ export default class CommonSetting extends React.Component {
               activeOpacity={0.8}
             >
               <Text
-                style={[btnStyle, FontPrimary, { fontWeight: 'bold' }, tempCommonSettingStyle.deleteTextStyle]}
+                style={ [btnStyle, FontPrimary, { fontWeight: 'bold' }, tempCommonSettingStyle.deleteTextStyle]}
                 allowFontScaling={tempCommonSettingStyle.allowFontScaling}
               >
                 {Device.type === '17' && Device.isOwner ? (strings[`delete${ (Device.model || '').split('.')[1][0].toUpperCase() }${ (Device.model || '').split('.')[1].slice(1) }Group`]) : strings.deleteDevice}
