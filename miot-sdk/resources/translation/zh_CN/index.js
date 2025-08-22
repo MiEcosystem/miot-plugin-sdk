@@ -104,7 +104,7 @@ export default {
   firmwareUpgradeForceUpdate: '由于您当前的设备固件版本过低，一些功能可能无法正常使用。请升级至最新版本，以体验更丰富的功能',
   firmwareUpgradeForceUpdating: '您的设备正在升级，请稍后，以体验更丰富的功能',
   firmwareUpgradeNew_pre: '检测到设备有最新固件版本',
-  firmwareUpgradeNew_sub: '，是否升级',
+  firmwareUpgradeNew_sub: '，是否升级？',
   handling: '操作中...',
   error: '处理失败，请稍后再试',
   createLightGroup: '创建灯组（新）',
