@@ -82,16 +82,6 @@ class IMiotRoom {
   loadAllRoom(forceReload = false) {
   }
   /**
-   * 获取当前家庭currentHomeId
-   * @since 10110
-   * @returns {Rromise<String>} Promise, 带有currentHomeId的结果
-   * 成功时：{"123"}
-   * 失败时：{null}
-   */
-  @report
-  getCurrentHomeId() {
-  }
-  /**
    * 使用指定名称创建房间
    * @since 10020
    * @param {string} name 要创建的房间名
