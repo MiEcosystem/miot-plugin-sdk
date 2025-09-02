@@ -87,6 +87,15 @@ export const DeviceEvent = {
   deviceStatusChanged: {
   },
   /**
+   * 设备属性变更事件
+   * @event
+   * @param {IDevice} device - 发生变更的设备
+   * @param {Map<string, object>}  newStatus { key: value }
+   * @备注: 如果 key 为空, 则此属性没有更新
+  */
+  devicePropertyChanged: {
+  },
+  /**
    * 订阅ble spec 消息推送；除了订阅之外，插件需要与设备建立蓝牙连接，并主动扫描设备的特征值，设备才会给插件推送消息。
    * @param {IDevice} device
    * @param {Map<string,object>} messages -接收到的数据,value为property或者event的值
@@ -657,7 +666,7 @@ export class BasicDevice {
    * @return { number } 0 标识没有表示当前用户没有这辆车的车辆位置权限, 1 标识有权限
    * @readonly
   */
-  get car_pos_auth() {
+  get carPosAuth() {
      return  0
   }
   /**
