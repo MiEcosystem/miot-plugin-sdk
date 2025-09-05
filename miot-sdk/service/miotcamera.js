@@ -674,15 +674,16 @@ class IMiotCamera {
      *                                      20 == 变声算法, since 10111新增
      * @param {int} channel 单双通道 1 单声道， 2 立体声   默认为1
      * @param {string} did
+     * @param {string} modelPath
      * @param {object} extra since 10069 创米猫眼参数设置 
      */
     @report
-    setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID, extra = {}) {
+    setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID, modelPath = null, extra = {}) {
        return null
-        NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did, extra);
+        NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did, modelPath, extra);
         return;
       }
-      NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did);
+      NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did, modelPath);
     }
     /**
      * 根据音频原文件路径和模型文件路径，获取转换后的变声文件路径
