@@ -678,9 +678,9 @@ class IMiotCamera {
      * @param {object} extra since 10069 创米猫眼参数设置 
      */
     @report
-    setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID, modelPath = null, extra = {}) {
+    setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID, extra = {}, modelPath = null) {
        return null
-        NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did, modelPath, extra);
+        NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did, extra, modelPath);
         return;
       }
       NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did, modelPath);
