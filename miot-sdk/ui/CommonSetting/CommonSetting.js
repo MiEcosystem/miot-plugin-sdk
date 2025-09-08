@@ -1355,6 +1355,9 @@ export default class CommonSetting extends React.Component {
     }); // 防空
     let tempCommonSettingStyle = this._getCommonSettingStyle();
     const btnStyle = isHighTextContrastEnabled ? styles.buttonTextAcc : styles.buttonText;
+    const isFromCarRoom = Device.fromRoomIndex === 1 || Device.fromRoomIndex === 2;
+    const isOKspace = Device.isOKspace;
+    const hideDeleteBtn = isFromCarRoom && !isOKspace;
     return (
       <View style={styles.container}>
         <View style={[styles.titleContainer, tempCommonSettingStyle.titleContainer]}>
@@ -1523,8 +1526,8 @@ export default class CommonSetting extends React.Component {
           /> : null}
         {/* <Separator /> */}
         {/* !Device.isFamily: 旧逻辑 */}
-        {/* Device.isOKspace: 10107 新增逻辑 */}
-        {!Device.isFamily || Device.isOKspace ?
+        {/* !hideDeleteBtn: 10111 新增逻辑 */}
+        {!Device.isFamily || !hideDeleteBtn ?
           (<View style={[styles.bottomContainer, tempCommonSettingStyle.bottomContainer]} {...getAccessibilityConfig({
             accessible: this.props.accessible,
             accessibilityRole: AccessibilityRoles.button
