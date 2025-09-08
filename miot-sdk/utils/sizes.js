@@ -2,10 +2,10 @@
 }
 let { width, height } = Dimensions.get('window');
 if (isAndroid) {
-  getPhoneScreenInfo().then((res) => {
-    width = res.viewWidth;
-    height = res.viewHeight;
-  }).catch(NOOP);
+  // getPhoneScreenInfo().then((res) => {
+  //   width = res.viewWidth;
+  //   height = res.viewHeight;
+  // }).catch(NOOP);
 }
 export const window = {
   get width() { return width; },
