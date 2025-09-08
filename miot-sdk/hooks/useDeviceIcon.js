@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Service from 'miot';
+import Service from 'miot/Service';
 import Device, { DeviceEvent } from 'miot/device/BasicDevice';
 export default function useDeviceIcon() {
   let url = Device.iconURL;
