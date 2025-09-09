@@ -1526,8 +1526,10 @@ export default class CommonSetting extends React.Component {
           /> : null}
         {/* <Separator /> */}
         {/* !Device.isFamily: 旧逻辑 */}
-        {/* !hideDeleteBtn: 10111 新增逻辑 */}
-        {!Device.isFamily || !hideDeleteBtn ?
+        {/* hideDeleteBtn: 10111 新增逻辑, carIot 需求hideDeleteBtn权重大于isFamily */}
+        {/* 1、hideDeleteBtn === true 要隐藏删除按钮 */}
+        {/* 2、hideDeleteBtn === false 要显示删除按钮时，判断 Device.isFamily 是否为 false */}
+        { hideDeleteBtn ? null : (!Device.isFamily ?
           (<View style={[styles.bottomContainer, tempCommonSettingStyle.bottomContainer]} {...getAccessibilityConfig({
             accessible: this.props.accessible,
             accessibilityRole: AccessibilityRoles.button
@@ -1544,7 +1546,7 @@ export default class CommonSetting extends React.Component {
                 {Device.type === '17' && Device.isOwner ? (strings[`delete${ (Device.model || '').split('.')[1][0].toUpperCase() }${ (Device.model || '').split('.')[1].slice(1) }Group`]) : strings.deleteDevice}
               </Text>
             </RkButton>
-          </View>) : null}
+          </View>) : null)}
       </View>
     );
   }
