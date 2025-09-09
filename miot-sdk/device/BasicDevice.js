@@ -668,6 +668,10 @@ export class BasicDevice {
   */
   get carPosAuth() {
      return  0
+      return JSON.parse(Properties.of(this).extrainfo)?.carPosAuth;
+    } else {
+      return Properties.of(this).carPosAuth;
+    }
   }
   /**
   * 获取蓝牙设备的mtu大小，当设备connect/disconnect 时候，会发生变化
