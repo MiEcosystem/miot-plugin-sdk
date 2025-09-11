@@ -114,7 +114,8 @@ export default class MoreSetting extends React.Component {
       [secondAllOptions.PLUGIN_VERSION]: {
         title: strings.pluginVersion,
         value: String(Package.version),
-        hideArrow: true
+        hideArrow: true,
+        forceHideArrowOnPressInvalid: true
       },
       [secondAllOptions.NETWORK_INFO]: {
         title: strings.networkInfo,
@@ -333,6 +334,7 @@ export default class MoreSetting extends React.Component {
                 }}
                 showSeparator={showSeparator}
                 hideArrow={item.hideArrow}
+                forceHideArrowOnPressInvalid={item.forceHideArrowOnPressInvalid}
                 allowFontScaling={itemStyle.allowFontScaling}
                 unlimitedHeightEnable={itemStyle.unlimitedHeightEnable}
                 titleStyle={itemStyle.titleStyle}

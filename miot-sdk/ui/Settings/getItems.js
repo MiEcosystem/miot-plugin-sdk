@@ -70,7 +70,8 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
       notModelTypes,
       validator,
       title,
-      onPress
+      onPress,
+      forceHideArrowOnPressInvalid
     } = innerOptions[key];
     const value = values[index];
     if (
@@ -122,6 +123,7 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
             showDot={showDots.includes(key) && !clickedItems.includes(key)}
             useNewType={true}
             hideArrow={!onPress}
+            forceHideArrowOnPressInvalid={forceHideArrowOnPressInvalid}
           />
         );
       }
@@ -137,6 +139,7 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
           showDot={showDots.includes(key) && !clickedItems.includes(key)}
           useNewType={true}
           hideArrow={!onPress}
+          forceHideArrowOnPressInvalid={forceHideArrowOnPressInvalid}
         />
       );
     }
