@@ -67,16 +67,14 @@ export default function useSwitchLightDeviceList(devices = []) {
         for (let index = 0; index < res.length; index++) {
           const spec = res[index]?.[0];
           if (spec) {
+            const { siid, piid, aiid } = spec;
             const filterDevice = devices[index];
             const payload_jsonValue = {
               in: [],
-              siid: spec.siid
+              siid,
+              piid,
+              aiid
             };
-            if (lightSpecialTriggerType?.[devices.model]?.pkey) {
-              payload_jsonValue.piid = spec.piid;
-            } else {
-              payload_jsonValue.aiid = spec.aiid;
-            }
             supportToggleDevices.push({
               ...filterDevice,
               action: {

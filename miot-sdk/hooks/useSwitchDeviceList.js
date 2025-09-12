@@ -24,9 +24,6 @@ function arrayGroup(array, size) {
 }
 export default function useSwitchLightDeviceList(devices = []) {
   const [toggleLightList, setToggleLightList] = useState([]);
-  devices.forEach((device) => {
-    console.log('device111222', device);
-  });
   const generateSwitchDevice = (devices, devicesSpecs, devicesInfo) => {
     const supportToggleDevices = [];
     for (let index = 0; index < devicesSpecs.length; index++) {
@@ -37,16 +34,8 @@ export default function useSwitchLightDeviceList(devices = []) {
         const filterDevice = devices[index];
         // specs
         const spiltButtons = specs.map((spec, specIndex) => {
+          const { siid, piid, aiid } = spec;
           const memberInfo = deviceInfo?.member_ship?.[`${ specIndex + 1 }`];
-          const payload_jsonValue = {
-            in: [],
-            siid: spec.siid
-          };
-          if (switchSpecialTriggerType?.[devices.model]?.pkey) {
-            payload_jsonValue.piid = spec.piid;
-          } else {
-            payload_jsonValue.aiid = spec.aiid;
-          }
           return {
             ...filterDevice,
             action: {
@@ -62,7 +51,12 @@ export default function useSwitchLightDeviceList(devices = []) {
                 device_name: filterDevice?.deviceName,
                 did: filterDevice.did,
                 model: filterDevice.model,
-                value: payload_jsonValue
+                value: {
+                  aiid,
+                  in: [],
+                  siid,
+                  piid
+                }
               },
               sa_id: 36019,
               from: 1
@@ -94,12 +88,10 @@ export default function useSwitchLightDeviceList(devices = []) {
         }
         return Service.spec.getSpecByKey(device.did, params);
       })).then((specs) => {
-        console.log('fetchToggleLightList----res111111', JSON.stringify(specs));
         Promise.all(arrayGroup(devices, 50).map((group) => {
           return Service.callSmartHomeAPI('/device/deviceinfo', { get_sub_relation: true, dids: group.map((device) => {
             return device.did;
           }) }).then((deviceInfo) => {
-            console.log('getSwitchInfo--res', JSON.stringify(deviceInfo));
             return deviceInfo;
           }).catch((error) => {
             console.log('获取按键信息报错---/device/deviceinfo---error', error);

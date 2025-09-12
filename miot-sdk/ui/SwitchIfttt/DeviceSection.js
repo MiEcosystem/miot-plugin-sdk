@@ -48,6 +48,7 @@ export default class DeviceSection extends Component {
   renderDeviceItems = () => {
     const { items } = this.props;
     const { selectedItem } = this.state;
+    // console.log("========selectedItem========",JSON.stringify(selectedItem));
     let index = 0;
     let groupItems = [];
     while (index < items.length) {
