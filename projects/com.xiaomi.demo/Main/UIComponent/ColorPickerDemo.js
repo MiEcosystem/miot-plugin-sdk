@@ -64,6 +64,7 @@ export default class ColorPickerDemo extends React.Component {
 
 const Styles = StyleSheet.create({
   colorPicker: {
+    width: '100%',
     height: 200
   },
   button: {
