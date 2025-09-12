@@ -370,6 +370,8 @@ const API_REPO = {
   '/smarthome/product/acpanel/plugin/scene/list': {},
   '/smarthome/product/acpanel/plugin/scene/save': {},
   '/smarthome/product/acpanel/client/v1/device/list': {},
-  '/smarthome/product/acpanel/client/v1/sub': {}
+  '/smarthome/product/acpanel/client/v1/sub': {},
+  "/eco/nas/message/identity/get": {},
+  "/eco/nas/message/identity/verify": {}
 };
 export default API_REPO;
