@@ -9,6 +9,9 @@ export default class CommonCell extends React.Component {
     };
   }
 
+
+
+  
   render() {
     return (
       <TouchableOpacity onPress={this.props.onPress}>
