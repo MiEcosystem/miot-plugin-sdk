@@ -895,7 +895,7 @@ export class BasicDevice {
   /**
    * 获取设备所在城市的cityId
    * @since 10111
-   * @return {string} 512 为 阿曼地区
+   * @return {number} 512 为 阿曼地区
   */
   get cityId() {
     return Properties.of(this).cityId;
@@ -906,7 +906,7 @@ export class BasicDevice {
   * @return {boolean}
  */
   get isOman() {
-    return this.cityId === "512";
+    return this.cityId === 512;
   }
   get isWearableDevice() {
     let isWearable = (this.comFlag & (1 << 12)) !== 0;
