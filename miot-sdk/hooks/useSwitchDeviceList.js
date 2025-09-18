@@ -5,11 +5,13 @@ import useDeepCompareEffect from './useDeepCompareEffect';
 const switchSpecialTriggerType = {
   'zimi.switch.dhkg01': {
     skey: 'toggle',
-    pkey: 'toggle'
+    pkey: 'toggle',
+    value: 1
   },
   'zimi.switch.dhkg02': {
     skey: 'toggle',
-    pkey: ['left-toggle', 'right-toggle']
+    pkey: ['left-toggle', 'right-toggle'],
+    value: 1
   }
 };
 function arrayGroup(array, size) {
@@ -36,6 +38,32 @@ export default function useSwitchLightDeviceList(devices = []) {
         const spiltButtons = specs.map((spec, specIndex) => {
           const { siid, piid, aiid } = spec;
           const memberInfo = deviceInfo?.member_ship?.[`${ specIndex + 1 }`];
+          const payload_json = aiid ?
+            {
+              command: 'action',
+              delay_time: 0,
+              device_name: filterDevice.deviceName,
+              did: filterDevice.did,
+              model: filterDevice.model,
+              value: {
+                in: [],
+                siid,
+                aiid
+              }
+            } :
+            {
+              command: 'set_properties',
+              delay_time: 0,
+              device_name: filterDevice.deviceName,
+              did: filterDevice.did,
+              model: filterDevice.model,
+              value: [{
+                did: filterDevice.did,
+                value: switchSpecialTriggerType?.[filterDevice.model]?.value || 1,
+                siid,
+                piid
+              }]
+            };
           return {
             ...filterDevice,
             action: {
@@ -45,19 +73,7 @@ export default function useSwitchLightDeviceList(devices = []) {
               type: 0,
               name: memberInfo?.name || filterDevice?.deviceName,
               // payload: '',
-              payload_json: {
-                command: 'action',
-                delay_time: 0,
-                device_name: filterDevice?.deviceName,
-                did: filterDevice.did,
-                model: filterDevice.model,
-                value: {
-                  aiid,
-                  in: [],
-                  siid,
-                  piid
-                }
-              },
+              payload_json,
               sa_id: 36019,
               from: 1
               // device_group_id: 0

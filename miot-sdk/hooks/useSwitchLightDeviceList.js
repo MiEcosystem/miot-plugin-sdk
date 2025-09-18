@@ -5,47 +5,58 @@ import useDeepCompareEffect from './useDeepCompareEffect';
 const lightSpecialTriggerType = {
   'yeelink.light.mbulb3': {
     skey: 'yeelight-scene',
-    pkey: 'toggle'
+    pkey: 'toggle',
+    value: 2
   },
   'yeelink.light.light3': {
     skey: 'yeelight-scene',
-    pkey: 'toggle'
+    pkey: 'toggle',
+    value: 2
   },
   'mijia.light.group5': {
     skey: 'light-scene',
-    akey: 'toggle'
+    akey: 'toggle',
+    value: 2
   },
   'mijia.light.group4': {
     skey: 'light-scene',
-    akey: 'toggle'
+    akey: 'toggle',
+    value: 2
   },
   'mijia.light.group3': {
     skey: 'light-scene',
-    akey: 'toggle'
+    akey: 'toggle',
+    value: 2
   },
   'mijia.light.group2': {
     skey: 'light-scene',
-    akey: 'toggle'
+    akey: 'toggle',
+    value: 2
   },
   'mijia.light.group1': {
     skey: 'light-scene',
-    akey: 'toggle'
+    akey: 'toggle',
+    value: 2
   },
   'yeelink.light.spot2': {
     skey: 'light-scene',
-    pkey: 'toggle-scene'
+    pkey: 'toggle-scene',
+    value: 2
   },
   'yeelink.light.ml8': {
     skey: 'light-scene',
-    pkey: 'toggle-scene'
+    pkey: 'toggle-scene',
+    value: 2
   },
   'yeelink.light.ml7': {
     skey: 'light-scene',
-    pkey: 'toggle-scene'
+    pkey: 'toggle-scene',
+    value: 2
   },
   'yeelink.light.ml6': {
     skey: 'light-scene',
-    pkey: 'toggle-scene'
+    pkey: 'toggle-scene',
+    value: 2
   }
 };
 export default function useSwitchLightDeviceList(devices = []) {
@@ -69,12 +80,31 @@ export default function useSwitchLightDeviceList(devices = []) {
           if (spec) {
             const { siid, piid, aiid } = spec;
             const filterDevice = devices[index];
-            const payload_jsonValue = {
-              in: [],
-              siid,
-              piid,
-              aiid
-            };
+            const payload_json = aiid ?
+              {
+                command: 'action',
+                delay_time: 0,
+                device_name: filterDevice.deviceName,
+                did: filterDevice.did,
+                model: filterDevice.model,
+                value: {
+                  in: [],
+                  siid,
+                  aiid
+                }
+              } :
+              {
+                command: 'set_properties',
+                delay_time: 0,
+                device_name: filterDevice.deviceName,
+                did: filterDevice.did,
+                model: filterDevice.model,
+                value: [{
+                  value: lightSpecialTriggerType?.[filterDevice.model]?.value || 2,
+                  siid,
+                  piid
+                }]
+              };
             supportToggleDevices.push({
               ...filterDevice,
               action: {
@@ -87,14 +117,7 @@ export default function useSwitchLightDeviceList(devices = []) {
                 type: 0,
                 name: filterDevice.deviceName,
                 payload: '',
-                payload_json: {
-                  command: 'action',
-                  delay_time: 0,
-                  device_name: filterDevice.deviceName,
-                  did: filterDevice.did,
-                  model: filterDevice.model,
-                  value: payload_jsonValue
-                },
+                payload_json,
                 protocol_type: 2
               }
             });
