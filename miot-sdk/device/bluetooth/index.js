@@ -286,5 +286,52 @@ export default {
     } else {
       native.MIOTBluetooth.disconnectDeviceWithDelay(mac, 0);
     }
+  },
+  /**
+   * since SDK_10109
+   * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
+   * @returns {Promise<unknown> | Promise.Promise}
+   */
+  checkLockSecureRisk() {
+  },
+  /**
+   * since SDK_10109
+   * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
+   * @param password
+   * @returns {Promise<unknown> | Promise.Promise}
+   */
+  verifyLockPassword(password) {
+  },
+  /**
+   * since SDK_10109
+   * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
+   * @param oob
+   * @param isConnect
+   * @returns {Promise<unknown> | Promise.Promise}
+   */
+  verifyLockOOB(oob, isConnect) {
+  },
+  /**
+   * since SDK_10109
+   * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
+   * @param password
+   * @returns {Promise<unknown> | Promise.Promise}
+   */
+  changeLockPassword(password) {
+  },
+  /**
+   * since SDK_10109
+   * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
+   * @returns {Promise<unknown> | Promise.Promise}
+   */
+  rollbackLockPassword() {
+  },
+  /**
+   * since SDK_10109
+   * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
+   * @param data
+   * @returns {Promise<unknown> | Promise.Promise}
+   */
+  encryptLockMessage(data) {
   }
 };
