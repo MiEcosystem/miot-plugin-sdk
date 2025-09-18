@@ -106,6 +106,9 @@ class ISpec {
    */
   @report
   getSpecString(did) {
+      const stack = new Error().stack;
+      const logStr = `getSpecString 被调用，did=${did}\n调用栈：\n${stack}`;
+      native.MIOTService.addLog(logStr);
      return Promise.resolve(null);
   }
   /**
