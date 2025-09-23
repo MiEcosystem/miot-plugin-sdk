@@ -968,6 +968,15 @@ export class BasicDevice {
   getRoomInfoForCurrentHome(did = null) {
      return Promise.resolve({});
   }
+   /**
+   * 查询当前家庭信息(非车房间的家庭，车房间有特殊逻辑，使用getRoomInfoForCurrentHome获取)
+   * @since 10110
+   * @return {Promise<Object>} {code: 0, data: {homeId, permitLevel} }
+   */
+  @report
+  getCurrentSelectHomeInfo() {
+     return Promise.resolve({});
+  }
   /**
    * 查询设备的房间经纬度信息
    * @since 10098

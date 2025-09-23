@@ -288,6 +288,7 @@ const API_REPO = {
   '/v2/device/get_filter_device': {},
   '/v2/device/auth_partner_device': {},
   '/v2/device/cancel_partner_device': {},
+  '/v2/device/set_linkage_event_setting': {},
   '/v2/device/get_partner_device': {},
   'v2/public/get_product_config': {},
   '/common/app/add/figure': {},
@@ -370,6 +371,8 @@ const API_REPO = {
   '/smarthome/product/acpanel/plugin/scene/list': {},
   '/smarthome/product/acpanel/plugin/scene/save': {},
   '/smarthome/product/acpanel/client/v1/device/list': {},
-  '/smarthome/product/acpanel/client/v1/sub': {}
+  '/smarthome/product/acpanel/client/v1/sub': {},
+  "/eco/nas/message/identity/get": {},
+  "/eco/nas/message/identity/verify": {}
 };
 export default API_REPO;
