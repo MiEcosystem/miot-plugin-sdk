@@ -1,2 +1,2 @@
-import { AbstractDialog } from 'mhui-rn';
+import { AbstractDialogNew as AbstractDialog } from 'mhui-rn';
 export default AbstractDialog;
