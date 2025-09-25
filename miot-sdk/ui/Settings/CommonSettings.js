@@ -19,6 +19,7 @@ import { showDeviceService } from "../../hooks/useDeviceService";
 import useCariotDevice from "../../hooks/useCariotDevice";
 import { ListItemWithSwitch } from 'mhui-rn';
 import { Platform } from 'react-native';
+import useDeviceRoomInfo from "../../hooks/useDeviceRoomInfo";
 let getInnerOptions = () => {
   return {
     deviceService: {
@@ -207,11 +208,15 @@ let getInnerOptions = () => {
       exportKey: 'FREQ_DEVICE',
       title: I18n.favoriteDevices,
       isDefault: true,
-      ownerOnly: true,
+      ownerOnly: false,
       homeManagerAllowed: true,
       Component: (params) => {
         const [info, setInfo] = useFreqDeviceInfo();
         const isCariotDevice = useCariotDevice();
+        const { permitLevel } = useDeviceRoomInfo();
+        const isHomeManager = permitLevel === 9;
+        const { isOwner } = Device;
+        const disabled = !isOwner && !isHomeManager;
         useEffect(() => {
           getModelType().then((modelType) => {
             //  摄像机首页显示开关曝光打点
@@ -230,6 +235,7 @@ let getInnerOptions = () => {
               value={!!info}
               showSeparator={ false }
               onTintColor={params.extraOptions?.themeColor || undefined}
+              disabled={disabled}
               onValueChange={(vaule) => {
                 Device.setCommonUseDeviceSwitch(
                   {
@@ -395,7 +401,7 @@ let getInnerOptions = () => {
           <ListItem
             key={"pairMode"}
             title={I18n.pairMode}
-            onPress={ () => Host.ui.openMatterConnectPage(Device.deviceID) } 
+            onPress={ () => Host.ui.openMatterConnectPage(Device.deviceID) }
             useNewType={true}
             hideArrow={false}
             showSeparator={ false }
@@ -416,7 +422,7 @@ let getInnerOptions = () => {
     //       <ListItem
     //         key={"pairMode"}
     //         title={"配对模式"}
-    //         onPress={ () => Host.ui.openMatterConnectPage(Device.deviceID) } 
+    //         onPress={ () => Host.ui.openMatterConnectPage(Device.deviceID) }
     //         useNewType={true}
     //         hideArrow={false}
     //       />
