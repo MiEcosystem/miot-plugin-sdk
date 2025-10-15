@@ -20,17 +20,21 @@ export default function useManualSceneList({
       }
       return homeId;
     }).then((homeId) => {
-      Service.sceneV2.getManualSceneList({
-        home_id: homeId,
-        room_id: null,
-        owner_uid: Service.account.ID,
-        source,
-        get_type: getType,
-        filter_closed: filterClosed,
-        scene_ids: specificSceneIds
-      }).then((res) => {
-        // console.log('获取批量控制成功--getManualSceneList-res', res);
-        setManualSceneList(res || []);
+      Device.getCurrentSelectHomeInfo().then((res) => {
+        Service.sceneV2.getManualSceneList({
+          home_id: homeId,
+          room_id: null,
+          owner_uid: res?.data?.ownerUid,
+          source,
+          get_type: getType,
+          filter_closed: filterClosed,
+          scene_ids: specificSceneIds
+        }).then((res) => {
+          // console.log('获取批量控制成功--getManualSceneList-res', res);
+          setManualSceneList(res || []);
+        }).catch((error) => {
+          console.log('获取批量控制报错---getManualSceneList---error', error);
+        });
       }).catch((error) => {
         console.log('获取批量控制报错---getManualSceneList---error', error);
       });

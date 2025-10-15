@@ -61,7 +61,11 @@ export const MISSCommand = {
   // 切换插件显示模式C-->S, 10109
   MISS_CMD_CAMERA_MODE_CHANGE_REQ: 0X401,
   // 是否可以切换 S-->C, 10109
-  MISS_CMD_CAMERA_MODE_CHANGE_RESP: 0X402
+  MISS_CMD_CAMERA_MODE_CHANGE_RESP: 0X402,
+  /** C->S p2p status */
+  MISS_CMD_P2P_REQ: 0x11d,
+  /** S->C p2p status resp */
+  MISS_CMD_P2P_RESP: 0x11e
 };
 Object.freeze(MISSCommand);
 /**

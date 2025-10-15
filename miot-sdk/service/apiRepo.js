@@ -140,6 +140,7 @@ const API_REPO = {
   '/common/app/get/standard/plugin/event/statistics': {},
   '/common/app/get/standard/plugin/hour/event/statistics': {},
   '/common/app/v2/delete/files': {},
+  '/common/app/v2/getVideoInfo': {},
   '/miot/camera/app/v2/get/spec/property': {},
   '/miot/camera/app/v2/put/spec/property': {},
   '/common/app/markRead': {},
@@ -239,6 +240,8 @@ const API_REPO = {
   '/v2/device/get_wx_license_expire': {}, // IPC微信视频通话获取激活码到期时间
   // 新的获取设备属性接口，结果中带有上报的时间戳
   '/v2/device/batchgetdatas': {},
+  '/v2/device/get_ble_gatewayinfo': {},
+  '/v2/blemesh/dev_belong': {},
   // 免费人脸
   '/miot/camera/app/v1/vip/freeface/addFreeface': {},
   '/miot/camera/app/v1/vip/freeface/status': {},

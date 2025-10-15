@@ -652,6 +652,30 @@ export class BasicDevice {
      return  false
   }
   /**
+   * 设备是否来自车房间 10111
+   * return { int }
+   * 1、车房间上层(上游设备)  2、车房间下层(下游设备) 
+   * 默认是0，家房间，可不传
+   * @readonly
+  */
+  get fromRoomIndex() {
+     return  false
+  }
+  /**
+   * 设备是否车家两用 10111
+   * return { Boolean }
+   * ios: MHDataConfigInfoDevice.m model 
+   *    space 属性包含1: mihome_room 2: car_room
+   * 注：车家两用设备，设置页展示删除按钮，否则不展示
+  */
+  get isOKspace() {
+     return  false
+    if (space && space.length > 0) {
+      return space.includes(1) && space.includes(2);
+    }
+    return false;
+  }
+  /**
   * 获取蓝牙设备的mtu大小，当设备connect/disconnect 时候，会发生变化
   */
   get mtu() {

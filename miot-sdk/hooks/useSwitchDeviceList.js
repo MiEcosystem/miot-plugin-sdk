@@ -2,6 +2,18 @@ import { useState } from 'react';
 import { PackageEvent } from 'miot/event/PackageEvent';
 import Service from 'miot/Service';
 import useDeepCompareEffect from './useDeepCompareEffect';
+const switchSpecialTriggerType = {
+  'zimi.switch.dhkg01': {
+    skey: 'toggle',
+    pkey: 'toggle',
+    value: 1
+  },
+  'zimi.switch.dhkg02': {
+    skey: 'toggle',
+    pkey: ['left-toggle', 'right-toggle'],
+    value: 1
+  }
+};
 function arrayGroup(array, size) {
   if (array?.length > size) {
     const group = [];
@@ -24,7 +36,34 @@ export default function useSwitchLightDeviceList(devices = []) {
         const filterDevice = devices[index];
         // specs
         const spiltButtons = specs.map((spec, specIndex) => {
+          const { siid, piid, aiid } = spec;
           const memberInfo = deviceInfo?.member_ship?.[`${ specIndex + 1 }`];
+          const payload_json = aiid ?
+            {
+              command: 'action',
+              delay_time: 0,
+              device_name: filterDevice.deviceName,
+              did: filterDevice.did,
+              model: filterDevice.model,
+              value: {
+                in: [],
+                siid,
+                aiid
+              }
+            } :
+            {
+              command: 'set_properties',
+              delay_time: 0,
+              device_name: filterDevice.deviceName,
+              did: filterDevice.did,
+              model: filterDevice.model,
+              value: [{
+                did: filterDevice.did,
+                value: switchSpecialTriggerType?.[filterDevice.model]?.value || 1,
+                siid,
+                piid
+              }]
+            };
           return {
             ...filterDevice,
             action: {
@@ -34,25 +73,14 @@ export default function useSwitchLightDeviceList(devices = []) {
               type: 0,
               name: memberInfo?.name || filterDevice?.deviceName,
               // payload: '',
-              payload_json: {
-                command: 'action',
-                delay_time: 0,
-                device_name: filterDevice?.deviceName,
-                did: filterDevice.did,
-                model: filterDevice.model,
-                value: {
-                  aiid: spec.aiid,
-                  in: [],
-                  siid: spec.siid
-                }
-              },
+              payload_json,
               sa_id: 36019,
               from: 1
               // device_group_id: 0
             },
-            ...(memberInfo?.room_id ? { 
+            ...(memberInfo?.room_id ? {
               roomId: memberInfo?.room_id,
-              deviceName: specs.length > 1 ? `${ memberInfo?.name }-${ filterDevice?.deviceName }` : memberInfo?.name,
+              deviceName: specs.length > 1 ? `${ memberInfo?.name }-${ filterDevice?.deviceName }` : filterDevice?.deviceName,
               memberId: specIndex
             } : {
               memberId: specIndex
@@ -67,13 +95,16 @@ export default function useSwitchLightDeviceList(devices = []) {
   const fetchToggleLightList = () => {
     if (devices?.length) {
       Promise.all(devices.map((device) => {
-        return Service.spec.getSpecByKey(device.did, {
+        let params = {
           skey: 'switch',
           akey: 'toggle'
-        });
+        };
+        if (switchSpecialTriggerType[device.model]) {
+          params = switchSpecialTriggerType[device.model];
+        }
+        return Service.spec.getSpecByKey(device.did, params);
       })).then((specs) => {
         // console.log('fetchToggleLightList----res', JSON.stringify(specs));
-        
         Promise.all(arrayGroup(devices, 50).map((group) => {
           return Service.callSmartHomeAPI('/device/deviceinfo', { get_sub_relation: true, dids: group.map((device) => {
             return device.did;
@@ -94,7 +125,7 @@ export default function useSwitchLightDeviceList(devices = []) {
           // console.log('获取按键设备组合---', JSON.stringify(supportToggleDevices));
           setToggleLightList(supportToggleDevices);
         });
-      }); 
+      });
     }
   };
   useDeepCompareEffect(() => {
