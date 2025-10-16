@@ -20,7 +20,7 @@ import { FontPrimary } from 'miot/utils/fonts';
 import { showMemberSet } from '../../hooks/useMemberSetInfo';
 import { showDeviceService } from '../../hooks/useDeviceService';
 import tryTrackCommonSetting from "../../utils/track-sdk";
-import { System } from '../..';
+import { System } from 'miot';
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
 let firmwareUpgradeDotClicked = false;
 let freqDeviceSwitchExposed = false; // 米家首页显示item打点用
@@ -1387,6 +1387,7 @@ export default class CommonSetting extends React.Component {
                   title= {item.title}
                   titleNumberOfLines={0}
                   value= {item.value}
+                  highTextContrast={isHighTextContrastEnabled}
                   tintColor={this.props.extraOptions?.tintColor || undefined}
                   onTintColor={this.props.extraOptions?.themeColor || undefined}
                   onValueChange={ (value) => {
@@ -1421,6 +1422,7 @@ export default class CommonSetting extends React.Component {
                   showDot={item.showDot || false}
                   value={item.value}
                   showSeparator={showSeparator}
+                  highTextContrast={isHighTextContrastEnabled}
                   tintColor={this.props.extraOptions?.tintColor || undefined}
                   onTintColor={this.props.extraOptions?.themeColor || undefined}
                   onValueChange={ (value) => {
