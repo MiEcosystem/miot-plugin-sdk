@@ -221,12 +221,13 @@ let getInnerOptions = () => {
                   piid: parseInt(property.iid)
                 };
                 // 获取消防安全码值
-                Service.spec.getPropertiesValue([param]).then((result) => {
-                  if (result && Array.isArray(result) && result.length > 0) {
+                Service.spec.getPropertiesValue([param], 2).then((result) => {
+                  console.log('12138.result=', result);
+                  if (result && Array.isArray(result) && result.length > 0 && result[0].value) {
                       // 允许显示消防安全码 item
                       setCodeDisplay(true);
                       // 消防安全码值
-                      setCodeValue(result[0].code);
+                      setCodeValue(result[0].value);
                       return;
                   }
                 }).catch((error) => {
