@@ -1628,7 +1628,7 @@ export default class CommonSetting extends React.Component {
     this._packageGobackFromNativeListerner && this._packageGobackFromNativeListerner.remove();
     this.needUpgradeListener && this.needUpgradeListener.remove();
     this.listenerFocus && this.listenerFocus.remove();
-    this.resetClassVariables();
+    this.resetClassVariables && this.resetClassVariables();
   }
 }
 const styles = dynamicStyleSheet({
