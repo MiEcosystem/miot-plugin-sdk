@@ -120,18 +120,27 @@ function getMultipleKey() {
 }
 let roomInfo = null;
 function getRoomeInfo() {
+  Service.smarthome.reportLog("miot.light.0725", `getRoomeInfo`);
   return new Promise((resolve, reject) => {
+    Service.smarthome.reportLog("miot.light.0725", `getRoomeInfo roomInfo is ${ roomInfo }`);
     if (roomInfo) {
+      Service.smarthome.reportLog("miot.light.0725", `getRoomeInfo roomInfo is resolve return`);
       resolve(roomInfo);
       return;
     }
+    Service.smarthome.reportLog("miot.light.0725", `getRoomeInfo Device.getRoomInfoForCurrentHome()`);
     Device.getRoomInfoForCurrentHome().then((res) => {
+      Service.smarthome.reportLog("miot.light.0725", `getRoomeInfo Device.getRoomInfoForCurrentHome() res -> ${ res }`);
       roomInfo = res;
       resolve(roomInfo);
     }).catch(reject);
   });
 }
-getRoomeInfo().then(() => { }).catch(() => { });
+getRoomeInfo().then(() => { 
+  Service.smarthome.reportLog("miot.light.0725", `getRoomeInfo then 无任何执行`);
+}).catch(() => {
+  Service.smarthome.reportLog("miot.light.0725", `getRoomeInfo catch 无任何执行`);
+});
 const choiceIndexArray = [
   {
     title: strings.stdPluginTitle,
@@ -1041,6 +1050,7 @@ export default class CommonSetting extends React.Component {
       });
     }).catch(() => { });
     getRoomeInfo().then((roomInfo) => {
+      Service.smarthome.reportLog("miot.light.0725", `getRoomeInfo then roomInfo is ${ roomInfo } 更新状态`);
       this.commonSetting = this.getCommonSetting({
         ...this.state,
         roomInfo
@@ -1628,7 +1638,6 @@ export default class CommonSetting extends React.Component {
     this._packageGobackFromNativeListerner && this._packageGobackFromNativeListerner.remove();
     this.needUpgradeListener && this.needUpgradeListener.remove();
     this.listenerFocus && this.listenerFocus.remove();
-    this.resetClassVariables && this.resetClassVariables();
   }
 }
 const styles = dynamicStyleSheet({
