@@ -120,26 +120,30 @@ function getMultipleKey() {
 }
 let roomInfo = null;
 function getRoomeInfo() {
-  Service.smarthome.reportLog("miot.light.0725", `getRoomeInfo`);
+  Service.smarthome.reportLog("miot.light.0725", `ykjTest getRoomeInfo`);
   return new Promise((resolve, reject) => {
-    Service.smarthome.reportLog("miot.light.0725", `getRoomeInfo roomInfo is ${ roomInfo }`);
+    Service.smarthome.reportLog("miot.light.0725", `ykjTest getRoomeInfo roomInfo is ${ roomInfo }`);
     if (roomInfo) {
-      Service.smarthome.reportLog("miot.light.0725", `getRoomeInfo roomInfo is resolve return`);
+      Service.smarthome.reportLog("miot.light.0725", `ykjTest getRoomeInfo roomInfo is resolve return`);
       resolve(roomInfo);
       return;
     }
-    Service.smarthome.reportLog("miot.light.0725", `getRoomeInfo Device.getRoomInfoForCurrentHome()`);
+    Service.smarthome.reportLog("miot.light.0725", `ykjTest getRoomeInfo Device.getRoomInfoForCurrentHome()`);
     Device.getRoomInfoForCurrentHome().then((res) => {
-      Service.smarthome.reportLog("miot.light.0725", `getRoomeInfo Device.getRoomInfoForCurrentHome() res -> ${ res }`);
+      Service.smarthome.reportLog("miot.light.0725", `ykjTest getRoomeInfo Device.getRoomInfoForCurrentHome() res -> ${ JSON.stringify(res) }`);
       roomInfo = res;
       resolve(roomInfo);
-    }).catch(reject);
+    }).catch((err) => {
+      Service.smarthome.reportLog("miot.light.0725", `ykjTest getRoomeInfo Device.getRoomInfoForCurrentHome() err -> ${ JSON.stringify(err) }`);
+      roomInfo = null;
+      reject(err);
+    });
   });
 }
-getRoomeInfo().then(() => { 
-  Service.smarthome.reportLog("miot.light.0725", `getRoomeInfo then 无任何执行`);
+getRoomeInfo().then(() => {
+  Service.smarthome.reportLog("miot.light.0725", `ykjTest getRoomeInfo then 无任何执行`);
 }).catch(() => {
-  Service.smarthome.reportLog("miot.light.0725", `getRoomeInfo catch 无任何执行`);
+  Service.smarthome.reportLog("miot.light.0725", `ykjTest getRoomeInfo catch 无任何执行`);
 });
 const choiceIndexArray = [
   {
@@ -736,7 +740,8 @@ export default class CommonSetting extends React.Component {
               did: Device.deviceID,
               props: {
                 "prop.s_commonsetting_stand_plugin": JSON.stringify({ 'useStandPlugin': value ? '2' : '1' })
-              } }
+              }
+            }
           ]).then(() => {
           });
           let eventName = 'plugin_light_abtest_final';
@@ -1050,13 +1055,22 @@ export default class CommonSetting extends React.Component {
       });
     }).catch(() => { });
     getRoomeInfo().then((roomInfo) => {
-      Service.smarthome.reportLog("miot.light.0725", `getRoomeInfo then roomInfo is ${ roomInfo } 更新状态`);
+      Service.smarthome.reportLog("miot.light.0725", `ykjTest getRoomeInfo then roomInfo is ${ roomInfo } 更新状态`);
       this.commonSetting = this.getCommonSetting({
         ...this.state,
         roomInfo
       });
       this.setState({
         roomInfo,
+        isHomeManager: roomInfo?.data.permitLevel === 9
+      });
+    }).catch(() => {
+      this.commonSetting = this.getCommonSetting({
+        ...this.state,
+        roomInfo: null
+      });
+      this.setState({
+        roomInfo: null,
         isHomeManager: roomInfo?.data.permitLevel === 9
       });
     });
@@ -1339,7 +1353,7 @@ export default class CommonSetting extends React.Component {
     if (1 === Device.fromRoomIndex) {
       // 上层(上游)
       keys = keys.filter((key) => carRoomTopOptions.includes(key));
-    } else if (2 === Device.fromRoomIndex) { 
+    } else if (2 === Device.fromRoomIndex) {
       // 下层(下游)
       keys = keys.filter((key) => carRoomBottomOptions.includes(key));
     }
@@ -1386,24 +1400,26 @@ export default class CommonSetting extends React.Component {
             // 设置页固件升级曝光埋点
             if (item.key === AllOptions.FIRMWARE_UPGRADE) {
               Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
-              const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
-                'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
+              const params = {
+                'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
+                'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button'
+              };
               Service.smarthome.reportEventRefChannel("expose", params);
             }
             if (item._itemType === 'greenSwitch') {
               return (
                 <ListItemWithSwitch
                   key={item.key || item.title}
-                  title= {item.title}
+                  title={item.title}
                   titleNumberOfLines={0}
-                  value= {item.value}
+                  value={item.value}
                   highTextContrast={isHighTextContrastEnabled}
                   tintColor={this.props.extraOptions?.tintColor || undefined}
                   onTintColor={this.props.extraOptions?.themeColor || undefined}
-                  onValueChange={ (value) => {
+                  onValueChange={(value) => {
                     tryTrackCommonSetting(item.key, 'click', value ? 'open' : 'close');
                     item.onValueChange(value);
-                  } }
+                  }}
                 />
               );
             } else if (item._itemType === 'switch') {
@@ -1435,10 +1451,10 @@ export default class CommonSetting extends React.Component {
                   highTextContrast={isHighTextContrastEnabled}
                   tintColor={this.props.extraOptions?.tintColor || undefined}
                   onTintColor={this.props.extraOptions?.themeColor || undefined}
-                  onValueChange={ (value) => {
+                  onValueChange={(value) => {
                     tryTrackCommonSetting(item.key, 'click', value ? 'open' : 'close');
                     item.onValueChange(value);
-                  } }
+                  }}
                   {...getAccessibilityConfig({
                     accessible: this.props.accessible
                   })}
@@ -1470,8 +1486,10 @@ export default class CommonSetting extends React.Component {
                       // 设置页固件升级点击埋点
                       if (item.key === AllOptions.FIRMWARE_UPGRADE) {
                         Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
-                        const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
-                          'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
+                        const params = {
+                          'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
+                          'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button'
+                        };
                         Service.smarthome.reportEventRefChannel("click", params);
                       }
                       item.onPress();
@@ -1541,7 +1559,7 @@ export default class CommonSetting extends React.Component {
         {/* hideDeleteBtn: 10111 新增逻辑, carIot 需求hideDeleteBtn权重大于isFamily */}
         {/* 1、hideDeleteBtn === true 要隐藏删除按钮 */}
         {/* 2、hideDeleteBtn === false 要显示删除按钮时，判断 Device.isFamily 是否为 false */}
-        { hideDeleteBtn ? null : (!Device.isFamily ?
+        {hideDeleteBtn ? null : (!Device.isFamily ?
           (<View style={[styles.bottomContainer, tempCommonSettingStyle.bottomContainer]} {...getAccessibilityConfig({
             accessible: this.props.accessible,
             accessibilityRole: AccessibilityRoles.button
@@ -1552,7 +1570,7 @@ export default class CommonSetting extends React.Component {
               activeOpacity={0.8}
             >
               <Text
-                style={ [btnStyle, FontPrimary, { fontWeight: 'bold' }, tempCommonSettingStyle.deleteTextStyle]}
+                style={[btnStyle, FontPrimary, { fontWeight: 'bold' }, tempCommonSettingStyle.deleteTextStyle]}
                 allowFontScaling={tempCommonSettingStyle.allowFontScaling}
               >
                 {Device.type === '17' && Device.isOwner ? (strings[`delete${ (Device.model || '').split('.')[1][0].toUpperCase() }${ (Device.model || '').split('.')[1].slice(1) }Group`]) : strings.deleteDevice}
