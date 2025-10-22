@@ -628,6 +628,7 @@ export default class CommonSetting extends React.Component {
   }
   getCommonSetting(state) {
     let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory, multipleKeyisOn, keyNum, cloudStorageOn } = state || {};
+    Service.smarthome.reportLog("miot.light.0725", `ykjTest getCommonSetting roomInfo is ${ JSON.stringify(roomInfo) }`);
     const { preOperations } = this.props.extraOptions;
     if (!modelType) {
       modelType = '  ';
@@ -1055,7 +1056,7 @@ export default class CommonSetting extends React.Component {
       });
     }).catch(() => { });
     getRoomeInfo().then((roomInfo) => {
-      Service.smarthome.reportLog("miot.light.0725", `ykjTest getRoomeInfo then roomInfo is ${ roomInfo } 更新状态`);
+      Service.smarthome.reportLog("miot.light.0725", `ykjTest getRoomeInfo then roomInfo is ${ JSON.stringify(roomInfo) } 更新状态`);
       this.commonSetting = this.getCommonSetting({
         ...this.state,
         roomInfo
@@ -1065,13 +1066,14 @@ export default class CommonSetting extends React.Component {
         isHomeManager: roomInfo?.data.permitLevel === 9
       });
     }).catch(() => {
+      Service.smarthome.reportLog("miot.light.0725", `ykjTest getRoomeInfo catch roomInfo is null 更新状态`);
       this.commonSetting = this.getCommonSetting({
         ...this.state,
         roomInfo: null
       });
       this.setState({
         roomInfo: null,
-        isHomeManager: roomInfo?.data.permitLevel === 9
+        isHomeManager: false
       });
     });
     getMultipleKey().then((supportInfo) => {
@@ -1656,11 +1658,6 @@ export default class CommonSetting extends React.Component {
     this._packageGobackFromNativeListerner && this._packageGobackFromNativeListerner.remove();
     this.needUpgradeListener && this.needUpgradeListener.remove();
     this.listenerFocus && this.listenerFocus.remove();
-    this._onlyResetRoomInfo && this._onlyResetRoomInfo();
-  }
-  // 解决roomInfo的影响，导致重新进入后，米家首页显示的开关显式条件错误
-  _onlyResetRoomInfo() {
-    roomInfo = null;
   }
 }
 const styles = dynamicStyleSheet({
