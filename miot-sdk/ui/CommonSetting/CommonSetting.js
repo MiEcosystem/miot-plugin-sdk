@@ -1638,6 +1638,11 @@ export default class CommonSetting extends React.Component {
     this._packageGobackFromNativeListerner && this._packageGobackFromNativeListerner.remove();
     this.needUpgradeListener && this.needUpgradeListener.remove();
     this.listenerFocus && this.listenerFocus.remove();
+    this._onlyResetRoomInfo && this._onlyResetRoomInfo();
+  }
+  // 解决roomInfo的影响，导致重新进入后，米家首页显示的开关显式条件错误
+  _onlyResetRoomInfo() {
+    roomInfo = null;
   }
 }
 const styles = dynamicStyleSheet({
