@@ -97,10 +97,12 @@ export { PackageEvent };
    render() {
      // 弹窗曝光埋点 https://xiaomi.f.mioffice.cn/sheets/shtk4FNMH1u04OfiNkIarRF9W7D
      if (this.state.showFirmwareUpdateAlert) {
+       Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_homepage' });
        const params = { 'ota_origin': 2, 'ota_type': 2, 'did': Device.deviceID,
          'device_model': Device.model, 'mac': Device.mac, 'item_type': 'dialog', 'dialog_name': 'updates_plugin_dialog' };
-       Service.smarthome.recordEvent("expose", 'plugin_homepage', 'plugin_homepage', null, null, params);
+       Service.smarthome.reportEventRefChannel("expose", params);
      }
+    
      const currentColorScheme = native.MIOTService.currentDarkMode ? native.MIOTService.currentDarkMode : "light";
      const media = { screenType: 'phone' };
      if (Host.isPad) { media.screenType = 'tablet'; }
@@ -127,18 +129,20 @@ export { PackageEvent };
                  }
                  this.onDismiss();
                  // 点击取消埋点
+                 Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_homepage' });
                  const params = { 'ota_origin': 2, 'ota_type': 2, 'did': Device.deviceID,
                    'device_model': Device.model, 'mac': Device.mac, 'dialog_name': 'updates_plugin_dialog', 'item_type': 'button', 'item_name': 'ignore_link_button' };
-                 Service.smarthome.recordEvent("click", 'plugin_homepage', 'plugin_homepage', null, null, params);
+                 Service.smarthome.reportEventRefChannel("click", params);
                }
              },
              {
                text: this.state.firmwareUpdateSure,
                callback: () => {
                  // 点击立即更新埋点
+                 Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_homepage' });
                  const params = { 'ota_origin': 2, 'ota_type': 2, 'did': Device.deviceID,
                    'device_model': Device.model, 'mac': Device.mac, 'dialog_name': 'updates_plugin_dialog', 'item_type': 'button', 'item_name': 'updates_start_link_button' };
-                 Service.smarthome.recordEvent("click", 'plugin_homepage', 'plugin_homepage', null, null, params);
+                 Service.smarthome.reportEventRefChannel("click", params);
                  DeviceEventEmitter.emit('MH_Event_FirmwareUpdateDialog', { isSure: true });
                  this.onDismiss();
                  let { navigation, upgradePageKey, upgradePageParams } = extra?.package?._wifiDeviceUpgradeOptions || {};

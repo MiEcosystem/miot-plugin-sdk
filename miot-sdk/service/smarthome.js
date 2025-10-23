@@ -1498,7 +1498,7 @@ class ISmartHome {
     }
   /**
    * since 10111
-   * 埋点上报
+   * 埋点上报，iOS Only
    * @param {string} eventName 事件名
    * @param {string} ref string默认null
    * @param {string} subRef string默认null
