@@ -377,6 +377,6 @@ const API_REPO = {
   '/smarthome/product/acpanel/client/v1/sub': {},
   "/eco/nas/message/identity/get": {},
   "/eco/nas/message/identity/verify": {},
-  "/app/3dhome/genpresignedurl'": {}
+  "/app/3dhome/genpresignedurl": {}
 };
 export default API_REPO;
