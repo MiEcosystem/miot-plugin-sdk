@@ -11,7 +11,10 @@ export default function useTriggerSceneList(trigger = {}, homeId, tag, did = Dev
   const cacheExist = tag ? triggerSceneList.find((item) => item.tags?.source !== tag) : triggerSceneList.length > 0;
   const [existTriggerScene, setExistTriggerScene] = useState(cacheExist);
   const [sceneLoading, setSceneLoading] = useState(true);
-  const fetchSceneList = () => {
+  const fetchSceneList = async() => {
+    if (!homeId) {
+      homeId = (await Device.getCurrentSelectHomeInfo())?.data?.homeId;
+    }
     if (!homeId) {
       console.log('useTriggerSceneList---loadSceneList---homeId不存在');
       return;

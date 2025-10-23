@@ -267,7 +267,7 @@ class IUi {
   @report
   openDeviceUpgradePage(type = 0, params = {}) {
   }
-  /** 
+  /**
    * @method openDoubleGraftingAuth
    * @since 10109
    * @time 2025-3-25
@@ -693,7 +693,7 @@ class IUi {
   }
   /**
    * 跳转微信小程序
-   * 
+   *
    * @param {string} appOriginalId 例如：gh_1dac5028a5dd
    * @param {string} path 例如：pages/auth/auth
    * @param {boolean} needDialogRemind 默认有弹窗提醒

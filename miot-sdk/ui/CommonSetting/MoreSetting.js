@@ -72,6 +72,24 @@ const excludeOptions = {
   [AllOptions.SECURITY]: [],
   [AllOptions.LEGAL_INFO]: ['5', '15', '17'] // 新增策略：灯组、红外遥控器等虚拟设备不显示法律信息，20190619
 };
+/**
+ * 车房间上层更多设置项
+*/
+const carRoomTopMoreOptions = [
+  AllOptions.PLUGIN_VERSION,
+  AllOptions.TIMEZONE,
+  AllOptions.USER_EXPERIENCE_PROGRAM,
+  AllOptions.ADD_TO_DESKTOP
+];
+/**
+ * 车房间下层更多设置项
+*/
+const carRoomBottomMoreOptions = [
+  AllOptions.PLUGIN_VERSION,
+  AllOptions.TIMEZONE,
+  AllOptions.USER_EXPERIENCE_PROGRAM,
+  AllOptions.ADD_TO_DESKTOP
+];
 const { second_options } = SETTING_KEYS;
 let leaglInfoClicked = false; // 用于标记「法律信息」是否被重复点击过，防止进入「法律信息」页面之前被重复点击导致点击事件多次执行
 /**
@@ -273,7 +291,7 @@ export default class MoreSetting extends React.Component {
       }
       return weightA - weightB;
     });
-    const items = keys.map((key) => {
+    let items = keys.map((key) => {
       if (typeof key !== 'string') {
         return key;
       }
@@ -296,6 +314,14 @@ export default class MoreSetting extends React.Component {
     }
     if (!containerStyle) {
       containerStyle = {};
+    }
+    // 判断设备是否来至车房间, 过滤车房间显示项
+    if (1 === Device.fromRoomIndex) {
+      // / 车房间上层
+      items = items.filter((item) => carRoomTopMoreOptions.includes(item.key));
+    } else if (2 === Device.fromRoomIndex) {
+      // / 车房间下层
+      items = items.filter((item) => carRoomBottomMoreOptions.includes(item.key));
     }
     return (
       <View style={[styles.container, containerStyle]}>

@@ -7,6 +7,7 @@ import FeatureSettings from './FeatureSettings';
 import CommonSettings, { options as firstOptions } from './CommonSettings';
 import DeleteButton from './DeleteButton';
 import { options as secondOptions } from './DeviceInfoPage';
+import { Device } from '../..';
 // 参照老的CommonSetting 导出keys 及其他辅助内容
 export const AllOptions = {
   ...firstOptions,
@@ -34,12 +35,15 @@ export default function Settings({
   children
 }) {
   const mergedOptions = [...new Set(...(options || []), firstOptions || [], secondOptions || [])];
+  const isFromCarRoom = Device.fromRoomIndex === 1 || Device.fromRoomIndex === 2;
+  const isOKspace = Device.isOKspace;
+  const hideDeleteBtn = isFromCarRoom && !isOKspace;
   return (
     <View style={Styles.container}>
       <BasicInfo navigation={navigation} options={mergedOptions} customOptions={secondCustomOptions} showDots={showDot} extraOptions={extraOptions} />
       <FeatureSettings navigation={navigation} options={mergedOptions} customOptions={firstCustomOptions} showDots={showDot} extraOptions={extraOptions}>{children}</FeatureSettings>
       <CommonSettings navigation={navigation} options={mergedOptions} customOptions={firstCustomOptions} showDots={showDot} extraOptions={extraOptions} />
-      <DeleteButton />
+      {!hideDeleteBtn && <DeleteButton />}
     </View>
   );
 }

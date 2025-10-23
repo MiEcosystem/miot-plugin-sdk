@@ -894,6 +894,25 @@ class IFile {
        return Promise.resolve(false)
     }
     /**
+      * 拼接视频文件(支持拼接格式dir：1:上下，2:左右、黑边space)
+      * @since 10111 iOS only
+      * @param {string} firstVideoPath
+      * @param {string} secondVideoPath
+      * @param {object} params direction: {1:上下，2:左右}
+      * @param {string} deviceID 指定的deviceID，不传默认使用本设备id
+      * @param {string} callbackEvent 拼接进度回调事件名
+      * @returns {Promise}
+      * 成功时：
+      *   {"code": 0, "message":"merge success", "fileName": "mergeVideo-11111.mp4" }
+      * 失败时：code < 0
+      *  {"code":xx, "message":"merge failure" }
+      * @example 参考com.xiaomi.demo Host-->PhotoDemo.js
+      */
+    @report
+    mergeVideosUseHarewareAccelerateV2(firstPath, secondPath, params = {}, deviceID = undefined, callbackEvent) {
+       return Promise.resolve(false)
+    }
+    /**
      * 拼接视频文件：iOS only
      * @since 10108 【原生待验证】
      * 使用硬件合并视频 逐步替代mergeVideos:videoFilePath:did:callback:

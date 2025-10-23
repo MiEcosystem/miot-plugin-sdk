@@ -20,7 +20,7 @@ import { FontPrimary } from 'miot/utils/fonts';
 import { showMemberSet } from '../../hooks/useMemberSetInfo';
 import { showDeviceService } from '../../hooks/useDeviceService';
 import tryTrackCommonSetting from "../../utils/track-sdk";
-import { System } from '../..';
+import { System } from 'miot';
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
 let firmwareUpgradeDotClicked = false;
 let freqDeviceSwitchExposed = false; // 米家首页显示item打点用
@@ -381,6 +381,24 @@ const firstSharedOptions = {
   [AllOptions.DEVICE_SERVICE]: 0,
   [AllOptions.DEVICE_CALL]: 0
 };
+/**
+ * 车房间上层设置项
+*/
+const carRoomTopOptions = [
+  AllOptions.NAME,
+  AllOptions.PRODUCT_BAIKE,
+  AllOptions.HELP,
+  AllOptions.MORE
+];
+/**
+ * 车房间下层设置项
+*/
+const carRoomBottomOptions = [
+  AllOptions.NAME,
+  AllOptions.PRODUCT_BAIKE,
+  AllOptions.HELP,
+  AllOptions.MORE
+];
 /**
  * 家庭成员不能看到，管理员可以看到的设置项
  */
@@ -1307,6 +1325,14 @@ export default class CommonSetting extends React.Component {
       }
       return weightA - weightB;
     });
+    // 7.1 判断设备是否来至车房间, 过滤车房间显示项
+    if (1 === Device.fromRoomIndex) {
+      // 上层(上游)
+      keys = keys.filter((key) => carRoomTopOptions.includes(key));
+    } else if (2 === Device.fromRoomIndex) { 
+      // 下层(下游)
+      keys = keys.filter((key) => carRoomBottomOptions.includes(key));
+    }
     // 8. 根据最终的设置项 keys 渲染数据
     const items = keys.map((key) => {
       if (typeof key !== 'string') {
@@ -1329,6 +1355,9 @@ export default class CommonSetting extends React.Component {
     }); // 防空
     let tempCommonSettingStyle = this._getCommonSettingStyle();
     const btnStyle = isHighTextContrastEnabled ? styles.buttonTextAcc : styles.buttonText;
+    const isFromCarRoom = Device.fromRoomIndex === 1 || Device.fromRoomIndex === 2;
+    const isOKspace = Device.isOKspace;
+    const hideDeleteBtn = isFromCarRoom && !isOKspace;
     return (
       <View style={styles.container}>
         <View style={[styles.titleContainer, tempCommonSettingStyle.titleContainer]}>
@@ -1358,6 +1387,7 @@ export default class CommonSetting extends React.Component {
                   title= {item.title}
                   titleNumberOfLines={0}
                   value= {item.value}
+                  highTextContrast={isHighTextContrastEnabled}
                   tintColor={this.props.extraOptions?.tintColor || undefined}
                   onTintColor={this.props.extraOptions?.themeColor || undefined}
                   onValueChange={ (value) => {
@@ -1392,6 +1422,7 @@ export default class CommonSetting extends React.Component {
                   showDot={item.showDot || false}
                   value={item.value}
                   showSeparator={showSeparator}
+                  highTextContrast={isHighTextContrastEnabled}
                   tintColor={this.props.extraOptions?.tintColor || undefined}
                   onTintColor={this.props.extraOptions?.themeColor || undefined}
                   onValueChange={ (value) => {
@@ -1496,7 +1527,11 @@ export default class CommonSetting extends React.Component {
             }}
           /> : null}
         {/* <Separator /> */}
-        {!Device.isFamily ?
+        {/* !Device.isFamily: 旧逻辑 */}
+        {/* hideDeleteBtn: 10111 新增逻辑, carIot 需求hideDeleteBtn权重大于isFamily */}
+        {/* 1、hideDeleteBtn === true 要隐藏删除按钮 */}
+        {/* 2、hideDeleteBtn === false 要显示删除按钮时，判断 Device.isFamily 是否为 false */}
+        { hideDeleteBtn ? null : (!Device.isFamily ?
           (<View style={[styles.bottomContainer, tempCommonSettingStyle.bottomContainer]} {...getAccessibilityConfig({
             accessible: this.props.accessible,
             accessibilityRole: AccessibilityRoles.button
@@ -1513,7 +1548,7 @@ export default class CommonSetting extends React.Component {
                 {Device.type === '17' && Device.isOwner ? (strings[`delete${ (Device.model || '').split('.')[1][0].toUpperCase() }${ (Device.model || '').split('.')[1].slice(1) }Group`]) : strings.deleteDevice}
               </Text>
             </RkButton>
-          </View>) : null}
+          </View>) : null)}
       </View>
     );
   }

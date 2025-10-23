@@ -87,6 +87,15 @@ export const DeviceEvent = {
   deviceStatusChanged: {
   },
   /**
+   * 设备属性变更事件
+   * @event
+   * @param {IDevice} device - 发生变更的设备
+   * @param {Map<string, object>}  newStatus { key: value }
+   * @备注: 如果 key 为空, 则此属性没有更新
+  */
+  devicePropertyChanged: {
+  },
+  /**
    * 订阅ble spec 消息推送；除了订阅之外，插件需要与设备建立蓝牙连接，并主动扫描设备的特征值，设备才会给插件推送消息。
    * @param {IDevice} device
    * @param {Map<string,object>} messages -接收到的数据,value为property或者event的值
@@ -650,6 +659,43 @@ export class BasicDevice {
    */
   get isOnline() {
      return  false
+  }
+  /**
+   * 车辆位置权限
+   * @since 10111
+   * @return { number } 0 标识没有表示当前用户没有这辆车的车辆位置权限, 1 标识有权限
+   * @readonly
+  */
+  get carPosAuth() {
+     return  0
+      return JSON.parse(Properties.of(this).extrainfo)?.carPosAuth;
+    } else {
+      return Properties.of(this).carPosAuth;
+    }
+  }
+  /*
+   * 设备是否来自车房间 10111
+   * return { int }
+   * 1、车房间上层(上游设备)  2、车房间下层(下游设备) 
+   * 默认是0，家房间，可不传
+   * @readonly
+   */
+  get fromRoomIndex() {
+     return  false
+  }
+  /**
+   * 设备是否车家两用 10111
+   * return { Boolean }
+   * ios: MHDataConfigInfoDevice.m model 
+   *    space 属性包含1: mihome_room 2: car_room
+   * 注：车家两用设备，设置页展示删除按钮，否则不展示
+  */
+  get isOKspace() {
+     return  false
+    if (space && space.length > 0) {
+      return space.includes(1) && space.includes(2);
+    }
+    return false;
   }
   /**
   * 获取蓝牙设备的mtu大小，当设备connect/disconnect 时候，会发生变化

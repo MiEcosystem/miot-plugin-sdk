@@ -19,6 +19,7 @@ import { showDeviceService } from "../../hooks/useDeviceService";
 import useCariotDevice from "../../hooks/useCariotDevice";
 import { ListItemWithSwitch } from 'mhui-rn';
 import { Platform } from 'react-native';
+import useDeviceRoomInfo from "../../hooks/useDeviceRoomInfo";
 let getInnerOptions = () => {
   return {
     deviceService: {
@@ -207,11 +208,15 @@ let getInnerOptions = () => {
       exportKey: 'FREQ_DEVICE',
       title: I18n.favoriteDevices,
       isDefault: true,
-      ownerOnly: true,
+      ownerOnly: false,
       homeManagerAllowed: true,
       Component: (params) => {
         const [info, setInfo] = useFreqDeviceInfo();
         const isCariotDevice = useCariotDevice();
+        const { permitLevel } = useDeviceRoomInfo();
+        const isHomeManager = permitLevel === 9;
+        const { isOwner } = Device;
+        const disabled = !isOwner && !isHomeManager;
         useEffect(() => {
           getModelType().then((modelType) => {
             //  摄像机首页显示开关曝光打点
@@ -230,6 +235,7 @@ let getInnerOptions = () => {
               value={!!info}
               showSeparator={ false }
               onTintColor={params.extraOptions?.themeColor || undefined}
+              disabled={disabled}
               onValueChange={(vaule) => {
                 Device.setCommonUseDeviceSwitch(
                   {
@@ -395,7 +401,7 @@ let getInnerOptions = () => {
           <ListItem
             key={"pairMode"}
             title={I18n.pairMode}
-            onPress={ () => Host.ui.openMatterConnectPage(Device.deviceID) } 
+            onPress={ () => Host.ui.openMatterConnectPage(Device.deviceID) }
             useNewType={true}
             hideArrow={false}
             showSeparator={ false }
@@ -416,7 +422,7 @@ let getInnerOptions = () => {
     //       <ListItem
     //         key={"pairMode"}
     //         title={"配对模式"}
-    //         onPress={ () => Host.ui.openMatterConnectPage(Device.deviceID) } 
+    //         onPress={ () => Host.ui.openMatterConnectPage(Device.deviceID) }
     //         useNewType={true}
     //         hideArrow={false}
     //       />
@@ -425,7 +431,25 @@ let getInnerOptions = () => {
     // }
   };
 };
+const carRoomOptions = [
+  'PLUGIN_VERSION',
+  'TIMEZONE',
+  'USER_EXPERIENCE_PROGRAM',
+  'ADD_TO_DESKTOP',
+  'NAME',
+  'PRODUCT_BAIKE',
+  'HELP',
+  'MORE'
+];
 let innerOptions = getInnerOptions();
+// if (Device.fromRoomIndex === 1 || Device.fromRoomIndex === 2) {
+//   alert('车载设备2');
+//   // 如果是车载设备，使用车载设备的配置
+//   // 过滤 innerOptions，只保留 exportKey 在 carRoomOptions 中的选项
+//   innerOptions = Object.fromEntries(
+//     Object.entries(innerOptions).filter(([_, option]) => carRoomOptions.includes(option.exportKey))
+//   );
+// }
 export const initCommonSettingsInnerOptions = () => {
   innerOptions = getInnerOptions();
 };
@@ -433,12 +457,14 @@ const AllAndDefaultOptions = getAllAndDefaultOptions(innerOptions);
 export const options = AllAndDefaultOptions.options;
 const defaultOptions = AllAndDefaultOptions.defaultOptions;
 const commonOptions = ['deviceCall', 'deviceService', 'share', 'ifttt', 'firmwareUpgrade', 'help', 'security', 'addToDesktop', 'freqDevice', 'freqCamera', 'defaultPlugin', 'pairMode'];
+const carOptions = ['name', 'productBaike', 'helpAndFeedback', 'more', 'pluginVersion', 'legalInfo', 'timezone', 'addToDesktop'];
 export default function CommonSettings(params) {
   const { customOptions } = params;
+  const isFromCarRoom = Device.fromRoomIndex === 1 || Device.fromRoomIndex === 2;
   return (
     <Section title={I18n.commonSetting}>
-      {getItems(innerOptions, commonOptions, ['', '', '', '', '', '', '', '', useFreqDeviceInfo() ? I18n.open : I18n.close], params, defaultOptions)}
-      {getItems(innerOptions, customOptions || [], [], params, defaultOptions)}
+      {getItems(innerOptions, isFromCarRoom ? carOptions : commonOptions, ['', '', '', '', '', '', '', '', useFreqDeviceInfo() ? I18n.open : I18n.close], params, defaultOptions)}
+      {!isFromCarRoom && getItems(innerOptions, customOptions || [], [], params, defaultOptions)}
     </Section>
   );
 }

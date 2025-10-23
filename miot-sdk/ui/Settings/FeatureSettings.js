@@ -8,23 +8,29 @@ import ConfiguredItems from './ConfiguredItems';
 import getItems, { getAllAndDefaultOptions, itemPropTypes } from './getItems';
 import useMultiKeySplitInfo from '../../hooks/useMultiKeySplitInfo';
 import useMemberSetInfo from '../../hooks/useMemberSetInfo';
+import useDeviceRoomInfo from '../../hooks/useDeviceRoomInfo';
 import ListItem from '../ListItem/ListItem';
 const innerOptions = {
   // 按键设置
   memberSet: {
     exportKey: 'MEMBER_SET',
     isDefault: true,
-    ownerOnly: true,
+    ownerOnly: false,
     homeManagerAllowed: true,
     modelTypes: [
-      'switch', 
-      'relay', 
+      'switch',
+      'relay',
       'control-panel',
       'controller'
     ],
     Component: () => {
       // bool值，决定是否显示 按键设置, 10074单键开关也需要展示按键设置
       const { showMemberSetKey, isSingleSwitch } = useMemberSetInfo();
+      const { permitLevel } = useDeviceRoomInfo();
+      const isHomeManager = permitLevel === 9;
+      const { isOwner } = Device;
+      const disabled = !isOwner && !isHomeManager;
+      console.log('MEMBER_SET', disabled, isHomeManager, isOwner);
       const onPress = () => {
         const { deviceID, mac } = Device;
         Host.ui.openPowerMultikeyPage(deviceID, mac);
@@ -37,6 +43,7 @@ const innerOptions = {
           onPress={onPress}
           useNewType={true}
           hideArrow={false}
+          disabled={disabled}
         />
       ) : null;
     }
@@ -45,17 +52,21 @@ const innerOptions = {
   multipleKeySplit: {
     exportKey: 'MULTIPLEKEY_SPLIT',
     isDefault: true,
-    ownerOnly: true,
+    ownerOnly: false,
     homeManagerAllowed: true,
     modelTypes: [
-      'switch', 
-      'relay', 
+      'switch',
+      'relay',
       'control-panel',
       'controller'
     ],
     Component: () => {
       const [info, setSplit] = useMultiKeySplitInfo();
       const { count, split } = info || {};
+      const { permitLevel } = useDeviceRoomInfo();
+      const isHomeManager = permitLevel === 9;
+      const { isOwner } = Device;
+      const disabled = !isOwner && !isHomeManager;
       if (!count || count <= 1) {
         return null;
       }
@@ -68,6 +79,7 @@ const innerOptions = {
             setSplit(v);
           }}
           useNewType={true}
+          disabled={disabled}
         />
       );
     }
@@ -75,7 +87,8 @@ const innerOptions = {
   createGroup: {
     exportKey: 'CREATE_GROUP',
     isDefault: true,
-    ownerOnly: true,
+    ownerOnly: false,
+    homeManagerAllowed: true,
     notTypes: ['6', '17'],
     modelTypes: ['light'],
     title: ({ modelType = '' }) => {
@@ -108,7 +121,7 @@ const innerOptions = {
     validator: () => {
       // 0：不支持，1：支持 2：白名单
       return Device.deviceConfigInfo?.bt_gateway !== 0 && Device.deviceConfigInfo?.mesh_gateway !== 1;
-    },    
+    },
     title: I18n.btGateway,
     onPress: () => {
       Host.ui.openBtGatewayPage();
@@ -120,7 +133,7 @@ const innerOptions = {
     ownerOnly: true,
     validator: () => {
       return Device.deviceConfigInfo?.mesh_gateway === 1;
-    },    
+    },
     title: I18n.bleMeshGateway,
     onPress: () => {
       Host.ui.openBtGatewayPage();

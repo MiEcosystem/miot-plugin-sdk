@@ -108,6 +108,7 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
     }
     tryTrackCommonSetting(String(key), 'expose');
     if (key === 'createGroup') {
+      const disabled = !isOwner && !isHomeManager;
       // 车机隐藏创建灯组：code:0 表示成功，data:true表示车机，data:false表示非车机
       if (createGroupResult && createGroupResult.code === 0 && createGroupResult.data === true) {
         return null;
@@ -119,11 +120,12 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
               modelType
             }) : title}
             value={String([undefined, null].includes(value) ? '' : value)}
-            onPress={delegatePress(onPress, params, key)}
+            onPress={!disabled ? delegatePress(onPress, params, key) : null}
             showDot={showDots.includes(key) && !clickedItems.includes(key)}
             useNewType={true}
             hideArrow={!onPress}
             forceHideArrowOnPressInvalid={forceHideArrowOnPressInvalid}
+            disabled={disabled}
           />
         );
       }
