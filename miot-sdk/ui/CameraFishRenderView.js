@@ -1,11 +1,14 @@
 /**
+ * 文件是从sdk ui CameraRenderView靠过来改的, 文件看起来相对独立, 调试使用
+ */
+/**
  * @export public
  * @doc_name 常用UI组件
  * @doc_index 1
  * @doc_directory ui
  * @since 10031
  * @module miot/ui/CameraRender
- * @description 摄像机视频渲染组件
+ * @description 鱼眼摄像机视频渲染组件
  *
  * @example
  *
@@ -41,6 +44,9 @@
  * @property {boolean} isFull  画面是否填充满屏幕
  * @property {boolean} whiteBackground  是否使用白色背景 @since 10047
  * @property {number} playRate android端播放直播/回看时的帧率，默认是20   since 10048 
+ * 
+ * @property {bool} surfaceFront [新增] 是否将当前surface view置顶，会遮挡其他surface view，双摄大小窗播放时需根据当前显示状态动态设置
+ * @property {object} videoTemplate [新增] 畸变矫正模板参数，插件从设备侧获取直播开启时通过此属性设置下来
  */
 /**
  * 音视频codec
@@ -157,7 +163,17 @@ export const MISSAudioBitRate = {
   FLAG_AUDIO_BIT_RATE_32K: 2
 };
 Object.freeze(MISSAudioBitRate);
-export default class CameraRenderView extends React.Component {
+/**
+ * 单鱼眼播放器模式
+ * @namespace SingleFishPlayerType
+ */
+export const SingleFishPlayerType = {
+  SINGLEFISH_BALL_MODE: 0,
+  SINGLEFISH_VERTICAL_MODE: 10,
+  SINGLEFISH_HORIZONTAL_MODE: 11
+};
+Object.freeze(SingleFishPlayerType);
+export default class FishCameraRenderView extends React.Component {
   static propTypes = {
     videoCodec: PropTypes.oneOf([MISSCodec.MISS_CODEC_VIDEO_H264, MISSCodec.MISS_CODEC_VIDEO_H265]),
     audioCodec: PropTypes.oneOf([MISSCodec.MISS_CODEC_AUDIO_G711A, MISSCodec.MISS_CODEC_AUDIO_AAC, MISSCodec.MISS_CODEC_AUDIO_PCM]),
@@ -179,7 +195,8 @@ export default class CameraRenderView extends React.Component {
     isFull: PropTypes.bool,
     whiteBackground: PropTypes.bool,
     playRate: PropTypes.number,
-    
+    surfaceFront: PropTypes.bool, // [新增]
+    videoTemplate: PropTypes.object, // [新增]
     /**
        * 用户单击回调
        * @member {func}
@@ -194,12 +211,11 @@ export default class CameraRenderView extends React.Component {
      */
     onPTZDirectionCtr: PropTypes.func,
     /**
-     * 手势更新
+     * [新增]手势操作开始和结束的标识, 会有begin: true, end: true这种类型数据
      */
     onGestureUpdate: PropTypes.func,
-    
     /**
-     * window 变化
+     * [新增]当前观看的位置相对整个视频画面的位置，width,height为总宽高，x1,y1为当前观看的左上角坐标，x2,y2为当前观看的右下角坐标
      */
     onWindowChanged: PropTypes.func,
     ...ViewPropTypes
@@ -257,14 +273,12 @@ export default class CameraRenderView extends React.Component {
    * @param {string} timeCallBackName 录制时长回调 
    * @param {*} did 
    */
-  @report
   startRecord(filePath, timeCallBackName, did = Device.deviceID) {
      return Promise.resolve(null);
   }
   /**
    * 停止录像
    */
-  @report
   stopRecord(did = Device.deviceID) {
      return Promise.resolve(null);
   }
@@ -275,5 +289,13 @@ export default class CameraRenderView extends React.Component {
    */
   snapShot(filePath, did = Device.deviceID) {
      return Promise.resolve(null);
+  }
+  /**
+   * [新增]
+   * 动态设置当前鱼眼播放的类型
+   * @param {*} type
+   */
+  setRenderType(type = SingleFishPlayerType.SINGLEFISH_BALL_MODE) {
+     return null
   }
 }
