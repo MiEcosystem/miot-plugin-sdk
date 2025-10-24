@@ -27,229 +27,184 @@ export const FontMILanProMedium = Platform.OS === 'ios' ? 'MILanPro_MEDIUM--GB1-
 export const Fonts = {
   mjTextTitle1R: {
     fontSize: 32,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextTitle2M: {
     fontSize: 24,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextTitle3M: {
     fontSize: 20,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextTitle3R: {
     fontSize: 20,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextTitle4M: {
     fontSize: 18,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   // Subtitle
   mjTextSubtitle1M: {
     fontSize: 16,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextSubtitle2M: {
     fontSize: 15,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextSubtitle3M: {
     fontSize: 14,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextSubtitle3R: {
     fontSize: 14,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextSubtitle4M: {
     fontSize: 12,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   // Button
   mjTextButton1M: {
     fontSize: 17,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextButton2M: {
     fontSize: 14,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextButton3R: {
     fontSize: 13,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextButton4R: {
     fontSize: 12,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   // Headline
   mjTextHeadline1M: {
     fontSize: 17,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextHeadline1R: {
     fontSize: 17,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextHeadline2M: {
     fontSize: 16,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   // Body
   mjTextBody1R: {
     fontSize: 16,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextBody2R: {
     fontSize: 14,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   // Footnote
   mjTextFootnote1R: {
     fontSize: 14,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextFootnote2R: {
     fontSize: 13,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextFootnote3R: {
     fontSize: 12,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextFootnote4R: {
     fontSize: 11,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextFootnote5R: {
     fontSize: 10,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   // Custom
   mjTextCustom32M: {
     fontSize: 32,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextCustom24M: {
     fontSize: 24,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextCustom20M: {
     fontSize: 20,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextCustom20R: {
     fontSize: 20,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextCustom18M: {
     fontSize: 18,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextCustom18R: {
     fontSize: 18,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextCustom16M: {
     fontSize: 16,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextCustom16R: {
     fontSize: 16,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextCustom15M: {
     fontSize: 15,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextCustom15R: {
     fontSize: 15,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextCustom14M: {
     fontSize: 14,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextCustom14R: {
     fontSize: 14,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextCustom13M: {
     fontSize: 13,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextCustom13R: {
     fontSize: 13,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextCustom12M: {
     fontSize: 12,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextCustom12R: {
     fontSize: 12,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextCustom11M: {
     fontSize: 11,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextCustom11R: {
     fontSize: 11,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontFamily: 'MiSansW-Regular'
   },
   mjTextCustom10M: {
     fontSize: 10,
-    fontFamily: 'sans-serif-medium',
-    fontWeight: '500'
+    fontFamily: 'MiSansW-Medium'
   },
   mjTextCustom10R: {
     fontSize: 10,
-    fontFamily: 'sans-serif',
-    fontWeight: '400'
-  }
-};
+    fontFamily: 'MiSansW-Regular'
+  } };
 export default Fonts;
