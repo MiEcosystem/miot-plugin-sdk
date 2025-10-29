@@ -11,5 +11,5 @@ export default function useFreqDeviceInfo() {
     update();
     PackageEvent.packageViewWillAppear.addListener(update);
   }, []);
-  return isFreqDevice;
+  return [isFreqDevice, setIsFreqDevice];
 }
