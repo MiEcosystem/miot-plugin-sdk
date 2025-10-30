@@ -239,6 +239,8 @@ export default {
   deviceSN: 'Số sê-ri thiết bị',
   mcuVersion: 'Phiên bản chương trình cơ sở MCU',
   sdkVersion: 'Phiên bản chương trình cơ sở SDK',
+  fireSafeCode: 'Mã an toàn phòng cháy',
+  fireSafeCodeTitle: 'Mã an toàn phòng cháy của thiết bị',
   deviceModel: 'Mẫu thiết bị',
   deviceQR: 'Mã QR của thiết bị',
   download: 'Tải xuống',

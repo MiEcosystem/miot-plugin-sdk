@@ -239,6 +239,8 @@ export default {
   deviceSN: 'Cihaz SN',
   mcuVersion: 'MCU üretici yazılımı sürümü',
   sdkVersion: 'SDK üretici yazılımı sürümü',
+  fireSafeCode: 'Yangın güvenlik kodu',
+  fireSafeCodeTitle: 'Cihaz yangın güvenlik kodu',
   deviceModel: 'Cihaz modeli',
   deviceQR: 'Cihaz QR kodu',
   download: 'İndir',

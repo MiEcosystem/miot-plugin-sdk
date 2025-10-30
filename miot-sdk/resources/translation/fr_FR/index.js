@@ -239,6 +239,8 @@ export default {
   deviceSN: 'Numéro de série de l\'appareil ',
   mcuVersion: 'Version du micrologicel MCU',
   sdkVersion: 'Version du micrologicel SDK',
+  fireSafeCode: 'Code de sécurité incendie',
+  fireSafeCodeTitle: 'Code de sécurité incendie de l\'appareil',
   deviceModel: 'Modèle de l\'appareil',
   deviceQR: 'Code QR de l\'appareil',
   download: 'Télécharger',

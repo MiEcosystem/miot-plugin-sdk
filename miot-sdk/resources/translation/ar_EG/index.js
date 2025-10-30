@@ -239,6 +239,8 @@ export default {
   deviceSN: 'الرقم التسلسلي للجهاز',
   mcuVersion: 'إصدار البرنامج الثابت MCU',
   sdkVersion: 'إصدار البرنامج الثابت SDK',
+  fireSafeCode: 'كود السلامة من الحرائق',
+  fireSafeCodeTitle: 'كود السلامة من الحرائق الخاص بالجهاز',
   deviceModel: 'طراز الجهاز',
   deviceQR: 'رمز QR الخاص بالجهاز',
   download: 'تنزيل',

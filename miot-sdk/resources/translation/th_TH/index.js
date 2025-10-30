@@ -239,6 +239,8 @@ export default {
   deviceSN: 'SN อุปกรณ์',
   mcuVersion: 'เวอร์ชั่นเฟิร์มแวร์ MCU',
   sdkVersion: 'เวอร์ชั่นเฟิร์มแวร์ SDK',
+  fireSafeCode: 'มาตรฐานด้านการรักษาความปลอดภัยจากอัคคีภัย',
+  fireSafeCodeTitle: 'มาตรฐานด้านอุปกรณ์รักษาความปลอดภัยจากอัคคีภัย',
   deviceModel: 'รุ่นอุปกรณ์',
   deviceQR: 'รหัส QR ของอุปกรณ์',
   download: 'ดาวน์โหลด',

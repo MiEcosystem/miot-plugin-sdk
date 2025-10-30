@@ -239,6 +239,8 @@ export default {
   deviceSN: 'Nomor Seri Perangkat',
   mcuVersion: 'Versi firmware MCU',
   sdkVersion: 'Versi firmware SDK',
+  fireSafeCode: 'Kode pencegahan kebakaran',
+  fireSafeCodeTitle: 'Kode perangkat pencegahan kebakaran',
   deviceModel: 'Model perangkat',
   deviceQR: 'Kode QR perangkat',
   download: 'Unduh',

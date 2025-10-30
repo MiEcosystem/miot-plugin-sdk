@@ -239,6 +239,8 @@ export default {
   deviceSN: 'SN מכשיר',
   mcuVersion: 'גרסת קושחת MCU',
   sdkVersion: 'גרסת קושחת SDK',
+  fireSafeCode: 'קוד בטיחות אש',
+  fireSafeCodeTitle: 'קוד בטיחות אש של המכשיר',
   deviceModel: 'דגם המכשיר',
   deviceQR: 'קוד ה-QR של המכשיר',
   download: 'הורדה',

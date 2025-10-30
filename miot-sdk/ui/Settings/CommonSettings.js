@@ -20,8 +20,6 @@ import useCariotDevice from "../../hooks/useCariotDevice";
 import { ListItemWithSwitch } from 'mhui-rn';
 import { Platform } from 'react-native';
 import useDeviceRoomInfo from "../../hooks/useDeviceRoomInfo";
-import { MessageDialog } from 'miot/ui/Dialog';
-import { dynamicColor } from '../Style/DynamicColor';
 let getInnerOptions = () => {
   return {
     deviceService: {
@@ -187,92 +185,6 @@ let getInnerOptions = () => {
       title: I18n.helpAndFeedback,
       onPress: () => {
         Host.ui.openHelpPage();
-      }
-    },
-    // 消防安全码: since 10112
-    fireSafeCode: {
-      exportKey: 'FIRE_SAFE_CODE',
-      isDefault: true,
-      Component: () => {
-        const [codeDisplay, setCodeDisplay] = useState(false) // 消防安全码 item 默认不显示
-        const [visible, setVisible] = useState(false); // 消防安全码弹窗显示与隐藏
-        const [codeValue, setCodeValue] = useState(''); // 消防安全码值
-        useEffect(() => {
-          Service.spec.getInstanceWithCache(Device.deviceID).then((parsedInstance) => {
-            // 确认类别是否是烟感卫士: device:sensor_smoke
-            let targetInstance = parsedInstance && parsedInstance.type && ['device'].includes(parsedInstance.type.split(':')[2]) && ['smoke-sensor'].includes(parsedInstance.type.split(':')[3]) ? parsedInstance : null;
-            if (targetInstance) {
-              let services = targetInstance.services;
-              // 使用 [].includes() 方法判断, 便于以后扩展
-              let service = services && services.find((item) => {
-                // 判断服务是否符合: extra-device-information
-                return item.type && ['service'].includes(item.type.split(':')[2]) && ['extra-device-information'].includes(item.type.split(':')[3]);
-              });
-              let property = service && service.properties.find((item) => {
-                // 判断属性是否符合: identification-code
-                return item.type && ['property'].includes(item.type.split(':')[2]) && ['identification-code'].includes(item.type.split(':')[3]);
-              });
-              // 当类别是烟感卫士，且服务、属性是目标值, 则显示安全码 item
-              if (service && property) {
-                // 获取消防安全码入参
-                const param = {
-                  did: Device.deviceID,
-                  siid: parseInt(service.iid),
-                  piid: parseInt(property.iid)
-                };
-                // 获取消防安全码值
-                Service.spec.getPropertiesValue([param], 2).then((result) => {
-                  console.log('12138.result=', result);
-                  if (result && Array.isArray(result) && result.length > 0 && result[0].value) {
-                      // 允许显示消防安全码 item
-                      setCodeDisplay(true);
-                      // 消防安全码值
-                      setCodeValue(result[0].value);
-                      return;
-                  }
-                }).catch((error) => {
-                  setCodeDisplay(false);
-                  setCodeValue('');
-                });
-              }           
-            }
-          });
-        }, []);
-        return (
-          codeDisplay ?
-          <>
-            <ListItem
-              key={'fireSafeCode'}
-              title={I18n.fireSafeCode}
-              onPress={() => {
-                setVisible(true);
-              }}
-              useNewType={true}
-              hideArrow={false}
-              showSeparator={ false }
-            />
-            <MessageDialog
-              visible={visible}
-              title={I18n.fireSafeCodeTitle}
-              titleStyle={{ textAlign: 'center', fontSize: 18, fontWeight: 700, color: dynamicColor('#000', '#FFF)') }}
-              message={codeValue}
-              messageStyle={{ textAlign: 'center', fontSize: 16, color: dynamicColor('#000', '#FFF)') }}
-              buttons={[
-                {
-                  text: I18n.cancel,
-                  titleColor: dynamicColor('#000', '#FFF)'),
-                  fontSize: 16,
-                  backgroundColor: {
-                    bgColorNormal: dynamicColor('#f5f5f5', '#333333')
-                  },
-                  callback: () => {
-                    setVisible(false);
-                  }
-                }
-              ]}
-            />
-          </> : null
-        )
       }
     },
     security: {
@@ -544,7 +456,7 @@ export const initCommonSettingsInnerOptions = () => {
 const AllAndDefaultOptions = getAllAndDefaultOptions(innerOptions);
 export const options = AllAndDefaultOptions.options;
 const defaultOptions = AllAndDefaultOptions.defaultOptions;
-const commonOptions = ['deviceCall', 'deviceService', 'share', 'ifttt', 'firmwareUpgrade', 'help', 'fireSafeCode', 'security', 'addToDesktop', 'freqDevice', 'freqCamera', 'defaultPlugin', 'pairMode'];
+const commonOptions = ['deviceCall', 'deviceService', 'share', 'ifttt', 'firmwareUpgrade', 'help', 'security', 'addToDesktop', 'freqDevice', 'freqCamera', 'defaultPlugin', 'pairMode'];
 const carOptions = ['name', 'productBaike', 'helpAndFeedback', 'more', 'pluginVersion', 'legalInfo', 'timezone', 'addToDesktop'];
 export default function CommonSettings(params) {
   const { customOptions } = params;

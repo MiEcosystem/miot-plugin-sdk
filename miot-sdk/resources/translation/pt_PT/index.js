@@ -239,6 +239,8 @@ export default {
   deviceSN: 'SN do dispositivo',
   mcuVersion: 'Versão do \'firmware\' MCU',
   sdkVersion: 'Versão do \'firmware\' do SDK',
+  fireSafeCode: 'Código de segurança contra incêndio',
+  fireSafeCodeTitle: 'Código de segurança contra incêndio do dispositivo',
   deviceModel: 'Modelo do dispositivo',
   deviceQR: 'Código QR do dispositivo',
   download: 'Descarregar',

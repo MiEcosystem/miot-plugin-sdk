@@ -239,6 +239,8 @@ export default {
   deviceSN: 'Készülék SN-száma',
   mcuVersion: 'MCU firmware-verzió',
   sdkVersion: 'SDK firmware-verzió',
+  fireSafeCode: 'Tűzvédelmi kód',
+  fireSafeCodeTitle: 'Készülék tűzvédelmi kódja',
   deviceModel: 'Eszközmodell',
   deviceQR: 'Eszköz QR-kódja',
   download: 'Letöltés',

@@ -239,6 +239,8 @@ export default {
   deviceSN: 'Apparaat-SN',
   mcuVersion: 'Firmwareversie MCU',
   sdkVersion: 'Firmwareversie SDK',
+  fireSafeCode: 'Brandveiligheidscode',
+  fireSafeCodeTitle: 'Brandveiligheidscodes voor apparaten',
   deviceModel: 'Apparaatmodel',
   deviceQR: 'QR-code van apparaat',
   download: 'Downloaden',

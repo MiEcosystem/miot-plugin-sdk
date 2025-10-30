@@ -239,6 +239,8 @@ export default {
   deviceSN: 'SN zariadenia',
   mcuVersion: 'Verzia firmvéru MCU',
   sdkVersion: 'Verzia firmvéru SDK',
+  fireSafeCode: 'Predpis o požiarnej bezpečnosti',
+  fireSafeCodeTitle: 'Predpis o požiarnej bezpečnosti zariadenia',
   deviceModel: 'Model zariadenia',
   deviceQR: 'QR kód zariadenia',
   download: 'Stiahnuť',

@@ -239,6 +239,8 @@ export default {
   deviceSN: 'Laitteen sarjanumero',
   mcuVersion: 'MCU-laiteohjelmistoversio',
   sdkVersion: 'SDK-laiteohjelmistoversio',
+  fireSafeCode: 'Paloturvallisuuskoodi',
+  fireSafeCodeTitle: 'Laitteen paloturvallisuuskoodi',
   deviceModel: 'Laitteen malli',
   deviceQR: 'Laitteen QR-koodi',
   download: 'Lataa',

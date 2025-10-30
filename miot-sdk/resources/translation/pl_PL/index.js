@@ -239,6 +239,8 @@ export default {
   deviceSN: 'Nr seryjny urządzenia',
   mcuVersion: 'Wersja oprogramowania sprzętowego MCU',
   sdkVersion: 'Wersja oprogramowania sprzętowego SDK',
+  fireSafeCode: 'Kodeks bezpieczeństwa pożarowego',
+  fireSafeCodeTitle: 'Zgodność urządzenia z przepisami bezpieczeństwa pożarowego',
   deviceModel: 'Model urządzenia',
   deviceQR: 'Kod QR urządzenia',
   download: 'Pobierz',

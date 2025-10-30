@@ -239,6 +239,8 @@ export default {
   deviceSN: 'Enhets SN',
   mcuVersion: 'Version av MCU-firmware',
   sdkVersion: 'Version av SDK-firmare',
+  fireSafeCode: 'Brandsäkerhetskod',
+  fireSafeCodeTitle: 'Brandsäkerhetskod för enhet',
   deviceModel: 'Enhetens modell',
   deviceQR: 'Enhetens QR-kod',
   download: 'Ladda ner',

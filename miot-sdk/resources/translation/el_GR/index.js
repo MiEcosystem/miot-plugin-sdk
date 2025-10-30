@@ -239,6 +239,8 @@ export default {
   deviceSN: 'Σειριακός αριθμός συσκευής',
   mcuVersion: 'Έκδοση του MCU υλικολογισμικού',
   sdkVersion: 'Έκδοση του SDK υλικολογισμικού',
+  fireSafeCode: 'Κώδικας πυρασφάλειας',
+  fireSafeCodeTitle: 'Κώδικας πυρασφάλειας συσκευής',
   deviceModel: 'Μοντέλο συσκευής',
   deviceQR: 'Κωδικός QR της συσκευής',
   download: 'Λήψη',

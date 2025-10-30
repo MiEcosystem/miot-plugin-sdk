@@ -239,6 +239,8 @@ export default {
   deviceSN: 'Număr serie dispozitiv',
   mcuVersion: 'Vesiune firmware MCU',
   sdkVersion: 'Vesiune firmware SDK',
+  fireSafeCode: 'Cod de securitate la incendiu',
+  fireSafeCodeTitle: 'Cod de securitate la incendiu al dispozitivului',
   deviceModel: 'Modelul dispozitivului',
   deviceQR: 'Codul QR al dispozitivului',
   download: 'Descărcați',

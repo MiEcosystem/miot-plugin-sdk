@@ -239,6 +239,8 @@ export default {
   deviceSN: 'Серийный номер устройства',
   mcuVersion: 'Версия прошивки MCU',
   sdkVersion: 'Версия прошивки SDK',
+  fireSafeCode: 'Кодекс пожарной безопасности',
+  fireSafeCodeTitle: 'Кодекс пожарной безопасности устройств',
   deviceModel: 'Модель устройства',
   deviceQR: 'QR-код устройства',
   download: 'Скачать',

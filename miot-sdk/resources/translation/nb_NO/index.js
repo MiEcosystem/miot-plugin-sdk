@@ -239,6 +239,8 @@ export default {
   deviceSN: 'Enhets-SN',
   mcuVersion: 'MCU-fastvareversjon',
   sdkVersion: 'SDK-fastvareversjon',
+  fireSafeCode: 'Brannsikkerhetsregler',
+  fireSafeCodeTitle: 'Brannsikkerhetsregler for apparater',
   deviceModel: 'Enhetsmodell',
   deviceQR: 'Enhetens QR-kode',
   download: 'Last ned',
