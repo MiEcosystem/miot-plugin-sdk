@@ -1,19 +1,19 @@
 'use strict';
-import { Device, DeviceEvent, Package, DarkMode } from 'miot';
+import { DarkMode, Device, DeviceEvent, Package, PackageEvent, Service, System } from 'miot';
 import Host from 'miot/Host';
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
 import NavigationBar from '../NavigationBar';
-import Separator from '../Separator';
-import { secondAllOptions, SETTING_KEYS, AllOptions, AllOptionsWeight } from "./CommonSetting";
+import { AllOptions, AllOptionsWeight, secondAllOptions, SETTING_KEYS } from "./CommonSetting";
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
-import DynamicColor, { dynamicColor } from 'miot/ui/Style/DynamicColor';
+import DynamicColor from 'miot/ui/Style/DynamicColor';
 import { getAccessibilityConfig } from '../../utils/accessibility-helper';
 import { referenceReport } from '../../decorator/ReportDecorator';
-import {MessageDialog} from "../Dialog";
+import { MessageDialog } from "../Dialog";
 import I18n from '../../resources/Strings';
+import tryTrackCommonSetting from "../../utils/track-sdk";
 /**
  * 分享设备的设置项
  * 0: 不显示
@@ -72,8 +72,26 @@ const excludeOptions = {
   [AllOptions.SECURITY]: [],
   [AllOptions.LEGAL_INFO]: ['5', '15', '17'] // 新增策略：灯组、红外遥控器等虚拟设备不显示法律信息，20190619
 };
+/**
+ * 车房间上层更多设置项
+*/
+const carRoomTopMoreOptions = [
+  AllOptions.PLUGIN_VERSION,
+  AllOptions.TIMEZONE,
+  AllOptions.USER_EXPERIENCE_PROGRAM,
+  AllOptions.ADD_TO_DESKTOP
+];
+/**
+ * 车房间下层更多设置项
+*/
+const carRoomBottomMoreOptions = [
+  AllOptions.PLUGIN_VERSION,
+  AllOptions.TIMEZONE,
+  AllOptions.USER_EXPERIENCE_PROGRAM,
+  AllOptions.ADD_TO_DESKTOP
+];
 const { second_options } = SETTING_KEYS;
-const NETWORK_INFO = 'networkInfo'; // 「网络信息」设置项的 key
+let leaglInfoClicked = false; // 用于标记「法律信息」是否被重复点击过，防止进入「法律信息」页面之前被重复点击导致点击事件多次执行
 /**
  * @export
  * @author Geeook
@@ -114,9 +132,10 @@ export default class MoreSetting extends React.Component {
       [secondAllOptions.PLUGIN_VERSION]: {
         title: strings.pluginVersion,
         value: String(Package.version),
-        hideArrow: true
+        hideArrow: true,
+        forceHideArrowOnPressInvalid: true
       },
-      [NETWORK_INFO]: {
+      [secondAllOptions.NETWORK_INFO]: {
         title: strings.networkInfo,
         onPress: () => Host.ui.openDeviceNetworkInfoPage()
       },
@@ -157,14 +176,22 @@ export default class MoreSetting extends React.Component {
     referenceReport('MoreSetting');
     this.state = {
       showPrivacyDialogState: false,
+      isHighTextContrastEnabled: false, // 无障碍高对比度文字开关
       timeZone: Device.timeZone || '' // 从未设置过时区的话，为空字符串
     };
+    PackageEvent.packageDidResume.addListener(() => {
+      this.fetchHighTextContrastState();
+    });
     this.secondOptions = this.props.navigation.state.params.secondOptions || [secondAllOptions.SECURITY, secondAllOptions.VOICE_AUTH, secondAllOptions.BTGATEWAY, secondAllOptions.TIMEZONE];
     this.excludeRequiredOptions = this.props.navigation.state.params.excludeRequiredOptions || [];
     this.extraOptions = this.props.navigation.state.params.extraOptions || {};
     this.moreSetting = this.getMoreSetting(this.state);
   }
   privacyAndProtocolReview() {
+    if (leaglInfoClicked) {
+      return;
+    }
+    leaglInfoClicked = true;
     let { licenseUrl, policyUrl, option } = this.extraOptions;
     // if (option === undefined) { // 兼容旧写法
     //   Host.ui.privacyAndProtocolReview('', licenseUrl, '', policyUrl);
@@ -174,12 +201,18 @@ export default class MoreSetting extends React.Component {
     if (option === undefined) {
       option = { 'privacyURL': policyUrl || '', 'agreementURL': licenseUrl || '' };
     }
-    Host.ui.previewLegalInformationAuthorization(option).then((ok) => {
-      if(!ok) {
-        this.setState({showPrivacyDialogState: true});
+    Host.ui.previewLegalInformationAuthorizationV2(option).then((ok) => {
+      if (!ok) {
+        this.setState({ showPrivacyDialogState: true });
       }
+      setTimeout(() => { // setTimeout()会在“从「法律信息」页面返回”这个动作发生之后执行，防止重复点击导致连续进入「法律信息」页面的情况出现
+        leaglInfoClicked = false;
+      }, 50);
     }).catch((err) => {
-      this.setState({showPrivacyDialogState: true});
+      this.setState({ showPrivacyDialogState: true });
+      setTimeout(() => {
+        leaglInfoClicked = false;
+      }, 50);
     });
   }
   UNSAFE_componentWillMount() {
@@ -191,6 +224,7 @@ export default class MoreSetting extends React.Component {
   }
   componentDidMount() {
     this.getDeviceTimeZone();
+    this.fetchHighTextContrastState();
   }
   getDeviceTimeZone() {
     Device.getDeviceTimeZone()
@@ -212,17 +246,25 @@ export default class MoreSetting extends React.Component {
   componentWillUnmount() {
     this._deviceTimeZoneChangedListener.remove();
   }
+  fetchHighTextContrastState() {
+    System.accessibility.getHighTextContrastState().then((res) => {
+      this.setState({
+        isHighTextContrastEnabled: res
+      });
+    });
+  }
   render() {
+    const { isHighTextContrastEnabled } = this.state;
     const requireKeys1 = [secondAllOptions.PLUGIN_VERSION, secondAllOptions.SECURITY];
     // 判断是否显示「网络信息」
     // 1 显示
     // 0 不显示
     // -1 默认配置: wifi 设备显示，其余不显示
     const networkInfoConfig = this.props.navigation.state.params.networkInfoConfig;
-    if (networkInfoConfig === 1) requireKeys1.push(NETWORK_INFO);
+    if (networkInfoConfig === 1) requireKeys1.push(secondAllOptions.NETWORK_INFO);
     else if (networkInfoConfig === -1 || networkInfoConfig === undefined) {
       if (['0', '8'].includes(Device.type)) { // 0 wifi 设备 8 双模设备
-        requireKeys1.push(NETWORK_INFO);
+        requireKeys1.push(secondAllOptions.NETWORK_INFO);
       }
     }
     const requireKeys2 = [secondAllOptions.LEGAL_INFO, secondAllOptions.ADD_TO_DESKTOP];
@@ -249,12 +291,15 @@ export default class MoreSetting extends React.Component {
       }
       return weightA - weightB;
     });
-    const items = keys.map((key) => {
+    let items = keys.map((key) => {
       if (typeof key !== 'string') {
-        const item = key;
-        return item;
+        return key;
       }
-      return this.moreSetting[key];
+      const item = this.moreSetting[key];
+      if (item) {
+        return { ...item, key };
+      }
+      return null;
     }).filter((item) => {
       return item && !item.hide;
     });
@@ -270,6 +315,14 @@ export default class MoreSetting extends React.Component {
     if (!containerStyle) {
       containerStyle = {};
     }
+    // 判断设备是否来至车房间, 过滤车房间显示项
+    if (1 === Device.fromRoomIndex) {
+      // / 车房间上层
+      items = items.filter((item) => carRoomTopMoreOptions.includes(item.key));
+    } else if (2 === Device.fromRoomIndex) {
+      // / 车房间下层
+      items = items.filter((item) => carRoomBottomMoreOptions.includes(item.key));
+    }
     return (
       <View style={[styles.container, containerStyle]}>
         {/* <Separator />
@@ -278,15 +331,36 @@ export default class MoreSetting extends React.Component {
           <View style={[styles.blank, { borderTopWidth: 0 }]} /> */}
         {
           items.map((item, index) => {
+            tryTrackCommonSetting(item.key, 'expose');
+            // 设置页固件升级曝光埋点
+            if (item.key === AllOptions.FIRMWARE_UPGRADE) {
+              Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
+              const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
+                'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
+              Service.smarthome.reportEventRefChannel("expose", params);
+            }
             const showSeparator = false;// index !== items.length - 1;
             return (
               <ListItem
-                key={item.title + index}
+                key={item.key || (item.title + index)}
                 title={item.title || ''}
                 value={item.value}
-                onPress={item.onPress}
+                onPress={() => {
+                  if (item.onPress) {
+                    tryTrackCommonSetting(item.key, 'click');
+                    // 设置页固件升级点击埋点
+                    if (item.key === AllOptions.FIRMWARE_UPGRADE) {
+                      Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
+                      const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
+                        'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
+                      Service.smarthome.reportEventRefChannel("click", params);
+                    }
+                    item.onPress();
+                  }
+                }}
                 showSeparator={showSeparator}
                 hideArrow={item.hideArrow}
+                forceHideArrowOnPressInvalid={item.forceHideArrowOnPressInvalid}
                 allowFontScaling={itemStyle.allowFontScaling}
                 unlimitedHeightEnable={itemStyle.unlimitedHeightEnable}
                 titleStyle={itemStyle.titleStyle}
@@ -307,12 +381,13 @@ export default class MoreSetting extends React.Component {
         }
         {/* <Separator /> */}
         {/* </ScrollView> */}
-        {this.renderPrivacyDialog()}
+        {this.renderPrivacyDialog({ isHighTextContrastEnabled })}
       </View>
     );
   }
-  renderPrivacyDialog(){
-    return(
+  renderPrivacyDialog({ isHighTextContrastEnabled }) {
+    const backgroundColor = isHighTextContrastEnabled ? { bgColorNormal: '#007D81' } : undefined;
+    return (
       <View>
         <MessageDialog
           visible = {this.state.showPrivacyDialogState}
@@ -320,7 +395,9 @@ export default class MoreSetting extends React.Component {
           messageStyle={{ textAlign: 'center', backgroundColor: 'white' }}
           buttons={[
             {
+              text: I18n.cancel,
               style: { color: 'lightpink' },
+              backgroundColor: backgroundColor,
               callback: (_) => this.setState({ showPrivacyDialogState: false })
             }
           ]}
