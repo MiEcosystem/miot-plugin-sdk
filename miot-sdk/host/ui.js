@@ -268,7 +268,7 @@ class IUi {
   @report
   openDeviceUpgradePage(type = 0, params = {}) {
   }
-  /** 
+  /**
    * @method openDoubleGraftingAuth
    * @since 10109
    * @time 2025-3-25
