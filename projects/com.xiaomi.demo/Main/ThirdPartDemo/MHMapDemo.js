@@ -14,7 +14,7 @@ import {
 // NativeModules
 let MHMapSearch = require('react-native/Libraries/BatchedBridge/NativeModules').MHMapSearch;
 import { AMapView } from 'miot/ui';
-import { Device, Host } from 'miot';
+import { Host } from 'miot';
 import TitleBar from "miot/ui/TitleBar";
 let window = Dimensions.get('window');
 
@@ -156,7 +156,7 @@ export default class MHMapDemo extends React.Component {
     this.setState({
       circles: new Array(circle),
       allowedShowAnnotations: !this.state.allowedShowAnnotations,
-      annotations: this.state.annotations      
+      annotations: this.state.annotations
     });
   }
 
@@ -192,19 +192,19 @@ export default class MHMapDemo extends React.Component {
       }
     };
     let annotation2 = {
-        id: 'annotation2',
-        title: '目标位置',
-        image: require('../../Resources/map/002.png'),
-        size: {
-          width: 64,
-          height: 64
-        },
-        canShowCallout: true,
-        lockedScreenPoint: { x: 0.5, y: 1 },
-        coordinate: {
-          latitude: e.nativeEvent.latitude - 0.01,
-          longitude: e.nativeEvent.longitude - 0.01
-        }
+      id: 'annotation2',
+      title: '目标位置',
+      image: require('../../Resources/map/002.png'),
+      size: {
+        width: 64,
+        height: 64
+      },
+      canShowCallout: true,
+      lockedScreenPoint: { x: 0.5, y: 1 },
+      coordinate: {
+        latitude: e.nativeEvent.latitude - 0.01,
+        longitude: e.nativeEvent.longitude - 0.01
+      }
     };
     let annotation3 = {
       id: 'annotation3',

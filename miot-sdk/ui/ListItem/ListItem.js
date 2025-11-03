@@ -1,2 +1,2 @@
-import { ListItem } from 'mhui-rn';
+import { ListItemNew as ListItem } from 'mhui-rn';
 export default ListItem;

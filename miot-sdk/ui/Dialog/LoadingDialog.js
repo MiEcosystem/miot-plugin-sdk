@@ -1,2 +1,2 @@
-import { LoadingDialog } from 'mhui-rn';
+import { LoadingDialogNew as LoadingDialog } from 'mhui-rn';
 export default LoadingDialog;

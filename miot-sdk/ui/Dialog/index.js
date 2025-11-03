@@ -7,6 +7,7 @@ import PinCodeDialog from "./PinCodeDialog";
 import ShareDialog from "./ShareDialog";
 import ActionSheet from "./ActionSheet";
 import ChoiceDialog from "./ChoiceDialog";
+import NearHandDialog from "./NearHandDialog";
 export {
   /**
    * 通用弹窗容器，包括头部标题和底部按钮，内容自定义
@@ -43,5 +44,6 @@ export {
   /**
    * 选项弹窗，有选择态，可以定义是单选还是多选
    */
-  ChoiceDialog
+  ChoiceDialog,
+  NearHandDialog
 };

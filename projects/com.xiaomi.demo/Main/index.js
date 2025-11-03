@@ -103,6 +103,14 @@ import FontsDemo from "./UIComponent/FontsDemo";
 import ColorDemo from "./UIComponent/ColorDemo";
 import RadiusDemo from "./UIComponent/RadiusDemo";
 import PhaseOneDemo from "./UIComponent/PhaseOneDemo";
+import HandPopDemo from "./UIComponent/HandPopDemo";
+import HandPopCustomDemo from "./UIComponent/HandPopCustomDemo";
+import HandPopClickDemo from "./UIComponent/HandPopClickDemo";
+import HandPopTriggerDemo from "./UIComponent/HandPopTriggerDemo";
+import LoadingDemo from "./UIComponent/LoadingDemo";
+import ListDemo from "./UIComponent/ListDemo";
+import ListItemDemo from "./UIComponent/ListItemDemo";
+import ListGroupDemo from "./UIComponent/ListGroupDemo";
 // import Tabs from "./UIComponent/Tabs";
 
 // Native 交互
@@ -252,7 +260,15 @@ function createRootStack(initPage) {
       ColorDemo,
       RadiusDemo,
       PhaseOneDemo,
+      HandPopDemo,
+      HandPopCustomDemo,
+      HandPopClickDemo,
+      HandPopTriggerDemo,
       FontsDemo,
+      LoadingDemo,
+      ListDemo,
+      ListItemDemo,
+      ListGroupDemo,
       SupportedFont,
       CurtainGroupPage,
       FirmwareUpgrade,
