@@ -23,6 +23,7 @@ import Device from '../device/BasicDevice';
 import Service from '../Service';
 import PrivacyUploadFdsHelper from '../utils/privacy_uploadfds_helper';
 import { strings as I18n } from '../resources';
+import PluginAppConfigHelper from "../utils/plugin-app-config-helper";
 /**
  * 原生UI管理
  * @interface
