@@ -341,5 +341,6 @@ export default {
   turn_off_light_offline: "关闭后，连接了开关的智能灯会断电离线",
   manage_switch_power: "控制开关开启或关闭。为了确保智能灯在线，请保持开启。",
   automation_toggle_btn: "切换",
-  save: "保存"
+  save: "保存",
+  add_device_type: "添加设备类型"
 };

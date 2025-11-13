@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, View, Image, StyleSheet, TouchableHighlight } from 'react-native';
 import { dynamicColor } from "../../../Style";
-import { adjustSize } from "../../../../utils/sizes";
 import PropTypes from "prop-types";
 const AutoDeviceInfoButton = ({
   title = "",
@@ -60,7 +59,6 @@ const Styles = StyleSheet.create({
   titleStyle: {
     position: 'relative',
     fontSize: 15,
-    fontWeight: "bold",
     color: dynamicColor("#000", 'rgba(255, 255, 255, 0.95)')
   },
   subtitleStyle: {
@@ -78,7 +76,7 @@ const Styles = StyleSheet.create({
     fontSize: 13,
     paddingHorizontal: 12,
     paddingVertical: 5.5,
-    borderRadius: 999,
+    borderRadius: 20,
     color: dynamicColor('rgba(0, 0, 0, 0.8)', 'rgba(255, 255, 255, 0.7)'),
     backgroundColor: dynamicColor('rgba(0, 0, 0, 0.06)', 'rgba(255, 255, 255, 0.15)')
   }

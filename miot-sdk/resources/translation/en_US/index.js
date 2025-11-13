@@ -347,5 +347,20 @@ export default {
   bluetooth_connecting: 'Connecting via Bluetooth…',
   bluetooth_connection_phone: 'This feature requires your phone\'s Bluetooth connection',
   connection_successful: 'Connected successfully',
-  connection_failed: 'Couldn\'t connect'
+  connection_failed: 'Couldn\'t connect',
+  select_control_type: 'Select control type',
+  non_smart_device_wired: 'Control non-smart devices through a wired connection',
+  control_smart_lights_group: 'Control smart lights or light groups in this home',
+  switch_double_control: 'Dual switch control',
+  link_other_switches_intercontrol: 'Connect to other smart switches so they control each other',
+  execute_scene: 'Run scene',
+  execute_manual_scenes_home: 'Run an existing manual scene (e.g. "Back home")',
+  more_smart_devices: 'More smart devices',
+  control_other_devices_home: 'Control other smart devices in this home (e.g. AC)',
+  power_switch: 'Power switch',
+  turn_off_light_offline: 'If you turn this off, the connected smart light will lose power and go offline',
+  manage_switch_power: 'Turn the switch on or off. To keep smart lights online, leave it on.',
+  automation_toggle_btn: 'Switch',
+  save: 'Save',
+  add_device_type: 'Add device type'
 };

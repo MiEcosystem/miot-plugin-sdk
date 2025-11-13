@@ -60,6 +60,7 @@ export default class DeviceSection extends Component {
                   isLast={ index1 === items.length - 1 }
                   key={ `${ item.did }${ index1 }` }
                   title={ item.deviceName }
+                  online={ item.isOnline }
                   icon={ { uri: item.iconUrl } }
                   checked={ item.did === selectedItem?.did && item.memberId === selectedItem?.memberId }
                   onValueChange={ (selected) => {

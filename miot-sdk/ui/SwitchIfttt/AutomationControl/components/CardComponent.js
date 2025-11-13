@@ -2,8 +2,6 @@ import React from 'react';
 import { View, Text, TouchableHighlight, Image } from "react-native";
 import { dynamicColor, dynamicStyleSheet } from "../../../Style";
 import DynamicColor from "../../../Style/DynamicColor";
-import { DarkMode } from "../../../../index";
-import { Images } from "../../../../resources";
 import PropTypes from "prop-types";
 const CardComponent = ({ title, subtitle, onPress, children, style, icon }) => {
   return (

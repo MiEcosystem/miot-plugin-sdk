@@ -8,11 +8,13 @@ import DynamicColor, { dynamicColor } from '../../../Style/DynamicColor';
 import { FontMiSansWRegular } from '../../../../utils/fonts';
 import { adjustSize } from '../../../../utils/sizes';
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
+import { strings as I18n } from "../../../../resources";
 export default class DeviceCell extends Component {
   static propTypes = {
     icon: PropTypes.any,
     title: PropTypes.string,
     subtitle: PropTypes.string,
+    online: PropTypes.bool,
     extraSubtitle: PropTypes.string,
     extraSubtitleStyle: PropTypes.object,
     checked: PropTypes.bool,
@@ -60,7 +62,7 @@ export default class DeviceCell extends Component {
     }
   };
   render() {
-    const { icon, title, disabled, isFirst, isLast } = this.props;
+    const { icon, title, disabled, isFirst, isLast, online } = this.props;
     const { checked } = this.state;
     return (
       <TouchableWithoutFeedback onPress={ () => {
@@ -87,6 +89,7 @@ export default class DeviceCell extends Component {
             { icon ? <Image style={ [Styles.icon, disabled ? Styles.disabled : null] } source={ icon }/> : null }
             <View style={ [Styles.text, disabled ? Styles.disabled : null] }>
               <Text numberOfLines={ 3 } style={ Styles.title }>{ title }</Text>
+              {online && <Text numberOfLines={ 3 } style={ Styles.subTitle }>{ I18n.deviceOffline }</Text>}
             </View>
             <View style={ Styles.radioContainer }>
               <Radio isChecked={ checked } disabled={ disabled } changeCheck={ this.changeCheck }/>
@@ -138,9 +141,15 @@ const Styles = dynamicStyleSheet({
   },
   title: {
     fontFamily: FontMiSansWRegular,
-    fontSize: 14,
+    fontSize: 16,
     color: dynamicColor('rgba(0, 0, 0, 0.8)', 'rgba(255, 255, 255, 0.8)'),
-    lineHeight: 32
+    lineHeight: 18
+  },
+  subTitle: {
+    fontFamily: FontMiSansWRegular,
+    fontSize: 13,
+    color: dynamicColor('#FFBB0F', 'rgba(255, 255, 255, 0.8)'),
+    lineHeight: 15
   },
   checkbox: {
     width: adjustSize(66),
