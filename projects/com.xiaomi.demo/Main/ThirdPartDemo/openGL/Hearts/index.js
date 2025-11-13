@@ -1,13 +1,13 @@
-import React, {Component} from "react";
-import {StyleSheet, ListView} from "react-native";
+import React, { Component } from "react";
+import { StyleSheet, ListView } from "react-native";
 import seedrandom from "seedrandom";
 import Dimensions from "react-native/Libraries/Utilities/Dimensions";
 const { width: viewportWidth } = Dimensions.get("window");
-import {Surface} from "gl-react-native";
+import { Surface } from "gl-react-native";
 import Heart from "./Heart";
 
-const sameColor = ([r,g,b], [R,G,B]) =>
-  r===R && g===G && b===B;
+const sameColor = ([r, g, b], [R, G, B]) =>
+  r === R && g === G && b === B;
 
 const rowHasChanged = (r1, r2) =>
   !sameColor(r1.color, r2.color);
@@ -15,12 +15,12 @@ const rowHasChanged = (r1, r2) =>
 const increment = 3;
 const seed = "gl-react is awesome";
 
-const genRows = nb => {
+const genRows = (nb) => {
   const rows = [];
   const random = seedrandom(seed);
   for (let i = 0; i < nb; i++) {
     rows.push({
-      color: [ random(), random(), random() ]
+      color: [random(), random(), random()]
     });
   }
   return rows;
@@ -29,12 +29,12 @@ const genRows = nb => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: "#000"
   }
 });
 
 class Hearts extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       dataSource: new ListView.DataSource({
@@ -48,7 +48,7 @@ class Hearts extends Component {
       dataSource: dataSource.cloneWithRows(genRows(increment + dataSource.getRowCount()))
     });
   };
-  render () {
+  render() {
     return (
       <ListView
         style={styles.container}

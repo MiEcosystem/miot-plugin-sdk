@@ -28,6 +28,81 @@ export default class UIDemo extends React.Component {
   _createMenuData() {
     this._menuData = [
       {
+        'name': '是否支持小米查找',
+        'func': () => {
+          Bluetooth.isSupportAccessoryFind()
+            .then(result => {
+              console.log("是否支持小米查找:", result);
+              if (result?.data?.isSupportAccessoryFind) {
+                console.log("是否支持小米查找:", result.data.isSupportAccessoryFind);
+              }
+            })
+            .catch(err => {
+              console.error("是否支持小米查找:", err?.message);
+            });
+        }
+      },
+      {
+        'name': '获取查找状态',
+        'func': () => {
+          Bluetooth.getAccessoryFindStatus()
+            .then(result => {
+              console.log("获取查找状态:", result);
+              if (result?.data) {
+                console.log("获取查找状态:", result.data?.accessoryStatus, result.data?.accessoryFcsnStatus);
+              }
+            })
+            .catch(err => {
+              console.error("获取查找状态失败:", err?.message);
+            });
+        }
+      },
+      {
+        'name': '开启小米查找',
+        'func': () => {
+          Bluetooth.openAccessoryFind()
+            .then(result => {
+              console.log("开启小米查找:", result);
+              if (result?.data) {
+                console.log("开启小米查找:", result.data?.executeResult, result.data?.findFid);
+              }
+            })
+            .catch(err => {
+              console.error("开启小米查找:", err?.message);
+            });
+        }
+      },
+      {
+        'name': '开启离线小米查找',
+        'func': () => {
+          Bluetooth.openAccessoryOfflineFind()
+            .then(result => {
+              console.log("开启离线小米查找:", result);
+              if (result?.data) {
+                console.log("开启离线小米查找:", result.data?.executeResult);
+              }
+            })
+            .catch(err => {
+              console.error("开启离线小米查找:", err?.message);
+            });
+        }
+      },
+      {
+        'name': '关闭小米查找',
+        'func': () => {
+          Bluetooth.closeAccessoryFind()
+            .then(result => {
+              console.log("关闭小米查找:", result);
+              if (result?.data) {
+                console.log("关闭小米查找:", result.data?.executeResult);
+              }
+            })
+            .catch(err => {
+              console.error("关闭小米查找:", err?.message);
+            });
+        }
+      },
+      {
         'name': '开发板控制Demo',
         'func': () => {
           this.props.navigation.navigate('ControlDemo', { title: 'ControlDemo' });
@@ -340,6 +415,17 @@ export default class UIDemo extends React.Component {
         'name': '获取当前账号的当前家庭的DeviceList',
         'func': () => {
           Device.getHomeDeviceList().then((res) => {
+            alert(JSON.stringify(res));
+          }).catch((error) => {
+            alert(JSON.stringify(error));
+          });
+        }
+      },
+      {
+        'name': '获取家庭成员的列表',
+        'func': () => {
+          let options = {};
+          Device.getHomeMemberList(options).then((res) => {
             alert(JSON.stringify(res));
           }).catch((error) => {
             alert(JSON.stringify(error));

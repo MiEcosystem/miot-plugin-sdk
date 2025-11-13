@@ -42,21 +42,10 @@ import LockDevice from './LockDevice';
 // eslint-disable-next-line import/no-cycle
 import RootDevice from '../BasicDevice';
 import BleSpec from './blespec';
-export const getBluetoothUUID128 = (id) => {
-  if (!id || id == '') return null;
-  id = id.toUpperCase();
-  if (id.length > 8) return id;
-  switch (id.length) {
-    case 2: id = `000000${ id }`; break;
-    case 4: id = `0000${ id }`; break;
-    case 6: id = `00${ id }`; break;
-    case 8: break;
-    default:
-      return null;
-  }
-  return `${ id }-0000-1000-8000-00805F9B34FB`;
-};
- const bluetoothDevices={}
+// fix miot-sdk/device/bluetooth/index.js -> miot-sdk/device/bluetooth/BluetoothDevice.js cycle
+import { getBluetoothUUID128 } from './utils/uuid';
+export { getBluetoothUUID128 };
+import { takeBluetooth } from './utils/ble';
 /**
  * 蓝牙操作入口类
  * @interface
@@ -128,6 +117,9 @@ export default {
   checkBluetoothIsEnabled() {
      return Promise.resolve(true);
   },
+  /**
+   * 扫描前先检查蓝牙权限
+   * */
   /**
      * 开始扫描蓝牙设备，此方法没有回调，扫描得到的结果，通过BluetoothEvent.bluetoothDeviceDiscovered.addListener()来获取扫描的结果，获取到正确的蓝牙设备对象后，记得调用下面的Bluetooth.stopScan()来停止蓝牙扫描。
      * @param {int} durationInMillis - 扫描时长
@@ -263,5 +255,86 @@ export default {
      *  @param {string} mac
      */
   setAlertConfigsOnMIUI(mac, alert, enable) {
+  },
+  /**
+   * Since SDK_10079
+   * 仅支持Android设备 iOS设备不支持该方法
+   * @returns boolean 判断蓝牙是否是半开模式
+   *  Bluetooth.isBluetoothHalfOpenForAndroid().then((enable) => {
+   *       console.log("enable : " + enable)
+   *     }).catch((error) => {
+   *       this.logInfo('checkBluetoothIsEnabled error ', error);
+   *     });
+   *
+   */
+  isBluetoothHalfOpenForAndroid() {
+  },
+  /**
+   * since SDK_10104
+   * @param mac
+   */
+  createBond(mac) {
+    native.MIOTBluetooth.createBond(mac);
+  },
+  /**
+   * since SDK_10104
+   * @param mac
+   */
+  removeBond(mac) {
+    if (isAndroid) {
+      native.MIOTBluetooth.removeBond(mac);
+    } else {
+      native.MIOTBluetooth.disconnectDeviceWithDelay(mac, 0);
+    }
+  },
+  /**
+   * Since SDK_10113
+   * 设备是否支持小米查找功能
+   * 仅支持小米手机 iOS设备不支持该方法
+   * @returns {Promise<Object>}
+   * 成功时：{"code":0, "data":{isSupportAccessoryFind: true/false}}
+   * 失败时：{"code":-1, "message":"xxx" }
+   */
+  isSupportAccessoryFind() {
+  },
+  /**
+   * Since SDK_10113
+   * 获取设备查找的状态
+   * 仅支持小米手机 iOS设备不支持该方法
+   * @returns {Promise<Object>}
+   * 成功时：{"code":0, "data":{code:0, message:"xxx", accessoryStatus: on/off, accessoryFcsnStatus:enable/disable}}
+   * 失败时：{"code":-1, "message":"xxx" }
+   */
+  getAccessoryFindStatus() {
+  },
+  /**
+   * Since SDK_10113
+   * 开启小米查找
+   * 仅支持小米手机 iOS设备不支持该方法
+   * @returns {Promise<Object>}
+   * 成功时：{"code":0, "data":{code:0, message:"xxx", executeResult: true/false, findFid:"xxx"}}
+   * 失败时：{"code":-1, "message":"xxx" }
+   */
+  openAccessoryFind() {
+  },
+  /**
+   * Since SDK_10113
+   * 开启离线小米查找
+   * 仅支持小米手机 iOS设备不支持该方法
+   * @returns {Promise<Object>}
+   * 成功时：{"code":0, "data":{code:0, message:"xxx", executeResult: true/false}}
+   * 失败时：{"code":-1, "message":"xxx" }
+   */
+  openAccessoryOfflineFind() {
+  },
+  /**
+   * Since SDK_10113
+   * 关闭小米查找功能
+   * 仅支持小米手机 iOS设备不支持该方法
+   * @returns {Promise<Object>}
+   * 成功时：{"code":0, "data":{code:0, message:"xxx", executeResult: true/false}}
+   * 失败时：{"code":-1, "message":"xxx" }
+   */
+  closeAccessoryFind() {
   }
 };
