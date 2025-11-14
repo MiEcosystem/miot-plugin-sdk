@@ -1497,6 +1497,23 @@ class ISmartHome {
     reportEventRefChannel(eventName, params) {
     }
   /**
+   * since 10111
+   * 埋点上报，iOS Only
+   * @param {string} eventName 事件名
+   * @param {string} ref string默认null
+   * @param {string} subRef string默认null
+   * @param {string} fromRef string默认null
+   * @param {string} fromSubRef string默认null
+   * @param {Object} params kv键值对，key必须是string类型，value是基础类型（int,strig,float,boolean）
+   * @example
+   * let eventName = 'testEvent';
+   * let params = {'key1':'value1','key2':'value2','tip':'tips'};
+   * Service.smarthome.reportEventRefChannel(eventName,params);
+   */
+  @report
+  recordEvent(eventName, ref = null, subRef = null, fromRef = null, fromSubRef = null, params) {
+  }
+  /**
    * since 10089
    * 获取品牌信息
    * @param {Array} params 元素为品牌ID

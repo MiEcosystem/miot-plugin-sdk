@@ -286,55 +286,5 @@ export default {
     } else {
       native.MIOTBluetooth.disconnectDeviceWithDelay(mac, 0);
     }
-  },
-  /**
-   * Since SDK_10113
-   * 设备是否支持小米查找功能
-   * 仅支持小米手机 iOS设备不支持该方法
-   * @returns {Promise<Object>}
-   * 成功时：{"code":0, "data":{isSupportAccessoryFind: true/false}}
-   * 失败时：{"code":-1, "message":"xxx" }
-   */
-  isSupportAccessoryFind() {
-  },
-  /**
-   * Since SDK_10113
-   * 获取设备查找的状态
-   * 仅支持小米手机 iOS设备不支持该方法
-   * @returns {Promise<Object>}
-   * 成功时：{"code":0, "data":{code:0, message:"xxx", accessoryStatus: on/off, accessoryFcsnStatus:enable/disable}}
-   * 失败时：{"code":-1, "message":"xxx" }
-   */
-  getAccessoryFindStatus() {
-  },
-  /**
-   * Since SDK_10113
-   * 开启小米查找
-   * 仅支持小米手机 iOS设备不支持该方法
-   * @returns {Promise<Object>}
-   * 成功时：{"code":0, "data":{code:0, message:"xxx", executeResult: true/false, findFid:"xxx"}}
-   * 失败时：{"code":-1, "message":"xxx" }
-   */
-  openAccessoryFind() {
-  },
-  /**
-   * Since SDK_10113
-   * 开启离线小米查找
-   * 仅支持小米手机 iOS设备不支持该方法
-   * @returns {Promise<Object>}
-   * 成功时：{"code":0, "data":{code:0, message:"xxx", executeResult: true/false}}
-   * 失败时：{"code":-1, "message":"xxx" }
-   */
-  openAccessoryOfflineFind() {
-  },
-  /**
-   * Since SDK_10113
-   * 关闭小米查找功能
-   * 仅支持小米手机 iOS设备不支持该方法
-   * @returns {Promise<Object>}
-   * 成功时：{"code":0, "data":{code:0, message:"xxx", executeResult: true/false}}
-   * 失败时：{"code":-1, "message":"xxx" }
-   */
-  closeAccessoryFind() {
   }
 };

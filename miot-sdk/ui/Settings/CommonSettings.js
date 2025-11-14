@@ -113,13 +113,14 @@ let getInnerOptions = () => {
         const canUpgrade = useCanUpgrade();
         const [clicked, click] = useClicked('firmwareUpgrade');
         useEffect(() => {
-          // 固件升级曝光埋点
-          if (Platform.OS === 'ios') {
-            Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
-          }
           const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
             'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
-          Service.smarthome.reportEventRefChannel("expose", params);
+          // 固件升级曝光埋点
+          if (Platform.OS === 'ios') {
+            Service.smarthome.recordEvent("expose", 'plugin_homepage', 'plugin_setting', null, null, params);
+          } else {
+            Service.smarthome.reportEventRefChannel("expose", params);
+          }
         }, []);
         return (
           <ListItem
@@ -127,13 +128,14 @@ let getInnerOptions = () => {
             title={I18n.firmwareUpgrade}
             showDot={canUpgrade && !clicked}
             onPress={delegatePress(({ navigation, extraOptions = {} }) => {
-              // 固件升级点击埋点
-              if (Platform.OS === 'ios') {
-                Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
-              }
               const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
                 'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
-              Service.smarthome.reportEventRefChannel("click", params);
+              // 固件升级点击埋点
+              if (Platform.OS === 'ios') {
+                Service.smarthome.recordEvent("click", 'plugin_homepage', 'plugin_setting', null, null, params);
+              } else {
+                Service.smarthome.reportEventRefChannel("click", params);
+              }
               const { type, model } = Device;
               const { showUpgrade, upgradePageKey, bleOtaAuthType } = extraOptions || {};
               // showUpgrade 未设置，则当做true，可以简化配置

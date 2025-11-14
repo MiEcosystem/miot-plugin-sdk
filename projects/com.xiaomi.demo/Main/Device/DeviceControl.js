@@ -5,6 +5,7 @@ import React from 'react';
 import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { PluginEntrance } from "../PluginEntrance";
 import Logger from '../Logger';
+import {XMFind} from "miot/native/XmFind";
 
 let BUTTONS = [
   '测试对话框',
@@ -30,7 +31,7 @@ export default class UIDemo extends React.Component {
       {
         'name': '是否支持小米查找',
         'func': () => {
-          Bluetooth.isSupportAccessoryFind()
+          XMFind.isSupportAccessoryFind()
             .then(result => {
               console.log("是否支持小米查找:", result);
               if (result?.data?.isSupportAccessoryFind) {
@@ -45,7 +46,7 @@ export default class UIDemo extends React.Component {
       {
         'name': '获取查找状态',
         'func': () => {
-          Bluetooth.getAccessoryFindStatus()
+          XMFind.getAccessoryFindStatus(Device.deviceID)
             .then(result => {
               console.log("获取查找状态:", result);
               if (result?.data) {
@@ -60,7 +61,7 @@ export default class UIDemo extends React.Component {
       {
         'name': '开启小米查找',
         'func': () => {
-          Bluetooth.openAccessoryFind()
+          XMFind.openAccessoryFind(Device.deviceID)
             .then(result => {
               console.log("开启小米查找:", result);
               if (result?.data) {
@@ -75,7 +76,7 @@ export default class UIDemo extends React.Component {
       {
         'name': '开启离线小米查找',
         'func': () => {
-          Bluetooth.openAccessoryOfflineFind()
+          XMFind.openAccessoryOfflineFind(Device.deviceID)
             .then(result => {
               console.log("开启离线小米查找:", result);
               if (result?.data) {
@@ -90,7 +91,7 @@ export default class UIDemo extends React.Component {
       {
         'name': '关闭小米查找',
         'func': () => {
-          Bluetooth.closeAccessoryFind()
+          XMFind.closeAccessoryFind(Device.deviceID)
             .then(result => {
               console.log("关闭小米查找:", result);
               if (result?.data) {
