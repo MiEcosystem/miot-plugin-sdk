@@ -345,10 +345,9 @@ class IMiotCamera {
      * @since 10033
      * @param {did} 默认参数 did
      * @param {aSettingUrl} @since 10053  自定义设置地址。默认为空，兼容以前的逻辑。
-     * @param {params} @since 10111 额外参数，应付未知的需求 暂时在这里放跳购买渠道号，方便PM进行数据分析。[参考showCloudStorage params参数使用场景]
      */
     @report
-     showCloudStorageSetting(did = Device.deviceID, aSettingUrl = null, params = {}) {
+     showCloudStorageSetting(did = Device.deviceID, aSettingUrl = null) {
         return null
      }
     /**

@@ -1329,7 +1329,7 @@ export default class CommonSetting extends React.Component {
     if (1 === Device.fromRoomIndex) {
       // 上层(上游)
       keys = keys.filter((key) => carRoomTopOptions.includes(key));
-    } else if (2 === Device.fromRoomIndex) { 
+    } else if (2 === Device.fromRoomIndex) {
       // 下层(下游)
       keys = keys.filter((key) => carRoomBottomOptions.includes(key));
     }
@@ -1375,10 +1375,14 @@ export default class CommonSetting extends React.Component {
             tryTrackCommonSetting(item.key, 'expose');
             // 设置页固件升级曝光埋点
             if (item.key === AllOptions.FIRMWARE_UPGRADE) {
-              Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
               const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
                 'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
-              Service.smarthome.reportEventRefChannel("expose", params);
+              if (Platform.OS === 'ios') {
+                Service.smarthome.recordEvent("expose", 'plugin_homepage', 'plugin_setting', null, null, params);
+              } else {
+                Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
+                Service.smarthome.reportEventRefChannel("expose", params);
+              }
             }
             if (item._itemType === 'greenSwitch') {
               return (
@@ -1459,10 +1463,14 @@ export default class CommonSetting extends React.Component {
                       tryTrackCommonSetting(item.key, 'click');
                       // 设置页固件升级点击埋点
                       if (item.key === AllOptions.FIRMWARE_UPGRADE) {
-                        Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
                         const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
                           'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
-                        Service.smarthome.reportEventRefChannel("click", params);
+                        if (Platform.OS === 'ios') {
+                          Service.smarthome.recordEvent("click", 'plugin_homepage', 'plugin_setting', null, null, params);
+                        } else {
+                          Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
+                          Service.smarthome.reportEventRefChannel("expose", params);
+                        }
                       }
                       item.onPress();
                     }
