@@ -1,0 +1,1 @@
+export default function useFreqDeviceInfo(): (boolean | import("react").Dispatch<import("react").SetStateAction<boolean>>)[];

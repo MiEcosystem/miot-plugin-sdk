@@ -1,0 +1,35 @@
+export const battery: import("./battery").IBattery;
+export const bluetooth: import("./bluetooth").IBluetooth;
+export const accelerometer: import("./accelerometer").IAccelerometer;
+export const compass: import("./compass").ICompass;
+export const gyroscope: import("./gyroscope").IGyroscope;
+export const scancode: import("./scancode").IScanCode;
+export const vibrate: import("./vibrate").IVibrate;
+export const permission: import("./permission").IPermission;
+export const location: import("./location").Location;
+export const volume: import("./volume").IVolume;
+export const network: import("./network").INetwork;
+export const shake: import("./shake").IShake;
+export const nfc: import("./nfc").INfc;
+export const health: import("./health").IHealth;
+export const screen: import("./screen").IScreen;
+export const accessibility: import("./accessibility").IAccessibility;
+declare namespace _default {
+    export { battery };
+    export { bluetooth };
+    export { accelerometer };
+    export { compass };
+    export { gyroscope };
+    export { scancode };
+    export { vibrate };
+    export { permission };
+    export { location };
+    export { volume };
+    export { network };
+    export { shake };
+    export { nfc };
+    export { health };
+    export { screen };
+    export { accessibility };
+}
+export default _default;

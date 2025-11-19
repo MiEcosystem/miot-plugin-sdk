@@ -1,0 +1,1 @@
+export default function tryTrackCommonSetting(featureName: any, eventName: any, status?: null): void;

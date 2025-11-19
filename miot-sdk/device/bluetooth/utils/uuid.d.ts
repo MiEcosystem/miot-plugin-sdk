@@ -1,0 +1,1 @@
+export function getBluetoothUUID128(id: any): any;

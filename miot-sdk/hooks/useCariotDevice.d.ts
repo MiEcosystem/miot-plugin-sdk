@@ -1,0 +1,1 @@
+export default function useCariotDevice(did?: any): {};

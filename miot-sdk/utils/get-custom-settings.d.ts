@@ -1,0 +1,1 @@
+export default function getCUstomSettings(pluginId?: any, pluginVersion?: any): Promise<any>;

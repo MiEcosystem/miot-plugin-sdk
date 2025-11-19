@@ -1,0 +1,15 @@
+export default Bluetooth;
+export const IBluetooth: typeof BluetoothDevice;
+export const BluetoothEvent: typeof MIOTBluetoothEvent;
+export const IBluetoothService: typeof MIOTIBluetoothService;
+export const IBluetoothCharacteristic: typeof MIOTIBluetoothCharacteristic;
+export const IBluetoothLock: typeof LockDevice;
+export const getBluetoothUUID128: typeof Bluetooth.UUID128;
+export const takeBluetooth: typeof MIOTTakeBluetooth;
+import Bluetooth from "./device/bluetooth";
+import { IBluetooth as BluetoothDevice } from "./device/bluetooth/BluetoothDevice";
+import { BluetoothEvent as MIOTBluetoothEvent } from "./device/bluetooth/BluetoothDevice";
+import { IBluetoothService as MIOTIBluetoothService } from "./device/bluetooth/CoreBluetooth";
+import { IBluetoothCharacteristic as MIOTIBluetoothCharacteristic } from "./device/bluetooth/CoreBluetooth";
+import LockDevice from "./device/bluetooth/LockDevice";
+import { takeBluetooth as MIOTTakeBluetooth } from "./device/bluetooth";

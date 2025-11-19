@@ -1,0 +1,1 @@
+export default function useDeviceSettings(key: any, settings: any, eventEmitter: any): any;

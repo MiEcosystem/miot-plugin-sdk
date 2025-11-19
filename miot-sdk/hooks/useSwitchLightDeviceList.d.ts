@@ -1,0 +1,1 @@
+export default function useSwitchLightDeviceList(devices?: any[]): never[];

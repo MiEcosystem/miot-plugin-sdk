@@ -1,0 +1,1 @@
+export default function useSwitchRoomInfo(roomIds?: any[], did?: string): {};

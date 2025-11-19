@@ -1,0 +1,1 @@
+export default function usePluginVersion(models?: string[], specifiedModel?: string): any;

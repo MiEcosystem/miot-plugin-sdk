@@ -158,5 +158,12 @@
     "react/no-deprecated": "warn",
     "react/no-string-refs": "error",
     "react/no-direct-mutation-state": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"]
+    }
+  ]
 }

@@ -1,0 +1,1 @@
+export default function useThirdUserConfigs(key: any, model: string | undefined, eventEmitter: any): any;

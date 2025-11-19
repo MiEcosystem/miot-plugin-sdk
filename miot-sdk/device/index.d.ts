@@ -1,0 +1,34 @@
+export const Device: import("./BasicDevice").BasicDevice;
+export const DeviceEvent: typeof MIOTDeviceEvent;
+export const Bluetooth: typeof MIOTBluetooth;
+export const BluetoothEvent: typeof MIOTBluetoothEvent;
+export const IBluetooth: typeof BluetoothDevice;
+export const IBluetoothLock: typeof LockDevice;
+export const ClassicBluetooth: typeof ClassicBluetoothFactory;
+export const ClassicBluetoothEvent: typeof MIOTClassicBluetoothEvent;
+export const IBluetoothService: typeof MIOTIBluetoothService;
+export const IBluetoothCharacteristic: typeof MIOTIBluetoothCharacteristic;
+declare namespace _default {
+    export { Device };
+    export { DeviceEvent };
+    export { Bluetooth };
+    export { BluetoothEvent };
+    export { IBluetooth };
+    export { IBluetoothLock };
+    export { ClassicBluetooth };
+    export { ClassicBluetoothEvent };
+    export { IBluetoothService };
+    export { IBluetoothCharacteristic };
+    export { Interconnection };
+}
+export default _default;
+import { DeviceEvent as MIOTDeviceEvent } from "./BasicDevice";
+import MIOTBluetooth from "./bluetooth";
+import { BluetoothEvent as MIOTBluetoothEvent } from "./bluetooth/BluetoothDevice";
+import { IBluetooth as BluetoothDevice } from "./bluetooth/BluetoothDevice";
+import LockDevice from "./bluetooth/LockDevice";
+import ClassicBluetoothFactory from "./bluetooth/ClassicDevice";
+import { ClassicBluetoothEvent as MIOTClassicBluetoothEvent } from "./bluetooth/ClassicDevice";
+import { IBluetoothService as MIOTIBluetoothService } from "./bluetooth/CoreBluetooth";
+import { IBluetoothCharacteristic as MIOTIBluetoothCharacteristic } from "./bluetooth/CoreBluetooth";
+import Interconnection from "./interconnection";
