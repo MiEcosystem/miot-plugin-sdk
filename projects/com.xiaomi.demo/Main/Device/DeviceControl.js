@@ -6,6 +6,7 @@ import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, Touchabl
 import { PluginEntrance } from "../PluginEntrance";
 import Logger from '../Logger';
 import {XMFind} from "miot/native/XmFind";
+import native from "miot/native";
 
 let BUTTONS = [
   '测试对话框',
@@ -61,7 +62,7 @@ export default class UIDemo extends React.Component {
       {
         'name': '开启小米查找',
         'func': () => {
-          XMFind.openAccessoryFind(Device.deviceID)
+          Bluetooth.openAccessoryFind(Device.deviceID)
             .then(result => {
               console.log("开启小米查找:", result);
               if (result?.data) {

@@ -286,5 +286,15 @@ export default {
     } else {
       native.MIOTBluetooth.disconnectDeviceWithDelay(mac, 0);
     }
+  },
+  /**
+   * Since SDK_10113
+   * 开启小米查找
+   * 仅支持小米手机 iOS设备不支持该方法
+   * @returns {Promise<Object>}
+   * 成功时：{"code":0, "data":{code:0, message:"xxx", executeResult: true/false, findFid:"xxx"}}
+   * 失败时：{"code":-1, "message":"xxx" }
+   */
+  openAccessoryFind(did) {
   }
 };

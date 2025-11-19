@@ -77,6 +77,7 @@ const excludeOptions = {
 */
 const carRoomTopMoreOptions = [
   AllOptions.PLUGIN_VERSION,
+  AllOptions.LEGAL_INFO,
   AllOptions.TIMEZONE,
   AllOptions.USER_EXPERIENCE_PROGRAM,
   AllOptions.ADD_TO_DESKTOP
@@ -86,6 +87,7 @@ const carRoomTopMoreOptions = [
 */
 const carRoomBottomMoreOptions = [
   AllOptions.PLUGIN_VERSION,
+  AllOptions.LEGAL_INFO,
   AllOptions.TIMEZONE,
   AllOptions.USER_EXPERIENCE_PROGRAM,
   AllOptions.ADD_TO_DESKTOP
