@@ -54,6 +54,17 @@ import tr from "./strings/tr";
 import nl from "./strings/nl";
 import pt from "./strings/pt";
 import he from "./strings/he";
+import el from "./strings/el";
+import cs from "./strings/cs";
+import uk from "./strings/uk";
+import hu from "./strings/hu";
+import ro from "./strings/ro";
+import sv from "./strings/sv";
+import es_us from "./strings/es_us";
+import pt_pt from "./strings/pt_pt";
+import sk from "./strings/sk";
+import nb from "./strings/nb";
+import fi from "./strings/fi";
 import Styles from './Styles';
 export { Images, Styles, strings };
 /**
@@ -165,7 +176,62 @@ export const Language = {
    * 希伯来语
    * @const
    */
-  he: "he"
+  he: "he",
+  /**
+   * 希腊语
+   * @const
+   */
+  el: "el",
+  /**
+    * 捷克语
+    * @constc
+    */
+  cs: "cs",
+  /**
+    * 乌克兰语
+    * @const
+    */
+  uk: "uk",
+  /**
+    * 匈牙利语
+    * @const
+    */
+  hu: "hu",
+  /**
+    * 罗马尼亚语
+     * @const
+    */
+  ro: "ro",
+  /**
+    * 瑞典语
+    * @const
+    */
+  sv: "sv",
+  /**
+    * 拉美西班牙语
+    * @const
+    */
+  es_us: "es_us",
+  /**
+    * 欧洲葡萄牙语
+    * @const
+    */
+  pt_pt: "pt_pt",
+  /**
+    * 斯洛伐克语
+    * @const
+    */
+  sk: "sk",
+  /**
+    * 挪威语
+    * @const
+    */
+  nb: "nb",
+  /**
+    * 芬兰语
+    * @const
+    */
+  fi: "fi"
 };
 Object.freeze(Language);
  const i18n={system:createI18n({zh,en,zh_tw,zh_hk,zh_bo,es,ko,ru,it,fr,de,id,pl,vi,ja,th}, Language.zh), custom:{}, lang:false}
