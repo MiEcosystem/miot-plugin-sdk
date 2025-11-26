@@ -1,6 +1,6 @@
 'use strict';
-import EventEmitter from '../../node_modules/react-native/Libraries/vendor/emitter/EventEmitter';
-import NativeEventEmitter from '../../node_modules/react-native/Libraries/EventEmitter/NativeEventEmitter';
+import EventEmitter from 'react-native';
+import NativeEventEmitter from 'react-native';
 import NativeAppearance from './NativeDarkmode';
 import invariant from 'invariant';
 import { isIOS, isAndroid } from "miot/native";
