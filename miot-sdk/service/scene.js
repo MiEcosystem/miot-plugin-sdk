@@ -429,7 +429,8 @@ class IMiotScene {
       }
       const params = {
         home_id: homeID,
-        did: deviceID
+        did: deviceID,
+        app_version: 12, // 只能场景, 版本隔离, 根据目前版本, 固定12. 后续根据智能场景升级后，再动态调整
       };
       return new Promise((resolve, reject) => {
         native.MIOTRPC.standardCall("/appgateway/miot/appsceneservice/AppSceneService/GetSceneList", params, (ok, res) => {

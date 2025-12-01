@@ -676,7 +676,7 @@ export class BasicDevice {
   /*
    * 设备是否来自车房间 10111
    * return { int }
-   * 1、车房间上层(上游设备)  2、车房间下层(下游设备) 
+   * 1、车房间上层(上游设备)  2、车房间下层(下游设备)
    * 默认是0，家房间，可不传
    * @readonly
    */
@@ -686,7 +686,7 @@ export class BasicDevice {
   /**
    * 设备是否车家两用 10111
    * return { Boolean }
-   * ios: MHDataConfigInfoDevice.m model 
+   * ios: MHDataConfigInfoDevice.m model
    *    space 属性包含1: mihome_room 2: car_room
    * 注：车家两用设备，设置页展示删除按钮，否则不展示
   */
@@ -1014,7 +1014,7 @@ export class BasicDevice {
   getRoomInfoForCurrentHome(did = null) {
      return Promise.resolve({});
   }
-   /**
+  /**
    * 查询当前家庭信息(非车房间的家庭，车房间有特殊逻辑，使用getRoomInfoForCurrentHome获取)
    * @since 10110
    * @return {Promise<Object>} {code: 0, data: {homeId, permitLevel} }

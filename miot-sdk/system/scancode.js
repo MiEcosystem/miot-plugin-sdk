@@ -13,7 +13,7 @@
  * System.scancode.getScanCode().then(res => {//return result})
  * ...
  */
-import native, { isIOS } from "../native";
+import native from "../native";
 /**
  * 扫码
  * @interface
@@ -38,7 +38,7 @@ class IScanCode {
   });
    */
   @report
-  scanCode(handledByOutside = false) {
+  scanCode() {
   }
 }
 const ScanCodeInstance = new IScanCode();
