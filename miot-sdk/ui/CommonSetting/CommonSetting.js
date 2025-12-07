@@ -1378,9 +1378,7 @@ export default class CommonSetting extends React.Component {
               const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
                 'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
               if (Platform.OS === 'ios') {
-                try {
-                  Service.smarthome.recordEvent?.("expose", 'plugin_homepage', 'plugin_setting', null, null, params);
-                } catch (e) {}
+                Service.smarthome.recordEvent("expose", 'plugin_homepage', 'plugin_setting', null, null, params);
               } else {
                 Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
                 Service.smarthome.reportEventRefChannel("expose", params);
@@ -1468,9 +1466,7 @@ export default class CommonSetting extends React.Component {
                         const params = { 'ota_origin': 2, 'ota_type': 3, 'did': Device.deviceID,
                           'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
                         if (Platform.OS === 'ios') {
-                          try {
-                            Service.smarthome.recordEvent?.("click", 'plugin_homepage', 'plugin_setting', null, null, params);
-                          } catch (e) {}
+                          Service.smarthome.recordEvent("click", 'plugin_homepage', 'plugin_setting', null, null, params);
                         } else {
                           Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
                           Service.smarthome.reportEventRefChannel("expose", params);

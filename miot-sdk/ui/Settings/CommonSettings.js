@@ -117,9 +117,7 @@ let getInnerOptions = () => {
             'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
           // 固件升级曝光埋点
           if (Platform.OS === 'ios') {
-            try {
-              Service.smarthome.recordEvent?.("expose", 'plugin_homepage', 'plugin_setting', null, null, params);
-            } catch (e) {}
+            Service.smarthome.recordEvent("expose", 'plugin_homepage', 'plugin_setting', null, null, params);
           } else {
             Service.smarthome.reportEventRefChannel("expose", params);
           }
@@ -134,9 +132,7 @@ let getInnerOptions = () => {
                 'device_model': Device.model, 'mac': Device.mac, 'item_type': 'button', 'item_name': 'firmware_updates_link_button' };
               // 固件升级点击埋点
               if (Platform.OS === 'ios') {
-                try {
-                  Service.smarthome.recordEvent?.("click", 'plugin_homepage', 'plugin_setting', null, null, params);
-                } catch (e) {}
+                Service.smarthome.recordEvent("click", 'plugin_homepage', 'plugin_setting', null, null, params);
               } else {
                 Service.smarthome.reportEventRefChannel("click", params);
               }
