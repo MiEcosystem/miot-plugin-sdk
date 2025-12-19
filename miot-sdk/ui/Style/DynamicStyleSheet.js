@@ -1,4 +1,6 @@
 import DynamicColor from './DynamicColor';
+import UIDynamicColor from 'mhui-rn/dist/styles/DynamicColor';
+import { DynamicColorWithoutXM } from 'mhui-rn/dist/hyperOS';
 import DarkMode from 'miot/darkmode';
 import { StyleSheet } from 'react-native';
 class DynamicStyleSheet {
@@ -16,7 +18,7 @@ class DynamicStyleSheet {
     for (let [stylesKey, stylesValue] of Object.entries(styles)) {
       const newStyle = {};
       for (let [styleKey, styleValue] of Object.entries(stylesValue)) {
-        if (styleValue instanceof DynamicColor) {
+        if (styleValue instanceof DynamicColor || styleValue instanceof UIDynamicColor || styleValue instanceof DynamicColorWithoutXM) {
           newStyle[styleKey] = styleValue[type];
         } else {
           newStyle[styleKey] = styleValue;
