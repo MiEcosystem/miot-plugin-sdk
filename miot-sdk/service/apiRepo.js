@@ -202,6 +202,14 @@ const API_REPO = {
   '/v2/device/switch_subclass': {},
   '/device/rename': {},
   '/appgateway/miot/appdeviceinfo_service/AppDeviceInfoService/get_last_online': {},
+  // 读取音频
+  '/common/app/data/v2/scan':{},
+  // 添加音频
+  '/common/app/data/v2/put': {},
+  // 删除音频
+  '/common/app/data/v2/remove': {},
+  // 修改音频
+  '/common/app/data/v2/modify': {},
   // 往服务器塞/get 二进制数据。
   '/common/app/data/put': {},
   '/common/app/data/scan': {},
