@@ -3,6 +3,9 @@
 import React, { Component } from 'react';
 import { ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { LoadingDialog } from "miot/ui/Dialog";
+import { dynamicStyleSheet } from "miot/ui";
+import { colorToken } from "mhui-rn/dist/styles/color";
+import withDarkModeSupport from "../adaptiveThemeComponent";
 class BasicComponentDemo extends Component {
   constructor(props) {
     super(props);
@@ -49,8 +52,8 @@ class BasicComponentDemo extends Component {
       { label: '第二期（列表）', router: 'ListDemo' },
       { label: '第二期（加载弹窗）', router: 'LoadingDemo' },
       { label: '第三期（按钮）', router: 'ButtonDemo' },
-      { label: '第三期（小组件）', router: 'LoadingDemo' },
-      { label: '第三期（轻消息）', router: 'LoadingDemo' }
+      { label: '第三期（小组件）', router: 'AtomicDemo' },
+      { label: '第三期（轻消息）', router: 'ToastDemo' }
     ];
 
     return (
@@ -69,14 +72,13 @@ class BasicComponentDemo extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: '#F7F7F7',
-    paddingTop: 30
+    backgroundColor: colorToken.mj_color_gray_bg_2
   },
   header: {
     fontSize: 24,
-    color: '#000',
+    color: colorToken.mj_color_gray_text_2,
     fontWeight: '500',
     paddingHorizontal: 15,
     marginBottom: 20
@@ -84,13 +86,12 @@ const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 10,
     marginHorizontal: 15,
-    backgroundColor: '#fff',
-    borderRadius: 12,
+    backgroundColor: "transparent",
     paddingVertical: 5
   },
   sectionTitle: {
     fontSize: 12,
-    color: '#999',
+    color: colorToken.mjcard_color_miui_2,
     paddingHorizontal: 15,
     paddingVertical: 8
   },
@@ -100,17 +101,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 15,
     height: 50,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0,0,0,0.12)'
+    backgroundColor: colorToken.mj_color_gray_card_1
   },
   itemText: {
     fontSize: 16,
-    color: '#000'
+    color: colorToken.mj_color_gray_text_1
   },
   arrow: {
     fontSize: 16,
-    color: '#999'
+    color: colorToken.mj_color_gray_icon_4
   }
 });
 
-export default BasicComponentDemo;
+export default withDarkModeSupport(BasicComponentDemo);

@@ -2,6 +2,9 @@
 
 import React from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { colorToken } from "mhui-rn/dist/styles/color";
+import { dynamicStyleSheet } from "miot/ui";
+import withDarkModeSupport from "../adaptiveThemeComponent";
 
 // 卡片圆角规范（可按设计图自定义）
 const CARD_RADIUS = {
@@ -58,12 +61,13 @@ const CardDemo = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const styles = dynamicStyleSheet({
   container: {
     padding: 20,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    backgroundColor: colorToken.mj_color_gray_bg_2
   },
   cardWrapper: {
     width: '45%',
@@ -72,13 +76,13 @@ const styles = StyleSheet.create({
   card: {
     width: '100%',
     height: 100,
-    backgroundColor: '#F5F5F5'
+    backgroundColor: colorToken.mj_color_gray_fill_1
   },
   label: {
     fontSize: 14,
-    color: '#708090',
+    color: colorToken.mjcard_color_miui_2,
     marginBottom: 8
   }
 });
 
-export default CardDemo;
+export default withDarkModeSupport(CardDemo);

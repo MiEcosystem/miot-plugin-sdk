@@ -12,7 +12,11 @@ import Orientation from 'react-native-orientation';
 import { CommonDialog } from 'miot/ui/hyperOSUI';
 import NavigationBar from "miot/ui/NavigationBar";
 
-export default class PhaseOneDemo extends Component {
+import { colorToken } from "mhui-rn/dist/styles/color";
+import { dynamicStyleSheet } from "miot/ui";
+import withDarkModeSupport from "../adaptiveThemeComponent";
+
+class PhaseOneDemo extends Component {
   state = {
     showDialog: false,
     dialogType: null, // 'normal' | 'checkbox' | 'landscape'
@@ -183,15 +187,14 @@ export default class PhaseOneDemo extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = dynamicStyleSheet({
   container: {
     flex: 1,
-    backgroundColor: '#F7F7F7',
+    backgroundColor: colorToken.mj_color_gray_bg_2,
     paddingHorizontal: 16,
     paddingTop: 20
   },
   card: {
-    backgroundColor: '#fff',
     borderRadius: 16,
     overflow: 'hidden'
   },
@@ -199,10 +202,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
+    paddingHorizontal: 15,
     height: 50,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0,0,0,0.08)'
+    backgroundColor: colorToken.mj_color_gray_card_1
   },
   firstItem: {
     borderTopLeftRadius: 16,
@@ -215,10 +217,11 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontSize: 16,
-    color: '#000'
+    color: colorToken.mj_color_gray_text_1
   },
   arrow: {
     fontSize: 16,
-    color: '#999'
+    color: colorToken.mj_color_gray_icon_4
   }
 });
+export default withDarkModeSupport(PhaseOneDemo);

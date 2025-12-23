@@ -1,11 +1,11 @@
 'use strict';
 
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, ScrollView, Image } from 'react-native';
+import { View, Text, ScrollView, Image } from 'react-native';
 import { ListItem, ListItemWithWidget } from 'miot/ui/hyperOSUI';
 import withDarkModeSupport from '../adaptiveThemeComponent';
 import { dynamicStyleSheet } from 'miot/ui/Style';
-import { colorToken } from 'miot/ui/hyperOSUI';
+import { colorToken, JestComponent } from 'miot/ui/hyperOSUI';
 
 const sourceData1 = [
   {
@@ -15,8 +15,6 @@ const sourceData1 = [
     title: '列表主文字',
     hideRightIcon: true,
     showDot: false,
-    containerStyle: { width: '100%' },
-    valueStyle: { fontSize: 10 },
     onPress: () => console.log(4)
   },
   {
@@ -27,7 +25,7 @@ const sourceData1 = [
     value: '巨无霸',
     hideRightIcon: true,
     showDot: false,
-    containerStyle: { width: '100%' },
+    
     onPress: () => console.log(4)
   },
   {
@@ -36,7 +34,7 @@ const sourceData1 = [
     title: '列表主文字',
     hideRightIcon: false,
     showDot: false,
-    containerStyle: { width: '100%' },
+    
     onPress: () => console.log(4)
   },
   {
@@ -46,9 +44,8 @@ const sourceData1 = [
     value: '状态状态状态',
     hideRightIcon: false,
     showDot: true,
-    containerStyle: { width: '100%' },
+    
     onPress: () => console.log(4)
-
   },
   {
     componentType: 1,
@@ -58,9 +55,8 @@ const sourceData1 = [
     value: '状态',
     hideRightIcon: false,
     showDot: false,
-    containerStyle: { width: '100%' },
+    
     onPress: () => console.log(4)
-
   },
   {
     componentType: 1,
@@ -70,7 +66,7 @@ const sourceData1 = [
     value: '状态',
     hideRightIcon: false,
     showDot: false,
-    containerStyle: { width: '100%' },
+    
     onPress: () => console.log(4)
   },
   {
@@ -80,7 +76,6 @@ const sourceData1 = [
     type: 'button',
     hideRightIcon: false,
     showDot: true,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     buttonOption: {
       title: '按钮',
@@ -100,7 +95,6 @@ const sourceData1 = [
     type: 'button',
     hideRightIcon: false,
     showDot: true,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     buttonOption: {
       title: '全选',
@@ -117,10 +111,22 @@ const sourceData1 = [
     // title: 'dahjdhsjadjsajkdjsajdsajkdsjkajdksadsjakdjskadsajdsjadjksajkdsja',
     hideRightIcon: false,
     showDot: true,
-    containerStyle: { width: '100%' },
-    valueStyle: { fontSize: 10 },
     onPress: () => console.log(4),
     showTitleArrow: true
+  },
+  {
+    componentType: 2,
+    index: 10,
+    title: '列表主文字列表主文字列表主文字列表',
+    // title: 'dahjdhsjadjsajkdjsajdsajkdsjkajdksadsjakdjskadsajdsjadjksajkdsja',
+    type: 'checkbox',
+    hideRightIcon: false,
+    showDot: true,
+    onPress: () => console.log(4),
+    checkboxOption: {
+      checked: true,
+      onValueChange: (val) => console.log(val)
+    }
   }
 ];
 
@@ -131,8 +137,6 @@ const sourceData2 = [
     title: '列表主文字',
     hideRightIcon: true,
     showDot: false,
-    containerStyle: { width: '100%' },
-    valueStyle: { fontSize: 10 },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -144,7 +148,6 @@ const sourceData2 = [
     value: '巨无霸',
     hideRightIcon: true,
     showDot: false,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />,
     leftIconSize: 'regular'
@@ -155,7 +158,6 @@ const sourceData2 = [
     title: '列表主文字',
     hideRightIcon: false,
     showDot: false,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -166,7 +168,6 @@ const sourceData2 = [
     value: '状态',
     hideRightIcon: false,
     showDot: true,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -178,7 +179,6 @@ const sourceData2 = [
     value: '状态',
     hideRightIcon: false,
     showDot: false,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -190,7 +190,6 @@ const sourceData2 = [
     value: '状态',
     hideRightIcon: false,
     showDot: false,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -201,7 +200,6 @@ const sourceData2 = [
     type: 'button',
     hideRightIcon: false,
     showDot: true,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />,
     buttonOption: {
@@ -211,8 +209,6 @@ const sourceData2 = [
       colorType: 'green',
       type: 'light',
       size: 'medium'
-      // backgroundColor: { bgColorNormal: '#0CCE941A'},
-      // titleStyle: { color: 'green',  }
     }
   },
   {
@@ -222,7 +218,6 @@ const sourceData2 = [
     type: 'button',
     hideRightIcon: false,
     showDot: true,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />,
     buttonOption: {
@@ -239,11 +234,24 @@ const sourceData2 = [
     title: '列表主文字',
     hideRightIcon: false,
     showDot: true,
-    containerStyle: { width: '100%' },
-    valueStyle: { fontSize: 10 },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />,
     showTitleArrow: true
+  },
+  {
+    componentType: 2,
+    index: 10,
+    title: '列表主文字列表主文字列表主文字列表',
+    // title: 'dahjdhsjadjsajkdjsajdsajkdsjkajdksadsjakdjskadsajdsjadjksajkdsja',
+    type: 'checkbox',
+    hideRightIcon: false,
+    showDot: true,
+    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />,
+    onPress: () => console.log(4),
+    checkboxOption: {
+      checked: true,
+      onValueChange: (val) => console.log(val)
+    }
   }
 ];
 
@@ -256,8 +264,6 @@ const sourceData3 = [
     subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
     hideRightIcon: true,
     showDot: false,
-    containerStyle: { width: '100%' },
-    valueStyle: { fontSize: 10 },
     onPress: () => console.log(4),
     showTitleArrow: true
   },
@@ -269,7 +275,6 @@ const sourceData3 = [
     value: '巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸',
     hideRightIcon: true,
     showDot: false,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4)
 
   },
@@ -280,7 +285,6 @@ const sourceData3 = [
     subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
     hideRightIcon: false,
     showDot: false,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4)
   },
   {
@@ -291,7 +295,6 @@ const sourceData3 = [
     value: '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态',
     hideRightIcon: false,
     showDot: true,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4)
   },
   {
@@ -303,7 +306,6 @@ const sourceData3 = [
     value: '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态',
     hideRightIcon: false,
     showDot: false,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4)
   },
   {
@@ -315,7 +317,6 @@ const sourceData3 = [
     hideRightIcon: false,
     showDot: false,
     value: '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态',
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4)
   },
   {
@@ -326,7 +327,6 @@ const sourceData3 = [
     type: 'button',
     hideRightIcon: false,
     showDot: true,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     buttonOption: {
       title: '按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮v按钮',
@@ -335,8 +335,6 @@ const sourceData3 = [
       colorType: 'green',
       type: 'light',
       size: 'medium'
-      // backgroundColor: { bgColorNormal: '#0CCE941A' },
-      // titleStyle: { color: 'green',  }
     }
   },
   {
@@ -347,7 +345,6 @@ const sourceData3 = [
     type: 'button',
     hideRightIcon: false,
     showDot: true,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     buttonOption: {
       title: '全选全选全选全选全选全选全选全选全选全选全选',
@@ -365,14 +362,27 @@ const sourceData3 = [
     subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
     hideRightIcon: false,
     showDot: true,
-    containerStyle: { width: '100%' },
-    valueStyle: { fontSize: 10 },
     onPress: () => console.log(4),
     buttonOption: {
       title: '按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮v按钮',
       onPress: () => console.log(4)
     },
     showTitleArrow: true
+  },
+  {
+    componentType: 2,
+    index: 10,
+    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
+    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表',
+    // title: 'dahjdhsjadjsajkdjsajdsajkdsjkajdksadsjakdjskadsajdsjadjksajkdsja',
+    type: 'checkbox',
+    hideRightIcon: false,
+    showDot: true,
+    onPress: () => console.log(4),
+    checkboxOption: {
+      checked: true,
+      onValueChange: (val) => console.log(val)
+    }
   }
 ];
 
@@ -385,8 +395,6 @@ const sourceData4 = [
     subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
     hideRightIcon: true,
     showDot: false,
-    containerStyle: { width: '100%' },
-    valueStyle: { fontSize: 10 },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -398,7 +406,6 @@ const sourceData4 = [
     value: '巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸',
     hideRightIcon: true,
     showDot: false,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -409,7 +416,6 @@ const sourceData4 = [
     subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
     hideRightIcon: false,
     showDot: false,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -421,7 +427,6 @@ const sourceData4 = [
     value: '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态',
     hideRightIcon: false,
     showDot: true,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -434,7 +439,6 @@ const sourceData4 = [
     value: '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态',
     hideRightIcon: false,
     showDot: false,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -447,7 +451,6 @@ const sourceData4 = [
     hideRightIcon: false,
     showDot: false,
     value: '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态',
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -459,7 +462,6 @@ const sourceData4 = [
     type: 'button',
     hideRightIcon: false,
     showDot: true,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     buttonOption: {
       title: '按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮',
@@ -468,8 +470,6 @@ const sourceData4 = [
       colorType: 'green',
       type: 'light',
       size: 'medium'
-      // backgroundColor: { bgColorNormal: '#0CCE941A' },
-      // titleStyle: { color: 'green',  }
     },
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -481,7 +481,6 @@ const sourceData4 = [
     type: 'button',
     hideRightIcon: false,
     showDot: true,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />,
     buttonOption: {
@@ -498,8 +497,6 @@ const sourceData4 = [
     subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
     hideRightIcon: false,
     showDot: true,
-    containerStyle: { width: '100%' },
-    valueStyle: { fontSize: 10 },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />,
     buttonOption: {
@@ -507,6 +504,87 @@ const sourceData4 = [
       onPress: () => console.log(4)
     },
     showTitleArrow: true
+  },
+  {
+    componentType: 2,
+    index: 10,
+    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
+    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表',
+    // title: 'dahjdhsjadjsajkdjsajdsajkdsjkajdksadsjakdjskadsajdsjadjksajkdsja',
+    type: 'checkbox',
+    hideRightIcon: false,
+    showDot: true,
+    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />,
+    onPress: () => console.log(4),
+    checkboxOption: {
+      checked: true,
+      onValueChange: (val) => console.log(val)
+    }
+  }
+];
+
+const propConfigs1 = [
+  { name: 'title', type: 'string', defaultValue: '主标题' },
+  { name: 'subtitle', type: 'string', defaultValue: '副标题内容' },
+  { name: 'value', type: 'string', defaultValue: '右侧文案' },
+  { name: 'onPress', type: 'pass', passDescription: '点击事件回调' },
+  { name: 'onLongPress', type: 'pass', passDescription: '长按事件回调' },
+  { name: 'delayLongPress', type: 'number', defaultValue: 500 },
+  { name: 'disabled', type: 'boolean', defaultValue: false },
+  { name: 'hideRightIcon', type: 'boolean', defaultValue: false },
+  { name: 'rightIconType', type: 'enum', enumOptions: ['arrow', 'select', 'fold'], defaultValue: 'arrow' },
+  { name: 'showDot', type: 'boolean', defaultValue: false },
+  { name: 'leftIcon', type: 'pass', passDescription: '左侧图标组件' },
+  { name: 'customRenderer', type: 'pass', passDescription: '右侧自定义渲染' }
+];
+
+const propConfigs2 = [
+  { name: 'type', type: 'enum', enumOptions: ['switch', 'button', 'checkbox'], defaultValue: 'switch' },
+  { name: 'title', type: 'string', defaultValue: '主标题' },
+  { name: 'subtitle', type: 'string', defaultValue: '副标题' },
+  { name: 'valueText', type: 'string', defaultValue: '值文本' },
+  { name: 'value', type: 'boolean', defaultValue: false },
+  { name: 'disabled', type: 'boolean', defaultValue: false },
+  { name: 'onPress', type: 'pass', passDescription: '点击事件回调' },
+  { name: 'onValueChange', type: 'pass', passDescription: '值变化回调 (必填)' },
+  {
+    name: 'colorType',
+    type: 'enum',
+    enumOptions: ['green', 'red', 'blue', 'wathet', 'purple', 'white', 'orange', 'yellow'],
+    defaultValue: 'green'
+  },
+  { name: 'leftIcon', type: 'pass', passDescription: '左侧图标组件' },
+  { name: 'showTitleArrow', type: 'boolean', defaultValue: false },
+  { name: 'underlayColor', type: 'string' },
+  { name: 'customRenderer', type: 'pass', passDescription: '右侧自定义渲染' },
+  {
+    name: 'buttonOption',
+    type: 'object',
+    objectProps: [
+      { name: 'size', type: 'enum', enumOptions: ['small', 'medium', 'large', 'mini'], defaultValue: 'large' },
+      { name: 'type', type: 'enum', enumOptions: ['normal', 'primary', 'warning', 'light'], defaultValue: 'normal' },
+      { name: 'title', type: 'string', defaultValue: '按钮' },
+      { name: 'colorType', type: 'enum', enumOptions: ['green', 'blue', 'purple', 'orange', 'yellow', 'red', 'wathet', 'white'] },
+      { name: 'disabled', type: 'boolean', defaultValue: false }
+    ]
+  },
+  {
+    name: 'checkboxOption',
+    type: 'object',
+    objectProps: [
+      { name: 'checkedColor', type: 'string', defaultValue: '#4caf50' },
+      { name: 'checked', type: 'boolean', defaultValue: false },
+      { name: 'onValueChange', type: 'pass', passDescription: '单选变化回调' }
+    ]
+  },
+  {
+    name: 'accessibilityTitle',
+    type: 'object',
+    objectProps: [
+      { name: 'accessible', type: 'boolean', defaultValue: true },
+      { name: 'accessibilityLabel', type: 'string', defaultValue: '主标题' },
+      { name: 'accessibilityRole', type: 'string', defaultValue: 'header' }
+    ]
   }
 ];
 
@@ -579,6 +657,14 @@ const ListItemDemo = () => {
           }
         </View>
       </View>
+      <View style={styles.caseContainer}>
+        <Text style={[styles.header, { marginTop: 12 }]}>ListItem - 普通列表项</Text>
+        <JestComponent component={ListItem} propConfigs={propConfigs1} onPropsChange={(props) => console.log(props)}/>
+      </View>
+      <View style={styles.caseContainer}>
+        <Text style={[styles.header, { marginTop: 12 }]}>ListItemWithWidget - 带控件列表项</Text>
+        <JestComponent component={ListItemWithWidget} propConfigs={propConfigs2} onPropsChange={(props) => console.log(props)}/>
+      </View>
     </ScrollView>
   );
 };
@@ -587,8 +673,7 @@ const styles = dynamicStyleSheet({
   container: {
     paddingTop: 30,
     paddingHorizontal: 12,
-    backgroundColor: colorToken.mj_color_gray_bg_2,
-    minHeight: '100%'
+    backgroundColor: colorToken.mj_color_gray_bg_2
   },
   header: {
     fontSize: 24,
@@ -605,6 +690,9 @@ const styles = dynamicStyleSheet({
   data: {
     borderRadius: 16,
     overflow: 'hidden'
+  },
+  caseContainer: {
+    marginBottom: 12
   }
 });
 

@@ -3,6 +3,7 @@ import { View, TouchableOpacity, Text } from 'react-native';
 import { Fonts } from 'mhui-rn/dist/hyperOS';
 import { dynamicColor } from '../Style/DynamicColor';
 import { Host, Service, Device } from 'miot';
+import { colorToken } from 'mhui-rn/dist/hyperOS';
 import { dynamicStyleSheet } from '../Style';
 export function BrandProduced() {
   const [brandId, setBrandId] = useState();
@@ -43,7 +44,7 @@ const styles = dynamicStyleSheet({
   },
   button: {
     flexDirection: 'row',
-    backgroundColor: dynamicColor('rgba(255, 255, 255, 0.6)', 'rgba(255, 255, 255, 0.12)'),
+    backgroundColor: colorToken.mj_color_norm_white_80,
     borderRadius: 18,
     paddingVertical: 10,
     paddingHorizontal: 14,
@@ -54,7 +55,7 @@ const styles = dynamicStyleSheet({
   text: {
     fontSize: 13,
     lineHeight: 17,
-    color: dynamicColor('rgba(0, 0, 0, 0.3)', 'rgba(255, 255, 255, 0.3)'),
+    color: colorToken.mj_color_gray_text_5,
     ...Fonts.FontTextMedium
   }
 });

@@ -16,6 +16,9 @@ import {
 import NavigationBar from 'miot/ui/NavigationBar';
 import { NearHandDialog } from 'miot/ui/hyperOSUI';
 import fonts from 'miot/utils/fonts';
+import {colorToken} from "mhui-rn/dist/styles/color";
+import withDarkModeSupport from "../adaptiveThemeComponent";
+import {dynamicStyleSheet} from "miot/ui";
 
 const homes = [
   { id: '1', title: '乔纳斯', disabled: true },
@@ -35,7 +38,7 @@ const longHomes = [
 ];
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-export default class HandPopTriggerDemo extends Component {
+class HandPopTriggerDemo extends Component {
   constructor(props) {
     super(props);
     this.dialogRef = createRef();
@@ -116,6 +119,7 @@ export default class HandPopTriggerDemo extends Component {
 
         <NearHandDialog
           ref={this.dialogRef}
+          colorType="blue"
           data={showLongText ? homes : longHomes}
           selectedId={'1'}
           showTitleText={true}
@@ -129,8 +133,8 @@ export default class HandPopTriggerDemo extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F8F9FB' },
+const styles = dynamicStyleSheet({
+  container: { flex: 1, backgroundColor: "transparent" },
   grid: { justifyContent: 'flex-start', marginBottom: 8 },
   itemWrapper: { margin: 4 },
   item: {
@@ -139,11 +143,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 8,
     flex: 1,
-    shadowColor: '#1E88E5',
+    shadowColor: colorToken.mjcard_color_blue_3,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.15,
     shadowRadius: 2,
-    backgroundColor: '#fff',
+    backgroundColor: colorToken.mj_color_gray_bg_2,
   },
-  text: { color: '#1E88E5', textAlign: 'center', ...fonts.mjTextCustom14M },
+  text: { color: colorToken.mjcard_color_blue_2, textAlign: 'center', ...fonts.mjTextCustom14M },
 });
+export default withDarkModeSupport(HandPopTriggerDemo);

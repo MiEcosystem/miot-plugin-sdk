@@ -10,6 +10,11 @@ import Fonts from 'miot/utils/fonts';
 import DarkMode from 'miot/darkmode';
 import Checkable from 'miot/ui/Checkbox/Checkable';
 import tr from "miot/resources/strings/tr";
+import {colorToken} from "mhui-rn/dist/styles/color";
+import {ChoiceItem} from "miot/ui/hyperOSUI"
+import dynamic from "../../swiper/Dynamic";
+import {dynamicStyleSheet} from "miot/ui";
+import withDarkModeSupport from "../adaptiveThemeComponent";
 
 const ExampleIcon = () => {
   let darkMode = DarkMode.getColorScheme();
@@ -49,15 +54,12 @@ const Item = ({ item, selectable, disabled, onPress, isFirst, isLast,showIcon}) 
           styles.item,
           disabled && styles.disabled,
           item.Pressed&&styles.pressed,
-          item.selected&&selectable ? { backgroundColor: Theme.mjColorFunctionBrandfillSecondaryNormal } : null,
+          item.selected&&selectable ? { backgroundColor: colorToken.mjcard_color_green_4 } : null,
           borderRadiusStyle,
         ]}
       >
         {/* 蒙层包裹整个内容，圆角随选中状态 */}
-        {(pressed && !disabled || item.isPressed )&& <View style={[styles.pressOverlay,{backgroundColor:
-            DarkMode.getColorScheme() === 'light'
-              ? 'rgba(0,0,0,0.08)'
-              : 'rgba(255,255,255,0.08)'} ,borderRadiusStyle]} />}
+        {(pressed && !disabled || item.isPressed )&& <View style={[styles.pressOverlay,{backgroundColor:colorToken.mj_color_btn_press} ,borderRadiusStyle]} />}
 
         {showIcon &&<View style={{ width: 26, height: 26,marginRight: 16 }} >
           <ExampleIcon />
@@ -67,7 +69,7 @@ const Item = ({ item, selectable, disabled, onPress, isFirst, isLast,showIcon}) 
             style={[
               styles.title,
               item.subtitle ? { ...Fonts.mjTextHeadline2M } : null,
-              item.selected&&selectable ? { color: Theme.mjColorFunctionBrandtextNormal } : null,
+              item.selected&&selectable ? { color: colorToken.mjcard_color_green_2 } : null,
             ]}
             numberOfLines={3}
           >
@@ -77,7 +79,7 @@ const Item = ({ item, selectable, disabled, onPress, isFirst, isLast,showIcon}) 
             <Text
               style={[
                 styles.subtitle,
-                item.selected&&selectable ? { color: Theme.mjColorFunctionBrandtextNormal } : null,
+                item.selected&&selectable ? { color: colorToken.mjcard_color_green_2 } : null,
               ]}
               numberOfLines={3}
             >
@@ -87,7 +89,7 @@ const Item = ({ item, selectable, disabled, onPress, isFirst, isLast,showIcon}) 
         </View>
         {selectable &&item.selected&& (
           <View style={styles.checkWrapper}>
-            {item.selected && <Checkable size={24} visible={true} color={'#00BA7CFF'} />}
+            {item.selected && <ChoiceItem choosed={true} choosedColorType="green" type="2" />}
           </View>
         )}
       </View>
@@ -147,21 +149,21 @@ const HandPopCustomDemo = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const styles = dynamicStyleSheet({
   container: {
     flex: 1,
-    backgroundColor: '#F7F7F7',
+    backgroundColor: colorToken.mj_color_gray_bg_2,
     paddingTop: 30,
   },
   header: {
-    fontSize: 22,
-    color: Theme.mjColorGrayTab,
+  fontSize: 22,
+    color: colorToken.mj_color_gray_text_2,
     fontWeight: '600',
     paddingHorizontal: 16,
     marginBottom: 20,
-  },
+},
   card: {
-    backgroundColor: Theme.mjColorGrayPopover,
+    backgroundColor: colorToken.mj_color_gray_popover,
     borderRadius: 20,
     marginHorizontal: 16,
     marginBottom: 20,
@@ -184,11 +186,11 @@ const styles = StyleSheet.create({
   },
   title: {
     ...Fonts.mjTextSubtitle1M,
-    color: Theme.mjColorGrayText1,
+    color: colorToken.mj_color_gray_text_1,
   },
   subtitle: {
     ...Fonts.mjTextBody2R,
-    color: Theme.mjColorGrayText4,
+    color: colorToken.mj_color_gray_text_4,
   },
   disabled: {
     opacity: 0.3,
@@ -205,8 +207,7 @@ const styles = StyleSheet.create({
   },
   pressOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.05)',
   },
 });
 
-export default HandPopCustomDemo;
+export default withDarkModeSupport(HandPopCustomDemo);

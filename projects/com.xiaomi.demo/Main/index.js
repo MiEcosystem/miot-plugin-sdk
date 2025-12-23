@@ -153,8 +153,11 @@ import ListDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListDemo";
 import ListItemDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListItemDemo";
 import ListGroupDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListGroupDemo";
 import ButtonDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonDemo";
+import ButtonColorDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonColorDemo";
 import ButtonCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonCustomDemo";
 import ButtonPageViewDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonPageViewDemo";
+import AtomicDemo from "./UIComponent/SDKNewComponent/BasicComponent/AtomicDemo";
+import ToastDemo from "./UIComponent/SDKNewComponent/BasicComponent/ToastDemo";
 // 第三方库
 import SQLiteDemo from "./ThirdPartDemo/SQLiteDemo";
 import OrientationDemo from "./Host/OrientationDemo";
@@ -249,7 +252,6 @@ import CustomContainer from "./uikit/components/CustomContainer";
 import OfficialDemos from "./OfficialDemos";
 
 import Logger from "./Logger";
-
 function createRootStack(initPage) {
   return createStackNavigator(
     {
@@ -265,7 +267,10 @@ function createRootStack(initPage) {
       FirmwareUpgrade,
       // 新版SDK
       BasicComponentDemo,
+      AtomicDemo,
       ButtonDemo,
+      ToastDemo,
+      ButtonColorDemo,
       ButtonCustomDemo,
       ButtonPageViewDemo,
       SdkComponentDemo,

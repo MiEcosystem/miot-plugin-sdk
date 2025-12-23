@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { PopButton } from "miot/ui/hyperOSUI";
 import theme from "miot/ui/Style/Themes/themeMiHome";
+import { colorToken } from "mhui-rn/dist/styles/color";
+import { dynamicStyleSheet } from "miot/ui";
+import withDarkModeSupport from "../adaptiveThemeComponent";
 
 class ButtonPageViewDemo extends Component {
   constructor(props) {
@@ -23,47 +26,10 @@ class ButtonPageViewDemo extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: theme.mjColorGrayBg2
-  },
-  header: {
-    fontSize: 24,
-    color: '#000',
-    fontWeight: '500',
-    paddingHorizontal: 15,
-    marginBottom: 20
-  },
-  sectionContainer: {
-    marginTop: 10,
-    marginHorizontal: 15,
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    paddingVertical: 5
-  },
-  sectionTitle: {
-    fontSize: 12,
-    color: '#999',
-    paddingHorizontal: 15,
-    paddingVertical: 8
-  },
-  itemContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 15,
-    height: 50,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0,0,0,0.12)'
-  },
-  itemText: {
-    fontSize: 16,
-    color: '#000'
-  },
-  arrow: {
-    fontSize: 16,
-    color: '#999'
+    backgroundColor: colorToken.mj_color_gray_bg_2
   }
 });
 
-export default ButtonPageViewDemo;
+export default withDarkModeSupport(ButtonPageViewDemo);

@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import { ScrollView, Text, View, StyleSheet } from 'react-native';
 
 import Fonts from 'miot/utils/fonts';
+import { colorToken } from "mhui-rn/dist/styles/color";
+import { dynamicStyleSheet } from "miot/ui";
+import withDarkModeSupport from "../adaptiveThemeComponent";
 
 class SupportedFont extends Component {
   renderText(label, fontStyle) {
@@ -93,23 +96,23 @@ class SupportedFont extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colorToken.mj_color_gray_bg_2,
     paddingTop: 30,
     paddingHorizontal: 20
   },
   sectionLabel: {
     fontSize: 14,
-    color: '#444',
+    color: colorToken.mjcard_color_miui_2,
     fontWeight: '600',
     marginTop: 28,
     marginBottom: 12
   },
   demoText: {
-    color: '#1A1A1A',
+    color: colorToken.mj_color_gray_text_1,
     marginBottom: 8
   }
 });
 
-export default SupportedFont;
+export default withDarkModeSupport(SupportedFont);

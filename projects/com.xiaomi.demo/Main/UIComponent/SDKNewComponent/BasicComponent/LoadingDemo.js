@@ -3,6 +3,9 @@
 import React, { Component } from 'react';
 import { ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { LoadingDialog } from 'miot/ui/hyperOSUI';
+import { dynamicStyleSheet } from "miot/ui";
+import { colorToken } from "mhui-rn/dist/styles/color";
+import withDarkModeSupport from "../adaptiveThemeComponent";
 
 class LoadingDemo extends Component {
   constructor(props) {
@@ -73,14 +76,13 @@ class LoadingDemo extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: '#F7F7F7',
-    paddingTop: 30
+    backgroundColor: "transparent"
   },
   header: {
     fontSize: 24,
-    color: '#000',
+    color: colorToken.mj_color_gray_text_2,
     fontWeight: '500',
     paddingHorizontal: 15,
     marginBottom: 20
@@ -88,9 +90,14 @@ const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 10,
     marginHorizontal: 15,
-    backgroundColor: '#fff',
-    borderRadius: 12,
+    backgroundColor: "transparent",
     paddingVertical: 5
+  },
+  sectionTitle: {
+    fontSize: 12,
+    color: colorToken.mjcard_color_miui_2,
+    paddingHorizontal: 15,
+    paddingVertical: 8
   },
   itemContainer: {
     flexDirection: 'row',
@@ -98,17 +105,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 15,
     height: 50,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0,0,0,0.12)'
+    backgroundColor: colorToken.mj_color_gray_bg_2
   },
   itemText: {
     fontSize: 16,
-    color: '#000'
+    color: colorToken.mj_color_gray_text_1
   },
   arrow: {
     fontSize: 16,
-    color: '#999'
+    color: colorToken.mj_color_gray_icon_4
   }
 });
 
-export default LoadingDemo;
+export default withDarkModeSupport(LoadingDemo);

@@ -1,2 +1,2 @@
-import Checkable from 'mhui-rn/dist/hyperOS/components/checkbox/Checkable';
+import Checkable from 'mhui-rn/dist/components/checkbox/Checkable';
 export default Checkable;

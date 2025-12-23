@@ -2,6 +2,9 @@
 
 import React, { Component } from 'react';
 import { ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { colorToken } from "mhui-rn/dist/styles/color";
+import { dynamicStyleSheet } from "miot/ui";
+import withDarkModeSupport from "../adaptiveThemeComponent";
 
 class ButtonDemo extends Component {
   constructor(props) {
@@ -46,13 +49,13 @@ class ButtonDemo extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: '#F7F7F7'
+    backgroundColor: colorToken.mj_color_gray_bg_2
   },
   header: {
     fontSize: 24,
-    color: '#000',
+    color: colorToken.mj_color_gray_text_2,
     fontWeight: '500',
     paddingHorizontal: 15,
     marginBottom: 20
@@ -60,13 +63,12 @@ const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 10,
     marginHorizontal: 15,
-    backgroundColor: '#fff',
-    borderRadius: 12,
+    backgroundColor: "transparent",
     paddingVertical: 5
   },
   sectionTitle: {
     fontSize: 12,
-    color: '#999',
+    color: colorToken.mjcard_color_miui_2,
     paddingHorizontal: 15,
     paddingVertical: 8
   },
@@ -76,17 +78,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 15,
     height: 50,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0,0,0,0.12)'
+    backgroundColor: colorToken.mj_color_gray_card_1
   },
   itemText: {
     fontSize: 16,
-    color: '#000'
+    color: colorToken.mj_color_gray_text_1
   },
   arrow: {
     fontSize: 16,
-    color: '#999'
+    color: colorToken.mj_color_gray_icon_4
   }
 });
 
-export default ButtonDemo;
+export default withDarkModeSupport(ButtonDemo);

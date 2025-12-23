@@ -1,11 +1,12 @@
 'use strict';
 
-import React, { useState } from 'react';
-import { View, StyleSheet, Text, ScrollView, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ScrollView, Image } from 'react-native';
 import { ListGroup } from 'miot/ui/hyperOSUI';
 import withDarkModeSupport from '../adaptiveThemeComponent';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { colorToken } from 'miot/ui/hyperOSUI';
+
 
 const sourceGroup1data1 = [
   {
@@ -15,8 +16,6 @@ const sourceGroup1data1 = [
     title: '列表主文字',
     hideArrow: true,
     showDot: false,
-    containerStyle: { width: '100%' },
-    valueStyle: { fontSize: 10 },
     onPress: () => console.log(4)
   },
   {
@@ -25,7 +24,6 @@ const sourceGroup1data1 = [
     title: '列表主文字',
     hideArrow: true,
     showDot: false,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4)
   },
   {
@@ -34,7 +32,6 @@ const sourceGroup1data1 = [
     title: '列表主文字',
     hideArrow: false,
     showDot: false,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4)
   }
 ];
@@ -46,8 +43,6 @@ const sourceGroup2data1 = [
     title: '列表主文字',
     hideArrow: true,
     showDot: false,
-    containerStyle: { width: '100%' },
-    valueStyle: { fontSize: 10 },
     onPress: () => console.log(4)
   },
   {
@@ -57,7 +52,6 @@ const sourceGroup2data1 = [
     hideArrow: true,
     showDot: false,
     type: 'switch',
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4)
   },
   {
@@ -67,7 +61,6 @@ const sourceGroup2data1 = [
     hideArrow: false,
     showDot: false,
     type: 'switch',
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4)
   }
 ];
@@ -80,8 +73,6 @@ const sourceGroup1data2 = [
     hideArrow: true,
     showDot: false,
     type: 'switch',
-    containerStyle: { width: '100%' },
-    valueStyle: { fontSize: 10 },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -92,7 +83,6 @@ const sourceGroup1data2 = [
     hideArrow: true,
     type: 'switch',
     showDot: false,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -103,7 +93,6 @@ const sourceGroup1data2 = [
     hideArrow: false,
     showDot: false,
     type: 'switch',
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   }
@@ -116,8 +105,6 @@ const sourceGroup2data2 = [
     hideArrow: true,
     showDot: false,
     type: 'switch',
-    containerStyle: { width: '100%' },
-    valueStyle: { fontSize: 10 },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -128,7 +115,6 @@ const sourceGroup2data2 = [
     hideArrow: true,
     showDot: false,
     type: 'switch',
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -139,7 +125,6 @@ const sourceGroup2data2 = [
     hideArrow: false,
     showDot: false,
     type: 'switch',
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   }
@@ -154,8 +139,6 @@ const sourceGroup1data3 = [
     subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
     hideArrow: true,
     showDot: false,
-    containerStyle: { width: '100%' },
-    valueStyle: { fontSize: 10 },
     onPress: () => console.log(4)
   },
   {
@@ -166,7 +149,6 @@ const sourceGroup1data3 = [
     hideArrow: true,
     type: 'switch',
     showDot: false,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4)
   },
   {
@@ -177,7 +159,6 @@ const sourceGroup1data3 = [
     hideArrow: false,
     type: 'switch',
     showDot: false,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4)
   }
 ];
@@ -191,8 +172,6 @@ const sourceGroup2data3 = [
     subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
     hideArrow: true,
     showDot: false,
-    containerStyle: { width: '100%' },
-    valueStyle: { fontSize: 10 },
     onPress: () => console.log(4)
   },
   {
@@ -203,7 +182,6 @@ const sourceGroup2data3 = [
     hideArrow: true,
     showDot: false,
     type: 'switch',
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4)
 
   },
@@ -215,7 +193,6 @@ const sourceGroup2data3 = [
     hideArrow: false,
     showDot: false,
     type: 'switch',
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4)
   }
 ];
@@ -229,8 +206,6 @@ const sourceGroup1data4 = [
     subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
     hideArrow: true,
     showDot: false,
-    containerStyle: { width: '100%' },
-    valueStyle: { fontSize: 10 },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -242,7 +217,6 @@ const sourceGroup1data4 = [
     hideArrow: true,
     type: 'switch',
     showDot: false,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -254,7 +228,6 @@ const sourceGroup1data4 = [
     hideArrow: false,
     type: 'switch',
     showDot: false,
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   }
@@ -269,8 +242,6 @@ const sourceGroup2data4 = [
     subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
     hideArrow: true,
     showDot: false,
-    containerStyle: { width: '100%' },
-    valueStyle: { fontSize: 10 },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -282,7 +253,6 @@ const sourceGroup2data4 = [
     hideArrow: true,
     showDot: false,
     type: 'switch',
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   },
@@ -294,7 +264,6 @@ const sourceGroup2data4 = [
     hideArrow: false,
     showDot: false,
     type: 'switch',
-    containerStyle: { width: '100%' },
     onPress: () => console.log(4),
     leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
   }
@@ -302,9 +271,16 @@ const sourceGroup2data4 = [
 const ListGroupDemo = () => {
 
   const [state, setState] = useState({
-    groupData1: sourceGroup1data1,
-    groupData2: sourceGroup2data1
+    groupData1: [],
+    groupData2: []
   });
+
+  const onValueChange = (val) => {
+    setState((c) => ({
+      groupData1: c.groupData1.map((item) => ({ ...item, value: val })),
+      groupData2: c.groupData2.map((item) => ({ ...item, value: val }))
+    }));
+  };
 
   const transformData = (type) => {
     let data1 = [];
@@ -331,11 +307,14 @@ const ListGroupDemo = () => {
         data2 = sourceGroup2data1;
     }
     setState({
-      groupData1: data1,
-      groupData2: data2
+      groupData1: data1.map((item) => ({ ...item, value: false, onValueChange })),
+      groupData2: data2.map((item) => ({ ...item, value: false, onValueChange }))
     });
   };
 
+  useEffect(() => {
+    transformData(1);
+  }, []);
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -352,11 +331,21 @@ const ListGroupDemo = () => {
         <Text style={styles.button} onPress={() => {
           transformData(4);
         }}>切换图标长标题</Text>
-        <View>
-          <ListGroup title="分组标题" type="switch" disabled={false} bottomPosition="inner" bottomTips="自动亮度下，移动滑动条微调亮度，调整后的屏幕亮度仍会随周围环境的亮度变化而变化" groupData={state.groupData1} />
-        </View>
+        <ListGroup 
+          title="分组标题"
+          type="switch"
+          disabled={false}
+          bottomPosition="inner"
+          bottomTips="自动亮度下，移动滑动条微调亮度，调整后的屏幕亮度仍会随周围环境的亮度变化而变化"
+          groupData={state.groupData1} />
         <View style={{ marginTop: 12 }}>
-          <ListGroup title="分组标题" type="switch" disabled={true} bottomPosition="outer" bottomTips="自动亮度下，移动滑动条微调亮度，调整后的屏幕亮度仍会随周围环境的亮度变化而变化" groupData={state.groupData2} />
+          <ListGroup
+            title="分组标题" 
+            type="switch" 
+            disabled={true} 
+            bottomPosition="outer" 
+            bottomTips="自动亮度下，移动滑动条微调亮度，调整后的屏幕亮度仍会随周围环境的亮度变化而变化"
+            groupData={state.groupData2} />
         </View>
       </View>
     </ScrollView>

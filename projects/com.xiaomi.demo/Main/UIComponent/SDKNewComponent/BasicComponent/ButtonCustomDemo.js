@@ -1,9 +1,11 @@
-'use strict';
-
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { PopButton } from "miot/ui/hyperOSUI/index";
 import theme from "miot/ui/Style/Themes/themeMiHome";
+import NavigationBar from "miot/ui/NavigationBar";
+import { colorToken } from "mhui-rn/dist/styles/color";
+import withDarkModeSupport from "../adaptiveThemeComponent";
+import { dynamicStyleSheet } from "miot/ui";
 
 class ButtonCustomDemo extends Component {
   constructor(props) {
@@ -14,6 +16,24 @@ class ButtonCustomDemo extends Component {
       multilingual,
       disabled
     };
+    this.props.navigation.setParams({
+      right: [
+        {
+          key: NavigationBar.ICON.MORE,
+          onPress: () => {
+            this.setState((prev) => ({
+              disabled: !prev.disabled
+            }));
+          }
+        }
+      ]
+    });
+  }
+  navigateToScreen(routerName) {
+    const { navigation } = this.props;
+    if (navigation && routerName) {
+      navigation.navigate(routerName, "多色彩");
+    }
   }
   render() {
     return (
@@ -34,12 +54,10 @@ class ButtonCustomDemo extends Component {
         <PopButton
           size="large"
           type="normal"
-          title={ this.state.multilingual ? "切换禁用态切换禁用态切换禁用态切换禁用态" : "切换禁用态" }
+          title={ this.state.multilingual ? "切换禁用态切换禁用态切换禁用态切换禁用态" : "查看颜色配置" }
           disabled={false}
           onPress={() => {
-            this.setState((prev) => ({
-              disabled: !prev.disabled
-            }));
+            !this.state.multilingual ? this.navigateToScreen('ButtonColorDemo') : console.log("点击了按钮2");
           }}
         >
         </PopButton>
@@ -116,10 +134,10 @@ class ButtonCustomDemo extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: theme.mjColorGrayBg2
+    backgroundColor: colorToken.mj_color_gray_bg_2
   }
 });
 
-export default ButtonCustomDemo;
+export default withDarkModeSupport(ButtonCustomDemo);
