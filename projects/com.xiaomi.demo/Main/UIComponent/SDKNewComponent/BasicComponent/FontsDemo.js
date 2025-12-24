@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { ScrollView, Text, View, StyleSheet } from 'react-native';
 
 import Fonts from 'miot/utils/fonts';
-import { colorToken } from "mhui-rn/dist/styles/color";
+import { colorToken } from "miot/ui/hyperOSUI";
 import { dynamicStyleSheet } from "miot/ui";
 import withDarkModeSupport from "../adaptiveThemeComponent";
 

@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
-import { colorToken } from "mhui-rn/dist/styles/color";
+import { colorToken } from "miot/ui/hyperOSUI";
 import { dynamicStyleSheet } from "miot/ui";
 import withDarkModeSupport from "../adaptiveThemeComponent";
 

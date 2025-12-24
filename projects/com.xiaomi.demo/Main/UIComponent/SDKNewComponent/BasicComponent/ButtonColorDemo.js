@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { PopButton } from 'miot/ui/hyperOSUI/index';
 import theme from 'miot/ui/Style/Themes/themeMiHome';
 import withDarkModeSupport from "../adaptiveThemeComponent";
-import { colorToken } from "mhui-rn/dist/styles/color";
+import { colorToken } from "miot/ui/hyperOSUI";
 import { dynamicStyleSheet } from "miot/ui";
 
 const colors = ['green', 'blue', 'yellow', 'orange', 'wathet', 'purple', 'red'];

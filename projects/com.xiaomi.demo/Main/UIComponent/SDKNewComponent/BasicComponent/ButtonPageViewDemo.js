@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { PopButton } from "miot/ui/hyperOSUI";
 import theme from "miot/ui/Style/Themes/themeMiHome";
-import { colorToken } from "mhui-rn/dist/styles/color";
+import { colorToken } from "miot/ui/hyperOSUI";
 import { dynamicStyleSheet } from "miot/ui";
 import withDarkModeSupport from "../adaptiveThemeComponent";
 

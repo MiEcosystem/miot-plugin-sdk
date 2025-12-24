@@ -12,7 +12,7 @@ import Orientation from 'react-native-orientation';
 import { CommonDialog } from 'miot/ui/hyperOSUI';
 import NavigationBar from "miot/ui/NavigationBar";
 
-import { colorToken } from "mhui-rn/dist/styles/color";
+import { colorToken } from "miot/ui/hyperOSUI";
 import { dynamicStyleSheet } from "miot/ui";
 import withDarkModeSupport from "../adaptiveThemeComponent";
 

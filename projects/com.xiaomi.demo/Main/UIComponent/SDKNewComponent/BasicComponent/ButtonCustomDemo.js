@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { PopButton } from "miot/ui/hyperOSUI/index";
 import theme from "miot/ui/Style/Themes/themeMiHome";
 import NavigationBar from "miot/ui/NavigationBar";
-import { colorToken } from "mhui-rn/dist/styles/color";
+import { colorToken } from "miot/ui/hyperOSUI";
 import withDarkModeSupport from "../adaptiveThemeComponent";
 import { dynamicStyleSheet } from "miot/ui";
 
