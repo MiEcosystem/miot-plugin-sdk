@@ -231,10 +231,10 @@ class IMiotCamera {
      *
      * 现在除创米021那几款摄像头，都只传0就行了
      * @since 10033
-     * @param {bool} isNewPlugin 是否是新固件 
-     * @param {number} localRecognizeEvents   AlarmEventType 里 几个筛选项的或值。 
+     * @param {bool} isNewPlugin 是否是新固件
+     * @param {number} localRecognizeEvents   AlarmEventType 里 几个筛选项的或值。
      *    isNewPlugin = false的情况下，兼容以前的逻辑，非vip会读localRecognizeEvents变量里是否有宝宝哭声和人脸识别选项,有就展示   vip则包含所有的筛选项
-     *    isNewPlugin = true时，localRecognizeEvents的含义：js端由该变量控制显示哪些筛选项，例如v3设备: 非vip  localRecognizeEvents= EventType_All| EventType_PeopleMotion| EventType_ObjectMotion  vip： localRecognizeEvents = EventType_All| EventType_PeopleMotion| EventType_ObjectMotion| EventType_Face| EventType_BabyCry  
+     *    isNewPlugin = true时，localRecognizeEvents的含义：js端由该变量控制显示哪些筛选项，例如v3设备: 非vip  localRecognizeEvents= EventType_All| EventType_PeopleMotion| EventType_ObjectMotion  vip： localRecognizeEvents = EventType_All| EventType_PeopleMotion| EventType_ObjectMotion| EventType_Face| EventType_BabyCry
      *    AI选项不受该值控制，用户设置了该did的智能选项后，筛选项目里就会有，否则无。
      * @updated 10047
      */
@@ -246,7 +246,7 @@ class IMiotCamera {
      * 打开回看页面
      * @since 10048
      * @param {data} jsonobj=>str，包含打开回看需要的sdcardStatus, isVip等信息
-     * @example 
+     * @example
      *         data = {sdcardGetSuccess: true, sdcardStatus: 0, isVip: false}
      *         Service.miotcamera.showPlaybackVideos(JSON.stringify(data));
      */
@@ -258,7 +258,7 @@ class IMiotCamera {
      * 打开长时间无人出现页面
      * @since 10054
      * @param {data} jsonobj
-     * @example 
+     * @example
      */
     @report
     openLongTimeNobody(data, did = Device.deviceID) {
@@ -268,7 +268,7 @@ class IMiotCamera {
      * 打开每日故事设置
      * @since 10054
      * @param {data} jsonobj
-     * @example 
+     * @example
      */
     @report
     openDailyStorySetting(data, did = Device.deviceID) {
@@ -278,7 +278,7 @@ class IMiotCamera {
          * 打开宝宝睡眠设置
          * @since 10054
          * @param {data} jsonobj
-         * @example 
+         * @example
          */
     @report
     openBabySleepSetting(data, did = Device.deviceID) {
@@ -288,7 +288,7 @@ class IMiotCamera {
          * 打开IDM设置
          * @since 10054
          * @param {data} jsonobj
-         * @example 
+         * @example
          */
     @report
     openIDMSetting(data, did = Device.deviceID) {
@@ -298,7 +298,7 @@ class IMiotCamera {
      * 打开相册
      * @since 10051
      * @param {data} jsonobj=>str，预留
-     * @example 
+     * @example
      *         data = {};
      *         Service.miotcamera.showPlaybackVideos(JSON.stringify(data));
      */
@@ -310,7 +310,7 @@ class IMiotCamera {
      * 打开设备相册中最新的图片或视频
      * @since 10051
      * @param {data} jsonobj=>str，包含albumName等信息
-     * @example 
+     * @example
      *         data = { albumName: albumName};
      *         Service.miotcamera.showLastAlbumMediaFile(JSON.stringify(data));
      */
@@ -675,17 +675,47 @@ class IMiotCamera {
      * 设置speaker变声类型,    初次设置会触发初始化，后续simpleRate or channel发生改变 都不会触发初始化。
      * @param {int} simpleRate  音频采样率  与CameraRenderView里定义的MISSSampleRate一致
      * @param {int} type 变声类型，目前米家只提供 0 == 正常  1 == 小丑  2 == 大叔这三种类型 10055 增加 3 == 青年
+     *                                      20 == 变声算法, since 10111新增
      * @param {int} channel 单双通道 1 单声道， 2 立体声   默认为1
      * @param {string} did
-     * @param {object} extra since 10069 创米猫眼参数设置 
+     * @param {string} modelPath
+     * @param {object} extra since 10069 创米猫眼参数设置
      */
     @report
-    setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID, extra = {}) {
+    setCurrrentVoiceChangerType(simpleRate, type, channel = 1, did = Device.deviceID, extra = {}, modelPath = null) {
        return null
-        NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did, extra);
+        NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did, extra, modelPath);
         return;
       }
-      NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did);
+      NativeModules.MHCameraSDK.setCurrentVoiceChangerType(simpleRate, channel, type, did, modelPath);
+    }
+    /**
+     * 根据音频原文件路径和模型文件路径，获取转换后的变声文件路径
+     * @since 10113
+     * @param {string} 原音频路径
+     * @param {string} 变声模型路径
+     * @returns 变声转换后的音频路径：同原音频路径 & 文件名称: "sourceXxx_change.pcm"
+     */
+    @report
+    getVoiceChangePathBySourceAndModel(sourcePath, modelPath) {
+        if (Platform.OS === 'ios') {
+          NativeModules.MHCameraSDK.getVoiceChangePathBySourceAndModel(sourcePath, modelPath, Device.deviceID, (res, result) => {
+            if (res) {
+              resolve(result);
+            } else {
+              reject(result);
+            }
+          });
+        } else {
+          NativeModules.MHCameraSDK.getVoiceChangePathBySourceAndModel(sourcePath, modelPath, (res, result) => {
+            if (res) {
+              resolve(result);
+            } else {
+              reject(result);
+            }
+          });
+        }
+      });
     }
     /**
      * 打开门铃的带屏设备联动页面
@@ -776,7 +806,7 @@ class IMiotCamera {
      *  Service.miotcamera.reactNativeVideoScreenShot(reactNativeVideo, Host.file.storageBasePath + '/test2.png').then(result=>{
      *      console.log(result);
      *  });
-     * 
+     *
      *  @since 10049
      */
     @report
@@ -808,7 +838,7 @@ class IMiotCamera {
         "fps": fps,
         "videoWidth": vWidth,
         "videoHeight": vHeight}
-     * 
+     *
      * @since 10050
      */
     @report
@@ -839,7 +869,7 @@ class IMiotCamera {
      * @param data  jsonobj=>str 推荐运营位链接，sd卡状态等信息
      * @param {string} did
      * @since 10053
-     * @example 
+     * @example
      *     let data = { h5Url: this.bannerItem.h5Url, sdcardGetSuccess: true, sdcardStatus: this.sdcardCode };
      *     Service.miotcamera.showOperationBannerPage(data);
      */
@@ -861,7 +891,7 @@ class IMiotCamera {
      * @param aCbName  过滤到相应帧后通过aCbName 返回base64格式数据
      * @param {string} aDid 设备id
      * @since 10055
-     * @example 
+     * @example
      *     ThumbFilter = “timestampfilter”;
      *     DeviceEventEmitter.addListener(ThumbFilter, (aBase64Frame)=>{xxx});
      *     Service.miotcamera.setFrameFilter({ timestamp_s: 666666 }, ThumbFilter);
@@ -877,7 +907,7 @@ class IMiotCamera {
      * @param args  {name:"IOTC_WakeUp_WakeDevice"}
      * @param {string} aDid 设备id
      * @since 10055
-     * @example 
+     * @example
      *     Service.miotcamera.callTutkSpecial({name:"IOTC_WakeUp_WakeDevice"}).then(xxx).catch(yyy);
      */
     @report
@@ -891,7 +921,7 @@ class IMiotCamera {
      * @param aCodeId audio codecid默认MISSCodec.MISS_CODEC_AUDIO_G711A
      * @param {string} aDid 设备id
      * @since 10055
-     * @example 
+     * @example
      *     Service.miotcamera.sendP2PCommandToDevice(MISSCommand.MISS_CMD_SPEAKER_START_REQ, {})
      *     收到回复 MISSCommand.MISS_CMD_SPEAKER_START_RESP 之后可以发送
      *     Service.miotcamera.sendAudioData(data, header).then(xxx).catch(yyy);
@@ -903,9 +933,9 @@ class IMiotCamera {
     /**
      * 设置 moveType change时回调回来的callbackName，js端使用DeviceEventEmitter监听，  返回数据{currentMoveType: xxx}
      * 仅仅适合华来摄像头特定业务场景。
-     * @param {string} did 
-     * @param {string} callbackName 
-     * 
+     * @param {string} did
+     * @param {string} callbackName
+     *
      * @since 10056
      */
     @report
@@ -914,8 +944,8 @@ class IMiotCamera {
     }
     /**
      * @since 10058
-     * @param {拍照或者相册得到的图片路径} imagePath 
-     * @param {did} did 
+     * @param {拍照或者相册得到的图片路径} imagePath
+     * @param {did} did
      */
     @report
     uploadImageToCameraServer(imagePath, did = Device.deviceID) {
@@ -923,9 +953,9 @@ class IMiotCamera {
     }
     /**
      * @since 10063
-     * @param  params {输入音频文件地址:inputFilePath}, {输入音频文件格式 inputFormat}, 
+     * @param  params {输入音频文件地址:inputFilePath}, {输入音频文件格式 inputFormat},
      * {输出音频文件地址 outputFilePath}, {输出音频文件格式 outputFormat}
-     * 
+     *
      * notice: 10063只实现了pcm到g711a的转换， 所以inputFormat传pcm, outputFormat传g711a
      */
     @report
@@ -948,11 +978,10 @@ class IMiotCamera {
      encryptFile(params) {
         return Promise.resolve(null);
      }
-    
     /**
      * 获取通用视频播放接口地址（如云存视频，看家视频 地址）
      * @since 10066
-     * @param {string} hostPrefix host前缀 
+     * @param {string} hostPrefix host前缀
      * @param {string} path 换播放地址的接口
      * @param {object} param readableMap，根据fileId换播放地址接口需要的参数
      * @returns {Promise<String>} 文件路径
@@ -979,8 +1008,8 @@ class IMiotCamera {
      return null
   }
     /**
-     * 
-     * @param {Device.deviceID} did 
+     *
+     * @param {Device.deviceID} did
      * @returns result是tutkSessionRead base64编码后的结构体
      */
     @report
@@ -990,7 +1019,7 @@ class IMiotCamera {
     /**
      * 客户端手动发送，只有创米的一款设备如此，需要循环发送保持心跳才能让对讲成功
      * @param {String} ioCtrlBuff 插件拼接的数据 base64后的
-     * @param {Device.deviceID} did 
+     * @param {Device.deviceID} did
      * @returns result是tutkSessionWrite的返回值
      */
     tutkSessionWrite(ioCtrlBuffInBase64, did = Device.deviceID) {

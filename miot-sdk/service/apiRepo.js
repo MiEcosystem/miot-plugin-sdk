@@ -203,7 +203,7 @@ const API_REPO = {
   '/device/rename': {},
   '/appgateway/miot/appdeviceinfo_service/AppDeviceInfoService/get_last_online': {},
   // 读取音频
-  '/common/app/data/v2/scan':{},
+  '/common/app/data/v2/scan': {},
   // 添加音频
   '/common/app/data/v2/put': {},
   // 删除音频
@@ -383,6 +383,8 @@ const API_REPO = {
   '/smarthome/product/acpanel/plugin/scene/save': {},
   '/smarthome/product/acpanel/client/v1/device/list': {},
   '/smarthome/product/acpanel/client/v1/sub': {},
+  // 门锁数字钥匙管理（删除/冻结/恢复）
+  '/iccoa/manageKey': {},
   "/eco/nas/message/identity/get": {},
   "/eco/nas/message/identity/verify": {}
 };

@@ -72,15 +72,16 @@ let getInnerOptions = () => {
       homeManagerAllowed: true,
       title: I18n.share,
       notTypes: ['3', '22'],
-      Component: () => {
+      Component: (params) => {
         const isCariotDevice = useCariotDevice();
+        const [clicked, click] = useClicked('share');
         return isCariotDevice ? null : (
           <ListItem
             key={ 'share' }
             title={ I18n.share }
-            onPress={ () => {
+            onPress={ delegatePress(() => {
               Host.ui.openShareDevicePage();
-            } }
+            }, params, 'share', click) }
             useNewType={ true }
             hideArrow={ false }
             showSeparator={ false }
