@@ -949,6 +949,16 @@ class IUi {
   openXiaoAiLearnPage(clientId, did, aiMiotClientId, aiClientId, aiVersion, otherParams) {
   }
   /**
+   * 打开音箱相关H5页面
+   * @since 10113
+   * @param {string} url H5页面的url
+   * @param {string} title
+   */
+  @report
+  openMicoWebPage(url, title) {
+    native.MIOTHost.openMicoWebPage(url, title);
+  }
+  /**
    * 显示提示用户打开蓝牙的动画示意图, 仅在iOS下有效，Android下无反应
    * @since 10004
    */
