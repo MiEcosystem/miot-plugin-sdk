@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'Yhdistetään Bluetoothin kautta…',
   bluetooth_connection_phone: 'Tämä ominaisuus vaatii puhelimesi Bluetooth-yhteyden',
   connection_successful: 'Yhdistetty onnistuneesti',
-  connection_failed: 'Ei voitu yhdistää'
+  connection_failed: 'Ei voitu yhdistää',
+  smart_scene: 'Älykäs näyttely'
 };

@@ -158,6 +158,15 @@ import ButtonCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/Butto
 import ButtonPageViewDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonPageViewDemo";
 import AtomicDemo from "./UIComponent/SDKNewComponent/BasicComponent/AtomicDemo";
 import ToastDemo from "./UIComponent/SDKNewComponent/BasicComponent/ToastDemo";
+// Iot 组件
+import IotComponentDemo from "./UIComponent/SDKNewComponent/IotComponent/IotComponentDemo";
+import StructureDemo from "./UIComponent/SDKNewComponent/IotComponent/StructureDemo";
+import ControlerDemo from "./UIComponent/SDKNewComponent/IotComponent/ControlerDemo";
+import EntryDemo from "./UIComponent/SDKNewComponent/IotComponent/EntryDemo";
+import EntryLDemo from "./UIComponent/SDKNewComponent/IotComponent/EntryLDemo";
+import StepperDemo from "./UIComponent/SDKNewComponent/IotComponent/StepperDemo";
+import SmartSceneDemo from "./UIComponent/SDKNewComponent/IotComponent/SmartSceneDemo";
+import SeparatorDemo from "./UIComponent/SDKNewComponent/IotComponent/SeparatorDemo";
 // 第三方库
 import SQLiteDemo from "./ThirdPartDemo/SQLiteDemo";
 import OrientationDemo from "./Host/OrientationDemo";
@@ -286,6 +295,15 @@ function createRootStack(initPage) {
       ListDemo,
       ListItemDemo,
       ListGroupDemo,
+      // Iot 组件
+      IotComponentDemo,
+      ControlerDemo,
+      StructureDemo,
+      EntryDemo,
+      EntryLDemo,
+      StepperDemo,
+      SmartSceneDemo,
+      SeparatorDemo,
       // FirmwareUpgradeAuto,
       FirmwareUpgradeRecord,
       HostDemo,

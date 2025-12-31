@@ -5,6 +5,8 @@ export {
   Minus,
   Plus,
   Right,
+  Cold,
+  Circle,
   SmartScene,
   SteeringWheelFirstGear,
   SteeringWheelHot,

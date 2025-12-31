@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'A ligar via Bluetooth…',
   bluetooth_connection_phone: 'Esta funcionalidade requer a ligação Bluetooth do seu telefone',
   connection_successful: 'Ligado com sucesso',
-  connection_failed: 'Não foi possível ligar'
+  connection_failed: 'Não foi possível ligar',
+  smart_scene: 'Cena inteligente'
 };

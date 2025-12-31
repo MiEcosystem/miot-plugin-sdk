@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'Pripája sa cez Bluetooth…',
   bluetooth_connection_phone: 'Táto funkcia si vyžaduje Bluetooth pripojenie vášho telefónu',
   connection_successful: 'Úspešne pripojené',
-  connection_failed: 'Nepodarilo sa pripojiť'
+  connection_failed: 'Nepodarilo sa pripojiť',
+  smart_scene: 'Inteligentná scéna'
 };

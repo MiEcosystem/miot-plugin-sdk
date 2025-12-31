@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'กำลังเชื่อมต่อผ่านบลูทูธ…',
   bluetooth_connection_phone: 'คุณสมบัตินี้ต้องใช้การเชื่อมต่อบลูทูธของโทรศัพท์',
   connection_successful: 'เชื่อมต่อเรียบร้อยแล้ว',
-  connection_failed: 'ไม่สามารถเชื่อมต่อได้'
+  connection_failed: 'ไม่สามารถเชื่อมต่อได้',
+  smart_scene: 'ฉากอัจฉริยะ'
 };

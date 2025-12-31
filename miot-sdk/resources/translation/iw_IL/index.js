@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'מתחבר באמצעות Bluetooth…',
   bluetooth_connection_phone: 'מאפיין זה זקוק לחיבור ה-Bluetooth של הטלפון שלך',
   connection_successful: 'התחבר בהצלחה',
-  connection_failed: 'לא ניתן להתחבר'
+  connection_failed: 'לא ניתן להתחבר',
+  smart_scene: 'סצינה חכמה'
 };

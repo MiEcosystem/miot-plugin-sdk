@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'Kobler til via Bluetooth …',
   bluetooth_connection_phone: 'Denne funksjonen krever tilgang til telefonens Bluetooth-forbindelse',
   connection_successful: 'Tilkoblet',
-  connection_failed: 'Kunne ikke koble til'
+  connection_failed: 'Kunne ikke koble til',
+  smart_scene: 'Smart scene'
 };

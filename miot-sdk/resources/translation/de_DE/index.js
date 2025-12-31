@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'Verbinden via Bluetooth',
   bluetooth_connection_phone: 'Diese Funktion erfordert die Bluetooth-Verbindung deines Telefons',
   connection_successful: 'Erfolgreich verbunden',
-  connection_failed: 'Verbinden fehlgeschlagen'
+  connection_failed: 'Verbinden fehlgeschlagen',
+  smart_scene: 'Intelligente Szene'
 };
