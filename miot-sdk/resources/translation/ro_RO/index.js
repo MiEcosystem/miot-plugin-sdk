@@ -347,6 +347,5 @@ export default {
   bluetooth_connecting: 'Conectare prin Bluetooth…',
   bluetooth_connection_phone: 'Această funcție necesită conexiunea Bluetooth a telefonului dvs.',
   connection_successful: 'Conectarea a reușit',
-  connection_failed: 'Nu s-a putut conecta',
-  smart_scene: 'Scenă inteligentă'
+  connection_failed: 'Nu s-a putut conecta'
 };

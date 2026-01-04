@@ -347,6 +347,5 @@ export default {
   bluetooth_connecting: 'Bluetooth で接続中…',
   bluetooth_connection_phone: 'この機能には携帯電話の Bluetooth 接続が必要です',
   connection_successful: '正常に接続されました',
-  connection_failed: '接続できませんでした',
-  smart_scene: 'スマートシーン'
+  connection_failed: '接続できませんでした'
 };

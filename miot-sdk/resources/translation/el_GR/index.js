@@ -347,6 +347,5 @@ export default {
   bluetooth_connecting: 'Σύνδεση μέσω Bluetooth...',
   bluetooth_connection_phone: 'Αυτή η λειτουργία απαιτεί σύνδεση Bluetooth του τηλεφώνου σας',
   connection_successful: 'Συνδέθηκε επιτυχώς',
-  connection_failed: 'Αδυναμία σύνδεσης',
-  smart_scene: 'Έξυπνη σκηνή'
+  connection_failed: 'Αδυναμία σύνδεσης'
 };

@@ -347,6 +347,5 @@ export default {
   bluetooth_connecting: '手機藍牙連線中...',
   bluetooth_connection_phone: '此功能需手機藍牙連接可用',
   connection_successful: '連接成功',
-  connection_failed: '連接失敗',
-  smart_scene: '智能場景'
+  connection_failed: '連接失敗'
 };

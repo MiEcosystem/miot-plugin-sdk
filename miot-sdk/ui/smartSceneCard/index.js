@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useMemo } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { IotListItem, ConfigContext } from 'miot/ui/hyperOSUI';
-import { CarInUsed } from 'miot/ui/icons';
+import { SmartScene } from 'miot/ui/icons';
 import { Service } from 'miot';
 import { strings } from '../../resources';
 export function SmartSceneCard() {
@@ -10,11 +10,11 @@ export function SmartSceneCard() {
     Service.scene.openIftttAutoPage();
   }, []);
   const title = useMemo(() => {
-    return strings.smart_scene;
+    return strings.ifttt;
   }, []);
   return (
     <View style={styles.container}>
-      <IotListItem leftIcon={<CarInUsed fill={colorToken.mj_color_gray_icon_1}/>} title={title} onPress={toSmartScene}/>
+      <IotListItem leftIcon={<SmartScene fill={colorToken.mj_color_gray_icon_1}/>} title={title} onPress={toSmartScene}/>
     </View>
   );
 }

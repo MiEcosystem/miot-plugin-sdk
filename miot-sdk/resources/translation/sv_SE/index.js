@@ -347,6 +347,5 @@ export default {
   bluetooth_connecting: 'Ansluter via Bluetooth...',
   bluetooth_connection_phone: 'Den här funktionen kräver din telefons Bluetooth-anslutning',
   connection_successful: 'Ansluten',
-  connection_failed: 'Kunde inte ansluta',
-  smart_scene: 'Smart scen'
+  connection_failed: 'Kunde inte ansluta'
 };

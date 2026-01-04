@@ -347,6 +347,5 @@ export default {
   bluetooth_connecting: 'Bluetooth ile bağlanılıyor…',
   bluetooth_connection_phone: 'Bu özellik telefonunuzun Bluetooth bağlantısını gerektirir',
   connection_successful: 'Başarıyla bağlandı',
-  connection_failed: 'Bağlanılamadı',
-  smart_scene: 'Akıllı sahne'
+  connection_failed: 'Bağlanılamadı'
 };

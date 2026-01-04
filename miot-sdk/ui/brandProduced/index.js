@@ -44,7 +44,7 @@ const styles = dynamicStyleSheet({
   },
   button: {
     flexDirection: 'row',
-    backgroundColor: colorToken.mj_color_norm_white_80,
+    backgroundColor: colorToken.mj_color_gray_card_3,
     borderRadius: 18,
     paddingVertical: 10,
     paddingHorizontal: 14,

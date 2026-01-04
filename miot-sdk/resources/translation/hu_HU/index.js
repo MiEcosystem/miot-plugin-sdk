@@ -347,6 +347,5 @@ export default {
   bluetooth_connecting: 'Kapcsolódás Bluetooth-on keresztül…',
   bluetooth_connection_phone: 'Ehhez a funkcióhoz a telefon Bluetooth-kapcsolatra van szükség',
   connection_successful: 'Sikeres kapcsolódás',
-  connection_failed: 'Kapcsolódás sikertelen',
-  smart_scene: 'Intelligens jelenet'
+  connection_failed: 'Kapcsolódás sikertelen'
 };

@@ -12,5 +12,19 @@ export {
   SteeringWheelHot,
   SteeringWheelSecondGear,
   SteeringWheelThirdGear,
-  UpDown
+  UpDown,
+  SeatGearHeatingOff,
+  SeatGearHeatingLevelOne,
+  SeatGearHeatingLevelTwo,
+  SeatGearHeatingLevelThree,
+  SeatGearVentilationOff,
+  SeatGearVentilationLevelOne,
+  SeatGearVentilationLevelTwo,
+  SeatGearVentilationLevelThree,
+  ElectricPower,
+  FuelPower,
+  ErrorStatus,
+  Loading,
+  SentryMode,
+  ParkingStatus
 } from 'mhui-rn/dist/icons';

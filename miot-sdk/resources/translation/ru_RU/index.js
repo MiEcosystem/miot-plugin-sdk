@@ -347,6 +347,5 @@ export default {
   bluetooth_connecting: 'Подключение через Bluetooth…',
   bluetooth_connection_phone: 'Для работы этой функции требуется подключение по Bluetooth на вашем телефоне',
   connection_successful: 'Успешно подключено',
-  connection_failed: 'Не удалось подключиться',
-  smart_scene: 'Умная сцена'
+  connection_failed: 'Не удалось подключиться'
 };
