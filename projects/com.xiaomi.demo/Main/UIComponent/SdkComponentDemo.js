@@ -1,13 +1,14 @@
 'use strict';
 
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, memo, useMemo } from 'react';
 import {
   ScrollView,
   Text,
-  View,
-  TouchableOpacity,
-  StyleSheet
+  View, StyleSheet
 } from 'react-native';
+import { colorToken, ListGroup } from 'miot/ui/hyperOSUI';
+import { dynamicStyleSheet } from "miot/ui";
+import withDarkModeSupport from "./SDKNewComponent/adaptiveThemeComponent";
 
 const SdkComponentDemo = (props) => {
   const { navigation } = props;
@@ -17,55 +18,52 @@ const SdkComponentDemo = (props) => {
       navigation.navigate(routerName, { title });
     }
   };
-  const renderListSection = (items) => (
-    <View style={styles.sectionContainer}>
-      {items.map((item, index) => (
-        <TouchableOpacity
-          key={index}
-          style={styles.itemContainer}
-          onPress={() => navigateToScreen(item.router, item.label)}
-        >
-          <Text style={styles.itemText}>{item.label}</Text>
-          <Text style={styles.arrow}>{'>'}</Text>
-        </TouchableOpacity>
-      ))}
-    </View>
-  );
-  const projectItems = [
-    { label: '基础组件库', router: 'BasicComponentDemo' },
-    { label: 'IoT组件库', router: 'IotComponentDemo' }
-  ];
+  const projectItems = useMemo(() => ([
+    { title: '基础库', router: 'BasicDemo' },
+    { title: '基础组件库', router: 'BasicComponentDemo' },
+    { title: 'IoT组件库', router: 'IotComponentDemo' }
+  ]), []);
+
+  const UIDataSource = useMemo(() => {
+    return projectItems.map((item) => ({
+      ...item,
+      key: item.router,
+      onPress: () => navigateToScreen(item.router, item.title)
+    }));
+  }, [projectItems, navigateToScreen]);
+
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>标插SDK组件库</Text>
-      {renderListSection(projectItems)}
+      <ListGroup
+        dataSource={UIDataSource}
+      >
+      </ListGroup>
     </ScrollView>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: '#F7F7F7',
-    paddingTop: 30
+    backgroundColor: colorToken.mj_color_gray_bg_2
   },
   header: {
     fontSize: 24,
-    color: '#000',
+    color: colorToken.mj_color_gray_text_2,
     fontWeight: '500',
     paddingHorizontal: 15,
-    marginBottom: 20
+    marginVertical: 20
   },
   sectionContainer: {
     marginTop: 10,
     marginHorizontal: 15,
-    backgroundColor: '#fff',
-    borderRadius: 12,
+    backgroundColor: "transparent",
     paddingVertical: 5
   },
   sectionTitle: {
     fontSize: 12,
-    color: '#999',
+    color: colorToken.mjcard_color_miui_2,
     paddingHorizontal: 15,
     paddingVertical: 8
   },
@@ -75,17 +73,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 15,
     height: 50,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0,0,0,0.12)'
+    backgroundColor: colorToken.mj_color_gray_card_1
   },
   itemText: {
     fontSize: 16,
-    color: '#000'
+    color: colorToken.mj_color_gray_text_1
   },
   arrow: {
     fontSize: 16,
-    color: '#999'
+    color: colorToken.mj_color_gray_icon_4
   }
 });
 
-export default SdkComponentDemo;
+export default withDarkModeSupport(SdkComponentDemo);

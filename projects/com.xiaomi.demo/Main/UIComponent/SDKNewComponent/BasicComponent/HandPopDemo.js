@@ -1,54 +1,40 @@
 'use strict';
 
-import React, { Component } from 'react';
+import React, { Component, useMemo } from 'react';
 import { ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
 import { colorToken } from "miot/ui/hyperOSUI";
-import withDarkModeSupport from "../adaptiveThemeComponent";
+import { ListGroup } from "mhui-rn/dist/hyperOS";
 
-class HandPopDemo extends Component {
-  constructor(props) {
-    super(props);
-  }
-
+const HandPopDemo = (props) => {
+  const { navigation } = props;
   // 增加标题传递
-  navigateToScreen(routerName, title) {
-    const { navigation } = this.props;
+  const navigateToScreen = (routerName, title) => {
     if (navigation && routerName) {
       navigation.navigate(routerName, { title }); // 把标题传递给路由参数
     }
-  }
+  };
+  const tokenItems = [
+    { title: '基础样式', router: 'HandPopCustomDemo' },
+    { title: '点击效果', router: 'HandPopClickDemo' },
+    { title: '触发条件', router: 'HandPopTriggerDemo' }
+  ];
+  const UIDataSource = useMemo(() => {
+    return tokenItems.map((item) => ({
+      ...item,
+      key: item.router,
+      onPress: () => navigateToScreen(item.router, item.title)
 
-  renderListSection(title, items) {
-    return (
-      <View style={styles.sectionContainer}>
-        {items.map((item, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.itemContainer}
-            onPress={() => this.navigateToScreen(item.router, item.label)} // 跳转并传递标题
-          >
-            <Text style={styles.itemText}>{item.label}</Text>
-            <Text style={styles.arrow}>{'>'}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-    );
-  }
-
-  render() {
-    const tokenItems = [
-      { label: '基础样式', router: 'HandPopCustomDemo' },
-      { label: '点击效果', router: 'HandPopClickDemo' },
-      { label: '触发条件', router: 'HandPopTriggerDemo' }
-    ];
-    return (
-      <ScrollView style={styles.container}>
-        {this.renderListSection('token', tokenItems)}
-      </ScrollView>
-    );
-  }
-}
+    }));
+  }, []);
+  return (
+    <ScrollView style={styles.container}>
+      <ListGroup
+        dataSource={UIDataSource}
+      />
+    </ScrollView>
+  );
+};
 
 const styles = dynamicStyleSheet({
   container: {
@@ -91,4 +77,4 @@ const styles = dynamicStyleSheet({
   }
 });
 
-export default withDarkModeSupport(HandPopDemo);
+export default HandPopDemo;

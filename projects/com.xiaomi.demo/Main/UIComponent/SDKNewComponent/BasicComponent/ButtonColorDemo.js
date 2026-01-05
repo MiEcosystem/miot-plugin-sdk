@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { PopButton } from 'miot/ui/hyperOSUI/index';
-import theme from 'miot/ui/Style/Themes/themeMiHome';
-import withDarkModeSupport from "../adaptiveThemeComponent";
 import { colorToken } from "miot/ui/hyperOSUI";
 import { dynamicStyleSheet } from "miot/ui";
 
@@ -68,4 +66,4 @@ const styles = dynamicStyleSheet({
   }
 });
 
-export default withDarkModeSupport(ButtonColorDemo);
+export default ButtonColorDemo;

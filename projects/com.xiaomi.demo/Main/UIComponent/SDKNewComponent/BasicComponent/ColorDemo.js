@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, SectionList, StatusBar, Dimensions } from 'react-native';
 import { colorToken } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style';
-import withDarkModeSupport from '../adaptiveThemeComponent';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -410,4 +409,4 @@ const styles = dynamicStyleSheet({
   }
 });
 
-export default withDarkModeSupport(ColorDemo);
+export default ColorDemo;

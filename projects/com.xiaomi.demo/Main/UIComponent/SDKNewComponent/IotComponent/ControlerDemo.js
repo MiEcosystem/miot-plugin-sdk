@@ -1,10 +1,9 @@
 'use strict';
 
-import React, { useCallback, memo, useMemo } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import React, { useCallback, useMemo } from 'react';
+import { ScrollView, Text } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
 import { colorToken, ListGroup } from "miot/ui/hyperOSUI";
-import withDarkModeSupport from "../adaptiveThemeComponent";
 
 const UIItems = [
   { title: '步进器', router: 'StepperDemo' }
@@ -46,4 +45,4 @@ const styles = dynamicStyleSheet({
   }
 });
 
-export default withDarkModeSupport(memo(ControlerDemo));
+export default ControlerDemo;

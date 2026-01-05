@@ -1,11 +1,11 @@
 'use strict';
 
-import React, { useState, memo, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
 import { colorToken, Stepper } from "miot/ui/hyperOSUI";
-import withDarkModeSupport from "../adaptiveThemeComponent";
-import { Cold } from 'miot/ui/icons';
+
+import { Cold, Right, Left } from 'miot/ui/icons';
 
 const StepperDemo = ({ navigation }) => {
   const [targetTemperature, setTargetTemperature] = useState(23);
@@ -41,6 +41,8 @@ const StepperDemo = ({ navigation }) => {
           onChange={setTargetTemperature}
           min={20}
           max={30}
+          MinusRenderIcon={Left}
+          PlusRenderIcon={Right}
         />
       </View>
      
@@ -133,4 +135,4 @@ const styles = dynamicStyleSheet({
   }
 });
 
-export default withDarkModeSupport(memo(StepperDemo));
+export default StepperDemo;

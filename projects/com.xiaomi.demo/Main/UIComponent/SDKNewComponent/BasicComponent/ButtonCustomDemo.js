@@ -1,11 +1,29 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, View, Text, Alert, Image } from 'react-native';
 import { PopButton } from "miot/ui/hyperOSUI/index";
-import theme from "miot/ui/Style/Themes/themeMiHome";
 import NavigationBar from "miot/ui/NavigationBar";
-import { colorToken } from "miot/ui/hyperOSUI";
-import withDarkModeSupport from "../adaptiveThemeComponent";
+import { colorToken, JestComponent } from "miot/ui/hyperOSUI";
 import { dynamicStyleSheet } from "miot/ui";
+
+const alert = Alert.alert;
+
+const propConfigs = [
+  { name: 'title', type: 'string', defaultValue: '按钮' },
+  { name: 'disabled', type: 'boolean', defaultValue: false },
+  { name: 'size', type: 'enum', enumOptions: ['small', 'medium', 'large', 'mini'], defaultValue: 'medium' },
+  { name: 'type', type: 'enum', enumOptions: ['normal', 'primary', 'warning', 'light'], defaultValue: 'normal' },
+  {
+    name: 'colorType',
+    type: 'enum',
+    enumOptions: ['green', 'blue', 'purple', 'orange', 'yellow', 'red', 'wathet', 'white'],
+    defaultValue: 'green'
+  },
+  { name: 'onPress', type: 'pass', passDescription: '点击事件回调', defaultValue: () => alert('点击事件回调') },
+  { name: 'onLongPress', type: 'pass', passDescription: '长按事件回调', defaultValue: () => alert('长按事件回调') },
+  { name: 'allowFontScaling', type: 'boolean', defaultValue: true },
+  { name: 'icon', type: 'pass', passDescription: '图标组件', defaultValue: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} /> },
+  { name: 'titleColor', type: 'string' }
+];
 
 class ButtonCustomDemo extends Component {
   constructor(props) {
@@ -129,6 +147,8 @@ class ButtonCustomDemo extends Component {
           disabled={this.state.disabled}
         >
         </PopButton>
+        <Text style={styles.header}>PopButton - 按钮组件</Text>
+        <JestComponent component={PopButton} propConfigs={propConfigs} />
       </ScrollView>
     );
   }
@@ -137,7 +157,14 @@ class ButtonCustomDemo extends Component {
 const styles = dynamicStyleSheet({
   container: {
     backgroundColor: colorToken.mj_color_gray_bg_2
+  },
+  header: {
+    fontSize: 24,
+    color: colorToken.mj_color_gray_text_1,
+    fontWeight: '500',
+    paddingHorizontal: 15,
+    marginBottom: 20
   }
 });
 
-export default withDarkModeSupport(ButtonCustomDemo);
+export default ButtonCustomDemo;

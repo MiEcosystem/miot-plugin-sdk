@@ -1,9 +1,8 @@
 'use strict';
 
 import React, { useState } from 'react';
-import { View, Text, ScrollView, Image } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { IotListItem, IotListItemWithWidget } from 'miot/ui/hyperOSUI';
-import withDarkModeSupport from '../adaptiveThemeComponent';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { colorToken } from 'miot/ui/hyperOSUI';
 import { Circle } from 'miot/ui/icons';
@@ -292,6 +291,7 @@ const styles = dynamicStyleSheet({
   },
   button: {
     fontSize: 14,
+    color: colorToken.mj_color_gray_text_1,
     paddingHorizontal: 15,
     lineHeight: 24
   },
@@ -304,4 +304,4 @@ const styles = dynamicStyleSheet({
   }
 });
 
-export default withDarkModeSupport(EntryLDemo);
+export default EntryLDemo;

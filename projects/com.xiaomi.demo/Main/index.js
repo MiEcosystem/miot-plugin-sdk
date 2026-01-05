@@ -26,6 +26,8 @@ import BTInterconnection from "miot/ui/BTInterconnection";
 import BraceletInterconnection from "miot/ui/BraceletInterconnection";
 import Setting from "./tutorial/Setting";
 import SettingPage from "./tutorial/SettingPage";
+import { DarkMode } from "miot";
+import { darkModeDemoPathList } from "./UIComponent/SDKNewComponent/adaptiveThemeComponent";
 
 import NavigationBar from "miot/ui/NavigationBar";
 
@@ -48,7 +50,7 @@ import TabBarDemo from "./tutorial/TabBarDemo"; //  ui-导航栏使用
 
 import Settings2022 from './UIComponent/Settings2022';
 import SupportedFont from './UIComponent/SupportedFont';
-import SdkComponentDemo from "./UIComponent/SdkComponentDemo";
+import SdkComponentDemo from "./UIComponent/SDKNewComponent/SdkComponentDemo";
 
 // List
 import ListDemoEntry from "./UIComponent/List/ListDemoEntry";
@@ -140,10 +142,11 @@ import DownloadFontDemo from "./Host/DownloadFontDemo"; //  字体下载测试
 import TutorialDemo from "./tutorial/TutorialDemo";
 // 新版SDK
 import BasicComponentDemo from "./UIComponent/SDKNewComponent/BasicComponent/BasicComponentDemo";
+import BasicDemo from "./UIComponent/SDKNewComponent/BasicComponent/BasicDemo";
 import FontsDemo from "./UIComponent/SDKNewComponent/BasicComponent/FontsDemo";
 import ColorDemo from "./UIComponent/SDKNewComponent/BasicComponent/ColorDemo";
 import RadiusDemo from "./UIComponent/SDKNewComponent/BasicComponent/RadiusDemo";
-import PhaseOneDemo from "./UIComponent/SDKNewComponent/BasicComponent/PhaseOneDemo";
+import DialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/DialogDemo";
 import HandPopDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopDemo";
 import HandPopCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopCustomDemo";
 import HandPopClickDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopClickDemo";
@@ -276,6 +279,7 @@ function createRootStack(initPage) {
       FirmwareUpgrade,
       // 新版SDK
       BasicComponentDemo,
+      BasicDemo,
       AtomicDemo,
       ButtonDemo,
       ToastDemo,
@@ -285,7 +289,7 @@ function createRootStack(initPage) {
       SdkComponentDemo,
       ColorDemo,
       RadiusDemo,
-      PhaseOneDemo,
+      DialogDemo,
       HandPopDemo,
       HandPopCustomDemo,
       HandPopClickDemo,
@@ -551,6 +555,9 @@ function createRootStack(initPage) {
 
 function interpolator(props) {
   const { layout, position, scene } = props;
+  if (darkModeDemoPathList.includes(scene.route.routeName)) {
+    DarkMode.preparePluginOwnDarkMode();
+  }
 
   if (!layout.isMeasured) {
     return (props) => {

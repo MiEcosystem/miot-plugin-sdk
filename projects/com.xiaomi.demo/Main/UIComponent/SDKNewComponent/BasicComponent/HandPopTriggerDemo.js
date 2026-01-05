@@ -17,7 +17,6 @@ import NavigationBar from 'miot/ui/NavigationBar';
 import { NearHandDialog } from 'miot/ui/hyperOSUI';
 import fonts from 'miot/utils/fonts';
 import {colorToken} from "mhui-rn/dist/styles/color";
-import withDarkModeSupport from "../adaptiveThemeComponent";
 import {dynamicStyleSheet} from "miot/ui";
 
 const homes = [
@@ -151,4 +150,4 @@ const styles = dynamicStyleSheet({
   },
   text: { color: colorToken.mjcard_color_blue_2, textAlign: 'center', ...fonts.mjTextCustom14M },
 });
-export default withDarkModeSupport(HandPopTriggerDemo);
+export default HandPopTriggerDemo;

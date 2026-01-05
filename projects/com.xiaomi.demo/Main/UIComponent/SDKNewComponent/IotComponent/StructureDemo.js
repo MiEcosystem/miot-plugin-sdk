@@ -1,10 +1,9 @@
 'use strict';
 
-import React, { useCallback, memo, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { ScrollView, Text } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
 import { colorToken, ListGroup } from "miot/ui/hyperOSUI";
-import withDarkModeSupport from "../adaptiveThemeComponent";
 
 const UIItems = [
   { title: '分割线', router: 'SeparatorDemo' }
@@ -43,35 +42,7 @@ const styles = dynamicStyleSheet({
     fontWeight: '500',
     paddingHorizontal: 15,
     marginBottom: 20
-  },
-  sectionContainer: {
-    marginTop: 10,
-    marginHorizontal: 15,
-    backgroundColor: "transparent",
-    paddingVertical: 5
-  },
-  sectionTitle: {
-    fontSize: 12,
-    color: colorToken.mjcard_color_miui_2,
-    paddingHorizontal: 15,
-    paddingVertical: 8
-  },
-  itemContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 15,
-    height: 50,
-    backgroundColor: colorToken.mj_color_gray_card_1
-  },
-  itemText: {
-    fontSize: 16,
-    color: colorToken.mj_color_gray_text_1
-  },
-  arrow: {
-    fontSize: 16,
-    color: colorToken.mj_color_gray_icon_4
   }
 });
 
-export default withDarkModeSupport(memo(StructureDemo));
+export default StructureDemo;

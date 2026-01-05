@@ -1,13 +1,12 @@
 'use strict';
 
-import React, { useState, memo, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
 import { colorToken, Stepper, Separator } from "miot/ui/hyperOSUI";
-import withDarkModeSupport from "../adaptiveThemeComponent";
 import { Cold } from 'miot/ui/icons';
 
-const StepperDemo = ({ navigation }) => {
+const SeparatorDemo = ({ navigation }) => {
   const [targetTemperature, setTargetTemperature] = useState(23);
 
   const suffix = useMemo(() => {
@@ -95,4 +94,4 @@ const styles = dynamicStyleSheet({
   }
 });
 
-export default withDarkModeSupport(memo(StepperDemo));
+export default SeparatorDemo;

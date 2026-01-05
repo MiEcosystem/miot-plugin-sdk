@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import { ScrollView, Text, View, TouchableOpacity } from 'react-native';
 import { dynamicStyleSheet } from 'miot/ui';
 import { colorToken } from 'mhui-rn/dist/styles/color';
-import withDarkModeSupport from '../adaptiveThemeComponent';
 import { showToast } from 'miot/ui/hyperOSUI';
+import { ListGroup } from "mhui-rn/dist/hyperOS";
 
 class ToastDemo extends Component {
   getToastText(type) {
@@ -22,23 +22,11 @@ class ToastDemo extends Component {
 
   renderListSection(items) {
     return (
-      <View style={styles.sectionContainer}>
-        {items.map((item, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.itemContainer}
-            onPress={() => {
-              showToast(
-                this.getToastText(item.text),
-                item.duration
-              );
-            }}
-          >
-            <Text style={styles.itemText}>{item.text}</Text>
-            <Text style={styles.arrow}>{'>'}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+      <ListGroup dataSource={items.map((item, index) => ({
+        title: item.text,
+        key: index,
+        onPress: () => showToast(this.getToastText(item.text), item.duration)
+      }))}/>
     );
   }
 
@@ -68,29 +56,7 @@ const styles = dynamicStyleSheet({
     fontWeight: '500',
     paddingHorizontal: 15,
     marginBottom: 20
-  },
-  sectionContainer: {
-    marginTop: 10,
-    marginHorizontal: 15,
-    backgroundColor: 'transparent',
-    paddingVertical: 5
-  },
-  itemContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 15,
-    height: 50,
-    backgroundColor: colorToken.mj_color_gray_bg_2
-  },
-  itemText: {
-    fontSize: 16,
-    color: colorToken.mj_color_gray_text_1
-  },
-  arrow: {
-    fontSize: 16,
-    color: colorToken.mj_color_gray_icon_4
   }
 });
 
-export default withDarkModeSupport(ToastDemo);
+export default ToastDemo;

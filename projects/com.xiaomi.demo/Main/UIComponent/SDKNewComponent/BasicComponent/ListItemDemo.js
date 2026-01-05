@@ -1,12 +1,11 @@
 'use strict';
 
 import React, { useState } from 'react';
-import { View, Text, ScrollView, Image } from 'react-native';
-import { ListItem, ListItemWithWidget } from 'miot/ui/hyperOSUI';
-import withDarkModeSupport from '../adaptiveThemeComponent';
+import { View, Text, ScrollView, Image, Alert } from 'react-native';
+import { ListItem, ListItemWithWidget, colorToken, JestComponent } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style';
-import { colorToken, JestComponent } from 'miot/ui/hyperOSUI';
 
+const alert = Alert.alert;
 const sourceData1 = [
   {
     componentType: 2,
@@ -527,15 +526,15 @@ const propConfigs1 = [
   { name: 'title', type: 'string', defaultValue: '主标题' },
   { name: 'subtitle', type: 'string', defaultValue: '副标题内容' },
   { name: 'value', type: 'string', defaultValue: '右侧文案' },
-  { name: 'onPress', type: 'pass', passDescription: '点击事件回调' },
-  { name: 'onLongPress', type: 'pass', passDescription: '长按事件回调' },
+  { name: 'onPress', type: 'pass', passDescription: '点击事件回调', defaultValue: () => alert('onPress') },
+  { name: 'onLongPress', type: 'pass', passDescription: '长按事件回调', defaultValue: () => alert('onLongPress') },
   { name: 'delayLongPress', type: 'number', defaultValue: 500 },
   { name: 'disabled', type: 'boolean', defaultValue: false },
   { name: 'hideRightIcon', type: 'boolean', defaultValue: false },
   { name: 'rightIconType', type: 'enum', enumOptions: ['arrow', 'select', 'fold'], defaultValue: 'arrow' },
   { name: 'showDot', type: 'boolean', defaultValue: false },
-  { name: 'leftIcon', type: 'pass', passDescription: '左侧图标组件' },
-  { name: 'customRenderer', type: 'pass', passDescription: '右侧自定义渲染' }
+  { name: 'leftIcon', type: 'pass', passDescription: '左侧图标组件', defaultValue: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} /> },
+  { name: 'customRenderer', type: 'pass', passDescription: '右侧自定义渲染', defaultValue: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} /> }
 ];
 
 const propConfigs2 = [
@@ -545,18 +544,18 @@ const propConfigs2 = [
   { name: 'valueText', type: 'string', defaultValue: '值文本' },
   { name: 'value', type: 'boolean', defaultValue: false },
   { name: 'disabled', type: 'boolean', defaultValue: false },
-  { name: 'onPress', type: 'pass', passDescription: '点击事件回调' },
-  { name: 'onValueChange', type: 'pass', passDescription: '值变化回调 (必填)' },
+  { name: 'onPress', type: 'pass', passDescription: '点击事件回调', defaultValue: () => alert('onPress') },
+  { name: 'onValueChange', type: 'pass', passDescription: '值变化回调 (必填)', defaultValue: () => alert('onValueChange') },
   {
     name: 'colorType',
     type: 'enum',
     enumOptions: ['green', 'red', 'blue', 'wathet', 'purple', 'white', 'orange', 'yellow'],
     defaultValue: 'green'
   },
-  { name: 'leftIcon', type: 'pass', passDescription: '左侧图标组件' },
+  { name: 'leftIcon', type: 'pass', passDescription: '左侧图标组件', defaultValue: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} /> },
   { name: 'showTitleArrow', type: 'boolean', defaultValue: false },
   { name: 'underlayColor', type: 'string' },
-  { name: 'customRenderer', type: 'pass', passDescription: '右侧自定义渲染' },
+  { name: 'customRenderer', type: 'pass', passDescription: '右侧自定义渲染', defaultValue: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} /> },
   {
     name: 'buttonOption',
     type: 'object',
@@ -589,7 +588,6 @@ const propConfigs2 = [
 ];
 
 const ListItemDemo = () => {
-
   const [state, setState] = useState({
     sourceData: sourceData1,
     disabled: false,
@@ -684,16 +682,18 @@ const styles = dynamicStyleSheet({
   },
   button: {
     fontSize: 14,
+    color: colorToken.mj_color_gray_text_1,
     paddingHorizontal: 15,
     lineHeight: 24
   },
   data: {
     borderRadius: 16,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    backgroundColor: colorToken.mj_color_gray_card_1
   },
   caseContainer: {
     marginBottom: 12
   }
 });
 
-export default withDarkModeSupport(ListItemDemo);
+export default ListItemDemo;

@@ -14,7 +14,7 @@ import {colorToken} from "mhui-rn/dist/styles/color";
 import {ChoiceItem} from "miot/ui/hyperOSUI"
 import dynamic from "../../swiper/Dynamic";
 import {dynamicStyleSheet} from "miot/ui";
-import withDarkModeSupport from "../adaptiveThemeComponent";
+
 
 const ExampleIcon = () => {
   let darkMode = DarkMode.getColorScheme();
@@ -210,4 +210,4 @@ const styles = dynamicStyleSheet({
   },
 });
 
-export default withDarkModeSupport(HandPopCustomDemo);
+export default HandPopCustomDemo;

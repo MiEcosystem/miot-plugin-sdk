@@ -1,11 +1,11 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { ScrollView, Text, View, TouchableOpacity } from 'react-native';
 import { LoadingDialog } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from "miot/ui";
 import { colorToken } from "miot/ui/hyperOSUI";
-import withDarkModeSupport from "../adaptiveThemeComponent";
+import { ListGroup } from "mhui-rn/dist/hyperOS";
 
 class LoadingDemo extends Component {
   constructor(props) {
@@ -36,20 +36,16 @@ class LoadingDemo extends Component {
     this.setState({ loadingVisible: false });
   };
 
-  renderListSection(title, items) {
+  renderListSection(items) {
     return (
-      <View style={styles.sectionContainer}>
-        {items.map((item, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.itemContainer}
-            onPress={() => this.showLoading(item.type)}
-          >
-            <Text style={styles.itemText}>{item.text}</Text>
-            <Text style={styles.arrow}>{'>'}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+      <ListGroup
+        dataSource={items.map((item, index) => ({
+          title: item.text,
+          key: index,
+          onPress: () => this.showLoading(item.type)
+        }))}
+      >
+      </ListGroup>
     );
   }
 
@@ -61,10 +57,9 @@ class LoadingDemo extends Component {
 
     return (
       <ScrollView style={styles.container}>
-        <Text style={styles.header}>第二期（加载弹窗）</Text>
-
-        {this.renderListSection('token', tokenItems)}
-
+        <View style={{ marginTop: 15 }}>
+          {this.renderListSection(tokenItems)}
+        </View>
         <LoadingDialog
           visible={this.state.loadingVisible}
           message={this.state.dialogMessage}
@@ -78,43 +73,8 @@ class LoadingDemo extends Component {
 
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: "transparent"
-  },
-  header: {
-    fontSize: 24,
-    color: colorToken.mj_color_gray_text_2,
-    fontWeight: '500',
-    paddingHorizontal: 15,
-    marginBottom: 20
-  },
-  sectionContainer: {
-    marginTop: 10,
-    marginHorizontal: 15,
-    backgroundColor: "transparent",
-    paddingVertical: 5
-  },
-  sectionTitle: {
-    fontSize: 12,
-    color: colorToken.mjcard_color_miui_2,
-    paddingHorizontal: 15,
-    paddingVertical: 8
-  },
-  itemContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 15,
-    height: 50,
     backgroundColor: colorToken.mj_color_gray_bg_2
-  },
-  itemText: {
-    fontSize: 16,
-    color: colorToken.mj_color_gray_text_1
-  },
-  arrow: {
-    fontSize: 16,
-    color: colorToken.mj_color_gray_icon_4
   }
 });
 
-export default withDarkModeSupport(LoadingDemo);
+export default LoadingDemo;

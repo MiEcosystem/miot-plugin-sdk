@@ -1,10 +1,9 @@
 'use strict';
 
 import React from 'react';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 import { colorToken } from "miot/ui/hyperOSUI";
 import { dynamicStyleSheet } from "miot/ui";
-import withDarkModeSupport from "../adaptiveThemeComponent";
 
 // 卡片圆角规范（可按设计图自定义）
 const CARD_RADIUS = {
@@ -85,4 +84,4 @@ const styles = dynamicStyleSheet({
   }
 });
 
-export default withDarkModeSupport(CardDemo);
+export default CardDemo;

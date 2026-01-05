@@ -1,12 +1,10 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { ScrollView, Text, View, StyleSheet } from 'react-native';
-
+import { ScrollView, Text, View } from 'react-native';
 import Fonts from 'miot/utils/fonts';
 import { colorToken } from "miot/ui/hyperOSUI";
 import { dynamicStyleSheet } from "miot/ui";
-import withDarkModeSupport from "../adaptiveThemeComponent";
 
 class SupportedFont extends Component {
   renderText(label, fontStyle) {
@@ -115,4 +113,4 @@ const styles = dynamicStyleSheet({
   }
 });
 
-export default withDarkModeSupport(SupportedFont);
+export default SupportedFont;

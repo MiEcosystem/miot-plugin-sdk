@@ -4,19 +4,16 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
   ScrollView
 } from 'react-native';
 import Orientation from 'react-native-orientation';
-import { CommonDialog } from 'miot/ui/hyperOSUI';
+import { CommonDialog, ListGroup } from 'miot/ui/hyperOSUI';
 import NavigationBar from "miot/ui/NavigationBar";
-
 import { colorToken } from "miot/ui/hyperOSUI";
 import { dynamicStyleSheet } from "miot/ui";
-import withDarkModeSupport from "../adaptiveThemeComponent";
 
-class PhaseOneDemo extends Component {
+class DialogDemo extends Component {
   state = {
     showDialog: false,
     dialogType: null, // 'normal' | 'checkbox' | 'landscape'
@@ -131,22 +128,18 @@ class PhaseOneDemo extends Component {
     ];
   }
 
-  renderItem(label, index) {
+  renderItem(item) {
     return (
-      <TouchableOpacity
-        key={index}
-        style={[
-          styles.item,
-          index === 0 && styles.firstItem,
-          index === 2 && styles.lastItem
-        ]}
-        onPress={() => this.handlePress(label)}
-      >
-        <Text style={styles.itemText}>{label}</Text>
-        <Text style={styles.arrow}>{'>'}</Text>
-      </TouchableOpacity>
+      <ListGroup
+        dataSource={item.map((label, index) => ({
+          title: label,
+          key: String(index),
+          onPress: () => this.handlePress(label)
+        }))}
+      />
     );
   }
+
 
   renderDialog() {
     const { showDialog, dialogType } = this.state;
@@ -178,9 +171,7 @@ class PhaseOneDemo extends Component {
 
     return (
       <ScrollView style={styles.container}>
-        <View style={styles.card}>
-          {items.map((label, index) => this.renderItem(label, index))}
-        </View>
+        {this.renderItem(items)}
         {this.renderDialog()}
       </ScrollView>
     );
@@ -191,7 +182,6 @@ const styles = dynamicStyleSheet({
   container: {
     flex: 1,
     backgroundColor: colorToken.mj_color_gray_bg_2,
-    paddingHorizontal: 16,
     paddingTop: 20
   },
   card: {
@@ -205,23 +195,6 @@ const styles = dynamicStyleSheet({
     paddingHorizontal: 15,
     height: 50,
     backgroundColor: colorToken.mj_color_gray_card_1
-  },
-  firstItem: {
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16
-  },
-  lastItem: {
-    borderBottomWidth: 0,
-    borderBottomLeftRadius: 16,
-    borderBottomRightRadius: 16
-  },
-  itemText: {
-    fontSize: 16,
-    color: colorToken.mj_color_gray_text_1
-  },
-  arrow: {
-    fontSize: 16,
-    color: colorToken.mj_color_gray_icon_4
   }
 });
-export default withDarkModeSupport(PhaseOneDemo);
+export default DialogDemo;

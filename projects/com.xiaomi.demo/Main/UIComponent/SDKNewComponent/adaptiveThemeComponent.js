@@ -92,4 +92,7 @@ export function useDarkModeSupport() {
   }, []);
 }
 
+// 不使用反色模式的入口路由
+export const darkModeDemoPathList = ['SdkComponentDemo', 'DarkModeDemo'];
+
 export default withDarkModeSupport;

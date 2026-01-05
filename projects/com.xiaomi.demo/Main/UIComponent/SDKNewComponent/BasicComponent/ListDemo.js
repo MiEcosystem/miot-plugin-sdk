@@ -1,93 +1,39 @@
 'use strict';
 
-import React, { Component } from 'react';
-import { ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useMemo } from 'react';
+import { ScrollView, View } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
 import { colorToken } from "miot/ui/hyperOSUI";
-import withDarkModeSupport from "../adaptiveThemeComponent";
+import { ListGroup } from "mhui-rn/dist/hyperOS";
 
-class ListDemo extends Component {
-  constructor(props) {
-    super(props);
-  }
-
+const ListDemo = (props) => {
+  const { navigation } = props;
   // 增加标题传递
-  navigateToScreen(routerName, title) {
-    const { navigation } = this.props;
+  const navigateToScreen = (routerName, title) => {
     if (navigation && routerName) {
       navigation.navigate(routerName, { title }); // 把标题传递给路由参数
     }
-  }
-
-  renderListSection(title, items) {
-    return (
-      <View style={styles.sectionContainer}>
-        {items.map((item, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.itemContainer}
-            onPress={() => this.navigateToScreen(item.router, item.label)} // 跳转并传递标题
-          >
-            <Text style={styles.itemText}>{item.label}</Text>
-            <Text style={styles.arrow}>{'>'}</Text>
-          </TouchableOpacity>
-        ))}
+  };
+  const tokenItems = [
+    { title: '基础样式', router: 'ListItemDemo' },
+    { title: '卡片包裹', router: 'ListGroupDemo' }
+  ];
+  const UIDataSource = useMemo(() => {
+    return tokenItems.map((item) => ({ ...item, key: item.router, onPress: () => navigateToScreen(item.router, item.title) }));
+  }, []);
+  return (
+    <ScrollView style={styles.container}>
+      <View style={{ marginTop: 10 }}>
+        <ListGroup dataSource={UIDataSource}/>
       </View>
-    );
-  }
-
-  render() {
-    const tokenItems = [
-      { label: '基础样式', router: 'ListItemDemo' },
-      { label: '卡片包裹', router: 'ListGroupDemo' }
-    ];
-    return (
-      <ScrollView style={styles.container}>
-        {this.renderListSection('token', tokenItems)}
-      </ScrollView>
-    );
-  }
-}
+    </ScrollView>
+  );
+};
 
 const styles = dynamicStyleSheet({
   container: {
     backgroundColor: colorToken.mj_color_gray_bg_2
-  },
-  header: {
-    fontSize: 24,
-    color: colorToken.mj_color_gray_text_2,
-    fontWeight: '500',
-    paddingHorizontal: 15,
-    marginBottom: 20
-  },
-  sectionContainer: {
-    marginTop: 10,
-    marginHorizontal: 15,
-    backgroundColor: "transparent",
-    paddingVertical: 5
-  },
-  sectionTitle: {
-    fontSize: 12,
-    color: colorToken.mjcard_color_miui_2,
-    paddingHorizontal: 15,
-    paddingVertical: 8
-  },
-  itemContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 15,
-    height: 50,
-    backgroundColor: colorToken.mj_color_gray_card_1
-  },
-  itemText: {
-    fontSize: 16,
-    color: colorToken.mj_color_gray_text_1
-  },
-  arrow: {
-    fontSize: 16,
-    color: colorToken.mj_color_gray_icon_4
   }
 });
 
-export default withDarkModeSupport(ListDemo);
+export default ListDemo;

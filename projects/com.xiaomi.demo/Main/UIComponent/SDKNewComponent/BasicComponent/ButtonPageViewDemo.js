@@ -6,7 +6,6 @@ import { PopButton } from "miot/ui/hyperOSUI";
 import theme from "miot/ui/Style/Themes/themeMiHome";
 import { colorToken } from "miot/ui/hyperOSUI";
 import { dynamicStyleSheet } from "miot/ui";
-import withDarkModeSupport from "../adaptiveThemeComponent";
 
 class ButtonPageViewDemo extends Component {
   constructor(props) {
@@ -32,4 +31,4 @@ const styles = dynamicStyleSheet({
   }
 });
 
-export default withDarkModeSupport(ButtonPageViewDemo);
+export default ButtonPageViewDemo;

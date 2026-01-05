@@ -1,13 +1,10 @@
 'use strict';
 
-import React, { memo } from 'react';
+import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
 import { colorToken } from "miot/ui/hyperOSUI";
-import withDarkModeSupport from "../adaptiveThemeComponent";
 import { SmartSceneCard } from 'miot/ui/smartSceneCard';
-
-
 
 const SmartSceneDemo = ({ navigation }) => {
 
@@ -37,4 +34,4 @@ const styles = dynamicStyleSheet({
   }
 });
 
-export default withDarkModeSupport(memo(SmartSceneDemo));
+export default SmartSceneDemo;
