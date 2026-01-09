@@ -13,9 +13,9 @@ const UIItems = [
   // { title: '信息', router: 'InfoDemo' }
 ];
 
-const mihomeItems = [
-  { title: '智能场景', router: 'SmartSceneDemo' }
-];
+// const mihomeItems = [
+//   { title: '智能场景', router: 'SmartSceneDemo' }
+// ];
 
 const IotComponentDemo = ({ navigation }) => {
 
@@ -30,9 +30,9 @@ const IotComponentDemo = ({ navigation }) => {
     return UIItems.map((item) => ({ ...item, key: item.router, onPress: () => navigateToScreen(item.router, item.title) }));
   }, [navigateToScreen]);
 
-  const mihomeDataSource = useMemo(() => {
-    return mihomeItems.map((item) => ({ ...item, key: item.router, onPress: () => navigateToScreen(item.router, item.title) }));
-  }, [navigateToScreen]);
+  // const mihomeDataSource = useMemo(() => {
+  //   return mihomeItems.map((item) => ({ ...item, key: item.router, onPress: () => navigateToScreen(item.router, item.title) }));
+  // }, [navigateToScreen]);
 
   return (
     <ScrollView style={styles.container}>
@@ -41,10 +41,10 @@ const IotComponentDemo = ({ navigation }) => {
         title="UI控件"
         dataSource={UIDataSource}
       />
-      <ListGroup
+      {/* <ListGroup
         title="米家业务组件"
         dataSource={mihomeDataSource}
-      />
+      /> */}
     </ScrollView>
   );
 };

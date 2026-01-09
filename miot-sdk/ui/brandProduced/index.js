@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
-import { Fonts } from 'mhui-rn/dist/hyperOS';
-import { dynamicColor } from '../Style/DynamicColor';
+import { Fonts, colorToken } from 'mhui-rn/dist/hyperOS';
 import { Host, Service, Device } from 'miot';
-import { colorToken } from 'mhui-rn/dist/hyperOS';
+import { getLocalI18n } from '../SwitchIfttt/utils';
 import { dynamicStyleSheet } from '../Style';
 export function BrandProduced() {
   const [brandId, setBrandId] = useState();
@@ -24,6 +23,9 @@ export function BrandProduced() {
     if (!brandId) return;
     Host.ui.openWebPage(`https://home.mi.com/webapp/product/brand/index.html?id=${ brandId }&fullscreen=1`);
   }, [brandId]);
+  const brandString = useMemo(() => {
+    return getLocalI18n('common_brand_produced_by', [brandName]);
+  }, [brandName]);
   if (!brandName) {
     return null;
   }
@@ -31,7 +33,7 @@ export function BrandProduced() {
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={onHandlePress}>
         <Text style={styles.text}>
-          {brandName}出品
+          {brandString}
         </Text>
       </TouchableOpacity>
     </View>);

@@ -4,7 +4,7 @@ import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
 import { colorToken } from "miot/ui/hyperOSUI";
-import { SmartSceneCard } from 'miot/ui/smartSceneCard';
+// import { SmartSceneCard } from 'miot/ui/smartSceneCard';
 
 const SmartSceneDemo = ({ navigation }) => {
 
@@ -12,7 +12,7 @@ const SmartSceneDemo = ({ navigation }) => {
     <ScrollView style={styles.container}>
       <Text style={styles.header}>智能场景</Text>
       <View style={styles.content}>
-        <SmartSceneCard />
+        {/* <SmartSceneCard /> */}
       </View>
     </ScrollView>
   );

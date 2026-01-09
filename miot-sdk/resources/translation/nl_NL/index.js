@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'Verbinden via Bluetooth…',
   bluetooth_connection_phone: 'Deze functie vereist de Bluetooth-verbinding van uw telefoon',
   connection_successful: 'Succesvol verbonden',
-  connection_failed: 'Kon niet verbinden'
+  connection_failed: 'Kon niet verbinden',
+  common_brand_produced_by: 'Ontwikkeld door ${}'
 };

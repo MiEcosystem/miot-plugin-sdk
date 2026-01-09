@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'Menghubungkan melalui Bluetooth…',
   bluetooth_connection_phone: 'Fitur ini memerlukan koneksi Bluetooth ponsel Anda',
   connection_successful: 'Berhasil terhubung',
-  connection_failed: 'Tidak dapat terhubung'
+  connection_failed: 'Tidak dapat terhubung',
+  common_brand_produced_by: 'Dirancang oleh ${}'
 };

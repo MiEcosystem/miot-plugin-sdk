@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'Łączenie przez Bluetooth…',
   bluetooth_connection_phone: 'Do prawidłowego działania funkcja musi korzystać z połączenia Bluetooth w telefonie',
   connection_successful: 'Połączono pomyślnie',
-  connection_failed: 'Nie udało się połączyć'
+  connection_failed: 'Nie udało się połączyć',
+  common_brand_produced_by: 'Zaprojektowane przez ${}'
 };

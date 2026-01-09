@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'Đang kết nối qua Bluetooth…',
   bluetooth_connection_phone: 'Tính năng này yêu cầu kết nối Bluetooth của điện thoại',
   connection_successful: 'Đã kết nối thành công',
-  connection_failed: 'Không thể kết nối'
+  connection_failed: 'Không thể kết nối',
+  common_brand_produced_by: 'Được thiết kế bởi ${}'
 };

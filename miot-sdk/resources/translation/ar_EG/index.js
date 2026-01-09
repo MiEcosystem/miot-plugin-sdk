@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'جارٍ الاتصال عبر البلوتوث ...',
   bluetooth_connection_phone: 'تتطلب هذه الميزة اتصال البلوتوث بهاتفك',
   connection_successful: 'تم الاتصال بنجاح',
-  connection_failed: 'تعذّر الاتصال'
+  connection_failed: 'تعذّر الاتصال',
+  common_brand_produced_by: 'تصميم: ${}'
 };

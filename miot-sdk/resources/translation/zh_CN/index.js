@@ -327,5 +327,6 @@ export default {
   bluetooth_connecting: "手机蓝牙连接中...",
   bluetooth_connection_phone: "此功能需手机蓝牙连接可用",
   connection_successful: "连接成功",
-  connection_failed: "连接失败"
+  connection_failed: "连接失败",
+  common_brand_produced_by: '${}出品'
 };

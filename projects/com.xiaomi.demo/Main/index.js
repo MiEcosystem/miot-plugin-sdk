@@ -168,7 +168,7 @@ import ControlerDemo from "./UIComponent/SDKNewComponent/IotComponent/ControlerD
 import EntryDemo from "./UIComponent/SDKNewComponent/IotComponent/EntryDemo";
 import EntryLDemo from "./UIComponent/SDKNewComponent/IotComponent/EntryLDemo";
 import StepperDemo from "./UIComponent/SDKNewComponent/IotComponent/StepperDemo";
-import SmartSceneDemo from "./UIComponent/SDKNewComponent/IotComponent/SmartSceneDemo";
+// import SmartSceneDemo from "./UIComponent/SDKNewComponent/IotComponent/SmartSceneDemo";
 import SeparatorDemo from "./UIComponent/SDKNewComponent/IotComponent/SeparatorDemo";
 // 第三方库
 import SQLiteDemo from "./ThirdPartDemo/SQLiteDemo";
@@ -306,7 +306,7 @@ function createRootStack(initPage) {
       EntryDemo,
       EntryLDemo,
       StepperDemo,
-      SmartSceneDemo,
+      // SmartSceneDemo,
       SeparatorDemo,
       // FirmwareUpgradeAuto,
       FirmwareUpgradeRecord,

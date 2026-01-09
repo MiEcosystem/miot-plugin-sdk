@@ -24,7 +24,6 @@ const sourceData1 = [
     value: '巨无霸',
     hideRightIcon: true,
     showDot: false,
-    
     onPress: () => console.log(4)
   },
   {
@@ -33,7 +32,6 @@ const sourceData1 = [
     title: '列表主文字',
     hideRightIcon: false,
     showDot: false,
-    
     onPress: () => console.log(4)
   },
   {
@@ -43,7 +41,6 @@ const sourceData1 = [
     value: '状态状态状态',
     hideRightIcon: false,
     showDot: true,
-    
     onPress: () => console.log(4)
   },
   {
@@ -54,7 +51,6 @@ const sourceData1 = [
     value: '状态',
     hideRightIcon: false,
     showDot: false,
-    
     onPress: () => console.log(4)
   },
   {
@@ -65,7 +61,6 @@ const sourceData1 = [
     value: '状态',
     hideRightIcon: false,
     showDot: false,
-    
     onPress: () => console.log(4)
   },
   {
@@ -534,7 +529,7 @@ const propConfigs1 = [
   { name: 'rightIconType', type: 'enum', enumOptions: ['arrow', 'select', 'fold'], defaultValue: 'arrow' },
   { name: 'showDot', type: 'boolean', defaultValue: false },
   { name: 'leftIcon', type: 'pass', passDescription: '左侧图标组件', defaultValue: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} /> },
-  { name: 'customRenderer', type: 'pass', passDescription: '右侧自定义渲染', defaultValue: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} /> }
+  { name: 'customRenderer', type: 'pass', passDescription: '右侧自定义渲染', defaultValue: <Image style={{ resizeMode: 'contain', width: 46, height: 46 }} source={require('../../images/group.png')} /> }
 ];
 
 const propConfigs2 = [
@@ -555,7 +550,7 @@ const propConfigs2 = [
   { name: 'leftIcon', type: 'pass', passDescription: '左侧图标组件', defaultValue: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} /> },
   { name: 'showTitleArrow', type: 'boolean', defaultValue: false },
   { name: 'underlayColor', type: 'string' },
-  { name: 'customRenderer', type: 'pass', passDescription: '右侧自定义渲染', defaultValue: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} /> },
+  { name: 'customRenderer', type: 'pass', passDescription: '右侧自定义渲染', defaultValue: <Image style={{ resizeMode: 'contain', width: 46, height: 46 }} source={require('../../images/group.png')} /> },
   {
     name: 'buttonOption',
     type: 'object',

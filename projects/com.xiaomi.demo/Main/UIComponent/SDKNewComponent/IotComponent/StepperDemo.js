@@ -4,8 +4,7 @@ import React, { useState, useMemo } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
 import { colorToken, Stepper } from "miot/ui/hyperOSUI";
-
-import { Cold, Right, Left } from 'miot/ui/icons';
+import { Cold } from 'miot/ui/icons';
 
 const StepperDemo = ({ navigation }) => {
   const [targetTemperature, setTargetTemperature] = useState(23);
@@ -41,8 +40,6 @@ const StepperDemo = ({ navigation }) => {
           onChange={setTargetTemperature}
           min={20}
           max={30}
-          MinusRenderIcon={Left}
-          PlusRenderIcon={Right}
         />
       </View>
      
@@ -63,12 +60,10 @@ const StepperDemo = ({ navigation }) => {
         <Stepper
           step={0.5}
           suffix={suffix}
-          value={targetTemperature}
-          disabledMinus={true}
-          disabledPlus={true}
+          value={23}
           onChange={setTargetTemperature}
-          min={20}
-          max={30}
+          min={23}
+          max={23}
         />
       </View>
      
@@ -91,7 +86,6 @@ const StepperDemo = ({ navigation }) => {
           step={0.5}
           value={null}
           disabled={true}
-          emptyValue="--"
           onChange={setTargetTemperature}
           min={20}
           max={30}
