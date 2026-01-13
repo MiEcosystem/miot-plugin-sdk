@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, useMemo } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
-import { Fonts, colorToken } from 'mhui-rn/dist/hyperOS';
+import { View, Text } from 'react-native';
+import { Fonts, colorToken, TouchableView } from 'mhui-rn/dist/hyperOS';
 import { Host, Service, Device } from 'miot';
 import { getLocalI18n } from '../SwitchIfttt/utils';
 import { dynamicStyleSheet } from '../Style';
@@ -31,23 +31,22 @@ export function BrandProduced() {
   }
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={onHandlePress}>
+      <TouchableView viewStyle={styles.button} onPress={onHandlePress}>
         <Text style={styles.text}>
           {brandString}
         </Text>
-      </TouchableOpacity>
+      </TouchableView>
     </View>);
 }
 const styles = dynamicStyleSheet({
   container: {
-    paddingHorizontal: 40,
-    paddingVertical: 28,
-    minHeight: 92
+    paddingVertical: 28
   },
   button: {
     flexDirection: 'row',
     backgroundColor: colorToken.mj_color_gray_card_3,
     borderRadius: 18,
+    height: 36,
     paddingVertical: 10,
     paddingHorizontal: 14,
     justifyContent: 'center',
@@ -55,9 +54,8 @@ const styles = dynamicStyleSheet({
     alignSelf: 'center'
   },
   text: {
-    fontSize: 13,
     lineHeight: 17,
     color: colorToken.mj_color_gray_text_5,
-    ...Fonts.FontTextMedium
+    ...Fonts.mj_text_custom_13_M
   }
 });

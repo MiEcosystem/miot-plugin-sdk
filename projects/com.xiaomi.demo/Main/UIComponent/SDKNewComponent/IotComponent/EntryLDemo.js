@@ -7,17 +7,17 @@ import { dynamicStyleSheet } from 'miot/ui/Style';
 import { colorToken } from 'miot/ui/hyperOSUI';
 import { Circle } from 'miot/ui/icons';
 
-const source1Data1 = [
-  {
-    index: 1,
-    type: 'switch',
-    title: '标题',
-    hideRightIcon: true,
-    showDot: false,
-    leftIcon: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
-  }
-];
+// const source1Data1 = [
+//   {
+//     index: 1,
+//     type: 'switch',
+//     title: '标题',
+//     hideRightIcon: true,
+//     showDot: false,
+//     leftIcon: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+//     onPress: () => console.log(4)
+//   }
+// ];
 
 const source1Data2 = [
   {
@@ -89,17 +89,17 @@ const source1Data3 = [
   }
 ];
 
-const source2Data1 = [
-  {
-    index: 1,
-    type: 'switch',
-    title: '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',
-    hideRightIcon: true,
-    showDot: false,
-    leftIcon: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
-  }
-];
+// const source2Data1 = [
+//   {
+//     index: 1,
+//     type: 'switch',
+//     title: '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',
+//     hideRightIcon: true,
+//     showDot: false,
+//     leftIcon: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+//     onPress: () => console.log(4)
+//   }
+// ];
 
 const source2Data2 = [
   {
@@ -174,7 +174,7 @@ const source2Data3 = [
 const EntryLDemo = () => {
 
   const [state, setState] = useState({
-    sourceData1: source1Data1,
+    // sourceData1: source1Data1,
     sourceData2: source1Data2,
     sourceData3: source1Data3,
     disabled: false,
@@ -186,21 +186,21 @@ const EntryLDemo = () => {
     switch (type) {
       case 1:
         data = {
-          sourceData1: source1Data1,
+          // sourceData1: source1Data1,
           sourceData2: source1Data2,
           sourceData3: source1Data3
         };
         break;
       case 2:
         data = {
-          sourceData1: source2Data1,
+          // sourceData1: source2Data1,
           sourceData2: source2Data2,
           sourceData3: source2Data3
         };
         break;
       default:
         data = {
-          sourceData1: source1Data1,
+          // sourceData1: source1Data1,
           sourceData2: source1Data2,
           sourceData3: source1Data3
         };
@@ -228,14 +228,14 @@ const EntryLDemo = () => {
         }}>切换禁用态</Text>
         <Text style={styles.title}>带图标</Text>
         <View style={styles.data}>
-          {state.sourceData1.map((item, index) => {
+          {/* {state.sourceData1.map((item, index) => {
             return <IotListItemWithWidget key={index} {...item} disabled={state.disabled} value={state.switchValue} onValueChange={(val) => {
               setState((item) => ({
                 ...item,
                 switchValue: val
               }));
             }}/>;
-          })}
+          })} */}
           {state.sourceData2.map((item, index) => {
             return <IotListItem key={index} {...item} disabled={state.disabled}/>;
           })}

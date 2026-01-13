@@ -12,7 +12,8 @@ export default function DeleteButton({ deleteDeviceMessage }) {
   const { isOwner, model, type } = Device;
   const { permitLevel } = useDeviceRoomInfo();
   const isHomeManager = permitLevel === 9;
-  const canDelete = isOwner || isHomeManager;
+  const isCarDevice = (model || '').includes('.car');
+  const canDelete = !isCarDevice && (isOwner || isHomeManager);
   if (!canDelete) {
     return null;
   }
