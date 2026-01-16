@@ -40,6 +40,30 @@ export default {
       backgroundColor: HAIRLINE_COLOR
     }
   },
+  title: {
+    titleNormal: {
+      color: new DynamicColor('rgba(0,0,0,1)', 'rgba(255,255,255,1)')
+    },
+    titleR: {
+      color: new DynamicColor('rgba(0,0,0,0.8)', 'rgba(255,255,255,0.8)')
+    },
+    titleWarn: {
+      color: new DynamicColor('rgba(255,187,15,1)', 'rgba(255,191,15,1)'),
+      backgroundColor: new DynamicColor('rgba(255,187,15,0.1)', 'rgba(255,191,15,0.2)')
+    },
+    titleSub: {
+      color: new DynamicColor('rgba(0,0,0,0.6)', 'rgba(255,255,255,0.5)')
+    },
+    titleSubRight: {
+      color: new DynamicColor('rgba(0,0,0,0.4)', 'rgba(255,255,255,0.5)')
+    },
+    titleLightGray: {
+      color: new DynamicColor('rgba(0,0,0,0.3)', 'rgba(255,255,255,0.4)')
+    },
+    titleError: {
+      color: new DynamicColor('#FA382E', '#FA4238'),
+    }
+  },
   dialog: {
     background: { // 蒙层背景
       flex: 1,
