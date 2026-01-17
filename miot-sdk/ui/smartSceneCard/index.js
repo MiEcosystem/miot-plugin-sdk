@@ -13,8 +13,8 @@ export function SmartSceneCard() {
     return strings.ifttt;
   }, []);
   return (
-    <View style={styles.container}>
-      <IotListItem leftIcon={<SmartScene fill={colorToken.mj_color_gray_icon_1}/>} title={title} onPress={toSmartScene}/>
+    <View style={[styles.container, { backgroundColor: colorToken.mj_color_gray_card_1 }]}>
+      <IotListItem leftIcon={<SmartScene fill={colorToken.mj_color_gray_icon_1}/>} leftIconType="svg" leftIconSize="small" title={title} onPress={toSmartScene}/>
     </View>
   );
 }

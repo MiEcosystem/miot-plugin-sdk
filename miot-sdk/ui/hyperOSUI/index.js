@@ -8,12 +8,14 @@ export {
   FlatOption,
   FlatSelect,
   IotListItem,
+  TitleContainer,
   IotListItemWithWidget,
   defaultTheme,
   defaultColorToken,
   colorToken,
   Fonts,
   ConfigContext,
+  TouchableView,
   ConfigProvider
 } from 'mhui-rn/dist/hyperOS';
 export { default as JestComponent } from 'mhui-rn/dist/jestComponent';
