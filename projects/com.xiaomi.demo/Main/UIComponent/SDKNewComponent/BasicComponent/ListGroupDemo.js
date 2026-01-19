@@ -59,7 +59,7 @@ const sourceGroup1data2 = [
     hideArrow: true,
     type: 'switch',
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     key: 2,
@@ -67,7 +67,7 @@ const sourceGroup1data2 = [
     hideArrow: true,
     type: 'switch',
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     key: 3,
@@ -75,7 +75,7 @@ const sourceGroup1data2 = [
     hideArrow: false,
     type: 'switch',
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   }
 ];
 const sourceGroup2data2 = [
@@ -85,7 +85,7 @@ const sourceGroup2data2 = [
     hideArrow: true,
     type: 'switch',
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     key: 2,
@@ -93,7 +93,7 @@ const sourceGroup2data2 = [
     hideArrow: true,
     type: 'switch',
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     key: 3,
@@ -101,7 +101,7 @@ const sourceGroup2data2 = [
     hideArrow: false,
     type: 'switch',
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   }
 ];
 
@@ -167,7 +167,7 @@ const sourceGroup1data4 = [
     subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
     hideArrow: true,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     key: 2,
@@ -176,7 +176,7 @@ const sourceGroup1data4 = [
     hideArrow: true,
     type: 'switch',
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     key: 3,
@@ -185,7 +185,7 @@ const sourceGroup1data4 = [
     hideArrow: false,
     type: 'switch',
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   }
 ];
 
@@ -197,7 +197,7 @@ const sourceGroup2data4 = [
     subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
     hideArrow: true,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     key: 2,
@@ -206,7 +206,7 @@ const sourceGroup2data4 = [
     hideArrow: true,
     type: 'switch',
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     key: 3,
@@ -215,7 +215,7 @@ const sourceGroup2data4 = [
     hideArrow: false,
     type: 'switch',
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   }
 ];
 const ListGroupDemo = () => {

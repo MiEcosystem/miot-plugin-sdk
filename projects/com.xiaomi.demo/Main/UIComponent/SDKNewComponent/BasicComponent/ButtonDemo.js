@@ -34,7 +34,8 @@ const ButtonDemo = (props) => {
 
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: colorToken.mj_color_gray_bg_2
+    backgroundColor: colorToken.mj_color_gray_bg_2,
+    flex: 1
   }
 });
 

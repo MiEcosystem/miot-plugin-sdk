@@ -50,7 +50,7 @@ import TabBarDemo from "./tutorial/TabBarDemo"; //  ui-导航栏使用
 
 import Settings2022 from './UIComponent/Settings2022';
 import SupportedFont from './UIComponent/SupportedFont';
-import SdkComponentDemo from "./UIComponent/SDKNewComponent/SdkComponentDemo";
+import SdkComponentDemo from "./UIComponent/SdkComponentDemo";
 
 // List
 import ListDemoEntry from "./UIComponent/List/ListDemoEntry";
@@ -291,8 +291,8 @@ function createRootStack(initPage) {
       RadiusDemo,
       DialogDemo,
       HandPopDemo,
-      HandPopCustomDemo,
       HandPopClickDemo,
+      HandPopCustomDemo,
       HandPopTriggerDemo,
       FontsDemo,
       LoadingDemo,

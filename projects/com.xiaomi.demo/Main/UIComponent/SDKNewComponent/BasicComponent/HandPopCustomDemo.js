@@ -5,26 +5,19 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
-import Theme from 'miot/ui/Style/Themes/themeMiHome';
 import Fonts from 'miot/utils/fonts';
-import DarkMode from 'miot/darkmode';
-import Checkable from 'miot/ui/Checkbox/Checkable';
-import tr from "miot/resources/strings/tr";
-import {colorToken} from "mhui-rn/dist/styles/color";
+import {colorToken} from "miot/ui/hyperOSUI";
 import {ChoiceItem} from "miot/ui/hyperOSUI"
-import dynamic from "../../swiper/Dynamic";
 import {dynamicStyleSheet} from "miot/ui";
 
 
-const ExampleIcon = () => {
-  let darkMode = DarkMode.getColorScheme();
-  return (
+const ExampleIcon = () => {return (
     <Svg width={28} height={28} viewBox="0 0 28 28" fill="none">
       <Path
         fillRule="evenodd"
         clipRule="evenodd"
         d="M6.49998 5.09998C5.45063 5.09998 4.59998 5.95063 4.59998 6.99998V11.5C4.59998 12.5493 5.45063 13.4 6.49998 13.4H21.5C22.5493 13.4 23.4 12.5493 23.4 11.5V6.99998C23.4 5.95063 22.5493 5.09998 21.5 5.09998H6.49998ZM6.39998 6.99998C6.39998 6.94475 6.44475 6.89998 6.49998 6.89998H21.5C21.5552 6.89998 21.6 6.94475 21.6 6.99998V11.5C21.6 11.5552 21.5552 11.6 21.5 11.6H6.49998C6.44475 11.6 6.39998 11.5552 6.39998 11.5V6.99998ZM8.87498 8.59998C8.51599 8.59998 8.22498 8.89099 8.22498 9.24998C8.22498 9.60896 8.51599 9.89998 8.87498 9.89998H11.875C12.234 9.89998 12.525 9.60896 12.525 9.24998C12.525 8.89099 12.234 8.59998 11.875 8.59998H8.87498ZM8.22498 18.75C8.22498 18.391 8.51599 18.1 8.87498 18.1H11.875C12.234 18.1 12.525 18.391 12.525 18.75C12.525 19.109 12.234 19.4 11.875 19.4H8.87498C8.51599 19.4 8.22498 19.109 8.22498 18.75ZM6.49998 14.6C5.45063 14.6 4.59998 15.4506 4.59998 16.5V21C4.59998 22.0493 5.45063 22.9 6.49998 22.9H21.5C22.5493 22.9 23.4 22.0493 23.4 21V16.5C23.4 15.4506 22.5493 14.6 21.5 14.6H6.49998ZM6.39998 16.5C6.39998 16.4447 6.44475 16.4 6.49998 16.4H21.5C21.5552 16.4 21.6 16.4447 21.6 16.5V21C21.6 21.0552 21.5552 21.1 21.5 21.1H6.49998C6.44475 21.1 6.39998 21.0552 6.39998 21V16.5Z"
-        fill={darkMode === 'night' ? '#fff' : '#000'}
+        fill={colorToken.mj_color_gray_icon_2}
       />
     </Svg>
   );
@@ -59,9 +52,9 @@ const Item = ({ item, selectable, disabled, onPress, isFirst, isLast,showIcon}) 
         ]}
       >
         {/* 蒙层包裹整个内容，圆角随选中状态 */}
-        {(pressed && !disabled || item.isPressed )&& <View style={[styles.pressOverlay,{backgroundColor:colorToken.mj_color_btn_press} ,borderRadiusStyle]} />}
+        {(pressed && !disabled || item.isPressed )&& <View style={[styles.pressOverlay,{ backgroundColor: colorToken.mj_color_btn_press} ,borderRadiusStyle]} />}
 
-        {showIcon &&<View style={{ width: 26, height: 26,marginRight: 16 }} >
+        {showIcon &&<View style={{ width: 26, height: 26,marginRight: 12 }} >
           <ExampleIcon />
         </View>}
         <View style={styles.textContainer}>

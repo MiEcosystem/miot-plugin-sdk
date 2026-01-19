@@ -3,13 +3,30 @@ import { ScrollView, View } from 'react-native';
 import { PopButton } from 'miot/ui/hyperOSUI/index';
 import { colorToken } from "miot/ui/hyperOSUI";
 import { dynamicStyleSheet } from "miot/ui";
+import NavigationBar from "miot/ui/NavigationBar";
 
 const colors = ['green', 'blue', 'yellow', 'orange', 'wathet', 'purple', 'red'];
 const lightColors = colors.filter((c) => c !== 'red');
 class ButtonColorDemo extends Component {
-  state = {
-    disabled: false
-  };
+  constructor(props) {
+    super(props);
+    let disabled = false;
+    this.state = {
+      disabled
+    };
+    this.props.navigation.setParams({
+      right: [
+        {
+          key: NavigationBar.ICON.MORE,
+          onPress: () => {
+            this.setState((prev) => ({
+              disabled: !prev.disabled
+            }));
+          }
+        }
+      ]
+    });
+  }
 
   renderButtons(size, type, title, colorList = colors) {
     return colorList.map((color) => (

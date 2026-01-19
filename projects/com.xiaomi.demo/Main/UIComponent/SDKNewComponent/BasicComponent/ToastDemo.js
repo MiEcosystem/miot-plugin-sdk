@@ -48,7 +48,8 @@ class ToastDemo extends Component {
 
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: 'transparent'
+    backgroundColor: colorToken.mj_color_gray_bg_2,
+    flex: 1
   },
   header: {
     fontSize: 24,

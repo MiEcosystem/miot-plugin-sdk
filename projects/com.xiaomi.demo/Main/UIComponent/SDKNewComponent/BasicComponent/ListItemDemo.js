@@ -93,7 +93,6 @@ const sourceData1 = [
     buttonOption: {
       title: '全选',
       onPress: () => console.log(4),
-      // ellipsizeMode: 'tail',
       type: 'normal',
       size: 'small'
     }
@@ -132,7 +131,7 @@ const sourceData2 = [
     hideRightIcon: true,
     showDot: false,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     componentType: 1,
@@ -143,8 +142,8 @@ const sourceData2 = [
     hideRightIcon: true,
     showDot: false,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />,
-    leftIconSize: 'regular'
+    leftIconSource: require('../../images/group.png'),
+    leftIconSourceSize: 'regular'
   },
   {
     componentType: 1,
@@ -153,7 +152,7 @@ const sourceData2 = [
     hideRightIcon: false,
     showDot: false,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     componentType: 1,
@@ -163,7 +162,7 @@ const sourceData2 = [
     hideRightIcon: false,
     showDot: true,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     componentType: 1,
@@ -174,7 +173,7 @@ const sourceData2 = [
     hideRightIcon: false,
     showDot: false,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     componentType: 1,
@@ -185,7 +184,7 @@ const sourceData2 = [
     hideRightIcon: false,
     showDot: false,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     componentType: 2,
@@ -195,7 +194,7 @@ const sourceData2 = [
     hideRightIcon: false,
     showDot: true,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />,
+    leftIconSource: require('../../images/group.png'),
     buttonOption: {
       title: '按钮',
       onPress: () => console.log(4),
@@ -213,7 +212,7 @@ const sourceData2 = [
     hideRightIcon: false,
     showDot: true,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />,
+    leftIconSource: require('../../images/group.png'),
     buttonOption: {
       title: '全选',
       onPress: () => console.log(4),
@@ -229,7 +228,7 @@ const sourceData2 = [
     hideRightIcon: false,
     showDot: true,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />,
+    leftIconSource: require('../../images/group.png'),
     showTitleArrow: true
   },
   {
@@ -240,7 +239,7 @@ const sourceData2 = [
     type: 'checkbox',
     hideRightIcon: false,
     showDot: true,
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />,
+    leftIconSource: require('../../images/group.png'),
     onPress: () => console.log(4),
     checkboxOption: {
       checked: true,
@@ -390,7 +389,7 @@ const sourceData4 = [
     hideRightIcon: true,
     showDot: false,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     componentType: 1,
@@ -401,7 +400,7 @@ const sourceData4 = [
     hideRightIcon: true,
     showDot: false,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     componentType: 1,
@@ -411,7 +410,7 @@ const sourceData4 = [
     hideRightIcon: false,
     showDot: false,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     componentType: 1,
@@ -422,7 +421,7 @@ const sourceData4 = [
     hideRightIcon: false,
     showDot: true,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     componentType: 1,
@@ -434,7 +433,7 @@ const sourceData4 = [
     hideRightIcon: false,
     showDot: false,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     componentType: 1,
@@ -446,7 +445,7 @@ const sourceData4 = [
     showDot: false,
     value: '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态',
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     componentType: 2,
@@ -465,7 +464,7 @@ const sourceData4 = [
       type: 'light',
       size: 'medium'
     },
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />
+    leftIconSource: require('../../images/group.png')
   },
   {
     componentType: 2,
@@ -476,7 +475,7 @@ const sourceData4 = [
     hideRightIcon: false,
     showDot: true,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />,
+    leftIconSource: require('../../images/group.png'),
     buttonOption: {
       title: '全选全选全选全选全选全选全选全选全选全选全选',
       onPress: () => console.log(4),
@@ -492,7 +491,7 @@ const sourceData4 = [
     hideRightIcon: false,
     showDot: true,
     onPress: () => console.log(4),
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />,
+    leftIconSource: require('../../images/group.png'),
     buttonOption: {
       title: '按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮',
       onPress: () => console.log(4)
@@ -508,7 +507,7 @@ const sourceData4 = [
     type: 'checkbox',
     hideRightIcon: false,
     showDot: true,
-    leftIcon: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} />,
+    leftIconSource: require('../../images/group.png'),
     onPress: () => console.log(4),
     checkboxOption: {
       checked: true,
@@ -528,7 +527,7 @@ const propConfigs1 = [
   { name: 'hideRightIcon', type: 'boolean', defaultValue: false },
   { name: 'rightIconType', type: 'enum', enumOptions: ['arrow', 'select', 'fold'], defaultValue: 'arrow' },
   { name: 'showDot', type: 'boolean', defaultValue: false },
-  { name: 'leftIcon', type: 'pass', passDescription: '左侧图标组件', defaultValue: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} /> },
+  { name: 'leftIconSource', type: 'pass', passDescription: '左侧图标组件', defaultValue: require('../../images/group.png') },
   { name: 'customRenderer', type: 'pass', passDescription: '右侧自定义渲染', defaultValue: <Image style={{ resizeMode: 'contain', width: 46, height: 46 }} source={require('../../images/group.png')} /> }
 ];
 
@@ -547,7 +546,7 @@ const propConfigs2 = [
     enumOptions: ['green', 'red', 'blue', 'wathet', 'purple', 'white', 'orange', 'yellow'],
     defaultValue: 'green'
   },
-  { name: 'leftIcon', type: 'pass', passDescription: '左侧图标组件', defaultValue: <Image style={{ resizeMode: 'contain', width: '100%', height: '100%' }} source={require('../../images/group.png')} /> },
+  { name: 'leftIconSource', type: 'pass', passDescription: '左侧图标组件', defaultValue: require('../../images/group.png') },
   { name: 'showTitleArrow', type: 'boolean', defaultValue: false },
   { name: 'underlayColor', type: 'string' },
   { name: 'customRenderer', type: 'pass', passDescription: '右侧自定义渲染', defaultValue: <Image style={{ resizeMode: 'contain', width: 46, height: 46 }} source={require('../../images/group.png')} /> },

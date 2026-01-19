@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView, View, Text, Alert } from 'react-native';
 import { Switch, Checkbox, ChoiceItem, JestComponent } from 'miot/ui/hyperOSUI';
 import { colorToken } from 'mhui-rn/dist/styles/color';
@@ -7,6 +7,7 @@ import NavigationBar from "miot/ui/NavigationBar";
 
 const colors = ['green', 'blue', 'yellow', 'orange', 'wathet', 'purple', 'red'];
 const alert = Alert.alert;
+
 const propConfigs1 = [
   { name: 'value', type: 'boolean', defaultValue: false },
   { name: 'disabled', type: 'boolean', defaultValue: false },
@@ -50,122 +51,117 @@ const propConfigs3 = [
   },
   { name: 'onValueChange', type: 'pass', passDescription: '选中状态变化回调', defaultValue: () => alert('选中状态变化回调') }
 ];
-class AtomicDemo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: false,
-      disabled: false
-    };
-    this.props.navigation.setParams({
+
+const AtomicDemo = ({ navigation }) => {
+  const [disabled, setDisabled] = useState(false);
+
+  // 独立状态数组
+  const [valueSwitch, setValueSwitch] = useState(colors.map(() => false));
+  const [valueCheckbox, setValueCheckbox] = useState(colors.map(() => false));
+  const [valueChoice1, setValueChoice1] = useState(colors.map(() => false));
+  const [valueChoice2, setValueChoice2] = useState(colors.map(() => false));
+
+  useEffect(() => {
+    navigation.setParams({
       right: [
         {
           key: NavigationBar.ICON.MORE,
-          onPress: () => {
-            this.setState((prev) => ({
-              disabled: !prev.disabled
-            }));
-          }
+          onPress: () => setDisabled(prev => !prev)
         }
       ]
     });
-  }
+  }, []);
 
-  renderSwitch(colorList = colors) {
-    return colorList.map((color, index) => (
-      <View key={color} style={{ marginTop: index === 0 ? 0 : 56 }}>
+  const renderSwitch = () =>
+    colors.map((color, index) => (
+      <View key={color} style={{ marginTop: index === 0 ? 0 : 52 }}>
         <Switch
           colorType={color}
-          value={this.state.value}
-          disabled={this.state.disabled}
-          onValueChange={() =>
-            this.setState((prev) => ({ value: !prev.value }))
-          }
+          value={valueSwitch[index]}
+          disabled={disabled}
+          onValueChange={() => {
+            const newValues = [...valueSwitch];
+            newValues[index] = !newValues[index];
+            setValueSwitch(newValues);
+          }}
         />
       </View>
     ));
-  }
 
-  renderCheckBox(colorList = colors) {
-    return colorList.map((color, index) => (
+  const renderCheckBox = () =>
+    colors.map((color, index) => (
       <View key={color} style={{ marginTop: index === 0 ? 0 : 56 }}>
         <Checkbox
           colorType={color}
-          checked={this.state.value}
-          disabled={this.state.disabled}
-          onValueChange={() =>
-            this.setState((prev) => ({ value: !prev.value }))
-          }
+          checked={valueCheckbox[index]}
+          disabled={disabled}
+          onValueChange={() => {
+            const newValues = [...valueCheckbox];
+            newValues[index] = !newValues[index];
+            setValueCheckbox(newValues);
+          }}
         />
       </View>
     ));
-  }
-  renderChoiceItem1(colorList = colors) {
-    return colorList.map((color, index) => (
+
+  const renderChoiceItem1 = () =>
+    colors.map((color, index) => (
       <View key={color} style={{ marginTop: index === 0 ? 0 : 56 }}>
         <ChoiceItem
           colorType={color}
-          choosed={this.state.value}
-          disabled={this.state.disabled}
+          choosed={valueChoice1[index]}
+          disabled={disabled}
           type={1}
-          onValueChange={() =>
-            this.setState((prev) => ({ value: !prev.value }))
-          }
+          onValueChange={() => {
+            const newValues = [...valueChoice1];
+            newValues[index] = !newValues[index];
+            setValueChoice1(newValues);
+          }}
         />
       </View>
     ));
-  }
-  renderChoiceItem2(colorList = colors) {
-    return colorList.map((color, index) => (
+
+  const renderChoiceItem2 = () =>
+    colors.map((color, index) => (
       <View key={color} style={{ marginTop: index === 0 ? 0 : 56 }}>
         <ChoiceItem
           colorType={color}
-          choosed={this.state.value}
-          disabled={this.state.disabled}
+          choosed={valueChoice2[index]}
+          disabled={disabled}
           type={2}
-          onValueChange={() =>
-            this.setState((prev) => ({ value: !prev.value }))
-          }
+          onValueChange={() => {
+            const newValues = [...valueChoice2];
+            newValues[index] = !newValues[index];
+            setValueChoice2(newValues);
+          }}
         />
       </View>
     ));
-  }
 
-  render() {
-    return (
-      <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.component} >
-          {/* Switch 列 */}
-          <View style={styles.column}>
-            {this.renderSwitch()}
-          </View>
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.component}>
+        <View style={styles.column}>{renderSwitch()}</View>
+        <View style={styles.column}>{renderCheckBox()}</View>
+        <View style={styles.column}>{renderChoiceItem1()}</View>
+        <View style={styles.column}>{renderChoiceItem2()}</View>
+      </View>
 
-          {/* Checkbox 列 */}
-          <View style={styles.column}>
-            {this.renderCheckBox()}
-          </View>
-          <View style={styles.column}>
-            {this.renderChoiceItem1()}
-          </View>
-          <View style={styles.column}>
-            {this.renderChoiceItem2()}
-          </View>
-        
-        </View>
-        <Text style={styles.header}>Switch - 开关组件</Text>
-        <JestComponent component={Switch} propConfigs={propConfigs1} />
-        <Text style={styles.header}>Checkbox - 复选框</Text>
-        <JestComponent component={Checkbox} propConfigs={propConfigs2} />
-        <Text style={styles.header}>ChoiceItem - 单选</Text>
-        <JestComponent component={ChoiceItem} propConfigs={propConfigs3} />
-      </ScrollView>
-    );
-  }
-}
+      <Text style={styles.header}>Switch - 开关组件</Text>
+      <JestComponent component={Switch} propConfigs={propConfigs1} />
+
+      <Text style={styles.header}>Checkbox - 复选框</Text>
+      <JestComponent component={Checkbox} propConfigs={propConfigs2} />
+
+      <Text style={styles.header}>ChoiceItem - 单选</Text>
+      <JestComponent component={ChoiceItem} propConfigs={propConfigs3} />
+    </ScrollView>
+  );
+};
 
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: colorToken.mj_color_gray_bg_2
+    backgroundColor: colorToken.mj_color_gray_bg_2,
   },
   component: {
     flexDirection: 'row',

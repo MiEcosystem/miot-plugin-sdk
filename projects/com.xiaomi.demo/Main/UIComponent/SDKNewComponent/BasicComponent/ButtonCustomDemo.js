@@ -73,7 +73,7 @@ class ButtonCustomDemo extends Component {
           size="large"
           type="normal"
           title={ this.state.multilingual ? "切换禁用态切换禁用态切换禁用态切换禁用态" : "查看颜色配置" }
-          disabled={false}
+          disabled={this.state.disabled}
           onPress={() => {
             !this.state.multilingual ? this.navigateToScreen('ButtonColorDemo') : console.log("点击了按钮2");
           }}
@@ -147,6 +147,14 @@ class ButtonCustomDemo extends Component {
           disabled={this.state.disabled}
         >
         </PopButton>
+        <View style={ { marginTop: 48 } }/>
+        <PopButton
+          size="mini"
+          type="normal"
+          title={ this.state.multilingual ? "普通普通普通普通普通普通普通普通" : "普通" }
+          disabled={this.state.disabled}
+        >
+        </PopButton>
         <Text style={styles.header}>PopButton - 按钮组件</Text>
         <JestComponent component={PopButton} propConfigs={propConfigs} />
       </ScrollView>
@@ -156,7 +164,8 @@ class ButtonCustomDemo extends Component {
 
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: colorToken.mj_color_gray_bg_2
+    backgroundColor: colorToken.mj_color_gray_bg_2,
+    flex: 1
   },
   header: {
     fontSize: 24,

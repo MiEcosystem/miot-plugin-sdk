@@ -14,7 +14,7 @@ import { Circle } from 'miot/ui/icons';
 //     title: '标题',
 //     hideRightIcon: true,
 //     showDot: false,
-//     leftIcon: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+//     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
 //     onPress: () => console.log(4)
 //   }
 // ];
@@ -23,13 +23,13 @@ const source1Data2 = [
   {
     index: 1,
     title: '标题',
-    leftIcon: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
   {
     index: 2,
     title: '标题',
-    leftIcon: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
   {
@@ -38,7 +38,7 @@ const source1Data2 = [
     subtitle: '列表副文字',
     value: '状态',
     showDot: true,
-    leftIcon: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
   {
@@ -46,7 +46,7 @@ const source1Data2 = [
     title: '标题',
     subtitle: '列表副文字',
     hideRightIcon: false,
-    leftIcon: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
   {
@@ -54,7 +54,7 @@ const source1Data2 = [
     title: '标题',
     subtitle: '列表副文字',
     hideRightIcon: false,
-    leftIcon: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   }
 ];
@@ -96,7 +96,7 @@ const source1Data3 = [
 //     title: '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',
 //     hideRightIcon: true,
 //     showDot: false,
-//     leftIcon: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+//     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
 //     onPress: () => console.log(4)
 //   }
 // ];
@@ -105,13 +105,13 @@ const source2Data2 = [
   {
     index: 1,
     title: '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',
-    leftIcon: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
   {
     index: 2,
     title: '标题',
-    leftIcon: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
   {
@@ -120,7 +120,7 @@ const source2Data2 = [
     subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
     value: '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态',
     showDot: true,
-    leftIcon: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
   {
@@ -128,7 +128,7 @@ const source2Data2 = [
     title: '标题',
     subtitle: '列表副文字',
     hideRightIcon: false,
-    leftIcon: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
   {
@@ -136,7 +136,7 @@ const source2Data2 = [
     title: '标题',
     subtitle: '列表副文字',
     hideRightIcon: false,
-    leftIcon: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   }
 ];
@@ -240,7 +240,7 @@ const EntryLDemo = () => {
             return <IotListItem key={index} {...item} disabled={state.disabled}/>;
           })}
         </View>
-        <View style={{ height: 10 }}/>
+        <View style={{ height: 12 }}/>
         <Text style={styles.title}>不带图标</Text>
         <View style={styles.data}>
           {state.sourceData3.map((item, index) => {

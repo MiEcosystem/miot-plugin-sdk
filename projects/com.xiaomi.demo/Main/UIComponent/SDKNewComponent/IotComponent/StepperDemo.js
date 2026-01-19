@@ -4,17 +4,19 @@ import React, { useState, useMemo } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
 import { colorToken, Stepper } from "miot/ui/hyperOSUI";
-import { Cold } from 'miot/ui/icons';
+import { Cold, Celsius, Percent } from 'miot/ui/icons';
+import { useCallback } from 'react';
 
 const StepperDemo = ({ navigation }) => {
   const [targetTemperature, setTargetTemperature] = useState(23);
   const [targetTemperature2, setTargetTemperature2] = useState(50);
-  const suffix = useMemo(() => {
+  const suffixFn = useCallback((disable = false) => {
     return <View>
-      <Text style={{ color: colorToken.mj_color_gray_text_4 }}>{'°'}</Text>
-      <Cold fill={colorToken.mjcard_color_blue_1} width={8} height={8}/>
+      <Celsius fill={disable ? colorToken.mj_color_gray_icon_6 : colorToken.mj_color_gray_icon_1} width={8} height={8} />
+      <View style={{ height: 3 }}/>
+      <Cold fill={disable ? colorToken.mjcard_color_blue_3 : colorToken.mjcard_color_blue_1} width={8} height={8}/>
     </View>;
-  }, [colorToken.mj_color_gray_text_4, colorToken.mjcard_color_blue_1]);
+  }, [colorToken]);
 
   return (
     <ScrollView style={styles.container}>
@@ -24,7 +26,7 @@ const StepperDemo = ({ navigation }) => {
         <Text style={styles.text}>标题</Text>
         <Stepper
           step={0.5}
-          suffix={suffix}
+          suffix={suffixFn()}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
@@ -35,43 +37,40 @@ const StepperDemo = ({ navigation }) => {
       <View style={styles.stepperContainer} >
         <Stepper
           step={0.5}
-          suffix={suffix}
+          suffix={suffixFn()}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
           max={30}
         />
       </View>
-     
       <Text style={styles.title}>中间状态可配置</Text>
       <View style={styles.stepperContainer} >
         <Stepper
           step={0.5}
-          suffix={<Text style={{ color: colorToken.mj_color_gray_text_4 }}>{'%'}</Text>}
+          suffix={<View style={{ height: 24, justifyContent: 'flex-start' }}><Percent fill={colorToken.mj_color_gray_icon_1} /></View>}
           value={targetTemperature2}
           onChange={setTargetTemperature2}
           min={0}
           max={100}
         />
       </View>
-     
       <Text style={styles.title}>禁用</Text>
       <View style={styles.stepperContainer} >
         <Stepper
           step={0.5}
-          suffix={suffix}
+          suffix={suffixFn()}
           value={23}
           onChange={setTargetTemperature}
           min={23}
           max={23}
         />
       </View>
-     
       <Text style={styles.title}>禁用</Text>
       <View style={styles.stepperContainer} >
         <Stepper
           step={0.5}
-          suffix={suffix}
+          suffix={suffixFn(true)}
           value={targetTemperature}
           disabled={true}
           onChange={setTargetTemperature}
@@ -79,7 +78,6 @@ const StepperDemo = ({ navigation }) => {
           max={30}
         />
       </View>
-      
       <Text style={styles.title}>空态</Text>
       <View style={styles.stepperContainer} >
         <Stepper
@@ -100,12 +98,14 @@ const styles = dynamicStyleSheet({
     backgroundColor: colorToken.mj_color_gray_bg_2
   },
   text: {
+    marginLeft: 4,
     fontSize: 16,
     color: colorToken.mj_color_gray_text_1,
     paddingHorizontal: 16,
     paddingTop: 12
   },
   title: {
+    fontSize: 14,
     color: colorToken.mjcard_color_miui_1,
     paddingHorizontal: 16,
     paddingVertical: 6

@@ -133,7 +133,7 @@ class HandPopTriggerDemo extends Component {
 }
 
 const styles = dynamicStyleSheet({
-  container: { flex: 1, backgroundColor: "transparent" },
+  container: { flex: 1, backgroundColor: colorToken.mj_color_gray_bg_2 },
   grid: { justifyContent: 'flex-start', marginBottom: 8 },
   itemWrapper: { margin: 4 },
   item: {
@@ -146,7 +146,7 @@ const styles = dynamicStyleSheet({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.15,
     shadowRadius: 2,
-    backgroundColor: colorToken.mj_color_gray_bg_2,
+    backgroundColor: colorToken.mj_color_gray_card_1,
   },
   text: { color: colorToken.mjcard_color_blue_2, textAlign: 'center', ...fonts.mjTextCustom14M },
 });
