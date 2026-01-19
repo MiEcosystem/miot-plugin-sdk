@@ -14,7 +14,7 @@ export function SmartSceneCard() {
   }, []);
   return (
     <View style={[styles.container, { backgroundColor: colorToken.mj_color_gray_card_1 }]}>
-      <IotListItem leftIcon={<SmartScene fill={colorToken.mj_color_gray_icon_1}/>} leftIconType="svg" leftIconSize="small" title={title} onPress={toSmartScene}/>
+      <IotListItem leftIconSource={<SmartScene fill={colorToken.mj_color_gray_icon_1}/>} leftIconType="svg" leftIconSize="small" title={title} onPress={toSmartScene}/>
     </View>
   );
 }

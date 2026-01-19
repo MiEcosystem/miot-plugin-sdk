@@ -348,5 +348,5 @@ export default {
   bluetooth_connection_phone: 'מאפיין זה זקוק לחיבור ה-Bluetooth של הטלפון שלך',
   connection_successful: 'התחבר בהצלחה',
   connection_failed: 'לא ניתן להתחבר',
-  common_brand_produced_by: '${} מיוצר על ידי'
+  common_brand_produced_by: 'עוצב על ידי ${}'
 };
