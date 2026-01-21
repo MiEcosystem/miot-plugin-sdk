@@ -41,8 +41,8 @@ const styles = dynamicStyleSheet({
     alignSelf: 'center'
   },
   text: {
-    lineHeight: 17,
+    lineHeight: 16,
     color: colorToken.mj_color_gray_text_5,
-    ...Fonts.mj_text_custom_13_M
+    ...Fonts.mj_text_custom_12_M
   }
 });

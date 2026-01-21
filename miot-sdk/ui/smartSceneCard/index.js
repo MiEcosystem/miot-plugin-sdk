@@ -20,7 +20,7 @@ export function SmartSceneCard() {
 }
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 16,
+    borderRadius: 20,
     overflow: 'hidden'
   }
 });
