@@ -142,7 +142,7 @@ const HandPopClickDemo = ({ navigation }) => {
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
       <Text style={styles.header}>点击样式</Text>
       {renderGroup(group1, 1, )}
-      {renderGroup(group2, 2, 200)}
+      {renderGroup(group2, 2, )}
       {renderGroup(group3, 3,)}
     </ScrollView>
   );
