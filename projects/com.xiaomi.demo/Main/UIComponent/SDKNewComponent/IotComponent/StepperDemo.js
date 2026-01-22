@@ -1,9 +1,9 @@
 'use strict';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
-import { colorToken, Stepper } from "miot/ui/hyperOSUI";
+import { colorToken, Fonts, Stepper } from "miot/ui/hyperOSUI";
 import { Cold, Celsius, Percent } from 'miot/ui/icons';
 import { useCallback } from 'react';
 
@@ -14,7 +14,7 @@ const StepperDemo = ({ navigation }) => {
     return <View>
       <Celsius fill={disable ? colorToken.mj_color_gray_icon_6 : colorToken.mj_color_gray_icon_1} width={8} height={8} />
       <View style={{ height: 3 }}/>
-      <Cold fill={disable ? colorToken.mjcard_color_blue_3 : colorToken.mjcard_color_blue_1} width={8} height={8}/>
+      <Cold fill={disable ? colorToken.mj_color_gray_icon_6 : colorToken.mjcard_color_blue_1} width={8} height={8}/>
     </View>;
   }, [colorToken]);
 
@@ -42,6 +42,7 @@ const StepperDemo = ({ navigation }) => {
           onChange={setTargetTemperature}
           min={20}
           max={30}
+          iconType={'direction'}
         />
       </View>
       <Text style={styles.title}>中间状态可配置</Text>
@@ -55,7 +56,7 @@ const StepperDemo = ({ navigation }) => {
           max={100}
         />
       </View>
-      <Text style={styles.title}>禁用</Text>
+      <Text style={styles.title}>禁用（开）</Text>
       <View style={styles.stepperContainer} >
         <Stepper
           step={0.5}
@@ -66,7 +67,7 @@ const StepperDemo = ({ navigation }) => {
           max={23}
         />
       </View>
-      <Text style={styles.title}>禁用</Text>
+      <Text style={styles.title}>禁用（关）</Text>
       <View style={styles.stepperContainer} >
         <Stepper
           step={0.5}
@@ -78,7 +79,7 @@ const StepperDemo = ({ navigation }) => {
           max={30}
         />
       </View>
-      <Text style={styles.title}>空态</Text>
+      <Text style={styles.title}>无数据</Text>
       <View style={styles.stepperContainer} >
         <Stepper
           step={0.5}
@@ -99,23 +100,26 @@ const styles = dynamicStyleSheet({
   },
   text: {
     marginLeft: 4,
-    fontSize: 16,
     color: colorToken.mj_color_gray_text_1,
     paddingHorizontal: 16,
-    paddingTop: 12
+    paddingTop: 12,
+    lineHeight: 32,
+    ...Fonts.mj_text_custom_16_M
   },
   title: {
-    fontSize: 14,
     color: colorToken.mjcard_color_miui_1,
     paddingHorizontal: 16,
-    paddingVertical: 6
+    paddingVertical: 6,
+    marginTop: 12,
+    ...Fonts.mj_text_custom_13_R
   },
   header: {
     fontSize: 24,
     color: colorToken.mj_color_gray_text_2,
     fontWeight: '500',
     paddingHorizontal: 15,
-    marginBottom: 20
+    marginBottom: 10,
+    ...Fonts.mj_text_custom_24_M
   },
   sectionContainer: {
     backgroundColor: colorToken.mj_color_gray_bg_1,

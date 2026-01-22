@@ -2,9 +2,8 @@
 
 import React, { useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { IotListItem, IotListItemWithWidget } from 'miot/ui/hyperOSUI';
+import { IotListItem, colorToken, Fonts } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style';
-import { colorToken } from 'miot/ui/hyperOSUI';
 import { Circle } from 'miot/ui/icons';
 
 // const source1Data1 = [
@@ -23,12 +22,14 @@ const source1Data2 = [
   {
     index: 1,
     title: '标题',
+    leftIconType: 'svg',
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
   {
     index: 2,
     title: '标题',
+    leftIconType: 'svg',
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
@@ -38,6 +39,7 @@ const source1Data2 = [
     subtitle: '列表副文字',
     value: '状态',
     showDot: true,
+    leftIconType: 'svg',
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
@@ -46,6 +48,7 @@ const source1Data2 = [
     title: '标题',
     subtitle: '列表副文字',
     hideRightIcon: false,
+    leftIconType: 'svg',
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
@@ -54,6 +57,7 @@ const source1Data2 = [
     title: '标题',
     subtitle: '列表副文字',
     hideRightIcon: false,
+    leftIconType: 'svg',
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   }
@@ -105,12 +109,14 @@ const source2Data2 = [
   {
     index: 1,
     title: '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',
+    leftIconType: 'svg',
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
   {
     index: 2,
     title: '标题',
+    leftIconType: 'svg',
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
@@ -120,6 +126,7 @@ const source2Data2 = [
     subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
     value: '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态',
     showDot: true,
+    leftIconType: 'svg',
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
@@ -128,6 +135,7 @@ const source2Data2 = [
     title: '标题',
     subtitle: '列表副文字',
     hideRightIcon: false,
+    leftIconType: 'svg',
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
@@ -136,6 +144,7 @@ const source2Data2 = [
     title: '标题',
     subtitle: '列表副文字',
     hideRightIcon: false,
+    leftIconType: 'svg',
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   }
@@ -240,7 +249,6 @@ const EntryLDemo = () => {
             return <IotListItem key={index} {...item} disabled={state.disabled}/>;
           })}
         </View>
-        <View style={{ height: 12 }}/>
         <Text style={styles.title}>不带图标</Text>
         <View style={styles.data}>
           {state.sourceData3.map((item, index) => {
@@ -287,7 +295,9 @@ const styles = dynamicStyleSheet({
   title: {
     color: colorToken.mjcard_color_miui_1,
     paddingHorizontal: 16,
-    paddingVertical: 6
+    paddingVertical: 6,
+    marginTop: 12,
+    ...Fonts.mj_text_subtitle_3_R
   },
   button: {
     fontSize: 14,

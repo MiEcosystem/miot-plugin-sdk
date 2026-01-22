@@ -318,7 +318,7 @@ class IUi {
    */
   @report
   showToast(text = '') {
-    native.MIOTHost.showToast(text);
+    native.MIOTHost.showToast(text, 0);
   }
   /**
    *

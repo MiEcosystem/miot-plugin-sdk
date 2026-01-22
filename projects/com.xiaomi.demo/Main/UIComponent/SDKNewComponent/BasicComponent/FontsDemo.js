@@ -64,6 +64,7 @@ const FONT_SECTIONS = [
     title: '自定义',
     items: [
       'mj_text_custom_32_M',
+      'mj_text_custom_26_M',
       'mj_text_custom_24_M',
       'mj_text_custom_20_M',
       'mj_text_custom_20_R',
@@ -84,20 +85,38 @@ const FONT_SECTIONS = [
       'mj_text_custom_10_M',
       'mj_text_custom_10_R'
     ]
+  },
+  {
+    title: '数值',
+    additionalString: ['28 °', '26 °', '24 °'],
+    items: [
+      'mj_text_num_28_D',
+      'mj_text_num_26_D',
+      'mj_text_num_24_D'
+    ]
   }
 ];
 
 class SupportedFont extends Component {
-    renderText = (name) => (
-      <Text key={name} style={[styles.demoText, Fonts[name]]}>
-        {name}
-      </Text>
-    );
+    renderText = (name, text) => {
+      return (
+        <View key={name} style={styles.item}>
+          <Text key={name} style={[styles.demoText, text ? {} : Fonts[name]]}>
+            {name}
+          </Text>
+          {text ? <Text key={text} style={[styles.demoText, Fonts[name]]}>
+            {text}
+          </Text> : null}
+        </View>
+      ); 
+    };
 
-    renderSection = ({ title, items }) => (
+    renderSection = ({ title, items, additionalString }) => (
       <View key={title}>
         <Text style={styles.sectionLabel}>{title}</Text>
-        {items.map(this.renderText)}
+        {items.map((item, index) => {
+          return this.renderText(item, additionalString ? additionalString[index] : '');
+        })}
       </View>
     );
 
@@ -116,6 +135,10 @@ const styles = dynamicStyleSheet({
     backgroundColor: colorToken.mj_color_gray_bg_2,
     paddingTop: 30,
     paddingHorizontal: 20
+  },
+  item: {
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   sectionLabel: {
     fontSize: 14,
