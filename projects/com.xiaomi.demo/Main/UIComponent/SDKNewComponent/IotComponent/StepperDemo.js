@@ -122,13 +122,13 @@ const styles = dynamicStyleSheet({
     ...Fonts.mj_text_custom_24_M
   },
   sectionContainer: {
-    backgroundColor: colorToken.mj_color_gray_bg_1,
+    backgroundColor: colorToken.mj_color_gray_card_1,
     marginHorizontal: 12,
     borderRadius: 16,
     marginBottom: 12
   },
   stepperContainer: {
-    backgroundColor: colorToken.mj_color_gray_bg_1,
+    backgroundColor: colorToken.mj_color_gray_card_1,
     marginHorizontal: 12
   }
 });

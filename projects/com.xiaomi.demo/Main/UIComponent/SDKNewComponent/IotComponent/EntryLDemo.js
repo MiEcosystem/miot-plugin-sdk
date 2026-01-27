@@ -307,7 +307,8 @@ const styles = dynamicStyleSheet({
   },
   data: {
     borderRadius: 16,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    backgroundColor: colorToken.mj_color_gray_card_1
   },
   caseContainer: {
     marginBottom: 12

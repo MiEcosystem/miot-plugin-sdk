@@ -79,7 +79,7 @@ const styles = dynamicStyleSheet({
     marginBottom: 20
   },
   sectionContainer: {
-    backgroundColor: colorToken.mj_color_gray_bg_1,
+    backgroundColor: colorToken.mj_color_gray_card_1,
     marginHorizontal: 12,
     borderRadius: 16,
     marginBottom: 12
