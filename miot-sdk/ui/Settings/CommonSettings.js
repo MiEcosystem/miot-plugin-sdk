@@ -460,7 +460,7 @@ const AllAndDefaultOptions = getAllAndDefaultOptions(innerOptions);
 export const options = AllAndDefaultOptions.options;
 const defaultOptions = AllAndDefaultOptions.defaultOptions;
 const commonOptions = ['deviceCall', 'deviceService', 'share', 'ifttt', 'firmwareUpgrade', 'help', 'security', 'addToDesktop', 'freqDevice', 'freqCamera', 'defaultPlugin', 'pairMode'];
-const carOptions = ['name', 'productBaike', 'helpAndFeedback', 'more', 'pluginVersion', 'legalInfo', 'timezone', 'addToDesktop'];
+const carOptions = ['name', 'productBaike', 'help', 'more', 'pluginVersion', 'legalInfo', 'timezone', 'addToDesktop'];
 export default function CommonSettings(params) {
   const { customOptions } = params;
   const isFromCarRoom = Device.fromRoomIndex === 1 || Device.fromRoomIndex === 2;
