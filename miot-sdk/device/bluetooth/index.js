@@ -333,5 +333,30 @@ export default {
    * @returns {Promise<unknown> | Promise.Promise}
    */
   encryptLockMessage(data) {
+  },
+  /**
+   * https://xiaomi.f.mioffice.cn/docx/doxk4TXnB59q5hE5SrJ1oNDe8Vg
+   * @param friendlyName
+   * @param sessionId
+   * @param brandID
+   * @param vehicleBrandId
+   * @returns {Promise<unknown> | Promise.Promise}
+   */
+  createDigitalKey(friendlyName, sessionId, brandID, vehicleBrandId) {
+  },
+  /**
+   * UWB显示用户授权（Android only）
+   * since SDK_10114
+   * @return void
+   */
+  showUWBUserAgreement() {
+  },
+  /**
+   * UWB获取用户授权状态（Android only）
+   * since SDK_10114
+   * @returns Promise<boolean>
+   * @throws {code: number, msg1: string, msg2: string}
+   */
+  getUWBUserAgreementStatus() {
   }
 };

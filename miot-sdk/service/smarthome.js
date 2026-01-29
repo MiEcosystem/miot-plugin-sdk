@@ -1511,8 +1511,8 @@ class ISmartHome {
    * Service.smarthome.reportEventRefChannel(eventName,params);
    */
   @report
-  recordEvent(eventName, ref = null, subRef = null, fromRef = null, fromSubRef = null, params) {
-  }
+    recordEvent(eventName, ref = null, subRef = null, fromRef = null, fromSubRef = null, params) {
+    }
   /**
    * since 10089
    * 获取品牌信息
@@ -1521,7 +1521,7 @@ class ISmartHome {
    * let params = [23];
    */
   @report
-    getBrandInfos(params) {
+  getBrandInfos(params) {
   /**
    * 查询云服务接口，插件是否撤销了隐私协议
    */

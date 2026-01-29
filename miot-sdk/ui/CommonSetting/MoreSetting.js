@@ -2,7 +2,7 @@
 import { DarkMode, Device, DeviceEvent, Package, PackageEvent, Service, System } from 'miot';
 import Host from 'miot/Host';
 import React from 'react';
-import {Platform, StyleSheet, View} from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { strings, Styles } from '../../resources';
 import ListItem from '../ListItem/ListItem';
 import NavigationBar from '../NavigationBar';

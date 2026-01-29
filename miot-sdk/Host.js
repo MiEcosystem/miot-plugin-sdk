@@ -178,6 +178,13 @@ export default {
     return false;
   },
   /**
+   * 当前手机是否支持UWB：
+   * @returns {*}
+   */
+  get isSupportUWB() {
+    return native.MIOTHost.isSupportUWB;
+  },
+  /**
    * 双端为支持初始化路由器插件优化增加android手机品牌
    * since 10105
    * @returns {*}
