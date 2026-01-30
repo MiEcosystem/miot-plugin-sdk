@@ -3,16 +3,33 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
-import { colorToken, Fonts, Stepper } from "miot/ui/hyperOSUI";
+import { colorToken, Fonts, Stepper, TestComponent } from "miot/ui/hyperOSUI";
 import { Cold, Celsius, Percent } from 'miot/ui/icons';
 import { useCallback } from 'react';
+
+const propConfigs = [
+  { name: 'value', type: 'string', defaultValue: '0.00' },
+  { name: 'onChange', type: 'pass', passDescription: '值变化回调 (value: string | null) => void' },
+  { name: 'step', type: 'string', defaultValue: '0.01' },
+  { name: 'stringMode', type: 'boolean', defaultValue: true },
+  { name: 'digits', type: 'number', defaultValue: 2 },
+  { name: 'min', type: 'string', defaultValue: '0.00' },
+  { name: 'max', type: 'string', defaultValue: '999.99' },
+  // eslint-disable-next-line no-template-curly-in-string
+  { name: 'formatter', type: 'pass', passDescription: '格式化函数: (value?: string) => string，如: (v) => `${v}kg`' },
+  { name: 'prefix', type: 'pass', passDescription: '可选: React.ReactNode' },
+  { name: 'suffix', type: 'pass', passDescription: '可选: React.ReactNode' },
+  { name: 'iconType', type: 'enum', enumOptions: ['symbol', 'direction'], defaultValue: 'symbol' },
+  { name: 'disabled', type: 'boolean', defaultValue: false },
+  { name: 'closed', type: 'boolean', defaultValue: false }
+];
 
 const StepperDemo = ({ navigation }) => {
   const [targetTemperature, setTargetTemperature] = useState(23);
   const [targetTemperature2, setTargetTemperature2] = useState(50);
   const suffixFn = useCallback((disable = false) => {
-    return <View>
-      <Celsius fill={disable ? colorToken.mj_color_gray_icon_6 : colorToken.mj_color_gray_icon_1} width={8} height={8} />
+    return <View style={{ justifyContent: 'center' }}>
+      <Celsius fill={disable ? colorToken.mj_color_gray_icon_6 : colorToken.mj_color_gray_icon_2} width={8} height={8} />
       <View style={{ height: 3 }}/>
       <Cold fill={disable ? colorToken.mj_color_gray_icon_6 : colorToken.mjcard_color_blue_1} width={8} height={8}/>
     </View>;
@@ -49,7 +66,7 @@ const StepperDemo = ({ navigation }) => {
       <View style={styles.stepperContainer} >
         <Stepper
           step={0.5}
-          suffix={<View style={{ height: 24, justifyContent: 'flex-start' }}><Percent fill={colorToken.mj_color_gray_icon_1} /></View>}
+          suffix={<View style={{ height: 24, justifyContent: 'flex-start' }}><Percent fill={colorToken.mj_color_gray_icon_2} /></View>}
           value={targetTemperature2}
           onChange={setTargetTemperature2}
           min={0}
@@ -63,8 +80,7 @@ const StepperDemo = ({ navigation }) => {
           suffix={suffixFn()}
           value={23}
           onChange={setTargetTemperature}
-          min={23}
-          max={23}
+          closed={true}
         />
       </View>
       <Text style={styles.title}>禁用（关）</Text>
@@ -89,6 +105,10 @@ const StepperDemo = ({ navigation }) => {
           min={20}
           max={30}
         />
+      </View>
+      <View style={styles.caseContainer}>
+        <Text style={[styles.header, { marginTop: 12 }]}>Stepper - 步进器</Text>
+        <TestComponent component={Stepper} propConfigs={propConfigs}/>
       </View>
     </ScrollView>
   );
@@ -130,6 +150,9 @@ const styles = dynamicStyleSheet({
   stepperContainer: {
     backgroundColor: colorToken.mj_color_gray_card_1,
     marginHorizontal: 12
+  },
+  caseContainer: {
+    marginBottom: 12
   }
 });
 

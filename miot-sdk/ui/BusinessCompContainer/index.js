@@ -3,7 +3,7 @@ import { StyleSheet, ScrollView, Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import { adjustSize } from '../../utils/sizes';
 import Host from '../../Host';
-const isIos = Platform.OS === 'ios';
+const isIOS = Platform.OS === 'ios';
 export const BusinessCompContainer = ({
   backgroundComponent,
   containerStyle,
@@ -44,6 +44,6 @@ const Styles = StyleSheet.create({
     flex: 1
   },
   contentInner: {
-    paddingBottom: isIos ? Host.safeAreaInsets.bottom : adjustSize(30)
+    paddingBottom: isIOS ? Host.safeAreaInsets.bottom : adjustSize(30)
   }
 });

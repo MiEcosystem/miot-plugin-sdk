@@ -6,7 +6,7 @@ import { dynamicStyleSheet } from "miot/ui";
 import { colorToken, ListGroup } from "miot/ui/hyperOSUI";
 
 const UIItems = [
-  { title: 'L', router: 'EntryLDemo' }
+  { title: 'L', router: 'LargeEntranceDemo' }
   // { title: 'M', router: 'EntryMDemo' },
   // { title: 'S', router: 'EntrySDemo' }
 ];

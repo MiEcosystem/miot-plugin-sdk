@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, View, Text, Alert } from 'react-native';
-import { Switch, Checkbox, ChoiceItem, JestComponent } from 'miot/ui/hyperOSUI';
+import { Switch, Checkbox, ChoiceItem, TestComponent } from 'miot/ui/hyperOSUI';
 import { colorToken } from 'mhui-rn/dist/styles/color';
 import { dynamicStyleSheet } from 'miot/ui';
 import NavigationBar from "miot/ui/NavigationBar";
@@ -66,7 +66,7 @@ const AtomicDemo = ({ navigation }) => {
       right: [
         {
           key: NavigationBar.ICON.MORE,
-          onPress: () => setDisabled(prev => !prev)
+          onPress: () => setDisabled((prev) => !prev)
         }
       ]
     });
@@ -148,20 +148,20 @@ const AtomicDemo = ({ navigation }) => {
       </View>
 
       <Text style={styles.header}>Switch - 开关组件</Text>
-      <JestComponent component={Switch} propConfigs={propConfigs1} />
+      <TestComponent component={Switch} propConfigs={propConfigs1} />
 
       <Text style={styles.header}>Checkbox - 复选框</Text>
-      <JestComponent component={Checkbox} propConfigs={propConfigs2} />
+      <TestComponent component={Checkbox} propConfigs={propConfigs2} />
 
       <Text style={styles.header}>ChoiceItem - 单选</Text>
-      <JestComponent component={ChoiceItem} propConfigs={propConfigs3} />
+      <TestComponent component={ChoiceItem} propConfigs={propConfigs3} />
     </ScrollView>
   );
 };
 
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: colorToken.mj_color_gray_bg_2,
+    backgroundColor: colorToken.mj_color_gray_bg_2
   },
   component: {
     flexDirection: 'row',

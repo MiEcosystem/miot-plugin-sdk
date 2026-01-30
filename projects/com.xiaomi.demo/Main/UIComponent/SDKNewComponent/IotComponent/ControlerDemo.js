@@ -6,6 +6,7 @@ import { dynamicStyleSheet } from "miot/ui";
 import { colorToken, ListGroup } from "miot/ui/hyperOSUI";
 
 const UIItems = [
+  { title: '设置开关', router: 'Demo' },
   { title: '步进器', router: 'StepperDemo' }
 ];
 

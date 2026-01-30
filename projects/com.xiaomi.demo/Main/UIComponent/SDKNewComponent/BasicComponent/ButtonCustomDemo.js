@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView, View, Text, Alert, Image } from 'react-native';
 import { PopButton } from "miot/ui/hyperOSUI/index";
 import NavigationBar from "miot/ui/NavigationBar";
-import { colorToken, JestComponent } from "miot/ui/hyperOSUI";
+import { colorToken, TestComponent } from "miot/ui/hyperOSUI";
 import { dynamicStyleSheet } from "miot/ui";
 
 const alert = Alert.alert;
@@ -156,7 +156,7 @@ class ButtonCustomDemo extends Component {
         >
         </PopButton>
         <Text style={styles.header}>PopButton - 按钮组件</Text>
-        <JestComponent component={PopButton} propConfigs={propConfigs} />
+        <TestComponent component={PopButton} propConfigs={propConfigs} />
       </ScrollView>
     );
   }

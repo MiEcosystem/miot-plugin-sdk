@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { View, Text, ScrollView, Image, Alert } from 'react-native';
-import { ListItem, ListItemWithWidget, colorToken, JestComponent } from 'miot/ui/hyperOSUI';
+import { ListItem, ListItemWithWidget, colorToken, TestComponent } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 
 const alert = Alert.alert;
@@ -651,11 +651,11 @@ const ListItemDemo = () => {
       </View>
       <View style={styles.caseContainer}>
         <Text style={[styles.header, { marginTop: 12 }]}>ListItem - 普通列表项</Text>
-        <JestComponent component={ListItem} propConfigs={propConfigs1} onPropsChange={(props) => console.log(props)}/>
+        <TestComponent component={ListItem} propConfigs={propConfigs1} onPropsChange={(props) => console.log(props)}/>
       </View>
       <View style={styles.caseContainer}>
         <Text style={[styles.header, { marginTop: 12 }]}>ListItemWithWidget - 带控件列表项</Text>
-        <JestComponent component={ListItemWithWidget} propConfigs={propConfigs2} onPropsChange={(props) => console.log(props)}/>
+        <TestComponent component={ListItemWithWidget} propConfigs={propConfigs2} onPropsChange={(props) => console.log(props)}/>
       </View>
     </ScrollView>
   );
