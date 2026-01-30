@@ -333,6 +333,33 @@ export default class IDeviceWifi {
    checkHomeKitConnected() {
       return Promise
    }
+  /**
+   * 是否是新门锁homekit绑定
+   * @since 10114
+   * @returns {Promise<boolean>}
+   */
+  @report
+  isNewLockHomeKitBinded() {
+     return Promise
+  }
+  /**
+   * 添加新门锁到Homekit
+   * @since 10114
+   * @returns
+   */
+  @report
+  addNewLockToHomeKit() {
+     return Promise
+  }
+  /**
+   * 从homekit移除新门锁
+   * @since 10114
+   * @returns
+   */
+  @report
+  removeNewLockFromHomeKit() {
+     return Promise
+  }
     /**
      * 将当前设备绑定到HomeKit中
      * 绑定失败部分code：-1:system version 10.0 support hard auth bind or system version 11.3 support soft auth bind
