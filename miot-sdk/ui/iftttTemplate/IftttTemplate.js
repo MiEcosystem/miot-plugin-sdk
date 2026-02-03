@@ -52,7 +52,7 @@ const IftttTemplate = (props) => {
     }).catch(() => {});
   }, []);
   const { isOwner } = Device;
-  const shouldShow = (isHomeOwner || isHomeManager) && serverCode === 'cn';
+  const shouldShow = (isHomeOwner || isHomeManager);
   useEffect(() => {
     if (shouldShow) {
       IftttTemplateUtils.report('expose', {
@@ -89,7 +89,7 @@ const IftttTemplate = (props) => {
               disabled={disabled || !(isOwner || isHomeManager)}
               hasShadow={false}
             />)}
-        {(templateInfo?.length === 2) && <IftttContainer
+        {(templateInfo?.length === 2 && serverCode === 'cn') && <IftttContainer
           disabled={disabled || !(isOwner || isHomeManager)}
           trackParams={trackParams}
           templateInfo={templateInfo}
