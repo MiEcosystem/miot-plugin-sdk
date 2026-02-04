@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, Image } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { ListGroup } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { colorToken } from 'miot/ui/hyperOSUI';
@@ -11,20 +11,18 @@ const sourceGroup1data1 = [
     key: 1,
     type: 'switch',
     title: '列表主文字',
-    hideArrow: true,
-    onPress: () => console.log(4)
+    hideArrow: true
   },
   {
     key: 2,
     title: '列表主文字',
-    hideArrow: true,
-    onPress: () => console.log(4)
+    hideArrow: true
   },
   {
     key: 3,
     title: '列表主文字',
-    hideArrow: false,
-    onPress: () => console.log(4)
+    hideArrow: false
+
   }
 ];
 const sourceGroup2data1 = [
@@ -32,23 +30,19 @@ const sourceGroup2data1 = [
     key: 1,
     type: 'switch',
     title: '列表主文字',
-    hideArrow: true,
-    
-    onPress: () => console.log(4)
+    hideArrow: true
   },
   {
     key: 2,
     title: '列表主文字',
     hideArrow: true,
-    type: 'switch',
-    onPress: () => console.log(4)
+    type: 'switch'
   },
   {
     key: 3,
     title: '列表主文字',
     hideArrow: false,
-    type: 'switch',
-    onPress: () => console.log(4)
+    type: 'switch'
   }
 ];
 
@@ -58,7 +52,6 @@ const sourceGroup1data2 = [
     title: '列表主文字',
     hideArrow: true,
     type: 'switch',
-    onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png')
   },
   {
@@ -66,7 +59,6 @@ const sourceGroup1data2 = [
     title: '列表主文字',
     hideArrow: true,
     type: 'switch',
-    onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png')
   },
   {
@@ -74,7 +66,6 @@ const sourceGroup1data2 = [
     title: '列表主文字',
     hideArrow: false,
     type: 'switch',
-    onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png')
   }
 ];
@@ -84,7 +75,6 @@ const sourceGroup2data2 = [
     title: '列表主文字',
     hideArrow: true,
     type: 'switch',
-    onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png')
   },
   {
@@ -92,7 +82,6 @@ const sourceGroup2data2 = [
     title: '列表主文字',
     hideArrow: true,
     type: 'switch',
-    onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png')
   },
   {
@@ -100,35 +89,34 @@ const sourceGroup2data2 = [
     title: '列表主文字',
     hideArrow: false,
     type: 'switch',
-    onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png')
   }
 ];
+
+const longTitle = '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字';
+const longSubtitle = '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字';
 
 const sourceGroup1data3 = [
   {
     key: 1,
     type: 'switch',
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
-    hideArrow: true,
-    onPress: () => console.log(4)
+    title: longTitle,
+    subtitle: longSubtitle,
+    hideArrow: true
   },
   {
     key: 2,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     hideArrow: true,
-    type: 'switch',
-    onPress: () => console.log(4)
+    type: 'switch'
   },
   {
     key: 3,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     hideArrow: false,
-    type: 'switch',
-    onPress: () => console.log(4)
+    type: 'switch'
   }
 ];
 
@@ -136,26 +124,23 @@ const sourceGroup2data3 = [
   {
     key: 1,
     type: 'switch',
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
-    hideArrow: true,
-    onPress: () => console.log(4)
+    title: longTitle,
+    subtitle: longSubtitle,
+    hideArrow: true
   },
   {
     key: 2,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     hideArrow: true,
-    type: 'switch',
-    onPress: () => console.log(4)
+    type: 'switch'
   },
   {
     key: 3,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     hideArrow: false,
-    type: 'switch',
-    onPress: () => console.log(4)
+    type: 'switch'
   }
 ];
 
@@ -163,28 +148,25 @@ const sourceGroup1data4 = [
   {
     key: 1,
     type: 'switch',
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     hideArrow: true,
-    onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png')
   },
   {
     key: 2,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     hideArrow: true,
     type: 'switch',
-    onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png')
   },
   {
     key: 3,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     hideArrow: false,
     type: 'switch',
-    onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png')
   }
 ];
@@ -193,28 +175,25 @@ const sourceGroup2data4 = [
   {
     key: 1,
     type: 'switch',
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     hideArrow: true,
-    onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png')
   },
   {
     key: 2,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     hideArrow: true,
     type: 'switch',
-    onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png')
   },
   {
     key: 3,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     hideArrow: false,
     type: 'switch',
-    onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png')
   }
 ];

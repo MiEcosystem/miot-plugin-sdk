@@ -4,8 +4,7 @@ import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
 import { colorToken, Fonts, Stepper, TestComponent } from "miot/ui/hyperOSUI";
-import { Cold, Celsius, Percent } from 'miot/ui/icons';
-import { useCallback } from 'react';
+import { Cold } from 'miot/ui/icons';
 
 const propConfigs = [
   { name: 'value', type: 'string', defaultValue: '0.00' },
@@ -27,13 +26,6 @@ const propConfigs = [
 const StepperDemo = ({ navigation }) => {
   const [targetTemperature, setTargetTemperature] = useState(23);
   const [targetTemperature2, setTargetTemperature2] = useState(50);
-  const suffixFn = useCallback((disable = false) => {
-    return <View style={{ justifyContent: 'center' }}>
-      <Celsius fill={disable ? colorToken.mj_color_gray_icon_6 : colorToken.mj_color_gray_icon_2} width={8} height={8} />
-      <View style={{ height: 3 }}/>
-      <Cold fill={disable ? colorToken.mj_color_gray_icon_6 : colorToken.mjcard_color_blue_1} width={8} height={8}/>
-    </View>;
-  }, [colorToken]);
 
   return (
     <ScrollView style={styles.container}>
@@ -43,7 +35,8 @@ const StepperDemo = ({ navigation }) => {
         <Text style={styles.text}>标题</Text>
         <Stepper
           step={0.5}
-          suffix={suffixFn()}
+          symbolType="celsius"
+          suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
@@ -54,7 +47,8 @@ const StepperDemo = ({ navigation }) => {
       <View style={styles.stepperContainer} >
         <Stepper
           step={0.5}
-          suffix={suffixFn()}
+          symbolType="celsius"
+          suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
@@ -66,7 +60,7 @@ const StepperDemo = ({ navigation }) => {
       <View style={styles.stepperContainer} >
         <Stepper
           step={0.5}
-          suffix={<View style={{ height: 24, justifyContent: 'flex-start' }}><Percent fill={colorToken.mj_color_gray_icon_2} /></View>}
+          symbolType="percent"
           value={targetTemperature2}
           onChange={setTargetTemperature2}
           min={0}
@@ -77,7 +71,8 @@ const StepperDemo = ({ navigation }) => {
       <View style={styles.stepperContainer} >
         <Stepper
           step={0.5}
-          suffix={suffixFn()}
+          symbolType="celsius"
+          suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
           value={23}
           onChange={setTargetTemperature}
           closed={true}
@@ -87,7 +82,8 @@ const StepperDemo = ({ navigation }) => {
       <View style={styles.stepperContainer} >
         <Stepper
           step={0.5}
-          suffix={suffixFn(true)}
+          symbolType="celsius"
+          suffix={<Cold fill={colorToken.mj_color_gray_icon_6} />}
           value={targetTemperature}
           disabled={true}
           onChange={setTargetTemperature}

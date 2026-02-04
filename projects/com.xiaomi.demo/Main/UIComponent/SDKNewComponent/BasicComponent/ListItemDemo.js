@@ -13,8 +13,7 @@ const sourceData1 = [
     type: 'switch',
     title: '列表主文字',
     hideRightIcon: true,
-    showDot: false,
-    onPress: () => console.log(4)
+    showDot: false
   },
   {
     componentType: 1,
@@ -70,7 +69,6 @@ const sourceData1 = [
     type: 'button',
     hideRightIcon: false,
     showDot: true,
-    onPress: () => console.log(4),
     buttonOption: {
       title: '按钮',
       onPress: () => console.log(4),
@@ -89,7 +87,6 @@ const sourceData1 = [
     type: 'button',
     hideRightIcon: false,
     showDot: true,
-    onPress: () => console.log(4),
     buttonOption: {
       title: '全选',
       onPress: () => console.log(4),
@@ -115,7 +112,6 @@ const sourceData1 = [
     type: 'checkbox',
     hideRightIcon: false,
     showDot: true,
-    onPress: () => console.log(4),
     checkboxOption: {
       checked: true,
       onValueChange: (val) => console.log(val)
@@ -130,7 +126,6 @@ const sourceData2 = [
     title: '列表主文字',
     hideRightIcon: true,
     showDot: false,
-    onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png')
   },
   {
@@ -193,7 +188,6 @@ const sourceData2 = [
     type: 'button',
     hideRightIcon: false,
     showDot: true,
-    onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png'),
     buttonOption: {
       title: '按钮',
@@ -211,7 +205,6 @@ const sourceData2 = [
     type: 'button',
     hideRightIcon: false,
     showDot: true,
-    onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png'),
     buttonOption: {
       title: '全选',
@@ -240,7 +233,6 @@ const sourceData2 = [
     hideRightIcon: false,
     showDot: true,
     leftIconSource: require('../../images/group.png'),
-    onPress: () => console.log(4),
     checkboxOption: {
       checked: true,
       onValueChange: (val) => console.log(val)
@@ -248,34 +240,35 @@ const sourceData2 = [
   }
 ];
 
+const longTitle = '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字';
+const longSubtitle = '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字';
+const longValue = '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态';
+
 const sourceData3 = [
   {
     componentType: 2,
     index: 1,
     type: 'switch',
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     hideRightIcon: true,
-    showDot: false,
-    onPress: () => console.log(4),
-    showTitleArrow: true
+    showDot: false
   },
   {
     componentType: 1,
     index: 2,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     value: '巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸',
     hideRightIcon: true,
     showDot: false,
     onPress: () => console.log(4)
-
   },
   {
     componentType: 1,
     index: 3,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     hideRightIcon: false,
     showDot: false,
     onPress: () => console.log(4)
@@ -283,9 +276,9 @@ const sourceData3 = [
   {
     componentType: 1,
     index: 4,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
-    value: '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态',
+    title: longTitle,
+    subtitle: longSubtitle,
+    value: longValue,
     hideRightIcon: false,
     showDot: true,
     onPress: () => console.log(4)
@@ -294,9 +287,9 @@ const sourceData3 = [
     componentType: 1,
     index: 5,
     rightIconType: 'fold',
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
-    value: '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态',
+    title: longTitle,
+    subtitle: longSubtitle,
+    value: longValue,
     hideRightIcon: false,
     showDot: false,
     onPress: () => console.log(4)
@@ -305,22 +298,21 @@ const sourceData3 = [
     componentType: 1,
     index: 6,
     rightIconType: 'select',
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     hideRightIcon: false,
     showDot: false,
-    value: '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态',
+    value: longValue,
     onPress: () => console.log(4)
   },
   {
     componentType: 2,
     index: 7,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     type: 'button',
     hideRightIcon: false,
     showDot: true,
-    onPress: () => console.log(4),
     buttonOption: {
       title: '按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮v按钮',
       onPress: () => console.log(4),
@@ -333,12 +325,11 @@ const sourceData3 = [
   {
     componentType: 2,
     index: 8,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     type: 'button',
     hideRightIcon: false,
     showDot: true,
-    onPress: () => console.log(4),
     buttonOption: {
       title: '全选全选全选全选全选全选全选全选全选全选全选',
       onPress: () => console.log(4),
@@ -350,9 +341,9 @@ const sourceData3 = [
   {
     componentType: 2,
     index: 9,
-    // title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
+    // title: longTitle,
     title: 'abcdefgshsjdhjsdjdsjdhsjsdjdsjdhsjdsjdhsjdhsddsdjdsjdhsjsjdhsjdsjdhsjdhsddsdjdsjdhsjsjdhsjdsjdhsjdhsddsdjdsjdhsj hjdshajdshja dsjahdjsah dsadsajdhsjd dsaj dhsj dsaff dsajhdsj ahjds ajdsaj hdjsa ',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    subtitle: longSubtitle,
     hideRightIcon: false,
     showDot: true,
     onPress: () => console.log(4),
@@ -365,13 +356,12 @@ const sourceData3 = [
   {
     componentType: 2,
     index: 10,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表',
+    title: longTitle,
+    subtitle: longSubtitle,
     // title: 'dahjdhsjadjsajkdjsajdsajkdsjkajdksadsjakdjskadsajdsjadjksajkdsja',
     type: 'checkbox',
     hideRightIcon: false,
     showDot: true,
-    onPress: () => console.log(4),
     checkboxOption: {
       checked: true,
       onValueChange: (val) => console.log(val)
@@ -384,18 +374,17 @@ const sourceData4 = [
     componentType: 2,
     index: 1,
     type: 'switch',
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     hideRightIcon: true,
     showDot: false,
-    onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png')
   },
   {
     componentType: 1,
     index: 2,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     value: '巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸',
     hideRightIcon: true,
     showDot: false,
@@ -405,8 +394,8 @@ const sourceData4 = [
   {
     componentType: 1,
     index: 3,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     hideRightIcon: false,
     showDot: false,
     onPress: () => console.log(4),
@@ -415,9 +404,9 @@ const sourceData4 = [
   {
     componentType: 1,
     index: 4,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
-    value: '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态',
+    title: longTitle,
+    subtitle: longSubtitle,
+    value: longValue,
     hideRightIcon: false,
     showDot: true,
     onPress: () => console.log(4),
@@ -427,9 +416,9 @@ const sourceData4 = [
     componentType: 1,
     index: 5,
     rightIconType: 'fold',
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
-    value: '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态',
+    title: longTitle,
+    subtitle: longSubtitle,
+    value: longValue,
     hideRightIcon: false,
     showDot: false,
     onPress: () => console.log(4),
@@ -439,23 +428,22 @@ const sourceData4 = [
     componentType: 1,
     index: 6,
     rightIconType: 'select',
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     hideRightIcon: false,
     showDot: false,
-    value: '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态',
+    value: longValue,
     onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png')
   },
   {
     componentType: 2,
     index: 7,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     type: 'button',
     hideRightIcon: false,
     showDot: true,
-    onPress: () => console.log(4),
     buttonOption: {
       title: '按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮',
       onPress: () => console.log(4),
@@ -469,12 +457,11 @@ const sourceData4 = [
   {
     componentType: 2,
     index: 8,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     type: 'button',
     hideRightIcon: false,
     showDot: true,
-    onPress: () => console.log(4),
     leftIconSource: require('../../images/group.png'),
     buttonOption: {
       title: '全选全选全选全选全选全选全选全选全选全选全选',
@@ -486,8 +473,8 @@ const sourceData4 = [
   {
     componentType: 2,
     index: 9,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
+    title: longTitle,
+    subtitle: longSubtitle,
     hideRightIcon: false,
     showDot: true,
     onPress: () => console.log(4),
@@ -501,14 +488,13 @@ const sourceData4 = [
   {
     componentType: 2,
     index: 10,
-    title: '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表',
+    title: longTitle,
+    subtitle: longSubtitle,
     // title: 'dahjdhsjadjsajkdjsajdsajkdsjkajdksadsjakdjskadsajdsjadjksajkdsja',
     type: 'checkbox',
     hideRightIcon: false,
     showDot: true,
     leftIconSource: require('../../images/group.png'),
-    onPress: () => console.log(4),
     checkboxOption: {
       checked: true,
       onValueChange: (val) => console.log(val)
@@ -639,12 +625,17 @@ const ListItemDemo = () => {
               if (item.componentType === 1) {
                 return <ListItem key={index} {...item} disabled={state.disabled}/>;
               } 
-              return <ListItemWithWidget key={index} {...item} disabled={state.disabled} value={state.switchValue} onValueChange={(val) => {
-                setState((item) => ({
-                  ...item,
-                  switchValue: val
-                }));
-              }}/>;
+              return <ListItemWithWidget 
+                key={index}
+                {...item}
+                disabled={state.disabled}
+                value={state.switchValue}
+                onValueChange={(val) => {
+                  setState((item) => ({
+                    ...item,
+                    switchValue: val
+                  }));
+                }}/>;
             })
           }
         </View>

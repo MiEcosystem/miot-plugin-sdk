@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
 import { colorToken, Stepper, Separator } from "miot/ui/hyperOSUI";
@@ -9,12 +9,6 @@ import { Cold } from 'miot/ui/icons';
 const SeparatorDemo = ({ navigation }) => {
   const [targetTemperature, setTargetTemperature] = useState(23);
 
-  const suffix = useMemo(() => {
-    return <View>
-      <Text style={{ color: colorToken.mj_color_gray_text_4 }}>{'°'}</Text>
-      <Cold fill={colorToken.mjcard_color_blue_1} width={8} height={8}/>
-    </View>;
-  }, [colorToken.mj_color_gray_text_4, colorToken.mjcard_color_blue_1]);
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>分割线</Text>
@@ -22,7 +16,8 @@ const SeparatorDemo = ({ navigation }) => {
         <Text style={styles.text}>标题</Text>
         <Stepper
           step={0.5}
-          suffix={suffix}
+          symbolType="celsius"
+          suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
@@ -31,7 +26,8 @@ const SeparatorDemo = ({ navigation }) => {
         <Separator style={styles.separator1} />
         <Stepper
           step={0.5}
-          suffix={suffix}
+          symbolType="celsius"
+          suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
@@ -41,7 +37,8 @@ const SeparatorDemo = ({ navigation }) => {
       <View style={styles.sectionContainer}>
         <Stepper
           step={0.5}
-          suffix={suffix}
+          symbolType="celsius"
+          suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
@@ -50,7 +47,8 @@ const SeparatorDemo = ({ navigation }) => {
         <Separator style={styles.separator2}/>
         <Stepper
           step={0.5}
-          suffix={suffix}
+          symbolType="celsius"
+          suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
