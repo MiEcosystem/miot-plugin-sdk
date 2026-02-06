@@ -3,12 +3,25 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
-import { colorToken, Stepper, Separator } from "miot/ui/hyperOSUI";
+import { colorToken, Stepper, Separator, TestComponent } from "miot/ui/hyperOSUI";
 import { Cold } from 'miot/ui/icons';
 
 const SeparatorDemo = ({ navigation }) => {
   const [targetTemperature, setTargetTemperature] = useState(23);
 
+  const propConfigs = [
+    { name: 'style', type: 'object', objectProps: [
+      // { name: 'height', type: 'number', defaultValue: 1 },
+      { name: 'marginLeft', type: 'number', defaultValue: 0 },
+      { name: 'marginRight', type: 'number', defaultValue: 0 },
+      { name: 'marginTop', type: 'number', defaultValue: 0 },
+      { name: 'marginBottom', type: 'number', defaultValue: 0 },
+      { name: 'paddingLeft', type: 'number', defaultValue: 0 },
+      { name: 'paddingRight', type: 'number', defaultValue: 0 },
+      { name: 'paddingTop', type: 'number', defaultValue: 0 },
+      { name: 'paddingBottom', type: 'number', defaultValue: 0 }
+    ] }
+  ];
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>分割线</Text>
@@ -55,6 +68,10 @@ const SeparatorDemo = ({ navigation }) => {
           max={30}
         />
       </View>
+      <View style={styles.caseContainer}>
+        <Text style={[styles.header, { marginTop: 12 }]}>Separator - 分割线</Text>
+        <TestComponent component={Separator} propConfigs={propConfigs}/>
+      </View>
     </ScrollView>
   );
 };
@@ -89,6 +106,11 @@ const styles = dynamicStyleSheet({
   separator2: {
     marginHorizontal: 88,
     marginVertical: 16
+  },
+  caseContainer: {
+    marginBottom: 40,
+    flex: 1,
+    backgroundColor: colorToken.mj_color_gray_bg_3
   }
 });
 

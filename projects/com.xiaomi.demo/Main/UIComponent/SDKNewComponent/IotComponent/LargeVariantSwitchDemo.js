@@ -1,7 +1,7 @@
 'use strict';
 
-import React, { useState, cloneElement } from 'react';
-import { View, Text, ScrollView, Image, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, ScrollView, Alert } from 'react-native';
 import { LargeVariantSwitch, colorToken, Fonts, TestComponent, SubtitleGroup } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle } from 'miot/ui/icons';
@@ -9,18 +9,36 @@ import { Circle } from 'miot/ui/icons';
 const alert = Alert.alert;
 const propConfigs = [
   { name: 'title', type: 'string', defaultValue: '主标题' },
-  { name: 'subtitle', type: 'string', defaultValue: '副标题内容' },
-  { name: 'value', type: 'string', defaultValue: '右侧文案' },
-  { name: 'onPress', type: 'pass', passDescription: '点击事件回调', defaultValue: () => alert('onPress') },
+  { name: 'subtitle', type: 'string', passDescription: '副标题（字符串或 SubtitleGroup）', defaultValue: '副标题内容' },
+  { name: 'value', type: 'boolean', defaultValue: false },
   { name: 'disabled', type: 'boolean', defaultValue: false },
-  { name: 'hideRightIcon', type: 'boolean', defaultValue: false },
-  { name: 'forceHideRightIconOnPressInvalid', type: 'boolean', defaultValue: false },
-  { name: 'showDot', type: 'boolean', defaultValue: false },
-  { name: 'leftIconSource', type: 'pass', passDescription: '左侧图标组件（React.ReactElement）' },
-  { name: 'customRenderer', type: 'pass', passDescription: '右侧自定义渲染', defaultValue: <Image style={{ resizeMode: 'contain', width: 46, height: 46 }} source={require('../../images/group.png')} /> },
-  { name: 'accessible', type: 'boolean', defaultValue: true },
-  { name: 'accessibilityLabel', type: 'string', defaultValue: '列表项' },
-  { name: 'accessibilityHint', type: 'string' }
+  { name: 'onPress', type: 'pass', passDescription: '列表项点击事件（可选）', defaultValue: () => alert('onPress') },
+  { name: 'onValueChange', type: 'pass', passDescription: '开关切换事件（必填）', linkTo: { targetProp: 'value' } },
+  {
+    name: 'colorType',
+    type: 'enum',
+    enumOptions: ['green', 'red', 'blue', 'wathet', 'purple', 'white', 'orange', 'yellow'],
+    defaultValue: 'green'
+  },
+  { name: 'leftIconSource', type: 'pass', passDescription: '左侧图标组件（SVG）' },
+  {
+    name: 'accessibilityTitle',
+    type: 'object',
+    objectProps: [
+      { name: 'accessible', type: 'boolean', defaultValue: true },
+      { name: 'accessibilityLabel', type: 'string', defaultValue: '主标题' },
+      { name: 'accessibilityHint', type: 'string' }
+    ]
+  },
+  {
+    name: 'accessibilitySubtitle',
+    type: 'object',
+    objectProps: [
+      { name: 'accessible', type: 'boolean', defaultValue: true },
+      { name: 'accessibilityLabel', type: 'string', defaultValue: '副标题' },
+      { name: 'accessibilityHint', type: 'string' }
+    ]
+  }
 ];
 
 const longTitle = '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题';
@@ -238,10 +256,10 @@ const LargeEntranceDemo = () => {
               }}/>;
           })}
         </View>
-        {/* <View style={styles.caseContainer}>
-          <Text style={[styles.header, { marginTop: 12 }]}>LargeVariantSwitch - 入口</Text>
+        <View style={styles.caseContainer}>
+          <Text style={[styles.header, { marginTop: 12 }]}>LargeVariantSwitch - 大型变种开关</Text>
           <TestComponent component={LargeVariantSwitch} propConfigs={propConfigs}/>
-        </View> */}
+        </View>
       </View>
     </ScrollView>
   );

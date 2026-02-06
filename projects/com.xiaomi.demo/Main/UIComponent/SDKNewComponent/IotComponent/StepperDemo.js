@@ -1,28 +1,30 @@
 'use strict';
 
 import React, { useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, View, Alert } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
 import { colorToken, Fonts, Stepper, TestComponent } from "miot/ui/hyperOSUI";
-import { Cold } from 'miot/ui/icons';
+import { Cold, Percent } from 'miot/ui/icons';
 
 const propConfigs = [
-  { name: 'value', type: 'string', defaultValue: '0.00' },
-  { name: 'onChange', type: 'pass', passDescription: '值变化回调 (value: string | null) => void' },
-  { name: 'step', type: 'string', defaultValue: '0.01' },
+  { name: 'value', type: 'number', defaultValue: 0 },
+  { name: 'onChange', type: 'pass', passDescription: '值变化回调 (value: string | null) => void', linkTo: { targetProp: 'value' } },
+  { name: 'step', type: 'number', defaultValue: 1 },
   { name: 'stringMode', type: 'boolean', defaultValue: true },
   { name: 'digits', type: 'number', defaultValue: 2 },
-  { name: 'min', type: 'string', defaultValue: '0.00' },
-  { name: 'max', type: 'string', defaultValue: '999.99' },
+  { name: 'min', type: 'number', defaultValue: 0 },
+  { name: 'max', type: 'number', defaultValue: 999.99 },
   // eslint-disable-next-line no-template-curly-in-string
-  { name: 'formatter', type: 'pass', passDescription: '格式化函数: (value?: string) => string，如: (v) => `${v}kg`' },
-  { name: 'prefix', type: 'pass', passDescription: '可选: React.ReactNode' },
-  { name: 'suffix', type: 'pass', passDescription: '可选: React.ReactNode' },
+  { name: 'formatter', type: 'pass', passDescription: '格式化函数: (value?: string) => string，如: (v) => `${v}kg`', defaultValue: () => ('频道1') },
+  { name: 'prefix', type: 'pass', passDescription: '可选: React.ReactNode', defaultValue: <Cold fill={colorToken.mjcard_color_blue_1} /> },
+  { name: 'suffix', type: 'pass', passDescription: '可选: React.ReactNode', defaultValue: <Percent fill={colorToken.mjcard_color_blue_1} /> },
   { name: 'iconType', type: 'enum', enumOptions: ['symbol', 'direction'], defaultValue: 'symbol' },
   { name: 'disabled', type: 'boolean', defaultValue: false },
-  { name: 'closed', type: 'boolean', defaultValue: false }
+  { name: 'closed', type: 'boolean', defaultValue: false },
+  { name: 'symbolType', type: 'enum', enumOptions: ['percent', 'celsius', 'custom'], defaultValue: 'custom' }
 ];
 
+const alert = Alert.alert;
 const StepperDemo = ({ navigation }) => {
   const [targetTemperature, setTargetTemperature] = useState(23);
   const [targetTemperature2, setTargetTemperature2] = useState(50);
