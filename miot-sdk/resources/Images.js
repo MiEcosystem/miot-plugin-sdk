@@ -17,6 +17,18 @@ export default {
     manualScene: require('./images/manual_scene.png'),
     defaultLight: require('./images/default_light.png'),
     defaultSwitch: require('./images/switch_default.png'),
+    ota_auto: {
+      dark: {
+        ota_auto_drak: require('./images/ota_auto_dark.png'),
+        ota_auto_drak_fail: require('./images/ota_auto_dark_fail.png'),
+        ota_auto_drak_success: require('./images/ota_auto_dark_success.png')
+      },
+      light: {
+        ota_auto_light: require('./images/ota_auto_light.png'),
+        ota_auto_light_fail: require('./images/ota_auto_light_fail.png'),
+        ota_auto_light_success: require('./images/ota_auto_light_success.png')
+      }
+    },
     ota_auto_light: require('./images/ota_auto_light.png'),
     ota_auto_light_fail: require('./images/ota_auto_light_fail.png'),
     ota_auto_light_success: require('./images/ota_auto_light_success.png'),
