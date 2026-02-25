@@ -348,5 +348,9 @@ export default {
   bluetooth_connection_phone: 'Tämä ominaisuus vaatii puhelimesi Bluetooth-yhteyden',
   connection_successful: 'Yhdistetty onnistuneesti',
   connection_failed: 'Ei voitu yhdistää',
-  common_brand_produced_by: 'Suunnittelija ${}'
+  common_brand_produced_by: 'Suunnittelija ${}',
+  usedOnMiHome: 'Käytä Xiaomi Home -sovelluksen kanssa',
+  operation_failed: 'Tätä toimintoa ei voitu suorittaa',
+  operation_cancel: 'Toiminto peruutettu',
+  operation_success: 'Valmis'
 };

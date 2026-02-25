@@ -21,6 +21,7 @@ import { showMemberSet } from '../../hooks/useMemberSetInfo';
 import { showDeviceService } from '../../hooks/useDeviceService';
 import tryTrackCommonSetting from "../../utils/track-sdk";
 import { System } from 'miot';
+import { getUsedOnMiHomeStatus, switchUsedOnMiHome } from '../../hooks/useUsedOnMiHome';
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
 let firmwareUpgradeDotClicked = false;
 let freqDeviceSwitchExposed = false; // 米家首页显示item打点用
@@ -321,6 +322,10 @@ const secondAllOptionsInner = {
    */
   PRIVACY_POLICY: 'privacyPolicy',
   /**
+   * 在米家使用：仅三方云设备显式
+   */
+  USED_ON_MI_HOME: 'usedOnMiHome',
+  /**
    * 常用设备/设备首页常用设备
    */
   FREQ_DEVICE: 'freqDevice',
@@ -614,7 +619,7 @@ export default class CommonSetting extends React.Component {
     extraOptions: {}
   }
   getCommonSetting(state) {
-    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory, multipleKeyisOn, keyNum, cloudStorageOn } = state || {};
+    let { modelType, productBaikeUrl, roomInfo, usedOnMiHome, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory, multipleKeyisOn, keyNum, cloudStorageOn } = state || {};
     const { preOperations } = this.props.extraOptions;
     if (!modelType) {
       modelType = '  ';
@@ -812,6 +817,30 @@ export default class CommonSetting extends React.Component {
         this.removeKeyFromShowDot(AllOptions.FREQ_CAMERA);
       }
     } : null;
+    // 在米家使用：仅三方云设备展示当前项
+    ret[AllOptions.USED_ON_MI_HOME] = Device.type === '14' ? {
+      _itemType: 'switch',
+      title: strings.usedOnMiHome,
+      value: usedOnMiHome,
+      onValueChange: (value) => {
+        this.commonSetting = this.getCommonSetting({
+          ...this.state,
+          usedOnMiHome: value
+        });
+        this.setState({ usedOnMiHome: value });
+        switchUsedOnMiHome(value).then(() => {
+          Host.ui.showToast(strings.operation_success);
+        }).catch((error) => {
+          Host.ui.showToast(error);
+          // 出现异常时，状态重置
+          this.commonSetting = this.getCommonSetting({
+            ...this.state,
+            usedOnMiHome: !value
+          });
+          this.setState({ usedOnMiHome: !value });
+        });
+      }
+    } : null;
     // 常用设备
     ret[AllOptions.FREQ_DEVICE] = roomInfo && roomInfo.data && roomInfo.data.roomId ? {
       _itemType: 'switch',
@@ -867,6 +896,7 @@ export default class CommonSetting extends React.Component {
       productBaikeUrl,
       modelType,
       roomInfo,
+      usedOnMiHome: false,
       freqFlag: false,
       freqCameraFlag: false,
       freqCameraNeedShowRedPoint: false,
@@ -1149,6 +1179,7 @@ export default class CommonSetting extends React.Component {
     //   });
     //   this.setState({ standPlugin: true });
     // }, 1000 * 3);
+    this._updateUsedOnMiHome();
     this._updateFreqFlag();
     this.needUpgradeListener = DeviceEventEmitter.addListener('MH_FirmwareNeedUpdateAlert', (params) => {
       if (Device.type === Device.DEVICE_TYPE.BLUETOOTH_SINGLE_MODEL_DEVICE || Device.type === Device.DEVICE_TYPE.BLE_MESH_DEVICE) {
@@ -1173,6 +1204,15 @@ export default class CommonSetting extends React.Component {
       this.commonSetting = this.getCommonSetting({ ...this.state, cloudStorageOn: result });
       this.setState({ cloudStorageOn: result });
     });
+  }
+  _updateUsedOnMiHome() {
+    getUsedOnMiHomeStatus().then((usedOnMiHome) => {
+      this.commonSetting = this.getCommonSetting({
+        ...this.state,
+        usedOnMiHome
+      });
+      this.setState({ usedOnMiHome });
+    }).catch((error) => {});
   }
   _updateFreqFlag() {
     Device.getFreqFlag().then((freqFlagRes) => {
@@ -1625,6 +1665,7 @@ export default class CommonSetting extends React.Component {
       });
     });
     this._packageGobackFromNativeListerner = PackageEvent.packageViewWillAppear.addListener(() => {
+      this._updateUsedOnMiHome();
       this._updateFreqFlag();
     });
     if (Device.model && Device.model.includes('camera') && navigation) {

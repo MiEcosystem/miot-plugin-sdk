@@ -348,5 +348,9 @@ export default {
   bluetooth_connection_phone: '이 기능을 사용하려면 휴대전화의 블루투스 연결이 필요합니다.',
   connection_successful: '연결 성공',
   connection_failed: '연결 실패',
-  common_brand_produced_by: '디자인: ${}'
+  common_brand_produced_by: '디자인: ${}',
+  usedOnMiHome: 'Xiaomi Home에서 사용',
+  operation_failed: '이 작업을 완료할 수 없음',
+  operation_cancel: '작업 취소됨',
+  operation_success: '완료'
 };

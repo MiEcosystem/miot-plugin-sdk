@@ -348,5 +348,9 @@ export default {
   bluetooth_connection_phone: 'Ehhez a funkcióhoz a telefon Bluetooth-kapcsolatra van szükség',
   connection_successful: 'Sikeres kapcsolódás',
   connection_failed: 'Kapcsolódás sikertelen',
-  common_brand_produced_by: 'Tervezte ${}'
+  common_brand_produced_by: 'Tervezte ${}',
+  usedOnMiHome: 'Használat Xiaomi Home-mal',
+  operation_failed: 'Nem sikerült végrehatjani ezt a műveletet',
+  operation_cancel: 'Művelet törölve',
+  operation_success: 'Kész'
 };

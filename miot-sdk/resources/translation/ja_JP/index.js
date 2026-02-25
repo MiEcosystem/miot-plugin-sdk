@@ -348,5 +348,9 @@ export default {
   bluetooth_connection_phone: 'この機能には携帯電話の Bluetooth 接続が必要です',
   connection_successful: '正常に接続されました',
   connection_failed: '接続できませんでした',
-  common_brand_produced_by: '${}によるデザイン'
+  common_brand_produced_by: '${}によるデザイン',
+  usedOnMiHome: 'Xiaomi Home で使用',
+  operation_failed: 'この操作を完了できませんでした',
+  operation_cancel: '操作をキャンセルしました',
+  operation_success: '完了'
 };

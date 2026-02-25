@@ -348,5 +348,9 @@ export default {
   bluetooth_connection_phone: '此功能需手機藍牙連接可用',
   connection_successful: '連接成功',
   connection_failed: '連接失敗',
-  common_brand_produced_by: '${}出品'
+  common_brand_produced_by: '${}出品',
+  usedOnMiHome: '在“米家”使用',
+  operation_failed: '操作失败',
+  operation_cancel: '取消操作',
+  operation_success: '操作成功'
 };

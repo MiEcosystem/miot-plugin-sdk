@@ -348,5 +348,9 @@ export default {
   bluetooth_connection_phone: 'Den här funktionen kräver din telefons Bluetooth-anslutning',
   connection_successful: 'Ansluten',
   connection_failed: 'Kunde inte ansluta',
-  common_brand_produced_by: 'Utformad av ${}'
+  common_brand_produced_by: 'Utformad av ${}',
+  usedOnMiHome: 'Användning med Xiaomi Home',
+  operation_failed: 'Kunde inte genomföra den här åtgärden',
+  operation_cancel: 'Åtgärden avbröts',
+  operation_success: 'Klar'
 };

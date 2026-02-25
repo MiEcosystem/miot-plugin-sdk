@@ -348,5 +348,9 @@ export default {
   bluetooth_connection_phone: 'Tính năng này yêu cầu kết nối Bluetooth của điện thoại',
   connection_successful: 'Đã kết nối thành công',
   connection_failed: 'Không thể kết nối',
-  common_brand_produced_by: 'Được thiết kế bởi ${}'
+  common_brand_produced_by: 'Được thiết kế bởi ${}',
+  usedOnMiHome: 'Sử dụng với Xiaomi Home',
+  operation_failed: 'Không thể hoàn thành thao tác này',
+  operation_cancel: 'Đã hủy thao tác',
+  operation_success: 'Hoàn tất'
 };

@@ -348,5 +348,9 @@ export default {
   bluetooth_connection_phone: 'Bu özellik telefonunuzun Bluetooth bağlantısını gerektirir',
   connection_successful: 'Başarıyla bağlandı',
   connection_failed: 'Bağlanılamadı',
-  common_brand_produced_by: '${} tarafından tasarlandı'
+  common_brand_produced_by: '${} tarafından tasarlandı',
+  usedOnMiHome: 'Xiaomi Home ile kullanın',
+  operation_failed: 'Bu eylem tamamlanamadı',
+  operation_cancel: 'Eylem iptal edildi',
+  operation_success: 'Bitti'
 };

@@ -348,5 +348,9 @@ export default {
   bluetooth_connection_phone: 'Tato funkce vyžaduje připojení Bluetooth ve vašem telefonu',
   connection_successful: 'Úspěšně připojeno',
   connection_failed: 'Nepodařilo se připojit',
-  common_brand_produced_by: 'Vytvořeno společností ${}'
+  common_brand_produced_by: 'Vytvořeno společností ${}',
+  usedOnMiHome: 'Použít s Xiaomi Home',
+  operation_failed: 'Tuto akci se nepodařilo dokončit',
+  operation_cancel: 'Akce byla zrušena',
+  operation_success: 'Hotovo'
 };

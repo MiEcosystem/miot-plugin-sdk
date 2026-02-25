@@ -348,5 +348,9 @@ export default {
   bluetooth_connection_phone: 'Este recurso requer a conexão Bluetooth do seu telefone.',
   connection_successful: 'Conectado com sucesso.',
   connection_failed: 'Não foi possível conectar.',
-  common_brand_produced_by: 'Projetado por ${}'
+  common_brand_produced_by: 'Projetado por ${}',
+  usedOnMiHome: 'Usar com Xiaomi Home',
+  operation_failed: 'Não foi possível concluir esta ação',
+  operation_cancel: 'Ação cancelada',
+  operation_success: 'Concluído'
 };

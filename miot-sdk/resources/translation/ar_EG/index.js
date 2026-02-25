@@ -348,5 +348,9 @@ export default {
   bluetooth_connection_phone: 'تتطلب هذه الميزة اتصال البلوتوث بهاتفك',
   connection_successful: 'تم الاتصال بنجاح',
   connection_failed: 'تعذّر الاتصال',
-  common_brand_produced_by: 'تصميم: ${}'
+  common_brand_produced_by: 'تصميم: ${}',
+  usedOnMiHome: 'الاستخدام مع Xiaomi Home',
+  operation_failed: 'تعذّر إكمال هذا الإجراء',
+  operation_cancel: 'تم إلغاء الإجراء',
+  operation_success: 'تم'
 };

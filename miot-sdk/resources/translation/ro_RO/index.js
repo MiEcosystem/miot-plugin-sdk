@@ -348,5 +348,9 @@ export default {
   bluetooth_connection_phone: 'Această funcție necesită conexiunea Bluetooth a telefonului dvs.',
   connection_successful: 'Conectarea a reușit',
   connection_failed: 'Nu s-a putut conecta',
-  common_brand_produced_by: 'Elaborat de ${}'
+  common_brand_produced_by: 'Elaborat de ${}',
+  usedOnMiHome: 'Utilizați cu Xiaomi Home',
+  operation_failed: 'Aceasta acțiune nu s-a putut finaliza',
+  operation_cancel: 'Acțiunea a fost anulată',
+  operation_success: 'Efectuat'
 };
