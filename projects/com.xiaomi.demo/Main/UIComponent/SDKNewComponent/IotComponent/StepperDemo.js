@@ -1,0 +1,155 @@
+'use strict';
+
+import React, { useState } from 'react';
+import { ScrollView, Text, View } from 'react-native';
+import { dynamicStyleSheet } from "miot/ui";
+import { colorToken, Fonts, Stepper, TestComponent } from "miot/ui/hyperOSUI";
+import { Cold } from 'miot/ui/icons';
+
+const propConfigs = [
+  { name: 'value', type: 'string', defaultValue: '0.00' },
+  { name: 'onChange', type: 'pass', passDescription: '值变化回调 (value: string | null) => void' },
+  { name: 'step', type: 'string', defaultValue: '0.01' },
+  { name: 'stringMode', type: 'boolean', defaultValue: true },
+  { name: 'digits', type: 'number', defaultValue: 2 },
+  { name: 'min', type: 'string', defaultValue: '0.00' },
+  { name: 'max', type: 'string', defaultValue: '999.99' },
+  // eslint-disable-next-line no-template-curly-in-string
+  { name: 'formatter', type: 'pass', passDescription: '格式化函数: (value?: string) => string，如: (v) => `${v}kg`' },
+  { name: 'prefix', type: 'pass', passDescription: '可选: React.ReactNode' },
+  { name: 'suffix', type: 'pass', passDescription: '可选: React.ReactNode' },
+  { name: 'iconType', type: 'enum', enumOptions: ['symbol', 'direction'], defaultValue: 'symbol' },
+  { name: 'disabled', type: 'boolean', defaultValue: false },
+  { name: 'closed', type: 'boolean', defaultValue: false }
+];
+
+const StepperDemo = ({ navigation }) => {
+  const [targetTemperature, setTargetTemperature] = useState(23);
+  const [targetTemperature2, setTargetTemperature2] = useState(50);
+
+  return (
+    <ScrollView style={styles.container}>
+      <Text style={styles.header}>步进器</Text>
+      <Text style={styles.title}>L</Text>
+      <View style={styles.sectionContainer}>
+        <Text style={styles.text}>标题</Text>
+        <Stepper
+          step={0.5}
+          symbolType="celsius"
+          suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
+          value={targetTemperature}
+          onChange={setTargetTemperature}
+          min={20}
+          max={30}
+        />
+      </View>
+      <Text style={styles.title}>按钮图标可配置</Text>
+      <View style={styles.stepperContainer} >
+        <Stepper
+          step={0.5}
+          symbolType="celsius"
+          suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
+          value={targetTemperature}
+          onChange={setTargetTemperature}
+          min={20}
+          max={30}
+          iconType={'direction'}
+        />
+      </View>
+      <Text style={styles.title}>中间状态可配置</Text>
+      <View style={styles.stepperContainer} >
+        <Stepper
+          step={0.5}
+          symbolType="percent"
+          value={targetTemperature2}
+          onChange={setTargetTemperature2}
+          min={0}
+          max={100}
+        />
+      </View>
+      <Text style={styles.title}>禁用（开）</Text>
+      <View style={styles.stepperContainer} >
+        <Stepper
+          step={0.5}
+          symbolType="celsius"
+          suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
+          value={23}
+          onChange={setTargetTemperature}
+          closed={true}
+        />
+      </View>
+      <Text style={styles.title}>禁用（关）</Text>
+      <View style={styles.stepperContainer} >
+        <Stepper
+          step={0.5}
+          symbolType="celsius"
+          suffix={<Cold fill={colorToken.mj_color_gray_icon_6} />}
+          value={targetTemperature}
+          disabled={true}
+          onChange={setTargetTemperature}
+          min={20}
+          max={30}
+        />
+      </View>
+      <Text style={styles.title}>无数据</Text>
+      <View style={styles.stepperContainer} >
+        <Stepper
+          step={0.5}
+          value={null}
+          disabled={true}
+          onChange={setTargetTemperature}
+          min={20}
+          max={30}
+        />
+      </View>
+      <View style={styles.caseContainer}>
+        <Text style={[styles.header, { marginTop: 12 }]}>Stepper - 步进器</Text>
+        <TestComponent component={Stepper} propConfigs={propConfigs}/>
+      </View>
+    </ScrollView>
+  );
+};
+
+const styles = dynamicStyleSheet({
+  container: {
+    backgroundColor: colorToken.mj_color_gray_bg_2
+  },
+  text: {
+    marginLeft: 4,
+    color: colorToken.mj_color_gray_text_1,
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    lineHeight: 32,
+    ...Fonts.mj_text_custom_16_M
+  },
+  title: {
+    color: colorToken.mjcard_color_miui_1,
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+    marginTop: 12,
+    ...Fonts.mj_text_custom_13_R
+  },
+  header: {
+    fontSize: 24,
+    color: colorToken.mj_color_gray_text_2,
+    fontWeight: '500',
+    paddingHorizontal: 15,
+    marginBottom: 10,
+    ...Fonts.mj_text_custom_24_M
+  },
+  sectionContainer: {
+    backgroundColor: colorToken.mj_color_gray_card_1,
+    marginHorizontal: 12,
+    borderRadius: 16,
+    marginBottom: 12
+  },
+  stepperContainer: {
+    backgroundColor: colorToken.mj_color_gray_card_1,
+    marginHorizontal: 12
+  },
+  caseContainer: {
+    marginBottom: 12
+  }
+});
+
+export default StepperDemo;

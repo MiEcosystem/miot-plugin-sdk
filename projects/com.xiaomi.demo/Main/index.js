@@ -26,6 +26,8 @@ import BTInterconnection from "miot/ui/BTInterconnection";
 import BraceletInterconnection from "miot/ui/BraceletInterconnection";
 import Setting from "./tutorial/Setting";
 import SettingPage from "./tutorial/SettingPage";
+import { DarkMode } from "miot";
+import { darkModeDemoPathList } from "./UIComponent/SDKNewComponent/adaptiveThemeComponent";
 
 import NavigationBar from "miot/ui/NavigationBar";
 
@@ -46,6 +48,10 @@ import SoftKeyboardAdapterTestDemo from "./UIComponent/SoftKeyboardAdapterTestDe
 import TitleBarDemo from "./tutorial/TitleBarDemo"; //  ui-导航栏使用
 import TabBarDemo from "./tutorial/TabBarDemo"; //  ui-导航栏使用
 
+import Settings2022 from './UIComponent/Settings2022';
+import SupportedFont from './UIComponent/SupportedFont';
+import SdkComponentDemo from "./UIComponent/SdkComponentDemo";
+
 // List
 import ListDemoEntry from "./UIComponent/List/ListDemoEntry";
 import CustomListDemo from "./UIComponent/List/CustomListDemo";
@@ -60,6 +66,10 @@ import ModeCardDemo from "./UIComponent/Card/ModeCardDemo"; // ui-Card-模式卡
 import AdaptedFontCardDemo from "./UIComponent/Card/AdaptedFontCardDemo"; // ui-Card-模式卡片
 import GearCardDemo from "./UIComponent/Card/GearCardDemo"; // ui-Card-滑动档位卡片
 import ListCardDemo from "./UIComponent/Card/ListCardDemo"; // ui-Card-list档位卡片
+import CardButtonDemo from "./UIComponent/Card/CardButtonDemo"; // CardButton卡片
+import SelectWithButtonDemo from "./UIComponent/Card/SelectWithButtonDemo"; // SelectWithButton卡片
+import SliderWithHeaderDemo from "./UIComponent/Card/SliderWithHeaderDemo"; // SliderWithHeader卡片
+import SliderWithoutBlockDemo from "./UIComponent/Card/SliderWithoutBlockDemo"; // SliderWithoutBlock卡片
 
 import RadioExample from "./UIComponent/RadioExample"; // ui-单选框
 import CheckboxDemo from "./UIComponent/CheckboxDemo"; // ui-复选框
@@ -84,11 +94,13 @@ import ImageCapInsetDemo from "./UIComponent/ImageCapInsetDemo"; // ui-ImageCapI
 import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo"; // ui-NumberSpinnerDemo
 import StringSpinnerDemo from "./UIComponent/StringSpinnerDemo"; // ui-StringSpinnerDemo
 import ColorPickerDemo from "./UIComponent/ColorPickerDemo";
+import ColorSelectorDemo from "./UIComponent/ColorSelectorDemo";
+
 import MiotAndroidScrollViewDemo from "./UIComponent/MiotAndroidScrollViewDemo"; // ui-MiotAndroidScrollViewDemo
 import AbsoluteTouch from "./UIComponent/AbsoluteTouch"; // ui-AbsoluteTouch
 import RobotMapDemo from "./UIComponent/RobotMapDemo"; // 扫地机地图
 // import SparkLines from "./UIComponent/SparkLines";
-// import YMDDatePicker from "./UIComponent/YMDDatePicker";
+import YMDDatePickerDemo from "./UIComponent/YMDDatePicker";
 // import Tabs from "./UIComponent/Tabs";
 
 // Native 交互
@@ -112,6 +124,8 @@ import HostDemo from "./Host";
 import HostEventDemo from "./Host/HostEventDemo";
 import FileDemo from "./Host/FileDemo";
 import PhotoDemo from "./Host/PhotoDemo";
+import PadScrollDemo from "./Host/PadScrollDemo";
+import RockerViewDemo from "./Host/RockerViewDemo";
 import HostPropsInfoDemo from "./Host/HostPropsInfoDemo";
 import LocaleServer from "./Host/Local";
 import JSExecutor from "./Host/JSExecutor";
@@ -122,10 +136,56 @@ import VideoThumbnailDemo from "./Host/VideoThumbnailDemo";
 import CryptoDemo from "./Host/CryptoDemo";
 import TraceDemo from "./Host/TraceDemo";
 import DarkModeDemo from "./Host/DarkMode";
+import DownloadFontDemo from "./Host/DownloadFontDemo"; //  字体下载测试
 
 // 常用功能
 import TutorialDemo from "./tutorial/TutorialDemo";
+// 新版SDK
+import BasicComponentDemo from "./UIComponent/SDKNewComponent/BasicComponent/BasicComponentDemo";
+import BasicDemo from "./UIComponent/SDKNewComponent/BasicComponent/BasicDemo";
+import FontsDemo from "./UIComponent/SDKNewComponent/BasicComponent/FontsDemo";
+import ColorDemo from "./UIComponent/SDKNewComponent/BasicComponent/ColorDemo";
+import RadiusDemo from "./UIComponent/SDKNewComponent/BasicComponent/RadiusDemo";
+import DialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/DialogDemo";
+import HandPopDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopDemo";
+import HandPopCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopCustomDemo";
+import HandPopClickDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopClickDemo";
+import HandPopTriggerDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopTriggerDemo";
+import LoadingDemo from "./UIComponent/SDKNewComponent/BasicComponent/LoadingDemo";
+import ListDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListDemo";
+import ListItemDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListItemDemo";
+import ListGroupDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListGroupDemo";
+import ButtonDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonDemo";
+import ButtonColorDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonColorDemo";
+import ButtonCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonCustomDemo";
+import ButtonPageViewDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonPageViewDemo";
+import AtomicDemo from "./UIComponent/SDKNewComponent/BasicComponent/AtomicDemo";
+import ToastDemo from "./UIComponent/SDKNewComponent/BasicComponent/ToastDemo";
+import InformationAreaDemo from "./UIComponent/SDKNewComponent/BasicComponent/InformationAreaDemo";
 
+import DrawerDemo from "./UIComponent/SDKNewComponent/BasicComponent/DrawerDemo";
+import FixedDrawerDemo from "./UIComponent/SDKNewComponent/BasicComponent/FixedDrawerDemo";
+import ElasticDrawerDemo from "./UIComponent/SDKNewComponent/BasicComponent/ElasticDrawerDemo";
+import PanResponderDemo from "./UIComponent/SDKNewComponent/BasicComponent/PanResponderDemo";
+// Iot 组件
+import IotComponentDemo from "./UIComponent/SDKNewComponent/IotComponent/IotComponentDemo";
+import StructureDemo from "./UIComponent/SDKNewComponent/IotComponent/StructureDemo";
+import ControlerDemo from "./UIComponent/SDKNewComponent/IotComponent/ControlerDemo";
+import EntryDemo from "./UIComponent/SDKNewComponent/IotComponent/EntryDemo";
+import StepperDemo from "./UIComponent/SDKNewComponent/IotComponent/StepperDemo";
+import LargeVariantSwitchDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeVariantSwitchDemo";
+import ContainerDemo from "./UIComponent/SDKNewComponent/IotComponent/ContainerDemo";
+import TitleContainerDemo from "./UIComponent/SDKNewComponent/IotComponent/TitleContainerDemo";
+import SmallEntranceDemo from "./UIComponent/SDKNewComponent/IotComponent/SmallEntranceDemo";
+import SmallVariantSwitchDemo from "./UIComponent/SDKNewComponent/IotComponent/SmallVariantSwitchDemo";
+import MiddleVariantSwitchDemo from "./UIComponent/SDKNewComponent/IotComponent/MiddleVariantSwitchDemo";
+import SmallFlatOptionDemo from "./UIComponent/SDKNewComponent/IotComponent/SmallFlatOptionDemo";
+import LargeFlatOptionDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeFlatOptionDemo";
+import FlatSelectDemo from "./UIComponent/SDKNewComponent/IotComponent/FlatSelectDemo";
+import VariantSwitchDemo from "./UIComponent/SDKNewComponent/IotComponent/VariantSwitchDemo";
+import ToggleButtonDemo from "./UIComponent/SDKNewComponent/BasicComponent/ToggleButtonDemo";
+// import SmartSceneDemo from "./UIComponent/SDKNewComponent/IotComponent/SmartSceneDemo";
+import SeparatorDemo from "./UIComponent/SDKNewComponent/IotComponent/SeparatorDemo";
 // 第三方库
 import SQLiteDemo from "./ThirdPartDemo/SQLiteDemo";
 import OrientationDemo from "./Host/OrientationDemo";
@@ -157,6 +217,7 @@ import BlankDemo from "./tutorial/BlankDemo";
 import SystemDemo from "./tutorial/SystemDemo";
 import BlankPageDemo from "./UIComponent/BlankPageDemo";
 import ColorPicker from "./UIComponent/ColorPicker";
+import BackHandlerDemo from "./UIComponent/BackHandlerDemo";
 import PackageDemo from "./tutorial/PackageDemo";
 // import ReactNativeCameraDemo from './ThirdPartDemo/ReactNativeCameraDemo';
 import LinearGradientDemo from "./ThirdPartDemo/LinearGradientDemo";
@@ -219,7 +280,6 @@ import CustomContainer from "./uikit/components/CustomContainer";
 import OfficialDemos from "./OfficialDemos";
 
 import Logger from "./Logger";
-
 function createRootStack(initPage) {
   return createStackNavigator(
     {
@@ -229,12 +289,62 @@ function createRootStack(initPage) {
       Setting,
       SettingPage,
       MoreSetting,
+      Settings2022,
+      SupportedFont,
       CurtainGroupPage,
       FirmwareUpgrade,
+      // 新版SDK
+      BasicComponentDemo,
+      BasicDemo,
+      AtomicDemo,
+      ButtonDemo,
+      ToastDemo,
+      ButtonColorDemo,
+      ButtonCustomDemo,
+      ButtonPageViewDemo,
+      SdkComponentDemo,
+      ColorDemo,
+      RadiusDemo,
+      DialogDemo,
+      HandPopDemo,
+      HandPopClickDemo,
+      HandPopCustomDemo,
+      HandPopTriggerDemo,
+      FontsDemo,
+      LoadingDemo,
+      ListDemo,
+      ListItemDemo,
+      ListGroupDemo,
+      InformationAreaDemo,
+      // Iot 组件
+      IotComponentDemo,
+      ControlerDemo,
+      StructureDemo,
+      EntryDemo,
+      StepperDemo,
+      LargeVariantSwitchDemo,
+      ContainerDemo,
+      TitleContainerDemo,
+      SmallEntranceDemo,
+      SmallVariantSwitchDemo,
+      MiddleVariantSwitchDemo,
+      SmallFlatOptionDemo,
+      LargeFlatOptionDemo,
+      FlatSelectDemo,
+      VariantSwitchDemo,
+      ToggleButtonDemo,
+      DrawerDemo,
+      FixedDrawerDemo,
+      ElasticDrawerDemo,
+      PanResponderDemo,
+      // SmartSceneDemo,
+      SeparatorDemo,
       // FirmwareUpgradeAuto,
       FirmwareUpgradeRecord,
       HostDemo,
       HostEventDemo,
+      PadScrollDemo,
+      RockerViewDemo: RockerViewDemo,
       Home: MainPage,
       accountDemo: AccountDemo,
       DeviceControl,
@@ -284,6 +394,7 @@ function createRootStack(initPage) {
       NumberSpinnerDemo,
       StringSpinnerDemo,
       ColorPickerDemo,
+      ColorSelectorDemo,
       MiotAndroidScrollViewDemo,
       AbsoluteTouch,
       // 接口服务
@@ -334,7 +445,7 @@ function createRootStack(initPage) {
       RobotMapDemo: RobotMapDemo,
       // SparkLines,
       // Tabs,
-      // YMDDatePicker,
+      YMDDatePickerDemo,
       ParticleDemo: ParticleDemo, // iOS 特有的,粒子系统
       ImagePickerDemo: ImagePickerDemo,
 
@@ -388,6 +499,10 @@ function createRootStack(initPage) {
       AdaptedFontCardDemo,
       GearCardDemo,
       ListCardDemo,
+      CardButtonDemo,
+      SelectWithButtonDemo,
+      SliderWithHeaderDemo,
+      SliderWithoutBlockDemo,
 
       CustomContainer,
       Parallax,
@@ -396,6 +511,7 @@ function createRootStack(initPage) {
       MHSceneDemo: MHSceneDemo,
       BlankPageDemo,
       ColorPicker,
+      BackHandlerDemo,
       tutorialDemo: TutorialDemo,
       PackageDemo: PackageDemo,
       AccountDemo: AccountDemo,
@@ -406,6 +522,7 @@ function createRootStack(initPage) {
       KVStorageDemo: KVStorageDemo,
       FileDemo: FileDemo,
       PhotoDemo: PhotoDemo,
+      DownloadFontDemo,
 
       UIKitHome: { screen: Screens.ComponentsScreen },
       Picker: { screen: Screens.PickerScreen },
@@ -469,6 +586,9 @@ function createRootStack(initPage) {
 
 function interpolator(props) {
   const { layout, position, scene } = props;
+  if (darkModeDemoPathList.includes(scene.route.routeName)) {
+    DarkMode.preparePluginOwnDarkMode();
+  }
 
   if (!layout.isMeasured) {
     return (props) => {
