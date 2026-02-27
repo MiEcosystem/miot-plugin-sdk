@@ -46,7 +46,7 @@ export default function GestureArea() {
   const [visible, setVisible] = useState(false);
 
   const [climateMode, setClimateMode] = useState('cool');
-  const [airconditionerState,setAirconditionerState] = useState('close');
+  const [airconditionerState, setAirconditionerState] = useState('close');
   const pagSource = climateMode === 'cool' ? 'airConditioner.pag' : 'airConditionerHot.pag';
 
   const startAuto = (axis) => {
@@ -70,7 +70,7 @@ export default function GestureArea() {
         toValue,
         duration: AUTO_DURATION * Math.abs((toValue - startValue) / 2),
         easing: Easing.linear,
-        useNativeDriver: false,
+        useNativeDriver: false
       }).start(({ finished }) => {
         if (finished) {
           const isAuto = axis === 'x' ? modeXRef.current === 'autox' : modeYRef.current === 'autoy';
@@ -102,7 +102,7 @@ export default function GestureArea() {
 
   const snapToNearest = (axis) => {
     const snapValues = [-1, -0.5, 0, 0.5, 1];
-    const findNearest = val => snapValues.reduce((prev, curr) => Math.abs(curr - val) < Math.abs(prev - val) ? curr : prev);
+    const findNearest = (val) => snapValues.reduce((prev, curr) => Math.abs(curr - val) < Math.abs(prev - val) ? curr : prev);
     if (axis === 'x') {
       setProgressX(findNearest(progressRefX.current));
       // 吸附时重置方向，下次启动时重新判断
@@ -122,7 +122,7 @@ export default function GestureArea() {
 
   const panResponder = useRef(
     PanResponder.create({
-      onStartShouldSetPanResponder: () => [modeXRef.current, modeYRef.current].some(m => m && (m.startsWith('gesture') || m.startsWith('snap'))),
+      onStartShouldSetPanResponder: () => [modeXRef.current, modeYRef.current].some((m) => m && (m.startsWith('gesture') || m.startsWith('snap'))),
       onPanResponderGrant: () => {
         if (modeXRef.current?.startsWith('gesture') || modeXRef.current?.startsWith('snap')) stopAutoAxis('x');
         if (modeYRef.current?.startsWith('gesture') || modeYRef.current?.startsWith('snap')) stopAutoAxis('y');
@@ -148,7 +148,7 @@ export default function GestureArea() {
         if (modeXRef.current === 'snapx') snapToNearest('x');
         if (modeYRef.current === 'snapy') snapToNearest('y');
         setVisible(false);
-      },
+      }
     })
   ).current;
 
@@ -156,15 +156,15 @@ export default function GestureArea() {
   const angleY = progressY * MAX_ANGLEY;
 
   const handlePress = (m) => {
-    if (m.endsWith('x')) setModeX(prev => prev === m ? null : m);
-    else setModeY(prev => prev === m ? null : m);
+    if (m.endsWith('x')) setModeX((prev) => prev === m ? null : m);
+    else setModeY((prev) => prev === m ? null : m);
   };
 
   return (
     <View style={{ flex: 1 }}>
       {/* 模式按钮 */}
       <View style={styles.buttonRow}>
-        {['gesturex','snapx','autox','gesturey','snapy','autoy'].map(m => (
+        {['gesturex', 'snapx', 'autox', 'gesturey', 'snapy', 'autoy'].map((m) => (
           <TouchableOpacity
             key={m}
             style={[styles.button, (m.endsWith('x') ? modeX : modeY) === m && styles.activeButton]}
@@ -176,16 +176,16 @@ export default function GestureArea() {
       </View>
       {/* 制冷制热 */}
       <View style={styles.buttonRow}>
-        <TouchableOpacity style={[styles.button, climateMode==='cool' && styles.activeButton]} onPress={()=>setClimateMode('cool')}>
+        <TouchableOpacity style={[styles.button, climateMode === 'cool' && styles.activeButton]} onPress={() => setClimateMode('cool')}>
           <Text style={styles.buttonText}>制冷</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, climateMode==='heat' && styles.activeButton]} onPress={()=>setClimateMode('heat')}>
+        <TouchableOpacity style={[styles.button, climateMode === 'heat' && styles.activeButton]} onPress={() => setClimateMode('heat')}>
           <Text style={styles.buttonText}>制热</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           onPress={() =>
-            setAirconditionerState(prev =>
+            setAirconditionerState((prev) =>
               prev === 'close' ? 'open' : 'close'
             )
           }
@@ -199,12 +199,12 @@ export default function GestureArea() {
         width: '80%',
         height: undefined,
         aspectRatio: 1,
-        alignSelf: 'center',
-      }} resizeMode="contain" source={airconditionerState === 'close'?require('/Users/mi/project/rn-plugin/miot-workspace/projects/com.xiaomi.demo/Resources/Images/AirConditionerClose.png'):require('/Users/mi/project/rn-plugin/miot-workspace/projects/com.xiaomi.demo/Resources/Images/AirConditionerOpen.png')} />
+        alignSelf: 'center'
+      }} resizeMode="contain" source={airconditionerState === 'close' ? require('../../Resources/Images/AirConditionerClose.png') : require('../../Resources/Images/AirConditionerOpen.png')} />
       {/* 手势区域 - 关闭时隐藏但保留progress值 */}
       {airconditionerState === 'open' && (
-        <View style={{position: 'absolute', top: 295, left: 0, bottom: 0,right: 0}}>
-          <View style={styles.container} {...[modeX, modeY].some(m => m && (m.startsWith('gesture') || m.startsWith('snap'))) ? panResponder.panHandlers : {}}>
+        <View style={{ position: 'absolute', top: 295, left: 0, bottom: 0, right: 0 }}>
+          <View style={styles.container} {...[modeX, modeY].some((m) => m && (m.startsWith('gesture') || m.startsWith('snap'))) ? panResponder.panHandlers : {}}>
             {/* 红点跟随手 */}
             {visible && (
               <Animated.View
@@ -229,7 +229,7 @@ export default function GestureArea() {
 
             <LibPagView
               source={pagSource}
-              style={{width:'100%', height:'100%'}}
+              style={{ width: '100%', height: '100%' }}
               progressX={progressX}
               angleX={MAX_ANGLEX}
               progressY={progressY}
@@ -244,11 +244,11 @@ export default function GestureArea() {
 }
 
 const styles = StyleSheet.create({
-  container: { height:300, backgroundColor:'transparent', borderRadius:12, overflow:'hidden', margin:10 },
-  dot: { position:'absolute', width:20, height:20, borderRadius:10, backgroundColor:'transparent', zIndex:10 },
-  info: { position:'absolute', top:10, left:10, backgroundColor:'transparent', padding:6, borderRadius:6 },
-  buttonRow: { flexDirection:'row', justifyContent:'center', padding:8, flexWrap:'wrap' },
-  button: { paddingVertical:8, paddingHorizontal:14, backgroundColor:'#888', borderRadius:8, margin:4 },
-  activeButton: { backgroundColor:'#4a90e2' },
-  buttonText: { color:'#fff', fontWeight:'600' },
+  container: { height: 300, backgroundColor: 'transparent', borderRadius: 12, overflow: 'hidden', margin: 10 },
+  dot: { position: 'absolute', width: 20, height: 20, borderRadius: 10, backgroundColor: 'transparent', zIndex: 10 },
+  info: { position: 'absolute', top: 10, left: 10, backgroundColor: 'transparent', padding: 6, borderRadius: 6 },
+  buttonRow: { flexDirection: 'row', justifyContent: 'center', padding: 8, flexWrap: 'wrap' },
+  button: { paddingVertical: 8, paddingHorizontal: 14, backgroundColor: '#888', borderRadius: 8, margin: 4 },
+  activeButton: { backgroundColor: '#4a90e2' },
+  buttonText: { color: '#fff', fontWeight: '600' }
 });
