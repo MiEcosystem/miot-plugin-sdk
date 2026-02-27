@@ -17,6 +17,7 @@ export default {
   basicPerformanceUpdate: '基础性能更新',
   productFunctionUpdate: '产品功能更新',
   updateFailed: '更新失败',
+  partialUpdateFailed: '部分更新失败',
   checkUpdateFailed: '检查更新失败',
   updated: '已更新',
   deviceOfflineCheckNetwork: '设备离线，请检查网络',
