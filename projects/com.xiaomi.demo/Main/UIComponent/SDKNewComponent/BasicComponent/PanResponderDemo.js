@@ -200,7 +200,7 @@ export default function GestureArea() {
         height: undefined,
         aspectRatio: 1,
         alignSelf: 'center'
-      }} resizeMode="contain" source={airconditionerState === 'close' ? require('../../Resources/Images/AirConditionerClose.png') : require('../../Resources/Images/AirConditionerOpen.png')} />
+      }} resizeMode="contain" source={airconditionerState === 'close' ? require('miot-workspace/projects/com.xiaomi.demo/Resources/Images/AirConditionerClose.png') : require('miot-workspace/projects/com.xiaomi.demo/Resources/Images/AirConditionerOpen.png')} />
       {/* 手势区域 - 关闭时隐藏但保留progress值 */}
       {airconditionerState === 'open' && (
         <View style={{ position: 'absolute', top: 295, left: 0, bottom: 0, right: 0 }}>
