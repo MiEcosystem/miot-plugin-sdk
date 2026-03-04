@@ -438,6 +438,7 @@ export const AllOptionsWeight = {
   [AllOptions.MORE]: 27,
   [AllOptions.STAND_PLUGIN]: 22,
   [AllOptions.DEFAULT_PLUGIN]: 28,
+  [AllOptions.USED_ON_MI_HOME]: 28,
   [AllOptions.FREQ_DEVICE]: 29,
   [AllOptions.FREQ_CAMERA]: 30,
   [AllOptions.MULTIPLEKEY_SPLIT]: 35,
@@ -1263,6 +1264,7 @@ export default class CommonSetting extends React.Component {
     let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory, showMemberSetKey, isSingleSwitch, showDeviceService, isCariotDevice, isHomeManager, isHighTextContrastEnabled } = this.state;
     let requireKeys1 = [
       AllOptions.FREQ_CAMERA,
+      AllOptions.USED_ON_MI_HOME,
       AllOptions.FREQ_DEVICE,
       AllOptions.NAME,
       AllOptions.LOCATION,
@@ -1397,7 +1399,9 @@ export default class CommonSetting extends React.Component {
     const btnStyle = isHighTextContrastEnabled ? styles.buttonTextAcc : styles.buttonText;
     const isFromCarRoom = Device.fromRoomIndex === 1 || Device.fromRoomIndex === 2;
     const isOKspace = Device.isOKspace;
-    const hideDeleteBtn = isFromCarRoom && !isOKspace;
+    // 云云2.0需求：云设备不显示删除按钮
+    const isCloudDevice = Device.type === '14';
+    const hideDeleteBtn = (isFromCarRoom && !isOKspace) || isCloudDevice;
     return (
       <View style={styles.container}>
         <View style={[styles.titleContainer, tempCommonSettingStyle.titleContainer]}>

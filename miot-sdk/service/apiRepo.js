@@ -376,6 +376,8 @@ const API_REPO = {
   '/smarthome/product/acpanel/client/v1/device/list': {},
   '/smarthome/product/acpanel/client/v1/sub': {},
   "/eco/nas/message/identity/get": {},
-  "/eco/nas/message/identity/verify": {}
+  "/eco/nas/message/identity/verify": {},
+  "/thirdcloud2cloud/query_device_switch": {},
+  "/thirdcloud2cloud/switch_device": {}
 };
 export default API_REPO;
