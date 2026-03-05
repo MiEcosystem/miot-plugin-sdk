@@ -126,7 +126,8 @@ export default class DeviceDemo extends React.Component {
                     ['isBinded2', this.state.device.isBinded2.toString()],
                     ['isReadOnlyShared', this.state.device.isReadonlyShared.toString()],
                     ['是否是根设备', this.state.device.isRootDevice.toString()],
-                    ['设备绑定时间orderTime', this.formatOrderTime()]
+                    ['设备绑定时间orderTime', this.formatOrderTime()],
+                    ['是否是新国标设备 isNewGBDevice', this.state.device.isNewGBDevice.toString()]
                   ]
                 },
                 {
@@ -164,7 +165,7 @@ export default class DeviceDemo extends React.Component {
                         return (
                           <View key={index} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', minHeight: 48, marginTop: 1, padding: 10, width: '100%', backgroundColor: index % 2 == 0 ? '#FFF' : '#FFFFFFE0' }}>
                             <Text>{`${ item[0] }:    `}</Text>
-                            <Text>{`${item[1]}`}</Text>
+                            <Text>{`${ item[1] }`}</Text>
                           </View>);
                       })
                     }

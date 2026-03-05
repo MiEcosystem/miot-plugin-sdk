@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Device, DeviceEvent } from 'miot';
+import Device, { DeviceEvent } from '../device/BasicDevice';
 export default function useDeviceName() {
   const [name, setName] = useState(Device.name);
   useEffect(() => {

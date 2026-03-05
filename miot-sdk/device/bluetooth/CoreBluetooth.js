@@ -22,7 +22,7 @@
  *  ...
  */
 import native, { Properties, isAndroid } from '../../native';
-import { getBluetoothUUID128 } from './index';
+import { getBluetoothUUID128 } from './utils/uuid';
 import { report } from "../../decorator/ReportDecorator";
 /**
  * BLE蓝牙特征值
