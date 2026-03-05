@@ -6,194 +6,187 @@ import { TitleContainer, colorToken, Fonts, TestComponent, SubtitleGroup } from 
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle } from 'miot/ui/icons';
 
-const source1Data2 = [
+const longTitle = '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题';
+const longSubtitle = '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字';
+const longValueText = '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态';
+
+const sourceData1 = [
   {
     index: 1,
-    title: '标题',
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    title: '标题'
   },
   {
-    index: 2,
     title: '标题',
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    statusRender: '状态说明'
+  },
+  {
+    index: 3,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    title: '标题',
+    subtitle: '列表副文字',
+    onPress: () => console.log(4),
     type: 'switch'
+  },
+  {
+    index: 4,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    title: '标题',
+    subtitle: <SubtitleGroup subtitles={['列表副文字', '列表副文字']}/>,
+    showDot: false,
+    onPress: () => console.log(4)
+  },
+  {
+    index: 5,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    title: '标题',
+    subtitle: <SubtitleGroup subtitles={['列表副文字', '列表副文字', '列表副文字']}/>,
+    valueText: '状态',
+    showDot: true,
+    hideRightIcon: false,
+    onPress: () => console.log(4)
+  },
+  {
+    index: 6,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    title: '标题',
+    statusRender: <View style={{ width: 14, height: 14, backgroundColor: colorToken.mjcard_color_yellow_1, borderRadius: 2 }}></View>,
+    type: 'switch'
+  }
+];
+
+const sourceData2 = [
+  {
+    index: 1,
+    title: '标题'
+  },
+  {
+    title: '标题',
+    statusRender: '状态说明'
   },
   {
     index: 3,
     title: '标题',
     subtitle: '列表副文字',
-    value: '状态',
-    showDot: true,
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
+    onPress: () => console.log(4),
+    type: 'switch'
   },
   {
     index: 4,
     title: '标题',
-    subtitle: '列表副文字',
-    hideRightIcon: false,
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    subtitle: <SubtitleGroup subtitles={['列表副文字', '列表副文字']}/>,
+    showDot: false,
     onPress: () => console.log(4)
   },
   {
     index: 5,
     title: '标题',
-    subtitle: '列表副文字',
+    subtitle: <SubtitleGroup subtitles={['列表副文字', '列表副文字', '列表副文字']}/>,
+    valueText: '状态',
+    showDot: true,
     hideRightIcon: false,
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
   {
     index: 6,
     title: '标题',
-    subtitle: <SubtitleGroup subtitles={['列表副']}/>,
-    hideRightIcon: false,
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
-  },
-  {
-    index: 7,
-    title: '标题',
-    subtitle: <SubtitleGroup subtitles={['列表副', '列表副']}/>,
-    hideRightIcon: false,
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
-  },
-  {
-    index: 8,
-    title: '标题',
-    subtitle: <SubtitleGroup subtitles={['列表副', '列表副', '列表副']}/>,
-    hideRightIcon: false,
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
+    statusRender: <View style={{ width: 14, height: 14, backgroundColor: colorToken.mjcard_color_yellow_1, borderRadius: 2 }}></View>,
+    type: 'switch'
   }
 ];
 
-const source1Data3 = [
+const source2Data1 = [
   {
     index: 1,
-    title: '标题',
-    showDot: false
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    title: longTitle
   },
   {
-    title: '标题',
-    showDot: false,
+    title: '标题标题标题标题标题标题',
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    statusRender: '状态说明'
+  },
+  {
+    index: 3,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    title: longTitle,
+    subtitle: longSubtitle,
+    onPress: () => console.log(4),
     type: 'switch'
   },
   {
-   
-    index: 3,
-    title: '标题',
-    subtitle: '标题副文字',
+    index: 4,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    title: longTitle,
+    subtitle: <SubtitleGroup subtitles={[longSubtitle, longSubtitle]}/>,
     showDot: false,
     onPress: () => console.log(4)
   },
   {
-   
-    index: 4,
-    title: '标题',
-    subtitle: '标题副文字',
-    showDot: false,
+    index: 5,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    title: longTitle,
+    subtitle: <SubtitleGroup subtitles={[longSubtitle, longSubtitle, longSubtitle]}/>,
+    valueText: longValueText,
+    showDot: true,
+    hideRightIcon: false,
     onPress: () => console.log(4)
+  },
+  {
+    index: 6,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    title: longTitle,
+    statusRender: <View style={{ width: 14, height: 14, backgroundColor: colorToken.mjcard_color_yellow_1, borderRadius: 2 }}></View>,
+    type: 'switch'
   }
 ];
 
 const source2Data2 = [
   {
     index: 1,
-    title: '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />
+    title: longTitle
   },
   {
-    index: 2,
-    title: '标题',
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    type: 'switch'
+    title: longTitle,
+    statusRender: '状态说明状态说明状态说明状态说明状态说明状态说明'
   },
   {
     index: 3,
-    title: '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
-    value: '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态',
-    showDot: true,
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
+    title: longTitle,
+    subtitle: longSubtitle,
+    onPress: () => console.log(4),
+    type: 'switch'
   },
   {
     index: 4,
-    title: '标题',
-    subtitle: '列表副文字',
-    hideRightIcon: false,
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
+    title: longTitle,
+    subtitle: <SubtitleGroup subtitles={[longSubtitle, longSubtitle]}/>,
+    showDot: false,
     onPress: () => console.log(4)
   },
   {
     index: 5,
-    title: '标题',
-    subtitle: '列表副文字',
+    title: longTitle,
+    subtitle: <SubtitleGroup subtitles={[longSubtitle, longSubtitle, longSubtitle]}/>,
+    valueText: longValueText,
+    showDot: true,
     hideRightIcon: false,
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
     onPress: () => console.log(4)
   },
   {
     index: 6,
-    title: '标题',
-    subtitle: <SubtitleGroup subtitles={['列表副列表副列表副列表副列表副']}/>,
-    hideRightIcon: false,
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
-  },
-  {
-    index: 7,
-    title: '标题',
-    subtitle: <SubtitleGroup subtitles={['列表副列表副列表副列表副', '列表副列表副列表副列表副列表副']}/>,
-    hideRightIcon: false,
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
-  },
-  {
-    index: 8,
-    title: '标题',
-    subtitle: <SubtitleGroup subtitles={['列表副列表副列表副列表副列表副列表副列表副', '列表副列表副列表副列表副列表副列表副列表副', '列表副列表副列表副列表副列表副列表副列表副列表副']}/>,
-    hideRightIcon: false,
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
-  }
-];
-
-const source2Data3 = [
-  {
-    index: 1,
-    title: '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',
-    showDot: false
-  },
-  {
-    title: '标题',
-    showDot: false,
-    onPress: () => console.log(4)
-  },
-  {
-    index: 3,
-    title: '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',
-    subtitle: '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字',
-    showDot: false,
-    onPress: () => console.log(4)
-  },
-  {
-    index: 4,
-    title: '标题',
-    subtitle: '标题副文字',
-    showDot: false,
-    onPress: () => console.log(4)
+    title: longTitle,
+    statusRender: <View style={{ width: 14, height: 14, backgroundColor: colorToken.mjcard_color_yellow_1, borderRadius: 2 }}></View>,
+    type: 'switch'
   }
 ];
 
 const TitleContainerDemo = () => {
 
   const [state, setState] = useState({
-    // sourceData1: source1Data1,
-    sourceData2: source1Data2,
-    sourceData3: source1Data3,
+    sourceData1: sourceData1,
+    sourceData2: sourceData2,
     disabled: false,
     switchValue: false
   });
@@ -203,23 +196,20 @@ const TitleContainerDemo = () => {
     switch (type) {
       case 1:
         data = {
-          // sourceData1: source1Data1,
-          sourceData2: source1Data2,
-          sourceData3: source1Data3
+          sourceData1: sourceData1,
+          sourceData2: sourceData2
         };
         break;
       case 2:
         data = {
-          // sourceData1: source2Data1,
-          sourceData2: source2Data2,
-          sourceData3: source2Data3
+          sourceData1: source2Data1,
+          sourceData2: source2Data2
         };
         break;
       default:
         data = {
-          // sourceData1: source1Data1,
-          sourceData2: source1Data2,
-          sourceData3: source1Data3
+          sourceData1: sourceData1,
+          sourceData2: sourceData2
         };
     }
     setState((item) => ({
@@ -227,10 +217,17 @@ const TitleContainerDemo = () => {
       ...data
     }));
   };
+
+  const onValueChange = (val) => {
+    setState((item) => ({
+      ...item,
+      switchValue: val
+    }));
+  };
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.header}>L</Text>
+        <Text style={styles.header}>卡片标题</Text>
         <Text style={styles.button} onPress={() => {
           transformData(1);
         }}>重置</Text>
@@ -243,18 +240,26 @@ const TitleContainerDemo = () => {
             disabled: !state.disabled
           }));
         }}>切换禁用态</Text>
-        <Text style={styles.title}>带图标</Text>
+        <Text style={styles.title}>无图标</Text>
         <View style={styles.data}>
           {state.sourceData2.map((item, index) => {
-            return <TitleContainer key={index} {...item} disabled={state.disabled}/>;
+            let newProps = {};
+            if (item.type === 'switch') {
+              newProps = {
+                value: state.switchValue,
+                onValueChange
+              };
+            }
+            return <TitleContainer key={index} {...item} disabled={state.disabled} {...newProps}/>;
           })}
         </View>
-        <Text style={styles.title}>不带图标</Text>
+        <Text style={styles.title}>有图标</Text>
         <View style={styles.data}>
-          {state.sourceData3.map((item, index) => {
+          {state.sourceData1.map((item, index) => {
             return <TitleContainer key={index} {...item} disabled={state.disabled}/>;
           })}
         </View>
+        <View style={{ height: 28 }}/>
       </View>
     </ScrollView>
   );

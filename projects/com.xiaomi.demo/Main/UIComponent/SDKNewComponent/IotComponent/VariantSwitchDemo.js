@@ -7,8 +7,8 @@ import { colorToken, ListGroup } from "miot/ui/hyperOSUI";
 
 const UIItems = [
   { title: 'L', router: 'LargeVariantSwitchDemo' },
-  { title: 'M', router: 'MiddleVariantSwitchDemo' },
-  { title: 'S', router: 'SmallVariantSwitchDemo' }
+  { title: 'M', router: 'MiddleVariantSwitchDemo' }
+  // { title: 'S', router: 'SmallVariantSwitchDemo' }
 ];
 
 

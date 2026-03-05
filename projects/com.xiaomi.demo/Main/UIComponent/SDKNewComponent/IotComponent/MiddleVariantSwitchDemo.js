@@ -6,32 +6,87 @@ import { MiddleVariantSwitch, colorToken, Fonts, ContainerWithGap, CardContainer
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle } from 'miot/ui/icons';
 
-const sourceData1 = 
+const longTitle = '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题';
+const longSubtitle = '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字';
+
+const sourceData1 = [
   {
     index: 1,
-    title: '标题',
+    title: '主文字',
     icon: <Circle fill={colorToken.mj_color_gray_icon_2} />,
     onPress: () => console.log(4)
-  };
-
-const sourceData2 = 
+  },
   {
-    index: 1,
-    title: '标题',
-    subtitle: '副标题',
+    index: 2,
+    title: '主文字',
     icon: <Circle fill={colorToken.mj_color_gray_icon_2} />,
     rightIconType: 'arrow',
     onPress: () => console.log(4)
-  };
+  },
+  {
+    index: 3,
+    title: '主文字',
+    icon: <Circle fill={colorToken.mj_color_gray_icon_2} />,
+    rightIconType: 'select',
+    onPress: () => console.log(4)
+  }
+];
 
-const sourceData3 = {
+const sourceData2 = [
+  {
+    index: 1,
+    title: '主文字',
+    subtitle: '列表副文字',
+    icon: <Circle fill={colorToken.mj_color_gray_icon_2} />,
+    onPress: () => console.log(4)
+  },
+  {
+    index: 1,
+    title: '主文字',
+    subtitle: '列表副文字',
+    icon: <Circle fill={colorToken.mj_color_gray_icon_2} />,
+    rightIconType: 'arrow',
+    onPress: () => console.log(4)
+  },
+  {
+    index: 1,
+    title: '主文字',
+    subtitle: '列表副文字',
+    icon: <Circle fill={colorToken.mj_color_gray_icon_2} />,
+    rightIconType: 'select',
+    onPress: () => console.log(4)
+  }
+];
+
+const sourceData3 = [{
   index: 1,
-  title: '标题',
-  subtitle: '副标题',
+  title: '主文字',
+  subtitle: '列表副文字',
   icon: <Circle fill={colorToken.mj_color_gray_icon_2} />,
   value: true,
+  colorType: 'blue',
   onPress: () => console.log(4)
-};
+},
+{
+  index: 2,
+  title: '主文字',
+  subtitle: '列表副文字',
+  icon: <Circle fill={colorToken.mj_color_gray_icon_2} />,
+  value: true,
+  colorType: 'green',
+  rightIconType: 'arrow',
+  onPress: () => console.log(4)
+},
+{
+  index: 3,
+  title: '主文字',
+  subtitle: '列表副文字',
+  icon: <Circle fill={colorToken.mj_color_gray_icon_2} />,
+  value: true,
+  colorType: 'orange',
+  rightIconType: 'select',
+  onPress: () => console.log(4)
+}];
 
 const MiddleVariantSwitchDemo = () => {
 
@@ -54,9 +109,9 @@ const MiddleVariantSwitchDemo = () => {
         break;
       case 2:
         data = {
-          sourceData1: { ...sourceData1, title: '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题' },
-          sourceData2: { ...sourceData2, title: '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题', subtitle: '副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题' },
-          sourceData3: { ...sourceData3, title: '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题', subtitle: '副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题' }
+          sourceData1: sourceData1.map((item) => ({ ...item, title: longTitle })),
+          sourceData2: sourceData2.map((item) => ({ ...item, title: longTitle, subtitle: longSubtitle })),
+          sourceData3: sourceData3.map((item) => ({ ...item, title: longTitle, subtitle: longSubtitle }))
         };
         break;
       default:
@@ -87,18 +142,18 @@ const MiddleVariantSwitchDemo = () => {
             disabled: !state.disabled
           }));
         }}>切换禁用态</Text>
-        <ContainerWithGap span={2} gap={8} horizontal={true} title="标题">
-          {new Array(3).fill(state.sourceData1).map((item, index) => {
+        <ContainerWithGap span={2} gap={8} horizontal={true} title="不带列表副文字">
+          {state.sourceData1.map((item, index) => {
             return <CardContainer key={index} viewStyle={{ flex: 1 }}><MiddleVariantSwitch {...item} disabled={state.disabled}/></CardContainer>;
           })}
         </ContainerWithGap>
-        <ContainerWithGap span={2} gap={8} horizontal={true} title="副标题">
-          {new Array(3).fill(state.sourceData2).map((item, index) => {
+        <ContainerWithGap span={2} gap={8} horizontal={true} title="带列表副文字">
+          {state.sourceData2.map((item, index) => {
             return <CardContainer key={index} viewStyle={{ flex: 1 }}><MiddleVariantSwitch {...item} disabled={state.disabled}/></CardContainer>;
           })}
         </ContainerWithGap>
-        <ContainerWithGap span={2} gap={8} horizontal={true} title="开关选中">
-          {new Array(3).fill(state.sourceData3).map((item, index) => {
+        <ContainerWithGap span={2} gap={8} horizontal={true} title="激活态可配置颜色">
+          {state.sourceData3.map((item, index) => {
             return <CardContainer key={index} viewStyle={{ flex: 1 }}><MiddleVariantSwitch {...item} disabled={state.disabled}/></CardContainer>;
           })}
         </ContainerWithGap>

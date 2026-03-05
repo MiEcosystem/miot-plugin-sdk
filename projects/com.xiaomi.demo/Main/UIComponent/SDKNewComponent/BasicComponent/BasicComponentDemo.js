@@ -28,10 +28,12 @@ const BasicComponentDemo = (props) => {
     { title: '轻消息', router: 'ToastDemo' }
   ];
   const PhaseFourItems = [
-    { title: '信息区', router: 'InformationAreaDemo' },
+    { title: '空调柜机', router: 'CabinetAirConditioner' },
+    { title: '空调挂机', router: 'PanResponderDemo' },
     { title: '切换按钮', router: 'ToggleButtonDemo' },
-    { title: '抽屉组件', router: 'DrawerDemo' },
-    { title: '手势区',router: 'PanResponderDemo' },
+    { title: '抽屉组件', router: 'DrawerDemo' }, ,
+    { title: '信息区', router: 'InformationDemo' },
+    { title: '滑条', router: 'SliderDemo' }
   ];
 
   const PhaseOneDataSource = useMemo(() => {
@@ -68,13 +70,6 @@ const BasicComponentDemo = (props) => {
 const styles = dynamicStyleSheet({
   container: {
     backgroundColor: colorToken.mj_color_gray_bg_2
-  },
-  header: {
-    fontSize: 24,
-    color: colorToken.mj_color_gray_text_2,
-    fontWeight: '500',
-    paddingHorizontal: 15,
-    marginBottom: 20
   }
 });
 

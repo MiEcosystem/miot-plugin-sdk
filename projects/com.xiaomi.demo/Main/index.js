@@ -162,11 +162,17 @@ import ButtonPageViewDemo from "./UIComponent/SDKNewComponent/BasicComponent/But
 import AtomicDemo from "./UIComponent/SDKNewComponent/BasicComponent/AtomicDemo";
 import ToastDemo from "./UIComponent/SDKNewComponent/BasicComponent/ToastDemo";
 import InformationAreaDemo from "./UIComponent/SDKNewComponent/BasicComponent/InformationAreaDemo";
+import InformationDemo from "./UIComponent/SDKNewComponent/BasicComponent/InformationDemo";
+import InformationDataDemo from "./UIComponent/SDKNewComponent/BasicComponent/InformationDataDemo";
+import SliderDemo from "./UIComponent/SDKNewComponent/BasicComponent/SliderDemo";
+import SliderContinuousDemo from "./UIComponent/SDKNewComponent/BasicComponent/SliderContinuousDemo";
+import SliderDiscreteDemo from "./UIComponent/SDKNewComponent/BasicComponent/SliderDiscreteDemo";
 
 import DrawerDemo from "./UIComponent/SDKNewComponent/BasicComponent/DrawerDemo";
 import FixedDrawerDemo from "./UIComponent/SDKNewComponent/BasicComponent/FixedDrawerDemo";
 import ElasticDrawerDemo from "./UIComponent/SDKNewComponent/BasicComponent/ElasticDrawerDemo";
 import PanResponderDemo from "./UIComponent/SDKNewComponent/BasicComponent/PanResponderDemo";
+import CabinetAirConditioner from "./UIComponent/SDKNewComponent/BasicComponent/CabinetAirConditioner";
 // Iot 组件
 import IotComponentDemo from "./UIComponent/SDKNewComponent/IotComponent/IotComponentDemo";
 import StructureDemo from "./UIComponent/SDKNewComponent/IotComponent/StructureDemo";
@@ -175,6 +181,8 @@ import EntryDemo from "./UIComponent/SDKNewComponent/IotComponent/EntryDemo";
 import StepperDemo from "./UIComponent/SDKNewComponent/IotComponent/StepperDemo";
 import LargeVariantSwitchDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeVariantSwitchDemo";
 import ContainerDemo from "./UIComponent/SDKNewComponent/IotComponent/ContainerDemo";
+import CardContainerDemo from "./UIComponent/SDKNewComponent/IotComponent/CardContainerDemo";
+import GroupContainerDemo from "./UIComponent/SDKNewComponent/IotComponent/GroupContainerDemo";
 import TitleContainerDemo from "./UIComponent/SDKNewComponent/IotComponent/TitleContainerDemo";
 import SmallEntranceDemo from "./UIComponent/SDKNewComponent/IotComponent/SmallEntranceDemo";
 import SmallVariantSwitchDemo from "./UIComponent/SDKNewComponent/IotComponent/SmallVariantSwitchDemo";
@@ -316,6 +324,12 @@ function createRootStack(initPage) {
       ListItemDemo,
       ListGroupDemo,
       InformationAreaDemo,
+      InformationDemo,
+      InformationDataDemo,
+      SliderDemo,
+      SliderContinuousDemo,
+      SliderDiscreteDemo,
+      CabinetAirConditioner,
       // Iot 组件
       IotComponentDemo,
       ControlerDemo,
@@ -324,6 +338,8 @@ function createRootStack(initPage) {
       StepperDemo,
       LargeVariantSwitchDemo,
       ContainerDemo,
+      CardContainerDemo,
+      GroupContainerDemo,
       TitleContainerDemo,
       SmallEntranceDemo,
       SmallVariantSwitchDemo,

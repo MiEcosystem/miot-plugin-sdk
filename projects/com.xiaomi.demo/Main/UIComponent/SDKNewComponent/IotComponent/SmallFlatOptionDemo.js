@@ -2,32 +2,61 @@
 
 import React, { useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { SmallFlatOption, colorToken, Fonts, FlatSelect, CardContainer, TitleContainer } from 'miot/ui/hyperOSUI';
+import { SmallFlatOption, colorToken, Fonts, FlatSelect, CardContainer, TitleContainer, ContainerWithGap } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle } from 'miot/ui/icons';
 
-const sourceData1 = [
-  {
-    index: 1,
-    title: '标题',
-    colorType: 'blue',
-    icon: <Circle fill={colorToken.mj_color_gray_icon_2} />,
-    value: 1
-  },
-  {
-    index: 2,
-    title: '标题',
-    colorType: 'blue',
-    icon: <Circle fill={colorToken.mj_color_gray_icon_2} />,
-    value: 2
-  }
-];
+const longTitle = '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题';
+const longSubtitle = '副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题';
 
-const sourceData2 = [
+const sourceData1 = new Array(2).fill({
+  title: '标题',
+  colorType: 'blue',
+  subtitle: '列表副文字',
+  icon: <Circle fill={colorToken.mj_color_gray_icon_2} />
+}).map((item, i) => ({ ...item, value: i + 1 }));
+
+const sourceData2 = new Array(3).fill({
+  title: '标题',
+  colorType: 'blue',
+  subtitle: '列表副文字',
+  icon: <Circle fill={colorToken.mj_color_gray_icon_2} />
+}).map((item, i) => ({ ...item, value: i + 1 }));
+
+const sourceData3 = new Array(2).fill({
+  title: '标题',
+  subtitle: '列表副文字',
+  rightIconType: 'arrow',
+  icon: <Circle fill={colorToken.mj_color_gray_icon_2} />
+}).map((item, i) => ({ ...item, value: i + 1 }));
+
+
+const sourceData4 = new Array(3).fill({
+  title: '标题',
+  subtitle: '列表副文字',
+  rightIconType: 'arrow',
+  icon: <Circle fill={colorToken.mj_color_gray_icon_2} />
+}).map((item, i) => ({ ...item, value: i + 1 }));
+
+const sourceData5 = new Array(2).fill({
+  title: '标题',
+  subtitle: '列表副文字',
+  rightIconType: 'select',
+  icon: <Circle fill={colorToken.mj_color_gray_icon_2} />
+}).map((item, i) => ({ ...item, value: i + 1 }));
+
+const sourceData6 = new Array(3).fill({
+  title: '标题',
+  subtitle: '列表副文字',
+  rightIconType: 'select',
+  icon: <Circle fill={colorToken.mj_color_gray_icon_2} />
+}).map((item, i) => ({ ...item, value: i + 1 }));
+
+const sourceData7 = [
   {
     index: 1,
     title: '标题',
-    subtitle: '副标题',
+    subtitle: '列表副文字',
     colorType: 'blue',
     icon: <Circle fill={colorToken.mj_color_gray_icon_2} />,
     rightIconType: 'arrow',
@@ -36,8 +65,8 @@ const sourceData2 = [
   {
     index: 2,
     title: '标题',
-    subtitle: '副标题',
-    colorType: 'blue',
+    subtitle: '列表副文字',
+    colorType: 'orange',
     icon: <Circle fill={colorToken.mj_color_gray_icon_2} />,
     rightIconType: 'arrow',
     value: 2
@@ -45,40 +74,10 @@ const sourceData2 = [
   {
     index: 3,
     title: '标题',
-    subtitle: '副标题',
-    colorType: 'blue',
+    subtitle: '列表副文字',
+    colorType: 'green',
     icon: <Circle fill={colorToken.mj_color_gray_icon_2} />,
     rightIconType: 'arrow',
-    value: 3
-  }
-];
-
-const sourceData3 = [
-  {
-    index: 1,
-    title: '标题',
-    subtitle: '副标题',
-    colorType: 'blue',
-    icon: <Circle fill={colorToken.mj_color_gray_icon_2} />,
-    rightIconType: 'select',
-    value: 1
-  },
-  {
-    index: 2,
-    title: '标题',
-    subtitle: '副标题',
-    colorType: 'blue',
-    icon: <Circle fill={colorToken.mj_color_gray_icon_2} />,
-    rightIconType: 'select',
-    value: 2
-  },
-  {
-    index: 3,
-    title: '标题',
-    subtitle: '副标题',
-    colorType: 'blue',
-    icon: <Circle fill={colorToken.mj_color_gray_icon_2} />,
-    rightIconType: 'select',
     value: 3
   }
 ];
@@ -89,7 +88,12 @@ const SmallFlatOptionDemo = () => {
     sourceData1,
     sourceData2,
     sourceData3,
-    disabled: false
+    sourceData4,
+    sourceData5,
+    sourceData6,
+    sourceData7,
+    disabled: false,
+    currentValue: 1
   });
 
   const transformData = (type) => {
@@ -97,21 +101,36 @@ const SmallFlatOptionDemo = () => {
     switch (type) {
       case 2:
         data = {
-          sourceData1: sourceData1.map((item) => ({ ...item, title: '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题' })),
-          sourceData2: sourceData2.map((item) => ({ ...item, title: '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题', subtitle: '副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题' })),
-          sourceData3: sourceData3.map((item) => ({ ...item, title: '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题', subtitle: '副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题' }))
+          sourceData1: sourceData1.map((item) => ({ ...item, title: longTitle })),
+          sourceData2: sourceData2.map((item) => ({ ...item, title: longTitle, subtitle: longSubtitle })),
+          sourceData3: sourceData3.map((item) => ({ ...item, title: longTitle, subtitle: longSubtitle })),
+          sourceData4: sourceData4.map((item) => ({ ...item, title: longTitle, subtitle: longSubtitle })),
+          sourceData5: sourceData5.map((item) => ({ ...item, title: longTitle, subtitle: longSubtitle })),
+          sourceData6: sourceData6.map((item) => ({ ...item, title: longTitle, subtitle: longSubtitle })),
+          sourceData7: sourceData7.map((item) => ({ ...item, title: longTitle, subtitle: longSubtitle }))
         };
         break;
       default:
         data = {
           sourceData1,
           sourceData2,
-          sourceData3
+          sourceData3,
+          sourceData4,
+          sourceData5,
+          sourceData6,
+          sourceData7
         };
     }
     setState((item) => ({
       ...item,
       ...data
+    }));
+  };
+
+  const onSelect = (value) => {
+    setState((item) => ({
+      ...item,
+      currentValue: value
     }));
   };
   return (
@@ -130,34 +149,70 @@ const SmallFlatOptionDemo = () => {
             disabled: !state.disabled
           }));
         }}>切换禁用态</Text>
-        <Text style={styles.title}>2个</Text>
-        <CardContainer>
-          <TitleContainer title="标题"/>
-          <FlatSelect value={1} disabled={state.disabled} size={'small'}>
-            {state.sourceData1.map((item, index) => {
-              return <SmallFlatOption key={index} {...item} disabled={state.disabled}/>;
-            })}
-          </FlatSelect>
-        </CardContainer>
-        <Text style={styles.title}>3个</Text>
-        <CardContainer>
-          <TitleContainer title="标题"/>
-          <FlatSelect value={1} disabled={state.disabled} size={'small'}>
-            {state.sourceData2.map((item, index) => {
-              return <SmallFlatOption key={index} {...item} disabled={state.disabled}/>;
-            })}
-          </FlatSelect>
-
-        </CardContainer>
-        <Text style={styles.title}>3个</Text>
-        <CardContainer>
-          <TitleContainer title="标题"/>
-          <FlatSelect value={[1, 2]} disabled={state.disabled} size={'small'} mode="multiple">
-            {state.sourceData3.map((item, index) => {
-              return <SmallFlatOption key={index} {...item} disabled={state.disabled}/>;
-            })}
-          </FlatSelect>
-        </CardContainer>
+        <ContainerWithGap gap={8} title="副标题无交互">
+          <CardContainer>
+            <TitleContainer title="标题"/>
+            <FlatSelect value={state.currentValue} disabled={state.disabled} size={'small'} onChange={onSelect}>
+              {state.sourceData1.map((item, index) => {
+                return <SmallFlatOption key={index} {...item} disabled={state.disabled}/>;
+              })}
+            </FlatSelect>
+          </CardContainer>
+          <CardContainer>
+            <TitleContainer title="标题"/>
+            <FlatSelect value={state.currentValue} disabled={state.disabled} size={'small'} onChange={onSelect}>
+              {state.sourceData2.map((item, index) => {
+                return <SmallFlatOption key={index} {...item} disabled={state.disabled}/>;
+              })}
+            </FlatSelect>
+          </CardContainer>
+        </ContainerWithGap>
+        <ContainerWithGap gap={8} title="副标题带入口">
+          <CardContainer>
+            <TitleContainer title="标题"/>
+            <FlatSelect value={state.currentValue} disabled={state.disabled} size={'small'} onChange={onSelect}>
+              {state.sourceData3.map((item, index) => {
+                return <SmallFlatOption key={index} {...item} disabled={state.disabled}/>;
+              })}
+            </FlatSelect>
+          </CardContainer>
+          <CardContainer>
+            <TitleContainer title="标题"/>
+            <FlatSelect value={state.currentValue} disabled={state.disabled} size={'small'} onChange={onSelect}>
+              {state.sourceData4.map((item, index) => {
+                return <SmallFlatOption key={index} {...item} disabled={state.disabled}/>;
+              })}
+            </FlatSelect>
+          </CardContainer>
+        </ContainerWithGap>
+        <ContainerWithGap gap={8} title="副标题带切换">
+          <CardContainer>
+            <TitleContainer title="标题"/>
+            <FlatSelect value={state.currentValue} disabled={state.disabled} size={'small'} onChange={onSelect}>
+              {state.sourceData5.map((item, index) => {
+                return <SmallFlatOption key={index} {...item} disabled={state.disabled}/>;
+              })}
+            </FlatSelect>
+          </CardContainer>
+          <CardContainer>
+            <TitleContainer title="标题"/>
+            <FlatSelect value={state.currentValue} disabled={state.disabled} size={'small'} onChange={onSelect}>
+              {state.sourceData6.map((item, index) => {
+                return <SmallFlatOption key={index} {...item} disabled={state.disabled}/>;
+              })}
+            </FlatSelect>
+          </CardContainer>
+        </ContainerWithGap>
+        <ContainerWithGap gap={8} title="颜色配置">
+          <CardContainer>
+            <TitleContainer title="标题"/>
+            <FlatSelect value={state.currentValue} disabled={state.disabled} size={'small'} onChange={onSelect}>
+              {state.sourceData7.map((item, index) => {
+                return <SmallFlatOption key={index} {...item} disabled={state.disabled}/>;
+              })}
+            </FlatSelect>
+          </CardContainer>
+        </ContainerWithGap>
       </View>
     </ScrollView>
   );
@@ -167,6 +222,7 @@ const styles = dynamicStyleSheet({
   container: {
     paddingTop: 30,
     paddingHorizontal: 12,
+    paddingBottom: 28,
     backgroundColor: colorToken.mj_color_gray_bg_2
   },
   header: {

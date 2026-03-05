@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { getString } from './MHLocalizableString';
 import Logger from './Logger';
-
 export default class MainPage extends React.Component {
 
   constructor(props) {

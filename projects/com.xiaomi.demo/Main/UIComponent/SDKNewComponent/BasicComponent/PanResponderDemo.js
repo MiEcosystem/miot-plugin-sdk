@@ -9,14 +9,17 @@ import {
   TouchableOpacity,
   Animated,
   Easing,
-  Image
+  Image,
+  ImageBackground
 } from 'react-native';
+import {Host} from "miot";
+import Device from 'miot/Device';
 
-const LibPagView = requireNativeComponent('LibPagView');
+export const LibPagView = requireNativeComponent('LibPagView');
 
 export default function GestureArea() {
   const MAX_ANGLEX = 40;
-  const MAX_ANGLEY = 60;
+  const MAX_ANGLEY = 50;
   const RANGE = 150;
   const AUTO_DURATION = 2000;
 
@@ -36,6 +39,7 @@ export default function GestureArea() {
 
   const autoAnimX = useRef(new Animated.Value(progressX)).current;
   const autoAnimY = useRef(new Animated.Value(progressY)).current;
+  const did = Device.deviceID;
 
   // 记录自动动画的方向：1表示向正方向（1），-1表示向负方向（-1）
   const autoDirectionX = useRef(1);
@@ -45,10 +49,26 @@ export default function GestureArea() {
   const baseProgressRefY = useRef(0);
   const [visible, setVisible] = useState(false);
 
+  const [isLight, setIsLight] = useState(true);
   const [climateMode, setClimateMode] = useState('cool');
-  const [airconditionerState, setAirconditionerState] = useState('close');
-  const pagSource = climateMode === 'cool' ? 'airConditioner.pag' : 'airConditionerHot.pag';
-
+  const pagSource = climateMode === 'cool' ? '挂机空调风VFX_制冷.pag' : '挂机空调风VFX_制热.pag';
+  useEffect(() => {
+    autoDownloadAndUnzip();
+  }, []);
+  const autoDownloadAndUnzip = async () => {
+    try {
+      console.log('插件启动，开始下载');
+      await Host.file.downloadFile(
+        'https://staging-cnbj2-fds.api.xiaomi.net/mijia-apps/mijia-plugin/挂机空调风_0304.zip?GalaxyAccessKeyId=5151729087601&Expires=9223372036854775807&Signature=3uS2148L2CTtI%2FD8122vxl7ndIg%3D',
+        'air.zip'
+      );
+      console.log('下载完成，开始解压');
+      await Host.file.unzipFile('air.zip', '');
+      console.log('解压完成');
+    } catch (e) {
+      console.log('下载或解压失败:', e);
+    }
+  };
   const startAuto = (axis) => {
     const animValue = axis === 'x' ? autoAnimX : autoAnimY;
     const setProgress = axis === 'x' ? setProgressX : setProgressY;
@@ -116,9 +136,9 @@ export default function GestureArea() {
   };
 
   useEffect(() => {
-    stopAutoAxis('x'); if (modeX === 'autox' && airconditionerState === 'open') startAuto('x'); if (modeX === 'snapx') snapToNearest('x');
-    stopAutoAxis('y'); if (modeY === 'autoy' && airconditionerState === 'open') startAuto('y'); if (modeY === 'snapy') snapToNearest('y');
-  }, [modeX, modeY, airconditionerState]);
+    stopAutoAxis('x'); if (modeX === 'autox') startAuto('x'); if (modeX === 'snapx') snapToNearest('x');
+    stopAutoAxis('y'); if (modeY === 'autoy') startAuto('y'); if (modeY === 'snapy') snapToNearest('y');
+  }, [modeX, modeY]);
 
   const panResponder = useRef(
     PanResponder.create({
@@ -161,7 +181,13 @@ export default function GestureArea() {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <ImageBackground
+      source={isLight
+        ? require('../../../../Resources/Images/open_light.png')
+        : require('../../../../Resources/Images/open_night.png')}
+      style={{ flex: 1 }}
+      resizeMode="cover"
+    >
       {/* 模式按钮 */}
       <View style={styles.buttonRow}>
         {['gesturex', 'snapx', 'autox', 'gesturey', 'snapy', 'autoy'].map((m) => (
@@ -174,7 +200,7 @@ export default function GestureArea() {
           </TouchableOpacity>
         ))}
       </View>
-      {/* 制冷制热 */}
+      {/* 制冷制热 + 深浅色切换 */}
       <View style={styles.buttonRow}>
         <TouchableOpacity style={[styles.button, climateMode === 'cool' && styles.activeButton]} onPress={() => setClimateMode('cool')}>
           <Text style={styles.buttonText}>制冷</Text>
@@ -183,68 +209,54 @@ export default function GestureArea() {
           <Text style={styles.buttonText}>制热</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            setAirconditionerState((prev) =>
-              prev === 'close' ? 'open' : 'close'
-            )
-          }
+          style={[styles.button, {backgroundColor: isLight ? '#f0c040' : '#333'}]}
+          onPress={() => setIsLight(prev => !prev)}
         >
-          <Text style={styles.buttonText}>
-            {airconditionerState === 'close' ? '打开' : '关闭'}
-          </Text>
+          <Text style={styles.buttonText}>{isLight ? '浅色' : '深色'}</Text>
         </TouchableOpacity>
       </View>
-      <Image style={{
-        width: '80%',
-        height: undefined,
-        aspectRatio: 1,
-        alignSelf: 'center'
-      }} resizeMode="contain" source={airconditionerState === 'close' ? require('miot-workspace/projects/com.xiaomi.demo/Resources/Images/AirConditionerClose.png') : require('miot-workspace/projects/com.xiaomi.demo/Resources/Images/AirConditionerOpen.png')} />
-      {/* 手势区域 - 关闭时隐藏但保留progress值 */}
-      {airconditionerState === 'open' && (
-        <View style={{ position: 'absolute', top: 295, left: 0, bottom: 0, right: 0 }}>
-          <View style={styles.container} {...[modeX, modeY].some((m) => m && (m.startsWith('gesture') || m.startsWith('snap'))) ? panResponder.panHandlers : {}}>
-            {/* 红点跟随手 */}
-            {visible && (
-              <Animated.View
-                style={[styles.dot, {
-                  transform: [
-                    { translateX: progressX * RANGE },
-                    { translateY: progressY * RANGE }
-                  ]
-                }]}
-              />
-            )}
-
-            <View style={styles.info}>
-              <Text>modeX: {modeX || 'none'}</Text>
-              <Text>progressX: {progressX.toFixed(2)}</Text>
-              <Text>angleX: {angleX.toFixed(1)}°</Text>
-              <Text>modeY: {modeY || 'none'}</Text>
-              <Text>progressY: {progressY.toFixed(2)}</Text>
-              <Text>angleY: {angleY.toFixed(1)}°</Text>
-              <Text>climate: {climateMode}</Text>
-            </View>
-
-            <LibPagView
-              source={pagSource}
-              style={{ width: '100%', height: '100%' }}
-              progressX={progressX}
-              angleX={MAX_ANGLEX}
-              progressY={progressY}
-              angleY={MAX_ANGLEY}
-              fadeDuration={1000}
+      {/* 手势区域 */}
+      <View style={{ flex: 1 }}>
+        <View style={styles.container} {...[modeX, modeY].some((m) => m && (m.startsWith('gesture') || m.startsWith('snap'))) ? panResponder.panHandlers : {}}>
+          {visible && (
+            <Animated.View
+              style={[styles.dot, {
+                transform: [
+                  { translateX: progressX * RANGE },
+                  { translateY: progressY * RANGE }
+                ]
+              }]}
             />
+          )}
+          <View style={styles.info}>
+            <Text>modeX: {modeX || 'none'}</Text>
+            <Text>progressX: {progressX.toFixed(2)}</Text>
+            <Text>angleX: {angleX.toFixed(1)}°</Text>
+            <Text>modeY: {modeY || 'none'}</Text>
+            <Text>progressY: {progressY.toFixed(2)}</Text>
+            <Text>angleY: {angleY.toFixed(1)}°</Text>
+            <Text>climate: {climateMode}</Text>
           </View>
+          <View style={{ flex: 1, backgroundColor: "red",transform:[{scale:0.8}] }} >
+          <LibPagView
+            did={did}
+            source={pagSource}
+            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+            progressX={progressX}
+            angleX={MAX_ANGLEX}
+            progressY={progressY}
+            angleY={MAX_ANGLEY}
+            fadeDuration={1000}
+          />
         </View>
-      )}
-    </View>
+        </View>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { height: 300, backgroundColor: 'transparent', borderRadius: 12, overflow: 'hidden', margin: 10 },
+  container: { height: 200,width:"100%", backgroundColor: 'transparent', borderRadius: 12,overflow:'visible' },
   dot: { position: 'absolute', width: 20, height: 20, borderRadius: 10, backgroundColor: 'transparent', zIndex: 10 },
   info: { position: 'absolute', top: 10, left: 10, backgroundColor: 'transparent', padding: 6, borderRadius: 6 },
   buttonRow: { flexDirection: 'row', justifyContent: 'center', padding: 8, flexWrap: 'wrap' },

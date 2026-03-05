@@ -30,10 +30,11 @@ export {
   ToggleButton,
   CardContainer,
   ContainerWithGap,
-  ConfigProvider,
+  ConfigProvider
 } from 'mhui-rn/dist/hyperOS';
 export { default as TestComponent } from 'mhui-rn/dist/testComponent';
 export { CommonDialog, LoadingDialog, NearHandDialog } from 'mhui-rn/dist/hyperOS';
 export { PopButton, ToastView, ChoiceItem, Checkbox, Buttons } from 'mhui-rn/dist/hyperOS';
 export { showToast } from 'mhui-rn/dist/hyperOS';
 export { InformationArea } from 'mhui-rn/dist/hyperOS';
+export { IphoneXSeries, SafeAreaInsets } from 'mhui-rn/dist/native/mihome';
