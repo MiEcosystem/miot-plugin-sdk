@@ -49,10 +49,11 @@ export default class NewGBControlDemo extends React.Component {
   };
 
   _doOneAction = () => {
-    Service.spec.doAction({ did: Device.deviceID, aiid: 2, siid: 2, in: [] }).then((res) => {
-      console.log('正常执行操作', res);
-      if (res.code === -24) {
+    Service.spec.doAction({ did: Device.deviceID, miid: 0, aiid: 1, siid: 2, in: [] }).then((res) => {
+      if (res[0].code === -24) {
         Host.ui.openRemoteControlDialog(Device.deviceID);
+      } else {
+        console.log('正常执行操作', res);
       }
     }).catch((err) => {
       console.log('执行操作发生 err', err);
@@ -61,11 +62,12 @@ export default class NewGBControlDemo extends React.Component {
 
   _doOneSetProp = () => {
     Service.spec.setPropertiesValue([
-      { did: Device.deviceID, siid: 2, piid: 3, value: 6 },
+      { did: Device.deviceID, siid: 2, piid: 2, value: 0 },
     ]).then((res) => {
-      console.log('正常 set 操作 ===> res:', res);
-      if (res.code === -24) {
+      if (res[0].code === -24) {
         Host.ui.openRemoteControlDialog(Device.deviceID);
+      } else {
+        console.log('正常 set 操作 ===> res:', res);
       }
     }).catch((err) => {
       console.log('set 操作发生错误===>err:', err);
@@ -78,7 +80,7 @@ export default class NewGBControlDemo extends React.Component {
       <ScrollView style={styles.container}>
         <View style={styles.content}>
           <TouchableOpacity style={styles.button} onPress={this._isNewGBDevice}>
-            <Text style={styles.buttonText}>是否是新国标设备？</Text>
+            <Text style={styles.buttonText}>是否是新国标设备？{Device.isNewGBDevice ? '是' : '否'}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={this._doOneAction}>
             <Text style={styles.buttonText}>某个action操作按钮</Text>
@@ -122,7 +124,7 @@ const styles = StyleSheet.create({
   },
   newGBView: {
     flex: 1,
-    width: '100%',
+    width: '90%',
     flexDirection: 'column',
     backgroundColor: '#838383',
     alignItems: 'center',

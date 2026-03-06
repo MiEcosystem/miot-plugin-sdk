@@ -11,9 +11,7 @@ const COLORS = {
   text: '#000000'
 };
 const DIMENS = {
-  height: 60,
   radius: 20,
-  marginH: 12,
   paddingH: 16,
   paddingV: 12,
   leftIcon: 24,
@@ -36,7 +34,7 @@ export default function NewGBTipsView(props) {
           <Image source={leftImageSource} style={styles.leftImage} />
         </View>
         <View style={styles.textWrapper}>
-          <Text style={styles.title} numberOfLines={2}>
+          <Text style={styles.title} numberOfLines={3}>
             {I18n.newGB_remoteControl_disabled_tips}
           </Text>
         </View>
@@ -57,9 +55,8 @@ NewGBTipsView.defaultProps = {
 };
 const styles = StyleSheet.create({
   container: {
-    height: DIMENS.height,
+    marginVertical: 12,
     alignSelf: 'stretch',
-    marginHorizontal: DIMENS.marginH,
     backgroundColor: COLORS.containerBg,
     borderRadius: DIMENS.radius,
     overflow: 'hidden'
