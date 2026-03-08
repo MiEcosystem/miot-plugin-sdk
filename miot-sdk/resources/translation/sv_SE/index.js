@@ -43,7 +43,7 @@ export default {
     'two': '{0} månader',
     'few': '{0} månader',
     'many': '{0} månader',
-    'other': '{0} månader'
+    'other': '{0} månader',
   },
   numberDay: {
     'zero': '{0} dagar',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} dagar',
     'few': '{0} dagar',
     'many': '{0} dagar',
-    'other': '{0} dagar'
+    'other': '{0} dagar',
   },
   numberHour: {
     'zero': '{0} timmar',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} timmar',
     'few': '{0} timmar',
     'many': '{0} timmar',
-    'other': '{0} timmar'
+    'other': '{0} timmar',
   },
   numberMinute: {
     'zero': '{0} min.',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} min.',
     'few': '{0} min.',
     'many': '{0} min.',
-    'other': '{0} min.'
+    'other': '{0} min.',
   },
   numberSecond: {
     'zero': '{0} sek.',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} sek.',
     'few': '{0} sek.',
     'many': '{0} sek.',
-    'other': '{0} sek.'
+    'other': '{0} sek.',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': '{0} timmar återstår',
     'few': '{0} timmar återstår',
     'many': '{0} timmar återstår',
-    'other': '{0} timmar återstår'
+    'other': '{0} timmar återstår',
   },
   consumableStateEstimatedDay: {
     'zero': '{0} dagar återstår',
@@ -269,7 +269,7 @@ export default {
     'two': '{0} dagar återstår',
     'few': '{0} dagar återstår',
     'many': '{0} dagar återstår',
-    'other': '{0} dagar återstår'
+    'other': '{0} dagar återstår',
   },
   changeIcon: 'Ändra ikon',
   deviceCall: 'Varningar vid nödsituationer',
@@ -349,8 +349,4 @@ export default {
   connection_successful: 'Ansluten',
   connection_failed: 'Kunde inte ansluta',
   common_brand_produced_by: 'Utformad av ${}',
-  usedOnMiHome: 'Användning med Xiaomi Home',
-  operation_failed: 'Kunde inte genomföra den här åtgärden',
-  operation_cancel: 'Åtgärden avbröts',
-  operation_success: 'Klar'
 };

@@ -10,17 +10,23 @@ const SeparatorDemo = ({ navigation }) => {
   const [targetTemperature, setTargetTemperature] = useState(23);
 
   const propConfigs = [
-    { name: 'style', type: 'object', objectProps: [
+    { 
+      name: 'style',
+      type: 'object',
+      objectProps: [
       // { name: 'height', type: 'number', defaultValue: 1 },
-      { name: 'marginLeft', type: 'number', defaultValue: 0 },
-      { name: 'marginRight', type: 'number', defaultValue: 0 },
-      { name: 'marginTop', type: 'number', defaultValue: 0 },
-      { name: 'marginBottom', type: 'number', defaultValue: 0 },
-      { name: 'paddingLeft', type: 'number', defaultValue: 0 },
-      { name: 'paddingRight', type: 'number', defaultValue: 0 },
-      { name: 'paddingTop', type: 'number', defaultValue: 0 },
-      { name: 'paddingBottom', type: 'number', defaultValue: 0 }
-    ] }
+        { name: 'width', type: 'number', defaultValue: 400 },
+        { name: 'height', type: 'number' },
+        { name: 'marginLeft', type: 'number', defaultValue: 0 },
+        { name: 'marginRight', type: 'number', defaultValue: 0 },
+        { name: 'marginTop', type: 'number', defaultValue: 0 },
+        { name: 'marginBottom', type: 'number', defaultValue: 0 },
+        { name: 'paddingLeft', type: 'number', defaultValue: 0 },
+        { name: 'paddingRight', type: 'number', defaultValue: 0 },
+        { name: 'paddingTop', type: 'number', defaultValue: 0 },
+        { name: 'paddingBottom', type: 'number', defaultValue: 0 },
+      ], 
+    },
   ];
   return (
     <ScrollView style={styles.container}>
@@ -78,40 +84,40 @@ const SeparatorDemo = ({ navigation }) => {
 
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: colorToken.mj_color_gray_bg_2
+    backgroundColor: colorToken.mj_color_gray_bg_2,
   },
   text: {
     fontSize: 16,
     color: colorToken.mj_color_gray_text_1,
     paddingHorizontal: 16,
-    paddingTop: 12
+    paddingTop: 12,
   },
   header: {
     fontSize: 24,
     color: colorToken.mj_color_gray_text_2,
     fontWeight: '500',
     paddingHorizontal: 15,
-    marginBottom: 20
+    marginBottom: 20,
   },
   sectionContainer: {
     backgroundColor: colorToken.mj_color_gray_card_1,
     marginHorizontal: 12,
     borderRadius: 16,
-    marginBottom: 12
+    marginBottom: 12,
   },
   separator1: {
     marginHorizontal: 4,
-    marginVertical: 20
+    marginVertical: 20,
   },
   separator2: {
     marginHorizontal: 88,
-    marginVertical: 16
+    marginVertical: 16,
   },
   caseContainer: {
     marginBottom: 40,
     flex: 1,
-    backgroundColor: colorToken.mj_color_gray_bg_3
-  }
+    backgroundColor: colorToken.mj_color_gray_bg_3,
+  },
 });
 
 export default SeparatorDemo;

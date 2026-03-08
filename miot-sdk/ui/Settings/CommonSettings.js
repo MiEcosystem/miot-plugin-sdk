@@ -14,14 +14,12 @@ import useSpecPluginInfo from '../../hooks/useSpecPluginInfo';
 import useCanUpgrade from '../../hooks/useCanUpgrade';
 import useFreqCameraInfo from '../../hooks/useFreqCameraInfo';
 import useFreqDeviceInfo from '../../hooks/useFreqDeviceInfo';
-import useUsedOnMiHome, { switchUsedOnMiHome } from '../../hooks/useUsedOnMiHome';
 import AutoOTAABTestHelper from '../../utils/autoota_abtest_helper';
 import { showDeviceService } from "../../hooks/useDeviceService";
 import useCariotDevice from "../../hooks/useCariotDevice";
 import { ListItemWithSwitch } from 'mhui-rn';
 import { Platform } from 'react-native';
 import useDeviceRoomInfo from "../../hooks/useDeviceRoomInfo";
-import { Component } from 'react';
 let getInnerOptions = () => {
   return {
     deviceService: {
@@ -66,7 +64,7 @@ let getInnerOptions = () => {
             showSeparator={ false }
           />
         ) : null;
-      }
+      },
     },
     share: {
       exportKey: 'SHARE',
@@ -92,7 +90,7 @@ let getInnerOptions = () => {
       validator: () => {
         // 0：用户可选共享权限 1：用户不可选共享权限 2：白名单 3：不支持共享
         return Device.deviceConfigInfo?.permission_control !== 3;
-      }
+      },
     },
     ifttt: {
       exportKey: 'IFTTT',
@@ -101,7 +99,7 @@ let getInnerOptions = () => {
       title: I18n.ifttt,
       onPress: () => {
         Service.scene.openIftttAutoPage();
-      }
+      },
     },
     firmwareUpgrade: {
       exportKey: 'FIRMWARE_UPGRADE',
@@ -181,7 +179,7 @@ let getInnerOptions = () => {
             showSeparator={ false }
           />
         );
-      }
+      },
     },
     help: {
       exportKey: 'HELP',
@@ -189,7 +187,7 @@ let getInnerOptions = () => {
       title: I18n.helpAndFeedback,
       onPress: () => {
         Host.ui.openHelpPage();
-      }
+      },
     },
     security: {
       exportKey: 'SECURITY',
@@ -198,7 +196,7 @@ let getInnerOptions = () => {
       title: I18n.security,
       onPress: () => {
         Host.ui.openSecuritySetting();
-      }
+      },
     },
     addToDesktop: {
       exportKey: 'ADD_TO_DESKTOP',
@@ -206,39 +204,7 @@ let getInnerOptions = () => {
       title: I18n.addToDesktop,
       onPress: () => {
         Host.ui.openAddToDesktopPage();
-      }
-    },
-    usedOnMiHome: {
-      exportKey: 'USED_ON_MI_HOME',
-      title: I18n.usedOnMiHome,
-      isDefault: true,
-      ownerOnly: true,
-      homeManagerAllowed: true,
-      Component: (params) => {
-        const [isOpen, setIsOpen] = useUsedOnMiHome();
-        // 云云2.0需求：云设备展示选项
-        const isCloudDevice = Device.type === '14';
-        return (
-          isCloudDevice ? <ListItemWithSwitch
-            key={'USED_ON_MI_HOME'}
-            title={I18n.usedOnMiHome}
-            value={isOpen}
-            showSeparator={false}
-            onTintColor={params.extraOptions?.themeColor || undefined}
-            onValueChange={(value) => {
-              // value为目标状态
-              setIsOpen(value);
-              switchUsedOnMiHome(value).then(() => {
-                Host.ui.showToast(I18n.operation_success);
-              }).catch((error) => {
-                Host.ui.showToast(error);
-                // 出现异常时，状态重置
-                setIsOpen(!value);
-              });
-            }}
-          /> : null
-        );
-      }
+      },
     },
     freqDevice: {
       exportKey: 'FREQ_DEVICE',
@@ -275,7 +241,7 @@ let getInnerOptions = () => {
               onValueChange={(vaule) => {
                 Device.setCommonUseDeviceSwitch(
                   {
-                    switchStatus: vaule ? "1" : "0"
+                    switchStatus: vaule ? "1" : "0",
                   }
                 ).then(() => {
                   setInfo(vaule);
@@ -293,7 +259,7 @@ let getInnerOptions = () => {
               }}
             />
         );
-      }
+      },
     },
     freqCamera: {
       exportKey: 'FREQ_CAMERA',
@@ -321,7 +287,7 @@ let getInnerOptions = () => {
             showSeparator={ false }
           />
         );
-      }
+      },
     },
     defaultPlugin: {
       exportKey: 'DEFAULT_PLUGIN',
@@ -333,9 +299,9 @@ let getInnerOptions = () => {
         const { hasSpecPlugin, defaultPluginType } = specPluginInfo || {};
         const choices = [{
           title: I18n.stdPluginTitle,
-          subtitle: I18n.stdPluginSubTitle
+          subtitle: I18n.stdPluginSubTitle,
         }, {
-          title: I18n.thirdPluginTitle
+          title: I18n.thirdPluginTitle,
         }];
         function dismissTip() {
           setTipVisible(false);
@@ -367,15 +333,15 @@ let getInnerOptions = () => {
                   allowFontScaling: true,
                   unlimitedHeightEnable: true,
                   titleStyle: {
-                    fontSize: 18
+                    fontSize: 18,
                   },
                   itemSubtitleNumberOfLines: 0,
                   itemSubtitleStyle: {
-                    marginRight: 10
-                  }
+                    marginRight: 10,
+                  },
                 }}
                 buttons={[{
-                  text: I18n.cancel
+                  text: I18n.cancel,
                 }, {
                   text: I18n.ok,
                   callback: (res) => {
@@ -389,10 +355,10 @@ let getInnerOptions = () => {
                     setTimeout(() => {
                       Host.ui.openPluginPage(Device.deviceID, Entrance.Main, {
                         dismiss_current_plug: true,
-                        open_plugin_source: 2
+                        open_plugin_source: 2,
                       });
                     }, 300);
-                  }
+                  },
                 }]}
                 options={choices}
                 selectedIndexArray={[defaultPluginType]}
@@ -401,7 +367,7 @@ let getInnerOptions = () => {
             ) : null}
           </Fragment>
         );
-      }
+      },
     },
     deviceCall: {
       exportKey: "DEVICE_CALL",
@@ -422,7 +388,7 @@ let getInnerOptions = () => {
             showSeparator={ false }
           />
         );
-      }
+      },
     },
     pairMode: { // 配对模式，只有Matter子设备才会显示这一项
       exportKey: 'PAIR_MODE',
@@ -443,8 +409,8 @@ let getInnerOptions = () => {
             showSeparator={ false }
           />
         );
-      }
-    }
+      },
+    },
     // pairMode: { // 配对模式，只有Matter子设备才会显示这一项
     //   exportKey: 'PAIR_MODE',
     //   isDefault: true,
@@ -475,7 +441,7 @@ const carRoomOptions = [
   'NAME',
   'PRODUCT_BAIKE',
   'HELP',
-  'MORE'
+  'MORE',
 ];
 let innerOptions = getInnerOptions();
 // if (Device.fromRoomIndex === 1 || Device.fromRoomIndex === 2) {
@@ -492,8 +458,8 @@ export const initCommonSettingsInnerOptions = () => {
 const AllAndDefaultOptions = getAllAndDefaultOptions(innerOptions);
 export const options = AllAndDefaultOptions.options;
 const defaultOptions = AllAndDefaultOptions.defaultOptions;
-const commonOptions = ['deviceCall', 'deviceService', 'share', 'ifttt', 'firmwareUpgrade', 'help', 'security', 'addToDesktop', 'usedOnMiHome', 'freqDevice', 'freqCamera', 'defaultPlugin', 'pairMode'];
-const carOptions = ['name', 'productBaike', 'help', 'more', 'pluginVersion', 'legalInfo', 'timezone', 'addToDesktop'];
+const commonOptions = ['deviceCall', 'deviceService', 'share', 'ifttt', 'firmwareUpgrade', 'help', 'security', 'addToDesktop', 'freqDevice', 'freqCamera', 'defaultPlugin', 'pairMode'];
+const carOptions = ['name', 'productBaike', 'helpAndFeedback', 'more', 'pluginVersion', 'legalInfo', 'timezone', 'addToDesktop'];
 export default function CommonSettings(params) {
   const { customOptions } = params;
   const isFromCarRoom = Device.fromRoomIndex === 1 || Device.fromRoomIndex === 2;
@@ -509,5 +475,5 @@ CommonSettings.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string),
   customOptions: PropTypes.array,
   showDots: PropTypes.arrayOf(PropTypes.string),
-  extraOptions: PropTypes.object
+  extraOptions: PropTypes.object,
 };

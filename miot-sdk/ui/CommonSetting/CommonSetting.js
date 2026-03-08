@@ -21,7 +21,6 @@ import { showMemberSet } from '../../hooks/useMemberSetInfo';
 import { showDeviceService } from '../../hooks/useDeviceService';
 import tryTrackCommonSetting from "../../utils/track-sdk";
 import { System } from 'miot';
-import { getUsedOnMiHomeStatus, switchUsedOnMiHome } from '../../hooks/useUsedOnMiHome';
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
 let firmwareUpgradeDotClicked = false;
 let freqDeviceSwitchExposed = false; // 米家首页显示item打点用
@@ -136,11 +135,11 @@ getRoomeInfo().then(() => { }).catch(() => { });
 const choiceIndexArray = [
   {
     title: strings.stdPluginTitle,
-    subtitle: strings.stdPluginSubTitle
+    subtitle: strings.stdPluginSubTitle,
   },
   {
-    title: strings.thirdPluginTitle
-  }
+    title: strings.thirdPluginTitle,
+  },
 ];
 function getPluginCategory() {
   return new Promise((resolve, reject) => {
@@ -149,13 +148,13 @@ function getPluginCategory() {
         if (res && res.data) {
           const ret = {
             hasStdPlugin: res.data.standardized,
-            pluginCategory: res.data.homepage_type
+            pluginCategory: res.data.homepage_type,
           };
           resolve(ret);
         } else {
           reject({
             code: -1,
-            message: '\'getHomepageSettings\' method returns null object'
+            message: '\'getHomepageSettings\' method returns null object',
           });
         }
       })
@@ -175,10 +174,10 @@ const GetCloudStorage = async(did) => {
     const result = await Service.callSmartHomeAPI("/business/camera/vip_tips_switch", {
       dids: [did],
       appVersion: Host.version,
-      platform: platform[Platform.OS] || Platform.OS
+      platform: platform[Platform.OS] || Platform.OS,
     });
     const {
-      [did]: { vipStatusSwitch, vipStatusSwitchShow }
+      [did]: { vipStatusSwitch, vipStatusSwitchShow },
     } = result;
     Service.smarthome.reportLog(Device.model, `GetCloudStorage ${ result }`);
     if (!vipStatusSwitchShow) return -1;
@@ -240,7 +239,7 @@ const firstOptionsInner = {
   /**
    * 设备服务
    */
-  DEVICE_SERVICE: 'deviceService'
+  DEVICE_SERVICE: 'deviceService',
 };
 const firstAllOptionsInner = {
   ...firstOptionsInner,
@@ -271,7 +270,7 @@ const firstAllOptionsInner = {
   /**
    * 法律信息，`必选`
    */
-  LEGAL_INFO: 'legalInfo'
+  LEGAL_INFO: 'legalInfo',
 };
 const secondOptionsInner = {
   /**
@@ -285,7 +284,7 @@ const secondOptionsInner = {
   /**
    * 法律信息——加入用户体验计划, `可选`
    */
-  USER_EXPERIENCE_PROGRAM: 'userExperienceProgram'
+  USER_EXPERIENCE_PROGRAM: 'userExperienceProgram',
 };
 const secondAllOptionsInner = {
   ...secondOptionsInner,
@@ -322,10 +321,6 @@ const secondAllOptionsInner = {
    */
   PRIVACY_POLICY: 'privacyPolicy',
   /**
-   * 在米家使用：仅三方云设备显式
-   */
-  USED_ON_MI_HOME: 'usedOnMiHome',
-  /**
    * 常用设备/设备首页常用设备
    */
   FREQ_DEVICE: 'freqDevice',
@@ -340,17 +335,17 @@ const secondAllOptionsInner = {
   /**
    * 默认首页--云储存服务体系
    */
-  CLOUD_STORAGE: 'cloudStorage'
+  CLOUD_STORAGE: 'cloudStorage',
 };
 export const AllOptions = {
   ...firstAllOptionsInner,
-  ...secondAllOptionsInner
+  ...secondAllOptionsInner,
 };
 export const SETTING_KEYS = {
   // 一级菜单
   first_options: AllOptions,
   // 二级菜单
-  second_options: AllOptions
+  second_options: AllOptions,
 };
 const firstAllOptions = AllOptions;
 const secondAllOptions = AllOptions;
@@ -384,7 +379,7 @@ const firstSharedOptions = {
   [AllOptions.DEFAULT_PLUGIN]: 1,
   [AllOptions.MULTIPLEKEY_SPLIT]: 1,
   [AllOptions.DEVICE_SERVICE]: 0,
-  [AllOptions.DEVICE_CALL]: 0
+  [AllOptions.DEVICE_CALL]: 0,
 };
 /**
  * 车房间上层设置项
@@ -393,7 +388,7 @@ const carRoomTopOptions = [
   AllOptions.NAME,
   AllOptions.PRODUCT_BAIKE,
   AllOptions.HELP,
-  AllOptions.MORE
+  AllOptions.MORE,
 ];
 /**
  * 车房间下层设置项
@@ -402,7 +397,7 @@ const carRoomBottomOptions = [
   AllOptions.NAME,
   AllOptions.PRODUCT_BAIKE,
   AllOptions.HELP,
-  AllOptions.MORE
+  AllOptions.MORE,
 ];
 /**
  * 家庭成员不能看到，管理员可以看到的设置项
@@ -414,7 +409,7 @@ const excludeManagerShowedOptions = [
   AllOptions.IFTTT,
   AllOptions.MEMBER_SET,
   AllOptions.MULTIPLEKEY_SPLIT,
-  AllOptions.FIRMWARE_UPGRADE
+  AllOptions.FIRMWARE_UPGRADE,
 ];
 /**
  * 20190708 / SDK_10023
@@ -438,7 +433,6 @@ export const AllOptionsWeight = {
   [AllOptions.MORE]: 27,
   [AllOptions.STAND_PLUGIN]: 22,
   [AllOptions.DEFAULT_PLUGIN]: 28,
-  [AllOptions.USED_ON_MI_HOME]: 28,
   [AllOptions.FREQ_DEVICE]: 29,
   [AllOptions.FREQ_CAMERA]: 30,
   [AllOptions.MULTIPLEKEY_SPLIT]: 35,
@@ -457,7 +451,7 @@ export const AllOptionsWeight = {
   [AllOptions.TIMEZONE]: 21,
   [AllOptions.FEEDBACK]: 23,
   [AllOptions.ADD_TO_DESKTOP]: 25,
-  [AllOptions.CLOUD_STORAGE]: 30
+  [AllOptions.CLOUD_STORAGE]: 30,
 };
 /**
  * 某些特殊设备类型不显示某些设置项
@@ -495,7 +489,7 @@ const excludeOptions = {
   [AllOptions.MORE]: [],
   [AllOptions.HELP]: [],
   [AllOptions.SECURITY]: [],
-  [AllOptions.LEGAL_INFO]: ['5', '15', '17'] // 新增策略：灯组、红外遥控器等虚拟设备不显示法律信息，20190619
+  [AllOptions.LEGAL_INFO]: ['5', '15', '17'], // 新增策略：灯组、红外遥控器等虚拟设备不显示法律信息，20190619
 };
 /**
  * ItemStyle - 10040新增 可参考 ListItem组件的部分样式
@@ -597,7 +591,7 @@ export default class CommonSetting extends React.Component {
     accessible: AccessibilityPropTypes.accessible,
     firstCustomOptions: PropTypes.array,
     secondCustomOptions: PropTypes.array,
-    specificSetting: PropTypes.object
+    specificSetting: PropTypes.object,
   }
   static defaultProps = {
     firstOptions: [
@@ -608,19 +602,19 @@ export default class CommonSetting extends React.Component {
       AllOptions.FIRMWARE_UPGRADE,
       // AllOptions.CREATE_GROUP,
       // AllOptions.MANAGE_GROUP,
-      AllOptions.SECURITY
+      AllOptions.SECURITY,
     ],
     secondOptions: [
       AllOptions.AUTO_UPGRADE,
       AllOptions.TIMEZONE,
       AllOptions.SECURITY,
-      AllOptions.USER_EXPERIENCE_PROGRAM
+      AllOptions.USER_EXPERIENCE_PROGRAM,
     ],
     showDot: [],
-    extraOptions: {}
+    extraOptions: {},
   }
   getCommonSetting(state) {
-    let { modelType, productBaikeUrl, roomInfo, usedOnMiHome, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory, multipleKeyisOn, keyNum, cloudStorageOn } = state || {};
+    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory, multipleKeyisOn, keyNum, cloudStorageOn } = state || {};
     const { preOperations } = this.props.extraOptions;
     if (!modelType) {
       modelType = '  ';
@@ -629,23 +623,23 @@ export default class CommonSetting extends React.Component {
       [AllOptions.NAME]: {
         title: strings.name,
         value: state.name,
-        onPress: () => Host.ui.openChangeDeviceName()
+        onPress: () => Host.ui.openChangeDeviceName(),
       },
       [AllOptions.DEVICE_SERVICE]: {
         title: strings.deviceService,
         onPress: () => {
           Host.ui.openDeviceServicePage({ did: Device.deviceID });
-        }
+        },
       },
       [AllOptions.LOCATION]: {
         title: strings.location,
-        onPress: () => Host.ui.openRoomManagementPage()
+        onPress: () => Host.ui.openRoomManagementPage(),
       },
       [AllOptions.MEMBER_SET]: {
         title: strings.memberSet,
         onPress: () => {
           Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac);
-        }
+        },
       },
       [AllOptions.SHARE]: {
         title: strings.share,
@@ -657,7 +651,7 @@ export default class CommonSetting extends React.Component {
           } else {
             Host.ui.openShareDevicePage();
           }
-        }
+        },
       },
       // [AllOptions.BTGATEWAY]: {
       //   title: strings.btGateway,
@@ -669,15 +663,15 @@ export default class CommonSetting extends React.Component {
       // },
       [AllOptions.IFTTT]: {
         title: strings.ifttt,
-        onPress: () => Service.scene.openIftttAutoPage()
+        onPress: () => Service.scene.openIftttAutoPage(),
       },
       [AllOptions.PRODUCT_BAIKE]: {
         title: strings.productBaike,
-        onPress: () => Host.ui.openProductBaikeWebPage(productBaikeUrl)
+        onPress: () => Host.ui.openProductBaikeWebPage(productBaikeUrl),
       },
       [AllOptions.HELP]: {
         title: strings.helpAndFeedback,
-        onPress: () => Host.ui.openHelpPage()
+        onPress: () => Host.ui.openHelpPage(),
       },
       [AllOptions.FIRMWARE_UPGRADE]: {
         title: strings.firmwareUpgrade,
@@ -689,7 +683,7 @@ export default class CommonSetting extends React.Component {
           } else {
             this.chooseFirmwareUpgrade();
           }
-        }
+        },
       },
       [AllOptions.CREATE_GROUP]: {
         title: strings[`create${ modelType[0].toUpperCase() }${ modelType.slice(1) }Group`],
@@ -701,7 +695,7 @@ export default class CommonSetting extends React.Component {
           } else {
             this.createGroup();
           }
-        }
+        },
       },
       [AllOptions.MANAGE_GROUP]: {
         title: strings[`manage${ modelType[0].toUpperCase() }${ modelType.slice(1) }Group`],
@@ -713,11 +707,11 @@ export default class CommonSetting extends React.Component {
           } else {
             this.manageGroup();
           }
-        }
+        },
       },
       [AllOptions.MORE]: {
         title: strings.more,
-        onPress: () => this.openSubPage('MoreSetting')
+        onPress: () => this.openSubPage('MoreSetting'),
       },
       // [AllOptions.LEGAL_INFO]: {
       //   title: strings.legalInfo,
@@ -732,15 +726,15 @@ export default class CommonSetting extends React.Component {
             {
               did: Device.deviceID,
               props: {
-                "prop.s_commonsetting_stand_plugin": JSON.stringify({ 'useStandPlugin': value ? '2' : '1' })
-              } }
+                "prop.s_commonsetting_stand_plugin": JSON.stringify({ 'useStandPlugin': value ? '2' : '1' }),
+              } },
           ]).then(() => {
           });
           let eventName = 'plugin_light_abtest_final';
           let params = { 'uid': Service.account.ID, 'did': Device.deviceID, 'model': Device.model, 'abtestswitch': value ? '1' : '0' };
           Service.smarthome.reportEvent(eventName, params);
           DeviceEventEmitter.emit('MIOT_SDK_COMMONSETTING_STANDPLUGIN_CLICK', value ? '2' : '1');
-        }
+        },
       },
       [AllOptions.MULTIPLEKEY_SPLIT]: {
         _itemType: 'greenSwitch',
@@ -765,17 +759,17 @@ export default class CommonSetting extends React.Component {
             Service.smarthome.reportLog(Device.model, `Service.smarthome.device_split_merge error: ${ splitStr }`);
             Service.smarthome.reportLog(Device.model, `Service.smarthome.device_split_merge error: ${ JSON.stringify(error) }`);
           });
-        }
+        },
       },
       [AllOptions.DEFAULT_PLUGIN]: {
         title: strings.defaultPlugin,
         value: choiceIndexArray[pluginCategory].title,
         onPress: () => {
           this.setState({
-            dialogVisible: true
+            dialogVisible: true,
           });
           Service.smarthome.reportEvent('expose', { tip: '6.18.1.1.15487' });
-        }
+        },
       },
       [AllOptions.CHANGE_ICON]: {
         title: strings.changeIcon,
@@ -789,24 +783,24 @@ export default class CommonSetting extends React.Component {
                 MIOTEventEmitter.emit("deviceIconChanged", {
                   did: Device.deviceID,
                   subclass_id,
-                  proxy_category_icon
+                  proxy_category_icon,
                 });
               }
             });
-        }
+        },
       },
       [AllOptions.DEVICE_CALL]: {
         title: strings.deviceCall,
         onPress: () => {
           Host.ui.openDeviceCallSettingPage(Device.deviceID);
-        }
-      }
+        },
+      },
     };
     let isCamera = ['camera'].indexOf(modelType) !== -1 && ['mxiang.'].indexOf(Device.model) == -1;
     ret[AllOptions.CLOUD_STORAGE] = isCamera && cloudStorageOn !== -1 && {
       title: strings.cloudStorage,
       value: cloudStorageOn ? strings.open : strings.close,
-      onPress: () => Package.navigate("CloudStorage", { value: cloudStorageOn })
+      onPress: () => Package.navigate("CloudStorage", { value: cloudStorageOn }),
     };
     // 常用摄像机(初摩象), 不是摄像机不添加, 避免后面多次判断
     ret[AllOptions.FREQ_CAMERA] = isCamera ? {
@@ -816,31 +810,7 @@ export default class CommonSetting extends React.Component {
         Host.ui.openCommonDeviceSettingPage(1);
         Host.ui.clearFreqCameraNeedShowRedPoint();
         this.removeKeyFromShowDot(AllOptions.FREQ_CAMERA);
-      }
-    } : null;
-    // 在米家使用：仅三方云设备展示当前项
-    ret[AllOptions.USED_ON_MI_HOME] = Device.type === '14' ? {
-      _itemType: 'switch',
-      title: strings.usedOnMiHome,
-      value: usedOnMiHome,
-      onValueChange: (value) => {
-        this.commonSetting = this.getCommonSetting({
-          ...this.state,
-          usedOnMiHome: value
-        });
-        this.setState({ usedOnMiHome: value });
-        switchUsedOnMiHome(value).then(() => {
-          Host.ui.showToast(strings.operation_success);
-        }).catch((error) => {
-          Host.ui.showToast(error);
-          // 出现异常时，状态重置
-          this.commonSetting = this.getCommonSetting({
-            ...this.state,
-            usedOnMiHome: !value
-          });
-          this.setState({ usedOnMiHome: !value });
-        });
-      }
+      },
     } : null;
     // 常用设备
     ret[AllOptions.FREQ_DEVICE] = roomInfo && roomInfo.data && roomInfo.data.roomId ? {
@@ -850,41 +820,41 @@ export default class CommonSetting extends React.Component {
       onValueChange: (value) => {
         Device.setCommonUseDeviceSwitch(
           {
-            switchStatus: value ? "1" : "0"
+            switchStatus: value ? "1" : "0",
           }
         ).then(() => {
           this.commonSetting = this.getCommonSetting({
             ...this.state,
-            freqFlag: value
+            freqFlag: value,
           });
           this.setState({ freqFlag: value });
         }).catch(() => {
           this.setState({
-            freqFlag: !value
+            freqFlag: !value,
           });
         });
         if (isCamera) {
           Service.smarthome.reportEvent('click', { tip: '6.109.1.1.28405', switch_toggle_string: value ? "1" : "0" });
         }
-      }
+      },
     } : null;
     // 2020/4/20 锁类和保险箱类，安全设置从更多设置中移出来
     if (['lock', 'safe-box', 'safe'].indexOf(modelType) !== -1) {
       ret[AllOptions.SECURITY] = {
         title: strings.security,
-        onPress: () => Host.ui.openSecuritySetting()
+        onPress: () => Host.ui.openSecuritySetting(),
       };
     } else if (state.specificSetting && state.specificSetting.allowSecurity) {
       // 2025/05/23 更新安全设置配置，支持插件传参动态配置更新
       ret[AllOptions.SECURITY] = {
         title: strings.security,
-        onPress: () => Host.ui.openSecuritySetting()
+        onPress: () => Host.ui.openSecuritySetting(),
       };
     }
     // 2025/03/13 添加快捷方式到桌面
     ret[AllOptions.ADD_TO_DESKTOP] = (state.specificSetting && state.specificSetting.allowAddToDesktop) ? {
       title: strings.addToDesktop,
-      onPress: () => Host.ui.openAddToDesktopPage()
+      onPress: () => Host.ui.openAddToDesktopPage(),
     } : null;
     return ret;
   }
@@ -897,7 +867,6 @@ export default class CommonSetting extends React.Component {
       productBaikeUrl,
       modelType,
       roomInfo,
-      usedOnMiHome: false,
       freqFlag: false,
       freqCameraFlag: false,
       freqCameraNeedShowRedPoint: false,
@@ -916,7 +885,7 @@ export default class CommonSetting extends React.Component {
       isCariotDevice: false,
       isHomeManager: false,
       isHighTextContrastEnabled: false, // 无障碍高对比度文字开关
-      specificSetting: props.specificSetting // 是否支持设备的特定设置
+      specificSetting: props.specificSetting, // 是否支持设备的特定设置
     };
     PackageEvent.packageDidResume.addListener(() => {
       this.fetchHighTextContrastState();
@@ -1025,7 +994,7 @@ export default class CommonSetting extends React.Component {
     secondOptions: [...(this.props.firstOptions || []), ...(this.props.secondOptions || [])],
     excludeRequiredOptions: this.props.extraOptions.excludeRequiredOptions,
     extraOptions: this.props.extraOptions,
-    secondCustomOptions: this.props.secondCustomOptions || []
+    secondCustomOptions: this.props.secondCustomOptions || [],
   }) {
     let excludeRequiredOptions = params.excludeRequiredOptions || [];
     if (this.props.navigation) {
@@ -1037,7 +1006,7 @@ export default class CommonSetting extends React.Component {
         excludeRequiredOptions: ((['lock', 'safe-box', 'safe'].indexOf(this.state.modelType) !== -1
           || (this.state.specificSetting && this.state.specificSetting.allowSecurity))
           && excludeRequiredOptions.indexOf(AllOptions.SECURITY) === -1)
-          ? [...excludeRequiredOptions, AllOptions.SECURITY] : excludeRequiredOptions
+          ? [...excludeRequiredOptions, AllOptions.SECURITY] : excludeRequiredOptions,
       });
     } else {
       if (__DEV__ && console.warn) {
@@ -1056,29 +1025,29 @@ export default class CommonSetting extends React.Component {
     getProductBaikeUrl().then((productBaikeUrl) => {
       this.commonSetting = this.getCommonSetting({
         ...this.state,
-        productBaikeUrl: productBaikeUrl
+        productBaikeUrl: productBaikeUrl,
       });
       this.setState({
-        productBaikeUrl
+        productBaikeUrl,
       });
     });
     getModelType().then((modelType) => {
       this.commonSetting = this.getCommonSetting({
         ...this.state,
-        modelType
+        modelType,
       });
       this.setState({
-        modelType
+        modelType,
       });
     }).catch(() => { });
     getRoomeInfo().then((roomInfo) => {
       this.commonSetting = this.getCommonSetting({
         ...this.state,
-        roomInfo
+        roomInfo,
       });
       this.setState({
         roomInfo,
-        isHomeManager: roomInfo?.data.permitLevel === 9
+        isHomeManager: roomInfo?.data.permitLevel === 9,
       });
     });
     getMultipleKey().then((supportInfo) => {
@@ -1104,12 +1073,12 @@ export default class CommonSetting extends React.Component {
         ...this.state,
         showMultipleKey,
         multipleKeyisOn,
-        keyNum
+        keyNum,
       });
       this.setState({
         showMultipleKey,
         multipleKeyisOn,
-        keyNum
+        keyNum,
       });
     }).catch((err) => {
       Service.smarthome.reportLog(Device.model, `Service.smarthome.device_support_split error: ${ err }`);
@@ -1123,7 +1092,7 @@ export default class CommonSetting extends React.Component {
       }
       this.setState({
         showMemberSetKey,
-        isSingleSwitch
+        isSingleSwitch,
       });
     }).catch((err) => {
       Service.smarthome.reportLog(Device.model, `Service.smarthome.multi_button_template error: ${ err }`);
@@ -1143,18 +1112,18 @@ export default class CommonSetting extends React.Component {
         this.commonSetting = this.getCommonSetting({
           ...this.state,
           hasStdPlugin: res.hasStdPlugin,
-          pluginCategory: res.pluginCategory
+          pluginCategory: res.pluginCategory,
         });
         this.setState({
           hasStdPlugin: res.hasStdPlugin,
-          pluginCategory: res.pluginCategory
+          pluginCategory: res.pluginCategory,
         });
       }).catch((err) => {
         console.log(err);
       });
     Service.smarthome.batchGetDeviceDatas([{
       did: Device.deviceID,
-      props: ['prop.s_commonsetting_stand_plugin']
+      props: ['prop.s_commonsetting_stand_plugin'],
     }]).then((res) => {
       let result = res[Device.deviceID];
       let config;
@@ -1165,10 +1134,10 @@ export default class CommonSetting extends React.Component {
         const useStandPlugin = JSON.parse(config)?.useStandPlugin;
         this.commonSetting = this.getCommonSetting({
           ...this.state,
-          standPlugin: useStandPlugin
+          standPlugin: useStandPlugin,
         });
         this.setState({
-          standPlugin: useStandPlugin
+          standPlugin: useStandPlugin,
         });
       }
     });
@@ -1180,7 +1149,6 @@ export default class CommonSetting extends React.Component {
     //   });
     //   this.setState({ standPlugin: true });
     // }, 1000 * 3);
-    this._updateUsedOnMiHome();
     this._updateFreqFlag();
     this.needUpgradeListener = DeviceEventEmitter.addListener('MH_FirmwareNeedUpdateAlert', (params) => {
       if (Device.type === Device.DEVICE_TYPE.BLUETOOTH_SINGLE_MODEL_DEVICE || Device.type === Device.DEVICE_TYPE.BLE_MESH_DEVICE) {
@@ -1196,7 +1164,7 @@ export default class CommonSetting extends React.Component {
   fetchHighTextContrastState() {
     System.accessibility.getHighTextContrastState().then((res) => {
       this.setState({
-        isHighTextContrastEnabled: res
+        isHighTextContrastEnabled: res,
       });
     });
   }
@@ -1206,22 +1174,13 @@ export default class CommonSetting extends React.Component {
       this.setState({ cloudStorageOn: result });
     });
   }
-  _updateUsedOnMiHome() {
-    getUsedOnMiHomeStatus().then((usedOnMiHome) => {
-      this.commonSetting = this.getCommonSetting({
-        ...this.state,
-        usedOnMiHome
-      });
-      this.setState({ usedOnMiHome });
-    }).catch((error) => {});
-  }
   _updateFreqFlag() {
     Device.getFreqFlag().then((freqFlagRes) => {
       let freqFlag = freqFlagRes.data;
       freqFlagValue = freqFlag ? '1' : '0';
       this.commonSetting = this.getCommonSetting({
         ...this.state,
-        freqFlag
+        freqFlag,
       });
       this.setState({ freqFlag });
     });
@@ -1237,14 +1196,14 @@ export default class CommonSetting extends React.Component {
       let freqCameraNeedShowRedPoint = freqCameraNeedShowRedPointRes.data;
       this.commonSetting = this.getCommonSetting({
         ...this.state,
-        freqCameraNeedShowRedPoint
+        freqCameraNeedShowRedPoint,
       });
       this.setState({ freqCameraNeedShowRedPoint });
     });
   }
   _onDialogDismiss() {
     this.setState({
-      dialogVisible: false
+      dialogVisible: false,
     });
   }
   _isBelongToCarRoom() {
@@ -1253,7 +1212,7 @@ export default class CommonSetting extends React.Component {
       let isCariotDevice = value.data;
       this.commonSetting = this.getCommonSetting({
         ...this.state,
-        isCariotDevice
+        isCariotDevice,
       });
       this.setState({ isCariotDevice });
     }).catch((err) => {
@@ -1264,11 +1223,10 @@ export default class CommonSetting extends React.Component {
     let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory, showMemberSetKey, isSingleSwitch, showDeviceService, isCariotDevice, isHomeManager, isHighTextContrastEnabled } = this.state;
     let requireKeys1 = [
       AllOptions.FREQ_CAMERA,
-      AllOptions.USED_ON_MI_HOME,
       AllOptions.FREQ_DEVICE,
       AllOptions.NAME,
       AllOptions.LOCATION,
-      AllOptions.CLOUD_STORAGE
+      AllOptions.CLOUD_STORAGE,
     ];
     if (productBaikeUrl) {
       requireKeys1.push(AllOptions.PRODUCT_BAIKE);
@@ -1298,7 +1256,7 @@ export default class CommonSetting extends React.Component {
     const requireKeys2 = [
       AllOptions.MORE,
       AllOptions.HELP,
-      AllOptions.SECURITY
+      AllOptions.SECURITY,
     ];
     // 2. 去掉杂质
     let options = [...(this.props.firstOptions || []), ...(this.props.secondOptions || [])].filter((key) => key && Object.values(AllOptions).includes(key));
@@ -1399,9 +1357,7 @@ export default class CommonSetting extends React.Component {
     const btnStyle = isHighTextContrastEnabled ? styles.buttonTextAcc : styles.buttonText;
     const isFromCarRoom = Device.fromRoomIndex === 1 || Device.fromRoomIndex === 2;
     const isOKspace = Device.isOKspace;
-    // 云云2.0需求：云设备不显示删除按钮
-    const isCloudDevice = Device.type === '14';
-    const hideDeleteBtn = (isFromCarRoom && !isOKspace) || isCloudDevice;
+    const hideDeleteBtn = isFromCarRoom && !isOKspace;
     return (
       <View style={styles.container}>
         <View style={[styles.titleContainer, tempCommonSettingStyle.titleContainer]}>
@@ -1478,7 +1434,7 @@ export default class CommonSetting extends React.Component {
                     item.onValueChange(value);
                   } }
                   {...getAccessibilityConfig({
-                    accessible: this.props.accessible
+                    accessible: this.props.accessible,
                   })}
                   containerStyle={tempCommonSettingStyle.itemStyle.containerStyle}
                 />
@@ -1520,7 +1476,7 @@ export default class CommonSetting extends React.Component {
                     }
                   }}
                   {...getAccessibilityConfig({
-                    accessible: this.props.accessible
+                    accessible: this.props.accessible,
                   })}
                   containerStyle={tempCommonSettingStyle.itemStyle.containerStyle}
                 />
@@ -1537,19 +1493,19 @@ export default class CommonSetting extends React.Component {
               allowFontScaling: true,
               unlimitedHeightEnable: false,
               titleStyle: {
-                fontSize: 18
+                fontSize: 18,
               },
-              itemSubtitleNumberOfLines: 5
+              itemSubtitleNumberOfLines: 5,
             }}
             buttons={[
               {
-                text: strings.cancel
+                text: strings.cancel,
               },
               {
                 text: strings.ok,
                 callback: (result) => {
                   this.setState({
-                    dialogVisible: false
+                    dialogVisible: false,
                   });
                   const index = result && result[0];
                   if (pluginCategory === index) {
@@ -1561,16 +1517,16 @@ export default class CommonSetting extends React.Component {
                   Service.smarthome.setHomepageSettings(params);
                   this.commonSetting = this.getCommonSetting({
                     ...this.state,
-                    pluginCategory: index
+                    pluginCategory: index,
                   });
                   setTimeout(() => {
                     Host.ui.openPluginPage(Device.deviceID, Entrance.Main, {
                       dismiss_current_plug: true,
-                      open_plugin_source: 2
+                      open_plugin_source: 2,
                     });
                   }, 300);
-                }
-              }
+                },
+              },
             ]}
             options={choiceIndexArray}
             selectedIndexArray={[pluginCategory]}
@@ -1586,7 +1542,7 @@ export default class CommonSetting extends React.Component {
         { hideDeleteBtn ? null : (!Device.isFamily ?
           (<View style={[styles.bottomContainer, tempCommonSettingStyle.bottomContainer]} {...getAccessibilityConfig({
             accessible: this.props.accessible,
-            accessibilityRole: AccessibilityRoles.button
+            accessibilityRole: AccessibilityRoles.button,
           })}>
             <RkButton
               style={styles.buttonContainer}
@@ -1622,10 +1578,10 @@ export default class CommonSetting extends React.Component {
         valueNumberOfLines: 2,
         // valueMaxWidth 这里不设置默认值，直接用ListItem 里的
         // valueMaxWidth: '30%',
-        useNewType: false
+        useNewType: false,
       },
       bottomContainer: {},
-      deleteTextStyle: {}
+      deleteTextStyle: {},
     };
     if (this.props.commonSettingStyle) {
       if (this.props.commonSettingStyle.hasOwnProperty('allowFontScaling')) {
@@ -1662,14 +1618,13 @@ export default class CommonSetting extends React.Component {
       // this.forceUpdate();
       this.commonSetting = this.getCommonSetting({
         ...this.state,
-        name: device.name
+        name: device.name,
       });
       this.setState({
-        name: device.name
+        name: device.name,
       });
     });
     this._packageGobackFromNativeListerner = PackageEvent.packageViewWillAppear.addListener(() => {
-      this._updateUsedOnMiHome();
       this._updateFreqFlag();
     });
     if (Device.model && Device.model.includes('camera') && navigation) {
@@ -1685,27 +1640,27 @@ export default class CommonSetting extends React.Component {
 }
 const styles = dynamicStyleSheet({
   container: {
-    flex: 1
+    flex: 1,
     // backgroundColor: '#fff'
   },
   titleContainer: {
     minHeight: 32,
     backgroundColor: Styles.darkMode.backgroundColor,
     justifyContent: 'center',
-    paddingLeft: Styles.common.padding
+    paddingLeft: Styles.common.padding,
   },
   title: {
     fontSize: 12,
     color: new DynamicColor('#8C93B0', 'rgba(255,255,255,0.5)'),
     lineHeight: 14,
-    textAlign: 'left'
+    textAlign: 'left',
   },
   bottomContainer: {
     minHeight: 90,
     backgroundColor: new DynamicColor('#fff', '#000000'), // Styles.common.backgroundColor,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   buttonContainer: {
     flex: 1,
@@ -1714,20 +1669,20 @@ const styles = dynamicStyleSheet({
     borderWidth: 0.3,
     borderColor: 'transparent', // 'rgba(0,0,0,0.2)',
     backgroundColor: new DynamicColor('#f5f5f5', '#333333'),
-    marginHorizontal: Styles.common.padding
+    marginHorizontal: Styles.common.padding,
   },
   buttonText: {
     fontSize: 16,
     flex: 1,
     textAlign: 'center',
     color: new DynamicColor('#F43F31', '#D92719'),
-    lineHeight: 18
+    lineHeight: 18,
   },
   buttonTextAcc: {
     fontSize: 16,
     flex: 1,
     textAlign: 'center',
     color: new DynamicColor('#D62B1E', '#D92719'),
-    lineHeight: 18
-  }
+    lineHeight: 18,
+  },
 });

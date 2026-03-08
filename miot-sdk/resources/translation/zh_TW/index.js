@@ -43,7 +43,7 @@ export default {
     'two': '{0}個月',
     'few': '{0}個月',
     'many': '{0}個月',
-    'other': '{0}個月'
+    'other': '{0}個月',
   },
   numberDay: {
     'zero': '{0}天',
@@ -51,7 +51,7 @@ export default {
     'two': '{0}天',
     'few': '{0}天',
     'many': '{0}天',
-    'other': '{0}天'
+    'other': '{0}天',
   },
   numberHour: {
     'zero': '{0}小時',
@@ -59,7 +59,7 @@ export default {
     'two': '{0}小時',
     'few': '{0}小時',
     'many': '{0}小時',
-    'other': '{0}小時'
+    'other': '{0}小時',
   },
   numberMinute: {
     'zero': '{0}分鐘',
@@ -67,7 +67,7 @@ export default {
     'two': '{0}分鐘',
     'few': '{0}分鐘',
     'many': '{0}分鐘',
-    'other': '{0}分鐘'
+    'other': '{0}分鐘',
   },
   numberSecond: {
     'zero': '{0}秒鐘',
@@ -75,7 +75,7 @@ export default {
     'two': '{0}秒鐘',
     'few': '{0}秒鐘',
     'many': '{0}秒鐘',
-    'other': '{0}秒鐘'
+    'other': '{0}秒鐘',
   },
   months: '個月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': '預計還可以使用{0}小時',
     'few': '預計還可以使用{0}小時',
     'many': '預計還可以使用{0}小時',
-    'other': '預計還可以使用{0}小時'
+    'other': '預計還可以使用{0}小時',
   },
   consumableStateEstimatedDay: {
     'zero': '預計還可以使用{0}天',
@@ -269,7 +269,7 @@ export default {
     'two': '預計還可以使用{0}天',
     'few': '預計還可以使用{0}天',
     'many': '預計還可以使用{0}天',
-    'other': '預計還可以使用{0}天'
+    'other': '預計還可以使用{0}天',
   },
   changeIcon: '更換圖示',
   deviceCall: '緊急事件電話呼叫',
@@ -349,8 +349,4 @@ export default {
   connection_successful: '連接成功',
   connection_failed: '連接失敗',
   common_brand_produced_by: '${}出品',
-  usedOnMiHome: '在「米家」使用',
-  operation_failed: '操作失敗',
-  operation_cancel: '取消操作',
-  operation_success: '操作成功'
 };

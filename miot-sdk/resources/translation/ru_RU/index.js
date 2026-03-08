@@ -43,7 +43,7 @@ export default {
     'two': '{0} месяца',
     'few': '{0} месяца',
     'many': '{0} месяцев',
-    'other': '{0} месяца'
+    'other': '{0} месяца',
   },
   numberDay: {
     'zero': '{0} дней',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} дня',
     'few': '{0} дня',
     'many': '{0} дней',
-    'other': '{0} дня'
+    'other': '{0} дня',
   },
   numberHour: {
     'zero': '{0} ч',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} ч',
     'few': '{0} ч',
     'many': '{0} ч',
-    'other': '{0} ч'
+    'other': '{0} ч',
   },
   numberMinute: {
     'zero': '{0} мин',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} мин',
     'few': '{0} мин',
     'many': '{0} мин',
-    'other': '{0} мин'
+    'other': '{0} мин',
   },
   numberSecond: {
     'zero': '{0} с',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} с',
     'few': '{0} с',
     'many': '{0} с',
-    'other': '{0} с'
+    'other': '{0} с',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': 'Осталось {0} часа',
     'few': 'Осталось {0} часа',
     'many': 'Осталось {0} часов',
-    'other': 'Осталось {0} часа'
+    'other': 'Осталось {0} часа',
   },
   consumableStateEstimatedDay: {
     'zero': 'Осталось {0} дней',
@@ -269,7 +269,7 @@ export default {
     'two': 'Осталось {0} дня',
     'few': 'Осталось {0} дня',
     'many': 'Осталось {0} дней',
-    'other': 'Осталось {0} дня'
+    'other': 'Осталось {0} дня',
   },
   changeIcon: 'Изменить значок',
   deviceCall: 'Экстренные оповещения',
@@ -349,8 +349,4 @@ export default {
   connection_successful: 'Успешно подключено',
   connection_failed: 'Не удалось подключиться',
   common_brand_produced_by: 'Разработано ${}',
-  usedOnMiHome: 'Использовать с Xiaomi Home',
-  operation_failed: 'Не удалось выполнить это действие',
-  operation_cancel: 'Действие отменено',
-  operation_success: 'Готово'
 };

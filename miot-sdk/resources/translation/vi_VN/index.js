@@ -43,7 +43,7 @@ export default {
     'two': '{0} tháng',
     'few': '{0} tháng',
     'many': '{0} tháng',
-    'other': '{0} tháng'
+    'other': '{0} tháng',
   },
   numberDay: {
     'zero': '{0} ngày',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} ngày',
     'few': '{0} ngày',
     'many': '{0} ngày',
-    'other': '{0} ngày'
+    'other': '{0} ngày',
   },
   numberHour: {
     'zero': '{0} giờ',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} giờ',
     'few': '{0} giờ',
     'many': '{0} giờ',
-    'other': '{0} giờ'
+    'other': '{0} giờ',
   },
   numberMinute: {
     'zero': '{0} phút',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} phút',
     'few': '{0} phút',
     'many': '{0} phút',
-    'other': '{0} phút'
+    'other': '{0} phút',
   },
   numberSecond: {
     'zero': '{0} giây',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} giây',
     'few': '{0} giây',
     'many': '{0} giây',
-    'other': '{0} giây'
+    'other': '{0} giây',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': 'Còn lại {0} giờ',
     'few': 'Còn lại {0} giờ',
     'many': 'Còn lại {0} giờ',
-    'other': 'Còn lại {0} giờ'
+    'other': 'Còn lại {0} giờ',
   },
   consumableStateEstimatedDay: {
     'zero': 'Còn lại {0} ngày',
@@ -269,7 +269,7 @@ export default {
     'two': 'Còn lại {0} ngày',
     'few': 'Còn lại {0} ngày',
     'many': 'Còn lại {0} ngày',
-    'other': 'Còn lại {0} ngày'
+    'other': 'Còn lại {0} ngày',
   },
   changeIcon: 'Thay đổi biểu tượng',
   deviceCall: 'Cảnh báo khẩn cấp',
@@ -349,8 +349,4 @@ export default {
   connection_successful: 'Đã kết nối thành công',
   connection_failed: 'Không thể kết nối',
   common_brand_produced_by: 'Được thiết kế bởi ${}',
-  usedOnMiHome: 'Sử dụng với Xiaomi Home',
-  operation_failed: 'Không thể hoàn thành thao tác này',
-  operation_cancel: 'Đã hủy thao tác',
-  operation_success: 'Hoàn tất'
 };

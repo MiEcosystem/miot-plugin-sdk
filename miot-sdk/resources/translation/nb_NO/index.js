@@ -43,7 +43,7 @@ export default {
     'two': '{0} måneder',
     'few': '{0} måneder',
     'many': '{0} måneder',
-    'other': '{0} måneder'
+    'other': '{0} måneder',
   },
   numberDay: {
     'zero': '{0} dager',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} dager',
     'few': '{0} dager',
     'many': '{0} dager',
-    'other': '{0} dager'
+    'other': '{0} dager',
   },
   numberHour: {
     'zero': '{0} t',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} t',
     'few': '{0} t',
     'many': '{0} t',
-    'other': '{0} t'
+    'other': '{0} t',
   },
   numberMinute: {
     'zero': '{0} min',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} min',
     'few': '{0} min',
     'many': '{0} min',
-    'other': '{0} min'
+    'other': '{0} min',
   },
   numberSecond: {
     'zero': '{0} sek',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} sek',
     'few': '{0} sek',
     'many': '{0} sek',
-    'other': '{0} sek'
+    'other': '{0} sek',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': '{0} t gjenstår',
     'few': '{0} t gjenstår',
     'many': '{0} t gjenstår',
-    'other': '{0} t gjenstår'
+    'other': '{0} t gjenstår',
   },
   consumableStateEstimatedDay: {
     'zero': '{0} dager gjenstår',
@@ -269,7 +269,7 @@ export default {
     'two': '{0} dager gjenstår',
     'few': '{0} dager gjenstår',
     'many': '{0} dager gjenstår',
-    'other': '{0} dager gjenstår'
+    'other': '{0} dager gjenstår',
   },
   changeIcon: 'Endre ikon',
   deviceCall: 'Nødvarsler',
@@ -349,8 +349,4 @@ export default {
   connection_successful: 'Tilkoblet',
   connection_failed: 'Kunne ikke koble til',
   common_brand_produced_by: 'Utviklet av ${}',
-  usedOnMiHome: 'Bruk med Xiaomi Home',
-  operation_failed: 'Kunne ikke fullføre denne handlingen',
-  operation_cancel: 'Handling avbrutt',
-  operation_success: 'Ferdig'
 };

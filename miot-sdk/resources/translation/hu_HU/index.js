@@ -43,7 +43,7 @@ export default {
     'two': '{0} hónap',
     'few': '{0} hónap',
     'many': '{0} hónap',
-    'other': '{0} hónap'
+    'other': '{0} hónap',
   },
   numberDay: {
     'zero': '{0} nap',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} nap',
     'few': '{0} nap',
     'many': '{0} nap',
-    'other': '{0} nap'
+    'other': '{0} nap',
   },
   numberHour: {
     'zero': '{0} óra',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} óra',
     'few': '{0} óra',
     'many': '{0} óra',
-    'other': '{0} óra'
+    'other': '{0} óra',
   },
   numberMinute: {
     'zero': '{0} perc',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} perc',
     'few': '{0} perc',
     'many': '{0} perc',
-    'other': '{0} perc'
+    'other': '{0} perc',
   },
   numberSecond: {
     'zero': '{0} mp',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} mp',
     'few': '{0} mp',
     'many': '{0} mp',
-    'other': '{0} mp'
+    'other': '{0} mp',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': '{0} óra van hátra',
     'few': '{0} óra van hátra',
     'many': '{0} óra van hátra',
-    'other': '{0} óra van hátra'
+    'other': '{0} óra van hátra',
   },
   consumableStateEstimatedDay: {
     'zero': '{0} nap van hátra',
@@ -269,7 +269,7 @@ export default {
     'two': '{0} nap van hátra',
     'few': '{0} nap van hátra',
     'many': '{0} nap van hátra',
-    'other': '{0} nap van hátra'
+    'other': '{0} nap van hátra',
   },
   changeIcon: 'Ikon cseréje',
   deviceCall: 'Vészjelzések',
@@ -349,8 +349,4 @@ export default {
   connection_successful: 'Sikeres kapcsolódás',
   connection_failed: 'Kapcsolódás sikertelen',
   common_brand_produced_by: 'Tervezte ${}',
-  usedOnMiHome: 'Használat Xiaomi Home-mal',
-  operation_failed: 'Nem sikerült végrehatjani ezt a műveletet',
-  operation_cancel: 'Művelet törölve',
-  operation_success: 'Kész'
 };

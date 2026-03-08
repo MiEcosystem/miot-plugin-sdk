@@ -18,7 +18,7 @@ const propConfigs = [
     name: 'colorType',
     type: 'enum',
     enumOptions: ['green', 'red', 'blue', 'wathet', 'purple', 'white', 'orange', 'yellow'],
-    defaultValue: 'green'
+    defaultValue: 'green',
   },
   { name: 'leftIconSource', type: 'pass', passDescription: '左侧图标组件（SVG）' },
   {
@@ -27,8 +27,8 @@ const propConfigs = [
     objectProps: [
       { name: 'accessible', type: 'boolean', defaultValue: true },
       { name: 'accessibilityLabel', type: 'string', defaultValue: '主标题' },
-      { name: 'accessibilityHint', type: 'string' }
-    ]
+      { name: 'accessibilityHint', type: 'string' },
+    ],
   },
   {
     name: 'accessibilitySubtitle',
@@ -36,9 +36,9 @@ const propConfigs = [
     objectProps: [
       { name: 'accessible', type: 'boolean', defaultValue: true },
       { name: 'accessibilityLabel', type: 'string', defaultValue: '副标题' },
-      { name: 'accessibilityHint', type: 'string' }
-    ]
-  }
+      { name: 'accessibilityHint', type: 'string' },
+    ],
+  },
 ];
 
 const longTitle = '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题';
@@ -49,128 +49,128 @@ const source1Data1 = [
   {
     index: 1,
     title: '列表主文字',
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
   },
   {
     index: 2,
     title: '列表主文字',
     subtitle: '列表副文字',
     value: '状态',
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
   },
   {
     index: 3,
     title: '列表主文字',
-    subtitle: <SubtitleGroup subtitles={['列表副', '列表副']}/>,
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />
+    subtitle: <SubtitleGroup subtitles={['列表副文字', '列表副文字']}/>,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
   },
   {
     index: 4,
     title: '列表主文字',
     value: '状态',
-    subtitle: <SubtitleGroup subtitles={['列表副', '列表副', '列表副']}/>,
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />
+    subtitle: <SubtitleGroup subtitles={['列表副文字', '列表副文字', '列表副文字']}/>,
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
   },
   {
     index: 5,
     title: '列表主文字列表主文字表主文字表主文字表主文字表主文字',
     value: '状态',
-    subtitle: <SubtitleGroup subtitles={['列表副', '列表副', '列表副']}/>,
+    subtitle: <SubtitleGroup subtitles={['列表副文字', '列表副文字', '列表副文字']}/>,
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
-  }
+    onPress: () => console.log(4),
+  },
 ];
 
 const source1Data2 = [
   {
     index: 1,
-    title: '列表主文字'
+    title: '列表主文字',
   },
   {
     title: '列表主文字',
     subtitle: '列表副文字',
-    value: '状态'
+    value: '状态',
   },
   {
     index: 3,
     title: '列表主文字',
-    subtitle: <SubtitleGroup subtitles={['列表副', '列表副']}/>
+    subtitle: <SubtitleGroup subtitles={['列表副文字', '列表副文字']}/>,
   },
   {
     index: 4,
     title: '列表主文字',
     value: '状态',
-    subtitle: <SubtitleGroup subtitles={['列表副', '列表副', '列表副']}/>
+    subtitle: <SubtitleGroup subtitles={['列表副文字', '列表副文字', '列表副文字']}/>,
   },
   {
     index: 5,
     title: '列表主文字',
     value: '状态',
-    subtitle: <SubtitleGroup subtitles={['列表副', '列表副', '列表副']}/>,
-    onPress: () => console.log(4)
-  }
+    subtitle: <SubtitleGroup subtitles={['列表副文字', '列表副文字', '列表副文字']}/>,
+    onPress: () => console.log(4),
+  },
 ];
 
 const source2Data1 = [
   {
     index: 1,
     title: longTitle,
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
   },
   {
     index: 2,
     title: longTitle,
     subtitle: longSubtitle,
     
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
   },
   {
     index: 3,
     title: longTitle,
     subtitle: <SubtitleGroup subtitles={[longSubtitles, longSubtitles]}/>,
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
   },
   {
     index: 4,
     title: longTitle,
     subtitle: <SubtitleGroup subtitles={[longSubtitles, longSubtitles, longSubtitles]}/>,
-    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />
+    leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
   },
   {
     index: 5,
     title: longTitle,
     subtitle: <SubtitleGroup subtitles={[longSubtitles, longSubtitles, longSubtitles]}/>,
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
-  }
+    onPress: () => console.log(4),
+  },
 ];
 
 const source2Data2 = [
   {
     index: 1,
-    title: longTitle
+    title: longTitle,
   },
   {
     index: 2,
     title: longTitle,
-    subtitle: longSubtitle
+    subtitle: longSubtitle,
   },
   {
     index: 3,
     title: longTitle,
-    subtitle: <SubtitleGroup subtitles={[longSubtitles, longSubtitles]}/>
+    subtitle: <SubtitleGroup subtitles={[longSubtitles, longSubtitles]}/>,
   },
   {
     index: 4,
     title: longTitle,
-    subtitle: <SubtitleGroup subtitles={[longSubtitles, longSubtitles, longSubtitles]}/>
+    subtitle: <SubtitleGroup subtitles={[longSubtitles, longSubtitles, longSubtitles]}/>,
   },
   {
     index: 5,
     title: longTitle,
     subtitle: <SubtitleGroup subtitles={[longSubtitles, longSubtitles, longSubtitles]}/>,
-    onPress: () => console.log(4)
-  }
+    onPress: () => console.log(4),
+  },
 ];
 
 const LargeEntranceDemo = () => {
@@ -179,7 +179,7 @@ const LargeEntranceDemo = () => {
     sourceData1: source1Data1,
     sourceData2: source1Data2,
     disabled: false,
-    switchValue: false
+    switchValue: false,
   });
 
   const transformData = (type) => {
@@ -188,24 +188,24 @@ const LargeEntranceDemo = () => {
       case 1:
         data = {
           sourceData1: source1Data1,
-          sourceData2: source1Data2
+          sourceData2: source1Data2,
         };
         break;
       case 2:
         data = {
           sourceData1: source2Data1,
-          sourceData2: source2Data2
+          sourceData2: source2Data2,
         };
         break;
       default:
         data = {
           sourceData1: source1Data1,
-          sourceData2: source1Data2
+          sourceData2: source1Data2,
         };
     }
     setState((item) => ({
       ...item,
-      ...data
+      ...data,
     }));
   };
   return (
@@ -221,7 +221,7 @@ const LargeEntranceDemo = () => {
         <Text style={styles.button} onPress={() => {
           setState((item) => ({
             ...item,
-            disabled: !state.disabled
+            disabled: !state.disabled,
           }));
         }}>切换禁用态</Text>
         <Text style={styles.title}>带图标</Text>
@@ -235,7 +235,7 @@ const LargeEntranceDemo = () => {
               onValueChange={(val) => {
                 setState((item) => ({
                   ...item,
-                  switchValue: val
+                  switchValue: val,
                 }));
               }}/>;
           })}
@@ -251,7 +251,7 @@ const LargeEntranceDemo = () => {
               onValueChange={(val) => {
                 setState((item) => ({
                   ...item,
-                  switchValue: val
+                  switchValue: val,
                 }));
               }}/>;
           })}
@@ -269,42 +269,42 @@ const styles = dynamicStyleSheet({
   container: {
     paddingTop: 30,
     paddingHorizontal: 12,
-    backgroundColor: colorToken.mj_color_gray_bg_2
+    backgroundColor: colorToken.mj_color_gray_bg_2,
   },
   header: {
     fontSize: 24,
     color: colorToken.mj_color_gray_text_1,
     fontWeight: '500',
     paddingHorizontal: 15,
-    marginBottom: 20
+    marginBottom: 20,
   },
   text: {
     fontSize: 16,
     color: colorToken.mj_color_gray_text_1,
     paddingHorizontal: 16,
-    paddingTop: 12
+    paddingTop: 12,
   },
   title: {
     color: colorToken.mjcard_color_miui_1,
     paddingHorizontal: 16,
     paddingVertical: 6,
     marginTop: 12,
-    ...Fonts.mj_text_subtitle_3_R
+    ...Fonts.mj_text_subtitle_3_R,
   },
   button: {
     fontSize: 14,
     color: colorToken.mj_color_gray_text_1,
     paddingHorizontal: 15,
-    lineHeight: 24
+    lineHeight: 24,
   },
   data: {
     borderRadius: 16,
     overflow: 'hidden',
-    backgroundColor: colorToken.mj_color_gray_card_1
+    backgroundColor: colorToken.mj_color_gray_card_1,
   },
   caseContainer: {
-    marginBottom: 12
-  }
+    marginBottom: 12,
+  },
 });
 
 export default LargeEntranceDemo;

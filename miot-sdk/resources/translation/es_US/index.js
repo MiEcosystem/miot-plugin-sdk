@@ -43,7 +43,7 @@ export default {
     'two': '{0} meses',
     'few': '{0} meses',
     'many': '{0} meses',
-    'other': '{0} meses'
+    'other': '{0} meses',
   },
   numberDay: {
     'zero': '{0} días',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} días',
     'few': '{0} días',
     'many': '{0} días',
-    'other': '{0} días'
+    'other': '{0} días',
   },
   numberHour: {
     'zero': '{0} hrs',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} hrs',
     'few': '{0} hrs',
     'many': '{0} hrs',
-    'other': '{0} hrs'
+    'other': '{0} hrs',
   },
   numberMinute: {
     'zero': '{0} mins',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} mins',
     'few': '{0} mins',
     'many': '{0} mins',
-    'other': '{0} mins'
+    'other': '{0} mins',
   },
   numberSecond: {
     'zero': '{0} segs',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} segs',
     'few': '{0} segs',
     'many': '{0} segs',
-    'other': '{0} segs'
+    'other': '{0} segs',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': '{0} hrs restantes',
     'few': '{0} hrs restantes',
     'many': '{0} hrs restantes',
-    'other': '{0} hrs restantes'
+    'other': '{0} hrs restantes',
   },
   consumableStateEstimatedDay: {
     'zero': '{0} días restantes',
@@ -269,7 +269,7 @@ export default {
     'two': '{0} días restantes',
     'few': '{0} días restantes',
     'many': '{0} días restantes',
-    'other': '{0} días restantes'
+    'other': '{0} días restantes',
   },
   changeIcon: 'Cambiar ícono',
   deviceCall: 'Alertas de emergencia',
@@ -349,8 +349,4 @@ export default {
   connection_successful: 'Se conectó correctamente',
   connection_failed: 'No se pudo conectar',
   common_brand_produced_by: 'Diseñado por ${}',
-  usedOnMiHome: 'Usar con Xiaomi Home',
-  operation_failed: 'No se pudo completar esta acción',
-  operation_cancel: 'Acción cancelada',
-  operation_success: 'Listo'
 };

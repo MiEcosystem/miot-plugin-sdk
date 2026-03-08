@@ -43,7 +43,7 @@ export default {
     'two': '{0} maanden',
     'few': '{0} maanden',
     'many': '{0} maanden',
-    'other': '{0} maanden'
+    'other': '{0} maanden',
   },
   numberDay: {
     'zero': '{0} dagen',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} dagen',
     'few': '{0} dagen',
     'many': '{0} dagen',
-    'other': '{0} dagen'
+    'other': '{0} dagen',
   },
   numberHour: {
     'zero': '{0} uur',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} uur',
     'few': '{0} uur',
     'many': '{0} uur',
-    'other': '{0} uur'
+    'other': '{0} uur',
   },
   numberMinute: {
     'zero': '{0} min.',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} min.',
     'few': '{0} min.',
     'many': '{0} min.',
-    'other': '{0} min.'
+    'other': '{0} min.',
   },
   numberSecond: {
     'zero': '{0} sec',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} sec',
     'few': '{0} sec',
     'many': '{0} sec',
-    'other': '{0} sec'
+    'other': '{0} sec',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': '{0} uur resterend',
     'few': '{0} uur resterend',
     'many': '{0} uur resterend',
-    'other': '{0} uur resterend'
+    'other': '{0} uur resterend',
   },
   consumableStateEstimatedDay: {
     'zero': '{0} dagen resterend',
@@ -269,7 +269,7 @@ export default {
     'two': '{0} dagen resterend',
     'few': '{0} dagen resterend',
     'many': '{0} dagen resterend',
-    'other': '{0} dagen resterend'
+    'other': '{0} dagen resterend',
   },
   changeIcon: 'Icoon wijzigen',
   deviceCall: 'Noodwaarschuwingen',
@@ -349,8 +349,4 @@ export default {
   connection_successful: 'Succesvol verbonden',
   connection_failed: 'Kon niet verbinden',
   common_brand_produced_by: 'Ontwikkeld door ${}',
-  usedOnMiHome: 'Gebruiken met Xiaomi Home',
-  operation_failed: 'Kon deze actie niet voltooien',
-  operation_cancel: 'Actie geannuleeerd',
-  operation_success: 'Gereed'
 };

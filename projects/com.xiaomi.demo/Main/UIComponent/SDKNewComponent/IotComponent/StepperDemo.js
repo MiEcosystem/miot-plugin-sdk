@@ -5,6 +5,7 @@ import { ScrollView, Text, View, Alert } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
 import { colorToken, Fonts, Stepper, TestComponent } from "miot/ui/hyperOSUI";
 import { Cold, Percent } from 'miot/ui/icons';
+import { useCallback } from 'react';
 
 const propConfigs = [
   { name: 'value', type: 'number', defaultValue: 0 },
@@ -21,17 +22,23 @@ const propConfigs = [
   { name: 'iconType', type: 'enum', enumOptions: ['symbol', 'direction'], defaultValue: 'symbol' },
   { name: 'disabled', type: 'boolean', defaultValue: false },
   { name: 'closed', type: 'boolean', defaultValue: false },
-  { name: 'symbolType', type: 'enum', enumOptions: ['percent', 'celsius', 'custom'], defaultValue: 'custom' }
+  { name: 'symbolType', type: 'enum', enumOptions: ['percent', 'celsius', 'custom'], defaultValue: 'custom' },
 ];
 
 const alert = Alert.alert;
 const StepperDemo = ({ navigation }) => {
   const [targetTemperature, setTargetTemperature] = useState(23);
   const [targetTemperature2, setTargetTemperature2] = useState(50);
+  const [longState, setLongState2] = useState(false);
+
+  const changeLongState = useCallback(() => {
+    setLongState2((val) => !val);
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>步进器</Text>
+      <Text style={styles.button} onPress={changeLongState}>切换长文本</Text>
       <Text style={styles.title}>L</Text>
       <View style={styles.sectionContainer}>
         <Text style={styles.text}>标题</Text>
@@ -61,8 +68,20 @@ const StepperDemo = ({ navigation }) => {
       <Text style={styles.title}>中间状态可配置</Text>
       <View style={styles.stepperContainer} >
         <Stepper
-          step={0.5}
+          step={1}
           symbolType="percent"
+          value={targetTemperature2}
+          onChange={setTargetTemperature2}
+          min={0}
+          max={100}
+        />
+      </View>
+      <Text style={styles.title}>中间状态纯文本</Text>
+      <View style={styles.stepperContainer} >
+        <Stepper
+          step={1}
+          symbolType="custom"
+          formatter={() => longState ? '自定义文本自定义文本自定义文本自定义文本自定义文本' : '自定义文本'}
           value={targetTemperature2}
           onChange={setTargetTemperature2}
           min={0}
@@ -114,7 +133,7 @@ const StepperDemo = ({ navigation }) => {
 
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: colorToken.mj_color_gray_bg_2
+    backgroundColor: colorToken.mj_color_gray_bg_2,
   },
   text: {
     marginLeft: 4,
@@ -122,14 +141,20 @@ const styles = dynamicStyleSheet({
     paddingHorizontal: 16,
     paddingTop: 12,
     lineHeight: 32,
-    ...Fonts.mj_text_custom_16_M
+    ...Fonts.mj_text_custom_16_M,
   },
   title: {
     color: colorToken.mjcard_color_miui_1,
     paddingHorizontal: 16,
     paddingVertical: 6,
     marginTop: 12,
-    ...Fonts.mj_text_custom_13_R
+    ...Fonts.mj_text_custom_13_R,
+  },
+  button: {
+    fontSize: 14,
+    color: colorToken.mj_color_gray_text_1,
+    paddingHorizontal: 15,
+    lineHeight: 24,
   },
   header: {
     fontSize: 24,
@@ -137,21 +162,21 @@ const styles = dynamicStyleSheet({
     fontWeight: '500',
     paddingHorizontal: 15,
     marginBottom: 10,
-    ...Fonts.mj_text_custom_24_M
+    ...Fonts.mj_text_custom_24_M,
   },
   sectionContainer: {
     backgroundColor: colorToken.mj_color_gray_card_1,
     marginHorizontal: 12,
     borderRadius: 16,
-    marginBottom: 12
+    marginBottom: 12,
   },
   stepperContainer: {
     backgroundColor: colorToken.mj_color_gray_card_1,
-    marginHorizontal: 12
+    marginHorizontal: 12,
   },
   caseContainer: {
-    marginBottom: 12
-  }
+    marginBottom: 12,
+  },
 });
 
 export default StepperDemo;

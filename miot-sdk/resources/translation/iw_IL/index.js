@@ -43,7 +43,7 @@ export default {
     'two': '{0} חודשים',
     'few': '{0} חודשים',
     'many': '{0} חודשים',
-    'other': '{0} חודשים'
+    'other': '{0} חודשים',
   },
   numberDay: {
     'zero': '{0} ימים',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} ימים',
     'few': '{0} ימים',
     'many': '{0} ימים',
-    'other': '{0} ימים'
+    'other': '{0} ימים',
   },
   numberHour: {
     'zero': '{0} שעות',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} שעות',
     'few': '{0} שעות',
     'many': '{0} שעות',
-    'other': '{0} שעות'
+    'other': '{0} שעות',
   },
   numberMinute: {
     'zero': '{0} דקות',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} דקות',
     'few': '{0} דקות',
     'many': '{0} דקות',
-    'other': '{0} דקות'
+    'other': '{0} דקות',
   },
   numberSecond: {
     'zero': '{0} שניות',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} שניות',
     'few': '{0} שניות',
     'many': '{0} שניות',
-    'other': '{0} שניות'
+    'other': '{0} שניות',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': 'נותרו {0} שעות',
     'few': 'נותרו {0} שעות',
     'many': 'נותרו {0} שעות',
-    'other': 'נותרו {0} שעות'
+    'other': 'נותרו {0} שעות',
   },
   consumableStateEstimatedDay: {
     'zero': 'נותרו {0} ימים',
@@ -269,7 +269,7 @@ export default {
     'two': 'נותרו {0} ימים',
     'few': 'נותרו {0} ימים',
     'many': 'נותרו {0} ימים',
-    'other': 'נותרו {0} ימים'
+    'other': 'נותרו {0} ימים',
   },
   changeIcon: 'שנה סמל',
   deviceCall: 'התראות חירום',
@@ -349,8 +349,4 @@ export default {
   connection_successful: 'התחבר בהצלחה',
   connection_failed: 'לא ניתן להתחבר',
   common_brand_produced_by: 'עוצב על ידי ${}',
-  usedOnMiHome: 'להשתמש עם Xiaomi Home',
-  operation_failed: 'לא ניתן להשלים את הפעולה הזו',
-  operation_cancel: 'הפעולה בוטלה',
-  operation_success: 'בוצע'
 };

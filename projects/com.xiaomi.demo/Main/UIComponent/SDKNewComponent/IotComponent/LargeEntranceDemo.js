@@ -18,7 +18,7 @@ const propConfigs = [
     name: 'colorType',
     type: 'enum',
     enumOptions: ['green', 'red', 'blue', 'wathet', 'purple', 'white', 'orange', 'yellow'],
-    defaultValue: 'green'
+    defaultValue: 'green',
   },
   { name: 'leftIconSource', type: 'pass', passDescription: '左侧图标组件（SVG）', defaultValue: <Circle fill={colorToken.mj_color_gray_icon_1} /> },
   {
@@ -27,8 +27,8 @@ const propConfigs = [
     objectProps: [
       { name: 'accessible', type: 'boolean', defaultValue: true },
       { name: 'accessibilityLabel', type: 'string', defaultValue: '主标题' },
-      { name: 'accessibilityHint', type: 'string' }
-    ]
+      { name: 'accessibilityHint', type: 'string' },
+    ],
   },
   {
     name: 'accessibilitySubtitle',
@@ -36,8 +36,8 @@ const propConfigs = [
     objectProps: [
       { name: 'accessible', type: 'boolean', defaultValue: true },
       { name: 'accessibilityLabel', type: 'string', defaultValue: '副标题' },
-      { name: 'accessibilityHint', type: 'string' }
-    ]
+      { name: 'accessibilityHint', type: 'string' },
+    ],
   },
   {
     name: 'accessibilityText',
@@ -45,9 +45,9 @@ const propConfigs = [
     objectProps: [
       { name: 'accessible', type: 'boolean', defaultValue: true },
       { name: 'accessibilityLabel', type: 'string', defaultValue: '右侧文案' },
-      { name: 'accessibilityHint', type: 'string' }
-    ]
-  }
+      { name: 'accessibilityHint', type: 'string' },
+    ],
+  },
 ];
 
 const longTitle = '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题';
@@ -59,7 +59,7 @@ const source1Data1 = [
     index: 1,
     title: '列表主文字',
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
+    onPress: () => console.log(4),
   },
   {
     index: 2,
@@ -68,72 +68,72 @@ const source1Data1 = [
     value: '状态',
     showDot: true,
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
+    onPress: () => console.log(4),
   },
   {
     index: 3,
     title: '列表主文字',
     subtitle: '列表副文字',
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
+    onPress: () => console.log(4),
   },
   {
     index: 4,
     title: '列表主文字',
     value: '状态',
-    subtitle: <SubtitleGroup subtitles={['列表副', '列表副']}/>,
+    subtitle: <SubtitleGroup subtitles={['列表副文字', '列表副文字']}/>,
     hideRightIcon: false,
     showDot: true,
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
+    onPress: () => console.log(4),
   },
   {
     index: 5,
     title: '列表主文字',
     value: '状态',
-    subtitle: <SubtitleGroup subtitles={['列表副', '列表副', '列表副']}/>,
+    subtitle: <SubtitleGroup subtitles={['列表副文字', '列表副文字', '列表副文字']}/>,
     hideRightIcon: false,
     showDot: true,
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
-  }
+    onPress: () => console.log(4),
+  },
 ];
 
 const source1Data2 = [
   {
     index: 1,
     title: '列表主文字',
-    onPress: () => console.log(4)
+    onPress: () => console.log(4),
   },
   {
     title: '列表主文字',
     showDot: true,
     value: '状态',
-    onPress: () => console.log(4)
+    onPress: () => console.log(4),
   },
   {
    
     index: 3,
     title: '列表主文字',
     subtitle: '标题副文字',
-    onPress: () => console.log(4)
+    onPress: () => console.log(4),
   },
   {
     index: 4,
     title: '列表主文字',
     value: '状态',
-    subtitle: <SubtitleGroup subtitles={['列表副', '列表副']}/>,
+    subtitle: <SubtitleGroup subtitles={['列表副文字', '列表副文字']}/>,
     showDot: true,
-    onPress: () => console.log(4)
+    onPress: () => console.log(4),
   },
   {
     index: 5,
     title: '列表主文字',
     value: '状态',
-    subtitle: <SubtitleGroup subtitles={['列表副', '列表副', '列表副']}/>,
+    subtitle: <SubtitleGroup subtitles={['列表副文字', '列表副文字', '列表副文字']}/>,
     showDot: true,
-    onPress: () => console.log(4)
-  }
+    onPress: () => console.log(4),
+  },
 ];
 
 const source2Data1 = [
@@ -141,7 +141,7 @@ const source2Data1 = [
     index: 1,
     title: longTitle,
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
+    onPress: () => console.log(4),
   },
   {
     index: 2,
@@ -150,14 +150,14 @@ const source2Data1 = [
     value: longValue,
     showDot: true,
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
+    onPress: () => console.log(4),
   },
   {
     index: 3,
     title: longTitle,
     subtitle: longSubtitle,
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
+    onPress: () => console.log(4),
   },
   {
     index: 4,
@@ -167,7 +167,7 @@ const source2Data1 = [
     hideRightIcon: false,
     showDot: true,
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
+    onPress: () => console.log(4),
   },
   {
     index: 5,
@@ -177,15 +177,15 @@ const source2Data1 = [
     hideRightIcon: false,
     showDot: true,
     leftIconSource: <Circle fill={colorToken.mj_color_gray_icon_1} />,
-    onPress: () => console.log(4)
-  }
+    onPress: () => console.log(4),
+  },
 ];
 
 const source2Data2 = [
   {
     index: 1,
     title: longTitle,
-    onPress: () => console.log(4)
+    onPress: () => console.log(4),
   },
   {
     index: 2,
@@ -193,13 +193,13 @@ const source2Data2 = [
     subtitle: longSubtitle,
     value: longValue,
     showDot: true,
-    onPress: () => console.log(4)
+    onPress: () => console.log(4),
   },
   {
     index: 3,
     title: longTitle,
     subtitle: longSubtitle,
-    onPress: () => console.log(4)
+    onPress: () => console.log(4),
   },
   {
     index: 4,
@@ -208,7 +208,7 @@ const source2Data2 = [
     value: longValue,
     hideRightIcon: false,
     showDot: true,
-    onPress: () => console.log(4)
+    onPress: () => console.log(4),
   },
   {
     index: 5,
@@ -217,8 +217,8 @@ const source2Data2 = [
     value: longValue,
     hideRightIcon: false,
     showDot: true,
-    onPress: () => console.log(4)
-  }
+    onPress: () => console.log(4),
+  },
 ];
 
 const LargeEntranceDemo = () => {
@@ -226,7 +226,7 @@ const LargeEntranceDemo = () => {
   const [state, setState] = useState({
     sourceData1: source1Data1,
     sourceData2: source1Data2,
-    disabled: false
+    disabled: false,
   });
 
   const transformData = (type) => {
@@ -235,24 +235,24 @@ const LargeEntranceDemo = () => {
       case 1:
         data = {
           sourceData1: source1Data1,
-          sourceData2: source1Data2
+          sourceData2: source1Data2,
         };
         break;
       case 2:
         data = {
           sourceData1: source2Data1,
-          sourceData2: source2Data2
+          sourceData2: source2Data2,
         };
         break;
       default:
         data = {
           sourceData1: source1Data1,
-          sourceData2: source1Data2
+          sourceData2: source1Data2,
         };
     }
     setState((item) => ({
       ...item,
-      ...data
+      ...data,
     }));
   };
   return (
@@ -268,7 +268,7 @@ const LargeEntranceDemo = () => {
         <Text style={styles.button} onPress={() => {
           setState((item) => ({
             ...item,
-            disabled: !state.disabled
+            disabled: !state.disabled,
           }));
         }}>切换禁用态</Text>
         <Text style={styles.title}>带图标</Text>
@@ -296,42 +296,42 @@ const styles = dynamicStyleSheet({
   container: {
     paddingTop: 30,
     paddingHorizontal: 12,
-    backgroundColor: colorToken.mj_color_gray_bg_2
+    backgroundColor: colorToken.mj_color_gray_bg_2,
   },
   header: {
     fontSize: 24,
     color: colorToken.mj_color_gray_text_1,
     fontWeight: '500',
     paddingHorizontal: 15,
-    marginBottom: 20
+    marginBottom: 20,
   },
   text: {
     fontSize: 16,
     color: colorToken.mj_color_gray_text_1,
     paddingHorizontal: 16,
-    paddingTop: 12
+    paddingTop: 12,
   },
   title: {
     color: colorToken.mjcard_color_miui_1,
     paddingHorizontal: 16,
     paddingVertical: 6,
     marginTop: 12,
-    ...Fonts.mj_text_subtitle_3_R
+    ...Fonts.mj_text_subtitle_3_R,
   },
   button: {
     fontSize: 14,
     color: colorToken.mj_color_gray_text_1,
     paddingHorizontal: 15,
-    lineHeight: 24
+    lineHeight: 24,
   },
   data: {
     borderRadius: 16,
     overflow: 'hidden',
-    backgroundColor: colorToken.mj_color_gray_card_1
+    backgroundColor: colorToken.mj_color_gray_card_1,
   },
   caseContainer: {
-    marginBottom: 12
-  }
+    marginBottom: 12,
+  },
 });
 
 export default LargeEntranceDemo;

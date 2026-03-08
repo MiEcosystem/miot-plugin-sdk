@@ -43,7 +43,7 @@ export default {
     'two': '{0} μήνες',
     'few': '{0} μήνες',
     'many': '{0} μήνες',
-    'other': '{0} μήνες'
+    'other': '{0} μήνες',
   },
   numberDay: {
     'zero': '{0} ημέρες',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} ημέρες',
     'few': '{0} ημέρες',
     'many': '{0} ημέρες',
-    'other': '{0} ημέρες'
+    'other': '{0} ημέρες',
   },
   numberHour: {
     'zero': '{0} ώ',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} ώ',
     'few': '{0} ώ',
     'many': '{0} ώ',
-    'other': '{0} ώ'
+    'other': '{0} ώ',
   },
   numberMinute: {
     'zero': '{0} λεπ',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} λεπ',
     'few': '{0} λεπ',
     'many': '{0} λεπ',
-    'other': '{0} λεπ'
+    'other': '{0} λεπ',
   },
   numberSecond: {
     'zero': '{0} δευ',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} δευ',
     'few': '{0} δευ',
     'many': '{0} δευ',
-    'other': '{0} δευ'
+    'other': '{0} δευ',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': 'Απομένουν {0} ώ',
     'few': 'Απομένουν {0} ώ',
     'many': 'Απομένουν {0} ώ',
-    'other': 'Απομένουν {0} ώ'
+    'other': 'Απομένουν {0} ώ',
   },
   consumableStateEstimatedDay: {
     'zero': 'Απομένουν {0} ημέρες',
@@ -269,7 +269,7 @@ export default {
     'two': 'Απομένουν {0} ημέρες',
     'few': 'Απομένουν {0} ημέρες',
     'many': 'Απομένουν {0} ημέρες',
-    'other': 'Απομένουν {0} ημέρες'
+    'other': 'Απομένουν {0} ημέρες',
   },
   changeIcon: 'Αλλαγή εικονιδίου',
   deviceCall: 'Ειδοποιήσεις έκτακτης ανάγκης',
@@ -349,8 +349,4 @@ export default {
   connection_successful: 'Συνδέθηκε επιτυχώς',
   connection_failed: 'Αδυναμία σύνδεσης',
   common_brand_produced_by: 'Σχεδιάστηκε από ${}',
-  usedOnMiHome: 'Χρήση με το Xiaomi Home',
-  operation_failed: 'Δεν ήταν δυνατή η ολοκλήρωση της ενέργειας',
-  operation_cancel: 'Η ενέργεια ακυρώθηκε',
-  operation_success: 'Τέλος'
 };
