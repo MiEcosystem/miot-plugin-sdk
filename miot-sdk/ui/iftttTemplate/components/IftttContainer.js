@@ -95,14 +95,16 @@ const IftttContainer = (props) => {
               setLines={setLines}
               onPress={() => {
                 IftttTemplateUtils.report('click', trackParams);
-                Host.ui.openTemplateScenePage({
+                const params = {
                   tempID: template_id,
-                  sceneID: scene_id,
                   did: Device.deviceID,
                   real_did: Device.deviceID,
                   edit_from: 17,
-                  template_type: template_type
-                });
+                  template_type: template_type,
+                  template_name: title
+                };
+                if (scene_id) params.scene_id = scene_id;
+                Host.ui.openTemplateScenePage(params);
               }}
               trackParams={trackParams}
             />
