@@ -25,6 +25,7 @@ export default {
   alreadyLatest: '设备已是最新版本',
   checkingUpdate: '正在检查更新...',
   foundNewVersion: '发现新版本',
+  version: '版本',
   more: '更多设置',
   help: '使用帮助',
   legalInfo: '法律信息',
