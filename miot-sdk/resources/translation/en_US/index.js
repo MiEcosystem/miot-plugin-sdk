@@ -25,7 +25,7 @@ export default {
   alreadyLatest: 'Current version is up to date',
   checkingUpdate: 'Checking for updates…',
   foundNewVersion: 'An update is available',
-  version: '版本',
+  version: 'Version',
   more: 'Additional settings',
   help: 'Help',
   legalInfo: 'Legal information',
