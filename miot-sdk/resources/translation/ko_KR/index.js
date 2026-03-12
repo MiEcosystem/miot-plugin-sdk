@@ -26,6 +26,7 @@ export default {
   checkingUpdate: '업데이트 확인 중…',
   foundNewVersion: '업데이트 사용 가능',
   version: '버전',
+  updating: '업데이트 중…',
   more: '추가 설정',
   help: '도움말',
   legalInfo: '법률 정보',

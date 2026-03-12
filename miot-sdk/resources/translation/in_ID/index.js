@@ -26,6 +26,7 @@ export default {
   checkingUpdate: 'Memeriksa pembaruan…',
   foundNewVersion: 'Pembaruan tersedia',
   version: 'Versi',
+  updating: 'Memperbarui…',
   more: 'Setelan tambahan',
   help: 'Bantuan',
   legalInfo: 'Informasi hukum',

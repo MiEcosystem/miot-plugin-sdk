@@ -26,6 +26,7 @@ export default {
   checkingUpdate: 'Kontrola aktualizací…',
   foundNewVersion: 'K dispozici je aktualizace',
   version: 'Verze',
+  updating: 'Aktualizace…',
   more: 'Další nastavení',
   help: 'Nápověda',
   legalInfo: 'Právní informace',

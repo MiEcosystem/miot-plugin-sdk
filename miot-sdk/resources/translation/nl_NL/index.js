@@ -26,6 +26,7 @@ export default {
   checkingUpdate: 'Controleren op updates…',
   foundNewVersion: 'Er is een update beschikbaar',
   version: 'Versie',
+  updating: 'Bijwerken…',
   more: 'Aanvullende instellingen',
   help: 'Help',
   legalInfo: 'Legale informatie',

@@ -26,6 +26,7 @@ export default {
   checkingUpdate: 'Перевірка наявності оновлень…',
   foundNewVersion: 'Доступне оновлення',
   version: 'Версія',
+  updating: 'Оновлення…',
   more: 'Додаткові налаштування',
   help: 'Довідка',
   legalInfo: 'Юридична інформація',

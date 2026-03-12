@@ -26,6 +26,7 @@ export default {
   checkingUpdate: '正在檢查更新…',
   foundNewVersion: '發現新版本',
   version: '版本',
+  updating: '更新中…',
   more: '更多設定',
   help: '使用説明',
   legalInfo: '法律資訊',

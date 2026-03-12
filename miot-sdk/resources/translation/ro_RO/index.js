@@ -26,6 +26,7 @@ export default {
   checkingUpdate: 'Verificarea actualizărilor…',
   foundNewVersion: 'Este disponibilă o actualizare',
   version: 'Versiunea',
+  updating: 'Actualizare...',
   more: 'Setări adiționale',
   help: 'Ajutor',
   legalInfo: 'Informații legale',

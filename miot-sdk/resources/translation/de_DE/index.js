@@ -26,6 +26,7 @@ export default {
   checkingUpdate: 'Nach Aktualisierungen suchen…',
   foundNewVersion: 'Ein Update ist verfügbar',
   version: 'Version',
+  updating: 'Wird aktualisiert …',
   more: 'Weitere Einstellungen',
   help: 'Hilfe',
   legalInfo: 'Rechtsinformation',

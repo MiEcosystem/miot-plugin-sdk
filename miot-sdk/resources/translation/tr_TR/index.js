@@ -26,6 +26,7 @@ export default {
   checkingUpdate: 'Güncellemeler kontrol ediliyor…',
   foundNewVersion: 'Güncelleme mevcut',
   version: 'Sürüm',
+  updating: 'Güncelleştiriliyor…',
   more: 'Ek ayarlar',
   help: 'Yardım',
   legalInfo: 'Yasal bilgiler',

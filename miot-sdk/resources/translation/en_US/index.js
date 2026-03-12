@@ -26,6 +26,7 @@ export default {
   checkingUpdate: 'Checking for updates…',
   foundNewVersion: 'An update is available',
   version: 'Version',
+  updating: 'Updating…',
   more: 'Additional settings',
   help: 'Help',
   legalInfo: 'Legal information',

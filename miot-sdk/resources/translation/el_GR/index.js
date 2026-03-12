@@ -26,6 +26,7 @@ export default {
   checkingUpdate: 'Έλεγχος για ενημερώσεις…',
   foundNewVersion: 'Υπάρχει διαθέσιμη ενημέρωση',
   version: 'Έκδοση',
+  updating: 'Γίνεται ενημέρωση…',
   more: 'Πρόσθετες ρυθμίσεις',
   help: 'Βοήθεια',
   legalInfo: 'Νομικές πληροφορίες',

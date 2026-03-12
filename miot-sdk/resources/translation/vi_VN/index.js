@@ -26,6 +26,7 @@ export default {
   checkingUpdate: 'Đang kiểm tra cập nhật…',
   foundNewVersion: 'Có bản cập nhật mới',
   version: 'Phiên bản',
+  updating: 'Đang cập nhật...',
   more: 'Cài đặt khác',
   help: 'Trợ giúp',
   legalInfo: 'Thông tin pháp lý',

@@ -26,6 +26,7 @@ export default {
   checkingUpdate: 'Проверка обновлений…',
   foundNewVersion: 'Доступно обновление',
   version: 'Версия',
+  updating: 'Обновление…',
   more: 'Расширенные настройки',
   help: 'Справка',
   legalInfo: 'Юридическая информация',

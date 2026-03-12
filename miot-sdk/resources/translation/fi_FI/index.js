@@ -26,6 +26,7 @@ export default {
   checkingUpdate: 'Haetaan päivityksiä…',
   foundNewVersion: 'Päivitys on saatavilla',
   version: 'Versio',
+  updating: 'Päivitetään...',
   more: 'Lisäasetukset',
   help: 'Ohje',
   legalInfo: 'Oikeudelliset tiedot',

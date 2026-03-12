@@ -26,6 +26,7 @@ export default {
   checkingUpdate: 'جارٍ التحقق من وجود تحديثات…',
   foundNewVersion: 'هناك تحديث متاح',
   version: 'إصدار',
+  updating: 'جارٍ التحديث...',
   more: 'الإعدادات الإضافية',
   help: 'المساعدة',
   legalInfo: 'المعلومات القانونية',

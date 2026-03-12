@@ -26,6 +26,7 @@ export default {
   checkingUpdate: 'Frissítések ellenőrzése…',
   foundNewVersion: 'Frissítés érhető el',
   version: 'Verzió',
+  updating: 'Frissítés…',
   more: 'További beállítások',
   help: 'Súgó',
   legalInfo: 'Jogi információ',
