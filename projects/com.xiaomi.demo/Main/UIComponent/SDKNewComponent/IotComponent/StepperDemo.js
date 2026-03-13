@@ -21,7 +21,6 @@ const propConfigs = [
   { name: 'suffix', type: 'pass', passDescription: '可选: React.ReactNode', defaultValue: <Percent fill={colorToken.mjcard_color_blue_1} /> },
   { name: 'iconType', type: 'enum', enumOptions: ['symbol', 'direction'], defaultValue: 'symbol' },
   { name: 'disabled', type: 'boolean', defaultValue: false },
-  { name: 'closed', type: 'boolean', defaultValue: false },
   { name: 'symbolType', type: 'enum', enumOptions: ['percent', 'celsius', 'custom'], defaultValue: 'custom' },
 ];
 
@@ -81,7 +80,31 @@ const StepperDemo = ({ navigation }) => {
         <Stepper
           step={1}
           symbolType="custom"
-          formatter={() => longState ? '自定义文本自定义文本自定义文本自定义文本自定义文本' : '自定义文本'}
+          formatter={() => longState ? '一二三四五六七一二三四五六七一二三四五六七一二三四五六七一二三四五六七' : '一二三四五六七'}
+          value={targetTemperature2}
+          onChange={setTargetTemperature2}
+          min={0}
+          max={100}
+        />
+      </View>
+      <Text style={styles.title}>中间状态英文</Text>
+      <View style={styles.stepperContainer} >
+        <Stepper
+          step={1}
+          symbolType="custom"
+          formatter={() => longState ? 'Channel AChannel AChannel AChannel AChannel AChannel A' : 'Channel A'}
+          value={targetTemperature2}
+          onChange={setTargetTemperature2}
+          min={0}
+          max={100}
+        />
+      </View>
+      <Text style={styles.title}>中间状态小语种</Text>
+      <View style={styles.stepperContainer} >
+        <Stepper
+          step={1}
+          symbolType="custom"
+          formatter={() => longState ? 'واحد اثنان ثلاثة تةواحد اثنان ثلاثة تةواحد اثنان ثلاثة تةواحد اثنان ثلاثة تة' : 'واحد اثنان ثلاثة تة'}
           value={targetTemperature2}
           onChange={setTargetTemperature2}
           min={0}
@@ -95,8 +118,8 @@ const StepperDemo = ({ navigation }) => {
           symbolType="celsius"
           suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
           value={23}
+          disabled={true}
           onChange={setTargetTemperature}
-          closed={true}
         />
       </View>
       <Text style={styles.title}>禁用（关）</Text>
