@@ -111,17 +111,6 @@ const StepperDemo = ({ navigation }) => {
           max={100}
         />
       </View>
-      <Text style={styles.title}>禁用（开）</Text>
-      <View style={styles.stepperContainer} >
-        <Stepper
-          step={0.5}
-          symbolType="celsius"
-          suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
-          value={23}
-          disabled={true}
-          onChange={setTargetTemperature}
-        />
-      </View>
       <Text style={styles.title}>禁用（关）</Text>
       <View style={styles.stepperContainer} >
         <Stepper
