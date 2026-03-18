@@ -41,7 +41,11 @@ map.set("node_modules/react-native-safe-area-view/index.js", "react-safeAreaView
 map.set("node_modules/react-navigation/node_modules/react-native-safe-area-view/index.js", "react-native-safe-area-view");
 // 修复FlatList 系列组件scrollToIndex 参数与数据不匹配时崩溃的情况
 map.set("node_modules/react-native/Libraries/Lists/VirtualizedList.js", "VirtualizedList");
-
+// 增加头部安全区域高度配置
+map.set("node_modules/react-native/Libraries/Components/SafeAreaView/SafeAreaView.js", "SafeAreaView");
+// 增加头部
+map.set("node_modules/react-native/Libraries/Renderer/implementations/ReactNativeRenderer-dev.js", "impl_ReactNativeRenderer-dev");
+map.set("node_modules/react-native/Libraries/Renderer/implementations/ReactNativeRenderer-prod.js", "impl_ReactNativeRenderer-prod");
 module.exports = {
 
   findContent(mpath) {

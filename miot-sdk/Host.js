@@ -262,6 +262,17 @@ export default {
      return  true
   },
   /**
+   * 区分平台 1 手机端米家app；2 车机端米家app；3 音箱端米家app；4 电视端米家app
+   * 仅供android使用，ios统一返回 1
+   * @since 10111
+   * @const
+   * @type {int}
+   * @readonly
+   */
+  get appBuildTargetType() {
+     return  1
+  },
+  /**
   * 获取Android 官方提供的打孔屏api提供的打孔屏高度。 ios手机一律返回0.
   *
   * @since 10042
