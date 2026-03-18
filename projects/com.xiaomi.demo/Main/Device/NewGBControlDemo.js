@@ -12,7 +12,7 @@ export default class NewGBControlDemo extends React.Component {
   }
 
   state = {
-    isOpenNewGBBtn: false,
+    isOpenNewGBBtn: false
   };
 
   componentDidMount() {
@@ -62,7 +62,7 @@ export default class NewGBControlDemo extends React.Component {
 
   _doOneSetProp = () => {
     Service.spec.setPropertiesValue([
-      { did: Device.deviceID, siid: 2, piid: 2, value: 0 },
+      { did: Device.deviceID, siid: 2, piid: 2, value: 0 }
     ]).then((res) => {
       if (res[0].code === -24) {
         Host.ui.openRemoteControlDialog(Device.deviceID);
@@ -92,9 +92,6 @@ export default class NewGBControlDemo extends React.Component {
             <Text style={styles.buttonText}>是否提示新国标未开启tips？ {visible ? '是' : '否'}</Text>
             {visible ? <NewGBTipsView /> : null}
           </View>
-          <View style={{width: '20%' }}>
-            <Text style={styles.button} android_hyphenationFrequency={'full'}>international</Text>
-          </View>
         </View>
       </ScrollView>
     );
@@ -103,12 +100,12 @@ export default class NewGBControlDemo extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   content: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#838383',
+    backgroundColor: '#838383'
   },
   button: {
     width: '90%',
@@ -120,7 +117,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   newGBView: {
     flex: 1,
@@ -130,10 +127,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   buttonText: {
     color: '#555',
-    fontSize: 18,
-  },
+    fontSize: 18
+  }
 });

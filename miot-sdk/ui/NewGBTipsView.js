@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
-import { Device, Host } from "miot";
+import { DarkMode, Device, Host } from "miot";
 import { Images } from '../resources';
 import I18n from '../resources/Strings';
 import { FontMiSansWMedium } from '../utils/fonts';
@@ -22,6 +22,8 @@ const DIMENS = {
 export default function NewGBTipsView(props) {
   const { onPress, visible } = props;
   const leftImageSource = Images.common.remote_control;
+  const leftImageSourceDark = Images.common.remote_control_dark;
+  const colorScheme = DarkMode.getColorScheme() || 'light';
   return visible ? (
     <TouchableHighlight
       style={styles.container}
@@ -31,7 +33,7 @@ export default function NewGBTipsView(props) {
     >
       <View style={styles.content}>
         <View style={styles.leftWrapper}>
-          <Image source={leftImageSource} style={styles.leftImage} />
+          <Image source={colorScheme === 'light' ? leftImageSource : leftImageSourceDark} style={styles.leftImage} />
         </View>
         <View style={styles.textWrapper}>
           <Text style={styles.title} numberOfLines={3}>
@@ -47,11 +49,11 @@ export default function NewGBTipsView(props) {
 }
 NewGBTipsView.propTypes = {
   onPress: PropTypes.func,
-  visible: PropTypes.bool,
+  visible: PropTypes.bool
 };
 NewGBTipsView.defaultProps = {
   visible: true,
-  onPress: () => {Host.ui.openRemoteControlDialog(Device.deviceID);},
+  onPress: () => { Host.ui.openRemoteControlDialog(Device.deviceID); }
 };
 const styles = StyleSheet.create({
   container: {

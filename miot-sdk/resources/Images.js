@@ -13,6 +13,7 @@ export default {
     close: require('./images/close.png'),
     mihome: require('./images/mihome.png'),
     remote_control: require('./images/remote-control-icon.png'),
+    remote_control_dark: require('./images/remote-control-icon-dark.png'),
     selectIcon: require('./images/select_icon.png'),
     right: require('./images/right.png'),
     manualScene: require('./images/manual_scene.png'),
