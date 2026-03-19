@@ -146,6 +146,24 @@ export default {
      return  0
   },
   /**
+   * @const
+   * @type {map}
+   * @since  10112  获取iphone手机安全区域
+   * @description 获取iphone手机安全区域，返回例子：{"bottom" : 34, "left": 0, "right": 0, "top": 62}
+   */
+  get safeAreaInsets() {
+     return  0
+  },
+  /**
+   * @const
+   * @type Promise<map>
+   * @since  10112  获取iphone手机安全区域
+   * @description 获取iphone手机安全区域，返回例子：{"bottom" : 34, "left": 0, "right": 0, "top": 62}
+   */
+  getSafeAreaInsets() {
+     return Promise.resolve(null);
+  },
+  /**
      * @const
      * @type {boolean}
      * @since  10044  目前已支持iPhone全系列

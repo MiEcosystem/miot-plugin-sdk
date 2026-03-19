@@ -26,6 +26,8 @@ import BTInterconnection from "miot/ui/BTInterconnection";
 import BraceletInterconnection from "miot/ui/BraceletInterconnection";
 import Setting from "./tutorial/Setting";
 import SettingPage from "./tutorial/SettingPage";
+import { DarkMode } from "miot";
+import { darkModeDemoPathList } from "./UIComponent/SDKNewComponent/adaptiveThemeComponent";
 
 import NavigationBar from "miot/ui/NavigationBar";
 
@@ -48,6 +50,7 @@ import TabBarDemo from "./tutorial/TabBarDemo"; //  ui-导航栏使用
 
 import Settings2022 from './UIComponent/Settings2022';
 import SupportedFont from './UIComponent/SupportedFont';
+import SdkComponentDemo from "./UIComponent/SdkComponentDemo";
 
 // List
 import ListDemoEntry from "./UIComponent/List/ListDemoEntry";
@@ -137,7 +140,37 @@ import DownloadFontDemo from "./Host/DownloadFontDemo"; //  字体下载测试
 
 // 常用功能
 import TutorialDemo from "./tutorial/TutorialDemo";
-
+// 新版SDK
+import BasicComponentDemo from "./UIComponent/SDKNewComponent/BasicComponent/BasicComponentDemo";
+import BasicDemo from "./UIComponent/SDKNewComponent/BasicComponent/BasicDemo";
+import FontsDemo from "./UIComponent/SDKNewComponent/BasicComponent/FontsDemo";
+import ColorDemo from "./UIComponent/SDKNewComponent/BasicComponent/ColorDemo";
+import RadiusDemo from "./UIComponent/SDKNewComponent/BasicComponent/RadiusDemo";
+import DialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/DialogDemo";
+import HandPopDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopDemo";
+import HandPopCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopCustomDemo";
+import HandPopClickDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopClickDemo";
+import HandPopTriggerDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopTriggerDemo";
+import LoadingDemo from "./UIComponent/SDKNewComponent/BasicComponent/LoadingDemo";
+import ListDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListDemo";
+import ListItemDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListItemDemo";
+import ListGroupDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListGroupDemo";
+import ButtonDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonDemo";
+import ButtonColorDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonColorDemo";
+import ButtonCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonCustomDemo";
+import ButtonPageViewDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonPageViewDemo";
+import AtomicDemo from "./UIComponent/SDKNewComponent/BasicComponent/AtomicDemo";
+import ToastDemo from "./UIComponent/SDKNewComponent/BasicComponent/ToastDemo";
+// Iot 组件
+import IotComponentDemo from "./UIComponent/SDKNewComponent/IotComponent/IotComponentDemo";
+import StructureDemo from "./UIComponent/SDKNewComponent/IotComponent/StructureDemo";
+import ControlerDemo from "./UIComponent/SDKNewComponent/IotComponent/ControlerDemo";
+import EntryDemo from "./UIComponent/SDKNewComponent/IotComponent/EntryDemo";
+import LargeEntranceDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeEntranceDemo";
+import StepperDemo from "./UIComponent/SDKNewComponent/IotComponent/StepperDemo";
+import LargeVariantSwitchDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeVariantSwitchDemo";
+// import SmartSceneDemo from "./UIComponent/SDKNewComponent/IotComponent/SmartSceneDemo";
+import SeparatorDemo from "./UIComponent/SDKNewComponent/IotComponent/SeparatorDemo";
 // 第三方库
 import SQLiteDemo from "./ThirdPartDemo/SQLiteDemo";
 import OrientationDemo from "./Host/OrientationDemo";
@@ -232,7 +265,6 @@ import CustomContainer from "./uikit/components/CustomContainer";
 import OfficialDemos from "./OfficialDemos";
 
 import Logger from "./Logger";
-
 function createRootStack(initPage) {
   return createStackNavigator(
     {
@@ -246,6 +278,38 @@ function createRootStack(initPage) {
       SupportedFont,
       CurtainGroupPage,
       FirmwareUpgrade,
+      // 新版SDK
+      BasicComponentDemo,
+      BasicDemo,
+      AtomicDemo,
+      ButtonDemo,
+      ToastDemo,
+      ButtonColorDemo,
+      ButtonCustomDemo,
+      ButtonPageViewDemo,
+      SdkComponentDemo,
+      ColorDemo,
+      RadiusDemo,
+      DialogDemo,
+      HandPopDemo,
+      HandPopClickDemo,
+      HandPopCustomDemo,
+      HandPopTriggerDemo,
+      FontsDemo,
+      LoadingDemo,
+      ListDemo,
+      ListItemDemo,
+      ListGroupDemo,
+      // Iot 组件
+      IotComponentDemo,
+      ControlerDemo,
+      StructureDemo,
+      EntryDemo,
+      LargeEntranceDemo,
+      StepperDemo,
+      LargeVariantSwitchDemo,
+      // SmartSceneDemo,
+      SeparatorDemo,
       // FirmwareUpgradeAuto,
       FirmwareUpgradeRecord,
       HostDemo,
@@ -493,6 +557,9 @@ function createRootStack(initPage) {
 
 function interpolator(props) {
   const { layout, position, scene } = props;
+  if (darkModeDemoPathList.includes(scene.route.routeName)) {
+    DarkMode.preparePluginOwnDarkMode();
+  }
 
   if (!layout.isMeasured) {
     return (props) => {

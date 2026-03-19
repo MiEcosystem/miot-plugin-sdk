@@ -22,6 +22,7 @@ export default class UIDemo extends React.Component {
     });
     this.state = {
       dataSource: ds.cloneWithRows([
+        { name: "标插SDK组件库", router: "SdkComponentDemo" },
         { name: '支持的字体列表', router: 'SupportedFont' },
         { name: '下载字体列表', router: 'DownloadFontDemo' },
         { name: '设置项改版-2022/03/21', router: 'Settings2022' },

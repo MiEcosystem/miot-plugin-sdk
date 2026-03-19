@@ -43,7 +43,7 @@ export default {
     'two': '{0}개월',
     'few': '{0}개월',
     'many': '{0}개월',
-    'other': '{0}개월'
+    'other': '{0}개월',
   },
   numberDay: {
     'zero': '{0}일',
@@ -51,7 +51,7 @@ export default {
     'two': '{0}일',
     'few': '{0}일',
     'many': '{0}일',
-    'other': '{0}일'
+    'other': '{0}일',
   },
   numberHour: {
     'zero': '{0}시간',
@@ -59,7 +59,7 @@ export default {
     'two': '{0}시간',
     'few': '{0}시간',
     'many': '{0}시간',
-    'other': '{0}시간'
+    'other': '{0}시간',
   },
   numberMinute: {
     'zero': '{0}분',
@@ -67,7 +67,7 @@ export default {
     'two': '{0}분',
     'few': '{0}분',
     'many': '{0}분',
-    'other': '{0}분'
+    'other': '{0}분',
   },
   numberSecond: {
     'zero': '{0}초',
@@ -75,7 +75,7 @@ export default {
     'two': '{0}초',
     'few': '{0}초',
     'many': '{0}초',
-    'other': '{0}초'
+    'other': '{0}초',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': '{0}시간 남음',
     'few': '{0}시간 남음',
     'many': '{0}시간 남음',
-    'other': '{0}시간 남음'
+    'other': '{0}시간 남음',
   },
   consumableStateEstimatedDay: {
     'zero': '{0}일 남음',
@@ -269,7 +269,7 @@ export default {
     'two': '{0}일 남음',
     'few': '{0}일 남음',
     'many': '{0}일 남음',
-    'other': '{0}일 남음'
+    'other': '{0}일 남음',
   },
   changeIcon: '아이콘 변경',
   deviceCall: '긴급 경보',
@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: '블루투스를 통해 연결하는 중…',
   bluetooth_connection_phone: '이 기능을 사용하려면 휴대전화의 블루투스 연결이 필요합니다.',
   connection_successful: '연결 성공',
-  connection_failed: '연결 실패'
+  connection_failed: '연결 실패',
+  common_brand_produced_by: '디자인: ${}',
 };

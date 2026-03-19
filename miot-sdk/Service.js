@@ -341,5 +341,16 @@ export default {
         }
       });
     });
+  },
+  /**
+   * 获取设备多语言资源文件, 由于是发起网络请求，数据的正确性可以通过抓包来查看；
+   * 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
+   * @param did 设备的did
+   * @return {Promise<JSON>} 设备的Spec属性详情
+   * 方法执行成功时：直接返回设备具体内容，json结构字符串
+   * 失败时：{code:xxx, message:xxx}
+   */
+  fetchMultilingualResources(did) {
+     return Promise.resolve(null);
   }
 };

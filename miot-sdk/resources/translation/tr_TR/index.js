@@ -43,7 +43,7 @@ export default {
     'two': '{0} ay',
     'few': '{0} ay',
     'many': '{0} ay',
-    'other': '{0} ay'
+    'other': '{0} ay',
   },
   numberDay: {
     'zero': '{0} gün',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} gün',
     'few': '{0} gün',
     'many': '{0} gün',
-    'other': '{0} gün'
+    'other': '{0} gün',
   },
   numberHour: {
     'zero': '{0} sa.',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} sa.',
     'few': '{0} sa.',
     'many': '{0} sa.',
-    'other': '{0} sa.'
+    'other': '{0} sa.',
   },
   numberMinute: {
     'zero': '{0} dk.',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} dk.',
     'few': '{0} dk.',
     'many': '{0} dk.',
-    'other': '{0} dk.'
+    'other': '{0} dk.',
   },
   numberSecond: {
     'zero': '{0} sn.',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} sn',
     'few': '{0} sn.',
     'many': '{0} sn.',
-    'other': '{0} sn.'
+    'other': '{0} sn.',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': '{0} sa. kaldı',
     'few': '{0} sa. kaldı',
     'many': '{0} sa. kaldı',
-    'other': '{0} sa. kaldı'
+    'other': '{0} sa. kaldı',
   },
   consumableStateEstimatedDay: {
     'zero': '{0} gün kaldı',
@@ -269,7 +269,7 @@ export default {
     'two': '{0} gün kaldı',
     'few': '{0} gün kaldı',
     'many': '{0} gün kaldı',
-    'other': '{0} gün kaldı'
+    'other': '{0} gün kaldı',
   },
   changeIcon: 'Simgeyi değiştir',
   deviceCall: 'Acil durum uyarıları',
@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'Bluetooth ile bağlanılıyor…',
   bluetooth_connection_phone: 'Bu özellik telefonunuzun Bluetooth bağlantısını gerektirir',
   connection_successful: 'Başarıyla bağlandı',
-  connection_failed: 'Bağlanılamadı'
+  connection_failed: 'Bağlanılamadı',
+  common_brand_produced_by: '${} tarafından tasarlandı',
 };

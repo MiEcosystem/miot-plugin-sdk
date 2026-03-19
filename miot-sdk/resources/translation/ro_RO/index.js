@@ -43,7 +43,7 @@ export default {
     'two': '{0} luni',
     'few': '{0} luni',
     'many': '{0} luni',
-    'other': '{0} luni'
+    'other': '{0} luni',
   },
   numberDay: {
     'zero': '{0} zile',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} zile',
     'few': '{0} zile',
     'many': '{0} zile',
-    'other': '{0} zile'
+    'other': '{0} zile',
   },
   numberHour: {
     'zero': '{0} h',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} h',
     'few': '{0} h',
     'many': '{0} h',
-    'other': '{0} h'
+    'other': '{0} h',
   },
   numberMinute: {
     'zero': '{0} min',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} min',
     'few': '{0} min',
     'many': '{0} min',
-    'other': '{0} min'
+    'other': '{0} min',
   },
   numberSecond: {
     'zero': '{0} sec',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} sec',
     'few': '{0} sec',
     'many': '{0} sec',
-    'other': '{0} sec'
+    'other': '{0} sec',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': '{0} h rămase',
     'few': '{0} h rămase',
     'many': '{0} h rămase',
-    'other': '{0} h rămase'
+    'other': '{0} h rămase',
   },
   consumableStateEstimatedDay: {
     'zero': '{0} zile rămase',
@@ -269,7 +269,7 @@ export default {
     'two': '{0} zile rămase',
     'few': '{0} zile rămase',
     'many': '{0} zile rămase',
-    'other': '{0} zile rămase'
+    'other': '{0} zile rămase',
   },
   changeIcon: 'Schimbă pictograma',
   deviceCall: 'Alerte de urgență',
@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'Conectare prin Bluetooth…',
   bluetooth_connection_phone: 'Această funcție necesită conexiunea Bluetooth a telefonului dvs.',
   connection_successful: 'Conectarea a reușit',
-  connection_failed: 'Nu s-a putut conecta'
+  connection_failed: 'Nu s-a putut conecta',
+  common_brand_produced_by: 'Elaborat de ${}',
 };

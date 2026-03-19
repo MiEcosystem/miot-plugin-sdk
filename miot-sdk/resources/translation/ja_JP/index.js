@@ -43,7 +43,7 @@ export default {
     'two': '{0}か月',
     'few': '{0}か月',
     'many': '{0}か月',
-    'other': '{0}か月'
+    'other': '{0}か月',
   },
   numberDay: {
     'zero': '{0}日',
@@ -51,7 +51,7 @@ export default {
     'two': '{0}日',
     'few': '{0}日',
     'many': '{0}日',
-    'other': '{0}日'
+    'other': '{0}日',
   },
   numberHour: {
     'zero': '{0}時間',
@@ -59,7 +59,7 @@ export default {
     'two': '{0}時間',
     'few': '{0}時間',
     'many': '{0}時間',
-    'other': '{0}時間'
+    'other': '{0}時間',
   },
   numberMinute: {
     'zero': '{0}分',
@@ -67,7 +67,7 @@ export default {
     'two': '{0}分',
     'few': '{0}分',
     'many': '{0}分',
-    'other': '{0}分'
+    'other': '{0}分',
   },
   numberSecond: {
     'zero': '{0}秒',
@@ -75,7 +75,7 @@ export default {
     'two': '{0}秒',
     'few': '{0}秒',
     'many': '{0}秒',
-    'other': '{0}秒'
+    'other': '{0}秒',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': '残り{0}時間',
     'few': '残り{0}時間',
     'many': '残り{0}時間',
-    'other': '残り{0}時間'
+    'other': '残り{0}時間',
   },
   consumableStateEstimatedDay: {
     'zero': '残り{0}日',
@@ -269,7 +269,7 @@ export default {
     'two': '残り{0}日',
     'few': '残り{0}日',
     'many': '残り{0}日',
-    'other': '残り{0}日'
+    'other': '残り{0}日',
   },
   changeIcon: 'アイコンを変更',
   deviceCall: '緊急アラート',
@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'Bluetooth で接続中…',
   bluetooth_connection_phone: 'この機能には携帯電話の Bluetooth 接続が必要です',
   connection_successful: '正常に接続されました',
-  connection_failed: '接続できませんでした'
+  connection_failed: '接続できませんでした',
+  common_brand_produced_by: '${}によるデザイン',
 };

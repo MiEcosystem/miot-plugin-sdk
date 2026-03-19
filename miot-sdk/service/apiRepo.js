@@ -388,6 +388,6 @@ const API_REPO = {
   // 门锁数字钥匙管理（删除/冻结/恢复）
   '/iccoa/manageKey': {},
   "/eco/nas/message/identity/get": {},
-  "/eco/nas/message/identity/verify": {}
+  "/eco/nas/message/identity/verify": {},
 };
 export default API_REPO;

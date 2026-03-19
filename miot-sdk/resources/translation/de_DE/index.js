@@ -43,7 +43,7 @@ export default {
     'two': '{0} Monate',
     'few': '{0} Monate',
     'many': '{0} Monate',
-    'other': '{0} Monate'
+    'other': '{0} Monate',
   },
   numberDay: {
     'zero': '{0} Tage',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} Tage',
     'few': '{0} Tage',
     'many': '{0} Tage',
-    'other': '{0} Tage'
+    'other': '{0} Tage',
   },
   numberHour: {
     'zero': '{0} Std.',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} Std.',
     'few': '{0} Std.',
     'many': '{0} Std.',
-    'other': '{0} Std.'
+    'other': '{0} Std.',
   },
   numberMinute: {
     'zero': '{0} Min.',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} Min.',
     'few': '{0} Min.',
     'many': '{0} Min.',
-    'other': '{0} Min.'
+    'other': '{0} Min.',
   },
   numberSecond: {
     'zero': '{0} Sek.',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} Sek.',
     'few': '{0} Sek.',
     'many': '{0} Sek.',
-    'other': '{0} Sek.'
+    'other': '{0} Sek.',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': '{0} Std. verbleibend',
     'few': '{0} Std. verbleibend',
     'many': '{0} Std. verbleibend',
-    'other': '{0} Std. verbleibend'
+    'other': '{0} Std. verbleibend',
   },
   consumableStateEstimatedDay: {
     'zero': '{0} Tage verbleibend',
@@ -269,7 +269,7 @@ export default {
     'two': '{0} Tage verbleibend',
     'few': '{0} Tage verbleibend',
     'many': '{0} Tage verbleibend',
-    'other': '{0} Tage verbleibend'
+    'other': '{0} Tage verbleibend',
   },
   changeIcon: 'Symbol ändern',
   deviceCall: 'Notfallmeldungen',
@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'Verbinden via Bluetooth',
   bluetooth_connection_phone: 'Diese Funktion erfordert die Bluetooth-Verbindung deines Telefons',
   connection_successful: 'Erfolgreich verbunden',
-  connection_failed: 'Verbinden fehlgeschlagen'
+  connection_failed: 'Verbinden fehlgeschlagen',
+  common_brand_produced_by: 'Entworfen von ${}',
 };

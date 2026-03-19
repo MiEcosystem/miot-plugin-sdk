@@ -43,7 +43,7 @@ export default {
     'two': '{0} mesiace',
     'few': '{0} mesiace',
     'many': '{0} mesiaca',
-    'other': '{0} mesiacov'
+    'other': '{0} mesiacov',
   },
   numberDay: {
     'zero': '{0} dní',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} dni',
     'few': '{0} dni',
     'many': '{0} dňa',
-    'other': '{0} dní'
+    'other': '{0} dní',
   },
   numberHour: {
     'zero': '{0} hod.',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} hod.',
     'few': '{0} hod.',
     'many': '{0} hod.',
-    'other': '{0} hod.'
+    'other': '{0} hod.',
   },
   numberMinute: {
     'zero': '{0} min.',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} min.',
     'few': '{0} min.',
     'many': '{0} min.',
-    'other': '{0} min.'
+    'other': '{0} min.',
   },
   numberSecond: {
     'zero': '{0} sek.',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} sek.',
     'few': '{0} sek.',
     'many': '{0} sek.',
-    'other': '{0} sek.'
+    'other': '{0} sek.',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': 'Zostávajú {0} hodiny',
     'few': 'Zostávajú {0} hodiny',
     'many': 'Zostáva {0} hodiny',
-    'other': 'Zostáva {0} hodín'
+    'other': 'Zostáva {0} hodín',
   },
   consumableStateEstimatedDay: {
     'zero': 'Zostáva {0} dní',
@@ -269,7 +269,7 @@ export default {
     'two': 'Zostávajú {0} dni',
     'few': 'Zostávajú {0} dni',
     'many': 'Zostáva {0} dňa',
-    'other': 'Zostáva {0} dní'
+    'other': 'Zostáva {0} dní',
   },
   changeIcon: 'Zmeniť ikonu',
   deviceCall: 'Núdzové výstrahy',
@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'Pripája sa cez Bluetooth…',
   bluetooth_connection_phone: 'Táto funkcia si vyžaduje Bluetooth pripojenie vášho telefónu',
   connection_successful: 'Úspešne pripojené',
-  connection_failed: 'Nepodarilo sa pripojiť'
+  connection_failed: 'Nepodarilo sa pripojiť',
+  common_brand_produced_by: 'Navrhnuté ${}',
 };

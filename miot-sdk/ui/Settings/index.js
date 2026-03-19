@@ -11,15 +11,15 @@ import { Device } from '../..';
 // 参照老的CommonSetting 导出keys 及其他辅助内容
 export const AllOptions = {
   ...firstOptions,
-  ...secondOptions
+  ...secondOptions,
 };
 export const SETTING_KEYS = {
   first_options: AllOptions,
-  second_options: AllOptions
+  second_options: AllOptions,
 };
 export {
   AllOptions as firstAllOptions,
-  AllOptions as secondAllOptions
+  AllOptions as secondAllOptions,
 };
 export function resetClassVariables() {}
 export const AllOptionsWeight = {};
@@ -32,7 +32,7 @@ export default function Settings({
   extraOptions,
   firstCustomOptions,
   secondCustomOptions,
-  children
+  children,
 }) {
   const mergedOptions = [...new Set(...(options || []), firstOptions || [], secondOptions || [])];
   const isFromCarRoom = Device.fromRoomIndex === 1 || Device.fromRoomIndex === 2;
@@ -96,16 +96,16 @@ Settings.propTypes = {
       agreementURL: PropTypes.any,
       hideAgreement: PropTypes.bool,
       experiencePlanURL: PropTypes.any,
-      hideUserExperiencePlan: PropTypes.bool
-    })
+      hideUserExperiencePlan: PropTypes.bool,
+    }),
   }),
   // 功能设置中用户自定义项目，需传入组件实例
   // example: [(<ListItem />)]
   firstCustomOptions: CommonSettings.propTypes.customOptions,
   // 更多设备信息中用户自定义项目，需传入组件实例
   // example: [(<ListItem />)]
-  secondCustomOptions: BasicInfo.propTypes.customOptions
+  secondCustomOptions: BasicInfo.propTypes.customOptions,
 };
 const Styles = dynamicStyleSheet({
-  container: {}
+  container: {},
 });

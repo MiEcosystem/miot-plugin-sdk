@@ -43,7 +43,7 @@ export default {
     'two': '{0} місяці',
     'few': '{0} місяці',
     'many': '{0} місяців',
-    'other': '{0} місяців'
+    'other': '{0} місяців',
   },
   numberDay: {
     'zero': '{0} днів',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} дні',
     'few': '{0} дні',
     'many': '{0} днів',
-    'other': '{0} днів'
+    'other': '{0} днів',
   },
   numberHour: {
     'zero': '{0} годин',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} години',
     'few': '{0} години',
     'many': '{0} годин',
-    'other': '{0} годин'
+    'other': '{0} годин',
   },
   numberMinute: {
     'zero': '{0} хвилин',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} хвилини',
     'few': '{0} хвилини',
     'many': '{0} хвилин',
-    'other': '{0} хвилин'
+    'other': '{0} хвилин',
   },
   numberSecond: {
     'zero': '{0} секунд',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} секунди',
     'few': '{0} секунди',
     'many': '{0} секунд',
-    'other': '{0} секунд'
+    'other': '{0} секунд',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': 'Залишилося {0} години',
     'few': 'Залишилося {0} години',
     'many': 'Залишилося {0} годин',
-    'other': 'Залишилося {0} годин'
+    'other': 'Залишилося {0} годин',
   },
   consumableStateEstimatedDay: {
     'zero': 'Залишилося {0} днів',
@@ -269,7 +269,7 @@ export default {
     'two': 'Залишилося {0} дні',
     'few': 'Залишилося {0} дні',
     'many': 'Залишилося {0} днів',
-    'other': 'Залишилося {0} днів'
+    'other': 'Залишилося {0} днів',
   },
   changeIcon: 'Змінити іконку',
   deviceCall: 'Екстрені сповіщення',
@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'Підключення через Bluetooth…',
   bluetooth_connection_phone: 'Ця функція потребує Bluetooth-з’єднання телефону',
   connection_successful: 'Успішно під\'єднано',
-  connection_failed: 'Не вдалося під\'єднатися'
+  connection_failed: 'Не вдалося під\'єднатися',
+  common_brand_produced_by: 'Розроблено ${}',
 };

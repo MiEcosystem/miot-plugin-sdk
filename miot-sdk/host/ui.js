@@ -289,7 +289,7 @@ class IUi {
     let emitParams = {
       title: I18n.bluetooth_connecting,
       subTitle: I18n.bluetooth_connection_phone,
-      type: 'show'
+      type: 'show',
     };
     DeviceEventEmitter.emit('FirmwareUpgradeAutoBottomSheet', emitParams);
     return new Promise((resolve, reject) => {
@@ -299,7 +299,7 @@ class IUi {
           did: Device.deviceID,
           timeout: 10000,
           connectRetry: 0,
-          ...params
+          ...params,
         }).then((res) => {
         console.log(`蓝牙连接成功::${ Math.ceil(Date.now() / 1000) }: ${ JSON.stringify(res) }`);
         resolve(res);
@@ -318,7 +318,7 @@ class IUi {
    */
   @report
   showToast(text = '') {
-    native.MIOTHost.showToast(text);
+    native.MIOTHost.showToast(text, 0);
   }
   /**
    *

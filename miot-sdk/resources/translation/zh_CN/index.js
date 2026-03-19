@@ -43,7 +43,7 @@ export default {
     'two': '{0}个月',
     'few': '{0}个月',
     'many': '{0}个月',
-    'other': '{0}个月'
+    'other': '{0}个月',
   },
   numberDay: {
     'zero': '{0}天',
@@ -51,7 +51,7 @@ export default {
     'two': '{0}天',
     'few': '{0}天',
     'many': '{0}天',
-    'other': '{0}天'
+    'other': '{0}天',
   },
   numberHour: {
     'zero': '{0}小时',
@@ -59,7 +59,7 @@ export default {
     'two': '{0}小时',
     'few': '{0}小时',
     'many': '{0}小时',
-    'other': '{0}小时'
+    'other': '{0}小时',
   },
   numberMinute: {
     'zero': '{0}分钟',
@@ -67,7 +67,7 @@ export default {
     'two': '{0}分钟',
     'few': '{0}分钟',
     'many': '{0}分钟',
-    'other': '{0}分钟'
+    'other': '{0}分钟',
   },
   numberSecond: {
     'zero': '{0}秒钟',
@@ -75,7 +75,7 @@ export default {
     'two': '{0}秒钟',
     'few': '{0}秒钟',
     'many': '{0}秒钟',
-    'other': '{0}秒钟'
+    'other': '{0}秒钟',
   },
   months: '个月', // 复数
   days: '天', // 复数
@@ -241,7 +241,7 @@ export default {
     'two': '预计还可以使用{0}小时',
     'few': '预计还可以使用{0}小时',
     'many': '预计还可以使用{0}小时',
-    'other': '预计还可以使用{0}小时'
+    'other': '预计还可以使用{0}小时',
   },
   consumableStateEstimatedDay: {
     'zero': '预计还可以使用{0}天',
@@ -249,7 +249,7 @@ export default {
     'two': '预计还可以使用{0}天',
     'few': '预计还可以使用{0}天',
     'many': '预计还可以使用{0}天',
-    'other': '预计还可以使用{0}天'
+    'other': '预计还可以使用{0}天',
   },
   changeIcon: '更换图标',
   deviceCall: '紧急事件电话呼叫',
@@ -327,5 +327,6 @@ export default {
   bluetooth_connecting: "手机蓝牙连接中...",
   bluetooth_connection_phone: "此功能需手机蓝牙连接可用",
   connection_successful: "连接成功",
-  connection_failed: "连接失败"
+  connection_failed: "连接失败",
+  common_brand_produced_by: '${}出品',
 };

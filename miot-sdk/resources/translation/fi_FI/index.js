@@ -43,7 +43,7 @@ export default {
     'two': '{0} kuukautta',
     'few': '{0} kuukautta',
     'many': '{0} kuukautta',
-    'other': '{0} kuukautta'
+    'other': '{0} kuukautta',
   },
   numberDay: {
     'zero': '{0} päivää',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} päivää',
     'few': '{0} päivää',
     'many': '{0} päivää',
-    'other': '{0} päivää'
+    'other': '{0} päivää',
   },
   numberHour: {
     'zero': '{0} h',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} h',
     'few': '{0} h',
     'many': '{0} h',
-    'other': '{0} h'
+    'other': '{0} h',
   },
   numberMinute: {
     'zero': '{0} min',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} min',
     'few': '{0} min',
     'many': '{0} min',
-    'other': '{0} min'
+    'other': '{0} min',
   },
   numberSecond: {
     'zero': '{0} s',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} s',
     'few': '{0} s',
     'many': '{0} s',
-    'other': '{0} s'
+    'other': '{0} s',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': '{0} h jäljellä',
     'few': '{0} h jäljellä',
     'many': '{0} h jäljellä',
-    'other': '{0} h jäljellä'
+    'other': '{0} h jäljellä',
   },
   consumableStateEstimatedDay: {
     'zero': '{0} päivää jäljellä',
@@ -269,7 +269,7 @@ export default {
     'two': '{0} päivää jäljellä',
     'few': '{0} päivää jäljellä',
     'many': '{0} päivää jäljellä',
-    'other': '{0} päivää jäljellä'
+    'other': '{0} päivää jäljellä',
   },
   changeIcon: 'Muokkaa kuvaketta',
   deviceCall: 'Hätätiedotteet',
@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'Yhdistetään Bluetoothin kautta…',
   bluetooth_connection_phone: 'Tämä ominaisuus vaatii puhelimesi Bluetooth-yhteyden',
   connection_successful: 'Yhdistetty onnistuneesti',
-  connection_failed: 'Ei voitu yhdistää'
+  connection_failed: 'Ei voitu yhdistää',
+  common_brand_produced_by: 'Suunnittelija ${}',
 };

@@ -43,7 +43,7 @@ export default {
     'two': '{0} months',
     'few': '{0} months',
     'many': '{0} months',
-    'other': '{0} months'
+    'other': '{0} months',
   },
   numberDay: {
     'zero': '{0} days',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} days',
     'few': '{0} days',
     'many': '{0} days',
-    'other': '{0} days'
+    'other': '{0} days',
   },
   numberHour: {
     'zero': '{0} hrs',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} hrs',
     'few': '{0} hrs',
     'many': '{0} hrs',
-    'other': '{0} hrs'
+    'other': '{0} hrs',
   },
   numberMinute: {
     'zero': '{0} mins',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} mins',
     'few': '{0} mins',
     'many': '{0} mins',
-    'other': '{0} mins'
+    'other': '{0} mins',
   },
   numberSecond: {
     'zero': '{0} secs',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} secs',
     'few': '{0} secs',
     'many': '{0} secs',
-    'other': '{0} secs'
+    'other': '{0} secs',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': '{0} hrs remaining',
     'few': '{0} hrs remaining',
     'many': '{0} hrs remaining',
-    'other': '{0} hrs remaining'
+    'other': '{0} hrs remaining',
   },
   consumableStateEstimatedDay: {
     'zero': '{0} days remaining',
@@ -269,7 +269,7 @@ export default {
     'two': '{0} days remaining',
     'few': '{0} days remaining',
     'many': '{0} days remaining',
-    'other': '{0} days remaining'
+    'other': '{0} days remaining',
   },
   changeIcon: 'Change icon',
   deviceCall: 'Emergency alerts',
@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'Connecting via Bluetooth…',
   bluetooth_connection_phone: 'This feature requires your phone\'s Bluetooth connection',
   connection_successful: 'Connected successfully',
-  connection_failed: 'Couldn\'t connect'
+  connection_failed: 'Couldn\'t connect',
+  common_brand_produced_by: 'Designed by ${}',
 };

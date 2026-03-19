@@ -43,7 +43,7 @@ export default {
     'two': '{0} شهور',
     'few': '{0} شهور',
     'many': '{0} شهور',
-    'other': '{0} شهور'
+    'other': '{0} شهور',
   },
   numberDay: {
     'zero': '{0} أيام',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} أيام',
     'few': '{0} أيام',
     'many': '{0} أيام',
-    'other': '{0} أيام'
+    'other': '{0} أيام',
   },
   numberHour: {
     'zero': '{0} ساعات',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} ساعات',
     'few': '{0} ساعات',
     'many': '{0} ساعات',
-    'other': '{0} ساعات'
+    'other': '{0} ساعات',
   },
   numberMinute: {
     'zero': '{0} دقائق',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} دقائق',
     'few': '{0} دقائق',
     'many': '{0} دقائق',
-    'other': '{0} دقائق'
+    'other': '{0} دقائق',
   },
   numberSecond: {
     'zero': '{0} ثواني',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} ثواني',
     'few': '{0} ثواني',
     'many': '{0} ثواني',
-    'other': '{0} ثواني'
+    'other': '{0} ثواني',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': '{0} ساعات متبقية',
     'few': '{0} ساعات متبقية',
     'many': '{0} ساعات متبقية',
-    'other': '{0} ساعات متبقية'
+    'other': '{0} ساعات متبقية',
   },
   consumableStateEstimatedDay: {
     'zero': '{0} أيام متبقية',
@@ -269,7 +269,7 @@ export default {
     'two': '{0} أيام متبقية',
     'few': '{0} أيام متبقية',
     'many': '{0} أيام متبقية',
-    'other': '{0} أيام متبقية'
+    'other': '{0} أيام متبقية',
   },
   changeIcon: 'تغيير الأيقونة',
   deviceCall: 'تنبيهات الطوارئ',
@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'جارٍ الاتصال عبر البلوتوث ...',
   bluetooth_connection_phone: 'تتطلب هذه الميزة اتصال البلوتوث بهاتفك',
   connection_successful: 'تم الاتصال بنجاح',
-  connection_failed: 'تعذّر الاتصال'
+  connection_failed: 'تعذّر الاتصال',
+  common_brand_produced_by: 'تصميم: ${}',
 };

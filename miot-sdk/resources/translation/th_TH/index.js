@@ -43,7 +43,7 @@ export default {
     'two': '{0} เดือน',
     'few': '{0} เดือน',
     'many': '{0} เดือน',
-    'other': '{0} เดือน'
+    'other': '{0} เดือน',
   },
   numberDay: {
     'zero': '{0} วัน',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} วัน',
     'few': '{0} วัน',
     'many': '{0} วัน',
-    'other': '{0} วัน'
+    'other': '{0} วัน',
   },
   numberHour: {
     'zero': '{0} ชม.',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} ชม.',
     'few': '{0} ชม.',
     'many': '{0} ชม.',
-    'other': '{0} ชม.'
+    'other': '{0} ชม.',
   },
   numberMinute: {
     'zero': '{0} นาที',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} นาที',
     'few': '{0} นาที',
     'many': '{0} นาที',
-    'other': '{0} นาที'
+    'other': '{0} นาที',
   },
   numberSecond: {
     'zero': '{0} วิ.',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} วิ.',
     'few': '{0} วิ.',
     'many': '{0} วิ.',
-    'other': '{0} วิ.'
+    'other': '{0} วิ.',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': 'เหลืออีก {0} ชม.',
     'few': 'เหลืออีก {0} ชม.',
     'many': 'เหลืออีก {0} ชม.',
-    'other': 'เหลืออีก {0} ชม.'
+    'other': 'เหลืออีก {0} ชม.',
   },
   consumableStateEstimatedDay: {
     'zero': 'เหลืออีก {0} วัน',
@@ -269,7 +269,7 @@ export default {
     'two': 'เหลืออีก {0} วัน',
     'few': 'เหลืออีก {0} วัน',
     'many': 'เหลืออีก {0} วัน',
-    'other': 'เหลืออีก {0} วัน'
+    'other': 'เหลืออีก {0} วัน',
   },
   changeIcon: 'เปลี่ยนไอคอน',
   deviceCall: 'แจ้งเตือนฉุกเฉิน',
@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'กำลังเชื่อมต่อผ่านบลูทูธ…',
   bluetooth_connection_phone: 'คุณสมบัตินี้ต้องใช้การเชื่อมต่อบลูทูธของโทรศัพท์',
   connection_successful: 'เชื่อมต่อเรียบร้อยแล้ว',
-  connection_failed: 'ไม่สามารถเชื่อมต่อได้'
+  connection_failed: 'ไม่สามารถเชื่อมต่อได้',
+  common_brand_produced_by: 'ออกแบบโดย ${}',
 };

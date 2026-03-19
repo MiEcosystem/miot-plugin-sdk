@@ -64,7 +64,7 @@ let getInnerOptions = () => {
             showSeparator={ false }
           />
         ) : null;
-      }
+      },
     },
     share: {
       exportKey: 'SHARE',
@@ -91,7 +91,7 @@ let getInnerOptions = () => {
       validator: () => {
         // 0：用户可选共享权限 1：用户不可选共享权限 2：白名单 3：不支持共享
         return Device.deviceConfigInfo?.permission_control !== 3;
-      }
+      },
     },
     ifttt: {
       exportKey: 'IFTTT',
@@ -100,7 +100,7 @@ let getInnerOptions = () => {
       title: I18n.ifttt,
       onPress: () => {
         Service.scene.openIftttAutoPage();
-      }
+      },
     },
     firmwareUpgrade: {
       exportKey: 'FIRMWARE_UPGRADE',
@@ -180,7 +180,7 @@ let getInnerOptions = () => {
             showSeparator={ false }
           />
         );
-      }
+      },
     },
     help: {
       exportKey: 'HELP',
@@ -188,7 +188,7 @@ let getInnerOptions = () => {
       title: I18n.helpAndFeedback,
       onPress: () => {
         Host.ui.openHelpPage();
-      }
+      },
     },
     security: {
       exportKey: 'SECURITY',
@@ -197,7 +197,7 @@ let getInnerOptions = () => {
       title: I18n.security,
       onPress: () => {
         Host.ui.openSecuritySetting();
-      }
+      },
     },
     addToDesktop: {
       exportKey: 'ADD_TO_DESKTOP',
@@ -205,7 +205,7 @@ let getInnerOptions = () => {
       title: I18n.addToDesktop,
       onPress: () => {
         Host.ui.openAddToDesktopPage();
-      }
+      },
     },
     freqDevice: {
       exportKey: 'FREQ_DEVICE',
@@ -242,7 +242,7 @@ let getInnerOptions = () => {
               onValueChange={(vaule) => {
                 Device.setCommonUseDeviceSwitch(
                   {
-                    switchStatus: vaule ? "1" : "0"
+                    switchStatus: vaule ? "1" : "0",
                   }
                 ).then(() => {
                   setInfo(vaule);
@@ -260,7 +260,7 @@ let getInnerOptions = () => {
               }}
             />
         );
-      }
+      },
     },
     freqCamera: {
       exportKey: 'FREQ_CAMERA',
@@ -288,7 +288,7 @@ let getInnerOptions = () => {
             showSeparator={ false }
           />
         );
-      }
+      },
     },
     defaultPlugin: {
       exportKey: 'DEFAULT_PLUGIN',
@@ -300,9 +300,9 @@ let getInnerOptions = () => {
         const { hasSpecPlugin, defaultPluginType } = specPluginInfo || {};
         const choices = [{
           title: I18n.stdPluginTitle,
-          subtitle: I18n.stdPluginSubTitle
+          subtitle: I18n.stdPluginSubTitle,
         }, {
-          title: I18n.thirdPluginTitle
+          title: I18n.thirdPluginTitle,
         }];
         function dismissTip() {
           setTipVisible(false);
@@ -334,15 +334,15 @@ let getInnerOptions = () => {
                   allowFontScaling: true,
                   unlimitedHeightEnable: true,
                   titleStyle: {
-                    fontSize: 18
+                    fontSize: 18,
                   },
                   itemSubtitleNumberOfLines: 0,
                   itemSubtitleStyle: {
-                    marginRight: 10
-                  }
+                    marginRight: 10,
+                  },
                 }}
                 buttons={[{
-                  text: I18n.cancel
+                  text: I18n.cancel,
                 }, {
                   text: I18n.ok,
                   callback: (res) => {
@@ -356,10 +356,10 @@ let getInnerOptions = () => {
                     setTimeout(() => {
                       Host.ui.openPluginPage(Device.deviceID, Entrance.Main, {
                         dismiss_current_plug: true,
-                        open_plugin_source: 2
+                        open_plugin_source: 2,
                       });
                     }, 300);
-                  }
+                  },
                 }]}
                 options={choices}
                 selectedIndexArray={[defaultPluginType]}
@@ -368,7 +368,7 @@ let getInnerOptions = () => {
             ) : null}
           </Fragment>
         );
-      }
+      },
     },
     deviceCall: {
       exportKey: "DEVICE_CALL",
@@ -389,7 +389,7 @@ let getInnerOptions = () => {
             showSeparator={ false }
           />
         );
-      }
+      },
     },
     pairMode: { // 配对模式，只有Matter子设备才会显示这一项
       exportKey: 'PAIR_MODE',
@@ -410,8 +410,8 @@ let getInnerOptions = () => {
             showSeparator={ false }
           />
         );
-      }
-    }
+      },
+    },
     // pairMode: { // 配对模式，只有Matter子设备才会显示这一项
     //   exportKey: 'PAIR_MODE',
     //   isDefault: true,
@@ -442,7 +442,7 @@ const carRoomOptions = [
   'NAME',
   'PRODUCT_BAIKE',
   'HELP',
-  'MORE'
+  'MORE',
 ];
 let innerOptions = getInnerOptions();
 // if (Device.fromRoomIndex === 1 || Device.fromRoomIndex === 2) {
@@ -476,5 +476,5 @@ CommonSettings.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string),
   customOptions: PropTypes.array,
   showDots: PropTypes.arrayOf(PropTypes.string),
-  extraOptions: PropTypes.object
+  extraOptions: PropTypes.object,
 };

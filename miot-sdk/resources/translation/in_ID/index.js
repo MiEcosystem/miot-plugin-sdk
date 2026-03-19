@@ -43,7 +43,7 @@ export default {
     'two': '{0} bulan',
     'few': '{0} bulan',
     'many': '{0} bulan',
-    'other': '{0} bulan'
+    'other': '{0} bulan',
   },
   numberDay: {
     'zero': '{0} hari',
@@ -51,7 +51,7 @@ export default {
     'two': '{0} hari',
     'few': '{0} hari',
     'many': '{0} hari',
-    'other': '{0} hari'
+    'other': '{0} hari',
   },
   numberHour: {
     'zero': '{0} jam',
@@ -59,7 +59,7 @@ export default {
     'two': '{0} jam',
     'few': '{0} jam',
     'many': '{0} jam',
-    'other': '{0} jam'
+    'other': '{0} jam',
   },
   numberMinute: {
     'zero': '{0} mnt',
@@ -67,7 +67,7 @@ export default {
     'two': '{0} mnt',
     'few': '{0} mnt',
     'many': '{0} mnt',
-    'other': '{0} mnt'
+    'other': '{0} mnt',
   },
   numberSecond: {
     'zero': '{0} dtk',
@@ -75,7 +75,7 @@ export default {
     'two': '{0} dtk',
     'few': '{0} dtk',
     'many': '{0} dtk',
-    'other': '{0} dtk'
+    'other': '{0} dtk',
   },
   months: '个月',
   // 复数
@@ -261,7 +261,7 @@ export default {
     'two': '{0} jam tersisa',
     'few': '{0} jam tersisa',
     'many': '{0} jam tersisa',
-    'other': '{0} jam tersisa'
+    'other': '{0} jam tersisa',
   },
   consumableStateEstimatedDay: {
     'zero': '{0} hari tersisa',
@@ -269,7 +269,7 @@ export default {
     'two': '{0} hari tersisa',
     'few': '{0} hari tersisa',
     'many': '{0} hari tersisa',
-    'other': '{0} hari tersisa'
+    'other': '{0} hari tersisa',
   },
   changeIcon: 'Ganti ikon',
   deviceCall: 'Peringatan darurat',
@@ -347,5 +347,6 @@ export default {
   bluetooth_connecting: 'Menghubungkan melalui Bluetooth…',
   bluetooth_connection_phone: 'Fitur ini memerlukan koneksi Bluetooth ponsel Anda',
   connection_successful: 'Berhasil terhubung',
-  connection_failed: 'Tidak dapat terhubung'
+  connection_failed: 'Tidak dapat terhubung',
+  common_brand_produced_by: 'Dirancang oleh ${}',
 };
