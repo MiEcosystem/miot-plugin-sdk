@@ -80,18 +80,10 @@
 
 ## 调试环境
 
-iOS IPA 包下载二维码
-![mihome](https://user-images.githubusercontent.com/6511522/159238473-fbf07ace-ef8d-442e-b299-7ffe6ea50f47.png)
-
-
-Android APK 包下载地址：
-![image](https://github.com/MiEcosystem/miot-plugin-sdk/assets/4401045/37df36f8-ee28-499e-a7b6-1ac39e838be5)
-
-下载密码: 5GCV
-
+![调试 App](https://cdn.cnbj1.fds.api.mi-img.com/miot-images/d764ad21af45a4cd614962c69cd62769_1752063204034.png?GalaxyAccessKeyId=AKVGLQWBOVIRQ3XLEW&Expires=9223372036854775807&Signature=MhNbphqtKynPK2+C0TWGSnpFwTE=)
 
 调试包若无法下载，请提交工单。
 
 ## 其他文档
 
-[字体使用](https://github.com/MiEcosystem/miot-plugin-sdk/blob/master/font.md)
+[开发者平台文档](https://iot.mi.com/v2/new/doc/plugin/overview)
