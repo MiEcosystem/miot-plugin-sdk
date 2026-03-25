@@ -1,13 +1,14 @@
 'use strict';
 
-import { Device, DeviceEvent, Host, PackageEvent } from "miot";
+import { Device, DeviceEvent, Host, Service, PackageEvent } from "miot";
+import { isAndroid } from "miot/native";
 import React from 'react';
 import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Logger from '../../Logger';
 
 let BUTTONS = [
   '测试对话框',
-  '确定'
+  '确定',
 ];
 
 export default class UIDemo extends React.Component {
@@ -34,20 +35,27 @@ export default class UIDemo extends React.Component {
   _createMenuData() {
     this._menuData = [
       {
+        'name': '打开配网步骤页面(仅限猫眼门锁使用)',
+        'subtitle': 'openWifiConfigStepPage',
+        'func': () => {
+          Host.ui.openWifiConfigStepPage();
+        },
+      },
+      {
         'name': '多键开关设置',
         'subtitle': 'openPowerMultikeyPage',
         'func': () => {
           // Host.ui.openWebPage('http://s.miwifi.com/dist/userhosts/index.html');
-          
+
           Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac, { useNewSetting: true });
-        }
+        },
       },
       {
         'name': '用户协议与隐私政策',
         'subtitle': 'navigate 到 PrivacyDemo',
         'func': () => {
           this.props.navigation.navigate('PrivacyDemo', { 'title': '用户协议与隐私政策' });
-        }
+        },
       },
       {
         'name': '是否支持商城',
@@ -58,14 +66,14 @@ export default class UIDemo extends React.Component {
           }).catch((error) => {
             console.log(error);
           });
-        }
+        },
       },
       {
         'name': '弹出删除设备的对话框',
         'subtitle': 'openDeleteDevice',
         'func': () => {
           Host.ui.openDeleteDevice('title test');
-        }
+        },
       },
       {
         'name': '弹出删除设备的对话框(带回调)',
@@ -78,63 +86,63 @@ export default class UIDemo extends React.Component {
             .catch((err) => {
               console.log(err);
             });
-        }
+        },
       },
       {
         'name': '打开分享设备的页面',
         'subtitle': 'openShareDevicePage',
         'func': () => {
           Host.ui.openShareDevicePage();
-        }
+        },
       },
       {
         'name': '保持屏幕常亮',
         'subtitle': 'keepScreenNotLock(true)',
         'func': () => {
           Host.ui.keepScreenNotLock(true);
-        }
+        },
       },
       {
         'name': '关闭保持屏幕常亮',
         'subtitle': 'keepScreenNotLock(false)',
         'func': () => {
           Host.ui.keepScreenNotLock(false);
-        }
+        },
       },
       {
         'name': '打开房间设备管理的页面',
         'subtitle': 'openRoomManagementPage',
         'func': () => {
           Host.ui.openRoomManagementPage();
-        }
+        },
       },
       {
         'name': '打开语音设备管理的页面',
         'subtitle': 'openVoiceCtrlDeviceAuthPage',
         'func': () => {
           Host.ui.openVoiceCtrlDeviceAuthPage();
-        }
+        },
       },
       {
         'name': '打开反馈页',
         'subtitle': 'openFeedbackInput',
         'func': () => {
           Host.ui.openFeedbackInput();
-        }
+        },
       },
       {
         'name': '打开安全管理页',
         'subtitle': 'openSecuritySetting',
         'func': () => {
           Host.ui.openSecuritySetting();
-        }
+        },
       },
       {
         'name': '打开常见问题页，别名「使用帮助」',
         'subtitle': 'openHelpPage',
         'func': () => {
           Host.ui.openHelpPage();
-        }
+        },
       },
       {
         'name': '打开分享列表页面',
@@ -146,7 +154,7 @@ export default class UIDemo extends React.Component {
             { uri: 'https://avatars3.githubusercontent.com/u/13726966?s=40&v=4' },
             'https://iot.mi.com/new/index.html'
           );
-        }
+        },
       },
       {
         'name': '打开系统分享文件页面',
@@ -154,14 +162,14 @@ export default class UIDemo extends React.Component {
         'func': () => {
           // const path = Host.file.storageBasePath+'/test.wav';
           Host.ui.openSystemShareWindow('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433650723&di=44f673bd1ccbde2af32e1f7565de4484&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn%2Fw640h759%2F20180111%2F9ee0-fyqnick6733536.jpg');
-        }
+        },
       },
       {
         'name': '打开系统文件打开页面',
         'subtitle': 'openSystemFileWindow',
         'func': () => {
           Host.ui.openSystemFileWindow('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586433650723&di=44f673bd1ccbde2af32e1f7565de4484&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn%2Fw640h759%2F20180111%2F9ee0-fyqnick6733536.jpg');
-        }
+        },
       },
       {
         'name': '获取设备列表中指定model的设备信息',
@@ -174,14 +182,14 @@ export default class UIDemo extends React.Component {
             .catch((err) => {
               alert(`err ${ err }`);
             });
-        }
+        },
       },
       {
         'name': '打开蓝牙网关页',
         'subtitle': 'openBtGatewayPage',
         'func': () => {
           Host.ui.openBtGatewayPage();
-        }
+        },
       },
       {
         'name': '弹窗请求隐私政策和用户协议授权， 支持显示用户体验计划',
@@ -201,7 +209,7 @@ export default class UIDemo extends React.Component {
           }).catch(() => {
             alert('失败，可能是设备已离线');
           });
-        }
+        },
       },
       {
         'name': '查看隐私政策和用户协议信息， 支持显示用户体验计划',
@@ -220,63 +228,63 @@ export default class UIDemo extends React.Component {
           }).catch(() => {
             alert('失败，可能是设备已离线');
           });
-        }
+        },
       },
       {
         'name': '打开重命名对话框',
         'subtitle': 'openChangeDeviceName',
         'func': () => {
           Host.ui.openChangeDeviceName();
-        }
+        },
       },
       {
         'name': '添加桌面快捷方式',
         'subtitle': 'openAddToDesktopPage',
         'func': () => {
           Host.ui.openAddToDesktopPage();
-        }
+        },
       },
       {
         'name': '打开设备检查固件升级页(新版页面)',
         'subtitle': 'openDeviceUpgradePage(0)',
         'func': () => {
           Host.ui.openDeviceUpgradePage(0);
-        }
+        },
       },
       {
         'name': '打开设备检查固件升级页(旧版页面)',
         'subtitle': 'openDeviceUpgradePage(1)',
         'func': () => {
           Host.ui.openDeviceUpgradePage(1);
-        }
+        },
       },
       {
         'name': '打开Mesh设备固件升级页。分享的设备点击此接口无反应',
         'subtitle': 'openBleMeshDeviceUpgradePage 只有mesh设备才能打开',
         'func': () => {
           Host.ui.openBleMeshDeviceUpgradePage();
-        }
+        },
       },
       {
         'name': '打开通用协议的蓝牙固件OTA页面。分享的设备点击此接口无反应',
         'subtitle': 'openBleCommonDeviceUpgradePage',
         'func': () => {
           alert(' 蓝牙部分api请参考 com.xiaomi.bledemo 中的示例使用');
-        }
+        },
       },
       {
         'name': '打开灯组2.0固件升级页。分享的设备点击此接口无反应',
         'subtitle': 'openLightGroupUpgradePage',
         'func': () => {
           Host.ui.openLightGroupUpgradePage();
-        }
+        },
       },
       {
         'name': '打开设备时区设置页',
         'subtitle': 'openDeviceTimeZoneSettingPage  {"sync_device": false} ',
         'func': () => {
           Host.ui.openDeviceTimeZoneSettingPage({ "sync_device": false });
-        }
+        },
       },
       {
         'name': '打开网关设备产品百科页面',
@@ -284,28 +292,28 @@ export default class UIDemo extends React.Component {
         'func': () => {
           let url = 'https://home.mi.com/baike/index.html#/label/gateway';
           Host.ui.openProductBaikeWebPage(url);
-        }
+        },
       },
       {
         'name': '打开商城某商品详情页面',
         'subtitle': 'openShopPage 小米台灯',
         'func': () => {
           Host.ui.openShopPage(102763);
-        }
+        },
       },
       {
         'name': '打开有品商城搜索结果页面',
         'subtitle': 'openShopSearchPage(\'小米台灯\')',
         'func': () => {
           Host.ui.openShopSearchPage('小米台灯');
-        }
+        },
       },
       {
         'name': '打开一次性密码设置页',
         'subtitle': 'openOneTimePassword',
         'func': () => {
           Host.ui.openOneTimePassword(Device.deviceID, 30, 6);
-        }
+        },
       },
       {
         'name': '打开默认倒计时页面',
@@ -316,9 +324,9 @@ export default class UIDemo extends React.Component {
               onMethod: "power_on",
               offMethod: 'power_off',
               onParam: 'on',
-              offParam: 'off'
+              offParam: 'off',
             });
-        }
+        },
       },
       {
         'name': '打开自定义设置定时页面-Demo1',
@@ -331,9 +339,9 @@ export default class UIDemo extends React.Component {
               offMethod: "power_off",
               offParam: "off",
               timerTitle: "这是一个自定义标题",
-              displayName: "自定义场景名称"
+              displayName: "自定义场景名称",
             });
-        }
+        },
       },
       {
         'name': '打开自定义设置定时页面-Demo2',
@@ -353,59 +361,59 @@ export default class UIDemo extends React.Component {
             bothTimerMustBeSet: false,
             showOnTimerType: true,
             showOffTimerType: false,
-            showPeriodTimerType: false
+            showPeriodTimerType: false,
           };
           Host.ui.openTimerSettingPageWithOptions(params);
-        }
+        },
       },
       {
         'name': '打开一个原生类 className（只支持iOS）',
         'subtitle': 'openPageWithClassName',
         'func': () => {
           Host.ui.openPageWithClassName('MHDeviceTimerSettingNewViewController');
-        }
+        },
       },
       {
         'name': '打开手机蓝牙设置页面（只支持android）',
         'subtitle': 'openPhoneBluSettingPage',
         'func': () => {
           Host.ui.openPhoneBluSettingPage();
-        }
+        },
       },
       {
         'name': '显示打开蓝牙引导(仅ios)',
         'subtitle': 'showBLESwitchGuide',
         'func': () => {
           Host.ui.showBLESwitchGuide();
-        }
+        },
       },
       {
         'name': '隐藏提示用户打开蓝牙的动画示意图(仅ios)',
         'subtitle': 'dismissBLESwitchGuide',
         'func': () => {
           Host.ui.dismissBLESwitchGuide();
-        }
+        },
       },
       {
         'name': '打开快连成功页面',
         'subtitle': 'openConnectSucceedPage',
         'func': () => {
           Host.ui.openConnectSucceedPage(Device.model, Device.deviceID);
-        }
+        },
       },
       {
         'name': '打开添加Zigbee网关插件子设备页面',
         'subtitle': 'openZigbeeConnectDeviceList',
         'func': () => {
           Host.ui.openZigbeeConnectDeviceList(Device.deviceID);
-        }
+        },
       },
       {
         'name': '打开设备网络信息页面 此方法只针对wifi设备，combo设备，蓝牙设备请不要调用此方法。',
         'subtitle': 'openDeviceNetworkInfoPage',
         'func': () => {
           Host.ui.openDeviceNetworkInfoPage();
-        }
+        },
       },
       {
         'name': '跳转到小米钱包（仅Android）',
@@ -415,14 +423,14 @@ export default class UIDemo extends React.Component {
             action: 'issue_mifare',
             type: '1',
             product_id: '66666-00211',
-            source_channel: 'mijia'
+            source_channel: 'mijia',
           };
           Host.ui.openMiPayPageForAndroid(params).then((res) => {
             console.log(res);
           }).catch((error) => {
             console.log(error);
           });
-        }
+        },
       },
       {
         'name': '跳转到设备定向推荐界面',
@@ -440,7 +448,7 @@ export default class UIDemo extends React.Component {
           }).catch((error) => {
             alert(`error: ${ error }`);
           });
-        }
+        },
       },
       {
         'name': '刷新设备列表',
@@ -451,21 +459,21 @@ export default class UIDemo extends React.Component {
           }).catch((error) => {
             alert(JSON.stringify(error));
           });
-        }
+        },
       },
       {
         'name': 'openTerminalDeviceSettingPage',
         'subtitle': '打开手机设置页中米家app配置页面',
         'func': () => {
           Host.ui.openTerminalDeviceSettingPage(1);
-        }
+        },
       },
       {
         'name': 'openTerminalDeviceSettingPage',
         'subtitle': '打开手机WiFi设置页面',
         'func': () => {
           Host.ui.openTerminalDeviceSettingPage(2);
-        }
+        },
       },
       {
         'name': 'checkAndroidLocationServerIsOpen',
@@ -477,14 +485,14 @@ export default class UIDemo extends React.Component {
           }).catch((error) => {
             alert(JSON.stringify(error));
           });
-        }
+        },
       },
       {
         'name': 'openAndroidLocationServerSettingPage',
         'subtitle': '打开手机系统位置信息设置页(only Android)',
         'func': () => {
           Host.ui.openAndroidLocationServerSettingPage();
-        }
+        },
       },
       {
         'name': 'getIOSLocationAuthorizationStatus',
@@ -495,7 +503,7 @@ export default class UIDemo extends React.Component {
           }).catch((error) => {
             alert(`失败:${ JSON.stringify(error) }`);
           });
-        }
+        },
       },
       {
         'name': '监听跳转到Native页面',
@@ -507,7 +515,7 @@ export default class UIDemo extends React.Component {
             this.disappearListener = null;
           });
           Host.ui.openNewMorePage();
-        }
+        },
       },
       {
         'name': 'checkAbilityOfJumpToThirdpartyApplication',
@@ -520,7 +528,7 @@ export default class UIDemo extends React.Component {
             .catch((error) => {
               alert(JSON.stringify(error));
             });
-        }
+        },
       },
       {
         'name': 'jumpToThirdpartyApplication',
@@ -531,7 +539,7 @@ export default class UIDemo extends React.Component {
             type: 'MIFARE_ENTRANCE',
             source_channel: 'MiHome',
             product_id: '66666-00211',
-            model: 'baiji'
+            model: 'baiji',
           };
           // mihome://plugin?action=issue&type=MIFARE_ENTRANCE&source_channel=MiHome&product_id=66666-00211&model=xxxx&pass_through=B64String
           let passThrough = params;
@@ -542,7 +550,7 @@ export default class UIDemo extends React.Component {
             .catch((error) => {
               alert(JSON.stringify(error));
             });
-        }
+        },
       },
       {
         'name': 'openIOSDocumentFileChoosePage',
@@ -555,70 +563,77 @@ export default class UIDemo extends React.Component {
               alert(JSON.stringify(err));
             });
           }
-        }
+        },
       },
       {
         'name': 'openConnectSucceedPage',
         'subtitle': '跳转到房间设置的页面',
         'func': () => {
           Host.ui.openConnectSucceedPage(Device.model, Device.deviceID);
-        }
+        },
       },
       {
         'name': 'openTerminalDeviceSettingPage',
         'subtitle': '跳转到WiFi选择页面 ',
         'func': () => {
           Host.ui.openTerminalDeviceSettingPage(3);
-        }
+        },
       },
       {
         'name': 'openBleGroupUpgradePage',
         'subtitle': '跳转到蓝牙组设备批量升级页面-type 为0-普通小米蓝牙协议设备',
         'func': () => {
           Host.ui.openBleGroupUpgradePage(0);
-        }
+        },
       },
       {
         'name': 'openBleGroupUpgradePage',
         'subtitle': '跳转到蓝牙组设备批量升级页面-type 为1-安全芯片小米蓝牙设备',
         'func': () => {
           Host.ui.openBleGroupUpgradePage(1);
-        }
+        },
       },
       {
         'name': 'openBleGroupUpgradePage',
         'subtitle': '跳转到蓝牙组设备批量升级页面-type 为2-分享的安全芯片小米蓝牙设备',
         'func': () => {
           Host.ui.openBleGroupUpgradePage(2);
-        }
+        },
       },
       {
         'name': 'openBleGroupUpgradePage',
         'subtitle': '跳转到蓝牙组设备批量升级页面-type 为3-普通的BLE蓝牙设备',
         'func': () => {
           Host.ui.openBleGroupUpgradePage(3);
-        }
+        },
       },
       {
         'name': 'openBleGroupUpgradePage',
         'subtitle': '跳转到蓝牙组设备批量升级页面-type 为4-标准蓝牙认证协议',
         'func': () => {
           Host.ui.openBleGroupUpgradePage(4);
-        }
+        },
       },
       {
         'name': 'openBleGroupUpgradePage',
         'subtitle': '跳转到蓝牙组设备批量升级页面-type 为5-mesh',
         'func': () => {
           Host.ui.openBleGroupUpgradePage(5);
-        }
+        },
       },
       {
         'name': 'openNFCWriteDeviceInfoPage',
         'subtitle': '打开NFC写设备信息页面',
         'func': () => {
           Host.ui.openNFCWriteDeviceInfoPage();
-        }
+        },
+      },
+      {
+        'name': 'openNFCWritePageForConnectTV',
+        'subtitle': '打开电视遥控器NFC写入流程的页面',
+        'func': () => {
+          Host.ui.openNFCWritePageForConnectTV({ did: Device.deviceID });
+        },
       },
       {
         'name': 'openNFCWriteDeviceInfoDebugPage',
@@ -627,17 +642,20 @@ export default class UIDemo extends React.Component {
           let params = {
             did: Device.deviceID,
             model: Device.model,
-            extra: JSON.stringify({ key: 'test123' })
+            extra: JSON.stringify({ key: 'test123' }),
           };
           Host.ui.openNFCWriteDeviceInfoDebugPage(params);
-        }
+        },
       },
       {
+        // 注意: 自SDK10077 (含) 开始, 该接口更改为打开放大卡片设置页面, 且*不建议*开发者使用
+        // 仅接受参数type=1
         'name': 'openCommonDeviceSettingPage',
-        'subtitle': '打开常用设备/常用摄像机设置页面',
+        // 'subtitle': '打开常用设备/常用摄像机设置页面',
+        'subtitle': '打开放大卡片设置页面',
         'func': () => {
           Host.ui.openCommonDeviceSettingPage(1);
-        }
+        },
       },
       {
         'name': 'openGenerateCrontabStringPage',
@@ -647,15 +665,72 @@ export default class UIDemo extends React.Component {
             .then((crontab) => {
               alert(crontab.data.crontab);
             });
-        }
+        },
       },
       {
         'name': 'openFirmWareAutoOTAPage',
         'subtitle': '打开设置-检查更新中的固件自动更新',
         'func': () => {
           Host.ui.openFirmWareAutoOTAPage();
-        }
-      }
+        },
+      },
+      {
+        'name': 'openVirtualGroupInitPage',
+        'subtitle': '打开组设备初始化页面',
+        'func': () => {
+          Host.ui.openVirtualGroupInitPage({ groupDid: Device.deviceID });
+        },
+      },
+      {
+        'name': 'openConsumesDetailPage',
+        'subtitle': '打开耗材详情页面',
+        'func': () => {
+          Service.smarthome.getConsumableDetails().then((res) => {
+            if (isAndroid) {
+              const consumesData = res.items[0].consumes_data[0];
+              const consumableList = consumesData.details;
+              Host.ui.openConsumesDetailPage(consumableList[0]);
+            } else {
+              // 由于iOS和Android原生端实现的差异 iOS需要多传递consumesData数据
+              const consumesData = res.items[0].consumes_data[0];
+              const consumableList = consumesData.details;
+              const params = {
+                "consumesData": consumesData,
+                "consumesDetail": consumableList[0],
+              };
+              Host.ui.openConsumesDetailPage(params);
+            }
+          });
+        },
+      },
+      {
+        'name': 'openDeviceOfflineAlertPage',
+        'subtitle': '打开设备离线弹框页面',
+        'func': () => {
+          Host.ui.openDeviceOfflineAlert();
+        },
+      },
+      {
+        'name': 'openRemoteControlDialog',
+        'subtitle': '打开新国标远程控制弹窗',
+        'func': () => {
+          Host.ui.openRemoteControlDialog(Device.deviceID);
+        },
+      },
+      {
+        'name': 'openWifiChoosePage',
+        'subtitle': '跳转到WiFi选择页面',
+        'func': () => {
+          Host.ui.openWifiChoosePage();
+        },
+      },
+      {
+        'name': 'openConfigRouterSubPage',
+        'subtitle': '跳转到子设备配网页面，给子设备配网',
+        'func': () => {
+          Host.ui.openConfigRouterSubPage();
+        },
+      },
     ];
   }
 
@@ -694,7 +769,7 @@ export default class UIDemo extends React.Component {
     if (Host.isIOS)
       ActionSheetIOS.showActionSheetWithOptions({
         options: BUTTONS,
-        destructiveButtonIndex: 1
+        destructiveButtonIndex: 1,
       },
       () => { });
   }
@@ -710,7 +785,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffffff',
     marginBottom: 0,
-    marginTop: 0
+    marginTop: 0,
   },
 
   rowContainer: {
@@ -720,29 +795,29 @@ const styles = StyleSheet.create({
     paddingLeft: 23,
     paddingRight: 23,
     alignItems: 'center',
-    flex: 1
+    flex: 1,
   },
   list: {
     alignSelf: 'stretch',
-    marginBottom: 20
+    marginBottom: 20,
   },
   title: {
     fontSize: 15,
     color: '#333333',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   subtitle: {
     fontSize: 12,
     color: '#666666',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   subArrow: {
     width: 7,
-    height: 14
+    height: 14,
   },
   separator: {
     height: 1 / PixelRatio.get(),
     backgroundColor: '#e5e5e5',
-    marginLeft: 20
-  }
+    marginLeft: 20,
+  },
 });

@@ -4,7 +4,7 @@ import {
   View,
   Text,
   Image,
-  ScrollView, Dimensions
+  ScrollView, Dimensions,
 } from "react-native";
 const { width, height } = Dimensions.get("window");
 import { Device, DeviceProperties } from "miot";
@@ -19,7 +19,7 @@ export default class DeviceDemo extends React.Component {
       deviceOwner: "",
       callMethodResult: "请求中",
       callMethodFromCloudResult: "请求中",
-      roomInfo: ""
+      roomInfo: "",
     };
     Logger.trace(this);
   }
@@ -42,7 +42,7 @@ export default class DeviceDemo extends React.Component {
     Device.getDeviceWifi().readDeviceNetWorkInfo(this.state.device.deviceID).then((ret) => {
       console.log("readDeviceNetWorkInfo  ret", ret);
       this.setState({
-        wifiStrength: ret.wifiStrength
+        wifiStrength: ret.wifiStrength,
       });
     }).catch((error) => {
       console.log("readDeviceNetWorkInfo  error", error);
@@ -91,8 +91,8 @@ export default class DeviceDemo extends React.Component {
                     ['email', this.state.deviceOwner.email],
                     ['phone', this.state.deviceOwner.phone],
                     ['sex', this.state.deviceOwner.sex],
-                    ['shareTime', this.state.deviceOwner.shareTime]
-                  ]
+                    ['shareTime', this.state.deviceOwner.shareTime],
+                  ],
                 },
                 {
                   img: this.state.device.iconURL,
@@ -126,27 +126,28 @@ export default class DeviceDemo extends React.Component {
                     ['isBinded2', this.state.device.isBinded2.toString()],
                     ['isReadOnlyShared', this.state.device.isReadonlyShared.toString()],
                     ['是否是根设备', this.state.device.isRootDevice.toString()],
-                    ['设备绑定时间orderTime', this.formatOrderTime()]
-                  ]
+                    ['设备绑定时间orderTime', this.formatOrderTime()],
+                    ['是否是新国标设备 isNewGBDevice', this.state.device.isNewGBDevice.toString()],
+                  ],
                 },
                 {
                   title: 'Device 其它信息',
                   items: [
-                    ['信号强度', this.state.wifiStrength]
-                  ]
+                    ['信号强度', this.state.wifiStrength],
+                  ],
                 },
                 {
                   title: 'Parent Device 信息',
                   items: [
-                    ['parentModel', this.state.device.parentDevice && this.state.device.parentDevice.model]
-                  ]
+                    ['parentModel', this.state.device.parentDevice && this.state.device.parentDevice.model],
+                  ],
                 },
                 {
                   title: 'Room 信息',
                   items: Object.keys(this.state.roomInfo && this.state.roomInfo.data).map((key) => {
                     return [key, this.state.roomInfo.data[key]];
-                  })
-                }
+                  }),
+                },
               ].map((section, index) => {
                 return (
                   <View>
@@ -164,7 +165,7 @@ export default class DeviceDemo extends React.Component {
                         return (
                           <View key={index} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', minHeight: 48, marginTop: 1, padding: 10, width: '100%', backgroundColor: index % 2 == 0 ? '#FFF' : '#FFFFFFE0' }}>
                             <Text>{`${ item[0] }:    `}</Text>
-                            <Text>{`${item[1]}`}</Text>
+                            <Text>{`${ item[1] }`}</Text>
                           </View>);
                       })
                     }

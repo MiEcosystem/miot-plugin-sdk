@@ -8,7 +8,7 @@ import Logger from '../Logger';
 
 let BUTTONS = [
   '测试对话框',
-  '确定'
+  '确定',
 ];
 
 export default class UIDemo extends React.Component {
@@ -16,11 +16,11 @@ export default class UIDemo extends React.Component {
   constructor(props) {
     super(props);
     let ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
+      rowHasChanged: (r1, r2) => r1 !== r2,
     });
     this._createMenuData();
     this.state = {
-      dataSource: ds.cloneWithRows(this._menuData.map((o) => (o.name)))
+      dataSource: ds.cloneWithRows(this._menuData.map((o) => (o.name))),
     };
     Logger.trace(this);
   }
@@ -28,22 +28,28 @@ export default class UIDemo extends React.Component {
   _createMenuData() {
     this._menuData = [
       {
+        'name': '新国标设备控制Demo',
+        'func': () => {
+          this.props.navigation.navigate('NewGBControlDemo', { title: '新国标设备控制Demo' });
+        },
+      },
+      {
         'name': '开发板控制Demo',
         'func': () => {
           this.props.navigation.navigate('ControlDemo', { title: 'ControlDemo' });
-        }
+        },
       },
       {
         'name': '设备互联',
         'func': () => {
           this.props.navigation.navigate('InterconnectionDemo', { title: '设备互联' });
-        }
+        },
       },
       {
         'name': '设备互联页面',
         'func': () => {
           this.props.navigation.navigate('BTInterconnection', { title: '设备互联页面', category: '', sameRoom: true, minRssi: -70 });
-        }
+        },
       },
       {
         'name': '手环设备互联页面',
@@ -72,21 +78,21 @@ export default class UIDemo extends React.Component {
             accessible: true,
             searchAccessibilityHint: '搜索hint',
             connectAccessibilityHint: '链接hint',
-            disconnectAccessibilityHint: '断连hint'
+            disconnectAccessibilityHint: '断连hint',
           });
-        }
+        },
       },
       {
         'name': 'RPC指令控制',
         'func': () => {
           this.props.navigation.navigate('RPCControl', { title: 'RPC指令控制' });
-        }
+        },
       },
       {
         'name': '当前设备信息',
         'func': () => {
           this.props.navigation.navigate('DeviceDemo', { title: '当前设备信息' });
-        }
+        },
       },
       {
         'name': '获取所有子设备',
@@ -98,7 +104,7 @@ export default class UIDemo extends React.Component {
             console.log('error:', err);
             alert(`error:${ err }`);
           });
-        }
+        },
       },
       {
         'name': '打开第一个子设备',
@@ -112,7 +118,7 @@ export default class UIDemo extends React.Component {
             console.log('error:', err);
             alert(`error:${ err }`);
           });
-        }
+        },
       },
       {
         'name': '打开第一个子设备(退出当前插件)',
@@ -125,14 +131,14 @@ export default class UIDemo extends React.Component {
             console.log('error:', err);
             alert(`error:${ err }`);
           });
-        }
+        },
       },
       {
         'name': '打开插件的Setting页面(需要返回到插件首页)',
         'func': () => {
           let pageParams = {
             did: Device.deviceID,
-            model: Device.model
+            model: Device.model,
           };
           Host.ui.openPluginPage(Device.deviceID, PluginEntrance.Setting, pageParams).then((res) => {
             // 此处最好不要做任何事, android会退出此插件
@@ -141,7 +147,7 @@ export default class UIDemo extends React.Component {
             // 打开插件失败
             console.log("error", error);
           });
-        }
+        },
       },
       {
         'name': '打开插件的Setting页面(不需要返回插件首页)',
@@ -149,7 +155,7 @@ export default class UIDemo extends React.Component {
           let pageParams = {
             did: Device.deviceID,
             model: Device.model,
-            isBackToMainPage: false
+            isBackToMainPage: false,
           };
           Host.ui.openPluginPage(Device.deviceID, PluginEntrance.Setting, pageParams).then((res) => {
             // 此处最好不要做任何事, android会退出此插件
@@ -158,7 +164,7 @@ export default class UIDemo extends React.Component {
             // 打开插件失败
             console.log("error", error);
           });
-        }
+        },
       },
       {
         'name': '蓝牙token加密',
@@ -172,7 +178,7 @@ export default class UIDemo extends React.Component {
             console.log(err);
             alert(`error:${ err }`);
           });
-        }
+        },
       },
       {
         'name': '设备model信息',
@@ -180,7 +186,7 @@ export default class UIDemo extends React.Component {
           Device.loadRealDeviceConfig(Device.model).then((res) => {
             alert(JSON.stringify(res, null, '\t'));
           });
-        }
+        },
       },
       {
         'name': '指定model设备列表',
@@ -188,7 +194,7 @@ export default class UIDemo extends React.Component {
           Device.getDeviceWifi().requestAuthorizedDeviceListData(Device.model).then((res) => {
             alert(JSON.stringify(res, null, '\t'));
           });
-        }
+        },
       },
       {
         'name': '指定model设备列表v2',
@@ -198,19 +204,19 @@ export default class UIDemo extends React.Component {
           }).catch((err) => {
             alert(JSON.stringify(err, null, '\t'));
           });
-        }
+        },
       },
       {
         'name': '打印设备经纬度',
         'func': () => {
           alert(JSON.stringify({ lat: Device.latitude, lng: Device.longitude }, null, '\t'));
-        }
+        },
       },
       {
         'name': '使用当前手机位置作为设备的新位置信息',
         'func': () => {
           Device.reportDeviceGPSInfo();
-        }
+        },
       },
       {
         'name': 'parentDevice',
@@ -220,7 +226,7 @@ export default class UIDemo extends React.Component {
           } else {
             alert("当前设备没有parentDevice");
           }
-        }
+        },
       },
       {
         'name': 'Android 手机NFC支持',
@@ -230,7 +236,7 @@ export default class UIDemo extends React.Component {
           }).catch((error) => {
             alert(JSON.stringify(error, null, '\t'));
           });
-        }
+        },
       },
       {
         'name': '是否是HomeKit设备',
@@ -238,7 +244,7 @@ export default class UIDemo extends React.Component {
           Device.getDeviceWifi().checkIsHomeKitDevice().then((res) => {
             alert(`${ res ? "是" : "不是" } HomeKit 设备`);
           });
-        }
+        },
       },
       {
         'name': '是否连接了HomeKit',
@@ -246,7 +252,7 @@ export default class UIDemo extends React.Component {
           Device.getDeviceWifi().checkHomeKitConnected().then((res) => {
             alert(`${ res ? "已经" : "没有" } 连入HomeKit`);
           });
-        }
+        },
       },
       {
         'name': '添加到HomeKit',
@@ -256,13 +262,13 @@ export default class UIDemo extends React.Component {
           }).catch((error) => {
             alert(`添加失败${ JSON.stringify(error, null, '\t') }`);
           });
-        }
+        },
       },
       {
         'name': '打开设备组添加页（支持设备组的设备调用此方法）',
         'func': () => {
           Host.ui.openAddDeviceGroupPage(Device.model);
-        }
+        },
       },
       {
         'name': '打开设备组编辑页(设备组才可调用此方法)',
@@ -275,19 +281,19 @@ export default class UIDemo extends React.Component {
           }).catch((err) => {
             console.log(err);
           });
-        }
+        },
       },
       {
         'name': '打开Mesh设备组添加页（支持mesh设备组的设备调用此方法）',
         'func': () => {
           Host.ui.openMeshDeviceGroupPage("add", Device.deviceID);
-        }
+        },
       },
       {
         'name': '打开Mesh设备组编辑页（mesh设备组调用此方法）',
         'func': () => {
           Host.ui.openMeshDeviceGroupPage("edit", Device.deviceID);
-        }
+        },
       },
       {
         'name': '获取设备时区信息',
@@ -297,7 +303,7 @@ export default class UIDemo extends React.Component {
           }).catch((error) => {
             alert(JSON.stringify(error, null, '\t'));
           });
-        }
+        },
       },
       {
         'name': '修改设备名称',
@@ -307,7 +313,7 @@ export default class UIDemo extends React.Component {
           }).catch((error) => {
             alert(JSON.stringify(error, null, '\t'));
           });
-        }
+        },
       },
       {
         'name': '获取设备定向推荐信息',
@@ -317,14 +323,14 @@ export default class UIDemo extends React.Component {
           }).catch((error) => {
             alert(JSON.stringify(error, null, '\t'));
           });
-        }
+        },
       },
       {
         'name': '获取miot-spec设备当前信息',
         'func': async() => {
           let data = await Service.spec.getCurrentSpecValue(Device.deviceID);
           alert(JSON.stringify(data, null, '\t'));
-        }
+        },
       },
       {
         'name': '获取同企业组所有设备',
@@ -334,7 +340,7 @@ export default class UIDemo extends React.Component {
           }).catch((error) => {
             alert(JSON.stringify(error));
           });
-        }
+        },
       },
       {
         'name': '获取当前账号的当前家庭的DeviceList',
@@ -344,7 +350,18 @@ export default class UIDemo extends React.Component {
           }).catch((error) => {
             alert(JSON.stringify(error));
           });
-        }
+        },
+      },
+      {
+        'name': '获取家庭成员的列表',
+        'func': () => {
+          let options = {};
+          Device.getHomeMemberList(options).then((res) => {
+            alert(JSON.stringify(res));
+          }).catch((error) => {
+            alert(JSON.stringify(error));
+          });
+        },
       },
       {
         'name': '获取设设备蓝牙信号强度(蓝牙子设备)',
@@ -354,7 +371,7 @@ export default class UIDemo extends React.Component {
           }).catch((err) => {
             alert(JSON.stringify(err, null, '\t'));
           });
-        }
+        },
       },
       {
         'name': 'BLE/Mesh子设备是否连接网关',
@@ -364,7 +381,7 @@ export default class UIDemo extends React.Component {
           }).catch((err) => {
             alert(JSON.stringify(err, null, '\t'));
           });
-        }
+        },
       },
       {
         'name': '设备隐私上报',
@@ -376,15 +393,15 @@ export default class UIDemo extends React.Component {
             pluginPrivacyId: 1300,
             sysPermissionInfo:
               [{ permission_id: 101, status: 1 },
-                { permission_id: 102, status: 0 }]
+                { permission_id: 102, status: 0 }],
           };
           Device.setPrivacyConfirmation(param).then((res) => {
             alert(JSON.stringify(res, null, '\t'));
           }).catch((err) => {
             alert(JSON.stringify(err, null, '\t'));
           });
-        }
-      }
+        },
+      },
     ];
   }
 
@@ -428,7 +445,7 @@ export default class UIDemo extends React.Component {
     if (Host.isIOS)
       ActionSheetIOS.showActionSheetWithOptions({
         options: BUTTONS,
-        destructiveButtonIndex: 1
+        destructiveButtonIndex: 1,
       }, () => {
 
       });
@@ -445,7 +462,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffffff',
     marginBottom: 0,
-    marginTop: 0
+    marginTop: 0,
   },
   rowContainer: {
     height: 52,
@@ -454,24 +471,24 @@ const styles = StyleSheet.create({
     paddingLeft: 23,
     paddingRight: 23,
     alignItems: 'center',
-    flex: 1
+    flex: 1,
   },
   list: {
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
   },
   title: {
     fontSize: 15,
     color: '#333333',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
   },
   subArrow: {
     width: 7,
-    height: 14
+    height: 14,
   },
   separator: {
     height: 1 / PixelRatio.get(),
     backgroundColor: '#e5e5e5',
-    marginLeft: 20
-  }
+    marginLeft: 20,
+  },
 });
