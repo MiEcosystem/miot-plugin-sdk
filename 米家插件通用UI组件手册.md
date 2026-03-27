@@ -2493,7 +2493,7 @@ SDK在开放之初就内置了一些Dialog，比如：`InputDialog`、`MessageDi
 
 ### 预览
 
-![](./UIDocImages/actionSheet.png)
+![](./UIDocImages/actionsheet.png)
 
 ### 基本信息
 
