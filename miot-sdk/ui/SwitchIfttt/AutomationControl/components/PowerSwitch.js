@@ -12,9 +12,13 @@ const Styles = dynamicStyleSheet({
     paddingHorizontal: adjustSize(48),
     marginBottom: adjustSize(48)
   },
-  listItemContainerStyle: {
+  cardWrapper: {
     width: '100%',
     borderRadius: 20,
+    overflow: 'hidden'
+  },
+  listItemContainerStyle: {
+    width: '100%',
     paddingHorizontal: 16
   }
 });
@@ -23,13 +27,13 @@ const Styles = dynamicStyleSheet({
  * 控制设备的开关状态，包含关闭确认逻辑
  */
 const PowerSwitch = ({
-  switchStatus,
-  switchButtonType,
-  onSwitchChange,
-  onSwitchOn,
-  onShowDialog,
-  subRef
-}) => {
+                       switchStatus,
+                       switchButtonType,
+                       onSwitchChange,
+                       onSwitchOn,
+                       onShowDialog,
+                       subRef
+                     }) => {
   const handleValueChange = (value) => {
     reportAutoSwitchClick({
       subRef,
@@ -52,8 +56,9 @@ const PowerSwitch = ({
   };
   return (
     <View style={Styles.automationComponentStyle}>
-      <ListItemWithSwitch
-        containerStyle={Styles.listItemContainerStyle}
+      <View style={Styles.cardWrapper}>
+        <ListItemWithSwitch
+          containerStyle={Styles.listItemContainerStyle}
         key="auto-switch"
         title={I18n.switch_autoCtrl_powerSwitch_title}
         subtitle={I18n.switch_autoCtrl_powerSwitch_desc}
@@ -61,7 +66,9 @@ const PowerSwitch = ({
         onValueChange={handleValueChange}
         onTintColor={dynamicColor('#0CCE94', '#00BA7C')}
         tintColor={dynamicColor('rgba(0,0,0,0.06)', 'rgba(255,255,255,0.15)')}
-      />
+          showSeparator={false}
+        />
+      </View>
     </View>
   );
 };

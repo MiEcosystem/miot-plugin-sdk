@@ -23,7 +23,9 @@ const AutoDeviceInfoButton = ({
           { subtitle ? <Text style={ Styles.subtitleStyle } numberOfLines={ 3 }>{ subtitle }</Text> : null }
         </View>
         <View style={ Styles.rightTextContainerStyle }>
-          <Text style={ Styles.rightTextStyle } numberOfLines={ 1 }>{ rightText }</Text>
+          <View style={ Styles.rightTextBadge }>
+            <Text style={ Styles.rightTextStyle } numberOfLines={ 1 }>{ rightText }</Text>
+          </View>
         </View>
       </View>
     </TouchableHighlight>
@@ -71,14 +73,17 @@ const Styles = StyleSheet.create({
     paddingRight: 10,
     alignItems: "flex-end"
   },
+  rightTextBadge: {
+    borderRadius: 20,
+    overflow: 'hidden',
+    backgroundColor: dynamicColor('rgba(0, 0, 0, 0.06)', 'rgba(255, 255, 255, 0.15)')
+  },
   rightTextStyle: {
     fontFamily: "MiSans",
     fontSize: 13,
     paddingHorizontal: 12,
     paddingVertical: 5.5,
-    borderRadius: 20,
-    color: dynamicColor('rgba(0, 0, 0, 0.8)', 'rgba(255, 255, 255, 0.7)'),
-    backgroundColor: dynamicColor('rgba(0, 0, 0, 0.06)', 'rgba(255, 255, 255, 0.15)')
+    color: dynamicColor('rgba(0, 0, 0, 0.8)', 'rgba(255, 255, 255, 0.7)')
   }
 });
 export default AutoDeviceInfoButton;
