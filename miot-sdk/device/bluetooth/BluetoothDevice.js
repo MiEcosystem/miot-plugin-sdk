@@ -34,7 +34,7 @@
  * ble.disconnect()
  *
  */
-import native, { buildEvents, Properties, isIOS, MIOTEventEmitter } from '../../native';
+import native, { buildEvents, Properties, isIOS, MIOTEventEmitter, isAndroid } from '../../native';
 import { IBluetoothService } from './CoreBluetooth';
 import Bluetooth, { getBluetoothUUID128 } from './index';
 import RootDevice from '../BasicDevice';
@@ -203,7 +203,10 @@ export class IBluetooth {
      *
      */
     @report
-  connect(type = -1, option = 0) {
+    connect(type = -1, option = 0) {
+    }
+    @report
+    _connect(type = -1, option = 0) {
      return Promise.resolve(this);
   }
     /**

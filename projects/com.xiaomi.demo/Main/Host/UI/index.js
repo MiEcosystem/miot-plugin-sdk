@@ -1,6 +1,6 @@
 'use strict';
 
-import { Device, DeviceEvent, Host, PackageEvent } from "miot";
+import { Device, DeviceEvent, Host, Service, PackageEvent } from "miot";
 import React from 'react';
 import { ActionSheetIOS, Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Logger from '../../Logger';
@@ -34,11 +34,18 @@ export default class UIDemo extends React.Component {
   _createMenuData() {
     this._menuData = [
       {
+        'name': '打开配网步骤页面(仅限猫眼门锁使用)',
+        'subtitle': 'openWifiConfigStepPage',
+        'func': () => {
+          Host.ui.openWifiConfigStepPage();
+        }
+      },
+      {
         'name': '多键开关设置',
         'subtitle': 'openPowerMultikeyPage',
         'func': () => {
           // Host.ui.openWebPage('http://s.miwifi.com/dist/userhosts/index.html');
-          
+
           Host.ui.openPowerMultikeyPage(Device.deviceID, Device.mac, { useNewSetting: true });
         }
       },
@@ -633,8 +640,11 @@ export default class UIDemo extends React.Component {
         }
       },
       {
+        // 注意: 自SDK10077 (含) 开始, 该接口更改为打开放大卡片设置页面, 且*不建议*开发者使用
+        // 仅接受参数type=1
         'name': 'openCommonDeviceSettingPage',
-        'subtitle': '打开常用设备/常用摄像机设置页面',
+        // 'subtitle': '打开常用设备/常用摄像机设置页面',
+        'subtitle': '打开放大卡片设置页面',
         'func': () => {
           Host.ui.openCommonDeviceSettingPage(1);
         }
@@ -654,6 +664,31 @@ export default class UIDemo extends React.Component {
         'subtitle': '打开设置-检查更新中的固件自动更新',
         'func': () => {
           Host.ui.openFirmWareAutoOTAPage();
+        }
+      },
+      {
+        'name': 'openVirtualGroupInitPage',
+        'subtitle': '打开组设备初始化页面',
+        'func': () => {
+          Host.ui.openVirtualGroupInitPage({ groupDid: Device.deviceID });
+        }
+      },
+      {
+        'name': 'openConsumesDetailPage',
+        'subtitle': '打开耗材详情页面',
+        'func': () => {
+          Service.smarthome.getConsumableDetails().then((res) => {
+            const consumesData = res.items[0].consumes_data[0];
+            const consumableList = consumesData.details;
+            Host.ui.openConsumesDetailPage(consumableList[0]);
+          });
+        }
+      },
+      {
+        'name': 'openDeviceOfflineAlertPage',
+        'subtitle': '打开设备离线弹框页面',
+        'func': () => {
+          Host.ui.openDeviceOfflineAlert();
         }
       }
     ];

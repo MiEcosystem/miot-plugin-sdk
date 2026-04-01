@@ -20,9 +20,9 @@ void main () {
 
 module.exports = GL.createComponent(
   ({ children: t }) =>
-  <GL.Node
-    shader={shaders.DiamondCrop}
-    uniforms={{ t }}
-  />,
-{ displayName: "DiamondCrop" }
+    <GL.Node
+      shader={shaders.DiamondCrop}
+      uniforms={{ t }}
+    />,
+  { displayName: "DiamondCrop" }
 );

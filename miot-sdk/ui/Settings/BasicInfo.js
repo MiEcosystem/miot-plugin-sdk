@@ -21,7 +21,7 @@ export default function BasicInfo({ options, customOptions, showDots, extraOptio
           uri: iconURL
         }} />
         <View style={Styles.text}>
-          <Text style={Styles.title}>{name}</Text>
+          <Text style={Styles.title} numberOfLines={2}>{name}</Text>
           <Text style={Styles.subtitle}>{roomInfo?.roomName}</Text>
         </View>
       </View>
@@ -55,6 +55,9 @@ const Styles = dynamicStyleSheet({
     height: adjustSize(240),
     resizeMode: 'contain',
     marginRight: adjustSize(30)
+  },
+  text: {
+    flex: 1
   },
   title: {
     fontFamily: FontDefault,

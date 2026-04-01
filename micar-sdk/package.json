@@ -1,0 +1,10 @@
+{
+  "name": "micar",
+  "version": "3.0.0",
+  "api_level": 30000,
+  "miot_api_level":10080,
+  "min_native_api_level": {
+    "android": 30000,
+    "ios": 30000
+  }
+}

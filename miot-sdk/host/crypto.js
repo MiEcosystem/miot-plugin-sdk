@@ -250,6 +250,44 @@ class ICrypto {
   createMediaWithPoints(points, type, filename, params) {
      return Promise.resolve('');
   }
+  /**
+   * 杉川美化地图算法
+   * @param base64Map{string} 地图数据的byte数组转成的Base64字符串
+   * @param chain{Object} 一个数组
+   * [
+   *    {
+   *       "roomID": 10,
+   *       "pointCount": 93,
+   *       "points": [
+   *           {
+   *               "x": 388,
+   *               "y": 291,
+   *               "value": -1
+   *           }
+   *       ]
+   *    }
+   * ]
+   * @param params{Object} 配置参数
+   * @param params.resolution{Double}
+   * @param params.pixWidth{Int32}
+   * @param params.pixHeight{Int32}
+   * @param params.maxX{Double}
+   * @param params.maxY{Double}
+   * @param params.minX{Double}
+   * @param params.minY{Double}
+   */
+  @report
+  ijaiBeautifyMap(base64Map, chain, params) {
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.ijaiBeautifyMap(base64Map, chain, params, (ok, res) => {
+        if (ok) {
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      });
+    });
+  }
 }
 const CryptoInstance = new ICrypto();
 export default CryptoInstance;

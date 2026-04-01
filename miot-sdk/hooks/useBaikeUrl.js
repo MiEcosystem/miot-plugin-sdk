@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Service, Device } from 'miot';
 const cachedBaikeUrls = {};
 function getBaikeUrl(model = Device.model) {
-  if (cachedBaikeUrls[model] !== null) {
+  if (cachedBaikeUrls[model] !== undefined) {
     return Promise.resolve(cachedBaikeUrls[model]);
   }
   return Service.getServerName().then(({ countryCode }) => {
