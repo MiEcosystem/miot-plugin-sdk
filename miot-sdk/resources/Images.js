@@ -9,6 +9,7 @@ export default {
    * 通用
    */
   common: {
+    auto_default: require("./images/auto-default.png"),
     right_arrow: require('./images/right_arrow.png'),
     close: require('./images/close.png'),
     mihome: require('./images/mihome.png'),

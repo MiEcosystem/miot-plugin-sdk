@@ -92,7 +92,18 @@ export default class DeviceCell extends Component {
               {!online && <Text numberOfLines={ 3 } style={ Styles.subTitle }>{ I18n.deviceOffline }</Text>}
             </View>
             <View style={ Styles.radioContainer }>
-              <Radio isChecked={ checked } disabled={ disabled } changeCheck={ this.changeCheck }/>
+              <Radio
+                isChecked={ checked }
+                disabled={ disabled }
+                changeCheck={ this.changeCheck }
+                checkedBigCircleStyle={{
+                  borderColorChecked: dynamicColor('#0CCE94', '#00BA7C'),
+                  backgroundColorChecked: dynamicColor('#0CCE94', '#00BA7C'),
+                  borderColor: dynamicColor('rgba(0, 0, 0, 0.06)', 'rgba(255, 255, 255, 0.15)'),
+                  backgroundColor: dynamicColor('rgba(0, 0, 0, 0.06)', 'rgba(255, 255, 255, 0.15)')
+                }}
+                smallCircleBg={dynamicColor('#ffffff', '#FFFFFF')}
+              />
             </View>
           </View>
         </View>
@@ -104,29 +115,23 @@ const Styles = dynamicStyleSheet({
   container: {
     width: "100%",
     flexDirection: 'column',
-    padding: 7,
-    backgroundColor: new DynamicColor('#FFF', '#1A1A1A')
+    backgroundColor: new DynamicColor('transparent', 'transparent')
   },
-  containerFirst: {
-    borderTopLeftRadius: adjustSize(16),
-    borderTopRightRadius: adjustSize(16)
-  },
-  containerLast: {
-    borderBottomLeftRadius: adjustSize(16),
-    borderBottomRightRadius: adjustSize(16)
-  },
+  containerFirst: {},
+  containerLast: {},
   disabled: {
     opacity: 0.3
   },
   iconContainer: {
     width: '100%',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 8,
+    paddingRight: 16
   },
   radioContainer: {
-    width: 52,
     alignItems: 'flex-end',
-    marginTop: adjustSize(36),
-    marginRight: adjustSize(36)
+    justifyContent: 'center'
   },
   icon: {
     width: 56,
@@ -137,19 +142,21 @@ const Styles = dynamicStyleSheet({
     flex: 1,
     justifyContent: 'center',
     marginLeft: 2,
-    marginRight: 12
+    marginRight: 12,
+    paddingTop: 12,
+    paddingBottom: 12
   },
   title: {
     fontFamily: FontMiSansWRegular,
     fontSize: 16,
-    color: dynamicColor('rgba(0, 0, 0, 0.8)', 'rgba(255, 255, 255, 0.8)'),
-    lineHeight: 18
+    color: dynamicColor('#000000', '#FFFFFF'),
+    lineHeight: 22
   },
   subTitle: {
     fontFamily: FontMiSansWRegular,
     fontSize: 13,
-    color: dynamicColor('#FFBB0F', 'rgba(255, 255, 255, 0.8)'),
-    lineHeight: 15
+    color: dynamicColor('#CC9200', '#FFBF0F'),
+    lineHeight: 18
   },
   checkbox: {
     width: adjustSize(66),

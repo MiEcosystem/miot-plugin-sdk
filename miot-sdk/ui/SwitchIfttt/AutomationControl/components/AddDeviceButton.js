@@ -1,29 +1,28 @@
 import React from 'react';
 import { View, Text, TouchableHighlight, Image } from 'react-native';
 import { dynamicColor } from "../../../Style";
+import { strings as I18n } from "../../../../resources";
 import AutoDeviceInfoButton from './AutoDeviceInfoButton';
 /**
  * 添加设备按钮组件
  * 用于普通设备模式下展示"添加设备"入口
  */
-const AddDeviceButton = ({ onPress, style }) => {
+const AddDeviceButton = ({ onPress, style, disabled }) => {
   return (
-    // <AutoDeviceInfoButton
-    //   style={{ marginTop: 12 }}
-    //   title={"添加设备"}
-    //   icon={require('miot/resources/images/add-bt.png')}
-    //   onPress={()=>{onPress && onPress();}}
-    // />
     <TouchableHighlight
       style={{ width: '100%' }}
       underlayColor="transparent"
+      disabled={disabled}
       onPress={() => {
         onPress && onPress();
       }}>
       <View style={[Styles.container, style]}>
-        <Image source={require('miot/resources/images/add-bt.png')} style={Styles.iconStyle}/>
+        <Image
+          source={require('miot/resources/images/add-bt.png')}
+          style={[Styles.iconStyle, disabled && Styles.iconDisabled]}
+        />
         <View style={Styles.titleContainer}>
-          <Text style={Styles.titleStyle} numberOfLines={3}>{"添加设备"}</Text>
+          <Text style={[Styles.titleStyle, disabled && Styles.titleDisabled]} numberOfLines={3}>{I18n.automation_add_control_device}</Text>
         </View>
       </View>
     </TouchableHighlight>
@@ -60,9 +59,15 @@ const Styles = {
     fontWeight: "700",
     paddingHorizontal: 4
   },
+  titleDisabled: {
+    color: dynamicColor('rgba(0,0,0,0.2)', 'rgba(255,255,255,0.2)')
+  },
   iconStyle: {
     width: 30,
     height: 30
+  },
+  iconDisabled: {
+    opacity: 0.25
   },
   titleContainer: {
     flex: 1,

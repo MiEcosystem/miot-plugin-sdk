@@ -94,6 +94,7 @@ export const useSwitchControl = (props) => {
     if (tempSwitchType &&
       switchButtonType &&
       tempSwitchType !== switchButtonType &&
+      tempSwitchType !== SWITCH_DEVICE_TYPE.MANUAL_SCENE &&
       (currentTagsScene?.scene_id)) {
       deleteTagsScene(currentTagsScene?.scene_id).then(() => {
         setLoadingVisible(false);
@@ -107,7 +108,9 @@ export const useSwitchControl = (props) => {
   // 修改操作模式
   const onSwitchSensorMode = (value) => {
     const lastValue = switchSensorMode;
-    if (lastValue === value) return;
+    if (lastValue === value) {
+      return;
+    }
     
     setLoadingVisible(true);
     const t = {
@@ -148,13 +151,10 @@ export const useSwitchControl = (props) => {
       else if (SwitchType === SWITCH_DEVICE_TYPE.SMART_LIGHT || SwitchType === SWITCH_DEVICE_TYPE.SMART_SWITCH) {
         onOpenDeviceSceneEditPage(SwitchType);
       } 
-      // 执行手动控制 修改后状态后 跳转二级页面
+      // 执行手动控制，跳转二级页面，type 由详情页确认后写入
       else if (SwitchType === SWITCH_DEVICE_TYPE.MANUAL_SCENE) {
-        const deleteScene = SwitchType !== switchButtonType;
-        await saveWirelessSwitchMode(SwitchType);
-        await onSaveSwitchType(SwitchType);
-        setSwitchButtonType(SwitchType);
-        onOpenManualSceneSelectPage(deleteScene);
+        const isTypeChange = SwitchType !== switchButtonType;
+        onOpenManualSceneSelectPage(isTypeChange);
       } 
       // 其他智能设备，兜底方案，暂不做改动
       else if (SwitchType === SWITCH_DEVICE_TYPE.OTHER_SMART_DEVICE) {

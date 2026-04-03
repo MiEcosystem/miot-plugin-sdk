@@ -69,6 +69,7 @@ const BaseSwitchComponent = ({
   memberId,
   roomName,
   subRef,
+  onIconPress,
 }) => {
   const [iconDialogVisible, setIconDialogVisible] = useState(false);
   const [subClassList, setSubClassList] = useState([]);
@@ -138,6 +139,7 @@ const BaseSwitchComponent = ({
         iconURL={deviceData.icon}
         deviceName={deviceData.name}
         onEditIcon={handleEditIconPress}
+        onIconPress={onIconPress}
       />
       <View style={{ width: '100%' }}>
         <InfoCard
@@ -176,21 +178,27 @@ export default BaseSwitchComponent;
  * 顶部设备信息区域（Figma 风格）
  * 圆形背景图标 + 设备名 + "修改图标"按钮
  */
-export const DeviceHeader = ({ iconURL, deviceName, onEditIcon }) => (
+export const DeviceHeader = ({ iconURL, deviceName, onEditIcon, onIconPress }) => (
   <View style={HeaderStyles.headerContainer}>
-    <View style={HeaderStyles.iconCircle}>
+    <TouchableHighlight
+      underlayColor="transparent"
+      activeOpacity={0.7}
+      style={HeaderStyles.iconCircle}
+      onPress={onIconPress}
+      disabled={!onIconPress}
+    >
       <Image
         source={iconURL ? { uri: iconURL } : Images.common.defaultDevice}
         style={HeaderStyles.deviceIcon}
       />
-    </View>
+    </TouchableHighlight>
     <TouchableHighlight
       underlayColor="transparent"
       activeOpacity={0.7}
       style={HeaderStyles.editIconButton}
       onPress={onEditIcon}
     >
-      <Text style={HeaderStyles.editIconText}>{I18n.switch_layoutDetail_editIcon}</Text>
+      <Text style={HeaderStyles.editIconText} numberOfLines={1} ellipsizeMode="tail">{I18n.switch_layoutDetail_editIcon}</Text>
     </TouchableHighlight>
   </View>
 );
@@ -198,6 +206,7 @@ DeviceHeader.propTypes = {
   iconURL: PropTypes.string,
   deviceName: PropTypes.string,
   onEditIcon: PropTypes.func,
+  onIconPress: PropTypes.func,
 };
 // ─── InfoRow / InfoCard ───────────────────────────────────────────────────────
 /**
@@ -244,17 +253,6 @@ export const InfoCard = ({ name, roomName, onNamePress, onRoomPress }) => (
       hideRightIcon={ false }
       onPress={ onRoomPress }
     />
-    {/* <InfoRow */}
-    {/*  label={I18n.switch_layoutDetail_name} */}
-    {/*  value={name} */}
-    {/*  onPress={onNamePress} */}
-    {/* /> */}
-    {/* <InfoRow */}
-    {/*  label={I18n.switch_layoutDetail_room} */}
-    {/*  value={roomName} */}
-    {/*  onPress={onRoomPress} */}
-    {/*  isLast */}
-    {/* /> */}
   </View>
 );
 InfoCard.propTypes = {
@@ -267,8 +265,8 @@ InfoCard.propTypes = {
 const HeaderStyles = dynamicStyleSheet({
   headerContainer: {
     alignItems: 'center',
-    paddingTop: adjustSize(90),
-    paddingBottom: adjustSize(90),
+    paddingTop: 32,
+    paddingBottom: 20,
     paddingHorizontal: adjustSize(36),
   },
   iconCircle: {
@@ -278,7 +276,7 @@ const HeaderStyles = dynamicStyleSheet({
     backgroundColor: new DynamicColor('rgba(0,0,0,0.04)', 'rgba(255,255,255,0.08)'),
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: adjustSize(24),
+    marginBottom: 12,
   },
   deviceIcon: {
     width: adjustSize(156),
@@ -301,7 +299,7 @@ const HeaderStyles = dynamicStyleSheet({
     backgroundColor: new DynamicColor('#FFFFFF', 'rgba(255,255,255,0.12)'),
   },
   editIconText: {
-    maxWidth: adjustSize(180),
+    maxWidth: 138,
     fontSize: 14,
     fontFamily: FontMiSansWRegular,
     color: new DynamicColor('rgba(0,0,0,0.8)', 'rgba(255,255,255,0.8)'),

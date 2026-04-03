@@ -3,12 +3,11 @@ import { View } from 'react-native';
 import CardComponent from './CardComponent';
 import { Images } from "../../../../resources";
 import { dynamicStyleSheet } from '../../../Style';
-import { adjustSize } from '../../../../utils/sizes';
 const Styles = dynamicStyleSheet({
   automationComponentStyle: {
     width: '100%',
-    paddingHorizontal: adjustSize(48),
-    marginBottom: adjustSize(48)
+    paddingHorizontal: 12,
+    marginBottom: 8
   }
 });
 /**
@@ -21,7 +20,8 @@ const AutomationCard = ({
   onPress,
   children,
   icon = Images.common.right_arrow,
-  style
+  style,
+  rightButton
 }) => {
   return (
     <View style={[Styles.automationComponentStyle, style]}>
@@ -30,6 +30,7 @@ const AutomationCard = ({
         title={title}
         subtitle={subtitle}
         onPress={onPress}
+        rightButton={rightButton}
       >
         {children}
       </CardComponent>

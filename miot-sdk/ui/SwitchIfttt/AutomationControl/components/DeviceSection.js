@@ -19,11 +19,11 @@ export default class DeviceSection extends Component {
     onValueChange: PropTypes.func,
     accessible: AccessibilityPropTypes.accessible,
     accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
-    accessibilityHint: AccessibilityPropTypes.accessibilityHint
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint,
   };
   static defaultProps = {
     onValueChange: () => {
-    }
+    },
   };
   changeCheck = (select, item) => {
     this.setState(() => {
@@ -31,19 +31,19 @@ export default class DeviceSection extends Component {
         this.props.onValueChange(select, item);
       }
       return {
-        selectedItem: select ? item : {}
+        selectedItem: select ? item : {},
       };
     });
   };
   constructor(props, ...rest) {
     super(props, ...rest);
     this.state = {
-      selectedItem: props.selectedItem
+      selectedItem: props.selectedItem,
     };
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      selectedItem: nextProps.selectedItem
+      selectedItem: nextProps.selectedItem,
     });
   }
   renderDeviceItems = () => {
@@ -78,40 +78,42 @@ export default class DeviceSection extends Component {
   render() {
     const { title, disabled } = this.props;
     return (
-      <View style={ [Styles.container, disabled ? Styles.disabled : null] }>
+      <View style={ disabled ? Styles.disabled : null }>
         <View style={ Styles.sectionHeader }>
           <Text style={ Styles.title }>{ title }</Text>
         </View>
-        { this.renderDeviceItems() }
+        <View style={ Styles.card }>
+          { this.renderDeviceItems() }
+        </View>
       </View>
     );
   }
 }
 const Styles = dynamicStyleSheet({
-  container: {
-    flexDirection: 'column',
-    paddingBottom: adjustSize(36),
-    borderRadius: adjustSize(36),
-    marginHorizontal: adjustSize(30),
-    backgroundColor: new DynamicColor('#F7F7F7', '#000')
+  card: {
+    borderRadius: 16,
+    overflow: 'hidden',
+    backgroundColor: new DynamicColor('#FFFFFF', 'rgba(255, 255, 255, 0.12)'),
   },
   sectionContainer: {
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   disabled: {
-    opacity: 0.3
+    opacity: 0.3,
   },
   sectionHeader: {
-    height: adjustSize(150),
-    paddingHorizontal: adjustSize(42),
-    justifyContent: 'center'
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 20,
+    paddingRight: 16,
+    justifyContent: 'center',
   },
   title: {
     fontFamily: FontMiSansWRegular,
-    fontSize: 18,
-    color: dynamicColor('rgba(0, 0, 0, 0.8)', 'rgba(255, 255, 255, 0.8)'),
-    lineHeight: 28
-  }
+    fontSize: 14,
+    color: dynamicColor('#8C9DB0', '#92A1B4'),
+    lineHeight: 20,
+  },
 });

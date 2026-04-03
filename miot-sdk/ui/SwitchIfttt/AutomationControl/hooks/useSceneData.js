@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Device, Service } from "miot";
 import { DeviceEventEmitter } from "react-native";
+import { PackageEvent } from "miot/event/PackageEvent";
 import { Images } from "../../../../resources";
 import useCurrentSelectHomeInfo from "../../../../hooks/useCurrentSelectHomeInfo";
 import useTriggerSceneList from "../../../../hooks/useTriggerSceneList";
@@ -57,6 +58,8 @@ export const useSceneData = (switchClickSpec, specButtonType, switchSpec, homeId
   const [currentTagsScene, setCurrentTagsScene] = useState({});
   // 关联设备
   const [relatedDevice, setRelatedDevice] = useState({});
+  // 关联设备状态：'current_home' | 'other_home' | 'deleted'
+  const [relatedDeviceStatus, setRelatedDeviceStatus] = useState('current_home');
   // 关联房间信息
   const [relatedRoomInfo, setRelatedRoomInfo] = useState({});
   // 关联手动场景
@@ -69,7 +72,7 @@ export const useSceneData = (switchClickSpec, specButtonType, switchSpec, homeId
   const [matchedTcaItems, setMatchedTcaItems] = useState({ click: null, doubleClick: null, longPress: null });
   // allScenesV2 二次匹配结果
   const [matchedScenes, setMatchedScenes] = useState({ click: [], doubleClick: [], longPress: [] });
-  useEffect(() => {
+  const fetchAllScenesV2 = useCallback(() => {
     if (!homeId) return;
     loadAllScenesV2(homeId, Device.deviceID).then((list) => {
       if (mountedState()) {
@@ -79,7 +82,7 @@ export const useSceneData = (switchClickSpec, specButtonType, switchSpec, homeId
       console.log('useSceneData--loadAllScenesV2--error', e);
     });
   }, [homeId]);
-  useEffect(() => {
+  const fetchTcaConfigV3 = useCallback(() => {
     if (!homeId || !currentSelectHomeInfo?.ownerUid) return;
     const homeDataList = {
       home_id: homeId,
@@ -94,6 +97,28 @@ export const useSceneData = (switchClickSpec, specButtonType, switchSpec, homeId
       console.log('useSceneData--getSceneTcaConfigV3--error', e);
     });
   }, [homeId, currentSelectHomeInfo?.ownerUid]);
+  useEffect(() => {
+    fetchAllScenesV2();
+  }, [fetchAllScenesV2]);
+  useEffect(() => {
+    fetchTcaConfigV3();
+  }, [fetchTcaConfigV3]);
+  const reloadSceneData = useCallback(() => {
+    fetchAllScenesV2();
+    fetchTcaConfigV3();
+  }, [fetchAllScenesV2, fetchTcaConfigV3]);
+  // iOS: packageViewWillAppear；Android: packageDidResume
+  useEffect(() => {
+    const onResume = () => {
+      reloadSceneData();
+    };
+    const l1 = PackageEvent.packageViewWillAppear.addListener(onResume);
+    const l2 = PackageEvent.packageDidResume.addListener(onResume);
+    return () => {
+      l1 && l1.remove && l1.remove();
+      l2 && l2.remove && l2.remove();
+    };
+  }, [reloadSceneData]);
   useEffect(() => {
     if (!tcaConfigV3) return;
     const launchList = tcaConfigV3?.TCA_list?.model_TCA_list?.[0]?.value?.launch || [];
@@ -113,7 +138,7 @@ export const useSceneData = (switchClickSpec, specButtonType, switchSpec, homeId
     });
   }, [tcaConfigV3]);
   useEffect(() => {
-    if (!allScenesV2.length || !matchedTcaItems) return;
+    if (!matchedTcaItems) return;
     const findScenes = (tcaItem) => {
       if (!tcaItem?.sc_id) return [];
       return allScenesV2.filter((scene) => {
@@ -138,7 +163,10 @@ export const useSceneData = (switchClickSpec, specButtonType, switchSpec, homeId
       ...matchedScenes.doubleClick.map((s) => ({ scene: s, group: 'doubleClick' })),
       ...matchedScenes.longPress.map((s) => ({ scene: s, group: 'longPress' }))
     ];
-    if (!allScenes.length) return;
+    if (!allScenes.length) {
+      setSimplifiedMatchedScenes({ click: [], doubleClick: [], longPress: [] });
+      return;
+    }
     const buildSimplified = async() => {
       const results = await Promise.all(allScenes.map(async({ scene, group }) => {
         const payload_json = scene?.scene_action?.actions?.[0]?.payload_json || {};
@@ -198,10 +226,15 @@ export const useSceneData = (switchClickSpec, specButtonType, switchSpec, homeId
       });
       if (!findDevice?.did) {
         Device.getRoomInfoForCurrentHome(payload_json?.did).then((res) => {
+          const status = res?.data?.homeId ? 'other_home' : 'deleted';
           setRelatedRoomInfo(res?.data || {});
-        }).catch((e) => {
+          setRelatedDeviceStatus(status);
+        }).catch(() => {
           setRelatedRoomInfo({});
+          setRelatedDeviceStatus('deleted');
         });
+      } else {
+        setRelatedDeviceStatus('current_home');
       }
       setRelatedDevice(findDevice || {});
     }
@@ -261,6 +294,7 @@ export const useSceneData = (switchClickSpec, specButtonType, switchSpec, homeId
     // 当前状态
     currentTagsScene,
     relatedDevice,
+    relatedDeviceStatus,
     relatedRoomInfo,
     relatedManualScene,
     allScenesV2,
@@ -269,6 +303,7 @@ export const useSceneData = (switchClickSpec, specButtonType, switchSpec, homeId
     matchedScenes,
     simplifiedMatchedScenes,
     // 设置方法（内部使用）
-    setRelatedRoomInfo
+    setRelatedRoomInfo,
+    reloadSceneData
   };
 };

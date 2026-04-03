@@ -5,12 +5,11 @@ import { strings as I18n } from "../../../../resources";
 import { dynamicStyleSheet } from '../../../Style';
 import { dynamicColor } from '../../../Style/DynamicColor';
 import { reportAutoSwitchClick, reportAutoSwitchExpose } from "../reportUtils";
-import { adjustSize } from '../../../../utils/sizes';
 const Styles = dynamicStyleSheet({
   automationComponentStyle: {
     width: '100%',
-    paddingHorizontal: adjustSize(48),
-    marginBottom: adjustSize(48)
+    paddingHorizontal: 12,
+    marginBottom: 8
   },
   cardWrapper: {
     width: '100%',
@@ -27,14 +26,16 @@ const Styles = dynamicStyleSheet({
  * 控制设备的开关状态，包含关闭确认逻辑
  */
 const PowerSwitch = ({
-                       switchStatus,
-                       switchButtonType,
-                       onSwitchChange,
-                       onSwitchOn,
-                       onShowDialog,
-                       subRef
-                     }) => {
+  switchStatus,
+  switchButtonType,
+  onSwitchChange,
+  onSwitchOn,
+  onShowDialog,
+  disabled,
+  subRef
+}) => {
   const handleValueChange = (value) => {
+    if (disabled) return;
     reportAutoSwitchClick({
       subRef,
       item_type: 'button',
@@ -59,13 +60,13 @@ const PowerSwitch = ({
       <View style={Styles.cardWrapper}>
         <ListItemWithSwitch
           containerStyle={Styles.listItemContainerStyle}
-        key="auto-switch"
-        title={I18n.switch_autoCtrl_powerSwitch_title}
-        subtitle={I18n.switch_autoCtrl_powerSwitch_desc}
-        value={switchStatus}
-        onValueChange={handleValueChange}
-        onTintColor={dynamicColor('#0CCE94', '#00BA7C')}
-        tintColor={dynamicColor('rgba(0,0,0,0.06)', 'rgba(255,255,255,0.15)')}
+          key="auto-switch"
+          title={I18n.switch_autoCtrl_powerSwitch_title}
+          value={switchStatus}
+          onValueChange={handleValueChange}
+          disabled={disabled}
+          onTintColor={dynamicColor('#0CCE94', '#00BA7C')}
+          tintColor={dynamicColor('rgba(0,0,0,0.06)', 'rgba(255,255,255,0.15)')}
           showSeparator={false}
         />
       </View>

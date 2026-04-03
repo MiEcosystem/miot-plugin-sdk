@@ -1,39 +1,23 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 import Host from 'miot/Host';
-import { Device } from 'miot';
-import { SWITCH_DEVICE_TYPE } from "../../Const";
 import AutoDeviceInfoButton from "./AutoDeviceInfoButton";
-import AddDeviceButton from "./AddDeviceButton";
-import { dynamicColor } from "../../../Style";
-import { strings as I18n } from "../../../../resources";
+import { strings as I18n, Images } from "../../../../resources";
 /**
  * 其他智能设备卡片组件
- * 用于 OTHER_SMART_DEVICE 类型的自动化场景展示
- * 按单击 → 双击 → 长按顺序显示，双击/长按为空时隐藏，单击为空时显示添加入口
- * 无数据时调用 fillAutomationConfig 新增，有数据时调用 openAutomationDetail 查看详情
+ * 用于单击自动化场景展示
+ * 有数据时显示场景列表；无数据时返回 null（由父级统一显示空态）
  */
 const OtherSmartDeviceCard = ({
   switchButtonType,
   simplifiedMatchedScenes,
-  matchedTcaItems,
-  switchClickSpec,
-  switchDoubleClickSpec,
-  switchLongPressesSpec,
+  disabled,
   subRef
 }) => {
-  if (switchButtonType !== SWITCH_DEVICE_TYPE.OTHER_SMART_DEVICE) {
+  const { click = [] } = simplifiedMatchedScenes || {};
+  if (click.length === 0) {
     return null;
   }
-  const { click = [], doubleClick = [], longPress = [] } = simplifiedMatchedScenes || {};
-  const handleAdd = (tcaItem) => {
-    if (!tcaItem?.sc_id) return;
-    const trigger = { did: Device.deviceID, sc_id: tcaItem.sc_id };
-    if (tcaItem.value !== '' && tcaItem.value != null) {
-      trigger.value = tcaItem.value;
-    }
-    Host.ui.fillAutomationConfig({ trigger: [trigger] });
-  };
   const handleEdit = (item) => {
     Host.ui.openAutomationDetail({
       scene_type: 2,
@@ -42,72 +26,58 @@ const OtherSmartDeviceCard = ({
       edit_from: 1
     });
   };
-  const renderSceneItem = (item) => {
-    const { scene_action, name, scene_id } = item;
-    const icon = scene_action.iconUrl
-      ? { uri: scene_action.iconUrl }
-      : scene_action.defaultIcon;
-    return (
-      <AutoDeviceInfoButton
-        key={scene_id}
-        style={Styles.itemSpacing}
-        title={name}
-        icon={icon}
-        rightText={I18n.automation_toggle_btn}
-        onPress={() => handleEdit(item)}
-      />
-    );
-  };
-  const renderSection = (label, scenes, tcaItem) => {
-    if (!scenes.length) return null;
-    return (
-      <View style={Styles.section}>
-        <Text style={Styles.sectionLabel}>{label}</Text>
-        {scenes.map(renderSceneItem)}
-      </View>
-    );
-  };
-  const hasDoubleOrLong = switchDoubleClickSpec || switchLongPressesSpec;
   return (
     <View style={{ width: '100%' }}>
-      {/* 单击：为空时显示添加按钮，section label 仅在有双击或长按时显示以作区分 */}
-      {click.length > 0 ? (
-        <View style={Styles.section}>
-          {hasDoubleOrLong && switchClickSpec && (
-            <Text style={Styles.sectionLabel}>{switchClickSpec.i18n}</Text>
-          )}
-          {click.map(renderSceneItem)}
-        </View>
-      ) : (
-        <View style={Styles.section}>
-          {hasDoubleOrLong && switchClickSpec && (
-            <Text style={Styles.sectionLabel}>{switchClickSpec.i18n}</Text>
-          )}
-          <AddDeviceButton
-            onPress={() => handleAdd(matchedTcaItems?.click)}
+      {click.map((item) => {
+        const { scene_action, name, scene_id } = item;
+        const hasCustomIcon = !!scene_action.iconUrl;
+        const icon = hasCustomIcon
+          ? { uri: scene_action.iconUrl }
+          : Images.common.auto_default;
+        const executionLabel = item.type === 0
+          ? I18n.switch_listItem_value_executionTypeCloud
+          : I18n.switch_listItem_value_executionTypeLocale;
+        const iconWithBadge = hasCustomIcon ? (
+          <View style={Styles.iconWrapper}>
+            <Image source={icon} style={Styles.iconStyle} />
+            <Image source={Images.common.auto_default} style={Styles.iconBadge} />
+          </View>
+        ) : null;
+        return (
+          <AutoDeviceInfoButton
+            key={scene_id}
+            style={Styles.itemSpacing}
+            title={name}
+            subtitle={executionLabel}
+            icon={hasCustomIcon ? null : icon}
+            iconNode={iconWithBadge}
+            rightText={I18n.automation_edit_btn}
+            onPress={() => handleEdit(item)}
+            disabled={disabled}
           />
-        </View>
-      )}
-      {/* 双击：有数据才显示 */}
-      {switchDoubleClickSpec && renderSection(switchDoubleClickSpec.i18n, doubleClick, matchedTcaItems?.doubleClick)}
-      {/* 长按：有数据才显示 */}
-      {switchLongPressesSpec && renderSection(switchLongPressesSpec.i18n, longPress, matchedTcaItems?.longPress)}
+        );
+      })}
     </View>
   );
 };
 const Styles = StyleSheet.create({
-  section: {
-    marginTop: 12,
-    width: '100%'
-  },
-  sectionLabel: {
-    fontSize: 13,
-    color: dynamicColor('rgba(0,0,0,0.4)', 'rgba(255,255,255,0.5)'),
-    marginBottom: 6,
-    paddingHorizontal: 4
-  },
   itemSpacing: {
     marginTop: 8
-  }
+  },
+  iconWrapper: {
+    width: 50,
+    height: 50,
+  },
+  iconStyle: {
+    width: 50,
+    height: 50,
+  },
+  iconBadge: {
+    position: 'absolute',
+    width: 30,
+    height: 30,
+    right: 0,
+    bottom: 0,
+  },
 });
 export default OtherSmartDeviceCard;

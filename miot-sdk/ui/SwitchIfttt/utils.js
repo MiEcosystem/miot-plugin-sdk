@@ -84,10 +84,10 @@ export function getSwitchTypeIcon(type = '') {
       icon = require('../../resources/images/SWITCH_DEVICE_TYPE_SMART_SWITCH.png');
       break;
     case SWITCH_DEVICE_TYPE.MANUAL_SCENE:
-      icon = require('../../resources/images/SWITCH_DEVICE_TYPE_MANUAL_SCENE.png');
+      icon = require('../../resources/images/SWITCH_DEVICE_TYPE_OTHER_SMART_DEVICE.png');
       break;
     case SWITCH_DEVICE_TYPE.OTHER_SMART_DEVICE:
-      icon = require('../../resources/images/SWITCH_DEVICE_TYPE_OTHER_SMART_DEVICE.png');
+      icon = require('../../resources/images/SWITCH_DEVICE_TYPE_MANUAL_SCENE.png');
       break;
     default:
       break;

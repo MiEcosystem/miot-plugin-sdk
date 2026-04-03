@@ -3,23 +3,24 @@ import AutomationCard from './AutomationCard';
 import { strings as I18n } from "../../../../resources";
 import { reportAutoSwitchClick } from "../reportUtils";
 import { Text, View } from 'react-native';
-import { adjustSize } from '../../../../utils/sizes';
 import DynamicColor from '../../../Style/DynamicColor';
 import { dynamicStyleSheet } from '../../../Style';
 /**
  * 操作模式组件
  * 显示和切换设备的操作模式（标准/快速）
  */
-const OperationMode = ({ 
+const OperationMode = ({
   switchSensorMode,
   switchSensorModeSpec,
   onOpenModeDialog,
+  disabled,
   subRef
 }) => {
   if (!switchSensorModeSpec) {
     return null;
   }
   const handlePress = () => {
+    if (disabled) return;
     reportAutoSwitchClick({
       subRef,
       item_type: 'item',
@@ -37,19 +38,19 @@ const OperationMode = ({
       <AutomationCard
         title={I18n.switch_listItem_title_operationMode}
         subtitle={subtitle}
-        onPress={handlePress}
+        onPress={disabled ? undefined : handlePress}
+        icon={disabled ? null : undefined}
       />
     </View>
-    
   );
 };
 const Styles = dynamicStyleSheet({
   sectionTitle: {
     fontSize: 13,
     height: 20,
-    marginBottom: adjustSize(18),
-    paddingHorizontal: adjustSize(84),
-    marginTop: adjustSize(54),
+    marginBottom: 8,
+    paddingHorizontal: 20,
+    marginTop: 8,
     color: new DynamicColor('#8C9DB0', '#92A1B4')
   }
 });

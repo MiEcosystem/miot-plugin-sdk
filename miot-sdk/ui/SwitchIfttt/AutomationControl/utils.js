@@ -66,8 +66,8 @@ export function loadAllScenesV2(homeID, deviceID) {
   };
   return new Promise((resolve, reject) => {
     native.MIOTRPC.standardCall("/appgateway/miot/appsceneservice/AppSceneService/GetSceneList", params, (ok, res) => {
-      if (ok && res?.scene_info_list) {
-        resolve(res.scene_info_list);
+      if (ok) {
+        resolve(res?.scene_info_list || []);
       } else {
         reject(res);
       }

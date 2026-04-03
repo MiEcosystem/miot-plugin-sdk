@@ -3,39 +3,49 @@ import { View, Text, TouchableHighlight, Image } from "react-native";
 import { dynamicColor, dynamicStyleSheet } from "../../../Style";
 import DynamicColor from "../../../Style/DynamicColor";
 import PropTypes from "prop-types";
-const CardComponent = ({ title, subtitle, onPress, children, style, icon }) => {
+const CardComponent = ({ title, subtitle, onPress, children, style, icon, rightButton }) => {
+  const headerContent = (
+    <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
+      <Text style={ Styles.titleText } numberOfLines={ 1 }>{ title }</Text>
+      { rightButton ? (
+        rightButton
+      ) : (
+        <View style={ Styles.rightContainer }>
+          <Text
+            style={ Styles.normalText }
+            numberOfLines={ 1 }>{ subtitle }</Text>
+          { icon &&
+            <Image
+              source={ icon }
+              style={ Styles.rightIcon }/>
+          }
+        </View>
+      ) }
+    </View>
+  );
   return (
     <View style={ [{
-      backgroundColor: "white",
-      paddingTop: 12,
+      backgroundColor: dynamicColor('#FFFFFF', 'rgba(255, 255, 255, 0.08)'),
+      paddingTop: 10,
       paddingHorizontal: 10,
-      paddingBottom: 8,
+      paddingBottom: 10,
       width: "100%",
       borderRadius: 20,
       alignItems: "center"
     }, style] }>
       <View style={ Styles.container }>
-        <TouchableHighlight
-          underlayColor="transparent"
-          style={{ width: "100%" }}
-          onPress={ () => {
-            onPress && onPress();
-          } }>
-          <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
-            <Text style={ Styles.titleText } numberOfLines={ 1 }>{ title }
-            </Text>
-            <View style={ Styles.rightContainer }>
-              <Text
-                style={ Styles.normalText }
-                numberOfLines={ 1 }>{ subtitle }</Text>
-              { icon &&
-                <Image
-                  source={ icon }
-                  style={ Styles.rightIcon }/>
-              }
-            </View>
-          </View>
-        </TouchableHighlight>
+        { rightButton ? (
+          headerContent
+        ) : (
+          <TouchableHighlight
+            underlayColor="transparent"
+            style={{ width: "100%" }}
+            onPress={ () => {
+              onPress && onPress();
+            } }>
+            { headerContent }
+          </TouchableHighlight>
+        ) }
       </View>
       { children }
     </View>
@@ -52,7 +62,8 @@ const Styles = dynamicStyleSheet({
   container: {
     width: "100%",
     paddingVertical: 5.5,
-    paddingHorizontal: 6,
+    paddingLeft: 10,
+    paddingRight: 6,
     flexDirection: "row",
     justifyContent: "space-between"
   },

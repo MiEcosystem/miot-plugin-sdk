@@ -1565,10 +1565,6 @@ class IUi {
   @report
   openAutomationDetail(params){
     console.log('openAutomationDetail', JSON.stringify(params));
-    if (isIOS) {
-      this.showToast('该功能暂不支持 iOS');
-      return;
-    }
     native.MIOTHost.openAutomationDetail(params);
   }
 }

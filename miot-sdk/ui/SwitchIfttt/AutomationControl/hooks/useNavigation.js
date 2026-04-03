@@ -61,14 +61,15 @@ export const useNavigation = (props) => {
     }
   };
   // 打开手动场景选择页面
-  const onOpenManualSceneSelectPage = (hasScene = false) => {
+  // isTypeChange: 是否从其他控制类型切换过来（true 时清空已选的手动场景，但保留 tagsScene.scene_id 供 Edit 接口复用）
+  const onOpenManualSceneSelectPage = (isTypeChange = false) => {
     Host.ui.packageNavigate('AutoSwitchManualSceneSelectPage', {
       params: {
         switchSpec,
         switchClickSpec,
         specButtonType,
-        manualScene: hasScene ? {} : relatedManualScene,
-        tagsScene: hasScene ? {} : currentTagsScene,
+        manualScene: isTypeChange ? {} : relatedManualScene,
+        tagsScene: currentTagsScene,
         backToSetting: true,
         existTriggerScene,
         switchModeSpec,
