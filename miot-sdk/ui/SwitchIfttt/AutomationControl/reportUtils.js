@@ -11,12 +11,14 @@ async function getSwitchRefName() {
 }
 export async function reportAutoSwitchView({
   ref = "",
-  subRef = ""
+  subRef = "",
+  ...others
 }) {
   const refName = await getSwitchRefName();
   await Service.smarthome.updatePluginPageRef({
     ref: ref || refName,
-    subRef
+    subRef,
+    ...others
   });
 }
 export async function reportAutoSwitchClick({

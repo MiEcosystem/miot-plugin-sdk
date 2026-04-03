@@ -7,7 +7,6 @@ import SwitchSensorModeTypeFragment from "./SwitchSensorModeTypeFragment";
 import { strings as I18n } from "../../../../resources";
 import DynamicColor, { dynamicColor } from '../../../Style/DynamicColor';
 import { adjustSize } from '../../../../utils/sizes';
-import { reportAutoSwitchClick, reportAutoSwitchView } from "../reportUtils";
 /**
  * 对话框管理器组件
  * 统一管理所有对话框的显示和隐藏
@@ -59,8 +58,6 @@ const DialogManager = ({
   // Loading
   loadingVisible,
   loadingMessage,
-  // Reporting
-  subRef,
 }) => {
   return (
     <>
@@ -77,23 +74,11 @@ const DialogManager = ({
         buttons={[
           {
             ...cancelButton(() => {
-              reportAutoSwitchClick({
-                subRef,
-                dialog_name: 'power_switch_comfrim_dialog',
-                item_type: 'button',
-                item_name: 'exit_button',
-              });
               onDismissMessage();
             }),
             text: I18n.cancel,
           },
           confirmButton(() => {
-            reportAutoSwitchClick({
-              subRef,
-              dialog_name: 'power_switch_comfrim_dialog',
-              item_type: 'button',
-              item_name: 'comfrim_button',
-            });
             onDismissMessage();
             onConfirmPowerOff();
           }, { text: I18n.switch_listItem_value_voiceControlLoopOff }),
@@ -111,23 +96,11 @@ const DialogManager = ({
           buttons={[
             {
               ...cancelButton(() => {
-                reportAutoSwitchView({
-                  subRef,
-                  dialog_name: 'controltype_select',
-                  item_type: 'button',
-                  item_name: 'cancel_button',
-                });
                 onDismissCtrlModel();
               }),
               text: I18n.cancel,
             },
             confirmButton(() => {
-              reportAutoSwitchView({
-                subRef,
-                dialog_name: 'controltype_select',
-                item_type: 'button',
-                item_name: 'confirm_button',
-              });
               onDismissCtrlModel();
               onConfirmSensorMode();
             }, { text: I18n.ok, disabled: tempSwitchSensorMode === null }),

@@ -3,7 +3,6 @@ import { SWITCH_DEVICE_TYPE } from "../../Const";
 import AutoDeviceInfoButton from "./AutoDeviceInfoButton";
 import AddDeviceButton from "./AddDeviceButton";
 import { Images, strings as I18n } from "../../../../resources";
-import { reportAutoSwitchClick } from "../reportUtils";
 const DEVICE_STATUS_OFFLINE_COLOR = '#CC9200';
 const getExecutionTypeLabel = (type) =>
   type === 0 ? I18n.switch_listItem_value_executionTypeCloud : I18n.switch_listItem_value_executionTypeLocale;
@@ -39,7 +38,6 @@ const SmartDeviceCard = ({
   onEditPress,
   onChangeTypePress,
   disabled,
-  subRef
 }) => {
   const { scene_action, scene_id, type: sceneType } = currentTagsScene || {};
   const { payload_json, name } = scene_action?.actions?.[0] || {};
@@ -51,11 +49,6 @@ const SmartDeviceCard = ({
     return null;
   }
   const handlePress = () => {
-    reportAutoSwitchClick({
-      subRef,
-      item_type: 'button',
-      item_name: 'replace_device'
-    });
     onChangeTypePress();
   };
   // 根据设备类型确定显示内容

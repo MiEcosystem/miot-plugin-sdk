@@ -3,7 +3,6 @@ import { SWITCH_DEVICE_TYPE } from "../../Const";
 import AutoDeviceInfoButton from "./AutoDeviceInfoButton";
 import AddDeviceButton from "./AddDeviceButton";
 import { Images, strings as I18n } from "../../../../resources";
-import { reportAutoSwitchClick } from "../reportUtils";
 /**
  * 手动场景卡片组件
  * 用于手动场景的展示和操作
@@ -17,7 +16,6 @@ const ManualSceneCard = ({
   onEditPress,
   onChangeTypePress,
   disabled,
-  subRef
 }) => {
   const { scene_action, scene_id } = currentTagsScene || {};
   const { name } = scene_action?.actions?.[0] || {};
@@ -27,11 +25,6 @@ const ManualSceneCard = ({
     return null;
   }
   const handlePress = () => {
-    reportAutoSwitchClick({
-      subRef,
-      item_type: 'button',
-      item_name: 'replace_device'
-    });
     onChangeTypePress();
   };
   const title = relatedManualScene?.scene_id

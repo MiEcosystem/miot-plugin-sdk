@@ -1,7 +1,6 @@
 import React from 'react';
 import AutomationCard from './AutomationCard';
 import { strings as I18n } from "../../../../resources";
-import { reportAutoSwitchClick } from "../reportUtils";
 import { Text, View } from 'react-native';
 import DynamicColor from '../../../Style/DynamicColor';
 import { dynamicStyleSheet } from '../../../Style';
@@ -14,18 +13,12 @@ const OperationMode = ({
   switchSensorModeSpec,
   onOpenModeDialog,
   disabled,
-  subRef
 }) => {
   if (!switchSensorModeSpec) {
     return null;
   }
   const handlePress = () => {
     if (disabled) return;
-    reportAutoSwitchClick({
-      subRef,
-      item_type: 'item',
-      item_name: 'operation_mode'
-    });
     onOpenModeDialog();
   };
   const isQuickMode = switchSensorMode === switchSensorModeSpec.prop?.['Quick Single Click'];

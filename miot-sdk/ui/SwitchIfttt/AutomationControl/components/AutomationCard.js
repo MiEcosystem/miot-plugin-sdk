@@ -21,10 +21,17 @@ const AutomationCard = ({
   children,
   icon = Images.common.right_arrow,
   style,
-  rightButton
+  rightButton,
+  onInteract,
 }) => {
   return (
-    <View style={[Styles.automationComponentStyle, style]}>
+    <View
+      style={[Styles.automationComponentStyle, style]}
+      onStartShouldSetResponderCapture={() => {
+        onInteract && onInteract();
+        return false;
+      }}
+    >
       <CardComponent
         icon={icon}
         title={title}

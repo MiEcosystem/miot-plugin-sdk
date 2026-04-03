@@ -2,7 +2,7 @@
  * 常量定义文件
  */
 // 子引用标识
-export const SUB_REF = 'plugins_switch_control_sub';
+export const SUB_REF = 'switch_setting';
 // 报告相关常量
 export const REPORT_KEYS = {
   BUTTON: 'button',

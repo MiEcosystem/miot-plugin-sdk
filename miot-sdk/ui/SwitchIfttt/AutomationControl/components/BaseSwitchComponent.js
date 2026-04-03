@@ -7,13 +7,14 @@ import DynamicColor, { dynamicColor } from '../../../Style/DynamicColor';
 import { FontMiSansWRegular } from '../../../../utils/fonts';
 import { adjustSize } from '../../../../utils/sizes';
 import { strings as I18n, Images } from "../../../../resources";
-import { reportAutoSwitchClick } from "../reportUtils";
 import PropTypes from 'prop-types';
 import { ListItem } from 'miot/ui/hyperOSUI';
 import IconSelectDialog from './IconSelectDialog';
 import useSwitchRoomInfo from '../../../../hooks/useSwitchRoomInfo';
 import RenameDialog from './RenameDialog';
 import RoomSelectDialog from './RoomSelectDialog';
+import { reportAutoSwitchClick } from "../reportUtils";
+import { SUB_REF } from '../utils/constants';
 const Styles = dynamicStyleSheet({
   baseSwitchStyle: {
     width: '100%',
@@ -68,7 +69,6 @@ const BaseSwitchComponent = ({
   switchInfo,
   memberId,
   roomName,
-  subRef,
   onIconPress,
 }) => {
   const [iconDialogVisible, setIconDialogVisible] = useState(false);
@@ -78,11 +78,7 @@ const BaseSwitchComponent = ({
   // 懒加载 subClassList：仅在弹窗首次打开时请求
   const subClassListLoadedRef = React.useRef(false);
   const handleEditIconPress = () => {
-    reportAutoSwitchClick({
-      subRef,
-      item_type: 'button',
-      item_name: 'edit_icon',
-    });
+    reportAutoSwitchClick({ subRef: SUB_REF, item_type: 'button', item_name: 'change_icon' });
     if (!subClassListLoadedRef.current) {
       subClassListLoadedRef.current = true;
       Service.callSmartHomeAPI('/v2/device/switch_subclass', {}).then((res) => {
@@ -145,8 +141,14 @@ const BaseSwitchComponent = ({
         <InfoCard
           name={deviceData.name}
           roomName={memberRoomName}
-          onNamePress={() => setRenameDialogVisible(true)}
-          onRoomPress={() => setRoomDialogVisible(true)}
+          onNamePress={() => {
+            reportAutoSwitchClick({ subRef: SUB_REF, item_type: 'button', item_name: 'change_name' });
+            setRenameDialogVisible(true);
+          }}
+          onRoomPress={() => {
+            reportAutoSwitchClick({ subRef: SUB_REF, item_type: 'button', item_name: 'change_room' });
+            setRoomDialogVisible(true);
+          }}
         />
       </View>
       <IconSelectDialog

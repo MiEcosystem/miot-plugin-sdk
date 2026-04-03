@@ -12,7 +12,6 @@ const OtherSmartDeviceCard = ({
   switchButtonType,
   simplifiedMatchedScenes,
   disabled,
-  subRef
 }) => {
   const { click = [] } = simplifiedMatchedScenes || {};
   if (click.length === 0) {

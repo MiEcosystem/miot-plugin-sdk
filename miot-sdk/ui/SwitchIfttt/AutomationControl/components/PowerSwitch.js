@@ -1,10 +1,11 @@
 import React from 'react';
 import { View } from 'react-native';
+import { reportAutoSwitchClick } from "../reportUtils";
+import { SUB_REF } from '../utils/constants';
 import { ListItemWithSwitch } from "mhui-rn";
 import { strings as I18n } from "../../../../resources";
 import { dynamicStyleSheet } from '../../../Style';
 import { dynamicColor } from '../../../Style/DynamicColor';
-import { reportAutoSwitchClick, reportAutoSwitchExpose } from "../reportUtils";
 const Styles = dynamicStyleSheet({
   automationComponentStyle: {
     width: '100%',
@@ -32,24 +33,18 @@ const PowerSwitch = ({
   onSwitchOn,
   onShowDialog,
   disabled,
-  subRef
 }) => {
   const handleValueChange = (value) => {
     if (disabled) return;
     reportAutoSwitchClick({
-      subRef,
+      subRef: SUB_REF,
       item_type: 'button',
       item_name: 'power_switch',
-      item_content: value ? 'on' : 'off'
+      item_content: value ? 'true' : 'false',
     });
     if (!value) {
       // 先设置UI关闭，弹窗后处理设备控制
       onSwitchChange(false);
-      reportAutoSwitchExpose({
-        subRef,
-        item_type: 'dialog',
-        item_name: 'power_switch_comfrim_dialog'
-      });
       onShowDialog();
     } else {
       onSwitchOn ? onSwitchOn(true) : onSwitchChange(true);
