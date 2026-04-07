@@ -47,7 +47,7 @@ export default class SQLiteDemo extends Component {
 
   errorCB = (err) => {
     console.log("error: ", err);
-    this.updateProgress("Error: " + (err.message || err));
+    this.updateProgress(`Error: ${ err.message || err }`);
     return false;
   }
 
@@ -154,23 +154,23 @@ export default class SQLiteDemo extends Component {
 
     tx.executeSql('SELECT a.name, b.name as deptName FROM Employees a, Departments b WHERE a.department = b.department_id and a.department=?', [3],
       this.queryEmployeesSuccess, this.errorCB);
-    //tx.executeSql('SELECT a.name, from TEST', [],() => {},this.errorCB);
+    // tx.executeSql('SELECT a.name, from TEST', [],() => {},this.errorCB);
   }
 
   queryEmployeesSuccess = (tx, results) => {
     this.updateProgress("Query completed");
-    var len = results.rows.length;
+    let len = results.rows.length;
     for (let i = 0; i < len; i++) {
       let row = results.rows.item(i);
-      this.updateProgress(`Empl Name: ${row.name}, Dept Name: ${row.deptName}`);
+      this.updateProgress(`Empl Name: ${ row.name }, Dept Name: ${ row.deptName }`);
     }
   }
 
   loadAndQueryDB = () => {
     this.updateProgress("Opening database ...", true);
-    //创建或者打开一个数据库
-    //db = SQLite.openDatabase(database_name, database_version, database_displayname, database_size, this.openCB, this.errorCB);
-    //从代码中加载一个已有的数据库 米家内部实现，请必须按照这种方式调用，.db文件打包会被过滤掉，可以命名为.html
+    // 创建或者打开一个数据库
+    // db = SQLite.openDatabase(database_name, database_version, database_displayname, database_size, this.openCB, this.errorCB);
+    // 从代码中加载一个已有的数据库 米家内部实现，请必须按照这种方式调用，.db文件打包会被过滤掉，可以命名为.html
     db = SQLite.openDatabase({ name: database_name, createFromLocation: require('../../Resources/Test.html') },
       this.openCB, this.errorCB);
     this.populateDatabase(db);
@@ -201,7 +201,7 @@ export default class SQLiteDemo extends Component {
       <View>
         <Text style={listStyles.liText}>{entry}</Text>
       </View>
-    </View>)
+    </View>);
   }
 
   render = () => {
@@ -232,23 +232,23 @@ var listStyles = StyleSheet.create({
     borderBottomWidth: 0.5,
     paddingTop: 15,
     paddingRight: 15,
-    paddingBottom: 15,
+    paddingBottom: 15
   },
   liContainer: {
     backgroundColor: '#fff',
     flex: 1,
-    paddingLeft: 15,
+    paddingLeft: 15
   },
   liIndent: {
-    flex: 1,
+    flex: 1
   },
   liText: {
     color: '#333',
     fontSize: 17,
     fontWeight: '400',
     marginBottom: -3.5,
-    marginTop: -3.5,
-  },
+    marginTop: -3.5
+  }
 });
 
 var styles = StyleSheet.create({
@@ -256,17 +256,17 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
+    margin: 10
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5,
+    marginBottom: 5
   },
   toolbar: {
     backgroundColor: '#51c04d',
