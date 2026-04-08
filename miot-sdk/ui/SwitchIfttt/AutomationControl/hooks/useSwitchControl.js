@@ -37,7 +37,8 @@ export const useSwitchControl = (props) => {
     currentTagsScene,
     setLoadingVisible,
     onOpenDeviceSceneEditPage,
-    onOpenManualSceneSelectPage
+    onOpenManualSceneSelectPage,
+    onOpenAutomationConfig
   } = props;
   // 开关按钮按下
   const onSwitchButtonPress = (value) => {
@@ -146,21 +147,22 @@ export const useSwitchControl = (props) => {
         await saveWirelessSwitchMode(SwitchType);
         await onSaveSwitchType(SwitchType);
         setSwitchButtonType(SwitchType);
-      } 
+      }
       // 智能灯、开关，跳转二级页面
       else if (SwitchType === SWITCH_DEVICE_TYPE.SMART_LIGHT || SwitchType === SWITCH_DEVICE_TYPE.SMART_SWITCH) {
         onOpenDeviceSceneEditPage(SwitchType);
-      } 
+      }
       // 执行手动控制，跳转二级页面，type 由详情页确认后写入
       else if (SwitchType === SWITCH_DEVICE_TYPE.MANUAL_SCENE) {
         const isTypeChange = SwitchType !== switchButtonType;
         onOpenManualSceneSelectPage(isTypeChange);
-      } 
-      // 其他智能设备，兜底方案，暂不做改动
+      }
+      // 其他智能设备，保存类型后打开自动化配置编辑器
       else if (SwitchType === SWITCH_DEVICE_TYPE.OTHER_SMART_DEVICE) {
         await saveWirelessSwitchMode(SwitchType);
         await onSaveSwitchType(SwitchType);
         setSwitchButtonType(SwitchType);
+        onOpenAutomationConfig();
       }
     } catch (error) {
       console.log('提交开关类型失败', error);

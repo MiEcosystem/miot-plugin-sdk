@@ -247,12 +247,14 @@ export const InfoCard = ({ name, roomName, onNamePress, onRoomPress }) => (
       title={I18n.switch_layoutDetail_name}
       value={name}
       hideRightIcon={ false }
+      actionType="navigate"
       onPress={ onNamePress }
     />
     <ListItem 
       title={I18n.switch_layoutDetail_room} 
       value={roomName}
       hideRightIcon={ false }
+      actionType="navigate"
       onPress={ onRoomPress }
     />
   </View>
