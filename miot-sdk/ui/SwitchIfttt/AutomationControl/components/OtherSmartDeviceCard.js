@@ -22,7 +22,8 @@ const OtherSmartDeviceCard = ({
       scene_type: 2,
       scene_id: item.scene_id,
       template_id: item.template_id,
-      edit_from: 1
+      edit_from: 1,
+      ignore_plugin_id: true,
     });
   };
   return (
