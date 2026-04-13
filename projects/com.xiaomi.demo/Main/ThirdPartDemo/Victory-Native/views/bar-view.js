@@ -45,7 +45,7 @@ export default class extends React.Component {
           padding={75}
           style={{
             data: {
-              fill: data => (data.y > 2 ? "red" : "blue")
+              fill: (data) => (data.y > 2 ? "red" : "blue")
             }
           }}
           data={[

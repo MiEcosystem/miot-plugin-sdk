@@ -1,0 +1,97 @@
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @flow
+ * @format
+ */
+
+const Platform = require('../../Utilities/Platform');
+const React = require('react');
+const View = require('../View/View');
+const StyleSheet = require('../../StyleSheet/StyleSheet');
+const NativeModules = require('../../BatchedBridge/NativeModules');
+
+import type {NativeComponent} from '../../Renderer/shims/ReactNative';
+import type {ViewProps} from '../View/ViewPropTypes';
+
+type Props = $ReadOnly<{|
+...ViewProps,
+  emulateUnlessSupported?: boolean,
+|}>;
+
+let exported: Class<React$Component<Props>> | Class<NativeComponent<Props>>;
+
+/**
+ * Renders nested content and automatically applies paddings reflect the portion
+ * of the view that is not covered by navigation bars, tab bars, toolbars, and
+ * other ancestor views.
+ *
+ * Moreover, and most importantly, Safe Area's paddings reflect physical
+ * limitation of the screen, such as rounded corners or camera notches (aka
+ * sensor housing area on iPhone X).
+ */
+if (Platform.OS === 'android') {
+  const SafeAreaView = (
+    props: Props,
+    forwardedRef?: ?React.Ref<typeof View>,
+) => {
+    const {style, emulateUnlessSupported, ...localProps} = props;
+    console.log("NativeModules?.MIOTHost.systemInfo.addTop",NativeModules?.MIOTHost?.systemInfo?.addSaveAreaTop);
+    const addSaveAreaTop = Number(NativeModules?.MIOTHost?.systemInfo?.addSaveAreaTop) || 0
+    // Step 1: 安全 flatten 所有 style
+    const flattenedStyle = StyleSheet.flatten(style) || {};
+
+    // Step 2: 按优先级解析原始 paddingTop 值
+    let originalPaddingTop: number;
+
+    if (flattenedStyle.paddingTop != null) {
+      // 显式设置了 paddingTop → 最高优先级
+      originalPaddingTop = flattenedStyle.paddingTop;
+    } else if (flattenedStyle.paddingVertical != null) {
+      // 没有 paddingTop，但有 paddingVertical
+      originalPaddingTop = flattenedStyle.paddingVertical;
+    } else if (flattenedStyle.padding != null) {
+      // 只有 padding
+      originalPaddingTop = flattenedStyle.padding;
+    } else {
+      // 都没设置
+      originalPaddingTop = 0;
+    }
+
+    // Step 3: 构造新样式：保留原样式 + 覆盖 paddingTop
+    const enhancedStyle = [
+      flattenedStyle,
+      { paddingTop: originalPaddingTop + addSaveAreaTop},
+    ];
+    return <View {...localProps} style={enhancedStyle} ref={forwardedRef} />;
+  };
+
+  const SafeAreaViewRef = React.forwardRef(SafeAreaView);
+  SafeAreaViewRef.displayName = 'SafeAreaView';
+  exported = ((SafeAreaViewRef: any): Class<React.Component<Props>>);
+} else {
+  const RCTSafeAreaViewNativeComponent = require('./RCTSafeAreaViewNativeComponent')
+    .default;
+
+  const SafeAreaView = (
+    props: Props,
+    forwardedRef?: ?React.Ref<typeof RCTSafeAreaViewNativeComponent>,
+) => {
+    return (
+      <RCTSafeAreaViewNativeComponent
+        emulateUnlessSupported={true}
+        {...props}
+        ref={forwardedRef}
+      />
+    );
+  };
+
+  const SafeAreaViewRef = React.forwardRef(SafeAreaView);
+  SafeAreaViewRef.displayName = 'SafeAreaView';
+  exported = ((SafeAreaViewRef: any): Class<NativeComponent<Props>>);
+}
+
+module.exports = exported;
