@@ -22,18 +22,18 @@ const SeparatorDemo = ({ navigation }) => {
         <Text style={styles.text}>标题</Text>
         <Stepper
           step={0.5}
-          symbolType="celsius"
-          suffix={<Cold fill={colorToken.accentBlueFill} />}
+          symbolType="degree"
+          suffixSubscript={<Cold fill={colorToken.accentBlueFill} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
           max={30}
         />
-        <Separator style={styles.separator1} />
+        <Separator/>
         <Stepper
           step={0.5}
-          symbolType="celsius"
-          suffix={<Cold fill={colorToken.accentBlueFill} />}
+          symbolType="degree"
+          suffixSubscript={<Cold fill={colorToken.accentBlueFill} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
@@ -43,18 +43,20 @@ const SeparatorDemo = ({ navigation }) => {
       <View style={styles.sectionContainer}>
         <Stepper
           step={0.5}
-          symbolType="celsius"
-          suffix={<Cold fill={colorToken.accentBlueFill} />}
+          symbolType="degree"
+          suffixSubscript={<Cold fill={colorToken.accentBlueFill} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
           max={30}
         />
-        <Separator style={styles.separator2}/>
+        <View style={{ paddingHorizontal: 20 }}>
+          <Separator/>
+        </View>
         <Stepper
           step={0.5}
-          symbolType="celsius"
-          suffix={<Cold fill={colorToken.accentBlueFill} />}
+          symbolType="degree"
+          suffixSubscript={<Cold fill={colorToken.accentBlueFill} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}

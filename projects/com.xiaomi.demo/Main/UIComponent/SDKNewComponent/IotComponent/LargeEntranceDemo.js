@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { LargeListEntrance, colorToken, Fonts, SubtitleGroup } from 'miot/ui/hyperOSUI';
+import { LargeListEntrance, colorToken, Fonts, SubtitleGroup, TestComponent } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle } from 'miot/ui/icons';
 
@@ -42,6 +42,19 @@ const LargeEntranceDemo = () => {
             <LargeListEntrance key={index} {...item} disabled={disabled} />
           ))}
         </View>
+        <Text style={[styles.header, { marginTop: 12 }]}>LargeListEntrance - 配置调试</Text>
+        <TestComponent
+          component={LargeListEntrance}
+          propConfigs={[
+            { name: 'title', type: 'string', defaultValue: '列表主文字' },
+            { name: 'subtitle', type: 'string', defaultValue: '列表副文字' },
+            { name: 'value', type: 'string', defaultValue: '状态' },
+            { name: 'disabled', type: 'boolean', defaultValue: false },
+            { name: 'badge', type: 'boolean', defaultValue: false },
+            { name: 'onPress', type: 'pass', defaultValue: () => {} },
+            { name: 'leadingIcon', type: 'pass', defaultValue: <Circle fill={colorToken.contentPrimaryNormal} /> },
+          ]}
+        />
       </View>
     </ScrollView>
   );

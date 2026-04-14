@@ -27,22 +27,22 @@ export function BrandComponent(props) {
 }
 const styles = dynamicStyleSheet({
   container: {
-    paddingVertical: 28
+    paddingVertical: 28,
   },
   button: {
     flexDirection: 'row',
-    backgroundColor: colorToken.mj_color_gray_card_3,
+    backgroundColor: colorToken.surfaceCardSubtle,
     borderRadius: 18,
     height: 36,
     paddingVertical: 10,
     paddingHorizontal: 14,
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   text: {
     lineHeight: 16,
-    color: colorToken.mj_color_gray_text_5,
-    ...Fonts.mj_text_custom_12_M
-  }
+    color: colorToken.contentQuaternaryNormal,
+    ...Fonts.fontSystem12Medium,
+  },
 });

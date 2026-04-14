@@ -19,9 +19,9 @@ const propConfigs = [
   { name: 'formatter', type: 'pass', passDescription: '格式化函数: (value?: string) => string，如: (v) => `${v}kg`', defaultValue: () => ('频道1') },
   { name: 'prefix', type: 'pass', passDescription: '可选: React.ReactNode', defaultValue: <Cold fill={colorToken.accentBlueFill} /> },
   { name: 'suffix', type: 'pass', passDescription: '可选: React.ReactNode', defaultValue: <Percent fill={colorToken.accentBlueFill} /> },
-  { name: 'iconType', type: 'enum', enumOptions: ['symbol', 'direction'], defaultValue: 'symbol' },
+  { name: 'iconType', type: 'enum', enumOptions: ['plusMinus', 'leftRight'], defaultValue: 'plusMinus' },
   { name: 'disabled', type: 'boolean', defaultValue: false },
-  { name: 'symbolType', type: 'enum', enumOptions: ['percent', 'celsius', 'custom'], defaultValue: 'custom' },
+  { name: 'symbolType', type: 'enum', enumOptions: ['percent', 'degree', 'custom'], defaultValue: 'custom' },
 ];
 
 const alert = Alert.alert;
@@ -43,8 +43,8 @@ const StepperDemo = ({ navigation }) => {
         <Text style={styles.text}>标题</Text>
         <Stepper
           step={0.5}
-          symbolType="celsius"
-          suffix={<Cold fill={colorToken.accentBlueFill} />}
+          symbolType="degree"
+          suffixSubscript={<Cold fill={colorToken.accentBlueFill} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
@@ -55,13 +55,13 @@ const StepperDemo = ({ navigation }) => {
       <View style={styles.stepperContainer} >
         <Stepper
           step={0.5}
-          symbolType="celsius"
-          suffix={<Cold fill={colorToken.accentBlueFill} />}
+          symbolType="degree"
+          suffixSubscript={<Cold fill={colorToken.accentBlueFill} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
           max={30}
-          iconType={'direction'}
+          iconType={'leftRight'}
         />
       </View>
       <Text style={styles.title}>中间状态可配置</Text>
@@ -115,8 +115,8 @@ const StepperDemo = ({ navigation }) => {
       <View style={styles.stepperContainer} >
         <Stepper
           step={0.5}
-          symbolType="celsius"
-          suffix={<Cold fill={colorToken.contentTertiaryNormal} />}
+          symbolType="degree"
+          suffixSubscript={<Cold fill={colorToken.contentTertiaryNormal} />}
           value={targetTemperature}
           disabled={true}
           onChange={setTargetTemperature}

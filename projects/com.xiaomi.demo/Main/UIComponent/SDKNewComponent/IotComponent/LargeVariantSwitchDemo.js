@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { LargeListToggle, colorToken, Fonts, SubtitleGroup } from 'miot/ui/hyperOSUI';
+import { LargeListToggle, colorToken, Fonts, SubtitleGroup, TestComponent } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle } from 'miot/ui/icons';
 
@@ -55,6 +55,20 @@ const LargeVariantSwitchDemo = () => {
             />
           ))}
         </View>
+        <Text style={[styles.header, { marginTop: 12 }]}>LargeListToggle - 配置调试</Text>
+        <TestComponent
+          component={LargeListToggle}
+          propConfigs={[
+            { name: 'title', type: 'string', defaultValue: '列表主文字' },
+            { name: 'subtitle', type: 'string', defaultValue: '列表副文字' },
+            { name: 'checked', type: 'boolean', defaultValue: false },
+            { name: 'disabled', type: 'boolean', defaultValue: false },
+            { name: 'colorType', type: 'enum', enumOptions: ['green', 'blue', 'wathet', 'purple', 'orange'], defaultValue: 'green' },
+            { name: 'onChange', type: 'pass', defaultValue: (val) => {}, linkTo: { targetProp: 'checked' } },
+            { name: 'onPress', type: 'pass', defaultValue: () => {} },
+            { name: 'leadingIcon', type: 'pass', defaultValue: <Circle fill={colorToken.contentPrimaryNormal} /> },
+          ]}
+        />
       </View>
     </ScrollView>
   );
