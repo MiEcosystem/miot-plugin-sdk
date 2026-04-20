@@ -35,8 +35,12 @@ map.set("node_modules/react-navigation/src/views/TouchableItem.js", "ReactNaviga
 map.set("node_modules/react-navigation-stack/dist/views/TouchableItem.js", "ReactNavigationTouchableItem");
 /** 修复了react-native-svg无法正常显示DynamicColor的BUG */
 map.set("node_modules/react-native-svg/lib/extract/extractBrush.js", "svgExtractBrush");
-map.set("node_modules/react-native-safe-area-view/index.js", "react-safeAreaView");// 修复navigationBar中使用的safeAreaView不支持iphone12系列的bug
 map.set("node_modules/react-navigation/src/routers/StackRouter.js", "StackRouter");
+// 修复 react-navigation 和 react-native-safe-area-view 导航栏高度问题，针对iphonex适配
+map.set("node_modules/react-native-safe-area-view/index.js", "react-safeAreaView");// 修复navigationBar中使用的safeAreaView不支持iphone12系列的bug
+map.set("node_modules/react-navigation/node_modules/react-native-safe-area-view/index.js", "react-native-safe-area-view");
+// 修复FlatList 系列组件scrollToIndex 参数与数据不匹配时崩溃的情况
+map.set("node_modules/react-native/Libraries/Lists/VirtualizedList.js", "VirtualizedList");
 
 module.exports = {
 
