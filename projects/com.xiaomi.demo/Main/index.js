@@ -20,7 +20,7 @@ import {
   FirmwareUpgradeAuto,
   FirmwareUpgradeRecord,
   MoreSetting,
-  CurtainGroupPage
+  CurtainGroupPage,
 } from "miot/ui/CommonSetting";
 import BTInterconnection from "miot/ui/BTInterconnection";
 import BraceletInterconnection from "miot/ui/BraceletInterconnection";
@@ -147,30 +147,29 @@ import BasicDemo from "./UIComponent/SDKNewComponent/BasicComponent/BasicDemo";
 import FontsDemo from "./UIComponent/SDKNewComponent/BasicComponent/FontsDemo";
 import ColorDemo from "./UIComponent/SDKNewComponent/BasicComponent/ColorDemo";
 import RadiusDemo from "./UIComponent/SDKNewComponent/BasicComponent/RadiusDemo";
-import DialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/DialogDemo";
-import HandPopDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopDemo";
-import HandPopCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopCustomDemo";
-import HandPopClickDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopClickDemo";
-import HandPopTriggerDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopTriggerDemo";
-import LoadingDemo from "./UIComponent/SDKNewComponent/BasicComponent/LoadingDemo";
-import ListDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListDemo";
-import ListItemDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListItemDemo";
-import ListGroupDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListGroupDemo";
-import ButtonDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonDemo";
-import ButtonColorDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonColorDemo";
-import ButtonCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonCustomDemo";
-import ButtonPageViewDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonPageViewDemo";
+// import DialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/DialogDemo";
+// import HandPopDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopDemo";
+// import HandPopCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopCustomDemo";
+// import HandPopClickDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopClickDemo";
+// import HandPopTriggerDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopTriggerDemo";
+// import LoadingDemo from "./UIComponent/SDKNewComponent/BasicComponent/LoadingDemo";
+// import ListDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListDemo";
+// import ListItemDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListItemDemo";
+// import ListGroupDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListGroupDemo";
+// import ButtonDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonDemo";
+// import ButtonColorDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonColorDemo";
+// import ButtonCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonCustomDemo";
+// import ButtonPageViewDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonPageViewDemo";
 import AtomicDemo from "./UIComponent/SDKNewComponent/BasicComponent/AtomicDemo";
-import ToastDemo from "./UIComponent/SDKNewComponent/BasicComponent/ToastDemo";
+// import ToastDemo from "./UIComponent/SDKNewComponent/BasicComponent/ToastDemo";
 // Iot 组件
 import IotComponentDemo from "./UIComponent/SDKNewComponent/IotComponent/IotComponentDemo";
-import StructureDemo from "./UIComponent/SDKNewComponent/IotComponent/StructureDemo";
-import ControlerDemo from "./UIComponent/SDKNewComponent/IotComponent/ControlerDemo";
-import EntryDemo from "./UIComponent/SDKNewComponent/IotComponent/EntryDemo";
+// import StructureDemo from "./UIComponent/SDKNewComponent/IotComponent/StructureDemo";
+// import ControlerDemo from "./UIComponent/SDKNewComponent/IotComponent/ControlerDemo";
+// import EntryDemo from "./UIComponent/SDKNewComponent/IotComponent/EntryDemo";
 import LargeEntranceDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeEntranceDemo";
 import StepperDemo from "./UIComponent/SDKNewComponent/IotComponent/StepperDemo";
 import LargeVariantSwitchDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeVariantSwitchDemo";
-// import SmartSceneDemo from "./UIComponent/SDKNewComponent/IotComponent/SmartSceneDemo";
 import SeparatorDemo from "./UIComponent/SDKNewComponent/IotComponent/SeparatorDemo";
 // 第三方库
 import SQLiteDemo from "./ThirdPartDemo/SQLiteDemo";
@@ -213,7 +212,7 @@ import SVGDemo from "./ThirdPartDemo/SVGDemo";
 import {
   GroupExample,
   HoverExample,
-  PressExample
+  PressExample,
 } from "./ThirdPartDemo/SVGDemo2";
 import LegendsView from "./ThirdPartDemo/Victory-Native/views/legends-view";
 import AxisView from "./ThirdPartDemo/Victory-Native/views/axis-view";
@@ -283,33 +282,32 @@ function createRootStack(initPage) {
       BasicComponentDemo,
       BasicDemo,
       AtomicDemo,
-      ButtonDemo,
-      ToastDemo,
-      ButtonColorDemo,
-      ButtonCustomDemo,
-      ButtonPageViewDemo,
+      // ButtonDemo,
+      // ToastDemo,
+      // ButtonColorDemo,
+      // ButtonCustomDemo,
+      // ButtonPageViewDemo,
       SdkComponentDemo,
       ColorDemo,
       RadiusDemo,
-      DialogDemo,
-      HandPopDemo,
-      HandPopClickDemo,
-      HandPopCustomDemo,
-      HandPopTriggerDemo,
+      // DialogDemo,
+      // HandPopDemo,
+      // HandPopClickDemo,
+      // HandPopCustomDemo,
+      // HandPopTriggerDemo,
       FontsDemo,
-      LoadingDemo,
-      ListDemo,
-      ListItemDemo,
-      ListGroupDemo,
+      // LoadingDemo,
+      // ListDemo,
+      // ListItemDemo,
+      // ListGroupDemo,
       // Iot 组件
       IotComponentDemo,
-      ControlerDemo,
-      StructureDemo,
-      EntryDemo,
+      // ControlerDemo,
+      // StructureDemo,
+      // EntryDemo,
       LargeEntranceDemo,
       StepperDemo,
       LargeVariantSwitchDemo,
-      // SmartSceneDemo,
       SeparatorDemo,
       // FirmwareUpgradeAuto,
       FirmwareUpgradeRecord,
@@ -521,7 +519,7 @@ function createRootStack(initPage) {
       // 米家iOS 自定义第三方库<
 
       // 官方Demo
-      OfficialDemos
+      OfficialDemos,
     },
     {
       initialRouteName: initPage,
@@ -541,18 +539,18 @@ function createRootStack(initPage) {
                     key: NavigationBar.ICON.BACK,
                     onPress: () => navigation.goBack(),
                     accessibilityLabel: "返回",
-                    accessibilityHint: "返回上一页"
-                  }
+                    accessibilityHint: "返回上一页",
+                  },
                 ]
               }
               right={params.right || []}
             />
-          )
+          ),
         };
       },
       transitionConfig: () => ({
-        screenInterpolator: interpolator
-      })
+        screenInterpolator: interpolator,
+      }),
     }
   );
 }
@@ -573,7 +571,7 @@ function interpolator(props) {
       const translate = focused ? 0 : 1000000;
       return {
         opacity,
-        transform: [{ translateX: translate }, { translateY: translate }]
+        transform: [{ translateX: translate }, { translateY: translate }],
       };
     };
   }
@@ -599,7 +597,7 @@ function interpolator(props) {
       ) {
         return {
           first: Math.min(targetSceneIndex, index - 1),
-          last: index + 1
+          last: index + 1,
         };
       } else if (
         index === targetSceneIndex &&
@@ -607,7 +605,7 @@ function interpolator(props) {
       ) {
         return {
           first: index - 1,
-          last: Math.max(lastSceneIndex, index + 1)
+          last: Math.max(lastSceneIndex, index + 1),
         };
       } else if (
         index === targetSceneIndex ||
@@ -629,20 +627,20 @@ function interpolator(props) {
   const index = scene.index;
   const opacity = position.interpolate({
     inputRange: [first, first + 0.01, index, last - 0.01, last],
-    outputRange: [0, 1, 1, 0.85, 0]
+    outputRange: [0, 1, 1, 0.85, 0],
   });
 
   const width = layout.initWidth;
   const translateX = position.interpolate({
     inputRange: [first, index, last],
     // outputRange: false ? [-width, 0, width * 0.3] : [width, 0, width * -0.3]
-    outputRange: [width, 0, width * -0.3]
+    outputRange: [width, 0, width * -0.3],
   });
   const translateY = 0;
 
   return {
     opacity,
-    transform: [{ translateX }, { translateY }]
+    transform: [{ translateX }, { translateY }],
   };
 }
 

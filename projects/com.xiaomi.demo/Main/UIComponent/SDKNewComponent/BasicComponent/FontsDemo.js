@@ -1,156 +1,110 @@
 'use strict';
 
-import React, { Component } from 'react';
+import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { colorToken, Fonts } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui';
 
-const FONT_SECTIONS = [
-  {
-    title: '大标题',
-    items: [
-      'mj_text_title_1_R',
-      'mj_text_title_2_M',
-      'mj_text_title_3_M',
-      'mj_text_title_3_R',
-      'mj_text_title_4_M'
-    ]
-  },
-  {
-    title: '子标题',
-    items: [
-      'mj_text_subtitle_1_M',
-      'mj_text_subtitle_2_M',
-      'mj_text_subtitle_3_M',
-      'mj_text_subtitle_3_R',
-      'mj_text_subtitle_4_M'
-    ]
-  },
-  {
-    title: '按钮',
-    items: [
-      'mj_text_button_1_M',
-      'mj_text_button_2_M',
-      'mj_text_button_3_R',
-      'mj_text_button_4_R'
-    ]
-  },
-  {
-    title: '主标题',
-    items: [
-      'mj_text_headline_1_M',
-      'mj_text_headline_1_R',
-      'mj_text_headline_2_M'
-    ]
-  },
-  {
-    title: '正文',
-    items: [
-      'mj_text_body_1_R',
-      'mj_text_body_2_R'
-    ]
-  },
-  {
-    title: '注释',
-    items: [
-      'mj_text_footnote_1_R',
-      'mj_text_footnote_2_R',
-      'mj_text_footnote_3_R',
-      'mj_text_footnote_4_R',
-      'mj_text_footnote_5_R'
-    ]
-  },
-  {
-    title: '自定义',
-    items: [
-      'mj_text_custom_32_M',
-      'mj_text_custom_26_M',
-      'mj_text_custom_24_M',
-      'mj_text_custom_20_M',
-      'mj_text_custom_20_R',
-      'mj_text_custom_18_M',
-      'mj_text_custom_18_R',
-      'mj_text_custom_16_M',
-      'mj_text_custom_16_R',
-      'mj_text_custom_15_M',
-      'mj_text_custom_15_R',
-      'mj_text_custom_14_M',
-      'mj_text_custom_14_R',
-      'mj_text_custom_13_M',
-      'mj_text_custom_13_R',
-      'mj_text_custom_12_M',
-      'mj_text_custom_12_R',
-      'mj_text_custom_11_M',
-      'mj_text_custom_11_R',
-      'mj_text_custom_10_M',
-      'mj_text_custom_10_R'
-    ]
-  },
-  {
-    title: '数值',
-    additionalString: ['28 °', '26 °', '24 °'],
-    items: [
-      'mj_text_num_28_D',
-      'mj_text_num_26_D',
-      'mj_text_num_24_D'
-    ]
-  }
+const SYSTEM_FONTS = [
+  'fontSystem10Medium', 'fontSystem10Regular',
+  'fontSystem11Medium', 'fontSystem11Regular',
+  'fontSystem12Medium', 'fontSystem12Regular',
+  'fontSystem13Medium', 'fontSystem13Regular',
+  'fontSystem14Medium', 'fontSystem14Regular',
+  'fontSystem15Medium', 'fontSystem15Regular',
+  'fontSystem16Medium', 'fontSystem16Regular',
+  'fontSystem17Medium', 'fontSystem17Regular',
+  'fontSystem18Medium', 'fontSystem18Regular',
+  'fontSystem20Medium', 'fontSystem20Regular',
+  'fontSystem22Medium', 'fontSystem22Regular',
+  'fontSystem24Medium',
+  'fontSystem26Medium',
+  'fontSystem32Medium', 'fontSystem32Regular',
 ];
 
-class SupportedFont extends Component {
-    renderText = (name, text) => {
-      return (
-        <View key={name} style={styles.item}>
-          <Text key={name} style={[styles.demoText, text ? {} : Fonts[name]]}>
-            {name}
-          </Text>
-          {text ? <Text key={text} style={[styles.demoText, Fonts[name]]}>
-            {text}
-          </Text> : null}
+const NUMERIC_FONTS = [
+  'fontNumber24Demibold',
+  'fontNumber26Demibold',
+  'fontNumber28Demibold',
+];
+
+const FontItem = ({ name }) => (
+  <View style={styles.item}>
+    <Text style={[Fonts[name], styles.sample]}>{name.replace('fontSystem', '').replace('fontNumber', '')}</Text>
+    <View style={styles.tokenChip}>
+      <Text style={styles.tokenName}>{name}</Text>
+    </View>
+  </View>
+);
+
+const FontsDemo = () => (
+  <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
+    <Text style={styles.heading}>systemFont</Text>
+    <View style={styles.list}>
+      {SYSTEM_FONTS.map((name, index) => (
+        <View key={name} style={[styles.itemWrapper, index > 0 && styles.itemBorder]}>
+          <FontItem name={name} />
         </View>
-      ); 
-    };
+      ))}
+    </View>
 
-    renderSection = ({ title, items, additionalString }) => (
-      <View key={title}>
-        <Text style={styles.sectionLabel}>{title}</Text>
-        {items.map((item, index) => {
-          return this.renderText(item, additionalString ? additionalString[index] : '');
-        })}
-      </View>
-    );
-
-    render() {
-      return (
-        <ScrollView style={styles.container}>
-          {FONT_SECTIONS.map(this.renderSection)}
-          <View style={{ height: 80 }} />
-        </ScrollView>
-      );
-    }
-}
+    <Text style={styles.heading}>customNumericFont</Text>
+    <View style={styles.list}>
+      {NUMERIC_FONTS.map((name, index) => (
+        <View key={name} style={[styles.itemWrapper, index > 0 && styles.itemBorder]}>
+          <FontItem name={name} />
+        </View>
+      ))}
+    </View>
+  </ScrollView>
+);
 
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: colorToken.mj_color_gray_bg_2,
-    paddingTop: 30,
-    paddingHorizontal: 20
+    flex: 1,
+    backgroundColor: colorToken.surfacePageLow,
+  },
+  scrollContent: {
+    padding: 20,
+    paddingBottom: 32,
+  },
+  heading: {
+    fontSize: 14,
+    color: colorToken.contentPrimaryNormal,
+    marginBottom: 12,
+    marginTop: 20,
+  },
+  list: {
+    backgroundColor: colorToken.surfaceCardPrimary,
+    borderRadius: 16,
+    overflow: 'hidden',
+  },
+  itemWrapper: {
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+  },
+  itemBorder: {
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(0, 0, 0, 0.1)',
   },
   item: {
-    flexDirection: 'row',
-    alignItems: 'center'
+    flexDirection: 'column',
   },
-  sectionLabel: {
-    fontSize: 14,
-    color: colorToken.mjcard_color_miui_2,
-    fontWeight: '600',
-    marginTop: 28,
-    marginBottom: 12
+  sample: {
+    color: colorToken.contentPrimaryNormal,
+    marginBottom: 8,
   },
-  demoText: {
-    color: colorToken.mj_color_gray_text_1,
-    marginBottom: 8
-  }
+  tokenChip: {
+    alignSelf: 'flex-start',
+    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+    borderRadius: 10,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+  },
+  tokenName: {
+    fontSize: 11,
+    color: colorToken.contentTertiaryNormal,
+  },
 });
 
-export default SupportedFont;
+export default FontsDemo;
