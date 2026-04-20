@@ -63,7 +63,8 @@ const DialogManager = ({
       {/* 电源开关确认弹窗 */}
       <MessageDialog
         visible={messageVisible}
-        contentText={I18n.switch_autoCtrl_powerSwitch_confirmOff_desc}
+        title={I18n.switch_autoCtrl_powerSwitch_confirmOff_desc}
+        contentType={'none'}
         onDismiss={onDismissMessage}
         buttons={[
           {
@@ -165,6 +166,7 @@ const DialogManager = ({
       />
       {/* 有线模式下已有自动化提示弹窗 */}
       <MessageDialog
+        contentType={'none'}
         visible={!!wirelessHintDialogVisible}
         contentText={I18n.switch_autoCtrl_wirelessHint_title}
         onDismiss={onDismissWirelessHint}

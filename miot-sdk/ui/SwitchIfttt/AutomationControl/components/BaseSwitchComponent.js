@@ -206,9 +206,9 @@ export const InfoRow = ({ label, value, onPress }) => (
     onPress={onPress}
   >
     <View style={InfoStyles.infoRow}>
-      <Text style={[Fonts.fontSystem16Medium, InfoStyles.infoRowLabel]} numberOfLines={1}>{label}</Text>
+      <Text style={[Fonts.fontSystem16Medium, InfoStyles.infoRowLabel]} numberOfLines={3}>{label}</Text>
       <View style={InfoStyles.infoRowRight}>
-        <Text style={[Fonts.fontSystem14Regular, InfoStyles.infoRowValue]} numberOfLines={1}>{value}</Text>
+        <Text style={[Fonts.fontSystem14Regular, InfoStyles.infoRowValue]} numberOfLines={3}>{value}</Text>
         <Right width={18} height={18} fill={dynamicColor('rgba(0,0,0,0.3)', 'rgba(255,255,255,0.3)')} />
       </View>
     </View>
@@ -279,7 +279,7 @@ const InfoStyles = dynamicStyleSheet({
   },
   infoRow: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     paddingHorizontal: 17,
     paddingVertical: 12,
     minHeight: 56,
@@ -287,14 +287,18 @@ const InfoStyles = dynamicStyleSheet({
   infoRowLabel: {
     flex: 1,
     paddingLeft: 3,
+    marginRight: 10,
+    paddingTop: 1,
     color: new DynamicColor('rgba(0,0,0,1)', 'rgba(255,255,255,0.95)'),
   },
   infoRowRight: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingTop: 1,
   },
   infoRowValue: {
     color: new DynamicColor('rgba(0,0,0,0.4)', 'rgba(255,255,255,0.4)'),
-    marginRight: 4,
+    textAlign: 'right',
+    maxWidth: 87,
   },
 });

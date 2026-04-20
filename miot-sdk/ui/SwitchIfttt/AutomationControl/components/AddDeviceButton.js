@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableHighlight, Image } from 'react-native';
+import DarkMode from 'miot/darkmode';
 import { dynamicColor } from "../../../Style";
 import { Fonts } from 'miot/ui/hyperOSUI';
 import { strings as I18n } from "../../../../resources";
@@ -11,6 +12,9 @@ import Illustration from '../Images/svg/Illustration';
  * 用于普通设备模式下展示"添加设备"入口
  */
 const AddDeviceButton = ({ onPress, style, disabled }) => {
+  const isDark = DarkMode.getColorScheme() !== 'light';
+  const fill = isDark ? 'rgba(12, 206, 148, 0.1)' : 'rgba(0, 186, 124, 0.15)';
+  const fillBack = isDark ? 'rgba(12, 206, 148, 1)': 'rgba(0, 186, 124, 1)'
   return (
     <TouchableHighlight
       style={{ width: '100%' }}
@@ -20,9 +24,18 @@ const AddDeviceButton = ({ onPress, style, disabled }) => {
         onPress && onPress();
       }}>
       <View style={[Styles.container, style]}>
-        <Illustration style={[disabled && Styles.iconDisabled]} width={50} height={50} fill={colorToken.accentGreenSubtle} color={colorToken.accentGreenFill} />
+        <Illustration
+          style={[disabled && Styles.iconDisabled]}
+          width={50}
+          height={50}
+          fill={fill}
+          fillBack={fillBack}
+        />
         <View style={Styles.titleContainer}>
-          <Text style={[Styles.titleStyle, disabled && Styles.titleDisabled]} numberOfLines={3}>{I18n.automation_add_control_device}</Text>
+          <Text style={[Styles.titleStyle, disabled && Styles.titleDisabled]}
+            numberOfLines={3}>
+            {I18n.automation_add_control_device}
+          </Text>
         </View>
       </View>
     </TouchableHighlight>
@@ -38,7 +51,6 @@ const Styles = {
     paddingVertical: 6,
     alignItems: "center",
     marginTop: 10,
-    
   },
   titleStyle: {
     ...Fonts.fontSystem15Medium,

@@ -72,6 +72,7 @@ const PowerSwitch = ({
           showSeparator={false}
         /> */}
         <ListItemWithWidget
+          key={String(switchStatus)}
           widgetType="switch"
           title={I18n.switch_autoCtrl_powerSwitch_title}
           checked={switchStatus}
