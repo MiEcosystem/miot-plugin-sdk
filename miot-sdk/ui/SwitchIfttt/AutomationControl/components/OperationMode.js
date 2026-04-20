@@ -41,8 +41,8 @@ const Styles = dynamicStyleSheet({
   sectionTitle: {
     fontSize: 13,
     height: 20,
-    marginBottom: 8,
-    paddingHorizontal: 20,
+    marginBottom: 6,
+    paddingHorizontal: 32,
     marginTop: 8,
     color: new DynamicColor('#8C9DB0', '#92A1B4')
   }

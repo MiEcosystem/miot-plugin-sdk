@@ -51,7 +51,7 @@ export const useSceneData = (switchClickSpec, specButtonType, switchSpec, homeId
     sceneLoading
   } = useTriggerSceneList(clickTrigger, homeId, MIOT_SWITCH_SCENE_TAGS);
   // 手动场景列表
-  const manualSceneList = useManualSceneList({});
+  const { list: manualSceneList, loaded: manualSceneListLoaded } = useManualSceneList({});
   // 家庭设备列表
   const homeDeviceList = useHomeDeviceList();
   // 当前标签场景
@@ -142,6 +142,7 @@ export const useSceneData = (switchClickSpec, specButtonType, switchSpec, homeId
     const findScenes = (tcaItem) => {
       if (!tcaItem?.sc_id) return [];
       return allScenesV2.filter((scene) => {
+        if (scene.enable === false) return false;
         const triggers = scene?.scene_trigger?.triggers || [];
         return triggers.some((trigger) =>
           trigger.src === 'device' &&
@@ -208,11 +209,11 @@ export const useSceneData = (switchClickSpec, specButtonType, switchSpec, homeId
     };
     buildSimplified();
   }, [matchedScenes, homeDeviceList]);
-  // 当前标签场景
+  // 当前标签场景（过滤掉已关闭的自动化）
   useDeepCompareEffect(() => {
     if (tagsSceneList && mountedState()) {
       setCurrentTagsScene(tagsSceneList.find((tagScene) => {
-        return findSpecificTriggerScene(tagScene, clickTriggers);
+        return tagScene.enable !== false && findSpecificTriggerScene(tagScene, clickTriggers);
       }) || {});
     }
   }, [tagsSceneList, mountedState()]);
@@ -241,20 +242,15 @@ export const useSceneData = (switchClickSpec, specButtonType, switchSpec, homeId
   }, [currentTagsScene, mountedState(), homeDeviceList]);
   // 关联手动场景
   useDeepCompareEffect(() => {
-    if (
-      manualSceneList.length &&
-      currentTagsScene &&
-      mountedState() &&
-      switchDeviceSettings?.[getSwitchTypeDeviceSettingKey(switchSpec)] === SWITCH_DEVICE_TYPE.MANUAL_SCENE
-    ) {
-      const { payload_json } = currentTagsScene.scene_action?.actions?.[0] || {};
-      setRelatedManualScene(
-        payload_json?.scene_id
-          ? manualSceneList.find((s) => payload_json?.scene_id === s?.scene_id) || {}
-          : {}
-      );
+    const isManualScene = switchDeviceSettings?.[getSwitchTypeDeviceSettingKey(switchSpec)] === SWITCH_DEVICE_TYPE.MANUAL_SCENE;
+    const { payload_json } = currentTagsScene?.scene_action?.actions?.[0] || {};
+    if (manualSceneListLoaded && currentTagsScene && mountedState() && isManualScene) {
+      const found = payload_json?.scene_id
+        ? manualSceneList.find((s) => payload_json?.scene_id === s?.scene_id) || {}
+        : {};
+      setRelatedManualScene(found);
     }
-  }, [manualSceneList, currentTagsScene, mountedState(), switchDeviceSettings]);
+  }, [manualSceneListLoaded, manualSceneList, currentTagsScene, mountedState(), switchDeviceSettings]);
   // 根据tags场景还原选择的按钮类型
   useDeepCompareEffect(() => {
     if (tagsSceneList?.length && mountedState() && !Object.values(switchDeviceSettings).length) {
@@ -297,6 +293,7 @@ export const useSceneData = (switchClickSpec, specButtonType, switchSpec, homeId
     relatedDeviceStatus,
     relatedRoomInfo,
     relatedManualScene,
+    manualSceneListLoaded,
     allScenesV2,
     tcaConfigV3,
     matchedTcaItems,

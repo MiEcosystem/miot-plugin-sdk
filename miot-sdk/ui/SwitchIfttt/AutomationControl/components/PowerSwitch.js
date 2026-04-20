@@ -2,25 +2,31 @@ import React from 'react';
 import { View } from 'react-native';
 import { reportAutoSwitchClick } from "../reportUtils";
 import { SUB_REF } from '../utils/constants';
-import { ListItemWithSwitch } from "mhui-rn";
+// import { ListItemWithSwitch } from "mhui-rn";
 import { strings as I18n } from "../../../../resources";
 import { dynamicStyleSheet } from '../../../Style';
-import { dynamicColor } from '../../../Style/DynamicColor';
+// import { dynamicColor } from '../../../Style/DynamicColor';
+import { colorToken, ListItemWithWidget } from 'mhui-rn/dist/hyperOS';
 const Styles = dynamicStyleSheet({
   automationComponentStyle: {
     width: '100%',
     paddingHorizontal: 12,
-    marginBottom: 8
+    marginBottom: 8,
   },
   cardWrapper: {
     width: '100%',
     borderRadius: 20,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    backgroundColor: colorToken.surfaceCardTranslucent,
+    paddingHorizontal: 16,
   },
-  listItemContainerStyle: {
-    width: '100%',
-    paddingHorizontal: 16
-  }
+  // listItemContainerStyle (旧): ListItemWithWidget 不支持 containerStyle，
+  // 背景色和横向内边距已移至 cardWrapper
+  // listItemContainerStyle: {
+  //   width: '100%',
+  //   paddingHorizontal: 16,
+  //   backgroundColor: colorToken.surfaceCardTranslucent
+  // }
 });
 /**
  * 电源开关组件
@@ -53,6 +59,7 @@ const PowerSwitch = ({
   return (
     <View style={Styles.automationComponentStyle}>
       <View style={Styles.cardWrapper}>
+        {/* 旧实现（ListItemWithSwitch，支持自定义 switch 颜色和 containerStyle）：
         <ListItemWithSwitch
           containerStyle={Styles.listItemContainerStyle}
           key="auto-switch"
@@ -63,6 +70,13 @@ const PowerSwitch = ({
           onTintColor={dynamicColor('#0CCE94', '#00BA7C')}
           tintColor={dynamicColor('rgba(0,0,0,0.06)', 'rgba(255,255,255,0.15)')}
           showSeparator={false}
+        /> */}
+        <ListItemWithWidget
+          widgetType="switch"
+          title={I18n.switch_autoCtrl_powerSwitch_title}
+          checked={switchStatus}
+          onChange={handleValueChange}
+          disabled={disabled}
         />
       </View>
     </View>

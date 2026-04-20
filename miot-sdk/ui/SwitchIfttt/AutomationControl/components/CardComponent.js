@@ -3,10 +3,12 @@ import { View, Text, TouchableHighlight, Image } from "react-native";
 import { dynamicColor, dynamicStyleSheet } from "../../../Style";
 import DynamicColor from "../../../Style/DynamicColor";
 import PropTypes from "prop-types";
-const CardComponent = ({ title, subtitle, onPress, children, style, icon, rightButton }) => {
+import Right from 'mhui-rn/dist/icons/Right';
+import { colorToken, Fonts } from 'mhui-rn/dist/hyperOS';
+const CardComponent = ({ title, subtitle, onPress, children, style, icon, rightButton, disabled }) => {
   const headerContent = (
     <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
-      <Text style={ Styles.titleText } numberOfLines={ 1 }>{ title }</Text>
+      <Text style={ [Styles.titleText, disabled && Styles.titleTextDisabled] } numberOfLines={ 1 }>{ title }</Text>
       { rightButton ? (
         rightButton
       ) : (
@@ -15,9 +17,7 @@ const CardComponent = ({ title, subtitle, onPress, children, style, icon, rightB
             style={ Styles.normalText }
             numberOfLines={ 1 }>{ subtitle }</Text>
           { icon &&
-            <Image
-              source={ icon }
-              style={ Styles.rightIcon }/>
+            <Right width={18} height={18} fill={dynamicColor('rgba(0,0,0,0.3)', 'rgba(255,255,255,0.3)')} />
           }
         </View>
       ) }
@@ -56,7 +56,8 @@ CardComponent.propTypes = {
   subtitle: PropTypes.string,
   onPress: PropTypes.func,
   children: PropTypes.any,
-  style: PropTypes.any
+  style: PropTypes.any,
+  disabled: PropTypes.bool,
 };
 const Styles = dynamicStyleSheet({
   container: {
@@ -69,12 +70,15 @@ const Styles = dynamicStyleSheet({
   },
   normalText: {
     lineHeight: 21,
-    fontSize: 14,
-    color: new DynamicColor('rgba(0, 0, 0, 0.4)', 'rgba(255, 255, 255, 0.5)')
+    ...Fonts.fontSystem14Regular,
+    color: colorToken.contentQuaternaryNormal,
   },
   titleText: {
-    fontSize: 16,
-    color: dynamicColor("rgba(0, 0, 0, 1)", "rgba(255, 255, 255, 0.95)")
+    ...Fonts.fontSystem16Medium,
+    color: colorToken.contentPrimaryNormal,
+  },
+  titleTextDisabled: {
+    color: colorToken.contentDisabledPrimary,
   },
   rightContainer: { flexDirection: "row", alignItems: "center" },
   rightIcon: { width: 24, height: 24 }

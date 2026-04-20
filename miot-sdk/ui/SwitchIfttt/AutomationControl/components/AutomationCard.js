@@ -7,7 +7,7 @@ const Styles = dynamicStyleSheet({
   automationComponentStyle: {
     width: '100%',
     paddingHorizontal: 12,
-    marginBottom: 8
+    marginBottom: 8,
   }
 });
 /**
@@ -23,6 +23,7 @@ const AutomationCard = ({
   style,
   rightButton,
   onInteract,
+  disabled,
 }) => {
   return (
     <View
@@ -33,11 +34,13 @@ const AutomationCard = ({
       }}
     >
       <CardComponent
+        style={{ minHeight: 56 }}
         icon={icon}
         title={title}
         subtitle={subtitle}
         onPress={onPress}
         rightButton={rightButton}
+        disabled={disabled}
       >
         {children}
       </CardComponent>

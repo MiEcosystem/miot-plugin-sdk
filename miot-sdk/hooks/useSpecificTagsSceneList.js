@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { DeviceEventEmitter } from 'react-native';
 import Service from 'miot/Service';
 import Device from 'miot/device/BasicDevice';
+import { PackageEvent } from 'miot/event/PackageEvent';
 import useDeepCompareEffect from './useDeepCompareEffect';
 const cachedSpecificTagsSceneList = {};
 function getCacheKey(tags = []) {
@@ -67,8 +68,16 @@ export default function useSpecificTagsSceneList({
       setTagsSceneList(value);
       cachedSpecificTagsSceneList[getCacheKey(tags)] = value;
     });
+    const appearListener = PackageEvent.packageViewWillAppear.addListener(() => {
+      fetchTagsSceneList();
+    });
+    const resumeListener = PackageEvent.packageDidResume.addListener(() => {
+      fetchTagsSceneList();
+    });
     return () => {
       editListener && editListener.remove && editListener.remove();
+      appearListener && appearListener.remove && appearListener.remove();
+      resumeListener && resumeListener.remove && resumeListener.remove();
     };
   }, [tags]);
   return {

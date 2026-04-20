@@ -1,9 +1,9 @@
 import React from 'react';
 import { SWITCH_DEVICE_TYPE } from "../../Const";
 import AutoDeviceInfoButton from "./AutoDeviceInfoButton";
-import AddDeviceButton from "./AddDeviceButton";
 import { Images, strings as I18n } from "../../../../resources";
-const DEVICE_STATUS_OFFLINE_COLOR = '#CC9200';
+import { colorToken } from 'mhui-rn/dist/hyperOS';
+const DEVICE_STATUS_OFFLINE_COLOR = colorToken.accentYellowContent;
 const getExecutionTypeLabel = (type) =>
   type === 0 ? I18n.switch_listItem_value_executionTypeCloud : I18n.switch_listItem_value_executionTypeLocale;
 const getDeviceStatusPart = (relatedDevice, relatedDeviceStatus) => {
@@ -70,6 +70,7 @@ const SmartDeviceCard = ({
   const icon = hasRelatedDevice
     ? { uri: relatedDevice.iconUrl }
     : (isSmartSwitch ? Images.common.defaultSwitch : Images.common.defaultLight);
+  const titleDeleted = relatedDeviceStatus === 'deleted' || relatedDeviceStatus === 'other_home';
   return (
     <AutoDeviceInfoButton
       style={{ marginTop: 8 }}
@@ -79,6 +80,7 @@ const SmartDeviceCard = ({
       icon={icon}
       onPress={handlePress}
       disabled={disabled}
+      titleDeleted={titleDeleted}
     />
   );
 };

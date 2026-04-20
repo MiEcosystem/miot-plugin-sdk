@@ -7,6 +7,7 @@ import {
   TextStyle
 } from 'react-native';
 import { dynamicColor } from "../../../Style/DynamicColor";
+import { Fonts } from 'miot/ui/hyperOSUI';
 import { Styles } from "../../../../resources";
 interface SimpleButtonProps {
   title: string;
@@ -54,9 +55,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#CCCCCC'
   },
   text: {
+    ...Fonts.fontSystem17Medium,
     color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600'
   },
   disabledText: {
     color: '#666666'

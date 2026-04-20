@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import { AccessibilityPropTypes } from '../../../../utils/accessibility-helper';
 // import { referenceReport } from '../../decorator/ReportDecorator';
 import DynamicColor, { dynamicColor } from '../../../Style/DynamicColor';
-import { FontMiSansWRegular } from '../../../../utils/fonts';
-import { adjustSize } from '../../../../utils/sizes';
+import { Fonts } from 'miot/ui/hyperOSUI';
 import DeviceCell from './DeviceCell';
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
 export default class DeviceSection extends Component {
@@ -111,8 +110,7 @@ const Styles = dynamicStyleSheet({
     justifyContent: 'center',
   },
   title: {
-    fontFamily: FontMiSansWRegular,
-    fontSize: 14,
+    ...Fonts.fontSystem14Regular,
     color: dynamicColor('#8C9DB0', '#92A1B4'),
     lineHeight: 20,
   },

@@ -5,10 +5,10 @@ import Radio from '../../../Radio';
 import { AccessibilityPropTypes, getAccessibilityConfig } from '../../../../utils/accessibility-helper';
 import { referenceReport } from '../../../../decorator/ReportDecorator';
 import DynamicColor, { dynamicColor } from '../../../Style/DynamicColor';
-import { FontMiSansWRegular } from '../../../../utils/fonts';
-import { adjustSize } from '../../../../utils/sizes';
+import { Fonts } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
 import { strings as I18n } from "../../../../resources";
+import { colorToken } from 'mhui-rn/dist/hyperOS';
 export default class DeviceCell extends Component {
   static propTypes = {
     icon: PropTypes.any,
@@ -115,7 +115,8 @@ const Styles = dynamicStyleSheet({
   container: {
     width: "100%",
     flexDirection: 'column',
-    backgroundColor: new DynamicColor('transparent', 'transparent')
+    backgroundColor: colorToken.surfaceCardSubtle,
+    minHeight: 70
   },
   containerFirst: {},
   containerLast: {},
@@ -134,8 +135,9 @@ const Styles = dynamicStyleSheet({
     justifyContent: 'center'
   },
   icon: {
-    width: 56,
-    height: 56,
+    width: 46,
+    height: 46,
+    margin: 5,
     resizeMode: 'contain'
   },
   text: {
@@ -147,20 +149,18 @@ const Styles = dynamicStyleSheet({
     paddingBottom: 12
   },
   title: {
-    fontFamily: FontMiSansWRegular,
-    fontSize: 16,
+    ...Fonts.fontSystem16Regular,
     color: dynamicColor('#000000', '#FFFFFF'),
     lineHeight: 22
   },
   subTitle: {
-    fontFamily: FontMiSansWRegular,
-    fontSize: 13,
+    ...Fonts.fontSystem13Regular,
     color: dynamicColor('#CC9200', '#FFBF0F'),
     lineHeight: 18
   },
   checkbox: {
-    width: adjustSize(66),
-    height: adjustSize(66),
-    borderRadius: adjustSize(33)
+    width: 22,
+    height: 22,
+    borderRadius: 11
   }
 });

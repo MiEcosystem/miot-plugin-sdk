@@ -9,7 +9,7 @@ export default function useManualSceneList({
   filterClosed = false,
   specificSceneIds = []
 }) {
-  const [manualSceneList, setManualSceneList] = useState([]);
+  const [state, setState] = useState({ list: [], loaded: false });
   const fetchManualSceneList = () => {
     Device.getRoomInfoForCurrentHome().then((res) => {
       const { homeId } = res?.data || {};
@@ -30,14 +30,17 @@ export default function useManualSceneList({
           filter_closed: filterClosed,
           scene_ids: specificSceneIds
         }).then((res) => {
-          // console.log('获取批量控制成功--getManualSceneList-res', res);
-          setManualSceneList(res || []);
+          setState({ list: res || [], loaded: true });
         }).catch((error) => {
           console.log('获取批量控制报错---getManualSceneList---error', error);
+          setState((prev) => ({ ...prev, loaded: true }));
         });
       }).catch((error) => {
         console.log('获取批量控制报错---getManualSceneList---error', error);
+        setState((prev) => ({ ...prev, loaded: true }));
       });
+    }).catch(() => {
+      setState((prev) => ({ ...prev, loaded: true }));
     });
   };
   useDeepCompareEffect(() => {
@@ -49,5 +52,5 @@ export default function useManualSceneList({
       listener && listener.remove && listener.remove();
     };
   }, [getType, source, filterClosed, specificSceneIds]);
-  return manualSceneList;
+  return state;
 }

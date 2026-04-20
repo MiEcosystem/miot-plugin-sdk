@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, View, Image, StyleSheet, TouchableHighlight } from 'react-native';
 import { dynamicColor } from "../../../Style";
+import { Fonts } from 'miot/ui/hyperOSUI';
+import { colorToken } from 'mhui-rn/dist/hyperOS';
 import PropTypes from "prop-types";
 const AutoDeviceInfoButton = ({
   title = "",
@@ -12,6 +14,7 @@ const AutoDeviceInfoButton = ({
   onPress,
   style,
   disabled,
+  titleDeleted,
 }) => {
   const renderSubtitle = () => {
     if (subtitleParts && subtitleParts.length > 0) {
@@ -24,7 +27,7 @@ const AutoDeviceInfoButton = ({
               <React.Fragment key={ index }>
                 { index > 0 && <View style={ Styles.subtitleDivider } /> }
                 <Text
-                  style={ [Styles.subtitleStyle, color ? { color } : null, disabled && Styles.disabledText] }
+                  style={ [Styles.subtitleStyle, disabled && !color && Styles.disabledText, color ? { color } : null] }
                   numberOfLines={ 1 }
                 >{ text }</Text>
               </React.Fragment>
@@ -51,7 +54,7 @@ const AutoDeviceInfoButton = ({
         }
         <View style={ Styles.titleContainer }>
           <View style={ Styles.titleRow }>
-            <Text style={ [Styles.titleStyle, disabled && Styles.disabledText] } numberOfLines={ 3 }>{ title }</Text>
+            <Text style={ [Styles.titleStyle, disabled && Styles.disabledText, titleDeleted && Styles.titleDeletedText] } numberOfLines={ 3 }>{ title }</Text>
           </View>
           { renderSubtitle() }
         </View>
@@ -75,16 +78,18 @@ AutoDeviceInfoButton.propTypes = {
   icon: PropTypes.any,
   onPress: PropTypes.func,
   style: PropTypes.any,
+  titleDeleted: PropTypes.bool,
 };
 const Styles = StyleSheet.create({
   container: {
     width: "100%",
     borderRadius: 16,
-    backgroundColor: dynamicColor('rgba(0, 0, 0, .04)', 'rgba(255, 255, 255, 0.08)'),
+    backgroundColor: colorToken.surfaceCardSubtle,
     flexDirection: "row",
     paddingHorizontal: 6,
     paddingVertical: 7,
     alignItems: "center",
+    minHeight: 64,
   },
   iconStyle: {
     width: 50,
@@ -108,7 +113,7 @@ const Styles = StyleSheet.create({
   subtitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 1,
+    marginTop: 4,
   },
   subtitleDivider: {
     width: 1,
@@ -121,28 +126,33 @@ const Styles = StyleSheet.create({
     color: dynamicColor('rgba(0, 0, 0, 0.4)', 'rgba(255, 255, 255, 0.5)'),
   },
   rightTextContainerStyle: {
-    maxWidth: 116,
     justifyContent: "center",
     paddingRight: 10,
+    paddingLeft: 4,
     alignItems: "flex-end",
   },
   rightTextBadge: {
-    borderRadius: 20,
+    borderRadius: 20,    
     overflow: 'hidden',
-    backgroundColor: dynamicColor('rgba(0, 0, 0, 0.06)', 'rgba(255, 255, 255, 0.8)'),
+    backgroundColor: colorToken.fillSecondary,
   },
   rightTextStyle: {
-    fontFamily: "MiSans",
-    fontSize: 13,
+    ...Fonts.fontSystem13Regular,
     paddingHorizontal: 12,
+    textAlign: "center",
+    minWidth: 60,
+    maxWidth: 116,
     paddingVertical: 5.5,
-    color: dynamicColor('rgba(0, 0, 0, 0.8)', '#FFFFFF'),
+    color: colorToken.contentSecondaryNormal,
   },
   disabledOpacity: {
     opacity: 0.25,
   },
   disabledText: {
     color: dynamicColor('rgba(0,0,0,0.2)', 'rgba(255,255,255,0.2)'),
+  },
+  titleDeletedText: {
+    color: colorToken.contentDisabledSecondary,
   },
 });
 export default AutoDeviceInfoButton;

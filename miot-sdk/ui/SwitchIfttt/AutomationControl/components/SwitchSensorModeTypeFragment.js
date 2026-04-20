@@ -4,7 +4,6 @@ import { dynamicColor, dynamicStyleSheet } from "../../../Style";
 import { ChoiceItemWithIcon } from "../../../ListItem";
 import { strings as I18n } from "../../../../resources";
 import DynamicColor from '../../../Style/DynamicColor';
-import { adjustSize } from '../../../../utils/sizes';
 export default function SwitchSensorModeTypeFragment(props) {
   const { switchSensorMode, switchSensorModeSpec, onChange } = props;
   const getSwitchTypeTitle = (type) => {
@@ -78,9 +77,9 @@ const Styles = dynamicStyleSheet({
     flex: 1
   },
   card: {
-    borderRadius: adjustSize(60),
+    borderRadius: 20,
     width: "100%",
-    marginBottom: adjustSize(24),
+    marginBottom: 8,
     backgroundColor: new DynamicColor('#fff', '#333')
   }
 });
