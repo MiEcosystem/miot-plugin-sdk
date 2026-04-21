@@ -147,30 +147,29 @@ import BasicDemo from "./UIComponent/SDKNewComponent/BasicComponent/BasicDemo";
 import FontsDemo from "./UIComponent/SDKNewComponent/BasicComponent/FontsDemo";
 import ColorDemo from "./UIComponent/SDKNewComponent/BasicComponent/ColorDemo";
 import RadiusDemo from "./UIComponent/SDKNewComponent/BasicComponent/RadiusDemo";
-import DialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/DialogDemo";
-import HandPopDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopDemo";
-import HandPopCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopCustomDemo";
-import HandPopClickDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopClickDemo";
-import HandPopTriggerDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopTriggerDemo";
-import LoadingDemo from "./UIComponent/SDKNewComponent/BasicComponent/LoadingDemo";
-import ListDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListDemo";
-import ListItemDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListItemDemo";
-import ListGroupDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListGroupDemo";
-import ButtonDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonDemo";
-import ButtonColorDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonColorDemo";
-import ButtonCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonCustomDemo";
-import ButtonPageViewDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonPageViewDemo";
+// import DialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/DialogDemo";
+// import HandPopDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopDemo";
+// import HandPopCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopCustomDemo";
+// import HandPopClickDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopClickDemo";
+// import HandPopTriggerDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopTriggerDemo";
+// import LoadingDemo from "./UIComponent/SDKNewComponent/BasicComponent/LoadingDemo";
+// import ListDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListDemo";
+// import ListItemDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListItemDemo";
+// import ListGroupDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListGroupDemo";
+// import ButtonDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonDemo";
+// import ButtonColorDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonColorDemo";
+// import ButtonCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonCustomDemo";
+// import ButtonPageViewDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonPageViewDemo";
 import AtomicDemo from "./UIComponent/SDKNewComponent/BasicComponent/AtomicDemo";
-import ToastDemo from "./UIComponent/SDKNewComponent/BasicComponent/ToastDemo";
+// import ToastDemo from "./UIComponent/SDKNewComponent/BasicComponent/ToastDemo";
 // Iot 组件
 import IotComponentDemo from "./UIComponent/SDKNewComponent/IotComponent/IotComponentDemo";
-import StructureDemo from "./UIComponent/SDKNewComponent/IotComponent/StructureDemo";
-import ControlerDemo from "./UIComponent/SDKNewComponent/IotComponent/ControlerDemo";
-import EntryDemo from "./UIComponent/SDKNewComponent/IotComponent/EntryDemo";
+// import StructureDemo from "./UIComponent/SDKNewComponent/IotComponent/StructureDemo";
+// import ControlerDemo from "./UIComponent/SDKNewComponent/IotComponent/ControlerDemo";
+// import EntryDemo from "./UIComponent/SDKNewComponent/IotComponent/EntryDemo";
 import LargeEntranceDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeEntranceDemo";
 import StepperDemo from "./UIComponent/SDKNewComponent/IotComponent/StepperDemo";
 import LargeVariantSwitchDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeVariantSwitchDemo";
-// import SmartSceneDemo from "./UIComponent/SDKNewComponent/IotComponent/SmartSceneDemo";
 import SeparatorDemo from "./UIComponent/SDKNewComponent/IotComponent/SeparatorDemo";
 // 第三方库
 import SQLiteDemo from "./ThirdPartDemo/SQLiteDemo";
@@ -283,33 +282,32 @@ function createRootStack(initPage) {
       BasicComponentDemo,
       BasicDemo,
       AtomicDemo,
-      ButtonDemo,
-      ToastDemo,
-      ButtonColorDemo,
-      ButtonCustomDemo,
-      ButtonPageViewDemo,
+      // ButtonDemo,
+      // ToastDemo,
+      // ButtonColorDemo,
+      // ButtonCustomDemo,
+      // ButtonPageViewDemo,
       SdkComponentDemo,
       ColorDemo,
       RadiusDemo,
-      DialogDemo,
-      HandPopDemo,
-      HandPopClickDemo,
-      HandPopCustomDemo,
-      HandPopTriggerDemo,
+      // DialogDemo,
+      // HandPopDemo,
+      // HandPopClickDemo,
+      // HandPopCustomDemo,
+      // HandPopTriggerDemo,
       FontsDemo,
-      LoadingDemo,
-      ListDemo,
-      ListItemDemo,
-      ListGroupDemo,
+      // LoadingDemo,
+      // ListDemo,
+      // ListItemDemo,
+      // ListGroupDemo,
       // Iot 组件
       IotComponentDemo,
-      ControlerDemo,
-      StructureDemo,
-      EntryDemo,
+      // ControlerDemo,
+      // StructureDemo,
+      // EntryDemo,
       LargeEntranceDemo,
       StepperDemo,
       LargeVariantSwitchDemo,
-      // SmartSceneDemo,
       SeparatorDemo,
       // FirmwareUpgradeAuto,
       FirmwareUpgradeRecord,

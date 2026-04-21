@@ -13,19 +13,6 @@ const SeparatorDemo = ({ navigation }) => {
     { 
       name: 'style',
       type: 'object',
-      objectProps: [
-      // { name: 'height', type: 'number', defaultValue: 1 },
-        { name: 'width', type: 'number', defaultValue: 400 },
-        { name: 'height', type: 'number' },
-        { name: 'marginLeft', type: 'number', defaultValue: 0 },
-        { name: 'marginRight', type: 'number', defaultValue: 0 },
-        { name: 'marginTop', type: 'number', defaultValue: 0 },
-        { name: 'marginBottom', type: 'number', defaultValue: 0 },
-        { name: 'paddingLeft', type: 'number', defaultValue: 0 },
-        { name: 'paddingRight', type: 'number', defaultValue: 0 },
-        { name: 'paddingTop', type: 'number', defaultValue: 0 },
-        { name: 'paddingBottom', type: 'number', defaultValue: 0 },
-      ], 
     },
   ];
   return (
@@ -35,18 +22,18 @@ const SeparatorDemo = ({ navigation }) => {
         <Text style={styles.text}>标题</Text>
         <Stepper
           step={0.5}
-          symbolType="celsius"
-          suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
+          symbolType="degree"
+          suffixSubscript={<Cold fill={colorToken.accentBlueFill} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
           max={30}
         />
-        <Separator style={styles.separator1} />
+        <Separator/>
         <Stepper
           step={0.5}
-          symbolType="celsius"
-          suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
+          symbolType="degree"
+          suffixSubscript={<Cold fill={colorToken.accentBlueFill} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
@@ -56,18 +43,20 @@ const SeparatorDemo = ({ navigation }) => {
       <View style={styles.sectionContainer}>
         <Stepper
           step={0.5}
-          symbolType="celsius"
-          suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
+          symbolType="degree"
+          suffixSubscript={<Cold fill={colorToken.accentBlueFill} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
           max={30}
         />
-        <Separator style={styles.separator2}/>
+        <View style={{ paddingHorizontal: 20 }}>
+          <Separator/>
+        </View>
         <Stepper
           step={0.5}
-          symbolType="celsius"
-          suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
+          symbolType="degree"
+          suffixSubscript={<Cold fill={colorToken.accentBlueFill} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
@@ -84,23 +73,23 @@ const SeparatorDemo = ({ navigation }) => {
 
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: colorToken.mj_color_gray_bg_2,
+    backgroundColor: colorToken.surfacePageLow,
   },
   text: {
     fontSize: 16,
-    color: colorToken.mj_color_gray_text_1,
+    color: colorToken.contentPrimaryNormal,
     paddingHorizontal: 16,
     paddingTop: 12,
   },
   header: {
     fontSize: 24,
-    color: colorToken.mj_color_gray_text_2,
+    color: colorToken.contentSecondaryNormal,
     fontWeight: '500',
     paddingHorizontal: 15,
     marginBottom: 20,
   },
   sectionContainer: {
-    backgroundColor: colorToken.mj_color_gray_card_1,
+    backgroundColor: colorToken.surfaceCardPrimary,
     marginHorizontal: 12,
     borderRadius: 16,
     marginBottom: 12,
@@ -116,7 +105,7 @@ const styles = dynamicStyleSheet({
   caseContainer: {
     marginBottom: 40,
     flex: 1,
-    backgroundColor: colorToken.mj_color_gray_bg_3,
+    backgroundColor: colorToken.surfacePageLow,
   },
 });
 

@@ -1,68 +1,74 @@
 'use strict';
 
-import React, { Component, useMemo } from 'react';
-import { ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useMemo } from 'react';
+import { ScrollView, Text, View } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
-import { colorToken, ListGroup } from "miot/ui/hyperOSUI";
+import { colorToken } from "miot/ui/hyperOSUI";
 
 const BasicComponentDemo = (props) => {
   const { navigation } = props;
-  // 增加标题传递
   const navigateToScreen = (routerName, title) => {
     if (navigation && routerName) {
-      navigation.navigate(routerName, { title }); // 把标题传递给路由参数
+      navigation.navigate(routerName, { title });
     }
   };
-  const PhaseOneItems = [
-    { title: '弹窗', router: 'DialogDemo' }
 
+  const componentItems = [
+    { title: 'Switch 开关', router: 'AtomicDemo' },
   ];
-  const PhaseTwoItems = [
-    { title: '近手弹窗', router: 'HandPopDemo' },
-    { title: '列表', router: 'ListDemo' },
-    { title: '加载弹窗', router: 'LoadingDemo' }
-  ];
-  const PhaseThreeItems = [
-    { title: '按钮', router: 'ButtonDemo' },
-    { title: '小组件', router: 'AtomicDemo' },
-    { title: '轻消息', router: 'ToastDemo' }
-  ];
-  const PhaseOneDataSource = useMemo(() => {
-    return PhaseOneItems.map((item) => ({ ...item, key: item.router, onPress: () => navigateToScreen(item.router, item.title) }));
-  }, []);
-  const PhaseTwoDataSource = useMemo(() => {
-    return PhaseTwoItems.map((item) => ({ ...item, key: item.router, onPress: () => navigateToScreen(item.router, item.title) }));
-  }, []);
-  const PhaseThreeDataSource = useMemo(() => {
-    return PhaseThreeItems.map((item) => ({ ...item, key: item.router, onPress: () => navigateToScreen(item.router, item.title) }));
-  }, []);
+
+  // const tokenItems = [
+  //   { title: 'Color 色值', router: 'ColorDemo' },
+  //   { title: 'Fonts 字体', router: 'FontsDemo' },
+  //   { title: 'Radius 圆角', router: 'RadiusDemo' },
+  // ];
+
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.header}>标插SDK demo</Text>
-      <ListGroup
-        title="第一期"
-        dataSource={PhaseOneDataSource}/>
-      <ListGroup
-        title="第二期"
-        dataSource={PhaseTwoDataSource}/>
-      <ListGroup
-        title="第三期"
-        dataSource={PhaseThreeDataSource}/>
+      <Text style={styles.header}>基础组件</Text>
+      <Text style={styles.sectionTitle}>组件</Text>
+      {componentItems.map((item) => (
+        <Text key={item.router} style={styles.item} onPress={() => navigateToScreen(item.router, item.title)}>
+          {item.title}
+        </Text>
+      ))}
+      {/* <Text style={styles.sectionTitle}>Token</Text>
+      {tokenItems.map((item) => (
+        <Text key={item.router} style={styles.item} onPress={() => navigateToScreen(item.router, item.title)}>
+          {item.title}
+        </Text>
+      ))} */}
     </ScrollView>
   );
 };
 
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: colorToken.mj_color_gray_bg_2
+    flex: 1,
+    backgroundColor: colorToken.surfacePageLow,
   },
   header: {
     fontSize: 24,
-    color: colorToken.mj_color_gray_text_2,
+    color: colorToken.contentSecondaryNormal,
     fontWeight: '500',
     paddingHorizontal: 15,
-    marginBottom: 20
-  }
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    fontSize: 14,
+    color: colorToken.accentOsFill,
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+  },
+  item: {
+    fontSize: 16,
+    color: colorToken.contentPrimaryNormal,
+    paddingHorizontal: 20,
+    paddingVertical: 14,
+    backgroundColor: colorToken.surfaceCardPrimary,
+    borderBottomWidth: 0.5,
+    borderBottomColor: colorToken.dividerPrimary,
+  },
 });
 
 export default BasicComponentDemo;

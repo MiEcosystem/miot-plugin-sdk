@@ -17,11 +17,12 @@ const propConfigs = [
   { name: 'max', type: 'number', defaultValue: 999.99 },
   // eslint-disable-next-line no-template-curly-in-string
   { name: 'formatter', type: 'pass', passDescription: '格式化函数: (value?: string) => string，如: (v) => `${v}kg`', defaultValue: () => ('频道1') },
-  { name: 'prefix', type: 'pass', passDescription: '可选: React.ReactNode', defaultValue: <Cold fill={colorToken.mjcard_color_blue_1} /> },
-  { name: 'suffix', type: 'pass', passDescription: '可选: React.ReactNode', defaultValue: <Percent fill={colorToken.mjcard_color_blue_1} /> },
-  { name: 'iconType', type: 'enum', enumOptions: ['symbol', 'direction'], defaultValue: 'symbol' },
+  { name: 'prefix', type: 'pass', passDescription: '可选: React.ReactNode', defaultValue: <Cold fill={colorToken.accentBlueFill} /> },
+  { name: 'suffix', type: 'pass', passDescription: '可选: React.ReactNode', defaultValue: <Percent fill={colorToken.accentBlueFill} /> },
+  { name: 'iconType', type: 'enum', enumOptions: ['plusMinus', 'leftRight'], defaultValue: 'plusMinus' },
   { name: 'disabled', type: 'boolean', defaultValue: false },
-  { name: 'symbolType', type: 'enum', enumOptions: ['percent', 'celsius', 'custom'], defaultValue: 'custom' },
+  { name: 'symbolType', type: 'enum', enumOptions: ['percent', 'degree', 'custom'], defaultValue: 'custom' },
+  { name: 'suffixSubscript', type: 'pass', passDescription: '可选: SVG', defaultValue: <Cold fill={colorToken.accentBlueFill} /> },
 ];
 
 const alert = Alert.alert;
@@ -43,8 +44,8 @@ const StepperDemo = ({ navigation }) => {
         <Text style={styles.text}>标题</Text>
         <Stepper
           step={0.5}
-          symbolType="celsius"
-          suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
+          symbolType="degree"
+          suffixSubscript={<Cold fill={colorToken.accentBlueFill} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
@@ -55,13 +56,13 @@ const StepperDemo = ({ navigation }) => {
       <View style={styles.stepperContainer} >
         <Stepper
           step={0.5}
-          symbolType="celsius"
-          suffix={<Cold fill={colorToken.mjcard_color_blue_1} />}
+          symbolType="degree"
+          suffixSubscript={<Cold fill={colorToken.accentBlueFill} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
           max={30}
-          iconType={'direction'}
+          iconType={'leftRight'}
         />
       </View>
       <Text style={styles.title}>中间状态可配置</Text>
@@ -115,8 +116,8 @@ const StepperDemo = ({ navigation }) => {
       <View style={styles.stepperContainer} >
         <Stepper
           step={0.5}
-          symbolType="celsius"
-          suffix={<Cold fill={colorToken.mj_color_gray_icon_6} />}
+          symbolType="degree"
+          suffixSubscript={<Cold fill={colorToken.contentTertiaryNormal} />}
           value={targetTemperature}
           disabled={true}
           onChange={setTargetTemperature}
@@ -145,45 +146,45 @@ const StepperDemo = ({ navigation }) => {
 
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: colorToken.mj_color_gray_bg_2,
+    backgroundColor: colorToken.surfacePageLow,
   },
   text: {
     marginLeft: 4,
-    color: colorToken.mj_color_gray_text_1,
+    color: colorToken.contentPrimaryNormal,
     paddingHorizontal: 16,
     paddingTop: 12,
     lineHeight: 32,
-    ...Fonts.mj_text_custom_16_M,
+    ...Fonts.fontSystem16Medium,
   },
   title: {
-    color: colorToken.mjcard_color_miui_1,
+    color: colorToken.accentOsFill,
     paddingHorizontal: 16,
     paddingVertical: 6,
     marginTop: 12,
-    ...Fonts.mj_text_custom_13_R,
+    ...Fonts.fontSystem13Regular,
   },
   button: {
     fontSize: 14,
-    color: colorToken.mj_color_gray_text_1,
+    color: colorToken.contentPrimaryNormal,
     paddingHorizontal: 15,
     lineHeight: 24,
   },
   header: {
     fontSize: 24,
-    color: colorToken.mj_color_gray_text_2,
+    color: colorToken.contentSecondaryNormal,
     fontWeight: '500',
     paddingHorizontal: 15,
     marginBottom: 10,
-    ...Fonts.mj_text_custom_24_M,
+    ...Fonts.fontSystem24Medium,
   },
   sectionContainer: {
-    backgroundColor: colorToken.mj_color_gray_card_1,
+    backgroundColor: colorToken.surfaceCardPrimary,
     marginHorizontal: 12,
     borderRadius: 16,
     marginBottom: 12,
   },
   stepperContainer: {
-    backgroundColor: colorToken.mj_color_gray_card_1,
+    backgroundColor: colorToken.surfaceCardPrimary,
     marginHorizontal: 12,
   },
   caseContainer: {

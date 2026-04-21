@@ -1,65 +1,57 @@
 'use strict';
 
-import React, { useCallback, useMemo } from 'react';
+import React from 'react';
 import { ScrollView, Text } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
-import { colorToken, ListGroup } from "miot/ui/hyperOSUI";
+import { colorToken } from "miot/ui/hyperOSUI";
 
 const UIItems = [
-  // { title: '容器', router: 'ContainerDemo' },
-  { title: '入口', router: 'EntryDemo' },
-  { title: '结构', router: 'StructureDemo' },
-  { title: '控制', router: 'ControlerDemo' }
-  // { title: '信息', router: 'InfoDemo' }
+  { title: 'LargeListEntrance 大型入口', router: 'LargeEntranceDemo' },
+  { title: 'LargeListToggle 大型开关', router: 'LargeVariantSwitchDemo' },
+  { title: 'Stepper 步进器', router: 'StepperDemo' },
+  { title: 'Separator 分割线', router: 'SeparatorDemo' },
 ];
 
-// const mihomeItems = [
-//   { title: '智能场景', router: 'SmartSceneDemo' }
-// ];
-
 const IotComponentDemo = ({ navigation }) => {
-
-  // 增加标题传递
-  const navigateToScreen = useCallback((routerName, title) => {
+  const navigateToScreen = (routerName, title) => {
     if (navigation && routerName) {
-      navigation.navigate(routerName, { title }); // 把标题传递给路由参数
+      navigation.navigate(routerName, { title });
     }
-  }, [navigation]);
-
-  const UIDataSource = useMemo(() => {
-    return UIItems.map((item) => ({ ...item, key: item.router, onPress: () => navigateToScreen(item.router, item.title) }));
-  }, [navigateToScreen]);
-
-  // const mihomeDataSource = useMemo(() => {
-  //   return mihomeItems.map((item) => ({ ...item, key: item.router, onPress: () => navigateToScreen(item.router, item.title) }));
-  // }, [navigateToScreen]);
+  };
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.header}>Iot组件库</Text>
-      <ListGroup
-        title="UI控件"
-        dataSource={UIDataSource}
-      />
-      {/* <ListGroup
-        title="米家业务组件"
-        dataSource={mihomeDataSource}
-      /> */}
+      <Text style={styles.header}>IoT 组件</Text>
+      {UIItems.map((item) => (
+        <Text key={item.router} style={styles.item} onPress={() => navigateToScreen(item.router, item.title)}>
+          {item.title}
+        </Text>
+      ))}
     </ScrollView>
   );
 };
 
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: colorToken.mj_color_gray_bg_2
+    flex: 1,
+    backgroundColor: colorToken.surfacePageLow,
   },
   header: {
     fontSize: 24,
-    color: colorToken.mj_color_gray_text_2,
+    color: colorToken.contentSecondaryNormal,
     fontWeight: '500',
     paddingHorizontal: 15,
-    marginBottom: 20
-  }
+    marginBottom: 20,
+  },
+  item: {
+    fontSize: 16,
+    color: colorToken.contentPrimaryNormal,
+    paddingHorizontal: 20,
+    paddingVertical: 14,
+    backgroundColor: colorToken.surfaceCardPrimary,
+    borderBottomWidth: 0.5,
+    borderBottomColor: colorToken.dividerPrimary,
+  },
 });
 
 export default IotComponentDemo;
