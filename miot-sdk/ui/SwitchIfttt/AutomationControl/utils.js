@@ -152,7 +152,6 @@ function emojiInvalidString(str) {
  * @returns {{ valid: boolean, message?: string }}
  */
 export function isValidName(name) {
-  console.log("[isValidName]", name);
   if (!name || name === ' ') {
     return { valid: false, message: I18n.nameIsEmpty };
   }

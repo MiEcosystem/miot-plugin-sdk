@@ -25,7 +25,7 @@ const CardComponent = ({ title, subtitle, onPress, children, style, icon, rightB
   );
   return (
     <View style={ [{
-      backgroundColor: dynamicColor('#FFFFFF', 'rgba(255, 255, 255, 0.08)'),
+      backgroundColor: colorToken.surfaceCardTranslucent,
       paddingTop: 10,
       paddingHorizontal: 10,
       paddingBottom: 10,

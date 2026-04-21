@@ -147,12 +147,12 @@ const BaseSwitchComponent = ({
         onConfirm={handleIconConfirm}
         onDismiss={() => setIconDialogVisible(false)}
       />
-      <RenameDialog
+      {renameDialogVisible && <RenameDialog
         visible={renameDialogVisible}
         defaultName={deviceData.name || ''}
         onConfirm={handleNameConfirm}
         onDismiss={() => setRenameDialogVisible(false)}
-      />
+      />}
       <RoomSelectDialog
         visible={roomDialogVisible}
         member={deviceData}
