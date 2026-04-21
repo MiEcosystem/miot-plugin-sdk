@@ -168,7 +168,7 @@ const DialogManager = ({
       <MessageDialog
         contentType={'none'}
         visible={!!wirelessHintDialogVisible}
-        contentText={I18n.switch_autoCtrl_wirelessHint_title}
+        title={I18n.switch_autoCtrl_wirelessHint_title}
         onDismiss={onDismissWirelessHint}
         buttons={[
           {
