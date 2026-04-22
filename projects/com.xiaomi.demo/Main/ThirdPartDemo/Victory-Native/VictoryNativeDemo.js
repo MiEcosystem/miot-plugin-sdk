@@ -15,7 +15,7 @@ import LineView from "./views/line-view";
 import ScatterView from "./views/scatter-view";
 import BoxPlotView from "./views/boxplot-view";
 
-const RootStack =  stackNavigator(
+const RootStack = stackNavigator(
   {
     ComponentsView: { screen: ComponentsView },
     AreaView: { screen: AreaView },
