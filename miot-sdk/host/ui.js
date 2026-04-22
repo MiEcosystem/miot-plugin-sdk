@@ -1546,27 +1546,6 @@ class IUi {
       }
     }
   }
-  /**
-   * 打开自动化详情页
-   * @since 10115
-   * @param {object} params 详情页参数
-   * @param {number} params.scene_type 场景类型，固定传 2
-   * @param {string} params.scene_id 场景 id（必填）
-   * @param {string} [params.template_id] 模板 id（选填）
-   * @param {number} [params.edit_from] 来源标记数字（选填）
-   * @example
-   * Host.ui.openAutomationDetail({
-   *   scene_type: 2,
-   *   scene_id: 'xxxxx',
-   *   template_id: '0',
-   *   edit_from: 1
-   * });
-   */
-  @report
-  openAutomationDetail(params){
-    console.log('openAutomationDetail', JSON.stringify(params));
-    native.MIOTHost.openAutomationDetail(params);
-  }
 }
 const UiInstance = new IUi();
 export default UiInstance;
