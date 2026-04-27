@@ -14,7 +14,7 @@ const BasicComponentDemo = (props) => {
   };
 
   const componentItems = [
-    { title: 'Switch 开关', router: 'AtomicDemo' },
+    { title: 'Switch 开关', router: 'SwitchDemo' },
   ];
 
   // const tokenItems = [

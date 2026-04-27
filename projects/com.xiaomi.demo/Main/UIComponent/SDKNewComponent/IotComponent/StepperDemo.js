@@ -1,29 +1,12 @@
 'use strict';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ScrollView, Text, View, Alert } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
-import { colorToken, Fonts, Stepper, TestComponent } from "miot/ui/hyperOSUI";
-import { Cold, Percent } from 'miot/ui/icons';
-import { useCallback } from 'react';
-
-const propConfigs = [
-  { name: 'value', type: 'number', defaultValue: 0 },
-  { name: 'onChange', type: 'pass', passDescription: '值变化回调 (value: string | null) => void', linkTo: { targetProp: 'value' } },
-  { name: 'step', type: 'number', defaultValue: 1 },
-  { name: 'stringMode', type: 'boolean', defaultValue: true },
-  { name: 'digits', type: 'number', defaultValue: 2 },
-  { name: 'min', type: 'number', defaultValue: 0 },
-  { name: 'max', type: 'number', defaultValue: 999.99 },
-  // eslint-disable-next-line no-template-curly-in-string
-  { name: 'formatter', type: 'pass', passDescription: '格式化函数: (value?: string) => string，如: (v) => `${v}kg`', defaultValue: () => ('频道1') },
-  { name: 'prefix', type: 'pass', passDescription: '可选: React.ReactNode', defaultValue: <Cold fill={colorToken.accentBlueFill} /> },
-  { name: 'suffix', type: 'pass', passDescription: '可选: React.ReactNode', defaultValue: <Percent fill={colorToken.accentBlueFill} /> },
-  { name: 'iconType', type: 'enum', enumOptions: ['plusMinus', 'leftRight'], defaultValue: 'plusMinus' },
-  { name: 'disabled', type: 'boolean', defaultValue: false },
-  { name: 'symbolType', type: 'enum', enumOptions: ['percent', 'degree', 'custom'], defaultValue: 'custom' },
-  { name: 'suffixSubscript', type: 'pass', passDescription: '可选: SVG', defaultValue: <Cold fill={colorToken.accentBlueFill} /> },
-];
+import { colorToken, Fonts, Stepper } from "miot/ui/hyperOSUI";
+import TestComponent from '../testComponent';
+import { Cold } from 'miot/ui/icons';
+import NavigationBar from 'miot/ui/NavigationBar';
 
 const alert = Alert.alert;
 const StepperDemo = ({ navigation }) => {
@@ -33,6 +16,12 @@ const StepperDemo = ({ navigation }) => {
 
   const changeLongState = useCallback(() => {
     setLongState2((val) => !val);
+  }, []);
+
+  useEffect(() => {
+    navigation.setParams({
+      right: [{ key: NavigationBar.ICON.MORE, onPress: () => navigation.navigate('ParamStepperConfigDemo', { title: 'Stepper 配置调试' }) }],
+    });
   }, []);
 
   return (
@@ -53,7 +42,7 @@ const StepperDemo = ({ navigation }) => {
         />
       </View>
       <Text style={styles.title}>按钮图标可配置</Text>
-      <View style={styles.stepperContainer} >
+      <View style={styles.sectionContainer} >
         <Stepper
           step={0.5}
           symbolType="degree"
@@ -66,7 +55,7 @@ const StepperDemo = ({ navigation }) => {
         />
       </View>
       <Text style={styles.title}>中间状态可配置</Text>
-      <View style={styles.stepperContainer} >
+      <View style={styles.sectionContainer} >
         <Stepper
           step={1}
           symbolType="percent"
@@ -77,7 +66,7 @@ const StepperDemo = ({ navigation }) => {
         />
       </View>
       <Text style={styles.title}>中间状态纯文本</Text>
-      <View style={styles.stepperContainer} >
+      <View style={styles.sectionContainer} >
         <Stepper
           step={1}
           symbolType="custom"
@@ -89,7 +78,7 @@ const StepperDemo = ({ navigation }) => {
         />
       </View>
       <Text style={styles.title}>中间状态英文</Text>
-      <View style={styles.stepperContainer} >
+      <View style={styles.sectionContainer} >
         <Stepper
           step={1}
           symbolType="custom"
@@ -101,7 +90,7 @@ const StepperDemo = ({ navigation }) => {
         />
       </View>
       <Text style={styles.title}>中间状态小语种</Text>
-      <View style={styles.stepperContainer} >
+      <View style={styles.sectionContainer} >
         <Stepper
           step={1}
           symbolType="custom"
@@ -113,7 +102,7 @@ const StepperDemo = ({ navigation }) => {
         />
       </View>
       <Text style={styles.title}>禁用（关）</Text>
-      <View style={styles.stepperContainer} >
+      <View style={styles.sectionContainer} >
         <Stepper
           step={0.5}
           symbolType="degree"
@@ -126,7 +115,7 @@ const StepperDemo = ({ navigation }) => {
         />
       </View>
       <Text style={styles.title}>无数据</Text>
-      <View style={styles.stepperContainer} >
+      <View style={styles.sectionContainer} >
         <Stepper
           step={0.5}
           value={null}
@@ -136,10 +125,7 @@ const StepperDemo = ({ navigation }) => {
           max={30}
         />
       </View>
-      <View style={styles.caseContainer}>
-        <Text style={[styles.header, { marginTop: 12 }]}>Stepper - 步进器</Text>
-        <TestComponent component={Stepper} propConfigs={propConfigs}/>
-      </View>
+      <View style={{ paddingBottom: 32 }}/>
     </ScrollView>
   );
 };
@@ -165,7 +151,7 @@ const styles = dynamicStyleSheet({
   },
   button: {
     fontSize: 14,
-    color: colorToken.contentPrimaryNormal,
+    color: colorToken.contentTertiaryNormal,
     paddingHorizontal: 15,
     lineHeight: 24,
   },
@@ -181,11 +167,6 @@ const styles = dynamicStyleSheet({
     backgroundColor: colorToken.surfaceCardPrimary,
     marginHorizontal: 12,
     borderRadius: 16,
-    marginBottom: 12,
-  },
-  stepperContainer: {
-    backgroundColor: colorToken.surfaceCardPrimary,
-    marginHorizontal: 12,
   },
   caseContainer: {
     marginBottom: 12,

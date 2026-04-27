@@ -79,9 +79,11 @@ const formatLabel = (name) =>
 const Swatch = ({ name }) => {
   const color = colorToken[name];
   return (
-    <View style={styles.card}>
-      <View style={[styles.swatchColor, styles.swatchColorWrap, { backgroundColor: color }]} />
-      <Text style={styles.tokenName}>{formatLabel(name)}</Text>
+    <View style={styles.cardWrapper}>
+      <View style={styles.card}>
+        <View style={[styles.swatchColor, styles.swatchColorWrap, { backgroundColor: color }]} />
+        <Text style={styles.tokenName}>{formatLabel(name)}</Text>
+      </View>
     </View>
   );
 };
@@ -128,15 +130,18 @@ const styles = dynamicStyleSheet({
   row: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginBottom: 8,
-    marginHorizontal: -4,
+    alignItems: 'stretch',
+  },
+  cardWrapper: {
+    flexBasis: '25%',
+    maxWidth: '25%',
+    padding: 4,
   },
   card: {
-    width: 84,
+    flex: 1,
     backgroundColor: CARD_BG,
     borderRadius: 12,
     padding: 6,
-    marginHorizontal: 4,
   },
   swatchColorWrap: {
     marginBottom: 6,

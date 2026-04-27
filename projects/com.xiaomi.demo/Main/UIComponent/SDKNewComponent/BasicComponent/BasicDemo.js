@@ -18,6 +18,7 @@ const BasicDemo = (props) => {
     { title: '颜色', router: 'ColorDemo' },
     { title: '字体', router: 'FontsDemo' },
     { title: '圆角', router: 'RadiusDemo' },
+    { title: '间距', router: 'SpacingDemo' },
   ];
 
   return (

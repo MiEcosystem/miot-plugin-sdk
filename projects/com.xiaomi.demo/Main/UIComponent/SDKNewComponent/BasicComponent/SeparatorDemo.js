@@ -1,21 +1,21 @@
 'use strict';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
 import { colorToken, Stepper, Separator } from "miot/ui/hyperOSUI";
-import TestComponent from '../testComponent';
 import { Cold } from 'miot/ui/icons';
+import NavigationBar from 'miot/ui/NavigationBar';
 
 const SeparatorDemo = ({ navigation }) => {
   const [targetTemperature, setTargetTemperature] = useState(23);
 
-  const propConfigs = [
-    { 
-      name: 'style',
-      type: 'object',
-    },
-  ];
+  useEffect(() => {
+    navigation.setParams({
+      right: [{ key: NavigationBar.ICON.MORE, onPress: () => navigation.navigate('DividerConfigDemo', { title: 'Separator 配置调试' }) }],
+    });
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>分割线</Text>
@@ -24,26 +24,22 @@ const SeparatorDemo = ({ navigation }) => {
         <Stepper
           step={0.5}
           symbolType="degree"
-          suffixSubscript={<Cold fill={colorToken.accentBlueFill} />}
+          suffix={<Cold fill={colorToken.accentBlueFill} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
           max={30}
         />
-        <Separator/>
+        <Separator />
         <Stepper
           step={0.5}
           symbolType="degree"
-          suffixSubscript={<Cold fill={colorToken.accentBlueFill} />}
+          suffix={<Cold fill={colorToken.accentBlueFill} />}
           value={targetTemperature}
           onChange={setTargetTemperature}
           min={20}
           max={30}
         />
-      </View>
-      <View style={styles.caseContainer}>
-        <Text style={[styles.header, { marginTop: 12 }]}>Separator - 分割线</Text>
-        <TestComponent component={Separator} propConfigs={propConfigs}/>
       </View>
     </ScrollView>
   );
@@ -71,14 +67,6 @@ const styles = dynamicStyleSheet({
     marginHorizontal: 12,
     borderRadius: 16,
     marginBottom: 12,
-  },
-  separator1: {
-    marginHorizontal: 4,
-    marginVertical: 20,
-  },
-  separator2: {
-    marginHorizontal: 88,
-    marginVertical: 16,
   },
   caseContainer: {
     marginBottom: 40,

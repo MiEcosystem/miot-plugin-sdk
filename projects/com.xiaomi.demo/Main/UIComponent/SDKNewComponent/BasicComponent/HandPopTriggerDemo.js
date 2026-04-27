@@ -14,9 +14,8 @@ import {
   InteractionManager,
 } from 'react-native';
 import NavigationBar from 'miot/ui/NavigationBar';
-import { NearHandDialog } from 'miot/ui/hyperOSUI';
+import { NearHandDialog, colorToken } from 'miot/ui/hyperOSUI';
 import fonts from 'miot/utils/fonts';
-import {colorToken} from "mhui-rn/dist/styles/color";
 import {dynamicStyleSheet} from "miot/ui";
 
 const homes = [

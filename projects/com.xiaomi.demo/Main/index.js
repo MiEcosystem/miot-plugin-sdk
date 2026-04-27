@@ -74,7 +74,7 @@ import SliderWithoutBlockDemo from "./UIComponent/Card/SliderWithoutBlockDemo"; 
 import RadioExample from "./UIComponent/RadioExample"; // ui-单选框
 import CheckboxDemo from "./UIComponent/CheckboxDemo"; // ui-复选框
 import GearExample from "./UIComponent/GearExample"; // ui-拖拽选择档位组件
-import SwitchDemo from "./UIComponent/SwitchDemo"; // ui-开关
+import SwitchDemo from "./UIComponent/SDKNewComponent/BasicComponent/SwitchDemo";
 import DialogExample from "./UIComponent/DialogExample"; // ui-米家弹窗
 import MHDatePickerDemo from "./UIComponent/MHDatePickerDemo"; // ui-时间选择器
 import BlankPageEntry from "./UIComponent/BlankPageEntry"; // ui-空白页面示例
@@ -147,6 +147,7 @@ import BasicDemo from "./UIComponent/SDKNewComponent/BasicComponent/BasicDemo";
 import FontsDemo from "./UIComponent/SDKNewComponent/BasicComponent/FontsDemo";
 import ColorDemo from "./UIComponent/SDKNewComponent/BasicComponent/ColorDemo";
 import RadiusDemo from "./UIComponent/SDKNewComponent/BasicComponent/RadiusDemo";
+import SpacingDemo from "./UIComponent/SDKNewComponent/BasicComponent/SpacingDemo";
 // import DialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/DialogDemo";
 // import HandPopDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopDemo";
 // import HandPopCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopCustomDemo";
@@ -170,7 +171,13 @@ import IotComponentDemo from "./UIComponent/SDKNewComponent/IotComponent/IotComp
 import LargeEntranceDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeEntranceDemo";
 import StepperDemo from "./UIComponent/SDKNewComponent/IotComponent/StepperDemo";
 import LargeVariantSwitchDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeVariantSwitchDemo";
-import SeparatorDemo from "./UIComponent/SDKNewComponent/IotComponent/SeparatorDemo";
+import SeparatorDemo from "./UIComponent/SDKNewComponent/BasicComponent/SeparatorDemo";
+import SwitchConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/SwitchConfigDemo";
+import DividerConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/DividerConfigDemo";
+import LargeListEntranceConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeListEntranceConfigDemo";
+import ParamStepperConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/ParamStepperConfigDemo";
+import LargeListToggleConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeListToggleConfigDemo";
+import LargeVariantSwitchConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeVariantSwitchConfigDemo";
 // 第三方库
 import SQLiteDemo from "./ThirdPartDemo/SQLiteDemo";
 import OrientationDemo from "./Host/OrientationDemo";
@@ -290,6 +297,7 @@ function createRootStack(initPage) {
       SdkComponentDemo,
       ColorDemo,
       RadiusDemo,
+      SpacingDemo,
       // DialogDemo,
       // HandPopDemo,
       // HandPopClickDemo,
@@ -309,6 +317,12 @@ function createRootStack(initPage) {
       StepperDemo,
       LargeVariantSwitchDemo,
       SeparatorDemo,
+      SwitchConfigDemo,
+      DividerConfigDemo,
+      LargeListEntranceConfigDemo,
+      ParamStepperConfigDemo,
+      LargeListToggleConfigDemo,
+      LargeVariantSwitchConfigDemo,
       // FirmwareUpgradeAuto,
       FirmwareUpgradeRecord,
       HostDemo,

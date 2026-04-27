@@ -3,8 +3,7 @@
 import React, { Component } from 'react';
 import { ScrollView, Text, View, TouchableOpacity } from 'react-native';
 import { dynamicStyleSheet } from 'miot/ui';
-import { colorToken } from 'mhui-rn/dist/styles/color';
-import { showToast } from 'miot/ui/hyperOSUI';
+import { showToast, colorToken } from 'miot/ui/hyperOSUI';
 import { ListGroup } from "mhui-rn/dist/hyperOS";
 
 class ToastDemo extends Component {
@@ -25,7 +24,7 @@ class ToastDemo extends Component {
       <ListGroup dataSource={items.map((item, index) => ({
         title: item.text,
         key: index,
-        onPress: () => showToast(this.getToastText(item.text), item.duration)
+        onPress: () => showToast(this.getToastText(item.text), item.duration),
       }))}/>
     );
   }
@@ -34,7 +33,7 @@ class ToastDemo extends Component {
     const tokenItems = [
       { text: '标准单行', duration: 1 },
       { text: '最短样式', duration: 1 },
-      { text: '多语言', duration: 2 }
+      { text: '多语言', duration: 2 },
     ];
 
     return (
@@ -49,15 +48,15 @@ class ToastDemo extends Component {
 const styles = dynamicStyleSheet({
   container: {
     backgroundColor: colorToken.mj_color_gray_bg_2,
-    flex: 1
+    flex: 1,
   },
   header: {
     fontSize: 24,
     color: colorToken.mj_color_gray_text_2,
     fontWeight: '500',
     paddingHorizontal: 15,
-    marginBottom: 20
-  }
+    marginBottom: 20,
+  },
 });
 
 export default ToastDemo;
