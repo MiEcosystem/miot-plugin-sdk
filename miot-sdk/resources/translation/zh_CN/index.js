@@ -366,7 +366,7 @@ export default {
   add_device_type: "添加设备类型",
   common_brand_produced_by: '${}出品',
   newGB_remoteControl_disabled_tips: "远程控制未开启，暂不可在APP端控制",
-  automation_edit_btn: "编辑",
+  automation_edit_btn: "编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑",
   switch_autoCtrl_wirelessHint_title: "按键设置过单击、双击、长按的自动化，切换为无线模式后可使用",
   automation_add_control_device: "添加控制设备",
   switch_autoCtrl_selectControlDevice_title: "选择控制设备",
