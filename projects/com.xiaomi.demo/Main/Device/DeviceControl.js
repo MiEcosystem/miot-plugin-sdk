@@ -161,6 +161,12 @@ export default class UIDemo extends React.Component {
         }
       },
       {
+        'name': '微信小程序开锁Demo',
+        'func': () => {
+          this.props.navigation.navigate('WechatUnlockDemo', { title: '微信小程序开锁Demo' });
+        }
+      },
+      {
         'name': '蓝牙token加密',
         'func': () => {
           let ble = Device.getBluetoothLE();
@@ -340,6 +346,17 @@ export default class UIDemo extends React.Component {
         'name': '获取当前账号的当前家庭的DeviceList',
         'func': () => {
           Device.getHomeDeviceList().then((res) => {
+            alert(JSON.stringify(res));
+          }).catch((error) => {
+            alert(JSON.stringify(error));
+          });
+        }
+      },
+      {
+        'name': '获取家庭成员的列表',
+        'func': () => {
+          let options = {};
+          Device.getHomeMemberList(options).then((res) => {
             alert(JSON.stringify(res));
           }).catch((error) => {
             alert(JSON.stringify(error));

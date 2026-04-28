@@ -22,6 +22,9 @@ export default class UIDemo extends React.Component {
     });
     this.state = {
       dataSource: ds.cloneWithRows([
+        { name: '支持的字体列表', router: 'SupportedFont' },
+        { name: '下载字体列表', router: 'DownloadFontDemo' },
+        { name: '设置项改版-2022/03/21', router: 'Settings2022' },
         { name: "导航栏 TitleBar Demo", router: "TitleBarDemo" },
         { name: "新版导航栏 NavigationBar Demo", router: "NavigationBarDemo" },
         { name: "卡片 CardDemo", router: "CardDemoEntry" },
@@ -35,6 +38,7 @@ export default class UIDemo extends React.Component {
         { name: "时间选择器", router: "MHDatePickerDemo" },
         { name: "空白页面示例", router: "BlankPageEntry" },
         { name: "颜色选择", router: "ColorPicker" },
+        { name: "拦截返回事件(Android Only)", router: "BackHandlerDemo" },
         { name: "第三方 toast 组件使用示例", router: "ToastExample" },
         { name: "ScrollView 吸附效果 demo", router: "Parallax" },
         { name: "Host.ui 原生导航", router: "NavigateUIDemo" },
@@ -78,6 +82,7 @@ export default class UIDemo extends React.Component {
         { name: "NumberSpinnerDemo", router: "NumberSpinnerDemo" },
         { name: "StringSpinnerDemo", router: "StringSpinnerDemo" },
         { name: "ColorPickerDemo", router: "ColorPickerDemo" },
+        { name: "ColorSelectorDemo", router: "ColorSelectorDemo" },
         {
           name: "MiotAndroidScrollViewDemo(仅Android)",
           router: "MiotAndroidScrollViewDemo"
@@ -85,10 +90,10 @@ export default class UIDemo extends React.Component {
         { name: "绝对定位点击测试", router: "AbsoluteTouch" },
         { name: "输入法软键盘适配测试", router: "SoftKeyboardAdapterTestDemo" },
         { name: "创建窗帘组", router: "CurtainGroupPage" },
-        { name: "RobotMapDemo", router: "RobotMapDemo" }
+        { name: "RobotMapDemo", router: "RobotMapDemo" },
         // { name: "SparkLines", router: "SparkLines" },
         // { name: "Tabs", router: "Tabs" },
-        // { name: "YMDDatePicker", router: "YMDDatePicker" }
+        { name: "YMDDatePickerDemo", router: "YMDDatePickerDemo" }
       ])
     };
   }

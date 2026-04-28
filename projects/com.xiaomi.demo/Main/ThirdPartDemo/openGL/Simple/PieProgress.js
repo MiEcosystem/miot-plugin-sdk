@@ -41,16 +41,16 @@ module.exports = GL.createComponent(
     colorOutside,
     radius
   }) =>
-  <GL.Node
-    shader={shaders.pieProgress}
-    uniforms={{
-      dim: [ width, height ],
-      progress,
-      colorInside,
-      colorOutside,
-      radius
-    }}
-  />,
+    <GL.Node
+      shader={shaders.pieProgress}
+      uniforms={{
+        dim: [width, height],
+        progress,
+        colorInside,
+        colorOutside,
+        radius
+      }}
+    />,
   {
     displayName: "PieProgress",
     defaultProps: {

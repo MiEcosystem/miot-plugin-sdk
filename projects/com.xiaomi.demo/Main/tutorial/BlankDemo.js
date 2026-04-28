@@ -4,6 +4,7 @@ import {
   View,
   Text
 } from 'react-native';
+import ListItem from 'miot/ui/ListItem/ListItem';
 
 export default class BlankDemo extends React.Component {
   render() {
