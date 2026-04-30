@@ -365,5 +365,5 @@ export default {
   save: "保存",
   add_device_type: "添加设备类型",
   common_brand_produced_by: '${}出品',
-  newGB_remoteControl_disabled_tips: "远程控制未开启，暂不可在APP端控制"
+  newGB_remoteControl_disabled_tips: "远程控制未开启，暂不可在应用端控制",
 };

@@ -385,5 +385,5 @@ export default {
   save: 'Save',
   add_device_type: 'Add device type',
   common_brand_produced_by: 'Designed by ${}',
-  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
+  newGB_remoteControl_disabled_tips: "Remote control is off. Can't control from the app.",
 };
