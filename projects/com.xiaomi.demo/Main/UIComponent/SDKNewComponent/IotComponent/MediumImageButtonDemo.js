@@ -76,7 +76,7 @@ const MediumImageButtonDemo = ({ navigation }) => {
       <ContainerWithGap viewStyle={{ flex: 1, paddingHorizontal: 12, paddingTop: 20 }} gap={8}>
         <Text style={{ fontSize: 13, color: '#888', paddingHorizontal: 4 }}>两列布局（带图标）</Text>
         <ContainerWithGap horizontal span={2} gap={8}>
-          <CardContainer viewStyle={{ flex: 1 }}>
+          <CardContainer>
             <MediumImageButton
               title="空调"
               subtitle={ac ? '制冷 · 26°C' : '已关闭'}
@@ -84,10 +84,10 @@ const MediumImageButtonDemo = ({ navigation }) => {
               active={ac}
               colorType="blue"
               leadingIcon={<IconAc color={getIconColor({ active: ac, disabled: false, colorType: 'blue' })} />}
-              onPress={() => setAc(v => !v)}
+              onPress={() => setAc((v) => !v)}
             />
           </CardContainer>
-          <CardContainer viewStyle={{ flex: 1 }}>
+          <CardContainer>
             <MediumImageButton
               title="热水器"
               subtitle={heater ? '55°C 加热中' : '已关闭'}
@@ -95,10 +95,10 @@ const MediumImageButtonDemo = ({ navigation }) => {
               active={heater}
               colorType="orange"
               leadingIcon={<IconHeater color={getIconColor({ active: heater, disabled: false, colorType: 'orange' })} />}
-              onPress={() => setHeater(v => !v)}
+              onPress={() => setHeater((v) => !v)}
             />
           </CardContainer>
-          <CardContainer viewStyle={{ flex: 1 }}>
+          <CardContainer>
             <MediumImageButton
               title="灯光"
               subtitle={light ? '已开启' : '已关闭'}
@@ -106,10 +106,10 @@ const MediumImageButtonDemo = ({ navigation }) => {
               active={light}
               colorType="green"
               leadingIcon={<IconLight color={getIconColor({ active: light, disabled: false, colorType: 'green' })} />}
-              onPress={() => setLight(v => !v)}
+              onPress={() => setLight((v) => !v)}
             />
           </CardContainer>
-          <CardContainer viewStyle={{ flex: 1 }}>
+          <CardContainer>
             <MediumImageButton
               title="风扇"
               subtitle={fan ? '自然风' : '已关闭'}
@@ -117,7 +117,7 @@ const MediumImageButtonDemo = ({ navigation }) => {
               active={fan}
               colorType="wathet"
               leadingIcon={<IconFan color={getIconColor({ active: fan, disabled: false, colorType: 'wathet' })} />}
-              onPress={() => setFan(v => !v)}
+              onPress={() => setFan((v) => !v)}
             />
           </CardContainer>
         </ContainerWithGap>
@@ -131,7 +131,7 @@ const MediumImageButtonDemo = ({ navigation }) => {
             active={ac}
             colorType="blue"
             leadingIcon={<IconAc color={getIconColor({ active: ac, disabled: false, colorType: 'blue' })} />}
-            onPress={() => setAc(v => !v)}
+            onPress={() => setAc((v) => !v)}
           />
         </CardContainer>
         <CardContainer>
@@ -142,7 +142,7 @@ const MediumImageButtonDemo = ({ navigation }) => {
             active={heater}
             colorType="orange"
             leadingIcon={<IconHeater color={getIconColor({ active: heater, disabled: false, colorType: 'orange' })} />}
-            onPress={() => setHeater(v => !v)}
+            onPress={() => setHeater((v) => !v)}
           />
         </CardContainer>
 
