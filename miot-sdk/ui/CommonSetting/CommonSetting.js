@@ -19,6 +19,7 @@ import DynamicColor from 'miot/ui/Style/DynamicColor';
 import { FontPrimary } from 'miot/utils/fonts';
 import { showMemberSet } from '../../hooks/useMemberSetInfo';
 import { showDeviceService } from '../../hooks/useDeviceService';
+import { specPluginNames } from '../../utils/special-plugins';
 import tryTrackCommonSetting from "../../utils/track-sdk";
 import { System } from 'miot';
 // 用于标记固件升级小红点是否被点击过。防止点完小红点后，当蓝牙连接上，小红点再次出现
@@ -141,6 +142,9 @@ const choiceIndexArray = [
     title: strings.thirdPluginTitle,
   },
 ];
+function isStdPlugin() {
+  return specPluginNames.includes(Package.packageName);
+}
 function getPluginCategory() {
   return new Promise((resolve, reject) => {
     Service.smarthome.getHomepageSettings()
@@ -185,6 +189,21 @@ const GetCloudStorage = async(did) => {
   } catch (error) {
     Service.smarthome.reportLog(Device.model, `GetCloudStorage ${ error.message }`);
     return -1;
+  }
+};
+const GetNonOwnerPaymentAuth = async(did) => {
+  try {
+    const res = await Service.callSmartHomeCameraAPI(
+      '/miot/camera/app/v1/payment',
+      'business.smartcamera',
+      false,
+      { did, region: Host.locale.language.includes('en') ? 'US' : 'CN' }
+    );
+    const parsed = typeof res === 'string' ? JSON.parse(res) : res;
+    return parsed && parsed.data && parsed.data.nonOwnerPayment === true;
+  } catch (error) {
+    Service.smarthome.reportLog(Device.model, `GetNonOwnerPaymentAuth error: ${ error.message }`);
+    return false;
   }
 };
 const firstOptionsInner = {
@@ -313,6 +332,10 @@ const secondAllOptionsInner = {
    */
   NETWORK_INFO: 'networkInfo',
   /**
+   * 更多设置——云存储更多设置，'可选'
+   */
+  CLOUD_STORAGE_SETTING: 'cloutStorageSetting',
+  /**
    * 法律信息——用户协议，`必选`
    */
   USER_AGREEMENT: 'userAgreement',
@@ -371,6 +394,7 @@ const firstSharedOptions = {
   [AllOptions.HELP]: 1,
   [AllOptions.SECURITY]: 0,
   [AllOptions.ADD_TO_DESKTOP]: 1,
+  [AllOptions.CLOUD_STORAGE_SETTING]: 1,
   [AllOptions.LEGAL_INFO]: 0, // 20190516，分享设备不显示「法律信息」
   [AllOptions.PRODUCT_BAIKE]: 1,
   [AllOptions.STAND_PLUGIN]: 1,
@@ -451,6 +475,7 @@ export const AllOptionsWeight = {
   [AllOptions.TIMEZONE]: 21,
   [AllOptions.FEEDBACK]: 23,
   [AllOptions.ADD_TO_DESKTOP]: 25,
+  [AllOptions.CLOUD_STORAGE_SETTING]: 30,
   [AllOptions.CLOUD_STORAGE]: 30,
 };
 /**
@@ -614,7 +639,7 @@ export default class CommonSetting extends React.Component {
     extraOptions: {},
   }
   getCommonSetting(state) {
-    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory, multipleKeyisOn, keyNum, cloudStorageOn } = state || {};
+    let { modelType, productBaikeUrl, roomInfo, freqFlag, freqCameraFlag, freqCameraNeedShowRedPoint, pluginCategory, multipleKeyisOn, keyNum, cloudStorageOn, hasStdPlugin } = state || {};
     const { preOperations } = this.props.extraOptions;
     if (!modelType) {
       modelType = '  ';
@@ -797,7 +822,7 @@ export default class CommonSetting extends React.Component {
       },
     };
     let isCamera = ['camera'].indexOf(modelType) !== -1 && ['mxiang.'].indexOf(Device.model) == -1;
-    ret[AllOptions.CLOUD_STORAGE] = isCamera && cloudStorageOn !== -1 && {
+    ret[AllOptions.CLOUD_STORAGE] = isCamera && cloudStorageOn !== -1 && !(isStdPlugin() && this.state.abTestType === 'b') && {
       title: strings.cloudStorage,
       value: cloudStorageOn ? strings.open : strings.close,
       onPress: () => Package.navigate("CloudStorage", { value: cloudStorageOn }),
@@ -882,6 +907,8 @@ export default class CommonSetting extends React.Component {
       isSingleSwitch: false, // 是否是单键开关，单键开关也要显示「按键设置」。showMemberSetKey和isSingleSwitch要么都为false，说明这不是一个开关设备，要么只会有一个为true，说明这是单键或者多键开关
       showDeviceService: false, // 是否暂展示「设备服务」选项，
       cloudStorageOn: -1,
+      abTestType: 'a', // AB实验分组：'b'=实验组（云存储更多设置），'a'或其他=对照组（云存储服务提醒）
+      hasPaymentAuthorization: false, // 非O 没有代付权限，不展示云存储更多设置页面
       isCariotDevice: false,
       isHomeManager: false,
       isHighTextContrastEnabled: false, // 无障碍高对比度文字开关
@@ -997,6 +1024,23 @@ export default class CommonSetting extends React.Component {
     secondCustomOptions: this.props.secondCustomOptions || [],
   }) {
     let excludeRequiredOptions = params.excludeRequiredOptions || [];
+    // 如果是摄像机标插，添加更多设置-云存储更多设置菜单
+    let isCamera = ['camera'].indexOf(modelType) !== -1 && ['mxiang.'].indexOf(Device.model) == -1;
+    const canShowCloudStorageSetting = Device.isOwner || this.state.hasPaymentAuthorization;
+    console.log('[CloudStorageSetting] openSubPage check:', JSON.stringify({
+      isCamera,
+      cloudStorageOn: this.state.cloudStorageOn,
+      isOwner: Device.isOwner,
+      hasPaymentAuthorization: this.state.hasPaymentAuthorization,
+      canShowCloudStorageSetting,
+      abTestType: this.state.abTestType,
+      isStdPlugin: isStdPlugin(),
+      modelType: modelType,
+      deviceModel: Device.model,
+    }));
+    if (isCamera && this.state.cloudStorageOn !== -1 && canShowCloudStorageSetting && this.state.abTestType === 'b' && isStdPlugin()) {
+      params.secondOptions = [...(params.secondOptions || []), AllOptions.CLOUD_STORAGE_SETTING];
+    }
     if (this.props.navigation) {
       this.props.navigation.navigate(page, {
         ...params,
@@ -1142,6 +1186,8 @@ export default class CommonSetting extends React.Component {
       }
     });
     this.getCloudStorage();
+    this.getNonOwnerPaymentAuth();
+    this.getCloudStorageABTest();
     // setTimeout(() => {
     //   this.commonSetting = this.getCommonSetting({
     //     ...this.state,
@@ -1172,6 +1218,28 @@ export default class CommonSetting extends React.Component {
     GetCloudStorage(Device.deviceID).then((result) => {
       this.commonSetting = this.getCommonSetting({ ...this.state, cloudStorageOn: result });
       this.setState({ cloudStorageOn: result });
+    });
+  }
+  getNonOwnerPaymentAuth() {
+    if (Device.isOwner) return;
+    GetNonOwnerPaymentAuth(Device.deviceID).then((result) => {
+      this.setState({ hasPaymentAuthorization: result });
+    });
+  }
+  getCloudStorageABTest() {
+    Service.smarthome.getABTestConfigByDidAndPath({
+      did: Device.deviceID,
+      expPath: '/MiHome/ExpLayer/ExpDomain/CloudDidLayer',
+    }).then((result) => {
+      let abTestType = 'a';
+      try {
+        const shared = result && result.data && result.data.params && result.data.params.SharedUserBuyCloud;
+        const parsed = shared ? JSON.parse(shared) : null;
+        if (parsed && parsed.type === 'b') abTestType = 'b';
+      } catch (e) {}
+      this.setState({ abTestType });
+    }).catch(() => {
+      this.setState({ abTestType: 'a' });
     });
   }
   _updateFreqFlag() {

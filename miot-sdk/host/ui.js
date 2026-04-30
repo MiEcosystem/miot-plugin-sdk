@@ -636,6 +636,9 @@ class IUi {
   @report
   openSwitchButtonSettingPage(params) {
   }
+    @report
+  openAutomationControlPage(params) {
+  }
   /**
    * 打开设备检查固件历史版本信息页面
    */

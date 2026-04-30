@@ -10,6 +10,8 @@
 import { NativeModules, Platform } from 'react-native';
 import { report } from "../decorator/ReportDecorator";
 import CameraRenderView, { MISSCodec } from "../ui/CameraRenderView";
+import native from "../native";
+import { specPluginNames } from "../utils/special-plugins";
 /**
  * MISS 命令
  * @namespace MISSCommand
@@ -350,6 +352,14 @@ class IMiotCamera {
      showCloudStorageSetting(did = Device.deviceID, aSettingUrl = null) {
         return null
      }
+  /**
+   * 打开更多设置-云储存更多设置页面
+   * @since 10115
+   */
+  @report
+    showCloudStorageMoreSetting() {
+     return null
+    }
     /**
      * 打开报警视频播放页面
      * @since 10037

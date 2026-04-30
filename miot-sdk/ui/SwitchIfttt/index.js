@@ -7,6 +7,10 @@ import SwitchMembersSelectPage from './SwitchMembersSelectPage';
 import SwitchSceneDeletePage from './SwitchSceneDeletePage';
 import SwitchVoiceControlSettingPage from './SwitchVoiceControlSettingPage';
 import SwitchSensorModeSettingPage from './SwitchSensorModeSettingPage';
+import AutomationControlPage from './AutomationControl/AutomationControlPage';
+import AutoSwitchLightSelectPage from './AutomationControl/AutoSwitchLightSelectPage';
+import AutoSwitchMembersSelectPage from './AutomationControl/AutoSwitchMembersSelectPage';
+import AutoSwitchManualSceneSelectPage from './AutomationControl/AutoSwitchManualSceneSelectPage';
 export { 
   SwitchButtonSelectPage,
   SwitchButtonSettingPage,
@@ -16,5 +20,9 @@ export {
   SwitchMembersSelectPage,
   SwitchSceneDeletePage,
   SwitchVoiceControlSettingPage,
-  SwitchSensorModeSettingPage
+  SwitchSensorModeSettingPage,
+  AutomationControlPage,
+  AutoSwitchLightSelectPage,
+  AutoSwitchMembersSelectPage,
+  AutoSwitchManualSceneSelectPage
 };

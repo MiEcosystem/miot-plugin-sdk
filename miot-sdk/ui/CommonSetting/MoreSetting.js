@@ -22,6 +22,7 @@ import tryTrackCommonSetting from "../../utils/track-sdk";
 const secondSharedOptions = {
   [secondAllOptions.PLUGIN_VERSION]: 1,
   [secondAllOptions.ADD_TO_DESKTOP]: 1,
+  [secondAllOptions.CLOUD_STORAGE_SETTING]: 1,
   [secondAllOptions.AUTO_UPGRADE]: 1,
   [secondAllOptions.CHECK_UPGRADE]: 1,
   // [secondAllOptions.FEEDBACK]: 1,
@@ -170,6 +171,10 @@ export default class MoreSetting extends React.Component {
       [secondAllOptions.ADD_TO_DESKTOP]: {
         title: strings.addToDesktop,
         onPress: () => Host.ui.openAddToDesktopPage()
+      },
+      [secondAllOptions.CLOUD_STORAGE_SETTING]: {
+        title: strings.cloutStorageSetting,
+        onPress: () => Service.miotcamera.showCloudStorageMoreSetting()
       }
     };
   }
@@ -344,6 +349,16 @@ export default class MoreSetting extends React.Component {
                 Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
                 Service.smarthome.reportEventRefChannel("expose", params);
               }
+            } else if (item.key === AllOptions.CLOUD_STORAGE_SETTING) { // 云存储更多设置曝光埋点
+              Device.getBindRelation().then((bindRelation) => {
+                const params = { 'item_type': 'button', 'item_name': 'camera_cloud_additional_settings_link_button', 'bind_relation': bindRelation };
+                if (Platform.OS === 'ios') {
+                  Service.smarthome.recordEvent("expose", 'cameara_additional_settings', 'cameara_additional_settings', 'camera_homepage_setting', 'camera_homepage_setting', params);
+                } else {
+                  Service.smarthome.updatePluginPageRef({ 'ref': 'cameara_additional_settings', 'sub_ref': 'cameara_additional_settings' });
+                  Service.smarthome.reportEventRefChannel("expose", params);
+                }
+              });
             }
             const showSeparator = false;// index !== items.length - 1;
             return (
@@ -364,6 +379,16 @@ export default class MoreSetting extends React.Component {
                         Service.smarthome.updatePluginPageRef({ 'ref': 'plugin_homepage', 'sub_ref': 'plugin_setting' });
                         Service.smarthome.reportEventRefChannel("click", params);
                       }
+                    } else if (item.key === AllOptions.CLOUD_STORAGE_SETTING) { // 云存储更多设置点击埋点
+                      Device.getBindRelation().then((bindRelation) => {
+                        const params = { 'item_type': 'button', 'item_name': 'camera_cloud_additional_settings_link_button', 'bind_relation': bindRelation };
+                        if (Platform.OS === 'ios') {
+                          Service.smarthome.recordEvent("click", 'cameara_additional_settings', 'cameara_additional_settings', 'camera_homepage_setting', 'camera_homepage_setting', params);
+                        } else {
+                          Service.smarthome.updatePluginPageRef({ 'ref': 'cameara_additional_settings', 'sub_ref': 'cameara_additional_settings' });
+                          Service.smarthome.reportEventRefChannel("click", params);
+                        }
+                      });
                     }
                     item.onPress();
                   }

@@ -25,6 +25,75 @@ export function getSwitchTypeTitle(type = '') {
   }
   return switchTypeDescription;
 }
+export function getSwitchTypeTitleV2(type = '') {
+  let switchTypeDescription = I18n.switch_value_deviceType_normalDevice;
+  switch (type) {
+    case SWITCH_DEVICE_TYPE.COMMON_DEVICE:
+      switchTypeDescription = I18n.switch_value_deviceType_normalDevice;
+      break;
+    case SWITCH_DEVICE_TYPE.SMART_LIGHT:
+      switchTypeDescription = I18n.switch_controlType_smartLight_title;
+      break;
+    case SWITCH_DEVICE_TYPE.SMART_SWITCH:
+      switchTypeDescription = I18n.switch_controlType_switchDualControl_title;
+      break;
+    case SWITCH_DEVICE_TYPE.MANUAL_SCENE:
+      switchTypeDescription = I18n.switch_controlType_manualScene_title;
+      break;
+    case SWITCH_DEVICE_TYPE.OTHER_SMART_DEVICE:
+      switchTypeDescription = I18n.switch_controlType_otherSmartDevice_title;
+      break;
+    default:
+      break;
+  }
+  return switchTypeDescription;
+}
+export function getSwitchTypeSubTitleV2(type = '') {
+  let switchTypeDescription = I18n.select_control_type;
+  switch (type) {
+    case SWITCH_DEVICE_TYPE.COMMON_DEVICE:
+      switchTypeDescription = I18n.non_smart_device_wired;
+      break;
+    case SWITCH_DEVICE_TYPE.SMART_LIGHT:
+      switchTypeDescription = I18n.switch_controlType_smartLight_desc;
+      break;
+    case SWITCH_DEVICE_TYPE.SMART_SWITCH:
+      switchTypeDescription = I18n.switch_controlType_switchDualControl_desc;
+      break;
+    case SWITCH_DEVICE_TYPE.MANUAL_SCENE:
+      switchTypeDescription = I18n.switch_controlType_manualScene_desc;
+      break;
+    case SWITCH_DEVICE_TYPE.OTHER_SMART_DEVICE:
+      switchTypeDescription = I18n.switch_controlType_otherSmartDevice_desc;
+      break;
+    default:
+      break;
+  }
+  return switchTypeDescription;
+}
+export function getSwitchTypeIcon(type = '') {
+  let icon = require('../../resources/images/SWITCH_DEVICE_TYPE_COMMON_DEVICE.png');
+  switch (type) {
+    case SWITCH_DEVICE_TYPE.COMMON_DEVICE:
+      icon = require('../../resources/images/SWITCH_DEVICE_TYPE_COMMON_DEVICE.png');
+      break;
+    case SWITCH_DEVICE_TYPE.SMART_LIGHT:
+      icon = require('../../resources/images/SWITCH_DEVICE_TYPE_SMART_LIGHT.png');
+      break;
+    case SWITCH_DEVICE_TYPE.SMART_SWITCH:
+      icon = require('../../resources/images/SWITCH_DEVICE_TYPE_SMART_SWITCH.png');
+      break;
+    case SWITCH_DEVICE_TYPE.MANUAL_SCENE:
+      icon = require('../../resources/images/SWITCH_DEVICE_TYPE_OTHER_SMART_DEVICE.png');
+      break;
+    case SWITCH_DEVICE_TYPE.OTHER_SMART_DEVICE:
+      icon = require('../../resources/images/SWITCH_DEVICE_TYPE_MANUAL_SCENE.png');
+      break;
+    default:
+      break;
+  }
+  return icon;
+}
 export function getSwitchTypeDescription(type = '') {
   let switchTypeDescription = I18n.common_listItem_value_unset;
   switch (type) {
@@ -78,7 +147,7 @@ export function decodeProp(key) {
     const type = parts[0];
     const sNumber = parseInt(parts[1], 10);
     // 2 for '.'
-    const suffix = key.slice(parts[0].length + parts[1].length + 2); 
+    const suffix = key.slice(parts[0].length + parts[1].length + 2);
     const isNotSpec = isNaN(sNumber);
     const siid = isNotSpec ? parts[1] : sNumber;
     const xiid = isNotSpec ? suffix : parseInt(suffix, 10);
@@ -106,14 +175,13 @@ export function decodeProp(key) {
       return { miid, siid, piid: xiid };
     }
   }
- 
   return res;
 }
 /**
- * @description 
+ * @description
  * @author guhao
  * @date 11/09/2023
- * @export 
+ * @export
  * @param {object} spec
  * @returns {string} siid.piid siid.eiid siid.aiid
  */
@@ -428,7 +496,6 @@ export function getTargetDeviceList(homeDeviceList, deviceTypes, filterMain) {
     }
     const regex = /device:([^:]*):/;
     const type = device.specUrn.match(regex);
-    
     if (type && deviceTypes.includes(type[1]) && !filterDevice[device.did]) {
       if (filterMain) {
         if (!device.did.includes('.s') && device.did !== Device.deviceID) {
@@ -438,7 +505,7 @@ export function getTargetDeviceList(homeDeviceList, deviceTypes, filterMain) {
       } else {
         filterDevice[device.did] = true;
         targetDeviceList.push(device);
-      } 
+      }
     }
   }
   return targetDeviceList;
@@ -519,4 +586,39 @@ export function getSceneTriggerListParam(spec, propSpec, value) {
     },
     triggerKey: spec?.miid ? `event.${ spec?.miid }.${ spec?.siid }.${ spec?.eiid }.${ value || '' }` : `event.${ spec?.siid }.${ spec?.eiid }.${ value || '' }`
   };
+}
+export async function getSwitchCount() {
+  try {
+    const res = await Service.spec.getSpecByKey(Device.deviceID, {
+      skey: "switch",
+      pkey: "on"
+    });
+    return res?.length || 0;
+  } catch (e) {
+    return 0;
+  }
+}
+// 打点用 normal（普通设备），light（智能灯），switch（开关双控），others（其他智能设备），manual_control(执行手动控制)
+export function getReportNameV2(type) {
+  let reportName = 'normal';
+  switch (type) {
+    case SWITCH_DEVICE_TYPE.COMMON_DEVICE:
+      reportName = 'normal';
+      break;
+    case SWITCH_DEVICE_TYPE.SMART_LIGHT:
+      reportName = 'light';
+      break;
+    case SWITCH_DEVICE_TYPE.SMART_SWITCH:
+      reportName = 'switch';
+      break;
+    case SWITCH_DEVICE_TYPE.MANUAL_SCENE:
+      reportName = 'manual_control';
+      break;
+    case SWITCH_DEVICE_TYPE.OTHER_SMART_DEVICE:
+      reportName = 'others';
+      break;
+    default:
+      break;
+  }
+  return reportName;
 }

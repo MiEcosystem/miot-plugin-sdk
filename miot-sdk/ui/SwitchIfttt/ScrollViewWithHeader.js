@@ -13,9 +13,10 @@ import { adjustSize } from '../../utils/sizes';
 import { FontMiSansWLight } from '../../utils/fonts';
 import native, { isIOS } from '../../native';
 const BigTitleGap = adjustSize(30);
-export default function ScrollViewWithHeader({ 
+export default function ScrollViewWithHeader({
   bigIcon,
   bigTitle,
+  bigTitleStyle,
   subtitle,
   bigGapStyle,
   type,
@@ -49,7 +50,7 @@ export default function ScrollViewWithHeader({
         }
         <Text
           numberOfLines={2}
-          style={[styles.bigTitleText, { color: bigTitleColor }]}
+          style={[styles.bigTitleText, { color: bigTitleColor }, bigTitleStyle]}
         >
           {bigTitle}
         </Text>
@@ -76,6 +77,7 @@ ScrollViewWithHeader.propTypes = {
   bigIcon: PropTypes.any,
   bigTitle: PropTypes.string,
   subtitle: PropTypes.string,
+  bigTitleStyle: PropTypes.object,
   bigGapStyle: PropTypes.object,
   type: PropTypes.string,
   contentStyle: PropTypes.object,
@@ -84,7 +86,8 @@ ScrollViewWithHeader.propTypes = {
 const styles = dynamicStyleSheet({
   container: {
     flex: 1,
-    backgroundColor: new DynamicColor('#FFF', '#000')
+    backgroundColor: new DynamicColor('#FFF', '#000'),
+    
   },
   contentInner: {
     paddingBottom: isIOS && native.MIOTHost.isIphoneXSeries ? 34 : adjustSize(30)

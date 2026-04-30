@@ -1455,6 +1455,33 @@ class ISmartHome {
   getABTestConfigByPath(param) {
      return Promise.resolve([]);
   }
+  /** ABTest
+   * 通过 did + 实验路径获取实验对象。
+   * @param param{Object}
+   * param.did {string} 设备did
+   * param.expPath {string} 实验路径
+   * @returns {Promise<Object>}
+   * 成功返回:
+   * {
+   *   code:0,
+   *   data:{
+   *     expId: Long,
+   *     expPath: String,
+   *     name: String,
+   *     type: String,
+   *     params: {}
+   *   }
+   * }
+   * 失败返回:
+   * {
+   *   code:-1,
+   *   message:xxxxxxx
+   * }
+   */
+  @report
+  getABTestConfigByDidAndPath(param) {
+     return Promise.resolve([]);
+  }
   /**
    * 根据subclass_id获取图标url
    * @param {Object} param

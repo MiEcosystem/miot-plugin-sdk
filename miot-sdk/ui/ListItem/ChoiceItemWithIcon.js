@@ -19,7 +19,9 @@ export default class ChoiceItemWithIcon extends Component {
     onValueChange: PropTypes.func,
     accessible: AccessibilityPropTypes.accessible,
     accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
-    accessibilityHint: AccessibilityPropTypes.accessibilityHint
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint,
+    radio: Radio.propTypes,
+    styles: PropTypes.object
   };
   static defaultProps = {
     onValueChange: () => {}
@@ -59,6 +61,7 @@ export default class ChoiceItemWithIcon extends Component {
   render() {
     const { icon, title, titleStyle, subtitle, extraSubtitle, extraSubtitleStyle, disabled } = this.props;
     const { checked } = this.state;
+    const container = (this.props.styles && this.props.styles.container) || {};
     return (
       <TouchableWithoutFeedback onPress={() => {
         if (!disabled) {
@@ -66,7 +69,7 @@ export default class ChoiceItemWithIcon extends Component {
         }
       }}>
         <View
-          style={Styles.container}
+          style={[Styles.container, container]}
           {...getAccessibilityConfig({
             accessible: this.props.accessible,
             accessibilityLabel: this.props.accessibilityLabel,
@@ -87,7 +90,10 @@ export default class ChoiceItemWithIcon extends Component {
               </Text>
             ) : null}
           </View>
-          <Radio isChecked={checked} disabled={disabled} changeCheck={this.changeCheck} />
+          <Radio
+            {...this.props.radio}
+            isChecked={checked} disabled={disabled} changeCheck={this.changeCheck}
+          />
         </View>
       </TouchableWithoutFeedback>
     );

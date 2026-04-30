@@ -758,6 +758,17 @@ export class BasicDevice {
      return  false
   }
   /**
+   * 获取用户与设备的绑定关系类型
+   * @since 10116
+   * @returns {Promise<string>}
+   * '0'=主账号 '1'=家庭共享用户管理员 '2'=家庭共享用户成员
+   * '3'=单设备共享用户允许控制 '4'=单设备共享用户仅查看 ''=未知
+   */
+  @report
+  getBindRelation() {
+     return Promise
+  }
+  /**
    * 获取当前设备的时区信息（国际标准时区），这里的设置不是指手机，而是指iot设备。**注意：国际标准时区中，没有Asia/Beijing。**
    * @since 10021
    * @returns {Promise} 成功进入then，失败进入catch。then：res="Asia/Shanghai";
