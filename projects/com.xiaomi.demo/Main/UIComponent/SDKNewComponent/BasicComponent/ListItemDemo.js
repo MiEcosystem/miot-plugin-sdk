@@ -1,684 +1,175 @@
 'use strict';
 
-import React, { useState } from 'react';
-import { View, Text, ScrollView, Image, Alert } from 'react-native';
-import { ListItem, ListItemWithWidget, colorToken, TestComponent } from 'miot/ui/hyperOSUI';
+import React, { Component } from 'react';
+import { View, Text, ScrollView, Image } from 'react-native';
+import { ListItem, Checkbox, colorToken, showToast } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style';
+import { SubtitleGroup } from 'mhui-rn/dist/hyperOS';
+import NavigationBar from 'miot/ui/NavigationBar';
 
-const alert = Alert.alert;
-const sourceData1 = [
-  {
-    componentType: 2,
-    index: 1,
-    type: 'switch',
-    title: '列表主文字',
-    hideRightIcon: true,
-    showDot: false
-  },
-  {
-    componentType: 1,
-    index: 2,
-    title: '列表主文字',
-    subtitle: '列表副文字',
-    value: '巨无霸',
-    hideRightIcon: true,
-    showDot: false,
-    onPress: () => console.log(4)
-  },
-  {
-    componentType: 1,
-    index: 3,
-    title: '列表主文字',
-    hideRightIcon: false,
-    showDot: false,
-    onPress: () => console.log(4)
-  },
-  {
-    componentType: 1,
-    index: 4,
-    title: '列表主文字',
-    value: '状态状态状态',
-    hideRightIcon: false,
-    showDot: true,
-    onPress: () => console.log(4)
-  },
-  {
-    componentType: 1,
-    index: 5,
-    title: '列表主文字',
-    rightIconType: 'fold',
-    value: '状态',
-    hideRightIcon: false,
-    showDot: false,
-    onPress: () => console.log(4)
-  },
-  {
-    componentType: 1,
-    index: 6,
-    rightIconType: 'select',
-    title: '列表主文字',
-    value: '状态',
-    hideRightIcon: false,
-    showDot: false,
-    onPress: () => console.log(4)
-  },
-  {
-    componentType: 2,
-    index: 7,
-    title: '列表主文字',
-    type: 'button',
-    hideRightIcon: false,
-    showDot: true,
-    buttonOption: {
-      title: '按钮',
-      onPress: () => console.log(4),
-      // ellipsizeMode: 'tail',
-      colorType: 'green',
-      type: 'light',
-      size: 'medium'
-      // backgroundColor: { bgColorNormal: '#0CCE941A'},
-      // titleStyle: { color: 'green',  }
-    }
-  },
-  {
-    componentType: 2,
-    index: 8,
-    title: '列表主文字',
-    type: 'button',
-    hideRightIcon: false,
-    showDot: true,
-    buttonOption: {
-      title: '全选',
-      onPress: () => console.log(4),
-      type: 'normal',
-      size: 'small'
-    }
-  },
-  {
-    componentType: 2,
-    index: 9,
-    title: '列表主文字列表主文字列表主文字列表',
-    // title: 'dahjdhsjadjsajkdjsajdsajkdsjkajdksadsjakdjskadsajdsjadjksajkdsja',
-    hideRightIcon: false,
-    showDot: true,
-    onPress: () => console.log(4),
-    showTitleArrow: true
-  },
-  {
-    componentType: 2,
-    index: 10,
-    title: '列表主文字列表主文字列表主文字列表',
-    // title: 'dahjdhsjadjsajkdjsajdsajkdsjkajdksadsjakdjskadsajdsjadjksajkdsja',
-    type: 'checkbox',
-    hideRightIcon: false,
-    showDot: true,
-    checkboxOption: {
-      checked: true,
-      onValueChange: (val) => console.log(val)
-    }
+const groupIcon = require('../../images/group.png');
+const onPress = () => showToast('onPress');
+const onLongPress = () => showToast('onLongPress');
+const noop = () => {};
+const icon = <Image source={groupIcon} style={{ width: 40, height: 40, borderRadius: 8 }} />;
+
+const longTitle = 'TitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitle';
+const longSubtitle = 'subtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitlesubtitle';
+const longValue = 'ValueValueValueValueValueValueValueValueValueValueValueValueValue';
+
+const Section = ({ title, children }) => (
+  <View style={styles.section}>
+    <Text style={styles.sectionTitle}>{title}</Text>
+    {children}
+  </View>
+);
+
+const Group = ({ title, children }) => (
+  <View style={styles.group}>
+    <Text style={styles.groupTitle}>{title}</Text>
+    <View style={styles.card}>{children}</View>
+  </View>
+);
+
+class ListItemDemo extends Component {
+  constructor(props) {
+    super(props);
+    const { navigation } = this.props;
+    navigation.setParams({
+      right: [
+        {
+          key: NavigationBar.ICON.MORE,
+          onPress: () => {
+            navigation.navigate('ListItemConfigDemo', { title: 'ListItem 配置调试' });
+          },
+        },
+      ],
+    });
   }
-];
 
-const sourceData2 = [
-  {
-    componentType: 2,
-    index: 1,
-    title: '列表主文字',
-    hideRightIcon: true,
-    showDot: false,
-    leftIconSource: require('../../images/group.png')
-  },
-  {
-    componentType: 1,
-    index: 2,
-    title: '列表主文字',
-    subtitle: '列表副文字',
-    value: '巨无霸',
-    hideRightIcon: true,
-    showDot: false,
-    onPress: () => console.log(4),
-    leftIconSource: require('../../images/group.png'),
-    leftIconSourceSize: 'regular'
-  },
-  {
-    componentType: 1,
-    index: 3,
-    title: '列表主文字',
-    hideRightIcon: false,
-    showDot: false,
-    onPress: () => console.log(4),
-    leftIconSource: require('../../images/group.png')
-  },
-  {
-    componentType: 1,
-    index: 4,
-    title: '列表主文字',
-    value: '状态',
-    hideRightIcon: false,
-    showDot: true,
-    onPress: () => console.log(4),
-    leftIconSource: require('../../images/group.png')
-  },
-  {
-    componentType: 1,
-    index: 5,
-    title: '列表主文字',
-    rightIconType: 'fold',
-    value: '状态',
-    hideRightIcon: false,
-    showDot: false,
-    onPress: () => console.log(4),
-    leftIconSource: require('../../images/group.png')
-  },
-  {
-    componentType: 1,
-    index: 6,
-    rightIconType: 'select',
-    title: '列表主文字',
-    value: '状态',
-    hideRightIcon: false,
-    showDot: false,
-    onPress: () => console.log(4),
-    leftIconSource: require('../../images/group.png')
-  },
-  {
-    componentType: 2,
-    index: 7,
-    title: '列表主文字',
-    type: 'button',
-    hideRightIcon: false,
-    showDot: true,
-    leftIconSource: require('../../images/group.png'),
-    buttonOption: {
-      title: '按钮',
-      onPress: () => console.log(4),
-      // ellipsizeMode: 'tail',
-      colorType: 'green',
-      type: 'light',
-      size: 'medium'
-    }
-  },
-  {
-    componentType: 2,
-    index: 8,
-    title: '列表主文字',
-    type: 'button',
-    hideRightIcon: false,
-    showDot: true,
-    leftIconSource: require('../../images/group.png'),
-    buttonOption: {
-      title: '全选',
-      onPress: () => console.log(4),
-      // ellipsizeMode: 'tail',
-      type: 'normal',
-      size: 'small'
-    }
-  },
-  {
-    componentType: 2,
-    index: 9,
-    title: '列表主文字',
-    hideRightIcon: false,
-    showDot: true,
-    onPress: () => console.log(4),
-    leftIconSource: require('../../images/group.png'),
-    showTitleArrow: true
-  },
-  {
-    componentType: 2,
-    index: 10,
-    title: '列表主文字列表主文字列表主文字列表',
-    // title: 'dahjdhsjadjsajkdjsajdsajkdsjkajdksadsjakdjskadsajdsjadjksajkdsja',
-    type: 'checkbox',
-    hideRightIcon: false,
-    showDot: true,
-    leftIconSource: require('../../images/group.png'),
-    checkboxOption: {
-      checked: true,
-      onValueChange: (val) => console.log(val)
-    }
+  render() {
+    return (
+      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
+        {/* ===== 1. 单配置全覆盖 ===== */}
+        <Section title="单配置全覆盖">
+          <Group title="leadingIcon">
+            <ListItem title="Title" subtitle="subtitle" onPress={onPress} />
+            <ListItem title="Title" subtitle="subtitle" onPress={onPress} leadingIcon={icon} />
+          </Group>
+
+          <Group title="subtitle">
+            <ListItem title="Title" onPress={onPress} />
+            <ListItem title="Title" subtitle="subtitle" onPress={onPress} />
+            <ListItem title="Title" subtitle={<SubtitleGroup title="自定义渲染" />} onPress={onPress} />
+          </Group>
+
+          <Group title="value">
+            <ListItem title="Title" onPress={noop} actionType="none" />
+            <ListItem title="Title" onPress={noop} actionType="none" value="Value" />
+          </Group>
+
+          <Group title="actionType">
+            <ListItem title="Title" onPress={onPress} actionType="navigate" />
+            <ListItem title="Title" onPress={onPress} actionType="select" />
+            <ListItem title="Title" onPress={noop} actionType="none" />
+            <ListItem title="Title" onPress={noop} actionType="custom" customRender={<Checkbox checked onChange={noop} />} />
+          </Group>
+
+          <Group title="badge">
+            <ListItem title="Title" onPress={noop} actionType="none" value="Value" badge={false} />
+            <ListItem title="Title" onPress={onPress} value="Value" badge />
+          </Group>
+
+          <Group title="disabled">
+            <ListItem title="Title" subtitle="subtitle" onPress={onPress} />
+            <ListItem title="Title" subtitle="subtitle" onPress={onPress} disabled />
+          </Group>
+
+          <Group title="onPress">
+            <ListItem title="Title" subtitle="subtitle" onPress={noop} />
+            <ListItem title="Title" subtitle="subtitle" onPress={onPress} />
+          </Group>
+
+          <Group title="onLongPress">
+            <ListItem title="Title" subtitle="subtitle" onPress={onPress} />
+            <ListItem title="Title" subtitle="subtitle" onPress={onPress} onLongPress={onLongPress} />
+          </Group>
+        </Section>
+
+        {/* ===== 2. 依赖配置全覆盖 ===== */}
+        <Section title="依赖配置全覆盖">
+          <Group title="customRender">
+            <ListItem title="Title" onPress={noop} actionType="custom" customRender={<Checkbox checked onChange={noop} />} />
+            <ListItem title="Title" onPress={noop} actionType="none" />
+          </Group>
+
+          <Group title="delayLongPress">
+            <ListItem title="Title" subtitle="subtitle" onPress={onPress} onLongPress={onLongPress} delayLongPress={1000} />
+          </Group>
+
+          <Group title="badge + value + actionType">
+            <ListItem title="Title" onPress={onPress} value="Value" badge />
+          </Group>
+        </Section>
+
+        {/* ===== 3. 关键联合覆盖 ===== */}
+        <Section title="关键联合覆盖">
+          <Group title="disabled + navigate">
+            <ListItem title="Title" subtitle="subtitle" onPress={onPress} leadingIcon={icon} disabled />
+          </Group>
+
+          <Group title="超长文本">
+            <ListItem title={longTitle} subtitle={longSubtitle} onPress={onPress} value={longValue} />
+          </Group>
+
+          <Group title="超长 value">
+            <ListItem title="Title" subtitle="subtitle" onPress={onPress} leadingIcon={icon} value={longValue} />
+          </Group>
+
+          <Group title="value + badge">
+            <ListItem title="Title" onPress={onPress} value="Value" badge />
+          </Group>
+
+          <Group title="actionType=none + value + badge">
+            <ListItem title="Title" subtitle="subtitle" onPress={noop} leadingIcon={icon} actionType="none" value="Value" badge />
+          </Group>
+        </Section>
+      </ScrollView>
+    );
   }
-];
-
-const longTitle = '列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字列表主文字';
-const longSubtitle = '列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字列表副文字';
-const longValue = '状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态状态';
-
-const sourceData3 = [
-  {
-    componentType: 2,
-    index: 1,
-    type: 'switch',
-    title: longTitle,
-    subtitle: longSubtitle,
-    hideRightIcon: true,
-    showDot: false
-  },
-  {
-    componentType: 1,
-    index: 2,
-    title: longTitle,
-    subtitle: longSubtitle,
-    value: '巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸',
-    hideRightIcon: true,
-    showDot: false,
-    onPress: () => console.log(4)
-  },
-  {
-    componentType: 1,
-    index: 3,
-    title: longTitle,
-    subtitle: longSubtitle,
-    hideRightIcon: false,
-    showDot: false,
-    onPress: () => console.log(4)
-  },
-  {
-    componentType: 1,
-    index: 4,
-    title: longTitle,
-    subtitle: longSubtitle,
-    value: longValue,
-    hideRightIcon: false,
-    showDot: true,
-    onPress: () => console.log(4)
-  },
-  {
-    componentType: 1,
-    index: 5,
-    rightIconType: 'fold',
-    title: longTitle,
-    subtitle: longSubtitle,
-    value: longValue,
-    hideRightIcon: false,
-    showDot: false,
-    onPress: () => console.log(4)
-  },
-  {
-    componentType: 1,
-    index: 6,
-    rightIconType: 'select',
-    title: longTitle,
-    subtitle: longSubtitle,
-    hideRightIcon: false,
-    showDot: false,
-    value: longValue,
-    onPress: () => console.log(4)
-  },
-  {
-    componentType: 2,
-    index: 7,
-    title: longTitle,
-    subtitle: longSubtitle,
-    type: 'button',
-    hideRightIcon: false,
-    showDot: true,
-    buttonOption: {
-      title: '按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮v按钮',
-      onPress: () => console.log(4),
-      // ellipsizeMode: 'tail',
-      colorType: 'green',
-      type: 'light',
-      size: 'medium'
-    }
-  },
-  {
-    componentType: 2,
-    index: 8,
-    title: longTitle,
-    subtitle: longSubtitle,
-    type: 'button',
-    hideRightIcon: false,
-    showDot: true,
-    buttonOption: {
-      title: '全选全选全选全选全选全选全选全选全选全选全选',
-      onPress: () => console.log(4),
-      // ellipsizeMode: 'tail',
-      type: 'normal',
-      size: 'small'
-    }
-  },
-  {
-    componentType: 2,
-    index: 9,
-    // title: longTitle,
-    title: 'abcdefgshsjdhjsdjdsjdhsjsdjdsjdhsjdsjdhsjdhsddsdjdsjdhsjsjdhsjdsjdhsjdhsddsdjdsjdhsjsjdhsjdsjdhsjdhsddsdjdsjdhsj hjdshajdshja dsjahdjsah dsadsajdhsjd dsaj dhsj dsaff dsajhdsj ahjds ajdsaj hdjsa ',
-    subtitle: longSubtitle,
-    hideRightIcon: false,
-    showDot: true,
-    onPress: () => console.log(4),
-    buttonOption: {
-      title: '按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮v按钮',
-      onPress: () => console.log(4)
-    },
-    showTitleArrow: true
-  },
-  {
-    componentType: 2,
-    index: 10,
-    title: longTitle,
-    subtitle: longSubtitle,
-    // title: 'dahjdhsjadjsajkdjsajdsajkdsjkajdksadsjakdjskadsajdsjadjksajkdsja',
-    type: 'checkbox',
-    hideRightIcon: false,
-    showDot: true,
-    checkboxOption: {
-      checked: true,
-      onValueChange: (val) => console.log(val)
-    }
-  }
-];
-
-const sourceData4 = [
-  {
-    componentType: 2,
-    index: 1,
-    type: 'switch',
-    title: longTitle,
-    subtitle: longSubtitle,
-    hideRightIcon: true,
-    showDot: false,
-    leftIconSource: require('../../images/group.png')
-  },
-  {
-    componentType: 1,
-    index: 2,
-    title: longTitle,
-    subtitle: longSubtitle,
-    value: '巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸巨无霸',
-    hideRightIcon: true,
-    showDot: false,
-    onPress: () => console.log(4),
-    leftIconSource: require('../../images/group.png')
-  },
-  {
-    componentType: 1,
-    index: 3,
-    title: longTitle,
-    subtitle: longSubtitle,
-    hideRightIcon: false,
-    showDot: false,
-    onPress: () => console.log(4),
-    leftIconSource: require('../../images/group.png')
-  },
-  {
-    componentType: 1,
-    index: 4,
-    title: longTitle,
-    subtitle: longSubtitle,
-    value: longValue,
-    hideRightIcon: false,
-    showDot: true,
-    onPress: () => console.log(4),
-    leftIconSource: require('../../images/group.png')
-  },
-  {
-    componentType: 1,
-    index: 5,
-    rightIconType: 'fold',
-    title: longTitle,
-    subtitle: longSubtitle,
-    value: longValue,
-    hideRightIcon: false,
-    showDot: false,
-    onPress: () => console.log(4),
-    leftIconSource: require('../../images/group.png')
-  },
-  {
-    componentType: 1,
-    index: 6,
-    rightIconType: 'select',
-    title: longTitle,
-    subtitle: longSubtitle,
-    hideRightIcon: false,
-    showDot: false,
-    value: longValue,
-    onPress: () => console.log(4),
-    leftIconSource: require('../../images/group.png')
-  },
-  {
-    componentType: 2,
-    index: 7,
-    title: longTitle,
-    subtitle: longSubtitle,
-    type: 'button',
-    hideRightIcon: false,
-    showDot: true,
-    buttonOption: {
-      title: '按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮',
-      onPress: () => console.log(4),
-      // ellipsizeMode: 'tail',
-      colorType: 'green',
-      type: 'light',
-      size: 'medium'
-    },
-    leftIconSource: require('../../images/group.png')
-  },
-  {
-    componentType: 2,
-    index: 8,
-    title: longTitle,
-    subtitle: longSubtitle,
-    type: 'button',
-    hideRightIcon: false,
-    showDot: true,
-    leftIconSource: require('../../images/group.png'),
-    buttonOption: {
-      title: '全选全选全选全选全选全选全选全选全选全选全选',
-      onPress: () => console.log(4),
-      type: 'normal',
-      size: 'small'
-    }
-  },
-  {
-    componentType: 2,
-    index: 9,
-    title: longTitle,
-    subtitle: longSubtitle,
-    hideRightIcon: false,
-    showDot: true,
-    onPress: () => console.log(4),
-    leftIconSource: require('../../images/group.png'),
-    buttonOption: {
-      title: '按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮按钮',
-      onPress: () => console.log(4)
-    },
-    showTitleArrow: true
-  },
-  {
-    componentType: 2,
-    index: 10,
-    title: longTitle,
-    subtitle: longSubtitle,
-    // title: 'dahjdhsjadjsajkdjsajdsajkdsjkajdksadsjakdjskadsajdsjadjksajkdsja',
-    type: 'checkbox',
-    hideRightIcon: false,
-    showDot: true,
-    leftIconSource: require('../../images/group.png'),
-    checkboxOption: {
-      checked: true,
-      onValueChange: (val) => console.log(val)
-    }
-  }
-];
-
-const propConfigs1 = [
-  { name: 'title', type: 'string', defaultValue: '主标题' },
-  { name: 'subtitle', type: 'string', defaultValue: '副标题内容' },
-  { name: 'value', type: 'string', defaultValue: '右侧文案' },
-  { name: 'onPress', type: 'pass', passDescription: '点击事件回调', defaultValue: () => alert('onPress') },
-  { name: 'onLongPress', type: 'pass', passDescription: '长按事件回调', defaultValue: () => alert('onLongPress') },
-  { name: 'delayLongPress', type: 'number', defaultValue: 500 },
-  { name: 'disabled', type: 'boolean', defaultValue: false },
-  { name: 'hideRightIcon', type: 'boolean', defaultValue: false },
-  { name: 'rightIconType', type: 'enum', enumOptions: ['arrow', 'select', 'fold'], defaultValue: 'arrow' },
-  { name: 'showDot', type: 'boolean', defaultValue: false },
-  { name: 'leftIconSource', type: 'pass', passDescription: '左侧图标组件', defaultValue: require('../../images/group.png') },
-  { name: 'customRenderer', type: 'pass', passDescription: '右侧自定义渲染', defaultValue: <Image style={{ resizeMode: 'contain', width: 46, height: 46 }} source={require('../../images/group.png')} /> }
-];
-
-const propConfigs2 = [
-  { name: 'type', type: 'enum', enumOptions: ['switch', 'button', 'checkbox'], defaultValue: 'switch' },
-  { name: 'title', type: 'string', defaultValue: '主标题' },
-  { name: 'subtitle', type: 'string', defaultValue: '副标题' },
-  { name: 'valueText', type: 'string', defaultValue: '值文本' },
-  { name: 'value', type: 'boolean', defaultValue: false },
-  { name: 'disabled', type: 'boolean', defaultValue: false },
-  { name: 'onPress', type: 'pass', passDescription: '点击事件回调', defaultValue: () => alert('onPress') },
-  { name: 'onValueChange', type: 'pass', passDescription: '值变化回调 (必填)', defaultValue: () => alert('onValueChange') },
-  {
-    name: 'colorType',
-    type: 'enum',
-    enumOptions: ['green', 'red', 'blue', 'wathet', 'purple', 'white', 'orange', 'yellow'],
-    defaultValue: 'green'
-  },
-  { name: 'leftIconSource', type: 'pass', passDescription: '左侧图标组件', defaultValue: require('../../images/group.png') },
-  { name: 'showTitleArrow', type: 'boolean', defaultValue: false },
-  { name: 'underlayColor', type: 'string' },
-  { name: 'customRenderer', type: 'pass', passDescription: '右侧自定义渲染', defaultValue: <Image style={{ resizeMode: 'contain', width: 46, height: 46 }} source={require('../../images/group.png')} /> },
-  {
-    name: 'buttonOption',
-    type: 'object',
-    objectProps: [
-      { name: 'size', type: 'enum', enumOptions: ['small', 'medium', 'large', 'mini'], defaultValue: 'large' },
-      { name: 'type', type: 'enum', enumOptions: ['normal', 'primary', 'warning', 'light'], defaultValue: 'normal' },
-      { name: 'title', type: 'string', defaultValue: '按钮' },
-      { name: 'colorType', type: 'enum', enumOptions: ['green', 'blue', 'purple', 'orange', 'yellow', 'red', 'wathet', 'white'] },
-      { name: 'disabled', type: 'boolean', defaultValue: false }
-    ]
-  },
-  {
-    name: 'checkboxOption',
-    type: 'object',
-    objectProps: [
-      { name: 'checkedColor', type: 'string', defaultValue: '#4caf50' },
-      { name: 'checked', type: 'boolean', defaultValue: false },
-      { name: 'onValueChange', type: 'pass', passDescription: '单选变化回调' }
-    ]
-  },
-  {
-    name: 'accessibilityTitle',
-    type: 'object',
-    objectProps: [
-      { name: 'accessible', type: 'boolean', defaultValue: true },
-      { name: 'accessibilityLabel', type: 'string', defaultValue: '主标题' },
-      { name: 'accessibilityRole', type: 'string', defaultValue: 'header' }
-    ]
-  }
-];
-
-const ListItemDemo = () => {
-  const [state, setState] = useState({
-    sourceData: sourceData1,
-    disabled: false,
-    switchValue: false
-  });
-
-  const transformData = (type) => {
-    let data = [];
-    switch (type) {
-      case 1:
-        data = sourceData1;
-        break;
-      case 2:
-        data = sourceData2;
-        break;
-      case 3:
-        data = sourceData3;
-        break;
-      case 4:
-        data = sourceData4;
-        break;
-      default:
-        data = sourceData1;
-    }
-    setState((item) => ({
-      ...item,
-      sourceData: data
-    }));
-  };
-  return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.header}>基础样式</Text>
-        <Text style={styles.button} onPress={() => {
-          transformData(1);
-        }}>重置</Text>
-        <Text style={styles.button} onPress={() => {
-          transformData(2);
-        }}>切换图标</Text>
-        <Text style={styles.button} onPress={() => {
-          transformData(3);
-        }}>切换长标题</Text>
-        <Text style={styles.button} onPress={() => {
-          transformData(4);
-        }}>切换图标长标题</Text>
-        <Text style={styles.button} onPress={() => {
-          setState((item) => ({
-            ...item,
-            disabled: !state.disabled
-          }));
-        }}>切换禁用态</Text>
-        <View style={styles.data}>
-          {
-            state.sourceData.map((item, index) => {
-              if (item.componentType === 1) {
-                return <ListItem key={index} {...item} disabled={state.disabled}/>;
-              } 
-              return <ListItemWithWidget 
-                key={index}
-                {...item}
-                disabled={state.disabled}
-                value={state.switchValue}
-                onValueChange={(val) => {
-                  setState((item) => ({
-                    ...item,
-                    switchValue: val
-                  }));
-                }}/>;
-            })
-          }
-        </View>
-      </View>
-      <View style={styles.caseContainer}>
-        <Text style={[styles.header, { marginTop: 12 }]}>ListItem - 普通列表项</Text>
-        <TestComponent component={ListItem} propConfigs={propConfigs1} onPropsChange={(props) => console.log(props)}/>
-      </View>
-      <View style={styles.caseContainer}>
-        <Text style={[styles.header, { marginTop: 12 }]}>ListItemWithWidget - 带控件列表项</Text>
-        <TestComponent component={ListItemWithWidget} propConfigs={propConfigs2} onPropsChange={(props) => console.log(props)}/>
-      </View>
-    </ScrollView>
-  );
-};
+}
 
 const styles = dynamicStyleSheet({
   container: {
-    paddingTop: 30,
-    paddingHorizontal: 12,
-    backgroundColor: colorToken.mj_color_gray_bg_2
+    flex: 1,
+    backgroundColor: colorToken.surfacePageLow,
   },
-  header: {
-    fontSize: 24,
-    color: colorToken.mj_color_gray_text_1,
+  section: {
+    marginBottom: 12,
+  },
+  sectionTitle: {
+    fontSize: 16,
     fontWeight: '500',
-    paddingHorizontal: 15,
-    marginBottom: 20
+    color: colorToken.contentPrimaryNormal,
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 8,
   },
-  button: {
-    fontSize: 14,
-    color: colorToken.mj_color_gray_text_1,
-    paddingHorizontal: 15,
-    lineHeight: 24
+  group: {
+    marginBottom: 8,
   },
-  data: {
+  groupTitle: {
+    fontSize: 12,
+    color: colorToken.accentOsFill,
+    paddingHorizontal: 16,
+    paddingVertical: 4,
+  },
+  card: {
+    marginHorizontal: 12,
     borderRadius: 16,
     overflow: 'hidden',
-    backgroundColor: colorToken.mj_color_gray_card_1
+    backgroundColor: colorToken.surfaceCardPrimary,
   },
-  caseContainer: {
-    marginBottom: 12
-  }
 });
 
 export default ListItemDemo;

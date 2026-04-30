@@ -1,8 +1,8 @@
 'use strict';
 
 import React from 'react';
-import { View, Text, Alert } from 'react-native';
-import { Stepper, colorToken } from 'miot/ui/hyperOSUI';
+import { View, Text } from 'react-native';
+import { Stepper, colorToken, showToast } from 'miot/ui/hyperOSUI';
 import TestComponent from '../testComponent';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle, Celsius, Cold } from 'miot/ui/icons';
@@ -36,10 +36,10 @@ const propConfigs = [
   {
     name: 'onChange',
     type: 'pass',
-    defaultValue: (val) => Alert.alert('onChange', String(val)),
+    defaultValue: (val) => showToast(`onChange: ${ val }`),
     category: 'interaction',
     linkTo: { targetProp: 'value', pick: (...args) => args[0] },
-    passOptions: [{ label: 'onChange', value: (val) => Alert.alert('onChange', String(val)) }],
+    passOptions: [{ label: 'onChange', value: (val) => showToast(`onChange: ${ val }`) }],
   },
   {
     name: 'prefix',

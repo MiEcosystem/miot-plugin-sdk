@@ -1,32 +1,57 @@
 'use strict';
 
-import React from 'react';
-import { ScrollView, Text } from 'react-native';
-import { dynamicStyleSheet } from "miot/ui";
-import { colorToken } from "miot/ui/hyperOSUI";
-
-const UIItems = [
-  { title: 'LargeListEntrance 大型入口', router: 'LargeEntranceDemo' },
-  { title: 'LargeListToggle 大型开关', router: 'LargeVariantSwitchDemo' },
-  { title: 'Stepper 步进器', router: 'StepperDemo' },
-  { title: 'Separator 分割线', router: 'SeparatorDemo' },
-];
+import React, { useCallback } from 'react';
+import { ScrollView } from 'react-native';
+import { dynamicStyleSheet } from 'miot/ui';
+import { colorToken, ListCard, ListItem } from 'miot/ui/hyperOSUI';
 
 const IotComponentDemo = ({ navigation }) => {
-  const navigateToScreen = (routerName, title) => {
+  const navigateToScreen = useCallback((routerName, title) => {
     if (navigation && routerName) {
       navigation.navigate(routerName, { title });
     }
-  };
+  }, [navigation]);
+
+  const commonItems = [
+    { title: 'CardHeader', router: 'TitleContainerDemo' },
+    { title: 'LargeListEntrance', router: 'LargeEntranceDemo' },
+    { title: 'MediumListEntrance', router: 'MediumListEntranceDemo' },
+    { title: 'SmallGridEntrance', router: 'SmallEntranceDemo' },
+    { title: 'LargeListToggle', router: 'LargeVariantSwitchDemo' },
+    { title: 'MediumListToggle', router: 'MiddleVariantSwitchDemo' },
+    { title: 'SmallGridToggle', router: 'SmallVariantSwitchDemo' },
+    { title: 'CircularButton', router: 'CircularButtonDemo' },
+    { title: 'Stepper', router: 'StepperDemo' },
+    { title: 'Slider', router: 'IotSliderDemo' },
+    { title: 'SliderWithToggle', router: 'IotSliderWithToggleDemo' },
+    { title: 'MediumImageButton', router: 'IotMediumImageButtonDemo' },
+    { title: 'SmallImageButton', router: 'IotSmallImageButtonDemo' },
+    { title: 'DataItem', router: 'IotDataItemDemo' },
+    { title: 'DataGroup', router: 'IotDataGroupDemo' },
+    { title: 'ActionBlock', router: 'ActionBlockDemo' },
+    { title: 'LargeTriggerSelect', router: 'LargeTriggerSelectDemo' },
+    { title: '组件 MediumTriggerSelect', router: 'MediumTriggerSelectConfigDemo' },
+    { title: '状态提示 StatusAlert', router: 'StatusAlertConfigDemo' },
+  ];
+
+  const layoutItems = [
+    { title: 'CardContainer', router: 'CardContainerDemo' },
+    { title: 'ContainerWithGap', router: 'GroupContainerDemo' },
+    { title: 'SmallGridContainer', router: 'SmallGridContainerDemo' },
+  ];
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.header}>IoT 组件</Text>
-      {UIItems.map((item) => (
-        <Text key={item.router} style={styles.item} onPress={() => navigateToScreen(item.router, item.title)}>
-          {item.title}
-        </Text>
-      ))}
+    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <ListCard title="常规组件">
+        {commonItems.map((item) => (
+          <ListItem key={item.router} title={item.title} onPress={() => navigateToScreen(item.router, item.title)} />
+        ))}
+      </ListCard>
+      <ListCard title="容器组件">
+        {layoutItems.map((item) => (
+          <ListItem key={item.router} title={item.title} onPress={() => navigateToScreen(item.router, item.title)} />
+        ))}
+      </ListCard>
     </ScrollView>
   );
 };
@@ -36,21 +61,10 @@ const styles = dynamicStyleSheet({
     flex: 1,
     backgroundColor: colorToken.surfacePageLow,
   },
-  header: {
-    fontSize: 24,
-    color: colorToken.contentSecondaryNormal,
-    fontWeight: '500',
-    paddingHorizontal: 15,
-    marginBottom: 20,
-  },
-  item: {
-    fontSize: 16,
-    color: colorToken.contentPrimaryNormal,
-    paddingHorizontal: 20,
-    paddingVertical: 14,
-    backgroundColor: colorToken.surfaceCardPrimary,
-    borderBottomWidth: 0.5,
-    borderBottomColor: colorToken.dividerPrimary,
+  content: {
+    paddingHorizontal: 12,
+    paddingTop: 12,
+    paddingBottom: 28,
   },
 });
 

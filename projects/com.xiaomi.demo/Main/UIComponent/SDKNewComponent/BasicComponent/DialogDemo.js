@@ -2,13 +2,10 @@
 
 import React, { Component } from 'react';
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 import Orientation from 'react-native-orientation';
-import { CommonDialog, ListGroup } from 'miot/ui/hyperOSUI';
+import { CommonDialog, ListCard, ListItem } from 'miot/ui/hyperOSUI';
 import NavigationBar from "miot/ui/NavigationBar";
 import { colorToken } from "miot/ui/hyperOSUI";
 import { dynamicStyleSheet } from "miot/ui";
@@ -17,7 +14,7 @@ class DialogDemo extends Component {
   state = {
     showDialog: false,
     dialogType: null, // 'normal' | 'checkbox' | 'landscape'
-    checkboxChecked: false
+    checkboxChecked: false,
   };
 
   moreline = false;
@@ -35,7 +32,7 @@ class DialogDemo extends Component {
           key: NavigationBar.ICON.MORE,
           onPress: () => {
             this.ifbuttons = !this.ifbuttons;
-          }
+          },
         },
         {
           key: NavigationBar.ICON.MORE,
@@ -50,9 +47,9 @@ class DialogDemo extends Component {
               this.mainContent = '正文，单行时居中对齐';
               this.checkboxText = '不在提示';
             }
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
   }
 
@@ -89,7 +86,7 @@ class DialogDemo extends Component {
     // 先关闭弹窗
     this.setState({
       showDialog: false,
-      dialogType: null
+      dialogType: null,
     });
 
     // 横屏弹窗需要恢复竖屏
@@ -107,14 +104,14 @@ class DialogDemo extends Component {
           title: '取消',
           onPress: () => {
             console.log('点击取消');
-          }
+          },
         },
         {
           title: '确定',
           onPress: () => {
             console.log('点击确定');
-          }
-        }
+          },
+        },
       ];
     }
 
@@ -123,20 +120,18 @@ class DialogDemo extends Component {
         title: '确定',
         onPress: () => {
           console.log('点击确定');
-        }
-      }
+        },
+      },
     ];
   }
 
   renderItem(item) {
     return (
-      <ListGroup
-        dataSource={item.map((label, index) => ({
-          title: label,
-          key: String(index),
-          onPress: () => this.handlePress(label)
-        }))}
-      />
+      <ListCard title="">
+        {item.map((label, index) => (
+          <ListItem key={String(index)} title={label} onPress={() => this.handlePress(label)} />
+        ))}
+      </ListCard>
     );
   }
 
@@ -158,7 +153,7 @@ class DialogDemo extends Component {
         }}
         checkboxData={{
           checked: false,
-          text: this.checkboxText
+          text: this.checkboxText,
         }}
         onDismiss={this.handleDismiss}
         message={`这是一个 ${ dialogType } 示例`}
@@ -170,7 +165,7 @@ class DialogDemo extends Component {
     const items = ['不带checkbox', '带checkbox', '横屏弹窗'];
 
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
         {this.renderItem(items)}
         {this.renderDialog()}
       </ScrollView>
@@ -181,12 +176,12 @@ class DialogDemo extends Component {
 const styles = dynamicStyleSheet({
   container: {
     flex: 1,
-    backgroundColor: colorToken.mj_color_gray_bg_2,
-    paddingTop: 20
+    backgroundColor: colorToken.surfacePageLow,
+    paddingTop: 20,
   },
   card: {
     borderRadius: 16,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   item: {
     flexDirection: 'row',
@@ -194,7 +189,7 @@ const styles = dynamicStyleSheet({
     alignItems: 'center',
     paddingHorizontal: 15,
     height: 50,
-    backgroundColor: colorToken.mj_color_gray_card_1
-  }
+    backgroundColor: colorToken.surfaceCardPrimary,
+  },
 });
 export default DialogDemo;

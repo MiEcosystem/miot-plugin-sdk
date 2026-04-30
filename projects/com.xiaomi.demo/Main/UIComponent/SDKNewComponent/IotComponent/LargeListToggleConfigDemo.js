@@ -1,8 +1,8 @@
 'use strict';
 
 import React from 'react';
-import { View, Image, Alert } from 'react-native';
-import { LargeListToggle, colorToken } from 'miot/ui/hyperOSUI';
+import { View, Image } from 'react-native';
+import { LargeListToggle, colorToken, SubtitleGroup, showToast } from 'miot/ui/hyperOSUI';
 import TestComponent from '../testComponent';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle } from 'miot/ui/icons';
@@ -14,7 +14,10 @@ const svgIcon = <Circle fill={colorToken.contentPrimaryNormal} />;
 
 const propConfigs = [
   { name: 'title', type: 'string', defaultValue: '大型列表开关', category: 'content' },
-  { name: 'subtitle', type: 'string', defaultValue: 'subtitle', category: 'content' },
+  { name: 'subtitle', type: 'string', defaultValue: 'subtitle', passOptions: [
+    { label: '副标题组（2项）', value: <SubtitleGroup subtitles={['副标题文字', '副标题文字']} /> },
+    { label: '副标题组（3项）', value: <SubtitleGroup subtitles={['副标题文字', '副标题文字', '副标题文字']} /> },
+  ], category: 'content' },
   { name: 'checked', type: 'boolean', defaultValue: false, category: 'state' },
   { name: 'disabled', type: 'boolean', defaultValue: false, category: 'state' },
   {
@@ -27,12 +30,12 @@ const propConfigs = [
   {
     name: 'onChange',
     type: 'pass',
-    defaultValue: (val) => Alert.alert('onChange', String(val)),
+    defaultValue: (val) => showToast(`onChange: ${ val }`),
     category: 'interaction',
     linkTo: { targetProp: 'checked', pick: (...args) => args[0] },
-    passOptions: [{ label: 'onChange', value: (val) => Alert.alert('onChange', String(val)) }],
+    passOptions: [{ label: 'onChange', value: (val) => showToast(`onChange: ${ val }`) }],
   },
-  { name: 'onPress', type: 'pass', defaultValue: () => Alert.alert('onPress'), category: 'interaction', passOptions: [{ label: 'onPress', value: () => Alert.alert('onPress') }] },
+  { name: 'onPress', type: 'pass', defaultValue: () => showToast('onPress'), category: 'interaction', passOptions: [{ label: 'onPress', value: () => showToast('onPress') }] },
   {
     name: 'leadingIcon',
     type: 'pass',

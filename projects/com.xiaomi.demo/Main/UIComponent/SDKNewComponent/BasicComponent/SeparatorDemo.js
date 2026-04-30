@@ -17,7 +17,7 @@ const SeparatorDemo = ({ navigation }) => {
   }, []);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
       <Text style={styles.header}>分割线</Text>
       <View style={styles.sectionContainer}>
         <Text style={styles.text}>标题</Text>

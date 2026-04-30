@@ -1,11 +1,9 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { ScrollView, Text, View, TouchableOpacity } from 'react-native';
-import { LoadingDialog } from 'miot/ui/hyperOSUI';
+import { ScrollView, View } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
-import { colorToken } from "miot/ui/hyperOSUI";
-import { ListGroup } from "mhui-rn/dist/hyperOS";
+import { LoadingToast, colorToken, ListCard, ListItem } from "miot/ui/hyperOSUI";
 
 class LoadingDemo extends Component {
   constructor(props) {
@@ -13,7 +11,7 @@ class LoadingDemo extends Component {
     this.state = {
       loadingVisible: false,
       dialogMessage: '', // 存储当前要显示的文本
-      dialogStyle: {} // 存储不同样式配置
+      dialogStyle: {}, // 存储不同样式配置
     };
   }
 
@@ -22,12 +20,12 @@ class LoadingDemo extends Component {
     if (type === 'single') {
       this.setState({
         loadingVisible: true,
-        dialogMessage: '加载中，请稍候...'
+        dialogMessage: '加载中，请稍候...',
       });
     } else if (type === 'multi') {
       this.setState({
         loadingVisible: true,
-        dialogMessage: '加载中，请稍候加载中，请稍候加载中，请稍候加载中，请稍候加载中，请稍候加载中，请稍候加载中，请稍候...'
+        dialogMessage: '加载中，请稍候加载中，请稍候加载中，请稍候加载中，请稍候加载中，请稍候加载中，请稍候加载中，请稍候...',
       });
     }
   };
@@ -38,29 +36,26 @@ class LoadingDemo extends Component {
 
   renderListSection(items) {
     return (
-      <ListGroup
-        dataSource={items.map((item, index) => ({
-          title: item.text,
-          key: index,
-          onPress: () => this.showLoading(item.type)
-        }))}
-      >
-      </ListGroup>
+      <ListCard title="">
+        {items.map((item, index) => (
+          <ListItem key={index} title={item.text} onPress={() => this.showLoading(item.type)} />
+        ))}
+      </ListCard>
     );
   }
 
   render() {
     const tokenItems = [
       { text: '单行样式', type: 'single' },
-      { text: '多行样式', type: 'multi' }
+      { text: '多行样式', type: 'multi' },
     ];
 
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
         <View style={{ marginTop: 15 }}>
           {this.renderListSection(tokenItems)}
         </View>
-        <LoadingDialog
+        <LoadingToast
           visible={this.state.loadingVisible}
           message={this.state.dialogMessage}
           timeout={2000}
@@ -73,8 +68,8 @@ class LoadingDemo extends Component {
 
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: colorToken.mj_color_gray_bg_2
-  }
+    backgroundColor: colorToken.surfacePageLow,
+  },
 });
 
 export default LoadingDemo;

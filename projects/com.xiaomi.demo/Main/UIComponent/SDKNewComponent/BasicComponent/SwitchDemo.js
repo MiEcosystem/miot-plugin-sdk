@@ -20,7 +20,7 @@ const SwitchDemo = ({ navigation }) => {
   }, []);
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
       <Text style={styles.sectionLabel}>各色系开关</Text>
       <View style={styles.card}>
         {COLOR_TYPES.map((colorType) => (
@@ -54,10 +54,7 @@ const styles = dynamicStyleSheet({
   container: {
     flex: 1,
     backgroundColor: colorToken.surfacePageLow,
-  },
-  contentContainer: {
     paddingTop: 20,
-    paddingBottom: 32,
   },
   sectionLabel: {
     fontSize: 14,

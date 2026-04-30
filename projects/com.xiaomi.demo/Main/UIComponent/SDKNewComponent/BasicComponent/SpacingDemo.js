@@ -2,18 +2,17 @@
 
 import React from 'react';
 import { ScrollView, View, Text } from 'react-native';
-import { colorToken } from 'miot/ui/hyperOSUI';
+import { colorToken, spaceToken } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui';
 
-// 按设计稿从大到小排列
-const SPACING_LIST = [32, 30, 28, 26, 24, 20, 18, 16, 14, 12, 10, 8, 7, 6, 5, 4, 3, 2, 1, 0];
+const SPACING_LIST = Object.entries(spaceToken).sort((a, b) => b[1] - a[1]);
 
 const BAR_COLOR = '#FF1820';
 
 const SpacingDemo = () => (
   <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
-    {SPACING_LIST.map((value) => (
-      <View key={value} style={styles.row}>
+    {SPACING_LIST.map(([name, value]) => (
+      <View key={name} style={styles.row}>
         <Text style={styles.tokenName}>{value}</Text>
         <View style={styles.trackContainer}>
           <View style={[styles.bar, { width: value }]} />
@@ -30,7 +29,7 @@ const styles = dynamicStyleSheet({
   },
   scrollContent: {
     paddingHorizontal: 20,
-    paddingBottom: 16,
+    paddingBottom: 40,
   },
   row: {
     flexDirection: 'row',

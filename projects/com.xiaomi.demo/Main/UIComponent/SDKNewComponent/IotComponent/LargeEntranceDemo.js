@@ -1,8 +1,9 @@
 'use strict';
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, Alert } from 'react-native';
-import { LargeListEntrance, colorToken, Fonts, SubtitleGroup } from 'miot/ui/hyperOSUI';
+import { View, Text, ScrollView } from 'react-native';
+import { LargeListEntrance, colorToken, Fonts, SubtitleGroup, showToast } from 'miot/ui/hyperOSUI';
+import TestComponent from '../testComponent';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle } from 'miot/ui/icons';
 import NavigationBar from 'miot/ui/NavigationBar';

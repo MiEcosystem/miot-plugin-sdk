@@ -1,10 +1,9 @@
 'use strict';
 
-import React, { Component, useMemo } from 'react';
-import { ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import React from 'react';
+import { ScrollView } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
-import { colorToken } from "miot/ui/hyperOSUI";
-import { ListGroup } from "mhui-rn/dist/hyperOS";
+import { colorToken, ListCard, ListItem } from "miot/ui/hyperOSUI";
 
 const HandPopDemo = (props) => {
   const { navigation } = props;
@@ -17,64 +16,23 @@ const HandPopDemo = (props) => {
   const tokenItems = [
     { title: '基础样式', router: 'HandPopCustomDemo' },
     { title: '点击效果', router: 'HandPopClickDemo' },
-    { title: '触发条件', router: 'HandPopTriggerDemo' }
+    { title: '触发条件', router: 'HandPopTriggerDemo' },
   ];
-  const UIDataSource = useMemo(() => {
-    return tokenItems.map((item) => ({
-      ...item,
-      key: item.router,
-      onPress: () => navigateToScreen(item.router, item.title)
-
-    }));
-  }, []);
   return (
-    <ScrollView style={styles.container}>
-      <ListGroup
-        dataSource={UIDataSource}
-      />
+    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
+      <ListCard title="">
+        {tokenItems.map((item) => (
+          <ListItem key={item.router} title={item.title} onPress={() => navigateToScreen(item.router, item.title)} />
+        ))}
+      </ListCard>
     </ScrollView>
   );
 };
 
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: colorToken.mj_color_gray_bg_2
+    backgroundColor: colorToken.surfacePageLow,
   },
-  header: {
-    fontSize: 24,
-    color: colorToken.mj_color_gray_text_2,
-    fontWeight: '500',
-    paddingHorizontal: 15,
-    marginBottom: 20
-  },
-  sectionContainer: {
-    marginTop: 10,
-    marginHorizontal: 15,
-    backgroundColor: "transparent",
-    paddingVertical: 5
-  },
-  sectionTitle: {
-    fontSize: 12,
-    color: colorToken.mjcard_color_miui_2,
-    paddingHorizontal: 15,
-    paddingVertical: 8
-  },
-  itemContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 15,
-    height: 50,
-    backgroundColor: colorToken.mj_color_gray_card_1
-  },
-  itemText: {
-    fontSize: 16,
-    color: colorToken.mj_color_gray_text_1
-  },
-  arrow: {
-    fontSize: 16,
-    color: colorToken.mj_color_gray_icon_4
-  }
 });
 
 export default HandPopDemo;

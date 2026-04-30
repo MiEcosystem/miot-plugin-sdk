@@ -1,12 +1,16 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { ScrollView, Text, View, TouchableOpacity } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import { dynamicStyleSheet } from 'miot/ui';
-import { showToast, colorToken } from 'miot/ui/hyperOSUI';
-import { ListGroup } from "mhui-rn/dist/hyperOS";
+import { colorToken, showToast, ListCard, ListItem } from 'miot/ui/hyperOSUI';
+
 
 class ToastDemo extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   getToastText(type) {
     switch (type) {
       case '标准单行':
@@ -21,11 +25,11 @@ class ToastDemo extends Component {
 
   renderListSection(items) {
     return (
-      <ListGroup dataSource={items.map((item, index) => ({
-        title: item.text,
-        key: index,
-        onPress: () => showToast(this.getToastText(item.text), item.duration),
-      }))}/>
+      <ListCard title="">
+        {items.map((item, index) => (
+          <ListItem key={index} title={item.text} onPress={() => showToast(this.getToastText(item.text), item.duration)} />
+        ))}
+      </ListCard>
     );
   }
 
@@ -37,7 +41,7 @@ class ToastDemo extends Component {
     ];
 
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
         <Text style={styles.header}>第三期（轻消息）</Text>
         {this.renderListSection(tokenItems)}
       </ScrollView>
@@ -47,12 +51,12 @@ class ToastDemo extends Component {
 
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: colorToken.mj_color_gray_bg_2,
+    backgroundColor: colorToken.surfacePageLow,
     flex: 1,
   },
   header: {
     fontSize: 24,
-    color: colorToken.mj_color_gray_text_2,
+    color: colorToken.contentSecondaryNormal,
     fontWeight: '500',
     paddingHorizontal: 15,
     marginBottom: 20,

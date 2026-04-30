@@ -5,36 +5,12 @@ import { ScrollView, View, Text } from 'react-native';
 import { colorToken, radiusToken } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui';
 
-// 按设计稿字母排序
-const RADIUS_LIST = [
-  'buttonLarge',
-  'buttonMedium',
-  'buttonSmall',
-  'cardExtraLarge',
-  'cardExtraSmall',
-  'cardLarge',
-  'cardMedium',
-  'cardSmall',
-  'dialog',
-  'drawer',
-  'floatingWindow',
-  'input',
-  'menuContainer',
-  'menuItem',
-  'noticeBar',
-  'rounded',
-  'segmentedContainer',
-  'segmentedItem',
-  'selectorContainer',
-  'selectorItem',
-  'statusButton',
-  'toast',
-];
+const RADIUS_LIST = Object.entries(radiusToken).sort((a, b) => a[0].localeCompare(b[0]));
 
 const RadiusDemo = () => (
   <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
-    {RADIUS_LIST.map((name) => (
-      <View key={name} style={[styles.card, { borderRadius: radiusToken[name] }]}>
+    {RADIUS_LIST.map(([name, value]) => (
+      <View key={name} style={[styles.card, { borderRadius: value }]}>
         <Text style={styles.tokenName}>{name}</Text>
       </View>
     ))}

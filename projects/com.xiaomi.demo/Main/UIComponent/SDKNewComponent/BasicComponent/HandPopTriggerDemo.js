@@ -14,9 +14,10 @@ import {
   InteractionManager,
 } from 'react-native';
 import NavigationBar from 'miot/ui/NavigationBar';
-import { NearHandDialog, colorToken } from 'miot/ui/hyperOSUI';
+import { PopMenus } from 'miot/ui/hyperOSUI';
 import fonts from 'miot/utils/fonts';
-import {dynamicStyleSheet} from "miot/ui";
+import { colorToken } from "miot/ui/hyperOSUI";
+import { dynamicStyleSheet } from "miot/ui";
 
 const homes = [
   { id: '1', title: '乔纳斯', disabled: true },
@@ -43,6 +44,7 @@ class HandPopTriggerDemo extends Component {
     this.state = {
       showLongText: false,
       scales: {}, // 缓存 Animated.Value
+      selectedId: "3"
     };
 
     this.props.navigation?.setParams({
@@ -65,6 +67,13 @@ class HandPopTriggerDemo extends Component {
     if (!ref) return;
     InteractionManager.runAfterInteractions(() => {
       this.dialogRef.current?.showFrom(ref);
+    });
+};
+
+  handleHide = (ref: any) => {
+    if (!ref) return;
+    InteractionManager.runAfterInteractions(() => {
+      this.dialogRef.current?.hideFrom(ref);
     });
   };
 
@@ -112,19 +121,24 @@ class HandPopTriggerDemo extends Component {
           numColumns={5}
           columnWrapperStyle={styles.grid}
           renderItem={this.renderItem}
-          contentContainerStyle={{ padding: 8 }}
+          contentContainerStyle={{  padding: 8 , paddingBottom: 40 }}
         />
 
-        <NearHandDialog
+        <PopMenus
           ref={this.dialogRef}
-          colorType="blue"
           data={showLongText ? homes : longHomes}
-          selectedId={'1'}
+          selectedId={this.state.selectedId}
+          colorType={"blue"}
           showTitleText={true}
           showSubtitleText={false}
           showIcon={false}
           selectable={true}
-          onSelect={(item) => console.log('选中：', item)}
+          onSelect={(item) => {
+            console.log('选中：', item);
+            this.setState({ selectedId: item.id });
+            this.dialogRef.current?.hideFrom();
+          }
+          }
         />
       </View>
     );
@@ -132,7 +146,7 @@ class HandPopTriggerDemo extends Component {
 }
 
 const styles = dynamicStyleSheet({
-  container: { flex: 1, backgroundColor: colorToken.mj_color_gray_bg_2 },
+  container: { flex: 1, backgroundColor: colorToken.surfacePageLow },
   grid: { justifyContent: 'flex-start', marginBottom: 8 },
   itemWrapper: { margin: 4 },
   item: {
@@ -141,12 +155,12 @@ const styles = dynamicStyleSheet({
     justifyContent: 'center',
     paddingVertical: 8,
     flex: 1,
-    shadowColor: colorToken.mjcard_color_blue_3,
+    shadowColor: colorToken.accentBlueLow,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.15,
     shadowRadius: 2,
-    backgroundColor: colorToken.mj_color_gray_card_1,
+    backgroundColor: colorToken.surfaceCardPrimary,
   },
-  text: { color: colorToken.mjcard_color_blue_2, textAlign: 'center', ...fonts.mjTextCustom14M },
+  text: { color: colorToken.accentBlueContent, textAlign: 'center', ...fonts.mjTextCustom14M },
 });
 export default HandPopTriggerDemo;

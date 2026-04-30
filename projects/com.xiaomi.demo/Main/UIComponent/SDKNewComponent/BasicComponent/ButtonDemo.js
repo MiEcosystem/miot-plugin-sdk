@@ -1,12 +1,24 @@
 'use strict';
 
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { ScrollView } from 'react-native';
-import { colorToken, ListGroup } from "miot/ui/hyperOSUI";
+import { colorToken, ListCard, ListItem } from "miot/ui/hyperOSUI";
 import { dynamicStyleSheet } from "miot/ui";
+import NavigationBar from "miot/ui/NavigationBar";
 
 const ButtonDemo = (props) => {
   const { navigation } = props;
+
+  useEffect(() => {
+    navigation.setParams({
+      right: [
+        {
+          key: NavigationBar.ICON.MORE,
+          onPress: () => navigation.navigate('ButtonConfigDemo', { title: 'Button 配置调试' }),
+        },
+      ],
+    });
+  }, []);
 
   // 增加标题传递
   const navigateToScreen = (routerName, title) => {
@@ -16,27 +28,24 @@ const ButtonDemo = (props) => {
   };
   const tokenItems = [
     { title: '基础样式', router: 'ButtonCustomDemo' },
-    { title: '页面效果', router: 'ButtonPageViewDemo' }
+    { title: '页面效果', router: 'ButtonPageViewDemo' },
   ];
-  const UIDataSource = useMemo(() => {
-    return tokenItems.map((item) => ({
-      ...item,
-      key: item.router,
-      onPress: () => { navigateToScreen(item.router, item.title); }
-    }));
-  }, []);
   return (
-    <ScrollView style={styles.container}>
-      <ListGroup dataSource={UIDataSource}/>
+    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
+      <ListCard>
+        {tokenItems.map((item) => (
+          <ListItem key={item.router} title={item.title} onPress={() => navigateToScreen(item.router, item.title)} />
+        ))}
+      </ListCard>
     </ScrollView>
   );
 };
 
 const styles = dynamicStyleSheet({
   container: {
-    backgroundColor: colorToken.mj_color_gray_bg_2,
-    flex: 1
-  }
+    backgroundColor: colorToken.surfacePageLow,
+    flex: 1,
+  },
 });
 
 export default ButtonDemo;

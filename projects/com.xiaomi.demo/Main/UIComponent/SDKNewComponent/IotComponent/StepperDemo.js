@@ -1,14 +1,13 @@
 'use strict';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { ScrollView, Text, View, Alert } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { dynamicStyleSheet } from "miot/ui";
-import { colorToken, Fonts, Stepper } from "miot/ui/hyperOSUI";
+import { colorToken, Fonts, Stepper, showToast } from "miot/ui/hyperOSUI";
 import TestComponent from '../testComponent';
 import { Cold } from 'miot/ui/icons';
 import NavigationBar from 'miot/ui/NavigationBar';
 
-const alert = Alert.alert;
 const StepperDemo = ({ navigation }) => {
   const [targetTemperature, setTargetTemperature] = useState(23);
   const [targetTemperature2, setTargetTemperature2] = useState(50);

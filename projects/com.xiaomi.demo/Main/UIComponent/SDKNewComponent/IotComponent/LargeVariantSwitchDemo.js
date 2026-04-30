@@ -1,25 +1,11 @@
 'use strict';
 
 import React, { useState, cloneElement, useEffect } from 'react';
-import { View, Text, ScrollView, Image, Alert } from 'react-native';
-import { LargeListToggle, colorToken, Fonts, SubtitleGroup } from 'miot/ui/hyperOSUI';
-import TestComponent from '../testComponent';
+import { View, Text, ScrollView, Image } from 'react-native';
+import { LargeListToggle, colorToken, Fonts, SubtitleGroup, showToast } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle } from 'miot/ui/icons';
 import NavigationBar from 'miot/ui/NavigationBar';
-
-const alert = Alert.alert;
-const propConfigs = [
-  { name: 'title', type: 'string', defaultValue: '主标题' },
-  { name: 'subtitle', type: 'string', passDescription: '副标题（字符串或 SubtitleGroup）', defaultValue: '副标题内容' },
-  { name: 'value', type: 'boolean', defaultValue: false },
-  { name: 'disabled', type: 'boolean', defaultValue: false },
-  { name: 'forceHideRightIconOnPressInvalid', type: 'boolean', defaultValue: false },
-  { name: 'leadingIcon', type: 'pass', passDescription: '左侧图标组件（React.ReactElement）' },
-  { name: 'accessible', type: 'boolean', defaultValue: true },
-  { name: 'accessibilityLabel', type: 'string', defaultValue: '列表项' },
-  { name: 'accessibilityHint', type: 'string' },
-];
 
 const longTitle = '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题';
 const longSubtitle = '标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字标题副文字';
@@ -153,11 +139,11 @@ const source2Data2 = [
   },
 ];
 
-const LargeVariantSwitchDemo = ({ navigation }) => {
+const LargeListToggleDemo = ({ navigation }) => {
 
   useEffect(() => {
     navigation.setParams({
-      right: [{ key: NavigationBar.ICON.MORE, onPress: () => navigation.navigate('LargeVariantSwitchConfigDemo', { title: 'LargeVariantSwitch 配置调试' }) }],
+      right: [{ key: NavigationBar.ICON.MORE, onPress: () => navigation.navigate('LargeListToggleConfigDemo', { title: 'LargeListToggle 配置调试' }) }],
     });
   }, []);
 
@@ -294,4 +280,4 @@ const styles = dynamicStyleSheet({
   },
 });
 
-export default LargeVariantSwitchDemo;
+export default LargeListToggleDemo;

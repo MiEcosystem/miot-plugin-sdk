@@ -1,8 +1,8 @@
 'use strict';
 
 import React from 'react';
-import { View, Image, Alert } from 'react-native';
-import { LargeListEntrance, colorToken, SubtitleGroup } from 'miot/ui/hyperOSUI';
+import { View, Image } from 'react-native';
+import { LargeListEntrance, colorToken, SubtitleGroup, showToast } from 'miot/ui/hyperOSUI';
 import TestComponent from '../testComponent';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle } from 'miot/ui/icons';
@@ -22,7 +22,7 @@ const propConfigs = [
   { name: 'value', type: 'string', defaultValue: 'Value', category: 'content' },
   { name: 'disabled', type: 'boolean', defaultValue: false, category: 'state' },
   { name: 'badge', type: 'boolean', defaultValue: false, category: 'state' },
-  { name: 'onPress', type: 'pass', defaultValue: () => Alert.alert('onPress'), category: 'interaction', passOptions: [{ label: 'onPress', value: () => Alert.alert('onPress') }] },
+  { name: 'onPress', type: 'pass', defaultValue: () => showToast('onPress'), category: 'interaction', passOptions: [{ label: 'onPress', value: () => showToast('onPress') }] },
   {
     name: 'leadingIcon',
     type: 'pass',

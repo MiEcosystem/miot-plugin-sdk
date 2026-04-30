@@ -43,6 +43,7 @@ const SECTIONS = [
       ['accentBlueContent', 'accentBlueFill', 'accentBlueLow', 'accentBlueSubtle'],
       ['accentGreenContent', 'accentGreenFill', 'accentGreenLow', 'accentGreenSubtle'],
       ['accentOrangeContent', 'accentOrangeFill', 'accentOrangeLow', 'accentOrangeSubtle'],
+      ['accentApricotOrangeFill', 'accentApricotOrangeContent', 'accentApricotOrangeLow', 'accentApricotOrangeSubtle'],
       ['accentOsContent', 'accentOsFill', 'accentOsLow', 'accentOsSubtle'],
       ['accentPurpleContent', 'accentPurpleFill', 'accentPurpleLow', 'accentPurpleSubtle'],
       ['accentRedContent', 'accentRedFill', 'accentRedLow', 'accentRedSubtle'],
@@ -62,7 +63,7 @@ const SECTIONS = [
   {
     heading: 'other',
     rows: [
-      ['otherBorder', 'otherButtonPressed', 'otherListPressed'],
+      ['otherBorder', 'otherButtonPressed', 'otherListPressed', 'otherAlertShadow'],
     ],
   },
   {
@@ -116,7 +117,7 @@ const styles = dynamicStyleSheet({
   scrollContent: {
     paddingHorizontal: 16,
     paddingTop: 12,
-    paddingBottom: 20,
+    paddingBottom: 40,
   },
   section: {
     marginBottom: 14,
