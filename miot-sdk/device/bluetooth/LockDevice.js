@@ -76,6 +76,7 @@ export default class IBluetoothLock {
        return Promise.resolve(null);
     }
     /**
+     * @deprecated in 10075 see {@link getOneTimePasswordV2}
      * 支持小米加密芯片的蓝牙设备，获取一次性密码组。 **设备owner调用此方法才有效**
      * 假设输入 interval 为 30，则会从当日 0 点开始计算，每 30 分钟为一个刷新间隔。生成的密码在当前刷新间隔及下一个刷新间隔内有效。
      * 如当日 10:19 生成，则该组密码在 10:00 ~ 10:30（当前刷新间隔） 以及 10:30 ~ 11:00 (下一个刷新间隔) 有效。
@@ -97,6 +98,58 @@ export default class IBluetoothLock {
      */
     @report
     getOneTimePassword(interval, digits) {
+       return Promise.resolve(null);
+    }
+    /**
+   * @since 10075
+   * 配合{@link getOneTimePasswordV2}方法使用，在生成一次性密码之前需要先初始化环境
+   * 支持小米加密芯片的蓝牙设备，初始化获取一次性密码的环境。 **设备owner调用此方法才有效**
+   *
+   * @method
+   * @param param{Object}
+     * param.interval {int} 密码生效间隔,单位为分钟，假设输入 interval 为 30，则会从当日 0 点开始计算，每 30 分钟为一个刷新间隔。生成的密码在当前刷新间隔及下一个刷新间隔内有效。
+     * 如当日 10:19 生成，则该组密码在 10:00 ~ 10:30（当前刷新间隔） 以及 10:30 ~ 11:00 (下一个刷新间隔) 有效。
+     * 注意设备上获取当前时间（UTC，精度为秒）的准确性由设备保证，否则会有计算误差。
+     * param.digits {int} 密码位数，传入 6 到 8 的整数
+   * @example
+   * import {Bluetooth} from 'miot'
+   * ...
+     * const { securityLock } = Bluetooth.createBluetoothLE(...);
+     * securityLock.initOneTimePasswordContext( {interval:30,digits:6} ).then(() => {
+     *    console.log('one time password context init success!')}
+     *    securityLock.getOneTimePasswordV2().then((res)=>{
+     *      console.log(`one time password is ${res}`)
+     *    }).catch(err=>{
+     *      console.log(`one time password failed ${err}`)
+     *    })
+     *  )
+     *  .catch(err => {
+     *    console.log('one time password context init failed: ', err
+     *  })
+   * ...
+   * @returns {Promise<Object>}
+   *      resolve：{
+     *      code:0,
+     *      data:{
+     *        passwordCount: x
+     *      }
+     *   },初始化成功会返回生成的密码的数量
+   *      reject：{code: xxx, message:xxx} 失败原因
+   */
+    @report
+    initOneTimePasswordContext(param) {
+       return Promise.resolve(null);
+    }
+    /**
+     * @since 10075
+     * 获取一次性密码，有别于getOneTimePassword，这个方法只会返回一个当前有效的一次性密码，而不是一个数组
+     * 注意，调用此方法之前请保证调用过initOneTimePasswordContext进行初始化
+     * @returns {Promise<Object>}
+     *      resolve：{code:0,data:{ pwd: 123456 }}
+     *      reject：{code: xxx, message:xxx} 失败原因
+    */
+    @report
+    getOneTimePasswordV2() {
        return Promise.resolve(null);
     }
     /**
@@ -160,4 +213,20 @@ export default class IBluetoothLock {
     decryptMessageWithToken(data) {
        return Promise.resolve(null);
     }
+  @report
+    queryLockSharedRecords(params) {
+     return Promise.resolve(null);
+    }
+  /**
+   * 删除门锁分享记录
+   * @since 10080
+   * @param {strng} data Hex Data String
+   * @return {Promise<json>}
+   *      resolve：{"result": :"encripted string"} result字段即为解密后的string
+   *      reject：{code: xxx, message: xxx} 1:必须16进制字符串  2:获取device token 失败  3:解密失败
+   */
+  @report
+  deleteLockSharedRecords(params) {
+     return Promise.resolve(null);
+  }
 }
