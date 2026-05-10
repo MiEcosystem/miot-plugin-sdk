@@ -23,7 +23,7 @@ export const MemberType = {
      * 宠物
      * @const
      */
-  Pet: 'pet'
+  Pet: 'pet',
 };
 Object.freeze(MemberType);
 /**

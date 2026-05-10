@@ -8,7 +8,7 @@ import { FontMiSansWMedium } from '../utils/fonts';
 const COLORS = {
   containerBg: '#ffffff',
   underlay: '#ffffff',
-  text: '#000000'
+  text: '#000000',
 };
 const DIMENS = {
   radius: 20,
@@ -17,7 +17,7 @@ const DIMENS = {
   leftIcon: 24,
   rightIcon: 22,
   gapLeft: 8,
-  gapRight: 6
+  gapRight: 6,
 };
 export default function NewGBTipsView(props) {
   const { onPress, visible } = props;
@@ -49,11 +49,11 @@ export default function NewGBTipsView(props) {
 }
 NewGBTipsView.propTypes = {
   onPress: PropTypes.func,
-  visible: PropTypes.bool
+  visible: PropTypes.bool,
 };
 NewGBTipsView.defaultProps = {
   visible: true,
-  onPress: () => { Host.ui.openRemoteControlDialog(Device.deviceID); }
+  onPress: () => { Host.ui.openRemoteControlDialog(Device.deviceID); },
 };
 const styles = StyleSheet.create({
   container: {
@@ -61,39 +61,39 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     backgroundColor: COLORS.containerBg,
     borderRadius: DIMENS.radius,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   content: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: DIMENS.paddingH,
-    paddingVertical: DIMENS.paddingV
+    paddingVertical: DIMENS.paddingV,
   },
   leftWrapper: {
     width: DIMENS.leftIcon,
     height: DIMENS.leftIcon,
-    marginRight: DIMENS.gapLeft
+    marginRight: DIMENS.gapLeft,
   },
   leftImage: {
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   textWrapper: {
-    flex: 1
+    flex: 1,
   },
   title: {
     fontSize: 16,
     color: COLORS.text,
-    fontFamily: FontMiSansWMedium
+    fontFamily: FontMiSansWMedium,
   },
   rightWrapper: {
     width: DIMENS.rightIcon,
     height: DIMENS.rightIcon,
-    marginLeft: DIMENS.gapRight
+    marginLeft: DIMENS.gapRight,
   },
   rightArrow: {
     width: '100%',
-    height: '100%'
-  }
+    height: '100%',
+  },
 });

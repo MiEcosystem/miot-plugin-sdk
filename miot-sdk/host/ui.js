@@ -24,6 +24,7 @@ import Service from '../Service';
 import PrivacyUploadFdsHelper from '../utils/privacy_uploadfds_helper';
 import { strings as I18n } from '../resources';
 import PluginAppConfigHelper from "../utils/plugin-app-config-helper";
+import resolve from '../native/common/node/resolve';
 /**
  * 原生UI管理
  * @interface
@@ -257,6 +258,25 @@ class IUi {
    */
   @report
   openAddToDesktopPage() {
+  }
+  /**
+     * 打开，关闭‘在米家使用’的二次确认弹窗
+     * @since 10115
+     */
+  @report
+  openCloseUsedOnMiHomeConfirmDialog() {
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.openCloseUsedOnMiHomeConfirmDialog((res) => {
+        console.log(`弹窗操作响应：res ${ res }`);
+        if (res) {
+          // 确认不使用
+          resolve();
+        } else {
+          // 取消操作，不做处理
+          reject(I18n.operation_cancel);
+        }
+      });
+    });
   }
   /**
    * 打开设备检查固件升级页（先检查，后可升级）

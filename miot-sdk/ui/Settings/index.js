@@ -37,7 +37,9 @@ export default function Settings({
   const mergedOptions = [...new Set(...(options || []), firstOptions || [], secondOptions || [])];
   const isFromCarRoom = Device.fromRoomIndex === 1 || Device.fromRoomIndex === 2;
   const isOKspace = Device.isOKspace;
-  const hideDeleteBtn = isFromCarRoom && !isOKspace;
+  // 云云2.0需求：云设备不显示删除按钮
+  const isCloudDevice = Device.type === '14';
+  const hideDeleteBtn = (isFromCarRoom && !isOKspace) || isCloudDevice;
   return (
     <View style={Styles.container}>
       <BasicInfo navigation={navigation} options={mergedOptions} customOptions={secondCustomOptions} showDots={showDot} extraOptions={extraOptions} />

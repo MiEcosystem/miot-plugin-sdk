@@ -97,5 +97,5 @@ export default {
   TitleBar, TitleBarBlack, TitleBarWhite,
   NumberSpinner, StringSpinner, RobotMapView,
   LocalizedStrings, AMapView, MiotAndroidScrollView, ColorPicker, ColorSelector,
-  PdfViewer
+  PdfViewer,
 };

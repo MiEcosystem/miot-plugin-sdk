@@ -14,12 +14,14 @@ import useSpecPluginInfo from '../../hooks/useSpecPluginInfo';
 import useCanUpgrade from '../../hooks/useCanUpgrade';
 import useFreqCameraInfo from '../../hooks/useFreqCameraInfo';
 import useFreqDeviceInfo from '../../hooks/useFreqDeviceInfo';
+import useUsedOnMiHome, { switchUsedOnMiHome } from '../../hooks/useUsedOnMiHome';
 import AutoOTAABTestHelper from '../../utils/autoota_abtest_helper';
 import { showDeviceService } from "../../hooks/useDeviceService";
 import useCariotDevice from "../../hooks/useCariotDevice";
 import { ListItemWithSwitch } from 'mhui-rn';
 import { Platform } from 'react-native';
 import useDeviceRoomInfo from "../../hooks/useDeviceRoomInfo";
+import { Component } from 'react';
 let getInnerOptions = () => {
   return {
     deviceService: {
@@ -205,6 +207,38 @@ let getInnerOptions = () => {
       title: I18n.addToDesktop,
       onPress: () => {
         Host.ui.openAddToDesktopPage();
+      },
+    },
+    usedOnMiHome: {
+      exportKey: 'USED_ON_MI_HOME',
+      title: I18n.usedOnMiHome,
+      isDefault: true,
+      ownerOnly: true,
+      homeManagerAllowed: true,
+      Component: (params) => {
+        const [isOpen, setIsOpen] = useUsedOnMiHome();
+        // 云云2.0需求：云设备展示选项
+        const isCloudDevice = Device.type === '14';
+        return (
+          isCloudDevice ? <ListItemWithSwitch
+            key={'USED_ON_MI_HOME'}
+            title={I18n.usedOnMiHome}
+            value={isOpen}
+            showSeparator={false}
+            onTintColor={params.extraOptions?.themeColor || undefined}
+            onValueChange={(value) => {
+              // value为目标状态
+              setIsOpen(value);
+              switchUsedOnMiHome(value).then(() => {
+                Host.ui.showToast(I18n.operation_success);
+              }).catch((error) => {
+                Host.ui.showToast(error);
+                // 出现异常时，状态重置
+                setIsOpen(!value);
+              });
+            }}
+          /> : null
+        );
       },
     },
     freqDevice: {
@@ -459,7 +493,7 @@ export const initCommonSettingsInnerOptions = () => {
 const AllAndDefaultOptions = getAllAndDefaultOptions(innerOptions);
 export const options = AllAndDefaultOptions.options;
 const defaultOptions = AllAndDefaultOptions.defaultOptions;
-const commonOptions = ['deviceCall', 'deviceService', 'share', 'ifttt', 'firmwareUpgrade', 'help', 'security', 'addToDesktop', 'freqDevice', 'freqCamera', 'defaultPlugin', 'pairMode'];
+const commonOptions = ['deviceCall', 'deviceService', 'share', 'ifttt', 'firmwareUpgrade', 'help', 'security', 'addToDesktop', 'usedOnMiHome', 'freqDevice', 'freqCamera', 'defaultPlugin', 'pairMode'];
 const carOptions = ['name', 'productBaike', 'help', 'more', 'pluginVersion', 'legalInfo', 'timezone', 'addToDesktop'];
 export default function CommonSettings(params) {
   const { customOptions } = params;
