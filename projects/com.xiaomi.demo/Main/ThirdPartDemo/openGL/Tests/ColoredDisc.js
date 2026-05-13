@@ -22,9 +22,9 @@ void main () {
 
 module.exports = GL.createComponent(
   ({ fromColor, toColor }) =>
-  <GL.Node
-    shader={shaders.ColoredDisc}
-    uniforms={{ fromColor, toColor }}
-  />,
+    <GL.Node
+      shader={shaders.ColoredDisc}
+      uniforms={{ fromColor, toColor }}
+    />,
   { displayName: "ColoredDisc" }
 );

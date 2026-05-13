@@ -13,7 +13,7 @@ export default class CloudStorageDemo extends React.Component {
     this.state = {
       data: '',
       id: '0',
-      name: '',
+      name: ''
     };
     Logger.trace(this);
   }
@@ -138,7 +138,7 @@ export default class CloudStorageDemo extends React.Component {
                 }).catch((error) => {
                   this.setState({ data: JSON.stringify(error, null, '\t') });
                 });
-              }],
+              }]
             ].map((item, index) => {
               return (
                 <TouchableOpacity key={index} style={styles.button} onPress={() => {
@@ -171,88 +171,88 @@ export default class CloudStorageDemo extends React.Component {
               [
                 '在指定目录下创建子文件夹', () => {
                   if (!this.state.id || !this.state.name) {
-                    alert('请先在输入文件夹 id 和文件夹名称')
+                    alert('请先在输入文件夹 id 和文件夹名称');
                     return;
                   }
-                  Service.storage.createMiCloudFolder(this.state.id, this.state.name).then(res => {
+                  Service.storage.createMiCloudFolder(this.state.id, this.state.name).then((res) => {
                     this.setState({
                       data: JSON.stringify(res, null, '\t'),
-                      id: `${res.id}`
+                      id: `${ res.id }`
                     });
-                  }).catch(err => {
+                  }).catch((err) => {
                     this.setState({ data: JSON.stringify(err, null, '\t') });
-                  })
+                  });
                 }
               ],
               [
                 '列出指定文件夹 id 下的内容', () => {
                   if (!this.state.id) {
-                    alert('请先在输入文件夹 id')
+                    alert('请先在输入文件夹 id');
                     return;
                   }
-                  Service.storage.listMiCloudItem(this.state.id).then(res => {
+                  Service.storage.listMiCloudItem(this.state.id).then((res) => {
                     this.setState({ data: JSON.stringify(res, null, '\t') });
                     if (res.records && res.records.length > 0) {
                       this.setState({
-                        id: `${res.records[0].id}`,
+                        id: `${ res.records[0].id }`
                       });
                     }
-                  }).catch(err => {
+                  }).catch((err) => {
                     this.setState({ data: JSON.stringify(err, null, '\t') });
-                  })
+                  });
                 }
               ],
               [
                 '上传文件到云盘', () => {
-                  Service.storage.uploadMiCloudFile(this.state.id, this.state.name).then(res => {
+                  Service.storage.uploadMiCloudFile(this.state.id, this.state.name).then((res) => {
                     this.setState({ 
                       data: JSON.stringify(res, null, '\t'),
                       id: res.data.id,
                       name: ''
                     });
-                  }).catch(err => {
+                  }).catch((err) => {
                     this.setState({ data: JSON.stringify(err, null, '\t') });
-                  })
+                  });
                 }
               ],
               [
                 '下载云云盘文件到本地', () => {
-                  Service.storage.downloadMiCloudFile(this.state.id, this.state.name).then(res => {
+                  Service.storage.downloadMiCloudFile(this.state.id, this.state.name).then((res) => {
                     this.setState({ data: JSON.stringify(res, null, '\t') });
-                  }).catch(err => {
+                  }).catch((err) => {
                     this.setState({ data: JSON.stringify(err, null, '\t') });
-                  })
+                  });
                 }
               ],
               [
                 '重命名项目', () => {
                   if (!this.state.id || !this.state.name) {
-                    alert('请先在输入 id 和名称')
+                    alert('请先在输入 id 和名称');
                     return;
                   }
-                  Service.storage.renameMiCloudItem(this.state.id, this.state.name).then(res => {
+                  Service.storage.renameMiCloudItem(this.state.id, this.state.name).then((res) => {
                     this.setState({ 
                       data: JSON.stringify(res, null, '\t'),
                       name: ''
-                  });
-                  }).catch(err => {
+                    });
+                  }).catch((err) => {
                     this.setState({ data: JSON.stringify(err, null, '\t') });
-                  })
+                  });
                 }
               ],
               [
                 '复制指定文件到指定目录下', () => {
                   if (!this.state.id || !this.state.name) {
-                    alert('请先在输入项目 id 和目标 id')
+                    alert('请先在输入项目 id 和目标 id');
                     return;
                   }
-                  Service.storage.manageMiCloudFile('NEWCOPY', [{ id: this.state.id, parentId:this.state.name }]).then(res => {
+                  Service.storage.manageMiCloudFile('NEWCOPY', [{ id: this.state.id, parentId: this.state.name }]).then((res) => {
                     this.setState({ 
                       data: JSON.stringify(res, null, '\t')
                     });
-                  }).catch(err => {
+                  }).catch((err) => {
                     this.setState({ data: JSON.stringify(err, null, '\t') });
-                  })
+                  });
                 }
               ]
             ].map((item, index) => {
