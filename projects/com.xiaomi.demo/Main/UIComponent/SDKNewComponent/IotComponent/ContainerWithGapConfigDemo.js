@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { View } from 'react-native';
-import { ContainerWithGap, CardContainer, MediumListToggle, colorToken, showToast } from 'miot/ui/hyperOSUI';
+import { ContainerWithGap, CardContainer, MediumImageButton, colorToken, showToast } from 'miot/ui/hyperOSUI';
 import TestComponent from '../testComponent';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle } from 'miot/ui/icons';
@@ -12,21 +12,21 @@ const noop = (val) => showToast(`onChange: ${ val }`);
 const onPress = () => showToast('onPress');
 
 const children2 = [
-  <CardContainer key={0}><MediumListToggle title="开关1" icon={icon} checked={false} onChange={noop} /></CardContainer>,
-  <CardContainer key={1}><MediumListToggle title="开关2" icon={icon} checked={false} onChange={noop} /></CardContainer>,
+  <CardContainer key={0}><MediumImageButton title="按钮1" leadingIcon={icon} onPress={onPress} /></CardContainer>,
+  <CardContainer key={1}><MediumImageButton title="按钮2" leadingIcon={icon} onPress={onPress} /></CardContainer>,
 ];
 
 const children3 = [
-  <CardContainer key={0}><MediumListToggle title="开关1" icon={icon} checked={false} onChange={noop} /></CardContainer>,
-  <CardContainer key={1}><MediumListToggle title="开关2" icon={icon} checked={false} onChange={noop} /></CardContainer>,
-  <CardContainer key={2}><MediumListToggle title="开关3" icon={icon} checked={false} onChange={noop} /></CardContainer>,
+  <CardContainer key={0}><MediumImageButton title="按钮1" leadingIcon={icon} onPress={onPress} /></CardContainer>,
+  <CardContainer key={1}><MediumImageButton title="按钮2" leadingIcon={icon} onPress={onPress} /></CardContainer>,
+  <CardContainer key={2}><MediumImageButton title="按钮3" leadingIcon={icon} onPress={onPress} /></CardContainer>,
 ];
 
 const children4 = [
-  <CardContainer key={0}><MediumListToggle title="开关1" icon={icon} checked={false} onChange={noop} /></CardContainer>,
-  <CardContainer key={1}><MediumListToggle title="开关2" icon={icon} checked={false} onChange={noop} /></CardContainer>,
-  <CardContainer key={2}><MediumListToggle title="开关3" icon={icon} checked={false} onChange={noop} /></CardContainer>,
-  <CardContainer key={3}><MediumListToggle title="开关4" icon={icon} checked={false} onChange={noop} /></CardContainer>,
+  <CardContainer key={0}><MediumImageButton title="按钮1" leadingIcon={icon} onPress={onPress} /></CardContainer>,
+  <CardContainer key={1}><MediumImageButton title="按钮2" leadingIcon={icon} onPress={onPress} /></CardContainer>,
+  <CardContainer key={2}><MediumImageButton title="按钮3" leadingIcon={icon} onPress={onPress} /></CardContainer>,
+  <CardContainer key={3}><MediumImageButton title="按钮4" leadingIcon={icon} onPress={onPress} /></CardContainer>,
 ];
 
 const propConfigs = [

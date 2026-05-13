@@ -15,7 +15,7 @@ const DIMENS = {
   paddingH: 16,
   paddingV: 12,
   leftIcon: 24,
-  rightIcon: 22,
+  rightIcon: 16,
   gapLeft: 8,
   gapRight: 6,
 };
@@ -23,6 +23,8 @@ export default function NewGBTipsView(props) {
   const { onPress, visible } = props;
   const leftImageSource = Images.common.remote_control;
   const leftImageSourceDark = Images.common.remote_control_dark;
+  const rightArrow = Images.common.new_GB_right_arrow;
+  const rightArrowDark = Images.common.new_GB_right_arrow_dark;
   const colorScheme = DarkMode.getColorScheme() || 'light';
   return visible ? (
     <TouchableHighlight
@@ -41,7 +43,7 @@ export default function NewGBTipsView(props) {
           </Text>
         </View>
         <View style={styles.rightWrapper}>
-          <Image source={Images.common.right_arrow} style={styles.rightArrow} />
+          <Image source={colorScheme === 'light' ? rightArrow : rightArrowDark} style={styles.rightArrow} />
         </View>
       </View>
     </TouchableHighlight>
@@ -69,6 +71,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: DIMENS.paddingH,
     paddingVertical: DIMENS.paddingV,
+    minHeight: 60
   },
   leftWrapper: {
     width: DIMENS.leftIcon,

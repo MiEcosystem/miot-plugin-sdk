@@ -21,9 +21,14 @@ const EmptyStateDemo = ({ navigation }) => {
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <Text style={styles.sectionTitle}>基础用法</Text>
 
-      <Text style={styles.header}>仅描述（无图片）</Text>
+      <Text style={styles.header}>None 类型（不显示图片）</Text>
       <View style={styles.card}>
-        <EmptyState imageType={null} description="暂无搜索结果" />
+        <EmptyState imageType={EmptyImageType.None} description="暂无搜索结果" />
+      </View>
+
+      <Text style={styles.header}>None 类型（不显示图片）</Text>
+      <View style={styles.card}>
+        <EmptyState imageType={EmptyImageType.None} description="这周很关键；冲刺一下；全流程AI Native化，确保用户能够方便快捷地使用我们的产品" />
       </View>
 
       <Text style={styles.header}>仅描述（默认图片）</Text>

@@ -255,12 +255,16 @@ import ListItemWithWidgetDemo from "./UIComponent/SDKNewComponent/BasicComponent
 import LoadingToastDemo from "./UIComponent/SDKNewComponent/BasicComponent/LoadingToastDemo";
 import MessageDialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/MessageDialogDemo";
 import MenusDemo from "./UIComponent/SDKNewComponent/BasicComponent/MenusDemo";
+import MenusPositionDemo from "./UIComponent/SDKNewComponent/BasicComponent/MenusPositionDemo";
+import MenusEntryDemo from "./UIComponent/SDKNewComponent/BasicComponent/MenusEntryDemo";
 import InputDemo from "./UIComponent/SDKNewComponent/BasicComponent/InputDemo";
 import InputDialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/InputDialogDemo";
 import CustomDialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/CustomDialogDemo";
 import PickerDialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/PickerDialogDemo";
 import NoticeBarDemo from "./UIComponent/SDKNewComponent/BasicComponent/NoticeBarDemo";
 import PopMenusDemo from "./UIComponent/SDKNewComponent/BasicComponent/PopMenusDemo";
+import PopMenusPositionDemo from "./UIComponent/SDKNewComponent/BasicComponent/PopMenusPositionDemo";
+import PopMenusEntryDemo from "./UIComponent/SDKNewComponent/BasicComponent/PopMenusEntryDemo";
 import NewSwitchDemo from "./UIComponent/SDKNewComponent/BasicComponent/SwitchDemo";
 // 第三方库
 import SQLiteDemo from "./ThirdPartDemo/SQLiteDemo";
@@ -486,12 +490,16 @@ function createRootStack(initPage) {
       LoadingToastDemo,
       MessageDialogDemo,
       MenusDemo,
+      MenusPositionDemo,
+      MenusEntryDemo,
       InputDemo,
       InputDialogDemo,
       CustomDialogDemo,
       PickerDialogDemo,
       NoticeBarDemo,
       PopMenusDemo,
+      PopMenusPositionDemo,
+      PopMenusEntryDemo,
       NewSwitchDemo,
       // FirmwareUpgradeAuto,
       FirmwareUpgradeRecord,

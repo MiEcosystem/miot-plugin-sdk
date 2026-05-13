@@ -60,7 +60,7 @@ export {
   // SubpageLayout,
   // PageLayout,
   // MediumListEntrance,
-  // NavigationBar,
+  NavigationBar,
   // MediumTriggerSelect,
   // SegmentedControls,
   // PullRefresh,

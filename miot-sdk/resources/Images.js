@@ -11,6 +11,8 @@ export default {
   common: {
     auto_default: require("./images/auto-default.png"),
     right_arrow: require('./images/right_arrow.png'),
+    new_GB_right_arrow: require('./images/new_GB_right_arrow.png'),
+    new_GB_right_arrow_dark: require('./images/new_GB_right_arrow_dark.png'),
     close: require('./images/close.png'),
     mihome: require('./images/mihome.png'),
     remote_control: require('./images/remote-control-icon.png'),
