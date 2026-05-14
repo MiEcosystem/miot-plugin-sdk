@@ -130,7 +130,7 @@ export class IftttTemplateUtils {
         home_id: homeId,
         did: Device.deviceID,
         get_type: 1,
-        app_version: IftttTemplateUtils.isAppVersionGreaterThan('10.9.000') ? 11 : 10,
+        app_version: 17,
         owner_uid: ownerUid || Service.account.ID
       };
       if (homeInfo?.data?.ownerUid) sceneListParams.owner_uid = homeInfo.data.ownerUid;

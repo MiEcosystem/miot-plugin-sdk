@@ -1,2 +1,2 @@
-import IftttTemplate from './IftttTemplate';
-export default IftttTemplate;
+import SmartScene from '../smartScene';
+export default SmartScene;
