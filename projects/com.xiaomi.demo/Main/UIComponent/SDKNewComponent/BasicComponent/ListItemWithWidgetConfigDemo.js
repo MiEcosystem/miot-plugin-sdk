@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { View, Text, Image } from 'react-native';
-import { ListItemWithWidget, Checkbox, Switch, colorToken, SubtitleGroup, showToast } from 'miot/ui/hyperOSUI';
+import { ListItemWithWidget, Radio, Switch, colorToken, SubtitleGroup, showToast } from 'miot/ui/hyperOSUI';
 import TestComponent from '../testComponent';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle } from 'miot/ui/icons';
@@ -59,7 +59,7 @@ const propConfigs = [
     type: 'pass',
     category: 'render',
     passOptions: [
-      { label: 'Checkbox', value: <Checkbox checked onChange={() => {}} /> },
+      { label: 'Radio', value: <Radio checked onChange={() => {}} /> },
       { label: '文字', value: <Text style={{ color: colorToken.accentBlueFill }}>自定义</Text> },
     ],
   },
@@ -85,7 +85,7 @@ const propConfigs = [
     type: 'object',
     category: 'render',
     objectProps: [
-      { name: 'icon', type: 'pass', passOptions: [{ label: 'SVG图标', value: svgIcon }, { label: '图片图标', value: icon }] },
+      { name: 'icon', type: 'pass', passOptions: [{ label: 'SVG图标', value: svgIcon }, { label: '图片图标', value: icon }], defaultValue: svgIcon },
       { name: 'size', type: 'enum', enumOptions: ['small', 'medium'], defaultValue: 'small' },
     ],
   },

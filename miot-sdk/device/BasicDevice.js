@@ -209,7 +209,7 @@ export const DeviceEvent = {
    * @param {Map<string, object>}  switchStatus { isSetPinCode: false/true }
    */
   pinCodeSwitchChanged: {
-  }
+  },
 };
 buildEvents(DeviceEvent);
 /**
@@ -580,7 +580,7 @@ export class BasicDevice {
     NEW_GROUP_VIRTUAL_DEVICE: '17',
     ONLY_CABLE_DEVICE: '21',
     PLC_DEVICE: '22',
-    MATTER_DEVICE: '24'
+    MATTER_DEVICE: '24',
   }
   /**
    * 获取设备类型，

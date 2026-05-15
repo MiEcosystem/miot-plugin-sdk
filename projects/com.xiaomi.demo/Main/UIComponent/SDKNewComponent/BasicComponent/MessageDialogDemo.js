@@ -14,13 +14,6 @@ const defaultButtons = [
 const propConfigs = [
   { name: 'title', type: 'string', defaultValue: '消息弹窗', category: 'content' },
   { name: 'contentText', type: 'string', defaultValue: '正文，单行时居中对齐。', category: 'content' },
-  {
-    name: 'align',
-    type: 'enum',
-    enumOptions: ['center', 'left'],
-    defaultValue: 'center',
-    category: 'state',
-  },
   { name: 'label', type: 'string', defaultValue: '', category: 'content' },
   { name: 'cancelable', type: 'boolean', defaultValue: true, category: 'state' },
   { name: 'canDismiss', type: 'boolean', defaultValue: true, category: 'state' },

@@ -323,14 +323,14 @@ export function createSwitchScene(extra) {
   const scene = {
     timewindow: {
       from: '0 0 0 * * * *',
-      to: '0 0 0 * * * *'
+      to: '0 0 0 * * * *',
     },
     enable: true,
     common_use: false,
     value_format: 1,
     scene_condition: {
       express: 0,
-      conditions: []
+      conditions: [],
     },
     uid: Service.account.ID,
     app_version: 1,
@@ -354,16 +354,16 @@ export function createSwitchScene(extra) {
             piid: 1,
             did: '1044366178',
             value: true,
-            siid: 2
-          }]
+            siid: 2,
+          }],
         },
         protocol_type: 1,
         sa_id: 9873,
         from: 1,
-        device_group_id: 0
+        device_group_id: 0,
         // nested_scene_info: null
-      }
-      ]
+      },
+      ],
     },
     enable_push: false,
     owner_uid: Service.account.ID,
@@ -382,20 +382,20 @@ export function createSwitchScene(extra) {
         extra_json: {
           device_name: '小米智能开关 双开',
           did: '1029392368',
-          model: 'zimi.switch.dhkg02'
+          model: 'zimi.switch.dhkg02',
         },
         value_json: '',
         protocol_type: 2,
         sc_id: 9321,
-        from: 1
-      }
-      ]
+        from: 1,
+      },
+      ],
     },
     // template_id: '0',
     no_record_log: false,
     tags: { source: 'plugin-intelligent-switch' },
     // home_id ,scene_id, trigger, action ,scene_name
-    ...(extra || {})
+    ...(extra || {}),
   };
   return scene;
 }
@@ -414,7 +414,7 @@ export function createSwitchTrigger(spec, propSpec, propValue, value_type = 5) {
       extra_json: {
         device_name: Device.name,
         did: Device.deviceID,
-        model: Device.model
+        model: Device.model,
       },
       value_json: propValue === undefined ? '' : {
         sub_props: {
@@ -422,15 +422,15 @@ export function createSwitchTrigger(spec, propSpec, propValue, value_type = 5) {
           attr: [{
             key: propSpec?.miid ? `prop.${ Device.model }.${ propSpec?.miid }.${ propSpec?.siid }.${ propSpec?.piid }` : `prop.${ Device.model }.${ propSpec?.siid }.${ propSpec?.piid }`,
             value: propValue,
-            value_type: 1
-          }]
-        }
+            value_type: 1,
+          }],
+        },
       },
       // protocol_type: 2,
       sc_id: 9321,
-      from: 1
-    }
-    ]
+      from: 1,
+    },
+    ],
   };
   return sceneTrigger;
 }
@@ -445,17 +445,17 @@ export function createManualSceneAction(scene) {
       payload_json: {
         enable: true,
         scene_id: scene.scene_id,
-        delay_time: 0
-      }
-    }
-    ]
+        delay_time: 0,
+      },
+    },
+    ],
   };
   return sceneAction;
 }
 export function createDeviceSceneAction(action) {
   const sceneAction = {
     mode: 1,
-    actions: [action]
+    actions: [action],
   };
   return sceneAction;
 }
@@ -466,21 +466,21 @@ export function getClickTriggerConfig(spec, propSpec, value) {
     triggerConfig.push({
       key: spec.miid ? `event.${ spec.miid }.${ spec.siid }.${ spec.eiid }` : `event.${ spec.siid }.${ spec.eiid }`,
       valueKey: propSpec.miid ? `prop.${ DeviceModel }.${ propSpec.miid }.${ propSpec.siid }.${ propSpec.piid }` : `prop.${ DeviceModel }.${ propSpec.siid }.${ propSpec.piid }`,
-      value: value
+      value: value,
     });
     // 1.0格式
     triggerConfig.push({
       key: spec.miid ? `event.${ DeviceModel }.${ spec.miid }.${ spec.siid }.${ spec.eiid }` : `event.${ DeviceModel }.${ spec.siid }.${ spec.eiid }`,
       valueKey: propSpec.miid ? `prop.${ DeviceModel }.${ propSpec.miid }.${ propSpec.siid }.${ propSpec.piid }` : `prop.${ DeviceModel }.${ propSpec.siid }.${ propSpec.piid }`,
-      value: value
+      value: value,
     });
   } else if (spec) {
     triggerConfig.push({
-      key: spec.miid ? `event.${ spec.miid }.${ spec.siid }.${ spec.eiid }` : `event.${ spec.siid }.${ spec.eiid }`
+      key: spec.miid ? `event.${ spec.miid }.${ spec.siid }.${ spec.eiid }` : `event.${ spec.siid }.${ spec.eiid }`,
     });
     // 1.0格式
     triggerConfig.push({
-      key: spec.miid ? `event.${ DeviceModel }.${ spec.miid }.${ spec.siid }.${ spec.eiid }` : `event.${ DeviceModel }.${ spec.siid }.${ spec.eiid }`
+      key: spec.miid ? `event.${ DeviceModel }.${ spec.miid }.${ spec.siid }.${ spec.eiid }` : `event.${ DeviceModel }.${ spec.siid }.${ spec.eiid }`,
     });
   }
   return triggerConfig;
@@ -510,7 +510,7 @@ export function getTargetDeviceList(homeDeviceList, deviceTypes, filterMain) {
   }
   return targetDeviceList;
 }
-export function getTargetSectionDeviceList(deviceList) {
+export function getTargetSectionDeviceList(deviceList, currentRoomId) {
   const targetDeviceList = [];
   for (let index = 0; index < deviceList.length; index++) {
     const device = deviceList[index];
@@ -521,10 +521,18 @@ export function getTargetSectionDeviceList(deviceList) {
       targetDeviceList.push({
         title: device?.roomName || I18n.room_unassigned,
         roomId: device?.roomId,
-        data: [device]
+        data: [device],
       });
     } else {
       targetDeviceList[sectionIndex].data.push(device);
+    }
+  }
+  if (currentRoomId != null) {
+    const currentRoomIdStr = String(currentRoomId);
+    const idx = targetDeviceList.findIndex((s) => String(s.roomId) === currentRoomIdStr);
+    if (idx > 0) {
+      const [section] = targetDeviceList.splice(idx, 1);
+      targetDeviceList.unshift(section);
     }
   }
   return targetDeviceList;
@@ -580,18 +588,18 @@ export function getSceneTriggerListParam(spec, propSpec, value) {
         attr: [{
           key: propSpec?.miid ? `prop.${ Device.model }.${ propSpec?.miid }.${ propSpec?.siid }.${ propSpec?.piid }` : `prop.${ Device.model }.${ propSpec?.siid }.${ propSpec?.piid }`,
           value: value,
-          value_type: 1
-        }]
-      }
+          value_type: 1,
+        }],
+      },
     },
-    triggerKey: spec?.miid ? `event.${ spec?.miid }.${ spec?.siid }.${ spec?.eiid }.${ value || '' }` : `event.${ spec?.siid }.${ spec?.eiid }.${ value || '' }`
+    triggerKey: spec?.miid ? `event.${ spec?.miid }.${ spec?.siid }.${ spec?.eiid }.${ value || '' }` : `event.${ spec?.siid }.${ spec?.eiid }.${ value || '' }`,
   };
 }
 export async function getSwitchCount() {
   try {
     const res = await Service.spec.getSpecByKey(Device.deviceID, {
       skey: "switch",
-      pkey: "on"
+      pkey: "on",
     });
     return res?.length || 0;
   } catch (e) {

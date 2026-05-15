@@ -88,6 +88,7 @@ export { default as OrbitView } from './OrbitView';
 export { default as RockerView } from './RockerView';
 export { default as Settings } from './Settings';
 export { default as NewGBTipsView } from './NewGBTipsView';
+export { default as YMDDatePicker } from './YMDDatePicker';
 // export { default as BTInterconnection } from './BTInterconnection';
 export default {
   ImageButton,
@@ -97,5 +98,5 @@ export default {
   TitleBar, TitleBarBlack, TitleBarWhite,
   NumberSpinner, StringSpinner, RobotMapView,
   LocalizedStrings, AMapView, MiotAndroidScrollView, ColorPicker, ColorSelector,
-  PdfViewer
+  PdfViewer,
 };

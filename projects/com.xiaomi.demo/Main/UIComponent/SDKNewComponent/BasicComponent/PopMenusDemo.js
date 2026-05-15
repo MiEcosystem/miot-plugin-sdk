@@ -18,7 +18,7 @@ const propConfigs = [
   { name: 'ShowTitleText', type: 'boolean', defaultValue: true, category: 'state' },
   { name: 'ShowSubtitleText', type: 'boolean', defaultValue: false, category: 'state' },
   { name: 'ShowIcon', type: 'boolean', defaultValue: false, category: 'state' },
-  { name: 'colorType', type: 'enum', enumOptions: ['green', 'blue', 'wathet', 'purple', 'white', 'orange'], defaultValue: 'green', category: 'state' },
+  { name: 'colorType', type: 'enum', enumOptions: ['green', 'blue', 'wathet', 'purple', 'orange'], defaultValue: 'green', category: 'state' },
   { name: 'item1_title', type: 'string', defaultValue: '选项一', category: 'content' },
   { name: 'item1_subtitle', type: 'string', defaultValue: '', category: 'content' },
   { name: 'item1_icon', type: 'enum', enumOptions: ['none', 'icon1', 'icon2', 'icon3'], defaultValue: 'none', category: 'content' },
@@ -42,7 +42,7 @@ const buildData = (p, selectedId) => {
       id: i,
       title,
       subtitle: p[`item${ i }_subtitle`] || undefined,
-      icon: ICON_OPTIONS[p[`item${ i }_icon`] || 'none'],
+      leadingIcon: ICON_OPTIONS[p[`item${ i }_icon`] || 'none'],
       disabled: p[`item${ i }_disabled`] || false,
       selected: i === selectedId,
     });

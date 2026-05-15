@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Image } from 'react-native';
-import { ListItemWithWidget, Checkbox, colorToken, showToast } from 'miot/ui/hyperOSUI';
+import { ListItemWithWidget, Radio, colorToken, showToast } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle } from 'miot/ui/icons';
 import NavigationBar from 'miot/ui/NavigationBar';
@@ -53,7 +53,7 @@ const ListItemWithWidgetDemo = ({ navigation }) => {
         </Group>
 
         <Group title="custom">
-          <ListItemWithWidget widgetType="custom" title="自定义控件" onChange={noop} customRender={<Checkbox checked onChange={noop} />} />
+          <ListItemWithWidget widgetType="custom" title="自定义控件" onChange={noop} customRender={<Radio checked onChange={noop} />} />
         </Group>
 
         <Group title="无 widgetType（默认 navigate）">

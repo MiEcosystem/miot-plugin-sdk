@@ -2,15 +2,15 @@
 
 import React from 'react';
 import { View, Text, Image } from 'react-native';
-import { ListItem, Checkbox, colorToken, SubtitleGroup, showToast } from 'miot/ui/hyperOSUI';
+import { ListItem, Radio, colorToken, SubtitleGroup, showToast } from 'miot/ui/hyperOSUI';
 import TestComponent from '../testComponent';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle } from 'miot/ui/icons';
 
 const groupIcon = require('../../images/group.png');
-const icon = <Image source={groupIcon} style={{ width: 40, height: 40, borderRadius: 8 }} />;
+const icon = <Image source={groupIcon} style={{ width: 46, height: 46, borderRadius: 8 }} />;
 const smallIcon = <Image source={groupIcon} style={{ width: 24, height: 24, borderRadius: 4 }} />;
-const avatarIcon = <Image source={groupIcon} style={{ width: 40, height: 40, borderRadius: 20 }} />;
+const avatarIcon = <Image source={groupIcon} style={{ width: 46, height: 46, borderRadius: 23 }} />;
 const svgIcon = <Circle fill={colorToken.contentPrimaryNormal} />;
 
 const propConfigs = [
@@ -42,7 +42,7 @@ const propConfigs = [
     type: 'pass',
     category: 'render',
     passOptions: [
-      { label: 'Checkbox', value: <Checkbox checked onChange={() => {}} /> },
+      { label: 'Radio', value: <Radio checked onChange={() => {}} /> },
       { label: '图片', value: <Image style={{ width: 46, height: 46 }} source={groupIcon} /> },
       { label: '文字', value: <Text style={{ color: colorToken.accentBlueFill }}>v1.2.3</Text> },
     ],

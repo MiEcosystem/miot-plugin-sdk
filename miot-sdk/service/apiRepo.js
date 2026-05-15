@@ -397,5 +397,7 @@ const API_REPO = {
   '/iccoa/manageKey': {},
   "/eco/nas/message/identity/get": {},
   "/eco/nas/message/identity/verify": {},
+  "/thirdcloud2cloud/query_device_switch": {},
+  "/thirdcloud2cloud/switch_device": {},
 };
 export default API_REPO;
