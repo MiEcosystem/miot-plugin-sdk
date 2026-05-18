@@ -1069,7 +1069,7 @@ export default class CommonSetting extends React.Component {
       modelType: modelType,
       deviceModel: Device.model,
     }));
-    if (isCamera && this.state.cloudStorageOn !== -1 && canShowCloudStorageSetting && this.state.abTestType === 'b' && isStdPlugin()) {
+    if (isCamera && canShowCloudStorageSetting && this.state.abTestType === 'b' && isStdPlugin()) {
       params.secondOptions = [...(params.secondOptions || []), AllOptions.CLOUD_STORAGE_SETTING];
     }
     if (this.props.navigation) {
