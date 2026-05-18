@@ -22,23 +22,23 @@ const CardContainerDemo = ({ navigation }) => {
           <View style={{ flex: 1, height: 180 }}/>
         </CardContainer>
         <ContainerWithGap span={2} gap={8} horizontal={true} >
-          <CardContainer viewStyle={{ flex: 1 }}>
+          <CardContainer>
             <View style={{ flex: 1, height: 64 }}/>
           </CardContainer>
-          <CardContainer viewStyle={{ flex: 1 }}>
+          <CardContainer>
             <View style={{ flex: 1, height: 64 }}/>
           </CardContainer>
-          <CardContainer viewStyle={{ flex: 1 }}>
+          <CardContainer>
             <View style={{ flex: 1, height: 64 }}/>
           </CardContainer>
-          <CardContainer viewStyle={{ flex: 1 }}>
+          <CardContainer>
             <View style={{ flex: 1, height: 64 }}/>
           </CardContainer>
         </ContainerWithGap>
-        <CardContainer viewStyle={{ flex: 1 }}>
+        <CardContainer>
           <View style={{ height: 64 }}/>
         </CardContainer>
-        <CardContainer viewStyle={{ flex: 1 }}>
+        <CardContainer>
           <View style={{ height: 64 }}/>
         </CardContainer>
       </ContainerWithGap>

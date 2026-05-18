@@ -7,8 +7,8 @@ import TestComponent from '../testComponent';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle, Cold } from 'miot/ui/icons';
 
-const iconCircle = <Circle fill={colorToken.contentPrimaryNormal} />;
-const iconCold = <Cold fill={colorToken.contentPrimaryNormal} />;
+const iconCircle = <Circle fill={colorToken.contentPrimaryNormal} width={20} height={20} />;
+const iconCold = <Cold fill={colorToken.contentPrimaryNormal} width={20} height={20} />;
 const noop = () => {};
 
 const options2 = [
@@ -50,6 +50,7 @@ const propConfigs = [
       { name: '0.icon', type: 'pass', defaultValue: iconCircle, passOptions: [{ label: 'Circle', value: iconCircle }, { label: 'Cold', value: iconCold }] },
       { name: '0.actionType', type: 'enum', enumOptions: ['none', 'navigate', 'select'], defaultValue: 'none' },
       { name: '0.colorType', type: 'enum', enumOptions: ['blue', 'orange', 'green', 'purple', 'wathet'], defaultValue: undefined },
+      { name: '0.onPress', type: 'pass', defaultValue: () => showToast('选项一'), passOptions: [{ label: 'onPress', value: () => showToast('选项一') }] },
     ],
     passOptions: [
       { label: '2个(带副标题)', value: options2 },

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import {
   SubpageLayout, ListCard, ListItem, ListItemWithWidget,
-  SelectList, BlockButton, Separator, NoticeBar,
+  SelectList, BlockButton, Separator, StatusAlert,
 } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import NavigationBar from 'miot/ui/NavigationBar';
@@ -23,7 +23,7 @@ const SubpageLayoutDemo = ({ navigation }) => {
   return (
     <SubpageLayout>
       <SubpageLayout.SubHeader>
-        <NoticeBar title="滤网需要更换，建议尽快处理" status="warning" actionType="navigate" onPress={noop} />
+        <StatusAlert alerts={[{ title: '滤网需要更换，建议尽快处理', leadingIconType: 'warning', warning: true, actionType: 'navigate', onPress: noop }]} />
       </SubpageLayout.SubHeader>
       <SubpageLayout.Content>
         <ListCard title="模式选择">

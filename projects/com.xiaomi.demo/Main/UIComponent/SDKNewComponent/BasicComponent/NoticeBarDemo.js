@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { View } from 'react-native';
 import { NoticeBar, colorToken } from 'miot/ui/hyperOSUI';
 import TestComponent from '../testComponent';
@@ -62,11 +62,13 @@ const NoticeBarDemo = () => {
   const title = barProps.title === '长文本（测 3 行省略）' ? LONG_TITLE : SHORT_TITLE;
   const status = barProps.status || 'default';
 
+  const propConfigs = useMemo(() => buildPropConfigs(status), [status]);
+
   return (
     <View style={styles.container}>
       <TestComponent
         component={View}
-        propConfigs={buildPropConfigs(status)}
+        propConfigs={propConfigs}
         onPropsChange={(props) => setBarProps(props)}
       />
       <View style={styles.previewWrapper}>

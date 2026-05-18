@@ -13,31 +13,31 @@ const IotComponentDemo = ({ navigation }) => {
   }, [navigation]);
 
   const commonItems = [
-    // { title: 'CardHeader', router: 'TitleContainerDemo' },
+    { title: 'CardHeader', router: 'TitleContainerDemo' },
     { title: 'LargeListEntrance', router: 'LargeEntranceDemo' },
-    // { title: 'MediumListEntrance', router: 'MediumListEntranceDemo' },
-    // { title: 'SmallGridEntrance', router: 'SmallEntranceDemo' },
+    { title: 'MediumListEntrance', router: 'MediumListEntranceDemo' },
+    { title: 'SmallGridEntrance', router: 'SmallEntranceDemo' },
     { title: 'LargeListToggle', router: 'LargeVariantSwitchDemo' },
-    // { title: 'MediumListToggle', router: 'MiddleVariantSwitchDemo' },
-    // { title: 'SmallGridToggle', router: 'SmallVariantSwitchDemo' },
+    { title: 'MediumListToggle', router: 'MiddleVariantSwitchDemo' },
+    { title: 'SmallGridToggle', router: 'SmallVariantSwitchDemo' },
     { title: 'CircularButton', router: 'CircularButtonDemo' },
     { title: 'Stepper', router: 'StepperDemo' },
-    // { title: 'Slider', router: 'IotSliderDemo' },
-    // { title: 'SliderWithToggle', router: 'IotSliderWithToggleDemo' },
+    { title: 'Slider', router: 'IotSliderDemo' },
+    { title: 'SliderWithToggle', router: 'IotSliderWithToggleDemo' },
     { title: 'MediumImageButton', router: 'IotMediumImageButtonDemo' },
-    // { title: 'SmallImageButton', router: 'IotSmallImageButtonDemo' },
-    // { title: 'DataItem', router: 'IotDataItemDemo' },
-    // { title: 'DataGroup', router: 'IotDataGroupDemo' },
-    // { title: 'ActionBlock', router: 'ActionBlockDemo' },
-    // { title: 'LargeTriggerSelect', router: 'LargeTriggerSelectDemo' },
-    // { title: '组件 MediumTriggerSelect', router: 'MediumTriggerSelectConfigDemo' },
+    { title: 'SmallImageButton', router: 'IotSmallImageButtonDemo' },
+    { title: 'DataItem', router: 'IotDataItemDemo' },
+    { title: 'DataGroup', router: 'IotDataGroupDemo' },
+    { title: 'ActionBlock', router: 'ActionBlockDemo' },
+    { title: 'LargeTriggerSelect', router: 'LargeTriggerSelectDemo' },
+    { title: '组件 MediumTriggerSelect', router: 'MediumTriggerSelectConfigDemo' },
     { title: '状态提示 StatusAlert', router: 'StatusAlertConfigDemo' },
   ];
 
   const layoutItems = [
     { title: 'CardContainer', router: 'CardContainerDemo' },
     { title: 'ContainerWithGap', router: 'GroupContainerDemo' },
-    // { title: 'SmallGridContainer', router: 'SmallGridContainerDemo' },
+    { title: 'SmallGridContainer', router: 'SmallGridContainerDemo' },
   ];
 
   return (

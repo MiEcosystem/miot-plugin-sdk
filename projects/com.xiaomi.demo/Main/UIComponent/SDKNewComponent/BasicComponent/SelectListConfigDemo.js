@@ -35,9 +35,15 @@ const groupOptions = [
 const propConfigs = [
   {
     name: 'options',
-    type: 'pass',
+    type: 'object',
     category: 'content',
     defaultValue: simpleOptions,
+    objectProps: [
+      { name: '0.title', type: 'string', defaultValue: '选项一' },
+      { name: '0.subtitle', type: 'string', defaultValue: '' },
+      { name: '0.leadingIcon', type: 'pass', defaultValue: undefined, passOptions: [{ label: 'SVG图标', value: icon }] },
+      { name: '0.disabled', type: 'boolean', defaultValue: false },
+    ],
     passOptions: [
       { label: '简单选项', value: simpleOptions },
       { label: '图标+副标题', value: richOptions },
@@ -48,7 +54,7 @@ const propConfigs = [
     passOptions: [
       { label: '1', value: 1 },
       { label: '2', value: 2 },
-      { label: "'a'", value: 'a' },
+      { label: "a", value: 'a' },
     ],
   },
   {
@@ -65,7 +71,7 @@ const propConfigs = [
 
 const SelectListConfigDemo = () => (
   <View style={styles.container}>
-    <TestComponent component={SelectList} propConfigs={propConfigs} />
+    <TestComponent component={SelectList} propConfigs={propConfigs} showPreviewBg={false}/>
   </View>
 );
 

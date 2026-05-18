@@ -43,13 +43,17 @@ const SelectListDemo = ({ navigation }) => {
   const [rightVal, setRightVal] = useState(1);
   const [leftVal, setLeftVal] = useState('a');
   const [groupVal, setGroupVal] = useState('g1');
+  const [rightGroupVal, setRightGroupVal] = useState(1);
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <Text style={styles.header}>SelectList</Text>
 
-      <Text style={styles.sectionTitle}>右对勾（默认）</Text>
+      <Text style={styles.sectionTitle}>右对勾 + 独立卡片（默认）</Text>
       <SelectList options={rightOptions} value={rightVal} onChange={setRightVal} />
+
+      <Text style={styles.sectionTitle}>右对勾 + 聚合</Text>
+      <SelectList options={rightOptions} value={rightGroupVal} onChange={setRightGroupVal} isGroup />
 
       <Text style={styles.sectionTitle}>右对勾 + 图标 + 副标题</Text>
       <SelectList
@@ -62,11 +66,11 @@ const SelectListDemo = ({ navigation }) => {
         onChange={() => {}}
       />
 
-      <Text style={styles.sectionTitle}>左对勾</Text>
-      <SelectList options={leftOptions} value={leftVal} onChange={setLeftVal} selectedAlign="left" />
+      <Text style={styles.sectionTitle}>左对勾 + 聚合</Text>
+      <SelectList options={leftOptions} value={leftVal} onChange={setLeftVal} selectedAlign="left" isGroup />
 
-      <Text style={styles.sectionTitle}>左对勾 + 分组</Text>
-      <SelectList options={groupOptions} value={groupVal} onChange={setGroupVal} selectedAlign="left" isGroup />
+      <Text style={styles.sectionTitle}>左对勾 + 独立卡片 + subItems</Text>
+      <SelectList options={groupOptions} value={groupVal} onChange={setGroupVal} selectedAlign="left" />
 
       <View style={{ height: 40 }} />
     </ScrollView>

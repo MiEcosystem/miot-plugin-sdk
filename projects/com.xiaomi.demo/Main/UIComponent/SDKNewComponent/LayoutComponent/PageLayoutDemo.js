@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
 import {
   PageLayout, ListCard, ListItem, ListItemWithWidget, CardHeader,
-  ActionBlock, NoticeBar, colorToken, Fonts,
+  ActionBlock, StatusAlert, colorToken, Fonts,
 } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle } from 'miot/ui/icons';
@@ -27,8 +27,8 @@ const PageLayoutDemo = ({ navigation }) => {
         <View style={styles.bgGradient} />
       </PageLayout.Background>
 
-      {/* SubHeader 区域 - 设备信息 + 提示条 */}
-      <PageLayout.SubHeader>
+      {/* Header 区域 - 设备信息（可滚走） */}
+      <PageLayout.Header>
         <View style={styles.headerArea}>
           <View style={styles.deviceIcon}>
             <Circle fill={colorToken.staticWhite} width={40} height={40} />
@@ -36,7 +36,11 @@ const PageLayoutDemo = ({ navigation }) => {
           <Text style={styles.deviceName}>智能空调</Text>
           <Text style={styles.deviceStatus}>制冷中 · 26°C</Text>
         </View>
-        <NoticeBar title="固件版本 2.5.1 可用，建议升级" status="notice" actionType="navigate" onPress={noop} />
+      </PageLayout.Header>
+
+      {/* SubHeader 区域 - 状态提示（吸顶） */}
+      <PageLayout.SubHeader>
+        <StatusAlert alerts={[{ title: '固件版本 2.5.1 可用，建议升级', leadingIconType: 'reminder', actionType: 'navigate', onPress: noop }]} />
       </PageLayout.SubHeader>
 
       {/* Content 区域 - 主内容 */}

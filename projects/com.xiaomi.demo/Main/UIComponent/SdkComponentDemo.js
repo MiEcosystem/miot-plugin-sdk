@@ -22,7 +22,7 @@ const SdkComponentDemo = (props) => {
         <ListItem title="BaseComponents" onPress={() => navigateToScreen('BasicComponentDemo', 'BaseComponents')} />
         <ListItem title="IoTComponents" onPress={() => navigateToScreen('IotComponentDemo', 'IoTComponents')} />
         {/* <ListItem title="FeatureComponents" onPress={() => navigateToScreen('FeatureComponentDemo', 'FeatureComponents')} /> */}
-        {/* <ListItem title="PageLayout" onPress={() => navigateToScreen('LayoutDemo', 'Layout')} /> */}
+        <ListItem title="PageLayout" onPress={() => navigateToScreen('LayoutDemo', 'Layout')} />
       </ListCard>
     </ScrollView>
   );

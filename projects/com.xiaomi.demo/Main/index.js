@@ -243,7 +243,6 @@ import LargeTriggerSelectConfigDemo from "./UIComponent/SDKNewComponent/IotCompo
 import ActionBlockDemo from "./UIComponent/SDKNewComponent/IotComponent/ActionBlockDemo";
 import ActionBlockConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/ActionBlockConfigDemo";
 import VariantSwitchDemo from "./UIComponent/SDKNewComponent/IotComponent/VariantSwitchDemo";
-import ToggleButtonDemo from "./UIComponent/SDKNewComponent/BasicComponent/ToggleButtonDemo";
 import EmptyStateDemo from "./UIComponent/SDKNewComponent/BasicComponent/EmptyStateDemo";
 import EmptyStateConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/EmptyStateConfigDemo";
 import SpacingDemo from "./UIComponent/SDKNewComponent/BasicComponent/SpacingDemo";
@@ -472,7 +471,6 @@ function createRootStack(initPage) {
       ActionBlockDemo,
       ActionBlockConfigDemo,
       VariantSwitchDemo,
-      ToggleButtonDemo,
       EmptyStateDemo,
       EmptyStateConfigDemo,
       SpacingDemo,
@@ -737,6 +735,7 @@ function createRootStack(initPage) {
           ),
         };
       },
+      headerMode: 'float',
       transitionConfig: () => ({
         screenInterpolator: interpolator,
       }),

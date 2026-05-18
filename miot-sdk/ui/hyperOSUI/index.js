@@ -27,7 +27,6 @@ export {
   Fonts,
   ConfigContext,
   TouchableView,
-  ToggleButton,
   CardContainer,
   ContainerWithGap,
   ConfigProvider,

@@ -47,9 +47,14 @@ const options6 = [
 const propConfigs = [
   {
     name: 'options',
-    type: 'pass',
+    type: 'object',
     category: 'content',
     defaultValue: options2,
+    objectProps: [
+      { name: '0.title', type: 'string', defaultValue: '选项一' },
+      { name: '0.icon', type: 'pass', defaultValue: icon, passOptions: [{ label: 'SVG图标', value: icon }] },
+      { name: '0.colorType', type: 'enum', enumOptions: ['blue', 'orange', 'green', 'purple', 'wathet'], defaultValue: undefined },
+    ],
     passOptions: [
       { label: '2个选项', value: options2 },
       { label: '3个选项', value: options3 },
