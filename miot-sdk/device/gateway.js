@@ -14,7 +14,7 @@ export default class IDeviceGateWay {
    *  主要有以下字段：{iconURL,did,model,userId,extra,name,event,session,permitLevel,parentId,showMode,mac,propInfo,ip,ssid,bssid,pid,latitude,longitude,isVoiceDevice,isOnline,ownerId,ownerName};
    */
   /**
-   * 获取蓝牙网关关联的普通蓝牙和蓝牙mesh设备列表。
+   * 获取蓝牙网关关联的普通蓝牙和蓝牙Mesh设备列表。
    * @param {string} [did=Device.deviceID] 蓝牙网关的did，可以为空，为空时默认取当前的Device.deviceID
    * @returns {Promise}
    *    resolve：返回数组设备信息的promise， {"mesh":[Device], "normal":[Device]}

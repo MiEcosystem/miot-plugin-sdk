@@ -28,6 +28,12 @@ export default class UIDemo extends React.Component {
   _createMenuData() {
     this._menuData = [
       {
+        'name': '新国标设备控制Demo',
+        'func': () => {
+          this.props.navigation.navigate('NewGBControlDemo', { title: '新国标设备控制Demo' });
+        }
+      },
+      {
         'name': '开发板控制Demo',
         'func': () => {
           this.props.navigation.navigate('ControlDemo', { title: 'ControlDemo' });
@@ -340,6 +346,17 @@ export default class UIDemo extends React.Component {
         'name': '获取当前账号的当前家庭的DeviceList',
         'func': () => {
           Device.getHomeDeviceList().then((res) => {
+            alert(JSON.stringify(res));
+          }).catch((error) => {
+            alert(JSON.stringify(error));
+          });
+        }
+      },
+      {
+        'name': '获取家庭成员的列表',
+        'func': () => {
+          let options = {};
+          Device.getHomeMemberList(options).then((res) => {
             alert(JSON.stringify(res));
           }).catch((error) => {
             alert(JSON.stringify(error));

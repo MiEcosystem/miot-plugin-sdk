@@ -19,7 +19,8 @@ export default class DeviceDemo extends React.Component {
       deviceOwner: "",
       callMethodResult: "请求中",
       callMethodFromCloudResult: "请求中",
-      roomInfo: ""
+      roomInfo: "",
+      cityId: "请求中"
     };
     Logger.trace(this);
   }
@@ -50,6 +51,14 @@ export default class DeviceDemo extends React.Component {
 
     Device.getRoomInfoForCurrentHome().then((roomInfo) => {
       this.setState({ roomInfo: roomInfo });
+    });
+
+    Device.getDeviceCityId().then((res) => {
+      console.log("getDeviceCityId success:", JSON.stringify(res));
+      this.setState({ cityId: res.city_id });
+    }).catch((err) => {
+      console.log("getDeviceCityId error:", err);
+      this.setState({ cityId: "获取失败: " + JSON.stringify(err) });
     });
 
     this.eventSubscription = DeviceProperties.addListener(["on", "mode"], (deviceProps, changeProps) => {
@@ -126,13 +135,15 @@ export default class DeviceDemo extends React.Component {
                     ['isBinded2', this.state.device.isBinded2.toString()],
                     ['isReadOnlyShared', this.state.device.isReadonlyShared.toString()],
                     ['是否是根设备', this.state.device.isRootDevice.toString()],
-                    ['设备绑定时间orderTime', this.formatOrderTime()]
+                    ['设备绑定时间orderTime', this.formatOrderTime()],
+                    ['是否是新国标设备 isNewGBDevice', this.state.device.isNewGBDevice.toString()]
                   ]
                 },
                 {
                   title: 'Device 其它信息',
                   items: [
-                    ['信号强度', this.state.wifiStrength]
+                    ['信号强度', this.state.wifiStrength],
+                    ['city_id(设备IP定位)', this.state.cityId]
                   ]
                 },
                 {
@@ -164,7 +175,7 @@ export default class DeviceDemo extends React.Component {
                         return (
                           <View key={index} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', minHeight: 48, marginTop: 1, padding: 10, width: '100%', backgroundColor: index % 2 == 0 ? '#FFF' : '#FFFFFFE0' }}>
                             <Text>{`${ item[0] }:    `}</Text>
-                            <Text>{`${item[1]}`}</Text>
+                            <Text>{`${ item[1] }`}</Text>
                           </View>);
                       })
                     }
