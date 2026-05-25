@@ -203,7 +203,6 @@ const API_REPO = {
   '/device/rename': {},
   '/appgateway/miot/appdeviceinfo_service/AppDeviceInfoService/get_last_online': {},
   
-  '/appgateway/miot/appdeviceinfo_service/AppDeviceInfoService/PluginRecommendTemplateListV2': {},
   // 读取音频
   '/common/app/data/v2/scan': {},
   // 添加音频

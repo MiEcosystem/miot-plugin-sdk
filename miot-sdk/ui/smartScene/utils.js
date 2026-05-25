@@ -48,7 +48,7 @@ export class IftttTemplateUtils {
    * @since 10114
    */
   static getPluginRecommendTemplateList(params) {
-    return Service.callSmartHomeAPI('/appgateway/miot/appsceneservice/AppSceneService/PluginRecommendTemplateListV2', params);
+    return Service.sceneV2.loadScenePluginRecommendTemplateListV2(params);
   }
   /**
    * 获取当前设备自动化信息
@@ -56,13 +56,13 @@ export class IftttTemplateUtils {
    * @returns {Promise | Promise<unknown> | Promise.Promise}
    */
   static getGetSimpleSceneList(sceneListParams) {
-    return Service.callSmartHomeAPI('/appgateway/miot/appsceneservice/AppSceneService/GetSimpleSceneList', sceneListParams);
+    return Service.sceneV2.loadSimpleSceneList(sceneListParams);
   }
   static processTemplateList(tplSceneList, tpl_list) {
     const {
       manual_scene_info_list = [],
       auto_scene_info_list = [],
-      voice_scene_info_list = []
+      voice_scene_info_list = [],
     } = tplSceneList || {};
     const scene_info_list = [...manual_scene_info_list, ...auto_scene_info_list, ...voice_scene_info_list];
     const existValue = (tpl_list || []).map((template) => {
@@ -76,7 +76,7 @@ export class IftttTemplateUtils {
         // text_color,
         name,
         template_id,
-        template_type
+        template_type,
         // condition,
         // action,
         // trigger
@@ -94,7 +94,7 @@ export class IftttTemplateUtils {
         openStatus: tempScene?.enable,
         template_id,
         scene_id: tempScene?.scene_id,
-        template_type
+        template_type,
       };
     });
     return existValue;
@@ -119,7 +119,7 @@ export class IftttTemplateUtils {
         page: 1,
         page_size: 2,
         hasCar: true, // 用户是否有车 默认传true
-        phoneDid: Host.phoneDid || "" // 手机did
+        phoneDid: Host.phoneDid || "", // 手机did
       };
       if (device_type) {
         params.device_type = device_type;
@@ -131,7 +131,7 @@ export class IftttTemplateUtils {
         did: Device.deviceID,
         get_type: 1,
         app_version: 17,
-        owner_uid: ownerUid || Service.account.ID
+        owner_uid: ownerUid || Service.account.ID,
       };
       if (homeInfo?.data?.ownerUid) sceneListParams.owner_uid = homeInfo.data.ownerUid;
       let tplSceneList = [];
@@ -145,12 +145,12 @@ export class IftttTemplateUtils {
       const pluginRecommendTemplateInfo = IftttTemplateUtils.processTemplateList(tplSceneList, tpl_list);
       return {
         code: 0,
-        value: pluginRecommendTemplateInfo
+        value: pluginRecommendTemplateInfo,
       };
     } catch (e) {
       return Promise.resolve({
         code: -1,
-        value: []
+        value: [],
       });
     }
   }
@@ -168,20 +168,20 @@ export class IftttTemplateUtils {
       ref: ref,
       sub_ref: sub_ref || ref,
       belong_tag: 'plugin',
-      ...rest
+      ...rest,
     } : {
       did: Device.deviceID,
       device_model: Device.model,
       plugin_form: 0,
       user_type: 0,
       belong_tag: 'plugin',
-      ...rest
+      ...rest,
     };
     if (event === 'view' && Host.isAndroid) {
       await Service.smarthome.updatePluginPageRef({
         ...commonParams,
         ref: ref || this._ref,
-        subRef: sub_ref || this._subRef || this._ref
+        subRef: sub_ref || this._subRef || this._ref,
       });
     } else {
       if (ref || sub_ref) {
@@ -210,7 +210,7 @@ export class IftttTemplateUtils {
     update && Service.smarthome.updatePluginPageRef({
       ref: this._ref,
       subRef: subRef || ref,
-      ...params
+      ...params,
     });
   }
 }
