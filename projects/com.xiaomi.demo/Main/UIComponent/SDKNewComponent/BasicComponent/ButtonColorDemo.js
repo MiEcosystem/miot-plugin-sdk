@@ -45,23 +45,30 @@ class ButtonColorDemo extends Component {
   render() {
     return (
       <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
-        {/* large / primary */}
-        {this.renderButtons('large', 'primary', '切换多语言')}
 
         <View style={styles.group}>
-          {/* medium / light */}
+          {/* primary: large / medium / small */}
           <View style={styles.column}>
-            {this.renderButtons('medium', 'light', '普通', lightColors)}
+            {this.renderButtons('large', 'primary', '切换多语言')}
           </View>
-
-          {/* medium / primary */}
           <View style={styles.column}>
             {this.renderButtons('medium', 'primary', '普通')}
           </View>
-
-          {/* small / primary */}
           <View>
             {this.renderButtons('small', 'primary', '普通')}
+          </View>
+        </View>
+
+        <View style={styles.group}>
+          {/* primarySubtle: large / medium / small */}
+          <View style={styles.column}>
+            {this.renderButtons('large', 'primarySubtle', '切换多语言')}
+          </View>
+          <View style={styles.column}>
+            {this.renderButtons('medium', 'primarySubtle', '普通')}
+          </View>
+          <View>
+            {this.renderButtons('small', 'primarySubtle', '普通')}
           </View>
         </View>
       </ScrollView>

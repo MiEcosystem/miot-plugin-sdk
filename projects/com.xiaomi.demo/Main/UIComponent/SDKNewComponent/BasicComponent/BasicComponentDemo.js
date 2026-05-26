@@ -47,7 +47,6 @@ const BasicComponentDemo = (props) => {
     { title: '加载提示 LoadingToast', router: 'LoadingToastDemo' },
     { title: '弹出菜单 PopMenus', router: 'PopMenusEntryDemo' },
     { title: '菜单 Menus', router: 'MenusEntryDemo' },
-    { title: '近手弹窗', router: 'HandPopDemo' },
     { title: '抽屉 Drawer', router: 'DrawerDemo' },
     { title: '输入弹窗 InputDialog', router: 'InputDialogDemo' },
     { title: '自定义弹窗 CustomDialog', router: 'CustomDialogDemo' },

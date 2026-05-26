@@ -1,9 +1,9 @@
 'use strict';
 
-import React, { useCallback, useMemo, useState } from 'react';
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { StatusAlert, colorToken, showToast } from 'miot/ui/hyperOSUI';
-import { dynamicStyleSheet } from 'miot/ui/Style';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { StatusAlert, showToast } from 'miot/ui/hyperOSUI';
+import { ConfigContext } from 'mhui-rn/dist/components/configProvider';
 
 const ICON_TYPES = ['warning', 'fault', 'consumable', 'offline', 'reminder', 'custom'];
 const ACTION_TYPES = ['none', 'navigate', 'button', 'buttonGroup', 'custom'];
@@ -16,15 +16,16 @@ const MODE_OPTIONS = [
   { label: '堆叠-4条', value: 'stack4' },
 ];
 
-const customActionNode = (
-  <Text style={{ fontSize: 12, color: colorToken.accentBluePrimary }}>自定义操作</Text>
-);
-
-const customIconNode = (
-  <Text style={{ fontSize: 20 }}>🔔</Text>
-);
-
 const StatusAlertConfigDemo = () => {
+  const { colorToken } = useContext(ConfigContext);
+
+  const customActionNode = (
+    <Text style={{ fontSize: 12, color: colorToken.accentBluePrimary }}>自定义操作</Text>
+  );
+  const customIconNode = (
+    <Text style={{ fontSize: 20 }}>🔔</Text>
+  );
+
   const [mode, setMode] = useState('single');
   const [title, setTitle] = useState('这是一条状态提示');
   const [overline, setOverline] = useState('');
@@ -92,15 +93,15 @@ const StatusAlertConfigDemo = () => {
   const renderChip = (label, selected, onPress, key) => (
     <TouchableOpacity
       key={key}
-      style={[styles.chip, selected && styles.chipSelected]}
+      style={[styles.chip, { backgroundColor: selected ? colorToken.accentOsSubtle : colorToken.fillPrimary, borderWidth: selected ? 1 : 0, borderColor: selected ? colorToken.accentOsFill : 'transparent' }]}
       onPress={onPress}
     >
-      <Text style={[styles.chipText, selected && styles.chipTextSelected]}>{label}</Text>
+      <Text style={[styles.chipText, { color: selected ? colorToken.accentOsContent : colorToken.contentTertiaryNormal }]}>{label}</Text>
     </TouchableOpacity>
   );
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={[styles.container, { backgroundColor: colorToken.surfacePageLow }]}>
       <View style={styles.preview}>
         <StatusAlert
           alerts={alerts}
@@ -110,7 +111,7 @@ const StatusAlertConfigDemo = () => {
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>模式</Text>
+        <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>模式</Text>
         <View style={styles.chipRow}>
           {MODE_OPTIONS.map((opt) => renderChip(opt.label, mode === opt.value, () => setMode(opt.value), opt.value))}
         </View>
@@ -118,35 +119,35 @@ const StatusAlertConfigDemo = () => {
 
       {mode !== 'single' && (
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>stackTitle</Text>
-          <TextInput style={styles.input} value={stackTitle} onChangeText={setStackTitle} placeholder="堆叠标题" placeholderTextColor={colorToken.contentQuaternaryNormal} />
+          <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>stackTitle</Text>
+          <TextInput style={[styles.input, { borderColor: colorToken.dividerPrimary, color: colorToken.contentPrimaryNormal, backgroundColor: colorToken.fillPrimary }]} value={stackTitle} onChangeText={setStackTitle} placeholder="堆叠标题" placeholderTextColor={colorToken.contentQuaternaryNormal} />
         </View>
       )}
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>title</Text>
-        <TextInput style={styles.input} value={title} onChangeText={setTitle} placeholder="标题文案" placeholderTextColor={colorToken.contentQuaternaryNormal} />
+        <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>title</Text>
+        <TextInput style={[styles.input, { borderColor: colorToken.dividerPrimary, color: colorToken.contentPrimaryNormal, backgroundColor: colorToken.fillPrimary }]} value={title} onChangeText={setTitle} placeholder="标题文案" placeholderTextColor={colorToken.contentQuaternaryNormal} />
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>overline</Text>
-        <TextInput style={styles.input} value={overline} onChangeText={setOverline} placeholder="不传则不显示" placeholderTextColor={colorToken.contentQuaternaryNormal} />
+        <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>overline</Text>
+        <TextInput style={[styles.input, { borderColor: colorToken.dividerPrimary, color: colorToken.contentPrimaryNormal, backgroundColor: colorToken.fillPrimary }]} value={overline} onChangeText={setOverline} placeholder="不传则不显示" placeholderTextColor={colorToken.contentQuaternaryNormal} />
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>subtitle</Text>
-        <TextInput style={styles.input} value={subtitle} onChangeText={setSubtitle} placeholder="不传则不显示" placeholderTextColor={colorToken.contentQuaternaryNormal} />
+        <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>subtitle</Text>
+        <TextInput style={[styles.input, { borderColor: colorToken.dividerPrimary, color: colorToken.contentPrimaryNormal, backgroundColor: colorToken.fillPrimary }]} value={subtitle} onChangeText={setSubtitle} placeholder="不传则不显示" placeholderTextColor={colorToken.contentQuaternaryNormal} />
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>presentation</Text>
+        <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>presentation</Text>
         <View style={styles.chipRow}>
           {PRESENTATIONS.map((p) => renderChip(p, presentation === p, () => setPresentation(p), p))}
         </View>
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>warning</Text>
+        <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>warning</Text>
         <View style={styles.chipRow}>
           {renderChip('true', warning === true, () => setWarning(true), 'w-true')}
           {renderChip('false', warning === false, () => setWarning(false), 'w-false')}
@@ -154,14 +155,14 @@ const StatusAlertConfigDemo = () => {
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>leadingIconType</Text>
+        <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>leadingIconType</Text>
         <View style={styles.chipRow}>
           {ICON_TYPES.map((t) => renderChip(t, leadingIconType === t, () => setLeadingIconType(t), t))}
         </View>
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>actionType</Text>
+        <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>actionType</Text>
         <View style={styles.chipRow}>
           {ACTION_TYPES.map((t) => renderChip(t, actionType === t, () => setActionType(t), t))}
         </View>
@@ -169,7 +170,7 @@ const StatusAlertConfigDemo = () => {
 
       {actionType === 'button' && (
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>trailingNavigate</Text>
+          <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>trailingNavigate</Text>
           <View style={styles.chipRow}>
             {renderChip('true', trailingNavigate === true, () => setTrailingNavigate(true), 'tn-true')}
             {renderChip('false', trailingNavigate === false, () => setTrailingNavigate(false), 'tn-false')}
@@ -180,10 +181,9 @@ const StatusAlertConfigDemo = () => {
   );
 };
 
-const styles = dynamicStyleSheet({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colorToken.surfacePageLow,
   },
   preview: {
     paddingHorizontal: 12,
@@ -195,7 +195,6 @@ const styles = dynamicStyleSheet({
   },
   sectionTitle: {
     fontSize: 12,
-    color: colorToken.contentTertiaryNormal,
     marginBottom: 6,
   },
   chipRow: {
@@ -207,31 +206,18 @@ const styles = dynamicStyleSheet({
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 8,
-    backgroundColor: colorToken.fillPrimary,
     marginHorizontal: 4,
     marginVertical: 4,
   },
-  chipSelected: {
-    backgroundColor: colorToken.accentOsSubtle,
-    borderWidth: 1,
-    borderColor: colorToken.accentOsFill,
-  },
   chipText: {
     fontSize: 13,
-    color: colorToken.contentTertiaryNormal,
-  },
-  chipTextSelected: {
-    color: colorToken.accentOsContent,
   },
   input: {
     borderWidth: 1,
-    borderColor: colorToken.dividerPrimary,
     borderRadius: 8,
     paddingVertical: 8,
     paddingHorizontal: 12,
     fontSize: 13,
-    color: colorToken.contentPrimaryNormal,
-    backgroundColor: colorToken.fillPrimary,
   },
 });
 

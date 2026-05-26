@@ -8,9 +8,12 @@ import { dynamicStyleSheet } from 'miot/ui';
 
 const propConfigs = [
   { name: 'message', type: 'string', defaultValue: '加载中...', category: 'content' },
-  { name: 'duration', type: 'string', defaultValue: '3000', category: 'state' },
+  { name: 'timeout', type: 'number', defaultValue: 3000, category: 'state' },
   { name: 'cancelable', type: 'boolean', defaultValue: true, category: 'state' },
   { name: 'hasShade', type: 'boolean', defaultValue: true, category: 'state' },
+  { name: 'accessible', type: 'boolean', defaultValue: true, category: 'state' },
+  { name: 'onModalShow', type: 'pass', category: 'event' },
+  { name: 'onModalHide', type: 'pass', category: 'event' },
 ];
 
 const LoadingToastDemo = () => {
@@ -27,16 +30,15 @@ const LoadingToastDemo = () => {
       <LoadingToast
         visible={visible}
         message={toastProps.message || '加载中...'}
-        duration={Number(toastProps.duration) || undefined}
+        timeout={toastProps.timeout}
         cancelable={toastProps.cancelable !== undefined ? toastProps.cancelable : true}
         hasShade={toastProps.hasShade !== undefined ? toastProps.hasShade : true}
+        accessible={toastProps.accessible !== undefined ? toastProps.accessible : true}
+        onModalShow={toastProps.onModalShow}
+        onModalHide={toastProps.onModalHide}
         onDismiss={() => {
           setVisible(false);
           console.log('LoadingToast dismissed');
-        }}
-        onTimeout={() => {
-          setVisible(false);
-          console.log('LoadingToast timeout');
         }}
       />
       <View style={styles.buttonWrapper}>

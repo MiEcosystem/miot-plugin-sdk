@@ -2,31 +2,30 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { SmallGridToggle, colorToken, Fonts, SmallGridContainer, CardContainer } from 'miot/ui/hyperOSUI';
+import { SmallGridToggle, colorToken, Fonts, SmallGridContainer, CardContainer, showToast } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { Circle } from 'miot/ui/icons';
 import NavigationBar from 'miot/ui/NavigationBar';
 
-const sourceData1 = 
+const sourceData1 =
   {
     index: 1,
     title: '标题',
     icon: <Circle fill={colorToken.contentSecondaryNormal} />,
   };
 
-const sourceData2 = 
+const sourceData2 =
   {
     index: 1,
     title: '标题',
     icon: <Circle fill={colorToken.contentSecondaryNormal} />,
-    rightIconType: 'arrow',
   };
 
 const sourceData3 = {
   index: 1,
   title: '标题',
   icon: <Circle fill={colorToken.contentSecondaryNormal} />,
-  rightIconType: 'select',
+  onPress: () => showToast('onPress'),
   checked: true,
 };
 
@@ -34,7 +33,7 @@ const sourceData4 = {
   index: 1,
   title: '标题',
   icon: <Circle fill={colorToken.contentSecondaryNormal} />,
-  rightIconType: 'select',
+  onPress: () => showToast('onPress'),
 };
 
 const SmallGridToggleDemo = ({ navigation }) => {

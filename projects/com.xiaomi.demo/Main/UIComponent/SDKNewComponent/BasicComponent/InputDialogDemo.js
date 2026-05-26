@@ -13,14 +13,21 @@ const defaultButtons = [
 
 const propConfigs = [
   { name: 'title', type: 'string', defaultValue: '输入弹窗', category: 'content' },
-  { name: 'placeholder', type: 'string', defaultValue: '请输入', category: 'content' },
-  { name: 'defaultValue', type: 'string', defaultValue: '', category: 'content' },
   {
-    name: 'inputType',
-    type: 'enum',
-    enumOptions: ['normal', 'password'],
-    defaultValue: 'normal',
-    category: 'state',
+    name: 'inputProps',
+    type: 'object',
+    category: 'content',
+    objectProps: [
+      { name: 'placeholder', type: 'string', defaultValue: '请输入' },
+      { name: 'value', type: 'string', defaultValue: '' },
+      { name: 'type', type: 'enum', enumOptions: ['normal', 'password'], defaultValue: 'normal' },
+      { name: 'autoFocus', type: 'boolean', defaultValue: false },
+      { name: 'showClear', type: 'boolean', defaultValue: true },
+      { name: 'colorDepth', type: 'enum', enumOptions: ['base', 'low'], defaultValue: 'low' },
+      { name: 'feedbackText', type: 'string', defaultValue: '' },
+      { name: 'feedbackType', type: 'enum', enumOptions: ['normal', 'notice', 'warning'], defaultValue: 'normal' },
+      { name: 'feedbackIconType', type: 'enum', enumOptions: ['none', 'alert', 'help', 'info'], defaultValue: 'none' },
+    ],
   },
   { name: 'cancelable', type: 'boolean', defaultValue: true, category: 'state' },
   { name: 'canDismiss', type: 'boolean', defaultValue: true, category: 'state' },
@@ -31,6 +38,11 @@ const InputDialogDemo = () => {
   const [visible, setVisible] = useState(false);
   const [dialogProps, setDialogProps] = useState({});
 
+  const inputProps = {
+    ...(dialogProps.inputProps || {}),
+    onChangeText: (text) => console.log('输入:', text),
+  };
+
   return (
     <View style={styles.container}>
       <TestComponent
@@ -40,9 +52,9 @@ const InputDialogDemo = () => {
       />
       <InputDialog
         {...dialogProps}
+        inputProps={inputProps}
         visible={visible}
         onDismiss={() => setVisible(false)}
-        onChangeText={(text) => console.log('输入:', text)}
         buttons={(dialogProps.buttons || defaultButtons).map((btn) => ({
           ...btn,
           callback: () => setVisible(false),

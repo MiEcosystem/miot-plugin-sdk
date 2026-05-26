@@ -21,7 +21,7 @@ const ToggleRow = ({ label, value, onToggle }) => (
 const PageLayoutConfigDemo = ({ navigation }) => {
   const [showBackground, setShowBackground] = useState(true);
   const [showHeader, setShowHeader] = useState(true);
-  const [showSubHeader, setShowSubHeader] = useState(true);
+  const [showAlertContainer, setShowAlertContainer] = useState(true);
   const [contentType, setContentType] = useState('rich');
 
   return (
@@ -39,32 +39,34 @@ const PageLayoutConfigDemo = ({ navigation }) => {
           </View>
         </PageLayout.Header>
       )}
-      {showSubHeader && (
-        <PageLayout.SubHeader>
+      {showAlertContainer && (
+        <PageLayout.AlertContainer>
           <StatusAlert alerts={[{ title: '固件版本 2.5.1 可用', leadingIconType: 'reminder', actionType: 'navigate', onPress: noop }]} />
-        </PageLayout.SubHeader>
+        </PageLayout.AlertContainer>
       )}
       <PageLayout.Content>
+        {contentType === 'rich' && <CardHeader title="快捷操作" />}
         {contentType === 'rich' && (
-          <>
-            <CardHeader title="快捷操作" />
-            <ActionBlock
-              maxColumns={3}
-              options={[
-                { title: '制冷', icon: <Circle fill={colorToken.accentBlueFill} />, onPress: noop },
-                { title: '制热', icon: <Circle fill={colorToken.accentOrangeFill} />, onPress: noop },
-                { title: '送风', icon: <Circle fill={colorToken.accentGreenFill} />, onPress: noop },
-              ]}
-            />
-            <ListCard title="常用设置">
-              <ListItem title="温度" value="26°C" onPress={noop} />
-              <ListItem title="风速" value="自动" onPress={noop} />
-            </ListCard>
-            <ListCard title="开关">
-              <ListItemWithWidget title="节能模式" onChange={noop} />
-              <ListItemWithWidget title="睡眠模式" checked onChange={noop} />
-            </ListCard>
-          </>
+          <ActionBlock
+            maxColumns={3}
+            options={[
+              { title: '制冷', icon: <Circle fill={colorToken.accentBlueFill} />, onPress: noop },
+              { title: '制热', icon: <Circle fill={colorToken.accentOrangeFill} />, onPress: noop },
+              { title: '送风', icon: <Circle fill={colorToken.accentGreenFill} />, onPress: noop },
+            ]}
+          />
+        )}
+        {contentType === 'rich' && (
+          <ListCard title="常用设置">
+            <ListItem title="温度" value="26°C" onPress={noop} />
+            <ListItem title="风速" value="自动" onPress={noop} />
+          </ListCard>
+        )}
+        {contentType === 'rich' && (
+          <ListCard title="开关">
+            <ListItemWithWidget title="节能模式" onChange={noop} />
+            <ListItemWithWidget title="睡眠模式" checked onChange={noop} />
+          </ListCard>
         )}
         {contentType === 'simple' && (
           <ListCard title="设置">
@@ -72,14 +74,13 @@ const PageLayoutConfigDemo = ({ navigation }) => {
             <ListItem title="设置项 2" value="值" onPress={noop} />
           </ListCard>
         )}
-        {contentType === 'empty' && null}
       </PageLayout.Content>
       <PageLayout.Footer>
         <ScrollView style={styles.panel} contentContainerStyle={styles.panelContent}>
           <Text style={styles.panelTitle}>Slot 控制</Text>
           <ToggleRow label="Background" value={showBackground} onToggle={() => setShowBackground((v) => !v)} />
           <ToggleRow label="Header" value={showHeader} onToggle={() => setShowHeader((v) => !v)} />
-          <ToggleRow label="SubHeader（吸顶）" value={showSubHeader} onToggle={() => setShowSubHeader((v) => !v)} />
+          <ToggleRow label="AlertContainer" value={showAlertContainer} onToggle={() => setShowAlertContainer((v) => !v)} />
 
           <Text style={styles.panelTitle}>Content 内容</Text>
           <View style={styles.optionsRow}>

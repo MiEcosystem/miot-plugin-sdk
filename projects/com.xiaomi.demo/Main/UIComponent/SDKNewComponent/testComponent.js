@@ -139,6 +139,7 @@ const TestComponent = ({ component: Component, propConfigs, onPropsChange, showP
   };
 
   const setDeep = (root, path, val) => {
+    if (root == null) return root;
     const keys = path.split('.');
     if (keys.length === 1) {
       const k = keys[0];
@@ -150,6 +151,7 @@ const TestComponent = ({ component: Component, propConfigs, onPropsChange, showP
     }
     const [first, ...rest] = keys;
     const child = Array.isArray(root) ? root[parseInt(first, 10)] : root?.[first];
+    if (child == null) return root;
     const updated = setDeep(child, rest.join('.'), val);
     if (Array.isArray(root)) { const idx = parseInt(first, 10); const next = [...root]; next[idx] = updated; return next; }
     return { ...root, [first]: updated };

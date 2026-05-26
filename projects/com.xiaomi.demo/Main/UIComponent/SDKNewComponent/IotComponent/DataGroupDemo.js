@@ -29,7 +29,7 @@ const DataGroupDemo = ({ navigation }) => {
         />
       </CardContainer>
 
-      <Text style={styles.sectionTitle}>3 项（居左）</Text>
+      <Text style={styles.sectionTitle}>3 项（数字）</Text>
       <CardContainer gap={0}>
         <DataGroup
           items={[
@@ -45,8 +45,8 @@ const DataGroupDemo = ({ navigation }) => {
         <DataGroup
           items={[
             { title: '26℃', subtitle: '温度', stringMode: true  },
-            { title: '68%', subtitle: '湿度', stringMode: false },
-            { title: 'AQI 251', subtitle: '空气质量', stringMode: true },
+            { title: '68%', subtitle: '湿度', stringMode: true },
+            { title: 'AQI 25', subtitle: '空气质量', stringMode: true },
           ]}
         />
       </CardContainer>

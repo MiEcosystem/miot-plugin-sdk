@@ -9,15 +9,12 @@ import { Cold, Close, More } from 'mhui-rn/dist/icons';
 
 const ICON_OPTIONS = {
   none: undefined,
-  icon1: <Cold width={24} height={24} />,
-  icon2: <Close width={24} height={24} />,
-  icon3: <More width={24} height={24} />,
+  icon1: <Cold width={24} height={24} fill={colorToken.contentPrimaryNormal} />,
+  icon2: <Close width={24} height={24} fill={colorToken.contentPrimaryNormal} />,
+  icon3: <More width={24} height={24} fill={colorToken.contentPrimaryNormal} />,
 };
 
 const propConfigs = [
-  { name: 'ShowTitleText', type: 'boolean', defaultValue: true, category: 'state' },
-  { name: 'ShowSubtitleText', type: 'boolean', defaultValue: false, category: 'state' },
-  { name: 'ShowIcon', type: 'boolean', defaultValue: false, category: 'state' },
   { name: 'colorType', type: 'enum', enumOptions: ['green', 'blue', 'wathet', 'purple', 'orange'], defaultValue: 'green', category: 'state' },
   { name: 'item1_title', type: 'string', defaultValue: '选项一', category: 'content' },
   { name: 'item1_subtitle', type: 'string', defaultValue: '', category: 'content' },
@@ -77,9 +74,6 @@ const PopMenusDemo = () => {
       <PopMenus
         ref={popMenusRef}
         data={data}
-        ShowTitleText={menuProps.ShowTitleText !== undefined ? menuProps.ShowTitleText : true}
-        ShowSubtitleText={menuProps.ShowSubtitleText || false}
-        ShowIcon={menuProps.ShowIcon || false}
         colorType={menuProps.colorType || 'green'}
         onSelect={(item) => {
           setSelectedId(item.id);

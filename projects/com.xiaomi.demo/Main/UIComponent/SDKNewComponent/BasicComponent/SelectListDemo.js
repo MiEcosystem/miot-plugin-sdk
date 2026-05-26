@@ -25,8 +25,9 @@ const groupOptions = [
   {
     value: 'g1', title: '空调模式',
     subItems: [
-      { value: 's1', title: '制冷', trailingValue: '26°C', showNavigate: true, onPress: () => showToast('制冷') },
-      { value: 's2', title: '制热', trailingValue: '28°C', showNavigate: true, onPress: () => showToast('制热') },
+      { title: '制冷', value: '26°C', actionType: 'navigate', onPress: () => showToast('制冷') },
+      { title: '制热', value: '28°C', actionType: 'select', badge: true, onPress: () => showToast('制热') },
+      { title: '送风', actionType: 'none', onPress: () => showToast('送风') },
     ],
   },
   { value: 'g2', title: '风扇模式' },

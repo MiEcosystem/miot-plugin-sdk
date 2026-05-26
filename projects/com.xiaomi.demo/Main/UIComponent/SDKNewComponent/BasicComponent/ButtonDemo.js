@@ -9,16 +9,6 @@ import NavigationBar from "miot/ui/NavigationBar";
 const ButtonDemo = (props) => {
   const { navigation } = props;
 
-  useEffect(() => {
-    navigation.setParams({
-      right: [
-        {
-          key: NavigationBar.ICON.MORE,
-          onPress: () => navigation.navigate('ButtonConfigDemo', { title: 'Button 配置调试' }),
-        },
-      ],
-    });
-  }, []);
 
   // 增加标题传递
   const navigateToScreen = (routerName, title) => {
@@ -27,8 +17,8 @@ const ButtonDemo = (props) => {
     }
   };
   const tokenItems = [
-    { title: '基础样式', router: 'ButtonCustomDemo' },
-    { title: '页面效果', router: 'ButtonPageViewDemo' },
+    { title: '基础样式', router: 'ButtonConfigDemo' },
+    { title: '颜色设置', router: 'ButtonColorDemo' },
   ];
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>

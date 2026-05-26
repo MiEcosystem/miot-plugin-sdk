@@ -157,10 +157,6 @@ import ListCardConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/Lis
 import SubpageLayoutConfigDemo from "./UIComponent/SDKNewComponent/LayoutComponent/SubpageLayoutConfigDemo";
 import PageLayoutConfigDemo from "./UIComponent/SDKNewComponent/LayoutComponent/PageLayoutConfigDemo";
 import DialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/DialogDemo";
-import HandPopDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopDemo";
-import HandPopCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopCustomDemo";
-import HandPopClickDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopClickDemo";
-import HandPopTriggerDemo from "./UIComponent/SDKNewComponent/BasicComponent/HandPopTriggerDemo";
 import LoadingDemo from "./UIComponent/SDKNewComponent/BasicComponent/LoadingDemo";
 import ListDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListDemo";
 import ListItemDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListItemDemo";
@@ -196,8 +192,6 @@ import LargeVariantSwitchConfigDemo from "./UIComponent/SDKNewComponent/IotCompo
 import ButtonDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonDemo";
 import ButtonConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonConfigDemo";
 import ButtonColorDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonColorDemo";
-import ButtonCustomDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonCustomDemo";
-import ButtonPageViewDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonPageViewDemo";
 import ToastDemo from "./UIComponent/SDKNewComponent/BasicComponent/ToastDemo";
 
 import MediumTriggerSelectConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/MediumTriggerSelectConfigDemo";
@@ -380,8 +374,6 @@ function createRootStack(initPage) {
       ButtonConfigDemo,
       ToastDemo,
       ButtonColorDemo,
-      ButtonCustomDemo,
-      ButtonPageViewDemo,
       SdkComponentDemo,
       ColorDemo,
       RadiusDemo,
@@ -397,10 +389,6 @@ function createRootStack(initPage) {
       SubpageLayoutConfigDemo,
       PageLayoutConfigDemo,
       DialogDemo,
-      HandPopDemo,
-      HandPopClickDemo,
-      HandPopCustomDemo,
-      HandPopTriggerDemo,
       FontsDemo,
       LoadingDemo,
       ListDemo,
@@ -716,13 +704,16 @@ function createRootStack(initPage) {
       // initialRouteName: 'ModeCardDemo',
       navigationOptions: ({ navigation }) => {
         let params = navigation.state.params || {};
+        if (params.header === null) return { header: null };
         return {
           header: (
             <NavigationBar
-              titleSize={"normal"}
+              titleSize={params.titleSize || "normal"}
               title={params.title || params.name || ""}
-              left={
-                {
+              collapseTitle={params.collapseTitle}
+              titleVisible={params.titleVisible}
+              titleOpacity={params.titleOpacity}
+              left={params.left || {
                   key: NavigationBar.ICON.BACK,
                   onPress: () => navigation.goBack(),
                   accessibilityLabel: "返回",

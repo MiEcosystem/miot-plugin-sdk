@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import {
   SubpageLayout, ListCard, ListItem, ListItemWithWidget,
-  SelectList, BlockButton, Separator, StatusAlert,
+  SelectList, BlockButton, Separator, useCollapsibleTitle,
 } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import NavigationBar from 'miot/ui/NavigationBar';
@@ -13,18 +13,29 @@ const noop = () => {};
 
 const SubpageLayoutDemo = ({ navigation }) => {
   const [mode, setMode] = useState('auto');
+  const { scrollHandler, titleVisible, titleOpacity, LargeTitle } = useCollapsibleTitle({ title: '高级设置' });
 
   useEffect(() => {
     navigation.setParams({
+      title: '高级设置',
+      titleSize: 'large',
+      collapseTitle: true,
+      titleVisible: false,
+      titleOpacity: 0,
       right: [{ key: NavigationBar.ICON.MORE, onPress: () => navigation.navigate('SubpageLayoutConfigDemo', { title: 'SubpageLayout 配置调试' }) }],
     });
   }, []);
 
+  useEffect(() => {
+    navigation.setParams({ titleVisible, titleOpacity });
+  }, [titleVisible]);
+
   return (
-    <SubpageLayout>
-      <SubpageLayout.SubHeader>
-        <StatusAlert alerts={[{ title: '滤网需要更换，建议尽快处理', leadingIconType: 'warning', warning: true, actionType: 'navigate', onPress: noop }]} />
-      </SubpageLayout.SubHeader>
+    <SubpageLayout onScroll={scrollHandler}>
+      <SubpageLayout.Header>
+        <LargeTitle />
+      </SubpageLayout.Header>
+
       <SubpageLayout.Content>
         <ListCard title="模式选择">
           <SelectList
@@ -68,6 +79,7 @@ const styles = dynamicStyleSheet({
   footer: {
     paddingHorizontal: 24,
     paddingVertical: 12,
+    alignItems: 'center',
   },
 });
 

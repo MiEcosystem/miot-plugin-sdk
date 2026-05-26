@@ -42,12 +42,6 @@ const propConfigs = [
       { label: 'confirm', value: { key: 'confirm', onPress: () => showToast('确认') } },
     ],
   },
-  {
-    name: 'onPressTitle',
-    type: 'pass',
-    category: 'interaction',
-    passOptions: [{ label: 'onPressTitle', value: () => showToast('点击标题') }],
-  },
 ];
 
 const NavigationBarConfigDemo = () => (
