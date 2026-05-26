@@ -11,7 +11,7 @@ const propConfigs = [
     name: 'imageType',
     type: 'enum',
     enumOptions: [
-      'message', 'contacts', 'image', 'content', 'noNetwork', 'upgrade',
+      'none', 'message', 'contacts', 'image', 'content', 'noNetwork', 'upgrade',
       'download', 'time', 'alert', 'home', 'log', 'error', 'success',
     ],
     defaultValue: 'message',

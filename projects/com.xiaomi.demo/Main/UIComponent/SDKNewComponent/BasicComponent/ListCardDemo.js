@@ -68,6 +68,45 @@ const ListCardDemo = ({ navigation }) => {
         <ListItem title="蓝牙" value="已开启" onPress={() => {}} />
       </ListCard>
 
+      <Text style={styles.sectionTitle}>长标题（small）</Text>
+      <ListCard title="这是一个非常长的小标题用来测试标题超长时的显示效果截断省略">
+        <ListItem title="列表项 1" onPress={() => {}} />
+        <ListItem title="列表项 2" onPress={() => {}} />
+      </ListCard>
+
+      <Text style={styles.sectionTitle}>长标题（medium）</Text>
+      <ListCard title="这是一个非常长的中标题用来测试标题超长时的显示效果截断省略" titleSize="medium">
+        <ListItem title="列表项 1" onPress={() => {}} />
+        <ListItem title="列表项 2" onPress={() => {}} />
+      </ListCard>
+
+      <Text style={styles.sectionTitle}>长标题（large）</Text>
+      <ListCard title="这是一个非常长的大标题用来测试标题超长时的显示效果截断省略" titleSize="large">
+        <ListItem title="列表项 1" onPress={() => {}} />
+        <ListItem title="列表项 2" onPress={() => {}} />
+      </ListCard>
+
+      <Text style={styles.sectionTitle}>长标题 + 可点击</Text>
+      <ListCard title="这是一个超长的可点击标题用来测试导航箭头和标题同行时的截断效果" onPress={() => showToast('长标题点击')}>
+        <ListItem title="列表项 1" onPress={() => {}} />
+        <ListItem title="列表项 2" onPress={() => {}} />
+      </ListCard>
+
+      <Text style={styles.sectionTitle}>长标题 + customRender</Text>
+      <ListCard
+        title="这是一个超长标题同时带右侧自定义渲染来测试两者同行时的布局效果"
+        customRender={<Text style={{ fontSize: 12, color: colorToken.accentGreenFill }}>自定义</Text>}
+      >
+        <ListItem title="列表项 1" onPress={() => {}} />
+        <ListItem title="列表项 2" onPress={() => {}} />
+      </ListCard>
+
+      <Text style={styles.sectionTitle}>长标题 + footer</Text>
+      <ListCard title="这是一个超长标题配合底部说明文字来测试整体布局效果" footer="这是一段很长的底部说明文字用来验证 footer 区域的显示效果和换行处理">
+        <ListItem title="列表项 1" onPress={() => {}} />
+        <ListItem title="列表项 2" onPress={() => {}} />
+      </ListCard>
+
       <View style={{ height: 40 }} />
     </ScrollView>
   );

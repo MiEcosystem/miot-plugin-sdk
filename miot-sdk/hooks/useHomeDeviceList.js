@@ -6,7 +6,6 @@ export default function useHomeDeviceList() {
   const fetchHomeDeviceList = () => {
     Device.getHomeDeviceList().then((res) => {
       setHomeDeviceList(res?.data?.commonDevices || []);
-      // console.log('getHomeDeviceList---res', JSON.stringify(res));
     }).catch(() => {});
   };
   useEffect(() => {

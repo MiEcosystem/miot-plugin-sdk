@@ -383,11 +383,19 @@ const API_REPO = {
   '/smarthome/product/acpanel/plugin/scene/save': {},
   '/smarthome/product/acpanel/client/v1/device/list': {},
   '/smarthome/product/acpanel/client/v1/sub': {},
+  '/majorapp/api/air-condition-control/fr/acModels': {},
+  '/majorapp/api/air-condition-control/fr/status': {},
+  '/majorapp/api/air-condition-control/fr/open': {},
+  '/majorapp/api/air-condition-control/fr/close': {},
+  '/majorapp/api/air-condition-control/fr/pause': {},
+  '/majorapp/api/air-condition-control/fr/continue': {},
   // （开通钥匙/管理钥匙）时先生成SESSIONID
   "iccoa/genSession": {},
   // 门锁数字钥匙管理（删除/冻结/恢复）
   '/iccoa/manageKey': {},
   "/eco/nas/message/identity/get": {},
   "/eco/nas/message/identity/verify": {},
+  "/thirdcloud2cloud/query_device_switch": {},
+  "/thirdcloud2cloud/switch_device": {},
 };
 export default API_REPO;

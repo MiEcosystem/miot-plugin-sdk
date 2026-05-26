@@ -6,13 +6,13 @@ const switchSpecialTriggerType = {
   'zimi.switch.dhkg01': {
     skey: 'toggle',
     pkey: 'toggle',
-    value: 1
+    value: 1,
   },
   'zimi.switch.dhkg02': {
     skey: 'toggle',
     pkey: ['left-toggle', 'right-toggle'],
-    value: 1
-  }
+    value: 1,
+  },
 };
 function arrayGroup(array, size) {
   if (array?.length > size) {
@@ -48,8 +48,8 @@ export default function useSwitchLightDeviceList(devices = []) {
               value: {
                 in: [],
                 siid,
-                aiid
-              }
+                aiid,
+              },
             } :
             {
               command: 'set_properties',
@@ -61,8 +61,8 @@ export default function useSwitchLightDeviceList(devices = []) {
                 did: filterDevice.did,
                 value: switchSpecialTriggerType?.[filterDevice.model]?.value || 1,
                 siid,
-                piid
-              }]
+                piid,
+              }],
             };
           return {
             ...filterDevice,
@@ -75,16 +75,16 @@ export default function useSwitchLightDeviceList(devices = []) {
               // payload: '',
               payload_json,
               sa_id: 36019,
-              from: 1
+              from: 1,
               // device_group_id: 0
             },
             ...(memberInfo?.room_id ? {
               roomId: memberInfo?.room_id,
               deviceName: specs.length > 1 ? `${ memberInfo?.name }-${ filterDevice?.deviceName }` : filterDevice?.deviceName,
-              memberId: specIndex
+              memberId: specIndex,
             } : {
-              memberId: specIndex
-            })
+              memberId: specIndex,
+            }),
           };
         });
         supportToggleDevices.push(...spiltButtons);
@@ -97,7 +97,7 @@ export default function useSwitchLightDeviceList(devices = []) {
       Promise.all(devices.map((device) => {
         let params = {
           skey: 'switch',
-          akey: 'toggle'
+          akey: 'toggle',
         };
         if (switchSpecialTriggerType[device.model]) {
           params = switchSpecialTriggerType[device.model];
@@ -119,8 +119,6 @@ export default function useSwitchLightDeviceList(devices = []) {
           const deviceInfo = deviceInfos.reduce((p, c) => {
             return p.concat(c?.list || []);
           }, []);
-          // console.log('getSwitchInfo--res', JSON.stringify(deviceInfo));
-          // console.log('getSwitchInfo--length', deviceInfo?.length, 'devices----', devices.length);
           const supportToggleDevices = generateSwitchDevice(devices, specs, deviceInfo || []);
           // console.log('获取按键设备组合---', JSON.stringify(supportToggleDevices));
           setToggleLightList(supportToggleDevices);

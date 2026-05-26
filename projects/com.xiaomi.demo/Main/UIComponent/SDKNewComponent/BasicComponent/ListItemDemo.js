@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Image } from 'react-native';
-import { ListItem, Checkbox, colorToken, showToast } from 'miot/ui/hyperOSUI';
+import { ListItem, Radio, colorToken, showToast } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 import { SubtitleGroup } from 'mhui-rn/dist/hyperOS';
 import NavigationBar from 'miot/ui/NavigationBar';
@@ -72,7 +72,7 @@ class ListItemDemo extends Component {
             <ListItem title="Title" onPress={onPress} actionType="navigate" />
             <ListItem title="Title" onPress={onPress} actionType="select" />
             <ListItem title="Title" onPress={noop} actionType="none" />
-            <ListItem title="Title" onPress={noop} actionType="custom" customRender={<Checkbox checked onChange={noop} />} />
+            <ListItem title="Title" onPress={noop} actionType="custom" customRender={<Radio checked onChange={noop} />} />
           </Group>
 
           <Group title="badge">
@@ -99,7 +99,7 @@ class ListItemDemo extends Component {
         {/* ===== 2. 依赖配置全覆盖 ===== */}
         <Section title="依赖配置全覆盖">
           <Group title="customRender">
-            <ListItem title="Title" onPress={noop} actionType="custom" customRender={<Checkbox checked onChange={noop} />} />
+            <ListItem title="Title" onPress={noop} actionType="custom" customRender={<Radio checked onChange={noop} />} />
             <ListItem title="Title" onPress={noop} actionType="none" />
           </Group>
 
