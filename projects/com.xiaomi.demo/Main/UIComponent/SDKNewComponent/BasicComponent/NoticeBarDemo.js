@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { NoticeBar, colorToken } from 'miot/ui/hyperOSUI';
 import TestComponent from '../testComponent';
@@ -10,7 +10,7 @@ import { Cold } from 'mhui-rn/dist/icons';
 const SHORT_TITLE = '这是一条通知消息';
 const LONG_TITLE = '这是一条很长很长的通知消息，用来测试文字溢出时的 3 行省略效果，超过 3 行会以省略号结尾，超过 3 行会以省略号结尾';
 
-const buildPropConfigs = (currentStatus) => [
+const propConfigs = [
   {
     name: 'title',
     type: 'enum',
@@ -32,17 +32,13 @@ const buildPropConfigs = (currentStatus) => [
     defaultValue: 'none',
     category: 'state',
   },
-  ...(currentStatus === 'emphasis'
-    ? [
-        {
-          name: 'colorType',
-          type: 'enum',
-          enumOptions: ['green', 'blue', 'wathet', 'purple', 'orange'],
-          defaultValue: 'green',
-          category: 'state',
-        },
-      ]
-    : []),
+  {
+    name: 'colorType',
+    type: 'enum',
+    enumOptions: ['green', 'blue', 'wathet', 'purple', 'orange'],
+    defaultValue: 'green',
+    category: 'state',
+  },
   {
     name: 'leadingIcon',
     type: 'pass',
@@ -61,8 +57,6 @@ const NoticeBarDemo = () => {
   const leadingIcon = barProps.leadingIcon === 'icon' ? <Cold width={18} height={18} /> : undefined;
   const title = barProps.title === '长文本（测 3 行省略）' ? LONG_TITLE : SHORT_TITLE;
   const status = barProps.status || 'default';
-
-  const propConfigs = useMemo(() => buildPropConfigs(status), [status]);
 
   return (
     <View style={styles.container}>

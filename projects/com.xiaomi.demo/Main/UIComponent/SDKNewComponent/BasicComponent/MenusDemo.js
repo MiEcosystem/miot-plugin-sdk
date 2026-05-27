@@ -75,7 +75,7 @@ const buildData = (p) => {
       showSeparator: p[`item${ i }_showSeparator`] || false,
     });
   }
-  return items.length > 0 ? items : [{ id: 1, title: '编辑', actionType: 'button' }];
+  return items;
 };
 
 const MenusDemo = () => {
