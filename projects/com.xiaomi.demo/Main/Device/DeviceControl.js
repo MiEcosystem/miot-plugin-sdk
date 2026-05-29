@@ -167,6 +167,12 @@ export default class UIDemo extends React.Component {
         }
       },
       {
+        'name': '微信小程序开锁Demo',
+        'func': () => {
+          this.props.navigation.navigate('WechatUnlockDemo', { title: '微信小程序开锁Demo' });
+        }
+      },
+      {
         'name': '蓝牙token加密',
         'func': () => {
           let ble = Device.getBluetoothLE();
