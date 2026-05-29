@@ -21,7 +21,6 @@ const BasicComponentDemo = (props) => {
     { title: '按钮 BlockButton', router: 'BlockButtonDemo' },
     // { title: '按钮组 ButtonGroup', router: 'ButtonGroupDemo' },
     { title: '分割线 Separator', router: 'SeparatorDemo' },
-    // { title: '切换按钮 ToggleButton', router: 'ToggleButtonDemo' },
     { title: '单选 Radio', router: 'RadioDemo' },
     // { title: '复选 Checkbox', router: 'NewCheckboxDemo' },
     { title: '空状态 EmptyState', router: 'EmptyStateDemo' },

@@ -27,12 +27,7 @@ const longChild = (
   </ScrollView>
 );
 
-const titleIconSample = (
-  <Image
-    source={{ uri: 'https://cdn.cnbj1.fds.api.mi-img.com/miot-plugin-resource/miot-home/mhui-rn/h5_icon_128.png' }}
-    style={{ width: 80, height: 80 }}
-  />
-);
+const titleIconSample = <Image source={require('../../images/group.png')} style={{ width: 80, height: 80 }} />;
 
 const propConfigs = [
   { name: 'title', type: 'string', defaultValue: '对话框标题', category: 'content' },

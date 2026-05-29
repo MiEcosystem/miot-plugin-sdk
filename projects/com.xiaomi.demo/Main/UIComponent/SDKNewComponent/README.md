@@ -25,7 +25,6 @@ Home (MainPage)
        │    │    ├─ Slider → SliderDemo
        │    │    │    ├─ 无极滑条 → SliderContinuousDemo
        │    │    │    └─ 离散滑条 → SliderDiscreteDemo
-       │    │    ├─ ToggleButton → ToggleButtonDemo
        │    │    ├─ InformationArea → InformationDemo → InformationDataDemo
        │    │    └─ Atomic → AtomicDemo
        │    ├─ 弹出类组件
@@ -89,7 +88,6 @@ Main/
 │       │   ├── ButtonGroupDemo.js
 │       │   ├── ButtonDemo.js / ButtonColorDemo.js / ButtonCustomDemo.js / ButtonPageViewDemo.js
 │       │   ├── SliderDemo.js / SliderContinuousDemo.js / SliderDiscreteDemo.js
-│       │   ├── ToggleButtonDemo.js
 │       │   ├── InformationAreaDemo.js / InformationDemo.js / InformationDataDemo.js
 │       │   ├── AtomicDemo.js          # Switch / Checkbox / ChoiceItem 小组件
 │       │   ├── DialogDemo.js / MessageDialogDemo.js / ActionCustomDialogDemo.js
@@ -159,7 +157,6 @@ Main/
 | BlockButton | BlockButtonDemo | BasicComponent/BlockButtonDemo.js |
 | ButtonGroup | ButtonGroupDemo | BasicComponent/ButtonGroupDemo.js |
 | Slider / SliderWithToggle | SliderDemo | BasicComponent/SliderDemo.js |
-| ToggleButton | ToggleButtonDemo | BasicComponent/ToggleButtonDemo.js |
 | InformationArea | InformationDemo | BasicComponent/InformationDemo.js |
 | CommonDialog | DialogDemo | BasicComponent/DialogDemo.js |
 | MessageDialog | MessageDialogDemo | BasicComponent/MessageDialogDemo.js |
