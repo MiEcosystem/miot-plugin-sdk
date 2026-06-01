@@ -229,4 +229,17 @@ export default class IBluetoothLock {
   deleteLockSharedRecords(params) {
      return Promise.resolve(null);
   }
+    /**
+     * 微信小程序蓝牙开锁（透传）
+     * 框架侧仅透传参数给 Native，不校验不处理，实际开锁逻辑由专门模块负责。
+     * @since 11.5
+     * @param {Object} params 业务侧定义的参数 map，框架直接透传
+     * @returns {Promise<Object>}
+     *      resolve: Native 返回的结果 map
+     *      reject: Native 返回的错误 map
+     */
+    @report
+  wechatUnlock(params) {
+     return Promise.resolve(null);
+  }
 }

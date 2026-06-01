@@ -725,6 +725,20 @@ class IUi {
   openWeChatMinProgram(appOriginalId, path, needDialogRemind = true) {
   }
   /**
+   * 分享微信小程序卡片给微信联系人（例如分享WiFi密码小程序卡片）
+   *
+   * @param {object} params 分享参数
+   * @param {string} params.appOriginalId 小程序原始ID，例如 gh_b1cd5e842bf2
+   * @param {string} params.path 小程序页面路径（含query参数），例如 pages/wifi/share?ssid=MyWiFi&pwd=abc123
+   * @param {string} params.title 卡片标题
+   * @param {string} [params.description] 卡片描述，默认空字符串
+   * @param {string} [params.thumbUrl] 卡片缩略图URL，不传则使用默认图
+   * @param {string} [params.webpageUrl] 兜底网页URL，用于不支持小程序的客户端
+   */
+  @report
+  shareWeChatMiniProgramCardToContact(params) {
+  }
+  /**
    * 打开商城某商品详情页面
    * @param {string} gid - 商品ID
    */
