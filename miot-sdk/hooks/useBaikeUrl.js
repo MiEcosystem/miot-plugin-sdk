@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Service, Device } from 'miot';
+import Service from 'miot/Service';
+import Device from 'miot/device/BasicDevice';
 const cachedBaikeUrls = {};
 function getBaikeUrl(model = Device.model) {
-  if (cachedBaikeUrls[model] !== null) {
+  if (cachedBaikeUrls[model] !== undefined) {
     return Promise.resolve(cachedBaikeUrls[model]);
   }
   return Service.getServerName().then(({ countryCode }) => {
