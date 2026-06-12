@@ -246,8 +246,19 @@ export default {
    * @description 手机唯一id
    */
   get phoneId() {
-    return native.MIOTHost.systemInfo.phoneId;
+     return  0
   },
+  /**
+   * 获取手机did，用于自动化， android only
+   * ios 或 取不到返回空字符串
+   * @const
+   * @type string
+   * @description 手机DID
+   */
+  get phoneDid() {
+  },
+  
+  
   /**
      * 判断是否是调试版本
      * @const

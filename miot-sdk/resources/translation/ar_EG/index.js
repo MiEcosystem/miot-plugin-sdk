@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'يؤدي الضغط مرة واحدة إلى تشغيل الضوء المحدد أو إيقاف تشغيله',
   switch_nav_subtitle_buttonControlManualScene_v2: 'يؤدي الضغط مرة واحدة إلى تشغيل جميع عناصر التحكم اليدوي المحددة',
   switch_nav_subtitle_buttonControlSwitch_v2: 'يؤدي الضغط مرة واحدة إلى تشغيل المفتاح المحدد أو إيقاف تشغيله',
+  scene_active_done: 'تشغيل',
+  scene_can_turnOn: 'متاح',
+  scene_active_people: 'عدد المستخدمين: ${}',
+  "scene_upgrade_subtitle": "أكمل المزيد من المهام المعقدة بربط عدة أجهزة"
 };

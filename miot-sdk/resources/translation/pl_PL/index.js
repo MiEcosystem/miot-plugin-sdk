@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Pojedyncze naciśnięcie włącza lub wyłącza wybrane światło',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Pojedyncze naciśnięcie uruchamia wszystkie wybrane formy obsługi ręcznej',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Pojedyncze naciśnięcie włącza lub wyłącza wybrany przełącznik',
+  "scene_active_done": "Wł.",
+  "scene_can_turnOn": "Dostępna",
+  "scene_active_people": "Liczba użytkowników: ${}",
+  "scene_upgrade_subtitle": "Podłącz wiele urządzeń, by wykonywać bardziej zaawansowane zadania"
 };

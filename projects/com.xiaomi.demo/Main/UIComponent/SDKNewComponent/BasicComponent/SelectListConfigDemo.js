@@ -75,6 +75,7 @@ const propConfigs = [
     category: 'state',
   },
   { name: 'isGroup', type: 'boolean', defaultValue: false, category: 'state' },
+  { name: 'colorType', type: 'enum', enumOptions: ['green', 'blue', 'purple', 'orange', 'wathet'], defaultValue: 'green', category: 'state' },
   { name: 'onChange', type: 'pass', defaultValue: (val) => showToast(`onChange: ${ val }`), category: 'interaction', linkTo: { targetProp: 'value' }, passOptions: [{ label: 'onChange', value: (val) => showToast(`onChange: ${ val }`) }] },
   { name: 'onSelect', type: 'pass', category: 'interaction', passOptions: [{ label: 'onSelect', value: (item) => showToast(`onSelect: ${ JSON.stringify(item) }`) }] },
 ];

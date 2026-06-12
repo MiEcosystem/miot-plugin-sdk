@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Tek basış, seçili ışığı açık veya kapalı konuma getirir',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Tek basış, seçili tüm manuel kontrolleri çalıştırır',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Tek basış, seçili anahtarı açık veya kapalı konuma getirir',
+  "scene_active_done": "Açık",
+  "scene_can_turnOn": "Kullanılabilir",
+  "scene_active_people": "Kullanıcı sayısı: ${}",
+  "scene_upgrade_subtitle": "Birden fazla cihazı bağlayarak daha sofistike görevleri tamamla"
 };

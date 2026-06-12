@@ -411,4 +411,8 @@ export default {
   switch_list_empty_light: "当前家庭下没有支持的灯",
   switch_list_empty_switch: "当前家庭下没有支持的开关",
   switch_list_empty_manualScene: "当前家庭下没有“手动控制，在米家App首页，右上角“+”可创建“手动控制”",
+  "scene_active_done": "已开启",
+  "scene_can_turnOn": "可开启",
+  "scene_active_people": "${}人已使用",
+  "scene_upgrade_subtitle": "体验更多设备联动场景"
 };

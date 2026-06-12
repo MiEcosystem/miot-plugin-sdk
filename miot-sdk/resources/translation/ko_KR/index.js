@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: '한 번 누르면 선택한 조명이 켜지거나 꺼집니다.',
   switch_nav_subtitle_buttonControlManualScene_v2: '한 번 누르면 선택한 수동 제어 기능이 모두 실행됩니다.',
   switch_nav_subtitle_buttonControlSwitch_v2: '한 번 누르면 선택한 스위치가 켜지거나 꺼집니다.',
+  "scene_active_done": "켜짐",
+  "scene_can_turnOn": "사용 가능",
+  "scene_active_people": "사용자 수: ${}",
+  "scene_upgrade_subtitle": "여러 기기를 연결하여 더 정교한 작업을 완료하세요"
 };

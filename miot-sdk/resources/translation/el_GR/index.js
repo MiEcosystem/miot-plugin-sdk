@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Με ένα πάτημα, ο επιλεγμένος φωτισμός ενεργοποιείται ή απενεργοποιείται',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Με ένα πάτημα εκτελούνται όλοι οι επιλεγμένοι χειροκίνητοι έλεγχοι',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Με ένα πάτημα, ο επιλεγμένος διακόπτης ενεργοποιείται ή απενεργοποιείται',
+  scene_active_done: 'Ενεργό',
+  scene_can_turnOn: 'Διαθέσιμη',
+  scene_active_people: 'Αριθμός χρηστών: ${}',
+  "scene_upgrade_subtitle": "Ολοκληρώστε πιο περίπλοκες εργασίες συνδέοντας πολλαπλές συσκευές"
 };

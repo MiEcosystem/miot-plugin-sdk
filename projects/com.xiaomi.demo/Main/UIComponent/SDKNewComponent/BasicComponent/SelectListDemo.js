@@ -73,6 +73,12 @@ const SelectListDemo = ({ navigation }) => {
       <Text style={styles.sectionTitle}>左对勾 + 独立卡片 + subItems</Text>
       <SelectList options={groupOptions} value={groupVal} onChange={setGroupVal} selectedAlign="left" />
 
+      <Text style={styles.sectionTitle}>colorType=blue</Text>
+      <SelectList options={rightOptions} value={rightVal} onChange={setRightVal} colorType="blue" />
+
+      <Text style={styles.sectionTitle}>colorType=orange + 聚合</Text>
+      <SelectList options={leftOptions} value={leftVal} onChange={setLeftVal} selectedAlign="left" isGroup colorType="orange" />
+
       <View style={{ height: 40 }} />
     </ScrollView>
   );

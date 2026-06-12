@@ -202,6 +202,7 @@ const API_REPO = {
   '/v2/device/switch_subclass': {},
   '/device/rename': {},
   '/appgateway/miot/appdeviceinfo_service/AppDeviceInfoService/get_last_online': {},
+  
   // 读取音频
   '/common/app/data/v2/scan': {},
   // 添加音频
@@ -397,5 +398,12 @@ const API_REPO = {
   "/eco/nas/message/identity/verify": {},
   "/thirdcloud2cloud/query_device_switch": {},
   "/thirdcloud2cloud/switch_device": {},
+  // SwitchIfttt/AutomationControl 模块场景相关接口
+  '/appgateway/miot/appsceneservice/AppSceneService/GetSceneTCAConfigV3': {}, // 获取场景TCA配置V3
+  '/appgateway/miot/appsceneservice/AppSceneService/GetSceneList': {}, // 获取场景列表V2
+  '/appgateway/miot/appsceneservice/AppSceneService/Edit': {}, // 创建/编辑场景V2
+  '/appgateway/miot/appsceneservice/AppSceneService/Delete': {}, // 删除场景V2
+  '/appgateway/miot/appsceneservice/AppSceneService/GetSceneListByTags': {}, // 按标签获取场景列表
+  '/appgateway/miot/appsceneservice/AppSceneService/GetSameTriggerSceneList': {}, // 获取相同触发条件的场景列表
 };
 export default API_REPO;

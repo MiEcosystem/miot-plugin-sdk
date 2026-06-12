@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Durch einmaliges Drücken wird das ausgewählte Licht ein- oder ausgeschaltet',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Durch einmaliges Drücken werden alle ausgewählten manuellen Steuerungen ausgeführt',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Durch einmaliges Drücken wird der ausgewählte Schalter ein- oder ausgeschaltet',
+  scene_active_done: 'An',
+  scene_can_turnOn: 'Verfügbar',
+  scene_active_people: 'Anzahl der Benutzer: ${}',
+  "scene_upgrade_subtitle": "Erledige anspruchsvollere Aufgaben, indem du mehrere Geräte verbindest"
 };

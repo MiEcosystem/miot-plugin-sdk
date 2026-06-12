@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'לחיצה אחת מפעילה או מכבה את התאורה שנבחרה',
   switch_nav_subtitle_buttonControlManualScene_v2: 'לחיצה אחת מפעילה את כל הבקרות הידניות שנבחרו',
   switch_nav_subtitle_buttonControlSwitch_v2: 'לחיצה אחת מפעילה או מכבה את המתג שנבחר',
+  'scene_active_done': 'פעיל',
+  'scene_can_turnOn': 'זמין',
+  'scene_active_people': 'מספר משתמשים: ${}',
+  'scene_upgrade_subtitle': 'השלמת משימות מתוחכמות יותר על-ידי חיבור מכשירים מרובים'
 };

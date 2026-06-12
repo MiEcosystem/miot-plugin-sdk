@@ -39,8 +39,14 @@ const PageLayoutDemo = ({ navigation }) => {
       </PageLayout.Header>
 
       <PageLayout.AlertContainer>
-        <StatusAlert alerts={[{ title: '固件版本 2.5.1 可用，建议升级', leadingIconType: 'reminder', actionType: 'navigate', onPress: noop }]} />
-        <StatusAlert alerts={[{ title: '滤芯寿命不足，请及时更换', leadingIconType: 'consumable', warning: true, actionType: 'button', buttons: [{ text: '查看', onPress: noop }] }]} />
+        <StatusAlert
+          stackTitle="共2条异常提示"
+          drawerTitle="异常提示"
+          alerts={[
+            { title: '固件版本 2.5.1 可用，建议升级', leadingIconType: 'reminder', actionType: 'navigate', onPress: noop },
+            { title: '滤芯寿命不足，请及时更换', leadingIconType: 'consumable', warning: true, actionType: 'button', buttons: [{ text: '查看', onPress: noop }] },
+          ]}
+        />
       </PageLayout.AlertContainer>
 
       <PageLayout.Content>

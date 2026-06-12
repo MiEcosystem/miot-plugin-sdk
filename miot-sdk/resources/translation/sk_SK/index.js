@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Jedno stlačenie zapne alebo vypne vybrané svetlo',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Jedno stlačenie spustí všetky vybrané manuálne ovládania',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Jedno stlačenie zapne alebo vypne vybraný prepínač',
+  "scene_active_done": "Вкл.",
+  "scene_can_turnOn": "Доступно",
+  "scene_active_people": "Количество пользователей: ${}",
+  "scene_upgrade_subtitle": "Prepojte viac zariadení a vykonajte tak sofistikovanejšie úlohy"
 };

@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Una pressione singola accende o spegne l\'interruttore selezionato',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Una pressione singola attiva tutti i comandi manuali selezionati',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Una pressione singola accende o spegne la luce selezionata',
+  "scene_active_done": "Attiva",
+  "scene_can_turnOn": "Disponibile",
+  "scene_active_people": "Numero di utenti: ${}",
+  "scene_upgrade_subtitle": "Completa attività più complesse connettendo più dispositivi"
 };

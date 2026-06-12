@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'O singură apăsare aprinde sau stinge lumina selectată',
   switch_nav_subtitle_buttonControlManualScene_v2: 'O singură apăsare activează toate comenzile manuale selectate',
   switch_nav_subtitle_buttonControlSwitch_v2: 'O singură apăsare pornește sau oprește comutatorul selectat',
+  "scene_active_done": "Pornit",
+  "scene_can_turnOn": "Disponibil",
+  "scene_active_people": "Numărul de utilizatori: ${}",
+  "scene_upgrade_subtitle": "Efectuați mai multe sarcini complicate conectând mai multe dispozitive"
 };

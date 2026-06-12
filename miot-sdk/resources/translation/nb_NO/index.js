@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Enkelttrykk slår det valgte lyset på eller av',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Enkelttrykk kjører alle valgte manuelle kontroller',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Enkelttrykk slår den valgte bryteren på eller av',
+  "scene_active_done": "På",
+  "scene_can_turnOn": "Tilgjengelig",
+  "scene_active_people": "Antall brukere: ${}",
+  "scene_upgrade_subtitle": "Utfør mer sofistikerte oppgaver ved å koble til flere enheter"
 };

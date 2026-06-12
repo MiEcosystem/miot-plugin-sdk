@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Pressionar uma vez liga ou desliga a luz selecionada',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Pressionar uma vez executa todos os controles manuais selecionados',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Pressionar uma vez liga ou desliga o interruptor selecionado',
+  "scene_active_done": "Ativada",
+  "scene_can_turnOn": "Disponível",
+  "scene_active_people": "Número de usuários: ${}",
+  "scene_upgrade_subtitle": "Cumpra tarefas mais sofisticadas conectando vários dispositivos"
 };

@@ -117,6 +117,7 @@ import ControlDemo from "./Device/ControlDemo";
 import DeviceControl from "./Device/DeviceControl";
 import DeviceDemo from "./Device/DeviceDemo";
 import InterconnectionDemo from "./Device/InterconnectionDemo";
+import WechatUnlockDemo from "./Device/WechatUnlockDemo";
 import NewGBControlDemo from "./Device/NewGBControlDemo";
 /** ******    Host 部分   ******* */
 import HostDemo from "./Host";
@@ -501,6 +502,7 @@ function createRootStack(initPage) {
       DeviceDemo,
       NewGBControlDemo,
       InterconnectionDemo,
+      WechatUnlockDemo,
       BTInterconnection,
       BraceletInterconnection,
       moreMenu: MoreMenu,

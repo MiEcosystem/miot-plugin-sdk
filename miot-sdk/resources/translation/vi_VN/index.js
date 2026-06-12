@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Nhấn một lần để bật hoặc tắt đèn đã chọn',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Nhấn một lần để chạy tất cả các điều khiển thủ công đã chọn',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Nhấn một lần để bật hoặc tắt công tắc đã chọn',
+  "scene_active_done": "Bật",
+  "scene_can_turnOn": "Khả dụng",
+  "scene_active_people": "Số lượng người dùng: ${}",
+  "scene_upgrade_subtitle": "Hoàn thành các nhiệm vụ phức tạp hơn bằng cách kết nối nhiều thiết bị"
 };

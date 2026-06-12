@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Pulsar una vez enciende o apaga la luz seleccionada',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Pulsar una vez ejecuta todos los controles manuales seleccionados',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Pulsar una vez enciende o apaga el interruptor seleccionado',
+  scene_active_done: 'Activada',
+  scene_can_turnOn: 'Disponible',
+  scene_active_people: 'Número de usuarios: ${}',
+  "scene_upgrade_subtitle": "Realiza tareas más sofisticadas conectando varios dispositivos"
 };

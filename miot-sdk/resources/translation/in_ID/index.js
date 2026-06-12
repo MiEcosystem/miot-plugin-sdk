@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Tekan satu kali akan menyalakan atau mematikan lampu yang dipilih',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Tekan satu kali akan menjalankan semua kontrol manual yang dipilih',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Tekan satu kali akan mengaktifkan atau menonaktifkan sakelar yang dipilih',
+  "scene_active_done": "Nyala",
+  "scene_can_turnOn": "Tersedia",
+  "scene_active_people": "Jumlah pengguna: ${}",
+  "scene_upgrade_subtitle": "Selesaikan tugas yang lebih rumit dengan menghubungkan beberapa perangkat"
 };

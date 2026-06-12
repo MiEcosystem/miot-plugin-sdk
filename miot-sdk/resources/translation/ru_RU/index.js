@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Одно нажатие включает или выключает выбранный светильник',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Одиночное нажатие запускает все выбранные ручные элементы управления',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Одно нажатие включает или выключает выбранный выключатель',
+  "scene_active_done": "Вкл.",
+  "scene_can_turnOn": "Доступно",
+  "scene_active_people": "Количество пользователей: ${}",
+  "scene_upgrade_subtitle": "Выполняйте более сложные задачи, подключив несколько устройств"
 };

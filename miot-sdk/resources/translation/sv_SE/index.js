@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Med en enkeltryckning tänds eller släcks den valda lampan',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Enkeltryckning körs alla valda manuella styrningar',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Enkeltryckning tänder eller släcker',
+  "scene_active_done": "På",
+  "scene_can_turnOn": "Tillgänglig",
+  "scene_active_people": "Antal användare: ${}",
+  "scene_upgrade_subtitle": "Slutför mer sofistikerade uppgifter genom att ansluta flera enheter"
 };

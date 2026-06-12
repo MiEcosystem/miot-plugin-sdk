@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Jedním stisknutím vybrané světlo zapnete nebo vypnete',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Jedním stisknutím se spustí všechna vybraná manuální řízení',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Jedním stisknutím vybraný spínač zapnete nebo vypnete',
+  scene_active_done: 'Zapnuto',
+  scene_can_turnOn: 'Dostupné',
+  scene_active_people: 'Počet uživatelů: ${}',
+  "scene_upgrade_subtitle": "Dokončete sofistikovanější úkoly připojením více zařízení"
 };

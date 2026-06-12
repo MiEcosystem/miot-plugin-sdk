@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Yksi painallus sytyttää tai sammuttaa valitun valon',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Yksi painallus suorittaa kaikki valitut manuaaliset säätimet',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Yksi painallus käynnistää tai sammuttaa valitun kytkimen',
+  scene_active_done: 'Päällä',
+  scene_can_turnOn: 'Saatavilla',
+  scene_active_people: 'Käyttäjien määrä: ${}',
+  "scene_upgrade_subtitle": "Suorita kehittyneempiä tehtäviä yhdistämällä useita laitteita"
 };

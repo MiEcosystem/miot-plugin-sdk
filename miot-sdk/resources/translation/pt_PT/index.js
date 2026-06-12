@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Uma única pressão acende ou apaga a luz selecionada',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Uma única pressão executa todos os controlos manuais selecionados',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Uma única pressão liga ou desliga o interruptor selecionado',
+  "scene_active_done": "Ligado",
+  "scene_can_turnOn": "Disponível",
+  "scene_active_people": "Número de utilizadores: ${}",
+  "scene_upgrade_subtitle": "Executar tarefas mais complexas ligando vários dispositivos"
 };

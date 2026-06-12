@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: '1 回押すと、選択した照明がオンまたはオフになります',
   switch_nav_subtitle_buttonControlManualScene_v2: '1 回押すと、選択したすべての手動制御が実行されます',
   switch_nav_subtitle_buttonControlSwitch_v2: '1 回押すと、選択したスイッチがオンまたはオフになります',
+  "scene_active_done": "ON",
+  "scene_can_turnOn": "利用可能",
+  "scene_active_people": "ユーザー数: ${}",
+  "scene_upgrade_subtitle": "複数のデバイスを接続して、より洗練されたタスクを完了しましょう"
 };

@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: '單按按鍵時，開啟或關閉所選的燈',
   switch_nav_subtitle_buttonControlManualScene_v2: '單按按鍵時，執行所有的「手動控制」',
   switch_nav_subtitle_buttonControlSwitch_v2: '單按按鍵時，開啟或關閉所選的開關',
+  "scene_active_done": "已開啟",
+  "scene_can_turnOn": "可開啟",
+  "scene_active_people": "${}人已使用",
+  "scene_upgrade_subtitle": "體驗更多裝置聯動場景"
 };

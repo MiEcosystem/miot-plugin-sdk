@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Een keer drukken schakelt het geselecteerde licht aan of uit',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Eén keer drukken voert alle geselecteerde handmatige bedieningselementen uit',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Eén keer drukken schakelt de geselecteerde schakelaar aan of uit',
+  "scene_active_done": "Ingeschakeld",
+  "scene_can_turnOn": "Beschikbaar",
+  "scene_active_people": "Aantal gebruikers: ${}",
+  "scene_upgrade_subtitle": "Voer geavanceerdere taken uit door meerdere apparaten te verbinden"
 };

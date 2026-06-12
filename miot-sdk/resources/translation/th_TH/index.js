@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'การกดหนึ่งครั้งจะเปิดหรือปิดไฟที่เลือกไว้',
   switch_nav_subtitle_buttonControlManualScene_v2: 'การกดหนึ่งครั้งจะเรียกใช้การควบคุมด้วยตนเองทั้งหมดที่เลือกไว้',
   switch_nav_subtitle_buttonControlSwitch_v2: 'การกดหนึ่งครั้งจะเปิดหรือปิดสวิตช์ที่เลือกไว้',
+  "scene_active_done": "เปิด",
+  "scene_can_turnOn": "พร้อมใช้งาน",
+  "scene_active_people": "จำนวนผู้ใช้: ${}",
+  "scene_upgrade_subtitle": "ทำงานที่ซับซ้อนได้มากขึ้นโดยการเชื่อมต่อหลายอุปกรณ์"
 };

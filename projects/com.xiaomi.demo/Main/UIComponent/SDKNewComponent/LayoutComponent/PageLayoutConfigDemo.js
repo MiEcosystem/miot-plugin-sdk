@@ -41,7 +41,15 @@ const PageLayoutConfigDemo = ({ navigation }) => {
       )}
       {showAlertContainer && (
         <PageLayout.AlertContainer>
-          <StatusAlert alerts={[{ title: '固件版本 2.5.1 可用', leadingIconType: 'reminder', actionType: 'navigate', onPress: noop }]} />
+          <StatusAlert
+            stackTitle="共3条异常提示"
+            drawerTitle="异常提示"
+            alerts={[
+              { title: '固件版本 2.5.1 可用，建议升级', leadingIconType: 'reminder', actionType: 'navigate', onPress: noop },
+              { title: '滤芯寿命不足，请及时更换', leadingIconType: 'consumable', warning: true, actionType: 'button', buttons: [{ text: '查看', onPress: noop }] },
+              { overline: '客厅空调', title: '设备已离线，请检查网络连接', leadingIconType: 'offline', actionType: 'navigate', onPress: noop },
+            ]}
+          />
         </PageLayout.AlertContainer>
       )}
       <PageLayout.Content>

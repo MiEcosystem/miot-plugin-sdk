@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Az egyszeri megnyomás be- vagy kikapcsolja a kiválasztott világítást',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Az egyszeri megnyomás az összes kiválasztott manuális vezérlőt futtatja',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Az egyszeri megnyomás be- vagy kikapcsolja a kiválasztott kapcsoló',
+  "scene_active_done": "Be",
+  "scene_can_turnOn": "Elérhető",
+  "scene_active_people": "Felhasználók száma: ${}",
+  "scene_upgrade_subtitle": "Bonyolultabb feladatok elvégzése több készülék csatlakoztatásával"
 };

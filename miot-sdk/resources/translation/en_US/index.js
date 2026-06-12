@@ -385,7 +385,6 @@ export default {
   save: 'Save',
   add_device_type: 'Add device type',
   common_brand_produced_by: 'Designed by ${}',
-  newGB_remoteControl_disabled_tips: "Remote control is off. Can't control from the app.",
   automation_add_control_device: 'Add devices',
   automation_edit_btn: 'Edit',
   switch_autoCtrl_confirmToSmart_desc: 'After switching, the button will no longer turn the switch on or off, and can be used to control smart devices in this home.',
@@ -431,4 +430,9 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Single press turns selected light on or off',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Single press runs all selected manual controls',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Single press turns selected switch on or off',
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  scene_active_done: 'On',
+  scene_can_turnOn: 'Available',
+  scene_active_people: 'Number of users: ${}',
+  "scene_upgrade_subtitle": "Complete more sophisticated tasks by connecting multiple devices"
 };

@@ -67,6 +67,7 @@ export {
   StatusAlert,
   spaceToken,
   useCollapsibleTitle,
+  Badge,
 } from 'mhui-rn/dist/hyperOS';
 export { default as TestComponent } from 'mhui-rn/dist/testComponent';
 export { isIphoneXSeries, getSafeAreaInsets } from 'mhui-rn/dist/native/mihome';

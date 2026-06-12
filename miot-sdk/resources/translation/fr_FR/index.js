@@ -430,4 +430,8 @@ export default {
   switch_nav_subtitle_buttonControlLight_v2: 'Une simple pression permet d\'allumer ou d\'éteindre l\'ampoule sélectionnée',
   switch_nav_subtitle_buttonControlManualScene_v2: 'Une seule pression active toutes les commandes manuelles sélectionnées',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Une simple pression permet d\'activer ou de désactiver l\'interrupteur sélectionné',
+  "scene_active_done": "Sur",
+  "scene_can_turnOn": "Disponible ",
+  "scene_active_people": "Nombre d'utilisateurs : ${}",
+  "scene_upgrade_subtitle": "Effectuer des tâches plus sophistiquées en connectant plusieurs appareils"
 };
