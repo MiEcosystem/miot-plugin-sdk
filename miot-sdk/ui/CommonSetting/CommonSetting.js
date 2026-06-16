@@ -659,7 +659,7 @@ export default class CommonSetting extends React.Component {
       [AllOptions.DEVICE_SERVICE]: {
         title: strings.deviceService,
         onPress: () => {
-          Host.ui.openDeviceServicePage({ did: Device.deviceID });
+          Host.ui.openDeviceServicePage({ did: Device.deviceID, sn: this.state.deviceSN || '' });
         },
       },
       [AllOptions.LOCATION]: {
@@ -937,6 +937,7 @@ export default class CommonSetting extends React.Component {
       showMemberSetKey: false, // 是否展示「按键设置」,适用于多键开关和继电器设备
       isSingleSwitch: false, // 是否是单键开关，单键开关也要显示「按键设置」。showMemberSetKey和isSingleSwitch要么都为false，说明这不是一个开关设备，要么只会有一个为true，说明这是单键或者多键开关
       showDeviceService: false, // 是否暂展示「设备服务」选项，
+      deviceSN: '', // 设备 SN（device-information/serial-no），取不到为 ''，跳转设备服务页时透传给原生
       cloudStorageOn: -1,
       abTestType: 'a', // AB实验分组：'b'=实验组（云存储更多设置），'a'或其他=对照组（云存储服务提醒）
       hasPaymentAuthorization: false, // 非O 没有代付权限，不展示云存储更多设置页面
@@ -1181,6 +1182,24 @@ export default class CommonSetting extends React.Component {
             Service.smarthome.reportLog(Device.model, `showDeviceService error: ${ err }`);
           });
         }
+      });
+    // 获取设备 SN（device-information/serial-no），用于跳转设备服务页时透传给原生
+    Service.spec.getSpecByKey(Device.deviceID, { skey: 'device-information', pkey: 'serial-no' })
+      .then((res) => {
+        const target = res && res.length ? res[res.length - 1] : null;
+        if (!target || !target.siid || !target.piid) {
+          return;
+        }
+        return Service.spec.getPropertiesValue([{ did: Device.deviceID, siid: target.siid, piid: target.piid }])
+          .then((vs) => {
+            const v = vs && vs[0];
+            if (v && v.code === 0 && v.value != null) {
+              this.setState({ deviceSN: String(v.value) });
+            }
+          });
+      })
+      .catch((err) => {
+        Service.smarthome.reportLog(Device.model, `getDeviceSN error: ${ err }`);
       });
     getPluginCategory()
       .then((res) => {

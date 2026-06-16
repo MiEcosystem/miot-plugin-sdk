@@ -30,6 +30,7 @@ let getInnerOptions = () => {
       isDefault: true,
       Component: () => {
         const [show, setDeviceService] = useState(false);
+        const [sn, setSN] = useState(''); // 设备 SN（device-information/serial-no），取不到为 ''
         let countryCode = '';
         function getCountryCode() {
           return new Promise((resolve, reject) => {
@@ -54,12 +55,30 @@ let getInnerOptions = () => {
             }
           });
         }, []);
+        // 获取设备 SN，用于跳转设备服务页时透传给原生
+        useEffect(() => {
+          Service.spec.getSpecByKey(Device.deviceID, { skey: 'device-information', pkey: 'serial-no' })
+            .then((res) => {
+              const target = res && res.length ? res[res.length - 1] : null;
+              if (!target || !target.siid || !target.piid) {
+                return;
+              }
+              return Service.spec.getPropertiesValue([{ did: Device.deviceID, siid: target.siid, piid: target.piid }])
+                .then((vs) => {
+                  const v = vs && vs[0];
+                  if (v && v.code === 0 && v.value != null) {
+                    setSN(String(v.value));
+                  }
+                });
+            })
+            .catch(() => {});
+        }, []);
         return show ? (
           <ListItem
             key={ 'deviceService' }
             title={ I18n.deviceService }
             onPress={ () => {
-              Host.ui.openDeviceServicePage({ did: Device.deviceID });
+              Host.ui.openDeviceServicePage({ did: Device.deviceID, sn: sn || '' });
             } }
             useNewType={ true }
             hideArrow={ false }
