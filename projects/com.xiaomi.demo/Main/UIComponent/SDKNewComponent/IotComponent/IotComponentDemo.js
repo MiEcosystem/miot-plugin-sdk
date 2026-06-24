@@ -13,6 +13,7 @@ const IotComponentDemo = ({ navigation }) => {
   }, [navigation]);
 
   const commonItems = [
+    { title: 'SmartScene 智能场景', router: 'SmartSceneDemo' },
     { title: 'CardHeader', router: 'TitleContainerDemo' },
     { title: 'LargeListEntrance', router: 'LargeEntranceDemo' },
     { title: 'MediumListEntrance', router: 'MediumListEntranceDemo' },

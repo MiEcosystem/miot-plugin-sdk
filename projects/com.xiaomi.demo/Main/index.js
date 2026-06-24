@@ -210,6 +210,7 @@ import StatusAlertConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/St
 import SeparatorDemo from "./UIComponent/SDKNewComponent/BasicComponent/SeparatorDemo";
 // Iot 组件
 import IotComponentDemo from "./UIComponent/SDKNewComponent/IotComponent/IotComponentDemo";
+import SmartSceneDemo from "./UIComponent/SDKNewComponent/IotComponent/SmartSceneDemo";
 // import IotSliderDemo from "./UIComponent/SDKNewComponent/IotComponent/SliderDemo";
 // import IotSliderWithToggleDemo from "./UIComponent/SDKNewComponent/IotComponent/SliderWithToggleDemo";
 // import IotActionSheetDemo from "./UIComponent/SDKNewComponent/BasicComponent/ActionSheetDemo";
@@ -444,6 +445,7 @@ function createRootStack(initPage) {
       // NavigationBarConfigDemo,
       // Iot 组件
       IotComponentDemo,
+      SmartSceneDemo,
       LargeEntranceDemo,
       StepperDemo,
       LargeVariantSwitchDemo,

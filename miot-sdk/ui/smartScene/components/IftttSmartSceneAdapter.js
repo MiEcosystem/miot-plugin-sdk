@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from 'react';
 import { Image, StyleSheet, Dimensions, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
-import { ConfigContext } from 'mhui-rn/dist/hyperOS';
+import { ConfigContext } from 'miot/ui/hyperOSUI';
 import { strings as I18n } from 'miot/resources';
 import IftttSceneCard from './IftttSceneCard';
 import { toBigNumberString } from './IftttContainer';
@@ -80,7 +80,7 @@ const IftttSmartSceneAdapter = (props) => {
     trackParams = {},
     titleIcon,
     showLeadingIcon = true,
-    hasData=true
+    hasData = true,
   } = props;
   const items = useMemo(() => templateInfo.map(buildSceneItem), [templateInfo]);
   hasData = hasData && templateInfo.length === 2 && serverCode === 'cn';

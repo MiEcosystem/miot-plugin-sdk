@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react';
-import { View, Text, Dimensions } from "react-native";
+import React from 'react';
+import { Dimensions } from "react-native";
 import { ContainerWithGap, dynamicColor } from "miot/ui/index";
 import IftttItem from "./IftttItem";
 import Host from "../../../Host";
 import { Device } from "../../../index";
-import DynamicColor from "../../Style/DynamicColor";
 import { strings as I18n } from 'miot/resources';
 import { getLocalI18n } from '../../SwitchIfttt/utils';
-import useDeviceRoomInfo from '../../../hooks/useDeviceRoomInfo';
 import { IftttTemplateUtils } from '../utils';
 /**
  * @description 自定义万字显示
@@ -49,7 +47,7 @@ const IftttContainer = (props) => {
         containerStyle={{
           marginHorizontal: 16,
           marginBottom: 20,
-          alignItems: 'stretch'
+          alignItems: 'stretch',
         }}
         gap={12}
       >
@@ -63,19 +61,19 @@ const IftttContainer = (props) => {
             openStatus,
             template_id,
             scene_id,
-            template_type
+            template_type,
           } = item || {};
           const title = name || '';
           const subtitle = openStatus ? I18n['scene_active_done'] : can_open ? I18n['scene_can_turnOn'] : '';
           const subTitleValue = open_quantity ? toBigNumberString(open_quantity) : 0;
           const subtitleStyle = !openStatus && can_open ? {
-            color: dynamicColor('#00B884', '#00B380')
+            color: dynamicColor('#00B884', '#00B380'),
           } : {};
           const subtitleSubscript = openStatus || can_open ? ` | ${ getLocalI18n('scene_active_people', [subTitleValue]) }` : getLocalI18n('scene_active_people', [subTitleValue]);
           const trackParams = {
             ...(props.trackParams || {}),
             item_name: "recommendation_template",
-            template_id: template_id
+            template_id: template_id,
           };
           return (
             <IftttItem
@@ -101,7 +99,7 @@ const IftttContainer = (props) => {
                   real_did: Device.deviceID,
                   edit_from: 17,
                   template_type: template_type,
-                  template_name: title
+                  template_name: title,
                 };
                 if (scene_id) params.scene_id = scene_id;
                 Host.ui.openTemplateScenePage(params);
