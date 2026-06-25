@@ -20,14 +20,14 @@ import {
   FirmwareUpgradeAuto,
   FirmwareUpgradeRecord,
   MoreSetting,
-  CurtainGroupPage
+  CurtainGroupPage,
 } from "miot/ui/CommonSetting";
 import BTInterconnection from "miot/ui/BTInterconnection";
 import BraceletInterconnection from "miot/ui/BraceletInterconnection";
 import Setting from "./tutorial/Setting";
 import SettingPage from "./tutorial/SettingPage";
-
-import NavigationBar from "miot/ui/NavigationBar";
+import { DarkMode } from "miot";
+import { darkModeDemoPathList } from "./UIComponent/SDKNewComponent/adaptiveThemeComponent";
 
 import React from "react";
 
@@ -46,6 +46,10 @@ import SoftKeyboardAdapterTestDemo from "./UIComponent/SoftKeyboardAdapterTestDe
 import TitleBarDemo from "./tutorial/TitleBarDemo"; //  ui-导航栏使用
 import TabBarDemo from "./tutorial/TabBarDemo"; //  ui-导航栏使用
 
+import Settings2022 from './UIComponent/Settings2022';
+import SupportedFont from './UIComponent/SupportedFont';
+import SdkComponentDemo from "./UIComponent/SdkComponentDemo";
+
 // List
 import ListDemoEntry from "./UIComponent/List/ListDemoEntry";
 import CustomListDemo from "./UIComponent/List/CustomListDemo";
@@ -60,11 +64,15 @@ import ModeCardDemo from "./UIComponent/Card/ModeCardDemo"; // ui-Card-模式卡
 import AdaptedFontCardDemo from "./UIComponent/Card/AdaptedFontCardDemo"; // ui-Card-模式卡片
 import GearCardDemo from "./UIComponent/Card/GearCardDemo"; // ui-Card-滑动档位卡片
 import ListCardDemo from "./UIComponent/Card/ListCardDemo"; // ui-Card-list档位卡片
+import CardButtonDemo from "./UIComponent/Card/CardButtonDemo"; // CardButton卡片
+import SelectWithButtonDemo from "./UIComponent/Card/SelectWithButtonDemo"; // SelectWithButton卡片
+import SliderWithHeaderDemo from "./UIComponent/Card/SliderWithHeaderDemo"; // SliderWithHeader卡片
+import SliderWithoutBlockDemo from "./UIComponent/Card/SliderWithoutBlockDemo"; // SliderWithoutBlock卡片
 
 import RadioExample from "./UIComponent/RadioExample"; // ui-单选框
 import CheckboxDemo from "./UIComponent/CheckboxDemo"; // ui-复选框
 import GearExample from "./UIComponent/GearExample"; // ui-拖拽选择档位组件
-import SwitchDemo from "./UIComponent/SwitchDemo"; // ui-开关
+import SwitchDemo from "./UIComponent/SDKNewComponent/BasicComponent/SwitchDemo";
 import DialogExample from "./UIComponent/DialogExample"; // ui-米家弹窗
 import MHDatePickerDemo from "./UIComponent/MHDatePickerDemo"; // ui-时间选择器
 import BlankPageEntry from "./UIComponent/BlankPageEntry"; // ui-空白页面示例
@@ -84,11 +92,13 @@ import ImageCapInsetDemo from "./UIComponent/ImageCapInsetDemo"; // ui-ImageCapI
 import NumberSpinnerDemo from "./UIComponent/NumberSpinnerDemo"; // ui-NumberSpinnerDemo
 import StringSpinnerDemo from "./UIComponent/StringSpinnerDemo"; // ui-StringSpinnerDemo
 import ColorPickerDemo from "./UIComponent/ColorPickerDemo";
+import ColorSelectorDemo from "./UIComponent/ColorSelectorDemo";
+
 import MiotAndroidScrollViewDemo from "./UIComponent/MiotAndroidScrollViewDemo"; // ui-MiotAndroidScrollViewDemo
 import AbsoluteTouch from "./UIComponent/AbsoluteTouch"; // ui-AbsoluteTouch
 import RobotMapDemo from "./UIComponent/RobotMapDemo"; // 扫地机地图
 // import SparkLines from "./UIComponent/SparkLines";
-// import YMDDatePicker from "./UIComponent/YMDDatePicker";
+import YMDDatePickerDemo from "./UIComponent/YMDDatePicker";
 // import Tabs from "./UIComponent/Tabs";
 
 // Native 交互
@@ -107,11 +117,15 @@ import ControlDemo from "./Device/ControlDemo";
 import DeviceControl from "./Device/DeviceControl";
 import DeviceDemo from "./Device/DeviceDemo";
 import InterconnectionDemo from "./Device/InterconnectionDemo";
+import WechatUnlockDemo from "./Device/WechatUnlockDemo";
+import NewGBControlDemo from "./Device/NewGBControlDemo";
 /** ******    Host 部分   ******* */
 import HostDemo from "./Host";
 import HostEventDemo from "./Host/HostEventDemo";
 import FileDemo from "./Host/FileDemo";
 import PhotoDemo from "./Host/PhotoDemo";
+import PadScrollDemo from "./Host/PadScrollDemo";
+import RockerViewDemo from "./Host/RockerViewDemo";
 import HostPropsInfoDemo from "./Host/HostPropsInfoDemo";
 import LocaleServer from "./Host/Local";
 import JSExecutor from "./Host/JSExecutor";
@@ -122,10 +136,131 @@ import VideoThumbnailDemo from "./Host/VideoThumbnailDemo";
 import CryptoDemo from "./Host/CryptoDemo";
 import TraceDemo from "./Host/TraceDemo";
 import DarkModeDemo from "./Host/DarkMode";
+import DownloadFontDemo from "./Host/DownloadFontDemo"; //  字体下载测试
 
 // 常用功能
 import TutorialDemo from "./tutorial/TutorialDemo";
+// 新版SDK
+import BasicComponentDemo from "./UIComponent/SDKNewComponent/BasicComponent/BasicComponentDemo";
+import BasicDemo from "./UIComponent/SDKNewComponent/BasicComponent/BasicDemo";
+import FontsDemo from "./UIComponent/SDKNewComponent/BasicComponent/FontsDemo";
+import ColorDemo from "./UIComponent/SDKNewComponent/BasicComponent/ColorDemo";
+import RadiusDemo from "./UIComponent/SDKNewComponent/BasicComponent/RadiusDemo";
+// import ActionListItemDemo from "./UIComponent/SDKNewComponent/BasicComponent/ActionListItemDemo";
+// import SelectListDemo from "./UIComponent/SDKNewComponent/BasicComponent/SelectListDemo";
+// import SubpageLayoutDemo from "./UIComponent/SDKNewComponent/LayoutComponent/SubpageLayoutDemo";
+// import PageLayoutDemo from "./UIComponent/SDKNewComponent/LayoutComponent/PageLayoutDemo";
+// import LayoutDemo from "./UIComponent/SDKNewComponent/LayoutComponent/LayoutDemo";
+import NewListCardDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListCardDemo";
+// import ActionListItemConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/ActionListItemConfigDemo";
+// import SelectListConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/SelectListConfigDemo";
+import ListCardConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListCardConfigDemo";
+import SubpageLayoutConfigDemo from "./UIComponent/SDKNewComponent/LayoutComponent/SubpageLayoutConfigDemo";
+import PageLayoutConfigDemo from "./UIComponent/SDKNewComponent/LayoutComponent/PageLayoutConfigDemo";
+import DialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/DialogDemo";
+import LoadingDemo from "./UIComponent/SDKNewComponent/BasicComponent/LoadingDemo";
+import ListDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListDemo";
+import ListItemDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListItemDemo";
+import ListItemConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListItemConfigDemo";
+import ListItemWithWidgetConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListItemWithWidgetConfigDemo";
+import BlockButtonConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/BlockButtonConfigDemo";
+// import ButtonGroupConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonGroupConfigDemo";
+import SwitchConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/SwitchConfigDemo";
+// import CheckboxConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/CheckboxConfigDemo";
+// import NewCheckboxDemo from "./UIComponent/SDKNewComponent/BasicComponent/NewCheckboxDemo";
+import RadioDemo from "./UIComponent/SDKNewComponent/BasicComponent/RadioDemo";
+import RadioConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/RadioConfigDemo";
+// import ToastConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/ToastConfigDemo";
+import DividerConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/DividerConfigDemo";
+import ActionCustomDialogConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/ActionCustomDialogConfigDemo";
+import LargeListEntranceConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeListEntranceConfigDemo";
+// import SmallGridEntranceConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/SmallGridEntranceConfigDemo";
+import ParamStepperConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/ParamStepperConfigDemo";
+import CardContainerConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/CardContainerConfigDemo";
+import ContainerWithGapConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/ContainerWithGapConfigDemo";
+// import SmallGridContainerConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/SmallGridContainerConfigDemo";
+import LargeListToggleConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeListToggleConfigDemo";
+// import MediumListToggleConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/MediumListToggleConfigDemo";
+// import SmallGridToggleConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/SmallGridToggleConfigDemo";
+// import MediumListEntranceDemo from "./UIComponent/SDKNewComponent/IotComponent/MediumListEntranceDemo";
+// import MediumListEntranceConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/MediumListEntranceConfigDemo";
+import CircularButtonDemo from "./UIComponent/SDKNewComponent/IotComponent/CircularButtonDemo";
+import CircularButtonConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/CircularButtonConfigDemo";
+import CardHeaderConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/CardHeaderConfigDemo";
+import IotSliderConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/SliderConfigDemo";
+import IotSliderWithToggleConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/SliderWithToggleConfigDemo";
+import LargeVariantSwitchConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeVariantSwitchConfigDemo";
+import ButtonDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonDemo";
+import ButtonConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonConfigDemo";
+import ButtonColorDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonColorDemo";
+import ToastDemo from "./UIComponent/SDKNewComponent/BasicComponent/ToastDemo";
 
+// import MediumTriggerSelectConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/MediumTriggerSelectConfigDemo";
+// import PullRefreshConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/PullRefreshConfigDemo";
+// import SegmentedControlsConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/SegmentedControlsConfigDemo";
+// import SpinConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/SpinConfigDemo";
+// import NavigationBarConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/NavigationBarConfigDemo";
+import StatusAlertConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/StatusAlertConfigDemo";
+
+// import DrawerDemo from "./UIComponent/SDKNewComponent/BasicComponent/DrawerDemo";
+// import FixedDrawerDemo from "./UIComponent/SDKNewComponent/BasicComponent/FixedDrawerDemo";
+// import ElasticDrawerDemo from "./UIComponent/SDKNewComponent/BasicComponent/ElasticDrawerDemo";
+// import PanResponderDemo from "./UIComponent/SDKNewComponent/BasicComponent/PanResponderDemo";
+// import CabinetAirConditioner from "./UIComponent/SDKNewComponent/BasicComponent/CabinetAirConditioner";
+import SeparatorDemo from "./UIComponent/SDKNewComponent/BasicComponent/SeparatorDemo";
+// Iot 组件
+import IotComponentDemo from "./UIComponent/SDKNewComponent/IotComponent/IotComponentDemo";
+import SmartSceneDemo from "./UIComponent/SDKNewComponent/IotComponent/SmartSceneDemo";
+// import IotSliderDemo from "./UIComponent/SDKNewComponent/IotComponent/SliderDemo";
+// import IotSliderWithToggleDemo from "./UIComponent/SDKNewComponent/IotComponent/SliderWithToggleDemo";
+// import IotActionSheetDemo from "./UIComponent/SDKNewComponent/BasicComponent/ActionSheetDemo";
+// import IotActionSheetConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/ActionSheetConfigDemo";
+import IotMediumImageButtonDemo from "./UIComponent/SDKNewComponent/IotComponent/MediumImageButtonDemo";
+import IotMediumImageButtonConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/MediumImageButtonConfigDemo";
+// import IotSmallImageButtonDemo from "./UIComponent/SDKNewComponent/IotComponent/SmallImageButtonDemo";
+// import IotSmallImageButtonConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/SmallImageButtonConfigDemo";
+// import IotDataItemDemo from "./UIComponent/SDKNewComponent/IotComponent/DataItemDemo";
+// import IotDataItemConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/DataItemConfigDemo";
+// import IotDataGroupDemo from "./UIComponent/SDKNewComponent/IotComponent/DataGroupDemo";
+// import IotDataGroupConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/DataGroupConfigDemo";
+import LargeEntranceDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeEntranceDemo";
+import StepperDemo from "./UIComponent/SDKNewComponent/IotComponent/StepperDemo";
+import LargeVariantSwitchDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeVariantSwitchDemo";
+// import SmallGridContainerDemo from "./UIComponent/SDKNewComponent/IotComponent/SmallGridContainerDemo";
+import CardContainerDemo from "./UIComponent/SDKNewComponent/IotComponent/CardContainerDemo";
+import GroupContainerDemo from "./UIComponent/SDKNewComponent/IotComponent/GroupContainerDemo";
+import TitleContainerDemo from "./UIComponent/SDKNewComponent/IotComponent/TitleContainerDemo";
+import SmallEntranceDemo from "./UIComponent/SDKNewComponent/IotComponent/SmallEntranceDemo";
+import SmallVariantSwitchDemo from "./UIComponent/SDKNewComponent/IotComponent/SmallVariantSwitchDemo";
+import MiddleVariantSwitchDemo from "./UIComponent/SDKNewComponent/IotComponent/MiddleVariantSwitchDemo";
+import SmallFlatOptionDemo from "./UIComponent/SDKNewComponent/IotComponent/SmallFlatOptionDemo";
+import LargeTriggerSelectDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeTriggerSelectDemo";
+import LargeTriggerSelectConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/LargeTriggerSelectConfigDemo";
+import ActionBlockDemo from "./UIComponent/SDKNewComponent/IotComponent/ActionBlockDemo";
+import ActionBlockConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/ActionBlockConfigDemo";
+import VariantSwitchDemo from "./UIComponent/SDKNewComponent/IotComponent/VariantSwitchDemo";
+import EmptyStateDemo from "./UIComponent/SDKNewComponent/BasicComponent/EmptyStateDemo";
+import EmptyStateConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/EmptyStateConfigDemo";
+import SpacingDemo from "./UIComponent/SDKNewComponent/BasicComponent/SpacingDemo";
+// import FeatureComponentDemo from "./UIComponent/SDKNewComponent/BasicComponent/FeatureComponentDemo";
+import ActionCustomDialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/ActionCustomDialogDemo";
+import BlockButtonDemo from "./UIComponent/SDKNewComponent/BasicComponent/BlockButtonDemo";
+// import ButtonGroupDemo from "./UIComponent/SDKNewComponent/BasicComponent/ButtonGroupDemo";
+import ListItemWithWidgetDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListItemWithWidgetDemo";
+// import LoadingToastDemo from "./UIComponent/SDKNewComponent/BasicComponent/LoadingToastDemo";
+import MessageDialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/MessageDialogDemo";
+// import MenusDemo from "./UIComponent/SDKNewComponent/BasicComponent/MenusDemo";
+// import MenusPositionDemo from "./UIComponent/SDKNewComponent/BasicComponent/MenusPositionDemo";
+// import MenusEntryDemo from "./UIComponent/SDKNewComponent/BasicComponent/MenusEntryDemo";
+import InputDemo from "./UIComponent/SDKNewComponent/BasicComponent/InputDemo";
+import InputDialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/InputDialogDemo";
+// import CustomDialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/CustomDialogDemo";
+// import PickerDialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/PickerDialogDemo";
+// import NoticeBarDemo from "./UIComponent/SDKNewComponent/BasicComponent/NoticeBarDemo";
+// import PopMenusDemo from "./UIComponent/SDKNewComponent/BasicComponent/PopMenusDemo";
+// import PopMenusPositionDemo from "./UIComponent/SDKNewComponent/BasicComponent/PopMenusPositionDemo";
+import PopMenusEntryDemo from "./UIComponent/SDKNewComponent/BasicComponent/PopMenusEntryDemo";
+import NewSwitchDemo from "./UIComponent/SDKNewComponent/BasicComponent/SwitchDemo";
 // 第三方库
 import SQLiteDemo from "./ThirdPartDemo/SQLiteDemo";
 import OrientationDemo from "./Host/OrientationDemo";
@@ -157,6 +292,7 @@ import BlankDemo from "./tutorial/BlankDemo";
 import SystemDemo from "./tutorial/SystemDemo";
 import BlankPageDemo from "./UIComponent/BlankPageDemo";
 import ColorPicker from "./UIComponent/ColorPicker";
+import BackHandlerDemo from "./UIComponent/BackHandlerDemo";
 import PackageDemo from "./tutorial/PackageDemo";
 // import ReactNativeCameraDemo from './ThirdPartDemo/ReactNativeCameraDemo';
 import LinearGradientDemo from "./ThirdPartDemo/LinearGradientDemo";
@@ -166,7 +302,7 @@ import SVGDemo from "./ThirdPartDemo/SVGDemo";
 import {
   GroupExample,
   HoverExample,
-  PressExample
+  PressExample,
 } from "./ThirdPartDemo/SVGDemo2";
 import LegendsView from "./ThirdPartDemo/Victory-Native/views/legends-view";
 import AxisView from "./ThirdPartDemo/Victory-Native/views/axis-view";
@@ -219,7 +355,7 @@ import CustomContainer from "./uikit/components/CustomContainer";
 import OfficialDemos from "./OfficialDemos";
 
 import Logger from "./Logger";
-
+import { NavigationBar } from "miot/ui/hyperOSUI";
 function createRootStack(initPage) {
   return createStackNavigator(
     {
@@ -229,19 +365,146 @@ function createRootStack(initPage) {
       Setting,
       SettingPage,
       MoreSetting,
+      Settings2022,
+      SupportedFont,
       CurtainGroupPage,
       FirmwareUpgrade,
+      // 新版SDK
+      BasicComponentDemo,
+      BasicDemo,
+      ButtonDemo,
+      ButtonConfigDemo,
+      ToastDemo,
+      ButtonColorDemo,
+      SdkComponentDemo,
+      ColorDemo,
+      RadiusDemo,
+      // ActionListItemDemo,
+      // SelectListDemo,
+      // SubpageLayoutDemo,
+      // PageLayoutDemo,
+      // LayoutDemo,
+      NewListCardDemo,
+      // ActionListItemConfigDemo,
+      // SelectListConfigDemo,
+      ListCardConfigDemo,
+      SubpageLayoutConfigDemo,
+      PageLayoutConfigDemo,
+      DialogDemo,
+      FontsDemo,
+      // LoadingDemo,
+      // ListDemo,
+      ListItemDemo,
+      ListItemConfigDemo,
+      ListItemWithWidgetConfigDemo,
+      BlockButtonConfigDemo,
+      // ButtonGroupConfigDemo,
+      SwitchConfigDemo,
+      // CheckboxConfigDemo,
+      // NewCheckboxDemo,
+      RadioDemo,
+      RadioConfigDemo,
+      // ToastConfigDemo,
+      DividerConfigDemo,
+      ActionCustomDialogConfigDemo,
+      LargeListEntranceConfigDemo,
+      // SmallGridEntranceConfigDemo,
+      ParamStepperConfigDemo,
+      CardContainerConfigDemo,
+      ContainerWithGapConfigDemo,
+      // SmallGridContainerConfigDemo,
+      LargeListToggleConfigDemo,
+      // MediumListToggleConfigDemo,
+      // SmallGridToggleConfigDemo,
+      // MediumListEntranceDemo,
+      // MediumListEntranceConfigDemo,
+      CircularButtonDemo,
+      CircularButtonConfigDemo,
+      // CardHeaderConfigDemo,
+      // IotSliderConfigDemo,
+      // IotSliderWithToggleConfigDemo,
+      // LargeVariantSwitchConfigDemo,
+      // IotSliderDemo,
+      // IotSliderWithToggleDemo,
+      // IotActionSheetDemo,
+      // IotActionSheetConfigDemo,
+      IotMediumImageButtonDemo,
+      IotMediumImageButtonConfigDemo,
+      // IotSmallImageButtonDemo,
+      // IotSmallImageButtonConfigDemo,
+      // IotDataItemDemo,
+      // IotDataItemConfigDemo,
+      // IotDataGroupDemo,
+      // IotDataGroupConfigDemo,
+      // CabinetAirConditioner,
+      // MediumTriggerSelectConfigDemo,
+      // SegmentedControlsConfigDemo,
+      // PullRefreshConfigDemo,
+      // SpinConfigDemo,
+      StatusAlertConfigDemo,
+      // NavigationBarConfigDemo,
+      // Iot 组件
+      IotComponentDemo,
+      SmartSceneDemo,
+      LargeEntranceDemo,
+      StepperDemo,
+      LargeVariantSwitchDemo,
+      // SmallGridContainerDemo,
+      CardContainerDemo,
+      GroupContainerDemo,
+      TitleContainerDemo,
+      SmallEntranceDemo,
+      SmallVariantSwitchDemo,
+      MiddleVariantSwitchDemo,
+      SmallFlatOptionDemo,
+      LargeTriggerSelectDemo,
+      LargeTriggerSelectConfigDemo,
+      ActionBlockDemo,
+      ActionBlockConfigDemo,
+      VariantSwitchDemo,
+      EmptyStateDemo,
+      EmptyStateConfigDemo,
+      SpacingDemo,
+      // DrawerDemo,
+      // FixedDrawerDemo,
+      // ElasticDrawerDemo,
+      // PanResponderDemo,
+      // SmartSceneDemo,
+      SeparatorDemo,
+      // FeatureComponentDemo,
+      ActionCustomDialogDemo,
+      BlockButtonDemo,
+      // ButtonGroupDemo,
+      ListItemWithWidgetDemo,
+      // LoadingToastDemo,
+      MessageDialogDemo,
+      // MenusDemo,
+      // MenusPositionDemo,
+      // MenusEntryDemo,
+      InputDemo,
+      InputDialogDemo,
+      // CustomDialogDemo,
+      // PickerDialogDemo,
+      // NoticeBarDemo,
+      // PopMenusDemo,
+      // PopMenusPositionDemo,
+      PopMenusEntryDemo,
+      NewSwitchDemo,
       // FirmwareUpgradeAuto,
       FirmwareUpgradeRecord,
       HostDemo,
       HostEventDemo,
+      PadScrollDemo,
+      RockerViewDemo: RockerViewDemo,
       Home: MainPage,
       accountDemo: AccountDemo,
       DeviceControl,
       ControlDemo,
       RPCControl,
       DeviceDemo,
+      NewGBControlDemo,
       InterconnectionDemo,
+      WechatUnlockDemo,
       BTInterconnection,
       BraceletInterconnection,
       moreMenu: MoreMenu,
@@ -284,6 +547,7 @@ function createRootStack(initPage) {
       NumberSpinnerDemo,
       StringSpinnerDemo,
       ColorPickerDemo,
+      ColorSelectorDemo,
       MiotAndroidScrollViewDemo,
       AbsoluteTouch,
       // 接口服务
@@ -334,7 +598,7 @@ function createRootStack(initPage) {
       RobotMapDemo: RobotMapDemo,
       // SparkLines,
       // Tabs,
-      // YMDDatePicker,
+      YMDDatePickerDemo,
       ParticleDemo: ParticleDemo, // iOS 特有的,粒子系统
       ImagePickerDemo: ImagePickerDemo,
 
@@ -388,6 +652,10 @@ function createRootStack(initPage) {
       AdaptedFontCardDemo,
       GearCardDemo,
       ListCardDemo,
+      CardButtonDemo,
+      SelectWithButtonDemo,
+      SliderWithHeaderDemo,
+      SliderWithoutBlockDemo,
 
       CustomContainer,
       Parallax,
@@ -396,6 +664,7 @@ function createRootStack(initPage) {
       MHSceneDemo: MHSceneDemo,
       BlankPageDemo,
       ColorPicker,
+      BackHandlerDemo,
       tutorialDemo: TutorialDemo,
       PackageDemo: PackageDemo,
       AccountDemo: AccountDemo,
@@ -406,6 +675,7 @@ function createRootStack(initPage) {
       KVStorageDemo: KVStorageDemo,
       FileDemo: FileDemo,
       PhotoDemo: PhotoDemo,
+      DownloadFontDemo,
 
       UIKitHome: { screen: Screens.ComponentsScreen },
       Picker: { screen: Screens.PickerScreen },
@@ -431,44 +701,48 @@ function createRootStack(initPage) {
       // 米家iOS 自定义第三方库<
 
       // 官方Demo
-      OfficialDemos
+      OfficialDemos,
     },
     {
       initialRouteName: initPage,
       // initialRouteName: 'ModeCardDemo',
       navigationOptions: ({ navigation }) => {
         let params = navigation.state.params || {};
+        if (params.header === null) return { header: null };
         return {
           header: (
             <NavigationBar
-              type={params.type || NavigationBar.TYPE.LIGHT}
+              titleSize={params.titleSize || "normal"}
               title={params.title || params.name || ""}
-              titleStyle={params.titleStyle || { fontSize: 15 }}
-              subtitle={params.subtitle || ""}
-              left={
-                params.left || [
-                  {
-                    key: NavigationBar.ICON.BACK,
-                    onPress: () => navigation.goBack(),
-                    accessibilityLabel: "返回",
-                    accessibilityHint: "返回上一页"
-                  }
-                ]
+              collapseTitle={params.collapseTitle}
+              titleVisible={params.titleVisible}
+              titleOpacity={params.titleOpacity}
+              left={params.left || {
+                  key: NavigationBar.ICON.BACK,
+                  onPress: () => navigation.goBack(),
+                  accessibilityLabel: "返回",
+                  accessibilityHint: "返回上一页",
+                }
               }
-              right={params.right || []}
+              showBrandLogo
+              right={Array.isArray(params.right) ? params.right[0] : params.right}
             />
-          )
+          ),
         };
       },
+      headerMode: 'float',
       transitionConfig: () => ({
-        screenInterpolator: interpolator
-      })
+        screenInterpolator: interpolator,
+      }),
     }
   );
 }
 
 function interpolator(props) {
   const { layout, position, scene } = props;
+  if (darkModeDemoPathList.includes(scene.route.routeName)) {
+    DarkMode.preparePluginOwnDarkMode();
+  }
 
   if (!layout.isMeasured) {
     return (props) => {
@@ -480,7 +754,7 @@ function interpolator(props) {
       const translate = focused ? 0 : 1000000;
       return {
         opacity,
-        transform: [{ translateX: translate }, { translateY: translate }]
+        transform: [{ translateX: translate }, { translateY: translate }],
       };
     };
   }
@@ -506,7 +780,7 @@ function interpolator(props) {
       ) {
         return {
           first: Math.min(targetSceneIndex, index - 1),
-          last: index + 1
+          last: index + 1,
         };
       } else if (
         index === targetSceneIndex &&
@@ -514,7 +788,7 @@ function interpolator(props) {
       ) {
         return {
           first: index - 1,
-          last: Math.max(lastSceneIndex, index + 1)
+          last: Math.max(lastSceneIndex, index + 1),
         };
       } else if (
         index === targetSceneIndex ||
@@ -536,20 +810,20 @@ function interpolator(props) {
   const index = scene.index;
   const opacity = position.interpolate({
     inputRange: [first, first + 0.01, index, last - 0.01, last],
-    outputRange: [0, 1, 1, 0.85, 0]
+    outputRange: [0, 1, 1, 0.85, 0],
   });
 
   const width = layout.initWidth;
   const translateX = position.interpolate({
     inputRange: [first, index, last],
     // outputRange: false ? [-width, 0, width * 0.3] : [width, 0, width * -0.3]
-    outputRange: [width, 0, width * -0.3]
+    outputRange: [width, 0, width * -0.3],
   });
   const translateY = 0;
 
   return {
     opacity,
-    transform: [{ translateX }, { translateY }]
+    transform: [{ translateX }, { translateY }],
   };
 }
 
