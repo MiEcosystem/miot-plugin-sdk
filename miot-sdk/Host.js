@@ -321,6 +321,16 @@ export default {
      return Promise.resolve(null);
   },
   /**
+  * 判断当前 Activity 是否处于分屏/多窗口模式 
+  * android only
+  * 获取当前窗口模式
+  * @since 10117
+  * @returns {Promise<number>} 0=普通全屏, 1=分屏, 2=自由窗口(freeform小窗)
+  */
+  getWindowMode() {
+     return Promise.resolve(null);
+  },
+  /**
      * @const
      * @see {@link module:miot/host/ui}
      * @description 可调起的host业务页面
