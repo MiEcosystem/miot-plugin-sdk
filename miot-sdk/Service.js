@@ -343,6 +343,76 @@ export default {
     });
   },
   /**
+   * @namespace Service.SSE
+   * @description 通用 SSE（Server-Sent Events）流式接口。
+   *
+   * 框架只负责"透传参数 + 透传返回值 + 把控流生命周期"，不解析任何业务内容；
+   * 底层复用米家 RC4 加密流式网关（与 callSmartChatAPI 同一通道）。
+   *
+   * 事件订阅：事件名 = `${callbackEvent}:${conversationId}`，
+   * 用 DeviceEventEmitter.addListener 监听，事件体固定为 { code, data, conversationId }：
+   *   - code 0  : chunk，data 为原始 JSON 字符串（业务自行 JSON.parse）
+   *   - code 1  : done（连接停止；业务"回答是否结束"由业务自行根据 event 判断）
+   *   - code -1 : 网络/传输层失败
+   *   - code -2 : 服务器业务错误
+   *   - code -3 : 已取消
+   * 注意：参数错误不通过事件下发，而是 open() 返回的 Promise 直接 reject 错误描述。
+   *
+   * @example
+   * import { Service } from 'miot';
+   * import { DeviceEventEmitter } from 'react-native';
+   * const conversationId = 'xxx-uuid';
+   * await Service.SSE.open({
+   *   path: '/llm/api/mihome/assistant',
+   *   conversationId,
+   *   callbackEvent: 'myFeatureSSE',
+   *   body: { query: '羊毛衫油渍怎么洗' },
+   * });
+   * const sub = DeviceEventEmitter.addListener(`myFeatureSSE:${conversationId}`, evt => {
+   *   if (evt.code === 0) { const e = JSON.parse(evt.data); ... }
+   *   else if (evt.code === 1) { sub.remove(); }      // 连接停止
+   *   else if (evt.code < 0)  { sub.remove(); }       // 出错/取消
+   * });
+   * // 组件卸载时务必主动取消，回收连接
+   * useEffect(() => () => Service.SSE.cancel(conversationId), []);
+   */
+  SSE: {
+    /**
+     * @method Service.SSE.open
+     * @description 打开一条 SSE 流。
+     * @param {object} opts
+     *   opts.path           {string}  必填，请求路径，例 '/llm/api/mihome/assistant'
+     *   opts.conversationId {string}  必填，会话标识；作 registry key + 事件名后缀 + 取消依据
+     *   opts.callbackEvent  {string}  必填，事件名前缀；实际事件名 = `${callbackEvent}:${conversationId}`
+     *   opts.body           {object}  可选，业务参数，native 透传（整体 stringify 后作为流式请求体）
+     *   opts.host           {string}  可选，默认米家流式网关
+     *   opts.header         {object}  可选，仅追踪头（如 Request-Id）；鉴权/cookie/Accept 由 SDK 自动注入
+     * @returns {Promise<void>} 成功 resolve；参数错误等同步失败 reject 错误描述
+     */
+    open(opts) {
+      return new Promise((resolve, reject) => {
+        native.MIOTService.openSSE(opts, (ok, res) => {
+          if (ok) {
+            resolve(res);
+          } else {
+            reject(res);
+          }
+        });
+      });
+    },
+    /**
+     * @method Service.SSE.cancel
+     * @description 取消指定会话的 SSE 流（会下发 code=-3 事件后回收）。
+     * @param {string} conversationId 目标会话标识
+     * @returns {Promise<void>}
+     */
+    cancel(conversationId) {
+      return new Promise((resolve) => {
+        native.MIOTService.cancelSSE(conversationId, () => resolve());
+      });
+    }
+  },
+  /**
    * 获取设备多语言资源文件, 由于是发起网络请求，数据的正确性可以通过抓包来查看；
    * 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
    * @param did 设备的did

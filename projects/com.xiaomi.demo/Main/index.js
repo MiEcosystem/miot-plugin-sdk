@@ -284,6 +284,7 @@ import KookongDemo from "./Service/KookongDemo";
 // import AlarmPhoneDemo from './Service/AlarmPhoneDemo';
 import CallSmartHomeAPIDemo from "./Service/smarthome";
 import CloudStorageDemo from "./Service/CloudStorageDemo";
+import SSEDemo from "./Service/SSEDemo"; // 通用 SSE 流式接口验证
 
 /** ******    UI 部分   ******* */
 import WebViewBridageDemo from "./ThirdPartDemo/WebViewBridageDemo";
@@ -552,6 +553,7 @@ function createRootStack(initPage) {
       AbsoluteTouch,
       // 接口服务
       callSmartHomeAPIDemo: CallSmartHomeAPIDemo,
+      SSEDemo,
       MHRoomDemo,
       MiotSpecDemo,
       MiotSpecV3Demo,

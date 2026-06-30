@@ -24,6 +24,12 @@ export default class HostDemo extends React.Component {
         }
       },
       {
+        name: '通用 SSE 流式接口-Service.SSE',
+        func: () => {
+          this.props.navigation.navigate('SSEDemo', { title: '通用 SSE 流式接口' });
+        }
+      },
+      {
         name: '家庭房间管理模块-Room',
         func: () => {
           this.props.navigation.navigate('MHRoomDemo', { title: '家庭房间管理模块-Room' });
