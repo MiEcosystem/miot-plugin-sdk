@@ -7,15 +7,13 @@ import TestComponent from '../testComponent';
 import { dynamicStyleSheet } from 'miot/ui';
 import { Cold } from 'mhui-rn/dist/icons';
 
-const SHORT_TITLE = '这是一条通知消息';
-const LONG_TITLE = '这是一条很长很长的通知消息，用来测试文字溢出时的 3 行省略效果，超过 3 行会以省略号结尾，超过 3 行会以省略号结尾';
+const DEFAULT_TITLE = '这是一条通知消息';
 
 const propConfigs = [
   {
     name: 'title',
-    type: 'enum',
-    enumOptions: ['短文本', '长文本（测 3 行省略）'],
-    defaultValue: '短文本',
+    type: 'string',
+    defaultValue: DEFAULT_TITLE,
     category: 'content',
   },
   {
@@ -55,7 +53,7 @@ const NoticeBarDemo = () => {
   const [barProps, setBarProps] = useState({});
 
   const leadingIcon = barProps.leadingIcon === 'icon' ? <Cold width={18} height={18} /> : undefined;
-  const title = barProps.title === '长文本（测 3 行省略）' ? LONG_TITLE : SHORT_TITLE;
+  const title = barProps.title ?? DEFAULT_TITLE;
   const status = barProps.status || 'default';
 
   return (
@@ -87,6 +85,7 @@ const styles = dynamicStyleSheet({
   },
   previewWrapper: {
     paddingVertical: 24,
+    paddingHorizontal: 12,
   },
 });
 

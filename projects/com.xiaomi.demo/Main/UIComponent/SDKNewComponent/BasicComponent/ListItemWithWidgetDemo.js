@@ -59,6 +59,16 @@ const ListItemWithWidgetDemo = ({ navigation }) => {
         <Group title="无 widgetType（默认 navigate）">
           <ListItemWithWidget title="带入口的列表项" onChange={noop} onPress={() => showToast('onPress')} />
         </Group>
+
+        <Group title="onLongPress">
+          <ListItemWithWidget
+            title="长按列表项"
+            onChange={noop}
+            onPress={() => showToast('onPress')}
+            onLongPress={() => showToast('onLongPress')}
+            delayLongPress={1000}
+          />
+        </Group>
       </Section>
 
       {/* ===== 2. leadingIcon ===== */}

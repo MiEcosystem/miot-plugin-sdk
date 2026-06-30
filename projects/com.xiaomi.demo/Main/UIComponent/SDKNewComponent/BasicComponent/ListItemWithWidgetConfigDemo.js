@@ -44,6 +44,8 @@ const propConfigs = [
     passOptions: [{ label: 'onChange', value: (val) => showToast(`onChange: ${ val }`) }],
   },
   { name: 'onPress', type: 'pass', defaultValue: () => showToast('onPress'), category: 'interaction', passOptions: [{ label: 'onPress', value: () => showToast('onPress') }] },
+  { name: 'onLongPress', type: 'pass', defaultValue: undefined, category: 'interaction', passOptions: [{ label: 'onLongPress', value: () => showToast('onLongPress') }] },
+  { name: 'delayLongPress', type: 'number', defaultValue: undefined, category: 'interaction' },
   {
     name: 'leadingIcon',
     type: 'pass',

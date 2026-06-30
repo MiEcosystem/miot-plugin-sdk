@@ -28,6 +28,32 @@ const fourColumns = [
   { title: '时', options: Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0')), defaultValue: '08' },
 ];
 
+const longTextOneColumn = [
+  {
+    title: '这是一个非常长的列标题用于测试省略号显示效果',
+    options: [
+      '超长选项文本一用来测试文本溢出处理效果展示更长的内容',
+      '另一个非常长的选项文本展示截断与省略号的差异',
+      '中等长度的选项文本',
+      '短选项',
+    ],
+    defaultValue: '短选项',
+  },
+];
+
+const longTextTwoColumns = [
+  {
+    title: '城市名称较长测试',
+    options: ['北京市朝阳区', '上海市浦东新区', '深圳市南山区科技园', '广州市天河区珠江新城商圈'],
+    defaultValue: '北京市朝阳区',
+  },
+  {
+    title: '区域名称较长测试',
+    options: ['朝阳区', '海淀中关村科技园区', '西城金融街道办事处', '东城区东直门街道'],
+    defaultValue: '朝阳区',
+  },
+];
+
 const propConfigs = [
   { name: 'title', type: 'string', defaultValue: '选择器弹窗', category: 'content' },
   { name: 'cancelable', type: 'boolean', defaultValue: true, category: 'state' },
@@ -49,6 +75,8 @@ const propConfigs = [
       { label: '两列（时分）', value: twoColumns },
       { label: '三列（年月日）', value: threeColumns },
       { label: '四列（年月日时）', value: fourColumns },
+      { label: '长文本单列', value: longTextOneColumn },
+      { label: '长文本两列', value: longTextTwoColumns },
     ],
   },
 ];
