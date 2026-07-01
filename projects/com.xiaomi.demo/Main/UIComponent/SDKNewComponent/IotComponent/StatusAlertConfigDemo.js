@@ -1,223 +1,176 @@
 'use strict';
 
-import React, { useCallback, useContext, useMemo, useState } from 'react';
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { StatusAlert, showToast } from 'miot/ui/hyperOSUI';
-import { ConfigContext } from 'mhui-rn/dist/components/configProvider';
+import React from 'react';
+import { Text, View } from 'react-native';
+import { StatusAlert, colorToken, showToast } from 'miot/ui/hyperOSUI';
+import TestComponent from '../testComponent';
+import { dynamicStyleSheet } from 'miot/ui/Style';
 
-const ICON_TYPES = ['warning', 'fault', 'consumable', 'offline', 'reminder', 'custom'];
-const ACTION_TYPES = ['none', 'navigate', 'button', 'buttonGroup', 'custom'];
-const PRESENTATIONS = ['page', 'modal'];
+const customActionNode = (
+  <Text allowFontScaling={false} style={{ fontSize: 12, color: colorToken.accentBluePrimary }}>自定义操作</Text>
+);
+const customIconNode = (
+  <Text allowFontScaling={false} style={{ fontSize: 20 }}>🔔</Text>
+);
 
-const MODE_OPTIONS = [
-  { label: '单条', value: 'single' },
-  { label: '堆叠-2条', value: 'stack2' },
-  { label: '堆叠-3条', value: 'stack3' },
-  { label: '堆叠-4条', value: 'stack4' },
-];
+const onNavigatePress = () => showToast('item pressed');
+const onNavigationPress = () => showToast('navigation arrow pressed');
+const onStackPress = () => showToast('stack pressed');
 
-const StatusAlertConfigDemo = () => {
-  const { colorToken } = useContext(ConfigContext);
-
-  const customActionNode = (
-    <Text style={{ fontSize: 12, color: colorToken.accentBluePrimary }}>自定义操作</Text>
-  );
-  const customIconNode = (
-    <Text style={{ fontSize: 20 }}>🔔</Text>
-  );
-
-  const [mode, setMode] = useState('single');
-  const [title, setTitle] = useState('这是一条状态提示');
-  const [overline, setOverline] = useState('');
-  const [subtitle, setSubtitle] = useState('');
-  const [warning, setWarning] = useState(false);
-  const [leadingIconType, setLeadingIconType] = useState('reminder');
-  const [actionType, setActionType] = useState('none');
-  const [trailingNavigate, setTrailingNavigate] = useState(false);
-  const [presentation, setPresentation] = useState('page');
-  const [stackTitle, setStackTitle] = useState('状态提示');
-
-  const buildSingleAlert = useCallback(() => {
-    const item = {
-      title,
-      actionType,
-      warning,
-      presentation,
-      trailingNavigate,
-      onPress: actionType === 'navigate' ? () => showToast('navigate pressed') : undefined,
-    };
-    if (leadingIconType === 'custom') {
-      item.leadingIconType = 'custom';
-      item.leadingIcon = customIconNode;
-    } else {
-      item.leadingIconType = leadingIconType;
-    }
-    if (overline) item.overline = overline;
-    if (subtitle) item.subtitle = subtitle;
-    if (actionType === 'button') {
-      item.buttons = [{ text: '操作', onPress: () => showToast('按钮点击') }];
-    }
-    if (actionType === 'buttonGroup') {
-      item.buttons = [
-        { text: '忽略', onPress: () => showToast('忽略') },
-        { text: '重试', onPress: () => showToast('重试') },
-      ];
-    }
-    if (actionType === 'custom') {
-      item.customAction = customActionNode;
-    }
-    return item;
-  }, [title, overline, subtitle, warning, leadingIconType, actionType, trailingNavigate, presentation]);
-
-  const alerts = useMemo(() => {
-    const first = buildSingleAlert();
-    if (mode === 'single') return [first];
-    if (mode === 'stack2') {
-      return [first, { title: '提示信息 2', leadingIconType: 'fault', warning: true }];
-    }
-    if (mode === 'stack3') {
-      return [
-        first,
-        { title: '提示信息 2', leadingIconType: 'fault', warning: true },
-        { title: '提示信息 3', leadingIconType: 'consumable' },
-      ];
-    }
-    return [
-      first,
-      { title: '提示信息 2', leadingIconType: 'fault', warning: true },
-      { title: '提示信息 3', leadingIconType: 'consumable' },
-      { title: '提示信息 4', leadingIconType: 'offline' },
-    ];
-  }, [mode, buildSingleAlert]);
-
-  const renderChip = (label, selected, onPress, key) => (
-    <TouchableOpacity
-      key={key}
-      style={[styles.chip, { backgroundColor: selected ? colorToken.accentOsSubtle : colorToken.fillPrimary, borderWidth: selected ? 1 : 0, borderColor: selected ? colorToken.accentOsFill : 'transparent' }]}
-      onPress={onPress}
-    >
-      <Text style={[styles.chipText, { color: selected ? colorToken.accentOsContent : colorToken.contentTertiaryNormal }]}>{label}</Text>
-    </TouchableOpacity>
-  );
-
-  return (
-    <ScrollView style={[styles.container, { backgroundColor: colorToken.surfacePageLow }]}>
-      <View style={styles.preview}>
-        <StatusAlert
-          alerts={alerts}
-          stackTitle={mode !== 'single' ? stackTitle : undefined}
-          onPress={mode !== 'single' ? () => showToast('stack pressed') : undefined}
-        />
-      </View>
-
-      <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>模式</Text>
-        <View style={styles.chipRow}>
-          {MODE_OPTIONS.map((opt) => renderChip(opt.label, mode === opt.value, () => setMode(opt.value), opt.value))}
-        </View>
-      </View>
-
-      {mode !== 'single' && (
-        <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>stackTitle</Text>
-          <TextInput style={[styles.input, { borderColor: colorToken.dividerPrimary, color: colorToken.contentPrimaryNormal, backgroundColor: colorToken.fillPrimary }]} value={stackTitle} onChangeText={setStackTitle} placeholder="堆叠标题" placeholderTextColor={colorToken.contentQuaternaryNormal} />
-        </View>
-      )}
-
-      <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>title</Text>
-        <TextInput style={[styles.input, { borderColor: colorToken.dividerPrimary, color: colorToken.contentPrimaryNormal, backgroundColor: colorToken.fillPrimary }]} value={title} onChangeText={setTitle} placeholder="标题文案" placeholderTextColor={colorToken.contentQuaternaryNormal} />
-      </View>
-
-      <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>overline</Text>
-        <TextInput style={[styles.input, { borderColor: colorToken.dividerPrimary, color: colorToken.contentPrimaryNormal, backgroundColor: colorToken.fillPrimary }]} value={overline} onChangeText={setOverline} placeholder="不传则不显示" placeholderTextColor={colorToken.contentQuaternaryNormal} />
-      </View>
-
-      <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>subtitle</Text>
-        <TextInput style={[styles.input, { borderColor: colorToken.dividerPrimary, color: colorToken.contentPrimaryNormal, backgroundColor: colorToken.fillPrimary }]} value={subtitle} onChangeText={setSubtitle} placeholder="不传则不显示" placeholderTextColor={colorToken.contentQuaternaryNormal} />
-      </View>
-
-      <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>presentation</Text>
-        <View style={styles.chipRow}>
-          {PRESENTATIONS.map((p) => renderChip(p, presentation === p, () => setPresentation(p), p))}
-        </View>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>warning</Text>
-        <View style={styles.chipRow}>
-          {renderChip('true', warning === true, () => setWarning(true), 'w-true')}
-          {renderChip('false', warning === false, () => setWarning(false), 'w-false')}
-        </View>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>leadingIconType</Text>
-        <View style={styles.chipRow}>
-          {ICON_TYPES.map((t) => renderChip(t, leadingIconType === t, () => setLeadingIconType(t), t))}
-        </View>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>actionType</Text>
-        <View style={styles.chipRow}>
-          {ACTION_TYPES.map((t) => renderChip(t, actionType === t, () => setActionType(t), t))}
-        </View>
-      </View>
-
-      {actionType === 'button' && (
-        <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: colorToken.contentTertiaryNormal }]}>trailingNavigate</Text>
-          <View style={styles.chipRow}>
-            {renderChip('true', trailingNavigate === true, () => setTrailingNavigate(true), 'tn-true')}
-            {renderChip('false', trailingNavigate === false, () => setTrailingNavigate(false), 'tn-false')}
-          </View>
-        </View>
-      )}
-    </ScrollView>
-  );
+const alertDefault = {
+  title: '这是一条状态提示',
+  leadingIconType: 'reminder',
+  actionType: 'none',
+  warning: false,
+  presentation: 'page',
+  trailingNavigate: false,
+  onPress: undefined,
+  onNavigationPress: undefined,
 };
 
-const styles = StyleSheet.create({
+const alertWithOverline = {
+  ...alertDefault,
+  overline: '设备提醒',
+};
+
+const alertWithSubtitle = {
+  ...alertDefault,
+  subtitle: '这是一段辅助说明文案',
+};
+
+const alertWithButton = {
+  ...alertDefault,
+  actionType: 'button',
+  buttons: [{ text: '操作', onPress: () => showToast('按钮点击') }],
+};
+
+const alertWithNavigate = {
+  ...alertDefault,
+  actionType: 'navigate',
+  onPress: onNavigatePress,
+  onNavigationPress,
+};
+
+const alertWithButtonNavigate = {
+  ...alertWithButton,
+  trailingNavigate: true,
+  onPress: onNavigatePress,
+  onNavigationPress,
+};
+
+const alertWithButtonGroup = {
+  ...alertDefault,
+  actionType: 'buttonGroup',
+  buttons: [
+    { text: '忽略', onPress: () => showToast('忽略') },
+    { text: '重试', onPress: () => showToast('重试') },
+  ],
+};
+
+const alertWithCustomAction = {
+  ...alertDefault,
+  actionType: 'custom',
+  customAction: customActionNode,
+};
+
+const alertWithCustomIcon = {
+  ...alertDefault,
+  leadingIconType: 'custom',
+  leadingIcon: customIconNode,
+};
+
+const alertsStack2 = [
+  alertDefault,
+  { title: '提示信息 2', leadingIconType: 'fault', warning: true },
+];
+
+const alertsStack3 = [
+  ...alertsStack2,
+  { title: '提示信息 3', leadingIconType: 'consumable' },
+];
+
+const alertsStack4 = [
+  ...alertsStack3,
+  { title: '提示信息 4', leadingIconType: 'offline' },
+];
+
+const StatusAlertAdapter = ({ alerts, stackTitle, onPress, onNavigationPress }) => (
+  <StatusAlert
+    alerts={alerts}
+    stackTitle={alerts?.length > 1 ? stackTitle : undefined}
+    onPress={alerts?.length > 1 ? onPress : undefined}
+    onNavigationPress={alerts?.length > 1 ? onNavigationPress : undefined}
+  />
+);
+
+const propConfigs = [
+  {
+    name: 'alerts',
+    type: 'object',
+    category: 'content',
+    defaultValue: [alertDefault],
+    objectProps: [
+      { name: '0.title', type: 'string', defaultValue: alertDefault.title },
+      { name: '0.overline', type: 'string', defaultValue: undefined },
+      { name: '0.subtitle', type: 'string', defaultValue: undefined },
+      { name: '0.presentation', type: 'enum', enumOptions: ['page', 'modal'], defaultValue: 'page' },
+      { name: '0.warning', type: 'boolean', defaultValue: false },
+      { name: '0.leadingIconType', type: 'enum', enumOptions: ['warning', 'fault', 'consumable', 'offline', 'reminder', 'custom'], defaultValue: 'reminder' },
+      { name: '0.leadingIcon', type: 'pass', defaultValue: undefined, passOptions: [{ label: 'custom icon', value: customIconNode }] },
+      { name: '0.actionType', type: 'enum', enumOptions: ['none', 'navigate', 'button', 'buttonGroup', 'custom'], defaultValue: 'none' },
+      { name: '0.buttons', type: 'pass', defaultValue: undefined, passOptions: [{ label: '单按钮', value: alertWithButton.buttons }, { label: '按钮组', value: alertWithButtonGroup.buttons }] },
+      { name: '0.customAction', type: 'pass', defaultValue: undefined, passOptions: [{ label: 'custom action', value: customActionNode }] },
+      { name: '0.trailingNavigate', type: 'boolean', defaultValue: false },
+      { name: '0.onPress', type: 'pass', defaultValue: undefined, passOptions: [{ label: 'item press', value: onNavigatePress }] },
+      { name: '0.onNavigationPress', type: 'pass', defaultValue: undefined, passOptions: [{ label: 'navigation arrow press', value: onNavigationPress }] },
+    ],
+    passOptions: [
+      { label: '单条', value: [alertDefault] },
+      { label: '带overline', value: [alertWithOverline] },
+      { label: '带subtitle', value: [alertWithSubtitle] },
+      { label: '导航箭头', value: [alertWithNavigate] },
+      { label: '按钮', value: [alertWithButton] },
+      { label: '按钮+导航箭头', value: [alertWithButtonNavigate] },
+      { label: '按钮组', value: [alertWithButtonGroup] },
+      { label: '自定义操作', value: [alertWithCustomAction] },
+      { label: '自定义图标', value: [alertWithCustomIcon] },
+      { label: '堆叠-2条', value: alertsStack2 },
+      { label: '堆叠-3条', value: alertsStack3 },
+      { label: '堆叠-4条', value: alertsStack4 },
+    ],
+  },
+  {
+    name: 'stackTitle',
+    type: 'string',
+    category: 'content',
+    defaultValue: '状态提示',
+  },
+  {
+    name: 'onPress',
+    type: 'pass',
+    category: 'interaction',
+    defaultValue: undefined,
+    passOptions: [{ label: 'stack press', value: onStackPress }],
+  },
+  {
+    name: 'onNavigationPress',
+    type: 'pass',
+    category: 'interaction',
+    defaultValue: undefined,
+    passOptions: [{ label: 'stack navigation arrow press', value: onNavigationPress }],
+  },
+];
+
+const StatusAlertConfigDemo = () => (
+  <View style={styles.container}>
+    <TestComponent component={StatusAlertAdapter} propConfigs={propConfigs} showPreviewBg={false} />
+  </View>
+);
+
+const styles = dynamicStyleSheet({
   container: {
     flex: 1,
-  },
-  preview: {
-    paddingHorizontal: 12,
-    paddingVertical: 16,
-  },
-  section: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-  },
-  sectionTitle: {
-    fontSize: 12,
-    marginBottom: 6,
-  },
-  chipRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginHorizontal: -4,
-  },
-  chip: {
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderRadius: 8,
-    marginHorizontal: 4,
-    marginVertical: 4,
-  },
-  chipText: {
-    fontSize: 13,
-  },
-  input: {
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    fontSize: 13,
+    backgroundColor: colorToken.surfacePageLow,
   },
 });
 

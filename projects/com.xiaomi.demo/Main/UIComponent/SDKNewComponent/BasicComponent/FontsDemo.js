@@ -30,16 +30,16 @@ const NUMERIC_FONTS = [
 
 const FontItem = ({ name }) => (
   <View style={styles.item}>
-    <Text style={[Fonts[name], styles.sample]}>{name.replace('fontSystem', '').replace('fontNumber', '')}</Text>
+    <Text allowFontScaling={false} style={[Fonts[name], styles.sample]}>中文示例 {name.replace('fontSystem', '').replace('fontNumber', '')}</Text>
     <View style={styles.tokenChip}>
-      <Text style={styles.tokenName}>{name}</Text>
+      <Text allowFontScaling={false} style={styles.tokenName}>{name}</Text>
     </View>
   </View>
 );
 
 const FontsDemo = () => (
   <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
-    <Text style={styles.heading}>systemFont</Text>
+    <Text allowFontScaling={false} style={styles.heading}>systemFont</Text>
     <View style={styles.list}>
       {SYSTEM_FONTS.map((name, index) => (
         <View key={name} style={[styles.itemWrapper, index > 0 && styles.itemBorder]}>
@@ -48,7 +48,7 @@ const FontsDemo = () => (
       ))}
     </View>
 
-    <Text style={styles.heading}>customNumericFont</Text>
+    <Text allowFontScaling={false} style={styles.heading}>customNumericFont</Text>
     <View style={styles.list}>
       {NUMERIC_FONTS.map((name, index) => (
         <View key={name} style={[styles.itemWrapper, index > 0 && styles.itemBorder]}>

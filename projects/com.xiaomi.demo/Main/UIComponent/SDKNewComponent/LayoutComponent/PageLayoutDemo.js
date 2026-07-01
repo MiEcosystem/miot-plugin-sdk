@@ -11,6 +11,7 @@ import { Circle } from 'miot/ui/icons';
 import { BrandProduced } from 'miot/ui/brandProduced';
 
 const noop = () => {};
+const onStatusAlertNavigationPress = () => {};
 
 const PageLayoutDemo = ({ navigation }) => {
   const { scrollHandler, titleVisible, titleOpacity, LargeTitle } = useCollapsibleTitle({ title: '智能空调智能空调智能空调智能空调智能空调智能空调智能空调智能空调智能空调智能空调智能空调智能空调智能空调智能空调智能空调智能空调智能空调智能空调智能空调智能空调智能空调智能空调智能空调' });
@@ -39,8 +40,13 @@ const PageLayoutDemo = ({ navigation }) => {
       </PageLayout.Header>
 
       <PageLayout.AlertContainer>
-        <StatusAlert alerts={[{ title: '固件版本 2.5.1 可用，建议升级', leadingIconType: 'reminder', actionType: 'navigate', onPress: noop }]} />
-        <StatusAlert alerts={[{ title: '滤芯寿命不足，请及时更换', leadingIconType: 'consumable', warning: true, actionType: 'button', buttons: [{ text: '查看', onPress: noop }] }]} />
+        <StatusAlert
+          stackTitle="共2条异常提示"
+          alerts={[
+            { title: '固件版本 2.5.1 可用，建议升级', leadingIconType: 'reminder', actionType: 'navigate', onPress: noop, onNavigationPress: onStatusAlertNavigationPress },
+            { title: '滤芯寿命不足，请及时更换', leadingIconType: 'consumable', warning: true, actionType: 'button', buttons: [{ text: '查看', onPress: noop }] },
+          ]}
+        />
       </PageLayout.AlertContainer>
 
       <PageLayout.Content>
