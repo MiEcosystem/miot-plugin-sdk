@@ -10,6 +10,7 @@ import { strings as I18n } from 'miot/resources';
 import { getLocalI18n } from '../SwitchIfttt/utils';
 import { View } from 'react-native';
 import useDeviceRoomInfo from '../../hooks/useDeviceRoomInfo';
+import useCurrentSelectHomeInfo from '../../hooks/useCurrentSelectHomeInfo';
 import { IftttTemplateUtils } from './utils';
 /**
  * 自动化推荐模板
@@ -28,7 +29,7 @@ const SmartScene = (props) => {
     hasShadow = false,
     disabled = false,
     trackParams = {
-      card_id: 10205, item_type: 'button', item_name: 'button_automation'
+      card_id: 10205, item_type: 'button', item_name: 'button_automation',
     },
     isWearStyle = false,
     device_type,
@@ -42,9 +43,11 @@ const SmartScene = (props) => {
     hasData = true,
   } = props || {};
   
-  // console.log("SmartScene", props.titleIcon);
   const templateInfo = useDeviceIftttTemplateInfo(device_type);
-  const { permitLevel } = useDeviceRoomInfo();
+  const roomInfo = useDeviceRoomInfo() || {};
+  const homeInfo = useCurrentSelectHomeInfo() || {};
+  // 车等个人设备常不挂房间，房间级 permitLevel 取不到(为0/undefined)，优先使用家庭级权限
+  const permitLevel = (homeInfo.permitLevel != null ? homeInfo.permitLevel : roomInfo.permitLevel);
   const [isHomeManager, setIsHomeManager] = useState(false);
   const [isHomeOwner, setIsHomeOwner] = useState(false);
   const [serverCode, setServerCode] = useState('');
@@ -62,7 +65,7 @@ const SmartScene = (props) => {
   useEffect(() => {
     if (shouldShow) {
       IftttTemplateUtils.report('expose', {
-        ...trackParams
+        ...trackParams,
       });
     }
   }, [shouldShow]);
@@ -74,7 +77,7 @@ const SmartScene = (props) => {
       <IftttSmartSceneAdapter
         templateInfo={templateInfo || []}
         serverCode={serverCode}
-        disabled={disabled || !(isOwner || isHomeManager)}
+        disabled={disabled || !(isOwner || isHomeManager || isHomeOwner)}
         isWearStyle={isWearStyle}
         trackParams={trackParams}
         titleIcon={titleIcon}
@@ -102,15 +105,15 @@ const SmartScene = (props) => {
               underlayColor={"transparent"}
               onPress={() => {
                 IftttTemplateUtils.report('click', {
-                  ...trackParams
+                  ...trackParams,
                 });
                 Service.scene.openIftttAutoPage();
               }}
-              disabled={disabled || !(isOwner || isHomeManager)}
+              disabled={disabled || !(isOwner || isHomeManager || isHomeOwner)}
               hasShadow={false}
             />)}
         {(templateInfo?.length === 2 && serverCode === 'cn') && <IftttContainer
-          disabled={disabled || !(isOwner || isHomeManager)}
+          disabled={disabled || !(isOwner || isHomeManager || isHomeOwner)}
           trackParams={trackParams}
           templateInfo={templateInfo}
           hasShadow={hasShadow}
@@ -125,19 +128,19 @@ const LayoutView = (
     isWearStyle = false,
     wrapContainerStyle = {},
     separatorStyle = {},
-    children
+    children,
   }) => {
   if (withCard) {
     return (
       <ContainerWithShadowAndSeparator
         separatorStyle={{
           backgroundColor: dynamicColor('rgba(0, 0, 0, 0.15)', 'rgba(255, 255, 255, 0.15)'),
-          ...separatorStyle
+          ...separatorStyle,
         }}
         containerStyle={{
           backgroundColor: dynamicColor('#fff', '#242424'),
           borderRadius: isWearStyle ? 24 : 12,
-          ...wrapContainerStyle
+          ...wrapContainerStyle,
         }}
       >
         {children}
@@ -154,6 +157,6 @@ SmartScene.propTypes = {
   withTitleBar: PropTypes.bool,
   wrapContainerStyle: PropTypes.object,
   separatorStyle: PropTypes.object,
-  isOldUx: PropTypes.bool
+  isOldUx: PropTypes.bool,
 };
 export default SmartScene;

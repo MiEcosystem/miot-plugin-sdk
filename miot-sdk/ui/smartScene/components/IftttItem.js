@@ -10,7 +10,7 @@ import Images, { getImage } from "../images";
 import { IftttTemplateUtils } from '../utils';
 const {
   isMiui,
-  isHyperOs
+  isHyperOs,
 } = NativeModules?.MIOTHost?.systemInfo || {}; // 红米手机 isMiui = true
 const isMiPhone = isMiui || isHyperOs;
 const Styles = dynamicStyleSheet({
@@ -19,33 +19,33 @@ const Styles = dynamicStyleSheet({
     paddingHorizontal: adjustSize(42),
     paddingTop: adjustSize(42),
     flexDirection: 'column',
-    backgroundColor: new DynamicColor('rgba(0, 0, 0, 0.04)', 'rgba(255, 255, 255, 0.14)')
+    backgroundColor: new DynamicColor('rgba(0, 0, 0, 0.04)', 'rgba(255, 255, 255, 0.14)'),
   },
   content: {
     flexDirection: 'column',
     justifyContent: 'center',
-    flex: 1
+    flex: 1,
   },
   iconContainer: {
     marginBottom: adjustSize(24),
     minHeight: adjustSize(108),
     flexDirection: 'row',
     alignItems: 'center',
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   arrowIcon: {
     width: 20,
     height: 20,
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
   sceneIcon: {
     width: 36,
     height: 36,
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
   titleContainer: {
     flexDirection: 'column',
-    marginBottom: 14
+    marginBottom: 14,
   },
   title: {
     fontSize: Host.locale.language.includes('zh') ? 15 : 14,
@@ -53,22 +53,22 @@ const Styles = dynamicStyleSheet({
     lineHeight: 20,
     marginBottom: adjustSize(12),
     fontFamily: isMiPhone ? 'sans-serif-medium' : 'sans-serif',
-    fontWeight: '500'
+    fontWeight: '500',
   },
   subtitle: {
     fontSize: Host.locale.language.includes('zh') ? 12 : 11,
     color: new DynamicColor('rgba(0, 0, 0, 0.6)', 'rgba(255, 255, 255, 0.50)'),
     lineHeight: 16,
     fontFamily: 'sans-serif',
-    fontWeight: '400'
+    fontWeight: '400',
   },
   subtitleSubscript: {
     fontSize: Host.locale.language.includes('zh') ? 12 : 11,
     color: new DynamicColor('rgba(0, 0, 0, 0.6)', 'rgba(255, 255, 255, 0.50)'),
     lineHeight: 16,
     fontFamily: isMiPhone ? 'sans-serif-medium' : 'sans-serif',
-    fontWeight: '500'
-  }
+    fontWeight: '500',
+  },
 });
 const IftttItem = (
   {
@@ -91,14 +91,14 @@ const IftttItem = (
     accessibilityLabel,
     accessibilityHint,
     lines,
-    setLines
+    setLines,
   }) => {
   const opacity = disabled ? 0.3 : 1;
   const formatThemeBackgroundColor = themeBackgroundColor;
   const containerStyleMixed = [Styles.container, containerStyle, formatThemeBackgroundColor ? {
-    backgroundColor: formatThemeBackgroundColor
+    backgroundColor: formatThemeBackgroundColor,
   } : null, hasBorderRadius ? null : {
-    borderRadius: 0
+    borderRadius: 0,
   }];
   useEffect(() => {
     IftttTemplateUtils.report('expose', trackParams);
@@ -111,8 +111,8 @@ const IftttItem = (
   const onAccessibilityAction = (
     {
       nativeEvent: {
-        actionName
-      }
+        actionName,
+      },
     }) => {
     if (disabled || !onPress || actionName !== 'activate') {
       return;
@@ -122,7 +122,6 @@ const IftttItem = (
   const handleTextLayout = (e) => {
     // e.nativeEvent.lines 是一个数组，包含每行的信息
     const numberOfLines = e.nativeEvent.lines.length;
-    console.log("numberOfLines:", numberOfLines);
     if (numberOfLines === 2) {
       setLines(2);
     }
@@ -134,20 +133,20 @@ const IftttItem = (
       accessibilityLabel: accessibilityLabel,
       accessibilityHint: accessibilityHint,
       accessibilityState: {
-        disabled
-      }
+        disabled,
+      },
     })} accessibilityActions={[{
-      name: 'activate'
+      name: 'activate',
     }]} onAccessibilityAction={onAccessibilityAction} activeOpacity={0.8}>
       {<View style={Styles.titleContainer}>
         {title ? <Text
           onTextLayout={handleTextLayout}
           style={[Styles.title, {
-            opacity
+            opacity,
           }, titleStyle, { minHeight: 20 * lines }]} numberOfLines={2}>{title}
         </Text> : null}
         {subtitle ? <Text style={[Styles.subtitle, {
-          opacity
+          opacity,
         }, subtitleStyle]} numberOfLines={1}>{subtitle}
           {subtitleSubscript ? <Text style={[Styles.subtitle, subtitleSubscriptStyle]}>
             {subtitleSubscript}
@@ -155,7 +154,7 @@ const IftttItem = (
         </Text> : null}
       </View>}
       <View style={{
-        flex: 1
+        flex: 1,
       }}></View>
       <View style={[Styles.iconContainer, iconContainerStyle, { opacity }]}>
         {
@@ -201,6 +200,6 @@ IftttItem.propTypes = {
   accessibilityLabel: PropTypes.any,
   accessibilityHint: PropTypes.any,
   lines: PropTypes.any,
-  setLines: PropTypes.func
+  setLines: PropTypes.func,
 };
 export default IftttItem;

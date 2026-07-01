@@ -5,40 +5,17 @@ import { Device, Package, Service } from "../../index";
  */
 export class IftttTemplateUtils {
   /**
-   * 判断当前app版本是否大于某个版本
-   * @param version
-   * @return boolean
-   */
-  static isAppVersionGreaterThan(version) {
-    if (!version) {
-      return false;
-    }
-    return Host.version > version;
-  }
-  /**
    * 获取当前选择的家信息
    * @returns {Promise<unknown> | Promise.Promise}
    */
   static getCurrentSelectHomeInfo() {
     return new Promise((resolve, reject) => {
-      console.log('Host.version-', Host.version);
-      if (IftttTemplateUtils.isAppVersionGreaterThan('11.0.000')) {
-        console.log('getCurrentSelectHomeInfo-isAppVersionGreaterThan');
-        Device.getCurrentSelectHomeInfo().then(({ data }) => {
-          console.log('getCurrentSelectHomeInfo', data);
-          resolve(data);
-        }).catch((e) => {
-          reject(e);
-        });
-      } else {
-        Device.getRoomInfoForCurrentHome(Device.deviceID).then(({ data }) => {
-          console.log('getRoomInfoForCurrentHome', data);
-          resolve(data);
-        }).catch((e) => {
-          console.log('getRoomInfoForCurrentHome--e', e);
-          reject(e);
-        });
-      }
+      // 本需求随 11.7 版本发布，APP 版本一定满足，直接走 getCurrentSelectHomeInfo
+      Device.getCurrentSelectHomeInfo().then(({ data }) => {
+        resolve(data);
+      }).catch((e) => {
+        reject(e);
+      });
     });
   }
   /**
