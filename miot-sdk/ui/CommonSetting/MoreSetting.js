@@ -14,6 +14,8 @@ import { referenceReport } from '../../decorator/ReportDecorator';
 import { MessageDialog } from "../Dialog";
 import I18n from '../../resources/Strings';
 import tryTrackCommonSetting from "../../utils/track-sdk";
+import { isCellularDeviceCached } from './cellular-device-check';
+import MobileNetworkService from './MobileNetworkService';
 /**
  * 分享设备的设置项
  * 0: 不显示

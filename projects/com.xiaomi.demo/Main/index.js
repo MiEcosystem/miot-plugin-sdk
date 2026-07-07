@@ -720,11 +720,11 @@ function createRootStack(initPage) {
               titleVisible={params.titleVisible}
               titleOpacity={params.titleOpacity}
               left={params.left || {
-                  key: NavigationBar.ICON.BACK,
-                  onPress: () => navigation.goBack(),
-                  accessibilityLabel: "返回",
-                  accessibilityHint: "返回上一页",
-                }
+                key: NavigationBar.ICON.BACK,
+                onPress: () => navigation.goBack(),
+                accessibilityLabel: "返回",
+                accessibilityHint: "返回上一页",
+              }
               }
               showBrandLogo
               right={Array.isArray(params.right) ? params.right[0] : params.right}

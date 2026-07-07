@@ -66,7 +66,7 @@ const DrawerDemo = () => {
         onClose={() => setVisible(false)}
         onLeftPress={() => setVisible(false)}
       >
-        <ScrollView style={styles.drawerContent} contentContainerStyle={{ paddingBottom: 40 }}>
+        <ScrollView style={styles.drawerContent}>
           {Array.from({ length: 10 }, (_, i) => (
             <View key={i} style={styles.contentItem}>
               <Text style={styles.contentText}>列表项 {i + 1}</Text>
