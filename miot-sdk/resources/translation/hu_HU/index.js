@@ -433,5 +433,6 @@ export default {
   "scene_active_done": "Be",
   "scene_can_turnOn": "Elérhető",
   "scene_active_people": "Felhasználók száma: ${}",
-  "scene_upgrade_subtitle": "Bonyolultabb feladatok elvégzése több készülék csatlakoztatásával"
+  "scene_upgrade_subtitle": "Bonyolultabb feladatok elvégzése több készülék csatlakoztatásával",
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };

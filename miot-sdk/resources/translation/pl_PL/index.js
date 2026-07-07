@@ -433,5 +433,6 @@ export default {
   "scene_active_done": "Wł.",
   "scene_can_turnOn": "Dostępna",
   "scene_active_people": "Liczba użytkowników: ${}",
-  "scene_upgrade_subtitle": "Podłącz wiele urządzeń, by wykonywać bardziej zaawansowane zadania"
+  "scene_upgrade_subtitle": "Podłącz wiele urządzeń, by wykonywać bardziej zaawansowane zadania",
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };

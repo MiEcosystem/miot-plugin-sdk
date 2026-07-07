@@ -433,5 +433,6 @@ export default {
   "scene_active_done": "Ingeschakeld",
   "scene_can_turnOn": "Beschikbaar",
   "scene_active_people": "Aantal gebruikers: ${}",
-  "scene_upgrade_subtitle": "Voer geavanceerdere taken uit door meerdere apparaten te verbinden"
+  "scene_upgrade_subtitle": "Voer geavanceerdere taken uit door meerdere apparaten te verbinden",
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };

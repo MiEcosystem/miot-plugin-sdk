@@ -433,5 +433,6 @@ export default {
   "scene_active_done": "Увімкнено",
   "scene_can_turnOn": "Доступно",
   "scene_active_people": "Кількість користувачів: ${}",
-  "scene_upgrade_subtitle": "Виконуйте більш складні завдання, підключивши кілька пристроїв"
+  "scene_upgrade_subtitle": "Виконуйте більш складні завдання, підключивши кілька пристроїв",
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };

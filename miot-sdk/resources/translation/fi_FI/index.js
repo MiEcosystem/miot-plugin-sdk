@@ -433,5 +433,6 @@ export default {
   scene_active_done: 'Päällä',
   scene_can_turnOn: 'Saatavilla',
   scene_active_people: 'Käyttäjien määrä: ${}',
-  "scene_upgrade_subtitle": "Suorita kehittyneempiä tehtäviä yhdistämällä useita laitteita"
+  "scene_upgrade_subtitle": "Suorita kehittyneempiä tehtäviä yhdistämällä useita laitteita",
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };

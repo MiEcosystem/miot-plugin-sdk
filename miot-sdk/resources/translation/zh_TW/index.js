@@ -433,5 +433,6 @@ export default {
   "scene_active_done": "已開啟",
   "scene_can_turnOn": "可開啟",
   "scene_active_people": "${}人已使用",
-  "scene_upgrade_subtitle": "體驗更多裝置聯動場景"
+  "scene_upgrade_subtitle": "體驗更多裝置聯動場景",
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };

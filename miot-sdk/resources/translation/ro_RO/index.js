@@ -433,5 +433,6 @@ export default {
   "scene_active_done": "Pornit",
   "scene_can_turnOn": "Disponibil",
   "scene_active_people": "Numărul de utilizatori: ${}",
-  "scene_upgrade_subtitle": "Efectuați mai multe sarcini complicate conectând mai multe dispozitive"
+  "scene_upgrade_subtitle": "Efectuați mai multe sarcini complicate conectând mai multe dispozitive",
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };

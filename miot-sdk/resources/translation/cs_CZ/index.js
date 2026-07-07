@@ -433,5 +433,6 @@ export default {
   scene_active_done: 'Zapnuto',
   scene_can_turnOn: 'Dostupné',
   scene_active_people: 'Počet uživatelů: ${}',
-  "scene_upgrade_subtitle": "Dokončete sofistikovanější úkoly připojením více zařízení"
+  "scene_upgrade_subtitle": "Dokončete sofistikovanější úkoly připojením více zařízení",
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };

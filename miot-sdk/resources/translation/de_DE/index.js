@@ -433,5 +433,6 @@ export default {
   scene_active_done: 'An',
   scene_can_turnOn: 'Verfügbar',
   scene_active_people: 'Anzahl der Benutzer: ${}',
-  "scene_upgrade_subtitle": "Erledige anspruchsvollere Aufgaben, indem du mehrere Geräte verbindest"
+  "scene_upgrade_subtitle": "Erledige anspruchsvollere Aufgaben, indem du mehrere Geräte verbindest",
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };

@@ -433,5 +433,6 @@ export default {
   "scene_active_done": "På",
   "scene_can_turnOn": "Tilgjengelig",
   "scene_active_people": "Antall brukere: ${}",
-  "scene_upgrade_subtitle": "Utfør mer sofistikerte oppgaver ved å koble til flere enheter"
+  "scene_upgrade_subtitle": "Utfør mer sofistikerte oppgaver ved å koble til flere enheter",
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };

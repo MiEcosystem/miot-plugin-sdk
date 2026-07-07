@@ -433,5 +433,6 @@ export default {
   "scene_active_done": "Açık",
   "scene_can_turnOn": "Kullanılabilir",
   "scene_active_people": "Kullanıcı sayısı: ${}",
-  "scene_upgrade_subtitle": "Birden fazla cihazı bağlayarak daha sofistike görevleri tamamla"
+  "scene_upgrade_subtitle": "Birden fazla cihazı bağlayarak daha sofistike görevleri tamamla",
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };

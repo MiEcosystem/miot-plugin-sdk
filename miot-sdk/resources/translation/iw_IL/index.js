@@ -433,5 +433,6 @@ export default {
   'scene_active_done': 'פעיל',
   'scene_can_turnOn': 'זמין',
   'scene_active_people': 'מספר משתמשים: ${}',
-  'scene_upgrade_subtitle': 'השלמת משימות מתוחכמות יותר על-ידי חיבור מכשירים מרובים'
+  'scene_upgrade_subtitle': 'השלמת משימות מתוחכמות יותר על-ידי חיבור מכשירים מרובים',
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };

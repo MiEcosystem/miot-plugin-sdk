@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView, TouchableOpacity, View, Text } from 'react-native';
 import Logger from '../Logger';
-import { Device, DeviceEvent, Host, Service } from 'miot';
+import { DarkMode, Device, DeviceEvent, Host, Service } from 'miot';
 import { NewGBTipsView } from 'miot/ui';
 
 export default class NewGBControlDemo extends React.Component {
@@ -12,7 +12,8 @@ export default class NewGBControlDemo extends React.Component {
   }
 
   state = {
-    isOpenNewGBBtn: false
+    isOpenNewGBBtn: false,
+    isPluginOwnDarkMode: DarkMode.darkModeStore.setDarkMode
   };
 
   componentDidMount() {
@@ -74,6 +75,18 @@ export default class NewGBControlDemo extends React.Component {
     });
   };
 
+  _openInvertDarkMode = () => {
+    DarkMode.closePluginOwnDarkMode();
+    this.setState({ isPluginOwnDarkMode: DarkMode.darkModeStore.setDarkMode });
+    console.log('已开启 miot-sdk 反色模式：', !DarkMode.darkModeStore.setDarkMode);
+  };
+
+  _closeInvertDarkMode = () => {
+    DarkMode.preparePluginOwnDarkMode();
+    this.setState({ isPluginOwnDarkMode: DarkMode.darkModeStore.setDarkMode });
+    console.log('已关闭 miot-sdk 反色模式，插件自行适配深色模式：', DarkMode.darkModeStore.setDarkMode);
+  };
+
   render() {
     const visible = Device.isNewGBDevice && !this.state.isOpenNewGBBtn;
     return (
@@ -88,6 +101,15 @@ export default class NewGBControlDemo extends React.Component {
           <TouchableOpacity style={styles.button} onPress={this._doOneSetProp}>
             <Text style={styles.buttonText}>某个set设置属性按钮</Text>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={this._openInvertDarkMode}>
+            <Text style={styles.buttonText}>开启反色模式</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={this._closeInvertDarkMode}>
+            <Text style={styles.buttonText}>关闭反色模式</Text>
+          </TouchableOpacity>
+          <Text style={styles.darkModeText}>
+            当前反色模式：{this.state.isPluginOwnDarkMode ? '关闭（插件自行适配）' : '开启（SDK反色）'}
+          </Text>
           <View style={styles.newGBView}>
             <Text style={styles.buttonText}>是否提示新国标未开启tips？ {visible ? '是' : '否'}</Text>
             {visible ? <NewGBTipsView /> : null}
@@ -132,5 +154,11 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#555',
     fontSize: 18
+  },
+  darkModeText: {
+    color: '#FFF',
+    fontSize: 16,
+    marginTop: 12,
+    alignSelf: 'center'
   }
 });

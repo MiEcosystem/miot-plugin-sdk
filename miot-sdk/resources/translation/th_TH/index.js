@@ -433,5 +433,6 @@ export default {
   "scene_active_done": "เปิด",
   "scene_can_turnOn": "พร้อมใช้งาน",
   "scene_active_people": "จำนวนผู้ใช้: ${}",
-  "scene_upgrade_subtitle": "ทำงานที่ซับซ้อนได้มากขึ้นโดยการเชื่อมต่อหลายอุปกรณ์"
+  "scene_upgrade_subtitle": "ทำงานที่ซับซ้อนได้มากขึ้นโดยการเชื่อมต่อหลายอุปกรณ์",
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };

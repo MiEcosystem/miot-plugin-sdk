@@ -433,5 +433,6 @@ export default {
   scene_active_done: 'Ενεργό',
   scene_can_turnOn: 'Διαθέσιμη',
   scene_active_people: 'Αριθμός χρηστών: ${}',
-  "scene_upgrade_subtitle": "Ολοκληρώστε πιο περίπλοκες εργασίες συνδέοντας πολλαπλές συσκευές"
+  "scene_upgrade_subtitle": "Ολοκληρώστε πιο περίπλοκες εργασίες συνδέοντας πολλαπλές συσκευές",
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };

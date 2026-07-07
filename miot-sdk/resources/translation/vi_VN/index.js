@@ -433,5 +433,6 @@ export default {
   "scene_active_done": "Bật",
   "scene_can_turnOn": "Khả dụng",
   "scene_active_people": "Số lượng người dùng: ${}",
-  "scene_upgrade_subtitle": "Hoàn thành các nhiệm vụ phức tạp hơn bằng cách kết nối nhiều thiết bị"
+  "scene_upgrade_subtitle": "Hoàn thành các nhiệm vụ phức tạp hơn bằng cách kết nối nhiều thiết bị",
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };

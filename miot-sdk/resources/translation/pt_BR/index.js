@@ -433,5 +433,6 @@ export default {
   "scene_active_done": "Ativada",
   "scene_can_turnOn": "Disponível",
   "scene_active_people": "Número de usuários: ${}",
-  "scene_upgrade_subtitle": "Cumpra tarefas mais sofisticadas conectando vários dispositivos"
+  "scene_upgrade_subtitle": "Cumpra tarefas mais sofisticadas conectando vários dispositivos",
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };

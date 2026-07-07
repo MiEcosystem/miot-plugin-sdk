@@ -433,5 +433,6 @@ export default {
   "scene_active_done": "켜짐",
   "scene_can_turnOn": "사용 가능",
   "scene_active_people": "사용자 수: ${}",
-  "scene_upgrade_subtitle": "여러 기기를 연결하여 더 정교한 작업을 완료하세요"
+  "scene_upgrade_subtitle": "여러 기기를 연결하여 더 정교한 작업을 완료하세요",
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };

@@ -4,11 +4,19 @@ import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import { DarkMode, Device, Host } from "miot";
 import { Images } from '../resources';
 import I18n from '../resources/Strings';
-import { FontMiSansWMedium } from '../utils/fonts';
-const COLORS = {
-  containerBg: '#ffffff',
-  underlay: '#ffffff',
-  text: '#000000',
+import { Fonts } from './hyperOSUI';
+// 深浅色两套色值：浅色模式与深色模式分别取用，避免依赖 SDK 自动反色
+const THEME_COLORS = {
+  light: {
+    containerBg: '#FFFFFF',
+    underlay: '#FFFFFF',
+    text: '#000000',
+  },
+  dark: {
+    containerBg: 'xm#242424',
+    underlay: 'xm#242424',
+    text: '#FFFFFF',
+  },
 };
 const DIMENS = {
   radius: 20,
@@ -26,11 +34,13 @@ export default function NewGBTipsView(props) {
   const rightArrow = Images.common.new_GB_right_arrow;
   const rightArrowDark = Images.common.new_GB_right_arrow_dark;
   const colorScheme = DarkMode.getColorScheme() || 'light';
+  // 与图片切换共用同一份 colorScheme，取出当前模式下的背景/高亮/文字色
+  const themeColors = THEME_COLORS[colorScheme] || THEME_COLORS.light;
   return visible ? (
     <TouchableHighlight
-      style={styles.container}
+      style={[styles.container, { backgroundColor: themeColors.containerBg }]}
       onPress={onPress}
-      underlayColor={COLORS.underlay}
+      underlayColor={themeColors.underlay}
       activeOpacity={0.65}
     >
       <View style={styles.content}>
@@ -38,7 +48,7 @@ export default function NewGBTipsView(props) {
           <Image source={colorScheme === 'light' ? leftImageSource : leftImageSourceDark} style={styles.leftImage} />
         </View>
         <View style={styles.textWrapper}>
-          <Text style={styles.title} numberOfLines={3}>
+          <Text style={[styles.title, { color: themeColors.text }]} numberOfLines={3}>
             {I18n.newGB_remoteControl_disabled_tips}
           </Text>
         </View>
@@ -61,7 +71,6 @@ const styles = StyleSheet.create({
   container: {
     marginVertical: 12,
     alignSelf: 'stretch',
-    backgroundColor: COLORS.containerBg,
     borderRadius: DIMENS.radius,
     overflow: 'hidden',
   },
@@ -86,9 +95,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 16,
-    color: COLORS.text,
-    fontFamily: FontMiSansWMedium,
+    ...Fonts.fontSystem16Medium,
   },
   rightWrapper: {
     width: DIMENS.rightIcon,

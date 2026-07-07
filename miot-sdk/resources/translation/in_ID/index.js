@@ -433,5 +433,6 @@ export default {
   "scene_active_done": "Nyala",
   "scene_can_turnOn": "Tersedia",
   "scene_active_people": "Jumlah pengguna: ${}",
-  "scene_upgrade_subtitle": "Selesaikan tugas yang lebih rumit dengan menghubungkan beberapa perangkat"
+  "scene_upgrade_subtitle": "Selesaikan tugas yang lebih rumit dengan menghubungkan beberapa perangkat",
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
 };
