@@ -28,9 +28,29 @@ const NUMERIC_FONTS = [
   'fontNumber28Demibold',
 ];
 
+const MITYPE_FONTS = [
+  { name: 'Mitype-Light', style: { fontFamily: 'Mitype-Light' } },
+  { name: 'Mitype-Normal', style: { fontFamily: 'Mitype-Normal' } },
+  { name: 'Mitype-Regular', style: { fontFamily: 'Mitype-Regular' } },
+  { name: 'Mitype-Medium', style: { fontFamily: 'Mitype-Medium' } },
+  { name: 'Mitype-DemiBold', style: { fontFamily: 'Mitype-DemiBold' } },
+  { name: 'Mitype-SemiBold', style: { fontFamily: 'Mitype-SemiBold' } },
+  { name: 'Mitype-Bold', style: { fontFamily: 'Mitype-Bold' } },
+  { name: 'Mitype-Heavy', style: { fontFamily: 'Mitype-Heavy' } },
+];
+
 const FontItem = ({ name }) => (
   <View style={styles.item}>
     <Text allowFontScaling={false} style={[Fonts[name], styles.sample]}>中文示例 {name.replace('fontSystem', '').replace('fontNumber', '')}</Text>
+    <View style={styles.tokenChip}>
+      <Text allowFontScaling={false} style={styles.tokenName}>{name}</Text>
+    </View>
+  </View>
+);
+
+const MitypeFontItem = ({ name, fontStyle }) => (
+  <View style={styles.item}>
+    <Text allowFontScaling={false} style={[fontStyle, styles.mitypeSample]}>1234567890</Text>
     <View style={styles.tokenChip}>
       <Text allowFontScaling={false} style={styles.tokenName}>{name}</Text>
     </View>
@@ -53,6 +73,15 @@ const FontsDemo = () => (
       {NUMERIC_FONTS.map((name, index) => (
         <View key={name} style={[styles.itemWrapper, index > 0 && styles.itemBorder]}>
           <FontItem name={name} />
+        </View>
+      ))}
+    </View>
+
+    <Text allowFontScaling={false} style={styles.heading}>mitypeNumericFont</Text>
+    <View style={styles.list}>
+      {MITYPE_FONTS.map((font, index) => (
+        <View key={font.name} style={[styles.itemWrapper, index > 0 && styles.itemBorder]}>
+          <MitypeFontItem name={font.name} fontStyle={font.style} />
         </View>
       ))}
     </View>
@@ -91,6 +120,12 @@ const styles = dynamicStyleSheet({
     flexDirection: 'column',
   },
   sample: {
+    color: colorToken.contentPrimaryNormal,
+    marginBottom: 8,
+  },
+  mitypeSample: {
+    fontSize: 40,
+    lineHeight: 48,
     color: colorToken.contentPrimaryNormal,
     marginBottom: 8,
   },
