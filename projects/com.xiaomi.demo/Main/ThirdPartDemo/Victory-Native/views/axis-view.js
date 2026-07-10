@@ -4,7 +4,7 @@ import { VictoryAxis } from "victory-native";
 import Svg from "react-native-svg";
 import viewStyles from "../styles/view-styles";
 
-export default class  extends React.Component {
+export default class extends React.Component {
 
 
   render() {
@@ -22,7 +22,7 @@ export default class  extends React.Component {
             new Date(2010, 1, 1),
             new Date(2020, 1, 1)
           ]}
-          tickFormat={x => x.getFullYear()}
+          tickFormat={(x) => x.getFullYear()}
         />
 
         <Svg width={320} height={320}>
