@@ -9,12 +9,12 @@ export const MI_HOME_BRAND_ENV = {
 const currentMiHomeBrandEnv = Service.getDevSerEnv() || MI_HOME_BRAND_ENV.RELEASE;
 function resolveMiHomeBrandDomain(env) {
   switch (env) {
-    case MI_HOME_BRAND_ENV.ST:
+    case MI_HOME_BRAND_ENV.AT:
       return 'at.home.mi.com';
     case MI_HOME_BRAND_ENV.PV:
       return 'preview.home.mi.com';
     case MI_HOME_BRAND_ENV.RELEASE:
-    case MI_HOME_BRAND_ENV.AT:
+    case MI_HOME_BRAND_ENV.ST:
     case MI_HOME_BRAND_ENV.P1:
     default:
       return 'home.mi.com';
