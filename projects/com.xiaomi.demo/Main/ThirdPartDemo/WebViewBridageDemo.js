@@ -26,9 +26,9 @@ export default class WebViewBridageDemo extends Component {
   }
 
   render() {
-    //可测试跳转
+    // 可测试跳转
     // const uri = { uri: "https://www.baidu.com" };
-    const uri = require('../../Resources/index.html')
+    const uri = require('../../Resources/index.html');
     return (
       <View style={styles.container}>
         <TouchableHighlight
@@ -43,7 +43,7 @@ export default class WebViewBridageDemo extends Component {
         <WebView
           style={styles.webview}
           source={uri}
-          ref={webview => this.webview = webview}
+          ref={(webview) => this.webview = webview}
           onMessage={this.handleMessage}
         />
       </View>
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     height: 40,
     backgroundColor: 'blue',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   webview: {
     width: 250,
