@@ -36,7 +36,7 @@
  *
  */
 import Account from './service/Account';
-import native, { Properties, isAndroid } from './native';
+import native, { isAndroid, Properties } from './native';
 import apiRepo from './service/apiRepo';
 import omitApi from './service/omitApi';
 import cameraSubDomains from './service/cameraSubDomain';
@@ -50,11 +50,10 @@ import Storage from './service/storage';
 import TJInfra from './service/tjinfra';
 import MiotCamera from './service/miotcamera';
 import Kookong from './service/kookong';
+import XiaoAi from './service/xiaoai';
 import { NativeModules, Platform } from 'react-native';
 import JSONbig from 'json-bigint';
 import Permission from './service/permission';
-import { report } from "./decorator/ReportDecorator";
-import Device from "./device/BasicDevice";
  const CurrentAccount = null;
 export default {
   /**
@@ -92,10 +91,14 @@ export default {
   },
   /**
    * @member scene
-   * @description 场景 API 的调用
+   * @deprecated 1.0下所有定时相关的接口已不再维护，请使用sceneV2。部分工具类依旧可用
+   * @description 场景1.0 API 的调用
    * @see {@link module:miot/service/scene}
    */
   get scene() {
+    if (__DEV__ && console.warn) {
+      console.warn("scene deprecated 1.0下所有定时相关的接口已不再维护，请使用sceneV2。部分工具类依旧可用");
+    }
     return Scene;
   },
   /**
@@ -131,6 +134,9 @@ export default {
   get permission() {
     return Permission;
   },
+  get xiaoai() {
+    return XiaoAi;
+  },
   /**
    * @method callSmartHomeAPI
    * @since 10024
@@ -138,7 +144,8 @@ export default {
    * 不同设备开放的接口请参照与米家后台对接时提供的文档或说明，以后台给出的信息为准。
    * 米家客户端只封装透传网络请求，无法对接口调用结果解释，有问题请直接联系项目对接后台人员或 PM。
    *
-   * 想使用某个接口之前，先检查 SDK 是否已经收录，可在 `miot-sdk/service/apiRepo.js` 文件中查阅。
+   * 想使用某个接口之前，先检查 SDK 是否已经收录，可在 `miot-sdk/service/apiRepo.js`和`miot-sdk/service/omitApi.js` 文件中查阅。
+   * 注:这里的接口路径前缀为https://api.io.mi.com/app，所以请传入的接口中不要带入/app的前缀
    * 如果 SDK 暂时没有收录，可通过 issue 提出申请，提供接口的相关信息。
    * @param {string} api - 接口地址，比如'/location/set'
    * @param {object} params 传入参数，根据和米家后台商议的数据格式来传入，比如{ did: 'xxxx', pid: 'xxxx' }
@@ -191,16 +198,20 @@ export default {
    *    "ai": "https://api.ai.xiaomi.com",
    *    "aitrain": "https://i.ai.mi.com/mico",
    *    "grayupgrade": "https://api.miwifi.com/rs/grayupgrade/v2/micoiOS",
-   *    "homealbum": "https://display.api.mina.mi.com"
+   *    "homealbum": "https://display.api.mina.mi.com",
+   *    "pusher": "https://pusherapi-iotdcm.ai.xiaomi.com"
    * }
    * @param {string} path 请求的路径，比如"/device_profile/conversation"
    * @param {number} method 默认为0（表示get方法），1表示post方法，2表示put方法
    * @param {object} params 请求的参数，比如{limit:20}
    * @param {bool}   needDevice cookie中是否需要带上deviceId，默认为true
+   * @param {object} cookie 支持带上自定义的cookie
+   * @param {string} contentType put和post方法默认是以表单方式提交参数，即Content-Type为application/x-www-form-urlencoded，如果想以application/json的方式，请传入'json'
    * @return {Promise<object>} 透传接口，直接返回服务端返回的值
- path, method = 0, params, needDevice = 1
    */
-  callXiaoaiNetworkAPI({ host = 'normal', path, method = 0, params = {}, needDevice = 1, cookie = {} } = { 'host': 'normal', 'method': 0, 'needDevice': 1, params: {}, cookie: {} }) {
+  callXiaoaiNetworkAPI({ host = 'normal', path, method = 0, params = {}, needDevice = 1, cookie = {}, contentType = undefined } = {
+    host: 'normal', method: 0, needDevice: 1, params: {}, cookie: {}, contentType: undefined
+  }) {
      return Promise.resolve(null);
   },
   /**
@@ -210,6 +221,14 @@ export default {
    * @return {Promise<{countryName:"",countryCode:"",serverCode:""}>}
    */
   getServerName() {
+     return Promise.resolve(null);
+  },
+  /**
+   * @method getDevSerEnv
+   * @description 获取米家APP切换的当前服务器环境
+   * @returns (string) st、at、release、pv ，p1 其中st 对应米家iOS app的Dev
+   */
+  getDevSerEnv() {
      return Promise.resolve(null);
   },
   /**
@@ -299,6 +318,109 @@ export default {
    * 失败时：{"code":xxx, "message":"xxx" }
    */
   callSpecificAPI(url, method, params) {
+     return Promise.resolve(null);
+  },
+  /**
+   * @method callSmartChatAPI
+   * @since 10107
+   * @description C700 智能问答接口（SSE）(插件->云存)
+   * @param params
+   *   params.conversationId
+   *   params.did
+   *   params.content
+   *   params.callbackEvent
+   * @returns {Promise<unknown> | Promise.Promise}
+   */
+  callSmartChatAPI(params) {
+    return new Promise((resolve, reject) => {
+      native.MIOTService.callSmartChatAPI(params, (ok, res) => {
+        if (ok) {
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      });
+    });
+  },
+  /**
+   * @namespace Service.SSE
+   * @description 通用 SSE（Server-Sent Events）流式接口。
+   *
+   * 框架只负责"透传参数 + 透传返回值 + 把控流生命周期"，不解析任何业务内容；
+   * 底层复用米家 RC4 加密流式网关（与 callSmartChatAPI 同一通道）。
+   *
+   * 事件订阅：事件名 = `${callbackEvent}:${conversationId}`，
+   * 用 DeviceEventEmitter.addListener 监听，事件体固定为 { code, data, conversationId }：
+   *   - code 0  : chunk，data 为原始 JSON 字符串（业务自行 JSON.parse）
+   *   - code 1  : done（连接停止；业务"回答是否结束"由业务自行根据 event 判断）
+   *   - code -1 : 网络/传输层失败
+   *   - code -2 : 服务器业务错误
+   *   - code -3 : 已取消
+   * 注意：参数错误不通过事件下发，而是 open() 返回的 Promise 直接 reject 错误描述。
+   *
+   * @example
+   * import { Service } from 'miot';
+   * import { DeviceEventEmitter } from 'react-native';
+   * const conversationId = 'xxx-uuid';
+   * await Service.SSE.open({
+   *   path: '/llm/api/mihome/assistant',
+   *   conversationId,
+   *   callbackEvent: 'myFeatureSSE',
+   *   body: { query: '羊毛衫油渍怎么洗' },
+   * });
+   * const sub = DeviceEventEmitter.addListener(`myFeatureSSE:${conversationId}`, evt => {
+   *   if (evt.code === 0) { const e = JSON.parse(evt.data); ... }
+   *   else if (evt.code === 1) { sub.remove(); }      // 连接停止
+   *   else if (evt.code < 0)  { sub.remove(); }       // 出错/取消
+   * });
+   * // 组件卸载时务必主动取消，回收连接
+   * useEffect(() => () => Service.SSE.cancel(conversationId), []);
+   */
+  SSE: {
+    /**
+     * @method Service.SSE.open
+     * @description 打开一条 SSE 流。
+     * @param {object} opts
+     *   opts.path           {string}  必填，请求路径，例 '/llm/api/mihome/assistant'
+     *   opts.conversationId {string}  必填，会话标识；作 registry key + 事件名后缀 + 取消依据
+     *   opts.callbackEvent  {string}  必填，事件名前缀；实际事件名 = `${callbackEvent}:${conversationId}`
+     *   opts.body           {object}  可选，业务参数，native 透传（整体 stringify 后作为流式请求体）
+     *   opts.host           {string}  可选，默认米家流式网关
+     *   opts.header         {object}  可选，仅追踪头（如 Request-Id）；鉴权/cookie/Accept 由 SDK 自动注入
+     * @returns {Promise<void>} 成功 resolve；参数错误等同步失败 reject 错误描述
+     */
+    open(opts) {
+      return new Promise((resolve, reject) => {
+        native.MIOTService.openSSE(opts, (ok, res) => {
+          if (ok) {
+            resolve(res);
+          } else {
+            reject(res);
+          }
+        });
+      });
+    },
+    /**
+     * @method Service.SSE.cancel
+     * @description 取消指定会话的 SSE 流（会下发 code=-3 事件后回收）。
+     * @param {string} conversationId 目标会话标识
+     * @returns {Promise<void>}
+     */
+    cancel(conversationId) {
+      return new Promise((resolve) => {
+        native.MIOTService.cancelSSE(conversationId, () => resolve());
+      });
+    }
+  },
+  /**
+   * 获取设备多语言资源文件, 由于是发起网络请求，数据的正确性可以通过抓包来查看；
+   * 只要网络请求成功会代码会执行到then（与具体是否获取到设备属性值无关）， 网络请求失败则会执行到catch
+   * @param did 设备的did
+   * @return {Promise<JSON>} 设备的Spec属性详情
+   * 方法执行成功时：直接返回设备具体内容，json结构字符串
+   * 失败时：{code:xxx, message:xxx}
+   */
+  fetchMultilingualResources(did) {
      return Promise.resolve(null);
   }
 };
