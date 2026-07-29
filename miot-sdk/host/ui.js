@@ -1257,6 +1257,19 @@ class IUi {
   openDeviceOfflineAlert() {
   }
   /**
+   * 设置门锁插件无操作超时监控开关。
+   * 仅适用于高安全等级门锁插件：开启后，原生容器在用户长时间无触摸操作时会自动退出当前插件并提示用户。
+   * 超时阈值由原生侧统一维护，前端无需感知；前端只需在判定需要监控时开启、不需要时关闭。
+   * @since 10117
+   * @param {boolean} enabled true=开启监控；false=关闭监控
+   * @example
+   * Host.ui.setLockPluginInactivityMonitorEnabled(true)
+   * Host.ui.setLockPluginInactivityMonitorEnabled(false)
+   */
+  @report
+  setLockPluginInactivityMonitorEnabled(enabled) {
+  }
+  /**
    * 打开远程控制弹窗，用于新国标原充控制功能
    * @since 10115
    * @example

@@ -110,6 +110,13 @@ export default class UIDemo extends React.Component {
         }
       },
       {
+        'name': '开启门锁插件无操作超时监控',
+        'subtitle': 'setLockPluginInactivityMonitorEnabled(true) 仅门锁插件生效，2h 无触摸后自动退出',
+        'func': () => {
+          Host.ui.setLockPluginInactivityMonitorEnabled(true);
+        }
+      },
+      {
         'name': '打开房间设备管理的页面',
         'subtitle': 'openRoomManagementPage',
         'func': () => {
