@@ -405,10 +405,5 @@ const API_REPO = {
   '/appgateway/miot/appsceneservice/AppSceneService/Delete': {}, // 删除场景V2
   '/appgateway/miot/appsceneservice/AppSceneService/GetSceneListByTags': {}, // 按标签获取场景列表
   '/appgateway/miot/appsceneservice/AppSceneService/GetSameTriggerSceneList': {}, // 获取相同触发条件的场景列表
-  // 扫地机代理接口（转发到扫地机服务）
-  '/vacuum/api/skill/sweep_timeline': {}, // 清扫旅程信息获取
-  '/vacuum/api/notification/poll': {}, // 弹泡查询
-  '/vacuum/api/notification/ack': {}, // 弹泡确认
-  '/vacuum/api/skill/clean_summary': {}, // 清扫总结查询
 };
 export default API_REPO;
