@@ -41,6 +41,17 @@ class IUi {
   canOpenStorePage() {
   }
   /**
+   * 获取当前窗口尺寸（Pad/dialog 形态自适应），单位 dp。
+   * 平板 dialog 形态返回模板尺寸，其余形态返回真实窗口尺寸。
+   * @since 11.7.0
+   * @returns {Promise<{width:number, height:number}>} 窗口宽高，单位 dp
+   * @example
+   * Host.ui.getRealWindowSize().then(({ width, height }) => console.log(width, height))
+   */
+  @report
+  getRealWindowSize() {
+  }
+  /**
    * 弹出删除设备的对话框
    * @param {string} [title=null] - 自定义提示，不设置使用默认提示
    */
