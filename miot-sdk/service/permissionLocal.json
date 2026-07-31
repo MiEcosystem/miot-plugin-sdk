@@ -74,7 +74,8 @@
       "xiaomi.lock.g300",
       "xiaomi.lock.m30max",
       "xiaomi.lock.4cb",
-      "xiaomi.lock.4cs"
+      "xiaomi.lock.4cs",
+      "xiaomi.lock.5cg"
     ],
     "getDevicesWithModel": [
       "chuangmi.plug.m3",
