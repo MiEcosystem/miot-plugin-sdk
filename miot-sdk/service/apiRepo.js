@@ -396,7 +396,7 @@ const API_REPO = {
   "/eco/nas/message/identity/get": {},
   "/eco/nas/message/identity/verify": {},
   // 门锁微信小程序
-  "//v2/mini/gen_tempkey_mapping": {},
+  "/v2/mini/gen_tempkey_mapping": {},
   "/thirdcloud2cloud/query_device_switch": {},
   "/thirdcloud2cloud/switch_device": {},
   // SwitchIfttt/AutomationControl 模块场景相关接口
