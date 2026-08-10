@@ -515,7 +515,7 @@ export function getTargetSectionDeviceList(deviceList, currentRoomId) {
   for (let index = 0; index < deviceList.length; index++) {
     const device = deviceList[index];
     const sectionIndex = targetDeviceList.findIndex((s) => {
-      return s.roomId === device?.roomId;
+      return String(s.roomId) === String(device?.roomId);
     });
     if (sectionIndex === -1) {
       targetDeviceList.push({

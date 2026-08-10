@@ -1290,9 +1290,9 @@ export default class CommonSetting extends React.Component {
         if (parsed && parsed.type === 'b') abTestType = 'b';
       } catch (e) {
       }
-      this.setState({abTestType});
+      this.setState({ abTestType });
     }).catch(() => {
-      this.setState({abTestType: 'a'});
+      this.setState({ abTestType: 'a' });
     });
   }
   _updateUsedOnMiHome() {

@@ -447,7 +447,7 @@ export default {
   mobileCard_offlineTitle: "已离线",
   mobileCard_offlineSubtitle: "设备已离线，暂时无法获取流量卡信息",
   switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: "切换后，操作按键时，不再控制智能设备，相关控制配置将会删除",
-  switch_autoCtrl_speedModeDescription: "仅支持「单击」操作，设备响应更快",
-  switch_autoCtrl_standardModeDescription: "支持“单击”、“双击”、「长按」操作",
+  switch_autoCtrl_speedModeDescription: "仅支持“单击”操作，设备响应更快",
+  switch_autoCtrl_standardModeDescription: "支持“单击”、“双击”、“长按”操作",
   switch_autoCtrl_multipleControlsHint: "已关联多项控制，建议您仅保留一项",
 };
