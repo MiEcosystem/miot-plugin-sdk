@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDeviceIftttTemplateInfo } from "./hooks/useDeviceIftttTemplateInfo";
-import { CardButton, ContainerWithShadowAndSeparator, dynamicColor } from 'miot/ui';
-import { getImage } from './images';
 import { Device, Service } from "../../index";
-import IftttContainer from "./components/IftttContainer";
 import IftttSmartSceneAdapter from "./components/IftttSmartSceneAdapter";
-import { strings as I18n } from 'miot/resources';
-import { getLocalI18n } from '../SwitchIfttt/utils';
-import { View } from 'react-native';
 import useDeviceRoomInfo from '../../hooks/useDeviceRoomInfo';
 import useCurrentSelectHomeInfo from '../../hooks/useCurrentSelectHomeInfo';
 import { IftttTemplateUtils } from './utils';
@@ -17,28 +11,17 @@ import { IftttTemplateUtils } from './utils';
  * @module SmartScene
  * @param props
  * @param props.device_type  模板类型
- * @param props.isOldUx     是否使用旧 UX(默认 false 走 SmartSceneCard 新 UX)
  * @returns {JSX.Element}
  * @constructor
  */
 const SmartScene = (props) => {
   const {
-    withCard = true,
-    withTitleBar = true,
-    showSubtitle = true,
-    hasShadow = false,
     disabled = false,
     trackParams = {
       card_id: 10205, item_type: 'button', item_name: 'button_automation',
     },
     isWearStyle = false,
     device_type,
-    wrapContainerStyle = {},
-    separatorStyle = {},
-    titleThemesColor = 'transparent',
-    titleIcon = "",
-    TitleBar = null,
-    isOldUx = false,
     showLeadingIcon = true,
     hasData = true,
   } = props || {};
@@ -72,91 +55,20 @@ const SmartScene = (props) => {
   if (!shouldShow) {
     return null;
   }
-  if (!isOldUx) {
-    return (
-      <IftttSmartSceneAdapter
-        templateInfo={templateInfo || []}
-        serverCode={serverCode}
-        disabled={disabled || !(isOwner || isHomeManager || isHomeOwner)}
-        isWearStyle={isWearStyle}
-        trackParams={trackParams}
-        titleIcon={titleIcon}
-        showLeadingIcon={showLeadingIcon}
-        hasData={hasData}
-      />
-    );
-  }
   return (
-    <LayoutView
-      withCard={withCard}
+    <IftttSmartSceneAdapter
+      templateInfo={templateInfo || []}
+      serverCode={serverCode}
+      disabled={disabled || !(isOwner || isHomeManager || isHomeOwner)}
       isWearStyle={isWearStyle}
-      wrapContainerStyle={wrapContainerStyle}
-      separatorStyle={separatorStyle}
-    >
-      <View>
-        {withTitleBar &&
-          (TitleBar ||
-            <CardButton
-              title={I18n["ifttt"]}
-              subtitle={showSubtitle ? getLocalI18n("scene_upgrade_subtitle") : ""}
-              icon={titleIcon ? titleIcon : isWearStyle ? getImage("wear-scene") : getImage("ifttt-h")}
-              themeColor={titleThemesColor}
-              rightArrow={true}
-              underlayColor={"transparent"}
-              onPress={() => {
-                IftttTemplateUtils.report('click', {
-                  ...trackParams,
-                });
-                Service.scene.openIftttAutoPage();
-              }}
-              disabled={disabled || !(isOwner || isHomeManager || isHomeOwner)}
-              hasShadow={false}
-            />)}
-        {(templateInfo?.length === 2 && serverCode === 'cn') && <IftttContainer
-          disabled={disabled || !(isOwner || isHomeManager || isHomeOwner)}
-          trackParams={trackParams}
-          templateInfo={templateInfo}
-          hasShadow={hasShadow}
-        />}
-      </View>
-    </LayoutView>
+      trackParams={trackParams}
+      showLeadingIcon={showLeadingIcon}
+      hasData={hasData}
+    />
   );
-};
-const LayoutView = (
-  {
-    withCard = true,
-    isWearStyle = false,
-    wrapContainerStyle = {},
-    separatorStyle = {},
-    children,
-  }) => {
-  if (withCard) {
-    return (
-      <ContainerWithShadowAndSeparator
-        separatorStyle={{
-          backgroundColor: dynamicColor('rgba(0, 0, 0, 0.15)', 'rgba(255, 255, 255, 0.15)'),
-          ...separatorStyle,
-        }}
-        containerStyle={{
-          backgroundColor: dynamicColor('#fff', '#242424'),
-          borderRadius: isWearStyle ? 24 : 12,
-          ...wrapContainerStyle,
-        }}
-      >
-        {children}
-      </ContainerWithShadowAndSeparator>
-    );
-  } else {
-    return (children);
-  }
 };
 SmartScene.propTypes = {
   device_type: PropTypes.string.isRequired,
   isWearStyle: PropTypes.bool,
-  withCard: PropTypes.bool,
-  withTitleBar: PropTypes.bool,
-  wrapContainerStyle: PropTypes.object,
-  separatorStyle: PropTypes.object,
-  isOldUx: PropTypes.bool,
 };
 export default SmartScene;

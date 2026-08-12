@@ -15,8 +15,9 @@ import { IftttTemplateUtils } from '../utils';
  * @param {string} value
  * @param {string} type floor: 向下取整  ceil: 向上取整
  * @returns {string} 中文：xxx万 其他语种 123,99,3
+ * @deprecated 该方法已废弃
  */
-export function toBigNumberString(value, type = 'floor') {
+function toBigNumberString(value, type = 'floor') {
   if (value) {
     const stringValue = String(value);
     if (Host.locale.language === 'zh') {
@@ -37,6 +38,13 @@ export function toBigNumberString(value, type = 'floor') {
   }
   return value;
 }
+/**
+ * @discription smartScene 智能场景推荐模板 旧组件
+ * @author yaobin
+ * @param props
+ * @constructor
+ * @deprecated 旧版组件由于性能问题，不导出标插自己实现ui，不导出。
+ */
 const IftttContainer = (props) => {
   const { templateInfo = [], disabled = false } = props;
   const [lines, setLines] = React.useState(1);
@@ -112,4 +120,4 @@ const IftttContainer = (props) => {
     </>
   );
 };
-export default IftttContainer;
+// export default IftttContainer;
