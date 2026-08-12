@@ -435,8 +435,8 @@ export default {
   "scene_active_people": "Số lượng người dùng: ${}",
   "scene_upgrade_subtitle": "Hoàn thành các nhiệm vụ phức tạp hơn bằng cách kết nối nhiều thiết bị",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
-  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: "After switching, pressing the button will no longer control smart devices, and related control configurations will be deleted.",
-  switch_autoCtrl_speedModeDescription: "Supports only \"single press\" for faster device response.",
-  switch_autoCtrl_standardModeDescription: "Supports \"single press\", \"double press\", and \"press and hold\" actions.",
-  switch_autoCtrl_multipleControlsHint: "Multiple controls are linked. We recommend keeping only one.",
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Sau khi chuyển đổi, nút này sẽ không còn điều khiển các thiết bị thông minh và các cài đặt điều khiển liên quan sẽ bị xóa.',
+  switch_autoCtrl_speedModeDescription: 'Hỗ trợ nhấn một lần để phản hồi nhanh hơn',
+  switch_autoCtrl_standardModeDescription: 'Hỗ trợ nhấn một lần, nhấn hai lần và nhấn giữ',
+  switch_autoCtrl_multipleControlsHint: 'Chỉ liên kết với một điều khiển',
 };

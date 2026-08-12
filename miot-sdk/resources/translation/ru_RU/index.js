@@ -435,8 +435,8 @@ export default {
   "scene_active_people": "Количество пользователей: ${}",
   "scene_upgrade_subtitle": "Выполняйте более сложные задачи, подключив несколько устройств",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
-  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: "After switching, pressing the button will no longer control smart devices, and related control configurations will be deleted.",
-  switch_autoCtrl_speedModeDescription: "Supports only \"single press\" for faster device response.",
-  switch_autoCtrl_standardModeDescription: "Supports \"single press\", \"double press\", and \"press and hold\" actions.",
-  switch_autoCtrl_multipleControlsHint: "Multiple controls are linked. We recommend keeping only one.",
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'После переключения кнопка больше не будет управлять смарт-устройствами, а связанные с ней настройки управления будут удалены.',
+  switch_autoCtrl_speedModeDescription: 'Поддержка одного нажатия для более быстрого отклика',
+  switch_autoCtrl_standardModeDescription: 'Поддерживает однократное нажатие, двойное нажатие и нажатие и удержание',
+  switch_autoCtrl_multipleControlsHint: 'Связать только один элемент управления',
 };

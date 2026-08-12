@@ -435,8 +435,8 @@ export default {
   "scene_active_people": "ユーザー数: ${}",
   "scene_upgrade_subtitle": "複数のデバイスを接続して、より洗練されたタスクを完了しましょう",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
-  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: "After switching, pressing the button will no longer control smart devices, and related control configurations will be deleted.",
-  switch_autoCtrl_speedModeDescription: "Supports only \"single press\" for faster device response.",
-  switch_autoCtrl_standardModeDescription: "Supports \"single press\", \"double press\", and \"press and hold\" actions.",
-  switch_autoCtrl_multipleControlsHint: "Multiple controls are linked. We recommend keeping only one.",
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: '切り替え後は、ボタンによるスマートデバイスの制御は行われず、関連する制御設定は削除されます。',
+  switch_autoCtrl_speedModeDescription: '1回押すだけで操作でき、より迅速に応答',
+  switch_autoCtrl_standardModeDescription: '1回押す、2回押す、長押しによる操作をサポート',
+  switch_autoCtrl_multipleControlsHint: '制御は1つのみ登録してください',
 };

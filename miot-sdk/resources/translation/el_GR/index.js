@@ -435,8 +435,8 @@ export default {
   scene_active_people: 'Αριθμός χρηστών: ${}',
   "scene_upgrade_subtitle": "Ολοκληρώστε πιο περίπλοκες εργασίες συνδέοντας πολλαπλές συσκευές",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
-  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: "After switching, pressing the button will no longer control smart devices, and related control configurations will be deleted.",
-  switch_autoCtrl_speedModeDescription: "Supports only \"single press\" for faster device response.",
-  switch_autoCtrl_standardModeDescription: "Supports \"single press\", \"double press\", and \"press and hold\" actions.",
-  switch_autoCtrl_multipleControlsHint: "Multiple controls are linked. We recommend keeping only one.",
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Μετά την αλλαγή, το κουμπί δεν θα ελέγχει πλέον τις έξυπνες συσκευές και οι σχετικές ρυθμίσεις ελέγχου θα διαγραφούν.',
+  switch_autoCtrl_speedModeDescription: 'Υποστηρίζει πάτημα μία φορά για ταχύτερη απόκριση',
+  switch_autoCtrl_standardModeDescription: 'Υποστηρίζει πάτημα μια φορά, πάτημα δυο φορές και παρατεταμένο πάτημα',
+  switch_autoCtrl_multipleControlsHint: 'Σύνδεση μόνο ενός χειριστηρίου',
 };

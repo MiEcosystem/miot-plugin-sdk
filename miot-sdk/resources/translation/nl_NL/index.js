@@ -435,8 +435,8 @@ export default {
   "scene_active_people": "Aantal gebruikers: ${}",
   "scene_upgrade_subtitle": "Voer geavanceerdere taken uit door meerdere apparaten te verbinden",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
-  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: "After switching, pressing the button will no longer control smart devices, and related control configurations will be deleted.",
-  switch_autoCtrl_speedModeDescription: "Supports only \"single press\" for faster device response.",
-  switch_autoCtrl_standardModeDescription: "Supports \"single press\", \"double press\", and \"press and hold\" actions.",
-  switch_autoCtrl_multipleControlsHint: "Multiple controls are linked. We recommend keeping only one.",
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Na het overschakelen zal de knop geen slimme apparaten meer bedienen en worden de bijbehorende bedieningsinstellingen verwijderd.',
+  switch_autoCtrl_speedModeDescription: 'Ondersteunt één keer indrukken voor een snellere respons',
+  switch_autoCtrl_standardModeDescription: 'Ondersteunt één keer indrukken, twee keer indrukken en ingedrukt houden',
+  switch_autoCtrl_multipleControlsHint: 'Koppel slechts één besturingselement',
 };

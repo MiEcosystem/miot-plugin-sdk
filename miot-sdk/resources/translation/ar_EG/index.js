@@ -435,8 +435,8 @@ export default {
   scene_active_people: 'عدد المستخدمين: ${}',
   "scene_upgrade_subtitle": "أكمل المزيد من المهام المعقدة بربط عدة أجهزة",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
-  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: "After switching, pressing the button will no longer control smart devices, and related control configurations will be deleted.",
-  switch_autoCtrl_speedModeDescription: "Supports only \"single press\" for faster device response.",
-  switch_autoCtrl_standardModeDescription: "Supports \"single press\", \"double press\", and \"press and hold\" actions.",
-  switch_autoCtrl_multipleControlsHint: "Multiple controls are linked. We recommend keeping only one.",
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'بعد التبديل، لن يعود الزر يتحكم في الأجهزة الذكية، وسيتم حذف إعدادات التحكم المرتبطة به.',
+  switch_autoCtrl_speedModeDescription: 'يدعم الضغط مرة واحدة للاستجابة بشكل أسرع',
+  switch_autoCtrl_standardModeDescription: 'يدعم الضغط مرة واحدة، والضغط مرتين، والضغط المطول',
+  switch_autoCtrl_multipleControlsHint: 'ربط عنصر تحكم واحد فقط',
 };

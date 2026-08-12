@@ -435,8 +435,8 @@ export default {
   "scene_active_people": "Antall brukere: ${}",
   "scene_upgrade_subtitle": "Utfør mer sofistikerte oppgaver ved å koble til flere enheter",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
-  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: "After switching, pressing the button will no longer control smart devices, and related control configurations will be deleted.",
-  switch_autoCtrl_speedModeDescription: "Supports only \"single press\" for faster device response.",
-  switch_autoCtrl_standardModeDescription: "Supports \"single press\", \"double press\", and \"press and hold\" actions.",
-  switch_autoCtrl_multipleControlsHint: "Multiple controls are linked. We recommend keeping only one.",
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Når du har byttet, vil ikke knappen lenger kontrollere smartenheter, og tilhørende kontrollinnstillinger vil bli slettet.',
+  switch_autoCtrl_speedModeDescription: 'Støtter enkelttrykk for raskere respons',
+  switch_autoCtrl_standardModeDescription: 'Støtter enkelttrykk, dobbelttrykk og trykk og hold inne',
+  switch_autoCtrl_multipleControlsHint: 'Lenke til bare én kontroll',
 };

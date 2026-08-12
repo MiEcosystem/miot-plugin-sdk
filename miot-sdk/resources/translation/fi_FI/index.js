@@ -435,8 +435,8 @@ export default {
   scene_active_people: 'Käyttäjien määrä: ${}',
   "scene_upgrade_subtitle": "Suorita kehittyneempiä tehtäviä yhdistämällä useita laitteita",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
-  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: "After switching, pressing the button will no longer control smart devices, and related control configurations will be deleted.",
-  switch_autoCtrl_speedModeDescription: "Supports only \"single press\" for faster device response.",
-  switch_autoCtrl_standardModeDescription: "Supports \"single press\", \"double press\", and \"press and hold\" actions.",
-  switch_autoCtrl_multipleControlsHint: "Multiple controls are linked. We recommend keeping only one.",
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Vaihtamisen jälkeen painike ei enää ohjaa älylaitteita, ja siihen liittyvät ohjausasetukset poistetaan.',
+  switch_autoCtrl_speedModeDescription: 'Tukee yhden painalluksen nopeampaa vastausta',
+  switch_autoCtrl_standardModeDescription: 'Tukee yhtä painallusta, kaksoispainallusta sekä painamista ja pitämistä',
+  switch_autoCtrl_multipleControlsHint: 'Liitä vain yksi ohjausobjekti',
 };

@@ -435,8 +435,8 @@ export default {
   "scene_active_people": "จำนวนผู้ใช้: ${}",
   "scene_upgrade_subtitle": "ทำงานที่ซับซ้อนได้มากขึ้นโดยการเชื่อมต่อหลายอุปกรณ์",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
-  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: "After switching, pressing the button will no longer control smart devices, and related control configurations will be deleted.",
-  switch_autoCtrl_speedModeDescription: "Supports only \"single press\" for faster device response.",
-  switch_autoCtrl_standardModeDescription: "Supports \"single press\", \"double press\", and \"press and hold\" actions.",
-  switch_autoCtrl_multipleControlsHint: "Multiple controls are linked. We recommend keeping only one.",
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'หลังจากที่สลับ ปุ่มจะไม่ควบคุมอุปกรณ์สมาร์ทอีกต่อไป และการตั้งค่าการควบคุมที่เกี่ยวข้องจะถูกลบ',
+  switch_autoCtrl_speedModeDescription: 'รองรับการกดหนึ่งครั้งเพื่อการตอบสนองที่รวดเร็วยิ่งขึ้น',
+  switch_autoCtrl_standardModeDescription: 'รองรับการกดหนึ่งครั้ง การกดสองครั้ง และการกดค้างไว้',
+  switch_autoCtrl_multipleControlsHint: 'เชื่อมโยงการควบคุมเพียงรายการเดียวเท่านั้น',
 };

@@ -435,8 +435,8 @@ export default {
   "scene_active_people": "사용자 수: ${}",
   "scene_upgrade_subtitle": "여러 기기를 연결하여 더 정교한 작업을 완료하세요",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
-  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: "After switching, pressing the button will no longer control smart devices, and related control configurations will be deleted.",
-  switch_autoCtrl_speedModeDescription: "Supports only \"single press\" for faster device response.",
-  switch_autoCtrl_standardModeDescription: "Supports \"single press\", \"double press\", and \"press and hold\" actions.",
-  switch_autoCtrl_multipleControlsHint: "Multiple controls are linked. We recommend keeping only one.",
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: '전환 후에는 버튼으로 더 이상 스마트 기기를 제어할 수 없으며 관련 제어 설정이 삭제됩니다.',
+  switch_autoCtrl_speedModeDescription: '빠른 반응을 위해 한 번 누르기를 지원합니다.',
+  switch_autoCtrl_standardModeDescription: '한 번 누르기, 두 번 누르기, 길게 누르기 지원',
+  switch_autoCtrl_multipleControlsHint: '하나의 제어 기능만 연결하세요.',
 };

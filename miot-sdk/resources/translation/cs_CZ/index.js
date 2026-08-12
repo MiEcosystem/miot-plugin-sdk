@@ -435,8 +435,8 @@ export default {
   scene_active_people: 'Počet uživatelů: ${}',
   "scene_upgrade_subtitle": "Dokončete sofistikovanější úkoly připojením více zařízení",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
-  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: "After switching, pressing the button will no longer control smart devices, and related control configurations will be deleted.",
-  switch_autoCtrl_speedModeDescription: "Supports only \"single press\" for faster device response.",
-  switch_autoCtrl_standardModeDescription: "Supports \"single press\", \"double press\", and \"press and hold\" actions.",
-  switch_autoCtrl_multipleControlsHint: "Multiple controls are linked. We recommend keeping only one.",
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Po přepnutí již nebude možné tlačítkem ovládat chytrá zařízení a související nastavení ovládání budou odstraněna.',
+  switch_autoCtrl_speedModeDescription: 'Podporuje jedno stisknutí pro rychlejší odezvu',
+  switch_autoCtrl_standardModeDescription: 'Podporuje jedno stisknutí, dvojité stisknutí a přidržení',
+  switch_autoCtrl_multipleControlsHint: 'Propojit pouze jeden ovládací prvek',
 };

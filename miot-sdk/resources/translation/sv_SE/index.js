@@ -435,8 +435,8 @@ export default {
   "scene_active_people": "Antal användare: ${}",
   "scene_upgrade_subtitle": "Slutför mer sofistikerade uppgifter genom att ansluta flera enheter",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
-  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: "After switching, pressing the button will no longer control smart devices, and related control configurations will be deleted.",
-  switch_autoCtrl_speedModeDescription: "Supports only \"single press\" for faster device response.",
-  switch_autoCtrl_standardModeDescription: "Supports \"single press\", \"double press\", and \"press and hold\" actions.",
-  switch_autoCtrl_multipleControlsHint: "Multiple controls are linked. We recommend keeping only one.",
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'När du har bytt kommer knappen inte längre att styra smarta enheter och relaterade styrinställningar tas bort.',
+  switch_autoCtrl_speedModeDescription: 'Stöder enkeltryckning för snabbare respons',
+  switch_autoCtrl_standardModeDescription: 'Stöder enkeltryckning, dubbeltryckning, samt tryck och håll',
+  switch_autoCtrl_multipleControlsHint: 'Länka bara en styrning',
 };

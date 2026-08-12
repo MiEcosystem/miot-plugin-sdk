@@ -435,8 +435,8 @@ export default {
   "scene_active_people": "Numărul de utilizatori: ${}",
   "scene_upgrade_subtitle": "Efectuați mai multe sarcini complicate conectând mai multe dispozitive",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
-  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: "After switching, pressing the button will no longer control smart devices, and related control configurations will be deleted.",
-  switch_autoCtrl_speedModeDescription: "Supports only \"single press\" for faster device response.",
-  switch_autoCtrl_standardModeDescription: "Supports \"single press\", \"double press\", and \"press and hold\" actions.",
-  switch_autoCtrl_multipleControlsHint: "Multiple controls are linked. We recommend keeping only one.",
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'După comutare, butonul nu va mai controla dispozitivele inteligente, iar setările comenzilor asociate vor fi șterse.',
+  switch_autoCtrl_speedModeDescription: 'Acceptă o singură apăsare pentru un răspuns mai rapid',
+  switch_autoCtrl_standardModeDescription: 'Acceptă o singură apăsare, o apăsare dublă sau opțiunea de a apăsa și ține apăsat',
+  switch_autoCtrl_multipleControlsHint: 'Legați doar o comandă',
 };

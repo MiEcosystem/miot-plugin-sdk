@@ -466,8 +466,9 @@ export default {
   mobileCard_networkInfoCheckFailed: 'Couldn\'t load network info. Try again.',
   mobileCard_offlineTitle: 'Offline',
   mobileCard_offlineSubtitle: 'Device is offline. Data SIM info isn\'t available.',
-  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: "After switching, pressing the button will no longer control smart devices, and related control configurations will be deleted.",
-  switch_autoCtrl_speedModeDescription: "Supports only \"single press\" for faster device response.",
-  switch_autoCtrl_standardModeDescription: "Supports \"single press\", \"double press\", and \"press and hold\" actions.",
-  switch_autoCtrl_multipleControlsHint: "Multiple controls are linked. We recommend keeping only one.",
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc:
+    'After switching, the button will no longer control smart devices, and related control settings will be deleted.',
+  switch_autoCtrl_speedModeDescription: 'Supports single press for faster response',
+  switch_autoCtrl_standardModeDescription: 'Supports single press, double press, and press and hold',
+  switch_autoCtrl_multipleControlsHint: 'Link only one control',
 };
