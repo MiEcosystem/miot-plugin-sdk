@@ -58,7 +58,7 @@
       }
     }],
     "no-param-reassign": "off",
-    "comma-dangle": ["warn", "never"],
+    "comma-dangle": ["warn", "always-multiline"],
     "prefer-promise-reject-errors": "off",
     "arrow-parens": ["warn", "always"],
     "prefer-template": "warn",
