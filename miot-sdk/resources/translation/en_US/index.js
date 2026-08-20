@@ -351,6 +351,8 @@ export default {
   switch_listItem_value_executionTypeCloud: 'Cloud',
   switch_listItem_value_executionTypeLocale: 'Local',
   switch_dia_msg_deleteScene: 'Delete this automation?',
+  switch_dia_title_deleteConfig: 'Delete configuration?',
+  switch_dia_msg_deleteConfigLight: 'After deletion, this button will no longer control this light',
   switch_scene_name_toggleSwitchDevice: '${} | Single press | ${} | On/Off | ${}-${}',
   switch_scene_name_toggleLightDevice: '${} | Single press | ${} | On/Off | ${}',
   switch_scene_name_executeManualScene: '${} | Single press | ${} | Run | ${}-${}',

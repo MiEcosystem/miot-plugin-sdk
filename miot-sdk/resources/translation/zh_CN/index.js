@@ -331,6 +331,8 @@ export default {
   switch_listItem_value_executionTypeCloud: "云端",
   switch_listItem_value_executionTypeLocale: "本地",
   switch_dia_msg_deleteScene: "删除自动化？",
+  switch_dia_title_deleteConfig: "删除配置？",
+  switch_dia_msg_deleteConfigLight: "删除后，该按键将不再控制此灯",
   switch_scene_name_toggleSwitchDevice: "${} 单击${}——开/关 ${}- ${}",
   switch_scene_name_toggleLightDevice: "${} 单击${}——开/关 ${}",
   switch_scene_name_executeManualScene: "${} 单击${}——执行 ${}",
