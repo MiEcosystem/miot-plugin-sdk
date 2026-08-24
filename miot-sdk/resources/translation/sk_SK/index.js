@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'Bluetooth sieťová brána',
   deviceDid: 'ID zariadenia',
   deviceSN: 'SN zariadenia',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'Verzia firmvéru MCU',
   sdkVersion: 'Verzia firmvéru SDK',
   fireSafeCode: 'Predpis o požiarnej bezpečnosti',

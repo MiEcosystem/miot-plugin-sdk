@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'שער (gateway) רשת Bluetooth',
   deviceDid: 'מזהה מכשיר',
   deviceSN: 'SN מכשיר',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'גרסת קושחת MCU',
   sdkVersion: 'גרסת קושחת SDK',
   fireSafeCode: 'קוד בטיחות אש',

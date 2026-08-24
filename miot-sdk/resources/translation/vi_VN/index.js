@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'Cổng Bluetooth Mesh',
   deviceDid: 'ID thiết bị',
   deviceSN: 'Số sê-ri thiết bị',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'Phiên bản chương trình cơ sở MCU',
   sdkVersion: 'Phiên bản chương trình cơ sở SDK',
   fireSafeCode: 'Mã an toàn phòng cháy',

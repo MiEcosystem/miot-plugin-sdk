@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'بوابة شبكة البلوتوث',
   deviceDid: 'معرف الجهاز',
   deviceSN: 'الرقم التسلسلي للجهاز',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'إصدار البرنامج الثابت MCU',
   sdkVersion: 'إصدار البرنامج الثابت SDK',
   fireSafeCode: 'كود السلامة من الحرائق',

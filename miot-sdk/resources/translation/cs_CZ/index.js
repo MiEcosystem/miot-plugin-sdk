@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'Brána Bluetooth mesh',
   deviceDid: 'ID zařízení',
   deviceSN: 'Výrobní číslo zařízení',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'Verze firmwaru MCU',
   sdkVersion: 'Verze firmwaru SDK',
   fireSafeCode: 'Požární bezpečnostní kód',

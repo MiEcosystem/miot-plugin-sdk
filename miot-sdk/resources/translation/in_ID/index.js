@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'Gateway Bluetooth Mesh',
   deviceDid: 'ID Perangkat',
   deviceSN: 'Nomor Seri Perangkat',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'Versi firmware MCU',
   sdkVersion: 'Versi firmware SDK',
   fireSafeCode: 'Kode pencegahan kebakaran',

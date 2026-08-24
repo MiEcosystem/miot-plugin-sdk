@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'Шлюз Bluetooth Mesh',
   deviceDid: 'Ідентифікатор пристрою',
   deviceSN: 'Серійний номер пристрою',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'Версія прошивки MCU',
   sdkVersion: 'Версія прошивки SDK',
   fireSafeCode: 'Кодекс пожежної безпеки',

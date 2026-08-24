@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'Πύλη πλέγματος Bluetooth',
   deviceDid: 'Αναγνωριστικό συσκευής',
   deviceSN: 'Σειριακός αριθμός συσκευής',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'Έκδοση του MCU υλικολογισμικού',
   sdkVersion: 'Έκδοση του SDK υλικολογισμικού',
   fireSafeCode: 'Κώδικας πυρασφάλειας',

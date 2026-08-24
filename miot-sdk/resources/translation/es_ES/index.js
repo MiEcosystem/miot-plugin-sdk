@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'Puerta de enlace bluetooth de malla',
   deviceDid: 'ID del dispositivo',
   deviceSN: 'Número de serie del dispositivo',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'Versión del firmware de la MCU',
   sdkVersion: 'Versión del firmware del SDK',
   fireSafeCode: 'Código de seguridad contra incendios',

@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'Passerelle Bluetooth Mesh',
   deviceDid: 'Identifiant de l\'appareil',
   deviceSN: 'No. de série de l\'appareil ',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'Version du micrologicel MCU',
   sdkVersion: 'Version du micrologicel SDK',
   fireSafeCode: 'Code de sécurité incendie',

@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'Brama Bluetooth Mesh',
   deviceDid: 'ID urządzenia',
   deviceSN: 'Nr seryjny urządzenia',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'Wersja oprogramowania sprzętowego MCU',
   sdkVersion: 'Wersja oprogramowania sprzętowego SDK',
   fireSafeCode: 'Kodeks bezpieczeństwa pożarowego',

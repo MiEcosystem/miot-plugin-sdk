@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'Bluetooth mesh -yhdyskäytävä',
   deviceDid: 'Laitteen tunnus',
   deviceSN: 'Laitteen sarjanumero',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'MCU-laiteohjelmistoversio',
   sdkVersion: 'SDK-laiteohjelmistoversio',
   fireSafeCode: 'Paloturvallisuuskoodi',

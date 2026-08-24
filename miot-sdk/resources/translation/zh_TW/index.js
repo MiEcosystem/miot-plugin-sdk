@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: '藍牙mesh閘道',
   deviceDid: '裝置ID',
   deviceSN: '裝置SN',
+  deviceImei: '裝置IMEI',
   mcuVersion: 'MCU硬體版本',
   sdkVersion: 'SDK硬體版本',
   fireSafeCode: '消防標示碼',

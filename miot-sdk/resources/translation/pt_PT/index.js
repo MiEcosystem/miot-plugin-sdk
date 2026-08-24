@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: '\'Gateway\' de malha Bluetooth',
   deviceDid: 'ID do Dispositivo',
   deviceSN: 'SN do dispositivo',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'Versão do \'firmware\' MCU',
   sdkVersion: 'Versão do \'firmware\' do SDK',
   fireSafeCode: 'Código de segurança contra incêndio',

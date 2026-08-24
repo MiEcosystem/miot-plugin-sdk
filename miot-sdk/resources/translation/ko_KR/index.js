@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: '블루투스 메쉬 게이트웨이',
   deviceDid: '기기 ID',
   deviceSN: '기기 SN',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'MCU 펌웨어 버전',
   sdkVersion: 'SDK 펌웨어 버전',
   fireSafeCode: '화재 안전 코드',

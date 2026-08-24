@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'เกตเวย์บลูทูธเมช',
   deviceDid: 'ID อุปกรณ์',
   deviceSN: 'SN อุปกรณ์',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'เวอร์ชั่นเฟิร์มแวร์ MCU',
   sdkVersion: 'เวอร์ชั่นเฟิร์มแวร์ SDK',
   fireSafeCode: 'มาตรฐานด้านการรักษาความปลอดภัยจากอัคคีภัย',

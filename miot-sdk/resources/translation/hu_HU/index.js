@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'Bluetooth Mesh átjáró',
   deviceDid: 'Készülékazonosító',
   deviceSN: 'Készülék SN-száma',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'MCU firmware-verzió',
   sdkVersion: 'SDK firmware-verzió',
   fireSafeCode: 'Tűzvédelmi kód',

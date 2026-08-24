@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'Bluetooth mesh ağ geçidi',
   deviceDid: 'Cihaz Kimliği',
   deviceSN: 'Cihaz SN',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'MCU üretici yazılımı sürümü',
   sdkVersion: 'SDK üretici yazılımı sürümü',
   fireSafeCode: 'Yangın güvenlik kodu',
