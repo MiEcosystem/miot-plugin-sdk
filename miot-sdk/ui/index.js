@@ -89,7 +89,7 @@ export { default as RockerView } from './RockerView';
 export { default as Settings } from './Settings';
 export { default as NewGBTipsView } from './NewGBTipsView';
 export { default as YMDDatePicker } from './YMDDatePicker';
-export { default as SmartScene } from './smartScene';
+export { default as SmartScene, useDeviceIftttTemplateInfo } from './smartScene';
 // export { default as BTInterconnection } from './BTInterconnection';
 export default {
   ImageButton,

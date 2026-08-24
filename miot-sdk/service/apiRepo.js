@@ -202,7 +202,6 @@ const API_REPO = {
   '/v2/device/switch_subclass': {},
   '/device/rename': {},
   '/appgateway/miot/appdeviceinfo_service/AppDeviceInfoService/get_last_online': {},
-  
   // 读取音频
   '/common/app/data/v2/scan': {},
   // 添加音频
@@ -396,6 +395,8 @@ const API_REPO = {
   '/iccoa/manageKey': {},
   "/eco/nas/message/identity/get": {},
   "/eco/nas/message/identity/verify": {},
+  // 门锁微信小程序
+  "/v2/mini/gen_tempkey_mapping": {},
   "/thirdcloud2cloud/query_device_switch": {},
   "/thirdcloud2cloud/switch_device": {},
   // SwitchIfttt/AutomationControl 模块场景相关接口

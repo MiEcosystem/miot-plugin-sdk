@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import {
   ConfigContext,
@@ -111,18 +111,21 @@ const SceneItem = ({ item, disabled, onPress }) => {
     </TouchableView>
   );
 };
-const DefaultHeaderIcon = () => {
+const DefaultHeaderIcon = ({ disabled }) => {
   const { colorToken } = useContext(ConfigContext);
   return (
     <View style={styles.defaultHeaderIcon}>
-      <SmartSceneIcon width={20} height={20} fill={colorToken.contentPrimaryNormal} />
+      <SmartSceneIcon
+        width={20}
+        height={20}
+        fill={disabled ? colorToken.contentDisabledPrimary : colorToken.contentPrimaryNormal}
+      />
     </View>
   );
 };
 const IftttSceneCard = (props) => {
   const {
     title = '',
-    headerIcon,
     disabled = false,
     wear = false,
     hasData = true,
@@ -139,35 +142,50 @@ const IftttSceneCard = (props) => {
   }, []);
   const cardRadius = wear ? radiusToken.cardExtraLarge : radiusToken.cardLarge;
   const noop = () => {};
-  const resolvedIcon = showLeadingIcon ? (headerIcon || <DefaultHeaderIcon />) : null;
+  const resolvedIcon = showLeadingIcon ? <DefaultHeaderIcon disabled={disabled} /> : null;
+  const headerOnPress = onPressHeader || noop;
+  const renderHeader = (HeaderComponent, headerProps) => {
+    const header = (
+      <HeaderComponent
+        {...headerProps}
+        onPress={undefined}
+      />
+    );
+    if (disabled) {
+      return header;
+    }
+    return (
+      <TouchableWithoutFeedback onPress={headerOnPress}>
+        <View>{header}</View>
+      </TouchableWithoutFeedback>
+    );
+  };
+  const showItems = items.length === 2;
   if (!hasData) {
     return (
       <CardContainer viewStyle={{ borderRadius: cardRadius }}>
-        <LargeListEntrance
-          title={title}
-          leadingIcon={resolvedIcon}
-          disabled={disabled}
-          onPress={onPressHeader || noop}
-          accessible={accessible}
-          accessibilityLabel={accessibilityLabel}
-          accessibilityHint={accessibilityHint}
-        />
+        {renderHeader(LargeListEntrance, {
+          title,
+          leadingIcon: resolvedIcon,
+          disabled,
+          accessible,
+          accessibilityLabel,
+          accessibilityHint,
+        })}
       </CardContainer>
     );
   }
-  const showItems = items.length === 2;
   return (
     <CardContainer viewStyle={{ borderRadius: cardRadius }}>
-      <CardHeader
-        title={title}
-        actionType="navigate"
-        disabled={disabled}
-        leadingIcon={resolvedIcon}
-        onPress={onPressHeader || noop}
-        accessible={accessible}
-        accessibilityLabel={accessibilityLabel}
-        accessibilityHint={accessibilityHint}
-      />
+      {renderHeader(CardHeader, {
+        title,
+        actionType: 'navigate',
+        disabled,
+        leadingIcon: resolvedIcon,
+        accessible,
+        accessibilityLabel,
+        accessibilityHint,
+      })}
       {showItems && (
         <ContainerWithGap horizontal span={2} gap={ITEM_GAP} viewStyle={styles.itemsContainer}>
           {items.map((item, index) => (

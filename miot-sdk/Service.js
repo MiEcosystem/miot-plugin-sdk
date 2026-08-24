@@ -154,6 +154,26 @@ export default {
      return Promise.resolve(null);
   },
   /**
+   * @method callSmartHomeAPIV2
+   * @since 101110
+   * @description callSmartHomeAPI 的透传版本，与米家服务器交互。
+   * 与 callSmartHomeAPI 的区别在于：SDK 不对服务端返回数据做任何裁剪、字段兜底或按 code 改变成功语义，
+   * 服务端数据始终原样透传，从而保证双端（iOS/Android）数据一致。
+   *
+   * resolve/reject 边界以「传输是否完成」划分：
+   * - 传输层拿到服务端响应（无论业务 code 是否为 0）→ resolve 完整原始响应；
+   * - 传输层本身失败（超时/断网/无响应）→ reject 传输错误。
+   *
+   * 返回的是服务端原始完整结构（如 { code, message, result }），业务侧需自行判断 code 并取 result。
+   * 收录校验规则与 callSmartHomeAPI 一致。
+   * @param {string} api - 接口地址，比如'/location/set'
+   * @param {object} params 传入参数，比如{ did: 'xxxx', pid: 'xxxx' }
+   * @param {function} [resProcessHandler] 可选的响应处理钩子 (api, params, res) => res，默认不传即纯透传
+   */
+  callSmartHomeAPIV2(api, params, resProcessHandler = null) {
+     return Promise.resolve(null);
+  },
+  /**
    * @method callSmartHomeCameraAPI
    * @since 10035
    * @description 专用摄像头相关接口请求

@@ -41,6 +41,17 @@ class IUi {
   canOpenStorePage() {
   }
   /**
+   * 获取当前窗口尺寸（Pad/dialog 形态自适应），单位 dp。
+   * 平板 dialog 形态返回模板尺寸，其余形态返回真实窗口尺寸。
+   * @since 11.7.0
+   * @returns {Promise<{width:number, height:number}>} 窗口宽高，单位 dp
+   * @example
+   * Host.ui.getRealWindowSize().then(({ width, height }) => console.log(width, height))
+   */
+  @report
+  getRealWindowSize() {
+  }
+  /**
    * 弹出删除设备的对话框
    * @param {string} [title=null] - 自定义提示，不设置使用默认提示
    */
@@ -1257,6 +1268,19 @@ class IUi {
   openDeviceOfflineAlert() {
   }
   /**
+   * 设置门锁插件无操作超时监控开关。
+   * 仅适用于高安全等级门锁插件：开启后，原生容器在用户长时间无触摸操作时会自动退出当前插件并提示用户。
+   * 超时阈值由原生侧统一维护，前端无需感知；前端只需在判定需要监控时开启、不需要时关闭。
+   * @since 10117
+   * @param {boolean} enabled true=开启监控；false=关闭监控
+   * @example
+   * Host.ui.setLockPluginInactivityMonitorEnabled(true)
+   * Host.ui.setLockPluginInactivityMonitorEnabled(false)
+   */
+  @report
+  setLockPluginInactivityMonitorEnabled(enabled) {
+  }
+  /**
    * 打开远程控制弹窗，用于新国标原充控制功能
    * @since 10115
    * @example
@@ -1346,6 +1370,23 @@ class IUi {
    openSelectLocationMapDialog(param) {
    }
   /**
+   * 插件唤起智能助手（扫地机 Agent 接入-核心①）
+   * since 10108
+   * Promise resolve 仅表示"助手唤起成功"（对应 Promise<void>），不返回业务值；
+   * 助手后续通知插件走事件通道：通过 callbackEvent 以自定义事件回传，
+   * 插件侧用 DeviceEventEmitter.addListener(callbackEvent) 监听。
+   * @param {string} model 设备 model
+   * @param {string} did 设备 did（必填）
+   * @param {string} bubbleText 助手气泡文案
+   * @param {string} callbackEvent 回调事件名，助手交互通过该事件名回传自定义事件
+   * @return {Promise} 唤起成功 resolve，失败 reject
+   */
+  @report
+   gotoSmartAssistant(model, did, bubbleText, callbackEvent) {
+     return new Promise((resolve, reject) => {
+     });
+   }
+  /**
    * 为汉图照片打印机打开LivePhone选择一张动态照片
    * since 10106
    * @param
@@ -1353,17 +1394,17 @@ class IUi {
    *  param.sandBoxFolder(stgring) 选中的live photo存储的沙盒路径 android参数 iOS可以不用传
    */
   @report
-   openPickLivePhotoPage(param) {
-     return new Promise((resolve, reject) => {
-       native.MIOTHost.openPickLivePhotoPage(param, (isSuccess, result) => {
-         if (isSuccess) {
-           resolve(result);
-         } else {
-           reject(result);
-         }
-       });
-     });
-   }
+  openPickLivePhotoPage(param) {
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.openPickLivePhotoPage(param, (isSuccess, result) => {
+        if (isSuccess) {
+          resolve(result);
+        } else {
+          reject(result);
+        }
+      });
+    });
+  }
     /**
    * 打开设备中枢功能页
    * @param  暂传空

@@ -1,13 +1,11 @@
 'use strict';
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, Image } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import Svg, { Path, Circle, Rect } from 'react-native-svg';
 import { dynamicStyleSheet } from 'miot/ui';
-import { colorToken, Fonts, ContainerWithGap } from 'miot/ui/hyperOSUI';
-import NavigationBar from 'miot/ui/NavigationBar';
+import { colorToken, Fonts } from 'miot/ui/hyperOSUI';
 import IftttSceneCard from '../../../../../../miot-sdk/ui/smartScene/components/IftttSceneCard';
-import Images, { getImage } from '../../../../../../miot-sdk/ui/smartScene/images';
 
 // ============== mock data helpers ==============
 
@@ -66,22 +64,22 @@ const SceneIcon5 = () => (
   </View>
 );
 
-const sceneIcons = [<SceneIcon1 />, <SceneIcon2 />, <SceneIcon3 />, <SceneIcon4 />, <SceneIcon5 />];
+const sceneIcons = [
+  <SceneIcon1 key="scene-icon-1" />,
+  <SceneIcon2 key="scene-icon-2" />,
+  <SceneIcon3 key="scene-icon-3" />,
+  <SceneIcon4 key="scene-icon-4" />,
+  <SceneIcon5 key="scene-icon-5" />,
+];
 const SceneIcon = ({ index }) => sceneIcons[index % sceneIcons.length];
-
-const HeaderIcon = () => (
-  <View style={styles.headerIconOuter}>
-    <Image source={Images['mi-log']} style={styles.headerIconInner} />
-  </View>
-);
 
 // Layout: [trigger] → [action1] → [action2]
 // trigger: 左边最多 1 个, action: 右边 1~2 个, 总共最多 3 个 icon
 const buildTriggerIcons = (count = 1) =>
-  Array.from({ length: count }, (_, i) => <SceneIcon key={`trigger-${i}`} index={i} />);
+  Array.from({ length: count }, (_, i) => <SceneIcon key={`trigger-${ i }`} index={i} />);
 
 const buildActionIcons = (count = 2) =>
-  Array.from({ length: count }, (_, i) => <SceneIcon key={`action-${i}`} index={i + 1} />);
+  Array.from({ length: count }, (_, i) => <SceneIcon key={`action-${ i }`} index={i + 1} />);
 
 const normalItem = (overrides = {}) => ({
   title: '回家场景',
@@ -155,7 +153,7 @@ const SmartSceneDemo = ({ navigation }) => {
     useLongTitle: false,
   });
 
-  const toggleLongTitle = () => setState(s => ({ ...s, useLongTitle: !s.useLongTitle }));
+  const toggleLongTitle = () => setState((s) => ({ ...s, useLongTitle: !s.useLongTitle }));
   const reset = () => setState({ useLongTitle: false });
 
   const { useLongTitle } = state;
@@ -203,6 +201,17 @@ const SmartSceneDemo = ({ navigation }) => {
         <IftttSceneCard
           {...cardProps}
           showLeadingIcon={false}
+          hasData={true}
+          items={defaultItems}
+        />
+      </View>
+
+      <Text style={styles.subTitle}>disabled = true · 禁用态（图标与文字灰色）</Text>
+      <View style={styles.dataCard}>
+        <IftttSceneCard
+          {...cardProps}
+          disabled={true}
+          showLeadingIcon={true}
           hasData={true}
           items={defaultItems}
         />
@@ -264,23 +273,11 @@ const SmartSceneDemo = ({ navigation }) => {
         />
       </View>
 
-          </ScrollView>
+    </ScrollView>
   );
 };
 
 const styles = dynamicStyleSheet({
-  headerIconOuter: {
-    width: 24,
-    height: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
-  },
-  headerIconInner: {
-    width: 20,
-    height: 20,
-    resizeMode: 'contain',
-  },
   sceneIconImg: {
     width: 36,
     height: 36,
