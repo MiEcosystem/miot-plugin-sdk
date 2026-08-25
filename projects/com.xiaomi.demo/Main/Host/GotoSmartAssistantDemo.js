@@ -5,10 +5,10 @@ import { StyleSheet, Text, View, ScrollView, TextInput, TouchableHighlight, Devi
 import { Device, Host } from 'miot';
 import Logger from '../Logger';
 
-// 验证「插件唤起助手」功能（扫地机 Agent 接入-核心①）
-// 1. 调用 Host.ui.gotoSmartAssistant 唤起助手页（原生 push 承载 VC）
-// 2. Promise resolve 表示唤起成功
-// 3. 通过 DeviceEventEmitter 监听 callbackEvent，验证核心②事件回传通道
+// 验证「插件唤起助手」功能（扫地机 Agent 接入）
+// 1. 调用 Host.ui.gotoSmartAssistant 唤起助手（原生弹出抽屉浮层），Promise resolve 表示唤起成功
+// 2. 助手内交互后，通过 callbackEvent 事件通道回传 { pageName, pageParams }（核心②）
+// 3. demo 监听该事件，用自身导航栈 navigate(pageName, pageParams) 做同插件页面跳转
 export default class GotoSmartAssistantDemo extends React.Component {
 
   constructor(props) {
@@ -24,9 +24,21 @@ export default class GotoSmartAssistantDemo extends React.Component {
   }
 
   componentDidMount() {
-    // 监听助手回传事件（核心②）
+    // 监听助手回传事件（核心②）：收到 { pageName, pageParams } 后做同插件页面跳转
     this.subscription = DeviceEventEmitter.addListener(this.state.callbackEvent, (payload) => {
-      this._appendLog(`收到助手回传事件 [${ this.state.callbackEvent }]: ${ JSON.stringify(payload) }`);
+      this._appendLog(`收到助手回传: ${ JSON.stringify(payload) }`);
+      const pageName = payload && payload.pageName;
+      const pageParams = (payload && payload.pageParams) || {};
+      if (!pageName) {
+        this._appendLog('payload 无 pageName，忽略跳转');
+        return;
+      }
+      try {
+        this._appendLog(`同插件跳转 → navigate('${ pageName }')`);
+        this.props.navigation.navigate(pageName, pageParams);
+      } catch (e) {
+        this._appendLog(`跳转失败（该页可能未注册）: ${ e && e.message }`);
+      }
     });
   }
 
