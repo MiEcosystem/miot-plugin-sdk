@@ -435,5 +435,9 @@ export default {
   "scene_can_turnOn": "Доступно",
   "scene_active_people": "Количество пользователей: ${}",
   "scene_upgrade_subtitle": "Prepojte viac zariadení a vykonajte tak sofistikovanejšie úlohy",
-  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Po prepnutí tlačidlo už nebude ovládať inteligentné zariadenia a súvisiace nastavenia ovládania budú odstránené.',
+  switch_autoCtrl_speedModeDescription: 'Podporuje jedno stlačenie pre rýchlejšiu odpoveď',
+  switch_autoCtrl_standardModeDescription: 'Podporuje jedno stlačenie, dvojité stlačenie a stlačenie a podržanie',
+  switch_autoCtrl_multipleControlsHint: 'Prepojiť iba jedno ovládanie',
 };

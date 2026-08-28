@@ -435,5 +435,9 @@ export default {
   "scene_can_turnOn": "Disponibile",
   "scene_active_people": "Numero di utenti: ${}",
   "scene_upgrade_subtitle": "Completa attività più complesse connettendo più dispositivi",
-  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Una volta effettuata la modifica, il pulsante non controllerà più i dispositivi smart e le relative impostazioni di controllo verranno eliminate.',
+  switch_autoCtrl_speedModeDescription: 'Supporta la pressione singola per una risposta più rapida',
+  switch_autoCtrl_standardModeDescription: 'Supporta la pressione singola, la pressione doppia e la pressione prolungata',
+  switch_autoCtrl_multipleControlsHint: 'Collega un solo controllo',
 };

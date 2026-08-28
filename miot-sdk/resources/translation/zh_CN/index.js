@@ -331,6 +331,8 @@ export default {
   switch_listItem_value_executionTypeCloud: "云端",
   switch_listItem_value_executionTypeLocale: "本地",
   switch_dia_msg_deleteScene: "删除自动化？",
+  switch_dia_title_deleteConfig: "删除配置？",
+  switch_dia_msg_deleteConfigLight: "删除后，该按键将不再控制此灯",
   switch_scene_name_toggleSwitchDevice: "${} 单击${}——开/关 ${}- ${}",
   switch_scene_name_toggleLightDevice: "${} 单击${}——开/关 ${}",
   switch_scene_name_executeManualScene: "${} 单击${}——执行 ${}",
@@ -446,4 +448,8 @@ export default {
   mobileCard_networkInfoCheckFailed: "网络信息加载失败，请稍后重试",
   mobileCard_offlineTitle: "已离线",
   mobileCard_offlineSubtitle: "设备已离线，暂时无法获取流量卡信息",
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: "切换后，操作按键时，不再控制智能设备，相关控制配置将会删除",
+  switch_autoCtrl_speedModeDescription: "仅支持“单击”操作，设备响应更快",
+  switch_autoCtrl_standardModeDescription: "支持“单击”、“双击”、“长按”操作",
+  switch_autoCtrl_multipleControlsHint: "已关联多项控制，建议您仅保留一项",
 };

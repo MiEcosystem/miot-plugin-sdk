@@ -435,5 +435,9 @@ export default {
   scene_can_turnOn: 'Διαθέσιμη',
   scene_active_people: 'Αριθμός χρηστών: ${}',
   "scene_upgrade_subtitle": "Ολοκληρώστε πιο περίπλοκες εργασίες συνδέοντας πολλαπλές συσκευές",
-  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Μετά την αλλαγή, το κουμπί δεν θα ελέγχει πλέον τις έξυπνες συσκευές και οι σχετικές ρυθμίσεις ελέγχου θα διαγραφούν.',
+  switch_autoCtrl_speedModeDescription: 'Υποστηρίζει πάτημα μία φορά για ταχύτερη απόκριση',
+  switch_autoCtrl_standardModeDescription: 'Υποστηρίζει πάτημα μια φορά, πάτημα δυο φορές και παρατεταμένο πάτημα',
+  switch_autoCtrl_multipleControlsHint: 'Σύνδεση μόνο ενός χειριστηρίου',
 };

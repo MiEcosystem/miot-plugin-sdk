@@ -584,6 +584,7 @@ const excludeOptions = {
  *   bleOtaAuthType: number // 打开通用的蓝牙固件OTA的原生页面。指定设备的协议类型 0: 普通小米蓝牙协议设备(新接入设备已废弃该类型)，1: 安全芯片小米蓝牙设备（比如锁类产品） 4: Standard Auth 标准蓝牙认证协议(通常2019.10.1之后上线的新蓝牙设备) 5: Mesh 设备
  *   10059新增
  *   preOperations: object { AllOptions.SHARE: function, AllOptions.FIRMWARE_UPGRADE: function, AllOptions.CREATE_GROUP: function, AllOptions.MANAGE_GROUP: function  } // 打开分享、ota、创建组、编辑组页面的前置操作，只会在resolve中执行打开页面
+ *   showMemberSet: bool // 「按键设置」是否显示。未传沿用SDK默认规则，false强制隐藏，true强制显示
  * }
  * ```
  * @property {object} navigation - 必须传入当前插件的路由，即 `this.props.navigation`，否则无法跳转二级页面
@@ -1289,9 +1290,9 @@ export default class CommonSetting extends React.Component {
         if (parsed && parsed.type === 'b') abTestType = 'b';
       } catch (e) {
       }
-      this.setState({abTestType});
+      this.setState({ abTestType });
     }).catch(() => {
-      this.setState({abTestType: 'a'});
+      this.setState({ abTestType: 'a' });
     });
   }
   _updateUsedOnMiHome() {
@@ -1350,6 +1351,7 @@ export default class CommonSetting extends React.Component {
   }
   render() {
     let { modelType, productBaikeUrl, freqCameraNeedShowRedPoint, showMultipleKey, hasStdPlugin, pluginCategory, showMemberSetKey, isSingleSwitch, showDeviceService, isCariotDevice, isHomeManager, isHighTextContrastEnabled } = this.state;
+    const { showMemberSet } = this.props.extraOptions;
     let requireKeys1 = [
       AllOptions.FREQ_CAMERA,
       AllOptions.USED_ON_MI_HOME,
@@ -1412,6 +1414,12 @@ export default class CommonSetting extends React.Component {
     // 4. 拼接必选项和可选项
     let keys = [...requireKeys1, ...options, ...requireKeys2, ...(this.props.firstCustomOptions || [])];
     keys = [...new Set(keys)];
+    if (showMemberSet === true && !keys.includes(AllOptions.MEMBER_SET)) {
+      keys.push(AllOptions.MEMBER_SET);
+    }
+    if (showMemberSet === false) {
+      keys = keys.filter((key) => key !== AllOptions.MEMBER_SET);
+    }
     // 5. 权限控制，如果是共享设备或者家庭设备，需要过滤一下
     if (Device.isOwner === false) {
       keys = keys.filter((key) => firstSharedOptions[key]);
@@ -1425,7 +1433,7 @@ export default class CommonSetting extends React.Component {
     const { excludeRequiredOptions } = this.props.extraOptions;
     if (excludeRequiredOptions instanceof Array) {
       keys = keys.filter((key) => {
-        if ((isSingleSwitch ^ showMemberSetKey) && key === AllOptions.MEMBER_SET) { // 如果SDK决定要展示「按键设置」，那么这个选项不允许开发者隐藏
+        if ((showMemberSet === true || (isSingleSwitch ^ showMemberSetKey)) && key === AllOptions.MEMBER_SET) { // 如果SDK决定要展示「按键设置」，那么这个选项不允许开发者隐藏
           return true;
         }
         return !(excludeRequiredOptions || []).includes(key);

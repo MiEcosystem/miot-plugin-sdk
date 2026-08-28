@@ -435,5 +435,9 @@ export default {
   scene_can_turnOn: 'Disponible',
   scene_active_people: 'Número de usuarios: ${}',
   "scene_upgrade_subtitle": "Realiza tareas más sofisticadas conectando varios dispositivos",
-  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Una vez realizado el cambio, el botón ya no controlará los dispositivos inteligentes y los ajustes de control relacionados se eliminarán.',
+  switch_autoCtrl_speedModeDescription: 'Admite pulsar una vez para una respuesta más rápida',
+  switch_autoCtrl_standardModeDescription: 'Admite pulsar una vez, pulsar dos veces y mantener pulsado',
+  switch_autoCtrl_multipleControlsHint: 'Vincular un solo control',
 };

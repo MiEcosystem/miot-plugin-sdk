@@ -435,5 +435,9 @@ export default {
   "scene_can_turnOn": "可開啟",
   "scene_active_people": "${}人已使用",
   "scene_upgrade_subtitle": "體驗更多裝置聯動場景",
-  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: '切換後，操作按鍵時，不再控制智能裝置，相關控制配置將會刪除',
+  switch_autoCtrl_speedModeDescription: '僅支援「單按」操作，裝置回應更快',
+  switch_autoCtrl_standardModeDescription: '支援「單按」、「雙按」、「長按」操作',
+  switch_autoCtrl_multipleControlsHint: '已關聯多項控制，建議您僅保留一項',
 };

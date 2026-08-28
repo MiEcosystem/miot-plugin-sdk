@@ -351,6 +351,8 @@ export default {
   switch_listItem_value_executionTypeCloud: 'Cloud',
   switch_listItem_value_executionTypeLocale: 'Local',
   switch_dia_msg_deleteScene: 'Delete this automation?',
+  switch_dia_title_deleteConfig: 'Delete configuration?',
+  switch_dia_msg_deleteConfigLight: 'After deletion, this button will no longer control this light',
   switch_scene_name_toggleSwitchDevice: '${} | Single press | ${} | On/Off | ${}-${}',
   switch_scene_name_toggleLightDevice: '${} | Single press | ${} | On/Off | ${}',
   switch_scene_name_executeManualScene: '${} | Single press | ${} | Run | ${}-${}',
@@ -465,5 +467,10 @@ export default {
   mobileCard_freeFlowFooter: 'Free data usage: According to carrier rules, this IoT SIM is associated with this device. Free data is linked to the device lifecycle. If the camera can no longer be used, the free data will be considered expired. This SIM can\'t be moved to another device.',
   mobileCard_networkInfoCheckFailed: 'Couldn\'t load network info. Try again.',
   mobileCard_offlineTitle: 'Offline',
-  mobileCard_offlineSubtitle: 'Device is offline. Data SIM info isn\'t available.'
+  mobileCard_offlineSubtitle: 'Device is offline. Data SIM info isn\'t available.',
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc:
+    'After switching, the button will no longer control smart devices, and related control settings will be deleted.',
+  switch_autoCtrl_speedModeDescription: 'Supports single press for faster response',
+  switch_autoCtrl_standardModeDescription: 'Supports single press, double press, and press and hold',
+  switch_autoCtrl_multipleControlsHint: 'Link only one control',
 };

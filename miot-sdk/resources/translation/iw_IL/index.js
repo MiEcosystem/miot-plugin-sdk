@@ -435,5 +435,9 @@ export default {
   'scene_can_turnOn': 'זמין',
   'scene_active_people': 'מספר משתמשים: ${}',
   'scene_upgrade_subtitle': 'השלמת משימות מתוחכמות יותר על-ידי חיבור מכשירים מרובים',
-  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'אחרי המעבר, הכפתור לא יאפשר יותר שליטה במכשירים חכמים, והגדרות השליטה הקשורות יימחקו.',
+  switch_autoCtrl_speedModeDescription: 'תומך בלחיצה אחת לתגובה מהירה יותר',
+  switch_autoCtrl_standardModeDescription: 'תומך בלחיצה אחת, בלחיצה כפולה ובלחיצה ממושכת',
+  switch_autoCtrl_multipleControlsHint: 'לקשר בקרה אחת בלבד',
 };

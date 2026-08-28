@@ -435,5 +435,9 @@ export default {
   "scene_can_turnOn": "Kullanılabilir",
   "scene_active_people": "Kullanıcı sayısı: ${}",
   "scene_upgrade_subtitle": "Birden fazla cihazı bağlayarak daha sofistike görevleri tamamla",
-  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Geçiş işleminden sonra, düğme artık akıllı cihazları kontrol etmeyecek ve ilgili kontrol ayarları silinecektir.',
+  switch_autoCtrl_speedModeDescription: 'Daha hızlı yanıt için tek tuşla basmayı destekler',
+  switch_autoCtrl_standardModeDescription: 'Tek basma, çift basma ve basılı tutma işlevlerini destekler',
+  switch_autoCtrl_multipleControlsHint: 'Yalnızca bir kontrol bağlantısı kurun',
 };

@@ -435,5 +435,9 @@ export default {
   "scene_can_turnOn": "Tilgjengelig",
   "scene_active_people": "Antall brukere: ${}",
   "scene_upgrade_subtitle": "Utfør mer sofistikerte oppgaver ved å koble til flere enheter",
-  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Når du har byttet, vil ikke knappen lenger kontrollere smartenheter, og tilhørende kontrollinnstillinger vil bli slettet.',
+  switch_autoCtrl_speedModeDescription: 'Støtter enkelttrykk for raskere respons',
+  switch_autoCtrl_standardModeDescription: 'Støtter enkelttrykk, dobbelttrykk og trykk og hold inne',
+  switch_autoCtrl_multipleControlsHint: 'Lenke til bare én kontroll',
 };
