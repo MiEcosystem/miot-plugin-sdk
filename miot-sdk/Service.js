@@ -156,19 +156,22 @@ export default {
   /**
    * @method callSmartHomeAPIV2
    * @since 101110
-   * @description callSmartHomeAPI 的透传版本，与米家服务器交互。
-   * 与 callSmartHomeAPI 的区别在于：SDK 不对服务端返回数据做任何裁剪、字段兜底或按 code 改变成功语义，
-   * 服务端数据始终原样透传，从而保证双端（iOS/Android）数据一致。
+   * @description 通用的请求米家后台接口的方法，与米家服务器交互。
+   * 与 callSmartHomeAPI 的区别在成功返回：callSmartHomeAPI 只回传 res.result（裁剪掉顶层 code/message），
+   * 本方法保留完整顶层结构（code/message/result 都在），业务侧自行读取 res.result。
    *
-   * resolve/reject 边界以「传输是否完成」划分：
-   * - 传输层拿到服务端响应（无论业务 code 是否为 0）→ resolve 完整原始响应；
-   * - 传输层本身失败（超时/断网/无响应）→ reject 传输错误。
+   * 成败判定下沉到原生，双端统一按业务 code == 0 判定：code == 0 回调 ok=true；
+   * code != 0 或传输失败回调 ok=false。JS 侧不再重复判 code，仅依据 ok 分流为 resolve / reject：
+   * - ok=true  → resolve(res)，res 为服务端完整响应（如 { code:0, message, result }），
+   *              另含原生附加的 __api_info（请求耗时信息）。
+   * - ok=false → reject(res)，res 为 { code, message, __api_info }，
+   *              由 JS 胶水层从原生失败回调（code 码 / 消息 / api_info）拼接而成。
    *
-   * 返回的是服务端原始完整结构（如 { code, message, result }），业务侧需自行判断 code 并取 result。
-   * 收录校验规则与 callSmartHomeAPI 一致。
+   * 接入契约：外部服务须遵循 code == 0 表示成功、code != 0 表示失败，否则不可直接接入本接口。
+   * 收录校验规则与 callSmartHomeAPI 一致（见 apiRepo.js / omitApi.js）。
    * @param {string} api - 接口地址，比如'/location/set'
    * @param {object} params 传入参数，比如{ did: 'xxxx', pid: 'xxxx' }
-   * @param {function} [resProcessHandler] 可选的响应处理钩子 (api, params, res) => res，默认不传即纯透传
+   * @param {function} [resProcessHandler] 可选响应加工钩子 (api, params, res) => res，resolve/reject 前对 res 做格式归一（不判 code）；默认不传即纯透传。
    */
   callSmartHomeAPIV2(api, params, resProcessHandler = null) {
      return Promise.resolve(null);
