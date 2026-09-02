@@ -8,6 +8,7 @@ import DynamicColor, { dynamicColor } from '../Style/DynamicColor';
 import { FontMiSansWRegular } from '../../utils/fonts';
 import { adjustSize } from '../../utils/sizes';
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
+import {Fonts} from "mhui-rn/dist/hyperOS";
 export default class DeviceCell extends Component {
   static propTypes = {
     icon: PropTypes.any,
@@ -126,11 +127,9 @@ const Styles = dynamicStyleSheet({
     flex: 1
   },
   title: {
+    ...Fonts.fontSystem13Regular,
     marginHorizontal: adjustSize(48),
-    fontFamily: FontMiSansWRegular,
-    fontSize: 13,
     color: dynamicColor('rgba(0, 0, 0, 0.8)', 'rgba(255, 255, 255, 0.8)'),
-    lineHeight: 23
   },
   checkbox: {
     width: adjustSize(66),
