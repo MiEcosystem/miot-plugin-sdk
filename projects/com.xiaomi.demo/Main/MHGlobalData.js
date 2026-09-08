@@ -1,4 +1,4 @@
-var MHGlobal = {}
-import  Device from 'miot';
+let MHGlobal = {};
+import Device from 'miot';
 MHGlobal.deviceName = Device.name;
-module.exports = MHGlobal
+module.exports = MHGlobal;

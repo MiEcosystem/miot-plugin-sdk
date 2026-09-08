@@ -1,11 +1,11 @@
-import React, {Component}from 'react';
+import React, { Component } from 'react';
 import {
   Image,
   View,
   Text,
   PixelRatio
-} from 'react-native'
-import {RkComponent, RkText} from 'react-native-ui-kitten'
+} from 'react-native';
+import { RkComponent, RkText } from 'react-native-ui-kitten';
 
 export class Avatar extends RkComponent {
 
@@ -22,7 +22,7 @@ export class Avatar extends RkComponent {
   }
 
   render() {
-    let {container, image, username, description: descriptionStyle} = this.defineStyles();
+    let { container, image, username, description: descriptionStyle } = this.defineStyles();
     let description = this.props.description ? (<RkText style={descriptionStyle}>{this.props.description}</RkText>) :
       <View/>;
 
@@ -34,6 +34,6 @@ export class Avatar extends RkComponent {
           {description}
         </View>
       </View>
-    )
+    );
   }
 }

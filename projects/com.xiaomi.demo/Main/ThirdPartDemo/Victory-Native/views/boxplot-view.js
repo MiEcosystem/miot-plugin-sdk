@@ -1,4 +1,4 @@
-/*global setInterval*/
+/* global setInterval */
 import React from "react";
 import { ScrollView } from "react-native";
 import { VictoryChart, VictoryBoxPlot } from "victory-native";

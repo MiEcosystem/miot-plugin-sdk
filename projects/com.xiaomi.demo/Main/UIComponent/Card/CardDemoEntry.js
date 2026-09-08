@@ -19,7 +19,13 @@ export default class CardDemoEntry extends React.Component {
           { name: '自定义卡片 CustomCardDemo', router: 'CustomCardDemo' },
           { name: '大字体模式 AdaptedFontCardDemo', router: 'AdaptedFontCardDemo' },
           { name: '滑动档位卡片 GearCardDemo', router: 'GearCardDemo' },
-          { name: '新版米家List卡片 ListCardDemo', router: 'ListCardDemo' }
+          { name: 'List卡片 ListCardDemo', router: 'ListCardDemo' },
+          { name: '标准米家卡片 CardButtonDemo', router: 'CardButtonDemo' },
+          { name: '标准米家卡片 SelectWithButtonDemo', router: 'SelectWithButtonDemo' },
+          { name: '标准米家卡片 SliderWithHeaderDemo', router: 'SliderWithHeaderDemo' },
+          { name: '标准米家卡片 SliderWithoutBlockDemo', router: 'SliderWithoutBlockDemo' }
+
+          
         ])
     };
     Logger.trace(this);
