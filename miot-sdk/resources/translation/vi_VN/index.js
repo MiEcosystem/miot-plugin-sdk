@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'Cổng Bluetooth Mesh',
   deviceDid: 'ID thiết bị',
   deviceSN: 'Số sê-ri thiết bị',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'Phiên bản chương trình cơ sở MCU',
   sdkVersion: 'Phiên bản chương trình cơ sở SDK',
   fireSafeCode: 'Mã an toàn phòng cháy',
@@ -434,5 +435,9 @@ export default {
   "scene_can_turnOn": "Khả dụng",
   "scene_active_people": "Số lượng người dùng: ${}",
   "scene_upgrade_subtitle": "Hoàn thành các nhiệm vụ phức tạp hơn bằng cách kết nối nhiều thiết bị",
-  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Sau khi chuyển đổi, nút này sẽ không còn điều khiển các thiết bị thông minh và các cài đặt điều khiển liên quan sẽ bị xóa.',
+  switch_autoCtrl_speedModeDescription: 'Hỗ trợ nhấn một lần để phản hồi nhanh hơn',
+  switch_autoCtrl_standardModeDescription: 'Hỗ trợ nhấn một lần, nhấn hai lần và nhấn giữ',
+  switch_autoCtrl_multipleControlsHint: 'Chỉ liên kết với một điều khiển',
 };

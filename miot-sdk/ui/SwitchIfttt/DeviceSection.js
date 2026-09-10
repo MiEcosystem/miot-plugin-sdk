@@ -8,6 +8,7 @@ import { FontMiSansWRegular } from '../../utils/fonts';
 import { adjustSize } from '../../utils/sizes';
 import DeviceCell from './DeviceCell';
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
+import {Fonts} from "mhui-rn/dist/hyperOS";
 export default class DeviceSection extends Component {
   static propTypes = {
     title: PropTypes.string,
@@ -126,9 +127,7 @@ const Styles = dynamicStyleSheet({
     justifyContent: 'center'
   },
   title: {
-    fontFamily: FontMiSansWRegular,
-    fontSize: 18,
+    ...Fonts.fontSystem18Regular,
     color: dynamicColor('rgba(0, 0, 0, 0.8)', 'rgba(255, 255, 255, 0.8)'),
-    lineHeight: 28
   }
 });

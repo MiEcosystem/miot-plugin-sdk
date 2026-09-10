@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'Gateway Bluetooth Mesh',
   deviceDid: 'ID Perangkat',
   deviceSN: 'Nomor Seri Perangkat',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'Versi firmware MCU',
   sdkVersion: 'Versi firmware SDK',
   fireSafeCode: 'Kode pencegahan kebakaran',
@@ -434,5 +435,9 @@ export default {
   "scene_can_turnOn": "Tersedia",
   "scene_active_people": "Jumlah pengguna: ${}",
   "scene_upgrade_subtitle": "Selesaikan tugas yang lebih rumit dengan menghubungkan beberapa perangkat",
-  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Setelah beralih, tombol tidak akan mengontrol perangkat cerdas lagi, dan setelan kontrol terkait akan dihapus.',
+  switch_autoCtrl_speedModeDescription: 'Mendukung tekan sekali untuk respons yang lebih cepat',
+  switch_autoCtrl_standardModeDescription: 'Mendukung tekan sekali, tekan dua kali, serta tekan lama',
+  switch_autoCtrl_multipleControlsHint: 'Tautkan satu kontrol saja',
 };

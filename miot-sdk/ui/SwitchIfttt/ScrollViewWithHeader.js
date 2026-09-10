@@ -12,6 +12,7 @@ import DynamicColor, { dynamicColor } from '../Style/DynamicColor';
 import { adjustSize } from '../../utils/sizes';
 import { FontMiSansWLight } from '../../utils/fonts';
 import native, { isIOS } from '../../native';
+import {Fonts} from "mhui-rn/dist/hyperOS";
 const BigTitleGap = adjustSize(30);
 export default function ScrollViewWithHeader({
   bigIcon,
@@ -93,18 +94,14 @@ const styles = dynamicStyleSheet({
     paddingBottom: isIOS && native.MIOTHost.isIphoneXSeries ? 34 : adjustSize(30)
   },
   bigSubtitleText: {
-    lineHeight: 20,
-    fontSize: 14,
+    ...Fonts.fontSystem14Regular,
     marginHorizontal: adjustSize(84),
     textAlign: 'left',
-    fontFamily: FontMiSansWLight
   },
   bigTitleText: {
-    lineHeight: 40,
-    fontSize: 30,
+    ...Fonts.fontSystem32Regular,
     marginHorizontal: adjustSize(75),
     textAlign: 'left',
-    fontFamily: FontMiSansWLight
   },
   imageStyle: {
     width: adjustSize(360),

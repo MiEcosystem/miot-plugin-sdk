@@ -1371,7 +1371,7 @@ class IUi {
    }
   /**
    * 插件唤起智能助手（扫地机 Agent 接入-核心①）
-   * since 10108
+   * since 10120
    * Promise resolve 仅表示"助手唤起成功"（对应 Promise<void>），不返回业务值；
    * 助手后续通知插件走事件通道：通过 callbackEvent 以自定义事件回传，
    * 插件侧用 DeviceEventEmitter.addListener(callbackEvent) 监听。
@@ -1379,10 +1379,11 @@ class IUi {
    * @param {string} did 设备 did（必填）
    * @param {string} bubbleText 助手气泡文案
    * @param {string} callbackEvent 回调事件名，助手交互通过该事件名回传自定义事件
-   * @return {Promise} 唤起成功 resolve，失败 reject
+   * @param {object} extra 扩展参数，透传给助手侧
+   * @return {Promise} resolve({code:0}) 唤起成功；reject({code:-1, message}) 参数缺失
    */
   @report
-   gotoSmartAssistant(model, did, bubbleText, callbackEvent) {
+   gotoSmartAssistant(model, did, bubbleText, callbackEvent, extra = {}) {
      return new Promise((resolve, reject) => {
      });
    }

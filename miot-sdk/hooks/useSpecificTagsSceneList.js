@@ -19,7 +19,7 @@ export default function useSpecificTagsSceneList({
       Service.sceneV2.editScene(scene).then((res) => {
         // console.log('创建关联场景--editScene-res', res);
         const editResult = scene.scene_id ? tagsSceneList.map((s) => {
-          return s.scene_id === scene.scene_id ? scene : s;
+          return s.scene_id === scene.scene_id ? { ...s, ...scene } : s;
         }) : [
           ...tagsSceneList,
           {

@@ -13,6 +13,7 @@ import { ViewPropTypes } from 'react-native';
 import { FontMILanProNormal } from 'miot/utils/fonts';
 import { Images } from '../../resources';
 import DarkMode from 'miot/darkmode';
+import {Fonts} from "mhui-rn/dist/hyperOS";
 /**
  * 卡片的按钮配置 cardButton
  * @typedef {object} cardButton
@@ -74,9 +75,8 @@ const styles = dynamicStyleSheet({
     fontWeight: '400'
   },
   messageText: {
-    fontFamily: FontMILanProNormal,
+    ...Fonts.fontSystem14Regular,
     width: adjustSize(600),
-    fontSize: 14,
     color: new DynamicColor('rgba(0, 0, 0, 0.4)', 'rgba(255, 255, 255, 0.4)'),
     textAlign: 'center',
     marginTop: adjustSize(36)

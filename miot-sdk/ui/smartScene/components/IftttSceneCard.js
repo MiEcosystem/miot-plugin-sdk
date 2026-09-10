@@ -59,7 +59,6 @@ const SceneItem = ({ item, disabled, onPress }) => {
       <View style={[
         styles.item,
         { backgroundColor: colorToken.fillQuaternary },
-        disabled ? styles.disabledOpacity : null,
       ]}
       {...getAccessibilityConfig({
         accessibilityRole: AccessibilityRoles.button,
@@ -97,7 +96,7 @@ const SceneItem = ({ item, disabled, onPress }) => {
             </Text>
           </View>
         </View>
-        <View style={styles.iconRow}>
+        <View style={[styles.iconRow, disabled && styles.disabledOpacity]}>
           {triggerIcons.map((icon, index) => (
             <React.Fragment key={`trigger-${ index }`}>{icon}</React.Fragment>
           ))}
@@ -107,7 +106,6 @@ const SceneItem = ({ item, disabled, onPress }) => {
           ))}
         </View>
       </View>
-      
     </TouchableView>
   );
 };

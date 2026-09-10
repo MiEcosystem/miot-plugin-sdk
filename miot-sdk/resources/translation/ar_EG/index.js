@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'بوابة شبكة البلوتوث',
   deviceDid: 'معرف الجهاز',
   deviceSN: 'الرقم التسلسلي للجهاز',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'إصدار البرنامج الثابت MCU',
   sdkVersion: 'إصدار البرنامج الثابت SDK',
   fireSafeCode: 'كود السلامة من الحرائق',
@@ -434,5 +435,9 @@ export default {
   scene_can_turnOn: 'متاح',
   scene_active_people: 'عدد المستخدمين: ${}',
   "scene_upgrade_subtitle": "أكمل المزيد من المهام المعقدة بربط عدة أجهزة",
-  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'بعد التبديل، لن يعود الزر يتحكم في الأجهزة الذكية، وسيتم حذف إعدادات التحكم المرتبطة به.',
+  switch_autoCtrl_speedModeDescription: 'يدعم الضغط مرة واحدة للاستجابة بشكل أسرع',
+  switch_autoCtrl_standardModeDescription: 'يدعم الضغط مرة واحدة، والضغط مرتين، والضغط المطول',
+  switch_autoCtrl_multipleControlsHint: 'ربط عنصر تحكم واحد فقط',
 };
