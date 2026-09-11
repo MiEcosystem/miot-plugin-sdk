@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Service } from 'miot';
+import Service from 'miot/Service';
 let specPluginInfo = {
   hasSpecPlugin: false,
   defaultPluginType: 1

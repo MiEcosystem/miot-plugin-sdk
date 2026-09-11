@@ -1,4 +1,4 @@
-//index.ios.js
+// index.ios.js
 
 'use strict';
 
@@ -13,13 +13,13 @@ export default class ImagePathDemo extends React.Component {
 
 
 
-  //需要在工程本地导入一个名为'broadchurch'的mp4文件;
-  //http://cookbook.supor.com/Swast2SpEjewRAnE.mp4;
+  // 需要在工程本地导入一个名为'broadchurch'的mp4文件;
+  // http://cookbook.supor.com/Swast2SpEjewRAnE.mp4;
   render() {
     return (
       <View style={styles.container}>
         <View style={{ width: 100, height: 100 }}></View>
-          <LottieView source={require('../Resources/lottie.json')} autoPlay loop />
+        <LottieView source={require('../Resources/lottie.json')} autoPlay loop />
       </View>
     );
   }
@@ -31,11 +31,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
   video: {
     width: window.width,
-    height: window.height,
+    height: window.height
   },
   progressLine: {
     width: window.width,
@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
     height: 20,
     bottom: 25,
     left: 0,
-    backgroundColor: 'red',
-  },
+    backgroundColor: 'red'
+  }
 });
 
 // // var route = {

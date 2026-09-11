@@ -96,6 +96,14 @@ export default {
      */
   destroy() {
      return Promise.resolve(null);
+  },
+  /**
+   * 获取蓝牙连接状态，仅iOS支持
+   * @since 10099
+   * @returns {Promise<any>}  成功进入then，失败进入catch
+   */
+  isConnected() {
+     return Promise.resolve(null);
   }
 };
 /**
