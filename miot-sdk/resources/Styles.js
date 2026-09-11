@@ -26,24 +26,48 @@ export default {
       // fontWeight: 'bold',
       fontSize: 15,
       lineHeight: 20,
-      color: '#000'
+      color: '#000',
       // fontFamily: 'MI-LANTING_GB-OUTSIDE-YS',
       // fontFamily: 'Kmedium',
     },
     subtitle: { // 常见副标题: 列表项/弹窗/卡片
       fontSize: 12,
       // lineHeight: 16,
-      color: 'rgba(0,0,0,0.6)'
+      color: 'rgba(0,0,0,0.6)',
     },
     separator: { // 分割线
       height: SEPARATOR_HEIGHT,
-      backgroundColor: HAIRLINE_COLOR
-    }
+      backgroundColor: HAIRLINE_COLOR,
+    },
+  },
+  title: {
+    titleNormal: {
+      color: new DynamicColor('rgba(0,0,0,1)', 'rgba(255,255,255,1)'),
+    },
+    titleR: {
+      color: new DynamicColor('rgba(0,0,0,0.8)', 'rgba(255,255,255,0.8)'),
+    },
+    titleWarn: {
+      color: new DynamicColor('rgba(255,187,15,1)', 'rgba(255,191,15,1)'),
+      backgroundColor: new DynamicColor('rgba(255,187,15,0.1)', 'rgba(255,191,15,0.2)'),
+    },
+    titleSub: {
+      color: new DynamicColor('rgba(0,0,0,0.6)', 'rgba(255,255,255,0.5)'),
+    },
+    titleSubRight: {
+      color: new DynamicColor('rgba(0,0,0,0.4)', 'rgba(255,255,255,0.5)'),
+    },
+    titleLightGray: {
+      color: new DynamicColor('rgba(0,0,0,0.3)', 'rgba(255,255,255,0.4)'),
+    },
+    titleError: {
+      color: new DynamicColor('#FA382E', '#FA4238'),
+    },
   },
   dialog: {
     background: { // 蒙层背景
       flex: 1,
-      backgroundColor: 'rgba(0,0,0,0.4)' // 蒙层背景色
+      backgroundColor: 'rgba(0,0,0,0.4)', // 蒙层背景色
     },
     modal: { // 弹窗
       position: 'absolute',
@@ -51,38 +75,38 @@ export default {
       marginHorizontal: MODAL_MARGIN, // 两端边距
       width: MODAL_WIDTH, // 宽度
       borderRadius: 20, // 圆角
-      backgroundColor: '#fff' // 内容背景色
+      backgroundColor: '#fff', // 内容背景色
     },
     title: { // 标题容器
       titleHeightThin: 66, // 头部单行标题容器宽度
-      titleHeightFat: 85 // 头部双行标题容器宽度
+      titleHeightFat: 85, // 头部双行标题容器宽度
     },
     subtitle: { // 副标题
       width: MODAL_WIDTH * 0.75,
       textAlign: 'center',
       fontSize: 13,
-      color: '#666'
+      color: '#666',
     },
     buttons: { // 按钮容器
       height: 50, // 底部按钮的高度
       flexDirection: 'row',
       backgroundColor: 'transparent',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
     },
     button: { // 单个按钮
       flex: 1,
       backgroundColor: 'transparent',
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
     },
     buttonText: { // 按钮文字
       fontSize: 14,
       lineHeight: 19,
       color: '#666',
-      fontFamily: 'D-DINCondensed-Bold' // TODO: 英文字体，中文加粗效果
-    }
+      fontFamily: 'D-DINCondensed-Bold', // TODO: 英文字体，中文加粗效果
+    },
   },
   darkMode: {
-    backgroundColor: new DynamicColor('#FFFFFF', '#000000')
-  }
+    backgroundColor: new DynamicColor('#FFFFFF', '#000000'),
+  },
 };

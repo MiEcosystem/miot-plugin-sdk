@@ -3,7 +3,6 @@ import { Service, Device } from 'miot';
 import { View, ScrollView, Text, StyleSheet } from 'react-native';
 import { CommonSetting, SETTING_KEYS } from "miot/ui/CommonSetting";
 import Separator from 'miot/ui/Separator';
-import Protocol from '../../resources/protocol';
 import { strings as SdkStrings, Styles as SdkStyles } from "miot/resources";
 import { ListItem } from "miot/ui/ListItem";
 import PluginStrings from '../../resources/strings';
@@ -12,10 +11,6 @@ export default class SettingPage extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      protocol: null
-    };
   }
 
   initCommonSettingParams() {
@@ -39,27 +34,9 @@ export default class SettingPage extends React.Component {
 
   UNSAFE_componentWillMount() {
     this.initCommonSettingParams();
-    this.initProtocol();
-  }
-
-  initProtocol() {
-    Protocol.getProtocol().then((protocol) => {
-      this.setState({
-        protocol: protocol
-      });
-    }).catch((error) => {
-      // 错误信息上报， 通过米家app反馈可以上报到服务器
-      Service.smarthome.reportLog(Device.model, `Service.getServerName error: ${ JSON.stringify(error) }`);
-    });
   }
 
   render() {
-
-    if (!this.state.protocol) {
-      return null;
-    }
-
-    this.commonSettingParams.extraOptions.option = this.state.protocol;
 
     return (
       <View style={styles.container}>
@@ -109,12 +86,17 @@ export default class SettingPage extends React.Component {
     );
   }
 
+  /**
+   * 这里的示例使用在profile设备，如果是spec设备
+   * onMethod,offParam应该为set_properties
+   * onParam,offParam应该为[{did:xxx,siid:x,piid:x,value:xx}]，就是Service.spec.setPropertiesValue方法的传参
+   */
   openTimerSettingPageWithOptions() {
     let params = {
-      onMethod: "power_on",
-      onParam: "on",
-      offMethod: "power_off",
-      offParam: "off",
+      onMethod: "power_on", // set_properties
+      onParam: "on", // [{did:Device.deviceID, siid:3, piid:2, value:true}]
+      offMethod: "power_off", // // set_properties
+      offParam: "off", // [{did:Device.deviceID, siid:3, piid:2, value:false}]
       timerTitle: "这是一个自定义标题",
       displayName: "自定义场景名称",
       identify: "identify_1",

@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   ScrollView,
   TouchableOpacity,
   StyleSheet
 } from 'react-native';
-import {UtilStyles} from '../style/styles';
+import { UtilStyles } from '../style/styles';
 import {
   RkText,
   RkChoiceGroup,
@@ -35,17 +35,17 @@ export class SettingsScreen extends Component {
           name: 'Option 3'
         }
       ]
-    }
+    };
   }
 
   render() {
-    const {params} = this.props.navigation.state;
+    const { params } = this.props.navigation.state;
     let renderOption = (option, i) => (
       <View key={i}>
         <TouchableOpacity choiceTrigger>
           <View style={styles.checkRow}>
-            <RkText rkType='bold'>{option.name}</RkText>
-            <RkChoice rkType='clear'/>
+            <RkText rkType="bold">{option.name}</RkText>
+            <RkChoice rkType="clear"/>
           </View>
         </TouchableOpacity>
       </View>);
@@ -55,9 +55,9 @@ export class SettingsScreen extends Component {
         style={UtilStyles.container}
         automaticallyAdjustContentInsets={true}>
 
-        <View style={[UtilStyles.section,]}>
-          <RkChoiceGroup selectedIndex={params.option.index} radio rkType='stretch'
-                         onChange={(index) => params.onChange(this.state.options[index])}>
+        <View style={[UtilStyles.section]}>
+          <RkChoiceGroup selectedIndex={params.option.index} radio rkType="stretch"
+            onChange={(index) => params.onChange(this.state.options[index])}>
             {this.state.options.map(renderOption)}
           </RkChoiceGroup>
         </View>
@@ -75,5 +75,5 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: RkTheme.current.colors.border.base
-  },
+  }
 });

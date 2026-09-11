@@ -64,11 +64,12 @@ export default function specifyComponent(UIComponent, adapter) {
     }
     render() {
       const { hidden, ...rest } = this.state;
+      const { showSeparator } = this.props;
       if (hidden) {
         return null;
       }
       return (
-        <UIComponent {...rest}>
+        <UIComponent {...rest} showSeparator={showSeparator}>
           {this.props.children}
         </UIComponent>
       );
