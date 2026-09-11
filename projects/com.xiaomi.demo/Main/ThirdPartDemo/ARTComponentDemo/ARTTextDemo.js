@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react'
+import React from 'react';
 import {
   StyleSheet,
   WebView,
@@ -11,12 +11,12 @@ import {
   ART
 } from 'react-native';
 
-var {
+let {
   width,
   height
 } = Dimensions.get('window');
 
-var {
+let {
   Surface,
   Shape,
   Path,
@@ -29,15 +29,15 @@ export default class ARTTextDemo extends React.Component {
   render() {
     return (
       <View style={styles.container} >
-        <StatusBar barStyle='default' />
-        <Surface width={width} height={(height - (Platform.OS === 'ios' ? 64 : 76))/2}style={styles.surface} >
+        <StatusBar barStyle="default" />
+        <Surface width={width} height={(height - (Platform.OS === 'ios' ? 64 : 76)) / 2}style={styles.surface} >
           <Text
             font={`20px "Helvetica Neue", "Helvetica", Arial`}
             fill = "#000000"
             alignment = "left"
-           >
+          >
              Hello World
-           </Text>
+          </Text>
         </Surface>
       </View>
     );
@@ -50,14 +50,14 @@ export default class ARTTextDemo extends React.Component {
 
 
 var styles = StyleSheet.create({
-    container: {
-        marginTop: Platform.OS === 'ios' ? 64 : 76,
-        flexDirection:'column',
-        flex:1,
-    },
-    surface:{
-      flex:1,
-    }
+  container: {
+    marginTop: Platform.OS === 'ios' ? 64 : 76,
+    flexDirection: 'column',
+    flex: 1
+  },
+  surface: {
+    flex: 1
+  }
 
 });
 

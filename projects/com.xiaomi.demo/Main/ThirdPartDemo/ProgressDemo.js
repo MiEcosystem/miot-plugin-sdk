@@ -10,20 +10,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
-    paddingVertical: 20,
+    paddingVertical: 20
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
+    margin: 10
   },
   circles: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   progress: {
-    margin: 10,
-  },
+    margin: 10
+  }
 });
 
 export default class ProgressDemo extends Component {
@@ -32,7 +32,7 @@ export default class ProgressDemo extends Component {
 
     this.state = {
       progress: 0,
-      indeterminate: true,
+      indeterminate: true
     };
   }
 

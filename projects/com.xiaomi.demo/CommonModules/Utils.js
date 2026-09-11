@@ -5,12 +5,12 @@
  * 
  */
 
- /**
+/**
   * 
   */
-function UUID(){
-    //考虑由原生生成
-    return "...";
+function UUID() {
+  // 考虑由原生生成
+  return "...";
 }
 
 /**
@@ -25,14 +25,14 @@ function UUID(){
  * Utils.format("a{1}", "{1}")
  */
 
-function format(str, ...args){
-    if(!str)return "";
-    const max = args.length;
-    if(max < 1)return str;
-    return str.replace(/[{][1-9][0-9]?[}]/g, w=>{ 
-        const idx=parseInt(w.substring(1, w.length - 1));
-        return (idx < 1 || idx > max)?w:args[idx - 1];
-    })
+function format(str, ...args) {
+  if (!str) return "";
+  const max = args.length;
+  if (max < 1) return str;
+  return str.replace(/[{][1-9][0-9]?[}]/g, (w) => { 
+    const idx = parseInt(w.substring(1, w.length - 1));
+    return (idx < 1 || idx > max) ? w : args[idx - 1];
+  });
 }
 
 /**
@@ -41,9 +41,9 @@ function format(str, ...args){
  * @param {*} obj 
  * @description 获取对象的类型名称
  */
-function typeName(obj){
-    const name = Object.prototype.toString.call(obj);
-    return name.substr(8, name.length - 9).toLowerCase();
+function typeName(obj) {
+  const name = Object.prototype.toString.call(obj);
+  return name.substr(8, name.length - 9).toLowerCase();
 }
 
 /**
@@ -53,13 +53,13 @@ function typeName(obj){
  * @param {*} val 
  * @description 设置某一个属性为只读
  */
-function setReadonly(obj, key, val){
-    return Object.defineProperty(obj, key, {
-        enumerable: true, 
-        configurable: false,
-        get:()=>val,
-        set:()=>{}
-    });
+function setReadonly(obj, key, val) {
+  return Object.defineProperty(obj, key, {
+    enumerable: true, 
+    configurable: false,
+    get: () => val,
+    set: () => {}
+  });
 }
 
 /**
@@ -81,63 +81,63 @@ const strs=formats({
 strs.t4.t6(1000)
 
  */
-function formats(obj){
-    Object.keys(obj).forEach(function(key) {
-        const arr = obj[key];
-        if(!Array.isArray(arr)){
-            if(arr && typeName(arr) === "object"){
-                formats(arr);
-            }
-            return;
+function formats(obj) {
+  Object.keys(obj).forEach(function(key) {
+    const arr = obj[key];
+    if (!Array.isArray(arr)) {
+      if (arr && typeName(arr) === "object") {
+        formats(arr);
+      }
+      return;
+    }
+    switch (arr.length) {
+      case 0:
+        obj[key] = "";
+        return;
+      case 1:
+        {
+          const val = arr[0];
+          setReadonly(obj, key, 
+            (typeof (val) === "function") ? val
+              : (...args) => format(val, ...args)
+          );
         }
-        switch(arr.length){
-            case 0:
-                obj[key]="";
-                return;
-            case 1:
-                {
-                    const val=arr[0];
-                    setReadonly(obj, key, 
-                        (typeof(val) === "function")?val
-                        :(...args)=>format(val, ...args)
-                    )
-                }
-                return;
-        }
-        setReadonly(obj, key, (...args)=>{ 
+        return;
+    }
+    setReadonly(obj, key, (...args) => { 
         	let str = arr[0];
-            if(args.length > 0){
-                for(let i=1; i < arr.length; i ++){
-                    const def = arr[i];
-                    if(!Array.isArray(def) || def.length < 2){
-                        continue;
-                    }
-                    const chk = def[0]; 
-                    if(typeof(chk) === "function"){
-                        if(!chk(...args)){
-                            continue;
-                        }
-                    }else if(args[0] != chk){ 
-                        continue;
-                    }
-                    //found  
-                    str = def[1];
-                    if(def.length < 3 || !def[2]){
-                        return str;
-                    }
-                }
+      if (args.length > 0) {
+        for (let i = 1; i < arr.length; i++) {
+          const def = arr[i];
+          if (!Array.isArray(def) || def.length < 2) {
+            continue;
+          }
+          const chk = def[0]; 
+          if (typeof (chk) === "function") {
+            if (!chk(...args)) {
+              continue;
             }
-            //format str
-            return format(str, ...args);
-        })
+          } else if (args[0] != chk) { 
+            continue;
+          }
+          // found  
+          str = def[1];
+          if (def.length < 3 || !def[2]) {
+            return str;
+          }
+        }
+      }
+      // format str
+      return format(str, ...args);
     });
-	return obj;
+  });
+  return obj;
 }
 
 export default {
-    UUID,
-    format,
-    formats,
-    typeName,
-    setReadonly
-}
+  UUID,
+  format,
+  formats,
+  typeName,
+  setReadonly
+};

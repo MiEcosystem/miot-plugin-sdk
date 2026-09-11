@@ -1,5 +1,6 @@
 import { DeviceEventEmitter } from 'react-native';
-import { Service, Device, DeviceEvent } from 'miot';
+import Service from 'miot/Service';
+import Device, { DeviceEvent } from 'miot/device/BasicDevice';
 const SpecKeyEventPrefix = '__MiotDataManagerEvent__';
 const Cached = {};
 const DataSources = {
