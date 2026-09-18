@@ -62,7 +62,7 @@ const propConfigs = [
 
 const DescriptionConfigDemo = () => (
   <View style={styles.container}>
-    <TestComponent component={Description} propConfigs={propConfigs} />
+    <TestComponent component={Description} propConfigs={propConfigs} showPreviewBg={false}/>
   </View>
 );
 

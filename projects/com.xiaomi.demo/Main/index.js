@@ -149,6 +149,7 @@ import SelectListDemo from "./UIComponent/SDKNewComponent/BasicComponent/SelectL
 import SubpageLayoutDemo from "./UIComponent/SDKNewComponent/LayoutComponent/SubpageLayoutDemo";
 import PageLayoutDemo from "./UIComponent/SDKNewComponent/LayoutComponent/PageLayoutDemo";
 import LayoutDemo from "./UIComponent/SDKNewComponent/LayoutComponent/LayoutDemo";
+import SettingsHyperOSDemo from "./UIComponent/SDKNewComponent/PageComponent/SettingsHyperOSDemo";
 import NewListCardDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListCardDemo";
 import ActionListItemConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/ActionListItemConfigDemo";
 import SelectListConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/SelectListConfigDemo";
@@ -388,6 +389,7 @@ function createRootStack(initPage) {
       SubpageLayoutDemo,
       PageLayoutDemo,
       LayoutDemo,
+      SettingsHyperOSDemo,
       NewListCardDemo,
       ActionListItemConfigDemo,
       SelectListConfigDemo,

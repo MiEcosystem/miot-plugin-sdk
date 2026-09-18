@@ -1,12 +1,26 @@
 'use strict';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Input, colorToken } from 'miot/ui/hyperOSUI';
 import TestComponent from '../testComponent';
 import { dynamicStyleSheet } from 'miot/ui';
 
 const propConfigs = [
+  {
+    name: 'value',
+    type: 'string',
+    defaultValue: '',
+    category: 'content',
+  },
+  {
+    name: 'onChangeText',
+    type: 'pass',
+    defaultValue: () => {},
+    category: 'interaction',
+    linkTo: { targetProp: 'value', pick: (...args) => args[0] },
+    passOptions: [{ label: '受控输入', value: () => {} }],
+  },
   { name: 'placeholder', type: 'string', defaultValue: '请输入内容', category: 'content' },
   {
     name: 'keyboardType',
@@ -66,12 +80,15 @@ const propConfigs = [
 ];
 
 const InputDemo = () => {
+  const [inputProps, setInputProps] = useState({});
+
 
   return (
     <View style={styles.container}>
       <TestComponent
         component={Input}
         propConfigs={propConfigs}
+        onPropsChange={(props) => setInputProps(props)}
       />
     </View>
   );

@@ -1,12 +1,26 @@
 'use strict';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { Input, colorToken } from 'miot/ui/hyperOSUI';
 import TestComponent from '../testComponent';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 
 const propConfigs = [
+  {
+    name: 'value',
+    type: 'string',
+    defaultValue: '',
+    category: 'content',
+  },
+  {
+    name: 'onChangeText',
+    type: 'pass',
+    defaultValue: () => {},
+    category: 'interaction',
+    linkTo: { targetProp: 'value', pick: (...args) => args[0] },
+    passOptions: [{ label: '受控输入', value: () => {} }],
+  },
   { name: 'placeholder', type: 'string', defaultValue: '请输入内容', category: 'content' },
   {
     name: 'keyboardType',
@@ -55,36 +69,16 @@ const propConfigs = [
   },
 ];
 
-const InputConfigDemo = () => {
-  const [inputProps, setInputProps] = useState({});
-  const [valueProp, setValueProp] = useState('');
-
-  return (
-    <View style={styles.container}>
-      <TestComponent
-        component={View}
-        propConfigs={propConfigs}
-        onPropsChange={setInputProps}
-      />
-      <View style={styles.inputWrapper}>
-        <Input
-          {...inputProps}
-          value={valueProp}
-          onChangeText={setValueProp}
-        />
-      </View>
-    </View>
-  );
-};
+const InputConfigDemo = () => (
+  <View style={styles.container}>
+    <TestComponent component={Input} propConfigs={propConfigs} />
+  </View>
+);
 
 const styles = dynamicStyleSheet({
   container: {
     flex: 1,
     backgroundColor: colorToken.surfacePageLow,
-  },
-  inputWrapper: {
-    paddingHorizontal: 24,
-    paddingVertical: 24,
   },
 });
 

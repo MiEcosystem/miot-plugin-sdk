@@ -63,6 +63,14 @@ const propConfigs = [
     passOptions: [
       { label: 'Radio', value: <Radio checked onChange={() => {}} /> },
       { label: '文字', value: <Text style={{ color: colorToken.accentBlueFill }}>自定义</Text> },
+      {
+        label: '长文案',
+        value: (
+          <Text style={{ width: 112, flexShrink: 1, color: colorToken.accentBlueFill, textAlign: 'right' }}>
+            这是一段较长的自定义渲染文案，用于测试右侧内容较多时的多行展示效果
+          </Text>
+        ),
+      },
     ],
   },
   {
