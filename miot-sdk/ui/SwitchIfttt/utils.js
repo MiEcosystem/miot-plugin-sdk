@@ -607,6 +607,38 @@ export function findSwitchMemberIndex(trigger, switchClickSpecs, switchSpecs, pr
   }
   return matched.length ? matched[0] : -1;
 }
+/**
+ * 在已有 tags 场景里找出与目标 trigger 等价的那条（保存前去重用）
+ *
+ * 判等三要素：同设备 did、同 trigger key（事件 = 手势）、同 button-type 值（按键）。
+ * 共用一个 switch-sensor 服务的设备各按键 click 事件 key 完全相同，仅靠 key 会把
+ * B 键的自动化误判成 A 键的，必须再比 button-type；任一侧取不到时宁可放弃去重，
+ * 也不冒险覆盖用户数据。
+ */
+export function findDuplicateTagsScene(tagsSceneList, targetTrigger, propSpec) {
+  const targetKey = targetTrigger?.key;
+  const targetDid = targetTrigger?.extra_json?.did;
+  if (!targetKey || !targetDid) {
+    return null;
+  }
+  const targetButtonType = getTriggerButtonTypeValue(targetTrigger, propSpec);
+  return (tagsSceneList || []).find((scene) => {
+    return (scene?.scene_trigger?.triggers || []).some((trigger) => {
+      if (trigger?.extra_json?.did !== targetDid || trigger?.key !== targetKey) {
+        return false;
+      }
+      const buttonType = getTriggerButtonTypeValue(trigger, propSpec);
+      // 两侧都没有：一键一 sensor 的设备，key 已足够唯一
+      if (targetButtonType === undefined && buttonType === undefined) {
+        return true;
+      }
+      if (targetButtonType === undefined || buttonType === undefined) {
+        return false;
+      }
+      return String(buttonType) === String(targetButtonType);
+    });
+  }) || null;
+}
 export function getSwitchTypeBySceneAction(sceneAction) {
   const { payload_json, type } = sceneAction?.actions[0] || {};
   if (type === 2) {
