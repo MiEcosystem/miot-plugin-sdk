@@ -11,14 +11,14 @@ export default function useSwitchInfoWithIcon(did = Device.deviceID) {
     return new Promise((resolve, reject) => {
       const editInfo = {
         ...switchInfo,
-        [`${ memberId + 1 }`]: member
+        [`${ memberId + 1 }`]: member,
       };
       Service.callSmartHomeAPI('/v2/device/update_membership', {
         did,
         update_fields: [{
           id: memberId + 1,
-          field: member
-        }]
+          field: member,
+        }],
       }).then((res) => {
         DeviceEventEmitter.emit('EditSwitchInfo_DeviceEventEmitter', editInfo);
         resolve(res);
@@ -73,8 +73,9 @@ export default function useSwitchInfoWithIcon(did = Device.deviceID) {
         if (res && res.list && res.list[0] && res.list[0].member_ship) {
           members = res.list[0].member_ship;
         }
-        // 单键设备
-        if (Object.keys(members).length === 1) {
+        // 单键设备未配置按键名时沿用设备名;配置过就以 member_ship.name 为准,
+        //   否则用户在设置页改完名字会被这里无条件盖回设备名(MIIO-134707)
+        if (Object.keys(members).length === 1 && !members['1'].name) {
           members['1'].name = Device.name;
         }
         const subclass_ids = [];
@@ -103,6 +104,6 @@ export default function useSwitchInfoWithIcon(did = Device.deviceID) {
   }, [did]);
   return {
     switchInfo,
-    editSwitchInfo
+    editSwitchInfo,
   };
 }

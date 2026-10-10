@@ -18,10 +18,18 @@ export default function useSwitchRoomInfo(roomIds = [], did = Device.deviceID) {
       }).catch((error) => {
         // console.log('获取按键房间报错---getRoomNames---error', error);
       });
+    } else if (roomIds?.[0]) {
+      // 单键设备配置过按键房间时以 member_ship.room_id 为准;原先无条件读设备房间,
+      //   用户在设置页改完按键房间不会生效(MIIO-134707)
+      Service.room.getRoomNames([roomIds[0]]).then((res) => {
+        setRoomInfo({
+          '1': res?.[0],
+        });
+      }).catch(() => {});
     } else {
       Device.getRoomInfoForCurrentHome(did).then((roomInfo) => {
         setRoomInfo({
-          '1': roomInfo?.data?.name
+          '1': roomInfo?.data?.name,
         });
       }).catch(() => {});
     }
