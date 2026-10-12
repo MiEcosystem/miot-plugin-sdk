@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   requireNativeComponent,
-  ViewPropTypes,
+  ViewPropTypes
 } from 'react-native';
 
 import PropTypes from 'prop-types';
@@ -19,25 +19,25 @@ export default class InputDialog extends Component {
     onConfirm: PropTypes.func,
     onCancel: PropTypes.func,
     onDismiss: PropTypes.func,
-    ...ViewPropTypes,
+    ...ViewPropTypes
   };
 
   render() {
     return <RCTInputDialog {...this.props}
-                             onDismiss={(event) => {
-                               if (this.props.onDismiss) {
-                                 this.props.onDismiss(event.nativeEvent);
-                               }
-                             }}
-                             onCancel={(event) => {
-                               if (this.props.onCancel) {
-                                 this.props.onCancel(event.nativeEvent);
-                               }
-                             }}
-                             onConfirm={(event) => {
-                               if (this.props.onConfirm) {
-                                 this.props.onConfirm(event.nativeEvent);
-                               }
-                             }}/>;
+      onDismiss={(event) => {
+        if (this.props.onDismiss) {
+          this.props.onDismiss(event.nativeEvent);
+        }
+      }}
+      onCancel={(event) => {
+        if (this.props.onCancel) {
+          this.props.onCancel(event.nativeEvent);
+        }
+      }}
+      onConfirm={(event) => {
+        if (this.props.onConfirm) {
+          this.props.onConfirm(event.nativeEvent);
+        }
+      }}/>;
   }
 }

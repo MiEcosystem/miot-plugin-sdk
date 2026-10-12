@@ -5,7 +5,8 @@ import FirmwareUpgradeAuto from "./FirmwareUpgradeAuto";
 import FirmwareUpgradeRecord from "./FirmwareUpgradeRecord";
 import MoreSetting from './MoreSetting';
 import CurtainGroupPage from './CurtainGroupPage';
-import MultiSwitchSetting from './MultiSwitchSetting';
+import CloudStorage from './CloudStorage';
+import MobileCardPage from './MobileCardPage';
 export {
   MoreSetting,
   FirmwareUpgrade,
@@ -15,5 +16,6 @@ export {
   SETTING_KEYS,
   CommonSettingPage,
   CurtainGroupPage,
-  MultiSwitchSetting
+  CloudStorage,
+  MobileCardPage
 };

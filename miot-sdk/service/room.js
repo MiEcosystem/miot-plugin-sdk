@@ -92,6 +92,34 @@ class IMiotRoom {
   @report
   createRoom(name) {
   }
+  /**
+   * 多用于多键开关获取其按键所在的房间名称，通过getMultiSwitchName接口拿到roomId，再通过此接口获取房间名称
+   * @since 10061
+   * @param {array} roomIds 要获取的房间名称的ids
+   * @returns {Promise<array>}
+   * 成功时：返回数组[roomName1, roomName2, ...]
+   * 失败时：[]
+   * @example 
+   * Service.smarthome.getMultiSwitchName(Device.deviceID).then(res => {
+   *  if (res) {
+   *    console.log('getMultiSwitchName: ' + JSON.stringify(res));
+   *    let roomIds = Object.keys(res).map(obj => (res[obj].room_id));
+   *    Service.room.getRoomNames(roomIds).then(res => {
+   *      if (res) {
+   *        ...
+   *        console.log('getRoomNames: ' + JSON.stringify(res));
+   *      }
+   *    }).catch(err => {
+   *      console.log('getRoomNames: ' + JSON.stringify(err));
+   *    })
+   *  }
+   * }).catch(err => {
+   *  console.log('getMultiSwitchName: ' + JSON.stringify(err));
+   * })
+   */
+  @report
+  getRoomNames(roomIds) {
+  }
 }
 const MiotRoomInstance = new IMiotRoom();
 export default MiotRoomInstance;
