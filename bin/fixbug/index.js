@@ -46,11 +46,19 @@ map.set("node_modules/react-native/Libraries/Components/SafeAreaView/SafeAreaVie
 // 增加头部
 map.set("node_modules/react-native/Libraries/Renderer/implementations/ReactNativeRenderer-dev.js", "impl_ReactNativeRenderer-dev");
 map.set("node_modules/react-native/Libraries/Renderer/implementations/ReactNativeRenderer-prod.js", "impl_ReactNativeRenderer-prod");
+// RN 0.61 的 Animated.timing 在原生侧按固定 1000/60 取样点四舍五入，动画值被量化到 60Hz，
+// 高刷屏上相邻两次屏幕刷新取到同一个值，画面实际只更新 60 次/秒（表现为"像 60hz"）。
+// 下面三处为路由动画注入 __useSystemFrameRate 标记，原生侧据此改为按真实时间在取样点间插值。
+// 详见系分《RN 路由动画适配系统高刷帧率》，关联 ISS-202609-00085427A。
+map.set("node_modules/react-native/Libraries/Animated/src/animations/TimingAnimation.js", "TimingAnimation");
+map.set("node_modules/react-navigation-stack/dist/views/StackView/StackView.js", "StackView");
+map.set("node_modules/react-navigation-stack/dist/views/StackView/StackViewLayout.js", "StackViewLayout");
+
 module.exports = {
 
   findContent(mpath) {
     const real = map.get(mpath);
     return real ? fs.readFileSync(path.join(__dirname, real)) : null;
-  }
+  },
 
 };
