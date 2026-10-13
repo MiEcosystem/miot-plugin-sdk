@@ -1,8 +1,9 @@
 'use strict';
 
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import { NavigationBar, colorToken, TestComponent, showToast } from 'miot/ui/hyperOSUI';
+import { BaseAdd, BaseMore, BaseSearch, Circle } from 'miot/ui/icons';
 import { dynamicStyleSheet } from 'miot/ui/Style';
 
 const navIconOptions = [
@@ -22,6 +23,44 @@ const navIconOptions = [
   { label: 'disabled more', value: { key: 'more', disable: true, onPress: () => showToast('disabled more') } },
 ];
 
+const customRightOptions = [
+  {
+    label: '自定义文字',
+    value: {
+      key: NavigationBar.ICON.CUSTOM,
+      customRender: <Text style={{ color: colorToken.contentPrimaryNormal }}>编辑</Text>,
+    },
+  },
+  {
+    label: '自定义更多图标',
+    value: {
+      key: NavigationBar.ICON.CUSTOM,
+      customRender: <BaseMore fill={colorToken.contentPrimaryNormal} />,
+    },
+  },
+  {
+    label: '自定义搜索图标',
+    value: {
+      key: NavigationBar.ICON.CUSTOM,
+      customRender: <BaseSearch fill={colorToken.contentPrimaryNormal} />,
+    },
+  },
+  {
+    label: '自定义添加图标',
+    value: {
+      key: NavigationBar.ICON.CUSTOM,
+      customRender: <BaseAdd fill={colorToken.contentPrimaryNormal} />,
+    },
+  },
+  {
+    label: '自定义圆形图标',
+    value: {
+      key: NavigationBar.ICON.CUSTOM,
+      customRender: <Circle fill={colorToken.accentBlueFill} />,
+    },
+  },
+];
+
 const propConfigs = [
   { name: 'title', type: 'string', defaultValue: '页面标题', category: 'content' },
   {
@@ -32,6 +71,7 @@ const propConfigs = [
     enumOptions: ['normal', 'large'],
   },
   { name: 'showBrandLogo', type: 'boolean', defaultValue: false, category: 'state' },
+  { name: 'isRounded', type: 'boolean', defaultValue: false, category: 'state' },
   {
     name: 'colorStrategy',
     type: 'enum',
@@ -50,13 +90,13 @@ const propConfigs = [
     name: 'right',
     type: 'pass',
     category: 'interaction',
-    passOptions: navIconOptions,
+    passOptions: [...navIconOptions, ...customRightOptions],
   },
 ];
 
 const NavigationBarConfigDemo = () => (
   <ScrollView style={styles.container}>
-    <TestComponent component={NavigationBar} propConfigs={propConfigs} fullWidth/>
+    <TestComponent component={NavigationBar} propConfigs={propConfigs} fullWidth />
   </ScrollView>
 );
 

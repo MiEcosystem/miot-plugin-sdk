@@ -69,7 +69,7 @@ const SceneItem = ({ item, disabled, onPress }) => {
           <Text
             numberOfLines={2}
             allowFontScaling={false}
-            style={[Fonts.fontSystem16Medium, { color: titleColor }]}
+            style={[Fonts.fontSystem15Medium, { color: titleColor }]}
           >
             {item.title}
           </Text>

@@ -46,31 +46,35 @@ class ButtonColorDemo extends Component {
     return (
       <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
 
-        <View style={styles.group}>
-          {/* primary: large / medium / small */}
-          <View style={styles.column}>
-            {this.renderButtons('large', 'primary', '切换多语言')}
+        <ScrollView horizontal showsHorizontalScrollIndicator contentContainerStyle={styles.horizontalContent}>
+          <View style={styles.group}>
+            {/* primary: large / medium / small */}
+            <View style={styles.column}>
+              {this.renderButtons('large', 'primary', '切换多语言')}
+            </View>
+            <View style={styles.column}>
+              {this.renderButtons('medium', 'primary', '普通')}
+            </View>
+            <View>
+              {this.renderButtons('small', 'primary', '普通')}
+            </View>
           </View>
-          <View style={styles.column}>
-            {this.renderButtons('medium', 'primary', '普通')}
-          </View>
-          <View>
-            {this.renderButtons('small', 'primary', '普通')}
-          </View>
-        </View>
+        </ScrollView>
 
-        <View style={styles.group}>
-          {/* primarySubtle: large / medium / small */}
-          <View style={styles.column}>
-            {this.renderButtons('large', 'primarySubtle', '切换多语言')}
+        <ScrollView horizontal showsHorizontalScrollIndicator contentContainerStyle={styles.horizontalContent}>
+          <View style={styles.group}>
+            {/* primarySubtle: large / medium / small */}
+            <View style={styles.column}>
+              {this.renderButtons('large', 'primarySubtle', '切换多语言')}
+            </View>
+            <View style={styles.column}>
+              {this.renderButtons('medium', 'primarySubtle', '普通')}
+            </View>
+            <View>
+              {this.renderButtons('small', 'primarySubtle', '普通')}
+            </View>
           </View>
-          <View style={styles.column}>
-            {this.renderButtons('medium', 'primarySubtle', '普通')}
-          </View>
-          <View>
-            {this.renderButtons('small', 'primarySubtle', '普通')}
-          </View>
-        </View>
+        </ScrollView>
       </ScrollView>
     );
   }
@@ -83,7 +87,9 @@ const styles = dynamicStyleSheet({
   group: {
     marginTop: 48,
     flexDirection: 'row',
-    marginHorizontal: 36,
+  },
+  horizontalContent: {
+    paddingHorizontal: 36,
   },
   column: {
     marginRight: 52,

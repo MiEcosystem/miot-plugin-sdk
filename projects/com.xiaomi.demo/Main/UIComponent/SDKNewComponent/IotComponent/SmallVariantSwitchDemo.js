@@ -34,6 +34,7 @@ const sourceData4 = {
   title: '标题',
   icon: <Circle fill={colorToken.contentSecondaryNormal} />,
   onPress: () => showToast('onPress'),
+  size: 'medium',
 };
 
 const SmallGridToggleDemo = ({ navigation }) => {

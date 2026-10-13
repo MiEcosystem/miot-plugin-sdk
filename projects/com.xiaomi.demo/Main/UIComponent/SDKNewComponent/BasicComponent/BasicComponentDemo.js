@@ -25,6 +25,7 @@ const BasicComponentDemo = (props) => {
     { title: '复选 Checkbox', router: 'NewCheckboxDemo' },
     { title: '空状态 EmptyState', router: 'EmptyStateDemo' },
     { title: '输入框 Input', router: 'InputDemo' },
+    { title: '描述文本 Description', router: 'DescriptionDemo' },
     { title: '通知栏 NoticeBar', router: 'NoticeBarDemo' },
   ];
 
@@ -35,7 +36,7 @@ const BasicComponentDemo = (props) => {
     { title: '分段控件 SegmentedControls', router: 'SegmentedControlsConfigDemo' },
     { title: '下拉刷新 PullRefresh', router: 'PullRefreshConfigDemo' },
     { title: '加载 Spin', router: 'SpinConfigDemo' },
-    { title: '导航栏 NavigationBar', router: 'NavigationBarConfigDemo' },
+    { title: '导航栏 NavigationBar', router: 'SdkNavigationBarDemo' },
   ];
 
   const popupItems = [

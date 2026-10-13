@@ -184,7 +184,7 @@ const TestComponent = ({ component: Component, propConfigs, onPropsChange, showP
     return (...args) => {
       if (typeof original === 'function') original(...args);
       const picked = pick ? pick(...args) : args[0];
-      const nextValue = transform ? transform(picked, args) : picked;
+      const nextValue = transform ? transform(picked, args, propValues) : picked;
       setPropValues((prev) => ({ ...prev, [targetProp]: nextValue }));
     };
   };
@@ -383,7 +383,12 @@ const TestComponent = ({ component: Component, propConfigs, onPropsChange, showP
           />
         </View>
       </View>
-      <ScrollView style={styles.scrollArea} contentContainerStyle={styles.scrollContent}>
+      <ScrollView
+        style={styles.scrollArea}
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+        nestedScrollEnabled
+      >
         {CATEGORY_ORDER.map((cat) => {
           const configs = groupedConfigs.groups[cat];
           if (!configs || configs.length === 0) return null;
@@ -407,7 +412,7 @@ const styles = StyleSheet.create({
   previewSection: { marginHorizontal: 12, overflow: 'hidden' },
   previewContainer: { justifyContent: 'center' },
   scrollArea: { flex: 1 },
-  scrollContent: { paddingBottom: 40 },
+  scrollContent: { flexGrow: 1, paddingBottom: 40 },
   sectionHeader: { paddingVertical: 6, paddingHorizontal: 12 },
   sectionTitle: { fontSize: 12 },
   propSection: { paddingHorizontal: 12, paddingVertical: 10, borderBottomWidth: 0.5 },

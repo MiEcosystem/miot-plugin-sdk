@@ -46,7 +46,7 @@ const EVENT_TYPE = {
   /**
     * 插件路由发生变化
     */
-  NAVIGATION_STATE_CHANGE: 1
+  NAVIGATION_STATE_CHANGE: 1,
 };
 Object.freeze(EVENT_TYPE);
 export const DEBUG = "debug";
@@ -133,7 +133,7 @@ export { PackageEvent };
                  const params = { 'ota_origin': 2, 'ota_type': 2, 'did': Device.deviceID,
                    'device_model': Device.model, 'mac': Device.mac, 'dialog_name': 'updates_plugin_dialog', 'item_type': 'button', 'item_name': 'ignore_link_button' };
                  Service.smarthome.reportEventRefChannel("click", params);
-               }
+               },
              },
              {
                text: this.state.firmwareUpdateSure,
@@ -162,8 +162,8 @@ export { PackageEvent };
                  } else {
                    Host.ui.openDeviceUpgradePage(1);
                  }
-               }
-             }
+               },
+             },
            ]}
            onDismiss={() => { this.onDismiss(); }
            }
@@ -393,5 +393,5 @@ export default {
     */
   installModule(moduleId) {
      return Promise.resolve(null);
-  }
+  },
 };
