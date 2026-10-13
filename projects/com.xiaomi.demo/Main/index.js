@@ -125,6 +125,7 @@ import PhotoDemo from "./Host/PhotoDemo";
 import PadScrollDemo from "./Host/PadScrollDemo";
 import RockerViewDemo from "./Host/RockerViewDemo";
 import HostPropsInfoDemo from "./Host/HostPropsInfoDemo";
+import GotoSmartAssistantDemo from "./Host/GotoSmartAssistantDemo";
 import LocaleServer from "./Host/Local";
 import JSExecutor from "./Host/JSExecutor";
 import * as Screens from "./uikit/screens";
@@ -557,6 +558,7 @@ function createRootStack(initPage) {
       MiotSpecV3Demo,
       // Native 交互
       HostPropsInfoDemo,
+      GotoSmartAssistantDemo,
       LocaleServer,
       DarkModeDemo,
       JSExecutor,

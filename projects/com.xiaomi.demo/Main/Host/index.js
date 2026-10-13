@@ -141,6 +141,12 @@ export default class HostDemo extends React.Component {
             alert(`isSupportAccessoryFind error: ${ JSON.stringify(err) }`);
           });
         }
+      },
+      {
+        'name': '唤起智能助手-gotoSmartAssistant',
+        'func': () => {
+          this.props.navigation.navigate('GotoSmartAssistantDemo', { title: '唤起智能助手' });
+        }
       }
     ];
   }

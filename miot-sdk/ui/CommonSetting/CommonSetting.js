@@ -1420,9 +1420,11 @@ export default class CommonSetting extends React.Component {
     if (showMemberSet === false) {
       keys = keys.filter((key) => key !== AllOptions.MEMBER_SET);
     }
+    // firstCustomOptions 中的元素是对象而非字符串，过滤时需取 .key 做匹配                                                   
+    const resolveKey = (key) => (typeof key === 'string' ? key : key?.key ?? key);
     // 5. 权限控制，如果是共享设备或者家庭设备，需要过滤一下
     if (Device.isOwner === false) {
-      keys = keys.filter((key) => firstSharedOptions[key]);
+      keys = keys.filter((key) => firstSharedOptions[resolveKey(key)]);
       if (isHomeManager === false) {
         keys = keys.filter((key) => !excludeManagerShowedOptions.includes(key));
       }
