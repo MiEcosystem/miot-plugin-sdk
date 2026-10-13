@@ -92,6 +92,56 @@ class IMiotRoom {
   @report
   createRoom(name) {
   }
+  /**
+   * 多用于多键开关获取其按键所在的房间名称，通过getMultiSwitchName接口拿到roomId，再通过此接口获取房间名称
+   * @since 10061
+   * @param {array} roomIds 要获取的房间名称的ids
+   * @returns {Promise<array>}
+   * 成功时：返回数组[roomName1, roomName2, ...]
+   * 失败时：[]
+   * @example 
+   * Service.smarthome.getMultiSwitchName(Device.deviceID).then(res => {
+   *  if (res) {
+   *    console.log('getMultiSwitchName: ' + JSON.stringify(res));
+   *    let roomIds = Object.keys(res).map(obj => (res[obj].room_id));
+   *    Service.room.getRoomNames(roomIds).then(res => {
+   *      if (res) {
+   *        ...
+   *        console.log('getRoomNames: ' + JSON.stringify(res));
+   *      }
+   *    }).catch(err => {
+   *      console.log('getRoomNames: ' + JSON.stringify(err));
+   *    })
+   *  }
+   * }).catch(err => {
+   *  console.log('getMultiSwitchName: ' + JSON.stringify(err));
+   * })
+   */
+  @report
+  getRoomNames(roomIds) {
+  }
+  /**
+   * 将设备移动到当前家庭下已存在的房间，并刷新米家首页设备列表。
+   * 仅做移动，不创建房间、不修改房间名；设备从原房间移出由服务端自动完成，无需传入原房间。
+   * 多键开关拆键后每个按键是独立设备，可用该接口单独调整按键所在房间。
+   * @since 10120
+   * @param {object} params
+   * @param {string} params.roomId 目标房间ID，必须是当前家庭下已存在的房间
+   * @param {array} [params.dids] 要移动的设备did列表，缺省为当前设备
+   * @returns {Promise}
+   * 成功时：{"code":0, "data":xxx}
+   * 失败时：{"code":xxx, "message":"xxx" }
+   * @example
+   * import { Service } from 'miot';
+   * Service.room.moveDevicesToRoom({ roomId: '500001090363' }).then(() => {
+   *   console.log('move success');
+   * }).catch((error) => {
+   *   console.log(error);
+   * })
+   */
+  @report
+  moveDevicesToRoom({ roomId, dids } = {}) {
+  }
 }
 const MiotRoomInstance = new IMiotRoom();
 export default MiotRoomInstance;
