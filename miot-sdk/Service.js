@@ -233,7 +233,7 @@ export default {
    * @return {Promise<object>} 透传接口，直接返回服务端返回的值
    */
   callXiaoaiNetworkAPI({ host = 'normal', path, method = 0, params = {}, needDevice = 1, cookie = {}, contentType = undefined } = {
-    host: 'normal', method: 0, needDevice: 1, params: {}, cookie: {}, contentType: undefined
+    host: 'normal', method: 0, needDevice: 1, params: {}, cookie: {}, contentType: undefined,
   }) {
      return Promise.resolve(null);
   },
@@ -433,7 +433,7 @@ export default {
       return new Promise((resolve) => {
         native.MIOTService.cancelSSE(conversationId, () => resolve());
       });
-    }
+    },
   },
   /**
    * 获取设备多语言资源文件, 由于是发起网络请求，数据的正确性可以通过抓包来查看；
@@ -445,5 +445,5 @@ export default {
    */
   fetchMultilingualResources(did) {
      return Promise.resolve(null);
-  }
+  },
 };

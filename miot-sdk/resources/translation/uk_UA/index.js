@@ -436,6 +436,7 @@ export default {
   "scene_active_people": "Кількість користувачів: ${}",
   "scene_upgrade_subtitle": "Виконуйте більш складні завдання, підключивши кілька пристроїв",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  scene_some_people_active: 'Деякі люди почали його використовувати',
   switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Після перемикання ця кнопка більше не керуватиме смарт-пристроями, а відповідні налаштування керування будуть видалені.',
   switch_autoCtrl_speedModeDescription: 'Підтримує одноразове натискання для швидшої реакції',
   switch_autoCtrl_standardModeDescription: 'Підтримує одноразове натискання, подвійне натискання та натискання з утриманням',

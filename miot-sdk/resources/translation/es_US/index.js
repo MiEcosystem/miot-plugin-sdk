@@ -436,6 +436,7 @@ export default {
   scene_active_people: 'Número de usuarios: ${}',
   "scene_upgrade_subtitle": "Realice tareas más sofisticadas conectando varios dispositivos",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  scene_some_people_active: 'Algunas personas han empezado a usarla',
   switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Una vez realizado el cambio, el botón ya no controlará los dispositivos inteligentes y se eliminará la configuración de control relacionada.',
   switch_autoCtrl_speedModeDescription: 'Compatible con toque simple para una respuesta más rápida',
   switch_autoCtrl_standardModeDescription: 'Compatible con toque simple, toque doble y mantener presionado.',

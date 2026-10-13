@@ -417,6 +417,7 @@ export default {
   "scene_active_done": "已开启",
   "scene_can_turnOn": "可开启",
   "scene_active_people": "${}人已使用",
+  "scene_some_people_active": "一些用户已使用",
   "scene_upgrade_subtitle": "体验更多设备联动场景",
   // ====== 4G 流量卡详情页(MobileCardPage)======
   mobileCard_title: "流量卡",

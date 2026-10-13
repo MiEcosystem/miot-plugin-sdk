@@ -436,6 +436,7 @@ export default {
   "scene_active_people": "Número de utilizadores: ${}",
   "scene_upgrade_subtitle": "Executar tarefas mais complexas ligando vários dispositivos",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  scene_some_people_active: 'Algumas pessoas começaram a usá-lo',
   switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Após a mudança, o botão já não controlará os dispositivos inteligentes e as definições de controlo relacionadas serão eliminadas.',
   switch_autoCtrl_speedModeDescription: 'Compatível com uma pressão única para uma resposta mais rápida',
   switch_autoCtrl_standardModeDescription: 'Compatível com uma pressão única, pressão dupla e pressão prolongada',

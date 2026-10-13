@@ -8,7 +8,7 @@ import DynamicColor, { dynamicColor } from '../Style/DynamicColor';
 import { FontMiSansWRegular } from '../../utils/fonts';
 import { adjustSize } from '../../utils/sizes';
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
-import {Fonts} from "mhui-rn/dist/hyperOS";
+import { Fonts } from "mhui-rn/dist/hyperOS";
 export default class DeviceCell extends Component {
   static propTypes = {
     icon: PropTypes.any,
@@ -22,10 +22,10 @@ export default class DeviceCell extends Component {
     onValueChange: PropTypes.func,
     accessible: AccessibilityPropTypes.accessible,
     accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
-    accessibilityHint: AccessibilityPropTypes.accessibilityHint
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint,
   };
   static defaultProps = {
-    onValueChange: () => {}
+    onValueChange: () => {},
   };
   changeCheck = () => {
     this.setState((state) => {
@@ -34,7 +34,7 @@ export default class DeviceCell extends Component {
         this.props.onValueChange(checked);
       }
       return {
-        checked
+        checked,
       };
     });
   }
@@ -42,12 +42,12 @@ export default class DeviceCell extends Component {
     super(props, ...rest);
     referenceReport('DeviceCell');
     this.state = {
-      checked: props.checked
+      checked: props.checked,
     };
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      checked: nextProps.checked
+      checked: nextProps.checked,
     });
   }
   onAccessibilityAction = ({ nativeEvent: { actionName } }) => {
@@ -73,10 +73,10 @@ export default class DeviceCell extends Component {
           {...getAccessibilityConfig({
             accessible: this.props.accessible,
             accessibilityLabel: this.props.accessibilityLabel,
-            accessibilityHint: this.props.accessibilityHint
+            accessibilityHint: this.props.accessibilityHint,
           })}
           accessibilityActions={[
-            { name: 'activace' }
+            { name: 'activace' },
           ]}
           onAccessibilityAction={this.onAccessibilityAction}
         >
@@ -100,31 +100,31 @@ const Styles = dynamicStyleSheet({
     flexDirection: 'column',
     paddingBottom: adjustSize(36),
     borderRadius: adjustSize(48),
-    backgroundColor: new DynamicColor('#FFF', '#1A1A1A')
+    backgroundColor: new DynamicColor('#FFF', '#1A1A1A'),
   },
   disabled: {
-    opacity: 0.3
+    opacity: 0.3,
   },
   iconContainer: {
     height: adjustSize(204),
     width: '100%',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   radioContainer: {
     flex: 1,
     alignItems: 'flex-end',
     marginTop: adjustSize(36),
-    marginRight: adjustSize(36)
+    marginRight: adjustSize(36),
   },
   icon: {
     marginLeft: adjustSize(24),
     marginTop: adjustSize(12),
     width: adjustSize(204),
     height: adjustSize(204),
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
   text: {
-    flex: 1
+    flex: 1,
   },
   title: {
     ...Fonts.fontSystem13Regular,
@@ -134,6 +134,6 @@ const Styles = dynamicStyleSheet({
   checkbox: {
     width: adjustSize(66),
     height: adjustSize(66),
-    borderRadius: adjustSize(33)
-  }
+    borderRadius: adjustSize(33),
+  },
 });

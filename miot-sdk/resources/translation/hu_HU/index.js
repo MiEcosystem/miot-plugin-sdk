@@ -436,6 +436,7 @@ export default {
   "scene_active_people": "Felhasználók száma: ${}",
   "scene_upgrade_subtitle": "Bonyolultabb feladatok elvégzése több készülék csatlakoztatásával",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  scene_some_people_active: 'Vannak, akik már elkezdték használni',
   switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Az átváltás után a gomb már nem fogja vezérelni az intelligens eszközöket, és a kapcsolódó vezérlési beállítások törlésre kerülnek.',
   switch_autoCtrl_speedModeDescription: 'Támogatja az egygombos megnyomást a gyorsabb reakció érdekében',
   switch_autoCtrl_standardModeDescription: 'Támogatja az egyszeri, kétszeri gombnyomást, valamint a gomb hosszan nyomását',

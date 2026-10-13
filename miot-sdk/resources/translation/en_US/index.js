@@ -437,6 +437,7 @@ export default {
   scene_active_done: 'On',
   scene_can_turnOn: 'Available',
   scene_active_people: 'Number of users: ${}',
+  scene_some_people_active: 'Some people have started using it',
   "scene_upgrade_subtitle": "Complete more sophisticated tasks by connecting multiple devices",
   // ====== 4G 流量卡详情页(MobileCardPage)— 待翻译 ======
   mobileCard_title: 'Data SIM',

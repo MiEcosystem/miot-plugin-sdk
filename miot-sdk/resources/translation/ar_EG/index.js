@@ -436,6 +436,7 @@ export default {
   scene_active_people: 'عدد المستخدمين: ${}',
   "scene_upgrade_subtitle": "أكمل المزيد من المهام المعقدة بربط عدة أجهزة",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  scene_some_people_active: 'بدأ بعض الأشخاص في استخدامه',
   switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'بعد التبديل، لن يعود الزر يتحكم في الأجهزة الذكية، وسيتم حذف إعدادات التحكم المرتبطة به.',
   switch_autoCtrl_speedModeDescription: 'يدعم الضغط مرة واحدة للاستجابة بشكل أسرع',
   switch_autoCtrl_standardModeDescription: 'يدعم الضغط مرة واحدة، والضغط مرتين، والضغط المطول',

@@ -844,6 +844,9 @@ export class BasicDevice {
    *
    */
   get extra() {
+    if (__DEV__ && console.warn) {
+      console.warn("extra deprecated since 10032 此字段后台无人维护，也无人知道它存在的含义，故废弃。");
+    }
     return Properties.of(this).extrainfo || Properties.of(this).extra;
   }
   /**

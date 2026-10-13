@@ -436,6 +436,7 @@ export default {
   "scene_active_people": "จำนวนผู้ใช้: ${}",
   "scene_upgrade_subtitle": "ทำงานที่ซับซ้อนได้มากขึ้นโดยการเชื่อมต่อหลายอุปกรณ์",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  scene_some_people_active: 'มีบางคนเริ่มใช้แล้ว',
   switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'หลังจากที่สลับ ปุ่มจะไม่ควบคุมอุปกรณ์สมาร์ทอีกต่อไป และการตั้งค่าการควบคุมที่เกี่ยวข้องจะถูกลบ',
   switch_autoCtrl_speedModeDescription: 'รองรับการกดหนึ่งครั้งเพื่อการตอบสนองที่รวดเร็วยิ่งขึ้น',
   switch_autoCtrl_standardModeDescription: 'รองรับการกดหนึ่งครั้ง การกดสองครั้ง และการกดค้างไว้',

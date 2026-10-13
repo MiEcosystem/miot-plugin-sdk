@@ -436,6 +436,7 @@ export default {
   "scene_active_people": "Jumlah pengguna: ${}",
   "scene_upgrade_subtitle": "Selesaikan tugas yang lebih rumit dengan menghubungkan beberapa perangkat",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  scene_some_people_active: 'Beberapa orang sudah mulai menggunakannya',
   switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Setelah beralih, tombol tidak akan mengontrol perangkat cerdas lagi, dan setelan kontrol terkait akan dihapus.',
   switch_autoCtrl_speedModeDescription: 'Mendukung tekan sekali untuk respons yang lebih cepat',
   switch_autoCtrl_standardModeDescription: 'Mendukung tekan sekali, tekan dua kali, serta tekan lama',

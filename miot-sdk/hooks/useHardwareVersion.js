@@ -4,7 +4,7 @@ export default function useHardwareVersion(device = Device) {
   if (!lastVersion) {
     return {
       sdk: '',
-      mcu: ''
+      mcu: '',
     };
   }
   const rSdk = /^\d+\.\d+.\d+(\_\d+)?/;
@@ -16,6 +16,6 @@ export default function useHardwareVersion(device = Device) {
   }
   return {
     sdk: sdk || '',
-    mcu: mcu || ''
+    mcu: mcu || '',
   };
 }

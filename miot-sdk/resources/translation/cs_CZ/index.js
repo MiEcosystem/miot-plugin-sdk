@@ -436,6 +436,7 @@ export default {
   scene_active_people: 'Počet uživatelů: ${}',
   "scene_upgrade_subtitle": "Dokončete sofistikovanější úkoly připojením více zařízení",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  scene_some_people_active: 'Někteří lidé to začali používat',
   switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Po přepnutí již nebude možné tlačítkem ovládat chytrá zařízení a související nastavení ovládání budou odstraněna.',
   switch_autoCtrl_speedModeDescription: 'Podporuje jedno stisknutí pro rychlejší odezvu',
   switch_autoCtrl_standardModeDescription: 'Podporuje jedno stisknutí, dvojité stisknutí a přidržení',

@@ -436,6 +436,7 @@ export default {
   scene_active_people: 'Anzahl der Benutzer: ${}',
   "scene_upgrade_subtitle": "Erledige anspruchsvollere Aufgaben, indem du mehrere Geräte verbindest",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  scene_some_people_active: 'Einige Personen haben mit der Nutzung begonnen',
   switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Nach dem Wechsel steuert die Schaltfläche keine smarten Geräte mehr und die damit verbundene Steuerungseinstellungen werden gelöscht.',
   switch_autoCtrl_speedModeDescription: 'Unterstützt einzelnes Drücken für eine schnellere Reaktion',
   switch_autoCtrl_standardModeDescription: 'Unterstützt einzelnes Drücken, doppeltes Drücken und drücken und halten',

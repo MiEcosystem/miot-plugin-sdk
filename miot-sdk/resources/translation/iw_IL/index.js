@@ -436,6 +436,7 @@ export default {
   'scene_active_people': 'מספר משתמשים: ${}',
   'scene_upgrade_subtitle': 'השלמת משימות מתוחכמות יותר על-ידי חיבור מכשירים מרובים',
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  scene_some_people_active: 'חלק מהאנשים התחילו להשתמש בה',
   switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'אחרי המעבר, הכפתור לא יאפשר יותר שליטה במכשירים חכמים, והגדרות השליטה הקשורות יימחקו.',
   switch_autoCtrl_speedModeDescription: 'תומך בלחיצה אחת לתגובה מהירה יותר',
   switch_autoCtrl_standardModeDescription: 'תומך בלחיצה אחת, בלחיצה כפולה ובלחיצה ממושכת',

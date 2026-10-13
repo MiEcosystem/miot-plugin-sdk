@@ -3,7 +3,7 @@ import {
   View,
   Image,
   Text,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
@@ -12,7 +12,7 @@ import DynamicColor, { dynamicColor } from '../Style/DynamicColor';
 import { adjustSize } from '../../utils/sizes';
 import { FontMiSansWLight } from '../../utils/fonts';
 import native, { isIOS } from '../../native';
-import {Fonts} from "mhui-rn/dist/hyperOS";
+import { Fonts } from "mhui-rn/dist/hyperOS";
 const BigTitleGap = adjustSize(30);
 export default function ScrollViewWithHeader({
   bigIcon,
@@ -23,7 +23,7 @@ export default function ScrollViewWithHeader({
   type,
   children,
   contentStyle,
-  containerStyle
+  containerStyle,
 }) {
   const filteredChildren = Children.toArray(children).filter((child) => !!child);
   const onLayoutBigNavigation = () => {
@@ -82,7 +82,7 @@ ScrollViewWithHeader.propTypes = {
   bigGapStyle: PropTypes.object,
   type: PropTypes.string,
   contentStyle: PropTypes.object,
-  containerStyle: PropTypes.object
+  containerStyle: PropTypes.object,
 };
 const styles = dynamicStyleSheet({
   container: {
@@ -91,7 +91,7 @@ const styles = dynamicStyleSheet({
     
   },
   contentInner: {
-    paddingBottom: isIOS && native.MIOTHost.isIphoneXSeries ? 34 : adjustSize(30)
+    paddingBottom: isIOS && native.MIOTHost.isIphoneXSeries ? 34 : adjustSize(30),
   },
   bigSubtitleText: {
     ...Fonts.fontSystem14Regular,
@@ -107,13 +107,13 @@ const styles = dynamicStyleSheet({
     width: adjustSize(360),
     height: adjustSize(360),
     alignItems: 'center',
-    marginLeft: adjustSize(30)
+    marginLeft: adjustSize(30),
   },
   bigTitleContainer: {
     paddingTop: adjustSize(24),
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   bigTitleGap: {
-    height: BigTitleGap
-  }
+    height: BigTitleGap,
+  },
 });

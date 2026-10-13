@@ -436,6 +436,7 @@ export default {
   "scene_active_people": "사용자 수: ${}",
   "scene_upgrade_subtitle": "여러 기기를 연결하여 더 정교한 작업을 완료하세요",
   newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  scene_some_people_active: '이미 사용 중인 사람들도 있습니다.',
   switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: '전환 후에는 버튼으로 더 이상 스마트 기기를 제어할 수 없으며 관련 제어 설정이 삭제됩니다.',
   switch_autoCtrl_speedModeDescription: '빠른 반응을 위해 한 번 누르기를 지원합니다.',
   switch_autoCtrl_standardModeDescription: '한 번 누르기, 두 번 누르기, 길게 누르기 지원',

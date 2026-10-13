@@ -8,7 +8,7 @@ import { FontMiSansWRegular } from '../../utils/fonts';
 import { adjustSize } from '../../utils/sizes';
 import DeviceCell from './DeviceCell';
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
-import {Fonts} from "mhui-rn/dist/hyperOS";
+import { Fonts } from "mhui-rn/dist/hyperOS";
 export default class DeviceSection extends Component {
   static propTypes = {
     title: PropTypes.string,
@@ -20,10 +20,10 @@ export default class DeviceSection extends Component {
     onValueChange: PropTypes.func,
     accessible: AccessibilityPropTypes.accessible,
     accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
-    accessibilityHint: AccessibilityPropTypes.accessibilityHint
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint,
   };
   static defaultProps = {
-    onValueChange: () => {}
+    onValueChange: () => {},
   };
   changeCheck = (select, item) => {
     this.setState(() => {
@@ -31,19 +31,19 @@ export default class DeviceSection extends Component {
         this.props.onValueChange(select, item);
       }
       return {
-        selectedItem: select ? item : {}
+        selectedItem: select ? item : {},
       };
     });
   }
   constructor(props, ...rest) {
     super(props, ...rest);
     this.state = {
-      selectedItem: props.selectedItem
+      selectedItem: props.selectedItem,
     };
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      selectedItem: nextProps.selectedItem
+      selectedItem: nextProps.selectedItem,
     });
   }
   renderDeviceItems = () => {
@@ -75,7 +75,7 @@ export default class DeviceSection extends Component {
                 /* 为使最后一行从左向右排，且与上行对齐，需要补齐空缺位置但不显示 */
                 group.length % 2 !== 0 ? <View style={{
                   opacity: 0,
-                  flex: 1
+                  flex: 1,
                 }} key={index1}>
                   <DeviceCell
                     key={`empty${ index1 }`}
@@ -110,24 +110,24 @@ const Styles = dynamicStyleSheet({
     paddingBottom: adjustSize(36),
     borderRadius: adjustSize(36),
     marginHorizontal: adjustSize(30),
-    backgroundColor: new DynamicColor('#F7F7F7', '#000')
+    backgroundColor: new DynamicColor('#F7F7F7', '#000'),
   },
   sectionContainer: {
     marginTop: adjustSize(30),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   disabled: {
-    opacity: 0.3
+    opacity: 0.3,
   },
   sectionHeader: {
     height: adjustSize(150),
     paddingHorizontal: adjustSize(42),
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   title: {
     ...Fonts.fontSystem18Regular,
     color: dynamicColor('rgba(0, 0, 0, 0.8)', 'rgba(255, 255, 255, 0.8)'),
-  }
+  },
 });
