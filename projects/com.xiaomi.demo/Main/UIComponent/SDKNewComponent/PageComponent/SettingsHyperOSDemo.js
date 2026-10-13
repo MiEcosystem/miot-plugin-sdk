@@ -333,12 +333,13 @@ const SettingsHyperOSDemo = ({ navigation }) => {
     }];
   }, [customPreset, switchOn]);
 
-  const deviceInfoCustomOptions = useMemo(() => [{
-    id: 'infoCustomEntrance',
-    title: '更多设备信息页自定义项',
-    actionType: 'none',
-    onPress: () => Service.scene.openIftttAutoPage(),
-  }], []);
+  // 更多设备信息页自定义项 11.11 才支持
+  // const deviceInfoCustomOptions = useMemo(() => [{
+  //   id: 'infoCustomEntrance',
+  //   title: '更多设备信息页自定义项',
+  //   actionType: 'none',
+  //   onPress: () => Service.scene.openIftttAutoPage(),
+  // }], []);
 
   const blockedCount = ALL_ITEMS.filter((item) => visibleMap[item.key] && blockedMap[item.key]).length;
 
@@ -369,7 +370,7 @@ const SettingsHyperOSDemo = ({ navigation }) => {
         showDot={showDot}
         extraOptions={extraOptions}
         featureCustomOptions={featureCustomOptions}
-        deviceInfoCustomOptions={deviceInfoCustomOptions}
+        // deviceInfoCustomOptions={deviceInfoCustomOptions}
         showDeleteButton={showDeleteButton}
       />
 

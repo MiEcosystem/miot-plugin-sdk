@@ -78,19 +78,35 @@ export default function getItems(innerOptions, keys, values, params, defaultOpti
     fetchCreateGroupData();
   }, []);
   return keys.map((key, index) => {
-    if (key instanceof Function) {
-      return key(params);
+    // 自定义项只接配置对象，不接组件与函数：列表项外观由 SDK 统一掌控
+    if (typeof key === 'function' || isValidElement(key)) {
+      if (__DEV__ && console.warn) {
+        console.warn('[Settings] 自定义项不支持传入组件或函数，请改为传 { title, ... } 配置对象');
+      }
+      return null;
     }
-    if (isValidElement(key)) {
-      return key;
-    }
-    if (key instanceof Object && key.title) {
+    if (key instanceof Object) {
+      if (typeof key.title !== 'string' || !key.title) {
+        if (__DEV__ && console.warn) {
+          console.warn('[Settings] 自定义项必须传 string 类型的 title，已忽略该项');
+        }
+        return null;
+      }
       // 埋点与红点去重都需要稳定标识，title 是本地化文案不能用；
       // 未传 id 时按 track-sdk 对无 key 项的约定不上报
-      const { id, ...itemProps } = key;
+      // leadingIcon/customRender 是任意组件入口，不透传；
+      // actionType=custom 的右侧内容只能由 customRender 提供，一并降级
+      const { id, leadingIcon, customRender, ...itemProps } = key;
+      if (itemProps.actionType === 'custom') {
+        itemProps.actionType = itemProps.onPress ? 'navigate' : 'none';
+      }
+      // subtitle 同样接元素（ListItem 按 typeof 分流），非字符串一律丢弃
+      if (itemProps.subtitle !== undefined && typeof itemProps.subtitle !== 'string') {
+        delete itemProps.subtitle;
+      }
       return (
         <OptionItem
-          key={id || key.title}
+          key={id || itemProps.title}
           optionKey={id}
           params={params}
           {...itemProps}

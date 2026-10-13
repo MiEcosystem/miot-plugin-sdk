@@ -8,6 +8,8 @@ import useDeviceIcon from '../../hooks/useDeviceIcon';
 import usePluginVersion from '../../hooks/usePluginVersion';
 import useTimezone from '../../hooks/useTimezone';
 import useHardwareVersion from '../../hooks/useHardwareVersion';
+// special-plugins 用 Object.defineProperty 导出，import/named 的静态分析查不到
+// eslint-disable-next-line import/named
 import { specPluginNamesModels } from '../../utils/special-plugins';
 import {
   SubpageLayout, NavigationBar, ListCard, ConfigContext,
@@ -78,7 +80,7 @@ export default function OverviewPage({ navigation }) {
             values={[undefined, undefined, hardwareVersion?.mcu, hardwareVersion?.sdk]}
             params={params}
           />
-          <Card keys={params.customOptions || []} values={[]} params={params} />
+          {/* <Card keys={params.customOptions || []} values={[]} params={params} /> */}
           <Card keys={restOptions} values={[]} params={params} />
         </SubpageLayout.Content>
       </SubpageLayout>
