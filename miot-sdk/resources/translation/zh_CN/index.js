@@ -396,6 +396,7 @@ export default {
   switch_layoutDetail_name: '名称',
   switch_layoutDetail_room: '房间',
   switch_layoutDetail_roomChangeFailed: '房间修改失败，请重试',
+  switch_layoutDetail_nameChangeFailed: '名称修改失败，请重试',
   switch_autoCtrl_powerSwitch_title: '开关电源',
   switch_autoCtrl_powerSwitch_confirmOff_desc: '关闭后，开关连接的智能设备会断电离线',
   switch_nav_subtitle_buttonControlLight_v2: "单击按键时，打开或关闭所选的灯",

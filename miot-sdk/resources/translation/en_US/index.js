@@ -419,6 +419,7 @@ export default {
   switch_layoutDetail_editIcon: 'Change icon',
   switch_layoutDetail_name: 'Name',
   switch_layoutDetail_room: 'Room',
+  switch_layoutDetail_nameChangeFailed: 'Failed to change name. Please try again.',
   switch_layoutDetail_roomChangeFailed: 'Failed to change room. Please try again.',
   switch_list_empty_light: 'No supported lights in this home',
   switch_list_empty_manualScene: 'No manual controls in this home. Add from Xiaomi Home start page.',
