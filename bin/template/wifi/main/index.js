@@ -1,5 +1,5 @@
 import React from 'react';
-import { Package, Entrance, Service, Device, Host, PackageEvent } from 'miot';
+import { Package, Entrance, Service, Device, Host, PackageEvent, PrivacyEvent, CLOUD_PRIVACY_EVENT_TYPES } from 'miot';
 import { createStackNavigator } from 'react-navigation';
 import { FirmwareUpgrade, MoreSetting } from 'miot/ui/CommonSetting';
 
@@ -7,7 +7,7 @@ import MainPage from './MainPage';
 import SettingPage from './setting/SettingPage';
 import ScenePage from './scene/ScenePage';
 import NavigationBar from 'miot/ui/NavigationBar';
-import Protocol from '../resources/protocol';
+
 
 export default class App extends React.Component {
 
@@ -37,70 +37,40 @@ export default class App extends React.Component {
 
   UNSAFE_componentWillMount() {
     /**
-     * 检测是否需要弹出隐私弹窗
-     * 如果您的插件决定使用开发者平台上进行配置隐私协议，则无需调用此API，删除如下一行代码即可
+     * 插件上线必须在云端配置在线隐私
      * 具体文档可以查看：
      * https://iot.mi.com/new/doc/extension-development/basic-functions/law-info
+     * SDK自身会处理隐私弹窗相关逻辑，开发者可以通过监听弹窗事件来做一些自己的逻辑
      */
-    this.checkToAlertLegalInformationAuthorization();
+    this._cloudPrivacyEvent = PrivacyEvent.cloudPrivacyEvent.addListener((message) => {
+      console.log(`收到云端隐私通知数据：${ JSON.stringify(message) }`);
+      if (!message) {
+        console.log(`收到云端隐私通知数据为空`);
+        return;
+      }
+      switch (message.eventType) {
+        // 已经同意过云端隐私弹窗或者点击同意云端隐私弹窗
+        case CLOUD_PRIVACY_EVENT_TYPES.AGREED:
+          break;
+        // 没有同意过云端隐私弹窗,需要弹窗,且弹窗成功
+        case CLOUD_PRIVACY_EVENT_TYPES.POP_DIALOG_SUCCESS:
+          break;
+        // 获取同意状态失败或者弹窗失败
+        case CLOUD_PRIVACY_EVENT_TYPES.FAILED:
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this._cloudPrivacyEvent && this._cloudPrivacyEvent.remove();
   }
 
   render() {
     let RootStack = createRootStack(this.initPage);
     return <RootStack />;
-  }
-
-  /**
-   * 检查是否需要弹出隐私协议弹出
-   */
-  checkToAlertLegalInformationAuthorization() {
-    Service.smarthome.batchGetDeviceDatas([{ did: Device.deviceID, props: ["prop.s_auth_config"] }]).then((res) => {
-      let alreadyAuthed = true;
-      let result = res[Device.deviceID];
-      let config;
-      if (result && result['prop.s_auth_config']) {
-        config = result['prop.s_auth_config'];
-      }
-      if (config) {
-        try {
-          let authJson = JSON.parse(config);
-          alreadyAuthed = authJson.privacyAuthed && true;
-        } catch (err) {
-          // json解析失败，不处理
-        }
-      } else {
-        alreadyAuthed = false;
-      }
-      if (alreadyAuthed) {
-        return;
-      }
-      // 需要弹出隐私弹出
-      this.alertLegalInformationAuthorization();
-
-    }).catch((error) => {
-      Service.smarthome.reportLog(Device.model, `Service.smarthome.batchGetDeviceDatas error: ${ JSON.stringify(error) }`);
-    });
-  }
-
-  /**
-   * 弹出隐私弹窗
-   */
-  alertLegalInformationAuthorization() {
-
-    Protocol.getProtocol().then((protocol) => {
-      Host.ui.alertLegalInformationAuthorization(protocol).then((res) => {
-        if (res === 'ok' || res === true || res === 'true') {
-          Service.smarthome.batchSetDeviceDatas([{ did: Device.deviceID, props: { "prop.s_auth_config": JSON.stringify({ 'privacyAuthed': true }) } }]);
-          PackageEvent.packageAuthorizationAgreed.emit();
-        }
-      }).catch((error) => {
-        // 打开弹出过程中出现了意外错误, 进行上报
-        Service.smarthome.reportLog(Device.model, `Host.ui.alertLegalInformationAuthorization error: ${ JSON.stringify(error) }`);
-      });
-    }).catch((error) => {
-      Service.smarthome.reportLog(Device.model, `Service.getServerName() error: ${ JSON.stringify(error) }`);
-    });
-
   }
 }
 

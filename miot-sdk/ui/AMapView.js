@@ -53,6 +53,11 @@ export default class AMapView extends Component {
          */
       allowsBackgroundLocationUpdates: PropTypes.bool,
       /**
+         * 允许展示所有标记点，仅iOS支持，海外服务器不支持
+         * @member {bool}
+         */
+      allowedShowAnnotations: PropTypes.bool,
+      /**
          * 定位精度,海外服务器不支持
          * @member {number}
          */
@@ -80,7 +85,7 @@ export default class AMapView extends Component {
          */
       headingFilter: PropTypes.number,
       /**
-         * 缩放级别, [3, 20]
+         * 缩放级别, android[3, 20] ios isInChinaNow [3, 19] else [0, 20]。应用时可统一为[3, 19]
          * @member {number}
          */
       zoomLevel: PropTypes.number,
@@ -180,6 +185,16 @@ export default class AMapView extends Component {
          * @member {func}
          */
       onMapDidZoomByUser: PropTypes.func,
+      /**
+         * 地图即将滑动回调，{wasUserAction: bool(是否用户触发)},海外服务器不支持
+         * @member {func}
+         */
+      onMapWillMoveByUser: PropTypes.func,
+      /**
+         * 地图已经滑动回调，{wasUserAction: bool(是否用户触发)},海外服务器不支持
+         * @member {func}
+         */
+      onMapDidMoveByUser: PropTypes.func,
       ...ViewPropTypes
     };
     constructor(props, context) {

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   ScrollView,
@@ -6,11 +6,11 @@ import {
   StyleSheet,
   ActivityIndicator
 } from 'react-native';
-import {UtilStyles} from '../style/styles';
+import { UtilStyles } from '../style/styles';
 import {
   RkText,
   RkChoiceGroup,
-  RkChoice, RkTheme,
+  RkChoice, RkTheme
 } from 'react-native-ui-kitten';
 
 export class ChoiceCustomizationScreen extends Component {
@@ -28,71 +28,71 @@ export class ChoiceCustomizationScreen extends Component {
         style={UtilStyles.container}
         automaticallyAdjustContentInsets={true}>
 
-        <RkChoiceGroup rkType='stretch' style={UtilStyles.spaceTop}>
+        <RkChoiceGroup rkType="stretch" style={UtilStyles.spaceTop}>
           <TouchableOpacity choiceTrigger>
             <View style={styles.checkRow}>
-              <RkText rkType='bold'>Example 1</RkText>
-              <RkChoice selected rkType='posNeg magentaCyan'/>
+              <RkText rkType="bold">Example 1</RkText>
+              <RkChoice selected rkType="posNeg magentaCyan"/>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity choiceTrigger>
             <View style={styles.checkRow}>
-              <RkText rkType='bold'>Example 2</RkText>
-              <RkChoice rkType='posNegClearCheck'/>
+              <RkText rkType="bold">Example 2</RkText>
+              <RkChoice rkType="posNegClearCheck"/>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity choiceTrigger>
             <View style={styles.checkRow}>
-              <RkText rkType='bold'>Example 3</RkText>
-              <RkChoice selected rkType='clear' style={{borderWidth:1, borderRadius: 20, borderColor: '#da7b00'}} contentStyle={{tintColor: '#ff9102'}}/>
+              <RkText rkType="bold">Example 3</RkText>
+              <RkChoice selected rkType="clear" style={{ borderWidth: 1, borderRadius: 20, borderColor: '#da7b00' }} contentStyle={{ tintColor: '#ff9102' }}/>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity choiceTrigger>
             <View style={styles.checkRow}>
-              <RkText rkType='bold'>Example 4</RkText>
-              <RkChoice selected rkType='whiteGreenCheck' selected/>
+              <RkText rkType="bold">Example 4</RkText>
+              <RkChoice selected rkType="whiteGreenCheck" selected/>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity choiceTrigger>
             <View style={styles.checkRow}>
-              <RkText rkType='bold'>Example 5</RkText>
-              <RkChoice selected rkType='star' />
+              <RkText rkType="bold">Example 5</RkText>
+              <RkChoice selected rkType="star" />
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity choiceTrigger>
             <View style={styles.checkRow}>
-              <RkText rkType='bold'>Example 6</RkText>
-              <RkChoice selected rkType='rainbowCat'/>
+              <RkText rkType="bold">Example 6</RkText>
+              <RkChoice selected rkType="rainbowCat"/>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity choiceTrigger>
             <View style={styles.checkRow}>
-              <RkText rkType='bold'>Example 7</RkText>
-              <RkChoice selected style={{backgroundColor: 'transparent', borderWidth:0}} renderContentFunction={(args) => this._renderCustomContent(args)}/>
+              <RkText rkType="bold">Example 7</RkText>
+              <RkChoice selected style={{ backgroundColor: 'transparent', borderWidth: 0 }} renderContentFunction={(args) => this._renderCustomContent(args)}/>
             </View>
           </TouchableOpacity>
         </RkChoiceGroup>
 
         <View style={[UtilStyles.section, UtilStyles.bordered]}>
-          <RkText rkType='header'>Radio components 1</RkText>
+          <RkText rkType="header">Radio components 1</RkText>
           <View style={UtilStyles.columnContainer}>
             <RkChoiceGroup radio selectedIndex={0}>
               <TouchableOpacity choiceTrigger>
                 <View style={[styles.radioRow, styles.spaceBottom]}>
-                  <RkChoice rkType='radio' contentStyle={{tintColor: 'magenta'}}/>
-                  <RkText rkType='bold' style={{marginLeft: 16.5}}>Option 1</RkText>
+                  <RkChoice rkType="radio" contentStyle={{ tintColor: 'magenta' }}/>
+                  <RkText rkType="bold" style={{ marginLeft: 16.5 }}>Option 1</RkText>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity choiceTrigger>
                 <View style={[styles.radioRow, styles.spaceBottom]}>
-                  <RkChoice rkType='radio' contentStyle={{tintColor: 'magenta'}}/>
-                  <RkText rkType='bold' style={{marginLeft: 16.5}}>Option 2</RkText>
+                  <RkChoice rkType="radio" contentStyle={{ tintColor: 'magenta' }}/>
+                  <RkText rkType="bold" style={{ marginLeft: 16.5 }}>Option 2</RkText>
                 </View>
               </TouchableOpacity>
             </RkChoiceGroup>
@@ -100,19 +100,19 @@ export class ChoiceCustomizationScreen extends Component {
         </View>
 
         <View style={[UtilStyles.section, UtilStyles.bordered]}>
-          <RkText rkType='header'>Radio components 2</RkText>
+          <RkText rkType="header">Radio components 2</RkText>
           <View style={UtilStyles.columnContainer}>
             <RkChoiceGroup radio selectedIndex={0}>
               <TouchableOpacity choiceTrigger>
                 <View style={styles.radioRow}>
-                  <RkChoice rkType='radio squadRadio' />
-                  <RkText rkType='bold' style={{marginLeft: 16.5}}>Option 1</RkText>
+                  <RkChoice rkType="radio squadRadio" />
+                  <RkText rkType="bold" style={{ marginLeft: 16.5 }}>Option 1</RkText>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity choiceTrigger>
                 <View style={styles.radioRow}>
-                  <RkChoice rkType='radio squadRadio' />
-                  <RkText rkType='bold' style={{marginLeft: 16.5}}>Option 2</RkText>
+                  <RkChoice rkType="radio squadRadio" />
+                  <RkText rkType="bold" style={{ marginLeft: 16.5 }}>Option 2</RkText>
                 </View>
               </TouchableOpacity>
             </RkChoiceGroup>
@@ -120,19 +120,19 @@ export class ChoiceCustomizationScreen extends Component {
         </View>
 
         <View style={[UtilStyles.section, UtilStyles.bordered]}>
-          <RkText rkType='header'>Radio components 3</RkText>
+          <RkText rkType="header">Radio components 3</RkText>
           <View style={UtilStyles.columnContainer}>
             <RkChoiceGroup radio selectedIndex={0}>
               <TouchableOpacity choiceTrigger>
                 <View style={styles.radioRow}>
-                  <RkChoice rkType='radio kitten'/>
-                  <RkText rkType='bold' style={{marginLeft: 16.5}}>Option 1</RkText>
+                  <RkChoice rkType="radio kitten"/>
+                  <RkText rkType="bold" style={{ marginLeft: 16.5 }}>Option 1</RkText>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity choiceTrigger>
                 <View style={styles.radioRow}>
-                  <RkChoice rkType='radio kitten'/>
-                  <RkText rkType='bold' style={{marginLeft: 16.5}}>Option 2</RkText>
+                  <RkChoice rkType="radio kitten"/>
+                  <RkText rkType="bold" style={{ marginLeft: 16.5 }}>Option 2</RkText>
                 </View>
               </TouchableOpacity>
             </RkChoiceGroup>
@@ -140,25 +140,25 @@ export class ChoiceCustomizationScreen extends Component {
         </View>
 
         <View style={[UtilStyles.section, UtilStyles.bordered]}>
-          <RkText rkType='header'>Radio components 4</RkText>
+          <RkText rkType="header">Radio components 4</RkText>
           <View style={UtilStyles.columnContainer}>
             <RkChoiceGroup radio selectedIndex={0}>
               <TouchableOpacity choiceTrigger>
                 <View style={[styles.radioRow, styles.spaceBottom]}>
-                  <RkChoice rkType='radio smileColor'/>
-                  <RkText rkType='bold' style={{marginLeft: 16.5}}>Option 1</RkText>
+                  <RkChoice rkType="radio smileColor"/>
+                  <RkText rkType="bold" style={{ marginLeft: 16.5 }}>Option 1</RkText>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity choiceTrigger>
                 <View style={styles.radioRow}>
-                  <RkChoice rkType='radio smileColor'/>
-                  <RkText rkType='bold' style={{marginLeft: 16.5}}>Option 2</RkText>
+                  <RkChoice rkType="radio smileColor"/>
+                  <RkText rkType="bold" style={{ marginLeft: 16.5 }}>Option 2</RkText>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity choiceTrigger>
                 <View style={styles.radioRow}>
-                  <RkChoice rkType='radio smileColor'/>
-                  <RkText rkType='bold' style={{marginLeft: 16.5}}>Option 3</RkText>
+                  <RkChoice rkType="radio smileColor"/>
+                  <RkText rkType="bold" style={{ marginLeft: 16.5 }}>Option 3</RkText>
                 </View>
               </TouchableOpacity>
             </RkChoiceGroup>
@@ -170,9 +170,9 @@ export class ChoiceCustomizationScreen extends Component {
 
   _renderCustomContent(args) {
     if (args.isSelected) {
-      return <View style={{flexDirection: 'row'}}><ActivityIndicator/><RkText style={{marginLeft: 4}}>Hello custom content!</RkText></View>;
+      return <View style={{ flexDirection: 'row' }}><ActivityIndicator/><RkText style={{ marginLeft: 4 }}>Hello custom content!</RkText></View>;
     } else {
-      <View/>
+      <View/>;
     }
   }
 }
@@ -192,5 +192,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginVertical: 11,
     alignItems: 'center'
-  },
+  }
 });
