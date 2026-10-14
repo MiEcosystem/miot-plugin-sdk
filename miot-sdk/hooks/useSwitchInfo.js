@@ -3,30 +3,23 @@ import { DeviceEventEmitter } from 'react-native';
 import Service from 'miot/Service';
 import Device, { DeviceEvent } from 'miot/device/BasicDevice';
 import useDeepCompareEffect from './useDeepCompareEffect';
+import saveSwitchMember from './switchMemberWriter';
 const cachedSwitchInfo = {};
-export default function useSwitchInfo(did = Device.deviceID) {
+// switchCount 取自 spec（switchSpecs.length），单键时用来决定按键名是否回落设备名
+export default function useSwitchInfo(did = Device.deviceID, switchCount = 0) {
   const [switchInfo, setSwitchInfo] = useState(cachedSwitchInfo[did] || {});
-  const editSwitchInfo = (memberId, member) => {
-    return new Promise((resolve, reject) => {
-      const editInfo = { 
+  // patch 只含要改的字段；整条记录由 saveSwitchMember 以服务端权威值为基底拼出来
+  const editSwitchInfo = (memberId, patch) => {
+    return saveSwitchMember({ did, memberId, patch }).then((field) => {
+      DeviceEventEmitter.emit('EditSwitchInfo_DeviceEventEmitter', {
         ...switchInfo,
-        [`${ memberId + 1 }`]: member
-      };
-      Service.callSmartHomeAPI('/v2/device/update_membership', {
-        did,
-        update_fields: [{ 
-          id: memberId + 1,
-          field: member 
-        }]
-      }).then((res) => {
-        DeviceEventEmitter.emit('EditSwitchInfo_DeviceEventEmitter', editInfo);
-        resolve(res);
-      }).catch((err) => {
-        reject(err);
-        console.log('switch-update_membership-key---error', err);
+        [`${ memberId + 1 }`]: field,
       });
+      return field;
+    }).catch((err) => {
+      console.log('switch-update_membership-key---error', err);
+      throw err;
     });
-    
   };
   // console.log('useSwitchInfo----did', did);
   useDeepCompareEffect(() => {
@@ -54,8 +47,10 @@ export default function useSwitchInfo(did = Device.deviceID) {
       if (res && res.list && res.list[0] && res.list[0].member_ship) {
         members = res.list[0].member_ship;
       }
-      // 单键设备
-      if (Object.keys(members).length === 1) {
+      // 单键设备：按键即设备，名称取设备名。member_ship 为空时不伪造条目 ——
+      // 伪造的占位值会被写入链路当成基底提交，服务端拒掉整条记录（code: -4）。
+      const isSingleKey = switchCount ? switchCount === 1 : Object.keys(members).length === 1;
+      if (isSingleKey && members['1']) {
         members['1'].name = Device.name;
       }
       // const subclassIds = Object.values(members).map(({ subclass_id }) => {
@@ -86,7 +81,7 @@ export default function useSwitchInfo(did = Device.deviceID) {
       for (const key in value) {
         tempSwitchInfo[key] = {
           ...switchInfo[key],
-          ...value[key]
+          ...value[key],
         };
       }
       setSwitchInfo(tempSwitchInfo);
@@ -99,6 +94,6 @@ export default function useSwitchInfo(did = Device.deviceID) {
   }, [did]);
   return {
     switchInfo,
-    editSwitchInfo
+    editSwitchInfo,
   };
 }
