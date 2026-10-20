@@ -23,12 +23,12 @@ void main () {
 
 module.exports = GL.createComponent(
   ({ width, height, children: t, last, ...rest }) =>
-  <GL.Node
-    {...rest}
-    shader={shaders.Copy}
-    width={width}
-    height={height}
-    uniforms={{ t, preventAlphaMult: !last }}
-  />,
+    <GL.Node
+      {...rest}
+      shader={shaders.Copy}
+      width={width}
+      height={height}
+      uniforms={{ t, preventAlphaMult: !last }}
+    />,
   { displayName: "Copy" }
 );

@@ -1,14 +1,14 @@
 import {
-  StyleSheet,
+  StyleSheet
 } from 'react-native';
 import {
   RkTheme
-} from 'react-native-ui-kitten'
+} from 'react-native-ui-kitten';
 
 export const UtilStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor :'white'
+    backgroundColor: 'white'
   },
   titleText: {
     fontSize: 20,
@@ -18,7 +18,7 @@ export const UtilStyles = StyleSheet.create({
   section: {
     marginTop: 14,
     paddingHorizontal: 24,
-    paddingVertical: 15,
+    paddingVertical: 15
   },
   bordered: {
     borderBottomColor: '#0000001A',
@@ -61,18 +61,18 @@ export const UtilStyles = StyleSheet.create({
     flex: 1
   },
   text: {
-    color: RkTheme.current.colors.text.base,
+    color: RkTheme.current.colors.text.base
   },
   codeText: {
-    color: RkTheme.current.colors.danger,
+    color: RkTheme.current.colors.danger
   },
   tab: {
     paddingLeft: 20,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   row: {
     flexDirection: 'row',
-    paddingTop: 20,
+    paddingTop: 20
   },
   column: {
     flexDirection: 'column'

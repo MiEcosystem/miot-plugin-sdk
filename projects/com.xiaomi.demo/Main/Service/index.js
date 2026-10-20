@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Image, ListView, PixelRatio, StyleSheet, Text, TouchableHighlight, View
 } from 'react-native';
-import { Service } from 'miot';
+import { Host, Service } from 'miot';
 import Logger from '../Logger';
 
 export default class HostDemo extends React.Component {
@@ -21,6 +21,12 @@ export default class HostDemo extends React.Component {
         name: '智能家庭接口模块-smarthome',
         func: () => {
           this.props.navigation.navigate('callSmartHomeAPIDemo', { title: '智能家庭接口模块-smarthome' });
+        }
+      },
+      {
+        name: '通用 SSE 流式接口-Service.SSE',
+        func: () => {
+          this.props.navigation.navigate('SSEDemo', { title: '通用 SSE 流式接口' });
         }
       },
       {
@@ -81,6 +87,16 @@ export default class HostDemo extends React.Component {
           Service.smarthome.getTvList()
             .then((res) => {
               console.log('getTvList,size:', res.data.length);
+              alert(JSON.stringify(res));
+            }).catch((e) => alert(e));
+        }
+      },
+      {
+        name: '获取当前账号下的家庭列表',
+        func: () => {
+          Service.smarthome.getHomeList()
+            .then((res) => {
+              console.log('getHomeList,size:', res.data.length);
               alert(JSON.stringify(res));
             }).catch((e) => alert(e));
         }
@@ -152,6 +168,31 @@ export default class HostDemo extends React.Component {
           }).catch((err) => {
             console.log(JSON.stringify(err));
             alert(JSON.stringify(err));
+          });
+        }
+      },
+      {
+        'name': 'XiaoaiTTS',
+        'func': () => {
+          Service.xiaoai.callXiaoaiTTS({ "text": "永远相信美好的事情即将发生", "role": "male" }).then((res) => {
+            console.log(JSON.stringify(res));
+            let { data: { url } } = res;
+            console.log(JSON.stringify(url));
+            let fileName = `file${ new Date().getTime() }.mp3`;
+            Host.file.downloadFile(url, fileName).then((res) => {
+              console.log(JSON.stringify(res));
+              Host.audio.getMediaDuration(fileName).then((res) => {
+                console.log(JSON.stringify(res));
+                let { data: { duration } } = res;
+                alert(JSON.stringify(duration));
+              }).catch((err) => {
+                console.log(JSON.stringify(err));
+              });
+            }).catch((err) => {
+              console.log(JSON.stringify(err));
+            });
+          }).catch((err) => {
+            console.log(JSON.stringify(err));
           });
         }
       }
