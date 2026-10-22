@@ -31,7 +31,7 @@ function buildInitMembers(did) {
     }
     return members.map((m) => ({
       id: m.id,
-      name: m.name || '',
+      name: '',
       ai_desc: m.ai_desc || '',
       icon: m.icon || '',
       subclass_id: m.subclass_id || 0,
