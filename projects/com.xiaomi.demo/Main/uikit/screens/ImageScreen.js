@@ -3,20 +3,20 @@ import {
   View,
   ScrollView,
   ListView,
-  Dimensions, Alert,
+  Dimensions, Alert
 } from 'react-native';
 import {
   RkButton,
   RkModalImg,
   RkText,
-  RkStyleSheet,
+  RkStyleSheet
 } from 'react-native-ui-kitten';
 
 import { UtilStyles } from '../style/styles';
 
 export class ImageScreen extends Component {
   static navigationOptions = {
-    title: 'Images',
+    title: 'Images'
   };
 
   constructor(props) {
@@ -35,10 +35,10 @@ export class ImageScreen extends Component {
       require('../img/sun.jpg'),
       require('../img/wood.jpeg'),
       require('../img/flowers.jpeg'),
-      require('../img/tree.jpeg'),
+      require('../img/tree.jpeg')
     ];
     this.state = {
-      ds: dataSource.cloneWithRows(this.images),
+      ds: dataSource.cloneWithRows(this.images)
     };
 
     const { width } = Dimensions.get('window');
@@ -48,7 +48,7 @@ export class ImageScreen extends Component {
   onRenderCustomHeader(options) {
     return (
       <View style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }}>
-        <RkButton rkType='clear' onPress={options.closeImage}>Close</RkButton>
+        <RkButton rkType="clear" onPress={options.closeImage}>Close</RkButton>
       </View>
     );
   }
@@ -60,22 +60,22 @@ export class ImageScreen extends Component {
         alignItems: 'center',
         flexDirection: 'row',
         paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingHorizontal: 20
       }}
       >
         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-          <RkButton rkType='clear small' onPress={() => Alert.alert('I Like it!')}>
-            <RkText rkType='inverse'>18</RkText>
+          <RkButton rkType="clear small" onPress={() => Alert.alert('I Like it!')}>
+            <RkText rkType="inverse">18</RkText>
           </RkButton>
         </View>
         <View style={{ flex: 1 }}>
-          <RkButton rkType='clear small'>
-            <RkText rkType='inverse'>2</RkText>
+          <RkButton rkType="clear small">
+            <RkText rkType="inverse">2</RkText>
           </RkButton>
         </View>
         <View style={{ flex: 1 }}>
-          <RkButton rkType='clear small'>
-            <RkText rkType='inverse'>7</RkText>
+          <RkButton rkType="clear small">
+            <RkText rkType="inverse">7</RkText>
           </RkButton>
         </View>
       </View>
@@ -91,7 +91,7 @@ export class ImageScreen extends Component {
           justifyContent: 'flex-start',
           alignItems: 'flex-start',
           flexDirection: 'row',
-          flexWrap: 'wrap',
+          flexWrap: 'wrap'
         }}
         scrollRenderAheadDistance={500}
         dataSource={this.state.ds}
@@ -114,7 +114,7 @@ export class ImageScreen extends Component {
           style={UtilStyles.container}
         >
           <View style={[UtilStyles.section, UtilStyles.bordered, styles.imagesContainer]}>
-            <RkText style={styles.header} rkType='header'>Basic example</RkText>
+            <RkText style={styles.header} rkType="header">Basic example</RkText>
             <View style={[UtilStyles.rowContainer, { paddingLeft: 2 }]}>
               <RkModalImg
                 style={{ width: this.imgSize, height: this.imgSize }}
@@ -131,7 +131,7 @@ export class ImageScreen extends Component {
             </View>
           </View>
           <View style={[UtilStyles.section, UtilStyles.bordered, styles.imagesContainer]}>
-            <RkText style={styles.header} rkType='header'>Custom header and footer</RkText>
+            <RkText style={styles.header} rkType="header">Custom header and footer</RkText>
             <View style={[UtilStyles.rowContainer, { paddingLeft: 2 }]}>
               <RkModalImg
                 style={{ width: this.imgSize, height: this.imgSize }}
@@ -155,7 +155,7 @@ export class ImageScreen extends Component {
             </View>
           </View>
           <View style={[UtilStyles.section, UtilStyles.bordered, styles.imagesContainer]}>
-            <RkText style={styles.header} rkType='header'>Gallery Example</RkText>
+            <RkText style={styles.header} rkType="header">Gallery Example</RkText>
             <View style={[UtilStyles.rowContainer, { paddingLeft: 2 }]}>
               {this.onRenderGallery()}
             </View>
@@ -166,22 +166,22 @@ export class ImageScreen extends Component {
   }
 }
 
-let styles = RkStyleSheet.create(theme => ({
+let styles = RkStyleSheet.create((theme) => ({
   imagesContainer: {
-    paddingHorizontal: 0,
+    paddingHorizontal: 0
   },
   header: {
-    paddingHorizontal: 24,
+    paddingHorizontal: 24
   },
   dot: {
     fontSize: 6.5,
     marginLeft: 4,
     marginVertical: 6,
-    color: theme.colors.text.inverse,
+    color: theme.colors.text.inverse
   },
   buttonIcon: {
     marginRight: 7,
     fontSize: 19.7,
-    color: theme.colors.text.inverse,
-  },
+    color: theme.colors.text.inverse
+  }
 }));

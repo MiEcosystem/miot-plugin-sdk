@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {StyleSheet, View, Text, TouchableOpacity} from "react-native";
+import React, { Component } from "react";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 
 const styles = StyleSheet.create({
   root: {
@@ -11,23 +11,23 @@ const styles = StyleSheet.create({
     width: 150,
     height: 30,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   text: {
-    color: "#333",
+    color: "#333"
   }
 });
 
 class Button extends Component {
-  render () {
+  render() {
     const { children, style, textStyle, ...rest } = this.props;
     return (
       <TouchableOpacity {...rest}>
-        <View style={[ style, styles.root ]}>
+        <View style={[style, styles.root]}>
           <Text
             style={[
               styles.text,
-              textStyle,
+              textStyle
             ]}>
             {children}
           </Text>

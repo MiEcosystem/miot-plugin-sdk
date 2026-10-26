@@ -25,8 +25,8 @@ export class PickerScreen extends React.Component {
   }
 
   showPicker() {
-    this.setState({ pikerVisible: true })
-  };
+    this.setState({ pikerVisible: true });
+  }
 
   hidePicker() {
     this.setState({ pikerVisible: false });
@@ -35,12 +35,12 @@ export class PickerScreen extends React.Component {
   handlePickedValue(date) {
     this.setState({ pickedValue: date });
     this.hidePicker();
-  };
+  }
 
   generateArrayFromRange(start, finish) {
     return Array.apply(null, Array(finish - start + 1)).map((_, i) => {
       return start + i;
-      return start + i > 9 ? '' + (start + i) : '0' + (start + i);
+      return start + i > 9 ? `${ start + i }` : `0${ start + i }`;
     });
   }
 
@@ -53,7 +53,7 @@ export class PickerScreen extends React.Component {
       { key: 5, value: 'May' }, { key: 6, value: 'Jun' },
       { key: 7, value: 'Jul' }, { key: 8, value: 'Aug' },
       { key: 9, value: 'Sep' }, { key: 10, value: 'Oct' },
-      { key: 11, value: 'Nov' }, { key: 12, value: 'Dec' },
+      { key: 11, value: 'Nov' }, { key: 12, value: 'Dec' }
     ];
     const modalWidth = width - 21 * 2;
     const optionHeight = 50;
@@ -66,7 +66,7 @@ export class PickerScreen extends React.Component {
       modalContentBlock: {
         width: modalWidth,
         borderRadius: 20,
-        height: 398,
+        height: 398
       },
       titleBlock: {
         width: modalWidth,
@@ -75,29 +75,29 @@ export class PickerScreen extends React.Component {
         fontSize: 15,
         lineHeight: titleHeight,
         fontFamily: 'PingFang-SC-Medium',
-        marginTop: 0,
+        marginTop: 0
       },
       listsContainerBlock: {
-        width: modalWidth,
+        width: modalWidth
       },
       buttonsBlockBlock: {
-        marginTop: 0,
+        marginTop: 0
       },
       cancelButtonBlock: {
-        height: buttonHeight,
+        height: buttonHeight
       },
       confirmButtonBlock: {
-        height: buttonHeight,
+        height: buttonHeight
       },
       optionListContainer: {
-        marginHorizontal: 0,
+        marginHorizontal: 0
       },
       highlightBlock: {
         backgroundColor: '#f3f3f3',
-        height: selectHeight,
+        height: selectHeight
       },
       optionBlock: {
-        height: optionHeight,
+        height: optionHeight
       },
       highlightBorderTopColor: '#e5e5e5',
       highlightBorderBottomColor: '#e5e5e5',
@@ -108,29 +108,29 @@ export class PickerScreen extends React.Component {
       fontSize: 16,
       color: '#666',
       height: optionHeight,
-      lineHeight: optionHeight,
+      lineHeight: optionHeight
     });
     RkTheme.setType('RkText', 'mySelect', {
       fontSize: 20,
       color: '#000',
       height: selectHeight,
-      lineHeight: selectHeight,
+      lineHeight: selectHeight
     });
     const basicButtonStyle = {
       fontSize: 14,
-      fontFamily: 'PingFang-SC-Medium',
-    }
+      fontFamily: 'PingFang-SC-Medium'
+    };
     RkTheme.setType('RkText', 'myCancelText', basicButtonStyle);
     RkTheme.setType('RkText', 'myConfirmText', {
       color: '#00BC9C',
-      ...basicButtonStyle,
+      ...basicButtonStyle
     });
     return (
       <ScrollView
         style={UtilStyles.container}
         automaticallyAdjustContentInsets={true}>
         <View style={[UtilStyles.section, UtilStyles.bordered]}>
-          <RkText rkType='header'>Picker Examples</RkText>
+          <RkText rkType="header">Picker Examples</RkText>
           <View style={UtilStyles.columnContainer}>
             <View style={styles.componentRow}>
               <TouchableOpacity onPress={() => this.showPicker()}>
@@ -141,21 +141,21 @@ export class PickerScreen extends React.Component {
                 </Text>
               </TouchableOpacity>
               <RkPicker
-                rkType='myRkPicker'
-                optionRkType='myOption'
-                selectedOptionRkType='mySelect'
+                rkType="myRkPicker"
+                optionRkType="myOption"
+                selectedOptionRkType="mySelect"
                 optionNumberOnPicker={5}
-                title='开启时间'
+                title="开启时间"
                 confirmButtonText="确定"
                 cancelButtonText="取消"
-                cancelTextRkType='myCancelText'
-                confirmTextRkType='myConfirmText'
+                cancelTextRkType="myCancelText"
+                confirmTextRkType="myConfirmText"
                 data={[hours, minutes]}
                 visible={this.state.pikerVisible}
                 onConfirm={this.handlePickedValue}
                 onCancel={this.hidePicker}
                 selectedOptions={this.state.pickedValue} />
-              <RkText rkType='bold' style={styles.caption}>Date Picker</RkText>
+              <RkText rkType="bold" style={styles.caption}>Date Picker</RkText>
             </View>
           </View>
         </View>
