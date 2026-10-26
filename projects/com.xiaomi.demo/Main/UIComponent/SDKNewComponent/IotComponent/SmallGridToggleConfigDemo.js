@@ -23,6 +23,13 @@ const propConfigs = [
     category: 'state',
   },
   {
+    name: 'size',
+    type: 'enum',
+    enumOptions: ['small', 'medium'],
+    defaultValue: 'small',
+    category: 'state',
+  },
+  {
     name: 'onChange',
     type: 'pass',
     defaultValue: (val) => showToast(`onChange: ${ val }`),

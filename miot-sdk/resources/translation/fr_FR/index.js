@@ -252,6 +252,7 @@ export default {
   bleMeshGateway: 'Passerelle Bluetooth Mesh',
   deviceDid: 'Identifiant de l\'appareil',
   deviceSN: 'No. de série de l\'appareil ',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'Version du micrologicel MCU',
   sdkVersion: 'Version du micrologicel SDK',
   fireSafeCode: 'Code de sécurité incendie',
@@ -431,8 +432,13 @@ export default {
   switch_nav_subtitle_buttonControlManualScene_v2: 'Une seule pression active toutes les commandes manuelles sélectionnées',
   switch_nav_subtitle_buttonControlSwitch_v2: 'Une simple pression permet d\'activer ou de désactiver l\'interrupteur sélectionné',
   "scene_active_done": "Sur",
-  "scene_can_turnOn": "Disponible ",
+  "scene_can_turnOn": "Disponible",
   "scene_active_people": "Nombre d'utilisateurs : ${}",
   "scene_upgrade_subtitle": "Effectuer des tâches plus sophistiquées en connectant plusieurs appareils",
-  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.'
+  newGB_remoteControl_disabled_tips: 'Remote control is not enabled and cannot be controlled in the app.',
+  scene_some_people_active: 'Certaines personnes ont commencé à l\'utiliser',
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc: 'Une fois le changement effectué, le bouton ne permettra plus de contrôler les appareils intelligents et les paramètres de contrôle associés seront supprimés.',
+  switch_autoCtrl_speedModeDescription: 'Simple pression possible pour une réponse plus rapide',
+  switch_autoCtrl_standardModeDescription: 'Pris en charge : simple pression, double pression et pression prolongée',
+  switch_autoCtrl_multipleControlsHint: 'Associez une seule commande',
 };

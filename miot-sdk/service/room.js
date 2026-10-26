@@ -120,6 +120,27 @@ class IMiotRoom {
   @report
   getRoomNames(roomIds) {
   }
+  /**
+   * 将设备移动到当前家庭下已存在的房间，并刷新米家首页设备列表。
+   * 仅做移动，不创建房间、不修改房间名；设备从原房间移出由服务端自动完成，无需传入原房间。
+   * 多键开关拆键后每个按键是独立设备，可用该接口单独调整按键所在房间。
+   * @since 10120
+   * @param {string} roomId 目标房间ID，必须是当前家庭下已存在的房间
+   * @param {array} [dids] 要移动的设备did列表，缺省为当前设备
+   * @returns {Promise}
+   * 成功时：{"code":0, "data":xxx}
+   * 失败时：{"code":xxx, "message":"xxx" }
+   * @example
+   * import { Service } from 'miot';
+   * Service.room.moveDevicesToRoom('500001090363').then(() => {
+   *   console.log('move success');
+   * }).catch((error) => {
+   *   console.log(error);
+   * })
+   */
+  @report
+  moveDevicesToRoom(roomId, dids) {
+  }
 }
 const MiotRoomInstance = new IMiotRoom();
 export default MiotRoomInstance;

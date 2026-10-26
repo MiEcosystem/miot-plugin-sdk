@@ -6,6 +6,7 @@ export {
   ListItem,
   ListCard,
   SubtitleGroup,
+  Description,
   Switch,
   Separator,
   ColumnSeparator,

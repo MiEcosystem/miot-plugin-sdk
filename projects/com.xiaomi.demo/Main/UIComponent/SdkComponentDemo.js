@@ -22,6 +22,7 @@ const SdkComponentDemo = (props) => {
         <ListItem title="IoTComponents" onPress={() => navigateToScreen('IotComponentDemo', 'IoTComponents')} />
         {/* <ListItem title="FeatureComponents" onPress={() => navigateToScreen('FeatureComponentDemo', 'FeatureComponents')} /> */}
         <ListItem title="PageLayout" onPress={() => navigateToScreen('LayoutDemo', 'Layout')} />
+        <ListItem title="Settings 设置页" onPress={() => navigateToScreen('SettingsHyperOSDemo', 'Settings')} />
       </ListCard>
     </ScrollView>
   );

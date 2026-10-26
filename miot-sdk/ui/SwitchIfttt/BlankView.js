@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Text,
   View,
-  Image
+  Image,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { dynamicStyleSheet } from 'miot/ui/Style/DynamicStyleSheet';
@@ -13,6 +13,7 @@ import { ViewPropTypes } from 'react-native';
 import { FontMILanProNormal } from 'miot/utils/fonts';
 import { Images } from '../../resources';
 import DarkMode from 'miot/darkmode';
+import { Fonts } from "mhui-rn/dist/hyperOS";
 /**
  * 卡片的按钮配置 cardButton
  * @typedef {object} cardButton
@@ -51,19 +52,19 @@ export const BlankViewType = {
   /**
    * 底部是下划线超链接
    */
-  UNDERLINE: 'underline'
+  UNDERLINE: 'underline',
 };
 Object.freeze(BlankViewType);
 const styles = dynamicStyleSheet({
   containerStyle: {
     marginHorizontal: adjustSize(93),
-    alignItems: 'center'
+    alignItems: 'center',
   },
   normalText: {
     fontFamily: FontMILanProNormal,
     textAlign: 'left',
     color: new DynamicColor('rgba(0, 0, 0, 0.4)', 'rgba(255, 255, 255, 0.4)'),
-    fontSize: 14
+    fontSize: 14,
   },
   highlightText: {
     fontFamily: FontMILanProNormal,
@@ -71,32 +72,31 @@ const styles = dynamicStyleSheet({
     color: new DynamicColor('#0D9DFF', '#0089E5'),
     textAlign: 'center',
     textDecorationLine: 'underline',
-    fontWeight: '400'
+    fontWeight: '400',
   },
   messageText: {
-    fontFamily: FontMILanProNormal,
+    ...Fonts.fontSystem14Regular,
     width: adjustSize(600),
-    fontSize: 14,
     color: new DynamicColor('rgba(0, 0, 0, 0.4)', 'rgba(255, 255, 255, 0.4)'),
     textAlign: 'center',
-    marginTop: adjustSize(36)
+    marginTop: adjustSize(36),
   },
   imageStyle: {
     width: adjustSize(276),
     height: adjustSize(180),
     marginTop: 5,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   attributeContainer: {
     // flex: 1,
     alignItems: 'center',
     marginTop: adjustSize(36),
-    paddingHorizontal: adjustSize(3)
+    paddingHorizontal: adjustSize(3),
   },
   buttonContainer: {
     // flex: 1,
-    marginTop: adjustSize(42)
-  }
+    marginTop: adjustSize(42),
+  },
 });
 export default function BlankView({
   type,
@@ -106,7 +106,7 @@ export default function BlankView({
   messageTextStyle,
   button,
   underline,
-  blankStyle
+  blankStyle,
 }) {
   const { buttonTitle, buttonStyle, buttonCallback } = button || {};
   const { text, highlightText, textStyle, highlightStyle, highlightCallback } = underline || {};
@@ -177,5 +177,5 @@ BlankView.propTypes = {
   blankStyle: ViewPropTypes.style,
   messageTextStyle: ViewPropTypes.style,
   button: PropTypes.object,
-  underline: PropTypes.object
+  underline: PropTypes.object,
 };

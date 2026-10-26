@@ -131,8 +131,28 @@ export class IftttTemplateUtils {
       });
     }
   }
+  /**
+   * 埋点上报
+   * @param {string} event 事件名，如 'expose' / 'click' / 'view'
+   * @param {Object} params 埋点参数。可传 ref / sub_ref 指定页面来源，传入时以调用方为准，
+   *                        sub_ref 缺省时回落到 ref。
+   *                        两者都不传时由 Native 用当前页面 ref 回填，可能是插件通用默认值
+   *                        （plugin_homepage/<model>），会与卡片实际所在页面不符。
+   */
   static async report(event, params) {
     let { ref, sub_ref, ...rest } = params || {};
+    // 调用方传入的 ref / sub_ref 优先，sub_ref 未传时回落到 ref
+    const pageRef = ref;
+    const pageSubRef = sub_ref || ref;
+    // iOS 侧此前漏传 ref / sub_ref，Native 只能用当前页面 ref 回填，
+    // 导致卡片明明在插件首页、上报却是插件通用默认值，故按需补回
+    const refParams = {};
+    if (pageRef) {
+      refParams.ref = pageRef;
+    }
+    if (pageSubRef) {
+      refParams.sub_ref = pageSubRef;
+    }
     const commonParams = Host.isAndroid ? {
       plugin_form: 0,
       did: Device.deviceID,
@@ -142,8 +162,8 @@ export class IftttTemplateUtils {
       plugin_id: Package.pluginID,
       plugin_version: Package.version,
       user_type: 0,
-      ref: ref,
-      sub_ref: sub_ref || ref,
+      ref: pageRef,
+      sub_ref: pageSubRef,
       belong_tag: 'plugin',
       ...rest,
     } : {
@@ -152,17 +172,18 @@ export class IftttTemplateUtils {
       plugin_form: 0,
       user_type: 0,
       belong_tag: 'plugin',
+      ...refParams,
       ...rest,
     };
     if (event === 'view' && Host.isAndroid) {
       await Service.smarthome.updatePluginPageRef({
         ...commonParams,
-        ref: ref || this._ref,
-        subRef: sub_ref || this._subRef || this._ref,
+        ref: pageRef || this._ref,
+        subRef: pageSubRef || this._subRef || this._ref,
       });
     } else {
-      if (ref || sub_ref) {
-        await IftttTemplateUtils.updateRef(ref, sub_ref, commonParams); // 20251010 android的expose事件会走到这里，加上公参
+      if (pageRef || pageSubRef) {
+        await IftttTemplateUtils.updateRef(pageRef, pageSubRef, commonParams); // 20251010 android的expose事件会走到这里，加上公参
       }
       if (event === 'click') {
         Object.keys(rest).length > 0 && await Service.smarthome.reportEventRefChannel(event, commonParams);

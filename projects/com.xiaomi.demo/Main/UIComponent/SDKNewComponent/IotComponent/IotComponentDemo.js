@@ -32,7 +32,7 @@ const IotComponentDemo = ({ navigation }) => {
     { title: 'ActionBlock', router: 'ActionBlockDemo' },
     { title: 'LargeTriggerSelect', router: 'LargeTriggerSelectDemo' },
     { title: '组件 MediumTriggerSelect', router: 'MediumTriggerSelectConfigDemo' },
-    { title: '状态提示 StatusAlert', router: 'StatusAlertConfigDemo' },
+    { title: '状态提示 StatusAlert', router: 'StatusAlertDemo' },
   ];
 
   const layoutItems = [

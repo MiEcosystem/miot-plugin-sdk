@@ -252,7 +252,7 @@ export default {
   bleMeshGateway: 'Bluetooth mesh gateway',
   deviceDid: 'Device ID',
   deviceSN: 'Device SN',
-  deviceImei: '设备IMEI',
+  deviceImei: 'Device IMEI',
   mcuVersion: 'MCU firmware version',
   sdkVersion: 'SDK firmware version',
   fireSafeCode: 'Fire safety code',
@@ -351,6 +351,8 @@ export default {
   switch_listItem_value_executionTypeCloud: 'Cloud',
   switch_listItem_value_executionTypeLocale: 'Local',
   switch_dia_msg_deleteScene: 'Delete this automation?',
+  switch_dia_title_deleteConfig: 'Delete configuration?',
+  switch_dia_msg_deleteConfigLight: 'After deletion, this button will no longer control this light',
   switch_scene_name_toggleSwitchDevice: '${} | Single press | ${} | On/Off | ${}-${}',
   switch_scene_name_toggleLightDevice: '${} | Single press | ${} | On/Off | ${}',
   switch_scene_name_executeManualScene: '${} | Single press | ${} | Run | ${}-${}',
@@ -417,6 +419,8 @@ export default {
   switch_layoutDetail_editIcon: 'Change icon',
   switch_layoutDetail_name: 'Name',
   switch_layoutDetail_room: 'Room',
+  switch_layoutDetail_nameChangeFailed: 'Failed to change name. Please try again.',
+  switch_layoutDetail_roomChangeFailed: 'Failed to change room. Please try again.',
   switch_list_empty_light: 'No supported lights in this home',
   switch_list_empty_manualScene: 'No manual controls in this home. Add from Xiaomi Home start page.',
   switch_list_empty_switch: 'No supported switches in this home',
@@ -435,6 +439,7 @@ export default {
   scene_active_done: 'On',
   scene_can_turnOn: 'Available',
   scene_active_people: 'Number of users: ${}',
+  scene_some_people_active: 'Some people have started using it',
   "scene_upgrade_subtitle": "Complete more sophisticated tasks by connecting multiple devices",
   // ====== 4G 流量卡详情页(MobileCardPage)— 待翻译 ======
   mobileCard_title: 'Data SIM',
@@ -465,5 +470,10 @@ export default {
   mobileCard_freeFlowFooter: 'Free data usage: According to carrier rules, this IoT SIM is associated with this device. Free data is linked to the device lifecycle. If the camera can no longer be used, the free data will be considered expired. This SIM can\'t be moved to another device.',
   mobileCard_networkInfoCheckFailed: 'Couldn\'t load network info. Try again.',
   mobileCard_offlineTitle: 'Offline',
-  mobileCard_offlineSubtitle: 'Device is offline. Data SIM info isn\'t available.'
+  mobileCard_offlineSubtitle: 'Device is offline. Data SIM info isn\'t available.',
+  switch_autoCtrl_confirmToTraditionalDeleteConfig_desc:
+    'After switching, the button will no longer control smart devices, and related control settings will be deleted.',
+  switch_autoCtrl_speedModeDescription: 'Supports single press for faster response',
+  switch_autoCtrl_standardModeDescription: 'Supports single press, double press, and press and hold',
+  switch_autoCtrl_multipleControlsHint: 'Link only one control',
 };

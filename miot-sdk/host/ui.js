@@ -1290,6 +1290,15 @@ class IUi {
   openRemoteControlDialog(did) {
   }
   /**
+   * 关闭远程控制弹窗，用于新国标原充控制功能
+   * @since 10120(11.10)
+   * @example
+   * Host.ui.closeRemoteControlDialog()
+   */
+  @report
+  closeRemoteControlDialog() {
+  }
+  /**
    * 打开本地直连控制关联页面
    * @param {Object} param 预留
    * @example
@@ -1370,6 +1379,24 @@ class IUi {
    openSelectLocationMapDialog(param) {
    }
   /**
+   * 插件唤起智能助手
+   * @since 10120(11.10)
+   * Promise resolve 仅表示"助手唤起成功"（对应 Promise<void>），不返回业务值；
+   * 助手后续通知插件走事件通道：通过 callbackEvent 以自定义事件回传，
+   * 插件侧用 DeviceEventEmitter.addListener(callbackEvent) 监听。
+   * @param {string} model 设备 model
+   * @param {string} did 设备 did（必填）
+   * @param {string} bubbleText 助手气泡文案
+   * @param {string} callbackEvent 回调事件名，助手交互通过该事件名回传自定义事件
+   * @param {object} extra 扩展参数，透传给助手侧
+   * @return {Promise} resolve({code:0}) 唤起成功；reject({code:-1, message}) 参数缺失
+   */
+  @report
+   gotoSmartAssistant(model, did, bubbleText, callbackEvent, extra = {}) {
+     return new Promise((resolve, reject) => {
+     });
+   }
+  /**
    * 为汉图照片打印机打开LivePhone选择一张动态照片
    * since 10106
    * @param
@@ -1377,17 +1404,17 @@ class IUi {
    *  param.sandBoxFolder(stgring) 选中的live photo存储的沙盒路径 android参数 iOS可以不用传
    */
   @report
-   openPickLivePhotoPage(param) {
-     return new Promise((resolve, reject) => {
-       native.MIOTHost.openPickLivePhotoPage(param, (isSuccess, result) => {
-         if (isSuccess) {
-           resolve(result);
-         } else {
-           reject(result);
-         }
-       });
-     });
-   }
+  openPickLivePhotoPage(param) {
+    return new Promise((resolve, reject) => {
+      native.MIOTHost.openPickLivePhotoPage(param, (isSuccess, result) => {
+        if (isSuccess) {
+          resolve(result);
+        } else {
+          reject(result);
+        }
+      });
+    });
+  }
     /**
    * 打开设备中枢功能页
    * @param  暂传空
@@ -1604,7 +1631,6 @@ class IUi {
       }
     }
   }
-  
   /**
    * 跳转自动化配置新增页面，并预填充触发器配置
    * @since 10116
@@ -1625,7 +1651,6 @@ class IUi {
   @report
   fillAutomationConfig(params) {
   }
-  
   /**
    * 打开自动化详情页
    * @since 10116

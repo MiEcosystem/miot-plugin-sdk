@@ -96,11 +96,29 @@ let getInnerOptions = () => {
       Component: (params) => {
         const isCariotDevice = useCariotDevice();
         const [clicked, click] = useClicked('share');
+        useEffect(() => {
+          const shareParams = { 'did': Device.deviceID, 'device_model': Device.model,
+            'mac': Device.mac, 'item_type': 'button', 'item_name': 'share_device_link_button' };
+          // 设备共享曝光埋点
+          if (Platform.OS === 'ios') {
+            Service.smarthome.recordEvent("expose", 'plugin_homepage', 'plugin_setting', null, null, shareParams);
+          } else {
+            Service.smarthome.reportEventRefChannel("expose", shareParams);
+          }
+        }, []);
         return isCariotDevice ? null : (
           <ListItem
             key={ 'share' }
             title={ I18n.share }
             onPress={ delegatePress(() => {
+              const shareParams = { 'did': Device.deviceID, 'device_model': Device.model,
+                'mac': Device.mac, 'item_type': 'button', 'item_name': 'share_device_link_button' };
+              // 设备共享点击埋点
+              if (Platform.OS === 'ios') {
+                Service.smarthome.recordEvent("click", 'plugin_homepage', 'plugin_setting', null, null, shareParams);
+              } else {
+                Service.smarthome.reportEventRefChannel("click", shareParams);
+              }
               Host.ui.openShareDevicePage();
             }, params, 'share', click) }
             useNewType={ true }

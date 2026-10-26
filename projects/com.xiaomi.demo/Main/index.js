@@ -125,6 +125,7 @@ import PhotoDemo from "./Host/PhotoDemo";
 import PadScrollDemo from "./Host/PadScrollDemo";
 import RockerViewDemo from "./Host/RockerViewDemo";
 import HostPropsInfoDemo from "./Host/HostPropsInfoDemo";
+import GotoSmartAssistantDemo from "./Host/GotoSmartAssistantDemo";
 import LocaleServer from "./Host/Local";
 import JSExecutor from "./Host/JSExecutor";
 import * as Screens from "./uikit/screens";
@@ -149,6 +150,7 @@ import SelectListDemo from "./UIComponent/SDKNewComponent/BasicComponent/SelectL
 import SubpageLayoutDemo from "./UIComponent/SDKNewComponent/LayoutComponent/SubpageLayoutDemo";
 import PageLayoutDemo from "./UIComponent/SDKNewComponent/LayoutComponent/PageLayoutDemo";
 import LayoutDemo from "./UIComponent/SDKNewComponent/LayoutComponent/LayoutDemo";
+import SettingsHyperOSDemo from "./UIComponent/SDKNewComponent/PageComponent/SettingsHyperOSDemo";
 import NewListCardDemo from "./UIComponent/SDKNewComponent/BasicComponent/ListCardDemo";
 import ActionListItemConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/ActionListItemConfigDemo";
 import SelectListConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/SelectListConfigDemo";
@@ -198,6 +200,8 @@ import PullRefreshConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/
 import SegmentedControlsConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/SegmentedControlsConfigDemo";
 import SpinConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/SpinConfigDemo";
 import NavigationBarConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/NavigationBarConfigDemo";
+import SdkNavigationBarDemo from "./UIComponent/SDKNewComponent/BasicComponent/SdkNavigationBarDemo";
+import StatusAlertDemo from "./UIComponent/SDKNewComponent/IotComponent/StatusAlertDemo";
 import StatusAlertConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/StatusAlertConfigDemo";
 
 import DrawerDemo from "./UIComponent/SDKNewComponent/BasicComponent/DrawerDemo";
@@ -252,6 +256,8 @@ import MenusPositionDemo from "./UIComponent/SDKNewComponent/BasicComponent/Menu
 import MenusEntryDemo from "./UIComponent/SDKNewComponent/BasicComponent/MenusEntryDemo";
 import InputDemo from "./UIComponent/SDKNewComponent/BasicComponent/InputDemo";
 import InputDialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/InputDialogDemo";
+import DescriptionDemo from "./UIComponent/SDKNewComponent/BasicComponent/DescriptionDemo";
+import DescriptionConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/DescriptionConfigDemo";
 import CustomDialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/CustomDialogDemo";
 import PickerDialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/PickerDialogDemo";
 import NoticeBarDemo from "./UIComponent/SDKNewComponent/BasicComponent/NoticeBarDemo";
@@ -383,6 +389,7 @@ function createRootStack(initPage) {
       SubpageLayoutDemo,
       PageLayoutDemo,
       LayoutDemo,
+      SettingsHyperOSDemo,
       NewListCardDemo,
       ActionListItemConfigDemo,
       SelectListConfigDemo,
@@ -440,8 +447,12 @@ function createRootStack(initPage) {
       SegmentedControlsConfigDemo,
       PullRefreshConfigDemo,
       SpinConfigDemo,
+      StatusAlertDemo,
       StatusAlertConfigDemo,
       NavigationBarConfigDemo,
+      SdkNavigationBarDemo,
+      DescriptionDemo,
+      DescriptionConfigDemo,
       // Iot 组件
       IotComponentDemo,
       SmartSceneDemo,
@@ -557,6 +568,7 @@ function createRootStack(initPage) {
       MiotSpecV3Demo,
       // Native 交互
       HostPropsInfoDemo,
+      GotoSmartAssistantDemo,
       LocaleServer,
       DarkModeDemo,
       JSExecutor,

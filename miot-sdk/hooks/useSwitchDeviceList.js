@@ -37,7 +37,8 @@ export default function useSwitchLightDeviceList(devices = []) {
         // specs
         const spiltButtons = specs.map((spec, specIndex) => {
           const { siid, piid, aiid } = spec;
-          const memberInfo = deviceInfo?.member_ship?.[`${ specIndex + 1 }`];
+          const memberShip = deviceInfo && deviceInfo.member_ship;
+          const memberInfo = memberShip && memberShip[String(specIndex + 1)];
           const payload_json = aiid ?
             {
               command: 'action',

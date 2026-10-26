@@ -154,6 +154,29 @@ export default {
      return Promise.resolve(null);
   },
   /**
+   * @method callSmartHomeAPIV2
+   * @since 10120(11.10)
+   * @description 通用的请求米家后台接口的方法，与米家服务器交互。
+   * 与 callSmartHomeAPI 的区别在成功返回：callSmartHomeAPI 只回传 res.result（裁剪掉顶层 code/message），
+   * 本方法保留完整顶层结构（code/message/result 都在），业务侧自行读取 res.result。
+   *
+   * 成败判定下沉到原生，双端统一按业务 code == 0 判定：code == 0 回调 ok=true；
+   * code != 0 或传输失败回调 ok=false。JS 侧不再重复判 code，仅依据 ok 分流为 resolve / reject：
+   * - ok=true  → resolve(res)，res 为服务端完整响应（如 { code:0, message, result }），
+   *              另含原生附加的 __api_info（请求耗时信息）。
+   * - ok=false → reject(res)，res 为 { code, message, __api_info }，
+   *              由 JS 胶水层从原生失败回调（code 码 / 消息 / api_info）拼接而成。
+   *
+   * 接入契约：外部服务须遵循 code == 0 表示成功、code != 0 表示失败，否则不可直接接入本接口。
+   * 收录校验规则与 callSmartHomeAPI 一致（见 apiRepo.js / omitApi.js）。
+   * @param {string} api - 接口地址，比如'/location/set'
+   * @param {object} params 传入参数，比如{ did: 'xxxx', pid: 'xxxx' }
+   * @param {function} [resProcessHandler] 可选响应加工钩子 (api, params, res) => res，resolve/reject 前对 res 做格式归一（不判 code）；默认不传即纯透传。
+   */
+  callSmartHomeAPIV2(api, params, resProcessHandler = null) {
+     return Promise.resolve(null);
+  },
+  /**
    * @method callSmartHomeCameraAPI
    * @since 10035
    * @description 专用摄像头相关接口请求
@@ -210,7 +233,7 @@ export default {
    * @return {Promise<object>} 透传接口，直接返回服务端返回的值
    */
   callXiaoaiNetworkAPI({ host = 'normal', path, method = 0, params = {}, needDevice = 1, cookie = {}, contentType = undefined } = {
-    host: 'normal', method: 0, needDevice: 1, params: {}, cookie: {}, contentType: undefined
+    host: 'normal', method: 0, needDevice: 1, params: {}, cookie: {}, contentType: undefined,
   }) {
      return Promise.resolve(null);
   },
@@ -410,7 +433,7 @@ export default {
       return new Promise((resolve) => {
         native.MIOTService.cancelSSE(conversationId, () => resolve());
       });
-    }
+    },
   },
   /**
    * 获取设备多语言资源文件, 由于是发起网络请求，数据的正确性可以通过抓包来查看；
@@ -422,5 +445,5 @@ export default {
    */
   fetchMultilingualResources(did) {
      return Promise.resolve(null);
-  }
+  },
 };

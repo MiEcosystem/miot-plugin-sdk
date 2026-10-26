@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { Image, StyleSheet, Dimensions } from 'react-native';
 import { strings as I18n } from 'miot/resources';
 import IftttSceneCard from './IftttSceneCard';
@@ -26,6 +26,8 @@ function toBigNumberString(value, type = 'floor') {
   }
   return value;
 }
+// 开启人数展示分档阈值：低于该值只展示"一些用户已使用"
+const USAGE_EXACT_THRESHOLD = 10000;
 /**
  * 把单条 templateInfo 适配成 IftttSceneCard 期望的 SmartSceneItem
  */
@@ -43,7 +45,12 @@ function buildSceneItem(item) {
     ? I18n['scene_active_done']
     : (can_open ? I18n['scene_can_turnOn'] : '');
   const statusTone = openStatus ? 'active' : (can_open ? 'canOpen' : 'normal');
-  const usage = getLocalI18n('scene_active_people', [openQuantityValue]);
+  // 开启人数不足 1 万时不展示具体人数，与自动化探索页保持一致；
+  // 未交付新译文的语种回退到具体人数，避免文案空白
+  const exactUsage = getLocalI18n('scene_active_people', [openQuantityValue]);
+  const usage = Number(open_quantity) >= USAGE_EXACT_THRESHOLD
+    ? exactUsage
+    : (I18n['scene_some_people_active'] || exactUsage);
   const triggerIcons = trigger_icon_list && trigger_icon_list.length
     ? trigger_icon_list.map((uri, idx) => (
       <Image key={`trigger-${ idx }`} style={styles.sceneIcon} source={{ uri }}/>
@@ -79,18 +86,33 @@ const IftttSmartSceneAdapter = (props) => {
   } = props;
   const items = useMemo(() => templateInfo.map(buildSceneItem), [templateInfo]);
   const shouldShowData = hasData && templateInfo.length === 2 && serverCode === 'cn';
+  const buildItemTrackParams = (raw) => ({
+    ...trackParams,
+    item_name: 'recommendation_template',
+    template_id: raw?.template_id,
+  });
+  // 模板卡片曝光埋点。旧版 IftttItem 在自身 useEffect 内逐条上报，删除旧 UI 后该埋点丢失，此处按模板维度补回
+  const exposedKeyRef = useRef('');
+  useEffect(() => {
+    if (!shouldShowData) {
+      return;
+    }
+    const exposedKey = templateInfo.map((raw) => raw?.template_id).join(',');
+    if (!exposedKey || exposedKeyRef.current === exposedKey) {
+      return;
+    }
+    exposedKeyRef.current = exposedKey;
+    templateInfo.forEach((raw) => {
+      IftttTemplateUtils.report('expose', buildItemTrackParams(raw));
+    });
+  }, [shouldShowData, templateInfo]);
   const onPressHeader = () => {
     IftttTemplateUtils.report('click', { ...trackParams });
     Service.scene.openIftttAutoPage();
   };
   const onPressItem = (_item, index) => {
     const raw = templateInfo[index] || {};
-    const itemTrackParams = {
-      ...trackParams,
-      item_name: 'recommendation_template',
-      template_id: raw.template_id,
-    };
-    IftttTemplateUtils.report('click', itemTrackParams);
+    IftttTemplateUtils.report('click', buildItemTrackParams(raw));
     const params = {
       tempID: raw.template_id,
       did: Device.deviceID,

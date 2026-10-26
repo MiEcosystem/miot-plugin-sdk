@@ -515,7 +515,7 @@ export function getTargetSectionDeviceList(deviceList, currentRoomId) {
   for (let index = 0; index < deviceList.length; index++) {
     const device = deviceList[index];
     const sectionIndex = targetDeviceList.findIndex((s) => {
-      return s.roomId === device?.roomId;
+      return String(s.roomId) === String(device?.roomId);
     });
     if (sectionIndex === -1) {
       targetDeviceList.push({
@@ -559,6 +559,85 @@ export function getSwitchTypeKey(spec) {
 export function getSwitchTypeDeviceSettingKey(spec) {
   const { miid, siid, piid } = spec || {};
   return miid ? `SwitchType.${ miid }.${ siid }.${ piid }` : `SwitchType.${ siid }.${ piid }`;
+}
+/**
+ * 从场景 trigger 里取出 button-type 的取值
+ * value_json 在 iOS 是对象、Android 是 JSON 字符串，两种都要吃
+ */
+function getTriggerButtonTypeValue(trigger, propSpec) {
+  const { siid, piid } = propSpec || {};
+  if (siid === undefined || piid === undefined) {
+    return undefined;
+  }
+  let valueJson = trigger?.value_json;
+  if (typeof valueJson === 'string') {
+    try {
+      valueJson = JSON.parse(valueJson);
+    } catch (_) {
+      return undefined;
+    }
+  }
+  // key 形如 prop.{model}.{siid}.{piid} 或 prop.{model}.{miid}.{siid}.{piid}，按后缀匹配兼容两种
+  const suffix = `.${ siid }.${ piid }`;
+  return (valueJson?.sub_props?.attr || []).find((a) => a?.key?.endsWith(suffix))?.value;
+}
+/**
+ * 由场景 trigger 反查按键下标
+ *
+ * 所有按键共用一个 switch-sensor 服务的设备（如 scc.switch.blnx4），各按键 click
+ * 事件 key 完全相同，按 key 相等会匹配到多个候选，只能靠 trigger 携带的
+ * button-type 值落到具体按键；一键一 sensor 的设备候选恒为 1，走不到消歧分支。
+ * @returns {number} 按键下标，未匹配到返回 -1
+ */
+export function findSwitchMemberIndex(trigger, switchClickSpecs, switchSpecs, propSpec) {
+  const matched = [];
+  (switchClickSpecs || []).forEach((spec, index) => {
+    if (encodeProp(spec) === trigger?.key) {
+      matched.push(index);
+    }
+  });
+  if (matched.length > 1) {
+    const buttonTypeValue = getTriggerButtonTypeValue(trigger, propSpec);
+    if (buttonTypeValue !== undefined) {
+      const hit = matched.find((index) => switchSpecs?.[index]?.buttonTypeValue === buttonTypeValue);
+      if (hit !== undefined) {
+        return hit;
+      }
+    }
+  }
+  return matched.length ? matched[0] : -1;
+}
+/**
+ * 在已有 tags 场景里找出与目标 trigger 等价的那条（保存前去重用）
+ *
+ * 判等三要素：同设备 did、同 trigger key（事件 = 手势）、同 button-type 值（按键）。
+ * 共用一个 switch-sensor 服务的设备各按键 click 事件 key 完全相同，仅靠 key 会把
+ * B 键的自动化误判成 A 键的，必须再比 button-type；任一侧取不到时宁可放弃去重，
+ * 也不冒险覆盖用户数据。
+ */
+export function findDuplicateTagsScene(tagsSceneList, targetTrigger, propSpec) {
+  const targetKey = targetTrigger?.key;
+  const targetDid = targetTrigger?.extra_json?.did;
+  if (!targetKey || !targetDid) {
+    return null;
+  }
+  const targetButtonType = getTriggerButtonTypeValue(targetTrigger, propSpec);
+  return (tagsSceneList || []).find((scene) => {
+    return (scene?.scene_trigger?.triggers || []).some((trigger) => {
+      if (trigger?.extra_json?.did !== targetDid || trigger?.key !== targetKey) {
+        return false;
+      }
+      const buttonType = getTriggerButtonTypeValue(trigger, propSpec);
+      // 两侧都没有：一键一 sensor 的设备，key 已足够唯一
+      if (targetButtonType === undefined && buttonType === undefined) {
+        return true;
+      }
+      if (targetButtonType === undefined || buttonType === undefined) {
+        return false;
+      }
+      return String(buttonType) === String(targetButtonType);
+    });
+  }) || null;
 }
 export function getSwitchTypeBySceneAction(sceneAction) {
   const { payload_json, type } = sceneAction?.actions[0] || {};

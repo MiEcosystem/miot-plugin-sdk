@@ -22,7 +22,9 @@ const alertDefault = {
   leadingIconType: 'reminder',
   actionType: 'none',
   warning: false,
+  loading: false,
   presentation: 'page',
+  actionPlacement: 'below',
   trailingNavigate: false,
   onPress: undefined,
   onNavigationPress: undefined,
@@ -67,6 +69,11 @@ const alertWithButtonGroup = {
   ],
 };
 
+const alertWithInlineButtonGroup = {
+  ...alertWithButtonGroup,
+  actionPlacement: 'inlineEnd',
+};
+
 const alertWithCustomAction = {
   ...alertDefault,
   actionType: 'custom',
@@ -77,6 +84,12 @@ const alertWithCustomIcon = {
   ...alertDefault,
   leadingIconType: 'custom',
   leadingIcon: customIconNode,
+};
+
+const alertWithLoading = {
+  ...alertDefault,
+  title: '正在更新设备状态',
+  loading: true,
 };
 
 const alertsStack2 = [
@@ -94,9 +107,11 @@ const alertsStack4 = [
   { title: '提示信息 4', leadingIconType: 'offline' },
 ];
 
-const StatusAlertAdapter = ({ alerts, stackTitle, onPress, onNavigationPress }) => (
+const StatusAlertAdapter = ({ alerts, loading, loadingText, stackTitle, onPress, onNavigationPress }) => (
   <StatusAlert
     alerts={alerts}
+    loading={loading}
+    loadingText={loadingText}
     stackTitle={alerts?.length > 1 ? stackTitle : undefined}
     onPress={alerts?.length > 1 ? onPress : undefined}
     onNavigationPress={alerts?.length > 1 ? onNavigationPress : undefined}
@@ -115,9 +130,11 @@ const propConfigs = [
       { name: '0.subtitle', type: 'string', defaultValue: undefined },
       { name: '0.presentation', type: 'enum', enumOptions: ['page', 'modal'], defaultValue: 'page' },
       { name: '0.warning', type: 'boolean', defaultValue: false },
+      { name: '0.loading', type: 'boolean', defaultValue: false },
       { name: '0.leadingIconType', type: 'enum', enumOptions: ['warning', 'fault', 'consumable', 'offline', 'reminder', 'custom'], defaultValue: 'reminder' },
       { name: '0.leadingIcon', type: 'pass', defaultValue: undefined, passOptions: [{ label: 'custom icon', value: customIconNode }] },
       { name: '0.actionType', type: 'enum', enumOptions: ['none', 'navigate', 'button', 'buttonGroup', 'custom'], defaultValue: 'none' },
+      { name: '0.actionPlacement', type: 'enum', enumOptions: ['below', 'inlineEnd'], defaultValue: 'below' },
       { name: '0.buttons', type: 'pass', defaultValue: undefined, passOptions: [{ label: '单按钮', value: alertWithButton.buttons }, { label: '按钮组', value: alertWithButtonGroup.buttons }] },
       { name: '0.customAction', type: 'pass', defaultValue: undefined, passOptions: [{ label: 'custom action', value: customActionNode }] },
       { name: '0.trailingNavigate', type: 'boolean', defaultValue: false },
@@ -131,13 +148,27 @@ const propConfigs = [
       { label: '导航箭头', value: [alertWithNavigate] },
       { label: '按钮', value: [alertWithButton] },
       { label: '按钮+导航箭头', value: [alertWithButtonNavigate] },
-      { label: '按钮组', value: [alertWithButtonGroup] },
+      { label: '按钮组-下方', value: [alertWithButtonGroup] },
+      { label: '按钮组-右侧', value: [alertWithInlineButtonGroup] },
       { label: '自定义操作', value: [alertWithCustomAction] },
       { label: '自定义图标', value: [alertWithCustomIcon] },
+      { label: '加载中', value: [alertWithLoading] },
       { label: '堆叠-2条', value: alertsStack2 },
       { label: '堆叠-3条', value: alertsStack3 },
       { label: '堆叠-4条', value: alertsStack4 },
     ],
+  },
+  {
+    name: 'loading',
+    type: 'boolean',
+    category: 'status',
+    defaultValue: false,
+  },
+  {
+    name: 'loadingText',
+    type: 'string',
+    category: 'status',
+    defaultValue: '正在同步设备状态',
   },
   {
     name: 'stackTitle',
