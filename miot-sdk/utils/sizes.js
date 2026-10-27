@@ -18,3 +18,8 @@ export function adjustSize(n) {
   const roundToNearestPixel = PixelRatio.roundToNearestPixel(calculateSize);
   return roundToNearestPixel;
 }
+export function adjustHyperOsSize(n) {
+  const calculateSize = (n / 392 * window.width);
+  const roundToNearestPixel = PixelRatio.roundToNearestPixel(calculateSize);
+  return roundToNearestPixel;
+}

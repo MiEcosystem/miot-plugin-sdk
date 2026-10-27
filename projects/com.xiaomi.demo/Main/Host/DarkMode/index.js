@@ -29,12 +29,12 @@ export default class DarkModeDemo extends React.Component {
 
     // 退后台时停止监听，回前台继续监听。
     // 退后台后，RN停止工作，将收不到通知。受 iOS 系统影响
-    PackageEvent.packageDidResume.addListener(() => { 
+    PackageEvent.packageDidResume.addListener(() => {
       this.addListener();
       // 如果退后台期间改变了  需要刷新
       this.refreshColorScheme();
     });
-    PackageEvent.packageWillPause.addListener(() => { 
+    PackageEvent.packageWillPause.addListener(() => {
       this.removeListener();
     });
 
@@ -45,6 +45,7 @@ export default class DarkModeDemo extends React.Component {
   }
 
   componentWillUnmount() {
+    DarkMode.closePluginOwnDarkMode();
     this.removeListener();
   }
 

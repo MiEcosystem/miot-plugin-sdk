@@ -1,7 +1,7 @@
 import React from "react";
-import {PanResponder, UIManager, findNodeHandle} from "react-native";
+import { PanResponder, UIManager, findNodeHandle } from "react-native";
 import GL from "gl-react";
-import {Surface} from "gl-react-native";
+import { Surface } from "gl-react-native";
 
 const shaders = GL.Shaders.create({
   oneFingerResponse: {
@@ -23,12 +23,12 @@ void main () {
 });
 
 class OneFingerResponse extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       pressed: 0,
-      position: [ 0, 0 ],
-      surfaceBound: [ 0, 0, 1, 1 ] // x, y, w, h
+      position: [0, 0],
+      surfaceBound: [0, 0, 1, 1] // x, y, w, h
     };
 
     this._panResponder = PanResponder.create({
@@ -43,13 +43,13 @@ class OneFingerResponse extends React.Component {
           (a, b, w, h, x, y) =>
             this.setState({
               pressed: 1,
-              surfaceBound: [x,y,w,h],
-              position: [ gestureState.x0, gestureState.y0 ]
+              surfaceBound: [x, y, w, h],
+              position: [gestureState.x0, gestureState.y0]
             })),
 
       onPanResponderMove: (evt, gestureState) =>
         this.setState({
-          position: [ gestureState.x0 + gestureState.dx, gestureState.y0 + gestureState.dy ]
+          position: [gestureState.x0 + gestureState.dx, gestureState.y0 + gestureState.dy]
         }),
 
       onPanResponderTerminationRequest: (evt, gestureState) => true,
@@ -68,9 +68,9 @@ class OneFingerResponse extends React.Component {
     });
 
   }
-  render () {
+  render() {
     const { width, height } = this.props;
-    const { pressed, position:[x,y], surfaceBound: [sx,sy,sw,sh] } = this.state;
+    const { pressed, position: [x, y], surfaceBound: [sx, sy, sw, sh] } = this.state;
     const position = [
       (x - sx) / sw,
       1 - (y - sy) / sh

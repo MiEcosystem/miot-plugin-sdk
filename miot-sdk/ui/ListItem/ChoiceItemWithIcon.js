@@ -9,6 +9,7 @@ export default class ChoiceItemWithIcon extends Component {
   static propTypes = {
     icon: PropTypes.any,
     title: PropTypes.string,
+    titleStyle: PropTypes.object,
     subtitle: PropTypes.string,
     extraSubtitle: PropTypes.string,
     extraSubtitleStyle: PropTypes.object,
@@ -18,7 +19,9 @@ export default class ChoiceItemWithIcon extends Component {
     onValueChange: PropTypes.func,
     accessible: AccessibilityPropTypes.accessible,
     accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
-    accessibilityHint: AccessibilityPropTypes.accessibilityHint
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint,
+    radio: Radio.propTypes,
+    styles: PropTypes.object
   };
   static defaultProps = {
     onValueChange: () => {}
@@ -56,8 +59,9 @@ export default class ChoiceItemWithIcon extends Component {
     }
   }
   render() {
-    const { icon, title, subtitle, extraSubtitle, extraSubtitleStyle, disabled } = this.props;
+    const { icon, title, titleStyle, subtitle, extraSubtitle, extraSubtitleStyle, disabled } = this.props;
     const { checked } = this.state;
+    const container = (this.props.styles && this.props.styles.container) || {};
     return (
       <TouchableWithoutFeedback onPress={() => {
         if (!disabled) {
@@ -65,7 +69,7 @@ export default class ChoiceItemWithIcon extends Component {
         }
       }}>
         <View
-          style={Styles.container}
+          style={[Styles.container, container]}
           {...getAccessibilityConfig({
             accessible: this.props.accessible,
             accessibilityLabel: this.props.accessibilityLabel,
@@ -76,9 +80,9 @@ export default class ChoiceItemWithIcon extends Component {
           ]}
           onAccessibilityAction={this.onAccessibilityAction}
         >
-          <Image style={[Styles.icon, disabled ? Styles.disabled : null]} source={icon} />
+          {icon ? <Image style={[Styles.icon, disabled ? Styles.disabled : null]} source={icon} /> : null}
           <View style={[Styles.text, disabled ? Styles.disabled : null]}>
-            <Text style={Styles.title}>{title}</Text>
+            <Text style={[Styles.title, titleStyle]}>{title}</Text>
             {subtitle || extraSubtitle ? (
               <Text style={Styles.subtitles}>
                 <Text style={Styles.subtitle}>{subtitle}{extraSubtitle ? ' | ' : ''}</Text>
@@ -86,7 +90,10 @@ export default class ChoiceItemWithIcon extends Component {
               </Text>
             ) : null}
           </View>
-          <Radio isChecked={checked} disabled={disabled} changeCheck={this.changeCheck} />
+          <Radio
+            {...this.props.radio}
+            isChecked={checked} disabled={disabled} changeCheck={this.changeCheck}
+          />
         </View>
       </TouchableWithoutFeedback>
     );
@@ -94,10 +101,12 @@ export default class ChoiceItemWithIcon extends Component {
 }
 const Styles = StyleSheet.create({
   container: {
+    minHeight: 60,
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 14
+    paddingVertical: 14,
+    paddingHorizontal: 28
   },
   disabled: {
     opacity: 0.3
@@ -109,6 +118,7 @@ const Styles = StyleSheet.create({
     marginRight: 8
   },
   text: {
+    marginRight: 5,
     flex: 1
   },
   title: {
@@ -124,7 +134,6 @@ const Styles = StyleSheet.create({
     lineHeight: 18
   },
   checkbox: {
-    marginRight: 10,
     width: 22,
     height: 22,
     borderRadius: 11
