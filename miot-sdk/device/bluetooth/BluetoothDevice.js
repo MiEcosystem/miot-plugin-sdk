@@ -317,23 +317,6 @@ export class IBluetooth {
        return Promise.resolve(null);
     }
     /**
-     * Gets the MCU version
-     * only support android
-     * @since 10119
-     * @return {Promise<String>}
-     * @description 获取已连接蓝牙设备的 MCU 版本号，仅支持 Android。
-     * @example
-     * Device.getBluetoothLE().getMcuVersion().then((version) => {
-     *   console.log("MCU version:", version);
-     * }).catch((error) => {
-     *   console.log("Failed to get MCU version:", error);
-     * });
-     */
-    @report
-    getMcuVersion() {
-       return Promise.resolve(null);
-    }
-    /**
      * 订阅ble spec 消息推送；除了订阅之外，插件需要与设备建立蓝牙连接，并主动扫描设备的特征值，设备才会给插件推送消息。
      * @since 10040
      * @param  {...string} propertyOrEventNames prop.2.1,event.2.1
@@ -509,6 +492,6 @@ export const BluetoothEvent = {
   bluetoothStatusChanged: {
   },
   iccoacreateDigitalKey: {
-  },
+  }
 };
 buildEvents(BluetoothEvent);
