@@ -21,7 +21,6 @@ const DataGroupDemo = ({ navigation }) => {
       contentContainerStyle={styles.content}
     >
       <Text style={styles.header}>数据组</Text>
-      <Text style={{ ...Fonts.fontNumber28Demibold }}>1234567890</Text>
       <Text style={styles.sectionTitle}>2 项（居左）</Text>
       <CardContainer gap={0}>
         <DataGroup
@@ -39,6 +38,17 @@ const DataGroupDemo = ({ navigation }) => {
             { title: '26℃', subtitle: '温度' },
             { title: '68%', subtitle: '湿度' },
             { title: 'AQI 25', subtitle: '空气质量' },
+          ]}
+        />
+      </CardContainer>
+
+      <Text style={styles.sectionTitle}>3 项（large）</Text>
+      <CardContainer gap={0}>
+        <DataGroup
+          items={[
+            { title: '26℃', subtitle: '温度', titleSize: 'large' },
+            { title: '运行中', subtitle: '状态', titleSize: 'large', stringMode: true },
+            { title: 'AQI 25', subtitle: '空气质量', titleSize: 'large' },
           ]}
         />
       </CardContainer>

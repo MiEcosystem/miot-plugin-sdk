@@ -14,7 +14,7 @@ const propConfigs = [
   {
     name: 'titleSize',
     type: 'enum',
-    enumOptions: ['medium', 'small'],
+    enumOptions: ['small', 'medium', 'large'],
     defaultValue: 'medium',
     category: 'content',
   },

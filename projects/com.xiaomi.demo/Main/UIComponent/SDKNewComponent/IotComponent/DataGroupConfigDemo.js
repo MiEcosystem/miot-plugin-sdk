@@ -30,9 +30,14 @@ const itemsDisabled = [
   { title: '--', subtitle: '湿度（离线）', disabled: true },
 ];
 const itemsSmall = [
-  { title: 'PM2.5', subtitle: '12 μg/m³', size: 'small' },
-  { title: 'CO₂', subtitle: '650 ppm', size: 'small' },
-  { title: 'TVOC', subtitle: '0.02 mg/m³', size: 'small' },
+  { title: 'PM2.5', subtitle: '12 μg/m³', titleSize: 'small' },
+  { title: 'CO₂', subtitle: '650 ppm', titleSize: 'small' },
+  { title: 'TVOC', subtitle: '0.02 mg/m³', titleSize: 'small' },
+];
+const itemsLarge = [
+  { title: '26°C', subtitle: '温度', titleSize: 'large' },
+  { title: '运行中', subtitle: '状态', titleSize: 'large', stringMode: true },
+  { title: 'AQI 25', subtitle: '空气质量', titleSize: 'large' },
 ];
 const itemsLongTitle = [
   { title: '99999.99 kWh', subtitle: '累计用电量', stringMode: true },
@@ -75,6 +80,7 @@ const DataGroupConfigDemo = () => {
         { label: '3项', value: items3 },
         { label: '彩色', value: itemsColored },
         { label: 'small', value: itemsSmall },
+        { label: 'large', value: itemsLarge },
         { label: '禁用', value: itemsDisabled },
         { label: '超长 title', value: itemsLongTitle },
         { label: '超长 subtitle', value: itemsLongSubtitle },
