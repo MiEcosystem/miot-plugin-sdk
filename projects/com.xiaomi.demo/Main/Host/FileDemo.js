@@ -181,6 +181,9 @@ export default class FileStorage extends React.Component {
                 ["写入 PDF 文件", this._saveTextToPdf],
                 ["pdf转图片", this._pdfToImage],
                 ["读PDF信息", this._readPdfMetaData]
+              ],
+              [
+                ["生成二维码并保存到插件路径", this._generateQRCodeAndSave]
               ]
             ].map((section, index) => {
               return (
@@ -267,6 +270,16 @@ export default class FileStorage extends React.Component {
       alert(JSON.stringify(err));
     });
   }
+
+  _generateQRCodeAndSave() {
+    let params = { "qrStr": "https://www.baidu.com", "size": 300, "fileName": "deviceName.jpg" };
+    Host.file.generateQRCodeAndSave(params).then((res) => {
+      alert(JSON.stringify(res));
+    }).catch((err) => {
+      alert(JSON.stringify(err));
+    });
+  }
+
 
   _ungzipFileToString() {
     let params = {

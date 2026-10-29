@@ -5,15 +5,15 @@ import TitleBar from 'miot/ui/TitleBar';
 import React from "react";
 import { Image, Platform, StyleSheet, Text, TextInput, View } from "react-native";
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
-var rValue = 0;
-var gValue = 0;
-var bValue = 0;
+let rValue = 0;
+let gValue = 0;
+let bValue = 0;
 export default class SceneMain extends React.Component {
   constructor(props, context) {
     super(props, context);
     console.log(Package.entryInfo);
     this.state = {
-      requestStatus: false,
+      requestStatus: false
     };
   }
 
@@ -26,15 +26,15 @@ export default class SceneMain extends React.Component {
   render() {
     return (
       <View style={styles.containerAll} >
-        <TitleBar type='dark'
+        <TitleBar type="dark"
           onPressLeft={() => Package.exit()}
           // disabled={!this.state.textValid || !this.state.numValid}
           disabled={!this.state.numValid}
           // title={'title'}
           rightText={'确定'}
           onPressRight={() => {
-            var color = rValue << 16 | gValue << 8 | bValue;
-            var action = Package.entryInfo;
+            let color = rValue << 16 | gValue << 8 | bValue;
+            let action = Package.entryInfo;
             action.payload.value = { 'test': 't' };
             console.log(Package.exitInfo);
             Package.exitInfo = action; // 设置exitInfo之后插件就会正常退出，无需再调用 Package.exit();
@@ -81,25 +81,25 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#838383',
-    marginTop: 0,
+    marginTop: 0
   },
   containerIconDemo: {
     flex: 1.7,
     flexDirection: 'column',
     backgroundColor: '#191919',
     alignSelf: 'stretch',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   containerMenu: {
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#ffffff',
-    alignSelf: 'stretch',
+    alignSelf: 'stretch'
   },
   iconDemo: {
     width: 270,
     height: 181,
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   iconText: {
     fontSize: 20,
@@ -119,6 +119,6 @@ var styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 30,
     marginRight: 30,
-    backgroundColor: '#ffffff',
-  },
+    backgroundColor: '#ffffff'
+  }
 });
