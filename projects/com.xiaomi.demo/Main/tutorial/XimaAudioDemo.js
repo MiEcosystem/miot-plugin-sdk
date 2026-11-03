@@ -22,20 +22,20 @@ export default class XimaAudioDemo extends React.Component {
     };
   }
 
-    componentWillMount() {
-        Service.ximalaya.registry("1a48d5cad75f5b34a8c933edcbcad3db","f9aaa0634b685990071053600d71ed80")
-    }
+  componentWillMount() {
+    Service.ximalaya.registry("1a48d5cad75f5b34a8c933edcbcad3db", "f9aaa0634b685990071053600d71ed80");
+  }
 
-    componentWillUnmount() {
+  componentWillUnmount() {
 
-    }
+  }
 
   render() {
     return (
       <View style={[styles.listContainer, styles.list]}>
         <View style={{ flexDirection: "row" }}>
           <ScrollView contentContainerStyle={{ alignItems: "stretch", justifyContent: "center" }}>
-            <Button style={{ margin: 10, width: width }} onPress={()=>{Service.ximalaya.setPlayMode(3)}}>setPlayMode</Button>
+            <Button style={{ margin: 10, width: width }} onPress={() => { Service.ximalaya.setPlayMode(3); }}>setPlayMode</Button>
             <Button style={{ margin: 10, width: width }}>当前插件
               packageID: {this.state.package.packageID}</Button>
             <Button style={{ margin: 10, width: width }}>当前插件

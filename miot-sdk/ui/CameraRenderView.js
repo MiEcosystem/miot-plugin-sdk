@@ -193,6 +193,15 @@ export default class CameraRenderView extends React.Component {
      * 提供给云台机，向左向右滑动view，让云台机跟着转动
      */
     onPTZDirectionCtr: PropTypes.func,
+    /**
+     * 手势更新
+     */
+    onGestureUpdate: PropTypes.func,
+    
+    /**
+     * window 变化
+     */
+    onWindowChanged: PropTypes.func,
     ...ViewPropTypes
   };
   render() {
@@ -226,7 +235,7 @@ export default class CameraRenderView extends React.Component {
   /**
    * 开始录制声音
    */
-  startAudioRecord() {
+  startAudioRecord(enableAEC = true) {
      return null
   }
   /**

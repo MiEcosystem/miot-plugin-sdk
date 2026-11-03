@@ -35,14 +35,30 @@ map.set("node_modules/react-navigation/src/views/TouchableItem.js", "ReactNaviga
 map.set("node_modules/react-navigation-stack/dist/views/TouchableItem.js", "ReactNavigationTouchableItem");
 /** 修复了react-native-svg无法正常显示DynamicColor的BUG */
 map.set("node_modules/react-native-svg/lib/extract/extractBrush.js", "svgExtractBrush");
-map.set("node_modules/react-native-safe-area-view/index.js", "react-safeAreaView");// 修复navigationBar中使用的safeAreaView不支持iphone12系列的bug
 map.set("node_modules/react-navigation/src/routers/StackRouter.js", "StackRouter");
+// 修复 react-navigation 和 react-native-safe-area-view 导航栏高度问题，针对iphonex适配
+map.set("node_modules/react-native-safe-area-view/index.js", "react-safeAreaView");// 修复navigationBar中使用的safeAreaView不支持iphone12系列的bug
+map.set("node_modules/react-navigation/node_modules/react-native-safe-area-view/index.js", "react-native-safe-area-view");
+// 修复FlatList 系列组件scrollToIndex 参数与数据不匹配时崩溃的情况
+map.set("node_modules/react-native/Libraries/Lists/VirtualizedList.js", "VirtualizedList");
+// 增加头部安全区域高度配置
+map.set("node_modules/react-native/Libraries/Components/SafeAreaView/SafeAreaView.js", "SafeAreaView");
+// 增加头部
+map.set("node_modules/react-native/Libraries/Renderer/implementations/ReactNativeRenderer-dev.js", "impl_ReactNativeRenderer-dev");
+map.set("node_modules/react-native/Libraries/Renderer/implementations/ReactNativeRenderer-prod.js", "impl_ReactNativeRenderer-prod");
+// RN 0.61 的 Animated.timing 在原生侧按固定 1000/60 取样点四舍五入，动画值被量化到 60Hz，
+// 高刷屏上相邻两次屏幕刷新取到同一个值，画面实际只更新 60 次/秒（表现为"像 60hz"）。
+// 下面三处为路由动画注入 __useSystemFrameRate 标记，原生侧据此改为按真实时间在取样点间插值。
+// 详见系分《RN 路由动画适配系统高刷帧率》，关联 ISS-202609-00085427A。
+map.set("node_modules/react-native/Libraries/Animated/src/animations/TimingAnimation.js", "TimingAnimation");
+map.set("node_modules/react-navigation-stack/dist/views/StackView/StackView.js", "StackView");
+map.set("node_modules/react-navigation-stack/dist/views/StackView/StackViewLayout.js", "StackViewLayout");
 
 module.exports = {
 
   findContent(mpath) {
     const real = map.get(mpath);
     return real ? fs.readFileSync(path.join(__dirname, real)) : null;
-  }
+  },
 
 };

@@ -16,10 +16,10 @@ void main () { // This function is called FOR EACH PIXEL
 
 module.exports = GL.createComponent(
   ({ width, height }) =>
-  <GL.Node
-    shader={shaders.helloGL}
-    width={width}
-    height={height}
-  />,
+    <GL.Node
+      shader={shaders.helloGL}
+      width={width}
+      height={height}
+    />,
   { displayName: "HelloGL" }
 );
