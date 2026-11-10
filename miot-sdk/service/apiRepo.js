@@ -93,6 +93,7 @@ const API_REPO = {
   '/user/setpdata': {},
   '/user/getpdata': {},
   '/v2/user/get_device_data_raw': {},
+  '/v2/user/get_device_data_permanent': {}, // 查询设备 SDS 永久表数据
   '/v2/nfckey/create_se_session': {},
   '/v2/nfckey/replace_se_isdkey': {},
   '/v2/nfckey/reset_lock_primarykey': {},
