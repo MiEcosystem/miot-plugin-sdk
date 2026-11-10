@@ -93,6 +93,7 @@ class ISpec {
    * @return {Promise<JSON>} {"results": [{"did": "xxx", "miid":x, "siid": 1, "piid": 1, "code": 0}]}
    */
   @report
+  @resultReport
   reportPropChanged(params) {
      return Promise.resolve(null);
   }
@@ -105,6 +106,7 @@ class ISpec {
    * 失败时：{code:xxx, message:xxx}
    */
   @report
+  @resultReport
   getSpecString(did) {
      return Promise.resolve(null);
   }
@@ -120,6 +122,7 @@ class ISpec {
    * iOS： 返回值同上面的getPropertiesValue方法。此方法只返回code为0（get成功）的数据
    */
   @report
+  @resultReport
   getCurrentSpecValue(did) {
      return Promise.resolve(null);
   }
@@ -133,6 +136,7 @@ class ISpec {
    * @return {Promise<JSON>} {"results": {"did": "xxx", "miid":x, "siid": 1, "piid": 1,  "minimum_report_interval": 1, "maximum_report_interval": 100, "reportable_change": 5}} minimum_report_interval:最小上报间隔，单位（s）,maximum_report_interval:最大上报间隔，单位（s），为0指无穷大，即不需要周期上报,reportable_change:可上报的变化阈值，同属性数据类型
    */
   @report
+  @resultReport
   getPropertyReportConfig(params, version = '') {
      return Promise.resolve(null);
   }
@@ -156,6 +160,7 @@ class ISpec {
    * @return {Promise<JSON>} {"results": {"did": "xxx", "miid":x, "siid": 1, "piid": 1, "code": 0}}
    */
   @report
+  @resultReport
   setPropertyReportConfig(params, version = '') {
      return Promise.resolve(null);
   }

@@ -30,15 +30,13 @@ const { minor = 0 } = PlatformConstants.reactNativeVersion || {};
 
 const isIPhoneX = (() => {
   if (Platform.OS === 'web') return false;
-  
-  return (
-    Platform.OS === 'ios' &&
-    ((D_HEIGHT === X_HEIGHT && D_WIDTH === X_WIDTH) ||
-      (D_HEIGHT === X_WIDTH && D_WIDTH === X_HEIGHT)) ||
-    ((D_HEIGHT === XSMAX_HEIGHT && D_WIDTH === XSMAX_WIDTH) ||
-        (D_HEIGHT === XSMAX_WIDTH && D_WIDTH === XSMAX_HEIGHT)) ||
-        (D_HEIGHT === IPHONE12_H) || (D_HEIGHT === IPHONE12_Max) || (D_HEIGHT === IPHONE12_Mini)
-  );
+
+  let host = NativeModules.MHPluginSDK;
+  if (Platform.OS === 'ios' && host) {
+    return host.isIphoneXSeries;
+  }
+
+  return false;
 })();
 
 const isIPad = (() => {

@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Device, Service } from 'miot';
+import Service from 'miot/Service';
+import Device from 'miot/device/BasicDevice';
 const modelTypes = {};
 export function getModelType(did, model) {
+  did = did || Device.deviceID;
+  model = model || Device.model;
   if (modelTypes[model]) {
     return Promise.resolve(modelTypes[model]);
   }
@@ -10,7 +13,7 @@ export function getModelType(did, model) {
     if (!parsedInstance || !parsedInstance.type) {
       return Promise.reject();
     }
-    const modelType = instance.type.split(':')[3];
+    const modelType = parsedInstance.type.split(':')[3];
     modelTypes[model] = modelType;
     return modelType || '';
   }).catch(() => {

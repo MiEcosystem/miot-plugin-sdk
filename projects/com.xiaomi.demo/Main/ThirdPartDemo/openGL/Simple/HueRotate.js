@@ -26,10 +26,10 @@ void main() {
 
 module.exports = GL.createComponent(
   ({ hue, children, ...rest }) =>
-  <GL.Node
-    {...rest}
-    shader={shaders.hueRotate}
-    uniforms={{ hue }}>
-    <GL.Uniform name="tex">{children}</GL.Uniform>
-  </GL.Node>
-, { displayName: "HueRotate" });
+    <GL.Node
+      {...rest}
+      shader={shaders.hueRotate}
+      uniforms={{ hue }}>
+      <GL.Uniform name="tex">{children}</GL.Uniform>
+    </GL.Node>
+  , { displayName: "HueRotate" });

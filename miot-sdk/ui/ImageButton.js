@@ -28,7 +28,8 @@ export default class ImageButton extends React.Component {
     style: PropTypes.any,
     accessible: AccessibilityPropTypes.accessible,
     accessibilityLabel: AccessibilityPropTypes.accessibilityLabel,
-    accessibilityHint: AccessibilityPropTypes.accessibilityHint
+    accessibilityHint: AccessibilityPropTypes.accessibilityHint,
+    accessibilityRole: AccessibilityPropTypes.accessibilityRole
   };
   static defaultProps = {
     source: null,
@@ -45,7 +46,7 @@ export default class ImageButton extends React.Component {
     return this.state.buttonPressed;
   }
   render() {
-    let { source, highlightedSource, disabled, onPress, accessible, accessibilityLabel, accessibilityHint, ...rest } = this.props;
+    let { source, highlightedSource, disabled, onPress, accessible, accessibilityLabel, accessibilityHint, accessibilityRole, ...rest } = this.props;
     if (this._isButtonPressed() && highlightedSource) {
       source = highlightedSource;
     }
@@ -57,7 +58,7 @@ export default class ImageButton extends React.Component {
         onPressOut={ this._buttonPressOut.bind(this) }
         { ...getAccessibilityConfig({
           accessible: accessible,
-          accessibilityRole: AccessibilityRoles.imagebutton,
+          accessibilityRole: accessibilityRole || AccessibilityRoles.button,
           accessibilityLabel: accessibilityLabel,
           accessibilityHint: accessibilityHint,
           accessibilityState: {

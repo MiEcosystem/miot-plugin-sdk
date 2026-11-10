@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react'
+import React from 'react';
 import {
   StyleSheet,
   WebView,
@@ -11,12 +11,12 @@ import {
   ART
 } from 'react-native';
 
-var {
+let {
   width,
   height
 } = Dimensions.get('window');
 
-var {
+let {
   Surface,
   Shape,
   Path,
@@ -30,16 +30,16 @@ export default class ARTGroupDemo extends React.Component {
   render() {
     return (
       <View style={styles.container} >
-        <StatusBar barStyle='default' />
-        <Surface width={width} height={(height - (Platform.OS === 'ios' ? 64 : 76))/2}style={styles.surface} >
+        <StatusBar barStyle="default" />
+        <Surface width={width} height={(height - (Platform.OS === 'ios' ? 64 : 76)) / 2}style={styles.surface} >
           <Group x={100} y={120}>
-            <Text   font={`20px "Helvetica Neue", "Helvetica", Arial`} stroke="purple" y={20}>
+            <Text font={`20px "Helvetica Neue", "Helvetica", Arial`} stroke="purple" y={20}>
               STROKED TEXT
             </Text>
-            <Text   font={`20px "Helvetica Neue", "Helvetica", Arial`} stroke="blue" y={60}>
+            <Text font={`20px "Helvetica Neue", "Helvetica", Arial`} stroke="blue" y={60}>
               这三行继承了Group的属性
             </Text>
-            <Text   font={`20px "Helvetica Neue", "Helvetica", Arial`} stroke="green" y={100}>
+            <Text font={`20px "Helvetica Neue", "Helvetica", Arial`} stroke="green" y={100}>
               小米智能家庭👪
             </Text>
           </Group>
@@ -50,14 +50,14 @@ export default class ARTGroupDemo extends React.Component {
 }
 
 var styles = StyleSheet.create({
-    container: {
-        marginTop: Platform.OS === 'ios' ? 64 : 76,
-        flexDirection:'column',
-        flex:1,
-    },
-    surface:{
-      flex:1,
-    }
+  container: {
+    marginTop: Platform.OS === 'ios' ? 64 : 76,
+    flexDirection: 'column',
+    flex: 1
+  },
+  surface: {
+    flex: 1
+  }
 
 });
 
