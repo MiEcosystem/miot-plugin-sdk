@@ -10,12 +10,12 @@ import React from 'react';
 import {
   PanResponder,
   View,
-  Text,
+  Text
 } from 'react-native';
 
-import {TimerMixin} from 'react-timer-mixin';
+import { TimerMixin } from 'react-timer-mixin';
 
-import  {Surface,Path,Group,Transform,Shape} from 'react-native/Libraries/ART/ReactNativeART';
+import { Surface, Path, Group, Transform, Shape } from 'react-native/Libraries/ART/ReactNativeART';
 // ReactNativeART
 // import {
 //   Surface,
@@ -25,28 +25,28 @@ import  {Surface,Path,Group,Transform,Shape} from 'react-native/Libraries/ART/Re
 //   Shape,
 // } from 'ReactART';
 
-var TOUCH_UP_DRAG = 0.978;
-var TOUCH_DOWN_DRAG = 0.9;
-var MAX_VEL = 11;
-var BASE_VEL = 0.15;
+let TOUCH_UP_DRAG = 0.978;
+let TOUCH_DOWN_DRAG = 0.9;
+let MAX_VEL = 11;
+let BASE_VEL = 0.15;
 
-export default class  HelloReactART extends React.Component {
+export default class HelloReactART extends React.Component {
 
   constructor(props) {
-        super(props);
-        this.state = {
-          degrees:10,
-          velocity:0,
-          vx:0,
-          drag:0,
-        };
+    super(props);
+    this.state = {
+      degrees: 10,
+      velocity: 0,
+      vx: 0,
+      drag: 0
+    };
 
   }
   getInitialState() {
-    return {degrees: 0, velocity: 0, drag: TOUCH_UP_DRAG};
+    return { degrees: 0, velocity: 0, drag: TOUCH_UP_DRAG };
   }
 
-  _panResponder(){}
+  _panResponder() {}
 
   componentWillMount() {
     this._panResponder = PanResponder.create({
@@ -55,7 +55,7 @@ export default class  HelloReactART extends React.Component {
       onPanResponderGrant: this._handlePanResponderGrant.bind(this),
       onPanResponderMove: this._handlePanResponderMove.bind(this),
       onPanResponderRelease: this._handlePanResponderEnd.bind(this),
-      onPanResponderTerminate: this._handlePanResponderEnd.bind(this),
+      onPanResponderTerminate: this._handlePanResponderEnd.bind(this)
     });
   }
 
@@ -68,11 +68,11 @@ export default class  HelloReactART extends React.Component {
   }
 
   _handlePanResponderGrant(e: Object, gestureState: Object) {
-    this.setState({drag: TOUCH_DOWN_DRAG});
+    this.setState({ drag: TOUCH_DOWN_DRAG });
   }
 
   _handlePanResponderMove(e: Object, gestureState: Object) {
-    var nextVelocity = Math.min(this.state.velocity + (gestureState.vx * 5), MAX_VEL);
+    let nextVelocity = Math.min(this.state.velocity + (gestureState.vx * 5), MAX_VEL);
 
     if (this.state.vx < 0 && this.state.velocity > 0) {
       nextVelocity = 0;
@@ -84,7 +84,7 @@ export default class  HelloReactART extends React.Component {
       nextVelocity = -1 * MAX_VEL;
     }
 
-    this.setState({velocity: nextVelocity, drag: TOUCH_UP_DRAG});
+    this.setState({ velocity: nextVelocity, drag: TOUCH_UP_DRAG });
   }
 
   _handlePanResponderEnd(e: Object, gestureState: Object) {
@@ -92,31 +92,31 @@ export default class  HelloReactART extends React.Component {
   }
 
   onTick() {
-    var nextDegrees = this.state.degrees + BASE_VEL + this.state.velocity;
-    var nextVelocity = this.state.velocity * this.state.drag;
-    this.setState({degrees: nextDegrees, velocity: nextVelocity});
+    let nextDegrees = this.state.degrees + BASE_VEL + this.state.velocity;
+    let nextVelocity = this.state.velocity * this.state.drag;
+    this.setState({ degrees: nextDegrees, velocity: nextVelocity });
   }
 
   componentDidMount() {
     this.interval = setInterval(
       this.onTick.bind(this)
-    , 20);
+      , 20);
   }
 
-  componentWillUnmount(){
-    clearInterval(this.interval)
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
 
   render() {
     return (
-      <View style={{flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center'}} {...this._panResponder.panHandlers}>
+      <View style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }} {...this._panResponder.panHandlers}>
         <Surface
           width={280}
           height={300}>
           {this.renderGraphic(this.state.degrees)}
         </Surface>
-        <Text style={{color: "#cccccc", fontSize: 18}}>Swipe left or right to spin</Text>
+        <Text style={{ color: "#cccccc", fontSize: 18 }}>Swipe left or right to spin</Text>
       </View>
     );
   }

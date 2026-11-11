@@ -68,7 +68,7 @@ class ICloudStorage {
    * 因此如果插件方需要存储多个key-value，建议多个key之间相差较大
    * @since 10023
    * @param {string} model
-   * @param {number} key
+   * @param {number} key key不得大于25000
    * @param {json} data
    * @returns {Rromise<any>} Promise
    * 成功时：true

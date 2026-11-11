@@ -149,4 +149,5 @@ class IAccount {
      return Promise.resolve(null);
   }
 }
+export const CurrentAccount = Properties.init(new IAccount(), { id: native.MIOTService.currentAccountID });
 export default IAccount;

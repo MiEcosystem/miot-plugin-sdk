@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Image} from 'react-native'
+import React, { Component } from 'react';
+import { Image } from 'react-native';
 
 export class ImageIcon extends Component {
 
@@ -7,7 +7,7 @@ export class ImageIcon extends Component {
     plus: <Image source={require('../img/icons/plus.png')}/>,
     heart: <Image source={require('../img/icons/heart.png')}/>,
     phone: <Image source={require('../img/icons/phone.png')}/>,
-    user: <Image source={require('../img/icons/user.png')}/>,
+    user: <Image source={require('../img/icons/user.png')}/>
   };
 
   render() {
