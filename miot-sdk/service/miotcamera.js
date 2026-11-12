@@ -962,22 +962,22 @@ class IMiotCamera {
        return Promise.resolve(null);
     }
     /**
-     * 通用加密图片上传接口(如宠物照片)；
-     * 与 getCommonImgWithParams 对称，接口 path 由参数传入
+     * 上传宠物照片(加密上传)；
+     * native 固定 /miot/camera/app/v1/pet/ 前缀与 business 域，插件只传 pet 子路径后缀；
+     * did/model 由 native 填入，图片的 AES 加密及 iv/imgSign 由 native 生成
      * @since 10121
+     * @param {string} subPath pet 子路径后缀(不带前导 "/"、不含 "../")，上传宠物照片传 "add/photo"，
+     *   即请求 /miot/camera/app/v1/pet/add/photo
      * @param {string} imagePath 拍照或相册得到的本地图片绝对路径
-     * @param {string|object} hostParams 接口信息（json 字符串或对象），key 固定：
-     *   如上传宠物照片 {"prefix":"business.smartcamera", "path":"/miot/camera/app/v1/pet/add/photo"}
      * @param {string} did 设备 did，默认当前设备
-     * @returns {Promise<string>} 成功 resolve 服务端返回的 json 字符串（如宠物照片中含 petFaceId）；失败 reject {code, message}
+     * @returns {Promise<object>} 成功 resolve {petFaceId}；失败 reject {code, message}
      * @example
-     * Service.miotcamera.uploadImageWithParams(imagePath,
-     *   { prefix: "business.smartcamera", path: "/miot/camera/app/v1/pet/add/photo" })
-     *   .then((res) => console.log(JSON.parse(res)))
+     * Service.miotcamera.uploadPetImage("add/photo", imagePath)
+     *   .then((res) => console.log(res.petFaceId))
      *   .catch((err) => console.log(err));
      */
     @report
-    uploadImageWithParams(imagePath, hostParams, did = Device.deviceID) {
+    uploadPetImage(subPath, imagePath, did = Device.deviceID) {
        return Promise.resolve(null);
     }
     /**
