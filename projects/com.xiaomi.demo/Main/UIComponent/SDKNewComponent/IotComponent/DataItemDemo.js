@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { dynamicStyleSheet } from 'miot/ui';
 import { CardContainer, colorToken, DataItem, Fonts } from 'miot/ui/hyperOSUI';
@@ -26,6 +26,14 @@ const DataItemDemo = ({ navigation }) => {
           <View style={styles.cell}><DataItem title="26℃" subtitle="室内温度" /></View>
           <View style={styles.cell}><DataItem title="68%" subtitle="湿度" /></View>
           <View style={styles.cell}><DataItem title="AQI 25" subtitle="空气质量" /></View>
+        </View>
+      </CardContainer>
+
+      <Text style={styles.sectionTitle}>large 尺寸</Text>
+      <CardContainer gap={0}>
+        <View style={styles.row}>
+          <View style={styles.cell}><DataItem title="26℃" subtitle="数字字体" titleSize="large" /></View>
+          <View style={styles.cell}><DataItem title="运行中" subtitle="系统字体" titleSize="large" stringMode /></View>
         </View>
       </CardContainer>
 

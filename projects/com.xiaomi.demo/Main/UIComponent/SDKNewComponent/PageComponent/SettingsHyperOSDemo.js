@@ -240,6 +240,8 @@ const SettingsHyperOSDemo = ({ navigation }) => {
   const [otaAuthType, setOtaAuthType] = useState(5);
   const [customPreset, setCustomPreset] = useState('full');
   const [switchOn, setSwitchOn] = useState(false);
+  const [infoCustomPreset, setInfoCustomPreset] = useState('full');
+  const [infoSwitchOn, setInfoSwitchOn] = useState(false);
   const [mockProfileId, setMockProfileId] = useState(null);
 
   const modelType = useModelType();
@@ -333,13 +335,44 @@ const SettingsHyperOSDemo = ({ navigation }) => {
     }];
   }, [customPreset, switchOn]);
 
-  // 更多设备信息页自定义项 11.11 才支持
-  // const deviceInfoCustomOptions = useMemo(() => [{
-  //   id: 'infoCustomEntrance',
-  //   title: '更多设备信息页自定义项',
-  //   actionType: 'none',
-  //   onPress: () => Service.scene.openIftttAutoPage(),
-  // }], []);
+  // 更多设备信息页自定义项，11.11 起支持。与 featureCustomOptions 共用 getItems，
+  // 支持的样式一致：navigate(带 value/红点) / none(只读文本) / switch / button
+  const deviceInfoCustomOptions = useMemo(() => {
+    if (infoCustomPreset === 'none') {
+      return [];
+    }
+    const entrance = {
+      id: 'infoCustomEntrance',
+      title: '自定义入口项',
+      value: '查看详情',
+      actionType: 'navigate',
+      badge: true,
+      onPress: () => Service.scene.openIftttAutoPage(),
+    };
+    if (infoCustomPreset === 'entrance') {
+      return [entrance];
+    }
+    return [entrance, {
+      id: 'infoCustomText',
+      title: '自定义文本项',
+      value: '只读信息',
+      actionType: 'none',
+    }, {
+      id: 'infoCustomSwitch',
+      title: '自定义开关项',
+      actionType: 'switch',
+      checked: infoSwitchOn,
+      onChange: setInfoSwitchOn,
+    }, {
+      id: 'infoCustomButton',
+      title: '自定义按钮项',
+      actionType: 'button',
+      buttonOption: {
+        title: '执行',
+        onPress: () => showToast('更多信息页自定义按钮触发'),
+      },
+    }];
+  }, [infoCustomPreset, infoSwitchOn]);
 
   const blockedCount = ALL_ITEMS.filter((item) => visibleMap[item.key] && blockedMap[item.key]).length;
 
@@ -370,7 +403,7 @@ const SettingsHyperOSDemo = ({ navigation }) => {
         showDot={showDot}
         extraOptions={extraOptions}
         featureCustomOptions={featureCustomOptions}
-        // deviceInfoCustomOptions={deviceInfoCustomOptions}
+        deviceInfoCustomOptions={deviceInfoCustomOptions}
         showDeleteButton={showDeleteButton}
       />
 
@@ -424,6 +457,27 @@ const SettingsHyperOSDemo = ({ navigation }) => {
                 <Chip key={key} label={label} active={customPreset === key} onPress={() => setCustomPreset(key)} />
               ))}
             </View>
+
+            <Text style={styles.sectionTitle}>
+              deviceInfoCustomOptions：更多设备信息页自定义项（11.11 起支持，入口在顶部设备卡片内）
+            </Text>
+            <View style={styles.chipRow}>
+              {[
+                { key: 'none', label: '不传' },
+                { key: 'entrance', label: '仅入口项' },
+                { key: 'full', label: '入口+文本+开关+按钮' },
+              ].map(({ key, label }) => (
+                <Chip
+                  key={key}
+                  label={label}
+                  active={infoCustomPreset === key}
+                  onPress={() => setInfoCustomPreset(key)}
+                />
+              ))}
+            </View>
+            <Text style={styles.note}>
+              需点进设置页顶部的设备卡片（更多设备信息页）才能看到效果，不在设置页首屏。
+            </Text>
 
             <Text style={styles.sectionTitle}>其他 props</Text>
             <View style={styles.chipRow}>

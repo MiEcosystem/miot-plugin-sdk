@@ -390,6 +390,11 @@ const API_REPO = {
   '/majorapp/api/air-condition-control/fr/close': {},
   '/majorapp/api/air-condition-control/fr/pause': {},
   '/majorapp/api/air-condition-control/fr/continue': {},
+  // 大家电（冰箱、洗衣机）转独立插件后失去标插豁免，补录直调接口
+  '/user/get_weather': {}, // 天气（洗衣机）
+  '/user/batch_statistics': {}, // 电量统计（冰箱）
+  '/v2/net/wifi_offline': {}, // 离线信息（洗衣机、冰箱）
+  '/v2/thirdcloud2cloud/check_account_by_did': {}, // 三方云账号检查（洗衣机、冰箱）
   // （开通钥匙/管理钥匙）时先生成SESSIONID
   "iccoa/genSession": {},
   // 门锁数字钥匙管理（删除/冻结/恢复）

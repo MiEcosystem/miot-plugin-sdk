@@ -34,6 +34,7 @@ export {
   CommonDialog,
   MessageDialog,
   ActionCustomDialog,
+  DatePickerDialog,
   PopMenus,
   Menus,
   Input,
