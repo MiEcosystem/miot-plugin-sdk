@@ -965,7 +965,7 @@ class IMiotCamera {
      * 上传宠物照片(加密上传)；
      * native 固定 /miot/camera/app/v1/pet/ 前缀与 business 域，插件只传 pet 子路径后缀；
      * did/model 由 native 填入，图片的 AES 加密及 iv/imgSign 由 native 生成
-     * @since 10121
+     * @since 10122(11.12)
      * @param {string} subPath pet 子路径后缀(不带前导 "/"、不含 "../")，上传宠物照片传 "add/photo"，
      *   即请求 /miot/camera/app/v1/pet/add/photo
      * @param {string} imagePath 拍照或相册得到的本地图片绝对路径
