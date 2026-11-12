@@ -42,7 +42,7 @@ class Tests extends React.Component {
           backgroundColor: "transparent"
         }}
       >
-        {[0, 1, 2, 3].map(i =>
+        {[0, 1, 2, 3].map((i) =>
           <Text
             key={i}
             style={{

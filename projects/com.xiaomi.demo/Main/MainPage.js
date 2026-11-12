@@ -1,16 +1,15 @@
 'use strict';
 
 import {
-  Device, Package, Host, Entrance, Service, DeviceEvent, PackageEvent, PrivacyEvent, CLOUD_PRIVACY_EVENT_TYPES, UserExpPlanEvent, USER_EXP_PLAN_EVENT_TYPES
+  Device, Package, Host, Entrance, Service, DeviceEvent, PackageEvent, PrivacyEvent, CLOUD_PRIVACY_EVENT_TYPES, UserExpPlanEvent, USER_EXP_PLAN_EVENT_TYPES,
 } from "miot";
 import NavigationBar from "miot/ui/NavigationBar";
 import React from 'react';
 import {
-  Image, PixelRatio, StyleSheet, Text, TouchableHighlight, View, ListView
+  Image, PixelRatio, StyleSheet, Text, TouchableHighlight, View, ListView,
 } from 'react-native';
 import { getString } from './MHLocalizableString';
 import Logger from './Logger';
-
 export default class MainPage extends React.Component {
 
   constructor(props) {
@@ -26,14 +25,14 @@ export default class MainPage extends React.Component {
         key: NavigationBar.ICON.CLOSE,
         onPress: () => Package.exit(),
         accessibilityLabel: '返回',
-        accessibilityHint: '返回上一页'
+        accessibilityHint: '返回上一页',
       }],
       right: [{
         key: NavigationBar.ICON.MORE,
         onPress: () => this.props.navigation.navigate('Setting', { 'title': '设置' }),
         accessibilityLabel: '设置',
-        accessibilityHint: '进入设置'
-      }]
+        accessibilityHint: '进入设置',
+      }],
     });
   }
 
@@ -43,44 +42,44 @@ export default class MainPage extends React.Component {
         'name': '常用功能',
         'func': () => {
           this.props.navigation.navigate('tutorialDemo', { title: '常用功能' });
-        }
+        },
       },
       {
         'name': '设备控制(Device)',
         'func': () => {
           this.props.navigation.navigate('DeviceControl', { title: '设备控制(Device)' });
-        }
+        },
       },
       {
         'name': 'Native交互(Host)',
         'func': () => {
           this.props.navigation.navigate('HostDemo', { title: 'Native交互(Host)' });
-        }
+        },
       },
       {
         'name': '接口服务(Service)',
         'func': () => {
           this.props.navigation.navigate('ServiceDemo', { title: '接口服务(Service)' });
-        }
+        },
       },
       {
         'name': 'UI能力(miot/ui)',
         'func': () => {
           this.props.navigation.navigate('UIDemo', { title: 'UI能力(miot/ui)' });
-        }
+        },
       },
       {
         'name': '第三方库能力',
         'func': () => {
           this.props.navigation.navigate('ThirdPartyDemo', { title: '第三方库能力' });
-        }
+        },
       },
       {
         'name': '旧-设置页面(不推荐使用)',
         'func': () => {
           this.props.navigation.navigate('moreMenu', { title: '设置页面(不推荐使用)' });
-        }
-      }
+        },
+      },
     ];
   }
 
@@ -88,6 +87,7 @@ export default class MainPage extends React.Component {
     this._deviceOnlineListener && this._deviceOnlineListener.remove();
     this._packageReceivedInformation && this._packageReceivedInformation.remove();
     this._packageReceivedOutAppInformation && this._packageReceivedOutAppInformation.remove();
+    this._deviceIconChangeListener && this._deviceIconChangeListener.remove();
     this._cloudPrivacyEvent && this._cloudPrivacyEvent.remove();
     this._userExpPlanEvent && this._userExpPlanEvent.remove();
   }
@@ -102,6 +102,9 @@ export default class MainPage extends React.Component {
     });
     this._packageReceivedOutAppInformation = PackageEvent.packageReceivedOutAppInformation.addListener((message) => {
       console.log('收到外部APP传过来的参数', JSON.stringify(message, null, '\t'));
+    });
+    this._deviceIconChangeListener = DeviceEvent.deviceIconChanged.addListener((res) => {
+      console.log('收到图标改变事件数据', res);
     });
     this._cloudPrivacyEvent = PrivacyEvent.cloudPrivacyEvent.addListener((message) => {
       console.log(`收到云端隐私通知数据：${ JSON.stringify(message) }`);
@@ -237,7 +240,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffffff',
     marginBottom: 0,
-    marginTop: 0
+    marginTop: 0,
   },
   rowContainer: {
     height: 52,
@@ -246,22 +249,22 @@ const styles = StyleSheet.create({
     paddingLeft: 23,
     paddingRight: 23,
     alignItems: 'center',
-    flex: 1
+    flex: 1,
   },
   list: { alignSelf: 'stretch' },
   title: {
     fontSize: 15,
     color: '#333333',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
   },
   subArrow: {
     width: 7,
-    height: 14
+    height: 14,
   },
   separator: {
     height: 1 / PixelRatio.get(),
     backgroundColor: '#e5e5e5',
-    marginLeft: 20
-  }
+    marginLeft: 20,
+  },
 });

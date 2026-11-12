@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {
   Text,
   View,
   Image,
   Dimensions
-} from 'react-native'
-import Swiper from 'react-native-swiper'
-const { width } = Dimensions.get('window')
+} from 'react-native';
+import Swiper from 'react-native-swiper';
+const { width } = Dimensions.get('window');
 
 const styles = {
   wrapper: {
@@ -34,7 +34,7 @@ const styles = {
     color: 'white',
     fontSize: 20
   }
-}
+};
 
 const renderPagination = (index, total, context) => {
   return (
@@ -43,30 +43,30 @@ const renderPagination = (index, total, context) => {
         <Text style={styles.paginationText}>{index + 1}</Text>/{total}
       </Text>
     </View>
-  )
-}
+  );
+};
 
 export default class extends Component {
-  render () {
+  render() {
     return (
-        <Swiper
-          style={styles.wrapper}
-          renderPagination={renderPagination}
-          loop={false}
-        >
-          <View style={styles.slide} title={<Text numberOfLines={1}>Aussie tourist dies at Bali hotel</Text>}>
-            <Image style={styles.image} source={require('./img/1.jpg')} />
-          </View>
-          <View style={styles.slide} title={<Text numberOfLines={1}>Big lie behind Nine’s new show</Text>}>
-            <Image style={styles.image} source={require('./img/2.jpg')} />
-          </View>
-          <View style={styles.slide} title={<Text numberOfLines={1}>Why Stone split from Garfield</Text>}>
-            <Image style={styles.image} source={require('./img/3.jpg')} />
-          </View>
-          <View style={styles.slide} title={<Text numberOfLines={1}>Learn from Kim K to land that job</Text>}>
-            <Image style={styles.image} source={require('./img/4.jpg')} />
-          </View>
-        </Swiper>
-    )
+      <Swiper
+        style={styles.wrapper}
+        renderPagination={renderPagination}
+        loop={false}
+      >
+        <View style={styles.slide} title={<Text numberOfLines={1}>Aussie tourist dies at Bali hotel</Text>}>
+          <Image style={styles.image} source={require('./img/1.jpg')} />
+        </View>
+        <View style={styles.slide} title={<Text numberOfLines={1}>Big lie behind Nine’s new show</Text>}>
+          <Image style={styles.image} source={require('./img/2.jpg')} />
+        </View>
+        <View style={styles.slide} title={<Text numberOfLines={1}>Why Stone split from Garfield</Text>}>
+          <Image style={styles.image} source={require('./img/3.jpg')} />
+        </View>
+        <View style={styles.slide} title={<Text numberOfLines={1}>Learn from Kim K to land that job</Text>}>
+          <Image style={styles.image} source={require('./img/4.jpg')} />
+        </View>
+      </Swiper>
+    );
   }
 }
