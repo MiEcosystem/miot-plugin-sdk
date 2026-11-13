@@ -452,6 +452,7 @@ export default {
   mobileCard_operatorUnicom: 'China Unicom',
   mobileCard_operatorTelecom: 'China Telecom',
   mobileCard_iccidCopied: 'Copied SIM number',
+  mobileCard_copy: 'Copy',
   mobileCard_signalSnr: 'SNR',
   mobileCard_signalRsrp: 'RSRP',
   mobileCard_signalRsrq: 'RSRQ',

@@ -93,6 +93,7 @@ const API_REPO = {
   '/user/setpdata': {},
   '/user/getpdata': {},
   '/v2/user/get_device_data_raw': {},
+  '/v2/user/get_device_data_permanent': {}, // 查询设备 SDS 永久表数据
   '/v2/nfckey/create_se_session': {},
   '/v2/nfckey/replace_se_isdkey': {},
   '/v2/nfckey/reset_lock_primarykey': {},
@@ -389,6 +390,11 @@ const API_REPO = {
   '/majorapp/api/air-condition-control/fr/close': {},
   '/majorapp/api/air-condition-control/fr/pause': {},
   '/majorapp/api/air-condition-control/fr/continue': {},
+  // 大家电（冰箱、洗衣机）转独立插件后失去标插豁免，补录直调接口
+  '/user/get_weather': {}, // 天气（洗衣机）
+  '/user/batch_statistics': {}, // 电量统计（冰箱）
+  '/v2/net/wifi_offline': {}, // 离线信息（洗衣机、冰箱）
+  '/v2/thirdcloud2cloud/check_account_by_did': {}, // 三方云账号检查（洗衣机、冰箱）
   // （开通钥匙/管理钥匙）时先生成SESSIONID
   "iccoa/genSession": {},
   // 门锁数字钥匙管理（删除/冻结/恢复）
@@ -406,5 +412,10 @@ const API_REPO = {
   '/appgateway/miot/appsceneservice/AppSceneService/Delete': {}, // 删除场景V2
   '/appgateway/miot/appsceneservice/AppSceneService/GetSceneListByTags': {}, // 按标签获取场景列表
   '/appgateway/miot/appsceneservice/AppSceneService/GetSameTriggerSceneList': {}, // 获取相同触发条件的场景列表
+  // 胁迫指纹联动摄像机需求
+  '/appgateway/miot/appsceneservice/AppSceneService/GetTemplateInfo': {}, // 获取场景模板信息
+  '/miot/camera/app/v1/get/deviceRights': {}, // 微信权益查询
+  '/miot/camera/app/v1/put/deviceRights': {}, // 微信权益领取
+  '/common/app/get/thumbnail': {}, // 获取最后一个云存图片
 };
 export default API_REPO;

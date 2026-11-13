@@ -432,6 +432,7 @@ export default {
   mobileCard_operatorUnicom: "中国联通",
   mobileCard_operatorTelecom: "中国电信",
   mobileCard_iccidCopied: "卡号复制成功",
+  mobileCard_copy: '复制',
   mobileCard_signalSnr: "SNR",
   mobileCard_signalRsrp: "RSRP",
   mobileCard_signalRsrq: "RSRQ",

@@ -345,6 +345,22 @@ export default {
   createDigitalKey(friendlyName, sessionId, brandID, vehicleBrandId) {
   },
   /**
+   * 获取当前 App 本地存在的数字钥匙 keyIdBase64 列表。
+   *
+   * 插件 UWB operation 的 extra.uwbKey 实际就是 createDigitalKey 事件返回的
+   * keyIdBase64。门锁插件仅用于判断 extra.uwbKey 是否仍存在于本机列表中；
+   * 不包含时应将该 UWB 钥匙视为失效。
+   *
+   * 私有 API，仅供米家门锁插件使用，不对第三方插件开放，也不进入公开 SDK 文档。
+   * 暂定自 SDK_10121 提供。
+   *
+   * @private
+   * @since SDK_10121
+   * @returns {Promise<string[]>} 本地有效数字钥匙的 keyIdBase64 数组；只有一把时数组只有一个值
+   */
+  getLocalDigitalKeyIdList() {
+  },
+  /**
    * UWB显示用户授权（Android only）
    * since SDK_10114
    * @return void
@@ -358,5 +374,15 @@ export default {
    * @throws {code: number, msg1: string, msg2: string}
    */
   getUWBUserAgreementStatus() {
-  }
+  },
+  /**
+   * 注册车辆状态监听（Android only）。
+   *
+   * @private
+   * @since SDK_10121
+   * @param {string} keyIdBase64 数字钥匙 keyIdBase64
+   * @returns {Promise<string>} 成功 resolve 'ok'
+   */
+  registerVehicleStatusListener(keyIdBase64) {
+  },
 };

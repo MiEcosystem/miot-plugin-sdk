@@ -639,6 +639,31 @@ export function findDuplicateTagsScene(tagsSceneList, targetTrigger, propSpec) {
     });
   }) || null;
 }
+/**
+ * 在 TCA launch 列表里找出当前按键对应的那一项
+ *
+ * 共用一个 switch-sensor 服务的设备（如 guznos.switch.gmax6），各按键同一手势的事件 key 相同，
+ * TCA 为每个按键单独配一项：sc_id 不同、value 里的 button-type 不同（MIIO-135701）。
+ * 只按 key 取第一项会让所有按键都拿到按键 1 的 sc_id，列表和「添加」入口都会串到按键 1。
+ * 有多个候选时按 button-type 选中当前按键；取不到 button-type 或没有命中时退回第一项，
+ * 一键一 sensor 的设备候选恒为 1，行为不变。
+ */
+export function findSwitchMemberTcaItem(launchList, key, propSpec, buttonTypeValue) {
+  if (!key) {
+    return null;
+  }
+  const candidates = (launchList || []).filter((item) => item?.key === key);
+  if (candidates.length > 1 && buttonTypeValue !== undefined && buttonTypeValue !== null) {
+    const hit = candidates.find((item) => {
+      const value = getTriggerButtonTypeValue({ value_json: item?.value }, propSpec);
+      return value !== undefined && value !== null && String(value) === String(buttonTypeValue);
+    });
+    if (hit) {
+      return hit;
+    }
+  }
+  return candidates[0] || null;
+}
 export function getSwitchTypeBySceneAction(sceneAction) {
   const { payload_json, type } = sceneAction?.actions[0] || {};
   if (type === 2) {

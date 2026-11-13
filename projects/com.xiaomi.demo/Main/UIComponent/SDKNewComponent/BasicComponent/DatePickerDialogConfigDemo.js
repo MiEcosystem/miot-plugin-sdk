@@ -12,7 +12,9 @@ const formatDate = (date) =>
     date.getHours(),
   ).padStart(2, '0') }:${ String(date.getMinutes()).padStart(2, '0') }`;
 const formatValue = (value) => Array.isArray(value) ? `${ formatDate(value[0]) } ~ ${ formatDate(value[1]) }` : formatDate(value);
-const badgeDates = [new Date(2025, 1, 12), new Date(2025, 1, 14)];
+const badgeDatesSingle = [new Date(2025, 1, 12)];
+const badgeDatesMultiple = [new Date(2025, 1, 12), new Date(2025, 1, 14), new Date(2025, 1, 18), new Date(2025, 1, 22), new Date(2025, 1, 26)];
+const badgeDatesCrossMonth = [new Date(2025, 0, 31), new Date(2025, 1, 12), new Date(2025, 2, 1)];
 const styles = dynamicStyleSheet({
   container: { flex: 1, backgroundColor: colorToken.surfacePageLow },
   result: { paddingHorizontal: 24, paddingTop: 16, color: colorToken.contentSecondaryNormal, fontSize: 14, textAlign: 'center' },
@@ -74,11 +76,13 @@ const propConfigs = [
   {
     name: 'badgeDates',
     type: 'pass',
-    defaultValue: badgeDates,
+    defaultValue: badgeDatesMultiple,
     category: 'content',
     passOptions: [
       { label: '无日期标记', value: undefined },
-      { label: '显示日期标记', value: badgeDates },
+      { label: '单日期（02-12）', value: badgeDatesSingle },
+      { label: '多日期（02-12、02-14、02-18、02-22、02-26）', value: badgeDatesMultiple },
+      { label: '跨月日期（01-31、02-12、03-01）', value: badgeDatesCrossMonth },
     ],
   },
   {
