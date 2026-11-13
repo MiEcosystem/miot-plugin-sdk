@@ -246,10 +246,20 @@ export default {
   /**
    * @const
    * @type string
-   * @description 手机唯一id
+   * @description 手机唯一id；如需判断是否仍为同一台手机，建议使用 Host.phoneUUID
    */
   get phoneId() {
      return  0
+  },
+  /**
+   * 手机 UUID，可用于判断是否仍为同一台手机。
+   *
+   * @const
+   * @type string
+   * @since SDK_10121
+   */
+  get phoneUUID() {
+     return  ""
   },
   /**
    * 获取手机did，用于自动化， android only
