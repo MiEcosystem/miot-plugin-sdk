@@ -42,21 +42,10 @@ import LockDevice from './LockDevice';
 // eslint-disable-next-line import/no-cycle
 import RootDevice from '../BasicDevice';
 import BleSpec from './blespec';
-export const getBluetoothUUID128 = (id) => {
-  if (!id || id == '') return null;
-  id = id.toUpperCase();
-  if (id.length > 8) return id;
-  switch (id.length) {
-    case 2: id = `000000${ id }`; break;
-    case 4: id = `0000${ id }`; break;
-    case 6: id = `00${ id }`; break;
-    case 8: break;
-    default:
-      return null;
-  }
-  return `${ id }-0000-1000-8000-00805F9B34FB`;
-};
- const bluetoothDevices={}
+// fix miot-sdk/device/bluetooth/index.js -> miot-sdk/device/bluetooth/BluetoothDevice.js cycle
+import { getBluetoothUUID128 } from './utils/uuid';
+export { getBluetoothUUID128 };
+import { takeBluetooth } from './utils/ble';
 /**
  * 蓝牙操作入口类
  * @interface
@@ -128,6 +117,9 @@ export default {
   checkBluetoothIsEnabled() {
      return Promise.resolve(true);
   },
+  /**
+   * 扫描前先检查蓝牙权限
+   * */
   /**
      * 开始扫描蓝牙设备，此方法没有回调，扫描得到的结果，通过BluetoothEvent.bluetoothDeviceDiscovered.addListener()来获取扫描的结果，获取到正确的蓝牙设备对象后，记得调用下面的Bluetooth.stopScan()来停止蓝牙扫描。
      * @param {int} durationInMillis - 扫描时长
@@ -263,5 +255,134 @@ export default {
      *  @param {string} mac
      */
   setAlertConfigsOnMIUI(mac, alert, enable) {
-  }
+  },
+  /**
+   * Since SDK_10079
+   * 仅支持Android设备 iOS设备不支持该方法
+   * @returns boolean 判断蓝牙是否是半开模式
+   *  Bluetooth.isBluetoothHalfOpenForAndroid().then((enable) => {
+   *       console.log("enable : " + enable)
+   *     }).catch((error) => {
+   *       this.logInfo('checkBluetoothIsEnabled error ', error);
+   *     });
+   *
+   */
+  isBluetoothHalfOpenForAndroid() {
+  },
+  /**
+   * since SDK_10104
+   * @param mac
+   */
+  createBond(mac) {
+    native.MIOTBluetooth.createBond(mac);
+  },
+  /**
+   * since SDK_10104
+   * @param mac
+   */
+  removeBond(mac) {
+    if (isAndroid) {
+      native.MIOTBluetooth.removeBond(mac);
+    } else {
+      native.MIOTBluetooth.disconnectDeviceWithDelay(mac, 0);
+    }
+  },
+  /**
+   * since SDK_10113
+   * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
+   * @returns {Promise<unknown> | Promise.Promise}
+   */
+  checkLockSecureRisk() {
+  },
+  /**
+   * since SDK_10113
+   * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
+   * @param password
+   * @returns {Promise<unknown> | Promise.Promise}
+   */
+  verifyLockPassword(password) {
+  },
+  /**
+   * since SDK_10113
+   * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
+   * @param oob
+   * @param isConnect
+   * @returns {Promise<unknown> | Promise.Promise}
+   */
+  verifyLockOOB(oob, isConnect) {
+  },
+  /**
+   * since SDK_10113
+   * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
+   * @param password
+   * @returns {Promise<unknown> | Promise.Promise}
+   */
+  changeLockPassword(password) {
+  },
+  /**
+   * since SDK_10113
+   * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
+   * @returns {Promise<unknown> | Promise.Promise}
+   */
+  rollbackLockPassword() {
+  },
+  /**
+   * since SDK_10113
+   * https://xiaomi.f.mioffice.cn/docx/doxk4501hwGJCzNWuxL38N0H8kg
+   * @param data
+   * @returns {Promise<unknown> | Promise.Promise}
+   */
+  encryptLockMessage(data) {
+  },
+  /**
+   * https://xiaomi.f.mioffice.cn/docx/doxk4TXnB59q5hE5SrJ1oNDe8Vg
+   * @param friendlyName
+   * @param sessionId
+   * @param brandID
+   * @param vehicleBrandId
+   * @returns {Promise<unknown> | Promise.Promise}
+   */
+  createDigitalKey(friendlyName, sessionId, brandID, vehicleBrandId) {
+  },
+  /**
+   * 获取当前 App 本地存在的数字钥匙 keyIdBase64 列表。
+   *
+   * 插件 UWB operation 的 extra.uwbKey 实际就是 createDigitalKey 事件返回的
+   * keyIdBase64。门锁插件仅用于判断 extra.uwbKey 是否仍存在于本机列表中；
+   * 不包含时应将该 UWB 钥匙视为失效。
+   *
+   * 私有 API，仅供米家门锁插件使用，不对第三方插件开放，也不进入公开 SDK 文档。
+   * 暂定自 SDK_10121 提供。
+   *
+   * @private
+   * @since SDK_10121
+   * @returns {Promise<string[]>} 本地有效数字钥匙的 keyIdBase64 数组；只有一把时数组只有一个值
+   */
+  getLocalDigitalKeyIdList() {
+  },
+  /**
+   * UWB显示用户授权（Android only）
+   * since SDK_10114
+   * @return void
+   */
+  showUWBUserAgreement() {
+  },
+  /**
+   * UWB获取用户授权状态（Android only）
+   * since SDK_10114
+   * @returns Promise<boolean>
+   * @throws {code: number, msg1: string, msg2: string}
+   */
+  getUWBUserAgreementStatus() {
+  },
+  /**
+   * 注册车辆状态监听（Android only）。
+   *
+   * @private
+   * @since SDK_10121
+   * @param {string} keyIdBase64 数字钥匙 keyIdBase64
+   * @returns {Promise<string>} 成功 resolve 'ok'
+   */
+  registerVehicleStatusListener(keyIdBase64) {
+  },
 };

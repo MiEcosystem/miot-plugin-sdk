@@ -1,4 +1,4 @@
-/*global setInterval*/
+/* global setInterval */
 import React from "react";
 import { ScrollView } from "react-native";
 import { VictoryLine } from "victory-native";
@@ -54,10 +54,10 @@ export default class extends React.Component {
             { amount: 5, yield: 1, error: 1.5 }
           ]}
           x={"amount"}
-          y={data => data.yield + data.error}
+          y={(data) => data.yield + data.error}
         />
 
-        <VictoryLine y={data => Math.sin(2 * Math.PI * data.x)} />
+        <VictoryLine y={(data) => Math.sin(2 * Math.PI * data.x)} />
 
         <VictoryLine
           height={300}
@@ -86,8 +86,8 @@ export default class extends React.Component {
           width={300}
           style={{
             data: {
-              stroke: data => {
-                const y = data.map(d => d.y);
+              stroke: (data) => {
+                const y = data.map((d) => d.y);
                 return Math.max(...y) > 2 ? "red" : "blue";
               }
             }

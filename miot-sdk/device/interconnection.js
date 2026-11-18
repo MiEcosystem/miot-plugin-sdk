@@ -66,5 +66,5 @@ export function setEnable(mac, enabled) {
 }
 // 统一导出
 export default {
-  getSupportedDevices, scan, getLinkage, getSupportedDevicesWithLinkage, addLinkage, removeLinkage, setEnable
+  getSupportedDevices, scan, getLinkage, getSupportedDevicesWithLinkage, addLinkage, removeLinkage, setEnable,
 };

@@ -1,0 +1,52 @@
+import React from 'react';
+import { NativeModules } from 'react-native';
+
+import { StackActions } from 'react-navigation';
+import StackViewLayout from './StackViewLayout';
+import Transitioner from '../Transitioner';
+import TransitionConfigs from './StackViewTransitionConfigs';
+
+const NativeAnimatedModule = NativeModules && NativeModules.NativeAnimatedModule;
+
+class StackView extends React.Component {
+  static defaultProps = {
+    navigationConfig: {
+      mode: 'card',
+    },
+  };
+
+  render() {
+    return <Transitioner render={this._render} configureTransition={this._configureTransition} screenProps={this.props.screenProps} navigation={this.props.navigation} descriptors={this.props.descriptors} onTransitionStart={this.props.onTransitionStart || this.props.navigationConfig.onTransitionStart} onTransitionEnd={(transition, lastTransition) => {
+      const { navigationConfig, navigation } = this.props;
+      const onTransitionEnd = this.props.onTransitionEnd || navigationConfig.onTransitionEnd;
+      if (transition.navigation.state.isTransitioning) {
+        navigation.dispatch(StackActions.completeTransition({
+          key: navigation.state.key,
+        }));
+      }
+      onTransitionEnd && onTransitionEnd(transition, lastTransition);
+    }} />;
+  }
+
+  _configureTransition = (transitionProps, prevTransitionProps) => {
+    return {
+      ...TransitionConfigs.getTransitionConfig(this.props.navigationConfig.transitionConfig, transitionProps, prevTransitionProps, this.props.navigationConfig.mode === 'modal').transitionSpec,
+      useNativeDriver: !!NativeAnimatedModule,
+      // [HIGH_REFRESH_RATE] 路由进入/退出动画按系统真实刷新率插值。
+      // 注意：标记必须放在 transitionSpec 之内下发给 Transitioner —— StackView 只把
+      // transitionSpec 合并过去，写在 transitionConfig 返回对象顶层会被丢弃。
+      // 默认开启：60FPS 量化是框架缺陷而非插件缺陷，存量插件无法回溯改代码重发版。
+      // 若个别插件的自定义 screenInterpolator 与连续插值值不兼容，可在 createStackNavigator
+      // 的 navigationConfig 里显式传 __useSystemFrameRate: false 单独关闭，无需回滚框架。
+      __useSystemFrameRate:
+        this.props.navigationConfig.__useSystemFrameRate !== false,
+    };
+  };
+
+  _render = (transitionProps, lastTransitionProps) => {
+    const { screenProps, navigationConfig } = this.props;
+    return <StackViewLayout {...navigationConfig} onGestureBegin={this.props.onGestureBegin} onGestureCanceled={this.props.onGestureCanceled} onGestureEnd={this.props.onGestureEnd} screenProps={screenProps} descriptors={this.props.descriptors} transitionProps={transitionProps} lastTransitionProps={lastTransitionProps} />;
+  };
+}
+
+export default StackView;

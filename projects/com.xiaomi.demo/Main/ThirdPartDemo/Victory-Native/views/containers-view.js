@@ -25,7 +25,7 @@ export default class extends React.Component {
     scrollEnabled: true
   };
 
-  changeScroll = scrollEnabled => this.setState({ scrollEnabled });
+  changeScroll = (scrollEnabled) => this.setState({ scrollEnabled });
 
   render() {
     return (
@@ -42,7 +42,7 @@ export default class extends React.Component {
             <VictoryCursorContainer
               onTouchStart={() => this.changeScroll(false)}
               onTouchEnd={() => this.changeScroll(true)}
-              cursorLabel={d => `${round(d.x, 2)} , ${round(d.y, 2)}`}
+              cursorLabel={(d) => `${ round(d.x, 2) } , ${ round(d.y, 2) }`}
             />
           }
         >
@@ -106,7 +106,7 @@ export default class extends React.Component {
             <VictoryVoronoiContainer
               onTouchStart={() => this.changeScroll(false)}
               onTouchEnd={() => this.changeScroll(true)}
-              labels={d => `( ${round(d.x, 2)} , ${round(d.y, 2)} )`}
+              labels={(d) => `( ${ round(d.x, 2) } , ${ round(d.y, 2) } )`}
             />
           }
         >

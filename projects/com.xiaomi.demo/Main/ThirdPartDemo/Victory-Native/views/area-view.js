@@ -1,4 +1,4 @@
-/*global setInterval*/
+/* global setInterval */
 import React from "react";
 import { ScrollView } from "react-native";
 import { VictoryArea, VictoryGroup, VictoryStack } from "victory-native";
@@ -53,7 +53,7 @@ export default class extends React.Component {
             { amount: 5, yield: 1, error: 1.5 }
           ]}
           x={"amount"}
-          y={data => data.yield + data.error}
+          y={(data) => data.yield + data.error}
         />
 
         <VictoryArea

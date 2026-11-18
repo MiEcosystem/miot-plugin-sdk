@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react'
+import React from 'react';
 import {
   StyleSheet,
   WebView,
@@ -9,20 +9,20 @@ import {
   Platform,
   Dimensions,
   ART
-} from 'react-native'
+} from 'react-native';
 
-var {
+let {
   width,
   height
 } = Dimensions.get('window');
 
-var {
+let {
   Surface,
   Shape
 } = ART;
 
-var Morph = require('art/morph/path');
-var BatmanLogoSVGs = [
+let Morph = require('art/morph/path');
+let BatmanLogoSVGs = [
   'M 256,213 C 245,181 206,187 234,262 147,181 169,71.2 233,18   220,56   235,81   283,88   285,78.7 286,69.3 288,60   289,61.3 290,62.7 291,64   291,64   297,63   300,63   303,63   309,64   309,64   310,62.7 311,61.3 312,60   314,69.3 315,78.7 317,88   365,82   380,56   367,18   431,71   453,181 366,262 394,187 356,181 344,213 328,185 309,184 300,284 291,184 272,185 256,213 Z',
   'M 212,220 C 197,171 156,153 123,221 109,157 120,109  159,63.6 190,114  234,115  254,89.8 260,82.3 268,69.6 270,60.3 273,66.5 275,71.6 280,75.6 286,79.5 294,79.8 300,79.8 306,79.8 314,79.5 320,75.6 325,71.6 327,66.5 330,60.3 332,69.6 340,82.3 346,89.8 366,115  410,114  441,63.6 480,109  491,157 477,221 444,153 403,171 388,220 366,188 316,200 300,248 284,200 234,188 212,220 Z',
   'M 213,222 C 219,150 165,139 130,183 125,123 171,73.8 247,51.6 205,78   236,108  280,102  281,90.3 282,79   286,68.2 287,72   288,75.8 289,79.7 293,79.7 296,79.7 300,79.7 304,79.7 307,79.7 311,79.7 312,75.8 313,72   314,68.2 318,79   319,90.3 320,102  364,108  395,78   353,51.6 429,73.8 475,123 470,183 435,139 381,150 387,222 364,176 315,172 300,248 285,172 236,176 213,222 Z',
@@ -40,16 +40,16 @@ var BatmanLogoSVGs = [
   'M 220,179 C 200,127 150,130 123,175 122,110 160,85.1 201,64 208,99.2 243,111 268,92.9 278,86.1 284,68.2 287,40.7 289,49.6 292,58.4 294,67.3 296,67.3 298,67.3 300,67.3 302,67.3 304,67.3 306,67.3 308,58.4 311,49.6 313,40.7 316,68.2 322,86.1 332,92.9 357,111 392,99.3 399,64 440,85.1 478,110 477,175 450,130 400,127 380,179 355,155 305,208 300,247 295,208 245,155 220,179 Z',
   'M 166,154 C 179,119 154,95.4 114,79.3 155,79.1 197,78.9 239,78.7 242,103 250,109 283,109 289,109 290,93.9 291,83.7 292,88.3 292,92.9 293,97.5 295,97.5 298,97.5 300,97.5 302,97.5 305,97.5 307,97.5 308,92.9 308,88.3 309,83.7 310,93.9 311,109 317,109 350,109 358,103 361,78.7 403,78.9 445,79.1 486,79.3 446,95.4 421,119 434,154 377,151 320,151 300,207 280,151 223,151 166,154 Z'
 ];
-var BatmanLogoPaths = BatmanLogoSVGs.map((svg) => Morph.Path(svg));
-var square = Morph.Path()
-  .move(100,0)
-  .line(100,0)
-  .line(0,100)
-  .line(-100,0)
+let BatmanLogoPaths = BatmanLogoSVGs.map((svg) => Morph.Path(svg));
+let square = Morph.Path()
+  .move(100, 0)
+  .line(100, 0)
+  .line(0, 100)
+  .line(-100, 0)
   .close();
 BatmanLogoPaths.push(square);
 
-var current = {
+let current = {
   value: 1
 };
 
@@ -57,8 +57,8 @@ export default class ARTSVGDemo extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      transition : Morph.Tween(BatmanLogoPaths[0], BatmanLogoPaths[1])
-    }
+      transition: Morph.Tween(BatmanLogoPaths[0], BatmanLogoPaths[1])
+    };
   }
 
   componentWillMount() {
@@ -72,12 +72,12 @@ export default class ARTSVGDemo extends React.Component {
   animate(start, cb) {
     requestAnimationFrame((timestamp) => {
       if (!start) start = timestamp;
-      var delta = (timestamp - start) / 1000;
+      let delta = (timestamp - start) / 1000;
       if (delta > 1) return cb();
       this.state.transition.tween(delta);
       this.setState(this.state);
       this.animate(start, cb);
-    })
+    });
   }
 
   nextAnimation() {
@@ -91,7 +91,7 @@ export default class ARTSVGDemo extends React.Component {
   render() {
     return (
       <View style={styles.container} >
-        <StatusBar barStyle='default' />
+        <StatusBar barStyle="default" />
         <Surface width={width} height={(height - (Platform.OS === 'ios' ? 64 : 76))}>
           <Shape x={-110} y={100} d={this.state.transition} fill="#000" />
         </Surface>
@@ -102,11 +102,11 @@ export default class ARTSVGDemo extends React.Component {
 }
 
 var styles = StyleSheet.create({
-    container: {
-        marginTop: Platform.OS === 'ios' ? 64 : 76,
-        flexDirection:'row',
-        flex:1,
-    },
+  container: {
+    marginTop: Platform.OS === 'ios' ? 64 : 76,
+    flexDirection: 'row',
+    flex: 1
+  }
 });
 
 

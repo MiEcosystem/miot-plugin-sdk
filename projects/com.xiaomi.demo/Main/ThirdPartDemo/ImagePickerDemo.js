@@ -6,7 +6,7 @@ import {
   View,
   PixelRatio,
   TouchableOpacity,
-  Image,
+  Image
 } from 'react-native';
 
 import ImagePicker from 'react-native-image-picker';
@@ -33,14 +33,11 @@ export default class ImagePickerDemo extends React.Component {
 
       if (response.didCancel) {
         console.log('User cancelled photo picker');
-      }
-      else if (response.error) {
+      } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
-      }
-      else if (response.customButton) {
+      } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
-      }
-      else {
+      } else {
         let source = { uri: response.uri };
 
         // You can also display the image using data:
@@ -66,14 +63,11 @@ export default class ImagePickerDemo extends React.Component {
 
       if (response.didCancel) {
         console.log('User cancelled video picker');
-      }
-      else if (response.error) {
+      } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
-      }
-      else if (response.customButton) {
+      } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
-      }
-      else {
+      } else {
         this.setState({
           videoSource: response.uri
         });
@@ -85,10 +79,10 @@ export default class ImagePickerDemo extends React.Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-          <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
-          { this.state.avatarSource === null ? <Text>Select a Photo</Text> :
-            <Image style={styles.avatar} source={this.state.avatarSource} />
-          }
+          <View style={[styles.avatar, styles.avatarContainer, { marginBottom: 20 }]}>
+            { this.state.avatarSource === null ? <Text>Select a Photo</Text> :
+              <Image style={styles.avatar} source={this.state.avatarSource} />
+            }
           </View>
         </TouchableOpacity>
 
@@ -99,7 +93,7 @@ export default class ImagePickerDemo extends React.Component {
         </TouchableOpacity>
 
         { this.state.videoSource &&
-          <Text style={{margin: 8, textAlign: 'center'}}>{this.state.videoSource}</Text>
+          <Text style={{ margin: 8, textAlign: 'center' }}>{this.state.videoSource}</Text>
         }
       </View>
     );

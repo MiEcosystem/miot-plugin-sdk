@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { DeviceEventEmitter } from 'react-native';
-import { Device } from 'miot';
+import Device from 'miot/device/BasicDevice';
 export default function useCanUpgrade() {
   const [canUpgrade, setCanUpgrade] = useState(Device.needUpgrade);
   const { type } = Device;

@@ -7,14 +7,18 @@ import { dynamicStyleSheet } from '../Style/DynamicStyleSheet';
 import DynamicColor from '../Style/DynamicColor';
 import { adjustSize } from '../../utils/sizes';
 import { FontDefault } from '../../utils/fonts';
+import useDeviceRoomInfo from "../../hooks/useDeviceRoomInfo";
 export default function DeleteButton({ deleteDeviceMessage }) {
-  const { isFamily, isOwner, model, type } = Device;
-  if (isFamily) {
+  const { isOwner, model, type } = Device;
+  const { permitLevel } = useDeviceRoomInfo();
+  const isHomeManager = permitLevel === 9;
+  const canDelete = isOwner || isHomeManager;
+  if (!canDelete) {
     return null;
   }
   const modelKey = (model || '').split('.')[1];
   const i18nKey = `${ modelKey[0].toUpperCase() }${ modelKey.slice(1) }`;
-  const title = type === '17' && isOwner ? I18n[`delete${ i18nKey }Group`] : I18n.deleteDevice;
+  const title = type === '17' && canDelete ? I18n[`delete${ i18nKey }Group`] : I18n.deleteDevice;
   return (
     <View style={Styles.container}>
       <TouchableOpacity

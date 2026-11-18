@@ -429,7 +429,8 @@ class IMiotScene {
       }
       const params = {
         home_id: homeID,
-        did: deviceID
+        did: deviceID,
+        app_version: 12, // 只能场景, 版本隔离, 根据目前版本, 固定12. 后续根据智能场景升级后，再动态调整
       };
       return new Promise((resolve, reject) => {
         native.MIOTRPC.standardCall("/appgateway/miot/appsceneservice/AppSceneService/GetSceneList", params, (ok, res) => {
@@ -472,10 +473,10 @@ class IMiotScene {
      * 打开时间设置页面(米家APP实现)
      * @since 10032 ,SDKLevel 10032 开始提供使用
      * @param {object} options 配置信息
-     * @param {string} options.onMethod 配置定时开启的 method 名，同上面openTimerSettingPageWithVariousTypeParams的参数onMethod
-     * @param {string} options.onParam 配置定时开启的 参数，同上面openTimerSettingPageWithVariousTypeParams的参数onParam
-     * @param {string} options.offMethod 配置定时关闭的 method 名，同上面openTimerSettingPageWithVariousTypeParams的参数offMethod
-     * @param {string} options.offParam 配置定时关闭的 参数，同上面openTimerSettingPageWithVariousTypeParams的参数offParam
+     * @param {string} options.onMethod 配置定时开启的 method 名，spec设备为set_properties
+     * @param {string} options.onParam 配置定时开启的 参数，和Service.spec.setPropertiesValue方法传的参数一致
+     * @param {string} options.offMethod 配置定时关闭的 method 名，spec设备为set_properties
+     * @param {string} options.offParam 配置定时关闭的 参数，和Service.spec.setPropertiesValue方法传的参数一致
      * @param {string} options.timerTitle 定时列表页自定义标题
      * @param {string} options.displayName 配置场景日志显示的名称
      * @param {string} options.identify 自定义定时Identifier
@@ -488,8 +489,9 @@ class IMiotScene {
      * @param {boolean} options.showPeriodTimerType 是否可以创建：时间段定时？ true: 可以，false:不可以(默认：true)
      * @param {string} options.did 设备did，可为空，@since 10045
      * 注意：showOnTimerType、showOffTimerType、showPeriodTimerType三个参数至少有一个为true，才有效，否则三个中任意都会被忽略掉
+     * 10074新增了openTimerSettingPageWithOptionsV2方法，建议使用该方法，不过V2目前不支持本地定时的设备，如果有本地定时需求还是得使用此方法，V2会在后续迭代中支持本地定时
      * @example
-     * Service.scene.openTimerSettingPageWithOptions({onMethod:"power_on", onParam: "on", offMethod: "power_off", offParam: "off", displayName:"设置xxx定时"，identify:"plug_usb_countdowm"})
+     * Service.scene.openTimerSettingPageWithOptions({onMethod:"set_properties", onParam: [{did:Device.deviceID, siid:3, piid:2, value:true}], offMethod: "set_properties", offParam: [{did:Device.deviceID, siid:3, piid:2, value:false}], displayName:"设置xxx定时"，identify:"plug_usb_countdowm"})
      */
     @report
     openTimerSettingPageWithOptions(options) {
@@ -510,8 +512,8 @@ class IMiotScene {
      *
      */
     @report
-    openCountDownPage(isCountDownOn, setting) {
-    }
+     openCountDownPage(isCountDownOn, setting) {
+     }
        return Promise.resolve('');
     }
     /**

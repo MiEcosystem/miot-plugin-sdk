@@ -16,9 +16,12 @@ const ColorPickerView = (
       [0.0, 0.166, 0.332, 0.5, 0.666, 0.832, 1.0],
       10.0
     ];
-    const colorConfigParams = [
-      ['#E6312E', '#E6842E', '#E6D72E', '#98E62E', '#2EE62F', '#2EE67C', '#2ED5E6', '#2E79E6', '#302EE6', '#7D2EE6', '#E62EE3', '#E62EB5', '#E6312E'],
-      [],
+    
+    const colorConfigParams = isIOS ? [
+      ['#E6312E', '#E6842E', '#E6D72E', '#80ff00', '#00ff00', '#00ff80', '#00ffff', '#0080ff', '#0000ff', '#8000ff', '#E62EE3', '#E62EB5', '#E6312E'], [],
+      0.0
+    ] : [
+      ['#E6312E', '#E6842E', '#E6D72E', '#98E62E', '#2EE62F', '#2EE67C', '#2ED5E6', '#2E79E6', '#302EE6', '#7D2EE6', '#E62EE3', '#E62EB5', '#E6312E'], [],
       10.0
     ];
     UIManager.dispatchViewManagerCommand(

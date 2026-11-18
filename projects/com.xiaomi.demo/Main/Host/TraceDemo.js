@@ -12,6 +12,7 @@ import Video from 'react-native-video';
 let ZhuiMiRobot = require('../../Resources/zhuimi_robot');
 let ZhuiMiRobotV2 = require('../../Resources/zhuimi_robot_v2.json');
 let BoardJSON = require('../../Resources/board');
+let IjaiMap = require('../../Resources/chain.json');
 
 export default class CryptoDemo extends React.Component {
 
@@ -110,6 +111,21 @@ export default class CryptoDemo extends React.Component {
                   });
                 }).catch((err) => {
                   alert(JSON.stringify(err));
+                });
+              }],
+              ['杉川地图美化', () => {
+                const chain = require('../../Resources/chain.json');
+                const param = {
+                  resolution: 0.05,
+                  pixHeight: 800,
+                  pixWidth: 800,
+                  maxY: 20,
+                  maxX: 20,
+                  minX: -20,
+                  minY: -20
+                };
+                Host.crypto.ijaiBeautifyMap(undefined, chain, param).then((res) => {
+                  console.log(res);
                 });
               }]
             ].concat(array).map((item, index) => {

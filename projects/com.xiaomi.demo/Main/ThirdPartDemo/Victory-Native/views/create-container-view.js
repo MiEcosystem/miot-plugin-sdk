@@ -15,7 +15,7 @@ export default class extends React.Component {
     scrollEnabled: true
   };
 
-  changeScroll = scrollEnabled => this.setState({ scrollEnabled });
+  changeScroll = (scrollEnabled) => this.setState({ scrollEnabled });
 
   render() {
     return (
@@ -32,7 +32,7 @@ export default class extends React.Component {
             <VictoryZoomVoronoiContainer
               onTouchStart={() => this.changeScroll(false)}
               onTouchEnd={() => this.changeScroll(true)}
-              labels={d => `( ${d.x} , ${d.y} )`}
+              labels={(d) => `( ${ d.x } , ${ d.y } )`}
               dimension={"x"}
             />
           }

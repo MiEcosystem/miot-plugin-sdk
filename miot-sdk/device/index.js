@@ -59,6 +59,12 @@ import { IBluetoothService as MIOTIBluetoothService, IBluetoothCharacteristic as
 import LockDevice from './bluetooth/LockDevice';
 import ClassicBluetoothFactory, { ClassicBluetoothEvent as MIOTClassicBluetoothEvent } from './bluetooth/ClassicDevice';
 import Interconnection from './interconnection';
+// deal some cycle dependencies
+import IDeviceWifi from './WifiDevice';
+BasicDevice.constructor.prototype.createWiFiDeviceInstance = () => {
+  return new IDeviceWifi();
+};
+//
 export const Device = BasicDevice;
 export const DeviceEvent = MIOTDeviceEvent;
 export const Bluetooth = MIOTBluetooth;

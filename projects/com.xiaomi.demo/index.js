@@ -1,9 +1,41 @@
 import React from 'react';
-import { Entrance, API_LEVEL, PackageEvent, Package, Device, Service, Host, DeviceEvent } from 'miot';
+import miot, { Entrance, API_LEVEL, PackageEvent, Package, Device, Service, Host, DeviceEvent } from 'miot';
 import { View, Text, TouchableOpacity } from 'react-native';
 import App from "./Main";
 // import Scene from './Main/SceneMain';
 import { PluginEntrance } from "./Main/PluginEntrance";
+
+if (miot.Utils.std) {
+  const { setComponent, setFeature } = miot.Utils.std;
+  // 注册组件
+  setComponent('X1', () => {
+    return (
+      <View style={{
+        width: '100%',
+        height: 40,
+        backgroundColor: '#f00'
+      }}>
+        <Text>X1</Text>
+      </View>
+    );
+  });
+
+  setComponent('X2', () => {
+    return (
+      <View style={{
+        width: '100%',
+        height: 20,
+        backgroundColor: '#ff0'
+      }}>
+        <Text>X2</Text>
+      </View>
+    );
+  });
+
+  // 使用自定义组件，需要提前注册组件，组件内部自己维护各种状态
+  setFeature('home', ['X1', 'X2']);
+}
+
 
 if (__DEV__) {
   // only for 本地调式

@@ -7,15 +7,15 @@ class AnimatedSVGDemo extends Component {
     super(props);
 
     this.state = {
-      rotateZ: new Animated.Value(0),
-    }
+      rotateZ: new Animated.Value(0)
+    };
   }
 
   componentDidMount() {
     let { rotateZ } = this.state;
 
-    let animation = Animated.timing(                  // 随时间变化而执行动画
-      rotateZ,                        // 动画中的变量值
+    let animation = Animated.timing( // 随时间变化而执行动画
+      rotateZ, // 动画中的变量值
       {
         toValue: 360,
         duration: 4000

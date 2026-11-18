@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import {
   View,
@@ -11,10 +11,10 @@ import {
   Image
 } from 'react-native';
 
-import {RkText, RkTheme, RkTabView} from 'react-native-ui-kitten';
+import { RkText, RkTheme, RkTabView } from 'react-native-ui-kitten';
 
-import {UtilStyles} from '../style/styles';
-import {ImageIcon} from '../components/imageIcon'
+import { UtilStyles } from '../style/styles';
+import { ImageIcon } from '../components/imageIcon';
 
 export class TabScreen extends Component {
   static navigationOptions = {
@@ -23,7 +23,7 @@ export class TabScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state={text:'Tab 1 Selected'}
+    this.state = { text: 'Tab 1 Selected' };
   }
 
   render() {
@@ -32,7 +32,7 @@ export class TabScreen extends Component {
         automaticallyAdjustContentInsets={true}
         style={UtilStyles.container}>
         <View style={[UtilStyles.section, UtilStyles.bordered, styles.tabContainer]}>
-          <RkText rkType='header' style={styles.header}>Basic example</RkText>
+          <RkText rkType="header" style={styles.header}>Basic example</RkText>
           <View style={UtilStyles.rowContainer}>
             <RkTabView>
               <RkTabView.Tab title={'Tab 1'}/>
@@ -43,9 +43,9 @@ export class TabScreen extends Component {
         </View>
 
         <View style={[UtilStyles.section, UtilStyles.bordered, styles.tabContainer]}>
-          <RkText rkType='header' style={styles.header}>Material Theme Example</RkText>
+          <RkText rkType="header" style={styles.header}>Material Theme Example</RkText>
           <View style={UtilStyles.rowContainer}>
-            <RkTabView rkType="material" tabsUnderContent index='1'>
+            <RkTabView rkType="material" tabsUnderContent index="1">
               <RkTabView.Tab title={'TAB 1'}>
                 <Image source={require('../img/river.jpeg')}/>
               </RkTabView.Tab>
@@ -63,65 +63,65 @@ export class TabScreen extends Component {
           <View>
             <RkTabView rkType="material">
               <RkTabView.Tab title={(selected) => {
-                return this._renderMaterialTab(selected, 'TAB 1', (<ImageIcon name='phone'/>))
+                return this._renderMaterialTab(selected, 'TAB 1', (<ImageIcon name="phone"/>));
               }}/>
               <RkTabView.Tab title={(selected) => {
-                return this._renderMaterialTab(selected, 'TAB 2', (<ImageIcon name='heart'/>))
+                return this._renderMaterialTab(selected, 'TAB 2', (<ImageIcon name="heart"/>));
               }}/>
               <RkTabView.Tab title={(selected) => {
-                return this._renderMaterialTab(selected, 'TAB 3', (<ImageIcon name='user'/>))
+                return this._renderMaterialTab(selected, 'TAB 3', (<ImageIcon name="user"/>));
               }}/>
             </RkTabView>
           </View>
         </View>
 
         <View style={[UtilStyles.section, UtilStyles.bordered, styles.tabContainer]}>
-          <RkText rkType='header' style={styles.header}>{this.state.text}</RkText>
+          <RkText rkType="header" style={styles.header}>{this.state.text}</RkText>
           <View style={UtilStyles.rowContainer}>
             <RkTabView
-              onTabChanged={(id) => this.setState({ text: 'Tab ' + (id + 1) + ' Selected' })}>
+              onTabChanged={(id) => this.setState({ text: `Tab ${ id + 1 } Selected` })}>
               <RkTabView.Tab title={(selected) => {
-                return this._renderCustomTab(selected, 'Tab 1', 'paw')
+                return this._renderCustomTab(selected, 'Tab 1', 'paw');
               }}/>
               <RkTabView.Tab title={(selected) => {
-                return this._renderCustomTab(selected, 'Tab 2', 'leaf')
+                return this._renderCustomTab(selected, 'Tab 2', 'leaf');
               }}/>
               <RkTabView.Tab title={(selected) => {
-                return this._renderCustomTab(selected, 'Tab 3', 'rocket')
+                return this._renderCustomTab(selected, 'Tab 3', 'rocket');
               }}/>
             </RkTabView>
           </View>
         </View>
 
         <View style={[UtilStyles.section, UtilStyles.bordered, styles.tabContainer]}>
-          <RkText rkType='header' style={styles.header}>Scrollable Header</RkText>
+          <RkText rkType="header" style={styles.header}>Scrollable Header</RkText>
           <View style={UtilStyles.rowContainer}>
-            <RkTabView rkType='noBorders' maxVisibleTabs={3}>
+            <RkTabView rkType="noBorders" maxVisibleTabs={3}>
               <RkTabView.Tab title={(selected) => {
-                return this._renderScrollableTab(selected, 'Tab 1', 'first')
+                return this._renderScrollableTab(selected, 'Tab 1', 'first');
               }}/>
               <RkTabView.Tab title={(selected) => {
-                return this._renderScrollableTab(selected, 'Tab 2')
+                return this._renderScrollableTab(selected, 'Tab 2');
               }}/>
               <RkTabView.Tab title={(selected) => {
-                return this._renderScrollableTab(selected, 'Tab 3')
+                return this._renderScrollableTab(selected, 'Tab 3');
               }}/>
               <RkTabView.Tab title={(selected) => {
-                return this._renderScrollableTab(selected, 'Tab 4', 'last')
+                return this._renderScrollableTab(selected, 'Tab 4', 'last');
               }}/>
             </RkTabView>
           </View>
         </View>
       </ScrollView>
-    )
+    );
   }
 
   _renderMaterialTab(selected, text, icon) {
     let opacity = selected ? 1 : 0.7;
     return (
-      <View style={{alignItems: 'center', opacity}}>
+      <View style={{ alignItems: 'center', opacity }}>
         {icon}
-        <RkText style={{color: 'white', marginTop: 10}}>{text}</RkText>
+        <RkText style={{ color: 'white', marginTop: 10 }}>{text}</RkText>
       </View>);
   }
 
@@ -137,9 +137,9 @@ export class TabScreen extends Component {
           alignItems: 'center',
           padding: 17
         }}>
-        <RkText style={{color, marginLeft: 11}}>{text}</RkText>
+        <RkText style={{ color, marginLeft: 11 }}>{text}</RkText>
       </View>
-    )
+    );
   }
 
   _renderScrollableTab(selected, text) {
@@ -153,9 +153,9 @@ export class TabScreen extends Component {
           justifyContent: 'center',
           flexDirection: 'row',
           alignItems: 'center',
-          padding: 17,
+          padding: 17
         }}>
-        <RkText style={{color}}>{text}</RkText>
+        <RkText style={{ color }}>{text}</RkText>
       </View>
     );
   }
@@ -166,6 +166,6 @@ let styles = StyleSheet.create({
     paddingHorizontal: 0
   },
   header: {
-    paddingHorizontal: 24,
+    paddingHorizontal: 24
   }
 });

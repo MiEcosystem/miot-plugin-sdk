@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Device, DeviceEvent } from 'miot';
+import Device, { DeviceEvent } from 'miot/device/BasicDevice';
 export default function useTimezone() {
   const [timezone, setTimezone] = useState('');
   function getTimezone() {
