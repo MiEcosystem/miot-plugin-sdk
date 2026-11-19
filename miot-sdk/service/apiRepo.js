@@ -265,6 +265,19 @@ const API_REPO = {
   "/miot/camera/app/v1/get/facesCluster": {}, // 获取3天内人脸聚类的结果
   "/common/miot/camera/app/get/faceCluster/eventlist": {}, // 获取事件列表（返回3天内faceIds里面的人脸事件）
   "/miot/camera/app/v1/mark/faceClustering/mistake": {}, // 聚类报错接口
+  // 多宠识别（App 端 JSON 接口）；上传照片 pet/add/photo 走 uploadPetImage、下载 pet/get/face/img 走 getCommonImgWithParams，不在此收录
+  "/miot/camera/app/v1/pet/add/figure": {}, // 创建宠物，返回 petId
+  "/miot/camera/app/v1/pet/modify/figure": {}, // 修改宠物名称/信息
+  "/miot/camera/app/v1/pet/delete/figure": {}, // 删除宠物（级联删除关联样本）
+  "/miot/camera/app/v1/pet/get/figures": {}, // 获取设备下所有宠物
+  "/miot/camera/app/v1/pet/get/figureByMarkedFace": {}, // 通过 petFaceId 查所属宠物
+  "/miot/camera/app/v1/pet/get/figureByName": {}, // 通过名称查宠物
+  "/miot/camera/app/v1/pet/add/face": {}, // 将样本标注到某只宠物
+  "/miot/camera/app/v1/pet/delete/face": {}, // 删除识别样本
+  "/miot/camera/app/v1/pet/get/figureFaces": {}, // 获取某只宠物的所有识别样本
+  "/miot/camera/app/v1/pet/get/unmarkFaces": {}, // 获取未标记的宠物脸
+  "/miot/camera/app/v1/pet/get/fileIdMetas": {}, // 按视频片段查宠物识别信息
+  "/miot/camera/app/v1/pet/reassign/face": {}, // 宠物脸重新分配到另一只宠物（纠错）
   '/miot/camera/app/v1/addFigureToGroup': {}, // 添加人物到分组
   '/miot/camera/app/v1/get/common/figures': {}, // 获取所有人物(小米智能门)
   '/miot/camera/app/v1/get/groups': {}, // 获取所有分组
