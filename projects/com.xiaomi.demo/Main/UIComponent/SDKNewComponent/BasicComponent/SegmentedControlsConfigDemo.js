@@ -2,13 +2,14 @@
 
 import React from 'react';
 import { ScrollView } from 'react-native';
-import { SegmentedControls, colorToken, TestComponent, showToast } from 'miot/ui/hyperOSUI';
+import { SegmentedControls, colorToken, showToast } from 'miot/ui/hyperOSUI';
+import TestComponent from '../testComponent';
+import { dynamicStyleSheet } from 'miot/ui/Style';
 
 const SafeSegmentedControls = (props) => {
   if (!props.options || !Array.isArray(props.options)) return null;
   return <SegmentedControls {...props} />;
 };
-import { dynamicStyleSheet } from 'miot/ui/Style';
 
 const defaultOptions = [
   { label: '选项一一一一一一一一一', value: 'opt1' },
@@ -17,6 +18,13 @@ const defaultOptions = [
 ];
 
 const propConfigs = [
+  {
+    name: 'type',
+    type: 'enum',
+    defaultValue: 'outer',
+    category: 'state',
+    enumOptions: ['outer', 'inner'],
+  },
   {
     name: 'options',
     type: 'pass',
@@ -42,7 +50,7 @@ const propConfigs = [
 
 const SegmentedControlsConfigDemo = () => (
   <ScrollView style={styles.container}>
-    <TestComponent component={SafeSegmentedControls} propConfigs={propConfigs} fullWidth />
+    <TestComponent component={SafeSegmentedControls} propConfigs={propConfigs} />
   </ScrollView>
 );
 

@@ -80,7 +80,8 @@ export default function OverviewPage({ navigation }) {
             values={[undefined, undefined, hardwareVersion?.mcu, hardwareVersion?.sdk]}
             params={params}
           />
-          {/* <Card keys={params.customOptions || []} values={[]} params={params} /> */}
+          {/* 更多设备信息页自定义项，11.11 起支持 */}
+          <Card keys={params.customOptions || []} values={[]} params={params} />
           <Card keys={restOptions} values={[]} params={params} />
         </SubpageLayout.Content>
       </SubpageLayout>

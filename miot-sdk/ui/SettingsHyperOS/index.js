@@ -102,8 +102,7 @@ export default function SettingsHyperOS({
   showDot,
   extraOptions,
   featureCustomOptions,
-  // 更多设备信息页自定义项 11.11 才支持，先关闭入口
-  // deviceInfoCustomOptions,
+  deviceInfoCustomOptions,
   showDeleteButton = true,
 }) {
   const title = I18n.setting;
@@ -125,7 +124,7 @@ export default function SettingsHyperOS({
   };
   const entranceParams = {
     options,
-    // customOptions: deviceInfoCustomOptions,
+    customOptions: deviceInfoCustomOptions,
     showDots: showDot,
     extraOptions,
   };
@@ -177,8 +176,7 @@ SettingsHyperOS.propTypes = {
   extraOptions: PropTypes.object,
   // 自定义项传 { title, ... } 配置对象
   featureCustomOptions: PropTypes.array,
-  // 更多设备信息页自定义项 11.11 才支持
-  // deviceInfoCustomOptions: PropTypes.array,
+  deviceInfoCustomOptions: PropTypes.array,
   showDeleteButton: PropTypes.bool,
 };
 const styles = StyleSheet.create({

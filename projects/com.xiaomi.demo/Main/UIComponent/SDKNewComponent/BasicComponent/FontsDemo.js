@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ScrollView, Text, View } from 'react-native';
 import { colorToken, Fonts } from 'miot/ui/hyperOSUI';
 import { dynamicStyleSheet } from 'miot/ui';
@@ -17,48 +18,53 @@ const SYSTEM_FONTS = [
   'fontSystem18Medium', 'fontSystem18Regular',
   'fontSystem20Medium', 'fontSystem20Regular',
   'fontSystem22Medium', 'fontSystem22Regular',
-  'fontSystem24Medium',
-  'fontSystem26Medium',
+  'fontSystem24Medium', 'fontSystem24Regular',
+  'fontSystem26Medium', 'fontSystem26Regular',
   'fontSystem32Medium', 'fontSystem32Regular',
 ];
 
+const SYSTEM_BASE_FONTS = [
+  'fontSystemThin', 'fontSystemLight', 'fontSystemRegular', 'fontSystemMedium',
+];
+
 const NUMERIC_FONTS = [
+  'fontNumber16Demibold', 'fontNumber18Demibold', 'fontNumber20Demibold',
   'fontNumber24Demibold',
   'fontNumber26Demibold',
   'fontNumber28Demibold',
+  'fontNumber16Medium', 'fontNumber18Medium', 'fontNumber20Medium',
+  'fontNumber24Medium', 'fontNumber26Medium', 'fontNumber28Medium',
 ];
 
-const MITYPE_FONTS = [
-  { name: 'Mitype-Light', style: { fontFamily: 'Mitype-Light' } },
-  { name: 'Mitype-Normal', style: { fontFamily: 'Mitype-Normal' } },
-  { name: 'Mitype-Regular', style: { fontFamily: 'Mitype-Regular' } },
-  { name: 'Mitype-Medium', style: { fontFamily: 'Mitype-Medium' } },
-  { name: 'Mitype-DemiBold', style: { fontFamily: 'Mitype-DemiBold' } },
-  { name: 'Mitype-SemiBold', style: { fontFamily: 'Mitype-SemiBold' } },
-  { name: 'Mitype-Bold', style: { fontFamily: 'Mitype-Bold' } },
-  { name: 'Mitype-Heavy', style: { fontFamily: 'Mitype-Heavy' } },
+const NUMERIC_BASE_FONTS = [
+  'fontNumberMedium', 'fontNumberDemibold',
 ];
 
-const FontItem = ({ name }) => (
+const FontItem = ({ name, sample = `中文示例 ${ name.replace('fontSystem', '').replace('fontNumber', '') }` }) => (
   <View style={styles.item}>
-    <Text allowFontScaling={false} style={[Fonts[name], styles.sample]}>中文示例 {name.replace('fontSystem', '').replace('fontNumber', '')}</Text>
+    <Text allowFontScaling={false} style={[Fonts[name], styles.sample]}>{sample}</Text>
     <View style={styles.tokenChip}>
       <Text allowFontScaling={false} style={styles.tokenName}>{name}</Text>
     </View>
   </View>
 );
 
-const MitypeFontItem = ({ name, fontStyle }) => (
-  <View style={styles.item}>
-    <Text allowFontScaling={false} style={[fontStyle, styles.mitypeSample]}>1234567890</Text>
-    <View style={styles.tokenChip}>
-      <Text allowFontScaling={false} style={styles.tokenName}>{name}</Text>
-    </View>
-  </View>
-);
+FontItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  sample: PropTypes.string,
+};
 
 const FontsDemo = () => (
   <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
+    <Text allowFontScaling={false} style={styles.heading}>systemFontBase</Text>
+    <View style={styles.list}>
+      {SYSTEM_BASE_FONTS.map((name, index) => (
+        <View key={name} style={[styles.itemWrapper, index > 0 && styles.itemBorder]}>
+          <FontItem name={name} />
+        </View>
+      ))}
+    </View>
+
     <Text allowFontScaling={false} style={styles.heading}>systemFont</Text>
     <View style={styles.list}>
       {SYSTEM_FONTS.map((name, index) => (
@@ -68,23 +74,24 @@ const FontsDemo = () => (
       ))}
     </View>
 
-    <Text allowFontScaling={false} style={styles.heading}>customNumericFont</Text>
+    <Text allowFontScaling={false} style={styles.heading}>numberFontBase</Text>
     <View style={styles.list}>
-      {NUMERIC_FONTS.map((name, index) => (
+      {NUMERIC_BASE_FONTS.map((name, index) => (
         <View key={name} style={[styles.itemWrapper, index > 0 && styles.itemBorder]}>
-          <FontItem name={name} />
+          <FontItem name={name} sample={`1234567890 ${ name.replace('fontNumber', '') }`} />
         </View>
       ))}
     </View>
 
-    <Text allowFontScaling={false} style={styles.heading}>mitypeNumericFont</Text>
+    <Text allowFontScaling={false} style={styles.heading}>customNumericFont</Text>
     <View style={styles.list}>
-      {MITYPE_FONTS.map((font, index) => (
-        <View key={font.name} style={[styles.itemWrapper, index > 0 && styles.itemBorder]}>
-          <MitypeFontItem name={font.name} fontStyle={font.style} />
+      {NUMERIC_FONTS.map((name, index) => (
+        <View key={name} style={[styles.itemWrapper, index > 0 && styles.itemBorder]}>
+          <FontItem name={name} sample={`1234567890 ${ name.replace('fontNumber', '') }`} />
         </View>
       ))}
     </View>
+
   </ScrollView>
 );
 
@@ -120,12 +127,6 @@ const styles = dynamicStyleSheet({
     flexDirection: 'column',
   },
   sample: {
-    color: colorToken.contentPrimaryNormal,
-    marginBottom: 8,
-  },
-  mitypeSample: {
-    fontSize: 40,
-    lineHeight: 48,
     color: colorToken.contentPrimaryNormal,
     marginBottom: 8,
   },

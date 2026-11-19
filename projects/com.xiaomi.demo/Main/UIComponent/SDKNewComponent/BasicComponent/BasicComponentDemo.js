@@ -33,7 +33,7 @@ const BasicComponentDemo = (props) => {
     { title: '操作列表项 ActionListItem', router: 'ActionListItemDemo' },
     { title: '选择列表 SelectList', router: 'SelectListDemo' },
     { title: '列表卡片 ListCard', router: 'NewListCardDemo' },
-    { title: '分段控件 SegmentedControls', router: 'SegmentedControlsConfigDemo' },
+    { title: '分段控件 SegmentedControls', router: 'SegmentedControlsDemo' },
     { title: '下拉刷新 PullRefresh', router: 'PullRefreshConfigDemo' },
     { title: '加载 Spin', router: 'SpinConfigDemo' },
     { title: '导航栏 NavigationBar', router: 'SdkNavigationBarDemo' },
@@ -52,6 +52,7 @@ const BasicComponentDemo = (props) => {
     { title: '输入弹窗 InputDialog', router: 'InputDialogDemo' },
     { title: '自定义弹窗 CustomDialog', router: 'CustomDialogDemo' },
     { title: '选择器弹窗 PickerDialog', router: 'PickerDialogDemo' },
+    { title: '日期选择器 DatePickerDialog', router: 'DatePickerDialogDemo' },
   ];
 
   return (

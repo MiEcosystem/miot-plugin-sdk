@@ -68,7 +68,7 @@ export const LocationAuthStatus = {
   LocationAuthStatus_Denied: 2,
   LocationAuthStatus_AuthorizedAlways: 3,
   LocationAuthStatus_AuthorizedWhenInUse: 4,
-  LocationAuthStatus_Authorized: 5
+  LocationAuthStatus_Authorized: 5,
 };
 Object.freeze(LocationAuthStatus);
 export default {
@@ -109,7 +109,8 @@ export default {
   /**
    * @const
    * @type {boolean}
-   * @description 判断是否 Pad大屏设备
+   * @description 判断插件是否以小窗模式显示（非判断当前机型是否为 Pad）。
+   *              为 true 时组件库 / SDK 使用 Pad 风格布局：上方无状态栏、安全区为 0 等。
    */
   get isPad() {
      return  false
@@ -149,6 +150,7 @@ export default {
    * @const
    * @type {map}
    * @since  10112  获取iphone手机安全区域
+   * @deprecated 请使用 Host.getSafeAreaInsets()。该属性在插件启动时取值，插件运行中进出全屏、分屏等窗口变化后不会更新。
    * @description 获取iphone手机安全区域，返回例子：{"bottom" : 34, "left": 0, "right": 0, "top": 62}
    */
   get safeAreaInsets() {
@@ -158,7 +160,8 @@ export default {
    * @const
    * @type Promise<map>
    * @since  10112  获取iphone手机安全区域
-   * @description 获取iphone手机安全区域，返回例子：{"bottom" : 34, "left": 0, "right": 0, "top": 62}
+   * @description 实时获取当前插件窗口的安全区域，返回例子：{"bottom" : 34, "left": 0, "right": 0, "top": 62}
+   *              iOS：每次调用实时获取，iPad 插件小窗内为 0；插件全屏（如摄像机全屏播放）/ iPhone 为系统安全区。
    */
   getSafeAreaInsets() {
      return Promise.resolve(null);
@@ -243,10 +246,20 @@ export default {
   /**
    * @const
    * @type string
-   * @description 手机唯一id
+   * @description 手机唯一id；如需判断是否仍为同一台手机，建议使用 Host.phoneUUID
    */
   get phoneId() {
      return  0
+  },
+  /**
+   * 手机 UUID，可用于判断是否仍为同一台手机。
+   *
+   * @const
+   * @type string
+   * @since SDK_10121
+   */
+  get phoneUUID() {
+     return  ""
   },
   /**
    * 获取手机did，用于自动化， android only
@@ -321,11 +334,9 @@ export default {
      return Promise.resolve(null);
   },
   /**
-  * 判断当前 Activity 是否处于分屏/多窗口模式 
-  * android only
-  * 获取当前窗口模式
-  * @since 10117
-  * @returns {Promise<number>} 0=普通全屏, 1=分屏, 2=自由窗口(freeform小窗)
+  * 获取当前窗口模式，判断是否处于分屏/多窗口模式
+  * @since 10117 （iOS 从 10121 起支持）
+  * @returns {Promise<number>} 0=普通全屏, 1=分屏, 2=自由窗口(小窗)
   */
   getWindowMode() {
      return Promise.resolve(null);
@@ -647,10 +658,10 @@ export default {
    */
   isSupportAccessoryFind() {
      return Promise.resolve(null);
-  }
+  },
 };
 export const PAD_SCROLL_STRATEGY = {
-  AUTO: 0, ALWAYS_SDK_DEAL: 1, ALWAYS_PLUGIN_DEAL: 2
+  AUTO: 0, ALWAYS_SDK_DEAL: 1, ALWAYS_PLUGIN_DEAL: 2,
 };
 /**
  * Host事件集合
@@ -696,6 +707,6 @@ export const HostEvent = {
    * });
    */
   h5RetentionPopUpWindowConfirmEvent: {
-  }
+  },
 };
 buildEvents(HostEvent);

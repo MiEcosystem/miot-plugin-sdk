@@ -392,6 +392,23 @@ class IMiotCamera {
        return null
     }
     /**
+     * 打开新的人物管理页面（人脸 / 宠物等）
+     * 当前 App 原生不支持时（低版本 App、Android 暂未实现），降级打开 showFaceRecognize 老页面，eventType 不生效
+     * @since 10121
+     * @param {BOOL} isVip
+     * @param did
+     * @param {string} aFreeFaceSt 免费人脸状态 OutOfDate Acquired unAcquired
+     * @param {string} aBuyVipUrl vip购买链接
+     * @param {string} eventType 不传或传 'face' 打开人脸；其他值透传给原生页面
+     * @returns {boolean} true：打开了新页面；false：降级打开了老页面
+     * @example
+     * Service.miotcamera.showFaceRecognizeNew(isVip, Device.deviceID, null, null, 'pet');
+     */
+    @report
+    showFaceRecognizeNew(isVip, did = Device.deviceID, aFreeFaceSt = null, aBuyVipUrl = null, eventType = null) {
+       return null
+    }
+    /**
      *
      * 注册收到数据速率 Bytes per second，每秒回调一次
      * @param {string} callbackName 回调名称 { rate: number }

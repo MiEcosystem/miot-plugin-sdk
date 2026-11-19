@@ -198,6 +198,7 @@ import ToastDemo from "./UIComponent/SDKNewComponent/BasicComponent/ToastDemo";
 import MediumTriggerSelectConfigDemo from "./UIComponent/SDKNewComponent/IotComponent/MediumTriggerSelectConfigDemo";
 import PullRefreshConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/PullRefreshConfigDemo";
 import SegmentedControlsConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/SegmentedControlsConfigDemo";
+import SegmentedControlsDemo from "./UIComponent/SDKNewComponent/BasicComponent/SegmentedControlsDemo";
 import SpinConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/SpinConfigDemo";
 import NavigationBarConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/NavigationBarConfigDemo";
 import SdkNavigationBarDemo from "./UIComponent/SDKNewComponent/BasicComponent/SdkNavigationBarDemo";
@@ -260,6 +261,8 @@ import DescriptionDemo from "./UIComponent/SDKNewComponent/BasicComponent/Descri
 import DescriptionConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/DescriptionConfigDemo";
 import CustomDialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/CustomDialogDemo";
 import PickerDialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/PickerDialogDemo";
+import DatePickerDialogDemo from "./UIComponent/SDKNewComponent/BasicComponent/DatePickerDialogDemo";
+import DatePickerDialogConfigDemo from "./UIComponent/SDKNewComponent/BasicComponent/DatePickerDialogConfigDemo";
 import NoticeBarDemo from "./UIComponent/SDKNewComponent/BasicComponent/NoticeBarDemo";
 import PopMenusDemo from "./UIComponent/SDKNewComponent/BasicComponent/PopMenusDemo";
 import PopMenusPositionDemo from "./UIComponent/SDKNewComponent/BasicComponent/PopMenusPositionDemo";
@@ -445,6 +448,7 @@ function createRootStack(initPage) {
       CabinetAirConditioner,
       MediumTriggerSelectConfigDemo,
       SegmentedControlsConfigDemo,
+      SegmentedControlsDemo,
       PullRefreshConfigDemo,
       SpinConfigDemo,
       StatusAlertDemo,
@@ -495,6 +499,8 @@ function createRootStack(initPage) {
       InputDialogDemo,
       CustomDialogDemo,
       PickerDialogDemo,
+      DatePickerDialogDemo,
+      DatePickerDialogConfigDemo,
       NoticeBarDemo,
       PopMenusDemo,
       PopMenusPositionDemo,
